@@ -110,6 +110,8 @@ template(name="peopleGeneral")
         th {{_ 'active'}}
         th {{_ 'authentication-method'}}
         th {{_ 'import-usernames'}}
+        th {{_ 'organizations'}}
+        th {{_ 'teams'}}
         th
           +newUserRow
       each user in peopleList
@@ -132,28 +134,28 @@ template(name="newUserRow")
 
 template(name="orgRow")
   tr
-    if orgData.loginDisabled
+    if orgData.orgIsActive
       td <s>{{ orgData.orgDisplayName }}</s>
     else
       td {{ orgData.orgDisplayName }}
-    if orgData.loginDisabled
+    if orgData.orgIsActive
       td <s>{{ orgData.orgDesc }}</s>
     else
       td {{ orgData.orgDesc }}
-    if orgData.loginDisabled
-      td <s>{{ orgData.orgName }}</s>
+    if orgData.orgIsActive
+      td <s>{{ orgData.orgShortName }}</s>
     else
-      td {{ orgData.orgName }}
-    if orgData.loginDisabled
+      td {{ orgData.orgShortName }}
+    if orgData.orgIsActive
       td <s>{{ orgData.orgWebsite }}</s>
     else
       td {{ orgData.orgWebsite }}
-    if orgData.loginDisabled
+    if orgData.orgIsActive
       td <s>{{ moment orgData.createdAt 'LLL' }}</s>
     else
       td {{ moment orgData.createdAt 'LLL' }}
     td
-      if orgData.loginDisabled
+      if orgData.orgIsActive
         | {{_ 'no'}}
       else
         | {{_ 'yes'}}
@@ -166,28 +168,28 @@ template(name="orgRow")
 
 template(name="teamRow")
   tr
-    if teamData.loginDisabled
+    if teamData.teamIsActive
       td <s>{{ teamData.teamDisplayName }}</s>
     else
       td {{ teamData.teamDisplayName }}
-    if teamData.loginDisabled
+    if teamData.teamIsActive
       td <s>{{ teamData.teamDesc }}</s>
     else
       td {{ teamData.teamDesc }}
-    if teamData.loginDisabled
-      td <s>{{ teamData.teamName }}</s>
+    if teamData.teamIsActive
+      td <s>{{ teamData.teamShortName }}</s>
     else
-      td {{ teamData.teamName }}
-    if teamData.loginDisabled
+      td {{ teamData.teamShortName }}
+    if teamData.teamIsActive
       td <s>{{ teamData.teamWebsite }}</s>
     else
       td {{ teamData.teamWebsite }}
-    if orgData.loginDisabled
+    if teamData.teamIsActive
       td <s>{{ moment teamData.createdAt 'LLL' }}</s>
     else
       td {{ moment teamData.createdAt 'LLL' }}
     td
-      if teamData.loginDisabled
+      if teamData.teamIsActive
         | {{_ 'no'}}
       else
         | {{_ 'yes'}}
@@ -257,6 +259,14 @@ template(name="peopleRow")
       td <s>{{ userData.importUsernamesString }}</s>
     else
       td {{ userData.importUsernamesString }}
+    if userData.loginDisabled
+      td <s>{{ userData.orgsUserBelongs }}</s>
+    else
+      td {{ userData.orgsUserBelongs }}
+    if userData.loginDisabled
+      td <s>{{ userData.teamsUserBelongs }}</s>
+    else
+      td {{ userData.teamsUserBelongs }}
     td
       a.edit-user
         i.fa.fa-edit
@@ -269,7 +279,7 @@ template(name="editOrgPopup")
     label.hide.orgId(type="text" value=org._id)
     label
       | {{_ 'displayName'}}
-      input.js-orgDisplayName(type="text" value=org.displayName required)
+      input.js-orgDisplayName(type="text" value=org.orgDisplayName required)
       span.error.hide.orgname-taken
         | {{_ 'error-orgname-taken'}}
     label
@@ -285,7 +295,7 @@ template(name="editOrgPopup")
       | {{_ 'active'}}
       select.select-active.js-org-isactive
         option(value="false") {{_ 'yes'}}
-        option(value="true" selected="{{org.loginDisabled}}") {{_ 'no'}}
+        option(value="true" selected="{{org.orgIsActive}}") {{_ 'no'}}
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
@@ -311,7 +321,7 @@ template(name="editTeamPopup")
       | {{_ 'active'}}
       select.select-active.js-team-isactive
         option(value="false") {{_ 'yes'}}
-        option(value="true" selected="{{team.loginDisabled}}") {{_ 'no'}}
+        option(value="true" selected="{{team.teamIsActive}}") {{_ 'no'}}
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
@@ -367,6 +377,27 @@ template(name="editUserPopup")
             option(value="{{value}}" selected) {{_ value}}
           else
             option(value="{{value}}") {{_ value}}
+    label
+      | {{_ 'organizations'}}
+      i.fa.fa-plus-square#addUserOrg
+      i.fa.fa-minus-square#removeUserOrg
+      select.js-orgs#jsOrgs
+        option(value="-1") {{_ 'organizations'}} :
+        each value in orgsDatas
+          option(value="{{value._id}}") {{_ value.orgDisplayName}}
+      input#jsUserOrgsInPut.js-userOrgs(type="text" value=user.orgsUserBelongs, disabled)
+      input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="text" value=user.orgIdsUserBelongs)
+    label
+      | {{_ 'teams'}}
+      i.fa.fa-plus-square#addUserTeam
+      i.fa.fa-minus-square#removeUserTeam
+      select.js-teams#jsTeams
+        option(value="-1") {{_ 'teams'}} :
+        each value in teamsDatas
+          option(value="{{value._id}}") {{_ value.teamDisplayName}}
+      input#jsUserTeamsInPut.js-userteams(type="text" value=user.teamsUserBelongs, disabled)
+      input#jsUserTeamIdsInPut.js-userteamIds.hide(type="text" value=user.teamIdsUserBelongs)
+
     hr
     label
       | {{_ 'password'}}
@@ -385,7 +416,7 @@ template(name="newOrgPopup")
       input.js-orgDesc(type="text" value="" required)
     label
       | {{_ 'shortName'}}
-      input.js-orgName(type="text" value="" required)
+      input.js-orgShortName(type="text" value="" required)
     label
       | {{_ 'website'}}
       input.js-orgWebsite(type="text" value="" required)
@@ -409,7 +440,7 @@ template(name="newTeamPopup")
       input.js-teamDesc(type="text" value="" required)
     label
       | {{_ 'shortName'}}
-      input.js-teamName(type="text" value="" required)
+      input.js-teamShortName(type="text" value="" required)
     label
       | {{_ 'website'}}
       input.js-teamWebsite(type="text" value="" required)
@@ -468,6 +499,27 @@ template(name="newUserPopup")
             option(value="{{value}}" selected) {{_ value}}
           else
             option(value="{{value}}") {{_ value}}
+    label
+      | {{_ 'organizations'}}
+      i.fa.fa-plus-square#addUserOrgNewUser
+      i.fa.fa-minus-square#removeUserOrgNewUser
+      select.js-orgsNewUser#jsOrgsNewUser
+        option(value="-1") {{_ 'organizations'}} :
+        each value in orgsDatas
+          option(value="{{value._id}}") {{_ value.orgDisplayName}}
+      input#jsUserOrgsInPutNewUser.js-userOrgsNewUser(type="text" value=user.orgsUserBelongs, disabled)
+      input#jsUserOrgIdsInPutNewUser.js-userOrgIdsNewUser.hide(type="text" value=user.orgIdsUserBelongs)
+    label
+      | {{_ 'teams'}}
+      i.fa.fa-plus-square#addUserTeamNewUser
+      i.fa.fa-minus-square#removeUserTeamNewUser
+      select.js-teamsNewUser#jsTeamsNewUser
+        option(value="-1") {{_ 'teams'}} :
+        each value in teamsDatas
+          option(value="{{value._id}}") {{_ value.teamDisplayName}}
+      input#jsUserTeamsInPutNewUser.js-userteamsNewUser(type="text" value=user.teamsUserBelongs, disabled)
+      input#jsUserTeamIdsInPutNewUser.js-userteamIdsNewUser.hide(type="text" value=user.teamIdsUserBelongs)
+
     hr
     label
       | {{_ 'password'}}
@@ -478,27 +530,40 @@ template(name="newUserPopup")
 template(name="settingsOrgPopup")
   ul.pop-over-list
     li
-      a.impersonate-org
-        i.fa.fa-user
-        | {{_ 'impersonate-org'}}
-  // Delete is not enabled yet, because it does leave empty user avatars
-  // to boards: boards members, card members and assignees have
-  // empty users. See:
-  // - wekan/client/components/settings/peopleBody.jade deleteButton
-  // - wekan/client/components/settings/peopleBody.js deleteButton
-  // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
-  //   that does now remove member from board, card members and assignees correctly,
-  //   but that should be used to remove user from all boards similarly
-  // - wekan/models/users.js Delete is not enabled
-  //li
-  //  br
-  //  br
-  //  hr
-  //li
-  //  form
-  //    label.hide.userId(type="text" value=user._id)
-  //    div.buttonsContainer
-  //      input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
+      form
+        label#deleteOrgWarningMessage.hide
+          | {{_ 'delete-org-warning-message'}}
+        br
+        label
+          | {{_ 'delete-org-confirm-popup'}}
+        br
+        label.hide.orgId(type="text" value=org._id)
+        labeldelete-org-confirm-popup
+        div.buttonsContainer
+          input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
+  // It's not yet possible to impersonate organization. Only impersonate user,
+  // because that changes current user ID. What would it mean in practice
+  // to impersonate organization?
+  //  li
+  //    a.impersonate-org
+  //      i.fa.fa-user
+  //      | {{_ 'impersonate-org'}}
+  //
+  //
+
+template(name="settingsTeamPopup")
+  ul.pop-over-list
+    li
+      form
+        label#deleteTeamWarningMessage.hide
+          | {{_ 'delete-team-warning-message'}}
+        br
+        label
+          | {{_ 'delete-team-confirm-popup'}}
+        br
+        label.hide.teamId(type="text" value=team._id)
+        div.buttonsContainer
+          input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
 
 template(name="settingsUserPopup")
   ul.pop-over-list
@@ -506,21 +571,19 @@ template(name="settingsUserPopup")
       a.impersonate-user
         i.fa.fa-user
         | {{_ 'impersonate-user'}}
-  // Delete is not enabled yet, because it does leave empty user avatars
+    hr
+    li
+      form
+        label.hide.userId(type="text" value=user._id)
+        div.buttonsContainer
+          input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
+  // Delete is enabled, but there is still bug of leaving empty user avatars
   // to boards: boards members, card members and assignees have
-  // empty users. See:
+  // empty users. So it is better to remove user from all boards before removing user.
+  // See:
   // - wekan/client/components/settings/peopleBody.jade deleteButton
   // - wekan/client/components/settings/peopleBody.js deleteButton
   // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
   //   that does now remove member from board, card members and assignees correctly,
   //   but that should be used to remove user from all boards similarly
   // - wekan/models/users.js Delete is not enabled
-  //li
-  //  br
-  //  br
-  //  hr
-  //li
-  //  form
-  //    label.hide.userId(type="text" value=user._id)
-  //    div.buttonsContainer
-  //      input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")

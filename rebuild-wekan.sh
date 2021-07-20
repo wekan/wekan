@@ -28,7 +28,7 @@ do
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 12.22.1
+			sudo n 12.22.2
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -78,23 +78,23 @@ do
 		#fi
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
+		cd ~/repos/wekan 
 		rm -rf node_modules .meteor/local .build
                 chmod u+w *.json
 		npm install
 		meteor build .build --directory
-		rm -rf .build/bundle/programs/web.browser.legacy
-		cd .build/bundle/programs/server
+		rm -rf ~/repos/wekan/.build/bundle/programs/web.browser.legacy
+		cd ~/repos/wekan/.build/bundle/programs/server
 		rm -rf node_modules
                 chmod u+w *.json
 		npm install
-		cd ../../../..
 		# Cleanup
-		cd .build/bundle
+		cd ~/repos/wekan/.build/bundle
 		find . -type d -name '*-garbage*' | xargs rm -rf
 		find . -name '*phantom*' | xargs rm -rf
 		find . -name '.*.swp' | xargs rm -f
 		find . -name '*.swp' | xargs rm -f
-                cd ../..
+                cd ~/repos/wekan
 		# Add fibers multi arch
 		#cd .build/bundle/programs/server/node_modules/fibers/bin
 		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
@@ -124,13 +124,13 @@ do
 		echo "On what port you would like to run Wekan?"
 		read PORT
 		echo "ROOT_URL=http://$IPADDRESS:$PORT"
-    WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --exclude-archs web.browser.legacy,web.cordova --port $PORT
+		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --exclude-archs web.browser.legacy,web.cordova --port $PORT
 		break
-    ;;
+		;;
 
     "Quit")
 		break
-    ;;
+		;;
     *) echo invalid option;;
     esac
 done

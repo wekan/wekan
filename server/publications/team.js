@@ -12,13 +12,13 @@ Meteor.publish('team', function(query, limit) {
       limit,
       sort: { createdAt: -1 },
       fields: {
-        displayName: 1,
-        desc: 1,
-        name: 1,
-        website: 1,
+        teamDisplayName: 1,
+        teamDesc: 1,
+        teamShortName: 1,
+        teamWebsite: 1,
         teams: 1,
         createdAt: 1,
-        loginDisabled: 1,
+        teamIsActive: 1,
       },
     });
   }

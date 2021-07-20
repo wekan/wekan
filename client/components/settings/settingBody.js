@@ -1,3 +1,5 @@
+import { ALLOWED_WAIT_SPINNERS } from '/config/const';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
@@ -199,6 +201,8 @@ BlazeComponent.extendComponent({
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
 
+    const spinnerName = $('#spinnerName').val();
+
     try {
       Settings.update(Settings.findOne()._id, {
         $set: {
@@ -213,6 +217,7 @@ BlazeComponent.extendComponent({
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
           automaticLinkedUrlSchemes,
+          spinnerName,
         },
       });
     } catch (e) {
@@ -382,5 +387,14 @@ Template.selectAuthenticationMethod.helpers({
   },
   isSelected(match) {
     return Template.instance().data.authenticationMethod === match;
+  },
+});
+
+Template.selectSpinnerName.helpers({
+  spinners() {
+    return ALLOWED_WAIT_SPINNERS;
+  },
+  isSelected(match) {
+    return Template.instance().data.spinnerName === match;
   },
 });

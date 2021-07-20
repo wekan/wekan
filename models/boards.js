@@ -109,6 +109,8 @@ Boards.attachSchema(
        * List of labels attached to a board
        */
       type: [Object],
+      optional: true,
+      /* Commented out, so does not create labels to new boards.
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
@@ -122,6 +124,7 @@ Boards.attachSchema(
           }));
         }
       },
+      */
     },
     'labels.$._id': {
       /**
@@ -223,6 +226,56 @@ Boards.attachSchema(
        */
       type: String,
       allowedValues: ['public', 'private'],
+    },
+    orgs: {
+      /**
+       * the list of organizations that a board belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'orgs.$.orgId':{
+      /**
+       * The uniq ID of the organization
+       */
+       type: String,
+    },
+    'orgs.$.orgDisplayName':{
+      /**
+       * The display name of the organization
+       */
+       type: String,
+    },
+    'orgs.$.isActive': {
+      /**
+       * Is the organization active?
+       */
+      type: Boolean,
+    },
+    teams: {
+      /**
+       * the list of teams that a board belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'teams.$.teamId':{
+      /**
+       * The uniq ID of the team
+       */
+       type: String,
+    },
+    'teams.$.teamDisplayName':{
+      /**
+       * The display name of the team
+       */
+       type: String,
+    },
+    'teams.$.isActive': {
+      /**
+       * Is the team active?
+       */
+      type: Boolean,
     },
     color: {
       /**
@@ -365,6 +418,14 @@ Boards.attachSchema(
     allowsRequestedBy: {
       /**
        * Does the board allows requested by?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsCardSortingByNumber: {
+      /**
+       * Does the board allows card sorting by number?
        */
       type: Boolean,
       defaultValue: true,
@@ -683,6 +744,23 @@ Boards.helpers({
   activeMembers() {
     return _.where(this.members, { isActive: true });
   },
+
+
+  activeOrgs() {
+    return _.where(this.orgs, { isActive: true });
+  },
+
+  // hasNotAnyOrg(){
+  //   return this.orgs === undefined || this.orgs.length <= 0;
+  // },
+
+  activeTeams() {
+    return _.where(this.teams, { isActive: true });
+  },
+
+  // hasNotAnyTeam(){
+  //   return this.teams === undefined || this.teams.length <= 0;
+  // },
 
   activeAdmins() {
     return _.where(this.members, { isActive: true, isAdmin: true });
@@ -1187,6 +1265,10 @@ Boards.mutations({
     return { $set: { allowsRequestedBy } };
   },
 
+  setAllowsCardSortingByNumber(allowsCardSortingByNumber) {
+    return { $set: { allowsCardSortingByNumber } };
+  },
+
   setAllowsAttachments(allowsAttachments) {
     return { $set: { allowsAttachments } };
   },
@@ -1417,13 +1499,18 @@ if (Meteor.isServer) {
     myLabelNames() {
       let names = [];
       Boards.userBoards(Meteor.userId()).forEach(board => {
-        names = names.concat(
-          board.labels
-            .filter(label => !!label.name)
-            .map(label => {
-              return label.name;
-            }),
-        );
+        // Only return labels when they exist.
+        if (board.labels !== undefined) {
+          names = names.concat(
+            board.labels
+              .filter(label => !!label.name)
+              .map(label => {
+                return label.name;
+              }),
+          );
+        } else {
+          return [];
+        }
       });
       return _.uniq(names).sort();
     },
@@ -1448,6 +1535,24 @@ if (Meteor.isServer) {
           return true;
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
+    },
+    setBoardOrgs(boardOrgsArray, currBoardId){
+      check(boardOrgsArray, Array);
+      check(currBoardId, String);
+      Boards.update(currBoardId, {
+        $set: {
+          orgs: boardOrgsArray,
+        },
+      });
+    },
+    setBoardTeams(boardTeamsArray, currBoardId){
+      check(boardTeamsArray, Array);
+      check(currBoardId, String);
+      Boards.update(currBoardId, {
+        $set: {
+          teams: boardTeamsArray,
+        },
+      });
     },
   });
 }
@@ -1673,7 +1778,8 @@ if (Meteor.isServer) {
                     */
   JsonRoutes.add('GET', '/api/boards', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
+      const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Boards.find(
@@ -1847,7 +1953,8 @@ if (Meteor.isServer) {
    * @return_type string
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
-    Authentication.checkUserId(req.userId);
+    const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
     const id = req.params.boardId;
     try {
       if (req.body.hasOwnProperty('label')) {

@@ -4,8 +4,8 @@ template(name="checklists")
       i.fa.fa-check
       | {{_ 'checklists'}}
     if currentUser.isBoardMember
-      .material-toggle-switch
-        span.toggle-switch-title {{_ 'hide-checked-items'}}
+      .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
+        //span.toggle-switch-title
         if hideCheckedItems
           input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton" checked="checked")
         else
@@ -25,9 +25,8 @@ template(name="checklists")
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
       +addChecklistItemForm
     else
-      a.js-open-inlined-form
+      a.js-open-inlined-form(title="{{_ 'add-checklist'}}")
         i.fa.fa-plus
-        | {{_ 'add-checklist'}}...
 
 template(name="checklistDetail")
   .js-checklist.checklist
@@ -93,9 +92,8 @@ template(name="checklistItems")
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
         +addChecklistItemForm
       else
-        a.add-checklist-item.js-open-inlined-form
+        a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
           i.fa.fa-plus
-          | {{_ 'add-checklist-item'}}...
 
 template(name='checklistItemDetail')
   .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if hideCheckedItems}} invisible{{/if}}{{/if}}")

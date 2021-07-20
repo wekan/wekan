@@ -38,6 +38,44 @@ Users.attachSchema(
         }
       },
     },
+    orgs: {
+      /**
+       * the list of organizations that a user belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'orgs.$.orgId':{
+      /**
+       * The uniq ID of the organization
+       */
+       type: String,
+    },
+    'orgs.$.orgDisplayName':{
+      /**
+       * The display name of the organization
+       */
+       type: String,
+    },
+    teams: {
+      /**
+       * the list of teams that a user belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'teams.$.teamId':{
+      /**
+       * The uniq ID of the team
+       */
+       type: String,
+    },
+    'teams.$.teamDisplayName':{
+      /**
+       * The display name of the team
+       */
+       type: String,
+    },
     emails: {
       /**
        * the list of emails attached to a user
@@ -126,7 +164,7 @@ Users.attachSchema(
     },
     'profile.showDesktopDragHandles': {
       /**
-       * does the user want to hide system messages?
+       * does the user want to show desktop drag handles?
        */
       type: Boolean,
       optional: true,
@@ -134,6 +172,13 @@ Users.attachSchema(
     'profile.hideCheckedItems': {
       /**
        * does the user want to hide checked checklist items?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.cardMaximized': {
+      /**
+       * has user clicked maximize card?
        */
       type: Boolean,
       optional: true,
@@ -329,13 +374,7 @@ Users.attachSchema(
     },
     'sessionData.totalHits': {
       /**
-       * Total hits from last search
-       */
-      type: Number,
-      optional: true,
-    },
-    'sessionData.lastHit': {
-      /**
+       * Total hits from last searchquery['members.userId'] = Meteor.userId();
        * last hit that was returned
        */
       type: Number,
@@ -403,6 +442,8 @@ Users.safeFields = {
   'profile.fullname': 1,
   'profile.avatarUrl': 1,
   'profile.initials': 1,
+  orgs: 1,
+  teams: 1,
 };
 
 if (Meteor.isClient) {
@@ -464,7 +505,30 @@ Users.helpers({
     }
     return '';
   },
-
+  orgsUserBelongs() {
+    if (this.orgs) {
+      return this.orgs.map(function(org){return org.orgDisplayName}).join(',');
+    }
+    return '';
+  },
+  orgIdsUserBelongs() {
+    if (this.orgs) {
+      return this.orgs.map(function(org){return org.orgId}).join(',');
+    }
+    return '';
+  },
+  teamsUserBelongs() {
+    if (this.teams) {
+      return this.teams.map(function(team){ return team.teamDisplayName}).join(',');
+    }
+    return '';
+  },
+  teamIdsUserBelongs() {
+    if (this.teams) {
+      return this.teams.map(function(team){ return team.teamId}).join(',');
+    }
+    return '';
+  },
   boards() {
     return Boards.find(
       {
@@ -584,6 +648,11 @@ Users.helpers({
   hasHiddenSystemMessages() {
     const profile = this.profile || {};
     return profile.hiddenSystemMessages || false;
+  },
+
+  hasCardMaximized() {
+    const profile = this.profile || {};
+    return profile.cardMaximized || false;
   },
 
   hasHiddenMinicardLabelText() {
@@ -738,6 +807,14 @@ Users.mutations({
     };
   },
 
+  toggleCardMaximized(value = false) {
+    return {
+      $set: {
+        'profile.cardMaximized': !value,
+      },
+    };
+  },
+
   toggleLabelText(value = false) {
     return {
       $set: {
@@ -832,6 +909,10 @@ Meteor.methods({
     const user = Meteor.user();
     user.toggleSystem(user.hasHiddenSystemMessages());
   },
+  toggleCardMaximized() {
+    const user = Meteor.user();
+    user.toggleCardMaximized(user.hasCardMaximized());
+  },
   toggleMinicardLabelText() {
     const user = Meteor.user();
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
@@ -894,17 +975,20 @@ if (Meteor.isServer) {
       isActive,
       email,
       importUsernames,
+      userOrgsArray,
+      userTeamsArray,
     ) {
+      check(fullname, String);
+      check(username, String);
+      check(initials, String);
+      check(password, String);
+      check(isAdmin, String);
+      check(isActive, String);
+      check(email, String);
+      check(importUsernames, Array);
+      check(userOrgsArray, Array);
+      check(userTeamsArray, Array);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(fullname, String);
-        check(username, String);
-        check(initials, String);
-        check(password, String);
-        check(isAdmin, String);
-        check(isActive, String);
-        check(email, String);
-        check(importUsernames, Array);
-
         const nUsersWithUsername = Users.find({
           username,
         }).count();
@@ -935,6 +1019,8 @@ if (Meteor.isServer) {
                 'profile.fullname': fullname,
                 importUsernames,
                 'profile.initials': initials,
+                orgs: userOrgsArray,
+                teams: userTeamsArray,
               },
             });
           }
@@ -942,9 +1028,9 @@ if (Meteor.isServer) {
       }
     },
     setUsername(username, userId) {
+      check(username, String);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(username, String);
-        check(userId, String);
         const nUsersWithUsername = Users.find({
           username,
         }).count();
@@ -960,11 +1046,12 @@ if (Meteor.isServer) {
       }
     },
     setEmail(email, userId) {
+      check(email, String);
+      check(username, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
         }
-        check(email, String);
         const existingUser = Users.findOne(
           {
             'emails.address': email,
@@ -992,31 +1079,31 @@ if (Meteor.isServer) {
       }
     },
     setUsernameAndEmail(username, email, userId) {
+      check(username, String);
+      check(email, String);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(username, String);
         if (Array.isArray(email)) {
           email = email.shift();
         }
-        check(email, String);
-        check(userId, String);
         Meteor.call('setUsername', username, userId);
         Meteor.call('setEmail', email, userId);
       }
     },
     setPassword(newPassword, userId) {
+      check(userId, String);
+      check(newPassword, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(userId, String);
-        check(newPassword, String);
         if (Meteor.user().isAdmin) {
           Accounts.setPassword(userId, newPassword);
         }
       }
     },
     setEmailVerified(email, verified, userId) {
+      check(email, String);
+      check(verified, Boolean);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(email, String);
-        check(verified, Boolean);
-        check(userId, String);
         Users.update(userId, {
           $set: {
             emails: [
@@ -1030,9 +1117,9 @@ if (Meteor.isServer) {
       }
     },
     setInitials(initials, userId) {
+      check(initials, String);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(initials, String);
-        check(userId, String);
         Users.update(userId, {
           $set: {
             'profile.initials': initials,
@@ -1405,24 +1492,26 @@ if (Meteor.isServer) {
 
       fakeUserId.withValue(doc._id, () => {
         /*
-                // Insert the Welcome Board
-                Boards.insert({
-                  title: TAPi18n.__('welcome-board'),
-                  permission: 'private',
-                }, fakeUser, (err, boardId) => {
 
-                  Swimlanes.insert({
-                    title: TAPi18n.__('welcome-swimlane'),
-                    boardId,
-                    sort: 1,
-                  }, fakeUser);
+        // Insert the Welcome Board
+        Boards.insert({
+          title: TAPi18n.__('welcome-board'),
+          permission: 'private',
+        }, fakeUser, (err, boardId) => {
 
-                  ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
-                    Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
-                  });
-                });
-                */
+          Swimlanes.insert({
+            title: TAPi18n.__('welcome-swimlane'),
+            boardId,
+            sort: 1,
+          }, fakeUser);
 
+          ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
+            Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
+          });
+        });
+        */
+
+        // Insert Template Container
         const Future = require('fibers/future');
         const future1 = new Future();
         const future2 = new Future();
@@ -1507,6 +1596,7 @@ if (Meteor.isServer) {
         future1.wait();
         future2.wait();
         future3.wait();
+        // End of Insert Template Container
       });
     });
   }
@@ -1977,16 +2067,18 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
-      // Delete is not enabled yet, because it does leave empty user avatars
+      // Delete user is enabled, but is still has bug of leaving empty user avatars
       // to boards: boards members, card members and assignees have
-      // empty users. See:
+      // empty users. So it would be better to delete user from all boards before
+      // deleting user.
+      // See:
       // - wekan/client/components/settings/peopleBody.jade deleteButton
       // - wekan/client/components/settings/peopleBody.js deleteButton
       // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
       //   that does now remove member from board, card members and assignees correctly,
       //   but that should be used to remove user from all boards similarly
       // - wekan/models/users.js Delete is not enabled
-      // Meteor.users.remove({ _id: id });
+      Meteor.users.remove({ _id: id });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {

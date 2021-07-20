@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.29
+  version: v5.37
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1875,6 +1875,12 @@ paths:
             the vote object
           type: object
           required: false
+        - name: poker
+          in: formData
+          description: |
+            the poker object
+          type: object
+          required: false
         - name: labelIds
           in: formData
           description: |
@@ -2670,6 +2676,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/BoardsLabels"
+        x-nullable: true
       members:
         description: |
            List of members of a board
@@ -2773,6 +2780,10 @@ definitions:
         description: |
            Does the board allows requested by?
         type: boolean
+      allowsCardSortingByNumber:
+        description: |
+           Does the board allows card sorting by number?
+        type: boolean
       allowsAssignedBy:
         description: |
            Does the board allows requested by?
@@ -2854,7 +2865,6 @@ definitions:
       - archived
       - createdAt
       - stars
-      - labels
       - members
       - permission
       - color
@@ -2870,6 +2880,7 @@ definitions:
       - allowsAssignee
       - allowsMembers
       - allowsRequestedBy
+      - allowsCardSortingByNumber
       - allowsAssignedBy
       - allowsReceivedDate
       - allowsStartDate
@@ -3176,6 +3187,35 @@ definitions:
            vote object, see below
         $ref: "#/definitions/CardsVote"
         x-nullable: true
+      poker:
+        description: |
+           poker object, see below
+        $ref: "#/definitions/CardsPoker"
+        x-nullable: true
+      targetId_gantt:
+        description: |
+           ID of card which is the child link in gantt view
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      linkType_gantt:
+        description: |
+           ID of card which is the parent link in gantt view
+        type: array
+        items:
+          type: number
+          x-nullable: true
+        x-nullable: true
+      linkId_gantt:
+        description: |
+           ID of card which is the parent link in gantt view
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
     required:
       - archived
       - swimlaneId
@@ -3212,6 +3252,92 @@ definitions:
     required:
       - question
       - public
+      - allowNonBoardMembers
+  CardsPoker:
+    type: object
+    properties:
+      question:
+        type: boolean
+      one:
+        description: |
+           poker card one
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      two:
+        description: |
+           poker card two
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      three:
+        description: |
+           poker card three
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      five:
+        description: |
+           poker card five
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      eight:
+        description: |
+           poker card eight
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      thirteen:
+        description: |
+           poker card thirteen
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      twenty:
+        description: |
+           poker card twenty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      forty:
+        description: |
+           poker card forty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      oneHundred:
+        description: |
+           poker card oneHundred
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      unsure:
+        description: |
+           poker card unsure
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      allowNonBoardMembers:
+        type: boolean
+      estimation:
+        description: |
+           poker estimation value
+        type: number
+    required:
+      - question
       - allowNonBoardMembers
   CardsCustomfields:
     type: object
@@ -3617,6 +3743,20 @@ definitions:
            the username of the user
         type: string
         x-nullable: true
+      orgs:
+        description: |
+           the list of organizations that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersOrgs"
+        x-nullable: true
+      teams:
+        description: |
+           the list of teams that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersTeams"
+        x-nullable: true
       emails:
         description: |
            the list of emails attached to a user
@@ -3701,11 +3841,15 @@ definitions:
         type: string
       showDesktopDragHandles:
         description: |
-           does the user want to hide system messages?
+           does the user want to show desktop drag handles?
         type: boolean
       hideCheckedItems:
         description: |
            does the user want to hide checked checklist items?
+        type: boolean
+      cardMaximized:
+        description: |
+           has user clicked maximize card?
         type: boolean
       hiddenSystemMessages:
         description: |
@@ -3800,12 +3944,37 @@ definitions:
     properties:
       totalHits:
         description: |
-           Total hits from last search
-        type: number
-      lastHit:
-        description: |
+           Total hits from last searchquery['members.userId'] = Meteor.userId();
            last hit that was returned
         type: number
+  UsersOrgs:
+    type: object
+    properties:
+      orgId:
+        description: |
+           The uniq ID of the organization
+        type: string
+      orgDisplayName:
+        description: |
+           The display name of the organization
+        type: string
+    required:
+      - orgId
+      - orgDisplayName
+  UsersTeams:
+    type: object
+    properties:
+      teamId:
+        description: |
+           The uniq ID of the team
+        type: string
+      teamDisplayName:
+        description: |
+           The display name of the team
+        type: string
+    required:
+      - teamId
+      - teamDisplayName
   UsersEmails:
     type: object
     properties:

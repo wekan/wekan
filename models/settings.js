@@ -46,6 +46,10 @@ Settings.attachSchema(
       type: String,
       optional: false,
     },
+    spinnerName: {
+      type: String,
+      optional: true,
+    },
     hideLogo: {
       type: Boolean,
       optional: true,

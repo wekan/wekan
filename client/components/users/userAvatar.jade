@@ -19,6 +19,44 @@ template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
     text(x="50%" y="13" text-anchor="middle")= initials
 
+template(name="orgAvatar")
+  a.member.orgOrTeamMember(class="js-member" title="{{orgData.orgDisplayName}}")
+    +boardOrgName(orgId=orgData._id)
+
+template(name="boardOrgRow")
+  tr
+    if orgData.orgIsActive
+      td <s>{{ orgData.orgDisplayName }}</s>
+    else
+      td {{ orgData.orgDisplayName }}
+    td
+      if currentUser.isBoardAdmin
+        a.member.orgOrTeamMember.add-member.js-manage-board-removeOrg(title="{{_ 'remove-from-board'}}")
+          i.fa.fa-minus
+
+template(name="boardTeamRow")
+  tr
+    if teamData.teamIsActive
+      td <s>{{ teamData.teamDisplayName }}</s>
+    else
+      td {{ teamData.teamDisplayName }}
+    td
+      if currentUser.isBoardAdmin
+        a.member.orgOrTeamMember.add-member.js-manage-board-removeTeam(title="{{_ 'remove-from-board'}}")
+          i.fa.fa-minus
+
+template(name="boardOrgName")
+  svg.avatar.avatar-initials(viewBox="0 0 {{orgViewPortWidth}} 15")
+    text(x="50%" y="13" text-anchor="middle")= orgName
+
+template(name="teamAvatar")
+  a.member.orgOrTeamMember(class="js-member" title="{{teamData.teamDisplayName}}")
+    +boardTeamName(orgId=orgData._id)
+
+template(name="boardTeamName")
+  svg.avatar.avatar-initials(viewBox="0 0 {{teamViewPortWidth}} 15")
+    text(x="50%" y="13" text-anchor="middle")= teamName
+
 template(name="userPopup")
   .board-member-menu
     .mini-profile-info

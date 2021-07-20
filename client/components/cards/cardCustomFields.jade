@@ -125,7 +125,7 @@ template(name="cardCustomField-stringtemplate")
         +inlinedForm(classNames="js-card-customfield-stringtemplate")
             each item in stringtemplateItems.get
                 input.js-card-customfield-stringtemplate-item(type="text" value=item placeholder="")
-            input.js-card-customfield-stringtemplate-item.last(type="text" value="" placeholder="{{_ 'custom-field-stringtemplate-item-placeholder'}}")
+            input.js-card-customfield-stringtemplate-item.last(type="text" value="" placeholder="{{_ 'custom-field-stringtemplate-item-placeholder'}}" autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
                 a.fa.fa-times-thin.js-close-inlined-form

@@ -5,10 +5,6 @@ template(name="sidebar")
     //  title="{{showTongueTitle}}")
     //  i.fa.fa-navicon
     .sidebar-shadow
-      .sidebar-content.sidebar-shortcuts
-        a.board-header-btn.js-shortcuts
-          i.fa.fa-keyboard-o
-          span {{_ 'keyboard-shortcuts' }}
       .sidebar-content.js-board-sidebar-content
         //a.hide-btn.js-hide-sidebar
         //  i.fa.fa-navicon
@@ -23,7 +19,7 @@ template(name='homeSidebar')
   hr
   +labelsWidget
   ul#cards.label-text-hidden
-    a.flex.js-toggle-minicard-label-text
+    a.flex.js-toggle-minicard-label-text(title="{{_ 'hide-minicard-label-text'}}")
       span {{_ 'hide-minicard-label-text'}}
       b &nbsp;
       .materialCheckBox(class="{{#if hiddenMinicardLabelText}}is-checked{{/if}}")
@@ -38,7 +34,33 @@ template(name="membersWidget")
   .board-widget.board-widget-members
     h3
       i.fa.fa-users
+      | {{_ 'organizations'}}
+
+    .board-widget-content
+      +boardOrgGeneral
+      .clearfix
+  br
+  hr
+  .board-widget.board-widget-members
+    h3
+      i.fa.fa-users
+      | {{_ 'teams'}}
+
+    .board-widget-content
+      +boardTeamGeneral
+      .clearfix
+  br
+  hr
+  .board-widget.board-widget-members
+    h3
+      i.fa.fa-users
       | {{_ 'members'}}
+
+      .sidebar-shortcuts
+        a.board-header-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
+          i.fa.fa-keyboard-o
+          span {{_ 'keyboard-shortcuts' }}
+
       unless currentUser.isCommentOnly
         unless currentUser.isWorker
           a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}").right
@@ -49,10 +71,10 @@ template(name="membersWidget")
         +userAvatar(userId=this.userId showStatus=true)
       if isSandstorm
         if currentUser.isBoardMember
-          a.member.add-member.sandstorm-powerbox-request-identity
+          a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
             i.fa.fa-plus
       else if currentUser.isBoardAdmin
-        a.member.add-member.js-manage-board-members
+        a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
           i.fa.fa-plus
       .clearfix
   if isInvited
@@ -62,6 +84,30 @@ template(name="membersWidget")
       | {{_ 'just-invited'}}
     button.js-member-invite-accept.primary {{_ 'accept'}}
     button.js-member-invite-decline {{_ 'decline'}}
+
+template(name="boardOrgGeneral")
+  table
+    tbody
+      tr
+        th {{_ 'displayName'}}
+        th
+          if currentUser.isBoardAdmin
+            a.member.orgOrTeamMember.add-member.js-manage-board-addOrg(title="{{_ 'add-members'}}")
+              i.fa.fa-plus
+      each org in currentBoard.activeOrgs
+        +boardOrgRow(orgId=org.orgId)
+
+template(name="boardTeamGeneral")
+  table
+    tbody
+      tr
+        th {{_ 'displayName'}}
+        th
+          if currentUser.isBoardAdmin
+            a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
+              i.fa.fa-plus
+      each currentBoard.activeTeams
+        +boardTeamRow(teamId=this.teamId)
 
 template(name="boardChangeColorPopup")
   .board-backgrounds-list.clearfix
@@ -131,6 +177,12 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-user-plus
           | {{_ 'requested-by'}}
+    div.check-div
+      a.flex.js-field-has-card-sorting-by-number(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
+        span
+          i.fa.fa-sort
+          | {{_ 'card-sorting-by-number'}}
     div.check-div
       a.flex.js-field-has-labels(class="{{#if allowsLabels}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsLabels}}is-checked{{/if}}")
@@ -362,7 +414,7 @@ template(name="labelsWidget")
               +viewer
                 = name
       if currentUser.isBoardAdmin
-        a.card-label.add-label.js-add-label
+        a.card-label.add-label.js-add-label(title="{{_ 'label-create'}}")
           i.fa.fa-plus
 
 template(name="memberPopup")
@@ -400,6 +452,40 @@ template(name="removeMemberPopup")
 template(name="leaveBoardPopup")
   p {{_ 'leave-board-pop' boardTitle=board.title}}
   button.js-confirm.negate.full(type="submit") {{_ 'leave-board'}}
+
+template(name="addBoardOrgPopup")
+  select.js-boardOrgs#jsBoardOrgs
+    option(value="-1") {{_ 'organizations'}} :
+    each value in orgsDatas
+      option(value="{{value._id}}") {{_ value.orgDisplayName}}
+
+template(name="removeBoardOrgPopup")
+  form
+    input.hide#hideOrgId(type="text" value=org._id)
+    label
+      | {{_ 'leave-board'}} ?
+  br
+  hr
+  div.buttonsContainer
+    input.primary.wide.leaveBoardBtn#leaveBoardBtn(type="submit" value="{{_ 'leave-board'}}")
+    input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardBtn(type="submit" value="{{_ 'Cancel'}}")
+
+template(name="addBoardTeamPopup")
+  select.js-boardTeams#jsBoardTeams
+    option(value="-1") {{_ 'teams'}} :
+    each value in teamsDatas
+      option(value="{{value._id}}") {{_ value.teamDisplayName}}
+
+template(name="removeBoardTeamPopup")
+  form
+    input.hide#hideTeamId(type="text" value=team._id)
+    label
+      | {{_ 'leave-board'}} ?
+  br
+  hr
+  div.buttonsContainer
+    input.primary.wide.leaveBoardBtn#leaveBoardTeamBtn(type="submit" value="{{_ 'leave-board'}}")
+    input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardTeamBtn(type="submit" value="{{_ 'Cancel'}}")
 
 template(name="addMemberPopup")
   .js-search-member

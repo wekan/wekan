@@ -1,8 +1,11 @@
 template(name="boardHeaderBar")
   h1.header-board-menu
     with currentBoard
-      +viewer
-        = title
+      if $eq title 'Templates'
+        | {{_ 'templates'}}
+      else
+        +viewer
+          = title
 
   .board-header-btns.left
     unless isMiniScreen
@@ -131,7 +134,7 @@ template(name="boardHeaderBar")
               i.fa.fa-times-thin
 
       .separator
-      a.board-header-btn.js-toggle-sidebar
+      a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
         i.fa.fa-navicon
 
 template(name="boardVisibilityList")
@@ -225,6 +228,9 @@ template(name="createBoard")
           = " "
           | {{{_ 'board-private-info'}}}
         a.js-change-visibility {{_ 'change'}}.
+    //a.flex.js-toggle-add-template-container
+    //  .materialCheckBox#add-template-container
+    //  span {{_ 'add-template-container'}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
     span.quiet
       | {{_ 'or'}}

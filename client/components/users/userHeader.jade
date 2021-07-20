@@ -1,6 +1,6 @@
 template(name="headerUserBar")
   #header-user-bar
-    a.header-user-bar-name.js-open-header-member-menu
+    a.header-user-bar-name.js-open-header-member-menu(title="{{_ 'memberMenuPopup-title'}}")
       .header-user-bar-avatar
         +userAvatar(userId=currentUser._id)
       unless isMiniScreen

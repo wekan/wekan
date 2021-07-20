@@ -19,19 +19,14 @@ template(name="listBody")
         +inlinedForm(autoclose=false position="bottom")
           +addCardForm(listId=_id position="bottom")
         else
-          a.open-minicard-composer.js-card-composer.js-open-inlined-form
+          a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
             i.fa.fa-plus
-            | {{_ 'add-card'}}
 
 template(name="spinnerList")
-  .sk-spinner.sk-spinner-wave.sk-spinner-list(
-    class=currentBoard.colorClass
+  .sk-spinner.sk-spinner-list(
+    class="{{currentBoard.colorClass}} {{getSkSpinnerName}}"
     id="showMoreResults")
-    .sk-rect1
-    .sk-rect2
-    .sk-rect3
-    .sk-rect4
-    .sk-rect5
+    +spinnerRaw
 
 template(name="addCardForm")
   .minicard.minicard-composer.js-composer

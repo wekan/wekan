@@ -55,5 +55,15 @@ export const CARD_TYPES = [
   TYPE_CARD,
   TYPE_LINKED_CARD,
   TYPE_LINKED_BOARD,
-  TYPE_TEMPLATE_CARD,
+  TYPE_TEMPLATE_CARD
+];
+export const ALLOWED_WAIT_SPINNERS = [
+  'Bounce',
+  'Cube',
+  'Cube-Grid',
+  'Dot',
+  'Double-Bounce',
+  'Rotateplane',
+  'Scaleout',
+  'Wave'
 ];

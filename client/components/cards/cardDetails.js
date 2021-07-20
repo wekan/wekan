@@ -54,6 +54,10 @@ BlazeComponent.extendComponent({
     return Meteor.user().hasHiddenSystemMessages();
   },
 
+  cardMaximized() {
+    return Meteor.user().hasCardMaximized();
+  },
+
   canModifyCard() {
     return (
       Meteor.user() &&
@@ -140,6 +144,15 @@ BlazeComponent.extendComponent({
     );
   },
 
+  showPlanningPokerButtons() {
+    const card = this.currentData();
+    return (
+      (currentUser.isBoardMember() ||
+        (currentUser && card.pokerAllowNonBoardMembers())) &&
+      !card.expiredPoker()
+    );
+  },
+
   onRendered() {
     if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
       // Send Webhook but not create Activities records ---
@@ -161,7 +174,7 @@ BlazeComponent.extendComponent({
       }).fetch();
 
       if (integrations.length > 0) {
-        integrations.forEach(integration => {
+        integrations.forEach((integration) => {
           Meteor.call(
             'outgoingWebhooks',
             integration,
@@ -327,9 +340,7 @@ BlazeComponent.extendComponent({
         },
         'submit .js-card-details-title'(event) {
           event.preventDefault();
-          const title = this.currentComponent()
-            .getValue()
-            .trim();
+          const title = this.currentComponent().getValue().trim();
           if (title) {
             this.data().setTitle(title);
           } else {
@@ -338,9 +349,7 @@ BlazeComponent.extendComponent({
         },
         'submit .js-card-details-assigner'(event) {
           event.preventDefault();
-          const assigner = this.currentComponent()
-            .getValue()
-            .trim();
+          const assigner = this.currentComponent().getValue().trim();
           if (assigner) {
             this.data().setAssignedBy(assigner);
           } else {
@@ -349,13 +358,21 @@ BlazeComponent.extendComponent({
         },
         'submit .js-card-details-requester'(event) {
           event.preventDefault();
-          const requester = this.currentComponent()
-            .getValue()
-            .trim();
+          const requester = this.currentComponent().getValue().trim();
           if (requester) {
             this.data().setRequestedBy(requester);
           } else {
             this.data().setRequestedBy('');
+          }
+        },
+        'submit .js-card-details-sort'(event) {
+          event.preventDefault();
+          const sort = parseFloat(this.currentComponent()
+            .getValue()
+            .trim());
+          if (!Number.isNaN(sort)) {
+            let card = this.data();
+            card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
         },
         'click .js-go-to-linked-card'() {
@@ -395,6 +412,14 @@ BlazeComponent.extendComponent({
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
         },
+        'click .js-maximize-card-details'() {
+          Meteor.call('toggleCardMaximized');
+          autosize($('.card-details'));
+        },
+        'click .js-minimize-card-details'() {
+          Meteor.call('toggleCardMaximized');
+          autosize($('.card-details'));
+        },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
           let newState = null;
@@ -407,10 +432,125 @@ BlazeComponent.extendComponent({
           }
           this.data().setVote(Meteor.userId(), newState);
         },
+        'click .js-poker'(e) {
+          let newState = null;
+          if ($(e.target).hasClass('js-poker-vote-one')) {
+            newState = 'one';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-two')) {
+            newState = 'two';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-three')) {
+            newState = 'three';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-five')) {
+            newState = 'five';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-eight')) {
+            newState = 'eight';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-thirteen')) {
+            newState = 'thirteen';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-twenty')) {
+            newState = 'twenty';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-forty')) {
+            newState = 'forty';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-one-hundred')) {
+            newState = 'oneHundred';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-unsure')) {
+            newState = 'unsure';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+        },
+        'click .js-poker-finish'(e) {
+          if ($(e.target).hasClass('js-poker-finish')) {
+            e.preventDefault();
+            const now = moment().format('YYYY-MM-DD HH:mm');
+            this.data().setPokerEnd(now);
+          }
+        },
+
+        'click .js-poker-replay'(e) {
+          if ($(e.target).hasClass('js-poker-replay')) {
+            e.preventDefault();
+            this.currentCard = this.currentData();
+            this.currentCard.replayPoker();
+            this.data().unsetPokerEnd();
+            this.data().unsetPokerEstimation();
+          }
+        },
+        'click .js-poker-estimation'(event) {
+          event.preventDefault();
+
+          const ruleTitle = this.find('#pokerEstimation').value;
+          if (ruleTitle !== undefined && ruleTitle !== '') {
+            this.find('#pokerEstimation').value = '';
+
+            if (ruleTitle) {
+              this.data().setPokerEstimation(parseInt(ruleTitle, 10));
+            } else {
+              this.data().setPokerEstimation('');
+            }
+          }
+        },
       },
     ];
   },
 }).register('cardDetails');
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'exportCard';
+  },
+  withApi() {
+    return Template.instance().apiEnabled.get();
+  },
+  exportUrlCardPDF() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+      listId: this.listId,
+      cardId: this.cardId,
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF',
+      params,
+      queryParams,
+    );
+  },
+  exportFilenameCardPDF() {
+    //const boardId = Session.get('currentBoard');
+    //return `export-card-pdf-${boardId}.xlsx`;
+    return `export-card.pdf`;
+  },
+}).register('exportCardPopup');
+
+// only allow number input
+Template.editCardSortOrderForm.onRendered(function() {
+  this.$('input').on("keypress paste", function(event) {
+    let keyCode = event.keyCode;
+    let charCode = String.fromCharCode(keyCode);
+    let regex = new RegExp('[-0-9.]');
+    let ret = regex.test(charCode);
+    // only working here, defining in events() doesn't handle the return value correctly
+    return ret;
+  });
+});
 
 // We extends the normal InlinedForm component to support UnsavedEdits draft
 // feature.
@@ -472,11 +612,13 @@ Template.cardDetailsActionsPopup.helpers({
 });
 
 Template.cardDetailsActionsPopup.events({
+  'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-voting': Popup.open('cardStartVoting'),
+  'click .js-start-planning-poker': Popup.open('cardStartPlanningPoker'),
   'click .js-custom-fields': Popup.open('cardCustomFields'),
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
@@ -492,7 +634,7 @@ Template.cardDetailsActionsPopup.events({
     const minOrder = _.min(
       this.list()
         .cards(this.swimlaneId)
-        .map(c => c.sort),
+        .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
   },
@@ -501,7 +643,7 @@ Template.cardDetailsActionsPopup.events({
     const maxOrder = _.max(
       this.list()
         .cards(this.swimlaneId)
-        .map(c => c.sort),
+        .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
   },
@@ -520,7 +662,7 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function() {
+Template.editCardTitleForm.onRendered(function () {
   autosize(this.$('.js-edit-card-title'));
 });
 
@@ -534,7 +676,7 @@ Template.editCardTitleForm.events({
   },
 });
 
-Template.editCardRequesterForm.onRendered(function() {
+Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));
 });
 
@@ -547,7 +689,7 @@ Template.editCardRequesterForm.events({
   },
 });
 
-Template.editCardAssignerForm.onRendered(function() {
+Template.editCardAssignerForm.onRendered(function () {
   autosize(this.$('.js-edit-card-assigner'));
 });
 
@@ -632,9 +774,7 @@ Template.copyCardPopup.events({
     const textarea = $('#copy-card-title');
     const title = textarea.val().trim();
     // insert new card to the bottom of new list
-    card.sort = Lists.findOne(card.listId)
-      .cards()
-      .count();
+    card.sort = Lists.findOne(card.listId).cards().count();
 
     if (title) {
       card.title = title;
@@ -665,9 +805,7 @@ Template.copyChecklistToManyCardsPopup.events({
     const textarea = $('#copy-card-title');
     const titleEntry = textarea.val().trim();
     // insert new card to the bottom of new list
-    card.sort = Lists.findOne(card.listId)
-      .cards()
-      .count();
+    card.sort = Lists.findOne(card.listId).cards().count();
 
     if (titleEntry) {
       const titleList = JSON.parse(titleEntry);
@@ -684,13 +822,13 @@ Template.copyChecklistToManyCardsPopup.events({
         Filter.addException(_id);
 
         // copy checklists
-        Checklists.find({ cardId: oldId }).forEach(ch => {
+        Checklists.find({ cardId: oldId }).forEach((ch) => {
           ch.copy(_id);
         });
 
         // copy subtasks
         const cursor = Cards.find({ parentId: oldId });
-        cursor.forEach(function() {
+        cursor.forEach(function () {
           'use strict';
           const subtask = arguments[0];
           subtask.parentId = _id;
@@ -699,7 +837,7 @@ Template.copyChecklistToManyCardsPopup.events({
         });
 
         // copy card comments
-        CardComments.find({ cardId: oldId }).forEach(cmt => {
+        CardComments.find({ cardId: oldId }).forEach((cmt) => {
           cmt.copy(_id);
         });
       }
@@ -715,7 +853,7 @@ BlazeComponent.extendComponent({
   },
 
   colors() {
-    return ALLOWED_COLORS.map(color => ({ color, name: '' }));
+    return ALLOWED_COLORS.map((color) => ({ color, name: '' }));
   },
 
   isSelected(color) {
@@ -838,7 +976,7 @@ BlazeComponent.extendComponent({
             }
           }
         },
-        'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+        'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();
           // verify that there are no linked cards
           if (Cards.find({ linkedId: this._id }).count() === 0) {
@@ -945,6 +1083,8 @@ BlazeComponent.extendComponent({
             moment(new Date().setHours(12, 0, 0)).format('LT');
 
           const dateString = `${evt.target.date.value} ${time}`;
+
+          /*
           const newDate = moment(dateString, 'L LT', true);
           if (newDate.isValid()) {
             // if active vote -  store it
@@ -953,6 +1093,159 @@ BlazeComponent.extendComponent({
               Popup.close();
             } else {
               this.currentData().vote = { end: newDate.toDate() }; // set vote end temp
+              Popup.back();
+            }
+
+
+          */
+
+          // Try to parse different date formats of all languages.
+          // This code is same for vote and planning poker.
+          const usaDate = moment(dateString, 'L LT', true);
+          const euroAmDate = moment(dateString, 'DD.MM.YYYY LT', true);
+          const euro24hDate = moment(dateString, 'DD.MM.YYYY HH.mm', true);
+          const eurodotDate = moment(dateString, 'DD.MM.YYYY HH:mm', true);
+          const minusDate = moment(dateString, 'YYYY-MM-DD HH:mm', true);
+          const slashDate = moment(dateString, 'DD/MM/YYYY HH.mm', true);
+          const dotDate = moment(dateString, 'DD/MM/YYYY HH:mm', true);
+          const brezhonegDate = moment(dateString, 'DD/MM/YYYY h[e]mm A', true);
+          const hrvatskiDate = moment(dateString, 'DD. MM. YYYY H:mm', true);
+          const latviaDate = moment(dateString, 'YYYY.MM.DD. H:mm', true);
+          const nederlandsDate = moment(dateString, 'DD-MM-YYYY HH:mm', true);
+          // greekDate does not work: el Greek Ελληνικά ,
+          // it has date format DD/MM/YYYY h:mm MM like 20/06/2021 11:15 MM
+          // where MM is maybe some text like AM/PM ?
+          // Also some other languages that have non-ascii characters in dates
+          // do not work.
+          const greekDate = moment(dateString, 'DD/MM/YYYY h:mm A', true);
+          const macedonianDate = moment(dateString, 'D.MM.YYYY H:mm', true);
+
+          if (usaDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(usaDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: usaDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (euroAmDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(euroAmDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: euroAmDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (euro24hDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(euro24hDate.toDate());
+              this.card.setPokerEnd(euro24hDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: euro24hDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (eurodotDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(eurodotDate.toDate());
+              this.card.setPokerEnd(eurodotDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: eurodotDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (minusDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(minusDate.toDate());
+              this.card.setPokerEnd(minusDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: minusDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (slashDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(slashDate.toDate());
+              this.card.setPokerEnd(slashDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: slashDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (dotDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(dotDate.toDate());
+              this.card.setPokerEnd(dotDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: dotDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (brezhonegDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(brezhonegDate.toDate());
+              this.card.setPokerEnd(brezhonegDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: brezhonegDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (hrvatskiDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(hrvatskiDate.toDate());
+              this.card.setPokerEnd(hrvatskiDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: hrvatskiDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (latviaDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(latviaDate.toDate());
+              this.card.setPokerEnd(latviaDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: latviaDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (nederlandsDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(nederlandsDate.toDate());
+              this.card.setPokerEnd(nederlandsDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: nederlandsDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (greekDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(greekDate.toDate());
+              this.card.setPokerEnd(greekDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: greekDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (macedonianDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(macedonianDate.toDate());
+              this.card.setPokerEnd(macedonianDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: macedonianDate.toDate() }; // set poker end temp
               Popup.back();
             }
           } else {
@@ -975,6 +1268,277 @@ BlazeComponent.extendComponent({
     this.card.unsetVoteEnd();
   }
 }.register('editVoteEndDatePopup'));
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.pokerQuestion = new ReactiveVar(this.currentCard.pokerQuestion);
+  },
+
+  events() {
+    return [
+      {
+        'click .js-end-date': Popup.open('editPokerEndDate'),
+        'submit .edit-poker-question'(evt) {
+          evt.preventDefault();
+          const pokerQuestion = true;
+          const allowNonBoardMembers = $('#poker-allow-non-members').hasClass(
+            'is-checked',
+          );
+          const endString = this.currentCard.getPokerEnd();
+
+          this.currentCard.setPokerQuestion(
+            pokerQuestion,
+            allowNonBoardMembers,
+          );
+          if (endString) {
+            this.currentCard.setPokerEnd(endString);
+          }
+          Popup.close();
+        },
+        'click .js-remove-poker': Popup.afterConfirm('deletePoker', (event) => {
+          event.preventDefault();
+          this.currentCard.unsetPoker();
+          Popup.close();
+        }),
+        'click a.js-toggle-poker-allow-non-members'(event) {
+          event.preventDefault();
+          $('#poker-allow-non-members').toggleClass('is-checked');
+        },
+      },
+    ];
+  },
+}).register('cardStartPlanningPokerPopup');
+
+// editPokerEndDatePopup
+(class extends DatePicker {
+  onCreated() {
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
+    this.data().getPokerEnd() &&
+      this.date.set(moment(this.data().getPokerEnd()));
+  }
+
+  /*
+  Tried to use dateFormat and timeFormat from client/components/lib/datepicker.js
+  to make detecting all date formats not necessary,
+  but got error "language mk does not exist".
+  Maybe client/components/lib/datepicker.jade could have hidden input field for
+  datepicker format that could be used to detect date format?
+
+  dateFormat() {
+    return moment.localeData().longDateFormat('L');
+  }
+
+  timeFormat() {
+    return moment.localeData().longDateFormat('LT');
+  }
+
+  const newDate = moment(dateString, dateformat() + ' ' + timeformat(), true);
+  */
+
+  events() {
+    return [
+      {
+        'submit .edit-date'(evt) {
+          evt.preventDefault();
+
+          // if no time was given, init with 12:00
+          const time =
+            evt.target.time.value ||
+            moment(new Date().setHours(12, 0, 0)).format('LT');
+
+          const dateString = `${evt.target.date.value} ${time}`;
+
+          /*
+          Tried to use dateFormat and timeFormat from client/components/lib/datepicker.js
+          to make detecting all date formats not necessary,
+          but got error "language mk does not exist".
+          Maybe client/components/lib/datepicker.jade could have hidden input field for
+          datepicker format that could be used to detect date format?
+
+          const newDate = moment(dateString, dateformat() + ' ' + timeformat(), true);
+
+          if (newDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(newDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: newDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          */
+
+          // Try to parse different date formats of all languages.
+          // This code is same for vote and planning poker.
+          const usaDate = moment(dateString, 'L LT', true);
+          const euroAmDate = moment(dateString, 'DD.MM.YYYY LT', true);
+          const euro24hDate = moment(dateString, 'DD.MM.YYYY HH.mm', true);
+          const eurodotDate = moment(dateString, 'DD.MM.YYYY HH:mm', true);
+          const minusDate = moment(dateString, 'YYYY-MM-DD HH:mm', true);
+          const slashDate = moment(dateString, 'DD/MM/YYYY HH.mm', true);
+          const dotDate = moment(dateString, 'DD/MM/YYYY HH:mm', true);
+          const brezhonegDate = moment(dateString, 'DD/MM/YYYY h[e]mm A', true);
+          const hrvatskiDate = moment(dateString, 'DD. MM. YYYY H:mm', true);
+          const latviaDate = moment(dateString, 'YYYY.MM.DD. H:mm', true);
+          const nederlandsDate = moment(dateString, 'DD-MM-YYYY HH:mm', true);
+          // greekDate does not work: el Greek Ελληνικά ,
+          // it has date format DD/MM/YYYY h:mm MM like 20/06/2021 11:15 MM
+          // where MM is maybe some text like AM/PM ?
+          // Also some other languages that have non-ascii characters in dates
+          // do not work.
+          const greekDate = moment(dateString, 'DD/MM/YYYY h:mm A', true);
+          const macedonianDate = moment(dateString, 'D.MM.YYYY H:mm', true);
+
+          if (usaDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(usaDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: usaDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (euroAmDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(euroAmDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: euroAmDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (euro24hDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(euro24hDate.toDate());
+              this.card.setPokerEnd(euro24hDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: euro24hDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (eurodotDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(eurodotDate.toDate());
+              this.card.setPokerEnd(eurodotDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: eurodotDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (minusDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(minusDate.toDate());
+              this.card.setPokerEnd(minusDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: minusDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (slashDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(slashDate.toDate());
+              this.card.setPokerEnd(slashDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: slashDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (dotDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(dotDate.toDate());
+              this.card.setPokerEnd(dotDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: dotDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (brezhonegDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(brezhonegDate.toDate());
+              this.card.setPokerEnd(brezhonegDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: brezhonegDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (hrvatskiDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(hrvatskiDate.toDate());
+              this.card.setPokerEnd(hrvatskiDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: hrvatskiDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (latviaDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(latviaDate.toDate());
+              this.card.setPokerEnd(latviaDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: latviaDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (nederlandsDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(nederlandsDate.toDate());
+              this.card.setPokerEnd(nederlandsDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: nederlandsDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (greekDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(greekDate.toDate());
+              this.card.setPokerEnd(greekDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: greekDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else if (macedonianDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(macedonianDate.toDate());
+              this.card.setPokerEnd(macedonianDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: macedonianDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else {
+            // this.error.set('invalid-date);
+            this.error.set('invalid-date' + ' ' + dateString);
+            evt.target.date.focus();
+          }
+        },
+        'click .js-delete-date'(evt) {
+          evt.preventDefault();
+          this._deleteDate();
+          Popup.close();
+        },
+      },
+    ];
+  }
+  _storeDate(newDate) {
+    this.card.setPokerEnd(newDate);
+  }
+  _deleteDate() {
+    this.card.unsetPokerEnd();
+  }
+}.register('editPokerEndDatePopup'));
 
 // Close the card details pane by pressing escape
 EscapeActions.register(

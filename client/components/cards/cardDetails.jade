@@ -1,22 +1,26 @@
 template(name="cardDetails")
-  section.card-details.js-card-details: .card-details-canvas
+  section.card-details.js-card-details(class='{{#if cardMaximized}}card-details-maximized{{/if}}'): .card-details-canvas
     .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
       else
         unless isMiniScreen
-          a.fa.fa-times-thin.close-card-details.js-close-card-details
+          a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+          unless cardMaximized
+            a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+          if cardMaximized
+            a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
           if currentUser.isBoardMember
-            a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
+            a.fa.fa-navicon.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             input.inline-input(type="text" id="cardURL_copy" value="{{ originRelativeUrl }}")
             a.fa.fa-link.card-copy-button.js-copy-link(
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
             )
         if isMiniScreen
-          a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details
+          a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details(title="{{_ 'close-card'}}")
           if currentUser.isBoardMember
-            a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu
+            a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             a.fa.fa-link.card-copy-mobile-button
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
@@ -41,286 +45,501 @@ template(name="cardDetails")
       else
         p.warning {{_ 'card-archived'}}
 
-    .card-details-items
-      if currentBoard.allowsLabels
-        .card-details-item.card-details-item-labels
-          h3.card-details-item-title
-            i.fa.fa-tags
-            | {{_ 'labels'}}
-          a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
-            each labels
-              span.card-label(class="card-label-{{color}}" title=name)
-                +viewer
-                  = name
-          if canModifyCard
-            unless currentUser.isWorker
-              a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-                i.fa.fa-plus
+    .card-details-left
 
-      if currentBoard.allowsReceivedDate
+      .card-details-items
+        if currentBoard.allowsLabels
+          .card-details-item.card-details-item-labels
+            h3.card-details-item-title
+              i.fa.fa-tags
+              | {{_ 'labels'}}
+            a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+              each labels
+                span.card-label(class="card-label-{{color}}" title=name)
+                  +viewer
+                    = name
+            if canModifyCard
+              unless currentUser.isWorker
+                a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+                  i.fa.fa-plus
+
+        if currentBoard.allowsReceivedDate
+          hr
+          .card-details-item.card-details-item-received
+            h3.card-details-item-title
+              i.fa.fa-sign-out
+              | {{_ 'card-received'}}
+            if getReceived
+              +cardReceivedDate
+            else
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.card-label.add-label.js-received-date
+                    i.fa.fa-plus
+
+        if currentBoard.allowsStartDate
+          .card-details-item.card-details-item-start
+            h3.card-details-item-title
+              i.fa.fa-hourglass-start
+              | {{_ 'card-start'}}
+            if getStart
+              +cardStartDate
+            else
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.card-label.add-label.js-start-date
+                    i.fa.fa-plus
+
+        if currentBoard.allowsDueDate
+          .card-details-item.card-details-item-due
+            h3.card-details-item-title
+              i.fa.fa-sign-in
+              | {{_ 'card-due'}}
+            if getDue
+              +cardDueDate
+            else
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.card-label.add-label.js-due-date
+                    i.fa.fa-plus
+
+        if currentBoard.allowsEndDate
+          .card-details-item.card-details-item-end
+            h3.card-details-item-title
+              i.fa.fa-hourglass-end
+              | {{_ 'card-end'}}
+            if getEnd
+              +cardEndDate
+            else
+              if canModifyCard
+                unless currentUser.isWorker
+                  a.card-label.add-label.js-end-date
+                    i.fa.fa-plus
+
         hr
-        .card-details-item.card-details-item-received
-          h3.card-details-item-title
-            i.fa.fa-sign-out
-            | {{_ 'card-received'}}
-          if getReceived
-            +cardReceivedDate
-          else
-            if canModifyCard
-              unless currentUser.isWorker
-                a.card-label.add-label.js-received-date
-                  i.fa.fa-plus
+        if currentBoard.allowsCreator
+          .card-details-item.card-details-item-creator
+            h3.card-details-item-title
+              i.fa.fa-user
+              | {{_ 'creator'}}
 
-      if currentBoard.allowsStartDate
-        .card-details-item.card-details-item-start
-          h3.card-details-item-title
-            i.fa.fa-hourglass-start
-            | {{_ 'card-start'}}
-          if getStart
-            +cardStartDate
-          else
-            if canModifyCard
-              unless currentUser.isWorker
-                a.card-label.add-label.js-start-date
-                  i.fa.fa-plus
-
-      if currentBoard.allowsDueDate
-        .card-details-item.card-details-item-due
-          h3.card-details-item-title
-            i.fa.fa-sign-in
-            | {{_ 'card-due'}}
-          if getDue
-            +cardDueDate
-          else
-            if canModifyCard
-              unless currentUser.isWorker
-                a.card-label.add-label.js-due-date
-                  i.fa.fa-plus
-
-      if currentBoard.allowsEndDate
-        .card-details-item.card-details-item-end
-          h3.card-details-item-title
-            i.fa.fa-hourglass-end
-            | {{_ 'card-end'}}
-          if getEnd
-            +cardEndDate
-          else
-            if canModifyCard
-              unless currentUser.isWorker
-                a.card-label.add-label.js-end-date
-                  i.fa.fa-plus
-
-      hr
-      if currentBoard.allowsCreator
-        .card-details-item.card-details-item-creator
-          h3.card-details-item-title
-            i.fa.fa-user
-            | {{_ 'creator'}}
-
-          +userAvatar(userId=userId noRemove=true)
-          | {{! XXX Hack to hide syntaxic coloration /// }}
-
-      //.card-details-items
-      if currentBoard.allowsMembers
-        .card-details-item.card-details-item-members
-          h3.card-details-item-title
-            i.fa.fa-users
-            | {{_ 'members'}}
-          each userId in getMembers
-            +userAvatar(userId=userId cardId=_id)
+            +userAvatar(userId=userId noRemove=true)
             | {{! XXX Hack to hide syntaxic coloration /// }}
-          if canModifyCard
-            unless currentUser.isWorker
-              a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-                i.fa.fa-plus
 
-      //if assigneeSelected
-      if currentBoard.allowsAssignee
-        .card-details-item.card-details-item-assignees
-          h3.card-details-item-title
-            i.fa.fa-user
-            | {{_ 'assignee'}}
-          each userId in getAssignees
-            +userAvatar(userId=userId cardId=_id assignee=true)
-            | {{! XXX Hack to hide syntaxic coloration /// }}
-          if canModifyCard
-            a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-              i.fa.fa-plus
-          if currentUser.isWorker
-            unless assigneeSelected
+        //.card-details-items
+        if currentBoard.allowsMembers
+          .card-details-item.card-details-item-members
+            h3.card-details-item-title
+              i.fa.fa-users
+              | {{_ 'members'}}
+            each userId in getMembers
+              +userAvatar(userId=userId cardId=_id)
+              | {{! XXX Hack to hide syntaxic coloration /// }}
+            if canModifyCard
+              unless currentUser.isWorker
+                a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+                  i.fa.fa-plus
+
+        //if assigneeSelected
+        if currentBoard.allowsAssignee
+          .card-details-item.card-details-item-assignees
+            h3.card-details-item-title
+              i.fa.fa-user
+              | {{_ 'assignee'}}
+            each userId in getAssignees
+              +userAvatar(userId=userId cardId=_id assignee=true)
+              | {{! XXX Hack to hide syntaxic coloration /// }}
+            if canModifyCard
               a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
                 i.fa.fa-plus
+            if currentUser.isWorker
+              unless assigneeSelected
+                a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                  i.fa.fa-plus
 
-      //.card-details-items
-      if getSpentTime
-        .card-details-item.card-details-item-spent
-          if getIsOvertime
-            h3.card-details-item-title
-              | {{_ 'overtime-hours'}}
-          else
-            h3.card-details-item-title
-              | {{_ 'spent-time-hours'}}
-          +cardSpentTime
+        //.card-details-items
+        if getSpentTime
+          .card-details-item.card-details-item-spent
+            if getIsOvertime
+              h3.card-details-item-title
+                | {{_ 'overtime-hours'}}
+            else
+              h3.card-details-item-title
+                | {{_ 'spent-time-hours'}}
+            +cardSpentTime
 
-      //.card-details-items
-      if currentBoard.allowsRequestedBy
-        .card-details-item.card-details-item-name
-          h3.card-details-item-title
-            i.fa.fa-shopping-cart
-            | {{_ 'requested-by'}}
-          if canModifyCard
-            unless currentUser.isWorker
-              +inlinedForm(classNames="js-card-details-requester")
-                +editCardRequesterForm
+        //.card-details-items
+        if currentBoard.allowsRequestedBy
+          .card-details-item.card-details-item-name
+            h3.card-details-item-title
+              i.fa.fa-shopping-cart
+              | {{_ 'requested-by'}}
+            if canModifyCard
+              unless currentUser.isWorker
+                +inlinedForm(classNames="js-card-details-requester")
+                  +editCardRequesterForm
+                else
+                  a.js-open-inlined-form
+                    if getRequestedBy
+                      +viewer
+                        = getRequestedBy
+                    else
+                      | {{_ 'add'}}
+            else if getRequestedBy
+              +viewer
+                = getRequestedBy
+
+        if currentBoard.allowsAssignedBy
+          .card-details-item.card-details-item-name
+            h3.card-details-item-title
+              i.fa.fa-user-plus
+              | {{_ 'assigned-by'}}
+            if canModifyCard
+              unless currentUser.isWorker
+                +inlinedForm(classNames="js-card-details-assigner")
+                  +editCardAssignerForm
+                else
+                  a.js-open-inlined-form
+                    if getAssignedBy
+                      +viewer
+                        = getAssignedBy
+                    else
+                      | {{_ 'add'}}
+            else if getRequestedBy
+              +viewer
+                = getAssignedBy
+
+        if currentBoard.allowsCardSortingByNumber
+          .card-details-item.card-details-sort-order
+            h3.card-details-item-title
+              i.fa.fa-sort
+              | {{_ 'sort'}}
+            if canModifyCard
+              +inlinedForm(classNames="js-card-details-sort")
+                +editCardSortOrderForm
               else
                 a.js-open-inlined-form
-                  if getRequestedBy
-                    +viewer
-                      = getRequestedBy
-                  else
-                    | {{_ 'add'}}
-          else if getRequestedBy
-            +viewer
-              = getRequestedBy
+                  +viewer
+                    = sort
 
-      if currentBoard.allowsAssignedBy
-        .card-details-item.card-details-item-name
-          h3.card-details-item-title
-            i.fa.fa-user-plus
-            | {{_ 'assigned-by'}}
-          if canModifyCard
-            unless currentUser.isWorker
-              +inlinedForm(classNames="js-card-details-assigner")
-                +editCardAssignerForm
-              else
-                a.js-open-inlined-form
-                  if getAssignedBy
-                    +viewer
-                      = getAssignedBy
-                  else
-                    | {{_ 'add'}}
-          else if getRequestedBy
-            +viewer
-              = getAssignedBy
+        //.card-details-items
+        if customFieldsWD
+          hr
+          each customFieldsWD
+            .card-details-item.card-details-item-customfield
+              h3.card-details-item-title
+                i.fa.fa-list-alt
+                = definition.name
+              +cardCustomField
 
-      //.card-details-items
-      if customFieldsWD
+      if getVoteQuestion
         hr
-        each customFieldsWD
-          .card-details-item.card-details-item-customfield
+        .vote-title
+          div.flex
+            h3
+              i.fa.fa-thumbs-up
+              | {{_ 'vote-question'}}
+            if getVoteEnd
+              +voteEndDate
+          .vote-result
+            if votePublic
+              a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
+              a.card-label.card-label-red.js-show-negative-votes {{ voteCountNegative }}
+            else
+              .card-label.card-label-green {{ voteCountPositive }}
+              .card-label.card-label-red {{ voteCountNegative }}
+            unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
+              .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+        +viewer
+          = getVoteQuestion
+        if showVotingButtons
+          button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}")
+            if voteState
+              i.fa.fa-thumbs-up
+            | {{_ 'vote-for-it'}}
+          button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}")
+            if $eq voteState false
+              i.fa.fa-thumbs-down
+            | {{_ 'vote-against'}}
+
+      if getPokerQuestion
+        hr
+        .poker-title
+          div.flex
+            h3
+              i.fa.fa-thumbs-up
+              | {{_ 'poker-question'}}
+            if getPokerEnd
+              +pokerEndDate
+          div.flex
+            .poker-result
+              if expiredPoker
+                unless ($and currentBoard.isPublic pokerAllowNonBoardMembers )
+                  .card-label.card-label-gray  {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+        if showPlanningPokerButtons
+          .poker-result
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-one(class="{{#if $eq pokerState 'one'}}poker-voted{{/if}}") {{_ 'poker-one'}}
+              if $eq pokerState "one"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-two(class="{{#if $eq pokerState 'two'}}poker-voted{{/if}}") {{_ 'poker-two'}}
+              if $eq pokerState "two"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-three(class="{{#if $eq pokerState 'three'}}poker-voted{{/if}}") {{_ 'poker-three'}}
+              if $eq pokerState "three"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-five(class="{{#if $eq pokerState 'five'}}poker-voted{{/if}}") {{_ 'poker-five'}}
+              if $eq pokerState "five"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-eight(class="{{#if $eq pokerState 'eight'}}poker-voted{{/if}}") {{_ 'poker-eight'}}
+              if $eq pokerState "eight"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-thirteen(class="{{#if $eq pokerState 'thirteen'}}poker-voted{{/if}}") {{_ 'poker-thirteen'}}
+              if $eq pokerState "thirteen"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-twenty(class="{{#if $eq pokerState 'twenty'}}poker-voted{{/if}}") {{_ 'poker-twenty'}}
+              if $eq pokerState "twenty"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-forty(class="{{#if $eq pokerState 'forty'}}poker-voted{{/if}}") {{_ 'poker-forty'}}
+              if $eq pokerState "forty"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-one-hundred(class="{{#if $eq pokerState 'oneHundred'}}poker-voted{{/if}}") {{_ 'poker-oneHundred'}}
+              if $eq pokerState "oneHundred"
+                i.fa.fa-check
+            .poker-deck
+              .poker-card
+                span.inner.js-poker.js-poker-vote-unsure(class="{{#if $eq pokerState 'unsure'}}poker-voted{{/if}}") {{_ 'poker-unsure'}}
+              if $eq pokerState "unsure"
+                i.fa.fa-check
+
+          if currentUser.isBoardAdmin
+            button.card-details-blue.js-poker-finish(class="{{#if $eq voteState false}}poker-voted{{/if}}") {{_ 'poker-finish'}}
+
+        if expiredPoker
+          .poker-table
+            .poker-table-side-left
+              .poker-table-heading-left
+                .poker-table-row
+                  .poker-table-cell
+                  .poker-table-cell
+                    | {{_ 'poker-result-votes' }}
+                  .poker-table-cell.poker-table-cell-who
+                    | {{_ 'poker-result-who' }}
+              .poker-table-body
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 1}}winner{{else}}loser{{/if}}") {{_ 'poker-one'}}
+                  .poker-table-cell {{ pokerCountOne }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberOne
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 2}}winner{{else}}loser{{/if}}") {{_ 'poker-two'}}
+                  .poker-table-cell {{ pokerCountTwo }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberTwo
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 3}}winner{{else}}loser{{/if}}") {{_ 'poker-three'}}
+                  .poker-table-cell {{ pokerCountThree }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberThree
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 5}}winner{{else}}loser{{/if}}") {{_ 'poker-five'}}
+                  .poker-table-cell {{ pokerCountFive }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberFive
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 8}}winner{{else}}loser{{/if}}") {{_ 'poker-eight'}}
+                  .poker-table-cell {{ pokerCountEight }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberEight
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+            .poker-table-side-right
+              .poker-table-heading-right
+                .poker-table-row
+                  .poker-table-cell
+                  .poker-table-cell
+                    | {{_ 'poker-result-votes' }}
+                  .poker-table-cell.poker-table-cell-who
+                    | {{_ 'poker-result-who' }}
+              .poker-table-body
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 13}}winner{{else}}loser{{/if}}") {{_ 'poker-thirteen'}}
+                  .poker-table-cell {{ pokerCountThirteen }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberThirteen
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 20}}winner{{else}}loser{{/if}}") {{_ 'poker-twenty'}}
+                  .poker-table-cell {{ pokerCountTwenty }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberTwenty
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 40}}winner{{else}}loser{{/if}}") {{_ 'poker-forty'}}
+                  .poker-table-cell {{ pokerCountForty }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberForty
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 100}}winner{{else}}loser{{/if}}") {{_ 'poker-oneHundred'}}
+                  .poker-table-cell {{ pokerCountOneHundred }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberOneHundred
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+                .poker-table-row
+                  .poker-table-cell
+                    button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 'unsure'}}winner{{else}}loser{{/if}}") {{_ 'poker-unsure'}}
+                  .poker-table-cell {{ pokerCountUnsure }}
+                  .poker-table-cell.poker-table-cell-who
+                    .poker-result
+                        each m in pokerMemberUnsure
+                          a.name
+                            +userAvatar(userId=m._id noRemove=true)
+
+          if currentUser.isBoardAdmin
+            div.estimation-add
+              button.card-details-red.js-poker-replay(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'poker-replay'}}
+            div.estimation-add
+              button.js-poker-estimation
+                i.fa.fa-plus
+                | {{_ 'set-estimation'}}
+              input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
+
+      //- XXX We should use "editable" to avoid repetiting ourselves
+      if canModifyCard
+        unless currentUser.isWorker
+          if currentBoard.allowsDescriptionTitle
+            hr
             h3.card-details-item-title
-              i.fa.fa-list-alt
-              = definition.name
-            +cardCustomField
-
-    if getVoteQuestion
-      hr
-      .vote-title
-        div.flex
-          h3
-            i.fa.fa-thumbs-up
-            | {{_ 'vote-question'}}
-          if getVoteEnd
-            +voteEndDate
-        .vote-result
-          if votePublic
-            a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
-            a.card-label.card-label-red.js-show-negative-votes {{ voteCountNegative }}
-          else
-            .card-label.card-label-green {{ voteCountPositive }}
-            .card-label.card-label-red {{ voteCountNegative }}
-          unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
-            .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
-      +viewer
-        = getVoteQuestion
-      if showVotingButtons
-        button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}")
-          if voteState
-            i.fa.fa-thumbs-up
-          | {{_ 'vote-for-it'}}
-        button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}")
-          if $eq voteState false
-            i.fa.fa-thumbs-down
-          | {{_ 'vote-against'}}
-
-    //- XXX We should use "editable" to avoid repetiting ourselves
-    if canModifyCard
-      unless currentUser.isWorker
+              i.fa.fa-align-left
+              | {{_ 'description'}}
+          if currentBoard.allowsDescriptionText
+            +inlinedCardDescription(classNames="card-description js-card-description")
+              +descriptionForm
+              .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form
+            else
+              if currentBoard.allowsDescriptionText
+                a.js-open-inlined-form
+                  if getDescription
+                    +viewer
+                      = getDescription
+                  else
+                    | {{_ 'edit'}}
+                if (hasUnsavedValue 'cardDescription' _id)
+                  p.quiet
+                    | {{_ 'unsaved-description'}}
+                    a.js-open-inlined-form {{_ 'view-it'}}
+                    = ' - '
+                    a.js-close-inlined-form {{_ 'discard'}}
+      else if getDescription
         if currentBoard.allowsDescriptionTitle
           hr
-          h3.card-details-item-title
-            i.fa.fa-align-left
-            | {{_ 'description'}}
+          h3.card-details-item-title {{_ 'description'}}
         if currentBoard.allowsDescriptionText
-          +inlinedCardDescription(classNames="card-description js-card-description")
-            +descriptionForm
-            .edit-controls.clearfix
-              button.primary(type="submit") {{_ 'save'}}
-              a.fa.fa-times-thin.js-close-inlined-form
-          else
-            if currentBoard.allowsDescriptionText
-              a.js-open-inlined-form
-                if getDescription
-                  +viewer
-                    = getDescription
-                else
-                  | {{_ 'edit'}}
-              if (hasUnsavedValue 'cardDescription' _id)
-                p.quiet
-                  | {{_ 'unsaved-description'}}
-                  a.js-open-inlined-form {{_ 'view-it'}}
-                  = ' - '
-                  a.js-close-inlined-form {{_ 'discard'}}
-    else if getDescription
-      if currentBoard.allowsDescriptionTitle
-        hr
-        h3.card-details-item-title {{_ 'description'}}
-      if currentBoard.allowsDescriptionText
-        +viewer
-          = getDescription
+          +viewer
+            = getDescription
 
-    .card-checklist-attachmentGalerys
-      .card-checklist-attachmentGalery.card-checklists
-        if currentBoard.allowsChecklists
+      .card-checklist-attachmentGalerys
+        .card-checklist-attachmentGalery.card-checklists
+          if currentBoard.allowsChecklists
+            hr
+            +checklists(cardId = _id)
+          if currentBoard.allowsSubtasks
+            hr
+            +subtasks(cardId = _id)
+        if currentBoard.allowsAttachments
           hr
-          +checklists(cardId = _id)
-        if currentBoard.allowsSubtasks
-          hr
-          +subtasks(cardId = _id)
-      if currentBoard.allowsAttachments
-        hr
-        h3.card-details-item-title
-          i.fa.fa-paperclip
-          | {{_ 'attachments'}}
-        .card-checklist-attachmentGalery.card-attachmentGalery
-          +attachmentsGalery
+          h3.card-details-item-title
+            i.fa.fa-paperclip
+            | {{_ 'attachments'}}
+          .card-checklist-attachmentGalery.card-attachmentGalery
+            +attachmentsGalery
 
-    hr
-    unless currentUser.isNoComments
-      .activity-title
-        h3.card-details-item-title
-          i.fa.fa-history
-          | {{ _ 'activity'}}
+    .card-details-right
+
+      unless currentUser.isNoComments
+        .activity-title
+          h3.card-details-item-title
+            i.fa.fa-history
+            | {{ _ 'activity'}}
+          if currentUser.isBoardMember
+            .material-toggle-switch(title="{{_ 'hide-system-messages'}}")
+              //span.toggle-switch-title
+              if hiddenSystemMessages
+                input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
+              else
+                input.toggle-switch(type="checkbox" id="toggleButton")
+              label.toggle-label(for="toggleButton")
+      if currentBoard.allowsComments
         if currentUser.isBoardMember
-          .material-toggle-switch
-            span.toggle-switch-title {{_ 'hide-system-messages'}}
-            if hiddenSystemMessages
-              input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
-            else
-              input.toggle-switch(type="checkbox" id="toggleButton")
-            label.toggle-label(for="toggleButton")
-    if currentBoard.allowsComments
-      if currentUser.isBoardMember
-        unless currentUser.isNoComments
-          +commentForm
-    unless currentUser.isNoComments
-      if isLoaded.get
-        if isLinkedCard
-          +activities(card=this mode="linkedcard")
-        else if isLinkedBoard
-          +activities(card=this mode="linkedboard")
-        else
-          +activities(card=this mode="card")
+          unless currentUser.isNoComments
+            +commentForm
+      unless currentUser.isNoComments
+        if isLoaded.get
+          if isLinkedCard
+            +activities(card=this mode="linkedcard")
+          else if isLinkedBoard
+            +activities(card=this mode="linkedboard")
+          else
+            +activities(card=this mode="card")
 
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus dir="auto")
@@ -341,6 +560,12 @@ template(name="editCardAssignerForm")
     button.primary.confirm.js-submit-edit-card-assigner-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
 
+template(name="editCardSortOrderForm")
+  input.js-edit-card-sort(type='text' autofocus value=sort dir="auto")
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-card-sort-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+
 template(name="cardDetailsActionsPopup")
   ul.pop-over-list
     li
@@ -351,9 +576,9 @@ template(name="cardDetailsActionsPopup")
         else
           i.fa.fa-eye-slash
           |  {{_ 'watch'}}
+  hr
   if canModifyCard
     unless currentUser.isWorker
-      hr
       ul.pop-over-list
         //li: a.js-members {{_ 'card-edit-members'}}
         //li: a.js-labels {{_ 'card-edit-labels'}}
@@ -362,6 +587,10 @@ template(name="cardDetailsActionsPopup")
           a.js-start-voting
             i.fa.fa-thumbs-up
             | {{_ 'card-edit-voting'}}
+        li
+          a.js-start-planning-poker
+            i.fa.fa-thumbs-up
+            | {{_ 'card-edit-planning-poker'}}
         if currentUser.isBoardAdmin
           li
             a.js-custom-fields
@@ -379,50 +608,63 @@ template(name="cardDetailsActionsPopup")
           a.js-set-card-color
             i.fa.fa-paint-brush
             | {{_ 'setCardColorPopup-title'}}
-      hr
-    ul.pop-over-list
+  hr
+  ul.pop-over-list
+    li
+      a.js-export-card
+        i.fa.fa-share-alt
+        | {{_ 'export-card'}}
+  hr
+  ul.pop-over-list
+    li
+      a.js-move-card-to-top
+        i.fa.fa-arrow-up
+        | {{_ 'moveCardToTop-title'}}
+    li
+      a.js-move-card-to-bottom
+        i.fa.fa-arrow-down
+        | {{_ 'moveCardToBottom-title'}}
+  hr
+  ul.pop-over-list
+    if currentUser.isBoardAdmin
       li
-        a.js-move-card-to-top
-          i.fa.fa-arrow-up
-          | {{_ 'moveCardToTop-title'}}
-      li
-        a.js-move-card-to-bottom
-          i.fa.fa-arrow-down
-          | {{_ 'moveCardToBottom-title'}}
-      hr
-    ul.pop-over-list
-      if currentUser.isBoardAdmin
-        li
-          a.js-move-card
-            i.fa.fa-arrow-right
-            | {{_ 'moveCardPopup-title'}}
-      unless currentUser.isWorker
-        li
-          a.js-copy-card
-            i.fa.fa-copy
-            | {{_ 'copyCardPopup-title'}}
+        a.js-move-card
+          i.fa.fa-arrow-right
+          | {{_ 'moveCardPopup-title'}}
     unless currentUser.isWorker
+      li
+        a.js-copy-card
+          i.fa.fa-copy
+          | {{_ 'copyCardPopup-title'}}
+  unless currentUser.isWorker
+    hr
+    ul.pop-over-list
+      li
+        a.js-copy-checklist-cards
+          i.fa.fa-list
+          i.fa.fa-copy
+          | {{_ 'copyChecklistToManyCardsPopup-title'}}
+    unless archived
       hr
       ul.pop-over-list
         li
-          a.js-copy-checklist-cards
-            i.fa.fa-list
-            i.fa.fa-copy
-            | {{_ 'copyChecklistToManyCardsPopup-title'}}
-      unless archived
-        hr
-        ul.pop-over-list
-          li
-            a.js-archive
-              i.fa.fa-arrow-right
-              i.fa.fa-archive
-              | {{_ 'archive-card'}}
-      hr
-      ul.pop-over-list
-        li
-          a.js-more
-            i.fa.fa-link
-            | {{_ 'cardMorePopup-title'}}
+          a.js-archive
+            i.fa.fa-arrow-right
+            i.fa.fa-archive
+            | {{_ 'archive-card'}}
+    hr
+    ul.pop-over-list
+      li
+        a.js-more
+          i.fa.fa-link
+          | {{_ 'cardMorePopup-title'}}
+
+template(name="exportCardPopup")
+  ul.pop-over-list
+    li
+      a(href="{{exportUrlCardPDF}}",, download="{{exportFilenameCardPDF}}")
+        i.fa.fa-share-alt
+        | {{_ 'export-card-pdf'}}
 
 template(name="moveCardPopup")
   +boardsAndLists
@@ -621,3 +863,29 @@ template(name="negativeVoteMembersPopup")
           span.full-name
             = m.profile.fullname
             | (<span class="username">{{ m.username }}</span>)
+
+template(name="deletePokerPopup")
+  p {{_ "poker-delete-pop"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="cardStartPlanningPokerPopup")
+  form.edit-poker-question
+    .fields
+      .check-div
+        a.flex(class="{{#if getPokerQuestion}}is-disabled{{else}}js-toggle-poker-allow-non-members{{/if}}")
+          .materialCheckBox#poker-allow-non-members(name="poker-allow-non-members" class="{{#if pokerAllowNonBoardMembers}}is-checked{{/if}}")
+          span {{_ 'allowNonBoardMembers'}}
+      .check-div.flex
+        i.fa.fa-hourglass-end
+        a.js-end-date
+          span
+            | {{_ 'card-end'}}
+            unless getPokerEnd
+              i.fa.fa-plus
+        if getPokerEnd
+          +pokerEndDate
+
+    button.primary.js-submit {{_ 'save'}}
+    if getPokerQuestion
+      if currentUser.isBoardAdmin
+        button.js-remove-poker.negate.wide.right {{_ 'delete'}}

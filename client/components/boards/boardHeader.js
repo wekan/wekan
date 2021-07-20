@@ -209,24 +209,79 @@ const CreateBoard = BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
   },
 
+  toggleAddTemplateContainer() {
+    $('#add-template-container').toggleClass('is-checked');
+  },
+
   onSubmit(event) {
     event.preventDefault();
     const title = this.find('.js-new-board-title').value;
-    const visibility = this.visibility.get();
 
-    this.boardId.set(
-      Boards.insert({
-        title,
-        permission: visibility,
-      }),
-    );
+    const addTemplateContainer = $('#add-template-container.is-checked').length > 0;
+    if (addTemplateContainer) {
+      //const templateContainerId = Meteor.call('setCreateTemplateContainer');
+      //Utils.goBoardId(templateContainerId);
+      //alert('niinku template ' + Meteor.call('setCreateTemplateContainer'));
 
-    Swimlanes.insert({
-      title: 'Default',
-      boardId: this.boardId.get(),
-    });
+      this.boardId.set(
+        Boards.insert({
+            // title: TAPi18n.__('templates'),
+            title: title,
+            permission: 'private',
+            type: 'template-container',
+          }),
+       );
 
-    Utils.goBoardId(this.boardId.get());
+      // Insert the card templates swimlane
+      Swimlanes.insert({
+          // title: TAPi18n.__('card-templates-swimlane'),
+          title: 'Card Templates',
+          boardId: this.boardId.get(),
+          sort: 1,
+          type: 'template-container',
+        }),
+
+      // Insert the list templates swimlane
+      Swimlanes.insert(
+        {
+          // title: TAPi18n.__('list-templates-swimlane'),
+          title: 'List Templates',
+          boardId: this.boardId.get(),
+          sort: 2,
+          type: 'template-container',
+        },
+      );
+
+      // Insert the board templates swimlane
+      Swimlanes.insert(
+        {
+          //title: TAPi18n.__('board-templates-swimlane'),
+          title: 'Board Templates',
+          boardId: this.boardId.get(),
+          sort: 3,
+          type: 'template-container',
+        },
+      );
+
+      Utils.goBoardId(this.boardId.get());
+
+    } else {
+      const visibility = this.visibility.get();
+
+      this.boardId.set(
+        Boards.insert({
+          title,
+          permission: visibility,
+        }),
+      );
+
+      Swimlanes.insert({
+        title: 'Default',
+        boardId: this.boardId.get(),
+      });
+
+      Utils.goBoardId(this.boardId.get());
+    }
   },
 
   events() {
@@ -240,6 +295,7 @@ const CreateBoard = BlazeComponent.extendComponent({
         submit: this.onSubmit,
         'click .js-import-board': Popup.open('chooseBoardSource'),
         'click .js-board-template': Popup.open('searchElement'),
+        'click .js-toggle-add-template-container': this.toggleAddTemplateContainer,
       },
     ];
   },

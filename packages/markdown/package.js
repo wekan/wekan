@@ -17,8 +17,6 @@ Package.onUse(function (api) {
 	api.export('Markdown', ['server', 'client']);
 
   api.use('ui', 'client', {weak: true});
-  api.use('tmeasday:check-npm-versions', 'client');
 
-  api.add_files('src/checkNpmVersions.js', 'client');
 	api.add_files('src/template-integration.js', 'client');
 });

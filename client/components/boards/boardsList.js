@@ -22,6 +22,15 @@ Template.boardListHeaderBar.helpers({
 BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
+    let currUser = Meteor.user();
+    let userLanguage;
+    if(currUser && currUser.profile){
+      userLanguage = currUser.profile.language
+    }
+    if (userLanguage) {
+      TAPi18n.setLanguage(userLanguage);
+      T9n.setLanguage(userLanguage);
+    }
   },
 
   onRendered() {
@@ -79,6 +88,7 @@ BlazeComponent.extendComponent({
   boards() {
     const query = {
       archived: false,
+      //type: { $in: ['board','template-container'] },
       type: 'board',
     };
     if (FlowRouter.getRouteName() === 'home')

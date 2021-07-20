@@ -36,11 +36,19 @@ Org.attachSchema(
       optional: true,
       max: 255,
     },
+    orgIsActive: {
+      /**
+       * status of the organization
+       */
+      type: Boolean,
+      optional: true,
+    },
     createdAt: {
       /**
        * creation date of the organization
        */
       type: Date,
+      denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert) {
@@ -68,6 +76,44 @@ Org.attachSchema(
 );
 
 if (Meteor.isServer) {
+  Org.allow({
+    insert(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    update(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    remove(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    fetch: [],
+  });
+
+
   Meteor.methods({
     setCreateOrg(
       orgDisplayName,
@@ -81,7 +127,7 @@ if (Meteor.isServer) {
         check(orgDesc, String);
         check(orgShortName, String);
         check(orgWebsite, String);
-        check(orgIsActive, String);
+        check(orgIsActive, Boolean);
 
         const nOrgNames = Org.find({ orgShortName }).count();
         if (nOrgNames > 0) {
@@ -100,17 +146,17 @@ if (Meteor.isServer) {
 
     setOrgDisplayName(org, orgDisplayName) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(org, String);
+        check(org, Object);
         check(orgDisplayName, String);
         Org.update(org, {
-          $set: { orgDisplayName: orgDisplayName },
+          $set: { orgDisplayName: orgDisplayNameorgShortName },
         });
       }
     },
 
     setOrgDesc(org, orgDesc) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(org, String);
+        check(org, Object);
         check(orgDesc, String);
         Org.update(org, {
           $set: { orgDesc: orgDesc },
@@ -120,7 +166,7 @@ if (Meteor.isServer) {
 
     setOrgShortName(org, orgShortName) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(org, String);
+        check(org, Object);
         check(orgShortName, String);
         Org.update(org, {
           $set: { orgShortName: orgShortName },
@@ -130,10 +176,37 @@ if (Meteor.isServer) {
 
     setOrgIsActive(org, orgIsActive) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(org, String);
-        check(orgIsActive, String);
+        check(org, Object);
+        check(orgIsActive, Boolean);
         Org.update(org, {
           $set: { orgIsActive: orgIsActive },
+        });
+      }
+    },
+
+    setOrgAllFields(
+      org,
+      orgDisplayName,
+      orgDesc,
+      orgShortName,
+      orgWebsite,
+      orgIsActive,
+    ) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(org, Object);
+        check(orgDisplayName, String);
+        check(orgDesc, String);
+        check(orgShortName, String);
+        check(orgWebsite, String);
+        check(orgIsActive, Boolean);
+        Org.update(org, {
+          $set: {
+            orgDisplayName: orgDisplayName,
+            orgDesc: orgDesc,
+            orgShortName: orgShortName,
+            orgWebsite: orgWebsite,
+            orgIsActive: orgIsActive,
+          },
         });
       }
     },
@@ -143,7 +216,8 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   // Index for Organization name.
   Meteor.startup(() => {
-    Org._collection._ensureIndex({ name: -1 });
+    // Org._collection._ensureIndex({ name: -1 });
+    Org._collection._ensureIndex({ orgDisplayName: -1 });
   });
 }
 
