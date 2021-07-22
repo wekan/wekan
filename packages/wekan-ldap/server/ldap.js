@@ -226,7 +226,7 @@ export default class LDAP {
       return;
     }
 
-
+    /* if SimpleAuth is configured, the BaseDN is not needed */
     if (!this.options.BaseDN && !this.options.AD_Simple_Auth) throw new Error('BaseDN is not provided');
 
     var userDn = "";
