@@ -571,6 +571,7 @@ services:
       #- LDAP_SYNC_GROUP_ROLES=
       #
       # The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
+      # In case SimpleAuth with AD is configured, the default domain is appended to the given loginname for creating the correct username for the bind request to AD
       # example :
       #- LDAP_DEFAULT_DOMAIN=mydomain.com
       #
