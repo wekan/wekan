@@ -439,6 +439,12 @@ services:
       #
       # The host server for the LDAP server
       #- LDAP_HOST=localhost
+	    #
+      # set to true, if you want to connect with Active Directory by Simple Authentication
+      - LDAP_AD_SIMPLE_AUTH=true
+      #
+      # set to true, if the login user is used for binding
+      - LDAP_USER_AUTHENTICATION=true
       #
       # The base DN for the LDAP Tree
       #- LDAP_BASEDN=ou=user,dc=example,dc=org
@@ -565,6 +571,7 @@ services:
       #- LDAP_SYNC_GROUP_ROLES=
       #
       # The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
+      # In case SimpleAuth with AD is configured, the default domain is appended to the given loginname for creating the correct username for the bind request to AD
       # example :
       #- LDAP_DEFAULT_DOMAIN=mydomain.com
       #
