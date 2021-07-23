@@ -627,6 +627,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
+  'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-move-card-to-top'(event) {
@@ -787,6 +788,34 @@ Template.copyCardPopup.events({
       Filter.addException(_id);
 
       Popup.close();
+    }
+  },
+});
+
+Template.convertChecklistItemToCardPopup.events({
+  'click .js-done'() {
+    const card = Cards.findOne(Session.get('currentCard'));
+    const lSelect = $('.js-select-lists')[0];
+    const listId = lSelect.options[lSelect.selectedIndex].value;
+    const slSelect = $('.js-select-swimlanes')[0];
+    const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+    const bSelect = $('.js-select-boards')[0];
+    const boardId = bSelect.options[bSelect.selectedIndex].value;
+    const textarea = $('#copy-card-title');
+    const title = textarea.val().trim();
+
+    if (title) {
+      const _id = Cards.insert({
+        title: title,
+        listId: listId,
+        boardId: boardId,
+        swimlaneId: swimlaneId,
+        sort: 0,
+      });
+      Filter.addException(_id);
+
+      Popup.close();
+
     }
   },
 });
