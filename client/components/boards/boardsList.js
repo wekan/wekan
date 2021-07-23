@@ -87,16 +87,52 @@ BlazeComponent.extendComponent({
 
   boards() {
     const query = {
-      archived: false,
-      //type: { $in: ['board','template-container'] },
-      type: 'board',
+      //archived: false,
+      ////type: { $in: ['board','template-container'] },
+      //type: 'board',
+      $and: [
+        { archived: false },
+        { type: 'board' },
+        { $or:[] }
+      ]
     };
-    if (FlowRouter.getRouteName() === 'home')
-      query['members.userId'] = Meteor.userId();
+    if (FlowRouter.getRouteName() === 'home'){
+      query.$and[2].$or.push({'members.userId': Meteor.userId()});
+
+      const currUser = Users.findOne(Meteor.userId());
+
+      // const currUser = Users.findOne(Meteor.userId(), {
+      //   fields: {
+      //     orgs: 1,
+      //     teams: 1,
+      //   },
+      // });
+
+      let orgIdsUserBelongs = currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
+      if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
+        let orgsIds = orgIdsUserBelongs.split(',');
+        // for(let i = 0; i < orgsIds.length; i++){
+        //   query.$and[2].$or.push({'orgs.orgId': orgsIds[i]});
+        // }
+
+        //query.$and[2].$or.push({'orgs': {$elemMatch : {orgId: orgsIds[0]}}});
+        query.$and[2].$or.push({'orgs.orgId': {$in : orgsIds}});
+      }
+
+      let teamIdsUserBelongs = currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
+      if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
+        let teamsIds = teamIdsUserBelongs.split(',');
+        // for(let i = 0; i < teamsIds.length; i++){
+        //   query.$or[2].$or.push({'teams.teamId': teamsIds[i]});
+        // }
+        //query.$and[2].$or.push({'teams': { $elemMatch : {teamId: teamsIds[0]}}});
+        query.$and[2].$or.push({'teams.teamId': {$in : teamsIds}});
+      }
+    }
     else query.permission = 'public';
 
     return Boards.find(query, {
-      sort: { sort: 1 /* boards default sorting */ },
+      //sort: { sort: 1 /* boards default sorting */ },
     });
   },
   isStarred() {
