@@ -1,3 +1,7 @@
+import Cards from '/models/cards';
+import Boards from '/models/boards';
+
+const subManager = new SubsManager();
 const { calculateIndexData, capitalize } = Utils;
 
 function initSorting(items) {
@@ -206,6 +210,7 @@ BlazeComponent.extendComponent({
         'submit .js-edit-checklist-title': this.editChecklist,
         'submit .js-add-checklist-item': this.addChecklistItem,
         'submit .js-edit-checklist-item': this.editChecklistItem,
+        'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
         'click .js-delete-checklist-item': this.deleteItem,
         'click .confirm-checklist-delete': this.deleteChecklist,
         'focus .js-add-checklist-item': this.focusChecklistItem,
@@ -214,6 +219,47 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('checklists');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    subManager.subscribe('board', Session.get('currentBoard'), false);
+    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+  },
+
+  boards() {
+    return Boards.find(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+        _id: { $ne: Meteor.user().getTemplatesBoardId() },
+      },
+      {
+        sort: { sort: 1 /* boards default sorting */ },
+      },
+    );
+  },
+
+  swimlanes() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.swimlanes();
+  },
+
+  aBoardLists() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.lists();
+  },
+
+  events() {
+    return [
+      {
+        'change .js-select-boards'(event) {
+          this.selectedBoardId.set($(event.currentTarget).val());
+          subManager.subscribe('board', this.selectedBoardId.get(), false);
+        },
+      },
+    ];
+  },
+}).register('boardsSwimlanesAndLists');
 
 Template.checklists.helpers({
   hideCheckedItems() {
