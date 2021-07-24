@@ -230,7 +230,7 @@ export default class LDAP {
     if (!this.options.BaseDN && !this.options.AD_Simple_Auth) throw new Error('BaseDN is not provided');
 
     var userDn = "";
-    if (this.options.AD_Simple_Auth === true) {
+    if (this.options.AD_Simple_Auth === true || this.options.AD_Simple_Auth === 'true') {
       userDn = `${username}@${this.options.Default_Domain}`;
     } else {
       userDn = `${this.options.User_Authentication_Field}=${username},${this.options.BaseDN}`;

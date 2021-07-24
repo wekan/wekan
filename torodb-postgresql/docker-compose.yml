@@ -372,10 +372,43 @@ services:
       # example : LDAP_HOST=localhost
       #- LDAP_HOST=
       #
+      #-----------------------------------------------------------------
+      # ==== LDAP AD Simple Auth ====
+      #
+      # Set to true, if you want to connect with Active Directory by Simple Authentication.
+      # When using AD Simple Auth, LDAP_BASEDN is not needed.
+      #- LDAP_AD_SIMPLE_AUTH=true
+      #
+      # === Related settings ELSEWHERE IN THIS FILE, NOT HERE ===
+      #
+      # Option to login to the LDAP server with the user's own username and password, instead of
+      # an administrator key. Default: false (use administrator key). When using AD Simple Auth, set to true.
+      # Set to true, if the login user is used for binding. Used with AD Simple Auth.
+      # When using AD Simple Auth, LDAP_BASEDN is not needed.
+      ##ELSEWHERE IN THIS SETTINGS FILE, NOT HERE: #- LDAP_USER_AUTHENTICATION=true
+      #
+      # Which field is used to find the user for the user authentication. Default: uid.
+      ##ELSEWHERE IN THIS SETTINGS FILE, NOT HERE:#- LDAP_USER_AUTHENTICATION_FIELD=uid
+      #
+      # === LDAP Default Domain: 2 different use cases, a/b ===
+      #
+      # a) The default domain of the ldap it is used to create email if the field is not map
+      #     correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
+      #
+      # b) In case AD SimpleAuth is configured, the default domain is appended to the given
+      #    loginname for creating the correct username for the bind request to AD.
+      #
+      # Example :
+      ##ELSEWHERE IN THIS SETTINGS FILE, NOT HERE:- LDAP_DEFAULT_DOMAIN=mydomain.com
+      #
+      #-----------------------------------------------------------------
+      # ==== LDAP BASEDN Auth ====
+      #
       # LDAP_BASEDN : The base DN for the LDAP Tree
       # example : LDAP_BASEDN=ou=user,dc=example,dc=org
       #- LDAP_BASEDN=
       #
+      #-----------------------------------------------------------------
       # LDAP_LOGIN_FALLBACK : Fallback on the default authentication method
       # example : LDAP_LOGIN_FALLBACK=true
       #- LDAP_LOGIN_FALLBACK=false
@@ -504,7 +537,7 @@ services:
       # LDAP_MERGE_EXISTING_USERS :
       # example : LDAP_MERGE_EXISTING_USERS=true
       #- LDAP_MERGE_EXISTING_USERS=false
-      #-----------------------------------------------------------------
+      #
       # LDAP_SYNC_USER_DATA :
       # example : LDAP_SYNC_USER_DATA=true
       #- LDAP_SYNC_USER_DATA=false
@@ -520,6 +553,7 @@ services:
       # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
       # example :
       #- LDAP_DEFAULT_DOMAIN=
+      #
       #---------------------------------------------------------------------
       # ==== LOGOUT TIMER, probably does not work yet ====
       # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
