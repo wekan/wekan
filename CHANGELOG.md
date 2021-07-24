@@ -16,6 +16,11 @@ This release adds the following new features:
 - [Convert Checklist Item to Card](https://github.com/wekan/wekan/pull/3910).
   Thanks to helioguardabaxo.
 
+and adds the following new translations:
+
+- [English (Italy)](https://github.com/wekan/wekan/commit/ae73029dda63db361925e378202e6f8c137cf5bd).
+  Thanks to translators.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.38 2021-07-18 Wekan release
