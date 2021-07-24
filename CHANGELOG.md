@@ -13,6 +13,8 @@ This release adds the following new features:
   platforms](https://github.com/wekan/wekan/commit/fe40f35d6d9b6293f3bdbf5bc0f3e8e708c59518)
   and Docs to https://github.com/wekan/wekan/wiki/LDAP-AD-Simple-Auth .
   Thanks to xet7.
+- [Convert Checklist Item to Card](https://github.com/wekan/wekan/pull/3910).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
