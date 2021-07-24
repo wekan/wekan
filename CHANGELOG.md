@@ -15,6 +15,9 @@ This release adds the following new features:
   Thanks to xet7.
 - [Convert Checklist Item to Card](https://github.com/wekan/wekan/pull/3910).
   Thanks to helioguardabaxo.
+- [Organizations and Teams are taken into account when displaying board at
+  `All Boards` page](https://github.com/wekan/wekan/pull/3912).
+  Thanks to Emile840.
 
 and adds the following new translations:
 
