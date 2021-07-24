@@ -13,6 +13,17 @@ Meteor.publish('boards', function() {
   const { starredBoards = [] } = (Users.findOne(userId) || {}).profile || {};
   check(starredBoards, [String]);
 
+  let currUser = Users.findOne(userId);
+  let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
+  let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
+  let orgsIds = [];
+  let teamsIds = [];
+  if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
+    orgsIds = orgIdsUserBelongs.split(',');
+  }
+  if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
+    teamsIds = teamIdsUserBelongs.split(',');
+  }
   return Boards.find(
     {
       archived: false,
@@ -22,6 +33,8 @@ Meteor.publish('boards', function() {
           permission: 'public',
         },
         { members: { $elemMatch: { userId, isActive: true } } },
+        {'orgs.orgId': {$in : orgsIds}},
+        {'teams.teamId': {$in : teamsIds}},
       ],
     },
     {
@@ -82,11 +95,22 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
   check(isArchived, Boolean);
   const thisUserId = this.userId;
   const $or = [{ permission: 'public' }];
+  let currUser =  (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : Users.findOne(thisUserId);
+  let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
+  let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
+  let orgsIds = [];
+  let teamsIds = [];
+  if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
+    orgsIds = orgIdsUserBelongs.split(',');
+  }
+  if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
+    teamsIds = teamIdsUserBelongs.split(',');
+  }
 
   if (thisUserId) {
-    $or.push({
-      members: { $elemMatch: { userId: thisUserId, isActive: true } },
-    });
+    $or.push({members: { $elemMatch: { userId: thisUserId, isActive: true } }});
+    $or.push({'orgs.orgId': {$in : orgsIds}});
+    $or.push({'teams.teamId': {$in : teamsIds}});
   }
 
   this.cursor(
