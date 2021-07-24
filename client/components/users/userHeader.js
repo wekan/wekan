@@ -186,6 +186,8 @@ Template.changeLanguagePopup.helpers({
         name = 'Latviešu';
       } else if (lang.name === 'latviešu valoda') {
         name = 'Latviešu';
+      } else if (lang.name === 'en-IT') {
+        name = 'English (Italy)';
       } else if (lang.name === 'Español') {
         name = 'español';
       } else if (lang.name === 'es_419') {

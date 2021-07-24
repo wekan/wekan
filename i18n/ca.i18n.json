@@ -89,6 +89,7 @@
     "add-subtask": "Afegir Subtasca",
     "add-checklist": "Afegeix checklist",
     "add-checklist-item": "Afegeix un ítem al checklist",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "Afegeix coberta",
     "add-label": "Afegeix etiqueta",
     "add-list": "Afegeix llista",

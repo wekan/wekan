@@ -89,6 +89,7 @@
     "add-subtask": "Add Subtask",
     "add-checklist": "Add Checklist",
     "add-checklist-item": "เพิ่มรายการตรวจสอบ",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "เพิ่มหน้าปก",
     "add-label": "Add Label",
     "add-list": "Add List",

@@ -89,6 +89,7 @@
     "add-subtask": "Legg til Underoppgave",
     "add-checklist": "Legg til Sjekkliste",
     "add-checklist-item": "Nytt punkt på sjekklisten",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "Nytt omslag",
     "add-label": "Legg til Etikett",
     "add-list": "Legg til Liste",

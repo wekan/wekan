@@ -89,6 +89,7 @@
     "add-subtask": "Добави подзадача",
     "add-checklist": "Добави списък със задачи",
     "add-checklist-item": "Добави точка към списъка със задачи",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "Добави корица",
     "add-label": "Добави етикет",
     "add-list": "Добави списък",

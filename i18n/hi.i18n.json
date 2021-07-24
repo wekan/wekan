@@ -89,6 +89,7 @@
     "add-subtask": "उप कार्य जोड़ें",
     "add-checklist": "चिह्नांकन-सूची जोड़ें",
     "add-checklist-item": "चिह्नांकन-सूची विषय कोई तक जोड़ें",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "आवरण जोड़ें",
     "add-label": "नामपत्र जोड़ें",
     "add-list": "सूची जोड़ें",

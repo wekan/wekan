@@ -89,6 +89,7 @@
     "add-subtask": "Añadir subtarea",
     "add-checklist": "Añadir una lista de verificación",
     "add-checklist-item": "Añadir un elemento a la lista de verificación",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "Añadir portada",
     "add-label": "Añadir una etiqueta",
     "add-list": "Añadir una lista",

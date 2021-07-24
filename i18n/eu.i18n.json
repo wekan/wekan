@@ -89,6 +89,7 @@
     "add-subtask": "Add Subtask",
     "add-checklist": "Gehitu egiaztaketa zerrenda",
     "add-checklist-item": "Gehitu elementu bat egiaztaketa zerrendara",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "Gehitu azala",
     "add-label": "Gehitu etiketa",
     "add-list": "Gehitu zerrenda",
