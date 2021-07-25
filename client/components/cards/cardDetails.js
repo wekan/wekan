@@ -1326,7 +1326,6 @@ BlazeComponent.extendComponent({
           Popup.close();
         },
         'click .js-remove-poker': Popup.afterConfirm('deletePoker', (event) => {
-          event.preventDefault();
           this.currentCard.unsetPoker();
           Popup.close();
         }),
