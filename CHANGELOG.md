@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Wekan JSON import fails](https://github.com/wekan/wekan/commit/0fa8fc8b506831a60649d100ce93c96f8f7b76f5).
+  Thanks to BartoszBroda and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.40 2021-07-25 Wekan release
 
 This release fixes the following bugs:
