@@ -89,6 +89,7 @@
     "add-subtask": "サブタスクを追加",
     "add-checklist": "チェックリストを追加",
     "add-checklist-item": "チェックリストに項目を追加",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "カバーの追加",
     "add-label": "ラベルを追加",
     "add-list": "リストを追加",

@@ -89,6 +89,7 @@
     "add-subtask": "Lisää alitehtävä",
     "add-checklist": "Lisää tarkistuslista",
     "add-checklist-item": "Lisää kohta tarkistuslistaan",
+    "convertChecklistItemToCardPopup-title": "Muuta kortiksi",
     "add-cover": "Lisää kansi",
     "add-label": "Lisää nimilappu",
     "add-list": "Lisää lista",

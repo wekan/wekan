@@ -89,6 +89,7 @@
     "add-subtask": "Alt Görev Ekle",
     "add-checklist": "Yapılacak Listesi Ekle",
     "add-checklist-item": "Yapılacak listesine yeni bir öğe ekle",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "Kapak resmi ekle",
     "add-label": "Etiket Ekle",
     "add-list": "Liste Ekle",

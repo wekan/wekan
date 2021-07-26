@@ -45,6 +45,9 @@ tx pull -f -l nl
 echo "Esperanto:"
 tx pull -f -l eo
 
+echo "English (Italy):"
+tx pull -f -l en_IT
+
 echo "English (United Kingdom):"
 tx pull -f -l en_GB
 

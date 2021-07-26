@@ -89,6 +89,7 @@
     "add-subtask": "Add Subtask",
     "add-checklist": "체크리스트 추가",
     "add-checklist-item": "체크리스트에 항목 추가",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "커버 추가",
     "add-label": "라벨 추가",
     "add-list": "리스트 추가",

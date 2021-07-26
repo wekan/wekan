@@ -271,17 +271,21 @@ export class WekanCreator {
           });
       });
     }
-    boardToImport.labels.forEach(label => {
-      const labelToCreate = {
-        _id: Random.id(6),
-        color: label.color,
-        name: label.name,
-      };
-      // We need to remember them by Wekan ID, as this is the only ref we have
-      // when importing cards.
-      this.labels[label._id] = labelToCreate._id;
-      boardToCreate.labels.push(labelToCreate);
-    });
+
+    if (boardToImport.labels) {
+      boardToImport.labels.forEach(label => {
+        const labelToCreate = {
+          _id: Random.id(6),
+          color: label.color,
+          name: label.name,
+        };
+        // We need to remember them by Wekan ID, as this is the only ref we have
+        // when importing cards.
+        this.labels[label._id] = labelToCreate._id;
+        boardToCreate.labels.push(labelToCreate);
+      });
+    }
+
     const boardId = Boards.direct.insert(boardToCreate);
     Boards.direct.update(boardId, {
       $set: {

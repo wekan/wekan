@@ -89,6 +89,7 @@
     "add-subtask": "إضافة مهمة فرعية",
     "add-checklist": "إضافة قائمة تدقيق",
     "add-checklist-item": "إضافة عنصر إلى قائمة التحقق",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "إضافة غلاف",
     "add-label": "إضافة ملصق",
     "add-list": "إضافة قائمة",

@@ -89,6 +89,7 @@
     "add-subtask": "Добавить подзадачу",
     "add-checklist": "Добавить контрольный список",
     "add-checklist-item": "Добавить пункт в контрольный список",
+    "convertChecklistItemToCardPopup-title": "Convert to Card",
     "add-cover": "Прикрепить",
     "add-label": "Добавить метку",
     "add-list": "Добавить простой список",
