@@ -34,3 +34,7 @@ ehthumbs.db
 .devcontainer/docker-compose.extend.yml
 .devcontainer/volumes*/
 .coverage
+
+# Helm chart
+# Chart dependencies
+/helm/wekan/**/*.tgz
