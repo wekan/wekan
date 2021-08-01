@@ -3,6 +3,19 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Update Helm Chart apiVersion, pin image version](https://github.com/wekan/wekan/pulls/3933).
+  This makes this Chart compatible with [flux](https://fluxcd.io)
+  [helm-controller](https://fluxcd.io/docs/components/helm), which requires v2 charts.
+  Thanks to varac.
+- [Wekan v5.42 for helm](https://github.com/wekan/wekan/commit/7a1f42fa4e153ff4a0fb481ca5a363ac62033b7f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.42 2021-08-01 Wekan release
 
 This release adds the following CRITICAL SECURITY UPDATES:
