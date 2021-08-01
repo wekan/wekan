@@ -3,9 +3,9 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.42 2021-08-01 Wekan release
 
-This release adds the following updates:
+This release adds the following CRITICAL SECURITY UPDATES:
 
 - [Updated to Node.js v12.22.4](https://github.com/wekan/wekan/commit/b13f6913896f787e1cae485381d98345d9f8b830).
   Thanks to Node.js developers.
