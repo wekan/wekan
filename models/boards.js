@@ -1066,12 +1066,7 @@ Boards.helpers({
 
   getNextCardNumber() {
     const boardCards = Cards.find({ boardId: this._id }).fetch();
-    if (boardCards.length == 0) {
-      return 1;
-    }
-    const maxCardNumber = Math.max(...boardCards
-      .map(c => c.cardNumber ? c.cardNumber : 0));
-    return maxCardNumber + 1;
+    return boardCards.length + 1;
   },
 
   cardsDueInBetween(start, end) {

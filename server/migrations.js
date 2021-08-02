@@ -1080,16 +1080,22 @@ Migrations.add('add-card-number-allowed', () => {
 
 Migrations.add('assign-boardwise-card-numbers', () => {
   Boards.find().forEach(board => {
-    let nextCardNumber = 1;
+    let nextCardNumber = board.getNextCardNumber();
     Cards.find(
       {
         boardId: board._id,
         cardNumber: {
           $exists: false
         }
+      },
+      {
+        sort: { createdAt: 1 }
       }
     ).forEach(card => {
-      Cards.update(card._id, { $set: { cardNumber } }, noValidate);
+      Cards.update(
+        card._id,
+        { $set: { cardNumber: nextCardNumber } },
+        noValidate);
       nextCardNumber++;
     });
   })
