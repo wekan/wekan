@@ -25,6 +25,9 @@ template(name="cardDetails")
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
+              if currentBoard.allowsCardNumber
+                span.card-number
+                  | ##{getCardNumber}
               = getTitle
             if isWatching
               i.card-details-watch.fa.fa-eye
