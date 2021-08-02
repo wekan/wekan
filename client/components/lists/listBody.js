@@ -81,7 +81,9 @@ BlazeComponent.extendComponent({
         Utils.boardView() === 'board-view-cal' ||
         !Utils.boardView()
       )
-        swimlaneId = board.getDefaultSwimline()._id;
+      swimlaneId = board.getDefaultSwimline()._id;
+
+      const nextCardNumber = board.getNextCardNumber();
 
       const _id = Cards.insert({
         title,
@@ -93,6 +95,7 @@ BlazeComponent.extendComponent({
         sort: sortIndex,
         swimlaneId,
         type: cardType,
+        cardNumber: nextCardNumber,
         linkedId,
       });
 
@@ -241,7 +244,7 @@ BlazeComponent.extendComponent({
       Boards.findOne(currentBoardId)
         .customFields()
         .fetch(),
-      function(field) {
+      function (field) {
         if (field.automaticallyOnCard || field.alwaysOnCard)
           arr.push({ _id: field._id, value: null });
       },
@@ -750,17 +753,17 @@ BlazeComponent.extendComponent({
 
   checkIdleTime() {
     return window.requestIdleCallback ||
-    function(handler) {
-      const startTime = Date.now();
-      return setTimeout(function() {
-        handler({
-          didTimeout: false,
-          timeRemaining() {
-            return Math.max(0, 50.0 - (Date.now() - startTime));
-          },
-        });
-      }, 1);
-    };
+      function (handler) {
+        const startTime = Date.now();
+        return setTimeout(function () {
+          handler({
+            didTimeout: false,
+            timeRemaining() {
+              return Math.max(0, 50.0 - (Date.now() - startTime));
+            },
+          });
+        }, 1);
+      };
   }
 
   updateList() {
