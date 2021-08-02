@@ -470,6 +470,16 @@ Cards.attachSchema(
       optional: true,
       defaultValue: [],
     },
+    cardNumber: {
+      /**
+       * A boardwise sequentially increasing number that is assigned
+       * to every newly created card
+       */
+      type: Number,
+      decimal: true,
+      optional: true,
+      defaultValue: 0,
+    },
   }),
 );
 
@@ -1645,6 +1655,10 @@ Cards.helpers({
     } else {
       return this.title;
     }
+  },
+
+  getCardNumber() {
+    return this.cardNumber;
   },
 
   getBoardTitle() {
@@ -3207,6 +3221,8 @@ if (Meteor.isServer) {
     Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramListId = req.params.listId;
     const paramParentId = req.params.parentId;
+
+    const nextCardNumber = board.getNextCardNumber();
     const currentCards = Cards.find(
       {
         listId: paramListId,
@@ -3229,6 +3245,7 @@ if (Meteor.isServer) {
         userId: req.body.authorId,
         swimlaneId: req.body.swimlaneId,
         sort: currentCards.count(),
+        cardNumber: nextCardNumber,
         members,
         assignees,
       });

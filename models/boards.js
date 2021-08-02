@@ -375,6 +375,14 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCardNumber: {
+      /**
+       * Does the board allows card numbers?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsActivities: {
       /**
        * Does the board allows comments?
@@ -1056,6 +1064,16 @@ Boards.helpers({
     return result;
   },
 
+  getNextCardNumber() {
+    const boardCards = Cards.find({ boardId: this._id }).fetch();
+    if (boardCards.length == 0) {
+      return 1;
+    }
+    const maxCardNumber = Math.max(...boardCards
+      .map(c => c.cardNumber ? c.cardNumber : 0));
+    return maxCardNumber + 1;
+  },
+
   cardsDueInBetween(start, end) {
     return Cards.find({
       boardId: this._id,
@@ -1283,6 +1301,10 @@ Boards.mutations({
 
   setAllowsDescriptionTitle(allowsDescriptionTitle) {
     return { $set: { allowsDescriptionTitle } };
+  },
+
+  setAllowsCardNumber(allowsCardNumber) {
+    return { $set: { allowsCardNumber } };
   },
 
   setAllowsDescriptionText(allowsDescriptionText) {
