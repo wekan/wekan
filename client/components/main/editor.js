@@ -1,3 +1,9 @@
+const specialHandles = [
+  {userId: 'board_members', username: 'board_members'},
+  {userId: 'card_members', username: 'card_members'}
+];
+const specialHandleNames = specialHandles.map(m => m.username);
+
 Template.editor.onRendered(() => {
   const textareaSelector = 'textarea';
   const mentions = [
@@ -7,13 +13,14 @@ Template.editor.onRendered(() => {
       search(term, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         callback(
+          _.union(
           currentBoard
             .activeMembers()
             .map(member => {
               const username = Users.findOne(member.userId).username;
               return username.includes(term) ? username : null;
             })
-            .filter(Boolean),
+            .filter(Boolean), [...specialHandleNames])
         );
       },
       template(value) {
@@ -323,13 +330,13 @@ Blaze.Template.registerHelper(
       return HTML.Raw(
         DOMPurify.sanitize(content, { ALLOW_UNKNOWN_PROTOCOLS: true }),
       );
-    const knowedUsers = currentBoard.members.map(member => {
+    const knowedUsers = _.union(currentBoard.members.map(member => {
       const u = Users.findOne(member.userId);
       if (u) {
         member.username = u.username;
       }
       return member;
-    });
+    }), [...specialHandles]);
     const mentionRegex = /\B@([\w.]*)/gi;
 
     let currentMention;
