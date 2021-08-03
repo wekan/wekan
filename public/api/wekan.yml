@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.42
+  version: v5.43
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2770,6 +2770,10 @@ definitions:
         description: |
            Does the board allows description text?
         type: boolean
+      allowsCardNumber:
+        description: |
+           Does the board allows card numbers?
+        type: boolean
       allowsActivities:
         description: |
            Does the board allows comments?
@@ -2888,6 +2892,7 @@ definitions:
       - allowsComments
       - allowsDescriptionTitle
       - allowsDescriptionText
+      - allowsCardNumber
       - allowsActivities
       - allowsLabels
       - allowsCreator
@@ -3267,6 +3272,12 @@ definitions:
         items:
           type: string
           x-nullable: true
+        x-nullable: true
+      cardNumber:
+        description: |
+           A boardwise sequentially increasing number that is assigned
+           to every newly created card
+        type: number
         x-nullable: true
     required:
       - archived

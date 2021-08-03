@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v5.42</title>
+    <title>Wekan REST API v5.43</title>
 
     <style>
     </style>
@@ -1555,7 +1555,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.42">Wekan REST API v5.42</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.43">Wekan REST API v5.43</a>
             
           </li>
         
@@ -2128,7 +2128,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v5.42</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v5.43</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -3554,6 +3554,7 @@ System.out.println(response.toString());
   <span class="hljs-attr">&quot;allowsComments&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionTitle&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionText&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCardNumber&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsActivities&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsLabels&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsCreator&quot;</span>: <span class="hljs-literal">true</span>,
@@ -9138,7 +9139,8 @@ System.out.println(response.toString());
   ],
   <span class="hljs-attr">&quot;linkId_gantt&quot;</span>: [
     <span class="hljs-string">&quot;string&quot;</span>
-  ]
+  ],
+  <span class="hljs-attr">&quot;cardNumber&quot;</span>: <span class="hljs-number">0</span>
 }
 </code></pre>
 <h3 id="get_card-responses">Responses</h3>
@@ -18346,6 +18348,7 @@ UserSecurity
   <span class="hljs-attr">&quot;allowsComments&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionTitle&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionText&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCardNumber&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsActivities&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsLabels&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsCreator&quot;</span>: <span class="hljs-literal">true</span>,
@@ -18549,6 +18552,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>Does the board allows description text?</td>
+</tr>
+<tr>
+<td>allowsCardNumber</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows card numbers?</td>
 </tr>
 <tr>
 <td>allowsActivities</td>
@@ -19302,7 +19312,8 @@ UserSecurity
   ],
   <span class="hljs-attr">&quot;linkId_gantt&quot;</span>: [
     <span class="hljs-string">&quot;string&quot;</span>
-  ]
+  ],
+  <span class="hljs-attr">&quot;cardNumber&quot;</span>: <span class="hljs-number">0</span>
 }
 
 </code></pre>
@@ -19562,6 +19573,13 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>ID of card which is the parent link in gantt view</td>
+</tr>
+<tr>
+<td>cardNumber</td>
+<td>number¦null</td>
+<td>false</td>
+<td>none</td>
+<td>A boardwise sequentially increasing number that is assigned<br />to every newly created card</td>
 </tr>
 </tbody>
 </table>

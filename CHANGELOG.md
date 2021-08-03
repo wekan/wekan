@@ -3,7 +3,7 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.43 2021-08-03 Wekan release
 
 This release adds the following new features:
 
