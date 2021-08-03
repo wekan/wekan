@@ -3,11 +3,11 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.44 2021-08-03 Wekan release
 
 This release adds the following updates:
 
-- [Wekan v5.43 for helm](https://github.com/wekan/wekan/commit/4e17d5a10f95fcea420c794ed8b30ea18dc2a725).
+- [Wekan v5.43](https://github.com/wekan/wekan/commit/4e17d5a10f95fcea420c794ed8b30ea18dc2a725) and v5.44 for helm.
   Thanks to xet7.
 
 and fixes the following bugs:
