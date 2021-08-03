@@ -5,7 +5,12 @@ See https://github.com/wekan/wekan/issues/3874
 
 # Upcoming Wekan release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Consecutive boardwise card numbering](https://github.com/wekan/wekan/pull/3935).
+  Thanks to syndimann.
+
+and adds the following updates:
 
 - [Update Helm Chart apiVersion, pin image version](https://github.com/wekan/wekan/pulls/3933).
   This makes this Chart compatible with [flux](https://fluxcd.io)
