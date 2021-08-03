@@ -37,6 +37,9 @@ template(name="minicard")
       if getArchived
         span.linked-icon.linked-archived.fa.fa-archive
       +viewer
+        if currentBoard.allowsCardNumber
+          span.card-number
+            | ##{getCardNumber}
         = getTitle
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext

@@ -190,6 +190,13 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-tags
           | {{_ 'labels'}}
     div.check-div
+      a.flex.js-field-has-card-number(class="{{#if allowsCardNumber}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCardNumber}}is-checked{{/if}}")
+        span
+          i.fa.fa-hashtag
+          | {{_ 'card'}}
+          | {{_ 'number'}}
+    div.check-div
       a.flex.js-field-has-description-title(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
         span
