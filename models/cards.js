@@ -577,6 +577,7 @@ Cards.helpers({
 
     delete this._id;
     this.boardId = boardId;
+    this.cardNumber = Boards.findOne(boardId).getNextCardNumber();
     this.swimlaneId = swimlaneId;
     this.listId = listId;
     const _id = Cards.insert(this);
@@ -1989,8 +1990,12 @@ Cards.mutations({
         '_id',
       );
 
+      // assign the new card number from the target board
+      const newCardNumber = newBoard.getNextCardNumber();
+
       Object.assign(mutatedFields, {
         labelIds: newCardLabelIds,
+        cardNumber: newCardNumber
       });
 
       mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);

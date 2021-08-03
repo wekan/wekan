@@ -1065,8 +1065,23 @@ Boards.helpers({
   },
 
   getNextCardNumber() {
-    const boardCards = Cards.find({ boardId: this._id }).fetch();
-    return boardCards.length + 1;
+    const boardCards = Cards.find(
+      {
+        boardId: this._id
+      },
+      {
+        sort: { cardNumber: -1 },
+        limit: 1
+      }
+    ).fetch();
+
+    // If no card is assigned to the board, return 1
+    if (!boardCards || boardCards.length === 0) {
+      return 1;
+    }
+
+    const maxCardNr = !!boardCards[0].cardNumber ? boardCards[0].cardNumber : 0;
+    return maxCardNr + 1;
   },
 
   cardsDueInBetween(start, end) {
