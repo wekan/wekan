@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# v5.46 2021-08-05 Wekan release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/d5c0a5d377d31bedadf3730756406355a17a563a).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.45 2021-08-05 Wekan release
 
 This release adds the following new features:
