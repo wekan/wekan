@@ -470,6 +470,16 @@ Cards.attachSchema(
       optional: true,
       defaultValue: [],
     },
+    cardNumber: {
+      /**
+       * A boardwise sequentially increasing number that is assigned
+       * to every newly created card
+       */
+      type: Number,
+      decimal: true,
+      optional: true,
+      defaultValue: 0,
+    },
   }),
 );
 
@@ -567,6 +577,7 @@ Cards.helpers({
 
     delete this._id;
     this.boardId = boardId;
+    this.cardNumber = Boards.findOne(boardId).getNextCardNumber();
     this.swimlaneId = swimlaneId;
     this.listId = listId;
     const _id = Cards.insert(this);
@@ -1647,6 +1658,10 @@ Cards.helpers({
     }
   },
 
+  getCardNumber() {
+    return this.cardNumber;
+  },
+
   getBoardTitle() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
@@ -1975,8 +1990,12 @@ Cards.mutations({
         '_id',
       );
 
+      // assign the new card number from the target board
+      const newCardNumber = newBoard.getNextCardNumber();
+
       Object.assign(mutatedFields, {
         labelIds: newCardLabelIds,
+        cardNumber: newCardNumber
       });
 
       mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);
@@ -3207,6 +3226,8 @@ if (Meteor.isServer) {
     Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramListId = req.params.listId;
     const paramParentId = req.params.parentId;
+
+    const nextCardNumber = board.getNextCardNumber();
     const currentCards = Cards.find(
       {
         listId: paramListId,
@@ -3229,6 +3250,7 @@ if (Meteor.isServer) {
         userId: req.body.authorId,
         swimlaneId: req.body.swimlaneId,
         sort: currentCards.count(),
+        cardNumber: nextCardNumber,
         members,
         assignees,
       });

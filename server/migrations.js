@@ -1061,3 +1061,42 @@ Migrations.add('add-hide-logo-by-default', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('add-card-number-allowed', () => {
+  Boards.update(
+    {
+      allowsCardNumber: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsCardNumber: false,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('assign-boardwise-card-numbers', () => {
+  Boards.find().forEach(board => {
+    let nextCardNumber = board.getNextCardNumber();
+    Cards.find(
+      {
+        boardId: board._id,
+        cardNumber: {
+          $exists: false
+        }
+      },
+      {
+        sort: { createdAt: 1 }
+      }
+    ).forEach(card => {
+      Cards.update(
+        card._id,
+        { $set: { cardNumber: nextCardNumber } },
+        noValidate);
+      nextCardNumber++;
+    });
+  })
+});

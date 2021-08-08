@@ -776,6 +776,10 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsComments;
   },
 
+  allowsCardNumber() {
+    return this.currentBoard.allowsCardNumber;
+  },
+
   allowsDescriptionTitle() {
     return this.currentBoard.allowsDescriptionTitle;
   },
@@ -1017,6 +1021,22 @@ BlazeComponent.extendComponent({
           $('.js-field-has-description-title').toggleClass(
             CKCLS,
             this.currentBoard.allowsDescriptionTitle,
+          );
+        },
+        'click .js-field-has-card-number'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsCardNumber = !this.currentBoard
+            .allowsCardNumber;
+          this.currentBoard.setAllowsCardNumber(
+            this.currentBoard.allowsCardNumber,
+          );
+          $(`.js-field-has-card-number ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCardNumber,
+          );
+          $('.js-field-has-card-number').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCardNumber,
           );
         },
         'click .js-field-has-description-text'(evt) {
