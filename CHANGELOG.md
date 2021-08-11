@@ -20,6 +20,11 @@ and adds the following new translations:
 - [French (Switzerland) (fr_CH)](https://github.com/wekan/wekan/commit/23c70ac252494b464cd2a268d7e680370775ddc4).
   Thanks to translators.
 
+and fixes the following bugs:
+
+- [Fixed: Can't save user without Initials](https://github.com/wekan/wekan/commit/9a03654062f9c8ac7aac257f11b386a054cd39e7).
+  Thanks to devagleo and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.47 2021-08-05 Wekan release
