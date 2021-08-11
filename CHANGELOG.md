@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Searchfields for members and assignees card popups](https://github.com/wekan/wekan/pull/3942).
+  Thanks to syndimann.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.47 2021-08-05 Wekan release
 
 This release adds the following updates:
