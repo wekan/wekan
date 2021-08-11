@@ -34,7 +34,7 @@
     "exceljs": "^4.2.1",
     "fibers": "^5.0.0",
     "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
-    "jszip": "^3.6.0",
+    "jszip": "^3.7.0",
     "ldapjs": "^2.3.0",
     "markdown-it": "^12.1.0",
     "markdown-it-emoji": "^2.0.0",
