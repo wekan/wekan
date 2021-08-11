@@ -15,6 +15,11 @@ and adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/b3cc01b04167bd67dde02c6c899baf8917ae09c1).
   Thanks to developers of dependencies.
 
+and adds the following new translations:
+
+- [French (Switzerland) (fr_CH)](https://github.com/wekan/wekan/commit/23c70ac252494b464cd2a268d7e680370775ddc4).
+  Thanks to translators.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.47 2021-08-05 Wekan release
