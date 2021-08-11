@@ -34,15 +34,9 @@
     "exceljs": "^4.2.1",
     "fibers": "^5.0.0",
     "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
-<<<<<<< HEAD
     "jszip": "^3.7.1",
     "ldapjs": "^2.3.1",
     "markdown-it": "^12.2.0",
-=======
-    "jszip": "^3.7.0",
-    "ldapjs": "^2.3.0",
-    "markdown-it": "^12.1.0",
->>>>>>> e23ced47ae40e055e23506ea9c836b768a8f68c9
     "markdown-it-emoji": "^2.0.0",
     "meteor-node-stubs": "^1.1.0",
     "mongodb": "^3.6.11",
