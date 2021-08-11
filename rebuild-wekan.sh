@@ -81,13 +81,13 @@ do
 		cd ~/repos/wekan 
 		rm -rf node_modules .meteor/local .build
                 chmod u+w *.json
-		npm install
+		meteor npm install
 		meteor build .build --directory
 		rm -rf ~/repos/wekan/.build/bundle/programs/web.browser.legacy
 		cd ~/repos/wekan/.build/bundle/programs/server
 		rm -rf node_modules
                 chmod u+w *.json
-		npm install
+		meteor npm install
 		# Cleanup
 		cd ~/repos/wekan/.build/bundle
 		find . -type d -name '*-garbage*' | xargs rm -rf
