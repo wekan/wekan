@@ -3,9 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.48 2021-08-11 Wekan release
 
-This release adds the following new features:
+This release adds the following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.5](https://github.com/wekan/wekan/commit/91cad7b49e25cecdf417321dadcdd9ea5cd8b020).
+  Thanks to Node.js developers.
+- Also jszip update in some of included update commits.
+
+and adds the following new features:
 
 - [Searchfields for members and assignees card popups](https://github.com/wekan/wekan/pull/3942).
   Thanks to syndimann.
