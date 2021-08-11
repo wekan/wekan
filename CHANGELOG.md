@@ -10,6 +10,11 @@ This release adds the following new features:
 - [Searchfields for members and assignees card popups](https://github.com/wekan/wekan/pull/3942).
   Thanks to syndimann.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/b3cc01b04167bd67dde02c6c899baf8917ae09c1).
+  Thanks to developers of dependencies.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.47 2021-08-05 Wekan release
