@@ -266,6 +266,7 @@ Template.addReactionPopup.events({
 
 Template.addReactionPopup.helpers({
   codepoints() {
+    // Starting set of unicode codepoints as comment reactions
     return [
       '&#128077;',
       '&#128078;',

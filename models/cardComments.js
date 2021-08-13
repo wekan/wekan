@@ -106,9 +106,12 @@ CardComments.helpers({
     const userId = Meteor.userId();
     const reaction = reactions.find(r => r.reactionCodepoint === reactionCodepoint);
 
+    // If no reaction is set for the codepoint, add this
     if (!reaction) {
       reactions.push({ reactionCodepoint, userIds: [userId] });
     } else {
+
+      // toggle user reaction upon previous reaction state
       const userHasReacted = reaction.userIds.includes(userId);
       if (userHasReacted) {
         reaction.userIds.splice(reaction.userIds.indexOf(userId), 1);
@@ -119,6 +122,8 @@ CardComments.helpers({
         reaction.userIds.push(userId);
       }
     }
+
+    // If no reaction doc exists yet create otherwise update reaction set
     if (!!cardCommentReactions) {
       return CardCommentReactions.update({ _id: cardCommentReactions._id }, { $set: { reactions } });
     } else {
