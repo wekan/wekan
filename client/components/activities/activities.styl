@@ -5,6 +5,20 @@
   display: flex
   justify-content:space-between
 
+.reactions-popup
+  .add-comment-reaction
+    display: inline-block
+    cursor: pointer
+    border-radius: 5px
+    font-size: 22px
+    text-align: center
+    line-height: 30px
+    width: 40px
+
+    &:hover {
+      background-color: #b0c4de
+    }
+
 .activities
   clear: both
 
@@ -18,7 +32,7 @@
       height: @width
 
     .activity-member
-      font-weight: 700      
+      font-weight: 700
 
     .activity-desc
       word-wrap: break-word
@@ -38,6 +52,45 @@
         box-shadow: 0 1px 2px rgba(0,0,0,.2)
         margin-top: 5px
         padding: 5px
+
+      .reactions
+        display: flex
+        margin-top: 5px
+        gap: 5px
+
+        .open-comment-reaction-popup
+          display: flex
+          align-items: center
+          text-decoration: none
+          height: 24px;
+
+          i.fa.fa-smile-o
+            font-size: 17px
+            font-weight: 500
+            margin-left: 2px
+
+          i.fa.fa-plus
+            font-size: 8px;
+            margin-top: -7px;
+            margin-left: 1px;
+
+        .reaction
+          cursor: pointer
+          border: 1px solid grey
+          border-radius: 15px
+          display: flex
+          padding: 2px 5px
+
+          &.selected {
+            background-color: #b0c4de
+          }
+
+          &:hover {
+            background-color: #b0c4de
+          }
+
+          .reaction-count
+            font-size: 12px
 
       .activity-checklist
         display: block
