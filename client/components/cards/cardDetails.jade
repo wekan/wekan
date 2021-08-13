@@ -708,7 +708,7 @@ template(name="boardsAndLists")
     button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="cardMembersPopup")
-  input.card-members-filter(type="text" placeholder="Search...")
+  input.card-members-filter(type="text" placeholder="{{_ 'search'}}")
   ul.pop-over-list.js-card-member-list
     each members
       li.item(class="{{#if isCardMember}}active{{/if}}")
@@ -721,7 +721,7 @@ template(name="cardMembersPopup")
             i.fa.fa-check
 
 template(name="cardAssigneesPopup")
-  input.card-assignees-filter(type="text" placeholder="Search...")
+  input.card-assignees-filter(type="text" placeholder="{{_ 'search'}}")
   unless currentUser.isWorker
     ul.pop-over-list.js-card-assignee-list
       each members
