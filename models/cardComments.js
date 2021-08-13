@@ -93,6 +93,43 @@ CardComments.helpers({
   user() {
     return Users.findOne(this.userId);
   },
+
+  reactions() {
+    const cardCommentReactions = CardCommentReactions.findOne({cardCommentId: this._id});
+    return !!cardCommentReactions ? cardCommentReactions.reactions : [];
+  },
+
+  toggleReaction(reactionCodepoint) {
+
+    const cardCommentReactions = CardCommentReactions.findOne({cardCommentId: this._id});
+    const reactions = !!cardCommentReactions ? cardCommentReactions.reactions : [];
+    const userId = Meteor.userId();
+    const reaction = reactions.find(r => r.reactionCodepoint === reactionCodepoint);
+
+    if (!reaction) {
+      reactions.push({ reactionCodepoint, userIds: [userId] });
+    } else {
+      const userHasReacted = reaction.userIds.includes(userId);
+      if (userHasReacted) {
+        reaction.userIds.splice(reaction.userIds.indexOf(userId), 1);
+        if (reaction.userIds.length === 0) {
+          reactions.splice(reactions.indexOf(reaction), 1);
+        }
+      } else {
+        reaction.userIds.push(userId);
+      }
+    }
+    if (!!cardCommentReactions) {
+      return CardCommentReactions.update({ _id: cardCommentReactions._id }, { $set: { reactions } });
+    } else {
+      return CardCommentReactions.insert({
+        boardId: this.boardId,
+        cardCommentId: this._id,
+        cardId: this.cardId,
+        reactions
+      });
+    }
+  }
 });
 
 CardComments.hookOptions.after.update = { fetchPrevious: false };
@@ -187,7 +224,7 @@ if (Meteor.isServer) {
    *                comment: string,
    *                authorId: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', function(
+  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', function (
     req,
     res,
   ) {
@@ -200,7 +237,7 @@ if (Meteor.isServer) {
         data: CardComments.find({
           boardId: paramBoardId,
           cardId: paramCardId,
-        }).map(function(doc) {
+        }).map(function (doc) {
           return {
             _id: doc._id,
             comment: doc.text,
@@ -228,7 +265,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'GET',
     '/api/boards/:boardId/cards/:cardId/comments/:commentId',
-    function(req, res) {
+    function (req, res) {
       try {
         const paramBoardId = req.params.boardId;
         Authentication.checkBoardAccess(req.userId, paramBoardId);
@@ -264,7 +301,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/cards/:cardId/comments',
-    function(req, res) {
+    function (req, res) {
       try {
         const paramBoardId = req.params.boardId;
         Authentication.checkBoardAccess(req.userId, paramBoardId);
@@ -310,7 +347,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'DELETE',
     '/api/boards/:boardId/cards/:cardId/comments/:commentId',
-    function(req, res) {
+    function (req, res) {
       try {
         const paramBoardId = req.params.boardId;
         Authentication.checkBoardAccess(req.userId, paramBoardId);

@@ -129,6 +129,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       this.cursor(Lists.find({ boardId, archived: isArchived }));
       this.cursor(Swimlanes.find({ boardId, archived: isArchived }));
       this.cursor(Integrations.find({ boardId }));
+      this.cursor(CardCommentReactions.find({ boardId }));
       this.cursor(
         CustomFields.find(
           { boardIds: { $in: [boardId] } },
@@ -161,6 +162,8 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       // Gather queries and send in bulk
       const cardComments = this.join(CardComments);
       cardComments.selector = _ids => ({ cardId: _ids });
+      const cardCommentReactions = this.join(CardCommentReactions);
+      cardCommentReactions.selector = _ids => ({ cardId: _ids });
       const attachments = this.join(Attachments);
       attachments.selector = _ids => ({ cardId: _ids });
       const checklists = this.join(Checklists);
@@ -194,12 +197,14 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
           checklists.push(cardId);
           checklistItems.push(cardId);
           parentCards.push(cardId);
+          cardCommentReactions.push(cardId)
         },
       );
 
       // Send bulk queries for all found ids
       subCards.send();
       cardComments.send();
+      cardCommentReactions.send();
       attachments.send();
       checklists.send();
       checklistItems.send();

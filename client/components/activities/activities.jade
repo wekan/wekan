@@ -21,6 +21,22 @@ template(name="editOrDeleteComment")
   = ' - '
   a.js-delete-comment {{_ "delete"}}
 
+template(name="commentReactions")
+  .reactions
+    each reaction in reactions
+      span.reaction(class="{{#if isSelected reaction.userIds}}selected{{/if}}" data-codepoint="#{reaction.reactionCodepoint}" title="{{userNames reaction.userIds}}")
+        span.reaction-codepoint !{reaction.reactionCodepoint}
+        span.reaction-count #{reaction.userIds.length}
+    if (currentUser.isBoardMember)
+      a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
+        i.fa.fa-smile-o
+        i.fa.fa-plus
+
+template(name="addReactionPopup")
+  .reactions-popup
+    each codepoint in codepoints
+      span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}
+
 template(name="activity")
   .activity
     +userAvatar(userId=activity.user._id)
@@ -124,6 +140,7 @@ template(name="activity")
             .activity-comment
               +viewer
                 = activity.comment.text
+            +commentReactions(reactions=activity.comment.reactions commentId=activity.comment._id)
             span(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}
               if($eq currentUser._id activity.comment.userId)
                 +editOrDeleteComment
@@ -150,20 +167,20 @@ template(name="activity")
 
         if($eq activity.activityType 'a-startAt')
           | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
-        
+
         if($eq activity.activityType 'a-dueAt')
           | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
 
         if($eq activity.activityType 'a-endAt')
           | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
-      
+
       if($eq mode 'board')
         if($eq activity.activityType 'a-receivedAt')
           | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
 
         if($eq activity.activityType 'a-startAt')
           | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
-        
+
         if($eq activity.activityType 'a-dueAt')
           | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
 
