@@ -180,6 +180,8 @@ Template.changeLanguagePopup.helpers({
         name = 'Français (Belgique)';
       } else if (lang.name === 'fr-CA') {
         name = 'Français (Canada)';
+      } else if (lang.name === 'fr-CH') {
+        name = 'Français (Schweiz)';
       } else if (lang.name === 'ig') {
         name = 'Igbo';
       } else if (lang.name === 'lv') {

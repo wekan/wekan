@@ -57,6 +57,9 @@ tx pull -f -l fi
 echo "French:"
 tx pull -f -l fr
 
+echo "French (Switzerland):"
+tx pull -f -l fr_CH
+
 echo "Galician:"
 tx pull -f -l gl
 

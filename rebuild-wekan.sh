@@ -28,7 +28,7 @@ do
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 12.22.4
+			sudo n 12.22.5
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -81,13 +81,13 @@ do
 		cd ~/repos/wekan 
 		rm -rf node_modules .meteor/local .build
                 chmod u+w *.json
-		npm install
+		meteor npm install
 		meteor build .build --directory
 		rm -rf ~/repos/wekan/.build/bundle/programs/web.browser.legacy
 		cd ~/repos/wekan/.build/bundle/programs/server
 		rm -rf node_modules
                 chmod u+w *.json
-		npm install
+		meteor npm install
 		# Cleanup
 		cd ~/repos/wekan/.build/bundle
 		find . -type d -name '*-garbage*' | xargs rm -rf
