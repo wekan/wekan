@@ -839,20 +839,24 @@ Template.newUserPopup.events({
     let userTeamsIdsList = userTeamsIds.split(",");
     let userTms = [];
     for(let i = 0; i < userTeamsList.length; i++){
-      userTms.push({
-        "teamId": userTeamsIdsList[i],
-        "teamDisplayName": userTeamsList[i],
-      })
+      if(!!userTeamsIdsList[i] && !!userTeamsList[i]) {
+        userTms.push({
+          "teamId": userTeamsIdsList[i],
+          "teamDisplayName": userTeamsList[i],
+        })
+      }
     }
 
     let userOrgsList = userOrgs.split(",");
     let userOrgsIdsList = userOrgsIds.split(",");
     let userOrganizations = [];
     for(let i = 0; i < userOrgsList.length; i++){
-      userOrganizations.push({
-        "orgId": userOrgsIdsList[i],
-        "orgDisplayName": userOrgsList[i],
-      })
+      if(!!userOrgsIdsList[i] && !!userOrgsList[i]) {
+        userOrganizations.push({
+          "orgId": userOrgsIdsList[i],
+          "orgDisplayName": userOrgsList[i],
+        })
+      }
     }
 
     Meteor.call(
