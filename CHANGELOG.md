@@ -3,7 +3,171 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.50 2021-08-15 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Save user initials and fullname when a new user is created](https://github.com/wekan/wekan/pull/3946).
+  Thanks to syndimann.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.49 2021-08-14 Wekan release
+
+This release adds the following new features:
+
+- [Text "Search" now translatable at Card Add Member/Assignee](https://github.com/wekan/wekan/commit/9ce65c601a875a4259fb69fdda45124b8412ae6f).
+  Thanks to xet7.
+- [Add Card Comment Reactions](https://github.com/wekan/wekan/pull/3945).
+  Thanks to syndimann.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.48 2021-08-11 Wekan release
+
+This release adds the following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.5](https://github.com/wekan/wekan/commit/91cad7b49e25cecdf417321dadcdd9ea5cd8b020).
+  Thanks to Node.js developers.
+- Also jszip update in some of included update commits.
+
+and adds the following new features:
+
+- [Searchfields for members and assignees card popups](https://github.com/wekan/wekan/pull/3942).
+  Thanks to syndimann.
+
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/b3cc01b04167bd67dde02c6c899baf8917ae09c1).
+  Thanks to developers of dependencies.
+
+and adds the following new translations:
+
+- [French (Switzerland) (fr_CH)](https://github.com/wekan/wekan/commit/23c70ac252494b464cd2a268d7e680370775ddc4).
+  Thanks to translators.
+
+and fixes the following bugs:
+
+- [Fixed: Can't save user without Initials](https://github.com/wekan/wekan/commit/9a03654062f9c8ac7aac257f11b386a054cd39e7).
+  Thanks to devagleo and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.47 2021-08-05 Wekan release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/68d9de89466611521db7d942dcf8daf58ba15a3e).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.46 2021-08-05 Wekan release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/d5c0a5d377d31bedadf3730756406355a17a563a).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.45 2021-08-05 Wekan release
+
+This release adds the following new features:
+
+- [Special handles to notify board or card members in a comment](https://github.com/wekan/wekan/pull/3937).
+  Thanks to syndimann.
+
+and fixes the following bugs:
+
+- [Fix: Show missing user mentions popover when posting comments in maximized card layout](https://github.com/wekan/wekan/pull/3939).
+  Thanks to syndimann.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.44 2021-08-03 Wekan release
+
+This release adds the following updates:
+
+- [Wekan v5.43](https://github.com/wekan/wekan/commit/4e17d5a10f95fcea420c794ed8b30ea18dc2a725) and v5.44 for helm.
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix: Consecutive Card numbering when a card is moved to another board or copied](https://github.com/wekan/wekan/pull/3936).
+  Thanks to syndimann.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.43 2021-08-03 Wekan release
+
+This release adds the following new features:
+
+- [Consecutive boardwise card numbering](https://github.com/wekan/wekan/pull/3935).
+  Thanks to syndimann.
+
+and adds the following updates:
+
+- [Update Helm Chart apiVersion, pin image version](https://github.com/wekan/wekan/pulls/3933).
+  This makes this Chart compatible with [flux](https://fluxcd.io)
+  [helm-controller](https://fluxcd.io/docs/components/helm), which requires v2 charts.
+  Thanks to varac.
+- [Wekan v5.42 for helm](https://github.com/wekan/wekan/commit/7a1f42fa4e153ff4a0fb481ca5a363ac62033b7f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.42 2021-08-01 Wekan release
+
+This release adds the following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.4](https://github.com/wekan/wekan/commit/b13f6913896f787e1cae485381d98345d9f8b830).
+  Thanks to Node.js developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.41 2021-07-26 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Wekan JSON import fails](https://github.com/wekan/wekan/commit/0fa8fc8b506831a60649d100ce93c96f8f7b76f5).
+  Thanks to BartoszBroda and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.40 2021-07-25 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Delete of Planning Poker doesn't work](https://github.com/wekan/wekan/commit/18b6381d790848062752b211d48c84a2de268bd0).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.39 2021-07-24 Wekan release
+
+This release adds the following new features:
+
+- [LDAP AD Simple Auth](https://github.com/wekan/wekan/pull/3909).
+  Thanks to indika-dev.
+- [LDAP AD Simple Auth: Added settings for all remaining Wekan Standalone (non-Sandstorm)
+  platforms](https://github.com/wekan/wekan/commit/fe40f35d6d9b6293f3bdbf5bc0f3e8e708c59518)
+  and Docs to https://github.com/wekan/wekan/wiki/LDAP-AD-Simple-Auth .
+  Thanks to xet7.
+- [Convert Checklist Item to Card](https://github.com/wekan/wekan/pull/3910).
+  Thanks to helioguardabaxo.
+- [Organizations and Teams are taken into account when displaying board at
+  `All Boards` page](https://github.com/wekan/wekan/pull/3912).
+  Thanks to Emile840.
+
+and adds the following new translations:
+
+- [English (Italy)](https://github.com/wekan/wekan/commit/ae73029dda63db361925e378202e6f8c137cf5bd).
+  Thanks to translators.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.38 2021-07-18 Wekan release
 
 This release adds the following new features:
 
@@ -18,6 +182,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/7024929881c05cad472de74c86517cf80c8e240c),
   [Part 2](https://github.com/wekan/wekan/commit/609adcdf100db226c5f310577195afa4b1a4aead).
   Thanks to developers of dependencies.
+- [Updated to Node.js v12.22.3](https://github.com/wekan/wekan/commit/d538a01d1962464cf4cb001462669150eeafaa99).
+  Thanks to Node.js developers.
 
 and fixes the following bugs:
 

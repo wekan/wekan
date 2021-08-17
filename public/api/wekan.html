@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v5.37</title>
+    <title>Wekan REST API v5.50</title>
 
     <style>
     </style>
@@ -1491,6 +1491,8 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
+<!-- backwards compatibility -->
+<!-- backwards compatibility -->
   </head>
 
   <body data-languages="[&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;,&quot;go&quot;,&quot;php&quot;]">
@@ -1553,7 +1555,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.37">Wekan REST API v5.37</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.50">Wekan REST API v5.50</a>
             
           </li>
         
@@ -1997,6 +1999,16 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                   </li>
                 
                   <li>
+                    <a href="#tocs_boardsorgs" class="toc-h2 toc-link" data-title="">BoardsOrgs</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocs_boardsteams" class="toc-h2 toc-link" data-title="">BoardsTeams</a>
+                    
+                  </li>
+                
+                  <li>
                     <a href="#tocs_cardcomments" class="toc-h2 toc-link" data-title="">CardComments</a>
                     
                   </li>
@@ -2116,7 +2128,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v5.37</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v5.50</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -3516,6 +3528,20 @@ System.out.println(response.toString());
     }
   ],
   <span class="hljs-attr">&quot;permission&quot;</span>: <span class="hljs-string">&quot;public&quot;</span>,
+  <span class="hljs-attr">&quot;orgs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;orgId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;orgDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;isActive&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;teams&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;teamId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;teamDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;isActive&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
   <span class="hljs-attr">&quot;color&quot;</span>: <span class="hljs-string">&quot;belize&quot;</span>,
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;subtasksDefaultBoardId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -3528,6 +3554,7 @@ System.out.println(response.toString());
   <span class="hljs-attr">&quot;allowsComments&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionTitle&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionText&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCardNumber&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsActivities&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsLabels&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsCreator&quot;</span>: <span class="hljs-literal">true</span>,
@@ -9112,7 +9139,8 @@ System.out.println(response.toString());
   ],
   <span class="hljs-attr">&quot;linkId_gantt&quot;</span>: [
     <span class="hljs-string">&quot;string&quot;</span>
-  ]
+  ],
+  <span class="hljs-attr">&quot;cardNumber&quot;</span>: <span class="hljs-number">0</span>
 }
 </code></pre>
 <h3 id="get_card-responses">Responses</h3>
@@ -18294,6 +18322,20 @@ UserSecurity
     }
   ],
   <span class="hljs-attr">&quot;permission&quot;</span>: <span class="hljs-string">&quot;public&quot;</span>,
+  <span class="hljs-attr">&quot;orgs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;orgId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;orgDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;isActive&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;teams&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;teamId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;teamDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;isActive&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
   <span class="hljs-attr">&quot;color&quot;</span>: <span class="hljs-string">&quot;belize&quot;</span>,
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;subtasksDefaultBoardId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -18306,6 +18348,7 @@ UserSecurity
   <span class="hljs-attr">&quot;allowsComments&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionTitle&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionText&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCardNumber&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsActivities&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsLabels&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsCreator&quot;</span>: <span class="hljs-literal">true</span>,
@@ -18413,6 +18456,20 @@ UserSecurity
 <td>visibility of the board</td>
 </tr>
 <tr>
+<td>orgs</td>
+<td>[<a href="#schemaboardsorgs">BoardsOrgs</a>]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>the list of organizations that a board belongs to</td>
+</tr>
+<tr>
+<td>teams</td>
+<td>[<a href="#schemaboardsteams">BoardsTeams</a>]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>the list of teams that a board belongs to</td>
+</tr>
+<tr>
 <td>color</td>
 <td>string</td>
 <td>true</td>
@@ -18495,6 +18552,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>Does the board allows description text?</td>
+</tr>
+<tr>
+<td>allowsCardNumber</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows card numbers?</td>
 </tr>
 <tr>
 <td>allowsActivities</td>
@@ -18982,6 +19046,100 @@ UserSecurity
 </tr>
 </tbody>
 </table>
+<h2 id="tocs_boardsorgs">BoardsOrgs</h2>
+<p><a id="schemaboardsorgs"></a>
+<a id="schema_BoardsOrgs"></a>
+<a id="tocSboardsorgs"></a>
+<a id="tocsboardsorgs"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;orgId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;orgDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;isActive&quot;</span>: <span class="hljs-literal">true</span>
+}
+
+</code></pre>
+<h3 id="properties-4">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orgId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The uniq ID of the organization</td>
+</tr>
+<tr>
+<td>orgDisplayName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The display name of the organization</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Is the organization active?</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocs_boardsteams">BoardsTeams</h2>
+<p><a id="schemaboardsteams"></a>
+<a id="schema_BoardsTeams"></a>
+<a id="tocSboardsteams"></a>
+<a id="tocsboardsteams"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;teamId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;teamDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;isActive&quot;</span>: <span class="hljs-literal">true</span>
+}
+
+</code></pre>
+<h3 id="properties-5">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>teamId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The uniq ID of the team</td>
+</tr>
+<tr>
+<td>teamDisplayName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The display name of the team</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Is the team active?</td>
+</tr>
+</tbody>
+</table>
 <h2 id="tocs_cardcomments">CardComments</h2>
 <p><a id="schemacardcomments"></a>
 <a id="schema_CardComments"></a>
@@ -18998,7 +19156,7 @@ UserSecurity
 
 </code></pre>
 <p>A comment on a card</p>
-<h3 id="properties-4">Properties</h3>
+<h3 id="properties-6">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19154,11 +19312,12 @@ UserSecurity
   ],
   <span class="hljs-attr">&quot;linkId_gantt&quot;</span>: [
     <span class="hljs-string">&quot;string&quot;</span>
-  ]
+  ],
+  <span class="hljs-attr">&quot;cardNumber&quot;</span>: <span class="hljs-number">0</span>
 }
 
 </code></pre>
-<h3 id="properties-5">Properties</h3>
+<h3 id="properties-7">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19415,6 +19574,13 @@ UserSecurity
 <td>none</td>
 <td>ID of card which is the parent link in gantt view</td>
 </tr>
+<tr>
+<td>cardNumber</td>
+<td>number¦null</td>
+<td>false</td>
+<td>none</td>
+<td>A boardwise sequentially increasing number that is assigned<br />to every newly created card</td>
+</tr>
 </tbody>
 </table>
 <h4 id="enumerated-values-3">Enumerated Values</h4>
@@ -19547,7 +19713,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-6">Properties</h3>
+<h3 id="properties-8">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19646,7 +19812,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-7">Properties</h3>
+<h3 id="properties-9">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19766,7 +19932,7 @@ UserSecurity
 <pre class="highlight tab tab-json"><code>{}
 
 </code></pre>
-<h3 id="properties-8">Properties</h3>
+<h3 id="properties-10">Properties</h3>
 <p><em>None</em></p>
 <h2 id="tocs_checklistitems">ChecklistItems</h2>
 <p><a id="schemachecklistitems"></a>
@@ -19785,7 +19951,7 @@ UserSecurity
 
 </code></pre>
 <p>An item in a checklist</p>
-<h3 id="properties-9">Properties</h3>
+<h3 id="properties-11">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19864,7 +20030,7 @@ UserSecurity
 
 </code></pre>
 <p>A Checklist</p>
-<h3 id="properties-10">Properties</h3>
+<h3 id="properties-12">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19949,7 +20115,7 @@ UserSecurity
 
 </code></pre>
 <p>A custom field on a card in the board</p>
-<h3 id="properties-11">Properties</h3>
+<h3 id="properties-13">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20087,7 +20253,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-12">Properties</h3>
+<h3 id="properties-14">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20137,7 +20303,7 @@ UserSecurity
 <pre class="highlight tab tab-json"><code>{}
 
 </code></pre>
-<h3 id="properties-13">Properties</h3>
+<h3 id="properties-15">Properties</h3>
 <p><em>None</em></p>
 <h2 id="tocs_integrations">Integrations</h2>
 <p><a id="schemaintegrations"></a>
@@ -20161,7 +20327,7 @@ UserSecurity
 
 </code></pre>
 <p>Integration with third-party applications</p>
-<h3 id="properties-14">Properties</h3>
+<h3 id="properties-16">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20272,7 +20438,7 @@ UserSecurity
 
 </code></pre>
 <p>A list (column) in the Wekan board.</p>
-<h3 id="properties-15">Properties</h3>
+<h3 id="properties-17">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20500,7 +20666,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-16">Properties</h3>
+<h3 id="properties-18">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20555,7 +20721,7 @@ UserSecurity
 
 </code></pre>
 <p>A swimlane is an line in the kaban board.</p>
-<h3 id="properties-17">Properties</h3>
+<h3 id="properties-19">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20828,7 +20994,7 @@ UserSecurity
 
 </code></pre>
 <p>A User in wekan</p>
-<h3 id="properties-18">Properties</h3>
+<h3 id="properties-20">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20989,7 +21155,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-19">Properties</h3>
+<h3 id="properties-21">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21214,7 +21380,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-20">Properties</h3>
+<h3 id="properties-22">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21246,7 +21412,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-21">Properties</h3>
+<h3 id="properties-23">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21285,7 +21451,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-22">Properties</h3>
+<h3 id="properties-24">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21324,7 +21490,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-23">Properties</h3>
+<h3 id="properties-25">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21363,7 +21529,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-24">Properties</h3>
+<h3 id="properties-26">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21393,6 +21559,8 @@ UserSecurity
 </table>
 <!-- Renderer: Shins v2.6.0 -->
 <!-- Generator: Widdershins v4.0.1 -->
+<!-- backwards compatibility -->
+<!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->

@@ -240,6 +240,60 @@ Template.activity.helpers({
   },
 });
 
+Template.commentReactions.events({
+  'click .reaction'(event) {
+    if (Meteor.user().isBoardMember()) {
+      const codepoint = event.currentTarget.dataset['codepoint'];
+      const commentId = Template.instance().data.commentId;
+      const cardComment = CardComments.findOne({_id: commentId});
+      cardComment.toggleReaction(codepoint);
+    }
+  },
+  'click .open-comment-reaction-popup': Popup.open('addReaction'),
+})
+
+Template.addReactionPopup.events({
+  'click .add-comment-reaction'(event) {
+    if (Meteor.user().isBoardMember()) {
+      const codepoint = event.currentTarget.dataset['codepoint'];
+      const commentId = Template.instance().data.commentId;
+      const cardComment = CardComments.findOne({_id: commentId});
+      cardComment.toggleReaction(codepoint);
+    }
+    Popup.close();
+  },
+})
+
+Template.addReactionPopup.helpers({
+  codepoints() {
+    // Starting set of unicode codepoints as comment reactions
+    return [
+      '&#128077;',
+      '&#128078;',
+      '&#128064;',
+      '&#9989;',
+      '&#10060;',
+      '&#128591;',
+      '&#128079;',
+      '&#127881;',
+      '&#128640;',
+      '&#128522;',
+      '&#129300;',
+      '&#128532;'];
+  }
+})
+
+Template.commentReactions.helpers({
+  isSelected(userIds) {
+    return userIds.includes(Meteor.user()._id);
+  },
+  userNames(userIds) {
+    return Users.find({_id: {$in: userIds}})
+                .map(user => user.profile.fullname)
+                .join(', ');
+  }
+})
+
 function createCardLink(card) {
   if (!card) return '';
   return (

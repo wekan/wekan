@@ -122,6 +122,7 @@
     "Activities": true,
     "Attachments": true,
     "Boards": true,
+    "CardCommentReactions": true,
     "CardComments": true,
     "DatePicker": true,
     "Cards": true,

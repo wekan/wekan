@@ -86,12 +86,16 @@ Template.userFormsLayout.helpers({
         name = 'Français (Belgique)';
       } else if (lang.name === 'fr-CA') {
         name = 'Français (Canada)';
+      } else if (lang.name === 'fr-CH') {
+        name = 'Français (Schweiz)';
       } else if (lang.name === 'ig') {
         name = 'Igbo';
       } else if (lang.name === 'lv') {
         name = 'Latviešu';
       } else if (lang.name === 'latviešu valoda') {
         name = 'Latviešu';
+      } else if (lang.name === 'en-IT') {
+        name = 'English (Italy)';
       } else if (lang.name === 'Español') {
         name = 'español';
       } else if (lang.name === 'es_419') {

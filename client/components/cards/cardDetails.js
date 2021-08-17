@@ -180,7 +180,7 @@ BlazeComponent.extendComponent({
             integration,
             'CardSelected',
             params,
-            () => {},
+            () => { },
           );
         });
       }
@@ -541,8 +541,8 @@ BlazeComponent.extendComponent({
 }).register('exportCardPopup');
 
 // only allow number input
-Template.editCardSortOrderForm.onRendered(function() {
-  this.$('input').on("keypress paste", function(event) {
+Template.editCardSortOrderForm.onRendered(function () {
+  this.$('input').on("keypress paste", function (event) {
     let keyCode = event.keyCode;
     let charCode = String.fromCharCode(keyCode);
     let regex = new RegExp('[-0-9.]');
@@ -627,6 +627,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
+  'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-move-card-to-top'(event) {
@@ -665,6 +666,40 @@ Template.cardDetailsActionsPopup.events({
 Template.editCardTitleForm.onRendered(function () {
   autosize(this.$('.js-edit-card-title'));
 });
+
+Template.cardMembersPopup.onCreated(function () {
+  const members = Boards.findOne(Session.get('currentBoard')).activeMembers();
+  this.members = new ReactiveVar(members);
+});
+
+Template.cardMembersPopup.events({
+  'keyup .card-members-filter'(event) {
+    const members = filterMembers(event.target.value);
+    Template.instance().members.set(members);
+  }
+});
+
+Template.cardMembersPopup.helpers({
+  members() {
+    return Template.instance().members.get();
+  },
+});
+
+const filterMembers = (filterTerm) => {
+  let members = Boards.findOne(Session.get('currentBoard')).activeMembers();
+
+  if (filterTerm) {
+    members = members
+      .map(member => ({
+        member,
+        user: Users.findOne(member.userId)
+      }))
+      .filter(({ user }) =>
+        user.profile.fullname.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
+      .map(({ member }) => member);
+  }
+  return members;
+}
 
 Template.editCardTitleForm.events({
   'keydown .js-edit-card-title'(event) {
@@ -787,6 +822,34 @@ Template.copyCardPopup.events({
       Filter.addException(_id);
 
       Popup.close();
+    }
+  },
+});
+
+Template.convertChecklistItemToCardPopup.events({
+  'click .js-done'() {
+    const card = Cards.findOne(Session.get('currentCard'));
+    const lSelect = $('.js-select-lists')[0];
+    const listId = lSelect.options[lSelect.selectedIndex].value;
+    const slSelect = $('.js-select-swimlanes')[0];
+    const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+    const bSelect = $('.js-select-boards')[0];
+    const boardId = bSelect.options[bSelect.selectedIndex].value;
+    const textarea = $('#copy-card-title');
+    const title = textarea.val().trim();
+
+    if (title) {
+      const _id = Cards.insert({
+        title: title,
+        listId: listId,
+        boardId: boardId,
+        swimlaneId: swimlaneId,
+        sort: 0,
+      });
+      Filter.addException(_id);
+
+      Popup.close();
+
     }
   },
 });
@@ -990,9 +1053,8 @@ BlazeComponent.extendComponent({
             //   https://github.com/wekan/wekan/issues/2785
             const message = `${TAPi18n.__(
               'delete-linked-card-before-this-card',
-            )} linkedId: ${
-              this._id
-            } at client/components/cards/cardDetails.js and https://github.com/wekan/wekan/issues/2785`;
+            )} linkedId: ${this._id
+              } at client/components/cards/cardDetails.js and https://github.com/wekan/wekan/issues/2785`;
             alert(message);
           }
           Utils.goBoardId(this.boardId);
@@ -1297,7 +1359,6 @@ BlazeComponent.extendComponent({
           Popup.close();
         },
         'click .js-remove-poker': Popup.afterConfirm('deletePoker', (event) => {
-          event.preventDefault();
           this.currentCard.unsetPoker();
           Popup.close();
         }),
@@ -1561,12 +1622,21 @@ EscapeActions.register(
   },
 );
 
+Template.cardAssigneesPopup.onCreated(function () {
+  const members = Boards.findOne(Session.get('currentBoard')).activeMembers();
+  this.members = new ReactiveVar(members);
+});
+
 Template.cardAssigneesPopup.events({
   'click .js-select-assignee'(event) {
     const card = Cards.findOne(Session.get('currentCard'));
     const assigneeId = this.userId;
     card.toggleAssignee(assigneeId);
     event.preventDefault();
+  },
+  'keyup .card-assignees-filter'(event) {
+    const members = filterMembers(event.target.value);
+    Template.instance().members.set(members);
   },
 });
 
@@ -1576,6 +1646,10 @@ Template.cardAssigneesPopup.helpers({
     const cardAssignees = card.getAssignees();
 
     return _.contains(cardAssignees, this.userId);
+  },
+
+  members() {
+    return Template.instance().members.get();
   },
 
   user() {

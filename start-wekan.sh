@@ -111,6 +111,7 @@
       ## The option that allows matomo to retrieve the username:
       # Example: export MATOMO_WITH_USERNAME=true
       #export MATOMO_WITH_USERNAME='false'
+      #---------------------------------------------
       # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
       # Setting this to false is not recommended, it also disables all other browser policy protections
       # and allows all iframing etc. See wekan/server/policy.js
@@ -133,27 +134,36 @@
       # 2) Configure the environment variables. This differs slightly
       #     by installation type, but make sure you have the following:
       #export OAUTH2_ENABLED=true
+      #
       # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
       #export OAUTH2_CA_CERT=ABCD1234
+      #
       # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
       #export OAUTH2_ADFS_ENABLED=false
+      #
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
       # OAuth2 login style: popup or redirect.
       #export OAUTH2_LOGIN_STYLE=redirect
+      #
       # Application GUID captured during app registration:
       #export OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+      #
       # Secret key generated during app registration:
       #export OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       #export OAUTH2_SERVER_URL=https://login.microsoftonline.com/
       #export OAUTH2_AUTH_ENDPOINT=/oauth2/v2.0/authorize
       #export OAUTH2_USERINFO_ENDPOINT=https://graph.microsoft.com/oidc/userinfo
       #export OAUTH2_TOKEN_ENDPOINT=/oauth2/v2.0/token
+      #
       # The claim name you want to map to the unique ID field:
       #export OAUTH2_ID_MAP=email
+      #
       # The claim name you want to map to the username field:
       #export OAUTH2_USERNAME_MAP=email
+      #
       # The claim name you want to map to the full name field:
       #export OAUTH2_FULLNAME_MAP=name
+      #
       # The claim name you want to map to the email field:
       #export OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
@@ -175,63 +185,124 @@
       # https://github.com/wekan/wekan/wiki/OAuth2
       # Enable the OAuth2 connection
       #export OAUTH2_ENABLED=true
+      #
       # OAuth2 login style: popup or redirect.
       #export OAUTH2_LOGIN_STYLE=redirect
+      #
       # OAuth2 Client ID.
       #export OAUTH2_CLIENT_ID=abcde12345
+      #
       # OAuth2 Secret.
       #export OAUTH2_SECRET=54321abcde
+      #
       # OAuth2 Server URL.
       #export OAUTH2_SERVER_URL=https://chat.example.com
+      #
       # OAuth2 Authorization Endpoint.
       #export OAUTH2_AUTH_ENDPOINT=/oauth/authorize
+      #
       # OAuth2 Userinfo Endpoint.
       #export OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
+      #
       # OAuth2 Token Endpoint.
       #export OAUTH2_TOKEN_ENDPOINT=/oauth/token
+      #
       # OAUTH2 ID Token Whitelist Fields.
       #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
+      #
       # OAUTH2 Request Permissions.
       #export OAUTH2_REQUEST_PERMISSIONS='openid profile email'
+      #
       # OAuth2 ID Mapping
       #export OAUTH2_ID_MAP=
+      #
       # OAuth2 Username Mapping
       #export OAUTH2_USERNAME_MAP=
+      #
       # OAuth2 Fullname Mapping
       #export OAUTH2_FULLNAME_MAP=
+      #
       # OAuth2 Email Mapping
       #export OAUTH2_EMAIL_MAP=
       #---------------------------------------------
       # LDAP_ENABLE : Enable or not the connection by the LDAP
       # example :  export LDAP_ENABLE=true
       #export LDAP_ENABLE=false
+      #
       # LDAP_PORT : The port of the LDAP server
       # example :  export LDAP_PORT=389
       #export LDAP_PORT=389
+      #
       # LDAP_HOST : The host server for the LDAP server
       # example :  export LDAP_HOST=localhost
       #export LDAP_HOST=
+      #
+      #-----------------------------------------------------------------
+      # ==== LDAP AD Simple Auth ====
+      #
+      # Set to true, if you want to connect with Active Directory by Simple Authentication.
+      # When using AD Simple Auth, LDAP_BASEDN is not needed.
+      #
+      # Example:
+      #export LDAP_AD_SIMPLE_AUTH=true
+      #
+      # === LDAP User Authentication ===
+      #
+      # a) Option to login to the LDAP server with the user's own username and password, instead of
+      #    an administrator key. Default: false (use administrator key).
+      #
+      # b) When using AD Simple Auth, set to true, when login user is used for binding,
+      #    and LDAP_BASEDN is not needed.
+      #
+      # Example:
+      #export LDAP_USER_AUTHENTICATION=true
+      #
+      # Which field is used to find the user for the user authentication. Default: uid.
+      #export LDAP_USER_AUTHENTICATION_FIELD=uid
+      #
+      # === LDAP Default Domain ===
+      #
+      # a) In case AD SimpleAuth is configured, the default domain is appended to the given
+      #    loginname for creating the correct username for the bind request to AD.
+      #
+      # b) The default domain of the ldap it is used to create email if the field is not map
+      #     correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
+      #
+      # Example :
+      #export LDAP_DEFAULT_DOMAIN=mydomain.com
+      #
+      #-----------------------------------------------------------------
+      # ==== LDAP BASEDN Auth ====
+      #
       # LDAP_BASEDN : The base DN for the LDAP Tree
       # example :  export LDAP_BASEDN=ou=user,dc=example,dc=org
       #export LDAP_BASEDN=
+      #
+      #---------------------------------------------
       # LDAP_LOGIN_FALLBACK : Fallback on the default authentication method
       # example :  export LDAP_LOGIN_FALLBACK=true
       #export LDAP_LOGIN_FALLBACK=false
+      #
       # LDAP_RECONNECT : Reconnect to the server if the connection is lost
       # example :  export LDAP_RECONNECT=false
       #export LDAP_RECONNECT=true
+      #
       # LDAP_TIMEOUT : Overall timeout, in milliseconds
       # example :  export LDAP_TIMEOUT=12345
       #export LDAP_TIMEOUT=10000
+      #
       # LDAP_IDLE_TIMEOUT : Specifies the timeout for idle LDAP connections in milliseconds
       # example :  export LDAP_IDLE_TIMEOUT=12345
       #export LDAP_IDLE_TIMEOUT=10000
+      #
       # LDAP_CONNECT_TIMEOUT : Connection timeout, in milliseconds
       # example :  export LDAP_CONNECT_TIMEOUT=12345
       #export LDAP_CONNECT_TIMEOUT=10000
+      #
       # LDAP_AUTHENTIFICATION : If the LDAP needs a user account to search
       # example :  export LDAP_AUTHENTIFICATION=true
       #export LDAP_AUTHENTIFICATION=false
+      #
       # LDAP_AUTHENTIFICATION_USERDN : The search user DN
       # example :  export LDAP_AUTHENTIFICATION_USERDN=cn=admin,dc=example,dc=org
       #----------------------------------------------------------------------------
@@ -243,110 +314,139 @@
       # LDAP_AUTHENTIFICATION_PASSWORD : The password for the search user
       # example : AUTHENTIFICATION_PASSWORD=admin
       #export LDAP_AUTHENTIFICATION_PASSWORD=
+      #
       # LDAP_LOG_ENABLED : Enable logs for the module
       # example :  export LDAP_LOG_ENABLED=true
       #export LDAP_LOG_ENABLED=false
+      #
       # LDAP_BACKGROUND_SYNC : If the sync of the users should be done in the background
       # example :  export LDAP_BACKGROUND_SYNC=true
       #export LDAP_BACKGROUND_SYNC=false
+      #
       # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
       # At which interval does the background task sync in milliseconds.
       # Leave this unset, so it uses default, and does not crash.
       # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
       export LDAP_BACKGROUND_SYNC_INTERVAL=''
+      #
       # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED :
       # example :  export LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true
       #export LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=false
+      #
       # LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS :
       # example :  export LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
       #export LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
+      #
       # LDAP_ENCRYPTION : If using LDAPS
       # example :  export LDAP_ENCRYPTION=ssl
       #export LDAP_ENCRYPTION=false
+      #
       # LDAP_CA_CERT : The certification for the LDAPS server. Certificate needs to be included in this docker-compose.yml file.
       # example :  export LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+zCCA+OgAwIBAgIkAhwR/6TVLmdRY6hHxvUFWc0+Enmu/Hu6cj+G2FIdAgIC...-----END CERTIFICATE-----
       #export LDAP_CA_CERT=
+      #
       # LDAP_REJECT_UNAUTHORIZED : Reject Unauthorized Certificate
       # example :  export LDAP_REJECT_UNAUTHORIZED=true
       #export LDAP_REJECT_UNAUTHORIZED=false
-      # Option to login to the LDAP server with the user's own username and password, instead of an administrator key. Default: false (use administrator key).
-      #export LDAP_USER_AUTHENTICATION=true
-      # Which field is used to find the user for the user authentication. Default: uid.
-      #export LDAP_USER_AUTHENTICATION_FIELD=uid
+      #
       # LDAP_USER_SEARCH_FILTER : Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
       # example :  export LDAP_USER_SEARCH_FILTER=
       #export LDAP_USER_SEARCH_FILTER=
+      #
       # LDAP_USER_SEARCH_SCOPE : base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree)
       # example :  export LDAP_USER_SEARCH_SCOPE=one
       #export LDAP_USER_SEARCH_SCOPE=
+      #
       # LDAP_USER_SEARCH_FIELD : Which field is used to find the user
       # example :  export LDAP_USER_SEARCH_FIELD=uid
       #export LDAP_USER_SEARCH_FIELD=
+      #
       # LDAP_SEARCH_PAGE_SIZE : Used for pagination (0=unlimited)
       # example :  export LDAP_SEARCH_PAGE_SIZE=12345
       #export LDAP_SEARCH_PAGE_SIZE=0
+      #
       # LDAP_SEARCH_SIZE_LIMIT : The limit number of entries (0=unlimited)
       # example :  export LDAP_SEARCH_SIZE_LIMIT=12345
       #export LDAP_SEARCH_SIZE_LIMIT=0
+      #
       # LDAP_GROUP_FILTER_ENABLE : Enable group filtering
       # example :  export LDAP_GROUP_FILTER_ENABLE=true
       #export LDAP_GROUP_FILTER_ENABLE=false
+      #
       # LDAP_GROUP_FILTER_OBJECTCLASS : The object class for filtering
       # example :  export LDAP_GROUP_FILTER_OBJECTCLASS=group
       #export LDAP_GROUP_FILTER_OBJECTCLASS=
+      #
       # LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE :
       # example :
       #export LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=
+      #
       # LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE :
       # example :
       #export LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=
+      #
       # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT :
       # example :
       #export LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
+      #
       # LDAP_GROUP_FILTER_GROUP_NAME :
       # example :
       #export LDAP_GROUP_FILTER_GROUP_NAME=
+      #
       # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier)
       # example :  export LDAP_UNIQUE_IDENTIFIER_FIELD=guid
       #export LDAP_UNIQUE_IDENTIFIER_FIELD=
+      #
       # LDAP_UTF8_NAMES_SLUGIFY : Convert the username to utf8
       # example :  export LDAP_UTF8_NAMES_SLUGIFY=false
       #export LDAP_UTF8_NAMES_SLUGIFY=true
+      #
       # LDAP_USERNAME_FIELD : Which field contains the ldap username
       # example :  export LDAP_USERNAME_FIELD=username
       #export LDAP_USERNAME_FIELD=
+      #
       # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname
       # example :  export LDAP_FULLNAME_FIELD=fullname
       #export LDAP_FULLNAME_FIELD=
+      #
       # LDAP_MERGE_EXISTING_USERS :
       # example :  export LDAP_MERGE_EXISTING_USERS=true
       #export LDAP_MERGE_EXISTING_USERS=false
+      #
       # LDAP_EMAIL_MATCH_ENABLE : allow existing account matching by e-mail address when username does not match
       # example: LDAP_EMAIL_MATCH_ENABLE=true
       #export LDAP_EMAIL_MATCH_ENABLE=false
+      #
       # LDAP_EMAIL_MATCH_REQUIRE : require existing account matching by e-mail address when username does match
       # example: LDAP_EMAIL_MATCH_REQUIRE=true
       #export LDAP_EMAIL_MATCH_REQUIRE=false
+      #
       # LDAP_EMAIL_MATCH_VERIFIED : require existing account email address to be verified for matching
       # example: LDAP_EMAIL_MATCH_VERIFIED=true
       #export LDAP_EMAIL_MATCH_VERIFIED=false
+      #
       # LDAP_EMAIL_FIELD : which field contains the LDAP e-mail address
       # example: LDAP_EMAIL_FIELD=mail
       #export LDAP_EMAIL_FIELD=
+      #
       # LDAP_SYNC_USER_DATA :
       # example :  export LDAP_SYNC_USER_DATA=true
       #export LDAP_SYNC_USER_DATA=false
+      #
       # LDAP_SYNC_USER_DATA_FIELDMAP :
       # example :  export LDAP_SYNC_USER_DATA_FIELDMAP={"cn":"name", "mail":"email"}
       #export LDAP_SYNC_USER_DATA_FIELDMAP=
+      #
+      # The default domain of the ldap it is used to create email if the field is not map correctly
+      # with the LDAP_SYNC_USER_DATA_FIELDMAP is defined in setting LDAP_DEFAULT_DOMAIN above.
+      #
       # LDAP_SYNC_GROUP_ROLES :
       # example :
       #export LDAP_SYNC_GROUP_ROLES=
-      # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
-      # example :
-      #export LDAP_DEFAULT_DOMAIN=
+      #
       # Enable/Disable syncing of admin status based on ldap groups:
       #export LDAP_SYNC_ADMIN_STATUS=true
+      #
       # Comma separated list of admin group names to sync.
       #export LDAP_SYNC_ADMIN_GROUPS=group1,group2
       #---------------------------------------------------------------------
