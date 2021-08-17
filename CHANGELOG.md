@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed exception in global search](https://github.com/wekan/wekan/pull/3949).
+  Thanks to syndimann.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.50 2021-08-15 Wekan release
 
 This release fixes the following bugs:
