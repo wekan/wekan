@@ -6,9 +6,9 @@
 meteor-base@1.5.1
 
 # Build system
-ecmascript@0.15.2
-standard-minifier-css@1.7.3
-standard-minifier-js@2.6.1
+ecmascript@0.15.3
+standard-minifier-css@1.7.4
+standard-minifier-js@2.7.0
 mquandalle:jade
 coffeescript@2.4.1!
 
@@ -21,7 +21,7 @@ cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
 matteodem:easy-search
-mongo@1.12.0
+mongo@1.13.0
 mquandalle:collection-mutations
 
 # Account system
@@ -56,7 +56,7 @@ templates:tabs
 meteor-autosize
 rajit:bootstrap3-datepicker
 shell-server@0.5.0
-email@2.1.1
+email@2.2.0
 horka:swipebox
 dynamic-import@0.7.1
 rzymek:fullcalendar
@@ -128,3 +128,6 @@ simple:json-routes
 kadira:flow-router
 spacebars
 communitypackages:picker
+useraccounts:core
+useraccounts:flow-routing
+useraccounts:unstyled
