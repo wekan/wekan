@@ -7,7 +7,9 @@ See https://github.com/wekan/wekan/issues/3874
 
 This release adds the following new features:
 
-- [Added MAIL_SERVICE settings for Well Known Email Services](https://github.com/wekan/wekan/commit/ab8e56e16a02ef0afb7b4023a43b4adf2558a8ff).
+- Added MAIL_SERVICE settings for Well Known Email Services
+  [Part 1](https://github.com/wekan/wekan/commit/ab8e56e16a02ef0afb7b4023a43b4adf2558a8ff),
+  [Part 2](https://github.com/wekan/wekan/commit/1fadf204c2d5fa96ea41b9cb39f003cc05e2fe46).
   https://github.com/wekan/wekan/wiki/Troubleshooting-Mail . Please test.
   Thanks to xet7.
 
