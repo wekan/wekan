@@ -17,6 +17,10 @@
       # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
       # https://github.com/wekan/wekan-mongodb/blob/master/docker-compose.yml
       export MAIL_URL='smtp://user:pass@mailserver.example.com:25/'
+      export MAIL_FROM='Wekan Boards <info@example.com>'
+      #export MAIL_SERVICE=Outlook365
+      #export MAIL_SERVICE_USER=firstname.lastname@hotmail.com
+      #export MAIL_SERVICE_PASSWORD=SecretPassword
       #---------------------------------------------
       #export KADIRA_OPTIONS_ENDPOINT=http://127.0.0.1:11011
       #---------------------------------------------
