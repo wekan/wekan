@@ -14,6 +14,13 @@ This release adds the following new features:
   Thanks to xet7.
 - [All Boards page: Possibility of filtering board by team or organization](https://github.com/wekan/wekan/pull/3964).
   Thanks to Emile840.
+- [Fixed translation of "Clear Filter" for "All boards page: Possibility of filtering board by team or organization"](https://github.com/wekan/wekan/commit/b36a7621e0feca5c22fc4a24eceba1a9fc584ab0).
+  Thanks to xet7.
+
+and adds the following new translations:
+
+- [Added Chinese (Simplified) (zh-Hans or zh-CN)](https://github.com/wekan/wekan/commit/f2c242f49e18e2197f1f90c9b2dac5934a08325d).
+  Thanks to translators.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
