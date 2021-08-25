@@ -12,6 +12,8 @@ This release adds the following new features:
   [Part 2](https://github.com/wekan/wekan/commit/1fadf204c2d5fa96ea41b9cb39f003cc05e2fe46).
   https://github.com/wekan/wekan/wiki/Troubleshooting-Mail . Please test.
   Thanks to xet7.
+- [All Boards page: Possibility of filtering board by team or organization](https://github.com/wekan/wekan/pull/3964).
+  Thanks to Emile840.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
