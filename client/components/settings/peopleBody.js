@@ -979,10 +979,13 @@ Template.settingsUserPopup.events({
   },
   'click #deleteButton'(event) {
     event.preventDefault();
+    Users.remove(this.userId);
     /*
-    // Delete is not enabled yet, because it does leave empty user avatars
-    // to boards: boards members, card members and assignees have
-    // empty users. See:
+    // Delete user is enabled, but you should remove user from all boards
+    // before deleting user, because there is possibility of leaving empty user avatars
+    // to boards. You can remove non-existing user ids manually from database,
+    // if that happens.
+    //. See:
     // - wekan/client/components/settings/peopleBody.jade deleteButton
     // - wekan/client/components/settings/peopleBody.js deleteButton
     // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
@@ -990,7 +993,7 @@ Template.settingsUserPopup.events({
     //   but that should be used to remove user from all boards similarly
     // - wekan/models/users.js Delete is not enabled
     //
-    //Users.remove(this.userId);
+    //
     */
     Popup.close();
   },

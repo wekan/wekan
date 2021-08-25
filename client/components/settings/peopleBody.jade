@@ -571,10 +571,14 @@ template(name="settingsUserPopup")
       a.impersonate-user
         i.fa.fa-user
         | {{_ 'impersonate-user'}}
+    br
     hr
     li
       form
         label.hide.userId(type="text" value=user._id)
+        label
+          | {{_ 'delete-user-confirm-popup' }}
+        br
         div.buttonsContainer
           input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
   // Delete is enabled, but there is still bug of leaving empty user avatars
