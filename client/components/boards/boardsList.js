@@ -84,7 +84,61 @@ BlazeComponent.extendComponent({
       }
     });
   },
-
+  userHasTeams(){
+    if(Meteor.user().teams)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+  },
+  teamsDatas() {
+    if(Meteor.user().teams)
+    {
+      return Meteor.user().teams;
+    }
+    else{
+      return [];
+    }
+  },
+  userHasOrgs(){
+    if(Meteor.user().orgs)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+  },
+  orgsDatas() {
+    if(Meteor.user().orgs)
+    {
+      return Meteor.user().orgs;
+    }
+    else{
+      return [];
+    }
+  },
+  userHasOrgsOrTeams(){
+    let boolUserHasOrgs;
+    if(Meteor.user().orgs)
+    {
+      boolUserHasOrgs = true;
+    }
+    else{
+      boolUserHasOrgs = false;
+    }
+    let boolUserHasTeams;
+    if(Meteor.user().teams)
+    {
+      boolUserHasTeams = true;
+    }
+    else{
+      boolUserHasTeams = false;
+    }
+    return (boolUserHasOrgs || boolUserHasTeams);
+  },
   boards() {
     const query = {
       //archived: false,
@@ -132,7 +186,7 @@ BlazeComponent.extendComponent({
     else query.permission = 'public';
 
     return Boards.find(query, {
-      //sort: { sort: 1 /* boards default sorting */ },
+      sort: { sort: 1 /* boards default sorting */ },
     });
   },
   isStarred() {
@@ -205,6 +259,74 @@ BlazeComponent.extendComponent({
               FlowRouter.go('home');
             }
           });
+        },
+        'click #resetBtn'(event){
+          let allBoards = document.getElementsByClassName("js-board");
+          let currBoard;
+          for(let i=0; i < allBoards.length; i++){
+            currBoard = allBoards[i];
+            currBoard.style.display = "block";
+          }
+        },
+        'click #filterBtn'(event) {
+          event.preventDefault();
+          let selectedTeams = document.querySelectorAll('#jsAllBoardTeams option:checked');
+          let selectedTeamsValues = Array.from(selectedTeams).map(function(elt){return elt.value});
+          let index = selectedTeamsValues.indexOf("-1");
+          if (index > -1) {
+            selectedTeamsValues.splice(index, 1);
+          }
+
+          let selectedOrgs = document.querySelectorAll('#jsAllBoardOrgs option:checked');
+          let selectedOrgsValues = Array.from(selectedOrgs).map(function(elt){return elt.value});
+          index = selectedOrgsValues.indexOf("-1");
+          if (index > -1) {
+            selectedOrgsValues.splice(index, 1);
+          }
+
+          if(selectedTeamsValues.length > 0 || selectedOrgsValues.length > 0){
+            const query = {
+              $and: [
+                { archived: false },
+                { type: 'board' },
+                { $or:[] }
+              ]
+            };
+            if(selectedTeamsValues.length > 0)
+            {
+              query.$and[2].$or.push({'teams.teamId': {$in : selectedTeamsValues}});
+            }
+            if(selectedOrgsValues.length > 0)
+            {
+              query.$and[2].$or.push({'orgs.orgId': {$in : selectedOrgsValues}});
+            }
+
+            let filteredBoards = Boards.find(query, {}).fetch();
+            let allBoards = document.getElementsByClassName("js-board");
+            let currBoard;
+            if(filteredBoards.length > 0){
+              let currBoardId;
+              let found;
+              for(let i=0; i < allBoards.length; i++){
+                currBoard = allBoards[i];
+                currBoardId = currBoard.classList[0];
+                found = filteredBoards.find(function(board){
+                  return board._id == currBoardId;
+                });
+
+                if(found !== undefined)
+                  currBoard.style.display = "block";
+                else
+                  currBoard.style.display = "none";
+              }
+            }
+            else{
+              for(let i=0; i < allBoards.length; i++){
+                currBoard = allBoards[i];
+                currBoard.style.display = "none";
+              }
+            }
+          }
         },
       },
     ];
