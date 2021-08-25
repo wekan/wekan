@@ -27,6 +27,9 @@ tx pull -f -l zh_CN
 echo "Chinese (Hong Kong):"
 tx pull -f -l zh_HK
 
+echo "Chinese Simplified (zh-Hans):"
+tx pull -f -l zh_Hans
+
 echo "Chinese (Taiwan):"
 tx pull -f -l zh_TW
 
