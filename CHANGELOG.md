@@ -31,7 +31,9 @@ and fixes the following bugs:
   bug of empty avatars at boards, that need to be removed manually from database.
   Thanks to xet7.
 - [Fixed Save button not clickable in maximized card view](https://github.com/wekan/wekan/commit/a59932af00c066871102970d252b78d262d06fa0).
-  Thanks to syndimann.
+  Thanks to hatl, urmel1960 and syndimann.
+- [Fixed New wide card edit view is all jumbled on mobile](https://github.com/wekan/wekan/commit/241eb9df0fb446b3775704848281b0cc032c4921).
+  Thanks to jdaviescoates and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
