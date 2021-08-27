@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix MAIL_FROM](https://github.com/wekan/wekan/commit/787df044190915c46e22159f3c40fb611846dc07).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.52 2021-08-26 Wekan release
 
 This release adds the following new features:
