@@ -37,6 +37,8 @@ BlazeComponent.extendComponent({
         ? targetBoard.getDefaultSwimline()._id
         : targetSwimlane._id;
 
+    const nextCardNumber = targetBoard.getNextCardNumber();
+
     if (title) {
       const _id = Cards.insert({
         title,
@@ -49,6 +51,7 @@ BlazeComponent.extendComponent({
         sort: sortIndex,
         swimlaneId,
         type: 'cardType-card',
+        cardNumber: nextCardNumber
       });
 
       // In case the filter is active we need to add the newly inserted card in
