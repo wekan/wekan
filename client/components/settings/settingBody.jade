@@ -23,6 +23,10 @@ template(name="setting")
                 i.fa.fa-users
                 | {{_ 'accounts'}}
             li
+              a.js-setting-menu(data-id="tableVisibilityMode-setting")
+                i.fa.fa-eye
+                | {{_ 'tableVisibilityMode'}}
+            li
               a.js-setting-menu(data-id="announcement-setting")
                 i.fa.fa-bullhorn
                 | {{_ 'admin-announcement'}}
@@ -44,6 +48,8 @@ template(name="setting")
               +email
           else if accountSetting.get
             +accountSettings
+          else if tableVisibilityModeSetting.get
+            +tableVisibilityModeSettings
           else if announcementSetting.get
             +announcementSettings
           else if layoutSetting.get
@@ -96,7 +102,7 @@ template(name='email')
     //  li.smtp-form
     //    .title {{_ 'smtp-username'}}
     //    .form-group
-    //      input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
+    //      input.wekan-form-control#mail-server-u"accounts-allowUserNameChange": "Allow Username Change",sername(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
     //  li.smtp-form
     //    .title {{_ 'smtp-password'}}
     //    .form-group
@@ -119,6 +125,17 @@ template(name='email')
 
     li
       button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}
+
+template(name='tableVisibilityModeSettings')
+  ul#tableVisibilityMode-setting.setting-detail
+    li.tableVisibilityMode-form
+      .title {{_ 'tableVisibilityMode-allowPrivateOnly'}}
+      .form-group.flex
+        input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="true" checked="{{#if allowPrivateOnly}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="false" checked="{{#unless allowPrivateOnly}}checked{{/unless}}")
+        span {{_ 'no'}}
+      button.js-tableVisibilityMode-save.primary {{_ 'save'}}
 
 template(name='accountSettings')
   ul#account-setting.setting-detail

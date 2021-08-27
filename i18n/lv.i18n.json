@@ -860,6 +860,8 @@
     "accounts-allowUserDelete": "Ļaut lietotājiem dzēst savus kontus",
     "hide-minicard-label-text": "Slēpt birku tekstu mini kartiņā",
     "show-desktop-drag-handles": "Rādīt darba virsmas vilkšanas simbolus",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "assignee": "Īpašnieks",
     "cardAssigneesPopup-title": "Īpašnieks",
     "addmore-detail": "Pievienot detalizētāku aprakstu",

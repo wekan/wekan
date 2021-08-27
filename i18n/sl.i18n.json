@@ -859,6 +859,8 @@
     "delete-org-confirm-popup": "Are you sure you want to delete this organization? There is no undo.",
     "accounts-allowUserDelete": "Dovoli uporabnikom, da sami izbrišejo svoj račun",
     "hide-minicard-label-text": "Skrij besedilo oznak na karticah",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "show-desktop-drag-handles": "Pokaži ročke za povleko na namizju",
     "assignee": "Dodeljen član",
     "cardAssigneesPopup-title": "Dodeljen član",

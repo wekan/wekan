@@ -860,6 +860,8 @@
     "accounts-allowUserDelete": "Kullanıcılara hesaplarını silmek için izin ver.",
     "hide-minicard-label-text": "Mini kart etiklerini gizle",
     "show-desktop-drag-handles": "Masaüstü sürükleme tutamaçlarını göster",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "assignee": "Atanan",
     "cardAssigneesPopup-title": "Atanan",
     "addmore-detail": "Daha ayrıntılı bir açıklama ekle",

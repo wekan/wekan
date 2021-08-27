@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "Sind Sie sicher, daß Sie dieses Team löschen wollen? Es gibt keine Möglichkeit, das rückgängig zu machen.",
     "delete-org-confirm-popup": "Sind Sie sicher, daß Sie diese Organisation löschen wollen? Es gibt keine Möglichkeit, das rückgängig zu machen.",
     "accounts-allowUserDelete": "Erlaube Benutzern ihren eigenen Account zu löschen",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "Labeltext auf Minikarte ausblenden",
     "show-desktop-drag-handles": "Desktop-Ziehpunkte anzeigen",
     "assignee": "Zugewiesen",

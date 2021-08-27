@@ -860,6 +860,8 @@
     "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
     "hide-minicard-label-text": "Cacher l'étiquette de la minicarte",
     "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
+    "tableVisibilityMode-allowPrivateOnly": "[Mode de visibilité d'un tableau] Autoriser le mode privé uniquement",
+    "tableVisibilityMode" : "Mode de visibilité d'un tableau",
     "assignee": "Personne assignée",
     "cardAssigneesPopup-title": "Personne assignée",
     "addmore-detail": "Ajouter une description plus détaillée",

@@ -862,6 +862,8 @@
     "show-desktop-drag-handles": "Hiển thị nút kéo thả trên Desktop",
     "assignee": "Người được giao",
     "cardAssigneesPopup-title": "Người được giao",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "addmore-detail": "Thêm mô tả chi tiết hơn",
     "show-on-card": "Hiển thị trên thẻ",
     "new": "Mới",

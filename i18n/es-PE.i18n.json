@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "Are you sure you want to delete this team? There is no undo.",
     "delete-org-confirm-popup": "Are you sure you want to delete this organization? There is no undo.",
     "accounts-allowUserDelete": "Permitir a los usuarios eliminar su cuenta",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "Ocultar el texto de la etiqueta de la minitarjeta",
     "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
     "assignee": "Asignado",

@@ -863,6 +863,8 @@
     "assignee": "Administrador",
     "cardAssigneesPopup-title": "Administrador",
     "addmore-detail": "Adicionar descrição detalhada",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "show-on-card": "Mostrar no Cartão",
     "new": "Novo",
     "editOrgPopup-title": "Editar Organização",

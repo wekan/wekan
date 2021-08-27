@@ -157,6 +157,7 @@
     "Integrations": true,
     "HTTP": true,
     "AccountSettings": true,
+    "TableVisibilityModeSettings": true,
     "Announcements": true,
     "Swimlanes": true,
     "ChecklistItems": true,

@@ -861,6 +861,8 @@
     "hide-minicard-label-text": "Ukryj opisy etykiet minikart",
     "show-desktop-drag-handles": "Pokaż przeciągnięcia na pulpit",
     "assignee": "Przypisani",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "cardAssigneesPopup-title": "Przypisani",
     "addmore-detail": "Dodaj bardziej szczegółowy opis",
     "show-on-card": "Pokaż na karcie",

@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "Er du sikker på at du vil slette Teamet? Du kan ikke angre.",
     "delete-org-confirm-popup": "Er du sikker på at du vil slette denne Organisasjonen? Du kan ikke angre.",
     "accounts-allowUserDelete": "Tillat brukere å slette egen konto",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "Skjul tekst på etikett",
     "show-desktop-drag-handles": "Vis ikon for flytting av kort",
     "assignee": "Tildelt",
