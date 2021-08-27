@@ -865,6 +865,8 @@
     "addmore-detail": "Add a more detailed description",
     "show-on-card": "Show on Card",
     "new": "New",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "editOrgPopup-title": "Edit Organization",
     "newOrgPopup-title": "New Organization",
     "editTeamPopup-title": "Edit Team",

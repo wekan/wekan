@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "Вы уверены, что хотите удалить эту команду? Эту операцию нельзя отменить.",
     "delete-org-confirm-popup": "Вы уверены, что хотите удалить эту организацию? Эту операцию нельзя отменить.",
     "accounts-allowUserDelete": "Разрешить пользователям удалять собственные аккаунты",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "Скрыть текст меток на карточках",
     "show-desktop-drag-handles": "Показать ярлыки для перетаскивания",
     "assignee": "Исполнитель",

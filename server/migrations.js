@@ -1,4 +1,5 @@
 import AccountSettings from '../models/accountSettings';
+import TableVisibilityModeSettings from '../models/tableVisibilityModeSettings';
 import Actions from '../models/actions';
 import Activities from '../models/activities';
 import Announcements from '../models/announcements';
@@ -645,6 +646,7 @@ Migrations.add('mutate-boardIds-in-customfields', () => {
 
 const modifiedAtTables = [
   AccountSettings,
+  TableVisibilityModeSettings,
   Actions,
   Activities,
   Announcements,
@@ -699,6 +701,7 @@ Migrations.add('add-missing-created-and-modified', () => {
 Migrations.add('fix-incorrect-dates', () => {
   const tables = [
     AccountSettings,
+    TableVisibilityModeSettings,
     Actions,
     Activities,
     Announcements,

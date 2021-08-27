@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "Are you sure you want to delete this team? There is no undo.",
     "delete-org-confirm-popup": "Are you sure you want to delete this organization? There is no undo.",
     "accounts-allowUserDelete": "Tillåt användare att själv ta bort sina konton",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "Dölj etikett för minikort",
     "show-desktop-drag-handles": "Visa greppytor i desktop",
     "assignee": "Tilldelad till",

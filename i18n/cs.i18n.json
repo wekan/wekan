@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "Jste si jisti, že chcete smazat tento tým? Tuto akci nelze vrátit zpět.",
     "delete-org-confirm-popup": "Jste si jisti, že chcete smazat tuto organizaci? Tuto akci nelze vrátit zpět.",
     "accounts-allowUserDelete": "Dovolit uživatelům smazat vlastní účet",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "Skrýt text popisku minikarty",
     "show-desktop-drag-handles": "Zobrazit okraje pro přesun plochy",
     "assignee": "Řešitel",

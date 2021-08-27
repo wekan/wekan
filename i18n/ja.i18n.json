@@ -859,6 +859,8 @@
     "delete-org-confirm-popup": "Are you sure you want to delete this organization? There is no undo.",
     "accounts-allowUserDelete": "ユーザー自身のアカウント削除を許可",
     "hide-minicard-label-text": "ミニカードのラベル名を隠す",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "show-desktop-drag-handles": "デスクトップへのドラッグハンドルを表示",
     "assignee": "担当者",
     "cardAssigneesPopup-title": "担当者",

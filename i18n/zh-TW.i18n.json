@@ -869,6 +869,8 @@
     "newOrgPopup-title": "新建組織",
     "editTeamPopup-title": "編輯團隊",
     "newTeamPopup-title": "新建團隊",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "editUserPopup-title": "編輯使用者",
     "newUserPopup-title": "新增使用者",
     "notifications": "通知",

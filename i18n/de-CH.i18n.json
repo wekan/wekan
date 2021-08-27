@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "Sind Sie sicher, dass Sie dieses Team löschen möchten? Es gibt kein Zurück!",
     "delete-org-confirm-popup": "Sind Sie sicher, dass Sie diese Organisation löschen möchten? Es gibt kein Zurück!",
     "accounts-allowUserDelete": "Erlaube Benutzern ihren eigenen Account zu löschen",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "Labeltext auf Minikarte ausblenden",
     "show-desktop-drag-handles": "Desktop-Ziehpunkte anzeigen",
     "assignee": "Zugewiesen",

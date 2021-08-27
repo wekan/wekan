@@ -858,6 +858,8 @@
     "delete-team-confirm-popup": "למחוק את הצוות הזה? אי אפשר לשחזר.",
     "delete-org-confirm-popup": "למחוק את הארגון הזה? אי אפשר לשחזר.",
     "accounts-allowUserDelete": "לאפשר למשתמשים למחוק את החשבונות של עצמם",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "hide-minicard-label-text": "הסתרת טקסט התווית של מיני כרטיס",
     "show-desktop-drag-handles": "הצגת ידיות גרירה של שולחן העבודה",
     "assignee": "גורם אחראי",

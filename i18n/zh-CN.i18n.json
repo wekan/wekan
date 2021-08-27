@@ -863,6 +863,8 @@
     "assignee": "被指派人",
     "cardAssigneesPopup-title": "被指派人",
     "addmore-detail": "添加更详细的说明",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "show-on-card": "显示卡片",
     "new": "新",
     "editOrgPopup-title": "编辑组织",

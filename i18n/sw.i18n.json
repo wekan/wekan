@@ -860,6 +860,8 @@
     "accounts-allowUserDelete": "Allow users to self delete their account",
     "hide-minicard-label-text": "Hide minicard label text",
     "show-desktop-drag-handles": "Show desktop drag handles",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "assignee": "Assignee",
     "cardAssigneesPopup-title": "Assignee",
     "addmore-detail": "Add a more detailed description",

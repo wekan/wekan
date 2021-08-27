@@ -656,6 +656,8 @@
     "no": "No",
     "accounts": "Accounts",
     "accounts-allowEmailChange": "Allow Email Change",
+    "tableVisibilityMode-allowPrivateOnly": "[Board visibility Mode] Allow private mode only",
+    "tableVisibilityMode" : "Board visibility mode",
     "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Created at",
     "modifiedAt": "Modified at",

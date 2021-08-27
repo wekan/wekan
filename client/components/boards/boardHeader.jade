@@ -147,14 +147,15 @@ template(name="boardVisibilityList")
           if visibilityCheck
             i.fa.fa-check
           span.sub-name {{_ 'private-desc'}}
-    li
-      with "public"
-        a.js-select-visibility
-          i.fa.fa-globe.colorful
-          | {{_ 'public'}}
-          if visibilityCheck
-            i.fa.fa-check
-          span.sub-name {{_ 'public-desc'}}
+    if notAllowPrivateVisibilityOnly
+      li
+        with "public"
+          a.js-select-visibility
+            i.fa.fa-globe.colorful
+            | {{_ 'public'}}
+            if visibilityCheck
+              i.fa.fa-check
+            span.sub-name {{_ 'public-desc'}}
 
 template(name="boardChangeVisibilityPopup")
   +boardVisibilityList
