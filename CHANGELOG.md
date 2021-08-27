@@ -3,6 +3,20 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Admin panel: Added a parameter to display or not the visibility of a board in private mode only](https://github.com/wekan/wekan/pull/3976).
+  Thanks to Emile840.
+
+and fixes the following bugs:
+
+- [Fix: Incorrect card numbers for sub tasks](https://github.com/wekan/wekan/pull/3977).
+  Thanks to syndimann.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.53 2021-08-27 Wekan release
 
 This release fixes the following bugs:
