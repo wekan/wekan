@@ -54,7 +54,7 @@ Meteor.startup(() => {
             subject,
             html,
           })
-        } else if (process.env.MAIL_URL !== '') {
+        } else {
           Email.send({
             to: user.emails[0].address.toLowerCase(),
             from: Accounts.emailTemplates.from,

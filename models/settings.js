@@ -159,7 +159,6 @@ if (Meteor.isServer) {
       };
       Settings.insert(defaultSetting);
     }
-    /*
     if (isSandstorm) {
       // At Sandstorm, Admin Panel has SMTP settings
       const newSetting = Settings.findOne();
@@ -172,9 +171,7 @@ if (Meteor.isServer) {
       // Not running on Sandstorm, so using environment variables
       Accounts.emailTemplates.from = process.env.MAIL_FROM;
     }
-    */
   });
-  /*
   if (isSandstorm) {
     // At Sandstorm Wekan Admin Panel, save SMTP settings.
     Settings.after.update((userId, doc, fieldNames) => {
@@ -194,7 +191,6 @@ if (Meteor.isServer) {
       }
     });
   }
-  */
 
   function getRandomNum(min, max) {
     const range = max - min;
@@ -241,7 +237,7 @@ if (Meteor.isServer) {
           subject: TAPi18n.__('email-invite-register-subject', params, lang),
           text: TAPi18n.__('email-invite-register-text', params, lang),
         })
-      } else if (process.env.MAIL_URL !== '') {
+      } else {
         Email.send({
           to: icode.email,
           from: Accounts.emailTemplates.from,
@@ -355,7 +351,7 @@ if (Meteor.isServer) {
             subject: TAPi18n.__('email-smtp-test-subject', { lng: lang }),
             text: TAPi18n.__('email-smtp-test-text', { lng: lang }),
           })
-        } else if (process.env.MAIL_URL !== '') {
+        } else {
           Email.send({
             to: user.emails[0].address,
             from: Accounts.emailTemplates.from,

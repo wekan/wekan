@@ -1234,7 +1234,7 @@ if (Meteor.isServer) {
             subject: TAPi18n.__('email-invite-subject', params, lang),
             text: TAPi18n.__('email-invite-text', params, lang),
           })
-        } else if (process.env.MAIL_URL !== '') {
+        } else {
           Email.send({
             to: user.emails[0].address.toLowerCase(),
             from: Accounts.emailTemplates.from,

@@ -135,7 +135,7 @@ RulesHelper = {
             subject,
             text,
           })
-        } else if (process.env.MAIL_URL !== '') {
+        } else {
           Email.send({
             to,
             from: Accounts.emailTemplates.from,
