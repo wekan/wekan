@@ -14,7 +14,7 @@ template(name="board")
 
 template(name="boardBody")
   if notDisplayThisBoard
-    {{_ 'tableVisibilityMode-allowPrivateOnly'}}
+   | {{_ 'tableVisibilityMode-allowPrivateOnly'}}
   else
     .board-wrapper(class=currentBoard.colorClass)
       +sidebar
