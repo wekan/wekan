@@ -3,6 +3,18 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed bugs:
+  1) Public Boards page shows only "Add Board" button, not any Public Boards.
+  2) When at Admin Panel / Boards visibility / Private only, public board still accessible publicly by it's
+  public board URL](https://github.com/wekan/wekan/pull/3981).
+  Thanks to Emile840.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.54 2021-08-28 Wekan release
 
 This release adds the following new features:
