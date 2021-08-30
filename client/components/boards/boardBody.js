@@ -33,6 +33,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    Meteor.subscribe('tableVisibilityModeSettings');
     this.showOverlay = new ReactiveVar(false);
     this.draggingActive = new ReactiveVar(false);
     this._isDragging = false;
@@ -233,6 +234,16 @@ BlazeComponent.extendComponent({
     if (userIsMember() && currentBoard.lists().count() === 0) {
       boardComponent.openNewListForm();
     }
+  },
+
+  notDisplayThisBoard(){
+    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
+    let currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if(allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard.permission == 'public'){
+      return true;
+    }
+
+    return false;
   },
 
   isViewSwimlanes() {

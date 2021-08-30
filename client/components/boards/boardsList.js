@@ -22,6 +22,7 @@ Template.boardListHeaderBar.helpers({
 BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
+    Meteor.subscribe('tableVisibilityModeSettings');
     let currUser = Meteor.user();
     let userLanguage;
     if(currUser && currUser.profile){
@@ -140,7 +141,7 @@ BlazeComponent.extendComponent({
     return (boolUserHasOrgs || boolUserHasTeams);
   },
   boards() {
-    const query = {
+    let query = {
       //archived: false,
       ////type: { $in: ['board','template-container'] },
       //type: 'board',
@@ -150,9 +151,14 @@ BlazeComponent.extendComponent({
         { $or:[] }
       ]
     };
+
+    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
+
     if (FlowRouter.getRouteName() === 'home'){
       query.$and[2].$or.push({'members.userId': Meteor.userId()});
-
+      if(allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue){
+        query.$and.push({'permission': 'private'});
+      }
       const currUser = Users.findOne(Meteor.userId());
 
       // const currUser = Users.findOne(Meteor.userId(), {
@@ -183,7 +189,14 @@ BlazeComponent.extendComponent({
         query.$and[2].$or.push({'teams.teamId': {$in : teamsIds}});
       }
     }
-    else query.permission = 'public';
+    else if(allowPrivateVisibilityOnly !== undefined && !allowPrivateVisibilityOnly.booleanValue){
+      query = {
+        archived: false,
+        //type: { $in: ['board','template-container'] },
+        type: 'board',
+        permission: 'public',
+      };
+    }
 
     return Boards.find(query, {
       sort: { sort: 1 /* boards default sorting */ },
