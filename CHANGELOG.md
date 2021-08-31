@@ -5,7 +5,12 @@ See https://github.com/wekan/wekan/issues/3874
 
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds to following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.6](https://github.com/wekan/wekan/commit/48636892489dd01c6f6b930bafb94651c00859d8).
+  Thanks to Node.js developers.
+
+and fixes the following bugs:
 
 - [Fixed bugs:
   1) Public Boards page shows only "Add Board" button, not any Public Boards.
