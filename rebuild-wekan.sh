@@ -78,23 +78,21 @@ do
 		#fi
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
-		cd ~/repos/wekan 
 		rm -rf node_modules .meteor/local .build
                 chmod u+w *.json
 		meteor npm install
 		meteor build .build --directory
-		rm -rf ~/repos/wekan/.build/bundle/programs/web.browser.legacy
-		cd ~/repos/wekan/.build/bundle/programs/server
+		rm -rf .build/bundle/programs/web.browser.legacy
+		pushd .build/bundle/programs/server
 		rm -rf node_modules
                 chmod u+w *.json
 		meteor npm install
 		# Cleanup
-		cd ~/repos/wekan/.build/bundle
+		popd
 		find . -type d -name '*-garbage*' | xargs rm -rf
 		find . -name '*phantom*' | xargs rm -rf
 		find . -name '.*.swp' | xargs rm -f
 		find . -name '*.swp' | xargs rm -f
-                cd ~/repos/wekan
 		# Add fibers multi arch
 		#cd .build/bundle/programs/server/node_modules/fibers/bin
 		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
