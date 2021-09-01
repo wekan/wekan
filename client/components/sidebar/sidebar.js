@@ -183,6 +183,7 @@ Template.memberPopup.helpers({
   },
 });
 
+
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-open-rules-view'() {
@@ -290,6 +291,42 @@ Template.leaveBoardPopup.helpers({
     return Boards.findOne(Session.get('currentBoard'));
   },
 });
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+    this.findTeamsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.teamPage = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+    });
+
+    this.autorun(() => {
+      const limitTeams = this.teamPage.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('team', this.findTeamsOptions.get(), limitTeams, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+}).register('membersWidget');
 
 Template.membersWidget.helpers({
   isInvited() {
@@ -306,6 +343,21 @@ Template.membersWidget.helpers({
   },
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
+  },
+  AtLeastOneOrgWasCreated(){
+    let orgs = Org.find({}, {sort: { createdAt: -1 }});
+    if(orgs === undefined)
+      return false;
+
+    return orgs.count() > 0;
+  },
+
+  AtLeastOneTeamWasCreated(){
+    let teams = Team.find({}, {sort: { createdAt: -1 }});
+    if(teams === undefined)
+      return false;
+
+    return teams.count() > 0;
   },
 });
 

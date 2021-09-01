@@ -445,6 +445,7 @@ Users.safeFields = {
   'profile.initials': 1,
   orgs: 1,
   teams: 1,
+  authenticationMethod: 1,
 };
 
 if (Meteor.isClient) {
