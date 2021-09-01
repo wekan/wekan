@@ -86,58 +86,42 @@ BlazeComponent.extendComponent({
     });
   },
   userHasTeams(){
-    if(Meteor.user().teams)
-    {
+    if(Meteor.user().teams && Meteor.user().teams.length > 0)
       return true;
-    }
-    else{
+    else
       return false;
-    }
   },
   teamsDatas() {
     if(Meteor.user().teams)
-    {
       return Meteor.user().teams;
-    }
-    else{
+    else
       return [];
-    }
   },
   userHasOrgs(){
-    if(Meteor.user().orgs)
-    {
+    if(Meteor.user().orgs && Meteor.user().orgs.length > 0)
       return true;
-    }
-    else{
+    else
       return false;
-    }
   },
   orgsDatas() {
     if(Meteor.user().orgs)
-    {
       return Meteor.user().orgs;
-    }
-    else{
+    else
       return [];
-    }
   },
   userHasOrgsOrTeams(){
     let boolUserHasOrgs;
-    if(Meteor.user().orgs)
-    {
+    if(Meteor.user().orgs && Meteor.user().orgs.length > 0)
       boolUserHasOrgs = true;
-    }
-    else{
+    else
       boolUserHasOrgs = false;
-    }
+
     let boolUserHasTeams;
-    if(Meteor.user().teams)
-    {
+    if(Meteor.user().teams && Meteor.user().teams.length > 0)
       boolUserHasTeams = true;
-    }
-    else{
+    else
       boolUserHasTeams = false;
-    }
+
     return (boolUserHasOrgs || boolUserHasTeams);
   },
   boards() {
@@ -156,6 +140,7 @@ BlazeComponent.extendComponent({
 
     if (FlowRouter.getRouteName() === 'home'){
       query.$and[2].$or.push({'members.userId': Meteor.userId()});
+
       if(allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue){
         query.$and.push({'permission': 'private'});
       }

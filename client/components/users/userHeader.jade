@@ -49,10 +49,11 @@ template(name="memberMenuPopup")
             i.fa.fa-lock
             | {{_ 'admin-panel'}}
       hr
-      li
-        a.js-edit-profile
-          i.fa.fa-user
-          | {{_ 'edit-profile'}}
+      if isNotOAuth2AuthenticationMethod
+        li
+          a.js-edit-profile
+            i.fa.fa-user
+            | {{_ 'edit-profile'}}
       li
         a.js-change-settings
           i.fa.fa-cog
@@ -62,10 +63,11 @@ template(name="memberMenuPopup")
           i.fa.fa-picture-o
           | {{_ 'edit-avatar'}}
       unless isSandstorm
-        li
-          a.js-change-password
-            i.fa.fa-key
-            | {{_ 'changePasswordPopup-title'}}
+        if isNotOAuth2AuthenticationMethod
+          li
+            a.js-change-password
+              i.fa.fa-key
+              | {{_ 'changePasswordPopup-title'}}
       li
         a.js-change-language
           i.fa.fa-flag
