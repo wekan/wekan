@@ -156,6 +156,7 @@ BlazeComponent.extendComponent({
 
     if (FlowRouter.getRouteName() === 'home'){
       query.$and[2].$or.push({'members.userId': Meteor.userId()});
+
       if(allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue){
         query.$and.push({'permission': 'private'});
       }
