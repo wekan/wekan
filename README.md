@@ -75,7 +75,7 @@ that by providing one-click installation on various platforms.
   Old versions have security issues because of old versions Node.js etc. Only newest Wekan is supported.
   Wekan on Sandstorm is not usually affected by any Standalone Wekan (Snap/Docker/Source) security issues.
 - [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
-  New features and fixes are added to Wekan [many times a day](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md).
+  New features and fixes are added to Wekan [many times a day](https://github.com/wekan/wekan/blob/master/CHANGELOG.md).
 - [Backups](https://github.com/wekan/wekan/wiki/Backup) of Wekan database once a day miminum.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bug can cause Wekan board to not load at all, requiring manual fixing of database content.
@@ -87,7 +87,7 @@ that by providing one-click installation on various platforms.
 [Developer Documentation][dev_docs]
 
 - There is many companies and individuals contributing code to Wekan, to add features and bugfixes
-  [many times a day](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md).
+  [many times a day](https://github.com/wekan/wekan/blob/master/CHANGELOG.md).
 - [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
 - [Commercial Support](https://wekan.team/commercial-support/).
 
