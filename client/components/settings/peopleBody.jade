@@ -40,6 +40,11 @@ template(name="people")
               | {{_ 'search'}}
             .ext-box-right
               span {{#unless isMiniScreen}}{{_ 'people-number'}}{{/unless}} #{peopleNumber}
+            .divAddOrRemoveTeam#divAddOrRemoveTeam
+              button#addOrRemoveTeam
+                i.fa.fa-edit
+                | {{_ 'add'}} / {{_ 'delete'}} {{_ 'teams'}}
+
       .content-body
         .side-menu
           ul
@@ -97,9 +102,12 @@ template(name="teamGeneral")
         +teamRow(teamId=team._id)
 
 template(name="peopleGeneral")
+  #divAddOrRemoveTeamContainer
+    +modifyTeamsUsers
   table
     tbody
       tr
+        th
         th {{_ 'username'}}
         th {{_ 'fullname'}}
         th {{_ 'initials'}}
@@ -202,6 +210,12 @@ template(name="teamRow")
 
 template(name="peopleRow")
   tr
+    if userData.loginDisabled
+      td
+        input.selectUserChkBox(type="checkbox", disabled="disabled", id="{{userData._id}}")
+    else
+      td
+        input.selectUserChkBox(type="checkbox", id="{{userData._id}}")
     if userData.loginDisabled
       td.username <s>{{ userData.username }}</s>
     else
@@ -452,6 +466,24 @@ template(name="newTeamPopup")
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
+
+template(name="modifyTeamsUsers")
+  label
+    | {{_ 'teams'}}
+    select.js-teamsUser#jsteamsUser
+      each value in teamsDatas
+        option(value="{{value._id}}") {{_ value.teamDisplayName}}
+  hr
+  label
+    | {{_ 'Action'}}
+    .form-group.flex
+      input.wekan-form-control#addAction(type="radio" name="action" value="true" checked="checked")
+      span {{_ 'Add'}}
+      input.wekan-form-control#deleteAction(type="radio" name="action" value="false")
+      span {{_ 'Delete'}}
+  div.buttonsContainer
+    input.primary.wide#addTeamBtn(type="submit" value="{{_ 'save'}}")
+    input.primary.wide#cancelBtn(type="submit" value="{{_ 'Cancel'}}")
 
 template(name="newUserPopup")
   form
