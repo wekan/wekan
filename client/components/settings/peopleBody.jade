@@ -475,15 +475,15 @@ template(name="modifyTeamsUsers")
         option(value="{{value._id}}") {{_ value.teamDisplayName}}
   hr
   label
-    | {{_ 'Action'}}
+    | {{_ 'r-action'}}
     .form-group.flex
       input.wekan-form-control#addAction(type="radio" name="action" value="true" checked="checked")
-      span {{_ 'Add'}}
+      span {{_ 'add'}}
       input.wekan-form-control#deleteAction(type="radio" name="action" value="false")
-      span {{_ 'Delete'}}
+      span {{_ 'delete'}}
   div.buttonsContainer
     input.primary.wide#addTeamBtn(type="submit" value="{{_ 'save'}}")
-    input.primary.wide#cancelBtn(type="submit" value="{{_ 'Cancel'}}")
+    input.primary.wide#cancelBtn(type="submit" value="{{_ 'cancel'}}")
 
 template(name="newUserPopup")
   form
