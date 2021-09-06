@@ -5740,7 +5740,7 @@ This release adds the following new features:
 and fixes the following bugs:
 
 - Revert [Sandstorm API changes](https://github.com/wekan/wekan/commit/be03a191c4321c2f80116c0ee1ae6c826d882535)
-  that were done at [Wekan v2.05](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md#v205-2019-01-27-wekan-release)
+  that were done at [Wekan v2.05](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v205-2019-01-27-wekan-release)
   to fix #2143. Thanks to pantraining and xet7.
 
 Thanks to above GitHub users and translators for contributions.
@@ -5887,7 +5887,7 @@ Update translations. Thanks to translators.
 This release adds the following new features:
 
 - [IFTTT Rules improvements](https://github.com/wekan/wekan/pull/2088). Thanks to Angtrim.
-- Add [find.sh](https://github.com/wekan/wekan/blob/devel/find.sh) bash script that ignores
+- Add [find.sh](https://github.com/wekan/wekan/blob/master/find.sh) bash script that ignores
   extra directories when searching. xet7 uses this a lot when developing. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions.
@@ -7398,7 +7398,7 @@ This release adds the following new features:
 
 - [Checklist templates](https://github.com/wekan/wekan/pull/1470);
 - Added [Finnish language changelog](https://github.com/wekan/wekan/tree/devel/meta/t9n-changelog)
-  and [more Finnish traslations](https://github.com/wekan/wekan/blob/devel/sandstorm-pkgdef.capnp)
+  and [more Finnish traslations](https://github.com/wekan/wekan/blob/master/sandstorm-pkgdef.capnp)
   to Sandstorm.
 
 Thanks to GitHub users erikturk and xet7 for their contributions.

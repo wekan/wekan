@@ -51,8 +51,8 @@ This also means all Standalone Wekan functionality works in offline local networ
 Wekan is used by companies that have [thousands of users](https://github.com/wekan/wekan/wiki/AWS) and at healthcare.
 
 Wekan uses xss package for input fields like cards, as you can see from
-[package.json](https://github.com/wekan/wekan/blob/devel/package.json). Other used versions can be seen from
-[Meteor versions file](https://github.com/wekan/wekan/blob/devel/.meteor/versions).
+[package.json](https://github.com/wekan/wekan/blob/master/package.json). Other used versions can be seen from
+[Meteor versions file](https://github.com/wekan/wekan/blob/master/.meteor/versions).
 Forms can include markdown links, html, image tags etc like you see at https://wekan.github.io .
 It's possible to add attachments to cards, and markdown/html links to files.
 
@@ -69,7 +69,7 @@ access to outside of Wekan grain.
 Standalone Wekan only has password auth currently, there is work in progress to add
 [oauth2](https://github.com/wekan/wekan/pull/1578), [Openid](https://github.com/wekan/wekan/issues/538),
 [LDAP](https://github.com/wekan/wekan/issues/119) etc. If you need more login security for Standalone Wekan now,
-it's possible add additional [Google Auth proxybouncer](https://github.com/wekan/wekan/wiki/Let's-Encrypt-and-Google-Auth) in front of password auth, and then use Google Authenticator for Google Auth. Standalone Wekan does have [brute force protection with eluck:accounts-lockout and browser-policy clickjacking protection](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md#v080-2018-04-04-wekan-release). You can also optionally use some [WAF](https://en.wikipedia.org/wiki/Web_application_firewall)
+it's possible add additional [Google Auth proxybouncer](https://github.com/wekan/wekan/wiki/Let's-Encrypt-and-Google-Auth) in front of password auth, and then use Google Authenticator for Google Auth. Standalone Wekan does have [brute force protection with eluck:accounts-lockout and browser-policy clickjacking protection](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v080-2018-04-04-wekan-release). You can also optionally use some [WAF](https://en.wikipedia.org/wiki/Web_application_firewall)
 like for example [AWS WAF](https://aws.amazon.com/waf/).
 
 [All Wekan Platforms](https://github.com/wekan/wekan/wiki/Platforms)
@@ -106,7 +106,7 @@ a security issue, we'd like to know about it, and also how to fix it:
 Typical already known or "no impact" bugs such as:
 
 - Brute force password guessign. Currently there is
-  [brute force protection with eluck:accounts-lockout](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md#v080-2018-04-04-wekan-release).
+  [brute force protection with eluck:accounts-lockout](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v080-2018-04-04-wekan-release).
 - Security issues related to that Wekan uses Meteor 1.6.0.1 related packages, and upgrading to newer
   Meteor 1.6.1 is complicated process that requires lots of changes to many dependency packages.
   Upgrading [has been tried many times, spending a lot of time](https://github.com/meteor/meteor/issues/9609)
