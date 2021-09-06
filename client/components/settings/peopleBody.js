@@ -442,7 +442,7 @@ BlazeComponent.extendComponent({
             for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
               currentUser = Users.findOne(selectedUserChkBoxUserIds[i]);
               userTms = currentUser.teams;
-              if(userTms == undefined || userTms == []){
+              if(userTms == undefined || userTms.length == 0){
                 userTms = [];
                 userTms.push({
                   "teamId": selectedEltValueId,
