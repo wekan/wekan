@@ -9,6 +9,8 @@ This release fixes the following bugs:
 
 - [Links to devel branch are broken; use master instead](https://github.com/wekan/wekan/pull/3993).
   Thanks to garrison.
+- [Fix first user creation for via OIDC](https://github.com/wekan/wekan/pull/3994).
+  Thanks to ww-daniel-mora.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
