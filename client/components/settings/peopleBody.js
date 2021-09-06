@@ -2,6 +2,7 @@ const orgsPerPage = 25;
 const teamsPerPage = 25;
 const usersPerPage = 25;
 let userOrgsTeamsAction = ""; //poosible actions 'addOrg', 'addTeam', 'removeOrg' or 'removeTeam' when adding or modifying a user
+let selectedUserChkBoxUserIds = [];
 
 BlazeComponent.extendComponent({
   mixins() {
@@ -80,6 +81,9 @@ BlazeComponent.extendComponent({
         },
         'click #searchButton'() {
           this.filterPeople();
+        },
+        'click #addOrRemoveTeam'(){
+          document.getElementById("divAddOrRemoveTeamContainer").style.display = 'block';
         },
         'keydown #searchInput'(event) {
           if (event.keyCode === 13 && !event.shiftKey) {
@@ -385,10 +389,110 @@ BlazeComponent.extendComponent({
       {
         'click a.edit-user': Popup.open('editUser'),
         'click a.more-settings-user': Popup.open('settingsUser'),
+        'click .selectUserChkBox': function(ev){
+            if(ev.currentTarget){
+              if(ev.currentTarget.checked){
+                if(!selectedUserChkBoxUserIds.includes(ev.currentTarget.id)){
+                  selectedUserChkBoxUserIds.push(ev.currentTarget.id);
+                }
+              }
+              else{
+                if(selectedUserChkBoxUserIds.includes(ev.currentTarget.id)){
+                  let index = selectedUserChkBoxUserIds.indexOf(ev.currentTarget.id);
+                  if(index > -1)
+                    selectedUserChkBoxUserIds.splice(index, 1);
+                }
+              }
+            }
+            if(selectedUserChkBoxUserIds.length > 0)
+              document.getElementById("divAddOrRemoveTeam").style.display = 'block';
+            else
+              document.getElementById("divAddOrRemoveTeam").style.display = 'none';
+        },
       },
     ];
   },
 }).register('peopleRow');
+
+BlazeComponent.extendComponent({
+  onCreated() {},
+  teamsDatas() {
+    return Team.find({}, {sort: { createdAt: -1 }});
+  },
+  events() {
+    return [
+      {
+        'click #cancelBtn': function(){
+          let selectedElt = document.getElementById("jsteamsUser");
+          document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
+        },
+        'click #addTeamBtn': function(){
+          let selectedElt;
+          let selectedEltValue;
+          let selectedEltValueId;
+          let userTms = [];
+          let currentUser;
+          let currUserTeamIndex;
+
+          selectedElt = document.getElementById("jsteamsUser");
+          selectedEltValue = selectedElt.options[selectedElt.selectedIndex].text;
+          selectedEltValueId = selectedElt.options[selectedElt.selectedIndex].value;
+
+          if(document.getElementById('addAction').checked){
+            for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
+              currentUser = Users.findOne(selectedUserChkBoxUserIds[i]);
+              userTms = currentUser.teams;
+              if(userTms == undefined || userTms.length == 0){
+                userTms = [];
+                userTms.push({
+                  "teamId": selectedEltValueId,
+                  "teamDisplayName": selectedEltValue,
+                })
+              }
+              else if(userTms.length > 0)
+              {
+                currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+                if(currUserTeamIndex == -1){
+                  userTms.push({
+                    "teamId": selectedEltValueId,
+                    "teamDisplayName": selectedEltValue,
+                  });
+                }
+              }
+
+              Users.update(selectedUserChkBoxUserIds[i], {
+                $set:{
+                  teams: userTms
+                }
+              });
+            }
+          }
+          else{
+            for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
+              currentUser = Users.findOne(selectedUserChkBoxUserIds[i]);
+              userTms = currentUser.teams;
+              if(userTms !== undefined || userTms.length > 0)
+              {
+                currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+                if(currUserTeamIndex != -1){
+                  userTms.splice(currUserTeamIndex, 1);
+                }
+              }
+
+              Users.update(selectedUserChkBoxUserIds[i], {
+                $set:{
+                  teams: userTms
+                }
+              });
+            }
+          }
+
+          document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
+        },
+      },
+    ];
+  },
+}).register('modifyTeamsUsers');
 
 BlazeComponent.extendComponent({
   events() {
