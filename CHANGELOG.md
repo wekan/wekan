@@ -5,7 +5,14 @@ See https://github.com/wekan/wekan/issues/3874
 
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Admin Panel/People: Possibility of adding a team to all selected users](https://github.com/wekan/wekan/pull/3996).
+  Thanks to Emile840.
+- [Added more translations to: Admin Panel/People: Possibility of adding a team to all selected users](https://github.com/wekan/wekan/commit/3d9b7eb7ab41c6450b473f6f349d894f516c5487).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Links to devel branch are broken; use master instead](https://github.com/wekan/wekan/pull/3993).
   Thanks to garrison.
