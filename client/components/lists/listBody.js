@@ -13,6 +13,13 @@ BlazeComponent.extendComponent({
     return [];
   },
 
+  customFieldsSum() {
+    return CustomFields.find({
+      boardIds: { $in: [Session.get('currentBoard')] },
+      showSumAtTopOfList: true,
+    });
+  },
+
   openForm(options) {
     options = options || {};
     options.position = options.position || 'top';

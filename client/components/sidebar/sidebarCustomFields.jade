@@ -77,6 +77,12 @@ template(name="createCustomFieldPopup")
 
             span {{_ 'showLabel-field-on-card'}}
 
+
+        a.flex.js-field-show-sum-at-top-of-list(class="{{#if showSumAtTopOfList}}is-checked{{/if}}")
+            .materialCheckBox(class="{{#if showSumAtTopOfList}}is-checked{{/if}}")
+
+            span {{_ 'showSum-field-on-list'}}
+
         button.primary.wide.left(type="button")
             | {{_ 'save'}}
         if _id

@@ -101,6 +101,13 @@ CustomFields.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    showSumAtTopOfList: {
+      /**
+       * should the sum of the custom fields be shown at top of list?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     createdAt: {
       type: Date,
       optional: true,
@@ -347,6 +354,7 @@ if (Meteor.isServer) {
    * @param {boolean} showOnCard should we show the custom field on cards?
    * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards?
    * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards?
+   * @param {boolean} showSumAtTopOfList should the sum of the custom fields be shown at top of list?
    * @return_type {_id: string}
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function(
@@ -363,6 +371,7 @@ if (Meteor.isServer) {
       showOnCard: req.body.showOnCard,
       automaticallyOnCard: req.body.automaticallyOnCard,
       showLabelOnMiniCard: req.body.showLabelOnMiniCard,
+      showSumAtTopOfList: req.body.showSumAtTopOfList,
       boardIds: [board._id],
     });
 
@@ -390,6 +399,7 @@ if (Meteor.isServer) {
    * @param {boolean} showOnCard should we show the custom field on cards
    * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards
    * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards
+   * @param {boolean} showSumAtTopOfList should the sum of the custom fields be shown at top of list
    * @return_type {_id: string}
    */
   JsonRoutes.add(
@@ -443,6 +453,14 @@ if (Meteor.isServer) {
           { $set: { showLabelOnMiniCard: req.body.showLabelOnMiniCard } },
         );
       }
+
+      if (req.body.hasOwnProperty('showSumAtTopOfList')) {
+        CustomFields.direct.update(
+          { _id: paramFieldId },
+          { $set: { showSumAtTopOfList: req.body.showSumAtTopOfList } },
+        );
+      }
+
 
       JsonRoutes.sendResult(res, {
         code: 200,
