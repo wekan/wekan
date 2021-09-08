@@ -20,6 +20,8 @@ and fixes the following bugs:
   Thanks to garrison.
 - [Fix first user creation for via OIDC](https://github.com/wekan/wekan/pull/3994).
   Thanks to ww-daniel-mora.
+- [When list has just one card, to show 'card' instead of 'cards'](https://github.com/wekan/wekan/pull/3999).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
