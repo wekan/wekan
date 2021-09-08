@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Dodaj pole do nowych kart",
     "always-field-on-card": "Dodaj pole do wszystkich kart",
     "showLabel-field-on-card": "Pokaż pole etykiety w minikarcie",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Tak",
     "no": "Nie",
     "accounts": "Konto",

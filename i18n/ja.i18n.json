@@ -652,6 +652,7 @@
     "automatically-field-on-card": "フィールドを新しいカードに追加",
     "always-field-on-card": "フィールドをすべてのカードに追加",
     "showLabel-field-on-card": "ミニカード上のフィールドラベル表示",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "はい",
     "no": "いいえ",
     "accounts": "アカウント",

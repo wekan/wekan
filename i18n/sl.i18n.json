@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Add field to new cards",
     "always-field-on-card": "Add field to all cards",
     "showLabel-field-on-card": "Prikaži oznako polja na mini kartici",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Da",
     "no": "Ne",
     "accounts": "Up. računi",

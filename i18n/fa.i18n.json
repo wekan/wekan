@@ -652,6 +652,7 @@
     "automatically-field-on-card": "افزودن فیلد به کارت های جدید",
     "always-field-on-card": "افزودن فیلد به همه کارت ها",
     "showLabel-field-on-card": "نمایش لیبل فیلد در کارت‌های کوچک",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "بله",
     "no": "خیر",
     "accounts": "حساب‌ها",

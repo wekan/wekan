@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Adicionar campo aos novos cartões",
     "always-field-on-card": "Adicionar campo a todos os cartões",
     "showLabel-field-on-card": "Mostrar etiqueta do campo no mini-cartão",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Sim",
     "no": "Não",
     "accounts": "Contas",

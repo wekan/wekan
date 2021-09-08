@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Aggiungi campo alle nuove schede",
     "always-field-on-card": "Aggiungi campo a tutte le schede",
     "showLabel-field-on-card": "Mostra l'etichetta di campo su minischeda",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Sì",
     "no": "No",
     "accounts": "Profili",

@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Přidat pole na nové karty",
     "always-field-on-card": "Přidat pole na všechny karty",
     "showLabel-field-on-card": "Ukázat štítek pole na minikartě",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Ano",
     "no": "Ne",
     "accounts": "Účty",

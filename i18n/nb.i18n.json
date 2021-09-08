@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Legg til felt på nye kort",
     "always-field-on-card": "Legg til felt på alle kort",
     "showLabel-field-on-card": "Vis feltetikett på minikort",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Ja",
     "no": "Nei",
     "accounts": "Konto",

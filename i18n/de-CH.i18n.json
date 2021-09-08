@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Füge Feld neuen Karten hinzu",
     "always-field-on-card": "Füge Feld allen Karten hinzu",
     "showLabel-field-on-card": "Feldbezeichnung auf Minikarte anzeigen",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Ja",
     "no": "Nein",
     "accounts": "Konten",

@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Mező hozzáadása új Kártyákhoz",
     "always-field-on-card": "Mező hozzáadása minden Kártyához",
     "showLabel-field-on-card": "Mutassa a Címkék nevét a mini Kártyákon is",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Igen",
     "no": "Nem",
     "accounts": "Fiókok",

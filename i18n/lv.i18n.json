@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Add field to new cards",
     "always-field-on-card": "Add field to all cards",
     "showLabel-field-on-card": "Rādīt lauku nosaukumus mini kartiņā",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Jā",
     "no": "Nē",
     "accounts": "Konti",

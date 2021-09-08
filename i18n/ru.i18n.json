@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Добавить поле на новую карточку",
     "always-field-on-card": "Добавить поле на все карточки",
     "showLabel-field-on-card": "Показать имя поля на карточке",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Да",
     "no": "Нет",
     "accounts": "Учетные записи",

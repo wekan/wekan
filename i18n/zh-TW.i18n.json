@@ -652,6 +652,7 @@
     "automatically-field-on-card": "新增欄位至新卡片",
     "always-field-on-card": "新增欄位至所有卡片",
     "showLabel-field-on-card": "在迷你卡片中顯示欄位標籤",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "是",
     "no": "否",
     "accounts": "帳號",

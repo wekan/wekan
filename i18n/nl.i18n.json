@@ -652,6 +652,7 @@
     "automatically-field-on-card": "Voeg veld toe aan nieuwe kaarten",
     "always-field-on-card": "Voeg veld toe aan alle kaarten",
     "showLabel-field-on-card": "Toon veldnaam op minikaart",
+    "showSum-field-on-list": "Show sum of fields at top of list",
     "yes": "Ja",
     "no": "Nee",
     "accounts": "Accounts",
