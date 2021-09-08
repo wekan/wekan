@@ -13,6 +13,9 @@ This release adds the following new features:
   Thanks to xet7.
 - [Enter new password 2 times when registering](https://github.com/wekan/wekan/commit/0da84f8f3eb91c5bf726e058f5ec74a7891d734b).
   Thanks to sh2515 and xet7.
+- Sum of cards. In Progress.
+  [Part 1](https://github.com/wekan/wekan/commit/8626b466b830adf6c671211bbd61b53b96ac5a49).
+  Thanks to xet7 !
 
 and fixes the following bugs:
 
