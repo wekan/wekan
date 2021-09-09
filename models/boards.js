@@ -749,10 +749,32 @@ Boards.helpers({
     return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
   },
 
-  activeMembers() {
+  activeMembers(){
     return _.where(this.members, { isActive: true });
   },
 
+  activeMembers2(members, boardTeamUsers) {
+    let allMembers = members;
+    if(this.teams !== undefined && this.teams.length > 0){
+      let index;
+      if(boardTeamUsers && boardTeamUsers.count() > 0){
+        boardTeamUsers.forEach((u) => {
+          index = allMembers.findIndex(function(m){ return m.userId == u._id});
+          if(index == -1){
+            allMembers.push({
+              "isActive": true,
+              "isAdmin": u.isAdmin !== undefined ? u.isAdmin : false,
+              "isCommentOnly" : false,
+              "isNoComments" : false,
+              "userId": u._id,
+            });
+          }
+        });
+      }
+    }
+
+    return allMembers;
+  },
 
   activeOrgs() {
     return _.where(this.orgs, { isActive: true });
@@ -1567,11 +1589,13 @@ if (Meteor.isServer) {
         },
       });
     },
-    setBoardTeams(boardTeamsArray, currBoardId){
+    setBoardTeams(boardTeamsArray, membersArray, currBoardId){
       check(boardTeamsArray, Array);
+      check(membersArray, Array);
       check(currBoardId, String);
       Boards.update(currBoardId, {
         $set: {
+          members: membersArray,
           teams: boardTeamsArray,
         },
       });
