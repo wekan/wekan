@@ -652,7 +652,7 @@
     "automatically-field-on-card": "Ajouter le champ aux cartes nouvellement créées",
     "always-field-on-card": "Ajouter le champ à toutes les cartes",
     "showLabel-field-on-card": "Indiquer l'étiquette du champ sur la mini-carte",
-    "showSum-field-on-list": "Show sum of fields at top of list",
+    "showSum-field-on-list": "Afficher le total des champs en haut de liste",
     "yes": "Oui",
     "no": "Non",
     "accounts": "Comptes",
