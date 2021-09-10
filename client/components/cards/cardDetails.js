@@ -43,6 +43,13 @@ BlazeComponent.extendComponent({
     this.calculateNextPeak();
 
     Meteor.subscribe('unsaved-edits');
+
+    // this.findUsersOptions = new ReactiveVar({});
+    // this.page = new ReactiveVar(1);
+    // this.autorun(() => {
+    //   const limitUsers = this.page.get() * Number.MAX_SAFE_INTEGER;
+    //   this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
+    // });
   },
 
   isWatching() {
@@ -668,7 +675,19 @@ Template.editCardTitleForm.onRendered(function () {
 });
 
 Template.cardMembersPopup.onCreated(function () {
-  const members = Boards.findOne(Session.get('currentBoard')).activeMembers();
+  let currBoard = Boards.findOne(Session.get('currentBoard'));
+  let members = currBoard.activeMembers();
+
+  // let query = {
+  //   "teams.teamId": { $in: currBoard.teams.map(t => t.teamId) },
+  // };
+
+  // let boardTeamUsers = Users.find(query, {
+  //   sort: { sort: 1 },
+  // });
+
+  // members = currBoard.activeMembers2(members, boardTeamUsers);
+
   this.members = new ReactiveVar(members);
 });
 
@@ -686,7 +705,18 @@ Template.cardMembersPopup.helpers({
 });
 
 const filterMembers = (filterTerm) => {
-  let members = Boards.findOne(Session.get('currentBoard')).activeMembers();
+  let currBoard = Boards.findOne(Session.get('currentBoard'));
+  let members = currBoard.activeMembers();
+
+  // let query = {
+  //   "teams.teamId": { $in: currBoard.teams.map(t => t.teamId) },
+  // };
+
+  // let boardTeamUsers = Users.find(query, {
+  //   sort: { sort: 1 },
+  // });
+
+  // members = currBoard.activeMembers2(members, boardTeamUsers);
 
   if (filterTerm) {
     members = members
@@ -695,7 +725,8 @@ const filterMembers = (filterTerm) => {
         user: Users.findOne(member.userId)
       }))
       .filter(({ user }) =>
-        user.profile.fullname.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
+      (user.profile.fullname !== undefined && user.profile.fullname.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
+      || user.profile.fullname === undefined && user.profile.username !== undefined && user.profile.username.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
       .map(({ member }) => member);
   }
   return members;
@@ -1623,7 +1654,19 @@ EscapeActions.register(
 );
 
 Template.cardAssigneesPopup.onCreated(function () {
-  const members = Boards.findOne(Session.get('currentBoard')).activeMembers();
+  let currBoard = Boards.findOne(Session.get('currentBoard'));
+  let members = currBoard.activeMembers();
+
+  // let query = {
+  //   "teams.teamId": { $in: currBoard.teams.map(t => t.teamId) },
+  // };
+
+  // let boardTeamUsers = Users.find(query, {
+  //   sort: { sort: 1 },
+  // });
+
+  // members = currBoard.activeMembers2(members, boardTeamUsers);
+
   this.members = new ReactiveVar(members);
 });
 
