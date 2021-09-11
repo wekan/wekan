@@ -31,26 +31,28 @@ template(name='homeSidebar')
     +activities(mode="board")
 
 template(name="membersWidget")
-  .board-widget.board-widget-members
-    h3
-      i.fa.fa-users
-      | {{_ 'organizations'}}
+  if AtLeastOneOrgWasCreated
+    .board-widget.board-widget-members
+      h3
+        i.fa.fa-users
+        | {{_ 'organizations'}}
 
-    .board-widget-content
-      +boardOrgGeneral
-      .clearfix
-  br
-  hr
-  .board-widget.board-widget-members
-    h3
-      i.fa.fa-users
-      | {{_ 'teams'}}
+      .board-widget-content
+        +boardOrgGeneral
+        .clearfix
+    br
+    hr
+  if AtLeastOneTeamWasCreated
+    .board-widget.board-widget-members
+      h3
+        i.fa.fa-users
+        | {{_ 'teams'}}
 
-    .board-widget-content
-      +boardTeamGeneral
-      .clearfix
-  br
-  hr
+      .board-widget-content
+        +boardTeamGeneral
+        .clearfix
+    br
+    hr
   .board-widget.board-widget-members
     h3
       i.fa.fa-users

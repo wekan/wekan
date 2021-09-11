@@ -13,26 +13,29 @@ template(name="board")
     +spinner
 
 template(name="boardBody")
-  .board-wrapper(class=currentBoard.colorClass)
-    +sidebar
-    .board-canvas.js-swimlanes(
-      class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
-      class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
-      class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
-      if showOverlay.get
-        .board-overlay
-      if currentBoard.isTemplatesBoard
-        each currentBoard.swimlanes
-          +swimlane(this)
-      else if isViewSwimlanes
-        each currentBoard.swimlanes
-          +swimlane(this)
-      else if isViewLists
-        +listsGroup(currentBoard)
-      else if isViewCalendar
-        +calendarView
-      else
-        +listsGroup(currentBoard)
+  if notDisplayThisBoard
+   | {{_ 'tableVisibilityMode-allowPrivateOnly'}}
+  else
+    .board-wrapper(class=currentBoard.colorClass)
+      +sidebar
+      .board-canvas.js-swimlanes(
+        class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
+        class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
+        class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
+        if showOverlay.get
+          .board-overlay
+        if currentBoard.isTemplatesBoard
+          each currentBoard.swimlanes
+            +swimlane(this)
+        else if isViewSwimlanes
+          each currentBoard.swimlanes
+            +swimlane(this)
+        else if isViewLists
+          +listsGroup(currentBoard)
+        else if isViewCalendar
+          +calendarView
+        else
+          +listsGroup(currentBoard)
 
 template(name="calendarView")
   if isViewCalendar

@@ -14,6 +14,10 @@ SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
 REM # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
 REM SET MAIL_URL=smtps://username:password@email-smtp.eu-west-1.amazonaws.com:587/
 REM SET MAIL_FROM="Wekan Boards <info@example.com>"
+REM SET MAIL_SERVICE=Outlook365
+REM SET MAIL_SERVICE_USER=firstname.lastname@hotmail.com
+REM SET MAIL_SERVICE_PASSWORD=SecretPassword
+
 
 REM # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
 REM SET RESULTS_PER_PAGE=20

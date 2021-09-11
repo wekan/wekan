@@ -85,6 +85,14 @@ BlazeComponent.extendComponent({
     return limit >= 0 && count >= limit;
   },
 
+  cardsCountForListIsOne(count) {
+    if (count === 1) {
+      return TAPi18n.__('cards-count-one');
+    } else {
+      return TAPi18n.__('cards-count');
+    }
+  },
+
   events() {
     return [
       {

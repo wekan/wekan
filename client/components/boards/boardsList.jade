@@ -1,11 +1,32 @@
 template(name="boardList")
   .wrapper
+    ul.AllBoardTeamsOrgs
+      li.AllBoardTeams
+        if userHasTeams
+          select.js-AllBoardTeams#jsAllBoardTeams("multiple")
+            option(value="-1") {{_ 'teams'}} :
+            each teamsDatas
+              option(value="{{teamId}}") {{_ teamDisplayName}}
+
+      li.AllBoardOrgs
+        if userHasOrgs
+          select.js-AllBoardOrgs#jsAllBoardOrgs("multiple")
+            option(value="-1") {{_ 'organizations'}} :
+            each orgsDatas
+              option(value="{{orgId}}") {{_ orgDisplayName}}
+      li.AllBoardBtns
+        div.AllBoardButtonsContainer
+          if userHasOrgsOrTeams
+            i.fa.fa-filter
+            input#filterBtn(type="button" value="{{_ 'filter'}}")
+            input#resetBtn(type="button" value="{{_ 'filter-clear'}}")
+
     ul.board-list.clearfix.js-boards
       li.js-add-board
         a.board-list-item.label(title="{{_ 'add-board'}}")
           | {{_ 'add-board'}}
       each boards
-        li(class="{{#if isStarred}}starred{{/if}}" class=colorClass).js-board
+        li(class="{{_id}}" class="{{#if isStarred}}starred{{/if}}" class=colorClass).js-board
           if isInvited
             .board-list-item
               span.details

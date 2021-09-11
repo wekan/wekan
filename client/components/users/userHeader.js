@@ -22,6 +22,14 @@ Template.memberMenuPopup.helpers({
       return false;
     }
   },
+  isNotOAuth2AuthenticationMethod(){
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return currentUser.authenticationMethod != 'OAuth2';
+    } else {
+      return true;
+    }
+  }
 });
 
 Template.memberMenuPopup.events({

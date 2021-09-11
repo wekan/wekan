@@ -1,3 +1,5 @@
+var nodemailer = require('nodemailer');
+
 RulesHelper = {
   executeRules(activity) {
     const matchingRules = this.findMatchingRules(activity);
@@ -119,12 +121,28 @@ RulesHelper = {
       const text = action.emailMsg || '';
       const subject = action.emailSubject || '';
       try {
-        Email.send({
-          to,
-          from: Accounts.emailTemplates.from,
-          subject,
-          text,
-        });
+        if (process.env.MAIL_SERVICE !== '') {
+          let transporter = nodemailer.createTransport({
+            service: process.env.MAIL_SERVICE,
+            auth: {
+              user: process.env.MAIL_SERVICE_USER,
+              pass: process.env.MAIL_SERVICE_PASSWORD
+            },
+          })
+          let info = transporter.sendMail({
+            to,
+            from: Accounts.emailTemplates.from,
+            subject,
+            text,
+          })
+        } else {
+          Email.send({
+            to,
+            from: Accounts.emailTemplates.from,
+            subject,
+            text,
+          });
+        }
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e);

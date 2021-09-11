@@ -28,7 +28,7 @@ do
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 12.22.5
+			sudo n 12.22.6
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -78,23 +78,21 @@ do
 		#fi
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
-		cd ~/repos/wekan 
 		rm -rf node_modules .meteor/local .build
                 chmod u+w *.json
 		meteor npm install
 		meteor build .build --directory
-		rm -rf ~/repos/wekan/.build/bundle/programs/web.browser.legacy
-		cd ~/repos/wekan/.build/bundle/programs/server
+		rm -rf .build/bundle/programs/web.browser.legacy
+		pushd .build/bundle/programs/server
 		rm -rf node_modules
                 chmod u+w *.json
 		meteor npm install
 		# Cleanup
-		cd ~/repos/wekan/.build/bundle
+		popd
 		find . -type d -name '*-garbage*' | xargs rm -rf
 		find . -name '*phantom*' | xargs rm -rf
 		find . -name '.*.swp' | xargs rm -f
 		find . -name '*.swp' | xargs rm -f
-                cd ~/repos/wekan
 		# Add fibers multi arch
 		#cd .build/bundle/programs/server/node_modules/fibers/bin
 		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z

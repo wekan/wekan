@@ -1,3 +1,4 @@
+var nodemailer = require('nodemailer');
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import ImpersonatedUsers from './impersonatedUsers';
 
@@ -444,6 +445,7 @@ Users.safeFields = {
   'profile.initials': 1,
   orgs: 1,
   teams: 1,
+  authenticationMethod: 1,
 };
 
 if (Meteor.isClient) {
@@ -1218,12 +1220,29 @@ if (Meteor.isServer) {
           url: board.absoluteUrl(),
         };
         const lang = user.getLanguage();
-        Email.send({
-          to: user.emails[0].address.toLowerCase(),
-          from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-subject', params, lang),
-          text: TAPi18n.__('email-invite-text', params, lang),
-        });
+
+        if (process.env.MAIL_SERVICE !== '') {
+          let transporter = nodemailer.createTransport({
+            service: process.env.MAIL_SERVICE,
+            auth: {
+              user: process.env.MAIL_SERVICE_USER,
+              pass: process.env.MAIL_SERVICE_PASSWORD
+            },
+          })
+          let info = transporter.sendMail({
+            to: user.emails[0].address.toLowerCase(),
+            from: Accounts.emailTemplates.from,
+            subject: TAPi18n.__('email-invite-subject', params, lang),
+            text: TAPi18n.__('email-invite-text', params, lang),
+          })
+        } else {
+          Email.send({
+            to: user.emails[0].address.toLowerCase(),
+            from: Accounts.emailTemplates.from,
+            subject: TAPi18n.__('email-invite-subject', params, lang),
+            text: TAPi18n.__('email-invite-text', params, lang),
+          });
+        }
       } catch (e) {
         throw new Meteor.Error('email-fail', e.message);
       }
@@ -1255,7 +1274,6 @@ if (Meteor.isServer) {
     const userCount = Users.find().count();
     if (userCount === 0) {
       user.isAdmin = true;
-      return user;
     }
 
     if (user.services.oidc) {

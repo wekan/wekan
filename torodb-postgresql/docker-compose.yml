@@ -170,6 +170,9 @@ services:
       #       You can encode those characters for example at: https://www.urlencoder.org
       - MAIL_URL=smtp://user:pass@mailserver.example.com:25/
       - MAIL_FROM='Example Wekan Support <support@example.com>'
+      #- MAIL_SERVICE=Outlook365
+      #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
+      #- MAIL_SERVICE_PASSWORD=SecretPassword
       #---------------------------------------------------------------
       # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
       # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587

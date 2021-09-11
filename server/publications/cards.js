@@ -5,7 +5,6 @@ import Lists from '../../models/lists';
 import Swimlanes from '../../models/swimlanes';
 import Cards from '../../models/cards';
 import CardComments from '../../models/cardComments';
-import CardCommentReactions from '../../models/cardCommentReactions';
 import Attachments from '../../models/attachments';
 import Checklists from '../../models/checklists';
 import ChecklistItems from '../../models/checklistItems';
@@ -700,8 +699,6 @@ function findCards(sessionId, query) {
       type: 1,
     };
 
-    const comments = CardComments.find({ cardId: { $in: cards.map(c => c._id) } });
-
     return [
       cards,
       Boards.find(
@@ -717,8 +714,7 @@ function findCards(sessionId, query) {
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
       Attachments.find({ cardId: { $in: cards.map(c => c._id) } }),
-      comments,
-      CardCommentReactions.find({cardCommentId: {$in: comments.map(c => c._id) }}),
+      CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
       SessionData.find({ userId, sessionId }),
     ];
   }

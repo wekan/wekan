@@ -25,7 +25,7 @@ AccountsTemplates.addFields([
 AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
   defaultContentRegion: 'content',
-  confirmPassword: false,
+  confirmPassword: true,
   enablePasswordChange: true,
   sendVerificationEmail: true,
   showForgotPasswordLink: true,
