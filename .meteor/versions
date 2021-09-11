@@ -1,5 +1,5 @@
 accounts-base@2.0.1
-accounts-password@2.0.0
+accounts-password@2.0.1
 aldeed:collection2@2.10.0
 aldeed:collection2-core@1.2.0
 aldeed:schema-deny@1.1.0
@@ -9,7 +9,7 @@ allow-deny@1.1.0
 arillo:flow-router-helpers@0.5.2
 audit-argument-checks@1.0.7
 autoupdate@1.7.0
-babel-compiler@7.6.2
+babel-compiler@7.7.0
 babel-runtime@1.5.0
 base64@1.0.12
 binary-heap@1.0.11
@@ -33,12 +33,12 @@ ddp@1.4.0
 ddp-client@2.5.0
 ddp-common@1.4.0
 ddp-rate-limiter@1.1.0
-ddp-server@2.4.0
+ddp-server@2.4.1
 deps@1.0.12
 diff-sequence@1.1.1
 dynamic-import@0.7.1
 easylogic:summernote@0.8.8
-ecmascript@0.15.2
+ecmascript@0.15.3
 ecmascript-runtime@0.7.0
 ecmascript-runtime-client@0.11.1
 ecmascript-runtime-server@0.10.1

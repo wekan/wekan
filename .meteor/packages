@@ -6,7 +6,7 @@
 meteor-base@1.5.1
 
 # Build system
-ecmascript@0.15.2
+ecmascript@0.15.3
 standard-minifier-css@1.7.3
 standard-minifier-js@2.6.1
 mquandalle:jade
@@ -125,7 +125,7 @@ pascoual:pdfkit
 lmieulet:meteor-coverage
 meteortesting:mocha
 aldeed:simple-schema
-accounts-password@2.0.0
+accounts-password@2.0.1
 matb33:collection-hooks
 simple:json-routes
 kadira:flow-router
