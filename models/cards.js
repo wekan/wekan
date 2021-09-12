@@ -1168,6 +1168,13 @@ Cards.helpers({
       } else {
         return card.receivedAt;
       }
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.receivedAt;
+      }
     } else {
       return this.receivedAt;
     }
@@ -1176,6 +1183,8 @@ Cards.helpers({
   setReceived(receivedAt) {
     if (this.isLinkedCard()) {
       return Cards.update({ _id: this.linkedId }, { $set: { receivedAt } });
+    } else if (this.isLinkedBoard()) {
+      return Boards.update({ _id: this.linkedId }, { $set: { receivedAt } });
     } else {
       return Cards.update({ _id: this._id }, { $set: { receivedAt } });
     }
@@ -2163,13 +2172,13 @@ Cards.mutations({
     };
   },
 
-  setReceived(receivedAt) {
-    return {
-      $set: {
-        receivedAt,
-      },
-    };
-  },
+  //setReceived(receivedAt) {
+  //  return {
+  //    $set: {
+  //      receivedAt,
+  //    },
+  //  };
+  //},
 
   unsetReceived() {
     return {
@@ -2179,13 +2188,13 @@ Cards.mutations({
     };
   },
 
-  setStart(startAt) {
-    return {
-      $set: {
-        startAt,
-      },
-    };
-  },
+  //setStart(startAt) {
+  //  return {
+  //    $set: {
+  //      startAt,
+  //    },
+  //  };
+  //},
 
   unsetStart() {
     return {
@@ -2195,13 +2204,13 @@ Cards.mutations({
     };
   },
 
-  setDue(dueAt) {
-    return {
-      $set: {
-        dueAt,
-      },
-    };
-  },
+  //setDue(dueAt) {
+  //  return {
+  //    $set: {
+  //      dueAt,
+  //    },
+  //  };
+  //},
 
   unsetDue() {
     return {
@@ -2211,13 +2220,13 @@ Cards.mutations({
     };
   },
 
-  setEnd(endAt) {
-    return {
-      $set: {
-        endAt,
-      },
-    };
-  },
+  //setEnd(endAt) {
+  //  return {
+  //    $set: {
+  //      endAt,
+  //    },
+  //  };
+  //},
 
   unsetEnd() {
     return {
