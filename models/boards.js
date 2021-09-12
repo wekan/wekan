@@ -500,6 +500,13 @@ Boards.attachSchema(
       optional: true,
       defaultValue: 'no-parent',
     },
+    receivedAt: {
+      /**
+       * Date the card was received
+       */
+      type: Date,
+      optional: true,
+    },
     startAt: {
       /**
        * Starting date of the board.
