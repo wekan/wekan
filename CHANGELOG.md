@@ -27,6 +27,8 @@ and fixes the following bugs:
   Thanks to ww-daniel-mora.
 - [When list has just one card, to show 'card' instead of 'cards'](https://github.com/wekan/wekan/pull/3999).
   Thanks to helioguardabaxo.
+- [Fix: Linked card cannot change date](https://github.com/wekan/wekan/pull/4002).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
