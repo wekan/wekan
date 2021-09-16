@@ -28,6 +28,12 @@ Template.userFormsLayout.onCreated(function() {
   Meteor.subscribe('setting', {
     onReady() {
       templateInstance.currentSetting.set(Settings.findOne());
+      let currSetting = templateInstance.currentSetting.curValue;
+      let oidcBtnElt = $("#at-oidc");
+      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+        oidcBtnElt.html(htmlvalue);
+      }
       return this.stop();
     },
   });

@@ -18,6 +18,8 @@ This release adds the following new features:
 - Sum of cards. In Progress.
   [Part 1](https://github.com/wekan/wekan/commit/8626b466b830adf6c671211bbd61b53b96ac5a49).
   Thanks to xet7 !
+- [Admin Panel/Settings/Layout: Customize OIDC button text](https://github.com/wekan/wekan/pull/4011.
+  Thanks to Emile840.
 
 and fixes the following bugs:
 
@@ -27,6 +29,8 @@ and fixes the following bugs:
   Thanks to ww-daniel-mora.
 - [When list has just one card, to show 'card' instead of 'cards'](https://github.com/wekan/wekan/pull/3999).
   Thanks to helioguardabaxo.
+- [Fix: Linked card cannot change date](https://github.com/wekan/wekan/pull/4002).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
