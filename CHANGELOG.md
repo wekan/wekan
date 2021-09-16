@@ -18,6 +18,8 @@ This release adds the following new features:
 - Sum of cards. In Progress.
   [Part 1](https://github.com/wekan/wekan/commit/8626b466b830adf6c671211bbd61b53b96ac5a49).
   Thanks to xet7 !
+- [Admin Panel/Settings/Layout: Customize OIDC button text](https://github.com/wekan/wekan/pull/4011.
+  Thanks to Emile840.
 
 and fixes the following bugs:
 
