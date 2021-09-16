@@ -829,6 +829,7 @@
     "error-undefined": "Ada yang salah",
     "error-ldap-login": "Terjadi kesalahan saat mencoba masuk",
     "display-authentication-method": "Display Authentication Method",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Default Authentication Method",
     "duplicate-board": "Duplikat Papan",
     "org-number": "The number of organizations is:",

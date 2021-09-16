@@ -829,6 +829,7 @@
     "error-undefined": "Algo deu errado",
     "error-ldap-login": "Um erro ocorreu enquanto tentava entrar",
     "display-authentication-method": "Mostrar Método de Autenticação",
+    "oidc-button-text": "Personalizar o texto do botão OIDC",
     "default-authentication-method": "Método de Autenticação Padrão",
     "duplicate-board": "Duplicar Quadro",
     "org-number": "O número de organizações é:",

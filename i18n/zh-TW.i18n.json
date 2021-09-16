@@ -829,6 +829,7 @@
     "error-undefined": "發生問題",
     "error-ldap-login": "嘗試登入時出現錯誤",
     "display-authentication-method": "顯示認證方式",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "預設認證方式",
     "duplicate-board": "複製看板",
     "org-number": "組織數是：",

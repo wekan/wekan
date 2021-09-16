@@ -829,6 +829,7 @@
     "error-undefined": "Něco se pokazilo",
     "error-ldap-login": "Během přihlašování nastala chyba",
     "display-authentication-method": "Zobraz způsob ověřování",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Zobraz způsob ověřování",
     "duplicate-board": "Duplikovat tablo",
     "org-number": "Počet organizací je:",

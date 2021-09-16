@@ -829,6 +829,7 @@
     "error-undefined": "Qualcosa è andato storto",
     "error-ldap-login": "C'è stato un errore mentre provavi ad effettuare il login",
     "display-authentication-method": "Mostra il metodo di autenticazione",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Metodo di autenticazione predefinito",
     "duplicate-board": "Duplica bacheca",
     "org-number": "Il numero di organizzazioni è:",

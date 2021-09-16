@@ -829,6 +829,7 @@
     "error-undefined": "Prišlo je do napake",
     "error-ldap-login": "Prišlo je do napake ob prijavi",
     "display-authentication-method": "Prikaži metodo avtentikacije",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Privzeta metoda avtentikacije",
     "duplicate-board": "Dupliciraj tablo",
     "org-number": "The number of organizations is:",

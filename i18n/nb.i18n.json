@@ -829,6 +829,7 @@
     "error-undefined": "Noe gikk galt",
     "error-ldap-login": "En feil oppstod i forbindelse med pålogging",
     "display-authentication-method": "Vis autentiseringsmetode",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Standard autentiseringsmetode",
     "duplicate-board": "Dupliser tavle",
     "org-number": "Antall Organisasjoner:",

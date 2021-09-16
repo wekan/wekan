@@ -829,6 +829,7 @@
     "error-undefined": "Jotain meni pieleen",
     "error-ldap-login": "Virhe tapahtui yrittäessä kirjautua sisään",
     "display-authentication-method": "Näytä kirjautumistapa",
+    "oidc-button-text": "Muokkaa OIDC kirjautumispainikkeen tekstiä",
     "default-authentication-method": "Oletuskirjautumistapa",
     "duplicate-board": "Tee kaksoiskappale taulusta",
     "org-number": "Organisaatioiden määrä on:",

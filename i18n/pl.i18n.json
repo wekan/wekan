@@ -829,6 +829,7 @@
     "error-undefined": "Coś poszło nie tak",
     "error-ldap-login": "Wystąpił błąd w trakcie logowania",
     "display-authentication-method": "Wyświetl metodę logowania",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Domyślna metoda logowania",
     "duplicate-board": "Duplikuj tablicę",
     "org-number": "Liczba organizacji:",
