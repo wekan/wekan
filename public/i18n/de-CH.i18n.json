@@ -829,6 +829,7 @@
     "error-undefined": "Etwas ist schief gelaufen",
     "error-ldap-login": "Es ist ein Fehler beim Anmelden aufgetreten",
     "display-authentication-method": "Anzeige Authentifizierungsverfahren",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Standardauthentifizierungsverfahren",
     "duplicate-board": "Board duplizieren",
     "org-number": "Die Anzahl an Organisationen ist:",

@@ -829,6 +829,7 @@
     "error-undefined": "Что-то пошло не так",
     "error-ldap-login": "Ошибка при попытке авторизации",
     "display-authentication-method": "Показывать способ авторизации",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Способ авторизации по умолчанию",
     "duplicate-board": "Клонировать доску",
     "org-number": "Количество организаций:",

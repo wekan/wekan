@@ -829,6 +829,7 @@
     "error-undefined": "何らかの問題が発生しています",
     "error-ldap-login": "ログイン中にエラーが発生しました",
     "display-authentication-method": "認証方式を表示",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "デフォルトの認証方式",
     "duplicate-board": "ボードの複製",
     "org-number": "組織のメンバー数:",

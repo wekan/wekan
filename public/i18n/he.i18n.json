@@ -829,6 +829,7 @@
     "error-undefined": "מהו השתבש",
     "error-ldap-login": "אירעה שגיאה בעת ניסיון הכניסה",
     "display-authentication-method": "הצגת שיטת אימות",
+    "oidc-button-text": "עריכת הטקסט על כפתור ה־OIDC",
     "default-authentication-method": "שיטת אימות כבררת מחדל",
     "duplicate-board": "שכפול לוח",
     "org-number": "מספר הארגונים הוא:",

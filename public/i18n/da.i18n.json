@@ -829,6 +829,7 @@
     "error-undefined": "Noget gik galt",
     "error-ldap-login": "Fejl under forsøg på login",
     "display-authentication-method": "Vis godkendelsesmetode",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Standard for godkendelsesmetode",
     "duplicate-board": "Duplikér tavle",
     "org-number": "The number of organizations is:",

@@ -829,6 +829,7 @@
     "error-undefined": "یک اشتباه رخ داده شده است",
     "error-ldap-login": "هنگام تلاش برای ورود به یک خطا رخ داد",
     "display-authentication-method": "نمایش نوع اعتبارسنجی",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "نوع اعتبارسنجی پیشفرض",
     "duplicate-board": "برد تکراری",
     "org-number": "تعداد سازمان ها",

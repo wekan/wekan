@@ -829,6 +829,7 @@
     "error-undefined": "Đã xảy ra sự cố",
     "error-ldap-login": "Đã xảy ra lỗi khi cố gắng đăng nhập",
     "display-authentication-method": "Hiển thị phương pháp xác thực",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Phương thức xác thực mặc định",
     "duplicate-board": "Bảng trùng lặp",
     "org-number": "Số lượng các tổ chức là:",

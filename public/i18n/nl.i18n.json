@@ -829,6 +829,7 @@
     "error-undefined": "Er is iets misgegaan",
     "error-ldap-login": "Er is een fout opgetreden tijdens het inloggen",
     "display-authentication-method": "Toon Authenticatiemethode",
+    "oidc-button-text": "Pas de OIDC-button tekst aan.",
     "default-authentication-method": "Standaard Authenticatiemethode",
     "duplicate-board": "Dupliceer Bord",
     "org-number": "Het aantal organisaties is:",

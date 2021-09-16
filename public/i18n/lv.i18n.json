@@ -829,6 +829,7 @@
     "error-undefined": "Kaut kas nogāja greizi",
     "error-ldap-login": "Pierakstoties notika kļūda",
     "display-authentication-method": "Rādīt autentifikācijas metodi",
+    "oidc-button-text": "Customize the OIDC button text",
     "default-authentication-method": "Noklusētā autentifikācijas metode",
     "duplicate-board": "Dublēt dēli",
     "org-number": "The number of organizations is:",
