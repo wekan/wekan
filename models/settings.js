@@ -84,6 +84,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    oidcBtnText: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,

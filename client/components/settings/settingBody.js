@@ -199,6 +199,12 @@ BlazeComponent.extendComponent({
     )
       .val()
       .trim();
+
+    const oidcBtnText = $(
+      '#oidcBtnTextvalue',
+    )
+      .val()
+      .trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
@@ -221,6 +227,7 @@ BlazeComponent.extendComponent({
           defaultAuthenticationMethod,
           automaticLinkedUrlSchemes,
           spinnerName,
+          oidcBtnText,
         },
       });
     } catch (e) {
