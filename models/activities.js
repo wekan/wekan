@@ -153,7 +153,9 @@ if (Meteor.isServer) {
     }
     if (activity.listId) {
       const list = activity.list();
-      watchers = _.union(watchers, list.watchers || []);
+      if (list.watchers !== undefined) {
+        watchers = _.union(watchers, list.watchers || []);
+      }
       params.list = list.title;
       params.listId = activity.listId;
     }
