@@ -20,6 +20,8 @@ This release adds the following new features:
   Thanks to xet7 !
 - [Admin Panel/Settings/Layout: Customize OIDC button text](https://github.com/wekan/wekan/pull/4011.
   Thanks to Emile840.
+- [At card attachments, show play and fullscreen controls for video webm/mp4/ogg, and play controls for audio mp3/ogg](https://github.com/wekan/wekan/commit/bd9fbedbf9fbe0181913876b930b335261cd2a0a).
+  Thanks to luistiktok and xet7.
 
 and fixes the following bugs:
 
