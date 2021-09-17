@@ -33,6 +33,8 @@ and fixes the following bugs:
   Thanks to helioguardabaxo.
 - [Fix: Linked card cannot change date](https://github.com/wekan/wekan/pull/4002).
   Thanks to Ben0it-T.
+- [Try to fix: Can't delete attachment](https://github.com/wekan/wekan/commit/889ec1339a025a68ec919f059b9d58e8d94a3376).
+  Thanks to luistiktok and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
