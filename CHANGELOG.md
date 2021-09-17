@@ -3,7 +3,7 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.59 2021-09-17 Wekan release
 
 This release adds the following new features:
 
@@ -15,7 +15,7 @@ This release adds the following new features:
   Thanks to xet7.
 - [Enter new password 2 times when registering](https://github.com/wekan/wekan/commit/0da84f8f3eb91c5bf726e058f5ec74a7891d734b).
   Thanks to sh2515 and xet7.
-- Sum of cards. In Progress.
+- Sum of cards. In Progress, not ready yet.
   [Part 1: Add Custom Field options for field sum](https://github.com/wekan/wekan/commit/8626b466b830adf6c671211bbd61b53b96ac5a49).
   [Part 2: Show option for custom field sum only for currency and number custom fields](https://github.com/wekan/wekan/commit/9bee6ae6663a5e1c974de2811f6a5fdd2d66efe5).
   Thanks to xet7.
