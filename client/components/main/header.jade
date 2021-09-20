@@ -55,7 +55,7 @@ template(name="header")
 
       // Next line is used only for spacing at header,
       // there is no visible clickable icon.
-      #header-new-board-icon
+      //#header-new-board-icon
       //  Hide duplicate create board button,
       //  because it did not show board templates correctly.
       //a#header-new-board-icon.js-create-board
@@ -65,11 +65,11 @@ template(name="header")
 
       +headerUserBar
 
-  #header(class=currentBoard.colorClass)
-    //-
-      The main bar is a colorful bar that provide all the meta-data for the
-      current page. This bar is contextual based.
-      If the user is not connected we display "sign in" and "log in" buttons.
+      //#header(class=currentBoard.colorClass)
+      //-
+        The main bar is a colorful bar that provide all the meta-data for the
+        current page. This bar is contextual based.
+        If the user is not connected we display "sign in" and "log in" buttons.
     #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
       +Template.dynamic(template=headerBar)
 
