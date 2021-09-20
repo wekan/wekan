@@ -85,7 +85,7 @@ BlazeComponent.extendComponent({
       }
     });
   },
-  userHasTeams(){
+  userHasTeams() {
     if(Meteor.user().teams && Meteor.user().teams.length > 0)
       return true;
     else
