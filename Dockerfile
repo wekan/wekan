@@ -1,8 +1,8 @@
-FROM quay.io/wekan/ubuntu:groovy-20210115
+FROM quay.io/wekan/ubuntu:hirsute-20210825
 LABEL maintainer="wekan"
 
-# 2020-12-03:
-# - Above Ubuntu base image copied from Docker Hub ubuntu:groovy-20201125.2
+# 2021-09-18:
+# - Above Ubuntu base image copied from Docker Hub ubuntu:hirsute-20210825
 #   to Quay to avoid Docker Hub rate limits.
 
 # Set the environment variables (defaults where required)

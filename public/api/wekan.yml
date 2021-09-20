@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.58
+  version: v5.59
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -960,6 +960,12 @@ paths:
             should the label of the custom field be shown on minicards?
           type: boolean
           required: true
+        - name: showSumAtTopOfList
+          in: formData
+          description: |
+            should the sum of the custom fields be shown at top of list?
+          type: boolean
+          required: true
         - name: authorId
           in: formData
           description: the authorId value
@@ -1066,6 +1072,12 @@ paths:
           in: formData
           description: |
             should the label of the custom field be shown on minicards
+          type: boolean
+          required: true
+        - name: showSumAtTopOfList
+          in: formData
+          description: |
+            should the sum of the custom fields be shown at top of list
           type: boolean
           required: true
         - name: board
@@ -2839,6 +2851,11 @@ definitions:
           - subtext-with-parent
           - no-parent
         x-nullable: true
+      receivedAt:
+        description: |
+           Date the card was received
+        type: string
+        x-nullable: true
       startAt:
         description: |
            Starting date of the board.
@@ -3519,6 +3536,10 @@ definitions:
         description: |
            should the label of the custom field be shown on minicards?
         type: boolean
+      showSumAtTopOfList:
+        description: |
+           should the sum of the custom fields be shown at top of list?
+        type: boolean
       createdAt:
         type: string
         x-nullable: true
@@ -3533,6 +3554,7 @@ definitions:
       - automaticallyOnCard
       - alwaysOnCard
       - showLabelOnMiniCard
+      - showSumAtTopOfList
       - modifiedAt
   CustomFieldsSettings:
     type: object
