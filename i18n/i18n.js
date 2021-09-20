@@ -14,6 +14,11 @@ const i18nImpl = new I18N({
         isoCode: 'en-US',
         name: 'English',
       },
+      fi: {
+        code: 'fi',
+        isoCode: 'fi-FI',
+        name: 'Suomi',
+      },
     },
   },
 });
