@@ -5,6 +5,11 @@ See https://github.com/wekan/wekan/issues/3874
 
 # Upcoming Wekan release
 
+This release adds the following new features:
+
+- [Custom Fields at opened card below each other](https://github.com/wekan/wekan/commit/09b5359c45b3f8b2f461054d130795338c4235db).
+  Thanks to xet7.
+
 This release adds the following updates:
 
 - [Updated Docker base image to newer Ubuntu](https://github.com/wekan/wekan/commit/442e6bf983ada47c26a15dbc1982c554118fa84d).
