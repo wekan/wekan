@@ -113,8 +113,10 @@ BlazeComponent.extendComponent({
     ).getLabelById(lastLabelId);
     if (lastLabel && (lastLabel.name === undefined || lastLabel.name === '')) {
       return lastLabel.color;
-    } else {
+    } else if (lastLabel.name !== undefined && lastLabel.name !== '') {
       return lastLabel.name;
+    } else {
+      return null;
     }
   },
 
