@@ -10,12 +10,17 @@ This release adds the following new features:
 - [Custom Fields at opened card below each other](https://github.com/wekan/wekan/commit/09b5359c45b3f8b2f461054d130795338c4235db).
   Thanks to xet7.
 
-This release adds the following updates:
+and adds the following updates:
 
 - [Updated Docker base image to newer Ubuntu](https://github.com/wekan/wekan/commit/442e6bf983ada47c26a15dbc1982c554118fa84d).
   Thanks to xet7.
 - [Try to add Docker image to GitHub Docker Image Registry](https://github.com/wekan/wekan/commit/70ba1eca787671879215726c16335a84e2b636c9).
   Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Try to fix Bug: Card number equal to #0 when creating a sub-task from a card](https://github.com/wekan/wekan/commit/4c659da5334641f558e77285f7ca47e562f7c853).
+  Thanks to marcungeschikts, olivierlambert and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
