@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Search by name or username or emails address when adding a new user to a board](https://github.com/wekan/wekan/pull/4018).
+  Thanks to Emile840.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.60 2021-09-22 Wekan release
 
 This release adds the following new features:
