@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.59
+  version: v5.60
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3935,6 +3935,10 @@ definitions:
       cardMaximized:
         description: |
            has user clicked maximize card?
+        type: boolean
+      customFieldsGrid:
+        description: |
+           has user at card Custom Fields have Grid (false) or one per row (true) layout?
         type: boolean
       hiddenSystemMessages:
         description: |
