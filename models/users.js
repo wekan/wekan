@@ -431,7 +431,7 @@ Users.allow({
 
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.
-const searchInFields = ['username', 'profile.fullname'];
+const searchInFields = ['username', 'profile.fullname', 'emails.address'];
 Users.initEasySearch(searchInFields, {
   use: 'mongo-db',
   returnFields: [...searchInFields, 'profile.avatarUrl'],
