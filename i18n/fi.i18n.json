@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Vie taulu",
     "exportCardPopup-title": "Vie kortti",
     "sort": "Lajittele",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Klikkaa lajitellaksesi listan",
     "list-sort-by": "Lajittele lista:",
     "list-label-modifiedAt": "Viimeinen käyttöaika",

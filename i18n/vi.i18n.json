@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Xuất bảng",
     "exportCardPopup-title": "Export card",
     "sort": "Sắp xếp",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Nhấp để sắp xếp danh sách",
     "list-sort-by": "Sắp xếp Danh sách bởi:",
     "list-label-modifiedAt": "Lần truy cập cuối cùng",

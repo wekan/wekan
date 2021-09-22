@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "انتقال به بیرون برد",
     "exportCardPopup-title": "Export card",
     "sort": "مرتب سازی",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "برای مرتب سازی لیست کلیک کنید",
     "list-sort-by": "مرتب سازی لیست بر اساس:",
     "list-label-modifiedAt": "زمان دسترسی قبلی",

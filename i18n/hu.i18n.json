@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Tábla exportálása",
     "exportCardPopup-title": "Kártya exportálása",
     "sort": "Rendezés",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Kattints a lista rendezéséhez",
     "list-sort-by": "Rendezd a Listát e szerint:",
     "list-label-modifiedAt": "Utolsó hozzáférés ideje",

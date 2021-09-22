@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Exportovat tablo",
     "exportCardPopup-title": "Exportovat kartu",
     "sort": "řadit",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Kliknout pro třídění seznamu",
     "list-sort-by": "řadit seznam podle",
     "list-label-modifiedAt": "Čas posledního přístupu",

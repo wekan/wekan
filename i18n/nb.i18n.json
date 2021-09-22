@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Eksporter tavle",
     "exportCardPopup-title": "Eksportér kort",
     "sort": "Sorter",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Klikk for sortering liste",
     "list-sort-by": "Sorter liten etter:",
     "list-label-modifiedAt": "Siste innlogging",

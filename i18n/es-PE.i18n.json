@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Exportar tablero",
     "exportCardPopup-title": "Export card",
     "sort": "Ordenar",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Clic para ordenar lista",
     "list-sort-by": "Ordenar la lista por:",
     "list-label-modifiedAt": "Hora de último acceso",

@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Eksportuj tablicę",
     "exportCardPopup-title": "Export card",
     "sort": "Sortuj",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Kliknij by sortować listę",
     "list-sort-by": "Sortuj listę przez:",
     "list-label-modifiedAt": "Ostatni dostęp",

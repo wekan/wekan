@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "დაფის ექსპორტი",
     "exportCardPopup-title": "Export card",
     "sort": "დალაგება",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "დააკლიკეთ ჩამონათვალის დალაგებისთვის",
     "list-sort-by": "ჩამონათვალის დალაგება: ",
     "list-label-modifiedAt": "Last Access Time",

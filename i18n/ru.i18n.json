@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Экспортировать доску",
     "exportCardPopup-title": "Экспорт карточки",
     "sort": "Сортировать",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Нажмите, чтобы отсортировать список",
     "list-sort-by": "Сортировать список по:",
     "list-label-modifiedAt": "Время последнего доступа",

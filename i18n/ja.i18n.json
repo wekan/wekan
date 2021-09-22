@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "ボードのエクスポート",
     "exportCardPopup-title": "Export card",
     "sort": "並べ替え",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "クリックでリストをソート",
     "list-sort-by": "次によりリストを並べ替え：",
     "list-label-modifiedAt": "最終アクセス日時",

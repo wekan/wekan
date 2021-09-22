@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "ייצוא לוח",
     "exportCardPopup-title": "ייצוא כרטיס",
     "sort": "מיון",
+    "sorted": "ממוין",
+    "remove-sort": "הסרת מיון",
     "sort-desc": "לחיצה למיון הרשימה",
     "list-sort-by": "מיון הרשימה לפי:",
     "list-label-modifiedAt": "מועד הגישה האחרון:",

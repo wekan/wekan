@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Panoyu dışarı aktar",
     "exportCardPopup-title": "Kartı dışa aktar.",
     "sort": "Sırala",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Listeyi Sıralamak için Tıklayın",
     "list-sort-by": "Listeyi Sırala:",
     "list-label-modifiedAt": "Son Erişim Zamanı...",

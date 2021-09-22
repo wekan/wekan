@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "导出看板",
     "exportCardPopup-title": "导出卡片",
     "sort": "排序",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "点此来将列表排序",
     "list-sort-by": "按此来将列表排序：",
     "list-label-modifiedAt": "上次访问时间",
