@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Export बोर्ड",
     "exportCardPopup-title": "Export card",
     "sort": "भांति",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "क्रमबद्ध सूची पर क्लिक करें",
     "list-sort-by": "सूची क्रमबद्ध करें:",
     "list-label-modifiedAt": "अंतिम पहुंच समय",

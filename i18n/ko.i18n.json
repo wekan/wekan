@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "보드 내보내기",
     "exportCardPopup-title": "Export card",
     "sort": "분류",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Click to Sort List",
     "list-sort-by": "Sort the List By:",
     "list-label-modifiedAt": "Last Access Time",

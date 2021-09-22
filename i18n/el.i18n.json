@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Εξαγωγή πίνακα",
     "exportCardPopup-title": "Export card",
     "sort": "Ταξινόμηση",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Κάντε κλικ για να ταξινομήστε τη λίστα",
     "list-sort-by": "Ταξινόμηση λίστας βάσει:",
     "list-label-modifiedAt": "Τελευταία Προσπέλαση",

@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Izvozi tablo",
     "exportCardPopup-title": "Export card",
     "sort": "Sortiraj",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Klikni za sortiranje seznama",
     "list-sort-by": "Sortiraj po:",
     "list-label-modifiedAt": "Nazadnje dostopano",

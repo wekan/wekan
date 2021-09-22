@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Експортиране на Табло",
     "exportCardPopup-title": "Export card",
     "sort": "Sort",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Click to Sort List",
     "list-sort-by": "Sort the List By:",
     "list-label-modifiedAt": "Last Access Time",

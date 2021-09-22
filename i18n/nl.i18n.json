@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Exporteer bord",
     "exportCardPopup-title": "Exporteer kaart",
     "sort": "Sorteer",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Klik om lijst te sorteren",
     "list-sort-by": "Sorteer lijst op",
     "list-label-modifiedAt": "Laatste toegangstijd",

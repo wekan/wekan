@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Eksportēt dēli",
     "exportCardPopup-title": "Export card",
     "sort": "Kārtot",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Spiediet, lai kārtotu sarakstu",
     "list-sort-by": "Kārtot sarakstu pēc:",
     "list-label-modifiedAt": "Uzskaitīt piekļuves laiku",

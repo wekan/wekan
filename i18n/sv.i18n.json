@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Exportera tavla",
     "exportCardPopup-title": "Export card",
     "sort": "Sortera",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Klicka för att sortera listan",
     "list-sort-by": "Sortera listan efter:",
     "list-label-modifiedAt": "Sista åtkomsttid",

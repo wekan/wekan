@@ -369,6 +369,8 @@
     "exportBoardPopup-title": "Esporta bacheca",
     "exportCardPopup-title": "Export card",
     "sort": "Ordina",
+    "sorted": "Sorted",
+    "remove-sort": "Remove sort",
     "sort-desc": "Clicca per ordinare la lista",
     "list-sort-by": "Ordina lista per:",
     "list-label-modifiedAt": "Orario ultimo accesso",
