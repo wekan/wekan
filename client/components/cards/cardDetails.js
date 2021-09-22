@@ -61,6 +61,11 @@ BlazeComponent.extendComponent({
     return Meteor.user().hasHiddenSystemMessages();
   },
 
+  customFieldsGrid() {
+    return Meteor.user().hasCustomFieldsGrid();
+  },
+
+
   cardMaximized() {
     return Meteor.user().hasCardMaximized();
   },
@@ -418,6 +423,9 @@ BlazeComponent.extendComponent({
         },
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
+        },
+        'click #toggleCustomFieldsGridButton'() {
+          Meteor.call('toggleCustomFieldsGrid');
         },
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
