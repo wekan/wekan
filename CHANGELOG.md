@@ -7,7 +7,7 @@ See https://github.com/wekan/wekan/issues/3874
 
 This release adds the following new features:
 
-- [Custom Fields at opened card below each other](https://github.com/wekan/wekan/commit/09b5359c45b3f8b2f461054d130795338c4235db).
+- [Toggle opened card Custom Fields layout between Grid and one per row](https://github.com/wekan/wekan/commit/fc2fb9a081021663cc822bf2a687fda74cd0afa6).
   Thanks to xet7.
 
 and adds the following updates:
