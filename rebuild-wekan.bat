@@ -16,7 +16,7 @@ cd C:\repos
 REM Install chocolatey
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
-choco install -y git curl python2 dotnet4.5.2 nano mongodb-3 mongoclient meteor
+choco install -y git curl python2 dotnet4.5.2 nano mongodb-4 mongoclient
 
 curl -O https://nodejs.org/dist/v12.22.6/node-v12.22.6-x64.msi
 call node-v12.22.6-x64.msi
@@ -25,12 +25,12 @@ call npm config -g set msvs_version 2015
 call meteor npm config -g set msvs_version 2015
 
 call npm -g install npm
+call npm -g install meteor
 call npm -g install node-gyp
 call npm -g install fibers
 cd C:\repos
 git clone https://github.com/wekan/wekan.git
 cd wekan
-git checkout edge
 echo "Building Wekan."
 REM del /S /F /Q packages
 REM ## REPOS BELOW ARE INCLUDED TO WEKAN
