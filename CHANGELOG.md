@@ -16,6 +16,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Try to add Docker image to GitHub Docker Image Registry](https://github.com/wekan/wekan/commit/70ba1eca787671879215726c16335a84e2b636c9).
   Thanks to xet7.
+- [Update build scripts to install npm from NodeSource, and meteor with npm](https://github.com/wekan/wekan/commit/c062621dd5486b60bdd200a9279a38b98fc0d410).
+  Thanks to Meteor developers.
 
 and fixes the following bugs:
 
