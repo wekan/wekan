@@ -1831,8 +1831,7 @@ if (Meteor.isServer) {
                     */
   JsonRoutes.add('GET', '/api/boards', function(req, res) {
     try {
-      const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Boards.find(
@@ -1888,8 +1887,8 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId', function(req, res) {
     try {
+      Authentication.checkUserId(req.userId);
       const id = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, id);
 
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -2006,8 +2005,7 @@ if (Meteor.isServer) {
    * @return_type string
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
-    const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    Authentication.checkUserId(req.userId);
     const id = req.params.boardId;
     try {
       if (req.body.hasOwnProperty('label')) {
@@ -2054,10 +2052,10 @@ if (Meteor.isServer) {
     res,
   ) {
     try {
+      Authentication.checkUserId(req.userId);
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
       const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
-      Authentication.checkBoardAccess(req.userId, boardId);
       const board = Boards.findOne({ _id: boardId });
       function isTrue(data) {
         try {
@@ -2101,8 +2099,8 @@ if (Meteor.isServer) {
    *                swimlaneId: string}]
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
+    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Attachments.files

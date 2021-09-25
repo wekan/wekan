@@ -3110,9 +3110,9 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/swimlanes/:swimlaneId/cards',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramSwimlaneId = req.params.swimlaneId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Cards.find({
@@ -3152,9 +3152,9 @@ if (Meteor.isServer) {
     req,
     res,
   ) {
+    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Cards.find({
@@ -3189,10 +3189,10 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Cards.findOne({
@@ -3339,8 +3339,8 @@ if (Meteor.isServer) {
     'PUT',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
 
@@ -3697,8 +3697,8 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
 
@@ -3737,11 +3737,10 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/cardsByCustomField/:customFieldId/:customFieldValue',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramCustomFieldId = req.params.customFieldId;
       const paramCustomFieldValue = req.params.customFieldValue;
-
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Cards.find({
