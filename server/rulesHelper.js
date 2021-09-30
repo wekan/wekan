@@ -47,8 +47,12 @@ RulesHelper = {
           value = oldSwimlane.title;
         }
       }
+      let matchesList = [value, '*'];
+      if (field === 'cardTitle') {
+        matchesList = value.split(/\W/).concat(matchesList);
+      }
       matchingMap[field] = {
-        $in: [value, '*'],
+        $in: matchesList,
       };
     });
     return matchingMap;
