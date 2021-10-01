@@ -10,6 +10,11 @@ This release adds the following new features:
 - [Allow word match for rules -> title filter](https://github.com/wekan/wekan/pull/4025).
   Thanks to ilvar.
 
+and fixes the following bugs:
+
+- [Clean up /tmp after Docker build. This drastically reduces docker image size from ~280 MB to ~180 MB](https://github.com/wekan/wekan/pull/4026).
+  Thanks to ilvar.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.61 2021-09-25 Wekan release
