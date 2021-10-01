@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Allow word match for rules -> title filter](https://github.com/wekan/wekan/pull/4025).
+  Thanks to ilvar.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.61 2021-09-25 Wekan release
 
 This release adds the following new features:
