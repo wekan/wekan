@@ -167,25 +167,38 @@ if (Meteor.isServer) {
     const exporter = new Exporter(boardId);
     if (exporter.canExport(user) || impersonateDone) {
       if (impersonateDone) {
-        // TODO: Checking for CSV or TSV export type does not work:
-        //   let exportType = 'export' + params.query.delimiter ? 'CSV' : 'TSV';
-        // So logging export to CSV:
         let exportType = 'exportCSV';
+        if( params.query.delimiter == "\t" ) {
+          exportType = 'exportTSV';
+        }
         ImpersonatedUsers.insert({
           adminId: adminId,
           boardId: boardId,
           reason: exportType,
         });
       }
-
-      body = params.query.delimiter
-        ? exporter.buildCsv(params.query.delimiter)
-        : exporter.buildCsv();
-      //'Content-Length': body.length,
-      res.writeHead(200, {
-        'Content-Type': params.query.delimiter ? 'text/csv' : 'text/tsv',
-      });
-      res.write(body);
+      
+      let userLanguage = 'en';
+      if (user && user.profile) {
+        userLanguage = user.profile.language
+      }
+      
+      if( params.query.delimiter == "\t" ) {
+        // TSV file
+        res.writeHead(200, {
+          'Content-Type': 'text/tsv',
+        });
+      }
+      else {
+        // CSV file (comma or semicolon)
+        res.writeHead(200, {
+          'Content-Type': 'text/csv; charset=utf-8',
+        });
+        // Adding UTF8 BOM to quick fix MS Excel issue
+        // use Uint8Array to prevent from converting bytes to string
+        res.write(new Uint8Array([0xEF, 0xBB, 0xBF]));
+      }
+      res.write(exporter.buildCsv(params.query.delimiter, userLanguage));
       res.end();
     } else {
       res.writeHead(403);
