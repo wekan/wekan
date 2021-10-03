@@ -9,11 +9,15 @@ This release adds the following new features:
 
 - [Allow word match for rules -> title filter](https://github.com/wekan/wekan/pull/4025).
   Thanks to ilvar.
+- [CSV/TSV/Excel Export translatable and fixed, CSV semicolon option added](https://github.com/wekan/wekan/pull/4028).
+  Thanks to Ben0it-T.
 
 and fixes the following bugs:
 
 - [Clean up /tmp after Docker build. This drastically reduces docker image size from ~280 MB to ~180 MB](https://github.com/wekan/wekan/pull/4026).
   Thanks to ilvar.
+- [Removed extra quotes from Export menu](https://github.com/wekan/wekan/commit/553652556468ac88c0691d4d688d5a922ef6a0c2).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
