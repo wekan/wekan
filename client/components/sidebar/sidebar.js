@@ -512,6 +512,21 @@ BlazeComponent.extendComponent({
     };
     const queryParams = {
       authToken: Accounts._storedLoginToken(),
+      delimiter: ',',
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/export/csv',
+      params,
+      queryParams,
+    );
+  },
+  exportScsvUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+      delimiter: ';',
     };
     return FlowRouter.path(
       '/api/boards/:boardId/export/csv',

@@ -3,8 +3,9 @@ import { createWorkbook } from './createWorkbook';
 // exporter maybe is broken since Gridfs introduced, add fs and path
 
 class ExporterExcel {
-  constructor(boardId) {
+  constructor(boardId, userLanguage) {
     this._boardId = boardId;
+    this.userLanguage = userLanguage;
   }
 
   build(res) {
@@ -157,8 +158,8 @@ class ExporterExcel {
 
     //init exceljs workbook
     const workbook = createWorkbook();
-    workbook.creator = TAPi18n.__('export-board');
-    workbook.lastModifiedBy = TAPi18n.__('export-board');
+    workbook.creator = TAPi18n.__('export-board','',this.userLanguage);
+    workbook.lastModifiedBy = TAPi18n.__('export-board','',this.userLanguage);
     workbook.created = new Date();
     workbook.modified = new Date();
     workbook.lastPrinted = new Date();
@@ -367,11 +368,11 @@ class ExporterExcel {
     ws.addRow().values = ['', '', '', '', '', ''];
     //add kanban info
     ws.addRow().values = [
-      TAPi18n.__('createdAt'),
+      TAPi18n.__('createdAt','',this.userLanguage),
       addTZhours(result.createdAt),
-      TAPi18n.__('modifiedAt'),
+      TAPi18n.__('modifiedAt','',this.userLanguage),
       addTZhours(result.modifiedAt),
-      TAPi18n.__('members'),
+      TAPi18n.__('members','',this.userLanguage),
       jmem,
     ];
     ws.getRow(3).font = {
@@ -381,6 +382,14 @@ class ExporterExcel {
     };
     ws.mergeCells('F3:R3');
     ws.getCell('B3').style = {
+      font: {
+        name: TAPi18n.__('excel-font'),
+        size: '10',
+        bold: true,
+      },
+      numFmt: 'yyyy/mm/dd hh:mm:ss',
+    };
+    ws.getCell('D3').style = {
       font: {
         name: TAPi18n.__('excel-font'),
         size: '10',
@@ -455,24 +464,24 @@ class ExporterExcel {
     //ws.addRow().values = ['编号', '标题', '创建人', '创建时间', '更新时间', '列表', '成员', '描述', '标签'];
     //this is where order in which the excel file generates
     ws.addRow().values = [
-      TAPi18n.__('number'),
-      TAPi18n.__('title'),
-      TAPi18n.__('description'),
-      TAPi18n.__('parent-card'),
-      TAPi18n.__('owner'),
-      TAPi18n.__('createdAt'),
-      TAPi18n.__('last-modified-at'),
-      TAPi18n.__('card-received'),
-      TAPi18n.__('card-start'),
-      TAPi18n.__('card-due'),
-      TAPi18n.__('card-end'),
-      TAPi18n.__('list'),
-      TAPi18n.__('swimlane'),
-      TAPi18n.__('assignee'),
-      TAPi18n.__('members'),
-      TAPi18n.__('labels'),
-      TAPi18n.__('overtime-hours'),
-      TAPi18n.__('spent-time-hours'),
+      TAPi18n.__('number','',this.userLanguage),
+      TAPi18n.__('title','',this.userLanguage),
+      TAPi18n.__('description','',this.userLanguage),
+      TAPi18n.__('parent-card','',this.userLanguage),
+      TAPi18n.__('owner','',this.userLanguage),
+      TAPi18n.__('createdAt','',this.userLanguage),
+      TAPi18n.__('last-modified-at','',this.userLanguage),
+      TAPi18n.__('card-received','',this.userLanguage),
+      TAPi18n.__('card-start','',this.userLanguage),
+      TAPi18n.__('card-due','',this.userLanguage),
+      TAPi18n.__('card-end','',this.userLanguage),
+      TAPi18n.__('list','',this.userLanguage),
+      TAPi18n.__('swimlane','',this.userLanguage),
+      TAPi18n.__('assignee','',this.userLanguage),
+      TAPi18n.__('members','',this.userLanguage),
+      TAPi18n.__('labels','',this.userLanguage),
+      TAPi18n.__('overtime-hours','',this.userLanguage),
+      TAPi18n.__('spent-time-hours','',this.userLanguage),
     ];
     ws.getRow(5).height = 20;
     allBorder('A5');
