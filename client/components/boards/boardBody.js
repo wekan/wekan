@@ -336,6 +336,7 @@ BlazeComponent.extendComponent({
       defaultView: 'agendaDay',
       editable: true,
       timezone: 'local',
+      weekNumbers: true,
       header: {
         left: 'title   today prev,next',
         center:

@@ -115,6 +115,10 @@ const CardDate = BlazeComponent.extendComponent({
     }, 60000);
   },
 
+  showWeek() {
+    return this.date.get().week().toString();
+  },
+
   showDate() {
     // this will start working once mquandalle:moment
     // is updated to at least moment.js 2.10.5

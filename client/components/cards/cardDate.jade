@@ -1,14 +1,20 @@
 template(name="dateBadge")
   if canModifyCard
-    a.js-edit-date.card-date(title="{{showTitle}}" class="{{classes}}")
+    a.js-edit-date.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{showWeek}}" class="{{classes}}")
       time(datetime="{{showISODate}}")
         | {{showDate}}
+        b
+          | {{showWeek}}
   else
-    a.card-date(title="{{showTitle}}" class="{{classes}}")
+    a.card-date(title="{{showTitle}} {{_ 'predicate-week'}} {{showWeek}}" class="{{classes}}")
       time(datetime="{{showISODate}}")
         | {{showDate}}
+        b
+          | {{showWeek}}
 
 template(name="dateCustomField")
-  a(title="{{showTitle}}" class="{{classes}}")
+  a(title="{{showTitle}} {{_ 'predicate-week'}} {{showWeek}}" class="{{classes}}")
     time(datetime="{{showISODate}}")
       | {{showDate}}
+      b
+        | {{showWeek}}

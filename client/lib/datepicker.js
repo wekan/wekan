@@ -34,6 +34,7 @@ export class DatePicker extends BlazeComponent {
         todayBtn: 'linked',
         language: TAPi18n.getLanguage(),
         weekStart: this.startDayOfWeek(),
+        calendarWeeks: true,
       })
       .on(
         'changeDate',
