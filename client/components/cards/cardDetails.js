@@ -663,11 +663,11 @@ Template.cardDetailsActionsPopup.events({
     );
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
   },
-  'click .js-archive'(event) {
-    event.preventDefault();
-    this.archive();
+  'click .js-archive': Popup.afterConfirm('cardArchive', function () {
     Popup.close();
-  },
+    this.archive();
+    Utils.goBoardId(this.boardId);
+  }),
   'click .js-more': Popup.open('cardMore'),
   'click .js-toggle-watch-card'() {
     const currentCard = this;

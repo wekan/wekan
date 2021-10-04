@@ -48,7 +48,7 @@ RulesHelper = {
         }
       }
       let matchesList = [value, '*'];
-      if (field === 'cardTitle') {
+      if ((field === 'cardTitle') && (value !== undefined)) {
         matchesList = value.split(/\W/).concat(matchesList);
       }
       matchingMap[field] = {

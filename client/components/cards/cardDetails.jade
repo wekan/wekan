@@ -826,6 +826,12 @@ template(name="cardDeletePopup")
     p {{_ "card-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
+template(name="cardArchivePopup")
+  p {{_ "card-archive-pop"}}
+  unless archived
+    p {{_ "card-archive-suggest-cancel"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
+
 template(name="deleteVotePopup")
   p {{_ "vote-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
