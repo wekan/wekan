@@ -13,6 +13,8 @@ This release adds the following new features:
   Thanks to Ben0it-T.
 - [Added week numbers to dates at card, minicard, Custom Field dates, DatePicker and Calendar](https://github.com/wekan/wekan/commit/d06ac09485dafb0256ae7fbe613ab2dbe00b70f3).
   Thanks to xet7.
+- [Confirm Archive Card](https://github.com/wekan/wekan/commit/6c3fcdcc4c446fd4c8dc4dca1b2846f6e3ea72e4).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
