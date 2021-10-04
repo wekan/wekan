@@ -11,6 +11,8 @@ This release adds the following new features:
   Thanks to ilvar.
 - [CSV/TSV/Excel Export translatable and fixed, CSV semicolon option added](https://github.com/wekan/wekan/pull/4028).
   Thanks to Ben0it-T.
+- [Added week numbers to dates at card, minicard, Custom Field dates, DatePicker and Calendar](https://github.com/wekan/wekan/commit/d06ac09485dafb0256ae7fbe613ab2dbe00b70f3).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
