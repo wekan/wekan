@@ -103,6 +103,12 @@ autoscaling:
     ##
     targetCPUUtilizationPercentage: 80
 
+# Optional custom labels for the deployment resource.
+deploymentLabels: {}
+
+# Optional custom labels for the pods created by the deployment.
+podLabels: {}
+
 # ------------------------------------------------------------------------------
 # MongoDB:
 # ------------------------------------------------------------------------------

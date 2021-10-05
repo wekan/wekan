@@ -8,6 +8,9 @@ metadata:
     component: wekan
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    {{- if .Values.deploymentLabels }}
+    {{- toYaml .Values.deploymentLabels | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -22,6 +25,9 @@ spec:
         app: {{ template "wekan.name" . }}
         component: wekan
         release: {{ .Release.Name }}
+        {{- if .Values.podLabels }}
+        {{- toYaml .Values.podLabels | nindent 8 }}
+        {{- end }}
     spec:
       serviceAccountName: {{ template "wekan.serviceAccountName" . }}
       containers:
