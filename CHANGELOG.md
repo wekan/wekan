@@ -3,6 +3,20 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Allow setting custom kubernetes labels when using the helm chart](https://github.com/wekan/wekan/pull/4031).
+  Thanks to ariep.
+
+and fixes the following bugs:
+
+- [Fixed SMTP by reverting MAIL_SERVICE changes](https://github.com/wekan/wekan/commit/9c99c5c3ae8d291df5305b3b6cd1825fc5cc2c21).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.62 2021-10-04 Wekan release
 
 This release adds the following new features:
