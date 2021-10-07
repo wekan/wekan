@@ -40,7 +40,6 @@
     "markdown-it-emoji": "^2.0.0",
     "meteor-node-stubs": "^1.1.0",
     "mongodb": "^3.6.11",
-    "nodemailer": "^6.6.3",
     "os": "^0.1.2",
     "page": "^1.11.5",
     "papaparse": "^5.3.1",

@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer');
+//var nodemailer = require('nodemailer');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -225,8 +225,7 @@ if (Meteor.isServer) {
         url: FlowRouter.url('sign-up'),
       };
       const lang = author.getLanguage();
-
-
+/*
       if (process.env.MAIL_SERVICE !== '') {
         let transporter = nodemailer.createTransport({
           service: process.env.MAIL_SERVICE,
@@ -249,6 +248,13 @@ if (Meteor.isServer) {
           text: TAPi18n.__('email-invite-register-text', params, lang),
         });
       }
+*/
+      Email.send({
+        to: icode.email,
+        from: Accounts.emailTemplates.from,
+        subject: TAPi18n.__('email-invite-register-subject', params, lang),
+        text: TAPi18n.__('email-invite-register-text', params, lang),
+      });
     } catch (e) {
       InvitationCodes.remove(_id);
       throw new Meteor.Error('email-fail', e.message);
@@ -341,6 +347,7 @@ if (Meteor.isServer) {
       this.unblock();
       const lang = user.getLanguage();
       try {
+/*
         if (process.env.MAIL_SERVICE !== '') {
           let transporter = nodemailer.createTransport({
             service: process.env.MAIL_SERVICE,
@@ -363,6 +370,13 @@ if (Meteor.isServer) {
             text: TAPi18n.__('email-smtp-test-text', { lng: lang }),
           });
         }
+*/
+        Email.send({
+          to: user.emails[0].address,
+          from: Accounts.emailTemplates.from,
+          subject: TAPi18n.__('email-smtp-test-subject', { lng: lang }),
+          text: TAPi18n.__('email-smtp-test-text', { lng: lang }),
+        });
       } catch ({ message }) {
         throw new Meteor.Error(
           'email-fail',
