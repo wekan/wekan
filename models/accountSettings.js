@@ -51,7 +51,7 @@ AccountSettings.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    AccountSettings._collection._ensureIndex({ modifiedAt: -1 });
+    AccountSettings._collection.createIndex({ modifiedAt: -1 });
     AccountSettings.upsert(
       { _id: 'accounts-allowEmailChange' },
       {

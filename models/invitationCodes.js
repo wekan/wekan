@@ -65,7 +65,7 @@ InvitationCodes.helpers({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    InvitationCodes._collection._ensureIndex({ modifiedAt: -1 });
+    InvitationCodes._collection.createIndex({ modifiedAt: -1 });
   });
   Boards.deny({
     fetch: ['members'],

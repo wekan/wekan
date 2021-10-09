@@ -186,7 +186,7 @@ Attachments = new FS.Collection('attachments', {
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Attachments.files._ensureIndex({ cardId: 1 });
+    Attachments.files.createIndex({ cardId: 1 });
   });
 
   Attachments.allow({

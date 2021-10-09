@@ -82,19 +82,19 @@ if (Meteor.isServer) {
   // creation in conjunction with the card or board id, as corresponding views
   // are largely used in the App. See #524.
   Meteor.startup(() => {
-    Activities._collection._ensureIndex({ createdAt: -1 });
-    Activities._collection._ensureIndex({ modifiedAt: -1 });
-    Activities._collection._ensureIndex({ cardId: 1, createdAt: -1 });
-    Activities._collection._ensureIndex({ boardId: 1, createdAt: -1 });
-    Activities._collection._ensureIndex(
+    Activities._collection.createIndex({ createdAt: -1 });
+    Activities._collection.createIndex({ modifiedAt: -1 });
+    Activities._collection.createIndex({ cardId: 1, createdAt: -1 });
+    Activities._collection.createIndex({ boardId: 1, createdAt: -1 });
+    Activities._collection.createIndex(
       { commentId: 1 },
       { partialFilterExpression: { commentId: { $exists: true } } },
     );
-    Activities._collection._ensureIndex(
+    Activities._collection.createIndex(
       { attachmentId: 1 },
       { partialFilterExpression: { attachmentId: { $exists: true } } },
     );
-    Activities._collection._ensureIndex(
+    Activities._collection.createIndex(
       { customFieldId: 1 },
       { partialFilterExpression: { customFieldId: { $exists: true } } },
     );

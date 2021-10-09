@@ -87,7 +87,7 @@ Rules.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Rules._collection._ensureIndex({ modifiedAt: -1 });
+    Rules._collection.createIndex({ modifiedAt: -1 });
   });
 }
 

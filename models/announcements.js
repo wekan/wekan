@@ -56,7 +56,7 @@ Announcements.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Announcements._collection._ensureIndex({ modifiedAt: -1 });
+    Announcements._collection.createIndex({ modifiedAt: -1 });
     const announcements = Announcements.findOne({});
     if (!announcements) {
       Announcements.insert({ enabled: false, sort: 0 });
