@@ -1661,12 +1661,12 @@ if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
   Meteor.startup(() => {
     allowedSortValues.forEach((value) => {
-      Lists._collection._ensureIndex(value);
+      Lists._collection.createIndex(value);
     });
-    Users._collection._ensureIndex({
+    Users._collection.createIndex({
       modifiedAt: -1,
     });
-    Users._collection._ensureIndex(
+    Users._collection.createIndex(
       {
         username: 1,
       },

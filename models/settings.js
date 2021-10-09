@@ -147,7 +147,7 @@ Settings.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Settings._collection._ensureIndex({ modifiedAt: -1 });
+    Settings._collection.createIndex({ modifiedAt: -1 });
     const setting = Settings.findOne({});
     if (!setting) {
       const now = new Date();

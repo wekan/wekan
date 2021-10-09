@@ -32,7 +32,7 @@ Actions.helpers({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Actions._collection._ensureIndex({ modifiedAt: -1 });
+    Actions._collection.createIndex({ modifiedAt: -1 });
   });
 }
 

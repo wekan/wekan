@@ -195,8 +195,8 @@ Checklists.mutations({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Checklists._collection._ensureIndex({ modifiedAt: -1 });
-    Checklists._collection._ensureIndex({ cardId: 1, createdAt: 1 });
+    Checklists._collection.createIndex({ modifiedAt: -1 });
+    Checklists._collection.createIndex({ cardId: 1, createdAt: 1 });
   });
 
   Checklists.after.insert((userId, doc) => {
