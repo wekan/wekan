@@ -1666,6 +1666,7 @@ if (Meteor.isServer) {
     Users._collection.createIndex({
       modifiedAt: -1,
     });
+/* Commented out extra index because of IndexOptionsConflict.
     Users._collection.createIndex(
       {
         username: 1,
@@ -1674,6 +1675,7 @@ if (Meteor.isServer) {
         unique: true,
       },
     );
+*/
     Meteor.defer(() => {
       addCronJob();
     });
