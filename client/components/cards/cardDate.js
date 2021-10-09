@@ -115,6 +115,10 @@ const CardDate = BlazeComponent.extendComponent({
     }, 60000);
   },
 
+  showWeek() {
+    return this.date.get().week().toString();
+  },
+
   showDate() {
     // this will start working once mquandalle:moment
     // is updated to at least moment.js 2.10.5
@@ -284,12 +288,25 @@ class CardCustomFieldDate extends CardDate {
     });
   }
 
-  classes() {
-    return 'customfield-date';
+  showWeek() {
+    return this.date.get().week().toString();
+  }
+
+  showDate() {
+    // this will start working once mquandalle:moment
+    // is updated to at least moment.js 2.10.5
+    // until then, the date is displayed in the "L" format
+    return this.date.get().calendar(null, {
+      sameElse: 'llll',
+    });
   }
 
   showTitle() {
-    return '';
+    return `${this.date.get().format('LLLL')}`;
+  }
+
+  classes() {
+    return 'customfield-date';
   }
 
   events() {

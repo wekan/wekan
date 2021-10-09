@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer');
+//var nodemailer = require('nodemailer');
 
 RulesHelper = {
   executeRules(activity) {
@@ -47,8 +47,12 @@ RulesHelper = {
           value = oldSwimlane.title;
         }
       }
+      let matchesList = [value, '*'];
+      if ((field === 'cardTitle') && (value !== undefined)) {
+        matchesList = value.split(/\W/).concat(matchesList);
+      }
       matchingMap[field] = {
-        $in: [value, '*'],
+        $in: matchesList,
       };
     });
     return matchingMap;
@@ -121,6 +125,7 @@ RulesHelper = {
       const text = action.emailMsg || '';
       const subject = action.emailSubject || '';
       try {
+/*
         if (process.env.MAIL_SERVICE !== '') {
           let transporter = nodemailer.createTransport({
             service: process.env.MAIL_SERVICE,
@@ -143,6 +148,13 @@ RulesHelper = {
             text,
           });
         }
+*/
+        Email.send({
+          to,
+          from: Accounts.emailTemplates.from,
+          subject,
+          text,
+        });
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e);

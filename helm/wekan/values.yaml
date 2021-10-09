@@ -14,7 +14,7 @@ serviceAccounts:
 ##
 image:
   repository: quay.io/wekan/wekan
-  tag: v5.59
+  tag: v5.64
   pullPolicy: IfNotPresent
 
 ## Configuration for wekan component
@@ -102,6 +102,12 @@ autoscaling:
     ## likely want to set it to `1` or some lower value.
     ##
     targetCPUUtilizationPercentage: 80
+
+# Optional custom labels for the deployment resource.
+deploymentLabels: {}
+
+# Optional custom labels for the pods created by the deployment.
+podLabels: {}
 
 # ------------------------------------------------------------------------------
 # MongoDB:

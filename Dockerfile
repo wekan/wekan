@@ -309,6 +309,7 @@ RUN \
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
     npm uninstall -g api2html &&\
+    rm -R /tmp* && \
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \

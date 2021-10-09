@@ -1,16 +1,89 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-Note: With Docker, please don't use latest tag. Only use release tags.
-See https://github.com/wekan/wekan/issues/3874
+# v5.64 2021-10-09 WeKan ® release
 
-# Upcoming Wekan release
+This release adds the following new features:
 
-This release adds the following updates:
+- [Excel Export : add board description, add comments worksheet](https://github.com/wekan/wekan/pull/4045).
+  Thanks to Ben0it-T.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.63 2021-10-07 Wekan release
+
+This release adds the following new features:
+
+- [Allow setting custom kubernetes labels when using the helm chart](https://github.com/wekan/wekan/pull/4031).
+  Thanks to ariep.
+
+and fixes the following bugs:
+
+- [Fixed SMTP by reverting MAIL_SERVICE changes](https://github.com/wekan/wekan/commit/9c99c5c3ae8d291df5305b3b6cd1825fc5cc2c21).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.62 2021-10-04 Wekan release
+
+This release adds the following new features:
+
+- [Allow word match for rules -> title filter](https://github.com/wekan/wekan/pull/4025).
+  Thanks to ilvar.
+- [CSV/TSV/Excel Export translatable and fixed, CSV semicolon option added](https://github.com/wekan/wekan/pull/4028).
+  Thanks to Ben0it-T.
+- Added week numbers to dates at card, minicard, Custom Field dates, DatePicker and Calendar.
+  [Part 1](https://github.com/wekan/wekan/commit/d06ac09485dafb0256ae7fbe613ab2dbe00b70f3),
+  [Part 2](https://github.com/wekan/wekan/commit/9e6744d1e33b37e0d23eea5869ccac3ff37f7d53).
+  Thanks to xet7.
+- [Confirm Archive Card](https://github.com/wekan/wekan/commit/6c3fcdcc4c446fd4c8dc4dca1b2846f6e3ea72e4).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Clean up /tmp after Docker build. This drastically reduces docker image size from ~280 MB to ~180 MB](https://github.com/wekan/wekan/pull/4026).
+  Thanks to ilvar.
+- [Removed extra quotes from Export menu](https://github.com/wekan/wekan/commit/553652556468ac88c0691d4d688d5a922ef6a0c2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.61 2021-09-25 Wekan release
+
+This release adds the following new features:
+
+- [Search by name or username or emails address when adding a new user to a board](https://github.com/wekan/wekan/pull/4018).
+  Thanks to Emile840.
+
+and fixes the following bugs:
+
+- [Fixed REST API, it shoud work now by Admin user](https://github.com/wekan/wekan/commit/e3a0dea85fa1f8e2f580f419b30cf5f36775d731).
+  Reverted [Allow board members to use more of API of Wekan v5.35](https://github.com/wekan/wekan/commit/a719e8fda1f78bcbf9af6e7b4341f8be1d141e90).
+  Thanks to tomhughes and xet7.
+- [Wekan Gantt GPL: Fix Tasks not displayed in Gantt screen](https://github.com/wekan/wekan-gantt-gpl/commit/72d464f5eb55501f08eb0cfd31fd5340380d7f3b).
+  Thanks to MrLovegreen and khjde1207.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.60 2021-09-22 Wekan release
+
+This release adds the following new features:
+
+- [Toggle opened card Custom Fields layout between Grid and one per row](https://github.com/wekan/wekan/commit/fc2fb9a081021663cc822bf2a687fda74cd0afa6).
+  Thanks to xet7.
+
+and adds the following updates:
 
 - [Updated Docker base image to newer Ubuntu](https://github.com/wekan/wekan/commit/442e6bf983ada47c26a15dbc1982c554118fa84d).
   Thanks to xet7.
 - [Try to add Docker image to GitHub Docker Image Registry](https://github.com/wekan/wekan/commit/70ba1eca787671879215726c16335a84e2b636c9).
   Thanks to xet7.
+- [Update build scripts to install npm from NodeSource, and meteor with npm](https://github.com/wekan/wekan/commit/c062621dd5486b60bdd200a9279a38b98fc0d410).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
+
+- [Try to fix Bug: Card number equal to #0 when creating a sub-task from a card](https://github.com/wekan/wekan/commit/4c659da5334641f558e77285f7ca47e562f7c853).
+  Thanks to marcungeschikts, olivierlambert and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

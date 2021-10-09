@@ -61,6 +61,11 @@ BlazeComponent.extendComponent({
     return Meteor.user().hasHiddenSystemMessages();
   },
 
+  customFieldsGrid() {
+    return Meteor.user().hasCustomFieldsGrid();
+  },
+
+
   cardMaximized() {
     return Meteor.user().hasCardMaximized();
   },
@@ -419,6 +424,9 @@ BlazeComponent.extendComponent({
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
         },
+        'click #toggleCustomFieldsGridButton'() {
+          Meteor.call('toggleCustomFieldsGrid');
+        },
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
@@ -655,11 +663,11 @@ Template.cardDetailsActionsPopup.events({
     );
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
   },
-  'click .js-archive'(event) {
-    event.preventDefault();
-    this.archive();
+  'click .js-archive': Popup.afterConfirm('cardArchive', function () {
     Popup.close();
-  },
+    this.archive();
+    Utils.goBoardId(this.boardId);
+  }),
   'click .js-more': Popup.open('cardMore'),
   'click .js-toggle-watch-card'() {
     const currentCard = this;

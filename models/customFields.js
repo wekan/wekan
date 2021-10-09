@@ -301,8 +301,8 @@ if (Meteor.isServer) {
     req,
     res,
   ) {
+    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: CustomFields.find({ boardIds: { $in: [paramBoardId] } }).map(
@@ -330,8 +330,8 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/custom-fields/:customFieldId',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramCustomFieldId = req.params.customFieldId;
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -361,8 +361,8 @@ if (Meteor.isServer) {
     req,
     res,
   ) {
+    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
     const board = Boards.findOne({ _id: paramBoardId });
     const id = CustomFields.direct.insert({
       name: req.body.name,
@@ -406,9 +406,8 @@ if (Meteor.isServer) {
     'PUT',
     '/api/boards/:boardId/custom-fields/:customFieldId',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       const paramFieldId = req.params.customFieldId;
 
       if (req.body.hasOwnProperty('name')) {
@@ -480,9 +479,8 @@ if (Meteor.isServer) {
     'POST',
     '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       const paramCustomFieldId = req.params.customFieldId;
       const paramItems = req.body.items;
 
@@ -524,9 +522,8 @@ if (Meteor.isServer) {
     'PUT',
     '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items/:dropdownItemId',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       const paramDropdownItemId = req.params.dropdownItemId;
       const paramCustomFieldId = req.params.customFieldId;
       const paramName = req.body.name;
@@ -566,9 +563,8 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items/:dropdownItemId',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       paramCustomFieldId = req.params.customFieldId;
       paramDropdownItemId = req.params.dropdownItemId;
 
@@ -602,8 +598,8 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/custom-fields/:customFieldId',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const id = req.params.customFieldId;
       CustomFields.remove({ _id: id, boardIds: { $in: [paramBoardId] } });
       JsonRoutes.sendResult(res, {

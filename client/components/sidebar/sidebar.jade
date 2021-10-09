@@ -400,7 +400,11 @@ template(name="exportBoard")
     li
       a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
         i.fa.fa-share-alt
-        | {{_ 'export-board-csv'}}
+        | {{_ 'export-board-csv'}} ,
+    li
+      a(href="{{exportScsvUrl}}", download="{{exportCsvFilename}}")
+        i.fa.fa-share-alt
+        | {{_ 'export-board-csv'}} ;
     li
       a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
         i.fa.fa-share-alt

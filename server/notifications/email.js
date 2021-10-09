@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer');
+//var nodemailer = require('nodemailer');
 
 // buffer each user's email text in a queue, then flush them in single email
 Meteor.startup(() => {
@@ -40,6 +40,7 @@ Meteor.startup(() => {
       const html = texts.join('<br/>\n\n');
       user.clearEmailBuffer();
       try {
+/*
         if (process.env.MAIL_SERVICE !== '') {
           let transporter = nodemailer.createTransport({
             service: process.env.MAIL_SERVICE,
@@ -62,6 +63,13 @@ Meteor.startup(() => {
             html,
           });
         }
+*/
+        Email.send({
+          to: user.emails[0].address.toLowerCase(),
+          from: Accounts.emailTemplates.from,
+          subject,
+          html,
+        });
       } catch (e) {
         return;
       }
