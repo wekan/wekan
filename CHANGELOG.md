@@ -1,9 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-Note: With Docker, please don't use latest tag. Only use release tags.
-See https://github.com/wekan/wekan/issues/3874
-
-# Upcoming Wekan release
+# v5.64 2021-10-09 WeKan ® release
 
 This release adds the following new features:
 
