@@ -760,21 +760,17 @@ class ExporterExcel {
       TAPi18n.__('createdAt','',this.userLanguage),
       TAPi18n.__('last-modified-at','',this.userLanguage), 
     ];
-
     ws2.getRow(3).height = 20;
-
     ws2.getRow(3).font = {
       name: TAPi18n.__('excel-font'),
       size: 10,
       bold: true,
     };
-
     ws2.getRow(3).alignment = {
       vertical: 'middle',
       horizontal: 'center',
       wrapText: true,
     };
-
     allBorderWs2('A3');
     allBorderWs2('B3');
     allBorderWs2('C3');
@@ -782,38 +778,33 @@ class ExporterExcel {
     allBorderWs2('E3');
     allBorderWs2('F3');
 
-
-
-
     //add comment info
+    let commentcnt = 0;
     for (const i in result.comments) {
       const jcomment = result.comments[i];
-      
       //card title
       const parentCard = result.cards.find(
         (card) => card._id === jcomment.cardId,
       );
       jcomment.cardTitle = parentCard ? parentCard.title : '';
-      
+      if (jcomment.cardTitle == '') {
+        continue;
+      }
       //add comment detail
-      const t = Number(i) + 1;
+      commentcnt++;
       ws2.addRow().values = [
-        t.toString(),
+        commentcnt.toString(),
         jcomment.text,
         jcomment.cardTitle,
         jmeml[jcomment.userId],
         addTZhours(jcomment.createdAt),
         addTZhours(jcomment.modifiedAt),
-
-
       ];
-
-      const y = Number(i) + 4;
+      const y = commentcnt + 3;
       ws2.getRow(y).font = {
         name: TAPi18n.__('excel-font'),
         size: 10,
       };
-      
       ws2.getCell(`A${y}`).alignment = {
         vertical: 'middle',
         horizontal: 'center',
@@ -839,20 +830,13 @@ class ExporterExcel {
         vertical: 'middle',
         wrapText: true,
       };
-
       allBorderWs2(`A${y}`);
       allBorderWs2(`B${y}`);
       allBorderWs2(`C${y}`);
       allBorderWs2(`D${y}`);
       allBorderWs2(`E${y}`);
       allBorderWs2(`F${y}`);
-      
-      
     }
-
-
-
-
     workbook.xlsx.write(res).then(function () {});
   }
 
