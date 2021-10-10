@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Excel Export: Export only comments for cards that are not linked](https://github.com/wekan/wekan/pull/4047).
+  Thanks to Ben0it-T.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.64 2021-10-09 WeKan ® release
 
 This release adds the following new features:
