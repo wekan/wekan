@@ -6,6 +6,9 @@ const i18nTagToT9n = i18nTag => {
   return i18nTag;
 };
 
+let alreadyCheck = 1;
+let isCheckDone = false;
+
 const validator = {
   set(obj, prop, value) {
     if (prop === 'state' && value !== 'signIn') {
@@ -164,6 +167,49 @@ Template.userFormsLayout.events({
       authentication(event, templateInstance).then(() => {
         templateInstance.isLoading.set(false);
       });
+    }
+  },
+  'DOMSubtreeModified #at-oidc'(event){
+    if(alreadyCheck <= 2){
+      let currSetting = Settings.findOne();
+      let oidcBtnElt = $("#at-oidc");
+      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+        if(alreadyCheck == 1){
+          alreadyCheck++;
+          oidcBtnElt.html("");
+        }
+        else{
+          alreadyCheck++;
+          oidcBtnElt.html(htmlvalue);
+        }
+      }
+    }
+    else{
+      alreadyCheck = 1;
+    }
+  },
+  'DOMSubtreeModified .at-form'(event){
+    if(alreadyCheck <= 2 && !isCheckDone){
+      if(document.getElementById("at-oidc") != null){
+        let currSetting = Settings.findOne();
+        let oidcBtnElt = $("#at-oidc");
+        if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+          let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+          if(alreadyCheck == 1){
+            alreadyCheck++;
+            oidcBtnElt.html("");
+          }
+          else{
+            alreadyCheck++;
+            isCheckDone = true;
+            oidcBtnElt.html(htmlvalue);
+          }
+        }
+      }
+    }
+    else{
+      alreadyCheck = 1;
     }
   },
 });
