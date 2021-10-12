@@ -2,7 +2,12 @@
 
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds to following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.7](https://github.com/wekan/wekan/commit/64fc2e5d8fe50115175d44c01f7fca4e668c7231).
+  Thanks to Node.js developers.
+
+and fixes the following bugs:
 
 - [Excel Export: Export only comments for cards that are not linked](https://github.com/wekan/wekan/pull/4047).
   Thanks to Ben0it-T.
