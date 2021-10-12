@@ -67,6 +67,9 @@ BlazeComponent.extendComponent({
           }
         },
       },
+      {
+        'click span.badge-icon.fa.fa-sort, click span.badge-text' : Popup.open("editCardSortOrder"),
+      }
     ];
   },
 }).register('minicard');
@@ -93,3 +96,24 @@ Template.minicard.helpers({
     }
   },
 });
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click button.js-submit-edit-card-sort-popup'(event) {
+          // save button pressed
+          event.preventDefault();
+          const sort = this.$('.js-edit-card-sort-popup')[0]
+            .value
+            .trim();
+          if (!Number.isNaN(sort)) {
+            let card = this.data();
+            card.move(card.boardId, card.swimlaneId, card.listId, sort);
+            Popup.close();
+          }
+        },
+      }
+    ]
+  }
+}).register('editCardSortOrderPopup');
