@@ -68,7 +68,7 @@ BlazeComponent.extendComponent({
         },
       },
       {
-        'click span.badge-icon.fa.fa-sort, click span.badge-text' : Popup.open("editCardSortOrder"),
+        'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
       }
     ];
   },
@@ -101,6 +101,12 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'keydown input.js-edit-card-sort-popup'(evt) {
+          // enter = save
+          if (evt.keyCode === 13) {
+            this.find('button[type=submit]').click();
+          }
+        },
         'click button.js-submit-edit-card-sort-popup'(event) {
           // save button pressed
           event.preventDefault();
