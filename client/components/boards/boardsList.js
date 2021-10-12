@@ -86,7 +86,7 @@ BlazeComponent.extendComponent({
     });
   },
   userHasTeams(){
-    if(Meteor.user().teams && Meteor.user().teams.length > 0)
+    if(Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
       return true;
     else
       return false;
@@ -98,7 +98,7 @@ BlazeComponent.extendComponent({
       return [];
   },
   userHasOrgs(){
-    if(Meteor.user().orgs && Meteor.user().orgs.length > 0)
+    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
       return true;
     else
       return false;
@@ -111,13 +111,13 @@ BlazeComponent.extendComponent({
   },
   userHasOrgsOrTeams(){
     let boolUserHasOrgs;
-    if(Meteor.user().orgs && Meteor.user().orgs.length > 0)
+    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
       boolUserHasOrgs = true;
     else
       boolUserHasOrgs = false;
 
     let boolUserHasTeams;
-    if(Meteor.user().teams && Meteor.user().teams.length > 0)
+    if(Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
       boolUserHasTeams = true;
     else
       boolUserHasTeams = false;
@@ -153,7 +153,7 @@ BlazeComponent.extendComponent({
       //   },
       // });
 
-      let orgIdsUserBelongs = currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
+      let orgIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
       if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
         let orgsIds = orgIdsUserBelongs.split(',');
         // for(let i = 0; i < orgsIds.length; i++){
@@ -164,7 +164,7 @@ BlazeComponent.extendComponent({
         query.$and[2].$or.push({'orgs.orgId': {$in : orgsIds}});
       }
 
-      let teamIdsUserBelongs = currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
+      let teamIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
       if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
         let teamsIds = teamIdsUserBelongs.split(',');
         // for(let i = 0; i < teamsIds.length; i++){
