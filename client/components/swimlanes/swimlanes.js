@@ -123,7 +123,7 @@ function initSortable(boardComponent, $listsDom) {
         'disabled',
         // Disable drag-dropping when user is not member/is worker
         //!userIsMember() || Meteor.user().isWorker(),
-        !Meteor.user().isBoardAdmin(),
+        !Meteor.user() || !Meteor.user().isBoardAdmin(),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !userIsMember(),
       );
