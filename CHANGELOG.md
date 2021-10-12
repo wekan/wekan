@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming Wekan release
+# v5.65 2021-10-12 Wekan release
 
 This release adds to following CRITICAL SECURITY UPDATES:
 
