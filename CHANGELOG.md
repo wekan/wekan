@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Excel Export: Export only comments for cards that are not linked](https://github.com/wekan/wekan/pull/4047).
   Thanks to Ben0it-T.
+- [If OIDC button text was customized, the default text will be added if a user click on `Sign In`](https://github.com/wekan/wekan/pull/4052).
+  Thanks to Emile840.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
