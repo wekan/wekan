@@ -12,9 +12,10 @@ services:
     expose:
       - 27017
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./volumes/wekan-db:/data/db
       - ./volumes/wekan-db-dump:/dump
-      - /etc/localtime:/etc/localtime:ro
 
   wekan-dev:
     container_name: wekan-dev-app
@@ -36,13 +37,14 @@ services:
     depends_on:
       - wekandb-dev
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ../client:/home/wekan/app/client
       - ../models:/home/wekan/app/models
       - ../config:/home/wekan/app/config
       - ../i18n:/home/wekan/app/i18n
       - ../server:/home/wekan/app/server
       - ../public:/home/wekan/app/public
-      - /etc/localtime:/etc/localtime:ro
 
 volumes:
   wekan-dev-db:

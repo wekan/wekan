@@ -216,7 +216,7 @@ BlazeComponent.extendComponent({
       $swimlanesDom.sortable(
         'option',
         'disabled',
-        !Meteor.user().isBoardAdmin(),
+        !Meteor.user() || !Meteor.user().isBoardAdmin(),
       );
     });
 

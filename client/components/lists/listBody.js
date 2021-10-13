@@ -789,17 +789,12 @@ BlazeComponent.extendComponent({
       return false;
     }
 
+    const spinnerViewPosition = this.spinner.offsetTop - this.container.offsetTop + this.spinner.clientHeight;
+
     const parentViewHeight = this.container.clientHeight;
     const bottomViewPosition = this.container.scrollTop + parentViewHeight;
 
-    let spinnerOffsetTop = this.spinner.offsetTop;
-
-    const addCard = $(this.container).find("a.open-minicard-composer").first()[0];
-    if (addCard !== undefined) {
-      spinnerOffsetTop -= addCard.clientHeight;
-    }
-
-    return bottomViewPosition > spinnerOffsetTop;
+    return bottomViewPosition > spinnerViewPosition;
   }
 
   getSkSpinnerName() {
