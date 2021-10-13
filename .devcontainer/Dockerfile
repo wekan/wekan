@@ -196,6 +196,10 @@ COPY \
     /home/wekan/app/
 
 COPY \
+    tests \
+    /home/wekan/app/tests/
+
+COPY \
     packages \
     /home/wekan/app/packages/
 
