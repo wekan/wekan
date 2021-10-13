@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix infinite loading of public boards](https://github.com/wekan/wekan/pull/4053).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.65 2021-10-12 Wekan release
 
 This release adds to following CRITICAL SECURITY UPDATES:
