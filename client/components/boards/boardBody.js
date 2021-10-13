@@ -191,21 +191,11 @@ BlazeComponent.extendComponent({
     });
 
     this.autorun(() => {
-      let showDesktopDragHandles = false;
-      currentUser = Meteor.user();
-      if (currentUser) {
-        showDesktopDragHandles = (currentUser.profile || {})
-          .showDesktopDragHandles;
-      } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-        showDesktopDragHandles = true;
-      } else {
-        showDesktopDragHandles = false;
-      }
-      if (Utils.isMiniScreen() || showDesktopDragHandles) {
+      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
-      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
+      } else if (!Utils.isMiniScreen() && !Utils.isShowDesktopDragHandles()) {
         $swimlanesDom.sortable({
           handle: '.swimlane-header',
         });

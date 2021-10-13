@@ -134,7 +134,7 @@ template(name="changeSettingsPopup")
       a.js-toggle-desktop-drag-handles
         i.fa.fa-arrows
         | {{_ 'show-desktop-drag-handles'}}
-        if showDesktopDragHandles
+        if isShowDesktopDragHandles
           i.fa.fa-check
     unless currentUser.isWorker
       li

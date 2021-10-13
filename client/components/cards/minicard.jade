@@ -3,13 +3,9 @@ template(name="minicard")
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="minicard-{{colorClass}}")
-    if isMiniScreen
+    if isMiniScreenOrShowDesktopDragHandles
       .handle
         .fa.fa-arrows
-    unless isMiniScreen
-      if showDesktopDragHandles
-        .handle
-          .fa.fa-arrows
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels

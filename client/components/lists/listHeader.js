@@ -122,18 +122,7 @@ BlazeComponent.extendComponent({
 Template.listHeader.helpers({
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
-  },
-
-  showDesktopDragHandles() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
+  }
 });
 
 Template.listActionPopup.helpers({

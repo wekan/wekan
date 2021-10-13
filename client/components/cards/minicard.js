@@ -75,16 +75,6 @@ BlazeComponent.extendComponent({
 }).register('minicard');
 
 Template.minicard.helpers({
-  showDesktopDragHandles() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
   hiddenMinicardLabelText() {
     currentUser = Meteor.user();
     if (currentUser) {

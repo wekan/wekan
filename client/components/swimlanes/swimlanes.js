@@ -95,22 +95,11 @@ function initSortable(boardComponent, $listsDom) {
   //}
 
   boardComponent.autorun(() => {
-    let showDesktopDragHandles = false;
-    currentUser = Meteor.user();
-    if (currentUser) {
-      showDesktopDragHandles = (currentUser.profile || {})
-        .showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      showDesktopDragHandles = true;
-    } else {
-      showDesktopDragHandles = false;
-    }
-
-    if (Utils.isMiniScreen() || showDesktopDragHandles) {
+    if (Utils.isMiniScreenOrShowDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
-    } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
+    } else if (!Utils.isMiniScreen() && !Utils.isShowDesktopDragHandles()) {
       $listsDom.sortable({
         handle: '.js-list-header',
       });
@@ -172,19 +161,8 @@ BlazeComponent.extendComponent({
           // the user will legitimately expect to be able to select some text with
           // his mouse.
 
-          let showDesktopDragHandles = false;
-          currentUser = Meteor.user();
-          if (currentUser) {
-            showDesktopDragHandles = (currentUser.profile || {})
-              .showDesktopDragHandles;
-          } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-            showDesktopDragHandles = true;
-          } else {
-            showDesktopDragHandles = false;
-          }
-
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isMiniScreen() || showDesktopDragHandles
+            Utils.isMiniScreenOrShowDesktopDragHandles()
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );
@@ -264,16 +242,6 @@ BlazeComponent.extendComponent({
 }).register('addListForm');
 
 Template.swimlane.helpers({
-  showDesktopDragHandles() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
   canSeeAddList() {
     return Meteor.user().isBoardAdmin();
     /*

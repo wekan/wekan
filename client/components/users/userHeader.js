@@ -259,16 +259,6 @@ Template.changeLanguagePopup.events({
 });
 
 Template.changeSettingsPopup.helpers({
-  showDesktopDragHandles() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
   hiddenSystemMessages() {
     currentUser = Meteor.user();
     if (currentUser) {
