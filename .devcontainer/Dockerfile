@@ -230,6 +230,19 @@ RUN \
     chmod u+w package.json npm-shrinkwrap.json && \
     npm install
 
+USER root
+# Cleanup
+RUN \
+    set -o xtrace && \
+    apt-get clean -y && \
+    apt-get autoremove -y && \
+    rm -Rf /tmp* && \
+    rm -Rf /home/wekan/app_build && \
+    rm -Rf /var/cache/apt /var/lib/apt/lists && \
+    rm -Rf /var/lib/apt/lists/*
+
+USER wekan
+
 ENV PORT=3000
 EXPOSE $PORT
 WORKDIR /home/wekan/app
