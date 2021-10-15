@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fix infinite loading of public boards](https://github.com/wekan/wekan/pull/4053).
   Thanks to mfilser.
+- [Fix: Setting overtime not working](https://github.com/wekan/wekan/pull/4056).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
