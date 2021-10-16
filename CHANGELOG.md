@@ -4,7 +4,9 @@
 
 This release adds the following new features:
 
-- [api.py: Added "List All Public Boards"](https://github.com/wekan/wekan/commit/eac102dbbf302ccc121bbf1e4e8faf115e1f9da8).
+- [api.py: List All Public Boards](https://github.com/wekan/wekan/commit/eac102dbbf302ccc121bbf1e4e8faf115e1f9da8).
+  Thanks to xet7.
+- [api.py: List Custom Fields of Board](https://github.com/wekan/wekan/commit/bcf35731316c327090a8513a4c4094e32e301e3f).
   Thanks to xet7.
 
 and fixes the following bugs:
