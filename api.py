@@ -67,12 +67,13 @@ chmod +x api.py
 === Wekan API Python CLI: Shows IDs for addcard ===
 AUTHORID is USERID that writes card.
 Syntax:
-  python3 api.py users               # All users
-  python3 api.py boards USERID       # Boards of USERID
-  python3 api.py board BOARDID       # Info of BOARDID
-  python3 api.py swimlanes BOARDID   # Swimlanes of BOARDID
-  python3 api.py lists BOARDID       # Lists of BOARDID
-  python3 api.py list BOARDID LISTID # Info of LISTID
+  python3 api.py users                # All users
+  python3 api.py boards USERID        # Boards of USERID
+  python3 api.py board BOARDID        # Info of BOARDID
+  python3 api.py customfields BOARDID # Custom Fields of BOARDID
+  python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID
+  python3 api.py lists BOARDID        # Lists of BOARDID
+  python3 api.py list BOARDID LISTID  # Info of LISTID
   python3 api.py createlist BOARDID LISTTITLE # Create list
   python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION
   python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION
@@ -135,6 +136,7 @@ l = 'lists'
 sw = 'swimlane'
 sws = 'swimlanes'
 cs = 'cards'
+cf = 'custom-fields'
 bs = 'boards'
 atl = 'attachmentslist'
 at = 'attachment'
@@ -232,8 +234,8 @@ if arguments == 2:
         data2 = body.text.replace('}',"}\n")
         print(data2)
     # ------- BOARDS LIST END -----------
-    if sys.argv[1] == 'board':
 
+    if sys.argv[1] == 'board':
         # ------- BOARD INFO START -----------
         boardid = sys.argv[2]
         board = wekanurl + apiboards + boardid
@@ -243,6 +245,17 @@ if arguments == 2:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- BOARD INFO END -----------
+
+    if sys.argv[1] == 'customfields':
+        # ------- CUSTOM FIELDS INFO START -----------
+        boardid = sys.argv[2]
+        boardcustomfields = wekanurl + apiboards + boardid + s + cf
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        body = requests.get(boardcustomfields, headers=headers)
+        print("=== CUSTOM FIELDS OF BOARD ===\n")
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- CUSTOM FIELDS INFO END -----------
 
     if sys.argv[1] == 'swimlanes':
         boardid = sys.argv[2]
