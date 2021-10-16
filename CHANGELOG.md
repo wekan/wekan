@@ -2,7 +2,12 @@
 
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [api.py: Added "List All Public Boards"](https://github.com/wekan/wekan/commit/eac102dbbf302ccc121bbf1e4e8faf115e1f9da8).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix infinite loading of public boards](https://github.com/wekan/wekan/pull/4053).
   Thanks to mfilser.
