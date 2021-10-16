@@ -5,6 +5,9 @@
 # Wekan API Python CLI, originally from here, where is more details:
 # https://github.com/wekan/wekan/wiki/New-card-with-Python3-and-REST-API
 
+# TODO:
+#   addcustomfieldstoboard: There is error: Settings must be object. So adding does not work yet.
+
 try:
     # python 3
     from urllib.parse import urlencode
@@ -29,6 +32,7 @@ if arguments == 0:
     print("  python3 api.py board BOARDID        # Info of BOARDID")
     print("  python3 api.py customfields BOARDID # Custom Fields of BOARDID")
     print("  python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID")
+    print("  python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board")
     print("  python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID")
     print("  python3 api.py lists BOARDID        # Lists of BOARDID")
     print("  python3 api.py list BOARDID LISTID  # Info of LISTID")
@@ -73,6 +77,7 @@ Syntax:
   python3 api.py board BOARDID        # Info of BOARDID
   python3 api.py customfields BOARDID # Custom Fields of BOARDID
   python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
+  python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
   python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID
   python3 api.py lists BOARDID        # Lists of BOARDID
   python3 api.py list BOARDID LISTID  # Info of LISTID
@@ -82,6 +87,13 @@ Syntax:
   python3 api.py listattachments BOARDID # List attachments
   python3 api.py attachmentjson BOARDID ATTACHMENTID # One attachment as JSON base64
   python3 api.py attachmentbinary BOARDID ATTACHMENTID # One attachment as binary file
+
+=== ADD CUSTOM FIELD TO BOARD ===
+
+Type: text, number, date, dropdown, checkbox, currency, stringtemplate.
+
+python3 api.py addcustomfieldtoboard cmx3gmHLKwAXLqjxz LcDW4QdooAx8hsZh8 "SomeField" "date" "" true true true true 
+
 
 === USERS ===
 
@@ -156,10 +168,35 @@ apikey = d['token']
 
 # ------- LOGIN TOKEN END -----------
 
+if arguments == 10:
+
+    if sys.argv[1] == 'addcustomfieldtoboard':
+        # ------- ADD CUSTOM FIELD TO BOARD START -----------
+        authorid = sys.argv[2]
+        boardid = sys.argv[3]
+        name = sys.argv[4]
+        type1 = sys.argv[5]
+        settings = sys.argv[6]
+        #  There is error: Settings must be object. So this does not work yet.
+        #settings = json.loads(sys.argv[6])
+        #settings = {'currencyCode': 'EUR'}
+        print(type(settings))
+        showoncard = sys.argv[7]
+        automaticallyoncard = sys.argv[8]
+        showlabelonminicard = sys.argv[9]
+        showsumattopoflist = sys.argv[10]
+        customfieldtoboard = wekanurl + apiboards + boardid + s + cf
+        # Add Custom Field to Board
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {'authorId': '{}'.format(authorid), 'name': '{}'.format(name), 'type': '{}'.format(type1), 'settings': '{}'.format(settings), 'showoncard': '{}'.format(showoncard), 'automaticallyoncard': '{}'.format(automaticallyoncard), 'showlabelonminicard': '{}'.format(showlabelonminicard), 'showsumattopoflist': '{}'.format(showsumattopoflist)}
+        body = requests.post(customfieldtoboard, data=post_data, headers=headers)
+        print(body.text)
+        # ------- ADD CUSTOM FIELD TO BOARD END -----------
+
 if arguments == 7:
 
     if sys.argv[1] == 'addcard':
-        # ------- WRITE TO CARD START -----------
+        # ------- ADD CARD START -----------
         authorid = sys.argv[2]
         boardid = sys.argv[3]
         swimlaneid = sys.argv[4]
@@ -167,18 +204,18 @@ if arguments == 7:
         cardtitle = sys.argv[6]
         carddescription = sys.argv[7]
         cardtolist = wekanurl + apiboards + boardid + s + l + s + listid + s + cs
-        # Write to card
+        # Add card
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         post_data = {'authorId': '{}'.format(authorid), 'title': '{}'.format(cardtitle), 'description': '{}'.format(carddescription), 'swimlaneId': '{}'.format(swimlaneid)}
         body = requests.post(cardtolist, data=post_data, headers=headers)
         print(body.text)
-        # ------- WRITE TO CARD END -----------
+        # ------- ADD CARD END -----------
 
 if arguments == 6:
 
     if sys.argv[1] == 'editcard':
 
-        # ------- LIST OF BOARD START -----------
+        # ------- EDIT CARD START -----------
         boardid = sys.argv[2]
         listid = sys.argv[3]
         cardid = sys.argv[4]
@@ -193,7 +230,7 @@ if arguments == 6:
         body = requests.get(edcard, headers=headers)
         data2 = body.text.replace('}',"}\n")
         print(data2)
-        # ------- LISTS OF BOARD END -----------
+        # ------- EDIT CARD END -----------
 
 if arguments == 3:
 
@@ -225,7 +262,7 @@ if arguments == 3:
 
     if sys.argv[1] == 'customfield':
 
-        # ------- LIST OF BOARD START -----------
+        # ------- INFO OF CUSTOM FIELD START -----------
         boardid = sys.argv[2]
         customfieldid = sys.argv[3]
         customfieldone = wekanurl + apiboards + boardid + s + cf + s + customfieldid
@@ -234,7 +271,7 @@ if arguments == 3:
         body = requests.get(customfieldone, headers=headers)
         data2 = body.text.replace('}',"}\n")
         print(data2)
-        # ------- LISTS OF BOARD END -----------
+        # ------- INFO OF CUSTOM FIELD END -----------
 
 if arguments == 2:
 
@@ -262,7 +299,7 @@ if arguments == 2:
         # ------- BOARD INFO END -----------
 
     if sys.argv[1] == 'customfields':
-        # ------- CUSTOM FIELDS INFO START -----------
+        # ------- CUSTOM FIELDS OF BOARD START -----------
         boardid = sys.argv[2]
         boardcustomfields = wekanurl + apiboards + boardid + s + cf
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
@@ -270,7 +307,7 @@ if arguments == 2:
         print("=== CUSTOM FIELDS OF BOARD ===\n")
         data2 = body.text.replace('}',"}\n")
         print(data2)
-        # ------- CUSTOM FIELDS INFO END -----------
+        # ------- CUSTOM FIELDS OF BOARD END -----------
 
     if sys.argv[1] == 'swimlanes':
         boardid = sys.argv[2]
