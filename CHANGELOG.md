@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [api.py: List Custom Fields of Board](https://github.com/wekan/wekan/commit/bcf35731316c327090a8513a4c4094e32e301e3f).
   Thanks to xet7.
+- [api.py: Info of one Custom Field](https://github.com/wekan/wekan/commit/5c571ca8638c29e558f3a196daf5458274eb715e).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
