@@ -10,6 +10,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [api.py: Info of one Custom Field](https://github.com/wekan/wekan/commit/5c571ca8638c29e558f3a196daf5458274eb715e).
   Thanks to xet7.
+- [api.py: Add Custom Fields to Board. Does not work yet, error: Settings must be object](https://github.com/wekan/wekan/commit/3921209c9fbf1d908f2ef3e97dade5863a000309).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
