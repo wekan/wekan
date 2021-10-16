@@ -28,6 +28,7 @@ if arguments == 0:
     print("  python3 api.py boards USERID        # Boards of USERID")
     print("  python3 api.py board BOARDID        # Info of BOARDID")
     print("  python3 api.py customfields BOARDID # Custom Fields of BOARDID")
+    print("  python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID")
     print("  python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID")
     print("  python3 api.py lists BOARDID        # Lists of BOARDID")
     print("  python3 api.py list BOARDID LISTID  # Info of LISTID")
@@ -71,6 +72,7 @@ Syntax:
   python3 api.py boards USERID        # Boards of USERID
   python3 api.py board BOARDID        # Info of BOARDID
   python3 api.py customfields BOARDID # Custom Fields of BOARDID
+  python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
   python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID
   python3 api.py lists BOARDID        # Lists of BOARDID
   python3 api.py list BOARDID LISTID  # Info of LISTID
@@ -217,6 +219,19 @@ if arguments == 3:
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         print("=== INFO OF ONE LIST ===\n")
         body = requests.get(listone, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- LISTS OF BOARD END -----------
+
+    if sys.argv[1] == 'customfield':
+
+        # ------- LIST OF BOARD START -----------
+        boardid = sys.argv[2]
+        customfieldid = sys.argv[3]
+        customfieldone = wekanurl + apiboards + boardid + s + cf + s + customfieldid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== INFO OF ONE CUSTOM FIELD ===\n")
+        body = requests.get(customfieldone, headers=headers)
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- LISTS OF BOARD END -----------
