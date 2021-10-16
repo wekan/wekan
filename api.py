@@ -23,12 +23,14 @@ if arguments == 0:
     print("AUTHORID is USERID that writes card.")
     print("If *nix:  chmod +x api.py => ./api.py users")
     print("Syntax:")
-    print("  python3 api.py users              # All users")
-    print("  python3 api.py boards USERID      # Boards of USERID")
-    print("  python3 api.py board BOARDID      # Info of BOARDID")
-    print("  python3 api.py swimlanes BOARDID  # Swimlanes of BOARDID")
-    print("  python3 api.py lists BOARDID      # Lists of BOARDID")
-    print("  python3 api.py list BOARDID LISTID # Info of LISTID")
+    print("  python3 api.py users                # All users")
+    print("  python3 api.py boards               # All Public Boards")
+    print("  python3 api.py boards USERID        # Boards of USERID")
+    print("  python3 api.py board BOARDID        # Info of BOARDID")
+    print("  python3 api.py customfields BOARDID # Custom Fields of BOARDID")
+    print("  python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID")
+    print("  python3 api.py lists BOARDID        # Lists of BOARDID")
+    print("  python3 api.py list BOARDID LISTID  # Info of LISTID")
     print("  python3 api.py createlist BOARDID LISTTITLE # Create list")
     print("  python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION")
     print("  python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION")
@@ -289,3 +291,14 @@ if arguments == 1:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- LIST OF USERS END -----------
+
+    if sys.argv[1] == 'boards':
+
+        # ------- LIST OF PUBLIC BOARDS START -----------
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== PUBLIC BOARDS ===\n")
+        listpublicboards = wekanurl + apiboards
+        body = requests.get(listpublicboards, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- LIST OF PUBLIC BOARDS END -----------
