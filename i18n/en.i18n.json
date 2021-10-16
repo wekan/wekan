@@ -1082,5 +1082,8 @@
   "closed": "Closed",
   "resolved": "Resolved",
   "cancelled": "Cancelled",
-  "history": "History"
+  "history": "History",
+  "request": "Request",
+  "requests": "Requests",
+  "help-request": "Help Request"
 }
