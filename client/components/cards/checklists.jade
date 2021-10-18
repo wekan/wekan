@@ -18,7 +18,7 @@ template(name="checklists")
 
 
   .card-checklist-items
-    each checklist in currentCard.checklists
+    each checklist in checklists
       +checklistDetail(checklist = checklist)
 
   if canModifyCard

@@ -262,6 +262,11 @@ BlazeComponent.extendComponent({
 }).register('boardsSwimlanesAndLists');
 
 Template.checklists.helpers({
+  checklists() {
+    const card = Cards.findOne(this.cardId);
+    const ret = card.checklists();
+    return ret;
+  },
   hideCheckedItems() {
     const currentUser = Meteor.user();
     if (currentUser) return currentUser.hasHideCheckedItems();
