@@ -23,6 +23,8 @@ const validator = {
   },
 };
 
+let isSettingDatabaseFctCallDone = false;
+
 Template.userFormsLayout.onCreated(function() {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
@@ -37,6 +39,8 @@ Template.userFormsLayout.onCreated(function() {
         let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
         oidcBtnElt.html(htmlvalue);
       }
+
+      isSettingDatabaseFctCallDone = true;
       return this.stop();
     },
   });
@@ -63,6 +67,10 @@ Template.userFormsLayout.onRendered(() => {
 Template.userFormsLayout.helpers({
   currentSetting() {
     return Template.instance().currentSetting.get();
+  },
+
+  isSettingDatabaseCallDone(){
+    return isSettingDatabaseFctCallDone;
   },
 
   isLoading() {

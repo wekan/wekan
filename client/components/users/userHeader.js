@@ -25,7 +25,7 @@ Template.memberMenuPopup.helpers({
   isNotOAuth2AuthenticationMethod(){
     currentUser = Meteor.user();
     if (currentUser) {
-      return currentUser.authenticationMethod != 'OAuth2';
+      return currentUser.authenticationMethod.toLowerCase() != 'oauth2';
     } else {
       return true;
     }

@@ -17,8 +17,10 @@ Template.editor.onRendered(() => {
           currentBoard
             .activeMembers()
             .map(member => {
-              const username = Users.findOne(member.userId).username;
-              return username.includes(term) ? username : null;
+              const user = Users.findOne(member.userId);
+              const username = user.username;
+              const fullName = user.profile && user.profile !== undefined ?  user.profile.fullname : "";
+              return username.includes(term) || fullName.includes(term) ?  fullName + "(" + username + ")" : null;
             })
             .filter(Boolean), [...specialHandleNames])
         );
