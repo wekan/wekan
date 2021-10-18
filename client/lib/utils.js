@@ -1,4 +1,25 @@
 Utils = {
+  getCurrentCardId() {
+    let ret = Session.get('currentCard');
+    if (!ret) {
+      ret = Utils.getPopupCardId();
+    }
+    return ret;
+  },
+  getPopupCardId() {
+    const ret = Session.get('popupCard');
+    return ret;
+  },
+  getCurrentCard() {
+    const cardId = Utils.getCurrentCardId();
+    const ret = Cards.findOne(cardId);
+    return ret;
+  },
+  getPopupCard() {
+    const cardId = Utils.getPopupCardId();
+    const ret = Cards.findOne(cardId);
+    return ret;
+  },
   reload () {
     // we move all window.location.reload calls into this function
     // so we can disable it when running tests.

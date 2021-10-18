@@ -537,6 +537,13 @@ BlazeComponent.extendComponent({
   },
 }).register('cardDetails');
 
+Template.cardDetailsPopup.helpers({
+  popupCard() {
+    const ret = Utils.getPopupCard();
+    return ret;
+  },
+});
+
 BlazeComponent.extendComponent({
   template() {
     return 'exportCard';
@@ -587,16 +594,15 @@ Template.editCardSortOrderForm.onRendered(function () {
       // XXX Recovering the currentCard identifier form a session variable is
       // fragile because this variable may change for instance if the route
       // change. We should use some component props instead.
-      docId: Session.get('currentCard'),
+      docId: Utils.getCurrentCardId(),
     };
   }
 
   close(isReset = false) {
     if (this.isOpen.get() && !isReset) {
       const draft = this.getValue().trim();
-      if (
-        draft !== Cards.findOne(Session.get('currentCard')).getDescription()
-      ) {
+      let card = Utils.getCurrentCard();
+      if (card && draft !== card.getDescription()) {
         UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
       }
     }
