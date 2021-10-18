@@ -217,9 +217,13 @@ if (Meteor.isServer) {
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
     try {
+      const fullName = Users.findOne(icode.authorId)
+                  && Users.findOne(icode.authorId).profile
+                  && Users.findOne(icode.authorId).profile !== undefined ?  Users.findOne(icode.authorId).profile.fullname : "";
+
       const params = {
         email: icode.email,
-        inviter: Users.findOne(icode.authorId).username,
+        inviter: fullName != "" ? fullName + " (" + Users.findOne(icode.authorId).username + " )" : Users.findOne(icode.authorId).username,
         user: icode.email.split('@')[0],
         icode: icode.code,
         url: FlowRouter.url('sign-up'),
