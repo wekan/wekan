@@ -34,11 +34,14 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
-    const boardBody = this.parentComponent().parentComponent();
-    //in Miniview parent is Board, not BoardBody.
-    if (boardBody !== null) {
-      boardBody.showOverlay.set(true);
-      boardBody.mouseHasEnterCardDetails = false;
+
+    if (this.parentComponent() && this.parentComponent().parentComponent()) {
+      const boardBody = this.parentComponent().parentComponent();
+      //in Miniview parent is Board, not BoardBody.
+      if (boardBody !== null) {
+        boardBody.showOverlay.set(true);
+        boardBody.mouseHasEnterCardDetails = false;
+      }
     }
     this.calculateNextPeak();
 
@@ -297,6 +300,7 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
+    if (this.parentComponent() === null) return;
     const parentComponent = this.parentComponent().parentComponent();
     //on mobile view parent is Board, not board body.
     if (parentComponent === null) return;
@@ -408,6 +412,7 @@ BlazeComponent.extendComponent({
         'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
         'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
         'mouseenter .js-card-details'() {
+          if (this.parentComponent() === null) return;
           const parentComponent = this.parentComponent().parentComponent();
           //on mobile view parent is Board, not BoardBody.
           if (parentComponent === null) return;

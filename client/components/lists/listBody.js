@@ -220,6 +220,7 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-minicard': this.clickOnMiniCard,
+        'click .js-minicard-popup': Popup.open("cardDetails"),
         'click .js-toggle-multi-selection': this.toggleMultiSelection,
         'click .open-minicard-composer': this.scrollToBottom,
         submit: this.addCard,
