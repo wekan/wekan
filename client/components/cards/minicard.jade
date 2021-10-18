@@ -2,7 +2,7 @@ template(name="minicard")
   .minicard(
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
-    class="minicard-{{colorClass}}")
+    class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
     if isMiniScreenOrShowDesktopDragHandles
       .handle
         .fa.fa-arrows
