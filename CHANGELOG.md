@@ -12,6 +12,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [api.py: Add Custom Fields to Board. Does not work yet, error: Settings must be object](https://github.com/wekan/wekan/commit/3921209c9fbf1d908f2ef3e97dade5863a000309).
   Thanks to xet7.
+- [Add full name if exists in email-invite-subject or when tagging someone with `@` while commenting a card](https://github.com/wekan/wekan/pull/4057).
+  Thanks to Emile840.
 
 and fixes the following bugs:
 
