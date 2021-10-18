@@ -23,7 +23,7 @@ const validator = {
   },
 };
 
-let isSettingDatabaseFctCallDone = false;
+// let isSettingDatabaseFctCallDone = false;
 
 Template.userFormsLayout.onCreated(function() {
   const templateInstance = this;
@@ -40,7 +40,11 @@ Template.userFormsLayout.onCreated(function() {
         oidcBtnElt.html(htmlvalue);
       }
 
-      isSettingDatabaseFctCallDone = true;
+      // isSettingDatabaseFctCallDone = true;
+      if(currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined)
+        document.getElementById("isSettingDatabaseCallDone").style.display = 'none';
+      else
+        document.getElementById("isSettingDatabaseCallDone").style.display = 'block';
       return this.stop();
     },
   });
@@ -69,9 +73,9 @@ Template.userFormsLayout.helpers({
     return Template.instance().currentSetting.get();
   },
 
-  isSettingDatabaseCallDone(){
-    return isSettingDatabaseFctCallDone;
-  },
+  // isSettingDatabaseCallDone(){
+  //   return isSettingDatabaseFctCallDone;
+  // },
 
   isLoading() {
     return Template.instance().isLoading.get();

@@ -34,7 +34,7 @@ template(name="userFormsLayout")
           img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
           br
       unless currentSetting.customLoginLogoImageUrl
-        if isSettingDatabaseFctCallDone
+        div#isSettingDatabaseCallDone
           img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
           br
       if currentSetting.textBelowCustomLoginLogo
