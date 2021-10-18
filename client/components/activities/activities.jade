@@ -12,7 +12,7 @@ template(name="boardActivities")
     +activity(activity=activityData card=card mode=mode)
 
 template(name="cardActivities")
-  each activityData in currentCard.activities
+  each activityData in activities
     +activity(activity=activityData card=card mode=mode)
 
 template(name="editOrDeleteComment")

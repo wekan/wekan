@@ -54,6 +54,13 @@ BlazeComponent.extendComponent({
   },
 }).register('activities');
 
+Template.activities.helpers({
+  activities() {
+    const ret = this.card.activities();
+    return ret;
+  },
+});
+
 BlazeComponent.extendComponent({
   checkItem() {
     const checkItemId = this.currentData().activity.checklistItemId;
