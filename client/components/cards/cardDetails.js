@@ -537,6 +537,9 @@ BlazeComponent.extendComponent({
   },
 }).register('cardDetails');
 
+Template.cardDetailsPopup.onDestroyed(() => {
+  Session.delete('popupCard');
+});
 Template.cardDetailsPopup.helpers({
   popupCard() {
     const ret = Utils.getPopupCard();
