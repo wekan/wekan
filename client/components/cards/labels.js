@@ -41,7 +41,7 @@ Template.createLabelPopup.helpers({
 
 Template.cardLabelsPopup.events({
   'click .js-select-label'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const labelId = this._id;
     card.toggleLabel(labelId);
     event.preventDefault();
