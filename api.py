@@ -6,7 +6,7 @@
 # https://github.com/wekan/wekan/wiki/New-card-with-Python3-and-REST-API
 
 # TODO:
-#   addcustomfieldstoboard: There is error: Settings must be object. So adding does not work yet.
+#   addcustomfieldtoboard: There is error: Settings must be object. So adding does not work yet.
 
 try:
     # python 3
@@ -176,9 +176,8 @@ if arguments == 10:
         boardid = sys.argv[3]
         name = sys.argv[4]
         type1 = sys.argv[5]
-        settings = sys.argv[6]
+        settings = str(json.loads(sys.argv[6]))
         #  There is error: Settings must be object. So this does not work yet.
-        #settings = json.loads(sys.argv[6])
         #settings = {'currencyCode': 'EUR'}
         print(type(settings))
         showoncard = sys.argv[7]
