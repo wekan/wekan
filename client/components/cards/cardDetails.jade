@@ -2,7 +2,7 @@ template(name="cardDetailsPopup")
   +cardDetails(popupCard)
 
 template(name="cardDetails")
-  section.card-details.js-card-details(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isMiniScreen}}card-details-popup{{/if}}'): .card-details-canvas
+  section.card-details.js-card-details(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}'): .card-details-canvas
     .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
@@ -21,6 +21,8 @@ template(name="cardDetails")
               title="{{_ 'copy-card-link-to-clipboard'}}"
             )
         if isMiniScreen
+          unless isPopup
+            a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             a.fa.fa-link.card-copy-mobile-button
