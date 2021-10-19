@@ -1069,5 +1069,20 @@
     "maximize-card": "Максимизировать карточку",
     "minimize-card": "Минимизировать карточку",
     "delete-org-warning-message": "Невозможно удалить эту организацию, она включает в себя как минимум одного пользователя",
-    "delete-team-warning-message": "Невозможно удалить эту команду, она включает в себя как минимум одного пользователя"
+    "delete-team-warning-message": "Невозможно удалить эту команду, она включает в себя как минимум одного пользователя",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }

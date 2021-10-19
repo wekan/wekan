@@ -1069,5 +1069,20 @@
     "maximize-card": "Maximizar Cartão",
     "minimize-card": "Minimizar Cartão",
     "delete-org-warning-message": "Não pode apagar esta organização, tem no mínimo um utilizador associado",
-    "delete-team-warning-message": "Não pode apagar esta equipa, tem no mínimo um utilizador associado"
+    "delete-team-warning-message": "Não pode apagar esta equipa, tem no mínimo um utilizador associado",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }

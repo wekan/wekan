@@ -1069,5 +1069,20 @@
     "maximize-card": "Maximize Card",
     "minimize-card": "Minimize Card",
     "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
+    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }

@@ -1069,5 +1069,20 @@
     "maximize-card": "Maximalizovat kartu",
     "minimize-card": "Minimalizovat kartu",
     "delete-org-warning-message": "Tuto organizaci není možné smazat, protože do ní patří uživatel(é)",
-    "delete-team-warning-message": "Tento tým není možné smazat, protože do nej patří uživatel(é)"
+    "delete-team-warning-message": "Tento tým není možné smazat, protože do nej patří uživatel(é)",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }

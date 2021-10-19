@@ -1069,5 +1069,20 @@
     "maximize-card": "Maksimer Kort",
     "minimize-card": "Minimer Kort",
     "delete-org-warning-message": "Kan ikke slette organisasjonen, det er minst én bruker knyttet til denne",
-    "delete-team-warning-message": "Kan ikke slette teamet, det er minst én bruker knyttet til dette"
+    "delete-team-warning-message": "Kan ikke slette teamet, det er minst én bruker knyttet til dette",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }

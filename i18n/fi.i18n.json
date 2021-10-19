@@ -1069,5 +1069,20 @@
     "maximize-card": "Suurenna kortti",
     "minimize-card": "Pienennä kortti",
     "delete-org-warning-message": "Ei voi poistaa tätä organisaatiota, ainakin yksi käyttäjä kuuluu siihen",
-    "delete-team-warning-message": "Ei voi poistaa tätä tiimiä, ainakin yksi käyttäjä kuuluu siihen"
+    "delete-team-warning-message": "Ei voi poistaa tätä tiimiä, ainakin yksi käyttäjä kuuluu siihen",
+    "subject": "Aihe",
+    "details": "Yksityiskohdat",
+    "carbon-copy": "Kopio (Cc:)",
+    "ticket": "Tiketti",
+    "tickets": "Tiketit",
+    "ticket-number": "Tiketti numero",
+    "open": "Avoinna",
+    "pending": "Odottaa",
+    "closed": "Suljettu",
+    "resolved": "Ratkaistu",
+    "cancelled": "Peruutettu",
+    "history": "Historia",
+    "request": "Pyyntö",
+    "requests": "Pyynnöt",
+    "help-request": "Avunpyyntö"
 }

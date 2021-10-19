@@ -1069,5 +1069,20 @@
     "maximize-card": "Karte maximieren",
     "minimize-card": "Karte minimieren",
     "delete-org-warning-message": "Diese Organisation kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört.",
-    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört."
+    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört.",
+    "subject": "Betreff",
+    "details": "Details",
+    "carbon-copy": "Kopie (CC:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticketnummer",
+    "open": "Offen",
+    "pending": "Unerledigt",
+    "closed": "Geschlossen",
+    "resolved": "Gelöst",
+    "cancelled": "Gestrichen",
+    "history": "Verlauf",
+    "request": "Anfrage",
+    "requests": "Anfragen",
+    "help-request": "Hilfsgesuch"
 }

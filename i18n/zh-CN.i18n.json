@@ -1069,5 +1069,20 @@
     "maximize-card": "最大化卡片",
     "minimize-card": "最小化卡片",
     "delete-org-warning-message": "无法删除该组织，至少还有一个用户属于该组织。",
-    "delete-team-warning-message": "无法删除该团队，至少还有一个用户属于该团队。"
+    "delete-team-warning-message": "无法删除该团队，至少还有一个用户属于该团队。",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }

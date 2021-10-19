@@ -1069,5 +1069,20 @@
     "maximize-card": "Karte maximieren",
     "minimize-card": "Karte minimieren",
     "delete-org-warning-message": "Diese Organisation kann nicht gelöscht werden. Zumindest ein Benutzer ist ihr noch zugehörig.",
-    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden. Zumindest ein Benutzer ist ihm noch zugehörig."
+    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden. Zumindest ein Benutzer ist ihm noch zugehörig.",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }

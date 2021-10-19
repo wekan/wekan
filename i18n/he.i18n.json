@@ -1069,5 +1069,20 @@
     "maximize-card": "הגדלת כרטיס",
     "minimize-card": "מזעור כרטיס",
     "delete-org-warning-message": "לא ניתן למחוק את הארגון הזה, יש לפחות משתמש אחד ששייך אליו",
-    "delete-team-warning-message": "לא ניתן למחוק את הצוות הזה, יש לפחות משתמש אחד ששייך אליו"
+    "delete-team-warning-message": "לא ניתן למחוק את הצוות הזה, יש לפחות משתמש אחד ששייך אליו",
+    "subject": "נושא",
+    "details": "פרטים",
+    "carbon-copy": "עותק (CC:‎)",
+    "ticket": "כרטיס",
+    "tickets": "כרטיסים",
+    "ticket-number": "מספר כרטיס",
+    "open": "פתו",
+    "pending": "ממתין",
+    "closed": "סגור",
+    "resolved": "פתור",
+    "cancelled": "בוטל",
+    "history": "היסטוריה",
+    "request": "בקשה",
+    "requests": "בקשות",
+    "help-request": "בקשת עזרה"
 }

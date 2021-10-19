@@ -1069,5 +1069,20 @@
     "maximize-card": "Maximiser la carte",
     "minimize-card": "Minimiser la carte",
     "delete-org-warning-message": "Impossible de supprimer cette organisation, au moins un utilisateur lui appartient",
-    "delete-team-warning-message": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient"
+    "delete-team-warning-message": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient",
+    "subject": "Subject",
+    "details": "Details",
+    "carbon-copy": "Carbon Copy (Cc:)",
+    "ticket": "Ticket",
+    "tickets": "Tickets",
+    "ticket-number": "Ticket Number",
+    "open": "Open",
+    "pending": "Pending",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "cancelled": "Cancelled",
+    "history": "History",
+    "request": "Request",
+    "requests": "Requests",
+    "help-request": "Help Request"
 }
