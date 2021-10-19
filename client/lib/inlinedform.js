@@ -29,10 +29,15 @@ InlinedForm = BlazeComponent.extendComponent({
   },
 
   open(evt) {
-    evt && evt.preventDefault();
+    if (evt) {
+      evt.preventDefault();
+      // Close currently opened form, if any
+      EscapeActions.clickExecute(evt.target, 'inlinedForm');
+    } else {
+      // Close currently opened form, if any
+      EscapeActions.executeUpTo('inlinedForm');
+    }
 
-    // Close currently opened form, if any
-    EscapeActions.executeUpTo('inlinedForm');
     this.isOpen.set(true);
     currentlyOpenedForm.set(this);
   },

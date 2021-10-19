@@ -192,21 +192,17 @@ window.Popup = new (class {
   }
 })();
 
-Meteor.startup(() => {
-  if (!Utils.isMiniScreen()) {
-    // We close a potential opened popup on any left click on the document, or go
-    // one step back by pressing escape.
-    const escapeActions = ['back', 'close'];
-    escapeActions.forEach(actionName => {
-      EscapeActions.register(
-        `popup-${actionName}`,
-        () => Popup[actionName](),
-        () => Popup.isOpen(),
-        {
-          noClickEscapeOn: '.js-pop-over,.js-open-card-title-popup',
-          enabledOnClick: actionName === 'close',
-        },
-      );
-    });
-  }
+// We close a potential opened popup on any left click on the document, or go
+// one step back by pressing escape.
+const escapeActions = ['back', 'close'];
+escapeActions.forEach(actionName => {
+  EscapeActions.register(
+    `popup-${actionName}`,
+    () => Popup[actionName](),
+    () => Popup.isOpen(),
+    {
+      noClickEscapeOn: '.js-pop-over,.js-open-card-title-popup,.js-open-inlined-form',
+      enabledOnClick: actionName === 'close',
+    },
+  );
 });
