@@ -806,7 +806,7 @@ Template.moveCardPopup.events({
   'click .js-done'() {
     // XXX We should *not* get the currentCard from the global state, but
     // instead from a “component” state.
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const bSelect = $('.js-select-boards')[0];
     let boardId;
     // if we are a worker, we won't have a board select so we just use the
@@ -864,7 +864,7 @@ BlazeComponent.extendComponent({
 
 Template.copyCardPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -893,7 +893,7 @@ Template.copyCardPopup.events({
 
 Template.convertChecklistItemToCardPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -921,7 +921,7 @@ Template.convertChecklistItemToCardPopup.events({
 
 Template.copyChecklistToManyCardsPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const oldId = card._id;
     card._id = null;
     const lSelect = $('.js-select-lists')[0];
@@ -1040,7 +1040,7 @@ BlazeComponent.extendComponent({
   },
 
   cards() {
-    const currentId = Session.get('currentCard');
+    const currentId = Utils.getCurrentCardId();
     if (this.parentBoard.get()) {
       return Cards.find({
         boardId: this.parentBoard.get(),
@@ -1706,7 +1706,7 @@ Template.cardAssigneesPopup.onCreated(function () {
 
 Template.cardAssigneesPopup.events({
   'click .js-select-assignee'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const assigneeId = this.userId;
     card.toggleAssignee(assigneeId);
     event.preventDefault();

@@ -9,7 +9,7 @@ function currentListIsInThisSwimlane(swimlaneId) {
 }
 
 function currentCardIsInThisList(listId, swimlaneId) {
-  const currentCard = Cards.findOne(Session.get('currentCard'));
+  const currentCard = Utils.getCurrentCard();
   const currentUser = Meteor.user();
   if (
     currentUser &&
@@ -125,7 +125,7 @@ BlazeComponent.extendComponent({
     const boardComponent = this.parentComponent();
     const $listsDom = this.$('.js-lists');
 
-    if (!Session.get('currentCard')) {
+    if (!Utils.getCurrentCardId()) {
       boardComponent.scrollLeft();
     }
 
@@ -284,7 +284,7 @@ BlazeComponent.extendComponent({
     const boardComponent = this.parentComponent();
     const $listsDom = this.$('.js-lists');
 
-    if (!Session.get('currentCard')) {
+    if (!Utils.getCurrentCardId()) {
       boardComponent.scrollLeft();
     }
 

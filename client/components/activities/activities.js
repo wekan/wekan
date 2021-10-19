@@ -15,7 +15,7 @@ BlazeComponent.extendComponent({
       const capitalizedMode = Utils.capitalize(mode);
       let thisId, searchId;
       if (mode === 'linkedcard' || mode === 'linkedboard') {
-        thisId = Session.get('currentCard');
+        thisId = Utils.getCurrentCardId();
         searchId = Cards.findOne({ _id: thisId }).linkedId;
         mode = mode.replace('linked', '');
       } else {

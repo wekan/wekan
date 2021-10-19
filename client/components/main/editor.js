@@ -150,7 +150,7 @@ Template.editor.onRendered(() => {
               const $summernote = getSummernote(this);
               if (files && files.length > 0) {
                 const image = files[0];
-                const currentCard = Cards.findOne(Session.get('currentCard'));
+                const currentCard = Utils.getCurrentCard();
                 const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
                 const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
                 const insertImage = src => {
