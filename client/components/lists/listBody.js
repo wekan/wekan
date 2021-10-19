@@ -149,7 +149,9 @@ BlazeComponent.extendComponent({
       // XXX We should probably modify the minicard href attribute instead of
       // overwriting the event in case the card is already selected.
     } else if (Utils.isMiniScreen()) {
+      evt.preventDefault();
       Session.set('popupCard', this.currentData()._id);
+      this.cardDetailsPopup(evt);
     } else if (Session.equals('currentCard', this.currentData()._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
@@ -228,7 +230,6 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-minicard': this.clickOnMiniCard,
-        'click .js-minicard-popup': this.cardDetailsPopup,
         'click .js-toggle-multi-selection': this.toggleMultiSelection,
         'click .open-minicard-composer': this.scrollToBottom,
         submit: this.addCard,
