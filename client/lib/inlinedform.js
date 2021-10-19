@@ -49,7 +49,7 @@ InlinedForm = BlazeComponent.extendComponent({
 
   getValue() {
     const input = this.find('textarea,input[type=text]');
-    return this.isOpen.get() && input && input.value;
+    return this.isOpen.get() && input && input.value.replaceAll(/\s +$/gm, '');
   },
 
   events() {
