@@ -218,11 +218,17 @@ BlazeComponent.extendComponent({
     );
   },
 
+  cardDetailsPopup(event) {
+    if (!Popup.isOpen()) {
+      Popup.open("cardDetails")(event);
+    }
+  },
+
   events() {
     return [
       {
         'click .js-minicard': this.clickOnMiniCard,
-        'click .js-minicard-popup': Popup.open("cardDetails"),
+        'click .js-minicard-popup': this.cardDetailsPopup,
         'click .js-toggle-multi-selection': this.toggleMultiSelection,
         'click .open-minicard-composer': this.scrollToBottom,
         submit: this.addCard,
