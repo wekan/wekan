@@ -1084,5 +1084,6 @@
     "history": "היסטוריה",
     "request": "בקשה",
     "requests": "בקשות",
-    "help-request": "בקשת עזרה"
+    "help-request": "בקשת עזרה",
+    "editCardSortOrderPopup-title": "Change Sorting"
 }

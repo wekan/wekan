@@ -1084,5 +1084,6 @@
     "history": "Historia",
     "request": "Pyyntö",
     "requests": "Pyynnöt",
-    "help-request": "Avunpyyntö"
+    "help-request": "Avunpyyntö",
+    "editCardSortOrderPopup-title": "Muuta lajittelua"
 }

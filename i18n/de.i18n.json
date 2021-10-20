@@ -1084,5 +1084,6 @@
     "history": "Verlauf",
     "request": "Anfrage",
     "requests": "Anfragen",
-    "help-request": "Hilfsgesuch"
+    "help-request": "Hilfsgesuch",
+    "editCardSortOrderPopup-title": "Change Sorting"
 }
