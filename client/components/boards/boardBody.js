@@ -195,7 +195,7 @@ BlazeComponent.extendComponent({
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
-      } else if (!Utils.isMiniScreen() && !Utils.isShowDesktopDragHandles()) {
+      } else {
         $swimlanesDom.sortable({
           handle: '.swimlane-header',
         });

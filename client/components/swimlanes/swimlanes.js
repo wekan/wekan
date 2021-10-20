@@ -99,7 +99,7 @@ function initSortable(boardComponent, $listsDom) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
-    } else if (!Utils.isMiniScreen() && !Utils.isShowDesktopDragHandles()) {
+    } else {
       $listsDom.sortable({
         handle: '.js-list-header',
       });

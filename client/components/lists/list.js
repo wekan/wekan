@@ -121,7 +121,7 @@ BlazeComponent.extendComponent({
         $cards.sortable({
           handle: '.handle',
         });
-      } else if (!Utils.isMiniScreen() && !Utils.isShowDesktopDragHandles()) {
+      } else {
         $cards.sortable({
           handle: '.minicard',
         });
