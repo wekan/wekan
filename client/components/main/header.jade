@@ -16,7 +16,8 @@ template(name="header")
             each currentBoard.lists
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
                 a.js-select-list
-                  = title
+                  +viewer
+                    = title
           else
             each currentUser.starredBoards
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
