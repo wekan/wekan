@@ -14,6 +14,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Add full name if exists in email-invite-subject or when tagging someone with `@` while commenting a card](https://github.com/wekan/wekan/pull/4057).
   Thanks to Emile840.
+- [Popup sorting number](https://github.com/wekan/wekan/pull/4060).
+  Thanks to mfilser.
 
 and fixes the following bugs:
 
