@@ -73,8 +73,10 @@ template(name="cardDetails")
                 a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
                   i.fa.fa-plus
 
-        if currentBoard.allowsReceivedDate
+        if currentBoard.hasAnyAllowsDate
           hr
+
+        if currentBoard.allowsReceivedDate
           .card-details-item.card-details-item-received
             h3.card-details-item-title
               i.fa.fa-sign-out
@@ -126,7 +128,9 @@ template(name="cardDetails")
                   a.card-label.add-label.js-end-date
                     i.fa.fa-plus
 
-        hr
+        if currentBoard.hasAnyAllowsUser
+          hr
+
         if currentBoard.allowsCreator
           .card-details-item.card-details-item-creator
             h3.card-details-item-title
@@ -166,17 +170,6 @@ template(name="cardDetails")
               unless assigneeSelected
                 a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
                   i.fa.fa-plus
-
-        //.card-details-items
-        if getSpentTime
-          .card-details-item.card-details-item-spent
-            if getIsOvertime
-              h3.card-details-item-title
-                | {{_ 'overtime-hours'}}
-            else
-              h3.card-details-item-title
-                | {{_ 'spent-time-hours'}}
-            +cardSpentTime
 
         //.card-details-items
         if currentBoard.allowsRequestedBy
@@ -219,6 +212,9 @@ template(name="cardDetails")
               +viewer
                 = getAssignedBy
 
+        if $or currentBoard.allowsCardSortingByNumber getSpentTime
+          hr
+
         if currentBoard.allowsCardSortingByNumber
           .card-details-item.card-details-sort-order
             h3.card-details-item-title
@@ -231,6 +227,17 @@ template(name="cardDetails")
                 a.js-open-inlined-form
                   +viewer
                     = sort
+
+        //.card-details-items
+        if getSpentTime
+          .card-details-item.card-details-item-spent
+            if getIsOvertime
+              h3.card-details-item-title
+                | {{_ 'overtime-hours'}}
+            else
+              h3.card-details-item-title
+                | {{_ 'spent-time-hours'}}
+            +cardSpentTime
 
         //.card-details-items
         if customFieldsWD
