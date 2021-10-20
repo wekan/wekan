@@ -95,7 +95,7 @@ function initSortable(boardComponent, $listsDom) {
   //}
 
   boardComponent.autorun(() => {
-    if (Utils.isMiniScreenOrShowDesktopDragHandles) {
+    if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
