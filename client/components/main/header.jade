@@ -49,7 +49,8 @@ template(name="header")
           each currentUser.starredBoards
             li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
               a(href="{{pathFor 'board' id=_id slug=slug}}")
-                = title
+                +viewer
+                  = title
           else
             li.current.empty {{_ 'quick-access-description'}}
 
