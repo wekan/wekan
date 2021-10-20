@@ -145,4 +145,9 @@ template(name="minicard")
       if currentBoard.allowsCardSortingByNumber
         .badge
           span.badge-icon.fa.fa-sort
-          span.badge-text {{ sort }}
+          span.badge-text.check-list-sort {{ sort }}
+
+template(name="editCardSortOrderPopup")
+  input.js-edit-card-sort-popup(type='text' autofocus value=sort dir="auto")
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-card-sort-popup(type="submit") {{_ 'save'}}

@@ -377,6 +377,12 @@ BlazeComponent.extendComponent({
             this.data().setRequestedBy('');
           }
         },
+        'keydown input.js-edit-card-sort'(evt) {
+          // enter = save
+          if (evt.keyCode === 13) {
+            this.find('button[type=submit]').click();
+          }
+        },
         'submit .js-card-details-sort'(event) {
           event.preventDefault();
           const sort = parseFloat(this.currentComponent()
