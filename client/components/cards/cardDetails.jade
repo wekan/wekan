@@ -25,7 +25,10 @@ template(name="cardDetails")
             a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-            a.fa.fa-link.card-copy-mobile-button
+            a.fa.fa-link.card-copy-mobile-button(
+              class="fa-link"
+              title="{{_ 'copy-card-link-to-clipboard'}}"
+            )
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
