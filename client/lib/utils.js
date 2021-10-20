@@ -1,7 +1,7 @@
 Utils = {
-  getCurrentCardId() {
+  getCurrentCardId(ignorePopupCard) {
     let ret = Session.get('currentCard');
-    if (!ret) {
+    if (!ret && !ignorePopupCard) {
       ret = Utils.getPopupCardId();
     }
     return ret;
@@ -10,8 +10,8 @@ Utils = {
     const ret = Session.get('popupCard');
     return ret;
   },
-  getCurrentCard() {
-    const cardId = Utils.getCurrentCardId();
+  getCurrentCard(ignorePopupCard) {
+    const cardId = Utils.getCurrentCardId(ignorePopupCard);
     const ret = Cards.findOne(cardId);
     return ret;
   },
