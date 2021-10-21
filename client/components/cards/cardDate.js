@@ -24,7 +24,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.setReceived(null);
+    this.card.unsetReceived();
   }
 }.register('editCardReceivedDatePopup'));
 
@@ -50,7 +50,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.setStart(null);
+    this.card.unsetStart();
   }
 }.register('editCardStartDatePopup'));
 
@@ -73,7 +73,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.setDue(null);
+    this.card.unsetDue();
   }
 }.register('editCardDueDatePopup'));
 
@@ -96,7 +96,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.setEnd(null);
+    this.card.unsetEnd();
   }
 }.register('editCardEndDatePopup'));
 
