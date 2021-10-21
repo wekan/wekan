@@ -16,6 +16,8 @@ This release adds the following new features:
   Thanks to Emile840.
 - [Popup sorting number](https://github.com/wekan/wekan/pull/4060).
   Thanks to mfilser.
+- [At mobile view the card details are opened as Popup](https://github.com/wekan/wekan/pull/4062).
+  Thanks to mfilser.
 
 and fixes the following bugs:
 
