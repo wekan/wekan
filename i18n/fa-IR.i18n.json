@@ -1085,5 +1085,6 @@
     "request": "Request",
     "requests": "Requests",
     "help-request": "Help Request",
-    "editCardSortOrderPopup-title": "Change Sorting"
+    "editCardSortOrderPopup-title": "Change Sorting",
+    "cardDetailsPopup-title": "Card Details"
 }

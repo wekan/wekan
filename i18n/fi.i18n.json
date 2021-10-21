@@ -1085,5 +1085,6 @@
     "request": "Pyyntö",
     "requests": "Pyynnöt",
     "help-request": "Avunpyyntö",
-    "editCardSortOrderPopup-title": "Muuta lajittelua"
+    "editCardSortOrderPopup-title": "Muuta lajittelua",
+    "cardDetailsPopup-title": "Kortin yksityiskohdat"
 }

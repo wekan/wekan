@@ -1085,5 +1085,6 @@
     "request": "בקשה",
     "requests": "בקשות",
     "help-request": "בקשת עזרה",
-    "editCardSortOrderPopup-title": "Change Sorting"
+    "editCardSortOrderPopup-title": "החלפת אופן סידור",
+    "cardDetailsPopup-title": "Card Details"
 }
