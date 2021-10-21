@@ -8,11 +8,12 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
-          unless cardMaximized
-            a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
-          if cardMaximized
-            a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+          unless isPopup
+            a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+            if cardMaximized
+              a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+            else
+              a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             input.inline-input(type="text" id="cardURL_copy" value="{{ originRelativeUrl }}")
@@ -20,7 +21,7 @@ template(name="cardDetails")
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
             )
-        if isMiniScreen
+        else
           unless isPopup
             a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
           if currentUser.isBoardMember
