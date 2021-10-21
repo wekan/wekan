@@ -274,7 +274,7 @@ Template.cardMembersPopup.helpers({
 
 Template.cardMembersPopup.events({
   'click .js-select-member'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const memberId = this.userId;
     card.toggleMember(memberId);
     event.preventDefault();

@@ -25,7 +25,10 @@ BlazeComponent.extendComponent({
         // Pressing Ctrl+Enter should submit the form
         'keydown form textarea'(evt) {
           if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
-            this.find('button[type=submit]').click();
+            const submitButton = this.find('button[type=submit]');
+            if (submitButton) {
+              submitButton.click();
+            }
           }
         },
       },

@@ -148,6 +148,10 @@ BlazeComponent.extendComponent({
       // If the card is already selected, we want to de-select it.
       // XXX We should probably modify the minicard href attribute instead of
       // overwriting the event in case the card is already selected.
+    } else if (Utils.isMiniScreen()) {
+      evt.preventDefault();
+      Session.set('popupCard', this.currentData()._id);
+      this.cardDetailsPopup(evt);
     } else if (Session.equals('currentCard', this.currentData()._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
@@ -214,6 +218,12 @@ BlazeComponent.extendComponent({
       list.getWipLimit('enabled') &&
       list.getWipLimit('value') <= list.cards().count()
     );
+  },
+
+  cardDetailsPopup(event) {
+    if (!Popup.isOpen()) {
+      Popup.open("cardDetails")(event);
+    }
   },
 
   events() {

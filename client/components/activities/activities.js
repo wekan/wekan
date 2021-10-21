@@ -15,7 +15,7 @@ BlazeComponent.extendComponent({
       const capitalizedMode = Utils.capitalize(mode);
       let thisId, searchId;
       if (mode === 'linkedcard' || mode === 'linkedboard') {
-        thisId = Session.get('currentCard');
+        thisId = Utils.getCurrentCardId();
         searchId = Cards.findOne({ _id: thisId }).linkedId;
         mode = mode.replace('linked', '');
       } else {
@@ -53,6 +53,13 @@ BlazeComponent.extendComponent({
     }
   },
 }).register('activities');
+
+Template.activities.helpers({
+  activities() {
+    const ret = this.card.activities();
+    return ret;
+  },
+});
 
 BlazeComponent.extendComponent({
   checkItem() {

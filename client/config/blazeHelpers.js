@@ -8,12 +8,8 @@ Blaze.registerHelper('currentBoard', () => {
 });
 
 Blaze.registerHelper('currentCard', () => {
-  const cardId = Session.get('currentCard');
-  if (cardId) {
-    return Cards.findOne(cardId);
-  } else {
-    return null;
-  }
+  const ret = Utils.getCurrentCard();
+  return ret;
 });
 
 Blaze.registerHelper('currentList', () => {

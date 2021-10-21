@@ -136,7 +136,7 @@ BlazeComponent.extendComponent({
           Sidebar.setView('search');
         },
         'click .js-multiselection-activate'() {
-          const currentCard = Session.get('currentCard');
+          const currentCard = Utils.getCurrentCardId();
           MultiSelection.activate();
           if (currentCard) {
             MultiSelection.add(currentCard);

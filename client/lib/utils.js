@@ -1,4 +1,25 @@
 Utils = {
+  getCurrentCardId(ignorePopupCard) {
+    let ret = Session.get('currentCard');
+    if (!ret && !ignorePopupCard) {
+      ret = Utils.getPopupCardId();
+    }
+    return ret;
+  },
+  getPopupCardId() {
+    const ret = Session.get('popupCard');
+    return ret;
+  },
+  getCurrentCard(ignorePopupCard) {
+    const cardId = Utils.getCurrentCardId(ignorePopupCard);
+    const ret = Cards.findOne(cardId);
+    return ret;
+  },
+  getPopupCard() {
+    const cardId = Utils.getPopupCardId();
+    const ret = Cards.findOne(cardId);
+    return ret;
+  },
   reload () {
     // we move all window.location.reload calls into this function
     // so we can disable it when running tests.
@@ -248,6 +269,8 @@ Utils = {
     const currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
+      return true;
     } else {
       return false;
     }

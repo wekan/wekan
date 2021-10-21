@@ -34,11 +34,14 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
-    const boardBody = this.parentComponent().parentComponent();
-    //in Miniview parent is Board, not BoardBody.
-    if (boardBody !== null) {
-      boardBody.showOverlay.set(true);
-      boardBody.mouseHasEnterCardDetails = false;
+
+    if (this.parentComponent() && this.parentComponent().parentComponent()) {
+      const boardBody = this.parentComponent().parentComponent();
+      //in Miniview parent is Board, not BoardBody.
+      if (boardBody !== null) {
+        boardBody.showOverlay.set(true);
+        boardBody.mouseHasEnterCardDetails = false;
+      }
     }
     this.calculateNextPeak();
 
@@ -215,7 +218,7 @@ BlazeComponent.extendComponent({
       distance: 7,
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup-close');
+        EscapeActions.clickExecute(evt.target, 'inlinedForm');
       },
       stop(evt, ui) {
         let prevChecklist = ui.item.prev('.js-checklist').get(0);
@@ -297,6 +300,7 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
+    if (this.parentComponent() === null) return;
     const parentComponent = this.parentComponent().parentComponent();
     //on mobile view parent is Board, not board body.
     if (parentComponent === null) return;
@@ -408,6 +412,7 @@ BlazeComponent.extendComponent({
         'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
         'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
         'mouseenter .js-card-details'() {
+          if (this.parentComponent() === null) return;
           const parentComponent = this.parentComponent().parentComponent();
           //on mobile view parent is Board, not BoardBody.
           if (parentComponent === null) return;
@@ -532,6 +537,22 @@ BlazeComponent.extendComponent({
   },
 }).register('cardDetails');
 
+Template.cardDetails.helpers({
+  isPopup() {
+    let ret = !!Utils.getPopupCardId();
+    return ret;
+  }
+});
+Template.cardDetailsPopup.onDestroyed(() => {
+  Session.delete('popupCard');
+});
+Template.cardDetailsPopup.helpers({
+  popupCard() {
+    const ret = Utils.getPopupCard();
+    return ret;
+  },
+});
+
 BlazeComponent.extendComponent({
   template() {
     return 'exportCard';
@@ -582,16 +603,15 @@ Template.editCardSortOrderForm.onRendered(function () {
       // XXX Recovering the currentCard identifier form a session variable is
       // fragile because this variable may change for instance if the route
       // change. We should use some component props instead.
-      docId: Session.get('currentCard'),
+      docId: Utils.getCurrentCardId(),
     };
   }
 
   close(isReset = false) {
     if (this.isOpen.get() && !isReset) {
       const draft = this.getValue().trim();
-      if (
-        draft !== Cards.findOne(Session.get('currentCard')).getDescription()
-      ) {
+      let card = Utils.getCurrentCard();
+      if (card && draft !== card.getDescription()) {
         UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
       }
     }
@@ -786,7 +806,7 @@ Template.moveCardPopup.events({
   'click .js-done'() {
     // XXX We should *not* get the currentCard from the global state, but
     // instead from a “component” state.
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const bSelect = $('.js-select-boards')[0];
     let boardId;
     // if we are a worker, we won't have a board select so we just use the
@@ -844,7 +864,7 @@ BlazeComponent.extendComponent({
 
 Template.copyCardPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -873,7 +893,7 @@ Template.copyCardPopup.events({
 
 Template.convertChecklistItemToCardPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -901,7 +921,7 @@ Template.convertChecklistItemToCardPopup.events({
 
 Template.copyChecklistToManyCardsPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const oldId = card._id;
     card._id = null;
     const lSelect = $('.js-select-lists')[0];
@@ -1020,7 +1040,7 @@ BlazeComponent.extendComponent({
   },
 
   cards() {
-    const currentId = Session.get('currentCard');
+    const currentId = Utils.getCurrentCardId();
     if (this.parentBoard.get()) {
       return Cards.find({
         boardId: this.parentBoard.get(),
@@ -1686,7 +1706,7 @@ Template.cardAssigneesPopup.onCreated(function () {
 
 Template.cardAssigneesPopup.events({
   'click .js-select-assignee'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const assigneeId = this.userId;
     card.toggleAssignee(assigneeId);
     event.preventDefault();

@@ -16,7 +16,7 @@ function initSorting(items) {
     scroll: false,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
-      EscapeActions.executeUpTo('popup-close');
+      EscapeActions.clickExecute(evt.target, 'inlinedForm');
     },
     stop(evt, ui) {
       const parent = ui.item.parents('.js-checklist-items');
@@ -94,16 +94,14 @@ BlazeComponent.extendComponent({
         title,
         sort: card.checklists().count(),
       });
+      this.closeAllInlinedForms();
       setTimeout(() => {
         this.$('.add-checklist-item')
           .last()
           .click();
       }, 100);
     }
-    textarea.value = '';
-    textarea.focus();
   },
-
   addChecklistItem(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
@@ -190,6 +188,10 @@ BlazeComponent.extendComponent({
     }
   },
 
+  closeAllInlinedForms() {
+    this.$('.js-close-inlined-form').click();
+  },
+
   events() {
     const events = {
       'click .toggle-delete-checklist-dialog'(event) {
@@ -214,6 +216,8 @@ BlazeComponent.extendComponent({
         'click .js-delete-checklist-item': this.deleteItem,
         'click .confirm-checklist-delete': this.deleteChecklist,
         'focus .js-add-checklist-item': this.focusChecklistItem,
+        'click .add-checklist-item.js-open-inlined-form': this.closeAllInlinedForms,
+        'click .add-checklist.js-open-inlined-form': this.closeAllInlinedForms,
         keydown: this.pressKey,
       },
     ];
@@ -262,6 +266,11 @@ BlazeComponent.extendComponent({
 }).register('boardsSwimlanesAndLists');
 
 Template.checklists.helpers({
+  checklists() {
+    const card = Cards.findOne(this.cardId);
+    const ret = card.checklists();
+    return ret;
+  },
   hideCheckedItems() {
     const currentUser = Meteor.user();
     if (currentUser) return currentUser.hasHideCheckedItems();
