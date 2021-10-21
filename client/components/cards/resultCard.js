@@ -5,7 +5,23 @@ Template.resultCard.helpers({
 });
 
 BlazeComponent.extendComponent({
+  clickOnMiniCard(evt) {
+    evt.preventDefault();
+    Session.set('popupCard', this.currentData()._id);
+    this.cardDetailsPopup(evt);
+  },
+
+  cardDetailsPopup(event) {
+    if (!Popup.isOpen()) {
+      Popup.open("cardDetails")(event);
+    }
+  },
+
   events() {
-    return [{}];
+    return [
+      {
+        'click .js-minicard': this.clickOnMiniCard,
+      },
+    ];
   },
 }).register('resultCard');
