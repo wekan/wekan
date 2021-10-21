@@ -218,7 +218,7 @@ BlazeComponent.extendComponent({
       distance: 7,
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup-close');
+        EscapeActions.clickExecute(evt.target, 'inlinedForm');
       },
       stop(evt, ui) {
         let prevChecklist = ui.item.prev('.js-checklist').get(0);
