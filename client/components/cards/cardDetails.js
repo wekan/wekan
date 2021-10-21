@@ -323,7 +323,8 @@ BlazeComponent.extendComponent({
         'click .js-close-card-details'() {
           Utils.goBoardId(this.data().boardId);
         },
-        'click .js-copy-link'() {
+        'click .js-copy-link'(event) {
+          event.preventDefault();
           const StringToCopyElement = document.getElementById('cardURL_copy');
           StringToCopyElement.value =
             window.location.origin + window.location.pathname;
