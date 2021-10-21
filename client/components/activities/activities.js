@@ -269,7 +269,7 @@ Template.addReactionPopup.events({
       const cardComment = CardComments.findOne({_id: commentId});
       cardComment.toggleReaction(codepoint);
     }
-    Popup.close();
+    Popup.back();
   },
 })
 
