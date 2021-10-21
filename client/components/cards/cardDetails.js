@@ -680,6 +680,7 @@ Template.cardDetailsActionsPopup.events({
         .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
+    Popup.back();
   },
   'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
