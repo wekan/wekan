@@ -25,6 +25,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix: Setting overtime not working](https://github.com/wekan/wekan/pull/4056).
   Thanks to Ben0it-T.
+- [Fix main scrollbar](https://github.com/wekan/wekan/pull/4063).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
