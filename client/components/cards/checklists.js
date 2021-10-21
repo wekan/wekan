@@ -16,7 +16,7 @@ function initSorting(items) {
     scroll: false,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
-      EscapeActions.executeUpTo('popup-close');
+      EscapeActions.clickExecute(evt.target, 'inlinedForm');
     },
     stop(evt, ui) {
       const parent = ui.item.parents('.js-checklist-items');
