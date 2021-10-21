@@ -974,7 +974,7 @@ Boards.helpers({
     } else {
       query.type = { $nin: ['template-card'] };
     }
-    const projection = { limit: 10, sort: { createdAt: -1 } };
+    const projection = { sort: { createdAt: -1 } };
 
     if (term) {
       const regex = new RegExp(term, 'i');
