@@ -106,7 +106,7 @@ BlazeComponent.extendComponent({
           if (!Number.isNaN(sort)) {
             let card = this.data();
             card.move(card.boardId, card.swimlaneId, card.listId, sort);
-            Popup.close();
+            Popup.back();
           }
         },
       }
