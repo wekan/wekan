@@ -713,6 +713,7 @@ function findCards(sessionId, query) {
       CustomFields.find({ _id: { $in: customFieldIds } }),
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
+      ChecklistItems.find({ cardId: { $in: cards.map(c => c._id) } }),
       Attachments.find({ cardId: { $in: cards.map(c => c._id) } }),
       CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
       SessionData.find({ userId, sessionId }),
