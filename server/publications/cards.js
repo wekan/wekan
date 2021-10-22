@@ -404,7 +404,7 @@ function buildSelector(queryParams) {
 
       const items = ChecklistItems.find(
         { title: regex },
-        { fields: { cardId: 1 } },
+        { fields: { cardId: 1, checklistId: 1 } },
       );
       const checklists = Checklists.find(
         {
@@ -610,7 +610,7 @@ function findCards(sessionId, query) {
   // console.log('selector:', query.selector);
   // console.log('selector.$and:', query.selector.$and);
   // eslint-disable-next-line no-console
-  // console.log('projection:', projection);
+  // console.log('projection:', query.projection);
 
   const cards = Cards.find(query.selector, query.projection);
   // eslint-disable-next-line no-console
