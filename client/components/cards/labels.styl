@@ -2,6 +2,7 @@
 
 // XXX Use .board-widget-labels as a flexbox container
 .card-label
+  border: 1px solid #000000
   border-radius: 4px
   color: white  //Default white text, in select cases,  changed to black to improve contrast between label colour and text
   display: inline-block
@@ -14,7 +15,7 @@
   min-width: 8px
   word-wrap: break-word
   min-height: 18px
-  vertical-align: bottom
+  vertical-align: middle
   white-space: initial
   overflow: initial
 
@@ -28,12 +29,13 @@
 
   &.add-label
     box-shadow: 0 0 0 2px darken(white, 25%) inset
+    border: initial
 
     &:hover, &.is-active
       box-shadow: 0 0 0 2px darken(white, 60%) inset
 
-    i.fa-plus
-      margin-top: 3px
+  p
+    margin: 0px
 
 .palette-colors
   display: flex
@@ -48,7 +50,6 @@
 .card-label-white
   background-color: #ffffff
   color: #000000 //Black text for better visibility
-  border: 1px solid #c0c0c0
 
 .card-label-white:hover
   color: #aaaaaa //grey text for better visibility
