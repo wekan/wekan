@@ -57,8 +57,6 @@ BlazeComponent.extendComponent({
           else if (this.data().isLinkedBoard())
             Utils.goBoardId(this.data().linkedId);
         },
-      },
-      {
         'click .js-toggle-minicard-label-text'() {
           if (window.localStorage.getItem('hiddenMinicardLabelText')) {
             window.localStorage.removeItem('hiddenMinicardLabelText'); //true
@@ -66,9 +64,8 @@ BlazeComponent.extendComponent({
             window.localStorage.setItem('hiddenMinicardLabelText', 'true'); //true
           }
         },
-      },
-      {
         'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
+        'click .minicard-labels' : Popup.open("cardLabels"),
       }
     ];
   },

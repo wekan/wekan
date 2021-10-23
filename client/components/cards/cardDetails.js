@@ -658,7 +658,6 @@ Template.cardDetailsActionsPopup.events({
   'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),
-  'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-voting': Popup.open('cardStartVoting'),
   'click .js-start-planning-poker': Popup.open('cardStartPlanningPoker'),
