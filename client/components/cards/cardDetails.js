@@ -820,6 +820,12 @@ Template.moveCardPopup.events({
     const slSelect = $('.js-select-swimlanes')[0];
     const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
     card.move(boardId, swimlaneId, listId, 0);
+
+    // set new id's to card object in case the card is moved to top by the comment "moveCard" after this command (.js-move-card)
+    this.boardId = boardId;
+    this.swimlaneId = swimlaneId;
+    this.listId = listId;
+
     Popup.back();
   },
 });
