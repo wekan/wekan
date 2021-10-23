@@ -21,6 +21,10 @@ template(name="editOrDeleteComment")
   = ' - '
   a.js-delete-comment {{_ "delete"}}
 
+template(name="deleteCommentPopup")
+  p {{_ "comment-delete"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
 template(name="commentReactions")
   .reactions
     each reaction in reactions
