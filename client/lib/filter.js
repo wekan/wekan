@@ -155,6 +155,39 @@ class DateFilter {
   }
 }
 
+class StringFilter {
+  constructor() {
+    this._dep = new Tracker.Dependency();
+    this.subField = ''; // Prevent name mangling in Filter
+    this._filter = '';
+  }
+
+  set(str) {
+    this._filter = str;
+    this._dep.changed();
+  }
+
+  reset() {
+    this._filter = '';
+    this._dep.changed();
+  }
+
+  _isActive() {
+    this._dep.depend();
+    return this._filter !== '';
+  }
+
+  _getMongoSelector() {
+    this._dep.depend();
+    return {$regex : this._filter, $options: 'i'};
+  }
+
+  _getEmptySelector() {
+    this._dep.depend();
+    return {$regex : this._filter, $options: 'i'};
+  }
+}
+
 // Use a "set" filter for a field that is a set of documents uniquely
 // identified. For instance `{ labels: ['labelA', 'labelC', 'labelD'] }`.
 // use "subField" for searching inside object Fields.
@@ -611,9 +644,9 @@ Filter = {
   archive: new SetFilter(),
   hideEmpty: new SetFilter(),
   dueAt: new DateFilter(),
+  title: new StringFilter(),
   customFields: new SetFilter('_id'),
   advanced: new AdvancedFilter(),
-  lists: new AdvancedFilter(), // we need the ability to filter list by name as well
 
   _fields: [
     'labelIds',
@@ -622,6 +655,7 @@ Filter = {
     'archive',
     'hideEmpty',
     'dueAt',
+    'title',
     'customFields',
   ],
 
@@ -636,8 +670,7 @@ Filter = {
       _.any(this._fields, fieldName => {
         return this[fieldName]._isActive();
       }) ||
-      this.advanced._isActive() ||
-      this.lists._isActive()
+      this.advanced._isActive()
     );
   },
 
@@ -682,7 +715,7 @@ Filter = {
     if (includeEmptySelectors) selectors.push(emptySelector);
     if (this.advanced._isActive())
       selectors.push(this.advanced._getMongoSelector());
-
+    
     return {
       $or: selectors,
     };
@@ -702,7 +735,6 @@ Filter = {
       const filter = this[fieldName];
       filter.reset();
     });
-    this.lists.reset();
     this.advanced.reset();
     this.resetExceptions();
   },

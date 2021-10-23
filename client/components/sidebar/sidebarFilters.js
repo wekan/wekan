@@ -6,7 +6,7 @@ BlazeComponent.extendComponent({
       {
         'submit .js-list-filter'(evt) {
           evt.preventDefault();
-          Filter.lists.set(this.find('.js-list-filter input').value.trim());
+          Filter.title.set(this.find('.js-list-filter input').value.trim());
         },
         'click .js-toggle-label-filter'(evt) {
           evt.preventDefault();
