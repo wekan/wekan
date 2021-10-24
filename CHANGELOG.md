@@ -31,6 +31,8 @@ and fixes the following bugs:
   Thanks to Madko and xet7.
 - [Fix markdown header quick access](https://github.com/wekan/wekan/pull/4065).
   Thanks to mfilser.
+- [Fix Filter List by Card Title](https://github.com/wekan/wekan/pull/4066).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
