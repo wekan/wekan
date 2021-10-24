@@ -16,12 +16,14 @@ template(name="header")
             each currentBoard.lists
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
                 a.js-select-list
-                  = title
+                  +viewer
+                    = title
           else
             each currentUser.starredBoards
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
                 a(href="{{pathFor 'board' id=_id slug=slug}}")
-                  = title
+                  +viewer
+                    = title
         #header-new-board-icon
       else
         //-
@@ -49,7 +51,8 @@ template(name="header")
           each currentUser.starredBoards
             li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
               a(href="{{pathFor 'board' id=_id slug=slug}}")
-                = title
+                +viewer
+                  = title
           else
             li.current.empty {{_ 'quick-access-description'}}
 
