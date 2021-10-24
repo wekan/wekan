@@ -49,6 +49,16 @@ BlazeComponent.extendComponent({
     return false;
   },
 
+  /** opens the card label popup only if clicked onto a label
+   * <li> this is necessary to have the data context of the minicard.
+   *      if .js-card-label is used at click event, then only the data context of the label itself is available at this.currentData()
+   */
+  cardLabelsPopup(event) {
+    if (this.find('.js-card-label:hover')) {
+      Popup.open("cardLabels")(event, this.currentData());
+    }
+  },
+
   events() {
     return [
       {
@@ -65,7 +75,7 @@ BlazeComponent.extendComponent({
           }
         },
         'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
-        'click .minicard-labels' : Popup.open("cardLabels"),
+        'click .minicard-labels' : this.cardLabelsPopup,
       }
     ];
   },
