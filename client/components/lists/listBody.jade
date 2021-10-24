@@ -53,6 +53,7 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
+    a.fa.fa-times-thin.js-close-inlined-form
     unless currentBoard.isTemplatesBoard
       unless currentBoard.isTemplateBoard
         span.quiet
