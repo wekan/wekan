@@ -18,6 +18,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [At mobile view the card details are opened as Popup](https://github.com/wekan/wekan/pull/4062).
   Thanks to mfilser.
+- [Add card button has now a cancel button](https://github.com/wekan/wekan/pull/4067).
+  Thanks to mfilser.
 
 and fixes the following bugs:
 
