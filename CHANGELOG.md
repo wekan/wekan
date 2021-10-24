@@ -29,6 +29,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Try to fix orphanedAttachments](https://github.com/wekan/wekan/commit/6a06522777a0bfa2f758e96c2d25e1237a7b43dc).
   Thanks to Madko and xet7.
+- [Fix markdown header quick access](https://github.com/wekan/wekan/pull/4065).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
