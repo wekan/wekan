@@ -865,6 +865,16 @@ Boards.helpers({
     });
   },
 
+  hasAnyAllowsDate() {
+    const ret = this.allowsReceivedDate || this.allowsStartDate || this.allowsDueDate || this.allowsEndDate;
+    return ret;
+  },
+
+  hasAnyAllowsUser() {
+    const ret = this.allowsCreator || this.allowsMembers || this.allowsAssignee || this.allowsRequestedBy || this.allowsAssignedBy;
+    return ret;
+  },
+
   absoluteUrl() {
     return FlowRouter.url('board', { id: this._id, slug: this.slug });
   },

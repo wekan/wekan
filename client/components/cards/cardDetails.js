@@ -411,6 +411,7 @@ BlazeComponent.extendComponent({
         'click .js-end-date': Popup.open('editCardEndDate'),
         'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
         'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
+        'click .js-custom-fields': Popup.open('cardCustomFields'),
         'mouseenter .js-card-details'() {
           if (this.parentComponent() === null) return;
           const parentComponent = this.parentComponent().parentComponent();
