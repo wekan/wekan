@@ -24,6 +24,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Board View, sort cards button also in mobile view](https://github.com/wekan/wekan/pull/4076).
   Thanks to mfilser.
+- [Minicard label popup](https://github.com/wekan/wekan/pull/4079).
+  Thanks to mfilser.
 
 and adds the following updates:
 
