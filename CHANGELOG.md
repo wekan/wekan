@@ -39,6 +39,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Boards weren't loaded because of missing filter](https://github.com/wekan/wekan/pull/4069).
   Thanks to mfilser.
+- [Fix Card details Custom Fields popup empty hr sections and plus icon](https://github.com/wekan/wekan/pull/4070).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
