@@ -7,7 +7,7 @@ var Markdown = require('markdown-it')({
   breaks: true,
 });
 
-import markdownItMermaid from "@liradb2000/markdown-it-mermaid";
+import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
 
 // Static URL Scheme Listing

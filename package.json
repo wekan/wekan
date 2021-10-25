@@ -22,7 +22,7 @@
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/runtime": "^7.15.3",
-    "@liradb2000/markdown-it-mermaid": "^0.4.4",
+    "@wekanteam/markdown-it-mermaid": "^0.5.0",
     "ajv": "^6.12.6",
     "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
