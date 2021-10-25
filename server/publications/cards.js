@@ -112,7 +112,7 @@ function buildSelector(queryParams) {
   let selector = {};
 
   // eslint-disable-next-line no-console
-  console.log('queryParams:', queryParams);
+  // console.log('queryParams:', queryParams);
 
   if (queryParams.selector) {
     selector = queryParams.selector;
