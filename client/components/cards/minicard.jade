@@ -12,7 +12,7 @@ template(name="minicard")
       .minicard-labels
         each labels
           unless hiddenMinicardLabelText
-            span.card-label(class="card-label-{{color}}" title=name)
+            span.js-card-label.card-label(class="card-label-{{color}}" title=name)
               +viewer
                 = name
           if hiddenMinicardLabelText

@@ -30,7 +30,11 @@ window.Popup = new (class {
     function clickFromPopup(evt) {
       return $(evt.target).closest('.js-pop-over').length !== 0;
     }
-    return function(evt) {
+    /** opens the popup
+     * @param evt the current event
+     * @param dataContextIfCurrentDataIsUndefined use this dataContext if this.currentData() is undefined
+     */
+    return function(evt, dataContextIfCurrentDataIsUndefined) {
       // If a popup is already opened, clicking again on the opener element
       // should close it -- and interrupt the current `open` function.
       if (self.isOpen()) {
@@ -67,7 +71,7 @@ window.Popup = new (class {
         title: self._getTitle(popupName),
         depth: self._stack.length,
         offset: self._getOffset(openerElement),
-        dataContext: (this && this.currentData && this.currentData()) || this,
+        dataContext: (this && this.currentData && this.currentData()) || dataContextIfCurrentDataIsUndefined || this,
       });
 
       // If there are no popup currently opened we use the Blaze API to render
