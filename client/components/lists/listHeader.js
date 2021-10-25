@@ -145,19 +145,19 @@ Template.listActionPopup.events({
   'click .js-select-cards'() {
     const cardIds = this.allCards().map(card => card._id);
     MultiSelection.add(cardIds);
-    Popup.close();
+    Popup.back();
   },
   'click .js-toggle-watch-list'() {
     const currentList = this;
     const level = currentList.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'list', currentList._id, level, (err, ret) => {
-      if (!err && ret) Popup.close();
+      if (!err && ret) Popup.back();
     });
   },
   'click .js-close-list'(event) {
     event.preventDefault();
     this.archive();
-    Popup.close();
+    Popup.back();
   },
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
   'click .js-more': Popup.open('listMore'),
@@ -233,7 +233,7 @@ BlazeComponent.extendComponent({
 
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function() {
-    Popup.close();
+    Popup.back();
     // TODO how can we avoid the fetch call?
     const allCards = this.allCards().fetch();
     const allCardIds = _.pluck(allCards, '_id');
@@ -299,11 +299,11 @@ BlazeComponent.extendComponent({
         },
         'click .js-submit'() {
           this.currentList.setColor(this.currentColor.get());
-          Popup.close();
+          Popup.back();
         },
         'click .js-remove-color'() {
           this.currentList.setColor(null);
-          Popup.close();
+          Popup.back();
         },
       },
     ];

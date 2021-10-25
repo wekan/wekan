@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
           }
           if (spentTime >= 0) {
             this.storeTime(spentTime, isOvertime);
-            Popup.close();
+            Popup.back();
           } else {
             this.error.set('invalid-time');
             evt.target.time.focus();
@@ -43,7 +43,7 @@ BlazeComponent.extendComponent({
         'click .js-delete-time'(evt) {
           evt.preventDefault();
           this.deleteTime();
-          Popup.close();
+          Popup.back();
         },
         'click a.js-toggle-overtime': this.toggleOvertime,
       },

@@ -327,7 +327,7 @@ class MoveSwimlaneComponent extends BlazeComponent {
             boardId = bSelect.options[bSelect.selectedIndex].value;
             Meteor.call(this.serverMethod, this.currentSwimlane._id, boardId);
           }
-          Popup.close();
+          Popup.back();
         },
       },
     ];

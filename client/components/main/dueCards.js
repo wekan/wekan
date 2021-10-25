@@ -38,12 +38,12 @@ BlazeComponent.extendComponent({
       {
         'click .js-due-cards-view-me'() {
           Utils.setDueCardsView('me');
-          Popup.close();
+          Popup.back();
         },
 
         'click .js-due-cards-view-all'() {
           Utils.setDueCardsView('all');
-          Popup.close();
+          Popup.back();
         },
       },
     ];

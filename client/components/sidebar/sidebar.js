@@ -188,15 +188,15 @@ Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-open-rules-view'() {
     Modal.openWide('rulesMain');
-    Popup.close();
+    Popup.back();
   },
   'click .js-custom-fields'() {
     Sidebar.setView('customFields');
-    Popup.close();
+    Popup.back();
   },
   'click .js-open-archives'() {
     Sidebar.setView('archives');
-    Popup.close();
+    Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
@@ -209,7 +209,7 @@ Template.boardMenuPopup.events({
   }),
   'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    Popup.close();
+    Popup.back();
     Boards.remove(currentBoard._id);
     FlowRouter.go('home');
   }),
@@ -252,7 +252,7 @@ Template.boardMenuPopup.helpers({
 Template.memberPopup.events({
   'click .js-filter-member'() {
     Filter.members.toggle(this.userId);
-    Popup.close();
+    Popup.back();
   },
   'click .js-change-role': Popup.open('changePermissions'),
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
@@ -266,12 +266,12 @@ Template.memberPopup.events({
       card.unassignAssignee(memberId);
     });
     Boards.findOne(boardId).removeMember(memberId);
-    Popup.close();
+    Popup.back();
   }),
   'click .js-leave-member': Popup.afterConfirm('leaveBoard', () => {
     const boardId = Session.get('currentBoard');
     Meteor.call('quitBoard', boardId, () => {
-      Popup.close();
+      Popup.back();
       FlowRouter.go('home');
     });
   }),
@@ -460,7 +460,7 @@ BlazeComponent.extendComponent({
               activities: ['all'],
             });
           }
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1229,7 +1229,7 @@ BlazeComponent.extendComponent({
       self.setLoading(false);
       if (err) self.setError(err.error);
       else if (ret.email) self.setError('email-sent');
-      else Popup.close();
+      else Popup.back();
     });
   },
 
@@ -1316,7 +1316,7 @@ BlazeComponent.extendComponent({
             }
           }
 
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1380,10 +1380,10 @@ BlazeComponent.extendComponent({
 
           Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
 
-          Popup.close();
+          Popup.back();
         },
         'click #cancelLeaveBoardBtn'(){
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1490,7 +1490,7 @@ BlazeComponent.extendComponent({
             }
           }
 
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1581,10 +1581,10 @@ BlazeComponent.extendComponent({
 
           Meteor.call('setBoardTeams', boardTeams, members, currentBoard._id);
 
-          Popup.close();
+          Popup.back();
         },
         'click #cancelLeaveBoardTeamBtn'(){
-          Popup.close();
+          Popup.back();
         },
       },
     ];

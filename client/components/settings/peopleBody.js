@@ -562,7 +562,7 @@ Template.editOrgPopup.events({
       );
     }
 
-    Popup.close();
+    Popup.back();
   },
 });
 
@@ -606,7 +606,7 @@ Template.editTeamPopup.events({
       );
     }
 
-    Popup.close();
+    Popup.back();
   },
 });
 
@@ -721,7 +721,7 @@ Template.editUserPopup.events({
           } else {
             usernameMessageElement.hide();
             emailMessageElement.hide();
-            Popup.close();
+            Popup.back();
           }
         },
       );
@@ -735,7 +735,7 @@ Template.editUserPopup.events({
           }
         } else {
           usernameMessageElement.hide();
-          Popup.close();
+          Popup.back();
         }
       });
     } else if (isChangeEmail) {
@@ -752,11 +752,11 @@ Template.editUserPopup.events({
             }
           } else {
             emailMessageElement.hide();
-            Popup.close();
+            Popup.back();
           }
         },
       );
-    } else Popup.close();
+    } else Popup.back();
   },
   'click #addUserOrg'(event) {
     event.preventDefault();
@@ -891,7 +891,7 @@ Template.newOrgPopup.events({
       orgWebsite,
       orgIsActive,
     );
-    Popup.close();
+    Popup.back();
   },
 });
 
@@ -917,7 +917,7 @@ Template.newTeamPopup.events({
       teamWebsite,
       teamIsActive,
     );
-    Popup.close();
+    Popup.back();
   },
 });
 
@@ -990,11 +990,11 @@ Template.newUserPopup.events({
         } else {
           usernameMessageElement.hide();
           emailMessageElement.hide();
-          Popup.close();
+          Popup.back();
         }
       },
     );
-    Popup.close();
+    Popup.back();
   },
   'click #addUserOrgNewUser'(event) {
     event.preventDefault();
@@ -1048,7 +1048,7 @@ Template.settingsOrgPopup.events({
       return;
     }
     Org.remove(this.orgId);
-    Popup.close();
+    Popup.back();
   }
 });
 
@@ -1066,7 +1066,7 @@ Template.settingsTeamPopup.events({
       return;
     }
     Team.remove(this.teamId);
-    Popup.close();
+    Popup.back();
   }
 });
 
@@ -1099,7 +1099,7 @@ Template.settingsUserPopup.events({
     //
     //
     */
-    Popup.close();
+    Popup.back();
   },
 });
 

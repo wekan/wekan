@@ -4,7 +4,7 @@ Template.attachmentsGalery.events({
     'attachmentDelete',
     function() {
       Attachments.remove(this._id);
-      Popup.close();
+      Popup.back();
     },
   ),
   // If we let this event bubble, FlowRouter will handle it and empty the page
@@ -53,7 +53,7 @@ Template.attachmentsGalery.helpers({
 
 Template.previewAttachedImagePopup.events({
   'click .js-large-image-clicked'() {
-    Popup.close();
+    Popup.back();
   },
 });
 
@@ -65,7 +65,7 @@ Template.cardAttachmentsPopup.events({
         if (attachment && attachment._id && attachment.isImage()) {
           card.setCover(attachment._id);
         }
-        Popup.close();
+        Popup.back();
       });
     };
 
@@ -174,7 +174,7 @@ Template.previewClipboardImagePopup.events({
 
       pastedResults = null;
       $(document.body).pasteImageReader(() => {});
-      Popup.close();
+      Popup.back();
     }
   },
 });

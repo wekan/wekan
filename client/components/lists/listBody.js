@@ -496,7 +496,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           const linkedId = $('.js-select-cards option:selected').val();
           if (!linkedId) {
-            Popup.close();
+            Popup.back();
             return;
           }
           const _id = Cards.insert({
@@ -511,7 +511,7 @@ BlazeComponent.extendComponent({
             linkedId,
           });
           Filter.addException(_id);
-          Popup.close();
+          Popup.back();
         },
         'click .js-link-board'(evt) {
           //LINK BOARD
@@ -522,7 +522,7 @@ BlazeComponent.extendComponent({
             !impBoardId ||
             Cards.findOne({ linkedId: impBoardId, archived: false })
           ) {
-            Popup.close();
+            Popup.back();
             return;
           }
           const _id = Cards.insert({
@@ -537,7 +537,7 @@ BlazeComponent.extendComponent({
             linkedId: impBoardId,
           });
           Filter.addException(_id);
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -584,7 +584,7 @@ BlazeComponent.extendComponent({
       });
     }
     if (!board) {
-      Popup.close();
+      Popup.back();
       return;
     }
     const boardId = board._id;
@@ -711,7 +711,7 @@ BlazeComponent.extendComponent({
               },
             );
           }
-          Popup.close();
+          Popup.back();
         },
       },
     ];
