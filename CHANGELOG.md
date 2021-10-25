@@ -26,6 +26,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Minicard label popup](https://github.com/wekan/wekan/pull/4079).
   Thanks to mfilser.
+- [Re-enables custom schemes auto linking](https://github.com/wekan/wekan/commit/f67a174c4a7706a2d419ba3dd43d696104f90696).
+  Thanks to chrisi51.
 
 and adds the following updates:
 
