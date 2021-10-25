@@ -37,6 +37,8 @@ and fixes the following bugs:
   Thanks to Ben0it-T.
 - [Fix long textarea editing](https://github.com/wekan/wekan/pull/4068).
   Thanks to mfilser.
+- [Boards weren't loaded because of missing filter](https://github.com/wekan/wekan/pull/4069).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
