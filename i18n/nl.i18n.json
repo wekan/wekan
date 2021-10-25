@@ -271,6 +271,8 @@
     "comment-placeholder": "Schrijf aantekening",
     "comment-only": "Alleen aantekeningen maken",
     "comment-only-desc": "Kan alleen op kaarten aantekenen.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Geen aantekeningen",
     "no-comments-desc": "Zie geen aantekeningen of activiteiten.",
     "worker": "Medewerker",

@@ -271,6 +271,8 @@
     "comment-placeholder": "Scrivi un commento...",
     "comment-only": "Solo commenti",
     "comment-only-desc": "Puoi commentare solo le schede.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Non ci sono commenti.",
     "no-comments-desc": "Impossibile visualizzare commenti o attività.",
     "worker": "Lavoratore",

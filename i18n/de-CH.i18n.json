@@ -271,6 +271,8 @@
     "comment-placeholder": "Kommentar schreiben",
     "comment-only": "Nur Kommentare",
     "comment-only-desc": "Kann Karten nur kommentieren.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Keine Kommentare",
     "no-comments-desc": "Kann keine Kommentare und Aktivitäten sehen.",
     "worker": "Arbeiter",

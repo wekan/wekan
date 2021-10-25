@@ -271,6 +271,8 @@
     "comment-placeholder": "Comentar",
     "comment-only": "Comentar solamente",
     "comment-only-desc": "Puede comentar en tarjetas solamente.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Sin comentarios",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

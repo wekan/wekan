@@ -271,6 +271,8 @@
     "comment-placeholder": "Text komentáře",
     "comment-only": "Pouze komentáře",
     "comment-only-desc": "Může přidávat komentáře pouze do karet.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Žádné komentáře",
     "no-comments-desc": "Nemůže vidět komentáře a aktivity",
     "worker": "Pracovník",

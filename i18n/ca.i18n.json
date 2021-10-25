@@ -271,6 +271,8 @@
     "comment-placeholder": "Escriu un comentari",
     "comment-only": "Només comentaris",
     "comment-only-desc": "Només pots fer comentaris a les fitxes",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Sense comentaris",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

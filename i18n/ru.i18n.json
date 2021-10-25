@@ -271,6 +271,8 @@
     "comment-placeholder": "Написать комментарий",
     "comment-only": "Только комментирование",
     "comment-only-desc": "Может комментировать только карточки.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Без комментариев",
     "no-comments-desc": "Не видит комментарии и историю действий.",
     "worker": "Исполнитель",

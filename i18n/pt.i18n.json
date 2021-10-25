@@ -271,6 +271,8 @@
     "comment-placeholder": "Escrever o Comentário",
     "comment-only": "Apenas comentários",
     "comment-only-desc": "Pode comentar apenas em cartões.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Sem comentários",
     "no-comments-desc": "Não pode ver comentários nem actividades.",
     "worker": "Trabalhador",

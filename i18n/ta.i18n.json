@@ -271,6 +271,8 @@
     "comment-placeholder": "Write Comment",
     "comment-only": "கருத்து மட்டும் ",
     "comment-only-desc": "Can comment on cards only.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "கருத்து இல்லை ",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

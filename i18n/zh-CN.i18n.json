@@ -271,6 +271,8 @@
     "comment-placeholder": "添加评论",
     "comment-only": "仅能评论",
     "comment-only-desc": "仅能在卡片上评论。",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "暂无评论",
     "no-comments-desc": "无法查看评论和活动。",
     "worker": "人员",

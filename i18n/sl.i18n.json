@@ -271,6 +271,8 @@
     "comment-placeholder": "Napiši komentar",
     "comment-only": "Samo komentar",
     "comment-only-desc": "Lahko komentirate samo na karticah.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Ni komentarjev",
     "no-comments-desc": "Ne morete videti komentarjev in dejavnosti.",
     "worker": "Delavec",

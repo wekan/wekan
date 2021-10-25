@@ -271,6 +271,8 @@
     "comment-placeholder": "Συγγραφή Σχολίου",
     "comment-only": "Μόνο σχόλιο",
     "comment-only-desc": "Μπορεί μόνο να σχολιάζει σε κάρτες.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Χωρίς σχόλια",
     "no-comments-desc": "Δε μπορεί να δει σχόλια και δραστηριότητες.",
     "worker": "Worker",

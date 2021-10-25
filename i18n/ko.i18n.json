@@ -271,6 +271,8 @@
     "comment-placeholder": "댓글 입력",
     "comment-only": "댓글만 입력 가능",
     "comment-only-desc": "카드에 댓글만 달수 있습니다.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "댓글 없음",
     "no-comments-desc": "댓글과 활동내역을 볼 수 없습니다.",
     "worker": "Worker",

@@ -271,6 +271,8 @@
     "comment-placeholder": "Write Comment",
     "comment-only": "Hanya komentar",
     "comment-only-desc": "Bisa komen hanya di kartu",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "No comments",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

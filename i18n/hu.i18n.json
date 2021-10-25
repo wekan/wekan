@@ -271,6 +271,8 @@
     "comment-placeholder": "Megjegyzés írása",
     "comment-only": "Csak megjegyzés",
     "comment-only-desc": "Csak megjegyzést írhat a kártyákhoz.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Nincs megjegyzés",
     "no-comments-desc": "Nem láthatsz hozzászólásokat és eseményeket",
     "worker": "Dolgozó",

@@ -271,6 +271,8 @@
     "comment-placeholder": "टिप्पणी लिखें",
     "comment-only": "केवल टिप्पणी करें",
     "comment-only-desc": "केवल कार्ड पर टिप्पणी कर सकते हैं।",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "कोई टिप्पणी नहीं",
     "no-comments-desc": "टिप्पणियां और गतिविधियां नहीं देख पा रहे हैं।",
     "worker": "कामगार",

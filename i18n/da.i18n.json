@@ -271,6 +271,8 @@
     "comment-placeholder": "Skriv kommentar",
     "comment-only": "Kun kommentarer",
     "comment-only-desc": "Kan kun kommentere på kort.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Ingen kommentarer",
     "no-comments-desc": "Kan ikke se kommentarer og aktiviteter.",
     "worker": "Arbejder",

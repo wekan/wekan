@@ -271,6 +271,8 @@
     "comment-placeholder": "დაწერეთ კომენტარი",
     "comment-only": "მხოლოდ კომენტარები",
     "comment-only-desc": "თქვენ შეგიძლიათ კომენტარის გაკეთება მხოლოდ ბარათებზე.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "No comments",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

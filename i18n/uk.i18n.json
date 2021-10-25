@@ -271,6 +271,8 @@
     "comment-placeholder": "Написати коментар",
     "comment-only": "Comment only",
     "comment-only-desc": "Can comment on cards only.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Немає коментарів",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

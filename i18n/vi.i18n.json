@@ -271,6 +271,8 @@
     "comment-placeholder": "Viết Bình Luận",
     "comment-only": "Chỉ bình luận",
     "comment-only-desc": "Chỉ có thể nhận xét về thẻ.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Không có bình luận",
     "no-comments-desc": "Không thể xem bình luận và hoạt động.",
     "worker": "Worker",

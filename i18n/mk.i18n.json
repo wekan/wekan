@@ -271,6 +271,8 @@
     "comment-placeholder": "Напиши коментар",
     "comment-only": "Само коментари",
     "comment-only-desc": "Може да коментира само в карти.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Нема коментари",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

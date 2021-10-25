@@ -271,6 +271,8 @@
     "comment-placeholder": "撰寫文字",
     "comment-only": "僅能評論",
     "comment-only-desc": "只能在卡片上發表評論。",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "暫無評論",
     "no-comments-desc": "無法檢視評論和活動。",
     "worker": "工作者",

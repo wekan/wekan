@@ -271,6 +271,8 @@
     "comment-placeholder": "أكتب تعليق",
     "comment-only": "التعليق فقط",
     "comment-only-desc": "يمكن التعليق على بطاقات فقط.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "لا يوجد تعليقات",
     "no-comments-desc": "Can not see comments and activities.",
     "worker": "Worker",

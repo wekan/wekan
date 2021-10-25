@@ -271,6 +271,8 @@
     "comment-placeholder": "درج نظر",
     "comment-only": "فقط نظر",
     "comment-only-desc": "فقط می‌تواند روی کارت‌ها نظر دهد.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "هیچ کامنتی موجود نیست",
     "no-comments-desc": "نظرات و فعالیت ها را نمی توان دید.",
     "worker": "کارگر",

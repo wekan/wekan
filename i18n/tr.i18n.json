@@ -271,6 +271,8 @@
     "comment-placeholder": "Yorum Yaz",
     "comment-only": "Sadece yorum",
     "comment-only-desc": "Sadece kartlara yorum yazabilir.",
+    "comment-delete": "Are you sure you want to delete the comment?",
+    "deleteCommentPopup-title": "Delete comment?",
     "no-comments": "Yorum Yok",
     "no-comments-desc": "Yorumlar ve aktiviteleri göremiyorum.",
     "worker": "Çalışan",
