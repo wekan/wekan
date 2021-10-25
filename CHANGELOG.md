@@ -20,6 +20,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Add card button has now a cancel button](https://github.com/wekan/wekan/pull/4067).
   Thanks to mfilser.
+- [Global search checklistitems and custom fields boolean](https://github.com/wekan/wekan/pull/4074).
+  Thanks to mfilser.
 
 and adds the following updates:
 
