@@ -647,7 +647,7 @@ Filter = {
   title: new StringFilter(),
   customFields: new SetFilter('_id'),
   advanced: new AdvancedFilter(),
-  lists: new AdvancedFilter(),
+  lists: new AdvancedFilter(), // we need the ability to filter list by name as well
 
   _fields: [
     'labelIds',
@@ -671,7 +671,8 @@ Filter = {
       _.any(this._fields, fieldName => {
         return this[fieldName]._isActive();
       }) ||
-      this.advanced._isActive()
+      this.advanced._isActive() ||
+      this.lists._isActive()
     );
   },
 
@@ -736,6 +737,7 @@ Filter = {
       const filter = this[fieldName];
       filter.reset();
     });
+    this.lists.reset();
     this.advanced.reset();
     this.resetExceptions();
   },
