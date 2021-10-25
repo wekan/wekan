@@ -64,6 +64,8 @@ and fixes the following bugs:
   Thanks to chrisi51.
 - [Card dates, if deleted rules didn't apply on "unset date fields"](https://github.com/wekan/wekan/pull/4075).
   Thanks to mfilser.
+- [Comment, added confirm delete popup](https://github.com/wekan/wekan/pull/4077).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
