@@ -423,23 +423,18 @@ function buildSelector(queryParams) {
         { fields: { cardId: 1 } },
       );
 
-      selector.$and.push({
-        $or: [
+      let cardsSelector = [
           { title: regex },
           { description: regex },
           { customFields: { $elemMatch: { value: regex } } },
-          // {
-          //   _id: {
-          //     $in: CardComments.textSearch(userId, [queryParams.text]).map(
-          //       com => com.cardId,
-          //     ),
-          //   },
-          // },
           { _id: { $in: checklists.map(list => list.cardId) } },
           { _id: { $in: attachments.map(attach => attach.cardId) } },
           { _id: { $in: comments.map(com => com.cardId) } },
-        ],
-      });
+        ];
+      if (queryParams.text == "false" || queryParams.text == "true") {
+        cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text == "true" ? true : false } } } );
+      }
+      selector.$and.push({ $or: cardsSelector });
     }
 
     if (selector.$and.length === 0) {
@@ -448,9 +443,7 @@ function buildSelector(queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  console.log('selector:', selector);
-  // eslint-disable-next-line no-console
-  console.log('selector.$and:', selector.$and);
+  console.log('cards selector:', JSON.stringify(selector, null, 2));
 
   const query = new Query();
   query.selector = selector;
