@@ -220,10 +220,11 @@ BlazeComponent.extendComponent({
     return [
       {
         // XXX We should use Popup.afterConfirmation here
-        'click .js-delete-comment'() {
-          const commentId = this.currentData().activity.commentId;
+        'click .js-delete-comment': Popup.afterConfirm('deleteComment', () => {
+          const commentId = this.data().activity.commentId;
           CardComments.remove(commentId);
-        },
+          Popup.back();
+        }),
         'submit .js-edit-comment'(evt) {
           evt.preventDefault();
           const commentText = this.currentComponent()
