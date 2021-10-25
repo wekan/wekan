@@ -35,6 +35,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix Filter List by Card Title](https://github.com/wekan/wekan/pull/4066).
   Thanks to Ben0it-T.
+- [Fix long textarea editing](https://github.com/wekan/wekan/pull/4068).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
