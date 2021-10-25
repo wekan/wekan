@@ -60,8 +60,6 @@ and fixes the following bugs:
   Thanks to mfilser and xet7.
 - [Long labels on card and minicard are wrapped if too long](https://github.com/wekan/wekan/pull/4073).
   Thanks to mfilser.
-- [Re-enables custom schemes auto linking](https://github.com/wekan/wekan/pull/4059).
-  Thanks to chrisi51.
 - [Card dates, if deleted rules didn't apply on "unset date fields"](https://github.com/wekan/wekan/pull/4075).
   Thanks to mfilser.
 - [Comment, added confirm delete popup](https://github.com/wekan/wekan/pull/4077).

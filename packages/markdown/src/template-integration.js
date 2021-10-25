@@ -9,6 +9,7 @@ var Markdown = require('markdown-it')({
 
 import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
+/*
 
 // Static URL Scheme Listing
 var urlschemes = [
@@ -22,10 +23,6 @@ var urlschemes = [
   "mailspring"
 ];
 
-
-
-
-
 // Better would be a field in the admin backend to set this dynamically
 // instead of putting all known or wanted url schemes here hard into code
 // but i was not able to access those settings
@@ -36,6 +33,7 @@ for(var i=0; i<urlschemes.length;i++){
   //console.log("adding autolink for "+urlschemes[i]);
   Markdown.linkify.add(urlschemes[i]+":",'http:');
 }
+
 
 
 // build fitting regex
@@ -70,9 +68,6 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 });
 
 
-
-
-/*
 // Additional  safeAttrValue function to allow for other specific protocols
 // See https://github.com/leizongmin/js-xss/issues/52#issuecomment-241354114
 function mySafeAttrValue(tag, name, value, cssFilter) {
