@@ -901,6 +901,20 @@ Boards.helpers({
     return _id;
   },
 
+  /** sets the new label order
+   * @param newLabelOrderOnlyIds new order array of _id, e.g. Array(4) [ "FvtD34", "PAEgDP", "LjRBxH", "YJ8sZz" ]
+   */
+  setNewLabelOrder(newLabelOrderOnlyIds) {
+    if (this.labels.length == newLabelOrderOnlyIds.length) {
+      if (this.labels.every(_label => newLabelOrderOnlyIds.indexOf(_label._id) >= 0)) {
+        const newLabels = _.sortBy(this.labels, _label => newLabelOrderOnlyIds.indexOf(_label._id));
+        if (this.labels.length == newLabels.length) {
+          Boards.direct.update(this._id, {$set: {labels: newLabels}});
+        }
+      }
+    }
+  },
+
   searchBoards(term) {
     check(term, Match.OneOf(String, null, undefined));
 

@@ -27,9 +27,11 @@ template(name="deleteLabelPopup")
 template(name="cardLabelsPopup")
   ul.edit-labels-pop-over
     each board.labels
-      li
+      li.js-card-label-item
         a.card-label-edit-button.fa.fa-pencil.js-edit-label
-        span.card-label.card-label-selectable.js-select-label(class="card-label-{{color}}"
+        if isMiniScreenOrShowDesktopDragHandles
+          span.fa.label-handle(class="fa-arrows" title="{{_ 'dragLabel'}}")
+        span.card-label.card-label-selectable.js-select-label.card-label-wrapper(class="card-label-{{color}}"
           class="{{# if isLabelSelected ../_id }}active{{/if}}")
             +viewer
               = name

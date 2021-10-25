@@ -39,15 +39,58 @@ Template.createLabelPopup.helpers({
   },
 });
 
-Template.cardLabelsPopup.events({
-  'click .js-select-label'(event) {
-    const card = Utils.getCurrentCard();
-    const labelId = this._id;
-    card.toggleLabel(labelId);
-    event.preventDefault();
+BlazeComponent.extendComponent({
+  onRendered() {
+    const itemsSelector = 'li.js-card-label-item:not(.placeholder)';
+    const $labels = this.$('.edit-labels-pop-over');
+
+    $labels.sortable({
+      connectWith: '.edit-labels-pop-over',
+      tolerance: 'pointer',
+      appendTo: '.edit-labels-pop-over',
+      helper: 'clone',
+      distance: 7,
+      items: itemsSelector,
+      placeholder: 'card-label-wrapper placeholder',
+      start(evt, ui) {
+        ui.helper.css('z-index', 1000);
+        ui.placeholder.height(ui.helper.height());
+        EscapeActions.clickExecute(evt.target, 'inlinedForm');
+      },
+      stop(evt, ui) {
+        const newLabelOrderOnlyIds = ui.item.parent().children().toArray().map(_element => Blaze.getData(_element)._id)
+        const card = Blaze.getData(this);
+        card.board().setNewLabelOrder(newLabelOrderOnlyIds);
+      },
+    });
+    Utils.enableClickOnTouch(itemsSelector);
+
+    // Disable drag-dropping if the current user is not a board member or is comment only
+    this.autorun(() => {
+      if (Utils.isMiniScreen()) {
+        $labels.sortable({
+          handle: '.label-handle',
+        });
+      }
+    });
   },
-  'click .js-edit-label': Popup.open('editLabel'),
-  'click .js-add-label': Popup.open('createLabel'),
+  events() {
+    return [
+      {
+        'click .js-select-label'(event) {
+          const card = Utils.getCurrentCard();
+          const labelId = this._id;
+          card.toggleLabel(labelId);
+          event.preventDefault();
+        },
+        'click .js-edit-label': Popup.open('editLabel'),
+        'click .js-add-label': Popup.open('createLabel'),
+      }
+    ];
+  }
+}).register('cardLabelsPopup');
+
+Template.cardLabelsPopup.events({
 });
 
 Template.formLabel.events({
