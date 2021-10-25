@@ -647,6 +647,7 @@ Filter = {
   title: new StringFilter(),
   customFields: new SetFilter('_id'),
   advanced: new AdvancedFilter(),
+  lists: new AdvancedFilter(),
 
   _fields: [
     'labelIds',
