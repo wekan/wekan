@@ -22,6 +22,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Global search checklistitems and custom fields boolean](https://github.com/wekan/wekan/pull/4074).
   Thanks to mfilser.
+- [Board View, sort cards button also in mobile view](https://github.com/wekan/wekan/pull/4076).
+  Thanks to mfilser.
 
 and adds the following updates:
 
