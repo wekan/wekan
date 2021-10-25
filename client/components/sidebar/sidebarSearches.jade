@@ -4,13 +4,13 @@ template(name="searchSidebar")
   .list-body
     .minilists.clearfix.js-minilists
       hr
-      {{_ 'lists' }}
+      | {{_ 'lists' }}
       each (lists)
         a.minilist-wrapper.js-minilist(href=originRelativeUrl)
           +minilist(this)
     .minicards.clearfix.js-minicards
       hr
-      {{_ 'cards' }}
+      | {{_ 'cards' }}
       each (cards)
         a.minicard-wrapper.js-minicard(href=originRelativeUrl)
           +minicard(this)
