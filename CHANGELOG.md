@@ -21,6 +21,11 @@ This release adds the following new features:
 - [Add card button has now a cancel button](https://github.com/wekan/wekan/pull/4067).
   Thanks to mfilser.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/f14e710ac0d5381ec092c9f383b9b68f446cab4d).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Fix infinite loading of public boards](https://github.com/wekan/wekan/pull/4053).
