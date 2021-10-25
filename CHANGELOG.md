@@ -41,6 +41,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix Card details Custom Fields popup empty hr sections and plus icon](https://github.com/wekan/wekan/pull/4070).
   Thanks to mfilser.
+- [Card popup search and global search improvements](https://github.com/wekan/wekan/pull/4071).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
