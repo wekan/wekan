@@ -1,3 +1,5 @@
+require('/client/lib/jquery-ui.js')
+
 const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
@@ -113,6 +115,20 @@ BlazeComponent.extendComponent({
           card.move(currentBoard._id, newSwimlaneId, listId, sortIndex.base);
         }
         boardComponent.setIsDragging(false);
+      },
+      sort(event, ui) {
+        const $boardCanvas = $('.board-canvas');
+        const  boardCanvas = $boardCanvas[0];
+
+        if (event.pageX < 10)
+        { // scroll to the left
+          boardCanvas.scrollLeft -= 15;
+          ui.helper[0].offsetLeft -= 15;
+        }
+        if (event.pageX > boardCanvas.offsetWidth - 10)
+        { // scroll to the right
+          boardCanvas.scrollLeft += 15;
+        }
       },
     });
 
