@@ -45,6 +45,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Comment out showing Search All Boards logs in console](https://github.com/wekan/wekan/commit/a62a177fb1cdf8b823b5c32380a81e803e0049e7).
   Thanks to mfilser and xet7.
+- [Long labels on card and minicard are wrapped if too long](https://github.com/wekan/wekan/pull/4073).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
