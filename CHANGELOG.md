@@ -66,6 +66,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Comment, added confirm delete popup](https://github.com/wekan/wekan/pull/4077).
   Thanks to mfilser.
+- [Fix: Filter List by Card Title](https://github.com/wekan/wekan/pull/4078).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
