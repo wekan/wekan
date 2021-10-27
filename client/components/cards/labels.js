@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
 
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
-      if (Utils.isMiniScreen()) {
+      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
         $labels.sortable({
           handle: '.label-handle',
         });
@@ -79,7 +79,7 @@ BlazeComponent.extendComponent({
       {
         'click .js-select-label'(event) {
           const card = Utils.getCurrentCard();
-          const labelId = this._id;
+          const labelId = this.currentData()._id;
           card.toggleLabel(labelId);
           event.preventDefault();
         },
