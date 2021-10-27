@@ -30,6 +30,8 @@ This release adds the following new features:
   Thanks to chrisi51.
 - [Board search remove limit](https://github.com/wekan/wekan/pull/4082).
   Thanks to mfilser.
+- [Add a possibility of selecting displayed users in Admin Panel](https://github.com/wekan/wekan/pull/4083).
+  Thanks to Emile840.
 
 and adds the following updates:
 
