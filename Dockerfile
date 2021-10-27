@@ -1,4 +1,4 @@
-FROM quay.io/wekan/ubuntu:hirsute-20210825
+FROM quay.io/wekan/ubuntu:impish-20211015
 LABEL maintainer="wekan"
 
 # 2021-09-18:
