@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated Docker base image to Ubuntu 21.10 Impish](https://github.com/wekan/wekan/commit/5411113544f040cab2df86234745e4846029660f).
+  Thanks to Ubuntu developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.68 2021-10-27 WeKan ® release
 
 This release adds the following new features:
