@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Labels are now drag/drop/sortable](https://github.com/wekan/wekan/pull/4084).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.67 2021-10-27 WeKan ® release
 
 This release fixes the following bugs:
