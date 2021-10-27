@@ -79,7 +79,7 @@ BlazeComponent.extendComponent({
       {
         'click .js-select-label'(event) {
           const card = Utils.getCurrentCard();
-          const labelId = this._id;
+          const labelId = this.currentData()._id;
           card.toggleLabel(labelId);
           event.preventDefault();
         },
