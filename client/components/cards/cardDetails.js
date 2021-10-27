@@ -1007,7 +1007,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-submit'() {
           this.currentCard.setColor(this.currentColor.get());
-          Popup.back();
+          Popup.close();
         },
         'click .js-remove-color'() {
           this.currentCard.setColor(null);
