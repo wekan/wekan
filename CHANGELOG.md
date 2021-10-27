@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming Wekan release
+# v5.66 2021-10-27 WeKan ® release
 
 This release adds the following new features:
 
@@ -77,7 +77,7 @@ and fixes the following bugs:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
-# v5.65 2021-10-12 Wekan release
+# v5.65 2021-10-12 WeKan ® release
 
 This release adds to following CRITICAL SECURITY UPDATES:
 
