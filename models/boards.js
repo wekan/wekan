@@ -941,42 +941,51 @@ Boards.helpers({
   },
 
   searchLists(term) {
-    check(term, Match.OneOf(String, null, undefined));
-
-    const query = { boardId: this._id };
-    if (this.isTemplatesBoard()) {
-      query.type = 'template-list';
-      query.archived = false;
-    } else {
-      query.type = { $nin: ['template-list'] };
-    }
-    const projection = { limit: 10, sort: { createdAt: -1 } };
-
+    let ret = null;
     if (term) {
-      const regex = new RegExp(term, 'i');
-
-      query.$or = [{ title: regex }, { description: regex }];
+      check(term, Match.OneOf(String));
+      term = term.trim();
     }
+    if (term) {
+      const query = { boardId: this._id };
+      if (this.isTemplatesBoard()) {
+        query.type = 'template-list';
+        query.archived = false;
+      } else {
+        query.type = { $nin: ['template-list'] };
+      }
+      const projection = { sort: { createdAt: -1 } };
 
-    return Lists.find(query, projection);
+      if (term) {
+        const regex = new RegExp(term, 'i');
+
+        query.$or = [{ title: regex }, { description: regex }];
+      }
+
+      ret = Lists.find(query, projection);
+    }
+    return ret;
   },
 
   searchCards(term, excludeLinked) {
-    check(term, Match.OneOf(String, null, undefined));
-
-    const query = { boardId: this._id };
-    if (excludeLinked) {
-      query.linkedId = null;
-    }
-    if (this.isTemplatesBoard()) {
-      query.type = 'template-card';
-      query.archived = false;
-    } else {
-      query.type = { $nin: ['template-card'] };
-    }
-    const projection = { limit: 10, sort: { createdAt: -1 } };
-
+    let ret = null;
     if (term) {
+      check(term, Match.OneOf(String));
+      term = term.trim();
+    }
+    if (term) {
+      const query = { boardId: this._id };
+      if (excludeLinked) {
+        query.linkedId = null;
+      }
+      if (this.isTemplatesBoard()) {
+        query.type = 'template-card';
+        query.archived = false;
+      } else {
+        query.type = { $nin: ['template-card'] };
+      }
+      const projection = { sort: { createdAt: -1 } };
+
       const regex = new RegExp(term, 'i');
 
       query.$or = [
@@ -984,9 +993,9 @@ Boards.helpers({
         { description: regex },
         { customFields: { $elemMatch: { value: regex } } },
       ];
+      ret = Cards.find(query, projection);
     }
-
-    return Cards.find(query, projection);
+    return ret;
   },
   // A board alwasy has another board where it deposits subtasks of thasks
   // that belong to itself.
