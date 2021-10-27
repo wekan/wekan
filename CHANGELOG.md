@@ -28,6 +28,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Re-enables custom schemes auto linking](https://github.com/wekan/wekan/commit/f67a174c4a7706a2d419ba3dd43d696104f90696).
   Thanks to chrisi51.
+- [Board search remove limit](https://github.com/wekan/wekan/pull/4082).
+  Thanks to mfilser.
 
 and adds the following updates:
 
