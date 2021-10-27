@@ -7,6 +7,11 @@ This release adds the following new features:
 - [Labels are now drag/drop/sortable](https://github.com/wekan/wekan/pull/4084).
   Thanks to mfilser.
 
+and fixes the following bugs:
+
+- [Fix labels desktop view add and delete](https://github.com/wekan/wekan/pull/4087).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.67 2021-10-27 WeKan ® release
