@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
 
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
-      if (Utils.isMiniScreen()) {
+      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
         $labels.sortable({
           handle: '.label-handle',
         });
