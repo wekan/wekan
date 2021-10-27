@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# v5.67 2021-10-27 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix typo](https://github.com/wekan/wekan/commit/cb9b8d4f2b8e24475a2aafd6f9653f28f305eefb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.66 2021-10-27 WeKan ® release
 
 This release adds the following new features:
