@@ -1,5 +1,18 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix bug related to Admin Panel teams management](https://github.com/wekan/wekan/pull/4103).
+  Thanks to Emile840.
+- Docker: Try to fix "Failed export and unexpected container restart". Added timezone and localtime.
+  [Part 1](https://github.com/wekan/wekan/commit/ec33d0b34f3abe5634be0b87f03314c738c771d1),
+  [Part 1](https://github.com/wekan/wekan/commit/e3292dd5627f95d59d130a8c1b9a62df317ae6bd).
+  Thanks to akitzing, mfilser and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.69 2021-10-28 WeKan ® release
 
 This release adds the following updates:
