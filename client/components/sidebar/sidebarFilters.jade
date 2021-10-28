@@ -10,6 +10,11 @@ template(name="filterSidebar")
       input(type="text")
   hr
   h3
+    i.fa.fa-list-alt
+    | {{_ 'filter-card-title-label'}}
+  input.js-field-card-filter(type="text")
+  hr
+  h3
     i.fa.fa-tags
     | {{_ 'filter-labels-label'}}
   ul.sidebar-list
