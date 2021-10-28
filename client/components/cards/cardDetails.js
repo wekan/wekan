@@ -701,7 +701,7 @@ Template.cardDetailsActionsPopup.events({
     const currentCard = this;
     const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
-      if (!err && ret) Popup.back();
+      if (!err && ret) Popup.close();
     });
   },
 });
