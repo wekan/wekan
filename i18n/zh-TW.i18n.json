@@ -1088,5 +1088,10 @@
     "requests": "要求",
     "help-request": "要求協助",
     "editCardSortOrderPopup-title": "變更排序",
-    "cardDetailsPopup-title": "卡片內容"
+    "cardDetailsPopup-title": "卡片內容",
+    "add-teams": "Add teams",
+    "add-teams-label": "Added teams are displayed below:",
+    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
+    "confirm-btn": "Confirm",
+    "remove-btn": "移除"
 }

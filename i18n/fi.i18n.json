@@ -1088,5 +1088,10 @@
     "requests": "Pyynnöt",
     "help-request": "Avunpyyntö",
     "editCardSortOrderPopup-title": "Muuta lajittelua",
-    "cardDetailsPopup-title": "Kortin yksityiskohdat"
+    "cardDetailsPopup-title": "Kortin yksityiskohdat",
+    "add-teams": "Lisää tiimejä",
+    "add-teams-label": "Lisätyt tiimit näkyy tässä alla:",
+    "remove-team-from-table": "Oletko varma että haluat poistaa tämän tiimin taululta?",
+    "confirm-btn": "Varmista",
+    "remove-btn": "Poista"
 }

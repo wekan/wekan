@@ -359,7 +359,7 @@
     "error-user-notCreated": "משתמש זה לא נוצר",
     "error-username-taken": "המשתמש כבר קיים במערכת",
     "error-orgname-taken": "שם הארגון הזה כבר תפוס",
-    "error-teamname-taken": "שם הקבוצה הזה כבר תפוס",
+    "error-teamname-taken": "שם הצוות הזה כבר תפוס",
     "error-email-taken": "כתובת הדוא״ל כבר נמצאת בשימוש",
     "export-board": "ייצוא לוח",
     "export-board-json": "ייצוא לוח ל־JSON",
@@ -1088,5 +1088,10 @@
     "requests": "בקשות",
     "help-request": "בקשת עזרה",
     "editCardSortOrderPopup-title": "החלפת אופן סידור",
-    "cardDetailsPopup-title": "פרטי הכרטיס"
+    "cardDetailsPopup-title": "פרטי הכרטיס",
+    "add-teams": "הוספת צוותים",
+    "add-teams-label": "הצוותים שנוספו מופיעים להלן:",
+    "remove-team-from-table": "להסיר את הצוות הזה מהלוח?",
+    "confirm-btn": "אישור",
+    "remove-btn": "הסרה"
 }

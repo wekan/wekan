@@ -1088,5 +1088,10 @@
     "requests": "Requests",
     "help-request": "Help Request",
     "editCardSortOrderPopup-title": "Change Sorting",
-    "cardDetailsPopup-title": "Card Details"
+    "cardDetailsPopup-title": "Card Details",
+    "add-teams": "Add teams",
+    "add-teams-label": "Added teams are displayed below:",
+    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
+    "confirm-btn": "Confirm",
+    "remove-btn": "Kaldır"
 }

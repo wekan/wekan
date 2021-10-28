@@ -1088,5 +1088,10 @@
     "requests": "Verzoeken",
     "help-request": "Hulpverzoek",
     "editCardSortOrderPopup-title": "Wijzig Sortering",
-    "cardDetailsPopup-title": "Kaart Details"
+    "cardDetailsPopup-title": "Kaart Details",
+    "add-teams": "Add teams",
+    "add-teams-label": "Added teams are displayed below:",
+    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
+    "confirm-btn": "Confirm",
+    "remove-btn": "Verwijder"
 }

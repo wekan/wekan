@@ -294,7 +294,7 @@
     "createCustomField": "Créer un champ personnalisé",
     "createCustomFieldPopup-title": "Créer un champ personnalisé",
     "current": "actuel",
-    "custom-field-delete-pop": "Cette action n'est pas réversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
+    "custom-field-delete-pop": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
     "custom-field-checkbox": "Case à cocher",
     "custom-field-currency": "Devise",
     "custom-field-currency-option": "Code devise",
@@ -471,7 +471,7 @@
     "listImportCardsTsvPopup-title": "Importer un fichier Excel CSV/TSV",
     "listMorePopup-title": "Plus",
     "link-list": "Lien vers cette liste",
-    "list-delete-pop": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cette action est irréversible.",
+    "list-delete-pop": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
     "list-delete-suggest-archive": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
     "lists": "Listes",
     "swimlanes": "Couloirs",
@@ -1090,8 +1090,8 @@
     "editCardSortOrderPopup-title": "Modifier le tri",
     "cardDetailsPopup-title": "Détails de la carte",
     "add-teams": "Ajouter des équipes",
-    "add-teams-label": "Les équipes ajoutées s'affichent ci-dessous :",
-    "remove-team-from-table": "Êtes vous sûr(e) de vouloir retirer cette équipe du tableau ?",
-    "confirm-btn": "Confirmer",
-    "remove-btn": "Retirer"
+    "add-teams-label": "Les équipes ajoutées sont affichées ci-dessous :",
+    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
+    "confirm-btn": "Confirm",
+    "remove-btn": "Supprimer"
 }

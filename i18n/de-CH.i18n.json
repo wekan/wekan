@@ -1088,5 +1088,10 @@
     "requests": "Anfragen",
     "help-request": "Hilfegesuch",
     "editCardSortOrderPopup-title": "Sortierung ändern",
-    "cardDetailsPopup-title": "Kartendetails"
+    "cardDetailsPopup-title": "Kartendetails",
+    "add-teams": "Add teams",
+    "add-teams-label": "Added teams are displayed below:",
+    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
+    "confirm-btn": "Confirm",
+    "remove-btn": "entfernen"
 }

@@ -1088,5 +1088,10 @@
     "requests": "Forespørsler",
     "help-request": "Support forespørsel",
     "editCardSortOrderPopup-title": "Endre sortering",
-    "cardDetailsPopup-title": "Kortdetaljer"
+    "cardDetailsPopup-title": "Kortdetaljer",
+    "add-teams": "Add teams",
+    "add-teams-label": "Added teams are displayed below:",
+    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
+    "confirm-btn": "Confirm",
+    "remove-btn": "Fjern"
 }
