@@ -1011,7 +1011,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-remove-color'() {
           this.currentCard.setColor(null);
-          Popup.back();
+          Popup.close();
         },
       },
     ];
