@@ -664,6 +664,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+      - wekan-tmp:/tmp
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -721,9 +722,6 @@ volumes:
     driver: local
   wekan-tmp:
     driver: local
-  - /etc/localtime:/etc/localtime:ro
-  - /etc/timezone:/etc/timezone:ro
-  - ./volumes/wekan-tmp:/tmp
 
 networks:
   wekan-tier:

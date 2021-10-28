@@ -136,6 +136,12 @@ services:
             rs.initiate({_id:"rs1",members:[{_id:0,host:"mongodb:27017"}]});
         ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - wekan-db:/data/db
+      - wekan-db-dump:/dump
+
   wekan:
     image: quay.io/wekan/wekan
     container_name: wekan-app
@@ -604,6 +610,10 @@ services:
 
     depends_on:
       - mongodb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - wekan-tmp:/tmp
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -638,9 +648,6 @@ volumes:
     driver: local
   wekan-tmp:
     driver: local
-  - /etc/localtime:/etc/localtime:ro
-  - /etc/timezone:/etc/timezone:ro
-  - ./volumes/wekan-tmp:/tmp
 
 networks:
   wekan-tier:
