@@ -6,7 +6,12 @@ BlazeComponent.extendComponent({
       {
         'submit .js-list-filter'(evt) {
           evt.preventDefault();
-          Filter.title.set(this.find('.js-list-filter input').value.trim());
+          Filter.lists.set(this.find('.js-list-filter input').value.trim());
+        },
+        'change .js-field-card-filter'(evt) {
+          evt.preventDefault();
+          Filter.title.set(this.find('.js-field-card-filter').value.trim());
+          Filter.resetExceptions();
         },
         'click .js-toggle-label-filter'(evt) {
           evt.preventDefault();
