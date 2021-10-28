@@ -719,6 +719,11 @@ volumes:
     driver: local
   wekan-db-dump:
     driver: local
+  wekan-tmp:
+    driver: local
+  - /etc/localtime:/etc/localtime:ro
+  - /etc/timezone:/etc/timezone:ro
+  - ./volumes/wekan-tmp:/tmp
 
 networks:
   wekan-tier:
