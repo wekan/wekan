@@ -55,7 +55,7 @@ BlazeComponent.extendComponent({
    */
   cardLabelsPopup(event) {
     if (this.find('.js-card-label:hover')) {
-      Popup.open("cardLabels")(event, this.currentData());
+      Popup.open("cardLabels")(event, {dataContextIfCurrentDataIsUndefined: this.currentData()});
     }
   },
 

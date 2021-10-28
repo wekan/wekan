@@ -692,7 +692,7 @@ Template.cardDetailsActionsPopup.events({
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
   },
   'click .js-archive': Popup.afterConfirm('cardArchive', function () {
-    Popup.back();
+    Popup.close();
     this.archive();
     Utils.goBoardId(this.boardId);
   }),
@@ -701,7 +701,7 @@ Template.cardDetailsActionsPopup.events({
     const currentCard = this;
     const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
-      if (!err && ret) Popup.back();
+      if (!err && ret) Popup.close();
     });
   },
 });
@@ -1007,7 +1007,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-submit'() {
           this.currentCard.setColor(this.currentColor.get());
-          Popup.back();
+          Popup.close();
         },
         'click .js-remove-color'() {
           this.currentCard.setColor(null);
