@@ -160,7 +160,8 @@ services:
       - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
-      # Email settings are required in both MAIL_URL and Admin Panel,
+      # Email settings are only at MAIL_URL and MAIL_FROM.
+      # Admin Panel has test button, but it's not used for settings.
       #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
@@ -168,6 +169,7 @@ services:
       #- MAIL_URL=smtp://user:pass@mailserver.example.com:25/
       - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
       - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
+      # Currently MAIL_SERVICE is not in use.
       #- MAIL_SERVICE=Outlook365
       #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
       #- MAIL_SERVICE_PASSWORD=SecretPassword

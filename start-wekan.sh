@@ -18,6 +18,7 @@
       # https://github.com/wekan/wekan-mongodb/blob/master/docker-compose.yml
       export MAIL_URL='smtp://user:pass@mailserver.example.com:25/'
       export MAIL_FROM='Wekan Boards <info@example.com>'
+      # Currently MAIL_SERVICE is not in use.
       #export MAIL_SERVICE=Outlook365
       #export MAIL_SERVICE_USER=firstname.lastname@hotmail.com
       #export MAIL_SERVICE_PASSWORD=SecretPassword
