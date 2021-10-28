@@ -692,7 +692,7 @@ Template.cardDetailsActionsPopup.events({
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
   },
   'click .js-archive': Popup.afterConfirm('cardArchive', function () {
-    Popup.back();
+    Popup.close();
     this.archive();
     Utils.goBoardId(this.boardId);
   }),
