@@ -1088,5 +1088,10 @@
     "requests": "Requêtes",
     "help-request": "Demande d'aide",
     "editCardSortOrderPopup-title": "Modifier le tri",
-    "cardDetailsPopup-title": "Détails de la carte"
+    "cardDetailsPopup-title": "Détails de la carte",
+    "add-teams": "Ajouter des équipes",
+    "add-teams-label": "Les équipes ajoutées s'affichent ci-dessous :",
+    "remove-team-from-table": "Êtes vous sûr(e) de vouloir retirer cette équipe du tableau ?",
+    "confirm-btn": "Confirmer",
+    "remove-btn": "Retirer"
 }
