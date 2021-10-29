@@ -1114,7 +1114,7 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
-          Popup.back();
+          Popup.close();
           // verify that there are no linked cards
           if (Cards.find({ linkedId: this._id }).count() === 0) {
             Cards.remove(this._id);
