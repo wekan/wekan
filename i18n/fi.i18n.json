@@ -392,7 +392,7 @@
     "filter-due-today": "Erääntyy tänään",
     "filter-due-this-week": "Erääntyy tällä viikolla",
     "filter-due-tomorrow": "Erääntyy huomenna",
-    "list-filter-label": "Suodata listat otsikon mukaan",
+    "list-filter-label": "Suodata listan otsikko",
     "filter-clear": "Poista suodatin",
     "filter-labels-label": "Suodata nimilappu",
     "filter-no-label": "Ei nimilappua",
