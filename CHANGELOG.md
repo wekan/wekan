@@ -6,7 +6,9 @@ This release fixes the following bugs:
 
 - [Fix: Filter List by Card Title](https://github.com/wekan/wekan/pull/4105).
   Thanks to Ben0it-T.
-- [Add info about upgrades to GitHub issue template](https://github.com/wekan/wekan/commit/46a5eec7d21b66eb1aacac4fec84a0d0a0f4d16b).
+- Add info about upgrades to GitHub issue template.
+  [Part 1](https://github.com/wekan/wekan/commit/46a5eec7d21b66eb1aacac4fec84a0d0a0f4d16b),
+  [Part 2](https://github.com/wekan/wekan/commit/7cc35970a849c19d35b89cf0a5fb91216a66fcb3).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
