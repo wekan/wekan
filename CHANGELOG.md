@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/df2a2aae1d44ba22563cc28bc8d9baac71b2ced7).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Fix: Filter List by Card Title](https://github.com/wekan/wekan/pull/4105).
   Thanks to Ben0it-T.
