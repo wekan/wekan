@@ -1,9 +1,8 @@
 ## Issue
 
-**[PLEASE UPGRADE](https://github.com/wekan/wekan/wiki/Backup)** to newest WeKan before adding new issue:
-- Usually bugs are already fixed, we get too many duplicate reports.
-- Please search existing Open and Closed issues, most questions have
-  already been answered many times.
+**[PLEASE UPGRADE](https://github.com/wekan/wekan/wiki/Backup)** to newest WeKan ® before adding new issue !!
+- We get too many duplicate reports of already fixed bugs. Newest WeKan ® has newest bugfixes and security fixes.
+- Please search existing Open and Closed issues, most questions have already been answered many times.
 
 If you can not login for any reason:
 - https://github.com/wekan/wekan/wiki/Forgot-Password
