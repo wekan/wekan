@@ -1089,9 +1089,10 @@
     "help-request": "Solicitação de Ajuda",
     "editCardSortOrderPopup-title": "Mudar ordenação",
     "cardDetailsPopup-title": "Detalhes do Cartão",
-    "add-teams": "Add teams",
-    "add-teams-label": "Added teams are displayed below:",
-    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
-    "confirm-btn": "Confirm",
-    "remove-btn": "Remover"
+    "add-teams": "Adicionar times",
+    "add-teams-label": "Times adicionados são exibidos abaixo:",
+    "remove-team-from-table": "Você tem certeza que deseja excluir este time do quadro?",
+    "confirm-btn": "Confirmar",
+    "remove-btn": "Remover",
+    "filter-card-title-label": "Filter by card title"
 }

@@ -1093,5 +1093,6 @@
     "add-teams-label": "Added teams are displayed below:",
     "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
     "confirm-btn": "Confirm",
-    "remove-btn": "entfernen"
+    "remove-btn": "entfernen",
+    "filter-card-title-label": "Filter by card title"
 }

@@ -1093,5 +1093,6 @@
     "add-teams-label": "הצוותים שנוספו מופיעים להלן:",
     "remove-team-from-table": "להסיר את הצוות הזה מהלוח?",
     "confirm-btn": "אישור",
-    "remove-btn": "הסרה"
+    "remove-btn": "הסרה",
+    "filter-card-title-label": "Filter by card title"
 }

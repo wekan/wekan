@@ -1093,5 +1093,6 @@
     "add-teams-label": "Lisätyt tiimit näkyy tässä alla:",
     "remove-team-from-table": "Oletko varma että haluat poistaa tämän tiimin taululta?",
     "confirm-btn": "Varmista",
-    "remove-btn": "Poista"
+    "remove-btn": "Poista",
+    "filter-card-title-label": "Suodata kortin otsikko"
 }
