@@ -14,7 +14,8 @@ template(name="swimlane")
               +addListForm
       else
         each lists
-          +list(this)
+          if visible this
+            +list(this)
           if currentCardIsInThisList _id ../_id
             +cardDetails(currentCard)
         if currentUser.isBoardMember
