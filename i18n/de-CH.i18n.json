@@ -1089,10 +1089,10 @@
     "help-request": "Hilfegesuch",
     "editCardSortOrderPopup-title": "Sortierung ändern",
     "cardDetailsPopup-title": "Kartendetails",
-    "add-teams": "Add teams",
-    "add-teams-label": "Added teams are displayed below:",
-    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
-    "confirm-btn": "Confirm",
+    "add-teams": "Teams hinzufügen",
+    "add-teams-label": "Hinzugefügte Teams werden nachfolgend angezeigt:",
+    "remove-team-from-table": "Sind Sie sicher, das Sie dieses Team vom Board entfernen möchten?",
+    "confirm-btn": "Bestätigen",
     "remove-btn": "entfernen",
-    "filter-card-title-label": "Filter by card title"
+    "filter-card-title-label": "nach Kartentitel filtern"
 }
