@@ -25,6 +25,7 @@ Meteor.publish('setting', () => {
         defaultAuthenticationMethod: 1,
         spinnerName: 1,
         oidcBtnText: 1,
+        mailDomaineName: 1,
       },
     },
   );
