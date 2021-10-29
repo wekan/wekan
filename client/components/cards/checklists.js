@@ -188,6 +188,7 @@ BlazeComponent.extendComponent({
     }
   },
 
+  /** closes all inlined forms (checklist and checklist-item input fields) */
   closeAllInlinedForms() {
     this.$('.js-close-inlined-form').click();
   },
@@ -216,8 +217,8 @@ BlazeComponent.extendComponent({
         'click .js-delete-checklist-item': this.deleteItem,
         'click .confirm-checklist-delete': this.deleteChecklist,
         'focus .js-add-checklist-item': this.focusChecklistItem,
-        'click .add-checklist-item.js-open-inlined-form': this.closeAllInlinedForms,
-        'click .add-checklist.js-open-inlined-form': this.closeAllInlinedForms,
+        // add and delete checklist / checklist-item
+        'click .js-open-inlined-form': this.closeAllInlinedForms,
         keydown: this.pressKey,
       },
     ];
