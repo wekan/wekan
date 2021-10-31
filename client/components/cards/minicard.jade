@@ -9,7 +9,7 @@ template(name="minicard")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
-      .minicard-labels
+      .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
         each labels
           unless hiddenMinicardLabelText
             span.js-card-label.card-label(class="card-label-{{color}}" title=name)
