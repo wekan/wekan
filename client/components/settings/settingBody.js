@@ -205,8 +205,8 @@ BlazeComponent.extendComponent({
     )
       .val()
       .trim();
-    const mailDomaineName = $(
-      '#mailDomaineNamevalue',
+    const mailDomainName = $(
+      '#mailDomainNamevalue',
     )
       .val()
       .trim();
@@ -233,7 +233,7 @@ BlazeComponent.extendComponent({
           automaticLinkedUrlSchemes,
           spinnerName,
           oidcBtnText,
-          mailDomaineName,
+          mailDomainName,
         },
       });
     } catch (e) {

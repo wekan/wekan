@@ -88,7 +88,7 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
-    mailDomaineName: {
+    mailDomainName: {
       type: String,
       optional: true,
     },

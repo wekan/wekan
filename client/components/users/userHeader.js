@@ -30,12 +30,12 @@ Template.memberMenuPopup.helpers({
   },
   isSameDomainNameSettingValue(){
     const currSett = Settings.findOne();
-    if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomaineName !== undefined && currSett.mailDomaineName != ""){
+    if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
       currentUser = Meteor.user();
       if (currentUser) {
         let found = false;
         for(let i = 0; i < currentUser.emails.length; i++) {
-          if(currentUser.emails[i].address.endsWith(currSett.mailDomaineName)){
+          if(currentUser.emails[i].address.endsWith(currSett.mailDomainName)){
             found = true;
             break;
           }
