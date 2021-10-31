@@ -220,7 +220,7 @@ Swimlanes.helpers({
       {
         boardId: this.boardId,
         swimlaneId: { $in: [this._id, ''] },
-        archived: false,
+        //archived: false,
       },
       { sort: ['sort'] },
     );

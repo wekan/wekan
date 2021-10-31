@@ -137,19 +137,38 @@ BlazeComponent.extendComponent({
     this._isDragging = false;
     this._lastDragPositionX = 0;
   },
-
   id() {
     return this._id;
   },
-
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
   },
-
   currentListIsInThisSwimlane(swimlaneId) {
     return currentListIsInThisSwimlane(swimlaneId);
   },
-
+  visible(list) {
+    if (list.archived) {
+      // Show archived list only when filter archive is on or archive is selected
+      if (!(Filter.archive.isSelected() || archivedRequested)) {
+        return false;
+      }
+    }
+    if (Filter.lists._isActive()) {
+      if (!list.title.match(Filter.lists.getRegexSelector())) {
+        return false;
+      }
+    }
+    if (Filter.hideEmpty.isSelected()) {
+      const swimlaneId = this.parentComponent()
+        .parentComponent()
+        .data()._id;
+      const cards = list.cards(swimlaneId);
+      if (cards.count() === 0) {
+        return false;
+      }
+    }
+    return true;
+  },
   events() {
     return [
       {

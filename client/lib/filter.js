@@ -682,9 +682,11 @@ Filter = {
     const filterSelector = {};
     const emptySelector = {};
     let includeEmptySelectors = false;
+    let isFilterActive = false; // we don't want there is only Filter.lists
     this._fields.forEach(fieldName => {
       const filter = this[fieldName];
       if (filter._isActive()) {
+        isFilterActive = true;
         if (filter.subField !== '') {
           filterSelector[
             `${fieldName}.${filter.subField}`
@@ -715,12 +717,23 @@ Filter = {
     )
       selectors.push(filterSelector);
     if (includeEmptySelectors) selectors.push(emptySelector);
-    if (this.advanced._isActive())
+    if (this.advanced._isActive()) {
+      isFilterActive = true;
       selectors.push(this.advanced._getMongoSelector());
+    }
     
-    return {
-      $or: selectors,
-    };
+    if(isFilterActive) {
+      return {
+        $or: selectors,
+      };
+    }
+    else {
+      // we don't want there is only Filter.lists
+      // otherwise no card will be displayed ...
+      // selectors = [exceptionsSelector];
+      // will return [{"_id":{"$in":[]}}]
+      return {};
+    }
   },
 
   mongoSelector(additionalSelector) {
