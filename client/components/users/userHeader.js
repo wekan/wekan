@@ -3,6 +3,12 @@ Template.headerUserBar.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
+BlazeComponent.extendComponent({
+  onCreated() {
+    Meteor.subscribe('setting');
+  },
+}).register('memberMenuPopup');
+
 Template.memberMenuPopup.helpers({
   templatesBoardId() {
     currentUser = Meteor.user();
@@ -21,6 +27,26 @@ Template.memberMenuPopup.helpers({
       // No need to getTemplatesBoardSlug() on public board
       return false;
     }
+  },
+  isSameDomainNameSettingValue(){
+    const currSett = Settings.findOne();
+    if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomaineName !== undefined && currSett.mailDomaineName != ""){
+      currentUser = Meteor.user();
+      if (currentUser) {
+        let found = false;
+        for(let i = 0; i < currentUser.emails.length; i++) {
+          if(currentUser.emails[i].address.endsWith(currSett.mailDomaineName)){
+            found = true;
+            break;
+          }
+        }
+        return found;
+      } else {
+        return true;
+      }
+    }
+    else
+      return false;
   },
   isNotOAuth2AuthenticationMethod(){
     currentUser = Meteor.user();
@@ -42,6 +68,7 @@ Template.memberMenuPopup.events({
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
   },
+  'click .js-invite-people': Popup.open('invitePeople'),
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
@@ -54,6 +81,66 @@ Template.memberMenuPopup.events({
   },
   'click .js-go-setting'() {
     Popup.back();
+  },
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    Meteor.subscribe('setting');
+  },
+}).register('editProfilePopup');
+
+Template.invitePeoplePopup.events({
+  'click a.js-toggle-board-choose'(event){
+    let target = $(event.target);
+    if (!target.hasClass('js-toggle-board-choose')) {
+      target = target.parent();
+    }
+    const checkboxId = target.attr('id');
+    $(`#${checkboxId} .materialCheckBox`).toggleClass('is-checked');
+    $(`#${checkboxId}`).toggleClass('is-checked');
+  },
+  'click button.js-email-invite'(event){
+    const emails = $('#email-to-invite')
+      .val()
+      .toLowerCase()
+      .trim()
+      .split('\n')
+      .join(',')
+      .split(',');
+    const boardsToInvite = [];
+    $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function() {
+      boardsToInvite.push($(this).data('id'));
+    });
+    const validEmails = [];
+    emails.forEach(email => {
+      if (email && SimpleSchema.RegEx.Email.test(email.trim())) {
+        validEmails.push(email.trim());
+      }
+    });
+    if (validEmails.length) {
+      Meteor.call('sendInvitation', validEmails, boardsToInvite, (_, rc) => {
+        if (rc == 0) {
+          let divInfos = document.getElementById("invite-people-infos");
+          if(divInfos && divInfos !== undefined){
+            divInfos.innerHTML = "<span style='color: green'>" + TAPi18n.__('invite-people-success') + "</span>";
+          }
+        }
+        else{
+          let divInfos = document.getElementById("invite-people-infos");
+          if(divInfos && divInfos !== undefined){
+            divInfos.innerHTML = "<span style='color: red'>" + TAPi18n.__('invite-people-error') + "</span>";
+          }
+        }
+        // Popup.close();
+      });
+    }
+  },
+});
+
+Template.invitePeoplePopup.helpers({
+  currentSetting() {
+    return Settings.findOne();
   },
 });
 

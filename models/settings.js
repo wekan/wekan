@@ -88,6 +88,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    mailDomaineName: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,
@@ -290,11 +294,13 @@ if (Meteor.isServer) {
 
   Meteor.methods({
     sendInvitation(emails, boards) {
+      let rc = 0;
       check(emails, [String]);
       check(boards, [String]);
 
       const user = Users.findOne(Meteor.userId());
       if (!user.isAdmin) {
+        rc = -1;
         throw new Meteor.Error('not-allowed');
       }
       emails.forEach(email => {
@@ -302,6 +308,7 @@ if (Meteor.isServer) {
           // Checks if the email is already link to an account.
           const userExist = Users.findOne({ email });
           if (userExist) {
+            rc = -1;
             throw new Meteor.Error(
               'user-exist',
               `The user with the email ${email} has already an account.`,
@@ -328,6 +335,7 @@ if (Meteor.isServer) {
                 if (!err && _id) {
                   sendInvitationEmail(_id);
                 } else {
+                  rc = -1;
                   throw new Meteor.Error(
                     'invitation-generated-fail',
                     err.message,
@@ -338,6 +346,7 @@ if (Meteor.isServer) {
           }
         }
       });
+      return rc;
     },
 
     sendSMTPTestEmail() {
