@@ -1094,6 +1094,7 @@
     "remove-team-from-table": "Oletko varma että haluat poistaa tämän tiimin taululta?",
     "confirm-btn": "Varmista",
     "remove-btn": "Poista",
+    "filter-card-title-label": "Suodata kortin otsikko",
     "invite-people-success": "Kutsu rekisteröityä lähetetty onnistuneesti",
     "invite-people-error": "Virhe lähetettäessä kutsua rekisteröityä",
     "can-invite-if-same-mailDomainName": "Sähköposti verkkotunnuksen nimi"

@@ -1094,6 +1094,7 @@
     "remove-team-from-table": "Weet je zeker dat je dit team van het bord wilt verwijderen?",
     "confirm-btn": "Bevestig",
     "remove-btn": "Verwijder",
+    "filter-card-title-label": "Filter kaart op titel",
     "invite-people-success": "Invitation to register sent with success",
     "invite-people-error": "Error while sending invitation to register",
     "can-invite-if-same-mailDomainName": "Email domain name"

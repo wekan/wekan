@@ -1094,6 +1094,7 @@
     "remove-team-from-table": "להסיר את הצוות הזה מהלוח?",
     "confirm-btn": "אישור",
     "remove-btn": "הסרה",
+    "filter-card-title-label": "סינון לפי כותרת כרטיס",
     "invite-people-success": "Invitation to register sent with success",
     "invite-people-error": "Error while sending invitation to register",
     "can-invite-if-same-mailDomainName": "Email domain name"

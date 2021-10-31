@@ -1094,6 +1094,7 @@
     "remove-team-from-table": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
     "confirm-btn": "Confirmer",
     "remove-btn": "Supprimer",
+    "filter-card-title-label": "Filtrer par titre de carte",
     "invite-people-success": "Invitation to register sent with success",
     "invite-people-error": "Error while sending invitation to register",
     "can-invite-if-same-mailDomainName": "Email domain name"
