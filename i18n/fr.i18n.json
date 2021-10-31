@@ -1091,10 +1091,10 @@
     "cardDetailsPopup-title": "Détails de la carte",
     "add-teams": "Ajouter des équipes",
     "add-teams-label": "Les équipes ajoutées sont affichées ci-dessous :",
-    "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
-    "confirm-btn": "Confirm",
+    "remove-team-from-table": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
+    "confirm-btn": "Confirmer",
     "remove-btn": "Supprimer",
-    "invite-people-success": "L'invitation à l'inscription a été envoyé avec succèss",
-    "invite-people-error": "Erreur lors de l'envoie d'une invitation à l'inscription",
-    "can-invite-if-same-mailDomainName": "Nom de domaine"
+    "invite-people-success": "Invitation to register sent with success",
+    "invite-people-error": "Error while sending invitation to register",
+    "can-invite-if-same-mailDomainName": "Email domain name"
 }
