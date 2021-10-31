@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Add a possibility for non-admin users (who have an email on a given domain name in Admin Panel) to invite new users for registration](https://github.com/wekan/wekan/pull/4107).
+  Thanks to Emile840.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.71 2021-10-29 WeKan ® release
 
 This release adds the following updates:
