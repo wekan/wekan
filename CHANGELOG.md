@@ -13,6 +13,8 @@ and fixes the following bugs:
   Thanks to Ben0it-T.
 - [Card labels on minicard withouth text are now at the same line again](https://github.com/wekan/wekan/pull/4109).
   Thanks to mfilser.
+- [Rename "Domaine" to "Domain" that is more like English](https://github.com/wekan/wekan/commit/c136033c1fb25688d310b1b62841003f3901641a).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
