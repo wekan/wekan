@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Card Details, add missing hr line before Activity title](https://github.com/wekan/wekan/pull/4117).
+  Thanks to Ben0it-T.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.72 2021-10-31 WeKan ® release
 
 This release adds the following new features:
