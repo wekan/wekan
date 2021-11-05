@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/cf6713a31c9f6ce9d30832ee6bf6c95d35d7044b).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Card Details, add missing hr line before Activity title](https://github.com/wekan/wekan/pull/4117).
   Thanks to Ben0it-T.
