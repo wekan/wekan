@@ -1095,7 +1095,7 @@
     "confirm-btn": "אישור",
     "remove-btn": "הסרה",
     "filter-card-title-label": "סינון לפי כותרת כרטיס",
-    "invite-people-success": "Invitation to register sent with success",
-    "invite-people-error": "Error while sending invitation to register",
-    "can-invite-if-same-mailDomainName": "Email domain name"
+    "invite-people-success": "ההזמנה להירשם נשלחה בהצלחה",
+    "invite-people-error": "שגיאה בשליחת ההזמנה להירשם",
+    "can-invite-if-same-mailDomainName": "שם תחום הדוא״ל"
 }

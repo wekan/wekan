@@ -1095,7 +1095,7 @@
     "confirm-btn": "Confirmer",
     "remove-btn": "Supprimer",
     "filter-card-title-label": "Filtrer par titre de carte",
-    "invite-people-success": "Invitation to register sent with success",
-    "invite-people-error": "Error while sending invitation to register",
-    "can-invite-if-same-mailDomainName": "Email domain name"
+    "invite-people-success": "Invitation à s'enregistrer envoyée avec succès",
+    "invite-people-error": "Une erreur s'est produite lors de l'envoi de l'invitation à s'enregistrer",
+    "can-invite-if-same-mailDomainName": "Nom de domaine du message"
 }

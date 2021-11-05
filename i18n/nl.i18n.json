@@ -1095,7 +1095,7 @@
     "confirm-btn": "Bevestig",
     "remove-btn": "Verwijder",
     "filter-card-title-label": "Filter kaart op titel",
-    "invite-people-success": "Invitation to register sent with success",
-    "invite-people-error": "Error while sending invitation to register",
-    "can-invite-if-same-mailDomainName": "Email domain name"
+    "invite-people-success": "Uitnodiging om te registreren succesvol verzonden",
+    "invite-people-error": "Fout tijdens het verzenden van de uitnodiging om te registreren",
+    "can-invite-if-same-mailDomainName": "Email domeinnaam"
 }
