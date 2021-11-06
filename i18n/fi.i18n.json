@@ -1109,8 +1109,8 @@
     "Node_heap_does_zap_garbage": "Node keko: kerää roskat",
     "Node_heap_number_of_native_contexts": "Node keko: natiivikontekstien lukumäärä",
     "Node_heap_number_of_detached_contexts": "Node keko: irrotettujen kontekstien määrä",
-    "Node_memory_usage_rss": "Node muistin käyttö: pysyvän asetettu koko",
-    "Node_memory_usage_heap_total": "Node muistin käyttö: varatun keon kokonaiskoko",
+    "Node_memory_usage_rss": "Node muistin käyttö: pysyväksi asetettu koko",
+    "Node_memory_usage_heap_total": "Node muistin käyttö: varattu keon kokonaiskoko",
     "Node_memory_usage_heap_used": "Node muistin käyttö: todellinen käytetty muisti",
     "Node_memory_usage_external": "Node muistin käyttö: ulkoinen"
 }
