@@ -42,6 +42,13 @@ if (Meteor.isServer) {
           numberOfNativeContexts: v8.getHeapStatistics().number_of_native_contexts,
           numberOfDetachedContexts: v8.getHeapStatistics().number_of_detached_contexts,
         };
+        let memoryUsage = process.memoryUsage();
+        statistics.nodeMemoryUsage = {
+          rss: memoryUsage.rss,
+          heapTotal: memoryUsage.heapTotal,
+          heapUsed: memoryUsage.heapUsed,
+          external: memoryUsage.external,
+        };
         // Remove beginning of Meteor release text METEOR@
         let meteorVersion = Meteor.release;
         meteorVersion = meteorVersion.replace('METEOR@', '');

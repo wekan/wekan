@@ -98,3 +98,15 @@ template(name='statistics')
         tr
           th {{_ 'Node_heap_number_of_detached_contexts'}}
           td {{statistics.nodeHeapStats.numberOfDetachedContexts}}
+        tr
+          th {{_ 'Node_memory_usage_rss'}}
+          td {{bytesToSize statistics.nodeMemoryUsage.rss}}
+        tr
+          th {{_ 'Node_memory_usage_heap_total'}}
+          td {{bytesToSize statistics.nodeMemoryUsage.heapTotal}}
+        tr
+          th {{_ 'Node_memory_usage_heap_used'}}
+          td {{bytesToSize statistics.nodeMemoryUsage.heapUsed}}
+        tr
+          th {{_ 'Node_memory_usage_external'}}
+          td {{bytesToSize statistics.nodeMemoryUsage.external}}
