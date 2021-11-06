@@ -489,6 +489,7 @@ function buildProjection(query) {
       labelIds: 1,
       customFields: 1,
       userId: 1,
+      description: 1,
     },
     sort: {
       boardId: 1,
