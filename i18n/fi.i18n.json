@@ -1097,5 +1097,20 @@
     "filter-card-title-label": "Suodata kortin otsikko",
     "invite-people-success": "Kutsu rekisteröityä lähetetty onnistuneesti",
     "invite-people-error": "Virhe lähetettäessä kutsua rekisteröityä",
-    "can-invite-if-same-mailDomainName": "Sähköposti verkkotunnuksen nimi"
+    "can-invite-if-same-mailDomainName": "Sähköposti verkkotunnuksen nimi",
+    "Node_heap_total_heap_size": "Node keko: keon kokonaiskoko",
+    "Node_heap_total_heap_size_executable": "Node keko: suoritettava keon kokonaiskoko",
+    "Node_heap_total_physical_size": "Node keko: fyysinen kokonaiskoko",
+    "Node_heap_total_available_size": "Node keko: käytettävissä oleva koko",
+    "Node_heap_used_heap_size": "Node keko: käytetty keon koko",
+    "Node_heap_heap_size_limit": "Node keko: keon kokorajoitus",
+    "Node_heap_malloced_memory": "Node keko: malloc muisti",
+    "Node_heap_peak_malloced_memory": "Node keko: virheellisen malloc muistin huippu",
+    "Node_heap_does_zap_garbage": "Node keko: kerää roskat",
+    "Node_heap_number_of_native_contexts": "Node keko: natiivikontekstien lukumäärä",
+    "Node_heap_number_of_detached_contexts": "Node keko: irrotettujen kontekstien määrä",
+    "Node_memory_usage_rss": "Node muistin käyttö: pysyvän asetettu koko",
+    "Node_memory_usage_heap_total": "Node muistin käyttö: varatun keon kokonaiskoko",
+    "Node_memory_usage_heap_used": "Node muistin käyttö: todellinen käytetty muisti",
+    "Node_memory_usage_external": "Node muistin käyttö: ulkoinen"
 }
