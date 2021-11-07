@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added NodeJS Statistics to Admin Panel/Versio](https://github.com/wekan/wekan/pull/4118).
+  Thanks to Ben0it-T.
+
+and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/cf6713a31c9f6ce9d30832ee6bf6c95d35d7044b).
   Thanks to developers of dependencies.
