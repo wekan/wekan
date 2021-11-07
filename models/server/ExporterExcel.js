@@ -167,7 +167,11 @@ class ExporterExcel {
     workbook.lastPrinted = new Date();
     const filename = `${result.title}.xlsx`;
     //init worksheet
-    const worksheet = workbook.addWorksheet(result.title, {
+    let worksheetTitle = result.title;
+    if (worksheetTitle.length > 31) {
+      worksheetTitle = TAPi18n.__('board','',this.userLanguage);
+    }
+    const worksheet = workbook.addWorksheet(worksheetTitle, {
       properties: {
         tabColor: {
           argb: 'FFC0000',
@@ -179,7 +183,7 @@ class ExporterExcel {
       },
     });
     //get worksheet
-    const ws = workbook.getWorksheet(result.title);
+    const ws = workbook.getWorksheet(worksheetTitle);
     ws.properties.defaultRowHeight = 20;
     //init columns
     //Excel font. Western: Arial. zh-CN: 宋体
