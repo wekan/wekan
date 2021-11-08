@@ -41,3 +41,10 @@ Template.header.events({
     Session.set('currentCard', null);
   },
 });
+
+Template.offlineWarning.events({
+  'click a.app-try-reconnect'(event) {
+    event.preventDefault();
+    Meteor.reconnect();
+  },
+});
