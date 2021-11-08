@@ -19,7 +19,7 @@ Utils = {
     return ret;
   },
   getPopupCardId() {
-    const ret = Session.get('popupCard');
+    const ret = Session.get('popupCardId');
     return ret;
   },
   /** returns the current board

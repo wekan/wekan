@@ -12,7 +12,7 @@ BlazeComponent.extendComponent({
     const boardId = this.currentData().boardId;
     Meteor.subscribe('popupCardData', cardId, {
       onReady() {
-        Session.set('popupCard', cardId);
+        Session.set('popupCardId', cardId);
         Session.set('popupCardBoardId', boardId);
         this_.cardDetailsPopup(evt);
       },
