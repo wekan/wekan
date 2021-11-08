@@ -17,6 +17,27 @@
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
  */
+      
+    * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,.6) #ddf4ff;
+}
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+   *::-webkit-scrollbar-track {
+  background: #ddf4ff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.6);
+  border-radius: 20px;
+  border: 3px solid #ddf4ff;
+}   
+      
+      
+      
 html {
   font-family: sans-serif;
   /* 1 */
