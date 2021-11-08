@@ -1,10 +1,6 @@
 Blaze.registerHelper('currentBoard', () => {
-  const boardId = Session.get('currentBoard');
-  if (boardId) {
-    return Boards.findOne(boardId);
-  } else {
-    return null;
-  }
+  const ret = Utils.getCurrentBoard();
+  return ret;
 });
 
 Blaze.registerHelper('currentCard', () => {

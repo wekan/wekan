@@ -1,4 +1,16 @@
 Utils = {
+  /** returns the current board id
+   * <li> returns the current board id or the board id of the popup card if set
+   */
+  getCurrentBoardId() {
+    let popupCardBoardId = Session.get('popupCardBoardId');
+    let currentBoard = Session.get('currentBoard');
+    let ret = currentBoard;
+    if (popupCardBoardId) {
+      ret = popupCardBoardId;
+    }
+    return ret;
+  },
   getCurrentCardId(ignorePopupCard) {
     let ret = Session.get('currentCard');
     if (!ret && !ignorePopupCard) {
@@ -8,6 +20,14 @@ Utils = {
   },
   getPopupCardId() {
     const ret = Session.get('popupCard');
+    return ret;
+  },
+  /** returns the current board
+   * <li> returns the current board or the board of the popup card if set
+   */
+  getCurrentBoard() {
+    const boardId = Utils.getCurrentBoardId();
+    const ret = Boards.findOne(boardId);
     return ret;
   },
   getCurrentCard(ignorePopupCard) {
