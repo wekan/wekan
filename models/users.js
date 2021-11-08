@@ -458,46 +458,51 @@ Users.safeFields = {
 if (Meteor.isClient) {
   Users.helpers({
     isBoardMember() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id);
     },
 
     isNotNoComments() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasNoComments(this._id)
       );
     },
 
     isNoComments() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasNoComments(this._id);
     },
 
     isNotCommentOnly() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasCommentOnly(this._id)
       );
     },
 
     isCommentOnly() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasCommentOnly(this._id);
     },
 
     isNotWorker() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id) && !board.hasWorker(this._id);
     },
 
     isWorker() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasWorker(this._id);
     },
 
-    isBoardAdmin(boardId = Session.get('currentBoard')) {
-      const board = Boards.findOne(boardId);
+    isBoardAdmin(boardId) {
+      let board;
+      if (boardId) {
+        board = Boards.findOne(boardId);
+      } else {
+        board = Utils.getCurrentBoard();
+      }
       return board && board.hasAdmin(this._id);
     },
   });
