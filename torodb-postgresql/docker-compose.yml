@@ -139,9 +139,6 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - wekan-db:/data/db
-      - wekan-db-dump:/dump
-
   wekan:
     image: quay.io/wekan/wekan
     container_name: wekan-app
@@ -613,7 +610,6 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - wekan-tmp:/tmp
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -645,8 +641,6 @@ volumes:
   mongodb:
     driver: local
   mongodb-dump:
-    driver: local
-  wekan-tmp:
     driver: local
 
 networks:

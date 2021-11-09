@@ -14,8 +14,8 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - wekan-db:/data/db
-      - wekan-db-dump:/dump
+      - ./volumes/wekan-db:/data/db
+      - ./volumes/wekan-db-dump:/dump
 
   wekan-dev:
     container_name: wekan-dev-app
@@ -45,15 +45,6 @@ services:
       - ../i18n:/home/wekan/app/i18n
       - ../server:/home/wekan/app/server
       - ../public:/home/wekan/app/public
-      - wekan-tmp:/tmp
-
-volumes:
-  wekan-dev-db:
-    driver: local
-  wekan-dev-db-dump:
-    driver: local
-  wekan-tmp:
-    driver: local
 
 networks:
   wekan-dev-tier:
