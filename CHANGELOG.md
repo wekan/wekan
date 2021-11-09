@@ -16,6 +16,8 @@ and fixes the following bugs:
 
 - [Card Details, add missing hr line before Activity title](https://github.com/wekan/wekan/pull/4117).
   Thanks to Ben0it-T.
+- [Sidebar search only opens the card as popup on mobile view](https://github.com/wekan/wekan/pull/4122).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
