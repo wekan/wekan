@@ -1098,5 +1098,6 @@
   "filter-card-title-label": "Filter by card title",
   "invite-people-success": "Invitation to register sent with success",
   "invite-people-error": "Error while sending invitation to register",
-  "can-invite-if-same-mailDomainName": "Email domain name"
+  "can-invite-if-same-mailDomainName": "Email domain name",
+  "to-create-teams-contact-admin": "To create teams, please contact the administrator."
 }
