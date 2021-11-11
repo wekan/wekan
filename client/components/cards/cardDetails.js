@@ -690,6 +690,7 @@ Template.cardDetailsActionsPopup.events({
         .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
+    Popup.back();
   },
   'click .js-archive': Popup.afterConfirm('cardArchive', function () {
     Popup.close();
@@ -1011,7 +1012,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-remove-color'() {
           this.currentCard.setColor(null);
-          Popup.back();
+          Popup.close();
         },
       },
     ];
@@ -1113,7 +1114,7 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
-          Popup.back();
+          Popup.close();
           // verify that there are no linked cards
           if (Cards.find({ linkedId: this._id }).count() === 0) {
             Cards.remove(this._id);
