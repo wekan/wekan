@@ -22,6 +22,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fixed a bug related to the default text of the OIDC button](https://github.com/wekan/wekan/pull/4132).
   Thanks to Emile840.
+- [Fix: Impossible to export board to excel where title exceeding 31 chars](https://github.com/wekan/wekan/pull/4135).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
