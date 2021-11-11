@@ -140,6 +140,7 @@ template(name="activity")
               = activity.comment.text
             .edit-controls
               button.primary(type="submit") {{_ 'edit'}}
+              .fa.fa-times-thin.js-close-inlined-form
           else
             .activity-comment
               +viewer
