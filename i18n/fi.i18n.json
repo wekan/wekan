@@ -1098,6 +1098,7 @@
     "invite-people-success": "Kutsu rekisteröityä lähetetty onnistuneesti",
     "invite-people-error": "Virhe lähetettäessä kutsua rekisteröityä",
     "can-invite-if-same-mailDomainName": "Sähköposti verkkotunnuksen nimi",
+    "to-create-teams-contact-admin": "Luodaksesi tiimejä, ota yhteyttä ylläpitäjään.",
     "Node_heap_total_heap_size": "Node keko: keon kokonaiskoko",
     "Node_heap_total_heap_size_executable": "Node keko: suoritettava keon kokonaiskoko",
     "Node_heap_total_physical_size": "Node keko: fyysinen kokonaiskoko",

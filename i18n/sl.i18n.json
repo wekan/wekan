@@ -1098,6 +1098,7 @@
     "invite-people-success": "Invitation to register sent with success",
     "invite-people-error": "Error while sending invitation to register",
     "can-invite-if-same-mailDomainName": "Email domain name",
+    "to-create-teams-contact-admin": "To create teams, please contact the administrator.",
     "Node_heap_total_heap_size": "Node heap: total heap size",
     "Node_heap_total_heap_size_executable": "Node heap: total heap size executable",
     "Node_heap_total_physical_size": "Node heap: total physical size",
