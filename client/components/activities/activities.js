@@ -17,7 +17,7 @@ BlazeComponent.extendComponent({
       if (mode === 'linkedcard' || mode === 'linkedboard') {
         searchId = Utils.getCurrentCard().linkedId;
         mode = mode.replace('linked', '');
-      } else if (mode == "card" ) {
+      } else if (mode === 'card') {
         searchId = Utils.getCurrentCardId();
       } else {
         searchId = Session.get(`current${capitalizedMode}`);
