@@ -663,8 +663,6 @@ services:
       - wekandb
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - wekan-tmp:/tmp
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -719,8 +717,6 @@ volumes:
   wekan-db:
     driver: local
   wekan-db-dump:
-    driver: local
-  wekan-tmp:
     driver: local
 
 networks:

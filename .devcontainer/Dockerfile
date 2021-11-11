@@ -236,7 +236,7 @@ RUN \
     set -o xtrace && \
     apt-get clean -y && \
     apt-get autoremove -y && \
-    rm -Rf /tmp* && \
+    rm -Rf /tmp/* && \
     rm -Rf /home/wekan/app_build && \
     rm -Rf /var/cache/apt /var/lib/apt/lists && \
     rm -Rf /var/lib/apt/lists/*
