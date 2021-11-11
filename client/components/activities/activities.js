@@ -13,14 +13,14 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       let mode = this.data().mode;
       const capitalizedMode = Utils.capitalize(mode);
-      let thisId, searchId;
+      let searchId;
       if (mode === 'linkedcard' || mode === 'linkedboard') {
-        thisId = Utils.getCurrentCardId();
-        searchId = Cards.findOne({ _id: thisId }).linkedId;
+        searchId = Utils.getCurrentCard().linkedId;
         mode = mode.replace('linked', '');
+      } else if (mode === 'card') {
+        searchId = Utils.getCurrentCardId();
       } else {
-        thisId = Session.get(`current${capitalizedMode}`);
-        searchId = thisId;
+        searchId = Session.get(`current${capitalizedMode}`);
       }
       const limit = this.page.get() * activitiesPerPage;
       const user = Meteor.user();
