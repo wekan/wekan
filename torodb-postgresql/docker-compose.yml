@@ -110,7 +110,6 @@ services:
       - DEBUG
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
   postgres:
     image: quay.io/wekan/postgres:9.6
     networks:
@@ -121,7 +120,6 @@ services:
       - "5432:5432"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
   mongodb:
     image: mongo:3.2
     networks:
@@ -144,7 +142,6 @@ services:
         mongod --replSet rs1
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
   wekan:
     image: quay.io/wekan/wekan
     container_name: wekan-app
@@ -615,7 +612,6 @@ services:
       - mongodb
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
