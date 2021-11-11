@@ -1098,7 +1098,7 @@
     "invite-people-success": "Convite para registrar-se enviado com sucesso",
     "invite-people-error": "Erro durante envio do convite para registrar-se",
     "can-invite-if-same-mailDomainName": "Nome do domínio do e-mail",
-    "to-create-teams-contact-admin": "To create teams, please contact the administrator.",
+    "to-create-teams-contact-admin": "Para criação de times, favor entrar em contato com o administrador.",
     "Node_heap_total_heap_size": "Pilha do Node: tamanho total da pilha",
     "Node_heap_total_heap_size_executable": "Pilha do Node: tamanho total executável da pilha",
     "Node_heap_total_physical_size": "Pilha do Node: tamanho físico total",
