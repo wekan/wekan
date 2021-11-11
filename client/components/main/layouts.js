@@ -180,6 +180,10 @@ Template.userFormsLayout.events({
         templateInstance.isLoading.set(false);
       });
     }
+    isCheckDone = false;
+  },
+  'click #at-signUp'(event, templateInstance){
+    isCheckDone = false;
   },
   'DOMSubtreeModified #at-oidc'(event){
     if(alreadyCheck <= 2){
