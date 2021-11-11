@@ -2,15 +2,17 @@
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
-
-- [Updated release scripts](https://github.com/wekan/wekan/commit/936d9fe30697e4651cba04d505393e05f8c902c1).
-  Thanks to xet7.
-
-and fixes the following bugs:
+This release adds the following new features:
 
 - [Card popup close color remove move bottom delete](https://github.com/wekan/wekan/pull/4138).
   Thanks to mfilser.
+- [Comment edit has now a cancel button](https://github.com/wekan/wekan/pull/4139).
+  Thanks to mfilser.
+
+and adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/936d9fe30697e4651cba04d505393e05f8c902c1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
