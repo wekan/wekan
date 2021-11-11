@@ -514,6 +514,6 @@ export class Query {
     this.queryParams.text = text;
 
     // eslint-disable-next-line no-console
-    console.log('queryParams:', this.queryParams);
+    //console.log('queryParams:', this.queryParams);
   }
 }

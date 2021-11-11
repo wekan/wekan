@@ -33,11 +33,11 @@ export class CardSearchPagedComponent extends BlazeComponent {
         that.hasResults.set(false);
         that.serverError.set(true);
         // eslint-disable-next-line no-console
-        console.log('Error.reason:', error.reason);
+        //console.log('Error.reason:', error.reason);
         // eslint-disable-next-line no-console
-        console.log('Error.message:', error.message);
+        //console.log('Error.message:', error.message);
         // eslint-disable-next-line no-console
-        console.log('Error.stack:', error.stack);
+        //console.log('Error.stack:', error.stack);
       },
     };
   }

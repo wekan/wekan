@@ -443,7 +443,7 @@ function buildSelector(queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  console.log('cards selector:', JSON.stringify(selector, null, 2));
+  //console.log('cards selector:', JSON.stringify(selector, null, 2));
 
   const query = new Query();
   query.selector = selector;
