@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [Added NodeJS Statistics to Admin Panel/Versio](https://github.com/wekan/wekan/pull/4118).
   Thanks to Ben0it-T.
+- [Card detail popup loads now comments if opened from board search](https://github.com/wekan/wekan/pull/4128).
+  Thanks to mfilser.
 
 and adds the following updates:
 
