@@ -156,8 +156,8 @@ class ExporterExcel {
         return user;
       });
 
-    
-    
+
+
     //init exceljs workbook
     const workbook = createWorkbook();
     workbook.creator = TAPi18n.__('export-board','',this.userLanguage);
@@ -171,22 +171,22 @@ class ExporterExcel {
     if (worksheetTitle.length > 31) {
       // MS Excel doesn't allow worksheet name longer than 31 chars
       // Exceljs truncate names to 31 chars
-      let words = worksheetTitle.split(" ");
-      let tmpTitle = "";
+      let words = worksheetTitle.split(' ');
+      let tmpTitle = '';
       for (let i=0;i<words.length; i++) {
         if (words[0].length > 27) {
           // title has no spaces
-          tmpTitle = words[0].substr(0,27) + " ";
+          tmpTitle = words[0].substr(0,27) + ' ';
           break;
         }
         if(tmpTitle.length + words[i].length < 27) {
-          tmpTitle += words[i] + " ";
+          tmpTitle += words[i] + ' ';
         }
         else {
           break;
         }
       }
-      worksheetTitle = tmpTitle + "...";
+      worksheetTitle = tmpTitle + '...';
     }
     const worksheet = workbook.addWorksheet(worksheetTitle, {
       properties: {
