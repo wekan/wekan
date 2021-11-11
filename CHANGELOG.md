@@ -7,6 +7,11 @@ This release adds the following updates:
 - [Updated release scripts](https://github.com/wekan/wekan/commit/936d9fe30697e4651cba04d505393e05f8c902c1).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Card popup close color remove move bottom delete](https://github.com/wekan/wekan/pull/4138).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.74 2021-11-11 WeKan ® release
