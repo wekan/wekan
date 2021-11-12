@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Comment edit has now a cancel button](https://github.com/wekan/wekan/pull/4139).
   Thanks to mfilser.
+- [Checklist and items drag drop scrollable mobile view](https://github.com/wekan/wekan/pull/4140).
+  Thanks to mfilser.
 
 and adds the following updates:
 
