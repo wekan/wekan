@@ -13,7 +13,7 @@ function initSorting(items) {
     appendTo: 'parent',
     distance: 7,
     placeholder: 'checklist-item placeholder',
-    scroll: false,
+    scroll: true,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
       EscapeActions.clickExecute(evt.target, 'inlinedForm');
@@ -55,7 +55,7 @@ BlazeComponent.extendComponent({
       return Meteor.user() && Meteor.user().isBoardMember();
     }
 
-    // Disable sorting if the current user is not a board member or is a miniscreen
+    // Disable sorting if the current user is not a board member
     self.autorun(() => {
       const $itemsDom = $(self.itemsDom);
       if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
@@ -188,6 +188,7 @@ BlazeComponent.extendComponent({
     }
   },
 
+  /** closes all inlined forms (checklist and checklist-item input fields) */
   closeAllInlinedForms() {
     this.$('.js-close-inlined-form').click();
   },
@@ -216,8 +217,8 @@ BlazeComponent.extendComponent({
         'click .js-delete-checklist-item': this.deleteItem,
         'click .confirm-checklist-delete': this.deleteChecklist,
         'focus .js-add-checklist-item': this.focusChecklistItem,
-        'click .add-checklist-item.js-open-inlined-form': this.closeAllInlinedForms,
-        'click .add-checklist.js-open-inlined-form': this.closeAllInlinedForms,
+        // add and delete checklist / checklist-item
+        'click .js-open-inlined-form': this.closeAllInlinedForms,
         keydown: this.pressKey,
       },
     ];

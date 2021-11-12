@@ -167,4 +167,13 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
 
 .add-checklist-item
   margin: 0.2em 0 0.5em 1.33em
-  display: inline-block
+
+.add-checklist-item,.add-checklist
+  &.js-open-inlined-form
+    display: block
+    width: 50%
+
+    &:hover
+      background: #dbdbdb
+      color: #222
+      box-shadow: 0 1px 2px rgba(0,0,0,.2)

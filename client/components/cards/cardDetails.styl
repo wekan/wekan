@@ -287,6 +287,8 @@ input[type="submit"].attachment-add-link-submit
     padding: 0px 20px 0px 20px
     margin: 0px
     transition: none
+    overflow-y: revert
+    overflow-x: revert
 
     .card-details-canvas
       width: 100%
@@ -314,11 +316,11 @@ input[type="submit"].attachment-add-link-submit
     & > .content
       width: calc(100% - 10px)
 
-    & > .content > .card-details-popup
-      overflow-y: auto
-
-      & hr
+    & > .content > .card-details-popup hr
         margin: 15px 0px
+
+      .card-details-header
+        margin: 0
 
 card-details-color(background, color...)
   background: background !important
