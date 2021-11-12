@@ -1098,7 +1098,7 @@
     "invite-people-success": "ההזמנה להירשם נשלחה בהצלחה",
     "invite-people-error": "שגיאה בשליחת ההזמנה להירשם",
     "can-invite-if-same-mailDomainName": "שם תחום הדוא״ל",
-    "to-create-teams-contact-admin": "To create teams, please contact the administrator.",
+    "to-create-teams-contact-admin": "כדי ליצור צוותים, נא ליצור קשר עם ההנהלה.",
     "Node_heap_total_heap_size": "ערימה ב־Node: גודל הערימה הכולל",
     "Node_heap_total_heap_size_executable": "ערימה ב־Node: גודל הערימה הכולל להפעלה",
     "Node_heap_total_physical_size": "ערימה ב־Node: גודל פיזי כולל",
