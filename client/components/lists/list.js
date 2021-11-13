@@ -129,6 +129,15 @@ BlazeComponent.extendComponent({
         { // scroll to the right
           boardCanvas.scrollLeft += 15;
         }
+        if (event.pageY > boardCanvas.offsetHeight - 10)
+        { // scroll to the bottom
+          boardCanvas.scrollTop += 15;
+        }
+        if (event.pageY < 10)
+        { // scroll to the top
+          boardCanvas.scrollTop -= 15;
+        }
+      },
       },
     });
 
