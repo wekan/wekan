@@ -125,11 +125,17 @@ BlazeComponent.extendComponent({
           boardCanvas.scrollLeft -= 15;
           ui.helper[0].offsetLeft -= 15;
         }
-        if (event.pageX > boardCanvas.offsetWidth - 10)
+        if (
+          event.pageX > boardCanvas.offsetWidth - 10 &&
+          boardCanvas.scrollLeft < $boardCanvas.data('scrollLeftMax') // don't scroll more than possible
+        )
         { // scroll to the right
           boardCanvas.scrollLeft += 15;
         }
-        if (event.pageY > boardCanvas.offsetHeight - 10)
+        if (
+          event.pageY > boardCanvas.offsetHeight - 10 &&
+          boardCanvas.scrollTop < $boardCanvas.data('scrollTopMax') // don't scroll more than possible
+        )
         { // scroll to the bottom
           boardCanvas.scrollTop += 15;
         }
@@ -138,6 +144,14 @@ BlazeComponent.extendComponent({
           boardCanvas.scrollTop -= 15;
         }
       },
+      activate(event, ui) {
+        const $boardCanvas = $('.board-canvas');
+        const  boardCanvas = $boardCanvas[0];
+        // scrollTopMax and scrollLeftMax only available at Firefox (https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTopMax)
+        // https://stackoverflow.com/questions/12965296/how-to-get-maximum-document-scrolltop-value/12965383#12965383
+        $boardCanvas.data('scrollTopMax', $(document).height() - $(window).height());
+        // https://stackoverflow.com/questions/5138373/how-do-i-get-the-max-value-of-scrollleft/5704386#5704386
+        $boardCanvas.data('scrollLeftMax', boardCanvas.scrollWidth - boardCanvas.clientWidth);
       },
     });
 
