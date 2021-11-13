@@ -91,7 +91,14 @@ template(name="boardOrgGeneral")
   table
     tbody
       tr
-        th {{_ 'displayName'}}
+        th
+          | {{_ 'add-organizations'}}
+          br
+          i.addOrganizationsLabel
+            | {{_ 'to-create-organizations-contact-admin'}}
+          br
+          i.addOrganizationsLabel
+            | {{_ 'add-organizations-label'}}
         th
           if currentUser.isBoardAdmin
             a.member.orgOrTeamMember.add-member.js-manage-board-addOrg(title="{{_ 'add-members'}}")
@@ -106,13 +113,12 @@ template(name="boardTeamGeneral")
     tbody
       tr
         th
-          b
-            | {{_ 'add-teams'}}
+          | {{_ 'add-teams'}}
           br
-          i.addTeamsLabelcss
+          i.addTeamsLabel
             | {{_ 'to-create-teams-contact-admin'}}
           br
-          i.addTeamsLabelcss
+          i.addTeamsLabel
             | {{_ 'add-teams-label'}}
         th
           if currentUser.isBoardAdmin
@@ -488,12 +494,12 @@ template(name="removeBoardOrgPopup")
   form
     input.hide#hideOrgId(type="text" value=org._id)
     label
-      | {{_ 'leave-board'}} ?
+      | {{_ 'remove-organization-from-board'}}
   br
   hr
   div.buttonsContainer
-    input.primary.wide.leaveBoardBtn#leaveBoardBtn(type="submit" value="{{_ 'leave-board'}}")
-    input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardBtn(type="submit" value="{{_ 'Cancel'}}")
+    input.primary.wide.leaveBoardBtn#leaveBoardBtn(type="submit" value="{{_ 'confirm-btn'}}")
+    input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardBtn(type="submit" value="{{_ 'cancel'}}")
 
 template(name="addBoardTeamPopup")
   select.js-boardTeams#jsBoardTeams
