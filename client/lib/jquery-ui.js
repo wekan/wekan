@@ -15,3 +15,6 @@ require('jquery-ui/ui/widgets/draggable')
 
 // everything already required for droppable
 require('jquery-ui/ui/widgets/droppable')
+
+// enable touch on mobile
+require('jquery-ui-touch-punch')

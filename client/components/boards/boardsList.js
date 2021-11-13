@@ -1,5 +1,4 @@
 const subManager = new SubsManager();
-const { calculateIndex, enableClickOnTouch } = Utils;
 
 Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
@@ -56,7 +55,7 @@ BlazeComponent.extendComponent({
         // of the previous and the following card -- if any.
         const prevBoardDom = ui.item.prev('.js-board').get(0);
         const nextBoardBom = ui.item.next('.js-board').get(0);
-        const sortIndex = calculateIndex(prevBoardDom, nextBoardBom, 1);
+        const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardBom, 1);
 
         const boardDomElement = ui.item.get(0);
         const board = Blaze.getData(boardDomElement);
@@ -72,9 +71,6 @@ BlazeComponent.extendComponent({
         board.move(sortIndex.base);
       },
     });
-
-    // ugly touch event hotfix
-    enableClickOnTouch(itemsSelector);
 
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
