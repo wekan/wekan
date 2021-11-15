@@ -12,6 +12,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Boards view has now drag handles at desktop view if drag handles are enabled](https://github.com/wekan/wekan/pull/4149).
   Thanks to mfilser.
+- [Account configuration of option loginExpirationInDays is now possible](https://github.com/wekan/wekan/pull/4150).
+  Thanks to mfilser.
 
 and adds the following updates:
 
