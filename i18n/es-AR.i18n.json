@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "Y __count__ otras tarjetas",
     "apply": "Aplicar",
     "app-is-offline": "Loading, please wait. Refreshing the page will cause data loss. If loading does not work, please check that server has not stopped.",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "Mover al Archivo",
     "archive-all": "Mover Todo al Archivo",
     "archive-board": "Mover Tablero al Archivo",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

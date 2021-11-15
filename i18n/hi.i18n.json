@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "और __count__ other कार्ड",
     "apply": "Apply",
     "app-is-offline": "लोड हो रहा है, कृपया प्रतीक्षा करें । पृष्ठ को ताज़ा करना डेटा की हानि का कारण होगा । यदि लोड करना कार्य नहीं करता है, तो कृपया जांचें कि सर्वर बंद नहीं हुआ है ।",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "संग्रह में ले जाएं",
     "archive-all": "सभी को संग्रह में ले जाएं",
     "archive-board": "संग्रह करने के लिए बोर्ड ले जाएँ",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

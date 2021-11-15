@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "And __count__ other cards",
     "apply": "Aplica",
     "app-is-offline": "Carregant. Per favor, espereu. Actualitzar la pàgina pot comportar pèrdua de dades. Si la càrrega no funciona, comproveu que el servidor no s'ha aturat. ",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "Moure al arxiu",
     "archive-all": "Moure tot al arxiu",
     "archive-board": "Moure Tauler al Arxiu",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

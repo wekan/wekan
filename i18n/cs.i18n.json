@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "A __count__ dalších karet",
     "apply": "Použít",
     "app-is-offline": "Načítá se, prosím čekejte. Obnovení stránky způsobí ztrátu dat. Pokud se načítání nedaří, zkontrolujte prosím server.",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "Přesunout do archivu",
     "archive-all": "Přesunout vše do archivu",
     "archive-board": "Přesunout tablo do archivu",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

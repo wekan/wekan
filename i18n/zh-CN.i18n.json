@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "和其他 __count__ 个卡片",
     "apply": "应用",
     "app-is-offline": "加载中，请稍后。刷新页面将导致数据丢失，如果加载长时间不起作用，请检查服务器是否已经停止工作。",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "归档",
     "archive-all": "全部归档",
     "archive-board": "将看板归档",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

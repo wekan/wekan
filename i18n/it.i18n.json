@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "E __count__ altre schede",
     "apply": "Applica",
     "app-is-offline": "Caricamento, attendere prego. Aggiornare la pagina porterà ad una perdita dei dati. Se il caricamento non dovesse funzionare, per favore controlla che il server non sia stato fermato.",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "Sposta nell'archivio",
     "archive-all": "Sposta tutto nell'archivio",
     "archive-board": "Sposta la bacheca nell'archivio",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

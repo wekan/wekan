@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "Ja __count__ muuta korttia",
     "apply": "Käytä",
     "app-is-offline": "Ladataan, odota. Sivun uudelleenlataus aiheuttaa tietojen menettämisen. Jos lataaminen ei toimi, tarkista että palvelin ei ole pysähtynyt.",
+    "app-try-reconnect": "Yritä muodostaa yhteys uudelleen.",
     "archive": "Siirrä Arkistoon",
     "archive-all": "Siirrä kaikki Arkistoon",
     "archive-board": "Siirrä taulu Arkistoon",
@@ -271,7 +272,7 @@
     "comment-placeholder": "Kirjoita kommentti",
     "comment-only": "Vain kommentointi",
     "comment-only-desc": "Voi vain kommentoida kortteja",
-    "comment-delete": "Oletko varma että haluat poistaa kommentin?",
+    "comment-delete": "Haluatko varmasti poistaa kommentin?",
     "deleteCommentPopup-title": "Poista kommentti?",
     "no-comments": "Ei kommentteja",
     "no-comments-desc": "Ei voi nähdä kommentteja ja toimintaa.",
@@ -1091,7 +1092,7 @@
     "cardDetailsPopup-title": "Kortin yksityiskohdat",
     "add-teams": "Lisää tiimejä",
     "add-teams-label": "Lisätyt tiimit näkyy tässä alla:",
-    "remove-team-from-table": "Oletko varma että haluat poistaa tämän tiimin taululta?",
+    "remove-team-from-table": "Haluatko varmasti poistaa tämän tiimin taululta?",
     "confirm-btn": "Varmista",
     "remove-btn": "Poista",
     "filter-card-title-label": "Suodata kortin otsikko",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node muistin käyttö: pysyväksi asetettu koko",
     "Node_memory_usage_heap_total": "Node muistin käyttö: varattu keon kokonaiskoko",
     "Node_memory_usage_heap_used": "Node muistin käyttö: todellinen käytetty muisti",
-    "Node_memory_usage_external": "Node muistin käyttö: ulkoinen"
+    "Node_memory_usage_external": "Node muistin käyttö: ulkoinen",
+    "add-organizations": "Lisää organisaatioita",
+    "add-organizations-label": "Lisätyt organisaatiot näkyy tässä alla:",
+    "remove-organization-from-board": "Haluatko varmasti poistaa tämän organisaation tältä taululta ?",
+    "to-create-organizations-contact-admin": "Luodaksesi organisaatioita, ota yhteyttä ylläpitäjään."
 }

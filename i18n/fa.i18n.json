@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "و __count__ کارت دیگر",
     "apply": "اعمال",
     "app-is-offline": "در حال بارگزاری لطفا منتظر بمانید. بازخوانی صفحه باعث از بین رفتن اطلاعات می شود. اگر بارگذاری کار نمی کند، لطفا بررسی کنید که این سرور متوقف نشده است.",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "انتقال به آرشیو",
     "archive-all": "انتقال همه به آرشیو",
     "archive-board": "انتقال برد به آرشیو",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

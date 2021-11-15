@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "y __cuenta__ otras tarjetas",
     "apply": "Aplicar",
     "app-is-offline": "Cargando, por favor espera. Actualizar la página provocará pérdida de datos. Si la carga no funciona, por favor comprueba que el servidor no se ha detenido.",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "Archivar",
     "archive-all": "Archivar todo",
     "archive-board": "Archivar este tablero",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

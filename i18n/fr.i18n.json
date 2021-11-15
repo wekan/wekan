@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "Et __count__ autres cartes",
     "apply": "Appliquer",
     "app-is-offline": "Chargement en cours, veuillez patienter. Vous risquez de perdre des données si vous rechargez la page. Si le chargement échoue, veuillez vérifier que le serveur n'est pas arrêté.",
+    "app-try-reconnect": "Essayer de se reconnecter.",
     "archive": "Archiver",
     "archive-all": "Tout archiver",
     "archive-board": "Archiver le tableau",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Utilisation mémoire de Node : taille de l'ensemble résident",
     "Node_memory_usage_heap_total": "Utilisation mémoire de Node : taille totale du tas alloué",
     "Node_memory_usage_heap_used": "Utilisation mémoire de Node : mémoire réellement utilisée",
-    "Node_memory_usage_external": "Utilisation mémoire de Node: externe"
+    "Node_memory_usage_external": "Utilisation mémoire de Node: externe",
+    "add-organizations": "Ajouter des organisations",
+    "add-organizations-label": "Les organisations ajoutées sont affichées ci-dessous :",
+    "remove-organization-from-board": "Voulez-vous vraiment supprimer cette organisation du tableau ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

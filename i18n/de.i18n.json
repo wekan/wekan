@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "und __count__ andere Karten",
     "apply": "Übernehmen",
     "app-is-offline": "Laden, bitte warten. Das Aktualisieren der Seite führt zu Datenverlust. Wenn das Laden nicht funktioniert, überprüfen Sie bitte, ob der Server nicht angehalten wurde.",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "Ins Archiv verschieben",
     "archive-all": "Alles ins Archiv verschieben",
     "archive-board": "Board ins Archiv verschieben",
@@ -1098,7 +1099,7 @@
     "invite-people-success": "Registrierungseinladung erfolgreich versandt",
     "invite-people-error": "Fehler beim Versand der Registrierungseinladung",
     "can-invite-if-same-mailDomainName": "Name der Email-Domain",
-    "to-create-teams-contact-admin": "To create teams, please contact the administrator.",
+    "to-create-teams-contact-admin": "Bitte kontaktieren Sie den Administrator um Teams anlegen zu lassen.",
     "Node_heap_total_heap_size": "Knoten-Heap: totale Heap-Größe",
     "Node_heap_total_heap_size_executable": "Knoten-Heap: totale Heap-Größe (Executable)",
     "Node_heap_total_physical_size": "Knoten-Heap: totale physische Größe",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Knoten-Speicherverbrauch: Resident Set-Größe",
     "Node_memory_usage_heap_total": "Knoten-Speicherverbrauch: totale Größe des belegten Heaps",
     "Node_memory_usage_heap_used": "Knoten-Speicherverbrauch: tatsächlicher Speicherverbrauch",
-    "Node_memory_usage_external": "Knoten-Speicherverbrauch: extern"
+    "Node_memory_usage_external": "Knoten-Speicherverbrauch: extern",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }

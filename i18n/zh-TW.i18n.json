@@ -106,6 +106,7 @@
     "and-n-other-card_plural": "和其他 __count__ 個卡片",
     "apply": "應用",
     "app-is-offline": "頁面載入中，請稍後。重新整理頁面將會造成尚未儲存的資料遺失，如果載入太久，請檢查伺服器是否已經停止工作。",
+    "app-try-reconnect": "Try to reconnect.",
     "archive": "封存",
     "archive-all": "全部封存",
     "archive-board": "將看板封存",
@@ -1113,5 +1114,9 @@
     "Node_memory_usage_rss": "Node memory usage: resident set size",
     "Node_memory_usage_heap_total": "Node memory usage: total size of the allocated heap",
     "Node_memory_usage_heap_used": "Node memory usage: actual memory used",
-    "Node_memory_usage_external": "Node memory usage: external"
+    "Node_memory_usage_external": "Node memory usage: external",
+    "add-organizations": "Add organizations",
+    "add-organizations-label": "Added organizations are displayed below:",
+    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
+    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }
