@@ -52,7 +52,22 @@ const escapeForRegex = require('escape-string-regexp');
 
 Meteor.publish('card', cardId => {
   check(cardId, String);
-  return Cards.find({ _id: cardId });
+  const ret = Cards.find({ _id: cardId });
+  return ret;
+});
+
+/** publish all data which is necessary to display card details as popup
+ * @returns array of cursors
+ */
+Meteor.publishRelations('popupCardData', function(cardId) {
+  check(cardId, String);
+  this.cursor(
+    Cards.find({_id: cardId}),
+    function(cardId, card) {
+      this.cursor(Boards.find({_id: card.boardId}));
+    },
+  );
+  return this.ready()
 });
 
 Meteor.publish('myCards', function(sessionId) {
@@ -489,6 +504,7 @@ function buildProjection(query) {
       labelIds: 1,
       customFields: 1,
       userId: 1,
+      description: 1,
     },
     sort: {
       boardId: 1,

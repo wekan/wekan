@@ -7,8 +7,16 @@ Template.resultCard.helpers({
 BlazeComponent.extendComponent({
   clickOnMiniCard(evt) {
     evt.preventDefault();
-    Session.set('popupCard', this.currentData()._id);
-    this.cardDetailsPopup(evt);
+    const this_ = this;
+    const cardId = this.currentData()._id;
+    const boardId = this.currentData().boardId;
+    Meteor.subscribe('popupCardData', cardId, {
+      onReady() {
+        Session.set('popupCardId', cardId);
+        Session.set('popupCardBoardId', boardId);
+        this_.cardDetailsPopup(evt);
+      },
+    });
   },
 
   cardDetailsPopup(event) {

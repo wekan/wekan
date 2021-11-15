@@ -12,7 +12,8 @@ FlowRouter.route('/', {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
     Session.set('currentCard', null);
-    Session.set('popupCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
 
     Filter.reset();
     Session.set('sortBy', '');
@@ -35,7 +36,8 @@ FlowRouter.route('/public', {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
     Session.set('currentCard', null);
-    Session.set('popupCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
 
     Filter.reset();
     Session.set('sortBy', '');
@@ -58,7 +60,8 @@ FlowRouter.route('/b/:id/:slug', {
     const previousBoard = Session.get('currentBoard');
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
-    Session.set('popupCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
 
     // If we close a card, we'll execute again this route action but we don't
     // want to excape every current actions (filters, etc.)
@@ -87,7 +90,8 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
 
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
-    Session.set('popupCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
 
     Utils.manageCustomUI();
     Utils.manageMatomo();
@@ -216,7 +220,8 @@ FlowRouter.route('/import/:source', {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
     Session.set('currentCard', null);
-    Session.set('popupCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
     Session.set('importSource', params.source);
 
     Filter.reset();
@@ -237,7 +242,8 @@ FlowRouter.route('/setting', {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
       Session.set('currentCard', null);
-      Session.set('popupCard', null);
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
 
       Filter.reset();
       Session.set('sortBy', '');
@@ -261,7 +267,8 @@ FlowRouter.route('/information', {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
       Session.set('currentCard', null);
-      Session.set('popupCard', null);
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
 
       Filter.reset();
       Session.set('sortBy', '');
@@ -284,7 +291,8 @@ FlowRouter.route('/people', {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
       Session.set('currentCard', null);
-      Session.set('popupCard', null);
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
 
       Filter.reset();
       Session.set('sortBy', '');
@@ -307,7 +315,8 @@ FlowRouter.route('/admin-reports', {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
       Session.set('currentCard', null);
-      Session.set('popupCard', null);
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
 
       Filter.reset();
       Session.set('sortBy', '');

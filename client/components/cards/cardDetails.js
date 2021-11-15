@@ -546,7 +546,8 @@ Template.cardDetails.helpers({
   }
 });
 Template.cardDetailsPopup.onDestroyed(() => {
-  Session.delete('popupCard');
+  Session.delete('popupCardId');
+  Session.delete('popupCardBoardId');
 });
 Template.cardDetailsPopup.helpers({
   popupCard() {

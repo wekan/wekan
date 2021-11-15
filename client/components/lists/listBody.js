@@ -150,7 +150,7 @@ BlazeComponent.extendComponent({
       // overwriting the event in case the card is already selected.
     } else if (Utils.isMiniScreen()) {
       evt.preventDefault();
-      Session.set('popupCard', this.currentData()._id);
+      Session.set('popupCardId', this.currentData()._id);
       this.cardDetailsPopup(evt);
     } else if (Session.equals('currentCard', this.currentData()._id)) {
       evt.stopImmediatePropagation();
