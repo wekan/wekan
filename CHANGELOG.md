@@ -14,6 +14,11 @@ and adds the following updates:
 - [Added release scripts for building local Docker images and pushing them to Quay.io and Docker Hub](https://github.com/wekan/wekan/commit/49c4dd8b14d9c13a9ae2aa18b37238a05ed41f92).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fixed trim whitespace at multiline editor fields](https://github.com/wekan/wekan/pull/4146).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.75 2021-11-12 WeKan ® release
