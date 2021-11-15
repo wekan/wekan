@@ -877,8 +877,8 @@
     "addmore-detail": "Ajouter une description plus détaillée",
     "show-on-card": "Afficher sur la carte",
     "new": "Nouveau",
-    "editOrgPopup-title": "Éditer l'Organisation",
-    "newOrgPopup-title": "Nouvelle Organisation",
+    "editOrgPopup-title": "Éditer l'organisation",
+    "newOrgPopup-title": "Nouvelle organisation",
     "editTeamPopup-title": "Éditer l'Équipe",
     "newTeamPopup-title": "Nouvelle Équipe",
     "editUserPopup-title": "Éditer l'utilisateur",
@@ -1117,6 +1117,6 @@
     "Node_memory_usage_external": "Utilisation mémoire de Node: externe",
     "add-organizations": "Ajouter des organisations",
     "add-organizations-label": "Les organisations ajoutées sont affichées ci-dessous :",
-    "remove-organization-from-board": "Voulez-vous vraiment supprimer cette organisation du tableau ?",
-    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
+    "remove-organization-from-board": "Voulez-vous vraiment supprimer cette organisation de ce tableau ?",
+    "to-create-organizations-contact-admin": "Pour créer des organisations, veuillez contacter l'administrateur."
 }
