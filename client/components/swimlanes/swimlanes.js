@@ -243,7 +243,7 @@ BlazeComponent.extendComponent({
             Lists.insert({
               title,
               boardId: Session.get('currentBoard'),
-              sort: $('.list').length,
+              sort: $('.js-list').length,
               type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
               swimlaneId: this.currentBoard.isTemplatesBoard()
                 ? this.currentSwimlane._id
