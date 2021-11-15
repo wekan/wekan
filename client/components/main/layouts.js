@@ -100,6 +100,10 @@ Template.userFormsLayout.helpers({
         name = 'مَصرى';
       } else if (lang.name === 'de-CH') {
         name = 'Deutsch (Schweiz)';
+      } else if (lang.name === 'de-AT') {
+        name = 'Deutsch (Österreich)';
+      } else if (lang.name === 'en-DE') {
+        name = 'English (Germany)';
       } else if (lang.name === 'fa-IR') {
         // fa-IR = Persian (Iran)
         name = 'فارسی/پارسی (ایران‎)';
@@ -109,6 +113,9 @@ Template.userFormsLayout.helpers({
         name = 'Français (Canada)';
       } else if (lang.name === 'fr-CH') {
         name = 'Français (Schweiz)';
+      } else if (lang.name === 'gu-IN') {
+        // gu-IN = Gurajati (India)
+        name = 'ગુજરાતી';
       } else if (lang.name === 'ig') {
         name = 'Igbo';
       } else if (lang.name === 'lv') {
@@ -117,6 +124,9 @@ Template.userFormsLayout.helpers({
         name = 'Latviešu';
       } else if (lang.name === 'en-IT') {
         name = 'English (Italy)';
+      } else if (lang.name === 'el-GR') {
+        // el-GR = Greek (Greece)
+        name = 'Ελληνικά (Ελλάδα)';
       } else if (lang.name === 'Español') {
         name = 'español';
       } else if (lang.name === 'es_419') {
@@ -148,6 +158,7 @@ Template.userFormsLayout.helpers({
       } else if (lang.name === 'st') {
         name = 'Sãotomense';
       } else if (lang.name === '繁体中文（台湾）') {
+        // Traditional Chinese (Taiwan)
         name = '繁體中文（台灣）';
       }
       return { tag, name };

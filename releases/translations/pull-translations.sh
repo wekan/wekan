@@ -21,9 +21,6 @@ tx pull -f -l br
 echo "Catalan:"
 tx pull -f -l ca
 
-echo "Chinese:"
-tx pull -f -l zh
-
 echo "Chinese (China):"
 tx pull -f -l zh_CN
 
