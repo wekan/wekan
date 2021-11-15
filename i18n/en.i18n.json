@@ -106,6 +106,7 @@
   "and-n-other-card_plural": "And __count__ other cards",
   "apply": "Apply",
   "app-is-offline": "Loading, please wait. Refreshing the page will cause data loss. If loading does not work, please check that server has not stopped.",
+  "app-try-reconnect": "Try reconnect.",
   "archive": "Move to Archive",
   "archive-all": "Move All to Archive",
   "archive-board": "Move Board to Archive",
