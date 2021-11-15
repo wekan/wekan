@@ -14,6 +14,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Account configuration of option loginExpirationInDays is now possible](https://github.com/wekan/wekan/pull/4150).
   Thanks to mfilser.
+- [Part 2: Added remaining of Account configuration of option loginExpirationInDays for Snap](https://github.com/wekan/wekan/commit/17d90684bb59fd4159f80b2da224638824151c6f).
+  Thanks to xet7.
 
 and adds the following updates:
 
