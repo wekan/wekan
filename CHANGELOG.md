@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Global search load card details](https://github.com/wekan/wekan/pull/4142).
+  Thanks to mfilser.
+
+and adds the following updates:
 
 - [Added release scripts for building local Docker images and pushing them to Quay.io and Docker Hub](https://github.com/wekan/wekan/commit/49c4dd8b14d9c13a9ae2aa18b37238a05ed41f92).
   Thanks to xet7.
