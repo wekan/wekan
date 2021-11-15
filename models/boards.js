@@ -693,8 +693,17 @@ Boards.helpers({
       { sort: sortKey },
     );
   },
+
   draggableLists() {
     return Lists.find({ boardId: this._id }, { sort: { sort: 1 } });
+  },
+
+  /** returns the last list
+   * @returns Document the last list
+   */
+  getLastList() {
+    const ret = Lists.findOne({ boardId: this._id }, { sort: { sort: 'desc' } });
+    return ret;
   },
 
   nullSortLists() {

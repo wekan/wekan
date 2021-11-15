@@ -237,13 +237,15 @@ BlazeComponent.extendComponent({
       {
         submit(evt) {
           evt.preventDefault();
+          const lastList = this.currentBoard.getLastList();
+          const sortIndex = Utils.calculateIndexData(lastList, null).base;
           const titleInput = this.find('.list-name-input');
           const title = titleInput.value.trim();
           if (title) {
             Lists.insert({
               title,
               boardId: Session.get('currentBoard'),
-              sort: $('.list').length,
+              sort: sortIndex,
               type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
               swimlaneId: this.currentBoard.isTemplatesBoard()
                 ? this.currentSwimlane._id
