@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [Global search load card details](https://github.com/wekan/wekan/pull/4142).
   Thanks to mfilser.
+- [Layout improvement: Adding organisations to the board](https://github.com/wekan/wekan/pull/4143).
+  Thanks to Ben0it-T.
 
 and adds the following updates:
 
