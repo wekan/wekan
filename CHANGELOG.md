@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Layout improvement: Adding organisations to the board](https://github.com/wekan/wekan/pull/4143).
   Thanks to Ben0it-T.
+- [App reconnect is now possible if the connection was interrupted](https://github.com/wekan/wekan/pull/4147).
+  Thanks to mfilser.
 
 and adds the following updates:
 
