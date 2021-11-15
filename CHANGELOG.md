@@ -10,6 +10,8 @@ This release adds the following new features:
   Thanks to Ben0it-T.
 - [App reconnect is now possible if the connection was interrupted](https://github.com/wekan/wekan/pull/4147).
   Thanks to mfilser.
+- [Boards view has now drag handles at desktop view if drag handles are enabled](https://github.com/wekan/wekan/pull/4149).
+  Thanks to mfilser.
 
 and adds the following updates:
 
