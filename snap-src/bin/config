@@ -108,6 +108,10 @@ DESCRIPTION_ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW="Accounts lockout unkn
 DEFAULT_ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW="15"
 KEY_ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW="accounts-lockout-unknown-users-failure-window"
 
+DESCRIPTION_ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS="Accounts common login expiration in days. Default: 90"
+DEFAULT_ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS="90"
+KEY_ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS="accounts-common-login-expiration-in-days"
+
 DESCRIPTION_ATTACHMENTS_STORE_PATH="Allow wekan ower to specify where uploaded files to store on the server instead of the mongodb"
 DEFAULT_ATTACHMENTS_STORE_PATH=""
 KEY_ATTACHMENTS_STORE_PATH="attachments-store-path"
