@@ -28,6 +28,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fixed placeholder was not visible at list view (mobile view)](https://github.com/wekan/wekan/pull/4148).
   Thanks to mfilser.
+- [Fix list adding to bottom](https://github.com/wekan/wekan/pull/4152).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
