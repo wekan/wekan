@@ -106,7 +106,7 @@
     "and-n-other-card_plural": "E __count__ outros cartões",
     "apply": "Aplicar",
     "app-is-offline": "Carregando, por favor espere. Atualizar a página causará perda de dados. Se a carga não funcionar, por favor verifique se o servidor não caiu.",
-    "app-try-reconnect": "Try to reconnect.",
+    "app-try-reconnect": "Tentar reconectar",
     "archive": "Mover para o Arquivo morto",
     "archive-all": "Mover Tudo para o Arquivo morto",
     "archive-board": "Mover Quadro para o Arquivo morto",
@@ -1115,8 +1115,8 @@
     "Node_memory_usage_heap_total": "Uso de memória do Node: tamanho total alocado da pilha",
     "Node_memory_usage_heap_used": "Uso de memória do Node: memória atual utilizada",
     "Node_memory_usage_external": "Uso de memória do Node: externa",
-    "add-organizations": "Add organizations",
-    "add-organizations-label": "Added organizations are displayed below:",
-    "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
-    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
+    "add-organizations": "Adicionar organizações",
+    "add-organizations-label": "Organizações adicionadas são exibidas abaixo:",
+    "remove-organization-from-board": "Você tem certeza que deseja excluir esta organização do quadro?",
+    "to-create-organizations-contact-admin": "Para criação de organizações, favor entrar em contato com o administrador."
 }

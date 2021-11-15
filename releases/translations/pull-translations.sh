@@ -142,7 +142,7 @@ echo "Macedonian:"
 tx pull -f -l mk
 
 echo "Malay (Malaysia) (ms_MY):"
-ex pull -f -l ms_MY
+tx pull -f -l ms_MY
 
 echo "Mongolian (Mongolia):"
 tx pull -f -l mn_MN
