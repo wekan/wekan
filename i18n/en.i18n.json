@@ -1117,6 +1117,6 @@
   "Node_memory_usage_external": "Node memory usage: external",
   "add-organizations": "Add organizations",
   "add-organizations-label": "Added organizations are displayed below:",
-  "remove-organization-from-board": "Are you sure you want to remove this organization from the board ?",
+  "remove-organization-from-board": "Are you sure you want to remove this organization from this board ?",
   "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
 }
