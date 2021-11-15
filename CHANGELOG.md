@@ -20,6 +20,8 @@ and fixes the following bugs:
 
 - [Fixed trim whitespace at multiline editor fields](https://github.com/wekan/wekan/pull/4146).
   Thanks to mfilser.
+- [Fixed placeholder was not visible at list view (mobile view)](https://github.com/wekan/wekan/pull/4148).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
