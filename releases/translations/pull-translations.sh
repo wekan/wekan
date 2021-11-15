@@ -81,8 +81,8 @@ tx pull -f -l de_AT
 echo "German (Switzerland) => Deutsch (Schweiz):"
 tx pull -f -l de_CH
 
-echo "Greek:"
-tx pull -f -l el
+#echo "Greek:"
+#tx pull -f -l el
 
 echo "Greek (Greece):"
 tx pull -f -l el_GR
