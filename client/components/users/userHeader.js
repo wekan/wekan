@@ -284,12 +284,18 @@ Template.changeLanguagePopup.helpers({
       } else if (lang.name === 'gu-IN') {
         // gu-IN = Gurajati (India)
         name = 'ગુજરાતી';
+      } else if (lang.name === 'hi-IN') {
+        // hi-IN = Hindi (India)
+        name = 'हिंदी (भारत)';
       } else if (lang.name === 'ig') {
         name = 'Igbo';
       } else if (lang.name === 'lv') {
         name = 'Latviešu';
       } else if (lang.name === 'latviešu valoda') {
         name = 'Latviešu';
+      } else if (lang.name === 'ms-MY') {
+        // ms-MY = Malay (Malaysia)
+        name = 'بهاس ملايو';
       } else if (lang.name === 'en-IT') {
         name = 'English (Italy)';
       } else if (lang.name === 'el-GR') {
