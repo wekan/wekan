@@ -16,6 +16,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Part 2: Added remaining of Account configuration of option loginExpirationInDays for Snap](https://github.com/wekan/wekan/commit/17d90684bb59fd4159f80b2da224638824151c6f).
   Thanks to xet7.
+- [Improve multi selection sidebar opening and closing](https://github.com/wekan/wekan/pull/4153).
+  Thanks to marook.
 
 and adds the following updates:
 
