@@ -101,13 +101,22 @@ BlazeComponent.extendComponent({
           this.starred(!this.starred());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
-        'click .js-add-card'(event) {
+        'click .js-add-card.fa-plus'(event) {
           const listDom = $(event.target).parents(
             `#js-list-${this.currentData()._id}`,
           )[0];
           const listComponent = BlazeComponent.getComponentForElement(listDom);
           listComponent.openForm({
             position: 'top',
+          });
+        },
+        'click .js-add-card.fa-plus-square'(event) {
+          const listDom = $(event.target).parents(
+            `#js-list-${this.currentData()._id}`,
+          )[0];
+          const listComponent = BlazeComponent.getComponentForElement(listDom);
+          listComponent.openForm({
+            position: 'bottom',
           });
         },
         'click .js-unselect-list'() {

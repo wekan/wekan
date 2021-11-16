@@ -28,6 +28,7 @@ template(name="listHeader")
           div.list-header-menu
             unless currentUser.isCommentOnly
               if canSeeAddCard
+                a.js-add-card.fa.fa-plus-square.list-header-plus-square-icon(title="{{_ 'add-card-to-bottom-of-list'}}")
                 a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
               a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
         else
@@ -41,6 +42,7 @@ template(name="listHeader")
             //if isBoardAdmin
             //  a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
+              a.js-add-card.fa.fa-plus-square.list-header-plus-square-icon(title="{{_ 'add-card-to-bottom-of-list'}}")
               a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
             a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
           if currentUser.isBoardAdmin
