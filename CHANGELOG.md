@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: Sandstorm WeKan Admin Panel version info broken](https://github.com/wekan/wekan/commit/02b6df320fc98e18e5a97105a35196bdffec98bb).
+  Thanks to ocdtrekkie and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.77 2021-11-16 WeKan ® release
 
 This release adds the following updates:
