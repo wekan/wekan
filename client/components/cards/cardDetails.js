@@ -329,8 +329,8 @@ BlazeComponent.extendComponent({
           if (promise) {
             promise.then(() => {
               const $tooltip = this.$('span.copied-tooltip');
-              $tooltip.css('display', 'inline');
-              setTimeout(() => $tooltip.css('display', 'none'), 1000);
+              $tooltip.show(100);
+              setTimeout(() => $tooltip.hide(100), 1000);
             });
           }
         },
@@ -1079,8 +1079,8 @@ BlazeComponent.extendComponent({
           if (promise) {
             promise.then(() => {
               const $tooltip = this.$('.copied-tooltip');
-              $tooltip.css('display', 'inline');
-              setTimeout(() => $tooltip.css('display', 'none'), 1000);
+              $tooltip.show(100);
+              setTimeout(() => $tooltip.hide(100), 1000);
             });
           }
         },
