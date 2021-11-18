@@ -481,6 +481,9 @@ Utils = {
 
     try {
       document.execCommand('copy');
+      return Promise.resolve(true);
+    } catch (e) {
+      return Promise.reject(false);
     } finally {
       document.body.removeChild(textArea);
     }
@@ -489,16 +492,19 @@ Utils = {
   /** copy the text to the clipboard
    * @see https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript/30810322#30810322
    * @param string copy this text to the clipboard
+   * @return Promise
    */
   copyTextToClipboard(text) {
+    let ret;
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(function() {
+      ret = navigator.clipboard.writeText(text).then(function() {
       }, function(err) {
         console.error('Async: Could not copy text: ', err);
       });
     } else {
-      fallbackCopyTextToClipboard(text);
+      ret = Utils.fallbackCopyTextToClipboard(text);
     }
+    return ret;
   },
 };
 

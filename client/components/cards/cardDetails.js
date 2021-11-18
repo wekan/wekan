@@ -325,7 +325,14 @@ BlazeComponent.extendComponent({
         },
         'click .js-copy-link'(event) {
           event.preventDefault();
-          Utils.copyTextToClipboard(event.target.href);
+          const promise = Utils.copyTextToClipboard(event.target.href);
+          if (promise) {
+            promise.then(() => {
+              const $tooltip = this.$('span.copied-tooltip');
+              $tooltip.css('display', 'inline');
+              setTimeout(() => $tooltip.css('display', 'none'), 1000);
+            });
+          }
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
@@ -1068,7 +1075,14 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-copy-card-link-to-clipboard'(event) {
-          Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
+          const promise = Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
+          if (promise) {
+            promise.then(() => {
+              const $tooltip = this.$('.copied-tooltip');
+              $tooltip.css('display', 'inline');
+              setTimeout(() => $tooltip.css('display', 'none'), 1000);
+            });
+          }
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();
