@@ -325,29 +325,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-copy-link'(event) {
           event.preventDefault();
-          const StringToCopyElement = document.getElementById('cardURL_copy');
-          StringToCopyElement.value =
-            window.location.origin + window.location.pathname;
-          StringToCopyElement.select();
-          if (document.execCommand('copy')) {
-            StringToCopyElement.blur();
-          } else {
-            document.getElementById('cardURL_copy').selectionStart = 0;
-            document.getElementById('cardURL_copy').selectionEnd = 999;
-            document.execCommand('copy');
-            if (window.getSelection) {
-              if (window.getSelection().empty) {
-                // Chrome
-                window.getSelection().empty();
-              } else if (window.getSelection().removeAllRanges) {
-                // Firefox
-                window.getSelection().removeAllRanges();
-              }
-            } else if (document.selection) {
-              // IE?
-              document.selection.empty();
-            }
-          }
+          Utils.copyTextToClipboard(event.target.href);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
@@ -1089,30 +1067,8 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-copy-card-link-to-clipboard'() {
-          // Clipboard code from:
-          // https://stackoverflow.com/questions/6300213/copy-selected-text-to-the-clipboard-without-using-flash-must-be-cross-browser
-          const StringToCopyElement = document.getElementById('cardURL');
-          StringToCopyElement.select();
-          if (document.execCommand('copy')) {
-            StringToCopyElement.blur();
-          } else {
-            document.getElementById('cardURL').selectionStart = 0;
-            document.getElementById('cardURL').selectionEnd = 999;
-            document.execCommand('copy');
-            if (window.getSelection) {
-              if (window.getSelection().empty) {
-                // Chrome
-                window.getSelection().empty();
-              } else if (window.getSelection().removeAllRanges) {
-                // Firefox
-                window.getSelection().removeAllRanges();
-              }
-            } else if (document.selection) {
-              // IE?
-              document.selection.empty();
-            }
-          }
+        'click .js-copy-card-link-to-clipboard'(event) {
+          Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();
