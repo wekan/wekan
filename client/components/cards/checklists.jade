@@ -63,6 +63,8 @@ template(name="checklistDeleteDialog")
       button.toggle-delete-checklist-dialog(type="button") {{_ 'cancel'}}
 
 template(name="addChecklistItemForm")
+  a.fa.fa-copy(title="copy text to clipboard")
+  span.copied-tooltip {{_ 'copied'}}
   textarea.js-add-checklist-item(rows='1' autofocus)
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-checklist-item-form(type="submit") {{_ 'save'}}

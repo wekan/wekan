@@ -279,9 +279,32 @@ Template.checklists.helpers({
   },
 });
 
-Template.addChecklistItemForm.onRendered(() => {
-  autosize($('textarea.js-add-checklist-item'));
-});
+BlazeComponent.extendComponent({
+  onRendered() {
+    autosize(this.$('textarea.js-add-checklist-item'));
+  },
+  canModifyCard() {
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
+    );
+  },
+  events() {
+    return [
+      {
+        'click a.fa.fa-copy'(event) {
+          const $editor = this.$('textarea');
+          const promise = Utils.copyTextToClipboard($editor[0].value);
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
+        },
+      }
+    ];
+  }
+}).register('addChecklistItemForm');
 
 Template.editChecklistItemForm.onRendered(() => {
   autosize($('textarea.js-edit-checklist-item'));
