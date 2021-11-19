@@ -71,6 +71,8 @@ template(name="addChecklistItemForm")
     a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="editChecklistItemForm")
+  a.fa.fa-copy(title="copy text to clipboard")
+  span.copied-tooltip {{_ 'copied'}}
   textarea.js-edit-checklist-item(rows='1' autofocus dir="auto")
     if $eq type 'item'
       = item.title
