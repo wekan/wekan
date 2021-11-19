@@ -327,7 +327,7 @@ BlazeComponent.extendComponent({
           event.preventDefault();
           const promise = Utils.copyTextToClipboard(event.target.href);
 
-          const $tooltip = this.$('.copied-tooltip');
+          const $tooltip = this.$('.card-details-header .copied-tooltip');
           Utils.showCopied(promise, $tooltip);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
