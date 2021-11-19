@@ -286,7 +286,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click span.fa.fa-copy'(event) {
+        'click a.fa.fa-copy'(event) {
           const $editor = this.$('textarea.editor');
           const promise = Utils.copyTextToClipboard($editor[0].value);
           if (promise) {
