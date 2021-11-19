@@ -326,13 +326,9 @@ BlazeComponent.extendComponent({
         'click .js-copy-link'(event) {
           event.preventDefault();
           const promise = Utils.copyTextToClipboard(event.target.href);
-          if (promise) {
-            promise.then(() => {
-              const $tooltip = this.$('span.copied-tooltip');
-              $tooltip.show(100);
-              setTimeout(() => $tooltip.hide(100), 1000);
-            });
-          }
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
@@ -1076,13 +1072,9 @@ BlazeComponent.extendComponent({
       {
         'click .js-copy-card-link-to-clipboard'(event) {
           const promise = Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
-          if (promise) {
-            promise.then(() => {
-              const $tooltip = this.$('.copied-tooltip');
-              $tooltip.show(100);
-              setTimeout(() => $tooltip.hide(100), 1000);
-            });
-          }
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();

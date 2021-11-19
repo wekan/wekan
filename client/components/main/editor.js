@@ -289,15 +289,9 @@ BlazeComponent.extendComponent({
         'click a.fa.fa-copy'(event) {
           const $editor = this.$('textarea.editor');
           const promise = Utils.copyTextToClipboard($editor[0].value);
-          if (promise) {
-            promise.then(() => {
-              const $tooltip = this.$('.copied-tooltip');
-              $tooltip.show(100);
-              setTimeout(() => $tooltip.hide(100), 1000);
-            }, (err) => {
-              console.error("error: ", err);
-            });
-          }
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
         },
       }
     ]

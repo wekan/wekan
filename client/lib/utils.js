@@ -506,6 +506,21 @@ Utils = {
     }
     return ret;
   },
+
+  /** show the "copied!" message
+   * @param promise the promise of Utils.copyTextToClipboard
+   * @param $tooltip jQuery tooltip element
+   */
+  showCopied(promise, $tooltip) {
+    if (promise) {
+      promise.then(() => {
+        $tooltip.show(100);
+        setTimeout(() => $tooltip.hide(100), 1000);
+      }, (err) => {
+        console.error("error: ", err);
+      });
+    }
+  },
 };
 
 // A simple tracker dependency that we invalidate every time the window is
