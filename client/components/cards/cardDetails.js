@@ -658,7 +658,7 @@ Template.cardDetailsActionsPopup.events({
     event.preventDefault();
     const minOrder = _.min(
       this.list()
-        .cards(this.swimlaneId)
+        .cardsUnfiltered(this.swimlaneId)
         .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
@@ -668,7 +668,7 @@ Template.cardDetailsActionsPopup.events({
     event.preventDefault();
     const maxOrder = _.max(
       this.list()
-        .cards(this.swimlaneId)
+        .cardsUnfiltered(this.swimlaneId)
         .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
