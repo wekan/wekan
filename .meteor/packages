@@ -60,7 +60,6 @@ reactive-var@1.0.11
 fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
-mquandalle:jquery-ui-drag-drop-sort
 mquandalle:mousetrap-bindglobal
 peerlibrary:blaze-components@=0.15.1
 templates:tabs

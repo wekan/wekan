@@ -73,7 +73,6 @@ BlazeComponent.extendComponent({
         card.board().setNewLabelOrder(newLabelOrderOnlyIds);
       },
     });
-    Utils.enableClickOnTouch(itemsSelector);
 
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
