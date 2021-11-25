@@ -30,6 +30,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix: On mobile infinite scrolling didn't work](https://github.com/wekan/wekan/pull/4187).
   Thanks to mfilser.
+- [Custom Field StringTemplates didn't save the last input value on touch devices](https://github.com/wekan/wekan/pull/4188).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
