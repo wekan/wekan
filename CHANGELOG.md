@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [Show helper at label drag/drop if label popup opened from card details popup](https://github.com/wekan/wekan/pull/4176).
   Thanks to mfilser.
+- [Show or hide members and assignee(s) on minicard](https://github.com/wekan/wekan/pull/4179).
+  Thanks to Ben0it-T.
 
 and adds the following updates:
 
