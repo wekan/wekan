@@ -2016,6 +2016,7 @@ Cards.mutations({
   },
 
   addLabel(labelId) {
+    this.labelIds.push(labelId);
     return {
       $addToSet: {
         labelIds: labelId,
@@ -2024,6 +2025,7 @@ Cards.mutations({
   },
 
   removeLabel(labelId) {
+    this.labelIds = _.without(this.labelIds, labelId);
     return {
       $pull: {
         labelIds: labelId,
