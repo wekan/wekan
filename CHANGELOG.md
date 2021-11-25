@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Show or hide members and assignee(s) on minicard](https://github.com/wekan/wekan/pull/4179).
   Thanks to Ben0it-T.
+- [List adding has now a cancel button](https://github.com/wekan/wekan/pull/4183).
+  Thanks to mfilser.
 
 and adds the following updates:
 
