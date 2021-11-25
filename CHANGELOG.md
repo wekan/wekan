@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fix label width oversize bug](https://github.com/wekan/wekan/pull/4157).
   Thanks to mfilser.
+- [Fixed label popup at desktop view (add and remove labels)](https://github.com/wekan/wekan/pull/4170).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
