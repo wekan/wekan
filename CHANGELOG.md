@@ -26,6 +26,8 @@ and fixes the following bugs:
   Thanks to Emile840.
 - [App reconnect link wasn't clickable](https://github.com/wekan/wekan/pull/4180).
   Thanks to mfilser.
+- [Copy card url works now again](https://github.com/wekan/wekan/pull/4184).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
