@@ -76,6 +76,12 @@ avatar-radius = 50%
       box-shadow: 0 0 0 2px darken(white, 60%) inset
 
 // Other card details
+.copied-tooltip
+  display: none
+  padding: 0px 10px;
+  background-color: #000000df;
+  color: #fff;
+  border-radius: 5px;
 
 .card-details
   padding: 0
@@ -118,7 +124,8 @@ avatar-radius = 50%
     .card-copy-button,
     .card-copy-mobile-button,
     .close-card-details-mobile-web,
-    .card-details-menu-mobile-web
+    .card-details-menu-mobile-web,
+    .copied-tooltip
       float: right
 
     .close-card-details,
@@ -186,6 +193,14 @@ avatar-radius = 50%
           background: darken(white, 10%)
           border-radius: 3px
           padding: 0px 5px
+
+    .copied-tooltip
+      display: none
+      margin-right: 10px
+      padding: 10px;
+      background-color: #000000df;
+      color: #fff;
+      border-radius: 5px;
 
   .card-description textarea
     min-height: 100px

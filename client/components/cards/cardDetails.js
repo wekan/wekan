@@ -325,7 +325,10 @@ BlazeComponent.extendComponent({
         },
         'click .js-copy-link'(event) {
           event.preventDefault();
-          Utils.copyTextToClipboard(event.target.href);
+          const promise = Utils.copyTextToClipboard(event.target.href);
+
+          const $tooltip = this.$('.card-details-header .copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
@@ -1068,7 +1071,10 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-copy-card-link-to-clipboard'(event) {
-          Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
+          const promise = Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();

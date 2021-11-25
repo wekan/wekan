@@ -22,6 +22,7 @@ template(name="cardDetails")
               title="{{_ 'copy-card-link-to-clipboard'}}"
               href="{{ originRelativeUrl }}"
             )
+            span.copied-tooltip {{_ 'copied'}}
         else
           unless isPopup
             a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
@@ -33,6 +34,7 @@ template(name="cardDetails")
               title="{{_ 'copy-card-link-to-clipboard'}}"
               href="{{ originRelativeUrl }}"
             )
+            span.copied-tooltip {{_ 'copied'}}
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
@@ -798,6 +800,7 @@ template(name="cardMorePopup")
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" id="cardURL" readonly value="{{ originRelativeUrl }}" autofocus="autofocus")
       button.js-copy-card-link-to-clipboard(class="btn" id="clipboard") {{_ 'copy-card-link-to-clipboard'}}
+      .copied-tooltip {{_ 'copied'}}
     span.clearfix
     br
     h2 {{_ 'change-card-parent'}}
