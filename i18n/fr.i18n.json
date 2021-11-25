@@ -1119,7 +1119,7 @@
     "add-organizations-label": "Les organisations ajoutées sont affichées ci-dessous :",
     "remove-organization-from-board": "Voulez-vous vraiment supprimer cette organisation de ce tableau ?",
     "to-create-organizations-contact-admin": "Pour créer des organisations, veuillez contacter l'administrateur.",
-    "custom-legal-notice-link-url": "Custom legal notice page URL",
-    "acceptance_of_our_legalNotice": "By continuing, you accept our",
-    "legalNotice": "legal notice"
+    "custom-legal-notice-link-url": "URL de la page des mentions légales personnalisées",
+    "acceptance_of_our_legalNotice": "En continuant, vous acceptez nos",
+    "legalNotice": "mentions légales"
 }
