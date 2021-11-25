@@ -465,6 +465,41 @@ Utils = {
     }
     return finalString;
   },
+
+  fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      document.execCommand('copy');
+    } finally {
+      document.body.removeChild(textArea);
+    }
+  },
+
+  /** copy the text to the clipboard
+   * @see https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript/30810322#30810322
+   * @param string copy this text to the clipboard
+   */
+  copyTextToClipboard(text) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function() {
+      }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+      });
+    } else {
+      fallbackCopyTextToClipboard(text);
+    }
+  },
 };
 
 // A simple tracker dependency that we invalidate every time the window is
