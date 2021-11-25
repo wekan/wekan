@@ -12,6 +12,11 @@ and adds the following updates:
 - [Docker build script to be executeable](https://github.com/wekan/wekan/commit/8054f2b0025c4cb3f6a3ddf71754ae7c707d6ac0).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix Default Top Left Corner Logo Image display few seconds before a display of custom Top Left Corner Logo Image](https://github.com/wekan/wekan/issues/4173).
+  Thanks to Emile840.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.79 2021-11-25 WeKan ® release
