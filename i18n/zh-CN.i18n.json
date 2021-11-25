@@ -1118,5 +1118,5 @@
     "add-organizations": "新建组织",
     "add-organizations-label": "已添加组织如下面列表所示：",
     "remove-organization-from-board": "请确认是否删除面板上此组织？此操作无法撤销。",
-    "to-create-organizations-contact-admin": "To create organizations, please contact administrator."
+    "to-create-organizations-contact-admin": "请联系管理员创建组织。"
 }
