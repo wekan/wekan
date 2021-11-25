@@ -19,6 +19,8 @@ and adds the following updates:
   Thanks to mfilser.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/496c791629ba2ba612ad84704e55be9e90e10bef).
   Thanks to developers of dependencies.
+- [Settings, add some space between radio buttons](https://github.com/wekan/wekan/pull/4186).
+  Thanks to mfilser.
 
 and fixes the following bugs:
 
