@@ -96,6 +96,7 @@
     "add-members": "เพิ่มสมาชิก",
     "added": "เพิ่ม",
     "addMemberPopup-title": "สมาชิก",
+    "memberPopup-title": "การตั้งค่า",
     "admin": "ผู้ดูแลระบบ",
     "admin-desc": "สามารถดูและแก้ไขการ์ด ลบสมาชิก และเปลี่ยนการตั้งค่าบอร์ดได้",
     "admin-announcement": "Announcement",

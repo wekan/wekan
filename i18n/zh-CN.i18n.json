@@ -96,6 +96,7 @@
     "add-members": "添加成员",
     "added": "添加",
     "addMemberPopup-title": "成员",
+    "memberPopup-title": "成员设置",
     "admin": "管理员",
     "admin-desc": "可以浏览并编辑卡片，移除成员，并且更改该看板的设置",
     "admin-announcement": "通知",

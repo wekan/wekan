@@ -96,6 +96,7 @@
     "add-members": "Agregar miembros",
     "added": "Agregada el",
     "addMemberPopup-title": "Miembros",
+    "memberPopup-title": "Configuración de miembros",
     "admin": "Administrador",
     "admin-desc": "Puede ver y editar tarjetas, eliminar miembros y cambiar la configuración del tablero.",
     "admin-announcement": "Anuncio",

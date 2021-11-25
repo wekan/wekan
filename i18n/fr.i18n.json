@@ -96,6 +96,7 @@
     "add-members": "Assigner des participants",
     "added": "Ajouté le",
     "addMemberPopup-title": "Participants",
+    "memberPopup-title": "Préférence du participant",
     "admin": "Admin",
     "admin-desc": "Peut voir et éditer les cartes, supprimer des participants et changer les paramètres du tableau.",
     "admin-announcement": "Annonce",

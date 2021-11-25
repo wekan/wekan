@@ -96,6 +96,7 @@
     "add-members": "Lägg till medlemmar",
     "added": "Lades till",
     "addMemberPopup-title": "Medlemmar",
+    "memberPopup-title": "Användarinställningar",
     "admin": "Adminstratör",
     "admin-desc": "Kan visa och redigera kort, ta bort medlemmar och ändra inställningarna för tavlan.",
     "admin-announcement": "Meddelande",

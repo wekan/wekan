@@ -96,6 +96,7 @@
     "add-members": "Afegeix membres",
     "added": "Afegit",
     "addMemberPopup-title": "Membres",
+    "memberPopup-title": "Configura membres",
     "admin": "Administrador",
     "admin-desc": "Pots veure i editar fitxes, eliminar usuaris, i canviar la configuració del tauler.",
     "admin-announcement": "Alertes",

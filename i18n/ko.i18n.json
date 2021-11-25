@@ -96,6 +96,7 @@
     "add-members": "멤버 추가",
     "added": "추가됨",
     "addMemberPopup-title": "멤버",
+    "memberPopup-title": "멤버 설정",
     "admin": "관리자",
     "admin-desc": "카드를 보거나 수정하고, 멤버를 삭제하고, 보드에 대한 설정을 수정할 수 있습니다.",
     "admin-announcement": "공지사항",
