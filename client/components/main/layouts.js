@@ -77,6 +77,15 @@ Template.userFormsLayout.helpers({
   //   return isSettingDatabaseFctCallDone;
   // },
 
+  isLegalNoticeLinkExist(){
+    const currSet = Template.instance().currentSetting.get();
+    if(currSet && currSet !== undefined && currSet != null){
+      return currSet.legalNotice !== undefined && currSet.legalNotice.trim() != "";
+    }
+    else
+      return false;
+  },
+
   isLoading() {
     return Template.instance().isLoading.get();
   },

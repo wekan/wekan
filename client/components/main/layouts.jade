@@ -48,6 +48,11 @@ template(name="userFormsLayout")
         +Template.dynamic(template=content)
         if currentSetting.displayAuthenticationMethod
           +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+        if isLegalNoticeLinkExist
+          div#legalNoticeDiv
+            span {{_ 'acceptance_of_our_legalNotice'}}
+            a.at-link(href="{{currentSetting.legalNotice}}", target="_blank", rel="noopener noreferrer")
+              | {{_ 'legalNotice'}}
         div.at-form-lang
           select.select-lang.js-userform-set-language
             each languages
