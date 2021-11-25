@@ -49,6 +49,9 @@ Template.attachmentsGalery.helpers({
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
   },
+  fileSize(size) {
+    return Math.round(size / 1024);
+  },
 });
 
 Template.previewAttachedImagePopup.events({

@@ -44,6 +44,7 @@ template(name="attachmentsGalery")
             +spinner
         p.attachment-details
           = name
+          span.file-size ({{fileSize size}} KB)
           span.attachment-details-actions
             a.js-download(href="{{url download=true}}")
               i.fa.fa-download
