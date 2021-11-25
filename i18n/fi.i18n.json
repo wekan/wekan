@@ -1121,5 +1121,6 @@
     "to-create-organizations-contact-admin": "Luodaksesi organisaatioita, ota yhteyttä ylläpitäjään.",
     "custom-legal-notice-link-url": "Muokatun oikeudellisen huomautuksen sivun URL",
     "acceptance_of_our_legalNotice": "Jatkamalla hyväksyt meidän",
-    "legalNotice": "oikeudellisen huomautuksen"
+    "legalNotice": "oikeudellisen huomautuksen",
+    "copied": "Kopioitu!"
 }

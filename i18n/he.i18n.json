@@ -1119,7 +1119,8 @@
     "add-organizations-label": "הארגונים שנוספו מוצגים להלן:",
     "remove-organization-from-board": "להסיר את הארגון הזה מהלוח הזה?",
     "to-create-organizations-contact-admin": "כדי ליצור ארגונים, נא ליצור קשר עם ההנהלה.",
-    "custom-legal-notice-link-url": "Custom legal notice page URL",
-    "acceptance_of_our_legalNotice": "By continuing, you accept our",
-    "legalNotice": "legal notice"
+    "custom-legal-notice-link-url": "כתובת עמוד הצהרה משפטית משלך",
+    "acceptance_of_our_legalNotice": "בחירה להמשיך היא למעשה הסכמה ל",
+    "legalNotice": "הצהרה המשפטית שלנו",
+    "copied": "הועתק!"
 }
