@@ -42,7 +42,7 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Moving many cards with multi selection drag/drop to another list keeps the card order](https://github.com/wekan/wekan/pull/4193).
   Thanks to mfilser.
-- [Sidebar multi selection actions keep now the card sorting (cards moving, cards to archive etc.)](https://github.com/wekan/wekan/pull/4194).
+- [Sidebar multi selection actions keep now the card sorting (cards moving, cards to archive etc)](https://github.com/wekan/wekan/pull/4194).
   Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
