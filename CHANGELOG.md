@@ -13,6 +13,8 @@ and adds the following updates:
 
 - [Docker build script to be executeable](https://github.com/wekan/wekan/commit/8054f2b0025c4cb3f6a3ddf71754ae7c707d6ac0).
   Thanks to xet7.
+- [Drag drop jquery-ui update + screen and list scroll](https://github.com/wekan/wekan/pull/4181).
+  Thanks to mfilser.
 
 and fixes the following bugs:
 
