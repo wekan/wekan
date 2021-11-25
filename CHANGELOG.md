@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix label width oversize bug](https://github.com/wekan/wekan/pull/4157).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.78 2021-11-17 WeKan ® release
 
 This release fixes the following bugs:
