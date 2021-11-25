@@ -10,6 +10,8 @@ This release adds the following new features:
   Thanks to Ben0it-T.
 - [List adding has now a cancel button](https://github.com/wekan/wekan/pull/4183).
   Thanks to mfilser.
+- [CustomFields Currency, autofocus on edit](https://github.com/wekan/wekan/pull/4189).
+  Thanks to mfilser.
 
 and adds the following updates:
 
