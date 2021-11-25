@@ -36,6 +36,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Custom Field StringTemplates didn't save the last input value on touch devices](https://github.com/wekan/wekan/pull/4188).
   Thanks to mfilser.
+- [Move cards to top/bottom ignores the current filter if active](https://github.com/wekan/wekan/pull/4192).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
