@@ -28,6 +28,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Copy card url works now again](https://github.com/wekan/wekan/pull/4184).
   Thanks to mfilser.
+- [Fix: On mobile infinite scrolling didn't work](https://github.com/wekan/wekan/pull/4187).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
