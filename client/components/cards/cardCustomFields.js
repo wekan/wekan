@@ -271,7 +271,7 @@ CardCustomField.register('cardCustomField');
       {
         'submit .js-card-customfield-stringtemplate'(event) {
           event.preventDefault();
-          const items = this.stringtemplateItems.get()
+          const items = this.stringtemplateItems.get();
           this.card.setCustomField(this.customFieldId, items);
         },
 
