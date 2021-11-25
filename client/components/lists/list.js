@@ -95,7 +95,7 @@ BlazeComponent.extendComponent({
         $cards.sortable('cancel');
 
         if (MultiSelection.isActive()) {
-          Cards.find(MultiSelection.getMongoSelector()).forEach((card, i) => {
+          Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach((card, i) => {
             const newSwimlaneId = targetSwimlaneId
               ? targetSwimlaneId
               : card.swimlaneId || defaultSwimlaneId;
