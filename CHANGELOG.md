@@ -7,6 +7,11 @@ This release adds the following new features:
 - [Show helper at label drag/drop if label popup opened from card details popup](https://github.com/wekan/wekan/pull/4176).
   Thanks to mfilser.
 
+and adds the following updates:
+
+- [Docker build script to be executeable](https://github.com/wekan/wekan/commit/8054f2b0025c4cb3f6a3ddf71754ae7c707d6ac0).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.79 2021-11-25 WeKan ® release
