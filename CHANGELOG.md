@@ -16,8 +16,10 @@ and adds the following updates:
 
 and fixes the following bugs:
 
-- [Fix Default Top Left Corner Logo Image display few seconds before a display of custom Top Left Corner Logo Image](https://github.com/wekan/wekan/issues/4173).
+- [Default Top Left Corner Logo Image display few seconds before a display of custom Top Left Corner Logo Image](https://github.com/wekan/wekan/issues/4173).
   Thanks to Emile840.
+- [App reconnect link wasn't clickable](https://github.com/wekan/wekan/pull/4180).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
