@@ -99,14 +99,14 @@ BlazeComponent.extendComponent({
 }).register('filterSidebar');
 
 function mutateSelectedCards(mutationName, ...args) {
-  Cards.find(MultiSelection.getMongoSelector()).forEach(card => {
+  Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach(card => {
     card[mutationName](...args);
   });
 }
 
 BlazeComponent.extendComponent({
   mapSelection(kind, _id) {
-    return Cards.find(MultiSelection.getMongoSelector()).map(card => {
+    return Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).map(card => {
       const methodName = kind === 'label' ? 'hasLabel' : 'isAssigned';
       return card[methodName](_id);
     });
