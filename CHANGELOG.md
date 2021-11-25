@@ -14,6 +14,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Attachments, show file size in KB in card details](https://github.com/wekan/wekan/pull/4191).
   Thanks to mfilser.
+- [Sidebar Member Settings Popup has now a Popup title](https://github.com/wekan/wekan/pull/4190).
+  Thanks to mfilser.
 
 and adds the following updates:
 
