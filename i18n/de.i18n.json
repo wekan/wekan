@@ -1118,5 +1118,8 @@
     "add-organizations": "Organisation hinzufügen",
     "add-organizations-label": "Hinzugefügte Organisationen werden nachfolgend angezeigt:",
     "remove-organization-from-board": "Sicher, dass du die Organisation von diesem Board entfernen willst?",
-    "to-create-organizations-contact-admin": "Um Organisationen anzulegen, wende dich bitte an den Administrator."
+    "to-create-organizations-contact-admin": "Um Organisationen anzulegen, wende dich bitte an den Administrator.",
+    "custom-legal-notice-link-url": "Custom legal notice page URL",
+    "acceptance_of_our_legalNotice": "By continuing, you accept our",
+    "legalNotice": "legal notice"
 }

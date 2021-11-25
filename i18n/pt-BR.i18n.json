@@ -1118,5 +1118,8 @@
     "add-organizations": "Adicionar organizações",
     "add-organizations-label": "Organizações adicionadas são exibidas abaixo:",
     "remove-organization-from-board": "Você tem certeza que deseja excluir esta organização do quadro?",
-    "to-create-organizations-contact-admin": "Para criação de organizações, favor entrar em contato com o administrador."
+    "to-create-organizations-contact-admin": "Para criação de organizações, favor entrar em contato com o administrador.",
+    "custom-legal-notice-link-url": "Custom legal notice page URL",
+    "acceptance_of_our_legalNotice": "By continuing, you accept our",
+    "legalNotice": "legal notice"
 }

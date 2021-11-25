@@ -1118,5 +1118,8 @@
     "add-organizations": "Lisää organisaatioita",
     "add-organizations-label": "Lisätyt organisaatiot näkyy tässä alla:",
     "remove-organization-from-board": "Haluatko varmasti poistaa tämän organisaation tältä taululta ?",
-    "to-create-organizations-contact-admin": "Luodaksesi organisaatioita, ota yhteyttä ylläpitäjään."
+    "to-create-organizations-contact-admin": "Luodaksesi organisaatioita, ota yhteyttä ylläpitäjään.",
+    "custom-legal-notice-link-url": "Muokatun oikeudellisen huomautuksen sivun URL",
+    "acceptance_of_our_legalNotice": "Jatkamalla hyväksyt meidän",
+    "legalNotice": "oikeudellisen huomautuksen"
 }

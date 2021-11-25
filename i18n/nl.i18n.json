@@ -1118,5 +1118,8 @@
     "add-organizations": "Organisaties toevoegen",
     "add-organizations-label": "Toegevoegde organisaties worden hieronder getoond:",
     "remove-organization-from-board": "Weet je zeker dat je deze organisatie van het bord wilt verwijderen?",
-    "to-create-organizations-contact-admin": "Zoek contact met de beheerder om organisaties aan te maken."
+    "to-create-organizations-contact-admin": "Zoek contact met de beheerder om organisaties aan te maken.",
+    "custom-legal-notice-link-url": "Custom legal notice page URL",
+    "acceptance_of_our_legalNotice": "By continuing, you accept our",
+    "legalNotice": "legal notice"
 }

@@ -1118,5 +1118,8 @@
     "add-organizations": "הוספת ארגונים",
     "add-organizations-label": "הארגונים שנוספו מוצגים להלן:",
     "remove-organization-from-board": "להסיר את הארגון הזה מהלוח הזה?",
-    "to-create-organizations-contact-admin": "כדי ליצור ארגונים, נא ליצור קשר עם ההנהלה."
+    "to-create-organizations-contact-admin": "כדי ליצור ארגונים, נא ליצור קשר עם ההנהלה.",
+    "custom-legal-notice-link-url": "Custom legal notice page URL",
+    "acceptance_of_our_legalNotice": "By continuing, you accept our",
+    "legalNotice": "legal notice"
 }
