@@ -34,7 +34,7 @@
     "exceljs": "^4.2.1",
     "fibers": "^5.0.0",
     "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
-    "jquery": "^2.2.4",
+    "jquery": "^3.6.0",
     "jquery-ui": "^1.13.0",
     "jquery-ui-touch-punch": "^0.2.3",
     "jszip": "^3.7.1",
