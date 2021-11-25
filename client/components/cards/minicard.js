@@ -49,6 +49,28 @@ BlazeComponent.extendComponent({
     return false;
   },
 
+  showMembers() {
+    if (this.data().board()) {
+      return (
+        this.data().board.allowsMembers === null ||
+        this.data().board().allowsMembers === undefined ||
+        this.data().board().allowsMembers
+      );
+    }
+    return false;
+  },
+
+  showAssignee() {
+    if (this.data().board()) {
+      return (
+        this.data().board.allowsAssignee === null ||
+        this.data().board().allowsAssignee === undefined ||
+        this.data().board().allowsAssignee
+      );
+    }
+    return false;
+  },
+
   /** opens the card label popup only if clicked onto a label
    * <li> this is necessary to have the data context of the minicard.
    *      if .js-card-label is used at click event, then only the data context of the label itself is available at this.currentData()

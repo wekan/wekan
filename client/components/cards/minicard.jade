@@ -88,15 +88,17 @@ template(name="minicard")
                   +viewer
                     = trueValue
 
-    if getAssignees
-      .minicard-assignees.js-minicard-assignees
-        each getAssignees
-          +userAvatar(userId=this)
+    if showAssignee
+      if getAssignees
+        .minicard-assignees.js-minicard-assignees
+          each getAssignees
+            +userAvatar(userId=this)
 
-    if getMembers
-      .minicard-members.js-minicard-members
-        each getMembers
-          +userAvatar(userId=this)
+    if showMembers
+      if getMembers
+        .minicard-members.js-minicard-members
+          each getMembers
+            +userAvatar(userId=this)
 
     if showCreator
       .minicard-creator
