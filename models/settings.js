@@ -92,6 +92,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    legalNotice: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,

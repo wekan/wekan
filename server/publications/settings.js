@@ -26,6 +26,7 @@ Meteor.publish('setting', () => {
         spinnerName: 1,
         oidcBtnText: 1,
         mailDomainName: 1,
+        legalNotice: 1,
       },
     },
   );
