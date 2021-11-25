@@ -12,6 +12,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [CustomFields Currency, autofocus on edit](https://github.com/wekan/wekan/pull/4189).
   Thanks to mfilser.
+- [Attachments, show file size in KB in card details](https://github.com/wekan/wekan/pull/4191).
+  Thanks to mfilser.
 
 and adds the following updates:
 
