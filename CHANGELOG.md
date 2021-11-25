@@ -38,6 +38,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Move cards to top/bottom ignores the current filter if active](https://github.com/wekan/wekan/pull/4192).
   Thanks to mfilser.
+- [Moving many cards with multi selection drag/drop to another list keeps the card order](https://github.com/wekan/wekan/pull/4193).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
