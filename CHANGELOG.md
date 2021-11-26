@@ -16,6 +16,10 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Sidebar Member Settings Popup has now a Popup title](https://github.com/wekan/wekan/pull/4190).
   Thanks to mfilser.
+- [Add copy text button to most textarea fields](https://github.com/wekan/wekan/pull/4185).
+  Thanks to mfilser.
+- [Copy text button at most textarea fields is now translatable](https://github.com/wekan/wekan/commit/5088c122536e13b44cf2fdbcfabeefd00cee332e).
+  Thanks to xet7.
 
 and adds the following updates:
 
