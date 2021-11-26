@@ -18,7 +18,9 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Add copy text button to most textarea fields](https://github.com/wekan/wekan/pull/4185).
   Thanks to mfilser.
-- [Copy text button at most textarea fields is now translatable](https://github.com/wekan/wekan/commit/5088c122536e13b44cf2fdbcfabeefd00cee332e).
+- Copy text button at most textarea fields is now translatable.
+  [Part 1](https://github.com/wekan/wekan/commit/5088c122536e13b44cf2fdbcfabeefd00cee332e),
+  [Part 2](https://github.com/wekan/wekan/commit/96465ac664c526d8749dcad158704b512317e256).
   Thanks to xet7.
 
 and adds the following updates:
