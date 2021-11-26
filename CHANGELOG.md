@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v5.80 2021-11-26 WeKan ® release
 
 This release adds the following new features:
 
@@ -38,7 +38,7 @@ and fixes the following bugs:
   Thanks to Emile840.
 - [App reconnect link wasn't clickable](https://github.com/wekan/wekan/pull/4180).
   Thanks to mfilser.
-- [Copy card url works now again](https://github.com/wekan/wekan/pull/4184).
+- [Copy card URL works now again](https://github.com/wekan/wekan/pull/4184).
   Thanks to mfilser.
 - [Fix: On mobile infinite scrolling didn't work](https://github.com/wekan/wekan/pull/4187).
   Thanks to mfilser.
