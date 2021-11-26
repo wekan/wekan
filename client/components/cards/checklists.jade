@@ -63,7 +63,7 @@ template(name="checklistDeleteDialog")
       button.toggle-delete-checklist-dialog(type="button") {{_ 'cancel'}}
 
 template(name="addChecklistItemForm")
-  a.fa.fa-copy(title="copy text to clipboard")
+  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
   span.copied-tooltip {{_ 'copied'}}
   textarea.js-add-checklist-item(rows='1' autofocus)
   .edit-controls.clearfix
@@ -71,7 +71,7 @@ template(name="addChecklistItemForm")
     a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="editChecklistItemForm")
-  a.fa.fa-copy(title="copy text to clipboard")
+  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
   span.copied-tooltip {{_ 'copied'}}
   textarea.js-edit-checklist-item(rows='1' autofocus dir="auto")
     if $eq type 'item'

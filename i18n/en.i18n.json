@@ -283,6 +283,7 @@
   "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
   "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
   "copy-card-link-to-clipboard": "Copy card link to clipboard",
+  "copy-text-to-clipboard": "Copy text to clipboard",
   "linkCardPopup-title": "Link Card",
   "searchElementPopup-title": "Search",
   "copyCardPopup-title": "Copy Card",
