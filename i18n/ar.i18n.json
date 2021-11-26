@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
     "copy-card-link-to-clipboard": "نسخ رابط البطاقة إلى الحافظة",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "ربط البطاقة",
     "searchElementPopup-title": "بحث",
     "copyCardPopup-title": "نسخ البطاقة",

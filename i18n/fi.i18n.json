@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Haluatko varmasti poistaa alitehtävän?",
     "confirm-checklist-delete-dialog": "Haluatko varmasti poistaa tarkistuslistan?",
     "copy-card-link-to-clipboard": "Kopioi kortin linkki leikepöydälle",
+    "copy-text-to-clipboard": "Kopioi teksti leikepöydälle",
     "linkCardPopup-title": "Linkitä kortti",
     "searchElementPopup-title": "Etsi",
     "copyCardPopup-title": "Kopioi kortti",

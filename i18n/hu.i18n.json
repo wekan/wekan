@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Biztosan törlöd a Rész-feladatot?",
     "confirm-checklist-delete-dialog": "Biztosan törlöd a Feladatlistát?",
     "copy-card-link-to-clipboard": "Kártya hivatkozásának másolása a vágólapra",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Kártyára hivatkozás",
     "searchElementPopup-title": "Keresés",
     "copyCardPopup-title": "Kártya másolása",

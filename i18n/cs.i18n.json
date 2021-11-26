@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Opravdu chcete smazat tento podúkol?",
     "confirm-checklist-delete-dialog": "Opravdu chcete smazat tento checklist?",
     "copy-card-link-to-clipboard": "Kopírovat adresu karty do mezipaměti",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Propojit kartu",
     "searchElementPopup-title": "Hledat",
     "copyCardPopup-title": "Kopírovat kartu",

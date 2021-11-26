@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Wollen Sie die Teilaufgabe wirklich löschen?",
     "confirm-checklist-delete-dialog": "Wollen Sie die Checkliste wirklich löschen?",
     "copy-card-link-to-clipboard": "Kopiere Link zur Karte in die Zwischenablage",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Karte verknüpfen",
     "searchElementPopup-title": "Suche",
     "copyCardPopup-title": "Karte kopieren",

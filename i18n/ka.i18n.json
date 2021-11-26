@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "დარწმუნებული ხართ, რომ გსურთ ქვესაქმიანობის წაშლა? ",
     "confirm-checklist-delete-dialog": "დარწმუნებული ხართ, რომ გსურთ კატალოგის წაშლა ? ",
     "copy-card-link-to-clipboard": "დააკოპირეთ ბარათის ბმული clipboard-ზე",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Link Card",
     "searchElementPopup-title": "ძებნა",
     "copyCardPopup-title": "ბარათის ასლი",

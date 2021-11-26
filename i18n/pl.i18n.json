@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Czy jesteś pewien, że chcesz usunąć to podzadanie?",
     "confirm-checklist-delete-dialog": "Czy jesteś pewien, że chcesz usunąć czeklistę?",
     "copy-card-link-to-clipboard": "Skopiuj łącze karty do schowka",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Podepnij kartę",
     "searchElementPopup-title": "Wyszukaj",
     "copyCardPopup-title": "Skopiuj kartę",

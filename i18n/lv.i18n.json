@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Vai tiešām vēlaties dzēst apakšuzdevumu?",
     "confirm-checklist-delete-dialog": "Vai tiešam vēlaties dzēst kontrolsarakstu?",
     "copy-card-link-to-clipboard": "Kopet kartiņas saiti starpliktuvē",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Kartiņas saite",
     "searchElementPopup-title": "Meklēt",
     "copyCardPopup-title": "Kopēt kartiņu",

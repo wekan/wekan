@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Είστε σίγουροι ότι θέλετε να σβήσετε την υποεργασία;",
     "confirm-checklist-delete-dialog": "Είστε σίγουρι ότι θέλετε να διαγράψετε τη λίστα ελέγχου - checklist;",
     "copy-card-link-to-clipboard": "Αντιγραφή του συνδέσμου της κάρτας στο clipboard",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Σύνδεση Κάρτας",
     "searchElementPopup-title": "Αναζήτηση",
     "copyCardPopup-title": "Αντιγραφή Κάρτας",

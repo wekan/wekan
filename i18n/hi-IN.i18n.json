@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "क्या आप वाकई उपकार्य हटाना चाहते हैं?",
     "confirm-checklist-delete-dialog": "क्या आप वाकई जांचसूची हटाना चाहते हैं?",
     "copy-card-link-to-clipboard": "कॉपी कार्ड क्लिपबोर्ड करने के लिए लिंक",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "कार्ड कड़ी",
     "searchElementPopup-title": "Search",
     "copyCardPopup-title": "कार्ड प्रतिलिपि",

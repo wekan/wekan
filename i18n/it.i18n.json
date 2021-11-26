@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Sei sicuro di voler eliminare il sotto-compito?",
     "confirm-checklist-delete-dialog": "Sei sicuro di voler eliminare la checklist?",
     "copy-card-link-to-clipboard": "Copia link della scheda negli appunti",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Collega scheda",
     "searchElementPopup-title": "Cerca",
     "copyCardPopup-title": "Copia scheda",

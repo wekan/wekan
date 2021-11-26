@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "از حذف این زیر وظیفه اطمینان دارید؟",
     "confirm-checklist-delete-dialog": "آیا مطمئنید می‌خواهید چک‌لیست را حذف کنید؟",
     "copy-card-link-to-clipboard": "درج پیوند کارت در حافظه",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "ارتباط دادن کارت",
     "searchElementPopup-title": "جستجو",
     "copyCardPopup-title": "کپی کارت",

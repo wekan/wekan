@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Bạn có chắc chắn muốn xóa nhiệm vụ phụ không?",
     "confirm-checklist-delete-dialog": "Bạn có chắc chắn muốn xóa checklist không?",
     "copy-card-link-to-clipboard": "Sao chép liên kết thẻ vào khay nhớ tạm",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Thẻ liên kết",
     "searchElementPopup-title": "Tìm kiếm",
     "copyCardPopup-title": "Sao chép Thẻ",

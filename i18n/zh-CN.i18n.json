@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "确定要删除子任务吗？",
     "confirm-checklist-delete-dialog": "确定要删除清单吗？",
     "copy-card-link-to-clipboard": "复制卡片链接到剪贴板",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "链接卡片",
     "searchElementPopup-title": "搜索",
     "copyCardPopup-title": "复制卡片",

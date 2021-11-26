@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Tem certeza que deseja excluir a subtarefa?",
     "confirm-checklist-delete-dialog": "Tem certeza que quer excluir a lista de verificação?",
     "copy-card-link-to-clipboard": "Copiar link do cartão para a área de transferência",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Ligar Cartão",
     "searchElementPopup-title": "Buscar",
     "copyCardPopup-title": "Copiar o cartão",

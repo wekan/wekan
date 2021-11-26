@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Сигурен ли сте, че искате да изтриете подзадачата?",
     "confirm-checklist-delete-dialog": "Сигурни ли сте, че искате да изтриете този чеклист?",
     "copy-card-link-to-clipboard": "Копирай връзката на картата в клипборда",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Свържи картата",
     "searchElementPopup-title": "Търсене",
     "copyCardPopup-title": "Копирай картата",

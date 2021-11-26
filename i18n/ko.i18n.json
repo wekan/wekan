@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "정말로 체크리스트를 삭제하실 건가요?",
     "copy-card-link-to-clipboard": "클립보드에 카드의 링크가 복사되었습니다.",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Link Card",
     "searchElementPopup-title": "검색",
     "copyCardPopup-title": "카드 복사",

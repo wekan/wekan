@@ -283,6 +283,7 @@
     "confirm-subtask-delete-dialog": "Alt görevi silmek istediğinizden emin misiniz?",
     "confirm-checklist-delete-dialog": "Kontrol listesini silmek istediğinden emin misin?",
     "copy-card-link-to-clipboard": "Kartın linkini kopyala",
+    "copy-text-to-clipboard": "Copy text to clipboard",
     "linkCardPopup-title": "Bağlantı kartı",
     "searchElementPopup-title": "Arama",
     "copyCardPopup-title": "Kartı Kopyala",
