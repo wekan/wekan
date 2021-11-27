@@ -29,7 +29,7 @@ template(name="listHeader")
             unless currentUser.isCommentOnly
               if canSeeAddCard
                 a.js-add-card.list-header-plus-square-icon(title="{{_ 'add-card-to-bottom-of-list'}}")
-                  a.fa.fa-plus-square
+                  a.fa.fa-plus
                   a.fa.fa-arrow-down
                 a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
               a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
@@ -45,7 +45,7 @@ template(name="listHeader")
             //  a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
               a.js-add-card.list-header-plus-square-icon(title="{{_ 'add-card-to-bottom-of-list'}}")
-                a.fa.fa-plus-square
+                a.fa.fa-plus
                 a.fa.fa-arrow-down
               a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
             a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
