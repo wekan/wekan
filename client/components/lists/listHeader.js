@@ -101,7 +101,7 @@ BlazeComponent.extendComponent({
           this.starred(!this.starred());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
-        'click .js-add-card.fa-plus'(event) {
+        'click .js-add-card.list-header-plus-top'(event) {
           const listDom = $(event.target).parents(
             `#js-list-${this.currentData()._id}`,
           )[0];
@@ -110,7 +110,7 @@ BlazeComponent.extendComponent({
             position: 'top',
           });
         },
-        'click .js-add-card.list-header-plus-square-icon'(event) {
+        'click .js-add-card.list-header-plus-bottom'(event) {
           const listDom = $(event.target).parents(
             `#js-list-${this.currentData()._id}`,
           )[0];

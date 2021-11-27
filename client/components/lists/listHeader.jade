@@ -28,10 +28,12 @@ template(name="listHeader")
           div.list-header-menu
             unless currentUser.isCommentOnly
               if canSeeAddCard
-                a.js-add-card.list-header-plus-square-icon(title="{{_ 'add-card-to-bottom-of-list'}}")
+                a.js-add-card.list-header-plus-bottom(title="{{_ 'add-card-to-bottom-of-list'}}")
                   a.fa.fa-plus
                   a.fa.fa-arrow-down
-                a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
+                a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                  a.fa.fa-plus
+                  a.fa.fa-arrow-up
               a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
         else
           a.list-header-menu-icon.fa.fa-angle-right.js-select-list
@@ -42,12 +44,14 @@ template(name="listHeader")
         div.list-header-menu
           unless currentUser.isCommentOnly
             //if isBoardAdmin
-            //  a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
+            //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
-              a.js-add-card.list-header-plus-square-icon(title="{{_ 'add-card-to-bottom-of-list'}}")
+              a.js-add-card.list-header-plus-bottom(title="{{_ 'add-card-to-bottom-of-list'}}")
                 a.fa.fa-plus
                 a.fa.fa-arrow-down
-              a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
+              a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                a.fa.fa-plus
+                a.fa.fa-arrow-up
             a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
           if currentUser.isBoardAdmin
             if isShowDesktopDragHandles
