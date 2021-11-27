@@ -12,11 +12,6 @@ template(name="checklists")
           input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton")
         label.toggle-label(for="toggleHideCheckedItemsButton")
 
-  if toggleDeleteDialog.get
-    .board-overlay#card-details-overlay
-    +checklistDeleteDialog(checklist = checklistToDelete)
-
-
   .card-checklist-items
     each checklist in checklists
       +checklistDetail(checklist = checklist)
@@ -50,17 +45,9 @@ template(name="checklistDetail")
                 = checklist.title
     +checklistItems(checklist = checklist)
 
-template(name="checklistDeleteDialog")
-  .js-confirm-checklist-delete
-    p
-      i(class="fa fa-exclamation-triangle" aria-hidden="true")
-    p
-      | {{_ 'confirm-checklist-delete-dialog'}}
-      span {{checklist.title}}
-      | ?
-    .js-checklist-delete-buttons
-      button.confirm-checklist-delete(type="button") {{_ 'delete'}}
-      button.toggle-delete-checklist-dialog(type="button") {{_ 'cancel'}}
+template(name="checklistDeletePopup")
+  p {{_ 'confirm-checklist-delete-popup'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="addChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")

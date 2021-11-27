@@ -130,14 +130,6 @@ BlazeComponent.extendComponent({
     );
   },
 
-  deleteChecklist() {
-    const checklist = this.currentData().checklist;
-    if (checklist && checklist._id) {
-      Checklists.remove(checklist._id);
-      this.toggleDeleteDialog.set(false);
-    }
-  },
-
   deleteItem() {
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
@@ -161,11 +153,6 @@ BlazeComponent.extendComponent({
     const title = textarea.value.trim();
     const item = this.currentData().item;
     item.setTitle(title);
-  },
-
-  onCreated() {
-    this.toggleDeleteDialog = new ReactiveVar(false);
-    this.checklistToDelete = null; //Store data context to pass to checklistDeleteDialog template
   },
 
   pressKey(event) {
@@ -195,12 +182,6 @@ BlazeComponent.extendComponent({
 
   events() {
     const events = {
-      'click .toggle-delete-checklist-dialog'(event) {
-        if ($(event.target).hasClass('js-delete-checklist')) {
-          this.checklistToDelete = this.currentData().checklist; //Store data context
-        }
-        this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
-      },
       'click #toggleHideCheckedItemsButton'() {
         Meteor.call('toggleHideCheckedItems');
       },
@@ -209,13 +190,19 @@ BlazeComponent.extendComponent({
     return [
       {
         ...events,
+        'click .toggle-delete-checklist-dialog' : Popup.afterConfirm('checklistDelete', function () {
+          Popup.close();
+          const checklist = this.checklist;
+          if (checklist && checklist._id) {
+            Checklists.remove(checklist._id);
+          }
+        }),
         'submit .js-add-checklist': this.addChecklist,
         'submit .js-edit-checklist-title': this.editChecklist,
         'submit .js-add-checklist-item': this.addChecklistItem,
         'submit .js-edit-checklist-item': this.editChecklistItem,
         'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
         'click .js-delete-checklist-item': this.deleteItem,
-        'click .confirm-checklist-delete': this.deleteChecklist,
         'focus .js-add-checklist-item': this.focusChecklistItem,
         // add and delete checklist / checklist-item
         'click .js-open-inlined-form': this.closeAllInlinedForms,
@@ -332,32 +319,6 @@ BlazeComponent.extendComponent({
     ];
   }
 }).register('editChecklistItemForm');
-
-Template.checklistDeleteDialog.onCreated(() => {
-  const $cardDetails = this.$('.card-details');
-  this.scrollState = {
-    position: $cardDetails.scrollTop(), //save current scroll position
-    top: false, //required for smooth scroll animation
-  };
-  //Callback's purpose is to only prevent scrolling after animation is complete
-  $cardDetails.animate({ scrollTop: 0 }, 500, () => {
-    this.scrollState.top = true;
-  });
-
-  //Prevent scrolling while dialog is open
-  $cardDetails.on('scroll', () => {
-    if (this.scrollState.top) {
-      //If it's already in position, keep it there. Otherwise let animation scroll
-      $cardDetails.scrollTop(0);
-    }
-  });
-});
-
-Template.checklistDeleteDialog.onDestroyed(() => {
-  const $cardDetails = this.$('.card-details');
-  $cardDetails.off('scroll'); //Reactivate scrolling
-  $cardDetails.animate({ scrollTop: this.scrollState.position });
-});
 
 Template.checklistItemDetail.helpers({
   canModifyCard() {
