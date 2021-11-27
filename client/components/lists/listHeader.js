@@ -110,7 +110,7 @@ BlazeComponent.extendComponent({
             position: 'top',
           });
         },
-        'click .js-add-card.fa-plus-square'(event) {
+        'click .js-add-card.list-header-plus-square-icon'(event) {
           const listDom = $(event.target).parents(
             `#js-list-${this.currentData()._id}`,
           )[0];
