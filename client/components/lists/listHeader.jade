@@ -46,11 +46,9 @@ template(name="listHeader")
             //if isBoardAdmin
             //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
-              a.js-add-card.list-header-plus-bottom(title="{{_ 'add-card-to-bottom-of-list'}}")
-                a.fa.fa-plus
+              a.js-add-card.fa.fa-plus.list-header-plus-bottom(title="{{_ 'add-card-to-bottom-of-list'}}")
                 a.fa.fa-arrow-down
-              a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
-                a.fa.fa-plus
+              a.js-add-card.fa.fa-plus.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
                 a.fa.fa-arrow-up
             a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
           if currentUser.isBoardAdmin
