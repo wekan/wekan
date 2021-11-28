@@ -110,15 +110,6 @@ BlazeComponent.extendComponent({
             position: 'top',
           });
         },
-        'click .js-add-card.list-header-plus-bottom'(event) {
-          const listDom = $(event.target).parents(
-            `#js-list-${this.currentData()._id}`,
-          )[0];
-          const listComponent = BlazeComponent.getComponentForElement(listDom);
-          listComponent.openForm({
-            position: 'bottom',
-          });
-        },
         'click .js-unselect-list'() {
           Session.set('currentList', null);
         },
@@ -150,6 +141,14 @@ Template.listActionPopup.helpers({
 
 Template.listActionPopup.events({
   'click .js-list-subscribe'() {},
+  'click .js-add-card.list-header-plus-bottom'(event) {
+    const listDom = $(`#js-list-${this._id}`)[0];
+    const listComponent = BlazeComponent.getComponentForElement(listDom);
+    listComponent.openForm({
+      position: 'bottom',
+    });
+    Popup.back();
+  },
   'click .js-set-color-list': Popup.open('setListColor'),
   'click .js-select-cards'() {
     const cardIds = this.allCards().map(card => card._id);
