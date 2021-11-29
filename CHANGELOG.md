@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [At Sandstorm, every WeKan user is now Admin and has Admin Panel. This could help export, board member permissions, etc](https://github.com/wekan/wekan/commit/23a2e90f5f553c2051978a0b4cd5b0d6d4ee03da).
+  Thanks to PizzaProgram and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.80 2021-11-26 WeKan ® release
 
 This release adds the following new features:
