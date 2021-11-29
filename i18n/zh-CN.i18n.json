@@ -283,7 +283,7 @@
     "confirm-subtask-delete-dialog": "确定要删除子任务吗？",
     "confirm-checklist-delete-dialog": "确定要删除清单吗？",
     "copy-card-link-to-clipboard": "复制卡片链接到剪贴板",
-    "copy-text-to-clipboard": "Copy text to clipboard",
+    "copy-text-to-clipboard": "复制文本到剪贴板",
     "linkCardPopup-title": "链接卡片",
     "searchElementPopup-title": "搜索",
     "copyCardPopup-title": "复制卡片",
@@ -1121,8 +1121,8 @@
     "add-organizations-label": "已添加组织如下面列表所示：",
     "remove-organization-from-board": "请确认是否删除面板上此组织？此操作无法撤销。",
     "to-create-organizations-contact-admin": "请联系管理员创建组织。",
-    "custom-legal-notice-link-url": "Custom legal notice page URL",
-    "acceptance_of_our_legalNotice": "By continuing, you accept our",
-    "legalNotice": "legal notice",
-    "copied": "Copied!"
+    "custom-legal-notice-link-url": "自定义设置法律声明地址",
+    "acceptance_of_our_legalNotice": "继续，即意味着您已同意接受相关声明条款约束",
+    "legalNotice": "法律声明",
+    "copied": "已复制！"
 }

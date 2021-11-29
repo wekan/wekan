@@ -283,7 +283,7 @@
     "confirm-subtask-delete-dialog": "Wollen Sie die Teilaufgabe wirklich löschen?",
     "confirm-checklist-delete-dialog": "Wollen Sie die Checkliste wirklich löschen?",
     "copy-card-link-to-clipboard": "Kopiere Link zur Karte in die Zwischenablage",
-    "copy-text-to-clipboard": "Copy text to clipboard",
+    "copy-text-to-clipboard": "Text in die Zwischenablage kopieren",
     "linkCardPopup-title": "Karte verknüpfen",
     "searchElementPopup-title": "Suche",
     "copyCardPopup-title": "Karte kopieren",
@@ -1121,8 +1121,8 @@
     "add-organizations-label": "Hinzugefügte Organisationen werden nachfolgend angezeigt:",
     "remove-organization-from-board": "Sicher, dass du die Organisation von diesem Board entfernen willst?",
     "to-create-organizations-contact-admin": "Um Organisationen anzulegen, wende dich bitte an den Administrator.",
-    "custom-legal-notice-link-url": "Custom legal notice page URL",
-    "acceptance_of_our_legalNotice": "By continuing, you accept our",
-    "legalNotice": "legal notice",
-    "copied": "Copied!"
+    "custom-legal-notice-link-url": "URL zu eigenem Impressum",
+    "acceptance_of_our_legalNotice": "Durch das Einloggen akzeptieren Sie unser",
+    "legalNotice": "Impressum/Datenschutzerklärung",
+    "copied": "Kopiert!"
 }

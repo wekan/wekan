@@ -283,7 +283,7 @@
     "confirm-subtask-delete-dialog": "Weet je zeker dat je de subtaak wilt verwijderen?",
     "confirm-checklist-delete-dialog": "Weet je zeker dat je de checklist wilt verwijderen?",
     "copy-card-link-to-clipboard": "Kopieer kaart link naar klembord",
-    "copy-text-to-clipboard": "Copy text to clipboard",
+    "copy-text-to-clipboard": "Kopieer tekst naar klembord",
     "linkCardPopup-title": "Koppel Kaart",
     "searchElementPopup-title": "Zoek",
     "copyCardPopup-title": "Kopieer kaart",
@@ -1121,8 +1121,8 @@
     "add-organizations-label": "Toegevoegde organisaties worden hieronder getoond:",
     "remove-organization-from-board": "Weet je zeker dat je deze organisatie van het bord wilt verwijderen?",
     "to-create-organizations-contact-admin": "Zoek contact met de beheerder om organisaties aan te maken.",
-    "custom-legal-notice-link-url": "Custom legal notice page URL",
-    "acceptance_of_our_legalNotice": "By continuing, you accept our",
-    "legalNotice": "legal notice",
-    "copied": "Copied!"
+    "custom-legal-notice-link-url": "URL voor maatwerk juridische disclaimer tekst pagina",
+    "acceptance_of_our_legalNotice": "Als u doorgaat accepteert u onze ",
+    "legalNotice": "juridische disclaimer tekst",
+    "copied": "Gekopieerd!"
 }
