@@ -234,7 +234,11 @@ if (isSandstorm && Meteor.isServer) {
 
   function updateUserPermissions(userId, permissions) {
     const isActive = permissions.indexOf('participate') > -1;
-    const isAdmin = permissions.indexOf('configure') > -1;
+    // a) OLD 2021-11-29: First user is admin
+    //const isAdmin = permissions.indexOf('configure') > -1;
+    // b) NEW 2021-11-29: Every user is admin:
+    //    https://github.com/wekan/wekan/issues/3423
+    const isAdmin = true;
     const isCommentOnly = false;
     const isNoComments = false;
     const isWorker = false;
