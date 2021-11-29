@@ -5,8 +5,13 @@
 This release removes the following new features:
 
 - [Revert change from WeKan v5.81: At Sandstorm, every WeKan user is now WeKan Admin and has Admin Panel](https://github.com/wekan/wekan/commit/ebc7741fcb9ad854234921ed0546255411adeec9).
-  Thank to ocdtrekkie and xet7.
+  Thanks to ocdtrekkie and xet7.
     
+and adds the following new features:
+
+- [List header contains now a button to add the card to the bottom of the list](https://github.com/wekan/wekan/pull/4195).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.81 2021-11-29 WeKan ® release
