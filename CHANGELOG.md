@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release removes the following new features:
+
+- [Revert change from WeKan v5.81: At Sandstorm, every WeKan user is now WeKan Admin and has Admin Panel](https://github.com/wekan/wekan/commit/ebc7741fcb9ad854234921ed0546255411adeec9).
+  Thank to ocdtrekkie and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.81 2021-11-29 WeKan ® release
 
 This release adds the following new features:
