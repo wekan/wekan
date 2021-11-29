@@ -2,9 +2,11 @@
 
 # Upcoming WeKan ® release
 
-This release adds to following changes:
+This release adds to following new improvements:
 
 - [Changed delete checklist dialog to a popup](https://github.com/wekan/wekan/pull/4200).
+  Thanks to mfilser.
+- [Dragging minicards scrolls now vertically at the end of the screen](https://github.com/wekan/wekan/pull/4201).
   Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
