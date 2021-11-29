@@ -282,7 +282,7 @@
   "computer": "Computer",
   "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
   "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
-  "checklistDeletePopup-title": "Checklist delete?",
+  "checklistDeletePopup-title": "Delete Checklist?",
   "copy-card-link-to-clipboard": "Copy card link to clipboard",
   "copy-text-to-clipboard": "Copy text to clipboard",
   "linkCardPopup-title": "Link Card",
