@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [List title doesn't overlap with hamburger menu anymore](https://github.com/wekan/wekan/pull/4203).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.83 2021-11-30 WeKan ® release
 
 This release adds to following new improvements:
