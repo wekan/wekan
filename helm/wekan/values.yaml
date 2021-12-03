@@ -14,7 +14,7 @@ serviceAccounts:
 ##
 image:
   repository: quay.io/wekan/wekan
-  tag: v5.83
+  tag: v5.65
   pullPolicy: IfNotPresent
 
 ## Configuration for wekan component
@@ -56,6 +56,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   path: /*
+  pathtype: ImplementationSpecific
   # This must match 'endpoint', unless your client supports different
   # hostnames.
   hosts: [ wekan.local ]
