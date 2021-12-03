@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Kubernetes 1.22 support and basic helm test](https://github.com/wekan/wekan/pull/4208).
+  Thanks to varac.
+
+and fixes the following bugs:
 
 - [List title doesn't overlap with hamburger menu anymore](https://github.com/wekan/wekan/pull/4203).
   Thanks to mfilser.
