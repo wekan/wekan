@@ -11,6 +11,8 @@ and fixes the following bugs:
 
 - [List title doesn't overlap with hamburger menu anymore](https://github.com/wekan/wekan/pull/4203).
   Thanks to mfilser.
+- [Fix legal notice traduction bug when refreshing sign in page](https://github.com/wekan/wekan/pull/4217).
+  Thanks to Emile840.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
