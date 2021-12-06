@@ -86,6 +86,18 @@ Template.userFormsLayout.helpers({
       return false;
   },
 
+  getLegalNoticeWithWritTraduction(){
+    let spanLegalNoticeElt = $("#legalNoticeSpan");
+    if(spanLegalNoticeElt != null && spanLegalNoticeElt != undefined){
+      spanLegalNoticeElt.html(TAPi18n.__('acceptance_of_our_legalNotice', {}, T9n.getLanguage() || 'en'));
+    }
+    let atLinkLegalNoticeElt = $("#legalNoticeAtLink");
+    if(atLinkLegalNoticeElt != null && atLinkLegalNoticeElt != undefined){
+      atLinkLegalNoticeElt.html(TAPi18n.__('legalNotice', {}, T9n.getLanguage() || 'en'));
+    }
+    return true;
+  },
+
   isLoading() {
     return Template.instance().isLoading.get();
   },
