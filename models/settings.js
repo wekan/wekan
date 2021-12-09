@@ -227,7 +227,8 @@ if (Meteor.isServer) {
     try {
       const fullName = Users.findOne(icode.authorId)
                   && Users.findOne(icode.authorId).profile
-                  && Users.findOne(icode.authorId).profile !== undefined ?  Users.findOne(icode.authorId).profile.fullname : "";
+                  && Users.findOne(icode.authorId).profile !== undefined
+                  && Users.findOne(icode.authorId).profile.fullname ?  Users.findOne(icode.authorId).profile.fullname : "";
 
       const params = {
         email: icode.email,
