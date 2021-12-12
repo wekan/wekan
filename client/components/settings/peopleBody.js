@@ -144,6 +144,7 @@ BlazeComponent.extendComponent({
   },
   orgList() {
     const orgs = Org.find(this.findOrgsOptions.get(), {
+      sort: { orgDisplayName: 1 },
       fields: { _id: true },
     });
     this.numberOrgs.set(orgs.count(false));
@@ -151,6 +152,7 @@ BlazeComponent.extendComponent({
   },
   teamList() {
     const teams = Team.find(this.findTeamsOptions.get(), {
+      sort: { teamDisplayName: 1 },
       fields: { _id: true },
     });
     this.numberTeams.set(teams.count(false));
@@ -158,6 +160,7 @@ BlazeComponent.extendComponent({
   },
   peopleList() {
     const users = Users.find(this.findUsersOptions.get(), {
+      sort: { username: 1 },
       fields: { _id: true },
     });
     this.numberPeople.set(users.count(false));

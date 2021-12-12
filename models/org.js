@@ -217,7 +217,7 @@ if (Meteor.isServer) {
   // Index for Organization name.
   Meteor.startup(() => {
     // Org._collection._ensureIndex({ name: -1 });
-    Org._collection._ensureIndex({ orgDisplayName: -1 });
+    Org._collection._ensureIndex({ orgDisplayName: 1 });
   });
 }
 
