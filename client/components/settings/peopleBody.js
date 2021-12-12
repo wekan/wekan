@@ -254,10 +254,10 @@ Template.editUserPopup.helpers({
     return Template.instance().authenticationMethods.get();
   },
   orgsDatas() {
-    return Org.find({}, {sort: { createdAt: -1 }});
+    return Org.find({}, {sort: { orgDisplayName: 1 }});
   },
   teamsDatas() {
-    return Team.find({}, {sort: { createdAt: -1 }});
+    return Team.find({}, {sort: { teamDisplayName: 1 }});
   },
   isSelected(match) {
     const userId = Template.instance().data.userId;
@@ -327,10 +327,10 @@ Template.newUserPopup.helpers({
     return Template.instance().authenticationMethods.get();
   },
   orgsDatas() {
-    return Org.find({}, {sort: { createdAt: -1 }});
+    return Org.find({}, {sort: { orgDisplayName: 1 }});
   },
   teamsDatas() {
-    return Team.find({}, {sort: { createdAt: -1 }});
+    return Team.find({}, {sort: { teamDisplayName: 1 }});
   },
   isSelected(match) {
     const userId = Template.instance().data.userId;
@@ -420,7 +420,7 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {},
   teamsDatas() {
-    return Team.find({}, {sort: { createdAt: -1 }});
+    return Team.find({}, {sort: { teamDisplayName: 1 }});
   },
   events() {
     return [
