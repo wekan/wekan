@@ -521,7 +521,7 @@ Users.helpers({
   },
   orgsUserBelongs() {
     if (this.orgs) {
-      return this.orgs.map(function(org){return org.orgDisplayName}).join(',');
+      return this.orgs.map(function(org){return org.orgDisplayName}).sort().join(',');
     }
     return '';
   },
@@ -533,7 +533,7 @@ Users.helpers({
   },
   teamsUserBelongs() {
     if (this.teams) {
-      return this.teams.map(function(team){ return team.teamDisplayName}).join(',');
+      return this.teams.map(function(team){ return team.teamDisplayName}).sort().join(',');
     }
     return '';
   },
