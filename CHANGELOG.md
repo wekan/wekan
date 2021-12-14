@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to varac.
 - [Added Helm Chart usage docs](https://github.com/wekan/wekan/pull/4224).
   Thanks to varac.
+- [Add full name if exists in `email-invite-subject` for user to invite](https://github.com/wekan/wekan/pull/4226).
+  Thanks to Emile840.
 
 and fixes the following bugs:
 
