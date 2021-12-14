@@ -10,6 +10,8 @@ This release adds the following new features:
   Thanks to varac.
 - [Add full name if exists in `email-invite-subject` for user to invite](https://github.com/wekan/wekan/pull/4226).
   Thanks to Emile840.
+- [Sort Organizations, Teams and People](https://github.com/wekan/wekan/pull/4232).
+  Thanks to Emile840.
 
 and fixes the following bugs:
 
