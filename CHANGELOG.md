@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [Kubernetes 1.22 support and basic helm test](https://github.com/wekan/wekan/pull/4208).
   Thanks to varac.
+- [Added Helm Chart usage docs](https://github.com/wekan/wekan/pull/4224).
+  Thanks to varac.
 
 and fixes the following bugs:
 
