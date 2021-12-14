@@ -1242,9 +1242,10 @@ if (Meteor.isServer) {
       }
 
       try {
-        const fullName = inviter.profile !== undefined ?  inviter.profile.fullname : "";
+        const fullName = inviter.profile !== undefined && inviter.profile.fullname !== undefined ?  inviter.profile.fullname : "";
+        const userFullName = user.profile !== undefined && user.profile.fullname !== undefined ?  user.profile.fullname : "";
         const params = {
-          user: user.username,
+          user: userFullName != "" ? userFullName + " (" + user.username + " )" : user.username,
           inviter: fullName != "" ? fullName + " (" + inviter.username + " )" : inviter.username,
           board: board.title,
           url: board.absoluteUrl(),

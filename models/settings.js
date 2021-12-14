@@ -227,7 +227,8 @@ if (Meteor.isServer) {
     try {
       const fullName = Users.findOne(icode.authorId)
                   && Users.findOne(icode.authorId).profile
-                  && Users.findOne(icode.authorId).profile !== undefined ?  Users.findOne(icode.authorId).profile.fullname : "";
+                  && Users.findOne(icode.authorId).profile !== undefined
+                  && Users.findOne(icode.authorId).profile.fullname ?  Users.findOne(icode.authorId).profile.fullname : "";
 
       const params = {
         email: icode.email,
@@ -273,6 +274,20 @@ if (Meteor.isServer) {
     }
   }
 
+  function isNonAdminAllowedToSendMail(currentUser){
+    const currSett = Settings.findOne({});
+    let isAllowed = false;
+    if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
+      for(let i = 0; i < currentUser.emails.length; i++) {
+        if(currentUser.emails[i].address.endsWith(currSett.mailDomainName)){
+          isAllowed = true;
+          break;
+        }
+      }
+    }
+    return isAllowed;
+  }
+
   function isLdapEnabled() {
     return (
       process.env.LDAP_ENABLE === 'true' || process.env.LDAP_ENABLE === true
@@ -303,7 +318,7 @@ if (Meteor.isServer) {
       check(boards, [String]);
 
       const user = Users.findOne(Meteor.userId());
-      if (!user.isAdmin) {
+      if (!user.isAdmin && !isNonAdminAllowedToSendMail(user)) {
         rc = -1;
         throw new Meteor.Error('not-allowed');
       }
