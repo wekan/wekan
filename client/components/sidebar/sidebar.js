@@ -1325,8 +1325,7 @@ BlazeComponent.extendComponent({
 
 Template.addBoardOrgPopup.helpers({
   orgsDatas() {
-    // return Org.find({}, {sort: { createdAt: -1 }});
-    let orgs = Org.find({}, {sort: { createdAt: -1 }});
+    let orgs = Org.find({}, {sort: { orgDisplayName: 1 }});
     return orgs;
   },
 });
@@ -1499,7 +1498,7 @@ BlazeComponent.extendComponent({
 
 Template.addBoardTeamPopup.helpers({
   teamsDatas() {
-    let teams = Team.find({}, {sort: { createdAt: -1 }});
+    let teams = Team.find({}, {sort: { teamDisplayName: 1 }});
     return teams;
   },
 });

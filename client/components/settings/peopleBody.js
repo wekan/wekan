@@ -144,6 +144,7 @@ BlazeComponent.extendComponent({
   },
   orgList() {
     const orgs = Org.find(this.findOrgsOptions.get(), {
+      sort: { orgDisplayName: 1 },
       fields: { _id: true },
     });
     this.numberOrgs.set(orgs.count(false));
@@ -151,6 +152,7 @@ BlazeComponent.extendComponent({
   },
   teamList() {
     const teams = Team.find(this.findTeamsOptions.get(), {
+      sort: { teamDisplayName: 1 },
       fields: { _id: true },
     });
     this.numberTeams.set(teams.count(false));
@@ -158,6 +160,7 @@ BlazeComponent.extendComponent({
   },
   peopleList() {
     const users = Users.find(this.findUsersOptions.get(), {
+      sort: { username: 1 },
       fields: { _id: true },
     });
     this.numberPeople.set(users.count(false));
@@ -251,10 +254,10 @@ Template.editUserPopup.helpers({
     return Template.instance().authenticationMethods.get();
   },
   orgsDatas() {
-    return Org.find({}, {sort: { createdAt: -1 }});
+    return Org.find({}, {sort: { orgDisplayName: 1 }});
   },
   teamsDatas() {
-    return Team.find({}, {sort: { createdAt: -1 }});
+    return Team.find({}, {sort: { teamDisplayName: 1 }});
   },
   isSelected(match) {
     const userId = Template.instance().data.userId;
@@ -324,10 +327,10 @@ Template.newUserPopup.helpers({
     return Template.instance().authenticationMethods.get();
   },
   orgsDatas() {
-    return Org.find({}, {sort: { createdAt: -1 }});
+    return Org.find({}, {sort: { orgDisplayName: 1 }});
   },
   teamsDatas() {
-    return Team.find({}, {sort: { createdAt: -1 }});
+    return Team.find({}, {sort: { teamDisplayName: 1 }});
   },
   isSelected(match) {
     const userId = Template.instance().data.userId;
@@ -417,7 +420,7 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {},
   teamsDatas() {
-    return Team.find({}, {sort: { createdAt: -1 }});
+    return Team.find({}, {sort: { teamDisplayName: 1 }});
   },
   events() {
     return [

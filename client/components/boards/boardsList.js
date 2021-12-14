@@ -89,7 +89,7 @@ BlazeComponent.extendComponent({
   },
   teamsDatas() {
     if(Meteor.user().teams)
-      return Meteor.user().teams;
+      return Meteor.user().teams.sort((a, b) => a.teamDisplayName.localeCompare(b.teamDisplayName));
     else
       return [];
   },
@@ -101,7 +101,7 @@ BlazeComponent.extendComponent({
   },
   orgsDatas() {
     if(Meteor.user().orgs)
-      return Meteor.user().orgs;
+      return Meteor.user().orgs.sort((a, b) => a.orgDisplayName.localeCompare(b.orgDisplayName));
     else
       return [];
   },
