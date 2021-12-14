@@ -13,6 +13,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix legal notice traduction bug when refreshing sign in page](https://github.com/wekan/wekan/pull/4217).
   Thanks to Emile840.
+- [Fix: Clicking to view Lists or Swimlanes Archive adds temporarily many empty Lists to board](https://github.com/wekan/wekan/pull/4221).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
