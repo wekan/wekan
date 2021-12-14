@@ -148,8 +148,8 @@ BlazeComponent.extendComponent({
   },
   visible(list) {
     if (list.archived) {
-      // Show archived list only when filter archive is on or archive is selected
-      if (!(Filter.archive.isSelected() || archivedRequested)) {
+      // Show archived list only when filter archive is on
+      if (!Filter.archive.isSelected()) {
         return false;
       }
     }
@@ -280,8 +280,8 @@ BlazeComponent.extendComponent({
   },
   visible(list) {
     if (list.archived) {
-      // Show archived list only when filter archive is on or archive is selected
-      if (!(Filter.archive.isSelected() || archivedRequested)) {
+      // Show archived list only when filter archive is on
+      if (!Filter.archive.isSelected()) {
         return false;
       }
     }
