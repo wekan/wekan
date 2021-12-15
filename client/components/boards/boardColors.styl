@@ -956,16 +956,23 @@ setBoardClear(color1,color2)
 
   /* Card Details */
   .card-details
-    position: absolute
-    top: 30px
-    left: calc(50% - 384px)
-    width: 768px
-    max-height: calc(100% - 60px)
     background-color: #454545
     color: #cccccc
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
     border: 1px solid #111111
     z-index: 100 !important
+
+  @media screen and (max-width: 800px)
+    .card-details
+      width: 98%
+
+  @media screen and (min-width: 801px)
+    .card-details
+      position: absolute
+      top: 30px
+      left: calc(50% - 384px)
+      width: 768px
+      max-height: calc(100% - 60px)
 
   .card-details
     scrollbar-width: thin
