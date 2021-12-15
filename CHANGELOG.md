@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix mobile card details for Modern Dark theme](https://github.com/wekan/wekan/pull/4240).
+  Thanks to jghaanstra.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.84 2021-12-15 WeKan ® release
 
 This release adds the following new features:
