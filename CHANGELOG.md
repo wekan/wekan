@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v5.85 2021-12-17 WeKan ® release
 
 This release adds the following updates:
 
