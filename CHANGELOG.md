@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated to Node.js v12.22.8](https://github.com/wekan/wekan/commit/5ad9ee1de6446e3b2f3e4a5df207d12de76e1b95).
+  Thanks to Node.js developers.
+
+and fixes the following bugs:
 
 - [Fix mobile card details for Modern Dark theme](https://github.com/wekan/wekan/pull/4240).
   Thanks to jghaanstra.
