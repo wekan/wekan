@@ -30,7 +30,7 @@ do
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			#sudo npm -g install n
-			#sudo n 12.22.7
+			#sudo n 12.22.8
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
 			pause '1) Install XCode 2) Install Node 12.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
