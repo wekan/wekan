@@ -1683,10 +1683,20 @@ if (Meteor.isServer) {
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
-      const invitationCode = InvitationCodes.findOne({
-        code: doc.profile.icode,
-        valid: true,
-      });
+      let invitationCode = null;
+      if(doc.authenticationMethod.toLowerCase() == 'oauth2')
+      { // OIDC authentication mode
+        invitationCode = InvitationCodes.findOne({
+          email: doc.emails[0].address.toLowerCase(),
+          valid: true,
+        });
+      }
+      else{
+        invitationCode = InvitationCodes.findOne({
+          code: doc.profile.icode,
+          valid: true,
+        });
+      }
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');
       } else {
