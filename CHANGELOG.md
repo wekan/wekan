@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fix mobile card details for Modern Dark theme](https://github.com/wekan/wekan/pull/4240).
   Thanks to jghaanstra.
+- [Fixed undefinded added member to board](https://github.com/wekan/wekan/pull/4245).
+  Thanks to Emile840.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
