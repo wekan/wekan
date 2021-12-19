@@ -12,20 +12,15 @@ template(name="checklists")
           input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton")
         label.toggle-label(for="toggleHideCheckedItemsButton")
 
-  if toggleDeleteDialog.get
-    .board-overlay#card-details-overlay
-    +checklistDeleteDialog(checklist = checklistToDelete)
-
-
   .card-checklist-items
-    each checklist in currentCard.checklists
+    each checklist in checklists
       +checklistDetail(checklist = checklist)
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
       +addChecklistItemForm
     else
-      a.js-open-inlined-form(title="{{_ 'add-checklist'}}")
+      a.add-checklist.js-open-inlined-form(title="{{_ 'add-checklist'}}")
         i.fa.fa-plus
 
 template(name="checklistDetail")
@@ -50,25 +45,21 @@ template(name="checklistDetail")
                 = checklist.title
     +checklistItems(checklist = checklist)
 
-template(name="checklistDeleteDialog")
-  .js-confirm-checklist-delete
-    p
-      i(class="fa fa-exclamation-triangle" aria-hidden="true")
-    p
-      | {{_ 'confirm-checklist-delete-dialog'}}
-      span {{checklist.title}}
-      | ?
-    .js-checklist-delete-buttons
-      button.confirm-checklist-delete(type="button") {{_ 'delete'}}
-      button.toggle-delete-checklist-dialog(type="button") {{_ 'cancel'}}
+template(name="checklistDeletePopup")
+  p {{_ 'confirm-checklist-delete-popup'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="addChecklistItemForm")
+  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
+  span.copied-tooltip {{_ 'copied'}}
   textarea.js-add-checklist-item(rows='1' autofocus)
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-checklist-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="editChecklistItemForm")
+  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
+  span.copied-tooltip {{_ 'copied'}}
   textarea.js-edit-checklist-item(rows='1' autofocus dir="auto")
     if $eq type 'item'
       = item.title

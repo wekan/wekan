@@ -34,6 +34,7 @@ export class DatePicker extends BlazeComponent {
         todayBtn: 'linked',
         language: TAPi18n.getLanguage(),
         weekStart: this.startDayOfWeek(),
+        calendarWeeks: true,
       })
       .on(
         'changeDate',
@@ -119,7 +120,7 @@ export class DatePicker extends BlazeComponent {
           }
           if (newCompleteDate.isValid()) {
             this._storeDate(newCompleteDate.toDate());
-            Popup.close();
+            Popup.back();
           } else if (!this.error) {
             this.error.set('invalid');
           }
@@ -127,7 +128,7 @@ export class DatePicker extends BlazeComponent {
         'click .js-delete-date'(evt) {
           evt.preventDefault();
           this._deleteDate();
-          Popup.close();
+          Popup.back();
         },
       },
     ];

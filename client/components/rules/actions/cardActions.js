@@ -232,7 +232,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-submit'() {
           this.colorButtonValue.set(this.currentColor.get());
-          Popup.close();
+          Popup.back();
         },
       },
     ];

@@ -26,7 +26,7 @@ template(name="swimlaneFixedHeader")
         a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
         a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
       unless isMiniScreen
-        if showDesktopDragHandles
+        if isShowDesktopDragHandles
           a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
       if isMiniScreen
         a.swimlane-header-miniscreen-handle.handle.fa.fa-arrows.js-swimlane-header-handle

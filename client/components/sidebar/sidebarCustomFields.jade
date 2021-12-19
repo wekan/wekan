@@ -43,6 +43,14 @@ template(name="createCustomFieldPopup")
                   option(value=value selected="selected") {{name}}
                 else
                   option(value=value) {{name}}
+            a.flex.js-field-show-sum-at-top-of-list(class="{{#if showSumAtTopOfList}}is-checked{{/if}}")
+                .materialCheckBox(class="{{#if showSumAtTopOfList}}is-checked{{/if}}")
+                span {{_ 'showSum-field-on-list'}}
+
+        div.js-field-settings.js-field-settings-currency(class="{{#if isTypeNotSelected 'number'}}hide{{/if}}")
+            a.flex.js-field-show-sum-at-top-of-list(class="{{#if showSumAtTopOfList}}is-checked{{/if}}")
+                .materialCheckBox(class="{{#if showSumAtTopOfList}}is-checked{{/if}}")
+                span {{_ 'showSum-field-on-list'}}
 
         div.js-field-settings.js-field-settings-dropdown(class="{{#if isTypeNotSelected 'dropdown'}}hide{{/if}}")
             label

@@ -63,7 +63,7 @@ template(name="cardCustomField-checkbox")
 template(name="cardCustomField-currency")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-currency")
-            input(type="text" value=data.value)
+            input(type="text" value=data.value autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
                 a.fa.fa-times-thin.js-close-inlined-form
@@ -79,18 +79,22 @@ template(name="cardCustomField-currency")
 
 template(name="cardCustomField-date")
     if canModifyCard
-        a.js-edit-date(title="{{showTitle}}" class="{{classes}}")
-            if value
-                div.card-date
-                    time(datetime="{{showISODate}}")
-                        | {{showDate}}
-            else
-                | {{_ 'edit'}}
-    else
+      a.js-edit-date(title="{{showTitle}} {{_ 'predicate-week'}} {{showWeek}}" class="{{classes}}")
         if value
-            div.card-date
-                time(datetime="{{showISODate}}")
-                    | {{showDate}}
+          div.card-date
+            time(datetime="{{showISODate}}")
+              | {{showDate}}
+              b
+                | {{showWeek}}
+        else
+          | {{_ 'edit'}}
+    else
+      if value
+        div.card-date
+          time(datetime="{{showISODate}}")
+            | {{showDate}}
+            b
+              | {{showWeek}}
 
 template(name="cardCustomField-dropdown")
     if canModifyCard

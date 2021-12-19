@@ -111,6 +111,8 @@ services:
     expose:
       - 27017
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - wekan-db:/data/db
       - wekan-db-dump:/dump
 
@@ -158,7 +160,8 @@ services:
       - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
-      # Email settings are required in both MAIL_URL and Admin Panel,
+      # Email settings are only at MAIL_URL and MAIL_FROM.
+      # Admin Panel has test button, but it's not used for settings.
       #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
@@ -166,6 +169,10 @@ services:
       #- MAIL_URL=smtp://user:pass@mailserver.example.com:25/
       - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
       - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
+      # Currently MAIL_SERVICE is not in use.
+      #- MAIL_SERVICE=Outlook365
+      #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
+      #- MAIL_SERVICE_PASSWORD=SecretPassword
       #---------------------------------------------------------------
       # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
       # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
@@ -228,6 +235,11 @@ services:
       #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
       #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
       #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+      #---------------------------------------------------------------
+      # ==== ACCOUNT OPTIONS ====
+      # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
+      # Defaults below. Uncomment to change. wekan/server/accounts-common.js
+      # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       #---------------------------------------------------------------
       # ==== STORE ATTACHMENT ON SERVER FILESYSTEM INSTEAD OF MONGODB ====
       # https://github.com/wekan/wekan/pull/2603
@@ -654,6 +666,8 @@ services:
       #---------------------------------------------------------------------
     depends_on:
       - wekandb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====

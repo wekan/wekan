@@ -2,7 +2,8 @@
 {{- $fullName := include "wekan.fullname" . -}}
 {{- $servicePort := .Values.service.port -}}
 {{- $ingressPath := .Values.ingress.path -}}
-apiVersion: networking.k8s.io/v1beta1
+{{- $ingressPathType := .Values.ingress.pathtype -}}
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -27,17 +28,17 @@ spec:
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
-  backend:
-    serviceName: {{ $fullName }}
-    servicePort: 8080
   rules:
   {{- range .Values.ingress.hosts }}
     - host: {{ . }}
       http:
         paths:
           - path: {{ $ingressPath }}
+            pathType: {{ $ingressPathType }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: 8080
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: 8080
   {{- end }}
 {{- end }}

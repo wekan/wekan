@@ -1,27 +1,40 @@
+template(name="cardDetailsPopup")
+  +cardDetails(popupCard)
+
 template(name="cardDetails")
-  section.card-details.js-card-details(class='{{#if cardMaximized}}card-details-maximized{{/if}}'): .card-details-canvas
+  section.card-details.js-card-details(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}'): .card-details-canvas
     .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
       else
         unless isMiniScreen
-          a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
-          unless cardMaximized
-            a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
-          if cardMaximized
-            a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+          unless isPopup
+            a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+            if cardMaximized
+              a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+            else
+              a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-            input.inline-input(type="text" id="cardURL_copy" value="{{ originRelativeUrl }}")
             a.fa.fa-link.card-copy-button.js-copy-link(
+              id="cardURL_copy"
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
+              href="{{ originRelativeUrl }}"
             )
-        if isMiniScreen
-          a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details(title="{{_ 'close-card'}}")
+            span.copied-tooltip {{_ 'copied'}}
+        else
+          unless isPopup
+            a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-            a.fa.fa-link.card-copy-mobile-button
+            a.fa.fa-link.card-copy-mobile-button.js-copy-link(
+              id="cardURL_copy"
+              class="fa-link"
+              title="{{_ 'copy-card-link-to-clipboard'}}"
+              href="{{ originRelativeUrl }}"
+            )
+            span.copied-tooltip {{_ 'copied'}}
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
@@ -66,8 +79,10 @@ template(name="cardDetails")
                 a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
                   i.fa.fa-plus
 
-        if currentBoard.allowsReceivedDate
+        if currentBoard.hasAnyAllowsDate
           hr
+
+        if currentBoard.allowsReceivedDate
           .card-details-item.card-details-item-received
             h3.card-details-item-title
               i.fa.fa-sign-out
@@ -119,7 +134,9 @@ template(name="cardDetails")
                   a.card-label.add-label.js-end-date
                     i.fa.fa-plus
 
-        hr
+        if currentBoard.hasAnyAllowsUser
+          hr
+
         if currentBoard.allowsCreator
           .card-details-item.card-details-item-creator
             h3.card-details-item-title
@@ -159,17 +176,6 @@ template(name="cardDetails")
               unless assigneeSelected
                 a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
                   i.fa.fa-plus
-
-        //.card-details-items
-        if getSpentTime
-          .card-details-item.card-details-item-spent
-            if getIsOvertime
-              h3.card-details-item-title
-                | {{_ 'overtime-hours'}}
-            else
-              h3.card-details-item-title
-                | {{_ 'spent-time-hours'}}
-            +cardSpentTime
 
         //.card-details-items
         if currentBoard.allowsRequestedBy
@@ -212,6 +218,9 @@ template(name="cardDetails")
               +viewer
                 = getAssignedBy
 
+        if $or currentBoard.allowsCardSortingByNumber getSpentTime
+          hr
+
         if currentBoard.allowsCardSortingByNumber
           .card-details-item.card-details-sort-order
             h3.card-details-item-title
@@ -226,14 +235,35 @@ template(name="cardDetails")
                     = sort
 
         //.card-details-items
+        if getSpentTime
+          .card-details-item.card-details-item-spent
+            if getIsOvertime
+              h3.card-details-item-title
+                | {{_ 'overtime-hours'}}
+            else
+              h3.card-details-item-title
+                | {{_ 'spent-time-hours'}}
+            +cardSpentTime
+
+        //.card-details-items
         if customFieldsWD
-          hr
+          unless customFieldsGrid
+            hr
           each customFieldsWD
+            if customFieldsGrid
+              hr
             .card-details-item.card-details-item-customfield
               h3.card-details-item-title
                 i.fa.fa-list-alt
                 = definition.name
               +cardCustomField
+          .material-toggle-switch(title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}")
+            if customFieldsGrid
+              input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton" checked="checked")
+            else
+              input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton")
+            label.toggle-label(for="toggleCustomFieldsGridButton")
+          a.fa.fa-plus.js-custom-fields.card-details-item.custom-fields(title="{{_ 'custom-fields'}}")
 
       if getVoteQuestion
         hr
@@ -519,6 +549,7 @@ template(name="cardDetails")
     .card-details-right
 
       unless currentUser.isNoComments
+        hr
         .activity-title
           h3.card-details-item-title
             i.fa.fa-history
@@ -708,8 +739,9 @@ template(name="boardsAndLists")
     button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="cardMembersPopup")
+  input.card-members-filter(type="text" placeholder="{{_ 'search'}}")
   ul.pop-over-list.js-card-member-list
-    each board.activeMembers
+    each members
       li.item(class="{{#if isCardMember}}active{{/if}}")
         a.name.js-select-member(href="#")
           +userAvatar(userId=user._id)
@@ -720,9 +752,10 @@ template(name="cardMembersPopup")
             i.fa.fa-check
 
 template(name="cardAssigneesPopup")
+  input.card-assignees-filter(type="text" placeholder="{{_ 'search'}}")
   unless currentUser.isWorker
     ul.pop-over-list.js-card-assignee-list
-      each board.activeMembers
+      each members
         li.item(class="{{#if isCardAssignee}}active{{/if}}")
           a.name.js-select-assignee(href="#")
             +userAvatar(userId=user._id)
@@ -767,6 +800,7 @@ template(name="cardMorePopup")
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" id="cardURL" readonly value="{{ originRelativeUrl }}" autofocus="autofocus")
       button.js-copy-card-link-to-clipboard(class="btn" id="clipboard") {{_ 'copy-card-link-to-clipboard'}}
+      .copied-tooltip {{_ 'copied'}}
     span.clearfix
     br
     h2 {{_ 'change-card-parent'}}
@@ -814,6 +848,12 @@ template(name="cardDeletePopup")
   unless archived
     p {{_ "card-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="cardArchivePopup")
+  p {{_ "card-archive-pop"}}
+  unless archived
+    p {{_ "card-archive-suggest-cancel"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
 
 template(name="deleteVotePopup")
   p {{_ "vote-delete-pop"}}

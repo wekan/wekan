@@ -13,6 +13,13 @@ BlazeComponent.extendComponent({
     return [];
   },
 
+  customFieldsSum() {
+    return CustomFields.find({
+      boardIds: { $in: [Session.get('currentBoard')] },
+      showSumAtTopOfList: true,
+    });
+  },
+
   openForm(options) {
     options = options || {};
     options.position = options.position || 'top';
@@ -141,6 +148,10 @@ BlazeComponent.extendComponent({
       // If the card is already selected, we want to de-select it.
       // XXX We should probably modify the minicard href attribute instead of
       // overwriting the event in case the card is already selected.
+    } else if (Utils.isMiniScreen()) {
+      evt.preventDefault();
+      Session.set('popupCardId', this.currentData()._id);
+      this.cardDetailsPopup(evt);
     } else if (Session.equals('currentCard', this.currentData()._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
@@ -207,6 +218,12 @@ BlazeComponent.extendComponent({
       list.getWipLimit('enabled') &&
       list.getWipLimit('value') <= list.cards().count()
     );
+  },
+
+  cardDetailsPopup(event) {
+    if (!Popup.isOpen()) {
+      Popup.open("cardDetails")(event);
+    }
   },
 
   events() {
@@ -479,7 +496,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           const linkedId = $('.js-select-cards option:selected').val();
           if (!linkedId) {
-            Popup.close();
+            Popup.back();
             return;
           }
           const _id = Cards.insert({
@@ -494,7 +511,7 @@ BlazeComponent.extendComponent({
             linkedId,
           });
           Filter.addException(_id);
-          Popup.close();
+          Popup.back();
         },
         'click .js-link-board'(evt) {
           //LINK BOARD
@@ -505,7 +522,7 @@ BlazeComponent.extendComponent({
             !impBoardId ||
             Cards.findOne({ linkedId: impBoardId, archived: false })
           ) {
-            Popup.close();
+            Popup.back();
             return;
           }
           const _id = Cards.insert({
@@ -520,7 +537,7 @@ BlazeComponent.extendComponent({
             linkedId: impBoardId,
           });
           Filter.addException(_id);
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -567,7 +584,7 @@ BlazeComponent.extendComponent({
       });
     }
     if (!board) {
-      Popup.close();
+      Popup.back();
       return;
     }
     const boardId = board._id;
@@ -694,7 +711,7 @@ BlazeComponent.extendComponent({
               },
             );
           }
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -782,17 +799,12 @@ BlazeComponent.extendComponent({
       return false;
     }
 
+    const spinnerViewPosition = this.spinner.offsetTop - this.container.offsetTop + this.spinner.clientHeight;
+
     const parentViewHeight = this.container.clientHeight;
     const bottomViewPosition = this.container.scrollTop + parentViewHeight;
 
-    let spinnerOffsetTop = this.spinner.offsetTop;
-
-    const addCard = $(this.container).find("a.open-minicard-composer").first()[0];
-    if (addCard !== undefined) {
-      spinnerOffsetTop -= addCard.clientHeight;
-    }
-
-    return bottomViewPosition > spinnerOffsetTop;
+    return bottomViewPosition > spinnerViewPosition;
   }
 
   getSkSpinnerName() {

@@ -1,3 +1,5 @@
+require('/client/lib/jquery-ui.js')
+
 const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
@@ -93,7 +95,7 @@ BlazeComponent.extendComponent({
         $cards.sortable('cancel');
 
         if (MultiSelection.isActive()) {
-          Cards.find(MultiSelection.getMongoSelector()).forEach((card, i) => {
+          Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach((card, i) => {
             const newSwimlaneId = targetSwimlaneId
               ? targetSwimlaneId
               : card.swimlaneId || defaultSwimlaneId;
@@ -114,25 +116,51 @@ BlazeComponent.extendComponent({
         }
         boardComponent.setIsDragging(false);
       },
+      sort(event, ui) {
+        const $boardCanvas = $('.board-canvas');
+        const  boardCanvas = $boardCanvas[0];
+
+        if (event.pageX < 10)
+        { // scroll to the left
+          boardCanvas.scrollLeft -= 15;
+          ui.helper[0].offsetLeft -= 15;
+        }
+        if (
+          event.pageX > boardCanvas.offsetWidth - 10 &&
+          boardCanvas.scrollLeft < $boardCanvas.data('scrollLeftMax') // don't scroll more than possible
+        )
+        { // scroll to the right
+          boardCanvas.scrollLeft += 15;
+        }
+        if (
+          event.pageY > boardCanvas.offsetHeight - 10 &&
+          event.pageY + boardCanvas.scrollTop < $boardCanvas.data('scrollTopMax') // don't scroll more than possible
+        )
+        { // scroll to the bottom
+          boardCanvas.scrollTop += 15;
+        }
+        if (event.pageY < 10)
+        { // scroll to the top
+          boardCanvas.scrollTop -= 15;
+        }
+      },
+      activate(event, ui) {
+        const $boardCanvas = $('.board-canvas');
+        const  boardCanvas = $boardCanvas[0];
+        // scrollTopMax and scrollLeftMax only available at Firefox (https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTopMax)
+        // https://www.it-swarm.com.de/de/javascript/so-erhalten-sie-den-maximalen-dokument-scrolltop-wert/1069126844/
+        $boardCanvas.data('scrollTopMax', boardCanvas.scrollHeight - boardCanvas.clientTop);
+        // https://stackoverflow.com/questions/5138373/how-do-i-get-the-max-value-of-scrollleft/5704386#5704386
+        $boardCanvas.data('scrollLeftMax', boardCanvas.scrollWidth - boardCanvas.clientWidth);
+      },
     });
 
     this.autorun(() => {
-      let showDesktopDragHandles = false;
-      currentUser = Meteor.user();
-      if (currentUser) {
-        showDesktopDragHandles = (currentUser.profile || {})
-          .showDesktopDragHandles;
-      } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-        showDesktopDragHandles = true;
-      } else {
-        showDesktopDragHandles = false;
-      }
-
-      if (Utils.isMiniScreen() || showDesktopDragHandles) {
+      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
         $cards.sortable({
           handle: '.handle',
         });
-      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
+      } else {
         $cards.sortable({
           handle: '.minicard',
         });
@@ -177,19 +205,6 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('list');
-
-Template.list.helpers({
-  showDesktopDragHandles() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
-});
 
 Template.miniList.events({
   'click .js-select-list'() {

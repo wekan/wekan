@@ -14,8 +14,7 @@ $popupWidth = 300px
   margin-top: 5px
 
   hr
-    margin: 4px -10px
-    width: $popupWidth
+    margin: 4px 0px
 
   p,
   textarea,
@@ -23,7 +22,6 @@ $popupWidth = 300px
   input[type="email"],
   input[type="password"],
   input[type="file"]
-    margin: 4px 0 12px
     width: 100%
 
   select
@@ -313,22 +311,13 @@ $popupWidth = 300px
         input[type="email"],
         input[type="password"],
         input[type="file"]
-          margin: 4px 0 12px
           width: 100%
           box-sizing: border-box
 
     .pop-over-list
       li > a
         width: calc(100% - 20px)
-        padding: 10px 10px
         margin: 0px 0px
-        border-bottom: 1px solid #eee
-
-    hr
-      width: 100%
-      height: 20px
-      margin: 0px 0px
-      color: #eee
 
     for depth in (1..6)
       .popup-container-depth-{depth}

@@ -21,7 +21,7 @@ template(name='statistics')
     table
       tbody
         tr
-          th Wekan {{_ 'info'}}
+          th WeKan ® {{_ 'info'}}
           td {{statistics.version}}
         tr
           th {{_ 'Meteor_version'}}
@@ -65,3 +65,49 @@ template(name='statistics')
         tr
           th {{_ 'OS_Cpus'}}
           td {{statistics.os.cpus.length}}
+        unless isSandstorm
+          tr
+            th {{_ 'Node_heap_total_heap_size'}}
+            td {{bytesToSize statistics.nodeHeapStats.totalHeapSize}}
+          tr
+            th {{_ 'Node_heap_total_heap_size_executable'}}
+            td {{bytesToSize statistics.nodeHeapStats.totalHeapSizeExecutable}}
+          tr
+            th {{_ 'Node_heap_total_physical_size'}}
+            td {{bytesToSize statistics.nodeHeapStats.totalPhysicalSize}}
+          tr
+            th {{_ 'Node_heap_total_available_size'}}
+            td {{bytesToSize statistics.nodeHeapStats.totalAvailableSize}}
+          tr
+            th {{_ 'Node_heap_used_heap_size'}}
+            td {{bytesToSize statistics.nodeHeapStats.usedHeapSize}}
+          tr
+            th {{_ 'Node_heap_heap_size_limit'}}
+            td {{bytesToSize statistics.nodeHeapStats.heapSizeLimit}}
+          tr
+            th {{_ 'Node_heap_malloced_memory'}}
+            td {{bytesToSize statistics.nodeHeapStats.mallocedMemory}}
+          tr
+            th {{_ 'Node_heap_peak_malloced_memory'}}
+            td {{bytesToSize statistics.nodeHeapStats.peakMallocedMemory}}
+          tr
+            th {{_ 'Node_heap_does_zap_garbage'}}
+            td {{statistics.nodeHeapStats.doesZapGarbage}}
+          tr
+            th {{_ 'Node_heap_number_of_native_contexts'}}
+            td {{statistics.nodeHeapStats.numberOfNativeContexts}}
+          tr
+            th {{_ 'Node_heap_number_of_detached_contexts'}}
+            td {{statistics.nodeHeapStats.numberOfDetachedContexts}}
+          tr
+            th {{_ 'Node_memory_usage_rss'}}
+            td {{bytesToSize statistics.nodeMemoryUsage.rss}}
+          tr
+            th {{_ 'Node_memory_usage_heap_total'}}
+            td {{bytesToSize statistics.nodeMemoryUsage.heapTotal}}
+          tr
+            th {{_ 'Node_memory_usage_heap_used'}}
+            td {{bytesToSize statistics.nodeMemoryUsage.heapUsed}}
+          tr
+            th {{_ 'Node_memory_usage_external'}}
+            td {{bytesToSize statistics.nodeMemoryUsage.external}}

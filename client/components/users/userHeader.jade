@@ -49,10 +49,16 @@ template(name="memberMenuPopup")
             i.fa.fa-lock
             | {{_ 'admin-panel'}}
       hr
-      li
-        a.js-edit-profile
-          i.fa.fa-user
-          | {{_ 'edit-profile'}}
+      if isSameDomainNameSettingValue
+        li
+          a.js-invite-people
+            i.fa.fa-envelope
+            | {{_ 'invite-people'}}
+      if isNotOAuth2AuthenticationMethod
+        li
+          a.js-edit-profile
+            i.fa.fa-user
+            | {{_ 'edit-profile'}}
       li
         a.js-change-settings
           i.fa.fa-cog
@@ -62,10 +68,11 @@ template(name="memberMenuPopup")
           i.fa.fa-picture-o
           | {{_ 'edit-avatar'}}
       unless isSandstorm
-        li
-          a.js-change-password
-            i.fa.fa-key
-            | {{_ 'changePasswordPopup-title'}}
+        if isNotOAuth2AuthenticationMethod
+          li
+            a.js-change-password
+              i.fa.fa-key
+              | {{_ 'changePasswordPopup-title'}}
       li
         a.js-change-language
           i.fa.fa-flag
@@ -77,6 +84,30 @@ template(name="memberMenuPopup")
         a.js-logout
           i.fa.fa-sign-out
           | {{_ 'log-out'}}
+
+template(name="invitePeoplePopup")
+  ul#registration-setting.setting-detail
+    li
+      #invite-people-infos
+    li
+      br
+    li
+      .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
+        ul
+          li
+            .title {{_ 'invite-people'}}
+            textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
+          li
+            .title {{_ 'to-boards'}}
+            .bg-white
+              each boards
+                a.option.flex.js-toggle-board-choose(id= _id)
+                  .materialCheckBox(data-id= _id)
+
+                  span= title
+
+          li
+            button.js-email-invite.primary {{_ 'invite'}}
 
 template(name="editProfilePopup")
   form
@@ -132,7 +163,7 @@ template(name="changeSettingsPopup")
       a.js-toggle-desktop-drag-handles
         i.fa.fa-arrows
         | {{_ 'show-desktop-drag-handles'}}
-        if showDesktopDragHandles
+        if isShowDesktopDragHandles
           i.fa.fa-check
     unless currentUser.isWorker
       li

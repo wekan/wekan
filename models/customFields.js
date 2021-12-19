@@ -101,6 +101,13 @@ CustomFields.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    showSumAtTopOfList: {
+      /**
+       * should the sum of the custom fields be shown at top of list?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     createdAt: {
       type: Date,
       optional: true,
@@ -294,8 +301,8 @@ if (Meteor.isServer) {
     req,
     res,
   ) {
+    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: CustomFields.find({ boardIds: { $in: [paramBoardId] } }).map(
@@ -323,8 +330,8 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/custom-fields/:customFieldId',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramCustomFieldId = req.params.customFieldId;
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -347,14 +354,15 @@ if (Meteor.isServer) {
    * @param {boolean} showOnCard should we show the custom field on cards?
    * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards?
    * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards?
+   * @param {boolean} showSumAtTopOfList should the sum of the custom fields be shown at top of list?
    * @return_type {_id: string}
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function(
     req,
     res,
   ) {
+    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
     const board = Boards.findOne({ _id: paramBoardId });
     const id = CustomFields.direct.insert({
       name: req.body.name,
@@ -363,6 +371,7 @@ if (Meteor.isServer) {
       showOnCard: req.body.showOnCard,
       automaticallyOnCard: req.body.automaticallyOnCard,
       showLabelOnMiniCard: req.body.showLabelOnMiniCard,
+      showSumAtTopOfList: req.body.showSumAtTopOfList,
       boardIds: [board._id],
     });
 
@@ -390,15 +399,15 @@ if (Meteor.isServer) {
    * @param {boolean} showOnCard should we show the custom field on cards
    * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards
    * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards
+   * @param {boolean} showSumAtTopOfList should the sum of the custom fields be shown at top of list
    * @return_type {_id: string}
    */
   JsonRoutes.add(
     'PUT',
     '/api/boards/:boardId/custom-fields/:customFieldId',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       const paramFieldId = req.params.customFieldId;
 
       if (req.body.hasOwnProperty('name')) {
@@ -444,6 +453,14 @@ if (Meteor.isServer) {
         );
       }
 
+      if (req.body.hasOwnProperty('showSumAtTopOfList')) {
+        CustomFields.direct.update(
+          { _id: paramFieldId },
+          { $set: { showSumAtTopOfList: req.body.showSumAtTopOfList } },
+        );
+      }
+
+
       JsonRoutes.sendResult(res, {
         code: 200,
         data: { _id: paramFieldId },
@@ -462,9 +479,8 @@ if (Meteor.isServer) {
     'POST',
     '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       const paramCustomFieldId = req.params.customFieldId;
       const paramItems = req.body.items;
 
@@ -506,9 +522,8 @@ if (Meteor.isServer) {
     'PUT',
     '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items/:dropdownItemId',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       const paramDropdownItemId = req.params.dropdownItemId;
       const paramCustomFieldId = req.params.customFieldId;
       const paramName = req.body.name;
@@ -548,9 +563,8 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items/:dropdownItemId',
     (req, res) => {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-
       paramCustomFieldId = req.params.customFieldId;
       paramDropdownItemId = req.params.dropdownItemId;
 
@@ -584,8 +598,8 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/custom-fields/:customFieldId',
     function(req, res) {
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const id = req.params.customFieldId;
       CustomFields.remove({ _id: id, boardIds: { $in: [paramBoardId] } });
       JsonRoutes.sendResult(res, {

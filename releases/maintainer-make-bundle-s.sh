@@ -10,16 +10,16 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-cd /home/linux1
+sudo npm -g install node-gyp
 rm -rf bundle
+#rm wekan-$1.zip
+#wget https://releases.wekan.team/wekan-$1.zip
 unzip wekan-$1.zip
-cd /home/linux1/bundle/programs/server
+cd bundle/programs/server
 chmod u+w *.json
-cd /home/linux1/bundle/programs/server/node_modules/fibers
+cd node_modules/fibers
 node build.js
-cd /home/linux1
-#cp -pR /home/linux1/node-fibers/bin/linux-s390x-83-glibc bundle/programs/server/node_modules/fibers/bin/
-cd bundle
+cd ../../../..
 find . -type d -name '*-garbage*' | xargs rm -rf
 find . -name '*phantom*' | xargs rm -rf
 find . -name '.*.swp' | xargs rm -f

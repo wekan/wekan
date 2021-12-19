@@ -53,7 +53,22 @@ const escapeForRegex = require('escape-string-regexp');
 
 Meteor.publish('card', cardId => {
   check(cardId, String);
-  return Cards.find({ _id: cardId });
+  const ret = Cards.find({ _id: cardId });
+  return ret;
+});
+
+/** publish all data which is necessary to display card details as popup
+ * @returns array of cursors
+ */
+Meteor.publishRelations('popupCardData', function(cardId) {
+  check(cardId, String);
+  this.cursor(
+    Cards.find({_id: cardId}),
+    function(cardId, card) {
+      this.cursor(Boards.find({_id: card.boardId}));
+    },
+  );
+  return this.ready()
 });
 
 Meteor.publish('myCards', function(sessionId) {
@@ -113,7 +128,7 @@ function buildSelector(queryParams) {
   let selector = {};
 
   // eslint-disable-next-line no-console
-  console.log('queryParams:', queryParams);
+  // console.log('queryParams:', queryParams);
 
   if (queryParams.selector) {
     selector = queryParams.selector;
@@ -405,7 +420,7 @@ function buildSelector(queryParams) {
 
       const items = ChecklistItems.find(
         { title: regex },
-        { fields: { cardId: 1 } },
+        { fields: { cardId: 1, checklistId: 1 } },
       );
       const checklists = Checklists.find(
         {
@@ -424,23 +439,18 @@ function buildSelector(queryParams) {
         { fields: { cardId: 1 } },
       );
 
-      selector.$and.push({
-        $or: [
+      let cardsSelector = [
           { title: regex },
           { description: regex },
           { customFields: { $elemMatch: { value: regex } } },
-          // {
-          //   _id: {
-          //     $in: CardComments.textSearch(userId, [queryParams.text]).map(
-          //       com => com.cardId,
-          //     ),
-          //   },
-          // },
           { _id: { $in: checklists.map(list => list.cardId) } },
           { _id: { $in: attachments.map(attach => attach.cardId) } },
           { _id: { $in: comments.map(com => com.cardId) } },
-        ],
-      });
+        ];
+      if (queryParams.text == "false" || queryParams.text == "true") {
+        cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text == "true" ? true : false } } } );
+      }
+      selector.$and.push({ $or: cardsSelector });
     }
 
     if (selector.$and.length === 0) {
@@ -449,9 +459,7 @@ function buildSelector(queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  console.log('selector:', selector);
-  // eslint-disable-next-line no-console
-  console.log('selector.$and:', selector.$and);
+  //console.log('cards selector:', JSON.stringify(selector, null, 2));
 
   const query = new Query();
   query.selector = selector;
@@ -497,6 +505,7 @@ function buildProjection(query) {
       labelIds: 1,
       customFields: 1,
       userId: 1,
+      description: 1,
     },
     sort: {
       boardId: 1,
@@ -612,7 +621,7 @@ function findCards(sessionId, query) {
   // console.log('selector:', query.selector);
   // console.log('selector.$and:', query.selector.$and);
   // eslint-disable-next-line no-console
-  // console.log('projection:', projection);
+  // console.log('projection:', query.projection);
 
   const cards = Cards.find(query.selector, query.projection);
   // eslint-disable-next-line no-console
@@ -715,6 +724,7 @@ function findCards(sessionId, query) {
       CustomFields.find({ _id: { $in: customFieldIds } }),
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
+      ChecklistItems.find({ cardId: { $in: cards.map(c => c._id) } }),
       Attachments.find({ cardId: { $in: cards.map(c => c._id) } }),
       CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
       SessionData.find({ userId, sessionId }),

@@ -1,3 +1,5 @@
+//var nodemailer = require('nodemailer');
+
 RulesHelper = {
   executeRules(activity) {
     const matchingRules = this.findMatchingRules(activity);
@@ -45,8 +47,12 @@ RulesHelper = {
           value = oldSwimlane.title;
         }
       }
+      let matchesList = [value, '*'];
+      if ((field === 'cardTitle') && (value !== undefined)) {
+        matchesList = value.split(/\W/).concat(matchesList);
+      }
       matchingMap[field] = {
-        $in: [value, '*'],
+        $in: matchesList,
       };
     });
     return matchingMap;
@@ -119,6 +125,30 @@ RulesHelper = {
       const text = action.emailMsg || '';
       const subject = action.emailSubject || '';
       try {
+/*
+        if (process.env.MAIL_SERVICE !== '') {
+          let transporter = nodemailer.createTransport({
+            service: process.env.MAIL_SERVICE,
+            auth: {
+              user: process.env.MAIL_SERVICE_USER,
+              pass: process.env.MAIL_SERVICE_PASSWORD
+            },
+          })
+          let info = transporter.sendMail({
+            to,
+            from: Accounts.emailTemplates.from,
+            subject,
+            text,
+          })
+        } else {
+          Email.send({
+            to,
+            from: Accounts.emailTemplates.from,
+            subject,
+            text,
+          });
+        }
+*/
         Email.send({
           to,
           from: Accounts.emailTemplates.from,

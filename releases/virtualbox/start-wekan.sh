@@ -16,6 +16,10 @@
       # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
       # https://github.com/wekan/wekan-mongodb/blob/master/docker-compose.yml
       export MAIL_URL='smtp://user:pass@mailserver.example.com:25/'
+      export MAIL_FROM='Wekan Boards <info@example.com>'
+      #export MAIL_SERVICE=Outlook365
+      #export MAIL_SERVICE_USER=firstname.lastname@hotmail.com
+      #export MAIL_SERVICE_PASSWORD=SecretPassword
       #---------------------------------------------
       #export KADIRA_OPTIONS_ENDPOINT=http://127.0.0.1:11011
       #---------------------------------------------
@@ -38,6 +42,11 @@
       #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
       #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
       #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+      #---------------------------------------------------------------
+      # ==== ACCOUNT OPTIONS ====
+      # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
+      # Defaults below. Uncomment to change. wekan/server/accounts-common.js
+      # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560

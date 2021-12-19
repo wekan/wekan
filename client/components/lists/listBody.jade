@@ -4,6 +4,17 @@ template(name="listBody")
       if cards.count
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
+      ul.sidebar-list
+        each customFieldsSum
+          li
+            +viewer
+              = name
+            if $eq customFieldsSum.type "number"
+              +viewer
+                = value
+            if $eq customFieldsSum.type "currency"
+              +viewer
+                = formattedCurrencyCustomFieldValue(value)
       each (cardsWithLimit (idOrNull ../../_id))
         a.minicard-wrapper.js-minicard(href=originRelativeUrl
           class="{{#if cardIsSelected}}is-selected{{/if}}"
@@ -42,6 +53,7 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
+    a.fa.fa-times-thin.js-close-inlined-form
     unless currentBoard.isTemplatesBoard
       unless currentBoard.isTemplateBoard
         span.quiet

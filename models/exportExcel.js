@@ -49,8 +49,13 @@ runOnServer(function() {
         isAdmin: true,
       });
     }
-
-    const exporterExcel = new ExporterExcel(boardId);
+    
+    let userLanguage = 'en';
+    if(user && user.profile){
+      userLanguage = user.profile.language
+    }
+    
+    const exporterExcel = new ExporterExcel(boardId, userLanguage);
     if (exporterExcel.canExport(user) || impersonateDone) {
       if (impersonateDone) {
         ImpersonatedUsers.insert({

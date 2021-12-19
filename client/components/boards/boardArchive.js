@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
           Utils.goBoardId(board._id);
         },
         'click .js-delete-board': Popup.afterConfirm('boardDelete', function() {
-          Popup.close();
+          Popup.back();
           const isSandstorm =
             Meteor.settings &&
             Meteor.settings.public &&

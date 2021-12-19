@@ -3,10 +3,14 @@ template(name="searchSidebar")
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
   .list-body
     .minilists.clearfix.js-minilists
+      hr
+      | {{_ 'lists' }}
       each (lists)
         a.minilist-wrapper.js-minilist(href=originRelativeUrl)
           +minilist(this)
     .minicards.clearfix.js-minicards
-      each (results)
+      hr
+      | {{_ 'cards' }}
+      each (cards)
         a.minicard-wrapper.js-minicard(href=originRelativeUrl)
           +minicard(this)

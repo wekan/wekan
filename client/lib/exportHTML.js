@@ -187,7 +187,7 @@ window.ExportHtml = Popup => {
     const boardSlug = getBoardSlug();
 
     await addJsonExportToZip(zip, boardSlug);
-    Popup.close();
+    Popup.back();
     closeSidebar();
     cleanBoardHtml();
 

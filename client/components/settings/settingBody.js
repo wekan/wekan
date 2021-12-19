@@ -7,6 +7,7 @@ BlazeComponent.extendComponent({
     this.generalSetting = new ReactiveVar(true);
     this.emailSetting = new ReactiveVar(false);
     this.accountSetting = new ReactiveVar(false);
+    this.tableVisibilityModeSetting = new ReactiveVar(false);
     this.announcementSetting = new ReactiveVar(false);
     this.layoutSetting = new ReactiveVar(false);
     this.webhookSetting = new ReactiveVar(false);
@@ -14,6 +15,7 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('setting');
     Meteor.subscribe('mailServer');
     Meteor.subscribe('accountSettings');
+    Meteor.subscribe('tableVisibilityModeSettings');
     Meteor.subscribe('announcements');
     Meteor.subscribe('globalwebhooks');
   },
@@ -88,6 +90,7 @@ BlazeComponent.extendComponent({
       this.announcementSetting.set('announcement-setting' === targetID);
       this.layoutSetting.set('layout-setting' === targetID);
       this.webhookSetting.set('webhook-setting' === targetID);
+      this.tableVisibilityModeSetting.set('tableVisibilityMode-setting' === targetID);
     }
   },
 
@@ -196,6 +199,22 @@ BlazeComponent.extendComponent({
     )
       .val()
       .trim();
+
+    const oidcBtnText = $(
+      '#oidcBtnTextvalue',
+    )
+      .val()
+      .trim();
+    const mailDomainName = $(
+      '#mailDomainNamevalue',
+    )
+      .val()
+      .trim();
+    const legalNotice = $(
+      '#legalNoticevalue',
+    )
+      .val()
+      .trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
@@ -218,6 +237,9 @@ BlazeComponent.extendComponent({
           defaultAuthenticationMethod,
           automaticLinkedUrlSchemes,
           spinnerName,
+          oidcBtnText,
+          mailDomainName,
+          legalNotice,
         },
       });
     } catch (e) {
@@ -316,6 +338,46 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('accountSettings');
+
+BlazeComponent.extendComponent({
+  saveTableVisibilityChange() {
+    const allowPrivateOnly =
+      $('input[name=allowPrivateOnly]:checked').val() === 'true';
+    TableVisibilityModeSettings.update('tableVisibilityMode-allowPrivateOnly', {
+      $set: { booleanValue: allowPrivateOnly },
+    });
+  },
+  allowPrivateOnly() {
+    return TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
+  },
+  allHideSystemMessages() {
+    Meteor.call('setAllUsersHideSystemMessages', (err, ret) => {
+      if (!err && ret) {
+        if (ret === true) {
+          const message = `${TAPi18n.__(
+            'now-system-messages-of-all-users-are-hidden',
+          )}`;
+          alert(message);
+        }
+      } else {
+        const reason = err.reason || '';
+        const message = `${TAPi18n.__(err.error)}\n${reason}`;
+        alert(message);
+      }
+    });
+  },
+
+  events() {
+    return [
+      {
+        'click button.js-tableVisibilityMode-save': this.saveTableVisibilityChange,
+      },
+      {
+        'click button.js-all-hide-system-messages': this.allHideSystemMessages,
+      },
+    ];
+  },
+}).register('tableVisibilityModeSettings');
 
 BlazeComponent.extendComponent({
   onCreated() {

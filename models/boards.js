@@ -500,6 +500,13 @@ Boards.attachSchema(
       optional: true,
       defaultValue: 'no-parent',
     },
+    receivedAt: {
+      /**
+       * Date the card was received
+       */
+      type: Date,
+      optional: true,
+    },
     startAt: {
       /**
        * Starting date of the board.
@@ -686,8 +693,17 @@ Boards.helpers({
       { sort: sortKey },
     );
   },
+
   draggableLists() {
     return Lists.find({ boardId: this._id }, { sort: { sort: 1 } });
+  },
+
+  /** returns the last list
+   * @returns Document the last list
+   */
+  getLastList() {
+    const ret = Lists.findOne({ boardId: this._id }, { sort: { sort: 'desc' } });
+    return ret;
   },
 
   nullSortLists() {
@@ -749,10 +765,32 @@ Boards.helpers({
     return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
   },
 
-  activeMembers() {
+  activeMembers(){
     return _.where(this.members, { isActive: true });
   },
 
+  activeMembers2(members, boardTeamUsers) {
+    let allMembers = members;
+    if(this.teams !== undefined && this.teams.length > 0){
+      let index;
+      if(boardTeamUsers && boardTeamUsers.count() > 0){
+        boardTeamUsers.forEach((u) => {
+          index = allMembers.findIndex(function(m){ return m.userId == u._id});
+          if(index == -1){
+            allMembers.push({
+              "isActive": true,
+              "isAdmin": u.isAdmin !== undefined ? u.isAdmin : false,
+              "isCommentOnly" : false,
+              "isNoComments" : false,
+              "userId": u._id,
+            });
+          }
+        });
+      }
+    }
+
+    return allMembers;
+  },
 
   activeOrgs() {
     return _.where(this.orgs, { isActive: true });
@@ -836,6 +874,16 @@ Boards.helpers({
     });
   },
 
+  hasAnyAllowsDate() {
+    const ret = this.allowsReceivedDate || this.allowsStartDate || this.allowsDueDate || this.allowsEndDate;
+    return ret;
+  },
+
+  hasAnyAllowsUser() {
+    const ret = this.allowsCreator || this.allowsMembers || this.allowsAssignee || this.allowsRequestedBy || this.allowsAssignedBy;
+    return ret;
+  },
+
   absoluteUrl() {
     return FlowRouter.url('board', { id: this._id, slug: this.slug });
   },
@@ -860,6 +908,20 @@ Boards.helpers({
     const _id = Random.id(6);
     Boards.direct.update(this._id, { $push: { labels: { _id, name, color } } });
     return _id;
+  },
+
+  /** sets the new label order
+   * @param newLabelOrderOnlyIds new order array of _id, e.g. Array(4) [ "FvtD34", "PAEgDP", "LjRBxH", "YJ8sZz" ]
+   */
+  setNewLabelOrder(newLabelOrderOnlyIds) {
+    if (this.labels.length == newLabelOrderOnlyIds.length) {
+      if (this.labels.every(_label => newLabelOrderOnlyIds.indexOf(_label._id) >= 0)) {
+        const newLabels = _.sortBy(this.labels, _label => newLabelOrderOnlyIds.indexOf(_label._id));
+        if (this.labels.length == newLabels.length) {
+          Boards.direct.update(this._id, {$set: {labels: newLabels}});
+        }
+      }
+    }
   },
 
   searchBoards(term) {
@@ -902,42 +964,51 @@ Boards.helpers({
   },
 
   searchLists(term) {
-    check(term, Match.OneOf(String, null, undefined));
-
-    const query = { boardId: this._id };
-    if (this.isTemplatesBoard()) {
-      query.type = 'template-list';
-      query.archived = false;
-    } else {
-      query.type = { $nin: ['template-list'] };
-    }
-    const projection = { limit: 10, sort: { createdAt: -1 } };
-
+    let ret = null;
     if (term) {
-      const regex = new RegExp(term, 'i');
-
-      query.$or = [{ title: regex }, { description: regex }];
+      check(term, Match.OneOf(String));
+      term = term.trim();
     }
+    if (term) {
+      const query = { boardId: this._id };
+      if (this.isTemplatesBoard()) {
+        query.type = 'template-list';
+        query.archived = false;
+      } else {
+        query.type = { $nin: ['template-list'] };
+      }
+      const projection = { sort: { createdAt: -1 } };
 
-    return Lists.find(query, projection);
+      if (term) {
+        const regex = new RegExp(term, 'i');
+
+        query.$or = [{ title: regex }, { description: regex }];
+      }
+
+      ret = Lists.find(query, projection);
+    }
+    return ret;
   },
 
   searchCards(term, excludeLinked) {
-    check(term, Match.OneOf(String, null, undefined));
-
-    const query = { boardId: this._id };
-    if (excludeLinked) {
-      query.linkedId = null;
-    }
-    if (this.isTemplatesBoard()) {
-      query.type = 'template-card';
-      query.archived = false;
-    } else {
-      query.type = { $nin: ['template-card'] };
-    }
-    const projection = { limit: 10, sort: { createdAt: -1 } };
-
+    let ret = null;
     if (term) {
+      check(term, Match.OneOf(String));
+      term = term.trim();
+    }
+    if (term) {
+      const query = { boardId: this._id };
+      if (excludeLinked) {
+        query.linkedId = null;
+      }
+      if (this.isTemplatesBoard()) {
+        query.type = 'template-card';
+        query.archived = false;
+      } else {
+        query.type = { $nin: ['template-card'] };
+      }
+      const projection = { sort: { createdAt: -1 } };
+
       const regex = new RegExp(term, 'i');
 
       query.$or = [
@@ -945,9 +1016,9 @@ Boards.helpers({
         { description: regex },
         { customFields: { $elemMatch: { value: regex } } },
       ];
+      ret = Cards.find(query, projection);
     }
-
-    return Cards.find(query, projection);
+    return ret;
   },
   // A board alwasy has another board where it deposits subtasks of thasks
   // that belong to itself.
@@ -1577,11 +1648,13 @@ if (Meteor.isServer) {
         },
       });
     },
-    setBoardTeams(boardTeamsArray, currBoardId){
+    setBoardTeams(boardTeamsArray, membersArray, currBoardId){
       check(boardTeamsArray, Array);
+      check(membersArray, Array);
       check(currBoardId, String);
       Boards.update(currBoardId, {
         $set: {
+          members: membersArray,
           teams: boardTeamsArray,
         },
       });
@@ -1810,8 +1883,7 @@ if (Meteor.isServer) {
                     */
   JsonRoutes.add('GET', '/api/boards', function(req, res) {
     try {
-      const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Boards.find(
@@ -1867,8 +1939,8 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId', function(req, res) {
     try {
+      Authentication.checkUserId(req.userId);
       const id = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, id);
 
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -1985,8 +2057,7 @@ if (Meteor.isServer) {
    * @return_type string
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
-    const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    Authentication.checkUserId(req.userId);
     const id = req.params.boardId;
     try {
       if (req.body.hasOwnProperty('label')) {
@@ -2033,10 +2104,10 @@ if (Meteor.isServer) {
     res,
   ) {
     try {
+      Authentication.checkUserId(req.userId);
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
       const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
-      Authentication.checkBoardAccess(req.userId, boardId);
       const board = Boards.findOne({ _id: boardId });
       function isTrue(data) {
         try {
@@ -2080,8 +2151,8 @@ if (Meteor.isServer) {
    *                swimlaneId: string}]
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
+    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
-    Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Attachments.files

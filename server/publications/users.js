@@ -25,6 +25,7 @@ Meteor.publish('user-admin', function() {
       isAdmin: 1,
       teams: 1,
       orgs: 1,
+      authenticationMethod: 1,
     },
   });
 });

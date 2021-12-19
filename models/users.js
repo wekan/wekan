@@ -1,3 +1,4 @@
+//var nodemailer = require('nodemailer');
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import ImpersonatedUsers from './impersonatedUsers';
 
@@ -179,6 +180,13 @@ Users.attachSchema(
     'profile.cardMaximized': {
       /**
        * has user clicked maximize card?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.customFieldsGrid': {
+      /**
+       * has user at card Custom Fields have Grid (false) or one per row (true) layout?
        */
       type: Boolean,
       optional: true,
@@ -428,9 +436,9 @@ Users.allow({
   fetch: [],
 });
 
-// Search a user in the complete server database by its name or username. This
+// Search a user in the complete server database by its name, username or emails adress. This
 // is used for instance to add a new user to a board.
-const searchInFields = ['username', 'profile.fullname'];
+const searchInFields = ['username', 'profile.fullname', 'emails.address'];
 Users.initEasySearch(searchInFields, {
   use: 'mongo-db',
   returnFields: [...searchInFields, 'profile.avatarUrl'],
@@ -444,51 +452,57 @@ Users.safeFields = {
   'profile.initials': 1,
   orgs: 1,
   teams: 1,
+  authenticationMethod: 1,
 };
 
 if (Meteor.isClient) {
   Users.helpers({
     isBoardMember() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id);
     },
 
     isNotNoComments() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasNoComments(this._id)
       );
     },
 
     isNoComments() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasNoComments(this._id);
     },
 
     isNotCommentOnly() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasCommentOnly(this._id)
       );
     },
 
     isCommentOnly() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasCommentOnly(this._id);
     },
 
     isNotWorker() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id) && !board.hasWorker(this._id);
     },
 
     isWorker() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasWorker(this._id);
     },
 
-    isBoardAdmin(boardId = Session.get('currentBoard')) {
-      const board = Boards.findOne(boardId);
+    isBoardAdmin(boardId) {
+      let board;
+      if (boardId) {
+        board = Boards.findOne(boardId);
+      } else {
+        board = Utils.getCurrentBoard();
+      }
       return board && board.hasAdmin(this._id);
     },
   });
@@ -507,7 +521,7 @@ Users.helpers({
   },
   orgsUserBelongs() {
     if (this.orgs) {
-      return this.orgs.map(function(org){return org.orgDisplayName}).join(',');
+      return this.orgs.map(function(org){return org.orgDisplayName}).sort().join(',');
     }
     return '';
   },
@@ -519,7 +533,7 @@ Users.helpers({
   },
   teamsUserBelongs() {
     if (this.teams) {
-      return this.teams.map(function(team){ return team.teamDisplayName}).join(',');
+      return this.teams.map(function(team){ return team.teamDisplayName}).sort().join(',');
     }
     return '';
   },
@@ -648,6 +662,11 @@ Users.helpers({
   hasHiddenSystemMessages() {
     const profile = this.profile || {};
     return profile.hiddenSystemMessages || false;
+  },
+
+  hasCustomFieldsGrid() {
+    const profile = this.profile || {};
+    return profile.customFieldsGrid || false;
   },
 
   hasCardMaximized() {
@@ -807,6 +826,14 @@ Users.mutations({
     };
   },
 
+  toggleFieldsGrid(value = false) {
+    return {
+      $set: {
+        'profile.customFieldsGrid': !value,
+      },
+    };
+  },
+
   toggleCardMaximized(value = false) {
     return {
       $set: {
@@ -908,6 +935,10 @@ Meteor.methods({
   toggleSystemMessages() {
     const user = Meteor.user();
     user.toggleSystem(user.hasHiddenSystemMessages());
+  },
+  toggleCustomFieldsGrid() {
+    const user = Meteor.user();
+    user.toggleFieldsGrid(user.hasCustomFieldsGrid());
   },
   toggleCardMaximized() {
     const user = Meteor.user();
@@ -1211,13 +1242,40 @@ if (Meteor.isServer) {
       }
 
       try {
+        const fullName = inviter.profile !== undefined && inviter.profile.fullname !== undefined ?  inviter.profile.fullname : "";
+        const userFullName = user.profile !== undefined && user.profile.fullname !== undefined ?  user.profile.fullname : "";
         const params = {
-          user: user.username,
-          inviter: inviter.username,
+          user: userFullName != "" ? userFullName + " (" + user.username + " )" : user.username,
+          inviter: fullName != "" ? fullName + " (" + inviter.username + " )" : inviter.username,
           board: board.title,
           url: board.absoluteUrl(),
         };
         const lang = user.getLanguage();
+
+/*
+        if (process.env.MAIL_SERVICE !== '') {
+          let transporter = nodemailer.createTransport({
+            service: process.env.MAIL_SERVICE,
+            auth: {
+              user: process.env.MAIL_SERVICE_USER,
+              pass: process.env.MAIL_SERVICE_PASSWORD
+            },
+          })
+          let info = transporter.sendMail({
+            to: user.emails[0].address.toLowerCase(),
+            from: Accounts.emailTemplates.from,
+            subject: TAPi18n.__('email-invite-subject', params, lang),
+            text: TAPi18n.__('email-invite-text', params, lang),
+          })
+        } else {
+          Email.send({
+            to: user.emails[0].address.toLowerCase(),
+            from: Accounts.emailTemplates.from,
+            subject: TAPi18n.__('email-invite-subject', params, lang),
+            text: TAPi18n.__('email-invite-text', params, lang),
+          });
+        }
+*/
         Email.send({
           to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
@@ -1255,7 +1313,6 @@ if (Meteor.isServer) {
     const userCount = Users.find().count();
     if (userCount === 0) {
       user.isAdmin = true;
-      return user;
     }
 
     if (user.services.oidc) {
@@ -1626,10 +1683,20 @@ if (Meteor.isServer) {
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
-      const invitationCode = InvitationCodes.findOne({
-        code: doc.profile.icode,
-        valid: true,
-      });
+      let invitationCode = null;
+      if(doc.authenticationMethod.toLowerCase() == 'oauth2')
+      { // OIDC authentication mode
+        invitationCode = InvitationCodes.findOne({
+          email: doc.emails[0].address.toLowerCase(),
+          valid: true,
+        });
+      }
+      else{
+        invitationCode = InvitationCodes.findOne({
+          code: doc.profile.icode,
+          valid: true,
+        });
+      }
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');
       } else {

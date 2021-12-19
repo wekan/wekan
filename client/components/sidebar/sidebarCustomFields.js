@@ -234,6 +234,14 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
           $target.find('.materialCheckBox').toggleClass('is-checked');
           $target.toggleClass('is-checked');
         },
+        'click .js-field-show-sum-at-top-of-list'(evt) {
+          let $target = $(evt.target);
+          if (!$target.hasClass('js-field-show-sum-at-top-of-list')) {
+            $target = $target.parent();
+          }
+          $target.find('.materialCheckBox').toggleClass('is-checked');
+          $target.toggleClass('is-checked');
+        },
         'click .primary'(evt) {
           evt.preventDefault();
 
@@ -248,6 +256,8 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
               this.find('.js-field-automatically-on-card.is-checked') !== null,
             alwaysOnCard:
               this.find('.js-field-always-on-card.is-checked') !== null,
+            showSumAtTopOfList:
+              this.find('.js-field-show-sum-at-top-of-list.is-checked') !== null,
           };
 
           // insert or update
@@ -273,7 +283,7 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
             } else {
               CustomFields.remove(customField._id);
             }
-            Popup.close();
+            Popup.back();
           },
         ),
       },
@@ -292,6 +302,6 @@ CreateCustomFieldPopup.register('createCustomFieldPopup');
   'submit'(evt) {
     const customFieldId = this._id;
     CustomFields.remove(customFieldId);
-    Popup.close();
+    Popup.back();
   }
 });*/

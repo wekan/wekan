@@ -3,7 +3,7 @@ import Cards from '/models/cards';
 
 Template.cardCustomFieldsPopup.helpers({
   hasCustomField() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const customFieldId = this._id;
     return card.customFieldIndex(customFieldId) > -1;
   },
@@ -11,7 +11,7 @@ Template.cardCustomFieldsPopup.helpers({
 
 Template.cardCustomFieldsPopup.events({
   'click .js-select-field'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const customFieldId = this._id;
     card.toggleCustomField(customFieldId);
     event.preventDefault();
@@ -31,7 +31,7 @@ const CardCustomField = BlazeComponent.extendComponent({
 
   onCreated() {
     const self = this;
-    self.card = Cards.findOne(Session.get('currentCard'));
+    self.card = Utils.getCurrentCard();
     self.customFieldId = this.data()._id;
   },
 
@@ -149,6 +149,10 @@ CardCustomField.register('cardCustomField');
     });
   }
 
+  showWeek() {
+    return this.date.get().week().toString();
+  }
+
   showDate() {
     // this will start working once mquandalle:moment
     // is updated to at least moment.js 2.10.5
@@ -190,7 +194,7 @@ CardCustomField.register('cardCustomField');
   onCreated() {
     super.onCreated();
     const self = this;
-    self.card = Cards.findOne(Session.get('currentCard'));
+    self.card = Utils.getCurrentCard();
     self.customFieldId = this.data()._id;
     this.data().value && this.date.set(moment(this.data().value));
   }
@@ -267,7 +271,7 @@ CardCustomField.register('cardCustomField');
       {
         'submit .js-card-customfield-stringtemplate'(event) {
           event.preventDefault();
-          const items = this.getItems();
+          const items = this.stringtemplateItems.get();
           this.card.setCustomField(this.customFieldId, items);
         },
 

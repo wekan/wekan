@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=v12.22.4 \
+    NODE_VERSION=v12.22.8 \
     METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -22,6 +22,7 @@ ENV \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15 \
+    ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
     RICHER_CARD_COMMENT_EDITOR=false \
     CARD_OPENED_WEBHOOK_ENABLED=false \
     ATTACHMENTS_STORE_PATH="" \
@@ -196,6 +197,10 @@ COPY \
     /home/wekan/app/
 
 COPY \
+    tests \
+    /home/wekan/app/tests/
+
+COPY \
     packages \
     /home/wekan/app/packages/
 
@@ -225,6 +230,19 @@ RUN \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     chmod u+w package.json npm-shrinkwrap.json && \
     npm install
+
+USER root
+# Cleanup
+RUN \
+    set -o xtrace && \
+    apt-get clean -y && \
+    apt-get autoremove -y && \
+    rm -Rf /tmp/* && \
+    rm -Rf /home/wekan/app_build && \
+    rm -Rf /var/cache/apt /var/lib/apt/lists && \
+    rm -Rf /var/lib/apt/lists/*
+
+USER wekan
 
 ENV PORT=3000
 EXPOSE $PORT

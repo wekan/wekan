@@ -18,9 +18,9 @@ template(name="listHeader")
          span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.count}}
          |/#{wipLimit.value})
 
-        if showCardsCountForList cards.count
-          |&nbsp;
-          span(class="cardCount") {{cardsCount}} {{_ 'cards-count'}}
+      if showCardsCountForList cards.count
+        span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.count}}
+
       if isMiniScreen
         if currentList
           if isWatching
@@ -28,7 +28,7 @@ template(name="listHeader")
           div.list-header-menu
             unless currentUser.isCommentOnly
               if canSeeAddCard
-                a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
+                a.js-add-card.fa.fa-plus.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
               a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
         else
           a.list-header-menu-icon.fa.fa-angle-right.js-select-list
@@ -39,12 +39,12 @@ template(name="listHeader")
         div.list-header-menu
           unless currentUser.isCommentOnly
             //if isBoardAdmin
-            //  a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
+            //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
-              a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
+              a.js-add-card.fa.fa-plus.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
             a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
           if currentUser.isBoardAdmin
-            if showDesktopDragHandles
+            if isShowDesktopDragHandles
               a.list-header-handle.handle.fa.fa-arrows.js-list-handle
 
 template(name="editListTitleForm")
@@ -55,6 +55,13 @@ template(name="editListTitleForm")
       a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="listActionPopup")
+  ul.pop-over-list
+    li
+      a.js-add-card.list-header-plus-bottom
+        i.fa.fa-plus
+        i.fa.fa-arrow-down
+        | {{_ 'add-card-to-bottom-of-list'}}
+  hr
   ul.pop-over-list
     li
       a.js-toggle-watch-list

@@ -13,10 +13,10 @@ function initSorting(items) {
     appendTo: 'parent',
     distance: 7,
     placeholder: 'checklist-item placeholder',
-    scroll: false,
+    scroll: true,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
-      EscapeActions.executeUpTo('popup-close');
+      EscapeActions.clickExecute(evt.target, 'inlinedForm');
     },
     stop(evt, ui) {
       const parent = ui.item.parents('.js-checklist-items');
@@ -55,7 +55,7 @@ BlazeComponent.extendComponent({
       return Meteor.user() && Meteor.user().isBoardMember();
     }
 
-    // Disable sorting if the current user is not a board member or is a miniscreen
+    // Disable sorting if the current user is not a board member
     self.autorun(() => {
       const $itemsDom = $(self.itemsDom);
       if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
@@ -94,16 +94,14 @@ BlazeComponent.extendComponent({
         title,
         sort: card.checklists().count(),
       });
+      this.closeAllInlinedForms();
       setTimeout(() => {
         this.$('.add-checklist-item')
           .last()
           .click();
       }, 100);
     }
-    textarea.value = '';
-    textarea.focus();
   },
-
   addChecklistItem(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
@@ -132,14 +130,6 @@ BlazeComponent.extendComponent({
     );
   },
 
-  deleteChecklist() {
-    const checklist = this.currentData().checklist;
-    if (checklist && checklist._id) {
-      Checklists.remove(checklist._id);
-      this.toggleDeleteDialog.set(false);
-    }
-  },
-
   deleteItem() {
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
@@ -165,11 +155,6 @@ BlazeComponent.extendComponent({
     item.setTitle(title);
   },
 
-  onCreated() {
-    this.toggleDeleteDialog = new ReactiveVar(false);
-    this.checklistToDelete = null; //Store data context to pass to checklistDeleteDialog template
-  },
-
   pressKey(event) {
     //If user press enter key inside a form, submit it
     //Unless the user is also holding down the 'shift' key
@@ -190,14 +175,13 @@ BlazeComponent.extendComponent({
     }
   },
 
+  /** closes all inlined forms (checklist and checklist-item input fields) */
+  closeAllInlinedForms() {
+    this.$('.js-close-inlined-form').click();
+  },
+
   events() {
     const events = {
-      'click .toggle-delete-checklist-dialog'(event) {
-        if ($(event.target).hasClass('js-delete-checklist')) {
-          this.checklistToDelete = this.currentData().checklist; //Store data context
-        }
-        this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
-      },
       'click #toggleHideCheckedItemsButton'() {
         Meteor.call('toggleHideCheckedItems');
       },
@@ -206,14 +190,22 @@ BlazeComponent.extendComponent({
     return [
       {
         ...events,
+        'click .toggle-delete-checklist-dialog' : Popup.afterConfirm('checklistDelete', function () {
+          Popup.close();
+          const checklist = this.checklist;
+          if (checklist && checklist._id) {
+            Checklists.remove(checklist._id);
+          }
+        }),
         'submit .js-add-checklist': this.addChecklist,
         'submit .js-edit-checklist-title': this.editChecklist,
         'submit .js-add-checklist-item': this.addChecklistItem,
         'submit .js-edit-checklist-item': this.editChecklistItem,
         'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
         'click .js-delete-checklist-item': this.deleteItem,
-        'click .confirm-checklist-delete': this.deleteChecklist,
         'focus .js-add-checklist-item': this.focusChecklistItem,
+        // add and delete checklist / checklist-item
+        'click .js-open-inlined-form': this.closeAllInlinedForms,
         keydown: this.pressKey,
       },
     ];
@@ -262,6 +254,11 @@ BlazeComponent.extendComponent({
 }).register('boardsSwimlanesAndLists');
 
 Template.checklists.helpers({
+  checklists() {
+    const card = Cards.findOne(this.cardId);
+    const ret = card.checklists();
+    return ret;
+  },
   hideCheckedItems() {
     const currentUser = Meteor.user();
     if (currentUser) return currentUser.hasHideCheckedItems();
@@ -269,39 +266,59 @@ Template.checklists.helpers({
   },
 });
 
-Template.addChecklistItemForm.onRendered(() => {
-  autosize($('textarea.js-add-checklist-item'));
-});
+BlazeComponent.extendComponent({
+  onRendered() {
+    autosize(this.$('textarea.js-add-checklist-item'));
+  },
+  canModifyCard() {
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
+    );
+  },
+  events() {
+    return [
+      {
+        'click a.fa.fa-copy'(event) {
+          const $editor = this.$('textarea');
+          const promise = Utils.copyTextToClipboard($editor[0].value);
 
-Template.editChecklistItemForm.onRendered(() => {
-  autosize($('textarea.js-edit-checklist-item'));
-});
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
+        },
+      }
+    ];
+  }
+}).register('addChecklistItemForm');
 
-Template.checklistDeleteDialog.onCreated(() => {
-  const $cardDetails = this.$('.card-details');
-  this.scrollState = {
-    position: $cardDetails.scrollTop(), //save current scroll position
-    top: false, //required for smooth scroll animation
-  };
-  //Callback's purpose is to only prevent scrolling after animation is complete
-  $cardDetails.animate({ scrollTop: 0 }, 500, () => {
-    this.scrollState.top = true;
-  });
+BlazeComponent.extendComponent({
+  onRendered() {
+    autosize(this.$('textarea.js-edit-checklist-item'));
+  },
+  canModifyCard() {
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
+    );
+  },
+  events() {
+    return [
+      {
+        'click a.fa.fa-copy'(event) {
+          const $editor = this.$('textarea');
+          const promise = Utils.copyTextToClipboard($editor[0].value);
 
-  //Prevent scrolling while dialog is open
-  $cardDetails.on('scroll', () => {
-    if (this.scrollState.top) {
-      //If it's already in position, keep it there. Otherwise let animation scroll
-      $cardDetails.scrollTop(0);
-    }
-  });
-});
-
-Template.checklistDeleteDialog.onDestroyed(() => {
-  const $cardDetails = this.$('.card-details');
-  $cardDetails.off('scroll'); //Reactivate scrolling
-  $cardDetails.animate({ scrollTop: this.scrollState.position });
-});
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
+        },
+      }
+    ];
+  }
+}).register('editChecklistItemForm');
 
 Template.checklistItemDetail.helpers({
   canModifyCard() {

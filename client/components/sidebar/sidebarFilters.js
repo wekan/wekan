@@ -8,6 +8,11 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           Filter.lists.set(this.find('.js-list-filter input').value.trim());
         },
+        'change .js-field-card-filter'(evt) {
+          evt.preventDefault();
+          Filter.title.set(this.find('.js-field-card-filter').value.trim());
+          Filter.resetExceptions();
+        },
         'click .js-toggle-label-filter'(evt) {
           evt.preventDefault();
           Filter.labelIds.toggle(this.currentData()._id);
@@ -94,14 +99,14 @@ BlazeComponent.extendComponent({
 }).register('filterSidebar');
 
 function mutateSelectedCards(mutationName, ...args) {
-  Cards.find(MultiSelection.getMongoSelector()).forEach(card => {
+  Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach(card => {
     card[mutationName](...args);
   });
 }
 
 BlazeComponent.extendComponent({
   mapSelection(kind, _id) {
-    return Cards.find(MultiSelection.getMongoSelector()).map(card => {
+    return Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).map(card => {
       const methodName = kind === 'label' ? 'hasLabel' : 'isAssigned';
       return card[methodName](_id);
     });
@@ -171,22 +176,22 @@ Template.multiselectionSidebar.helpers({
 Template.disambiguateMultiLabelPopup.events({
   'click .js-remove-label'() {
     mutateSelectedCards('removeLabel', this._id);
-    Popup.close();
+    Popup.back();
   },
   'click .js-add-label'() {
     mutateSelectedCards('addLabel', this._id);
-    Popup.close();
+    Popup.back();
   },
 });
 
 Template.disambiguateMultiMemberPopup.events({
   'click .js-unassign-member'() {
     mutateSelectedCards('assignMember', this._id);
-    Popup.close();
+    Popup.back();
   },
   'click .js-assign-member'() {
     mutateSelectedCards('unassignMember', this._id);
-    Popup.close();
+    Popup.back();
   },
 });
 

@@ -26,7 +26,3 @@ Package.onUse(function(api) {
 
 	api.mainModule('server/index.js', 'server');
 });
-
-Npm.depends({
-  ldapjs: '1.0.2',
-});

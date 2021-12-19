@@ -26,12 +26,25 @@ template(name="attachmentsGalery")
           if isUploaded
             if isImage
               img.attachment-thumbnail-img(src="{{url}}")
+            else if($eq extension 'mp3')
+                video(width="100%" height="100%" controls="true")
+                  source(src="{{url}}" type="audio/mpeg")
+            else if($eq extension 'ogg')
+                video(width="100%" height="100%" controls="true")
+                  source(src="{{url}}" type="video/ogg")
+            else if($eq extension 'webm')
+                video(width="100%" height="100%" controls="true")
+                  source(src="{{url}}" type="video/webm")
+            else if($eq extension 'mp4')
+                video(width="100%" height="100%" controls="true")
+                  source(src="{{url}}" type="video/mp4")
             else
               span.attachment-thumbnail-ext= extension
           else
             +spinner
         p.attachment-details
           = name
+          span.file-size ({{fileSize size}} KB)
           span.attachment-details-actions
             a.js-download(href="{{url download=true}}")
               i.fa.fa-download

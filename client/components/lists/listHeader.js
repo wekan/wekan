@@ -85,6 +85,14 @@ BlazeComponent.extendComponent({
     return limit >= 0 && count >= limit;
   },
 
+  cardsCountForListIsOne(count) {
+    if (count === 1) {
+      return TAPi18n.__('cards-count-one');
+    } else {
+      return TAPi18n.__('cards-count');
+    }
+  },
+
   events() {
     return [
       {
@@ -93,7 +101,7 @@ BlazeComponent.extendComponent({
           this.starred(!this.starred());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
-        'click .js-add-card'(event) {
+        'click .js-add-card.list-header-plus-top'(event) {
           const listDom = $(event.target).parents(
             `#js-list-${this.currentData()._id}`,
           )[0];
@@ -114,18 +122,7 @@ BlazeComponent.extendComponent({
 Template.listHeader.helpers({
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
-  },
-
-  showDesktopDragHandles() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
+  }
 });
 
 Template.listActionPopup.helpers({
@@ -144,23 +141,31 @@ Template.listActionPopup.helpers({
 
 Template.listActionPopup.events({
   'click .js-list-subscribe'() {},
+  'click .js-add-card.list-header-plus-bottom'(event) {
+    const listDom = $(`#js-list-${this._id}`)[0];
+    const listComponent = BlazeComponent.getComponentForElement(listDom);
+    listComponent.openForm({
+      position: 'bottom',
+    });
+    Popup.back();
+  },
   'click .js-set-color-list': Popup.open('setListColor'),
   'click .js-select-cards'() {
     const cardIds = this.allCards().map(card => card._id);
     MultiSelection.add(cardIds);
-    Popup.close();
+    Popup.back();
   },
   'click .js-toggle-watch-list'() {
     const currentList = this;
     const level = currentList.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'list', currentList._id, level, (err, ret) => {
-      if (!err && ret) Popup.close();
+      if (!err && ret) Popup.back();
     });
   },
   'click .js-close-list'(event) {
     event.preventDefault();
     this.archive();
-    Popup.close();
+    Popup.back();
   },
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
   'click .js-more': Popup.open('listMore'),
@@ -236,7 +241,7 @@ BlazeComponent.extendComponent({
 
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function() {
-    Popup.close();
+    Popup.back();
     // TODO how can we avoid the fetch call?
     const allCards = this.allCards().fetch();
     const allCardIds = _.pluck(allCards, '_id');
@@ -302,11 +307,11 @@ BlazeComponent.extendComponent({
         },
         'click .js-submit'() {
           this.currentList.setColor(this.currentColor.get());
-          Popup.close();
+          Popup.back();
         },
         'click .js-remove-color'() {
           this.currentList.setColor(null);
-          Popup.close();
+          Popup.back();
         },
       },
     ];

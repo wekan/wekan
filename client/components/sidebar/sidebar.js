@@ -183,19 +183,20 @@ Template.memberPopup.helpers({
   },
 });
 
+
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-open-rules-view'() {
     Modal.openWide('rulesMain');
-    Popup.close();
+    Popup.back();
   },
   'click .js-custom-fields'() {
     Sidebar.setView('customFields');
-    Popup.close();
+    Popup.back();
   },
   'click .js-open-archives'() {
     Sidebar.setView('archives');
-    Popup.close();
+    Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
@@ -208,7 +209,7 @@ Template.boardMenuPopup.events({
   }),
   'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    Popup.close();
+    Popup.back();
     Boards.remove(currentBoard._id);
     FlowRouter.go('home');
   }),
@@ -251,7 +252,7 @@ Template.boardMenuPopup.helpers({
 Template.memberPopup.events({
   'click .js-filter-member'() {
     Filter.members.toggle(this.userId);
-    Popup.close();
+    Popup.back();
   },
   'click .js-change-role': Popup.open('changePermissions'),
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
@@ -265,12 +266,12 @@ Template.memberPopup.events({
       card.unassignAssignee(memberId);
     });
     Boards.findOne(boardId).removeMember(memberId);
-    Popup.close();
+    Popup.back();
   }),
   'click .js-leave-member': Popup.afterConfirm('leaveBoard', () => {
     const boardId = Session.get('currentBoard');
     Meteor.call('quitBoard', boardId, () => {
-      Popup.close();
+      Popup.back();
       FlowRouter.go('home');
     });
   }),
@@ -290,6 +291,42 @@ Template.leaveBoardPopup.helpers({
     return Boards.findOne(Session.get('currentBoard'));
   },
 });
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+    this.findTeamsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.teamPage = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+    });
+
+    this.autorun(() => {
+      const limitTeams = this.teamPage.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('team', this.findTeamsOptions.get(), limitTeams, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+}).register('membersWidget');
 
 Template.membersWidget.helpers({
   isInvited() {
@@ -306,6 +343,21 @@ Template.membersWidget.helpers({
   },
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
+  },
+  AtLeastOneOrgWasCreated(){
+    let orgs = Org.find({}, {sort: { createdAt: -1 }});
+    if(orgs === undefined)
+      return false;
+
+    return orgs.count() > 0;
+  },
+
+  AtLeastOneTeamWasCreated(){
+    let teams = Team.find({}, {sort: { createdAt: -1 }});
+    if(teams === undefined)
+      return false;
+
+    return teams.count() > 0;
   },
 });
 
@@ -408,7 +460,7 @@ BlazeComponent.extendComponent({
               activities: ['all'],
             });
           }
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -460,6 +512,21 @@ BlazeComponent.extendComponent({
     };
     const queryParams = {
       authToken: Accounts._storedLoginToken(),
+      delimiter: ',',
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/export/csv',
+      params,
+      queryParams,
+    );
+  },
+  exportScsvUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+      delimiter: ';',
     };
     return FlowRouter.path(
       '/api/boards/:boardId/export/csv',
@@ -1162,7 +1229,7 @@ BlazeComponent.extendComponent({
       self.setLoading(false);
       if (err) self.setError(err.error);
       else if (ret.email) self.setError('email-sent');
-      else Popup.close();
+      else Popup.back();
     });
   },
 
@@ -1249,7 +1316,7 @@ BlazeComponent.extendComponent({
             }
           }
 
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1258,8 +1325,7 @@ BlazeComponent.extendComponent({
 
 Template.addBoardOrgPopup.helpers({
   orgsDatas() {
-    // return Org.find({}, {sort: { createdAt: -1 }});
-    let orgs = Org.find({}, {sort: { createdAt: -1 }});
+    let orgs = Org.find({}, {sort: { orgDisplayName: 1 }});
     return orgs;
   },
 });
@@ -1313,10 +1379,10 @@ BlazeComponent.extendComponent({
 
           Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
 
-          Popup.close();
+          Popup.back();
         },
         'click #cancelLeaveBoardBtn'(){
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1339,6 +1405,13 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
       this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+    });
+
+    this.findUsersOptions = new ReactiveVar({});
+    this.userPage = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
     });
   },
 
@@ -1384,11 +1457,39 @@ BlazeComponent.extendComponent({
             })
 
             if (selectedTeamId != "-1") {
-              Meteor.call('setBoardTeams', boardTeams, currentBoard._id);
+              let members = currentBoard.members;
+
+              let query = {
+                "teams.teamId": { $in: boardTeams.map(t => t.teamId) },
+              };
+
+              const boardTeamUsers = Users.find(query, {
+                sort: { sort: 1 },
+              });
+
+              if(boardTeams !== undefined && boardTeams.length > 0){
+                let index;
+                if(boardTeamUsers && boardTeamUsers.count() > 0){
+                  boardTeamUsers.forEach((u) => {
+                    index = members.findIndex(function(m){ return m.userId == u._id});
+                    if(index == -1){
+                      members.push({
+                        "isActive": true,
+                        "isAdmin": u.isAdmin !== undefined ? u.isAdmin : false,
+                        "isCommentOnly" : false,
+                        "isNoComments" : false,
+                        "userId": u._id,
+                      });
+                    }
+                  });
+                }
+              }
+
+              Meteor.call('setBoardTeams', boardTeams, members, currentBoard._id);
             }
           }
 
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1397,7 +1498,7 @@ BlazeComponent.extendComponent({
 
 Template.addBoardTeamPopup.helpers({
   teamsDatas() {
-    let teams = Team.find({}, {sort: { createdAt: -1 }});
+    let teams = Team.find({}, {sort: { teamDisplayName: 1 }});
     return teams;
   },
 });
@@ -1412,6 +1513,13 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
       this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+    });
+
+    this.findUsersOptions = new ReactiveVar({});
+    this.userPage = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
     });
   },
 
@@ -1449,12 +1557,33 @@ BlazeComponent.extendComponent({
             }
           }
 
-          Meteor.call('setBoardTeams', boardTeams, currentBoard._id);
+          let members = currentBoard.members;
+          let query = {
+            "teams.teamId": stringTeamId
+          };
 
-          Popup.close();
+          const boardTeamUsers = Users.find(query, {
+            sort: { sort: 1 },
+          });
+
+          if(currentBoard.teams !== undefined && currentBoard.teams.length > 0){
+            let index;
+            if(boardTeamUsers && boardTeamUsers.count() > 0){
+              boardTeamUsers.forEach((u) => {
+                index = members.findIndex(function(m){ return m.userId == u._id});
+                if(index !== -1 && (u.isAdmin === undefined || u.isAdmin == false)){
+                  members.splice(index, 1);
+                }
+              });
+            }
+          }
+
+          Meteor.call('setBoardTeams', boardTeams, members, currentBoard._id);
+
+          Popup.back();
         },
         'click #cancelLeaveBoardTeamBtn'(){
-          Popup.close();
+          Popup.back();
         },
       },
     ];

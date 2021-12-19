@@ -4,7 +4,7 @@ Tämä julkaisu lisää seuraavat ominaisuudet:
 
 - [Tarkistuslista mallit](https://github.com/wekan/wekan/pull/1470);
 - Lisätty [Suomenkielinen muutosloki](https://github.com/wekan/wekan/tree/devel/meta/t9n-changelog) 
-  ja [lisää suomennoksia](https://github.com/wekan/wekan/blob/devel/sandstorm-pkgdef.capnp)
+  ja [lisää suomennoksia](https://github.com/wekan/wekan/blob/master/sandstorm-pkgdef.capnp)
   Sandstormiin.
 
 

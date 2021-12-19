@@ -22,18 +22,18 @@ do
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	                echo "Linux";
 			# Debian, Ubuntu, Mint
-			sudo apt-get install -y build-essential gcc g++ make git curl wget npm p7zip-full
+			sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp
+      curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+      sudo apt-get install -y nodejs
 			# npm nodejs
 			#sudo npm -g install npm
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
-			sudo npm -g install n
-			sudo n 12.22.4
-			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-			#sudo apt-get install -y nodejs
+			#sudo npm -g install n
+			#sudo n 12.22.8
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
-			pause '1) Install XCode 2) Install Node 8.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
+			pause '1) Install XCode 2) Install Node 12.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
 		        # POSIX compatibility layer and Linux environment emulation for Windows
 		        echo "TODO: Add Cygwin";
@@ -55,14 +55,15 @@ do
 			exit;
 		fi
 
-		## Latest npm with Meteor 1.8.x
+		## Latest npm with Meteor 2.2
 		sudo npm -g install npm
 		sudo npm -g install node-gyp
-		# Latest fibers for Meteor 1.8.x
+		# Latest fibers for Meteor 2.2
 		sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
 		sudo npm -g install fibers
 		# Install Meteor, if it's not yet installed
-		curl https://install.meteor.com | bash
+    sudo npm install -g meteor --unsafe-perm
+		#curl https://install.meteor.com | bash
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		break
 		;;
@@ -78,23 +79,21 @@ do
 		#fi
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
-		cd ~/repos/wekan 
 		rm -rf node_modules .meteor/local .build
                 chmod u+w *.json
-		npm install
+		meteor npm install
 		meteor build .build --directory
-		rm -rf ~/repos/wekan/.build/bundle/programs/web.browser.legacy
-		cd ~/repos/wekan/.build/bundle/programs/server
+		rm -rf .build/bundle/programs/web.browser.legacy
+		pushd .build/bundle/programs/server
 		rm -rf node_modules
                 chmod u+w *.json
-		npm install
+		meteor npm install
 		# Cleanup
-		cd ~/repos/wekan/.build/bundle
+		popd
 		find . -type d -name '*-garbage*' | xargs rm -rf
 		find . -name '*phantom*' | xargs rm -rf
 		find . -name '.*.swp' | xargs rm -f
 		find . -name '*.swp' | xargs rm -f
-                cd ~/repos/wekan
 		# Add fibers multi arch
 		#cd .build/bundle/programs/server/node_modules/fibers/bin
 		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z

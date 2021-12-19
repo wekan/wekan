@@ -6,6 +6,9 @@ const i18nTagToT9n = i18nTag => {
   return i18nTag;
 };
 
+let alreadyCheck = 1;
+let isCheckDone = false;
+
 const validator = {
   set(obj, prop, value) {
     if (prop === 'state' && value !== 'signIn') {
@@ -20,6 +23,8 @@ const validator = {
   },
 };
 
+// let isSettingDatabaseFctCallDone = false;
+
 Template.userFormsLayout.onCreated(function() {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
@@ -28,6 +33,18 @@ Template.userFormsLayout.onCreated(function() {
   Meteor.subscribe('setting', {
     onReady() {
       templateInstance.currentSetting.set(Settings.findOne());
+      let currSetting = templateInstance.currentSetting.curValue;
+      let oidcBtnElt = $("#at-oidc");
+      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+        oidcBtnElt.html(htmlvalue);
+      }
+
+      // isSettingDatabaseFctCallDone = true;
+      if(currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined)
+        document.getElementById("isSettingDatabaseCallDone").style.display = 'none';
+      else
+        document.getElementById("isSettingDatabaseCallDone").style.display = 'block';
       return this.stop();
     },
   });
@@ -56,6 +73,31 @@ Template.userFormsLayout.helpers({
     return Template.instance().currentSetting.get();
   },
 
+  // isSettingDatabaseCallDone(){
+  //   return isSettingDatabaseFctCallDone;
+  // },
+
+  isLegalNoticeLinkExist(){
+    const currSet = Template.instance().currentSetting.get();
+    if(currSet && currSet !== undefined && currSet != null){
+      return currSet.legalNotice !== undefined && currSet.legalNotice.trim() != "";
+    }
+    else
+      return false;
+  },
+
+  getLegalNoticeWithWritTraduction(){
+    let spanLegalNoticeElt = $("#legalNoticeSpan");
+    if(spanLegalNoticeElt != null && spanLegalNoticeElt != undefined){
+      spanLegalNoticeElt.html(TAPi18n.__('acceptance_of_our_legalNotice', {}, T9n.getLanguage() || 'en'));
+    }
+    let atLinkLegalNoticeElt = $("#legalNoticeAtLink");
+    if(atLinkLegalNoticeElt != null && atLinkLegalNoticeElt != undefined){
+      atLinkLegalNoticeElt.html(TAPi18n.__('legalNotice', {}, T9n.getLanguage() || 'en'));
+    }
+    return true;
+  },
+
   isLoading() {
     return Template.instance().isLoading.get();
   },
@@ -79,6 +121,10 @@ Template.userFormsLayout.helpers({
         name = 'مَصرى';
       } else if (lang.name === 'de-CH') {
         name = 'Deutsch (Schweiz)';
+      } else if (lang.name === 'de-AT') {
+        name = 'Deutsch (Österreich)';
+      } else if (lang.name === 'en-DE') {
+        name = 'English (Germany)';
       } else if (lang.name === 'fa-IR') {
         // fa-IR = Persian (Iran)
         name = 'فارسی/پارسی (ایران‎)';
@@ -86,14 +132,28 @@ Template.userFormsLayout.helpers({
         name = 'Français (Belgique)';
       } else if (lang.name === 'fr-CA') {
         name = 'Français (Canada)';
+      } else if (lang.name === 'fr-CH') {
+        name = 'Français (Schweiz)';
+      } else if (lang.name === 'gu-IN') {
+        // gu-IN = Gurajati (India)
+        name = 'ગુજરાતી';
+      } else if (lang.name === 'hi-IN') {
+        // hi-IN = Hindi (India)
+        name = 'हिंदी (भारत)';
       } else if (lang.name === 'ig') {
         name = 'Igbo';
       } else if (lang.name === 'lv') {
         name = 'Latviešu';
       } else if (lang.name === 'latviešu valoda') {
         name = 'Latviešu';
+      } else if (lang.name === 'ms-MY') {
+        // ms-MY = Malay (Malaysia)
+        name = 'بهاس ملايو';
       } else if (lang.name === 'en-IT') {
         name = 'English (Italy)';
+      } else if (lang.name === 'el-GR') {
+        // el-GR = Greek (Greece)
+        name = 'Ελληνικά (Ελλάδα)';
       } else if (lang.name === 'Español') {
         name = 'español';
       } else if (lang.name === 'es_419') {
@@ -125,6 +185,7 @@ Template.userFormsLayout.helpers({
       } else if (lang.name === 'st') {
         name = 'Sãotomense';
       } else if (lang.name === '繁体中文（台湾）') {
+        // Traditional Chinese (Taiwan)
         name = '繁體中文（台灣）';
       }
       return { tag, name };
@@ -156,6 +217,53 @@ Template.userFormsLayout.events({
       authentication(event, templateInstance).then(() => {
         templateInstance.isLoading.set(false);
       });
+    }
+    isCheckDone = false;
+  },
+  'click #at-signUp'(event, templateInstance){
+    isCheckDone = false;
+  },
+  'DOMSubtreeModified #at-oidc'(event){
+    if(alreadyCheck <= 2){
+      let currSetting = Settings.findOne();
+      let oidcBtnElt = $("#at-oidc");
+      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+        if(alreadyCheck == 1){
+          alreadyCheck++;
+          oidcBtnElt.html("");
+        }
+        else{
+          alreadyCheck++;
+          oidcBtnElt.html(htmlvalue);
+        }
+      }
+    }
+    else{
+      alreadyCheck = 1;
+    }
+  },
+  'DOMSubtreeModified .at-form'(event){
+    if(alreadyCheck <= 2 && !isCheckDone){
+      if(document.getElementById("at-oidc") != null){
+        let currSetting = Settings.findOne();
+        let oidcBtnElt = $("#at-oidc");
+        if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+          let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+          if(alreadyCheck == 1){
+            alreadyCheck++;
+            oidcBtnElt.html("");
+          }
+          else{
+            alreadyCheck++;
+            isCheckDone = true;
+            oidcBtnElt.html(htmlvalue);
+          }
+        }
+      }
+    }
+    else{
+      alreadyCheck = 1;
     }
   },
 });

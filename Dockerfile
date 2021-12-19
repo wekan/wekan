@@ -1,8 +1,8 @@
-FROM quay.io/wekan/ubuntu:groovy-20210115
+FROM quay.io/wekan/ubuntu:impish-20211102
 LABEL maintainer="wekan"
 
-# 2020-12-03:
-# - Above Ubuntu base image copied from Docker Hub ubuntu:groovy-20201125.2
+# 2021-09-18:
+# - Above Ubuntu base image copied from Docker Hub ubuntu:hirsute-20210825
 #   to Quay to avoid Docker Hub rate limits.
 
 # Set the environment variables (defaults where required)
@@ -12,7 +12,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v12.22.4 \
+    NODE_VERSION=v12.22.8 \
     METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -28,6 +28,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15 \
+    ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
     RICHER_CARD_COMMENT_EDITOR=false \
     CARD_OPENED_WEBHOOK_ENABLED=false \
     ATTACHMENTS_STORE_PATH="" \
@@ -309,6 +310,7 @@ RUN \
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
     npm uninstall -g api2html &&\
+    rm -R /tmp/* && \
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \

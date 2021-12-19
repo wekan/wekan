@@ -274,7 +274,7 @@ Template.cardMembersPopup.helpers({
 
 Template.cardMembersPopup.events({
   'click .js-select-member'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const memberId = this.userId;
     card.toggleMember(memberId);
     event.preventDefault();
@@ -290,7 +290,7 @@ Template.cardMemberPopup.helpers({
 Template.cardMemberPopup.events({
   'click .js-remove-member'() {
     Cards.findOne(this.cardId).unassignMember(this.userId);
-    Popup.close();
+    Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
 });

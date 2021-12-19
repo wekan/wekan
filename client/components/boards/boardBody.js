@@ -23,7 +23,7 @@ BlazeComponent.extendComponent({
   },
 
   onlyShowCurrentCard() {
-    return Utils.isMiniScreen() && Session.get('currentCard');
+    return Utils.isMiniScreen() && Utils.getCurrentCardId(true);
   },
 
   goHome() {
@@ -33,6 +33,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    Meteor.subscribe('tableVisibilityModeSettings');
     this.showOverlay = new ReactiveVar(false);
     this.draggingActive = new ReactiveVar(false);
     this._isDragging = false;
@@ -190,21 +191,11 @@ BlazeComponent.extendComponent({
     });
 
     this.autorun(() => {
-      let showDesktopDragHandles = false;
-      currentUser = Meteor.user();
-      if (currentUser) {
-        showDesktopDragHandles = (currentUser.profile || {})
-          .showDesktopDragHandles;
-      } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-        showDesktopDragHandles = true;
-      } else {
-        showDesktopDragHandles = false;
-      }
-      if (Utils.isMiniScreen() || showDesktopDragHandles) {
+      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
-      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
+      } else {
         $swimlanesDom.sortable({
           handle: '.swimlane-header',
         });
@@ -215,7 +206,7 @@ BlazeComponent.extendComponent({
       $swimlanesDom.sortable(
         'option',
         'disabled',
-        !Meteor.user().isBoardAdmin(),
+        !Meteor.user() || !Meteor.user().isBoardAdmin(),
       );
     });
 
@@ -233,6 +224,16 @@ BlazeComponent.extendComponent({
     if (userIsMember() && currentBoard.lists().count() === 0) {
       boardComponent.openNewListForm();
     }
+  },
+
+  notDisplayThisBoard(){
+    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
+    let currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if(allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard.permission == 'public'){
+      return true;
+    }
+
+    return false;
   },
 
   isViewSwimlanes() {
@@ -325,6 +326,7 @@ BlazeComponent.extendComponent({
       defaultView: 'agendaDay',
       editable: true,
       timezone: 'local',
+      weekNumbers: true,
       header: {
         left: 'title   today prev,next',
         center:
