@@ -1,4 +1,4 @@
-FROM quay.io/wekan/ubuntu:impish-20211102
+FROM ubuntu:rolling
 LABEL maintainer="wekan"
 
 # 2021-09-18:
