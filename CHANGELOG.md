@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: BoardAdmin can't edit or delete others comments on cards](https://github.com/wekan/wekan/pull/4248).
+  Thanks to Ben0it-T.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.85 2021-12-17 WeKan ® release
 
 This release adds the following updates:
