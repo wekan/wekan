@@ -1,6 +1,8 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan release
+# v5.87 2021-12-19 WeKan ® release
+
+This release adds the following updates:
 
 - [Changed Docker base image to ubuntu:rolling](https://github.com/wekan/wekan/commit/8446640060e6e5058d0d186d71831a32a9e606e3).
   Thanks to xet7.
