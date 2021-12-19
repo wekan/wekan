@@ -11,7 +11,7 @@ if [ $# -ne 1 ]
 fi
 
 # 2) Download release from arm64 build server
-scp a:/home/wekan/repos/wekan-$1-arm64.zip .
+scp a:/home/wekan/wekan-$1-arm64.zip .
 
 # 3) Upload arm64 release to download server
 scp wekan-$1-arm64.zip x2:/var/snap/wekan/common/releases.wekan.team/raspi3/
