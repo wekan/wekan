@@ -114,11 +114,14 @@ export class QueryParams {
   }
 
   getPredicate(operator) {
-    if (typeof this.params[operator] === 'object') {
-      return this.params[operator][0];
-    } else {
-      return this.params[operator];
+    if (this.hasOperator(operator)){
+      if (typeof this.params[operator] === 'object') {
+        return this.params[operator][0];
+      } else {
+        return this.params[operator];
+      }
     }
+    return null;
   }
 
   getPredicates(operator) {

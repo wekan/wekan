@@ -16,7 +16,8 @@ import {
   OPERATOR_BOARD,
   OPERATOR_COMMENT,
   OPERATOR_CREATED_AT,
-  OPERATOR_CREATOR, OPERATOR_DEBUG,
+  OPERATOR_CREATOR,
+  OPERATOR_DEBUG,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
@@ -446,8 +447,8 @@ function buildSelector(queryParams) {
           { _id: { $in: attachments.map(attach => attach.cardId) } },
           { _id: { $in: comments.map(com => com.cardId) } },
         ];
-      if (queryParams.text == "false" || queryParams.text == "true") {
-        cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text == "true" ? true : false } } } );
+      if (queryParams.text === "false" || queryParams.text === "true") {
+        cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text === "true" } } } );
       }
       selector.$and.push({ $or: cardsSelector });
     }

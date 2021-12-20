@@ -46,11 +46,19 @@ template(name="globalSearch")
         h1 Debug
         if debug.get.showSelector
           h2 Selector
-          pre
+            button.js-copy-debug-selector
+              = 'Copy'
+          pre(
+            id="debug-selector"
+          )
             = sessionData.selector
         if debug.get.showProjection
           h2 Projection
-          pre
+            button.js-copy-debug-projection
+              = 'Copy'
+          pre(
+            id="debug-projection"
+          )
             = sessionData.projection
       if searching.get
         +spinner
