@@ -16,7 +16,7 @@ import {
   OPERATOR_BOARD,
   OPERATOR_COMMENT,
   OPERATOR_CREATED_AT,
-  OPERATOR_CREATOR,
+  OPERATOR_CREATOR, OPERATOR_DEBUG,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
@@ -458,7 +458,7 @@ function buildSelector(queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  //console.log('cards selector:', JSON.stringify(selector, null, 2));
+  // console.log('cards selector:', JSON.stringify(selector, null, 2));
 
   const query = new Query();
   query.selector = selector;
@@ -634,6 +634,7 @@ function findCards(sessionId, query) {
       selector: SessionData.pickle(query.selector),
       projection: SessionData.pickle(query.projection),
       errors: query.errors(),
+      debug: query.getQueryParams().getPredicate(OPERATOR_DEBUG)
     },
   };
 
