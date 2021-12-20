@@ -27,6 +27,11 @@ template(name="adminReports")
                 | {{_ 'rulesReportTitle'}}
 
             li
+              a.js-report-boards(data-id="report-boards")
+                i.fa.fa-magic
+                | {{_ 'boardsReportTitle'}}
+
+            li
               a.js-report-cards(data-id="report-cards")
                 i.fa.fa-magic
                 | {{_ 'cardsReportTitle'}}
@@ -42,6 +47,8 @@ template(name="adminReports")
             +orphanedFilesReport
           else if showRulesReport.get
             +rulesReport
+          else if showBoardsReport.get
+            +boardsReport
           else if showCardsReport.get
             +cardsReport
 
@@ -137,5 +144,22 @@ template(name="cardsReport")
           td {{abbreviate card.list.title }}
           td {{userNames card.members }}
           td {{userNames card.assignees }}
+  else
+    div {{_ 'no-results' }}
+
+template(name="boardsReport")
+  h1 {{_ 'boardsReportTitle'}}
+  if resultsCount
+    table.table
+      tr
+        th Title
+        th Id
+        th Members
+
+      each board in results
+        tr
+          td {{abbreviate board.title }}
+          td {{abbreviate board._id }}
+          td {{userNames board.members }}
   else
     div {{_ 'no-results' }}

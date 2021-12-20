@@ -2,6 +2,8 @@
 // non-archived boards:
 // 1. that the user is a member of
 // 2. the user has starred
+import Users from "../../models/users";
+
 Meteor.publish('boards', function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
@@ -56,6 +58,58 @@ Meteor.publish('boards', function() {
       sort: { sort: 1 /* boards default sorting */ },
     },
   );
+});
+
+Meteor.publish('boardsReport', function() {
+  const userId = this.userId;
+  // Ensure that the user is connected. If it is not, we need to return an empty
+  // array to tell the client to remove the previously published docs.
+  if (!Match.test(userId, String) || !userId) return [];
+
+  boards = Boards.find(
+    {
+      archived: false,
+      $or: [
+        {
+          // _id: { $in: starredBoards },  // Commented out, to get a list of all public boards
+          permission: 'public',
+        },
+        { members: { $elemMatch: { userId, isActive: true } } },
+      ],
+    },
+    {
+      fields: {
+        _id: 1,
+        boardId: 1,
+        archived: 1,
+        slug: 1,
+        title: 1,
+        description: 1,
+        color: 1,
+        members: 1,
+        orgs: 1,
+        teams: 1,
+        permission: 1,
+        type: 1,
+        sort: 1,
+      },
+      sort: { sort: 1 /* boards default sorting */ },
+    },
+  );
+
+  const users = [];
+  boards.forEach(board => {
+    if (board.members) {
+      board.members.forEach(member => {
+        users.push(member.userId);
+      });
+    }
+  })
+
+  return [
+    boards,
+    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
+  ]
 });
 
 Meteor.publish('archivedBoards', function() {

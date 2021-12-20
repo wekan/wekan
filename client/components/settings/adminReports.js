@@ -11,6 +11,7 @@ BlazeComponent.extendComponent({
   showOrphanedFilesReport: new ReactiveVar(false),
   showRulesReport: new ReactiveVar(false),
   showCardsReport: new ReactiveVar(false),
+  showBoardsReport: new ReactiveVar(false),
   sessionId: null,
 
   onCreated() {
@@ -27,6 +28,7 @@ BlazeComponent.extendComponent({
         'click a.js-report-orphaned-files': this.switchMenu,
         'click a.js-report-rules': this.switchMenu,
         'click a.js-report-cards': this.switchMenu,
+        'click a.js-report-boards': this.switchMenu,
       },
     ];
   },
@@ -38,6 +40,9 @@ BlazeComponent.extendComponent({
       this.showFilesReport.set(false);
       this.showBrokenCardsReport.set(false);
       this.showOrphanedFilesReport.set(false);
+      this.showRulesReport.set(false)
+      this.showBoardsReport.set(false);
+      this.showCardsReport.set(false);
       if (this.subscription) {
         this.subscription.stop();
       }
@@ -68,6 +73,11 @@ BlazeComponent.extendComponent({
       } else if ('report-rules' === targetID) {
         this.subscription = Meteor.subscribe('rulesReport', () => {
           this.showRulesReport.set(true);
+          this.loading.set(false);
+        });
+      } else if ('report-boards' === targetID) {
+        this.subscription = Meteor.subscribe('boardsReport', () => {
+          this.showBoardsReport.set(true);
           this.loading.set(false);
         });
       } else if ('report-cards' === targetID) {
@@ -148,6 +158,24 @@ class AdminReport extends BlazeComponent {
     return rules;
   }
 }.register('rulesReport'));
+
+(class extends AdminReport {
+  collection = Boards;
+
+  userNames(members) {
+    let text = '';
+    members.forEach(member => {
+      const user = Users.findOne(member.userId);
+      text += text ? ', ' : '';
+      if (user) {
+        text += user.username;
+      } else {
+        text += member.userId
+      }
+    });
+    return text;
+  }
+}.register('boardsReport'));
 
 (class extends AdminReport {
   collection = Cards;
