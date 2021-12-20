@@ -1,5 +1,23 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# v5.87 2021-12-19 WeKan ® release
+
+This release adds the following updates:
+
+- [Changed Docker base image to ubuntu:rolling](https://github.com/wekan/wekan/commit/8446640060e6e5058d0d186d71831a32a9e606e3).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.86 2021-12-19 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix: BoardAdmin can't edit or delete others comments on cards](https://github.com/wekan/wekan/pull/4248).
+  Thanks to Ben0it-T.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.85 2021-12-17 WeKan ® release
 
 This release adds the following updates:
