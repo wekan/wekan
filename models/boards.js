@@ -1501,8 +1501,8 @@ Boards.userBoards = (
   selector.$or = [
     { permission: 'public' },
     { members: { $elemMatch: { userId, isActive: true } } },
-    { 'orgs.orgId': { $in: user.orgIds() } },
-    { 'teams.teamId': { $in : user.teamIds() } },
+    { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+    { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
   ];
 
   return Boards.find(selector, projection);

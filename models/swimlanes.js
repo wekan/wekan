@@ -306,6 +306,17 @@ Swimlanes.mutations({
   },
 });
 
+Swimlanes.userArchivedSwimlanes = userId => {
+  return Swimlanes.find({
+    boardId: { $in: Boards.userBoardIds(userId, null) },
+    archived: true,
+  })
+};
+
+Swimlanes.userArchivedSwimlaneIds = () => {
+  return Swimlanes.userArchivedSwimlanes().map(swim => { return swim._id; });
+};
+
 Swimlanes.archivedSwimlanes = () => {
   return Swimlanes.find({ archived: true });
 };

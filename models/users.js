@@ -521,12 +521,14 @@ Users.helpers({
   },
   teamIds() {
     if (this.teams) {
+      // TODO: Should the Team collection be queried to determine if the team isActive?
       return this.teams.map(team => { return team.teamId });
     }
     return [];
   },
   orgIds() {
     if (this.orgs) {
+      // TODO: Should the Org collection be queried to determine if the organization isActive?
       return this.orgs.map(org => { return org.orgId });
     }
     return [];

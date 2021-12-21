@@ -12,9 +12,11 @@ import {
   OPERATOR_LIST,
   OPERATOR_MEMBER,
   OPERATOR_MODIFIED_AT,
+  OPERATOR_ORG,
   OPERATOR_SORT,
   OPERATOR_STATUS,
   OPERATOR_SWIMLANE,
+  OPERATOR_TEAM,
   OPERATOR_UNKNOWN,
   OPERATOR_USER,
   ORDER_ASCENDING,
@@ -161,6 +163,8 @@ export class QueryErrors {
     [OPERATOR_ASSIGNEE, 'user-username-not-found'],
     [OPERATOR_MEMBER, 'user-username-not-found'],
     [OPERATOR_CREATOR, 'user-username-not-found'],
+    [OPERATOR_ORG, 'org-name-not-found'],
+    [OPERATOR_TEAM, 'team-name-not-found'],
   ];
 
   constructor() {
@@ -313,6 +317,8 @@ export class Query {
       'operator-sort': OPERATOR_SORT,
       'operator-limit': OPERATOR_LIMIT,
       'operator-debug': OPERATOR_DEBUG,
+      'operator-org': OPERATOR_ORG,
+      'operator-team': OPERATOR_TEAM,
     };
 
     const predicates = {
