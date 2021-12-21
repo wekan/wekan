@@ -519,6 +519,18 @@ Users.helpers({
     }
     return '';
   },
+  teamIds() {
+    if (this.teams) {
+      return this.teams.map(team => { return team.teamId });
+    }
+    return [];
+  },
+  orgIds() {
+    if (this.orgs) {
+      return this.orgs.map(org => { return org.orgId });
+    }
+    return [];
+  },
   orgsUserBelongs() {
     if (this.orgs) {
       return this.orgs.map(function(org){return org.orgDisplayName}).sort().join(',');
@@ -544,32 +556,16 @@ Users.helpers({
     return '';
   },
   boards() {
-    return Boards.find(
-      {
-        'members.userId': this._id,
-      },
-      {
-        sort: {
-          sort: 1 /* boards default sorting */,
-        },
-      },
-    );
+    return Boards.userBoards(this._id, null, {}, { sort: { sort: 1 } })
   },
 
   starredBoards() {
     const { starredBoards = [] } = this.profile || {};
-    return Boards.find(
-      {
-        archived: false,
-        _id: {
-          $in: starredBoards,
-        },
-      },
-      {
-        sort: {
-          sort: 1 /* boards default sorting */,
-        },
-      },
+    return Boards.userBoards(
+      this._id,
+      false,
+      { _id: { $in: starredBoards } },
+      { sort: { sort: 1 } }
     );
   },
 
@@ -580,18 +576,11 @@ Users.helpers({
 
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
-    return Boards.find(
-      {
-        archived: false,
-        _id: {
-          $in: invitedBoards,
-        },
-      },
-      {
-        sort: {
-          sort: 1 /* boards default sorting */,
-        },
-      },
+    return Boards.userBoards(
+      this._id,
+      false,
+      { _id: { $in: invitedBoards } },
+      { sort: { sort: 1 } }
     );
   },
 
