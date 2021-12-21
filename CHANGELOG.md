@@ -1,5 +1,25 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds to following CRITICAL SECURITY FIXES:
+
+- [User now should only see archived cards belonging to boards to which he has permission](https://github.com/wekan/wekan/pull/4252).
+  Thanks to jrsupplee.
+- [Fix `Boards.userBoards()` method to take into account organizations and teams of the user when determining which boards are accessible](https://github.com/wekan/wekan/pull/4252).
+  Thanks to jrsupplee.
+
+and adds the following new features:
+
+- [New `debug` search operator that should help debugging future problems with search](https://github.com/wekan/wekan/pull/4252).
+  Thanks to jrsupplee.
+- [New `org` and `team` search operators for finding cards belonging to boards with the given organization or team](https://github.com/wekan/wekan/pull/4252).
+  Thanks to jrsupplee.
+- [New admin report to list boards](https://github.com/wekan/wekan/pull/4252).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.87 2021-12-19 WeKan ® release
 
 This release adds the following updates:
