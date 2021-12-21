@@ -3,41 +3,46 @@
 // 1. that the user is a member of
 // 2. the user has starred
 import Users from "../../models/users";
+import Org from "../../models/org";
+import Team from "../../models/team";
 
 Meteor.publish('boards', function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
-  if (!Match.test(userId, String) || !userId) return [];
+  if (!Match.test(userId, String) || !userId) {
+    return [];
+  }
 
   // Defensive programming to verify that starredBoards has the expected
   // format -- since the field is in the `profile` a user can modify it.
-  const { starredBoards = [] } = (Users.findOne(userId) || {}).profile || {};
-  check(starredBoards, [String]);
+  // const { starredBoards = [] } = (Users.findOne(userId) || {}).profile || {};
+  // check(starredBoards, [String]);
 
-  let currUser = Users.findOne(userId);
-  let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
-  let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
-  let orgsIds = [];
-  let teamsIds = [];
-  if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
-    orgsIds = orgIdsUserBelongs.split(',');
-  }
-  if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
-    teamsIds = teamIdsUserBelongs.split(',');
-  }
+  // let currUser = Users.findOne(userId);
+  // let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
+  // let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
+  // let orgsIds = [];
+  // let teamsIds = [];
+  // if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
+  //   orgsIds = orgIdsUserBelongs.split(',');
+  // }
+  // if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
+  //   teamsIds = teamIdsUserBelongs.split(',');
+  // }
   return Boards.find(
     {
       archived: false,
-      $or: [
-        {
-          // _id: { $in: starredBoards },  // Commented out, to get a list of all public boards
-          permission: 'public',
-        },
-        { members: { $elemMatch: { userId, isActive: true } } },
-        {'orgs.orgId': {$in : orgsIds}},
-        {'teams.teamId': {$in : teamsIds}},
-      ],
+      _id: { $in: Boards.userBoardIds(userId, false) },
+      // $or: [
+      //   {
+      //     // _id: { $in: starredBoards },  // Commented out, to get a list of all public boards
+      //     permission: 'public',
+      //   },
+      //   { members: { $elemMatch: { userId, isActive: true } } },
+      //   {'orgs.orgId': {$in : orgsIds}},
+      //   {'teams.teamId': {$in : teamsIds}},
+      // ],
     },
     {
       fields: {
@@ -66,16 +71,9 @@ Meteor.publish('boardsReport', function() {
   // array to tell the client to remove the previously published docs.
   if (!Match.test(userId, String) || !userId) return [];
 
-  boards = Boards.find(
+  const boards = Boards.find(
     {
-      archived: false,
-      $or: [
-        {
-          // _id: { $in: starredBoards },  // Commented out, to get a list of all public boards
-          permission: 'public',
-        },
-        { members: { $elemMatch: { userId, isActive: true } } },
-      ],
+      _id: { $in: Boards.userBoardIds(userId, null) },
     },
     {
       fields: {
@@ -97,18 +95,32 @@ Meteor.publish('boardsReport', function() {
     },
   );
 
-  const users = [];
+  const userIds = [];
+  const orgIds = [];
+  const teamIds = [];
   boards.forEach(board => {
     if (board.members) {
       board.members.forEach(member => {
-        users.push(member.userId);
+        userIds.push(member.userId);
+      });
+    }
+    if (board.orgs) {
+      board.orgs.forEach(org => {
+        orgIds.push(org.orgId);
+      });
+    }
+    if (board.teams) {
+      board.teams.forEach(team => {
+        teamIds.push(team.teamId);
       });
     }
   })
 
   return [
     boards,
-    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
+    Users.find({ _id: { $in: userIds } }, { fields: Users.safeFields }),
+    Team.find({ _id: { $in: teamIds } }),
+    Org.find({ _id: { $in: orgIds } }),
   ]
 });
 
@@ -118,13 +130,14 @@ Meteor.publish('archivedBoards', function() {
 
   return Boards.find(
     {
-      archived: true,
-      members: {
-        $elemMatch: {
-          userId,
-          isAdmin: true,
-        },
-      },
+      _id: { $in: Boards.userBoardIds(userId, true)},
+      // archived: true,
+      // members: {
+      //   $elemMatch: {
+      //     userId,
+      //     isAdmin: true,
+      //   },
+      // },
     },
     {
       fields: {

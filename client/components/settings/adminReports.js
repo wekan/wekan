@@ -108,6 +108,14 @@ class AdminReport extends BlazeComponent {
     return this.collection.find();
   }
 
+  yesOrNo(value) {
+    if (value) {
+      return TAPi18n.__('yes');
+    } else {
+      return TAPi18n.__('no');
+    }
+  }
+
   resultsCount() {
     return this.collection.find().count();
   }

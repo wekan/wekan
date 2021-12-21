@@ -154,12 +154,19 @@ template(name="boardsReport")
       tr
         th Title
         th Id
+        th Permission
+        th Archived?
         th Members
+        th Organizations
+        th Teams
 
       each board in results
         tr
           td {{abbreviate board.title }}
           td {{abbreviate board._id }}
+          td {{ board.permission }}
+          td
+            = yesOrNo(board.archived)
           td {{userNames board.members }}
   else
     div {{_ 'no-results' }}

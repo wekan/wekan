@@ -5,6 +5,7 @@ import {
   TYPE_TEMPLATE_BOARD,
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
+import Users from "./users";
 
 const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
@@ -1485,6 +1486,11 @@ Boards.userBoards = (
   selector = {},
   projection = {},
 ) => {
+  const user = Users.findOne(userId);
+  if (!user) {
+    return [];
+  }
+
   if (typeof archived === 'boolean') {
     selector.archived = archived;
   }
@@ -1492,14 +1498,14 @@ Boards.userBoards = (
     selector.type = 'board';
   }
 
-  selector.$or = [{ permission: 'public' }];
-  if (userId) {
-    selector.$or.push(
-      { members: { $elemMatch: { userId, isActive: true } } },
-      projection,
-    );
-  }
-  return Boards.find(selector);
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId, isActive: true } } },
+    { 'orgs.orgId': { $in: user.orgIds() } },
+    { 'teams.teamId': { $in : user.teamIds() } },
+  ];
+
+  return Boards.find(selector, projection);
 };
 
 Boards.userBoardIds = (userId, archived = false, selector = {}) => {
