@@ -5,6 +5,7 @@ import {
   TYPE_TEMPLATE_BOARD,
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
+import Users from "./users";
 
 const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
@@ -1479,7 +1480,17 @@ Boards.userSearch = (
   return Boards.find(selector, projection);
 };
 
-Boards.userBoards = (userId, archived = false, selector = {}) => {
+Boards.userBoards = (
+  userId,
+  archived = false,
+  selector = {},
+  projection = {},
+) => {
+  const user = Users.findOne(userId);
+  if (!user) {
+    return [];
+  }
+
   if (typeof archived === 'boolean') {
     selector.archived = archived;
   }
@@ -1487,15 +1498,20 @@ Boards.userBoards = (userId, archived = false, selector = {}) => {
     selector.type = 'board';
   }
 
-  selector.$or = [{ permission: 'public' }];
-  if (userId) {
-    selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
-  }
-  return Boards.find(selector);
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId, isActive: true } } },
+    { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+    { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+  ];
+
+  return Boards.find(selector, projection);
 };
 
 Boards.userBoardIds = (userId, archived = false, selector = {}) => {
-  return Boards.userBoards(userId, archived, selector).map(board => {
+  return Boards.userBoards(userId, archived, selector, {
+    fields: { _id: 1 },
+  }).map(board => {
     return board._id;
   });
 };

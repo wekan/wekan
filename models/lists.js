@@ -345,6 +345,17 @@ Lists.mutations({
   },
 });
 
+Lists.userArchivedLists = userId => {
+  return Lists.find({
+    boardId: { $in: Boards.userBoardIds(userId, null) },
+    archived: true,
+  })
+};
+
+Lists.userArchivedListIds = () => {
+  return Lists.userArchivedLists().map(list => { return list._id; });
+};
+
 Lists.archivedLists = () => {
   return Lists.find({ archived: true });
 };

@@ -42,6 +42,24 @@ template(name="globalSearch")
           autofocus dir="auto"
         )
         a.js-new-search.fa.fa-eraser
+      if debug.get.show
+        h1 Debug
+        if debug.get.showSelector
+          h2 Selector
+            button.js-copy-debug-selector
+              = 'Copy'
+          pre(
+            id="debug-selector"
+          )
+            = sessionData.selector
+        if debug.get.showProjection
+          h2 Projection
+            button.js-copy-debug-projection
+              = 'Copy'
+          pre(
+            id="debug-projection"
+          )
+            = sessionData.projection
       if searching.get
         +spinner
       else if hasResults.get

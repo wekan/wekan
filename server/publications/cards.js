@@ -17,16 +17,17 @@ import {
   OPERATOR_COMMENT,
   OPERATOR_CREATED_AT,
   OPERATOR_CREATOR,
+  OPERATOR_DEBUG,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
   OPERATOR_LIMIT,
   OPERATOR_LIST,
   OPERATOR_MEMBER,
-  OPERATOR_MODIFIED_AT,
+  OPERATOR_MODIFIED_AT, OPERATOR_ORG,
   OPERATOR_SORT,
   OPERATOR_STATUS,
-  OPERATOR_SWIMLANE,
+  OPERATOR_SWIMLANE, OPERATOR_TEAM,
   OPERATOR_USER,
   ORDER_ASCENDING,
   PREDICATE_ALL,
@@ -47,6 +48,9 @@ import {
   PREDICATE_SYSTEM,
 } from '/config/search-const';
 import { QueryErrors, QueryParams, Query } from '/config/query-classes';
+import { CARD_TYPES } from '../../config/const';
+import Org from "../../models/org";
+import Team from "../../models/team";
 
 const escapeForRegex = require('escape-string-regexp');
 
@@ -149,6 +153,51 @@ function buildSelector(queryParams) {
         }
       });
     }
+
+    if (queryParams.hasOperator(OPERATOR_ORG)) {
+      const orgs = [];
+      queryParams.getPredicates(OPERATOR_ORG).forEach(name => {
+        const org = Org.findOne({
+          $or: [
+            { orgDisplayName: name },
+            { orgShortName: name }
+          ]
+        });
+        if (org) {
+          orgs.push(org._id);
+        } else {
+          errors.addNotFound(OPERATOR_ORG, name);
+        }
+      });
+      if (orgs.length) {
+        boardsSelector.orgs = {
+          $elemMatch: { orgId: { $in: orgs }, isActive: true }
+        };
+      }
+    }
+
+    if (queryParams.hasOperator(OPERATOR_TEAM)) {
+      const teams = [];
+      queryParams.getPredicates(OPERATOR_TEAM).forEach(name => {
+        const team = Team.findOne({
+          $or: [
+            { teamDisplayName: name },
+            { teamShortName: name }
+          ]
+        });
+        if (team) {
+          teams.push(team._id);
+        } else {
+          errors.addNotFound(OPERATOR_TEAM, name);
+        }
+      });
+      if (teams.length) {
+        boardsSelector.teams = {
+          $elemMatch: { teamId: { $in: teams }, isActive: true }
+        };
+      }
+    }
+
     selector = {
       type: 'cardType-card',
       // boardId: { $in: Boards.userBoardIds(userId) },
@@ -167,8 +216,8 @@ function buildSelector(queryParams) {
                 $in: Boards.userBoardIds(userId, archived, boardsSelector),
               },
             },
-            { swimlaneId: { $in: Swimlanes.archivedSwimlaneIds() } },
-            { listId: { $in: Lists.archivedListIds() } },
+            { swimlaneId: { $in: Swimlanes.userArchivedSwimlaneIds(userId) } },
+            { listId: { $in: Lists.userArchivedListIds(userId) } },
             { archived: true },
           ],
         });
@@ -446,8 +495,8 @@ function buildSelector(queryParams) {
           { _id: { $in: attachments.map(attach => attach.cardId) } },
           { _id: { $in: comments.map(com => com.cardId) } },
         ];
-      if (queryParams.text == "false" || queryParams.text == "true") {
-        cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text == "true" ? true : false } } } );
+      if (queryParams.text === "false" || queryParams.text === "true") {
+        cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text === "true" } } } );
       }
       selector.$and.push({ $or: cardsSelector });
     }
@@ -458,7 +507,7 @@ function buildSelector(queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  //console.log('cards selector:', JSON.stringify(selector, null, 2));
+  // console.log('cards selector:', JSON.stringify(selector, null, 2));
 
   const query = new Query();
   query.selector = selector;
@@ -586,6 +635,7 @@ Meteor.publish('brokenCards', function(sessionId) {
     { boardId: { $in: [null, ''] } },
     { swimlaneId: { $in: [null, ''] } },
     { listId: { $in: [null, ''] } },
+    { type: { $nin: CARD_TYPES } },
   ];
   // console.log('brokenCards selector:', query.selector);
 
@@ -634,6 +684,7 @@ function findCards(sessionId, query) {
       selector: SessionData.pickle(query.selector),
       projection: SessionData.pickle(query.projection),
       errors: query.errors(),
+      debug: query.getQueryParams().getPredicate(OPERATOR_DEBUG)
     },
   };
 

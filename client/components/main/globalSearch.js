@@ -222,6 +222,30 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
           );
           document.getElementById('global-search-input').focus();
         },
+        'click .js-copy-debug-selector'(evt) {
+          /* Get the text field */
+          const selector = document.getElementById("debug-selector");
+
+          try {
+            navigator.clipboard.writeText(selector.textContent);
+            alert("Selector copied to clipboard");
+          } catch(err) {
+            alert("Error copying text: " + err);
+          }
+
+        },
+        'click .js-copy-debug-projection'(evt) {
+          /* Get the text field */
+          const projection = document.getElementById("debug-projection");
+
+          try {
+            navigator.clipboard.writeText(projection.textContent);
+            alert("Projection copied to clipboard");
+          } catch(err) {
+            alert("Error copying text: " + err);
+          }
+
+        },
         'click .js-board-title'(evt) {
           evt.preventDefault();
           const input = document.getElementById('global-search-input');
