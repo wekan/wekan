@@ -23,6 +23,7 @@ and fixes the following bugs:
 - Fixed Mermaid Diagram error: Maximum call stack size exceeded.
   [Part 1](https://github.com/wekan/wekan/commit/23a403644c7db44392d4b0498ee0fc85c504d974),
   [Part 2](https://github.com/wekan/wekan/commit/998d2f5b445b6bf2bc6cd16beac7231a0cf94fc3),
+  [Part 3](https://github.com/wekan/wekan/commit/443b40cff3cf507887c20639224ac1447acfaf88).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
