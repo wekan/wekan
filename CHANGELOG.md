@@ -18,11 +18,11 @@ and adds the following new features:
 - [New admin report to list boards](https://github.com/wekan/wekan/pull/4252).
   Thanks to jrsupplee.
 
-and removes the following features:
+and fixes the following bugs:
 
-- Temporarily remove Mermaid Diagram because even after updating to newest Mermaid it still has bug at https://github.com/wekan/wekan/issues/4251.
+- Fixed Mermaid Diagram error: Maximum call stack size exceeded.
   [Part 1](https://github.com/wekan/wekan/commit/23a403644c7db44392d4b0498ee0fc85c504d974),
-  [Part 2](https://github.com/wekan/wekan/commit/998d2f5b445b6bf2bc6cd16beac7231a0cf94fc3).
+  [Part 2](https://github.com/wekan/wekan/commit/998d2f5b445b6bf2bc6cd16beac7231a0cf94fc3),
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

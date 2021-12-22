@@ -7,8 +7,7 @@ var Markdown = require('markdown-it')({
   breaks: true,
 });
 
-// How to fix Mermaid bug so it would work? https://github.com/wekan/wekan/issues/4251
-//import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
+import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
 // Static URL Scheme Listing
 var urlschemes = [
@@ -38,7 +37,7 @@ for(var i=0; i<urlschemes.length;i++){
 
 var emoji = require('markdown-it-emoji');
 Markdown.use(emoji);
-//Markdown.use(markdownItMermaid);
+Markdown.use(markdownItMermaid);
 
 if (Package.ui) {
   const Template = Package.templating.Template;
