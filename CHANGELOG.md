@@ -18,6 +18,14 @@ and adds the following new features:
 - [New admin report to list boards](https://github.com/wekan/wekan/pull/4252).
   Thanks to jrsupplee.
 
+and adds the following accessibility improvements:
+
+- Made WeKan zoomable by recommendation of Axe browser extension
+  https://github.com/wekan/wekan/issues/459#issuecomment-999098233 by changing meta viewport settings at
+  https://github.com/wekan/wekan/blob/master/client/components/main/layouts.jade#L3 ,
+  in some commit of this WeKan v5.88.
+  Thanks to xet7.
+
 and fixes the following bugs:
 
 - Fixed Mermaid Diagram error: Maximum call stack size exceeded.
