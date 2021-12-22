@@ -154,6 +154,8 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       predicate_end: TAPi18n.__('predicate-end'),
       predicate_assignee: TAPi18n.__('predicate-assignee'),
       predicate_member: TAPi18n.__('predicate-member'),
+      predicate_selector: TAPi18n.__('predicate-selector'),
+      predicate_projection: TAPi18n.__('predicate-projection'),
     };
 
     let text = '';
