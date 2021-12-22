@@ -20,8 +20,9 @@ and adds the following new features:
 
 and removes the following features:
 
-- [Temporarily remove Mermaid Diagram because even after updating to newest Mermaid it still has bug](https://github.com/wekan/wekan/commit/23a403644c7db44392d4b0498ee0fc85c504d974).
-  at https://github.com/wekan/wekan/issues/4251.
+- Temporarily remove Mermaid Diagram because even after updating to newest Mermaid it still has bug at https://github.com/wekan/wekan/issues/4251.
+  [Part 1](https://github.com/wekan/wekan/commit/23a403644c7db44392d4b0498ee0fc85c504d974),
+  [Part 2](https://github.com/wekan/wekan/commit/998d2f5b445b6bf2bc6cd16beac7231a0cf94fc3).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
