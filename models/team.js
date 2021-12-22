@@ -149,6 +149,7 @@ if (Meteor.isServer) {
         Team.update(team, {
           $set: { teamDisplayName: teamDisplayName },
         });
+        Meteor.call('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
       }
     },
 
@@ -206,6 +207,7 @@ if (Meteor.isServer) {
             teamIsActive: teamIsActive,
           },
         });
+        Meteor.call('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
       }
     },
   });
