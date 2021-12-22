@@ -38,7 +38,7 @@ for(var i=0; i<urlschemes.length;i++){
 
 var emoji = require('markdown-it-emoji');
 Markdown.use(emoji);
-Markdown.use(markdownItMermaid);
+//Markdown.use(markdownItMermaid);
 
 if (Package.ui) {
   const Template = Package.templating.Template;
