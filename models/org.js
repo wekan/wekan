@@ -149,8 +149,9 @@ if (Meteor.isServer) {
         check(org, Object);
         check(orgDisplayName, String);
         Org.update(org, {
-          $set: { orgDisplayName: orgDisplayNameorgShortName },
+          $set: { orgDisplayName: orgDisplayName },
         });
+        Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
       }
     },
 
@@ -208,6 +209,7 @@ if (Meteor.isServer) {
             orgIsActive: orgIsActive,
           },
         });
+        Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
       }
     },
   });
