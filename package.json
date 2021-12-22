@@ -22,7 +22,6 @@
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/runtime": "^7.15.3",
-    "@wekanteam/markdown-it-mermaid": "^0.5.1",
     "ajv": "^8.8.2",
     "bcryptjs": "^2.4.3",
     "bson": "^4.6.0",

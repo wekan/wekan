@@ -7,7 +7,8 @@ var Markdown = require('markdown-it')({
   breaks: true,
 });
 
-import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
+// How to fix Mermaid bug so it would work? https://github.com/wekan/wekan/issues/4251
+//import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
 // Static URL Scheme Listing
 var urlschemes = [
