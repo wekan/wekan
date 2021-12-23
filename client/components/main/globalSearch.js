@@ -131,6 +131,9 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       operator_has: TAPi18n.__('operator-has'),
       operator_sort: TAPi18n.__('operator-sort'),
       operator_limit: TAPi18n.__('operator-limit'),
+      operator_debug: TAPi18n.__('operator-debug'),
+      operator_org: TAPi18n.__('operator-org'),
+      operator_team: TAPi18n.__('operator-team'),
       predicate_overdue: TAPi18n.__('predicate-overdue'),
       predicate_archived: TAPi18n.__('predicate-archived'),
       predicate_all: TAPi18n.__('predicate-all'),
@@ -151,6 +154,8 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       predicate_end: TAPi18n.__('predicate-end'),
       predicate_assignee: TAPi18n.__('predicate-assignee'),
       predicate_member: TAPi18n.__('predicate-member'),
+      predicate_selector: TAPi18n.__('predicate-selector'),
+      predicate_projection: TAPi18n.__('predicate-projection'),
     };
 
     let text = '';
@@ -169,6 +174,8 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       ['\n- ', 'globalSearch-instructions-operator-member'],
       ['\n- ', 'globalSearch-instructions-operator-assignee'],
       ['\n- ', 'globalSearch-instructions-operator-creator'],
+      ['\n- ', 'globalSearch-instructions-operator-org'],
+      ['\n- ', 'globalSearch-instructions-operator-team'],
       ['\n- ', 'globalSearch-instructions-operator-due'],
       ['\n- ', 'globalSearch-instructions-operator-created'],
       ['\n- ', 'globalSearch-instructions-operator-modified'],
