@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - cards joilla *<username>* on *jäsen*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - kortit joilla *<username>* on *käsittelijä*",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - kortit joissa *<username>* on kortin luoja",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - kortit jotka kuuluvat taululle jotka on valittu organisaatiolle *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - kortit jotka kuuluvat taululle joka on valittu tiimille *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - kortit joilla on eräpäivä korkeitaan *<n>* päivän päästä tästä hetkestä.  `__operator_due__:__predicate_overdue__ listaa kaikki kortit joilla eräpäivä meni jo.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - kortit jotka on luotu *<n>* päivää sitten tai vähemmän",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - kortit joita on muokattu *<n>* päivää sitten tai vähemmän",

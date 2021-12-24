@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - kort där *<username>* är en *medlem*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - kort där *<username>* är en *tilldelad*",
     "globalSearch-instructions-operator-creator": "`__operator_member__:<username>` - kort där *<username>* är kortets skapare",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:1` - cards which are due up to *2* days from now. `__operator_due__:__predicate_overdue__ lists all cards past their due date.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - kort som skapade för *<n>* dagar sedan eller mindre.",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - kort som är modifierade för *<n>* dagar sedan eller mindre",

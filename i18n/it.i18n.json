@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - schede dove *<username>* è un *membro*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - schede dove *<username>* è un *assegnatario*",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - cards where *<username>* is the card's creator",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - cards which are due up to *<n>* days from now.  `__operator_due__:__predicate_overdue__ lists all cards past their due date.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - schede create *<n>* giorni fa o prima",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - schede modificate *<n>* giorni fa o prima",

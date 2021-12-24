@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - kort hvor *<username>* er et *medlem*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - kort hvor *<username>* er en *rettighetstaker*",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - kort hvor *<username>* er kortenes oppretter",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - kort som forfaller om *<n>* dager fra nå.  `__operator_due__:__predicate_overdue__ lister alle kort med passert forfallsdato.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - kort som er opprettet *<n>* dager siden eller mindre",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - kort som er modifisert *<n>* dager siden eller mindre",

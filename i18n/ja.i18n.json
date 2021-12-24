@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - *<username>* が *メンバー* のカード",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - *<username>* が *担当者* のカード",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - *<username>* が作成者のカード",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - 今から *<n>* 日以内に期限が切れるカード `__operator_due__:__predicate_overdue__` - 期限が切れたすべてのカード",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - *<n>* 日以内に作成されたカード",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - *<n>* 日以内に変更されたカード",

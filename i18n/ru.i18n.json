@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - карточки, в которых *<username>* *участник*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - карточки, в которых *<username>* *исполнитель*",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - карточки, где *<username>* является автором",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - карточки с датой завершения до *<n>* дней от текущей даты.  `__operator_due__:__predicate_overdue__ список всех просроченных карточек.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - карточки, которые были созданы до *<n>* дней назад",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - карточки, который изменены до *<n>* дней назад",

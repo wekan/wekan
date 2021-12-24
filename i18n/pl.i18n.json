@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - karty, których *użytkownikiem* jest *<username>*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - karty, do których *przypisany* jest użytkownik *<username>*",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - karty, których twórcą jest *<username>*",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - karty, których termin mija w ciągu *<n>* lub mniej dni od teraz.  `__operator_due__:__predicate_overdue__ wyświetla wszystkie karty, których termin minął.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - karty utworzone *<n>* lub mniej dni temu",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - karty zmodyfikowane *<n>* lub mniej dni temu",

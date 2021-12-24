@@ -1022,6 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - karty, kde *<username>* je *member*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - karty, kde *<username>* je *assignee*",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - karty, kde *<username>* je tvůrcem",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - karty, které jsou *<n>* dny před termínem.  `__operator_due__:__predicate_overdue__ zobrazí všechny karty po termínu.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - karty, které byly vytvořeny před *<n>* nebo méně dny",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - katry, které byly upraveny před *<n>* nebo méně dny ",
