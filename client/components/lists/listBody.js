@@ -363,6 +363,9 @@ BlazeComponent.extendComponent({
             const currentBoard = Boards.findOne(Session.get('currentBoard'));
             callback(
               $.map(currentBoard.labels, label => {
+                if (label.name == undefined) {
+                  label.name = "";
+                }
                 if (
                   label.name.indexOf(term) > -1 ||
                   label.color.indexOf(term) > -1
