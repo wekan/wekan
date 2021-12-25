@@ -277,9 +277,12 @@ BlazeComponent.extendComponent({
 
   getLabels() {
     const currentBoardId = Session.get('currentBoard');
-    return Boards.findOne(currentBoardId).labels.filter(label => {
-      return this.labels.get().indexOf(label._id) > -1;
-    });
+    if (Boards.findOne(currentBoardId).labels) {
+      return Boards.findOne(currentBoardId).labels.filter(label => {
+        return this.labels.get().indexOf(label._id) > -1;
+      });
+    }
+    return false;
   },
 
   pressKey(evt) {
@@ -360,6 +363,9 @@ BlazeComponent.extendComponent({
             const currentBoard = Boards.findOne(Session.get('currentBoard'));
             callback(
               $.map(currentBoard.labels, label => {
+                if (label.name == undefined) {
+                  label.name = "";
+                }
                 if (
                   label.name.indexOf(term) > -1 ||
                   label.color.indexOf(term) > -1
