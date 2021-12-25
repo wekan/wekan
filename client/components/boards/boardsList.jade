@@ -14,6 +14,14 @@ template(name="boardList")
             option(value="-1") {{_ 'organizations'}} :
             each orgsDatas
               option(value="{{orgId}}") {{_ orgDisplayName}}
+
+      //li.AllBoardTemplates
+      //  if userHasTemplates
+      //  select.js-AllBoardTemplates#jsAllBoardTemplates("multiple")
+      //    option(value="-1") {{_ 'templates'}} :
+      //    each templatesDatas
+      //      option(value="{{templateId}}") {{_ templateDisplayName}}
+
       li.AllBoardBtns
         div.AllBoardButtonsContainer
           if userHasOrgsOrTeams

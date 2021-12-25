@@ -8,7 +8,11 @@ Template.boardListHeaderBar.events({
 
 Template.boardListHeaderBar.helpers({
   title() {
+    //if (FlowRouter.getRouteName() === 'template-container') {
+    //  return 'template-container';
+    //} else {
     return FlowRouter.getRouteName() === 'home' ? 'my-boards' : 'public';
+    //}
   },
   templatesBoardId() {
     return Meteor.user() && Meteor.user().getTemplatesBoardId();
@@ -99,6 +103,14 @@ BlazeComponent.extendComponent({
     else
       return false;
   },
+/*
+  userHasTemplates(){
+    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
+      return true;
+    else
+      return false;
+  },
+*/
   orgsDatas() {
     if(Meteor.user().orgs)
       return Meteor.user().orgs.sort((a, b) => a.orgDisplayName.localeCompare(b.orgDisplayName));
@@ -122,12 +134,11 @@ BlazeComponent.extendComponent({
   },
   boards() {
     let query = {
-      //archived: false,
-      ////type: { $in: ['board','template-container'] },
-      //type: 'board',
+      // { type: 'board' },
+      // { type: { $in: ['board','template-container'] } },
       $and: [
         { archived: false },
-        { type: 'board' },
+        { type: { $in: ['board','template-container'] } },
         { $or:[] }
       ]
     };

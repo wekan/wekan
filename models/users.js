@@ -719,7 +719,8 @@ Users.helpers({
   },
 
   getTemplatesBoardSlug() {
-    return (Boards.findOne((this.profile || {}).templatesBoardId) || {}).slug;
+    //return (Boards.findOne((this.profile || {}).templatesBoardId) || {}).slug;
+    return 'templates';
   },
 
   remove() {
@@ -1305,13 +1306,13 @@ if (Meteor.isServer) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         Users.find({
           teams: {
-              $elemMatch: {teamId: teamId} 
+              $elemMatch: {teamId: teamId}
           }
         }).forEach(user => {
-          Users.update({ 
+          Users.update({
             _id: user._id,
             teams: {
-              $elemMatch: {teamId: teamId} 
+              $elemMatch: {teamId: teamId}
             }
           }, {
             $set: {
@@ -1327,13 +1328,13 @@ if (Meteor.isServer) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         Users.find({
           orgs: {
-              $elemMatch: {orgId: orgId} 
+              $elemMatch: {orgId: orgId}
           }
         }).forEach(user => {
-          Users.update({ 
+          Users.update({
             _id: user._id,
             orgs: {
-              $elemMatch: {orgId: orgId} 
+              $elemMatch: {orgId: orgId}
             }
           }, {
             $set: {

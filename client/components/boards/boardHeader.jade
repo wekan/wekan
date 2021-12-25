@@ -235,9 +235,9 @@ template(name="createBoard")
           = " "
           | {{{_ 'board-private-info'}}}
         a.js-change-visibility {{_ 'change'}}.
-    //a.flex.js-toggle-add-template-container
-    //  .materialCheckBox#add-template-container
-    //  span {{_ 'add-template-container'}}
+    a.flex.js-toggle-add-template-container
+      .materialCheckBox#add-template-container
+      span {{_ 'add-template-container'}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
     span.quiet
       | {{_ 'or'}}
