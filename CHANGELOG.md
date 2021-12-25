@@ -7,6 +7,11 @@ This release adds the following new features:
 - [Edit team/org now update users.teams.teamDisplayName / users.orgs.orgDisplayName](https://github.com/wekan/wekan/pull/4257).
   Thanks to Ben0it-T.
 
+and fixes the following bugs:
+
+- [Fix getLabels exception in template helper](https://github.com/wekan/wekan/pull/4262).
+  Thanks to Ben0it-T.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.88 2021-12-22 WeKan ® release
