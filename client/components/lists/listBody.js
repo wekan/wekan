@@ -277,9 +277,12 @@ BlazeComponent.extendComponent({
 
   getLabels() {
     const currentBoardId = Session.get('currentBoard');
-    return Boards.findOne(currentBoardId).labels.filter(label => {
-      return this.labels.get().indexOf(label._id) > -1;
-    });
+    if (Boards.findOne(currentBoardId).labels) {
+      return Boards.findOne(currentBoardId).labels.filter(label => {
+        return this.labels.get().indexOf(label._id) > -1;
+      });
+    }
+    return false;
   },
 
   pressKey(evt) {
