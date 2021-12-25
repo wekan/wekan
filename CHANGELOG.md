@@ -11,6 +11,9 @@ and fixes the following bugs:
 
 - [Fix getLabels exception in template helper](https://github.com/wekan/wekan/pull/4262).
   Thanks to Ben0it-T.
+- [Fixed Templates are Missing, Error: Site not Found "/templates" is missing in the URL.
+  Shared Templates part 5: Make visible Create template board checkbox and templates at All Boards page, In Progress](https://github.com/wekan/wekan/commit/7f32de3bec151df9e656013e8e910eb650b8ce80).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
