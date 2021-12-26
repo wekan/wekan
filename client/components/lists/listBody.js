@@ -714,6 +714,7 @@ BlazeComponent.extendComponent({
               },
               (err, data) => {
                 _id = data;
+                subManager.subscribe('board', _id, false);
               },
             );
           }

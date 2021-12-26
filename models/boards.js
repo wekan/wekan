@@ -623,6 +623,7 @@ Boards.helpers({
       rule.triggerId = triggersMap[rule.triggerId];
       Rules.insert(rule);
     });
+    return _id;
   },
   /**
    * Return a unique title based on the current title

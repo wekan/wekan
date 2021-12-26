@@ -241,6 +241,7 @@ BlazeComponent.extendComponent({
                 this.setError(err.error);
               } else {
                 Session.set('fromBoard', null);
+                subManager.subscribe('board', res, false);
                 Utils.goBoardId(res);
               }
             },
