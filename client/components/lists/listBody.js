@@ -575,7 +575,8 @@ BlazeComponent.extendComponent({
       this.isBoardTemplateSearch;
     let board = {};
     if (this.isTemplateSearch) {
-      board = Boards.findOne((Meteor.user().profile || {}).templatesBoardId);
+      //board = Boards.findOne((Meteor.user().profile || {}).templatesBoardId);
+      board._id = (Meteor.user().profile || {}).templatesBoardId;
     } else {
       // Prefetch first non-current board id
       board = Boards.find({
