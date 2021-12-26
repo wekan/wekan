@@ -11,6 +11,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Trello api.py: Added additional TODO notes](https://github.com/wekan/wekan/commit/f2c31f877c5a22af4429688fe2620919858ca69f).
   Thanks to xet7.
+- [Added Info about Shared Templates In Progress](https://github.com/wekan/wekan/issues/3313#issuecomment-1001187003).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
