@@ -6,6 +6,9 @@ This release adds the following new features:
 
 - [Edit team/org now update users.teams.teamDisplayName / users.orgs.orgDisplayName](https://github.com/wekan/wekan/pull/4257).
   Thanks to Ben0it-T.
+- [Added api.py for using newest Trello API, to show Trello boards/cards/actions/reactions JSON and download Trello attachments
+  as binary files from S3](https://github.com/wekan/wekan/commit/aff6e361f03f1a7e269edc184884313557c94362).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
