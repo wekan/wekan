@@ -17,17 +17,43 @@ import json
 import requests
 import sys
 
+# ------- TODO START -------------
+#
+# - Check nested resources about how to recursively get all reactins etc:
+#   https://developer.atlassian.com/cloud/trello/guides/rest-api/nested-resources/
+# - Add checking status codes and stop/delay if errors in API.
+#   If board is big, instead get small amount of board with paging of Trello REST API,
+#   then have small delay, and then get more of that big amount of data, so that
+#   there would not be timeouts with too much data
+#   https://developer.atlassian.com/cloud/trello/guides/rest-api/status-codes/
+# - Add batch requests, to get enough data at once:
+#   https://developer.atlassian.com/cloud/trello/rest/api-group-batch/#api-batch-get
+# - Add rate limits with delays:
+#   https://developer.atlassian.com/cloud/trello/guides/rest-api/rate-limits/
+# - Use webhooks to receive data from Trello to WeKan, so that there would not be
+#   need to repeatedly get same data again (no polling data), but instead get
+#   changes pushed to WeKan with webhooks when they happen
+#   https://developer.atlassian.com/cloud/trello/guides/rest-api/webhooks/
+#   https://developer.atlassian.com/cloud/trello/rest/api-group-webhooks/#api-webhooks-post
+#
+# ------- TODO END -------------
+
+
 
 # ------- TRELLO SETTINGS START -------------
-
-# CHECK RATE LIMITS: https://developer.atlassian.com/cloud/trello/guides/rest-api/rate-limits/
-# See https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/
-# Get developer API key and create token at top of https://trello.com/app-key
-
+#
+# READ ABOVE TODO FIRST, BE CAREFUL WITH RATE LIMITS ETC.
+#
+# Keys and tokens:
+# - See API introduction:
+#   https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/
+# - Get developer API key and create token at top of https://trello.com/app-key
+#
 key = 'TRELLO-API-KEY-HERE'
 token = 'TRELLO-API-TOKEN-HERE'
-
+#
 # ------- TRELLO SETTINGS END -------------
+
 
 arguments = len(sys.argv) - 1
 
