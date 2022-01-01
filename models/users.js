@@ -1908,6 +1908,37 @@ if (Meteor.isServer) {
   });
 
   /**
+   * @operation get_username
+   *
+   * @summary retrieving the user name for a given ID
+   *
+   * @description You must be logged in to request the username for a specific ID
+   *
+   * @param {string} userId the user ID
+   * @return_type {username: string}
+   *
+   */
+  JsonRoutes.add('GET', '/api/users/:userId/username', function(req, res) {
+    try{
+      Authentication.checkLoggedIn(req.userId);
+      const id = req.params.userId;
+      let data = Meteor.users.findOne({
+        _id: id,
+      }).username;
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data,
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+
+  });
+
+  /**
    * @operation edit_user
    *
    * @summary edit a given user
