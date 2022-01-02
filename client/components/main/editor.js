@@ -22,25 +22,22 @@ BlazeComponent.extendComponent({
                 const user = Users.findOne(member.userId);
                 const username = user.username;
                 const fullName = user.profile && user.profile !== undefined && user.profile.fullname ? user.profile.fullname : "";
-                // return username.includes(term) || fullName.includes(term) ?  fullName + "(" + username + ")" : null;
-                if (username.includes(term) || fullName.includes(term)) {
-                  if (fullName) {
-                    return username + " (" + fullName + ")";
-                  }
-                  else {
-                    return username;
-                  }
-                }
-                return null;
+                return username.includes(term) || fullName.includes(term) ? user : null;
               })
-              .filter(Boolean), [...specialHandleNames])
+              .filter(Boolean), [...specialHandles])
           );
         },
-        template(value) {
-          return value;
+        template(user) {
+          if (user.profile && user.profile.fullname) {
+            return (user.profile.fullname + " (" + user.username + ")");
+          }
+          return user.username;
         },
-        replace(username) {
-          return `@${username} `;
+        replace(user) {
+          if (user.profile && user.profile.fullname) {
+            return `@${user.username} (${user.profile.fullname}) `;
+          }
+          return `@${user.username} `;
         },
         index: 1,
       },
