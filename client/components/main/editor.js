@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
     const mentions = [
       // User mentions
       {
-        match: /\B@([\w.]*)$/,
+        match: /\B@([\w.-]*)$/,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback(
@@ -21,8 +21,17 @@ BlazeComponent.extendComponent({
               .map(member => {
                 const user = Users.findOne(member.userId);
                 const username = user.username;
-                const fullName = user.profile && user.profile !== undefined ?  user.profile.fullname : "";
-                return username.includes(term) || fullName.includes(term) ?  fullName + "(" + username + ")" : null;
+                const fullName = user.profile && user.profile !== undefined && user.profile.fullname ? user.profile.fullname : "";
+                // return username.includes(term) || fullName.includes(term) ?  fullName + "(" + username + ")" : null;
+                if (username.includes(term) || fullName.includes(term)) {
+                  if (fullName) {
+                    return username + " (" + fullName + ")";
+                  }
+                  else {
+                    return username;
+                  }
+                }
+                return null;
               })
               .filter(Boolean), [...specialHandleNames])
           );
@@ -355,7 +364,7 @@ Blaze.Template.registerHelper(
       }
       return member;
     }), [...specialHandles]);
-    const mentionRegex = /\B@([\w.]*)/gi;
+    const mentionRegex = /\B@([\w.-]*)/gi;
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
