@@ -336,7 +336,7 @@ BlazeComponent.extendComponent({
       [
         // User mentions
         {
-          match: /\B@([\w.]*)$/,
+          match: /\B@([\w.-]*)$/,
           search(term, callback) {
             const currentBoard = Boards.findOne(Session.get('currentBoard'));
             callback(
@@ -347,6 +347,9 @@ BlazeComponent.extendComponent({
             );
           },
           template(user) {
+            if (user.profile && user.profile.fullname) {
+              return (user.username + " (" + user.profile.fullname + ")");
+            }
             return user.username;
           },
           replace(user) {
