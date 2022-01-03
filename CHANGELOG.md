@@ -7,6 +7,11 @@ This release adds the following updates:
 - [Added release scripts for starting and stopping services](https://github.com/wekan/wekan/commit/33f47414bbecdc3bca10e807c38562e833997db4).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix user mentions](https://github.com/wekan/wekan/pull/4273).
+  Thanks to Ben0it-T.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.90 2021-12-26 WeKan ® release
