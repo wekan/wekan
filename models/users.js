@@ -1910,21 +1910,29 @@ if (Meteor.isServer) {
   /**
    * @operation get_username
    *
-   * @summary retrieving the user name for a given ID
+   * @summary retrieving some basic user information for a given ID
    *
-   * @description You must be logged in to request the username for a specific ID
+   * @description You must be logged in to request basic information for a specific user ID
    *
    * @param {string} userId the user ID
-   * @return_type {username: string}
+   * @return_type {username: string,
+   *               isAdmin: boolean,
+   *               profile: {avatarUrl: string,
+   *                fullname: string,
+   *                initials: string
+   *                }
+ *                }
    *
    */
-  JsonRoutes.add('GET', '/api/users/:userId/username', function(req, res) {
+  JsonRoutes.add('GET', '/api/users/:userId/info', function(req, res) {
     try{
       Authentication.checkLoggedIn(req.userId);
       const id = req.params.userId;
-      let data = Meteor.users.findOne({
+      let user = Meteor.users.findOne({
         _id: id,
-      }).username;
+      });
+      //let data = user;
+      let data = (({username, isAdmin, profile: { avatarUrl, fullname, initials }}) => ({username, isAdmin, profile:{ avatarUrl, fullname, initials }}))(user);
       JsonRoutes.sendResult(res, {
         code: 200,
         data,
