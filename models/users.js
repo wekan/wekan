@@ -1918,10 +1918,10 @@ if (Meteor.isServer) {
    * @return_type {username: string,
    *               isAdmin: boolean,
    *               profile: {avatarUrl: string,
-   *                fullname: string,
-   *                initials: string
-   *                }
- *                }
+   *                         fullname: string,
+   *                         initials: string
+   *                        }
+   *              }
    *
    */
   JsonRoutes.add('GET', '/api/users/:userId/info', function(req, res) {
