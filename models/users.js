@@ -1931,7 +1931,6 @@ if (Meteor.isServer) {
       let user = Meteor.users.findOne({
         _id: id,
       });
-      //let data = user;
       let data = (({username, isAdmin, profile: { avatarUrl, fullname, initials }}) => ({username, isAdmin, profile:{ avatarUrl, fullname, initials }}))(user);
       JsonRoutes.sendResult(res, {
         code: 200,
