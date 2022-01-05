@@ -6,6 +6,8 @@ This release adds the following updates:
 
 - [Added release scripts for starting and stopping services](https://github.com/wekan/wekan/commit/33f47414bbecdc3bca10e807c38562e833997db4).
   Thanks to xet7.
+- [Updated rebuild-wekan.sh script about installing dependencies](https://github.com/wekan/wekan/commit/9979193df5b896efb1a8c0ac9c244972fa08aae1).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
