@@ -801,9 +801,7 @@ Template.editCardAssignerForm.events({
 
 Template.moveCardPopup.events({
   'click .js-done'() {
-    // XXX We should *not* get the currentCard from the global state, but
-    // instead from a “component” state.
-    const card = Utils.getCurrentCard();
+    const card = Cards.findOne(this._id);
     const bSelect = $('.js-select-boards')[0];
     let boardId;
     // if we are a worker, we won't have a board select so we just use the
