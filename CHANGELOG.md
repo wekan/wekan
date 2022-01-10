@@ -10,6 +10,8 @@ This release adds the following updates:
   [Part1](https://github.com/wekan/wekan/commit/9979193df5b896efb1a8c0ac9c244972fa08aae1),
   [Part2](https://github.com/wekan/wekan/commit/6f7292db5e8427fb63305e1e0e41d2337d8d9a60).
   Thanks to xet7.
+- [In rebuild-wekan.sh, use Volta Node and NPM install manager, made with Rust https://volta.sh . Volta uses home directory also with "npm -g install", no sudo needed](https://github.com/wekan/wekan/commit/2efa42b8537b8a404a0f82d78c5299f098130183).
+  Thanks to Volta developers.
 
 and fixes the following bugs:
 
