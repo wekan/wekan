@@ -25,20 +25,26 @@ do
 			sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp
 			#curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
-			sudo apt-get install -y npm
+			#sudo apt-get install -y npm
+			# Volta Node and NPM install manager, made with Rust https://volta.sh
+			# Volta uses home directory also with "npm -g install", no sudo needed.
+			curl https://get.volta.sh | bash
+			export VOLTA_HOME="$HOME/.volta"
+			export PATH="$VOLTA_HOME/bin:$PATH"
+			volta install node@12
 			# npm nodejs
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
-			sudo npm -g install n
-			sudo n 12.22.8
-			sudo npm -g install npm
+			#sudo npm -g install n
+			#sudo n 12.22.8
+			#sudo npm -g install npm
 			## Latest npm with Meteor 2.2
-			sudo npm -g install node-gyp
+			npm -g install node-gyp
 			# Latest fibers for Meteor 2.2
-			sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-			sudo npm -g install fibers
+			#sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
+			npm -g install fibers
 			# Install Meteor, if it's not yet installed
-			sudo npm install -g meteor --unsafe-perm
+			npm install -g meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
