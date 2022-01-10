@@ -31,6 +31,7 @@ template(name="checklistDetail")
       .checklist-title
         span
         if canModifyCard
+          a.fa.fa-navicon.checklist-details-menu.js-open-checklist-details-menu(title="{{_ 'checklistActionsPopup-title'}}")
           a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
 
         if canModifyCard
@@ -133,3 +134,7 @@ template(name="boardsSwimlanesAndLists")
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="checklistActionsPopup")
+  ul.pop-over-list
+    li

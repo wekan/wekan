@@ -190,6 +190,7 @@ BlazeComponent.extendComponent({
     return [
       {
         ...events,
+        'click .js-open-checklist-details-menu': Popup.open('checklistActions'),
         'click .toggle-delete-checklist-dialog' : Popup.afterConfirm('checklistDelete', function () {
           Popup.close();
           const checklist = this.checklist;
