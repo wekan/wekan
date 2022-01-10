@@ -725,17 +725,17 @@ template(name="boardsAndLists")
         if $eq _id currentBoard._id
           option(value="{{_id}}" selected) {{_ 'current'}}
         else
-          option(value="{{_id}}") {{title}}
+          option(value="{{_id}}" selected="{{#if isMoveAndCopyDialogOptionBoardId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isMoveAndCopyDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each aBoardLists
-      option(value="{{_id}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isMoveAndCopyDialogOptionListId _id}}selected{{/if}}") {{title}}
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}

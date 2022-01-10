@@ -226,6 +226,32 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.moveAndCopyDialog' : {
+      /**
+       * move and copy card dialog
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    'profile.moveAndCopyDialog.$.boardId': {
+      /**
+       * last selected board id
+       */
+      type: String,
+    },
+    'profile.moveAndCopyDialog.$.swimlaneId': {
+      /**
+       * last selected swimlane id
+       */
+      type: String,
+    },
+    'profile.moveAndCopyDialog.$.listId': {
+      /**
+       * last selected list id
+       */
+      type: String,
+    },
     'profile.notifications': {
       /**
        * enabled notifications for the user
@@ -616,6 +642,17 @@ Users.helpers({
     return this._getListSortBy()[1];
   },
 
+  /** returns all confirmed move and copy dialog field values
+   * <li> the board, swimlane and list id is stored for each board
+   */
+  getMoveAndCopyDialogOptions() {
+    let _ret = {}
+    if (this.profile && this.profile.moveAndCopyDialog) {
+      _ret = this.profile.moveAndCopyDialog;
+    }
+    return _ret;
+  },
+
   hasTag(tag) {
     const { tags = [] } = this.profile || {};
     return _.contains(tags, tag);
@@ -731,6 +768,19 @@ Users.helpers({
 });
 
 Users.mutations({
+  /** set the confirmed board id/swimlane id/list id of a board
+   * @param boardId the current board id
+   * @param options an object with the confirmed field values
+   */
+  setMoveAndCopyDialogOption(boardId, options) {
+    let currentOptions = this.getMoveAndCopyDialogOptions();
+    currentOptions[boardId] = options;
+    return {
+      $set: {
+        'profile.moveAndCopyDialog': currentOptions,
+      },
+    };
+  },
   toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
     return {
