@@ -252,6 +252,38 @@ Users.attachSchema(
        */
       type: String,
     },
+    'profile.moveChecklistDialog' : {
+      /**
+       * move and copy card dialog
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    'profile.moveChecklistDialog.$.boardId': {
+      /**
+       * last selected board id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.swimlaneId': {
+      /**
+       * last selected swimlane id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.listId': {
+      /**
+       * last selected list id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.cardId': {
+      /**
+       * last selected card id
+       */
+      type: String,
+    },
     'profile.notifications': {
       /**
        * enabled notifications for the user
@@ -653,6 +685,17 @@ Users.helpers({
     return _ret;
   },
 
+  /** returns all confirmed move checklist dialog field values
+   * <li> the board, swimlane, list and card id is stored for each board
+   */
+  getMoveChecklistDialogOptions() {
+    let _ret = {}
+    if (this.profile && this.profile.moveChecklistDialog) {
+      _ret = this.profile.moveChecklistDialog;
+    }
+    return _ret;
+  },
+
   hasTag(tag) {
     const { tags = [] } = this.profile || {};
     return _.contains(tags, tag);
@@ -778,6 +821,19 @@ Users.mutations({
     return {
       $set: {
         'profile.moveAndCopyDialog': currentOptions,
+      },
+    };
+  },
+  /** set the confirmed board id/swimlane id/list id/card id of a board
+   * @param boardId the current board id
+   * @param options an object with the confirmed field values
+   */
+  setMoveChecklistDialogOption(boardId, options) {
+    let currentOptions = this.getMoveChecklistDialogOptions();
+    currentOptions[boardId] = options;
+    return {
+      $set: {
+        'profile.moveChecklistDialog': currentOptions,
       },
     };
   },

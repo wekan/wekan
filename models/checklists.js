@@ -147,6 +147,37 @@ Checklists.mutations({
   setTitle(title) {
     return { $set: { title } };
   },
+  /** move the checklist to another card
+   * @param newCardId move the checklist to this cardId
+   */
+  move(newCardId) {
+    // update every activity
+    Activities.find(
+      {checklistId: this._id}
+    ).forEach(activity => {
+      Activities.update(activity._id, {
+        $set: {
+          cardId: newCardId,
+        },
+      });
+    });
+    // update every checklist-item
+    ChecklistItems.find(
+      {checklistId: this._id}
+    ).forEach(checklistItem => {
+      ChecklistItems.update(checklistItem._id, {
+        $set: {
+          cardId: newCardId,
+        },
+      });
+    });
+    // update the checklist itself
+    return {
+      $set: {
+        cardId: newCardId,
+      },
+    };
+  },
 });
 
 if (Meteor.isServer) {
