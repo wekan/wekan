@@ -191,13 +191,6 @@ BlazeComponent.extendComponent({
       {
         ...events,
         'click .js-open-checklist-details-menu': Popup.open('checklistActions'),
-        'click .toggle-delete-checklist-dialog' : Popup.afterConfirm('checklistDelete', function () {
-          Popup.close();
-          const checklist = this.checklist;
-          if (checklist && checklist._id) {
-            Checklists.remove(checklist._id);
-          }
-        }),
         'submit .js-add-checklist': this.addChecklist,
         'submit .js-edit-checklist-title': this.editChecklist,
         'submit .js-add-checklist-item': this.addChecklistItem,
@@ -293,6 +286,22 @@ BlazeComponent.extendComponent({
     ];
   }
 }).register('addChecklistItemForm');
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click .js-delete-checklist' : Popup.afterConfirm('checklistDelete', function () {
+          Popup.back(2);
+          const checklist = this.checklist;
+          if (checklist && checklist._id) {
+            Checklists.remove(checklist._id);
+          }
+        }),
+      }
+    ]
+  }
+}).register('checklistActionsPopup');
 
 BlazeComponent.extendComponent({
   onRendered() {
