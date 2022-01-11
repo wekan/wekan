@@ -2,17 +2,6 @@ import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 
-Template.dateBadge.helpers({
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
-});
-
 // editCardReceivedDatePopup
 (class extends DatePicker {
   onCreated() {

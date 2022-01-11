@@ -158,13 +158,6 @@ BlazeComponent.extendComponent({
 }).register('boardHeaderBar');
 
 Template.boardHeaderBar.helpers({
-  canModifyBoard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
-    );
-  },
   boardView() {
     return Utils.boardView();
   },

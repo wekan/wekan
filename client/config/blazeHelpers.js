@@ -42,3 +42,11 @@ Blaze.registerHelper('moment', (...args) => {
   const [date, format] = args;
   return moment(date).format(format);
 });
+
+Blaze.registerHelper('canModifyCard', () =>
+  Utils.canModifyCard(),
+);
+
+Blaze.registerHelper('canModifyBoard', () =>
+  Utils.canModifyBoard(),
+);

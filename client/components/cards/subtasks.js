@@ -1,15 +1,4 @@
 BlazeComponent.extendComponent({
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
-}).register('subtaskDetail');
-
-BlazeComponent.extendComponent({
   addSubtask(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-add-subtask-item');
@@ -70,15 +59,6 @@ BlazeComponent.extendComponent({
     textarea.focus();
   },
 
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
-
   deleteSubtask() {
     const subtask = this.currentData().subtask;
     if (subtask && subtask._id) {
@@ -116,17 +96,6 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('subtasks');
-
-Template.subtaskItemDetail.helpers({
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
-});
 
 BlazeComponent.extendComponent({
   // ...

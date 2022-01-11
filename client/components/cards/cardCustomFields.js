@@ -37,14 +37,6 @@ const CardCustomField = BlazeComponent.extendComponent({
     self.card = Utils.getCurrentCard();
     self.customFieldId = this.data()._id;
   },
-
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
-    );
-  },
 });
 CardCustomField.register('cardCustomField');
 

@@ -83,13 +83,3 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('cardSpentTime');
-
-Template.timeBadge.helpers({
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
-    );
-  },
-});

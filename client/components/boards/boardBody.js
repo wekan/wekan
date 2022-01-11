@@ -212,18 +212,10 @@ BlazeComponent.extendComponent({
       );
     });
 
-    function userIsMember() {
-      return (
-        Meteor.user() &&
-        Meteor.user().isBoardMember() &&
-        !Meteor.user().isCommentOnly()
-      );
-    }
-
     // If there is no data in the board (ie, no lists) we autofocus the list
     // creation form by clicking on the corresponding element.
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    if (userIsMember() && currentBoard.lists().count() === 0) {
+    if (Utils.canModifyBoard() && currentBoard.lists().count() === 0) {
       boardComponent.openNewListForm();
     }
   },
