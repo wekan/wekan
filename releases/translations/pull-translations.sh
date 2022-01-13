@@ -48,6 +48,9 @@ tx pull -f -l nl
 echo "Esperanto:"
 tx pull -f -l eo
 
+echo "Estonian (Estonia):"
+tx pull -f -l et_EE
+
 echo "English (Germany):"
 tx pull -f -l en_DE
 
@@ -175,6 +178,9 @@ tx pull -f -l ro
 echo "Russian:"
 tx pull -f -l ru
 
+echo "Russian (Ukraine):"
+tx pull -f -l ru_UA
+
 echo "Spanish:"
 tx pull -f -l es
 
@@ -222,6 +228,9 @@ tx pull -f -l tr
 
 echo "Ukrainian:"
 tx pull -f -l uk
+
+echo "Ukrainian (Ukraine):"
+tx pull -f -l uk_UA
 
 echo "Vietnamese:"
 tx pull -f -l vi
