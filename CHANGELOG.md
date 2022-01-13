@@ -14,6 +14,11 @@ and adds the following new translations:
   [Part 1](https://github.com/wekan/wekan/commit/30131ffc20173d222cb02b283f38a8c0d6a28ccc).
   Thanks to translators.
 
+and fixes the following bugs:
+
+- [Fixed OpenAPI docs generating has some swagger error](https://github.com/wekan/wekan/commit/99d6f7a765e2945fb17411f5b8545cd7d6010c5f).
+  Thanks to bentiss.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.91 2022-01-11 WeKan ® release
