@@ -272,6 +272,8 @@ Template.changeLanguagePopup.helpers({
         name = 'Deutsch (Österreich)';
       } else if (lang.name === 'en-DE') {
         name = 'English (Germany)';
+      } else if (lang.name === 'et-EE') {
+        name = 'eesti keel (Eesti)';
       } else if (lang.name === 'fa-IR') {
         // fa-IR = Persian (Iran)
         name = 'فارسی/پارسی (ایران‎)';
@@ -329,8 +331,12 @@ Template.changeLanguagePopup.helpers({
         name = 'español de Puerto Rico';
       } else if (lang.name === 'oc') {
         name = 'Occitan';
+      } else if (lang.name === 'ru-UA') {
+        name = 'Русский (Украина)';
       } else if (lang.name === 'st') {
         name = 'Sãotomense';
+      } else if (lang.name === 'uk-UA') {
+        name = 'українська (Україна)';
       } else if (lang.name === '繁体中文（台湾）') {
         // Traditional Chinese (Taiwan)
         name = '繁體中文（台灣）';
