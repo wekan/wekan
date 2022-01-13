@@ -21,7 +21,7 @@ if [ ! -d ~/python/esprima-python ]; then
   cd ~/python
   git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
   cd ~/python/esprima-python
-  sudo python3 setup.py install --record files.txt
+  sudo pip3 install .
 fi
 
 # 2) Go to Wekan repo directory
