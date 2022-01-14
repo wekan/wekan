@@ -21,7 +21,15 @@ if [ ! -d ~/python/esprima-python ]; then
   cd ~/python
   git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
   cd ~/python/esprima-python
-  sudo pip3 install .
+  # a) Generating docs works on Kubuntu 21.10 with this,
+  #    but generating Sandstorm WeKan package does not work
+  #    https://github.com/wekan/wekan/issues/4280
+  #    https://github.com/sandstorm-io/sandstorm/issues/3600
+  #      sudo pip3 install .
+  # b) Generating docs Works on Linux Mint with this,
+  #    and also generating Sandstorm WeKan package works:
+  #      sudo python3 setup.py install --record files.txt
+  sudo python3 setup.py install --record files.txt
 fi
 
 # 2) Go to Wekan repo directory
