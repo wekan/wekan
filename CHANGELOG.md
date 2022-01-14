@@ -4,7 +4,7 @@
 
 This release tries to fix the following bugs:
 
-- Try to fix Sandstorm WeKan package
+- Try to fix Sandstorm WeKan package. This did not fix it. Do not try broken experimental Sandstorm WeKan versions yet.
   [Part 1](https://github.com/wekan/wekan/commit/bff43c3f9252e3133acedb9ccf4fb4f91d1c908d),
   [Part 2](https://github.com/wekan/wekan/commit/f75ab964be784bf7f6accb3ab0085f623196d811).
   Thanks to xet7.
