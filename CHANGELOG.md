@@ -1,5 +1,16 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# v5.93 2022-01-14 WeKan ® release
+
+This release tries to fix the following bugs:
+
+- Try to fix Sandstorm WeKan package
+  [Part 1](https://github.com/wekan/wekan/commit/bff43c3f9252e3133acedb9ccf4fb4f91d1c908d),
+  [Part 2](https://github.com/wekan/wekan/commit/f75ab964be784bf7f6accb3ab0085f623196d811).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.92 2022-01-13 WeKan ® release
 
 This release adds the following CRITICAL SECURITY UPDATES:
