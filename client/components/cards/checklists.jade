@@ -18,7 +18,7 @@ template(name="checklists")
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
-      +addChecklistItemForm
+      +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=false)
     else
       a.add-checklist.js-open-inlined-form(title="{{_ 'add-checklist'}}")
         i.fa.fa-plus
@@ -56,9 +56,10 @@ template(name="addChecklistItemForm")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-checklist-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
-    .material-toggle-switch(title="{{_ 'newlineBecomesNewChecklistItem'}}")
-      input.toggle-switch(type="checkbox" id="toggleNewlineBecomesNewChecklistItem")
-      label.toggle-label(for="toggleNewlineBecomesNewChecklistItem")
+    if showNewlineBecomesNewChecklistItem
+      .material-toggle-switch(title="{{_ 'newlineBecomesNewChecklistItem'}}")
+        input.toggle-switch(type="checkbox" id="toggleNewlineBecomesNewChecklistItem")
+        label.toggle-label(for="toggleNewlineBecomesNewChecklistItem")
 
 template(name="editChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
@@ -87,7 +88,7 @@ template(name="checklistItems")
         +checklistItemDetail(item = item checklist = checklist)
     if canModifyCard
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
-        +addChecklistItemForm
+        +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=true)
       else
         a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
           i.fa.fa-plus
