@@ -20,16 +20,23 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   display: flex
   justify-content: space-between
 
-.checklist-progress-bar
-  width: 90%
-  height: 20px
+.checklist-progress-bar-container
+  display: flex
+  flex-direction: row
 
-  .checklist-progress
-    color: #fff !important
-    background-color: #2196F3 !important
-    padding: 0.01em 16px
-    border-radius: 16px
-    height: 100%
+  .checklist-progress-text
+    margin-right: 10px
+
+  .checklist-progress-bar
+    width: 80%
+    height: 20px
+
+    .checklist-progress
+      color: #fff !important
+      background-color: #2196F3 !important
+      padding: 0.01em 16px
+      border-radius: 16px
+      height: 100%
 
 .checklist-title
   .checkbox
