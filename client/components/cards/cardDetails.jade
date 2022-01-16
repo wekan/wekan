@@ -576,6 +576,8 @@ template(name="cardDetails")
             +activities(card=this mode="card")
 
 template(name="editCardTitleForm")
+  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
+  span.copied-tooltip {{_ 'copied'}}
   textarea.js-edit-card-title(rows='1' autofocus dir="auto")
     = getTitle
   .edit-controls.clearfix

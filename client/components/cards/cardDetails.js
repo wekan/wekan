@@ -689,9 +689,31 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function () {
-  autosize(this.$('.js-edit-card-title'));
-});
+BlazeComponent.extendComponent({
+  onRendered() {
+    autosize(this.$('textarea.js-edit-card-title'));
+  },
+  events() {
+    return [
+      {
+        'click a.fa.fa-copy'(event) {
+          const $editor = this.$('textarea');
+          const promise = Utils.copyTextToClipboard($editor[0].value);
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
+        },
+        'keydown .js-edit-card-title'(event) {
+          // If enter key was pressed, submit the data
+          // Unless the shift key is also being pressed
+          if (event.keyCode === 13 && !event.shiftKey) {
+            $('.js-submit-edit-card-title-form').click();
+          }
+        },
+      }
+    ];
+  }
+}).register('editCardTitleForm');
 
 Template.cardMembersPopup.onCreated(function () {
   let currBoard = Boards.findOne(Session.get('currentBoard'));
@@ -750,16 +772,6 @@ const filterMembers = (filterTerm) => {
   }
   return members;
 }
-
-Template.editCardTitleForm.events({
-  'keydown .js-edit-card-title'(event) {
-    // If enter key was pressed, submit the data
-    // Unless the shift key is also being pressed
-    if (event.keyCode === 13 && !event.shiftKey) {
-      $('.js-submit-edit-card-title-form').click();
-    }
-  },
-});
 
 Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));
