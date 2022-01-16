@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Added copy button to card title](https://github.com/wekan/wekan/pull/4291).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.93 2022-01-14 WeKan ® release
 
 This release tries to fix the following bugs:
