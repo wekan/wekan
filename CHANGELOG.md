@@ -1,11 +1,16 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v5.94 2022-01-16 WeKan ® release
 
 This release adds the following new features:
 
 - [Added copy button to card title](https://github.com/wekan/wekan/pull/4291).
   Thanks to mfilser.
+
+and fixes the following bugs:
+
+- [Fix Card, List and Comment colors not visible at some themes](https://github.com/wekan/wekan/commit/218ddf03bc109b954d1fe741d1aa533467b51a4d).
+  Thanks to Meeques, Go-rom and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
