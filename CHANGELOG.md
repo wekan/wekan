@@ -11,6 +11,8 @@ and adds the following updates:
 
 - [Update ISSUE_TEMPLATE.md: Use comments and rephrase](https://github.com/wekan/wekan/pull/4295).
   Thanks to xeruf.
+- [Updated WeKan s390x bundle build script](https://github.com/wekan/wekan/commit/d4c3f323830e4692aac0f1d0faa413302087303b).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
