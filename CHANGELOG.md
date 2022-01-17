@@ -20,6 +20,11 @@ and adds the following updates:
 - [Updated WeKan s390x bundle build script](https://github.com/wekan/wekan/commit/d4c3f323830e4692aac0f1d0faa413302087303b).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Custom Field StringTemplates didn't save the last input value on desktop view after pressing Ctrl+Enter](https://github.com/wekan/wekan/pull/4300).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.94 2022-01-16 WeKan ® release
