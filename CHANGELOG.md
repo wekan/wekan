@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update ISSUE_TEMPLATE.md: Use comments and rephrase](https://github.com/wekan/wekan/pull/4295).
+  Thanks to xeruf.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.94 2022-01-16 WeKan ® release
 
 This release adds the following new features:
