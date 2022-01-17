@@ -105,16 +105,23 @@ BlazeComponent.extendComponent({
   addChecklistItem(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
+    const newlineBecomesNewChecklistItem = this.find('input#toggleNewlineBecomesNewChecklistItem');
     const title = textarea.value.trim();
     const checklist = this.currentData().checklist;
 
     if (title) {
-      ChecklistItems.insert({
-        title,
-        checklistId: checklist._id,
-        cardId: checklist.cardId,
-        sort: Utils.calculateIndexData(checklist.lastItem()).base,
-      });
+      let checklistItems = [title];
+      if (newlineBecomesNewChecklistItem.checked) {
+        checklistItems = title.split('\n').map(_value => _value.trim());
+      }
+      for (let checklistItem of checklistItems) {
+        ChecklistItems.insert({
+          title: checklistItem,
+          checklistId: checklist._id,
+          cardId: checklist.cardId,
+          sort: Utils.calculateIndexData(checklist.lastItem()).base,
+        });
+      }
     }
     // We keep the form opened, empty it.
     textarea.value = '';
