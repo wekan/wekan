@@ -190,13 +190,7 @@ BlazeComponent.extendComponent({
     return [
       {
         ...events,
-        'click .toggle-delete-checklist-dialog' : Popup.afterConfirm('checklistDelete', function () {
-          Popup.close();
-          const checklist = this.checklist;
-          if (checklist && checklist._id) {
-            Checklists.remove(checklist._id);
-          }
-        }),
+        'click .js-open-checklist-details-menu': Popup.open('checklistActions'),
         'submit .js-add-checklist': this.addChecklist,
         'submit .js-edit-checklist-title': this.editChecklist,
         'submit .js-add-checklist-item': this.addChecklistItem,
@@ -294,6 +288,23 @@ BlazeComponent.extendComponent({
 }).register('addChecklistItemForm');
 
 BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click .js-delete-checklist' : Popup.afterConfirm('checklistDelete', function () {
+          Popup.back(2);
+          const checklist = this.checklist;
+          if (checklist && checklist._id) {
+            Checklists.remove(checklist._id);
+          }
+        }),
+        'click .js-move-checklist' : Popup.open('moveChecklist'),
+      }
+    ]
+  }
+}).register('checklistActionsPopup');
+
+BlazeComponent.extendComponent({
   onRendered() {
     autosize(this.$('textarea.js-edit-checklist-item'));
   },
@@ -352,3 +363,155 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('checklistItemDetail');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    const boardId = Utils.getCurrentBoardId();
+    subManager.subscribe('board', boardId, false);
+    // subManager.subscribe('swimlane', swimlaneId, false);
+    // subManager.subscribe('list', listId, false);
+    // subManager.subscribe('card', cardId, false);
+    this.selectedBoardId = new ReactiveVar(boardId);
+    this.selectedSwimlaneId = new ReactiveVar('');
+    this.selectedListId = new ReactiveVar('');
+    this.selectedCardId = new ReactiveVar('');
+    this.setMoveChecklistDialogOption(boardId);
+  },
+
+  /** set the last confirmed dialog field values
+   * @param boardId the current board id
+   */
+  setMoveChecklistDialogOption(boardId) {
+    this.moveChecklistDialogOption = {
+      'boardId' : "",
+      'swimlaneId' : "",
+      'listId' : "",
+      'cardId': "",
+    }
+
+    let currentOptions = Meteor.user().getMoveChecklistDialogOptions();
+    if (currentOptions && boardId && currentOptions[boardId]) {
+      this.moveChecklistDialogOption = currentOptions[boardId];
+    }
+    const board = Boards.findOne(boardId);
+    try {
+      const swimlaneId = board.swimlanes().fetch()[0]._id;
+      this.selectedSwimlaneId.set(swimlaneId);
+    } catch (e) {}
+
+    try {
+      const listId = board.lists().fetch()[0];
+      this.selectedListId.set(listId);
+    } catch (e) {}
+
+    const cardId = Utils.getCurrentCardId();
+    this.selectedCardId.set(cardId);
+  },
+
+  /** returns if the board id was the last confirmed one
+   * @param boardId check this board id
+   * @return if the board id was the last confirmed one
+   */
+  isMoveChecklistDialogOptionBoardId(boardId) {
+    let ret = this.moveChecklistDialogOption.boardId == boardId;
+    return ret;
+  },
+
+  /** returns if the swimlane id was the last confirmed one
+   * @param swimlaneId check this swimlane id
+   * @return if the swimlane id was the last confirmed one
+   */
+  isMoveChecklistDialogOptionSwimlaneId(swimlaneId) {
+    let ret = this.moveChecklistDialogOption.swimlaneId == swimlaneId;
+    return ret;
+  },
+
+  /** returns if the list id was the last confirmed one
+   * @param listId check this list id
+   * @return if the list id was the last confirmed one
+   */
+  isMoveChecklistDialogOptionListId(listId) {
+    let ret = this.moveChecklistDialogOption.listId == listId;
+    return ret;
+  },
+
+  /** returns if the card id was the last confirmed one
+   * @param cardId check this card id
+   * @return if the card id was the last confirmed one
+   */
+  isMoveChecklistDialogOptionCardId(cardId) {
+    let ret = this.moveChecklistDialogOption.cardId == cardId;
+    return ret;
+  },
+
+  boards() {
+    return Boards.find(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+        _id: { $ne: Meteor.user().getTemplatesBoardId() },
+      },
+      {
+        sort: { sort: 1 },
+      },
+    );
+  },
+
+  swimlanes() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.swimlanes();
+  },
+
+  lists() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.lists();
+  },
+
+  cards() {
+    const list = Lists.findOne(this.selectedListId.get());
+    const ret = list.cards(this.selectedSwimlaneId.get());
+    return ret;
+  },
+
+  events() {
+    return [
+      {
+        'click .js-done'() {
+          const boardSelect = this.$('.js-select-boards')[0];
+          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
+
+          const listSelect = this.$('.js-select-lists')[0];
+          const listId = listSelect.options[listSelect.selectedIndex].value;
+
+          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
+          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
+
+          const cardSelect = this.$('.js-select-cards')[0];
+          const cardId = cardSelect.options[cardSelect.selectedIndex].value;
+
+          const options = {
+            'boardId' : boardId,
+            'swimlaneId' : swimlaneId,
+            'listId' : listId,
+            'cardId': cardId,
+          }
+          Meteor.user().setMoveChecklistDialogOption(boardId, options);
+          this.data().checklist.move(cardId);
+          Popup.back(2);
+        },
+        'change .js-select-boards'(event) {
+          const boardId = $(event.currentTarget).val();
+          subManager.subscribe('board', boardId, false);
+          this.setMoveChecklistDialogOption(boardId);
+          this.selectedBoardId.set(boardId);
+        },
+        'change .js-select-swimlanes'(event) {
+          this.selectedSwimlaneId.set($(event.currentTarget).val());
+        },
+        'change .js-select-lists'(event) {
+          this.selectedListId.set($(event.currentTarget).val());
+        },
+      },
+    ];
+  },
+}).register('moveChecklistPopup');
