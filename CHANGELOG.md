@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Added "move checklist" and created a "Checklist Action Menu"](https://github.com/wekan/wekan/pull/4297).
   Thanks to mfilser.
+- [Add checklist item - each line becomes new item](https://github.com/wekan/wekan/pull/4298).
+  Thanks to mfilser.
 
 and adds the following updates:
 
