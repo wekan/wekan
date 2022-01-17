@@ -1137,5 +1137,8 @@
     "custom-legal-notice-link-url": "כתובת עמוד הצהרה משפטית משלך",
     "acceptance_of_our_legalNotice": "בחירה להמשיך היא למעשה הסכמה ל",
     "legalNotice": "הצהרה המשפטית שלנו",
-    "copied": "הועתק!"
+    "copied": "הועתק!",
+    "checklistActionsPopup-title": "Checklist Actions",
+    "moveChecklist": "Move Checklist",
+    "moveChecklistPopup-title": "Move Checklist"
 }

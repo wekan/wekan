@@ -1137,5 +1137,8 @@
     "custom-legal-notice-link-url": "自定义设置法律声明地址",
     "acceptance_of_our_legalNotice": "继续，即意味着您已同意接受相关声明条款约束",
     "legalNotice": "法律声明",
-    "copied": "已复制！"
+    "copied": "已复制！",
+    "checklistActionsPopup-title": "Checklist Actions",
+    "moveChecklist": "Move Checklist",
+    "moveChecklistPopup-title": "Move Checklist"
 }

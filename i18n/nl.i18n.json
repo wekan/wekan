@@ -1137,5 +1137,8 @@
     "custom-legal-notice-link-url": "URL voor maatwerk juridische disclaimer tekst pagina",
     "acceptance_of_our_legalNotice": "Als u doorgaat accepteert u onze ",
     "legalNotice": "juridische disclaimer tekst",
-    "copied": "Gekopieerd!"
+    "copied": "Gekopieerd!",
+    "checklistActionsPopup-title": "Checklist Actions",
+    "moveChecklist": "Move Checklist",
+    "moveChecklistPopup-title": "Move Checklist"
 }

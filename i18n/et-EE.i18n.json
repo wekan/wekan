@@ -1137,5 +1137,8 @@
     "custom-legal-notice-link-url": "Kohandatud juriidilise teate lehekülje URL",
     "acceptance_of_our_legalNotice": "Jätkates nõustute meie",
     "legalNotice": "juriidiline teatis",
-    "copied": "Kopeeritud!"
+    "copied": "Kopeeritud!",
+    "checklistActionsPopup-title": "Checklist Actions",
+    "moveChecklist": "Move Checklist",
+    "moveChecklistPopup-title": "Move Checklist"
 }

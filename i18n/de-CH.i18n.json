@@ -1137,5 +1137,8 @@
     "custom-legal-notice-link-url": "URL zu benutzerdefiniertem Impressum",
     "acceptance_of_our_legalNotice": "Wenn Sie fortfahren, akzeptieren Sie unsere",
     "legalNotice": "Impressum/Datenschutzerklärung",
-    "copied": "Kopiert!"
+    "copied": "Kopiert!",
+    "checklistActionsPopup-title": "Checklist Actions",
+    "moveChecklist": "Move Checklist",
+    "moveChecklistPopup-title": "Move Checklist"
 }

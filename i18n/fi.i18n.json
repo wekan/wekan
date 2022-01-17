@@ -1137,5 +1137,8 @@
     "custom-legal-notice-link-url": "Muokatun oikeudellisen huomautuksen sivun URL",
     "acceptance_of_our_legalNotice": "Jatkamalla hyväksyt meidän",
     "legalNotice": "oikeudellisen huomautuksen",
-    "copied": "Kopioitu!"
+    "copied": "Kopioitu!",
+    "checklistActionsPopup-title": "Tarkistuslista toimet",
+    "moveChecklist": "Siirrä tarkistuslista",
+    "moveChecklistPopup-title": "Siirrä tarkistuslista"
 }

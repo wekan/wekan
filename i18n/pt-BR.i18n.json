@@ -1137,5 +1137,8 @@
     "custom-legal-notice-link-url": "URL da página de aviso legal customizada",
     "acceptance_of_our_legalNotice": "Para continuar, você precisa aceitar nosso",
     "legalNotice": "aviso legal",
-    "copied": "Copiado!"
+    "copied": "Copiado!",
+    "checklistActionsPopup-title": "Checklist Actions",
+    "moveChecklist": "Move Checklist",
+    "moveChecklistPopup-title": "Move Checklist"
 }
