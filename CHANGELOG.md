@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [Move copy card remembers the last confirmed field values](https://github.com/wekan/wekan/pull/4296).
   Thanks to mfilser.
+- [Added "move checklist" and created a "Checklist Action Menu"](https://github.com/wekan/wekan/pull/4297).
+  Thanks to mfilser.
 
 and adds the following updates:
 
