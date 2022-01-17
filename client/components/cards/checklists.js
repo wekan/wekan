@@ -77,6 +77,12 @@ BlazeComponent.extendComponent({
       !Meteor.user().isWorker()
     );
   },
+
+  /** returns the finished percent of the checklist */
+  finishedPercent() {
+    const ret = this.data().checklist.finishedPercent();
+    return ret;
+  },
 }).register('checklistDetail');
 
 BlazeComponent.extendComponent({

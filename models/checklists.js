@@ -102,6 +102,19 @@ Checklists.helpers({
       isFinished: true,
     }).count();
   },
+  /** returns the finished percent of the checklist */
+  finishedPercent() {
+    const checklistItems = ChecklistItems.find({ checklistId: this._id });
+    const count = checklistItems.count();
+    const checklistItemsFinished = checklistItems.fetch().filter(checklistItem => checklistItem.isFinished);
+
+    let ret = 0;
+
+    if (count > 0) {
+      ret = Math.round(checklistItemsFinished.length / count * 100);
+    }
+    return ret;
+  },
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
