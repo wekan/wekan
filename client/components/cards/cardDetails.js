@@ -801,15 +801,16 @@ Template.editCardAssignerForm.events({
 
 Template.moveCardPopup.events({
   'click .js-done'() {
-    // XXX We should *not* get the currentCard from the global state, but
-    // instead from a “component” state.
-    const card = Utils.getCurrentCard();
+    const card = Cards.findOne(this._id);
     const bSelect = $('.js-select-boards')[0];
     let boardId;
     // if we are a worker, we won't have a board select so we just use the
     // current boardId of the card.
-    if (bSelect) boardId = bSelect.options[bSelect.selectedIndex].value;
-    else boardId = card.boardId;
+    if (bSelect) {
+      boardId = bSelect.options[bSelect.selectedIndex].value;
+    } else {
+      boardId = card.boardId;
+    }
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -826,8 +827,53 @@ Template.moveCardPopup.events({
 });
 BlazeComponent.extendComponent({
   onCreated() {
-    subManager.subscribe('board', Session.get('currentBoard'), false);
-    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+    const boardId = Utils.getCurrentBoardId();
+    subManager.subscribe('board', boardId, false);
+    this.selectedBoardId = new ReactiveVar(boardId);
+    this.setMoveAndCopyDialogOption(boardId);
+  },
+
+  /** set the last confirmed dialog field values
+   * @param boardId the current board id
+   */
+  setMoveAndCopyDialogOption(boardId) {
+    this.moveAndCopyDialogOption = {
+      'boardId' : "",
+      'swimlaneId' : "",
+      'listId' : "",
+    }
+
+    let currentOptions = Meteor.user().getMoveAndCopyDialogOptions();
+    if (currentOptions && boardId && currentOptions[boardId]) {
+      this.moveAndCopyDialogOption = currentOptions[boardId];
+    }
+  },
+
+  /** returns if the board id was the last confirmed one
+   * @param boardId check this board id
+   * @return if the board id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionBoardId(boardId) {
+    let ret = this.moveAndCopyDialogOption.boardId == boardId;
+    return ret;
+  },
+
+  /** returns if the swimlane id was the last confirmed one
+   * @param swimlaneId check this swimlane id
+   * @return if the swimlane id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionSwimlaneId(swimlaneId) {
+    let ret = this.moveAndCopyDialogOption.swimlaneId == swimlaneId;
+    return ret;
+  },
+
+  /** returns if the list id was the last confirmed one
+   * @param listId check this list id
+   * @return if the list id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionListId(listId) {
+    let ret = this.moveAndCopyDialogOption.listId == listId;
+    return ret;
   },
 
   boards() {
@@ -856,8 +902,27 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-done'() {
+          const bSelect = this.$('.js-select-boards')[0];
+          const boardId = bSelect.options[bSelect.selectedIndex].value;
+
+          const lSelect = this.$('.js-select-lists')[0];
+          const listId = lSelect.options[lSelect.selectedIndex].value;
+
+          const slSelect = this.$('.js-select-swimlanes')[0];
+          const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+
+          const options = {
+            'boardId' : boardId,
+            'swimlaneId' : swimlaneId,
+            'listId' : listId,
+          }
+          Meteor.user().setMoveAndCopyDialogOption(boardId, options);
+        },
         'change .js-select-boards'(event) {
-          this.selectedBoardId.set($(event.currentTarget).val());
+          const boardId = $(event.currentTarget).val();
+          this.selectedBoardId.set(boardId);
+          this.setMoveAndCopyDialogOption(boardId);
           subManager.subscribe('board', this.selectedBoardId.get(), false);
         },
       },
