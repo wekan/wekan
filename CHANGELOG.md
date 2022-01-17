@@ -10,6 +10,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [Add checklist item - each line becomes new item](https://github.com/wekan/wekan/pull/4298).
   Thanks to mfilser.
+- [Add progress bar to checklist](https://github.com/wekan/wekan/pull/4299).
+  Thanks to mfilser.
 
 and adds the following updates:
 
