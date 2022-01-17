@@ -1140,5 +1140,6 @@
     "copied": "הועתק!",
     "checklistActionsPopup-title": "Checklist Actions",
     "moveChecklist": "Move Checklist",
-    "moveChecklistPopup-title": "Move Checklist"
+    "moveChecklistPopup-title": "Move Checklist",
+    "newlineBecomesNewChecklistItem": "Newline becomes new checklist item"
 }
