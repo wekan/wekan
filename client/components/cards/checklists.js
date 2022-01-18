@@ -379,16 +379,11 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    const boardId = Utils.getCurrentBoardId();
-    subManager.subscribe('board', boardId, false);
-    // subManager.subscribe('swimlane', swimlaneId, false);
-    // subManager.subscribe('list', listId, false);
-    // subManager.subscribe('card', cardId, false);
-    this.selectedBoardId = new ReactiveVar(boardId);
+    this.currentBoardId = Utils.getCurrentBoardId();
+    this.selectedBoardId = new ReactiveVar(this.currentBoardId);
     this.selectedSwimlaneId = new ReactiveVar('');
     this.selectedListId = new ReactiveVar('');
-    this.selectedCardId = new ReactiveVar('');
-    this.setMoveChecklistDialogOption(boardId);
+    this.setMoveChecklistDialogOption(this.currentBoardId);
   },
 
   /** set the last confirmed dialog field values
@@ -405,20 +400,39 @@ BlazeComponent.extendComponent({
     let currentOptions = Meteor.user().getMoveChecklistDialogOptions();
     if (currentOptions && boardId && currentOptions[boardId]) {
       this.moveChecklistDialogOption = currentOptions[boardId];
+      if (this.moveChecklistDialogOption.boardId &&
+          this.moveChecklistDialogOption.swimlaneId &&
+          this.moveChecklistDialogOption.listId
+      )
+      {
+        this.selectedBoardId.set(this.moveChecklistDialogOption.boardId)
+        this.selectedSwimlaneId.set(this.moveChecklistDialogOption.swimlaneId);
+        this.selectedListId.set(this.moveChecklistDialogOption.listId);
+      }
     }
-    const board = Boards.findOne(boardId);
+    this.getBoardData(boardId);
+    if (!this.selectedSwimlaneId.get() || !Swimlanes.findOne({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
+      this.setFirstSwimlaneId();
+    }
+    if (!this.selectedListId.get() || !Lists.findOne({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
+      this.setFirstListId();
+    }
+  },
+  /** sets the first swimlane id */
+  setFirstSwimlaneId() {
     try {
+      const board = Boards.findOne(this.selectedBoardId.get());
       const swimlaneId = board.swimlanes().fetch()[0]._id;
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
-
+  },
+  /** sets the first list id */
+  setFirstListId() {
     try {
-      const listId = board.lists().fetch()[0];
+      const board = Boards.findOne(this.selectedBoardId.get());
+      const listId = board.lists().fetch()[0]._id;
       this.selectedListId.set(listId);
     } catch (e) {}
-
-    const cardId = Utils.getCurrentCardId();
-    this.selectedCardId.set(cardId);
   },
 
   /** returns if the board id was the last confirmed one
@@ -458,7 +472,7 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    return Boards.find(
+    const ret = Boards.find(
       {
         archived: false,
         'members.userId': Meteor.userId(),
@@ -468,22 +482,43 @@ BlazeComponent.extendComponent({
         sort: { sort: 1 },
       },
     );
+    return ret;
   },
 
   swimlanes() {
     const board = Boards.findOne(this.selectedBoardId.get());
-    return board.swimlanes();
+    const ret = board.swimlanes();
+    return ret;
   },
 
   lists() {
     const board = Boards.findOne(this.selectedBoardId.get());
-    return board.lists();
+    const ret = board.lists();
+    return ret;
   },
 
   cards() {
     const list = Lists.findOne(this.selectedListId.get());
     const ret = list.cards(this.selectedSwimlaneId.get());
     return ret;
+  },
+
+  /** get the board data from the server
+   * @param boardId get the board data of this board id
+   */
+  getBoardData(boardId) {
+    const self = this;
+    Meteor.subscribe('board', boardId, false, {
+      onReady() {
+        self.selectedBoardId.set(boardId);
+
+        // reset swimlane id (for selection in cards())
+        self.setFirstSwimlaneId();
+
+        // reset list id (for selection in cards())
+        self.setFirstListId();
+      },
+    });
   },
 
   events() {
@@ -508,15 +543,13 @@ BlazeComponent.extendComponent({
             'listId' : listId,
             'cardId': cardId,
           }
-          Meteor.user().setMoveChecklistDialogOption(boardId, options);
+          Meteor.user().setMoveChecklistDialogOption(this.currentBoardId, options);
           this.data().checklist.move(cardId);
           Popup.back(2);
         },
         'change .js-select-boards'(event) {
           const boardId = $(event.currentTarget).val();
-          subManager.subscribe('board', boardId, false);
-          this.setMoveChecklistDialogOption(boardId);
-          this.selectedBoardId.set(boardId);
+          this.getBoardData(boardId);
         },
         'change .js-select-swimlanes'(event) {
           this.selectedSwimlaneId.set($(event.currentTarget).val());
