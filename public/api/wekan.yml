@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.94
+  version: v5.95
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3963,6 +3963,14 @@ definitions:
         description: |
            language of the user
         type: string
+      moveAndCopyDialog:
+        description: |
+           move and copy card dialog
+        type: object
+      moveChecklistDialog:
+        description: |
+           move and copy card dialog
+        type: object
       notifications:
         description: |
            enabled notifications for the user
@@ -4078,6 +4086,49 @@ definitions:
     required:
       - address
       - verified
+  UsersProfileMoveandcopydialog:
+    type: object
+    properties:
+      boardId:
+        description: |
+           last selected board id
+        type: string
+      swimlaneId:
+        description: |
+           last selected swimlane id
+        type: string
+      listId:
+        description: |
+           last selected list id
+        type: string
+    required:
+      - boardId
+      - swimlaneId
+      - listId
+  UsersProfileMovechecklistdialog:
+    type: object
+    properties:
+      boardId:
+        description: |
+           last selected board id
+        type: string
+      swimlaneId:
+        description: |
+           last selected swimlane id
+        type: string
+      listId:
+        description: |
+           last selected list id
+        type: string
+      cardId:
+        description: |
+           last selected card id
+        type: string
+    required:
+      - boardId
+      - swimlaneId
+      - listId
+      - cardId
   UsersProfileNotifications:
     type: object
     properties:

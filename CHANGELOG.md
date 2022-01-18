@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v5.95 2022-01-18 WeKan ® release
 
 This release adds the following new features:
 
@@ -18,6 +18,8 @@ and adds the following updates:
 - [Update ISSUE_TEMPLATE.md: Use comments and rephrase](https://github.com/wekan/wekan/pull/4295).
   Thanks to xeruf.
 - [Updated WeKan s390x bundle build script](https://github.com/wekan/wekan/commit/d4c3f323830e4692aac0f1d0faa413302087303b).
+  Thanks to xet7.
+- [Use different distro for building WeKan releases](https://github.com/wekan/wekan/commit/a176a58a728ffc2bb410b3e8a0036fee25f0b0bd).
   Thanks to xet7.
 
 and fixes the following bugs:
