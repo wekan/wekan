@@ -765,13 +765,13 @@ setBoardClear(color1,color2)
 
   /* Forms */
   button[type=submit].primary, .board-color-modern input[type=submit].primary
-    background-color: #819C5D
+    background-color: #777777
 
   .toggle-switch:checked~.toggle-label
-    background-color: #D2E9B4
+    background-color: #f7f7f7
 
   .toggle-label:after, .board-color-modern .toggle-switch:checked~.toggle-label:after
-    background-color: #819C5D !important
+    background-color: #777777 !important
 
   button, input:not([type=file]), select, textarea
     border-radius: 2px
@@ -861,21 +861,22 @@ setBoardClear(color1,color2)
   .swimlane .list:first-child
     margin-left: 0
 
-  .swimlane .list:nth-child(even)
+  .swimlane .list:nth-child(even) .list-header,
+  .swimlane .list:nth-child(even) .list-body
     background: #5f5f5f
 
-  .swimlane .list:nth-child(odd) .list-header
+  .swimlane .list:nth-child(odd) .list-header,
+  .swimlane .list:nth-child(odd) .list-body
     background: #3b3b3b
 
   .list-header
-    // background: #333333
     padding: 10px
-    // border-bottom: 0
 
   .list-header .viewer
     padding-left: 10px
 
-  .list-header .list-header-name
+  .list-header .list-header-name,
+  .minicard
     line-height: 14px
     color: #eeeeee
 
@@ -919,8 +920,8 @@ setBoardClear(color1,color2)
     margin-bottom: 12px
 
   .minicard
-    /* background-color: #444444 */
-    /* color: #cccccc */
+    background-color: #444444
+    color: #cccccc
     border-radius: 2px
     font-size: 0.95em
     padding: 10px
@@ -928,7 +929,8 @@ setBoardClear(color1,color2)
     border-bottom: 1px solid #666666
 
   .minicard:hover
-    background-color: #494949 !important
+    color: #f7f7f7
+    background-color: #797979 !important
 
   .minicard .minicard-labels
     margin-bottom: 4px
@@ -1032,8 +1034,8 @@ setBoardClear(color1,color2)
     border-color: #ffffff
 
   .card-details .check-box.materialCheckBox.is-checked
-    border-bottom: 2px solid #819C5D
-    border-right: 2px solid #819C5D
+    border-bottom: 2px solid #ffffff
+    border-right: 2px solid #ffffff
     border-top: 0
     border-left: 0
 
@@ -1073,5 +1075,5 @@ setBoardClear(color1,color2)
   font-size: 16px
   color: #cccccc
 
-.pop-over.board-color-moderndark .pop-over-list li:hover > a
-  background-color: #819C5D !important
+.pop-over.board-color-moderndark .pop-over-list li > a:hover
+  background-color: rgba(255,255,255,0.2)
