@@ -26,10 +26,10 @@ if [ ! -d ~/python/esprima-python ]; then
   #    https://github.com/wekan/wekan/issues/4280
   #    https://github.com/sandstorm-io/sandstorm/issues/3600
   #      sudo pip3 install .
+  sudo pip3 install .
   # b) Generating docs Works on Linux Mint with this,
   #    and also generating Sandstorm WeKan package works:
   #      sudo python3 setup.py install --record files.txt
-  sudo python3 setup.py install --record files.txt
 fi
 
 # 2) Go to Wekan repo directory
