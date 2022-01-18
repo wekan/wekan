@@ -1138,8 +1138,8 @@
     "acceptance_of_our_legalNotice": "Para continuar, você precisa aceitar nosso",
     "legalNotice": "aviso legal",
     "copied": "Copiado!",
-    "checklistActionsPopup-title": "Checklist Actions",
-    "moveChecklist": "Move Checklist",
-    "moveChecklistPopup-title": "Move Checklist",
-    "newlineBecomesNewChecklistItem": "Newline becomes new checklist item"
+    "checklistActionsPopup-title": "Ações da Lista de verificação ",
+    "moveChecklist": "Mover Lista de verificação",
+    "moveChecklistPopup-title": "Mover Lista de verificação",
+    "newlineBecomesNewChecklistItem": "Uma nova linha se torna um novo item da lista de verificação"
 }
