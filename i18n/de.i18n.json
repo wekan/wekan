@@ -9,7 +9,7 @@
     "act-removeLabel": "hat Label __label__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
     "act-removedLabel": "hat Label __label__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
     "act-addChecklist": "hat Checkliste __checklist__ zur Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
-    "act-addChecklistItem": "hat Checklistenposition  __checklistItem__ zu Checkliste __checkList__ auf der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
+    "act-addChecklistItem": "hat Checklistenelement  __checklistItem__ zu Checkliste __checkList__ auf der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
     "act-removeChecklist": "hat Checkliste __checklist__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
     "act-removeChecklistItem": "hat Checklistenposition __checklistItem__ von Checkliste __checkList__ auf der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
     "act-checkedItem": "hat __checklistItem__  der Checkliste __checklist__ der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ abgehakt",
@@ -1138,8 +1138,8 @@
     "acceptance_of_our_legalNotice": "Durch das Einloggen akzeptieren Sie unser",
     "legalNotice": "Impressum/Datenschutzerklärung",
     "copied": "Kopiert!",
-    "checklistActionsPopup-title": "Checklist Actions",
-    "moveChecklist": "Move Checklist",
-    "moveChecklistPopup-title": "Move Checklist",
-    "newlineBecomesNewChecklistItem": "Newline becomes new checklist item"
+    "checklistActionsPopup-title": "Checklistenaktionen",
+    "moveChecklist": "Checkliste verschieben",
+    "moveChecklistPopup-title": "Checkliste verschieben",
+    "newlineBecomesNewChecklistItem": "Neue Zeile wird ein neues Checklistenelement"
 }

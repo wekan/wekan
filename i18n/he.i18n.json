@@ -1138,8 +1138,8 @@
     "acceptance_of_our_legalNotice": "בחירה להמשיך היא למעשה הסכמה ל",
     "legalNotice": "הצהרה המשפטית שלנו",
     "copied": "הועתק!",
-    "checklistActionsPopup-title": "Checklist Actions",
-    "moveChecklist": "Move Checklist",
-    "moveChecklistPopup-title": "Move Checklist",
-    "newlineBecomesNewChecklistItem": "Newline becomes new checklist item"
+    "checklistActionsPopup-title": "פעולות על רשימת מטלות",
+    "moveChecklist": "העברת רשימת מטלות",
+    "moveChecklistPopup-title": "העברת רשימת מטלות",
+    "newlineBecomesNewChecklistItem": "שורה חדשה הופכת לפריט חדש ברשימת המטלות"
 }

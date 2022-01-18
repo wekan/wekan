@@ -1022,8 +1022,8 @@
     "globalSearch-instructions-operator-member": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
     "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<nom>` - cartes *assignées* à l'utilisateur *<nom>*",
     "globalSearch-instructions-operator-creator": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
-    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
-    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
+    "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - cartes appartenant à un tableau assigné à l'organisation *<name>*",
+    "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau assigné à l'équipe *<name>*",
     "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
     "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
     "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - cartes qui ont été modifiées il y a *<n>* jours ou moins",
@@ -1138,8 +1138,8 @@
     "acceptance_of_our_legalNotice": "En continuant, vous acceptez nos",
     "legalNotice": "mentions légales",
     "copied": "Copié !",
-    "checklistActionsPopup-title": "Checklist Actions",
-    "moveChecklist": "Move Checklist",
-    "moveChecklistPopup-title": "Move Checklist",
-    "newlineBecomesNewChecklistItem": "Newline becomes new checklist item"
+    "checklistActionsPopup-title": "Actions sur la checklist",
+    "moveChecklist": "Déplacer la checklist",
+    "moveChecklistPopup-title": "Déplacer la checklist",
+    "newlineBecomesNewChecklistItem": "Chaque retour à la ligne produit un nouvel élément de checklist"
 }

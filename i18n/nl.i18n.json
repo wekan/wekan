@@ -1138,8 +1138,8 @@
     "acceptance_of_our_legalNotice": "Als u doorgaat accepteert u onze ",
     "legalNotice": "juridische disclaimer tekst",
     "copied": "Gekopieerd!",
-    "checklistActionsPopup-title": "Checklist Actions",
-    "moveChecklist": "Move Checklist",
-    "moveChecklistPopup-title": "Move Checklist",
-    "newlineBecomesNewChecklistItem": "Newline becomes new checklist item"
+    "checklistActionsPopup-title": "Checklist Acties",
+    "moveChecklist": "Verplaats Checklist",
+    "moveChecklistPopup-title": "Verplaats Checklist",
+    "newlineBecomesNewChecklistItem": "Nieuwe regel wordt nieuw checklist item"
 }
