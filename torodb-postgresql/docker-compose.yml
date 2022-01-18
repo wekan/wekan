@@ -108,6 +108,8 @@ services:
       - TORODB_BACKEND_USER=wekan
       - TORODB_BACKEND_PASSWORD=wekan
       - DEBUG
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
   postgres:
     image: quay.io/wekan/postgres:9.6
     networks:
@@ -116,6 +118,8 @@ services:
       - POSTGRES_PASSWORD=wekan
     ports:
       - "5432:5432"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
   mongodb:
     image: mongo:3.2
     networks:
@@ -136,6 +140,8 @@ services:
             rs.initiate({_id:"rs1",members:[{_id:0,host:"mongodb:27017"}]});
         ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
   wekan:
     image: quay.io/wekan/wekan
     container_name: wekan-app
@@ -163,13 +169,15 @@ services:
       #  - http://192.168.1.100    <=== using at local LAN
       - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
       # ==== EMAIL SETTINGS ====
-      # Email settings are required in both MAIL_URL and Admin Panel,
+      # Email settings are only at MAIL_URL and MAIL_FROM.
+      # Admin Panel has test button, but it's not used for settings.
       #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #       You can encode those characters for example at: https://www.urlencoder.org
       - MAIL_URL=smtp://user:pass@mailserver.example.com:25/
       - MAIL_FROM='Example Wekan Support <support@example.com>'
+      # Currently MAIL_SERVICE is not in use.
       #- MAIL_SERVICE=Outlook365
       #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
       #- MAIL_SERVICE_PASSWORD=SecretPassword
@@ -232,6 +240,11 @@ services:
       #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
       #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
       #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+      #---------------------------------------------------------------
+      # ==== ACCOUNT OPTIONS ====
+      # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
+      # Defaults below. Uncomment to change. wekan/server/accounts-common.js
+      # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       #---------------------------------------------------------------
       # ==== STORE ATTACHMENT ON SERVER FILESYSTEM INSTEAD OF MONGODB ====
       # https://github.com/wekan/wekan/pull/2603
@@ -602,6 +615,8 @@ services:
 
     depends_on:
       - mongodb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====

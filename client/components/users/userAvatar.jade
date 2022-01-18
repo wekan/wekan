@@ -32,7 +32,9 @@ template(name="boardOrgRow")
     td
       if currentUser.isBoardAdmin
         a.member.orgOrTeamMember.add-member.js-manage-board-removeOrg(title="{{_ 'remove-from-board'}}")
-          i.fa.fa-minus
+          i.removeTeamFaMinus.fa.fa-minus
+        .divaddfaplusminus
+          | {{_ 'remove-btn'}}
 
 template(name="boardTeamRow")
   tr
@@ -43,7 +45,9 @@ template(name="boardTeamRow")
     td
       if currentUser.isBoardAdmin
         a.member.orgOrTeamMember.add-member.js-manage-board-removeTeam(title="{{_ 'remove-from-board'}}")
-          i.fa.fa-minus
+          i.removeTeamFaMinus.fa.fa-minus
+        .divaddfaplusminus
+          | {{_ 'remove-btn'}}
 
 template(name="boardOrgName")
   svg.avatar.avatar-initials(viewBox="0 0 {{orgViewPortWidth}} 15")

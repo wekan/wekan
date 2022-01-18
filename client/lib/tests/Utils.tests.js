@@ -163,18 +163,6 @@ describe('Utils', function() {
     it('has no tests yet');
   });
 
-  describe(Utils.isTouchDevice.name, function() {
-    it('has no tests yet');
-  });
-
-  describe(Utils.calculateTouchDistance.name, function() {
-    it('has no tests yet');
-  });
-
-  describe(Utils.enableClickOnTouch.name, function() {
-    it('has no tests yet');
-  });
-
   describe(Utils.manageCustomUI.name, function() {
     it('has no tests yet');
   });

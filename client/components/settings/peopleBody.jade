@@ -108,6 +108,7 @@ template(name="peopleGeneral")
     tbody
       tr
         th
+          +selectAllUser
         th {{_ 'username'}}
         th {{_ 'fullname'}}
         th {{_ 'initials'}}
@@ -124,6 +125,10 @@ template(name="peopleGeneral")
           +newUserRow
       each user in peopleList
         +peopleRow(userId=user._id)
+
+template(name="selectAllUser")
+  | {{_ 'dueCardsViewChange-choice-all'}}
+  input.allUserChkBox(type="checkbox", id="chkSelectAll")
 
 template(name="newOrgRow")
   a.new-org

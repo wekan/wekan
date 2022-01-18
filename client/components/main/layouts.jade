@@ -1,6 +1,6 @@
 head
   title
-  meta(name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
+  meta(name="viewport" content="width=device-width, initial-scale=1")
   meta(http-equiv="X-UA-Compatible" content="IE=edge")
   //- XXX We should use pathFor in the following `href` to support the case
     where the application is deployed with a path prefix, but it seems to be
@@ -34,8 +34,9 @@ template(name="userFormsLayout")
           img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
           br
       unless currentSetting.customLoginLogoImageUrl
-        img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
-        br
+        div#isSettingDatabaseCallDone
+          img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
+          br
       if currentSetting.textBelowCustomLoginLogo
         +viewer
           | {{currentSetting.textBelowCustomLoginLogo}}
@@ -47,6 +48,13 @@ template(name="userFormsLayout")
         +Template.dynamic(template=content)
         if currentSetting.displayAuthenticationMethod
           +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+        if isLegalNoticeLinkExist
+          div#legalNoticeDiv
+            span#legalNoticeSpan {{_ 'acceptance_of_our_legalNotice'}}
+            a#legalNoticeAtLink.at-link(href="{{currentSetting.legalNotice}}", target="_blank", rel="noopener noreferrer")
+              | {{_ 'legalNotice'}}
+          if getLegalNoticeWithWritTraduction
+            div
         div.at-form-lang
           select.select-lang.js-userform-set-language
             each languages

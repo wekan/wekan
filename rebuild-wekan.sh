@@ -20,17 +20,32 @@ do
         "Install Wekan dependencies")
 
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
-	                echo "Linux";
+			echo "Linux";
 			# Debian, Ubuntu, Mint
 			sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp
-      curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-      sudo apt-get install -y nodejs
+			#curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+			#sudo apt-get install -y nodejs
+			#sudo apt-get install -y npm
+			# Volta Node and NPM install manager, made with Rust https://volta.sh
+			# Volta uses home directory also with "npm -g install", no sudo needed.
+			curl https://get.volta.sh | bash
+			export VOLTA_HOME="$HOME/.volta"
+			export PATH="$VOLTA_HOME/bin:$PATH"
+			volta install node@12
 			# npm nodejs
-			#sudo npm -g install npm
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			#sudo npm -g install n
-			#sudo n 12.22.6
+			#sudo n 12.22.9
+			#sudo npm -g install npm
+			## Latest npm with Meteor 2.2
+			npm -g install node-gyp
+			# Latest fibers for Meteor 2.2
+			#sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
+			npm -g install fibers
+			# Install Meteor, if it's not yet installed
+			npm install -g meteor --unsafe-perm
+			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
 			pause '1) Install XCode 2) Install Node 12.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
@@ -55,16 +70,6 @@ do
 			exit;
 		fi
 
-		## Latest npm with Meteor 2.2
-		sudo npm -g install npm
-		sudo npm -g install node-gyp
-		# Latest fibers for Meteor 2.2
-		sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-		sudo npm -g install fibers
-		# Install Meteor, if it's not yet installed
-    sudo npm install -g meteor --unsafe-perm
-		#curl https://install.meteor.com | bash
-		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		break
 		;;
 

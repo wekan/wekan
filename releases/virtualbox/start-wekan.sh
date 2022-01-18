@@ -43,6 +43,11 @@
       #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
       #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
       #---------------------------------------------------------------
+      # ==== ACCOUNT OPTIONS ====
+      # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
+      # Defaults below. Uncomment to change. wekan/server/accounts-common.js
+      # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
+      #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
       export RICHER_CARD_COMMENT_EDITOR=false
@@ -190,7 +195,7 @@
       # OAUTH2 ID Token Whitelist Fields.
       #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
       # OAUTH2 Request Permissions.
-      #export OAUTH2_REQUEST_PERMISSIONS='openid profile email'
+      #export OAUTH2_REQUEST_PERMISSIONS=openid profile email
       # OAuth2 ID Mapping
       #export OAUTH2_ID_MAP=
       # OAuth2 Username Mapping

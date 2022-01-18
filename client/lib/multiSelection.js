@@ -60,6 +60,8 @@ MultiSelection = {
 
   startRangeCardId: null,
 
+  _sidebarWasOpen: false,
+
   reset() {
     this._selectedCards.set([]);
   },
@@ -84,11 +86,15 @@ MultiSelection = {
 
   activate() {
     if (!this.isActive()) {
+      this._sidebarWasOpen = Sidebar.isOpen();
       EscapeActions.executeUpTo('detailsPane');
       this._isActive.set(true);
       Tracker.flush();
     }
     Sidebar.setView(this.sidebarView);
+    if(Utils.isMiniScreen()) {
+      Sidebar.hide();
+    }
   },
 
   disable() {
@@ -96,6 +102,9 @@ MultiSelection = {
       this._isActive.set(false);
       if (Sidebar && Sidebar.getView() === this.sidebarView) {
         Sidebar.setView();
+        if(!this._sidebarWasOpen) {
+          Sidebar.hide();
+        }
       }
       this.reset();
     }

@@ -1,4 +1,4 @@
-FROM quay.io/wekan/ubuntu:hirsute-20210825
+FROM ubuntu:rolling
 LABEL maintainer="wekan"
 
 # 2021-09-18:
@@ -12,7 +12,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v12.22.6 \
+    NODE_VERSION=v12.22.9 \
     METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -28,6 +28,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15 \
+    ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
     RICHER_CARD_COMMENT_EDITOR=false \
     CARD_OPENED_WEBHOOK_ENABLED=false \
     ATTACHMENTS_STORE_PATH="" \
@@ -309,7 +310,7 @@ RUN \
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
     npm uninstall -g api2html &&\
-    rm -R /tmp* && \
+    rm -R /tmp/* && \
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \

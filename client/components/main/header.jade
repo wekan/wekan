@@ -16,12 +16,14 @@ template(name="header")
             each currentBoard.lists
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
                 a.js-select-list
-                  = title
+                  +viewer
+                    = title
           else
             each currentUser.starredBoards
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
                 a(href="{{pathFor 'board' id=_id slug=slug}}")
-                  = title
+                  +viewer
+                    = title
         #header-new-board-icon
       else
         //-
@@ -36,7 +38,8 @@ template(name="header")
             unless currentSetting.customTopLeftCornerLogoLinkUrl
               img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
           unless currentSetting.customTopLeftCornerLogoImageUrl
-            img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+            div#headerIsSettingDatabaseCallDone
+              img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
         span.allBoards
           a(href="{{pathFor 'home'}}")
             span.fa.fa-home
@@ -49,7 +52,8 @@ template(name="header")
           each currentUser.starredBoards
             li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
               a(href="{{pathFor 'board' id=_id slug=slug}}")
-                = title
+                +viewer
+                  = title
           else
             li.current.empty {{_ 'quick-access-description'}}
 
@@ -90,3 +94,5 @@ template(name="offlineWarning")
     p
       i.fa.fa-warning
       | {{_ 'app-is-offline'}}
+
+      a.app-try-reconnect {{_ 'app-try-reconnect'}}

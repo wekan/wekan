@@ -23,7 +23,7 @@ BlazeComponent.extendComponent({
   },
 
   onlyShowCurrentCard() {
-    return Utils.isMiniScreen() && Session.get('currentCard');
+    return Utils.isMiniScreen() && Utils.getCurrentCardId(true);
   },
 
   goHome() {
@@ -191,21 +191,11 @@ BlazeComponent.extendComponent({
     });
 
     this.autorun(() => {
-      let showDesktopDragHandles = false;
-      currentUser = Meteor.user();
-      if (currentUser) {
-        showDesktopDragHandles = (currentUser.profile || {})
-          .showDesktopDragHandles;
-      } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-        showDesktopDragHandles = true;
-      } else {
-        showDesktopDragHandles = false;
-      }
-      if (Utils.isMiniScreen() || showDesktopDragHandles) {
+      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
-      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
+      } else {
         $swimlanesDom.sortable({
           handle: '.swimlane-header',
         });
@@ -216,7 +206,7 @@ BlazeComponent.extendComponent({
       $swimlanesDom.sortable(
         'option',
         'disabled',
-        !Meteor.user().isBoardAdmin(),
+        !Meteor.user() || !Meteor.user().isBoardAdmin(),
       );
     });
 

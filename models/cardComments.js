@@ -75,10 +75,10 @@ CardComments.allow({
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   update(userId, doc) {
-    return userId === doc.userId;
+    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
-    return userId === doc.userId;
+    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['userId', 'boardId'],
 });

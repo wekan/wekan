@@ -54,7 +54,7 @@ Mousetrap.bind('/', () => {
 });
 
 Mousetrap.bind(['down', 'up'], (evt, key) => {
-  if (!Session.get('currentCard')) {
+  if (!Utils.getCurrentCardId()) {
     return;
   }
 

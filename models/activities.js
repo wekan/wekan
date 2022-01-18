@@ -202,7 +202,7 @@ if (Meteor.isServer) {
           }
           return member;
         });
-        const mentionRegex = /\B@(?:(?:"([\w.\s]*)")|([\w.]+))/gi; // including space in username
+        const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.-]+))/gi; // including space in username
         let currentMention;
         while ((currentMention = mentionRegex.exec(comment)) !== null) {
           /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/

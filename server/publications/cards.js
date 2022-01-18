@@ -17,16 +17,17 @@ import {
   OPERATOR_COMMENT,
   OPERATOR_CREATED_AT,
   OPERATOR_CREATOR,
+  OPERATOR_DEBUG,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
   OPERATOR_LIMIT,
   OPERATOR_LIST,
   OPERATOR_MEMBER,
-  OPERATOR_MODIFIED_AT,
+  OPERATOR_MODIFIED_AT, OPERATOR_ORG,
   OPERATOR_SORT,
   OPERATOR_STATUS,
-  OPERATOR_SWIMLANE,
+  OPERATOR_SWIMLANE, OPERATOR_TEAM,
   OPERATOR_USER,
   ORDER_ASCENDING,
   PREDICATE_ALL,
@@ -47,12 +48,30 @@ import {
   PREDICATE_SYSTEM,
 } from '/config/search-const';
 import { QueryErrors, QueryParams, Query } from '/config/query-classes';
+import { CARD_TYPES } from '../../config/const';
+import Org from "../../models/org";
+import Team from "../../models/team";
 
 const escapeForRegex = require('escape-string-regexp');
 
 Meteor.publish('card', cardId => {
   check(cardId, String);
-  return Cards.find({ _id: cardId });
+  const ret = Cards.find({ _id: cardId });
+  return ret;
+});
+
+/** publish all data which is necessary to display card details as popup
+ * @returns array of cursors
+ */
+Meteor.publishRelations('popupCardData', function(cardId) {
+  check(cardId, String);
+  this.cursor(
+    Cards.find({_id: cardId}),
+    function(cardId, card) {
+      this.cursor(Boards.find({_id: card.boardId}));
+    },
+  );
+  return this.ready()
 });
 
 Meteor.publish('myCards', function(sessionId) {
@@ -112,7 +131,7 @@ function buildSelector(queryParams) {
   let selector = {};
 
   // eslint-disable-next-line no-console
-  console.log('queryParams:', queryParams);
+  // console.log('queryParams:', queryParams);
 
   if (queryParams.selector) {
     selector = queryParams.selector;
@@ -134,6 +153,51 @@ function buildSelector(queryParams) {
         }
       });
     }
+
+    if (queryParams.hasOperator(OPERATOR_ORG)) {
+      const orgs = [];
+      queryParams.getPredicates(OPERATOR_ORG).forEach(name => {
+        const org = Org.findOne({
+          $or: [
+            { orgDisplayName: name },
+            { orgShortName: name }
+          ]
+        });
+        if (org) {
+          orgs.push(org._id);
+        } else {
+          errors.addNotFound(OPERATOR_ORG, name);
+        }
+      });
+      if (orgs.length) {
+        boardsSelector.orgs = {
+          $elemMatch: { orgId: { $in: orgs }, isActive: true }
+        };
+      }
+    }
+
+    if (queryParams.hasOperator(OPERATOR_TEAM)) {
+      const teams = [];
+      queryParams.getPredicates(OPERATOR_TEAM).forEach(name => {
+        const team = Team.findOne({
+          $or: [
+            { teamDisplayName: name },
+            { teamShortName: name }
+          ]
+        });
+        if (team) {
+          teams.push(team._id);
+        } else {
+          errors.addNotFound(OPERATOR_TEAM, name);
+        }
+      });
+      if (teams.length) {
+        boardsSelector.teams = {
+          $elemMatch: { teamId: { $in: teams }, isActive: true }
+        };
+      }
+    }
+
     selector = {
       type: 'cardType-card',
       // boardId: { $in: Boards.userBoardIds(userId) },
@@ -152,8 +216,8 @@ function buildSelector(queryParams) {
                 $in: Boards.userBoardIds(userId, archived, boardsSelector),
               },
             },
-            { swimlaneId: { $in: Swimlanes.archivedSwimlaneIds() } },
-            { listId: { $in: Lists.archivedListIds() } },
+            { swimlaneId: { $in: Swimlanes.userArchivedSwimlaneIds(userId) } },
+            { listId: { $in: Lists.userArchivedListIds(userId) } },
             { archived: true },
           ],
         });
@@ -404,7 +468,7 @@ function buildSelector(queryParams) {
 
       const items = ChecklistItems.find(
         { title: regex },
-        { fields: { cardId: 1 } },
+        { fields: { cardId: 1, checklistId: 1 } },
       );
       const checklists = Checklists.find(
         {
@@ -423,23 +487,18 @@ function buildSelector(queryParams) {
         { fields: { cardId: 1 } },
       );
 
-      selector.$and.push({
-        $or: [
+      let cardsSelector = [
           { title: regex },
           { description: regex },
           { customFields: { $elemMatch: { value: regex } } },
-          // {
-          //   _id: {
-          //     $in: CardComments.textSearch(userId, [queryParams.text]).map(
-          //       com => com.cardId,
-          //     ),
-          //   },
-          // },
           { _id: { $in: checklists.map(list => list.cardId) } },
           { _id: { $in: attachments.map(attach => attach.cardId) } },
           { _id: { $in: comments.map(com => com.cardId) } },
-        ],
-      });
+        ];
+      if (queryParams.text === "false" || queryParams.text === "true") {
+        cardsSelector.push({ customFields: { $elemMatch: { value: queryParams.text === "true" } } } );
+      }
+      selector.$and.push({ $or: cardsSelector });
     }
 
     if (selector.$and.length === 0) {
@@ -448,9 +507,7 @@ function buildSelector(queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  console.log('selector:', selector);
-  // eslint-disable-next-line no-console
-  console.log('selector.$and:', selector.$and);
+  // console.log('cards selector:', JSON.stringify(selector, null, 2));
 
   const query = new Query();
   query.selector = selector;
@@ -496,6 +553,7 @@ function buildProjection(query) {
       labelIds: 1,
       customFields: 1,
       userId: 1,
+      description: 1,
     },
     sort: {
       boardId: 1,
@@ -577,6 +635,7 @@ Meteor.publish('brokenCards', function(sessionId) {
     { boardId: { $in: [null, ''] } },
     { swimlaneId: { $in: [null, ''] } },
     { listId: { $in: [null, ''] } },
+    { type: { $nin: CARD_TYPES } },
   ];
   // console.log('brokenCards selector:', query.selector);
 
@@ -610,7 +669,7 @@ function findCards(sessionId, query) {
   // console.log('selector:', query.selector);
   // console.log('selector.$and:', query.selector.$and);
   // eslint-disable-next-line no-console
-  // console.log('projection:', projection);
+  // console.log('projection:', query.projection);
 
   const cards = Cards.find(query.selector, query.projection);
   // eslint-disable-next-line no-console
@@ -625,6 +684,7 @@ function findCards(sessionId, query) {
       selector: SessionData.pickle(query.selector),
       projection: SessionData.pickle(query.projection),
       errors: query.errors(),
+      debug: query.getQueryParams().getPredicate(OPERATOR_DEBUG)
     },
   };
 
@@ -713,6 +773,7 @@ function findCards(sessionId, query) {
       CustomFields.find({ _id: { $in: customFieldIds } }),
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
+      ChecklistItems.find({ cardId: { $in: cards.map(c => c._id) } }),
       Attachments.find({ cardId: { $in: cards.map(c => c._id) } }),
       CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
       SessionData.find({ userId, sessionId }),

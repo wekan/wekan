@@ -1,5 +1,5 @@
 template(name="adminReports")
-  .setting-content
+  .setting-content.admin-reports-content
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
     else
@@ -26,6 +26,16 @@ template(name="adminReports")
                 i.fa.fa-magic
                 | {{_ 'rulesReportTitle'}}
 
+            li
+              a.js-report-boards(data-id="report-boards")
+                i.fa.fa-magic
+                | {{_ 'boardsReportTitle'}}
+
+            li
+              a.js-report-cards(data-id="report-cards")
+                i.fa.fa-magic
+                | {{_ 'cardsReportTitle'}}
+
         .main-body
           if loading.get
             +spinner
@@ -37,6 +47,10 @@ template(name="adminReports")
             +orphanedFilesReport
           else if showRulesReport.get
             +rulesReport
+          else if showBoardsReport.get
+            +boardsReport
+          else if showCardsReport.get
+            +cardsReport
 
 
 template(name="brokenCardsReport")
@@ -57,7 +71,7 @@ template(name="rulesReport")
         th actionType
         th activityType
 
-      each rule in rows
+      each rule in results
         tr
           td {{ rule.title }}
           td {{ rule.boardTitle }}
@@ -78,7 +92,7 @@ template(name="filesReport")
         th MD5 Sum
         th ID
 
-      each att in attachmentFiles
+      each att in results
         tr
           td {{ att.filename }}
           td.right {{fileSize att.length }}
@@ -100,12 +114,59 @@ template(name="orphanedFilesReport")
         th MD5 Sum
         th ID
 
-      each att in attachmentFiles
+      each att in results
         tr
           td {{ att.filename }}
           td.right {{fileSize att.length }}
           td {{ att.contentType }}
           td {{ att.md5 }}
           td {{ att._id.toHexString }}
+  else
+    div {{_ 'no-results' }}
+
+template(name="cardsReport")
+  h1 {{_ 'cardsReportTitle'}}
+  if resultsCount
+    table.table
+      tr
+        th Card Title
+        th Board
+        th Swimlane
+        th List
+        th Members
+        th Assignees
+
+      each card in results
+        tr
+          td {{abbreviate card.title }}
+          td {{abbreviate card.board.title }}
+          td {{abbreviate card.swimlane.title }}
+          td {{abbreviate card.list.title }}
+          td {{userNames card.members }}
+          td {{userNames card.assignees }}
+  else
+    div {{_ 'no-results' }}
+
+template(name="boardsReport")
+  h1 {{_ 'boardsReportTitle'}}
+  if resultsCount
+    table.table
+      tr
+        th Title
+        th Id
+        th Permission
+        th Archived?
+        th Members
+        th Organizations
+        th Teams
+
+      each board in results
+        tr
+          td {{abbreviate board.title }}
+          td {{abbreviate board._id }}
+          td {{ board.permission }}
+          td
+            = yesOrNo(board.archived)
+          td {{userNames board.members }}
   else
     div {{_ 'no-results' }}

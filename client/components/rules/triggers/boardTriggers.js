@@ -116,6 +116,6 @@ Template.boardCardTitlePopup.events({
       .trim();
     Popup.getOpenerComponent().setNameFilter(title);
     event.preventDefault();
-    Popup.close();
+    Popup.back();
   },
 });

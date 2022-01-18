@@ -11,7 +11,7 @@
   color: #727479
   background: #dedede
   width 100%
-  height 100%
+  height calc(100% - 80px)
   position: absolute;
 
   .content-title
@@ -88,6 +88,8 @@
                   &.is-checked
                     background #fff
 
+          input[type=radio]
+            margin: 4px
 
 .option
   @extends .flex

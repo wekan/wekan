@@ -14,7 +14,8 @@ template(name="swimlane")
               +addListForm
       else
         each lists
-          +list(this)
+          if visible this
+            +list(this)
           if currentCardIsInThisList _id ../_id
             +cardDetails(currentCard)
         if currentUser.isBoardMember
@@ -52,6 +53,7 @@ template(name="addListForm")
               autocomplete="off" autofocus)
             .edit-controls.clearfix
               button.primary.confirm(type="submit") {{_ 'save'}}
+              .fa.fa-times-thin.js-close-inlined-form
               unless currentBoard.isTemplatesBoard
                 unless currentBoard.isTemplateBoard
                   span.quiet

@@ -99,7 +99,7 @@
   height: 28px
   font-size: 12px
   display: flex
-  z-index: 21
+  z-index: 1000
   padding: 10px 0px
 
   .allBoards
@@ -134,6 +134,14 @@
       a
         padding: 12px 10px
         margin: -10px 0px
+
+        .viewer
+          display: inline
+          white-space: nowrap
+
+          p
+            display: inline
+            white-space: nowrap
 
       &.current
         color: darken(white, 5%)
@@ -242,3 +250,6 @@
   p
     margin: 7px
     padding: 0
+
+#headerIsSettingDatabaseCallDone
+  display: none;

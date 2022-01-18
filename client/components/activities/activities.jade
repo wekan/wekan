@@ -12,7 +12,7 @@ template(name="boardActivities")
     +activity(activity=activityData card=card mode=mode)
 
 template(name="cardActivities")
-  each activityData in currentCard.activities
+  each activityData in activities
     +activity(activity=activityData card=card mode=mode)
 
 template(name="editOrDeleteComment")
@@ -20,6 +20,10 @@ template(name="editOrDeleteComment")
   a.js-open-inlined-form {{_ "edit"}}
   = ' - '
   a.js-delete-comment {{_ "delete"}}
+
+template(name="deleteCommentPopup")
+  p {{_ "comment-delete"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="commentReactions")
   .reactions
@@ -136,6 +140,7 @@ template(name="activity")
               = activity.comment.text
             .edit-controls
               button.primary(type="submit") {{_ 'edit'}}
+              .fa.fa-times-thin.js-close-inlined-form
           else
             .activity-comment
               +viewer

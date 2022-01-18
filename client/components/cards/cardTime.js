@@ -9,7 +9,6 @@ BlazeComponent.extendComponent({
   toggleOvertime() {
     this.card.setIsOvertime(!this.card.getIsOvertime());
     $('#overtime .materialCheckBox').toggleClass('is-checked');
-
     $('#overtime').toggleClass('is-checked');
   },
   storeTime(spentTime, isOvertime) {
@@ -18,6 +17,7 @@ BlazeComponent.extendComponent({
   },
   deleteTime() {
     this.card.setSpentTime(null);
+    this.card.setIsOvertime(false);
   },
   events() {
     return [
@@ -27,11 +27,14 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
 
           const spentTime = parseFloat(evt.target.time.value);
-          const isOvertime = this.card.getIsOvertime();
-
+          //const isOvertime = this.card.getIsOvertime();
+          let isOvertime = false;
+          if ($('#overtime').attr('class').indexOf('is-checked') >= 0) {
+            isOvertime = true;
+          }
           if (spentTime >= 0) {
             this.storeTime(spentTime, isOvertime);
-            Popup.close();
+            Popup.back();
           } else {
             this.error.set('invalid-time');
             evt.target.time.focus();
@@ -40,7 +43,7 @@ BlazeComponent.extendComponent({
         'click .js-delete-time'(evt) {
           evt.preventDefault();
           this.deleteTime();
-          Popup.close();
+          Popup.back();
         },
         'click a.js-toggle-overtime': this.toggleOvertime,
       },

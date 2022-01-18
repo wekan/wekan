@@ -80,6 +80,12 @@ template(name="boardHeaderBar")
             if $eq watchLevel "muted"
               i.fa.fa-bell-slash
             span {{_ watchLevel}}
+          a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
+            i.fa.fa-sort
+            span {{#if isSortActive }}{{_ 'Sort is on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
+            if isSortActive
+              a.board-header-btn-close.js-sort-reset(title="Remove Sort")
+                i.fa.fa-times-thin
 
         else
           a.board-header-btn.js-log-in(
@@ -229,9 +235,9 @@ template(name="createBoard")
           = " "
           | {{{_ 'board-private-info'}}}
         a.js-change-visibility {{_ 'change'}}.
-    //a.flex.js-toggle-add-template-container
-    //  .materialCheckBox#add-template-container
-    //  span {{_ 'add-template-container'}}
+    a.flex.js-toggle-add-template-container
+      .materialCheckBox#add-template-container
+      span {{_ 'add-template-container'}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
     span.quiet
       | {{_ 'or'}}

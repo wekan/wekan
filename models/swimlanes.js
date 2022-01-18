@@ -220,7 +220,7 @@ Swimlanes.helpers({
       {
         boardId: this.boardId,
         swimlaneId: { $in: [this._id, ''] },
-        archived: false,
+        //archived: false,
       },
       { sort: ['sort'] },
     );
@@ -305,6 +305,17 @@ Swimlanes.mutations({
     };
   },
 });
+
+Swimlanes.userArchivedSwimlanes = userId => {
+  return Swimlanes.find({
+    boardId: { $in: Boards.userBoardIds(userId, null) },
+    archived: true,
+  })
+};
+
+Swimlanes.userArchivedSwimlaneIds = () => {
+  return Swimlanes.userArchivedSwimlanes().map(swim => { return swim._id; });
+};
 
 Swimlanes.archivedSwimlanes = () => {
   return Swimlanes.find({ archived: true });

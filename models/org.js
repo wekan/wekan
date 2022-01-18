@@ -149,8 +149,9 @@ if (Meteor.isServer) {
         check(org, Object);
         check(orgDisplayName, String);
         Org.update(org, {
-          $set: { orgDisplayName: orgDisplayNameorgShortName },
+          $set: { orgDisplayName: orgDisplayName },
         });
+        Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
       }
     },
 
@@ -208,6 +209,7 @@ if (Meteor.isServer) {
             orgIsActive: orgIsActive,
           },
         });
+        Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
       }
     },
   });
@@ -216,8 +218,8 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   // Index for Organization name.
   Meteor.startup(() => {
-    // Org._collection.createIndex({ name: -1 });
-    Org._collection.createIndex({ orgDisplayName: -1 });
+    // Org._collection._ensureIndex({ name: -1 });
+    Org._collection.createIndex({ orgDisplayName: 1 });
   });
 }
 

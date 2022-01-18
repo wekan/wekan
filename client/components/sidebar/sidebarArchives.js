@@ -1,4 +1,4 @@
-archivedRequested = false;
+//archivedRequested = false;
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
@@ -13,7 +13,7 @@ BlazeComponent.extendComponent({
       const currentBoardId = Session.get('currentBoard');
       if (!currentBoardId) return;
       const handle = subManager.subscribe('board', currentBoardId, true);
-      archivedRequested = true;
+      //archivedRequested = true;
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           this.isArchiveReady.set(handle.ready());
@@ -94,13 +94,13 @@ BlazeComponent.extendComponent({
         'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
           const cardId = this._id;
           Cards.remove(cardId);
-          Popup.close();
+          Popup.back();
         }),
         'click .js-delete-all-cards': Popup.afterConfirm('cardDelete', () => {
           this.archivedCards().forEach(card => {
             Cards.remove(card._id);
           });
-          Popup.close();
+          Popup.back();
         }),
 
         'click .js-restore-list'() {
@@ -115,13 +115,13 @@ BlazeComponent.extendComponent({
 
         'click .js-delete-list': Popup.afterConfirm('listDelete', function() {
           this.remove();
-          Popup.close();
+          Popup.back();
         }),
         'click .js-delete-all-lists': Popup.afterConfirm('listDelete', () => {
           this.archivedLists().forEach(list => {
             list.remove();
           });
-          Popup.close();
+          Popup.back();
         }),
 
         'click .js-restore-swimlane'() {
@@ -138,7 +138,7 @@ BlazeComponent.extendComponent({
           'swimlaneDelete',
           function() {
             this.remove();
-            Popup.close();
+            Popup.back();
           },
         ),
         'click .js-delete-all-swimlanes': Popup.afterConfirm(
@@ -147,7 +147,7 @@ BlazeComponent.extendComponent({
             this.archivedSwimlanes().forEach(swimlane => {
               swimlane.remove();
             });
-            Popup.close();
+            Popup.back();
           },
         ),
       },

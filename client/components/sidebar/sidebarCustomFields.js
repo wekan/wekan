@@ -283,7 +283,7 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
             } else {
               CustomFields.remove(customField._id);
             }
-            Popup.close();
+            Popup.back();
           },
         ),
       },
@@ -302,6 +302,6 @@ CreateCustomFieldPopup.register('createCustomFieldPopup');
   'submit'(evt) {
     const customFieldId = this._id;
     CustomFields.remove(customFieldId);
-    Popup.close();
+    Popup.back();
   }
 });*/

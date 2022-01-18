@@ -4,10 +4,17 @@
   and #each x in y constructors to fix this.
 
 template(name="filterSidebar")
-  h3 {{_ 'list-filter-label'}}
+  h3
+    i.fa.fa-trello
+    | {{_ 'list-filter-label'}}
   ul.sidebar-list
     form.js-list-filter
       input(type="text")
+  hr
+  h3
+    i.fa.fa-list-alt
+    | {{_ 'filter-card-title-label'}}
+  input.js-field-card-filter(type="text")
   hr
   h3
     i.fa.fa-tags

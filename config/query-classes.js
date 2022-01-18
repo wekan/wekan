@@ -4,6 +4,7 @@ import {
   OPERATOR_COMMENT,
   OPERATOR_CREATED_AT,
   OPERATOR_CREATOR,
+  OPERATOR_DEBUG,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
@@ -11,9 +12,11 @@ import {
   OPERATOR_LIST,
   OPERATOR_MEMBER,
   OPERATOR_MODIFIED_AT,
+  OPERATOR_ORG,
   OPERATOR_SORT,
   OPERATOR_STATUS,
   OPERATOR_SWIMLANE,
+  OPERATOR_TEAM,
   OPERATOR_UNKNOWN,
   OPERATOR_USER,
   ORDER_ASCENDING,
@@ -34,14 +37,56 @@ import {
   PREDICATE_OPEN,
   PREDICATE_OVERDUE,
   PREDICATE_PRIVATE,
+  PREDICATE_PROJECTION,
   PREDICATE_PUBLIC,
   PREDICATE_QUARTER,
+  PREDICATE_SELECTOR,
   PREDICATE_START_AT,
   PREDICATE_WEEK,
   PREDICATE_YEAR,
 } from './search-const';
 import Boards from '../models/boards';
 import moment from 'moment';
+
+export class QueryDebug {
+  predicate = null;
+
+  constructor(predicate) {
+    if (predicate) {
+      this.set(predicate)
+    }
+  }
+
+  get() {
+    return this.predicate;
+  }
+
+  set(predicate) {
+    if ([PREDICATE_ALL, PREDICATE_SELECTOR, PREDICATE_PROJECTION].includes(
+      predicate
+    )) {
+      this.predicate = predicate;
+    } else {
+      this.predicate = null;
+    }
+  }
+
+  show() {
+    return (this.predicate !== null);
+  }
+
+  showAll() {
+    return (this.predicate === PREDICATE_ALL);
+  }
+
+  showSelector() {
+    return (this.predicate === PREDICATE_ALL || this.predicate === PREDICATE_SELECTOR);
+  }
+
+  showProjection() {
+    return (this.predicate === PREDICATE_ALL || this.predicate === PREDICATE_PROJECTION);
+  }
+}
 
 export class QueryParams {
   text = '';
@@ -71,11 +116,14 @@ export class QueryParams {
   }
 
   getPredicate(operator) {
-    if (typeof this.params[operator] === 'object') {
-      return this.params[operator][0];
-    } else {
-      return this.params[operator];
+    if (this.hasOperator(operator)){
+      if (typeof this.params[operator] === 'object') {
+        return this.params[operator][0];
+      } else {
+        return this.params[operator];
+      }
     }
+    return null;
   }
 
   getPredicates(operator) {
@@ -115,6 +163,8 @@ export class QueryErrors {
     [OPERATOR_ASSIGNEE, 'user-username-not-found'],
     [OPERATOR_MEMBER, 'user-username-not-found'],
     [OPERATOR_CREATOR, 'user-username-not-found'],
+    [OPERATOR_ORG, 'org-name-not-found'],
+    [OPERATOR_TEAM, 'team-name-not-found'],
   ];
 
   constructor() {
@@ -196,6 +246,10 @@ export class Query {
     return this._errors.errors();
   }
 
+  addError(operator, error) {
+    this._errors.addError(operator, error)
+  }
+
   errorMessages() {
     return this._errors.errorMessages();
   }
@@ -213,6 +267,8 @@ export class Query {
   }
 
   buildParams(queryText) {
+    this.queryParams = new QueryParams();
+
     queryText = queryText.trim();
     // eslint-disable-next-line no-console
     //console.log('query:', query);
@@ -260,42 +316,51 @@ export class Query {
       'operator-has': OPERATOR_HAS,
       'operator-sort': OPERATOR_SORT,
       'operator-limit': OPERATOR_LIMIT,
+      'operator-debug': OPERATOR_DEBUG,
+      'operator-org': OPERATOR_ORG,
+      'operator-team': OPERATOR_TEAM,
     };
 
     const predicates = {
-      due: {
-        'predicate-overdue': PREDICATE_OVERDUE,
-      },
       durations: {
         'predicate-week': PREDICATE_WEEK,
         'predicate-month': PREDICATE_MONTH,
         'predicate-quarter': PREDICATE_QUARTER,
         'predicate-year': PREDICATE_YEAR,
       },
-      status: {
-        'predicate-archived': PREDICATE_ARCHIVED,
-        'predicate-all': PREDICATE_ALL,
-        'predicate-open': PREDICATE_OPEN,
-        'predicate-ended': PREDICATE_ENDED,
-        'predicate-public': PREDICATE_PUBLIC,
-        'predicate-private': PREDICATE_PRIVATE,
-      },
-      sorts: {
-        'predicate-due': PREDICATE_DUE_AT,
-        'predicate-created': PREDICATE_CREATED_AT,
-        'predicate-modified': PREDICATE_MODIFIED_AT,
-      },
-      has: {
-        'predicate-description': PREDICATE_DESCRIPTION,
-        'predicate-checklist': PREDICATE_CHECKLIST,
-        'predicate-attachment': PREDICATE_ATTACHMENT,
-        'predicate-start': PREDICATE_START_AT,
-        'predicate-end': PREDICATE_END_AT,
-        'predicate-due': PREDICATE_DUE_AT,
-        'predicate-assignee': PREDICATE_ASSIGNEES,
-        'predicate-member': PREDICATE_MEMBERS,
-      },
     };
+    predicates[OPERATOR_DUE] = {
+      'predicate-overdue': PREDICATE_OVERDUE,
+    };
+    predicates[OPERATOR_STATUS] = {
+      'predicate-archived': PREDICATE_ARCHIVED,
+      'predicate-all': PREDICATE_ALL,
+      'predicate-open': PREDICATE_OPEN,
+      'predicate-ended': PREDICATE_ENDED,
+      'predicate-public': PREDICATE_PUBLIC,
+      'predicate-private': PREDICATE_PRIVATE,
+    };
+    predicates[OPERATOR_SORT] = {
+      'predicate-due': PREDICATE_DUE_AT,
+      'predicate-created': PREDICATE_CREATED_AT,
+      'predicate-modified': PREDICATE_MODIFIED_AT,
+    };
+    predicates[OPERATOR_HAS] = {
+      'predicate-description': PREDICATE_DESCRIPTION,
+      'predicate-checklist': PREDICATE_CHECKLIST,
+      'predicate-attachment': PREDICATE_ATTACHMENT,
+      'predicate-start': PREDICATE_START_AT,
+      'predicate-end': PREDICATE_END_AT,
+      'predicate-due': PREDICATE_DUE_AT,
+      'predicate-assignee': PREDICATE_ASSIGNEES,
+      'predicate-member': PREDICATE_MEMBERS,
+    };
+    predicates[OPERATOR_DEBUG] = {
+      'predicate-all': PREDICATE_ALL,
+      'predicate-selector': PREDICATE_SELECTOR,
+      'predicate-projection': PREDICATE_PROJECTION,
+    };
+
     const predicateTranslations = {};
     Object.entries(predicates).forEach(([category, catPreds]) => {
       predicateTranslations[category] = {};
@@ -403,7 +468,7 @@ export class Query {
                   value: moment().format('YYYY-MM-DD'),
                 };
               } else {
-                this.errors.addError(OPERATOR_DUE, {
+                this.addError(OPERATOR_DUE, {
                   tag: 'operator-number-expected',
                   value: { operator: op, value },
                 });
@@ -431,27 +496,27 @@ export class Query {
               value = m.groups.operator;
               negated = true;
             }
-            if (!predicateTranslations.sorts[value]) {
-              this.errors.addError(OPERATOR_SORT, {
+            if (!predicateTranslations[OPERATOR_SORT][value]) {
+              this.addError(OPERATOR_SORT, {
                 tag: 'operator-sort-invalid',
                 value,
               });
               continue;
             } else {
               value = {
-                name: predicateTranslations.sorts[value],
+                name: predicateTranslations[OPERATOR_SORT][value],
                 order: negated ? ORDER_DESCENDING : ORDER_ASCENDING,
               };
             }
           } else if (operator === OPERATOR_STATUS) {
-            if (!predicateTranslations.status[value]) {
-              this.errors.addError(OPERATOR_STATUS, {
+            if (!predicateTranslations[OPERATOR_STATUS][value]) {
+              this.addError(OPERATOR_STATUS, {
                 tag: 'operator-status-invalid',
                 value,
               });
               continue;
             } else {
-              value = predicateTranslations.status[value];
+              value = predicateTranslations[OPERATOR_STATUS][value];
             }
           } else if (operator === OPERATOR_HAS) {
             let negated = false;
@@ -460,22 +525,22 @@ export class Query {
               value = m.groups.operator;
               negated = true;
             }
-            if (!predicateTranslations.has[value]) {
-              this.errors.addError(OPERATOR_HAS, {
+            if (!predicateTranslations[OPERATOR_HAS][value]) {
+              this.addError(OPERATOR_HAS, {
                 tag: 'operator-has-invalid',
                 value,
               });
               continue;
             } else {
               value = {
-                field: predicateTranslations.has[value],
+                field: predicateTranslations[OPERATOR_HAS][value],
                 exists: !negated,
               };
             }
           } else if (operator === OPERATOR_LIMIT) {
             const limit = parseInt(value, 10);
             if (isNaN(limit) || limit < 1) {
-              this.errors.addError(OPERATOR_LIMIT, {
+              this.addError(OPERATOR_LIMIT, {
                 tag: 'operator-limit-invalid',
                 value,
               });
@@ -483,11 +548,21 @@ export class Query {
             } else {
               value = limit;
             }
+          } else if (operator === OPERATOR_DEBUG) {
+            if (!predicateTranslations[OPERATOR_DEBUG][value]) {
+              this.addError(OPERATOR_DEBUG, {
+                tag: 'operator-debug-invalid',
+                value,
+              });
+              continue;
+            } else {
+              value = predicateTranslations[OPERATOR_DEBUG][value];
+            }
           }
 
           this.queryParams.addPredicate(operator, value);
         } else {
-          this.errors.addError(OPERATOR_UNKNOWN, {
+          this.addError(OPERATOR_UNKNOWN, {
             tag: 'operator-unknown-error',
             value: op,
           });
@@ -509,11 +584,13 @@ export class Query {
       }
     }
 
-    // eslint-disable-next-line no-console
-    // console.log('text:', text);
     this.queryParams.text = text;
 
     // eslint-disable-next-line no-console
-    console.log('queryParams:', this.queryParams);
+    if (this.queryParams.hasOperator(OPERATOR_DEBUG)) {
+      // eslint-disable-next-line no-console
+      console.log('text:', this.queryParams.text);
+      console.log('queryParams:', this.queryParams);
+    }
   }
 }

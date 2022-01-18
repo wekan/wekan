@@ -4,15 +4,6 @@
 
 avatar-radius = 50%
 
-#cardURL_copy
-  // Have clipboard text not visible by moving it to far left
-  position: absolute
-  left: -2000px
-  top: 0px
-
-#clipboard
-  white-space: normal
-
 .assignee
   border-radius: 3px
   display: block
@@ -85,6 +76,12 @@ avatar-radius = 50%
       box-shadow: 0 0 0 2px darken(white, 60%) inset
 
 // Other card details
+.copied-tooltip
+  display: none
+  padding: 0px 10px;
+  background-color: #000000df;
+  color: #fff;
+  border-radius: 5px;
 
 .card-details
   padding: 0
@@ -95,7 +92,7 @@ avatar-radius = 50%
   overflow-x: hidden
   background: darken(white, 3%)
   border-radius: bottom 3px
-  z-index: 20 !important
+  z-index: 20
   animation: flexGrowIn 0.1s
   box-shadow: 0 0 7px 0 darken(white, 30%)
   transition: flex-basis 0.1s
@@ -127,7 +124,8 @@ avatar-radius = 50%
     .card-copy-button,
     .card-copy-mobile-button,
     .close-card-details-mobile-web,
-    .card-details-menu-mobile-web
+    .card-details-menu-mobile-web,
+    .copied-tooltip
       float: right
 
     .close-card-details,
@@ -183,6 +181,9 @@ avatar-radius = 50%
       margin-top: 5px
       margin-bottom: 10px
 
+      .copied-tooltip
+        padding: 0px 10px
+
     .card-details-list
       font-size: 0.85em
       margin-bottom: 3px
@@ -195,6 +196,10 @@ avatar-radius = 50%
           background: darken(white, 10%)
           border-radius: 3px
           padding: 0px 5px
+
+    .copied-tooltip
+      margin-right: 10px
+      padding: 10px;
 
   .card-description textarea
     min-height: 100px
@@ -230,15 +235,14 @@ avatar-radius = 50%
         word-wrap: break-word
         max-width: 28%
         flex-grow: 1
+      &.custom-fields
+        padding-left: 10px
+
 
   .card-details-item-title
     font-size: 16px
     font-weight: bold
     color: #4d4d4d
-
-  .card-label
-    padding-top: 5px
-    padding-bottom: 5px
 
   .activities
     padding-top: 10px
@@ -253,7 +257,7 @@ avatar-radius = 50%
     overflow-x: scroll
     background: darken(white, 3%)
     border-radius: bottom 3px
-    z-index: 1000 !important
+    z-index: 100
     animation: flexGrowIn 0.1s
     box-shadow: 0 0 7px 0 darken(white, 30%)
     transition: flex-basis 0.1s
@@ -297,6 +301,8 @@ input[type="submit"].attachment-add-link-submit
     padding: 0px 20px 0px 20px
     margin: 0px
     transition: none
+    overflow-y: revert
+    overflow-x: revert
 
     .card-details-canvas
       width: 100%
@@ -314,6 +320,21 @@ input[type="submit"].attachment-add-link-submit
 
       .minimize-card-details
         margin-right: 40px
+
+  .card-details-popup
+    padding: 0px 10px
+
+  .pop-over > .content-wrapper > .popup-container-depth-0
+    width: 100%
+
+    & > .content
+      width: calc(100% - 10px)
+
+    & > .content > .card-details-popup hr
+        margin: 15px 0px
+
+      .card-details-header
+        margin: 0
 
 card-details-color(background, color...)
   background: background !important

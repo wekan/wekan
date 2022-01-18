@@ -3,9 +3,6 @@
 # This script is only for Wekan maintainer to
 # convert x64 bundle to ppc64le bundle.
 
-# 1) Check that there is only one parameter
-#    of Wekan version number
-
 if [ $# -ne 1 ]
   then
     echo "Syntax with Wekan version number:"
@@ -13,19 +10,17 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-# 2) Build bundle
-
-cd /home/ubuntu
+sudo apt -y install g++ build-essential
+sudo npm -g install node-gyp
 rm -rf bundle
+#rm wekan-$1.zip
 #wget https://releases.wekan.team/wekan-$1.zip
 unzip wekan-$1.zip
-cd /home/ubuntu/bundle/programs/server
+cd bundle/programs/server
 chmod u+w *.json
-cd /home/ubuntu/bundle/programs/server/node_modules/fibers
+cd node_modules/fibers
 node build.js
-cd /home/ubuntu
-#cp -pR /home/ubuntu/node-fibers/bin/linux-ppc64-72-glibc bundle/programs/server/node_modules/fibers/bin/
-cd bundle
+cd ../../../..
 find . -type d -name '*-garbage*' | xargs rm -rf
 find . -name '*phantom*' | xargs rm -rf
 find . -name '.*.swp' | xargs rm -f

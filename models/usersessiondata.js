@@ -77,6 +77,10 @@ SessionData.attachSchema(
       optional: true,
       defaultValue: [],
     },
+    debug: {
+      type: String,
+      optional: true,
+    },
     'errors.$': {
       type: new SimpleSchema({
         tag: {
@@ -177,7 +181,7 @@ function unpickleObject(obj) {
 SessionData.pickle = value => {
   return JSON.stringify(value, (key, value) => {
     return pickleValue(value);
-  });
+  }, 2);
 };
 
 function pickleValue(value) {

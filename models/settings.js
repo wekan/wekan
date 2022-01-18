@@ -88,6 +88,14 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    mailDomainName: {
+      type: String,
+      optional: true,
+    },
+    legalNotice: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,
@@ -217,9 +225,14 @@ if (Meteor.isServer) {
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
     try {
+      const fullName = Users.findOne(icode.authorId)
+                  && Users.findOne(icode.authorId).profile
+                  && Users.findOne(icode.authorId).profile !== undefined
+                  && Users.findOne(icode.authorId).profile.fullname ?  Users.findOne(icode.authorId).profile.fullname : "";
+
       const params = {
         email: icode.email,
-        inviter: Users.findOne(icode.authorId).username,
+        inviter: fullName != "" ? fullName + " (" + Users.findOne(icode.authorId).username + " )" : Users.findOne(icode.authorId).username,
         user: icode.email.split('@')[0],
         icode: icode.code,
         url: FlowRouter.url('sign-up'),
@@ -261,6 +274,20 @@ if (Meteor.isServer) {
     }
   }
 
+  function isNonAdminAllowedToSendMail(currentUser){
+    const currSett = Settings.findOne({});
+    let isAllowed = false;
+    if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
+      for(let i = 0; i < currentUser.emails.length; i++) {
+        if(currentUser.emails[i].address.endsWith(currSett.mailDomainName)){
+          isAllowed = true;
+          break;
+        }
+      }
+    }
+    return isAllowed;
+  }
+
   function isLdapEnabled() {
     return (
       process.env.LDAP_ENABLE === 'true' || process.env.LDAP_ENABLE === true
@@ -286,11 +313,13 @@ if (Meteor.isServer) {
 
   Meteor.methods({
     sendInvitation(emails, boards) {
+      let rc = 0;
       check(emails, [String]);
       check(boards, [String]);
 
       const user = Users.findOne(Meteor.userId());
-      if (!user.isAdmin) {
+      if (!user.isAdmin && !isNonAdminAllowedToSendMail(user)) {
+        rc = -1;
         throw new Meteor.Error('not-allowed');
       }
       emails.forEach(email => {
@@ -298,6 +327,7 @@ if (Meteor.isServer) {
           // Checks if the email is already link to an account.
           const userExist = Users.findOne({ email });
           if (userExist) {
+            rc = -1;
             throw new Meteor.Error(
               'user-exist',
               `The user with the email ${email} has already an account.`,
@@ -324,6 +354,7 @@ if (Meteor.isServer) {
                 if (!err && _id) {
                   sendInvitationEmail(_id);
                 } else {
+                  rc = -1;
                   throw new Meteor.Error(
                     'invitation-generated-fail',
                     err.message,
@@ -334,6 +365,7 @@ if (Meteor.isServer) {
           }
         }
       });
+      return rc;
     },
 
     sendSMTPTestEmail() {

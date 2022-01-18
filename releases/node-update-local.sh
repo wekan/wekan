@@ -17,7 +17,7 @@ NODE_VERSION=$(node -v)
 # If installed node is not newest version
 if [ $NODE_VERSION != v$2 ]; then
   echo "8) Upgrading installed node to newest version"
-  sudo n $2
+  volta install node@12
 else
   echo "8) Installed node is already newest version"
 fi
@@ -38,7 +38,7 @@ PROJECTS_ARCHIVE=~/projects.7z
 # If installed Sandstorm node is not newest version
 if [ $SANDSTORM_NODE != v$2 ]; then
   echo "9) Copy previously updated local node to Sandstorm node"
-  cp /usr/local/bin/node ~/projects/meteor-spk/meteor-spk-0.5.1/meteor-spk.deps/bin/
+  cp ~/.volta/bin/node ~/projects/meteor-spk/meteor-spk-0.5.1/meteor-spk.deps/bin/
 #  echo "11) Install 7zip"
 #  sudo apt-get -y install p7zip-full
 #  # If projects.7z exists, delete it

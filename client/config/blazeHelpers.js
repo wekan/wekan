@@ -1,21 +1,13 @@
 import { TAPi18n } from '../../i18n/i18n';
 
 Blaze.registerHelper('currentBoard', () => {
-  const boardId = Session.get('currentBoard');
-  if (boardId) {
-    return Boards.findOne(boardId);
-  } else {
-    return null;
-  }
+  const ret = Utils.getCurrentBoard();
+  return ret;
 });
 
 Blaze.registerHelper('currentCard', () => {
-  const cardId = Session.get('currentCard');
-  if (cardId) {
-    return Cards.findOne(cardId);
-  } else {
-    return null;
-  }
+  const ret = Utils.getCurrentCard();
+  return ret;
 });
 
 Blaze.registerHelper('currentList', () => {

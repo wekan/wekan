@@ -1,5 +1,4 @@
 const subManager = new SubsManager();
-const { calculateIndex, enableClickOnTouch } = Utils;
 
 Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
@@ -9,7 +8,11 @@ Template.boardListHeaderBar.events({
 
 Template.boardListHeaderBar.helpers({
   title() {
+    //if (FlowRouter.getRouteName() === 'template-container') {
+    //  return 'template-container';
+    //} else {
     return FlowRouter.getRouteName() === 'home' ? 'my-boards' : 'public';
+    //}
   },
   templatesBoardId() {
     return Meteor.user() && Meteor.user().getTemplatesBoardId();
@@ -56,7 +59,7 @@ BlazeComponent.extendComponent({
         // of the previous and the following card -- if any.
         const prevBoardDom = ui.item.prev('.js-board').get(0);
         const nextBoardBom = ui.item.next('.js-board').get(0);
-        const sortIndex = calculateIndex(prevBoardDom, nextBoardBom, 1);
+        const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardBom, 1);
 
         const boardDomElement = ui.item.get(0);
         const board = Blaze.getData(boardDomElement);
@@ -73,12 +76,9 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch(itemsSelector);
-
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
-      if (Utils.isMiniScreen()) {
+      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
         $boards.sortable({
           handle: '.board-handle',
         });
@@ -86,38 +86,46 @@ BlazeComponent.extendComponent({
     });
   },
   userHasTeams() {
-    if(Meteor.user().teams && Meteor.user().teams.length > 0)
+    if(Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
       return true;
     else
       return false;
   },
   teamsDatas() {
     if(Meteor.user().teams)
-      return Meteor.user().teams;
+      return Meteor.user().teams.sort((a, b) => a.teamDisplayName.localeCompare(b.teamDisplayName));
     else
       return [];
   },
   userHasOrgs(){
-    if(Meteor.user().orgs && Meteor.user().orgs.length > 0)
+    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
       return true;
     else
       return false;
   },
+/*
+  userHasTemplates(){
+    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
+      return true;
+    else
+      return false;
+  },
+*/
   orgsDatas() {
     if(Meteor.user().orgs)
-      return Meteor.user().orgs;
+      return Meteor.user().orgs.sort((a, b) => a.orgDisplayName.localeCompare(b.orgDisplayName));
     else
       return [];
   },
   userHasOrgsOrTeams(){
     let boolUserHasOrgs;
-    if(Meteor.user().orgs && Meteor.user().orgs.length > 0)
+    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
       boolUserHasOrgs = true;
     else
       boolUserHasOrgs = false;
 
     let boolUserHasTeams;
-    if(Meteor.user().teams && Meteor.user().teams.length > 0)
+    if(Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
       boolUserHasTeams = true;
     else
       boolUserHasTeams = false;
@@ -126,12 +134,11 @@ BlazeComponent.extendComponent({
   },
   boards() {
     let query = {
-      //archived: false,
-      ////type: { $in: ['board','template-container'] },
-      //type: 'board',
+      // { type: 'board' },
+      // { type: { $in: ['board','template-container'] } },
       $and: [
         { archived: false },
-        { type: 'board' },
+        { type: { $in: ['board','template-container'] } },
         { $or:[] }
       ]
     };
@@ -153,7 +160,7 @@ BlazeComponent.extendComponent({
       //   },
       // });
 
-      let orgIdsUserBelongs = currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
+      let orgIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
       if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
         let orgsIds = orgIdsUserBelongs.split(',');
         // for(let i = 0; i < orgsIds.length; i++){
@@ -164,7 +171,7 @@ BlazeComponent.extendComponent({
         query.$and[2].$or.push({'orgs.orgId': {$in : orgsIds}});
       }
 
-      let teamIdsUserBelongs = currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
+      let teamIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
       if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
         let teamsIds = teamIdsUserBelongs.split(',');
         // for(let i = 0; i < teamsIds.length; i++){
@@ -234,6 +241,7 @@ BlazeComponent.extendComponent({
                 this.setError(err.error);
               } else {
                 Session.set('fromBoard', null);
+                subManager.subscribe('board', res, false);
                 Utils.goBoardId(res);
               }
             },

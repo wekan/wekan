@@ -1,5 +1,10 @@
 import { MongoInternals } from 'meteor/mongo';
 
+// Sandstorm context is detected using the METEOR_SETTINGS environment variable
+// in the package definition.
+const isSandstorm =
+  Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
+
 if (Meteor.isServer) {
   Meteor.methods({
     getStatistics() {
@@ -28,6 +33,35 @@ if (Meteor.isServer) {
           pid: process.pid,
           uptime: process.uptime(),
         };
+        // Start: Show Nodejs heap stats at Standalone WeKan.
+        //
+        // Not shown at Sandstorm WeKan, because there's a bunch of machine performance data
+        // Sandstorm doesn't expose to apps to prevent side channel attacks.
+        if (!isSandstorm) {
+          const v8 = require('v8'); // Import the v8 module
+          statistics.nodeHeapStats = {
+            totalHeapSize: v8.getHeapStatistics().total_heap_size,
+            totalHeapSizeExecutable: v8.getHeapStatistics().total_heap_size_executable,
+            totalPhysicalSize: v8.getHeapStatistics().total_physical_size,
+            totalAvailableSize: v8.getHeapStatistics().total_available_size,
+            usedHeapSize: v8.getHeapStatistics().used_heap_size,
+            heapSizeLimit: v8.getHeapStatistics().heap_size_limit,
+            mallocedMemory: v8.getHeapStatistics().malloced_memory,
+            peakMallocedMemory: v8.getHeapStatistics().peak_malloced_memory,
+            doesZapGarbage: v8.getHeapStatistics().does_zap_garbage,
+            numberOfNativeContexts: v8.getHeapStatistics().number_of_native_contexts,
+            numberOfDetachedContexts: v8.getHeapStatistics().number_of_detached_contexts,
+          };
+          let memoryUsage = process.memoryUsage();
+          statistics.nodeMemoryUsage = {
+            rss: memoryUsage.rss,
+            heapTotal: memoryUsage.heapTotal,
+            heapUsed: memoryUsage.heapUsed,
+            external: memoryUsage.external,
+          };
+        }
+        // End: Show Nodejs heap stats at Standalone WeKan.
+        //
         // Remove beginning of Meteor release text METEOR@
         let meteorVersion = Meteor.release;
         meteorVersion = meteorVersion.replace('METEOR@', '');

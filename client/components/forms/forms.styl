@@ -117,7 +117,6 @@ button
   display: inline-block
   font-weight: 700
   line-height: 22px
-  margin: 8px 4px 0 0
   padding: 7px 20px
   text-align: center
 
@@ -226,20 +225,19 @@ textarea
 .edit-controls,
 .add-controls
   display: flex
-  align-items: baseline
-  margin-top: 0
+  align-items: center
+  margin-top: 0px
+  margin-bottom: 12px
 
   button[type=submit]
   input[type=button]
     float: left
     height: 32px
-    margin-top: -2px
-    padding-top: 5px
-    padding-bottom: 5px
+    margin-bottom: 0px
 
   .fa-times-thin
     font-size: 26px
-    margin: 3px 4px
+    margin: 3px 10px
 
 // Material Design checkboxes
   [type="checkbox"]:not(:checked),
@@ -247,6 +245,7 @@ textarea
     position: absolute
     left: -9999px
     visibility: hidden
+    display: none
 
 .materialCheckBox
   position: relative

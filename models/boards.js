@@ -5,6 +5,7 @@ import {
   TYPE_TEMPLATE_BOARD,
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
+import Users from "./users";
 
 const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
@@ -622,6 +623,7 @@ Boards.helpers({
       rule.triggerId = triggersMap[rule.triggerId];
       Rules.insert(rule);
     });
+    return _id;
   },
   /**
    * Return a unique title based on the current title
@@ -693,8 +695,17 @@ Boards.helpers({
       { sort: sortKey },
     );
   },
+
   draggableLists() {
     return Lists.find({ boardId: this._id }, { sort: { sort: 1 } });
+  },
+
+  /** returns the last list
+   * @returns Document the last list
+   */
+  getLastList() {
+    const ret = Lists.findOne({ boardId: this._id }, { sort: { sort: 'desc' } });
+    return ret;
   },
 
   nullSortLists() {
@@ -865,6 +876,16 @@ Boards.helpers({
     });
   },
 
+  hasAnyAllowsDate() {
+    const ret = this.allowsReceivedDate || this.allowsStartDate || this.allowsDueDate || this.allowsEndDate;
+    return ret;
+  },
+
+  hasAnyAllowsUser() {
+    const ret = this.allowsCreator || this.allowsMembers || this.allowsAssignee || this.allowsRequestedBy || this.allowsAssignedBy;
+    return ret;
+  },
+
   absoluteUrl() {
     return FlowRouter.url('board', { id: this._id, slug: this.slug });
   },
@@ -889,6 +910,20 @@ Boards.helpers({
     const _id = Random.id(6);
     Boards.direct.update(this._id, { $push: { labels: { _id, name, color } } });
     return _id;
+  },
+
+  /** sets the new label order
+   * @param newLabelOrderOnlyIds new order array of _id, e.g. Array(4) [ "FvtD34", "PAEgDP", "LjRBxH", "YJ8sZz" ]
+   */
+  setNewLabelOrder(newLabelOrderOnlyIds) {
+    if (this.labels.length == newLabelOrderOnlyIds.length) {
+      if (this.labels.every(_label => newLabelOrderOnlyIds.indexOf(_label._id) >= 0)) {
+        const newLabels = _.sortBy(this.labels, _label => newLabelOrderOnlyIds.indexOf(_label._id));
+        if (this.labels.length == newLabels.length) {
+          Boards.direct.update(this._id, {$set: {labels: newLabels}});
+        }
+      }
+    }
   },
 
   searchBoards(term) {
@@ -931,42 +966,51 @@ Boards.helpers({
   },
 
   searchLists(term) {
-    check(term, Match.OneOf(String, null, undefined));
-
-    const query = { boardId: this._id };
-    if (this.isTemplatesBoard()) {
-      query.type = 'template-list';
-      query.archived = false;
-    } else {
-      query.type = { $nin: ['template-list'] };
-    }
-    const projection = { limit: 10, sort: { createdAt: -1 } };
-
+    let ret = null;
     if (term) {
-      const regex = new RegExp(term, 'i');
-
-      query.$or = [{ title: regex }, { description: regex }];
+      check(term, Match.OneOf(String));
+      term = term.trim();
     }
+    if (term) {
+      const query = { boardId: this._id };
+      if (this.isTemplatesBoard()) {
+        query.type = 'template-list';
+        query.archived = false;
+      } else {
+        query.type = { $nin: ['template-list'] };
+      }
+      const projection = { sort: { createdAt: -1 } };
 
-    return Lists.find(query, projection);
+      if (term) {
+        const regex = new RegExp(term, 'i');
+
+        query.$or = [{ title: regex }, { description: regex }];
+      }
+
+      ret = Lists.find(query, projection);
+    }
+    return ret;
   },
 
   searchCards(term, excludeLinked) {
-    check(term, Match.OneOf(String, null, undefined));
-
-    const query = { boardId: this._id };
-    if (excludeLinked) {
-      query.linkedId = null;
-    }
-    if (this.isTemplatesBoard()) {
-      query.type = 'template-card';
-      query.archived = false;
-    } else {
-      query.type = { $nin: ['template-card'] };
-    }
-    const projection = { limit: 10, sort: { createdAt: -1 } };
-
+    let ret = null;
     if (term) {
+      check(term, Match.OneOf(String));
+      term = term.trim();
+    }
+    if (term) {
+      const query = { boardId: this._id };
+      if (excludeLinked) {
+        query.linkedId = null;
+      }
+      if (this.isTemplatesBoard()) {
+        query.type = 'template-card';
+        query.archived = false;
+      } else {
+        query.type = { $nin: ['template-card'] };
+      }
+      const projection = { sort: { createdAt: -1 } };
+
       const regex = new RegExp(term, 'i');
 
       query.$or = [
@@ -974,9 +1018,9 @@ Boards.helpers({
         { description: regex },
         { customFields: { $elemMatch: { value: regex } } },
       ];
+      ret = Cards.find(query, projection);
     }
-
-    return Cards.find(query, projection);
+    return ret;
   },
   // A board alwasy has another board where it deposits subtasks of thasks
   // that belong to itself.
@@ -1437,7 +1481,17 @@ Boards.userSearch = (
   return Boards.find(selector, projection);
 };
 
-Boards.userBoards = (userId, archived = false, selector = {}) => {
+Boards.userBoards = (
+  userId,
+  archived = false,
+  selector = {},
+  projection = {},
+) => {
+  const user = Users.findOne(userId);
+  if (!user) {
+    return [];
+  }
+
   if (typeof archived === 'boolean') {
     selector.archived = archived;
   }
@@ -1445,15 +1499,20 @@ Boards.userBoards = (userId, archived = false, selector = {}) => {
     selector.type = 'board';
   }
 
-  selector.$or = [{ permission: 'public' }];
-  if (userId) {
-    selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
-  }
-  return Boards.find(selector);
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId, isActive: true } } },
+    { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+    { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+  ];
+
+  return Boards.find(selector, projection);
 };
 
 Boards.userBoardIds = (userId, archived = false, selector = {}) => {
-  return Boards.userBoards(userId, archived, selector).map(board => {
+  return Boards.userBoards(userId, archived, selector, {
+    fields: { _id: 1 },
+  }).map(board => {
     return board._id;
   });
 };

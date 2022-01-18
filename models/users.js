@@ -226,6 +226,64 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.moveAndCopyDialog' : {
+      /**
+       * move and copy card dialog
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    'profile.moveAndCopyDialog.$.boardId': {
+      /**
+       * last selected board id
+       */
+      type: String,
+    },
+    'profile.moveAndCopyDialog.$.swimlaneId': {
+      /**
+       * last selected swimlane id
+       */
+      type: String,
+    },
+    'profile.moveAndCopyDialog.$.listId': {
+      /**
+       * last selected list id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog' : {
+      /**
+       * move and copy card dialog
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    'profile.moveChecklistDialog.$.boardId': {
+      /**
+       * last selected board id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.swimlaneId': {
+      /**
+       * last selected swimlane id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.listId': {
+      /**
+       * last selected list id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.cardId': {
+      /**
+       * last selected card id
+       */
+      type: String,
+    },
     'profile.notifications': {
       /**
        * enabled notifications for the user
@@ -458,46 +516,51 @@ Users.safeFields = {
 if (Meteor.isClient) {
   Users.helpers({
     isBoardMember() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id);
     },
 
     isNotNoComments() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasNoComments(this._id)
       );
     },
 
     isNoComments() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasNoComments(this._id);
     },
 
     isNotCommentOnly() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return (
         board && board.hasMember(this._id) && !board.hasCommentOnly(this._id)
       );
     },
 
     isCommentOnly() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasCommentOnly(this._id);
     },
 
     isNotWorker() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id) && !board.hasWorker(this._id);
     },
 
     isWorker() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+      const board = Utils.getCurrentBoard();
       return board && board.hasWorker(this._id);
     },
 
-    isBoardAdmin(boardId = Session.get('currentBoard')) {
-      const board = Boards.findOne(boardId);
+    isBoardAdmin(boardId) {
+      let board;
+      if (boardId) {
+        board = Boards.findOne(boardId);
+      } else {
+        board = Utils.getCurrentBoard();
+      }
       return board && board.hasAdmin(this._id);
     },
   });
@@ -514,9 +577,23 @@ Users.helpers({
     }
     return '';
   },
+  teamIds() {
+    if (this.teams) {
+      // TODO: Should the Team collection be queried to determine if the team isActive?
+      return this.teams.map(team => { return team.teamId });
+    }
+    return [];
+  },
+  orgIds() {
+    if (this.orgs) {
+      // TODO: Should the Org collection be queried to determine if the organization isActive?
+      return this.orgs.map(org => { return org.orgId });
+    }
+    return [];
+  },
   orgsUserBelongs() {
     if (this.orgs) {
-      return this.orgs.map(function(org){return org.orgDisplayName}).join(',');
+      return this.orgs.map(function(org){return org.orgDisplayName}).sort().join(',');
     }
     return '';
   },
@@ -528,7 +605,7 @@ Users.helpers({
   },
   teamsUserBelongs() {
     if (this.teams) {
-      return this.teams.map(function(team){ return team.teamDisplayName}).join(',');
+      return this.teams.map(function(team){ return team.teamDisplayName}).sort().join(',');
     }
     return '';
   },
@@ -539,32 +616,16 @@ Users.helpers({
     return '';
   },
   boards() {
-    return Boards.find(
-      {
-        'members.userId': this._id,
-      },
-      {
-        sort: {
-          sort: 1 /* boards default sorting */,
-        },
-      },
-    );
+    return Boards.userBoards(this._id, null, {}, { sort: { sort: 1 } })
   },
 
   starredBoards() {
     const { starredBoards = [] } = this.profile || {};
-    return Boards.find(
-      {
-        archived: false,
-        _id: {
-          $in: starredBoards,
-        },
-      },
-      {
-        sort: {
-          sort: 1 /* boards default sorting */,
-        },
-      },
+    return Boards.userBoards(
+      this._id,
+      false,
+      { _id: { $in: starredBoards } },
+      { sort: { sort: 1 } }
     );
   },
 
@@ -575,18 +636,11 @@ Users.helpers({
 
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
-    return Boards.find(
-      {
-        archived: false,
-        _id: {
-          $in: invitedBoards,
-        },
-      },
-      {
-        sort: {
-          sort: 1 /* boards default sorting */,
-        },
-      },
+    return Boards.userBoards(
+      this._id,
+      false,
+      { _id: { $in: invitedBoards } },
+      { sort: { sort: 1 } }
     );
   },
 
@@ -618,6 +672,28 @@ Users.helpers({
   },
   getListSortByDirection() {
     return this._getListSortBy()[1];
+  },
+
+  /** returns all confirmed move and copy dialog field values
+   * <li> the board, swimlane and list id is stored for each board
+   */
+  getMoveAndCopyDialogOptions() {
+    let _ret = {}
+    if (this.profile && this.profile.moveAndCopyDialog) {
+      _ret = this.profile.moveAndCopyDialog;
+    }
+    return _ret;
+  },
+
+  /** returns all confirmed move checklist dialog field values
+   * <li> the board, swimlane, list and card id is stored for each board
+   */
+  getMoveChecklistDialogOptions() {
+    let _ret = {}
+    if (this.profile && this.profile.moveChecklistDialog) {
+      _ret = this.profile.moveChecklistDialog;
+    }
+    return _ret;
   },
 
   hasTag(tag) {
@@ -723,7 +799,8 @@ Users.helpers({
   },
 
   getTemplatesBoardSlug() {
-    return (Boards.findOne((this.profile || {}).templatesBoardId) || {}).slug;
+    //return (Boards.findOne((this.profile || {}).templatesBoardId) || {}).slug;
+    return 'templates';
   },
 
   remove() {
@@ -734,6 +811,32 @@ Users.helpers({
 });
 
 Users.mutations({
+  /** set the confirmed board id/swimlane id/list id of a board
+   * @param boardId the current board id
+   * @param options an object with the confirmed field values
+   */
+  setMoveAndCopyDialogOption(boardId, options) {
+    let currentOptions = this.getMoveAndCopyDialogOptions();
+    currentOptions[boardId] = options;
+    return {
+      $set: {
+        'profile.moveAndCopyDialog': currentOptions,
+      },
+    };
+  },
+  /** set the confirmed board id/swimlane id/list id/card id of a board
+   * @param boardId the current board id
+   * @param options an object with the confirmed field values
+   */
+  setMoveChecklistDialogOption(boardId, options) {
+    let currentOptions = this.getMoveChecklistDialogOptions();
+    currentOptions[boardId] = options;
+    return {
+      $set: {
+        'profile.moveChecklistDialog': currentOptions,
+      },
+    };
+  },
   toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
     return {
@@ -1237,9 +1340,11 @@ if (Meteor.isServer) {
       }
 
       try {
+        const fullName = inviter.profile !== undefined && inviter.profile.fullname !== undefined ?  inviter.profile.fullname : "";
+        const userFullName = user.profile !== undefined && user.profile.fullname !== undefined ?  user.profile.fullname : "";
         const params = {
-          user: user.username,
-          inviter: inviter.username,
+          user: userFullName != "" ? userFullName + " (" + user.username + " )" : user.username,
+          inviter: fullName != "" ? fullName + " (" + inviter.username + " )" : inviter.username,
           board: board.title,
           url: board.absoluteUrl(),
         };
@@ -1300,6 +1405,50 @@ if (Meteor.isServer) {
         userId: userId,
       });
       return isImpersonated;
+    },
+    setUsersTeamsTeamDisplayName(teamId, teamDisplayName) {
+      check(teamId, String);
+      check(teamDisplayName, String);
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        Users.find({
+          teams: {
+              $elemMatch: {teamId: teamId}
+          }
+        }).forEach(user => {
+          Users.update({
+            _id: user._id,
+            teams: {
+              $elemMatch: {teamId: teamId}
+            }
+          }, {
+            $set: {
+              'teams.$.teamDisplayName': teamDisplayName
+            }
+          });
+        });
+      }
+    },
+    setUsersOrgsOrgDisplayName(orgId, orgDisplayName) {
+      check(orgId, String);
+      check(orgDisplayName, String);
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        Users.find({
+          orgs: {
+              $elemMatch: {orgId: orgId}
+          }
+        }).forEach(user => {
+          Users.update({
+            _id: user._id,
+            orgs: {
+              $elemMatch: {orgId: orgId}
+            }
+          }, {
+            $set: {
+              'orgs.$.orgDisplayName': orgDisplayName
+            }
+          });
+        });
+      }
     },
   });
   Accounts.onCreateUser((options, user) => {
@@ -1678,10 +1827,20 @@ if (Meteor.isServer) {
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
-      const invitationCode = InvitationCodes.findOne({
-        code: doc.profile.icode,
-        valid: true,
-      });
+      let invitationCode = null;
+      if(doc.authenticationMethod.toLowerCase() == 'oauth2')
+      { // OIDC authentication mode
+        invitationCode = InvitationCodes.findOne({
+          email: doc.emails[0].address.toLowerCase(),
+          valid: true,
+        });
+      }
+      else{
+        invitationCode = InvitationCodes.findOne({
+          code: doc.profile.icode,
+          valid: true,
+        });
+      }
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');
       } else {

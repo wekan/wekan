@@ -34,11 +34,14 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
-    const boardBody = this.parentComponent().parentComponent();
-    //in Miniview parent is Board, not BoardBody.
-    if (boardBody !== null) {
-      boardBody.showOverlay.set(true);
-      boardBody.mouseHasEnterCardDetails = false;
+
+    if (this.parentComponent() && this.parentComponent().parentComponent()) {
+      const boardBody = this.parentComponent().parentComponent();
+      //in Miniview parent is Board, not BoardBody.
+      if (boardBody !== null) {
+        boardBody.showOverlay.set(true);
+        boardBody.mouseHasEnterCardDetails = false;
+      }
     }
     this.calculateNextPeak();
 
@@ -215,7 +218,7 @@ BlazeComponent.extendComponent({
       distance: 7,
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup-close');
+        EscapeActions.clickExecute(evt.target, 'inlinedForm');
       },
       stop(evt, ui) {
         let prevChecklist = ui.item.prev('.js-checklist').get(0);
@@ -297,6 +300,7 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
+    if (this.parentComponent() === null) return;
     const parentComponent = this.parentComponent().parentComponent();
     //on mobile view parent is Board, not board body.
     if (parentComponent === null) return;
@@ -319,30 +323,12 @@ BlazeComponent.extendComponent({
         'click .js-close-card-details'() {
           Utils.goBoardId(this.data().boardId);
         },
-        'click .js-copy-link'() {
-          const StringToCopyElement = document.getElementById('cardURL_copy');
-          StringToCopyElement.value =
-            window.location.origin + window.location.pathname;
-          StringToCopyElement.select();
-          if (document.execCommand('copy')) {
-            StringToCopyElement.blur();
-          } else {
-            document.getElementById('cardURL_copy').selectionStart = 0;
-            document.getElementById('cardURL_copy').selectionEnd = 999;
-            document.execCommand('copy');
-            if (window.getSelection) {
-              if (window.getSelection().empty) {
-                // Chrome
-                window.getSelection().empty();
-              } else if (window.getSelection().removeAllRanges) {
-                // Firefox
-                window.getSelection().removeAllRanges();
-              }
-            } else if (document.selection) {
-              // IE?
-              document.selection.empty();
-            }
-          }
+        'click .js-copy-link'(event) {
+          event.preventDefault();
+          const promise = Utils.copyTextToClipboard(event.target.href);
+
+          const $tooltip = this.$('.card-details-header .copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
@@ -377,6 +363,12 @@ BlazeComponent.extendComponent({
             this.data().setRequestedBy('');
           }
         },
+        'keydown input.js-edit-card-sort'(evt) {
+          // enter = save
+          if (evt.keyCode === 13) {
+            this.find('button[type=submit]').click();
+          }
+        },
         'submit .js-card-details-sort'(event) {
           event.preventDefault();
           const sort = parseFloat(this.currentComponent()
@@ -401,7 +393,9 @@ BlazeComponent.extendComponent({
         'click .js-end-date': Popup.open('editCardEndDate'),
         'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
         'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
+        'click .js-custom-fields': Popup.open('cardCustomFields'),
         'mouseenter .js-card-details'() {
+          if (this.parentComponent() === null) return;
           const parentComponent = this.parentComponent().parentComponent();
           //on mobile view parent is Board, not BoardBody.
           if (parentComponent === null) return;
@@ -526,6 +520,23 @@ BlazeComponent.extendComponent({
   },
 }).register('cardDetails');
 
+Template.cardDetails.helpers({
+  isPopup() {
+    let ret = !!Utils.getPopupCardId();
+    return ret;
+  }
+});
+Template.cardDetailsPopup.onDestroyed(() => {
+  Session.delete('popupCardId');
+  Session.delete('popupCardBoardId');
+});
+Template.cardDetailsPopup.helpers({
+  popupCard() {
+    const ret = Utils.getPopupCard();
+    return ret;
+  },
+});
+
 BlazeComponent.extendComponent({
   template() {
     return 'exportCard';
@@ -576,16 +587,15 @@ Template.editCardSortOrderForm.onRendered(function () {
       // XXX Recovering the currentCard identifier form a session variable is
       // fragile because this variable may change for instance if the route
       // change. We should use some component props instead.
-      docId: Session.get('currentCard'),
+      docId: Utils.getCurrentCardId(),
     };
   }
 
   close(isReset = false) {
     if (this.isOpen.get() && !isReset) {
       const draft = this.getValue().trim();
-      if (
-        draft !== Cards.findOne(Session.get('currentCard')).getDescription()
-      ) {
+      let card = Utils.getCurrentCard();
+      if (card && draft !== card.getDescription()) {
         UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
       }
     }
@@ -630,7 +640,6 @@ Template.cardDetailsActionsPopup.events({
   'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),
-  'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-voting': Popup.open('cardStartVoting'),
   'click .js-start-planning-poker': Popup.open('cardStartPlanningPoker'),
@@ -649,19 +658,21 @@ Template.cardDetailsActionsPopup.events({
     event.preventDefault();
     const minOrder = _.min(
       this.list()
-        .cards(this.swimlaneId)
+        .cardsUnfiltered(this.swimlaneId)
         .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
+    Popup.back();
   },
   'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
     const maxOrder = _.max(
       this.list()
-        .cards(this.swimlaneId)
+        .cardsUnfiltered(this.swimlaneId)
         .map((c) => c.sort),
     );
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
+    Popup.back();
   },
   'click .js-archive': Popup.afterConfirm('cardArchive', function () {
     Popup.close();
@@ -678,9 +689,31 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function () {
-  autosize(this.$('.js-edit-card-title'));
-});
+BlazeComponent.extendComponent({
+  onRendered() {
+    autosize(this.$('textarea.js-edit-card-title'));
+  },
+  events() {
+    return [
+      {
+        'click a.fa.fa-copy'(event) {
+          const $editor = this.$('textarea');
+          const promise = Utils.copyTextToClipboard($editor[0].value);
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
+        },
+        'keydown .js-edit-card-title'(event) {
+          // If enter key was pressed, submit the data
+          // Unless the shift key is also being pressed
+          if (event.keyCode === 13 && !event.shiftKey) {
+            $('.js-submit-edit-card-title-form').click();
+          }
+        },
+      }
+    ];
+  }
+}).register('editCardTitleForm');
 
 Template.cardMembersPopup.onCreated(function () {
   let currBoard = Boards.findOne(Session.get('currentBoard'));
@@ -740,16 +773,6 @@ const filterMembers = (filterTerm) => {
   return members;
 }
 
-Template.editCardTitleForm.events({
-  'keydown .js-edit-card-title'(event) {
-    // If enter key was pressed, submit the data
-    // Unless the shift key is also being pressed
-    if (event.keyCode === 13 && !event.shiftKey) {
-      $('.js-submit-edit-card-title-form').click();
-    }
-  },
-});
-
 Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));
 });
@@ -778,27 +801,82 @@ Template.editCardAssignerForm.events({
 
 Template.moveCardPopup.events({
   'click .js-done'() {
-    // XXX We should *not* get the currentCard from the global state, but
-    // instead from a “component” state.
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Cards.findOne(this._id);
     const bSelect = $('.js-select-boards')[0];
     let boardId;
     // if we are a worker, we won't have a board select so we just use the
     // current boardId of the card.
-    if (bSelect) boardId = bSelect.options[bSelect.selectedIndex].value;
-    else boardId = card.boardId;
+    if (bSelect) {
+      boardId = bSelect.options[bSelect.selectedIndex].value;
+    } else {
+      boardId = card.boardId;
+    }
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
     const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
     card.move(boardId, swimlaneId, listId, 0);
-    Popup.close();
+
+    // set new id's to card object in case the card is moved to top by the comment "moveCard" after this command (.js-move-card)
+    this.boardId = boardId;
+    this.swimlaneId = swimlaneId;
+    this.listId = listId;
+
+    Popup.back();
   },
 });
 BlazeComponent.extendComponent({
   onCreated() {
-    subManager.subscribe('board', Session.get('currentBoard'), false);
-    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+    this.currentBoardId = Utils.getCurrentBoardId();
+    this.selectedBoardId = new ReactiveVar(this.currentBoardId);
+    this.setMoveAndCopyDialogOption(this.currentBoardId);
+  },
+
+  /** set the last confirmed dialog field values
+   * @param boardId the current board id
+   */
+  setMoveAndCopyDialogOption(boardId) {
+    this.moveAndCopyDialogOption = {
+      'boardId' : "",
+      'swimlaneId' : "",
+      'listId' : "",
+    }
+
+    let currentOptions = Meteor.user().getMoveAndCopyDialogOptions();
+    if (currentOptions && boardId && currentOptions[boardId]) {
+      this.moveAndCopyDialogOption = currentOptions[boardId];
+      if (this.moveAndCopyDialogOption.boardId) {
+        this.selectedBoardId.set(this.moveAndCopyDialogOption.boardId)
+      }
+    }
+    subManager.subscribe('board', this.selectedBoardId.get(), false);
+  },
+
+  /** returns if the board id was the last confirmed one
+   * @param boardId check this board id
+   * @return if the board id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionBoardId(boardId) {
+    let ret = this.moveAndCopyDialogOption.boardId == boardId;
+    return ret;
+  },
+
+  /** returns if the swimlane id was the last confirmed one
+   * @param swimlaneId check this swimlane id
+   * @return if the swimlane id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionSwimlaneId(swimlaneId) {
+    let ret = this.moveAndCopyDialogOption.swimlaneId == swimlaneId;
+    return ret;
+  },
+
+  /** returns if the list id was the last confirmed one
+   * @param listId check this list id
+   * @return if the list id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionListId(listId) {
+    let ret = this.moveAndCopyDialogOption.listId == listId;
+    return ret;
   },
 
   boards() {
@@ -827,9 +905,27 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-done'() {
+          const boardSelect = this.$('.js-select-boards')[0];
+          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
+
+          const listSelect = this.$('.js-select-lists')[0];
+          const listId = listSelect.options[listSelect.selectedIndex].value;
+
+          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
+          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
+
+          const options = {
+            'boardId' : boardId,
+            'swimlaneId' : swimlaneId,
+            'listId' : listId,
+          }
+          Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+        },
         'change .js-select-boards'(event) {
-          this.selectedBoardId.set($(event.currentTarget).val());
-          subManager.subscribe('board', this.selectedBoardId.get(), false);
+          const boardId = $(event.currentTarget).val();
+          this.selectedBoardId.set(boardId);
+          subManager.subscribe('board', boardId, false);
         },
       },
     ];
@@ -838,7 +934,7 @@ BlazeComponent.extendComponent({
 
 Template.copyCardPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -860,14 +956,14 @@ Template.copyCardPopup.events({
       // See https://github.com/wekan/wekan/issues/80
       Filter.addException(_id);
 
-      Popup.close();
+      Popup.back();
     }
   },
 });
 
 Template.convertChecklistItemToCardPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -887,7 +983,7 @@ Template.convertChecklistItemToCardPopup.events({
       });
       Filter.addException(_id);
 
-      Popup.close();
+      Popup.back();
 
     }
   },
@@ -895,7 +991,7 @@ Template.convertChecklistItemToCardPopup.events({
 
 Template.copyChecklistToManyCardsPopup.events({
   'click .js-done'() {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const oldId = card._id;
     card._id = null;
     const lSelect = $('.js-select-lists')[0];
@@ -943,7 +1039,7 @@ Template.copyChecklistToManyCardsPopup.events({
           cmt.copy(_id);
         });
       }
-      Popup.close();
+      Popup.back();
     }
   },
 });
@@ -1014,7 +1110,7 @@ BlazeComponent.extendComponent({
   },
 
   cards() {
-    const currentId = Session.get('currentCard');
+    const currentId = Utils.getCurrentCardId();
     if (this.parentBoard.get()) {
       return Cards.find({
         boardId: this.parentBoard.get(),
@@ -1053,30 +1149,11 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-copy-card-link-to-clipboard'() {
-          // Clipboard code from:
-          // https://stackoverflow.com/questions/6300213/copy-selected-text-to-the-clipboard-without-using-flash-must-be-cross-browser
-          const StringToCopyElement = document.getElementById('cardURL');
-          StringToCopyElement.select();
-          if (document.execCommand('copy')) {
-            StringToCopyElement.blur();
-          } else {
-            document.getElementById('cardURL').selectionStart = 0;
-            document.getElementById('cardURL').selectionEnd = 999;
-            document.execCommand('copy');
-            if (window.getSelection) {
-              if (window.getSelection().empty) {
-                // Chrome
-                window.getSelection().empty();
-              } else if (window.getSelection().removeAllRanges) {
-                // Firefox
-                window.getSelection().removeAllRanges();
-              }
-            } else if (document.selection) {
-              // IE?
-              document.selection.empty();
-            }
-          }
+        'click .js-copy-card-link-to-clipboard'(event) {
+          const promise = Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();
@@ -1146,12 +1223,12 @@ BlazeComponent.extendComponent({
           if (endString) {
             this.currentCard.setVoteEnd(endString);
           }
-          Popup.close();
+          Popup.back();
         },
         'click .js-remove-vote': Popup.afterConfirm('deleteVote', () => {
           event.preventDefault();
           this.currentCard.unsetVote();
-          Popup.close();
+          Popup.back();
         }),
         'click a.js-toggle-vote-public'(event) {
           event.preventDefault();
@@ -1191,7 +1268,7 @@ BlazeComponent.extendComponent({
             // if active vote -  store it
             if (this.currentData().getVoteQuestion()) {
               this._storeDate(newDate.toDate());
-              Popup.close();
+              Popup.back();
             } else {
               this.currentData().vote = { end: newDate.toDate() }; // set vote end temp
               Popup.back();
@@ -1225,86 +1302,77 @@ BlazeComponent.extendComponent({
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(usaDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: usaDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (euroAmDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(euroAmDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: euroAmDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (euro24hDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(euro24hDate.toDate());
               this.card.setPokerEnd(euro24hDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: euro24hDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (eurodotDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(eurodotDate.toDate());
               this.card.setPokerEnd(eurodotDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: eurodotDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (minusDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(minusDate.toDate());
               this.card.setPokerEnd(minusDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: minusDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (slashDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(slashDate.toDate());
               this.card.setPokerEnd(slashDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: slashDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (dotDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(dotDate.toDate());
               this.card.setPokerEnd(dotDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: dotDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (brezhonegDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(brezhonegDate.toDate());
               this.card.setPokerEnd(brezhonegDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: brezhonegDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (hrvatskiDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(hrvatskiDate.toDate());
               this.card.setPokerEnd(hrvatskiDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: hrvatskiDate.toDate() }; // set poker end temp
               Popup.back();
@@ -1314,41 +1382,37 @@ BlazeComponent.extendComponent({
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(latviaDate.toDate());
               this.card.setPokerEnd(latviaDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: latviaDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (nederlandsDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(nederlandsDate.toDate());
               this.card.setPokerEnd(nederlandsDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: nederlandsDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (greekDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(greekDate.toDate());
               this.card.setPokerEnd(greekDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: greekDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (macedonianDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(macedonianDate.toDate());
               this.card.setPokerEnd(macedonianDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: macedonianDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else {
             this.error.set('invalid-date');
             evt.target.date.focus();
@@ -1357,7 +1421,7 @@ BlazeComponent.extendComponent({
         'click .js-delete-date'(evt) {
           evt.preventDefault();
           this._deleteDate();
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1395,11 +1459,11 @@ BlazeComponent.extendComponent({
           if (endString) {
             this.currentCard.setPokerEnd(endString);
           }
-          Popup.close();
+          Popup.back();
         },
         'click .js-remove-poker': Popup.afterConfirm('deletePoker', (event) => {
           this.currentCard.unsetPoker();
-          Popup.close();
+          Popup.back();
         }),
         'click a.js-toggle-poker-allow-non-members'(event) {
           event.preventDefault();
@@ -1462,7 +1526,7 @@ BlazeComponent.extendComponent({
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(newDate.toDate());
-              Popup.close();
+              Popup.back();
             } else {
               this.currentData().poker = { end: newDate.toDate() }; // set poker end temp
               Popup.back();
@@ -1494,130 +1558,117 @@ BlazeComponent.extendComponent({
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(usaDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: usaDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (euroAmDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(euroAmDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: euroAmDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (euro24hDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(euro24hDate.toDate());
               this.card.setPokerEnd(euro24hDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: euro24hDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (eurodotDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(eurodotDate.toDate());
               this.card.setPokerEnd(eurodotDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: eurodotDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (minusDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(minusDate.toDate());
               this.card.setPokerEnd(minusDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: minusDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (slashDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(slashDate.toDate());
               this.card.setPokerEnd(slashDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: slashDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (dotDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(dotDate.toDate());
               this.card.setPokerEnd(dotDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: dotDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (brezhonegDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(brezhonegDate.toDate());
               this.card.setPokerEnd(brezhonegDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: brezhonegDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (hrvatskiDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(hrvatskiDate.toDate());
               this.card.setPokerEnd(hrvatskiDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: hrvatskiDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (latviaDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(latviaDate.toDate());
               this.card.setPokerEnd(latviaDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: latviaDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (nederlandsDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(nederlandsDate.toDate());
               this.card.setPokerEnd(nederlandsDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: nederlandsDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (greekDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(greekDate.toDate());
               this.card.setPokerEnd(greekDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: greekDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else if (macedonianDate.isValid()) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(macedonianDate.toDate());
               this.card.setPokerEnd(macedonianDate.toDate());
-              Popup.close();
             } else {
               this.currentData().poker = { end: macedonianDate.toDate() }; // set poker end temp
-              Popup.back();
             }
+            Popup.back();
           } else {
             // this.error.set('invalid-date);
             this.error.set('invalid-date' + ' ' + dateString);
@@ -1627,7 +1678,7 @@ BlazeComponent.extendComponent({
         'click .js-delete-date'(evt) {
           evt.preventDefault();
           this._deleteDate();
-          Popup.close();
+          Popup.back();
         },
       },
     ];
@@ -1680,7 +1731,7 @@ Template.cardAssigneesPopup.onCreated(function () {
 
 Template.cardAssigneesPopup.events({
   'click .js-select-assignee'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Utils.getCurrentCard();
     const assigneeId = this.userId;
     card.toggleAssignee(assigneeId);
     event.preventDefault();
@@ -1755,7 +1806,7 @@ Template.cardAssigneePopup.helpers({
 Template.cardAssigneePopup.events({
   'click .js-remove-assignee'() {
     Cards.findOne(this.cardId).unassignAssignee(this.userId);
-    Popup.close();
+    Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
 });
