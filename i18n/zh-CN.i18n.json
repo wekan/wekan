@@ -1138,8 +1138,8 @@
     "acceptance_of_our_legalNotice": "继续，即意味着您已同意接受相关声明条款约束",
     "legalNotice": "法律声明",
     "copied": "已复制！",
-    "checklistActionsPopup-title": "Checklist Actions",
-    "moveChecklist": "Move Checklist",
-    "moveChecklistPopup-title": "Move Checklist",
-    "newlineBecomesNewChecklistItem": "Newline becomes new checklist item"
+    "checklistActionsPopup-title": "清单操作",
+    "moveChecklist": "移动待办清单",
+    "moveChecklistPopup-title": "移动待办清单",
+    "newlineBecomesNewChecklistItem": "可换行来新增一个待办清单项"
 }
