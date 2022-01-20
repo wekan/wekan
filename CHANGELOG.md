@@ -7,6 +7,11 @@ This release adds the following new features:
 - [Move checklist and card popup restore last selected board value](https://github.com/wekan/wekan/pull/4307).
   Thanks to mfilser.
 
+and fixes the following bugs:
+
+- [Fix Layout "Modern Dark", Card Color, List Header and mouse hover](https://github.com/wekan/wekan/pull/4308).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.95 2022-01-18 WeKan ® release
