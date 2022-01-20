@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Move checklist and card popup restore last selected board value](https://github.com/wekan/wekan/pull/4307).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.95 2022-01-18 WeKan ® release
 
 This release adds the following new features:
