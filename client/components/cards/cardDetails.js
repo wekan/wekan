@@ -827,10 +827,9 @@ Template.moveCardPopup.events({
 });
 BlazeComponent.extendComponent({
   onCreated() {
-    const boardId = Utils.getCurrentBoardId();
-    subManager.subscribe('board', boardId, false);
-    this.selectedBoardId = new ReactiveVar(boardId);
-    this.setMoveAndCopyDialogOption(boardId);
+    this.currentBoardId = Utils.getCurrentBoardId();
+    this.selectedBoardId = new ReactiveVar(this.currentBoardId);
+    this.setMoveAndCopyDialogOption(this.currentBoardId);
   },
 
   /** set the last confirmed dialog field values
@@ -846,7 +845,11 @@ BlazeComponent.extendComponent({
     let currentOptions = Meteor.user().getMoveAndCopyDialogOptions();
     if (currentOptions && boardId && currentOptions[boardId]) {
       this.moveAndCopyDialogOption = currentOptions[boardId];
+      if (this.moveAndCopyDialogOption.boardId) {
+        this.selectedBoardId.set(this.moveAndCopyDialogOption.boardId)
+      }
     }
+    subManager.subscribe('board', this.selectedBoardId.get(), false);
   },
 
   /** returns if the board id was the last confirmed one
@@ -903,27 +906,26 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-done'() {
-          const bSelect = this.$('.js-select-boards')[0];
-          const boardId = bSelect.options[bSelect.selectedIndex].value;
+          const boardSelect = this.$('.js-select-boards')[0];
+          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
 
-          const lSelect = this.$('.js-select-lists')[0];
-          const listId = lSelect.options[lSelect.selectedIndex].value;
+          const listSelect = this.$('.js-select-lists')[0];
+          const listId = listSelect.options[listSelect.selectedIndex].value;
 
-          const slSelect = this.$('.js-select-swimlanes')[0];
-          const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
+          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
 
           const options = {
             'boardId' : boardId,
             'swimlaneId' : swimlaneId,
             'listId' : listId,
           }
-          Meteor.user().setMoveAndCopyDialogOption(boardId, options);
+          Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
         },
         'change .js-select-boards'(event) {
           const boardId = $(event.currentTarget).val();
           this.selectedBoardId.set(boardId);
-          this.setMoveAndCopyDialogOption(boardId);
-          subManager.subscribe('board', this.selectedBoardId.get(), false);
+          subManager.subscribe('board', boardId, false);
         },
       },
     ];
