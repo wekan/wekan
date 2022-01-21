@@ -44,10 +44,11 @@ template(name="checklistDetail")
             +viewer
                 = checklist.title
 
-    .checklist-progress-bar-container
-      .checklist-progress-text {{#if $gt finishedPercent 0}}{{finishedPercent}}%{{/if}}
-      .checklist-progress-bar
-        .checklist-progress(style="width:{{finishedPercent}}%;{{#if $eq finishedPercent 0}}display:none{{/if}}")
+    if $gt finishedPercent 0
+      .checklist-progress-bar-container
+        .checklist-progress-text {{finishedPercent}}%
+        .checklist-progress-bar
+          .checklist-progress(style="width:{{finishedPercent}}%")
     +checklistItems(checklist = checklist)
 
 template(name="checklistDeletePopup")
