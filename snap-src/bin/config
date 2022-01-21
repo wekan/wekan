@@ -252,8 +252,8 @@ DESCRIPTION_OAUTH2_ID_TOKEN_WHITELIST_FIELDS="OAuth2 ID Token Whitelist Fields."
 DEFAULT_OAUTH2_ID_TOKEN_WHITELIST_FIELDS=""
 KEY_OAUTH2_ID_TOKEN_WHITELIST_FIELDS="oauth2-id-token-whitelist-fields"
 
-DESCRIPTION_OAUTH2_REQUEST_PERMISSIONS="OAuth2 Request Permissions. Example: 'openid profile email'"
-DEFAULT_OAUTH2_REQUEST_PERMISSIONS="'openid profile email'"
+DESCRIPTION_OAUTH2_REQUEST_PERMISSIONS="OAuth2 Request Permissions. Example: openid profile email"
+DEFAULT_OAUTH2_REQUEST_PERMISSIONS="openid profile email"
 KEY_OAUTH2_REQUEST_PERMISSIONS="oauth2-request-permissions"
 
 DESCRIPTION_OAUTH2_EMAIL_MAP="OAuth2 Email Mapping. Example: email"

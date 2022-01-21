@@ -170,7 +170,7 @@ REM # OAUTH2 ID Token Whitelist Fields.
 REM SET OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
 
 REM # OAUTH2 Request Permissions.
-REM SET OAUTH2_REQUEST_PERMISSIONS='openid profile email'
+REM SET OAUTH2_REQUEST_PERMISSIONS=openid profile email
 
 REM # OAuth2 ID Mapping
 REM SET OAUTH2_ID_MAP=
