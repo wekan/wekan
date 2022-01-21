@@ -11,6 +11,8 @@ and fixes the following bugs:
 
 - [Fix Layout "Modern Dark", Card Color, List Header and mouse hover](https://github.com/wekan/wekan/pull/4308).
   Thanks to mfilser.
+- [Try to fix OAUTH2_REQUEST_PERMISSIONS by removing quotes](https://github.com/wekan/wekan/commit/5e65dfc272925490b4ad20c49d8d3fd74597beac).
+  Thanks to pcurie and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
