@@ -13,6 +13,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Try to fix OAUTH2_REQUEST_PERMISSIONS by removing quotes](https://github.com/wekan/wekan/commit/5e65dfc272925490b4ad20c49d8d3fd74597beac).
   Thanks to pcurie and xet7.
+- [Fix notification drawer always on top](https://github.com/wekan/wekan/commit/bec25720da947e048a63541b4e421bd9bd846c58).
+  Thanks to Azorimor.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
