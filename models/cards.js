@@ -721,6 +721,11 @@ Cards.helpers({
         { cardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
+    } else if (this.isLinkedBoard()) {
+      return CardComments.find(
+        { boardId: this.linkedId },
+        { sort: { createdAt: -1 } },
+      );
     } else {
       return CardComments.find(
         { cardId: this._id },
