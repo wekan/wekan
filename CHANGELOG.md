@@ -15,6 +15,8 @@ and fixes the following bugs:
   Thanks to pcurie and xet7.
 - [Fix notification drawer always on top](https://github.com/wekan/wekan/commit/bec25720da947e048a63541b4e421bd9bd846c58).
   Thanks to Azorimor.
+- [Fix comments not loading on cardType-linkedBoard](https://github.com/wekan/wekan/pull/4315).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
