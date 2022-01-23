@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fix can't add Checklist on cardType-linkedBoard](https://github.com/wekan/wekan/pull/4318).
   Thanks to Ben0it-T.
+- [Fix Snap OAUTH2_REQUEST_PERMISSIONS of Google/OAuth2/OIDC login](https://github.com/wekan/wekan/commit/4bf6b457ae6bfb6d28127f696344019765d0467d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
