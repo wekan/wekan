@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix can't add Checklist on cardType-linkedBoard](https://github.com/wekan/wekan/pull/4318).
+  Thanks to Ben0it-T.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.96 2022-01-23 WeKan ® release
 
 This release adds the following new features:
