@@ -1,4 +1,4 @@
-FROM quay.io/wekan/ubuntu:groovy-20210115
+FROM ubuntu:rolling
 LABEL maintainer="sgr"
 
 ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
