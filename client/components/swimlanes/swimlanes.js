@@ -54,6 +54,7 @@ function initSortable(boardComponent, $listsDom) {
   };
 
   $listsDom.sortable({
+    connectWith: '.board-canvas',
     tolerance: 'pointer',
     helper: 'clone',
     items: '.js-list:not(.js-list-composer)',
