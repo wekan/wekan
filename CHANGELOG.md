@@ -14,7 +14,9 @@ and fixes the following bugs:
 
 - [Fix typo in tests](https://github.com/wekan/wekan/commit/62efb67d06a4aeb3299805911391b6e936901b42).
   Thanks to xet7.
-- [Try to fix tests by adding puppeteer back](https://github.com/wekan/wekan/commit/7122f59c51775f9b382cdbcf5690eba2ad907ccf).
+- Try to fix tests by adding puppeteer back.
+  [Part 1](https://github.com/wekan/wekan/commit/7122f59c51775f9b382cdbcf5690eba2ad907ccf),
+  [Part 2](https://github.com/wekan/wekan/commit/1bf1ed79e85e091d79fa70feb46d072c81e55810).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
