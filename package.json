@@ -16,6 +16,7 @@
     "babel-plugin-istanbul": "^6.1.1",
     "chai": "^4.3.4",
     "flatted": "^3.2.2",
+    "puppeteer": "^13.1.2",
     "sinon": "^11.1.2"
   },
   "dependencies": {
