@@ -62,6 +62,7 @@ function initSortable(boardComponent, $listsDom) {
     distance: 7,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
+      ui.placeholder.css("min-width", ui.helper.width());
       EscapeActions.executeUpTo('popup-close');
       boardComponent.setIsDragging(true);
     },
