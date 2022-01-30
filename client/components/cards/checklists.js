@@ -378,14 +378,14 @@ BlazeComponent.extendComponent({
   },
 }).register('checklistItemDetail');
 
-BlazeComponent.extendComponent({
+class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
   onCreated() {
     this.currentBoardId = Utils.getCurrentBoardId();
     this.selectedBoardId = new ReactiveVar(this.currentBoardId);
     this.selectedSwimlaneId = new ReactiveVar('');
     this.selectedListId = new ReactiveVar('');
     this.setMoveChecklistDialogOption(this.currentBoardId);
-  },
+  }
 
   /** set the last confirmed dialog field values
    * @param boardId the current board id
@@ -418,7 +418,7 @@ BlazeComponent.extendComponent({
     if (!this.selectedListId.get() || !Lists.findOne({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstListId();
     }
-  },
+  }
   /** sets the first swimlane id */
   setFirstSwimlaneId() {
     try {
@@ -426,7 +426,7 @@ BlazeComponent.extendComponent({
       const swimlaneId = board.swimlanes().fetch()[0]._id;
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
-  },
+  }
   /** sets the first list id */
   setFirstListId() {
     try {
@@ -434,7 +434,7 @@ BlazeComponent.extendComponent({
       const listId = board.lists().fetch()[0]._id;
       this.selectedListId.set(listId);
     } catch (e) {}
-  },
+  }
 
   /** returns if the board id was the last confirmed one
    * @param boardId check this board id
@@ -443,7 +443,7 @@ BlazeComponent.extendComponent({
   isMoveChecklistDialogOptionBoardId(boardId) {
     let ret = this.moveChecklistDialogOption.boardId == boardId;
     return ret;
-  },
+  }
 
   /** returns if the swimlane id was the last confirmed one
    * @param swimlaneId check this swimlane id
@@ -452,7 +452,7 @@ BlazeComponent.extendComponent({
   isMoveChecklistDialogOptionSwimlaneId(swimlaneId) {
     let ret = this.moveChecklistDialogOption.swimlaneId == swimlaneId;
     return ret;
-  },
+  }
 
   /** returns if the list id was the last confirmed one
    * @param listId check this list id
@@ -461,7 +461,7 @@ BlazeComponent.extendComponent({
   isMoveChecklistDialogOptionListId(listId) {
     let ret = this.moveChecklistDialogOption.listId == listId;
     return ret;
-  },
+  }
 
   /** returns if the card id was the last confirmed one
    * @param cardId check this card id
@@ -470,7 +470,7 @@ BlazeComponent.extendComponent({
   isMoveChecklistDialogOptionCardId(cardId) {
     let ret = this.moveChecklistDialogOption.cardId == cardId;
     return ret;
-  },
+  }
 
   boards() {
     const ret = Boards.find(
@@ -484,25 +484,25 @@ BlazeComponent.extendComponent({
       },
     );
     return ret;
-  },
+  }
 
   swimlanes() {
     const board = Boards.findOne(this.selectedBoardId.get());
     const ret = board.swimlanes();
     return ret;
-  },
+  }
 
   lists() {
     const board = Boards.findOne(this.selectedBoardId.get());
     const ret = board.lists();
     return ret;
-  },
+  }
 
   cards() {
     const list = Lists.findOne(this.selectedListId.get());
     const ret = list.cards(this.selectedSwimlaneId.get());
     return ret;
-  },
+  }
 
   /** get the board data from the server
    * @param boardId get the board data of this board id
@@ -523,7 +523,7 @@ BlazeComponent.extendComponent({
         }
       },
     });
-  },
+  }
 
   events() {
     return [
@@ -563,5 +563,8 @@ BlazeComponent.extendComponent({
         },
       },
     ];
-  },
+  }
+}
+
+(class extends DialogWithBoardSwimlaneListAndCard {
 }).register('moveChecklistPopup');
