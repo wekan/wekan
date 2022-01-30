@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { TAPi18n } from '/imports/i18n';
 import AccountSettings from '../models/accountSettings';
 import TableVisibilityModeSettings from '../models/tableVisibilityModeSettings';
@@ -23,8 +25,6 @@ import Swimlanes from '../models/swimlanes';
 import Triggers from '../models/triggers';
 import UnsavedEdits from '../models/unsavedEdits';
 import Users from '../models/users';
-
-const fs = require('fs');
 
 // Anytime you change the schema of one of the collection in a non-backward
 // compatible way you have to write a migration in this file using the following
@@ -1132,14 +1132,9 @@ Migrations.add('add-card-details-show-lists', () => {
 
 Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
   AttachmentsOld.find().forEach(function(fileObj) {
-    //console.log('File: ', fileObj.userId);
-
-    // This directory must be writable on server, so a test run first
-    // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/attachments/${
-      fileObj._id
-    }-${fileObj.name()}`;
     const newFileName = fileObj.name();
+    const storagePath = Attachments.storagePath({});
+    const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
 
     // This is "example" variable, change it to the userId that you might be using.
     const userId = fileObj.userId;
@@ -1149,19 +1144,19 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
     const fileId = fileObj._id;
 
     const readStream = fileObj.createReadStream('attachments');
-    const writeStream = fs.createWriteStream(fileName);
+    const writeStream = fs.createWriteStream(filePath);
 
     writeStream.on('error', function(err) {
-      console.log('Writing error: ', err, fileName);
+      console.log('Writing error: ', err, filePath);
     });
 
     // Once we have a file, then upload it to our new data storage
     readStream.on('end', () => {
-      console.log('Ended: ', fileName);
+      console.log('Ended: ', filePath);
       // UserFiles is the new Meteor-Files/FilesCollection collection instance
 
       Attachments.addFile(
-        fileName,
+        filePath,
         {
           fileName: newFileName,
           type: fileType,
@@ -1190,7 +1185,7 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
     });
 
     readStream.on('error', error => {
-      console.log('Error: ', fileName, error);
+      console.log('Error: ', filePath, error);
     });
 
     readStream.pipe(writeStream);
@@ -1199,14 +1194,9 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
 
 Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
   AvatarsOld.find().forEach(function(fileObj) {
-    //console.log('File: ', fileObj.userId);
-
-    // This directory must be writable on server, so a test run first
-    // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/avatars/${
-      fileObj._id
-    }-${fileObj.name()}`;
     const newFileName = fileObj.name();
+    const storagePath = Avatars.storagePath({});
+    const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
 
     // This is "example" variable, change it to the userId that you might be using.
     const userId = fileObj.userId;
@@ -1216,19 +1206,19 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
     const fileId = fileObj._id;
 
     const readStream = fileObj.createReadStream('avatars');
-    const writeStream = fs.createWriteStream(fileName);
+    const writeStream = fs.createWriteStream(filePath);
 
     writeStream.on('error', function(err) {
-      console.log('Writing error: ', err, fileName);
+      console.log('Writing error: ', err, filePath);
     });
 
     // Once we have a file, then upload it to our new data storage
     readStream.on('end', () => {
-      console.log('Ended: ', fileName);
+      console.log('Ended: ', filePath);
       // UserFiles is the new Meteor-Files/FilesCollection collection instance
 
       Avatars.addFile(
-        fileName,
+        filePath,
         {
           fileName: newFileName,
           type: fileType,
@@ -1273,7 +1263,7 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
     });
 
     readStream.on('error', error => {
-      console.log('Error: ', fileName, error);
+      console.log('Error: ', filePath, error);
     });
 
     readStream.pipe(writeStream);
