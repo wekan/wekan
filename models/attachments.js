@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import path from 'path';
 import { createBucket } from './lib/grid/createBucket';
 import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
@@ -32,6 +33,12 @@ Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: true,
+  storagePath() {
+    if (process.env.WRITABLE_PATH) {
+      return path.join(process.env.WRITABLE_PATH, 'uploads', 'attachments');
+    }
+    return path.normalize(`assets/app/uploads/${this.collectionName}`);
+  },
   onAfterUpload: function onAfterUpload(fileRef) {
     createOnAfterUpload(attachmentBucket).call(this, fileRef);
     // If the attachment doesn't have a source field

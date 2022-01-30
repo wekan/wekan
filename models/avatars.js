@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import path from 'path';
 import { createBucket } from './lib/grid/createBucket';
 import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
@@ -14,6 +15,12 @@ Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
   allowClientCode: true,
+  storagePath() {
+    if (process.env.WRITABLE_PATH) {
+      return path.join(process.env.WRITABLE_PATH, 'uploads', 'avatars');
+    }
+    return path.normalize(`assets/app/uploads/${this.collectionName}`);;
+  },
   onBeforeUpload(file) {
     if (file.size <= 72000 && file.type.startsWith('image/')) {
       return true;
