@@ -22,8 +22,8 @@
   "dependencies": {
     "@babel/core": "^7.15.5",
     "@babel/runtime": "^7.15.4",
+    "@mapbox/node-pre-gyp": "^1.0.8",
     "@wekanteam/markdown-it-mermaid": "^0.5.2",
-    "@mapbox/node-pre-gyp": "^1.0.5",
     "ajv": "^6.12.6",
     "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
