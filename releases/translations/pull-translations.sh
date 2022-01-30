@@ -72,6 +72,9 @@ tx pull -f -l fr_CH
 echo "Galician:"
 tx pull -f -l gl
 
+echo "Galician (Spain):"
+tx pull -f -l gl_ES
+
 echo "Georgian:"
 tx pull -f -l ka
 

@@ -329,6 +329,8 @@ Template.changeLanguagePopup.helpers({
         name = 'español de Perú';
       } else if (lang.name === 'Español de Puerto Rico') {
         name = 'español de Puerto Rico';
+      } else if (lang.name === 'gl-ES') {
+        name = 'Galego (España)';
       } else if (lang.name === 'oc') {
         name = 'Occitan';
       } else if (lang.name === 'ru-UA') {

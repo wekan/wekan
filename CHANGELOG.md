@@ -1,5 +1,26 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new translations:
+
+- Added translation: Galician (Spain).
+  [Part 1](https://github.com/wekan/wekan/commit/c0828f2d00095c68b4533a10ff7ede0a16131093),
+  [Part 2](https://github.com/wekan/wekan/commit/9a539fb414c3ffeae2ea94f863d2bb3bc6e314f1),
+  [Part 3](https://github.com/wekan/wekan/commit/a8e3dc06fe76620d09eddbc7d118a749c85b1c7c).
+  Thanks to translators.
+
+and fixes the following bugs:
+
+- [Fix typo in tests](https://github.com/wekan/wekan/commit/62efb67d06a4aeb3299805911391b6e936901b42).
+  Thanks to xet7.
+- Try to fix tests by adding puppeteer back.
+  [Part 1](https://github.com/wekan/wekan/commit/7122f59c51775f9b382cdbcf5690eba2ad907ccf),
+  [Part 2](https://github.com/wekan/wekan/commit/1bf1ed79e85e091d79fa70feb46d072c81e55810).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.97 2022-01-23 WeKan ® release
 
 This release fixes the following bugs:
