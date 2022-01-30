@@ -511,13 +511,16 @@ BlazeComponent.extendComponent({
     const self = this;
     Meteor.subscribe('board', boardId, false, {
       onReady() {
+        const sameBoardId = self.selectedBoardId.get() == boardId;
         self.selectedBoardId.set(boardId);
 
-        // reset swimlane id (for selection in cards())
-        self.setFirstSwimlaneId();
+        if (!sameBoardId) {
+          // reset swimlane id (for selection in cards())
+          self.setFirstSwimlaneId();
 
-        // reset list id (for selection in cards())
-        self.setFirstListId();
+          // reset list id (for selection in cards())
+          self.setFirstListId();
+        }
       },
     });
   },
