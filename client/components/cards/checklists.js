@@ -411,7 +411,7 @@ BlazeComponent.extendComponent({
         this.selectedListId.set(this.moveChecklistDialogOption.listId);
       }
     }
-    this.getBoardData(boardId);
+    this.getBoardData(this.selectedBoardId.get());
     if (!this.selectedSwimlaneId.get() || !Swimlanes.findOne({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstSwimlaneId();
     }
