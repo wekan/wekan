@@ -440,6 +440,14 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsShowLists: {
+      /**
+       * Does the board allows show lists on the card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     allowsAssignedBy: {
       /**
        * Does the board allows requested by?
@@ -1368,6 +1376,10 @@ Boards.mutations({
 
   setAllowsCardSortingByNumber(allowsCardSortingByNumber) {
     return { $set: { allowsCardSortingByNumber } };
+  },
+
+  setAllowsShowLists(allowsShowLists) {
+    return { $set: { allowsShowLists } };
   },
 
   setAllowsAttachments(allowsAttachments) {

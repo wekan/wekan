@@ -1144,5 +1144,6 @@
   "moveChecklistPopup-title": "Move Checklist",
   "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
   "copyChecklist": "Copy Checklist",
-  "copyChecklistPopup-title": "Copy Checklist"
+  "copyChecklistPopup-title": "Copy Checklist",
+  "card-show-lists": "Card Show Lists"
 }
