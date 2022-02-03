@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release adds the following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.10](https://github.com/wekan/wekan/commit/290a6dfb6e104b887f9ee2cc70db84b83fe3be35).
+  Thanks to Node.js developers.
+
+and adds the following new features:
 
 - [Make card corners round](https://github.com/wekan/wekan/commit/045160c7bb7c8696a181d9ed4e0b54d0c27b5f59).
   Thanks to Meeques and xet7.
