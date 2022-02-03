@@ -11,6 +11,8 @@ and adds the following new features:
 
 - [Make card corners round](https://github.com/wekan/wekan/commit/045160c7bb7c8696a181d9ed4e0b54d0c27b5f59).
   Thanks to Meeques and xet7.
+- [Copy checklist](https://github.com/wekan/wekan/pull/4331).
+  Thanks to mfilser.
 
 and adds the following new translations:
 
