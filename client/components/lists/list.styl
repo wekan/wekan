@@ -4,7 +4,6 @@
   box-sizing: border-box
   display: flex
   flex-direction: column
-  flex: 0 0 270px
   position: relative
   // Even if this background color is the same as the body we can't leave it
   // transparent, because that won't work during a list drag.
@@ -12,6 +11,8 @@
   border-left: 1px solid darken(white, 20%)
   padding: 0
   float: left
+  min-width: 270px
+  max-width: 270px
 
   &:first-child
     margin-left: 5px

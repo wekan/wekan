@@ -36,6 +36,11 @@
 // Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
 */
 
+@media screen and (min-width: 801px)
+  .swimlane.ui-sortable
+    // swimlane must have max width, otherwise lists are not sortable if there are too much lists and the swimlane "scrollable"
+    width: max-content
+
 [class=swimlane]
   position: sticky
   left: 0
