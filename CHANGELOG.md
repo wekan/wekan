@@ -25,6 +25,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Removed unnecessary space between checklist title and first checklist item if checklist progress is 0%](https://github.com/wekan/wekan/pull/4329).
   Thanks to mfilser.
+- [Lists now moveable when swimlane requires scrolling](https://github.com/wekan/wekan/pull/4330).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
