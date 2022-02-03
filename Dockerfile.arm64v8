@@ -6,7 +6,16 @@ ENV QEMU_VERSION=v4.2.0-6 \
     NODE_ARCHITECTURE=linux-arm64 \
     NODE_VERSION=v12.22.9 \
     WEKAN_VERSION=latest  \
-    WEKAN_ARCHITECTURE=arm64
+    WEKAN_ARCHITECTURE=arm64 \
+    NODE_OPTIONS="--max_old_space_size=4096"
+
+#---------------------------------------------------------------------
+# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+# Add more Node heap:
+#   NODE_OPTIONS="--max_old_space_size=4096"
+# Add more stack:
+#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+#---------------------------------------------------------------------
 
     # Install dependencies
 RUN apk update && apk add ca-certificates outils-sha1 && \
@@ -74,4 +83,15 @@ RUN \
 EXPOSE $PORT
 USER wekan
 
-CMD ["node", "/home/wekan/bundle/main.js"]
+#---------------------------------------------------------------------
+# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+# Add more Node heap:
+#   NODE_OPTIONS="--max_old_space_size=4096"
+# Add more stack:
+#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+#---------------------------------------------------------------------
+#
+#CMD ["node", "/home/wekan/bundle/main.js"]
+
+CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /home/wekan/bundle/main.js"]
+
