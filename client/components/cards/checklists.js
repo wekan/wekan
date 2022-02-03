@@ -313,6 +313,7 @@ BlazeComponent.extendComponent({
           }
         }),
         'click .js-move-checklist' : Popup.open('moveChecklist'),
+        'click .js-copy-checklist' : Popup.open('copyChecklist'),
       }
     ]
   }
@@ -378,47 +379,60 @@ BlazeComponent.extendComponent({
   },
 }).register('checklistItemDetail');
 
-BlazeComponent.extendComponent({
+class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
+  /** returns the checklist dialog options
+   * @return Object with properties { boardId, swimlaneId, listId, cardId }
+   */
+  getChecklistDialogOptions() {
+  }
+
+  /** checklist is done
+   * @param cardId the selected card id
+   * @param options the selected options (Object with properties { boardId, swimlaneId, listId, cardId })
+   */
+  setDone(cardId, options) {
+  }
+
   onCreated() {
     this.currentBoardId = Utils.getCurrentBoardId();
     this.selectedBoardId = new ReactiveVar(this.currentBoardId);
     this.selectedSwimlaneId = new ReactiveVar('');
     this.selectedListId = new ReactiveVar('');
-    this.setMoveChecklistDialogOption(this.currentBoardId);
-  },
+    this.setChecklistDialogOption(this.currentBoardId);
+  }
 
   /** set the last confirmed dialog field values
    * @param boardId the current board id
    */
-  setMoveChecklistDialogOption(boardId) {
-    this.moveChecklistDialogOption = {
+  setChecklistDialogOption(boardId) {
+    this.checklistDialogOption = {
       'boardId' : "",
       'swimlaneId' : "",
       'listId' : "",
       'cardId': "",
     }
 
-    let currentOptions = Meteor.user().getMoveChecklistDialogOptions();
+    let currentOptions = this.getChecklistDialogOptions();
     if (currentOptions && boardId && currentOptions[boardId]) {
-      this.moveChecklistDialogOption = currentOptions[boardId];
-      if (this.moveChecklistDialogOption.boardId &&
-          this.moveChecklistDialogOption.swimlaneId &&
-          this.moveChecklistDialogOption.listId
+      this.checklistDialogOption = currentOptions[boardId];
+      if (this.checklistDialogOption.boardId &&
+          this.checklistDialogOption.swimlaneId &&
+          this.checklistDialogOption.listId
       )
       {
-        this.selectedBoardId.set(this.moveChecklistDialogOption.boardId)
-        this.selectedSwimlaneId.set(this.moveChecklistDialogOption.swimlaneId);
-        this.selectedListId.set(this.moveChecklistDialogOption.listId);
+        this.selectedBoardId.set(this.checklistDialogOption.boardId)
+        this.selectedSwimlaneId.set(this.checklistDialogOption.swimlaneId);
+        this.selectedListId.set(this.checklistDialogOption.listId);
       }
     }
-    this.getBoardData(boardId);
+    this.getBoardData(this.selectedBoardId.get());
     if (!this.selectedSwimlaneId.get() || !Swimlanes.findOne({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstSwimlaneId();
     }
     if (!this.selectedListId.get() || !Lists.findOne({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstListId();
     }
-  },
+  }
   /** sets the first swimlane id */
   setFirstSwimlaneId() {
     try {
@@ -426,7 +440,7 @@ BlazeComponent.extendComponent({
       const swimlaneId = board.swimlanes().fetch()[0]._id;
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
-  },
+  }
   /** sets the first list id */
   setFirstListId() {
     try {
@@ -434,44 +448,45 @@ BlazeComponent.extendComponent({
       const listId = board.lists().fetch()[0]._id;
       this.selectedListId.set(listId);
     } catch (e) {}
-  },
+  }
 
   /** returns if the board id was the last confirmed one
    * @param boardId check this board id
    * @return if the board id was the last confirmed one
    */
-  isMoveChecklistDialogOptionBoardId(boardId) {
-    let ret = this.moveChecklistDialogOption.boardId == boardId;
+  isChecklistDialogOptionBoardId(boardId) {
+    let ret = this.checklistDialogOption.boardId == boardId;
     return ret;
-  },
+  }
 
   /** returns if the swimlane id was the last confirmed one
    * @param swimlaneId check this swimlane id
    * @return if the swimlane id was the last confirmed one
    */
-  isMoveChecklistDialogOptionSwimlaneId(swimlaneId) {
-    let ret = this.moveChecklistDialogOption.swimlaneId == swimlaneId;
+  isChecklistDialogOptionSwimlaneId(swimlaneId) {
+    let ret = this.checklistDialogOption.swimlaneId == swimlaneId;
     return ret;
-  },
+  }
 
   /** returns if the list id was the last confirmed one
    * @param listId check this list id
    * @return if the list id was the last confirmed one
    */
-  isMoveChecklistDialogOptionListId(listId) {
-    let ret = this.moveChecklistDialogOption.listId == listId;
+  isChecklistDialogOptionListId(listId) {
+    let ret = this.checklistDialogOption.listId == listId;
     return ret;
-  },
+  }
 
   /** returns if the card id was the last confirmed one
    * @param cardId check this card id
    * @return if the card id was the last confirmed one
    */
-  isMoveChecklistDialogOptionCardId(cardId) {
-    let ret = this.moveChecklistDialogOption.cardId == cardId;
+  isChecklistDialogOptionCardId(cardId) {
+    let ret = this.checklistDialogOption.cardId == cardId;
     return ret;
-  },
+  }
 
+  /** returns all available board */
   boards() {
     const ret = Boards.find(
       {
@@ -484,25 +499,28 @@ BlazeComponent.extendComponent({
       },
     );
     return ret;
-  },
+  }
 
+  /** returns all available swimlanes of the current board */
   swimlanes() {
     const board = Boards.findOne(this.selectedBoardId.get());
     const ret = board.swimlanes();
     return ret;
-  },
+  }
 
+  /** returns all available lists of the current board */
   lists() {
     const board = Boards.findOne(this.selectedBoardId.get());
     const ret = board.lists();
     return ret;
-  },
+  }
 
+  /** returns all available cards of the current list */
   cards() {
     const list = Lists.findOne(this.selectedListId.get());
     const ret = list.cards(this.selectedSwimlaneId.get());
     return ret;
-  },
+  }
 
   /** get the board data from the server
    * @param boardId get the board data of this board id
@@ -511,16 +529,19 @@ BlazeComponent.extendComponent({
     const self = this;
     Meteor.subscribe('board', boardId, false, {
       onReady() {
+        const sameBoardId = self.selectedBoardId.get() == boardId;
         self.selectedBoardId.set(boardId);
 
-        // reset swimlane id (for selection in cards())
-        self.setFirstSwimlaneId();
+        if (!sameBoardId) {
+          // reset swimlane id (for selection in cards())
+          self.setFirstSwimlaneId();
 
-        // reset list id (for selection in cards())
-        self.setFirstListId();
+          // reset list id (for selection in cards())
+          self.setFirstListId();
+        }
       },
     });
-  },
+  }
 
   events() {
     return [
@@ -544,8 +565,7 @@ BlazeComponent.extendComponent({
             'listId' : listId,
             'cardId': cardId,
           }
-          Meteor.user().setMoveChecklistDialogOption(this.currentBoardId, options);
-          this.data().checklist.move(cardId);
+          this.setDone(cardId, options);
           Popup.back(2);
         },
         'change .js-select-boards'(event) {
@@ -560,5 +580,29 @@ BlazeComponent.extendComponent({
         },
       },
     ];
-  },
+  }
+}
+
+/** Move Checklist Dialog */
+(class extends DialogWithBoardSwimlaneListAndCard {
+  getChecklistDialogOptions() {
+    const ret = Meteor.user().getMoveChecklistDialogOptions();
+    return ret;
+  }
+  setDone(cardId, options) {
+    Meteor.user().setMoveChecklistDialogOption(this.currentBoardId, options);
+    this.data().checklist.move(cardId);
+  }
 }).register('moveChecklistPopup');
+
+/** Copy Checklist Dialog */
+(class extends DialogWithBoardSwimlaneListAndCard {
+  getChecklistDialogOptions() {
+    const ret = Meteor.user().getCopyChecklistDialogOptions();
+    return ret;
+  }
+  setDone(cardId, options) {
+    Meteor.user().setCopyChecklistDialogOption(this.currentBoardId, options);
+    this.data().checklist.copy(cardId);
+  }
+}).register('copyChecklistPopup');
