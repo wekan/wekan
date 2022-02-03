@@ -27,6 +27,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Lists now moveable when swimlane requires scrolling](https://github.com/wekan/wekan/pull/4330).
   Thanks to mfilser.
+- [Add more stack and heap to Node.js at all WeKan platforms](https://github.com/wekan/wekan/commit/ff13571c719ad24e24ea6dc871ced827a7120ac8).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
