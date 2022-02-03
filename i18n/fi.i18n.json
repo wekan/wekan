@@ -1141,5 +1141,7 @@
     "checklistActionsPopup-title": "Tarkistuslista toimet",
     "moveChecklist": "Siirrä tarkistuslista",
     "moveChecklistPopup-title": "Siirrä tarkistuslista",
-    "newlineBecomesNewChecklistItem": "Uusi rivi muuttuu uudeksi tarkistuslistakohdaksi"
+    "newlineBecomesNewChecklistItem": "Uusi rivi muuttuu uudeksi tarkistuslistakohdaksi",
+    "copyChecklist": "Kopioi tarkistuslista",
+    "copyChecklistPopup-title": "Kopioi tarkistuslista"
 }

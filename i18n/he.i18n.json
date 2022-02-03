@@ -1141,5 +1141,7 @@
     "checklistActionsPopup-title": "פעולות על רשימת מטלות",
     "moveChecklist": "העברת רשימת מטלות",
     "moveChecklistPopup-title": "העברת רשימת מטלות",
-    "newlineBecomesNewChecklistItem": "שורה חדשה הופכת לפריט חדש ברשימת המטלות"
+    "newlineBecomesNewChecklistItem": "שורה חדשה הופכת לפריט חדש ברשימת המטלות",
+    "copyChecklist": "Copy Checklist",
+    "copyChecklistPopup-title": "Copy Checklist"
 }

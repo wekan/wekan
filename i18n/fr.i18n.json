@@ -1141,5 +1141,7 @@
     "checklistActionsPopup-title": "Actions sur la checklist",
     "moveChecklist": "Déplacer la checklist",
     "moveChecklistPopup-title": "Déplacer la checklist",
-    "newlineBecomesNewChecklistItem": "Chaque retour à la ligne produit un nouvel élément de checklist"
+    "newlineBecomesNewChecklistItem": "Chaque retour à la ligne produit un nouvel élément de checklist",
+    "copyChecklist": "Copy Checklist",
+    "copyChecklistPopup-title": "Copy Checklist"
 }
