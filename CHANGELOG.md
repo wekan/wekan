@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v5.98 2022-02-03 WeKan ® release
 
 This release adds the following CRITICAL SECURITY UPDATES:
 
