@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release adds the following new translations:
+This release adds the following new features:
+
+- [Make card corners round](https://github.com/wekan/wekan/commit/045160c7bb7c8696a181d9ed4e0b54d0c27b5f59).
+  Thanks to Meeques and xet7.
+
+and adds the following new translations:
 
 - Added translation: Galician (Spain).
   [Part 1](https://github.com/wekan/wekan/commit/c0828f2d00095c68b4533a10ff7ede0a16131093),
