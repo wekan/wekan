@@ -5,7 +5,7 @@ aldeed:collection2-core@1.2.0
 aldeed:schema-deny@1.1.0
 aldeed:schema-index@1.1.1
 aldeed:simple-schema@1.5.4
-allow-deny@1.1.0
+allow-deny@1.1.1
 arillo:flow-router-helpers@0.5.2
 audit-argument-checks@1.0.7
 autoupdate@1.8.0
@@ -83,13 +83,13 @@ meteortesting:mocha@0.6.0
 minifier-css@1.6.0
 minifier-js@2.7.3
 minifiers@1.1.8-faster-rebuild.0
-minimongo@1.7.0
+minimongo@1.8.0
 mobile-status-bar@1.1.0
 modern-browsers@0.1.7
 modules@0.18.0
 modules-runtime@0.12.0
 momentjs:moment@2.29.1
-mongo@1.13.0
+mongo@1.14.0
 mongo-decimal@0.1.2
 mongo-dev-server@1.1.0
 mongo-id@1.0.8
@@ -102,7 +102,7 @@ mquandalle:jade-compiler@0.4.5
 mquandalle:jquery-textcomplete@0.8.0_1
 mquandalle:mousetrap-bindglobal@0.0.1
 msavin:usercache@1.8.0
-npm-mongo@3.9.1
+npm-mongo@4.3.1
 observe-sequence@1.0.19
 ongoworks:speakingurl@1.1.0
 ordered-dict@1.1.0
