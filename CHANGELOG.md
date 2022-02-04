@@ -6,6 +6,9 @@ This release adds the following changes:
 
 - [Revert rounded corners minicard on moderndark theme](https://github.com/wekan/wekan/pull/4332).
   Thanks to jghaanstra.
+
+and fixes the following bugs:
+
 - [Remove not working options from rebuild-wekan.sh](https://github.com/wekan/wekan/commit/af598b13e8266654ab52425f71840c3628c9835a).
   Thanks to xet7.
 
