@@ -1142,6 +1142,6 @@
     "moveChecklist": "Déplacer la checklist",
     "moveChecklistPopup-title": "Déplacer la checklist",
     "newlineBecomesNewChecklistItem": "Chaque retour à la ligne produit un nouvel élément de checklist",
-    "copyChecklist": "Copy Checklist",
-    "copyChecklistPopup-title": "Copy Checklist"
+    "copyChecklist": "Copier la checklist",
+    "copyChecklistPopup-title": "Copier la checklist"
 }
