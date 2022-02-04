@@ -21,7 +21,7 @@ cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
 matteodem:easy-search
-mongo@1.13.0
+mongo@1.14.0
 mquandalle:collection-mutations
 
 # Account system
