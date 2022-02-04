@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 597,
+    appVersion = 598,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "5.97.0~2022-01-23"),
+    appMarketingVersion = (defaultText = "5.98.0~2022-02-03"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -233,9 +233,18 @@ const pkgdef :Spk.PackageDefinition = (
 
 const myCommand :Spk.Manifest.Command = (
   # Here we define the command used to start up your server.
-  argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start.js"],
+  #argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start.js"],
+  argv = ["/sandstorm-http-bridge", "4000", "--", "node", "--stack-size=65500", "start.js"],
   environ = [
     # Note that this defines the *entire* environment seen by your app.
+    #---------------------------------------------------------------------
+    # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+    # Add more Node heap:
+    #export NODE_OPTIONS="--max_old_space_size=4096"
+    # Add more stack:
+    #bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+    #---------------------------------------------------------------------
+    (key = "NODE_OPTIONS", value = "--max_old_space_size=4096"),
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     (key = "RESULTS_PER_PAGE", value = ""),
     (key = "WITH_API", value = "true"),

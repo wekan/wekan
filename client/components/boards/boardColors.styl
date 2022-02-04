@@ -15,9 +15,16 @@ setBoardColor(color)
   .is-selected .minicard
     border-left: 3px solid color
 
+  // All minicards rounded corners:
+  .minicard
+    border-radius: 7px
+    padding: 10px 10px 4px 10px
+    box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15)
+
   button[type=submit].primary, input[type=submit].primary,
   .sidebar .sidebar-content .sidebar-btn
     background-color: darken(color, 20%)
+    border-radius: 7px
 
   &.pop-over .pop-over-list li a:not(.disabled):hover,
   .sidebar .sidebar-content .sidebar-btn:hover,
@@ -197,6 +204,7 @@ setBoardColor(color)
   .open-minicard-composer:hover
     background-color:rgba(255,255,255,.8) !important
     color:#000
+    border-radius: 7px
 
   /*
   .minicard, .minicard .badge
@@ -457,7 +465,7 @@ setBoardClear(color1,color2)
     background-color: rgba(255,255,255,0.7)
     color: rgba(0,0,0,0.8)
     box-shadow: 0 1px 2px rgba(0,0,0,.2)
-
+    border-radius: 7px
   .quiet, .quiet a
     color: rgba(0,0,0,0.4)
 
@@ -472,6 +480,7 @@ setBoardClear(color1,color2)
 
   a:not(.disabled).is-active.fa, a:not(.disabled).is-active i.fa, a:not(.disabled):hover.fa, a:not(.disabled):hover i.fa
     color: rgba(0,0,0,0.6)
+    border-radius: 7px
 
   input[type="email"], input[type="password"], input[type="text"]
     border: 0
@@ -766,6 +775,7 @@ setBoardClear(color1,color2)
   /* Forms */
   button[type=submit].primary, .board-color-modern input[type=submit].primary
     background-color: #777777
+    border-radius: 7px
 
   .toggle-switch:checked~.toggle-label
     background-color: #f7f7f7
@@ -774,7 +784,7 @@ setBoardClear(color1,color2)
     background-color: #777777 !important
 
   button, input:not([type=file]), select, textarea
-    border-radius: 2px
+    border-radius: 7px
 
   /* Headers */
   &#header
@@ -863,11 +873,11 @@ setBoardClear(color1,color2)
 
   .swimlane .list:nth-child(even) .list-header,
   .swimlane .list:nth-child(even) .list-body
-    background: #5f5f5f
+    background: #6a6a6a
 
   .swimlane .list:nth-child(odd) .list-header,
   .swimlane .list:nth-child(odd) .list-body
-    background: #3b3b3b
+    background: #555555
 
   .list-header
     padding: 10px
@@ -914,6 +924,7 @@ setBoardClear(color1,color2)
 
   .list-body a.open-minicard-composer:hover, .list-body a.open-minicard-composer:hover i, .list .list-composer .open-list-composer:hover i
     color: #ffffff
+    border-radius: 7px
 
   /* Mini Card */
   .minicard-wrapper
@@ -924,13 +935,13 @@ setBoardClear(color1,color2)
     color: #cccccc
     border-radius: 2px
     font-size: 0.95em
-    padding: 10px
     box-shadow: 0 4px 3px -3px rgba(0,0,0,0.8)
     border-bottom: 1px solid #666666
+    padding: 8px
 
   .minicard:hover
     color: #f7f7f7
-    background-color: #797979 !important
+    background-color: #4d4d4d !important
 
   .minicard .minicard-labels
     margin-bottom: 4px

@@ -36,7 +36,7 @@ do
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			#sudo npm -g install n
-			#sudo n 12.22.9
+			#sudo n 12.22.10
 			#sudo npm -g install npm
 			## Latest npm with Meteor 2.2
 			npm -g install node-gyp
@@ -110,14 +110,14 @@ do
 		;;
 
     "Run Meteor for dev on http://localhost:4000")
-		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
+		NODE_OPTIONS="--max_old_space_size=4096" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
 		break
 		;;
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000")
 		IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
 		echo "Your IP address is $IPADDRESS"
-		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
+		NODE_OPTIONS="--max_old_space_size=4096" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
 		break
 		;;
 
@@ -128,7 +128,7 @@ do
 		echo "On what port you would like to run Wekan?"
 		read PORT
 		echo "ROOT_URL=http://$IPADDRESS:$PORT"
-		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --exclude-archs web.browser.legacy,web.cordova --port $PORT
+		NODE_OPTIONS="--max_old_space_size=4096" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --exclude-archs web.browser.legacy,web.cordova --port $PORT
 		break
 		;;
 

@@ -54,6 +54,7 @@ function initSortable(boardComponent, $listsDom) {
   };
 
   $listsDom.sortable({
+    connectWith: '.board-canvas',
     tolerance: 'pointer',
     helper: 'clone',
     items: '.js-list:not(.js-list-composer)',
@@ -61,6 +62,7 @@ function initSortable(boardComponent, $listsDom) {
     distance: 7,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
+      ui.placeholder.width(ui.helper.width());
       EscapeActions.executeUpTo('popup-close');
       boardComponent.setIsDragging(true);
     },

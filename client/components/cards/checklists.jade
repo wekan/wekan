@@ -44,10 +44,11 @@ template(name="checklistDetail")
             +viewer
                 = checklist.title
 
-    .checklist-progress-bar-container
-      .checklist-progress-text {{#if $gt finishedPercent 0}}{{finishedPercent}}%{{/if}}
-      .checklist-progress-bar
-        .checklist-progress(style="width:{{finishedPercent}}%;{{#if $eq finishedPercent 0}}display:none{{/if}}")
+    if $gt finishedPercent 0
+      .checklist-progress-bar-container
+        .checklist-progress-text {{finishedPercent}}%
+        .checklist-progress-bar
+          .checklist-progress(style="width:{{finishedPercent}}%")
     +checklistItems(checklist = checklist)
 
 template(name="checklistDeletePopup")
@@ -152,8 +153,17 @@ template(name="checklistActionsPopup")
       a.js-move-checklist.move-checklist
         i.fa.fa-arrow-right
         | {{_ "moveChecklist"}} ...
+      a.js-copy-checklist.copy-checklist
+        i.fa.fa-copy
+        | {{_ "copyChecklist"}} ...
+
+template(name="copyChecklistPopup")
+  +copyAndMoveChecklist
 
 template(name="moveChecklistPopup")
+  +copyAndMoveChecklist
+
+template(name="copyAndMoveChecklist")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
@@ -161,22 +171,22 @@ template(name="moveChecklistPopup")
         if $eq _id currentBoard._id
           option(value="{{_id}}" selected) {{_ 'current'}}
         else
-          option(value="{{_id}}" selected="{{#if isMoveChecklistDialogOptionBoardId _id}}selected{{/if}}") {{title}}
+          option(value="{{_id}}" selected="{{#if isChecklistDialogOptionBoardId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isMoveChecklistDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isChecklistDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isMoveChecklistDialogOptionListId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isChecklistDialogOptionListId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
     each cards
-      option(value="{{_id}}" selected="{{#if isMoveChecklistDialogOptionCardId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isChecklistDialogOptionCardId _id}}selected{{/if}}") {{title}}
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}

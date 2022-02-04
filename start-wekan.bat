@@ -19,7 +19,6 @@ REM SET MAIL_SERVICE=Outlook365
 REM SET MAIL_SERVICE_USER=firstname.lastname@hotmail.com
 REM SET MAIL_SERVICE_PASSWORD=SecretPassword
 
-
 REM # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
 REM SET RESULTS_PER_PAGE=20
 
@@ -457,4 +456,9 @@ REM SET SAML_ATTRIBUTES=
 REM # Wait spinner to use
 REM SET WAIT_SPINNER=Bounce
 
-node main.js
+REM # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+REM # Add more Node heap:
+SET NODE_OPTIONS="--max_old_space_size=4096"
+REM # Add more stack. ulimit is not at Windows, stack-size is at Windows:
+REM #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+node --stack-size=65500 main.js
