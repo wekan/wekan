@@ -1143,5 +1143,6 @@
     "moveChecklistPopup-title": "Переместить Чек-лист",
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Скопировать Чек-лист",
-    "copyChecklistPopup-title": "Скопировать Чек-лист"
+    "copyChecklistPopup-title": "Скопировать Чек-лист",
+    "card-show-lists": "Card Show Lists"
 }

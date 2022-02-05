@@ -1143,5 +1143,6 @@
     "moveChecklistPopup-title": "העברת רשימת מטלות",
     "newlineBecomesNewChecklistItem": "שורה חדשה הופכת לפריט חדש ברשימת המטלות",
     "copyChecklist": "Copy Checklist",
-    "copyChecklistPopup-title": "Copy Checklist"
+    "copyChecklistPopup-title": "Copy Checklist",
+    "card-show-lists": "Card Show Lists"
 }

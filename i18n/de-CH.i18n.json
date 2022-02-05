@@ -1143,5 +1143,6 @@
     "moveChecklistPopup-title": "Checkliste bewegen",
     "newlineBecomesNewChecklistItem": "Neue Zeile wird neuer Checklisteneintrag",
     "copyChecklist": "Checkliste kopieren",
-    "copyChecklistPopup-title": "Checkliste kopieren"
+    "copyChecklistPopup-title": "Checkliste kopieren",
+    "card-show-lists": "Card Show Lists"
 }
