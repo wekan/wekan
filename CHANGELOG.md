@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Adding list select at card details](https://github.com/wekan/wekan/pull/4333).
+  Thanks to mfilser.
+
+and adds the following updates:
 
 - [Updated release scripts](https://github.com/wekan/wekan/commit/9b7bf1ba289f0026f0bf957527c86b6f4696686e).
   Thanks to xet7.
