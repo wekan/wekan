@@ -1103,3 +1103,19 @@ Migrations.add('assign-boardwise-card-numbers', () => {
     });
   })
 });
+
+Migrations.add('add-card-details-show-lists', () => {
+  Boards.update(
+    {
+      allowsShowLists: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsShowLists: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
