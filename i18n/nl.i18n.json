@@ -557,9 +557,9 @@
     "sidebar-open": "Open Zijbalk",
     "sidebar-close": "Sluit Zijbalk",
     "signupPopup-title": "Maak een account aan",
-    "star-board-title": "Klik om het bord toe te voegen aan favorieten, waarna hij aan de bovenbalk tevoorschijn komt.",
+    "star-board-title": "Klik om dit bord favoriet te maken, waarna het bovenaan getoond wordt in je bordenlijst.",
     "starred-boards": "Favoriete Borden",
-    "starred-boards-description": "Favoriete borden komen tevoorschijn aan de bovenbalk.",
+    "starred-boards-description": "Favoriete borden worden bovenaan getoond op je bordenlijst.",
     "subscribe": "Abonneer",
     "team": "Team",
     "this-board": "dit bord",
@@ -1144,5 +1144,5 @@
     "newlineBecomesNewChecklistItem": "Nieuwe regel wordt nieuw checklist item",
     "copyChecklist": "Kopieer Checklist",
     "copyChecklistPopup-title": "Kopieer Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Kaart Toon Lijsten"
 }
