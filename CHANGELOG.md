@@ -1,5 +1,16 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated to Node.js v14.19.0](https://github.com/wekan/wekan/commit/ceed865e305f41ec027f1ed345b041841c9812c0).
+  Thanks to Node.js developers.
+- [Fixed WeKan on Sandstorm](https://github.com/sandstorm-io/meteor-spk/pull/41).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.00 2022-02-05 WeKan ® release
 
 This release adds the following new features:
