@@ -6,7 +6,12 @@ This release adds the following updates:
 
 - [Updated to Node.js v14.19.0](https://github.com/wekan/wekan/commit/ceed865e305f41ec027f1ed345b041841c9812c0).
   Thanks to Node.js developers.
+
+and fixes the following bugs:
+
 - [Fixed WeKan on Sandstorm](https://github.com/sandstorm-io/meteor-spk/pull/41).
+  Thanks to xet7.
+- [Fixed building fibers](https://github.com/wekan/wekan/commit/0460a7d9d3219ed7ba5aa5040349b9d56e6a45e0).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
