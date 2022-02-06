@@ -79,6 +79,9 @@ sudo rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/raj
 rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy
 cd /home/wekan/app_build/bundle/programs/server/
 sudo npm install
+cd node_modules/fibers
+node build.js
+cd ../..
 sudo chown -R wekan:wekan ./node_modules
 
 #cd /home/wekan/app_build/bundle

@@ -9,4 +9,6 @@ cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/pa
 cd .build/bundle/programs/server
 rm -rf node_modules
 /home/wekan/.meteor/meteor npm install
+cd node_modules/fibers
+node build.js
 cd /home/wekan/app

@@ -86,6 +86,7 @@ parts:
             - node-pre-gyp
             - fibers
         build-packages:
+            - build-essential
             - ca-certificates
             - apt-utils
             - python
@@ -118,7 +119,9 @@ parts:
             cd .build/bundle/programs/server
             chmod u+w *.json
             npm install
-            cd ../../../..
+            cd node_modules/fibers
+            node build.js
+            cd ../../../../../..
             # Cleanup
             cd .build/bundle
             find . -type d -name '*-garbage*' | xargs rm -rf

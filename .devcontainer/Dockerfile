@@ -238,7 +238,9 @@ RUN \
     set -o xtrace && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     chmod u+w package.json npm-shrinkwrap.json && \
-    npm install
+    npm install && \
+    cd node_modules/fibers && \
+    node build.js
 
 USER root
 # Cleanup

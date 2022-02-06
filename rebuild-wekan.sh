@@ -93,6 +93,8 @@ do
 		rm -rf node_modules
                 chmod u+w *.json
 		meteor npm install
+		cd node_modules/fibers
+		node build.js
 		# Cleanup
 		popd
 		find . -type d -name '*-garbage*' | xargs rm -rf
