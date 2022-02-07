@@ -827,6 +827,10 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsCardSortingByNumber;
   },
 
+  allowsShowLists() {
+    return this.currentBoard.allowsShowLists;
+  },
+
   allowsLabels() {
     return this.currentBoard.allowsLabels;
   },
@@ -1059,6 +1063,22 @@ BlazeComponent.extendComponent({
           $('.js-field-has-card-sorting-by-number').toggleClass(
             CKCLS,
             this.currentBoard.allowsCardSortingByNumber,
+          );
+        },
+        'click .js-field-has-card-show-lists'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsShowLists = !this.currentBoard
+            .allowsShowLists;
+          this.currentBoard.setAllowsShowLists(
+            this.currentBoard.allowsShowLists,
+          );
+          $(`.js-field-has-card-show-lists ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsShowLists,
+          );
+          $('.js-field-has-card-show-lists').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsShowLists,
           );
         },
         'click .js-field-has-labels'(evt) {
