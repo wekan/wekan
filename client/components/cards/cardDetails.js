@@ -168,6 +168,15 @@ BlazeComponent.extendComponent({
     );
   },
 
+  /** returns if the list id is the current list id
+   * @param listId list id to check
+   * @return is the list id the current list id ?
+   */
+  isCurrentListId(listId) {
+    const ret = this.data().listId == listId;
+    return ret;
+  },
+
   onRendered() {
     if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
       // Send Webhook but not create Activities records ---
@@ -378,6 +387,12 @@ BlazeComponent.extendComponent({
             let card = this.data();
             card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
+        },
+        'change .js-select-lists'(event) {
+          let card = this.data();
+          const listSelect = this.$('.js-select-lists')[0];
+          const listId = listSelect.options[listSelect.selectedIndex].value;
+          card.move(card.boardId, card.swimlaneId, listId, card.sort);
         },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);

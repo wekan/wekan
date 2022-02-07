@@ -234,6 +234,15 @@ template(name="cardDetails")
                   +viewer
                     = sort
 
+        if currentBoard.allowsShowLists
+          .card-details-item.card-details-show-lists
+            h3.card-details-item-title
+              i.fa.fa-list
+              | {{_ 'list'}}
+            select.js-select-lists
+              each currentBoard.lists
+                option(value="{{_id}}" selected="{{#if isCurrentListId _id}}selected{{/if}}") {{title}}
+
         //.card-details-items
         if getSpentTime
           .card-details-item.card-details-item-spent
