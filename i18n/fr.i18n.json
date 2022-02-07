@@ -1144,5 +1144,5 @@
     "newlineBecomesNewChecklistItem": "Chaque retour à la ligne produit un nouvel élément de checklist",
     "copyChecklist": "Copier la checklist",
     "copyChecklistPopup-title": "Copier la checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Afficher les listes sur la carte"
 }
