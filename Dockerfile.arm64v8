@@ -4,7 +4,7 @@ FROM amd64/alpine:3.7 AS builder
 ENV QEMU_VERSION=v4.2.0-6 \
     QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
-    NODE_VERSION=v14.19.0 \
+    NODE_VERSION=v12.22.10 \
     WEKAN_VERSION=latest  \
     WEKAN_ARCHITECTURE=arm64 \
     NODE_OPTIONS="--max_old_space_size=4096"
@@ -49,7 +49,7 @@ LABEL maintainer="wekan"
 # Set the environment variables (defaults where required)
 ENV QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
-    NODE_VERSION=v14.19.0 \
+    NODE_VERSION=v12.22.10 \
     NODE_ENV=production \
     NPM_VERSION=latest \
     WITH_API=true \
