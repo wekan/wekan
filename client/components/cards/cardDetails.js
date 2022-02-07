@@ -388,9 +388,9 @@ BlazeComponent.extendComponent({
             card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
         },
-        'change .js-select-lists'(event) {
+        'change .js-select-card-details-lists'(event) {
           let card = this.data();
-          const listSelect = this.$('.js-select-lists')[0];
+          const listSelect = this.$('.js-select-card-details-lists')[0];
           const listId = listSelect.options[listSelect.selectedIndex].value;
           card.move(card.boardId, card.swimlaneId, listId, card.sort);
         },
