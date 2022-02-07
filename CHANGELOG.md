@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix copy move card](https://github.com/wekan/wekan/pull/4345).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.04 2022-02-07 WeKan ® release
 
 This release fixes the following bugs:
