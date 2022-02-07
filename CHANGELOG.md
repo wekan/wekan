@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# v6.03 2022-02-07 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated to Node.js v12.22.10](https://github.com/wekan/wekan/commit/cc5486797648b8098e50fa4f68cc4b588f41ab60).
+  Thanks to Node.js developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.02 2022-02-06 WeKan ® release
 
 This release adds the following updates:
