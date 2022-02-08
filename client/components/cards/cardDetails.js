@@ -388,7 +388,9 @@ BlazeComponent.extendComponent({
           let card = this.data();
           const listSelect = this.$('.js-select-card-details-lists')[0];
           const listId = listSelect.options[listSelect.selectedIndex].value;
-          card.move(card.boardId, card.swimlaneId, listId, card.sort);
+
+          const minOrder = card.getMinSort(listId, card.swimlaneId);
+          card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
         },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);
@@ -836,7 +838,9 @@ Template.moveCardPopup.events({
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
     const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
-    card.move(boardId, swimlaneId, listId, 0);
+
+    const minOrder = card.getMinSort(listId, swimlaneId);
+    card.move(boardId, swimlaneId, listId, minOrder - 1);
 
     // set new id's to card object in case the card is moved to top by the comment "moveCard" after this command (.js-move-card)
     this.boardId = boardId;

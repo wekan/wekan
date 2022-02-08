@@ -691,6 +691,53 @@ Cards.helpers({
     return _.contains(this.labelIds, labelId);
   },
 
+  /** returns the sort number of a list
+   * @param listId a list id
+   * @param swimlaneId a swimlane id
+   * top sorting of the card at the top if true, or from the bottom if false
+   */
+  getSort(listId, swimlaneId, top) {
+    if (!_.isBoolean(top)) {
+      top = true;
+    }
+    if (!listId) {
+      listId = this.listId;
+    }
+    if (!swimlaneId) {
+      swimlaneId = this.swimlaneId;
+    }
+    const selector = {
+      listId: listId,
+      swimlaneId: swimlaneId,
+      archived: false,
+    };
+    const sorting = top ? 1 : -1;
+    const card = Cards.findOne(selector, { sort: { sort: sorting } });
+    let ret = null
+    if (card) {
+      ret = card.sort;
+    }
+    return ret;
+  },
+
+  /** returns the sort number of a list from the card at the top
+   * @param listId a list id
+   * @param swimlaneId a swimlane id
+   */
+  getMinSort(listId, swimlaneId) {
+    const ret = this.getSort(listId, swimlaneId, true);
+    return ret;
+  },
+
+  /** returns the sort number of a list from the card at the bottom
+   * @param listId a list id
+   * @param swimlaneId a swimlane id
+   */
+  getMaxSort(listId, swimlaneId) {
+    const ret = this.getSort(listId, swimlaneId, false);
+    return ret;
+  },
+
   user() {
     return Users.findOne(this.userId);
   },
