@@ -839,7 +839,7 @@ Template.moveCardPopup.events({
     this.swimlaneId = swimlaneId;
     this.listId = listId;
 
-    Popup.back();
+    Popup.back(2);
   },
 });
 BlazeComponent.extendComponent({
@@ -975,7 +975,7 @@ Template.copyCardPopup.events({
       // See https://github.com/wekan/wekan/issues/80
       Filter.addException(_id);
 
-      Popup.back();
+      Popup.back(2);
     }
   },
 });
