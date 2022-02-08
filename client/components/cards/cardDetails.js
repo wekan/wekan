@@ -968,8 +968,10 @@ Template.copyCardPopup.events({
     const boardId = bSelect.options[bSelect.selectedIndex].value;
     const textarea = $('#copy-card-title');
     const title = textarea.val().trim();
-    // insert new card to the bottom of new list
-    card.sort = Lists.findOne(card.listId).cards().count();
+
+    // insert new card to the top of new list
+    const minOrder = card.getMinSort(listId, swimlaneId);
+    card.sort = minOrder - 1;
 
     if (title) {
       card.title = title;
