@@ -679,21 +679,13 @@ Template.cardDetailsActionsPopup.events({
   'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-move-card-to-top'(event) {
     event.preventDefault();
-    const minOrder = _.min(
-      this.list()
-        .cardsUnfiltered(this.swimlaneId)
-        .map((c) => c.sort),
-    );
+    const minOrder = this.getMinSort();
     this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
     Popup.back();
   },
   'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
-    const maxOrder = _.max(
-      this.list()
-        .cardsUnfiltered(this.swimlaneId)
-        .map((c) => c.sort),
-    );
+    const maxOrder = this.getMaxSort();
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
     Popup.back();
   },
