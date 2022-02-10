@@ -1142,7 +1142,7 @@
     "moveChecklist": "移动待办清单",
     "moveChecklistPopup-title": "移动待办清单",
     "newlineBecomesNewChecklistItem": "可换行来新增一个待办清单项",
-    "copyChecklist": "Copy Checklist",
-    "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "copyChecklist": "复制待办清单",
+    "copyChecklistPopup-title": "复制待办清单",
+    "card-show-lists": "卡片显示列表"
 }
