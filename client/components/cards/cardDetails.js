@@ -70,7 +70,7 @@ BlazeComponent.extendComponent({
 
 
   cardMaximized() {
-    return Meteor.user().hasCardMaximized();
+    return !Utils.getPopupCardId() && Meteor.user().hasCardMaximized();
   },
 
   canModifyCard() {
