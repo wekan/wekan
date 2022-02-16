@@ -1127,9 +1127,13 @@ Migrations.add('add-card-details-show-lists', () => {
 });
 
 Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
+  const storagePath = Attachments.storagePath();
+  if (!fs.existsSync(storagePath)) {
+    console.log("create storagePath because it doesn't exist: " + storagePath);
+    fs.mkdirSync(storagePath, { recursive: true });
+  }
   AttachmentsOld.find().forEach(function(fileObj) {
     const newFileName = fileObj.name();
-    const storagePath = Attachments.storagePath({});
     const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
 
     // This is "example" variable, change it to the userId that you might be using.
@@ -1190,9 +1194,13 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
 });
 
 Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
+  const storagePath = Avatars.storagePath();
+  if (!fs.existsSync(storagePath)) {
+    console.log("create storagePath because it doesn't exist: " + storagePath);
+    fs.mkdirSync(storagePath, { recursive: true });
+  }
   AvatarsOld.find().forEach(function(fileObj) {
     const newFileName = fileObj.name();
-    const storagePath = Avatars.storagePath({});
     const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
 
     // This is "example" variable, change it to the userId that you might be using.

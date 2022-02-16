@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import fs from 'fs';
 import path from 'path';
 import { createBucket } from './lib/grid/createBucket';
 import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
@@ -83,6 +84,12 @@ if (Meteor.isServer) {
 
   Meteor.startup(() => {
     Attachments.collection._ensureIndex({ cardId: 1 });
+    const storagePath = Attachments.storagePath();
+    console.log("Meteor.startup check storagePath: ", storagePath);
+    if (!fs.existsSync(storagePath)) {
+      console.log("create storagePath because it doesn't exist: " + storagePath);
+      fs.mkdirSync(storagePath, { recursive: true });
+    }
   });
 }
 

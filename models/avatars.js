@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import fs from 'fs';
 import path from 'path';
 import { createBucket } from './lib/grid/createBucket';
 import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
@@ -42,6 +43,14 @@ if (Meteor.isServer) {
     update: isOwner,
     remove: isOwner,
     fetch: ['userId'],
+  });
+
+  Meteor.startup(() => {
+    const storagePath = Avatars.storagePath();
+    if (!fs.existsSync(storagePath)) {
+      console.log("create storagePath because it doesn't exist: " + storagePath);
+      fs.mkdirSync(storagePath, { recursive: true });
+    }
   });
 }
 
