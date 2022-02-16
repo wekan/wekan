@@ -325,6 +325,9 @@ services:
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
       #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
+      # ==== WRITEABLE PATH FOR FILE UPLOADS ====
+      - WRITABLE_PATH=/data
+      #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
       # What to send to Outgoing Webhook, or leave out. If commented out the default values will be: cardId,listId,oldListId,boardId,comment,user,card,commentId,swimlaneId,customerField,customFieldValue
       #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
@@ -670,6 +673,7 @@ services:
       - wekandb
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - ./volumes/data:/data
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
