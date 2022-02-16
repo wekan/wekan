@@ -1146,8 +1146,12 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
     const readStream = fileObj.createReadStream('attachments');
     const writeStream = fs.createWriteStream(filePath);
 
-    writeStream.on('error', function(err) {
-      console.log('Writing error: ', err, filePath);
+    writeStream.on('error', error => {
+      console.error('[writeStream error]: ', error, filePath);
+    });
+
+    readStream.on('error', error => {
+      console.error('[readStream error]: ', error, filePath);
     });
 
     // Once we have a file, then upload it to our new data storage
@@ -1171,11 +1175,11 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
           size: fileSize,
           fileId,
         },
-        (err, fileRef) => {
-          if (err) {
-            console.log(err);
+        (error, fileRef) => {
+          if (error) {
+            console.error('[Attachments#addFile error]: ', error);
           } else {
-            console.log('File Inserted: ', fileRef._id);
+            console.log('File Inserted: ', fileRef);
             // Set the userId again
             Attachments.update({ _id: fileRef._id }, { $set: { userId } });
             fileObj.remove();
@@ -1183,10 +1187,6 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
         },
         true,
       ); // proceedAfterUpload
-    });
-
-    readStream.on('error', error => {
-      console.log('Error: ', filePath, error);
     });
 
     readStream.pipe(writeStream);
@@ -1213,8 +1213,12 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
     const readStream = fileObj.createReadStream('avatars');
     const writeStream = fs.createWriteStream(filePath);
 
-    writeStream.on('error', function(err) {
-      console.log('Writing error: ', err, filePath);
+    writeStream.on('error', error => {
+      console.error('[writeStream error]: ', error, filePath);
+    });
+
+    readStream.on('error', error => {
+      console.error('[readStream error]: ', error, filePath);
     });
 
     // Once we have a file, then upload it to our new data storage
@@ -1237,11 +1241,11 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
           size: fileSize,
           fileId,
         },
-        (err, fileRef) => {
-          if (err) {
-            console.log(err);
+        (error, fileRef) => {
+          if (error) {
+            console.error('[Avatars#addFile error]: ', error);
           } else {
-            console.log('File Inserted: ', newFileName, fileRef._id);
+            console.log('File Inserted: ', newFileName, fileRef);
             // Set the userId again
             Avatars.update({ _id: fileRef._id }, { $set: { userId } });
             Users.find().forEach(user => {
@@ -1265,10 +1269,6 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
         },
         true, // proceedAfterUpload
       );
-    });
-
-    readStream.on('error', error => {
-      console.log('Error: ', filePath, error);
     });
 
     readStream.pipe(writeStream);
