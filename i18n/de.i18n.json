@@ -712,7 +712,7 @@
     "no-parent": "Nicht anzeigen",
     "activity-added-label": "fügte Label '%s' zu %s hinzu",
     "activity-removed-label": "entfernte Label '%s' von %s",
-    "activity-delete-attach": "löschte ein Anhang von %s",
+    "activity-delete-attach": "löschte einen Anhang von %s",
     "activity-added-label-card": "Label hinzugefügt '%s'",
     "activity-removed-label-card": "Label entfernt '%s'",
     "activity-delete-attach-card": "hat einen Anhang gelöscht",
