@@ -42,7 +42,7 @@ template(name="addReactionPopup")
       span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}
 
 template(name="activity")
-  .activity
+  .activity(data-id=activity._id)
     +userAvatar(userId=activity.user._id)
     p.activity-desc
       span.activity-member
@@ -153,10 +153,10 @@ template(name="activity")
                 +editOrDeleteComment
 
         if($eq activity.activityType 'deleteComment')
-          | {{{_ 'activity-deleteComment' currentData.commentId}}}.
+          | {{{_ 'activity-deleteComment' activity.commentId}}}.
 
         if($eq activity.activityType 'editComment')
-          | {{{_ 'activity-editComment' currentData.commentId}}}.
+          | {{{_ 'activity-editComment' activity.commentId}}}.
       else
         //- if we are not in card mode we only display a summary of the comment
         if($eq activity.activityType 'addComment')

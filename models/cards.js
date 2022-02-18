@@ -5,6 +5,7 @@ import {
   TYPE_LINKED_BOARD,
   TYPE_LINKED_CARD,
 } from '../config/const';
+import Attachments from './attachments';
 
 Cards = new Mongo.Collection('cards');
 
