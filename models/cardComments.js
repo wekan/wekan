@@ -1,4 +1,5 @@
-const escapeForRegex = require('escape-string-regexp');
+import escapeForRegex from 'escape-string-regexp';
+
 CardComments = new Mongo.Collection('card_comments');
 
 /**
