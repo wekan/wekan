@@ -494,7 +494,7 @@ template(name="addBoardOrgPopup")
   select.js-boardOrgs#jsBoardOrgs
     option(value="-1") {{_ 'organizations'}} :
     each value in orgsDatas
-      option(value="{{value._id}}") {{_ value.orgDisplayName}}
+      option(value="{{value._id}}") {{value.orgDisplayName}}
 
 template(name="removeBoardOrgPopup")
   form

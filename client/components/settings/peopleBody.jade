@@ -403,7 +403,7 @@ template(name="editUserPopup")
       select.js-orgs#jsOrgs
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
-          option(value="{{value._id}}") {{_ value.orgDisplayName}}
+          option(value="{{value._id}}") {{value.orgDisplayName}}
       input#jsUserOrgsInPut.js-userOrgs(type="text" value=user.orgsUserBelongs, disabled)
       input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="text" value=user.orgIdsUserBelongs)
     label
@@ -543,7 +543,7 @@ template(name="newUserPopup")
       select.js-orgsNewUser#jsOrgsNewUser
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
-          option(value="{{value._id}}") {{_ value.orgDisplayName}}
+          option(value="{{value._id}}") {{value.orgDisplayName}}
       input#jsUserOrgsInPutNewUser.js-userOrgsNewUser(type="text" value=user.orgsUserBelongs, disabled)
       input#jsUserOrgIdsInPutNewUser.js-userOrgIdsNewUser.hide(type="text" value=user.orgIdsUserBelongs)
     label
