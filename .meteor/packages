@@ -133,7 +133,9 @@ matb33:collection-hooks
 simple:json-routes
 kadira:flow-router
 spacebars
-communitypackages:picker
 useraccounts:core
 useraccounts:flow-routing
 useraccounts:unstyled
+service-configuration
+communitypackages:picker
+simple:rest-accounts-password

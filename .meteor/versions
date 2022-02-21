@@ -201,7 +201,11 @@ service-configuration@1.3.0
 session@1.2.0
 sha@1.0.9
 shell-server@0.5.0
+simple:authenticate-user-by-token@1.2.1
 simple:json-routes@2.3.1
+simple:rest-accounts-password@1.2.1
+simple:rest-bearer-token-parser@1.1.1
+simple:rest-json-error-handler@1.1.1
 socket-stream-client@0.4.0
 spacebars@1.2.0
 spacebars-compiler@1.3.0
