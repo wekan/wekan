@@ -1,6 +1,7 @@
 Meteor.subscribe('user-admin');
 Meteor.subscribe('boards');
 Meteor.subscribe('setting');
+Meteor.subscribe('announcements');
 Template.header.onCreated(function(){
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
