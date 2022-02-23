@@ -83,6 +83,9 @@ MultiSelection = {
   isEmpty() {
     return this.count() === 0;
   },
+  getSelectedCardIds(){
+    return this._selectedCards.curValue;
+  },
 
   activate() {
     if (!this.isActive()) {

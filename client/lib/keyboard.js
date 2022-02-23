@@ -8,7 +8,7 @@ function getHoveredCardId() {
 }
 
 function getSelectedCardId() {
-  return Session.get('currentCard') || getHoveredCardId();
+  return Session.get('currentCard') || Session.get('selectedCard') || getHoveredCardId();
 }
 
 Mousetrap.bind('?', () => {
@@ -68,21 +68,58 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
   }
 });
 
-numArray = _.range(1,10).map(x => String(x))
-Mousetrap.bind(numArray, (evt, key) => {
-  num = parseInt(key);
-  const cardId = getSelectedCardId();
-  if (!cardId) {
+numbArray = _.range(1,10).map(x => 'shift+'+String(x))
+Mousetrap.bind(numbArray, (evt, key) => {
+  num = parseInt(key.substr(6, key.length));
+  const currentUserId = Meteor.userId();
+  if (currentUserId === null) {
     return;
   }
   const currentBoardId = Session.get('currentBoard');
   board = Boards.findOne(currentBoardId);
   labels = board.labels;
+  if(MultiSelection.isActive())
+  {
+    const cardIds = MultiSelection.getSelectedCardIds();
+    for (const cardId of cardIds)
+    {
+      card = Cards.findOne(cardId);
+      if(num <= board.labels.length)
+      {
+        card.removeLabel(labels[num-1]["_id"]);
+      }
+    }
+  }
+});
+
+numArray = _.range(1,10).map(x => String(x))
+Mousetrap.bind(numArray, (evt, key) => {
+  num = parseInt(key);
   const currentUserId = Meteor.userId();
+  const currentBoardId = Session.get('currentBoard');
   if (currentUserId === null) {
     return;
   }
+  board = Boards.findOne(currentBoardId);
+  labels = board.labels;
+  if(MultiSelection.isActive() && Meteor.user().isBoardMember())
+  {
+    const cardIds = MultiSelection.getSelectedCardIds();
+    for (const cardId of cardIds)
+    {
+      card = Cards.findOne(cardId);
+      if(num <= board.labels.length)
+      {
+        card.addLabel(labels[num-1]["_id"]);
+      }
+    }
+    return;
+  }
 
+  const cardId = getSelectedCardId();
+  if (!cardId) {
+    return;
+  }
   if (Meteor.user().isBoardMember()) {
     const card = Cards.findOne(cardId);
     if(num <= board.labels.length)
@@ -181,6 +218,10 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['number keys 1-9'],
       action: 'toggle-labels'
+    },
+    {
+      keys: ['shift + number keys 1-9'],
+      action: 'remove-labels-multiselect'
     },
   ],
 });
