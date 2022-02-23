@@ -130,8 +130,12 @@ if (Meteor.isServer) {
       }
     }
     if (activity.boardId) {
-      if (board.title.length > 0) {
-        params.board = board.title;
+      if (board.title) {
+        if (board.title.length > 0) {
+          params.board = board.title;
+        } else {
+          params.board = '';
+        }
       } else {
         params.board = '';
       }
