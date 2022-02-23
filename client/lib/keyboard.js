@@ -8,7 +8,7 @@ function getHoveredCardId() {
 }
 
 function getSelectedCardId() {
-  return Session.get('selectedCard') || getHoveredCardId();
+  return Session.get('currentCard') || getHoveredCardId();
 }
 
 Mousetrap.bind('?', () => {
@@ -65,6 +65,30 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
   if (nextCard) {
     const nextCardId = Blaze.getData(nextCard)._id;
     Utils.goCardId(nextCardId);
+  }
+});
+
+numArray = _.range(1,10).map(x => String(x))
+Mousetrap.bind(numArray, (evt, key) => {
+  num = parseInt(key);
+  const cardId = getSelectedCardId();
+  if (!cardId) {
+    return;
+  }
+  const currentBoardId = Session.get('currentBoard');
+  board = Boards.findOne(currentBoardId);
+  labels = board.labels;
+  const currentUserId = Meteor.userId();
+  if (currentUserId === null) {
+    return;
+  }
+
+  if (Meteor.user().isBoardMember()) {
+    const card = Cards.findOne(cardId);
+    if(num <= board.labels.length)
+    {
+      card.toggleLabel(labels[num-1]["_id"]);
+    }
   }
 });
 
@@ -153,6 +177,10 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['c'],
       action: 'archive-card',
+    },
+    {
+      keys: ['number keys 1-9'],
+      action: 'toggle-labels'
     },
   ],
 });
