@@ -153,11 +153,13 @@ if (Meteor.isServer) {
     }
     if (activity.listId) {
       const list = activity.list();
-      if (list.watchers !== undefined) {
-        watchers = _.union(watchers, list.watchers || []);
+      if (list) {
+        if (list.watchers !== undefined) {
+          watchers = _.union(watchers, list.watchers || []);
+        }
+        params.list = list.title;
+        params.listId = activity.listId;
       }
-      params.list = list.title;
-      params.listId = activity.listId;
     }
     if (activity.oldListId) {
       const oldList = activity.oldList();
@@ -242,7 +244,7 @@ if (Meteor.isServer) {
     }
     if (activity.attachmentId) {
       const attachment = activity.attachment();
-      params.attachment = attachment.original.name;
+      params.attachment = attachment.name;
       params.attachmentId = attachment._id;
     }
     if (activity.checklistId) {

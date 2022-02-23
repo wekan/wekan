@@ -13,35 +13,10 @@ Template.attachmentsGalery.events({
     event.stopPropagation();
   },
   'click .js-add-cover'() {
-    Cards.findOne(this.cardId).setCover(this._id);
+    Cards.findOne(this.meta.cardId).setCover(this._id);
   },
   'click .js-remove-cover'() {
-    Cards.findOne(this.cardId).unsetCover();
-  },
-  'click .js-preview-image'(event) {
-    Popup.open('previewAttachedImage').call(this, event);
-    // when multiple thumbnails, if click one then another very fast,
-    // we might get a wrong width from previous img.
-    // when popup reused, onRendered() won't be called, so we cannot get there.
-    // here make sure to get correct size when this img fully loaded.
-    const img = $('img.preview-large-image')[0];
-    if (!img) return;
-    const rePosPopup = () => {
-      const w = img.width;
-      const h = img.height;
-      // if the image is too large, we resize & center the popup.
-      if (w > 300) {
-        $('div.pop-over').css({
-          width: w + 20,
-          position: 'absolute',
-          left: (window.innerWidth - w) / 2,
-          top: (window.innerHeight - h) / 2,
-        });
-      }
-    };
-    const url = $(event.currentTarget).attr('src');
-    if (img.src === url && img.complete) rePosPopup();
-    else img.onload = rePosPopup;
+    Cards.findOne(this.meta.cardId).unsetCover();
   },
 });
 
@@ -54,59 +29,30 @@ Template.attachmentsGalery.helpers({
   },
 });
 
-Template.previewAttachedImagePopup.events({
-  'click .js-large-image-clicked'() {
-    Popup.back();
-  },
-});
-
 Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
-    const processFile = f => {
-      Utils.processUploadedAttachment(card, f, attachment => {
-        if (attachment && attachment._id && attachment.isImage()) {
-          card.setCover(attachment._id);
+    if (event.currentTarget.files && event.currentTarget.files[0]) {
+      const uploader = Attachments.insert(
+        {
+          file: event.currentTarget.files[0],
+          meta: Utils.getCommonAttachmentMetaFrom(card),
+          chunkSize: 'dynamic',
+        },
+        false,
+      );
+      uploader.on('uploaded', (error, fileRef) => {
+        if (!error) {
+          if (fileRef.isImage) {
+            card.setCover(fileRef._id);
+          }
         }
+      });
+      uploader.on('end', (error, fileRef) => {
         Popup.back();
       });
-    };
-
-    FS.Utility.eachFile(event, f => {
-      if (
-        MAX_IMAGE_PIXEL > 0 &&
-        typeof f.type === 'string' &&
-        f.type.match(/^image/)
-      ) {
-        // is image
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const dataurl = e && e.target && e.target.result;
-          if (dataurl !== undefined) {
-            Utils.shrinkImage({
-              dataurl,
-              maxSize: MAX_IMAGE_PIXEL,
-              ratio: COMPRESS_RATIO,
-              toBlob: true,
-              callback(blob) {
-                if (blob === false) {
-                  processFile(f);
-                } else {
-                  blob.name = f.name;
-                  processFile(blob);
-                }
-              },
-            });
-          } else {
-            // couldn't process it let other function handle it?
-            processFile(f);
-          }
-        };
-        reader.readAsDataURL(f);
-      } else {
-        processFile(f);
-      }
-    });
+      uploader.start();
+    }
   },
   'click .js-computer-upload'(event, templateInstance) {
     templateInstance.find('.js-attach-file').click();
@@ -154,30 +100,32 @@ Template.previewClipboardImagePopup.onRendered(() => {
 
 Template.previewClipboardImagePopup.events({
   'click .js-upload-pasted-image'() {
-    const results = pastedResults;
-    if (results && results.file) {
+    const card = this;
+    if (pastedResults && pastedResults.file) {
+      const file = pastedResults.file;
       window.oPasted = pastedResults;
-      const card = this;
-      const file = new FS.File(results.file);
-      if (!results.name) {
-        // if no filename, it's from clipboard. then we give it a name, with ext name from MIME type
-        if (typeof results.file.type === 'string') {
-          file.name(results.file.type.replace('image/', 'clipboard.'));
+      const uploader = Attachments.insert(
+        {
+          file,
+          meta: Utils.getCommonAttachmentMetaFrom(card),
+          fileName: file.name || file.type.replace('image/', 'clipboard.'),
+          chunkSize: 'dynamic',
+        },
+        false,
+      );
+      uploader.on('uploaded', (error, fileRef) => {
+        if (!error) {
+          if (fileRef.isImage) {
+            card.setCover(fileRef._id);
+          }
         }
-      }
-      file.updatedAt(new Date());
-      file.boardId = card.boardId;
-      file.cardId = card._id;
-      file.userId = Meteor.userId();
-      const attachment = Attachments.insert(file);
-
-      if (attachment && attachment._id && attachment.isImage()) {
-        card.setCover(attachment._id);
-      }
-
-      pastedResults = null;
-      $(document.body).pasteImageReader(() => {});
-      Popup.back();
+      });
+      uploader.on('end', (error, fileRef) => {
+        pastedResults = null;
+        $(document.body).pasteImageReader(() => {});
+        Popup.back();
+      });
+      uploader.start();
     }
   },
 });

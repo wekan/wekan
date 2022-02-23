@@ -3,6 +3,7 @@ import Avatars from '/models/avatars';
 import Users from '/models/users';
 import Org from '/models/org';
 import Team from '/models/team';
+import { formatFleURL } from 'meteor/ostrio:files/lib';
 
 Template.userAvatar.helpers({
   userData() {
@@ -181,21 +182,14 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('my-avatars');
   },
 
-  avatarUrlOptions() {
-    return {
-      auth: false,
-      brokenIsFine: true,
-    };
-  },
-
   uploadedAvatars() {
-    return Avatars.find({ userId: Meteor.userId() });
+    return Avatars.find({ userId: Meteor.userId() }).each();
   },
 
   isSelected() {
     const userProfile = Meteor.user().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
-    const currentAvatarUrl = this.currentData().url(this.avatarUrlOptions());
+    const currentAvatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
     return avatarUrl === currentAvatarUrl;
   },
 
@@ -220,32 +214,30 @@ BlazeComponent.extendComponent({
           this.$('.js-upload-avatar-input').click();
         },
         'change .js-upload-avatar-input'(event) {
-          let file, fileUrl;
-
-          FS.Utility.eachFile(event, f => {
-            try {
-              file = Avatars.insert(new FS.File(f));
-              fileUrl = file.url(this.avatarUrlOptions());
-            } catch (e) {
-              this.setError('avatar-too-big');
-            }
-          });
-
-          if (fileUrl) {
-            this.setError('');
-            const fetchAvatarInterval = window.setInterval(() => {
-              $.ajax({
-                url: fileUrl,
-                success: () => {
-                  this.setAvatar(file.url(this.avatarUrlOptions()));
-                  window.clearInterval(fetchAvatarInterval);
-                },
-              });
-            }, 100);
+          const self = this;
+          if (event.currentTarget.files && event.currentTarget.files[0]) {
+            const uploader = Avatars.insert(
+              {
+                file: event.currentTarget.files[0],
+                chunkSize: 'dynamic',
+              },
+              false,
+            );
+            uploader.on('uploaded', (error, fileRef) => {
+              if (!error) {
+                self.setAvatar(
+                  `${formatFleURL(fileRef)}?auth=false&brokenIsFine=true`,
+                );
+              }
+            });
+            uploader.on('error', (error, fileData) => {
+              self.setError(error.reason);
+            });
+            uploader.start();
           }
         },
         'click .js-select-avatar'() {
-          const avatarUrl = this.currentData().url(this.avatarUrlOptions());
+          const avatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
           this.setAvatar(avatarUrl);
         },
         'click .js-select-initials'() {

@@ -114,6 +114,12 @@ Template.minicard.helpers({
       return false;
     }
   },
+  // XXX resolve this nasty hack for https://github.com/veliovgroup/Meteor-Files/issues/763
+  sess() {
+    return Meteor.connection && Meteor.connection._lastSessionId
+      ? Meteor.connection._lastSessionId
+      : null;
+  },
 });
 
 BlazeComponent.extendComponent({

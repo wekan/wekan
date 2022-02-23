@@ -153,7 +153,6 @@ BlazeComponent.extendComponent({
                   });
                 }
               },
-
               onImageUpload(files) {
                 const $summernote = getSummernote(this);
                 if (files && files.length > 0) {
@@ -161,46 +160,26 @@ BlazeComponent.extendComponent({
                   const currentCard = Utils.getCurrentCard();
                   const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
                   const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
-                  const insertImage = src => {
-                    // process all image upload types to the description/comment window
-                    const img = document.createElement('img');
-                    img.src = src;
-                    img.setAttribute('width', '100%');
-                    $summernote.summernote('insertNode', img);
-                  };
-                  const processData = function(fileObj) {
-                    Utils.processUploadedAttachment(
-                      currentCard,
-                      fileObj,
-                      attachment => {
-                        if (
-                          attachment &&
-                          attachment._id &&
-                          attachment.isImage()
-                        ) {
-                          attachment.one('uploaded', function() {
-                            const maxTry = 3;
-                            const checkItvl = 500;
-                            let retry = 0;
-                            const checkUrl = function() {
-                              // even though uploaded event fired, attachment.url() is still null somehow //TODO
-                              const url = attachment.url();
-                              if (url) {
-                                insertImage(
-                                  `${location.protocol}//${location.host}${url}`,
-                                );
-                              } else {
-                                retry++;
-                                if (retry < maxTry) {
-                                  setTimeout(checkUrl, checkItvl);
-                                }
-                              }
-                            };
-                            checkUrl();
-                          });
-                        }
+                  const processUpload = function(file) {
+                    const uploader = Attachments.insert(
+                      {
+                        file,
+                        meta: Utils.getCommonAttachmentMetaFrom(card),
+                        chunkSize: 'dynamic',
                       },
+                      false,
                     );
+                    uploader.on('uploaded', (error, fileRef) => {
+                      if (!error) {
+                        if (fileRef.isImage) {
+                          const img = document.createElement('img');
+                          img.src = fileRef.link();
+                          img.setAttribute('width', '100%');
+                          $summernote.summernote('insertNode', img);
+                        }
+                      }
+                    });
+                    uploader.start();
                   };
                   if (MAX_IMAGE_PIXEL) {
                     const reader = new FileReader();
@@ -216,7 +195,7 @@ BlazeComponent.extendComponent({
                           callback(blob) {
                             if (blob !== false) {
                               blob.name = image.name;
-                              processData(blob);
+                              processUpload(blob);
                             }
                           },
                         });
@@ -224,7 +203,7 @@ BlazeComponent.extendComponent({
                     };
                     reader.readAsDataURL(image);
                   } else {
-                    processData(image);
+                    processUpload(image);
                   }
                 }
               },

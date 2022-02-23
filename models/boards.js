@@ -8,6 +8,7 @@ import {
 import Users from "./users";
 
 const escapeForRegex = require('escape-string-regexp');
+
 Boards = new Mongo.Collection('boards');
 
 /**

@@ -737,14 +737,14 @@ Cards.helpers({
   attachments() {
     if (this.isLinkedCard()) {
       return Attachments.find(
-        { cardId: this.linkedId },
+        { 'meta.cardId': this.linkedId },
         { sort: { uploadedAt: -1 } },
-      );
+      ).each();
     } else {
       return Attachments.find(
-        { cardId: this._id },
+        { 'meta.cardId': this._id },
         { sort: { uploadedAt: -1 } },
-      );
+      ).each();
     }
   },
 
@@ -753,7 +753,7 @@ Cards.helpers({
     const cover = Attachments.findOne(this.coverId);
     // if we return a cover before it is fully stored, we will get errors when we try to display it
     // todo XXX we could return a default "upload pending" image in the meantime?
-    return cover && cover.url() && cover;
+    return cover && cover.link() && cover;
   },
 
   checklists() {

@@ -422,46 +422,34 @@ export class TrelloCreator {
       }
       const attachments = this.attachments[card.id];
       const trelloCoverId = card.idAttachmentCover;
-      if (attachments) {
-        const links = [];
+      if (attachments && Meteor.isServer) {
         attachments.forEach(att => {
-          // if the attachment `name` and `url` are the same, then the
-          // attachment is an attached link
-          if (att.name === att.url) {
-            links.push(att.url);
-          } else {
-            const file = new FS.File();
-            // Simulating file.attachData on the client generates multiple errors
-            // - HEAD returns null, which causes exception down the line
-            // - the template then tries to display the url to the attachment which causes other errors
-            // so we make it server only, and let UI catch up once it is done, forget about latency comp.
-            const self = this;
-            if (Meteor.isServer) {
-              file.attachData(att.url, function(error) {
-                file.boardId = boardId;
-                file.cardId = cardId;
-                file.userId = self._user(att.idMemberCreator);
-                // The field source will only be used to prevent adding
-                // attachments' related activities automatically
-                file.source = 'import';
-                if (error) {
-                  throw error;
-                } else {
-                  const wekanAtt = Attachments.insert(file, () => {
-                    // we do nothing
-                  });
-                  self.attachmentIds[att.id] = wekanAtt._id;
-                  //
-                  if (trelloCoverId === att.id) {
-                    Cards.direct.update(cardId, {
-                      $set: { coverId: wekanAtt._id },
-                    });
-                  }
-                }
+          const self = this;
+          const opts = {
+            type: att.type ? att.type : undefined,
+            userId: self._user(att.userId),
+            meta: {
+              boardId,
+              cardId,
+              source: 'import',
+            },
+          };
+          const cb = (error, fileObj) => {
+            if (error) {
+              throw error;
+            }
+            self.attachmentIds[att._id] = fileObj._id;
+            if (trelloCoverId === att._id) {
+              Cards.direct.update(cardId, {
+                $set: { coverId: fileObj._id },
               });
             }
+          };
+          if (att.url) {
+            Attachment.load(att.url, opts, cb, true);
+          } else if (att.file) {
+            Attachment.write(att.file, opts, cb, true);
           }
-          // todo XXX set cover - if need be
         });
 
         if (links.length) {

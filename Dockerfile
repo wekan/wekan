@@ -31,7 +31,6 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
     RICHER_CARD_COMMENT_EDITOR=false \
     CARD_OPENED_WEBHOOK_ENABLED=false \
-    ATTACHMENTS_STORE_PATH="" \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
     NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE="" \
@@ -290,9 +289,7 @@ RUN \
     chmod u+w *.json && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
-    #cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
-    #chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
     #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
     #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c

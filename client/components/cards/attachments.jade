@@ -11,9 +11,6 @@ template(name="previewClipboardImagePopup")
   img.preview-clipboard-image()
   button.primary.js-upload-pasted-image {{_ 'upload'}}
 
-template(name="previewAttachedImagePopup")
-  img.preview-large-image.js-large-image-clicked(src="{{url}}")
-
 template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
@@ -22,31 +19,31 @@ template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{url}}" title="{{name}}")
+        a.attachment-thumbnail.swipebox(href="{{link}}" title="{{name}}")
           if isUploaded
             if isImage
-              img.attachment-thumbnail-img(src="{{url}}")
+              img.attachment-thumbnail-img(src="{{link}}")
             else if($eq extension 'mp3')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="audio/mpeg")
+                  source(src="{{link}}" type="audio/mpeg")
             else if($eq extension 'ogg')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="video/ogg")
+                  source(src="{{link}}" type="video/ogg")
             else if($eq extension 'webm')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="video/webm")
+                  source(src="{{link}}" type="video/webm")
             else if($eq extension 'mp4')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="video/mp4")
+                  source(src="{{link}}" type="video/mp4")
             else
               span.attachment-thumbnail-ext= extension
           else
-            +spinner
+            span.attachment-thumbnail-ext= extension
         p.attachment-details
           = name
           span.file-size ({{fileSize size}} KB)
           span.attachment-details-actions
-            a.js-download(href="{{url download=true}}")
+            a.js-download(href="{{link}}?download=true", download="{{name}}")
               i.fa.fa-download
               | {{_ 'download'}}
             if currentUser.isBoardMember

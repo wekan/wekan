@@ -17,7 +17,7 @@ es5-shim@4.8.0
 
 # Collections
 aldeed:collection2
-wekan-cfs-standard-packages
+cfs:standard-packages
 cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
@@ -73,8 +73,8 @@ email@2.0.0
 horka:swipebox
 dynamic-import@0.6.0
 
-accounts-password@1.7.0
-wekan-cfs-gridfs
+accounts-password@1.6.2
+cfs:gridfs
 rzymek:fullcalendar
 momentjs:moment@2.22.2
 browser-policy-framing@1.1.0
@@ -89,7 +89,10 @@ meteorhacks:aggregate@1.3.0
 wekan-markdown
 konecty:mongo-counter
 percolate:synced-cron
-wekan-cfs-filesystem
+cfs:filesystem
+ostrio:cookies
+ostrio:files@2.0.1
+tmeasday:check-npm-versions
 steffo:meteor-accounts-saml
 rajit:bootstrap3-datepicker-fi
 rajit:bootstrap3-datepicker-ar

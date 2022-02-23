@@ -162,33 +162,21 @@ Utils = {
       })
     );
   },
+  getCommonAttachmentMetaFrom(card) {
+    const meta = {};
+    if (card.isLinkedCard()) {
+      meta.boardId = Cards.findOne(card.linkedId).boardId;
+      meta.cardId = card.linkedId;
+    } else {
+      meta.boardId = card.boardId;
+      meta.swimlaneId = card.swimlaneId;
+      meta.listId = card.listId;
+      meta.cardId = card._id;
+    }
+    return meta;
+  },
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
-  processUploadedAttachment(card, fileObj, callback) {
-    const next = attachment => {
-      if (typeof callback === 'function') {
-        callback(attachment);
-      }
-    };
-    if (!card) {
-      return next();
-    }
-    const file = new FS.File(fileObj);
-    if (card.isLinkedCard()) {
-      file.boardId = Cards.findOne(card.linkedId).boardId;
-      file.cardId = card.linkedId;
-    } else {
-      file.boardId = card.boardId;
-      file.swimlaneId = card.swimlaneId;
-      file.listId = card.listId;
-      file.cardId = card._id;
-    }
-    file.userId = Meteor.userId();
-    if (file.original) {
-      file.original.name = fileObj.name;
-    }
-    return next(Attachments.insert(file));
-  },
   shrinkImage(options) {
     // shrink image to certain size
     const dataurl = options.dataurl,
