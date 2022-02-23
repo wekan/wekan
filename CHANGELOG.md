@@ -8,6 +8,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Card details, fix header while scrolling](https://github.com/wekan/wekan/pull/4358).
   Thanks to mfilser.
+- [Add subscription to announcements, so that system wide announcements are shown to all](https://github.com/wekan/wekan/pull/4375).
+  Thanks to pablo-ng.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
