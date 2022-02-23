@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Global search: Card Details popup opens now in normal view even if maximized card is configured](https://github.com/wekan/wekan/pull/4352).
   Thanks to mfilser.
+- [Card details, fix header while scrolling](https://github.com/wekan/wekan/pull/4358).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
