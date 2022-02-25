@@ -2,7 +2,14 @@
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Feature/shortcuts for label assignment](https://github.com/wekan/wekan/pull/4377).
+  Thanks to Viehlieb.
+- [Feature/propagate OIDC data](https://github.com/wekan/wekan/pull/4379).
+  Thanks to Viehlieb.
+
+and fixes the following bugs:
 
 - [Global search: Card Details popup opens now in normal view even if maximized card is configured](https://github.com/wekan/wekan/pull/4352).
   Thanks to mfilser.
