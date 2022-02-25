@@ -610,6 +610,7 @@
   "people": "People",
   "registration": "Registration",
   "disable-self-registration": "Disable Self-Registration",
+  "disable-forgot-password": "Disable Forgot Password",
   "invite": "Invite",
   "invite-people": "Invite People",
   "to-boards": "To board(s)",

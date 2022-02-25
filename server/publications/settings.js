@@ -10,6 +10,7 @@ Meteor.publish('setting', () => {
     {
       fields: {
         disableRegistration: 1,
+        disableForgotPassword: 1,
         productName: 1,
         hideLogo: 1,
         customLoginLogoImageUrl: 1,
