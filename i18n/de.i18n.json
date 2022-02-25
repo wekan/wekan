@@ -571,6 +571,8 @@
     "has-spenttime-cards": "Hat Karten mit aufgewendeten Zeiten",
     "time": "Zeit",
     "title": "Titel",
+    "toggle-labels": "Label 1-9 für Karte Toggeln. \"Multiselect\": Label 1-9 hinzufügen",
+    "remove-labels-multiselect": "\"Multiselect\" Label 1-9 entfernen",
     "tracking": "Folgen",
     "tracking-info": "Sie werden über alle Änderungen an Karten benachrichtigt, an denen Sie als Ersteller oder Mitglied beteiligt sind.",
     "type": "Typ",
