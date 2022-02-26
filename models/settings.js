@@ -11,9 +11,13 @@ Settings.attachSchema(
   new SimpleSchema({
     disableRegistration: {
       type: Boolean,
+      optional: true,
+      defaultValue: false,
     },
     disableForgotPassword: {
       type: Boolean,
+      optional: true,
+      defaultValue: false,
     },
     'mailServer.username': {
       type: String,
