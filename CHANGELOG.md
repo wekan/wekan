@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# v6.07 2022-02-26 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix Forgot Password to be optional](https://github.com/wekan/wekan/commit/9bd68794555009f5eabad269ed642efa4e3010f1).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.06 2022-02-26 WeKan ® release
 
 This release adds the following new features:
