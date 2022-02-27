@@ -442,25 +442,21 @@ if (Meteor.isServer) {
       }
     },
 
-    getDisableRegistration() {
+    isDisableRegistration() {
       const setting = Settings.findOne({});
-      if (!setting.disableRegistration) {
-        return false;
+      if (setting.disableRegistration === 'true') {
+        return true;
       } else {
-        return {
-          disableRegistration: `${setting.disableRegistration}`,
-        };
+        return false;
       }
     },
 
-   getDisableForgotPassword() {
+   isDisableForgotPassword() {
       const setting = Settings.findOne({});
-      if (!setting.disableForgotPassword) {
-        return false;
+      if (setting.disableForgotPassword === 'true') {
+        return true;
       } else {
-        return {
-          disableForgotPassword: `${setting.disableForgotPassword}`,
-        };
+        return false;
       }
     },
 

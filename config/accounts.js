@@ -1,19 +1,19 @@
 const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
-let disableRegistration = true;
-let disableForgotPassword = true;
+let disableRegistration = false;
+let disableForgotPassword = false;
 
-Meteor.call('getDisableRegistration', (err, data) => {
+Meteor.call('isDisableRegistration', (err, data) => {
   if (!err) {
     disableRegistration = data;
-    //console.log(data);
+    console.log(data);
   }
 });
 
-Meteor.call('getDisableForgotPassword', (err, data) => {
+Meteor.call('isDisableForgotPassword', (err, data) => {
   if (!err) {
     disableForgotPassword = data;
-    //console.log(data);
+    console.log(data);
   }
 });
 
@@ -43,8 +43,8 @@ AccountsTemplates.configure({
   confirmPassword: true,
   enablePasswordChange: true,
   sendVerificationEmail: true,
-  showForgotPasswordLink: !disableForgotPassword,
-  forbidClientAccountCreation: disableRegistration,
+  showForgotPasswordLink: disableForgotPassword === false,
+  forbidClientAccountCreation: disableRegistration === true,
   onLogoutHook() {
     const homePage = 'home';
     if (FlowRouter.getRouteName() === homePage) {
@@ -55,14 +55,14 @@ AccountsTemplates.configure({
   },
 });
 
-if (!disableForgotPassword) {
+if (disableForgotPassword === false) {
   [
     'forgotPwd',
     'resetPwd',
   ].forEach(routeName => AccountsTemplates.configureRoute(routeName));
 }
 
-if (!disableRegistration) {
+if (disableRegistration === false) {
   [
     'signUp',
   ].forEach(routeName => AccountsTemplates.configureRoute(routeName));
