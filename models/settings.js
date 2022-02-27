@@ -444,7 +444,7 @@ if (Meteor.isServer) {
 
     isDisableRegistration() {
       const setting = Settings.findOne({});
-      if (setting.disableRegistration === 'true') {
+      if (setting.disableRegistration === true) {
         return true;
       } else {
         return false;
@@ -453,7 +453,7 @@ if (Meteor.isServer) {
 
    isDisableForgotPassword() {
       const setting = Settings.findOne({});
-      if (setting.disableForgotPassword === 'true') {
+      if (setting.disableForgotPassword === true) {
         return true;
       } else {
         return false;

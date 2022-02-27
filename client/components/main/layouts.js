@@ -56,15 +56,16 @@ Template.userFormsLayout.onCreated(function() {
 
   Meteor.call('isDisableRegistration', (_, result) => {
     if (result) {
-      $('.at-signUp').hide();
+      $('.at-signup-link').hide();
     }
   });
 
-  Meteor.call('isDisableForgotPassword', (_, data) => {
+  Meteor.call('isDisableForgotPassword', (_, result) => {
     if (result) {
-      $('.at-forgotPwd').hide();
+      $('.at-pwd-link').hide();
     }
   });
+
 });
 
 Template.userFormsLayout.onRendered(() => {
