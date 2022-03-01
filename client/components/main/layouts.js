@@ -53,6 +53,19 @@ Template.userFormsLayout.onCreated(function() {
       $('.at-pwd-form').hide();
     }
   });
+
+  Meteor.call('isDisableRegistration', (_, result) => {
+    if (result) {
+      $('.at-signup-link').hide();
+    }
+  });
+
+  Meteor.call('isDisableForgotPassword', (_, result) => {
+    if (result) {
+      $('.at-pwd-link').hide();
+    }
+  });
+
 });
 
 Template.userFormsLayout.onRendered(() => {

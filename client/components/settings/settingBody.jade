@@ -64,6 +64,11 @@ template(name="webhookSettings")
 template(name="general")
   ul#registration-setting.setting-detail
     li
+      a.flex.js-toggle-forgot-password
+        .materialCheckBox(class="{{#if currentSetting.disableForgotPassword}}is-checked{{/if}}")
+
+        span {{_ 'disable-forgot-password'}}
+    li
       a.flex.js-toggle-registration
         .materialCheckBox(class="{{#if currentSetting.disableRegistration}}is-checked{{/if}}")
 

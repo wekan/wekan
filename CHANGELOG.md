@@ -1,8 +1,42 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v6.09 2022-02-28 WeKan ® release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Admin Panel / Disable Registration and Disable Forgot Password](https://github.com/wekan/wekan/commit/0775e2a3e5c5d98e4d8c1954a15beb0688c73075).
+  Thanks to urmel1960, Ben0it-T and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.08 2022-02-27 WeKan ® release
+
+This release tries to fix the following bugs:
+
+- [Try to allow register and login](https://github.com/wekan/wekan/commit/3076547cee3a5fabe8df106ddbbd6ce1e6c91a8b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.07 2022-02-26 WeKan ® release
 
 This release fixes the following bugs:
+
+- [Fix Forgot Password to be optional](https://github.com/wekan/wekan/commit/9bd68794555009f5eabad269ed642efa4e3010f1).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.06 2022-02-26 WeKan ® release
+
+This release adds the following new features:
+
+- [Feature/shortcuts for label assignment](https://github.com/wekan/wekan/pull/4377).
+  Thanks to Viehlieb.
+- [Feature/propagate OIDC data](https://github.com/wekan/wekan/pull/4379).
+  Thanks to Viehlieb.
+
+and fixes the following bugs:
 
 - [Global search: Card Details popup opens now in normal view even if maximized card is configured](https://github.com/wekan/wekan/pull/4352).
   Thanks to mfilser.
@@ -10,6 +44,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Add subscription to announcements, so that system wide announcements are shown to all](https://github.com/wekan/wekan/pull/4375).
   Thanks to pablo-ng.
+- [Fixed Disable Self-Registration. Added Disable Forgot Password to same Admin Panel page](https://github.com/wekan/wekan/commit/b85db43c4755cf54e550f664311cd95097d68ae1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

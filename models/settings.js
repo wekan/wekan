@@ -11,6 +11,13 @@ Settings.attachSchema(
   new SimpleSchema({
     disableRegistration: {
       type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    disableForgotPassword: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
     },
     'mailServer.username': {
       type: String,
@@ -432,6 +439,24 @@ if (Meteor.isServer) {
         return {
           productName: `${setting.productName}`,
         };
+      }
+    },
+
+    isDisableRegistration() {
+      const setting = Settings.findOne({});
+      if (setting.disableRegistration === true) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+   isDisableForgotPassword() {
+      const setting = Settings.findOne({});
+      if (setting.disableForgotPassword === true) {
+        return true;
+      } else {
+        return false;
       }
     },
 
