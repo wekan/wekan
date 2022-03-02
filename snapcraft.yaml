@@ -172,7 +172,7 @@ parts:
         #source-type: tar
         # Using last working binary that was downloaded from above URL to Wekan Snap,
         # and .txt files from https://github.com/caddyserver/caddy/tree/v1/dist
-        source: https://releases.wekan.team/caddy/caddy-v1-linux-amd64.7z
+        source: https://wekan.github.io/caddy-v1-linux-amd64.7z
         source-type: 7z
         organize:
           caddy: bin/caddy
