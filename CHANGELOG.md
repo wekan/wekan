@@ -8,10 +8,17 @@ This release adds the following new features:
   Thanks to imajus, mfilser and xet7.
 - [Added Meteor-Files WRITEABLE_PATH for Sandstorm, Snap and Source](https://github.com/wekan/wekan/commit/cc0658a225ef35a6153feab2ad0c0eb40ad66eeb).
   Thanks to xet7.
-- [Updated to Node.js v14.19.0](https://github.com/wekan/wekan/commit/492997922129f4076c61c1bd8822851d39ce3f11).
-  Thanks to Node.js developers.
+- [Added WRITABLE_PATH to be usable when developing with meteor command, and to torodb](https://github.com/wekan/wekan/commit/e0d8ddf0034a6d2a7f259a71544ec4c57d23f0c5).
+  Thanks to xet7.
 - [Enabled building Sandstorm WeKan, now that file uploading with Meteor-Files works](https://github.com/wekan/wekan/commit/dc99218e4ecb766e7947f8a0298236dead140b9f).
   Thanks to imajus, mfilser and xet7.
+
+and adds the following updates:
+
+- [Updated to Node.js v14.19.0](https://github.com/wekan/wekan/commit/492997922129f4076c61c1bd8822851d39ce3f11).
+  Thanks to Node.js developers.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/1a7a41698c1a5180e5ffa7d6b84820e05864ac77).
+  Thanks to developers of dependencies.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
