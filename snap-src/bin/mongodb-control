@@ -26,9 +26,11 @@ fi
 
 # Not in use. If uploads directory does not exist, create it.
 # Wekan will store attachments there.
-#if [ ! -d "$SNAP_COMMON/uploads" ]; then
-#   mkdir "$SNAP_COMMON/uploads"
-#fi
+if [ ! -d "$SNAP_COMMON/wekan-uploads" ]; then
+   mkdir "$SNAP_COMMON/wekan-uploads"
+fi
+
+export WRITABLE_PATH=$SNAP_COMMON/wekan-uploads
 
 # Alternative: When starting MongoDB, and using logfile, truncate log to last 1000 lines of text.
 # 1) If file exists:
