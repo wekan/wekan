@@ -154,6 +154,7 @@ services:
       # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
       - 80:8080
     environment:
+      - WRITABLE_PATH=/data
       - MONGO_URL=mongodb://mongodb:27017/wekan
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
