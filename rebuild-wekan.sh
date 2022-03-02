@@ -23,7 +23,7 @@ do
 			echo "Linux";
 			# Debian, Ubuntu, Mint
 			sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp
-			#curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+			#curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 			#sudo apt-get install -y npm
 			# Volta Node and NPM install manager, made with Rust https://volta.sh
@@ -31,7 +31,7 @@ do
 			curl https://get.volta.sh | bash
 			export VOLTA_HOME="$HOME/.volta"
 			export PATH="$VOLTA_HOME/bin:$PATH"
-			volta install node@12
+			volta install node@14
 			# npm nodejs
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
@@ -48,7 +48,7 @@ do
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
-			pause '1) Install XCode 2) Install Node 12.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
+			pause '1) Install XCode 2) Install Node 14.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
 		        # POSIX compatibility layer and Linux environment emulation for Windows
 		        echo "TODO: Add Cygwin";
