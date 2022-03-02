@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release tries to fix the following bugs:
+This release adds the following updates:
+
+- [Updated In Progress future Snap configs](https://github.com/wekan/wekan/commit/dc6bc9ed54e46ad2ba55fb1dd73f41c0432a7b8f).
+  Thanks to xet7.
+
+and tries to fix the following bugs:
 
 - [Try to fix Snap](https://github.com/wekan/wekan/commit/e5cfcc84faea551ea49b588348ade44b027718ce).
   Thanks to xet7.
