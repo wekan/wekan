@@ -246,6 +246,7 @@ const myCommand :Spk.Manifest.Command = (
     #---------------------------------------------------------------------
     (key = "NODE_OPTIONS", value = "--max_old_space_size=4096"),
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
+    (key = "WRITABLE_PATH", value = "/var/wekan-uploads"),
     (key = "RESULTS_PER_PAGE", value = ""),
     (key = "WITH_API", value = "true"),
     (key = "RICHER_CARD_COMMENT_EDITOR", value="false"),
