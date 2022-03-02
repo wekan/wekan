@@ -1,5 +1,20 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Switch from CollectionFS to Meteor-Files](https://github.com/wekan/wekan/pull/4336).
+  Thanks to imajus, mfilser and xet7.
+- [Added Meteor-Files WRITEABLE_PATH for Sandstorm, Snap and Source](https://github.com/wekan/wekan/commit/cc0658a225ef35a6153feab2ad0c0eb40ad66eeb).
+  Thanks to xet7.
+- [Updated to Node.js v14.19.0](https://github.com/wekan/wekan/commit/492997922129f4076c61c1bd8822851d39ce3f11).
+  Thanks to Node.js developers.
+- [Enabled building Sandstorm WeKan, now that file uploading with Meteor-Files works](https://github.com/wekan/wekan/commit/dc99218e4ecb766e7947f8a0298236dead140b9f).
+  Thanks to imajus, mfilser and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.09 2022-02-28 WeKan ® release
 
 This release tries to fix the following bugs:
