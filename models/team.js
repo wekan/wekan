@@ -141,7 +141,31 @@ if (Meteor.isServer) {
         }
       }
     },
-
+    setCreateTeamFromOidc(
+      teamDisplayName,
+      teamDesc,
+      teamShortName,
+      teamWebsite,
+      teamIsActive,
+    ) {
+      check(teamDisplayName, String);
+      check(teamDesc, String);
+      check(teamShortName, String);
+      check(teamWebsite, String);
+      check(teamIsActive, Boolean);
+      const nTeamNames = Team.find({ teamShortName }).count();
+      if (nTeamNames > 0) {
+        throw new Meteor.Error('teamname-already-taken');
+      } else {
+        Team.insert({
+          teamDisplayName,
+          teamDesc,
+          teamShortName,
+          teamWebsite,
+          teamIsActive,
+        });
+      }
+    },
     setTeamDisplayName(team, teamDisplayName) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         check(team, Object);
