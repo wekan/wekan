@@ -36,12 +36,12 @@ See example below:
 
   3. In your group settings in authentik add attributes:
     desc: groupDesc           // default group.name
-    isAdmin: "true"           // default "false"
+    isAdmin:  true            // default false
     website: groupWebsite     // default group.name
-    isActive: "true"          // default "false"
+    isActive: true            // default false
     shortName: groupShortname // default group.name
-    forceCreate: "true"       // default "false"
-    isOrganisation: "true"    // default "false"
+    forceCreate:  true       // default false
+    isOrganisation: true    // default false
 
   4. On next login user will be added to either newly created group/organization or to already existing
 
