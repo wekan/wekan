@@ -1,4 +1,4 @@
-import {addGroups, addEmail,changeFullname, changeUsername} from './loginHandler';
+import {addGroups, addGroupsWithAttributes, addEmail, changeFullname, changeUsername} from './loginHandler';
 
 Oidc = {};
 httpCa = false;
@@ -18,7 +18,6 @@ if (process.env.OAUTH2_CA_CERT !== undefined) {
 OAuth.registerService('oidc', 2, null, function (query) {
 
   var debug = process.env.DEBUG || false;
-  console.log(process.env);
   var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
 
   var token = getToken(query);
@@ -80,16 +79,15 @@ OAuth.registerService('oidc', 2, null, function (query) {
   profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
   if (propagateOidcData)
   {
+
     users= Meteor.users;
     user = users.findOne({'services.oidc.id':  serviceData.id});
     if(user)
     {
-      serviceData.groups = profile.groups
-      profile.groups = userinfo["groups"];
-      if(userinfo["groups"]) addGroups(user, userinfo["groups"]);
-      if(profile.email) addEmail(user, profile.email)
-      if(profile.name) changeFullname(user, profile.name)
-      if(profile.username) changeUsername(user, profile.username)
+      (!userinfo?.["wekanGroups"]?.length) ? addGroups(user, userinfo["groups"]): addGroupsWithAttributes(user, userinfo["wekanGroups"]);
+      if(profile.email) addEmail(user, profile.email);
+      if(profile.name) changeFullname(user, profile.name);
+      if(profile.username) changeUsername(user, profile.username);
     }
   }
   if (debug) console.log('XXX: profile:', profile);
