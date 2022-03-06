@@ -9,6 +9,11 @@ This release adds the following new features:
 - [Add linkedBoard Activities to sidebar](https://github.com/wekan/wekan/pull/4396).
   Thanks to Ben0it-T.
 
+and fixes the following bugs:
+
+- [Fix Boards.uniqueTitle not working as expected](https://github.com/wekan/wekan/pull/4401).
+  Thanks to Ben0it-T.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.11 2022-03-03 WeKan ® release
