@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Feature/empower sso oicd data propagation](https://github.com/wekan/wekan/pull/4392).
+  Thanks to Viehlieb.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.11 2022-03-03 WeKan ® release
 
 This release adds the following updates:
