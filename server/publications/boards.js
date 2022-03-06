@@ -270,7 +270,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
           checklists.push(cardId);
           checklistItems.push(cardId);
           parentCards.push(cardId);
-          cardCommentReactions.push(cardId)
+          cardCommentReactions.push(cardId);
         },
       );
 

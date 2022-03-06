@@ -773,7 +773,15 @@ Boards.helpers({
   },
 
   activities() {
-    return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
+    let linkedBoardId = [this._id];
+    Cards.find({
+      "type": "cardType-linkedBoard",
+      "boardId": this._id}
+      ).forEach(card => {
+        linkedBoardId.push(card.linkedId);
+    });
+    return Activities.find({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
+    //return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
   },
 
   activeMembers(){
