@@ -1470,11 +1470,11 @@ Boards.uniqueTitle = title => {
     },
   );
 
-  if (num > 0) {
-    return `${base} [${num + 1}]`;
-  }
-
-  return title;
+  return `${m.groups.title} [${num + 1}]`;
+  //if (num > 0) {
+  //  return `${base} [${num + 1}]`;
+  //}
+  //return title;
 };
 
 Boards.userSearch = (
