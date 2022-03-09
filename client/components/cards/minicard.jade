@@ -127,10 +127,10 @@ template(name="minicard")
           span.badge-icon.fa.fa-check(class="{{#if pokerState}}text-green{{/if}}")
           if expiredPoker
             span.badge-text {{ getPokerEstimation }}
-      if attachments.count
+      if attachments.length
         .badge
           span.badge-icon.fa.fa-paperclip
-          span.badge-text= attachments.count
+          span.badge-text= attachments.length
       if checklists.count
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
