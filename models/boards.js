@@ -1465,24 +1465,24 @@ Boards.uniqueTitle = title => {
     new RegExp('^(?<title>.*?)\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)'),
   );
   const base = escapeForRegex(m.groups.title);
-  let num = 0;
-  Boards.find({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
-    board => {
-      const m = board.title.match(
-        new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
-      );
-      if (m) {
-        const n = parseInt(m.groups.num, 10);
-        num = num < n ? n : num;
-      }
-    },
-  );
-
-  return `${m.groups.title} [${num + 1}]`;
-  //if (num > 0) {
-  //  return `${base} [${num + 1}]`;
-  //}
-  //return title;
+  const baseTitle = m.groups.title;
+  boards = Boards.find({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
+  if (boards.count() > 0) {
+    let num = 0;
+    Boards.find({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
+      board => {
+        const m = board.title.match(
+          new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
+        );
+        if (m) {
+          const n = parseInt(m.groups.num, 10);
+          num = num < n ? n : num;
+        }
+      },
+    );
+    return `${baseTitle} [${num + 1}]`;
+  }
+  return title;
 };
 
 Boards.userSearch = (
