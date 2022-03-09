@@ -11,7 +11,9 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-- [Fix Boards.uniqueTitle not working as expected](https://github.com/wekan/wekan/pull/4401).
+- Fix Boards.uniqueTitle not working as expected.
+  [Part 1](https://github.com/wekan/wekan/pull/4401),
+  [Part 2](https://github.com/wekan/wekan/pull/4402).
   Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
