@@ -83,7 +83,7 @@ if (Meteor.isServer) {
   });
 
   Meteor.startup(() => {
-    Attachments.collection._ensureIndex({ cardId: 1 });
+    Attachments.collection._ensureIndex({ 'meta.cardId': 1 });
     const storagePath = Attachments.storagePath();
     console.log("Meteor.startup check storagePath: ", storagePath);
     if (!fs.existsSync(storagePath)) {

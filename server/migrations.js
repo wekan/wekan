@@ -1276,3 +1276,7 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
     readStream.pipe(writeStream);
   });
 });
+
+Migrations.add('migrate-attachment-drop-index-cardId', () => {
+  Attachments.collection._dropIndex({'cardId': 1});
+});
