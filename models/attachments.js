@@ -85,7 +85,6 @@ if (Meteor.isServer) {
   Meteor.startup(() => {
     Attachments.collection._ensureIndex({ 'meta.cardId': 1 });
     const storagePath = Attachments.storagePath();
-    console.log("Meteor.startup check storagePath: ", storagePath);
     if (!fs.existsSync(storagePath)) {
       console.log("create storagePath because it doesn't exist: " + storagePath);
       fs.mkdirSync(storagePath, { recursive: true });
