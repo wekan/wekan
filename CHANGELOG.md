@@ -4,7 +4,9 @@
 
 This release adds the following new features:
 
-- [Feature/empower sso oicd data propagation](https://github.com/wekan/wekan/pull/4392).
+- Feature/empower sso oicd data propagation.
+  [Part 1](https://github.com/wekan/wekan/pull/4392),
+  [Part 2](https://github.com/wekan/wekan/pull/4404).
   Thanks to Viehlieb.
 - [Add linkedBoard Activities to sidebar](https://github.com/wekan/wekan/pull/4396).
   Thanks to Ben0it-T.
