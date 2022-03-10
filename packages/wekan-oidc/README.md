@@ -46,3 +46,7 @@ See example below:
   4. On next login user will be added to either newly created group/organization or to already existing
 
   NOTE: orgs & teams won't be updated if they already exist.
+
+  5. Manages admin rights as well. If user is in Group which has isAdmin: set to true, user will get admin 
+     privileges in Wekan as well. 
+     If no adjustments (e.g. 1-3) are made on oidc provider's side, user will receive his/her admin rights from before.
