@@ -209,7 +209,31 @@ if (Meteor.isServer) {
         });
       }
     },
-
+    setOrgAllFieldsFromOidc(
+      org,
+      orgDisplayName,
+      orgDesc,
+      orgShortName,
+      orgWebsite,
+      orgIsActive,
+    ) {
+      check(org, Object);
+      check(orgDisplayName, String);
+      check(orgDesc, String);
+      check(orgShortName, String);
+      check(orgWebsite, String);
+      check(orgIsActive, Boolean);
+      Org.update(org, {
+        $set: {
+          orgDisplayName: orgDisplayName,
+          orgDesc: orgDesc,
+          orgShortName: orgShortName,
+          orgWebsite: orgWebsite,
+          orgIsActive: orgIsActive,
+        },
+      });
+      Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
+    },
     setOrgAllFields(
       org,
       orgDisplayName,
