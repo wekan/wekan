@@ -20,7 +20,7 @@ template(name="attachmentsGalery")
     each attachments
       .attachment-item
         a.attachment-thumbnail.swipebox(href="{{link}}" title="{{name}}")
-          if isUploaded
+          if link
             if isImage
               img.attachment-thumbnail-img(src="{{link}}")
             else if($eq extension 'mp3')
@@ -38,7 +38,7 @@ template(name="attachmentsGalery")
             else
               span.attachment-thumbnail-ext= extension
           else
-            span.attachment-thumbnail-ext= extension
+            +spinner
         p.attachment-details
           = name
           span.file-size ({{fileSize size}} KB)
