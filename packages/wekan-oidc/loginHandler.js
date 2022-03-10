@@ -13,6 +13,18 @@ function createObject(initArr, objString)
     initArr[4]//xxxisActive
     );
 }
+function updateObject(initArr, objString)
+{
+  functionName = objString === "Org" ? 'setOrgAllFieldsFromOidc' : 'setTeamAllFieldsFromOidc';
+  return Meteor.call(functionName,
+    initArr[0],//team || org Object
+    initArr[1],//displayName
+    initArr[2],//desc
+    initArr[3],//shortName
+    initArr[4],//website
+    initArr[5]//xxxisActive
+    );
+}
 //checks whether obj is in collection of userObjs
 //params
 //e.g. userObjs = user.teams
@@ -22,7 +34,7 @@ function contains(userObjs, obj, collection)
 {
   id = collection+'Id';
 
-  if(!userObjs.length)
+  if(typeof userObjs == "undefined" || !userObjs.length)
   {
     return false;
   }
@@ -36,30 +48,6 @@ function contains(userObjs, obj, collection)
   return false;
 }
 module.exports = {
-  // Soft version of adding teams to user via Oidc
-  // teams won't be created if nonexistent
-  // groups are treated as teams in the general case
-  addGroups: function (user, groups){
-  teamArray=[];
-  teams = user.teams;
-  orgArray=[];
-  for (group of groups){
-    team = Team.findOne({"teamDisplayName": group});
-    if(team)
-    {
-      if (contains(teams,team,"team"))
-      {
-        continue;
-      }
-      else
-      {
-        teamArray.push({'teamId': Team.findOne({'teamDisplayName': group})._id, 'teamDisplayName': group});
-      }
-    }
-  }
-  teams = {'teams': { '$each': teamArray}};
-  users.update({ _id: user._id }, { $push:  teams});
-},
 
 // This function adds groups as organizations or teams to users and
 // creates them if not already existing
@@ -72,12 +60,20 @@ module.exports = {
 addGroupsWithAttributes: function (user, groups){
   teamArray=[];
   orgArray=[];
+  isAdmin = [];
   teams = user.teams;
   orgs = user.orgs;
   for (group of groups)
   {
+    initAttributes = [
+      group.displayName,
+      group.desc || group.displayName,
+      group.shortName ||group.displayName,
+      group.website || group.displayName, group.isActive || false];
+
     isOrg = group.isOrganisation || false;
     forceCreate = group.forceCreate|| false;
+    isAdmin.push(group.isAdmin || false);
     if (isOrg)
     {
       org = Org.findOne({"orgDisplayName": group.displayName});
@@ -85,16 +81,13 @@ addGroupsWithAttributes: function (user, groups){
       {
         if(contains(orgs, org, "org"))
         {
+          initAttributes.unshift(org);
+          updateObject(initAttributes, "Org");
           continue;
         }
       }
       else if(forceCreate)
       {
-        initAttributes = [
-          group.displayName,
-          group.desc || group.displayName,
-          group.shortName ||group.displayName,
-          group.website || group.displayName, group.isActive || false]
         createObject(initAttributes, "Org");
         org = Org.findOne({'orgDisplayName': group.displayName});
       }
@@ -114,17 +107,13 @@ addGroupsWithAttributes: function (user, groups){
       {
         if(contains(teams, team, "team"))
         {
+          initAttributes.unshift(team);
+          updateObject(initAttributes, "Team");
           continue;
         }
       }
       else if(forceCreate)
       {
-        initAttributes = [
-          group.displayName,
-          group.desc || group.displayName,
-          group.shortName ||group.displayName,
-          group.website || group.displayName,
-          group.isActive || false]
         createObject(initAttributes, "Team");
         team = Team.findOne({'teamDisplayName': group.displayName});
       }
@@ -135,16 +124,19 @@ addGroupsWithAttributes: function (user, groups){
       teamHash = {'teamId': team._id, 'teamDisplayName': group.displayName};
       teamArray.push(teamHash);
     }
-    // user is assigned to group which has set isAdmin: true in oidc data
-    // hence user will get admin privileges in wekan
-    if(group.isAdmin){
-      users.update({ _id: user._id }, { $set:  {isAdmin: true}});
-    }
   }
+  // user is assigned to team/org which has set isAdmin: true in oidc data
+  // hence user will get admin privileges in wekan
+  // E.g. Admin rights will be withdrawn if no group in oidc provider has isAdmin set to true
+
+  users.update({ _id: user._id }, { $set:  {isAdmin: isAdmin.some(i => (i === true))}});
   teams = {'teams': {'$each': teamArray}};
   orgs = {'orgs': {'$each': orgArray}};
   users.update({ _id: user._id }, { $push:  teams});
   users.update({ _id: user._id }, { $push:  orgs});
+  // remove temporary oidc data from user collection
+  users.update({ _id: user._id }, { $unset:  {"services.oidc.groups": []}});
+
   return;
 },
 

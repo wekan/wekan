@@ -206,7 +206,31 @@ if (Meteor.isServer) {
         });
       }
     },
-
+    setTeamAllFieldsFromOidc(
+      team,
+      teamDisplayName,
+      teamDesc,
+      teamShortName,
+      teamWebsite,
+      teamIsActive,
+    ) {
+        check(team, Object);
+        check(teamDisplayName, String);
+        check(teamDesc, String);
+        check(teamShortName, String);
+        check(teamWebsite, String);
+        check(teamIsActive, Boolean);
+        Team.update(team, {
+          $set: {
+            teamDisplayName: teamDisplayName,
+            teamDesc: teamDesc,
+            teamShortName: teamShortName,
+            teamWebsite: teamWebsite,
+            teamIsActive: teamIsActive,
+          },
+        });
+        Meteor.call('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
+      },
     setTeamAllFields(
       team,
       teamDisplayName,
