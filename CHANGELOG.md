@@ -17,6 +17,8 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/pull/4401),
   [Part 2](https://github.com/wekan/wekan/pull/4402).
   Thanks to Ben0it-T.
+- [Attachments fixes after migration to meteor files (image preview, global search)](https://github.com/wekan/wekan/pull/4405).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
