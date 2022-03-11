@@ -10,6 +10,10 @@ This release adds the following new features:
   Thanks to Viehlieb.
 - [Add linkedBoard Activities to sidebar](https://github.com/wekan/wekan/pull/4396).
   Thanks to Ben0it-T.
+- [Added Snap WRITABLE_PATH](https://github.com/wekan/wekan/commit/9f807c59d76b08476b79b0173c2c3a59248fa65b).
+  Thanks to xet7.
+- [Docs for Snap WRITABLE_PATH](https://github.com/wekan/wekan/commit/01a91f3a36747311fb69123124254db13156e4da).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
