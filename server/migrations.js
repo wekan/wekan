@@ -1278,5 +1278,8 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
 });
 
 Migrations.add('migrate-attachment-drop-index-cardId', () => {
-  Attachments.collection._dropIndex({'cardId': 1});
+  try {
+    Attachments.collection._dropIndex({'cardId': 1});
+  } catch (error) {
+  }
 });
