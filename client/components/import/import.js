@@ -87,8 +87,13 @@ BlazeComponent.extendComponent({
         if (err) {
           this.setError(err.error);
         } else {
+          let title = getSlug(this.importedData.get().title) || 'imported-board';
           Session.set('fromBoard', null);
-          Utils.goBoardId(res);
+          FlowRouter.go('board', {
+            id: res,
+            slug: title,
+          })
+          //Utils.goBoardId(res);
         }
       },
     );
