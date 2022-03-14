@@ -228,6 +228,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
         },
         'click .js-clone-board'(evt) {
+          let title = getSlug(Boards.findOne(this.currentData()._id).title) || 'cloned-board';
           Meteor.call(
             'copyBoard',
             this.currentData()._id,
@@ -242,7 +243,11 @@ BlazeComponent.extendComponent({
               } else {
                 Session.set('fromBoard', null);
                 subManager.subscribe('board', res, false);
-                Utils.goBoardId(res);
+                FlowRouter.go('board', {
+                  id: res,
+                  slug: title,
+                });
+                //Utils.goBoardId(res);
               }
             },
           );
