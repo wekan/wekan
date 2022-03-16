@@ -8,6 +8,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Fix Import Done Button do not redirect](https://github.com/wekan/wekan/pull/4411).
   Thanks to Ben0it-T.
+- [Fix Duplicate board and create board from template doesn't open board](https://github.com/wekan/wekan/pull/4413).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
