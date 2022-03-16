@@ -719,6 +719,10 @@ BlazeComponent.extendComponent({
               (err, data) => {
                 _id = data;
                 subManager.subscribe('board', _id, false);
+                FlowRouter.go('board', {
+                  id: _id,
+                  slug: getSlug(element.title),
+                });
               },
             );
           }
