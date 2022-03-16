@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Attachment migration, try to ignore error on Cloudron on removing old index cardId](https://github.com/wekan/wekan/pull/4408).
   Thanks to mfilser.
+- [Fix Import Done Button do not redirect](https://github.com/wekan/wekan/pull/4411).
+  Thanks to Ben0it-T.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
