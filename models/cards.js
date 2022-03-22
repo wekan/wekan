@@ -3288,6 +3288,72 @@ if (Meteor.isServer) {
     }
   });
 
+/**
+ * @operation get_board_cards_count
+ * @summary Get a cards count to a board
+ *
+ * @param {string} boardId the board ID
+ * @return_type {board_cards_count: integer}
+ */
+JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
+  req,
+  res,
+) {
+  try {
+    const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        board_cards_count: Cards.find({
+          boardId: paramBoardId,
+          archived: false,
+        }).count(),
+      }
+    });
+  } catch (error) {
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: error,
+    });
+  }
+});
+
+/**
+ * @operation get_list_cards_count
+ * @summary Get a cards count to a list
+ *
+ * @param {string} boardId the board ID
+ * @param {string} listId the List ID
+ * @return_type {list_cards_count: integer}
+ */
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards_count', function(
+    req,
+    res,
+  ) {
+    try {
+      const paramBoardId = req.params.boardId;
+      const paramListId = req.params.listId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          list_cards_count: Cards.find({
+            boardId: paramBoardId,
+            listId: paramListId,
+            archived: false,
+          }).count(),
+        }
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+
   /*
    * Note for the JSDoc:
    * 'list' will be interpreted as the path parameter
