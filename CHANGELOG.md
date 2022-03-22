@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [Added Perl scripts for Asana export to WeKan ®](https://github.com/wekan/wekan/commit/376bcbb373d16317060adc2b1154cc20496775cc).
   Thanks to GeekRuthie.
+- [Add get list and board cards count to API](https://github.com/wekan/wekan/pull/4424).
+  Thanks to helioguardabaxo.
 
 and fixes the following bugs:
 
