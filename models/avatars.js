@@ -28,9 +28,22 @@ Avatars = new FilesCollection({
     }
     return 'avatar-too-big';
   },
-  onAfterUpload: createOnAfterUpload(avatarsBucket),
-  interceptDownload: createInterceptDownload(avatarsBucket),
-  onAfterRemove: createOnAfterRemove(avatarsBucket),
+  onAfterUpload(fileObj) {
+    Object.keys(fileObj.versions).forEach(versionName => {
+      createOnAfterUpload(this, avatarsBucket, fileObj, versionName);
+    });
+  },
+  interceptDownload(http, fileObj, versionName) {
+    const ret = createInterceptDownload(this, avatarsBucket, fileObj, http, versionName);
+    return ret;
+  },
+  onAfterRemove(files) {
+    files.forEach(fileObj => {
+      Object.keys(fileObj.versions).forEach(versionName => {
+        createOnAfterRemove(this, avatarsBucket, fileObj, versionName);
+      });
+    });
+  },
 });
 
 function isOwner(userId, doc) {

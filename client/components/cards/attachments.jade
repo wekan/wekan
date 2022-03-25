@@ -72,3 +72,16 @@ template(name="attachmentActionsPopup")
         a.js-confirm-delete
           i.fa.fa-close
           | {{_ 'delete'}}
+        p.attachment-storage
+          | {{versions.original.storage}}
+
+        if $neq versions.original.storage "fs"
+          a.js-move-storage-fs
+            i.fa.fa-arrow-right
+            | {{_ 'attachment-move-storage-fs'}}
+
+        if $neq versions.original.storage "gridfs"
+          if versions.original.storage
+            a.js-move-storage-gridfs
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-gridfs'}}

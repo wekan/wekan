@@ -138,6 +138,14 @@ BlazeComponent.extendComponent({
           Cards.findOne(this.data().meta.cardId).unsetCover();
           Popup.back();
         },
+        'click .js-move-storage-fs'() {
+          Meteor.call('moveToStorage', this.data()._id, "fs");
+          Popup.back();
+        },
+        'click .js-move-storage-gridfs'() {
+          Meteor.call('moveToStorage', this.data()._id, "gridfs");
+          Popup.back();
+        },
       }
     ]
   }

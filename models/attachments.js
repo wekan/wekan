@@ -2,30 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import fs from 'fs';
 import path from 'path';
-import { createBucket } from './lib/grid/createBucket';
-import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
-import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
-import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
-
-let attachmentBucket;
-if (Meteor.isServer) {
-  attachmentBucket = createBucket('attachments');
-}
-
-const insertActivity = (fileObj, activityType) =>
-  Activities.insert({
-    userId: fileObj.userId,
-    type: 'card',
-    activityType,
-    attachmentId: fileObj._id,
-    // this preserves the name so that notifications can be meaningful after
-    // this file is removed
-    attachmentName: fileObj.name,
-    boardId: fileObj.meta.boardId,
-    cardId: fileObj.meta.cardId,
-    listId: fileObj.meta.listId,
-    swimlaneId: fileObj.meta.swimlaneId,
-  });
+import AttachmentStoreStrategy from '/models/lib/attachmentStoreStrategy';
 
 // XXX Enforce a schema for the Attachments FilesCollection
 // see: https://github.com/VeliovGroup/Meteor-Files/wiki/Schema
@@ -40,20 +17,20 @@ Attachments = new FilesCollection({
     }
     return path.normalize(`assets/app/uploads/${this.collectionName}`);
   },
-  onAfterUpload: function onAfterUpload(fileRef) {
-    createOnAfterUpload(attachmentBucket).call(this, fileRef);
-    // If the attachment doesn't have a source field
-    // or its source is different than import
-    if (!fileRef.meta.source || fileRef.meta.source !== 'import') {
-      // Add activity about adding the attachment
-      insertActivity(fileRef, 'addAttachment');
-    }
+  onAfterUpload(fileObj) {
+    Object.keys(fileObj.versions).forEach(versionName => {
+      AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName).onAfterUpload();
+    })
   },
-  interceptDownload: createInterceptDownload(attachmentBucket),
-  onAfterRemove: function onAfterRemove(files) {
-    createOnAfterRemove(attachmentBucket).call(this, files);
+  interceptDownload(http, fileObj, versionName) {
+    const ret = AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName).interceptDownload(http);
+    return ret;
+  },
+  onAfterRemove(files) {
     files.forEach(fileObj => {
-      insertActivity(fileObj, 'deleteAttachment');
+      Object.keys(fileObj.versions).forEach(versionName => {
+        AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName).onAfterRemove();
+      });
     });
   },
   // We authorize the attachment download either:
@@ -80,6 +57,45 @@ if (Meteor.isServer) {
       return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
     },
     fetch: ['meta'],
+  });
+
+  Meteor.methods({
+    moveToStorage(fileObjId, storageDestination) {
+      check(fileObjId, String);
+      check(storageDestination, String);
+
+      const fileObj = Attachments.findOne({_id: fileObjId});
+
+      Object.keys(fileObj.versions).forEach(versionName => {
+        const strategyRead = AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName);
+        const strategyWrite = AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName, storageDestination);
+
+        if (strategyRead.constructor.name != strategyWrite.constructor.name) {
+          const readStream = strategyRead.getReadStream();
+          const writeStream = strategyWrite.getWriteStream();
+
+          writeStream.on('error', error => {
+            console.error('[writeStream error]: ', error, fileObjId);
+          });
+
+          readStream.on('error', error => {
+            console.error('[readStream error]: ', error, fileObjId);
+          });
+
+          writeStream.on('finish', Meteor.bindEnvironment((finishedData) => {
+            strategyWrite.writeStreamFinished(finishedData);
+          }));
+
+          // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
+          readStream.on('end', Meteor.bindEnvironment(() => {
+            Attachments.update({ _id: fileObj._id }, { $set: { [`versions.${versionName}.storage`]: strategyWrite.getStorageName() } });
+            strategyRead.unlink();
+          }));
+
+          readStream.pipe(writeStream);
+        }
+      });
+    },
   });
 
   Meteor.startup(() => {

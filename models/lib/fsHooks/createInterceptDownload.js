@@ -1,7 +1,7 @@
 import { createObjectId } from '../grid/createObjectId';
 
-export const createInterceptDownload = bucket =>
-  function interceptDownload(http, file, versionName) {
+export const createInterceptDownload =
+  function interceptDownload(filesCollection, bucket, file, http, versionName) {
     const { gridFsFileId } = file.versions[versionName].meta || {};
     if (gridFsFileId) {
       // opens the download stream using a given gfs id
@@ -24,7 +24,7 @@ export const createInterceptDownload = bucket =>
         http.response.end('not found');
       });
 
-      http.response.setHeader('Cache-Control', this.cacheControl);
+      http.response.setHeader('Cache-Control', filesCollection.cacheControl);
       http.response.setHeader(
         'Content-Disposition',
         getContentDisposition(file.name, http?.params?.query?.download),

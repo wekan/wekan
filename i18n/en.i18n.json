@@ -1165,5 +1165,7 @@
   "copyChecklistPopup-title": "Copy Checklist",
   "card-show-lists": "Card Show Lists",
   "subtaskActionsPopup-title": "Subtask Actions",
-  "attachmentActionsPopup-title": "Attachment Actions"
+  "attachmentActionsPopup-title": "Attachment Actions",
+  "attachment-move-storage-fs": "Move attachment to filesystem",
+  "attachment-move-storage-gridfs": "Move attachment to GridFS"
 }
