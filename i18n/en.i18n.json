@@ -1164,5 +1164,6 @@
   "copyChecklist": "Copy Checklist",
   "copyChecklistPopup-title": "Copy Checklist",
   "card-show-lists": "Card Show Lists",
-  "subtaskActionsPopup-title": "Subtask Actions"
+  "subtaskActionsPopup-title": "Subtask Actions",
+  "attachmentActionsPopup-title": "Attachment Actions"
 }

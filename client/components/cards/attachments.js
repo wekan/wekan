@@ -1,23 +1,11 @@
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
-  'click .js-confirm-delete': Popup.afterConfirm(
-    'attachmentDelete',
-    function() {
-      Attachments.remove(this._id);
-      Popup.back();
-    },
-  ),
   // If we let this event bubble, FlowRouter will handle it and empty the page
   // content, see #101.
   'click .js-download'(event) {
     event.stopPropagation();
   },
-  'click .js-add-cover'() {
-    Cards.findOne(this.meta.cardId).setCover(this._id);
-  },
-  'click .js-remove-cover'() {
-    Cards.findOne(this.meta.cardId).unsetCover();
-  },
+  'click .js-open-attachment-menu': Popup.open('attachmentActions'),
 });
 
 Template.attachmentsGalery.helpers({
@@ -129,3 +117,28 @@ Template.previewClipboardImagePopup.events({
     }
   },
 });
+
+BlazeComponent.extendComponent({
+  isCover() {
+    const ret = Cards.findOne(this.data().meta.cardId).coverId == this.data()._id;
+    return ret;
+  },
+  events() {
+    return [
+      {
+        'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
+          Attachments.remove(this._id);
+          Popup.back(2);
+        }),
+        'click .js-add-cover'() {
+          Cards.findOne(this.data().meta.cardId).setCover(this.data()._id);
+          Popup.back();
+        },
+        'click .js-remove-cover'() {
+          Cards.findOne(this.data().meta.cardId).unsetCover();
+          Popup.back();
+        },
+      }
+    ]
+  }
+}).register('attachmentActionsPopup');
