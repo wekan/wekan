@@ -13,6 +13,8 @@ and adds the following updates:
 
 - [Changed from volta to n. Added info about developing on Ubuntu 22.04](https://github.com/wekan/wekan/commit/9099e20b806c713cc73b86122ac4a462b12e4785).
   Thanks to xet7.
+- [Added some more info about building on Windows, not tested yet](https://github.com/wekan/wekan/commit/e61e9bb5081efca352dc9496f0602df2f15492fd).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
