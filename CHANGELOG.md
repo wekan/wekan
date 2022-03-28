@@ -9,6 +9,11 @@ This release adds the following new features:
 - [Add get list and board cards count to API](https://github.com/wekan/wekan/pull/4424).
   Thanks to helioguardabaxo.
 
+and adds the following updates:
+
+- [Changed from volta to n. Added info about developing on Ubuntu 22.04](https://github.com/wekan/wekan/commit/9099e20b806c713cc73b86122ac4a462b12e4785).
+  Thanks to xet7.
+
 and fixes the following bugs:
 
 - [Attachment migration, try to ignore error on Cloudron on removing old index cardId](https://github.com/wekan/wekan/pull/4408).
