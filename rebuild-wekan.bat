@@ -1,14 +1,11 @@
 @ECHO OFF
 
-REM NOTE: You can try this to install Meteor on Windows, it works:
-REM       https://github.com/zodern/windows-meteor-installer/
-
-REM Installing Meteor with Chocolatey does not currently work.
-
-REM NOTE: THIS .BAT DOES NOT WORK !!
-REM Use instead this webpage instructions to build on Windows:
-REM https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
+REM TODO: Test how to fix this
+REM Installing NPM on Windows: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+REM Install meteor with: npm -g install meteor
+REM Old info: https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
 REM Please add fix PRs, like config of MongoDB etc.
+
 
 md C:\repos
 cd C:\repos
