@@ -10,6 +10,8 @@ This release adds the following new features:
   Thanks to helioguardabaxo.
 - [Added translations: English (Brazil) en-BR and Czech (Czech Republic) cs-CZ](https://github.com/wekan/wekan/commit/ca15e060bb182b0ff4768a3ff9d4de5b1ee125ce).
   Thanks to translators.
+- [Added WRITABLE_PATH to Windows start-wekan.bat](https://github.com/wekan/wekan/commit/1da0786211556697acac45bdc71b283630348081).
+  Thanks to BabyFnord and xet7.
 
 and adds the following updates:
 
