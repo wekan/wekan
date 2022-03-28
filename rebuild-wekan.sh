@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+echo "Recommended for development: Ubuntu 22.04 amd64 Jammy Jellyfish daily iso with ZFS encrypted install option, directly to SSD disk or dual boot, not VM. Works fast."
 echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "      You can still use any other locale as your main locale."
@@ -22,29 +24,30 @@ do
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 			echo "Linux";
 			# Debian, Ubuntu, Mint
-			sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp
+			sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm
 			#curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 			#sudo apt-get install -y npm
 			# Volta Node and NPM install manager, made with Rust https://volta.sh
 			# Volta uses home directory also with "npm -g install", no sudo needed.
-			curl https://get.volta.sh | bash
-			export VOLTA_HOME="$HOME/.volta"
-			export PATH="$VOLTA_HOME/bin:$PATH"
-			volta install node@14
+			# Volta install script is broken, so using n.
+			#curl https://get.volta.sh | bash
+			#export VOLTA_HOME="$HOME/.volta"
+			#export PATH="$VOLTA_HOME/bin:$PATH"
+			#volta install node@14
 			# npm nodejs
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
-			#sudo npm -g install n
-			#sudo n 14.19.1
+			sudo npm -g install n
+			sudo n 14.19.1
 			#sudo npm -g install npm
 			## Latest npm with Meteor 2.2
-			npm -g install node-gyp
+			sudo npm -g install node-gyp
 			# Latest fibers for Meteor 2.2
 			#sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-			npm -g install fibers
+			sudo npm -g install fibers
 			# Install Meteor, if it's not yet installed
-			npm install -g meteor --unsafe-perm
+			sudo npm install -g meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
