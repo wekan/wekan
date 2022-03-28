@@ -266,10 +266,14 @@ Template.changeLanguagePopup.helpers({
       } else if (lang.name === 'ar-EG') {
         // ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)
         name = 'مَصرى';
+      } else if (lang.name === 'cs-CZ') {
+        name = 'čeština (Česká republika)';
       } else if (lang.name === 'de-CH') {
         name = 'Deutsch (Schweiz)';
       } else if (lang.name === 'de-AT') {
         name = 'Deutsch (Österreich)';
+      } else if (lang.name === 'en-BR') {
+        name = 'English (Brazil)';
       } else if (lang.name === 'en-DE') {
         name = 'English (Germany)';
       } else if (lang.name === 'et-EE') {

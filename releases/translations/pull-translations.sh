@@ -39,6 +39,9 @@ tx pull -f -l hr
 echo "Czech:"
 tx pull -f -l cs
 
+echo "Czech (Czech Republic):"
+tx pull -f -l cs_CZ
+
 echo "Danish:"
 tx pull -f -l da
 
@@ -50,6 +53,9 @@ tx pull -f -l eo
 
 echo "Estonian (Estonia):"
 tx pull -f -l et_EE
+
+echo "English (Brazil):"
+tx pull -f -l en_BR
 
 echo "English (Germany):"
 tx pull -f -l en_DE
