@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to GeekRuthie.
 - [Add get list and board cards count to API](https://github.com/wekan/wekan/pull/4424).
   Thanks to helioguardabaxo.
+- [Added translations: English (Brazil) en-BR and Czech (Czech Republic) cs-CZ](https://github.com/wekan/wekan/commit/ca15e060bb182b0ff4768a3ff9d4de5b1ee125ce).
+  Thanks to translators.
 
 and adds the following updates:
 
