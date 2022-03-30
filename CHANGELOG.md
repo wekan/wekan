@@ -21,6 +21,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated URL to meteor-spk](https://github.com/wekan/wekan/commit/f2f3b76eda982856f88f5289c6d574fdf95abd82).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/c397b5eda8e60ef41ce66bec716f859c352d4744).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
