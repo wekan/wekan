@@ -19,6 +19,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Added some more info about building on Windows, not tested yet](https://github.com/wekan/wekan/commit/e61e9bb5081efca352dc9496f0602df2f15492fd).
   Thanks to xet7.
+- [Updated URL to meteor-spk](https://github.com/wekan/wekan/commit/f2f3b76eda982856f88f5289c6d574fdf95abd82).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
