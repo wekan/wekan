@@ -11,6 +11,13 @@ Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: true,
+  namingFunction(opts) {
+    const filenameWithoutExtension = opts.name.replace(/(.+)\..+/, "$1");
+    const ret = opts.meta.fileId + "-" + filenameWithoutExtension;
+    // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
+    delete opts.meta.fileId;
+    return ret;
+  },
   storagePath() {
     if (process.env.WRITABLE_PATH) {
       return path.join(process.env.WRITABLE_PATH, 'uploads', 'attachments');

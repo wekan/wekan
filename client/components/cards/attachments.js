@@ -21,12 +21,16 @@ Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
     if (event.currentTarget.files && event.currentTarget.files[0]) {
+      const fileId = Random.id();
+      const config = {
+        file: event.currentTarget.files[0],
+        fileId: fileId,
+        meta: Utils.getCommonAttachmentMetaFrom(card),
+        chunkSize: 'dynamic',
+      };
+      config.meta.fileId = fileId;
       const uploader = Attachments.insert(
-        {
-          file: event.currentTarget.files[0],
-          meta: Utils.getCommonAttachmentMetaFrom(card),
-          chunkSize: 'dynamic',
-        },
+        config,
         false,
       );
       uploader.on('uploaded', (error, fileRef) => {
@@ -92,13 +96,17 @@ Template.previewClipboardImagePopup.events({
     if (pastedResults && pastedResults.file) {
       const file = pastedResults.file;
       window.oPasted = pastedResults;
+      const fileId = Random.id();
+      const config = {
+        file,
+        fileId: fileId,
+        meta: Utils.getCommonAttachmentMetaFrom(card),
+        fileName: file.name || file.type.replace('image/', 'clipboard.'),
+        chunkSize: 'dynamic',
+      };
+      config.meta.fileId = fileId;
       const uploader = Attachments.insert(
-        {
-          file,
-          meta: Utils.getCommonAttachmentMetaFrom(card),
-          fileName: file.name || file.type.replace('image/', 'clipboard.'),
-          chunkSize: 'dynamic',
-        },
+        config,
         false,
       );
       uploader.on('uploaded', (error, fileRef) => {
