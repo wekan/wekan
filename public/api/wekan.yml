@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.12
+  version: v6.13
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -884,6 +884,32 @@ paths:
                   type: string
                 swinlaneId:
                   type: string
+  /api/boards/{board}/cards_count:
+    get:
+      operationId: get_board_cards_count
+      summary: Get a cards count to a board
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              board_cards_count:
+                type: integer
   /api/boards/{board}/custom-fields:
     get:
       operationId: get_all_custom_fields
@@ -2054,6 +2080,38 @@ paths:
             properties:
               _id:
                 type: string
+  /api/boards/{board}/lists/{list}/cards_count:
+    get:
+      operationId: get_list_cards_count
+      summary: Get a cards count to a list
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: |
+            the List ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              list_cards_count:
+                type: integer
   /api/boards/{board}/members/{member}:
     post:
       operationId: set_board_member_permission
