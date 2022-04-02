@@ -151,12 +151,25 @@ services:
     restart: always
     networks:
       - wekan-tier
+    #-------------------------------------------------------------------------------------
+    # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
+    # ==== and use commands: docker-compose up -d --build
+    # ==== Dockerfile and source is at parent directory ..
+    #build:
+    #  context: ..
+    #  dockerfile: Dockerfile
+    #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
       # For example, if you want to have wekan on port 3001,
       # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
       - 80:8080
     environment:
+      #-----------------------------------------------------------------
+      # ==== WRITEABLE PATH FOR FILE UPLOADS ====
+      - WRITABLE_PATH=/data
+      #-----------------------------------------------------------------
+      # ==== MONGO_URL ====
       - MONGO_URL=mongodb://mongodb:27017/wekan
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -332,9 +345,6 @@ services:
       - BROWSER_POLICY_ENABLED=true
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
       #- TRUSTED_URL=
-      #-----------------------------------------------------------------
-      # ==== WRITEABLE PATH FOR FILE UPLOADS ====
-      - WRITABLE_PATH=/data
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
       # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
@@ -625,7 +635,7 @@ services:
       - mongodb
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./volumes/data:/data
+      - wekan-files:/data:rw
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -654,6 +664,8 @@ services:
 #---------------------------------------------------------------------------------
 
 volumes:
+  wekan-files:
+    driver: local
   mongodb:
     driver: local
   mongodb-dump:
