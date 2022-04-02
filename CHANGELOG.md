@@ -8,6 +8,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Better error message layout if Wekan can not start](https://github.com/wekan/wekan/pull/4442).
   Thanks to mfilser.
+- [Try to fix Attachments.insert is not a function](https://github.com/wekan/wekan/commit/02e977f5128c76b6ff592c8b236868baaa9404cb).
+  Thanks to ChrisMagnuson and xet7.
 - Some torodb fixes. In Progress.
   [Part 1](https://github.com/wekan/wekan/commit/edb4db30bbd0b60ccc58be7238652288cf31ebd0).
   Thanks to xet7.
