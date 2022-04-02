@@ -142,6 +142,9 @@ services:
         mongod --replSet rs1
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - mongodb:/data/db
+      - mongodb-dump:/dump
   wekan:
     image: quay.io/wekan/wekan
     container_name: wekan-app
@@ -154,7 +157,6 @@ services:
       # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
       - 80:8080
     environment:
-      - WRITABLE_PATH=/data
       - MONGO_URL=mongodb://mongodb:27017/wekan
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -330,6 +332,9 @@ services:
       - BROWSER_POLICY_ENABLED=true
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
       #- TRUSTED_URL=
+      #-----------------------------------------------------------------
+      # ==== WRITEABLE PATH FOR FILE UPLOADS ====
+      - WRITABLE_PATH=/data
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
       # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
@@ -620,6 +625,7 @@ services:
       - mongodb
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - ./volumes/data:/data
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
