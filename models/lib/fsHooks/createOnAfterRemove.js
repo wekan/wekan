@@ -7,6 +7,7 @@ export const createOnAfterRemove =
     if (gridFsFileId) {
       const gfsId = createObjectId({ gridFsFileId });
         bucket.delete(gfsId, err => {
+          console.error("error on gfs bucket.delete: ", err);
       });
     }
   };
