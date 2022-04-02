@@ -2,10 +2,13 @@
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release fixes the following bugs:
 
 - [WRITABLE_PATH must be writable, otherwise abort starting Wekan](https://github.com/wekan/wekan/pull/4440).
   Thanks to mfilser.
+- Some torodb fixes. In Progress.
+  [Part 1](https://github.com/wekan/wekan/commit/edb4db30bbd0b60ccc58be7238652288cf31ebd0).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
