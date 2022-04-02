@@ -234,10 +234,12 @@
       z-index: 15
       box-shadow: 0 1px 2px rgba(0,0,0,.15)
 
+/* https://github.com/wekan/wekan/issues/4254#issuecomment-1037192960 */
+
 minicard-color(background, color...)
-  background-color: background
+  background-color: background !important
   if color
-    color: color //overwrite text for better visibility
+    color: color !important //overwrite text for better visibility
   &:hover:not(.minicard-composer),
   .is-selected &,
   .draggable-hover-card &
