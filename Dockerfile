@@ -140,7 +140,8 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     SAML_ATTRIBUTES="" \
     ORACLE_OIM_ENABLED=false \
     WAIT_SPINNER="" \
-    NODE_OPTIONS="--max_old_space_size=4096"
+    NODE_OPTIONS="--max_old_space_size=4096" \
+    WRITABLE_PATH=/data
 
 #---------------------------------------------------------------------
 # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
@@ -216,7 +217,7 @@ RUN \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
-    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.1 /home/wekan/.config && \
+    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config && \
     chown wekan --recursive /home/wekan/.config && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -323,7 +324,9 @@ RUN \
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
-    rm -R /home/wekan/app_build
+    rm -R /home/wekan/app_build && \
+    mkdir /data && \
+    chown wekan --recursive /data
     #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
     #rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
