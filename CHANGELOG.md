@@ -15,6 +15,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Not ZFS, it uses many gigabytes of RAM](https://github.com/wekan/wekan/commit/747a3b17d52c972db5c9b460e88d02bd52fb35bb).
   Thanks to xet7.
+- [Added WRITABLE_PATH to rebuild-wekan.sh meteor commands](https://github.com/wekan/wekan/commit/9ab2d5fab09f5c9a245f841df912a9b04bc9b3f0).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
