@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo "Recommended for development: Ubuntu 22.04 amd64 Jammy Jellyfish daily iso with ZFS encrypted install option, directly to SSD disk or dual boot, not VM. Works fast."
+echo "Recommended for development: Ubuntu 22.04 amd64 Jammy Jellyfish daily iso, directly to SSD disk or dual boot, not VM. Works fast."
 echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "      You can still use any other locale as your main locale."
