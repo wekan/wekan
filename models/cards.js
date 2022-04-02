@@ -585,8 +585,8 @@ Cards.helpers({
     // Copy attachments
     oldCard.attachments().forEach(att => {
       att.cardId = _id;
+      Attachments.insert(att);
       delete att._id;
-      return Attachments.insert(att);
     });
 
     // copy checklists
