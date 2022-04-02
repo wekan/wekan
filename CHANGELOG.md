@@ -19,6 +19,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix list color too close with moderndark theme on mobile view](https://github.com/wekan/wekan/commit/5d3d5e4b2db22564b669c93e083c3d40215454f4).
   Thanks to gerald41, Meeques, Go-rom, mfilser, jghaanstra and xet7.
+- [Fixed docker-compose.yml WRITABLE_PATH](https://github.com/wekan/wekan/commit/9238b6620cf062e70c812f5c3575fbd8d4dd56be).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
