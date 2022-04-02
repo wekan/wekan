@@ -13,6 +13,8 @@ This release fixes the following bugs:
 - Some torodb fixes. In Progress.
   [Part 1](https://github.com/wekan/wekan/commit/edb4db30bbd0b60ccc58be7238652288cf31ebd0).
   Thanks to xet7.
+- [Not ZFS, it uses many gigabytes of RAM](https://github.com/wekan/wekan/commit/747a3b17d52c972db5c9b460e88d02bd52fb35bb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
