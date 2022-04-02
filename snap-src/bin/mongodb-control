@@ -15,7 +15,7 @@ if [ -z "$LANG" ]; then
 fi
 
 export LC_ALL=C
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu
 
 # When starting MongoDB, if logfile exist, delete it, because now uses syslog instead of logfile,
 # because syslog usually already has log rotation.
@@ -24,10 +24,10 @@ if test -f "$SNAP_COMMON/mongodb.log"; then
    rm -f "$SNAP_COMMON/mongodb.log"
 fi
 
-# Not in use. If uploads directory does not exist, create it.
+# If uploads directory does not exist, create it.
 # Wekan will store attachments there.
-if [ ! -d "$WRITABLE_PATH" ]; then
-   mkdir "WRITABLE_PATH"
+if [ ! -d "${WRITABLE_PATH}" ]; then
+   mkdir "${WRITABLE_PATH}"
 fi
 
 # Alternative: When starting MongoDB, and using logfile, truncate log to last 1000 lines of text.
