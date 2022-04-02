@@ -13,8 +13,7 @@ SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
 
 REM Writable path for temporary saving attachments during migration to Meteor-Files
 REM Create directory wekan-uploads
-MD wekan-uploads
-SET WRITABLE_PATH=wekan-uploads
+SET WRITABLE_PATH=..
 
 REM # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
 REM SET MAIL_URL=smtps://username:password@email-smtp.eu-west-1.amazonaws.com:587/
