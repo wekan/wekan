@@ -1,16 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
-import { createBucket } from './lib/grid/createBucket';
-import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
-import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
-import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
+import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs} from '/models/lib/fileStoreStrategy';
 
 let avatarsBucket;
 if (Meteor.isServer) {
   avatarsBucket = createBucket('avatars');
 }
+
+const fileStoreStrategyFactory = new FileStoreStrategyFactory(FileStoreStrategyFilesystem, FileStoreStrategyGridFs, avatarsBucket);
 
 Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
@@ -30,17 +30,17 @@ Avatars = new FilesCollection({
   },
   onAfterUpload(fileObj) {
     Object.keys(fileObj.versions).forEach(versionName => {
-      createOnAfterUpload(this, avatarsBucket, fileObj, versionName);
+      fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).onAfterUpload();
     });
   },
   interceptDownload(http, fileObj, versionName) {
-    const ret = createInterceptDownload(this, avatarsBucket, fileObj, http, versionName);
+    const ret = fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).interceptDownload(http);
     return ret;
   },
   onAfterRemove(files) {
     files.forEach(fileObj => {
       Object.keys(fileObj.versions).forEach(versionName => {
-        createOnAfterRemove(this, avatarsBucket, fileObj, versionName);
+        fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).onAfterRemove();
       });
     });
   },
