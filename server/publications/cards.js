@@ -69,6 +69,7 @@ Meteor.publishRelations('popupCardData', function(cardId) {
     Cards.find({_id: cardId}),
     function(cardId, card) {
       this.cursor(Boards.find({_id: card.boardId}));
+      this.cursor(Lists.find({boardId: card.boardId}));
     },
   );
   return this.ready()

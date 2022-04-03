@@ -32,7 +32,7 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentBoard = Utils.getCurrentBoard();
     this.isLoaded = new ReactiveVar(false);
 
     if (this.parentComponent() && this.parentComponent().parentComponent()) {
