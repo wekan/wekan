@@ -4,7 +4,7 @@ import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
 import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs} from '/models/lib/attachmentStoreStrategy';
-import FileStoreStrategyFactory, {moveToStorage} from '/models/lib/fileStoreStrategy';
+import FileStoreStrategyFactory, {moveToStorage, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS} from '/models/lib/fileStoreStrategy';
 
 let attachmentBucket;
 if (Meteor.isServer) {
@@ -34,10 +34,10 @@ Attachments = new FilesCollection({
   onAfterUpload(fileObj) {
     // current storage is the filesystem, update object and database
     Object.keys(fileObj.versions).forEach(versionName => {
-      fileObj.versions[versionName].storage = "fs";
+      fileObj.versions[versionName].storage = STORAGE_NAME_FILESYSTEM;
     });
     Attachments.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
-    moveToStorage(fileObj, "gridfs", fileStoreStrategyFactory);
+    moveToStorage(fileObj, STORAGE_NAME_GRIDFS, fileStoreStrategyFactory);
   },
   interceptDownload(http, fileObj, versionName) {
     const ret = fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).interceptDownload(http);

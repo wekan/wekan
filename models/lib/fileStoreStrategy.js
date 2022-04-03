@@ -2,6 +2,9 @@ import fs from 'fs';
 import { createObjectId } from './grid/createObjectId';
 import { createInterceptDownload } from './fsHooks/createInterceptDownload';
 
+export const STORAGE_NAME_FILESYSTEM = "fs";
+export const STORAGE_NAME_GRIDFS     = "gridfs";
+
 /** Factory for FileStoreStrategy */
 export default class FileStoreStrategyFactory {
 
@@ -28,18 +31,18 @@ export default class FileStoreStrategyFactory {
       if (!storage) {
         if (fileObj.meta.source == "import") {
           // uploaded by import, so it's in GridFS (MongoDB)
-          storage = "gridfs";
+          storage = STORAGE_NAME_GRIDFS;
         } else {
           // newly uploaded, so it's at the filesystem
-          storage = "fs";
+          storage = STORAGE_NAME_FILESYSTEM;
         }
       }
     }
     let ret;
-    if (["fs", "gridfs"].includes(storage)) {
-      if (storage == "fs") {
+    if ([STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS].includes(storage)) {
+      if (storage == STORAGE_NAME_FILESYSTEM) {
         ret = new this.classFileStoreStrategyFilesystem(filesCollection, fileObj, versionName);
-      } else if (storage == "gridfs") {
+      } else if (storage == STORAGE_NAME_GRIDFS) {
         ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, filesCollection, fileObj, versionName);
       }
     }
@@ -185,7 +188,7 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    * @return the storage name
    */
   getStorageName() {
-    return "gridfs";
+    return STORAGE_NAME_GRIDFS;
   }
 
   /** returns the GridFS Object-Id
@@ -255,7 +258,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * @return the storage name
    */
   getStorageName() {
-    return "fs";
+    return STORAGE_NAME_FILESYSTEM;
   }
 }
 
