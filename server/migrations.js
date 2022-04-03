@@ -1332,3 +1332,12 @@ Migrations.add('migrate-attachment-drop-index-cardId', () => {
   } catch (error) {
   }
 });
+
+Migrations.add('migrate-attachment-migration-fix-source-import', () => {
+  // there was an error at first versions, so source was import, instead of import
+  Attachments.update(
+    {"meta.source":"import,"},
+    {$set:{"meta.source":"import"}},
+    noValidateMulti
+  );
+});
