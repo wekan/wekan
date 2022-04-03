@@ -1178,8 +1178,7 @@ Migrations.add('add-card-details-show-lists', () => {
 });
 
 Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
-  //const storagePath = Attachments.storagePath();
-  const storagePath = process.env.WRITABLE_PATH || `./wekan-uploads`;
+  const storagePath = Attachments.storagePath();
   if (!fs.existsSync(storagePath)) {
     console.log("create storagePath because it doesn't exist: " + storagePath);
     fs.mkdirSync(storagePath, { recursive: true });
@@ -1246,8 +1245,7 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
 });
 
 Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
-  //const storagePath = Avatars.storagePath();
-  const storagePath = process.env.WRITABLE_PATH || `./wekan-uploads`;
+  const storagePath = Avatars.storagePath();
   if (!fs.existsSync(storagePath)) {
     console.log("create storagePath because it doesn't exist: " + storagePath);
     fs.mkdirSync(storagePath, { recursive: true });

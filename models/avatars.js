@@ -17,10 +17,8 @@ Avatars = new FilesCollection({
   collectionName: 'avatars',
   allowClientCode: true,
   storagePath() {
-    if (process.env.WRITABLE_PATH) {
-      return path.join(process.env.WRITABLE_PATH, 'uploads', 'avatars');
-    }
-    return path.normalize(`assets/app/uploads/${this.collectionName}`);;
+    const ret = path.join(process.env.WRITABLE_PATH, 'avatars');
+    return ret;
   },
   onBeforeUpload(file) {
     if (file.size <= 72000 && file.type.startsWith('image/')) {

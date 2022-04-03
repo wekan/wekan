@@ -28,10 +28,8 @@ Attachments = new FilesCollection({
     return ret;
   },
   storagePath() {
-    if (process.env.WRITABLE_PATH) {
-      return path.join(process.env.WRITABLE_PATH, 'uploads', 'attachments');
-    }
-    return path.normalize(`assets/app/uploads/${this.collectionName}`);
+    const ret = path.join(process.env.WRITABLE_PATH, 'attachments');
+    return ret;
   },
   onAfterUpload(fileObj) {
     Object.keys(fileObj.versions).forEach(versionName => {
