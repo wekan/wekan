@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { createObjectId } from './grid/createObjectId';
 import { createInterceptDownload } from './fsHooks/createInterceptDownload';
-import { createOnAfterRemove } from './fsHooks/createOnAfterRemove';
 
 /** Factory for FileStoreStrategy */
 export default class FileStoreStrategyFactory {
@@ -137,11 +136,9 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    * @return the read stream
    */
   getReadStream() {
-    const gridFsFileId = (this.fileObj.versions[this.versionName].meta || {})
-      .gridFsFileId;
+    const gfsId = this.getGridFsObjectId();
     let ret;
-    if (gridFsFileId) {
-      const gfsId = createObjectId({ gridFsFileId });
+    if (gfsId) {
       ret = this.gridFsBucket.openDownloadStream(gfsId);
     }
     return ret;
@@ -171,7 +168,15 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
 
   /** remove the file */
   unlink() {
-    createOnAfterRemove(this.filesCollection, this.gridFsBucket, this.fileObj, this.versionName);
+    const gfsId = this.getGridFsObjectId();
+    if (gfsId) {
+      this.gridFsBucket.delete(gfsId, err => {
+        if (err) {
+          console.error("error on gfs bucket.delete: ", err);
+        }
+      });
+    }
+
     const gridFsFileIdName = this.getGridFsFileIdName();
     Attachments.update({ _id: this.fileObj._id }, { $unset: { [gridFsFileIdName]: 1 } });
   }
@@ -181,6 +186,19 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    */
   getStorageName() {
     return "gridfs";
+  }
+
+  /** returns the GridFS Object-Id
+   * @return the GridFS Object-Id
+   */
+  getGridFsObjectId() {
+    const gridFsFileId = (this.fileObj.versions[this.versionName].meta || {})
+      .gridFsFileId;
+    let ret;
+    if (gridFsFileId) {
+      ret = createObjectId({ gridFsFileId });
+    }
+    return ret;
   }
 
   /** returns the property name of gridFsFileId
