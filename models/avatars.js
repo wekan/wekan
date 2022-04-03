@@ -27,9 +27,11 @@ Avatars = new FilesCollection({
     return 'avatar-too-big';
   },
   onAfterUpload(fileObj) {
+    // current storage is the filesystem, update object and database
     Object.keys(fileObj.versions).forEach(versionName => {
-      fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).onAfterUpload();
+      fileObj.versions[versionName].storage = "fs";
     });
+    Avatars.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
   },
   interceptDownload(http, fileObj, versionName) {
     const ret = fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).interceptDownload(http);

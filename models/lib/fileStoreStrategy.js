@@ -1,6 +1,5 @@
 import fs from 'fs';
 import { createObjectId } from './grid/createObjectId';
-import { createOnAfterUpload } from './fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './fsHooks/createInterceptDownload';
 import { createOnAfterRemove } from './fsHooks/createOnAfterRemove';
 
@@ -26,7 +25,16 @@ export default class FileStoreStrategyFactory {
    */
   getFileStrategy(filesCollection, fileObj, versionName, storage) {
     if (!storage) {
-      storage = fileObj.versions[versionName].storage || "gridfs";
+      storage = fileObj.versions[versionName].storage;
+      if (!storage) {
+        if (fileObj.meta.source == "import") {
+          // uploaded by import, so it's in GridFS (MongoDB)
+          storage = "gridfs";
+        } else {
+          // newly uploaded, so it's at the filesystem
+          storage = "fs";
+        }
+      }
     }
     let ret;
     if (["fs", "gridfs"].includes(storage)) {
@@ -109,12 +117,6 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
   constructor(gridFsBucket, filesCollection, fileObj, versionName) {
     super(filesCollection, fileObj, versionName);
     this.gridFsBucket = gridFsBucket;
-  }
-
-  /** after successfull upload */
-  onAfterUpload() {
-    createOnAfterUpload(this.filesCollection, this.gridFsBucket, this.fileObj, this.versionName);
-    super.onAfterUpload();
   }
 
   /** download the file
