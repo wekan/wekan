@@ -554,11 +554,11 @@ template(name="cardDetails")
             | {{_ 'attachments'}}
           .card-checklist-attachmentGalery.card-attachmentGalery
             +attachmentsGalery
+      hr
 
     .card-details-right
 
       unless currentUser.isNoComments
-        hr
         .activity-title
           h3.card-details-item-title
             i.fa.fa-history
