@@ -280,8 +280,9 @@
     "worker": "Dolgozó",
     "worker-desc": "Csak mozgathat Kártyákat, hozzárendelheti magát Kártyákhoz és megjegyzésekhez",
     "computer": "Számítógép",
-    "confirm-subtask-delete-dialog": "Biztosan törlöd a Rész-feladatot?",
+    "confirm-subtask-delete-popup": "Biztosan törlöd a Rész-feladatot?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "Kártya hivatkozásának másolása a vágólapra",
     "copy-text-to-clipboard": "Szöveg másolása vágólapra",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

@@ -280,8 +280,9 @@
     "worker": "עובד/ת",
     "worker-desc": "אפשר רק להעביר כרטיסים, להקצות כרטיסים לעצמו/ה ולהגיב.",
     "computer": "מחשב",
-    "confirm-subtask-delete-dialog": "למחוק את תת המשימה?",
+    "confirm-subtask-delete-popup": "למחוק את תת המשימה?",
     "confirm-checklist-delete-popup": "למחוק את רשימת המטלות?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "למחוק רשימת מטלות?",
     "copy-card-link-to-clipboard": "העתקת קישור הכרטיס ללוח הגזירים",
     "copy-text-to-clipboard": "העתקת טקסט ללוח הגזירים",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "שורה חדשה הופכת לפריט חדש ברשימת המטלות",
     "copyChecklist": "העתקת רשימת מטלות",
     "copyChecklistPopup-title": "העתקת רשימת סימון",
-    "card-show-lists": "הצגת רשימות על הכרטיס"
+    "card-show-lists": "הצגת רשימות על הכרטיס",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

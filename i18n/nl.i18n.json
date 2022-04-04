@@ -280,8 +280,9 @@
     "worker": "Medewerker",
     "worker-desc": "Kan alleen kaarten verplaatsen, zichzelf aan kaarten koppelen en aantekeningen maken.",
     "computer": "Computer",
-    "confirm-subtask-delete-dialog": "Weet je zeker dat je de subtaak wilt verwijderen?",
+    "confirm-subtask-delete-popup": "Weet je zeker dat je de subtaak wilt verwijderen?",
     "confirm-checklist-delete-popup": "Weet je zeker dat je de checklist wilt verwijderen?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Checklist Verwijderen?",
     "copy-card-link-to-clipboard": "Kopieer kaart link naar klembord",
     "copy-text-to-clipboard": "Kopieer tekst naar klembord",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Nieuwe regel wordt nieuw checklist item",
     "copyChecklist": "Kopieer Checklist",
     "copyChecklistPopup-title": "Kopieer Checklist",
-    "card-show-lists": "Kaart Toon Lijsten"
+    "card-show-lists": "Kaart Toon Lijsten",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

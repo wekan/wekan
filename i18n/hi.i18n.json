@@ -280,8 +280,9 @@
     "worker": "कामगार",
     "worker-desc": "केवल कार्ड ले जा सकते हैं, खुद को कार्ड और टिप्पणी करने के लिए असाइन करें।",
     "computer": "संगणक",
-    "confirm-subtask-delete-dialog": "क्या आप वाकई उपकार्य हटाना चाहते हैं?",
+    "confirm-subtask-delete-popup": "क्या आप वाकई उपकार्य हटाना चाहते हैं?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "कॉपी कार्ड क्लिपबोर्ड करने के लिए लिंक",
     "copy-text-to-clipboard": "Copy text to clipboard",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

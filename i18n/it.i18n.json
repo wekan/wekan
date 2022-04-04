@@ -280,8 +280,9 @@
     "worker": "Lavoratore",
     "worker-desc": "Può solo spostare schede, assegnarsi una scheda e commentare.",
     "computer": "Computer",
-    "confirm-subtask-delete-dialog": "Sei sicuro di voler eliminare il sotto-compito?",
+    "confirm-subtask-delete-popup": "Sei sicuro di voler eliminare il sotto-compito?",
     "confirm-checklist-delete-popup": "Sicuro di voler cancellare la checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Cancello la checklist?",
     "copy-card-link-to-clipboard": "Copia link della scheda negli appunti",
     "copy-text-to-clipboard": "Copia il testo negli appunti",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Nuove linee diventano elementi della checklist",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

@@ -280,8 +280,9 @@
     "worker": "Trabalhador",
     "worker-desc": "Apenas pode mover cartões, atribuir-se a si próprio ao cartão e comentar.",
     "computer": "Computador",
-    "confirm-subtask-delete-dialog": "Tem certeza que deseja apagar a sub-tarefa?",
+    "confirm-subtask-delete-popup": "Tem certeza que deseja apagar a sub-tarefa?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Eliminar lista de verificação?",
     "copy-card-link-to-clipboard": "Copiar a ligação do cartão para a área de transferência",
     "copy-text-to-clipboard": "Copiar texto para a área de transferência",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

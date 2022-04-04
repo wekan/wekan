@@ -280,8 +280,9 @@
     "worker": "Worker",
     "worker-desc": "Can only move cards, assign itself to card and comment.",
     "computer": "კომპიუტერი",
-    "confirm-subtask-delete-dialog": "დარწმუნებული ხართ, რომ გსურთ ქვესაქმიანობის წაშლა? ",
+    "confirm-subtask-delete-popup": "დარწმუნებული ხართ, რომ გსურთ ქვესაქმიანობის წაშლა? ",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "დააკოპირეთ ბარათის ბმული clipboard-ზე",
     "copy-text-to-clipboard": "Copy text to clipboard",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

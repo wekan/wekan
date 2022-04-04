@@ -280,8 +280,9 @@
     "worker": "工作者",
     "worker-desc": "只能移動卡片，分配給自己及發表評論。",
     "computer": "從本機上傳",
-    "confirm-subtask-delete-dialog": "確定要刪除子任務嗎？",
+    "confirm-subtask-delete-popup": "確定要刪除子任務嗎？",
     "confirm-checklist-delete-popup": "確定要刪除此清單嗎？",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "刪除清單",
     "copy-card-link-to-clipboard": "將卡片連結複製到剪貼簿",
     "copy-text-to-clipboard": "複製文字到剪貼簿",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

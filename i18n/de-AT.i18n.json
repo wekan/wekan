@@ -280,8 +280,9 @@
     "worker": "Arbeiter",
     "worker-desc": "Kann Karten nur verschieben, sich selbst zuweisen und kommentieren.",
     "computer": "Computer",
-    "confirm-subtask-delete-dialog": "Wollen Sie die Teilaufgabe wirklich löschen?",
+    "confirm-subtask-delete-popup": "Wollen Sie die Teilaufgabe wirklich löschen?",
     "confirm-checklist-delete-popup": "Wollen Sie diese Checkliste wirklich löschen?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Checkliste löschen?",
     "copy-card-link-to-clipboard": "Kopiere Link zur Karte in die Zwischenablage",
     "copy-text-to-clipboard": "Text in die Zwischenablage kopieren",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Neue Zeile wird neuer Checklisteneintrag",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

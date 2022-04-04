@@ -280,8 +280,9 @@
     "worker": "Worker",
     "worker-desc": "Can only move cards, assign itself to card and comment.",
     "computer": "Компјутер",
-    "confirm-subtask-delete-dialog": "Сигурен ли сте, дека сакате да изтриете подзадачата?",
+    "confirm-subtask-delete-popup": "Сигурен ли сте, дека сакате да изтриете подзадачата?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "Копирай връзката на картата в клипборда",
     "copy-text-to-clipboard": "Copy text to clipboard",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

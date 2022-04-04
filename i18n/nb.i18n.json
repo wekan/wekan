@@ -280,8 +280,9 @@
     "worker": "Arbeider",
     "worker-desc": "Kan bare flytte kort, tildele kort til seg selv og kommentere.",
     "computer": "Datamaskin",
-    "confirm-subtask-delete-dialog": "Er du sikker på at du vil slette underoppgaven?",
+    "confirm-subtask-delete-popup": "Er du sikker på at du vil slette underoppgaven?",
     "confirm-checklist-delete-popup": "Er du sikker på at du vil slette sjekklisten?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Slette sjekklisten?",
     "copy-card-link-to-clipboard": "Kopier lenke",
     "copy-text-to-clipboard": "Kopier tekst til utklippstavlen",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Ny linje gir nytt sjekklisteobjekt",
     "copyChecklist": "Kopier sjekkliste",
     "copyChecklistPopup-title": "Kopier sjekkliste",
-    "card-show-lists": "Vis liste over kort"
+    "card-show-lists": "Vis liste over kort",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

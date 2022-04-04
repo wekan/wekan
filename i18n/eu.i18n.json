@@ -280,8 +280,9 @@
     "worker": "Langilea",
     "worker-desc": "Can only move cards, assign itself to card and comment.",
     "computer": "Ordenagailua",
-    "confirm-subtask-delete-dialog": "Ziur zaude azpiataza ezabatu nahi duzula?",
+    "confirm-subtask-delete-popup": "Ziur zaude azpiataza ezabatu nahi duzula?",
     "confirm-checklist-delete-popup": "Ziur kontrol-zerrenda ezabatu nahi duzula?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Ezabatu kontrol-zerrenda?",
     "copy-card-link-to-clipboard": "Kopiatu txartela arbelera",
     "copy-text-to-clipboard": "Kopiatu testua arbelean",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

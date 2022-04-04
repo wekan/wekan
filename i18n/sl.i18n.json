@@ -280,8 +280,9 @@
     "worker": "Delavec",
     "worker-desc": "Lahko samo premikam kartice, se dodelim na kartico in komentiram.",
     "computer": "Računalnik",
-    "confirm-subtask-delete-dialog": "Ste prepričani, da želite izbrisati podopravilo?",
+    "confirm-subtask-delete-popup": "Ste prepričani, da želite izbrisati podopravilo?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "Kopiraj povezavo kartice na odložišče",
     "copy-text-to-clipboard": "Copy text to clipboard",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

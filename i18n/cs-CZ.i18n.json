@@ -280,8 +280,9 @@
     "worker": "Pracovník",
     "worker-desc": "Je možné pouze přesouvat karty, přiřazovat ke kartám a komentovat.",
     "computer": "Počítač",
-    "confirm-subtask-delete-dialog": "Opravdu chcete smazat tento podúkol?",
+    "confirm-subtask-delete-popup": "Opravdu chcete smazat tento podúkol?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "Kopírovat adresu karty do mezipaměti",
     "copy-text-to-clipboard": "Copy text to clipboard",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

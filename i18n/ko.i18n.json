@@ -280,8 +280,9 @@
     "worker": "Worker",
     "worker-desc": "Can only move cards, assign itself to card and comment.",
     "computer": "내 컴퓨터",
-    "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
+    "confirm-subtask-delete-popup": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-popup": "체크리스트를 삭제하시겠습니까?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "체크리스트를 삭제합니까?",
     "copy-card-link-to-clipboard": "클립보드에 카드의 링크가 복사되었습니다.",
     "copy-text-to-clipboard": "텍스트를 클립보드에 복사합니다",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

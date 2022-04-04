@@ -280,8 +280,9 @@
     "worker": "Pracownik",
     "worker-desc": "Możesz tylko przenieść karty, przypisać je do siebie i na nich komentować.",
     "computer": "Komputera",
-    "confirm-subtask-delete-dialog": "Czy jesteś pewien, że chcesz usunąć to podzadanie?",
+    "confirm-subtask-delete-popup": "Czy jesteś pewien, że chcesz usunąć to podzadanie?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "Skopiuj łącze karty do schowka",
     "copy-text-to-clipboard": "Copy text to clipboard",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

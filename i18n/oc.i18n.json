@@ -280,8 +280,9 @@
     "worker": "Worker",
     "worker-desc": "Can only move cards, assign itself to card and comment.",
     "computer": "Ordenator",
-    "confirm-subtask-delete-dialog": "Sètz segur de voler quitar aquesta jos-tasca?",
+    "confirm-subtask-delete-popup": "Sètz segur de voler quitar aquesta jos-tasca?",
     "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Delete Checklist?",
     "copy-card-link-to-clipboard": "Còpia del ligam de la carta",
     "copy-text-to-clipboard": "Copy text to clipboard",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Copy Checklist",
     "copyChecklistPopup-title": "Copy Checklist",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

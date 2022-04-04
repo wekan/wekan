@@ -280,8 +280,9 @@
     "worker": "Työntekijä",
     "worker-desc": "Voi vain siirtää kortteja, ilmoittautua kortin käsittelijäksi ja kommentoida.",
     "computer": "Tietokone",
-    "confirm-subtask-delete-dialog": "Haluatko varmasti poistaa alitehtävän?",
+    "confirm-subtask-delete-popup": "Haluatko varmasti poistaa alitehtävän?",
     "confirm-checklist-delete-popup": "Haluatko varmasti poistaa tarkistuslistan?",
+    "subtaskDeletePopup-title": "Poista alitehtävä?",
     "checklistDeletePopup-title": "Poista tarkistuslista?",
     "copy-card-link-to-clipboard": "Kopioi kortin linkki leikepöydälle",
     "copy-text-to-clipboard": "Kopioi teksti leikepöydälle",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Uusi rivi muuttuu uudeksi tarkistuslistakohdaksi",
     "copyChecklist": "Kopioi tarkistuslista",
     "copyChecklistPopup-title": "Kopioi tarkistuslista",
-    "card-show-lists": "Näytä listat kortilla"
+    "card-show-lists": "Näytä listat kortilla",
+    "subtaskActionsPopup-title": "Alitehtävä toimet"
 }

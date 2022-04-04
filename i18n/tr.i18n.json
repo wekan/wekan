@@ -280,8 +280,9 @@
     "worker": "Çalışan",
     "worker-desc": "Yalnızca kartları taşıyabilir, kendisini karta atayabilir ve yorum yapabilir.",
     "computer": "Bilgisayar",
-    "confirm-subtask-delete-dialog": "Alt görevi silmek istediğinizden emin misiniz?",
+    "confirm-subtask-delete-popup": "Alt görevi silmek istediğinizden emin misiniz?",
     "confirm-checklist-delete-popup": "Kontrol listesini silmek istediğinizden emin misiniz?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Kontrol Listesi Silinsin mi? ",
     "copy-card-link-to-clipboard": "Kartın linkini kopyala",
     "copy-text-to-clipboard": "Yazıyı kopyala",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
     "copyChecklist": "Kontrol Listesini Kopyala",
     "copyChecklistPopup-title": "Kontrol Listesini Kopyala",
-    "card-show-lists": "Card Show Lists"
+    "card-show-lists": "Card Show Lists",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }

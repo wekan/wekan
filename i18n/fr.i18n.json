@@ -280,8 +280,9 @@
     "worker": "Travailleur",
     "worker-desc": "Peut seulement déplacer des cartes, s'assigner à une carte et la commenter.",
     "computer": "Ordinateur",
-    "confirm-subtask-delete-dialog": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
+    "confirm-subtask-delete-popup": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
     "confirm-checklist-delete-popup": "Êtes-vous sûr de vouloir supprimer la checklist ?",
+    "subtaskDeletePopup-title": "Delete Subtask?",
     "checklistDeletePopup-title": "Supprimer la checklist ?",
     "copy-card-link-to-clipboard": "Copier le lien vers la carte dans le presse-papier",
     "copy-text-to-clipboard": "Copier le texte dans le presse-papier",
@@ -1147,5 +1148,6 @@
     "newlineBecomesNewChecklistItem": "Chaque retour à la ligne produit un nouvel élément de checklist",
     "copyChecklist": "Copier la checklist",
     "copyChecklistPopup-title": "Copier la checklist",
-    "card-show-lists": "Afficher les listes sur la carte"
+    "card-show-lists": "Afficher les listes sur la carte",
+    "subtaskActionsPopup-title": "Subtask Actions"
 }
