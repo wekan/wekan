@@ -8,6 +8,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [UI improvements on maximized card header](https://github.com/wekan/wekan/pull/4446).
   Thanks to helioguardabaxo.
+- [Fix oidc login when no group data is present](https://github.com/wekan/wekan/pull/4450).
+  Thanks to danielkaiser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
