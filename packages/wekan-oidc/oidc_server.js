@@ -88,7 +88,7 @@ OAuth.registerService('oidc', 2, null, function (query) {
   // data needs to be treated  differently.
   // use case: in oidc provider no scope is set, hence no group attributes.
   //    therefore: keep admin privileges for wekan as before
-  if(typeof serviceData.groups[0] === "string" )
+  if(Array.isArray(serviceData.groups) && serviceData.groups.length && typeof serviceData.groups[0] === "string" )
   {
     user = Meteor.users.findOne({'_id':  serviceData.id});
 
