@@ -81,7 +81,12 @@ export function getLdapEmail(ldapUser) {
     });
   }
 
-  return ldapUser.getLDAPValue(emailField);
+  const ldapMail = ldapUser.getLDAPValue(emailField);
+  if (typeof ldapMail === 'string') {
+    return ldapMail;
+  } else {
+    return ldapMail[0].toString();
+  }
 }
 
 export function getLdapFullname(ldapUser) {
