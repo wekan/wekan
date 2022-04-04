@@ -83,7 +83,6 @@ BlazeComponent.extendComponent({
     const subtask = this.currentData().subtask;
     if (subtask && subtask._id) {
       subtask.archive();
-      this.toggleDeleteDialog.set(false);
     }
   },
 
@@ -93,11 +92,6 @@ BlazeComponent.extendComponent({
     const title = textarea.value.trim();
     const subtask = this.currentData().subtask;
     subtask.setTitle(title);
-  },
-
-  onCreated() {
-    this.toggleDeleteDialog = new ReactiveVar(false);
-    this.subtaskToDelete = null; //Store data context to pass to subtaskDeleteDialog template
   },
 
   pressKey(event) {
@@ -111,63 +105,17 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    const events = {
-      'click .toggle-delete-subtask-dialog'(event) {
-        if ($(event.target).hasClass('js-delete-subtask')) {
-          this.subtaskToDelete = this.currentData().subtask; //Store data context
-        }
-        this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
-      },
-      'click .js-view-subtask'(event) {
-        if ($(event.target).hasClass('js-view-subtask')) {
-          const subtask = this.currentData().subtask;
-          const board = subtask.board();
-          FlowRouter.go('card', {
-            boardId: board._id,
-            slug: board.slug,
-            cardId: subtask._id,
-          });
-        }
-      },
-    };
-
     return [
       {
-        ...events,
+        'click .js-open-subtask-details-menu': Popup.open('subtaskActions'),
         'submit .js-add-subtask': this.addSubtask,
         'submit .js-edit-subtask-title': this.editSubtask,
-        'click .confirm-subtask-delete': this.deleteSubtask,
+        'click .js-delete-subtask-item': this.deleteSubtask,
         keydown: this.pressKey,
       },
     ];
   },
 }).register('subtasks');
-
-Template.subtaskDeleteDialog.onCreated(() => {
-  const $cardDetails = this.$('.card-details');
-  this.scrollState = {
-    position: $cardDetails.scrollTop(), //save current scroll position
-    top: false, //required for smooth scroll animation
-  };
-  //Callback's purpose is to only prevent scrolling after animation is complete
-  $cardDetails.animate({ scrollTop: 0 }, 500, () => {
-    this.scrollState.top = true;
-  });
-
-  //Prevent scrolling while dialog is open
-  $cardDetails.on('scroll', () => {
-    if (this.scrollState.top) {
-      //If it's already in position, keep it there. Otherwise let animation scroll
-      $cardDetails.scrollTop(0);
-    }
-  });
-});
-
-Template.subtaskDeleteDialog.onDestroyed(() => {
-  const $cardDetails = this.$('.card-details');
-  $cardDetails.off('scroll'); //Reactivate scrolling
-  $cardDetails.animate({ scrollTop: this.scrollState.position });
-});
 
 Template.subtaskItemDetail.helpers({
   canModifyCard() {
@@ -183,3 +131,30 @@ Template.subtaskItemDetail.helpers({
 BlazeComponent.extendComponent({
   // ...
 }).register('subtaskItemDetail');
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click .js-view-subtask'(event) {
+          if ($(event.target).hasClass('js-view-subtask')) {
+            const subtask = this.currentData().subtask;
+            const board = subtask.board();
+            FlowRouter.go('card', {
+              boardId: board._id,
+              slug: board.slug,
+              cardId: subtask._id,
+            });
+          }
+        },
+        'click .js-delete-subtask' : Popup.afterConfirm('subtaskDelete', function () {
+          Popup.back(2);
+          const subtask = this.subtask;
+          if (subtask && subtask._id) {
+            subtask.archive();
+          }
+        }),
+      }
+    ]
+  }
+}).register('subtaskActionsPopup');
