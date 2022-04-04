@@ -10,6 +10,8 @@ This release fixes the following bugs:
   Thanks to helioguardabaxo.
 - [Fix oidc login when no group data is present](https://github.com/wekan/wekan/pull/4450).
   Thanks to danielkaiser.
+- [Fixed LDAP authentication doesn't support multiple emails in LDAP accounts](https://github.com/wekan/wekan/commit/3394f54fb47ce2830dd72f67fba4f281246c156f).
+  Thanks to buzztiaan.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
