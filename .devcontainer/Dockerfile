@@ -5,7 +5,7 @@ LABEL maintainer="sgr"
 # - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
 #   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
-ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python3 git ca-certificates iproute2"
+ENV BUILD_DEPS="apt-utils apt-transport-https gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python3 git ca-certificates iproute2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
@@ -30,7 +30,6 @@ ENV \
     ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
     RICHER_CARD_COMMENT_EDITOR=false \
     CARD_OPENED_WEBHOOK_ENABLED=false \
-    ATTACHMENTS_STORE_PATH="" \
     ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM="" \
     ATTACHMENTS_UPLOAD_MIME_TYPES="" \
     ATTACHMENTS_UPLOAD_MAX_SIZE=0 \
@@ -71,6 +70,9 @@ ENV \
     LDAP_ENABLE=false \
     LDAP_PORT=389 \
     LDAP_HOST="" \
+    LDAP_AD_SIMPLE_AUTH="" \
+    LDAP_USER_AUTHENTICATION=false \
+    LDAP_USER_AUTHENTICATION_FIELD=uid \
     LDAP_BASEDN="" \
     LDAP_LOGIN_FALLBACK=false \
     LDAP_RECONNECT=true \
@@ -88,8 +90,6 @@ ENV \
     LDAP_ENCRYPTION=false \
     LDAP_CA_CERT="" \
     LDAP_REJECT_UNAUTHORIZED=false \
-    LDAP_USER_AUTHENTICATION=false \
-    LDAP_USER_AUTHENTICATION_FIELD=uid \
     LDAP_USER_SEARCH_FILTER="" \
     LDAP_USER_SEARCH_SCOPE="" \
     LDAP_USER_SEARCH_FIELD="" \
@@ -144,7 +144,8 @@ ENV \
     SAML_IDENTIFIER_FORMAT="" \
     SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
     SAML_ATTRIBUTES="" \
-    DEFAULT_WAIT_SPINNER="" \
+    ORACLE_OIM_ENABLED=false \
+    WAIT_SPINNER="" \
     S3=""
 # \
 #    NODE_OPTIONS="--max_old_space_size=4096"
@@ -161,6 +162,7 @@ ENV \
 RUN set -o xtrace \
   && useradd --user-group -m --system --home-dir /home/wekan wekan \
   && apt-get update \
+  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} && \
   && apt-get install --assume-yes --no-install-recommends apt-utils apt-transport-https ca-certificates 2>&1 \
   && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
