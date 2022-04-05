@@ -2840,6 +2840,10 @@ definitions:
         description: |
            Does the board allows description text?
         type: boolean
+      allowsDescriptionTextOnMinicard:
+        description: |
+           Does the board allows description text on minicard?
+        type: boolean
       allowsCardNumber:
         description: |
            Does the board allows card numbers?
@@ -2971,6 +2975,7 @@ definitions:
       - allowsComments
       - allowsDescriptionTitle
       - allowsDescriptionText
+      - allowsDescriptionTextOnMinicard
       - allowsCardNumber
       - allowsActivities
       - allowsLabels

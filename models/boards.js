@@ -376,6 +376,13 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsDescriptionTextOnMinicard: {
+      /**
+       * Does the board allows description text on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
 
     allowsCardNumber: {
       /**
@@ -1413,6 +1420,10 @@ Boards.mutations({
 
   setAllowsDescriptionText(allowsDescriptionText) {
     return { $set: { allowsDescriptionText } };
+  },
+
+  setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
+    return { $set: { allowsDescriptionTextOnMinicard } };
   },
 
   setAllowsActivities(allowsActivities) {

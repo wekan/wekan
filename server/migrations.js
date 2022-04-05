@@ -1034,6 +1034,22 @@ Migrations.add('add-description-text-allowed', () => {
   );
 });
 
+Migrations.add('add-description-text-allowed-on-minicard', () => {
+  Boards.update(
+    {
+      allowsDescriptionTextOnMinicard: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsDescriptionTextOnMinicard: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
 Migrations.add('add-sort-field-to-boards', () => {
   Boards.find().forEach((board, index) => {
     if (!board.hasOwnProperty('sort')) {

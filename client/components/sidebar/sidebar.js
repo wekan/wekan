@@ -859,6 +859,10 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsDescriptionText;
   },
 
+  allowsDescriptionTextOnMinicard() {
+    return this.currentBoard.allowsDescriptionTextOnMinicard;
+  },
+
   isBoardSelected() {
     return this.currentBoard.dateSettingsDefaultBoardID;
   },
@@ -1140,6 +1144,22 @@ BlazeComponent.extendComponent({
           $('.js-field-has-description-text').toggleClass(
             CKCLS,
             this.currentBoard.allowsDescriptionText,
+          );
+        },
+        'click .js-field-has-description-text-on-minicard'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionTextOnMinicard = !this.currentBoard
+            .allowsDescriptionTextOnMinicard;
+          this.currentBoard.setallowsDescriptionTextOnMinicard(
+            this.currentBoard.allowsDescriptionTextOnMinicard,
+          );
+          $(`.js-field-has-description-text-on-minicard ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTextOnMinicard,
+          );
+          $('.js-field-has-description-text-on-minicard').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTextOnMinicard,
           );
         },
         'click .js-field-has-checklists'(evt) {
