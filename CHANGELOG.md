@@ -1,8 +1,13 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v6.15 2022-04-05 WeKan ® release
 
-This release fixes the following bugs:
+This release add the following new features:
+
+- [Show description text on minicard](https://github.com/wekan/wekan/pull/4454).
+  Thanks to helioguardabaxo.
+
+and fixes the following bugs:
 
 - [Card Details List-Dropdown is now filled too if the card is opened from global search](https://github.com/wekan/wekan/pull/4444).
   Thanks to mfilser.
