@@ -282,7 +282,7 @@
     "computer": "מחשב",
     "confirm-subtask-delete-popup": "למחוק את תת המשימה?",
     "confirm-checklist-delete-popup": "למחוק את רשימת המטלות?",
-    "subtaskDeletePopup-title": "Delete Subtask?",
+    "subtaskDeletePopup-title": "למחוק תת־משימה?",
     "checklistDeletePopup-title": "למחוק רשימת מטלות?",
     "copy-card-link-to-clipboard": "העתקת קישור הכרטיס ללוח הגזירים",
     "copy-text-to-clipboard": "העתקת טקסט ללוח הגזירים",
@@ -1149,5 +1149,5 @@
     "copyChecklist": "העתקת רשימת מטלות",
     "copyChecklistPopup-title": "העתקת רשימת סימון",
     "card-show-lists": "הצגת רשימות על הכרטיס",
-    "subtaskActionsPopup-title": "Subtask Actions"
+    "subtaskActionsPopup-title": "פעולות תת־משימה"
 }

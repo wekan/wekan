@@ -282,7 +282,7 @@
     "computer": "Ordinateur",
     "confirm-subtask-delete-popup": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
     "confirm-checklist-delete-popup": "Êtes-vous sûr de vouloir supprimer la checklist ?",
-    "subtaskDeletePopup-title": "Delete Subtask?",
+    "subtaskDeletePopup-title": "Supprimer la sous-tâche ?",
     "checklistDeletePopup-title": "Supprimer la checklist ?",
     "copy-card-link-to-clipboard": "Copier le lien vers la carte dans le presse-papier",
     "copy-text-to-clipboard": "Copier le texte dans le presse-papier",
@@ -572,8 +572,8 @@
     "has-spenttime-cards": "A des cartes avec du temps passé",
     "time": "Temps",
     "title": "Titre",
-    "toggle-labels": "Toggle labels 1-9 for card. Multi-Selection adds labels 1-9",
-    "remove-labels-multiselect": "Multi-Selection removes labels 1-9",
+    "toggle-labels": "Bascule les étiquettes 1-9 pour les cartes. La sélection multiple ajoute les étiquettes 1-9",
+    "remove-labels-multiselect": "La multi-sélection supprime les étiquettes 1-9",
     "tracking": "Suivi",
     "tracking-info": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
     "type": "Type",
@@ -613,7 +613,7 @@
     "people": "Personne",
     "registration": "Inscription",
     "disable-self-registration": "Désactiver l'inscription",
-    "disable-forgot-password": "Disable Forgot Password",
+    "disable-forgot-password": "Désactiver le mot de passe oublié",
     "invite": "Inviter",
     "invite-people": "Inviter une personne",
     "to-boards": "Au(x) tableau(x)",
@@ -1149,5 +1149,5 @@
     "copyChecklist": "Copier la checklist",
     "copyChecklistPopup-title": "Copier la checklist",
     "card-show-lists": "Afficher les listes sur la carte",
-    "subtaskActionsPopup-title": "Subtask Actions"
+    "subtaskActionsPopup-title": "Action de la sous-tâche"
 }
