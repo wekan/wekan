@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Teilaufgaben in diesem Board ablegen:",
     "deposit-subtasks-list": "Zielliste für hier abgelegte Teilaufgaben:",
     "show-parent-in-minicard": "Übergeordnetes Element auf Minikarte anzeigen:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Vollständiger Pfad über Titel",
     "prefix-with-parent": "Über Titel",
     "subtext-with-full-path": "Vollständiger Pfad unter Titel",

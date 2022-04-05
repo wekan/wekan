@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Deposita i sotto compiti in questa bacheca",
     "deposit-subtasks-list": "Lista di destinaizoni per questi sotto-compiti",
     "show-parent-in-minicard": "Mostra genirotri nelle mini schede:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Prefisso con percorso completo",
     "prefix-with-parent": "Prefisso con genitore",
     "subtext-with-full-path": "Sottotesto con percorso completo",

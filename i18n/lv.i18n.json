@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Noguldīt apakšuzdevumus uz šo dēli:",
     "deposit-subtasks-list": "Saraksts priekš apakšuzdevumiem noguldīts šeit:",
     "show-parent-in-minicard": "Rādīt piederību mini kartiņā:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Priedēklis ar pilnu ceļu",
     "prefix-with-parent": "Priedēklis ar piederību",
     "subtext-with-full-path": "Apakšteksts ar pilnu ceļu",

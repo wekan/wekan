@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Talleta alitehtävät tälle taululle:",
     "deposit-subtasks-list": "Laskeutumislista alatehtäville tallennettu tänne:",
     "show-parent-in-minicard": "Näytä ylätehtävä minikortilla:",
+    "description-on-minicard": "Kuvaus minikortilla",
     "prefix-with-full-path": "Etuliite koko polulla",
     "prefix-with-parent": "Etuliite ylätehtävällä",
     "subtext-with-full-path": "Aliteksti koko polulla",

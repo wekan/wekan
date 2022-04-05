@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Twórz podzadania na tablicy:",
     "deposit-subtasks-list": "Początkowa lista dla podzadań jest przechowywana w:",
     "show-parent-in-minicard": "Pokaż rodzica w minikarcie:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Prefix z pełną ścieżką",
     "prefix-with-parent": "Prefix z rodzicem",
     "subtext-with-full-path": "Podtekst z pełną ścieżką",

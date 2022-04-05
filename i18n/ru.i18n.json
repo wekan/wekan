@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Отправлять подзадачи на доску:",
     "deposit-subtasks-list": "Размещать подзадачи, отправленные на эту доску, в списке:",
     "show-parent-in-minicard": "Указывать исходную карточку:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Cверху, полный путь",
     "prefix-with-parent": "Сверху, только имя",
     "subtext-with-full-path": "Cнизу, полный путь",

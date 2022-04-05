@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Depositar sub-tarefas neste quadro:",
     "deposit-subtasks-list": "Lista de destino para sub-tarefas depositadas aqui:",
     "show-parent-in-minicard": "Mostrar pai no mini-cartão:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Prefixar com o caminho completo",
     "prefix-with-parent": "Prefixar com o pai",
     "subtext-with-full-path": "Sub-texto com o caminho completo",

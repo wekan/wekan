@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Vložit podúkoly do tohoto tabla",
     "deposit-subtasks-list": "Landing list for subtasks deposited here:",
     "show-parent-in-minicard": "Ukázat předka na minikartě",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Prefix s celou cestou",
     "prefix-with-parent": "Prefix s předkem",
     "subtext-with-full-path": "Podtext s celou cestou",

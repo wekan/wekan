@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "將子任務放入以下看板：",
     "deposit-subtasks-list": "將子任務放入以下清單：",
     "show-parent-in-minicard": "顯示上一級卡片：",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "完整路徑前綴",
     "prefix-with-parent": "父層前綴",
     "subtext-with-full-path": "子標題顯示完整路徑",

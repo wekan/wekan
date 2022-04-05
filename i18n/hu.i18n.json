@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Helyezd a Rész-feladatokat erre a Táblára:",
     "deposit-subtasks-list": "A Rész-feladatok Teendő-listája ide lett helyezve:",
     "show-parent-in-minicard": "Mutasd a szülőt a mini-kártyán:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Előtag teljes útvonallal",
     "prefix-with-parent": "Előtag szülővel",
     "subtext-with-full-path": "Szövegrészlet teljes útvonallal",

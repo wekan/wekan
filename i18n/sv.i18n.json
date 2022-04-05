@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Lägg till deluppgifter till denna tavla:",
     "deposit-subtasks-list": "Landningslista för deluppgifter deponerade här:",
     "show-parent-in-minicard": "Visa överordnad i minikort:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Prefix med fullständig sökväg",
     "prefix-with-parent": "Prefix med överordnad",
     "subtext-with-full-path": "Undertext med fullständig sökväg",

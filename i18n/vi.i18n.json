@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Gửi các nhiệm vụ phụ vào bảng này:",
     "deposit-subtasks-list": "Danh sách đích cho các nhiệm vụ phụ được gửi tại đây:",
     "show-parent-in-minicard": "Hiện cha mẹ trong minicard:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Tiền tố với đường dẫn đầy đủ",
     "prefix-with-parent": "Tiền tố với cha mẹ",
     "subtext-with-full-path": "Văn bản phụ với đường dẫn đầy đủ",

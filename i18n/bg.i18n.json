@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Вложете под-задачи към тази дъска:",
     "deposit-subtasks-list": "Landing list for subtasks deposited here:",
     "show-parent-in-minicard": "Покажи източника в мини-картата:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Представка с пълен път",
     "prefix-with-parent": "Представка с източник",
     "subtext-with-full-path": "Под-текст с пълен път",

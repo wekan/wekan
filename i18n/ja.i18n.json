@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "サブタスクの作成先ボード：",
     "deposit-subtasks-list": "サブタスクの作成先リスト：",
     "show-parent-in-minicard": "ミニカード上の親表示",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "タイトルの前に親をフル表示",
     "prefix-with-parent": "タイトルの前に親を表示",
     "subtext-with-full-path": "タイトルの後ろに親をフル表示",

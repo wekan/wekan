@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Indsæt delopgaver på denne tavle: ",
     "deposit-subtasks-list": "Liste som der landes på, når delopgaver indsættes her:",
     "show-parent-in-minicard": "Vis overordnede i minikort:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Præfiks med fuld sti",
     "prefix-with-parent": "Præfiks med overordnede",
     "subtext-with-full-path": "Undertekst med fuld sti",

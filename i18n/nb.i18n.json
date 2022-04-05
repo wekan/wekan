@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Sett inn Underoppgave på Tavle:",
     "deposit-subtasks-list": "Mottakende liste for underoppgaver satt inn her:",
     "show-parent-in-minicard": "Vis kilde i minikort",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Prefiks med full sti",
     "prefix-with-parent": "Prefiks med kilde",
     "subtext-with-full-path": "Undertekst med full sti",

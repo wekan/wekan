@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "افزودن ریزکار به برد:",
     "deposit-subtasks-list": "لیست برای ریزکار های افزوده شده",
     "show-parent-in-minicard": "نمایش خانواده در ریز کارت",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "پیشوند با مسیر کامل",
     "prefix-with-parent": "پیشوند با خانواده",
     "subtext-with-full-path": "زیرنویس با مسیر کامل",

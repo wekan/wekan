@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Alt görevleri bu panoda sakla:",
     "deposit-subtasks-list": "Alt görevlerin açılacağı liste:",
     "show-parent-in-minicard": "Mini kart içinde üst kartı göster",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Tam yolunu önüne ekle",
     "prefix-with-parent": "Ana görev ile ön adlandır",
     "subtext-with-full-path": "Tam yolu ile alt metin",

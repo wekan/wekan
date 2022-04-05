@@ -706,6 +706,7 @@
     "deposit-subtasks-board": "Deponiraj podopravila na tablo:",
     "deposit-subtasks-list": "Ciljni seznam za deponirana podopravila:",
     "show-parent-in-minicard": "Pokaži starša na mini-kartici:",
+    "description-on-minicard": "Description on minicard",
     "prefix-with-full-path": "Predpona s celotno potjo",
     "prefix-with-parent": "Predpona s staršem",
     "subtext-with-full-path": "Podbesedilo s celotno potjo",
