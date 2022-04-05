@@ -378,7 +378,7 @@ Boards.attachSchema(
     },
     allowsDescriptionTextOnMinicard: {
       /**
-       * Does the board allows description text?
+       * Does the board allows description text on minicard?
        */
       type: Boolean,
       defaultValue: false,
