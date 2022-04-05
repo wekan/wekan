@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { createObjectId } from './grid/createObjectId';
-import { createInterceptDownload } from './fsHooks/createInterceptDownload';
+import { httpStreamOutput } from './httpStream.js'
 
 export const STORAGE_NAME_FILESYSTEM = "fs";
 export const STORAGE_NAME_GRIDFS     = "gridfs";
@@ -125,7 +125,15 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    * @param http the current http request
    */
   interceptDownload(http) {
-    const ret = createInterceptDownload(this.filesCollection, this.gridFsBucket, this.fileObj, http, this.versionName);
+    const readStream = this.getReadStream();
+    const downloadFlag = http?.params?.query?.download;
+
+    let ret = false;
+    if (readStream) {
+      ret = true;
+      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, this.filesCollection.cacheControl);
+    }
+
     return ret;
   }
 
@@ -195,12 +203,20 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    * @return the GridFS Object-Id
    */
   getGridFsObjectId() {
-    const gridFsFileId = (this.fileObj.versions[this.versionName].meta || {})
-      .gridFsFileId;
     let ret;
+    const gridFsFileId = this.getGridFsFileId();
     if (gridFsFileId) {
       ret = createObjectId({ gridFsFileId });
     }
+    return ret;
+  }
+
+  /** returns the GridFS Object-Id
+   * @return the GridFS Object-Id
+   */
+  getGridFsFileId() {
+    const ret = (this.fileObj.versions[this.versionName].meta || {})
+      .gridFsFileId;
     return ret;
   }
 
