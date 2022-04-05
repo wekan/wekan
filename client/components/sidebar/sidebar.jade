@@ -237,6 +237,12 @@ template(name="boardCardSettingsPopup")
           | {{_ 'description'}}
           | {{_ 'custom-field-text'}}
     div.check-div
+      a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-align-left
+          | {{_ 'description-on-minicard'}}
+    div.check-div
       a.flex.js-field-has-checklists(class="{{#if allowsChecklists}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsChecklists}}is-checked{{/if}}")
         span
