@@ -1,3 +1,5 @@
+import Attachments from "./attachments";
+
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
   return moment(dateAsString, moment.ISO_8601).isValid();
@@ -452,20 +454,22 @@ export class TrelloCreator {
           }
         });
 
-        if (links.length) {
-          let desc = cardToCreate.description.trim();
-          if (desc) {
-            desc += '\n\n';
+        if (links !== undefined) {
+          if (links.length !== undefined) {
+            let desc = cardToCreate.description.trim();
+            if (desc) {
+              desc += '\n\n';
+            }
+            desc += `## ${TAPi18n.__('links-heading')}\n`;
+            links.forEach(link => {
+              desc += `* ${link}\n`;
+            });
+            Cards.direct.update(cardId, {
+              $set: {
+                description: desc,
+              },
+            });
           }
-          desc += `## ${TAPi18n.__('links-heading')}\n`;
-          links.forEach(link => {
-            desc += `* ${link}\n`;
-          });
-          Cards.direct.update(cardId, {
-            $set: {
-              description: desc,
-            },
-          });
         }
       }
       result.push(cardId);
