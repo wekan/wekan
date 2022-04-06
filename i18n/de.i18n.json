@@ -282,7 +282,7 @@
     "computer": "Computer",
     "confirm-subtask-delete-popup": "Wollen Sie die Teilaufgabe wirklich löschen?",
     "confirm-checklist-delete-popup": "Wollen Sie diese Checkliste wirklich löschen?",
-    "subtaskDeletePopup-title": "Delete Subtask?",
+    "subtaskDeletePopup-title": "Teilaufgabe löschen?",
     "checklistDeletePopup-title": "Checkliste löschen?",
     "copy-card-link-to-clipboard": "Kopiere Link zur Karte in die Zwischenablage",
     "copy-text-to-clipboard": "Text in die Zwischenablage kopieren",
@@ -706,7 +706,7 @@
     "deposit-subtasks-board": "Teilaufgaben in diesem Board ablegen:",
     "deposit-subtasks-list": "Zielliste für hier abgelegte Teilaufgaben:",
     "show-parent-in-minicard": "Übergeordnetes Element auf Minikarte anzeigen:",
-    "description-on-minicard": "Description on minicard",
+    "description-on-minicard": "Beschreibung auf Minikarte",
     "prefix-with-full-path": "Vollständiger Pfad über Titel",
     "prefix-with-parent": "Über Titel",
     "subtext-with-full-path": "Vollständiger Pfad unter Titel",
@@ -1150,5 +1150,5 @@
     "copyChecklist": "Checkliste kopieren",
     "copyChecklistPopup-title": "Checkliste kopieren",
     "card-show-lists": "Listen anzeigen",
-    "subtaskActionsPopup-title": "Subtask Actions"
+    "subtaskActionsPopup-title": "Teilaufgabenaktionen"
 }
