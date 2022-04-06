@@ -16,6 +16,13 @@ else
     export MONGO_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan"
 fi
 
+# If uploads directory does not exist, create it.
+# Wekan will store attachments there.
+export WRITABLE_PATH=$SNAP_COMMON/files
+if [ ! -d $WRITABLE_PATH ]; then
+  mkdir $WRITABLE_PATH
+fi
+
 echo -e "MONGO_URL=$MONGO_URL"
 APPLICATION_DIRECTORY=$SNAP
 APPLICATION_START=main.js
