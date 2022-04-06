@@ -4,6 +4,8 @@ import {
   TYPE_LINKED_BOARD,
   TYPE_LINKED_CARD,
 } from '../config/const';
+import Attachments from "./attachments";
+
 
 Cards = new Mongo.Collection('cards');
 
@@ -585,8 +587,8 @@ Cards.helpers({
     // Copy attachments
     oldCard.attachments().forEach(att => {
       att.cardId = _id;
-      Attachments.insert(att);
       delete att._id;
+      return Attachments.insert(att);
     });
 
     // copy checklists
