@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Added HTML viewer to description on minicard](https://github.com/wekan/wekan/pull/4457).
   Thanks to helioguardabaxo.
+- [Remove incomplete translated changelogs](https://github.com/wekan/wekan/pull/4455).
+  Thanks to ocdtrekkie.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
