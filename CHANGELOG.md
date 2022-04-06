@@ -8,6 +8,8 @@ This release fixes the following bugs:
   Thanks to helioguardabaxo.
 - [Remove incomplete translated changelogs](https://github.com/wekan/wekan/pull/4455).
   Thanks to ocdtrekkie.
+- [Fix Can't add attachments because of Content-Security-Policy](https://github.com/wekan/wekan/commit/0d9c37b0067d46669b7258bfff5dfc16d590e1d9).
+  Thanks to Ben0it-T and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
