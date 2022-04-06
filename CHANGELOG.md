@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Added HTML viewer to description on minicard](https://github.com/wekan/wekan/pull/4457).
+  Thanks to helioguardabaxo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.15 2022-04-05 WeKan ® release
 
 This release add the following new features:
