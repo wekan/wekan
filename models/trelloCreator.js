@@ -447,15 +447,17 @@ export class TrelloCreator {
               });
             }
           };
-          if (att.url) {
-            Attachment.load(att.url, opts, cb, true);
-          } else if (att.file) {
-            Attachment.write(att.file, opts, cb, true);
-          }
+          // TODO: Add import attachment with Trello API key
+          //       like Python code at wekan/trello/ of https://github.com/wekan/wekan
+          //if (att.url) {
+          //  Attachment.load(att.url, opts, cb, true);
+          //} else if (att.file) {
+          //  Attachment.write(att.file, opts, cb, true);
+          //}
         });
 
-        if (links !== undefined) {
-          if (links.length !== undefined) {
+        if (links) {
+          if (links.length) {
             let desc = cardToCreate.description.trim();
             if (desc) {
               desc += '\n\n';
