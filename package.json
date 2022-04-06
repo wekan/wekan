@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.15.0",
-    "@babel/runtime": "^7.15.3",
+    "@babel/runtime": "^7.17.9",
     "@wekanteam/markdown-it-mermaid": "^0.5.3",
     "ajv": "^8.10.0",
     "babel-runtime": "^6.26.0",
