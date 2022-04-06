@@ -1,6 +1,13 @@
 import { BrowserPolicy } from 'meteor/browser-policy-common';
 
 Meteor.startup(() => {
+
+  // Default allowed
+  BrowserPolicy.content.allowInlineScripts();
+  BrowserPolicy.content.allowEval();
+  BrowserPolicy.content.allowInlineStyles();
+  BrowserPolicy.content.allowSameOriginForAll();
+
   if (process.env.BROWSER_POLICY_ENABLED === 'true') {
     // Trusted URL that can embed Wekan in iFrame.
     const trusted = process.env.TRUSTED_URL;
