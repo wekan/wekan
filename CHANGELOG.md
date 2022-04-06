@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v6.16 2022-04-06 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -15,6 +15,8 @@ This release fixes the following bugs:
 - [Try to fix Trello import Attachment and links not defined. In Progress, does not work yet](https://github.com/wekan/wekan/commit/5eca3de00fea31721fa2e10b7d3a6f13ca87f39c).
   Thanks to akhudushin, hatl, 2447254731 and xet7.
 - [Comment out Trello attachment import until it's implemented with API key](https://github.com/wekan/wekan/commit/49a996624f3842c243bb72120b95c27d914e02a9).
+  Thanks to xet7.
+- [Try to fix Snap WRITABLE_FILES](https://github.com/wekan/wekan/commit/4ca7b0dad733099cd6ad15acc69ec436539f7460).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
