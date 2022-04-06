@@ -162,8 +162,6 @@ ENV \
 RUN set -o xtrace \
   && useradd --user-group -m --system --home-dir /home/wekan wekan \
   && apt-get update \
-  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} && \
-  && apt-get install --assume-yes --no-install-recommends apt-utils apt-transport-https ca-certificates 2>&1 \
   && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
 # OLD:
