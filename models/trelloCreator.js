@@ -1,3 +1,5 @@
+import Attachments from "./attachments";
+
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
   return moment(dateAsString, moment.ISO_8601).isValid();
@@ -445,27 +447,31 @@ export class TrelloCreator {
               });
             }
           };
-          if (att.url) {
-            Attachment.load(att.url, opts, cb, true);
-          } else if (att.file) {
-            Attachment.write(att.file, opts, cb, true);
-          }
+          // TODO: Add import attachment with Trello API key
+          //       like Python code at wekan/trello/ of https://github.com/wekan/wekan
+          //if (att.url) {
+          //  Attachment.load(att.url, opts, cb, true);
+          //} else if (att.file) {
+          //  Attachment.write(att.file, opts, cb, true);
+          //}
         });
 
-        if (links.length) {
-          let desc = cardToCreate.description.trim();
-          if (desc) {
-            desc += '\n\n';
+        if (links) {
+          if (links.length) {
+            let desc = cardToCreate.description.trim();
+            if (desc) {
+              desc += '\n\n';
+            }
+            desc += `## ${TAPi18n.__('links-heading')}\n`;
+            links.forEach(link => {
+              desc += `* ${link}\n`;
+            });
+            Cards.direct.update(cardId, {
+              $set: {
+                description: desc,
+              },
+            });
           }
-          desc += `## ${TAPi18n.__('links-heading')}\n`;
-          links.forEach(link => {
-            desc += `* ${link}\n`;
-          });
-          Cards.direct.update(cardId, {
-            $set: {
-              description: desc,
-            },
-          });
         }
       }
       result.push(cardId);

@@ -239,7 +239,7 @@ BlazeComponent.extendComponent({
             },
             (err, res) => {
               if (err) {
-                this.setError(err.error);
+                self.setError(err.error);
               } else {
                 Session.set('fromBoard', null);
                 subManager.subscribe('board', res, false);

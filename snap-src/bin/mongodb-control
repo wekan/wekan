@@ -24,12 +24,6 @@ if test -f "$SNAP_COMMON/mongodb.log"; then
    rm -f "$SNAP_COMMON/mongodb.log"
 fi
 
-# If uploads directory does not exist, create it.
-# Wekan will store attachments there.
-if [ ! -d "${WRITABLE_PATH}" ]; then
-   mkdir "${WRITABLE_PATH}"
-fi
-
 # Alternative: When starting MongoDB, and using logfile, truncate log to last 1000 lines of text.
 # 1) If file exists:
 #if test -f "$SNAP_COMMON/mongodb.log"; then
