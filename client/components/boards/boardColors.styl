@@ -1088,3 +1088,96 @@ setBoardClear(color1,color2)
 
 .pop-over.board-color-moderndark .pop-over-list li > a:hover
   background-color: rgba(255,255,255,0.2)
+
+
+.board-color-exodark
+  setBoardColor(#222222)
+
+  body
+    background: #222222;
+
+  i
+    color: #00897b!important;
+
+  .board-canvas
+    background: #222222;
+    font-family: Poppins; //Maybe Lato would be great
+
+  .swimlane
+    background: #222222;
+
+  .list
+    margin: 10px;
+    color: white;
+    border-radius: 15px;
+    background: #222222;
+    box-shadow: inset 15px 15px 37px #1c1c1c,
+                inset -15px -15px 37px #282828;
+    border: none;
+
+  .list-header
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    background: #222222;
+    box-shadow: inset 15px 15px 37px #1c1c1c,
+                inset -15px -15px 37px #282828;
+
+  .list-header-menu
+    a
+      color: #00897b!important;
+
+  .is-selected .minicard
+    color: white;
+    background: #2b2b2b;
+    border: 1px solid #00897b;
+
+  .minicard
+    color: white;
+    background: #2b2b2b;
+
+  .list-body
+    .open-minicard-composer:hover
+      background: #2b2b2b;
+      border: 1px solid #00897b;
+      border-radius: 10px;
+
+  .badges
+    color: white;
+
+  .minicard
+    textarea
+      color: white;
+
+  .minicard:hover:not(.minicard-composer)
+    border: 1px solid #00897b;
+    background: #2b2b2b;
+    padding: 9px 9px 3px 9px;/*because of the 1px border we need to reduce padding by 1px*/
+
+  .card-details
+    background: #2b2b2b;
+    color: white;
+
+  .card-details .card-details-header
+    background: #2b2b2b;
+    color: white;
+
+  .sidebar-content
+    background: #2b2b2b;
+    color: white;
+
+  .card-details, .sidebar-content
+    box-shadow: 0 0 7px 0 #00897b;
+
+  .card-details > h1,h2,h3,h4,h5,h6,p,a,span
+    color: white!important;
+
+  .toggle-switch:checked ~ .toggle-label
+    background-color: #00897b!important;
+
+.pop-over.board-color-exodark
+  background: #2b2b2b;
+  color: white;
+
+.pop-over.board-color-exodark .header
+  background: #2b2b2b;
+  color: white;

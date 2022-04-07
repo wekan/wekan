@@ -130,6 +130,7 @@ Migrations.add('use-css-class-for-boards-colors', () => {
     '#596557': 'natural',
     '#2A80B8': 'modern',
     '#2a2a2a': 'moderndark',
+    '#222222': 'exodark',
   };
   Boards.find().forEach(board => {
     const oldBoardColor = board.background.color;
