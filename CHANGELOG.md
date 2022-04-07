@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [New theme "exodark"](https://github.com/wekan/wekan/pull/4464).
+  Thanks to TheExo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.17 2022-04-06 WeKan ® release
 
 This release adds the following updates:
