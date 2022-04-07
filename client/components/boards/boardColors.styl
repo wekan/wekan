@@ -1124,7 +1124,7 @@ setBoardClear(color1,color2)
 
   .list-header-menu
     a
-      color: #00897b;
+      color: #00897b!important;
 
   .is-selected .minicard
     color: white;
@@ -1135,10 +1135,11 @@ setBoardClear(color1,color2)
     color: white;
     background: #2b2b2b;
 
-  .list-body .open-minicard-composer:hover
-    background: #2b2b2b;
-    border: 1px solid #00897b;
-    border-radius: 10px;
+  .list-body
+    .open-minicard-composer:hover
+      background: #2b2b2b;
+      border: 1px solid #00897b;
+      border-radius: 10px;
 
   .badges
     color: white;
@@ -1169,6 +1170,9 @@ setBoardClear(color1,color2)
 
   .card-details > h1,h2,h3,h4,h5,h6,p,a,span
     color: white!important;
+
+  .toggle-switch:checked ~ .toggle-label
+    background-color: #00897b!important;
 
 .pop-over.board-color-exodark
   background: #2b2b2b;
