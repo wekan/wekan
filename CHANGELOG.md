@@ -7,6 +7,11 @@ This release adds the following new features:
 - [New theme "exodark"](https://github.com/wekan/wekan/pull/4464).
   Thanks to TheExo.
 
+and fixes the following bugs:
+
+- [Fix Card Description on dark theme is too dark](https://github.com/wekan/wekan/pull/4466).
+  Thanks to TheExo.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.17 2022-04-06 WeKan ® release
