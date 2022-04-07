@@ -1,4 +1,4 @@
-import { AttachmentStorage } from '/models/attachments';
+import Attachments from '/models/attachments';
 import { CardSearchPagedComponent } from '/client/lib/cardSearch';
 import SessionData from '/models/usersessiondata';
 import { QueryParams } from '/config/query-classes';
@@ -103,8 +103,6 @@ class AdminReport extends BlazeComponent {
 
   results() {
     // eslint-disable-next-line no-console
-    // console.log('attachments:', AttachmentStorage.find());
-    // console.log('attachments.count:', AttachmentStorage.find().count());
     return this.collection.find();
   }
 
@@ -124,10 +122,6 @@ class AdminReport extends BlazeComponent {
     return Math.round(size / 1024);
   }
 
-  usageCount(key) {
-    return Attachments.find({ 'copies.attachments.key': key }).count();
-  }
-
   abbreviate(text) {
     if (text.length > 30) {
       return `${text.substr(0, 29)}...`;
@@ -137,7 +131,7 @@ class AdminReport extends BlazeComponent {
 }
 
 (class extends AdminReport {
-  collection = AttachmentStorage;
+  collection = Attachments;
 }.register('filesReport'));
 
 (class extends AdminReport {

@@ -88,18 +88,14 @@ template(name="filesReport")
         th Filename
         th.right Size (kB)
         th MIME Type
-        th.center Usage
-        th MD5 Sum
         th ID
 
       each att in results
         tr
-          td {{ att.filename }}
-          td.right {{fileSize att.length }}
-          td {{ att.contentType }}
-          td.center {{usageCount att._id.toHexString }}
-          td {{ att.md5 }}
-          td {{ att._id.toHexString }}
+          td {{ att.name }}
+          td.right {{fileSize att.size }}
+          td {{ att.type }}
+          td {{ att._id }}
   else
     div {{_ 'no-results' }}
 
