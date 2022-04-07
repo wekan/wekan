@@ -1,8 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
-import AttachmentStoreStrategy from '/models/lib/attachmentStoreStrategy';
+import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs} from '/models/lib/attachmentStoreStrategy';
+import FileStoreStrategyFactory, {moveToStorage} from '/models/lib/fileStoreStrategy';
+
+let attachmentBucket;
+if (Meteor.isServer) {
+  attachmentBucket = createBucket('attachments');
+}
+
+const fileStoreStrategyFactory = new FileStoreStrategyFactory(AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs, attachmentBucket);
 
 // XXX Enforce a schema for the Attachments FilesCollection
 // see: https://github.com/VeliovGroup/Meteor-Files/wiki/Schema
@@ -26,17 +35,17 @@ Attachments = new FilesCollection({
   },
   onAfterUpload(fileObj) {
     Object.keys(fileObj.versions).forEach(versionName => {
-      AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName).onAfterUpload();
+      fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).onAfterUpload();
     })
   },
   interceptDownload(http, fileObj, versionName) {
-    const ret = AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName).interceptDownload(http);
+    const ret = fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).interceptDownload(http);
     return ret;
   },
   onAfterRemove(files) {
     files.forEach(fileObj => {
       Object.keys(fileObj.versions).forEach(versionName => {
-        AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName).onAfterRemove();
+        fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).onAfterRemove();
       });
     });
   },
@@ -67,41 +76,12 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    moveToStorage(fileObjId, storageDestination) {
+    moveAttachmentToStorage(fileObjId, storageDestination) {
       check(fileObjId, String);
       check(storageDestination, String);
 
       const fileObj = Attachments.findOne({_id: fileObjId});
-
-      Object.keys(fileObj.versions).forEach(versionName => {
-        const strategyRead = AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName);
-        const strategyWrite = AttachmentStoreStrategy.getFileStrategy(this, fileObj, versionName, storageDestination);
-
-        if (strategyRead.constructor.name != strategyWrite.constructor.name) {
-          const readStream = strategyRead.getReadStream();
-          const writeStream = strategyWrite.getWriteStream();
-
-          writeStream.on('error', error => {
-            console.error('[writeStream error]: ', error, fileObjId);
-          });
-
-          readStream.on('error', error => {
-            console.error('[readStream error]: ', error, fileObjId);
-          });
-
-          writeStream.on('finish', Meteor.bindEnvironment((finishedData) => {
-            strategyWrite.writeStreamFinished(finishedData);
-          }));
-
-          // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-          readStream.on('end', Meteor.bindEnvironment(() => {
-            Attachments.update({ _id: fileObj._id }, { $set: { [`versions.${versionName}.storage`]: strategyWrite.getStorageName() } });
-            strategyRead.unlink();
-          }));
-
-          readStream.pipe(writeStream);
-        }
-      });
+      moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
     },
   });
 

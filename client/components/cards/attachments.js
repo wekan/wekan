@@ -147,11 +147,11 @@ BlazeComponent.extendComponent({
           Popup.back();
         },
         'click .js-move-storage-fs'() {
-          Meteor.call('moveToStorage', this.data()._id, "fs");
+          Meteor.call('moveAttachmentToStorage', this.data()._id, "fs");
           Popup.back();
         },
         'click .js-move-storage-gridfs'() {
-          Meteor.call('moveToStorage', this.data()._id, "gridfs");
+          Meteor.call('moveAttachmentToStorage', this.data()._id, "gridfs");
           Popup.back();
         },
       }
