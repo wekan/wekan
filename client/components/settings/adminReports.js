@@ -25,7 +25,6 @@ BlazeComponent.extendComponent({
       {
         'click a.js-report-broken': this.switchMenu,
         'click a.js-report-files': this.switchMenu,
-        'click a.js-report-orphaned-files': this.switchMenu,
         'click a.js-report-rules': this.switchMenu,
         'click a.js-report-cards': this.switchMenu,
         'click a.js-report-boards': this.switchMenu,
@@ -63,11 +62,6 @@ BlazeComponent.extendComponent({
       } else if ('report-files' === targetID) {
         this.showFilesReport.set(true);
         this.subscription = Meteor.subscribe('attachmentsList', () => {
-          this.loading.set(false);
-        });
-      } else if ('report-orphaned-files' === targetID) {
-        this.showOrphanedFilesReport.set(true);
-        this.subscription = Meteor.subscribe('orphanedAttachments', () => {
           this.loading.set(false);
         });
       } else if ('report-rules' === targetID) {
@@ -133,10 +127,6 @@ class AdminReport extends BlazeComponent {
 (class extends AdminReport {
   collection = Attachments;
 }.register('filesReport'));
-
-(class extends AdminReport {
-  collection = AttachmentStorage;
-}.register('orphanedFilesReport'));
 
 (class extends AdminReport {
   collection = Rules;

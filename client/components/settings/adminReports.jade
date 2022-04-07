@@ -12,11 +12,6 @@ template(name="adminReports")
                 | {{_ 'broken-cards'}}
 
             li
-              a.js-report-files(data-id="report-orphaned-files")
-                i.fa.fa-paperclip
-                | {{_ 'orphanedFilesReportTitle'}}
-
-            li
               a.js-report-files(data-id="report-files")
                 i.fa.fa-paperclip
                 | {{_ 'filesReportTitle'}}
@@ -43,8 +38,6 @@ template(name="adminReports")
             +brokenCardsReport
           else if showFilesReport.get
             +filesReport
-          else if showOrphanedFilesReport.get
-            +orphanedFilesReport
           else if showRulesReport.get
             +rulesReport
           else if showBoardsReport.get
@@ -96,27 +89,6 @@ template(name="filesReport")
           td.right {{fileSize att.size }}
           td {{ att.type }}
           td {{ att._id }}
-  else
-    div {{_ 'no-results' }}
-
-template(name="orphanedFilesReport")
-  h1 {{_ 'orphanedFilesReportTitle'}}
-  if resultsCount
-    table.table
-      tr
-        th Filename
-        th.right Size (kB)
-        th MIME Type
-        th MD5 Sum
-        th ID
-
-      each att in results
-        tr
-          td {{ att.filename }}
-          td.right {{fileSize att.length }}
-          td {{ att.contentType }}
-          td {{ att.md5 }}
-          td {{ att._id.toHexString }}
   else
     div {{_ 'no-results' }}
 
