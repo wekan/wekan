@@ -19,12 +19,11 @@ export class AttachmentStoreStrategyGridFs extends FileStoreStrategyGridFs {
 
   /** constructor
    * @param gridFsBucket use this GridFS Bucket
-   * @param filesCollection the current FilesCollection instance
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(gridFsBucket, filesCollection, fileObj, versionName) {
-    super(gridFsBucket, filesCollection, fileObj, versionName);
+  constructor(gridFsBucket, fileObj, versionName) {
+    super(gridFsBucket, fileObj, versionName);
   }
 
   /** after successfull upload */
@@ -48,12 +47,11 @@ export class AttachmentStoreStrategyGridFs extends FileStoreStrategyGridFs {
 export class AttachmentStoreStrategyFilesystem extends FileStoreStrategyFilesystem {
 
   /** constructor
-   * @param filesCollection the current FilesCollection instance
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(filesCollection, fileObj, versionName) {
-    super(filesCollection, fileObj, versionName);
+  constructor(fileObj, versionName) {
+    super(fileObj, versionName);
   }
 
   /** after successfull upload */

@@ -20,12 +20,11 @@ export default class FileStoreStrategyFactory {
   }
 
   /** returns the right FileStoreStrategy
-   * @param filesCollection the current FilesCollection instance
    * @param fileObj the current file object
    * @param versionName the current version
    * @param use this storage, or if not set, get the storage from fileObj
    */
-  getFileStrategy(filesCollection, fileObj, versionName, storage) {
+  getFileStrategy(fileObj, versionName, storage) {
     if (!storage) {
       storage = fileObj.versions[versionName].storage;
       if (!storage) {
@@ -41,9 +40,9 @@ export default class FileStoreStrategyFactory {
     let ret;
     if ([STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS].includes(storage)) {
       if (storage == STORAGE_NAME_FILESYSTEM) {
-        ret = new this.classFileStoreStrategyFilesystem(filesCollection, fileObj, versionName);
+        ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
       } else if (storage == STORAGE_NAME_GRIDFS) {
-        ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, filesCollection, fileObj, versionName);
+        ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, fileObj, versionName);
       }
     }
     return ret;
@@ -54,12 +53,10 @@ export default class FileStoreStrategyFactory {
 class FileStoreStrategy {
 
   /** constructor
-   * @param filesCollection the current FilesCollection instance
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(filesCollection, fileObj, versionName) {
-    this.filesCollection = filesCollection;
+  constructor(fileObj, versionName) {
     this.fileObj = fileObj;
     this.versionName = versionName;
   }
@@ -70,8 +67,9 @@ class FileStoreStrategy {
 
   /** download the file
    * @param http the current http request
+   * @param cacheControl cacheControl of FilesCollection
    */
-  interceptDownload(http) {
+  interceptDownload(http, cacheControl) {
   }
 
   /** after file remove */
@@ -112,26 +110,26 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
 
   /** constructor
    * @param gridFsBucket use this GridFS Bucket
-   * @param filesCollection the current FilesCollection instance
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(gridFsBucket, filesCollection, fileObj, versionName) {
-    super(filesCollection, fileObj, versionName);
+  constructor(gridFsBucket, fileObj, versionName) {
+    super(fileObj, versionName);
     this.gridFsBucket = gridFsBucket;
   }
 
   /** download the file
    * @param http the current http request
+   * @param cacheControl cacheControl of FilesCollection
    */
-  interceptDownload(http) {
+  interceptDownload(http, cacheControl) {
     const readStream = this.getReadStream();
     const downloadFlag = http?.params?.query?.download;
 
     let ret = false;
     if (readStream) {
       ret = true;
-      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, this.filesCollection.cacheControl);
+      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl);
     }
 
     return ret;
@@ -233,12 +231,11 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
 export class FileStoreStrategyFilesystem extends FileStoreStrategy {
 
   /** constructor
-   * @param filesCollection the current FilesCollection instance
    * @param fileObj the current file object
    * @param versionName the current version
    */
-  constructor(filesCollection, fileObj, versionName) {
-    super(filesCollection, fileObj, versionName);
+  constructor(fileObj, versionName) {
+    super(fileObj, versionName);
   }
 
   /** returns a read stream
@@ -285,8 +282,8 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
  */
 export const moveToStorage = function(fileObj, storageDestination, fileStoreStrategyFactory) {
   Object.keys(fileObj.versions).forEach(versionName => {
-    const strategyRead = fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName);
-    const strategyWrite = fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName, storageDestination);
+    const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
+    const strategyWrite = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName, storageDestination);
 
     if (strategyRead.constructor.name != strategyWrite.constructor.name) {
       const readStream = strategyRead.getReadStream();

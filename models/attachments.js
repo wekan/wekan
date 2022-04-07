@@ -40,13 +40,13 @@ Attachments = new FilesCollection({
     moveToStorage(fileObj, STORAGE_NAME_GRIDFS, fileStoreStrategyFactory);
   },
   interceptDownload(http, fileObj, versionName) {
-    const ret = fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).interceptDownload(http);
+    const ret = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).interceptDownload(http, this.cacheControl);
     return ret;
   },
   onAfterRemove(files) {
     files.forEach(fileObj => {
       Object.keys(fileObj.versions).forEach(versionName => {
-        fileStoreStrategyFactory.getFileStrategy(this, fileObj, versionName).onAfterRemove();
+        fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).onAfterRemove();
       });
     });
   },

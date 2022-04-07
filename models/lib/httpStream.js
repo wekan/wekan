@@ -13,7 +13,9 @@ export const httpStreamOutput = function(readStream, name, http, downloadFlag, c
       http.response.end('not found');
     });
 
-    http.response.setHeader('Cache-Control', cacheControl);
+    if (cacheControl) {
+      http.response.setHeader('Cache-Control', cacheControl);
+    }
     http.response.setHeader('Content-Disposition', getContentDisposition(name, http?.params?.query?.download));
   };
 
