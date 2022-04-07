@@ -1,7 +1,7 @@
 import Attachments from '/models/attachments';
 import { ObjectID } from 'bson';
 
-Meteor.publish('attachmentsList', function() {
+Meteor.publish('attachmentsList', function(limit) {
   const ret = Attachments.find(
     {},
     {
@@ -11,11 +11,13 @@ Meteor.publish('attachmentsList', function() {
         size: 1,
         type: 1,
         meta: 1,
+        path: 1,
+        versions: 1,
       },
       sort: {
         name: 1,
       },
-      limit: 250,
+      limit: limit,
     },
   ).cursor;
   return ret;
