@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [New theme "exodark"](https://github.com/wekan/wekan/pull/4464).
   Thanks to TheExo.
+- [Show bigger logo on tab](https://github.com/wekan/wekan/commit/4057bb6372a06d9e120964e5040ddd808ba93840)-
+  Thanks to Meeques, helioguardabaxo and xet7.
 
 and fixes the following bugs:
 
