@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.17
+  version: v6.18
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2795,6 +2795,7 @@ definitions:
           - natural
           - modern
           - moderndark
+          - exodark
       description:
         description: |
            The description of the board

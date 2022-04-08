@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v6.18 2022-04-08 WeKan ® release
 
 This release adds the following new features:
 
@@ -13,7 +13,9 @@ and fixes the following bugs:
 
 - [Fix Card Description on dark theme is too dark](https://github.com/wekan/wekan/pull/4466).
   Thanks to TheExo.
-- [Removed browser contect policy so that attachments would be visible](https://github.com/wekan/wekan/commit/8a39a52d5d4d151dd90604091e35e51b6744e599).
+- Removed browser contect policy so that attachments would be visible.
+  [Part 1](https://github.com/wekan/wekan/commit/8a39a52d5d4d151dd90604091e35e51b6744e599),
+  [Part 2](https://github.com/wekan/wekan/commit/12448ab473c08a2c3c873d7ffa2b78e7630dc87a).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
