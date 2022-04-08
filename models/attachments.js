@@ -7,11 +7,13 @@ import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs} from 
 import FileStoreStrategyFactory, {moveToStorage, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS} from '/models/lib/fileStoreStrategy';
 
 let attachmentBucket;
+let storagePath;
 if (Meteor.isServer) {
   attachmentBucket = createBucket('attachments');
+  storagePath = path.join(process.env.WRITABLE_PATH, 'attachments');
 }
 
-const fileStoreStrategyFactory = new FileStoreStrategyFactory(AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs, attachmentBucket);
+const fileStoreStrategyFactory = new FileStoreStrategyFactory(AttachmentStoreStrategyFilesystem, storagePath, AttachmentStoreStrategyGridFs, attachmentBucket);
 
 // XXX Enforce a schema for the Attachments FilesCollection
 // see: https://github.com/VeliovGroup/Meteor-Files/wiki/Schema
@@ -28,7 +30,7 @@ Attachments = new FilesCollection({
     return ret;
   },
   storagePath() {
-    const ret = path.join(process.env.WRITABLE_PATH, 'attachments');
+    const ret = fileStoreStrategyFactory.storagePath;
     return ret;
   },
   onAfterUpload(fileObj) {
@@ -88,7 +90,7 @@ if (Meteor.isServer) {
 
   Meteor.startup(() => {
     Attachments.collection._ensureIndex({ 'meta.cardId': 1 });
-    const storagePath = Attachments.storagePath();
+    const storagePath = fileStoreStrategyFactory.storagePath;
     if (!fs.existsSync(storagePath)) {
       console.log("create storagePath because it doesn't exist: " + storagePath);
       fs.mkdirSync(storagePath, { recursive: true });

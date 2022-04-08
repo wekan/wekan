@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { createObjectId } from './grid/createObjectId';
 import { httpStreamOutput } from './httpStream.js'
 
@@ -10,11 +11,13 @@ export default class FileStoreStrategyFactory {
 
   /** constructor
    * @param classFileStoreStrategyFilesystem use this strategy for filesystem storage
+   * @param storagePath file storage path
    * @param classFileStoreStrategyGridFs use this strategy for GridFS storage
    * @param gridFsBucket use this GridFS Bucket as GridFS Storage
    */
-  constructor(classFileStoreStrategyFilesystem, classFileStoreStrategyGridFs, gridFsBucket) {
+  constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket) {
     this.classFileStoreStrategyFilesystem = classFileStoreStrategyFilesystem;
+    this.storagePath = storagePath;
     this.classFileStoreStrategyGridFs = classFileStoreStrategyGridFs;
     this.gridFsBucket = gridFsBucket;
   }
@@ -83,15 +86,28 @@ class FileStoreStrategy {
   }
 
   /** returns a write stream
+   * @param filePath if set, use this path
    * @return the write stream
    */
-  getWriteStream() {
+  getWriteStream(filePath) {
   }
 
   /** writing finished
    * @param finishedData the data of the write stream finish event
    */
   writeStreamFinished(finishedData) {
+  }
+
+  /** returns the new file path
+   * @param storagePath use this storage path
+   * @return the new file path
+   */
+  getNewPath(storagePath, name) {
+    if (!_.isString(name)) {
+      name = this.fileObj.name;
+    }
+    const ret = path.join(storagePath, this.fileObj._id + "-" + this.versionName + "-" + name);
+    return ret;
   }
 
   /** remove the file */
@@ -154,9 +170,10 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
   }
 
   /** returns a write stream
+   * @param filePath if set, use this path
    * @return the write stream
    */
-  getWriteStream() {
+  getWriteStream(filePath) {
     const fileObj = this.fileObj;
     const versionName = this.versionName;
     const metadata = { ...fileObj.meta, versionName, fileId: fileObj._id };
@@ -247,10 +264,13 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
   }
 
   /** returns a write stream
+   * @param filePath if set, use this path
    * @return the write stream
    */
-  getWriteStream() {
-    const filePath = this.fileObj.versions[this.versionName].path;
+  getWriteStream(filePath) {
+    if (!_.isString(filePath)) {
+      filePath = this.fileObj.versions[this.versionName].path;
+    }
     const ret = fs.createWriteStream(filePath);
     return ret;
   }
@@ -287,7 +307,9 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
 
     if (strategyRead.constructor.name != strategyWrite.constructor.name) {
       const readStream = strategyRead.getReadStream();
-      const writeStream = strategyWrite.getWriteStream();
+
+      const filePath = strategyWrite.getNewPath(fileStoreStrategyFactory.storagePath);
+      const writeStream = strategyWrite.getWriteStream(filePath);
 
       writeStream.on('error', error => {
         console.error('[writeStream error]: ', error, fileObjId);
@@ -303,7 +325,10 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
 
       // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
       readStream.on('end', Meteor.bindEnvironment(() => {
-        Attachments.update({ _id: fileObj._id }, { $set: { [`versions.${versionName}.storage`]: strategyWrite.getStorageName() } });
+        Attachments.update({ _id: fileObj._id }, { $set: {
+          [`versions.${versionName}.storage`]: strategyWrite.getStorageName(),
+          [`versions.${versionName}.path`]: filePath,
+        } });
         strategyRead.unlink();
       }));
 

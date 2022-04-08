@@ -6,18 +6,20 @@ import path from 'path';
 import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs} from '/models/lib/fileStoreStrategy';
 
 let avatarsBucket;
+let storagePath;
 if (Meteor.isServer) {
   avatarsBucket = createBucket('avatars');
+  storagePath = path.join(process.env.WRITABLE_PATH, 'avatars');
 }
 
-const fileStoreStrategyFactory = new FileStoreStrategyFactory(FileStoreStrategyFilesystem, FileStoreStrategyGridFs, avatarsBucket);
+const fileStoreStrategyFactory = new FileStoreStrategyFactory(FileStoreStrategyFilesystem, storagePath, FileStoreStrategyGridFs, avatarsBucket);
 
 Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
   allowClientCode: true,
   storagePath() {
-    const ret = path.join(process.env.WRITABLE_PATH, 'avatars');
+    const ret = fileStoreStrategyFactory.storagePath;
     return ret;
   },
   onBeforeUpload(file) {
@@ -59,7 +61,7 @@ if (Meteor.isServer) {
   });
 
   Meteor.startup(() => {
-    const storagePath = Avatars.storagePath();
+    const storagePath = fileStoreStrategyFactory.storagePath;
     if (!fs.existsSync(storagePath)) {
       console.log("create storagePath because it doesn't exist: " + storagePath);
       fs.mkdirSync(storagePath, { recursive: true });
