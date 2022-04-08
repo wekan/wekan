@@ -11,6 +11,8 @@ and fixes the following bugs:
 
 - [Fix Card Description on dark theme is too dark](https://github.com/wekan/wekan/pull/4466).
   Thanks to TheExo.
+- [Removed browser contect policy so that attachments would be visible](https://github.com/wekan/wekan/commit/8a39a52d5d4d151dd90604091e35e51b6744e599).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
