@@ -18,8 +18,6 @@ binary-heap@1.0.11
 blaze@2.5.0
 blaze-tools@1.1.2
 boilerplate-generator@1.7.1
-browser-policy-common@1.0.11
-browser-policy-framing@1.1.0
 caching-compiler@1.2.2
 caching-html-compiler@1.2.0
 callback-hook@1.3.0

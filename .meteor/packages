@@ -77,7 +77,6 @@ accounts-password@1.6.2
 cfs:gridfs
 rzymek:fullcalendar
 momentjs:moment@2.22.2
-browser-policy-framing@1.1.0
 mquandalle:moment
 msavin:usercache
 # Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
