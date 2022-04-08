@@ -24,7 +24,7 @@ Attachments = new FilesCollection({
   allowClientCode: true,
   namingFunction(opts) {
     const filenameWithoutExtension = opts.name.replace(/(.+)\..+/, "$1");
-    const ret = opts.meta.fileId + "-" + filenameWithoutExtension;
+    const ret = opts.meta.fileId + "-original-" + filenameWithoutExtension;
     // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
     delete opts.meta.fileId;
     return ret;
