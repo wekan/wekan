@@ -18,10 +18,11 @@ template(name="attachments")
             +moveAttachments
 
 template(name="moveAttachments")
-  .js-move-attachment
-    button.js-move-all-attachments-to-fs {{_ 'move-all-attachments-to-fs'}}
-  .js-move-attachment
-    button.js-move-all-attachments-to-gridfs {{_ 'move-all-attachments-to-gridfs'}}
+  .move-attachment-buttons
+    .js-move-attachment
+      button.js-move-all-attachments-to-fs {{_ 'move-all-attachments-to-fs'}}
+    .js-move-attachment
+      button.js-move-all-attachments-to-gridfs {{_ 'move-all-attachments-to-gridfs'}}
 
   each board in getBoardsWithAttachments
     +moveBoardAttachments board
@@ -36,10 +37,11 @@ template(name="moveBoardAttachments")
         td {{ _id }}
         td {{ title }}
 
-  .js-move-attachment
-    button.js-move-all-attachments-of-board-to-fs {{_ 'move-all-attachments-of-board-to-fs'}}
-  .js-move-attachment
-    button.js-move-all-attachments-of-board-to-gridfs {{_ 'move-all-attachments-of-board-to-gridfs'}}
+  .move-attachment-buttons
+    .js-move-attachment
+      button.js-move-all-attachments-of-board-to-fs {{_ 'move-all-attachments-of-board-to-fs'}}
+    .js-move-attachment
+      button.js-move-all-attachments-of-board-to-gridfs {{_ 'move-all-attachments-of-board-to-gridfs'}}
 
   .board-attachments
     table
