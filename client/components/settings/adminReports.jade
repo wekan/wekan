@@ -57,7 +57,7 @@ template(name="brokenCardsReport")
 template(name="rulesReport")
   h1 {{_ 'rulesReportTitle'}}
   if resultsCount
-    table.table
+    table
       tr
         th Rule Title
         th Board Title
@@ -76,12 +76,14 @@ template(name="rulesReport")
 template(name="filesReport")
   h1 {{_ 'filesReportTitle'}}
   if resultsCount
-    table.table
+    table
       tr
         th Filename
         th.right Size (kB)
         th MIME Type
-        th ID
+        th Attachment ID
+        th Board ID
+        th Card ID
 
       each att in results
         tr
@@ -89,6 +91,8 @@ template(name="filesReport")
           td.right {{fileSize att.size }}
           td {{ att.type }}
           td {{ att._id }}
+          td {{ att.meta.boardId }}
+          td {{ att.meta.cardId }}
   else
     div {{_ 'no-results' }}
 
