@@ -236,28 +236,23 @@ USER root
 RUN set -o xtrace \
   && chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
 
-USER wekan
-
 RUN \
     set -o xtrace && \
+    cd /home/wekan/.meteor && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor -- help && \
+
     # Build app
     cd /home/wekan/app && \
-    /home/wekan/.meteor/meteor add standard-minifier-js && \
-    /home/wekan/.meteor/meteor npm install && \
-    /home/wekan/.meteor/meteor build --directory /home/wekan/app_build
-
-RUN \
-    set -o xtrace && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     chmod u+w package.json npm-shrinkwrap.json && \
-    npm install && \
+    gosu wekan:wekan npm install && \
     cd node_modules/fibers && \
-    node build.js
+    gosu wekan:wekan node build.js && \
 
-USER root
-# Cleanup
-RUN \
-    set -o xtrace && \
+    # Cleanup
     apt-get clean -y && \
     apt-get autoremove -y && \
     rm -Rf /tmp/* && \
