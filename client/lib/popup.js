@@ -154,7 +154,7 @@ window.Popup = new (class {
     return BlazeComponent.getComponentForElement(openerElement);
   }
 
-  // An utility fonction that returns the top element of the internal stack
+  // An utility function that returns the top element of the internal stack
   _getTopStack() {
     return this._stack[this._stack.length - 1];
   }
