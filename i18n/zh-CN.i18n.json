@@ -282,7 +282,7 @@
     "computer": "从本机上传",
     "confirm-subtask-delete-popup": "确定要删除子任务吗？",
     "confirm-checklist-delete-popup": "确定要删除清单吗？",
-    "subtaskDeletePopup-title": "Delete Subtask?",
+    "subtaskDeletePopup-title": "删除子任务？",
     "checklistDeletePopup-title": "删除待办清单？",
     "copy-card-link-to-clipboard": "复制卡片链接到剪贴板",
     "copy-text-to-clipboard": "复制文本到剪贴板",
@@ -613,7 +613,7 @@
     "people": "人员",
     "registration": "注册",
     "disable-self-registration": "禁止自助注册",
-    "disable-forgot-password": "Disable Forgot Password",
+    "disable-forgot-password": "禁用忘记密码",
     "invite": "邀请",
     "invite-people": "邀请人员",
     "to-boards": "邀请到看板 (可多选)",
@@ -1150,5 +1150,5 @@
     "copyChecklist": "复制待办清单",
     "copyChecklistPopup-title": "复制待办清单",
     "card-show-lists": "卡片显示列表",
-    "subtaskActionsPopup-title": "Subtask Actions"
+    "subtaskActionsPopup-title": "子任务操作"
 }
