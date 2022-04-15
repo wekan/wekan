@@ -73,6 +73,39 @@ Migrations.add('board-background-color', () => {
   );
 });
 
+Migrations.add('add-cardcounterlist-allowed', () => {
+  Boards.update(
+    {
+      allowsCardCounterList: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsCardCounterList: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-boardmemberlist-allowed', () => {
+  Boards.update(
+    {
+      allowsBoardMemberList: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsBoardMemberList: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+
 Migrations.add('lowercase-board-permission', () => {
   ['Public', 'Private'].forEach(permission => {
     Boards.update(

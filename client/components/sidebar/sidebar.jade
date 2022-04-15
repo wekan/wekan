@@ -138,6 +138,22 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
+template(name="boardInfoOnMyBoardsPopup")
+  form.board-info-on-my-boards
+    h3 {{_ 'board-info-on-my-boards'}}
+    div.check-div
+      a.flex.js-field-has-cardcounterlist(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
+        span
+          i.fa.fa-sign-out
+          | {{_ 'Show card counter per list'}}
+    div.check-div
+      a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMember}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsBoardMember}}is-checked{{/if}}")
+        span
+          i.fa.fa-hourglass-start
+          | {{_ 'Show Board member avatars'}}
+
 template(name="boardCardSettingsPopup")
   form.board-card-settings
     h3 {{_ 'show-on-card'}}
@@ -387,6 +403,11 @@ template(name="boardMenuPopup")
         a.js-change-board-color
           i.fa.fa-paint-brush
           | {{_ 'board-change-color'}}
+    if currentUser.isBoardAdmin
+      li
+        a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
+          i.fa.fa-paint-brush
+          | {{_ 'board-info-on-my-boards'}}
   hr
   ul.pop-over-list
     if withApi

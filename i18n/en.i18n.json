@@ -135,6 +135,7 @@
   "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Back",
   "board-change-color": "Change color",
+  "board-info-on-my-boards" : "Board info on My Boards",
   "board-nb-stars": "%s stars",
   "board-not-found": "Board not found",
   "board-private-info": "This board will be <strong>private</strong>.",

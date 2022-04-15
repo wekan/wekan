@@ -194,6 +194,26 @@ BlazeComponent.extendComponent({
       sort: { sort: 1 /* boards default sorting */ },
     });
   },
+  boardLists(boardId) {
+    let boardLists = [];
+    const lists = Lists.find({'boardId' : boardId})
+    lists.forEach(list => {
+      let cardCount = Cards.find({'boardId':boardId, 'listId':list._id}).count()
+      boardLists.push(`${list.title}: ${cardCount}`);
+    });
+    return boardLists
+  },
+
+  boardMembers(boardId) {
+    let boardMembers = [];
+    const lists = Boards.findOne({'_id' : boardId})
+    let members = lists.members
+    members.forEach(member => {
+      boardMembers.push(member.userId);
+    });
+    return boardMembers
+  },
+
   isStarred() {
     const user = Meteor.user();
     return user && user.hasStarred(this.currentData()._id);

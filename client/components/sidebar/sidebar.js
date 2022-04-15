@@ -199,6 +199,7 @@ Template.boardMenuPopup.events({
     Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
+  'click .js-board-info-on-my-boards': Popup.open('boardInfoOnMyBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
@@ -647,6 +648,60 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('boardChangeColorPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+  },
+
+  allowsCardCounterList() {
+    return this.currentBoard.allowsCardCounterList;
+  },
+
+  allowsBoardMemberList() {
+    return this.currentBoard.allowsBoardMemberList;
+  },
+
+  events() {
+    return [
+      {
+        'click .js-field-has-cardcounterlist'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsCardCounterList = !this.currentBoard
+            .allowsCardCounterList;
+            this.currentBoard.setAllowsCardCounterList(
+              this.currentBoard.allowsCardCounterList,
+          );
+          $(`.js-field-has-cardcounterlist ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCardCounterList,
+          );
+          $('.js-field-has-cardcounterlist').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCardCounterList,
+          );
+        },
+
+        'click .js-field-has-boardmemberlist'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsBoardMemberList = !this.currentBoard
+            .allowsBoardMemberList;
+            this.currentBoard.setAllowsBoardMemberList(
+              this.currentBoard.allowsBoardMemberList,
+          );
+          $(`.js-field-has-boardmemberlist ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsBoardMemberList,
+          );
+          $('.js-field-has-boardmemberlist').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsBoardMemberList,
+          );
+        },
+      },
+    ];
+  },
+}).register('boardInfoOnMyBoardsPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {
