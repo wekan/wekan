@@ -136,6 +136,7 @@
   "back": "Back",
   "board-change-color": "Change color",
   "board-info-on-my-boards" : "All Boards Settings",
+  "boardInfoOnMyBoards-title": "All Boards Settings",
   "show-card-counter-per-list": "Show card count per list",
   "show-board_members-avatar": "Show Board members avatars",
   "board-nb-stars": "%s stars",
