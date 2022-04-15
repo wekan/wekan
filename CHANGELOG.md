@@ -10,6 +10,8 @@ This release adds the following new features:
   Thanks to mfilser and xet7.
 - [Added All Boards Settings popup title](https://github.com/wekan/wekan/commit/023deb6c953b66f4dfcbff68ab2d1871dfb45d51).
   Thanks to xet7.
+- [Added to Board Settings: Minicard Settings and All Boards Settings improvements](https://github.com/wekan/wekan/commit/95a4b4fd919683e51e56a7bb76213b146a170e09).
+  Thanks to xet7.
 
 and adds the following updates:
 
