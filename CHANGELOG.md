@@ -4,8 +4,10 @@
 
 This release adds the following new features:
 
-- [Added members list and board card count per list on My Boards](https://github.com/wekan/wekan/pull/4477).
+- [Added to All Boards: Members list and board card count per list](https://github.com/wekan/wekan/pull/4477).
   Thanks to helioguardabaxo.
+- [Added to All Boards MiniScreen: Members list and board card count per list](https://github.com/wekan/wekan/commit/45642911a9984dc48b4bcf89403a2a47d324b9c1).
+  Thanks to mfilser and xet7.
 
 and adds the following updates:
 
