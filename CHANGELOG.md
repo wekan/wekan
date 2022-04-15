@@ -6,7 +6,9 @@ This release adds the following updates:
 
 - Updated dependencies.
   [Part 1](https://github.com/wekan/wekan/commit/f87cb10d099e5f80cded71bf633f3418713680e1),
-  [Part 2](https://github.com/wekan/wekan/commit/626a7f83fc71228f2d793667ad11c5e9939e2970).
+  [Part 2](https://github.com/wekan/wekan/commit/626a7f83fc71228f2d793667ad11c5e9939e2970),
+  [Part 3](https://github.com/wekan/wekan/commit/359692a564d891ee895391db72315a7c0cff9a26).
+
   Thanks to developers of dependencies.
 - [Updated meteor-spk](https://github.com/wekan/wekan/commit/1360517af8648a7b1daf664e82700aa60f9d87c4).
   Thanks to meteor-spk developers.
