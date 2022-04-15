@@ -253,12 +253,6 @@ template(name="boardCardSettingsPopup")
           | {{_ 'description'}}
           | {{_ 'custom-field-text'}}
     div.check-div
-      a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-        span
-          i.fa.fa-align-left
-          | {{_ 'description-on-minicard'}}
-    div.check-div
       a.flex.js-field-has-checklists(class="{{#if allowsChecklists}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsChecklists}}is-checked{{/if}}")
         span
@@ -288,6 +282,16 @@ template(name="boardCardSettingsPopup")
     //    span
     //      i.fa.fa-history
     //      | {{_ 'activities'}}
+
+template(name="boardMinicardSettingsPopup")
+  form.board-minicard-settings
+    h3 {{_ 'show-on-minicard'}}
+    div.check-div
+      a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-align-left
+          | {{_ 'description-on-minicard'}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
@@ -424,6 +428,10 @@ template(name="boardMenuPopup")
         a.js-card-settings
           i.fa.fa-id-card-o
           | {{_ 'card-settings'}}
+      li
+        a.js-minicard-settings
+          i.fa.fa-id-card-o
+          | {{_ 'minicard-settings'}}
       li
         a.js-subtask-settings
           i.fa.fa-sitemap

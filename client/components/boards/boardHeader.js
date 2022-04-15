@@ -32,6 +32,7 @@ Template.boardMenuPopup.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-card-settings': Popup.open('boardCardSettings'),
+  'click .js-minicard-settings': Popup.open('boardMinicardSettings'),
 });
 
 Template.boardChangeTitlePopup.events({

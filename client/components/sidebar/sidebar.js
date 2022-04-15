@@ -218,6 +218,7 @@ Template.boardMenuPopup.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-card-settings': Popup.open('boardCardSettings'),
+  'click .js-minicard-settings': Popup.open('boardMinicardSettings'),
   'click .js-export-board': Popup.open('exportBoard'),
 });
 
@@ -914,10 +915,6 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsDescriptionText;
   },
 
-  allowsDescriptionTextOnMinicard() {
-    return this.currentBoard.allowsDescriptionTextOnMinicard;
-  },
-
   isBoardSelected() {
     return this.currentBoard.dateSettingsDefaultBoardID;
   },
@@ -1201,22 +1198,6 @@ BlazeComponent.extendComponent({
             this.currentBoard.allowsDescriptionText,
           );
         },
-        'click .js-field-has-description-text-on-minicard'(evt) {
-          evt.preventDefault();
-          this.currentBoard.allowsDescriptionTextOnMinicard = !this.currentBoard
-            .allowsDescriptionTextOnMinicard;
-          this.currentBoard.setallowsDescriptionTextOnMinicard(
-            this.currentBoard.allowsDescriptionTextOnMinicard,
-          );
-          $(`.js-field-has-description-text-on-minicard ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionTextOnMinicard,
-          );
-          $('.js-field-has-description-text-on-minicard').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDescriptionTextOnMinicard,
-          );
-        },
         'click .js-field-has-checklists'(evt) {
           evt.preventDefault();
           this.currentBoard.allowsChecklists = !this.currentBoard
@@ -1282,6 +1263,62 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('boardCardSettingsPopup');
+
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+  },
+
+  allowsDescriptionTextOnMinicard() {
+    return this.currentBoard.allowsDescriptionTextOnMinicard;
+  },
+
+ lists() {
+    return Lists.find(
+      {
+        boardId: this.currentBoard._id,
+        archived: false,
+      },
+      {
+        sort: ['title'],
+      },
+    );
+  },
+
+  hasLists() {
+    return this.lists().count() > 0;
+  },
+
+  isListSelected() {
+    return (
+      this.currentBoard.dateSettingsDefaultBoardId === this.currentData()._id
+    );
+  },
+
+  events() {
+    return [
+      {
+        'click .js-field-has-description-text-on-minicard'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionTextOnMinicard = !this.currentBoard
+            .allowsDescriptionTextOnMinicard;
+          this.currentBoard.setallowsDescriptionTextOnMinicard(
+            this.currentBoard.allowsDescriptionTextOnMinicard,
+          );
+          $(`.js-field-has-description-text-on-minicard ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTextOnMinicard,
+          );
+          $('.js-field-has-description-text-on-minicard').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTextOnMinicard,
+          );
+        },
+      },
+    ];
+  },
+}).register('boardMinicardSettingsPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {
