@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to helioguardabaxo.
 - [Added to All Boards MiniScreen: Members list and board card count per list](https://github.com/wekan/wekan/commit/45642911a9984dc48b4bcf89403a2a47d324b9c1).
   Thanks to mfilser and xet7.
+- [Added All Boards Settings popup title](https://github.com/wekan/wekan/commit/023deb6c953b66f4dfcbff68ab2d1871dfb45d51).
+  Thanks to xet7.
 
 and adds the following updates:
 
