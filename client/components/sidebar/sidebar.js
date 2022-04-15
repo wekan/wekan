@@ -682,7 +682,6 @@ BlazeComponent.extendComponent({
             this.currentBoard.allowsCardCounterList,
           );
         },
-
         'click .js-field-has-boardmemberlist'(evt) {
           evt.preventDefault();
           this.currentBoard.allowsBoardMemberList = !this.currentBoard
