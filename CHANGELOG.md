@@ -23,6 +23,11 @@ and adds the following updates:
 - [Updated meteor-spk](https://github.com/wekan/wekan/commit/1360517af8648a7b1daf664e82700aa60f9d87c4).
   Thanks to meteor-spk developers.
 
+and fixes the following bugs:
+
+- [Fix Board Settings / All Boards Settings options has some bug](https://github.com/wekan/wekan/commit/77085daaa8b16f05acb314f077f48bf1d4ddbbac).
+  Thanks to helioguardabaxo.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.18 2022-04-08 WeKan ® release
