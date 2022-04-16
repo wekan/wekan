@@ -89,6 +89,7 @@ Migrations.add('add-cardcounterlist-allowed', () => {
   );
 });
 
+/*
 Migrations.add('add-boardmemberlist-allowed', () => {
   Boards.update(
     {
@@ -104,7 +105,7 @@ Migrations.add('add-boardmemberlist-allowed', () => {
     noValidateMulti,
   );
 });
-
+*/
 
 Migrations.add('lowercase-board-permission', () => {
   ['Public', 'Private'].forEach(permission => {

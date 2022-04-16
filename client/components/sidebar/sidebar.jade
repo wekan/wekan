@@ -148,8 +148,8 @@ template(name="boardInfoOnMyBoardsPopup")
           i.fa.fa-sign-out
           | {{_ 'show-card-counter-per-list'}}
     div.check-div
-      a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMember}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsBoardMember}}is-checked{{/if}}")
+      a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
         span
           i.fa.fa-hourglass-start
           | {{_ 'show-board_members-avatar'}}
