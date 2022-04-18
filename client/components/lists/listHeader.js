@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 let listsColors;
 Meteor.startup(() => {
   listsColors = Lists.simpleSchema()._schema.color.allowedValues;

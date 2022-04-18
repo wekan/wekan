@@ -26,7 +26,7 @@ export const createOnAfterUpload = bucket =>
         // and we unlink the file from the fs on any error
         // that occurred during the upload to prevent zombie files
         .on('error', err => {
-          console.error("[createOnAfterUpload error]", err);
+          // console.error("[createOnAfterUpload error]", err);
           self.unlink(this.collection.findOne(file._id), versionName); // Unlink files from FS
         })
 

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
 import Boards from '../../models/boards';
 import Lists from '../../models/lists';
@@ -51,8 +52,6 @@ import { QueryErrors, QueryParams, Query } from '/config/query-classes';
 import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
-
-const escapeForRegex = require('escape-string-regexp');
 
 Meteor.publish('card', cardId => {
   check(cardId, String);

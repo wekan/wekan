@@ -1,3 +1,5 @@
+import moment from 'moment';
+import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -7,7 +9,6 @@ import Users from '/models/users';
 import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
-import moment from 'moment';
 import { UserAvatar } from '../users/userAvatar';
 
 const subManager = new SubsManager();
@@ -1795,6 +1796,7 @@ Template.cardAssigneePopup.helpers({
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
+/*
   presenceStatusClassName() {
     const user = Users.findOne(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
@@ -1804,7 +1806,7 @@ Template.cardAssigneePopup.helpers({
       return 'active';
     else return 'idle';
   },
-
+*/
   isCardAssignee() {
     const card = Template.parentData();
     const cardAssignees = card.getAssignees();

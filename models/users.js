@@ -1,5 +1,6 @@
 //var nodemailer = require('nodemailer');
 import { SyncedCron } from 'meteor/percolate:synced-cron';
+import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
@@ -1660,12 +1661,13 @@ if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
   Meteor.startup(() => {
     allowedSortValues.forEach((value) => {
-      Lists._collection._ensureIndex(value);
+      Lists._collection.createIndex(value);
     });
-    Users._collection._ensureIndex({
+    Users._collection.createIndex({
       modifiedAt: -1,
     });
-    Users._collection._ensureIndex(
+/* Commented out extra index because of IndexOptionsConflict.
+    Users._collection.createIndex(
       {
         username: 1,
       },
@@ -1673,6 +1675,7 @@ if (Meteor.isServer) {
         unique: true,
       },
     );
+*/
     Meteor.defer(() => {
       addCronJob();
     });

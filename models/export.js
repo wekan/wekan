@@ -1,6 +1,10 @@
 import { Exporter } from './exporter';
+import { Meteor } from 'meteor/meteor';
+
 /* global JsonRoutes */
 if (Meteor.isServer) {
+  import { Picker } from 'meteor/communitypackages:picker';
+
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
   // so that we could use something like

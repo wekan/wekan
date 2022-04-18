@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 const subManager = new SubsManager();
 
 Template.boardListHeaderBar.events({
@@ -33,7 +35,6 @@ BlazeComponent.extendComponent({
     }
     if (userLanguage) {
       TAPi18n.setLanguage(userLanguage);
-      T9n.setLanguage(userLanguage);
     }
   },
 

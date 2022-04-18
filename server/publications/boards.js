@@ -5,6 +5,7 @@
 import Users from "../../models/users";
 import Org from "../../models/org";
 import Team from "../../models/team";
+import Attachments from '../../models/attachments';
 
 Meteor.publish('boards', function() {
   const userId = this.userId;
@@ -311,7 +312,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
           ),
         );
 
-        this.cursor(presences.find({ userId: { $in: memberIds } }));
+        //this.cursor(presences.find({ userId: { $in: memberIds } }));
       }
     },
   );

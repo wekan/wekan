@@ -71,14 +71,14 @@ template(name="myCards")
                                   .my-cards-board-badge(class=board.colorClass, id="header")
                                 .my-cards-card-title-table
                                   a.minicard-wrapper(href=card.originRelativeUrl)
-                                    {{card.title}}
+                                    | {{card.title}}
                               td
-                                {{list.title}}
+                                | {{list.title}}
                               td
                                 a(href=board.originRelativeUrl)
-                                  {{board.title}}
+                                | {{board.title}}
                               td
-                                {{swimlane.title}}
+                                | {{swimlane.title}}
 
                               unless isMiniScreen
                                 td
@@ -90,10 +90,10 @@ template(name="myCards")
                                   .div
                                     each label in card.labelIds
                                       span.card-label(class="card-label-{{labelColor board label}}" title=name)
-                                        {{labelName board label}}
+                                        | {{labelName board label}}
                                 td
                                   if card.dueAt
-                                    {{ moment card.dueAt 'LLL' }}
+                                    | {{ moment card.dueAt 'LLL' }}
 
 template(name="myCardsViewChangePopup")
   if currentUser

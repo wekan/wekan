@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   ALLOWED_COLORS,
   TYPE_CARD,
@@ -2992,14 +2993,14 @@ if (Meteor.isServer) {
   // Cards are often fetched within a board, so we create an index to make these
   // queries more efficient.
   Meteor.startup(() => {
-    Cards._collection._ensureIndex({ modifiedAt: -1 });
-    Cards._collection._ensureIndex({ boardId: 1, createdAt: -1 });
+    Cards._collection.createIndex({ modifiedAt: -1 });
+    Cards._collection.createIndex({ boardId: 1, createdAt: -1 });
     // https://github.com/wekan/wekan/issues/1863
     // Swimlane added a new field in the cards collection of mongodb named parentId.
     // When loading a board, mongodb is searching for every cards, the id of the parent (in the swinglanes collection).
     // With a huge database, this result in a very slow app and high CPU on the mongodb side.
     // To correct it, add Index to parentId:
-    Cards._collection._ensureIndex({ parentId: 1 });
+    Cards._collection.createIndex({ parentId: 1 });
     // let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER) || 2; // default as 2 days b4 and after
     // let notifyitvl = parseInt(process.env.NOTIFY_DUE_AT_HOUR_OF_DAY) || 3600 * 24 * 1e3; // default interval as one day
     // Meteor.call("findDueCards",notifydays,notifyitvl);
