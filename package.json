@@ -48,7 +48,7 @@
     "markdown-it-emoji": "^2.0.0",
     "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "^1.1.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.3",
     "mongodb": "^3.7.3",
     "nodemailer": "^6.6.3",
     "os": "^0.1.2",
