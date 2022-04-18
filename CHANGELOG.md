@@ -12,6 +12,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added to Board Settings: Minicard Settings and All Boards Settings improvements](https://github.com/wekan/wekan/commit/95a4b4fd919683e51e56a7bb76213b146a170e09).
   Thanks to xet7.
+- [Added Table View to My Cards](https://github.com/wekan/wekan/pulls/4479).
+  Thanks to helioguardabaxo.
 
 and adds the following updates:
 
