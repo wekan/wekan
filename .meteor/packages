@@ -126,7 +126,7 @@ rajit:bootstrap3-datepicker-zh-tw
 easylogic:summernote
 pascoual:pdfkit
 lmieulet:meteor-coverage
-meteortesting:mocha
+meteortesting:mocha@2.0.3
 aldeed:simple-schema
 accounts-password
 matb33:collection-hooks
