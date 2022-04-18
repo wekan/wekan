@@ -138,6 +138,21 @@ Utils = {
     Utils.reload();
   },
 
+  myCardsView() {
+    let view = window.localStorage.getItem('myCardsView');
+
+    if (!view || !['boards', 'table'].includes(view)) {
+      view = 'boards';
+    }
+
+    return view;
+  },
+
+  setMyCardsView(view) {
+    window.localStorage.setItem('myCardsView', view);
+    Utils.reload();
+  },
+
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);
