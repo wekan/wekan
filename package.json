@@ -37,7 +37,6 @@
     "escape-string-regexp": "^5.0.0",
     "exceljs": "^4.2.1",
     "fibers": "^5.0.0",
-    "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
     "i18next": "^21.6.16",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "jquery": "^2.2.4",
