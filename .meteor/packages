@@ -65,8 +65,6 @@ email@2.2.1
 horka:swipebox
 dynamic-import@0.7.2
 
-momentjs:moment@2.22.2
-mquandalle:moment
 cfs:gridfs
 rzymek:fullcalendar
 msavin:usercache
