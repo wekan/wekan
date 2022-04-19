@@ -1216,6 +1216,7 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
             cardId: fileObj.cardId,
             listId: fileObj.listId,
             swimlaneId: fileObj.swimlaneId,
+            source: 'import,'
           },
           userId,
           size: fileSize,
@@ -1319,4 +1320,11 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
 
     readStream.pipe(writeStream);
   });
+});
+
+Migrations.add('migrate-attachment-drop-index-cardId', () => {
+  try {
+    Attachments.collection._dropIndex({'cardId': 1});
+  } catch (error) {
+  }
 });
