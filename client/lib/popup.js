@@ -29,6 +29,13 @@ window.Popup = new (class {
   open(name) {
     const self = this;
     const popupName = `${name}Popup`;
+    const $contentWrapper = $('.content-wrapper')
+    if ($contentWrapper.length > 0) {
+      const contentWrapper = $contentWrapper[0];
+      this._getTopStack().scrollTop = contentWrapper.scrollTop;
+      // scroll from e.g. delete comment to the top (where the confirm button is)
+      $contentWrapper.scrollTop(0);
+    }
     function clickFromPopup(evt) {
       return $(evt.target).closest('.js-pop-over').length !== 0;
     }
@@ -129,6 +136,19 @@ window.Popup = new (class {
   /// steps back is greater than the popup stack size, the popup will be closed.
   back(n = 1) {
     if (this._stack.length > n) {
+      const $contentWrapper = $('.content-wrapper')
+      if ($contentWrapper.length > 0) {
+        const contentWrapper = $contentWrapper[0];
+        const stack = this._stack[this._stack.length - 1 - n];
+        if (contentWrapper.scrollTopMax && stack.scrollTop > contentWrapper.scrollTopMax) {
+          // sometimes scrollTopMax is lower than scrollTop, so i need this dirty hack
+          setTimeout(() => {
+            $contentWrapper.scrollTop(stack.scrollTop);
+          }, 6);
+        }
+        // restore the old popup scroll position
+        $contentWrapper.scrollTop(stack.scrollTop);
+      }
       _.times(n, () => this._stack.pop());
       this._dep.changed();
     } else {
