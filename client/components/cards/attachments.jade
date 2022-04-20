@@ -49,17 +49,7 @@ template(name="attachmentsGalery")
             if currentUser.isBoardMember
               unless currentUser.isCommentOnly
                 unless currentUser.isWorker
-                  if isImage
-                    a(class="{{#if $eq ../coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}")
-                      i.fa.fa-thumb-tack
-                      if($eq ../coverId _id)
-                        | {{_ 'remove-cover'}}
-                      else
-                        | {{_ 'add-cover'}}
-                  if currentUser.isBoardAdmin
-                    a.js-confirm-delete
-                      i.fa.fa-close
-                      | {{_ 'delete'}}
+                  a.fa.fa-navicon.attachment-details-menu.js-open-attachment-menu(title="{{_ 'attachmentActionsPopup-title'}}")
 
     if currentUser.isBoardMember
       unless currentUser.isCommentOnly
@@ -67,3 +57,31 @@ template(name="attachmentsGalery")
           //li.attachment-item.add-attachment
           a.js-add-attachment(title="{{_ 'add-attachment' }}")
             i.fa.fa-plus
+
+template(name="attachmentActionsPopup")
+  ul.pop-over-list
+    li
+      if isImage
+        a(class="{{#if isCover}}js-remove-cover{{else}}js-add-cover{{/if}}")
+          i.fa.fa-thumb-tack
+          if isCover
+            | {{_ 'remove-cover'}}
+          else
+            | {{_ 'add-cover'}}
+      if currentUser.isBoardAdmin
+        a.js-confirm-delete
+          i.fa.fa-close
+          | {{_ 'delete'}}
+        p.attachment-storage
+          | {{versions.original.storage}}
+
+        if $neq versions.original.storage "fs"
+          a.js-move-storage-fs
+            i.fa.fa-arrow-right
+            | {{_ 'attachment-move-storage-fs'}}
+
+        if $neq versions.original.storage "gridfs"
+          if versions.original.storage
+            a.js-move-storage-gridfs
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-gridfs'}}

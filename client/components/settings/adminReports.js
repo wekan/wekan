@@ -1,4 +1,4 @@
-import { AttachmentStorage } from '/models/attachments';
+import Attachments from '/models/attachments';
 import { CardSearchPagedComponent } from '/client/lib/cardSearch';
 import SessionData from '/models/usersessiondata';
 import { QueryParams } from '/config/query-classes';
@@ -25,7 +25,6 @@ BlazeComponent.extendComponent({
       {
         'click a.js-report-broken': this.switchMenu,
         'click a.js-report-files': this.switchMenu,
-        'click a.js-report-orphaned-files': this.switchMenu,
         'click a.js-report-rules': this.switchMenu,
         'click a.js-report-cards': this.switchMenu,
         'click a.js-report-boards': this.switchMenu,
@@ -65,11 +64,6 @@ BlazeComponent.extendComponent({
         this.subscription = Meteor.subscribe('attachmentsList', () => {
           this.loading.set(false);
         });
-      } else if ('report-orphaned-files' === targetID) {
-        this.showOrphanedFilesReport.set(true);
-        this.subscription = Meteor.subscribe('orphanedAttachments', () => {
-          this.loading.set(false);
-        });
       } else if ('report-rules' === targetID) {
         this.subscription = Meteor.subscribe('rulesReport', () => {
           this.showRulesReport.set(true);
@@ -103,8 +97,6 @@ class AdminReport extends BlazeComponent {
 
   results() {
     // eslint-disable-next-line no-console
-    // console.log('attachments:', AttachmentStorage.find());
-    // console.log('attachments.count:', AttachmentStorage.find().count());
     return this.collection.find();
   }
 
@@ -124,10 +116,6 @@ class AdminReport extends BlazeComponent {
     return Math.round(size / 1024);
   }
 
-  usageCount(key) {
-    return Attachments.find({ 'copies.attachments.key': key }).count();
-  }
-
   abbreviate(text) {
     if (text.length > 30) {
       return `${text.substr(0, 29)}...`;
@@ -137,12 +125,8 @@ class AdminReport extends BlazeComponent {
 }
 
 (class extends AdminReport {
-  collection = AttachmentStorage;
+  collection = Attachments;
 }.register('filesReport'));
-
-(class extends AdminReport {
-  collection = AttachmentStorage;
-}.register('orphanedFilesReport'));
 
 (class extends AdminReport {
   collection = Rules;

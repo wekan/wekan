@@ -1,23 +1,11 @@
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
-  'click .js-confirm-delete': Popup.afterConfirm(
-    'attachmentDelete',
-    function() {
-      Attachments.remove(this._id);
-      Popup.back();
-    },
-  ),
   // If we let this event bubble, FlowRouter will handle it and empty the page
   // content, see #101.
   'click .js-download'(event) {
     event.stopPropagation();
   },
-  'click .js-add-cover'() {
-    Cards.findOne(this.meta.cardId).setCover(this._id);
-  },
-  'click .js-remove-cover'() {
-    Cards.findOne(this.meta.cardId).unsetCover();
-  },
+  'click .js-open-attachment-menu': Popup.open('attachmentActions'),
 });
 
 Template.attachmentsGalery.helpers({
@@ -33,12 +21,16 @@ Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
     if (event.currentTarget.files && event.currentTarget.files[0]) {
+      const fileId = Random.id();
+      const config = {
+        file: event.currentTarget.files[0],
+        fileId: fileId,
+        meta: Utils.getCommonAttachmentMetaFrom(card),
+        chunkSize: 'dynamic',
+      };
+      config.meta.fileId = fileId;
       const uploader = Attachments.insert(
-        {
-          file: event.currentTarget.files[0],
-          meta: Utils.getCommonAttachmentMetaFrom(card),
-          chunkSize: 'dynamic',
-        },
+        config,
         false,
       );
       uploader.on('uploaded', (error, fileRef) => {
@@ -104,13 +96,17 @@ Template.previewClipboardImagePopup.events({
     if (pastedResults && pastedResults.file) {
       const file = pastedResults.file;
       window.oPasted = pastedResults;
+      const fileId = Random.id();
+      const config = {
+        file,
+        fileId: fileId,
+        meta: Utils.getCommonAttachmentMetaFrom(card),
+        fileName: file.name || file.type.replace('image/', 'clipboard.'),
+        chunkSize: 'dynamic',
+      };
+      config.meta.fileId = fileId;
       const uploader = Attachments.insert(
-        {
-          file,
-          meta: Utils.getCommonAttachmentMetaFrom(card),
-          fileName: file.name || file.type.replace('image/', 'clipboard.'),
-          chunkSize: 'dynamic',
-        },
+        config,
         false,
       );
       uploader.on('uploaded', (error, fileRef) => {
@@ -129,3 +125,36 @@ Template.previewClipboardImagePopup.events({
     }
   },
 });
+
+BlazeComponent.extendComponent({
+  isCover() {
+    const ret = Cards.findOne(this.data().meta.cardId).coverId == this.data()._id;
+    return ret;
+  },
+  events() {
+    return [
+      {
+        'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
+          Attachments.remove(this._id);
+          Popup.back(2);
+        }),
+        'click .js-add-cover'() {
+          Cards.findOne(this.data().meta.cardId).setCover(this.data()._id);
+          Popup.back();
+        },
+        'click .js-remove-cover'() {
+          Cards.findOne(this.data().meta.cardId).unsetCover();
+          Popup.back();
+        },
+        'click .js-move-storage-fs'() {
+          Meteor.call('moveAttachmentToStorage', this.data()._id, "fs");
+          Popup.back();
+        },
+        'click .js-move-storage-gridfs'() {
+          Meteor.call('moveAttachmentToStorage', this.data()._id, "gridfs");
+          Popup.back();
+        },
+      }
+    ]
+  }
+}).register('attachmentActionsPopup');
