@@ -1085,7 +1085,6 @@
     "custom-field-stringtemplate-item-placeholder": "Paina Enter lisätäksesi lisää kohtia",
     "creator": "Luoja",
     "filesReportTitle": "Tiedostot raportti",
-    "orphanedFilesReportTitle": "Orvot tiedostot raportti",
     "reports": "Raportit",
     "rulesReportTitle": "Säännöt raportti",
     "boardsReportTitle": "Taulut raportti",
@@ -1163,5 +1162,19 @@
     "copyChecklist": "Kopioi tarkistuslista",
     "copyChecklistPopup-title": "Kopioi tarkistuslista",
     "card-show-lists": "Näytä listat kortilla",
-    "subtaskActionsPopup-title": "Alitehtävä toimet"
+    "subtaskActionsPopup-title": "Alitehtävä toimet",
+    "attachmentActionsPopup-title": "Liite toimet",
+    "attachment-move-storage-fs": "Siirrä liite tiedostojärjestelmään",
+    "attachment-move-storage-gridfs": "Siirrä liite MongoDB GridFS:ään",
+    "attachment-move": "Siirrä liite",
+    "move-all-attachments-to-fs": "Siirrä kaikki liitteet tiedostojärjestelmään",
+    "move-all-attachments-to-gridfs": "Siirrä kaikki liitteet MongoDB GridFS:ään",
+    "move-all-attachments-of-board-to-fs": "Siirrä kaikki taulun liitteet tiedostojärjestelmään",
+    "move-all-attachments-of-board-to-gridfs": "Siirrä kaikki taulun liitteet MongoDB GridFS:ään",
+    "path": "Polku",
+    "version-name": "Version nimi",
+    "size": "Koko",
+    "storage": "Tallennustila",
+    "action": "Toimi",
+    "board-title": "Taulun otsikko"
 }
