@@ -16,6 +16,15 @@ Meteor.startup(() => {
     navigator.userLanguage,
   ].filter(Boolean);
   if (language) {
-    TAPi18n.setLanguage(language);
+    // Try with potentially complex language tag
+    if (TAPi18n.isLanguageSupported(language)) {
+      TAPi18n.setLanguage(language);
+    } else if (language.includes('-')) {
+      // Fallback to a general language
+      const [general] = language.split('-');
+      if (TAPi18n.isLanguageSupported(general)) {
+        TAPi18n.setLanguage(general);
+      }
+    }
   }
 });

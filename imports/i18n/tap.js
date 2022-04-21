@@ -32,6 +32,9 @@ export const TAPi18n = {
     // Load the current language data
     await TAPi18n.loadLanguage(DEFAULT_LANGUAGE);
   },
+  isLanguageSupported(language) {
+    return Object.values(languages).some(({ tag }) => tag === language);
+  },
   getSupportedLanguages() {
     return Object.values(languages).map(({ name, code, tag }) => ({ name, code, tag }));
   },
@@ -42,6 +45,8 @@ export const TAPi18n = {
     if (language in languages && 'load' in languages[language]) {
       const data = await languages[language].load();
       this.i18n.addResourceBundle(language, DEFAULT_NAMESPACE, data);
+    } else {
+      throw new Error(`Language ${language} is not supported`);
     }
   },
   async setLanguage(language) {

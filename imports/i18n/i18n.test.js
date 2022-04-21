@@ -78,8 +78,8 @@ describe('TAPi18n', () => {
       expect(TAPi18n.i18n.addResourceBundle.firstCall.args[2]).to.have.property('accept');
     });
 
-    it('does nothing if language is missing', async () => {
-      await expect(TAPi18n.loadLanguage('miss')).to.be.fulfilled;
+    it('throws error if language is missing', async () => {
+      await expect(TAPi18n.loadLanguage('miss')).to.be.rejectedWith('not supported');
       expect(TAPi18n.i18n.addResourceBundle).to.not.be.called;
     });
 
