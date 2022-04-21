@@ -515,6 +515,30 @@ export default {
     name: "o'zbek (O'zbekiston)",
     load: () => import('./data/uz-UZ.i18n.json'),
   },
+  "ve-CC": {
+    code: "ve",
+    tag: "ve-CC",
+    name: "vèneto",
+    load: () => import('./data/ve-CC.i18n.json'),
+  },
+  "ve-PP": {
+    code: "ve",
+    tag: "ve-PP",
+    name: "vepsän kelʹ",
+    load: () => import('./data/ve-PP.i18n.json'),
+  },
+  "ve": {
+    code: "ve",
+    tag: "ve",
+    name: "Tshivenḓa",
+    load: () => import('./data/ve.i18n.json'),
+  },
+  "vi-VN": {
+    code: "vi",
+    tag: "vi-VN",
+    name: "Tiếng Việt (Việt Nam)",
+    load: () => import('./data/vi-VN.i18n.json'),
+  },
   "vi": {
     code: "vi",
     tag: "vi",
@@ -536,7 +560,7 @@ export default {
   "zh-TW": {
     code: "zh",
     tag: "zh-TW",
-    name: "繁体中文（台湾）",
+    name: "繁體中文（台灣）",
     load: () => import('./data/zh-TW.i18n.json'),
   }
 };
