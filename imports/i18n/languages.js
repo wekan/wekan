@@ -599,6 +599,18 @@ export default {
     name: "isiXhosa",
     load: () => import('./data/xh.i18n.json'),
   },
+  "yi": {
+    code: "yi",
+    tag: "yi",
+    name: "ייִדיש, יידיש",
+    load: () => import('./data/yi.i18n.json'),
+  },
+  "yo": {
+    code: "yo",
+    tag: "yo",
+    name: "Èdè Yorùbá",
+    load: () => import('./data/yo.i18n.json'),
+  },
   "zh-CN": {
     code: "zh",
     tag: "zh-CN",
@@ -616,5 +628,17 @@ export default {
     tag: "zh-TW",
     name: "繁體中文（台灣）",
     load: () => import('./data/zh-TW.i18n.json'),
+  },
+  "zu-ZA": {
+    code: "zu",
+    tag: "zu-ZA",
+    name: "isiZulu (Ningizimu Afrika)",
+    load: () => import('./data/zu-ZA.i18n.json'),
+  },
+  "zu": {
+    code: "zu",
+    tag: "zu",
+    name: "isiZulu",
+    load: () => import('./data/zu.i18n.json'),
   }
 };
