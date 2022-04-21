@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
+import { createBucket } from './lib/grid/createBucket';
+import fs from 'fs';
 import path from 'path';
 import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs} from '/models/lib/fileStoreStrategy';
 
