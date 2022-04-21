@@ -48,6 +48,9 @@ tx pull -f -l da
 echo "Dutch:"
 tx pull -f -l nl
 
+echo "Dutch (Netherlands):"
+tx pull -f -l nl_NL
+
 echo "Esperanto:"
 tx pull -f -l eo
 
@@ -105,6 +108,9 @@ tx pull -f -l gu_IN
 echo "Hebrew:"
 tx pull -f -l he
 
+echo "Hebrew (Israel):"
+tx pull -f -l he_IL
+
 echo "Hungarian:"
 tx pull -f -l hu_HU
 
@@ -144,6 +150,9 @@ tx pull -f -l km
 echo "Korean:"
 tx pull -f -l ko
 
+echo "Korean (Korea):"
+tx pull -f -l ko_KR
+
 echo "Latvian (Latvia):"
 tx pull -f -l lv_LV
 
@@ -174,6 +183,9 @@ tx pull -f -l pa
 
 echo "Polish:"
 tx pull -f -l pl
+
+echo "Polish (Poland):"
+tx pull -f -l pl_PL
 
 echo "Portuguese:"
 tx pull -f -l pt
@@ -241,5 +253,77 @@ tx pull -f -l uk
 echo "Ukrainian (Ukraine):"
 tx pull -f -l uk_UA
 
+echo "Uyghur (ug):"
+tx pull -f -l ug
+
+echo "Uzbek (uz):"
+tx pull -f -l uz
+
+echo "Uzbek (Arabic) (uz@Arab):"
+tx pull -f -l uz@Arab
+
+echo "Uzbek (Latin) (uz@Latn):"
+tx pull -f -l uz@Latn
+
+echo "Uzbek (Uzbekistan) (uz_UZ):"
+tx pull -f -l uz_UZ
+
+echo "Venda (ve):"
+tx pull -f -l ve
+
+echo "Venetian (vec):"
+tx pull -f -l vec
+
+echo "Vepsian (vep):"
+tx pull -f -l vep
+
 echo "Vietnamese:"
 tx pull -f -l vi
+
+echo "Vietnamese (Viet Nam) (vi_VN):"
+tx pull -f -l vi_VN
+
+echo "Vlaams (vls):"
+tx pull -f -l vls
+
+echo "Volapük (vo):"
+tx pull -f -l vo
+
+echo "Walloon (wa):"
+tx pull -f -l wa
+
+echo "Welsh (cy):"
+tx pull -f -l cy
+
+echo "Welsh (United Kingdom) (cy_GB):"
+tx pull -f -l cy_GB
+
+echo "Western Frisian (fy):"
+tx pull -f -l fy
+
+echo "Western Frisian (Netherlands) (fy_NL):"
+tx pull -f -l fy_NL
+
+echo "Wolof (wo):"
+tx pull -f -l wo
+
+echo "Wáray-Wáray (war):"
+tx pull -f -l war
+
+echo "Xhosa (xh):"
+tx pull -f -l xh
+
+echo "Yeshivish English (en@ysv):"
+tx pull -f -l en@ysv
+
+echo "Yiddish (yi):"
+tx pull -f -l yi
+
+echo "Yoruba (yo):"
+tx pull -f -l yo
+
+echo "Zulu (zu):"
+tx pull -f -l zu
+
+echo "Zulu (South Africa) (zu_ZA):"
+tx pull -f -l zu_ZA
