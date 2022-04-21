@@ -276,6 +276,10 @@ Template.changeLanguagePopup.helpers({
         name = 'English (Brazil)';
       } else if (lang.name === 'en-DE') {
         name = 'English (Germany)';
+      } else if (lang.name === 'en-IT') {
+        name = 'English (Italy)';
+      } else if (lang.name === 'en-YS') {
+        name = 'English (Yeshivish)';
       } else if (lang.name === 'et-EE') {
         name = 'eesti keel (Eesti)';
       } else if (lang.name === 'fa-IR') {
@@ -290,6 +294,9 @@ Template.changeLanguagePopup.helpers({
       } else if (lang.name === 'gu-IN') {
         // gu-IN = Gurajati (India)
         name = 'ગુજરાતી';
+      } else if (lang.name === 'he-IL') {
+        // he-IL = Hebrew (Israel)
+        name = 'עברית (ישראל)';
       } else if (lang.name === 'hi-IN') {
         // hi-IN = Hindi (India)
         name = 'हिंदी (भारत)';
@@ -302,8 +309,6 @@ Template.changeLanguagePopup.helpers({
       } else if (lang.name === 'ms-MY') {
         // ms-MY = Malay (Malaysia)
         name = 'بهاس ملايو';
-      } else if (lang.name === 'en-IT') {
-        name = 'English (Italy)';
       } else if (lang.name === 'el-GR') {
         // el-GR = Greek (Greece)
         name = 'Ελληνικά (Ελλάδα)';
@@ -335,14 +340,30 @@ Template.changeLanguagePopup.helpers({
         name = 'español de Puerto Rico';
       } else if (lang.name === 'gl-ES') {
         name = 'Galego (España)';
+      } else if (lang.name === 'ko-KR') {
+        name = '한국어(한국)';
+      } else if (lang.name === 'nl-NL') {
+        name = 'Nederlands (Nederland)';
       } else if (lang.name === 'oc') {
         name = 'Occitan';
+      } else if (lang.name === 'pl-PL') {
+        name = 'polski (Polska)';
       } else if (lang.name === 'ru-UA') {
         name = 'Русский (Украина)';
       } else if (lang.name === 'st') {
         name = 'Sãotomense';
+      } else if (lang.name === 'uz-AR') {
+        name = "O'zbek (arab)";
+      } else if (lang.name === 'uz-LA') {
+        name = "o'zbek (lotin)";
+      } else if (lang.name === 'uz-UZ') {
+        name = "o'zbek (O'zbekiston)";
       } else if (lang.name === 'uk-UA') {
         name = 'українська (Україна)';
+      } else if (lang.name === 'cy-GB') {
+        name = 'Welsh (UK)';
+      } else if (lang.name === 'fy-NL') {
+        name = 'Westerlauwersk Frysk';
       } else if (lang.name === '繁体中文（台湾）') {
         // Traditional Chinese (Taiwan)
         name = '繁體中文（台灣）';
