@@ -41,6 +41,12 @@ export default {
     name: "čeština (Česká republika)",
     load: () => import('./data/cs-CZ.i18n.json'),
   },
+  "cy-GB": {
+    code: "cy",
+    tag: "cy-GB",
+    name: "Welsh (UK)",
+    load: () => import('./data/cy-GB.i18n.json'),
+  },
   "da": {
     code: "da",
     tag: "da",
@@ -208,6 +214,12 @@ export default {
     tag: "fr",
     name: "Français",
     load: () => import('./data/fr.i18n.json'),
+  },
+  "fy-NL": {
+    code: "fy",
+    tag: "fy-NL",
+    name: "Westerlauwersk Frysk",
+    load: () => import('./data/fy-NL.i18n.json'),
   },
   "gl-ES": {
     code: "gl",
@@ -437,6 +449,12 @@ export default {
     name: "Српски језик",
     load: () => import('./data/sr.i18n.json'),
   },
+  "st": {
+    code: "st",
+    tag: "st",
+    name: "Sãotomense",
+    load: () => import('./data/st.i18n.json'),
+  },
   "sv": {
     code: "sv",
     tag: "sv",
@@ -478,6 +496,24 @@ export default {
     tag: "ua",
     name: "українська (Україна)",
     load: () => import('./data/ua.i18n.json'),
+  },
+  "uz-AR": {
+    code: "uz",
+    tag: "uz-AR",
+    name: "o'zbek (arab)",
+    load: () => import('./data/uz-AR.i18n.json'),
+  },
+  "uz-LA": {
+    code: "uz",
+    tag: "uz-LA",
+    name: "o'zbek (lotin)",
+    load: () => import('./data/uz-LA.i18n.json'),
+  },
+  "uz-UZ": {
+    code: "uz",
+    tag: "uz-UZ",
+    name: "o'zbek (O'zbekiston)",
+    load: () => import('./data/uz-UZ.i18n.json'),
   },
   "vi": {
     code: "vi",
