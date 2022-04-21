@@ -47,6 +47,12 @@ export default {
     name: "Welsh (UK)",
     load: () => import('./data/cy-GB.i18n.json'),
   },
+  "cy": {
+    code: "cy",
+    tag: "cy",
+    name: "Welsh",
+    load: () => import('./data/cy.i18n.json'),
+  },
   "da": {
     code: "da",
     tag: "da",
@@ -106,6 +112,12 @@ export default {
     tag: "en-IT",
     name: "English (Italy)",
     load: () => import('./data/en-IT.i18n.json'),
+  },
+  "en-YS": {
+    code: "en",
+    tag: "en-YS",
+    name: "English (Yeshivish)",
+    load: () => import('./data/en-YS.i18n.json'),
   },
   "en": {
     code: "en",
@@ -218,8 +230,14 @@ export default {
   "fy-NL": {
     code: "fy",
     tag: "fy-NL",
-    name: "Westerlauwersk Frysk",
+    name: "Westerlauwersk Frysk (Nederlân)",
     load: () => import('./data/fy-NL.i18n.json'),
+  },
+  "fy": {
+    code: "fy",
+    tag: "fy",
+    name: "Westerlauwersk Frysk",
+    load: () => import('./data/fy.i18n.json'),
   },
   "gl-ES": {
     code: "gl",
@@ -544,6 +562,42 @@ export default {
     tag: "vi",
     name: "Tiếng Việt",
     load: () => import('./data/vi.i18n.json'),
+  },
+  "vl-SS": {
+    code: "vl",
+    tag: "vl-SS",
+    name: "Vlaams",
+    load: () => import('./data/vl-SS.i18n.json'),
+  },
+  "vo": {
+    code: "vo",
+    tag: "vo",
+    name: "Volapük",
+    load: () => import('./data/vo.i18n.json'),
+  },
+  "wa-RR": {
+    code: "wa",
+    tag: "wa-RR",
+    name: "Wáray-Wáray",
+    load: () => import('./data/wa-RR.i18n.json'),
+  },
+  "wa": {
+    code: "wa",
+    tag: "wa",
+    name: "walon",
+    load: () => import('./data/wa.i18n.json'),
+  },
+  "wo": {
+    code: "wo",
+    tag: "wo",
+    name: "ولوفل",
+    load: () => import('./data/wo.i18n.json'),
+  },
+  "xh": {
+    code: "xh",
+    tag: "xh",
+    name: "isiXhosa",
+    load: () => import('./data/xh.i18n.json'),
   },
   "zh-CN": {
     code: "zh",
