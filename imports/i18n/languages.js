@@ -35,6 +35,12 @@ export default {
     name: "čeština",
     load: () => import('./data/cs.i18n.json'),
   },
+  "cs-CZ": {
+    code: "cs",
+    tag: "cs-CZ",
+    name: "čeština (Česká republika)",
+    load: () => import('./data/cs-CZ.i18n.json'),
+  },
   "da": {
     code: "da",
     tag: "da",
@@ -70,6 +76,12 @@ export default {
     tag: "el",
     name: "el",
     load: () => import('./data/el.i18n.json'),
+  },
+  "en-BR": {
+    code: "en",
+    tag: "en-BR",
+    name: "English (Brazil)",
+    load: () => import('./data/en-BR.i18n.json'),
   },
   "en-DE": {
     code: "en",
@@ -215,6 +227,12 @@ export default {
     name: "ગુજરાતી",
     load: () => import('./data/gu-IN.i18n.json'),
   },
+  "he-IL": {
+    code: "he",
+    tag: "he-IL",
+    name: "עברית (ישראל)",
+    load: () => import('./data/he-IL.i18n.json'),
+  },
   "he": {
     code: "he",
     tag: "he",
@@ -287,6 +305,12 @@ export default {
     name: "ភាសាខ្មែរ",
     load: () => import('./data/km.i18n.json'),
   },
+  "ko-KR": {
+    code: "ko",
+    tag: "ko-KR",
+    name: "한국어(한국)",
+    load: () => import('./data/ko-KR.i18n.json'),
+  },
   "ko": {
     code: "ko",
     tag: "ko",
@@ -328,6 +352,12 @@ export default {
     tag: "nb",
     name: "Norsk bokmål",
     load: () => import('./data/nb.i18n.json'),
+  },
+  "nl-NL": {
+    code: "nl",
+    tag: "nl-NL",
+    name: "Nederlands (Nederland)",
+    load: () => import('./data/nl-NL.i18n.json'),
   },
   "nl": {
     code: "nl",
