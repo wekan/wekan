@@ -80,7 +80,7 @@ export default {
   "el": {
     code: "el",
     tag: "el",
-    name: "el",
+    name: "Ελληνικά",
     load: () => import('./data/el.i18n.json'),
   },
   "en-BR": {
