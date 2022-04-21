@@ -8,13 +8,13 @@ export default {
   "ar": {
     code: "ar",
     isoCode: "ar",
-    name: "ar",
+    name: "العربية",
     load: () => import('./data/ar.i18n.json'),
   },
   "bg": {
     code: "bg",
     isoCode: "bg",
-    name: "bg",
+    name: "Български",
     load: () => import('./data/bg.i18n.json'),
   },
   "br": {
@@ -26,19 +26,19 @@ export default {
   "ca": {
     code: "ca",
     isoCode: "ca",
-    name: "ca",
+    name: "Català",
     load: () => import('./data/ca.i18n.json'),
   },
   "cs": {
     code: "cs",
     isoCode: "cs",
-    name: "cs",
+    name: "čeština",
     load: () => import('./data/cs.i18n.json'),
   },
   "da": {
     code: "da",
     isoCode: "da",
-    name: "da",
+    name: "Dansk",
     load: () => import('./data/da.i18n.json'),
   },
   "de-AT": {
@@ -80,7 +80,7 @@ export default {
   "en-GB": {
     code: "en",
     isoCode: "en-GB",
-    name: "English (Great Britain)",
+    name: "English (UK)",
     load: () => import('./data/en-GB.i18n.json'),
   },
   "en-IT": {
@@ -98,7 +98,7 @@ export default {
   "eo": {
     code: "eo",
     isoCode: "eo",
-    name: "eo",
+    name: "Esperanto",
     load: () => import('./data/eo.i18n.json'),
   },
   "es-AR": {
@@ -152,7 +152,7 @@ export default {
   "eu": {
     code: "eu",
     isoCode: "eu",
-    name: "eu",
+    name: "Euskara",
     load: () => import('./data/eu.i18n.json'),
   },
   "fa-IR": {
@@ -164,12 +164,12 @@ export default {
   "fa": {
     code: "fa",
     isoCode: "fa",
-    name: "fa",
+    name: "فارسی",
     load: () => import('./data/fa.i18n.json'),
   },
-  "fi-FI": {
+  "fi": {
     code: "fi",
-    isoCode: "fi-FI",
+    isoCode: "fi",
     name: "Suomi",
     load: () => import('./data/fi-FI.i18n.json'),
   },
@@ -218,7 +218,7 @@ export default {
   "he": {
     code: "he",
     isoCode: "he",
-    name: "he",
+    name: "עברית",
     load: () => import('./data/he.i18n.json'),
   },
   "hi-IN": {
@@ -230,31 +230,31 @@ export default {
   "hi": {
     code: "hi",
     isoCode: "hi",
-    name: "hi",
+    name: "हिन्दी",
     load: () => import('./data/hi.i18n.json'),
   },
   "hr": {
     code: "hr",
     isoCode: "hr",
-    name: "hr",
+    name: "Hrvatski",
     load: () => import('./data/hr.i18n.json'),
   },
   "hu": {
     code: "hu",
     isoCode: "hu",
-    name: "hu",
+    name: "Magyar",
     load: () => import('./data/hu.i18n.json'),
   },
   "hy": {
     code: "hy",
     isoCode: "hy",
-    name: "hy",
+    name: "Հայերեն",
     load: () => import('./data/hy.i18n.json'),
   },
   "id": {
     code: "id",
     isoCode: "id",
-    name: "id",
+    name: "Bahasa Indonesia",
     load: () => import('./data/id.i18n.json'),
   },
   "ig": {
@@ -266,55 +266,55 @@ export default {
   "it": {
     code: "it",
     isoCode: "it",
-    name: "it",
+    name: "Italiano",
     load: () => import('./data/it.i18n.json'),
   },
   "ja": {
     code: "ja",
     isoCode: "ja",
-    name: "ja",
+    name: "日本語",
     load: () => import('./data/ja.i18n.json'),
   },
   "ka": {
     code: "ka",
     isoCode: "ka",
-    name: "ka",
+    name: "ქართული",
     load: () => import('./data/ka.i18n.json'),
   },
   "km": {
     code: "km",
     isoCode: "km",
-    name: "km",
+    name: "ភាសាខ្មែរ",
     load: () => import('./data/km.i18n.json'),
   },
   "ko": {
     code: "ko",
     isoCode: "ko",
-    name: "ko",
+    name: "한국어",
     load: () => import('./data/ko.i18n.json'),
   },
   "lt": {
     code: "lt",
     isoCode: "lt",
-    name: "lt",
+    name: "Lietuvių kalba",
     load: () => import('./data/lt.i18n.json'),
   },
   "lv": {
     code: "lv",
     isoCode: "lv",
-    name: "Latviešu",
+    name: "latviešu valoda",
     load: () => import('./data/lv.i18n.json'),
   },
   "mk": {
     code: "mk",
     isoCode: "mk",
-    name: "mk",
+    name: "македонски јазик",
     load: () => import('./data/mk.i18n.json'),
   },
   "mn": {
     code: "mn",
     isoCode: "mn",
-    name: "mn",
+    name: "Монгол",
     load: () => import('./data/mn.i18n.json'),
   },
   "ms-MY": {
@@ -326,13 +326,13 @@ export default {
   "nb": {
     code: "nb",
     isoCode: "nb",
-    name: "nb",
+    name: "Norsk bokmål",
     load: () => import('./data/nb.i18n.json'),
   },
   "nl": {
     code: "nl",
     isoCode: "nl",
-    name: "nl",
+    name: "Nederlands",
     load: () => import('./data/nl.i18n.json'),
   },
   "oc": {
@@ -344,31 +344,31 @@ export default {
   "pa": {
     code: "pa",
     isoCode: "pa",
-    name: "pa",
+    name: "ਪੰਜਾਬੀ",
     load: () => import('./data/pa.i18n.json'),
   },
   "pl": {
     code: "pl",
     isoCode: "pl",
-    name: "pl",
+    name: "Polski",
     load: () => import('./data/pl.i18n.json'),
   },
   "pt-BR": {
     code: "pt",
     isoCode: "pt-BR",
-    name: "pt-BR",
+    name: "Português do Brasil",
     load: () => import('./data/pt-BR.i18n.json'),
   },
   "pt": {
     code: "pt",
     isoCode: "pt",
-    name: "pt",
+    name: "Português",
     load: () => import('./data/pt.i18n.json'),
   },
   "ro": {
     code: "ro",
     isoCode: "ro",
-    name: "ro",
+    name: "Română",
     load: () => import('./data/ro.i18n.json'),
   },
   "ru-UA": {
@@ -386,49 +386,49 @@ export default {
   "sk": {
     code: "sk",
     isoCode: "sk",
-    name: "sk",
+    name: "Slovenčina",
     load: () => import('./data/sk.i18n.json'),
   },
   "sl": {
     code: "sl",
     isoCode: "sl",
-    name: "sl",
+    name: "slovenščina",
     load: () => import('./data/sl.i18n.json'),
   },
   "sr": {
     code: "sr",
     isoCode: "sr",
-    name: "sr",
+    name: "Српски језик",
     load: () => import('./data/sr.i18n.json'),
   },
   "sv": {
     code: "sv",
     isoCode: "sv",
-    name: "sv",
+    name: "Svenska",
     load: () => import('./data/sv.i18n.json'),
   },
   "sw": {
     code: "sw",
     isoCode: "sw",
-    name: "sw",
+    name: "Kiswahili",
     load: () => import('./data/sw.i18n.json'),
   },
   "ta": {
     code: "ta",
     isoCode: "ta",
-    name: "ta",
+    name: "தமிழ்",
     load: () => import('./data/ta.i18n.json'),
   },
   "th": {
     code: "th",
     isoCode: "th",
-    name: "th",
+    name: "ไทย",
     load: () => import('./data/th.i18n.json'),
   },
   "tr": {
     code: "tr",
     isoCode: "tr",
-    name: "tr",
+    name: "Türkçe",
     load: () => import('./data/tr.i18n.json'),
   },
   "ua-UA": {
@@ -446,25 +446,25 @@ export default {
   "vi": {
     code: "vi",
     isoCode: "vi",
-    name: "vi",
+    name: "Tiếng Việt",
     load: () => import('./data/vi.i18n.json'),
   },
   "zh-CN": {
     code: "zh",
     isoCode: "zh-CN",
-    name: "zh-CN",
+    name: "简体中文",
     load: () => import('./data/zh-CN.i18n.json'),
   },
   "zh-HK": {
     code: "zh",
     isoCode: "zh-HK",
-    name: "zh-HK",
+    name: "繁体中文（香港）",
     load: () => import('./data/zh-HK.i18n.json'),
   },
   "zh-TW": {
     code: "zh",
     isoCode: "zh-TW",
-    name: "繁體中文（台灣）",
+    name: "繁体中文（台湾）",
     load: () => import('./data/zh-TW.i18n.json'),
   }
 };
