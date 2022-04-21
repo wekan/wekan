@@ -377,6 +377,12 @@ export default {
     name: "ਪੰਜਾਬੀ",
     load: () => import('./data/pa.i18n.json'),
   },
+  "pl-PL": {
+    code: "pl",
+    tag: "pl-PL",
+    name: "Polski (Polska)",
+    load: () => import('./data/pl-PL.i18n.json'),
+  },
   "pl": {
     code: "pl",
     tag: "pl",
