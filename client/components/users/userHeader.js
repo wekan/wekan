@@ -259,7 +259,7 @@ Template.changePasswordPopup.onRendered(function() {
 Template.changeLanguagePopup.helpers({
   languages() {
     return TAPi18n.getSupportedLanguages()
-      .map(({ isoCode, name }) => ({ tag: isoCode, name }))
+      .map(({ tag, name }) => ({ tag: tag, name }))
       .sort((a, b) => {
         if (a.name === b.name) {
           return 0;

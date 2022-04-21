@@ -45,7 +45,7 @@ describe('TAPi18n', () => {
       const languages = TAPi18n.getSupportedLanguages();
       expect(languages).to.be.an('array');
       for (const language of languages) {
-        expect(language).to.have.keys('name', 'code', 'isoCode');
+        expect(language).to.have.keys('name', 'code', 'tag');
       }
     });
 

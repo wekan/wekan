@@ -17,7 +17,7 @@ export const TAPi18n = {
       fallbackLng: DEFAULT_LANGUAGE,
       cleanCode: true,
       debug: Meteor.isDevelopment,
-      supportedLngs: Object.values(languages).map(({ isoCode }) => isoCode),
+      supportedLngs: Object.values(languages).map(({ tag }) => tag),
       ns: DEFAULT_NAMESPACE,
       defaultNs: DEFAULT_NAMESPACE,
       postProcess: ["sprintf"],
@@ -33,7 +33,7 @@ export const TAPi18n = {
     await TAPi18n.loadLanguage(DEFAULT_LANGUAGE);
   },
   getSupportedLanguages() {
-    return Object.values(languages).map(({ name, code, isoCode }) => ({ name, code, isoCode }));
+    return Object.values(languages).map(({ name, code, tag }) => ({ name, code, tag }));
   },
   getLanguage() {
     return this.current.get();
