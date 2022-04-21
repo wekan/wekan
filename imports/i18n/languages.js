@@ -171,7 +171,7 @@ export default {
     code: "fi",
     tag: "fi",
     name: "Suomi",
-    load: () => import('./data/fi-FI.i18n.json'),
+    load: () => import('./data/fi.i18n.json'),
   },
   "fr-BE": {
     code: "fr",

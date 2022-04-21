@@ -1085,7 +1085,6 @@
     "custom-field-stringtemplate-item-placeholder": "Trykk Enter for å legge til flere objekt",
     "creator": "Oppretter",
     "filesReportTitle": "Rapportering Filer",
-    "orphanedFilesReportTitle": "Rapportering Foreldreløse Filer",
     "reports": "Rapportering",
     "rulesReportTitle": "Rapportering Regler",
     "boardsReportTitle": "Rapport tavler",
@@ -1163,5 +1162,19 @@
     "copyChecklist": "Kopier sjekkliste",
     "copyChecklistPopup-title": "Kopier sjekkliste",
     "card-show-lists": "Vis liste over kort",
-    "subtaskActionsPopup-title": "Subtask Actions"
+    "subtaskActionsPopup-title": "Subtask Actions",
+    "attachmentActionsPopup-title": "Attachment Actions",
+    "attachment-move-storage-fs": "Move attachment to filesystem",
+    "attachment-move-storage-gridfs": "Move attachment to GridFS",
+    "attachment-move": "Move Attachment",
+    "move-all-attachments-to-fs": "Move all attachments to filesystem",
+    "move-all-attachments-to-gridfs": "Move all attachments to GridFS",
+    "move-all-attachments-of-board-to-fs": "Move all attachments of board to filesystem",
+    "move-all-attachments-of-board-to-gridfs": "Move all attachments of board to GridFS",
+    "path": "Path",
+    "version-name": "Version-Name",
+    "size": "Size",
+    "storage": "Storage",
+    "action": "Aksjon",
+    "board-title": "Board Title"
 }

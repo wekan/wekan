@@ -1085,7 +1085,6 @@
     "custom-field-stringtemplate-item-placeholder": "Pressione enter para adicionar mais itens",
     "creator": "Criador",
     "filesReportTitle": "Relatório de Arquivos",
-    "orphanedFilesReportTitle": "Relatório de Arquivos Órfãos",
     "reports": "Relatórios",
     "rulesReportTitle": "Relatório de regras",
     "boardsReportTitle": "Relatório de Quadros",
@@ -1163,5 +1162,19 @@
     "copyChecklist": "Copiar Lista de verificação",
     "copyChecklistPopup-title": "Copiar Lista de verificação",
     "card-show-lists": "Cartão mostra listas",
-    "subtaskActionsPopup-title": "Ações da Subtarefa"
+    "subtaskActionsPopup-title": "Ações da Subtarefa",
+    "attachmentActionsPopup-title": "Ações do Anexo",
+    "attachment-move-storage-fs": "Mover anexo para sistema de arquivos",
+    "attachment-move-storage-gridfs": "Mover anexo para GridFS",
+    "attachment-move": "Mover Anexo",
+    "move-all-attachments-to-fs": "Mover todos os anexos para sistema de arquivos",
+    "move-all-attachments-to-gridfs": "Mover todos os anexos para GridFS",
+    "move-all-attachments-of-board-to-fs": "Mover todos os anexos do quadro para sistema de arquivos",
+    "move-all-attachments-of-board-to-gridfs": "Mover todos os anexos do quadro para GridFS",
+    "path": "Caminho",
+    "version-name": "Nome da Versão",
+    "size": "Tamanho",
+    "storage": "Armazenamento",
+    "action": "Ação",
+    "board-title": "Título do Quadro"
 }

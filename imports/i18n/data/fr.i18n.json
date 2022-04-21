@@ -1085,7 +1085,6 @@
     "custom-field-stringtemplate-item-placeholder": "Appuyez sur Entrée pour ajouter plus d'éléments",
     "creator": "Créateur",
     "filesReportTitle": "Rapports sur les fichiers",
-    "orphanedFilesReportTitle": "Rapports sur les fichiers orphelins",
     "reports": "Rapports",
     "rulesReportTitle": "Rapports sur les règles",
     "boardsReportTitle": "Rapport sur les tableaux",
@@ -1163,5 +1162,19 @@
     "copyChecklist": "Copier la checklist",
     "copyChecklistPopup-title": "Copier la checklist",
     "card-show-lists": "Afficher les listes sur la carte",
-    "subtaskActionsPopup-title": "Action de la sous-tâche"
+    "subtaskActionsPopup-title": "Action de la sous-tâche",
+    "attachmentActionsPopup-title": "Actions sur les pièces jointes",
+    "attachment-move-storage-fs": "Déplacer la pièce jointe vers le système de fichier",
+    "attachment-move-storage-gridfs": "Déplacer la pièce jointe vers GridFS",
+    "attachment-move": "Déplacer la pièce jointe",
+    "move-all-attachments-to-fs": "Déplacer toutes les pièces jointes vers le système de fichier",
+    "move-all-attachments-to-gridfs": "Déplacer toutes les pièces jointes vers GridFS",
+    "move-all-attachments-of-board-to-fs": "Déplacer toutes les pièces jointes du tableau vers le système de fichier",
+    "move-all-attachments-of-board-to-gridfs": "Déplacer toutes les pièces jointes du tableau vers GridFS",
+    "path": "Chemin",
+    "version-name": "Version-Nom",
+    "size": "Taille",
+    "storage": "Stockage",
+    "action": "Action",
+    "board-title": "Titre du tableau"
 }
