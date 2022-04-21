@@ -14,6 +14,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added Table View to My Cards](https://github.com/wekan/wekan/pulls/4479).
   Thanks to helioguardabaxo.
+- [Multi file storage for moving between MongoDB GridFS and filesystem](https://github.com/wekan/wekan/pull/4484).
+  Thanks to mfilser.
 
 and adds the following updates:
 

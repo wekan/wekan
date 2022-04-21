@@ -1216,7 +1216,7 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
             cardId: fileObj.cardId,
             listId: fileObj.listId,
             swimlaneId: fileObj.swimlaneId,
-            source: 'import,'
+            source: 'import'
           },
           userId,
           size: fileSize,
@@ -1327,4 +1327,13 @@ Migrations.add('migrate-attachment-drop-index-cardId', () => {
     Attachments.collection._dropIndex({'cardId': 1});
   } catch (error) {
   }
+});
+
+Migrations.add('migrate-attachment-migration-fix-source-import', () => {
+  // there was an error at first versions, so source was import, instead of import
+  Attachments.update(
+    {"meta.source":"import,"},
+    {$set:{"meta.source":"import"}},
+    noValidateMulti
+  );
 });
