@@ -360,10 +360,38 @@ Template.changeLanguagePopup.helpers({
         name = "o'zbek (O'zbekiston)";
       } else if (lang.name === 'uk-UA') {
         name = 'українська (Україна)';
+      } else if (lang.name === 've-CC') {
+        name = 'vèneto';
+      } else if (lang.name === 've-PP') {
+        name = 'vepsän kelʹ';
+      } else if (lang.name === 've') {
+        name = 'Tshivenḓa';
+      } else if (lang.name === 'vi-VN') {
+        name = 'Tiếng Việt (Việt Nam)';
+      } else if (lang.name === 'vo') {
+        name = 'Volapük';
+      } else if (lang.name === 'vl-SS') {
+        name = 'Vlaams';
+      } else if (lang.name === 'wa') {
+        name = 'walon';
+      } else if (lang.name === 'wa-RR') {
+        name = 'Wáray-Wáray';
+      } else if (lang.name === 'wo') {
+        name = 'ولوفل';
       } else if (lang.name === 'cy-GB') {
         name = 'Welsh (UK)';
       } else if (lang.name === 'fy-NL') {
         name = 'Westerlauwersk Frysk';
+      } else if (lang.name === 'xh') {
+        name = 'isiXhosa';
+      } else if (lang.name === 'yi') {
+        name = 'ייִדיש, יידיש';
+      } else if (lang.name === 'yo') {
+        name = 'Èdè Yorùbá';
+      } else if (lang.name === 'zu-ZA') {
+        name = 'isiZulu (Ningizimu Afrika)';
+      } else if (lang.name === 'zu') {
+        name = 'isiZulu';
       } else if (lang.name === '繁体中文（台湾）') {
         // Traditional Chinese (Taiwan)
         name = '繁體中文（台灣）';
