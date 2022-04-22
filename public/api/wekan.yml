@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.18
+  version: v6.19
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2796,6 +2796,14 @@ definitions:
           - modern
           - moderndark
           - exodark
+      allowsCardCounterList:
+        description: |
+           Show card counter per list
+        type: boolean
+      allowsBoardMemberList:
+        description: |
+           Show board member list
+        type: boolean
       description:
         description: |
            The description of the board
@@ -2970,6 +2978,8 @@ definitions:
       - members
       - permission
       - color
+      - allowsCardCounterList
+      - allowsBoardMemberList
       - allowsSubtasks
       - allowsAttachments
       - allowsChecklists
