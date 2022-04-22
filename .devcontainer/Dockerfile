@@ -222,12 +222,6 @@ USER wekan
 
 RUN \
     set -o xtrace && \
-    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
-    cd /home/wekan/.meteor && \
-    /home/wekan/.meteor/meteor -- help;
-
-RUN \
-    set -o xtrace && \
     # Build app
     cd /home/wekan/app && \
     /home/wekan/.meteor/meteor add standard-minifier-js && \
