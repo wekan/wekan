@@ -59,6 +59,14 @@ if (Meteor.isServer) {
     remove: isOwner,
     fetch: ['userId'],
   });
+
+  Meteor.startup(() => {
+    const storagePath = fileStoreStrategyFactory.storagePath;
+    if (!fs.existsSync(storagePath)) {
+      console.log("create storagePath because it doesn't exist: " + storagePath);
+      fs.mkdirSync(storagePath, { recursive: true });
+    }
+  });
 }
 
 export default Avatars;

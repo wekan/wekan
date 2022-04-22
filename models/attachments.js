@@ -89,7 +89,12 @@ if (Meteor.isServer) {
   });
 
   Meteor.startup(() => {
-    Attachments.collection.createIndex({ cardId: 1 });
+    Attachments.collection.createIndex({ 'meta.cardId': 1 });
+    const storagePath = fileStoreStrategyFactory.storagePath;
+    if (!fs.existsSync(storagePath)) {
+      console.log("create storagePath because it doesn't exist: " + storagePath);
+      fs.mkdirSync(storagePath, { recursive: true });
+    }
   });
 }
 
