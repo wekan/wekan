@@ -717,7 +717,7 @@ Migrations.add('add-missing-created-and-modified', () => {
     modifiedAtTables.map(db =>
       db
         .rawCollection()
-        .update(
+        .updateMany(
           { modifiedAt: { $exists: false } },
           { $set: { modifiedAt: new Date() } },
           { multi: true },
@@ -725,7 +725,7 @@ Migrations.add('add-missing-created-and-modified', () => {
         .then(() =>
           db
             .rawCollection()
-            .update(
+            .updateMany(
               { createdAt: { $exists: false } },
               { $set: { createdAt: new Date() } },
               { multi: true },
@@ -772,7 +772,7 @@ Migrations.add('fix-incorrect-dates', () => {
       .rawCollection()
       .find({ $or: [{ createdAt: { $type: 1 } }, { updatedAt: { $type: 1 } }] })
       .forEach(({ _id, createdAt, updatedAt }) => {
-        t.rawCollection().update(
+        t.rawCollection().updateMany(
           { _id },
           {
             $set: {
