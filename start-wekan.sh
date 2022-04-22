@@ -508,7 +508,7 @@
       # Add more Node heap:
       export NODE_OPTIONS="--max_old_space_size=4096"
       # Add more stack:
-      bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+      bash -c "ulimit -s 65500; exec node --stack-size=65500 --trace-warnings main.js"
       #node main.js
       #---------------------------------------------------------------------
       # & >> ../../wekan.log
