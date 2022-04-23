@@ -256,10 +256,28 @@ CardCustomField.register('cardCustomField');
   }
 
   formattedValue() {
-    return (this.data().value ?? [])
+    const ret = (this.data().value ?? [])
       .filter(value => !!value.trim())
-      .map(value => this.stringtemplateFormat.replace(/%\{value\}/gi, value))
+      .map(value => {
+        let _ret = this.stringtemplateFormat.replace(/[%$]\{.+?\}/g, function(_match) {
+          let __ret;
+          if (_match.match(/%\{value\}/i)) {
+            __ret = value;
+          } else {
+            _match = _match.replace(/^\$/, "");
+            try {
+              const _json = JSON.parse(_match);
+              __ret =  value.replace(new RegExp(_json.regex, _json.flags), _json.replace);
+            } catch (err) {
+              console.error(err);
+            }
+          }
+          return __ret;
+        });
+        return _ret;
+      })
       .join(this.stringtemplateSeparator ?? '');
+    return ret;
   }
 
   getItems() {
