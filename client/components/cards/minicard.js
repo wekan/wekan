@@ -1,4 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
+import { CustomFieldStringTemplate } from '/client/lib/customFields'
 
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
@@ -31,12 +32,8 @@ BlazeComponent.extendComponent({
     const customFieldTrueValue =
       customField && customField.trueValue ? customField.trueValue : [];
 
-    return customFieldTrueValue
-      .filter(value => !!value.trim())
-      .map(value =>
-        definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value),
-      )
-      .join(definition.settings.stringtemplateSeparator ?? '');
+    const ret = new CustomFieldStringTemplate(definition).getFormattedValue(customFieldTrueValue);
+    return ret;
   },
 
   showCreator() {
