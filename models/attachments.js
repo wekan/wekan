@@ -4,7 +4,7 @@ import { createBucket } from './lib/grid/createBucket';
 import fs from 'fs';
 import path from 'path';
 import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs} from '/models/lib/attachmentStoreStrategy';
-import FileStoreStrategyFactory, {moveToStorage, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS} from '/models/lib/fileStoreStrategy';
+import FileStoreStrategyFactory, {moveToStorage, rename, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS} from '/models/lib/fileStoreStrategy';
 
 let attachmentBucket;
 let storagePath;
@@ -86,6 +86,13 @@ if (Meteor.isServer) {
 
       const fileObj = Attachments.findOne({_id: fileObjId});
       moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
+    },
+    renameAttachment(fileObjId, newName) {
+      check(fileObjId, String);
+      check(newName, String);
+
+      const fileObj = Attachments.findOne({_id: fileObjId});
+      rename(fileObj, newName, fileStoreStrategyFactory);
     },
   });
 

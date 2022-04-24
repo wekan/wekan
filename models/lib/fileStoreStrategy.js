@@ -114,6 +114,13 @@ class FileStoreStrategy {
   unlink() {
   }
 
+  /** rename the file (physical)
+   * @li at database the filename is updated after this method
+   * @param newFilePath the new file path
+   */
+  rename(newFilePath) {
+  }
+
   /** return the storage name
    * @return the storage name
    */
@@ -287,6 +294,14 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     fs.unlink(filePath, () => {});
   }
 
+  /** rename the file (physical)
+   * @li at database the filename is updated after this method
+   * @param newFilePath the new file path
+   */
+  rename(newFilePath) {
+    fs.renameSync(this.fileObj.versions[this.versionName].path, newFilePath);
+  }
+
   /** return the storage name
    * @return the storage name
    */
@@ -388,4 +403,17 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
   }));
 
   readStream.pipe(writeStream);
+};
+
+export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
+  Object.keys(fileObj.versions).forEach(versionName => {
+    const strategy = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
+    const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, newName);
+    strategy.rename(newFilePath);
+
+    Attachments.update({ _id: fileObj._id }, { $set: {
+      "name": newName,
+      [`versions.${versionName}.path`]: newFilePath,
+    } });
+  });
 };
