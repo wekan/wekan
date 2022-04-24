@@ -15,7 +15,7 @@ export class CustomFieldStringTemplate extends CustomField {
     const ret = (rawValue ?? [])
       .filter(value => !!value.trim())
       .map(value => {
-        let _ret = this.format.replace(/[%$]\{.+?\}/g, function(_match) {
+        let _ret = this.format.replace(/[%$]\{.+?[^0-9]\}/g, function(_match) {
           let __ret;
           if (_match.match(/%\{value\}/i)) {
             __ret = value;
