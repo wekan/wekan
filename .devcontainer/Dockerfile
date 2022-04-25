@@ -1,5 +1,9 @@
-FROM ubuntu:rolling
+FROM ubuntu:21.10
 LABEL maintainer="sgr"
+
+# 2022-04-25:
+# - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
+#   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
 ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
 ENV DEBIAN_FRONTEND=noninteractive

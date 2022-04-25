@@ -1,5 +1,9 @@
-FROM ubuntu:rolling
+FROM ubuntu:21.10
 LABEL maintainer="wekan"
+
+# 2022-04-25:
+# - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
+#   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
 # 2021-09-18:
 # - Above Ubuntu base image copied from Docker Hub ubuntu:hirsute-20210825
