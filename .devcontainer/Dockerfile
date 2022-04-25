@@ -222,9 +222,8 @@ RUN set -o xtrace \
   && sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh \
   && printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n" \
   && chown wekan:wekan -R /home/wekan \
-  && gosu wekan:wekan sh /home/wekan/install-meteor.sh
+  && gosu wekan:wekan sh /home/wekan/install-meteor.sh && \
 
-RUN set -o xtrace  && \
     chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help && \
