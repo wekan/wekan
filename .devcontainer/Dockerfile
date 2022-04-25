@@ -201,8 +201,6 @@ USER root
 
 RUN echo "export PATH=$PATH" >> /etc/environment
 
-USER wekan
-
 # Copy source dir
 RUN set -o xtrace \
   && mkdir -p /home/wekan/app/.meteor \
@@ -231,13 +229,8 @@ COPY \
     packages \
     /home/wekan/app/packages/
 
-USER root
-
-RUN set -o xtrace \
-  && chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
-
-RUN \
-    set -o xtrace && \
+RUN set -o xtrace && \
+    chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help && \
 
