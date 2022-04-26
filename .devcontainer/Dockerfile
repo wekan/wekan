@@ -211,10 +211,9 @@ RUN set -o xtrace \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   && mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config \
   && npm install -g npm@${NPM_VERSION} \
-  && chown wekan:wekan --recursive /home/wekan/.config
+  && chown wekan:wekan --recursive /home/wekan/.config \
 
 # Install Meteor
-RUN set -o xtrace \
   && cd /home/wekan \
   && curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh \
   # Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
