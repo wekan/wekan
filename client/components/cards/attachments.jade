@@ -90,6 +90,6 @@ template(name="attachmentActionsPopup")
               | {{_ 'attachment-move-storage-gridfs'}}
 
 template(name="attachmentRenamePopup")
-  input.js-edit-attachment-name(type='text' autofocus value=name dir="auto")
+  input.js-edit-attachment-name(type='text' autofocus value="{{getNameWithoutExtension}}" dir="auto")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-attachment-name(type="submit") {{_ 'save'}}

@@ -161,6 +161,10 @@ BlazeComponent.extendComponent({
 }).register('attachmentActionsPopup');
 
 BlazeComponent.extendComponent({
+  getNameWithoutExtension() {
+    const ret = this.data().name.replace(new RegExp("\." + this.data().extension + "$"), "");
+    return ret;
+  },
   events() {
     return [
       {
@@ -175,9 +179,9 @@ BlazeComponent.extendComponent({
           event.preventDefault();
           const name = this.$('.js-edit-attachment-name')[0]
             .value
-            .trim();
+            .trim() + this.data().extensionWithDot;
           Meteor.call('renameAttachment', this.data()._id, name);
-          Popup.back();
+          Popup.back(2);
         },
       }
     ]
