@@ -20,30 +20,34 @@ Template.attachmentsGalery.helpers({
 Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
-    if (event.currentTarget.files && event.currentTarget.files[0]) {
-      const fileId = Random.id();
-      const config = {
-        file: event.currentTarget.files[0],
-        fileId: fileId,
-        meta: Utils.getCommonAttachmentMetaFrom(card),
-        chunkSize: 'dynamic',
-      };
-      config.meta.fileId = fileId;
-      const uploader = Attachments.insert(
-        config,
-        false,
-      );
-      uploader.on('uploaded', (error, fileRef) => {
-        if (!error) {
-          if (fileRef.isImage) {
-            card.setCover(fileRef._id);
+    const files = event.currentTarget.files;
+    if (files) {
+      let finished = [];
+      for (const file of files) {
+        const fileId = Random.id();
+        const config = {
+          file: file,
+          fileId: fileId,
+          meta: Utils.getCommonAttachmentMetaFrom(card),
+          chunkSize: 'dynamic',
+        };
+        config.meta.fileId = fileId;
+        const uploader = Attachments.insert(
+          config,
+          false,
+        );
+        uploader.on('uploaded', (error, fileRef) => {
+          if (!error) {
+            if (fileRef.isImage) {
+              card.setCover(fileRef._id);
+            }
           }
-        }
-      });
-      uploader.on('end', (error, fileRef) => {
-        Popup.back();
-      });
-      uploader.start();
+        });
+        uploader.on('end', (error, fileRef) => {
+          Popup.back();
+        });
+        uploader.start();
+      }
     }
   },
   'click .js-computer-upload'(event, templateInstance) {
