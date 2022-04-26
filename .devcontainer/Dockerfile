@@ -238,6 +238,7 @@ RUN set -o xtrace \
     gosu wekan:wekan node build.js && \
 
     # Cleanup
+    apt-get remove --purge --assume-yes ${BUILD_DEPS} && \
     apt-get clean -y && \
     apt-get autoremove -y && \
     rm -Rf /tmp/* && \
