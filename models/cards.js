@@ -739,17 +739,15 @@ Cards.helpers({
   },
 
   attachments() {
+    let id = this._id;
     if (this.isLinkedCard()) {
-      return Attachments.find(
-        { 'meta.cardId': this.linkedId },
-        { sort: { uploadedAt: -1 } },
-      ).each();
-    } else {
-      return Attachments.find(
-        { 'meta.cardId': this._id },
-        { sort: { uploadedAt: -1 } },
-      ).each();
+       id = this.linkedId;
     }
+    let ret = Attachments.find(
+      { 'meta.cardId': id },
+      { sort: { uploadedAt: -1 } },
+    ).each();
+    return ret;
   },
 
   cover() {
