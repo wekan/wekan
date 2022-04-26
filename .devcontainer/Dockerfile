@@ -194,14 +194,13 @@ COPY \
 RUN set -o xtrace \
   && useradd --user-group --no-create-home --system --home-dir /home/wekan wekan \
   && apt-get update \
-  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
+  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} \
 
 # OLD:
 #  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$ARCHITECTURE.tar.xz" \
 #  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/SHASUMS256.txt.asc" \
 
 # Install NodeJS
-RUN set -o xtrace \
   && cd /tmp \
   && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz" \
   && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt" \
