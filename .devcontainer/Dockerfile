@@ -230,12 +230,6 @@ RUN set -o xtrace \
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
-    cd /home/wekan/app_build/bundle/programs/server/ && \
-    chmod u+w package.json npm-shrinkwrap.json && \
-    gosu wekan:wekan npm install && \
-    cd node_modules/fibers && \
-    gosu wekan:wekan node build.js && \
 
     # Cleanup
     apt-get remove --purge --assume-yes ${BUILD_DEPS} && \
