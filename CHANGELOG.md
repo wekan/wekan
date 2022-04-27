@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix themes](https://github.com/wekan/wekan/pull/4490).
+  Thanks to TheExo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.20 2022-04-25 WeKan ® release
 
 This release fixes the following bugs:
