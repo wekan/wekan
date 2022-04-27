@@ -1068,9 +1068,19 @@ setBoardClear(color1,color2)
     border-left: 1px solid #333333
     color: #cccccc
 
-  .activities .activity .activity-desc .activity-comment
-    background-color: #cccccc
-    color: #222222
+  .activities .activity .activity-desc
+    .activity-comment
+      background-color: #cccccc
+      color: #222222
+    .activity-checklist
+      background-color: #cccccc
+      color: #222222;
+
+  .attachments-galery .attachment-item
+    color: #222222;
+
+  .minicard-description
+    color: #222222;
 
   /* Pop-Ups for "Modern Dark" */
 .pop-over.board-color-moderndark
@@ -1149,13 +1159,18 @@ setBoardClear(color1,color2)
     textarea
       color: white;
 
+  .minicard .minicard-description
+    background: #2b2b2b;
+    border: 1px solid #00897b;
+
+
   .minicard:hover:not(.minicard-composer)
     border: 1px solid #00897b;
     background: #2b2b2b;
     padding: 9px 9px 3px 9px;/*because of the 1px border we need to reduce padding by 1px*/
 
   .card-details
-    background: #2b2b2b;
+    background: #2b2b2b!important;
     color: white;
 
   .card-details .card-details-header
@@ -1169,8 +1184,41 @@ setBoardClear(color1,color2)
   .card-details, .sidebar-content
     box-shadow: 0 0 7px 0 #00897b;
 
+  .attachments-galery .attachment-item
+    background: #2b2b2b
+
+  .attachments-galery .attachment-item:hover
+    border: 1px solid #00897b;
+    background: #2b2b2b;
+
+  .checklist
+    background: #2b2b2b;
+    .checklist-item
+      background: #2b2b2b;
+      &:hover
+        background: #2b2b2b;
+
+  .add-checklist-item.js-open-inlined-form:hover
+    background: #2b2b2b;
+    border: 1px solid #00897b;
+
+  .add-checklist.js-open-inlined-form:hover
+    background: #2b2b2b;
+    border: 1px solid #00897b;
+
   .card-details > h1,h2,h3,h4,h5,h6,p,a,span
     color: white!important;
+
+  .activity-desc
+    background-color: #2b2b2b!important;
+
+  .activity-checklist
+    background: #2b2b2b!important;
+    border: 1px solid #00897b;
+
+  .activity-comment
+    background: #2b2b2b!important;
+    border: 1px solid #00897b;
 
   .toggle-switch:checked ~ .toggle-label
     background-color: #00897b!important;
