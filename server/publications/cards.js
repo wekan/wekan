@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
 import Boards from '../../models/boards';

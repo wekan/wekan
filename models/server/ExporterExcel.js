@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
 

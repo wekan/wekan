@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 import {
   ALLOWED_COLORS,
   TYPE_CARD,

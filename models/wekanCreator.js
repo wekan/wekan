@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);

@@ -1,6 +1,6 @@
 import { Blaze } from 'meteor/blaze';
 import { Session } from 'meteor/session';
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 
 Blaze.registerHelper('currentBoard', () => {
   const ret = Utils.getCurrentBoard();

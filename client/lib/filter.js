@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 
 // Filtered view manager
 // We define local filter objects for each different type of field (SetFilter,
