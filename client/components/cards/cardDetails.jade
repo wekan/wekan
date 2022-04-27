@@ -266,12 +266,14 @@ template(name="cardDetails")
                 i.fa.fa-list-alt
                 = definition.name
               +cardCustomField
-          .material-toggle-switch(title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}")
-            if customFieldsGrid
-              input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton" checked="checked")
-            else
-              input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton")
-            label.toggle-label(for="toggleCustomFieldsGridButton")
+
+          if $gt customFieldsWD.length 1
+            .material-toggle-switch(title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}")
+              if customFieldsGrid
+                input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton" checked="checked")
+              else
+                input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton")
+              label.toggle-label(for="toggleCustomFieldsGridButton")
           a.fa.fa-plus.js-custom-fields.card-details-item.custom-fields(title="{{_ 'custom-fields'}}")
 
       if getVoteQuestion
