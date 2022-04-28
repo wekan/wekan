@@ -21,20 +21,20 @@ Template.attachmentsGalery.helpers({
 });
 
 Template.cardAttachmentsPopup.onCreated(function() {
-  this.currentUpload = new ReactiveVar(false);
+  this.uploads = new ReactiveVar([]);
 });
 
 Template.cardAttachmentsPopup.helpers({
-  getEstimateTime() {
-    const ret = prettyMilliseconds(Template.instance().currentUpload.get().estimateTime.get());
+  getEstimateTime(upload) {
+    const ret = prettyMilliseconds(upload.estimateTime.get());
     return ret;
   },
-  getEstimateSpeed() {
-    const ret = filesize(Template.instance().currentUpload.get().estimateSpeed.get(), {round: 0}) + "/s";
+  getEstimateSpeed(upload) {
+    const ret = filesize(upload.estimateSpeed.get(), {round: 0}) + "/s";
     return ret;
   },
-  currentUpload() {
-    return Template.instance().currentUpload.get();
+  uploads() {
+    return Template.instance().uploads.get();
   }
 });
 
@@ -43,7 +43,7 @@ Template.cardAttachmentsPopup.events({
     const card = this;
     const files = event.currentTarget.files;
     if (files) {
-      let finished = [];
+      let uploads = [];
       for (const file of files) {
         const fileId = Random.id();
         const config = {
@@ -58,7 +58,8 @@ Template.cardAttachmentsPopup.events({
           false,
         );
         uploader.on('start', function() {
-          templateInstance.currentUpload.set(this);
+          uploads.push(this);
+          templateInstance.uploads.set(uploads);
         });
         uploader.on('uploaded', (error, fileRef) => {
           if (!error) {
@@ -68,9 +69,9 @@ Template.cardAttachmentsPopup.events({
           }
         });
         uploader.on('end', (error, fileRef) => {
-          templateInstance.currentUpload.set(false);
-          finished.push(fileRef);
-          if (finished.length == files.length) {
+          uploads = uploads.filter(_upload => _upload.config.fileId != fileRef._id);
+          templateInstance.uploads.set(uploads);
+          if (uploads.length == 0 ) {
             Popup.back();
           }
         });

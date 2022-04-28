@@ -1,5 +1,5 @@
 template(name="cardAttachmentsPopup")
-  with currentUpload
+  if $gt uploads.length 0
     .attachment-upload {{_ 'uploading'}}
       table
         tr
@@ -7,11 +7,12 @@ template(name="cardAttachmentsPopup")
           th.upload-progress-descr {{_ 'progress'}}
           th.upload-remaining-descr {{_ 'remaining_time'}}
           th.upload-speed-descr {{_ 'speed'}}
-        tr
-          td.upload-file-name-value {{file.name}}
-          td.upload-progress-value {{progress.get}}%
-          td.upload-remaining-value {{getEstimateTime}}
-          td.upload-speed-value {{getEstimateSpeed}}
+        each upload in uploads
+          tr
+            td.upload-file-name-value {{upload.file.name}}
+            td.upload-progress-value {{upload.progress.get}}%
+            td.upload-remaining-value {{getEstimateTime upload}}
+            td.upload-speed-value {{getEstimateSpeed upload}}
   else
     ul.pop-over-list
       li
