@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fix themes](https://github.com/wekan/wekan/pull/4490).
   Thanks to TheExo.
+- [Try to fix Snap by adding cypress and jest for cypress-image-snapshot and jest-image-snapshot](https://github.com/wekan/wekan/commit/7dd5fa4ac40f0fe63168b9a2ef4a0940bfc9d80b).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
