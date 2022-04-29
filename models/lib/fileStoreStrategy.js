@@ -312,11 +312,11 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
       const writeStream = strategyWrite.getWriteStream(filePath);
 
       writeStream.on('error', error => {
-        console.error('[writeStream error]: ', error, fileObjId);
+        console.error('[writeStream error]: ', error, fileObj._id);
       });
 
       readStream.on('error', error => {
-        console.error('[readStream error]: ', error, fileObjId);
+        console.error('[readStream error]: ', error, fileObj._id);
       });
 
       writeStream.on('finish', Meteor.bindEnvironment((finishedData) => {
