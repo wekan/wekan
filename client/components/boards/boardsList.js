@@ -260,7 +260,7 @@ BlazeComponent.extendComponent({
             },
             (err, res) => {
               if (err) {
-                self.setError(err.error);
+                console.error(err);
               } else {
                 Session.set('fromBoard', null);
                 subManager.subscribe('board', res, false);
@@ -268,7 +268,6 @@ BlazeComponent.extendComponent({
                   id: res,
                   slug: title,
                 });
-                //Utils.goBoardId(res);
               }
             },
           );
