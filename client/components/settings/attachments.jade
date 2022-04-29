@@ -52,7 +52,7 @@ template(name="moveBoardAttachments")
         th {{_ 'name'}}
         th {{_ 'path'}}
         th {{_ 'version-name'}}
-        th {{_ 'size'}} (B)
+        th {{_ 'size'}}
         th GridFsFileId
         th {{_ 'storage'}}
         th {{_ 'action'}}
@@ -68,7 +68,7 @@ template(name="moveAttachment")
       td {{ name }}
       td {{ version.path }}
       td {{ version.versionName }}
-      td {{ version.size }}
+      td {{ fileSize version.size }}
       td {{ version.meta.gridFsFileId }}
       td {{ version.storageName }}
       td

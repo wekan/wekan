@@ -1,4 +1,5 @@
 import Attachments, { fileStoreStrategyFactory } from '/models/attachments';
+const filesize = require('filesize');
 
 BlazeComponent.extendComponent({
   subscription: null,
@@ -108,6 +109,10 @@ BlazeComponent.extendComponent({
 }).register('moveBoardAttachments');
 
 BlazeComponent.extendComponent({
+  fileSize(size) {
+    const ret = filesize(size);
+    return ret;
+  },
   events() {
     return [
       {
