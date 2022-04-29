@@ -88,7 +88,7 @@ template(name="filesReport")
       each att in results
         tr
           td {{ att.name }}
-          td.right {{fileSize att.size }}
+          td.right {{ fileSize att.size }}
           td {{ att.type }}
           td {{ att._id }}
           td {{ att.meta.boardId }}
