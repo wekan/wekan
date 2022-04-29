@@ -54,7 +54,7 @@ template(name="attachmentsGalery")
               span.attachment-thumbnail-ext= extension
         p.attachment-details
           = name
-          span.file-size ({{fileSize size}} KB)
+          span.file-size ({{fileSize size}})
           span.attachment-details-actions
             a.js-download(href="{{link}}?download=true", download="{{name}}")
               i.fa.fa-download

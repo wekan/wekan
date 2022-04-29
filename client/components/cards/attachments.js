@@ -16,7 +16,8 @@ Template.attachmentsGalery.helpers({
     return Meteor.user().isBoardAdmin();
   },
   fileSize(size) {
-    return Math.round(size / 1024);
+    const ret = filesize(size);
+    return ret;
   },
 });
 
