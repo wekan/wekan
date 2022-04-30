@@ -369,6 +369,7 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
           swimlaneId: fileObj.meta.swimlaneId,
           source: 'copy',
           copyFrom: fileObj._id,
+          copyStorage: strategyRead.getStorageName(),
         },
         userId: fileObj.userId,
         size: fileObj.fileSize,
