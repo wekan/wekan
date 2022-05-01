@@ -34,12 +34,13 @@ Attachments = new FilesCollection({
     return ret;
   },
   onAfterUpload(fileObj) {
+    let storage = fileObj.meta.copyStorage || STORAGE_NAME_GRIDFS;
     // current storage is the filesystem, update object and database
     Object.keys(fileObj.versions).forEach(versionName => {
       fileObj.versions[versionName].storage = STORAGE_NAME_FILESYSTEM;
     });
     Attachments.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
-    moveToStorage(fileObj, STORAGE_NAME_GRIDFS, fileStoreStrategyFactory);
+    moveToStorage(fileObj, storage, fileStoreStrategyFactory);
   },
   interceptDownload(http, fileObj, versionName) {
     const ret = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).interceptDownload(http, this.cacheControl);
