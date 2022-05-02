@@ -76,7 +76,6 @@ jquery@1.11.11
 kadira:blaze-layout@2.3.0
 kadira:dochead@1.5.0
 kadira:flow-router@2.12.1
-kenton:accounts-sandstorm@0.1.0
 konecty:mongo-counter@0.0.5_3
 launch-screen@1.3.0
 livedata@1.0.18
@@ -225,5 +224,6 @@ useraccounts:flow-routing@1.15.0
 useraccounts:unstyled@1.14.2
 webapp@1.13.1
 webapp-hashing@1.1.0
+wekan-accounts-sandstorm@0.7.0
 wekan-markdown@1.0.9
 zimme:active-route@2.3.2
