@@ -21,16 +21,16 @@
 
 Package.describe({
   summary: "Login service for Sandstorm.io applications",
-  version: "0.7.0",
+  version: "0.8.0",
   name: "wekan-accounts-sandstorm",
   git: "https://github.com/sandstorm-io/meteor-accounts-sandstorm.git"
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.5.1');
+  api.versionsFrom('2.7');
 
   api.use('random', ['client', 'server']);
-  api.use('accounts-base@2.2.2', ['client', 'server'], {weak: true});
+  api.use('accounts-base', ['client', 'server'], {weak: true});
   api.use('webapp', 'server');
   api.use('http', 'client');
   api.use('tracker', 'client');
