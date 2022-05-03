@@ -28,7 +28,7 @@
     "bcryptjs": "^2.4.3",
     "bson": "^4.5.2",
     "dompurify": "^2.5.5",
-    "dragscroll": "git+https://github.com/mfilser/dragscroll.git#992943a9a8477d745f7092f99ae32375a6654124",
+    "dragscroll": "git+https://github.com/mfilser/dragscroll.git#4b9dd09a8ba835371cb4fc4090af42d21b81174b",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
     "fibers": "^5.0.3",
