@@ -26,7 +26,6 @@ mongo@1.15.0-rc272.0
 mquandalle:collection-mutations
 
 # Account system
-kenton:accounts-sandstorm
 #wekan-ldap
 #wekan-accounts-cas
 #wekan-accounts-oidc
@@ -142,3 +141,4 @@ useraccounts:unstyled
 service-configuration@1.3.0
 communitypackages:picker
 simple:rest-accounts-password
+wekan-accounts-sandstorm

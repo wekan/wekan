@@ -5,7 +5,8 @@ import {
   TYPE_LINKED_BOARD,
   TYPE_LINKED_CARD,
 } from '../config/const';
-import Attachments from "./attachments";
+import Attachments, { fileStoreStrategyFactory } from "./attachments";
+import { copyFile } from './lib/fileStoreStrategy.js';
 
 
 Cards = new Mongo.Collection('cards');
@@ -586,11 +587,11 @@ Cards.helpers({
     const _id = Cards.insert(this);
 
     // Copy attachments
-    oldCard.attachments().forEach(att => {
-      att.cardId = _id;
-      delete att._id;
-      return Attachments.insert(att);
-    });
+    oldCard.attachments()
+      .map(att => att.get())
+      .forEach(att => {
+        copyFile(att, _id, fileStoreStrategyFactory);
+      });
 
     // copy checklists
     Checklists.find({ cardId: oldId }).forEach(ch => {
