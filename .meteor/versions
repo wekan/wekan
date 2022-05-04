@@ -224,6 +224,6 @@ useraccounts:flow-routing@1.15.0
 useraccounts:unstyled@1.14.2
 webapp@1.13.1
 webapp-hashing@1.1.0
-wekan-accounts-sandstorm@0.7.0
+wekan-accounts-sandstorm@0.8.0
 wekan-markdown@1.0.9
 zimme:active-route@2.3.2

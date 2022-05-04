@@ -31,7 +31,7 @@ export default class FileStoreStrategyFactory {
     if (!storage) {
       storage = fileObj.versions[versionName].storage;
       if (!storage) {
-        if (fileObj.meta.source == "import") {
+        if (fileObj.meta.source == "import" || fileObj.versions[versionName].meta.gridFsFileId) {
           // uploaded by import, so it's in GridFS (MongoDB)
           storage = STORAGE_NAME_GRIDFS;
         } else {
