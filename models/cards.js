@@ -815,6 +815,18 @@ Cards.helpers({
     }
   },
 
+  firstChecklist() {
+    const checklists = this.checklists().fetch();
+    const ret = _.first(checklists);
+    return ret;
+  },
+
+  lastChecklist() {
+    const checklists = this.checklists().fetch();
+    const ret = _.last(checklists);
+    return ret;
+  },
+
   checklistItemCount() {
     const checklists = this.checklists().fetch();
     return checklists
