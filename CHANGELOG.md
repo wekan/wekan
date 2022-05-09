@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming WeKan ® release
+# v6.22 2022-05-09 WeKan ® release
 
 - [Updated to Node.js v14.19.2](https://github.com/wekan/wekan/commit/bfef7844ba15a28bce63a577ed499ed899aaff79).
   Thanks to Node.js developers.

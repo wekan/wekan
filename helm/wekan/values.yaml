@@ -14,7 +14,7 @@ serviceAccounts:
 ##
 image:
   repository: quay.io/wekan/wekan
-  tag: v6.21
+  tag: v6.22
   pullPolicy: IfNotPresent
 
 ## Configuration for wekan component
