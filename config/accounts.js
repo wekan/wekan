@@ -3,6 +3,7 @@ const emailField = AccountsTemplates.removeField('email');
 let disableRegistration = false;
 let disableForgotPassword = false;
 let passwordLoginDisabled = false;
+let oidcEnabled = false;
 
 Meteor.call('isPasswordLoginDisabled', (_, result) => {
   if (result) {
@@ -10,6 +11,16 @@ Meteor.call('isPasswordLoginDisabled', (_, result) => {
     //console.log('passwordLoginDisabled');
     //console.log(result);
   }
+});
+Meteor.call('getOauthServerUrl', (_, result) => {
+  if (result) {
+    oauthServerUrl = result;
+    const a = document.createElement("a");
+    a.href = oauthServerUrl;
+    const baseUrl = `${a.protocol}//${a.hostname}`;
+    console.log(baseUrl);
+  }
+  else oauthServerUrl = "home";
 });
 
 Meteor.call('isDisableRegistration', (_, result) => {
@@ -19,7 +30,9 @@ Meteor.call('isDisableRegistration', (_, result) => {
     //console.log(result);
   }
 });
-
+Meteor.call('isOidcRedirectionEnabled', (_, result) => {
+  oidcEnabled = result ? true : false;
+});
 Meteor.call('isDisableForgotPassword', (_, result) => {
   if (result) {
     disableForgotPassword = true;
@@ -57,6 +70,12 @@ AccountsTemplates.configure({
   showForgotPasswordLink: !disableForgotPassword,
   forbidClientAccountCreation: disableRegistration,
   onLogoutHook() {
+    if(oidcEnabled && oauthServerUrl!=="home")
+    {
+
+      oidcEnabled = !oidcEnabled;
+      window.location.href = oauthServerUrl + "/if/user/#/library";
+    }
     const homePage = 'home';
     if (FlowRouter.getRouteName() === homePage) {
       FlowRouter.reload();

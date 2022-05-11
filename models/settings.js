@@ -494,12 +494,22 @@ if (Meteor.isServer) {
       };
     },
 
+    getOauthServerUrl(){
+      return process.env.OAUTH2_SERVER_URL;
+    },
+    getOauthDashboardUrl(){
+      return process.env.DASHBOARD_URL;
+    },
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
     },
 
     isPasswordLoginDisabled() {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
+    },
+    isOidcRedirectionEnabled(){
+      console.log(process.env.REDIRECT_LOGIN_LOGOUT_TO_OIDC === 'true');
+      return process.env.REDIRECT_LOGIN_LOGOUT_TO_OIDC === 'true';
     },
   });
 }

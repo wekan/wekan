@@ -108,7 +108,7 @@ Meteor.startup(() => {
           // OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
           // OAUTH2_REQUEST_PERMISSIONS || 'openid profile email',
         },
-      );
+        );
     } else if (
       process.env.CAS_ENABLED === 'true' ||
       process.env.CAS_ENABLED === true
