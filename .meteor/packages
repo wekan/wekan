@@ -142,3 +142,8 @@ service-configuration@1.3.0
 communitypackages:picker
 simple:rest-accounts-password
 wekan-accounts-sandstorm
+wekan-accounts-lockout
+wekan-oidc
+wekan-accounts-oidc
+wekan-ldap
+wekan-accounts-cas
