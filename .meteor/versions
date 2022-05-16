@@ -1,4 +1,4 @@
-accounts-base@2.2.3-rc272.0
+accounts-base@2.2.3
 accounts-password@2.3.1
 aldeed:collection2@2.10.0
 aldeed:collection2-core@1.2.0
@@ -101,11 +101,11 @@ minifier-js@2.7.4
 minifiers@1.1.8-faster-rebuild.0
 minimongo@1.8.0
 mobile-status-bar@1.1.0
-modern-browsers@0.1.8-rc272.0
+modern-browsers@0.1.8
 modules@0.18.0
 modules-runtime@0.13.0
 momentjs:moment@2.29.3
-mongo@1.15.0-rc272.0
+mongo@1.15.0
 mongo-decimal@0.1.3
 mongo-dev-server@1.1.0
 mongo-id@1.0.8
@@ -204,7 +204,7 @@ simple:json-routes@2.3.1
 simple:rest-accounts-password@1.2.1
 simple:rest-bearer-token-parser@1.1.1
 simple:rest-json-error-handler@1.1.1
-socket-stream-client@0.5.0-rc272.0
+socket-stream-client@0.5.0
 spacebars@1.3.0
 spacebars-compiler@1.3.1
 standard-minifier-css@1.8.1
