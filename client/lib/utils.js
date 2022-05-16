@@ -343,8 +343,25 @@ Utils = {
     else {
       const prevSortIndex = prevData.sort;
       const nextSortIndex = nextData.sort;
-      increment = (nextSortIndex - prevSortIndex) / (nItems + 1);
-      base = prevSortIndex + increment;
+      if (nItems == 1 ) {
+        if (prevSortIndex < 0 ) {
+          const ceil = Math.ceil(nextSortIndex - 1);
+          if (ceil < nextSortIndex && ceil > prevSortIndex) {
+            increment = ceil - prevSortIndex;
+          }
+        } else {
+          const floor = Math.floor(nextSortIndex - 1);
+          if (floor < nextSortIndex && floor > prevSortIndex) {
+            increment = floor - prevSortIndex;
+          }
+        }
+      }
+      if (!increment) {
+        increment = (nextSortIndex - prevSortIndex) / (nItems + 1);
+      }
+      if (!base) {
+        base = prevSortIndex + increment;
+      }
     }
     // XXX Return a generator that yield values instead of a base with a
     // increment number.
