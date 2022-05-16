@@ -115,7 +115,11 @@ do
 		;;
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000")
-		IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		if [[ "$OSTYPE" == "darwin"* ]]; then
+		  IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		else
+		  IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		fi
 		echo "Your IP address is $IPADDRESS"
 		WRITABLE_PATH=.. NODE_OPTIONS="--max_old_space_size=4096 --trace-warnings" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
 		break
