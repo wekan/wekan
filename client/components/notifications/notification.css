@@ -1,0 +1,67 @@
+#notifications-drawer.show-read .notification.read {
+  display: flex;
+}
+#notifications-drawer .notification {
+  display: flex;
+  float: none;
+  padding: 15px 8px 8px;
+  color: #000;
+  border-bottom: 1px solid #dbdbdb;
+}
+#notifications-drawer .notification.read {
+  display: none;
+}
+#notifications-drawer .notification .read-status {
+  width: 30px;
+  padding: 0px 10px 0px 0px;
+}
+#notifications-drawer .notification .read-status input {
+  width: 24px;
+  height: 24px;
+}
+#notifications-drawer .notification .read-status .activity-type {
+  margin: 16px 0 0;
+  width: 17px;
+  height: 17px;
+  font-size: 17px;
+  display: block;
+  color: #bbb;
+}
+#notifications-drawer .notification .details .activity a.member {
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+}
+#notifications-drawer .notification .details .activity a.member svg {
+  padding: 3px;
+}
+#notifications-drawer .notification .details .activity .activity-desc {
+  margin: 0px 0px 0px 5px;
+}
+#notifications-drawer .notification .details .activity .activity-comment {
+  display: block;
+  width: 100%;
+  border-radius: 3px;
+  background: #fff;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  margin-top: 5px;
+  padding: 5px;
+}
+#notifications-drawer .notification .details .activity .activity-meta {
+  display: block;
+  font-size: 0.8em;
+  color: #999;
+  font-style: italic;
+}
+#notifications-drawer .notification .remove a:hover {
+  color: #eb4646 !important;
+}
+@media screen and (max-width: 800px) {
+  #notifications-drawer .notification {
+    height: auto;
+  }
+  #notifications-drawer .notification .details .activity a.member {
+    height: 36px;
+    width: 36px;
+  }
+}

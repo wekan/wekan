@@ -1,0 +1,27 @@
+#header #header-main-bar .setting-header-btn {
+  color: #f2f2f2;
+  margin-left: 20px;
+  padding-right: 10px;
+  height: 28px;
+  font-size: 13px;
+  float: left;
+  overflow: hidden;
+  line-height: 28px;
+  margin: 0 2px;
+}
+#header #header-main-bar .setting-header-btn.active,
+#header #header-main-bar .setting-header-btn:hover:not(.is-disabled) {
+  background: rgba(0,0,0,0.15);
+}
+#header #header-main-bar .setting-header-btn i.fa {
+  float: left;
+  display: block;
+  line-height: 28px;
+  color: #f2f2f2;
+  margin: 0 10px;
+}
+#header #header-main-bar .setting-header-btn + span {
+  display: inline-block;
+  margin-top: 1px;
+  margin-right: 10px;
+}

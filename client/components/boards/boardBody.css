@@ -1,0 +1,169 @@
+.board-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.board-wrapper .board-canvas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: margin 0.1s;
+  overflow-y: auto;
+}
+.board-wrapper .board-canvas.is-sibling-sidebar-open {
+  margin-right: 248px;
+}
+.board-wrapper .board-canvas .board-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  top: -100px;
+  right: -400px;
+  background: #000;
+  opacity: 0.33;
+  animation: fadeIn 0.2s;
+  z-index: 16;
+}
+.board-wrapper .board-canvas.is-dragging-active .open-minicard-composer,
+.board-wrapper .board-canvas.is-dragging-active .minicard-wrapper.is-checked {
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  .board-wrapper .board-canvas .swimlane {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 0px 0px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+.calendar-event-green {
+  background: #3cb500 !important;
+  border-color: #2a8000;
+  color: #fff !important;
+}
+.calendar-event-yellow {
+  background: #fad900 !important;
+  border-color: #c7ac00;
+  color: #000 !important;
+}
+.calendar-event-orange {
+  background: #ff9f19 !important;
+  border-color: #cc7c14;
+  color: #000 !important;
+}
+.calendar-event-red {
+  background: #eb4646 !important;
+  border-color: #b83737;
+  color: #fff !important;
+}
+.calendar-event-purple {
+  background: #a632db !important;
+  border-color: #7d26a6;
+  color: #fff !important;
+}
+.calendar-event-blue {
+  background: #0079bf !important;
+  border-color: #005a8a;
+  color: #fff !important;
+}
+.calendar-event-pink {
+  background: #ff78cb !important;
+  border-color: #cc62a3;
+  color: #000 !important;
+}
+.calendar-event-sky {
+  background: #00c2e0 !important;
+  border-color: #0094ab;
+  color: #fff !important;
+}
+.calendar-event-black {
+  background: #4d4d4d !important;
+  border-color: #1a1a1a;
+  color: #fff !important;
+}
+.calendar-event-lime {
+  background: #51e898 !important;
+  border-color: #3eb375;
+  color: #000 !important;
+}
+.calendar-event-silver {
+  background: #c0c0c0 !important;
+  border-color: #8c8c8c;
+  color: #000 !important;
+}
+.calendar-event-peachpuff {
+  background: #ffdab9 !important;
+  border-color: #ccaf95;
+  color: #000 !important;
+}
+.calendar-event-crimson {
+  background: #dc143c !important;
+  border-color: #a8112f;
+  color: #fff !important;
+}
+.calendar-event-plum {
+  background: #dda0dd !important;
+  border-color: #a87ba8;
+  color: #000 !important;
+}
+.calendar-event-darkgreen {
+  background: #006400 !important;
+  border-color: #003000;
+  color: #fff !important;
+}
+.calendar-event-slateblue {
+  background: #6a5acd !important;
+  border-color: #4f4399;
+  color: #fff !important;
+}
+.calendar-event-magenta {
+  background: #f0f !important;
+  border-color: #c0c;
+  color: #fff !important;
+}
+.calendar-event-gold {
+  background: #ffd700 !important;
+  border-color: #ca0;
+  color: #000 !important;
+}
+.calendar-event-navy {
+  background: #000080 !important;
+  border-color: #003;
+  color: #fff !important;
+}
+.calendar-event-gray {
+  background: #808080 !important;
+  border-color: #333;
+  color: #fff !important;
+}
+.calendar-event-saddlebrown {
+  background: #8b4513 !important;
+  border-color: #572b0c;
+  color: #fff !important;
+}
+.calendar-event-paleturquoise {
+  background: #afeeee !important;
+  border-color: #8ababa;
+  color: #000 !important;
+}
+.calendar-event-mistyrose {
+  background: #ffe4e1 !important;
+  border-color: #ccb8b6;
+  color: #000 !important;
+}
+.calendar-event-indigo {
+  background: #4b0082 !important;
+  border-color: #2b004d;
+  color: #fff !important;
+}

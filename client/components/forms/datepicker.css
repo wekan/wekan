@@ -1,0 +1,22 @@
+.datepicker-container .fields .left {
+  width: 56%;
+}
+.datepicker-container .fields .right {
+  width: 38%;
+}
+.datepicker-container .datepicker {
+  width: 100%;
+}
+.datepicker-container .datepicker table {
+  width: 100%;
+  border: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.datepicker-container .datepicker table thead {
+  background: none;
+}
+.datepicker-container .datepicker table td,
+.datepicker-container .datepicker table th {
+  box-sizing: border-box;
+}

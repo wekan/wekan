@@ -1,0 +1,18 @@
+.card-time {
+  display: block;
+  border-radius: 4px;
+  padding: 1px 3px;
+  color: #fff;
+  background-color: #dbdbdb;
+}
+.card-time:hover,
+.card-time.is-active {
+  background-color: #b3b3b3;
+}
+.card-time time::before {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  -webkit-font-smoothing: antialiased;
+  content: "\f017";
+  margin-right: 0.3em;
+}

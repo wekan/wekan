@@ -1,0 +1,8 @@
+.move-attachment-buttons {
+  display: flex;
+  gap: 10px;
+}
+.attachments-content hr {
+  height: 0px;
+  border: 1px solid #000;
+}

@@ -1,0 +1,252 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+.sidebar .sidebar-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #f7f7f7;
+  box-shadow: -10px 0px 5px -10px #b3b3b3;
+  z-index: 10;
+}
+.sidebar .sidebar-content {
+  padding: 12px;
+  margin-bottom: 1.6em;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.sidebar .sidebar-content .hide-btn {
+  display: none;
+}
+.sidebar .sidebar-content h3 {
+  color: #808080;
+  font-size: 1em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.sidebar .sidebar-content h3 i.fa {
+  margin-right: 3px;
+}
+.sidebar .sidebar-content hr {
+  margin: 13px 0;
+}
+.sidebar .sidebar-content ul.sidebar-list {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar .sidebar-content ul.sidebar-list li > a {
+  display: flex;
+  height: 30px;
+  margin: 0;
+  padding: 4px;
+  border-radius: 3px;
+  align-items: center;
+}
+.sidebar .sidebar-content ul.sidebar-list li > a:hover,
+.sidebar .sidebar-content ul.sidebar-list li > a:hover i,
+.sidebar .sidebar-content ul.sidebar-list li > a:hover .quiet {
+  color: #fff;
+}
+.sidebar .sidebar-content ul.sidebar-list li > a .member,
+.sidebar .sidebar-content ul.sidebar-list li > a .card-label {
+  margin-right: 7px;
+  margin-top: 5px;
+}
+.sidebar .sidebar-content ul.sidebar-list li > a .minicard-edit-button {
+  float: right;
+  padding: 8px;
+  border-radius: 3px;
+}
+.sidebar .sidebar-content ul.sidebar-list li > a .sidebar-list-item-description {
+  flex: 1;
+  overflow: ellipsis;
+}
+.sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-check {
+  margin: 0 4px;
+}
+.sidebar .sidebar-content ul.sidebar-list li .minicard {
+  padding: 6px 8px 4px;
+}
+.sidebar .sidebar-content ul.sidebar-list li .minicard .minicard-edit-button {
+  float: right;
+  padding: 4px;
+  border-radius: 3px;
+}
+.sidebar .sidebar-content ul.sidebar-list li .minicard .minicard-edit-button:hover {
+  background: #dbdbdb;
+}
+.sidebar .sidebar-content .sidebar-btn {
+  display: block;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 3px;
+  background: #e6e6e6;
+}
+.sidebar .sidebar-content .sidebar-btn:hover * {
+  color: #fff;
+}
+.sidebar .sidebar-content .sidebar-btn i.fa {
+  margin-right: 10px;
+}
+.sidebar .sidebar-shortcuts {
+  position: absolute;
+  margin-left: 40%;
+  padding: 0;
+  top: 7px;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  color: #999;
+}
+.board-sidebar {
+  width: 548px;
+  right: -548px;
+  transition: top 0.1s, right 0.1s, width 0.1s;
+}
+.board-sidebar.is-open {
+  right: 0;
+}
+.board-widget h4 {
+  margin: 5px 0;
+}
+.board-widget-activity {
+  margin-right: -4px;
+}
+.sidebar-tongue {
+  display: block;
+  width: 30px;
+  height: 30px;
+  left: -30px;
+  position: absolute;
+  top: 0px;
+  z-index: 15;
+  background: #f7f7f7;
+  border-bottom-left-radius: 3px;
+  box-shadow: -4px 0px 7px -4px #b3b3b3;
+  color: #808080;
+  transition: left 0.1s;
+}
+.sidebar-tongue i.fa {
+  padding: 3px 9px;
+  font-size: 24px;
+  transition: transform 0.5s;
+}
+.board-sidebar.is-open .sidebar-tongue {
+  left: -28px;
+}
+.board-sidebar.is-open .sidebar-tongue:hover {
+  left: -25px;
+}
+.board-sidebar.is-open .sidebar-tongue i.fa {
+  transform: rotate(180deg);
+}
+.sidebar-tongue.is-hidden,
+.board-sidebar.is-open .sidebar-tongue.is-hidden {
+  z-index: 0;
+  left: 5px;
+}
+.archived-lists .archived-lists-item {
+  border-top: 1px solid #ccc;
+  clear: both;
+  padding: 5px 0;
+}
+.archived-lists .archived-lists-item:first-child {
+  border-top: none;
+}
+.archived-lists .archived-lists-item button {
+  float: right;
+  margin: 0;
+  margin: 0 0 5px 5px;
+  padding: 0 10px 0 10px;
+}
+@media screen and (max-width: 800px) {
+  .board-sidebar {
+    width: 100%;
+    right: -100%;
+  }
+  .board-sidebar .sidebar-content .hide-btn {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: block;
+    z-index: 15;
+    background: #f7f7f7;
+    transition: left 0.1s;
+    color: #808080;
+    border-radius: 50%;
+    border: 1px solid #b3b3b3;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    color: #808080;
+  }
+  .board-sidebar .sidebar-content .hide-btn i.fa {
+    padding: 8px 16px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .sidebar-tongue {
+    width: 40px;
+    height: 40px;
+    left: -47px;
+    top: 5px;
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #b3b3b3;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    color: #808080;
+  }
+  .board-sidebar.is-open .sidebar-tongue {
+    display: none;
+  }
+  .sidebar-tongue i.fa {
+    padding: 8px 0px 8px 16px;
+    font-weight: bold;
+  }
+}
+#jsBoardOrgs,
+#jsBoardTeams {
+  width: 90%;
+}
+.leaveBoardBtn {
+  background-color: #008000 !important;
+}
+.cancelLeaveBoardBtn {
+  margin-left: 5% !important;
+  background-color: #f00 !important;
+}
+.addTeamsLabel,
+.addOrganizationsLabel {
+  font-weight: normal;
+}
+.js-manage-board-removeTeam:hover,
+.js-manage-board-removeTeam.is-active,
+.js-manage-board-removeOrg:hover,
+.js-manage-board-removeOrg.is-active {
+  box-shadow: 0 0 0 2px #e23210 inset !important;
+}
+.js-manage-board-addTeam:hover,
+.js-manage-board-addTeam.is-active,
+.js-manage-board-addOrg:hover,
+.js-manage-board-addOrg.is-active {
+  box-shadow: 0 0 0 2px #73ea10 inset !important;
+}
+.addTeamFaPlus {
+  color: #008000 !important;
+}
+.removeTeamFaMinus {
+  color: #f00 !important;
+}
+.divaddfaplusminus {
+  padding-top: 5px;
+  margin-left: 40px;
+}
