@@ -48,6 +48,8 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/2e5ec0308f2ac8059af6219693177e294197776a),
   [Part 3](https://github.com/wekan/wekan/commit/441b3e9c0a50b21da2c875946ff1059a14ce04e4).
   Thanks to mfilser.
+- [Converted Stylus to CSS. Removed Stylus. This change removed many error messages](https://github.com/wekan/wekan/commit/072778b9aaefd7fcaa7519b1ce1cafc1704d646d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
