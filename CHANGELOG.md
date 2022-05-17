@@ -34,6 +34,8 @@ This release adds the following updates:
   Thanks to imajus.
 - [Added 30 new languages, now about 105 total](https://github.com/wekan/wekan/commit/28317c7cf3fea7f1c7cf0860ccebb7322000d132).
   Thanks to translators and xet7.
+- [Use MongoDB 5 at docker-compose.yml](https://github.com/wekan/wekan/commit/77d72ae20acf3c96d7e864bf0fd8a159f9456823).
+  Thanks to MongoDB.
 
 and fixes the following bugs:
 
