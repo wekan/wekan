@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix redirects needs to be done in sync](https://github.com/wekan/wekan/commit/3ed1fc3e6bdf90ecdc3593468d68a29807ed52b5).
+  Thanks to nebulade and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.23 2022-05-17 WeKan ® release
 
 This release adds the following updates:
