@@ -3,7 +3,6 @@
 }
 .board-list li {
   float: left;
-  color: #dedede; /* li same color as background grey */
   width: 20%;
   box-sizing: border-box;
   position: relative;

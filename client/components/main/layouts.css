@@ -2,6 +2,23 @@
   -webkit-box-sizing: unset;
   box-sizing: unset;
 }
+/* Fixed missing 'import nib' stylesheet reset and extra li bullet points
+ * https://github.com/wekan/wekan/issues/4512#issuecomment-1129347536
+ */
+a, abbr, acronym, address, applet, big, blockquote, body, caption, cite,
+code, dd, del, dfn, div, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5,
+h6, html, iframe, img, ins, kbd, label, legend, li, object, ol, p, pre,
+q, s, samp, small, span, strike, strong, sub, sup,
+table, tbody, td, tfoot, th, thread, tr, tt, ul, var {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
 .note-popover .popover-content .note-color-palette div .note-color-btn,
 .panel-heading.note-toolbar .note-color-palette div .note-color-btn {
   background: none;
