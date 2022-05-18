@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fix redirects needs to be done in sync](https://github.com/wekan/wekan/commit/3ed1fc3e6bdf90ecdc3593468d68a29807ed52b5).
   Thanks to nebulade and xet7.
+- [Added missing 'import nib' stylesheet reset that removes extra li bullet points](https://github.com/wekan/wekan/commit/8964a18e765699e2a5060a72c3ca66d27e1c2ffd).
+  Thanks to mfilser and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
