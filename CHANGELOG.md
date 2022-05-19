@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix Bullets in label selection popup. Related to import nib css reset](https://github.com/wekan/wekan/commit/985c2cdbfdb38eb43852f3aa257859bbd3f817b9).
+  Thanks to AuspeXeu, mfilser and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.24 2022-05-18 WeKan ® release
 
 This release fixes the following bugs:
