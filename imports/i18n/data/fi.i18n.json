@@ -1176,5 +1176,6 @@
     "size": "Koko",
     "storage": "Tallennustila",
     "action": "Toimi",
-    "board-title": "Taulun otsikko"
+    "board-title": "Taulun otsikko",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }

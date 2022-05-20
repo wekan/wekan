@@ -1176,5 +1176,6 @@
     "size": "Size",
     "storage": "Storage",
     "action": "Azione",
-    "board-title": "Titolo della Bacheca"
+    "board-title": "Titolo della Bacheca",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }

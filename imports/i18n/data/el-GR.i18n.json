@@ -1176,5 +1176,6 @@
     "size": "Size",
     "storage": "Storage",
     "action": "Ενέργεια",
-    "board-title": "Board Title"
+    "board-title": "Board Title",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }

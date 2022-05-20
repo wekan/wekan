@@ -1176,5 +1176,6 @@
     "size": "Größe",
     "storage": "Speicher",
     "action": "Aktion",
-    "board-title": "Board-Titel"
+    "board-title": "Board-Titel",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }

@@ -1176,5 +1176,6 @@
     "size": "Tamanho",
     "storage": "Armazenamento",
     "action": "Ação",
-    "board-title": "Título do Quadro"
+    "board-title": "Título do Quadro",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }

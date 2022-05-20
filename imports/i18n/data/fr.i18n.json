@@ -1176,5 +1176,6 @@
     "size": "Taille",
     "storage": "Stockage",
     "action": "Action",
-    "board-title": "Titre du tableau"
+    "board-title": "Titre du tableau",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }

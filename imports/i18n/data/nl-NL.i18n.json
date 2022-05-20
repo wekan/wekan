@@ -1176,5 +1176,6 @@
     "size": "Grootte",
     "storage": "Opslag",
     "action": "Actie",
-    "board-title": "Bord Titel"
+    "board-title": "Bord Titel",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }

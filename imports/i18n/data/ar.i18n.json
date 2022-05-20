@@ -1176,5 +1176,6 @@
     "size": "حجم",
     "storage": "Storage",
     "action": "Action",
-    "board-title": "عنوان اللوح"
+    "board-title": "عنوان اللوح",
+    "attachmentRenamePopup-title": "Attachment Rename"
 }
