@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "6.25"
+appVersion: "6.26"
 dependencies:
   - condition: mongodb.enabled
     name: mongodb
