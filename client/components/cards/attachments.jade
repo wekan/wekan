@@ -19,7 +19,7 @@ template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{link}}" title="{{name}}")
+        a.attachment-thumbnail(href="{{link}}" title="{{name}}" data-lightbox="{{name}}")
           if link
             if isImage
               img.attachment-thumbnail-img(src="{{link}}")

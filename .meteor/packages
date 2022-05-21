@@ -61,7 +61,6 @@ meteor-autosize
 rajit:bootstrap3-datepicker
 shell-server@0.5.0
 email@2.2.1
-horka:swipebox
 dynamic-import@0.7.2
 
 cfs:gridfs
@@ -146,3 +145,4 @@ wekan-oidc
 wekan-accounts-oidc
 wekan-ldap
 wekan-accounts-cas
+czbaker:lightbox2

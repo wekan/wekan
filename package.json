@@ -39,7 +39,7 @@
     "fibers": "^5.0.0",
     "i18next": "^21.6.16",
     "i18next-sprintf-postprocessor": "^0.2.2",
-    "jquery": "^2.2.4",
+    "jQuery": "^1.7.4",
     "jquery-ui": "^1.13.0",
     "jquery-ui-touch-punch": "^0.2.3",
     "jszip": "^3.7.1",
@@ -57,6 +57,7 @@
     "qs": "^6.10.1",
     "simpl-schema": "^1.12.0",
     "source-map-support": "^0.5.20",
+    "summernote": "^0.8.20",
     "uuid": "^8.3.2"
   },
   "meteor": {
