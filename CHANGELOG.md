@@ -2,10 +2,19 @@
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Attachment rename](https://github.com/wekan/wekan/pulls/4521).
+  Thanks to mfilser.
+
+and fixes the following bugs:
 
 - [Fix Bullets in label selection popup. Related to import nib css reset](https://github.com/wekan/wekan/commit/985c2cdbfdb38eb43852f3aa257859bbd3f817b9).
   Thanks to AuspeXeu, mfilser and xet7.
+- [Fixed images not showing correctly, by updating packages like jquery,
+  removing handlebars, changing image attachment view big image popup
+  from swipebox to lightbox, and changing import nib related code](https://github.com/wekan/wekan/commit/990477e9c6b33072b27bebf387bd6e6d9ef62074).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
