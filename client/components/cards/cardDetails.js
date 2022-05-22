@@ -212,11 +212,6 @@ BlazeComponent.extendComponent({
       //-------------
     }
 
-    if (!Utils.isMiniScreen()) {
-      Meteor.setTimeout(() => {
-        this.scrollParentContainer();
-      }, 500);
-    }
     const $checklistsDom = this.$('.card-checklist-items');
 
     $checklistsDom.sortable({
@@ -440,10 +435,20 @@ BlazeComponent.extendComponent({
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
+          if (!Utils.isMiniScreen()) {
+            Meteor.setTimeout(() => {
+              this.scrollParentContainer();
+            }, 500);
+          }
         },
         'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
+          if (!Utils.isMiniScreen()) {
+            Meteor.setTimeout(() => {
+              this.scrollParentContainer();
+            }, 500);
+          }
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
