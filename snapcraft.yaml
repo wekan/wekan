@@ -93,8 +93,8 @@ parts:
             - build-essential
             - ca-certificates
             - apt-utils
-            - python2
-#            - python3
+#            - python2
+            - python3
             - g++
             - capnproto
             - curl
@@ -108,6 +108,13 @@ parts:
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             rm -rf .build
+            echo "Using http npm packages so speedup install process https://stackoverflow.com/questions/39760113/callback-called-more-than-once-while-running-npm-install"
+            echo "registry=http://registry.npmjs.org/" > ~/.npmrc
+            echo "Installing npm, node-gyp, node-pre-gyp, fibers"
+            npm -g install npm --unsafe-perm
+            npm -g install node-gyp --unsafe-perm
+            npm -g install node-pre-gyp --unsafe-perm
+            npm -g install fibers --unsafe-perm
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
             chmod +x install_meteor.sh
