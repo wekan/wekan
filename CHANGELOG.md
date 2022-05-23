@@ -11,6 +11,7 @@ This release fixes the following bugs:
 - Try to fix Snap.
   [Part 1](https://github.com/wekan/wekan/commit/3b419848d1b7a7f421db3662d860dcea1ea6af1c),
   [Part 2](https://github.com/wekan/wekan/commit/e50d69cfb78e5f0150e96cc90337255ccbd59e76),
+  [Part 3](https://github.com/wekan/wekan/commit/ea66eca60ddbf7127c9fbed9ab41df52542ad279).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
