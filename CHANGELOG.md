@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fix opening card scrolls to wrong position when many swimlanes and card at bottom of board](https://github.com/wekan/wekan/commit/adcc33ed7fe686d46a85da6c11ea448d29e94ca7).
   Thanks to xet7.
+- [Removed wekan-accounts-sandstorm .test-app directory, that could not be git cloned on Windows](https://github.com/wekan/wekan/commit/4f44c5bf872e369cd89ea0e8791482cc925294d3).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
