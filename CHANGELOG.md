@@ -14,7 +14,8 @@ This release fixes the following bugs:
   [Part 3](https://github.com/wekan/wekan/commit/ea66eca60ddbf7127c9fbed9ab41df52542ad279),
   [Part 4](https://github.com/wekan/wekan/commit/9ca26d22d0c2c9bee792e50ff203a5c18c9d556b),
   [Part 5](https://github.com/wekan/wekan/commit/fac1ba5952f763d257b04a934e3407f9b1d1d37a),
-  [Part 6](https://github.com/wekan/wekan/commit/f2815a90393418dea88aa49ee74c6af91fafe96d).
+  [Part 6](https://github.com/wekan/wekan/commit/f2815a90393418dea88aa49ee74c6af91fafe96d),
+  [Part 7](https://github.com/wekan/wekan/commit/2587e2f00ae27742893e48e98845a3139e3f3a02).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
