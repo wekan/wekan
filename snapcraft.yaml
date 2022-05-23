@@ -115,14 +115,14 @@ parts:
             rm install_meteor.sh
             rm -rf .build
             chmod u+w *.json
-            npm install
+            npm install --unsafe-perm
             meteor build .build --directory --allow-superuser
             # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
             rm -rf .build/bundle/programs/web.browser.legacy
             # Change to directory .build/bundle/programs/server
             cd .build/bundle/programs/server
             chmod u+w *.json
-            npm install
+            npm install --unsafe-perm
             cd node_modules/fibers
             node build.js
             cd ../../../../../..
