@@ -8,6 +8,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Removed wekan-accounts-sandstorm .test-app directory, that could not be git cloned on Windows](https://github.com/wekan/wekan/commit/4f44c5bf872e369cd89ea0e8791482cc925294d3).
   Thanks to xet7.
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/3b419848d1b7a7f421db3662d860dcea1ea6af1c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
