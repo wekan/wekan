@@ -117,10 +117,11 @@ parts:
             #npm -g install node-pre-gyp --unsafe-perm
             #npm -g install fibers --unsafe-perm
             echo "Installing meteor"
-            curl https://install.meteor.com/ -o install_meteor.sh
-            chmod +x install_meteor.sh
-            sh install_meteor.sh
-            rm install_meteor.sh
+            #curl https://install.meteor.com/ -o install_meteor.sh
+            #chmod +x install_meteor.sh
+            #sh install_meteor.sh
+            #rm install_meteor.sh
+            npm -g install meteor --unsafe-perm
             rm -rf .build
             chmod u+w *.json
             npm install --unsafe-perm
