@@ -93,8 +93,8 @@ parts:
             - build-essential
             - ca-certificates
             - apt-utils
-#            - python
-            - python3
+            - python2
+#            - python3
             - g++
             - capnproto
             - curl
