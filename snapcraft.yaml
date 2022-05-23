@@ -108,10 +108,11 @@ parts:
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             rm -rf .build
-            echo "Using http npm packages so speedup install process https://stackoverflow.com/questions/39760113/callback-called-more-than-once-while-running-npm-install"
-            echo "registry=http://registry.npmjs.org/" > ~/.npmrc
-            echo "Installing npm, node-gyp, node-pre-gyp, fibers"
-            npm -g install npm --unsafe-perm
+            #echo "Using http npm packages so speedup install process https://stackoverflow.com/questions/39760113/callback-called-more-than-once-while-running-npm-install"
+            #echo "registry=http://registry.npmjs.org/" > ~/.npmrc
+            #echo "Installing npm, node-gyp, node-pre-gyp, fibers"
+            npm -g install n --unsafe-perm
+            n 14.19.3
             npm -g install node-gyp --unsafe-perm
             npm -g install node-pre-gyp --unsafe-perm
             npm -g install fibers --unsafe-perm
