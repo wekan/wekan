@@ -25,6 +25,7 @@ and fixes the following bugs:
   Thanks to xet7.
 - [WeKan Gantt GPLv2: Try to fix Gantt, by adding translations, but is not visible yet](https://github.com/wekan/wekan-gantt-gpl/commit/a08c01c76eaaf2884890a39c97d1f72da222fba1).
   Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.26 2022-05-21 WeKan ® release
