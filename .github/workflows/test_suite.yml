@@ -92,7 +92,7 @@ jobs:
       # CACHING
       - name: Install Meteor
         id: cache-meteor-install
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.meteor
           key: v1-meteor-${{ hashFiles('.meteor/versions') }}
@@ -101,7 +101,7 @@ jobs:
 
       - name: Cache NPM dependencies
         id: cache-meteor-npm
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: v1-npm-${{ hashFiles('package-lock.json') }}
@@ -110,7 +110,7 @@ jobs:
 
       - name: Cache Meteor build
         id: cache-meteor-build
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             .meteor/local/resolver-result-cache.json
