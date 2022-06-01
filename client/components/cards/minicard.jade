@@ -7,7 +7,7 @@ template(name="minicard")
       .handle
         .fa.fa-arrows
     if cover
-      .minicard-cover(style="background-image: url('{{cover.url}}');")
+      .minicard-cover(style="background-image: url('{{cover.link 'original' '/'}}?dummyReloadAfterSessionEstablished={{sess}}');")
     if labels
       .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
         each labels
@@ -114,8 +114,9 @@ template(name="minicard")
             //span.badge-comment.badge-text
             //|  {{_ 'comment'}}
       if getDescription
-        .badge.badge-state-image-only(title=getDescription)
-          span.badge-icon.fa.fa-align-left
+        unless currentBoard.allowsDescriptionTextOnMinicard
+          .badge.badge-state-image-only(title=getDescription)
+            span.badge-icon.fa.fa-align-left
       if getVoteQuestion
         .badge.badge-state-image-only(title=getVoteQuestion)
           span.badge-icon.fa.fa-thumbs-up(class="{{#if voteState}}text-green{{/if}}")
@@ -127,10 +128,10 @@ template(name="minicard")
           span.badge-icon.fa.fa-check(class="{{#if pokerState}}text-green{{/if}}")
           if expiredPoker
             span.badge-text {{ getPokerEstimation }}
-      if attachments.count
+      if attachments.length
         .badge
           span.badge-icon.fa.fa-paperclip
-          span.badge-text= attachments.count
+          span.badge-text= attachments.length
       if checklists.count
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
@@ -144,6 +145,11 @@ template(name="minicard")
         .badge
           span.badge-icon.fa.fa-sort
           span.badge-text.check-list-sort {{ sort }}
+    if currentBoard.allowsDescriptionTextOnMinicard
+      if getDescription
+        .minicard-description
+          +viewer
+            | {{ getDescription }}
 
 template(name="editCardSortOrderPopup")
   input.js-edit-card-sort-popup(type='text' autofocus value=sort dir="auto")

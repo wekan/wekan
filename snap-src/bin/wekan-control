@@ -16,8 +16,23 @@ else
     export MONGO_URL="mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan"
 fi
 
+# If uploads directory does not exist, create it.
+# Wekan will store attachments there.
+export WRITABLE_PATH=$SNAP_COMMON/files
+if [ ! -d $WRITABLE_PATH ]; then
+  mkdir $WRITABLE_PATH
+fi
+
 echo -e "MONGO_URL=$MONGO_URL"
 APPLICATION_DIRECTORY=$SNAP
 APPLICATION_START=main.js
 cd $APPLICATION_DIRECTORY
-$NODE_PATH/node $APPLICATION_START
+#$NODE_PATH/node $APPLICATION_START
+#---------------------------------------------------------------------
+# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+# Add more Node heap:
+#   export NODE_OPTIONS="--max_old_space_size=4096"
+# Add more stack:
+#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+#---------------------------------------------------------------------
+bash -c "ulimit -s 65500; exec $NODE_PATH/node --stack-size=65500 $APPLICATION_START"

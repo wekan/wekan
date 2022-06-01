@@ -1,4 +1,5 @@
 import DOMPurify from 'dompurify';
+import { TAPi18n } from '/imports/i18n';
 
 const activitiesPerPage = 500;
 
@@ -70,22 +71,51 @@ BlazeComponent.extendComponent({
 
   boardLabelLink() {
     const data = this.currentData();
+    const currentBoardId = Session.get('currentBoard');
     if (data.mode !== 'board') {
-      return createBoardLink(data.activity.board(), data.activity.listName);
+      // data.mode: card, linkedcard, linkedboard
+      return createBoardLink(data.activity.board(), data.activity.listName ? data.activity.listName : null);
+    }
+    else if (currentBoardId != data.activity.boardId) {
+      // data.mode: board
+      // current activitie is linked
+      return createBoardLink(data.activity.board(), data.activity.listName ? data.activity.listName : null);
     }
     return TAPi18n.__('this-board');
   },
 
   cardLabelLink() {
     const data = this.currentData();
-    if (data.mode !== 'card') {
-      return createCardLink(data.activity.card());
+    const currentBoardId = Session.get('currentBoard');
+    if (data.mode == 'card') {
+      // data.mode: card
+      return TAPi18n.__('this-card');
     }
-    return TAPi18n.__('this-card');
+    else if (data.mode !== 'board') {
+      // data.mode: linkedcard, linkedboard
+      return createCardLink(data.activity.card(), null);
+    }
+    else if (currentBoardId != data.activity.boardId) {
+      // data.mode: board
+      // current activitie is linked
+      return createCardLink(data.activity.card(), data.activity.board().title);
+    }
+    return createCardLink(this.currentData().activity.card(), null);
   },
 
   cardLink() {
-    return createCardLink(this.currentData().activity.card());
+    const data = this.currentData();
+    const currentBoardId = Session.get('currentBoard');
+    if (data.mode !== 'board') {
+      // data.mode: card, linkedcard, linkedboard
+      return createCardLink(data.activity.card(), null);
+    }
+    else if (currentBoardId != data.activity.boardId) {
+      // data.mode: board
+      // current activitie is linked
+      return createCardLink(data.activity.card(), data.activity.board().title);
+    }
+    return createCardLink(this.currentData().activity.card(), null);
   },
 
   receivedDate() {
@@ -196,14 +226,14 @@ BlazeComponent.extendComponent({
     // trying to display url before file is stored generates js errors
     return (
       (attachment &&
-        attachment.url({ download: true }) &&
+        attachment.path &&
         Blaze.toHTML(
           HTML.A(
             {
-              href: attachment.url({ download: true }),
+              href: `${attachment.link()}?download=true`,
               target: '_blank',
             },
-            DOMPurify.sanitize(attachment.name()),
+            DOMPurify.sanitize(attachment.name),
           ),
         )) ||
       DOMPurify.sanitize(this.currentData().activity.attachmentName)
@@ -304,8 +334,10 @@ Template.commentReactions.helpers({
   }
 })
 
-function createCardLink(card) {
+function createCardLink(card, board) {
   if (!card) return '';
+  let text = card.title;
+  if (board) text = `${board} > ` + text;
   return (
     card &&
     Blaze.toHTML(
@@ -314,7 +346,7 @@ function createCardLink(card) {
           href: card.originRelativeUrl(),
           class: 'action-card',
         },
-        DOMPurify.sanitize(card.title, { ALLOW_UNKNOWN_PROTOCOLS: true }),
+        DOMPurify.sanitize(text, { ALLOW_UNKNOWN_PROTOCOLS: true }),
       ),
     )
   );

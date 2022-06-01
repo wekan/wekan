@@ -1,1 +1,0 @@
-FS.HTTP = FS.HTTP || {};

@@ -1,3 +1,5 @@
+import moment from 'moment/min/moment-with-locales';
+import { TAPi18n } from '/imports/i18n';
 import {
   OPERATOR_ASSIGNEE,
   OPERATOR_BOARD,
@@ -46,7 +48,6 @@ import {
   PREDICATE_YEAR,
 } from './search-const';
 import Boards from '../models/boards';
-import moment from 'moment';
 
 export class QueryDebug {
   predicate = null;

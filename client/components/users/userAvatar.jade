@@ -85,7 +85,7 @@ template(name="changeAvatarPopup")
     each uploadedAvatars
       li: a.js-select-avatar
         .member
-          img.avatar.avatar-image(src="{{url avatarUrlOptions}}")
+          img.avatar.avatar-image(src="{{link}}?auth=false&brokenIsFine=true")
         | {{_ 'uploaded-avatar'}}
         if isSelected
           i.fa.fa-check
@@ -93,7 +93,7 @@ template(name="changeAvatarPopup")
           unless isSelected
             a.js-delete-avatar {{_ 'delete'}}
             |  -
-          = original.name
+          = name
     li: a.js-select-initials
       .member
         +userAvatarInitials(userId=currentUser._id)

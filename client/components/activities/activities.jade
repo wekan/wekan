@@ -42,7 +42,7 @@ template(name="addReactionPopup")
       span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}
 
 template(name="activity")
-  .activity
+  .activity(data-id=activity._id)
     +userAvatar(userId=activity.user._id)
     p.activity-desc
       span.activity-member
@@ -59,18 +59,17 @@ template(name="activity")
             img.attachment-image-preview(src=activity.attachment.url)
 
       //- board activity ------------------------------------------------------
-      if($eq mode 'board')
-        if($eq activity.activityType 'createBoard')
-          | {{{_ 'activity-created' boardLabelLink}}}.
+      if($eq activity.activityType 'createBoard')
+        | {{{_ 'activity-created' boardLabelLink}}}.
 
-        if($eq activity.activityType 'importBoard')
-          | {{{_ 'activity-imported-board' boardLabelLink sourceLink}}}.
+      if($eq activity.activityType 'importBoard')
+        | {{{_ 'activity-imported-board' boardLabelLink sourceLink}}}.
 
-        if($eq activity.activityType 'addBoardMember')
-          | {{{_ 'activity-added' memberLink boardLabelLink}}}.
+      if($eq activity.activityType 'addBoardMember')
+        | {{{_ 'activity-added' memberLink boardLabelLink}}}.
 
-        if($eq activity.activityType 'removeBoardMember')
-          | {{{_ 'activity-excluded' memberLink boardLabelLink}}}.
+      if($eq activity.activityType 'removeBoardMember')
+        | {{{_ 'activity-excluded' memberLink boardLabelLink}}}.
 
       //- card activity -------------------------------------------------------
       if($eq activity.activityType 'createCard')
@@ -153,10 +152,10 @@ template(name="activity")
                 +editOrDeleteComment
 
         if($eq activity.activityType 'deleteComment')
-          | {{{_ 'activity-deleteComment' currentData.commentId}}}.
+          | {{{_ 'activity-deleteComment' activity.commentId}}}.
 
         if($eq activity.activityType 'editComment')
-          | {{{_ 'activity-editComment' currentData.commentId}}}.
+          | {{{_ 'activity-editComment' activity.commentId}}}.
       else
         //- if we are not in card mode we only display a summary of the comment
         if($eq activity.activityType 'addComment')
@@ -166,42 +165,27 @@ template(name="activity")
               = activity.comment.text
 
       //- date activity ------------------------------------------------
-      if($eq mode 'card')
-        if($eq activity.activityType 'a-receivedAt')
-          | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
+      if($eq activity.activityType 'a-receivedAt')
+        | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
 
-        if($eq activity.activityType 'a-startAt')
-          | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
+      if($eq activity.activityType 'a-startAt')
+        | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
 
-        if($eq activity.activityType 'a-dueAt')
-          | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
+      if($eq activity.activityType 'a-dueAt')
+        | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
 
-        if($eq activity.activityType 'a-endAt')
-          | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
-
-      if($eq mode 'board')
-        if($eq activity.activityType 'a-receivedAt')
-          | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
-
-        if($eq activity.activityType 'a-startAt')
-          | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
-
-        if($eq activity.activityType 'a-dueAt')
-          | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
-
-        if($eq activity.activityType 'a-endAt')
-          | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
+      if($eq activity.activityType 'a-endAt')
+        | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
 
       //- customField activity ------------------------------------------------
-      if($eq mode 'board')
-        if($eq activity.activityType 'createCustomField')
-          | {{_ 'activity-customfield-created' customField}}.
+      if($eq activity.activityType 'createCustomField')
+        | {{_ 'activity-customfield-created' customField}}.
 
-        if($eq activity.activityType 'setCustomField')
-          | {{{_ 'activity-set-customfield' (sanitize lastCustomField) (sanitize lastCustomFieldValue) cardLink}}}.
+      if($eq activity.activityType 'setCustomField')
+        | {{{_ 'activity-set-customfield' (sanitize lastCustomField) (sanitize lastCustomFieldValue) cardLink}}}.
 
-        if($eq activity.activityType 'unsetCustomField')
-          | {{{_ 'activity-unset-customfield' (sanitize lastCustomField) cardLink}}}.
+      if($eq activity.activityType 'unsetCustomField')
+        | {{{_ 'activity-unset-customfield' (sanitize lastCustomField) cardLink}}}.
 
       //- label activity ------------------------------------------------------
       if($eq activity.activityType 'addedLabel')
@@ -238,12 +222,11 @@ template(name="activity")
           | {{{_ 'activity-removed' memberLink cardLink}}}.
 
       //- swimlane activity --------------------------------------------------
-      if($neq mode 'card')
-        if($eq activity.activityType 'createSwimlane')
-          | {{_ 'activity-added' (sanitize activity.swimlane.title) boardLabelLink}}.
+      if($eq activity.activityType 'createSwimlane')
+        | {{{_ 'activity-added' (sanitize activity.swimlane.title) boardLabelLink}}}.
 
-        if($eq activity.activityType 'archivedSwimlane')
-          | {{_ 'activity-archived' (sanitize activity.swimlane.title)}}.
+      if($eq activity.activityType 'archivedSwimlane')
+        | {{{_ 'activity-archived' (sanitize activity.swimlane.title)}}}.
 
 
       //- I don't understand this part ----------------------------------------

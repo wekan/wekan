@@ -148,30 +148,30 @@ template(name="newUserRow")
 template(name="orgRow")
   tr
     if orgData.orgIsActive
-      td <s>{{ orgData.orgDisplayName }}</s>
-    else
       td {{ orgData.orgDisplayName }}
-    if orgData.orgIsActive
-      td <s>{{ orgData.orgDesc }}</s>
     else
+      td <s>{{ orgData.orgDisplayName }}</s>
+    if orgData.orgIsActive
       td {{ orgData.orgDesc }}
-    if orgData.orgIsActive
-      td <s>{{ orgData.orgShortName }}</s>
     else
+      td <s>{{ orgData.orgDesc }}</s>
+    if orgData.orgIsActive
       td {{ orgData.orgShortName }}
-    if orgData.orgIsActive
-      td <s>{{ orgData.orgWebsite }}</s>
     else
+      td <s>{{ orgData.orgShortName }}</s>
+    if orgData.orgIsActive
       td {{ orgData.orgWebsite }}
-    if orgData.orgIsActive
-      td <s>{{ moment orgData.createdAt 'LLL' }}</s>
     else
+      td <s>{{ orgData.orgWebsite }}</s>
+    if orgData.orgIsActive
       td {{ moment orgData.createdAt 'LLL' }}
+    else
+      td <s>{{ moment orgData.createdAt 'LLL' }}</s>
     td
       if orgData.orgIsActive
-        | {{_ 'no'}}
-      else
         | {{_ 'yes'}}
+      else
+        | {{_ 'no'}}
     td
       a.edit-org
         i.fa.fa-edit
@@ -182,30 +182,30 @@ template(name="orgRow")
 template(name="teamRow")
   tr
     if teamData.teamIsActive
-      td <s>{{ teamData.teamDisplayName }}</s>
-    else
       td {{ teamData.teamDisplayName }}
-    if teamData.teamIsActive
-      td <s>{{ teamData.teamDesc }}</s>
     else
+      td <s>{{ teamData.teamDisplayName }}</s>
+    if teamData.teamIsActive
       td {{ teamData.teamDesc }}
-    if teamData.teamIsActive
-      td <s>{{ teamData.teamShortName }}</s>
     else
+      td <s>{{ teamData.teamDesc }}</s>
+    if teamData.teamIsActive
       td {{ teamData.teamShortName }}
-    if teamData.teamIsActive
-      td <s>{{ teamData.teamWebsite }}</s>
     else
+      td <s>{{ teamData.teamShortName }}</s>
+    if teamData.teamIsActive
       td {{ teamData.teamWebsite }}
-    if teamData.teamIsActive
-      td <s>{{ moment teamData.createdAt 'LLL' }}</s>
     else
+      td <s>{{ teamData.teamWebsite }}</s>
+    if teamData.teamIsActive
       td {{ moment teamData.createdAt 'LLL' }}
+    else
+      td <s>{{ moment teamData.createdAt 'LLL' }}</s>
     td
       if teamData.teamIsActive
-        | {{_ 'no'}}
-      else
         | {{_ 'yes'}}
+      else
+        | {{_ 'no'}}
     td
       a.edit-team
         i.fa.fa-edit
@@ -313,8 +313,8 @@ template(name="editOrgPopup")
     label
       | {{_ 'active'}}
       select.select-active.js-org-isactive
-        option(value="false") {{_ 'yes'}}
-        option(value="true" selected="{{org.orgIsActive}}") {{_ 'no'}}
+        option(value="false") {{_ 'no'}}
+        option(value="true" selected="{{org.orgIsActive}}") {{_ 'yes'}}
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
@@ -339,8 +339,8 @@ template(name="editTeamPopup")
     label
       | {{_ 'active'}}
       select.select-active.js-team-isactive
-        option(value="false") {{_ 'yes'}}
-        option(value="true" selected="{{team.teamIsActive}}") {{_ 'no'}}
+        option(value="false") {{_ 'no'}}
+        option(value="true" selected="{{team.teamIsActive}}") {{_ 'yes'}}
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
@@ -403,7 +403,7 @@ template(name="editUserPopup")
       select.js-orgs#jsOrgs
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
-          option(value="{{value._id}}") {{_ value.orgDisplayName}}
+          option(value="{{value._id}}") {{value.orgDisplayName}}
       input#jsUserOrgsInPut.js-userOrgs(type="text" value=user.orgsUserBelongs, disabled)
       input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="text" value=user.orgIdsUserBelongs)
     label
@@ -442,8 +442,8 @@ template(name="newOrgPopup")
     label
       | {{_ 'active'}}
       select.select-active.js-org-isactive
-        option(value="false" selected="selected") {{_ 'yes'}}
-        option(value="true") {{_ 'no'}}
+        option(value="false" selected="selected") {{_ 'no'}}
+        option(value="true") {{_ 'yes'}}
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
@@ -466,8 +466,8 @@ template(name="newTeamPopup")
     label
       | {{_ 'active'}}
       select.select-active.js-team-isactive
-        option(value="false" selected="selected") {{_ 'yes'}}
-        option(value="true") {{_ 'no'}}
+        option(value="false" selected="selected") {{_ 'no'}}
+        option(value="true") {{_ 'yes'}}
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
@@ -543,7 +543,7 @@ template(name="newUserPopup")
       select.js-orgsNewUser#jsOrgsNewUser
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
-          option(value="{{value._id}}") {{_ value.orgDisplayName}}
+          option(value="{{value._id}}") {{value.orgDisplayName}}
       input#jsUserOrgsInPutNewUser.js-userOrgsNewUser(type="text" value=user.orgsUserBelongs, disabled)
       input#jsUserOrgIdsInPutNewUser.js-userOrgIdsNewUser.hide(type="text" value=user.orgIdsUserBelongs)
     label

@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   wekandb-dev:
-    image: mongo:4.4
+    image: mongo:5.0
     container_name: wekan-dev-db
     restart: unless-stopped
     command: mongod --oplogSize 128
@@ -33,14 +33,16 @@ services:
       - WITH_API=true
       - RICHER_CARD_COMMENT_EDITOR=true
       - BROWSER_POLICY_ENABLED=true
+      - WRITABLE_PATH=/data
     depends_on:
       - wekandb-dev
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - ./volumes/data:/data
       - ../client:/home/wekan/app/client
       - ../models:/home/wekan/app/models
       - ../config:/home/wekan/app/config
-      - ../i18n:/home/wekan/app/i18n
+      - ../imports:/home/wekan/app/imports
       - ../server:/home/wekan/app/server
       - ../public:/home/wekan/app/public
 

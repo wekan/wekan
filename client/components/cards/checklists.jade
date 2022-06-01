@@ -18,7 +18,7 @@ template(name="checklists")
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
-      +addChecklistItemForm
+      +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=false)
     else
       a.add-checklist.js-open-inlined-form(title="{{_ 'add-checklist'}}")
         i.fa.fa-plus
@@ -31,7 +31,7 @@ template(name="checklistDetail")
       .checklist-title
         span
         if canModifyCard
-          a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
+          a.fa.fa-navicon.checklist-details-menu.js-open-checklist-details-menu(title="{{_ 'checklistActionsPopup-title'}}")
 
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
@@ -43,6 +43,12 @@ template(name="checklistDetail")
           h2.title
             +viewer
                 = checklist.title
+
+    if $gt finishedPercent 0
+      .checklist-progress-bar-container
+        .checklist-progress-text {{finishedPercent}}%
+        .checklist-progress-bar
+          .checklist-progress(style="width:{{finishedPercent}}%")
     +checklistItems(checklist = checklist)
 
 template(name="checklistDeletePopup")
@@ -56,6 +62,10 @@ template(name="addChecklistItemForm")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-checklist-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
+    if showNewlineBecomesNewChecklistItem
+      .material-toggle-switch(title="{{_ 'newlineBecomesNewChecklistItem'}}")
+        input.toggle-switch(type="checkbox" id="toggleNewlineBecomesNewChecklistItem")
+        label.toggle-label(for="toggleNewlineBecomesNewChecklistItem")
 
 template(name="editChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
@@ -84,7 +94,7 @@ template(name="checklistItems")
         +checklistItemDetail(item = item checklist = checklist)
     if canModifyCard
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
-        +addChecklistItemForm
+        +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=true)
       else
         a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
           i.fa.fa-plus
@@ -130,6 +140,53 @@ template(name="boardsSwimlanesAndLists")
   select.js-select-lists
     each aBoardLists
       option(value="{{_id}}") {{title}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="checklistActionsPopup")
+  ul.pop-over-list
+    li
+      a.js-delete-checklist.delete-checklist
+        i.fa.fa-trash
+        | {{_ "delete"}} ...
+      a.js-move-checklist.move-checklist
+        i.fa.fa-arrow-right
+        | {{_ "moveChecklist"}} ...
+      a.js-copy-checklist.copy-checklist
+        i.fa.fa-copy
+        | {{_ "copyChecklist"}} ...
+
+template(name="copyChecklistPopup")
+  +copyAndMoveChecklist
+
+template(name="moveChecklistPopup")
+  +copyAndMoveChecklist
+
+template(name="copyAndMoveChecklist")
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        if $eq _id currentBoard._id
+          option(value="{{_id}}" selected) {{_ 'current'}}
+        else
+          option(value="{{_id}}" selected="{{#if isChecklistDialogOptionBoardId _id}}selected{{/if}}") {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isChecklistDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isChecklistDialogOptionListId _id}}selected{{/if}}") {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isChecklistDialogOptionCardId _id}}selected{{/if}}") {{title}}
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}

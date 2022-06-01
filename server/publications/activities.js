@@ -14,9 +14,23 @@ Meteor.publish('activities', (kind, id, limit, hideSystem) => {
   check(limit, Number);
   check(hideSystem, Boolean);
 
+  // Get linkedBoard
+  let linkedElmtId = [id];
+  if (kind == 'board') {
+    Cards.find({
+      "type": "cardType-linkedBoard",
+      "boardId": id}
+      ).forEach(card => {
+        linkedElmtId.push(card.linkedId);
+    });
+  }
+
+  //const selector = hideSystem
+  //  ? { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: id }] }
+  //  : { [`${kind}Id`]: id };
   const selector = hideSystem
-    ? { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: id }] }
-    : { [`${kind}Id`]: id };
+    ? { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] }
+    : { [`${kind}Id`]: { $in: linkedElmtId } };
   return Activities.find(selector, {
     limit,
     sort: { createdAt: -1 },

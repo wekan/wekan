@@ -1,3 +1,5 @@
+import moment from 'moment/min/moment-with-locales';
+import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 
 Template.dateBadge.helpers({
@@ -317,31 +319,31 @@ CardCustomFieldDate.register('cardCustomFieldDate');
 
 (class extends CardReceivedDate {
   showDate() {
-    return this.date.get().format('l');
+    return this.date.get().format('L');
   }
 }.register('minicardReceivedDate'));
 
 (class extends CardStartDate {
   showDate() {
-    return this.date.get().format('l');
+    return this.date.get().format('L');
   }
 }.register('minicardStartDate'));
 
 (class extends CardDueDate {
   showDate() {
-    return this.date.get().format('l');
+    return this.date.get().format('L');
   }
 }.register('minicardDueDate'));
 
 (class extends CardEndDate {
   showDate() {
-    return this.date.get().format('l');
+    return this.date.get().format('L');
   }
 }.register('minicardEndDate'));
 
 (class extends CardCustomFieldDate {
   showDate() {
-    return this.date.get().format('l');
+    return this.date.get().format('L');
   }
 }.register('minicardCustomFieldDate'));
 
@@ -358,7 +360,7 @@ class VoteEndDate extends CardDate {
     return classes;
   }
   showDate() {
-    return this.date.get().format('l LT');
+    return this.date.get().format('L LT');
   }
   showTitle() {
     return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;

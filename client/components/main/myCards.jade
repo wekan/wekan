@@ -6,6 +6,16 @@ template(name="myCardsHeaderBar")
       i.fa.fa-list
       | {{_ 'my-cards'}}
 
+    .board-header-btns.left
+      a.board-header-btn.js-my-cards-view-change(title="{{_ 'myCardsViewChange-title'}}")
+        i.fa.fa-caret-down
+        if $eq myCardsView 'boards'
+          i.fa.fa-trello
+          | {{_ 'myCardsViewChange-choice-boards'}}
+        if $eq myCardsView 'table'
+          i.fa.fa-table
+          | {{_ 'myCardsViewChange-choice-table'}}
+
 template(name="myCardsModalTitle")
   if currentUser
     h2
@@ -17,23 +27,89 @@ template(name="myCards")
     if searching.get
       +spinner
     else
-      .wrapper
-        each board in myCardsList
-          .my-cards-board-wrapper
-            .my-cards-board-title(class=board.colorClass, id="header")
-              a(href=board.originRelativeUrl)
-                +viewer
-                  = board.title
-            each swimlane in board.mySwimlanes
-              .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
-                +viewer
-                  = swimlane.title
-              each list in swimlane.myLists
-                .my-cards-list-wrapper
-                  .my-cards-list-title(class=list.colorClass)
-                    +viewer
-                      = list.title
-                  each card in list.myCards
-                    .my-cards-card-wrapper
-                      a.minicard-wrapper(href=card.originRelativeUrl)
-                        +minicard(card)
+      if $eq myCardsView 'boards'
+        .wrapper
+          each board in myCardsList
+            .my-cards-board-wrapper
+              .my-cards-board-title(class=board.colorClass, id="header")
+                a(href=board.originRelativeUrl)
+                  +viewer
+                    = board.title
+              each swimlane in board.mySwimlanes
+                .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
+                  +viewer
+                    = swimlane.title
+                each list in swimlane.myLists
+                  .my-cards-list-wrapper
+                    .my-cards-list-title(class=list.colorClass)
+                      +viewer
+                        = list.title
+                    each card in list.myCards
+                      .my-cards-card-wrapper
+                        a.minicard-wrapper(href=card.originRelativeUrl)
+                          +minicard(card)
+      if $eq myCardsView 'table'
+        .wrapper
+          table.my-cards-board-table
+            thead
+              th {{_ "Card"}}
+              th {{_ "List"}}
+              th {{_ "Board"}}
+              th {{_ "Swimlane"}}
+              unless isMiniScreen
+                th {{_ "Members"}}
+                th {{_ "Labels"}}
+                th {{_ "Due Date"}}
+            tbody
+                each board in myCardsList
+                    each swimlane in board.mySwimlanes
+                      each list in swimlane.myLists
+                        each card in list.myCards
+                            tr
+                              td
+                                unless isMiniScreen
+                                  .my-cards-board-badge(class=board.colorClass, id="header")
+                                .my-cards-card-title-table
+                                  a.minicard-wrapper(href=card.originRelativeUrl)
+                                    | {{card.title}}
+                              td
+                                | {{list.title}}
+                              td
+                                a(href=board.originRelativeUrl)
+                                | {{board.title}}
+                              td
+                                | {{swimlane.title}}
+
+                              unless isMiniScreen
+                                td
+                                  .div
+                                    each member in card.members
+                                      a.name
+                                        +userAvatar(userId=member noRemove=true)
+                                td
+                                  .div
+                                    each label in card.labelIds
+                                      span.card-label(class="card-label-{{labelColor board label}}" title=name)
+                                        | {{labelName board label}}
+                                td
+                                  if card.dueAt
+                                    | {{ moment card.dueAt 'LLL' }}
+
+template(name="myCardsViewChangePopup")
+  if currentUser
+    ul.pop-over-list
+      li
+        with "myCardsViewChange-choice-boards"
+          a.js-my-cards-view-boards
+            i.fa.fa-trello.colorful
+            | {{_ 'myCardsViewChange-choice-boards'}}
+            if $eq Utils.myCardsView "boards"
+              i.fa.fa-check
+      hr
+      li
+        with "myCardsViewChange-choice-table"
+          a.js-my-cards-view-table
+            i.fa.fa-table.colorful
+            | {{_ 'myCardsViewChange-choice-table'}}
+            if $eq Utils.myCardsView "table"
+              i.fa.fa-check

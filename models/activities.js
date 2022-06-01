@@ -82,19 +82,19 @@ if (Meteor.isServer) {
   // creation in conjunction with the card or board id, as corresponding views
   // are largely used in the App. See #524.
   Meteor.startup(() => {
-    Activities._collection._ensureIndex({ createdAt: -1 });
-    Activities._collection._ensureIndex({ modifiedAt: -1 });
-    Activities._collection._ensureIndex({ cardId: 1, createdAt: -1 });
-    Activities._collection._ensureIndex({ boardId: 1, createdAt: -1 });
-    Activities._collection._ensureIndex(
+    Activities._collection.createIndex({ createdAt: -1 });
+    Activities._collection.createIndex({ modifiedAt: -1 });
+    Activities._collection.createIndex({ cardId: 1, createdAt: -1 });
+    Activities._collection.createIndex({ boardId: 1, createdAt: -1 });
+    Activities._collection.createIndex(
       { commentId: 1 },
       { partialFilterExpression: { commentId: { $exists: true } } },
     );
-    Activities._collection._ensureIndex(
+    Activities._collection.createIndex(
       { attachmentId: 1 },
       { partialFilterExpression: { attachmentId: { $exists: true } } },
     );
-    Activities._collection._ensureIndex(
+    Activities._collection.createIndex(
       { customFieldId: 1 },
       { partialFilterExpression: { customFieldId: { $exists: true } } },
     );
@@ -130,8 +130,12 @@ if (Meteor.isServer) {
       }
     }
     if (activity.boardId) {
-      if (board.title.length > 0) {
-        params.board = board.title;
+      if (board.title) {
+        if (board.title.length > 0) {
+          params.board = board.title;
+        } else {
+          params.board = '';
+        }
       } else {
         params.board = '';
       }
@@ -153,11 +157,13 @@ if (Meteor.isServer) {
     }
     if (activity.listId) {
       const list = activity.list();
-      if (list.watchers !== undefined) {
-        watchers = _.union(watchers, list.watchers || []);
+      if (list) {
+        if (list.watchers !== undefined) {
+          watchers = _.union(watchers, list.watchers || []);
+        }
+        params.list = list.title;
+        params.listId = activity.listId;
       }
-      params.list = list.title;
-      params.listId = activity.listId;
     }
     if (activity.oldListId) {
       const oldList = activity.oldList();
@@ -202,7 +208,7 @@ if (Meteor.isServer) {
           }
           return member;
         });
-        const mentionRegex = /\B@(?:(?:"([\w.\s]*)")|([\w.]+))/gi; // including space in username
+        const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.-]+))/gi; // including space in username
         let currentMention;
         while ((currentMention = mentionRegex.exec(comment)) !== null) {
           /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
@@ -241,9 +247,8 @@ if (Meteor.isServer) {
       params.commentId = comment._id;
     }
     if (activity.attachmentId) {
-      const attachment = activity.attachment();
-      params.attachment = attachment.original.name;
-      params.attachmentId = attachment._id;
+      params.attachment = activity.attachmentName;
+      params.attachmentId = activity.attachmentId;
     }
     if (activity.checklistId) {
       const checklist = activity.checklist();

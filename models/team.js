@@ -141,7 +141,31 @@ if (Meteor.isServer) {
         }
       }
     },
-
+    setCreateTeamFromOidc(
+      teamDisplayName,
+      teamDesc,
+      teamShortName,
+      teamWebsite,
+      teamIsActive,
+    ) {
+      check(teamDisplayName, String);
+      check(teamDesc, String);
+      check(teamShortName, String);
+      check(teamWebsite, String);
+      check(teamIsActive, Boolean);
+      const nTeamNames = Team.find({ teamShortName }).count();
+      if (nTeamNames > 0) {
+        throw new Meteor.Error('teamname-already-taken');
+      } else {
+        Team.insert({
+          teamDisplayName,
+          teamDesc,
+          teamShortName,
+          teamWebsite,
+          teamIsActive,
+        });
+      }
+    },
     setTeamDisplayName(team, teamDisplayName) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         check(team, Object);
@@ -182,7 +206,31 @@ if (Meteor.isServer) {
         });
       }
     },
-
+    setTeamAllFieldsFromOidc(
+      team,
+      teamDisplayName,
+      teamDesc,
+      teamShortName,
+      teamWebsite,
+      teamIsActive,
+    ) {
+        check(team, Object);
+        check(teamDisplayName, String);
+        check(teamDesc, String);
+        check(teamShortName, String);
+        check(teamWebsite, String);
+        check(teamIsActive, Boolean);
+        Team.update(team, {
+          $set: {
+            teamDisplayName: teamDisplayName,
+            teamDesc: teamDesc,
+            teamShortName: teamShortName,
+            teamWebsite: teamWebsite,
+            teamIsActive: teamIsActive,
+          },
+        });
+        Meteor.call('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
+      },
     setTeamAllFields(
       team,
       teamDisplayName,
@@ -216,7 +264,7 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   // Index for Team name.
   Meteor.startup(() => {
-    Team._collection._ensureIndex({ teamDisplayName: 1 });
+    Team._collection.createIndex({ teamDisplayName: 1 });
   });
 }
 

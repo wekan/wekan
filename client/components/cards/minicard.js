@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
 // });
@@ -113,6 +115,12 @@ Template.minicard.helpers({
     } else {
       return false;
     }
+  },
+  // XXX resolve this nasty hack for https://github.com/veliovgroup/Meteor-Files/issues/763
+  sess() {
+    return Meteor.connection && Meteor.connection._lastSessionId
+      ? Meteor.connection._lastSessionId
+      : null;
   },
 });
 

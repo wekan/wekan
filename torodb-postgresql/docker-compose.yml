@@ -142,18 +142,34 @@ services:
         mongod --replSet rs1
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - mongodb:/data/db
+      - mongodb-dump:/dump
   wekan:
     image: quay.io/wekan/wekan
     container_name: wekan-app
     restart: always
     networks:
       - wekan-tier
+    #-------------------------------------------------------------------------------------
+    # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
+    # ==== and use commands: docker-compose up -d --build
+    # ==== Dockerfile and source is at parent directory ..
+    #build:
+    #  context: ..
+    #  dockerfile: Dockerfile
+    #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
       # For example, if you want to have wekan on port 3001,
       # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
       - 80:8080
     environment:
+      #-----------------------------------------------------------------
+      # ==== WRITEABLE PATH FOR FILE UPLOADS ====
+      - WRITABLE_PATH=/data
+      #-----------------------------------------------------------------
+      # ==== MONGO_URL ====
       - MONGO_URL=mongodb://mongodb:27017/wekan
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -181,6 +197,12 @@ services:
       #- MAIL_SERVICE=Outlook365
       #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
       #- MAIL_SERVICE_PASSWORD=SecretPassword
+      #---------------------------------------------------------------
+      # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+      # Add more Node heap, this is done by default at Dockerfile:
+      #   - NODE_OPTIONS="--max_old_space_size=4096"
+      # Add more stack, this is done at Dockerfile:
+      #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
       #---------------------------------------------------------------
       # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
       # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
@@ -245,10 +267,6 @@ services:
       # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
       # Defaults below. Uncomment to change. wekan/server/accounts-common.js
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
-      #---------------------------------------------------------------
-      # ==== STORE ATTACHMENT ON SERVER FILESYSTEM INSTEAD OF MONGODB ====
-      # https://github.com/wekan/wekan/pull/2603
-      #- ATTACHMENTS_STORE_PATH = <pathname> # pathname can be relative or fullpath
       #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
@@ -617,6 +635,7 @@ services:
       - mongodb
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - wekan-files:/data:rw
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -645,6 +664,8 @@ services:
 #---------------------------------------------------------------------------------
 
 volumes:
+  wekan-files:
+    driver: local
   mongodb:
     driver: local
   mongodb-dump:

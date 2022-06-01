@@ -1,5 +1,9 @@
-FROM ubuntu:rolling
+FROM ubuntu:21.10
 LABEL maintainer="wekan"
+
+# 2022-04-25:
+# - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
+#   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
 # 2021-09-18:
 # - Above Ubuntu base image copied from Docker Hub ubuntu:hirsute-20210825
@@ -12,7 +16,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v12.22.8 \
+    NODE_VERSION=v14.19.3 \
     METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -31,7 +35,6 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
     RICHER_CARD_COMMENT_EDITOR=false \
     CARD_OPENED_WEBHOOK_ENABLED=false \
-    ATTACHMENTS_STORE_PATH="" \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
     NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE="" \
@@ -140,7 +143,17 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
     SAML_ATTRIBUTES="" \
     ORACLE_OIM_ENABLED=false \
-    WAIT_SPINNER=""
+    WAIT_SPINNER="" \
+    NODE_OPTIONS="--max_old_space_size=4096" \
+    WRITABLE_PATH=/data
+
+#---------------------------------------------------------------------
+# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+# Add more Node heap:
+#   NODE_OPTIONS="--max_old_space_size=4096"
+# Add more stack:
+#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+#---------------------------------------------------------------------
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
@@ -208,7 +221,7 @@ RUN \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
-    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.1 /home/wekan/.config && \
+    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config && \
     chown wekan --recursive /home/wekan/.config && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -281,9 +294,7 @@ RUN \
     chmod u+w *.json && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
-    #cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
-    #chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
     #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
     #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
@@ -298,6 +309,9 @@ RUN \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     chmod u+w *.json && \
     gosu wekan:wekan npm install && \
+    cd node_modules/fibers && \
+    node build.js && \
+    cd ../.. && \
     #gosu wekan:wekan npm install bcrypt && \
     # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
     rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
@@ -314,7 +328,9 @@ RUN \
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
-    rm -R /home/wekan/app_build
+    rm -R /home/wekan/app_build && \
+    mkdir /data && \
+    chown wekan --recursive /data
     #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
     #rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
@@ -323,4 +339,14 @@ ENV PORT=8080
 EXPOSE $PORT
 USER wekan
 
-CMD ["node", "/build/main.js"]
+#---------------------------------------------------------------------
+# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+# Add more Node heap:
+#   NODE_OPTIONS="--max_old_space_size=4096"
+# Add more stack:
+#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+#---------------------------------------------------------------------
+#
+# CMD ["node", "/build/main.js"]
+
+CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /build/main.js"]

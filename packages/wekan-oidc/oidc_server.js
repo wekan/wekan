@@ -1,3 +1,5 @@
+import {addGroupsWithAttributes, addEmail, changeFullname, changeUsername} from './loginHandler';
+
 Oidc = {};
 httpCa = false;
 
@@ -12,10 +14,14 @@ if (process.env.OAUTH2_CA_CERT !== undefined) {
 	console.log(e);
     }
 }
+var profile = {};
+var serviceData = {};
+var userinfo = {};
 
 OAuth.registerService('oidc', 2, null, function (query) {
 
   var debug = process.env.DEBUG || false;
+
   var token = getToken(query);
   if (debug) console.log('XXX: register token:', token);
 
@@ -24,7 +30,6 @@ OAuth.registerService('oidc', 2, null, function (query) {
 
   var claimsInAccessToken = (process.env.OAUTH2_ADFS_ENABLED === 'true' || process.env.OAUTH2_ADFS_ENABLED === true) || false;
 
-  var userinfo;
   if(claimsInAccessToken)
   {
     // hack when using custom claims in the accessToken. On premise ADFS
@@ -40,12 +45,12 @@ OAuth.registerService('oidc', 2, null, function (query) {
   if (userinfo.metadata) userinfo = userinfo.metadata // Openshift hack
   if (debug) console.log('XXX: userinfo:', userinfo);
 
-  var serviceData = {};
   serviceData.id = userinfo[process.env.OAUTH2_ID_MAP]; // || userinfo["id"];
   serviceData.username = userinfo[process.env.OAUTH2_USERNAME_MAP]; // || userinfo["uid"];
   serviceData.fullname = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
   serviceData.accessToken = accessToken;
   serviceData.expiresAt = expiresAt;
+
 
   // If on Oracle OIM email is empty or null, get info from username
   if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED === true) {
@@ -70,11 +75,37 @@ OAuth.registerService('oidc', 2, null, function (query) {
     serviceData.refreshToken = token.refresh_token;
   if (debug) console.log('XXX: serviceData:', serviceData);
 
-  var profile = {};
   profile.name = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
   profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
   if (debug) console.log('XXX: profile:', profile);
 
+
+  //temporarily store data from oidc in user.services.oidc.groups to update groups
+  serviceData.groups = (userinfo["groups"] && userinfo["wekanGroups"]) ? userinfo["wekanGroups"] : userinfo["groups"];
+
+  // groups arriving as array of strings indicate there is no scope set in oidc privider
+  // to assign teams and keep admin privileges
+  // data needs to be treated  differently.
+  // use case: in oidc provider no scope is set, hence no group attributes.
+  //    therefore: keep admin privileges for wekan as before
+  if(Array.isArray(serviceData.groups) && serviceData.groups.length && typeof serviceData.groups[0] === "string" )
+  {
+    user = Meteor.users.findOne({'_id':  serviceData.id});
+
+    serviceData.groups.forEach(function(groupName, i)
+    {
+      if(user?.isAdmin && i == 0)
+      {
+        // keep information of user.isAdmin since in loginHandler the user will // be updated regarding group admin privileges provided via oidc
+        serviceData.groups[i] = {"isAdmin": true};
+        serviceData.groups[i]["displayName"]= groupName;
+      }
+      else
+      {
+        serviceData.groups[i] = {"displayName": groupName};
+      }
+    });
+  }
   return {
     serviceData: serviceData,
     options: { profile: profile }
@@ -191,6 +222,7 @@ if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED 
   };
 }
 
+
 var getUserInfo = function (accessToken) {
   var debug = process.env.DEBUG || false;
   var config = getConfiguration();
@@ -246,6 +278,28 @@ var getTokenContent = function (token) {
   }
   return content;
 }
+Meteor.methods({
+  'groupRoutineOnLogin': function(info, userId)
+  {
+    check(info, Object);
+    check(userId, String);
+    var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
+    if (propagateOidcData)
+    {
+
+      users= Meteor.users;
+      user = users.findOne({'_id':  userId});
+      if(user)
+      {
+        //updates/creates Groups and user admin privileges accordingly
+        addGroupsWithAttributes(user, info.groups);
+        if(info.email) addEmail(user, info.email);
+        if(info.fullname) changeFullname(user, info.fullname);
+        if(info.username) changeUsername(user, info.username);
+      }
+    }
+  }
+});
 
 Oidc.retrieveCredential = function (credentialToken, credentialSecret) {
   return OAuth.retrieveCredential(credentialToken, credentialSecret);

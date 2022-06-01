@@ -1,4 +1,5 @@
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
+import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
 import Boards from '../../models/boards';
 import Lists from '../../models/lists';
@@ -52,8 +53,6 @@ import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 
-const escapeForRegex = require('escape-string-regexp');
-
 Meteor.publish('card', cardId => {
   check(cardId, String);
   const ret = Cards.find({ _id: cardId });
@@ -69,6 +68,7 @@ Meteor.publishRelations('popupCardData', function(cardId) {
     Cards.find({_id: cardId}),
     function(cardId, card) {
       this.cursor(Boards.find({_id: card.boardId}));
+      this.cursor(Lists.find({boardId: card.boardId}));
     },
   );
   return this.ready()
@@ -774,7 +774,7 @@ function findCards(sessionId, query) {
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
       ChecklistItems.find({ cardId: { $in: cards.map(c => c._id) } }),
-      Attachments.find({ cardId: { $in: cards.map(c => c._id) } }),
+      Attachments.find({ 'meta.cardId': { $in: cards.map(c => c._id) } }).cursor,
       CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
       SessionData.find({ userId, sessionId }),
     ];

@@ -1,3 +1,5 @@
+import escapeForRegex from 'escape-string-regexp';
+import { TAPi18n } from '/imports/i18n';
 import {
   ALLOWED_BOARD_COLORS,
   ALLOWED_COLORS,
@@ -7,7 +9,8 @@ import {
 } from '/config/const';
 import Users from "./users";
 
-const escapeForRegex = require('escape-string-regexp');
+// const escapeForRegex = require('escape-string-regexp');
+
 Boards = new Mongo.Collection('boards');
 
 /**
@@ -291,6 +294,20 @@ Boards.attachSchema(
         }
       },
     },
+    allowsCardCounterList: {
+      /**
+       * Show card counter per list
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+    allowsBoardMemberList: {
+      /**
+       * Show board member list
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     description: {
       /**
        * The description of the board
@@ -375,6 +392,13 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    allowsDescriptionTextOnMinicard: {
+      /**
+       * Does the board allows description text on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
 
     allowsCardNumber: {
       /**
@@ -435,6 +459,14 @@ Boards.attachSchema(
     allowsCardSortingByNumber: {
       /**
        * Does the board allows card sorting by number?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsShowLists: {
+      /**
+       * Does the board allows show lists on the card?
        */
       type: Boolean,
       defaultValue: true,
@@ -764,7 +796,15 @@ Boards.helpers({
   },
 
   activities() {
-    return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
+    let linkedBoardId = [this._id];
+    Cards.find({
+      "type": "cardType-linkedBoard",
+      "boardId": this._id}
+      ).forEach(card => {
+        linkedBoardId.push(card.linkedId);
+    });
+    return Activities.find({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
+    //return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
   },
 
   activeMembers(){
@@ -1370,6 +1410,10 @@ Boards.mutations({
     return { $set: { allowsCardSortingByNumber } };
   },
 
+  setAllowsShowLists(allowsShowLists) {
+    return { $set: { allowsShowLists } };
+  },
+
   setAllowsAttachments(allowsAttachments) {
     return { $set: { allowsAttachments } };
   },
@@ -1394,12 +1438,24 @@ Boards.mutations({
     return { $set: { allowsDescriptionText } };
   },
 
+  setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
+    return { $set: { allowsDescriptionTextOnMinicard } };
+  },
+
   setAllowsActivities(allowsActivities) {
     return { $set: { allowsActivities } };
   },
 
   setAllowsReceivedDate(allowsReceivedDate) {
     return { $set: { allowsReceivedDate } };
+  },
+
+  setAllowsCardCounterList(allowsCardCounterList) {
+    return { $set: { allowsCardCounterList } };
+  },
+
+  setAllowsBoardMemberList(allowsBoardMemberList) {
+    return { $set: { allowsBoardMemberList } };
   },
 
   setAllowsStartDate(allowsStartDate) {
@@ -1444,23 +1500,23 @@ Boards.uniqueTitle = title => {
     new RegExp('^(?<title>.*?)\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)'),
   );
   const base = escapeForRegex(m.groups.title);
-  let num = 0;
-  Boards.find({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
-    board => {
-      const m = board.title.match(
-        new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
-      );
-      if (m) {
-        const n = parseInt(m.groups.num, 10);
-        num = num < n ? n : num;
-      }
-    },
-  );
-
-  if (num > 0) {
-    return `${base} [${num + 1}]`;
+  const baseTitle = m.groups.title;
+  boards = Boards.find({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
+  if (boards.count() > 0) {
+    let num = 0;
+    Boards.find({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
+      board => {
+        const m = board.title.match(
+          new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
+        );
+        if (m) {
+          const n = parseInt(m.groups.num, 10);
+          num = num < n ? n : num;
+        }
+      },
+    );
+    return `${baseTitle} [${num + 1}]`;
   }
-
   return title;
 };
 
@@ -1683,15 +1739,15 @@ Boards.before.insert((userId, doc) => {
 if (Meteor.isServer) {
   // Let MongoDB ensure that a member is not included twice in the same board
   Meteor.startup(() => {
-    Boards._collection._ensureIndex({ modifiedAt: -1 });
-    Boards._collection._ensureIndex(
+    Boards._collection.createIndex({ modifiedAt: -1 });
+    Boards._collection.createIndex(
       {
         _id: 1,
         'members.userId': 1,
       },
       { unique: true },
     );
-    Boards._collection._ensureIndex({ 'members.userId': 1 });
+    Boards._collection.createIndex({ 'members.userId': 1 });
   });
 
   // Genesis: the first activity of the newly created board

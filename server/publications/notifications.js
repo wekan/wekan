@@ -12,7 +12,7 @@ Meteor.publish('notificationAttachments', function() {
       $in: activities()
         .map(v => v.attachmentId)
         .filter(v => !!v),
-    },
+    }.cursor,
   });
 });
 

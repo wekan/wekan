@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 /*
 const DOWNCLS = 'fa-sort-down';
 const UPCLS = 'fa-sort-up';
@@ -32,6 +34,7 @@ Template.boardMenuPopup.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-card-settings': Popup.open('boardCardSettings'),
+  'click .js-minicard-settings': Popup.open('boardMinicardSettings'),
 });
 
 Template.boardChangeTitlePopup.events({

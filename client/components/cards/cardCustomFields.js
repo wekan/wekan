@@ -1,3 +1,5 @@
+import moment from 'moment/min/moment-with-locales';
+import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 import Cards from '/models/cards';
 
@@ -279,9 +281,7 @@ CardCustomField.register('cardCustomField');
           if (event.keyCode === 13) {
             event.preventDefault();
 
-            if (event.metaKey || event.ctrlKey) {
-              this.find('button[type=submit]').click();
-            } else if (event.target.value.trim()) {
+            if (event.target.value.trim() || event.metaKey || event.ctrlKey) {
               const inputLast = this.find('input.last');
 
               let items = this.getItems();
@@ -306,6 +306,9 @@ CardCustomField.register('cardCustomField');
               }
 
               this.stringtemplateItems.set(items);
+            }
+            if (event.metaKey || event.ctrlKey) {
+              this.find('button[type=submit]').click();
             }
           }
         },

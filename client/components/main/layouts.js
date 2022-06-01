@@ -1,10 +1,6 @@
-BlazeLayout.setRoot('body');
+import { TAPi18n } from '/imports/i18n';
 
-const i18nTagToT9n = i18nTag => {
-  // t9n/i18n tags are same now, see: https://github.com/softwarerero/meteor-accounts-t9n/pull/129
-  // but we keep this conversion function here, to be aware that that they are different system.
-  return i18nTag;
-};
+BlazeLayout.setRoot('body');
 
 let alreadyCheck = 1;
 let isCheckDone = false;
@@ -53,6 +49,19 @@ Template.userFormsLayout.onCreated(function() {
       $('.at-pwd-form').hide();
     }
   });
+
+  Meteor.call('isDisableRegistration', (_, result) => {
+    if (result) {
+      $('.at-signup-link').hide();
+    }
+  });
+
+  Meteor.call('isDisableForgotPassword', (_, result) => {
+    if (result) {
+      $('.at-pwd-link').hide();
+    }
+  });
+
 });
 
 Template.userFormsLayout.onRendered(() => {
@@ -60,11 +69,6 @@ Template.userFormsLayout.onRendered(() => {
     AccountsTemplates.state.form.keys,
     validator,
   );
-
-  const i18nTag = navigator.language;
-  if (i18nTag) {
-    T9n.setLanguage(i18nTagToT9n(i18nTag));
-  }
   EscapeActions.executeAll();
 });
 
@@ -89,11 +93,11 @@ Template.userFormsLayout.helpers({
   getLegalNoticeWithWritTraduction(){
     let spanLegalNoticeElt = $("#legalNoticeSpan");
     if(spanLegalNoticeElt != null && spanLegalNoticeElt != undefined){
-      spanLegalNoticeElt.html(TAPi18n.__('acceptance_of_our_legalNotice', {}, T9n.getLanguage() || 'en'));
+      spanLegalNoticeElt.html(TAPi18n.__('acceptance_of_our_legalNotice', {}));
     }
     let atLinkLegalNoticeElt = $("#legalNoticeAtLink");
     if(atLinkLegalNoticeElt != null && atLinkLegalNoticeElt != undefined){
-      atLinkLegalNoticeElt.html(TAPi18n.__('legalNotice', {}, T9n.getLanguage() || 'en'));
+      atLinkLegalNoticeElt.html(TAPi18n.__('legalNotice', {}));
     }
     return true;
   },
@@ -111,104 +115,27 @@ Template.userFormsLayout.helpers({
   },
 
   languages() {
-    return _.map(TAPi18n.getLanguages(), (lang, code) => {
-      const tag = code;
-      let name = lang.name;
-      if (lang.name === 'br') {
-        name = 'Brezhoneg';
-      } else if (lang.name === 'ar-EG') {
-        // ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)
-        name = 'مَصرى';
-      } else if (lang.name === 'de-CH') {
-        name = 'Deutsch (Schweiz)';
-      } else if (lang.name === 'de-AT') {
-        name = 'Deutsch (Österreich)';
-      } else if (lang.name === 'en-DE') {
-        name = 'English (Germany)';
-      } else if (lang.name === 'fa-IR') {
-        // fa-IR = Persian (Iran)
-        name = 'فارسی/پارسی (ایران‎)';
-      } else if (lang.name === 'fr-BE') {
-        name = 'Français (Belgique)';
-      } else if (lang.name === 'fr-CA') {
-        name = 'Français (Canada)';
-      } else if (lang.name === 'fr-CH') {
-        name = 'Français (Schweiz)';
-      } else if (lang.name === 'gu-IN') {
-        // gu-IN = Gurajati (India)
-        name = 'ગુજરાતી';
-      } else if (lang.name === 'hi-IN') {
-        // hi-IN = Hindi (India)
-        name = 'हिंदी (भारत)';
-      } else if (lang.name === 'ig') {
-        name = 'Igbo';
-      } else if (lang.name === 'lv') {
-        name = 'Latviešu';
-      } else if (lang.name === 'latviešu valoda') {
-        name = 'Latviešu';
-      } else if (lang.name === 'ms-MY') {
-        // ms-MY = Malay (Malaysia)
-        name = 'بهاس ملايو';
-      } else if (lang.name === 'en-IT') {
-        name = 'English (Italy)';
-      } else if (lang.name === 'el-GR') {
-        // el-GR = Greek (Greece)
-        name = 'Ελληνικά (Ελλάδα)';
-      } else if (lang.name === 'Español') {
-        name = 'español';
-      } else if (lang.name === 'es_419') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'es-419') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'Español de América Latina') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'es-LA') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'Español de Argentina') {
-        name = 'español de Argentina';
-      } else if (lang.name === 'Español de Chile') {
-        name = 'español de Chile';
-      } else if (lang.name === 'Español de Colombia') {
-        name = 'español de Colombia';
-      } else if (lang.name === 'Español de México') {
-        name = 'español de México';
-      } else if (lang.name === 'es-PY') {
-        name = 'español de Paraguayo';
-      } else if (lang.name === 'Español de Paraguayo') {
-        name = 'español de Paraguayo';
-      } else if (lang.name === 'Español de Perú') {
-        name = 'español de Perú';
-      } else if (lang.name === 'Español de Puerto Rico') {
-        name = 'español de Puerto Rico';
-      } else if (lang.name === 'oc') {
-        name = 'Occitan';
-      } else if (lang.name === 'st') {
-        name = 'Sãotomense';
-      } else if (lang.name === '繁体中文（台湾）') {
-        // Traditional Chinese (Taiwan)
-        name = '繁體中文（台灣）';
-      }
-      return { tag, name };
-    }).sort(function(a, b) {
-      if (a.name === b.name) {
-        return 0;
-      } else {
-        return a.name > b.name ? 1 : -1;
-      }
-    });
+    return TAPi18n.getSupportedLanguages()
+      .map(({ tag, name }) => ({ tag: tag, name }))
+      .sort((a, b) => {
+        if (a.name === b.name) {
+          return 0;
+        } else {
+          return a.name > b.name ? 1 : -1;
+        }
+      });
   },
 
   isCurrentLanguage() {
-    const t9nTag = i18nTagToT9n(this.tag);
-    const curLang = T9n.getLanguage() || 'en';
-    return t9nTag === curLang;
+    const curLang = TAPi18n.getLanguage();
+    return this.tag === curLang;
   },
 });
 
 Template.userFormsLayout.events({
   'change .js-userform-set-language'(event) {
-    const i18nTag = $(event.currentTarget).val();
-    T9n.setLanguage(i18nTagToT9n(i18nTag));
+    const tag = $(event.currentTarget).val();
+    TAPi18n.setLanguage(tag);
     event.preventDefault();
   },
   'click #at-btn'(event, templateInstance) {

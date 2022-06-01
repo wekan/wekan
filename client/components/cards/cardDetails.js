@@ -1,3 +1,5 @@
+import moment from 'moment/min/moment-with-locales';
+import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -7,7 +9,6 @@ import Users from '/models/users';
 import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
-import moment from 'moment';
 import { UserAvatar } from '../users/userAvatar';
 
 const subManager = new SubsManager();
@@ -32,7 +33,7 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentBoard = Utils.getCurrentBoard();
     this.isLoaded = new ReactiveVar(false);
 
     if (this.parentComponent() && this.parentComponent().parentComponent()) {
@@ -70,7 +71,7 @@ BlazeComponent.extendComponent({
 
 
   cardMaximized() {
-    return Meteor.user().hasCardMaximized();
+    return !Utils.getPopupCardId() && Meteor.user().hasCardMaximized();
   },
 
   canModifyCard() {
@@ -168,6 +169,15 @@ BlazeComponent.extendComponent({
     );
   },
 
+  /** returns if the list id is the current list id
+   * @param listId list id to check
+   * @return is the list id the current list id ?
+   */
+  isCurrentListId(listId) {
+    const ret = this.data().listId == listId;
+    return ret;
+  },
+
   onRendered() {
     if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
       // Send Webhook but not create Activities records ---
@@ -202,11 +212,6 @@ BlazeComponent.extendComponent({
       //-------------
     }
 
-    if (!Utils.isMiniScreen()) {
-      Meteor.setTimeout(() => {
-        this.scrollParentContainer();
-      }, 500);
-    }
     const $checklistsDom = this.$('.card-checklist-items');
 
     $checklistsDom.sortable({
@@ -379,6 +384,12 @@ BlazeComponent.extendComponent({
             card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
         },
+        'change .js-select-card-details-lists'(event) {
+          let card = this.data();
+          const listSelect = this.$('.js-select-card-details-lists')[0];
+          const listId = listSelect.options[listSelect.selectedIndex].value;
+          card.move(card.boardId, card.swimlaneId, listId, card.sort);
+        },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);
         },
@@ -424,10 +435,20 @@ BlazeComponent.extendComponent({
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
+          if (!Utils.isMiniScreen()) {
+            Meteor.setTimeout(() => {
+              this.scrollParentContainer();
+            }, 500);
+          }
         },
         'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
+          if (!Utils.isMiniScreen()) {
+            Meteor.setTimeout(() => {
+              this.scrollParentContainer();
+            }, 500);
+          }
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
@@ -689,9 +710,31 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function () {
-  autosize(this.$('.js-edit-card-title'));
-});
+BlazeComponent.extendComponent({
+  onRendered() {
+    autosize(this.$('textarea.js-edit-card-title'));
+  },
+  events() {
+    return [
+      {
+        'click a.fa.fa-copy'(event) {
+          const $editor = this.$('textarea');
+          const promise = Utils.copyTextToClipboard($editor[0].value);
+
+          const $tooltip = this.$('.copied-tooltip');
+          Utils.showCopied(promise, $tooltip);
+        },
+        'keydown .js-edit-card-title'(event) {
+          // If enter key was pressed, submit the data
+          // Unless the shift key is also being pressed
+          if (event.keyCode === 13 && !event.shiftKey) {
+            $('.js-submit-edit-card-title-form').click();
+          }
+        },
+      }
+    ];
+  }
+}).register('editCardTitleForm');
 
 Template.cardMembersPopup.onCreated(function () {
   let currBoard = Boards.findOne(Session.get('currentBoard'));
@@ -751,16 +794,6 @@ const filterMembers = (filterTerm) => {
   return members;
 }
 
-Template.editCardTitleForm.events({
-  'keydown .js-edit-card-title'(event) {
-    // If enter key was pressed, submit the data
-    // Unless the shift key is also being pressed
-    if (event.keyCode === 13 && !event.shiftKey) {
-      $('.js-submit-edit-card-title-form').click();
-    }
-  },
-});
-
 Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));
 });
@@ -789,15 +822,16 @@ Template.editCardAssignerForm.events({
 
 Template.moveCardPopup.events({
   'click .js-done'() {
-    // XXX We should *not* get the currentCard from the global state, but
-    // instead from a “component” state.
-    const card = Utils.getCurrentCard();
+    const card = Cards.findOne(this._id);
     const bSelect = $('.js-select-boards')[0];
     let boardId;
     // if we are a worker, we won't have a board select so we just use the
     // current boardId of the card.
-    if (bSelect) boardId = bSelect.options[bSelect.selectedIndex].value;
-    else boardId = card.boardId;
+    if (bSelect) {
+      boardId = bSelect.options[bSelect.selectedIndex].value;
+    } else {
+      boardId = card.boardId;
+    }
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -814,8 +848,56 @@ Template.moveCardPopup.events({
 });
 BlazeComponent.extendComponent({
   onCreated() {
-    subManager.subscribe('board', Session.get('currentBoard'), false);
-    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+    this.currentBoardId = Utils.getCurrentBoardId();
+    this.selectedBoardId = new ReactiveVar(this.currentBoardId);
+    this.setMoveAndCopyDialogOption(this.currentBoardId);
+  },
+
+  /** set the last confirmed dialog field values
+   * @param boardId the current board id
+   */
+  setMoveAndCopyDialogOption(boardId) {
+    this.moveAndCopyDialogOption = {
+      'boardId' : "",
+      'swimlaneId' : "",
+      'listId' : "",
+    }
+
+    let currentOptions = Meteor.user().getMoveAndCopyDialogOptions();
+    if (currentOptions && boardId && currentOptions[boardId]) {
+      this.moveAndCopyDialogOption = currentOptions[boardId];
+      if (this.moveAndCopyDialogOption.boardId) {
+        this.selectedBoardId.set(this.moveAndCopyDialogOption.boardId)
+      }
+    }
+    subManager.subscribe('board', this.selectedBoardId.get(), false);
+  },
+
+  /** returns if the board id was the last confirmed one
+   * @param boardId check this board id
+   * @return if the board id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionBoardId(boardId) {
+    let ret = this.moveAndCopyDialogOption.boardId == boardId;
+    return ret;
+  },
+
+  /** returns if the swimlane id was the last confirmed one
+   * @param swimlaneId check this swimlane id
+   * @return if the swimlane id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionSwimlaneId(swimlaneId) {
+    let ret = this.moveAndCopyDialogOption.swimlaneId == swimlaneId;
+    return ret;
+  },
+
+  /** returns if the list id was the last confirmed one
+   * @param listId check this list id
+   * @return if the list id was the last confirmed one
+   */
+  isMoveAndCopyDialogOptionListId(listId) {
+    let ret = this.moveAndCopyDialogOption.listId == listId;
+    return ret;
   },
 
   boards() {
@@ -844,9 +926,27 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-done'() {
+          const boardSelect = this.$('.js-select-boards')[0];
+          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
+
+          const listSelect = this.$('.js-select-lists')[0];
+          const listId = listSelect.options[listSelect.selectedIndex].value;
+
+          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
+          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
+
+          const options = {
+            'boardId' : boardId,
+            'swimlaneId' : swimlaneId,
+            'listId' : listId,
+          }
+          Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+        },
         'change .js-select-boards'(event) {
-          this.selectedBoardId.set($(event.currentTarget).val());
-          subManager.subscribe('board', this.selectedBoardId.get(), false);
+          const boardId = $(event.currentTarget).val();
+          this.selectedBoardId.set(boardId);
+          subManager.subscribe('board', boardId, false);
         },
       },
     ];
@@ -1701,6 +1801,7 @@ Template.cardAssigneePopup.helpers({
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
+/*
   presenceStatusClassName() {
     const user = Users.findOne(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
@@ -1710,7 +1811,7 @@ Template.cardAssigneePopup.helpers({
       return 'active';
     else return 'idle';
   },
-
+*/
   isCardAssignee() {
     const card = Template.parentData();
     const cardAssignees = card.getAssignees();

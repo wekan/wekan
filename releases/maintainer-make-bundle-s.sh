@@ -10,7 +10,21 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-sudo npm -g install node-gyp
+##sudo npm -g install node-gyp
+#
+## NEW:
+#sudo dnf install gcc python3 npm
+#sudo dnf groupinstall "Development Tools"
+#npm -g install n
+#
+# .bashrc:
+# # User specific environment
+# PATH="$HOME/.local/bin/bin:$HOME/bin:/usr/local/bin:$PATH"
+# export PATH
+#
+# N_PREFIX="$HOME/.local/bin"
+# export N_PREFIX
+#
 rm -rf bundle
 #rm wekan-$1.zip
 #wget https://releases.wekan.team/wekan-$1.zip

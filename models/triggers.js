@@ -70,7 +70,7 @@ Triggers.helpers({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Triggers._collection._ensureIndex({ modifiedAt: -1 });
+    Triggers._collection.createIndex({ modifiedAt: -1 });
   });
 }
 

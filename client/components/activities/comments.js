@@ -26,6 +26,8 @@ BlazeComponent.extendComponent({
           if (card.isLinkedCard()) {
             boardId = Cards.findOne(card.linkedId).boardId;
             cardId = card.linkedId;
+          } else if (card.isLinkedBoard()) {
+            boardId = card.linkedId;
           }
           if (text) {
             CardComments.insert({

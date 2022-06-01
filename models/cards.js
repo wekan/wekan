@@ -1,9 +1,13 @@
+import moment from 'moment/min/moment-with-locales';
 import {
   ALLOWED_COLORS,
   TYPE_CARD,
   TYPE_LINKED_BOARD,
   TYPE_LINKED_CARD,
 } from '../config/const';
+import Attachments, { fileStoreStrategyFactory } from "./attachments";
+import { copyFile } from './lib/fileStoreStrategy.js';
+
 
 Cards = new Mongo.Collection('cards');
 
@@ -583,11 +587,11 @@ Cards.helpers({
     const _id = Cards.insert(this);
 
     // Copy attachments
-    oldCard.attachments().forEach(att => {
-      att.cardId = _id;
-      delete att._id;
-      return Attachments.insert(att);
-    });
+    oldCard.attachments()
+      .map(att => att.get())
+      .forEach(att => {
+        copyFile(att, _id, fileStoreStrategyFactory);
+      });
 
     // copy checklists
     Checklists.find({ cardId: oldId }).forEach(ch => {
@@ -721,6 +725,11 @@ Cards.helpers({
         { cardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
+    } else if (this.isLinkedBoard()) {
+      return CardComments.find(
+        { boardId: this.linkedId },
+        { sort: { createdAt: -1 } },
+      );
     } else {
       return CardComments.find(
         { cardId: this._id },
@@ -730,17 +739,15 @@ Cards.helpers({
   },
 
   attachments() {
+    let id = this._id;
     if (this.isLinkedCard()) {
-      return Attachments.find(
-        { cardId: this.linkedId },
-        { sort: { uploadedAt: -1 } },
-      );
-    } else {
-      return Attachments.find(
-        { cardId: this._id },
-        { sort: { uploadedAt: -1 } },
-      );
+       id = this.linkedId;
     }
+    let ret = Attachments.find(
+      { 'meta.cardId': id },
+      { sort: { uploadedAt: -1 } },
+    ).each();
+    return ret;
   },
 
   cover() {
@@ -748,7 +755,7 @@ Cards.helpers({
     const cover = Attachments.findOne(this.coverId);
     // if we return a cover before it is fully stored, we will get errors when we try to display it
     // todo XXX we could return a default "upload pending" image in the meantime?
-    return cover && cover.url() && cover;
+    return cover && cover.link() && cover;
   },
 
   checklists() {
@@ -2985,14 +2992,14 @@ if (Meteor.isServer) {
   // Cards are often fetched within a board, so we create an index to make these
   // queries more efficient.
   Meteor.startup(() => {
-    Cards._collection._ensureIndex({ modifiedAt: -1 });
-    Cards._collection._ensureIndex({ boardId: 1, createdAt: -1 });
+    Cards._collection.createIndex({ modifiedAt: -1 });
+    Cards._collection.createIndex({ boardId: 1, createdAt: -1 });
     // https://github.com/wekan/wekan/issues/1863
     // Swimlane added a new field in the cards collection of mongodb named parentId.
     // When loading a board, mongodb is searching for every cards, the id of the parent (in the swinglanes collection).
     // With a huge database, this result in a very slow app and high CPU on the mongodb side.
     // To correct it, add Index to parentId:
-    Cards._collection._ensureIndex({ parentId: 1 });
+    Cards._collection.createIndex({ parentId: 1 });
     // let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER) || 2; // default as 2 days b4 and after
     // let notifyitvl = parseInt(process.env.NOTIFY_DUE_AT_HOUR_OF_DAY) || 3600 * 24 * 1e3; // default interval as one day
     // Meteor.call("findDueCards",notifydays,notifyitvl);
@@ -3282,6 +3289,72 @@ if (Meteor.isServer) {
       });
     }
   });
+
+/**
+ * @operation get_board_cards_count
+ * @summary Get a cards count to a board
+ *
+ * @param {string} boardId the board ID
+ * @return_type {board_cards_count: integer}
+ */
+JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
+  req,
+  res,
+) {
+  try {
+    const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        board_cards_count: Cards.find({
+          boardId: paramBoardId,
+          archived: false,
+        }).count(),
+      }
+    });
+  } catch (error) {
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: error,
+    });
+  }
+});
+
+/**
+ * @operation get_list_cards_count
+ * @summary Get a cards count to a list
+ *
+ * @param {string} boardId the board ID
+ * @param {string} listId the List ID
+ * @return_type {list_cards_count: integer}
+ */
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards_count', function(
+    req,
+    res,
+  ) {
+    try {
+      const paramBoardId = req.params.boardId;
+      const paramListId = req.params.listId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          list_cards_count: Cards.find({
+            boardId: paramBoardId,
+            listId: paramListId,
+            archived: false,
+          }).count(),
+        }
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
 
   /*
    * Note for the JSDoc:

@@ -1,0 +1,51 @@
+.map-members:after {
+  content: "";
+  flex: auto;
+}
+.map-members .mapping-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -4px;
+}
+.map-members .mapping-list .mapping-item {
+  max-width: 300px;
+  min-width: 200px;
+  padding: 6px;
+  margin: 5px;
+  flex: 1;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.map-members .mapping-list .mapping-item:hover {
+  background: #f2f2f2;
+}
+.map-members .mapping-list .mapping-item.filled {
+  background: #e0ffe5;
+}
+.map-members .mapping-list .mapping-item.filled:hover {
+  background: #ffe0e0;
+}
+.map-members .mapping-list .mapping-item.ghost-item {
+  height: 0;
+  visibility: hidden;
+  border: none;
+}
+.map-members .mapping-list .profile-source {
+  display: inline-block;
+  width: 80%;
+}
+.map-members .mapping-list .wekan {
+  display: inline-block;
+  width: 35px;
+}
+.map-members .mapping-list .wekan .member {
+  float: none;
+}
+a.show-mapping {
+  text-decoration: underline;
+}
+.import-members-map-note {
+  font-size: 90%;
+  font-weight: bold;
+}

@@ -1,9 +1,11 @@
+import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);
+    this.forgotPasswordSetting = new ReactiveVar(true);
     this.generalSetting = new ReactiveVar(true);
     this.emailSetting = new ReactiveVar(false);
     this.accountSetting = new ReactiveVar(false);
@@ -56,6 +58,14 @@ BlazeComponent.extendComponent({
       },
     );
   },
+  toggleForgotPassword() {
+    this.setLoading(true);
+    const forgotPasswordClosed = this.currentSetting().disableForgotPassword;
+    Settings.update(Settings.findOne()._id, {
+      $set: { disableForgotPassword: !forgotPasswordClosed },
+    });
+    this.setLoading(false);
+  },
   toggleRegistration() {
     this.setLoading(true);
     const registrationClosed = this.currentSetting().disableRegistration;
@@ -84,6 +94,7 @@ BlazeComponent.extendComponent({
       $('.side-menu li.active').removeClass('active');
       target.parent().addClass('active');
       const targetID = target.data('id');
+      this.forgotPasswordSetting.set('forgot-password-setting' === targetID);
       this.generalSetting.set('registration-setting' === targetID);
       this.emailSetting.set('email-setting' === targetID);
       this.accountSetting.set('account-setting' === targetID);
@@ -267,6 +278,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click a.js-toggle-forgot-password': this.toggleForgotPassword,
         'click a.js-toggle-registration': this.toggleRegistration,
         'click a.js-toggle-tls': this.toggleTLS,
         'click a.js-setting-menu': this.switchMenu,

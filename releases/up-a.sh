@@ -14,4 +14,4 @@ fi
 scp a:/home/wekan/wekan-$1-arm64.zip .
 
 # 3) Upload arm64 release to download server
-scp wekan-$1-arm64.zip x2:/var/snap/wekan/common/releases.wekan.team/raspi3/
+scp wekan-$1-arm64.zip x2w:/var/websites/releases.wekan.team/public/raspi3/

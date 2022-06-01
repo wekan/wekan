@@ -234,6 +234,15 @@ template(name="cardDetails")
                   +viewer
                     = sort
 
+        if currentBoard.allowsShowLists
+          .card-details-item.card-details-show-lists
+            h3.card-details-item-title
+              i.fa.fa-list
+              | {{_ 'list'}}
+            select.js-select-card-details-lists(disabled="{{#unless canModifyCard}}disabled{{/unless}}")
+              each currentBoard.lists
+                option(value="{{_id}}" selected="{{#if isCurrentListId _id}}selected{{/if}}") {{title}}
+
         //.card-details-items
         if getSpentTime
           .card-details-item.card-details-item-spent
@@ -545,11 +554,11 @@ template(name="cardDetails")
             | {{_ 'attachments'}}
           .card-checklist-attachmentGalery.card-attachmentGalery
             +attachmentsGalery
+      hr
 
     .card-details-right
 
       unless currentUser.isNoComments
-        hr
         .activity-title
           h3.card-details-item-title
             i.fa.fa-history
@@ -576,6 +585,8 @@ template(name="cardDetails")
             +activities(card=this mode="card")
 
 template(name="editCardTitleForm")
+  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
+  span.copied-tooltip {{_ 'copied'}}
   textarea.js-edit-card-title(rows='1' autofocus dir="auto")
     = getTitle
   .edit-controls.clearfix
@@ -723,17 +734,17 @@ template(name="boardsAndLists")
         if $eq _id currentBoard._id
           option(value="{{_id}}" selected) {{_ 'current'}}
         else
-          option(value="{{_id}}") {{title}}
+          option(value="{{_id}}" selected="{{#if isMoveAndCopyDialogOptionBoardId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isMoveAndCopyDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each aBoardLists
-      option(value="{{_id}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isMoveAndCopyDialogOptionListId _id}}selected{{/if}}") {{title}}
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}

@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 //var nodemailer = require('nodemailer');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
@@ -11,6 +12,13 @@ Settings.attachSchema(
   new SimpleSchema({
     disableRegistration: {
       type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    disableForgotPassword: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
     },
     'mailServer.username': {
       type: String,
@@ -146,7 +154,7 @@ Settings.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Settings._collection._ensureIndex({ modifiedAt: -1 });
+    Settings._collection.createIndex({ modifiedAt: -1 });
     const setting = Settings.findOne({});
     if (!setting) {
       const now = new Date();
@@ -432,6 +440,24 @@ if (Meteor.isServer) {
         return {
           productName: `${setting.productName}`,
         };
+      }
+    },
+
+    isDisableRegistration() {
+      const setting = Settings.findOne({});
+      if (setting.disableRegistration === true) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+   isDisableForgotPassword() {
+      const setting = Settings.findOne({});
+      if (setting.disableForgotPassword === true) {
+        return true;
+      } else {
+        return false;
       }
     },
 

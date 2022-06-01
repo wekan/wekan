@@ -231,8 +231,8 @@ function customFieldEdit(userId, doc) {
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    CustomFields._collection._ensureIndex({ modifiedAt: -1 });
-    CustomFields._collection._ensureIndex({ boardIds: 1 });
+    CustomFields._collection.createIndex({ modifiedAt: -1 });
+    CustomFields._collection.createIndex({ boardIds: 1 });
   });
 
   CustomFields.after.insert((userId, doc) => {

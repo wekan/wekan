@@ -11,9 +11,6 @@ template(name="previewClipboardImagePopup")
   img.preview-clipboard-image()
   button.primary.js-upload-pasted-image {{_ 'upload'}}
 
-template(name="previewAttachedImagePopup")
-  img.preview-large-image.js-large-image-clicked(src="{{url}}")
-
 template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
@@ -22,22 +19,22 @@ template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{url}}" title="{{name}}")
-          if isUploaded
+        a.attachment-thumbnail(href="{{link}}" title="{{name}}" data-lightbox="{{name}}")
+          if link
             if isImage
-              img.attachment-thumbnail-img(src="{{url}}")
+              img.attachment-thumbnail-img(src="{{link}}")
             else if($eq extension 'mp3')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="audio/mpeg")
+                  source(src="{{link}}" type="audio/mpeg")
             else if($eq extension 'ogg')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="video/ogg")
+                  source(src="{{link}}" type="video/ogg")
             else if($eq extension 'webm')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="video/webm")
+                  source(src="{{link}}" type="video/webm")
             else if($eq extension 'mp4')
                 video(width="100%" height="100%" controls="true")
-                  source(src="{{url}}" type="video/mp4")
+                  source(src="{{link}}" type="video/mp4")
             else
               span.attachment-thumbnail-ext= extension
           else
@@ -46,23 +43,13 @@ template(name="attachmentsGalery")
           = name
           span.file-size ({{fileSize size}} KB)
           span.attachment-details-actions
-            a.js-download(href="{{url download=true}}")
+            a.js-download(href="{{link}}?download=true", download="{{name}}")
               i.fa.fa-download
               | {{_ 'download'}}
             if currentUser.isBoardMember
               unless currentUser.isCommentOnly
                 unless currentUser.isWorker
-                  if isImage
-                    a(class="{{#if $eq ../coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}")
-                      i.fa.fa-thumb-tack
-                      if($eq ../coverId _id)
-                        | {{_ 'remove-cover'}}
-                      else
-                        | {{_ 'add-cover'}}
-                  if currentUser.isBoardAdmin
-                    a.js-confirm-delete
-                      i.fa.fa-close
-                      | {{_ 'delete'}}
+                  a.fa.fa-navicon.attachment-details-menu.js-open-attachment-menu(title="{{_ 'attachmentActionsPopup-title'}}")
 
     if currentUser.isBoardMember
       unless currentUser.isCommentOnly
@@ -70,3 +57,39 @@ template(name="attachmentsGalery")
           //li.attachment-item.add-attachment
           a.js-add-attachment(title="{{_ 'add-attachment' }}")
             i.fa.fa-plus
+
+template(name="attachmentActionsPopup")
+  ul.pop-over-list
+    li
+      if isImage
+        a(class="{{#if isCover}}js-remove-cover{{else}}js-add-cover{{/if}}")
+          i.fa.fa-thumb-tack
+          if isCover
+            | {{_ 'remove-cover'}}
+          else
+            | {{_ 'add-cover'}}
+      if currentUser.isBoardAdmin
+        a.js-rename
+          i.fa.fa-pencil-square-o
+          | {{_ 'rename'}}
+        a.js-confirm-delete
+          i.fa.fa-close
+          | {{_ 'delete'}}
+        p.attachment-storage
+          | {{versions.original.storage}}
+
+        if $neq versions.original.storage "fs"
+          a.js-move-storage-fs
+            i.fa.fa-arrow-right
+            | {{_ 'attachment-move-storage-fs'}}
+
+        if $neq versions.original.storage "gridfs"
+          if versions.original.storage
+            a.js-move-storage-gridfs
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-gridfs'}}
+
+template(name="attachmentRenamePopup")
+  input.js-edit-attachment-name(type='text' autofocus value="{{getNameWithoutExtension}}" dir="auto")
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-attachment-name(type="submit") {{_ 'save'}}

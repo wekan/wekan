@@ -138,6 +138,22 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
+template(name="boardInfoOnMyBoardsPopup")
+  form.board-info-on-my-boards
+    h3 {{_ 'show-at-all-boards-page'}}
+    div.check-div
+      a.flex.js-field-has-cardcounterlist(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
+        span
+          i.fa.fa-sign-out
+          | {{_ 'show-card-counter-per-list'}}
+    div.check-div
+      a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
+        span
+          i.fa.fa-hourglass-start
+          | {{_ 'show-board_members-avatar'}}
+
 template(name="boardCardSettingsPopup")
   form.board-card-settings
     h3 {{_ 'show-on-card'}}
@@ -204,6 +220,12 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-sort
           | {{_ 'card-sorting-by-number'}}
     div.check-div
+      a.flex.js-field-has-card-show-lists(class="{{#if allowsShowLists}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsShowLists}}is-checked{{/if}}")
+        span
+          i.fa.fa-list
+          | {{_ 'card-show-lists'}}
+    div.check-div
       a.flex.js-field-has-labels(class="{{#if allowsLabels}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsLabels}}is-checked{{/if}}")
         span
@@ -260,6 +282,16 @@ template(name="boardCardSettingsPopup")
     //    span
     //      i.fa.fa-history
     //      | {{_ 'activities'}}
+
+template(name="boardMinicardSettingsPopup")
+  form.board-minicard-settings
+    h3 {{_ 'show-on-minicard'}}
+    div.check-div
+      a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-align-left
+          | {{_ 'description-on-minicard'}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
@@ -375,6 +407,11 @@ template(name="boardMenuPopup")
         a.js-change-board-color
           i.fa.fa-paint-brush
           | {{_ 'board-change-color'}}
+    if currentUser.isBoardAdmin
+      li
+        a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
+          i.fa.fa-id-card-o
+          | {{_ 'board-info-on-my-boards'}}
   hr
   ul.pop-over-list
     if withApi
@@ -391,6 +428,10 @@ template(name="boardMenuPopup")
         a.js-card-settings
           i.fa.fa-id-card-o
           | {{_ 'card-settings'}}
+      li
+        a.js-minicard-settings
+          i.fa.fa-id-card-o
+          | {{_ 'minicard-settings'}}
       li
         a.js-subtask-settings
           i.fa.fa-sitemap
@@ -488,7 +529,7 @@ template(name="addBoardOrgPopup")
   select.js-boardOrgs#jsBoardOrgs
     option(value="-1") {{_ 'organizations'}} :
     each value in orgsDatas
-      option(value="{{value._id}}") {{_ value.orgDisplayName}}
+      option(value="{{value._id}}") {{value.orgDisplayName}}
 
 template(name="removeBoardOrgPopup")
   form

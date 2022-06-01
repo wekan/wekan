@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 BUILD_DEPS="bsdtar gnupg wget curl bzip2 python git ca-certificates perl-Digest-SHA"
-NODE_VERSION=v12.22.8
+NODE_VERSION=v14.19.3
 #METEOR_RELEASE=1.6.0.1 - for Stacksmith, meteor-1.8 branch that could have METEOR@1.8.1-beta.8 or newer
 USE_EDGE=false
 METEOR_EDGE=1.5-beta.17
@@ -72,13 +72,14 @@ meteor=/home/wekan/.meteor/meteor
 #sudo -u wekan ${meteor} add standard-minifier-js
 sudo -u wekan ${meteor} npm install
 sudo -u wekan ${meteor} build --directory /home/wekan/app_build
-sudo cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js
-sudo chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js
 sudo rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
 rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy
 cd /home/wekan/app_build/bundle/programs/server/
 sudo npm install
+cd node_modules/fibers
+node build.js
+cd ../..
 sudo chown -R wekan:wekan ./node_modules
 
 #cd /home/wekan/app_build/bundle

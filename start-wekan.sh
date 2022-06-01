@@ -9,6 +9,9 @@
       #---------------------------------------------
       export MONGO_URL='mongodb://127.0.0.1:27017/wekan'
       #---------------------------------------------
+      # WRITEABLE PATH
+      export WRITABLE_PATH=..
+      #---------------------------------------------
       # Production: https://example.com/wekan
       # Local: http://localhost:2000
       #export ipaddress=$(ifdata -pa eth0)
@@ -221,7 +224,7 @@
       #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
       #
       # OAUTH2 Request Permissions.
-      #export OAUTH2_REQUEST_PERMISSIONS='openid profile email'
+      #export OAUTH2_REQUEST_PERMISSIONS=openid profile email
       #
       # OAuth2 ID Mapping
       #export OAUTH2_ID_MAP=
@@ -501,7 +504,13 @@
       # Wait spinner to use
       #export WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
-      node main.js
+      # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+      # Add more Node heap:
+      export NODE_OPTIONS="--max_old_space_size=4096"
+      # Add more stack:
+      bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+      #node main.js
+      #---------------------------------------------------------------------
       # & >> ../../wekan.log
       cd ../..
 #done

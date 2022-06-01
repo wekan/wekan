@@ -1,0 +1,20 @@
+.shortcuts-list .shortcuts-list-item {
+  border-bottom: 1px solid #bfbfbf;
+  padding: 10px 5px;
+}
+.shortcuts-list .shortcuts-list-item:last-child {
+  border-bottom: none;
+}
+.shortcuts-list .shortcuts-list-item .shortcuts-list-item-keys {
+  margin-top: 5px;
+  float: right;
+}
+.shortcuts-list .shortcuts-list-item .shortcuts-list-item-keys kbd {
+  padding: 5px 8px;
+  margin: 5px;
+  font-size: 18px;
+}
+.shortcuts-list .shortcuts-list-item .shortcuts-list-item-action {
+  font-size: 1.4em;
+  margin: 5px;
+}

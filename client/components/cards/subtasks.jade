@@ -25,11 +25,9 @@ template(name="subtaskDetail")
     else
       .subtask-title
         span
-        a.js-view-subtask(title="{{ subtask.title }}") {{_ "view-it"}}
         if canModifyCard
           if currentUser.isBoardAdmin
-            a.js-delete-subtask.toggle-delete-subtask-dialog {{_ "delete"}}...
-
+            a.fa.fa-navicon.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
             +viewer
@@ -38,18 +36,6 @@ template(name="subtaskDetail")
           h2.title
             +viewer
                 = subtask.title
-
-template(name="subtaskDeleteDialog")
-  .js-confirm-subtask-delete
-    p
-      i(class="fa fa-exclamation-triangle" aria-hidden="true")
-    p
-      | {{_ 'confirm-subtask-delete-dialog'}}
-      span {{subtask.title}}
-      | ?
-    .js-subtask-delete-buttons
-      button.confirm-subtask-delete(type="button") {{_ 'delete'}}
-      button.toggle-delete-subtask-dialog(type="button") {{_ 'cancel'}}
 
 template(name="addSubtaskItemForm")
   textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
@@ -98,3 +84,18 @@ template(name='subtaskItemDetail')
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
+
+template(name="subtaskDeletePopup")
+  p {{_ 'confirm-subtask-delete-popup'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="subtaskActionsPopup")
+  ul.pop-over-list
+    li
+      a.js-view-subtask(title="{{ subtask.title }}")
+        i.fa.fa-eye
+        | {{_ "view-it"}}
+      a.js-delete-subtask.delete-subtask
+        i.fa.fa-trash
+        | {{_ "delete"}} ...
+

@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { Spinner } from '/client/lib/spinner';
 
 const subManager = new SubsManager();
@@ -42,7 +43,6 @@ BlazeComponent.extendComponent({
     const position = this.currentData().position;
     const title = textarea.val().trim();
 
-    const formComponent = this.childComponents('addCardForm')[0];
     let sortIndex;
     if (position === 'top') {
       sortIndex = Utils.calculateIndex(null, firstCardDom).base;
@@ -50,6 +50,7 @@ BlazeComponent.extendComponent({
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
+    const formComponent = this.cardFormComponent();
     const members = formComponent.members.get();
     const labelIds = formComponent.labels.get();
     const customFields = formComponent.customFields.get();
@@ -129,6 +130,16 @@ BlazeComponent.extendComponent({
         this.scrollToBottom();
       }
     }
+  },
+
+  cardFormComponent() {
+    for (const inlinedForm of this.childComponents('inlinedForm')) {
+      const [addCardForm] = inlinedForm.childComponents('addCardForm');
+      if (addCardForm) {
+        return addCardForm;
+      }
+    }
+    return null;
   },
 
   scrollToBottom() {
@@ -336,7 +347,7 @@ BlazeComponent.extendComponent({
       [
         // User mentions
         {
-          match: /\B@([\w.]*)$/,
+          match: /\B@([\w.-]*)$/,
           search(term, callback) {
             const currentBoard = Boards.findOne(Session.get('currentBoard'));
             callback(
@@ -347,6 +358,9 @@ BlazeComponent.extendComponent({
             );
           },
           template(user) {
+            if (user.profile && user.profile.fullname) {
+              return (user.username + " (" + user.profile.fullname + ")");
+            }
             return user.username;
           },
           replace(user) {
@@ -716,6 +730,10 @@ BlazeComponent.extendComponent({
               (err, data) => {
                 _id = data;
                 subManager.subscribe('board', _id, false);
+                FlowRouter.go('board', {
+                  id: _id,
+                  slug: getSlug(element.title),
+                });
               },
             );
           }

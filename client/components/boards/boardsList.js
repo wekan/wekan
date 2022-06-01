@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 const subManager = new SubsManager();
 
 Template.boardListHeaderBar.events({
@@ -33,7 +35,6 @@ BlazeComponent.extendComponent({
     }
     if (userLanguage) {
       TAPi18n.setLanguage(userLanguage);
-      T9n.setLanguage(userLanguage);
     }
   },
 
@@ -194,6 +195,26 @@ BlazeComponent.extendComponent({
       sort: { sort: 1 /* boards default sorting */ },
     });
   },
+  boardLists(boardId) {
+    let boardLists = [];
+    const lists = Lists.find({'boardId' : boardId})
+    lists.forEach(list => {
+      let cardCount = Cards.find({'boardId':boardId, 'listId':list._id}).count()
+      boardLists.push(`${list.title}: ${cardCount}`);
+    });
+    return boardLists
+  },
+
+  boardMembers(boardId) {
+    let boardMembers = [];
+    const lists = Boards.findOne({'_id' : boardId})
+    let members = lists.members
+    members.forEach(member => {
+      boardMembers.push(member.userId);
+    });
+    return boardMembers
+  },
+
   isStarred() {
     const user = Meteor.user();
     return user && user.hasStarred(this.currentData()._id);
@@ -228,6 +249,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
         },
         'click .js-clone-board'(evt) {
+          let title = getSlug(Boards.findOne(this.currentData()._id).title) || 'cloned-board';
           Meteor.call(
             'copyBoard',
             this.currentData()._id,
@@ -238,11 +260,14 @@ BlazeComponent.extendComponent({
             },
             (err, res) => {
               if (err) {
-                this.setError(err.error);
+                console.error(err);
               } else {
                 Session.set('fromBoard', null);
                 subManager.subscribe('board', res, false);
-                Utils.goBoardId(res);
+                FlowRouter.go('board', {
+                  id: res,
+                  slug: title,
+                });
               }
             },
           );

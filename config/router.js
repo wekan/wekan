@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 let previousPath;
 FlowRouter.triggers.exit([
   ({ path }) => {
@@ -351,6 +353,30 @@ FlowRouter.route('/admin-reports', {
     BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'adminReports',
+    });
+  },
+});
+
+FlowRouter.route('/attachments', {
+  name: 'attachments',
+  triggersEnter: [
+    AccountsTemplates.ensureSignedIn,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentList', null);
+      Session.set('currentCard', null);
+      Session.set('popupCardId', null);
+      Session.set('popupCardBoardId', null);
+
+      Filter.reset();
+      Session.set('sortBy', '');
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'settingHeaderBar',
+      content: 'attachments',
     });
   },
 });

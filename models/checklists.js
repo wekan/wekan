@@ -102,6 +102,19 @@ Checklists.helpers({
       isFinished: true,
     }).count();
   },
+  /** returns the finished percent of the checklist */
+  finishedPercent() {
+    const checklistItems = ChecklistItems.find({ checklistId: this._id });
+    const count = checklistItems.count();
+    const checklistItemsFinished = checklistItems.fetch().filter(checklistItem => checklistItem.isFinished);
+
+    let ret = 0;
+
+    if (count > 0) {
+      ret = Math.round(checklistItemsFinished.length / count * 100);
+    }
+    return ret;
+  },
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
@@ -147,12 +160,43 @@ Checklists.mutations({
   setTitle(title) {
     return { $set: { title } };
   },
+  /** move the checklist to another card
+   * @param newCardId move the checklist to this cardId
+   */
+  move(newCardId) {
+    // update every activity
+    Activities.find(
+      {checklistId: this._id}
+    ).forEach(activity => {
+      Activities.update(activity._id, {
+        $set: {
+          cardId: newCardId,
+        },
+      });
+    });
+    // update every checklist-item
+    ChecklistItems.find(
+      {checklistId: this._id}
+    ).forEach(checklistItem => {
+      ChecklistItems.update(checklistItem._id, {
+        $set: {
+          cardId: newCardId,
+        },
+      });
+    });
+    // update the checklist itself
+    return {
+      $set: {
+        cardId: newCardId,
+      },
+    };
+  },
 });
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Checklists._collection._ensureIndex({ modifiedAt: -1 });
-    Checklists._collection._ensureIndex({ cardId: 1, createdAt: 1 });
+    Checklists._collection.createIndex({ modifiedAt: -1 });
+    Checklists._collection.createIndex({ cardId: 1, createdAt: 1 });
   });
 
   Checklists.after.insert((userId, doc) => {

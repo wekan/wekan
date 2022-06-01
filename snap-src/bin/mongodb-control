@@ -15,7 +15,7 @@ if [ -z "$LANG" ]; then
 fi
 
 export LC_ALL=C
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu
 
 # When starting MongoDB, if logfile exist, delete it, because now uses syslog instead of logfile,
 # because syslog usually already has log rotation.
@@ -23,12 +23,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
 if test -f "$SNAP_COMMON/mongodb.log"; then
    rm -f "$SNAP_COMMON/mongodb.log"
 fi
-
-# Not in use. If uploads directory does not exist, create it.
-# Wekan will store attachments there.
-#if [ ! -d "$SNAP_COMMON/uploads" ]; then
-#   mkdir "$SNAP_COMMON/uploads"
-#fi
 
 # Alternative: When starting MongoDB, and using logfile, truncate log to last 1000 lines of text.
 # 1) If file exists:
@@ -75,6 +69,8 @@ if [ -z "$MONGO_URL" ]; then
     # Drop indexes on database upgrade, when starting MongoDB
     #mongo wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
     mongo wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' $BIND_OPTIONS
+    # Delete incomplete uploads so that they would not prevent starting WeKan
+    mongo wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' $BIND_OPTIONS
 
 else
 
@@ -96,5 +92,7 @@ else
     # Drop indexes on database upgrade, when starting MongoDB
     #mongo wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
     mongo wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.2" });' $BIND_OPTIONS
+   # Delete incomplete uploads so that they would not prevent starting WeKan
+    mongo wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' $BIND_OPTIONS
 
 fi

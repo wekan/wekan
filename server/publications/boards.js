@@ -5,6 +5,7 @@
 import Users from "../../models/users";
 import Org from "../../models/org";
 import Team from "../../models/team";
+import Attachments from '../../models/attachments';
 
 Meteor.publish('boards', function() {
   const userId = this.userId;
@@ -229,10 +230,12 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       // Gather queries and send in bulk
       const cardComments = this.join(CardComments);
       cardComments.selector = _ids => ({ cardId: _ids });
+      const cardCommentsLinkedBoard = this.join(CardComments);
+      cardCommentsLinkedBoard.selector = _ids => ({ boardId: _ids });
       const cardCommentReactions = this.join(CardCommentReactions);
       cardCommentReactions.selector = _ids => ({ cardId: _ids });
-      const attachments = this.join(Attachments);
-      attachments.selector = _ids => ({ cardId: _ids });
+      const attachments = this.join(Attachments.collection);
+      attachments.selector = _ids => ({ 'meta.cardId': _ids });
       const checklists = this.join(Checklists);
       checklists.selector = _ids => ({ cardId: _ids });
       const checklistItems = this.join(ChecklistItems);
@@ -242,6 +245,8 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       const boards = this.join(Boards);
       const subCards = this.join(Cards);
       subCards.selector = _ids => ({ _id: _ids, archived: isArchived });
+      const linkedBoardCards = this.join(Cards);
+      linkedBoardCards.selector = _ids => ({ boardId: _ids });
 
       this.cursor(
         Cards.find({
@@ -258,13 +263,15 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
             checklistItems.push(impCardId);
           } else if (card.type === 'cardType-linkedBoard') {
             boards.push(card.linkedId);
+            linkedBoardCards.push(card.linkedId);
+            cardCommentsLinkedBoard.push(card.linkedId);
           }
           cardComments.push(cardId);
           attachments.push(cardId);
           checklists.push(cardId);
           checklistItems.push(cardId);
           parentCards.push(cardId);
-          cardCommentReactions.push(cardId)
+          cardCommentReactions.push(cardId);
         },
       );
 
@@ -277,6 +284,8 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       checklistItems.send();
       boards.send();
       parentCards.send();
+      linkedBoardCards.send();
+      cardCommentsLinkedBoard.send();
 
       if (board.members) {
         // Board members. This publication also includes former board members that
@@ -303,7 +312,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
           ),
         );
 
-        this.cursor(presences.find({ userId: { $in: memberIds } }));
+        //this.cursor(presences.find({ userId: { $in: memberIds } }));
       }
     },
   );

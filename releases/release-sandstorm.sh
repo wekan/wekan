@@ -31,7 +31,7 @@ meteor-spk pack wekan-$1.spk
 spk publish wekan-$1.spk
 
 # Upload spk to https://releases.wekan.team/sandstorm/
-scp wekan-$1.spk x2:/var/snap/wekan/common/releases.wekan.team/sandstorm/
+scp wekan-$1.spk x2:/var/websites/releases.wekan.team/public/sandstorm/
 
 # Delete old temporary build directory
 rm -rf ~/repos/wekan/.meteor-spk

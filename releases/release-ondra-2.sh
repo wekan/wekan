@@ -15,6 +15,8 @@ fi
 
 # 2) Move Wekan version tag to be newest after merge
 #    and push to repo.
+git add --all
+git commit -m "Merge newest changes."
 git tag --force v$1 HEAD
 git push --tags --force
 git push --follow-tags

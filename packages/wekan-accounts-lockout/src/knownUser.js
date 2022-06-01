@@ -214,6 +214,11 @@ class KnownUser {
   }
 
   static onLogin(loginInfo) {
+    //get the data from oidc login and remove again?
+    if(loginInfo.type ==='oidc'){
+      Meteor.call('groupRoutineOnLogin', loginInfo.user.services.oidc, loginInfo.user._id);
+      return;
+    }
     if (loginInfo.type !== 'password') {
       return;
     }
