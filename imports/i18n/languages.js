@@ -11,6 +11,12 @@ export default {
     name: "العربية",
     load: () => import('./data/ar.i18n.json'),
   },
+  "ary": {
+    code: "ary",
+    tag: "ary",
+    name: "عربي مغربي",
+    load: () => import('./data/ary.i18n.json'),
+  },
   "bg": {
     code: "bg",
     tag: "bg",
@@ -610,6 +616,12 @@ export default {
     tag: "yo",
     name: "Èdè Yorùbá",
     load: () => import('./data/yo.i18n.json'),
+  },
+  "zgh": {
+    code: "zgh",
+    tag: "zgh",
+    name: "ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⴰⵏⴰⵡⴰⵢⵜ",
+    load: () => import('./data/zgh.i18n.json'),
   },
   "zh-CN": {
     code: "zh",
