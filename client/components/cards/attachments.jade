@@ -19,7 +19,9 @@ template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail(href="{{link}}" title="{{name}}" data-lightbox="{{name}}")
+        // TODO: Add popup of attachment image later, with some swipebox or lightbox that would not add bugs
+        // a.attachment-thumbnail(href="{{link}}" title="{{name}}")
+        span.attachment-thumbnail(href="{{link}}" title="{{name}}")
           if link
             if isImage
               img.attachment-thumbnail-img(src="{{link}}")
