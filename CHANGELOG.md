@@ -1,16 +1,25 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# v6.27 2022-05-28 WeKan ® release
+# Upcoming WeKan ® release
 
 This release adds the following updates:
 
-- [Upgraded to Meteor 2.7.3-beta.0](https://github.com/wekan/wekan/commit/25e50e3908a52a7bac61f8b939ad7c78cbd79060).
+- [Upgraded to Meteor 2.7.3](https://github.com/wekan/wekan/commit/43b2d714043e053874e3c1101ae6e464d2e61b7e).
   Thanks to Meteor developers.
 
 and adds the following translations:
 
 - [Added translations: Moroccan Arabic (ary) and Standard Moroccan Tamazight (zgh)](https://github.com/wekan/wekan/commit/5af4f54f4c702f9cc4df60a27ac234421e41575d).
   Thanks to translators.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.27 2022-05-28 WeKan ® release
+
+This release adds the following updates:
+
+- [Upgraded to Meteor 2.7.3-beta.0](https://github.com/wekan/wekan/commit/25e50e3908a52a7bac61f8b939ad7c78cbd79060).
+  Thanks to Meteor developers.
 
 and fixes the following bugs:
 
