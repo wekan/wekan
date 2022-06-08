@@ -20,6 +20,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Move and copy card set sorting](https://github.com/wekan/wekan/pull/4557).
   Thanks to mfilser.
+- [Updated dependencies. Try to fix Binary release on releases.wekan.team lacks the CSS](https://github.com/wekan/wekan/commit/937797356ceeb99bf66eb826e13fc55f266c8739).
+  Thanks to znerol, mrcancer91, BabyFnord and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
