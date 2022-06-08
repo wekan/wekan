@@ -17,7 +17,6 @@
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "flatted": "^3.2.2",
-    "puppeteer": "^1.20.0",
     "sinon": "^13.0.2",
     "sinon-chai": "^3.7.0"
   },
@@ -59,8 +58,5 @@
     "source-map-support": "^0.5.20",
     "summernote": "^0.8.20",
     "uuid": "^8.3.2"
-  },
-  "meteor": {
-    "testModule": "tests/main.js"
   }
 }
