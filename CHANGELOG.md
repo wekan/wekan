@@ -11,6 +11,8 @@ and adds the following translations:
 
 - [Added translations: Moroccan Arabic (ary) and Standard Moroccan Tamazight (zgh)](https://github.com/wekan/wekan/commit/5af4f54f4c702f9cc4df60a27ac234421e41575d).
   Thanks to translators.
+- [Try to detect Japanese (Japan) better](https://github.com/wekan/wekan/commit/e25050316f6f018f68b03bef6fccbdaea7248461).
+  Thanks to takenoko14 at Transifex and xet7.
 
 and fixes the following bugs:
 
