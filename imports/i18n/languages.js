@@ -329,6 +329,12 @@ export default {
     name: "日本語",
     load: () => import('./data/ja.i18n.json'),
   },
+  "ja-JP": {
+    code: "ja",
+    tag: "ja-JP",
+    name: "日本語",
+    load: () => import('./data/ja.i18n.json'),
+  },
   "ka": {
     code: "ka",
     tag: "ka",
