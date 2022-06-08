@@ -16,6 +16,8 @@ and fixes the following bugs:
 
 - [Removed lightbox that caused bugs like Maximum stack size exceeded. TODO later: Add a new way to open attachment image bigger](https://github.com/wekan/wekan/commit/dfea3d0e735f1665a14f7e534e352e0e00871a02).
   Thanks to xet7.
+- [Move and copy card set sorting](https://github.com/wekan/wekan/pull/4557).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
