@@ -6,6 +6,10 @@ echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally 
 echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "      You can still use any other locale as your main locale."
 
+export $(cat .env)
+
+export OAUTH2_REQUEST_PERMISSIONS="openid profile email wekan_scope"
+
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
 
 function pause(){
@@ -111,6 +115,7 @@ do
 
     "Run Meteor for dev on http://localhost:4000")
 		WRITABLE_PATH=.. NODE_OPTIONS="--max_old_space_size=4096" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
+
 		break
 		;;
 

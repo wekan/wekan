@@ -1710,10 +1710,16 @@ BlazeComponent.extendComponent({
 EscapeActions.register(
   'detailsPane',
   () => {
+    //save description editing on EscapeAction
+    if (document.getElementsByClassName("editor js-new-description-input").item(0))
+    {
+      Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+    }
     if (Session.get('cardDetailsIsDragging')) {
       // Reset dragging status as the mouse landed outside the cardDetails template area and this will prevent a mousedown event from firing
       Session.set('cardDetailsIsDragging', false);
       Session.set('cardDetailsIsMouseDown', false);
+
     } else {
       // Prevent close card when the user is selecting text and moves the mouse cursor outside the card detail area
       Utils.goBoardId(Session.get('currentBoard'));
