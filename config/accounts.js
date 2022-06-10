@@ -3,7 +3,16 @@ const emailField = AccountsTemplates.removeField('email');
 let disableRegistration = false;
 let disableForgotPassword = false;
 let passwordLoginDisabled = false;
-let oidcEnabled = false;
+let oidcRedirectionEnabled = false;
+let oauthServerUrl = "home";
+let oauthDashboardUrl = "";
+
+Meteor.call('isOidcRedirectionEnabled', (_, result) => {
+  if(result)
+  {
+    oidcRedirectionEnabled = true;
+  }
+});
 
 Meteor.call('isPasswordLoginDisabled', (_, result) => {
   if (result) {
@@ -12,15 +21,17 @@ Meteor.call('isPasswordLoginDisabled', (_, result) => {
     //console.log(result);
   }
 });
+
 Meteor.call('getOauthServerUrl', (_, result) => {
   if (result) {
     oauthServerUrl = result;
-    const a = document.createElement("a");
-    a.href = oauthServerUrl;
-    const baseUrl = `${a.protocol}//${a.hostname}`;
-    console.log(baseUrl);
   }
-  else oauthServerUrl = "home";
+});
+
+Meteor.call('getOauthDashboardUrl', (_, result) => {
+  if (result) {
+    oauthDashboardUrl = result;
+  }
 });
 
 Meteor.call('isDisableRegistration', (_, result) => {
@@ -30,9 +41,7 @@ Meteor.call('isDisableRegistration', (_, result) => {
     //console.log(result);
   }
 });
-Meteor.call('isOidcRedirectionEnabled', (_, result) => {
-  oidcEnabled = result ? true : false;
-});
+
 Meteor.call('isDisableForgotPassword', (_, result) => {
   if (result) {
     disableForgotPassword = true;
@@ -70,17 +79,19 @@ AccountsTemplates.configure({
   showForgotPasswordLink: !disableForgotPassword,
   forbidClientAccountCreation: disableRegistration,
   onLogoutHook() {
-    if(oidcEnabled && oauthServerUrl!=="home")
+    // here comeslogic for redirect
+    if(oidcRedirectionEnabled)
     {
-
-      oidcEnabled = !oidcEnabled;
-      window.location.href = oauthServerUrl + "/if/user/#/library";
+      window.location = oauthServerUrl + oauthDashboardUrl;
     }
-    const homePage = 'home';
-    if (FlowRouter.getRouteName() === homePage) {
-      FlowRouter.reload();
-    } else {
-      FlowRouter.go(homePage);
+    else
+    {
+      const homePage = 'home';
+      if (FlowRouter.getRouteName() === homePage) {
+        FlowRouter.reload();
+      } else {
+        FlowRouter.go(homePage);
+      }
     }
   },
 });

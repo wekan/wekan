@@ -54,46 +54,37 @@ Template.userFormsLayout.onCreated(function() {
     }
   });
 
-  Meteor.call('isOidcRedirectionEnabled', (_, result) => {
-    serviceName = 'oidc';
-    if (result) {
-      if(Session.get("tmp") && ((Math.floor(Date.now() / 1000) - Session.get("tmp") < 5) ))
+  if(!Meteor.user()?.profile)
+  {
+
+    Meteor.call('isOidcRedirectionEnabled', (_, result) => {
+      serviceName = 'oidc';
+      if (result)
       {
-        window.location.reload(true);
-        console.log(Meteor.user().profile);
-      }
-      else
-      {
-        Session.set("tmp", Math.floor(Date.now() / 1000));
-        console.log("Säschön", Session.get("tmp"));
         methodName = "loginWithOidc";
         var loginWithService = Meteor[methodName];
         AccountsTemplates.options.socialLoginStyle = 'redirect';
         options = {
-            loginStyle: AccountsTemplates.options.socialLoginStyle,
+          loginStyle: AccountsTemplates.options.socialLoginStyle,
         };
-        console.log("keys", options);
         loginWithService(options, function(err) {
           AccountsTemplates.setDisabled(false);
           if (err && err instanceof Accounts.LoginCancelledError)
           {
-            console.log("login cancelled");
           }
           else if (err && err instanceof ServiceConfiguration.ConfigError)
           {
-            console.log("service config");
             if (Accounts._loginButtonsSession) return Accounts._loginButtonsSession.configureService('oidc');
           }
           else
           {
-            console.log("else_block");
             AccountsTemplates.submitCallback(err, state);
           }
-      });
+        });
       }
-    }
-    else console.log("kein result");
-  });
+      else console.log("oidc redirect not set");
+    });
+  }
   Meteor.call('isDisableRegistration', (_, result) => {
     if (result) {
       $('.at-signup-link').hide();
@@ -326,7 +317,6 @@ Template.userFormsLayout.events({
     event.preventDefault();
   },
   'click #at-btn'(event, templateInstance) {
-    console.log("hello");
     if (FlowRouter.getRouteName() === 'atSignIn') {
       templateInstance.isLoading.set(true);
       authentication(event, templateInstance).then(() => {

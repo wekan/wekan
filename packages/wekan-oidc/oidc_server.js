@@ -19,8 +19,6 @@ var serviceData = {};
 var userinfo = {};
 
 OAuth.registerService('oidc', 2, null, function (query) {
-  console.log(Date.now());
-  console.log("query: ", query);
   var debug = process.env.DEBUG || false;
 
   var token = getToken(query);

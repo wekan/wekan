@@ -7,8 +7,6 @@ Oidc = {};
 //   error.
 Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
   // support both (options, callback) and (callback).
-  console.log("from client");
-  console.log(options);
   if (!credentialRequestCompleteCallback && typeof options === 'function') {
     credentialRequestCompleteCallback = options;
     options = {};
@@ -57,14 +55,13 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
     width:  options.popupOptions.width || 320,
     height: options.popupOptions.height || 450
   };
-  OAuth.saveDataForRedirect(options.loginService, options.credentialToken);
-  Accounts.oauth.tryLoginAfterPopupClosed(credentialToken, credentialRequestCompleteCallback);
-  // OAuth.launchLogin({
-  //   loginService: 'oidc',
-  //   loginStyle: loginStyle,
-  //   loginUrl: loginUrl,
-  //   credentialRequestCompleteCallback: credentialRequestCompleteCallback,
-  //   credentialToken: credentialToken,
-  //   popupOptions: popupOptions,
-  // });
+
+  OAuth.launchLogin({
+    loginService: 'oidc',
+    loginStyle: loginStyle,
+    loginUrl: loginUrl,
+    credentialRequestCompleteCallback: credentialRequestCompleteCallback,
+    credentialToken: credentialToken,
+    popupOptions: popupOptions,
+  });
 };

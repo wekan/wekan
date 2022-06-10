@@ -508,8 +508,7 @@ if (Meteor.isServer) {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
     isOidcRedirectionEnabled(){
-      console.log(process.env.REDIRECT_LOGIN_LOGOUT_TO_OIDC === 'true');
-      return process.env.REDIRECT_LOGIN_LOGOUT_TO_OIDC === 'true';
+      return process.env.OIDC_REDIRECTION_ENABLED === 'true';
     },
   });
 }
