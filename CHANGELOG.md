@@ -6,6 +6,8 @@ This release adds the following updates:
 
 - [Docker base image to Ubuntu 22.04](https://github.com/wekan/wekan/commit/6b4ffa69c64f0186a8b1b3ac175b633ac7c24263).
   Thanks to Ubuntu developers.
+- [Updated ostrio:files](https://github.com/wekan/wekan/commit/0d67a86f2c9c1c9696d8507c60e53d47a226a6ad).
+  Thanks to developers of dependencies.
 
 and adds the following translations:
 
