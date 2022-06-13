@@ -137,6 +137,12 @@ export default {
     name: "Esperanto",
     load: () => import('./data/eo.i18n.json'),
   },
+  "ast-ES": {
+    code: "es",
+    tag: "ast-ES",
+    name: "español de Asturias",
+    load: () => import('./data/ast-ES.i18n.json'),
+  },
   "es-AR": {
     code: "es",
     tag: "es-AR",
