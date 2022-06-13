@@ -7,6 +7,11 @@ This release adds the following updates:
 - [Docker base image to Ubuntu 22.04](https://github.com/wekan/wekan/commit/6b4ffa69c64f0186a8b1b3ac175b633ac7c24263).
   Thanks to Ubuntu developers.
 
+and adds the following translations:
+
+- [Added translation Asturia (Spain)](https://github.com/wekan/wekan/commit/12615fef5d44cf611b3f1d9fc0a7be3e98b8c042).
+  Thanks to translators.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.28 2022-06-08 WeKan ® release
