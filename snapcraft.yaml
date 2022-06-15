@@ -90,6 +90,16 @@ parts:
         prime:
             - $mongo
 
+    mongodb44:
+        plugin: dump
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.14.tgz
+        source-type: tgz
+        organize:
+          bin: mongo44bin
+          usr: mongo44usr
+        stage:
+          - -init
+
     wekan:
         source: .
         plugin: npm
@@ -108,6 +118,7 @@ parts:
             - capnproto
             - curl
             - wget
+            - unzip
             - execstack
             - nodejs
             - npm
