@@ -107,6 +107,7 @@ parts:
             - g++
             - capnproto
             - curl
+            - wget
             - execstack
             - nodejs
             - npm
