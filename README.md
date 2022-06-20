@@ -19,7 +19,7 @@
 Translations to non-English languages are accepted only at [Transifex](https://transifex.com/wekan/wekan) using webbrowser.
 New English strings of new features can be added as PRs to edge branch file wekan/i18n/en.i18n.json .
 
-## [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues)
+## [WeKan ® feature requests and bugs](https://github.com/wekan/wekan/issues)
 
 Please add most of your questions as GitHub issue: [WeKan ® Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 It's better than at chat where details get lost when chat scrolls up.
@@ -28,7 +28,7 @@ It's better than at chat where details get lost when chat scrolls up.
 
 [Discussions][discussions] - WeKan Community GitHub Discussions, that are not [Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 
-[Wekan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
+[WeKan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
 ## Docker: Please only use Docker release tags
 
