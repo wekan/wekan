@@ -17,7 +17,7 @@
 ## [Translate WeKan ® at Transifex](https://transifex.com/wekan/wekan)
 
 Translations to non-English languages are accepted only at [Transifex](https://transifex.com/wekan/wekan) using webbrowser.
-New English strings of new features can be added as PRs to edge branch file wekan/i18n/en.i18n.json .
+New English strings of new features can be added as PRs to master branch file wekan/imports/i18n/data/en.i18n.json .
 
 ## [WeKan ® feature requests and bugs](https://github.com/wekan/wekan/issues)
 
