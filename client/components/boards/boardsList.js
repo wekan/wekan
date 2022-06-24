@@ -197,7 +197,7 @@ BlazeComponent.extendComponent({
   },
   boardLists(boardId) {
     let boardLists = [];
-    const lists = Lists.find({'boardId' : boardId})
+    const lists = Lists.find({'boardId' : boardId, 'archived': false})
     lists.forEach(list => {
       let cardCount = Cards.find({'boardId':boardId, 'listId':list._id}).count()
       boardLists.push(`${list.title}: ${cardCount}`);
