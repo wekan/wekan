@@ -19,6 +19,13 @@ and adds the following translations:
 - [Added translation Asturia (Spain)](https://github.com/wekan/wekan/commit/12615fef5d44cf611b3f1d9fc0a7be3e98b8c042).
   Thanks to translators.
 
+and fixes the following bugs:
+
+- [Do not show archived lists on All Boards](https://github.com/wekan/wekan/pull/4573).
+  Thanks to  helioguardabaxo.
+- [Fix div max-width on My Cards table view](https://github.com/wekan/wekan/pull/4574).
+  Thanks to  helioguardabaxo.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.28 2022-06-08 WeKan ® release
