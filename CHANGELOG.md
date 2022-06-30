@@ -18,6 +18,8 @@ and adds the following translations:
 
 - [Added translation Asturia (Spain)](https://github.com/wekan/wekan/commit/12615fef5d44cf611b3f1d9fc0a7be3e98b8c042).
   Thanks to translators.
+- [Added translations: Arabic (Algeria) (ar_DZ), Azerbaijani (az),  Azerbaijani (Azerbaijan) (az_AZ), Azerbaijani (Latin) (az@latin)](https://github.com/wekan/wekan/commit/99b2fdbf99f26ee9df2e1ff906db2d740210f902).
+  Thanks to translators.
 
 and fixes the following bugs:
 
