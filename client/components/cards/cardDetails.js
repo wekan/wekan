@@ -1035,18 +1035,8 @@ class DialogWithBoardSwimlaneList extends BlazeComponent {
     const title = textarea.val().trim();
 
     if (title) {
-      const oldTitle = card.title;
-      card.title = title;
-      card.coverId = '';
-
       // insert new card to the top of new list
-      const minOrder = card.getMinSort(listId, swimlaneId);
-      card.sort = minOrder - 1;
-
-      const newCardId = card.copy(boardId, swimlaneId, listId);
-
-      // restore the old card title, otherwise the card title would change in the current view (only temporary)
-      card.title = oldTitle;
+      const newCardId = Meteor.call('copyCard', card._id, boardId, swimlaneId, listId, true, {title: title});
 
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the

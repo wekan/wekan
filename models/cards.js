@@ -3038,6 +3038,40 @@ const addCronJob = _.debounce(
 );
 
 if (Meteor.isServer) {
+  Meteor.methods({
+    /** copies a card
+     * <li> this method is needed on the server because attachments can only be copied on the server (access to file system)
+     * @param card id to copy
+     * @param boardId copy to this board
+     * @param swimlandeId copy to this swimlane id
+     * @param listId copy to this list id
+     * @param insertAtTop insert the card at the top?
+     * @param mergeCardValues this values into the copied card
+     * @return the new card id
+     */
+    copyCard(cardId, boardId, swimlaneId, listId, insertAtTop, mergeCardValues) {
+      check(cardId, String);
+      check(boardId, String);
+      check(swimlaneId, String);
+      check(listId, String);
+      check(insertAtTop, Boolean);
+      check(mergeCardValues, Object);
+
+      const card = Cards.findOne({_id: cardId});
+      Object.assign(card, mergeCardValues);
+
+      const sort = card.getSort(listId, swimlaneId, insertAtTop);
+      if (insertAtTop) {
+        card.sort = sort - 1;
+      } else
+      {
+        card.sort = sort + 1;
+      }
+
+      const ret = card.copy(boardId, swimlaneId, listId);
+      return ret;
+    },
+  });
   // Cards are often fetched within a board, so we create an index to make these
   // queries more efficient.
   Meteor.startup(() => {
