@@ -829,7 +829,7 @@ Template.editCardAssignerForm.events({
 
 /** Move Card Dialog */
 (class extends DialogWithBoardSwimlaneList {
-  getCardDialogOptions() {
+  getDialogOptions() {
     const ret = Meteor.user().getMoveAndCopyDialogOptions();
     return ret;
   }
@@ -843,7 +843,7 @@ Template.editCardAssignerForm.events({
 
 /** Copy Card Dialog */
 (class extends DialogWithBoardSwimlaneList {
-  getCardDialogOptions() {
+  getDialogOptions() {
     const ret = Meteor.user().getMoveAndCopyDialogOptions();
     return ret;
   }
@@ -870,7 +870,7 @@ Template.editCardAssignerForm.events({
 
 /** Convert Checklist-Item to card dialog */
 (class extends DialogWithBoardSwimlaneList {
-  getCardDialogOptions() {
+  getDialogOptions() {
     const ret = Meteor.user().getMoveAndCopyDialogOptions();
     return ret;
   }
@@ -900,7 +900,7 @@ Template.editCardAssignerForm.events({
 
 /** Copy many cards dialog */
 (class extends DialogWithBoardSwimlaneList {
-  getCardDialogOptions() {
+  getDialogOptions() {
     const ret = Meteor.user().getMoveAndCopyDialogOptions();
     return ret;
   }

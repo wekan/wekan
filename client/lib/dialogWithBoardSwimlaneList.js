@@ -2,7 +2,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   /** returns the card dialog options
    * @return Object with properties { boardId, swimlaneId, listId }
    */
-  getCardDialogOptions() {
+  getDialogOptions() {
   }
 
   /** list is done
@@ -12,35 +12,43 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   setDone(listId, options) {
   }
 
+  /** get the default options
+   * @return the options
+   */
+  getDefaultOption(boardId) {
+    const ret = {
+      'boardId' : "",
+      'swimlaneId' : "",
+      'listId' : "",
+    }
+    return ret;
+  }
+
   onCreated() {
     this.currentBoardId = Utils.getCurrentBoardId();
     this.selectedBoardId = new ReactiveVar(this.currentBoardId);
     this.selectedSwimlaneId = new ReactiveVar('');
     this.selectedListId = new ReactiveVar('');
-    this.setCardDialogOption(this.currentBoardId);
+    this.setOption(this.currentBoardId);
   }
 
   /** set the last confirmed dialog field values
    * @param boardId the current board id
    */
-  setCardDialogOption(boardId) {
-    this.cardDialogOption = {
-      'boardId' : "",
-      'swimlaneId' : "",
-      'listId' : "",
-    }
+  setOption(boardId) {
+    this.cardOption = this.getDefaultOption();
 
-    let currentOptions = this.getCardDialogOptions();
+    let currentOptions = this.getDialogOptions();
     if (currentOptions && boardId && currentOptions[boardId]) {
-      this.cardDialogOption = currentOptions[boardId];
-      if (this.cardDialogOption.boardId &&
-          this.cardDialogOption.swimlaneId &&
-          this.cardDialogOption.listId
+      this.cardOption = currentOptions[boardId];
+      if (this.cardOption.boardId &&
+          this.cardOption.swimlaneId &&
+          this.cardOption.listId
       )
       {
-        this.selectedBoardId.set(this.cardDialogOption.boardId)
-        this.selectedSwimlaneId.set(this.cardDialogOption.swimlaneId);
-        this.selectedListId.set(this.cardDialogOption.listId);
+        this.selectedBoardId.set(this.cardOption.boardId)
+        this.selectedSwimlaneId.set(this.cardOption.swimlaneId);
+        this.selectedListId.set(this.cardOption.listId);
       }
     }
     this.getBoardData(this.selectedBoardId.get());
@@ -72,8 +80,8 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
    * @param boardId check this board id
    * @return if the board id was the last confirmed one
    */
-  isCardDialogOptionBoardId(boardId) {
-    let ret = this.cardDialogOption.boardId == boardId;
+  isDialogOptionBoardId(boardId) {
+    let ret = this.cardOption.boardId == boardId;
     return ret;
   }
 
@@ -81,8 +89,8 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
    * @param swimlaneId check this swimlane id
    * @return if the swimlane id was the last confirmed one
    */
-  isCardDialogOptionSwimlaneId(swimlaneId) {
-    let ret = this.cardDialogOption.swimlaneId == swimlaneId;
+  isDialogOptionSwimlaneId(swimlaneId) {
+    let ret = this.cardOption.swimlaneId == swimlaneId;
     return ret;
   }
 
@@ -90,8 +98,8 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
    * @param listId check this list id
    * @return if the list id was the last confirmed one
    */
-  isCardDialogOptionListId(listId) {
-    let ret = this.cardDialogOption.listId == listId;
+  isDialogOptionListId(listId) {
+    let ret = this.cardOption.listId == listId;
     return ret;
   }
 
