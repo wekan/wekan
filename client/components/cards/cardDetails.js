@@ -1057,113 +1057,6 @@ class DialogWithBoardSwimlaneList extends BlazeComponent {
   }
 }).register('copyCardPopup');
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentBoardId = Utils.getCurrentBoardId();
-    this.selectedBoardId = new ReactiveVar(this.currentBoardId);
-    this.setMoveAndCopyDialogOption(this.currentBoardId);
-  },
-
-  /** set the last confirmed dialog field values
-   * @param boardId the current board id
-   */
-  setMoveAndCopyDialogOption(boardId) {
-    this.moveAndCopyDialogOption = {
-      'boardId': "",
-      'swimlaneId': "",
-      'listId': "",
-    }
-
-    let currentOptions = Meteor.user().getMoveAndCopyDialogOptions();
-    if (currentOptions && boardId && currentOptions[boardId]) {
-      this.moveAndCopyDialogOption = currentOptions[boardId];
-      if (this.moveAndCopyDialogOption.boardId) {
-        this.selectedBoardId.set(this.moveAndCopyDialogOption.boardId)
-      }
-    }
-    subManager.subscribe('board', this.selectedBoardId.get(), false);
-  },
-
-  /** returns if the board id was the last confirmed one
-   * @param boardId check this board id
-   * @return if the board id was the last confirmed one
-   */
-  isMoveAndCopyDialogOptionBoardId(boardId) {
-    let ret = this.moveAndCopyDialogOption.boardId == boardId;
-    return ret;
-  },
-
-  /** returns if the swimlane id was the last confirmed one
-   * @param swimlaneId check this swimlane id
-   * @return if the swimlane id was the last confirmed one
-   */
-  isMoveAndCopyDialogOptionSwimlaneId(swimlaneId) {
-    let ret = this.moveAndCopyDialogOption.swimlaneId == swimlaneId;
-    return ret;
-  },
-
-  /** returns if the list id was the last confirmed one
-   * @param listId check this list id
-   * @return if the list id was the last confirmed one
-   */
-  isMoveAndCopyDialogOptionListId(listId) {
-    let ret = this.moveAndCopyDialogOption.listId == listId;
-    return ret;
-  },
-
-  boards() {
-    return Boards.find(
-      {
-        archived: false,
-        'members.userId': Meteor.userId(),
-        _id: { $ne: Meteor.user().getTemplatesBoardId() },
-      },
-      {
-        sort: { sort: 1 /* boards default sorting */ },
-      },
-    );
-  },
-
-  swimlanes() {
-    const board = Boards.findOne(this.selectedBoardId.get());
-    return board.swimlanes();
-  },
-
-  aBoardLists() {
-    const board = Boards.findOne(this.selectedBoardId.get());
-    return board.lists();
-  },
-
-  events() {
-    return [
-      {
-        'click .js-done'() {
-          const boardSelect = this.$('.js-select-boards')[0];
-          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
-
-          const listSelect = this.$('.js-select-lists')[0];
-          const listId = listSelect.options[listSelect.selectedIndex].value;
-
-          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
-          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
-
-          const options = {
-            'boardId': boardId,
-            'swimlaneId': swimlaneId,
-            'listId': listId,
-          }
-          Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
-        },
-        'change .js-select-boards'(event) {
-          const boardId = $(event.currentTarget).val();
-          this.selectedBoardId.set(boardId);
-          subManager.subscribe('board', boardId, false);
-        },
-      },
-    ];
-  },
-}).register('boardsAndLists');
-
 Template.convertChecklistItemToCardPopup.events({
   'click .js-done'() {
     const card = Utils.getCurrentCard();
@@ -1192,60 +1085,47 @@ Template.convertChecklistItemToCardPopup.events({
   },
 });
 
-Template.copyChecklistToManyCardsPopup.events({
-  'click .js-done'() {
-    const card = Utils.getCurrentCard();
-    const oldId = card._id;
-    card._id = null;
-    const lSelect = $('.js-select-lists')[0];
-    card.listId = lSelect.options[lSelect.selectedIndex].value;
-    const slSelect = $('.js-select-swimlanes')[0];
-    card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
-    const bSelect = $('.js-select-boards')[0];
-    card.boardId = bSelect.options[bSelect.selectedIndex].value;
-    const textarea = $('#copy-card-title');
-    const titleEntry = textarea.val().trim();
-    // insert new card to the bottom of new list
-    card.sort = Lists.findOne(card.listId).cards().count();
+/** Copy many cards dialog */
+(class extends DialogWithBoardSwimlaneList {
+  getCardDialogOptions() {
+    const ret = Meteor.user().getMoveAndCopyDialogOptions();
+    return ret;
+  }
+  setDone(boardId, swimlaneId, listId, options) {
+    Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    const card = this.data();
 
-    if (titleEntry) {
-      const titleList = JSON.parse(titleEntry);
+    const textarea = this.$('#copy-card-title');
+    const title = textarea.val().trim();
+
+    if (title) {
+      const oldTitle = card.title;
+
+      const titleList = JSON.parse(title);
       for (let i = 0; i < titleList.length; i++) {
         const obj = titleList[i];
         card.title = obj.title;
         card.description = obj.description;
         card.coverId = '';
-        const _id = Cards.insert(card);
+
+        // insert new card to the top of new list
+        const maxOrder = card.getMaxSort(listId, swimlaneId);
+        card.sort = maxOrder + 1;
+
+        const newCardId = card.copy(boardId, swimlaneId, listId);
+
         // In case the filter is active we need to add the newly inserted card in
         // the list of exceptions -- cards that are not filtered. Otherwise the
         // card will disappear instantly.
         // See https://github.com/wekan/wekan/issues/80
-        Filter.addException(_id);
-
-        // copy checklists
-        Checklists.find({ cardId: oldId }).forEach((ch) => {
-          ch.copy(_id);
-        });
-
-        // copy subtasks
-        const cursor = Cards.find({ parentId: oldId });
-        cursor.forEach(function () {
-          'use strict';
-          const subtask = arguments[0];
-          subtask.parentId = _id;
-          subtask._id = null;
-          /* const newSubtaskId = */ Cards.insert(subtask);
-        });
-
-        // copy card comments
-        CardComments.find({ cardId: oldId }).forEach((cmt) => {
-          cmt.copy(_id);
-        });
+        Filter.addException(newCardId);
       }
-      Popup.back();
+
+      // restore the old card title, otherwise the card title would change in the current view (only temporary)
+      card.title = oldTitle;
     }
-  },
-});
+  }
+}).register('copyChecklistToManyCardsPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {

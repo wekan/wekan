@@ -609,6 +609,8 @@ Cards.helpers({
     CardComments.find({ cardId: oldId }).forEach(cmt => {
       cmt.copy(_id);
     });
+    // restore the id, otherwise new copies will fail
+    this._id = oldId;
 
     return _id;
   },
