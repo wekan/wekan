@@ -687,7 +687,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
-  'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
+  'click .js-copy-checklist-cards': Popup.open('copyManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-move-card-to-top'(event) {
     event.preventDefault();
@@ -1101,7 +1101,7 @@ Template.convertChecklistItemToCardPopup.events({
       }
     }
   }
-}).register('copyChecklistToManyCardsPopup');
+}).register('copyManyCardsPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {
