@@ -1089,20 +1089,9 @@ Template.convertChecklistItemToCardPopup.events({
     const title = textarea.val().trim();
 
     if (title) {
-      const oldTitle = card.title;
-
       const titleList = JSON.parse(title);
-      for (let i = 0; i < titleList.length; i++) {
-        const obj = titleList[i];
-        card.title = obj.title;
-        card.description = obj.description;
-        card.coverId = '';
-
-        // insert new card to the top of new list
-        const maxOrder = card.getMaxSort(listId, swimlaneId);
-        card.sort = maxOrder + 1;
-
-        const newCardId = card.copy(boardId, swimlaneId, listId);
+      for (const obj of titleList) {
+        const newCardId = Meteor.call('copyCard', card._id, boardId, swimlaneId, listId, false, {title: obj.title, description: obj.description});
 
         // In case the filter is active we need to add the newly inserted card in
         // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -1110,9 +1099,6 @@ Template.convertChecklistItemToCardPopup.events({
         // See https://github.com/wekan/wekan/issues/80
         Filter.addException(newCardId);
       }
-
-      // restore the old card title, otherwise the card title would change in the current view (only temporary)
-      card.title = oldTitle;
     }
   }
 }).register('copyChecklistToManyCardsPopup');
