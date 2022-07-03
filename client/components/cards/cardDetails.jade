@@ -718,7 +718,7 @@ template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = getTitle
-  +boardsAndLists
+  +copyAndMoveCard
 
 template(name="copyChecklistToManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyChecklistToManyCardsPopup-instructions'}}:

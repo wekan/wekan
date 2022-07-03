@@ -1020,6 +1020,43 @@ class DialogWithBoardSwimlaneList extends BlazeComponent {
   }
 }).register('moveCardPopup');
 
+/** Copy Card Dialog */
+(class extends DialogWithBoardSwimlaneList {
+  getCardDialogOptions() {
+    const ret = Meteor.user().getMoveAndCopyDialogOptions();
+    return ret;
+  }
+  setDone(boardId, swimlaneId, listId, options) {
+    Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    const card = this.data();
+
+    // const textarea = $('#copy-card-title');
+    const textarea = this.$('#copy-card-title');
+    const title = textarea.val().trim();
+
+    if (title) {
+      const oldTitle = card.title;
+      card.title = title;
+      card.coverId = '';
+
+      // insert new card to the top of new list
+      const minOrder = card.getMinSort(listId, swimlaneId);
+      card.sort = minOrder - 1;
+
+      const newCardId = card.copy(boardId, swimlaneId, listId);
+
+      // restore the old card title, otherwise the card title would change in the current view (only temporary)
+      card.title = oldTitle;
+
+      // In case the filter is active we need to add the newly inserted card in
+      // the list of exceptions -- cards that are not filtered. Otherwise the
+      // card will disappear instantly.
+      // See https://github.com/wekan/wekan/issues/80
+      Filter.addException(newCardId);
+    }
+  }
+}).register('copyCardPopup');
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoardId = Utils.getCurrentBoardId();
@@ -1126,37 +1163,6 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('boardsAndLists');
-
-Template.copyCardPopup.events({
-  'click .js-done'() {
-    const card = Utils.getCurrentCard();
-    const lSelect = $('.js-select-lists')[0];
-    const listId = lSelect.options[lSelect.selectedIndex].value;
-    const slSelect = $('.js-select-swimlanes')[0];
-    const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
-    const bSelect = $('.js-select-boards')[0];
-    const boardId = bSelect.options[bSelect.selectedIndex].value;
-    const textarea = $('#copy-card-title');
-    const title = textarea.val().trim();
-
-    // insert new card to the top of new list
-    const minOrder = card.getMinSort(listId, swimlaneId);
-    card.sort = minOrder - 1;
-
-    if (title) {
-      card.title = title;
-      card.coverId = '';
-      const _id = card.copy(boardId, swimlaneId, listId);
-      // In case the filter is active we need to add the newly inserted card in
-      // the list of exceptions -- cards that are not filtered. Otherwise the
-      // card will disappear instantly.
-      // See https://github.com/wekan/wekan/issues/80
-      Filter.addException(_id);
-
-      Popup.back(2);
-    }
-  },
-});
 
 Template.convertChecklistItemToCardPopup.events({
   'click .js-done'() {
