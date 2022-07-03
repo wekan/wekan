@@ -115,35 +115,6 @@ template(name='checklistItemDetail')
         +viewer
           = item.title
 
-template(name="convertChecklistItemToCardPopup")
-  label(for='convert-checklist-item-to-card-title') {{_ 'title'}}:
-  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
-    = item.title
-  +boardsSwimlanesAndLists
-
-template(name="boardsSwimlanesAndLists")
-  unless currentUser.isWorker
-    label {{_ 'boards'}}:
-    select.js-select-boards(autofocus)
-      each boards
-        if $eq _id currentBoard._id
-          option(value="{{_id}}" selected) {{_ 'current'}}
-        else
-          option(value="{{_id}}") {{title}}
-
-  label {{_ 'swimlanes'}}:
-  select.js-select-swimlanes
-    each swimlanes
-      option(value="{{_id}}") {{title}}
-
-  label {{_ 'lists'}}:
-  select.js-select-lists
-    each aBoardLists
-      option(value="{{_id}}") {{title}}
-
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
-
 template(name="checklistActionsPopup")
   ul.pop-over-list
     li

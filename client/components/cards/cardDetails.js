@@ -1047,16 +1047,17 @@ class DialogWithBoardSwimlaneList extends BlazeComponent {
   }
 }).register('copyCardPopup');
 
-Template.convertChecklistItemToCardPopup.events({
-  'click .js-done'() {
-    const card = Utils.getCurrentCard();
-    const lSelect = $('.js-select-lists')[0];
-    const listId = lSelect.options[lSelect.selectedIndex].value;
-    const slSelect = $('.js-select-swimlanes')[0];
-    const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
-    const bSelect = $('.js-select-boards')[0];
-    const boardId = bSelect.options[bSelect.selectedIndex].value;
-    const textarea = $('#copy-card-title');
+/** Convert Checklist-Item to card dialog */
+(class extends DialogWithBoardSwimlaneList {
+  getCardDialogOptions() {
+    const ret = Meteor.user().getMoveAndCopyDialogOptions();
+    return ret;
+  }
+  setDone(boardId, swimlaneId, listId, options) {
+    Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    const card = this.data();
+
+    const textarea = this.$('#copy-card-title');
     const title = textarea.val().trim();
 
     if (title) {
@@ -1067,13 +1068,14 @@ Template.convertChecklistItemToCardPopup.events({
         swimlaneId: swimlaneId,
         sort: 0,
       });
+      const card = Cards.findOne(_id);
+      const minOrder = card.getMinSort();
+      card.move(card.boardId, card.swimlaneId, card.listId, minOrder - 1);
+
       Filter.addException(_id);
-
-      Popup.back();
-
     }
-  },
-});
+  }
+}).register('convertChecklistItemToCardPopup');
 
 /** Copy many cards dialog */
 (class extends DialogWithBoardSwimlaneList {

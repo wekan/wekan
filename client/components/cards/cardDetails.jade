@@ -725,6 +725,12 @@ template(name="copyManyCardsPopup")
     | {{_ 'copyManyCardsPopup-format'}}
   +copyAndMoveCard
 
+template(name="convertChecklistItemToCardPopup")
+  label(for='convert-checklist-item-to-card-title') {{_ 'title'}}:
+  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+    = item.title
+  +copyAndMoveCard
+
 template(name="copyAndMoveCard")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
