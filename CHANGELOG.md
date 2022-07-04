@@ -29,6 +29,8 @@ and fixes the following bugs:
   Thanks to  helioguardabaxo.
 - [Fix div max-width on My Cards table view](https://github.com/wekan/wekan/pull/4574).
   Thanks to  helioguardabaxo.
+- [Fixed one Typo in CSS Style Sheet](https://github.com/wekan/wekan/pull/4577).
+  Thanks to JonasPfeiferb1.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
