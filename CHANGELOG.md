@@ -31,6 +31,8 @@ and fixes the following bugs:
   Thanks to  helioguardabaxo.
 - [Fixed one Typo in CSS Style Sheet](https://github.com/wekan/wekan/pull/4577).
   Thanks to JonasPfeiferb1.
+- [Comment out unused CSS](https://github.com/wekan/wekan/commit/724d1386f6943ad87b8e32f5544cc84ae211904c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
