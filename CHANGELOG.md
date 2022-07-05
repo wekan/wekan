@@ -37,6 +37,8 @@ and fixes the following bugs:
   Thanks to JonasPfeiferb1.
 - [Comment out unused CSS](https://github.com/wekan/wekan/commit/724d1386f6943ad87b8e32f5544cc84ae211904c).
   Thanks to xet7.
+- [Move/Copy card closes now the popup if done](https://github.com/wekan/wekan/pull/4582).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
