@@ -11,6 +11,8 @@ This release adds the following features:
 
 and adds the following updates:
 
+- [Updated to Node.js v14.20.0](https://github.com/wekan/wekan/commit/239dd1a3411a3d4f51b109e1a0505a5a23bc72ee).
+  Thanks to Node.js developers.
 - [Docker base image to Ubuntu 22.04](https://github.com/wekan/wekan/commit/6b4ffa69c64f0186a8b1b3ac175b633ac7c24263).
   Thanks to Ubuntu developers.
 - Updated ostrio:files.
