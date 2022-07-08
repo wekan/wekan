@@ -17,6 +17,46 @@ fi
 export LC_ALL=C
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu
 
+if test -f "$SNAP_COMMON/01-migrate-mongo3-to-mongo5.txt"; then
+   touch "$SNAP_COMMON/01-migrate-mongo3-to-mongo5.txt"
+   # Stop MongoDB
+   touch "$SNAP_COMMON/02-disable-mongo.txt"
+   snapctl stop --disable ${SNAP_NAME}.mongodb
+   touch "$SNAP_COMMON/03-eval-stop-mongo.txt"
+   mongo wekan --eval "db.getSiblingDB('admin').shutdownServer()" $BIND_OPTIONS
+   # Start MongoDB 4.4
+   touch "$SNAP_COMMON/04-start-mongo44.txt"
+   $SNAP/mongo44bin/mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/02_mongodb_log_while_migrate.txt --logappend --journal $MONGO_URL --quiet
+   # Wait MongoDB 4.4 to start
+   touch "$SNAP_COMMON/05-wait-2s-mongo44-start.txt"
+   sleep 2s
+   # Dump Old MongoDB 3.x database
+   touch "$SNAP_COMMON/06-dump-database.txt"
+   (cd $SNAP_COMMON && mongodump --port ${MONGODB_PORT})
+   # Stop MongoDB 4.4
+   touch "$SNAP_COMMON/07-stop-mongo44.txt"
+   $SNAP/mongo44bin/mongo wekan --eval "db.getSiblingDB('admin').shutdownServer()" $BIND_OPTIONS
+   # Wait MongoDB 4.4 to stop
+   touch "$SNAP_COMMON/08-wait-2s-mongo44-stop.txt"
+   sleep 2s
+   # Start MongoDB 5
+   touch "$SNAP_COMMON/09-start-mongo5.txt"
+   mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/10_mongodb_log_while_migrate.txt --logappend --journal $MONGO_URL --quiet
+   # Restore database
+   touch "$SNAP_COMMON/11-mongorestore-to-mongo5.txt"
+   (cd $SNAP_COMMON && mongorestore --port ${MONGODB_PORT})
+   # Wait 5s
+   touch "$SNAP_COMMON/12-wait-5s-after-restore.txt"
+   sleep 5s
+   # Shutdown mongodb
+   touch "$SNAP_COMMON/13-shutdown-mongodb.txt"
+   mongo wekan --eval "db.getSiblingDB('admin').shutdownServer()" $BIND_OPTIONS
+   touch "$SNAP_COMMON/14-wait-5s-after-mongo5-shutdown.txt"
+   sleep 5s
+   # Enable MongoDB 5
+   touch "$SNAP_COMMON/15-enable-mongo-5.txt"
+   snapctl start --enable ${SNAP_NAME}.mongodb
+fi
 # When starting MongoDB, if logfile exist, delete it, because now uses syslog instead of logfile,
 # because syslog usually already has log rotation.
 # https://github.com/wekan/wekan-snap/issues/92

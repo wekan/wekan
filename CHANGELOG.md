@@ -1,5 +1,47 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release adds the following features:
+
+- [Resizeable size of list width and height. Size is not saved yet. In Progress](https://github.com/wekan/wekan/commit/01d0dd3b1dd0a3c9764e7c9d31eab739db2d3ad8).
+  Thanks to NLBlackEagle and xet7.
+- [00checkStartup, on error give more details on current user which run's wekan](https://github.com/wekan/wekan/pull/4581).
+  Thanks to mfilser.
+
+and adds the following updates:
+
+- [Docker base image to Ubuntu 22.04](https://github.com/wekan/wekan/commit/6b4ffa69c64f0186a8b1b3ac175b633ac7c24263).
+  Thanks to Ubuntu developers.
+- Updated ostrio:files.
+  [Part 1](https://github.com/wekan/wekan/commit/0d67a86f2c9c1c9696d8507c60e53d47a226a6ad),
+  [Part 1](https://github.com/wekan/wekan/commit/c3bfcb78e9047a84d43041bebcec56718eaa140b).
+  Thanks to developers of dependencies.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/ae09f0f0083a96c2211fdc02e60b4ff6a2f413ca).
+  Thanks to developers of dependencies.
+
+and adds the following translations:
+
+- [Added translation Asturia (Spain)](https://github.com/wekan/wekan/commit/12615fef5d44cf611b3f1d9fc0a7be3e98b8c042).
+  Thanks to translators.
+- [Added translations: Arabic (Algeria) (ar_DZ), Azerbaijani (az),  Azerbaijani (Azerbaijan) (az_AZ), Azerbaijani (Latin) (az@latin)](https://github.com/wekan/wekan/commit/99b2fdbf99f26ee9df2e1ff906db2d740210f902).
+  Thanks to translators.
+
+and fixes the following bugs:
+
+- [Do not show archived lists on All Boards](https://github.com/wekan/wekan/pull/4573).
+  Thanks to  helioguardabaxo.
+- [Fix div max-width on My Cards table view](https://github.com/wekan/wekan/pull/4574).
+  Thanks to  helioguardabaxo.
+- [Fixed one Typo in CSS Style Sheet](https://github.com/wekan/wekan/pull/4577).
+  Thanks to JonasPfeiferb1.
+- [Comment out unused CSS](https://github.com/wekan/wekan/commit/724d1386f6943ad87b8e32f5544cc84ae211904c).
+  Thanks to xet7.
+- [Move/Copy card closes now the popup if done](https://github.com/wekan/wekan/pull/4582).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.28 2022-06-08 WeKan ® release
 
 This release adds the following updates:

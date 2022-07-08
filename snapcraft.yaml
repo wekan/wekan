@@ -35,51 +35,69 @@ slots:
 
 apps:
     wekan:
-        command: wekan-control
+        command: ./bin/wekan-control
         daemon: simple
         plugs: [network, network-bind]
 
     mongodb:
-        command: mongodb-control
+        command: ./bin/mongodb-control
         daemon: simple
         plugs: [network, network-bind]
 
     caddy:
-        command: caddy-control
+        command: ./bin/caddy-control
         daemon: simple
         plugs: [network, network-bind]
 
     help:
-        command: wekan-help
+        command: ./bin/wekan-help
 
     database-backup:
-        command: mongodb-backup
+        command: ./bin/mongodb-backup
         plugs: [network, network-bind]
 
     database-list-backups:
-        command: ls -al $SNAP_COMMON/db-backups/
+        command: ./bin/database-list-backups
 
     database-restore:
-        command: mongodb-restore
+        command: ./bin/mongodb-restore
         plugs: [network, network-bind]
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.8.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.9.tgz
         plugin: dump
         stage-packages:
             - libssl1.1
-            - libcurl3-dev
-            - libcurl4-openssl-dev
+            - libcurl4
+            - libstemmer0d
+            - zlib1g
+            - libsnappy1v5
+            - libyaml-cpp0.6
+            - libpcre3
+            - libpcrecpp0v5
+            - libboost-system1.71.0
+            - libboost-iostreams1.71.0
+            - libboost-filesystem1.71.0
+            - libboost-program-options1.71.0
+            - libgoogle-perftools4
         filesets:
             mongo:
-                - usr
                 - bin
-                - lib
+                - usr
         stage:
             - $mongo
         prime:
             - $mongo
+
+    mongodb44:
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.14.tgz
+        plugin: dump
+        organize:
+          bin: mongo44bin
+          usr: mongo44usr
+        stage:
+          - -init
 
     wekan:
         source: .
@@ -98,6 +116,8 @@ parts:
             - g++
             - capnproto
             - curl
+            - wget
+            - unzip
             - execstack
             - nodejs
             - npm
@@ -106,7 +126,7 @@ parts:
             - libfontconfig1
         override-build: |
             echo "Cleaning environment first"
-            rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
+            #rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             rm -rf .build
             #echo "Using http npm packages so speedup install process https://stackoverflow.com/questions/39760113/callback-called-more-than-once-while-running-npm-install"
             #echo "registry=http://registry.npmjs.org/" > ~/.npmrc
@@ -116,32 +136,40 @@ parts:
             #npm -g install node-gyp --unsafe-perm
             #npm -g install node-pre-gyp --unsafe-perm
             #npm -g install fibers --unsafe-perm
-            echo "Installing meteor"
-            curl https://install.meteor.com/ -o install_meteor.sh
-            chmod +x install_meteor.sh
-            sh install_meteor.sh
-            rm install_meteor.sh
+            ##echo "Installing meteor"
+            ##curl https://install.meteor.com/ -o install_meteor.sh
+            ##chmod +x install_meteor.sh
+            ##sh install_meteor.sh
+            ##rm install_meteor.sh
             #npm -g install meteor --unsafe-perm --allow-superuser
-            rm -rf .build
-            chmod u+w *.json
-            npm install --unsafe-perm
-            meteor build .build --directory --allow-superuser
+            #rm -rf .build
+            ##chmod u+w *.json
+            #npm install --unsafe-perm
+            ##npm install
+            ##meteor build .build --directory --allow-superuser
             # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
-            rm -rf .build/bundle/programs/web.browser.legacy
+            ##rm -rf .build/bundle/programs/web.browser.legacy
             # Change to directory .build/bundle/programs/server
-            cd .build/bundle/programs/server
-            chmod u+w *.json
-            npm install --unsafe-perm
-            cd node_modules/fibers
-            node build.js
-            cd ../../../../../..
+            ##cd .build/bundle/programs/server
+            ##chmod u+w *.json
+            #npm install --unsafe-perm
+            ##npm install
+            ##cd node_modules/fibers
+            ##node build.js
+            ##cd ../../../../../..
             # Cleanup
-            cd .build/bundle
-            find . -type d -name '*-garbage*' | xargs rm -rf
-            find . -name '*phantom*' | xargs rm -rf
-            find . -name '.*.swp' | xargs rm -f
-            find . -name '*.swp' | xargs rm -f
-            cd ../..
+            mkdir .build
+            cd .build
+            wget https://github.com/wekan/wekan/releases/download/v6.28/wekan-6.28-amd64.zip
+            unzip wekan-6.28-amd64.zip
+            rm wekan-6.28-amd64.zip
+            cd ..
+            ##cd .build/bundle
+            ##find . -type d -name '*-garbage*' | xargs rm -rf
+            ##find . -name '*phantom*' | xargs rm -rf
+            ##find . -name '.*.swp' | xargs rm -f
+            ##find . -name '*.swp' | xargs rm -f
+            ##cd ../..
             # Add fibers multi arch
             #cd .build/bundle/programs/server/node_modules/fibers/bin
             #curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
@@ -149,6 +177,12 @@ parts:
             #rm fibers-multi.7z
             #cd ../../../../../../..
             # Copy to Snap
+            wget https://nodejs.org/dist/latest-v14.x/node-v14.19.3-linux-x64.tar.xz
+            tar -xf node-v14.19.3-linux-x64.tar.xz node-v14.19.3-linux-x64/bin/node
+            rm node-v14.19.3-linux-x64.tar.xz
+            mkdir $SNAPCRAFT_PART_INSTALL/bin
+            cp -p node-v14.19.3-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v14.19.3-linux-x64
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan

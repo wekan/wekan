@@ -1,4 +1,10 @@
 export default {
+  "ar-DZ": {
+    code: "ar",
+    tag: "ar-DZ",
+    name: "دزيرية",
+    load: () => import('./data/ar-DZ.i18n.json'),
+  },
   "ar-EG": {
     code: "ar",
     tag: "ar-EG",
@@ -16,6 +22,24 @@ export default {
     tag: "ary",
     name: "عربي مغربي",
     load: () => import('./data/ary.i18n.json'),
+  },
+  "az-AZ": {
+    code: "az",
+    tag: "az-AZ",
+    name: "Azərbaycan (Azərbaycan)",
+    load: () => import('./data/az-AZ.i18n.json'),
+  },
+  "az-LA": {
+    code: "az",
+    tag: "az-LA",
+    name: "Azərbaycan (Latin)",
+    load: () => import('./data/az-LA.i18n.json'),
+  },
+  "az": {
+    code: "az",
+    tag: "az",
+    name: "Azərbaycan",
+    load: () => import('./data/az.i18n.json'),
   },
   "bg": {
     code: "bg",
@@ -136,6 +160,12 @@ export default {
     tag: "eo",
     name: "Esperanto",
     load: () => import('./data/eo.i18n.json'),
+  },
+  "ast-ES": {
+    code: "es",
+    tag: "ast-ES",
+    name: "español de Asturias",
+    load: () => import('./data/ast-ES.i18n.json'),
   },
   "es-AR": {
     code: "es",

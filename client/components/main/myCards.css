@@ -63,6 +63,7 @@
 .my-cards-card-title-table {
   font-weight: bold;
   padding-left: 2px;
+  max-width: 243px;
 }
 .my-cards-board-badge {
   width: 36px;
