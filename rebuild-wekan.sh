@@ -39,7 +39,7 @@ do
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 14.19.3
+			sudo n 14.20.0
 			#sudo npm -g install npm
 			## Latest npm with Meteor 2.2
 			sudo npm -g install node-gyp
