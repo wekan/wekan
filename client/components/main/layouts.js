@@ -58,7 +58,6 @@ Template.userFormsLayout.onCreated(function () {
           options = {
             loginStyle: AccountsTemplates.options.socialLoginStyle,
           };
-          console.log('options :',JSON.stringify(options,null,2));
           Meteor.loginWithOidc(options);
         }
         else console.log("oidc redirect not set");

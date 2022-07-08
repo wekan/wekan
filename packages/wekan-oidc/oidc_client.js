@@ -12,56 +12,61 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
     options = {};
   }
 
-  var config = ServiceConfiguration.configurations.findOne({service: 'oidc'});
-  if (!config) {
-    credentialRequestCompleteCallback && credentialRequestCompleteCallback(
-      new ServiceConfiguration.ConfigError('Service oidc not configured.'));
-    return;
-  }
+  Meteor.call("getServiceConfiguration", "oidc",(_, result) => {
+    if (result) {
+      var config = result;
+      var credentialToken = Random.secret();
+      var loginStyle = OAuth._loginStyle('oidc', config, options);
+      // options
+      options = options || {};
+      options.client_id = config.clientId;
+      options.response_type = options.response_type || 'code';
+      options.redirect_uri = OAuth._redirectUri('oidc', config);
+      options.state = OAuth._stateParam(loginStyle, credentialToken, options.redirectUrl);
+      options.scope = config.requestPermissions || 'openid profile email';
 
-  var credentialToken = Random.secret();
-  var loginStyle = OAuth._loginStyle('oidc', config, options);
+      if (config.loginStyle && config.loginStyle == 'popup') {
+        options.display = 'popup';
+      }
 
-  // options
-  options = options || {};
-  options.client_id = config.clientId;
-  options.response_type = options.response_type || 'code';
-  options.redirect_uri = OAuth._redirectUri('oidc', config);
-  options.state = OAuth._stateParam(loginStyle, credentialToken, options.redirectUrl);
-  options.scope = config.requestPermissions || 'openid profile email';
+      var loginUrl = config.serverUrl + config.authorizationEndpoint;
+      // check if the loginUrl already contains a "?"
+      var first = loginUrl.indexOf('?') === -1;
+      for (var k in options) {
+        if (first) {
+          loginUrl += '?';
+          first = false;
+        }
+        else {
+          loginUrl += '&'
+        }
+        loginUrl += encodeURIComponent(k) + '=' + encodeURIComponent(options[k]);
+      }
 
-  if (config.loginStyle && config.loginStyle == 'popup') {
-    options.display = 'popup';
-  }
+      //console.log('XXX: loginURL: ' + loginUrl)
 
-  var loginUrl = config.serverUrl + config.authorizationEndpoint;
-  // check if the loginUrl already contains a "?"
-  var first = loginUrl.indexOf('?') === -1;
-  for (var k in options) {
-    if (first) {
-      loginUrl += '?';
-      first = false;
+      options.popupOptions = options.popupOptions || {};
+      var popupOptions = {
+        width:  options.popupOptions.width || 320,
+        height: options.popupOptions.height || 450
+      };
+
+      OAuth.launchLogin({
+        loginService: 'oidc',
+        loginStyle: loginStyle,
+        loginUrl: loginUrl,
+        credentialRequestCompleteCallback: credentialRequestCompleteCallback,
+        credentialToken: credentialToken,
+        popupOptions: popupOptions,
+      });
     }
-    else {
-      loginUrl += '&'
+    else
+    {
+      credentialRequestCompleteCallback && credentialRequestCompleteCallback(
+        new ServiceConfiguration.ConfigError('Service oidc not configured.'));
+      return;
     }
-    loginUrl += encodeURIComponent(k) + '=' + encodeURIComponent(options[k]);
-  }
-
-  //console.log('XXX: loginURL: ' + loginUrl)
-
-  options.popupOptions = options.popupOptions || {};
-  var popupOptions = {
-    width:  options.popupOptions.width || 320,
-    height: options.popupOptions.height || 450
-  };
-
-  OAuth.launchLogin({
-    loginService: 'oidc',
-    loginStyle: loginStyle,
-    loginUrl: loginUrl,
-    credentialRequestCompleteCallback: credentialRequestCompleteCallback,
-    credentialToken: credentialToken,
-    popupOptions: popupOptions,
   });
+
+
 };

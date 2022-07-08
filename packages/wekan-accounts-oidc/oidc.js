@@ -7,10 +7,7 @@ if (Meteor.isClient) {
       callback = options;
       options = null;
     }
-    console.log(options.loginStyle);
-    console.log(callback);
     var credentialRequestCompleteCallback = Accounts.oauth.credentialRequestCompleteHandler(callback);
-    console.log("credentialCallback",credentialRequestCompleteCallback);
     Oidc.requestCredential(options, credentialRequestCompleteCallback);
   };
   }
