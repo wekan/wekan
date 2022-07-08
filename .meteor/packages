@@ -3,12 +3,11 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-base@1.4.0
+meteor-base@1.5.1
 
 # Build system
-ecmascript@0.15.1
-standard-minifier-css@1.7.2
-standard-minifier-js@2.6.0
+ecmascript@0.16.2
+standard-minifier-js@2.8.0
 mquandalle:jade
 coffeescript@2.4.1!
 
@@ -21,18 +20,21 @@ cfs:standard-packages
 cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
-matb33:collection-hooks
 matteodem:easy-search
-mongo@1.11.0
+mongo@1.15.0
 mquandalle:collection-mutations
 
 # Account system
-kenton:accounts-sandstorm
-service-configuration@1.0.11
-useraccounts:unstyled
+accounts-password@2.3.1
+useraccounts:core
 useraccounts:flow-routing
+useraccounts:unstyled
+simple:rest-accounts-password
 wekan-ldap
 wekan-accounts-cas
+wekan-accounts-sandstorm
+wekan-accounts-lockout
+wekan-oidc
 wekan-accounts-oidc
 
 # Utilities
@@ -43,7 +45,6 @@ reactive-dict@1.3.0
 session@1.2.0
 tracker@1.2.0
 underscore@1.0.10
-3stack:presence
 arillo:flow-router-helpers
 audit-argument-checks@1.0.7
 kadira:blaze-layout
@@ -51,39 +52,28 @@ kadira:dochead
 mquandalle:autofocus
 ongoworks:speakingurl
 raix:handlebar-helpers
-tap:i18n
-http@1.4.2
+http@2.0.0! # force new http package
 
 # UI components
 blaze
+ostrio:i18n
 reactive-var@1.0.11
 fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
 mquandalle:mousetrap-bindglobal
-peerlibrary:blaze-components@=0.15.1
+peerlibrary:blaze-components
 templates:tabs
 meteor-autosize
-simple:json-routes
 rajit:bootstrap3-datepicker
 shell-server@0.5.0
-simple:rest-accounts-password
-useraccounts:core
-email@2.0.0
-horka:swipebox
-dynamic-import@0.6.0
-
-accounts-password@1.6.2
+email@2.2.1
+dynamic-import@0.7.2
 cfs:gridfs
 rzymek:fullcalendar
-momentjs:moment@2.22.2
-mquandalle:moment
 msavin:usercache
 # Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
-coagmano:stylus@1.1.0!
 meteorhacks:subs-manager
-meteorhacks:picker
-lamhieu:unblock
 meteorhacks:aggregate@1.3.0
 wekan-markdown
 konecty:mongo-counter
@@ -91,8 +81,6 @@ percolate:synced-cron
 cfs:filesystem
 ostrio:cookies
 ostrio:files@2.0.1
-tmeasday:check-npm-versions
-steffo:meteor-accounts-saml
 rajit:bootstrap3-datepicker-fi
 rajit:bootstrap3-datepicker-ar
 rajit:bootstrap3-datepicker-bg
@@ -141,10 +129,15 @@ rajit:bootstrap3-datepicker-uk
 rajit:bootstrap3-datepicker-vi
 rajit:bootstrap3-datepicker-zh-cn
 rajit:bootstrap3-datepicker-zh-tw
-staringatlights:fast-render
-spacebars
 easylogic:summernote
 pascoual:pdfkit
-wekan-accounts-lockout
 lmieulet:meteor-coverage
-meteortesting:mocha
+meteortesting:mocha@2.0.3
+aldeed:simple-schema
+matb33:collection-hooks
+simple:json-routes
+kadira:flow-router
+spacebars
+service-configuration@1.3.0
+communitypackages:picker
+minifier-css

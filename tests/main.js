@@ -17,6 +17,8 @@
 // they are. However, if you want to restict tests to server-only or client-only
 // you need to wrap them inside a new describe-block
 
+import '/imports/i18n/i18n.test.js';
+
 if (Meteor.isServer) {
   describe('server', function() {
     import '../server/lib/tests/utils.tests';

@@ -93,9 +93,13 @@ Triggers.runTriggers = function(triggers, context, redirectFn, after) {
       throw new Error("already redirected");
     }
 
+    /*
+    // Commenting out, so that redirects work when not in sync.
+    // https://github.com/wekan/wekan/issues/4514
     if(!inCurrentLoop) {
       throw new Error("redirect needs to be done in sync");
     }
+    */
 
     if(!url) {
       throw new Error("trigger redirect requires an URL");

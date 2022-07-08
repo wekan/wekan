@@ -331,8 +331,8 @@ Swimlanes.hookOptions.after.update = { fetchPrevious: false };
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Swimlanes._collection._ensureIndex({ modifiedAt: -1 });
-    Swimlanes._collection._ensureIndex({ boardId: 1 });
+    Swimlanes._collection.createIndex({ modifiedAt: -1 });
+    Swimlanes._collection.createIndex({ boardId: 1 });
   });
 
   Swimlanes.after.insert((userId, doc) => {

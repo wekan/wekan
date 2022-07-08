@@ -1,0 +1,3 @@
+.build*
+test-app/.meteor/local
+test-app/.meteor-spk

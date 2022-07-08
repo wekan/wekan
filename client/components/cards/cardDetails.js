@@ -1,3 +1,5 @@
+import moment from 'moment/min/moment-with-locales';
+import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -7,7 +9,6 @@ import Users from '/models/users';
 import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
-import moment from 'moment';
 import { UserAvatar } from '../users/userAvatar';
 
 const subManager = new SubsManager();
@@ -211,11 +212,6 @@ BlazeComponent.extendComponent({
       //-------------
     }
 
-    if (!Utils.isMiniScreen()) {
-      Meteor.setTimeout(() => {
-        this.scrollParentContainer();
-      }, 500);
-    }
     const $checklistsDom = this.$('.card-checklist-items');
 
     $checklistsDom.sortable({
@@ -392,7 +388,9 @@ BlazeComponent.extendComponent({
           let card = this.data();
           const listSelect = this.$('.js-select-card-details-lists')[0];
           const listId = listSelect.options[listSelect.selectedIndex].value;
-          card.move(card.boardId, card.swimlaneId, listId, card.sort);
+
+          const minOrder = card.getMinSort(listId, card.swimlaneId);
+          card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
         },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);
@@ -439,10 +437,20 @@ BlazeComponent.extendComponent({
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
+          if (!Utils.isMiniScreen()) {
+            Meteor.setTimeout(() => {
+              this.scrollParentContainer();
+            }, 500);
+          }
         },
         'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
+          if (!Utils.isMiniScreen()) {
+            Meteor.setTimeout(() => {
+              this.scrollParentContainer();
+            }, 500);
+          }
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
@@ -671,21 +679,13 @@ Template.cardDetailsActionsPopup.events({
   'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-move-card-to-top'(event) {
     event.preventDefault();
-    const minOrder = _.min(
-      this.list()
-        .cardsUnfiltered(this.swimlaneId)
-        .map((c) => c.sort),
-    );
+    const minOrder = this.getMinSort();
     this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
     Popup.back();
   },
   'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
-    const maxOrder = _.max(
-      this.list()
-        .cardsUnfiltered(this.swimlaneId)
-        .map((c) => c.sort),
-    );
+    const maxOrder = this.getMaxSort();
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
     Popup.back();
   },
@@ -830,7 +830,9 @@ Template.moveCardPopup.events({
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
     const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
-    card.move(boardId, swimlaneId, listId, 0);
+
+    const minOrder = card.getMinSort(listId, swimlaneId);
+    card.move(boardId, swimlaneId, listId, minOrder - 1);
 
     // set new id's to card object in case the card is moved to top by the comment "moveCard" after this command (.js-move-card)
     this.boardId = boardId;
@@ -958,8 +960,10 @@ Template.copyCardPopup.events({
     const boardId = bSelect.options[bSelect.selectedIndex].value;
     const textarea = $('#copy-card-title');
     const title = textarea.val().trim();
-    // insert new card to the bottom of new list
-    card.sort = Lists.findOne(card.listId).cards().count();
+
+    // insert new card to the top of new list
+    const minOrder = card.getMinSort(listId, swimlaneId);
+    card.sort = minOrder - 1;
 
     if (title) {
       card.title = title;
@@ -1795,6 +1799,7 @@ Template.cardAssigneePopup.helpers({
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
+/*
   presenceStatusClassName() {
     const user = Users.findOne(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
@@ -1804,7 +1809,7 @@ Template.cardAssigneePopup.helpers({
       return 'active';
     else return 'idle';
   },
-
+*/
   isCardAssignee() {
     const card = Template.parentData();
     const cardAssignees = card.getAssignees();

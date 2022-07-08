@@ -415,9 +415,9 @@ Lists.hookOptions.after.update = { fetchPrevious: false };
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Lists._collection._ensureIndex({ modifiedAt: -1 });
-    Lists._collection._ensureIndex({ boardId: 1 });
-    Lists._collection._ensureIndex({ archivedAt: -1 });
+    Lists._collection.createIndex({ modifiedAt: -1 });
+    Lists._collection.createIndex({ boardId: 1 });
+    Lists._collection.createIndex({ archivedAt: -1 });
   });
 
   Lists.after.insert((userId, doc) => {

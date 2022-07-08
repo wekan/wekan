@@ -1,0 +1,217 @@
+.rules-list {
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 400px;
+  padding-right: 5px;
+}
+.rules-lists-item {
+  display: block;
+  position: relative;
+  overflow: auto;
+  border-bottom: 1px solid #bfbfbf;
+}
+.rules-lists-item p {
+  display: inline-block;
+  float: left;
+  margin: revert;
+}
+.hide-element {
+  display: none !important;
+}
+.user-details {
+  display: inline-block;
+}
+.rules-btns-group {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.rules-btns-group button {
+  margin: auto;
+}
+.rules-add {
+  display: block;
+  overflow: auto;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.rules-add input {
+  display: inline-block;
+  float: right;
+  margin: auto;
+  margin-right: 10px;
+}
+.rules-add button {
+  display: inline-block;
+  float: right;
+  margin: auto;
+}
+.rules-back {
+  display: block;
+  overflow: auto;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.rules-back button {
+  display: inline-block;
+  float: right;
+  margin: auto;
+  margin-right: 14px;
+}
+.flex,
+.triggers-content .triggers-body .triggers-side-menu ul li a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.triggers-content {
+  color: #727479;
+  background: #dedede;
+}
+.triggers-content .triggers-body {
+  display: flex;
+  padding-top: 15px;
+  height: 100%;
+}
+.triggers-content .triggers-body .triggers-side-menu {
+  background-color: #f7f7f7;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  height: intrinsic;
+  box-shadow: inset -1px -1px 3px rgba(0,0,0,0.05);
+}
+.triggers-content .triggers-body .triggers-side-menu ul li {
+  margin: 0.1rem 0.2rem;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 25px;
+  position: relative;
+}
+.triggers-content .triggers-body .triggers-side-menu ul li i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: none;
+  transform: translate(-50%, -50%);
+}
+.triggers-content .triggers-body .triggers-side-menu ul li.active {
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.triggers-content .triggers-body .triggers-side-menu ul li:hover {
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.triggers-content .triggers-body .triggers-side-menu ul li a {
+  padding: 1rem 0 1rem 1rem;
+  width: 95%;
+}
+.triggers-content .triggers-body .triggers-side-menu ul li a span {
+  font-size: 13px;
+}
+.triggers-content .triggers-body .triggers-main-body {
+  padding: 0.1em 1em;
+  width: 100%;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item {
+  overflow: auto;
+  padding: 10px;
+  height: 100px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  position: relative;
+  background-color: #fff;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-text {
+  font-size: 16px;
+  display: inline-block;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-inline-button {
+  font-size: 16px;
+  display: inline;
+  padding: 6px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: inset -1px -1px 3px rgba(0,0,0,0.05);
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-inline-button:hover,
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-inline-button.is-active {
+  box-shadow: 0 0 0 2px #666 inset;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-text.trigger-text-email {
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-dropdown {
+  display: inline-block;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-dropdown select {
+  width: auto;
+  height: 30px;
+  margin: 0px;
+  margin-left: 5px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content .trigger-dropdown input {
+  display: inline-block;
+  width: 80px;
+  margin: 0;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-content-mail {
+  left: 20px;
+  right: 100px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: inset -1px -1px 3px rgba(0,0,0,0.05);
+  text-align: center;
+  font-size: 20px;
+  right: 10px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: none;
+  transform: translate(-50%, -50%);
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button:hover,
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button.is-active {
+  box-shadow: 0 0 0 2px #666 inset;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button.trigger-button-email {
+  top: 30px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button.trigger-button-person {
+  right: -40px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button.trigger-button-color {
+  top: unset;
+  position: unset;
+  transform: unset;
+  font-size: 16px;
+  width: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 40px;
+}
+.triggers-content .triggers-body .triggers-main-body .trigger-item.trigger-item-mail {
+  height: 300px;
+}

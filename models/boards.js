@@ -1,3 +1,5 @@
+import escapeForRegex from 'escape-string-regexp';
+import { TAPi18n } from '/imports/i18n';
 import {
   ALLOWED_BOARD_COLORS,
   ALLOWED_COLORS,
@@ -7,7 +9,7 @@ import {
 } from '/config/const';
 import Users from "./users";
 
-const escapeForRegex = require('escape-string-regexp');
+// const escapeForRegex = require('escape-string-regexp');
 
 Boards = new Mongo.Collection('boards');
 
@@ -1737,15 +1739,15 @@ Boards.before.insert((userId, doc) => {
 if (Meteor.isServer) {
   // Let MongoDB ensure that a member is not included twice in the same board
   Meteor.startup(() => {
-    Boards._collection._ensureIndex({ modifiedAt: -1 });
-    Boards._collection._ensureIndex(
+    Boards._collection.createIndex({ modifiedAt: -1 });
+    Boards._collection.createIndex(
       {
         _id: 1,
         'members.userId': 1,
       },
       { unique: true },
     );
-    Boards._collection._ensureIndex({ 'members.userId': 1 });
+    Boards._collection.createIndex({ 'members.userId': 1 });
   });
 
   // Genesis: the first activity of the newly created board

@@ -1,3 +1,5 @@
+import moment from 'moment/min/moment-with-locales';
+import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
 
 // exporter maybe is broken since Gridfs introduced, add fs and path
@@ -432,7 +434,7 @@ class ExporterExcel {
 
     //add blank row
     ws.addRow().values = ['', '', '', '', '', ''];
-    
+
     //add board description
     ws.addRow().values = [
       TAPi18n.__('description','',this.userLanguage),
@@ -442,7 +444,7 @@ class ExporterExcel {
     ws.mergeCells('B3:H3');
     ws.getRow(3).height = 40;
     // In MS Excel, we can't use the AutoFit feature on a column that contains a cell merged with cells in other columns.
-    // Likewise, we can't use AutoFit on a row that contains a cell merged with cells in other rows. 
+    // Likewise, we can't use AutoFit on a row that contains a cell merged with cells in other rows.
     ws.getRow(3).font = {
       name: TAPi18n.__('excel-font'),
       size: 10,
@@ -459,7 +461,7 @@ class ExporterExcel {
       vertical: 'middle',
     };
     cellCenter('A3');
-    
+
     //add blank row
     ws.addRow().values = ['', '', '', '', '', ''];
 
@@ -494,7 +496,7 @@ class ExporterExcel {
       },
       numFmt: 'yyyy/mm/dd hh:mm:ss',
     };
-    
+
     cellCenter('A5');
     cellCenter('B5');
     cellCenter('C5');
@@ -502,7 +504,7 @@ class ExporterExcel {
     cellCenter('E5');
     cellLeft('F5');
     ws.getRow(5).height = 20;
-    
+
     allBorder('A5');
     allBorder('B5');
     allBorder('C5');
@@ -786,7 +788,7 @@ class ExporterExcel {
         },
       };
     }
-    
+
     //add title line
     ws2.mergeCells('A1:F1');
     ws2.getCell('A1').value = result.title;
@@ -813,7 +815,7 @@ class ExporterExcel {
       TAPi18n.__('card','',this.userLanguage),
       TAPi18n.__('owner','',this.userLanguage),
       TAPi18n.__('createdAt','',this.userLanguage),
-      TAPi18n.__('last-modified-at','',this.userLanguage), 
+      TAPi18n.__('last-modified-at','',this.userLanguage),
     ];
     ws2.getRow(3).height = 20;
     ws2.getRow(3).font = {

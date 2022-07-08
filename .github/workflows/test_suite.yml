@@ -15,7 +15,7 @@ jobs:
 #    runs-on: ubuntu-latest
 #    steps:
 #    - name: checkout
-#      uses: actions/checkout@v2
+#      uses: actions/checkout@v3
 #
 #    - name: setup node
 #      uses: actions/setup-node@v1
@@ -39,7 +39,7 @@ jobs:
 #    needs: [lintcode]
 #    steps:
 #    - name: checkout
-#      uses: actions/checkout@v2
+#      uses: actions/checkout@v3
 #
 #    - name: setup node
 #      uses: actions/setup-node@v1
@@ -62,7 +62,7 @@ jobs:
 #    needs: [lintcode,lintstyle]
 #    steps:
 #    - name: checkout
-#      uses: actions/checkout@v2
+#      uses: actions/checkout@v3
 #
 #    - name: setup node
 #      uses: actions/setup-node@v1
@@ -87,12 +87,12 @@ jobs:
 
       # CHECKOUTS
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # CACHING
       - name: Install Meteor
         id: cache-meteor-install
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.meteor
           key: v1-meteor-${{ hashFiles('.meteor/versions') }}
@@ -101,7 +101,7 @@ jobs:
 
       - name: Cache NPM dependencies
         id: cache-meteor-npm
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: v1-npm-${{ hashFiles('package-lock.json') }}
@@ -110,7 +110,7 @@ jobs:
 
       - name: Cache Meteor build
         id: cache-meteor-build
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             .meteor/local/resolver-result-cache.json
@@ -133,7 +133,7 @@ jobs:
         run: sh ./test-wekan.sh -cv
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: coverage-folder
           path: .coverage/
@@ -144,17 +144,17 @@ jobs:
     needs: [tests]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download coverage
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: coverage-folder
           path: .coverage/
 
 
       - name: Coverage Report
-        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+        uses: VeryGoodOpenSource/very_good_coverage@v1.2.1
         with:
           path: ".coverage/lcov.info"
           min_coverage: 1 # TODO add tests and increase to 95!

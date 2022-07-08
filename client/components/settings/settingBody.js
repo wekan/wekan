@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 
 BlazeComponent.extendComponent({

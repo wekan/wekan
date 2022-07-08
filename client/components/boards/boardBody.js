@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;
@@ -267,9 +269,10 @@ BlazeComponent.extendComponent({
 
   openNewListForm() {
     if (this.isViewSwimlanes()) {
-      this.childComponents('swimlane')[0]
-        .childComponents('addListAndSwimlaneForm')[0]
-        .open();
+      // The form had been removed in 416b17062e57f215206e93a85b02ef9eb1ab4902
+      // this.childComponents('swimlane')[0]
+      //   .childComponents('addListAndSwimlaneForm')[0]
+      //   .open();
     } else if (this.isViewLists()) {
       this.childComponents('listsGroup')[0]
         .childComponents('addListForm')[0]
