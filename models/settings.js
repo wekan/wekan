@@ -229,6 +229,12 @@ if (Meteor.isServer) {
     ]);
   }
 
+  function loadOidcConfig(){
+    config = ServiceConfiguration.configurations.findOne({service: 'oidc'});
+    configKeys = Object.keys(config);
+    return Object.keys(config).length > 0;
+  }
+
   function sendInvitationEmail(_id) {
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
@@ -509,8 +515,8 @@ if (Meteor.isServer) {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
     isOidcRedirectionEnabled(){
-      return process.env.OIDC_REDIRECTION_ENABLED === 'true';
-    },
+      return process.env.OIDC_REDIRECTION_ENABLED === 'true' && loadOidcConfig();
+    }
   });
 }
 
