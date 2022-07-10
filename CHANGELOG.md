@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming WeKan ® release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/17f8f8f14ff205d0cbb316c63a2da36f61ba4a1d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.29 2022-07-11 WeKan ® release
 
 This release adds the following features:
