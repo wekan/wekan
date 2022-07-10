@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.28
+  version: v6.29
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3744,6 +3744,16 @@ definitions:
         description: |
            is the list sorted
         type: number
+        x-nullable: true
+      width:
+        description: |
+           list width, default 270px
+        type: string
+        x-nullable: true
+      height:
+        description: |
+           list height
+        type: string
         x-nullable: true
       updatedAt:
         description: |
