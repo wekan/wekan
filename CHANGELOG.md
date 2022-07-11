@@ -2,7 +2,12 @@
 
 # Upcoming WeKan ® release
 
-This release tries to fix the following bugs:
+This release adds the following new features:
+
+- [Automatic login with OIDC](https://github.com/wekan/wekan/pull/4588).
+  Thanks to Viehlieb.
+
+and tries to fix the following bugs:
 
 - [Try to fix Snap](https://github.com/wekan/wekan/commit/17f8f8f14ff205d0cbb316c63a2da36f61ba4a1d).
   Thanks to xet7.
