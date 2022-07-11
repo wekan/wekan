@@ -229,6 +229,12 @@ if (Meteor.isServer) {
     ]);
   }
 
+  function loadOidcConfig(service){
+    check(service, String);
+    var config = ServiceConfiguration.configurations.findOne({service: service});
+    return config;
+  }
+
   function sendInvitationEmail(_id) {
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
@@ -495,6 +501,12 @@ if (Meteor.isServer) {
       };
     },
 
+    getOauthServerUrl(){
+      return process.env.OAUTH2_SERVER_URL;
+    },
+    getOauthDashboardUrl(){
+      return process.env.DASHBOARD_URL;
+    },
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
     },
@@ -502,6 +514,12 @@ if (Meteor.isServer) {
     isPasswordLoginDisabled() {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
+    isOidcRedirectionEnabled(){
+      return process.env.OIDC_REDIRECTION_ENABLED === 'true' && Object.keys(loadOidcConfig("oidc")).length > 0;
+    },
+    getServiceConfiguration(service){
+      return loadOidcConfig(service);
+      }
   });
 }
 

@@ -47,6 +47,26 @@ See example below:
 
   NOTE: orgs & teams won't be updated if they already exist.
 
-  5. Manages admin rights as well. If user is in Group which has isAdmin: set to true, user will get admin 
-     privileges in Wekan as well. 
+  5. Manages admin rights as well. If user is in Group which has isAdmin: set to true, user will get admin
+     privileges in Wekan as well.
      If no adjustments (e.g. 1-3) are made on oidc provider's side, user will receive his/her admin rights from before.
+
+## For further empowerment of oidc as sso solution
+
+If you want to be redirected to your oidc provider on LOGIN without going the extra loop of signing in.
+On LOGOUT you will be redirected to the oidc provider as well.
+
+Add to your .env file:
+
+OIDC_REDIRECTION_ENABLED=true
+OAUTH2_SERVER_URL=http://localhost:9000
+DASHBOARD_URL=/if/session-end/wekan/
+
+Example for authentik.
+The latter specifies the OIDC Dashboard you'll get redirected on logout
+
+Flow:
+You need to have an oidc provider configured to get this feature
+Make sure to have
+Authorize Application (default-provider-authorization-implicit-consent)
+enabled

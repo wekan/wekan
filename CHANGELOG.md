@@ -935,7 +935,7 @@ This release removes the following new features:
 
 - [Revert change from WeKan v5.81: At Sandstorm, every WeKan user is now WeKan Admin and has Admin Panel](https://github.com/wekan/wekan/commit/ebc7741fcb9ad854234921ed0546255411adeec9).
   Thanks to ocdtrekkie and xet7.
-    
+
 and adds the following new features:
 
 - [List header contains now a button to add the card to the bottom of the list](https://github.com/wekan/wekan/pull/4195).
@@ -1187,7 +1187,7 @@ and fixes the following bugs:
   Thanks to niklasdahlheimer.
 - [Popup fixes: Archive cards, upload attachements etc](https://github.com/wekan/wekan/pull/4101).
   Thanks to mfilser.
-  
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.68 2021-10-27 WeKan ® release
@@ -2158,7 +2158,7 @@ This release adds the following new features:
 
 - [Custom Field "String Template"](https://github.com/wekan/wekan/pull/3701).
   Thanks to tod31.
-- [1) Admin reports. An option added to the admin panel that has reports an admin can run. 
+- [1) Admin reports. An option added to the admin panel that has reports an admin can run.
       Right now it has two reports for attachments and broken cards.
   2) Add the creator avatar to `cardDetails` and `minicard`.  Avatar is only shown if it is selected in card settings.
   3) Added a new search operator `creator`.
@@ -2891,7 +2891,7 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Rules not copied during board copy](https://github.com/wekan/wekan/pull/3458).
   Thanks to jrsupplee.
- 
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.83 2021-01-20 Wekan release
@@ -2912,7 +2912,7 @@ and fixes the following bugs:
   Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
-  
+
 # v4.82 2021-01-20 Wekan release
 
 This release adds the following new features:
