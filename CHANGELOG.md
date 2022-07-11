@@ -11,6 +11,8 @@ This release adds the following new features:
 
 - [Automatic login with OIDC](https://github.com/wekan/wekan/pull/4588).
   Thanks to Viehlieb.
+- [OIDC/OAuth2 autologin settings for Docker/Snap/Source/Bundle platforms](https://github.com/wekan/wekan/commit/284f4401369aadcec72e67fa935dfc3a9fead721).
+  Thanks to xet7.
 
 and tries to fix the following bugs:
 
