@@ -16,6 +16,8 @@ and tries to fix the following bugs:
 
 - [Try to fix Snap](https://github.com/wekan/wekan/commit/17f8f8f14ff205d0cbb316c63a2da36f61ba4a1d).
   Thanks to xet7.
+- [On CentOS 7 Docker there is seccomp issue with glibc 6, so setting it to unconfined to get WeKan working](https://github.com/wekan/wekan/commit/054d420dc97cadee6ed7896c608d95a6fe09dc9d (HEAD -> master)
+  Thanks to m-brangeon.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
