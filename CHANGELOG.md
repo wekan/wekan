@@ -1,5 +1,10 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+Required versions of Node.js, MongoDB etc are listed at https://wekan.github.io
+Download section.
+
+[How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
+
 # Upcoming WeKan ® release
 
 This release adds the following new features:
