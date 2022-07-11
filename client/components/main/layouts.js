@@ -52,7 +52,6 @@ Template.userFormsLayout.onCreated(function () {
 
   if (!Meteor.user()?.profile) {
       Meteor.call('isOidcRedirectionEnabled', (_, result) => {
-        serviceName = 'oidc';
         if (result) {
           AccountsTemplates.options.socialLoginStyle = 'redirect';
           options = {
