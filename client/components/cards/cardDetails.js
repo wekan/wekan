@@ -1714,10 +1714,20 @@ BlazeComponent.extendComponent({
 EscapeActions.register(
   'detailsPane',
   () => {
+    currentDescription = document.getElementsByClassName("editor js-new-description-input").item(0)
     //save description editing on EscapeAction
-    if (document.getElementsByClassName("editor js-new-description-input").item(0))
+    if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription()))
     {
-      Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+      console.log("equal?",!(currentDescription === Utils.getCurrentCard().getDescription()));
+      if (confirm('Are you sure you want to save this thing into the database?')) {
+        Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+        // Save it!
+        console.log(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+        console.log("current description",Utils.getCurrentCard().getDescription());
+      } else {
+        // Do nothing!
+        console.log('Thing was not saved to the database.');
+      }
     }
     if (Session.get('cardDetailsIsDragging')) {
       // Reset dragging status as the mouse landed outside the cardDetails template area and this will prevent a mousedown event from firing
