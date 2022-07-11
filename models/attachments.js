@@ -129,6 +129,9 @@ if (Meteor.isServer) {
 
       const fileObj = Attachments.findOne({_id: fileObjId});
       moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
+
+      // since Meteor-Files 2.1.0 the filename is truncated to 28 characters, so rename the file after upload to the right filename back
+      rename(fileObj, fileObj.name, fileStoreStrategyFactory);
     },
     renameAttachment(fileObjId, newName) {
       check(fileObjId, String);
