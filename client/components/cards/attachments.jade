@@ -19,7 +19,9 @@ template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{link}}" title="{{name}}")
+        // TODO: Add popup of attachment image later, with some swipebox or lightbox that would not add bugs
+        // a.attachment-thumbnail(href="{{link}}" title="{{name}}")
+        span.attachment-thumbnail(href="{{link}}" title="{{name}}")
           if link
             if isImage
               img.attachment-thumbnail-img(src="{{link}}")
@@ -69,6 +71,9 @@ template(name="attachmentActionsPopup")
           else
             | {{_ 'add-cover'}}
       if currentUser.isBoardAdmin
+        a.js-rename
+          i.fa.fa-pencil-square-o
+          | {{_ 'rename'}}
         a.js-confirm-delete
           i.fa.fa-close
           | {{_ 'delete'}}
@@ -85,3 +90,8 @@ template(name="attachmentActionsPopup")
             a.js-move-storage-gridfs
               i.fa.fa-arrow-right
               | {{_ 'attachment-move-storage-gridfs'}}
+
+template(name="attachmentRenamePopup")
+  input.js-edit-attachment-name(type='text' autofocus value="{{getNameWithoutExtension}}" dir="auto")
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-attachment-name(type="submit") {{_ 'save'}}

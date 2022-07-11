@@ -17,9 +17,9 @@
 ## [Translate WeKan ® at Transifex](https://transifex.com/wekan/wekan)
 
 Translations to non-English languages are accepted only at [Transifex](https://transifex.com/wekan/wekan) using webbrowser.
-New English strings of new features can be added as PRs to edge branch file wekan/i18n/en.i18n.json .
+New English strings of new features can be added as PRs to master branch file wekan/imports/i18n/data/en.i18n.json .
 
-## [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues)
+## [WeKan ® feature requests and bugs](https://github.com/wekan/wekan/issues)
 
 Please add most of your questions as GitHub issue: [WeKan ® Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 It's better than at chat where details get lost when chat scrolls up.
@@ -28,7 +28,7 @@ It's better than at chat where details get lost when chat scrolls up.
 
 [Discussions][discussions] - WeKan Community GitHub Discussions, that are not [Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 
-[Wekan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
+[WeKan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
 ## Docker: Please only use Docker release tags
 
@@ -56,8 +56,8 @@ install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
 
 - WeKan ® is used in [most countries of the world](https://snapcraft.io/wekan).
-- Wekan largest user has 22k users using Wekan in their company.
-- Wekan has been [translated](https://transifex.com/wekan/wekan) to about 105 languages.
+- WeKan ® largest user has 22k users using WeKan ® in their company.
+- WeKan ® has been [translated](https://transifex.com/wekan/wekan) to about 105 languages.
 - [Features][features]: WeKan ® has real-time user interface.
 - [Platforms][platforms]: WeKan ® supports many platforms.
   WeKan ® is critical part of new platforms Wekan is currently being integrated to.

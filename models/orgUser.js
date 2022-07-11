@@ -74,8 +74,8 @@ OrgUser.attachSchema(
 if (Meteor.isServer) {
   // Index for Organization User.
   Meteor.startup(() => {
-    OrgUser._collection._ensureIndex({ orgId: -1 });
-    OrgUser._collection._ensureIndex({ orgId: -1, userId: -1 });
+    OrgUser._collection.createIndex({ orgId: -1 });
+    OrgUser._collection.createIndex({ orgId: -1, userId: -1 });
   });
 }
 

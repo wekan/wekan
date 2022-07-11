@@ -6,6 +6,21 @@ tx pull -f -l ar
 echo "Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo):"
 tx pull -f -l ar_EG
 
+echo "Arabic (Moroccan):"
+tx pull -f -l ary
+
+echo "Arabic (Algeria):"
+tx pull -f -l ar_DZ
+
+echo "Azerbaijani:"
+tx pull -f -l az
+
+echo "Azerbaijani (Azerbaijan):"
+tx pull -f -l  az_AZ
+
+echo "Azerbaijani (Latin):"
+tx pull -f -l az@latin
+
 echo "Armenian:"
 tx pull -f -l hy
 
@@ -208,6 +223,9 @@ tx pull -f -l es
 echo "Spanish (Argentina):"
 tx pull -f -l es_AR
 
+echo "Spanish (Asturia):"
+tx pull -f -l ast_ES
+
 echo "Spanish (Chile):"
 tx pull -f -l es_CL
 
@@ -231,6 +249,9 @@ tx pull -f -l sk
 
 echo "Slovenian:"
 tx pull -f -l sl_SI
+
+echo "Standard Moroccan Tamazight"
+tx pull -f -l zgh
 
 echo "Swahili:"
 tx pull -f -l sw

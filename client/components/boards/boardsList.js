@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 const subManager = new SubsManager();
 
 Template.boardListHeaderBar.events({
@@ -33,7 +35,6 @@ BlazeComponent.extendComponent({
     }
     if (userLanguage) {
       TAPi18n.setLanguage(userLanguage);
-      T9n.setLanguage(userLanguage);
     }
   },
 
@@ -196,7 +197,7 @@ BlazeComponent.extendComponent({
   },
   boardLists(boardId) {
     let boardLists = [];
-    const lists = Lists.find({'boardId' : boardId})
+    const lists = Lists.find({'boardId' : boardId, 'archived': false})
     lists.forEach(list => {
       let cardCount = Cards.find({'boardId':boardId, 'listId':list._id}).count()
       boardLists.push(`${list.title}: ${cardCount}`);
@@ -259,7 +260,7 @@ BlazeComponent.extendComponent({
             },
             (err, res) => {
               if (err) {
-                self.setError(err.error);
+                console.error(err);
               } else {
                 Session.set('fromBoard', null);
                 subManager.subscribe('board', res, false);
@@ -267,7 +268,6 @@ BlazeComponent.extendComponent({
                   id: res,
                   slug: title,
                 });
-                //Utils.goBoardId(res);
               }
             },
           );

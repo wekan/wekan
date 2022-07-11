@@ -1,4 +1,5 @@
-import Attachments from "./attachments";
+import moment from 'moment/min/moment-with-locales';
+import { TAPi18n } from '/imports/i18n';
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
@@ -447,13 +448,11 @@ export class TrelloCreator {
               });
             }
           };
-          // TODO: Add import attachment with Trello API key
-          //       like Python code at wekan/trello/ of https://github.com/wekan/wekan
-          //if (att.url) {
-          //  Attachment.load(att.url, opts, cb, true);
-          //} else if (att.file) {
-          //  Attachment.write(att.file, opts, cb, true);
-          //}
+          if (att.url) {
+            Attachment.load(att.url, opts, cb, true);
+          } else if (att.file) {
+            Attachment.write(att.file, opts, cb, true);
+          }
         });
 
         if (links) {

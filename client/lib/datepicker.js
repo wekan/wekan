@@ -1,3 +1,6 @@
+import { TAPi18n } from '/imports/i18n';
+import moment from 'moment/min/moment-with-locales';
+
 // Helper function to replace HH with H for 24 hours format, because H allows also single-digit hours
 function adjustedTimeFormat() {
   return moment

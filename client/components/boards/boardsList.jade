@@ -13,7 +13,7 @@ template(name="boardList")
           select.js-AllBoardOrgs#jsAllBoardOrgs("multiple")
             option(value="-1") {{_ 'organizations'}} :
             each orgsDatas
-              option(value="{{orgId}}") {{_ orgDisplayName}}
+              option(value="{{orgId}}") {{orgDisplayName}}
 
       //li.AllBoardTemplates
       //  if userHasTemplates

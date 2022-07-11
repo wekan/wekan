@@ -1,0 +1,81 @@
+.attachments-galery {
+  display: flex;
+  flex-wrap: wrap;
+}
+.attachments-galery .attachment-item {
+  width: 31.33%;
+  margin: 10px 1% 0;
+  text-align: center;
+  border-radius: 3px;
+  overflow: auto;
+  background: #ededed;
+  min-height: 120px;
+}
+.attachments-galery .attachment-item:hover {
+  background: #e0e0e0;
+}
+.attachments-galery .attachment-item.add-attachment {
+  display: flex;
+  align-items: center;
+}
+.attachments-galery .attachment-item.add-attachment a {
+  display: block;
+  margin: auto;
+}
+.attachments-galery .attachment-item .attachment-thumbnail {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.attachments-galery .attachment-item .attachment-thumbnail .attachment-thumbnail-img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.attachments-galery .attachment-item .attachment-thumbnail .attachment-thumbnail-ext {
+  text-transform: uppercase;
+  font-size: 1.6em;
+}
+.attachments-galery .attachment-item .attachment-details {
+  font-size: 0.75em;
+  margin: 3px;
+}
+.attachments-galery .attachment-item .attachment-details .attachment-details-actions a {
+  display: block;
+}
+.attachments-galery .attachment-item .attachment-details .attachment-details-actions a.attachment-details-menu {
+  padding-top: 10px;
+}
+.attachment-image-preview {
+  max-width: 100px;
+  display: block;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.preview-clipboard-image {
+  width: 280px;
+  max-width: 100%;
+  height: 200px;
+  display: block;
+  border: 1px solid #000;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+@media screen and (max-width: 800px) {
+  .attachments-galery .attachment-item {
+    width: 48%;
+  }
+  .attachments-galery .attachment-item .attachment-thumbnail {
+    height: 130px;
+  }
+  .attachments-galery .attachment-item .attachment-details {
+    font-size: 1.1em;
+  }
+}
+@media screen and (max-width: 360px) {
+  .attachments-galery .attachment-item {
+    width: 100%;
+  }
+  .attachments-galery .attachment-item .attachment-thumbnail {
+    height: 200px;
+  }
+}

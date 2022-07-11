@@ -1,0 +1,2176 @@
+.board-color-nephritis#header,
+.board-color-nephritis.sk-spinner div,
+.board-backgrounds-list .board-color-nephritis.background-box,
+.board-list .board-color-nephritis a {
+  background-color: #27ae60;
+}
+.board-color-nephritis .is-selected .minicard {
+  border-left: 3px solid #27ae60;
+}
+.board-color-nephritis .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-nephritis button[type=submit].primary,
+.board-color-nephritis input[type=submit].primary,
+.board-color-nephritis .sidebar .sidebar-content .sidebar-btn {
+  background-color: #1f8b4d;
+  border-radius: 7px;
+}
+.board-color-nephritis.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-nephritis .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-nephritis .sidebar-list li a:hover {
+  background-color: #2cc66d;
+}
+.board-color-nephritis#header ul li.current,
+.board-color-nephritis#header-quick-access ul li.current {
+  border-bottom: 2px solid #2cc66d;
+}
+.board-color-nephritis#header-quick-access {
+  background: #239d56;
+  color: #fff;
+}
+.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis {
+  background: #ae2775;
+}
+.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #9d2369;
+}
+.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #8b1f5e;
+}
+.board-color-nephritis .materialCheckBox.is-checked {
+  border-bottom: 2px solid #27ae60;
+  border-right: 2px solid #27ae60;
+}
+.board-color-nephritis .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e7faef;
+}
+.board-color-nephritis .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f8fdfa;
+}
+.board-color-nephritis .toggle-label:after {
+  background-color: #1f8b4d;
+}
+.board-color-nephritis .toggle-switch:checked ~ .toggle-label {
+  background-color: #3dd37c;
+}
+.board-color-nephritis .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #1f8b4d;
+}
+@media screen and (max-width: 800px) {
+  .board-color-nephritis.pop-over .header {
+    background: #27ae60;
+    color: #fff;
+  }
+}
+.board-color-nephritis#header ul li.current,
+.board-color-nephritis#header-quick-access ul li.current {
+  border-bottom: 4px solid #3dd37c;
+}
+.board-color-pomegranate#header,
+.board-color-pomegranate.sk-spinner div,
+.board-backgrounds-list .board-color-pomegranate.background-box,
+.board-list .board-color-pomegranate a {
+  background-color: #c0392b;
+}
+.board-color-pomegranate .is-selected .minicard {
+  border-left: 3px solid #c0392b;
+}
+.board-color-pomegranate .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-pomegranate button[type=submit].primary,
+.board-color-pomegranate input[type=submit].primary,
+.board-color-pomegranate .sidebar .sidebar-content .sidebar-btn {
+  background-color: #9a2e22;
+  border-radius: 7px;
+}
+.board-color-pomegranate.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-pomegranate .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-pomegranate .sidebar-list li a:hover {
+  background-color: #d24435;
+}
+.board-color-pomegranate#header ul li.current,
+.board-color-pomegranate#header-quick-access ul li.current {
+  border-bottom: 2px solid #d24435;
+}
+.board-color-pomegranate#header-quick-access {
+  background: #ad3327;
+  color: #fff;
+}
+.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis {
+  background: #2bb2c0;
+}
+.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #27a0ad;
+}
+.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #228e9a;
+}
+.board-color-pomegranate .materialCheckBox.is-checked {
+  border-bottom: 2px solid #c0392b;
+  border-right: 2px solid #c0392b;
+}
+.board-color-pomegranate .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #faeae9;
+}
+.board-color-pomegranate .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fdf9f8;
+}
+.board-color-pomegranate .toggle-label:after {
+  background-color: #9a2e22;
+}
+.board-color-pomegranate .toggle-switch:checked ~ .toggle-label {
+  background-color: #d7584b;
+}
+.board-color-pomegranate .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #9a2e22;
+}
+@media screen and (max-width: 800px) {
+  .board-color-pomegranate.pop-over .header {
+    background: #c0392b;
+    color: #fff;
+  }
+}
+.board-color-pomegranate#header ul li.current,
+.board-color-pomegranate#header-quick-access ul li.current {
+  border-bottom: 4px solid #d7584b;
+}
+.board-color-belize#header,
+.board-color-belize.sk-spinner div,
+.board-backgrounds-list .board-color-belize.background-box,
+.board-list .board-color-belize a {
+  background-color: #2980b9;
+}
+.board-color-belize .is-selected .minicard {
+  border-left: 3px solid #2980b9;
+}
+.board-color-belize .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-belize button[type=submit].primary,
+.board-color-belize input[type=submit].primary,
+.board-color-belize .sidebar .sidebar-content .sidebar-btn {
+  background-color: #216694;
+  border-radius: 7px;
+}
+.board-color-belize.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-belize .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-belize .sidebar-list li a:hover {
+  background-color: #2e90d0;
+}
+.board-color-belize#header ul li.current,
+.board-color-belize#header-quick-access ul li.current {
+  border-bottom: 2px solid #2e90d0;
+}
+.board-color-belize#header-quick-access {
+  background: #2573a7;
+  color: #fff;
+}
+.board-color-belize#header #header-main-bar .board-header-btn.emphasis {
+  background: #b96229;
+}
+.board-color-belize#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-belize#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #a75825;
+}
+.board-color-belize#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #944e21;
+}
+.board-color-belize .materialCheckBox.is-checked {
+  border-bottom: 2px solid #2980b9;
+  border-right: 2px solid #2980b9;
+}
+.board-color-belize .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e8f3fa;
+}
+.board-color-belize .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f8fbfd;
+}
+.board-color-belize .toggle-label:after {
+  background-color: #216694;
+}
+.board-color-belize .toggle-switch:checked ~ .toggle-label {
+  background-color: #459cd6;
+}
+.board-color-belize .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #216694;
+}
+@media screen and (max-width: 800px) {
+  .board-color-belize.pop-over .header {
+    background: #2980b9;
+    color: #fff;
+  }
+}
+.board-color-belize#header ul li.current,
+.board-color-belize#header-quick-access ul li.current {
+  border-bottom: 4px solid #459cd6;
+}
+.board-color-wisteria#header,
+.board-color-wisteria.sk-spinner div,
+.board-backgrounds-list .board-color-wisteria.background-box,
+.board-list .board-color-wisteria a {
+  background-color: #8e44ad;
+}
+.board-color-wisteria .is-selected .minicard {
+  border-left: 3px solid #8e44ad;
+}
+.board-color-wisteria .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-wisteria button[type=submit].primary,
+.board-color-wisteria input[type=submit].primary,
+.board-color-wisteria .sidebar .sidebar-content .sidebar-btn {
+  background-color: #72368a;
+  border-radius: 7px;
+}
+.board-color-wisteria.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-wisteria .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-wisteria .sidebar-list li a:hover {
+  background-color: #9c51bb;
+}
+.board-color-wisteria#header ul li.current,
+.board-color-wisteria#header-quick-access ul li.current {
+  border-bottom: 2px solid #9c51bb;
+}
+.board-color-wisteria#header-quick-access {
+  background: #803d9c;
+  color: #fff;
+}
+.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis {
+  background: #63ad44;
+}
+.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #599c3d;
+}
+.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #4f8a36;
+}
+.board-color-wisteria .materialCheckBox.is-checked {
+  border-bottom: 2px solid #8e44ad;
+  border-right: 2px solid #8e44ad;
+}
+.board-color-wisteria .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #f4ecf7;
+}
+.board-color-wisteria .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fcf9fd;
+}
+.board-color-wisteria .toggle-label:after {
+  background-color: #72368a;
+}
+.board-color-wisteria .toggle-switch:checked ~ .toggle-label {
+  background-color: #a765c2;
+}
+.board-color-wisteria .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #72368a;
+}
+@media screen and (max-width: 800px) {
+  .board-color-wisteria.pop-over .header {
+    background: #8e44ad;
+    color: #fff;
+  }
+}
+.board-color-wisteria#header ul li.current,
+.board-color-wisteria#header-quick-access ul li.current {
+  border-bottom: 4px solid #a765c2;
+}
+.board-color-midnight#header,
+.board-color-midnight.sk-spinner div,
+.board-backgrounds-list .board-color-midnight.background-box,
+.board-list .board-color-midnight a {
+  background-color: #2c3e50;
+}
+.board-color-midnight .is-selected .minicard {
+  border-left: 3px solid #2c3e50;
+}
+.board-color-midnight .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-midnight button[type=submit].primary,
+.board-color-midnight input[type=submit].primary,
+.board-color-midnight .sidebar .sidebar-content .sidebar-btn {
+  background-color: #233240;
+  border-radius: 7px;
+}
+.board-color-midnight.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-midnight .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-midnight .sidebar-list li a:hover {
+  background-color: #3a5169;
+}
+.board-color-midnight#header ul li.current,
+.board-color-midnight#header-quick-access ul li.current {
+  border-bottom: 2px solid #3a5169;
+}
+.board-color-midnight#header-quick-access {
+  background: #283848;
+  color: #fff;
+}
+.board-color-midnight#header #header-main-bar .board-header-btn.emphasis {
+  background: #503e2c;
+}
+.board-color-midnight#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-midnight#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #483828;
+}
+.board-color-midnight#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #403223;
+}
+.board-color-midnight .materialCheckBox.is-checked {
+  border-bottom: 2px solid #2c3e50;
+  border-right: 2px solid #2c3e50;
+}
+.board-color-midnight .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e6ecf1;
+}
+.board-color-midnight .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f8f9fb;
+}
+.board-color-midnight .toggle-label:after {
+  background-color: #233240;
+}
+.board-color-midnight .toggle-switch:checked ~ .toggle-label {
+  background-color: #476582;
+}
+.board-color-midnight .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #233240;
+}
+@media screen and (max-width: 800px) {
+  .board-color-midnight.pop-over .header {
+    background: #2c3e50;
+    color: #fff;
+  }
+}
+.board-color-midnight#header ul li.current,
+.board-color-midnight#header-quick-access ul li.current {
+  border-bottom: 4px solid #476582;
+}
+.board-color-pumpkin#header,
+.board-color-pumpkin.sk-spinner div,
+.board-backgrounds-list .board-color-pumpkin.background-box,
+.board-list .board-color-pumpkin a {
+  background-color: #e67e22;
+}
+.board-color-pumpkin .is-selected .minicard {
+  border-left: 3px solid #e67e22;
+}
+.board-color-pumpkin .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-pumpkin button[type=submit].primary,
+.board-color-pumpkin input[type=submit].primary,
+.board-color-pumpkin .sidebar .sidebar-content .sidebar-btn {
+  background-color: #be6415;
+  border-radius: 7px;
+}
+.board-color-pumpkin.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-pumpkin .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-pumpkin .sidebar-list li a:hover {
+  background-color: #e98b38;
+}
+.board-color-pumpkin#header ul li.current,
+.board-color-pumpkin#header-quick-access ul li.current {
+  border-bottom: 2px solid #e98b38;
+}
+.board-color-pumpkin#header-quick-access {
+  background: #d57118;
+  color: #fff;
+}
+.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis {
+  background: #228ae6;
+}
+.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #187dd5;
+}
+.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #156fbe;
+}
+.board-color-pumpkin .materialCheckBox.is-checked {
+  border-bottom: 2px solid #e67e22;
+  border-right: 2px solid #e67e22;
+}
+.board-color-pumpkin .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #fdf2e9;
+}
+.board-color-pumpkin .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fefbf8;
+}
+.board-color-pumpkin .toggle-label:after {
+  background-color: #be6415;
+}
+.board-color-pumpkin .toggle-switch:checked ~ .toggle-label {
+  background-color: #eb984e;
+}
+.board-color-pumpkin .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #be6415;
+}
+@media screen and (max-width: 800px) {
+  .board-color-pumpkin.pop-over .header {
+    background: #e67e22;
+    color: #fff;
+  }
+}
+.board-color-pumpkin#header ul li.current,
+.board-color-pumpkin#header-quick-access ul li.current {
+  border-bottom: 4px solid #eb984e;
+}
+.board-color-moderatepink#header,
+.board-color-moderatepink.sk-spinner div,
+.board-backgrounds-list .board-color-moderatepink.background-box,
+.board-list .board-color-moderatepink a {
+  background-color: #cd5a91;
+}
+.board-color-moderatepink .is-selected .minicard {
+  border-left: 3px solid #cd5a91;
+}
+.board-color-moderatepink .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-moderatepink button[type=submit].primary,
+.board-color-moderatepink input[type=submit].primary,
+.board-color-moderatepink .sidebar .sidebar-content .sidebar-btn {
+  background-color: #b53773;
+  border-radius: 7px;
+}
+.board-color-moderatepink.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-moderatepink .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-moderatepink .sidebar-list li a:hover {
+  background-color: #d26b9c;
+}
+.board-color-moderatepink#header ul li.current,
+.board-color-moderatepink#header-quick-access ul li.current {
+  border-bottom: 2px solid #d26b9c;
+}
+.board-color-moderatepink#header-quick-access {
+  background: #c64382;
+  color: #fff;
+}
+.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis {
+  background: #5acd96;
+}
+.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #43c688;
+}
+.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #37b579;
+}
+.board-color-moderatepink .materialCheckBox.is-checked {
+  border-bottom: 2px solid #cd5a91;
+  border-right: 2px solid #cd5a91;
+}
+.board-color-moderatepink .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #faeef4;
+}
+.board-color-moderatepink .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fefafc;
+}
+.board-color-moderatepink .toggle-label:after {
+  background-color: #b53773;
+}
+.board-color-moderatepink .toggle-switch:checked ~ .toggle-label {
+  background-color: #d77ba7;
+}
+.board-color-moderatepink .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #b53773;
+}
+@media screen and (max-width: 800px) {
+  .board-color-moderatepink.pop-over .header {
+    background: #cd5a91;
+    color: #fff;
+  }
+}
+.board-color-moderatepink#header ul li.current,
+.board-color-moderatepink#header-quick-access ul li.current {
+  border-bottom: 4px solid #d77ba7;
+}
+.board-color-strongcyan#header,
+.board-color-strongcyan.sk-spinner div,
+.board-backgrounds-list .board-color-strongcyan.background-box,
+.board-list .board-color-strongcyan a {
+  background-color: #00aecc;
+}
+.board-color-strongcyan .is-selected .minicard {
+  border-left: 3px solid #00aecc;
+}
+.board-color-strongcyan .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-strongcyan button[type=submit].primary,
+.board-color-strongcyan input[type=submit].primary,
+.board-color-strongcyan .sidebar .sidebar-content .sidebar-btn {
+  background-color: #008ba3;
+  border-radius: 7px;
+}
+.board-color-strongcyan.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-strongcyan .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-strongcyan .sidebar-list li a:hover {
+  background-color: #00c8eb;
+}
+.board-color-strongcyan#header ul li.current,
+.board-color-strongcyan#header-quick-access ul li.current {
+  border-bottom: 2px solid #00c8eb;
+}
+.board-color-strongcyan#header-quick-access {
+  background: #009db8;
+  color: #fff;
+}
+.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis {
+  background: #cc1e00;
+}
+.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #b81b00;
+}
+.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #a31800;
+}
+.board-color-strongcyan .materialCheckBox.is-checked {
+  border-bottom: 2px solid #00aecc;
+  border-right: 2px solid #00aecc;
+}
+.board-color-strongcyan .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e0fbff;
+}
+.board-color-strongcyan .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f6feff;
+}
+.board-color-strongcyan .toggle-label:after {
+  background-color: #008ba3;
+}
+.board-color-strongcyan .toggle-switch:checked ~ .toggle-label {
+  background-color: #0adbff;
+}
+.board-color-strongcyan .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #008ba3;
+}
+@media screen and (max-width: 800px) {
+  .board-color-strongcyan.pop-over .header {
+    background: #00aecc;
+    color: #fff;
+  }
+}
+.board-color-strongcyan#header ul li.current,
+.board-color-strongcyan#header-quick-access ul li.current {
+  border-bottom: 4px solid #0adbff;
+}
+.board-color-limegreen#header,
+.board-color-limegreen.sk-spinner div,
+.board-backgrounds-list .board-color-limegreen.background-box,
+.board-list .board-color-limegreen a {
+  background-color: #4bbf6b;
+}
+.board-color-limegreen .is-selected .minicard {
+  border-left: 3px solid #4bbf6b;
+}
+.board-color-limegreen .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-limegreen button[type=submit].primary,
+.board-color-limegreen input[type=submit].primary,
+.board-color-limegreen .sidebar .sidebar-content .sidebar-btn {
+  background-color: #389d54;
+  border-radius: 7px;
+}
+.board-color-limegreen.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-limegreen .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-limegreen .sidebar-list li a:hover {
+  background-color: #5dc57a;
+}
+.board-color-limegreen#header ul li.current,
+.board-color-limegreen#header-quick-access ul li.current {
+  border-bottom: 2px solid #5dc57a;
+}
+.board-color-limegreen#header-quick-access {
+  background: #3fb15e;
+  color: #fff;
+}
+.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis {
+  background: #bf4b9f;
+}
+.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #b13f91;
+}
+.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #9d3881;
+}
+.board-color-limegreen .materialCheckBox.is-checked {
+  border-bottom: 2px solid #4bbf6b;
+  border-right: 2px solid #4bbf6b;
+}
+.board-color-limegreen .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #edf9f0;
+}
+.board-color-limegreen .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fafdfb;
+}
+.board-color-limegreen .toggle-label:after {
+  background-color: #389d54;
+}
+.board-color-limegreen .toggle-switch:checked ~ .toggle-label {
+  background-color: #6fcc89;
+}
+.board-color-limegreen .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #389d54;
+}
+@media screen and (max-width: 800px) {
+  .board-color-limegreen.pop-over .header {
+    background: #4bbf6b;
+    color: #fff;
+  }
+}
+.board-color-limegreen#header ul li.current,
+.board-color-limegreen#header-quick-access ul li.current {
+  border-bottom: 4px solid #6fcc89;
+}
+.board-color-dark#header,
+.board-color-dark.sk-spinner div,
+.board-backgrounds-list .board-color-dark.background-box,
+.board-list .board-color-dark a {
+  background-color: #2c3e51;
+}
+.board-color-dark .is-selected .minicard {
+  border-left: 3px solid #2c3e51;
+}
+.board-color-dark .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-dark button[type=submit].primary,
+.board-color-dark input[type=submit].primary,
+.board-color-dark .sidebar .sidebar-content .sidebar-btn {
+  background-color: #233241;
+  border-radius: 7px;
+}
+.board-color-dark.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-dark .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-dark .sidebar-list li a:hover {
+  background-color: #3a516a;
+}
+.board-color-dark#header ul li.current,
+.board-color-dark#header-quick-access ul li.current {
+  border-bottom: 2px solid #3a516a;
+}
+.board-color-dark#header-quick-access {
+  background: #283849;
+  color: #fff;
+}
+.board-color-dark#header #header-main-bar .board-header-btn.emphasis {
+  background: #513f2c;
+}
+.board-color-dark#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-dark#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #493928;
+}
+.board-color-dark#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #413223;
+}
+.board-color-dark .materialCheckBox.is-checked {
+  border-bottom: 2px solid #2c3e51;
+  border-right: 2px solid #2c3e51;
+}
+.board-color-dark .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e6ecf1;
+}
+.board-color-dark .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f8f9fb;
+}
+.board-color-dark .toggle-label:after {
+  background-color: #233241;
+}
+.board-color-dark .toggle-switch:checked ~ .toggle-label {
+  background-color: #476483;
+}
+.board-color-dark .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #233241;
+}
+@media screen and (max-width: 800px) {
+  .board-color-dark.pop-over .header {
+    background: #2c3e51;
+    color: #fff;
+  }
+}
+.board-color-dark#header ul li.current,
+.board-color-dark#header-quick-access ul li.current {
+  border-bottom: 4px solid #476483;
+}
+.board-color-dark .ui-sortable,
+.board-color-dark .swimlane,
+.board-color-dark .swimlane >.swimlane-header-wrap,
+.board-color-dark .swimlane >.list.js-list,
+.board-color-dark .swimlane >.list-composer.js-list-composer,
+.board-color-dark .list-body,
+.board-color-dark .list,
+.board-color-dark .list-composer,
+.board-color-dark .sidebar-content,
+.board-color-dark .card-details {
+  background-color: #2c3e50;
+}
+.board-color-dark .card-details h3,
+.board-color-dark .card-details-left p,
+.board-color-dark .card-details-items,
+.board-color-dark .card-checklist-items .ui-sortable,
+.board-color-dark .card-subtasks-items,
+.board-color-dark .activities,
+.board-color-dark .material-toggle-switch {
+  color: #bbb;
+}
+.board-color-dark .list-header {
+  background-color: #888;
+}
+.board-color-dark .board-widget,
+.board-color-dark .board-widget-labels,
+.board-color-dark .board-widget-members {
+  color: #aaa;
+}
+.board-color-dark .pop-over >.header {
+  display: none;
+}
+.board-color-dark #header-quick-access .fa-plus {
+  display: none;
+}
+.board-color-dark #header-quick-access:hover .fa-plus {
+  display: inherit;
+}
+.board-color-dark .open-minicard-composer {
+  visibility: hidden;
+}
+.board-color-dark .list.js-list:hover .open-minicard-composer {
+  visibility: visible;
+}
+.board-color-dark .list-header-menu {
+  visibility: hidden;
+}
+.board-color-dark .list.js-list:hover .list-header-menu {
+  visibility: visible;
+}
+.board-color-dark .list.js-list-composer >.list-header {
+  visibility: hidden;
+}
+.board-color-dark .list.js-list-composer:hover >.list-header {
+  visibility: visible;
+}
+.board-color-dark #header-quick-access,
+.board-color-dark #header {
+  background-color: rgba(0,0,0,0.75) !important;
+}
+.board-color-dark #header .board-header-btn:hover {
+  background-color: rgba(255,255,255,0.3) !important;
+}
+.board-color-dark .list >.list-header,
+.board-color-dark .swimlane-header {
+  color: rgba(255,255,255,0.7);
+}
+.board-color-dark .minicard-wrapper.is-selected .minicard,
+.board-color-dark .minicard:hover,
+.board-color-dark .minicard-composer.js-composer,
+.board-color-dark .open-minicard-composer:hover {
+  background-color: rgba(255,255,255,0.8) !important;
+  color: #000;
+  border-radius: 7px;
+}
+.board-color-dark .minicard:hover .badge,
+.board-color-dark .minicard-wrapper.is-selected .badge {
+  color: #000;
+}
+.board-color-dark .card-details .card-details-header {
+  background-color: #ccc;
+}
+.board-color-dark .sidebar-tongue,
+.board-color-dark .sidebar-shadow {
+  background-color: #666 !important;
+}
+.board-color-dark .sidebar-content h3,
+.board-color-dark .sidebar-content h2,
+.board-color-dark .sidebar-content {
+  color: rgba(255,255,255,0.7) !important;
+}
+.board-color-dark .card-details .activities .activity .activity-desc .activity-comment {
+  background-color: #ccc;
+  color: #222;
+}
+.board-color-relax#header,
+.board-color-relax.sk-spinner div,
+.board-backgrounds-list .board-color-relax.background-box,
+.board-list .board-color-relax a {
+  background-color: #27ae61;
+}
+.board-color-relax .is-selected .minicard {
+  border-left: 3px solid #27ae61;
+}
+.board-color-relax .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-relax button[type=submit].primary,
+.board-color-relax input[type=submit].primary,
+.board-color-relax .sidebar .sidebar-content .sidebar-btn {
+  background-color: #1f8b4e;
+  border-radius: 7px;
+}
+.board-color-relax.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-relax .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-relax .sidebar-list li a:hover {
+  background-color: #2cc66f;
+}
+.board-color-relax#header ul li.current,
+.board-color-relax#header-quick-access ul li.current {
+  border-bottom: 2px solid #2cc66f;
+}
+.board-color-relax#header-quick-access {
+  background: #239d57;
+  color: #fff;
+}
+.board-color-relax#header #header-main-bar .board-header-btn.emphasis {
+  background: #ae2774;
+}
+.board-color-relax#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-relax#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #9d2368;
+}
+.board-color-relax#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #8b1f5d;
+}
+.board-color-relax .materialCheckBox.is-checked {
+  border-bottom: 2px solid #27ae61;
+  border-right: 2px solid #27ae61;
+}
+.board-color-relax .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e7faef;
+}
+.board-color-relax .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f8fdfa;
+}
+.board-color-relax .toggle-label:after {
+  background-color: #1f8b4e;
+}
+.board-color-relax .toggle-switch:checked ~ .toggle-label {
+  background-color: #3dd37e;
+}
+.board-color-relax .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #1f8b4e;
+}
+@media screen and (max-width: 800px) {
+  .board-color-relax.pop-over .header {
+    background: #27ae61;
+    color: #fff;
+  }
+}
+.board-color-relax#header ul li.current,
+.board-color-relax#header-quick-access ul li.current {
+  border-bottom: 4px solid #3dd37e;
+}
+.board-color-relax .ui-sortable {
+  background-color: #a7e366;
+}
+.board-color-relax .list-header {
+  background-color: #a7e366;
+}
+.board-color-relax .list-body {
+  background-color: #a7e366;
+}
+.board-color-relax .list {
+  border-left: 1px dotted #000;
+}
+.board-color-relax .card-details .card-details-items ~ .js-open-inlined-form .viewer {
+  background-color: #fff !important;
+  padding: 15px !important;
+  border: 1px solid #000 !important;
+  word-wrap: break-word;
+}
+.board-color-relax .minicard .badges .badge .badge-icon.badge-comment,
+.board-color-relax .minicard .badges .badge .badge-text.badge-comment {
+  display: block;
+  border-radius: 4px;
+  padding: 1px 3px;
+  margin-bottom: 0.3rem;
+  color: #f00;
+  background-color: #fff;
+  font-weight: bold;
+  font-size: 11pt;
+}
+.board-color-corteza#header,
+.board-color-corteza.sk-spinner div,
+.board-backgrounds-list .board-color-corteza.background-box,
+.board-list .board-color-corteza a {
+  background-color: #568ba2;
+}
+.board-color-corteza .is-selected .minicard {
+  border-left: 3px solid #568ba2;
+}
+.board-color-corteza .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-corteza button[type=submit].primary,
+.board-color-corteza input[type=submit].primary,
+.board-color-corteza .sidebar .sidebar-content .sidebar-btn {
+  background-color: #456f82;
+  border-radius: 7px;
+}
+.board-color-corteza.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-corteza .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-corteza .sidebar-list li a:hover {
+  background-color: #6597ad;
+}
+.board-color-corteza#header ul li.current,
+.board-color-corteza#header-quick-access ul li.current {
+  border-bottom: 2px solid #6597ad;
+}
+.board-color-corteza#header-quick-access {
+  background: #4d7d92;
+  color: #fff;
+}
+.board-color-corteza#header #header-main-bar .board-header-btn.emphasis {
+  background: #a26d56;
+}
+.board-color-corteza#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-corteza#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #92624d;
+}
+.board-color-corteza#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #825745;
+}
+.board-color-corteza .materialCheckBox.is-checked {
+  border-bottom: 2px solid #568ba2;
+  border-right: 2px solid #568ba2;
+}
+.board-color-corteza .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #eef3f6;
+}
+.board-color-corteza .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fafcfc;
+}
+.board-color-corteza .toggle-label:after {
+  background-color: #456f82;
+}
+.board-color-corteza .toggle-switch:checked ~ .toggle-label {
+  background-color: #76a3b6;
+}
+.board-color-corteza .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #456f82;
+}
+@media screen and (max-width: 800px) {
+  .board-color-corteza.pop-over .header {
+    background: #568ba2;
+    color: #fff;
+  }
+}
+.board-color-corteza#header ul li.current,
+.board-color-corteza#header-quick-access ul li.current {
+  border-bottom: 4px solid #76a3b6;
+}
+/*
+  Alternate "Clear" Styling
+*/
+.board-color-clearblue.sk-spinner div,
+.board-backgrounds-list .board-color-clearblue.background-box,
+.board-list .board-color-clearblue a {
+  background: linear-gradient(180deg, #499bea 0%, #00aecc 100%);
+}
+.board-color-clearblue .is-selected .minicard {
+  border-left: 3px solid #499bea;
+}
+.board-color-clearblue.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-clearblue .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-clearblue .sidebar-list li a:hover {
+  background-color: #5ba5ec;
+}
+.board-color-clearblue#header ul li.current,
+.board-color-clearblue#header-quick-access ul li.current {
+  border-bottom: 4px solid #00c8eb;
+}
+.board-color-clearblue#header-quick-access {
+  background: #2d8ce7;
+  color: #fff;
+}
+.board-color-clearblue#header-quick-access #header-new-board-icon,
+.board-color-clearblue#header-quick-access #header-user-bar,
+.board-color-clearblue#header-quick-access ul li {
+  color: rgba(255,255,255,0.5);
+}
+.board-color-clearblue#header {
+  background-color: #00aecc;
+  border-bottom: 1px solid #008ba3;
+  border-top: 1px solid #00687a;
+}
+.board-color-clearblue#header #header-main-bar {
+  background: linear-gradient(180deg, #499bea 0%, #00aecc 100%);
+}
+.board-color-clearblue#header #header-main-bar p {
+  margin-bottom: 6px;
+}
+.board-color-clearblue#header #header-main-bar .board-header-btn.emphasis {
+  background: #00c8eb;
+}
+.board-color-clearblue#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-clearblue#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearblue#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: rgba(0,0,0,0.2);
+}
+.board-color-clearblue .materialCheckBox.is-checked {
+  border-bottom: 2px solid #499bea;
+  border-right: 2px solid #499bea;
+}
+.board-color-clearblue .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e0fbff;
+}
+.board-color-clearblue .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f6feff;
+}
+.board-color-clearblue .toggle-switch:checked ~ .toggle-label {
+  background-color: #6dafee;
+}
+.board-color-clearblue .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #197ddc;
+}
+.board-color-clearblue .board-canvas {
+  background: linear-gradient(135deg, #499bea 0%, #00aecc 100%);
+}
+.board-color-clearblue .swimlane {
+  background: none;
+}
+.board-color-clearblue .list:first-child {
+  margin-left: 15px;
+}
+.board-color-clearblue .list {
+  background: rgba(255,255,255,0.35);
+  margin: 10px;
+  border: 0;
+  border-radius: 14px;
+}
+.board-color-clearblue .list.list-composer {
+  background: rgba(255,255,255,0.1);
+  height: min-content;
+  flex: unset;
+  width: 270px;
+  padding-bottom: 16px;
+}
+.board-color-clearblue .list.list-composer .open-list-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  padding: 7px 10px;
+  display: block;
+}
+.board-color-clearblue .list.list-composer .open-list-composer:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearblue .list-header {
+  background-color: rgba(255,255,255,0.25);
+  border-radius: 14px 14px 0 0;
+}
+.board-color-clearblue .list-header:not([class*="list-header-"]) {
+  border-bottom: 6px solid rgba(255,255,255,0);
+}
+.board-color-clearblue .list-header .list-header-name {
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearblue .list-body {
+  padding: 11px;
+}
+.board-color-clearblue .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  color: #222;
+}
+.board-color-clearblue .card-details {
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 0 7px 0 rgba(0,0,0,0.5);
+  margin-left: -10px;
+}
+.board-color-clearblue .list-body .open-minicard-composer {
+  border-radius: 7px;
+  color: rgba(0,0,0,0.3);
+  margin-bottom: 11px;
+}
+.board-color-clearblue .list-body .open-minicard-composer:hover {
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.6);
+}
+.board-color-clearblue button[type=submit].primary,
+.board-color-clearblue input[type=submit].primary {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.55);
+  border-radius: 7px;
+  border: 0;
+}
+.board-color-clearblue button[type="submit"].primary:hover,
+.board-color-clearblue input[type="submit"].primary:hover {
+  background-color: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.8);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-radius: 7px;
+}
+.board-color-clearblue .quiet,
+.board-color-clearblue .quiet a {
+  color: rgba(0,0,0,0.4);
+}
+.board-color-clearblue .list-header .list-header-watch-icon {
+  color: rgba(0,0,0,0.5);
+  position: absolute;
+  margin-top: -34px;
+  margin-left: -11px;
+}
+.board-color-clearblue a.fa,
+.board-color-clearblue a i.fa {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearblue a:not(.disabled).is-active.fa,
+.board-color-clearblue a:not(.disabled).is-active i.fa,
+.board-color-clearblue a:not(.disabled):hover.fa,
+.board-color-clearblue a:not(.disabled):hover i.fa {
+  color: rgba(0,0,0,0.6);
+  border-radius: 7px;
+}
+.board-color-clearblue input[type="email"],
+.board-color-clearblue input[type="password"],
+.board-color-clearblue input[type="text"] {
+  border: 0;
+  border-radius: 7px;
+}
+.board-color-clearblue .sidebar-shadow {
+  box-shadow: none;
+  border-left: 9px solid #00aecc;
+}
+.board-color-clearblue .is-open .sidebar-shadow {
+  box-shadow: -10px 0 8px rgba(0,0,0,0.3);
+}
+.board-color-clearblue .list.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearblue .minicard-wrapper.placeholder {
+  background: rgba(0,0,0,0.1);
+}
+.board-color-clearblue .minicard-wrapper.ui-sortable-helper {
+  transform: rotate(0deg);
+  opacity: 0.8;
+}
+.board-color-clearblue .list-body .open-minicard-composer {
+  color: rgba(0,0,0,0.3);
+}
+.board-color-clearblue .swinlane.ui-sortable-helper {
+  transform: rotate(0deg);
+}
+.board-color-clearblue .swimlane .swimlane-header-wrap {
+  background: linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.25) 100%);
+}
+.board-color-clearblue .swimlane-header-wrap .inlined-form {
+  width: 100%;
+}
+.board-color-clearblue .swimlane-header-wrap .list-composer {
+  text-align: center;
+  margin: 5px;
+}
+.board-color-clearblue .swimlane-header-wrap .list-name-input.full-line {
+  margin: 0;
+  display: inline-block;
+  width: 270px;
+}
+.board-color-clearblue .swimlane-header-wrap .edit-controls {
+  display: inline-block;
+  vertical-align: middle;
+}
+.board-color-clearblue .swimlane-header-wrap .primary.confirm {
+  margin-right: 0;
+}
+.board-color-clearblue .swimlane-header-wrap .fa.fa-times-thin {
+  margin-top: 2px;
+}
+.board-color-clearblue .list.ui-sortable-helper,
+.board-color-clearblue .list.ui-sortable-helper .list-header.ui-sortable-handle,
+.board-color-clearblue .list.ui-sortable-helper .viewer {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+/*
+  Alternate "Natural" Styling
+*/
+.board-color-natural#header,
+.board-color-natural.sk-spinner div,
+.board-backgrounds-list .board-color-natural.background-box,
+.board-list .board-color-natural a {
+  background-color: #596557;
+}
+.board-color-natural .is-selected .minicard {
+  border-left: 3px solid #596557;
+}
+.board-color-natural .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-natural button[type=submit].primary,
+.board-color-natural input[type=submit].primary,
+.board-color-natural .sidebar .sidebar-content .sidebar-btn {
+  background-color: #475146;
+  border-radius: 7px;
+}
+.board-color-natural.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-natural .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-natural .sidebar-list li a:hover {
+  background-color: #687666;
+}
+.board-color-natural#header ul li.current,
+.board-color-natural#header-quick-access ul li.current {
+  border-bottom: 2px solid #687666;
+}
+.board-color-natural#header-quick-access {
+  background: #505b4e;
+  color: #fff;
+}
+.board-color-natural#header #header-main-bar .board-header-btn.emphasis {
+  background: #635765;
+}
+.board-color-natural#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-natural#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #594e5b;
+}
+.board-color-natural#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #4f4651;
+}
+.board-color-natural .materialCheckBox.is-checked {
+  border-bottom: 2px solid #596557;
+  border-right: 2px solid #596557;
+}
+.board-color-natural .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #eef0ee;
+}
+.board-color-natural .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #fafbfa;
+}
+.board-color-natural .toggle-label:after {
+  background-color: #475146;
+}
+.board-color-natural .toggle-switch:checked ~ .toggle-label {
+  background-color: #778875;
+}
+.board-color-natural .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #475146;
+}
+@media screen and (max-width: 800px) {
+  .board-color-natural.pop-over .header {
+    background: #596557;
+    color: #fff;
+  }
+}
+.board-color-natural#header ul li.current,
+.board-color-natural#header-quick-access ul li.current {
+  border-bottom: 4px solid #778875;
+}
+.board-color-natural#header-quick-access {
+  background-color: #2d392b;
+}
+.board-color-natural .ui-sortable {
+  background-color: #dedede;
+}
+.board-color-natural .swimlane .swimlane-header-wrap {
+  background-color: #c2c0ab;
+}
+/*
+  Alternate "Modern" Styling
+*/
+.board-color-modern#header,
+.board-color-modern.sk-spinner div,
+.board-backgrounds-list .board-color-modern.background-box,
+.board-list .board-color-modern a {
+  background-color: #2a80b8;
+}
+.board-color-modern .is-selected .minicard {
+  border-left: 3px solid #2a80b8;
+}
+.board-color-modern .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-modern button[type=submit].primary,
+.board-color-modern input[type=submit].primary,
+.board-color-modern .sidebar .sidebar-content .sidebar-btn {
+  background-color: #226693;
+  border-radius: 7px;
+}
+.board-color-modern.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-modern .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-modern .sidebar-list li a:hover {
+  background-color: #2f90cf;
+}
+.board-color-modern#header ul li.current,
+.board-color-modern#header-quick-access ul li.current {
+  border-bottom: 2px solid #2f90cf;
+}
+.board-color-modern#header-quick-access {
+  background: #2673a6;
+  color: #fff;
+}
+.board-color-modern#header #header-main-bar .board-header-btn.emphasis {
+  background: #b8622a;
+}
+.board-color-modern#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-modern#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #a65826;
+}
+.board-color-modern#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #934e22;
+}
+.board-color-modern .materialCheckBox.is-checked {
+  border-bottom: 2px solid #2a80b8;
+  border-right: 2px solid #2a80b8;
+}
+.board-color-modern .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e8f3fa;
+}
+.board-color-modern .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f8fbfd;
+}
+.board-color-modern .toggle-label:after {
+  background-color: #226693;
+}
+.board-color-modern .toggle-switch:checked ~ .toggle-label {
+  background-color: #469cd5;
+}
+.board-color-modern .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #226693;
+}
+@media screen and (max-width: 800px) {
+  .board-color-modern.pop-over .header {
+    background: #2a80b8;
+    color: #fff;
+  }
+}
+.board-color-modern#header ul li.current,
+.board-color-modern#header-quick-access ul li.current {
+  border-bottom: 4px solid #469cd5;
+}
+.board-color-modern body {
+  background: #f5f5f5;
+}
+.board-color-modern#header-quick-access {
+  padding: 10px;
+  font-size: 14px;
+  background: #333 !important;
+}
+.board-color-modern#header-quick-access ul {
+  overflow: visible;
+}
+.board-color-modern#header-quick-access ul li.current {
+  border: 0 !important;
+  font-weight: bold;
+}
+.board-color-modern#header-quick-access ul li.separator {
+  display: none;
+}
+.board-color-modern#header-quick-access ul li:nth-child(3) {
+  margin-right: 10px;
+}
+.board-color-modern#header-quick-access ul li a {
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+.board-color-modern#header-quick-access ul li.current a {
+  border-radius: 2px;
+  background: rgba(255,255,255,0.2);
+}
+.board-color-modern#header #header-main-bar h1 {
+  font-family: Poppins;
+  font-weight: bold;
+}
+.board-color-modern#header-quick-access #header-user-bar {
+  position: relative;
+}
+.board-color-modern#header-quick-access #header-user-bar .header-user-bar-name {
+  margin: 5px 3px 0 0;
+}
+.board-color-modern section#notifications-drawer {
+  top: 46px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  max-width: 100%;
+}
+.board-color-modern section#notifications-drawer .header {
+  top: 46px;
+  border-radius: 0 3px;
+  height: 21px;
+  background: #f7f7f7;
+}
+.board-color-modern .board-canvas {
+  background: #f5f5f5;
+}
+.board-color-modern .swimlane {
+  background: none;
+}
+.board-color-modern .swimlane .swimlane-header-wrap .swimlane-header {
+  font-family: Poppins;
+}
+.board-color-modern .board-list .board-list-item {
+  padding: 20px;
+}
+.board-color-modern .board-list-item-name {
+  font-family: Poppins;
+}
+.board-color-modern .list {
+  background: transparent;
+  border-left: 0;
+  margin: 10px 0;
+  padding: 0px;
+  border-radius: 5px;
+  min-width: 300px;
+}
+.board-color-modern .list-body .open-minicard-composer:hover {
+  background: none;
+  box-shadow: none;
+}
+.board-color-modern .list:first-child {
+  margin-left: 5px;
+}
+.board-color-modern .list.list-composer.js-list-composer {
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+.board-color-modern .open-list-composer.js-open-inlined-form:hover {
+  color: #222;
+}
+.board-color-modern .list-header {
+  background: none;
+}
+.board-color-modern .list-header .list-header-name {
+  font-family: Poppins;
+  color: #000;
+  font-weight: 500;
+}
+.board-color-modern .minicard {
+  padding: 15px 15px 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+.board-color-modern .minicard-plum:hover:not(.minicard-composer),
+.board-color-modern .is-selected .minicard-plum,
+.board-color-modern .draggable-hover-card .minicard-plum {
+  background: none;
+}
+.board-color-modern .minicard-title {
+  line-height: 1.5em;
+}
+.board-color-modern .minicard .minicard-cover {
+  background-size: cover;
+  margin: -15px -15px 10px;
+  height: 100px;
+}
+.board-color-modern .card-label-orange {
+  color: #fff;
+}
+.board-color-modern .card-date {
+  font-size: 12px;
+  padding: 3px 5px;
+}
+.board-color-modern .header-title {
+  font-family: Poppins;
+  font-size: 16px;
+  color: #333;
+}
+.board-color-modern .pop-over {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  border: 0;
+  border-radius: 5px;
+}
+.board-color-modern .pop-over .header {
+  padding: 10px;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: #eee;
+}
+.board-color-modern .pop-over .header .header-title {
+  font-family: Poppins;
+  font-size: 16px;
+  color: #333;
+}
+.board-color-modern .pop-over .header .close-btn {
+  font-size: 20px;
+  top: 6px;
+  right: 8px;
+}
+.board-color-modern .pop-over .content-container .content {
+  padding: 5px 20px 20px;
+  width: 260px;
+}
+.board-color-modern .pop-over-list li > a {
+  border-radius: 5px;
+}
+.board-color-modern .pop-over-list li > a > i {
+  margin-right: 5px;
+}
+.board-color-modern .pop-over-list li>a .sub-name {
+  margin-bottom: 8px;
+}
+.board-color-modern .sidebar .sidebar-shadow {
+  box-shadow: 0 0 60px rgba(0,0,0,0.2);
+}
+.board-color-modern .sidebar .sidebar-content {
+  padding: 30px;
+}
+.board-color-modern .board-color-modern section#notifications-drawer {
+  border-radius: 5px;
+}
+.board-color-modern .board-color-modern section#notifications-drawer .header {
+  padding: 18px 16px;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: #eee;
+}
+.board-color-modern .board-color-modern section#notifications-drawer .header h5 {
+  font-family: Poppins;
+  font-weight: bold;
+}
+.board-color-modern .board-color-modern section#notifications-drawer .header .close {
+  font-size: 20px;
+  top: 14px;
+}
+.board-color-modern section#notifications-drawer .header .toggle-read {
+  top: 18px;
+}
+/*
+  Alternate "Modern Dark" Styling
+*/
+.board-color-moderndark#header,
+.board-color-moderndark.sk-spinner div,
+.board-backgrounds-list .board-color-moderndark.background-box,
+.board-list .board-color-moderndark a {
+  background-color: #2a2a2a;
+}
+.board-color-moderndark .is-selected .minicard {
+  border-left: 3px solid #2a2a2a;
+}
+.board-color-moderndark .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-moderndark button[type=submit].primary,
+.board-color-moderndark input[type=submit].primary,
+.board-color-moderndark .sidebar .sidebar-content .sidebar-btn {
+  background-color: #222;
+  border-radius: 7px;
+}
+.board-color-moderndark.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-moderndark .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-moderndark .sidebar-list li a:hover {
+  background-color: #3f3f3f;
+}
+.board-color-moderndark#header ul li.current,
+.board-color-moderndark#header-quick-access ul li.current {
+  border-bottom: 2px solid #3f3f3f;
+}
+.board-color-moderndark#header-quick-access {
+  background: #262626;
+  color: #fff;
+}
+.board-color-moderndark#header #header-main-bar .board-header-btn.emphasis {
+  background: #2a2a2a;
+}
+.board-color-moderndark#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-moderndark#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #262626;
+}
+.board-color-moderndark#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #222;
+}
+.board-color-moderndark .materialCheckBox.is-checked {
+  border-bottom: 2px solid #2a2a2a;
+  border-right: 2px solid #2a2a2a;
+}
+.board-color-moderndark .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #eaeaea;
+}
+.board-color-moderndark .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f9f9f9;
+}
+.board-color-moderndark .toggle-label:after {
+  background-color: #222;
+}
+.board-color-moderndark .toggle-switch:checked ~ .toggle-label {
+  background-color: #555;
+}
+.board-color-moderndark .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #222;
+}
+@media screen and (max-width: 800px) {
+  .board-color-moderndark.pop-over .header {
+    background: #2a2a2a;
+    color: #fff;
+  }
+}
+.board-color-moderndark#header ul li.current,
+.board-color-moderndark#header-quick-access ul li.current {
+  border-bottom: 4px solid #555;
+}
+.board-color-moderndark body {
+  background: #2a2a2a;
+}
+.board-color-moderndark .board-wrapper .board-canvas .board-overlay {
+  opacity: 0.6;
+}
+.board-color-moderndark button[type=submit].primary,
+.board-color-moderndark .board-color-modern input[type=submit].primary {
+  background-color: #777;
+  border-radius: 7px;
+}
+.board-color-moderndark .toggle-switch:checked~.toggle-label {
+  background-color: #f7f7f7;
+}
+.board-color-moderndark .toggle-label:after,
+.board-color-moderndark .board-color-modern .toggle-switch:checked~.toggle-label:after {
+  background-color: #777 !important;
+}
+.board-color-moderndark button,
+.board-color-moderndark input:not([type=file]),
+.board-color-moderndark select,
+.board-color-moderndark textarea {
+  border-radius: 7px;
+}
+.board-color-moderndark#header {
+  background-color: #262626;
+  border-bottom: 1px solid #555;
+  border-top: 1px solid #555;
+}
+.board-color-moderndark#header-quick-access,
+.board-color-moderndark .background-box,
+.board-color-moderndark #header {
+  background-color: #333;
+}
+.board-color-moderndark#header-quick-access {
+  padding: 4px;
+  font-size: 14px;
+}
+.board-color-moderndark#header-quick-access .allBoards {
+  padding: 5px 10px 0 10px;
+}
+.board-color-moderndark#header-quick-access ul.header-quick-access-list {
+  margin: -5px 0 -5px 0;
+}
+.board-color-moderndark#header #header-main-bar {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.board-color-moderndark#header-quick-access ul {
+  overflow: visible;
+}
+.board-color-moderndark#header-quick-access ul li.current {
+  border: 0 !important;
+  font-weight: bold;
+}
+.board-color-moderndark#header-quick-access ul li.separator {
+  display: none;
+}
+.board-color-moderndark#header-quick-access ul li:nth-child(3) {
+  margin-right: 10px;
+}
+.board-color-moderndark#header-quick-access ul li a {
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+.board-color-moderndark#header-quick-access ul li.current a {
+  border-radius: 2px;
+  background: rgba(255,255,255,0.2);
+}
+.board-color-moderndark#header #header-main-bar h1 {
+  font-family: Poppins;
+  font-weight: bold;
+  line-height: 0.8em;
+  padding-top: 10px;
+}
+.board-color-moderndark .board-canvas {
+  background: #2a2a2a;
+}
+.board-color-moderndark .swimlane .swimlane-header-wrap {
+  background-color: #494949;
+  color: #ccc;
+  padding: 4px 0;
+}
+.board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header {
+  font-family: Poppins;
+}
+.board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header-menu {
+  padding: 6px;
+  font-size: 16px;
+}
+.board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
+  font-size: 16px;
+}
+.board-color-moderndark .swimlane {
+  background: #2a2a2a;
+  line-height: 18px;
+  max-height: 100%;
+}
+.board-color-moderndark .swimlane .list {
+  background: #666;
+  border-radius: 0;
+  border: 0px solid #666;
+  flex: 0 0 265px;
+}
+.board-color-moderndark .swimlane .list:first-child {
+  margin-left: 0;
+}
+.board-color-moderndark .swimlane .list:nth-child(even) .list-header,
+.board-color-moderndark .swimlane .list:nth-child(even) .list-body {
+  background: #6a6a6a;
+}
+.board-color-moderndark .swimlane .list:nth-child(odd) .list-header,
+.board-color-moderndark .swimlane .list:nth-child(odd) .list-body {
+  background: #555;
+}
+.board-color-moderndark .list-header {
+  background: #6a6a6a;
+}
+.board-color-moderndark .list-header .viewer {
+  padding-left: 10px;
+}
+.board-color-moderndark .list-header .list-header-name,
+.board-color-moderndark .minicard {
+  line-height: 14px;
+  color: #eee;
+}
+.board-color-moderndark .list-header .list-header-menu {
+  padding: 10px;
+  top: 0;
+}
+.board-color-moderndark .list-header .list-header-plus-top {
+  color: #a6a6a6;
+}
+.board-color-moderndark .list-body {
+  scrollbar-width: thin;
+  scrollbar-color: #343434 #999;
+}
+.board-color-moderndark .list-body::-webkit-scrollbar {
+  width: 10px;
+}
+.board-color-moderndark .list-body::-webkit-scrollbar-track {
+  background: #343434;
+  border-radius: 3px;
+  margin: 4px 0;
+}
+.board-color-moderndark .list-body::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 6px;
+  border: 3px solid #343434;
+}
+.board-color-moderndark .list-body .open-minicard-composer:hover {
+  background: none;
+  box-shadow: none;
+  border-bottom: 0;
+}
+.board-color-moderndark .list-body a.open-minicard-composer,
+.board-color-moderndark .list-body a.open-minicard-composer i,
+.board-color-moderndark .list .list-composer .open-list-composer i {
+  color: #bbb;
+}
+.board-color-moderndark .list-body a.open-minicard-composer:hover,
+.board-color-moderndark .list-body a.open-minicard-composer:hover i,
+.board-color-moderndark .list .list-composer .open-list-composer:hover i {
+  color: #fff;
+  border-radius: 7px;
+}
+.board-color-moderndark .minicard-wrapper {
+  margin-bottom: 12px;
+}
+.board-color-moderndark .minicard {
+  background-color: #444;
+  color: #ccc;
+  border-radius: 2px;
+  font-size: 0.95em;
+  box-shadow: 0 4px 3px -3px rgba(0,0,0,0.8);
+  border-bottom: 1px solid #666;
+  padding: 8px;
+}
+.board-color-moderndark .minicard:hover {
+  color: #f7f7f7;
+  background-color: #4d4d4d !important;
+}
+.board-color-moderndark .minicard .minicard-labels {
+  margin-bottom: 4px;
+}
+.board-color-moderndark .minicard .card-label {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 1px 6px 0;
+  border-radius: 2px;
+}
+.board-color-moderndark .minicard .badges {
+  color: #bbb;
+}
+.board-color-moderndark .minicard .date {
+  margin-top: 10px;
+  font-size: 11px;
+}
+.board-color-moderndark .card-date {
+  color: #444;
+  border-radius: 2px;
+}
+.board-color-moderndark .card-date.almost-due {
+  color: #444;
+}
+.board-color-moderndark .minicard.minicard-composer textarea.minicard-composer-textarea:focus {
+  background-color: #eee;
+  color: #333;
+  padding: 6px;
+}
+.board-color-moderndark .is-selected .minicard {
+  background-color: #666;
+}
+.board-color-moderndark .card-details {
+  background-color: #454545;
+  color: #ccc;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border: 1px solid #111;
+  z-index: 100 !important;
+}
+@media screen and (max-width: 800px) {
+  .board-color-moderndark .card-details {
+    width: 98%;
+  }
+}
+@media screen and (min-width: 801px) {
+  .board-color-moderndark .card-details {
+    position: absolute;
+    top: 30px;
+    left: calc(50% - 384px);
+    width: 768px;
+    max-height: calc(100% - 60px);
+  }
+}
+.board-color-moderndark .card-details {
+  scrollbar-width: thin;
+  scrollbar-color: #343434 #999;
+}
+.board-color-moderndark .card-details::-webkit-scrollbar {
+  width: 16px;
+}
+.board-color-moderndark .card-details::-webkit-scrollbar-track {
+  background: #343434;
+}
+.board-color-moderndark .card-details::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 6px;
+  border: 4px solid #343434;
+}
+.board-color-moderndark .card-details .card-details-header {
+  background: #333;
+  color: #ccc;
+  border-bottom: 2px solid #2d2d2d;
+}
+.board-color-moderndark .card-details hr {
+  background: #2d2d2d;
+}
+.board-color-moderndark .card-details .card-details-item-title {
+  color: #fff;
+}
+.board-color-moderndark .card-details .new-description textarea,
+.board-color-moderndark .card-details .new-comment textarea {
+  background-color: #ddd;
+  color: #111;
+}
+.board-color-moderndark .card-details .checklist {
+  background-color: transparent;
+  margin-bottom: 10px;
+}
+.board-color-moderndark .card-details .checklist-item {
+  background-color: rgba(255,255,255,0.1);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-top: 5px;
+}
+.board-color-moderndark .card-details .checklist-item:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+.board-color-moderndark .card-details .checklist-item .item-title .viewer p {
+  max-width: auto;
+}
+.board-color-moderndark .card-details .check-box.materialCheckBox {
+  border-color: #fff;
+}
+.board-color-moderndark .card-details .check-box.materialCheckBox.is-checked {
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-top: 0;
+  border-left: 0;
+}
+.board-color-moderndark .card-details .js-add-checklist-item {
+  margin-top: 4px;
+}
+.board-color-moderndark .checklist-items .add-checklist-item {
+  margin-top: 0.7em;
+}
+.board-color-moderndark .card-details .activities .activity .activity-desc .activity-comment {
+  background-color: #ccc;
+  color: #222;
+}
+.board-color-moderndark .sidebar .sidebar-shadow {
+  background-color: #222;
+  box-shadow: -10px 0 5px -10px #444;
+  border-left: 1px solid #333;
+  color: #ccc;
+}
+.board-color-moderndark .activities .activity .activity-desc .activity-comment {
+  background-color: #ccc;
+  color: #222;
+}
+.board-color-moderndark .activities .activity .activity-desc .activity-checklist {
+  background-color: #ccc;
+  color: #222;
+}
+.board-color-moderndark .attachments-galery .attachment-item {
+  color: #222;
+}
+.board-color-moderndark .minicard-description {
+  color: #222;
+}
+.pop-over.board-color-moderndark {
+  background-color: #454545;
+  color: #ccc;
+  border: 1px solid #111;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.pop-over.board-color-moderndark .header {
+  background-color: #333;
+}
+.pop-over.board-color-moderndark .header-title {
+  font-family: Poppins;
+  font-size: 16px;
+  color: #ccc;
+}
+.pop-over.board-color-moderndark .pop-over-list li > a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+.board-color-exodark#header,
+.board-color-exodark.sk-spinner div,
+.board-backgrounds-list .board-color-exodark.background-box,
+.board-list .board-color-exodark a {
+  background-color: #222;
+}
+.board-color-exodark .is-selected .minicard {
+  border-left: 3px solid #222;
+}
+.board-color-exodark .minicard {
+  border-radius: 7px;
+  padding: 10px 10px 4px 10px;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+}
+.board-color-exodark button[type=submit].primary,
+.board-color-exodark input[type=submit].primary,
+.board-color-exodark .sidebar .sidebar-content .sidebar-btn {
+  background-color: #1b1b1b;
+  border-radius: 7px;
+}
+.board-color-exodark.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-exodark .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-exodark .sidebar-list li a:hover {
+  background-color: #383838;
+}
+.board-color-exodark#header ul li.current,
+.board-color-exodark#header-quick-access ul li.current {
+  border-bottom: 2px solid #383838;
+}
+.board-color-exodark#header-quick-access {
+  background: #1f1f1f;
+  color: #fff;
+}
+.board-color-exodark#header #header-main-bar .board-header-btn.emphasis {
+  background: #222;
+}
+.board-color-exodark#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-exodark#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #1f1f1f;
+}
+.board-color-exodark#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #1b1b1b;
+}
+.board-color-exodark .materialCheckBox.is-checked {
+  border-bottom: 2px solid #222;
+  border-right: 2px solid #222;
+}
+.board-color-exodark .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e9e9e9;
+}
+.board-color-exodark .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f8f8f8;
+}
+.board-color-exodark .toggle-label:after {
+  background-color: #1b1b1b;
+}
+.board-color-exodark .toggle-switch:checked ~ .toggle-label {
+  background-color: #4e4e4e;
+}
+.board-color-exodark .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #1b1b1b;
+}
+@media screen and (max-width: 800px) {
+  .board-color-exodark.pop-over .header {
+    background: #222;
+    color: #fff;
+  }
+}
+.board-color-exodark#header ul li.current,
+.board-color-exodark#header-quick-access ul li.current {
+  border-bottom: 4px solid #4e4e4e;
+}
+.board-color-exodark body {
+  background: #222;
+}
+.board-color-exodark i {
+  color: #00897b !important;
+}
+.board-color-exodark .board-canvas {
+  background: #222;
+  font-family: Poppins;
+}
+.board-color-exodark .swimlane {
+  background: #222;
+}
+.board-color-exodark .list {
+  margin: 10px;
+  color: #fff;
+  border-radius: 15px;
+  background: #222;
+  box-shadow: inset 15px 15px 37px #1c1c1c, inset -15px -15px 37px #282828;
+  border: none;
+}
+.board-color-exodark .list-header {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  background: #222;
+  box-shadow: inset 15px 15px 37px #1c1c1c, inset -15px -15px 37px #282828;
+}
+.board-color-exodark .list-header-menu a {
+  color: #00897b !important;
+}
+.board-color-exodark .is-selected .minicard {
+  color: #fff;
+  background: #2b2b2b;
+  border: 1px solid #00897b;
+}
+.board-color-exodark .minicard {
+  color: #fff;
+  background: #2b2b2b;
+}
+.board-color-exodark .list-body .open-minicard-composer:hover {
+  background: #2b2b2b;
+  border: 1px solid #00897b;
+  border-radius: 10px;
+}
+.board-color-exodark .badges {
+  color: #fff;
+}
+.board-color-exodark .minicard textarea {
+  color: #fff;
+}
+.board-color-exodark .minicard .minicard-description {
+  background: #2b2b2b;
+  border: 1px solid #00897b;
+}
+.board-color-exodark .minicard:hover:not(.minicard-composer) {
+  border: 1px solid #00897b;
+  background: #2b2b2b;
+  padding: 9px 9px 3px 9px; /*because of the 1px border we need to reduce padding by 1px*/
+}
+.board-color-exodark .card-details {
+  background: #2b2b2b !important;
+  color: #fff;
+}
+.board-color-exodark .card-details .card-details-header {
+  background: #2b2b2b;
+  color: #fff;
+}
+.board-color-exodark .sidebar-content {
+  background: #2b2b2b;
+  color: #fff;
+}
+.board-color-exodark .card-details,
+.board-color-exodark .sidebar-content {
+  box-shadow: 0 0 7px 0 #00897b;
+}
+.board-color-exodark .attachments-galery .attachment-item {
+  background: #2b2b2b;
+}
+.board-color-exodark .attachments-galery .attachment-item:hover {
+  border: 1px solid #00897b;
+  background: #2b2b2b;
+}
+.board-color-exodark .checklist {
+  background: #2b2b2b;
+}
+.board-color-exodark .checklist .checklist-item {
+  background: #2b2b2b;
+}
+.board-color-exodark .checklist .checklist-item:hover {
+  background: #2b2b2b;
+}
+.board-color-exodark .add-checklist-item.js-open-inlined-form:hover {
+  background: #2b2b2b;
+  border: 1px solid #00897b;
+}
+.board-color-exodark .add-checklist.js-open-inlined-form:hover {
+  background: #2b2b2b;
+  border: 1px solid #00897b;
+}
+.board-color-exodark .card-details > h1,
+.board-color-exodark h2,
+.board-color-exodark h3,
+.board-color-exodark h4,
+.board-color-exodark h5,
+.board-color-exodark h6,
+.board-color-exodark p,
+.board-color-exodark a,
+.board-color-exodark span {
+  color: #fff !important;
+}
+.board-color-exodark .activity-desc {
+  background-color: #2b2b2b !important;
+}
+.board-color-exodark .activity-checklist {
+  background: #2b2b2b !important;
+  border: 1px solid #00897b;
+}
+.board-color-exodark .activity-comment {
+  background: #2b2b2b !important;
+  border: 1px solid #00897b;
+}
+.board-color-exodark .toggle-switch:checked ~ .toggle-label {
+  background-color: #00897b !important;
+}
+.pop-over.board-color-exodark {
+  background: #2b2b2b;
+  color: #fff;
+}
+.pop-over.board-color-exodark .header {
+  background: #2b2b2b;
+  color: #fff;
+}

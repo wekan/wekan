@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
 let disableRegistration = false;

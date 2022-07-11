@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 window.Popup = new (class {
   constructor() {
     // The template we use to render popups

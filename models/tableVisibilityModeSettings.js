@@ -51,7 +51,7 @@ TableVisibilityModeSettings.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    TableVisibilityModeSettings._collection._ensureIndex({ modifiedAt: -1 });
+    TableVisibilityModeSettings._collection.createIndex({ modifiedAt: -1 });
     TableVisibilityModeSettings.upsert(
       { _id: 'tableVisibilityMode-allowPrivateOnly' },
       {

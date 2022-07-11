@@ -80,6 +80,8 @@ function initSortable(boardComponent, $listsDom) {
       Lists.update(list._id, {
         $set: {
           sort: sortIndex.base,
+          width: list._id.width(),
+          height: list._id.height(),
         },
       });
 

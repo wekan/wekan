@@ -6,7 +6,7 @@ Package.describe({
   documentation: 'README.md'
 });
 
-Package.on_use(function (api) {
+Package.onUse(function (api) {
   api.versionsFrom("METEOR@0.9.0");
-  api.add_files(['lib/autosize.js'], 'client');
+  api.addFiles(['lib/autosize.js'], 'client');
 });

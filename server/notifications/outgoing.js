@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 if (Meteor.isServer) {
   const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
     HTTP.post(url, options, (err, res) => {

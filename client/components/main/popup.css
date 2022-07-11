@@ -1,0 +1,346 @@
+.pop-over {
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #dbdbdb;
+  border-bottom-color: #c2c2c2;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+  position: absolute;
+  width: 300px;
+  z-index: 99999;
+  margin-top: 5px;
+}
+.pop-over hr {
+  margin: 4px 0px;
+}
+.pop-over p,
+.pop-over textarea,
+.pop-over input[type="text"],
+.pop-over input[type="email"],
+.pop-over input[type="password"],
+.pop-over input[type="file"] {
+  width: 100%;
+}
+.pop-over select {
+  width: 100%;
+  margin-bottom: 14px;
+}
+.pop-over textarea {
+  height: 72px;
+}
+.pop-over form a span {
+  padding: 0 0.5rem;
+}
+.pop-over .header {
+  height: 36px;
+  position: relative;
+  margin-bottom: 8px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #dcdcdc;
+  color: #666;
+}
+.pop-over .header .header-title {
+  display: block;
+  line-height: 32px;
+  padding-top: 4px;
+  margin: 0 10px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pop-over .header .back-btn {
+  float: left;
+  overflow: hidden;
+  width: 30px;
+  transition: width 0.2s;
+}
+.pop-over .header .back-btn i.fa {
+  margin: 10px;
+  margin-top: 12px;
+}
+.pop-over .header .back-btn.is-hidden {
+  width: 0;
+}
+.pop-over .header .close-btn {
+  padding: 10px 10px 10px 4px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.pop-over.no-title .header {
+  background: none;
+}
+.pop-over .content-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+.pop-over .content-container {
+  width: 5000px;
+  max-height: 550px;
+  transition: transform 0.2s;
+}
+.pop-over .content-container .content {
+  width: 280px;
+  padding: 0 10px 10px;
+  float: left;
+}
+.pop-over .content-container .content.no-height {
+  height: 20px;
+}
+.pop-over .quiet {
+  padding: 6px 6px 4px;
+}
+.pop-over.search-over {
+  background: #f0f0f0;
+  min-height: 114px;
+}
+.pop-over.search-over .header {
+  display: none;
+}
+.pop-over.search-over .content {
+  padding: 8px 4px 8px 10px;
+  margin-right: 8px;
+}
+.pop-over .at-form .at-error,
+.pop-over .at-form .at-result {
+  padding: 8px 12px;
+  margin: -8px -10px 10px;
+}
+.pop-over .at-form .at-error {
+  background: #ef9a9a;
+}
+.pop-over .at-form .at-result {
+  background: #b2dfdb;
+}
+.pop-over .sk-spinner {
+  margin: 40px auto;
+}
+.pop-over .popup-container-depth-1 {
+  transform: translateX(-300px);
+}
+.pop-over .popup-container-depth-2 {
+  transform: translateX(-600px);
+}
+.pop-over .popup-container-depth-3 {
+  transform: translateX(-900px);
+}
+.pop-over .popup-container-depth-4 {
+  transform: translateX(-1200px);
+}
+.pop-over .popup-container-depth-5 {
+  transform: translateX(-1500px);
+}
+.pop-over .popup-container-depth-6 {
+  transform: translateX(-1800px);
+}
+.select-members-list,
+.select-avatars-list {
+  margin-bottom: 8px;
+}
+.pop-over-list li {
+  display: block;
+  clear: both;
+}
+.pop-over-list li > a {
+  clear: both;
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  padding: 1.5px 10px;
+  position: relative;
+  margin: 0 -10px;
+  text-decoration: none;
+  overflow: hidden;
+  line-height: 33px;
+}
+.pop-over-list li > a .item-name {
+  display: block;
+  width: auto;
+  padding-right: 22px;
+}
+.pop-over-list li > a:not(.disabled):hover {
+  background-color: #005377;
+  color: #fff;
+}
+.pop-over-list li > a:not(.disabled):hover .sub-name,
+.pop-over-list li > a:not(.disabled):hover .quiet {
+  color: #eee;
+}
+.pop-over-list li > a:not(.disabled):hover .unread-indicator {
+  background: #fff;
+}
+.pop-over-list li > a .sub-name {
+  color: #8c8c8c;
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+}
+.pop-over-list li > a.current {
+  background-color: #e2e6e9;
+}
+.pop-over-list li > a:active {
+  background-color: #2e85b8;
+}
+.pop-over-list li > a.disabled {
+  color: #8c8c8c;
+  cursor: default;
+}
+.pop-over-list li > a.disabled .vis-icon {
+  opacity: 0.35;
+}
+.pop-over-list li > a.disabled:hover {
+  background: none;
+}
+.pop-over-list li > a.disabled:hover .sub-name,
+.pop-over-list li > a.disabled:hover .quiet {
+  color: #8c8c8c;
+}
+.pop-over-list li > a.disabled:active {
+  background: none;
+}
+.pop-over-list.inset li > a {
+  border-radius: 3px;
+  margin: 0;
+}
+.pop-over-list .pop-over-list.checkable .fa-check {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 12px;
+}
+.pop-over-list .pop-over-list.checkable li.active a {
+  padding-right: 28px;
+}
+.pop-over-list .pop-over-list.checkable li.active a .fa-check {
+  display: block;
+}
+.pop-over.miniprofile .header {
+  border-bottom-color: transparent;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  z-index: 1;
+}
+.pop-over.miniprofile .header-title {
+  display: none;
+}
+.pop-over.miniprofile .pop-over-list {
+  padding-top: 8px;
+}
+.pop-over.miniprofile .miniprofile-header {
+  margin-top: 8px;
+  min-height: 56px;
+  position: relative;
+}
+.pop-over.miniprofile .miniprofile-header .member,
+.pop-over.miniprofile .miniprofile-header .avatar {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  height: 50px;
+  width: 50px;
+}
+.pop-over.miniprofile .miniprofile-header .info {
+  margin: 0 0 0 64px;
+  word-wrap: break-word;
+}
+.pop-over.miniprofile .miniprofile-header .info h3 a {
+  text-decoration: none;
+}
+.pop-over.miniprofile .miniprofile-header .info h3 a:hover {
+  text-decoration: underline;
+}
+@media screen and (max-width: 800px) {
+  .pop-over {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin-top: 0px;
+    border: 0px solid #dbdbdb;
+  }
+  .pop-over .header {
+    color: #fff;
+    background: #2980b9;
+    height: 48px;
+    padding: 0px 0px;
+    border: 0px;
+    margin: 0px 0px;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+  }
+  .pop-over .header .header-title {
+    font-size: 20px;
+    font-weight: normal;
+    padding-top: 8px;
+  }
+  .pop-over .header .back-btn {
+    width: 30px;
+    padding: 8px 12px 8px 12px;
+  }
+  .pop-over .header .back-btn i.fa {
+    color: #fff;
+  }
+  .pop-over .header .close-btn {
+    padding: 10px 12px;
+  }
+  .pop-over .header .close-btn i.fa {
+    font-size: 24px;
+    color: #fff;
+  }
+  .pop-over .content-wrapper {
+    width: 100%;
+    height: calc(100% - 48px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 48px 0px 0px 0px;
+  }
+  .pop-over .content-container {
+    width: 1000%;
+    height: 100%;
+    max-height: 100%;
+  }
+  .pop-over .content-container .content {
+    width: calc(10% - 20px);
+    height: calc(100% - 20px);
+    padding: 10px;
+  }
+  .pop-over .content-container .content form {
+    margin: 10px 10px;
+    width: calc(100% - 20px);
+  }
+  .pop-over .content-container .content p,
+  .pop-over .content-container .content textarea,
+  .pop-over .content-container .content input[type="text"],
+  .pop-over .content-container .content input[type="email"],
+  .pop-over .content-container .content input[type="password"],
+  .pop-over .content-container .content input[type="file"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .pop-over .pop-over-list li > a {
+    width: calc(100% - 20px);
+    margin: 0px 0px;
+  }
+  .pop-over .popup-container-depth-1 {
+    transform: translateX(-10%);
+  }
+  .pop-over .popup-container-depth-2 {
+    transform: translateX(-20%);
+  }
+  .pop-over .popup-container-depth-3 {
+    transform: translateX(-30%);
+  }
+  .pop-over .popup-container-depth-4 {
+    transform: translateX(-40%);
+  }
+  .pop-over .popup-container-depth-5 {
+    transform: translateX(-50%);
+  }
+  .pop-over .popup-container-depth-6 {
+    transform: translateX(-60%);
+  }
+}

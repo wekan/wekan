@@ -1,0 +1,94 @@
+.auth-layout .at-form-landing-logo {
+  width: 249px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.auth-layout .auth-dialog {
+  width: 275px;
+  padding: 25px;
+  margin: auto;
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #dbdbdb;
+  border-bottom-color: #c2c2c2;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+.auth-layout .auth-dialog .at-form .at-link {
+  color: #17683a;
+}
+.auth-layout .auth-dialog .at-form label {
+  margin-bottom: 3px;
+}
+.auth-layout .auth-dialog .at-form input {
+  width: 100%;
+}
+.auth-layout .auth-dialog .at-form button {
+  width: 100%;
+  background: #216694;
+  color: #fff;
+}
+.auth-layout .auth-dialog .at-form .at-title {
+  background: #f7f7f7;
+  margin: -25px;
+  padding: 15px 25px 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #dcdcdc;
+  color: #4d4d4d;
+  font-weight: bold;
+}
+.auth-layout .auth-dialog .at-form .at-signup-link,
+.auth-layout .auth-dialog .at-form .at-signin-link,
+.auth-layout .auth-dialog .at-form .at-forgotPwd {
+  font-size: 0.9em;
+  margin-top: 15px;
+  color: #4d4d4d;
+}
+.auth-layout .auth-dialog .at-form .at-signup-link .at-signUp,
+.auth-layout .auth-dialog .at-form .at-signin-link .at-signUp,
+.auth-layout .auth-dialog .at-form .at-forgotPwd .at-signUp,
+.auth-layout .auth-dialog .at-form .at-signup-link .at-signIn,
+.auth-layout .auth-dialog .at-form .at-signin-link .at-signIn,
+.auth-layout .auth-dialog .at-form .at-forgotPwd .at-signIn {
+  font-weight: bold;
+}
+.auth-layout .auth-dialog .at-form-lang {
+  margin-top: 0px;
+}
+.auth-layout .auth-dialog .at-form-lang .select-lang {
+  width: 100%;
+  margin-top: 10px;
+}
+@media screen and (max-width: 800px) {
+  .auth-layout {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+  .auth-layout .at-form-landing-logo {
+    width: 125px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .auth-layout .at-form-landing-logo img {
+    width: 125px;
+  }
+  .auth-layout .auth-dialog {
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    padding: 25px;
+    min-height: 380px;
+    margin: 0px;
+    margin-bottom: 0px;
+    border: 0px;
+  }
+  .auth-layout .auth-dialog .at-form .at-title h3 {
+    width: calc(100% - 125px);
+    overflow-x: hidden;
+  }
+}

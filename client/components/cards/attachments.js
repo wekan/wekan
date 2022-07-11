@@ -134,6 +134,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-rename': Popup.open('attachmentRename'),
         'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
           Attachments.remove(this._id);
           Popup.back(2);
@@ -158,3 +159,31 @@ BlazeComponent.extendComponent({
     ]
   }
 }).register('attachmentActionsPopup');
+
+BlazeComponent.extendComponent({
+  getNameWithoutExtension() {
+    const ret = this.data().name.replace(new RegExp("\." + this.data().extension + "$"), "");
+    return ret;
+  },
+  events() {
+    return [
+      {
+        'keydown input.js-edit-attachment-name'(evt) {
+          // enter = save
+          if (evt.keyCode === 13) {
+            this.find('button[type=submit]').click();
+          }
+        },
+        'click button.js-submit-edit-attachment-name'(event) {
+          // save button pressed
+          event.preventDefault();
+          const name = this.$('.js-edit-attachment-name')[0]
+            .value
+            .trim() + this.data().extensionWithDot;
+          Meteor.call('renameAttachment', this.data()._id, name);
+          Popup.back(2);
+        },
+      }
+    ]
+  }
+}).register('attachmentRenamePopup');

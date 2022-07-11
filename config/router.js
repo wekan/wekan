@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 let previousPath;
 FlowRouter.triggers.exit([
   ({ path }) => {

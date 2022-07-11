@@ -1,0 +1,67 @@
+section#notifications-drawer {
+  position: fixed;
+  top: 48px;
+  right: 0;
+  width: 400px;
+  background-color: #fafafa;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  border-radius: 2px;
+  max-height: calc(100vh - 28px - 36px);
+  color: #000;
+  padding-top: 36px;
+}
+section#notifications-drawer a:hover {
+  color: #2980b9 !important;
+}
+section#notifications-drawer .header {
+  position: fixed;
+  top: 48px;
+  right: 0;
+  width: calc(400px - 32px);
+  padding: 8px 16px;
+  background: #ededed;
+  border-bottom: 1px solid #dbdbdb;
+  z-index: 2;
+}
+section#notifications-drawer .header .toggle-read {
+  position: absolute;
+  left: 16px;
+  top: calc(50% - 8px);
+  color: #2980b9;
+}
+section#notifications-drawer .header h5 {
+  text-align: center;
+  margin: 0;
+}
+section#notifications-drawer .header .close {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 12px;
+  font-size: 24px;
+  height: 24px;
+  line-height: 24px;
+  opacity: 1;
+}
+section#notifications-drawer .all-read,
+section#notifications-drawer .remove-read {
+  color: #2980b9;
+  background-color: #fafafa;
+  margin: 8px 16px 12px;
+  display: inline-block;
+}
+section#notifications-drawer .remove-read {
+  float: right;
+}
+section#notifications-drawer .remove-read:hover {
+  color: #eb4646 !important;
+}
+section#notifications-drawer .remove-read:hover i.fa {
+  color: inherit;
+}
+section#notifications-drawer ul.notifications {
+  display: block;
+  padding: 0px 16px 0px 16px;
+  margin: 0;
+  height: calc(100vh - 122px);
+  overflow-y: scroll;
+}

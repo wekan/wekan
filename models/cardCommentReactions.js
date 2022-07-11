@@ -54,6 +54,6 @@ CardCommentReactions.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    CardCommentReactions._collection._ensureIndex({ cardCommentId: 1 }, { unique: true });
+    CardCommentReactions._collection.createIndex({ cardCommentId: 1 }, { unique: true });
   });
 }
