@@ -20,6 +20,8 @@ and tries to fix the following bugs:
   Thanks to xet7.
 - [On CentOS 7 Docker there is seccomp issue with glibc 6, so setting it to unconfined to get WeKan working](https://github.com/wekan/wekan/commit/054d420dc97cadee6ed7896c608d95a6fe09dc9d (HEAD -> master)
   Thanks to m-brangeon.
+- [Fix uploading attachments](https://github.com/wekan/wekan/commit/69d454dd035a989266175eb4268ffc3d7891eb95).
+  Thanks to BabyFnord and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
