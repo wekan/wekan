@@ -50,6 +50,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
     OAUTH2_ENABLED=false \
+    OIDC_REDIRECTION_ENABLED=false \
     OAUTH2_CA_CERT="" \
     OAUTH2_ADFS_ENABLED=false \
     OAUTH2_LOGIN_STYLE=redirect \
@@ -147,6 +148,10 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     NODE_OPTIONS="--max_old_space_size=4096" \
     WRITABLE_PATH=/data
 
+#---------------------------------------------
+# == at docker-compose.yml: AUTOLOGIN WITH OIDC/OAUTH2 ====
+# https://github.com/wekan/wekan/wiki/autologin
+#- OIDC_REDIRECTION_ENABLED=true
 #---------------------------------------------------------------------
 # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
 # Add more Node heap:
