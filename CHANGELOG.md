@@ -5,6 +5,16 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Added LaTex support to all input fields with markdown-it-mathjax3](https://github.com/wekan/wekan/commit/e81900178e62d36672952a8f0707c5297dcd7767).
+  Examples: https://github.com/wekan/wekan/wiki/LaTeX .
+  Thanks to DoktorScience.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.30 2022-07-11 WeKan ® release
 
 This release adds the following new features:
