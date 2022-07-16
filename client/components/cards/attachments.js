@@ -1,3 +1,6 @@
+const filesize = require('filesize');
+const prettyMilliseconds = require('pretty-ms');
+
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
   // If we let this event bubble, FlowRouter will handle it and empty the page
@@ -17,8 +20,26 @@ Template.attachmentsGalery.helpers({
   },
 });
 
+Template.cardAttachmentsPopup.onCreated(function() {
+  this.currentUpload = new ReactiveVar(false);
+});
+
+Template.cardAttachmentsPopup.helpers({
+  getEstimateTime() {
+    const ret = prettyMilliseconds(Template.instance().currentUpload.get().estimateTime.get());
+    return ret;
+  },
+  getEstimateSpeed() {
+    const ret = filesize(Template.instance().currentUpload.get().estimateSpeed.get(), {round: 0}) + "/s";
+    return ret;
+  },
+  currentUpload() {
+    return Template.instance().currentUpload.get();
+  }
+});
+
 Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(event) {
+  'change .js-attach-file'(event, templateInstance) {
     const card = this;
     const files = event.currentTarget.files;
     if (files) {
@@ -36,6 +57,9 @@ Template.cardAttachmentsPopup.events({
           config,
           false,
         );
+        uploader.on('start', function() {
+          templateInstance.currentUpload.set(this);
+        });
         uploader.on('uploaded', (error, fileRef) => {
           if (!error) {
             if (fileRef.isImage) {
@@ -44,7 +68,11 @@ Template.cardAttachmentsPopup.events({
           }
         });
         uploader.on('end', (error, fileRef) => {
-          Popup.back();
+          templateInstance.currentUpload.set(false);
+          finished.push(fileRef);
+          if (finished.length == files.length) {
+            Popup.back();
+          }
         });
         uploader.start();
       }

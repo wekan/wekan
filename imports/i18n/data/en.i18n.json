@@ -1181,5 +1181,9 @@
   "storage": "Storage",
   "action": "Action",
   "board-title": "Board Title",
-  "attachmentRenamePopup-title": "Rename"
+  "attachmentRenamePopup-title": "Rename",
+  "uploading": "Uploading",
+  "remaining_time": "Remaining time",
+  "speed": "Speed",
+  "progress": "Progress"
 }
