@@ -1,0 +1,59 @@
+/* Fixed missing 'import nib' stylesheet reset and extra li bullet points
+ * https://github.com/wekan/wekan/issues/4512#issuecomment-1129347536
+ * https://github.com/stylus/nib/blob/master/lib/nib/reset.styl
+ */
+a, abbr, acronym, address, applet, big, blockquote, body, caption, cite,
+code, dd, del, dfn, div, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5,
+h6, html, iframe, img, ins, kbd, label, legend, li, object, ol, p, pre,
+q, s, samp, small, span, strike, strong, sub, sup,
+table, tbody, td, tfoot, th, thread, tr, tt, ul, var {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+ol, ul {
+  list-style: none;
+}
+a img {
+  border: none;
+}
+/* reset body */
+body {
+  line-height: 1;
+  color: black;
+  background: white;
+}
+/* reset table cell */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption, td, th {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+/* reset html5 */
+article, aside, canvas, details, figcaption,
+  figure, footer, header, hgroup, menu, nav,
+  section, summary, main {
+  display: block;
+}
+audio, canvas, video {
+  display inline-block;
+  *display inline;
+  *zoom 1;
+}
+audio:not([controls]),[hidden] {
+  display: none;
+}
+
+
+
+
