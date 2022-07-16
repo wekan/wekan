@@ -5,7 +5,7 @@ LABEL maintainer="sgr"
 # - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
 #   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
-ENV BUILD_DEPS="apt-utils apt-transport-https gnupg gosu libarchive-tools wget bzip2 g++ build-essential git iproute2"
+ENV BUILD_DEPS="apt-utils apt-transport-https gnupg gosu libarchive-tools wget bzip2 g++ git iproute2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
@@ -194,7 +194,7 @@ COPY \
 RUN set -o xtrace \
   && useradd --user-group --no-create-home --system --home-dir /home/wekan wekan \
   && apt-get update \
-  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} curl python3 ca-certificates \
+  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} curl python3 ca-certificates build-essential \
 
 # OLD:
 #  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$ARCHITECTURE.tar.xz" \
@@ -233,6 +233,7 @@ RUN set -o xtrace \
 
     # Cleanup
     apt-get remove --purge --assume-yes ${BUILD_DEPS} && \
+    apt-get install --assume-yes --no-install-recommends build-essential && \
     apt-get clean -y && \
     apt-get autoremove -y && \
     rm -Rf /tmp/* && \
