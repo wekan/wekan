@@ -297,6 +297,16 @@ Template.changeSettingsPopup.helpers({
       return false;
     }
   },
+  rescueCardDescription() {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).rescueCardDescription;
+    } else if (window.localStorage.getItem('rescueCardDescription')) {
+      return true;
+    } else {
+      return false;
+    }
+  },
   showCardsCountAt() {
     currentUser = Meteor.user();
     if (currentUser) {
@@ -356,6 +366,9 @@ Template.changeSettingsPopup.events({
       window.localStorage.setItem('hasHiddenSystemMessages', 'true');
     }
   },
+  'click .js-rescue-card-description'() {
+    Meteor.call('toggleRescueCardDescription')
+    },
   'click .js-apply-user-settings'(event, templateInstance) {
     event.preventDefault();
     let minLimit = parseInt(
