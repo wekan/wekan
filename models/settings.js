@@ -229,6 +229,12 @@ if (Meteor.isServer) {
     ]);
   }
 
+  function loadOidcConfig(service){
+    check(service, String);
+    var config = ServiceConfiguration.configurations.findOne({service: service});
+    return config;
+  }
+
   function sendInvitationEmail(_id) {
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
@@ -509,8 +515,11 @@ if (Meteor.isServer) {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
     isOidcRedirectionEnabled(){
-      return process.env.OIDC_REDIRECTION_ENABLED === 'true';
+      return process.env.OIDC_REDIRECTION_ENABLED === 'true' && Object.keys(loadOidcConfig("oidc")).length > 0;
     },
+    getServiceConfiguration(service){
+      return loadOidcConfig(service);
+      }
   });
 }
 

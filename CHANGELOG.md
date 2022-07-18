@@ -1,6 +1,41 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+Required versions of Node.js, MongoDB etc are listed at https://wekan.github.io
+Download section.
+
+[How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
+
 # Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Added LaTex support to all input fields with markdown-it-mathjax3](https://github.com/wekan/wekan/commit/e81900178e62d36672952a8f0707c5297dcd7767).
+  Examples: https://github.com/wekan/wekan/wiki/LaTeX .
+  Thanks to DoktorScience.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.30 2022-07-11 WeKan ® release
+
+This release adds the following new features:
+
+- [Automatic login with OIDC](https://github.com/wekan/wekan/pull/4588).
+  Thanks to Viehlieb.
+- [OIDC/OAuth2 autologin settings for Docker/Snap/Source/Bundle platforms](https://github.com/wekan/wekan/commit/284f4401369aadcec72e67fa935dfc3a9fead721).
+  Thanks to xet7.
+
+and tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/17f8f8f14ff205d0cbb316c63a2da36f61ba4a1d).
+  Thanks to xet7.
+- [On CentOS 7 Docker there is seccomp issue with glibc 6, so setting it to unconfined to get WeKan working](https://github.com/wekan/wekan/commit/054d420dc97cadee6ed7896c608d95a6fe09dc9d).
+  Thanks to m-brangeon.
+- [Fix uploading attachments](https://github.com/wekan/wekan/commit/69d454dd035a989266175eb4268ffc3d7891eb95).
+  Thanks to BabyFnord and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.29 2022-07-11 WeKan ® release
 
 This release adds the following features:
 
@@ -11,11 +46,13 @@ This release adds the following features:
 
 and adds the following updates:
 
+- [Updated to Node.js v14.20.0](https://github.com/wekan/wekan/commit/239dd1a3411a3d4f51b109e1a0505a5a23bc72ee).
+  Thanks to Node.js developers.
 - [Docker base image to Ubuntu 22.04](https://github.com/wekan/wekan/commit/6b4ffa69c64f0186a8b1b3ac175b633ac7c24263).
   Thanks to Ubuntu developers.
 - Updated ostrio:files.
   [Part 1](https://github.com/wekan/wekan/commit/0d67a86f2c9c1c9696d8507c60e53d47a226a6ad),
-  [Part 1](https://github.com/wekan/wekan/commit/c3bfcb78e9047a84d43041bebcec56718eaa140b).
+  [Part 2](https://github.com/wekan/wekan/commit/c3bfcb78e9047a84d43041bebcec56718eaa140b).
   Thanks to developers of dependencies.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/ae09f0f0083a96c2211fdc02e60b4ff6a2f413ca).
   Thanks to developers of dependencies.

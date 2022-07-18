@@ -127,6 +127,12 @@ services:
     # image: wekanteam/wekan
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
+    # On CentOS 7 there is seccomp issue with glibc 6, so setting it to unconfined
+    # to get WeKan working. See:
+    #   - https://github.com/wekan/wekan/issues/4585
+    #   - https://github.com/wekan/wekan/issues/4587
+    security_opt:
+      - seccomp:unconfined
     restart: always
     networks:
       - wekan-tier
@@ -336,6 +342,10 @@ services:
       #-----------------------------------------------------------------
       # ==== Debug OIDC OAuth2 etc ====
       #- DEBUG=true
+      #---------------------------------------------
+      # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
+      # https://github.com/wekan/wekan/wiki/autologin
+      #- OIDC_REDIRECTION_ENABLED=true
       #-----------------------------------------------------------------
       # ==== OAUTH2 ORACLE on premise identity manager OIM ====
       #- ORACLE_OIM_ENABLED=true
