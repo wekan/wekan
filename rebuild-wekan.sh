@@ -6,10 +6,6 @@ echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally 
 echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "      You can still use any other locale as your main locale."
 
-export $(cat .env)
-
-export OAUTH2_REQUEST_PERMISSIONS="openid profile email wekan_scope"
-
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
 
 function pause(){
