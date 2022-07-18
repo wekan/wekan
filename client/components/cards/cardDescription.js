@@ -23,9 +23,7 @@ BlazeComponent.extendComponent({
           this.data().setDescription(description);
         },
         // Pressing Ctrl+Enter should submit the form
-        // was keydown
-        // extraevent for saving input. buffer of keydown vs buffer time
-        'keyup form textarea'(evt) {
+        'keydown form textarea'(evt) {
           if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
             const submitButton = this.find('button[type=submit]');
             if (submitButton) {
