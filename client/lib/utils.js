@@ -331,12 +331,26 @@ Utils = {
       increment = 1;
       // If we drop the card in the first position
     } else if (!prevData) {
-      base = nextData.sort - 1;
-      increment = -1;
+      const nextSortIndex = nextData.sort;
+      const ceil = Math.ceil(nextSortIndex - 1);
+      if (ceil < nextSortIndex) {
+        increment = nextSortIndex - ceil;
+        base = nextSortIndex - increment;
+      } else {
+        base = nextData.sort - 1;
+        increment = -1;
+      }
       // If we drop the card in the last position
     } else if (!nextData) {
-      base = prevData.sort + 1;
-      increment = 1;
+      const prevSortIndex = prevData.sort;
+      const floor = Math.floor(prevSortIndex + 1);
+      if (floor > prevSortIndex) {
+        increment = prevSortIndex - floor;
+        base = prevSortIndex - increment;
+      } else {
+        base = prevData.sort + 1;
+        increment = 1;
+      }
     }
     // In the general case take the average of the previous and next element
     // sort indexes.
