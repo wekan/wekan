@@ -1714,10 +1714,29 @@ BlazeComponent.extendComponent({
 EscapeActions.register(
   'detailsPane',
   () => {
+    // if card description diverges from database due to editing
+    // ask user whether changes should be applied
+    if(currentUser.profile.rescueCardDescription== true)
+    {
+      currentDescription = document.getElementsByClassName("editor js-new-description-input").item(0)
+      if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription()))
+      {
+        if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {
+          Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+          // Save it!
+          console.log(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+          console.log("current description",Utils.getCurrentCard().getDescription());
+        } else {
+          // Do nothing!
+          console.log('Description changes were not saved to the database.');
+        }
+      }
+    }
     if (Session.get('cardDetailsIsDragging')) {
       // Reset dragging status as the mouse landed outside the cardDetails template area and this will prevent a mousedown event from firing
       Session.set('cardDetailsIsDragging', false);
       Session.set('cardDetailsIsMouseDown', false);
+
     } else {
       // Prevent close card when the user is selecting text and moves the mouse cursor outside the card detail area
       Utils.goBoardId(Session.get('currentBoard'));

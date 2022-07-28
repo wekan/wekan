@@ -337,6 +337,13 @@ Users.attachSchema(
       type: Date,
       optional: true,
     },
+    'profile.rescueCardDescription': {
+      /**
+       * show dialog for saving card description on unintentional card closing
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.showCardsCountAt': {
       /**
        * showCardCountAt field of the user
@@ -794,6 +801,11 @@ Users.helpers({
     return profile.hiddenMinicardLabelText || false;
   },
 
+  hasRescuedCardDescription(){
+    const profile = this.profile || {};
+    return profile.rescueCardDescription || false;
+  },
+
   getEmailBuffer() {
     const { emailBuffer = [] } = this.profile || {};
     return emailBuffer;
@@ -1004,6 +1016,13 @@ Users.mutations({
       },
     };
   },
+  toggleRescueCardDescription(value = false) {
+    return {
+      $set: {
+        'profile.rescueCardDescription': !value,
+      },
+    };
+  },
 
   addNotification(activityId) {
     return {
@@ -1102,6 +1121,10 @@ Meteor.methods({
   toggleMinicardLabelText() {
     const user = Meteor.user();
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
+  },
+  toggleRescueCardDescription() {
+    const user = Meteor.user();
+    user.toggleRescueCardDescription(user.hasRescuedCardDescription());
   },
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);
