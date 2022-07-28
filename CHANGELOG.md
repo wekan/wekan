@@ -12,6 +12,8 @@ This release adds the following new features:
 - [Added LaTex support to all input fields with markdown-it-mathjax3](https://github.com/wekan/wekan/commit/e81900178e62d36672952a8f0707c5297dcd7767).
   Examples: https://github.com/wekan/wekan/wiki/LaTeX .
   Thanks to DoktorScience.
+- [Rescue Save description on card exit](https://github.com/wekan/wekan/pull/4598).
+  Thanks to Viehlieb.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
