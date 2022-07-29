@@ -15,6 +15,13 @@ This release adds the following new features:
 - [Rescue Save description on card exit](https://github.com/wekan/wekan/pull/4598).
   Thanks to Viehlieb.
 
+and fixes the following bugs:
+
+- [Fix the bug that displayed a card popup to all swimlanes for public board (when a user is not logged)](https://github.com/wekan/wekan/pull/4610).
+  Thanks to Emile840.
+- [Reverted incomplete fix about bug where opening card scrolls to wrong place](https://github.com/wekan/wekan/commit/6594795f39bd6d14a7105dc61642baa034995bad).
+  Thanks to danceb, DimDz, mfilser, Emile840, derbolle, xplodwild and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.30 2022-07-11 WeKan ® release
