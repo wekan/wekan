@@ -86,17 +86,29 @@ BlazeComponent.extendComponent({
   scrollParentContainer() {
     const cardPanelWidth = 600;
     const parentComponent = this.parentComponent();
+
+/*
+    // Incomplete fix about bug where opening card scrolls to wrong place
+    // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
     // TODO sometimes parentComponent is not available, maybe because it's not
     // yet created?!
     if (!parentComponent) return;
     const bodyBoardComponent = parentComponent.parentComponent();
+*/
+
     //On Mobile View Parent is Board, Not Board Body. I cant see how this funciton should work then.
     if (bodyBoardComponent === null) return;
     const $cardView = this.$(this.firstNode());
     const $cardContainer = bodyBoardComponent.$('.js-swimlanes');
+
+/*
+    // Incomplete fix about bug where opening card scrolls to wrong place
+    // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
     // TODO sometimes cardContainer is not available, maybe because it's not yet
     // created?!
     if (!$cardContainer) return;
+*/
+
     const cardContainerScroll = $cardContainer.scrollLeft();
     const cardContainerWidth = $cardContainer.width();
 
