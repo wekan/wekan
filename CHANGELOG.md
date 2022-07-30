@@ -5,7 +5,7 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.31 2022-07-31 WeKan ® release
 
 This release adds the following new features:
 
@@ -14,6 +14,11 @@ This release adds the following new features:
   Thanks to DoktorScience.
 - [Rescue Save description on card exit](https://github.com/wekan/wekan/pull/4598).
   Thanks to Viehlieb.
+
+and adds the following updates:
+
+- [Snap Candidate to MongoDB 5.0.10 etc](https://github.com/wekan/wekan/commit/27198c4064a41035bb800aa5e5797852e1dfdafb).
+  Thanks to MongoDB developers and xet7.
 
 and fixes the following bugs:
 

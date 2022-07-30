@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.30
+  version: v6.31
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -4070,6 +4070,10 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/UsersProfileNotifications"
+      rescueCardDescription:
+        description: |
+           show dialog for saving card description on unintentional card closing
+        type: boolean
       showCardsCountAt:
         description: |
            showCardCountAt field of the user
