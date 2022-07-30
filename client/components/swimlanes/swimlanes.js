@@ -77,11 +77,18 @@ function initSortable(boardComponent, $listsDom) {
       const listDomElement = ui.item.get(0);
       const list = Blaze.getData(listDomElement);
 
+/*
+      Reverted incomplete change list width,
+      removed from below Lists.update:
+       https://github.com/wekan/wekan/issues/4558
+          $set: {
+            width: list._id.width(),
+            height: list._id.height(),
+*/
+
       Lists.update(list._id, {
         $set: {
           sort: sortIndex.base,
-          width: list._id.width(),
-          height: list._id.height(),
         },
       });
 

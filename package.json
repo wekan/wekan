@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v6.30.0",
+  "version": "v6.28.0",
   "description": "Open-Source kanban",
   "private": true,
   "repository": {
@@ -24,7 +24,7 @@
     "@babel/core": "^7.15.5",
     "@babel/runtime": "^7.15.4",
     "@mapbox/node-pre-gyp": "^1.0.8",
-    "@wekanteam/markdown-it-mermaid": "^0.5.5",
+    "@wekanteam/markdown-it-mermaid": "^0.5.4",
     "ajv": "^6.12.6",
     "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
@@ -39,7 +39,7 @@
     "i18next": "^21.6.16",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "jQuery": "^1.7.4",
-    "jquery-ui": "^1.13.2",
+    "jquery-ui": "^1.13.0",
     "jquery-ui-touch-punch": "^0.2.3",
     "jszip": "^3.7.1",
     "ldapjs": "^2.3.1",

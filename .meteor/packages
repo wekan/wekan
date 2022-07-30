@@ -80,7 +80,7 @@ konecty:mongo-counter
 percolate:synced-cron
 cfs:filesystem
 ostrio:cookies
-ostrio:files@2.0.1!
+ostrio:files@2.0.1
 rajit:bootstrap3-datepicker-fi
 rajit:bootstrap3-datepicker-ar
 rajit:bootstrap3-datepicker-bg

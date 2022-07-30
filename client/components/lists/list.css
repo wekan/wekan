@@ -6,10 +6,14 @@
   background: #dedede;
   border-left: 1px solid #ccc;
   padding: 0;
-  float: left;
-  width: 270px;   /* Orinal width: 270px. Changes not saved yet: */
-  resize: both;   /* - List width and height resizeable */
-  overflow: auto; /* - List width and height resizeable */
+  float: left;  
+  min-width: 270px;
+  max-width: 270px;
+  /* Reverted incomplete change list width: */
+  /* https://github.com/wekan/wekan/issues/4558 */
+  /* Orinal width: 270px. Changes not saved yet: */
+  /*resize: both;  - List width and height resizeable */
+  /* overflow: auto; - List width and height resizeable */
 }
 .list:first-child {
   margin-left: 5px;
