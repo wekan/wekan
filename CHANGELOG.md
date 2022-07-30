@@ -23,6 +23,8 @@ and fixes the following bugs:
   Thanks to Emile840.
 - [Reverted incomplete fix about bug where opening card scrolls to wrong place](https://github.com/wekan/wekan/commit/6594795f39bd6d14a7105dc61642baa034995bad).
   Thanks to danceb, DimDz, mfilser, Emile840, derbolle, xplodwild and xet7.
+- [Fix Login Page Error, Lists can't move anymore, reverted incomplete Change Lists Width](https://github.com/wekan/wekan/commit/d37adbb0462c7fc9f645594b3bd20d2bec781b18).
+  Thanks to johnnytolengo, gda140 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
