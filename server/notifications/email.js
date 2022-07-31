@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 //var nodemailer = require('nodemailer');
 
 // buffer each user's email text in a queue, then flush them in single email

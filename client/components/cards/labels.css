@@ -1,0 +1,230 @@
+.card-label {
+  border: 1px solid #000;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-right: 4px;
+  margin-bottom: 5px;
+  padding: 3px 8px;
+  max-width: 210px;
+  min-width: 8px;
+  word-wrap: break-word;
+  min-height: 18px;
+  vertical-align: middle;
+  white-space: initial;
+  overflow: initial;
+}
+.card-label:hover {
+  color: #fff;
+}
+.card-label.square {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+}
+.card-label.add-label {
+  box-shadow: 0 0 0 2px #bfbfbf inset;
+  border: initial;
+}
+.card-label.add-label:hover,
+.card-label.add-label.is-active {
+  box-shadow: 0 0 0 2px #666 inset;
+}
+.card-label p {
+  margin: 0px;
+}
+.palette-colors {
+  display: flex;
+  flex-wrap: wrap;
+}
+.palette-colors .palette-color {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-label-white {
+  background-color: #fff;
+  color: #000;
+}
+.card-label-white:hover {
+  color: #aaa;
+}
+.card-label-green {
+  background-color: #3cb500;
+}
+.card-label-green:hover {
+  color: #000;
+}
+.card-label-yellow {
+  background-color: #fad900;
+  color: #000;
+}
+.card-label-orange {
+  background-color: #ff9f19;
+  color: #000;
+}
+.card-label-red {
+  background-color: #eb4646;
+}
+.card-label-purple {
+  background-color: #a632db;
+}
+.card-label-blue {
+  background-color: #0079bf;
+}
+.card-label-pink {
+  background-color: #ff78cb;
+  color: #000;
+}
+.card-label-sky {
+  background-color: #00c2e0;
+}
+.card-label-black {
+  background-color: #4d4d4d;
+}
+.card-label-lime {
+  background-color: #51e898;
+  color: #000;
+}
+.card-label-silver {
+  background-color: #c0c0c0;
+  color: #000;
+}
+.card-label-peachpuff {
+  background-color: #ffdab9;
+  color: #000;
+}
+.card-label-crimson {
+  background-color: #dc143c;
+}
+.card-label-plum {
+  background-color: #dda0dd;
+  color: #000;
+}
+.card-label-darkgreen {
+  background-color: #006400;
+}
+.card-label-slateblue {
+  background-color: #6a5acd;
+}
+.card-label-magenta {
+  background-color: #f0f;
+}
+.card-label-gold {
+  background-color: #ffd700;
+  color: #000;
+}
+.card-label-navy {
+  background-color: #000080;
+}
+.card-label-gray {
+  background-color: #808080;
+}
+.card-label-saddlebrown {
+  background-color: #8b4513;
+}
+.card-label-paleturquoise {
+  background-color: #afeeee;
+  color: #000;
+}
+.card-label-mistyrose {
+  background-color: #ffe4e1;
+  color: #000;
+}
+.card-label-indigo {
+  background-color: #4b0082;
+}
+.edit-label .card-label,
+.create-label .card-label {
+  float: left;
+  height: 25px;
+  margin: 0px 3% 7px 0px;
+  width: 10.5%;
+  max-width: 10.5%;
+  cursor: pointer;
+}
+.edit-labels input[type="text"] {
+  margin: 4px 0 6px 38px;
+  width: 243px;
+}
+.edit-labels .card-label {
+  height: 30px;
+  left: 0;
+  padding: 1px 5px;
+  position: absolute;
+  top: 0;
+  width: 24px;
+}
+.edit-labels .labels-static .card-label {
+  line-height: 30px;
+  margin-bottom: 4px;
+  position: relative;
+  top: auto;
+  left: 0;
+  width: 260px;
+}
+.edit-labels-pop-over {
+  margin-bottom: 8px;
+}
+.edit-labels-pop-over .card-label .viewer p {
+  margin: 0;
+}
+.edit-labels-pop-over .shortcut {
+  display: inline-block;
+}
+.card-label-selectable {
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0;
+  margin-bottom: 3px;
+  width: 190px;
+  min-height: 18px;
+  padding: 8px;
+  position: relative;
+  transition: margin-right 0.1s;
+}
+.card-label-selectable .card-label-selectable-icon {
+  position: absolute;
+  top: 8px;
+  right: -20px;
+}
+.card-label-selectable.active:hover,
+.card-label-selectable.active,
+.card-label-selectable.active.selected:hover,
+.card-label-selectable.active.selected {
+  padding-right: 32px;
+}
+.card-label-selectable.active:hover .card-label-selectable-icon,
+.card-label-selectable.active .card-label-selectable-icon,
+.card-label-selectable.active.selected:hover .card-label-selectable-icon,
+.card-label-selectable.active.selected .card-label-selectable-icon {
+  right: 6px;
+}
+.card-label-selectable.selected,
+.card-label-selectable:hover {
+  opacity: 0.8;
+}
+.active .card-label-selectable,
+.active .card-label-selectable:hover {
+  margin-right: 0;
+}
+.active .card-label-selectable .card-label-selectable-icon {
+  right: 8px;
+}
+.card-label-edit-button {
+  border-radius: 3px;
+  float: right;
+  padding: 8px;
+}
+.card-label-edit-button:hover {
+  background: #dbdbdb;
+}
+ul.edit-labels-pop-over span.fa.label-handle {
+  padding-right: 10px;
+}
+ul.edit-labels-pop-over span.fa.label-handle + .card-label {
+  max-width: 180px;
+}

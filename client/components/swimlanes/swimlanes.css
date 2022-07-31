@@ -1,0 +1,220 @@
+/*
+// Minimize swimlanes start https://www.w3schools.com/howto/howto_js_accordion.asp
+
+.accordion
+  cursor: pointer
+  width: 30px
+  height: 20px
+  border: none
+  outline: none
+  font-size: 18px
+  transition: 0.4s
+  padding-top: 0px
+  margin-top: 0px
+
+.accordion:after
+  // Unicode triagle right:
+  content: '\25B6'
+  color: #777
+  font-weight: bold
+  float: left
+
+.active:after
+  // Unicode triangle down:
+  content: '\25BC'
+
+.panel
+  width: 100%
+  max-height: 0
+  overflow: hidden
+  transition: max-height 0.2s ease-out
+  margin: 0px
+  padding: 0px
+
+// Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
+*/
+@media screen and (min-width: 801px) {
+  .swimlane.ui-sortable {
+    width: max-content;
+  }
+}
+[class=swimlane] {
+  position: sticky;
+  left: 0;
+}
+.swimlane {
+  background: #dedede;
+  display: flex;
+  flex-direction: row;
+  overflow: 0;
+  max-height: calc(100% - 26px);
+}
+.swimlane.placeholder {
+  background-color: rgba(0,0,0,0.2);
+  border-color: transparent;
+  box-shadow: none;
+  height: 100px;
+}
+.swimlane.ui-sortable-helper {
+  box-shadow: -2px 2px 8px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5);
+  transform: rotate(2deg);
+  cursor: grabbing;
+}
+.swimlane.ui-sortable-helper .swimlane-header.ui-sortable-handle {
+  cursor: grabbing;
+}
+.swimlane .swimlane-header-wrap {
+  display: flex;
+  flex-direction: row;
+  flex: 1 0 100%;
+  background-color: #ccc;
+}
+.swimlane .swimlane-header-wrap .swimlane-header {
+  font-size: 14px;
+  padding: 5px 5px;
+  font-weight: bold;
+  min-height: 9px;
+  width: 100%;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  text-align: center;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-menu {
+  position: absolute;
+  padding: 5px 5px;
+  font-size: 22px;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
+  margin-left: 5px;
+  padding-right: 20px;
+  font-size: 22px;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
+  padding-right: 20px;
+  font-size: 22px;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-handle {
+  position: absolute;
+  padding: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 230px;
+  font-size: 18px;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
+  position: absolute;
+  padding: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 87vw;
+  font-size: 24px;
+}
+.list-group {
+  height: 100%;
+}
+.moving-swimlane {
+  display: none;
+}
+.swimlane-white {
+  background: #fff !important;
+  color: #4d4d4d !important;
+  border: 1px solid #eee;
+}
+.swimlane-green {
+  background: #3cb500 !important;
+  color: #fff !important;
+}
+.swimlane-yellow {
+  background: #fad900 !important;
+  color: #4d4d4d !important;
+}
+.swimlane-orange {
+  background: #ff9f19 !important;
+  color: #4d4d4d !important;
+}
+.swimlane-red {
+  background: #eb4646 !important;
+  color: #fff !important;
+}
+.swimlane-purple {
+  background: #a632db !important;
+  color: #fff !important;
+}
+.swimlane-blue {
+  background: #0079bf !important;
+  color: #fff !important;
+}
+.swimlane-pink {
+  background: #ff78cb !important;
+  color: #4d4d4d !important;
+}
+.swimlane-sky {
+  background: #00c2e0 !important;
+  color: #fff !important;
+}
+.swimlane-black {
+  background: #4d4d4d !important;
+  color: #fff !important;
+}
+.swimlane-lime {
+  background: #51e898 !important;
+  color: #4d4d4d !important;
+}
+.swimlane-silver {
+  background: unset !important;
+  color: #4d4d4d !important;
+}
+.swimlane-peachpuff {
+  background: #ffdab9 !important;
+  color: #4d4d4d !important;
+}
+.swimlane-crimson {
+  background: #dc143c !important;
+  color: #fff !important;
+}
+.swimlane-plum {
+  background: #dda0dd !important;
+  color: #4d4d4d !important;
+}
+.swimlane-darkgreen {
+  background: #006400 !important;
+  color: #fff !important;
+}
+.swimlane-slateblue {
+  background: #6a5acd !important;
+  color: #fff !important;
+}
+.swimlane-magenta {
+  background: #f0f !important;
+  color: #fff !important;
+}
+.swimlane-gold {
+  background: #ffd700 !important;
+  color: #4d4d4d !important;
+}
+.swimlane-navy {
+  background: #000080 !important;
+  color: #fff !important;
+}
+.swimlane-gray {
+  background: #808080 !important;
+  color: #fff !important;
+}
+.swimlane-saddlebrown {
+  background: #8b4513 !important;
+  color: #fff !important;
+}
+.swimlane-paleturquoise {
+  background: #afeeee !important;
+  color: #4d4d4d !important;
+}
+.swimlane-mistyrose {
+  background: #ffe4e1 !important;
+  color: #4d4d4d !important;
+}
+.swimlane-indigo {
+  background: #4b0082 !important;
+  color: #fff !important;
+}

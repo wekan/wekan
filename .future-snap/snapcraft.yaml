@@ -1,5 +1,5 @@
 name: wekan
-version: '6.10'
+version: '6.21'
 base: core20
 summary: Open Source kanban
 description: |
@@ -19,6 +19,12 @@ architectures:
 
   - build-on: arm64
     run-on: arm64
+
+  - build-on: ppc64el
+    run-on: ppc64el
+
+  - build-on: s390x
+    run-on: s390x
 
 plugs:
   mongodb-plug:
@@ -73,8 +79,10 @@ parts:
     mongodb:
         plugin: dump
         source:
-          - on amd64: https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-amd64/mongodb-org-server_4.4.12_amd64.deb
-          - on arm64: https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-arm64/mongodb-org-server_4.4.12_arm64.deb
+          - on amd64: https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-amd64/mongodb-org-server_4.4.13_amd64.deb
+          - on arm64: https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-arm64/mongodb-org-server_4.4.13_arm64.deb
+          - on ppc64el: https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-ppc64el/mongodb-org-server_4.4.13_ppc64el.deb
+          - on s390x: https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-s390x/mongodb-org-server_4.4.13_s390x.deb
         stage-packages:
             - libssl1.1
             - libcurl3-dev
@@ -90,19 +98,22 @@ parts:
             - $mongo
 
     wekan:
-        plugin: npm
+        #plugin: npm
+        plugin: dump
         source:
-        # TODO: Fix URLs to some allowed GitHub releases URL.
+        # Fixed URLs to some allowed GitHub releases URL.
         # Non-GitHub build server file urls are not allowed at 2022-03-02 and later.
-          - on amd64: https://wekan.github.io/wekan-latest-x64.zip
-          - on arm64: https://wekan.github.io/raspi3/wekan-latest-arm64.zip
-        npm-node-version: 14.19.0
+          - on amd64: https://github.com/wekan/wekan/releases/download/v6.20/wekan-6.20-amd64.zip
+          - on arm64: https://github.com/wekan/wekan/releases/download/v6.20/wekan-6.20-arm64.zip
+          - on ppc64el: https://github.com/wekan/wekan/releases/download/v6.20/wekan-6.20-ppc64el.zip
+          - on s390x: https://github.com/wekan/wekan/releases/download/v6.20/wekan-6.20-s390x.zip
+#        npm-node-version: 14.19.1
 #        node-packages:
 #            - node-gyp
 #            - node-pre-gyp
 #            - fibers
-        build-packages:
-          - npm
+#        build-packages:
+#          - npm
 #            - build-essential
 #            - ca-certificates
 #            - apt-utils
@@ -114,7 +125,7 @@ parts:
 #            - execstack
 #            - nodejs
 #            - npm
-          - p7zip-full
+#          - p7zip-full
 #        stage-packages:
 #            - libfontconfig1
         override-build: |
@@ -143,6 +154,25 @@ parts:
         # and .txt files from https://github.com/caddyserver/caddy/tree/v1/dist
         source: https://wekan.github.io/caddy-v1-linux-amd64.7z
         source-type: 7z
+        organize:
+          caddy: bin/caddy
+          CHANGES.txt: CADDY_CHANGES.txt
+          EULA.txt: CADDY_EULA.txt
+          LICENSES.txt: CADDY_LICENSES.txt
+          README.txt: CADDY_README.txt
+        stage:
+          - -init
+
+    caddy2:
+        plugin: dump
+        source:
+        # Fixed URLs to some allowed GitHub releases URL.
+        # Non-GitHub build server file urls are not allowed at 2022-03-02 and later.
+          - on amd64: https://github.com/wekan/wekan/releases/download/v6.20/caddy-v2-amd64.zip
+          - on arm64: https://github.com/wekan/wekan/releases/download/v6.20/caddy-v2-arm64.zip
+          - on ppc64el: https://github.com/wekan/wekan/releases/download/v6.20/caddy-v2-ppc64el.zip
+          - on s390x: https://github.com/wekan/wekan/releases/download/v6.20/caddy-v2-s390x.zip
+        source-type: zip
         organize:
           caddy: bin/caddy
           CHANGES.txt: CADDY_CHANGES.txt

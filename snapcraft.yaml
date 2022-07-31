@@ -1,5 +1,6 @@
 name: wekan
-version: '6.18'
+version: '6.31'
+base: core20
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
@@ -34,66 +35,89 @@ slots:
 
 apps:
     wekan:
-        command: wekan-control
+        command: ./bin/wekan-control
         daemon: simple
         plugs: [network, network-bind]
 
     mongodb:
-        command: mongodb-control
+        command: ./bin/mongodb-control
         daemon: simple
         plugs: [network, network-bind]
 
     caddy:
-        command: caddy-control
+        command: ./bin/caddy-control
         daemon: simple
         plugs: [network, network-bind]
 
     help:
-        command: wekan-help
+        command: ./bin/wekan-help
 
     database-backup:
-        command: mongodb-backup
+        command: ./bin/mongodb-backup
         plugs: [network, network-bind]
 
     database-list-backups:
-        command: ls -al $SNAP_COMMON/db-backups/
+        command: ./bin/database-list-backups
 
     database-restore:
-        command: mongodb-restore
+        command: ./bin/mongodb-restore
         plugs: [network, network-bind]
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.10.tgz
         plugin: dump
-        stage-packages: [libssl1.0.0]
+        stage-packages:
+            - libssl1.1
+            - libcurl4
+            - libstemmer0d
+            - zlib1g
+            - libsnappy1v5
+            - libyaml-cpp0.6
+            - libpcre3
+            - libpcrecpp0v5
+            - libboost-system1.71.0
+            - libboost-iostreams1.71.0
+            - libboost-filesystem1.71.0
+            - libboost-program-options1.71.0
+            - libgoogle-perftools4
         filesets:
             mongo:
-                - usr
                 - bin
-                - lib
+                - usr
         stage:
             - $mongo
         prime:
             - $mongo
 
+    mongodb44:
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.15.tgz
+        plugin: dump
+        organize:
+          bin: mongo44bin
+          usr: mongo44usr
+        stage:
+          - -init
+
     wekan:
         source: .
-        plugin: nodejs
-        node-engine: 14.19.1
-        node-packages:
-            - node-gyp
-            - node-pre-gyp
-            - fibers
+        plugin: npm
+        npm-node-version: 14.20.0
+        #npm-packages:
+        #    - node-gyp
+        #    - node-pre-gyp
+        #    - fibers
         build-packages:
             - build-essential
             - ca-certificates
             - apt-utils
-            - python
-#            - python3
+#            - python2
+            - python3
             - g++
             - capnproto
             - curl
+            - wget
+            - unzip
             - execstack
             - nodejs
             - npm
@@ -102,33 +126,50 @@ parts:
             - libfontconfig1
         override-build: |
             echo "Cleaning environment first"
-            rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
+            #rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             rm -rf .build
-            echo "Installing meteor"
-            curl https://install.meteor.com/ -o install_meteor.sh
-            chmod +x install_meteor.sh
-            sh install_meteor.sh
-            rm install_meteor.sh
-            rm -rf .build
-            chmod u+w *.json
-            npm install
-            meteor build .build --directory --allow-superuser
+            #echo "Using http npm packages so speedup install process https://stackoverflow.com/questions/39760113/callback-called-more-than-once-while-running-npm-install"
+            #echo "registry=http://registry.npmjs.org/" > ~/.npmrc
+            #echo "Installing npm, node-gyp, node-pre-gyp, fibers"
+            #npm -g install n --unsafe-perm
+            #n 14.20.0
+            #npm -g install node-gyp --unsafe-perm
+            #npm -g install node-pre-gyp --unsafe-perm
+            #npm -g install fibers --unsafe-perm
+            ##echo "Installing meteor"
+            ##curl https://install.meteor.com/ -o install_meteor.sh
+            ##chmod +x install_meteor.sh
+            ##sh install_meteor.sh
+            ##rm install_meteor.sh
+            #npm -g install meteor --unsafe-perm --allow-superuser
+            #rm -rf .build
+            ##chmod u+w *.json
+            #npm install --unsafe-perm
+            ##npm install
+            ##meteor build .build --directory --allow-superuser
             # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
-            rm -rf .build/bundle/programs/web.browser.legacy
+            ##rm -rf .build/bundle/programs/web.browser.legacy
             # Change to directory .build/bundle/programs/server
-            cd .build/bundle/programs/server
-            chmod u+w *.json
-            npm install
-            cd node_modules/fibers
-            node build.js
-            cd ../../../../../..
+            ##cd .build/bundle/programs/server
+            ##chmod u+w *.json
+            #npm install --unsafe-perm
+            ##npm install
+            ##cd node_modules/fibers
+            ##node build.js
+            ##cd ../../../../../..
             # Cleanup
-            cd .build/bundle
-            find . -type d -name '*-garbage*' | xargs rm -rf
-            find . -name '*phantom*' | xargs rm -rf
-            find . -name '.*.swp' | xargs rm -f
-            find . -name '*.swp' | xargs rm -f
-            cd ../..
+            mkdir .build
+            cd .build
+            wget https://github.com/wekan/wekan/releases/download/v6.31/wekan-6.31-amd64.zip
+            unzip wekan-6.31-amd64.zip
+            rm wekan-6.31-amd64.zip
+            cd ..
+            ##cd .build/bundle
+            ##find . -type d -name '*-garbage*' | xargs rm -rf
+            ##find . -name '*phantom*' | xargs rm -rf
+            ##find . -name '.*.swp' | xargs rm -f
+            ##find . -name '*.swp' | xargs rm -f
+            ##cd ../..
             # Add fibers multi arch
             #cd .build/bundle/programs/server/node_modules/fibers/bin
             #curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
@@ -136,6 +177,12 @@ parts:
             #rm fibers-multi.7z
             #cd ../../../../../../..
             # Copy to Snap
+            wget https://nodejs.org/dist/latest-v14.x/node-v14.20.0-linux-x64.tar.xz
+            tar -xf node-v14.20.0-linux-x64.tar.xz node-v14.20.0-linux-x64/bin/node
+            rm node-v14.20.0-linux-x64.tar.xz
+            mkdir $SNAPCRAFT_PART_INSTALL/bin
+            cp -p node-v14.20.0-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v14.20.0-linux-x64
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan

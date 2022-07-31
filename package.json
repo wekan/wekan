@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v6.18.0",
+  "version": "v6.31.0",
   "description": "Open-Source kanban",
   "private": true,
   "repository": {
@@ -14,43 +14,56 @@
   "homepage": "https://wekan.github.io",
   "devDependencies": {
     "babel-plugin-istanbul": "^6.1.1",
-    "chai": "^4.3.4",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
     "flatted": "^3.2.2",
-    "puppeteer": "^1.20.0",
-    "sinon": "^11.1.2"
+    "sinon": "^13.0.2",
+    "sinon-chai": "^3.7.0"
   },
   "dependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/runtime": "^7.17.9",
-    "@wekanteam/markdown-it-mermaid": "^0.5.3",
-    "ajv": "^8.10.0",
+    "@babel/core": "^7.15.5",
+    "@babel/runtime": "^7.15.4",
+    "@mapbox/node-pre-gyp": "^1.0.8",
+    "@wekanteam/markdown-it-mermaid": "^0.5.4",
+    "ajv": "^6.12.6",
     "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
-    "bson": "^4.6.1",
+    "bson": "^4.5.2",
     "bunyan": "^1.8.15",
+<<<<<<< HEAD
     "caniuse-lite": "^1.0.30001327",
     "core-js": "^2.6.12",
     "dompurify": "^2.3.6",
+=======
+    "core-js": "^3.18.2",
+    "dompurify": "^2.3.2",
+>>>>>>> b0758449bc29a2d095143c574ba3824a896b16a3
     "es6-promise": "^4.2.4",
-    "exceljs": "^4.3.0",
-    "fibers": "^5.0.1",
-    "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
-    "jquery": "^2.2.4",
+    "escape-string-regexp": "^5.0.0",
+    "exceljs": "^4.2.1",
+    "fibers": "^5.0.0",
+    "i18next": "^21.6.16",
+    "i18next-sprintf-postprocessor": "^0.2.2",
+    "jQuery": "^1.7.4",
     "jquery-ui": "^1.13.0",
     "jquery-ui-touch-punch": "^0.2.3",
     "jszip": "^3.7.1",
     "ldapjs": "^2.3.1",
     "markdown-it": "^12.3.2",
     "markdown-it-emoji": "^2.0.0",
+    "markdown-it-mathjax3": "^4.3.1",
+    "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "^1.1.0",
+    "moment": "^2.29.4",
     "mongodb": "^3.7.3",
+    "nodemailer": "^6.6.3",
     "os": "^0.1.2",
     "page": "^1.11.6",
     "papaparse": "^5.3.1",
-    "qs": "^6.10.3",
-    "source-map-support": "^0.5.21"
-  },
-  "meteor": {
-    "testModule": "tests/main.js"
+    "qs": "^6.10.1",
+    "simpl-schema": "^1.12.0",
+    "source-map-support": "^0.5.20",
+    "summernote": "^0.8.20",
+    "uuid": "^8.3.2"
   }
 }

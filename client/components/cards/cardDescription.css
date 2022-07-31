@@ -1,0 +1,56 @@
+.new-description {
+  position: relative;
+  margin: 0 0 20px 0;
+}
+.new-description.is-open .helper {
+  display: inline-block;
+}
+.new-description.is-open textarea {
+  min-height: 100px;
+  color: #4d4d4d;
+  cursor: auto;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+.new-description .too-long {
+  margin-top: 8px;
+}
+.new-description textarea {
+  background-color: #fff;
+  border: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.23);
+  height: 36px;
+  margin: 4px 4px 6px 0;
+  padding: 9px 11px;
+  width: 100%;
+}
+.new-description textarea:hover,
+.new-description textarea:is-open {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.33);
+  border: 0;
+  cursor: pointer;
+}
+.new-description textarea:is-open {
+  cursor: auto;
+}
+.description-item {
+  background-color: #fff;
+  border: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.23);
+  color: #8c8c8c;
+  height: 36px;
+  margin: 4px 4px 6px 0;
+  width: 92%;
+}
+.description-item:hover {
+  background: #e0e0e0;
+}
+.description-item.add-description {
+  display: flex;
+  margin: 5px;
+}
+.description-item.add-description a {
+  display: block;
+  margin: auto;
+}

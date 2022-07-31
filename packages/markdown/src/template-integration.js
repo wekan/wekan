@@ -36,7 +36,9 @@ for(var i=0; i<urlschemes.length;i++){
 }
 
 var emoji = require('markdown-it-emoji');
+var mathjax = require('markdown-it-mathjax3');
 Markdown.use(emoji);
+Markdown.use(mathjax);
 Markdown.use(markdownItMermaid);
 
 if (Package.ui) {

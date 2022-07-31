@@ -5,12 +5,17 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
   release:
+    permissions:
+      contents: write  # for helm/chart-releaser-action to push chart release and create a release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -20,6 +25,6 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.1.0
+        uses: helm/chart-releaser-action@v1.4.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

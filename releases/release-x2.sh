@@ -16,6 +16,15 @@ cat x64-SHA256SUMS.txt | grep -v wekan-$1.zip > SHA256SUMS.txt
 rm x64-SHA256SUMS.txt
 cp wekan-$2.zip wekan-latest-x64.zip
 
+echo "Release: x64 windows"
+cd /var/websites/releases.wekan.team/public/windows
+mv wekan-$1-amd64-windows.zip /data2/old-releases/
+sha256sum wekan-$2-amd64-windows.zip >> SHA256SUMS.txt
+mv SHA256SUMS.txt x64-windows-SHA256SUMS.txt
+cat x64-windows-SHA256SUMS.txt | grep -v wekan-$1-amd64-windows.zip > SHA256SUMS.txt
+rm x64-windows-SHA256SUMS.txt
+cp wekan-$2-amd64-windows.zip wekan-latest-x64-windows.zip
+
 echo "Release: arm64"
 cd /var/websites/releases.wekan.team/public/raspi3
 mv wekan-$1-arm64.zip /data2/old-releases/raspi3/

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { TAPi18n } from '/imports/i18n';
 import AccountSettings from '../models/accountSettings';
 import TableVisibilityModeSettings from '../models/tableVisibilityModeSettings';
 import Actions from '../models/actions';
@@ -117,6 +118,7 @@ Migrations.add('lowercase-board-permission', () => {
   });
 });
 
+/*
 // Security migration: see https://github.com/wekan/wekan/issues/99
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
@@ -145,6 +147,8 @@ Migrations.add('card-covers', () => {
   });
   Attachments.update({}, { $unset: { cover: '' } }, noValidateMulti);
 });
+
+*/
 
 Migrations.add('use-css-class-for-boards-colors', () => {
   const associationTable = {
@@ -713,7 +717,7 @@ Migrations.add('add-missing-created-and-modified', () => {
     modifiedAtTables.map(db =>
       db
         .rawCollection()
-        .update(
+        .updateMany(
           { modifiedAt: { $exists: false } },
           { $set: { modifiedAt: new Date() } },
           { multi: true },
@@ -721,7 +725,7 @@ Migrations.add('add-missing-created-and-modified', () => {
         .then(() =>
           db
             .rawCollection()
-            .update(
+            .updateMany(
               { createdAt: { $exists: false } },
               { $set: { createdAt: new Date() } },
               { multi: true },
@@ -768,7 +772,7 @@ Migrations.add('fix-incorrect-dates', () => {
       .rawCollection()
       .find({ $or: [{ createdAt: { $type: 1 } }, { updatedAt: { $type: 1 } }] })
       .forEach(({ _id, createdAt, updatedAt }) => {
-        t.rawCollection().update(
+        t.rawCollection().updateMany(
           { _id },
           {
             $set: {
@@ -1178,13 +1182,9 @@ Migrations.add('add-card-details-show-lists', () => {
 });
 
 Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
-  const storagePath = Attachments.storagePath();
-  if (!fs.existsSync(storagePath)) {
-    console.log("create storagePath because it doesn't exist: " + storagePath);
-    fs.mkdirSync(storagePath, { recursive: true });
-  }
   AttachmentsOld.find().forEach(function(fileObj) {
     const newFileName = fileObj.name();
+    const storagePath = Attachments.storagePath({});
     const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
 
     // This is "example" variable, change it to the userId that you might be using.
@@ -1197,12 +1197,8 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
     const readStream = fileObj.createReadStream('attachments');
     const writeStream = fs.createWriteStream(filePath);
 
-    writeStream.on('error', error => {
-      console.error('[writeStream error]: ', error, filePath);
-    });
-
-    readStream.on('error', error => {
-      console.error('[readStream error]: ', error, filePath);
+    writeStream.on('error', function(err) {
+      console.log('Writing error: ', err, filePath);
     });
 
     // Once we have a file, then upload it to our new data storage
@@ -1226,11 +1222,11 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
           size: fileSize,
           fileId,
         },
-        (error, fileRef) => {
-          if (error) {
-            console.error('[Attachments#addFile error]: ', error);
+        (err, fileRef) => {
+          if (err) {
+            console.log(err);
           } else {
-            console.log('File Inserted: ', fileRef);
+            console.log('File Inserted: ', fileRef._id);
             // Set the userId again
             Attachments.update({ _id: fileRef._id }, { $set: { userId } });
             fileObj.remove();
@@ -1240,18 +1236,18 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
       ); // proceedAfterUpload
     });
 
+    readStream.on('error', error => {
+      console.log('Error: ', filePath, error);
+    });
+
     readStream.pipe(writeStream);
   });
 });
 
 Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
-  const storagePath = Avatars.storagePath();
-  if (!fs.existsSync(storagePath)) {
-    console.log("create storagePath because it doesn't exist: " + storagePath);
-    fs.mkdirSync(storagePath, { recursive: true });
-  }
   AvatarsOld.find().forEach(function(fileObj) {
     const newFileName = fileObj.name();
+    const storagePath = Avatars.storagePath({});
     const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
 
     // This is "example" variable, change it to the userId that you might be using.
@@ -1264,12 +1260,8 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
     const readStream = fileObj.createReadStream('avatars');
     const writeStream = fs.createWriteStream(filePath);
 
-    writeStream.on('error', error => {
-      console.error('[writeStream error]: ', error, filePath);
-    });
-
-    readStream.on('error', error => {
-      console.error('[readStream error]: ', error, filePath);
+    writeStream.on('error', function(err) {
+      console.log('Writing error: ', err, filePath);
     });
 
     // Once we have a file, then upload it to our new data storage
@@ -1292,11 +1284,11 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
           size: fileSize,
           fileId,
         },
-        (error, fileRef) => {
-          if (error) {
-            console.error('[Avatars#addFile error]: ', error);
+        (err, fileRef) => {
+          if (err) {
+            console.log(err);
           } else {
-            console.log('File Inserted: ', newFileName, fileRef);
+            console.log('File Inserted: ', newFileName, fileRef._id);
             // Set the userId again
             Avatars.update({ _id: fileRef._id }, { $set: { userId } });
             Users.find().forEach(user => {
@@ -1320,6 +1312,10 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
         },
         true, // proceedAfterUpload
       );
+    });
+
+    readStream.on('error', error => {
+      console.log('Error: ', filePath, error);
     });
 
     readStream.pipe(writeStream);

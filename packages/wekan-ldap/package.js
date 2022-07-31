@@ -12,9 +12,9 @@ Package.describe({
 
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0.3.1');
-	api.use('yasaricli:slugify@0.0.5');
-	api.use('ecmascript@0.9.0');
+  api.versionsFrom('2.7');
+	api.use('yasaricli:slugify');
+	api.use('ecmascript');
 	api.use('underscore');
 	api.use('sha');
 	api.use('templating', 'client');

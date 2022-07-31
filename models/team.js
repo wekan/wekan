@@ -264,7 +264,7 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   // Index for Team name.
   Meteor.startup(() => {
-    Team._collection._ensureIndex({ teamDisplayName: 1 });
+    Team._collection.createIndex({ teamDisplayName: 1 });
   });
 }
 

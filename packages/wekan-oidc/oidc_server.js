@@ -19,7 +19,6 @@ var serviceData = {};
 var userinfo = {};
 
 OAuth.registerService('oidc', 2, null, function (query) {
-
   var debug = process.env.DEBUG || false;
 
   var token = getToken(query);

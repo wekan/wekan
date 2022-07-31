@@ -13,7 +13,7 @@ fi
 ##sudo npm -g install node-gyp
 #
 ## NEW:
-#sudo dnf install gcc python3 npm
+#sudo dnf install gcc python3 npm p7zip
 #sudo dnf groupinstall "Development Tools"
 #npm -g install n
 #
@@ -26,17 +26,21 @@ fi
 # export N_PREFIX
 #
 rm -rf bundle
+rm wekan-$1-s390x.zip
+
 #rm wekan-$1.zip
 #wget https://releases.wekan.team/wekan-$1.zip
-unzip wekan-$1.zip
-cd bundle/programs/server
-chmod u+w *.json
-cd node_modules/fibers
-node build.js
-cd ../../../..
+7za x wekan-$1.zip
+
+(cd bundle/programs/server && chmod u+w *.json && cd node_modules/fibers && node build.js)
+#cd ../../../..
+(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm remove bcrypt && npm install bcrypt)
+
+cd bundle
 find . -type d -name '*-garbage*' | xargs rm -rf
 find . -name '*phantom*' | xargs rm -rf
 find . -name '.*.swp' | xargs rm -f
 find . -name '*.swp' | xargs rm -f
 cd ..
-zip -r wekan-$1-s390x.zip bundle
+
+7za a wekan-$1-s390x.zip bundle

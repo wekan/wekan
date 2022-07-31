@@ -1,4 +1,5 @@
-import Attachments from '/models/attachments';
+import { TAPi18n } from '/imports/i18n';
+import { AttachmentStorage } from '/models/attachments';
 import { CardSearchPagedComponent } from '/client/lib/cardSearch';
 import SessionData from '/models/usersessiondata';
 import { QueryParams } from '/config/query-classes';

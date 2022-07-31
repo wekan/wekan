@@ -128,6 +128,12 @@ REM SET WEBHOOKS_ATTRIBUTES=
 
 REM ------------------------------------------------------------
 
+REM ## ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
+REM ## https://github.com/wekan/wekan/wiki/autologin
+REM # SET OIDC_REDIRECTION_ENABLED=true
+
+REM ------------------------------------------------------------
+
 REM # OAUTH2 ORACLE on premise identity manager OIM
 REM SET ORACLE_OIM_ENABLED=true
 

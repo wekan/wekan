@@ -1,0 +1,67 @@
+.card-date {
+  display: block;
+  border-radius: 4px;
+  padding: 1px 3px;
+  background-color: #dbdbdb;
+}
+.card-date:hover,
+.card-date.is-active {
+  background-color: #b3b3b3;
+}
+.card-date.current,
+.card-date.almost-due,
+.card-date.due,
+.card-date.long-overdue {
+  color: #fff;
+}
+.card-date.current {
+  background-color: #5ba639;
+}
+.card-date.current:hover,
+.card-date.current.is-active {
+  background-color: #46802c;
+}
+.card-date.almost-due {
+  background-color: #edc909;
+}
+.card-date.almost-due:hover,
+.card-date.almost-due.is-active {
+  background-color: #bc9f07;
+}
+.card-date.due {
+  background-color: #fa3f00;
+}
+.card-date.due:hover,
+.card-date.due.is-active {
+  background-color: #c73200;
+}
+.card-date.long-overdue {
+  background-color: #fd5d47;
+}
+.card-date.long-overdue:hover,
+.card-date.long-overdue.is-active {
+  background-color: #fd3e24;
+}
+.card-date.end-date time::before {
+  content: "\f253";
+}
+.card-date.due-date time::before {
+  content: "\f090";
+}
+.card-date.start-date time::before {
+  content: "\f251";
+}
+.card-date.received-date time::before {
+  content: "\f08b";
+}
+.card-date time::before {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  -webkit-font-smoothing: antialiased;
+  margin-right: 0.3em;
+}
+.customfield-date {
+  display: block;
+  border-radius: 4px;
+  padding: 1px 3px;
+}

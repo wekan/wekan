@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 //var nodemailer = require('nodemailer');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
@@ -153,7 +154,7 @@ Settings.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Settings._collection._ensureIndex({ modifiedAt: -1 });
+    Settings._collection.createIndex({ modifiedAt: -1 });
     const setting = Settings.findOne({});
     if (!setting) {
       const now = new Date();
@@ -226,6 +227,12 @@ if (Meteor.isServer) {
       'var-not-exist',
       `The environment variable ${name} does not exist`,
     ]);
+  }
+
+  function loadOidcConfig(service){
+    check(service, String);
+    var config = ServiceConfiguration.configurations.findOne({service: service});
+    return config;
   }
 
   function sendInvitationEmail(_id) {
@@ -494,6 +501,12 @@ if (Meteor.isServer) {
       };
     },
 
+    getOauthServerUrl(){
+      return process.env.OAUTH2_SERVER_URL;
+    },
+    getOauthDashboardUrl(){
+      return process.env.DASHBOARD_URL;
+    },
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
     },
@@ -501,6 +514,12 @@ if (Meteor.isServer) {
     isPasswordLoginDisabled() {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
+    isOidcRedirectionEnabled(){
+      return process.env.OIDC_REDIRECTION_ENABLED === 'true' && Object.keys(loadOidcConfig("oidc")).length > 0;
+    },
+    getServiceConfiguration(service){
+      return loadOidcConfig(service);
+      }
   });
 }
 

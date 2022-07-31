@@ -1,0 +1,550 @@
+.minicard-wrapper {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 9px;
+}
+.minicard-wrapper.placeholder {
+  background: #ccc;
+  border-radius: 9px;
+}
+.minicard-wrapper.ui-sortable-helper {
+  cursor: grabbing;
+  transform: rotate(4deg);
+  display: block !important;
+}
+.minicard-wrapper.ui-sortable-helper .and-n-other {
+  width: 100%;
+  height: 16px;
+  padding: 4px;
+  background-color: #f2f2f2;
+  text-align: center;
+  border-radius: 3px;
+}
+.minicard-wrapper.ui-sortable-helper .multi-selection-checkbox {
+  display: none;
+}
+.minicard-wrapper .multi-selection-checkbox + .minicard {
+  margin-left: 8px;
+}
+.minicard {
+  padding: 6px 8px 2px;
+  position: relative;
+  flex: 1;
+  flex-wrap: wrap;
+  background-color: #fff;
+  min-height: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  border-radius: 2px;
+  color: #4d4d4d;
+  overflow: hidden;
+  transition: transform 0.2s, border-radius 0.2s;
+}
+.minicard.linked-board .linked-icon,
+.minicard.linked-card .linked-icon {
+  display: inline-block;
+  margin-right: 11px;
+  vertical-align: baseline;
+  font-size: 0.9em;
+}
+.minicard.linked-board .linked-archived,
+.minicard.linked-card .linked-archived {
+  color: #937760;
+}
+.is-selected .minicard {
+  transform: translateX(11px);
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 25;
+  box-shadow: -2px 1px 2px rgba(0,0,0,0.2);
+}
+.minicard:hover:not(.minicard-composer),
+.is-selected .minicard,
+.draggable-hover-card .minicard {
+  background: #f7f7f7;
+}
+.draggable-hover-card .minicard {
+  background: #ededed;
+}
+.minicard .minicard-cover {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 145px;
+  user-select: none;
+  margin: -6px -8px 6px -8px;
+  border-radius: top 2px;
+}
+.minicard .minicard-labels {
+  float: none;
+}
+.minicard .minicard-labels .minicard-label {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+}
+.minicard .minicard-labels-no-text {
+  display: flex;
+  flex-wrap: wrap;
+}
+.minicard .minicard-custom-fields {
+  display: block;
+}
+.minicard .minicard-custom-field {
+  display: flex;
+}
+.minicard .minicard-custom-field-item {
+  flex-grow: 1;
+  display: block;
+  word-wrap: break-word;
+  max-width: 100px;
+  margin-right: 4px;
+}
+.minicard .handle {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: none;
+}
+@media only screen {
+  .minicard .handle {
+    display: block;
+  }
+}
+.minicard .handle .fa-arrows {
+  font-size: 20px;
+  color: #ccc;
+}
+.minicard .minicard-title .card-number {
+  color: #b3b3b3;
+  display: inline-block;
+  margin-right: 5px;
+}
+.minicard .minicard-title p:last-child {
+  margin-bottom: 0;
+}
+.minicard .minicard-title .viewer {
+  display: block;
+  word-wrap: break-word;
+  max-width: 230px;
+}
+.minicard .dates {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.minicard .date {
+  margin-right: 3px;
+}
+.minicard .badges {
+  float: left;
+  margin-top: 7px;
+  color: #808080;
+}
+.minicard .badges:empty {
+  display: none;
+}
+.minicard .badges .badge {
+  float: left;
+  margin-right: 11px;
+  margin-bottom: 3px;
+  font-size: 0.9em;
+}
+.minicard .badges .badge.is-finished {
+  background: #3cb500;
+  padding: 0px 3px;
+  border-radius: 3px;
+  color: #fff;
+}
+.minicard .badges .badge:last-of-type {
+  margin-right: 0;
+}
+.minicard .badges .badge .badge-icon,
+.minicard .badges .badge .badge-text {
+  vertical-align: middle;
+}
+.minicard .badges .badge .badge-icon.badge-comment,
+.minicard .badges .badge .badge-text.badge-comment {
+  margin-bottom: 0.1rem;
+}
+.minicard .badges .badge .badge-text {
+  font-size: 0.9em;
+  padding-left: 2px;
+  line-height: 14px;
+}
+.minicard .badges .badge .check-list-text {
+  padding-left: 0px;
+  line-height: 12px;
+}
+.minicard .minicard-members,
+.minicard .minicard-assignees,
+.minicard .minicard-creator {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 4px;
+}
+.minicard .minicard-members .member,
+.minicard .minicard-assignees .member,
+.minicard .minicard-creator .member {
+  float: right;
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  margin-bottom: 4px;
+}
+.minicard .minicard-members .assignee,
+.minicard .minicard-assignees .assignee,
+.minicard .minicard-creator .assignee {
+  float: right;
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+}
+.minicard .minicard-members + .badges,
+.minicard .minicard-assignees + .badges,
+.minicard .minicard-creator + .badges {
+  margin-top: 5px;
+}
+.minicard .minicard-assignees {
+  border-bottom: 1px solid #f00;
+}
+.minicard .minicard-creator {
+  border-bottom: 1px solid #008000;
+}
+.minicard .minicard-members:empty,
+.minicard .minicard-assignees:empty {
+  display: none;
+}
+.minicard .minicard-description {
+  padding: 6px 0 6px 8px;
+  background-color: #eee;
+  width: 100%;
+  margin-bottom: 2px;
+  margin-left: -4px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.minicard.minicard-composer {
+  margin-bottom: 10px;
+}
+.minicard.minicard-composer textarea.minicard-composer-textarea,
+.minicard.minicard-composer textarea.minicard-composer-textarea:focus {
+  resize: none;
+  background: none;
+  border: none;
+  box-shadow: none;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  max-height: 162px;
+  min-height: 36px;
+  margin-bottom: 20px;
+  overflow-y: auto;
+}
+.parent-prefix {
+  color: #b3b3b3;
+  font-size: 0.9em;
+}
+.parent-subtext {
+  color: #b3b3b3;
+  font-size: 0.9em;
+}
+@media screen and (max-width: 800px) {
+  .is-selected .minicard {
+    transform: translateX(0px);
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    z-index: 15;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+}
+/* https://github.com/wekan/wekan/issues/4254#issuecomment-1037192960 */
+.minicard-green {
+  background-color: #3cb500 !important;
+  color: #fff !important;
+}
+.minicard-green:hover:not(.minicard-composer),
+.is-selected .minicard-green,
+.draggable-hover-card .minicard-green {
+  background: #3ab000;
+}
+.draggable-hover-card .minicard-green {
+  background: #38a800;
+}
+.minicard-yellow {
+  background-color: #fad900 !important;
+}
+.minicard-yellow:hover:not(.minicard-composer),
+.is-selected .minicard-yellow,
+.draggable-hover-card .minicard-yellow {
+  background: #f3d200;
+}
+.draggable-hover-card .minicard-yellow {
+  background: #e9ca00;
+}
+.minicard-orange {
+  background-color: #ff9f19 !important;
+}
+.minicard-orange:hover:not(.minicard-composer),
+.is-selected .minicard-orange,
+.draggable-hover-card .minicard-orange {
+  background: #ff9b11;
+}
+.draggable-hover-card .minicard-orange {
+  background: #ff9705;
+}
+.minicard-red {
+  background-color: #eb4646 !important;
+  color: #fff !important;
+}
+.minicard-red:hover:not(.minicard-composer),
+.is-selected .minicard-red,
+.draggable-hover-card .minicard-red {
+  background: #ea3e3e;
+}
+.draggable-hover-card .minicard-red {
+  background: #e93333;
+}
+.minicard-purple {
+  background-color: #a632db !important;
+  color: #fff !important;
+}
+.minicard-purple:hover:not(.minicard-composer),
+.is-selected .minicard-purple,
+.draggable-hover-card .minicard-purple {
+  background: #a32bda;
+}
+.draggable-hover-card .minicard-purple {
+  background: #9e25d5;
+}
+.minicard-blue {
+  background-color: #0079bf !important;
+  color: #fff !important;
+}
+.minicard-blue:hover:not(.minicard-composer),
+.is-selected .minicard-blue,
+.draggable-hover-card .minicard-blue {
+  background: #0075b9;
+}
+.draggable-hover-card .minicard-blue {
+  background: #0071b2;
+}
+.minicard-pink {
+  background-color: #ff78cb !important;
+}
+.minicard-pink:hover:not(.minicard-composer),
+.is-selected .minicard-pink,
+.draggable-hover-card .minicard-pink {
+  background: #ff6dc7;
+}
+.draggable-hover-card .minicard-pink {
+  background: #ff5ec1;
+}
+.minicard-sky {
+  background-color: #00c2e0 !important;
+  color: #fff !important;
+}
+.minicard-sky:hover:not(.minicard-composer),
+.is-selected .minicard-sky,
+.draggable-hover-card .minicard-sky {
+  background: #00bcd9;
+}
+.draggable-hover-card .minicard-sky {
+  background: #00b4d0;
+}
+.minicard-black {
+  background-color: #4d4d4d !important;
+  color: #fff !important;
+}
+.minicard-black:hover:not(.minicard-composer),
+.is-selected .minicard-black,
+.draggable-hover-card .minicard-black {
+  background: #4b4b4b;
+}
+.draggable-hover-card .minicard-black {
+  background: #484848;
+}
+.minicard-lime {
+  background-color: #51e898 !important;
+}
+.minicard-lime:hover:not(.minicard-composer),
+.is-selected .minicard-lime,
+.draggable-hover-card .minicard-lime {
+  background: #49e793;
+}
+.draggable-hover-card .minicard-lime {
+  background: #3ee58d;
+}
+.minicard-silver {
+  background-color: #c0c0c0 !important;
+}
+.minicard-silver:hover:not(.minicard-composer),
+.is-selected .minicard-silver,
+.draggable-hover-card .minicard-silver {
+  background: #bababa;
+}
+.draggable-hover-card .minicard-silver {
+  background: #b3b3b3;
+}
+.minicard-peachpuff {
+  background-color: #ffdab9 !important;
+}
+.minicard-peachpuff:hover:not(.minicard-composer),
+.is-selected .minicard-peachpuff,
+.draggable-hover-card .minicard-peachpuff {
+  background: #ffd3ac;
+}
+.draggable-hover-card .minicard-peachpuff {
+  background: #ffca9a;
+}
+.minicard-crimson {
+  background-color: #dc143c !important;
+  color: #fff !important;
+}
+.minicard-crimson:hover:not(.minicard-composer),
+.is-selected .minicard-crimson,
+.draggable-hover-card .minicard-crimson {
+  background: #d5133a;
+}
+.draggable-hover-card .minicard-crimson {
+  background: #cd1338;
+}
+.minicard-plum {
+  background-color: #dda0dd !important;
+}
+.minicard-plum:hover:not(.minicard-composer),
+.is-selected .minicard-plum,
+.draggable-hover-card .minicard-plum {
+  background: #da98da;
+}
+.draggable-hover-card .minicard-plum {
+  background: #d68cd6;
+}
+.minicard-darkgreen {
+  background-color: #006400 !important;
+  color: #fff !important;
+}
+.minicard-darkgreen:hover:not(.minicard-composer),
+.is-selected .minicard-darkgreen,
+.draggable-hover-card .minicard-darkgreen {
+  background: #006100;
+}
+.draggable-hover-card .minicard-darkgreen {
+  background: #005d00;
+}
+.minicard-slateblue {
+  background-color: #6a5acd !important;
+  color: #fff !important;
+}
+.minicard-slateblue:hover:not(.minicard-composer),
+.is-selected .minicard-slateblue,
+.draggable-hover-card .minicard-slateblue {
+  background: #6453cb;
+}
+.draggable-hover-card .minicard-slateblue {
+  background: #5c4ac8;
+}
+.minicard-magenta {
+  background-color: #f0f !important;
+  color: #fff !important;
+}
+.minicard-magenta:hover:not(.minicard-composer),
+.is-selected .minicard-magenta,
+.draggable-hover-card .minicard-magenta {
+  background: #f700f7;
+}
+.draggable-hover-card .minicard-magenta {
+  background: #ed00ed;
+}
+.minicard-gold {
+  background-color: #ffd700 !important;
+}
+.minicard-gold:hover:not(.minicard-composer),
+.is-selected .minicard-gold,
+.draggable-hover-card .minicard-gold {
+  background: #f7d100;
+}
+.draggable-hover-card .minicard-gold {
+  background: #edc800;
+}
+.minicard-navy {
+  background-color: #000080 !important;
+  color: #fff !important;
+}
+.minicard-navy:hover:not(.minicard-composer),
+.is-selected .minicard-navy,
+.draggable-hover-card .minicard-navy {
+  background: #00007c;
+}
+.draggable-hover-card .minicard-navy {
+  background: #007;
+}
+.minicard-gray {
+  background-color: #808080 !important;
+  color: #fff !important;
+}
+.minicard-gray:hover:not(.minicard-composer),
+.is-selected .minicard-gray,
+.draggable-hover-card .minicard-gray {
+  background: #7c7c7c;
+}
+.draggable-hover-card .minicard-gray {
+  background: #777;
+}
+.minicard-saddlebrown {
+  background-color: #8b4513 !important;
+  color: #fff !important;
+}
+.minicard-saddlebrown:hover:not(.minicard-composer),
+.is-selected .minicard-saddlebrown,
+.draggable-hover-card .minicard-saddlebrown {
+  background: #874312;
+}
+.draggable-hover-card .minicard-saddlebrown {
+  background: #814012;
+}
+.minicard-paleturquoise {
+  background-color: #afeeee !important;
+}
+.minicard-paleturquoise:hover:not(.minicard-composer),
+.is-selected .minicard-paleturquoise,
+.draggable-hover-card .minicard-paleturquoise {
+  background: #a5ecec;
+}
+.draggable-hover-card .minicard-paleturquoise {
+  background: #97e9e9;
+}
+.minicard-mistyrose {
+  background-color: #ffe4e1 !important;
+}
+.minicard-mistyrose:hover:not(.minicard-composer),
+.is-selected .minicard-mistyrose,
+.draggable-hover-card .minicard-mistyrose {
+  background: #ffd7d3;
+}
+.draggable-hover-card .minicard-mistyrose {
+  background: #ffc6bf;
+}
+.minicard-indigo {
+  background-color: #4b0082 !important;
+  color: #fff !important;
+}
+.minicard-indigo:hover:not(.minicard-composer),
+.is-selected .minicard-indigo,
+.draggable-hover-card .minicard-indigo {
+  background: #49007e;
+}
+.draggable-hover-card .minicard-indigo {
+  background: #460079;
+}
+.text-red {
+  color: #f00;
+}
+.text-green {
+  color: #008000;
+}

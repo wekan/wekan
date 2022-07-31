@@ -1,3 +1,5 @@
+import moment from 'moment/min/moment-with-locales';
+
 // Filtered view manager
 // We define local filter objects for each different type of field (SetFilter,
 // RangeFilter, dateFilter, etc.). We then define a global `Filter` object whose
@@ -721,7 +723,7 @@ Filter = {
       isFilterActive = true;
       selectors.push(this.advanced._getMongoSelector());
     }
-    
+
     if(isFilterActive) {
       return {
         $or: selectors,

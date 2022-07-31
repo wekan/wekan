@@ -1,12 +1,16 @@
-FROM ubuntu:rolling
+FROM ubuntu:21.10
 LABEL maintainer="sgr"
 
-ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
+# 2022-04-25:
+# - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
+#   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
+
+ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python3 git ca-certificates iproute2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=v14.19.1 \
+    NODE_VERSION=v14.20.0 \
     METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -219,12 +223,6 @@ RUN set -o xtrace \
   && chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
 
 USER wekan
-
-RUN \
-    set -o xtrace && \
-    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
-    cd /home/wekan/.meteor && \
-    /home/wekan/.meteor/meteor -- help;
 
 RUN \
     set -o xtrace && \

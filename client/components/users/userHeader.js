@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
@@ -256,105 +258,15 @@ Template.changePasswordPopup.onRendered(function() {
 
 Template.changeLanguagePopup.helpers({
   languages() {
-    return _.map(TAPi18n.getLanguages(), (lang, code) => {
-      // Same code in /client/components/main/layouts.js
-      // TODO : Make code reusable
-      const tag = code;
-      let name = lang.name;
-      if (lang.name === 'br') {
-        name = 'Brezhoneg';
-      } else if (lang.name === 'ar-EG') {
-        // ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)
-        name = 'مَصرى';
-      } else if (lang.name === 'cs-CZ') {
-        name = 'čeština (Česká republika)';
-      } else if (lang.name === 'de-CH') {
-        name = 'Deutsch (Schweiz)';
-      } else if (lang.name === 'de-AT') {
-        name = 'Deutsch (Österreich)';
-      } else if (lang.name === 'en-BR') {
-        name = 'English (Brazil)';
-      } else if (lang.name === 'en-DE') {
-        name = 'English (Germany)';
-      } else if (lang.name === 'et-EE') {
-        name = 'eesti keel (Eesti)';
-      } else if (lang.name === 'fa-IR') {
-        // fa-IR = Persian (Iran)
-        name = 'فارسی/پارسی (ایران‎)';
-      } else if (lang.name === 'fr-BE') {
-        name = 'Français (Belgique)';
-      } else if (lang.name === 'fr-CA') {
-        name = 'Français (Canada)';
-      } else if (lang.name === 'fr-CH') {
-        name = 'Français (Schweiz)';
-      } else if (lang.name === 'gu-IN') {
-        // gu-IN = Gurajati (India)
-        name = 'ગુજરાતી';
-      } else if (lang.name === 'hi-IN') {
-        // hi-IN = Hindi (India)
-        name = 'हिंदी (भारत)';
-      } else if (lang.name === 'ig') {
-        name = 'Igbo';
-      } else if (lang.name === 'lv') {
-        name = 'Latviešu';
-      } else if (lang.name === 'latviešu valoda') {
-        name = 'Latviešu';
-      } else if (lang.name === 'ms-MY') {
-        // ms-MY = Malay (Malaysia)
-        name = 'بهاس ملايو';
-      } else if (lang.name === 'en-IT') {
-        name = 'English (Italy)';
-      } else if (lang.name === 'el-GR') {
-        // el-GR = Greek (Greece)
-        name = 'Ελληνικά (Ελλάδα)';
-      } else if (lang.name === 'Español') {
-        name = 'español';
-      } else if (lang.name === 'es_419') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'es-419') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'Español de América Latina') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'es-LA') {
-        name = 'español de América Latina';
-      } else if (lang.name === 'Español de Argentina') {
-        name = 'español de Argentina';
-      } else if (lang.name === 'Español de Chile') {
-        name = 'español de Chile';
-      } else if (lang.name === 'Español de Colombia') {
-        name = 'español de Colombia';
-      } else if (lang.name === 'Español de México') {
-        name = 'español de México';
-      } else if (lang.name === 'es-PY') {
-        name = 'español de Paraguayo';
-      } else if (lang.name === 'Español de Paraguayo') {
-        name = 'español de Paraguayo';
-      } else if (lang.name === 'Español de Perú') {
-        name = 'español de Perú';
-      } else if (lang.name === 'Español de Puerto Rico') {
-        name = 'español de Puerto Rico';
-      } else if (lang.name === 'gl-ES') {
-        name = 'Galego (España)';
-      } else if (lang.name === 'oc') {
-        name = 'Occitan';
-      } else if (lang.name === 'ru-UA') {
-        name = 'Русский (Украина)';
-      } else if (lang.name === 'st') {
-        name = 'Sãotomense';
-      } else if (lang.name === 'uk-UA') {
-        name = 'українська (Україна)';
-      } else if (lang.name === '繁体中文（台湾）') {
-        // Traditional Chinese (Taiwan)
-        name = '繁體中文（台灣）';
-      }
-      return { tag, name };
-    }).sort(function(a, b) {
-      if (a.name === b.name) {
-        return 0;
-      } else {
-        return a.name > b.name ? 1 : -1;
-      }
-    });
+    return TAPi18n.getSupportedLanguages()
+      .map(({ tag, name }) => ({ tag: tag, name }))
+      .sort((a, b) => {
+        if (a.name === b.name) {
+          return 0;
+        } else {
+          return a.name > b.name ? 1 : -1;
+        }
+      });
   },
 
   isCurrentLanguage() {
@@ -380,6 +292,16 @@ Template.changeSettingsPopup.helpers({
     if (currentUser) {
       return (currentUser.profile || {}).hasHiddenSystemMessages;
     } else if (window.localStorage.getItem('hasHiddenSystemMessages')) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  rescueCardDescription() {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).rescueCardDescription;
+    } else if (window.localStorage.getItem('rescueCardDescription')) {
       return true;
     } else {
       return false;
@@ -444,6 +366,9 @@ Template.changeSettingsPopup.events({
       window.localStorage.setItem('hasHiddenSystemMessages', 'true');
     }
   },
+  'click .js-rescue-card-description'() {
+    Meteor.call('toggleRescueCardDescription')
+    },
   'click .js-apply-user-settings'(event, templateInstance) {
     event.preventDefault();
     let minLimit = parseInt(
