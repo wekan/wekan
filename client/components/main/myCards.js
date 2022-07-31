@@ -7,12 +7,20 @@ BlazeComponent.extendComponent({
     return Utils.myCardsSort();
   },
 
+  myCardsView() {
+    // eslint-disable-next-line no-console
+    // console.log('sort:', Utils.myCardsView());
+    return Utils.myCardsView();
+  },
+
   events() {
     return [
       {
         'click .js-toggle-my-cards-choose-sort': Popup.open(
           'myCardsSortChange',
         ),
+        'click .js-my-cards-view-change': Popup.open(
+          'myCardsViewChange'),
       },
     ];
   },
@@ -23,6 +31,24 @@ Template.myCards.helpers({
     return Meteor.userId();
   },
 });
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click .js-my-cards-view-boards'() {
+          Utils.setMyCardsView('boards');
+          Popup.back();
+        },
+
+        'click .js-my-cards-view-table'() {
+          Utils.setMyCardsView('table');
+          Popup.back();
+        },
+      },
+    ];
+  },
+}).register('myCardsViewChangePopup');
 
 class MyCardsComponent extends CardSearchPagedComponent {
   onCreated() {
@@ -39,6 +65,24 @@ class MyCardsComponent extends CardSearchPagedComponent {
       this.sessionId,
       this.subscriptionCallbacks,
     );
+  }
+
+  myCardsView() {
+    // eslint-disable-next-line no-console
+    //console.log('sort:', Utils.myCardsView());
+    return Utils.myCardsView();
+  }
+
+  labelName(board, labelId) {
+    const label = board.getLabelById(labelId)
+    const name = label.name
+    return name
+  }
+
+  labelColor(board, labelId) {
+    const label = board.getLabelById(labelId)
+    const color = label.color
+    return color
   }
 
   myCardsList() {

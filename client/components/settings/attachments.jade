@@ -1,0 +1,84 @@
+template(name="attachments")
+  .setting-content.attachments-content
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-body
+        .side-menu
+          ul
+            li
+              a.js-move-attachments(data-id="move-attachments")
+                i.fa.fa-arrow-right
+                | {{_ 'attachment-move'}}
+
+        .main-body
+          if loading.get
+            +spinner
+          else if showMoveAttachments.get
+            +moveAttachments
+
+template(name="moveAttachments")
+  .move-attachment-buttons
+    .js-move-attachment
+      button.js-move-all-attachments-to-fs {{_ 'move-all-attachments-to-fs'}}
+    .js-move-attachment
+      button.js-move-all-attachments-to-gridfs {{_ 'move-all-attachments-to-gridfs'}}
+
+  each board in getBoardsWithAttachments
+    +moveBoardAttachments board
+
+template(name="moveBoardAttachments")
+  hr
+  .board-description
+    table
+      tr
+        th {{_ 'board'}} ID
+        th {{_ 'board-title'}}
+      tr
+        td {{ _id }}
+        td {{ title }}
+
+  .move-attachment-buttons
+    .js-move-attachment
+      button.js-move-all-attachments-of-board-to-fs {{_ 'move-all-attachments-of-board-to-fs'}}
+    .js-move-attachment
+      button.js-move-all-attachments-of-board-to-gridfs {{_ 'move-all-attachments-of-board-to-gridfs'}}
+
+  .board-attachments
+    table
+      tr
+        th {{_ 'card'}}-Id
+        th {{_ 'attachment'}}-Id
+        th {{_ 'name'}}
+        th {{_ 'path'}}
+        th {{_ 'version-name'}}
+        th {{_ 'size'}} (B)
+        th GridFsFileId
+        th {{_ 'storage'}}
+        th {{_ 'action'}}
+
+      each attachment in attachments
+        +moveAttachment attachment
+
+template(name="moveAttachment")
+  each version in flatVersion
+    tr
+      td {{ meta.cardId }}
+      td {{ _id }}
+      td {{ name }}
+      td {{ version.path }}
+      td {{ version.versionName }}
+      td {{ version.size }}
+      td {{ version.meta.gridFsFileId }}
+      td {{ version.storageName }}
+      td
+        if $neq version.storageName "fs"
+          button.js-move-storage-fs
+            i.fa.fa-arrow-right
+            | {{_ 'attachment-move-storage-fs'}}
+
+        if $neq version.storageName "gridfs"
+          if version.storageName
+            button.js-move-storage-gridfs
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-gridfs'}}

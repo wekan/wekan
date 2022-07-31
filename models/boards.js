@@ -292,6 +292,20 @@ Boards.attachSchema(
         }
       },
     },
+    allowsCardCounterList: {
+      /**
+       * Show card counter per list
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+    allowsBoardMemberList: {
+      /**
+       * Show board member list
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     description: {
       /**
        * The description of the board
@@ -1432,6 +1446,14 @@ Boards.mutations({
 
   setAllowsReceivedDate(allowsReceivedDate) {
     return { $set: { allowsReceivedDate } };
+  },
+
+  setAllowsCardCounterList(allowsCardCounterList) {
+    return { $set: { allowsCardCounterList } };
+  },
+
+  setAllowsBoardMemberList(allowsBoardMemberList) {
+    return { $set: { allowsBoardMemberList } };
   },
 
   setAllowsStartDate(allowsStartDate) {

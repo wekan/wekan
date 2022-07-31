@@ -1,5 +1,5 @@
 *~
-*.swp
+*.sw*
 .meteor-spk
 *.sublime-workspace
 tmp/

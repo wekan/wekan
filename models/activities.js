@@ -247,9 +247,8 @@ if (Meteor.isServer) {
       params.commentId = comment._id;
     }
     if (activity.attachmentId) {
-      const attachment = activity.attachment();
-      params.attachment = attachment.name;
-      params.attachmentId = attachment._id;
+      params.attachment = activity.attachmentName;
+      params.attachmentId = activity.attachmentId;
     }
     if (activity.checklistId) {
       const checklist = activity.checklist();
