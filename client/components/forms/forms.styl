@@ -5,9 +5,15 @@ textarea,
 input:not([type=file]),
 button
   box-sizing: border-box
-  background-color: #ebebeb
-  border: 1px solid #ccc
-  border-radius: 3px
+  //background-color: #ebebeb
+  //border: 1px solid #ccc
+  //border-radius: 3px
+  border-radius: 8px
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+  backdrop-filter: blur(5px) !important
+  -webkit-backdrop-filter: blur(5px) !important
+  border: 1px solid rgba(255, 255, 255, 0.3)
+  padding: 8px 8px 8px 8px
   display: block
   margin-bottom: 12px
   min-height: 34px
@@ -36,6 +42,11 @@ input[type="email"]
   transition: background 85ms ease-in,
         border-color 85ms ease-in
   width: 250px
+  border-radius:8px
+  border: 1px solid rgba(255, 255, 255, 0.3)
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+  backdrop-filter: blur(5px)
+  -webkit-backdrop-filter: blur(5px)
 
   &.inline-input
     background: none
@@ -104,21 +115,28 @@ textarea
 
 
 .button
-  border-radius: 3px
+  border-radius: 25px
   text-decoration: none
   position: relative
 
 input[type="submit"],
 button
-  background: #cfcfcf
-  background: linear-gradient(#cfcfcf, #c2c2c2)
-  border: none
+  //background: #cfcfcf
+  //background: linear-gradient(#cfcfcf, #c2c2c2)
+  //border: none
+  background: #2b2a33
   cursor: pointer
   display: inline-block
-  font-weight: 700
+  font-weight: 500
   line-height: 22px
   padding: 7px 20px
   text-align: center
+  border-radius: 25px
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+  backdrop-filter: blur(5px)
+  -webkit-backdrop-filter: blur(5px)
+  border: 1px solid rgba(255, 255, 255, 0.3)
+  opacity: 0.8
 
   .wide
     padding-left: 30px
@@ -147,7 +165,7 @@ button
 
     &:hover,
     &:focus
-      background: #004766
+      background: #08090a
 
     &:active
       background: #01628C
@@ -238,6 +256,7 @@ textarea
   .fa-times-thin
     font-size: 26px
     margin: 3px 10px
+    color:red
 
 // Material Design checkboxes
   [type="checkbox"]:not(:checked),

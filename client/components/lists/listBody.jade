@@ -57,16 +57,16 @@ template(name="addCardForm")
     unless currentBoard.isTemplatesBoard
       unless currentBoard.isTemplateBoard
         span.quiet
-          | {{_ 'or'}}
-          a.js-link {{_ 'link'}}
+          //- | {{_ 'or'}}
+          a.fa.fa-link.js-link {{_ 'link'}}
         span.quiet
-          | &nbsp;
-          | /
-          a.js-search {{_ 'search'}}
+          //- | &nbsp;
+          //- | /
+          a.fa.fa-search.js-search {{_ 'search'}}
         span.quiet
-          | &nbsp;
-          | /
-          a.js-card-template {{_ 'template'}}
+          //- | &nbsp;
+          //- | /
+          a.fa.fa-file-code-o.js-card-template {{_ 'template'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)

@@ -28,6 +28,7 @@
     "bcryptjs": "^2.4.3",
     "bson": "^4.6.1",
     "bunyan": "^1.8.15",
+    "caniuse-lite": "^1.0.30001327",
     "core-js": "^2.6.12",
     "dompurify": "^2.3.6",
     "es6-promise": "^4.2.4",

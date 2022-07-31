@@ -4,7 +4,7 @@ $spaceBetweenTiles = 16px
 
 .board-list
   margin: 0 ($spaceBetweenTiles/2)
-
+  background: rgba(255, 255, 255, 0.2) !important
   li
     float: left
     width: 20%
@@ -32,14 +32,20 @@ $spaceBetweenTiles = 16px
   .board-list-item
     overflow: hidden;
     background-color: #999
+    opacity:0.8
     color: #f6f6f6
     min-height: 100px
-    font-size: 16px
+    font-size: 15px
     line-height: 22px
-    border-radius: 3px
+    //border-radius: 3px
     display: block
-    font-weight: 700
-    padding: 8px
+    font-weight: 600
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 8px 8px 8px 8px;
     margin: ($spaceBetweenTiles/2)
     position: relative
     text-decoration: none
@@ -81,6 +87,7 @@ $spaceBetweenTiles = 16px
     bottom: 0
     font-size: 14px
     height: 18px
+    font-weight:400
     line-height: 18px
     opacity: 0
     padding: 9px 9px

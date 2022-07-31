@@ -4,10 +4,11 @@ $popupWidth = 300px
 
 .pop-over
   background: #fff
-  border-radius: 3px
-  border: 1px solid #dbdbdb
+  border-radius: 16px
+  border: 1px solid rgba(255, 255, 255, 0.3)
   border-bottom-color: #c2c2c2
-  box-shadow: 0 1px 6px rgba(0, 0, 0, .3)
+  backdrop-filter: blur(5px)
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   position: absolute
   width: $popupWidth
   z-index: 99999

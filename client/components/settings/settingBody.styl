@@ -14,8 +14,13 @@
   height calc(100% - 80px)
   position: absolute;
 
+
   .content-title
     font-size 20px
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 
   .content-body
     display flex
@@ -23,11 +28,18 @@
     height 100%
 
     .side-menu
-      background-color: #f7f7f7;
-      border: 1px solid #f0f0f0;
-      border-radius: 4px;
+      //background-color: #f7f7f7;
+      //border: 1px solid #f0f0f0;
+      //border-radius: 4px;
       width: 250px;
-      box-shadow: inset -1px -1px 3px rgba(0,0,0,.05);
+      //box-shadow: inset -1px -1px 3px rgba(0,0,0,.05);
+      background: rgba(255, 255, 255, 0.2)
+      border-radius: 16px
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+      backdrop-filter: blur(5px) !important
+      -webkit-backdrop-filter: blur(5px) !important
+      border: 1px solid rgba(255, 255, 255, 0.3)
+      padding: 8px 8px 8px 8px
 
       ul
 
@@ -36,11 +48,15 @@
 
           &.active
             background #fff
-            box-shadow 0 1px 2px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
 
           &:hover
             background #fff
-            box-shadow 0 1px 2px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
 
           a
             @extends .flex
@@ -66,8 +82,8 @@
 
           a
             .is-checked
-              border-bottom: 2px solid #2980b9;
-              border-right: 2px solid #2980b9;
+              border-bottom: 2px solid rgb(62, 220, 142);
+              border-right: 2px solid rgb(62, 220, 142);
 
             span
               padding: 0 0.5rem
@@ -86,7 +102,8 @@
                 a
                   background  #f7f7f7
                   &.is-checked
-                    background #fff
+                    //background #fff
+                    background:#f4f4f4
 
           input[type=radio]
             margin: 4px
@@ -103,7 +120,7 @@
   padding: 5px;
 
 .title
-  font-weight 700;
+  font-weight 500;
   margin-bottom 0.5rem;
 .description
   margin-bottom 0.5rem;
