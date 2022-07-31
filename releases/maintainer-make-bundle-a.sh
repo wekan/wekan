@@ -10,20 +10,24 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-sudo apt -y install g++ build-essential
-sudo npm -g install node-gyp
+sudo apt -y install g++ build-essential p7zip-full
+sudo npm -g uninstall node-pre-gyp
+sudo npm -g install @mapbox/node-pre-gyp
 rm -rf bundle
+rm wekan-$1-arm64.zip
 #rm wekan-$1.zip
 #wget https://releases.wekan.team/wekan-$1.zip
-unzip wekan-$1.zip
-cd bundle/programs/server
-chmod u+w *.json
-cd node_modules/fibers
-node build.js
-cd ../../../..
+7z x wekan-$1.zip
+
+(cd bundle/programs/server && chmod u+w *.json && cd node_modules/fibers && node build.js)
+#cd ../../../..
+(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm remove bcrypt && npm install bcrypt)
+
+cd bundle
 find . -type d -name '*-garbage*' | xargs rm -rf
 find . -name '*phantom*' | xargs rm -rf
 find . -name '.*.swp' | xargs rm -f
 find . -name '*.swp' | xargs rm -f
 cd ..
-zip -r wekan-$1-arm64.zip bundle
+
+7z a wekan-$1-arm64.zip bundle
