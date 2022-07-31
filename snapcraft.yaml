@@ -91,7 +91,7 @@ parts:
             - $mongo
 
     mongodb44:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.24.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.15.tgz
         plugin: dump
         organize:
           bin: mongo44bin
