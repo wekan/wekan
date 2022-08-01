@@ -40,15 +40,16 @@ do
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
 			sudo n 14.20.0
+			sudo npm -g install npm
 			#sudo npm -g install npm
 			## Latest npm with Meteor 2.2
 			sudo npm -g uninstall node-pre-gyp
 			sudo npm -g install @mapbox/node-pre-gyp
 			# Latest fibers for Meteor 2.2
 			#sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-			sudo npm -g install fibers
+			#sudo npm -g install fibers
 			# Install Meteor, if it's not yet installed
-			sudo npm install -g meteor --unsafe-perm
+			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
@@ -88,8 +89,6 @@ do
 		#fi
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
-		npm -g uninstall node-pre-gyp
-		npm -g install @mapbox/node-pre-gyp
 		rm -rf .build/bundle node_modules .meteor/local .build
 		meteor npm install
 		meteor build .build --directory
