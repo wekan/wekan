@@ -24,7 +24,7 @@ do
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 			echo "Linux";
 			# Debian, Ubuntu, Mint
-			sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm
+			sudo apt install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm p7zip-full
 			#curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 			#sudo apt-get install -y npm
@@ -42,7 +42,8 @@ do
 			sudo n 14.20.0
 			#sudo npm -g install npm
 			## Latest npm with Meteor 2.2
-			sudo npm -g install node-gyp
+			sudo npm -g uninstall node-pre-gyp
+			sudo npm -g install @mapbox/node-pre-gyp
 			# Latest fibers for Meteor 2.2
 			#sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
 			sudo npm -g install fibers
@@ -87,18 +88,22 @@ do
 		#fi
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
-		rm -rf node_modules .meteor/local .build
-                chmod u+w *.json
+		npm -g uninstall node-pre-gyp
+		npm -g install @mapbox/node-pre-gyp
+		rm -rf .build/bundle node_modules .meteor/local .build
 		meteor npm install
 		meteor build .build --directory
 		rm -rf .build/bundle/programs/web.browser.legacy
 		(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install)
                 (cd .build/bundle/programs/server/node_modules/fibers && node build.js)
+		(cd .build/bundle/programs/server/npm/node_modules/meteor/accounts-password && meteor npm remove bcrypt && meteor npm install bcrypt)
 		# Cleanup
+		cd .build/bundle
 		find . -type d -name '*-garbage*' | xargs rm -rf
 		find . -name '*phantom*' | xargs rm -rf
 		find . -name '.*.swp' | xargs rm -f
 		find . -name '*.swp' | xargs rm -f
+		cd ../..
 		# Add fibers multi arch
 		#cd .build/bundle/programs/server/node_modules/fibers/bin
 		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
