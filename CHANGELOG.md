@@ -9,7 +9,9 @@ Download section.
 
 This release adds the following updates:
 
-- [Updated release build scripts to reinstall bcrypt, upload Windows version etc](https://github.com/wekan/wekan/commit/14e5d08a19d213ab901cce9088a3e368b508e7d0).
+- Updated release build scripts to reinstall bcrypt, upload Windows version etc.
+  [Part 1](https://github.com/wekan/wekan/commit/14e5d08a19d213ab901cce9088a3e368b508e7d0),
+  [Part 2](https://github.com/wekan/wekan/commit/86d6d2d19aacaf0cadcbf36e223208a5a5e69ecd).
   Thanks to xet7.
 - [Try to fix Snap Candidate](https://github.com/wekan/wekan/commit/b433fbdda81478558585cbaa7717d00247550325).
   Thanks to xet7.
