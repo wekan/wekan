@@ -30,6 +30,8 @@ and fixes the following bugs:
 
 - [Fix In Lists view, Card Details pop-up does not appear in 6.31 release](https://github.com/wekan/wekan/commit/063ad08e9e81f5235d323cc3ed7af4cd5610dc93).
   Thanks to Sdub76, niels, m4teh, r4nc0r, mfilser, medjedovicm and xet7.
+- [Try to fix missing variable in WeKan fails to get MongoDB server version](https://github.com/wekan/wekan/commit/4941fd183c54f514119587380bf659115a1adc6e).
+  Thanks to simon816 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
