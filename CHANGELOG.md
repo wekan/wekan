@@ -7,7 +7,16 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Add support to validate attachment uploads by type and size](https://github.com/wekan/wekan/pull/4618).
+  Thanks to NotTheEvilOne.
+- [Added attachments file type and size snap settings and help text](https://github.com/wekan/wekan/commit/0c224a0a7f3f2f99839db65eed896bb2dd316e3c).
+  Thanks to xet7.
+- [Added dependencies for attachments file size and type](https://github.com/wekan/wekan/commit 1b30485e68e5cd30784207801a1c8d659fb14018 (HEAD -> master)
+  Thanks to xet7.
+
+and adds the following updates:
 
 - Updated release build scripts to reinstall bcrypt, upload Windows version etc.
   [Part 1](https://github.com/wekan/wekan/commit/14e5d08a19d213ab901cce9088a3e368b508e7d0),
