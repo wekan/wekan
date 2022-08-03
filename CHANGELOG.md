@@ -17,6 +17,11 @@ This release adds the following updates:
 - [Try to fix Snap Candidate](https://github.com/wekan/wekan/commit/b433fbdda81478558585cbaa7717d00247550325).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix In Lists view, Card Details pop-up does not appear in 6.31 release](https://github.com/wekan/wekan/commit/063ad08e9e81f5235d323cc3ed7af4cd5610dc93).
+  Thanks to Sdub76, niels, m4teh, r4nc0r, mfilser, medjedovicm and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.31 2022-07-31 WeKan ® release
