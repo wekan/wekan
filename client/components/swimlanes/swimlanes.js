@@ -10,10 +10,10 @@ function currentListIsInThisSwimlane(swimlaneId) {
 
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Utils.getCurrentCard();
-  const currentUser = Meteor.user();
+  //const currentUser = Meteor.user();
   if (
-    currentUser &&
-    currentUser.profile &&
+    //currentUser &&
+    //currentUser.profile &&
     Utils.boardView() === 'board-view-swimlanes'
   )
     return (
@@ -21,7 +21,15 @@ function currentCardIsInThisList(listId, swimlaneId) {
       currentCard.listId === listId &&
       currentCard.swimlaneId === swimlaneId
     );
-  else return currentCard && currentCard.listId === listId && currentCard.swimlaneId === swimlaneId;
+  else if (
+    //currentUser &&
+    //currentUser.profile &&
+    Utils.boardView() === 'board-view-lists'
+  )
+    return (
+      currentCard &&
+      currentCard.listId === listId
+    );
 
   // https://github.com/wekan/wekan/issues/1623
   // https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de
