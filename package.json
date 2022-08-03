@@ -36,6 +36,7 @@
     "escape-string-regexp": "^5.0.0",
     "exceljs": "^4.2.1",
     "fibers": "^5.0.0",
+    "file-type": "<17",
     "i18next": "^21.6.16",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "jQuery": "^1.7.4",

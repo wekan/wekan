@@ -48,6 +48,10 @@
       # Defaults below. Uncomment to change. wekan/server/accounts-common.js
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       #---------------------------------------------------------------
+      # ==== Allow configuration to validate uploaded attachments ====
+      #export ATTACHMENTS_UPLOAD_MIME_TYPES="image/*,text/*"
+      #export ATTACHMENTS_UPLOAD_MAX_SIZE=5000000
+      #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
       export RICHER_CARD_COMMENT_EDITOR=false
