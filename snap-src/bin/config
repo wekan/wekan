@@ -129,6 +129,14 @@ DESCRIPTION_ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS="Accounts common login expi
 DEFAULT_ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS="90"
 KEY_ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS="accounts-common-login-expiration-in-days"
 
+DESCRIPTION_ATTACHMENTS_UPLOAD_MIME_TYPES="Attachments upload mime types. Example: image/*,text/*"
+DEFAULT_ATTACHMENTS_UPLOAD_MIME_TYPES=""
+KEY_ATTACHMENTS_UPLOAD_MIME_TYPES="attachments-upload-mime-types"
+
+DESCRIPTION_ATTACHMENTS_UPLOAD_MAX_SIZE="Attachments upload max size in bytes. Example: 5000000"
+DEFAULT_ATTACHMENTS_UPLOAD_MAX_SIZE=""
+KEY_ATTACHMENTS_UPLOAD_MAX_SIZE="attachments-upload-max-size"
+
 # Example, not in use: /var/snap/wekan/common/uploads/
 
 DESCRIPTION_MAX_IMAGE_PIXEL="Max image pixel: Allow to shrink attached/pasted image https://github.com/wekan/wekan/pull/2544"
