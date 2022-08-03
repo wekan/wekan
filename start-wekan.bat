@@ -54,6 +54,10 @@ REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
 REM # ==== ACCOUNT OPTIONS ====
 REM SET ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
 
+REM # ==== Allow configuration to validate uploaded attachments ====
+REM SET ATTACHMENTS_UPLOAD_MIME_TYPES="image/*,text/*"
+REM SET ATTACHMENTS_UPLOAD_MAX_SIZE=5000000
+
 REM # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
 REM # Number of days after a notification is read before we remove it.
 REM # Default: 2

@@ -276,6 +276,10 @@ services:
       # https://github.com/wekan/wekan/issues/2518
       - CARD_OPENED_WEBHOOK_ENABLED=false
       #---------------------------------------------------------------
+      # ==== Allow configuration to validate uploaded attachments ====
+      #-ATTACHMENTS_UPLOAD_MIME_TYPES=image/*,text/*
+      #-ATTACHMENTS_UPLOAD_MAX_SIZE=5000000
+      #---------------------------------------------------------------
       # ==== Allow to shrink attached/pasted image ====
       # https://github.com/wekan/wekan/pull/2544
       #-MAX_IMAGE_PIXEL=1024
