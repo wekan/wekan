@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Try 2 to fix missing variable in WeKan fails to get MongoDB server version](https://github.com/wekan/wekan/commit/37f9de8b9b11e8dd1b54452531aa708e16517c6d).
+  Thanks to simon816 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.32 2022-08-05 WeKan ® release
 
 This release adds the following new features:
