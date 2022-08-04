@@ -86,14 +86,11 @@ if (Meteor.isServer) {
           mongoOplogEnabled = oplogEnabled;
         } catch (e) {
           try {
-            if (mongo === undefined) {
-              mongoVersion = 'unknown';
-            } else {
-              const { version } = Promise.await(
-                mongo.db.command({ buildinfo: 1 }),
-              );
-              mongoVersion = version;
-            }
+            const { mongo } = MongoInternals.defaultRemoteCollectionDriver();
+            const { version } = Promise.await(
+              mongo.db.command({ buildinfo: 1 }),
+            );
+            mongoVersion = version;
             mongoStorageEngine = 'unknown';
           } catch (e) {
             mongoVersion = 'unknown';
