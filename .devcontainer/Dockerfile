@@ -1,4 +1,4 @@
-FROM ubuntu:21.10
+FROM debian:11
 LABEL maintainer="sgr"
 
 # 2022-04-25:
