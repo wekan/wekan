@@ -5,9 +5,14 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.34 2022-08-05 WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/43360c103b462ee02945d629ce46e9010fccd5d6).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Fix and update easysearch](https://github.com/wekan/wekan/pull/4623).
   Thanks to danielkaiser.
