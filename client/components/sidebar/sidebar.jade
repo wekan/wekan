@@ -561,7 +561,7 @@ template(name="removeBoardTeamPopup")
 
 template(name="addMemberPopup")
   .js-search-member
-    +esInput(index="users")
+    +EasySearch.Input(index=searchIndex)
 
   if loading.get
     +spinner
@@ -569,20 +569,20 @@ template(name="addMemberPopup")
     .warning {{_ error.get}}
   else
     ul.pop-over-list
-      +esEach(index="users")
+      +EasySearch.Each(index=searchIndex)
         li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
           a.name.js-select-member(title="{{profile.fullname}} ({{username}})")
-            +userAvatar(userId=_id esSearch=true)
+            +userAvatar(userId=__originalId)
             span.full-name
               = profile.fullname
               | (<span class="username">{{username}}</span>)
             if isBoardMember
               .quiet ({{_ 'joined'}})
 
-      +ifEsIsSearching(index='users')
+      +EasySearch.IfSearching(index=searchIndex)
         +spinner
 
-      +ifEsHasNoResults(index="users")
+      +EasySearch.IfNoResults(index=searchIndex)
         .manage-member-section
           p.quiet {{_ 'no-results'}}
     button.js-email-invite.primary.full {{_ 'email-invite'}}

@@ -297,7 +297,7 @@ BlazeComponent.extendComponent({
   },
 
   onSelectUser() {
-    Popup.getOpenerComponent().mapSelectedMember(this.currentData()._id);
+    Popup.getOpenerComponent(5).mapSelectedMember(this.currentData().__originalId);
     Popup.back();
   },
 
@@ -309,3 +309,7 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('importMapMembersAddPopup');
+
+Template.importMapMembersAddPopup.helpers({
+  searchIndex: () => Users.search_index,
+})
