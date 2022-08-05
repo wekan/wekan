@@ -36,7 +36,7 @@ This release adds the following new features:
   Thanks to NotTheEvilOne.
 - [Added attachments file type and size snap settings and help text](https://github.com/wekan/wekan/commit/0c224a0a7f3f2f99839db65eed896bb2dd316e3c).
   Thanks to xet7.
-- [Added dependencies for attachments file size and type](https://github.com/wekan/wekan/commit 1b30485e68e5cd30784207801a1c8d659fb14018 (HEAD -> master)
+- [Added dependencies for attachments file size and type](https://github.com/wekan/wekan/commit/1b30485e68e5cd30784207801a1c8d659fb14018) (HEAD -> master)
   Thanks to xet7.
 
 and adds the following updates:
