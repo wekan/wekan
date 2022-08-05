@@ -149,8 +149,8 @@ window.Popup = new (class {
     }
   }
 
-  getOpenerComponent() {
-    const { openerElement } = Template.parentData(4);
+  getOpenerComponent(n=4) {
+    const { openerElement } = Template.parentData(n);
     return BlazeComponent.getComponentForElement(openerElement);
   }
 

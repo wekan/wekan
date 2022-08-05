@@ -20,7 +20,7 @@ cfs:standard-packages
 cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
-matteodem:easy-search
+easy:search
 mongo@1.15.0
 mquandalle:collection-mutations
 

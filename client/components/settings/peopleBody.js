@@ -190,22 +190,19 @@ BlazeComponent.extendComponent({
 
 Template.orgRow.helpers({
   orgData() {
-    const orgCollection = this.esSearch ? ESSearchResults : Org;
-    return orgCollection.findOne(this.orgId);
+    return Org.findOne(this.orgId);
   },
 });
 
 Template.teamRow.helpers({
   teamData() {
-    const teamCollection = this.esSearch ? ESSearchResults : Team;
-    return teamCollection.findOne(this.teamId);
+    return Team.findOne(this.teamId);
   },
 });
 
 Template.peopleRow.helpers({
   userData() {
-    const userCollection = this.esSearch ? ESSearchResults : Users;
-    return userCollection.findOne(this.userId);
+    return Users.findOne(this.userId);
   },
 });
 

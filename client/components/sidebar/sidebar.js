@@ -1333,7 +1333,7 @@ BlazeComponent.extendComponent({
   },
 
   isBoardMember() {
-    const userId = this.currentData()._id;
+    const userId = this.currentData().__originalId;
     const user = Users.findOne(userId);
     return user && user.isBoardMember();
   },
@@ -1373,7 +1373,7 @@ BlazeComponent.extendComponent({
           this.setError('');
         },
         'click .js-select-member'() {
-          const userId = this.currentData()._id;
+          const userId = this.currentData().__originalId;
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           if (!currentBoard.hasMember(userId)) {
             this.inviteUser(userId);
@@ -1389,6 +1389,10 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('addMemberPopup');
+
+Template.addMemberPopup.helpers({
+  searchIndex: () => Users.search_index,
+})
 
 BlazeComponent.extendComponent({
   onCreated() {
