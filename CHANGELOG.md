@@ -13,6 +13,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Fix _getTopStack(), comment type error](https://github.com/wekan/wekan/pull/4625).
   Thanks to mfilser.
+- [Set drag handle on touch screen not miniscreen](https://github.com/wekan/wekan/pull/4633).
+  Thanks to repmovs.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
