@@ -25,10 +25,10 @@ template(name="swimlaneFixedHeader")
       if currentUser.isBoardAdmin
         a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
         a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
-      unless isMiniScreen
+      unless isTouchScreen
         if isShowDesktopDragHandles
           a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
-      if isMiniScreen
+      if isTouchScreen
         a.swimlane-header-miniscreen-handle.handle.fa.fa-arrows.js-swimlane-header-handle
 
 template(name="editSwimlaneTitleForm")

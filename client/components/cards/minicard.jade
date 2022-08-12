@@ -3,7 +3,7 @@ template(name="minicard")
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
-    if isMiniScreenOrShowDesktopDragHandles
+    if isTouchScreenOrShowDesktopDragHandles
       .handle
         .fa.fa-arrows
     if cover

@@ -30,7 +30,7 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('tableVisibilityModeSettings');
     let currUser = Meteor.user();
     let userLanguage;
-    if(currUser && currUser.profile){
+    if (currUser && currUser.profile) {
       userLanguage = currUser.profile.language
     }
     if (userLanguage) {
@@ -79,54 +79,54 @@ BlazeComponent.extendComponent({
 
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
-      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $boards.sortable({
           handle: '.board-handle',
         });
       }
     });
   },
-  userHasTeams(){
-    if(Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
+  userHasTeams() {
+    if (Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
       return true;
     else
       return false;
   },
   teamsDatas() {
-    if(Meteor.user().teams)
+    if (Meteor.user().teams)
       return Meteor.user().teams.sort((a, b) => a.teamDisplayName.localeCompare(b.teamDisplayName));
     else
       return [];
   },
-  userHasOrgs(){
-    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
+  userHasOrgs() {
+    if (Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
       return true;
     else
       return false;
   },
-/*
-  userHasTemplates(){
-    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
-      return true;
-    else
-      return false;
-  },
-*/
+  /*
+    userHasTemplates(){
+      if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
+        return true;
+      else
+        return false;
+    },
+  */
   orgsDatas() {
-    if(Meteor.user().orgs)
+    if (Meteor.user().orgs)
       return Meteor.user().orgs.sort((a, b) => a.orgDisplayName.localeCompare(b.orgDisplayName));
     else
       return [];
   },
-  userHasOrgsOrTeams(){
+  userHasOrgsOrTeams() {
     let boolUserHasOrgs;
-    if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
+    if (Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
       boolUserHasOrgs = true;
     else
       boolUserHasOrgs = false;
 
     let boolUserHasTeams;
-    if(Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
+    if (Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
       boolUserHasTeams = true;
     else
       boolUserHasTeams = false;
@@ -139,18 +139,18 @@ BlazeComponent.extendComponent({
       // { type: { $in: ['board','template-container'] } },
       $and: [
         { archived: false },
-        { type: { $in: ['board','template-container'] } },
-        { $or:[] }
+        { type: { $in: ['board', 'template-container'] } },
+        { $or: [] }
       ]
     };
 
     let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
 
-    if (FlowRouter.getRouteName() === 'home'){
-      query.$and[2].$or.push({'members.userId': Meteor.userId()});
+    if (FlowRouter.getRouteName() === 'home') {
+      query.$and[2].$or.push({ 'members.userId': Meteor.userId() });
 
-      if(allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue){
-        query.$and.push({'permission': 'private'});
+      if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue) {
+        query.$and.push({ 'permission': 'private' });
       }
       const currUser = Users.findOne(Meteor.userId());
 
@@ -162,27 +162,27 @@ BlazeComponent.extendComponent({
       // });
 
       let orgIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
-      if(orgIdsUserBelongs && orgIdsUserBelongs != ''){
+      if (orgIdsUserBelongs && orgIdsUserBelongs != '') {
         let orgsIds = orgIdsUserBelongs.split(',');
         // for(let i = 0; i < orgsIds.length; i++){
         //   query.$and[2].$or.push({'orgs.orgId': orgsIds[i]});
         // }
 
         //query.$and[2].$or.push({'orgs': {$elemMatch : {orgId: orgsIds[0]}}});
-        query.$and[2].$or.push({'orgs.orgId': {$in : orgsIds}});
+        query.$and[2].$or.push({ 'orgs.orgId': { $in: orgsIds } });
       }
 
       let teamIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
-      if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
+      if (teamIdsUserBelongs && teamIdsUserBelongs != '') {
         let teamsIds = teamIdsUserBelongs.split(',');
         // for(let i = 0; i < teamsIds.length; i++){
         //   query.$or[2].$or.push({'teams.teamId': teamsIds[i]});
         // }
         //query.$and[2].$or.push({'teams': { $elemMatch : {teamId: teamsIds[0]}}});
-        query.$and[2].$or.push({'teams.teamId': {$in : teamsIds}});
+        query.$and[2].$or.push({ 'teams.teamId': { $in: teamsIds } });
       }
     }
-    else if(allowPrivateVisibilityOnly !== undefined && !allowPrivateVisibilityOnly.booleanValue){
+    else if (allowPrivateVisibilityOnly !== undefined && !allowPrivateVisibilityOnly.booleanValue) {
       query = {
         archived: false,
         //type: { $in: ['board','template-container'] },
@@ -197,9 +197,9 @@ BlazeComponent.extendComponent({
   },
   boardLists(boardId) {
     let boardLists = [];
-    const lists = Lists.find({'boardId' : boardId, 'archived': false})
+    const lists = Lists.find({ 'boardId': boardId, 'archived': false })
     lists.forEach(list => {
-      let cardCount = Cards.find({'boardId':boardId, 'listId':list._id}).count()
+      let cardCount = Cards.find({ 'boardId': boardId, 'listId': list._id }).count()
       boardLists.push(`${list.title}: ${cardCount}`);
     });
     return boardLists
@@ -207,7 +207,7 @@ BlazeComponent.extendComponent({
 
   boardMembers(boardId) {
     let boardMembers = [];
-    const lists = Boards.findOne({'_id' : boardId})
+    const lists = Boards.findOne({ '_id': boardId })
     let members = lists.members
     members.forEach(member => {
       boardMembers.push(member.userId);
@@ -291,10 +291,10 @@ BlazeComponent.extendComponent({
             }
           });
         },
-        'click #resetBtn'(event){
+        'click #resetBtn'(event) {
           let allBoards = document.getElementsByClassName("js-board");
           let currBoard;
-          for(let i=0; i < allBoards.length; i++){
+          for (let i = 0; i < allBoards.length; i++) {
             currBoard = allBoards[i];
             currBoard.style.display = "block";
           }
@@ -302,57 +302,55 @@ BlazeComponent.extendComponent({
         'click #filterBtn'(event) {
           event.preventDefault();
           let selectedTeams = document.querySelectorAll('#jsAllBoardTeams option:checked');
-          let selectedTeamsValues = Array.from(selectedTeams).map(function(elt){return elt.value});
+          let selectedTeamsValues = Array.from(selectedTeams).map(function (elt) { return elt.value });
           let index = selectedTeamsValues.indexOf("-1");
           if (index > -1) {
             selectedTeamsValues.splice(index, 1);
           }
 
           let selectedOrgs = document.querySelectorAll('#jsAllBoardOrgs option:checked');
-          let selectedOrgsValues = Array.from(selectedOrgs).map(function(elt){return elt.value});
+          let selectedOrgsValues = Array.from(selectedOrgs).map(function (elt) { return elt.value });
           index = selectedOrgsValues.indexOf("-1");
           if (index > -1) {
             selectedOrgsValues.splice(index, 1);
           }
 
-          if(selectedTeamsValues.length > 0 || selectedOrgsValues.length > 0){
+          if (selectedTeamsValues.length > 0 || selectedOrgsValues.length > 0) {
             const query = {
               $and: [
                 { archived: false },
                 { type: 'board' },
-                { $or:[] }
+                { $or: [] }
               ]
             };
-            if(selectedTeamsValues.length > 0)
-            {
-              query.$and[2].$or.push({'teams.teamId': {$in : selectedTeamsValues}});
+            if (selectedTeamsValues.length > 0) {
+              query.$and[2].$or.push({ 'teams.teamId': { $in: selectedTeamsValues } });
             }
-            if(selectedOrgsValues.length > 0)
-            {
-              query.$and[2].$or.push({'orgs.orgId': {$in : selectedOrgsValues}});
+            if (selectedOrgsValues.length > 0) {
+              query.$and[2].$or.push({ 'orgs.orgId': { $in: selectedOrgsValues } });
             }
 
             let filteredBoards = Boards.find(query, {}).fetch();
             let allBoards = document.getElementsByClassName("js-board");
             let currBoard;
-            if(filteredBoards.length > 0){
+            if (filteredBoards.length > 0) {
               let currBoardId;
               let found;
-              for(let i=0; i < allBoards.length; i++){
+              for (let i = 0; i < allBoards.length; i++) {
                 currBoard = allBoards[i];
                 currBoardId = currBoard.classList[0];
-                found = filteredBoards.find(function(board){
+                found = filteredBoards.find(function (board) {
                   return board._id == currBoardId;
                 });
 
-                if(found !== undefined)
+                if (found !== undefined)
                   currBoard.style.display = "block";
                 else
                   currBoard.style.display = "none";
               }
             }
-            else{
-              for(let i=0; i < allBoards.length; i++){
+            else {
+              for (let i = 0; i < allBoards.length; i++) {
                 currBoard = allBoards[i];
                 currBoard.style.display = "none";
               }

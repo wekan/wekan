@@ -44,7 +44,7 @@ template(name="listHeader")
               a.js-add-card.fa.fa-plus.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
             a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
           if currentUser.isBoardAdmin
-            if isShowDesktopDragHandles
+            if isTouchScreenOrShowDesktopDragHandles
               a.list-header-handle.handle.fa.fa-arrows.js-list-handle
 
 template(name="editListTitleForm")

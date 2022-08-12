@@ -50,8 +50,7 @@ BlazeComponent.extendComponent({
       appendTo: '.edit-labels-pop-over',
       helper(element, currentItem) {
         let ret = currentItem.clone();
-        if (currentItem.closest('.popup-container-depth-0').size() == 0)
-        { // only set css transform at every sub-popup, not at the main popup
+        if (currentItem.closest('.popup-container-depth-0').size() == 0) { // only set css transform at every sub-popup, not at the main popup
           const content = currentItem.closest('.content')[0]
           const offsetLeft = content.offsetLeft;
           const offsetTop = $('.pop-over > .header').height() * -1;
@@ -76,7 +75,7 @@ BlazeComponent.extendComponent({
 
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
-      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $labels.sortable({
           handle: '.label-handle',
         });
@@ -130,7 +129,7 @@ Template.createLabelPopup.events({
 });
 
 Template.editLabelPopup.events({
-  'click .js-delete-label': Popup.afterConfirm('deleteLabel', function() {
+  'click .js-delete-label': Popup.afterConfirm('deleteLabel', function () {
     const board = Boards.findOne(Session.get('currentBoard'));
     board.removeLabel(this._id);
     Popup.back(2);

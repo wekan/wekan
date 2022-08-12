@@ -29,7 +29,7 @@ template(name="cardLabelsPopup")
     each board.labels
       li.js-card-label-item
         a.card-label-edit-button.fa.fa-pencil.js-edit-label
-        if isMiniScreenOrShowDesktopDragHandles
+        if isTouchScreenOrShowDesktopDragHandles
           span.fa.label-handle(class="fa-arrows" title="{{_ 'dragLabel'}}")
         span.card-label.card-label-selectable.js-select-label.card-label-wrapper(class="card-label-{{color}}"
           class="{{# if isLabelSelected ../_id }}active{{/if}}")

@@ -87,27 +87,27 @@ BlazeComponent.extendComponent({
     const cardPanelWidth = 600;
     const parentComponent = this.parentComponent();
 
-/*
-    // Incomplete fix about bug where opening card scrolls to wrong place
-    // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
-    // TODO sometimes parentComponent is not available, maybe because it's not
-    // yet created?!
-    if (!parentComponent) return;
-    const bodyBoardComponent = parentComponent.parentComponent();
-*/
+    /*
+        // Incomplete fix about bug where opening card scrolls to wrong place
+        // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
+        // TODO sometimes parentComponent is not available, maybe because it's not
+        // yet created?!
+        if (!parentComponent) return;
+        const bodyBoardComponent = parentComponent.parentComponent();
+    */
 
     //On Mobile View Parent is Board, Not Board Body. I cant see how this funciton should work then.
     if (bodyBoardComponent === null) return;
     const $cardView = this.$(this.firstNode());
     const $cardContainer = bodyBoardComponent.$('.js-swimlanes');
 
-/*
-    // Incomplete fix about bug where opening card scrolls to wrong place
-    // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
-    // TODO sometimes cardContainer is not available, maybe because it's not yet
-    // created?!
-    if (!$cardContainer) return;
-*/
+    /*
+        // Incomplete fix about bug where opening card scrolls to wrong place
+        // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
+        // TODO sometimes cardContainer is not available, maybe because it's not yet
+        // created?!
+        if (!$cardContainer) return;
+    */
 
     const cardContainerScroll = $cardContainer.scrollLeft();
     const cardContainerWidth = $cardContainer.width();
@@ -306,7 +306,7 @@ BlazeComponent.extendComponent({
         $checklistsDom.data('sortable')
       ) {
         $checklistsDom.sortable('option', 'disabled', disabled);
-        if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
           $checklistsDom.sortable({ handle: '.checklist-handle' });
         }
       }
@@ -793,8 +793,8 @@ const filterMembers = (filterTerm) => {
         user: Users.findOne(member.userId)
       }))
       .filter(({ user }) =>
-      (user.profile.fullname !== undefined && user.profile.fullname.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
-      || user.profile.fullname === undefined && user.profile.username !== undefined && user.profile.username.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
+        (user.profile.fullname !== undefined && user.profile.fullname.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
+        || user.profile.fullname === undefined && user.profile.username !== undefined && user.profile.username.toLowerCase().indexOf(filterTerm.toLowerCase()) !== -1)
       .map(({ member }) => member);
   }
   return members;
@@ -866,9 +866,9 @@ BlazeComponent.extendComponent({
    */
   setMoveAndCopyDialogOption(boardId) {
     this.moveAndCopyDialogOption = {
-      'boardId' : "",
-      'swimlaneId' : "",
-      'listId' : "",
+      'boardId': "",
+      'swimlaneId': "",
+      'listId': "",
     }
 
     let currentOptions = Meteor.user().getMoveAndCopyDialogOptions();
@@ -945,9 +945,9 @@ BlazeComponent.extendComponent({
           const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
 
           const options = {
-            'boardId' : boardId,
-            'swimlaneId' : swimlaneId,
-            'listId' : listId,
+            'boardId': boardId,
+            'swimlaneId': swimlaneId,
+            'listId': listId,
           }
           Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
         },
@@ -1728,16 +1728,14 @@ EscapeActions.register(
   () => {
     // if card description diverges from database due to editing
     // ask user whether changes should be applied
-    if(currentUser.profile.rescueCardDescription== true)
-    {
+    if (currentUser.profile.rescueCardDescription == true) {
       currentDescription = document.getElementsByClassName("editor js-new-description-input").item(0)
-      if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription()))
-      {
+      if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription())) {
         if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {
           Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
           // Save it!
           console.log(document.getElementsByClassName("editor js-new-description-input").item(0).value);
-          console.log("current description",Utils.getCurrentCard().getDescription());
+          console.log("current description", Utils.getCurrentCard().getDescription());
         } else {
           // Do nothing!
           console.log('Description changes were not saved to the database.');
@@ -1824,17 +1822,17 @@ Template.cardAssigneePopup.helpers({
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
-/*
-  presenceStatusClassName() {
-    const user = Users.findOne(this.userId);
-    const userPresence = presences.findOne({ userId: this.userId });
-    if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
-    else if (!userPresence) return 'disconnected';
-    else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
-      return 'active';
-    else return 'idle';
-  },
-*/
+  /*
+    presenceStatusClassName() {
+      const user = Users.findOne(this.userId);
+      const userPresence = presences.findOne({ userId: this.userId });
+      if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
+      else if (!userPresence) return 'disconnected';
+      else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
+        return 'active';
+      else return 'idle';
+    },
+  */
   isCardAssignee() {
     const card = Template.parentData();
     const cardAssignees = card.getAssignees();

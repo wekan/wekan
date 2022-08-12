@@ -193,7 +193,7 @@ BlazeComponent.extendComponent({
     });
 
     this.autorun(() => {
-      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
@@ -228,10 +228,10 @@ BlazeComponent.extendComponent({
     }
   },
 
-  notDisplayThisBoard(){
+  notDisplayThisBoard() {
     let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
     let currentBoard = Boards.findOne(Session.get('currentBoard'));
-    if(allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard.permission == 'public'){
+    if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard.permission == 'public') {
       return true;
     }
 
@@ -319,7 +319,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onRendered() {
-    this.autorun(function() {
+    this.autorun(function () {
       $('#calendar-view').fullCalendar('refetchEvents');
     });
   },
@@ -351,7 +351,7 @@ BlazeComponent.extendComponent({
       events(start, end, timezone, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         const events = [];
-        const pushEvent = function(card, title, start, end, extraCls) {
+        const pushEvent = function (card, title, start, end, extraCls) {
           start = start || card.startAt;
           end = end || card.endAt;
           title = title || card.title;
@@ -375,12 +375,12 @@ BlazeComponent.extendComponent({
         };
         currentBoard
           .cardsInInterval(start.toDate(), end.toDate())
-          .forEach(function(card) {
+          .forEach(function (card) {
             pushEvent(card);
           });
         currentBoard
           .cardsDueInBetween(start.toDate(), end.toDate())
-          .forEach(function(card) {
+          .forEach(function (card) {
             pushEvent(
               card,
               `${card.title} ${TAPi18n.__('card-due')}`,
@@ -388,7 +388,7 @@ BlazeComponent.extendComponent({
               new Date(card.dueAt.getTime() + 36e5),
             );
           });
-        events.sort(function(first, second) {
+        events.sort(function (first, second) {
           return first.id > second.id ? 1 : -1;
         });
         callback(events);

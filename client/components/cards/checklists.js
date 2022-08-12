@@ -48,7 +48,7 @@ BlazeComponent.extendComponent({
     const self = this;
     self.itemsDom = this.$('.js-checklist-items');
     initSorting(self.itemsDom);
-    self.itemsDom.mousedown(function(evt) {
+    self.itemsDom.mousedown(function (evt) {
       evt.stopPropagation();
     });
 
@@ -61,7 +61,7 @@ BlazeComponent.extendComponent({
       const $itemsDom = $(self.itemsDom);
       if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
         $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
-        if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
           $(self.itemsDom).sortable({
             handle: 'span.fa.checklistitem-handle',
           });
@@ -306,15 +306,15 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-delete-checklist' : Popup.afterConfirm('checklistDelete', function () {
+        'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
           Popup.back(2);
           const checklist = this.checklist;
           if (checklist && checklist._id) {
             Checklists.remove(checklist._id);
           }
         }),
-        'click .js-move-checklist' : Popup.open('moveChecklist'),
-        'click .js-copy-checklist' : Popup.open('copyChecklist'),
+        'click .js-move-checklist': Popup.open('moveChecklist'),
+        'click .js-copy-checklist': Popup.open('copyChecklist'),
       }
     ]
   }
@@ -407,9 +407,9 @@ class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
    */
   setChecklistDialogOption(boardId) {
     this.checklistDialogOption = {
-      'boardId' : "",
-      'swimlaneId' : "",
-      'listId' : "",
+      'boardId': "",
+      'swimlaneId': "",
+      'listId': "",
       'cardId': "",
     }
 
@@ -417,20 +417,19 @@ class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
     if (currentOptions && boardId && currentOptions[boardId]) {
       this.checklistDialogOption = currentOptions[boardId];
       if (this.checklistDialogOption.boardId &&
-          this.checklistDialogOption.swimlaneId &&
-          this.checklistDialogOption.listId
-      )
-      {
+        this.checklistDialogOption.swimlaneId &&
+        this.checklistDialogOption.listId
+      ) {
         this.selectedBoardId.set(this.checklistDialogOption.boardId)
         this.selectedSwimlaneId.set(this.checklistDialogOption.swimlaneId);
         this.selectedListId.set(this.checklistDialogOption.listId);
       }
     }
     this.getBoardData(this.selectedBoardId.get());
-    if (!this.selectedSwimlaneId.get() || !Swimlanes.findOne({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
+    if (!this.selectedSwimlaneId.get() || !Swimlanes.findOne({ _id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get() })) {
       this.setFirstSwimlaneId();
     }
-    if (!this.selectedListId.get() || !Lists.findOne({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
+    if (!this.selectedListId.get() || !Lists.findOne({ _id: this.selectedListId.get(), boardId: this.selectedBoardId.get() })) {
       this.setFirstListId();
     }
   }
@@ -440,7 +439,7 @@ class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
       const board = Boards.findOne(this.selectedBoardId.get());
       const swimlaneId = board.swimlanes().fetch()[0]._id;
       this.selectedSwimlaneId.set(swimlaneId);
-    } catch (e) {}
+    } catch (e) { }
   }
   /** sets the first list id */
   setFirstListId() {
@@ -448,7 +447,7 @@ class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
       const board = Boards.findOne(this.selectedBoardId.get());
       const listId = board.lists().fetch()[0]._id;
       this.selectedListId.set(listId);
-    } catch (e) {}
+    } catch (e) { }
   }
 
   /** returns if the board id was the last confirmed one
@@ -561,9 +560,9 @@ class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
           const cardId = cardSelect.options[cardSelect.selectedIndex].value;
 
           const options = {
-            'boardId' : boardId,
-            'swimlaneId' : swimlaneId,
-            'listId' : listId,
+            'boardId': boardId,
+            'swimlaneId': swimlaneId,
+            'listId': listId,
             'cardId': cardId,
           }
           this.setDone(cardId, options);

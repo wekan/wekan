@@ -96,7 +96,7 @@ BlazeComponent.extendComponent({
         $cards.sortable('cancel');
 
         if (MultiSelection.isActive()) {
-          Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach((card, i) => {
+          Cards.find(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
             const newSwimlaneId = targetSwimlaneId
               ? targetSwimlaneId
               : card.swimlaneId || defaultSwimlaneId;
@@ -119,35 +119,31 @@ BlazeComponent.extendComponent({
       },
       sort(event, ui) {
         const $boardCanvas = $('.board-canvas');
-        const  boardCanvas = $boardCanvas[0];
+        const boardCanvas = $boardCanvas[0];
 
-        if (event.pageX < 10)
-        { // scroll to the left
+        if (event.pageX < 10) { // scroll to the left
           boardCanvas.scrollLeft -= 15;
           ui.helper[0].offsetLeft -= 15;
         }
         if (
           event.pageX > boardCanvas.offsetWidth - 10 &&
           boardCanvas.scrollLeft < $boardCanvas.data('scrollLeftMax') // don't scroll more than possible
-        )
-        { // scroll to the right
+        ) { // scroll to the right
           boardCanvas.scrollLeft += 15;
         }
         if (
           event.pageY > boardCanvas.offsetHeight - 10 &&
           event.pageY + boardCanvas.scrollTop < $boardCanvas.data('scrollTopMax') // don't scroll more than possible
-        )
-        { // scroll to the bottom
+        ) { // scroll to the bottom
           boardCanvas.scrollTop += 15;
         }
-        if (event.pageY < 10)
-        { // scroll to the top
+        if (event.pageY < 10) { // scroll to the top
           boardCanvas.scrollTop -= 15;
         }
       },
       activate(event, ui) {
         const $boardCanvas = $('.board-canvas');
-        const  boardCanvas = $boardCanvas[0];
+        const boardCanvas = $boardCanvas[0];
         // scrollTopMax and scrollLeftMax only available at Firefox (https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTopMax)
         // https://www.it-swarm.com.de/de/javascript/so-erhalten-sie-den-maximalen-dokument-scrolltop-wert/1069126844/
         $boardCanvas.data('scrollTopMax', boardCanvas.scrollHeight - boardCanvas.clientTop);
@@ -157,7 +153,7 @@ BlazeComponent.extendComponent({
     });
 
     this.autorun(() => {
-      if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $cards.sortable({
           handle: '.handle',
         });

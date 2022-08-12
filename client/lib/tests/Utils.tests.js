@@ -5,20 +5,20 @@ import { Random } from 'meteor/random';
 import '../utils';
 
 
-describe('Utils', function() {
-  beforeEach(function() {
-    sinon.stub(Utils, 'reload').callsFake(() => {});
+describe('Utils', function () {
+  beforeEach(function () {
+    sinon.stub(Utils, 'reload').callsFake(() => { });
   });
 
-  afterEach(function() {
+  afterEach(function () {
     window.localStorage.removeItem(boardView);
     sinon.restore();
   });
 
   const boardView = 'boardView';
 
-  describe(Utils.setBoardView.name, function() {
-    it('sets the board view if the user exists', function(done) {
+  describe(Utils.setBoardView.name, function () {
+    it('sets the board view if the user exists', function (done) {
       const viewId = Random.id();
       const user = {
         setBoardView: (view) => {
@@ -32,14 +32,14 @@ describe('Utils', function() {
       expect(window.localStorage.getItem(boardView)).to.equal(viewId);
     });
 
-    it('sets a specific view if no user exists but a view is defined', function() {
+    it('sets a specific view if no user exists but a view is defined', function () {
       const views = [
         'board-view-swimlanes',
         'board-view-lists',
         'board-view-cal'
       ];
 
-      sinon.stub(Meteor, 'user').callsFake(() => {});
+      sinon.stub(Meteor, 'user').callsFake(() => { });
 
       views.forEach(viewName => {
         Utils.setBoardView(viewName);
@@ -47,15 +47,15 @@ describe('Utils', function() {
       });
     });
 
-    it('sets a default view if no user and no view are given', function() {
-      sinon.stub(Meteor, 'user').callsFake(() => {});
+    it('sets a default view if no user and no view are given', function () {
+      sinon.stub(Meteor, 'user').callsFake(() => { });
       Utils.setBoardView();
       expect(window.localStorage.getItem(boardView)).to.equal('board-view-swimlanes');
     });
   });
 
-  describe(Utils.unsetBoardView.name, function() {
-    it('removes the boardview from localStoage', function() {
+  describe(Utils.unsetBoardView.name, function () {
+    it('removes the boardview from localStoage', function () {
       window.localStorage.setItem(boardView, Random.id());
       window.localStorage.setItem('collapseSwimlane', Random.id());
 
@@ -66,8 +66,8 @@ describe('Utils', function() {
     });
   });
 
-  describe(Utils.boardView.name, function() {
-    it('returns the user\'s board view if a user exists', function() {
+  describe(Utils.boardView.name, function () {
+    it('returns the user\'s board view if a user exists', function () {
       const viewId = Random.id();
       const user = {};
       sinon.stub(Meteor, 'user').callsFake(() => user);
@@ -78,108 +78,108 @@ describe('Utils', function() {
 
       expect(Utils.boardView()).to.equal(boardView);
     });
-    it('returns the current defined view', function() {
+    it('returns the current defined view', function () {
       const views = [
         'board-view-swimlanes',
         'board-view-lists',
         'board-view-cal'
       ];
 
-      sinon.stub(Meteor, 'user').callsFake(() => {});
+      sinon.stub(Meteor, 'user').callsFake(() => { });
 
       views.forEach(viewName => {
         window.localStorage.setItem(boardView, viewName);
         expect(Utils.boardView()).to.equal(viewName);
       });
     });
-    it('returns a default if nothing is set', function() {
-      sinon.stub(Meteor, 'user').callsFake(() => {});
+    it('returns a default if nothing is set', function () {
+      sinon.stub(Meteor, 'user').callsFake(() => { });
       expect(Utils.boardView()).to.equal('board-view-swimlanes');
       expect(window.localStorage.getItem(boardView)).to.equal('board-view-swimlanes');
     });
   });
 
-  describe(Utils.myCardsSort.name, function() {
+  describe(Utils.myCardsSort.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.myCardsSortToggle.name, function() {
+  describe(Utils.myCardsSortToggle.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.setMyCardsSort.name, function() {
+  describe(Utils.setMyCardsSort.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.archivedBoardIds.name, function() {
+  describe(Utils.archivedBoardIds.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.dueCardsView.name, function() {
+  describe(Utils.dueCardsView.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.setDueCardsView.name, function() {
+  describe(Utils.setDueCardsView.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.goBoardId.name, function() {
+  describe(Utils.goBoardId.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.goCardId.name, function() {
+  describe(Utils.goCardId.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.processUploadedAttachment.name, function() {
+  describe(Utils.processUploadedAttachment.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.shrinkImage.name, function() {
+  describe(Utils.shrinkImage.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.capitalize.name, function() {
+  describe(Utils.capitalize.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.isMiniScreen.name, function() {
+  describe(Utils.isMiniScreen.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.isShowDesktopDragHandles.name, function() {
+  describe(Utils.isShowDesktopDragHandles.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.isMiniScreenOrShowDesktopDragHandles.name, function() {
+  describe(Utils.isTouchScreenOrShowDesktopDragHandles.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.calculateIndexData.name, function() {
+  describe(Utils.calculateIndexData.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.calculateIndex.name, function() {
+  describe(Utils.calculateIndex.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.manageCustomUI.name, function() {
+  describe(Utils.manageCustomUI.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.setCustomUI.name, function() {
+  describe(Utils.setCustomUI.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.setMatomo.name, function() {
+  describe(Utils.setMatomo.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.manageMatomo.name, function() {
+  describe(Utils.manageMatomo.name, function () {
     it('has no tests yet');
   });
 
-  describe(Utils.getTriggerActionDesc.name, function() {
+  describe(Utils.getTriggerActionDesc.name, function () {
     it('has no tests yet');
   });
 });

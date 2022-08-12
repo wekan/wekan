@@ -62,7 +62,7 @@ template(name="boardList")
                     i.fa.js-has-spenttime-cards(
                       class="fa-circle{{#if hasOvertimeCards}} has-overtime-card-active{{else}} no-overtime-card-active{{/if}}"
                       title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                  if isMiniScreenOrShowDesktopDragHandles
+                  if isTouchScreenOrShowDesktopDragHandles
                     i.fa.board-handle(
                         class="fa-arrows"
                         title="{{_ 'Drag board'}}")
@@ -114,7 +114,7 @@ template(name="boardList")
                     i.fa.js-has-spenttime-cards(
                       class="fa-circle{{#if hasOvertimeCards}} has-overtime-card-active{{else}} no-overtime-card-active{{/if}}"
                       title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                  if isMiniScreenOrShowDesktopDragHandles
+                  if isTouchScreenOrShowDesktopDragHandles
                     i.fa.board-handle(
                         class="fa-arrows"
                         title="{{_ 'Drag board'}}")

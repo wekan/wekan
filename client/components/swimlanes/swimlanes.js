@@ -85,14 +85,14 @@ function initSortable(boardComponent, $listsDom) {
       const listDomElement = ui.item.get(0);
       const list = Blaze.getData(listDomElement);
 
-/*
-      Reverted incomplete change list width,
-      removed from below Lists.update:
-       https://github.com/wekan/wekan/issues/4558
-          $set: {
-            width: list._id.width(),
-            height: list._id.height(),
-*/
+      /*
+            Reverted incomplete change list width,
+            removed from below Lists.update:
+             https://github.com/wekan/wekan/issues/4558
+                $set: {
+                  width: list._id.width(),
+                  height: list._id.height(),
+      */
 
       Lists.update(list._id, {
         $set: {
@@ -114,7 +114,7 @@ function initSortable(boardComponent, $listsDom) {
   //}
 
   boardComponent.autorun(() => {
-    if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+    if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
@@ -200,7 +200,7 @@ BlazeComponent.extendComponent({
           // his mouse.
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isMiniScreenOrShowDesktopDragHandles()
+            Utils.isTouchScreenOrShowDesktopDragHandles()
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );
