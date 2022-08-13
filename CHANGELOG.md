@@ -20,6 +20,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Set drag handle on touch screen not miniscreen](https://github.com/wekan/wekan/pull/4633).
   Thanks to repmovs.
+- [Fix Open card links in current tab. Not in new tab anymore](https://github.com/wekan/wekan/commit/ee3c5cbb6a1ab87c1597d0ffcd6996f423f4d1b3).
+  Thanks to bronger, ManZosh and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
