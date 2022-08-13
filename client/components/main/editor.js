@@ -394,7 +394,9 @@ Template.viewer.events({
     } else {
       const href = event.currentTarget.href;
       if (href) {
-        window.open(href, '_blank');
+        // Open links in current browser tab, changed from _blank to _self:
+        // https://github.com/wekan/wekan/discussions/3534
+        window.open(href, '_self');
       }
     }
     if (prevent) {
