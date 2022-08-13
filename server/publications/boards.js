@@ -132,13 +132,13 @@ Meteor.publish('archivedBoards', function() {
   return Boards.find(
     {
       _id: { $in: Boards.userBoardIds(userId, true)},
-      // archived: true,
-      // members: {
-      //   $elemMatch: {
-      //     userId,
-      //     isAdmin: true,
-      //   },
-      // },
+      archived: true,
+      members: {
+         $elemMatch: {
+           userId,
+           isAdmin: true,
+         },
+       },
     },
     {
       fields: {
