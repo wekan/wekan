@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/3762768ed39f967aa26b76c0454e7d5900655cc4).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Fix Typo in CHANGELOG](https://github.com/wekan/wekan/pull/4624).
   Thanks to mfilser.
