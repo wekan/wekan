@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Revert Fix Open card links in current tab. So now links open in new tab](https://github.com/wekan/wekan/commit/8560b36a5aeb31d7032d82f75a53a18281c9f7f8).
+  Thanks to dvsk, mfilser and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.35 2022-08-13 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
