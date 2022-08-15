@@ -277,6 +277,7 @@ services:
       - CARD_OPENED_WEBHOOK_ENABLED=false
       #---------------------------------------------------------------
       # ==== Allow configuration to validate uploaded attachments ====
+      #-ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM=/usr/local/bin/avscan {file}
       #-ATTACHMENTS_UPLOAD_MIME_TYPES=image/*,text/*
       #-ATTACHMENTS_UPLOAD_MAX_SIZE=5000000
       #---------------------------------------------------------------
