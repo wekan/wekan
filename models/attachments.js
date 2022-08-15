@@ -40,13 +40,17 @@ Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: true,
+/* Commenting out because this custom namingFunction did not work:
+   https://github.com/veliovgroup/Meteor-Files/issues/847
+
   namingFunction(opts) {
-    const filenameWithoutExtension = opts.name.replace(/(.+)\..+/, "$1");
+    const filenameWithoutExtension = opts.meta.name.replace(/(.+)\..+/, "$1");
     const ret = opts.meta.fileId + "-original-" + filenameWithoutExtension;
     // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
     delete opts.meta.fileId;
     return ret;
   },
+*/
   storagePath() {
     const ret = fileStoreStrategyFactory.storagePath;
     return ret;
