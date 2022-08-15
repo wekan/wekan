@@ -5,14 +5,17 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.37 2022-08-15 WeKan ® release
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Updated dependencies like ostrio:files etc](https://github.com/wekan/wekan/commit/7c619859fcb6a609581adc8f09c7937b7c2efcc4).
+  Thanks to developers of dependencies and xet7.
+
+and fixes the following bugs:
 
 - [Fix All Boards: The list of lists on each card with the summary counts is not sorted](https://github.com/wekan/wekan/pull/4635).
   Thanks to repmovs.
-- [Updated dependencies like ostrio:files etc](https://github.com/wekan/wekan/commit/7c619859fcb6a609581adc8f09c7937b7c2efcc4).
-  Thanks to developers of dependencies and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
