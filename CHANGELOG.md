@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix All Boards: The list of lists on each card with the summary counts is not sorted](https://github.com/wekan/wekan/pull/4635).
+  Thanks to repmovs.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.36 2022-08-14 WeKan ® release
 
 This release fixes the following bugs:
