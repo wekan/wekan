@@ -53,17 +53,28 @@ Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: true,
-/* Commenting out because this custom namingFunction did not work:
-   https://github.com/veliovgroup/Meteor-Files/issues/847
-
   namingFunction(opts) {
-    const filenameWithoutExtension = opts.meta.name.replace(/(.+)\..+/, "$1");
-    const ret = opts.meta.fileId + "-original-" + filenameWithoutExtension;
+    let filenameWithoutExtension = ""
+    let fileId = "";
+    if (opts?.name) {
+      // Client
+      filenameWithoutExtension = opts.name.replace(/(.+)\..+/, "$1");
+      fileId = opts.meta.fileId;
+      delete opts.meta.fileId;
+    } else if (opts?.file?.name) {
+      // Server
+      filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+      fileId = opts.fileId;
+    }
+    else {
+      // should never reach here
+      filenameWithoutExtension = Math.random().toString(36).slice(2);
+      fileId = Math.random().toString(36).slice(2);
+    }
+    const ret = fileId + "-original-" + filenameWithoutExtension;
     // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
-    delete opts.meta.fileId;
     return ret;
   },
-*/
   storagePath() {
     const ret = fileStoreStrategyFactory.storagePath;
     return ret;
@@ -129,6 +140,9 @@ if (Meteor.isServer) {
 
       const fileObj = Attachments.findOne({_id: fileObjId});
       moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
+
+      // since Meteor-Files 2.1.0 the filename is truncated to 28 characters, so rename the file after upload to the right filename back
+      rename(fileObj, fileObj.name, fileStoreStrategyFactory);
     },
     renameAttachment(fileObjId, newName) {
       check(fileObjId, String);
@@ -178,13 +192,13 @@ if (Meteor.isServer) {
       check(fileObjId, String);
       check(storageDestination, String);
 
-      Meteor.call('validateAttachment', fileObjId);
+      validateAttachment(fileObjId);
 
       const fileObj = Attachments.findOne({_id: fileObjId});
 
       if (fileObj) {
         console.debug("Validation of uploaded file completed: file " + fileObj.path + " - storage destination " + storageDestination);
-        Meteor.defer(() => Meteor.call('moveAttachmentToStorage', fileObjId, storageDestination));
+        moveAttachmentToStorage(fileObjId, storageDestination);
       }
     },
   });
