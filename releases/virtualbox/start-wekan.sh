@@ -49,6 +49,7 @@
       # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
       #---------------------------------------------------------------
       # ==== Allow configuration to validate uploaded attachments ====
+      #export ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM="/usr/local/bin/avscan {file}"
       #export ATTACHMENTS_UPLOAD_MIME_TYPES="image/*,text/*"
       #export ATTACHMENTS_UPLOAD_MAX_SIZE=5000000
       #---------------------------------------------------------------
