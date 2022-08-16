@@ -40,7 +40,7 @@
     "filesize": "^8.0.7",
     "i18next": "^21.6.16",
     "i18next-sprintf-postprocessor": "^0.2.2",
-    "jquery": "^2.2.4",
+    "jquery": "^3.5.0",
     "jquery-ui": "^1.13.0",
     "jquery-ui-touch-punch": "^0.2.3",
     "jszip": "^3.7.1",
