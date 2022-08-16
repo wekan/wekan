@@ -16,6 +16,8 @@ and fixes the following bugs:
 
 - [Meteor files 2.2.1 fixes + attachment view](https://github.com/wekan/wekan/pull/4638).
   Thanks to mfilser.
+- [Fix Validate attachment error at PR Meteor files 2.2.1 fixes + attachment view](https://github.com/wekan/wekan/commit/c23f5dc8582e948a7c9af6fd1c6c7cca85a7e1f1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
