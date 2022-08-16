@@ -1,3 +1,6 @@
+const filesize = require('filesize');
+const prettyMilliseconds = require('pretty-ms');
+
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
   // If we let this event bubble, FlowRouter will handle it and empty the page
@@ -13,37 +16,68 @@ Template.attachmentsGalery.helpers({
     return Meteor.user().isBoardAdmin();
   },
   fileSize(size) {
-    return Math.round(size / 1024);
+    const ret = filesize(size);
+    return ret;
   },
 });
 
+Template.cardAttachmentsPopup.onCreated(function() {
+  this.uploads = new ReactiveVar([]);
+});
+
+Template.cardAttachmentsPopup.helpers({
+  getEstimateTime(upload) {
+    const ret = prettyMilliseconds(upload.estimateTime.get());
+    return ret;
+  },
+  getEstimateSpeed(upload) {
+    const ret = filesize(upload.estimateSpeed.get(), {round: 0}) + "/s";
+    return ret;
+  },
+  uploads() {
+    return Template.instance().uploads.get();
+  }
+});
+
 Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(event) {
+  'change .js-attach-file'(event, templateInstance) {
     const card = this;
-    if (event.currentTarget.files && event.currentTarget.files[0]) {
-      const fileId = Random.id();
-      const config = {
-        file: event.currentTarget.files[0],
-        fileId: fileId,
-        meta: Utils.getCommonAttachmentMetaFrom(card),
-        chunkSize: 'dynamic',
-      };
-      config.meta.fileId = fileId;
-      const uploader = Attachments.insert(
-        config,
-        false,
-      );
-      uploader.on('uploaded', (error, fileRef) => {
-        if (!error) {
-          if (fileRef.isImage) {
-            card.setCover(fileRef._id);
+    const files = event.currentTarget.files;
+    if (files) {
+      let uploads = [];
+      for (const file of files) {
+        const fileId = Random.id();
+        const config = {
+          file: file,
+          fileId: fileId,
+          meta: Utils.getCommonAttachmentMetaFrom(card),
+          chunkSize: 'dynamic',
+        };
+        config.meta.fileId = fileId;
+        const uploader = Attachments.insert(
+          config,
+          false,
+        );
+        uploader.on('start', function() {
+          uploads.push(this);
+          templateInstance.uploads.set(uploads);
+        });
+        uploader.on('uploaded', (error, fileRef) => {
+          if (!error) {
+            if (fileRef.isImage) {
+              card.setCover(fileRef._id);
+            }
           }
-        }
-      });
-      uploader.on('end', (error, fileRef) => {
-        Popup.back();
-      });
-      uploader.start();
+        });
+        uploader.on('end', (error, fileRef) => {
+          uploads = uploads.filter(_upload => _upload.config.fileId != fileRef._id);
+          templateInstance.uploads.set(uploads);
+          if (uploads.length == 0 ) {
+            Popup.back();
+          }
+        });
+        uploader.start();
+      }
     }
   },
   'click .js-computer-upload'(event, templateInstance) {

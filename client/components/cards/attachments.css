@@ -1,3 +1,7 @@
+.attachment-upload {
+  text-align: center;
+  font-weight: bold;
+}
 .attachments-galery {
   display: flex;
   flex-wrap: wrap;

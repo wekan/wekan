@@ -4,6 +4,7 @@ import { CardSearchPagedComponent } from '/client/lib/cardSearch';
 import SessionData from '/models/usersessiondata';
 import { QueryParams } from '/config/query-classes';
 import { OPERATOR_LIMIT } from '/config/search-const';
+const filesize = require('filesize');
 
 BlazeComponent.extendComponent({
   subscription: null,
@@ -114,7 +115,8 @@ class AdminReport extends BlazeComponent {
   }
 
   fileSize(size) {
-    return Math.round(size / 1024);
+    const ret = filesize(size);
+    return ret;
   }
 
   abbreviate(text) {

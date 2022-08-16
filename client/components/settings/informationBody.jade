@@ -58,38 +58,38 @@ template(name='statistics')
           td {{numFormat statistics.os.loadavg.[0]}}, {{numFormat statistics.os.loadavg.[1]}}, {{numFormat statistics.os.loadavg.[2]}}
         tr
           th {{_ 'OS_Totalmem'}}
-          td {{bytesToSize statistics.os.totalmem}}
+          td {{fileSize statistics.os.totalmem}}
         tr
           th {{_ 'OS_Freemem'}}
-          td {{bytesToSize statistics.os.freemem}}
+          td {{fileSize statistics.os.freemem}}
         tr
           th {{_ 'OS_Cpus'}}
           td {{statistics.os.cpus.length}}
         unless isSandstorm
           tr
             th {{_ 'Node_heap_total_heap_size'}}
-            td {{bytesToSize statistics.nodeHeapStats.totalHeapSize}}
+            td {{fileSize statistics.nodeHeapStats.totalHeapSize}}
           tr
             th {{_ 'Node_heap_total_heap_size_executable'}}
-            td {{bytesToSize statistics.nodeHeapStats.totalHeapSizeExecutable}}
+            td {{fileSize statistics.nodeHeapStats.totalHeapSizeExecutable}}
           tr
             th {{_ 'Node_heap_total_physical_size'}}
-            td {{bytesToSize statistics.nodeHeapStats.totalPhysicalSize}}
+            td {{fileSize statistics.nodeHeapStats.totalPhysicalSize}}
           tr
             th {{_ 'Node_heap_total_available_size'}}
-            td {{bytesToSize statistics.nodeHeapStats.totalAvailableSize}}
+            td {{fileSize statistics.nodeHeapStats.totalAvailableSize}}
           tr
             th {{_ 'Node_heap_used_heap_size'}}
-            td {{bytesToSize statistics.nodeHeapStats.usedHeapSize}}
+            td {{fileSize statistics.nodeHeapStats.usedHeapSize}}
           tr
             th {{_ 'Node_heap_heap_size_limit'}}
-            td {{bytesToSize statistics.nodeHeapStats.heapSizeLimit}}
+            td {{fileSize statistics.nodeHeapStats.heapSizeLimit}}
           tr
             th {{_ 'Node_heap_malloced_memory'}}
-            td {{bytesToSize statistics.nodeHeapStats.mallocedMemory}}
+            td {{fileSize statistics.nodeHeapStats.mallocedMemory}}
           tr
             th {{_ 'Node_heap_peak_malloced_memory'}}
-            td {{bytesToSize statistics.nodeHeapStats.peakMallocedMemory}}
+            td {{fileSize statistics.nodeHeapStats.peakMallocedMemory}}
           tr
             th {{_ 'Node_heap_does_zap_garbage'}}
             td {{statistics.nodeHeapStats.doesZapGarbage}}
@@ -101,13 +101,13 @@ template(name='statistics')
             td {{statistics.nodeHeapStats.numberOfDetachedContexts}}
           tr
             th {{_ 'Node_memory_usage_rss'}}
-            td {{bytesToSize statistics.nodeMemoryUsage.rss}}
+            td {{fileSize statistics.nodeMemoryUsage.rss}}
           tr
             th {{_ 'Node_memory_usage_heap_total'}}
-            td {{bytesToSize statistics.nodeMemoryUsage.heapTotal}}
+            td {{fileSize statistics.nodeMemoryUsage.heapTotal}}
           tr
             th {{_ 'Node_memory_usage_heap_used'}}
-            td {{bytesToSize statistics.nodeMemoryUsage.heapUsed}}
+            td {{fileSize statistics.nodeMemoryUsage.heapUsed}}
           tr
             th {{_ 'Node_memory_usage_external'}}
-            td {{bytesToSize statistics.nodeMemoryUsage.external}}
+            td {{fileSize statistics.nodeMemoryUsage.external}}

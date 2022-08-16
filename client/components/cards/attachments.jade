@@ -1,10 +1,25 @@
 template(name="cardAttachmentsPopup")
-  ul.pop-over-list
-    li
-      input.js-attach-file.hide(type="file" name="file" multiple)
-      a.js-computer-upload {{_ 'computer'}}
-    li
-      a.js-upload-clipboard-image {{_ 'clipboard'}}
+  if $gt uploads.length 0
+    .attachment-upload {{_ 'uploading'}}
+      table
+        tr
+          th.upload-file-name-descr {{_ 'name'}}
+          th.upload-progress-descr {{_ 'progress'}}
+          th.upload-remaining-descr {{_ 'remaining_time'}}
+          th.upload-speed-descr {{_ 'speed'}}
+        each upload in uploads
+          tr
+            td.upload-file-name-value {{upload.file.name}}
+            td.upload-progress-value {{upload.progress.get}}%
+            td.upload-remaining-value {{getEstimateTime upload}}
+            td.upload-speed-value {{getEstimateSpeed upload}}
+  else
+    ul.pop-over-list
+      li
+        input.js-attach-file.hide(type="file" name="file" multiple)
+        a.js-computer-upload {{_ 'computer'}}
+      li
+        a.js-upload-clipboard-image {{_ 'clipboard'}}
 
 template(name="previewClipboardImagePopup")
   p <kbd>Ctrl</kbd>+<kbd>V</kbd> {{_ "paste-or-dragdrop"}}
@@ -37,11 +52,9 @@ template(name="attachmentsGalery")
                   source(src="{{link}}" type="video/mp4")
             else
               span.attachment-thumbnail-ext= extension
-          else
-            +spinner
         p.attachment-details
           = name
-          span.file-size ({{fileSize size}} KB)
+          span.file-size ({{fileSize size}})
           span.attachment-details-actions
             a.js-download(href="{{link}}?download=true", download="{{name}}")
               i.fa.fa-download
