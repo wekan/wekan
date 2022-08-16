@@ -192,13 +192,13 @@ if (Meteor.isServer) {
       check(fileObjId, String);
       check(storageDestination, String);
 
-      validateAttachment(fileObjId);
+      Meteor.defer(() => Meteor.call('validateAttachment', fileObjId));
 
       const fileObj = Attachments.findOne({_id: fileObjId});
 
       if (fileObj) {
         console.debug("Validation of uploaded file completed: file " + fileObj.path + " - storage destination " + storageDestination);
-        moveAttachmentToStorage(fileObjId, storageDestination);
+        Meteor.defer(() => Meteor.call('moveAttachmentToStorage', fileObjId, storageDestination));
       }
     },
   });
