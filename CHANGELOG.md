@@ -12,6 +12,11 @@ This release adds the following new features:
 - [Add support to validate attachment uploads by an external program](https://github.com/wekan/wekan/pull/4637).
   Thanks to NotTheEvilOne.
 
+and fixes the following bugs:
+
+- [Meteor files 2.2.1 fixes + attachment view](https://github.com/wekan/wekan/pull/4638).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.37 2022-08-15 WeKan ® release
