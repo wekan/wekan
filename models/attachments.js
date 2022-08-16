@@ -162,14 +162,6 @@ if (Meteor.isServer) {
       }
 
       if (isValid && attachmentUploadExternalProgram) {
-        let args = { ...attachmentUploadExternalProgram.args };
-
-        for (let key in args) {
-          if (args[key] == "%file") {
-            args[key] = fileObj.path;
-          }
-        }
-
         Promise.await(asyncExec(attachmentUploadExternalProgram.replace("{file}", '"' + fileObj.path + '"')));
         isValid = fs.existsSync(fileObj.path);
 
