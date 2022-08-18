@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Link Card",
     "searchElementPopup-title": "Cerca",
     "copyCardPopup-title": "Copia la fitxa",
-    "copyManyCardsPopup-title": "Copy Checklist Template to Many Cards",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Títols de fitxa i Descripcions de destí en aquest format JSON",
     "copyManyCardsPopup-format": "[ {\"title\": \"Títol de la primera fitxa\", \"description\":\"Descripció de la primera fitxa\"}, {\"title\":\"Títol de la segona fitxa\",\"description\":\"Descripció de la segona fitxa\"},{\"title\":\"Títol de l'última fitxa\",\"description\":\"Descripció de l'última fitxa\"} ]",
     "create": "Crea",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Action",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Canvia el nom"
+    "attachmentRenamePopup-title": "Canvia el nom",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

@@ -295,7 +295,7 @@
     "linkCardPopup-title": "連結卡片",
     "searchElementPopup-title": "搜尋",
     "copyCardPopup-title": "複製卡片",
-    "copyManyCardsPopup-title": "複製待辦清單的範本到多個卡片",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "使用此 JSON 格式來表示目標卡片的標題和描述",
     "copyManyCardsPopup-format": "[ {\\\"title\\\": \\\"第一個卡片標題\\\", \\\"description\\\":\\\"第一個卡片描述\\\"}, {\\\"title\\\":\\\"第二個卡片標題\\\",\\\"description\\\":\\\"第二個卡片描述\\\"},{\\\"title\\\":\\\"最後一個卡片標題\\\",\\\"description\\\":\\\"最後一個卡片描述\\\"} ]",
     "create": "建立",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "操作",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "重新命名"
+    "attachmentRenamePopup-title": "重新命名",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

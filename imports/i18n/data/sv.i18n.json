@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Länka kort",
     "searchElementPopup-title": "Sök",
     "copyCardPopup-title": "Kopiera kort",
-    "copyManyCardsPopup-title": "Kopiera Checklistmallen till Flera Kort",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Destinationskorttitlar och beskrivningar i detta JSON-format",
     "copyManyCardsPopup-format": "[ {\"title\": \"Första kortets titel\", \"description\":\"Första kortets beskrivning\"}, {\"title\":\"Andra kortets titel\",\"description\":\"Andra kortets beskrivning\"},{\"title\":\"Sista kortets titel\",\"description\":\"Sista kortets beskrivning\"} ]",
     "create": "Skapa",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Åtgärd",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Byt namn"
+    "attachmentRenamePopup-title": "Byt namn",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

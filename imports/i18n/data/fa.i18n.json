@@ -295,7 +295,7 @@
     "linkCardPopup-title": "ارتباط دادن کارت",
     "searchElementPopup-title": "جستجو",
     "copyCardPopup-title": "کپی کارت",
-    "copyManyCardsPopup-title": "کپی قالب چک‌لیست به کارت‌های متعدد",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "عنوان و توضیحات کارت مقصد در این قالب JSON",
     "copyManyCardsPopup-format": "[ {\"title\": \"First card title\", \"description\":\"First card description\"}, {\"title\":\"Second card title\",\"description\":\"Second card description\"},{\"title\":\"Last card title\",\"description\":\"Last card description\"} ]",
     "create": "ایجاد",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "عملیات",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "تغیر نام"
+    "attachmentRenamePopup-title": "تغیر نام",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

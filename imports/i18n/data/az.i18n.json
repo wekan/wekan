@@ -295,9 +295,9 @@
     "linkCardPopup-title": "Link Card",
     "searchElementPopup-title": "Search",
     "copyCardPopup-title": "Copy Card",
-    "copyChecklistToManyCardsPopup-title": "Copy Checklist Template to Many Cards",
-    "copyChecklistToManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",
-    "copyChecklistToManyCardsPopup-format": "[ {\"title\": \"First card title\", \"description\":\"First card description\"}, {\"title\":\"Second card title\",\"description\":\"Second card description\"},{\"title\":\"Last card title\",\"description\":\"Last card description\"} ]",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
+    "copyManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",
+    "copyManyCardsPopup-format": "[ {\"title\": \"First card title\", \"description\":\"First card description\"}, {\"title\":\"Second card title\",\"description\":\"Second card description\"},{\"title\":\"Last card title\",\"description\":\"Last card description\"} ]",
     "create": "Create",
     "createBoardPopup-title": "Create Board",
     "chooseBoardSourcePopup-title": "Import board",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Action",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Rename"
+    "attachmentRenamePopup-title": "Rename",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

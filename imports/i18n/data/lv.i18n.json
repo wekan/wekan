@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Kartiņas saite",
     "searchElementPopup-title": "Meklēt",
     "copyCardPopup-title": "Kopēt kartiņu",
-    "copyManyCardsPopup-title": "Kopēt kontrolsarakstu uz citām kartiņām",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Mērķa kartiņu virsraksti un apraksti šajā JSON formātā",
     "copyManyCardsPopup-format": "[ {\"title\": \"Pirmās kartiņas virsraksts\", \"description\":\"Pirmās kartiņas apraksts}, {\"title\":\"Otrās kartiņas virsraksts\",\"description\":\"Otrās kartiņas apraksts\"},{\"title\":\"Pēdējās kartiņas virsraksts\",\"description\":\"Pēdējās kartiņas apraksts\"} ]",
     "create": "Izveidot",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Darbība",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Pārsaukt"
+    "attachmentRenamePopup-title": "Pārsaukt",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

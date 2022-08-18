@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Propojit kartu",
     "searchElementPopup-title": "Hledat",
     "copyCardPopup-title": "Kopírovat kartu",
-    "copyManyCardsPopup-title": "Kopírovat checklist do více karet",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Názvy a popisy cílové karty v tomto formátu JSON",
     "copyManyCardsPopup-format": "[ {\"title\": \"Nadpis první karty\", \"description\":\"Popis první karty\"}, {\"title\":\"Nadpis druhé karty\",\"description\":\"Popis druhé karty\"},{\"title\":\"Nadpis poslední kary\",\"description\":\"Popis poslední karty\"} ]",
     "create": "Vytvořit",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Akce",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Přejmenovat"
+    "attachmentRenamePopup-title": "Přejmenovat",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

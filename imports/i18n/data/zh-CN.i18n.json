@@ -295,7 +295,7 @@
     "linkCardPopup-title": "链接卡片",
     "searchElementPopup-title": "搜索",
     "copyCardPopup-title": "复制卡片",
-    "copyManyCardsPopup-title": "复制清单模板至多个卡片",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "以JSON格式表示目标卡片的标题和描述",
     "copyManyCardsPopup-format": "[ {\"title\": \"第一个卡片的标题\", \"description\":\"第一个卡片的描述\"}, {\"title\":\"第二个卡片的标题\",\"description\":\"第二个卡片的描述\"},{\"title\":\"最后一个卡片的标题\",\"description\":\"最后一个卡片的描述\"} ]",
     "create": "创建",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "操作",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "重命名"
+    "attachmentRenamePopup-title": "重命名",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

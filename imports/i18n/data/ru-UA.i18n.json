@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Карточка-ссылка",
     "searchElementPopup-title": "Поиск",
     "copyCardPopup-title": "Копировать карточку",
-    "copyManyCardsPopup-title": "Копировать шаблон контрольного списка в несколько карточек",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Названия и описания целевых карт в формате JSON",
     "copyManyCardsPopup-format": "[ {\"title\": \"Название первой карточки\", \"description\":\"Описание первой карточки\"}, {\"title\":\"Название второй карточки\",\"description\":\"Описание второй карточки\"},{\"title\":\"Название последней карточки\",\"description\":\"Описание последней карточки\"} ]",
     "create": "Создать",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Действие",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Переименовать"
+    "attachmentRenamePopup-title": "Переименовать",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

@@ -295,7 +295,7 @@
     "linkCardPopup-title": "ربط البطاقة",
     "searchElementPopup-title": "بحث",
     "copyCardPopup-title": "نسخ البطاقة",
-    "copyManyCardsPopup-title": "Copy Checklist Template to Many Cards",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",
     "copyManyCardsPopup-format": "[ {\"title\": \"First card title\", \"description\":\"First card description\"}, {\"title\":\"Second card title\",\"description\":\"Second card description\"},{\"title\":\"Last card title\",\"description\":\"Last card description\"} ]",
     "create": "إنشاء",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Action",
     "board-title": "عنوان اللوح",
-    "attachmentRenamePopup-title": "إعادة التسمية"
+    "attachmentRenamePopup-title": "إعادة التسمية",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Tarjeta vinculada",
     "searchElementPopup-title": "Buscar",
     "copyCardPopup-title": "Copiar Tarjeta",
-    "copyManyCardsPopup-title": "Copiar Plantilla Checklist a Muchas Tarjetas",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Títulos y Descripciones de la Tarjeta Destino en este formato JSON",
     "copyManyCardsPopup-format": "[ {\"title\": \"Título de primera tarjeta\", \"description\":\"Descripción de primera tarjeta\"}, {\"title\":\"Título de segunda tarjeta\",\"description\":\"Descripción de segunda tarjeta\"},{\"title\":\"Título de última tarjeta\",\"description\":\"Descripción de última tarjeta\"} ]",
     "create": "Crear",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Action",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Renombrar"
+    "attachmentRenamePopup-title": "Renombrar",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

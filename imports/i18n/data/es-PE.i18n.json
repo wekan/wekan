@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Enlazar tarjeta",
     "searchElementPopup-title": "Buscar",
     "copyCardPopup-title": "Copiar la tarjeta",
-    "copyManyCardsPopup-title": "Copiar la plantilla de la lista de comprobación en varias tarjetas",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Títulos y descripciones de las tarjetas de destino en formato JSON",
     "copyManyCardsPopup-format": "[ {\"title\": \"Título de la primera tarjeta\", \"description\":\"Descripción de la primera tarjeta\"}, {\"title\":\"Título de la segunda tarjeta\",\"description\":\"Descripción de la segunda tarjeta\"},{\"title\":\"Título de la última tarjeta\",\"description\":\"Descripción de la última tarjeta\"} ]",
     "create": "Crear",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Acción",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Renombrar"
+    "attachmentRenamePopup-title": "Renombrar",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

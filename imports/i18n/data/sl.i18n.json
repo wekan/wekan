@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Poveži kartico",
     "searchElementPopup-title": "Išči",
     "copyCardPopup-title": "Kopiraj kartico",
-    "copyManyCardsPopup-title": "Kopiraj predlogo kontrolnega seznama na več kartic",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Naslovi ciljnih kartic in opisi v JSON formatu",
     "copyManyCardsPopup-format": "[ {\"naslov\": \"Naslov prve kartice\", \"opis\":\"Opis prve kartice\"}, {\"naslov\":\"Opis druge kartice\",\"opis\":\"Opis druge kartice\"},{\"naslov\":\"Naslov zadnje kartice\",\"opis\":\"Opis zadnje kartice\"} ]",
     "create": "Ustvari",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Action",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Preimenuj"
+    "attachmentRenamePopup-title": "Preimenuj",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

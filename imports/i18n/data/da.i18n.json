@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Sammenkæd kort",
     "searchElementPopup-title": "Søg",
     "copyCardPopup-title": "Kopiér kort",
-    "copyManyCardsPopup-title": "Kopiér tjeklisteskabelon til flere kort",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Destination for kortenes titler og beskrivelser i dette JSON-format",
     "copyManyCardsPopup-format": "[ {\"title\": \"First card title\", \"description\":\"First card description\"}, {\"title\":\"Second card title\",\"description\":\"Second card description\"},{\"title\":\"Last card title\",\"description\":\"Last card description\"} ]",
     "create": "Opret",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Action",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Omdøb"
+    "attachmentRenamePopup-title": "Omdøb",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

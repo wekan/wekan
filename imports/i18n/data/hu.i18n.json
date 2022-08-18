@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Kártyára hivatkozás",
     "searchElementPopup-title": "Keresés",
     "copyCardPopup-title": "Kártya másolása",
-    "copyManyCardsPopup-title": "Ellenőrzőlista sablon másolása több kártyára",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "A célkártyák címe és a leírások ebben a JSON formátumban",
     "copyManyCardsPopup-format": "[ {\"title\": \"Első kártya címe\", \"description\":\"Első kártya leírása\"}, {\"title\":\"Második kártya címe\",\"description\":\"Második kártya leírása\"},{\"title\":\"Utolsó kártya címe\",\"description\":\"Utolsó kártya leírása\"} ]",
     "create": "Létrehozás",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Művelet",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Átnevezés"
+    "attachmentRenamePopup-title": "Átnevezés",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

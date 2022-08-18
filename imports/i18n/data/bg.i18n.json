@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Свържи картата",
     "searchElementPopup-title": "Търсене",
     "copyCardPopup-title": "Копирай картата",
-    "copyManyCardsPopup-title": "Копирай чеклисти в други карти",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",
     "copyManyCardsPopup-format": "[ {\"title\": \"First card title\", \"description\":\"First card description\"}, {\"title\":\"Second card title\",\"description\":\"Second card description\"},{\"title\":\"Last card title\",\"description\":\"Last card description\"} ]",
     "create": "Създай",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Действие",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Преименуване"
+    "attachmentRenamePopup-title": "Преименуване",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

@@ -295,7 +295,7 @@
     "linkCardPopup-title": "कार्ड कड़ी",
     "searchElementPopup-title": "Search",
     "copyCardPopup-title": "कार्ड प्रतिलिपि",
-    "copyManyCardsPopup-title": "कई कार्ड के लिए जांचसूची खाके की प्रतिलिपि बनाएँ",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "इस JSON प्रारूप में गंतव्य कार्ड शीर्षक और विवरण",
     "copyManyCardsPopup-format": "[{\"title\":\"पहला कार्ड शीर्षक\",\"description\":\"पहला कार्ड विवरण\"},{\"title\":\"दूसरा कार्ड शीर्षक\",\"description\":\"दूसरा कार्ड विवरण\"},{\"title\":\"अंतिम कार्ड शीर्षक\",\"description\":\"अंतिम कार्ड विवरण\" }]",
     "create": "निर्माण करना",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Action",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Rename"
+    "attachmentRenamePopup-title": "Rename",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

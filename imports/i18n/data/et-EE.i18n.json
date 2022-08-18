@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Linkkaart",
     "searchElementPopup-title": "Otsi",
     "copyCardPopup-title": "Kopeeri kaart",
-    "copyManyCardsPopup-title": "Koopia kontrollnimekirja malli paljudele kaartidele",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Sihtkaardi pealkirjad ja kirjeldused selles JSON-vormingus",
     "copyManyCardsPopup-format": "[ {\"title\": {\"title\": \"First card title\", \"description\": \"First card description\"}, {\"title\": \"Second card title\", \"description\": \"Second card description\"},{\"title\": \"Last card title\", \"description\": \"Last card description\"}, {\"title\": \"Last card title\", \"description\": \"Last card description\"} ]",
     "create": "Loo",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Tegevus",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Nimetage ümber"
+    "attachmentRenamePopup-title": "Nimetage ümber",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }

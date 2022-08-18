@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Thẻ liên kết",
     "searchElementPopup-title": "Tìm kiếm",
     "copyCardPopup-title": "Sao chép Thẻ",
-    "copyManyCardsPopup-title": "Sao chép Mẫu Checklist cho Nhiều thẻ",
+    "copyManyCardsPopup-title": "Copy Template to Many Cards",
     "copyManyCardsPopup-instructions": "Tiêu đề và mô tả thẻ đích ở định dạng JSON này",
     "copyManyCardsPopup-format": "[ {\"title\": \"Tiêu đề thẻ đầu tiên\", \"description\":\"Mô tả thẻ đầu tiên\"}, {\"title\":\"Tiêu đề thẻ thứ hai\",\"description\":\"Mô tả thẻ thứ hai\"},{\"title\":\"Tiêu đề thẻ cuối cùng\",\"description\":\"Mô tả thẻ cuối cùng\"} ]",
     "create": "Tạo",
@@ -1179,5 +1179,9 @@
     "storage": "Storage",
     "action": "Hoạt động",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Đổi tên"
+    "attachmentRenamePopup-title": "Đổi tên",
+    "uploading": "Uploading",
+    "remaining_time": "Remaining time",
+    "speed": "Speed",
+    "progress": "Progress"
 }
