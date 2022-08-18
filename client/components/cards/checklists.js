@@ -1,6 +1,7 @@
 import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
+import { DialogWithBoardSwimlaneListCard } from '/client/lib/dialogWithBoardSwimlaneListCard';
 
 const subManager = new SubsManager();
 const { calculateIndexData, capitalize } = Utils;
@@ -380,212 +381,9 @@ BlazeComponent.extendComponent({
   },
 }).register('checklistItemDetail');
 
-class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
-  /** returns the checklist dialog options
-   * @return Object with properties { boardId, swimlaneId, listId, cardId }
-   */
-  getChecklistDialogOptions() {
-  }
-
-  /** checklist is done
-   * @param cardId the selected card id
-   * @param options the selected options (Object with properties { boardId, swimlaneId, listId, cardId })
-   */
-  setDone(cardId, options) {
-  }
-
-  onCreated() {
-    this.currentBoardId = Utils.getCurrentBoardId();
-    this.selectedBoardId = new ReactiveVar(this.currentBoardId);
-    this.selectedSwimlaneId = new ReactiveVar('');
-    this.selectedListId = new ReactiveVar('');
-    this.setChecklistDialogOption(this.currentBoardId);
-  }
-
-  /** set the last confirmed dialog field values
-   * @param boardId the current board id
-   */
-  setChecklistDialogOption(boardId) {
-    this.checklistDialogOption = {
-      'boardId': "",
-      'swimlaneId': "",
-      'listId': "",
-      'cardId': "",
-    }
-
-    let currentOptions = this.getChecklistDialogOptions();
-    if (currentOptions && boardId && currentOptions[boardId]) {
-      this.checklistDialogOption = currentOptions[boardId];
-      if (this.checklistDialogOption.boardId &&
-        this.checklistDialogOption.swimlaneId &&
-        this.checklistDialogOption.listId
-      ) {
-        this.selectedBoardId.set(this.checklistDialogOption.boardId)
-        this.selectedSwimlaneId.set(this.checklistDialogOption.swimlaneId);
-        this.selectedListId.set(this.checklistDialogOption.listId);
-      }
-    }
-    this.getBoardData(this.selectedBoardId.get());
-    if (!this.selectedSwimlaneId.get() || !Swimlanes.findOne({ _id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get() })) {
-      this.setFirstSwimlaneId();
-    }
-    if (!this.selectedListId.get() || !Lists.findOne({ _id: this.selectedListId.get(), boardId: this.selectedBoardId.get() })) {
-      this.setFirstListId();
-    }
-  }
-  /** sets the first swimlane id */
-  setFirstSwimlaneId() {
-    try {
-      const board = Boards.findOne(this.selectedBoardId.get());
-      const swimlaneId = board.swimlanes().fetch()[0]._id;
-      this.selectedSwimlaneId.set(swimlaneId);
-    } catch (e) { }
-  }
-  /** sets the first list id */
-  setFirstListId() {
-    try {
-      const board = Boards.findOne(this.selectedBoardId.get());
-      const listId = board.lists().fetch()[0]._id;
-      this.selectedListId.set(listId);
-    } catch (e) { }
-  }
-
-  /** returns if the board id was the last confirmed one
-   * @param boardId check this board id
-   * @return if the board id was the last confirmed one
-   */
-  isChecklistDialogOptionBoardId(boardId) {
-    let ret = this.checklistDialogOption.boardId == boardId;
-    return ret;
-  }
-
-  /** returns if the swimlane id was the last confirmed one
-   * @param swimlaneId check this swimlane id
-   * @return if the swimlane id was the last confirmed one
-   */
-  isChecklistDialogOptionSwimlaneId(swimlaneId) {
-    let ret = this.checklistDialogOption.swimlaneId == swimlaneId;
-    return ret;
-  }
-
-  /** returns if the list id was the last confirmed one
-   * @param listId check this list id
-   * @return if the list id was the last confirmed one
-   */
-  isChecklistDialogOptionListId(listId) {
-    let ret = this.checklistDialogOption.listId == listId;
-    return ret;
-  }
-
-  /** returns if the card id was the last confirmed one
-   * @param cardId check this card id
-   * @return if the card id was the last confirmed one
-   */
-  isChecklistDialogOptionCardId(cardId) {
-    let ret = this.checklistDialogOption.cardId == cardId;
-    return ret;
-  }
-
-  /** returns all available board */
-  boards() {
-    const ret = Boards.find(
-      {
-        archived: false,
-        'members.userId': Meteor.userId(),
-        _id: { $ne: Meteor.user().getTemplatesBoardId() },
-      },
-      {
-        sort: { sort: 1 },
-      },
-    );
-    return ret;
-  }
-
-  /** returns all available swimlanes of the current board */
-  swimlanes() {
-    const board = Boards.findOne(this.selectedBoardId.get());
-    const ret = board.swimlanes();
-    return ret;
-  }
-
-  /** returns all available lists of the current board */
-  lists() {
-    const board = Boards.findOne(this.selectedBoardId.get());
-    const ret = board.lists();
-    return ret;
-  }
-
-  /** returns all available cards of the current list */
-  cards() {
-    const list = Lists.findOne(this.selectedListId.get());
-    const ret = list.cards(this.selectedSwimlaneId.get());
-    return ret;
-  }
-
-  /** get the board data from the server
-   * @param boardId get the board data of this board id
-   */
-  getBoardData(boardId) {
-    const self = this;
-    Meteor.subscribe('board', boardId, false, {
-      onReady() {
-        const sameBoardId = self.selectedBoardId.get() == boardId;
-        self.selectedBoardId.set(boardId);
-
-        if (!sameBoardId) {
-          // reset swimlane id (for selection in cards())
-          self.setFirstSwimlaneId();
-
-          // reset list id (for selection in cards())
-          self.setFirstListId();
-        }
-      },
-    });
-  }
-
-  events() {
-    return [
-      {
-        'click .js-done'() {
-          const boardSelect = this.$('.js-select-boards')[0];
-          const boardId = boardSelect.options[boardSelect.selectedIndex].value;
-
-          const listSelect = this.$('.js-select-lists')[0];
-          const listId = listSelect.options[listSelect.selectedIndex].value;
-
-          const swimlaneSelect = this.$('.js-select-swimlanes')[0];
-          const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
-
-          const cardSelect = this.$('.js-select-cards')[0];
-          const cardId = cardSelect.options[cardSelect.selectedIndex].value;
-
-          const options = {
-            'boardId': boardId,
-            'swimlaneId': swimlaneId,
-            'listId': listId,
-            'cardId': cardId,
-          }
-          this.setDone(cardId, options);
-          Popup.back(2);
-        },
-        'change .js-select-boards'(event) {
-          const boardId = $(event.currentTarget).val();
-          this.getBoardData(boardId);
-        },
-        'change .js-select-swimlanes'(event) {
-          this.selectedSwimlaneId.set($(event.currentTarget).val());
-        },
-        'change .js-select-lists'(event) {
-          this.selectedListId.set($(event.currentTarget).val());
-        },
-      },
-    ];
-  }
-}
-
 /** Move Checklist Dialog */
-(class extends DialogWithBoardSwimlaneListAndCard {
-  getChecklistDialogOptions() {
+(class extends DialogWithBoardSwimlaneListCard {
+  getDialogOptions() {
     const ret = Meteor.user().getMoveChecklistDialogOptions();
     return ret;
   }
@@ -596,8 +394,8 @@ class DialogWithBoardSwimlaneListAndCard extends BlazeComponent {
 }).register('moveChecklistPopup');
 
 /** Copy Checklist Dialog */
-(class extends DialogWithBoardSwimlaneListAndCard {
-  getChecklistDialogOptions() {
+(class extends DialogWithBoardSwimlaneListCard {
+  getDialogOptions() {
     const ret = Meteor.user().getCopyChecklistDialogOptions();
     return ret;
   }

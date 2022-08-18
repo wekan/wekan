@@ -725,6 +725,12 @@ template(name="copyManyCardsPopup")
     | {{_ 'copyManyCardsPopup-format'}}
   +copyAndMoveCard
 
+template(name="convertChecklistItemToCardPopup")
+  label(for='convert-checklist-item-to-card-title') {{_ 'title'}}:
+  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+    = item.title
+  +copyAndMoveCard
+
 template(name="copyAndMoveCard")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
@@ -733,17 +739,17 @@ template(name="copyAndMoveCard")
         if $eq _id currentBoard._id
           option(value="{{_id}}" selected) {{_ 'current'}}
         else
-          option(value="{{_id}}" selected="{{#if isCardDialogOptionBoardId _id}}selected{{/if}}") {{title}}
+          option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isCardDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isCardDialogOptionListId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{title}}
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}
