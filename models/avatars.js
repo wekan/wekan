@@ -45,6 +45,33 @@ Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
   allowClientCode: true,
+  namingFunction(opts) {
+    let filenameWithoutExtension = ""
+    let fileId = "";
+    if (opts?.name) {
+      // Client
+      filenameWithoutExtension = opts.name.replace(/(.+)\..+/, "$1");
+      fileId = opts.meta.fileId;
+      delete opts.meta.fileId;
+    } else if (opts?.file?.name) {
+      // Server
+      if (opts.file.extension) {
+        filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+      } else {
+        // file has no extension, so don't replace anything, otherwise the last character is removed (because extensionWithDot = '.')
+        filenameWithoutExtension = opts.file.name;
+      }
+      fileId = opts.fileId;
+    }
+    else {
+      // should never reach here
+      filenameWithoutExtension = Math.random().toString(36).slice(2);
+      fileId = Math.random().toString(36).slice(2);
+    }
+    const ret = fileId + "-original-" + filenameWithoutExtension;
+    // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
+    return ret;
+  },
   sanitize(str, max, replacement) {
     // keep the original filename
     return str;
