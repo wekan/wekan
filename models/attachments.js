@@ -59,7 +59,12 @@ Attachments = new FilesCollection({
       delete opts.meta.fileId;
     } else if (opts?.file?.name) {
       // Server
-      filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+      if (opts.file.extension) {
+        filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+      } else {
+        // file has no extension, so don't replace anything, otherwise the last character is removed (because extensionWithDot = '.')
+        filenameWithoutExtension = opts.file.name;
+      }
       fileId = opts.fileId;
     }
     else {
