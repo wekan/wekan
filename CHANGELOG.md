@@ -11,6 +11,14 @@ This release adds the following new features:
 
 - [Add support to validate attachment uploads by an external program](https://github.com/wekan/wekan/pull/4637).
   Thanks to NotTheEvilOne.
+- [Attachment upload progress bar + multiple files upload](https://github.com/wekan/wekan/pull/4641).
+  Thanks to mfilser.
+- [Move and copy card dialog remember last selected board](https://github.com/wekan/wekan/pull/4643).
+  Thanks to mfilser.
+- [Copy card copies now attachments too](https://github.com/wekan/wekan/pull/4646).
+  Thanks to mfilser.
+- [Copy / move card and checklists using same code](https://github.com/wekan/wekan/pull/4647).
+  Thanks to mfilser.
 
 and fixes the following bugs:
 
