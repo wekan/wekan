@@ -353,56 +353,57 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
 };
 
 export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
-  const versionName = "original";
-  const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
-  const readStream = strategyRead.getReadStream();
-  const strategyWrite = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName, STORAGE_NAME_FILESYSTEM);
+  Object.keys(fileObj.versions).forEach(versionName => {
+    const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
+    const readStream = strategyRead.getReadStream();
+    const strategyWrite = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName, STORAGE_NAME_FILESYSTEM);
 
-  const tempPath = path.join(fileStoreStrategyFactory.storagePath, Random.id() + "-" + versionName + "-" + fileObj.name);
-  const writeStream = strategyWrite.getWriteStream(tempPath);
+    const tempPath = path.join(fileStoreStrategyFactory.storagePath, Random.id() + "-" + versionName + "-" + fileObj.name);
+    const writeStream = strategyWrite.getWriteStream(tempPath);
 
-  writeStream.on('error', error => {
-    console.error('[writeStream error]: ', error, fileObj._id);
-  });
+    writeStream.on('error', error => {
+      console.error('[writeStream error]: ', error, fileObj._id);
+    });
 
-  readStream.on('error', error => {
-    console.error('[readStream error]: ', error, fileObj._id);
-  });
+    readStream.on('error', error => {
+      console.error('[readStream error]: ', error, fileObj._id);
+    });
 
-  // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-  readStream.on('end', Meteor.bindEnvironment(() => {
-    const fileId = Random.id();
-    Attachments.addFile(
-      tempPath,
-      {
-        fileName: fileObj.name,
-        type: fileObj.type,
-        meta: {
-          boardId: fileObj.meta.boardId,
-          cardId: newCardId,
-          listId: fileObj.meta.listId,
-          swimlaneId: fileObj.meta.swimlaneId,
-          source: 'copy',
-          copyFrom: fileObj._id,
-          copyStorage: strategyRead.getStorageName(),
+    // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
+    readStream.on('end', Meteor.bindEnvironment(() => {
+      const fileId = Random.id();
+      Attachments.addFile(
+        tempPath,
+        {
+          fileName: fileObj.name,
+          type: fileObj.type,
+          meta: {
+            boardId: fileObj.meta.boardId,
+            cardId: newCardId,
+            listId: fileObj.meta.listId,
+            swimlaneId: fileObj.meta.swimlaneId,
+            source: 'copy',
+            copyFrom: fileObj._id,
+            copyStorage: strategyRead.getStorageName(),
+          },
+          userId: fileObj.userId,
+          size: fileObj.fileSize,
+          fileId,
         },
-        userId: fileObj.userId,
-        size: fileObj.fileSize,
-        fileId,
-      },
-      (err, fileRef) => {
-        if (err) {
-          console.log(err);
-        } else {
-          // Set the userId again
-          Attachments.update({ _id: fileRef._id }, { $set: { userId: fileObj.userId } });
-        }
-      },
-      true,
-    );
-  }));
+        (err, fileRef) => {
+          if (err) {
+            console.log(err);
+          } else {
+            // Set the userId again
+            Attachments.update({ _id: fileRef._id }, { $set: { userId: fileObj.userId } });
+          }
+        },
+        true,
+      );
+    }));
 
-  readStream.pipe(writeStream);
+    readStream.pipe(writeStream);
+  });
 };
 
 export const rename = function(fileObj, newName, fileStoreStrategyFactory) {

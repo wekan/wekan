@@ -682,13 +682,12 @@ template(name="cardDetailsActionsPopup")
           i.fa.fa-copy
           | {{_ 'copyCardPopup-title'}}
   unless currentUser.isWorker
-    hr
     ul.pop-over-list
       li
         a.js-copy-checklist-cards
-          i.fa.fa-list
           i.fa.fa-copy
-          | {{_ 'copyChecklistToManyCardsPopup-title'}}
+          i.fa.fa-copy
+          | {{_ 'copyManyCardsPopup-title'}}
     unless archived
       hr
       ul.pop-over-list
@@ -720,10 +719,10 @@ template(name="copyCardPopup")
     = getTitle
   +copyAndMoveCard
 
-template(name="copyChecklistToManyCardsPopup")
-  label(for='copy-checklist-cards-title') {{_ 'copyChecklistToManyCardsPopup-instructions'}}:
+template(name="copyManyCardsPopup")
+  label(for='copy-checklist-cards-title') {{_ 'copyManyCardsPopup-instructions'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
-    | {{_ 'copyChecklistToManyCardsPopup-format'}}
+    | {{_ 'copyManyCardsPopup-format'}}
   +copyAndMoveCard
 
 template(name="copyAndMoveCard")
