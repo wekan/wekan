@@ -24,6 +24,8 @@ and adds the following updates:
 
 - [Updated to ostrio:files 2.3.0 and standard-minifier-js 2.8.1](https://github.com/wekan/wekan/commit/ce1f8b674de9e9a7d03e198e88e7a200af576729).
   Thanks to developers of dependencies.
+- [Updated parse-ms](https://github.com/wekan/wekan/commit/79add98aa77658221a86830f4816f19a15a52460).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
