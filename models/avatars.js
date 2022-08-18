@@ -45,6 +45,10 @@ Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
   allowClientCode: true,
+  sanitize(str, max, replacement) {
+    // keep the original filename
+    return str;
+  },
   storagePath() {
     const ret = fileStoreStrategyFactory.storagePath;
     return ret;
