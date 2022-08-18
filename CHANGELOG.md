@@ -20,6 +20,11 @@ This release adds the following new features:
 - [Copy / move card and checklists using same code](https://github.com/wekan/wekan/pull/4647).
   Thanks to mfilser.
 
+and adds the following updates:
+
+- [Updated to ostrio:files 2.3.0 and standard-minifier-js 2.8.1](https://github.com/wekan/wekan/commit/ce1f8b674de9e9a7d03e198e88e7a200af576729).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Meteor files 2.2.1 fixes + attachment view](https://github.com/wekan/wekan/pull/4638).
