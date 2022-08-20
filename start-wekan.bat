@@ -55,8 +55,14 @@ REM # ==== ACCOUNT OPTIONS ====
 REM SET ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
 
 REM # ==== Allow configuration to validate uploaded attachments ====
+REM SET ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM="avscan {file}"
 REM SET ATTACHMENTS_UPLOAD_MIME_TYPES="image/*,text/*"
 REM SET ATTACHMENTS_UPLOAD_MAX_SIZE=5000000
+
+REM # ==== Allow configuration to validate uploaded avatars ====
+REM SET AVATARS_UPLOAD_EXTERNAL_PROGRAM="avscan {file}"
+REM SET AVATARS_UPLOAD_MIME_TYPES="image/*"
+REM SET AVATARS_UPLOAD_MAX_SIZE=500000
 
 REM # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
 REM # Number of days after a notification is read before we remove it.

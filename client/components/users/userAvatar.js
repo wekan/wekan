@@ -3,7 +3,6 @@ import Avatars from '/models/avatars';
 import Users from '/models/users';
 import Org from '/models/org';
 import Team from '/models/team';
-import { formatFleURL } from 'meteor/ostrio:files/lib';
 
 Template.userAvatar.helpers({
   userData() {
@@ -218,13 +217,6 @@ BlazeComponent.extendComponent({
               },
               false,
             );
-            uploader.on('uploaded', (error, fileRef) => {
-              if (!error) {
-                self.setAvatar(
-                  `${formatFleURL(fileRef)}?auth=false&brokenIsFine=true`,
-                );
-              }
-            });
             uploader.on('error', (error, fileData) => {
               self.setError(error.reason);
             });
@@ -238,8 +230,9 @@ BlazeComponent.extendComponent({
         'click .js-select-initials'() {
           this.setAvatar('');
         },
-        'click .js-delete-avatar'() {
+        'click .js-delete-avatar'(event) {
           Avatars.remove(this.currentData()._id);
+          event.stopPropagation();
         },
       },
     ];
