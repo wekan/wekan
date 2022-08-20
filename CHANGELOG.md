@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Add support to validate avatar uploads by type, size and external program](https://github.com/wekan/wekan/pull/4648).
+  Thanks to NotTheEvilOne.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.38 2022-08-18 WeKan ® release
 
 This release adds the following new features:
