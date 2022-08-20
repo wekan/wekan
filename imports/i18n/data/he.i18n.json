@@ -295,7 +295,7 @@
     "linkCardPopup-title": "קישור כרטיס",
     "searchElementPopup-title": "חיפוש",
     "copyCardPopup-title": "העתקת כרטיס",
-    "copyManyCardsPopup-title": "Copy Template to Many Cards",
+    "copyManyCardsPopup-title": "העתקת תבנית למגוון כרטיסים",
     "copyManyCardsPopup-instructions": "כותרות ותיאורים של כרטיסי יעד בתצורת JSON זו",
     "copyManyCardsPopup-format": "[ {\"title\": \"כותרת כרטיס ראשון\", \"description\":\"תיאור כרטיס ראשון\"}, {\"title\":\"כותרת כרטיס שני\",\"description\":\"תיאור כרטיס שני\"},{\"title\":\"כותרת כרטיס אחרון\",\"description\":\"תיאור כרטיס אחרון\"} ]",
     "create": "יצירה",
@@ -1180,8 +1180,8 @@
     "action": "פעולה",
     "board-title": "כותרת לוח",
     "attachmentRenamePopup-title": "שינוי שם",
-    "uploading": "Uploading",
-    "remaining_time": "Remaining time",
-    "speed": "Speed",
-    "progress": "Progress"
+    "uploading": "העלאה",
+    "remaining_time": "זמן שנותר",
+    "speed": "מהירות",
+    "progress": "התקדמות"
 }

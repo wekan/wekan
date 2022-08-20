@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Koppel Kaart",
     "searchElementPopup-title": "Zoek",
     "copyCardPopup-title": "Kopieer kaart",
-    "copyManyCardsPopup-title": "Copy Template to Many Cards",
+    "copyManyCardsPopup-title": "Kopieer Template naar Meerdere Kaarten",
     "copyManyCardsPopup-instructions": "Doel kaart titels en omschrijvingen in dit JSON formaat",
     "copyManyCardsPopup-format": "[ {\"title\": \"Titel eerste kaart\", \"description\":\"Omschrijving eerste kaart\"}, {\"title\":\"Titel tweede kaart\",\"description\":\"Omschrijving tweede kaart\"},{\"title\":\"Titel laatste kaart\",\"description\":\"Omschrijving laatste kaart\"} ]",
     "create": "Aanmaken",
@@ -1181,7 +1181,7 @@
     "board-title": "Bord Titel",
     "attachmentRenamePopup-title": "Hernoem",
     "uploading": "Uploading",
-    "remaining_time": "Remaining time",
-    "speed": "Speed",
-    "progress": "Progress"
+    "remaining_time": "Resterende tijd",
+    "speed": "Snelheid",
+    "progress": "Voortgang"
 }

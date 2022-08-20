@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Ligar Cartão",
     "searchElementPopup-title": "Buscar",
     "copyCardPopup-title": "Copiar o cartão",
-    "copyManyCardsPopup-title": "Copy Template to Many Cards",
+    "copyManyCardsPopup-title": "Copiar Modelo para Vários Cartões",
     "copyManyCardsPopup-instructions": "Títulos e descrições do cartão de destino neste formato JSON",
     "copyManyCardsPopup-format": "[ {\"title\": \"Título do primeiro cartão\", \"description\":\"Descrição do primeiro cartão\"}, {\"title\":\"Título do segundo cartão\",\"description\":\"Descrição do segundo cartão\"},{\"title\":\"Título do último cartão\",\"description\":\"Descrição do último cartão\"} ]",
     "create": "Criar",
@@ -1180,8 +1180,8 @@
     "action": "Ação",
     "board-title": "Título do Quadro",
     "attachmentRenamePopup-title": "Renomear",
-    "uploading": "Uploading",
-    "remaining_time": "Remaining time",
-    "speed": "Speed",
-    "progress": "Progress"
+    "uploading": "Carregando",
+    "remaining_time": "Tempo restante",
+    "speed": "Velocidade",
+    "progress": "Progresso"
 }
