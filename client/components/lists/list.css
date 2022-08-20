@@ -6,7 +6,7 @@
   background: #dedede;
   border-left: 1px solid #ccc;
   padding: 0;
-  float: left;  
+  float: left;
   min-width: 270px;
   max-width: 270px;
   /* Reverted incomplete change list width: */
@@ -159,7 +159,7 @@
 #js-wip-limit-edit div {
   float: left;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 250px) {
   .mini-list {
     flex: 0 0 60px;
     height: auto;
