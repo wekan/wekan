@@ -230,8 +230,9 @@ BlazeComponent.extendComponent({
         'click .js-select-initials'() {
           this.setAvatar('');
         },
-        'click .js-delete-avatar'() {
+        'click .js-delete-avatar'(event) {
           Avatars.remove(this.currentData()._id);
+          event.stopPropagation();
         },
       },
     ];

@@ -64,18 +64,25 @@ Avatars = new FilesCollection({
     Avatars.update({ _id: fileObj._id }, { $set: { "versions": fileObj.versions } });
 
     const isValid = Promise.await(isFileValid(fileObj, avatarsUploadMimeTypes, avatarsUploadSize, avatarsUploadExternalProgram));
-    const user = Users.findOne(fileObj.userId);
 
     if (isValid) {
-      user.setAvatarUrl(`${formatFleURL(fileObj)}?auth=false&brokenIsFine=true`);
+      Users.findOne(fileObj.userId).setAvatarUrl(`${formatFleURL(fileObj)}?auth=false&brokenIsFine=true`);
     } else {
-      user.setAvatarUrl('');
       Avatars.remove(fileObj._id);
     }
   },
   interceptDownload(http, fileObj, versionName) {
     const ret = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).interceptDownload(http, this.cacheControl);
     return ret;
+  },
+  onBeforeRemove(files) {
+    files.forEach(fileObj => {
+      if (fileObj.userId) {
+        Users.findOne(fileObj.userId).setAvatarUrl('');
+      }
+    });
+
+    return true;
   },
   onAfterRemove(files) {
     files.forEach(fileObj => {
