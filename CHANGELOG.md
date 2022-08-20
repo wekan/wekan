@@ -12,6 +12,11 @@ This release adds the following new features:
 - [Add support to validate avatar uploads by type, size and external program](https://github.com/wekan/wekan/pull/4648).
   Thanks to NotTheEvilOne.
 
+and adds the following updates:
+
+- [Upgraded Snap candidate MongoDB versions](https://github.com/wekan/wekan/commit/d0f1382055278a2f78fd9d53b0dd5c3daaaf23fd).
+  Thanks to MongoDB developers.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.38 2022-08-18 WeKan ® release
