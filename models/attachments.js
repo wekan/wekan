@@ -59,7 +59,12 @@ Attachments = new FilesCollection({
       delete opts.meta.fileId;
     } else if (opts?.file?.name) {
       // Server
-      filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+      if (opts.file.extension) {
+        filenameWithoutExtension = opts.file.name.replace(new RegExp(opts.file.extensionWithDot + "$"), "")
+      } else {
+        // file has no extension, so don't replace anything, otherwise the last character is removed (because extensionWithDot = '.')
+        filenameWithoutExtension = opts.file.name;
+      }
       fileId = opts.fileId;
     }
     else {
@@ -70,6 +75,10 @@ Attachments = new FilesCollection({
     const ret = fileId + "-original-" + filenameWithoutExtension;
     // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
     return ret;
+  },
+  sanitize(str, max, replacement) {
+    // keep the original filename
+    return str;
   },
   storagePath() {
     const ret = fileStoreStrategyFactory.storagePath;
@@ -136,9 +145,6 @@ if (Meteor.isServer) {
 
       const fileObj = Attachments.findOne({_id: fileObjId});
       moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
-
-      // since Meteor-Files 2.1.0 the filename is truncated to 28 characters, so rename the file after upload to the right filename back
-      rename(fileObj, fileObj.name, fileStoreStrategyFactory);
     },
     renameAttachment(fileObjId, newName) {
       check(fileObjId, String);
