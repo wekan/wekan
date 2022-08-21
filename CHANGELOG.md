@@ -11,11 +11,18 @@ This release adds the following new features:
 
 - [Add support to validate avatar uploads by type, size and external program](https://github.com/wekan/wekan/pull/4648).
   Thanks to NotTheEvilOne.
+- [Attachment using new feature of Meteor Files 2.3.0](https://github.com/wekan/wekan/pull/4650).
+  Thanks to mfilser.
 
 and adds the following updates:
 
 - [Upgraded Snap candidate MongoDB versions](https://github.com/wekan/wekan/commit/d0f1382055278a2f78fd9d53b0dd5c3daaaf23fd).
   Thanks to MongoDB developers.
+
+and fixes the following bugs:
+
+- [Set miniscreen to 250px to get Mobile Android Firefox working](https://github.com/wekan/wekan/pull/4649).
+  Thanks to repmovs.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
