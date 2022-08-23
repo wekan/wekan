@@ -36,6 +36,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Utils.getCurrentBoard();
     this.isLoaded = new ReactiveVar(false);
+    this.observer = null;
 
     if (this.parentComponent() && this.parentComponent().parentComponent()) {
       const boardBody = this.parentComponent().parentComponent();
@@ -82,6 +83,14 @@ BlazeComponent.extendComponent({
       !Meteor.user().isCommentOnly() &&
       !Meteor.user().isWorker()
     );
+  },
+
+  scrollSelfIntoView() {
+    this.$(this.firstNode())[0].scrollIntoView({
+      behavior: 'smooth', // or "auto" or "instant"
+      block: 'start', // or "end"
+    });
+    return;
   },
 
   scrollParentContainer() {
@@ -191,6 +200,20 @@ BlazeComponent.extendComponent({
     return ret;
   },
 
+  observe() {
+    // Callback function to execute when mutations are observed
+    const callback = (mutationList, observer) => {
+      this.scrollSelfIntoView();
+    };
+
+    // Create an observer instance linked to the callback function
+    this.observer = new MutationObserver(callback);
+
+    // Start observing class mutations
+    const el = this.$(this.firstNode())[0];
+    this.observer.observe(el, { attributes: true });
+  },
+
   onRendered() {
     if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
       // Send Webhook but not create Activities records ---
@@ -224,6 +247,11 @@ BlazeComponent.extendComponent({
       }
       //-------------
     }
+
+    // scroll this element into view
+    this.scrollSelfIntoView();
+    // start observing for attribute changes (minimize/maximize actions)
+    this.observe();
 
     const $checklistsDom = this.$('.card-checklist-items');
 
@@ -318,6 +346,7 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
+    if (this.observer != null) this.observer.disconnect();
     if (this.parentComponent() === null) return;
     const parentComponent = this.parentComponent().parentComponent();
     //on mobile view parent is Board, not board body.
@@ -450,20 +479,10 @@ BlazeComponent.extendComponent({
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
-          if (!Utils.isMiniScreen()) {
-            Meteor.setTimeout(() => {
-              this.scrollParentContainer();
-            }, 500);
-          }
         },
         'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
-          if (!Utils.isMiniScreen()) {
-            Meteor.setTimeout(() => {
-              this.scrollParentContainer();
-            }, 500);
-          }
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
