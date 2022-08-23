@@ -27,6 +27,8 @@ Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));
 
 Blaze.registerHelper('isMiniScreen', () => Utils.isMiniScreen());
 
+Blaze.registerHelper('isMobileView', () => Utils.isMobileView());
+
 Blaze.registerHelper('isTouchScreen', () => Utils.isTouchScreen());
 
 Blaze.registerHelper('isShowDesktopDragHandles', () =>

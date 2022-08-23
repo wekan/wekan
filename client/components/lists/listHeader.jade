@@ -5,7 +5,7 @@ template(name="listHeader")
     +inlinedForm
       +editListTitleForm
     else
-      if isMiniScreen
+      if isMobileView
         if currentList
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
@@ -21,7 +21,7 @@ template(name="listHeader")
       if showCardsCountForList cards.count
         span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.count}}
 
-      if isMiniScreen
+      if isMobileView
         if currentList
           if isWatching
             i.list-header-watch-icon.fa.fa-eye

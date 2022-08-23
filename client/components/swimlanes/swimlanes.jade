@@ -3,7 +3,7 @@ template(name="swimlane")
     +swimlaneHeader
   unless collapseSwimlane
     .swimlane.js-lists.js-swimlane(id="swimlane-{{_id}}")
-      if isMiniScreen
+      if isMobileView
         if currentListIsInThisSwimlane _id
           +list(currentList)
         unless currentList
@@ -17,14 +17,15 @@ template(name="swimlane")
           if visible this
             +list(this)
           if currentCardIsInThisList _id ../_id
-            +cardDetails(currentCard)
+            unless isMiniScreen
+                +cardDetails(currentCard)
         if currentUser.isBoardMember
           unless currentUser.isCommentOnly
             +addListForm
 
 template(name="listsGroup")
   .swimlane.list-group.js-lists
-    if isMiniScreen
+    if isMobileView
       if currentList
         +list(currentList)
       else
@@ -38,6 +39,7 @@ template(name="listsGroup")
         if visible this
           +list(this)
         if currentCardIsInThisList _id null
+         unless isMiniScreen
           +cardDetails(currentCard)
       if currentUser.isBoardMember
         unless currentUser.isCommentOnly
@@ -45,7 +47,7 @@ template(name="listsGroup")
 
 template(name="addListForm")
   unless currentUser.isWorker
-    .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
+    .list.list-composer.js-list-composer(class="{{#if isMobileView}}mini-list{{/if}}")
       if currentUser.isBoardAdmin
         .list-header-add
           +inlinedForm(autoclose=false)

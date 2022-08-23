@@ -25,7 +25,7 @@ BlazeComponent.extendComponent({
   },
 
   onlyShowCurrentCard() {
-    return Utils.isMiniScreen() && Utils.getCurrentCardId(true);
+    return Utils.isMobileView() && Utils.getCurrentCardId(true);
   },
 
   goHome() {

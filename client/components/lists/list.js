@@ -121,24 +121,24 @@ BlazeComponent.extendComponent({
         const $boardCanvas = $('.board-canvas');
         const boardCanvas = $boardCanvas[0];
 
-        if (event.pageX < 10) { // scroll to the left
-          boardCanvas.scrollLeft -= 15;
-          ui.helper[0].offsetLeft -= 15;
+        if (event.pageX < 30) { // scroll to the left
+          boardCanvas.scrollLeft -= 7;
+          ui.helper[0].offsetLeft -= 7;
         }
         if (
-          event.pageX > boardCanvas.offsetWidth - 10 &&
+          event.pageX > boardCanvas.offsetWidth - 30 &&
           boardCanvas.scrollLeft < $boardCanvas.data('scrollLeftMax') // don't scroll more than possible
         ) { // scroll to the right
-          boardCanvas.scrollLeft += 15;
+          boardCanvas.scrollLeft += 7;
         }
         if (
-          event.pageY > boardCanvas.offsetHeight - 10 &&
+          event.pageY > boardCanvas.offsetHeight - 30 &&
           event.pageY + boardCanvas.scrollTop < $boardCanvas.data('scrollTopMax') // don't scroll more than possible
         ) { // scroll to the bottom
-          boardCanvas.scrollTop += 15;
+          boardCanvas.scrollTop += 7;
         }
-        if (event.pageY < 10) { // scroll to the top
-          boardCanvas.scrollTop -= 15;
+        if (event.pageY < 30) { // scroll to the top
+          boardCanvas.scrollTop -= 7;
         }
       },
       activate(event, ui) {
