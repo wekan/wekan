@@ -86,11 +86,13 @@ BlazeComponent.extendComponent({
   },
 
   scrollSelfIntoView() {
-    this.$(this.firstNode())[0].scrollIntoView({
-      behavior: 'smooth', // or "auto" or "instant"
-      block: 'start', // or "end"
-    });
-    return;
+    // do not scroll if cardDetails are in a popup
+    if (Utils.getPopupCardId() == null) {
+      this.$(this.firstNode())[0].scrollIntoView({
+        behavior: 'smooth', // or "auto" or "instant"
+        block: 'start', // or "end"
+      });
+    }
   },
 
   scrollParentContainer() {
