@@ -295,7 +295,7 @@
     "linkCardPopup-title": "Karte verknüpfen",
     "searchElementPopup-title": "Suche",
     "copyCardPopup-title": "Karte kopieren",
-    "copyManyCardsPopup-title": "Copy Template to Many Cards",
+    "copyManyCardsPopup-title": "Kopiere die Vorlage zu mehreren Karten",
     "copyManyCardsPopup-instructions": "Titel und Beschreibungen der Zielkarten im folgenden JSON-Format",
     "copyManyCardsPopup-format": "[ {\"title\": \"Titel der ersten Karte\", \"description\":\"Beschreibung der ersten Karte\"}, {\"title\":\"Titel der zweiten Karte\",\"description\":\"Beschreibung der zweiten Karte\"},{\"title\":\"Titel der letzten Karte\",\"description\":\"Beschreibung der letzten Karte\"} ]",
     "create": "Erstellen",
@@ -1180,8 +1180,8 @@
     "action": "Aktion",
     "board-title": "Board-Titel",
     "attachmentRenamePopup-title": "Umbenennen",
-    "uploading": "Uploading",
-    "remaining_time": "Remaining time",
-    "speed": "Speed",
-    "progress": "Progress"
+    "uploading": "Hochladen",
+    "remaining_time": "Verbleibende Zeit",
+    "speed": "Schnelligkeit",
+    "progress": "Fortschritt"
 }
