@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Try to fix EasySearch syntax](https://github.com/wekan/wekan/commit/5ca84d293080c682de9c23c6754f142e7f3cd383).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.40 2022-08-25 WeKan ® release
 
 This release fixes the following bugs:
