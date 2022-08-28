@@ -311,5 +311,5 @@ BlazeComponent.extendComponent({
 }).register('importMapMembersAddPopup');
 
 Template.importMapMembersAddPopup.helpers({
-  searchIndex: () => Users.search_index,
+  searchIndex: () => UserSearchIndex,
 })

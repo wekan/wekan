@@ -537,10 +537,9 @@ Users.allow({
 
 // Search a user in the complete server database by its name, username or emails adress. This
 // is used for instance to add a new user to a board.
-const searchInFields = ['username', 'profile.fullname', 'emails.address'];
-Users.search_index = new Index({
+UserSearchIndex = new Index({
   collection: Users,
-  fields: searchInFields,
+  fields: ['username', 'profile.fullname', 'emails.address'],
   engine: new MongoDBEngine(),
 });
 

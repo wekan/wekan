@@ -1391,7 +1391,7 @@ BlazeComponent.extendComponent({
 }).register('addMemberPopup');
 
 Template.addMemberPopup.helpers({
-  searchIndex: () => Users.search_index,
+  searchIndex: () => UserSearchIndex,
 })
 
 BlazeComponent.extendComponent({
