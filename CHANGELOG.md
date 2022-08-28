@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix check for current user at card details](https://github.com/wekan/wekan/commit/68e4e6f04921a3618d71d72b617f49c9ee85c18f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.41 2022-08-28 WeKan ® release
 
 This release fixes the following bugs:
