@@ -1579,17 +1579,19 @@ EscapeActions.register(
   () => {
     // if card description diverges from database due to editing
     // ask user whether changes should be applied
-    if (currentUser.profile.rescueCardDescription == true) {
-      currentDescription = document.getElementsByClassName("editor js-new-description-input").item(0)
-      if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription())) {
-        if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {
-          Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
-          // Save it!
-          console.log(document.getElementsByClassName("editor js-new-description-input").item(0).value);
-          console.log("current description", Utils.getCurrentCard().getDescription());
-        } else {
-          // Do nothing!
-          console.log('Description changes were not saved to the database.');
+    if (Meteor.user()) {
+      if (Meteor.user().profile.rescueCardDescription == true) {
+        currentDescription = document.getElementsByClassName("editor js-new-description-input").item(0)
+        if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription())) {
+          if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {
+            Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+            // Save it!
+            console.log(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+            console.log("current description", Utils.getCurrentCard().getDescription());
+          } else {
+            // Do nothing!
+            console.log('Description changes were not saved to the database.');
+          }
         }
       }
     }
