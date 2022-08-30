@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new translations:
+
+- [Added translations: English (Malaysia) (en_MY), Japanese (Hiragana) (ja-Hira), Malay (ms)](https://github.com/wekan/wekan/commit/17f97f6acc1827e956039f4cae5e15e7fcb0e19e).
+  Thanks to dimanLubis.
+
+and fixes the following bugs:
 
 - [Fix check for current user at card details](https://github.com/wekan/wekan/commit/68e4e6f04921a3618d71d72b617f49c9ee85c18f).
   Thanks to xet7.
