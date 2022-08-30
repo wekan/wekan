@@ -540,6 +540,7 @@ Users.allow({
 UserSearchIndex = new Index({
   collection: Users,
   fields: ['username', 'profile.fullname', 'emails.address'],
+  allowedFields: ['username', 'profile.fullname', 'emails.address'],
   engine: new MongoDBEngine(),
 });
 
