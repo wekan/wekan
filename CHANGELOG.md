@@ -15,6 +15,8 @@ This release fixes the following bugs:
   Thanks to williamtrelawny and xet7.
 - [00checkStartup, userInfo was missing](https://github.com/wekan/wekan/pull/4662).
   Thanks to mfilser.
+- [Try 2 to fix EasySearch](https://github.com/wekan/wekan/commit/a21883e3a151644ffeac921b5978157d0674c414).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
