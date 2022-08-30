@@ -11,6 +11,8 @@ This release fixes the following bugs:
 
 - [Fix check for current user at card details](https://github.com/wekan/wekan/commit/68e4e6f04921a3618d71d72b617f49c9ee85c18f).
   Thanks to xet7.
+- [Comment out CentOS 7 specific settings](https://github.com/wekan/wekan/commit/d470a74a9fe2a2029c2063d940d4573b58adf6c0).
+  Thanks to williamtrelawny and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
