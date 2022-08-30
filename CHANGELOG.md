@@ -13,6 +13,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Comment out CentOS 7 specific settings](https://github.com/wekan/wekan/commit/d470a74a9fe2a2029c2063d940d4573b58adf6c0).
   Thanks to williamtrelawny and xet7.
+- [00checkStartup, userInfo was missing](https://github.com/wekan/wekan/pull/4662).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
