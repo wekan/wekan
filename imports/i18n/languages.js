@@ -143,6 +143,12 @@ export default {
     name: "English (Italy)",
     load: () => import('./data/en-IT.i18n.json'),
   },
+  "en-MY": {
+    code: "en",
+    tag: "en-MY",
+    name: "English (Malaysia)",
+    load: () => import('./data/en-MY.i18n.json'),
+  },
   "en-YS": {
     code: "en",
     tag: "en-YS",
@@ -359,6 +365,12 @@ export default {
     name: "日本語",
     load: () => import('./data/ja.i18n.json'),
   },
+  "ja-Hira": {
+    code: "ja",
+    tag: "ja-Hira",
+    name: "平仮名",
+    load: () => import('./data/ja-HI.i18n.json'),
+  },
   "ja-JP": {
     code: "ja",
     tag: "ja-JP",
@@ -413,10 +425,16 @@ export default {
     name: "Монгол",
     load: () => import('./data/mn.i18n.json'),
   },
+  "ms": {
+    code: "ms",
+    tag: "ms",
+    name: "بهاس ملايو",
+    load: () => import('./data/ms.i18n.json'),
+  },
   "ms-MY": {
     code: "ms",
     tag: "ms-MY",
-    name: "بهاس ملايو",
+    name: "بهاس ملايو (Malaysia)",
     load: () => import('./data/ms-MY.i18n.json'),
   },
   "nb": {

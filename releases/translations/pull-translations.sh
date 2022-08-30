@@ -81,6 +81,9 @@ tx pull -f -l en_DE
 echo "English (Italy):"
 tx pull -f -l en_IT
 
+echo "English (Malaysia) (en_MY):"
+tx pull -f -l en_MY
+
 echo "English (United Kingdom):"
 tx pull -f -l en_GB
 
@@ -159,6 +162,9 @@ tx pull -f -l it
 echo "Japanese:"
 tx pull -f -l ja
 
+echo "Japanese (Hiragana):"
+tx pull -f -l ja-Hira
+
 echo "Khmer:"
 tx pull -f -l km
 
@@ -173,6 +179,9 @@ tx pull -f -l lv_LV
 
 echo "Macedonian:"
 tx pull -f -l mk
+
+echo "Malay (ms):"
+tx pull -f -l ms
 
 echo "Malay (Malaysia) (ms_MY):"
 tx pull -f -l ms_MY
