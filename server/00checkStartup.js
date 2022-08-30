@@ -1,5 +1,5 @@
-var fs = require('fs');
-var os = require('os');
+const fs = require('fs');
+const os = require('os');
 
 let errors = [];
 if (!process.env.WRITABLE_PATH) {
@@ -8,6 +8,7 @@ if (!process.env.WRITABLE_PATH) {
   try {
     fs.accessSync(process.env.WRITABLE_PATH, fs.constants.W_OK);
   } catch (err) {
+    const userInfo = os.userInfo();
     errors.push("can't write to " + process.env.WRITABLE_PATH, err);
     errors.push("the path of WRITABLE_PATH (" + process.env.WRITABLE_PATH + ") must be writable !!!");
     errors.push("username: " + userInfo["username"] + " - uid: " + userInfo["uid"] + " - gid: " + userInfo["gid"]);
