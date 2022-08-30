@@ -17,6 +17,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Try 2 to fix EasySearch](https://github.com/wekan/wekan/commit/a21883e3a151644ffeac921b5978157d0674c414).
   Thanks to xet7.
+- [Revert autologin, because it broke OIDC login with Keycloak](https://github.com/wekan/wekan/commit/43a709675394f6aade42033c14c7fb5b78ac25c8).
+  Thanks to wb9688 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
