@@ -5,34 +5,12 @@ const emailField = AccountsTemplates.removeField('email');
 let disableRegistration = false;
 let disableForgotPassword = false;
 let passwordLoginDisabled = false;
-let oidcRedirectionEnabled = false;
-let oauthServerUrl = "home";
-let oauthDashboardUrl = "";
-
-Meteor.call('isOidcRedirectionEnabled', (_, result) => {
-  if(result)
-  {
-    oidcRedirectionEnabled = true;
-  }
-});
 
 Meteor.call('isPasswordLoginDisabled', (_, result) => {
   if (result) {
     passwordLoginDisabled = true;
     //console.log('passwordLoginDisabled');
     //console.log(result);
-  }
-});
-
-Meteor.call('getOauthServerUrl', (_, result) => {
-  if (result) {
-    oauthServerUrl = result;
-  }
-});
-
-Meteor.call('getOauthDashboardUrl', (_, result) => {
-  if (result) {
-    oauthDashboardUrl = result;
   }
 });
 
@@ -81,19 +59,11 @@ AccountsTemplates.configure({
   showForgotPasswordLink: !disableForgotPassword,
   forbidClientAccountCreation: disableRegistration,
   onLogoutHook() {
-    // here comeslogic for redirect
-    if(oidcRedirectionEnabled)
-    {
-      window.location = oauthServerUrl + oauthDashboardUrl;
-    }
-    else
-    {
-      const homePage = 'home';
-      if (FlowRouter.getRouteName() === homePage) {
-        FlowRouter.reload();
-      } else {
-        FlowRouter.go(homePage);
-      }
+    const homePage = 'home';
+    if (FlowRouter.getRouteName() === homePage) {
+      FlowRouter.reload();
+    } else {
+      FlowRouter.go(homePage);
     }
   },
 });
