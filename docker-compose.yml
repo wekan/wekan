@@ -127,12 +127,13 @@ services:
     # image: wekanteam/wekan
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
-    # On CentOS 7 there is seccomp issue with glibc 6, so setting it to unconfined
-    # to get WeKan working. See:
+    # On CentOS 7 there is seccomp issue with glibc 6,
+    # so CentOS 7 users shoud use these security_opt seccomp:unconfined
+    # settings to get WeKan working. See:
     #   - https://github.com/wekan/wekan/issues/4585
     #   - https://github.com/wekan/wekan/issues/4587
-    security_opt:
-      - seccomp:unconfined
+    #security_opt:
+    #  - seccomp:unconfined
     restart: always
     networks:
       - wekan-tier
