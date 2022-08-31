@@ -24,6 +24,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Revert autologin, because it broke OIDC login with Keycloak](https://github.com/wekan/wekan/commit/43a709675394f6aade42033c14c7fb5b78ac25c8).
   Thanks to wb9688 and xet7.
+- [Remove hard-coded port 8080 binding in Dockerfile](https://github.com/wekan/wekan/pull/4663).
+  Thanks to willman42.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
