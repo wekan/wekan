@@ -20,8 +20,10 @@ and fixes the following bugs:
   Thanks to williamtrelawny and xet7.
 - [00checkStartup, userInfo was missing](https://github.com/wekan/wekan/pull/4662).
   Thanks to mfilser.
-- [Try 2 to fix EasySearch](https://github.com/wekan/wekan/commit/a21883e3a151644ffeac921b5978157d0674c414).
-  Thanks to xet7.
+- Try to fix EasySearch.
+  [Part 2](https://github.com/wekan/wekan/commit/a21883e3a151644ffeac921b5978157d0674c414),
+  [Part 3](https://github.com/wekan/wekan/commit/0d3b7ca04121abd2f170a5934672bc79112ac4ef).
+  Thanks to danielkaiser and xet7.
 - [Revert autologin, because it broke OIDC login with Keycloak](https://github.com/wekan/wekan/commit/43a709675394f6aade42033c14c7fb5b78ac25c8).
   Thanks to wb9688 and xet7.
 - [Remove hard-coded port 8080 binding in Dockerfile](https://github.com/wekan/wekan/pull/4663).
