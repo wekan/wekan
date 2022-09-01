@@ -4,7 +4,7 @@ BlazeLayout.setRoot('body');
 
 let alreadyCheck = 1;
 let isCheckDone = false;
-
+let counter = 0;
 const validator = {
   set(obj, prop, value) {
     if (prop === 'state' && value !== 'signIn') {
@@ -21,7 +21,7 @@ const validator = {
 
 // let isSettingDatabaseFctCallDone = false;
 
-Template.userFormsLayout.onCreated(function() {
+Template.userFormsLayout.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
@@ -37,7 +37,7 @@ Template.userFormsLayout.onCreated(function() {
       }
 
       // isSettingDatabaseFctCallDone = true;
-      if(currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined)
+      if (currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined)
         document.getElementById("isSettingDatabaseCallDone").style.display = 'none';
       else
         document.getElementById("isSettingDatabaseCallDone").style.display = 'block';
@@ -50,6 +50,18 @@ Template.userFormsLayout.onCreated(function() {
     }
   });
 
+  if (!Meteor.user()?.profile) {
+      Meteor.call('isOidcRedirectionEnabled', (_, result) => {
+        if (result) {
+          AccountsTemplates.options.socialLoginStyle = 'redirect';
+          options = {
+            loginStyle: AccountsTemplates.options.socialLoginStyle,
+          };
+          Meteor.loginWithOidc(options);
+        }
+        else console.log("oidc redirect not set");
+      });
+  }
   Meteor.call('isDisableRegistration', (_, result) => {
     if (result) {
       $('.at-signup-link').hide();
@@ -81,22 +93,22 @@ Template.userFormsLayout.helpers({
   //   return isSettingDatabaseFctCallDone;
   // },
 
-  isLegalNoticeLinkExist(){
+  isLegalNoticeLinkExist() {
     const currSet = Template.instance().currentSetting.get();
-    if(currSet && currSet !== undefined && currSet != null){
+    if (currSet && currSet !== undefined && currSet != null) {
       return currSet.legalNotice !== undefined && currSet.legalNotice.trim() != "";
     }
     else
       return false;
   },
 
-  getLegalNoticeWithWritTraduction(){
+  getLegalNoticeWithWritTraduction() {
     let spanLegalNoticeElt = $("#legalNoticeSpan");
-    if(spanLegalNoticeElt != null && spanLegalNoticeElt != undefined){
+    if (spanLegalNoticeElt != null && spanLegalNoticeElt != undefined) {
       spanLegalNoticeElt.html(TAPi18n.__('acceptance_of_our_legalNotice', {}));
     }
     let atLinkLegalNoticeElt = $("#legalNoticeAtLink");
-    if(atLinkLegalNoticeElt != null && atLinkLegalNoticeElt != undefined){
+    if (atLinkLegalNoticeElt != null && atLinkLegalNoticeElt != undefined) {
       atLinkLegalNoticeElt.html(TAPi18n.__('legalNotice', {}));
     }
     return true;
@@ -147,41 +159,41 @@ Template.userFormsLayout.events({
     }
     isCheckDone = false;
   },
-  'click #at-signUp'(event, templateInstance){
+  'click #at-signUp'(event, templateInstance) {
     isCheckDone = false;
   },
-  'DOMSubtreeModified #at-oidc'(event){
-    if(alreadyCheck <= 2){
+  'DOMSubtreeModified #at-oidc'(event) {
+    if (alreadyCheck <= 2) {
       let currSetting = Settings.findOne();
       let oidcBtnElt = $("#at-oidc");
-      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+      if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
         let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
-        if(alreadyCheck == 1){
+        if (alreadyCheck == 1) {
           alreadyCheck++;
           oidcBtnElt.html("");
         }
-        else{
+        else {
           alreadyCheck++;
           oidcBtnElt.html(htmlvalue);
         }
       }
     }
-    else{
+    else {
       alreadyCheck = 1;
     }
   },
-  'DOMSubtreeModified .at-form'(event){
-    if(alreadyCheck <= 2 && !isCheckDone){
-      if(document.getElementById("at-oidc") != null){
+  'DOMSubtreeModified .at-form'(event) {
+    if (alreadyCheck <= 2 && !isCheckDone) {
+      if (document.getElementById("at-oidc") != null) {
         let currSetting = Settings.findOne();
         let oidcBtnElt = $("#at-oidc");
-        if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
+        if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
           let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
-          if(alreadyCheck == 1){
+          if (alreadyCheck == 1) {
             alreadyCheck++;
             oidcBtnElt.html("");
           }
-          else{
+          else {
             alreadyCheck++;
             isCheckDone = true;
             oidcBtnElt.html(htmlvalue);
@@ -189,7 +201,7 @@ Template.userFormsLayout.events({
         }
       }
     }
-    else{
+    else {
       alreadyCheck = 1;
     }
   },
@@ -221,7 +233,7 @@ async function authentication(event, templateInstance) {
   switch (result) {
     case 'ldap':
       return new Promise(resolve => {
-        Meteor.loginWithLDAP(match, password, function() {
+        Meteor.loginWithLDAP(match, password, function () {
           resolve(FlowRouter.go('/'));
         });
       });
@@ -233,7 +245,7 @@ async function authentication(event, templateInstance) {
           {
             provider,
           },
-          function() {
+          function () {
             resolve(FlowRouter.go('/'));
           },
         );
@@ -241,7 +253,7 @@ async function authentication(event, templateInstance) {
 
     case 'cas':
       return new Promise(resolve => {
-        Meteor.loginWithCas(match, password, function() {
+        Meteor.loginWithCas(match, password, function () {
           resolve(FlowRouter.go('/'));
         });
       });
@@ -267,7 +279,6 @@ function getUserAuthenticationMethod(defaultAuthenticationMethod, match) {
       Meteor.subscribe('user-authenticationMethod', match, {
         onReady() {
           const user = Users.findOne();
-
           const authenticationMethod = user
             ? user.authenticationMethod
             : defaultAuthenticationMethod;
