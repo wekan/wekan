@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Revert Remove hard-coded port 8080 binding in Dockerfile](https://github.com/wekan/wekan/pull/4667).
+  Thanks to willman42.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.42 2022-08-31 WeKan ® release
 
 This release adds the following new translations:
