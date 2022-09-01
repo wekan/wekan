@@ -346,6 +346,8 @@ RUN \
     #rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
 
+ENV PORT=8080
+EXPOSE $PORT
 USER wekan
 
 #---------------------------------------------------------------------
