@@ -171,12 +171,6 @@ services:
       #  - http://192.168.1.100    <=== using at local LAN
       - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
-      # ==== DEFAULT PORT SETTING ====
-      # By default, Wekan will bind to TCP port 8080. If you need to change this to work with your
-      # reverse proxy settings or other Docker network topology requirements, change this value.
-      #  - Remember to change the above port binding if you change this value!
-      - PORT=8080
-      #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.
       # Admin Panel has test button, but it's not used for settings.
