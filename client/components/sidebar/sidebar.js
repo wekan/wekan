@@ -330,6 +330,14 @@ BlazeComponent.extendComponent({
   isLoading() {
     return this.loading.get();
   },
+
+  tabs() {
+    return [
+      { name: TAPi18n.__('people'), slug: 'people' },
+      { name: TAPi18n.__('organizations'), slug: 'organizations' },
+      { name: TAPi18n.__('teams'), slug: 'teams' },
+    ];
+  },
 }).register('membersWidget');
 
 Template.membersWidget.helpers({
