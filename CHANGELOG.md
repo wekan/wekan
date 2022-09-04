@@ -23,6 +23,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Removed old stuff from Dockerfile](https://github.com/wekan/wekan/commit/77927a1ca4fb9bf9c68fe823cf0dd9a95f310879).
   Thanks to xet7.
+- [Fix building Dockerfile on Mac M1 etc](https://github.com/wekan/wekan/commit/3772ce3acab5a7421144df3a538def33baf0eda4).
+  Thanks to willman42 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
