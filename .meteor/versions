@@ -83,7 +83,7 @@ livedata@1.0.18
 lmieulet:meteor-coverage@1.1.4
 localstorage@1.2.0
 logging@1.3.1
-matb33:collection-hooks@1.1.2
+matb33:collection-hooks@1.1.4
 mdg:validation-error@0.5.1
 meteor@1.10.0
 meteor-autosize@5.0.1
