@@ -1,5 +1,10 @@
-FROM ubuntu:22.04
+FROM --platform=linux/amd64 ubuntu:22.04 as wekan
 LABEL maintainer="wekan"
+
+# 2022-09-04:
+# - above "--platform=linux/amd64 ubuntu:22.04 as wekan" is needed to build Dockerfile
+#   correctly on Mac M1 etc, to not get this error:
+#   https://stackoverflow.com/questions/71040681/qemu-x86-64-could-not-open-lib64-ld-linux-x86-64-so-2-no-such-file-or-direc
 
 # 2022-04-25:
 # - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
@@ -17,7 +22,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
     NODE_VERSION=v14.20.0 \
-    METEOR_RELEASE=1.10.2 \
+    METEOR_RELEASE=2.7.3 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
