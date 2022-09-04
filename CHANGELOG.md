@@ -21,6 +21,8 @@ and fixes the following bugs:
 
 - [Added missing currentUser](https://github.com/wekan/wekan/commit/3a0269640b7fad0d40dc3b65f559f5124f4256b6).
   Thanks to xet7.
+- [Removed old stuff from Dockerfile](https://github.com/wekan/wekan/commit/77927a1ca4fb9bf9c68fe823cf0dd9a95f310879).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
