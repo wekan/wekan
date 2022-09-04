@@ -5,6 +5,20 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Add tab view to sidebar members: people, orgs and teams](https://github.com/wekan/wekan/pull/4672).
+  Thanks to helioguardabaxo.
+
+and fixes the following bugs:
+
+- [Added missing currentUser](https://github.com/wekan/wekan/commit/3a0269640b7fad0d40dc3b65f559f5124f4256b6).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.43 2022-09-01 WeKan ® release
 
 This release fixes the following bugs:
