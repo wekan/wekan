@@ -15,6 +15,7 @@ template(name="sidebar")
         +Template.dynamic(template=getViewTemplate)
 
 template(name='homeSidebar')
+  hr
   +membersWidget
   hr
   +labelsWidget
@@ -31,61 +32,59 @@ template(name='homeSidebar')
     +activities(mode="board")
 
 template(name="membersWidget")
-  if AtLeastOneOrgWasCreated
-    .board-widget.board-widget-members
+  unless currentUser.isCommentOnly
+    unless currentUser.isWorker
       h3
-        i.fa.fa-users
-        | {{_ 'organizations'}}
-
-      .board-widget-content
-        +boardOrgGeneral
-        .clearfix
-    br
-    hr
-  if AtLeastOneTeamWasCreated
-    .board-widget.board-widget-members
-      h3
-        i.fa.fa-users
-        | {{_ 'teams'}}
-
-      .board-widget-content
-        +boardTeamGeneral
-        .clearfix
-    br
-    hr
+        a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
+          i.board-header-btn-icon.fa.fa-cog
+          | {{_ 'boardMenuPopup-title'}}
   .board-widget.board-widget-members
-    h3
-      i.fa.fa-users
-      | {{_ 'members'}}
-
       .sidebar-shortcuts
         a.board-header-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
           i.fa.fa-keyboard-o
           span {{_ 'keyboard-shortcuts' }}
-
-      unless currentUser.isCommentOnly
-        unless currentUser.isWorker
-          a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}").right
-            i.board-header-btn-icon.fa.fa-cog
-
-    .board-widget-content
-      each currentBoard.activeMembers
-        +userAvatar(userId=this.userId showStatus=true)
-      if isSandstorm
-        if currentUser.isBoardMember
-          a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
-            i.fa.fa-plus
-      else if currentUser.isBoardAdmin
-        a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
-          i.fa.fa-plus
-      .clearfix
-  if isInvited
-    hr
-    p
-      i.fa.fa-exclamation-circle
-      | {{_ 'just-invited'}}
-    button.js-member-invite-accept.primary {{_ 'accept'}}
-    button.js-member-invite-decline {{_ 'decline'}}
+  hr
+  h3
+    i.fa.fa-users
+    | {{_ 'members'}}
+  +basicTabs(tabs=tabs)
+      +tabContent(slug="people")
+        unless isWorker
+          p.quiet
+        .board-widget-content
+          each currentBoard.activeMembers
+            +userAvatar(userId=this.userId showStatus=true)
+          if isSandstorm
+            if currentUser.isBoardMember
+              a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
+                i.fa.fa-plus
+          else if currentUser.isBoardAdmin
+            a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
+              i.fa.fa-plus
+          .clearfix
+          if isInvited
+            hr
+            p
+              i.fa.fa-exclamation-circle
+              | {{_ 'just-invited'}}
+            button.js-member-invite-accept.primary {{_ 'accept'}}
+            button.js-member-invite-decline {{_ 'decline'}}
+      +tabContent(slug='organizations')
+        unless isWorker
+          p.quiet
+        if AtLeastOneOrgWasCreated
+          .board-widget.board-widget-members
+            .board-widget-content
+              +boardOrgGeneral
+              .clearfix
+      +tabContent(slug="teams")
+        unless isWorker
+          p.quiet
+        if AtLeastOneTeamWasCreated
+          .board-widget.board-widget-members
+            .board-widget-content
+              +boardTeamGeneral
+              .clearfix
 
 template(name="boardOrgGeneral")
   table
