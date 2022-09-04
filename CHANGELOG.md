@@ -12,6 +12,11 @@ This release adds the following new features:
 - [Add tab view to sidebar members: people, orgs and teams](https://github.com/wekan/wekan/pull/4672).
   Thanks to helioguardabaxo.
 
+and adds the following updates:
+
+- [Updated matb33:collection-hooks](https://github.com/wekan/wekan/commit/0f6d84d69f286c8191e8d3a6eee59bc3f6845ad1).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Added missing currentUser](https://github.com/wekan/wekan/commit/3a0269640b7fad0d40dc3b65f559f5124f4256b6).
