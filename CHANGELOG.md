@@ -25,6 +25,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix building Dockerfile on Mac M1 etc](https://github.com/wekan/wekan/commit/3772ce3acab5a7421144df3a538def33baf0eda4).
   Thanks to willman42 and xet7.
+- [Fix 2) Due date is not created nor changed, when cards are moved in the calendar view](https://github.com/wekan/wekan/commit/6b4613d3ed6020b4072fe6540da5fdb0b2e85ac7).
+  Thanks to DimDz.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
