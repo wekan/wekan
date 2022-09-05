@@ -411,8 +411,10 @@ BlazeComponent.extendComponent({
         if (card) {
           // TODO: add a flag for allDay events
           if (!event.allDay) {
-            card.setStart(event.start.toDate());
-            card.setEnd(event.end.toDate());
+            // https://github.com/wekan/wekan/issues/2917#issuecomment-1236753962
+            //card.setStart(event.start.toDate());
+            //card.setEnd(event.end.toDate());
+            card.setDue(event.start.toDate());
             isOk = true;
           }
         }
