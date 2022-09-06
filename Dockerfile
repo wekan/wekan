@@ -348,6 +348,8 @@ RUN \
 
 USER wekan
 
+STOPSIGNAL SIGKILL
+
 #---------------------------------------------------------------------
 # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
 # Add more Node heap:
