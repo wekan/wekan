@@ -34,13 +34,13 @@ template(name="checklistDetail")
           a.fa.fa-navicon.checklist-details-menu.js-open-checklist-details-menu(title="{{_ 'checklistActionsPopup-title'}}")
 
         if canModifyCard
-          h2.title.js-open-inlined-form.is-editable
+          h4.title.js-open-inlined-form.is-editable
             if isTouchScreenOrShowDesktopDragHandles
               span.fa.checklist-handle(class="fa-arrows" title="{{_ 'dragChecklist'}}")
             +viewer
               = checklist.title
         else
-          h2.title
+          h4.title
             +viewer
                 = checklist.title
 
