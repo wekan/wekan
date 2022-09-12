@@ -7,10 +7,22 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Add ARIA in checklist items](https://github.com/wekan/wekan/pull/4677).
+  Thanks to helioguardabaxo.
+- [Heading hierarchy fixed on checklist title to simplify screen reader](https://github.com/wekan/wekan/pull/4680).
+  Thanks to helioguardabaxo.
+
+and adds the following updates:
 
 - [Add starting wekan test to arm64/s390x/ppc64el release scripts](https://github.com/wekan/wekan/commit/51ed0acc4f84ebce497f52a3267e57f554b3cd30).
   Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Avoid non-terminating containers](https://github.com/wekan/wekan/pull/4675).
+  Thanks to bronger.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
