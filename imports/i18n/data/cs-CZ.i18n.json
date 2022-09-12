@@ -512,7 +512,7 @@
     "normal": "Normální",
     "normal-desc": "Může zobrazovat a upravovat karty. Nemůže měnit nastavení.",
     "not-accepted-yet": "Pozvánka ještě nebyla přijmuta",
-    "notify-participate": "Dostane aktualizace do všech karet, ve kterých se účastní jako tvůrce nebo člen",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Dostane aktualitace to všech tabel, sloupců nebo karet, které sledujete",
     "optional": "volitelný",
     "or": "nebo",
@@ -1183,5 +1183,7 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account"
 }

@@ -512,7 +512,7 @@
     "normal": "Tavaline",
     "normal-desc": "Saab vaadata ja redigeerida kaarte. Ei saa seadistusi muuta.",
     "not-accepted-yet": "Kutse ei ole veel vastu võetud",
-    "notify-participate": "Saate uuendusi kõikide kaartide kohta, milles osalete loojana või liikmena.",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Saate uuendusi kõikidest tahvlitest, nimekirjadest või kaartidest, mida jälgite.",
     "optional": "vabatahtlik",
     "or": "või",
@@ -1183,5 +1183,7 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account"
 }

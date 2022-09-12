@@ -512,7 +512,7 @@
     "normal": "Обычный",
     "normal-desc": "Может редактировать карточки. Не может управлять настройками.",
     "not-accepted-yet": "Приглашение еще не принято",
-    "notify-participate": "Получать обновления по любым карточкам, которые вы создавали или участником которых являетесь.",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Получать обновления по любым доскам, спискам и карточкам, на которые вы подписаны как наблюдатель.",
     "optional": "не обязательно",
     "or": "или",
@@ -1183,5 +1183,6 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)"
 }

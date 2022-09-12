@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Pode ver e editar cartões. Não pode alterar configurações.",
     "not-accepted-yet": "Convite ainda não aceito",
-    "notify-participate": "Receber atualizações de qualquer card que você criar ou participar como membro",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Receber atualizações de qualquer board, lista ou cards que você estiver observando",
     "optional": "opcional",
     "or": "ou",
@@ -1183,5 +1183,6 @@
     "uploading": "Carregando",
     "remaining_time": "Tempo restante",
     "speed": "Velocidade",
-    "progress": "Progresso"
+    "progress": "Progresso",
+    "password-again": "Password (again)"
 }

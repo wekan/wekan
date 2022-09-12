@@ -512,7 +512,7 @@
     "normal": "普通",
     "normal-desc": "可以建立以及編輯卡片，無法更改。",
     "not-accepted-yet": "邀請尚未接受",
-    "notify-participate": "接收與你有關的卡片更新",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "接收您關注的看板、清單或卡片的更新",
     "optional": "選擇性的",
     "or": "或",
@@ -1183,5 +1183,7 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account"
 }

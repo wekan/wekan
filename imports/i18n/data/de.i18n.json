@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Kann Karten anzeigen und bearbeiten, aber keine Einstellungen ändern.",
     "not-accepted-yet": "Die Einladung wurde noch nicht angenommen",
-    "notify-participate": "Benachrichtigungen zu allen Karten erhalten, an denen Sie teilnehmen",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Benachrichtigungen über alle Boards, Listen oder Karten erhalten, die Sie beobachten",
     "optional": "optional",
     "or": "oder",
@@ -1183,5 +1183,7 @@
     "uploading": "Hochladen",
     "remaining_time": "Verbleibende Zeit",
     "speed": "Schnelligkeit",
-    "progress": "Fortschritt"
+    "progress": "Fortschritt",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account"
 }

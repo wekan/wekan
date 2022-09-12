@@ -512,7 +512,7 @@
     "normal": "Normál",
     "normal-desc": "Megtekintheti és szerkesztheti a kártyákat. Nem változtathatja meg a beállításokat.",
     "not-accepted-yet": "A meghívás még nincs elfogadva",
-    "notify-participate": "Frissítések fogadása bármely kártyánál, amelynél létrehozóként vagy tagként vesz részt",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Frissítések fogadása bármely táblánál, listánál vagy kártyánál, amelyet megtekint",
     "optional": "opcionális",
     "or": "vagy",
@@ -1183,5 +1183,8 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

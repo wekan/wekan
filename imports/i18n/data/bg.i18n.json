@@ -512,7 +512,7 @@
     "normal": "Нормално",
     "normal-desc": "Can view and edit cards. Can't change settings.",
     "not-accepted-yet": "Invitation not accepted yet",
-    "notify-participate": "Получавате информация за всички карти, в които сте отбелязани или сте създали",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Получавате информация за всички табла, списъци и карти, които наблюдавате",
     "optional": "не е задължително",
     "or": "или",
@@ -1183,5 +1183,7 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account"
 }

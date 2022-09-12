@@ -512,7 +512,7 @@
     "normal": "Użytkownik standardowy",
     "normal-desc": "Może widzieć i edytować karty. Nie może zmieniać ustawiań.",
     "not-accepted-yet": "Zaproszenie jeszcze niezaakceptowane",
-    "notify-participate": "Otrzymuj informacje o aktywności w kartach, które stworzyłeś(aś) lub których jesteś użytkownikiem",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Otrzymuj powiadomienia z tablic, list i kart, które obserwujesz",
     "optional": "opcjonalny",
     "or": "lub",
@@ -1183,5 +1183,6 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)"
 }

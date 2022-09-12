@@ -512,7 +512,7 @@
     "normal": "عادی",
     "normal-desc": "امکان نمایش و تنظیم کارت بدون امکان تغییر تنظیمات",
     "not-accepted-yet": "دعوت نامه هنوز پذیرفته نشده است",
-    "notify-participate": "اطلاع رسانی از هرگونه تغییر در کارتهایی که ایجاد کرده اید ویا عضو آن هستید",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "اطلاع رسانی از هرگونه تغییر در بردها، لیست‌ها یا کارت‌هایی که از آنها دیده‌بانی می‌کنید",
     "optional": "انتخابی",
     "or": "یا",
@@ -1183,5 +1183,8 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

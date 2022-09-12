@@ -512,7 +512,7 @@
     "normal": "Normalno",
     "normal-desc": "Lahko gleda in ureja kartice. Ne more spreminjati nastavitev.",
     "not-accepted-yet": "Povabilo še ni sprejeto.",
-    "notify-participate": "Prejemajte posodobitve kartic, na katerih sodelujete kot ustvarjalec ali član",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Prejemajte posodobitve opazovanih tabel, seznamov ali kartic",
     "optional": "opcijsko",
     "or": "ali",
@@ -1183,5 +1183,6 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)"
 }
