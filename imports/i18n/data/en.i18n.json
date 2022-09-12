@@ -1185,5 +1185,6 @@
   "uploading": "Uploading",
   "remaining_time": "Remaining time",
   "speed": "Speed",
-  "progress": "Progress"
+  "progress": "Progress",
+  "password-again": "Password (again)"
 }
