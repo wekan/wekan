@@ -1186,5 +1186,6 @@
     "progress": "进度",
     "password-again": "Password (again)",
     "if-you-already-have-an-account": "If you already have an account",
-    "register": "Register"
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

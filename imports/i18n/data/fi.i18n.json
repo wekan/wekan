@@ -1186,5 +1186,6 @@
     "progress": "Edistyminen",
     "password-again": "Salasana (uudelleen)",
     "if-you-already-have-an-account": "Jos sinulla on jo tili",
-    "register": "Rekisteröidy"
+    "register": "Rekisteröidy",
+    "forgot-password": "Unohtuiko salasana"
 }
