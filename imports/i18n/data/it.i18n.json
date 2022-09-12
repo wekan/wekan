@@ -512,7 +512,7 @@
     "normal": "Normale",
     "normal-desc": "Può visionare e modificare le schede. Non può cambiare le impostazioni.",
     "not-accepted-yet": "Invitato non ancora accettato",
-    "notify-participate": "Ricevi aggiornamenti per qualsiasi scheda a cui partecipi come creatore o membro",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Ricevi aggiornamenti per tutte le bacheche, liste o schede che stai seguendo",
     "optional": "opzionale",
     "or": "oppure",
@@ -1183,5 +1183,8 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

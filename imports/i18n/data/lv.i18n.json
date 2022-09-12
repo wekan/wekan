@@ -512,7 +512,7 @@
     "normal": "Normāls",
     "normal-desc": "Var skatīties un labot kartiņas. Nevar mainīt iestatījumus.",
     "not-accepted-yet": "Ielūgums nav vēl apstiprināts",
-    "notify-participate": "Saņemt ziņojumus par izmaiņām kartiņās kurām esat veidotājs vai dalībnieks",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Saņemt ziņojumus no dēļiem, sarakstiem vai kartiņām kurām sekojat",
     "optional": "nav obligāts",
     "or": "vai",
@@ -1184,5 +1184,7 @@
     "remaining_time": "Remaining time",
     "speed": "Speed",
     "progress": "Progress",
-    "password-again": "Password (again)"
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

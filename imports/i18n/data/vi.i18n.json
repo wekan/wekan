@@ -512,7 +512,7 @@
     "normal": "Bình thường",
     "normal-desc": "Có thể xem và chỉnh sửa thẻ. Không thể thay đổi cài đặt.",
     "not-accepted-yet": "Lời mời chưa được chấp nhận",
-    "notify-participate": "Nhận thông tin cập nhật cho bất kỳ thẻ nào bạn tham gia với tư cách là người sáng tạo hoặc thành viên",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Nhận thông tin cập nhật cho bất kỳ bảng, danh sách hoặc thẻ nào bạn đang xem",
     "optional": "không bắt buộc",
     "or": "hoặc",
@@ -1183,5 +1183,8 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

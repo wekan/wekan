@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Kartları görüntüleyebilir ve düzenleyebilir. Ayarları değiştiremez.",
     "not-accepted-yet": "Davet henüz kabul edilmemiş",
-    "notify-participate": "Oluşturduğunuz veya üye olduğunuz tüm kartlar hakkında bildirim al",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Takip ettiğiniz tüm pano, liste ve kartlar hakkında bildirim al",
     "optional": "isteğe bağlı",
     "or": "veya",
@@ -1183,5 +1183,8 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

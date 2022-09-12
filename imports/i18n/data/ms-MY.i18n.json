@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Can view and edit cards. Can't change settings.",
     "not-accepted-yet": "Invitation not accepted yet",
-    "notify-participate": "Receive updates to any cards you participate as creater or member",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Receive updates to any boards, lists, or cards you’re watching",
     "optional": "optional",
     "or": "or",
@@ -1184,5 +1184,7 @@
     "remaining_time": "Remaining time",
     "speed": "Speed",
     "progress": "Progress",
-    "password-again": "Password (again)"
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

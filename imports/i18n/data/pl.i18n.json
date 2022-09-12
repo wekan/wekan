@@ -1184,5 +1184,7 @@
     "remaining_time": "Remaining time",
     "speed": "Speed",
     "progress": "Progress",
-    "password-again": "Password (again)"
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }

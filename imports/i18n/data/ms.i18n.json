@@ -1182,7 +1182,9 @@
     "attachmentRenamePopup-title": "Ubah Nama",
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
-    "speed": "Speed",
-    "progress": "Progress",
-    "password-again": "Password (again)"
+    "speed": "Kelajua",
+    "progress": "Perkembangan",
+    "password-again": "Katalaluan(sekali lagi)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register"
 }
