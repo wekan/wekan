@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
     "not-accepted-yet": "L'invitation n'a pas encore été acceptée",
-    "notify-participate": "Receive updates to any cards you participate as creator or member",
+    "notify-participate": "Recevoir les mises à jour de toutes les cartes auxquelles vous participez en tant que créateur ou que participant",
     "notify-watch": "Recevoir les mises à jour de tous les tableaux, listes ou cartes que vous suivez",
     "optional": "optionnel",
     "or": "ou",
@@ -1184,8 +1184,8 @@
     "remaining_time": "Temps restant",
     "speed": "Vitesse",
     "progress": "Avancement",
-    "password-again": "Password (again)",
-    "if-you-already-have-an-account": "If you already have an account",
-    "register": "Register",
-    "forgot-password": "Forgot password"
+    "password-again": "Mot de passe (à nouveau)",
+    "if-you-already-have-an-account": "Si vous avez déjà un compte",
+    "register": "S'enregistrer",
+    "forgot-password": "Mot de passe oublié"
 }

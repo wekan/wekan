@@ -512,7 +512,7 @@
     "normal": "רגיל",
     "normal-desc": "הרשאה לצפות ולערוך כרטיסים. לא ניתן לשנות הגדרות.",
     "not-accepted-yet": "ההזמנה לא אושרה עדיין",
-    "notify-participate": "Receive updates to any cards you participate as creator or member",
+    "notify-participate": "קבלת עדכונים על כרטיסים בהם יש לך מעורבות הן בתהליך היצירה והן בחברות",
     "notify-watch": "קבלת עדכונים על כל לוח, רשימה או כרטיס שסימנת למעקב",
     "optional": "רשות",
     "or": "או",
@@ -1184,8 +1184,8 @@
     "remaining_time": "זמן שנותר",
     "speed": "מהירות",
     "progress": "התקדמות",
-    "password-again": "Password (again)",
-    "if-you-already-have-an-account": "If you already have an account",
-    "register": "Register",
-    "forgot-password": "Forgot password"
+    "password-again": "סיסמה (שוב)",
+    "if-you-already-have-an-account": "אם כבר יש לך חשבון",
+    "register": "הרשמה",
+    "forgot-password": "שכחתי סיסמה"
 }
