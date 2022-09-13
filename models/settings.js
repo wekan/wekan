@@ -72,6 +72,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    customHelpLinkUrl: {
+      type: String,
+      optional: true,
+    },
     textBelowCustomLoginLogo: {
       type: String,
       optional: true,
