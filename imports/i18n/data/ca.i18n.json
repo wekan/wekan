@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Podeu veure i editar fitxes. No podeu canviar la configuració.",
     "not-accepted-yet": "La invitació no ha esta acceptada encara",
-    "notify-participate": "Rebre actualitzacions per a cada fitxa de la qual n'ets creador o membre",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Rebre actualitzacions per qualsevol tauler, llista o fitxa en observació",
     "optional": "opcional",
     "or": "o",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

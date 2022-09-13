@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Puede ver y editar tarjetas. No puede cambiar opciones.",
     "not-accepted-yet": "Invitación no aceptada todavía",
-    "notify-participate": "Recibí actualizaciones en cualquier tarjeta que participés como creador o miembro",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Recibí actualizaciones en cualquier tablero, lista, o tarjeta que estés siguiendo",
     "optional": "opcional",
     "or": "o",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

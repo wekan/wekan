@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Du kan se og redigere kort. Indstillinger kan ikke ændres.",
     "not-accepted-yet": "Invitation er endnu ikke accepteret",
-    "notify-participate": "Modtag opdateringer for alle kort du deltager i, som opretter eller medlem ",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Modtag opdateringer for alle tavler eller kort som du følger ",
     "optional": "valgfri",
     "or": "eller",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

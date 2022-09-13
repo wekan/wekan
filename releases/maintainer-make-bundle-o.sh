@@ -32,3 +32,7 @@ cd ..
 (cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm remove bcrypt && npm install bcrypt)
 
 7z a wekan-$1-ppc64le.zip bundle
+
+sudo snap start juju-db
+
+./start-wekan.sh

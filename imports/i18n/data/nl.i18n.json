@@ -512,7 +512,7 @@
     "normal": "Normaal",
     "normal-desc": "Kan de kaarten zien en wijzigen. Kan de instellingen niet wijzigen.",
     "not-accepted-yet": "Uitnodiging nog niet geaccepteerd",
-    "notify-participate": "Ontvang updates van elke kaart die je hebt aangemaakt of lid van bent",
+    "notify-participate": "Ontvang updates op kaarten waar je lid of maker van bent",
     "notify-watch": "Ontvang updates van elke bord, lijst of kaart die je bekijkt.",
     "optional": "optioneel",
     "or": "of",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Resterende tijd",
     "speed": "Snelheid",
-    "progress": "Voortgang"
+    "progress": "Voortgang",
+    "password-again": "Wachtwoord (nogmaals)",
+    "if-you-already-have-an-account": "Als je al een account hebt",
+    "register": "Registreer",
+    "forgot-password": "Wachtwoord vergeten"
 }

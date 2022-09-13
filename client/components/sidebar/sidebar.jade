@@ -49,7 +49,7 @@ template(name="membersWidget")
     | {{_ 'members'}}
   +basicTabs(tabs=tabs)
       +tabContent(slug="people")
-        unless isWorker
+        unless currentUser.isWorker
           p.quiet
         .board-widget-content
           each currentBoard.activeMembers
@@ -70,7 +70,7 @@ template(name="membersWidget")
             button.js-member-invite-accept.primary {{_ 'accept'}}
             button.js-member-invite-decline {{_ 'decline'}}
       +tabContent(slug='organizations')
-        unless isWorker
+        unless currentUser.isWorker
           p.quiet
         if AtLeastOneOrgWasCreated
           .board-widget.board-widget-members
@@ -78,7 +78,7 @@ template(name="membersWidget")
               +boardOrgGeneral
               .clearfix
       +tabContent(slug="teams")
-        unless isWorker
+        unless currentUser.isWorker
           p.quiet
         if AtLeastOneTeamWasCreated
           .board-widget.board-widget-members

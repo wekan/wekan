@@ -512,7 +512,7 @@
     "normal": "표준",
     "normal-desc": "카드를 보거나 수정할 수 있습니다. 설정값은 변경할 수 없습니다.",
     "not-accepted-yet": "초대장이 수락되지 않았습니다.",
-    "notify-participate": "보드 생성자 또는 멤버로 참여하는 모든 카드에 대한 변경사항 알림 받음",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "감시중인 보드, 목록 또는 카드에 대한 변경사항 알림 받음",
     "optional": "옵션",
     "or": "또는",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

@@ -5,6 +5,54 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Add ARIA in checklist items](https://github.com/wekan/wekan/pull/4677).
+  Thanks to helioguardabaxo.
+- [Heading hierarchy fixed on checklist title to simplify screen reader](https://github.com/wekan/wekan/pull/4680).
+  Thanks to helioguardabaxo.
+- [Add info about RTL languages to Meteor WeKan. Not used in Meteor WeKan yet](https://github.com/wekan/wekan/commit/cf7c0512422178be23d287cce269a7b854a2bc21).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Add starting wekan test to arm64/s390x/ppc64el release scripts](https://github.com/wekan/wekan/commit/51ed0acc4f84ebce497f52a3267e57f554b3cd30).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Avoid non-terminating containers](https://github.com/wekan/wekan/pull/4675).
+  Thanks to bronger.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.44 2022-09-05 WeKan ® release
+
+This release adds the following new features:
+
+- [Add tab view to sidebar members: people, orgs and teams](https://github.com/wekan/wekan/pull/4672).
+  Thanks to helioguardabaxo.
+
+and adds the following updates:
+
+- [Updated matb33:collection-hooks](https://github.com/wekan/wekan/commit/0f6d84d69f286c8191e8d3a6eee59bc3f6845ad1).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Added missing currentUser](https://github.com/wekan/wekan/commit/3a0269640b7fad0d40dc3b65f559f5124f4256b6).
+  Thanks to xet7.
+- [Removed old stuff from Dockerfile](https://github.com/wekan/wekan/commit/77927a1ca4fb9bf9c68fe823cf0dd9a95f310879).
+  Thanks to xet7.
+- [Fix building Dockerfile on Mac M1 etc](https://github.com/wekan/wekan/commit/3772ce3acab5a7421144df3a538def33baf0eda4).
+  Thanks to willman42 and xet7.
+- [Fix 2) Due date is not created nor changed, when cards are moved in the calendar view](https://github.com/wekan/wekan/commit/6b4613d3ed6020b4072fe6540da5fdb0b2e85ac7).
+  Thanks to DimDz.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.43 2022-09-01 WeKan ® release
 
 This release fixes the following bugs:

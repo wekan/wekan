@@ -512,7 +512,7 @@
     "normal": "Normaali",
     "normal-desc": "Voi nähdä ja muokata kortteja. Ei voi muokata asetuksia.",
     "not-accepted-yet": "Kutsua ei ole hyväksytty vielä",
-    "notify-participate": "Vastaanota päivityksiä kaikilta korteilta jotka olet tehnyt tai joihin osallistut.",
+    "notify-participate": "Vastaanota päivityksiä kaikilta korteilta jotka olet tehnyt tai joissa olet luoja tai jäsen",
     "notify-watch": "Vastaanota päivityksiä kaikilta tauluilta, listoilta tai korteilta joita seuraat.",
     "optional": "valinnainen",
     "or": "tai",
@@ -1183,5 +1183,9 @@
     "uploading": "Upataan",
     "remaining_time": "Jäljellä oleva aika",
     "speed": "Nopeus",
-    "progress": "Edistyminen"
+    "progress": "Edistyminen",
+    "password-again": "Salasana (uudelleen)",
+    "if-you-already-have-an-account": "Jos sinulla on jo tili",
+    "register": "Rekisteröidy",
+    "forgot-password": "Unohtuiko salasana"
 }

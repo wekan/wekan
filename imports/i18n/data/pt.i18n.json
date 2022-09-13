@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Pode ver e editar cartões. Não pode alterar configurações.",
     "not-accepted-yet": "Convite ainda não aceite",
-    "notify-participate": "Receber actualizações de qualquer cartão que criar ou participar como membro",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Receber actualizações de qualquer quadro, lista ou cartões que estiver a observar",
     "optional": "opcional",
     "or": "ou",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

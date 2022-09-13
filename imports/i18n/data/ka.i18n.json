@@ -512,7 +512,7 @@
     "normal": "ნორმალური",
     "normal-desc": "შეუძლია ნახოს და შეასწოროს ბარათები. ამ პარამეტრების შეცვლა შეუძლებელია. ",
     "not-accepted-yet": "მოწვევა ჯერ არ დადასტურებულა",
-    "notify-participate": "მიიღეთ განახლებები ნებისმიერ ბარათზე, რომელშიც მონაწილეობთ, როგორც შემქმნელი ან წევრი. ",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "მიიღეთ განახლებები ყველა დაფაზე, ჩამონათვალზე ან ბარათებზე, რომელსაც თქვენ აკვირდებით",
     "optional": "არჩევითი",
     "or": "ან",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

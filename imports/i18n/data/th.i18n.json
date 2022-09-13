@@ -512,7 +512,7 @@
     "normal": "ธรรมดา",
     "normal-desc": "สามารถดูและแก้ไขการ์ดได้ แต่ไม่สามารถเปลี่ยนการตั้งค่าได้",
     "not-accepted-yet": "ยังไม่ยอมรับคำเชิญ",
-    "notify-participate": "ได้รับการแจ้งปรับปรุงการ์ดอื่น ๆ ที่คุณมีส่วนร่วมในฐานะผู้สร้างหรือสมาชิก",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "ได้รับการแจ้งปรับปรุงบอร์ด รายการหรือการ์ดที่คุณเฝ้าติดตาม",
     "optional": "ไม่จำเป็น",
     "or": "หรือ",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Kan se och redigera kort. Kan inte ändra inställningar.",
     "not-accepted-yet": "Inbjudan inte ännu accepterad",
-    "notify-participate": "Få uppdateringar till alla kort du deltar i som skapare eller medlem",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Få uppdateringar till alla anslagstavlor, listor, eller kort du bevakar",
     "optional": "valfri",
     "or": "eller",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

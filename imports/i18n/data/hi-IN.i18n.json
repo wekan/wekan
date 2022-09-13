@@ -512,7 +512,7 @@
     "normal": "Normal",
     "normal-desc": "Can  आलोकन और  संपादित करें कार्ड. Can't change  व्यवस्था.",
     "not-accepted-yet": "Invitation not accepted yet",
-    "notify-participate": "Receive updates तक any कार्ड you participate as creater or सदस्य",
+    "notify-participate": "Receive updates to any cards you participate as creator or member",
     "notify-watch": "Receive updates तक any बोर्ड, lists, or कार्ड you’re watching",
     "optional": "optional",
     "or": "or",
@@ -1183,5 +1183,9 @@
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
-    "progress": "Progress"
+    "progress": "Progress",
+    "password-again": "Password (again)",
+    "if-you-already-have-an-account": "If you already have an account",
+    "register": "Register",
+    "forgot-password": "Forgot password"
 }

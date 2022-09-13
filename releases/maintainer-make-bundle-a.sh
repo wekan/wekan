@@ -31,3 +31,7 @@ find . -name '*.swp' | xargs rm -f
 cd ..
 
 7z a wekan-$1-arm64.zip bundle
+
+sudo snap start juju-db
+
+./start-wekan.sh

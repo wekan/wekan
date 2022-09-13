@@ -44,3 +44,7 @@ find . -name '*.swp' | xargs rm -f
 cd ..
 
 7za a wekan-$1-s390x.zip bundle
+
+sudo snap start juju-db
+
+./start-wekan.sh
