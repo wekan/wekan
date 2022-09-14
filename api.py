@@ -162,7 +162,7 @@ users = wekanurl + apiusers
 # ------- LOGIN TOKEN START -----------
 
 data = {"username": username, "password": password}
-body = requests.post(wekanloginurl, data=data)
+body = requests.post(wekanloginurl, json=data)
 d = body.json()
 apikey = d['token']
 
