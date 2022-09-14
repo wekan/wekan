@@ -221,13 +221,17 @@
   display: none;
 }
 .minicard .minicard-description {
-  padding: 6px 0 6px 8px;
+  padding: 6px 0 0 8px;
   background-color: #eee;
   width: 100%;
   margin-bottom: 2px;
   margin-left: -4px;
   border-radius: 3px;
-  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .minicard.minicard-composer {
   margin-bottom: 10px;
