@@ -5,6 +5,17 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcomign WeKan ® release
+
+This release adds the following new features:
+
+- [Added limit description on minicard to three lines](https://github.com/wekan/wekan/pull/4685).
+  Thanks to helioguardabaxo.
+- [Added titles to add and edit checklist items](https://github.com/wekan/wekan/pull/4686).
+  Thanks to helioguardabaxo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.45 2022-09-14 WeKan ® release
 
 This release adds the following new features:
