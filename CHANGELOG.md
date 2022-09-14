@@ -15,6 +15,8 @@ This release adds the following new features:
   Thanks to helioguardabaxo.
 - [Add info about RTL languages to Meteor WeKan. Not used in Meteor WeKan yet](https://github.com/wekan/wekan/commit/cf7c0512422178be23d287cce269a7b854a2bc21).
   Thanks to xet7.
+- [Added help button with custom URL](https://github.com/wekan/wekan/pull/4681).
+  Thanks to helioguardabaxo.
 
 and adds the following updates:
 
