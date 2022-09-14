@@ -67,6 +67,11 @@ template(name="header")
 
       +notifications
 
+      if currentSetting.customHelpLinkUrl
+        #header-help
+          a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
+            span.fa.fa-question
+
       +headerUserBar
 
   #header(class=currentBoard.colorClass)
