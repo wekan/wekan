@@ -25,6 +25,8 @@ and fixes the following bugs:
 
 - [Avoid non-terminating containers](https://github.com/wekan/wekan/pull/4675).
   Thanks to bronger.
+- [Fixed WeKan api.py . WeKan API now works in newest WeKan and n8n](https://github.com/wekan/wekan/commit/aa2c3774a233025a163e9d9c210ad2f1807c0acb).
+  Thanks to DimDz and Joffcom.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
