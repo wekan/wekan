@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Removed Azeri/Azerbaijani from RTL list](https://github.com/wekan/wekan/commit/627d1830150391073601595a68fd2c273951e68c).
+  Thanks to yarons.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.46 2022-09-15 WeKan ® release
 
 This release adds the following new features:
