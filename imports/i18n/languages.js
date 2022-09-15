@@ -32,21 +32,18 @@ export default {
     tag: "az-AZ",
     name: "Azərbaycan (Azərbaycan)",
     load: () => import('./data/az-AZ.i18n.json'),
-    rtl: "true",
   },
   "az-LA": {
     code: "az",
     tag: "az-LA",
     name: "Azərbaycan (Latin)",
     load: () => import('./data/az-LA.i18n.json'),
-    rtl: "true",
   },
   "az": {
     code: "az",
     tag: "az",
     name: "Azərbaycan",
     load: () => import('./data/az.i18n.json'),
-    rtl: "true",
   },
   "bg": {
     code: "bg",
