@@ -22,6 +22,8 @@ BlazeComponent.extendComponent({
   onCreated() {
     this._isOpen = new ReactiveVar(false);
     this._view = new ReactiveVar(defaultView);
+    this._hideCardCounterList = new ReactiveVar(false);
+    this._hideBoardMemberList = new ReactiveVar(false);
     Sidebar = this;
   },
 
@@ -142,6 +144,18 @@ Template.homeSidebar.helpers({
     }
   },
 });
+
+Template.boardInfoOnMyBoardsPopup.helpers({
+  currentSetting() {
+    return Settings.findOne();
+  },
+  hideCardCounterList() {
+    return Utils.isMiniScreen() && Session.get('currentBoard');
+  },
+  hideBoardMemberList() {
+    return Utils.isMiniScreen() && Session.get('currentBoard');
+  },
+})
 
 EscapeActions.register(
   'sidebarView',

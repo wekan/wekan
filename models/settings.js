@@ -64,6 +64,14 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    hideCardCounterList: {
+      type: Boolean,
+      optional: true,
+    },
+    hideBoardMemberList: {
+      type: Boolean,
+      optional: true,
+    },
     customLoginLogoImageUrl: {
       type: String,
       optional: true,

@@ -509,6 +509,38 @@ Migrations.add('add-hide-logo', () => {
   );
 });
 
+Migrations.add('add-hide-card-counter-list', () => {
+  Settings.update(
+    {
+      hideCardCounterList: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        hideCardCounterList: false,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-hide-board-member-list', () => {
+  Settings.update(
+    {
+      hideBoardMemberList: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        hideBoardMemberList: false,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
 Migrations.add('add-displayAuthenticationMethod', () => {
   Settings.update(
     {
@@ -1120,6 +1152,38 @@ Migrations.add('add-hide-logo-by-default', () => {
     {
       $set: {
         hideLogo: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-hide-card-counter-list-by-default', () => {
+  Settings.update(
+    {
+      hideCardCounterList: {
+        hideCardCounterList: false,
+      },
+    },
+    {
+      $set: {
+        hideCardCounterList: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-hide-board-member-list-by-default', () => {
+  Settings.update(
+    {
+      hideBoardMemberList: {
+        hideBoardMember: false,
+      },
+    },
+    {
+      $set: {
+        hideBoardMemberList: true,
       },
     },
     noValidateMulti,

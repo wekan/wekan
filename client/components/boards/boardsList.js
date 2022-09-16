@@ -2,6 +2,18 @@ import { TAPi18n } from '/imports/i18n';
 
 const subManager = new SubsManager();
 
+Template.boardList.helpers({
+  currentSetting() {
+    return Settings.findOne();
+  },
+  hideCardCounterList() {
+    return Utils.isMiniScreen() && Session.get('currentBoard');
+  },
+  hideBoardMemberList() {
+    return Utils.isMiniScreen() && Session.get('currentBoard');
+  },
+})
+
 Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
