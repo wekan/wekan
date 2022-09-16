@@ -1,3 +1,5 @@
+import { ObjectID } from 'bson';
+
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
 
@@ -46,7 +48,7 @@ Template.cardAttachmentsPopup.events({
     if (files) {
       let uploads = [];
       for (const file of files) {
-        const fileId = Random.id();
+        const fileId = new ObjectID().toString();
         const config = {
           file: file,
           fileId: fileId,
@@ -130,7 +132,7 @@ Template.previewClipboardImagePopup.events({
     if (pastedResults && pastedResults.file) {
       const file = pastedResults.file;
       window.oPasted = pastedResults;
-      const fileId = Random.id();
+      const fileId = new ObjectID().toString();
       const config = {
         file,
         fileId: fileId,

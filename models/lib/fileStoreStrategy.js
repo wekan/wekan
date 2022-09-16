@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { createObjectId } from './grid/createObjectId';
 import { httpStreamOutput } from './httpStream.js'
+import { ObjectID } from 'bson';
 
 export const STORAGE_NAME_FILESYSTEM = "fs";
 export const STORAGE_NAME_GRIDFS     = "gridfs";
@@ -371,7 +372,7 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
 
     // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
     readStream.on('end', Meteor.bindEnvironment(() => {
-      const fileId = Random.id();
+      const fileId = new ObjectID().toString();
       Attachments.addFile(
         tempPath,
         {
