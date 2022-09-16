@@ -13,6 +13,8 @@ Meteor.publish('setting', () => {
         disableForgotPassword: 1,
         productName: 1,
         hideLogo: 1,
+        hideCardCounterList: 1,
+        hideBoardMemberList: 1,
         customLoginLogoImageUrl: 1,
         customLoginLogoLinkUrl: 1,
         customHelpLinkUrl: 1,
