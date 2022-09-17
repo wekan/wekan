@@ -23,7 +23,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
   /** returns all available cards of the current list */
   cards() {
     const list = Lists.findOne(this.selectedListId.get());
-    let ret = {}
+    let ret = [];
     if (list) {
       ret = list.cards(this.selectedSwimlaneId.get());
     }
