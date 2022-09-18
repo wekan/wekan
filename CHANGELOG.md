@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Checklist copy/move dialog was sometimes empty](https://github.com/wekan/wekan/pull/4694).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.48 2022-09-17 WeKan ® release
 
 This release adds the following new features:
