@@ -37,6 +37,8 @@ and fixes the following bugs:
   Thanks to sashashura.
 - [Try to fix again Mermaid Diagram error: Maximum call stack size exceeded](https://github.com/wekan/wekan/commit/0e5f98fd96abd0f287e38726e68770bcb3940ae6).
   Thanks to xet7.
+- [Show translations debug messages only when DEBUG=true](https://github.com/wekan/wekan/commit/a30276e3d88c5c15b340d2c8f1a6f896c2207b7e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
