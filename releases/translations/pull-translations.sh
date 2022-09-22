@@ -217,8 +217,11 @@ tx pull -f -l pt
 echo "Portuguese (Brazil):"
 tx pull -f -l pt_BR
 
-echo "Romanian (Romania):"
+echo "Romanian:"
 tx pull -f -l ro
+
+echo "Romanian (Romania):"
+tx pull -f -l ro_RO
 
 echo "Russian:"
 tx pull -f -l ru

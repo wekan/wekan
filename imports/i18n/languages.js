@@ -505,6 +505,12 @@ export default {
     name: "Română",
     load: () => import('./data/ro.i18n.json'),
   },
+  "ro-RO": {
+    code: "ro",
+    tag: "ro-RO",
+    name: "Română (România)",
+    load: () => import('./data/ro-RO.i18n.json'),
+  },
   "ru-UA": {
     code: "ru",
     tag: "ru-UA",
