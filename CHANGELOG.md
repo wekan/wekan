@@ -7,10 +7,22 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following translations:
+This release adds the following updates:
+
+- [Update CONTRIBUTING.md](https://github.com/wekan/wekan/commit/389b07138c43e954d2e6fca0fae278b3e7dcff21).
+  Thanks to [BlobbyBob](https://github.com/wekan/wekan/issues/4696).
+- [Update link to Meteor repair tools](https://github.com/wekan/wekan/issues/4697).
+  Thanks to BlobbyBob.
+
+and adds the following translations:
 
 - [Added Romanian translation. Updated translations](https://github.com/wekan/wekan/commit/e2d5a83d7c9e1725fec93d9da4038b893736cace).
   Thanks to translators.
+
+and fixes the following bugs:
+
+- [Build: harden GitHub Workflow permissions](https://github.com/wekan/wekan/pull/4699).
+  Thanks to sashashura.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
