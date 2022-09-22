@@ -35,8 +35,8 @@ and fixes the following bugs:
 
 - [Build: harden GitHub Workflow permissions](https://github.com/wekan/wekan/pull/4699).
   Thanks to sashashura.
-
-
+- [Try to fix again Mermaid Diagram error: Maximum call stack size exceeded](https://github.com/wekan/wekan/commit/0e5f98fd96abd0f287e38726e68770bcb3940ae6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
