@@ -21,6 +21,8 @@ and adds the following updates:
   Thanks to [BlobbyBob](https://github.com/wekan/wekan/issues/4696).
 - [Update link to Meteor repair tools](https://github.com/wekan/wekan/issues/4697).
   Thanks to BlobbyBob.
+- [Updated markdown-it-mermaid and cli-table3](https://github.com/wekan/wekan/commit/5ce08345292b4ca9843fb328a4e82f215ef8fbb6).
+  Thanks to xet7.
 
 and adds the following translations:
 
