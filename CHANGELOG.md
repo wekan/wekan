@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following translations:
+
+- [Added Romanian translation. Updated translations](https://github.com/wekan/wekan/commit/e2d5a83d7c9e1725fec93d9da4038b893736cace).
+  Thanks to translators.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.49 2022-09-18 WeKan ® release
 
 This release fixes the following bugs:
