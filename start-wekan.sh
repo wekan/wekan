@@ -135,6 +135,10 @@
       # Example: export MATOMO_WITH_USERNAME=true
       #export MATOMO_WITH_USERNAME='false'
       #---------------------------------------------
+      # ==== METRICS ALLOWED IP ADDRESSES ====
+      # https://github.com/wekan/wekan/wiki/Metrics
+      #export METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
+      #-----------------------------------------------------------------
       # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
       # Setting this to false is not recommended, it also disables all other browser policy protections
       # and allows all iframing etc. See wekan/server/policy.js

@@ -112,6 +112,10 @@ REM # The address of the server where Matomo is hosted.
 REM # example: - MATOMO_ADDRESS=https://example.com/matomo
 REM SET MATOMO_ADDRESS=
 
+REM # ==== METRICS ALLOWED IP ADDRESSES ====
+REM # https://github.com/wekan/wekan/wiki/Metrics
+REM SET METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
+
 REM # The value of the site ID given in Matomo server for Wekan
 REM # example: - MATOMO_SITE_ID=12345
 REM SET MATOMO_SITE_ID=

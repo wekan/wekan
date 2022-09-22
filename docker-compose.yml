@@ -347,6 +347,10 @@ services:
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
       #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
+      # ==== METRICS ALLOWED IP ADDRESSES ====
+      # https://github.com/wekan/wekan/wiki/Metrics
+      #- METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
+      #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
       # What to send to Outgoing Webhook, or leave out. If commented out the default values will be: cardId,listId,oldListId,boardId,comment,user,card,commentId,swimlaneId,customerField,customFieldValue
       #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId

@@ -57,6 +57,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     MATOMO_SITE_ID="" \
     MATOMO_DO_NOT_TRACK=true \
     MATOMO_WITH_USERNAME=false \
+    METRICS_ALLOWED_IP_ADDRESSES="" \
     BROWSER_POLICY_ENABLED=true \
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
