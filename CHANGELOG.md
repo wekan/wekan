@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added a possibility of getting some WeKan metrics datas](https://github.com/wekan/wekan/pull/4700).
+  Thanks to Emile840.
+
+and adds the following updates:
 
 - [Update CONTRIBUTING.md](https://github.com/wekan/wekan/commit/389b07138c43e954d2e6fca0fae278b3e7dcff21).
   Thanks to [BlobbyBob](https://github.com/wekan/wekan/issues/4696).
@@ -18,11 +23,15 @@ and adds the following translations:
 
 - [Added Romanian translation. Updated translations](https://github.com/wekan/wekan/commit/e2d5a83d7c9e1725fec93d9da4038b893736cace).
   Thanks to translators.
+- [Fix typos and translate comments to English](https://github.com/wekan/wekan/commit/551f57b03bbc1dba37862a0cc3407c8d359e2a9a).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Build: harden GitHub Workflow permissions](https://github.com/wekan/wekan/pull/4699).
   Thanks to sashashura.
+
+
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
