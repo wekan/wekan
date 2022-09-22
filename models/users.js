@@ -2,7 +2,7 @@
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
-import { Index, MongoDBEngine } from 'meteor/easy:search'
+import { Index, MongoDBEngine } from 'meteor/easy:search';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -45,39 +45,39 @@ Users.attachSchema(
       /**
        * the list of organizations that a user belongs to
        */
-       type: [Object],
-       optional: true,
+      type: [Object],
+      optional: true,
     },
-    'orgs.$.orgId':{
+    'orgs.$.orgId': {
       /**
        * The uniq ID of the organization
        */
-       type: String,
+      type: String,
     },
-    'orgs.$.orgDisplayName':{
+    'orgs.$.orgDisplayName': {
       /**
        * The display name of the organization
        */
-       type: String,
+      type: String,
     },
     teams: {
       /**
        * the list of teams that a user belongs to
        */
-       type: [Object],
-       optional: true,
+      type: [Object],
+      optional: true,
     },
-    'teams.$.teamId':{
+    'teams.$.teamId': {
       /**
        * The uniq ID of the team
        */
-       type: String,
+      type: String,
     },
-    'teams.$.teamDisplayName':{
+    'teams.$.teamDisplayName': {
       /**
        * The display name of the team
        */
-       type: String,
+      type: String,
     },
     emails: {
       /**
@@ -228,7 +228,7 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
-    'profile.moveAndCopyDialog' : {
+    'profile.moveAndCopyDialog': {
       /**
        * move and copy card dialog
        */
@@ -254,7 +254,7 @@ Users.attachSchema(
        */
       type: String,
     },
-    'profile.moveChecklistDialog' : {
+    'profile.moveChecklistDialog': {
       /**
        * move checklist dialog
        */
@@ -286,7 +286,7 @@ Users.attachSchema(
        */
       type: String,
     },
-    'profile.copyChecklistDialog' : {
+    'profile.copyChecklistDialog': {
       /**
        * copy checklist dialog
        */
@@ -494,6 +494,10 @@ Users.attachSchema(
       type: [String],
       optional: true,
     },
+    lastConnectionDate: {
+      type: Date,
+      optional: true,
+    },
   }),
 );
 
@@ -542,13 +546,13 @@ UserSearchIndex = new Index({
   fields: ['username', 'profile.fullname', 'profile.avatarUrl'],
   allowedFields: ['username', 'profile.fullname', 'profile.avatarUrl'],
   engine: new MongoDBEngine({
-    fields: function(searchObject, options) {
+    fields: function (searchObject, options) {
       return {
-        'username': 1,
+        username: 1,
         'profile.fullname': 1,
-        'profile.avatarUrl': 1
+        'profile.avatarUrl': 1,
       };
-    }
+    },
   }),
 });
 
@@ -561,6 +565,7 @@ Users.safeFields = {
   orgs: 1,
   teams: 1,
   authenticationMethod: 1,
+  lastConnectionDate: 1,
 };
 
 if (Meteor.isClient) {
@@ -630,43 +635,65 @@ Users.helpers({
   teamIds() {
     if (this.teams) {
       // TODO: Should the Team collection be queried to determine if the team isActive?
-      return this.teams.map(team => { return team.teamId });
+      return this.teams.map((team) => {
+        return team.teamId;
+      });
     }
     return [];
   },
   orgIds() {
     if (this.orgs) {
       // TODO: Should the Org collection be queried to determine if the organization isActive?
-      return this.orgs.map(org => { return org.orgId });
+      return this.orgs.map((org) => {
+        return org.orgId;
+      });
     }
     return [];
   },
   orgsUserBelongs() {
     if (this.orgs) {
-      return this.orgs.map(function(org){return org.orgDisplayName}).sort().join(',');
+      return this.orgs
+        .map(function (org) {
+          return org.orgDisplayName;
+        })
+        .sort()
+        .join(',');
     }
     return '';
   },
   orgIdsUserBelongs() {
     if (this.orgs) {
-      return this.orgs.map(function(org){return org.orgId}).join(',');
+      return this.orgs
+        .map(function (org) {
+          return org.orgId;
+        })
+        .join(',');
     }
     return '';
   },
   teamsUserBelongs() {
     if (this.teams) {
-      return this.teams.map(function(team){ return team.teamDisplayName}).sort().join(',');
+      return this.teams
+        .map(function (team) {
+          return team.teamDisplayName;
+        })
+        .sort()
+        .join(',');
     }
     return '';
   },
   teamIdsUserBelongs() {
     if (this.teams) {
-      return this.teams.map(function(team){ return team.teamId}).join(',');
+      return this.teams
+        .map(function (team) {
+          return team.teamId;
+        })
+        .join(',');
     }
     return '';
   },
   boards() {
-    return Boards.userBoards(this._id, null, {}, { sort: { sort: 1 } })
+    return Boards.userBoards(this._id, null, {}, { sort: { sort: 1 } });
   },
 
   starredBoards() {
@@ -675,7 +702,7 @@ Users.helpers({
       this._id,
       false,
       { _id: { $in: starredBoards } },
-      { sort: { sort: 1 } }
+      { sort: { sort: 1 } },
     );
   },
 
@@ -690,7 +717,7 @@ Users.helpers({
       this._id,
       false,
       { _id: { $in: invitedBoards } },
-      { sort: { sort: 1 } }
+      { sort: { sort: 1 } },
     );
   },
 
@@ -728,7 +755,7 @@ Users.helpers({
    * <li> the board, swimlane and list id is stored for each board
    */
   getMoveAndCopyDialogOptions() {
-    let _ret = {}
+    let _ret = {};
     if (this.profile && this.profile.moveAndCopyDialog) {
       _ret = this.profile.moveAndCopyDialog;
     }
@@ -739,7 +766,7 @@ Users.helpers({
    * <li> the board, swimlane, list and card id is stored for each board
    */
   getMoveChecklistDialogOptions() {
-    let _ret = {}
+    let _ret = {};
     if (this.profile && this.profile.moveChecklistDialog) {
       _ret = this.profile.moveChecklistDialog;
     }
@@ -750,7 +777,7 @@ Users.helpers({
    * <li> the board, swimlane, list and card id is stored for each board
    */
   getCopyChecklistDialogOptions() {
-    let _ret = {}
+    let _ret = {};
     if (this.profile && this.profile.copyChecklistDialog) {
       _ret = this.profile.copyChecklistDialog;
     }
@@ -811,7 +838,7 @@ Users.helpers({
     return profile.hiddenMinicardLabelText || false;
   },
 
-  hasRescuedCardDescription(){
+  hasRescuedCardDescription() {
     const profile = this.profile || {};
     return profile.rescueCardDescription || false;
   },
@@ -1430,17 +1457,30 @@ if (Meteor.isServer) {
       }
 
       try {
-        const fullName = inviter.profile !== undefined && inviter.profile.fullname !== undefined ?  inviter.profile.fullname : "";
-        const userFullName = user.profile !== undefined && user.profile.fullname !== undefined ?  user.profile.fullname : "";
+        const fullName =
+          inviter.profile !== undefined &&
+          inviter.profile.fullname !== undefined
+            ? inviter.profile.fullname
+            : '';
+        const userFullName =
+          user.profile !== undefined && user.profile.fullname !== undefined
+            ? user.profile.fullname
+            : '';
         const params = {
-          user: userFullName != "" ? userFullName + " (" + user.username + " )" : user.username,
-          inviter: fullName != "" ? fullName + " (" + inviter.username + " )" : inviter.username,
+          user:
+            userFullName != ''
+              ? userFullName + ' (' + user.username + ' )'
+              : user.username,
+          inviter:
+            fullName != ''
+              ? fullName + ' (' + inviter.username + ' )'
+              : inviter.username,
           board: board.title,
           url: board.absoluteUrl(),
         };
         const lang = user.getLanguage();
 
-/*
+        /*
         if (process.env.MAIL_SERVICE !== '') {
           let transporter = nodemailer.createTransport({
             service: process.env.MAIL_SERVICE,
@@ -1486,7 +1526,11 @@ if (Meteor.isServer) {
       if (!Meteor.user().isAdmin)
         throw new Meteor.Error(403, 'Permission denied');
 
-      ImpersonatedUsers.insert({ adminId: Meteor.user()._id, userId: userId, reason: 'clickedImpersonate' });
+      ImpersonatedUsers.insert({
+        adminId: Meteor.user()._id,
+        userId: userId,
+        reason: 'clickedImpersonate',
+      });
       this.setUserId(userId);
     },
     isImpersonated(userId) {
@@ -1502,19 +1546,22 @@ if (Meteor.isServer) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         Users.find({
           teams: {
-              $elemMatch: {teamId: teamId}
-          }
-        }).forEach(user => {
-          Users.update({
-            _id: user._id,
-            teams: {
-              $elemMatch: {teamId: teamId}
-            }
-          }, {
-            $set: {
-              'teams.$.teamDisplayName': teamDisplayName
-            }
-          });
+            $elemMatch: { teamId: teamId },
+          },
+        }).forEach((user) => {
+          Users.update(
+            {
+              _id: user._id,
+              teams: {
+                $elemMatch: { teamId: teamId },
+              },
+            },
+            {
+              $set: {
+                'teams.$.teamDisplayName': teamDisplayName,
+              },
+            },
+          );
         });
       }
     },
@@ -1524,19 +1571,22 @@ if (Meteor.isServer) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         Users.find({
           orgs: {
-              $elemMatch: {orgId: orgId}
-          }
-        }).forEach(user => {
-          Users.update({
-            _id: user._id,
-            orgs: {
-              $elemMatch: {orgId: orgId}
-            }
-          }, {
-            $set: {
-              'orgs.$.orgDisplayName': orgDisplayName
-            }
-          });
+            $elemMatch: { orgId: orgId },
+          },
+        }).forEach((user) => {
+          Users.update(
+            {
+              _id: user._id,
+              orgs: {
+                $elemMatch: { orgId: orgId },
+              },
+            },
+            {
+              $set: {
+                'orgs.$.orgDisplayName': orgDisplayName,
+              },
+            },
+          );
         });
       }
     },
@@ -1699,7 +1749,7 @@ if (Meteor.isServer) {
     Users._collection.createIndex({
       modifiedAt: -1,
     });
-/* Commented out extra index because of IndexOptionsConflict.
+    /* Commented out extra index because of IndexOptionsConflict.
     Users._collection.createIndex(
       {
         username: 1,
@@ -1918,14 +1968,13 @@ if (Meteor.isServer) {
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
       let invitationCode = null;
-      if(doc.authenticationMethod.toLowerCase() == 'oauth2')
-      { // OIDC authentication mode
+      if (doc.authenticationMethod.toLowerCase() == 'oauth2') {
+        // OIDC authentication mode
         invitationCode = InvitationCodes.findOne({
           email: doc.emails[0].address.toLowerCase(),
           valid: true,
         });
-      }
-      else{
+      } else {
         invitationCode = InvitationCodes.findOne({
           code: doc.profile.icode,
           valid: true,
