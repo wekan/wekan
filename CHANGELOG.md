@@ -11,7 +11,8 @@ This release adds the following new features:
 
 - [Added a possibility of getting some WeKan metrics datas](https://github.com/wekan/wekan/pull/4700).
   Thanks to Emile840.
-  [Added METRICS_ALLOWED_IP_ADDRESSES settings to Docker/Snap/Source](https://github.com/wekan/wekan/commit/34862810df686abfc0ee9ff1a13690a7b2bacc7e) https://github.com/wekan/wekan/wiki/Metrics .
+  [Added METRICS_ALLOWED_IP_ADDRESSES settings to Docker/Snap/Source](https://github.com/wekan/wekan/commit/34862810df686abfc0ee9ff1a13690a7b2bacc7e)
+  https://github.com/wekan/wekan/wiki/Metrics and missing Matomo settings to Snap help.
   Thanks to xet7.
 
 and adds the following updates:
