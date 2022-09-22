@@ -98,7 +98,7 @@ if (Meteor.isServer) {
     //   console.log('meteor session', socket._meteorSession.userId),
     // );
 
-    // update last connected user date (neddeed for one of the KPI)
+    // update last connected user date (needed for one of the KPI)
     Meteor.server.stream_server.open_sockets.forEach(
       (socket) =>
         //console.log('meteor session', socket._meteorSession.userId),

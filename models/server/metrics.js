@@ -1,39 +1,39 @@
 import { Meteor } from 'meteor/meteor';
 import Users from '../users';
 
-function acceptedIpAdress(ipAdress) {
-  //return true if a given ipAdress was setted by an admin user
-  // console.log('idpAdress', ipAdress);
+function acceptedIpAddress(ipAddress) {
+  //return true if a given ipAddress was setted by an admin user
+  // console.log('idpAddress', ipAddress);
 
-  //Check if ipAdress is accepted
+  //Check if ipAddress is accepted
   // console.log(
-  //   'process.env.WEKAN_METRICS_ACCEPTED_IP_ADRESS',
-  //   process.env.WEKAN_METRICS_ACCEPTED_IP_ADRESS,
+  //   'process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS',
+  //   process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS,
   // );
   //console.log("process.env", process.env);
-  const trustedIpAdress = process.env.WEKAN_METRICS_ACCEPTED_IP_ADRESS;
-  //console.log("trustedIpAdress", trustedIpAdress);
-  //console.log("trustedIpAdress !== undefined && trustedIpAdress.split(",").includes(ipAdress)", trustedIpAdress !== undefined && trustedIpAdress.split(",").includes(ipAdress));
+  const trustedIpAddress = process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS;
+  //console.log("trustedIpAddress", trustedIpAddress);
+  //console.log("trustedIpAddress !== undefined && trustedIpAddress.split(",").includes(ipAddress)", trustedIpAddress !== undefined && trustedIpAddress.split(",").includes(ipAddress));
   return (
-    trustedIpAdress !== undefined &&
-    trustedIpAdress.split(',').includes(ipAdress)
+    trustedIpAddress !== undefined &&
+    trustedIpAddress.split(',').includes(ipAddress)
   );
 }
 
 Meteor.startup(() => {
   WebApp.connectHandlers.use('/metrics', (req, res, next) => {
     try {
-      const ipAdress =
+      const ipAddress =
         req.headers['x-forwarded-for'] || req.socket.remoteAddress;
       // if(process.env.TRUST_PROXY_FORXARD)
       // {
-      //   const ipAdress = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+      //   const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress
       // }else{
-      //   const ipAdress = req.socket.remoteAddress
+      //   const ipAddress = req.socket.remoteAddress
       // }
 
-      // List of trusted ip adress will be found in environment variable "WEKAN_METRICS_ACCEPTED_IP_ADRESS" (separeted with commas)
-      if (acceptedIpAdress(ipAdress)) {
+      // List of trusted ip adress will be found in environment variable "WEKAN_METRICS_ACCEPTED_IP_ADDRESS" (separeted with commas)
+      if (acceptedIpAddress(ipAddress)) {
         let metricsRes = '';
         let resCount = 0;
         //connected users
@@ -89,9 +89,9 @@ Meteor.startup(() => {
         metricsRes += 'registeredboardsWithOnlyOneMember ' + resCount + '\n';
         resCount = 0;
 
-        // KPI 6 : - stocker la date de dernière connexion
-        //         KPI 6 = count where date de dernière connexion > x jours
-        // Découpe en label since 5 jours / 10 jours / 20 Jours / 30 jours
+        // KPI 6 : - store last login date
+        //         KPI 6 = count where date of last connection > x days
+        // Cutting in label since 5 days / 10 days / 20 days / 30 days
 
         //Number of users with last connection dated 5 days ago
         metricsRes +=
@@ -151,16 +151,16 @@ Meteor.startup(() => {
           'usersWithLastConnectionDated30DaysAgo ' + resCount + '\n';
         resCount = 0;
         // TO DO:
-        // moyenne de connexion : ((date de déconnexion - date de dernière connexion) + (dernière moyenne)) / 2
-        // KPI 7 : somme des moyenne de connexion / nombre d'utilisateur (à ignore les utilisateur avec 0 moyenne)
+        // connection average: ((disconnection date - last connection date) + (last average)) / 2
+        // KPI 7 : sum of connection average / number of users (to ignore users with 0 average)
 
         res.writeHead(200); // HTTP status
         res.end(metricsRes);
       } else {
         res.writeHead(401); // HTTP status
         res.end(
-          'IpAdress: ' +
-            ipAdress +
+          'IpAddress: ' +
+            ipAddress +
             ' is not authorized to perform this action !!\n',
         );
       }
