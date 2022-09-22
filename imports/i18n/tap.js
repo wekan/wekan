@@ -16,7 +16,9 @@ export const TAPi18n = {
     await this.i18n.init({
       fallbackLng: DEFAULT_LANGUAGE,
       cleanCode: true,
-      debug: Meteor.isDevelopment,
+      // Show translations debug messages only when DEBUG=true
+      // OLD: debug: Meteor.isDevelopment,
+      debug: process.env.DEBUG,
       supportedLngs: Object.values(languages).map(({ tag }) => tag),
       ns: DEFAULT_NAMESPACE,
       defaultNs: DEFAULT_NAMESPACE,
