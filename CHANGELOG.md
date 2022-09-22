@@ -39,6 +39,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Show translations debug messages only when DEBUG=true](https://github.com/wekan/wekan/commit/a30276e3d88c5c15b340d2c8f1a6f896c2207b7e).
   Thanks to xet7.
+- [Fix bootstrap and datepicker3 css map missing](https://github.com/wekan/wekan/commit/21e6e4cb1a5d44dbe6173ba6696c9375eaecedf3).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
