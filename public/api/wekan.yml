@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.49
+  version: v6.50
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3990,6 +3990,9 @@ definitions:
         items:
           type: string
           x-nullable: true
+        x-nullable: true
+      lastConnectionDate:
+        type: string
         x-nullable: true
     required:
       - createdAt
