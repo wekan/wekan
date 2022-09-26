@@ -81,7 +81,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 14.20.0
+        node-engine: 14.20.1
         node-packages:
             - node-gyp
             - node-pre-gyp
