@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated to Node.js v14.20.1](https://github.com/wekan/wekan/commit/ccf4f59430ba0b1e63178811286eba4ae668101b).
+  Thanks to Node.js developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.50 2022-09-23 WeKan ® release
 
 This release adds the following new features:
