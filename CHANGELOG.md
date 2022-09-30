@@ -11,6 +11,8 @@ This release adds the following updates:
 
 - [Snap Candidate MongoDb upgrade](https://github.com/wekan/wekan/commit/7c6b557186dc88d96eb965294151e2b4c093ae8f).
   Thanks to MongoDB developers.
+- [Node to 14.20.1 on Snap](https://github.com/wekan/wekan/commit/7af0d85687e1c603043b52ebe5448854e81d5925).
+  Thanks to Node.js developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
