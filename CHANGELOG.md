@@ -5,6 +5,18 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- Updated release scripts to try fix building bcrypt from source at accounts-password dependency.
+  [Part 1](https://github.com/wekan/wekan/commit/b98888e128dd3ec932754aba320af11fc02143c3),
+  [Part 2](https://github.com/wekan/wekan/commit/923e48d64c4f9db8a1654e3ed9463771069ba3eb),
+  [Part 3](https://github.com/wekan/wekan/commit/f6dfd2ab67ab8bc216435d46129663bd7e0da103).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.52 2022-10-02 WeKan ® release
 
 This release adds the following new features:
