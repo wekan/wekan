@@ -97,6 +97,7 @@ BlazeComponent.extendComponent({
         },
         'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
         'click .minicard-labels' : this.cardLabelsPopup,
+        'click .js-open-minicard-details-menu': Popup.open('minicardDetailsActions'),
       }
     ];
   },
@@ -147,3 +148,24 @@ BlazeComponent.extendComponent({
     ]
   }
 }).register('editCardSortOrderPopup');
+
+Template.minicardDetailsActionsPopup.events({
+  'click .js-due-date': Popup.open('editCardDueDate'),
+  'click .js-move-card': Popup.open('moveCard'),
+  'click .js-copy-card': Popup.open('copyCard'),
+  'click .js-set-card-color': Popup.open('setCardColor'),
+  'click .js-add-labels': Popup.open('cardLabels'),
+  'click .js-link': Popup.open('linkCard'),
+  'click .js-move-card-to-top'(event) {
+    event.preventDefault();
+    const minOrder = this.getMinSort();
+    this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
+    Popup.back();
+  },
+  'click .js-move-card-to-bottom'(event) {
+    event.preventDefault();
+    const maxOrder = this.getMaxSort();
+    this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
+    Popup.back();
+  },
+});

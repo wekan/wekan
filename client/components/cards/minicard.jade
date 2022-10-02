@@ -4,8 +4,11 @@ template(name="minicard")
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
     if isTouchScreenOrShowDesktopDragHandles
+      a.fa.fa-navicon.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
       .handle
         .fa.fa-arrows
+    else
+      a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.link 'original' '/'}}?dummyReloadAfterSessionEstablished={{sess}}');")
     if labels
@@ -155,3 +158,42 @@ template(name="editCardSortOrderPopup")
   input.js-edit-card-sort-popup(type='text' autofocus value=sort dir="auto")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-sort-popup(type="submit") {{_ 'save'}}
+
+template(name="minicardDetailsActionsPopup")
+  ul.pop-over-list
+    if currentUser.isBoardAdmin
+      li
+        a.js-move-card
+          i.fa.fa-arrow-right
+          | {{_ 'moveCardPopup-title'}}
+    unless currentUser.isWorker
+      li
+        a.js-copy-card
+          i.fa.fa-copy
+          | {{_ 'copyCardPopup-title'}}
+      hr
+      li
+        a.js-move-card-to-top
+          i.fa.fa-arrow-up
+          | {{_ 'moveCardToTop-title'}}
+      li
+        a.js-move-card-to-bottom
+          i.fa.fa-arrow-down
+          | {{_ 'moveCardToBottom-title'}}
+      hr
+      li
+        a.js-add-labels
+          i.fa.fa-tags
+          | {{_ 'card-edit-labels'}}
+      li
+        a.js-due-date
+          i.fa.fa-sign-in
+          | {{_ 'editCardDueDatePopup-title'}}
+      li
+        a.js-set-card-color
+          i.fa.fa-paint-brush
+          | {{_ 'setCardColorPopup-title'}}
+      li
+        a.js-link
+          i.fa.fa-link
+          | {{_ 'link-card'}}

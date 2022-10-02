@@ -41,6 +41,15 @@
   overflow: hidden;
   transition: transform 0.2s, border-radius 0.2s;
 }
+.minicard-details-menu-with-handle {
+  float: right;
+  font-size: 14px;
+  padding-right: 30px;
+}
+.minicard-details-menu {
+  float: right;
+  font-size: 14px;
+}
 .minicard.linked-board .linked-icon,
 .minicard.linked-card .linked-icon {
   display: inline-block;
