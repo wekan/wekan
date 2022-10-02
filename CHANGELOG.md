@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added faster way to do actions on minicard menu](https://github.com/wekan/wekan/commit/b70a6cb348a45c856bd63aaba691e0e334dabe4b).
+  Thanks to mohammadZahedian, HT-Marley and xet7.
+
+and adds the following updates:
 
 - [Snap Candidate MongoDb upgrade](https://github.com/wekan/wekan/commit/7c6b557186dc88d96eb965294151e2b4c093ae8f).
   Thanks to MongoDB developers.
