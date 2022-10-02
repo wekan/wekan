@@ -1193,5 +1193,6 @@
     "password-again": "Senha (novamente)",
     "if-you-already-have-an-account": "Se você já tiver uma conta",
     "register": "Registrar",
-    "forgot-password": "Esqueci minha senha"
+    "forgot-password": "Esqueci minha senha",
+    "minicardDetailsActionsPopup-title": "Detalhes do Cartão"
 }

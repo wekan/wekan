@@ -1193,5 +1193,6 @@
     "password-again": "Katalaluan(sekali lagi)",
     "if-you-already-have-an-account": "Jika anda sudah ada akaun",
     "register": "Register",
-    "forgot-password": "Forgot password"
+    "forgot-password": "Forgot password",
+    "minicardDetailsActionsPopup-title": "Perincian Kad"
 }

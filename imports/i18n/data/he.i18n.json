@@ -1193,5 +1193,6 @@
     "password-again": "סיסמה (שוב)",
     "if-you-already-have-an-account": "אם כבר יש לך חשבון",
     "register": "הרשמה",
-    "forgot-password": "שכחתי סיסמה"
+    "forgot-password": "שכחתי סיסמה",
+    "minicardDetailsActionsPopup-title": "פרטי הכרטיס"
 }

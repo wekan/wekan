@@ -1193,5 +1193,6 @@
     "password-again": "Mot de passe (à nouveau)",
     "if-you-already-have-an-account": "Si vous avez déjà un compte",
     "register": "S'enregistrer",
-    "forgot-password": "Mot de passe oublié"
+    "forgot-password": "Mot de passe oublié",
+    "minicardDetailsActionsPopup-title": "Détails de la carte"
 }

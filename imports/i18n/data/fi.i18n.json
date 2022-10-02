@@ -1193,5 +1193,6 @@
     "password-again": "Salasana (uudelleen)",
     "if-you-already-have-an-account": "Jos sinulla on jo tili",
     "register": "Rekisteröidy",
-    "forgot-password": "Unohtuiko salasana"
+    "forgot-password": "Unohtuiko salasana",
+    "minicardDetailsActionsPopup-title": "Kortin yksityiskohdat"
 }
