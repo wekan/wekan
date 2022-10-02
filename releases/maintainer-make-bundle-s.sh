@@ -34,7 +34,10 @@ rm wekan-$1-s390x.zip
 
 (cd bundle/programs/server && chmod u+w *.json && cd node_modules/fibers && node build.js)
 #cd ../../../..
-(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm remove bcrypt && npm install bcrypt)
+#(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm remove bcrypt && npm install bcrypt)
+
+# Requires building from source https://github.com/meteor/meteor/issues/11682
+(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm rebuild --build-from-source)
 
 cd bundle
 find . -type d -name '*-garbage*' | xargs rm -rf
