@@ -22,6 +22,9 @@ rm wekan-$1-ppc64le.zip
 (cd bundle/programs/server && chmod u+w *.json && cd node_modules/fibers && node build.js)
 #cd ../../../..
 
+# Requires building from source https://github.com/meteor/meteor/issues/11682
+(cd bundle/programs/server/npm/node_modules/meteor/accounts-password && npm rebuild --build-from-source)
+
 cd bundle
 find . -type d -name '*-garbage*' | xargs rm -rf
 find . -name '*phantom*' | xargs rm -rf
