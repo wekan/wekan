@@ -30,10 +30,10 @@ It's better than at chat where details get lost when chat scrolls up.
 
 [WeKan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
-## Docker: Please only use Docker release tags
+## Docker: Latest tag has newest release
 
-Note: With Docker, please don't use latest tag. Only use release tags.
-See https://github.com/wekan/wekan/issues/3874
+You can use latest tag to get newest release tag.
+See bottom of https://github.com/wekan/wekan/issues/3874
 
 ## FAQ
 
