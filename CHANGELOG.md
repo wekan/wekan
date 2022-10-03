@@ -15,6 +15,11 @@ This release adds the following updates:
   [Part 3](https://github.com/wekan/wekan/commit/f6dfd2ab67ab8bc216435d46129663bd7e0da103).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Updated README.md about Docker: You can use latest tag to get newest release tag](https://github.com/wekan/wekan/commit/fc28b6cbe29e578f1415ed47dab7cc11f383a8cc).
+  Thanks to gohrner and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.52 2022-10-02 WeKan ® release
