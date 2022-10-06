@@ -21,6 +21,9 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Updated README.md about Docker: You can use latest tag to get newest release tag](https://github.com/wekan/wekan/commit/fc28b6cbe29e578f1415ed47dab7cc11f383a8cc).
   Thanks to gohrner and xet7.
+- Refine subpath deployment support.
+  [Part 1](https://github.com/wekan/wekan/pull/4712) thanks to schnell18.
+  [Part 2](https://github.com/wekan/wekan/commit/625a9f16f5f34fd2250d83ecbeb7a0b0c8ee6e39) thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
