@@ -10,7 +10,7 @@ template(name="minicard")
     else
       a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
     if cover
-      .minicard-cover(style="background-image: url('{{cover.link 'original' '/'}}?dummyReloadAfterSessionEstablished={{sess}}');")
+      .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
     if labels
       .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
         each labels

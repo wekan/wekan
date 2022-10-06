@@ -23,9 +23,11 @@ meteor add wekan:accounts-cas
 
 ## Usage
 
-Put CAS settings in Meteor.settings (for example using METEOR_SETTINGS env or --settings) like so:
+Put CAS settings in Meteor.settings (for example using METEOR_SETTINGS env or
+--settings) like so:
 
-If casVersion is not defined, it will assume you use CAS 1.0. (note by xaionaro: option `casVersion` seems to be just ignored in the code, ATM).
+If casVersion is not defined, it will assume you use CAS 1.0. (note by
+xaionaro: option `casVersion` seems to be just ignored in the code, ATM).
 
 Server side settings:
 
@@ -46,11 +48,17 @@ Meteor.settings = {
 CAS `attributes` settings :
 
 * `attributes`: by default `{}` : all default values below will apply
-* *  `debug` : by default `false` ; `true` will print to the server console the CAS attribute names to map, the CAS attributes values retrieved, if necessary the new user account created, and finally the user to use
-* *  `id` : by default, the CAS user is used for the user account, but you can specified another CAS attribute
-* *  `firstname` : by default `cas:givenName` ; but you can use your own CAS attribute
-* *  `lastname` : by default `cas:sn` (respectively) ; but you can use your own CAS attribute
-* *  `fullname` : by default unused, but if you specify your own CAS attribute, it will be used instead of the `firstname` + `lastname`
+* *  `debug` : by default `false` ; `true` will print to the server console the
+  CAS attribute names to map, the CAS attributes values retrieved, if necessary
+  the new user account created, and finally the user to use
+* *  `id` : by default, the CAS user is used for the user account, but you can
+  specified another CAS attribute
+* *  `firstname` : by default `cas:givenName` ; but you can use your own CAS
+  attribute
+* *  `lastname` : by default `cas:sn` (respectively) ; but you can use your own
+  CAS attribute
+* *  `fullname` : by default unused, but if you specify your own CAS attribute,
+  it will be used instead of the `firstname` + `lastname`
 * *  `mail` : by default `cas:mail`
 
 Client side settings:
