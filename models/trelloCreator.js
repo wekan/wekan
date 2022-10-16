@@ -477,6 +477,24 @@ export class TrelloCreator {
             Attachment.write(att.file, opts, cb, true);
           }
         });
+
+        // if (links) {
+        //   if (links.length) {
+        //     let desc = cardToCreate.description.trim();
+        //     if (desc) {
+        //       desc += '\n\n';
+        //     }
+        //     desc += `## ${TAPi18n.__('links-heading')}\n`;
+        //     links.forEach(link => {
+        //       desc += `* ${link}\n`;
+        //     });
+        //     Cards.direct.update(cardId, {
+        //       $set: {
+        //         description: desc,
+        //       },
+        //     });
+        //   }
+        // }
       }
       result.push(cardId);
     });
