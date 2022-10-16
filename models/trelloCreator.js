@@ -460,15 +460,15 @@ export class TrelloCreator {
             };
             // dateLastActivity will be set from activity insert, no need to
             // update it ourselves
-            const commentId = CardComments.direct.insert(attachmentCommentToCreate);
+            const attachmentCommentId = CardComments.direct.insert(attachmentCommentToCreate);
             // We need to keep adding comment activities this way with Trello
             // because it doesn't provide a comment ID
             Activities.direct.insert({
               activityType: 'addComment',
               boardId: attachmentCommentToCreate.boardId,
               cardId: attachmentCommentToCreate.cardId,
-              commentId,
-              createdAt: this._now(att.date),
+              attachmentCommentId,
+              createdAt: attachmentCommentToCreate.createdAt,
               // we attribute the addComment (not the import)
               // to the original author - it is needed by some UI elements.
               userId: attachmentCommentToCreate.userId,
