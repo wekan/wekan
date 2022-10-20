@@ -14,7 +14,7 @@ function pause(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:4000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Quit")
+options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:4000" "Run Meteor for dev on http://localhost:4000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -115,6 +115,11 @@ do
 
     "Run Meteor for dev on http://localhost:4000")
 		WRITABLE_PATH=.. NODE_OPTIONS="--max_old_space_size=4096 --trace-warnings" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
+		break
+		;;
+
+    "Run Meteor for dev on http://localhost:4000 with bundle visualizer")
+		WRITABLE_PATH=.. NODE_OPTIONS="--max_old_space_size=4096 --trace-warnings" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 --extra-packages bundle-visualizer --production
 		break
 		;;
 
