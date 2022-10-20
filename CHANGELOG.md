@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Added development option for using bundle visualizer](https://github.com/wekan/wekan/commit/7810e90524438c4305c55b64da716c0f68e1b1df).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [docker-compose.yml added info about LDAP and disable Password login option at Admin Panel](https://github.com/wekan/wekan/pull/4716).
   Thanks to luisfcorreia.
