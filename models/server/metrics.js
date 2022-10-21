@@ -2,24 +2,33 @@ import { Meteor } from 'meteor/meteor';
 import Users from '../users';
 
 function acceptedIpAddress(ipAddress) {
-  //return true if a given ipAddress was setted by an admin user
-  // console.log('idpAddress', ipAddress);
-
-  //Check if ipAddress is accepted
-  // console.log(
-  //   'process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS',
-  //   process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS,
-  // );
-  //console.log("process.env", process.env);
   const trustedIpAddress = process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS;
-  //console.log("trustedIpAddress", trustedIpAddress);
-  //console.log("trustedIpAddress !== undefined && trustedIpAddress.split(",").includes(ipAddress)", trustedIpAddress !== undefined && trustedIpAddress.split(",").includes(ipAddress));
   return (
     trustedIpAddress !== undefined &&
     trustedIpAddress.split(',').includes(ipAddress)
   );
 }
 
+const getBoardIdWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
+  return Promise.await(
+    Activities.rawCollection()
+      .aggregate([
+        {
+          $match: {
+            modifiedAt: { $gte: dateWithXdaysAgo },
+          },
+        },
+        { $group: { _id: '$boardId', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+      ])
+      .limit(nbLimit)
+      .toArray(),
+  );
+};
+
+const getBoards = (boardIds) => {
+  return Boards.find({ _id: { $in: boardIds } }).fetch();
+};
 Meteor.startup(() => {
   WebApp.connectHandlers.use('/metrics', (req, res, next) => {
     try {
@@ -39,54 +48,55 @@ Meteor.startup(() => {
         //connected users
         metricsRes += '# Number of connected users\n';
 
-        // To Do: Get number of connected user by using meteor socketJs
+        // Get number of connected user by using meteor socketJs
         const allOpenedSockets = Meteor.server.stream_server.open_sockets;
         let connectedUserIds = [];
         allOpenedSockets.forEach(
           (socket) =>
-            //console.log('meteor session', socket._meteorSession.userId)
             socket._meteorSession.userId !== null &&
             connectedUserIds.push(socket._meteorSession.userId),
         );
         resCount = connectedUserIds.length; // KPI 1
-        metricsRes += 'connectedUsers ' + resCount + '\n';
+        metricsRes += 'wekan_connectedUsers ' + resCount + '\n';
 
         //registered users
         metricsRes += '# Number of registered users\n';
 
-        // To Do: Get number of registered user
+        // Get number of registered user
         resCount = Users.find({}).count(); // KPI 2
-        metricsRes += 'registeredUsers ' + resCount + '\n';
+        metricsRes += 'wekan_registeredUsers ' + resCount + '\n';
         resCount = 0;
 
         //board numbers
         metricsRes += '# Number of registered boards\n';
 
-        // To Do: Get number of registered boards
+        // Get number of registered boards
         resCount = Boards.find({ archived: false, type: 'board' }).count(); // KPI 3
-        metricsRes += 'registeredboards ' + resCount + '\n';
+        metricsRes += 'wekan_registeredboards ' + resCount + '\n';
         resCount = 0;
 
         //board numbers by registered users
         metricsRes += '# Number of registered boards by registered users\n';
 
-        // To Do: Get number of registered boards by registered users
+        // Get number of registered boards by registered users
         resCount =
           Boards.find({ archived: false, type: 'board' }).count() /
           Users.find({}).count(); // KPI 4
-        metricsRes += 'registeredboardsBysRegisteredUsers ' + resCount + '\n';
+        metricsRes +=
+          'wekan_registeredboardsBysRegisteredUsers ' + resCount + '\n';
         resCount = 0;
 
         //board numbers with only one member
         metricsRes += '# Number of registered boards\n';
 
-        // To Do: Get board numbers with only one member
+        // Get board numbers with only one member
         resCount = Boards.find({
           archived: false,
           type: 'board',
           members: { $size: 1 },
         }).count(); // KPI 5
-        metricsRes += 'registeredboardsWithOnlyOneMember ' + resCount + '\n';
+        metricsRes +=
+          'wekan_registeredboardsWithOnlyOneMember ' + resCount + '\n';
         resCount = 0;
 
         // KPI 6 : - store last login date
@@ -97,62 +107,77 @@ Meteor.startup(() => {
         metricsRes +=
           '# Number of users with last connection dated 5 days ago\n';
 
-        // To Do: Get number of users with last connection dated 5 days ago
+        // Get number of users with last connection dated 5 days ago
         let xdays = 5;
         let dateWithXdaysAgo = new Date(
           new Date() - xdays * 24 * 60 * 60 * 1000,
         );
-        //console.log({ dateWithXdaysAgo });
         resCount = Users.find({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
         }).count(); // KPI 5
-        metricsRes += 'usersWithLastConnectionDated5DaysAgo ' + resCount + '\n';
+        metricsRes +=
+          'wekan_usersWithLastConnectionDated5DaysAgo ' + resCount + '\n';
         resCount = 0;
 
         metricsRes +=
           '# Number of users with last connection dated 10 days ago\n';
 
-        // To Do: Get number of users with last connection dated 10 days ago
+        // Get number of users with last connection dated 10 days ago
         xdays = 10;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        //console.log({ dateWithXdaysAgo });
         resCount = Users.find({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
         }).count(); // KPI 5
         metricsRes +=
-          'usersWithLastConnectionDated10DaysAgo ' + resCount + '\n';
+          'wekan_usersWithLastConnectionDated10DaysAgo ' + resCount + '\n';
         resCount = 0;
 
         metricsRes +=
           '# Number of users with last connection dated 20 days ago\n';
 
-        // To Do: Get number of users with last connection dated 20 days ago
+        // Get number of users with last connection dated 20 days ago
         xdays = 20;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        //console.log({ dateWithXdaysAgo });
         resCount = Users.find({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
         }).count(); // KPI 5
         metricsRes +=
-          'usersWithLastConnectionDated20DaysAgo ' + resCount + '\n';
+          'wekan_usersWithLastConnectionDated20DaysAgo ' + resCount + '\n';
         resCount = 0;
 
         metricsRes +=
           '# Number of users with last connection dated 30 days ago\n';
 
-        // To Do: Get number of users with last connection dated 20 days ago
+        // Get number of users with last connection dated 20 days ago
         xdays = 30;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        //console.log({ dateWithXdaysAgo });
         resCount = Users.find({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
         }).count(); // KPI 5
         metricsRes +=
-          'usersWithLastConnectionDated30DaysAgo ' + resCount + '\n';
+          'wekan_usersWithLastConnectionDated30DaysAgo ' + resCount + '\n';
         resCount = 0;
         // TO DO:
         // connection average: ((disconnection date - last connection date) + (last average)) / 2
-        // KPI 7 : sum of connection average / number of users (to ignore users with 0 average)
+        // KPI 7 : sum of connection average / number of users (ignore users with 0 average)
+
+        metricsRes +=
+          '# Top 10 boards with most activities dated 30 days ago\n';
+        //Get top 10 table with most activities in current month
+        const boardIdWithMostActivities = getBoardIdWithMostActivities(
+          dateWithXdaysAgo,
+          xdays,
+        );
+        const boardWithMostActivities = boardIdWithMostActivities.map(
+          (board) => board._id,
+        );
+
+        getBoards(boardWithMostActivities).forEach((board, index) => {
+          metricsRes +=
+            `wekan_top10BoardsWithMostActivities{n=${board.title}} ${
+              index + 1
+            }` + '\n';
+        });
 
         res.writeHead(200); // HTTP status
         res.end(metricsRes);
