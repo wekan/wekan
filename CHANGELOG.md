@@ -11,6 +11,8 @@ This release adds the following new features:
 
 - [Added development option for using bundle visualizer](https://github.com/wekan/wekan/commit/7810e90524438c4305c55b64da716c0f68e1b1df).
   Thanks to xet7.
+- [In optional WeKan metrics feature, rename metrics key and add a new one](https://github.com/wekan/wekan/pull/4728).
+  Thanks to Emile840.
 
 and fixes the following bugs:
 
