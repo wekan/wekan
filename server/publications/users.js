@@ -118,6 +118,7 @@ I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
     Meteor.server.stream_server.open_sockets.forEach(
       (socket) =>
         //console.log('meteor session', socket._meteorSession.userId),
+        socket !== undefined &&
         socket._meteorSession?.userId !== null &&
         Users.update(socket._meteorSession.userId, {
           $set: {
