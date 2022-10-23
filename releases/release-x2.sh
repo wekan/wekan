@@ -44,14 +44,15 @@ cat s390x-SHA256SUMS.txt | grep -v wekan-$1-s390x.zip > SHA256SUMS.txt
 rm s390x-SHA256SUMS.txt
 cp wekan-$2-s390x.zip wekan-latest-s390x.zip
 
-echo "Release: ppc64le"
-cd /var/websites/releases.wekan.team/public/ppc64le
-mkdir -p /data2/old-releases/ppc64le
-mv wekan-$1-ppc64le.zip /data2/old-releases/ppc64le/
-sha256sum wekan-$2-ppc64le.zip >> SHA256SUMS.txt
-mv SHA256SUMS.txt ppc64le-SHA256SUMS.txt
-cat ppc64le-SHA256SUMS.txt | grep -v wekan-$1-ppc64le.zip > SHA256SUMS.txt
-rm ppc64le-SHA256SUMS.txt
-cp wekan-$2-ppc64le.zip wekan-latest-ppc64le.zip
+# OpenPower MiniCloud is discontinued, no ppc64le build server
+#echo "Release: ppc64le"
+#cd /var/websites/releases.wekan.team/public/ppc64le
+#mkdir -p /data2/old-releases/ppc64le
+#mv wekan-$1-ppc64le.zip /data2/old-releases/ppc64le/
+#sha256sum wekan-$2-ppc64le.zip >> SHA256SUMS.txt
+#mv SHA256SUMS.txt ppc64le-SHA256SUMS.txt
+#cat ppc64le-SHA256SUMS.txt | grep -v wekan-$1-ppc64le.zip > SHA256SUMS.txt
+#rm ppc64le-SHA256SUMS.txt
+#cp wekan-$2-ppc64le.zip wekan-latest-ppc64le.zip
 
 cd /var/websites
