@@ -39,6 +39,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix to use metrics related code only when enabled, because got error about userId](https://github.com/wekan/wekan/commit/d474ce64b82c1ba24c7659ad378be0d379ee7826).
   Thanks to xet7.
+- [Fix metrics to check that socket is defined, because got error about userId](https://github.com/wekan/wekan/commit/a9dfcf852088e968e521b128de643a85e71dc1bc).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
