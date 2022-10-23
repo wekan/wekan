@@ -6,6 +6,12 @@ template(name="header")
     The first link goes to the boards page.
   if currentUser
     #header-quick-access(class=currentBoard.colorClass)
+      a.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}" alt="{{_ 'show-desktop-drag-handles'}}")
+        i.fa.fa-arrows
+          if isShowDesktopDragHandles
+            i.fa.fa-check-square-o
+          unless isShowDesktopDragHandles
+            i.fa.fa-times
       if isMiniScreen
         span
           a(href="{{pathFor 'home'}}")

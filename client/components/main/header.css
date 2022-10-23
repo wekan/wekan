@@ -107,6 +107,12 @@
 #header-quick-access a {
   text-decoration: none;
 }
+#header-quick-access i.fa {
+  color: #fff;
+}
+#header-quick-access i.fa:hover {
+  color: #ccc;
+}
 #header-quick-access #header-user-bar,
 #header-quick-access #header-new-board-icon,
 #header-quick-access ul li {

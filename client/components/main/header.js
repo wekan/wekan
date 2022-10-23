@@ -57,6 +57,19 @@ Template.header.events({
     Session.set('currentList', this._id);
     Session.set('currentCard', null);
   },
+  'click .js-toggle-desktop-drag-handles'() {
+    //currentUser = Meteor.user();
+    //if (currentUser) {
+    //  Meteor.call('toggleDesktopDragHandles');
+    //} else if (window.localStorage.getItem('showDesktopDragHandles')) {
+    if (window.localStorage.getItem('showDesktopDragHandles')) {
+      window.localStorage.removeItem('showDesktopDragHandles');
+      location.reload();
+    } else {
+      window.localStorage.setItem('showDesktopDragHandles', 'true');
+      location.reload();
+    }
+  },
 });
 
 Template.offlineWarning.events({

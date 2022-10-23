@@ -159,12 +159,12 @@ template(name="changeSettingsPopup")
     //    | {{_ 'hide-system-messages'}}
     //    if hiddenSystemMessages
     //      i.fa.fa-check
-    li
-      a.js-toggle-desktop-drag-handles
-        i.fa.fa-arrows
-        | {{_ 'show-desktop-drag-handles'}}
-        if isShowDesktopDragHandles
-          i.fa.fa-check
+    //li
+    //  a.js-toggle-desktop-drag-handles
+    //    i.fa.fa-arrows
+    //    | {{_ 'show-desktop-drag-handles'}}
+    //    if isShowDesktopDragHandles
+    //      i.fa.fa-check
     unless currentUser.isWorker
       li
         label.bold.clear
