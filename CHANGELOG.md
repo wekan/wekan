@@ -18,6 +18,8 @@ and adds the following updates:
 
 - [Upgraded to Meteor 2.8.0](https://github.com/wekan/wekan/commit/ab495458767162dcfab2d2a5940138eee39f6fc0).
   Thanks to Meteor developers.
+- [OpenPower MiniCloud is discontinued, no ppc64le build server. Looking for other ways to build](https://github.com/wekan/wekan/commit/93fa56d039500f83a7c290ba57fc609b4295e13d).
+  Thanks to MiniCloud.
 
 and fixes the following bugs:
 
