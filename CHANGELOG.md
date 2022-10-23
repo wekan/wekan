@@ -29,6 +29,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Added URL path / for site.webmanifest and pwa-service-worker because of errors in Chrome inspect console](https://github.com/wekan/wekan/commit/15bf69c3194394272633a1c5572e37fc09e5d947).
   Thanks to xet7.
+- [Fix to use metrics related code only when enabled, because got error about userId](https://github.com/wekan/wekan/commit/d474ce64b82c1ba24c7659ad378be0d379ee7826).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
