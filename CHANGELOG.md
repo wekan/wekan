@@ -27,6 +27,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Try to fix Mermaid Diagram error in Chrome: Maximum call stack size exceeded](https://github.com/wekan/wekan/commit/2573d325e62675771e2faf5ee2c26758d1dda86d).
   Thanks to xet7.
+- [Added URL path / for site.webmanifest and pwa-service-worker because of errors in Chrome inspect console](https://github.com/wekan/wekan/commit/15bf69c3194394272633a1c5572e37fc09e5d947).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
