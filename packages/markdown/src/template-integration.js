@@ -49,7 +49,7 @@ Markdown.use(mathjax);
 // https://www.npmjs.com/package/@wekanteam/markdown-it-mermaid
 // https://github.com/wekan/markdown-it-mermaid
 Markdown.use(markdownItMermaid,{
-  maxTextSize: 100000,
+  maxTextSize: 200000,
 });
 
 if (Package.ui) {
