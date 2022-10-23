@@ -13,6 +13,10 @@ This release adds the following new features:
   Thanks to xet7.
 - [In optional WeKan metrics feature, rename metrics key and add a new one](https://github.com/wekan/wekan/pull/4728).
   Thanks to Emile840.
+- [Drag handle toggle at top left](https://github.com/wekan/wekan/commit/e214bc55dcfd685c96311da7c2226cfb96208fca).
+  Each touch/non-touch screen can use different setting, because it's saved to browser localstorage, not database.
+  For example, when using Firefox Multi-Account Containers AddOn, different browsers etc, when logged in as same user.
+  Thanks to hatl and xet7.
 
 and adds the following updates:
 
