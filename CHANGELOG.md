@@ -14,10 +14,17 @@ This release adds the following new features:
 - [In optional WeKan metrics feature, rename metrics key and add a new one](https://github.com/wekan/wekan/pull/4728).
   Thanks to Emile840.
 
+and adds the following updates:
+
+- [Upgraded to Meteor 2.8.0](https://github.com/wekan/wekan/commit/ab495458767162dcfab2d2a5940138eee39f6fc0).
+  Thanks to Meteor developers.
+
 and fixes the following bugs:
 
 - [docker-compose.yml added info about LDAP and disable Password login option at Admin Panel](https://github.com/wekan/wekan/pull/4716).
   Thanks to luisfcorreia.
+- [Commented out fonts, because after upgrade to Meteor 2.8.0 there was errors in browser inspect console: downloadable font: rejected by sanitizer font-family Roboto Poppins](https://github.com/wekan/wekan/commit/005c91af51223966687e3c98fa0b6bce66a552f9).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
