@@ -70,7 +70,23 @@ Meteor.publish('user-authenticationMethod', function (match) {
 // }
 
 if (Meteor.isServer) {
-  Meteor.onConnection(function (connection) {
+
+/* Got this error, so using this code only when metrics enabled with process.env... below
+I20221023-09:15:09.599(3)? Exception in onConnection callback: TypeError: Cannot read property 'userId' of null
+I20221023-09:15:09.601(3)?     at server/publications/users.js:106:44
+I20221023-09:15:09.601(3)?     at Array.forEach (<anonymous>)
+I20221023-09:15:09.601(3)?     at server/publications/users.js:102:46
+I20221023-09:15:09.601(3)?     at runWithEnvironment (packages/meteor.js:1347:24)
+I20221023-09:15:09.601(3)?     at packages/meteor.js:1360:14
+I20221023-09:15:09.601(3)?     at packages/ddp-server/livedata_server.js:1614:9
+I20221023-09:15:09.601(3)?     at Hook.forEach (packages/callback-hook/hook.js:110:15)
+I20221023-09:15:09.601(3)?     at Hook.each (packages/callback-hook/hook.js:122:17)
+I20221023-09:15:09.602(3)?     at Server._handleConnect (packages/ddp-server/livedata_server.js:1612:27)
+I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
+*/
+
+  if (process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS !== '') {
+    Meteor.onConnection(function (connection) {
     // console.log(
     //   'Meteor.server.stream_server.open_sockets',
     //   Meteor.server.stream_server.open_sockets,
@@ -108,6 +124,7 @@ if (Meteor.isServer) {
             lastConnectionDate: new Date(),
           },
         }),
-    );
-  });
+      );
+    });
+  }
 }
