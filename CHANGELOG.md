@@ -11,6 +11,8 @@ This release adds the following updates:
 
 - [Commented out ppc64el from release scripts](https://github.com/wekan/wekan/commit/f67ffc910c7a44e69d799d2e5251c6cdb9bd88c1).
   Thanks to xet7.
+- [Use Ubuntu 22.10 base on Docker](https://github.com/wekan/wekan/commit/a52213b93a89dfe407037191e477c73013ac7224).
+  Thanks to Ubuntu developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
