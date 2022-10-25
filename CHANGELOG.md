@@ -14,6 +14,11 @@ This release adds the following updates:
 - [Use Ubuntu 22.10 base on Docker](https://github.com/wekan/wekan/commit/a52213b93a89dfe407037191e477c73013ac7224).
   Thanks to Ubuntu developers.
 
+and fixes the following bugs:
+
+- [Fix Python-Esprima upstream failing](https://github.com/wekan/wekan/pull/4732).
+  Thanks to bentiss.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.54 2022-10-24 WeKan ® release
