@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added LDAP sync Python3 script, that also correctly removes users](https://github.com/wekan/wekan/commit/ca9d47c2aab8d8e856515aba53ac77be90faf9f0).
+  Thanks to hpvb.
+
+and adds the following updates:
 
 - [Commented out ppc64el from release scripts](https://github.com/wekan/wekan/commit/f67ffc910c7a44e69d799d2e5251c6cdb9bd88c1).
   Thanks to xet7.
