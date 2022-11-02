@@ -20,6 +20,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Use Ubuntu 22.10 base on Docker](https://github.com/wekan/wekan/commit/a52213b93a89dfe407037191e477c73013ac7224).
   Thanks to Ubuntu developers.
+- [Updated to Node.js v14.21.0](https://github.com/wekan/wekan/commit/d710168cfa1d9bd47ad0b1668383d546695850e2).
+  Thanks to Node.js developers.
 
 and fixes the following bugs:
 
