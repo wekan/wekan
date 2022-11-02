@@ -9,7 +9,9 @@ Download section.
 
 This release adds the following new features:
 
-- [Added LDAP sync Python3 script, that also correctly removes users](https://github.com/wekan/wekan/commit/ca9d47c2aab8d8e856515aba53ac77be90faf9f0).
+- Added LDAP sync Python3 script, that also correctly removes users.
+  [Part 1](https://github.com/wekan/wekan/commit/ca9d47c2aab8d8e856515aba53ac77be90faf9f0),
+  [Part 2](https://github.com/wekan/wekan/commit/55bd94bbf4f8d37d2aebd445694b02bd6fc92e4a).
   Thanks to hpvb.
 
 and adds the following updates:
