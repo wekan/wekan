@@ -341,6 +341,29 @@ def update_wekan_board_memberships(ldap_users):
                         if user_tmp not in members_tmp:
                             members_tmp.append(user_tmp.copy())
 
+        board_users = []
+        for card in mongodb_database["cards"].find({"boardId": board['_id']}):
+            if card['userId'] not in board_users:
+                board_users.append(card['userId'])
+
+        inactive_board_users = board_users.copy()
+        for member in members_tmp:
+            if member['userId'] in board_users:
+                inactive_board_users.remove(member['userId'])
+
+        for inactive_board_user in inactive_board_users:
+            user_tmp = {
+                'userId': inactive_board_user,
+                'isAdmin': False,
+                'isActive': False,
+                'isNoComments': False,
+                'isCommentOnly': False,
+                'isWorker': False
+            }
+
+            if user_tmp not in members_tmp:
+                members_tmp.append(user_tmp.copy())
+
         if members != members_tmp:
             print(f"Updated Wekan board membership for {board['title']}")
             stats['board_membership_update'] += 1
