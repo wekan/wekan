@@ -102,7 +102,7 @@ parts:
     wekan:
         source: .
         plugin: npm
-        npm-node-version: 14.20.1
+        npm-node-version: 14.21.1
         #npm-packages:
         #    - node-gyp
         #    - node-pre-gyp
@@ -132,7 +132,7 @@ parts:
             #echo "registry=http://registry.npmjs.org/" > ~/.npmrc
             #echo "Installing npm, node-gyp, node-pre-gyp, fibers"
             #npm -g install n --unsafe-perm
-            #n 14.20.1
+            #n 14.21.1
             #npm -g install node-gyp --unsafe-perm
             #npm -g install node-pre-gyp --unsafe-perm
             #npm -g install fibers --unsafe-perm
@@ -177,12 +177,12 @@ parts:
             #rm fibers-multi.7z
             #cd ../../../../../../..
             # Copy to Snap
-            wget https://nodejs.org/dist/latest-v14.x/node-v14.20.1-linux-x64.tar.xz
-            tar -xf node-v14.20.1-linux-x64.tar.xz node-v14.20.1-linux-x64/bin/node
-            rm node-v14.20.1-linux-x64.tar.xz
+            wget https://nodejs.org/dist/latest-v14.x/node-v14.21.1-linux-x64.tar.xz
+            tar -xf node-v14.21.1-linux-x64.tar.xz node-v14.21.1-linux-x64/bin/node
+            rm node-v14.21.1-linux-x64.tar.xz
             mkdir $SNAPCRAFT_PART_INSTALL/bin
-            cp -p node-v14.20.1-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
-            rm -rf node-v14.20.1-linux-x64
+            cp -p node-v14.21.1-linux-x64/bin/node $SNAPCRAFT_PART_INSTALL/bin/
+            rm -rf node-v14.21.1-linux-x64
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
