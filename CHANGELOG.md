@@ -20,7 +20,7 @@ and adds the following updates:
   Thanks to xet7.
 - [Use Ubuntu 22.10 base on Docker](https://github.com/wekan/wekan/commit/a52213b93a89dfe407037191e477c73013ac7224).
   Thanks to Ubuntu developers.
-- [Updated to Node.js v14.21.0](https://github.com/wekan/wekan/commit/d710168cfa1d9bd47ad0b1668383d546695850e2).
+- [Updated to Node.js v14.21.1](https://github.com/wekan/wekan/commit/20e3282edd45fb395143c08e82631a41bdf296d4).
   Thanks to Node.js developers.
 - [Updated ostrio:files](https://github.com/wekan/wekan/commit/2ef75a810da2566d8630be0dde0ec7c2df518b76).
   Thanks to developers of dependencies !
