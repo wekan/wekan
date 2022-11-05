@@ -5,7 +5,7 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.55 2022-11-05 WeKan ® release
 
 This release adds the following new features:
 
@@ -23,7 +23,9 @@ and adds the following updates:
 - [Updated to Node.js v14.21.1](https://github.com/wekan/wekan/commit/20e3282edd45fb395143c08e82631a41bdf296d4).
   Thanks to Node.js developers.
 - [Updated ostrio:files](https://github.com/wekan/wekan/commit/2ef75a810da2566d8630be0dde0ec7c2df518b76).
-  Thanks to developers of dependencies !
+  Thanks to ostrio:files developers.
+- [Updated markdown-it-mermaid](https://github.com/wekan/wekan/commit/a3ecda64cfb1ba033caa8e5162f9b8a008a51cdb).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
