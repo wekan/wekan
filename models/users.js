@@ -2483,7 +2483,7 @@ if (Meteor.isServer) {
    * @description Only the admin user (the first user) can call the REST API.
    *
    * @param {string} userId the user ID
-   * @param {string} token the user token
+   * @param {string} token the user hashedToken
    * @return_type {message: string}
    */
   JsonRoutes.add('POST', '/api/deletetoken', function (req, res) {
