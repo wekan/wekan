@@ -2474,6 +2474,55 @@ if (Meteor.isServer) {
       });
     }
   });
+
+  /**
+   * @operation delete_user_token
+   *
+   * @summary Delete one or all user token.
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} userId the user ID
+   * @param {string} token the user hashedToken
+   * @return_type {message: string}
+   */
+  JsonRoutes.add('POST', '/api/deletetoken', function (req, res) {
+    try {
+      const { userId, token } = req.body;
+      Authentication.checkUserId(req.userId);
+
+      let data = {
+        message: 'Expected a userId to be set but received none.',
+      };
+
+      if (token && userId) {
+        Accounts.destroyToken(userId, token);
+        data.message = 'Delete token: [' + token + '] from user: ' + userId;
+      } else if (userId) {
+        Users.update(
+          {
+            _id: userId,
+          },
+          {
+            $set: {
+              'services.resume.loginTokens': '',
+            },
+          },
+        );
+        data.message = 'Delete all token from user: ' + userId;
+      }
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data,
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
 }
 
 export default Users;
