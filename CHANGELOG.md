@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Add delete token api](https://github.com/wekan/wekan/pull/4752).
+  Thanks to aazf.
+
+and fixes the following bugs:
 
 - [Try to fix building Snap Candidate](https://github.com/wekan/wekan/commit/fbae3b0e557d2cf355579456684a9b1dec8cb72d).
   Thanks to xet7.
