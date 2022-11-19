@@ -29,13 +29,6 @@ window.Popup = new (class {
   open(name) {
     const self = this;
     const popupName = `${name}Popup`;
-    const $contentWrapper = $('.content-wrapper')
-    if ($contentWrapper.length > 0) {
-      const contentWrapper = $contentWrapper[0];
-      this._getTopStack().scrollTop = contentWrapper.scrollTop;
-      // scroll from e.g. delete comment to the top (where the confirm button is)
-      $contentWrapper.scrollTop(0);
-    }
     function clickFromPopup(evt) {
       return $(evt.target).closest('.js-pop-over').length !== 0;
     }
@@ -82,6 +75,14 @@ window.Popup = new (class {
         offset: self._getOffset(openerElement),
         dataContext: (this && this.currentData && this.currentData()) || (options && options.dataContextIfCurrentDataIsUndefined) || this,
       });
+
+      const $contentWrapper = $('.content-wrapper')
+      if ($contentWrapper.length > 0) {
+        const contentWrapper = $contentWrapper[0];
+        self._getTopStack().scrollTop = contentWrapper.scrollTop;
+        // scroll from e.g. delete comment to the top (where the confirm button is)
+        $contentWrapper.scrollTop(0);
+      }
 
       // If there are no popup currently opened we use the Blaze API to render
       // one into the DOM. We use a reactive function as the data parameter that
@@ -139,8 +140,10 @@ window.Popup = new (class {
       const $contentWrapper = $('.content-wrapper')
       if ($contentWrapper.length > 0) {
         const contentWrapper = $contentWrapper[0];
-        const stack = this._stack[this._stack.length - 1 - n];
-        if (contentWrapper.scrollTopMax && stack.scrollTop > contentWrapper.scrollTopMax) {
+        const stack = this._stack[this._stack.length - n];
+        // scrollTopMax and scrollLeftMax only available at Firefox (https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTopMax)
+        const scrollTopMax = contentWrapper.scrollTopMax || contentWrapper.scrollHeight - contentWrapper.clientHeight;
+        if (scrollTopMax && stack.scrollTop > scrollTopMax) {
           // sometimes scrollTopMax is lower than scrollTop, so i need this dirty hack
           setTimeout(() => {
             $contentWrapper.scrollTop(stack.scrollTop);
