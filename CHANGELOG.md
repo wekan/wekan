@@ -16,6 +16,8 @@ and adds the following updates:
 
 - [Upgraded to Meteor 2.8.1](https://github.com/wekan/wekan/commit/3b59620ee39b6224660b6abd95fe4f0f288d7a15).
   Thanks to Meteor developers.
+- [Revert max_old_space_size and stack-size. Update markdown-it-mermaid and cli-table3](https://github.com/wekan/wekan/commit/57c09e15acd40c24f946e220d9e064a34f4152fb).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
