@@ -157,8 +157,9 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     SAML_ATTRIBUTES="" \
     ORACLE_OIM_ENABLED=false \
     WAIT_SPINNER="" \
-    NODE_OPTIONS="--max_old_space_size=4096" \
     WRITABLE_PATH=/data
+
+#   NODE_OPTIONS="--max_old_space_size=4096" \
 
 #---------------------------------------------
 # == at docker-compose.yml: AUTOLOGIN WITH OIDC/OAUTH2 ====
@@ -269,4 +270,5 @@ STOPSIGNAL SIGKILL
 #
 # CMD ["node", "/build/main.js"]
 
-CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /build/main.js"]
+#CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /build/main.js"]
+CMD ["bash", "-c", "ulimit -s 65500; exec node /build/main.js"]

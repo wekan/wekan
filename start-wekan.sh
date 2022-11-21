@@ -524,10 +524,11 @@
       #---------------------------------------------------------------------
       # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
       # Add more Node heap:
-      export NODE_OPTIONS="--max_old_space_size=4096"
+      #export NODE_OPTIONS="--max_old_space_size=4096"
       # Add more stack:
       #bash -c "ulimit -s 65500; exec node --stack-size=65500 --trace-deprecation main.js"
-      bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+      #bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+      bash -c "ulimit -s 65500; exec node main.js"
       #node main.js
       #---------------------------------------------------------------------
       # & >> ../../wekan.log

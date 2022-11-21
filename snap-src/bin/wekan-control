@@ -35,4 +35,5 @@ cd $APPLICATION_DIRECTORY
 # Add more stack:
 #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
 #---------------------------------------------------------------------
-bash -c "ulimit -s 65500; exec $NODE_PATH/node --stack-size=65500 $APPLICATION_START"
+#bash -c "ulimit -s 65500; exec $NODE_PATH/node --stack-size=65500 $APPLICATION_START"
+bash -c "ulimit -s 65500; exec $NODE_PATH/node $APPLICATION_START"

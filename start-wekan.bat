@@ -482,7 +482,8 @@ REM SET WAIT_SPINNER=Bounce
 
 REM # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
 REM # Add more Node heap:
-SET NODE_OPTIONS="--max_old_space_size=4096"
+REM # SET NODE_OPTIONS="--max_old_space_size=4096"
 REM # Add more stack. ulimit is not at Windows, stack-size is at Windows:
 REM #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
-node --stack-size=65500 main.js
+REM #node --stack-size=65500 main.js
+node main.js

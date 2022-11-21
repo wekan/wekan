@@ -142,8 +142,9 @@ ENV \
     SAML_IDENTIFIER_FORMAT="" \
     SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
     SAML_ATTRIBUTES="" \
-    DEFAULT_WAIT_SPINNER="" \
-    NODE_OPTIONS="--max_old_space_size=4096"
+    DEFAULT_WAIT_SPINNER=""
+# \
+#    NODE_OPTIONS="--max_old_space_size=4096"
 
 #---------------------------------------------------------------------
 # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
