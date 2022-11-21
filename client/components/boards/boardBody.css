@@ -32,10 +32,11 @@
   animation: fadeIn 0.2s;
   z-index: 16;
 }
+.board-wrapper .board-canvas.is-dragging-active .open-minicard-composer,
 .board-wrapper .board-canvas.is-dragging-active .minicard-wrapper.is-checked {
   display: none;
 }
-@media screen and (max-width: 250px) {
+@media screen and (max-width: 800px) {
   .board-wrapper .board-canvas .swimlane {
     border-bottom: 1px solid #ccc;
     display: flex;

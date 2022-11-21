@@ -159,7 +159,7 @@
 #js-wip-limit-edit div {
   float: left;
 }
-@media screen and (max-width: 250px) {
+@media screen and (max-width: 800px) {
   .mini-list {
     flex: 0 0 60px;
     height: auto;

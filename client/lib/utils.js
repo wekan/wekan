@@ -255,7 +255,7 @@ Utils = {
   isMiniScreen() {
     // OLD WINDOW WIDTH DETECTION:
     this.windowResizeDep.depend();
-    return $(window).width() <= 250;
+    return $(window).width() <= 800;
   },
 
   isTouchScreen() {

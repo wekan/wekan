@@ -46,6 +46,7 @@
   background: #dedede;
   display: flex;
   flex-direction: row;
+  overflow: 0;
   max-height: calc(100% - 26px);
 }
 .swimlane.placeholder {
