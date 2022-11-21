@@ -21,6 +21,8 @@ and fixes the following bugs:
 
 - [Try to fix building Snap Candidate](https://github.com/wekan/wekan/commit/fbae3b0e557d2cf355579456684a9b1dec8cb72d).
   Thanks to xet7.
+- [Revert set miniscreen to 250px](https://github.com/wekan/wekan/commit/6a4e17e0394736cd59ab7650c397c46595c8b60e).
+  Thanks to zlobcek, mfilser and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
