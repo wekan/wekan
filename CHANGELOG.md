@@ -18,6 +18,8 @@ and adds the following updates:
   Thanks to Meteor developers.
 - [Revert max_old_space_size and stack-size. Update markdown-it-mermaid and cli-table3](https://github.com/wekan/wekan/commit/57c09e15acd40c24f946e220d9e064a34f4152fb).
   Thanks to xet7.
+- [Updated Meteor version at Dockerfile](https://github.com/wekan/wekan/commit/e62b19affe7cc3ad2858ece776495fb76bfae447).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
