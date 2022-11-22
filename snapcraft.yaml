@@ -1,5 +1,5 @@
 name: wekan
-version: '6.55'
+version: '6.56'
 base: core20
 summary: Open Source kanban
 description: |
@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.13.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.14.tgz
         plugin: dump
         stage-packages:
             - libssl1.1
@@ -160,9 +160,9 @@ parts:
             # Cleanup
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v6.55/wekan-6.55-amd64.zip
-            unzip wekan-6.55-amd64.zip
-            rm wekan-6.55-amd64.zip
+            wget https://github.com/wekan/wekan/releases/download/v6.56/wekan-6.56-amd64.zip
+            unzip wekan-6.56-amd64.zip
+            rm wekan-6.56-amd64.zip
             cd ..
             ##cd .build/bundle
             ##find . -type d -name '*-garbage*' | xargs rm -rf

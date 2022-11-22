@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.55
+  version: v6.56
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2496,6 +2496,43 @@ paths:
             type: object
             properties:
               _id:
+                type: string
+  /api/deletetoken:
+    post:
+      operationId: delete_user_token
+      summary: Delete one or all user token.
+      description: |
+        Only the admin user (the first user) can call the REST API.
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: userId
+          in: formData
+          description: |
+            the user ID
+          type: string
+          required: true
+        - name: token
+          in: formData
+          description: |
+            the user hashedToken
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              message:
                 type: string
   /api/user:
     get:
