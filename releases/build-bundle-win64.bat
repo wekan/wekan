@@ -14,10 +14,11 @@ CALL 7z x wekan-%1.zip
 
 ECHO 4) Reinstalling bcrypt
 CD bundle\programs\server\npm\node_modules\meteor\accounts-password
-REM CALL npm remove bcrypt
-REM CALL npm install bcrypt
+CALL npm remove bcrypt
+CALL npm install bcrypt
 REM # Requires building from source https://github.com/meteor/meteor/issues/11682
-CALL npm rebuild --build-from-source
+REM CALL npm rebuild --build-from-source
+REM CALL npm --build-from-source install bcrypt
 CD ..\..\..\..\..\..\..
 
 ECHO 5) Packing new WeKan.zip
