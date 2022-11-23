@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/38f7384fd743ac673a44606fecadb4dd68728cad).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.56 2022-11-22 WeKan ® release
 
 This release adds the following new features:
