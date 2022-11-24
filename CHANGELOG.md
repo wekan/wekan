@@ -12,6 +12,11 @@ This release adds the following updates:
 - [Updated release scripts](https://github.com/wekan/wekan/commit/38f7384fd743ac673a44606fecadb4dd68728cad).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Try to fix Unescaped char in CN at LDAP, by updating to ldapjs to 2.3.3 and adding escape](https://github.com/wekan/wekan/commit/743d9d2be81d1350f1a3655450c1ab89bfcdfe86).
+  Thanks to xUndero, mfilser, gramakri and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.56 2022-11-22 WeKan ® release
