@@ -1,4 +1,5 @@
 import ldapjs from 'ldapjs';
+import escapedToHex from 'ldapjs';
 import util from 'util';
 import Bunyan from 'bunyan';
 import {log_debug, log_info, log_warn, log_error} from './logger';
