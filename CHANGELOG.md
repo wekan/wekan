@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# v6.58 2022-11-25 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Try to fix #4754 LDAP CN escape. Please test](https://github.com/wekan/wekan/commit/252b2f6f87ec2e972f7a4b065375da740abc1780).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.57 2022-11-24 WeKan ® release
 
 This release adds the following updates:
