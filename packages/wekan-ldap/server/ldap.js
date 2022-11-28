@@ -1,9 +1,20 @@
 import ldapjs from 'ldapjs';
-import escapedToHex from 'ldapjs';
 import util from 'util';
 import Bunyan from 'bunyan';
 import {log_debug, log_info, log_warn, log_error} from './logger';
 
+// copied from https://github.com/ldapjs/node-ldapjs/blob/a113953e0d91211eb945d2a3952c84b7af6de41c/lib/filters/index.js#L167
+function escapedToHex (str) {
+  return str.replace(/\\([0-9a-f][^0-9a-f]|[0-9a-f]$|[^0-9a-f]|$)/gi, function (match, p1) {
+    if (!p1) {
+      return '\\5c';
+    }
+
+    const hexCode = p1.charCodeAt(0).toString(16);
+    const rest = p1.substring(1);
+    return '\\' + hexCode + rest;
+  });
+}
 
 export default class LDAP {
   constructor() {
