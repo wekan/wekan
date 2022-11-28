@@ -5,6 +5,22 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Bump GitHub Action VeryGoodOpenSource/very_good_coverage from 2.0.0 to 2.1.0](https://github.com/wekan/wekan/pull/4761).
+  Thanks to dependabot.
+
+and fixes the following bugs:
+
+- [Provide a copy of escapedToHex() from ldapjs](https://github.com/wekan/wekan/pull/4760).
+  Thanks to nebulade.
+- [Removed FOSSA GitHub badge integration, because FOSSA Open Source plan does not show enough details about licenses, and does not allow to fix incorrectly detected licenses](https://github.com/wekan/wekan/commit/e8d483098e1123336f3132c0f63b1e794b9d20b9).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.58 2022-11-25 WeKan ® release
 
 This release fixes the following bugs:
