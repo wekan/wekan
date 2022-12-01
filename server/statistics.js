@@ -102,6 +102,11 @@ if (Meteor.isServer) {
           mongoStorageEngine,
           mongoOplogEnabled,
         };
+        const client = MongoInternals.defaultRemoteCollectionDriver()?.mongo?.client;
+        const sessionsCount = client?.s?.activeSessions?.size;
+        statistics.session = {
+          sessionsCount: sessionsCount,
+        };
         return statistics;
       } else {
         return false;

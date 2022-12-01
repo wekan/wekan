@@ -111,3 +111,6 @@ template(name='statistics')
           tr
             th {{_ 'Node_memory_usage_external'}}
             td {{fileSize statistics.nodeMemoryUsage.external}}
+          tr
+            th {{_ 'Mongo_sessions_count'}}
+            td {{statistics.session.sessionsCount}}

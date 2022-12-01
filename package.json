@@ -23,6 +23,7 @@
   "dependencies": {
     "@babel/core": "^7.15.5",
     "@babel/runtime": "^7.15.4",
+    "@excalidraw/excalidraw": "^0.13.0",
     "@mapbox/node-pre-gyp": "^1.0.8",
     "@wekanteam/markdown-it-mermaid": "^0.6.0",
     "ajv": "^6.12.6",
@@ -58,6 +59,8 @@
     "papaparse": "^5.3.1",
     "pretty-ms": "^7.0.1",
     "qs": "^6.10.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "simpl-schema": "^1.12.0",
     "source-map-support": "^0.5.20",
     "uuid": "^8.3.2"
