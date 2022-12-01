@@ -5,6 +5,17 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+-  [Upgraded to Meteor 2.8.2](https://github.com/wekan/wekan/commit/49404203aba23bd9c6fea37b037e1e8432a92cee).
+   This could fix memory leaks. See https://forums.meteor.com/t/meteor-v2-8-memory-leak-in-mongo-driver/59101/23 .
+   Added Mongo sessions count to Admin Panel / Version at bottom of page, see that it is not growing all the time.
+   Thanks to Meteor developers and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.59 2022-11-28 WeKan ® release
 
 This release adds the following updates:
