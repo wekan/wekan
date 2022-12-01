@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "如果账号已存在",
     "register": "注册",
     "forgot-password": "忘记密码",
-    "minicardDetailsActionsPopup-title": "卡片详情"
+    "minicardDetailsActionsPopup-title": "卡片详情",
+    "Mongo_sessions_count": "Mongo sessions count"
 }

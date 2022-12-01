@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "Als je al een account hebt",
     "register": "Registreer",
     "forgot-password": "Wachtwoord vergeten",
-    "minicardDetailsActionsPopup-title": "Kaart Details"
+    "minicardDetailsActionsPopup-title": "Kaart Details",
+    "Mongo_sessions_count": "Mongo sessions count"
 }

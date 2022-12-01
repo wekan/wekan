@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "Jika anda sudah ada akaun",
     "register": "Register",
     "forgot-password": "Forgot password",
-    "minicardDetailsActionsPopup-title": "Perincian Kad"
+    "minicardDetailsActionsPopup-title": "Perincian Kad",
+    "Mongo_sessions_count": "Mongo sessions count"
 }

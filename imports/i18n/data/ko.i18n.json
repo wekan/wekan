@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "이미 계정이 있다면",
     "register": "등록하기",
     "forgot-password": "비밀번호 분실",
-    "minicardDetailsActionsPopup-title": "카드 상세"
+    "minicardDetailsActionsPopup-title": "카드 상세",
+    "Mongo_sessions_count": "Mongo sessions count"
 }

@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "אם כבר יש לך חשבון",
     "register": "הרשמה",
     "forgot-password": "שכחתי סיסמה",
-    "minicardDetailsActionsPopup-title": "פרטי הכרטיס"
+    "minicardDetailsActionsPopup-title": "פרטי הכרטיס",
+    "Mongo_sessions_count": "Mongo sessions count"
 }

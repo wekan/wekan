@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "Если у Вас уже есть аккаунт",
     "register": "Регистрация",
     "forgot-password": "Забыл пароль",
-    "minicardDetailsActionsPopup-title": "Детали карточки"
+    "minicardDetailsActionsPopup-title": "Детали карточки",
+    "Mongo_sessions_count": "Mongo sessions count"
 }

@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "If you already have an account",
     "register": "Register",
     "forgot-password": "Forgot password",
-    "minicardDetailsActionsPopup-title": "Card Details"
+    "minicardDetailsActionsPopup-title": "Card Details",
+    "Mongo_sessions_count": "Mongo sessions count"
 }

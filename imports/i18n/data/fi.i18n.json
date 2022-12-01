@@ -1194,5 +1194,6 @@
     "if-you-already-have-an-account": "Jos sinulla on jo tili",
     "register": "Rekisteröidy",
     "forgot-password": "Unohtuiko salasana",
-    "minicardDetailsActionsPopup-title": "Kortin yksityiskohdat"
+    "minicardDetailsActionsPopup-title": "Kortin yksityiskohdat",
+    "Mongo_sessions_count": "Mongo sessioiden määrä"
 }
