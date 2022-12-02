@@ -1195,5 +1195,5 @@
     "register": "S'enregistrer",
     "forgot-password": "Mot de passe oublié",
     "minicardDetailsActionsPopup-title": "Détails de la carte",
-    "Mongo_sessions_count": "Mongo sessions count"
+    "Mongo_sessions_count": "Nombre de sessions Mongo"
 }
