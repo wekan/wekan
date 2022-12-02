@@ -1195,5 +1195,6 @@
     "register": "Регистрация",
     "forgot-password": "Забыл пароль",
     "minicardDetailsActionsPopup-title": "Детали карточки",
-    "Mongo_sessions_count": "Mongo sessions count"
+    "Mongo_sessions_count": "Mongo sessions count",
+    "change-visibility": "Изменить настройки видимости"
 }

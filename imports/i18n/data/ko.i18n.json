@@ -1195,5 +1195,6 @@
     "register": "등록하기",
     "forgot-password": "비밀번호 분실",
     "minicardDetailsActionsPopup-title": "카드 상세",
-    "Mongo_sessions_count": "Mongo sessions count"
+    "Mongo_sessions_count": "Mongo sessions count",
+    "change-visibility": "표시 여부 변경"
 }

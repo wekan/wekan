@@ -1195,5 +1195,6 @@
     "register": "Rekisteröidy",
     "forgot-password": "Unohtuiko salasana",
     "minicardDetailsActionsPopup-title": "Kortin yksityiskohdat",
-    "Mongo_sessions_count": "Mongo sessioiden määrä"
+    "Mongo_sessions_count": "Mongo sessioiden määrä",
+    "change-visibility": "Muokkaa näkyvyyttä"
 }

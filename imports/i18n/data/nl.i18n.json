@@ -1195,5 +1195,6 @@
     "register": "Registreer",
     "forgot-password": "Wachtwoord vergeten",
     "minicardDetailsActionsPopup-title": "Kaart Details",
-    "Mongo_sessions_count": "Aantal Mongo-sessies"
+    "Mongo_sessions_count": "Aantal Mongo-sessies",
+    "change-visibility": "Wijzig zichtbaarheid"
 }

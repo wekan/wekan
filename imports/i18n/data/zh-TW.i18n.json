@@ -1195,5 +1195,6 @@
     "register": "Register",
     "forgot-password": "Forgot password",
     "minicardDetailsActionsPopup-title": "卡片內容",
-    "Mongo_sessions_count": "Mongo sessions count"
+    "Mongo_sessions_count": "Mongo sessions count",
+    "change-visibility": "更改可見度"
 }

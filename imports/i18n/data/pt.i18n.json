@@ -1195,5 +1195,6 @@
     "register": "Register",
     "forgot-password": "Forgot password",
     "minicardDetailsActionsPopup-title": "Detalhes do cartão",
-    "Mongo_sessions_count": "Mongo sessions count"
+    "Mongo_sessions_count": "Mongo sessions count",
+    "change-visibility": "Alterar Visibilidade"
 }

@@ -1195,5 +1195,6 @@
     "register": "הרשמה",
     "forgot-password": "שכחתי סיסמה",
     "minicardDetailsActionsPopup-title": "פרטי הכרטיס",
-    "Mongo_sessions_count": "Mongo sessions count"
+    "Mongo_sessions_count": "Mongo sessions count",
+    "change-visibility": "שינוי מצב הצגה"
 }
