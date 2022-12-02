@@ -10,7 +10,7 @@ allow-deny@1.1.1
 arillo:flow-router-helpers@0.5.2
 audit-argument-checks@1.0.7
 autoupdate@1.8.0
-babel-compiler@7.9.2
+babel-compiler@7.9.3
 babel-runtime@1.5.1
 base64@1.0.12
 binary-heap@1.0.11
