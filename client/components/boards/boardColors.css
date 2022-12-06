@@ -782,9 +782,11 @@
   background-color: rgba(255,255,255,0.3) !important;
 }
 .board-color-dark .list >.list-header,
+/* Comment out, fixed white swimlane text not visible https://github.com/wekan/wekan/issues/4451
 .board-color-dark .swimlane-header {
   color: rgba(255,255,255,0.7);
 }
+*/
 .board-color-dark .minicard-wrapper.is-selected .minicard,
 .board-color-dark .minicard:hover,
 .board-color-dark .minicard-composer.js-composer,
@@ -1403,7 +1405,7 @@
   background: rgba(255,255,255,0.2);
 }
 .board-color-modern#header #header-main-bar h1 {
-  font-family: Poppins;
+/*  font-family: Poppins; */
   font-weight: bold;
 }
 .board-color-modern#header-quick-access #header-user-bar {
@@ -1430,13 +1432,13 @@
   background: none;
 }
 .board-color-modern .swimlane .swimlane-header-wrap .swimlane-header {
-  font-family: Poppins;
+  /* font-family: Poppins; */
 }
 .board-color-modern .board-list .board-list-item {
   padding: 20px;
 }
 .board-color-modern .board-list-item-name {
-  font-family: Poppins;
+  /* font-family: Poppins; */
 }
 .board-color-modern .list {
   background: transparent;
@@ -1464,7 +1466,7 @@
   background: none;
 }
 .board-color-modern .list-header .list-header-name {
-  font-family: Poppins;
+  /* font-family: Poppins; */
   color: #000;
   font-weight: 500;
 }
@@ -1493,7 +1495,7 @@
   padding: 3px 5px;
 }
 .board-color-modern .header-title {
-  font-family: Poppins;
+  /* font-family: Poppins; */
   font-size: 16px;
   color: #333;
 }
@@ -1509,7 +1511,7 @@
   background: #eee;
 }
 .board-color-modern .pop-over .header .header-title {
-  font-family: Poppins;
+  /* font-family: Poppins; */
   font-size: 16px;
   color: #333;
 }
@@ -1547,7 +1549,7 @@
   background: #eee;
 }
 .board-color-modern .board-color-modern section#notifications-drawer .header h5 {
-  font-family: Poppins;
+  /* font-family: Poppins; */
   font-weight: bold;
 }
 .board-color-modern .board-color-modern section#notifications-drawer .header .close {
@@ -1702,7 +1704,7 @@
   background: rgba(255,255,255,0.2);
 }
 .board-color-moderndark#header #header-main-bar h1 {
-  font-family: Poppins;
+  /* font-family: Poppins; */
   font-weight: bold;
   line-height: 0.8em;
   padding-top: 10px;
@@ -1716,7 +1718,7 @@
   padding: 4px 0;
 }
 .board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header {
-  font-family: Poppins;
+  /* font-family: Poppins; */
 }
 .board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header-menu {
   padding: 6px;
@@ -1963,7 +1965,7 @@
   background-color: #333;
 }
 .pop-over.board-color-moderndark .header-title {
-  font-family: Poppins;
+  /* font-family: Poppins; */
   font-size: 16px;
   color: #ccc;
 }
@@ -2045,12 +2047,14 @@
 .board-color-exodark body {
   background: #222;
 }
+/* Uncomment to fix change color selected checkmark not visible
 .board-color-exodark i {
-  color: #00897b !important;
+  color: #fff !important;
 }
+*/
 .board-color-exodark .board-canvas {
   background: #222;
-  font-family: Poppins;
+  /* font-family: Poppins; */
 }
 .board-color-exodark .swimlane {
   background: #222;
@@ -2147,9 +2151,12 @@
 .board-color-exodark h4,
 .board-color-exodark h5,
 .board-color-exodark h6,
-.board-color-exodark p,
-.board-color-exodark a,
-.board-color-exodark span {
+/* Below added .card-details > to p/a/span to fix white swimlane text not visible
+   https://github.com/wekan/wekan/issues/4451
+*/
+.board-color-exodark .card-details > p,
+.board-color-exodark .card-details > a,
+.board-color-exodark .card-details > span {
   color: #fff !important;
 }
 .board-color-exodark .activity-desc {
@@ -2164,7 +2171,7 @@
   border: 1px solid #00897b;
 }
 .board-color-exodark .toggle-switch:checked ~ .toggle-label {
-  background-color: #00897b !important;
+  background-color: #fff !important;
 }
 .pop-over.board-color-exodark {
   background: #2b2b2b;

@@ -337,7 +337,7 @@ input[type="submit"].attachment-add-link-submit {
   }
 }
 .card-details-white {
-  background: unset !important;
+  background: #fff !important;
   color: #000 !important;
   border: 1px solid #eee;
 }
