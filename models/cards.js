@@ -639,7 +639,8 @@ Cards.helpers({
   },
 
   board() {
-    return Boards.findOne(this.boardId);
+    const ret = ReactiveCache.getBoard(this.boardId);
+    return ret;
   },
 
   getRealId() {
