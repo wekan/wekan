@@ -642,6 +642,17 @@ Cards.helpers({
     return Boards.findOne(this.boardId);
   },
 
+  getRealId() {
+    if (!this.__id) {
+      if (this.isLinkedCard()) {
+        this.__id = this.linkedId;
+      } else {
+        this.__id = this._id;
+      }
+    }
+    return this.__id;
+  },
+
   getList() {
     const list = this.list();
     if (!list) {
@@ -753,47 +764,37 @@ Cards.helpers({
   },
 
   activities() {
-    if (this.isLinkedCard()) {
-      return Activities.find(
-        { cardId: this.linkedId },
-        { sort: { createdAt: -1 } },
-      );
-    } else if (this.isLinkedBoard()) {
-      return Activities.find(
+    let ret;
+    if (this.isLinkedBoard()) {
+      ret = Activities.find(
         { boardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
     } else {
-      return Activities.find({ cardId: this._id }, { sort: { createdAt: -1 } });
+      ret = Activities.find({ cardId: this.getRealId() }, { sort: { createdAt: -1 } });
     }
+    return ret;
   },
 
   comments() {
-    if (this.isLinkedCard()) {
-      return CardComments.find(
-        { cardId: this.linkedId },
-        { sort: { createdAt: -1 } },
-      );
-    } else if (this.isLinkedBoard()) {
-      return CardComments.find(
+    let ret
+    if (this.isLinkedBoard()) {
+      ret = CardComments.find(
         { boardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
     } else {
-      return CardComments.find(
-        { cardId: this._id },
+      ret = CardComments.find(
+        { cardId: this.getRealId() },
         { sort: { createdAt: -1 } },
       );
     }
+    return ret;
   },
 
   attachments() {
-    let id = this._id;
-    if (this.isLinkedCard()) {
-       id = this.linkedId;
-    }
-    let ret = Attachments.find(
-      { 'meta.cardId': id },
+    const ret = Attachments.find(
+      { 'meta.cardId': this.getRealId() },
       { sort: { uploadedAt: -1 } },
     ).each();
     return ret;
@@ -809,11 +810,7 @@ Cards.helpers({
 
   checklists() {
     if (!this._checklists) {
-      let id = this._id;
-      if (this.isLinkedCard()) {
-        id = this.linkedId;
-      }
-      this._checklists = new DataCache(() => Checklists.find({ cardId: id }, { sort: { sort: 1 } }).fetch(), 1000);
+      this._checklists = new DataCache(() => Checklists.find({ cardId: this.getRealId() }, { sort: { sort: 1 } }).fetch(), 1000);
     }
     return this._checklists.get();
   },
@@ -832,24 +829,26 @@ Cards.helpers({
 
   checklistItemCount() {
     const checklists = this.checklists();
-    return checklists
+    const ret = checklists
       .map(checklist => {
         return checklist.itemCount();
       })
       .reduce((prev, next) => {
         return prev + next;
       }, 0);
+    return ret;
   },
 
   checklistFinishedCount() {
     const checklists = this.checklists();
-    return checklists
+    const ret = checklists
       .map(checklist => {
         return checklist.finishedCount();
       })
       .reduce((prev, next) => {
         return prev + next;
       }, 0);
+    return ret;
   },
 
   checklistFinished() {
@@ -1081,12 +1080,10 @@ Cards.helpers({
   },
 
   setDescription(description) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { description } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { description } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { description } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { description } });
     }
   },
 
@@ -1151,20 +1148,17 @@ Cards.helpers({
   },
 
   assignMember(memberId) {
-    if (this.isLinkedCard()) {
-      return Cards.update(
-        { _id: this.linkedId },
-        { $addToSet: { members: memberId } },
-      );
-    } else if (this.isLinkedBoard()) {
+    let ret;
+    if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.addMember(memberId);
+      ret = board.addMember(memberId);
     } else {
-      return Cards.update(
-        { _id: this._id },
+      ret = Cards.update(
+        { _id: this.getRealId() },
         { $addToSet: { members: memberId } },
       );
     }
+    return ret;
   },
 
   assignAssignee(assigneeId) {
@@ -1706,14 +1700,6 @@ Cards.helpers({
       }
     }
     return null;
-  },
-
-  getId() {
-    if (this.isLinked()) {
-      return this.linkedId;
-    } else {
-      return this._id;
-    }
   },
 
   getTitle() {
