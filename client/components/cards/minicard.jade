@@ -156,7 +156,7 @@ template(name="minicard")
           .badge
             span.badge-icon.fa.fa-paperclip
             span.badge-text= attachments.length
-      if checklists.count
+      if checklists.length
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
           span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}

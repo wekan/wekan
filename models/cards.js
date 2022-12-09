@@ -7,7 +7,7 @@ import {
 } from '../config/const';
 import Attachments, { fileStoreStrategyFactory } from "./attachments";
 import { copyFile } from './lib/fileStoreStrategy.js';
-
+import { DataCache } from 'meteor-reactive-cache';
 
 Cards = new Mongo.Collection('cards');
 
@@ -808,27 +808,30 @@ Cards.helpers({
   },
 
   checklists() {
-    if (this.isLinkedCard()) {
-      return Checklists.find({ cardId: this.linkedId }, { sort: { sort: 1 } });
-    } else {
-      return Checklists.find({ cardId: this._id }, { sort: { sort: 1 } });
+    if (!this._checklists) {
+      let id = this._id;
+      if (this.isLinkedCard()) {
+        id = this.linkedId;
+      }
+      this._checklists = new DataCache(() => Checklists.find({ cardId: id }, { sort: { sort: 1 } }).fetch(), 1000);
     }
+    return this._checklists.get();
   },
 
   firstChecklist() {
-    const checklists = this.checklists().fetch();
+    const checklists = this.checklists();
     const ret = _.first(checklists);
     return ret;
   },
 
   lastChecklist() {
-    const checklists = this.checklists().fetch();
+    const checklists = this.checklists();
     const ret = _.last(checklists);
     return ret;
   },
 
   checklistItemCount() {
-    const checklists = this.checklists().fetch();
+    const checklists = this.checklists();
     return checklists
       .map(checklist => {
         return checklist.itemCount();
@@ -839,7 +842,7 @@ Cards.helpers({
   },
 
   checklistFinishedCount() {
-    const checklists = this.checklists().fetch();
+    const checklists = this.checklists();
     return checklists
       .map(checklist => {
         return checklist.finishedCount();

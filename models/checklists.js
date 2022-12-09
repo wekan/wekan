@@ -1,3 +1,5 @@
+import { DataCache } from 'meteor-reactive-cache'
+
 Checklists = new Mongo.Collection('checklists');
 
 /**
@@ -81,42 +83,44 @@ Checklists.helpers({
   },
 
   itemCount() {
-    return ChecklistItems.find({ checklistId: this._id }).count();
+    const ret = this.items().length;
+    return ret;
   },
   items() {
-    return ChecklistItems.find(
-      {
-        checklistId: this._id,
-      },
-      { sort: ['sort'] },
-    );
+    if (!this._items) {
+      this._items = new DataCache(() => ChecklistItems.find(
+        {
+          checklistId: this._id,
+        },
+        { sort: ['sort'] },
+
+      )
+      .fetch()
+      , 1000);
+    }
+    return this._items.get();
   },
   firstItem() {
-    const allItems = this.items().fetch();
-    const ret = _.first(allItems);
+    const ret = _.first(this.items());
     return ret;
   },
   lastItem() {
-    const allItems = this.items().fetch();
-    const ret = allItems[allItems.length - 1];
+    const ret = _.last(this.items());
     return ret;
   },
   finishedCount() {
-    return ChecklistItems.find({
-      checklistId: this._id,
-      isFinished: true,
-    }).count();
+    const ret = this.items().filter(_item => _item.isFinished).length;
+    return ret;
   },
   /** returns the finished percent of the checklist */
   finishedPercent() {
-    const checklistItems = ChecklistItems.find({ checklistId: this._id });
-    const count = checklistItems.count();
-    const checklistItemsFinished = checklistItems.fetch().filter(checklistItem => checklistItem.isFinished);
+    const count = this.itemCount();
+    const checklistItemsFinished = this.finishedCount();
 
     let ret = 0;
 
     if (count > 0) {
-      ret = Math.round(checklistItemsFinished.length / count * 100);
+      ret = Math.round(checklistItemsFinished / count * 100);
     }
     return ret;
   },
