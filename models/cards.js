@@ -554,7 +554,7 @@ Cards.helpers({
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
     if (this.boardId !== boardId) {
-      const oldBoard = Boards.findOne(this.boardId);
+      const oldBoard = ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = oldBoard.labels;
 
       // Get old label names
@@ -565,7 +565,7 @@ Cards.helpers({
         'name',
       );
 
-      const newBoard = Boards.findOne(boardId);
+      const newBoard = ReactiveCache.getBoard(boardId);
       const newBoardLabels = newBoard.labels;
       const newCardLabels = _.pluck(
         _.filter(newBoardLabels, label => {
@@ -582,7 +582,7 @@ Cards.helpers({
 
     delete this._id;
     this.boardId = boardId;
-    this.cardNumber = Boards.findOne(boardId).getNextCardNumber();
+    this.cardNumber = ReactiveCache.getBoard(boardId).getNextCardNumber();
     this.swimlaneId = swimlaneId;
     this.listId = listId;
     const _id = Cards.insert(this);
@@ -632,11 +632,11 @@ Cards.helpers({
   },
 
   list() {
-    return Lists.findOne(this.listId);
+    return ReactiveCache.getList(this.listId);
   },
 
   swimlane() {
-    return Swimlanes.findOne(this.swimlaneId);
+    return ReactiveCache.getSwimlane(this.swimlaneId);
   },
 
   board() {
@@ -917,9 +917,9 @@ Cards.helpers({
   // customFields with definitions
   customFieldsWD() {
     // get all definitions
-    const definitions = CustomFields.find({
+    const definitions = ReactiveCache.getCustomFields({
       boardIds: { $in: [this.boardId] },
-    }).fetch();
+    });
     if (!definitions) {
       return {};
     }
@@ -986,9 +986,7 @@ Cards.helpers({
   },
 
   canBeRestored() {
-    const list = Lists.findOne({
-      _id: this.listId,
-    });
+    const list = ReactiveCache.getList(this.listId);
     if (
       !list.getWipLimit('soft') &&
       list.getWipLimit('enabled') &&
@@ -1009,7 +1007,7 @@ Cards.helpers({
   parentCardName() {
     let result = '';
     if (this.parentId !== '') {
-      const card = Cards.findOne(this.parentId);
+      const card = ReactiveCache.getCard(this.parentId);
       if (card) {
         result = card.title;
       }
@@ -2724,7 +2722,7 @@ function cardMove(
       userId,
       oldListId,
       activityType: 'moveCard',
-      listName: Lists.findOne(doc.listId).title,
+      listName: ReactiveCache.getList(doc.listId).title,
       listId: doc.listId,
       boardId: doc.boardId,
       cardId: doc._id,
@@ -2742,7 +2740,7 @@ function cardState(userId, doc, fieldNames) {
       Activities.insert({
         userId,
         activityType: 'archivedCard',
-        listName: Lists.findOne(doc.listId).title,
+        listName: ReactiveCache.getList(doc.listId).title,
         boardId: doc.boardId,
         listId: doc.listId,
         cardId: doc._id,
@@ -2753,7 +2751,7 @@ function cardState(userId, doc, fieldNames) {
         userId,
         activityType: 'restoredCard',
         boardId: doc.boardId,
-        listName: Lists.findOne(doc.listId).title,
+        listName: ReactiveCache.getList(doc.listId).title,
         listId: doc.listId,
         cardId: doc._id,
         swimlaneId: doc.swimlaneId,
@@ -2937,7 +2935,7 @@ function cardCreation(userId, doc) {
     userId,
     activityType: 'createCard',
     boardId: doc.boardId,
-    listName: Lists.findOne(doc.listId).title,
+    listName: ReactiveCache.getList(doc.listId).title,
     listId: doc.listId,
     cardId: doc._id,
     cardTitle: doc.title,

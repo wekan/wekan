@@ -43,12 +43,12 @@ Utils = {
   },
   getCurrentCard(ignorePopupCard) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
-    const ret = Cards.findOne(cardId);
+    const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
   getPopupCard() {
     const cardId = Utils.getPopupCardId();
-    const ret = Cards.findOne(cardId);
+    const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
   canModifyCard() {
