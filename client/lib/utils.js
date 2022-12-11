@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Utils = {
   setBackgroundImage(url) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
@@ -36,7 +38,7 @@ Utils = {
    */
   getCurrentBoard() {
     const boardId = Utils.getCurrentBoardId();
-    const ret = Boards.findOne(boardId);
+    const ret = ReactiveCache.getBoard(boardId);
     return ret;
   },
   getCurrentCard(ignorePopupCard) {
