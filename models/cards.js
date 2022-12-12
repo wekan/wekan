@@ -1246,12 +1246,10 @@ Cards.helpers({
   },
 
   setReceived(receivedAt) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { receivedAt } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { receivedAt } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { receivedAt } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { receivedAt } });
     }
   },
 
@@ -1276,12 +1274,10 @@ Cards.helpers({
   },
 
   setStart(startAt) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { startAt } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { startAt } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { startAt } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { startAt } });
     }
   },
 
@@ -1306,12 +1302,10 @@ Cards.helpers({
   },
 
   setDue(dueAt) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { dueAt } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { dueAt } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { dueAt } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { dueAt } });
     }
   },
 
@@ -1336,12 +1330,10 @@ Cards.helpers({
   },
 
   setEnd(endAt) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { endAt } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { endAt } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { endAt } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { endAt } });
     }
   },
 
@@ -1366,12 +1358,10 @@ Cards.helpers({
   },
 
   setIsOvertime(isOvertime) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { isOvertime } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { isOvertime } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { isOvertime } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { isOvertime } });
     }
   },
 
@@ -1396,12 +1386,10 @@ Cards.helpers({
   },
 
   setSpentTime(spentTime) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { spentTime } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { spentTime } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { spentTime } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { spentTime } });
     }
   },
 
@@ -1758,12 +1746,10 @@ Cards.helpers({
   },
 
   setTitle(title) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { title } });
-    } else if (this.isLinkedBoard()) {
+    if (this.isLinkedBoard()) {
       return Boards.update({ _id: this.linkedId }, { $set: { title } });
     } else {
-      return Cards.update({ _id: this._id }, { $set: { title } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { title } });
     }
   },
 
@@ -1788,11 +1774,7 @@ Cards.helpers({
   },
 
   setRequestedBy(requestedBy) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { requestedBy } });
-    } else {
-      return Cards.update({ _id: this._id }, { $set: { requestedBy } });
-    }
+    return Cards.update({ _id: this.getRealId() }, { $set: { requestedBy } });
   },
 
   getRequestedBy() {
@@ -1809,11 +1791,7 @@ Cards.helpers({
   },
 
   setAssignedBy(assignedBy) {
-    if (this.isLinkedCard()) {
-      return Cards.update({ _id: this.linkedId }, { $set: { assignedBy } });
-    } else {
-      return Cards.update({ _id: this._id }, { $set: { assignedBy } });
-    }
+    return Cards.update({ _id: this.getRealId() }, { $set: { assignedBy } });
   },
 
   getAssignedBy() {
