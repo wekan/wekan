@@ -13,12 +13,8 @@ Blaze.registerHelper('currentCard', () => {
 });
 
 Blaze.registerHelper('currentList', () => {
-  const listId = Session.get('currentList');
-  if (listId) {
-    return Lists.findOne(listId);
-  } else {
-    return null;
-  }
+  const ret = Utils.getCurrentList();
+  return ret;
 });
 
 Blaze.registerHelper('getUser', userId => Users.findOne(userId));

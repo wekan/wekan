@@ -33,6 +33,10 @@ Utils = {
     const ret = Session.get('popupCardId');
     return ret;
   },
+  getCurrentListId() {
+    const ret = Session.get('currentList');
+    return ret;
+  },
   /** returns the current board
    * <li> returns the current board or the board of the popup card if set
    */
@@ -44,6 +48,14 @@ Utils = {
   getCurrentCard(ignorePopupCard) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
     const ret = ReactiveCache.getCard(cardId);
+    return ret;
+  },
+  getCurrentList() {
+    const listId = this.getCurrentListId();
+    let ret = null;
+    if (listId) {
+      ret = ReactiveCache.getList(listId);
+    }
     return ret;
   },
   getPopupCard() {
