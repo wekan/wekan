@@ -171,15 +171,15 @@ template(name='announcementSettings')
   ul#announcement-setting.setting-detail
     li
       a.flex.js-toggle-activemessage
-        .materialCheckBox(class="{{#if currentSetting.enabled}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if currentAnnouncements.enabled}}is-checked{{/if}}")
 
         span {{_ 'admin-announcement-active'}}
     li
-      .admin-announcement(class="{{#if currentSetting.enabled}}{{else}}hide{{/if}}")
+      .admin-announcement(class="{{#if currentAnnouncements.enabled}}{{else}}hide{{/if}}")
         ul
           li
             .title {{_ 'admin-announcement-title'}}
-            textarea#admin-announcement.wekan-form-control= currentSetting.body
+            textarea#admin-announcement.wekan-form-control= currentAnnouncements.body
           li
             button.js-announcement-save.primary {{_ 'save'}}
 

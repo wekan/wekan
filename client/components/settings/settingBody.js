@@ -412,7 +412,7 @@ BlazeComponent.extendComponent({
     this.loading.set(w);
   },
 
-  currentSetting() {
+  currentAnnouncements() {
     return Announcements.findOne();
   },
 
@@ -427,8 +427,9 @@ BlazeComponent.extendComponent({
 
   toggleActive() {
     this.setLoading(true);
-    const isActive = this.currentSetting().enabled;
-    Announcements.update(Announcements.findOne()._id, {
+    const announcements = this.currentAnnouncements();
+    const isActive = announcements.enabled;
+    Announcements.update(announcements._id, {
       $set: { enabled: !isActive },
     });
     this.setLoading(false);
