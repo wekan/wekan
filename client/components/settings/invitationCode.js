@@ -1,7 +1,7 @@
 Template.invitationCode.onRendered(function() {
   Meteor.subscribe('setting', {
     onReady() {
-      const setting = Settings.findOne();
+      const setting = Utils.getCurrentSetting();
 
       if (!setting || !setting.disableRegistration) {
         $('#invitationcode').hide();

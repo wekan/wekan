@@ -1,4 +1,4 @@
-//var nodemailer = require('nodemailer');
+import { ReactiveCache } from '/imports/reactiveCache';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
@@ -1425,11 +1425,7 @@ if (Meteor.isServer) {
           throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-        if (
-          Settings.findOne({
-            disableRegistration: true,
-          })
-        ) {
+        if (ReactiveCache.getCurrentSetting().disableRegistration) {
           throw new Meteor.Error('error-user-notCreated');
         }
         // Set in lowercase email before creating account
@@ -1667,7 +1663,7 @@ if (Meteor.isServer) {
       return user;
     }
 
-    const disableRegistration = Settings.findOne().disableRegistration;
+    const disableRegistration = ReactiveCache.getCurrentSetting().disableRegistration;
     // If this is the first Authentication by the ldap and self registration disabled
     if (disableRegistration && options && options.ldap) {
       user.authenticationMethod = 'ldap';
@@ -1972,7 +1968,7 @@ if (Meteor.isServer) {
     }
 
     //invite user to corresponding boards
-    const disableRegistration = Settings.findOne().disableRegistration;
+    const disableRegistration = Utils.getCurrentSetting().disableRegistration;
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (doc.authenticationMethod !== 'ldap' && disableRegistration) {

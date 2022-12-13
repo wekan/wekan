@@ -58,6 +58,10 @@ Utils = {
     }
     return ret;
   },
+  getCurrentSetting() {
+    const ret = ReactiveCache.getCurrentSetting();
+    return ret;
+  },
   getPopupCard() {
     const cardId = Utils.getPopupCardId();
     const ret = ReactiveCache.getCard(cardId);

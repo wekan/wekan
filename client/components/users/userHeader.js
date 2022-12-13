@@ -31,7 +31,7 @@ Template.memberMenuPopup.helpers({
     }
   },
   isSameDomainNameSettingValue(){
-    const currSett = Settings.findOne();
+    const currSett = Utils.getCurrentSetting();
     if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
       currentUser = Meteor.user();
       if (currentUser) {
@@ -137,12 +137,6 @@ Template.invitePeoplePopup.events({
         // Popup.close();
       });
     }
-  },
-});
-
-Template.invitePeoplePopup.helpers({
-  currentSetting() {
-    return Settings.findOne();
   },
 });
 

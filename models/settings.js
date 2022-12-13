@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 //var nodemailer = require('nodemailer');
 
@@ -167,7 +168,7 @@ Settings.allow({
 if (Meteor.isServer) {
   Meteor.startup(() => {
     Settings._collection.createIndex({ modifiedAt: -1 });
-    const setting = Settings.findOne({});
+    const setting = ReactiveCache.getCurrentSetting();
     if (!setting) {
       const now = new Date();
       const domain = process.env.ROOT_URL.match(
@@ -193,7 +194,7 @@ if (Meteor.isServer) {
     }
     if (isSandstorm) {
       // At Sandstorm, Admin Panel has SMTP settings
-      const newSetting = Settings.findOne();
+      const newSetting = ReactiveCache.getCurrentSetting();
       if (!process.env.MAIL_URL && newSetting.mailUrl())
         process.env.MAIL_URL = newSetting.mailUrl();
       Accounts.emailTemplates.from = process.env.MAIL_FROM
@@ -301,7 +302,7 @@ if (Meteor.isServer) {
   }
 
   function isNonAdminAllowedToSendMail(currentUser){
-    const currSett = Settings.findOne({});
+    const currSett = ReactiveCache.getCurrentSetting();
     let isAllowed = false;
     if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
       for(let i = 0; i < currentUser.emails.length; i++) {
@@ -449,7 +450,7 @@ if (Meteor.isServer) {
     },
 
     getCustomUI() {
-      const setting = Settings.findOne({});
+      const setting = ReactiveCache.getCurrentSetting();
       if (!setting.productName) {
         return {
           productName: '',
@@ -462,7 +463,7 @@ if (Meteor.isServer) {
     },
 
     isDisableRegistration() {
-      const setting = Settings.findOne({});
+      const setting = ReactiveCache.getCurrentSetting();
       if (setting.disableRegistration === true) {
         return true;
       } else {
@@ -471,7 +472,7 @@ if (Meteor.isServer) {
     },
 
    isDisableForgotPassword() {
-      const setting = Settings.findOne({});
+      const setting = ReactiveCache.getCurrentSetting();
       if (setting.disableForgotPassword === true) {
         return true;
       } else {

@@ -31,6 +31,10 @@ ReactiveCacheServer = {
     const ret = CustomFields.find(selector).fetch();
     return ret;
   },
+  getCurrentSetting() {
+    const ret = Settings.findOne();
+    return ret;
+  },
 }
 
 // only the Client is reactive
@@ -106,6 +110,16 @@ ReactiveCacheClient = {
     }
     const ret = this.__customFields.get(Jsons.stringify(selector));
     return ret;
+  },
+  getCurrentSetting() {
+    if (!this.__currentSetting || !this.__currentSetting.get()) {
+      this.__currentSetting = new DataCache(() => {
+        const _ret = Settings.findOne();
+        return _ret;
+      });
+    }
+    const ret = this.__currentSetting.get();
+    return ret;
   }
 }
 
@@ -176,6 +190,15 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getCustomFields(selector);
     } else {
       ret = ReactiveCacheClient.getCustomFields(selector);
+    }
+    return ret;
+  },
+  getCurrentSetting() {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getCurrentSetting();
+    } else {
+      ret = ReactiveCacheClient.getCurrentSetting();
     }
     return ret;
   },

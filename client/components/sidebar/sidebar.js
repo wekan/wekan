@@ -149,9 +149,6 @@ Template.homeSidebar.helpers({
 });
 
 Template.boardInfoOnMyBoardsPopup.helpers({
-  currentSetting() {
-    return Settings.findOne();
-  },
   hideCardCounterList() {
     return Utils.isMiniScreen() && Session.get('currentBoard');
   },

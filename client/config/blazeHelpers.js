@@ -17,6 +17,11 @@ Blaze.registerHelper('currentList', () => {
   return ret;
 });
 
+Blaze.registerHelper('currentSetting', () => {
+  const ret = Utils.getCurrentSetting();
+  return ret;
+});
+
 Blaze.registerHelper('getUser', userId => Users.findOne(userId));
 
 Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));

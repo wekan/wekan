@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 BlazeLayout.setRoot('body');
@@ -28,7 +29,7 @@ Template.userFormsLayout.onCreated(function () {
 
   Meteor.subscribe('setting', {
     onReady() {
-      templateInstance.currentSetting.set(Settings.findOne());
+      templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
       let currSetting = templateInstance.currentSetting.curValue;
       let oidcBtnElt = $("#at-oidc");
       if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
@@ -85,10 +86,6 @@ Template.userFormsLayout.onRendered(() => {
 });
 
 Template.userFormsLayout.helpers({
-  currentSetting() {
-    return Template.instance().currentSetting.get();
-  },
-
   // isSettingDatabaseCallDone(){
   //   return isSettingDatabaseFctCallDone;
   // },
@@ -164,7 +161,7 @@ Template.userFormsLayout.events({
   },
   'DOMSubtreeModified #at-oidc'(event) {
     if (alreadyCheck <= 2) {
-      let currSetting = Settings.findOne();
+      let currSetting = Utils.getCurrentSetting();
       let oidcBtnElt = $("#at-oidc");
       if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
         let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
@@ -185,7 +182,7 @@ Template.userFormsLayout.events({
   'DOMSubtreeModified .at-form'(event) {
     if (alreadyCheck <= 2 && !isCheckDone) {
       if (document.getElementById("at-oidc") != null) {
-        let currSetting = Settings.findOne();
+        let currSetting = Utils.getCurrentSetting();
         let oidcBtnElt = $("#at-oidc");
         if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
           let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;

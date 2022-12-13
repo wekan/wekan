@@ -3,9 +3,6 @@ import { TAPi18n } from '/imports/i18n';
 const subManager = new SubsManager();
 
 Template.boardList.helpers({
-  currentSetting() {
-    return Settings.findOne();
-  },
   hideCardCounterList() {
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
        return Utils.isMiniScreen() && Session.get('currentBoard'); */
