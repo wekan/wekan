@@ -6,17 +6,10 @@ template(name="header")
     The first link goes to the boards page.
   if currentUser
     #header-quick-access(class=currentBoard.colorClass)
-      a.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}" alt="{{_ 'show-desktop-drag-handles'}}")
-        i.fa.fa-arrows
-          if isShowDesktopDragHandles
-            i.fa.fa-check-square-o
-          unless isShowDesktopDragHandles
-            i.fa.fa-ban
       if isMiniScreen
         span
           a(href="{{pathFor 'home'}}")
             span.fa.fa-home
-
         ul.header-quick-access-list
           if currentList
             each currentBoard.lists
@@ -30,6 +23,12 @@ template(name="header")
                 a(href="{{pathFor 'board' id=_id slug=slug}}")
                   +viewer
                     = title
+        a.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}" alt="{{_ 'show-desktop-drag-handles'}}")
+          i.fa.fa-arrows
+            if isShowDesktopDragHandles
+              i.fa.fa-check-square-o
+            unless isShowDesktopDragHandles
+              i.fa.fa-ban
         #header-new-board-icon
       else
         //-
@@ -62,7 +61,12 @@ template(name="header")
                   = title
           else
             li.current.empty {{_ 'quick-access-description'}}
-
+        a.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}" alt="{{_ 'show-desktop-drag-handles'}}")
+          i.fa.fa-arrows
+            if isShowDesktopDragHandles
+              i.fa.fa-check-square-o
+            unless isShowDesktopDragHandles
+              i.fa.fa-ban
       // Next line is used only for spacing at header,
       // there is no visible clickable icon.
       #header-new-board-icon
