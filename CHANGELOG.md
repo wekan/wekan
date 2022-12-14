@@ -15,9 +15,10 @@ This release adds the following new features:
 and adds the following updates:
 
 - [Upgraded to Meteor 2.9.0](https://github.com/wekan/wekan/commit/49546b7e3b6ea77c17008d07b6938da4f8ff0a47).
-  MongoDB performance upgrades etc:
-  https://blog.meteor.com/new-meteorjs-2-9-and-the-new-scaffold-api-5fcc0f3b1ce5
+  MongoDB performance upgrades etc: https://blog.meteor.com/new-meteorjs-2-9-and-the-new-scaffold-api-5fcc0f3b1ce5
   Thanks to Meteor developers.
+- [Updated to Node.js v14.21.2. Thanks to Node.js developers](https://github.com/wekan/wekan/commit/689e37e43486cb5b96bfa9222d40ec76d4e0be45).
+  Thanks to Node.js developers.
 
 and fixes the following bugs:
 
