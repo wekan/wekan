@@ -12,6 +12,13 @@ This release adds the following new features:
 - [Added newuser to api.py](https://github.com/wekan/wekan/commit/f485ccea2f22e83cab2f780106e79eb5d7a3e741).
   Thanks to WassimDhib and xet7.
 
+and adds the following updates:
+
+- [Upgraded to Meteor 2.9.0](https://github.com/wekan/wekan/commit/49546b7e3b6ea77c17008d07b6938da4f8ff0a47).
+  MongoDB performance upgrades etc:
+  https://blog.meteor.com/new-meteorjs-2-9-and-the-new-scaffold-api-5fcc0f3b1ce5
+  Thanks to Meteor developers.
+
 and fixes the following bugs:
 
 - [Fixed text not visible at white swimlane at themes dark and exodark. Commented out not in use font Poppins](https://github.com/wekan/wekan/commit/b9ae5a19c7755eaabcdc28d71c94b3044eed9300).
