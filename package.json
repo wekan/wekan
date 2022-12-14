@@ -25,7 +25,7 @@
     "@babel/runtime": "^7.15.4",
     "@excalidraw/excalidraw": "^0.13.0",
     "@mapbox/node-pre-gyp": "^1.0.8",
-    "@wekanteam/markdown-it-mermaid": "^0.6.0",
+    "@wekanteam/markdown-it-mermaid": "^0.6.1",
     "ajv": "^6.12.6",
     "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
