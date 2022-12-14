@@ -18,6 +18,8 @@ and fixes the following bugs:
   Custom fonts were previously removed because they did not work,
   there were errors at browser inspect console.
   Thanks to Meeques and xet7.
+- [Move Desktop Drag Handle setting more right](https://github.com/wekan/wekan/commit/2be0385c254793f4ff8371d981c665fcc3878458).
+  Thanks to Emile840 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
