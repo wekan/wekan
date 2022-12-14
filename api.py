@@ -40,6 +40,7 @@ if arguments == 0:
     print("  python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION")
     print("  python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION")
     print("  python3 api.py listattachments BOARDID # List attachments")
+    print("  python3 api.py newuser USERNAME EMAIL PASSWORD")
 # TODO:
 #   print("  python3 api.py attachmentjson BOARDID ATTACHMENTID # One attachment as JSON base64")
 #   print("  python3 api.py attachmentbinary BOARDID ATTACHMENTID # One attachment as binary file")
@@ -230,6 +231,21 @@ if arguments == 6:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- EDIT CARD END -----------
+
+if arguments == 4:
+
+    if sys.argv[1] == 'newuser':
+
+        # ------- CREATE NEW USER START -----------
+        username = sys.argv[2]
+        email = sys.argv[3]
+        password = sys.argv[4]
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {'username': '{}'.format(username),'email': '{}'.format(email),'password': '{}'.format(password)}
+        body = requests.post(users, data=post_data, headers=headers)
+        print("=== CREATE NEW USER ===\n")
+        print(body.text)
+        # ------- CREATE NEW USER END -----------
 
 if arguments == 3:
 
