@@ -14,4 +14,4 @@ fi
 scp s:/home/linux1/wekan-$1-s390x.zip .
 
 # 3) Upload s390x release to download server
-scp wekan-$1-s390x.zip x2w:/var/websites/releases.wekan.team/public/s390x/
+scp wekan-$1-s390x.zip x2:/data/websites/releases.wekan.team/public/s390x/

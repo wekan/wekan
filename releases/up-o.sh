@@ -14,4 +14,4 @@ fi
 scp o:/home/ubuntu/wekan-$1-ppc64le.zip .
 
 # 3) Upload ppc64le release to download server
-scp wekan-$1-ppc64le.zip x2w:/var/websites/releases.wekan.team/public/ppc64le/
+scp wekan-$1-ppc64le.zip x2:/data/websites/releases.wekan.team/public/ppc64le/

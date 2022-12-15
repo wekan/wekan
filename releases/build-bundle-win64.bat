@@ -26,7 +26,7 @@ CALL DEL wekan-%1-amd64-windows.zip
 CALL 7z a wekan-%1-amd64-windows.zip bundle
 
 ECHO 6) Copying WeKan.zip to sync directory
-CALL COPY wekan-%1-amd64-windows.zip ..\win2016\
+CALL COPY wekan-%1-amd64-windows.zip Z:\
 
 ECHO 7) Done. Starting WeKan.
 CALL start-wekan.bat
