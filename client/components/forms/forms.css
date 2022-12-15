@@ -269,6 +269,11 @@ textarea::-moz-placeholder {
   margin-top: 0px;
   margin-bottom: 12px;
 }
+@media print {
+  .add-controls {
+    display: none;
+  }
+}
 .edit-controls button[type=submit],
 .add-controls button[type=submit],
 .edit-controls input[type=button],

@@ -252,6 +252,19 @@
     margin: -8px 0 -10px -10px;
   }
 }
+@media print {
+  #header-quick-access .allBoards,
+  #header-quick-access ul,
+  #header-quick-access .js-toggle-desktop-drag-handles,
+  #header-quick-access #notifications,
+  #header-quick-access #header-new-board-icon,
+  #header #header-main-bar .board-header-btns {
+    display: none;
+  }
+  #header #header-user-bar {
+    float: right;
+  }
+}
 .announcement .viewer {
   display: inline-block;
 }

@@ -88,6 +88,12 @@
 .list-header .list-header-menu {
   float: right;
 }
+@media print {
+  .list-header .list-header-menu,
+  .list-header .list-header-menu-icon {
+    display: none;
+  }
+}
 .list-header .list-header-plus-top {
   color: #a6a6a6;
   margin-right: 15px;
@@ -128,6 +134,11 @@
   position: relative;
   text-decoration: none;
   animation: fadeIn 0.3s;
+}
+@media print {
+  .list-body .open-minicard-composer {
+    display: none;
+  }
 }
 .list-body .open-minicard-composer i.fa {
   margin-right: 7px;
