@@ -11,6 +11,8 @@ This release adds the following new features:
 
 - [Added newuser to api.py](https://github.com/wekan/wekan/commit/f485ccea2f22e83cab2f780106e79eb5d7a3e741).
   Thanks to WassimDhib and xet7.
+- [For export/print print board/card, added some CSS better. Use browser print preview %20 etc setting to fit to page. Next: Card CSS](https://github.com/wekan/wekan/commit/a561d1b63368c52c8b643e5134392961a45b81ff).
+  Thanks to xet7.
 
 and adds the following updates:
 
