@@ -27,6 +27,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/fe1e1983adfb29c0522c2f81d1ffe1432e496348),
   [Part 2](https://github.com/wekan/wekan/commit/c4d1ffc2e50344bc8ba35de1109cd03ea1af356a).
   Thanks to developers of dependencies.
+- [Update release scripts like Node.js update script](https://github.com/wekan/wekan/commit/d1f519917ba3b5a14d110575afd8cfce90360fe1).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
