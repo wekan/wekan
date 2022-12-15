@@ -19,7 +19,9 @@ and adds the following updates:
   Thanks to Meteor developers.
 - [Updated to Node.js v14.21.2. Thanks to Node.js developers](https://github.com/wekan/wekan/commit/689e37e43486cb5b96bfa9222d40ec76d4e0be45).
   Thanks to Node.js developers.
-- [Updated dependecies like markdown-it-mermaid](https://github.com/wekan/wekan/commit/fe1e1983adfb29c0522c2f81d1ffe1432e496348).
+- Updated dependecies like markdown-it-mermaid.
+  [Part 1](https://github.com/wekan/wekan/commit/fe1e1983adfb29c0522c2f81d1ffe1432e496348),
+  [Part 2](https://github.com/wekan/wekan/commit/c4d1ffc2e50344bc8ba35de1109cd03ea1af356a).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
