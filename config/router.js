@@ -421,7 +421,7 @@ _.each(redirections, (newPath, oldPath) => {
 //Meteor.isClient && Meteor.startup(() => {
 //  Tracker.autorun(() => {
 
-//    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+//    const currentBoard = Utils.getCurrentBoard();
 //    const titleStack = [appTitle];
 //    if (currentBoard) {
 //      titleStack.push(currentBoard.title);

@@ -177,7 +177,7 @@ Template.memberPopup.helpers({
   memberType() {
     const type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
     if (type === 'normal') {
-      const currentBoard = Boards.findOne(Session.get('currentBoard'));
+      const currentBoard = Utils.getCurrentBoard();
       const commentOnly = currentBoard.hasCommentOnly(this.userId);
       const noComments = currentBoard.hasNoComments(this.userId);
       const worker = currentBoard.hasWorker(this.userId);
@@ -219,14 +219,14 @@ Template.boardMenuPopup.events({
   'click .js-board-info-on-my-boards': Popup.open('boardInfoOnMyBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     currentBoard.archive();
     // XXX We should have some kind of notification on top of the page to
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
   'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     Popup.back();
     Boards.remove(currentBoard._id);
     FlowRouter.go('home');
@@ -301,13 +301,13 @@ Template.removeMemberPopup.helpers({
     return Users.findOne(this.userId);
   },
   board() {
-    return Boards.findOne(Session.get('currentBoard'));
+    return Utils.getCurrentBoard();
   },
 });
 
 Template.leaveBoardPopup.helpers({
   board() {
-    return Boards.findOne(Session.get('currentBoard'));
+    return Utils.getCurrentBoard();
   },
 });
 BlazeComponent.extendComponent({
@@ -658,7 +658,7 @@ BlazeComponent.extendComponent({
   },
 
   isSelected() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard.color === this.currentData().toString();
   },
 
@@ -666,7 +666,7 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-select-background'(evt) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           const newColor = this.currentData().toString();
           currentBoard.setColor(newColor);
           evt.preventDefault();
@@ -681,7 +681,7 @@ BlazeComponent.extendComponent({
     return [
       {
         submit(event) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           const backgroundImageURL = this.find('.js-board-background-image-url').value.trim();
           currentBoard.setBackgroundImageURL(backgroundImageURL);
           Utils.setBackgroundImage();
@@ -689,7 +689,7 @@ BlazeComponent.extendComponent({
           event.preventDefault();
         },
         'click .js-remove-background-image'() {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           currentBoard.setBackgroundImageURL("");
           Popup.back();
           Utils.reload();
@@ -702,14 +702,14 @@ BlazeComponent.extendComponent({
 
 Template.boardChangeBackgroundImagePopup.helpers({
   backgroundImageURL() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard.backgroundImageURL;
   },
 });
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentBoard = Utils.getCurrentBoard();
   },
 
   allowsCardCounterList() {
@@ -762,7 +762,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentBoard = Utils.getCurrentBoard();
   },
 
   allowsSubtasks() {
@@ -888,7 +888,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentBoard = Utils.getCurrentBoard();
   },
 
   allowsReceivedDate() {
@@ -1323,7 +1323,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentBoard = Utils.getCurrentBoard();
   },
 
   allowsDescriptionTextOnMinicard() {
@@ -1489,7 +1489,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-select-member'() {
           const userId = this.currentData().__originalId;
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           if (!currentBoard.hasMember(userId)) {
             this.inviteUser(userId);
           }
@@ -1545,7 +1545,7 @@ BlazeComponent.extendComponent({
           this.setError('');
         },
         'change #jsBoardOrgs'() {
-          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let currentBoard = Utils.getCurrentBoard();
           let selectElt = document.getElementById("jsBoardOrgs");
           let selectedOrgId = selectElt.options[selectElt.selectedIndex].value;
           let selectedOrgDisplayName = selectElt.options[selectElt.selectedIndex].text;
@@ -1619,7 +1619,7 @@ BlazeComponent.extendComponent({
         },
         'click #leaveBoardBtn'(){
           let stringOrgId = document.getElementById('hideOrgId').value;
-          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let currentBoard = Utils.getCurrentBoard();
           let boardOrganizations = [];
           if(currentBoard.orgs !== undefined){
             for(let i = 0; i < currentBoard.orgs.length; i++){
@@ -1690,7 +1690,7 @@ BlazeComponent.extendComponent({
           this.setError('');
         },
         'change #jsBoardTeams'() {
-          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let currentBoard = Utils.getCurrentBoard();
           let selectElt = document.getElementById("jsBoardTeams");
           let selectedTeamId = selectElt.options[selectElt.selectedIndex].value;
           let selectedTeamDisplayName = selectElt.options[selectElt.selectedIndex].text;
@@ -1799,7 +1799,7 @@ BlazeComponent.extendComponent({
         },
         'click #leaveBoardTeamBtn'(){
           let stringTeamId = document.getElementById('hideTeamId').value;
-          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let currentBoard = Utils.getCurrentBoard();
           let boardTeams = [];
           if(currentBoard.teams !== undefined){
             for(let i = 0; i < currentBoard.teams.length; i++){
@@ -1852,7 +1852,7 @@ Template.changePermissionsPopup.events({
   'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only, click .js-set-worker'(
     event,
   ) {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     const memberId = this.userId;
     const isAdmin = $(event.currentTarget).hasClass('js-set-admin');
     const isCommentOnly = $(event.currentTarget).hasClass(
@@ -1873,12 +1873,12 @@ Template.changePermissionsPopup.events({
 
 Template.changePermissionsPopup.helpers({
   isAdmin() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard.hasAdmin(this.userId);
   },
 
   isNormal() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return (
       !currentBoard.hasAdmin(this.userId) &&
       !currentBoard.hasNoComments(this.userId) &&
@@ -1888,7 +1888,7 @@ Template.changePermissionsPopup.helpers({
   },
 
   isNoComments() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasNoComments(this.userId)
@@ -1896,7 +1896,7 @@ Template.changePermissionsPopup.helpers({
   },
 
   isCommentOnly() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasCommentOnly(this.userId)
@@ -1904,14 +1904,14 @@ Template.changePermissionsPopup.helpers({
   },
 
   isWorker() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return (
       !currentBoard.hasAdmin(this.userId) && currentBoard.hasWorker(this.userId)
     );
   },
 
   isLastAdmin() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return (
       currentBoard.hasAdmin(this.userId) && currentBoard.activeAdmins() === 1
     );

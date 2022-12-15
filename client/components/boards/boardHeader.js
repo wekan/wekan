@@ -18,14 +18,14 @@ Template.boardMenuPopup.events({
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     currentBoard.archive();
     // XXX We should have some kind of notification on top of the page to
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
   'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     Popup.back();
     Boards.remove(currentBoard._id);
     FlowRouter.go('home');
@@ -58,7 +58,7 @@ Template.boardChangeTitlePopup.events({
 
 BlazeComponent.extendComponent({
   watchLevel() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard && currentBoard.getWatchLevel(Meteor.userId());
   },
 
@@ -70,7 +70,7 @@ BlazeComponent.extendComponent({
 
   // Only show the star counter if the number of star is greater than 2
   showStarCounter() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard && currentBoard.stars >= 2;
   },
   /*
@@ -315,12 +315,12 @@ BlazeComponent.extendComponent({
     return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
   },
   visibilityCheck() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return this.currentData() === currentBoard.permission;
   },
 
   selectBoardVisibility() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     const visibility = this.currentData();
     currentBoard.setVisibility(visibility);
     Popup.back();
@@ -337,7 +337,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   watchLevel() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard.getWatchLevel(Meteor.userId());
   },
 

@@ -61,7 +61,7 @@ BlazeComponent.extendComponent({
       {
         submit(event) {
           event.preventDefault();
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           const nextSwimlane = currentBoard.nextSwimlane(this.currentSwimlane);
           const titleInput = this.find('.swimlane-name-input');
           const title = titleInput.value.trim();

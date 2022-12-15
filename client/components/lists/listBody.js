@@ -349,7 +349,7 @@ BlazeComponent.extendComponent({
         {
           match: /\B@([\w.-]*)$/,
           search(term, callback) {
-            const currentBoard = Boards.findOne(Session.get('currentBoard'));
+            const currentBoard = Utils.getCurrentBoard();
             callback(
               $.map(currentBoard.activeMembers(), member => {
                 const user = Users.findOne(member.userId);
@@ -374,7 +374,7 @@ BlazeComponent.extendComponent({
         {
           match: /\B#(\w*)$/,
           search(term, callback) {
-            const currentBoard = Boards.findOne(Session.get('currentBoard'));
+            const currentBoard = Utils.getCurrentBoard();
             callback(
               $.map(currentBoard.labels, label => {
                 if (label.name == undefined) {

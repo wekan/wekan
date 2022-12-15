@@ -239,7 +239,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentBoard = Utils.getCurrentBoard();
     this.isListTemplatesSwimlane =
       this.currentBoard.isTemplatesBoard() &&
       this.currentData().isListTemplatesSwimlane();
@@ -263,7 +263,7 @@ BlazeComponent.extendComponent({
           if (lastList) {
             const positionInput = this.find('.list-position-input');
             const position = positionInput.value.trim();
-            const ret = Lists.findOne({ boardId: Session.get('currentBoard'), _id: position, archived: false })
+            const ret = Lists.findOne({ boardId: Utils.getCurrentBoardId(), _id: position, archived: false })
             sortIndex = parseInt(JSON.stringify(ret['sort']))
             sortIndex = sortIndex+1
           } else {
@@ -350,7 +350,7 @@ class MoveSwimlaneComponent extends BlazeComponent {
   }
 
   board() {
-    return Boards.findOne(Session.get('currentBoard'));
+    return Utils.getCurrentBoard();
   }
 
   toBoardsSelector() {

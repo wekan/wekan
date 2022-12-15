@@ -326,7 +326,7 @@ BlazeComponent.extendComponent({
     return ret;
   },
   isBackgroundImage() {
-    //const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    //const currentBoard = Utils.getCurrentBoard();
     //return currentBoard.backgroundImageURL === $(".attachment-thumbnail-img").attr("src");
     return false;
   },
@@ -342,14 +342,14 @@ BlazeComponent.extendComponent({
           Popup.back();
         },
         'click .js-add-background-image'() {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           currentBoard.setBackgroundImageURL(attachmentActionsLink);
           Utils.setBackgroundImage(attachmentActionsLink);
           Popup.back();
           event.preventDefault();
         },
         'click .js-remove-background-image'() {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           currentBoard.setBackgroundImageURL("");
           Utils.setBackgroundImage("");
           Popup.back();

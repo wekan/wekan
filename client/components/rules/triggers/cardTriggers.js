@@ -5,7 +5,7 @@ BlazeComponent.extendComponent({
     this.subscribe('allRules');
   },
   labels() {
-    const labels = Boards.findOne(Session.get('currentBoard')).labels;
+    const labels = Utils.getCurrentBoard().labels;
     for (let i = 0; i < labels.length; i++) {
       if (labels[i].name === '' || labels[i].name === undefined) {
         labels[i].name = labels[i].color;

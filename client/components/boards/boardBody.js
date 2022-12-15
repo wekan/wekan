@@ -43,7 +43,7 @@ BlazeComponent.extendComponent({
     this.mouseHasEnterCardDetails = false;
 
     // fix swimlanes sort field if there are null values
-    const currentBoardData = Boards.findOne(Session.get('currentBoard'));
+    const currentBoardData = Utils.getCurrentBoard();
     const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
     if (nullSortSwimlanes.count() > 0) {
       const swimlanes = currentBoardData.swimlanes();
@@ -214,7 +214,7 @@ BlazeComponent.extendComponent({
 
     // If there is no data in the board (ie, no lists) we autofocus the list
     // creation form by clicking on the corresponding element.
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     if (Utils.canModifyBoard() && currentBoard.lists().count() === 0) {
       boardComponent.openNewListForm();
     }
@@ -222,7 +222,7 @@ BlazeComponent.extendComponent({
 
   notDisplayThisBoard() {
     let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
-    let currentBoard = Boards.findOne(Session.get('currentBoard'));
+    let currentBoard = Utils.getCurrentBoard();
     if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard.permission == 'public') {
       return true;
     }
@@ -342,7 +342,7 @@ BlazeComponent.extendComponent({
       },
       locale: TAPi18n.getLanguage(),
       events(start, end, timezone, callback) {
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const currentBoard = Utils.getCurrentBoard();
         const events = [];
         const pushEvent = function (card, title, start, end, extraCls) {
           start = start || card.startAt;
@@ -416,7 +416,7 @@ BlazeComponent.extendComponent({
         }
       },
       select: function(startDate) {
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const currentBoard = Utils.getCurrentBoard();
         const currentUser = Meteor.user();
         const $modal = $(`
           <div class="modal fade" tabindex="-1" role="dialog">

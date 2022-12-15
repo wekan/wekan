@@ -13,7 +13,7 @@ BlazeComponent.extendComponent({
       {
         match: /\B@([\w.-]*)$/,
         search(term, callback) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           callback(
             _.union(
             currentBoard
@@ -328,7 +328,7 @@ Blaze.Template.registerHelper(
   new Template('mentions', function() {
     const view = this;
     let content = Blaze.toHTML(view.templateContentBlock);
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
       return HTML.Raw(
         DOMPurify.sanitize(content, { ALLOW_UNKNOWN_PROTOCOLS: true }),

@@ -32,7 +32,7 @@ Template.createLabelPopup.helpers({
   // is not already used in the board (although it's not a problem if two
   // labels have the same color).
   defaultColor() {
-    const labels = Boards.findOne(Session.get('currentBoard')).labels;
+    const labels = Utils.getCurrentBoard().labels;
     const usedColors = _.pluck(labels, 'color');
     const availableColors = _.difference(labelColors, usedColors);
     return availableColors.length > 1 ? availableColors[0] : labelColors[0];
@@ -117,7 +117,7 @@ Template.createLabelPopup.events({
   // Create the new label
   'submit .create-label'(event, templateInstance) {
     event.preventDefault();
-    const board = Boards.findOne(Session.get('currentBoard'));
+    const board = Utils.getCurrentBoard();
     const name = templateInstance
       .$('#labelName')
       .val()
@@ -130,13 +130,13 @@ Template.createLabelPopup.events({
 
 Template.editLabelPopup.events({
   'click .js-delete-label': Popup.afterConfirm('deleteLabel', function () {
-    const board = Boards.findOne(Session.get('currentBoard'));
+    const board = Utils.getCurrentBoard();
     board.removeLabel(this._id);
     Popup.back(2);
   }),
   'submit .edit-label'(event, templateInstance) {
     event.preventDefault();
-    const board = Boards.findOne(Session.get('currentBoard'));
+    const board = Utils.getCurrentBoard();
     const name = templateInstance
       .$('#labelName')
       .val()

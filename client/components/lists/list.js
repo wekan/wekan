@@ -75,7 +75,7 @@ BlazeComponent.extendComponent({
         const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
         const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
         const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const currentBoard = Utils.getCurrentBoard();
         const defaultSwimlaneId = currentBoard.getDefaultSwimline()._id;
         let targetSwimlaneId = null;
 

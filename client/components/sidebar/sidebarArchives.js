@@ -162,7 +162,7 @@ Template.archivesSidebar.helpers({
     return Meteor.user().isBoardAdmin();
   },
   isWorker() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return (
       !currentBoard.hasAdmin(this.userId) && currentBoard.hasWorker(this.userId)
     );

@@ -727,7 +727,7 @@ BlazeComponent.extendComponent({
 }).register('editCardTitleForm');
 
 Template.cardMembersPopup.onCreated(function () {
-  let currBoard = Boards.findOne(Session.get('currentBoard'));
+  let currBoard = Utils.getCurrentBoard();
   let members = currBoard.activeMembers();
 
   // let query = {
@@ -757,7 +757,7 @@ Template.cardMembersPopup.helpers({
 });
 
 const filterMembers = (filterTerm) => {
-  let currBoard = Boards.findOne(Session.get('currentBoard'));
+  let currBoard = Utils.getCurrentBoard();
   let members = currBoard.activeMembers();
 
   // let query = {
@@ -1597,7 +1597,7 @@ EscapeActions.register(
 );
 
 Template.cardAssigneesPopup.onCreated(function () {
-  let currBoard = Boards.findOne(Session.get('currentBoard'));
+  let currBoard = Utils.getCurrentBoard();
   let members = currBoard.activeMembers();
 
   // let query = {

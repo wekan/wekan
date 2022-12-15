@@ -2,7 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 
 Utils = {
   setBackgroundImage(url) {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
       $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
@@ -439,7 +439,7 @@ Utils = {
   },
 
   setCustomUI(data) {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
       DocHead.setTitle(`${currentBoard.title} - ${data.productName}`);
     } else {

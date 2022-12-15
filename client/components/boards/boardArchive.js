@@ -25,8 +25,8 @@ BlazeComponent.extendComponent({
             Meteor.settings &&
             Meteor.settings.public &&
             Meteor.settings.public.sandstorm;
-          if (isSandstorm && Session.get('currentBoard')) {
-            const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          if (isSandstorm && Utils.getCurrentBoardId()) {
+            const currentBoard = Utils.getCurrentBoard();
             currentBoard.archive();
           }
           const board = this.currentData();
@@ -39,8 +39,8 @@ BlazeComponent.extendComponent({
             Meteor.settings &&
             Meteor.settings.public &&
             Meteor.settings.public.sandstorm;
-          if (isSandstorm && Session.get('currentBoard')) {
-            const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          if (isSandstorm && Utils.getCurrentBoardId()) {
+            const currentBoard = Utils.getCurrentBoard();
             Boards.remove(currentBoard._id);
           }
           Boards.remove(this._id);
