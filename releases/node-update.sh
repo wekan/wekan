@@ -16,7 +16,7 @@ fi
 # trying to make sure only Node.js version is updated.
 
 echo "1) Updating Snap node"
-sed -i "s|node-engine: $1|node-engine: $2|g" ~/repos/wekan/snapcraft.yaml
+sed -i "s|$1|$2|g" ~/repos/wekan/snapcraft.yaml
 sed -i "s|node-engine: $1|node-engine: $2|g" ~/repos/wekan/.future-snap/snapcraft.yaml
 sed -i "s|node-engine: $1|node-engine: $2|g" ~/repos/wekan/.future-snap/broken-snapcraft.yaml
 
