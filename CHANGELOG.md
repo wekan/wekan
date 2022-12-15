@@ -11,6 +11,8 @@ This release adds the following updates:
 
 - [Updated release scripts](https://github.com/wekan/wekan/commit/88604b634b60fd1bcabd9dd8e8451e38380c96eb).
   Thanks to xet7.
+- [Added backup sync script](https://github.com/wekan/wekan/commit/5f946707e54f6acca8c0881ef80946afedf31e12).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
