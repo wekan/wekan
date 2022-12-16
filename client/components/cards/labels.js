@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 let labelColors;
 Meteor.startup(() => {
   labelColors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
@@ -149,6 +151,6 @@ Template.editLabelPopup.events({
 
 Template.cardLabelsPopup.helpers({
   isLabelSelected(cardId) {
-    return _.contains(Cards.findOne(cardId).labelIds, this._id);
+    return _.contains(ReactiveCache.getCard(cardId).labelIds, this._id);
   },
 });

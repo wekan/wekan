@@ -1,4 +1,4 @@
-//var nodemailer = require('nodemailer');
+import { ReactiveCache } from '/imports/reactiveCache';
 
 RulesHelper = {
   executeRules(activity) {
@@ -58,7 +58,7 @@ RulesHelper = {
     return matchingMap;
   },
   performAction(activity, action) {
-    const card = Cards.findOne({ _id: activity.cardId });
+    const card = ReactiveCache.getCard(activity.cardId);
     const boardId = activity.boardId;
     if (
       action.actionType === 'moveCardToTop' ||
@@ -376,7 +376,7 @@ RulesHelper = {
     }
     if (action.actionType === 'linkCard') {
       const list = Lists.findOne({ title: action.listName, boardId: action.boardId });
-      const card = Cards.findOne({ _id: activity.cardId });
+      const card = ReactiveCache.getCard(activity.cardId);
       let listId = '';
       let swimlaneId = '';
       const swimlane = Swimlanes.findOne({

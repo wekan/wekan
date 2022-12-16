@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import Cards from '/models/cards';
 import Avatars from '/models/avatars';
 import Users from '/models/users';
@@ -269,7 +270,7 @@ Template.cardMemberPopup.helpers({
 
 Template.cardMemberPopup.events({
   'click .js-remove-member'() {
-    Cards.findOne(this.cardId).unassignMember(this.userId);
+    ReactiveCache.getCard(this.cardId).unassignMember(this.userId);
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),

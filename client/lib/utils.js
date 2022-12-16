@@ -212,7 +212,7 @@ Utils = {
   },
 
   goCardId(_id) {
-    const card = Cards.findOne(_id);
+    const card = ReactiveCache.getCard(_id);
     const board = ReactiveCache.getBoard(card.boardId);
     return (
       board &&
@@ -226,7 +226,7 @@ Utils = {
   getCommonAttachmentMetaFrom(card) {
     const meta = {};
     if (card.isLinkedCard()) {
-      meta.boardId = Cards.findOne(card.linkedId).boardId;
+      meta.boardId = ReactiveCache.getCard(card.linkedId).boardId;
       meta.cardId = card.linkedId;
     } else {
       meta.boardId = card.boardId;

@@ -148,13 +148,13 @@ Checklists.helpers({
 
 Checklists.allow({
   insert(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   update(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });
@@ -210,7 +210,7 @@ if (Meteor.isServer) {
   });
 
   Checklists.after.insert((userId, doc) => {
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'addChecklist',
@@ -225,7 +225,7 @@ if (Meteor.isServer) {
 
   Checklists.before.remove((userId, doc) => {
     const activities = Activities.find({ checklistId: doc._id });
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     if (activities) {
       activities.forEach(activity => {
         Activities.remove(activity._id);
@@ -235,7 +235,7 @@ if (Meteor.isServer) {
       userId,
       activityType: 'removeChecklist',
       cardId: doc.cardId,
-      boardId: Cards.findOne(doc.cardId).boardId,
+      boardId: ReactiveCache.getCard(doc.cardId).boardId,
       checklistId: doc._id,
       checklistName: doc.title,
       listId: card.listId,

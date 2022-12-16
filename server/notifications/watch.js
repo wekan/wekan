@@ -19,7 +19,7 @@ Meteor.methods({
       if (!watchableObj) throw new Meteor.Error('error-list-doesNotExist');
       board = watchableObj.board();
     } else if (watchableType === 'card') {
-      watchableObj = Cards.findOne(id);
+      watchableObj = ReactiveCache.getCard(id);
       if (!watchableObj) throw new Meteor.Error('error-card-doesNotExist');
       board = watchableObj.board();
     } else {

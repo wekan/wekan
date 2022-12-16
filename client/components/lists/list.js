@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 require('/client/lib/jquery-ui.js')
 
@@ -188,7 +189,7 @@ BlazeComponent.extendComponent({
           accept: '.js-member,.js-label',
           drop(event, ui) {
             const cardId = Blaze.getData(this)._id;
-            const card = Cards.findOne(cardId);
+            const card = ReactiveCache.getCard(cardId);
 
             if (ui.draggable.hasClass('js-member')) {
               const memberId = Blaze.getData(ui.draggable.get(0)).userId;

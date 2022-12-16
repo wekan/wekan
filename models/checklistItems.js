@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 ChecklistItems = new Mongo.Collection('checklistItems');
 
 /**
@@ -68,13 +70,13 @@ ChecklistItems.attachSchema(
 
 ChecklistItems.allow({
   insert(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   update(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });
@@ -113,7 +115,7 @@ ChecklistItems.mutations({
 
 // Activities helper
 function itemCreation(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   Activities.insert({
     userId,
@@ -135,7 +137,7 @@ function itemRemover(userId, doc) {
 }
 
 function publishCheckActivity(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   let activityType;
   if (doc.isFinished) {
@@ -158,7 +160,7 @@ function publishCheckActivity(userId, doc) {
 }
 
 function publishChekListCompleted(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = Checklists.findOne({ _id: checklistId });
@@ -178,7 +180,7 @@ function publishChekListCompleted(userId, doc) {
 }
 
 function publishChekListUncompleted(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = Checklists.findOne({ _id: checklistId });
@@ -233,7 +235,7 @@ if (Meteor.isServer) {
 
   ChecklistItems.before.remove((userId, doc) => {
     itemRemover(userId, doc);
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     const boardId = card.boardId;
     Activities.insert({
       userId,

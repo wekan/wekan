@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 const subManager = new SubsManager();
@@ -388,7 +389,7 @@ BlazeComponent.extendComponent({
       },
       eventResize(event, delta, revertFunc) {
         let isOk = false;
-        const card = Cards.findOne(event.id);
+        const card = ReactiveCache.getCard(event.id);
 
         if (card) {
           card.setEnd(event.end.toDate());
@@ -400,7 +401,7 @@ BlazeComponent.extendComponent({
       },
       eventDrop(event, delta, revertFunc) {
         let isOk = false;
-        const card = Cards.findOne(event.id);
+        const card = ReactiveCache.getCard(event.id);
         if (card) {
           // TODO: add a flag for allDay events
           if (!event.allDay) {

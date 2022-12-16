@@ -549,7 +549,7 @@ Cards.helpers({
 
   copy(boardId, swimlaneId, listId) {
     const oldId = this._id;
-    const oldCard = Cards.findOne(oldId);
+    const oldCard = ReactiveCache.getCard(oldId);
 
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
@@ -1001,7 +1001,7 @@ Cards.helpers({
     if (this.parentId === '') {
       return null;
     }
-    return Cards.findOne(this.parentId);
+    return ReactiveCache.getCard(this.parentId);
   },
 
   parentCardName() {
@@ -1019,7 +1019,7 @@ Cards.helpers({
     const result = [];
     let crtParentId = this.parentId;
     while (crtParentId !== '') {
-      const crt = Cards.findOne(crtParentId);
+      const crt = ReactiveCache.getCard(crtParentId);
       if (crt === null || crt === undefined) {
         // maybe it has been deleted
         break;
@@ -1039,7 +1039,7 @@ Cards.helpers({
     const result = [];
     let crtParentId = this.parentId;
     while (crtParentId !== '') {
-      const crt = Cards.findOne(crtParentId);
+      const crt = ReactiveCache.getCard(crtParentId);
       if (crt === null || crt === undefined) {
         // maybe it has been deleted
         break;
@@ -1089,7 +1089,7 @@ Cards.helpers({
 
   getDescription() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card && card.description) return card.description;
       else return null;
     } else if (this.isLinkedBoard()) {
@@ -1105,7 +1105,7 @@ Cards.helpers({
 
   getMembers() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1127,7 +1127,7 @@ Cards.helpers({
 
   getAssignees() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1227,7 +1227,7 @@ Cards.helpers({
 
   getReceived() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1255,7 +1255,7 @@ Cards.helpers({
 
   getStart() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1283,7 +1283,7 @@ Cards.helpers({
 
   getDue() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1311,7 +1311,7 @@ Cards.helpers({
 
   getEnd() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1339,7 +1339,7 @@ Cards.helpers({
 
   getIsOvertime() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1367,7 +1367,7 @@ Cards.helpers({
 
   getSpentTime() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1395,7 +1395,7 @@ Cards.helpers({
 
   getVoteQuestion() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.vote) {
@@ -1421,7 +1421,7 @@ Cards.helpers({
 
   getVotePublic() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.vote) {
@@ -1447,7 +1447,7 @@ Cards.helpers({
 
   getVoteEnd() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.vote) {
@@ -1507,7 +1507,7 @@ Cards.helpers({
 
   getPokerQuestion() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.poker) {
@@ -1541,7 +1541,7 @@ Cards.helpers({
 
   getPokerEnd() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.poker) {
@@ -1692,7 +1692,7 @@ Cards.helpers({
 
   getTitle() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1718,7 +1718,7 @@ Cards.helpers({
 
   getBoardTitle() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       }
@@ -1755,7 +1755,7 @@ Cards.helpers({
 
   getArchived() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1779,7 +1779,7 @@ Cards.helpers({
 
   getRequestedBy() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1796,7 +1796,7 @@ Cards.helpers({
 
   getAssignedBy() {
     if (this.isLinkedCard()) {
-      const card = Cards.findOne({ _id: this.linkedId });
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -3057,7 +3057,7 @@ if (Meteor.isServer) {
       check(insertAtTop, Boolean);
       check(mergeCardValues, Object);
 
-      const card = Cards.findOne({_id: cardId});
+      const card = ReactiveCache.getCard(cardId);
       Object.assign(card, mergeCardValues);
 
       const sort = card.getSort(listId, swimlaneId, insertAtTop);
@@ -3140,7 +3140,7 @@ if (Meteor.isServer) {
       const value = modifier.$set[action];
       const oldvalue = doc[action] || '';
       const activityType = `a-${action}`;
-      const card = Cards.findOne(doc._id);
+      const card = ReactiveCache.getCard(doc._id);
       const list = card.list();
       if (list) {
         // change list modifiedAt, when user modified the key values in
@@ -3370,9 +3370,7 @@ if (Meteor.isServer) {
         },
       });
 
-      const card = Cards.findOne({
-        _id: id,
-      });
+      const card = ReactiveCache.getCard(id);
       cardCreation(req.body.authorId, card);
     } else {
       JsonRoutes.sendResult(res, {
@@ -3826,9 +3824,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           },
         );
 
-        const card = Cards.findOne({
-          _id: paramCardId,
-        });
+        const card = ReactiveCache.getCard(paramCardId);
         cardMove(
           req.body.authorId,
           card,
@@ -3868,9 +3864,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramCardId = req.params.cardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      const card = Cards.findOne({
-        _id: paramCardId,
-      });
+      const card = ReactiveCache.getCard(paramCardId);
       Cards.direct.remove({
         _id: paramCardId,
         listId: paramListId,

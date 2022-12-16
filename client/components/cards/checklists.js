@@ -85,9 +85,11 @@ BlazeComponent.extendComponent({
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
     let cardId = this.currentData().cardId;
-    const card = Cards.findOne(cardId);
+    const card = ReactiveCache.getCard(cardId);
     //if (card.isLinked()) cardId = card.linkedId;
-    if (card.isLinkedCard()) cardId = card.linkedId;
+    if (card.isLinkedCard()) {
+      cardId = card.linkedId;
+    }
 
     let sortIndex;
     let checklistItemIndex;
@@ -267,7 +269,7 @@ BlazeComponent.extendComponent({
 
 Template.checklists.helpers({
   checklists() {
-    const card = Cards.findOne(this.cardId);
+    const card = ReactiveCache.getCard(this.cardId);
     const ret = card.checklists();
     return ret;
   },

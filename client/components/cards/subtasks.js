@@ -6,7 +6,7 @@ BlazeComponent.extendComponent({
     const textarea = this.find('textarea.js-add-subtask-item');
     const title = textarea.value.trim();
     const cardId = this.currentData().cardId;
-    const card = Cards.findOne(cardId);
+    const card = ReactiveCache.getCard(cardId);
     const sortIndex = -1;
     const crtBoard = ReactiveCache.getBoard(card.boardId);
     const targetBoard = crtBoard.getDefaultSubtasksBoard();

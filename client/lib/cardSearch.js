@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Cards from '../../models/cards';
 import SessionData from '../../models/usersessiondata';
@@ -74,7 +75,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     console.log('session data:', this.sessionData);
     const cards = [];
     this.sessionData.cards.forEach(cardId => {
-      cards.push(Cards.findOne({ _id: cardId }));
+      cards.push(ReactiveCache.getCard(cardId));
     });
     this.queryErrors = this.sessionData.errors;
     if (this.queryErrors.length) {

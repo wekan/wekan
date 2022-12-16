@@ -613,7 +613,7 @@ export class WekanCreator {
         : card.parentId;
 
       //if the parent card exists, proceed
-      if (Cards.findOne(parentIdInNewBoard)) {
+      if (ReactiveCache.getCard(parentIdInNewBoard)) {
         //set parent id of the card in the new board to the new id of the parent
         Cards.direct.update(cardIdInNewBoard, {
           $set: {

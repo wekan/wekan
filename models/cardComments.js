@@ -147,7 +147,7 @@ CardComments.helpers({
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
 function commentCreation(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   Activities.insert({
     userId,
     activityType: 'addComment',
@@ -194,7 +194,7 @@ if (Meteor.isServer) {
   });
 
   CardComments.after.update((userId, doc) => {
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'editComment',
@@ -207,7 +207,7 @@ if (Meteor.isServer) {
   });
 
   CardComments.before.remove((userId, doc) => {
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'deleteComment',

@@ -85,7 +85,7 @@ Mousetrap.bind(numbArray, (evt, key) => {
     const cardIds = MultiSelection.getSelectedCardIds();
     for (const cardId of cardIds)
     {
-      card = Cards.findOne(cardId);
+      card = ReactiveCache.getCard(cardId);
       if(num <= board.labels.length)
       {
         card.removeLabel(labels[num-1]["_id"]);
@@ -109,7 +109,7 @@ Mousetrap.bind(numArray, (evt, key) => {
     const cardIds = MultiSelection.getSelectedCardIds();
     for (const cardId of cardIds)
     {
-      card = Cards.findOne(cardId);
+      card = ReactiveCache.getCard(cardId);
       if(num <= board.labels.length)
       {
         card.addLabel(labels[num-1]["_id"]);
@@ -123,7 +123,7 @@ Mousetrap.bind(numArray, (evt, key) => {
     return;
   }
   if (Meteor.user().isBoardMember()) {
-    const card = Cards.findOne(cardId);
+    const card = ReactiveCache.getCard(cardId);
     if(num <= board.labels.length)
     {
       card.toggleLabel(labels[num-1]["_id"]);
@@ -143,7 +143,7 @@ Mousetrap.bind('space', evt => {
   }
 
   if (Meteor.user().isBoardMember()) {
-    const card = Cards.findOne(cardId);
+    const card = ReactiveCache.getCard(cardId);
     card.toggleMember(currentUserId);
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
@@ -167,7 +167,7 @@ Mousetrap.bind('c', evt => {
     !Meteor.user().isCommentOnly() &&
     !Meteor.user().isWorker()
   ) {
-    const card = Cards.findOne(cardId);
+    const card = ReactiveCache.getCard(cardId);
     card.archive();
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't

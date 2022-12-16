@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { ObjectID } from 'bson';
 import DOMPurify from 'dompurify';
 
@@ -322,7 +323,7 @@ Template.previewClipboardImagePopup.events({
 
 BlazeComponent.extendComponent({
   isCover() {
-    const ret = Cards.findOne(this.data().meta.cardId).coverId == this.data()._id;
+    const ret = ReactiveCache.getCard(this.data().meta.cardId).coverId == this.data()._id;
     return ret;
   },
   isBackgroundImage() {
@@ -334,11 +335,11 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-add-cover'() {
-          Cards.findOne(this.data().meta.cardId).setCover(this.data()._id);
+          ReactiveCache.getCard(this.data().meta.cardId).setCover(this.data()._id);
           Popup.back();
         },
         'click .js-remove-cover'() {
-          Cards.findOne(this.data().meta.cardId).unsetCover();
+          ReactiveCache.getCard(this.data().meta.cardId).unsetCover();
           Popup.back();
         },
         'click .js-add-background-image'() {

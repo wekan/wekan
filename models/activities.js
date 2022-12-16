@@ -38,7 +38,7 @@ Activities.helpers({
     return Lists.findOne(this.oldListId);
   },
   card() {
-    return Cards.findOne(this.cardId);
+    return ReactiveCache.getCard(this.cardId);
   },
   comment() {
     return CardComments.findOne(this.commentId);
@@ -53,14 +53,14 @@ Activities.helpers({
     return ChecklistItems.findOne(this.checklistItemId);
   },
   subtasks() {
-    return Cards.findOne(this.subtaskId);
+    return ReactiveCache.getCard(this.subtaskId);
   },
   customField() {
     return CustomFields.findOne(this.customFieldId);
   },
   // Label activity did not work yet, unable to edit labels when tried this.
   //label() {
-  //  return Cards.findOne(this.labelId);
+  //  return ReactiveCache.getCard(this.labelId);
   //},
 });
 

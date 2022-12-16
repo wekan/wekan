@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 function getCardsBetween(idA, idB) {
   function pluckId(doc) {
     return doc._id;
@@ -13,7 +15,7 @@ function getCardsBetween(idA, idB) {
     }).map(pluckId);
   }
 
-  const cards = _.sortBy([Cards.findOne(idA), Cards.findOne(idB)], c => {
+  const cards = _.sortBy([ReactiveCache.getCard(idA), ReactiveCache.getCard(idB)], c => {
     return c.sort;
   });
 

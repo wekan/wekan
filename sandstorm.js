@@ -205,7 +205,7 @@ if (isSandstorm && Meteor.isServer) {
 
           if (doc.cardId) {
             path = `b/sandstorm/libreboard/${doc.cardId}`;
-            Cards.findOne(doc.cardId).members.map(subscribedUser);
+            ReactiveCache.getCard(doc.cardId).members.map(subscribedUser);
           }
 
           if (doc.memberId) {

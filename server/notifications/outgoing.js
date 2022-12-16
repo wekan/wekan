@@ -81,7 +81,7 @@ if (Meteor.isServer) {
         boardId: paramBoardId,
       });
       const board = ReactiveCache.getBoard(paramBoardId);
-      const card = Cards.findOne(paramCardId);
+      const card = ReactiveCache.getCard(paramCardId);
       if (board && card) {
         if (comment) {
           Lock.set(comment._id, newComment);

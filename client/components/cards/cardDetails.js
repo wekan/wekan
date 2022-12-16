@@ -873,7 +873,7 @@ Template.editCardAssignerForm.events({
         swimlaneId: swimlaneId,
         sort: 0,
       });
-      const card = Cards.findOne(_id);
+      const card = ReactiveCache.getCard(_id);
       const minOrder = card.getMinSort();
       card.move(card.boardId, card.swimlaneId, card.listId, minOrder - 1);
 
@@ -1005,7 +1005,7 @@ BlazeComponent.extendComponent({
 
   setParentCardId(cardId) {
     if (cardId) {
-      this.parentCard = Cards.findOne(cardId);
+      this.parentCard = ReactiveCache.getCard(cardId);
     } else {
       this.parentCard = null;
     }
@@ -1684,7 +1684,7 @@ Template.cardAssigneePopup.helpers({
 
 Template.cardAssigneePopup.events({
   'click .js-remove-assignee'() {
-    Cards.findOne(this.cardId).unassignAssignee(this.userId);
+    ReactiveCache.getCard(this.cardId).unassignAssignee(this.userId);
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
