@@ -9,8 +9,8 @@ zip -r wekan-$1.zip bundle
   scp ~/repos/wekan/releases/build-bundle-arm64.sh a:/home/wekan/
   scp ~/repos/wekan/releases/build-bundle-s390x.sh s:/home/linux1/
   #scp ~/repos/wekan/releases/build-bundle-ppc64el.sh o:/home/ubuntu/
-  scp ~/repos/wekan/releases/release-x2.sh x2w:/var/websites/
-  scp wekan-$1.zip x2w:/var/websites/releases.wekan.team/public/
+  scp ~/repos/wekan/releases/release-x2.sh x2:/var/websites/
+  scp wekan-$1.zip x2:/data/websites/releases.wekan.team/public/
   scp wekan-$1.zip a:/home/wekan/
   scp wekan-$1.zip s:/home/linux1/
   #scp wekan-$1.zip o:/home/ubuntu/
