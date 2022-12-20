@@ -16,7 +16,7 @@ fi
 if [ ! -d ~/python/esprima-python ]; then
   sudo apt-get -y install python3-pip
   pip3 install -U setuptools wheel
-  npm install -g api2html
+  sudo npm install -g api2html
   mkdir -p ~/python
   cd ~/python
   git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
