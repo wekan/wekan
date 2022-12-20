@@ -5,7 +5,7 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.62 2022-12-20 WeKan ® release
 
 This release adds the following updates:
 
@@ -13,13 +13,17 @@ This release adds the following updates:
   Thanks to xet7.
 - [Added backup sync script](https://github.com/wekan/wekan/commit/5f946707e54f6acca8c0881ef80946afedf31e12).
   Thanks to xet7.
-- [Updated dependencies](https://github.com/wekan/wekan/commit/cae4cc33f8d8e1a50e0caed4166fa2bed6e85444).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/cae4cc33f8d8e1a50e0caed4166fa2bed6e85444),
+  [Part 2](https://github.com/wekan/wekan/commit/abc5601942cddc8024941d3e94c2468610e32f8d).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
 - [Remove duplicate IDs issue about Attachments not visible](https://github.com/wekan/wekan/pull/4781).
   Thanks to mfilser.
+- [Fixed installing api2html when generating OpenAPI docs](https://github.com/wekan/wekan/commit/ccbc7f612295c7b20c0a2bcd912fa0d1102c1327).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
