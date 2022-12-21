@@ -77,6 +77,29 @@ template(name="boardActions")
     div.trigger-button.js-create-card-action.js-goto-rules
       i.fa.fa-plus
 
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-link-card'}}
+      div.trigger-text
+        | {{_'r-the-board'}}
+      div.trigger-dropdown
+        select(id="board-id-link")
+          each boards
+            if $eq _id currentBoard._id
+              option(value="{{_id}}" selected) {{_ 'current'}}
+            else
+              option(value="{{_id}}") {{title}}
+      div.trigger-text
+        | {{_'r-in-list'}}
+      div.trigger-dropdown
+        input(id="listName-link",type=text,placeholder="{{_'r-name'}}")
+      div.trigger-text
+        | {{_'r-in-swimlane'}}
+      div.trigger-dropdown
+        input(id="swimlaneName-link",type=text,placeholder="{{_'r-name'}}")
+    div.trigger-button.js-link-card-action.js-goto-rules
+      i.fa.fa-plus
 
 
 

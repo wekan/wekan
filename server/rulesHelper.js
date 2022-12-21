@@ -371,8 +371,29 @@ RulesHelper = {
         listId,
         swimlaneId,
         sort: 0,
-        boardId,
+        boardId
       });
+    }
+    if (action.actionType === 'linkCard') {
+      const list = Lists.findOne({ title: action.listName, boardId: action.boardId });
+      const card = Cards.findOne({ _id: activity.cardId });
+      let listId = '';
+      let swimlaneId = '';
+      const swimlane = Swimlanes.findOne({
+        title: action.swimlaneName,
+        boardId: action.boardId,
+      });
+      if (list === undefined) {
+        listId = '';
+      } else {
+        listId = list._id;
+      }
+      if (swimlane === undefined) {
+        swimlaneId = Swimlanes.findOne({ title: 'Default', boardId: action.boardId })._id;
+      } else {
+        swimlaneId = swimlane._id;
+      }
+      card.link(action.boardId, swimlaneId, listId);
     }
   },
 };
