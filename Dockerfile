@@ -157,7 +157,8 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     SAML_ATTRIBUTES="" \
     ORACLE_OIM_ENABLED=false \
     WAIT_SPINNER="" \
-    WRITABLE_PATH=/data
+    WRITABLE_PATH=/data \
+    S3=""
 
 #   NODE_OPTIONS="--max_old_space_size=4096" \
 

@@ -6,6 +6,7 @@ import { ObjectID } from 'bson';
 
 export const STORAGE_NAME_FILESYSTEM = "fs";
 export const STORAGE_NAME_GRIDFS     = "gridfs";
+export const STORAGE_NAME_S3         = "s3";
 
 /** Factory for FileStoreStrategy */
 export default class FileStoreStrategyFactory {
@@ -15,12 +16,16 @@ export default class FileStoreStrategyFactory {
    * @param storagePath file storage path
    * @param classFileStoreStrategyGridFs use this strategy for GridFS storage
    * @param gridFsBucket use this GridFS Bucket as GridFS Storage
+   * @param classFileStoreStartegyS3 use this strategy for S3 storage
+   * @param s3Bucket use this S3 Bucket as S3 Storage
    */
   constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket) {
     this.classFileStoreStrategyFilesystem = classFileStoreStrategyFilesystem;
     this.storagePath = storagePath;
     this.classFileStoreStrategyGridFs = classFileStoreStrategyGridFs;
     this.gridFsBucket = gridFsBucket;
+    this.classFileStoreStrategyS3 = classFileStoreStrategyS3;
+    this.s3bucket = s3Bucket;
   }
 
   /** returns the right FileStoreStrategy
@@ -35,6 +40,8 @@ export default class FileStoreStrategyFactory {
         if (fileObj.meta.source == "import" || fileObj.versions[versionName].meta.gridFsFileId) {
           // uploaded by import, so it's in GridFS (MongoDB)
           storage = STORAGE_NAME_GRIDFS;
+        } else if (fileRef && fileRef.versions && fileRef.versions[version] && fileRef.versions[version].meta && fileRef.versions[version].meta.pipePath) {
+          storage = STORAGE_NAME_S3;
         } else {
           // newly uploaded, so it's at the filesystem
           storage = STORAGE_NAME_FILESYSTEM;
@@ -42,9 +49,11 @@ export default class FileStoreStrategyFactory {
       }
     }
     let ret;
-    if ([STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS].includes(storage)) {
+    if ([STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3].includes(storage)) {
       if (storage == STORAGE_NAME_FILESYSTEM) {
         ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
+      } else if (storage == STORAGE_NAME_S3) {
+        ret = new this.classFileStoreStrategyS3(this.s3Bucket, fileObj, versionName);
       } else if (storage == STORAGE_NAME_GRIDFS) {
         ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, fileObj, versionName);
       }
