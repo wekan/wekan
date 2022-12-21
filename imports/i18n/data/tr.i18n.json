@@ -845,6 +845,7 @@
     "r-df-received-at": "alındı",
     "r-to-current-datetime": "geçerli tarih/saat",
     "r-remove-value-from": "Değeri şuradan kaldır:",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "Oauth2",
     "cas": "CAS",

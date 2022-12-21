@@ -845,6 +845,7 @@
     "r-df-received-at": "przyjęcia",
     "r-to-current-datetime": "na aktualną datę i godzinę",
     "r-remove-value-from": "Wyczyść",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

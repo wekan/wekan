@@ -845,6 +845,7 @@
     "r-df-received-at": "diterima",
     "r-to-current-datetime": "ke tarikh/masa sekarang",
     "r-remove-value-from": "Buang nilai daripada",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

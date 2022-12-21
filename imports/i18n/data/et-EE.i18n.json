@@ -845,6 +845,7 @@
     "r-df-received-at": "sai",
     "r-to-current-datetime": "praegusele kuupäevale/kellaaegadele",
     "r-remove-value-from": "Eemaldage väärtus",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

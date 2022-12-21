@@ -845,6 +845,7 @@
     "r-df-received-at": "ontvangen",
     "r-to-current-datetime": "naar huidige datum/tijd",
     "r-remove-value-from": "Verwijder waarde van",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

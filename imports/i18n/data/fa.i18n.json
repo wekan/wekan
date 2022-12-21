@@ -845,6 +845,7 @@
     "r-df-received-at": "رسیده",
     "r-to-current-datetime": "به تاریخ/زمان فعلی",
     "r-remove-value-from": "حذف مقدار از",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

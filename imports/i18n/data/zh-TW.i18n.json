@@ -845,6 +845,7 @@
     "r-df-received-at": "已接收",
     "r-to-current-datetime": "到當前日期/時間",
     "r-remove-value-from": "移除值從",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

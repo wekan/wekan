@@ -845,6 +845,7 @@
     "r-df-received-at": "đã nhận",
     "r-to-current-datetime": "đến ngày/giờ hiện tại",
     "r-remove-value-from": "Xóa giá trị khỏi",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

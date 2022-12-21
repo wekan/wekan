@@ -845,6 +845,7 @@
     "r-df-received-at": "получено",
     "r-to-current-datetime": "в соответствии с текущей датой/временем",
     "r-remove-value-from": "Очистить",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

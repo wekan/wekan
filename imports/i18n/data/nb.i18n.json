@@ -845,6 +845,7 @@
     "r-df-received-at": "mottatt",
     "r-to-current-datetime": "nåværende dato/tid",
     "r-remove-value-from": "Fjern verdi fra",
+    "r-link-card": "Link card to",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",

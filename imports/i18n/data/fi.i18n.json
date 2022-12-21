@@ -845,6 +845,7 @@
     "r-df-received-at": "vastaanotettu",
     "r-to-current-datetime": "nykyiseen päivään/aikaan",
     "r-remove-value-from": "Poista arvo kohteesta",
+    "r-link-card": "Linkitä kortti",
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",
