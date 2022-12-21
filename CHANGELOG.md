@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Add link card feature to rules](https://github.com/wekan/wekan/pull/4783).
+  Thanks to jos-webservices.
+
+and adds the following updates:
 
 - [Updated release scripts](https://github.com/wekan/wekan/commit/67c41afe9adadd420e76c8ac1be19d32cf1cc9e7).
   Thanks to xet7.
