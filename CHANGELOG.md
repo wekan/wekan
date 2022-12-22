@@ -14,6 +14,11 @@ This release adds the following updates:
 - [Update webmanifest for WeKan Android Play Store app](https://github.com/wekan/wekan/commit/558093ff0c41da5798acc0b3ab723d288e104f8a).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix: changing list color reloads webpage](https://github.com/wekan/wekan/pull/4787).
+  Thanks to helioguardabaxo.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.63 2022-12-22 WeKan ® release
