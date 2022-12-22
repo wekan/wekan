@@ -309,11 +309,11 @@ BlazeComponent.extendComponent({
         },
         'click .js-submit'() {
           this.currentList.setColor(this.currentColor.get());
-          Popup.back();
+          Popup.close();
         },
         'click .js-remove-color'() {
           this.currentList.setColor(null);
-          Popup.back();
+          Popup.close();
         },
       },
     ];
