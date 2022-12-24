@@ -5,7 +5,29 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.64 2022-12-24 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/71d35b0525b50191839147e74a7c9c66bf99496a).
+  Thanks to xet7.
+- [Update webmanifest for WeKan Android Play Store app](https://github.com/wekan/wekan/commit/558093ff0c41da5798acc0b3ab723d288e104f8a).
+  Thanks to xet7.
+- Upgrade to MongoDB 6.0.3.
+  [Part 1](https://github.com/wekan/wekan/commit/62242b4a9636c1af49462403143e43e14e9a0cec),
+  [Part 2](https://github.com/wekan/wekan/commit/f22fe5497b78bad5277675cba05aebb014c7ce60).
+  Thanks to MongoDB developers.
+
+and fixes the following bugs:
+
+- [Fix: changing list color reloads webpage](https://github.com/wekan/wekan/pull/4787).
+  Thanks to helioguardabaxo.
+- [Bug: Adding Users to Groups via OIDC seems to be broken](https://github.com/wekan/wekan/pull/4788).
+  Thanks to Viehlieb.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v6.63 2022-12-22 WeKan ® release
 
 This release adds the following new features:
 

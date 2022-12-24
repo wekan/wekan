@@ -98,7 +98,7 @@ services:
     # Quay image does work:
     #   image: quay.io/wekan/mongo:4.4.2-bionic
     # Docker Hub MongoDB image does work:
-    image: mongo:5
+    image: mongo:6
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
