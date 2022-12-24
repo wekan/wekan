@@ -7,7 +7,7 @@
 - [Quay](https://quay.io/repository/wekan/wekan)
 - [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
 
-Other platforms at https://wekan.github.io Download section.
+Other platforms and compatible software versions at https://wekan.github.io Download section.
 
 ## Code stats
 
