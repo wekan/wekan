@@ -18,6 +18,8 @@ and fixes the following bugs:
 
 - [Fix: changing list color reloads webpage](https://github.com/wekan/wekan/pull/4787).
   Thanks to helioguardabaxo.
+- [Bug: Adding Users to Groups via OIDC seems to be broken](https://github.com/wekan/wekan/pull/4788).
+  Thanks to Viehlieb.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
