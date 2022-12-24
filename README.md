@@ -2,12 +2,14 @@
 
 # WeKan ® - Open Source kanban
 
-Docker Containers:
+## Docker Containers
 
 - [Quay](https://quay.io/repository/wekan/wekan)
 - [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
 
-Code stats:
+Other platforms at https://wekan.github.io Download section.
+
+## Code stats
 
 - [Code Climate](https://codeclimate.com/github/wekan/wekan)
 - [Open Hub](https://www.openhub.net/p/wekan)
