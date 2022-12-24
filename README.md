@@ -2,12 +2,17 @@
 
 # WeKan ® - Open Source kanban
 
-[Docker Container at Quay](https://quay.io/repository/wekan/wekan)
-[Docker Container at Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
-[Code Climate](https://codeclimate.com/github/wekan/wekan)
-[Code analysis at Open Hub](https://www.openhub.net/p/wekan)
-[OSS Insight](https://ossinsight.io/analyze/wekan/wekan)
-[CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
+Docker Containers:
+
+- [Quay](https://quay.io/repository/wekan/wekan)
+- [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
+
+Code stats:
+
+- [Code Climate](https://codeclimate.com/github/wekan/wekan)
+- [Open Hub](https://www.openhub.net/p/wekan)
+- [OSS Insight](https://ossinsight.io/analyze/wekan/wekan)
+- [CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
 
 ## [Translate WeKan ® at Transifex](https://transifex.com/wekan/wekan)
 
