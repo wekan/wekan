@@ -1,16 +1,18 @@
 apiVersion: v2
-appVersion: "6.63"
+appVersion: "6.64"
 dependencies:
   - condition: mongodb.enabled
     name: mongodb
     repository: https://charts.bitnami.com/bitnami
-    version: 10.0.x
+    version: 12.1.x
 description: Open Source kanban
 home: https://wekan.github.io
 icon: https://wekan.github.io/wekan-logo.svg
 keywords:
   - kanban
 maintainers:
+  - email: x@xet7.org
+    name: xet7
   - email: github@randall.cc
     name: technotaff
   - email: jiangyt.cn@gmail.com
