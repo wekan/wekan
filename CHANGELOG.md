@@ -17,6 +17,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Moved helm charts to https://github.com/wekan/charts](https://github.com/wekan/wekan/commit/62dc63c03386f092301b1c1ef41007c8c0654eaa).
   Thanks to xet7.
+- Released newest Helm Chart to https://artifacthub.io/packages/helm/wekan/wekan .
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
