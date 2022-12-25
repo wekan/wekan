@@ -15,6 +15,8 @@ This release adds the following updates:
   [Part 3](https://github.com/wekan/wekan/commit/d65f8cda1b1909ed1deac387e4c71fbf92889392),
   [Part 4](https://github.com/wekan/wekan/commit/182e1d4bf4eb0751ef51e820c223623c11a39e1d).
   Thanks to xet7.
+- [Moved helm charts to https://github.com/wekan/charts](https://github.com/wekan/wekan/commit/62dc63c03386f092301b1c1ef41007c8c0654eaa).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
