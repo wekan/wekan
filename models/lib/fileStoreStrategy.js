@@ -16,16 +16,16 @@ export default class FileStoreStrategyFactory {
    * @param storagePath file storage path
    * @param classFileStoreStrategyGridFs use this strategy for GridFS storage
    * @param gridFsBucket use this GridFS Bucket as GridFS Storage
-   * @param classFileStoreStartegyS3 use this strategy for S3 storage
+   * @param classFileStoreStrategyS3 use this strategy for S3 storage
    * @param s3Bucket use this S3 Bucket as S3 Storage
    */
-  constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket) {
+  constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket, classFileStoreStrategyS3, s3Bucket) {
     this.classFileStoreStrategyFilesystem = classFileStoreStrategyFilesystem;
     this.storagePath = storagePath;
     this.classFileStoreStrategyGridFs = classFileStoreStrategyGridFs;
     this.gridFsBucket = gridFsBucket;
     this.classFileStoreStrategyS3 = classFileStoreStrategyS3;
-    this.s3bucket = s3Bucket;
+    this.s3Bucket = s3Bucket;
   }
 
   /** returns the right FileStoreStrategy
@@ -319,6 +319,133 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     return STORAGE_NAME_FILESYSTEM;
   }
 }
+
+
+/** Strategy to store attachments at S3 */
+export class FileStoreStrategyS3 extends FileStoreStrategy {
+
+  /** constructor
+   * @param s3Bucket use this S3 Bucket
+   * @param fileObj the current file object
+   * @param versionName the current version
+   */
+  constructor(s3Bucket, fileObj, versionName) {
+    super(fileObj, versionName);
+    this.s3Bucket = s3Bucket;
+  }
+
+  /** download the file
+   * @param http the current http request
+   * @param cacheControl cacheControl of FilesCollection
+   */
+  interceptDownload(http, cacheControl) {
+    const readStream = this.getReadStream();
+    const downloadFlag = http?.params?.query?.download;
+
+    let ret = false;
+    if (readStream) {
+      ret = true;
+      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl);
+    }
+
+    return ret;
+  }
+
+  /** after file remove */
+  onAfterRemove() {
+    this.unlink();
+    super.onAfterRemove();
+  }
+
+  /** returns a read stream
+   * @return the read stream
+   */
+  getReadStream() {
+    const s3Id = this.getS3ObjectId();
+    let ret;
+    if (s3Id) {
+      ret = this.s3Bucket.openDownloadStream(s3Id);
+    }
+    return ret;
+  }
+
+  /** returns a write stream
+   * @param filePath if set, use this path
+   * @return the write stream
+   */
+  getWriteStream(filePath) {
+    const fileObj = this.fileObj;
+    const versionName = this.versionName;
+    const metadata = { ...fileObj.meta, versionName, fileId: fileObj._id };
+    const ret = this.s3Bucket.openUploadStream(this.fileObj.name, {
+      contentType: fileObj.type || 'binary/octet-stream',
+      metadata,
+    });
+    return ret;
+  }
+
+  /** writing finished
+   * @param finishedData the data of the write stream finish event
+   */
+  writeStreamFinished(finishedData) {
+    const s3FileIdName = this.getS3FileIdName();
+    Attachments.update({ _id: this.fileObj._id }, { $set: { [s3FileIdName]: finishedData._id.toHexString(), } });
+  }
+
+  /** remove the file */
+  unlink() {
+    const s3Id = this.gets3ObjectId();
+    if (s3Id) {
+      this.s3Bucket.delete(s3Id, err => {
+        if (err) {
+          console.error("error on S3 bucket.delete: ", err);
+        }
+      });
+    }
+
+    const s3FileIdName = this.getS3FileIdName();
+    Attachments.update({ _id: this.fileObj._id }, { $unset: { [s3FileIdName]: 1 } });
+  }
+
+  /** return the storage name
+   * @return the storage name
+   */
+  getStorageName() {
+    return STORAGE_NAME_S3;
+  }
+
+  /** returns the GridFS Object-Id
+   * @return the GridFS Object-Id
+   */
+  getS3ObjectId() {
+    let ret;
+    const s3FileId = this.s3FileId();
+    if (s3FileId) {
+      ret = createObjectId({ s3FileId });
+    }
+    return ret;
+  }
+
+  /** returns the S3 Object-Id
+   * @return the S3 Object-Id
+   */
+  getS3FileId() {
+    const ret = (this.fileObj.versions[this.versionName].meta || {})
+      .s3FileId;
+    return ret;
+  }
+
+  /** returns the property name of s3FileId
+   * @return the property name of s3FileId
+   */
+  getS3FileIdName() {
+    const ret = `versions.${this.versionName}.meta.s3FileId`;
+    return ret;
+  }
+}
+
+
+
 
 /** move the fileObj to another storage
  * @param fileObj move this fileObj to another storage
