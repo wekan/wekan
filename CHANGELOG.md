@@ -9,7 +9,7 @@ Download section.
 
 This release adds the following new features:
 
-- Store files to S3.
+- Store files to S3. In Progress.
   [Part 1](https://github.com/wekan/wekan/commit/21e2eabd607cc7fccbce8ed8562d886ab54fee68),
   [Part 2](https://github.com/wekan/wekan/commit/028633b00ab25bcd5c7ce6f78368aa6e33102a0c),
   [Part 3](https://github.com/wekan/wekan/commit/fb6f618917f73a1772c9670b85a9d368a8a02855).
@@ -25,6 +25,11 @@ and adds the following updates:
 - [Moved helm charts to https://github.com/wekan/charts](https://github.com/wekan/wekan/commit/62dc63c03386f092301b1c1ef41007c8c0654eaa).
   Thanks to xet7.
 - Released newest Helm Chart to https://artifacthub.io/packages/helm/wekan/wekan .
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fixed Windows bundle build script and updated newest Windows WeKan release](https://github.com/wekan/wekan/commit/f1ff6d1e1fe935073f2600303c5c54f62d892311).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
