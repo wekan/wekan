@@ -84,6 +84,11 @@ BlazeComponent.extendComponent({
             Meteor.call('moveAttachmentToStorage', _attachment._id, "gridfs");
           });
         },
+        'click button.js-move-all-attachments-to-s3'(event) {
+          this.attachments.forEach(_attachment => {
+            Meteor.call('moveAttachmentToStorage', _attachment._id, "s3");
+          });
+        },
       }
     ]
   }
@@ -101,6 +106,11 @@ BlazeComponent.extendComponent({
         'click button.js-move-all-attachments-of-board-to-gridfs'(event) {
           this.data().attachments.forEach(_attachment => {
             Meteor.call('moveAttachmentToStorage', _attachment._id, "gridfs");
+          });
+        },
+        'click button.js-move-all-attachments-of-board-to-s3'(event) {
+          this.data().attachments.forEach(_attachment => {
+            Meteor.call('moveAttachmentToStorage', _attachment._id, "s3");
           });
         },
       }
@@ -121,6 +131,9 @@ BlazeComponent.extendComponent({
         },
         'click button.js-move-storage-gridfs'(event) {
           Meteor.call('moveAttachmentToStorage', this.data()._id, "gridfs");
+        },
+        'click button.js-move-storage-s3'(event) {
+          Meteor.call('moveAttachmentToStorage', this.data()._id, "s3");
         },
       }
     ]

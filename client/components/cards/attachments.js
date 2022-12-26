@@ -191,6 +191,10 @@ BlazeComponent.extendComponent({
           Meteor.call('moveAttachmentToStorage', this.data()._id, "gridfs");
           Popup.back();
         },
+        'click .js-move-storage-s3'() {
+          Meteor.call('moveAttachmentToStorage', this.data()._id, "s3");
+          Popup.back();
+        },
       }
     ]
   }

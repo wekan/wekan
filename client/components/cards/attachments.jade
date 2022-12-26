@@ -102,6 +102,12 @@ template(name="attachmentActionsPopup")
               i.fa.fa-arrow-right
               | {{_ 'attachment-move-storage-gridfs'}}
 
+        if $neq versions.original.storage "s3"
+          if versions.original.storage
+            a.js-move-storage-s3
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-s3'}}
+
 template(name="attachmentRenamePopup")
   input.js-edit-attachment-name(type='text' autofocus value="{{getNameWithoutExtension}}" dir="auto")
   .edit-controls.clearfix

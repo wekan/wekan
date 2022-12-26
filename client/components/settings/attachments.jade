@@ -23,6 +23,8 @@ template(name="moveAttachments")
       button.js-move-all-attachments-to-fs {{_ 'move-all-attachments-to-fs'}}
     .js-move-attachment
       button.js-move-all-attachments-to-gridfs {{_ 'move-all-attachments-to-gridfs'}}
+    .js-move-attachment
+      button.js-move-all-attachments-to-s3 {{_ 'move-all-attachments-to-s3'}}
 
   each board in getBoardsWithAttachments
     +moveBoardAttachments board
@@ -43,6 +45,8 @@ template(name="moveBoardAttachments")
       button.js-move-all-attachments-of-board-to-fs {{_ 'move-all-attachments-of-board-to-fs'}}
     .js-move-attachment
       button.js-move-all-attachments-of-board-to-gridfs {{_ 'move-all-attachments-of-board-to-gridfs'}}
+    .js-move-attachment
+      button.js-move-all-attachments-of-board-to-s3 {{_ 'move-all-attachments-of-board-to-s3'}}
 
   .board-attachments
     table
@@ -70,6 +74,7 @@ template(name="moveAttachment")
       td {{ version.versionName }}
       td {{ fileSize version.size }}
       td {{ version.meta.gridFsFileId }}
+      td {{ version.meta.s3FileId }}
       td {{ version.storageName }}
       td
         if $neq version.storageName "fs"
@@ -82,3 +87,9 @@ template(name="moveAttachment")
             button.js-move-storage-gridfs
               i.fa.fa-arrow-right
               | {{_ 'attachment-move-storage-gridfs'}}
+
+        if $neq version.storageName "s3"
+          if version.storageName
+            button.js-move-storage-s3
+              i.fa.fa-arrow-right
+              | {{_ 'attachment-move-storage-s3'}}
