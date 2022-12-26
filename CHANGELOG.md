@@ -7,7 +7,14 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- Store files to S3.
+  [Part 1](https://github.com/wekan/wekan/commit/21e2eabd607cc7fccbce8ed8562d886ab54fee68),
+  [Part 2](https://github.com/wekan/wekan/commit/028633b00ab25bcd5c7ce6f78368aa6e33102a0c),
+  [Part 3](https://github.com/wekan/wekan/commit/fb6f618917f73a1772c9670b85a9d368a8a02855).
+
+and adds the following updates:
 
 - Update readme badges to be only links, and not load remote images.
   [Part 1](https://github.com/wekan/wekan/commit/2b2bb5d6e220758be7e7c7b660ba9ab6061d6ba2),
