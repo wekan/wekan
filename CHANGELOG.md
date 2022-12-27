@@ -9,10 +9,14 @@ Download section.
 
 This release adds the following new features:
 
-- Store files to S3. In Progress.
+- Store files to any cloud storage (like S3, MinIO, etc) mounted as filesystem with Rclone.
+  Works with move to filesystem feature (not move to S3 feature).
+  Docs at https://github.com/wekan/wekan/wiki/Rclone .
+- Store files to S3. In Progress. Note: S3 button does not work yet.
   [Part 1](https://github.com/wekan/wekan/commit/21e2eabd607cc7fccbce8ed8562d886ab54fee68),
   [Part 2](https://github.com/wekan/wekan/commit/028633b00ab25bcd5c7ce6f78368aa6e33102a0c),
-  [Part 3](https://github.com/wekan/wekan/commit/fb6f618917f73a1772c9670b85a9d368a8a02855).
+  [Part 3](https://github.com/wekan/wekan/commit/fb6f618917f73a1772c9670b85a9d368a8a02855),
+  [Part 4](https://github.com/wekan/wekan/commit/391607ec79954ddc907170add8381c134717f576).
 
 and adds the following updates:
 
