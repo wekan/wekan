@@ -5,7 +5,7 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.65 2022-12-27 WeKan ® release
 
 This release adds the following new features:
 
@@ -30,6 +30,8 @@ and adds the following updates:
   Thanks to xet7.
 - Released newest Helm Chart to https://artifacthub.io/packages/helm/wekan/wekan .
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/0ae8e4912b9ac69ef481b101137d30406f1fe03a).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
