@@ -12,6 +12,11 @@ This release adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/f20656909bbf8457d2c3ab7e049aec3a6dcf8977).
   Thanks to developers of dependencies.
 
+and fixes the following bugs:
+
+- [Fix OIDC login loop for integer user ID](https://github.com/wekan/wekan/commit/f2a92be01a753c5752284d221706c6efb0dd60a7).
+  Thanks to danielkaiser and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.65 2022-12-27 WeKan ® release
