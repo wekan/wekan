@@ -83,7 +83,7 @@ livedata@1.0.18
 lmieulet:meteor-coverage@1.1.4
 localstorage@1.2.0
 logging@1.3.1
-matb33:collection-hooks@1.1.4
+matb33:collection-hooks@1.2.0
 mdg:validation-error@0.5.1
 meteor@1.10.4
 meteor-autosize@5.0.1
@@ -92,8 +92,8 @@ meteorhacks:aggregate@1.3.0
 meteorhacks:collection-utils@1.2.0
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.4
-meteortesting:browser-tests@1.3.5
-meteortesting:mocha@2.0.3
+meteortesting:browser-tests@1.4.2
+meteortesting:mocha@2.0.4
 meteortesting:mocha-core@8.0.1
 minifier-css@1.6.2
 minifier-js@2.7.5
@@ -232,3 +232,4 @@ wekan-markdown@1.0.9
 wekan-oidc@1.0.12
 yasaricli:slugify@0.0.7
 zimme:active-route@2.3.2
+zodern:types@1.0.9
