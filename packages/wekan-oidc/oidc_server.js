@@ -288,7 +288,7 @@ Meteor.methods({
     if (propagateOidcData)
     {
       users= Meteor.users;
-      user = users.findOne({'services.oidc.id':  userId});
+      user = users.findOne({'services.oidc.id':  userId.toString()});
 
       if(user)
       {
