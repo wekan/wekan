@@ -11,6 +11,8 @@ This release fixes the following bugs:
 
 - [Add "use-credentials" directive to site.webmanifest request](https://github.com/wekan/wekan/pull/4801).
   Thanks to markormesher.
+- [OIDC login loop for integer user ID. Fix 2](https://github.com/wekan/wekan/commit/bc67b5c3bcd6ff645b7e6cd9c3d8bb79d83d5111).
+  Thanks to danielkaiser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
