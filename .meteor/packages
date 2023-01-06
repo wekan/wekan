@@ -25,7 +25,7 @@ mongo@1.16.3
 mquandalle:collection-mutations
 
 # Account system
-accounts-password@2.3.2
+accounts-password@2.3.3
 useraccounts:core
 useraccounts:flow-routing
 useraccounts:unstyled
