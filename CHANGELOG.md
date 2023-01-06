@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Add "use-credentials" directive to site.webmanifest request](https://github.com/wekan/wekan/pull/4801).
+  Thanks to markormesher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.67 2023-01-03 WeKan ® release
 
 This release adds the following updates:
