@@ -105,7 +105,9 @@ OAuth.registerService('oidc', 2, null, function (query) {
     });
   }
 
-  Meteor.call('groupRoutineOnLogin',serviceData, serviceData.id);
+  // Fix OIDC login loop for integer user ID. Thanks to danielkaiser.
+  // https://github.com/wekan/wekan/issues/4795
+  Meteor.call('groupRoutineOnLogin',serviceData, ""+serviceData.id);
 
   return {
     serviceData: serviceData,
@@ -288,7 +290,7 @@ Meteor.methods({
     if (propagateOidcData)
     {
       users= Meteor.users;
-      user = users.findOne({'services.oidc.id':  userId.toString()});
+      user = users.findOne({'services.oidc.id':  userId});
 
       if(user)
       {
