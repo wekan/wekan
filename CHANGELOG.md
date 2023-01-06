@@ -7,7 +7,12 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Upgraded to Meteor 2.9.1](https://github.com/wekan/wekan/commit/a0318e59c13c2f50339ff170fbd221f3915f5ba9).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
 
 - [Add "use-credentials" directive to site.webmanifest request](https://github.com/wekan/wekan/pull/4801).
   Thanks to markormesher.
