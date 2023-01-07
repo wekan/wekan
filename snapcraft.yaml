@@ -1,5 +1,5 @@
 name: wekan
-version: '6.67'
+version: '6.68'
 base: core20
 summary: Open Source kanban
 description: |
