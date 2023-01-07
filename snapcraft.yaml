@@ -160,9 +160,9 @@ parts:
             # Cleanup
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v6.67/wekan-6.67-amd64.zip
-            unzip wekan-6.67-amd64.zip
-            rm wekan-6.67-amd64.zip
+            wget https://github.com/wekan/wekan/releases/download/v6.68/wekan-6.68-amd64.zip
+            unzip wekan-6.68-amd64.zip
+            rm wekan-6.68-amd64.zip
             cd ..
             ##cd .build/bundle
             ##find . -type d -name '*-garbage*' | xargs rm -rf
