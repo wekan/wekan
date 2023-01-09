@@ -23,7 +23,6 @@
   "dependencies": {
     "@babel/core": "^7.15.5",
     "@babel/runtime": "^7.15.4",
-    "@excalidraw/excalidraw": "^0.13.0",
     "@mapbox/node-pre-gyp": "^1.0.8",
     "@wekanteam/markdown-it-mermaid": "^0.6.2",
     "ajv": "^6.12.6",
@@ -53,7 +52,6 @@
     "meteor-node-stubs": "^1.1.0",
     "minio": "^7.0.32",
     "moment": "^2.29.4",
-    "mongodb": "^3.7.3",
     "nodemailer": "^6.6.3",
     "os": "^0.1.2",
     "page": "^1.11.6",
