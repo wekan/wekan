@@ -5,6 +5,17 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# v6.70 2023-01-14 WeKan ® release
+
+This release fixes the following bugs:
+
+- Try to fix User API.
+  [Part 1](https://github.com/wekan/wekan/commit/8092f8be28fd6f1d9e2b86e672878cbaebf48000),
+  [Part 2](https://github.com/wekan/wekan/commit/cc90291192f068ca6908b6b5e3605f78c2bed085).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.69 2023-01-09 WeKan ® release
 
 This release adds the following updates:
