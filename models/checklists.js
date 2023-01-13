@@ -248,9 +248,9 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/cards/:cardId/checklists',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const checklists = Checklists.find({ cardId: paramCardId }).map(function(
         doc,
       ) {
@@ -292,10 +292,10 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramChecklistId = req.params.checklistId;
       const paramCardId = req.params.cardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const checklist = Checklists.findOne({
         _id: paramChecklistId,
         cardId: paramCardId,
@@ -336,10 +336,10 @@ if (Meteor.isServer) {
     'POST',
     '/api/boards/:boardId/cards/:cardId/checklists',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       // Check user is logged in
       //Authentication.checkLoggedIn(req.userId);
       const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       // Check user has permission to add checklist to the card
       const board = Boards.findOne({
         _id: paramBoardId,
@@ -398,9 +398,9 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramChecklistId = req.params.checklistId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       Checklists.remove({ _id: paramChecklistId });
       JsonRoutes.sendResult(res, {
         code: 200,

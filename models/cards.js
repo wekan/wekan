@@ -3202,9 +3202,9 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/swimlanes/:swimlaneId/cards',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramSwimlaneId = req.params.swimlaneId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Cards.find({
@@ -3244,9 +3244,9 @@ if (Meteor.isServer) {
     req,
     res,
   ) {
-    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Cards.find({
@@ -3281,10 +3281,10 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Cards.findOne({
@@ -3497,10 +3497,10 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
     'PUT',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       if (req.body.hasOwnProperty('title')) {
         const newTitle = req.body.title;
@@ -3855,10 +3855,10 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
     'DELETE',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       const card = Cards.findOne({
         _id: paramCardId,
@@ -3895,10 +3895,10 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
     'GET',
     '/api/boards/:boardId/cardsByCustomField/:customFieldId/:customFieldValue',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramCustomFieldId = req.params.customFieldId;
       const paramCustomFieldValue = req.params.customFieldValue;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Cards.find({

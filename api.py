@@ -21,32 +21,39 @@ import sys
 
 arguments = len(sys.argv) - 1
 
+syntax = """=== Wekan API Python CLI: Shows IDs for addcard ===
+# AUTHORID is USERID that writes card or custom field.
+If *nix:  chmod +x api.py => ./api.py users
+  Syntax:
+    User API:
+    python3 api.py user                 # Current user and list of current user boards
+    python3 api.py boards USERID        # Boards of USERID
+    python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID
+    python3 api.py lists BOARDID        # Lists of BOARDID
+    python3 api.py list BOARDID LISTID  # Info of LISTID
+    python3 api.py createlist BOARDID LISTTITLE # Create list
+    python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION
+    python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION
+    python3 api.py customfields BOARDID # Custom Fields of BOARDID
+    python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
+    python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
+    python3 api.py listattachments BOARDID # List attachments
+
+  Admin API:
+    python3 api.py users                # All users
+    python3 api.py boards               # All Public Boards
+    python3 api.py newuser USERNAME EMAIL PASSWORD
+"""
+
 if arguments == 0:
-    print("=== Wekan API Python CLI: Shows IDs for addcard ===")
-    print("AUTHORID is USERID that writes card.")
-    print("If *nix:  chmod +x api.py => ./api.py users")
-    print("Syntax:")
-    print("  python3 api.py users                # All users")
-    print("  python3 api.py boards               # All Public Boards")
-    print("  python3 api.py boards USERID        # Boards of USERID")
-    print("  python3 api.py board BOARDID        # Info of BOARDID")
-    print("  python3 api.py customfields BOARDID # Custom Fields of BOARDID")
-    print("  python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID")
-    print("  python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board")
-    print("  python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID")
-    print("  python3 api.py lists BOARDID        # Lists of BOARDID")
-    print("  python3 api.py list BOARDID LISTID  # Info of LISTID")
-    print("  python3 api.py createlist BOARDID LISTTITLE # Create list")
-    print("  python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION")
-    print("  python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION")
-    print("  python3 api.py listattachments BOARDID # List attachments")
-    print("  python3 api.py newuser USERNAME EMAIL PASSWORD")
+    print(syntax)
+    exit
+
 # TODO:
 #   print("  python3 api.py attachmentjson BOARDID ATTACHMENTID # One attachment as JSON base64")
 #   print("  python3 api.py attachmentbinary BOARDID ATTACHMENTID # One attachment as binary file")
 #   print("  python3 api.py attachmentdownload BOARDID ATTACHMENTID # One attachment as file")
 #   print("  python3 api.py attachmentsdownload BOARDID # All attachments as files")
-    exit
 
 # ------- SETTINGS START -------------
 
@@ -62,33 +69,6 @@ wekanurl = 'http://localhost:4000/'
 # ------- SETTINGS END -------------
 
 """
-EXAMPLE:
-
-python3 api.py
-
-OR:
-chmod +x api.py
-./api.py
-
-=== Wekan API Python CLI: Shows IDs for addcard ===
-AUTHORID is USERID that writes card.
-Syntax:
-  python3 api.py users                # All users
-  python3 api.py boards USERID        # Boards of USERID
-  python3 api.py board BOARDID        # Info of BOARDID
-  python3 api.py customfields BOARDID # Custom Fields of BOARDID
-  python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
-  python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
-  python3 api.py swimlanes BOARDID    # Swimlanes of BOARDID
-  python3 api.py lists BOARDID        # Lists of BOARDID
-  python3 api.py list BOARDID LISTID  # Info of LISTID
-  python3 api.py createlist BOARDID LISTTITLE # Create list
-  python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION
-  python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION
-  python3 api.py listattachments BOARDID # List attachments
-  python3 api.py attachmentjson BOARDID ATTACHMENTID # One attachment as JSON base64
-  python3 api.py attachmentbinary BOARDID ATTACHMENTID # One attachment as binary file
-
 === ADD CUSTOM FIELD TO BOARD ===
 
 Type: text, number, date, dropdown, checkbox, currency, stringtemplate.
@@ -145,6 +125,8 @@ wekanloginurl = wekanurl + loginurl
 apiboards = 'api/boards/'
 apiattachments = 'api/attachments/'
 apiusers = 'api/users'
+apiuser = 'api/user'
+apiallusers = 'api/allusers'
 e = 'export'
 s = '/'
 l = 'lists'
@@ -153,10 +135,13 @@ sws = 'swimlanes'
 cs = 'cards'
 cf = 'custom-fields'
 bs = 'boards'
+apbs = 'allpublicboards'
 atl = 'attachmentslist'
 at = 'attachment'
 ats = 'attachments'
 users = wekanurl + apiusers
+user = wekanurl + apiuser
+allusers = wekanurl + apiallusers
 
 # ------- API URL GENERATION END -----------
 
@@ -371,6 +356,16 @@ if arguments == 1:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- LIST OF USERS END -----------
+
+    if sys.argv[1] == 'user':
+        # ------- LIST OF ALL USERS START -----------
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print(user)
+        print("=== USER ===\n")
+        body = requests.get(user, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- LIST OF ALL USERS END -----------
 
     if sys.argv[1] == 'boards':
 

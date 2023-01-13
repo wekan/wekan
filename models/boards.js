@@ -2002,12 +2002,12 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
-      const id = req.params.boardId;
+      const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Boards.findOne({ _id: id }),
+        data: Boards.findOne({ _id: paramBoardId }),
       });
     } catch (error) {
       JsonRoutes.sendResult(res, {
@@ -2120,8 +2120,8 @@ if (Meteor.isServer) {
    * @return_type string
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
-    Authentication.checkUserId(req.userId);
     const id = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, id);
     try {
       if (req.body.hasOwnProperty('label')) {
         const board = Boards.findOne({ _id: id });
@@ -2214,8 +2214,8 @@ if (Meteor.isServer) {
    *                swimlaneId: string}]
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
-    Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Attachments.files
