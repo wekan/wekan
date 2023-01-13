@@ -2046,7 +2046,7 @@ if (Meteor.isServer) {
                    */
   JsonRoutes.add('POST', '/api/boards', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
+      Authentication.checkLoggedIn(req.userId);
       const id = Boards.insert({
         title: req.body.title,
         members: [
