@@ -617,36 +617,27 @@ BlazeComponent.extendComponent({
       this.isListTemplateSearch ||
       this.isSwimlaneTemplateSearch ||
       this.isBoardTemplateSearch;
-    let board = {};
+
+    this.board = {};
     if (this.isTemplateSearch) {
-      board._id = (Meteor.user().profile || {}).templatesBoardId;
+      const boardId = (Meteor.user().profile || {}).templatesBoardId;
+      if (boardId) {
+        this.board = ReactiveCache.getBoard(boardId);
+      }
     } else {
-      // Prefetch first non-current board id
-      board = Boards.find({
-        archived: false,
-        'members.userId': Meteor.userId(),
-        _id: {
-          $nin: [
-            Session.get('currentBoard'),
-            (Meteor.user().profile || {}).templatesBoardId,
-          ],
-        },
-      });
+      this.board = Utils.getCurrentBoard();
     }
-    if (!board) {
+    if (!this.board) {
       Popup.back();
       return;
     }
-    const boardId = board._id;
+    this.boardId = this.board._id;
     // Subscribe to this board
-    subManager.subscribe('board', boardId, false);
-    this.selectedBoardId = new ReactiveVar(boardId);
+    subManager.subscribe('board', this.boardId, false);
+    this.selectedBoardId = new ReactiveVar(this.boardId);
     this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
 
     if (!this.isBoardTemplateSearch) {
-      this.boardId = Session.get('currentBoard');
-      // In order to get current board info
-      subManager.subscribe('board', this.boardId, false);
       this.swimlaneId = '';
       // Swimlane where to insert card
       const swimlane = $(Popup._getTopStack().openerElement).parents(
@@ -734,6 +725,7 @@ BlazeComponent.extendComponent({
           if (!this.isTemplateSearch || this.isCardTemplateSearch) {
             // Card insertion
             // 1. Common
+            element.cardNumber = this.board.getNextCardNumber();
             element.sort = this.getSortIndex();
             // 1.A From template
             if (this.isTemplateSearch) {
