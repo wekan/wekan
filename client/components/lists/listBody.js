@@ -637,6 +637,7 @@ BlazeComponent.extendComponent({
     // Subscribe to this board
     subManager.subscribe('board', boardId, false);
     this.selectedBoardId = new ReactiveVar(boardId);
+    this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
 
     if (!this.isBoardTemplateSearch) {
       this.boardId = Session.get('currentBoard');
@@ -651,8 +652,7 @@ BlazeComponent.extendComponent({
         this.swimlaneId = Blaze.getData(swimlane[0])._id;
       else this.swimlaneId = Swimlanes.findOne({ boardId: this.boardId })._id;
       // List where to insert card
-      const list = $(Popup._getTopStack().openerElement).closest('.js-list');
-      this.listId = Blaze.getData(list[0])._id;
+      this.listId = Blaze.getData(this.list[0])._id;
     }
     this.term = new ReactiveVar('');
   },
@@ -694,6 +694,19 @@ BlazeComponent.extendComponent({
     }
   },
 
+  getSortIndex() {
+    const position = this.data().position;
+    let ret;
+    if (position === 'top') {
+      const firstCardDom = this.list.find('.js-minicard:first')[0];
+      ret = Utils.calculateIndex(null, firstCardDom).base;
+    } else if (position === 'bottom') {
+      const lastCardDom = this.list.find('.js-minicard:last')[0];
+      ret = Utils.calculateIndex(lastCardDom, null).base;
+    }
+    return ret;
+  },
+
   events() {
     return [
       {
@@ -717,9 +730,7 @@ BlazeComponent.extendComponent({
           if (!this.isTemplateSearch || this.isCardTemplateSearch) {
             // Card insertion
             // 1. Common
-            element.sort = Lists.findOne(this.listId)
-              .cards()
-              .count();
+            element.sort = this.getSortIndex();
             // 1.A From template
             if (this.isTemplateSearch) {
               element.type = 'cardType-card';
