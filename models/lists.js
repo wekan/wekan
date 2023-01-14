@@ -274,7 +274,7 @@ Lists.helpers({
   },
 
   getWipLimit(option) {
-    const list = Lists.findOne({ _id: this._id });
+    const list = ReactiveCache.getList(this._id);
     if (!list.wipLimit) {
       // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
       return 0;
@@ -389,12 +389,12 @@ Meteor.methods({
     if (limit === 0) {
       limit = 1;
     }
-    Lists.findOne({ _id: listId }).setWipLimit(limit);
+    ReactiveCache.getList(listId).setWipLimit(limit);
   },
 
   enableWipLimit(listId) {
     check(listId, String);
-    const list = Lists.findOne({ _id: listId });
+    const list = ReactiveCache.getList(listId);
     if (list.getWipLimit('value') === 0) {
       list.setWipLimit(1);
     }
@@ -403,7 +403,7 @@ Meteor.methods({
 
   enableSoftLimit(listId) {
     check(listId, String);
-    const list = Lists.findOne({ _id: listId });
+    const list = ReactiveCache.getList(listId);
     list.toggleSoftLimit(!list.getWipLimit('soft'));
   },
 

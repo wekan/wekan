@@ -1176,7 +1176,7 @@ Boards.helpers({
   },
 
   getDefaultSubtasksList() {
-    return Lists.findOne(this.getDefaultSubtasksListId());
+    return ReactiveCache.getList(this.getDefaultSubtasksListId());
   },
 
   getDefaultDateSettingsListId() {
@@ -1194,7 +1194,7 @@ Boards.helpers({
   },
 
   getDefaultDateSettingsList() {
-    return Lists.findOne(this.getDefaultDateSettingsListId());
+    return ReactiveCache.getList(this.getDefaultDateSettingsListId());
   },
 
   getDefaultSwimline() {

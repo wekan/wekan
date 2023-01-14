@@ -26,7 +26,7 @@ Activities.helpers({
     return Users.findOne(this.memberId);
   },
   list() {
-    return Lists.findOne(this.listId);
+    return ReactiveCache.getList(this.listId);
   },
   swimlane() {
     return Swimlanes.findOne(this.swimlaneId);
@@ -35,7 +35,7 @@ Activities.helpers({
     return Swimlanes.findOne(this.oldSwimlaneId);
   },
   oldList() {
-    return Lists.findOne(this.oldListId);
+    return ReactiveCache.getList(this.oldListId);
   },
   card() {
     return ReactiveCache.getCard(this.cardId);

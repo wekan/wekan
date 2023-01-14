@@ -8,8 +8,8 @@ function getCardsBetween(idA, idB) {
   function getListsStrictlyBetween(id1, id2) {
     return Lists.find({
       $and: [
-        { sort: { $gt: Lists.findOne(id1).sort } },
-        { sort: { $lt: Lists.findOne(id2).sort } },
+        { sort: { $gt: ReactiveCache.getList(id1).sort } },
+        { sort: { $lt: ReactiveCache.getList(id2).sort } },
       ],
       archived: false,
     }).map(pluckId);

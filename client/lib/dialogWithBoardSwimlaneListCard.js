@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlaneList';
 
 export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList {
@@ -22,7 +23,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
 
   /** returns all available cards of the current list */
   cards() {
-    const list = Lists.findOne(this.selectedListId.get());
+    const list = ReactiveCache.getList(this.selectedListId.get());
     let ret = [];
     if (list) {
       ret = list.cards(this.selectedSwimlaneId.get());

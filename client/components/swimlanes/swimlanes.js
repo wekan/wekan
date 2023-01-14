@@ -1,7 +1,7 @@
 const { calculateIndex } = Utils;
 
 function currentListIsInThisSwimlane(swimlaneId) {
-  const currentList = Lists.findOne(Session.get('currentList'));
+  const currentList = Utils.getCurrentList();
   return (
     currentList &&
     (currentList.swimlaneId === swimlaneId || currentList.swimlaneId === '')

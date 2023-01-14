@@ -47,11 +47,11 @@ Triggers.helpers({
   },
 
   fromList() {
-    return Lists.findOne(this.fromId);
+    return ReactiveCache.getList(this.fromId);
   },
 
   toList() {
-    return Lists.findOne(this.toId);
+    return ReactiveCache.getList(this.toId);
   },
 
   findList(title) {

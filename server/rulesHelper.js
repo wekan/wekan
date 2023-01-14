@@ -37,7 +37,7 @@ RulesHelper = {
       // in any [*] board
       let value = activity[field];
       if (field === 'oldListName') {
-        const oldList = Lists.findOne({ _id: activity.oldListId });
+        const oldList = ReactiveCache.getList(activity.oldListId);
         if (oldList) {
           value = oldList.title;
         }
