@@ -558,14 +558,13 @@ BlazeComponent.extendComponent({
             Popup.back();
             return;
           }
+          const sortIndex = this.getSortIndex();
           const _id = Cards.insert({
             title: $('.js-select-boards option:selected').text(), //dummy
             listId: this.listId,
             swimlaneId: this.swimlaneId,
             boardId: this.boardId,
-            sort: Lists.findOne(this.listId)
-              .cards()
-              .count(),
+            sort: sortIndex,
             type: 'cardType-linkedBoard',
             linkedId: impBoardId,
           });
