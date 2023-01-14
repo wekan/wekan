@@ -465,7 +465,13 @@ BlazeComponent.extendComponent({
     if (!this.selectedBoardId.get()) {
       return [];
     }
-    const swimlanes = Swimlanes.find({ boardId: this.selectedBoardId.get() });
+    const swimlanes = Swimlanes.find(
+    {
+      boardId: this.selectedBoardId.get()
+    },
+    {
+      sort: { sort: 1 },
+    });
     if (swimlanes.count())
       this.selectedSwimlaneId.set(swimlanes.fetch()[0]._id);
     return swimlanes;
@@ -475,7 +481,13 @@ BlazeComponent.extendComponent({
     if (!this.selectedBoardId.get()) {
       return [];
     }
-    const lists = Lists.find({ boardId: this.selectedBoardId.get() });
+    const lists = Lists.find(
+    {
+      boardId: this.selectedBoardId.get()
+    },
+    {
+      sort: { sort: 1 },
+    });
     if (lists.count()) this.selectedListId.set(lists.fetch()[0]._id);
     return lists;
   },
@@ -485,7 +497,8 @@ BlazeComponent.extendComponent({
       return [];
     }
     const ownCardsIds = this.board.cards().map(card => card.getRealId());
-    return Cards.find({
+    return Cards.find(
+    {
       boardId: this.selectedBoardId.get(),
       swimlaneId: this.selectedSwimlaneId.get(),
       listId: this.selectedListId.get(),
@@ -493,6 +506,9 @@ BlazeComponent.extendComponent({
       linkedId: { $nin: ownCardsIds },
       _id: { $nin: ownCardsIds },
       type: { $nin: ['template-card'] },
+    },
+    {
+      sort: { sort: 1 },
     });
   },
 
