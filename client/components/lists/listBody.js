@@ -433,8 +433,8 @@ BlazeComponent.extendComponent({
     subManager.subscribe('board', this.boardId, false);
     this.board = ReactiveCache.getBoard(this.boardId);
     // List where to insert card
-    const list = $(Popup._getTopStack().openerElement).closest('.js-list');
-    this.listId = Blaze.getData(list[0])._id;
+    this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
+    this.listId = Blaze.getData(this.list[0])._id;
     // Swimlane where to insert card
     const swimlane = $(Popup._getTopStack().openerElement).closest(
       '.js-swimlane',
@@ -520,14 +520,21 @@ BlazeComponent.extendComponent({
             Popup.back();
             return;
           }
+          const position = this.currentData().position;
+          let sortIndex;
+          if (position === 'top') {
+            const firstCardDom = this.list.find('.js-minicard:first')[0];
+            sortIndex = Utils.calculateIndex(null, firstCardDom).base;
+          } else if (position === 'bottom') {
+            const lastCardDom = this.list.find('.js-minicard:last')[0];
+            sortIndex = Utils.calculateIndex(lastCardDom, null).base;
+          }
           const _id = Cards.insert({
             title: $('.js-select-cards option:selected').text(), //dummy
             listId: this.listId,
             swimlaneId: this.swimlaneId,
             boardId: this.boardId,
-            sort: Lists.findOne(this.listId)
-              .cards()
-              .count(),
+            sort: sortIndex,
             type: 'cardType-linkedCard',
             linkedId,
           });
