@@ -547,6 +547,7 @@ BlazeComponent.extendComponent({
             Popup.back();
             return;
           }
+          const nextCardNumber = this.board.getNextCardNumber();
           const sortIndex = this.getSortIndex();
           const _id = Cards.insert({
             title: $('.js-select-cards option:selected').text(), //dummy
@@ -556,6 +557,7 @@ BlazeComponent.extendComponent({
             sort: sortIndex,
             type: 'cardType-linkedCard',
             linkedId,
+            cardNumber: nextCardNumber,
           });
           Filter.addException(_id);
           Popup.back();
