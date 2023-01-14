@@ -42,7 +42,7 @@ RulesHelper = {
           value = oldList.title;
         }
       } else if (field === 'oldSwimlaneName') {
-        const oldSwimlane = Swimlanes.findOne({ _id: activity.oldSwimlaneId });
+        const oldSwimlane = ReactiveCache.getSwimlane(activity.oldSwimlaneId);
         if (oldSwimlane) {
           value = oldSwimlane.title;
         }
@@ -86,7 +86,7 @@ RulesHelper = {
       let swimlane;
       let swimlaneId;
       if (action.swimlaneName === '*') {
-        swimlane = Swimlanes.findOne(card.swimlaneId);
+        swimlane = ReactiveCache.getSwimlane(card.swimlaneId);
         if (boardId !== action.boardId) {
           swimlane = Swimlanes.findOne({
             title: swimlane.title,

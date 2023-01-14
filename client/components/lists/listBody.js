@@ -65,7 +65,7 @@ BlazeComponent.extendComponent({
         swimlaneId = this.parentComponent()
           .parentComponent()
           .data()._id; // Always swimlanes view
-        const swimlane = Swimlanes.findOne(swimlaneId);
+        const swimlane = ReactiveCache.getSwimlane(swimlaneId);
         // If this is the card templates swimlane, insert a card template
         if (swimlane.isCardTemplatesSwimlane()) cardType = 'template-card';
         // If this is the board templates swimlane, insert a board template and a linked card
@@ -739,7 +739,7 @@ BlazeComponent.extendComponent({
             Filter.addException(_id);
             // List insertion
           } else if (this.isListTemplateSearch) {
-            element.sort = Swimlanes.findOne(this.swimlaneId)
+            element.sort = ReactiveCache.getSwimlane(this.swimlaneId)
               .lists()
               .count();
             element.type = 'list';

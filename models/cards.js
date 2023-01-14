@@ -2688,7 +2688,7 @@ function cardMove(
       oldBoardId,
       oldBoardName: ReactiveCache.getBoard(oldBoardId).title,
       cardId: doc._id,
-      swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
+      swimlaneName: ReactiveCache.getSwimlane(doc.swimlaneId).title,
       swimlaneId: doc.swimlaneId,
       oldSwimlaneId,
     });
@@ -2705,7 +2705,7 @@ function cardMove(
       boardId: doc.boardId,
       cardId: doc._id,
       cardTitle: doc.title,
-      swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
+      swimlaneName: ReactiveCache.getSwimlane(doc.swimlaneId).title,
       swimlaneId: doc.swimlaneId,
       oldSwimlaneId,
     });
@@ -2917,7 +2917,7 @@ function cardCreation(userId, doc) {
     listId: doc.listId,
     cardId: doc._id,
     cardTitle: doc.title,
-    swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
+    swimlaneName: ReactiveCache.getSwimlane(doc.swimlaneId).title,
     swimlaneId: doc.swimlaneId,
   });
 }

@@ -29,10 +29,10 @@ Activities.helpers({
     return ReactiveCache.getList(this.listId);
   },
   swimlane() {
-    return Swimlanes.findOne(this.swimlaneId);
+    return ReactiveCache.getSwimlane(this.swimlaneId);
   },
   oldSwimlane() {
-    return Swimlanes.findOne(this.oldSwimlaneId);
+    return ReactiveCache.getSwimlane(this.oldSwimlaneId);
   },
   oldList() {
     return ReactiveCache.getList(this.oldListId);

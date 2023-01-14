@@ -5,7 +5,7 @@ Meteor.methods({
     check(swimlaneId, String);
     check(toBoardId, String);
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
+    const swimlane = ReactiveCache.getSwimlane(swimlaneId);
     const toBoard = ReactiveCache.getBoard(toBoardId);
 
     if (swimlane && toBoard) {
@@ -20,7 +20,7 @@ Meteor.methods({
     check(swimlaneId, String);
     check(toBoardId, String);
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
+    const swimlane = ReactiveCache.getSwimlane(swimlaneId);
     const toBoard = ReactiveCache.getBoard(toBoardId);
 
     if (swimlane && toBoard) {

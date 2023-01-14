@@ -370,7 +370,6 @@ class MoveSwimlaneComponent extends BlazeComponent {
     return [
       {
         'click .js-done'() {
-          // const swimlane = Swimlanes.findOne(this.currentSwimlane._id);
           const bSelect = $('.js-select-boards')[0];
           let boardId;
           if (bSelect) {
