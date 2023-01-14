@@ -484,9 +484,7 @@ BlazeComponent.extendComponent({
     if (!this.board) {
       return [];
     }
-    const ownCardsIds = this.board.cards().map(card => {
-      return card.linkedId || card._id;
-    });
+    const ownCardsIds = this.board.cards().map(card => card.getRealId());
     return Cards.find({
       boardId: this.selectedBoardId.get(),
       swimlaneId: this.selectedSwimlaneId.get(),
