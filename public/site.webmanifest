@@ -508,7 +508,7 @@
   "theme_color": "#000000",
   "background_color": "#000000",
   "start_url": "sign-in",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "any",
   "categories": [
     "productivity"
@@ -519,6 +519,6 @@
   "scope": "https://boards.wekan.team",
   "prefer_related_applications": false,
   "display_override": [
-    "fullscreen"
+    "standalone"
   ]
 }
