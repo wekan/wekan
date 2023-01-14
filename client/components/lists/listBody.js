@@ -498,6 +498,19 @@ BlazeComponent.extendComponent({
     });
   },
 
+  getSortIndex() {
+    const position = this.currentData().position;
+    let ret;
+    if (position === 'top') {
+      const firstCardDom = this.list.find('.js-minicard:first')[0];
+      ret = Utils.calculateIndex(null, firstCardDom).base;
+    } else if (position === 'bottom') {
+      const lastCardDom = this.list.find('.js-minicard:last')[0];
+      ret = Utils.calculateIndex(lastCardDom, null).base;
+    }
+    return ret;
+  },
+
   events() {
     return [
       {
@@ -520,15 +533,7 @@ BlazeComponent.extendComponent({
             Popup.back();
             return;
           }
-          const position = this.currentData().position;
-          let sortIndex;
-          if (position === 'top') {
-            const firstCardDom = this.list.find('.js-minicard:first')[0];
-            sortIndex = Utils.calculateIndex(null, firstCardDom).base;
-          } else if (position === 'bottom') {
-            const lastCardDom = this.list.find('.js-minicard:last')[0];
-            sortIndex = Utils.calculateIndex(lastCardDom, null).base;
-          }
+          const sortIndex = this.getSortIndex();
           const _id = Cards.insert({
             title: $('.js-select-cards option:selected').text(), //dummy
             listId: this.listId,
