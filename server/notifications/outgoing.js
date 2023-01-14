@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 if (Meteor.isServer) {
@@ -79,7 +80,7 @@ if (Meteor.isServer) {
         cardId: paramCardId,
         boardId: paramBoardId,
       });
-      const board = Boards.findOne(paramBoardId);
+      const board = ReactiveCache.getBoard(paramBoardId);
       const card = Cards.findOne(paramCardId);
       if (board && card) {
         if (comment) {

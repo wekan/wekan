@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments, { fileStoreStrategyFactory } from '/models/attachments';
 const filesize = require('filesize');
 
@@ -61,14 +62,14 @@ BlazeComponent.extendComponent({
               return _version;
             });
         });
-        const board = Boards.findOne(boardId);
+        const board = ReactiveCache.getBoard(boardId);
         board.attachments = boardAttachments;
         return board;
       })
     return ret;
   },
   getBoardData(boardid) {
-    const ret = Boards.findOne(boardId);
+    const ret = ReactiveCache.getBoard(boardId);
     return ret;
   },
   events() {

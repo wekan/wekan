@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -243,12 +244,12 @@ BlazeComponent.extendComponent({
   },
 
   swimlanes() {
-    const board = Boards.findOne(this.selectedBoardId.get());
+    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     return board.swimlanes();
   },
 
   aBoardLists() {
-    const board = Boards.findOne(this.selectedBoardId.get());
+    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     return board.lists();
   },
 

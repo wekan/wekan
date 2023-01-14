@@ -1,10 +1,12 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Meteor.methods({
   copySwimlane(swimlaneId, toBoardId) {
     check(swimlaneId, String);
     check(toBoardId, String);
 
     const swimlane = Swimlanes.findOne(swimlaneId);
-    const toBoard = Boards.findOne(toBoardId);
+    const toBoard = ReactiveCache.getBoard(toBoardId);
 
     if (swimlane && toBoard) {
       swimlane.copy(toBoardId);
@@ -19,7 +21,7 @@ Meteor.methods({
     check(toBoardId, String);
 
     const swimlane = Swimlanes.findOne(swimlaneId);
-    const toBoard = Boards.findOne(toBoardId);
+    const toBoard = ReactiveCache.getBoard(toBoardId);
 
     if (swimlane && toBoard) {
       swimlane.move(toBoardId);

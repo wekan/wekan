@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 const subManager = new SubsManager();
@@ -223,8 +224,8 @@ BlazeComponent.extendComponent({
   boardMembers(boardId) {
     let boardMembers = [];
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-    const lists = Boards.findOne({ '_id': boardId })
-    let members = lists.members;
+    const lists = ReactiveCache.getBoard(boardId)
+    let members = lists.members
     members.forEach(member => {
       boardMembers.push(member.userId);
     });
@@ -266,14 +267,14 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
         },
         'click .js-clone-board'(evt) {
-          let title = getSlug(Boards.findOne(this.currentData()._id).title) || 'cloned-board';
+          let title = getSlug(ReactiveCache.getBoard(this.currentData()._id).title) || 'cloned-board';
           Meteor.call(
             'copyBoard',
             this.currentData()._id,
             {
               sort: Boards.find({ archived: false }).count(),
               type: 'board',
-              title: Boards.findOne(this.currentData()._id).title,
+              title: ReactiveCache.getBoard(this.currentData()._id).title,
             },
             (err, res) => {
               if (err) {

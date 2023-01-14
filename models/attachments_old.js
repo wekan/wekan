@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 const storeName = 'attachments';
 const defaultStoreOptions = {
   beforeWrite: fileObj => {
@@ -35,19 +37,19 @@ if (Meteor.isServer) {
 
   AttachmentsOld.allow({
     insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
     },
     update(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
     },
     remove(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
     },
     // We authorize the attachment download either:
     // - if the board is public, everyone (even unconnected) can download it
     // - if the board is private, only board members can download it
     download(userId, doc) {
-      const board = Boards.findOne(doc.boardId);
+      const board = ReactiveCache.getBoard(doc.boardId);
       if (board.isPublic()) {
         return true;
       } else {

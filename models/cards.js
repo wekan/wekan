@@ -490,19 +490,19 @@ Cards.attachSchema(
 
 Cards.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
 
   update(userId, doc, fields) {
     // Allow board members or logged in users if only vote get's changed
     return (
-      allowIsBoardMember(userId, Boards.findOne(doc.boardId)) ||
+      allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId)) ||
       (_.isEqual(fields, ['vote', 'modifiedAt', 'dateLastActivity']) &&
         !!userId)
     );
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
   fetch: ['boardId'],
 });
@@ -1093,7 +1093,7 @@ Cards.helpers({
       if (card && card.description) return card.description;
       else return null;
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board && board.description) return board.description;
       else return null;
     } else if (this.description) {
@@ -1112,7 +1112,7 @@ Cards.helpers({
         return card.members;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1134,7 +1134,7 @@ Cards.helpers({
         return card.assignees;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1150,7 +1150,7 @@ Cards.helpers({
   assignMember(memberId) {
     let ret;
     if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       ret = board.addMember(memberId);
     } else {
       ret = Cards.update(
@@ -1168,7 +1168,7 @@ Cards.helpers({
         { $addToSet: { assignees: assigneeId } },
       );
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       return board.addAssignee(assigneeId);
     } else {
       return Cards.update(
@@ -1185,7 +1185,7 @@ Cards.helpers({
         { $pull: { members: memberId } },
       );
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       return board.removeMember(memberId);
     } else {
       return Cards.update({ _id: this._id }, { $pull: { members: memberId } });
@@ -1199,7 +1199,7 @@ Cards.helpers({
         { $pull: { assignees: assigneeId } },
       );
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       return board.removeAssignee(assigneeId);
     } else {
       return Cards.update(
@@ -1234,7 +1234,7 @@ Cards.helpers({
         return card.receivedAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1262,7 +1262,7 @@ Cards.helpers({
         return card.startAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1290,7 +1290,7 @@ Cards.helpers({
         return card.dueAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1318,7 +1318,7 @@ Cards.helpers({
         return card.endAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1346,7 +1346,7 @@ Cards.helpers({
         return card.isOvertime;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1374,7 +1374,7 @@ Cards.helpers({
         return card.spentTime;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1404,7 +1404,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.vote) {
@@ -1430,7 +1430,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.vote) {
@@ -1456,7 +1456,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.vote) {
@@ -1516,7 +1516,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.poker) {
@@ -1550,7 +1550,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.poker) {
@@ -1699,7 +1699,7 @@ Cards.helpers({
         return card.title;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1722,21 +1722,21 @@ Cards.helpers({
       if (card === undefined) {
         return null;
       }
-      const board = Boards.findOne({ _id: card.boardId });
+      const board = ReactiveCache.getBoard(card.boardId);
       if (board === undefined) {
         return null;
       } else {
         return board.title;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
         return board.title;
       }
     } else {
-      const board = Boards.findOne({ _id: this.boardId });
+      const board = ReactiveCache.getBoard(this.boardId);
       if (board === undefined) {
         return null;
       } else {
@@ -1762,7 +1762,7 @@ Cards.helpers({
         return card.archived;
       }
     } else if (this.isLinkedBoard()) {
-      const board = Boards.findOne({ _id: this.linkedId });
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1967,7 +1967,7 @@ Cards.mutations({
     // This should never happen, but there was a bug that was fixed in commit
     // ea0239538a68e225c867411a4f3e0d27c158383.
     if (!swimlaneId) {
-      const board = Boards.findOne(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       swimlaneId = board.getDefaultSwimline()._id;
     }
     // Move the minicard to the end of the target list
@@ -1993,7 +1993,7 @@ Cards.mutations({
     // This should never happen, but there was a bug that was fixed in commit
     // ea0239538a68e225c867411a4f3e0d27c158383.
     if (!swimlaneId) {
-      const board = Boards.findOne(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       swimlaneId = board.getDefaultSwimline()._id;
     }
     listId = listId || this.listId;
@@ -2016,7 +2016,7 @@ Cards.mutations({
     // differs from the source board
     if (this.boardId !== boardId) {
       // Get label names
-      const oldBoard = Boards.findOne(this.boardId);
+      const oldBoard = ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = oldBoard.labels;
       const oldCardLabels = _.pluck(
         _.filter(oldBoardLabels, label => {
@@ -2025,7 +2025,7 @@ Cards.mutations({
         'name',
       );
 
-      const newBoard = Boards.findOne(boardId);
+      const newBoard = ReactiveCache.getBoard(boardId);
       const newBoardLabels = newBoard.labels;
       const newCardLabelIds = _.pluck(
         _.filter(newBoardLabels, label => {
@@ -2683,10 +2683,10 @@ function cardMove(
     Activities.insert({
       userId,
       activityType: 'moveCardBoard',
-      boardName: Boards.findOne(doc.boardId).title,
+      boardName: ReactiveCache.getBoard(doc.boardId).title,
       boardId: doc.boardId,
       oldBoardId,
-      oldBoardName: Boards.findOne(oldBoardId).title,
+      oldBoardName: ReactiveCache.getBoard(oldBoardId).title,
       cardId: doc._id,
       swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
       swimlaneId: doc.swimlaneId,
@@ -3320,9 +3320,7 @@ if (Meteor.isServer) {
     Authentication.checkLoggedIn(req.userId);
     const paramBoardId = req.params.boardId;
     // Check user has permission to add card to the board
-    const board = Boards.findOne({
-      _id: paramBoardId,
-    });
+    const board = ReactiveCache.getBoard(paramBoardId);
     const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
     Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramListId = req.params.listId;

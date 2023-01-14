@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 export class DialogWithBoardSwimlaneList extends BlazeComponent {
   /** returns the card dialog options
    * @return Object with properties { boardId, swimlaneId, listId }
@@ -62,7 +64,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   /** sets the first swimlane id */
   setFirstSwimlaneId() {
     try {
-      const board = Boards.findOne(this.selectedBoardId.get());
+      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
       const swimlaneId = board.swimlanes().fetch()[0]._id;
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
@@ -70,7 +72,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   /** sets the first list id */
   setFirstListId() {
     try {
-      const board = Boards.findOne(this.selectedBoardId.get());
+      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
       const listId = board.lists().fetch()[0]._id;
       this.selectedListId.set(listId);
     } catch (e) {}
@@ -120,14 +122,14 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
 
   /** returns all available swimlanes of the current board */
   swimlanes() {
-    const board = Boards.findOne(this.selectedBoardId.get());
+    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     const ret = board.swimlanes();
     return ret;
   }
 
   /** returns all available lists of the current board */
   lists() {
-    const board = Boards.findOne(this.selectedBoardId.get());
+    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     const ret = board.lists();
     return ret;
   }

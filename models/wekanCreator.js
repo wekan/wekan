@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 
 const DateString = Match.Where(function(dateAsString) {
@@ -907,7 +908,7 @@ export class WekanCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = Boards.findOne(currentBoardId);
+      const currentBoard = ReactiveCache.getBoard(currentBoardId);
       currentBoard.archive();
     }
     this.parseActivities(board);

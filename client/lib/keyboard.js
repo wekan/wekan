@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 // XXX There is no reason to define these shortcuts globally, they should be
 // attached to a template (most of them will go in the `board` template).
 
@@ -76,7 +78,7 @@ Mousetrap.bind(numbArray, (evt, key) => {
     return;
   }
   const currentBoardId = Session.get('currentBoard');
-  board = Boards.findOne(currentBoardId);
+  board = ReactiveCache.getBoard(currentBoardId);
   labels = board.labels;
   if(MultiSelection.isActive())
   {
@@ -100,7 +102,7 @@ Mousetrap.bind(numArray, (evt, key) => {
   if (currentUserId === null) {
     return;
   }
-  board = Boards.findOne(currentBoardId);
+  board = ReactiveCache.getBoard(currentBoardId);
   labels = board.labels;
   if(MultiSelection.isActive() && Meteor.user().isBoardMember())
   {

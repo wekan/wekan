@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 Sidebar = null;
@@ -284,7 +285,7 @@ Template.memberPopup.events({
     Cards.find({ boardId, assignees: memberId }).forEach(card => {
       card.unassignAssignee(memberId);
     });
-    Boards.findOne(boardId).removeMember(memberId);
+    ReactiveCache.getBoard(boardId).removeMember(memberId);
     Popup.back();
   }),
   'click .js-leave-member': Popup.afterConfirm('leaveBoard', () => {

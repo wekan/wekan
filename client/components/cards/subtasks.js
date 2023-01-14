@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   addSubtask(event) {
     event.preventDefault();
@@ -6,7 +8,7 @@ BlazeComponent.extendComponent({
     const cardId = this.currentData().cardId;
     const card = Cards.findOne(cardId);
     const sortIndex = -1;
-    const crtBoard = Boards.findOne(card.boardId);
+    const crtBoard = ReactiveCache.getBoard(card.boardId);
     const targetBoard = crtBoard.getDefaultSubtasksBoard();
     const listId = targetBoard.getDefaultSubtasksListId();
 

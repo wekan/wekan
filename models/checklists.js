@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { DataCache } from 'meteor-reactive-cache'
 
 Checklists = new Mongo.Collection('checklists');
@@ -350,9 +351,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       // Check user has permission to add checklist to the card
-      const board = Boards.findOne({
-        _id: paramBoardId,
-      });
+      const board = ReactiveCache.getBoard(paramBoardId);
       const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
       Authentication.checkAdminOrCondition(req.userId, addPermission);
       const paramCardId = req.params.cardId;

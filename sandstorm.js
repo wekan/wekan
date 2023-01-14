@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { Picker } from 'meteor/communitypackages:picker';
 
@@ -215,7 +216,7 @@ if (isSandstorm && Meteor.isServer) {
             const comment = CardComments.findOne(doc.commentId);
             caption = { defaultText: comment.text };
             const activeMembers = _.pluck(
-              Boards.findOne(sandstormBoard._id).activeMembers(),
+              ReactiveCache.getBoard(sandstormBoard._id).activeMembers(),
               'userId',
             );
             (comment.text.match(/\B@([\w.]*)/g) || []).forEach(username => {

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { ALLOWED_COLORS } from '/config/const';
 
 Swimlanes = new Mongo.Collection('swimlanes');
@@ -111,13 +112,13 @@ Swimlanes.attachSchema(
 
 Swimlanes.allow({
   insert(userId, doc) {
-    return allowIsBoardMemberCommentOnly(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberCommentOnly(userId, ReactiveCache.getBoard(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardMemberCommentOnly(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberCommentOnly(userId, ReactiveCache.getBoard(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMemberCommentOnly(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberCommentOnly(userId, ReactiveCache.getBoard(doc.boardId));
   },
   fetch: ['boardId'],
 });
@@ -235,7 +236,7 @@ Swimlanes.helpers({
   },
 
   board() {
-    return Boards.findOne(this.boardId);
+    return ReactiveCache.getBoard(this.boardId);
   },
 
   colorClass() {
@@ -469,7 +470,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      const board = Boards.findOne(paramBoardId);
+      const board = ReactiveCache.getBoard(paramBoardId);
       const id = Swimlanes.insert({
         title: req.body.title,
         boardId: paramBoardId,
@@ -504,7 +505,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       const paramSwimlaneId = req.params.swimlaneId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const board = Boards.findOne(paramBoardId);
+      const board = ReactiveCache.getBoard(paramBoardId);
       const swimlane = Swimlanes.findOne({
         _id: paramSwimlaneId,
         boardId: paramBoardId,

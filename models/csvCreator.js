@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { isEmptyObject } from 'jquery';
 import Boards from './boards';
 
@@ -320,7 +321,7 @@ export class CsvCreator {
       }
       // add the labels
       if (csvData[i][this.fieldIndex.labels]) {
-        const board = Boards.findOne(boardId);
+        const board = ReactiveCache.getBoard(boardId);
         for (const importedLabel of csvData[i][this.fieldIndex.labels].split(
           ' ',
         )) {
@@ -387,7 +388,7 @@ export class CsvCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = Boards.findOne(currentBoardId);
+      const currentBoard = ReactiveCache.getBoard(currentBoardId);
       currentBoard.archive();
     }
     this.mapHeadertoCardFieldIndex(board[0]);

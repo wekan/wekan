@@ -2,6 +2,7 @@
 // non-archived boards:
 // 1. that the user is a member of
 // 2. the user has starred
+import { ReactiveCache } from '/imports/reactiveCache';
 import Users from "../../models/users";
 import Org from "../../models/org";
 import Team from "../../models/team";
@@ -326,7 +327,7 @@ Meteor.methods({
     check(boardId, String);
     check(properties, Object);
 
-    const board = Boards.findOne(boardId);
+    const board = ReactiveCache.getBoard(boardId);
     if (board) {
       for (const key in properties) {
         board[key] = properties[key];

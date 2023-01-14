@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 CustomFields = new Mongo.Collection('customFields');
 
 /**
@@ -363,7 +365,7 @@ if (Meteor.isServer) {
   ) {
     const paramBoardId = req.params.boardId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
-    const board = Boards.findOne({ _id: paramBoardId });
+    const board = ReactiveCache.getBoard(paramBoardId);
     const id = CustomFields.direct.insert({
       name: req.body.name,
       type: req.body.type,

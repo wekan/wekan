@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import DOMPurify from 'dompurify';
 import { TAPi18n } from '/imports/i18n';
 
@@ -145,7 +146,7 @@ BlazeComponent.extendComponent({
   lastLabel() {
     const lastLabelId = this.currentData().activity.labelId;
     if (!lastLabelId) return null;
-    const lastLabel = Boards.findOne(
+    const lastLabel = ReactiveCache.getBoard(
       this.currentData().activity.boardId,
     ).getLabelById(lastLabelId);
     if (lastLabel && (lastLabel.name === undefined || lastLabel.name === '')) {

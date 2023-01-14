@@ -621,7 +621,7 @@ if (Meteor.isClient) {
     isBoardAdmin(boardId) {
       let board;
       if (boardId) {
-        board = Boards.findOne(boardId);
+        board = ReactiveCache.getBoard(boardId);
       } else {
         board = Utils.getCurrentBoard();
       }
@@ -1388,7 +1388,7 @@ if (Meteor.isServer) {
       check(boardId, String);
 
       const inviter = Meteor.user();
-      const board = Boards.findOne(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       const allowInvite =
         inviter &&
         board &&
@@ -1453,7 +1453,7 @@ if (Meteor.isServer) {
 
       //Check if there is a subtasks board
       if (board.subtasksDefaultBoardId) {
-        const subBoard = Boards.findOne(board.subtasksDefaultBoardId);
+        const subBoard = ReactiveCache.getBoard(board.subtasksDefaultBoardId);
         //If there is, also add user to that board
         if (subBoard) {
           subBoard.addMember(user._id);
@@ -1989,7 +1989,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('error-invitation-code-not-exist');
       } else {
         invitationCode.boardsToBeInvited.forEach((boardId) => {
-          const board = Boards.findOne(boardId);
+          const board = ReactiveCache.getBoard(boardId);
           board.addMember(doc._id);
         });
         if (!doc.profile) {

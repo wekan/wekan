@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Integrations = new Mongo.Collection('integrations');
 
 /**
@@ -102,7 +104,7 @@ const permissionHelper = {
   allow(userId, doc) {
     const user = Users.findOne(userId);
     const isAdmin = user && Meteor.user().isAdmin;
-    return isAdmin || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return isAdmin || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
 };
 Integrations.allow({

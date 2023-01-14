@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 // Activities don't need a schema because they are always set from the a trusted
 // environment - the server - and there is no risk that a user change the logic
 // we use with this collection. Moreover using a schema for this collection
@@ -12,10 +14,10 @@ Activities = new Mongo.Collection('activities');
 
 Activities.helpers({
   board() {
-    return Boards.findOne(this.boardId);
+    return ReactiveCache.getBoard(this.boardId);
   },
   oldBoard() {
-    return Boards.findOne(this.oldBoardId);
+    return ReactiveCache.getBoard(this.oldBoardId);
   },
   user() {
     return Users.findOne(this.userId);
@@ -108,7 +110,7 @@ if (Meteor.isServer) {
     let participants = [];
     let watchers = [];
     let title = 'act-activity-notify';
-    const board = Boards.findOne(activity.boardId);
+    const board = ReactiveCache.getBoard(activity.boardId);
     const description = `act-${activity.activityType}`;
     const params = {
       activityId: activity._id,

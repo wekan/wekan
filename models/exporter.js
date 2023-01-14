@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 const Papa = require('papaparse');
 import { TAPi18n } from '/imports/i18n';
@@ -34,7 +35,7 @@ export class Exporter {
     };
     _.extend(
       result,
-      Boards.findOne(this._boardId, {
+      ReactiveCache.getBoard(this._boardId, {
         fields: {
           stars: 0,
         },
@@ -379,7 +380,7 @@ export class Exporter {
   }
 
   canExport(user) {
-    const board = Boards.findOne(this._boardId);
+    const board = ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import { TAPi18n } from '/imports/i18n';
 import {
@@ -1124,7 +1125,7 @@ Boards.helpers({
   },
 
   getDefaultSubtasksBoard() {
-    return Boards.findOne(this.getDefaultSubtasksBoardId());
+    return ReactiveCache.getBoard(this.getDefaultSubtasksBoardId());
   },
 
   //Date Settings option such as received date, start date and so on.
@@ -1157,7 +1158,7 @@ Boards.helpers({
   },
 
   getDefaultDateSettingsBoard() {
-    return Boards.findOne(this.getDefaultDateSettingsBoardId());
+    return ReactiveCache.getBoard(this.getDefaultDateSettingsBoardId());
   },
 
   getDefaultSubtasksListId() {
@@ -1696,7 +1697,7 @@ if (Meteor.isServer) {
     },
     quitBoard(boardId) {
       check(boardId, String);
-      const board = Boards.findOne(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
@@ -1708,7 +1709,7 @@ if (Meteor.isServer) {
     },
     acceptInvite(boardId) {
       check(boardId, String);
-      const board = Boards.findOne(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Meteor.Error('error-board-doesNotExist');
       }
@@ -1749,7 +1750,7 @@ if (Meteor.isServer) {
   Meteor.methods({
     archiveBoard(boardId) {
       check(boardId, String);
-      const board = Boards.findOne(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);

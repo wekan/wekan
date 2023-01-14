@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Meteor.methods({
   watch(watchableType, id, level) {
     check(watchableType, String);
@@ -9,7 +11,7 @@ Meteor.methods({
     let watchableObj = null;
     let board = null;
     if (watchableType === 'board') {
-      watchableObj = Boards.findOne(id);
+      watchableObj = ReactiveCache.getBoard(id);
       if (!watchableObj) throw new Meteor.Error('error-board-doesNotExist');
       board = watchableObj;
     } else if (watchableType === 'list') {

@@ -201,7 +201,7 @@ Utils = {
 
   // XXX We should remove these two methods
   goBoardId(_id) {
-    const board = Boards.findOne(_id);
+    const board = ReactiveCache.getBoard(_id);
     return (
       board &&
       FlowRouter.go('board', {
@@ -213,7 +213,7 @@ Utils = {
 
   goCardId(_id) {
     const card = Cards.findOne(_id);
-    const board = Boards.findOne(card.boardId);
+    const board = ReactiveCache.getBoard(card.boardId);
     return (
       board &&
       FlowRouter.go('card', {

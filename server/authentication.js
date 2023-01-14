@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import Fiber from 'fibers';
 
 Meteor.startup(() => {
@@ -55,7 +56,7 @@ Meteor.startup(() => {
   Authentication.checkBoardAccess = function(userId, boardId) {
     Authentication.checkLoggedIn(userId);
 
-    const board = Boards.findOne({ _id: boardId });
+    const board = ReactiveCache.getBoard(boardId);
     const normalAccess =
       board.permission === 'public' ||
       board.members.some(e => e.userId === userId && e.isActive);

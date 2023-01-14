@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Spinner } from '/client/lib/spinner';
 
@@ -269,7 +270,7 @@ BlazeComponent.extendComponent({
     const currentBoardId = Session.get('currentBoard');
     arr = [];
     _.forEach(
-      Boards.findOne(currentBoardId)
+      ReactiveCache.getBoard(currentBoardId)
         .customFields()
         .fetch(),
       function (field) {
@@ -288,8 +289,8 @@ BlazeComponent.extendComponent({
 
   getLabels() {
     const currentBoardId = Session.get('currentBoard');
-    if (Boards.findOne(currentBoardId).labels) {
-      return Boards.findOne(currentBoardId).labels.filter(label => {
+    if (ReactiveCache.getBoard(currentBoardId).labels) {
+      return ReactiveCache.getBoard(currentBoardId).labels.filter(label => {
         return this.labels.get().indexOf(label._id) > -1;
       });
     }
@@ -430,7 +431,7 @@ BlazeComponent.extendComponent({
     this.boardId = Session.get('currentBoard');
     // In order to get current board info
     subManager.subscribe('board', this.boardId, false);
-    this.board = Boards.findOne(this.boardId);
+    this.board = ReactiveCache.getBoard(this.boardId);
     // List where to insert card
     const list = $(Popup._getTopStack().openerElement).closest('.js-list');
     this.listId = Blaze.getData(list[0])._id;
@@ -589,7 +590,6 @@ BlazeComponent.extendComponent({
       this.isBoardTemplateSearch;
     let board = {};
     if (this.isTemplateSearch) {
-      //board = Boards.findOne((Meteor.user().profile || {}).templatesBoardId);
       board._id = (Meteor.user().profile || {}).templatesBoardId;
     } else {
       // Prefetch first non-current board id
@@ -651,7 +651,7 @@ BlazeComponent.extendComponent({
     if (!this.selectedBoardId) {
       return [];
     }
-    const board = Boards.findOne(this.selectedBoardId.get());
+    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     if (!this.isTemplateSearch || this.isCardTemplateSearch) {
       return board.searchCards(this.term.get(), false);
     } else if (this.isListTemplateSearch) {
@@ -713,7 +713,7 @@ BlazeComponent.extendComponent({
             element.type = 'list';
             _id = element.copy(this.boardId, this.swimlaneId);
           } else if (this.isSwimlaneTemplateSearch) {
-            element.sort = Boards.findOne(this.boardId)
+            element.sort = ReactiveCache.getBoard(this.boardId)
               .swimlanes()
               .count();
             element.type = 'swimlane';

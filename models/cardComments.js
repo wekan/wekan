@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import DOMPurify from 'dompurify';
 
@@ -74,13 +75,13 @@ CardComments.attachSchema(
 
 CardComments.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
   update(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return userId === doc.userId || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   remove(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return userId === doc.userId || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   fetch: ['userId', 'boardId'],
 });

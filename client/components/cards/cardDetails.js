@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
@@ -143,7 +144,7 @@ BlazeComponent.extendComponent({
     const card = this.currentData();
     let result = '#';
     if (card) {
-      const board = Boards.findOne(card.boardId);
+      const board = ReactiveCache.getBoard(card.boardId);
       if (board) {
         result = FlowRouter.path('card', {
           boardId: card.boardId,

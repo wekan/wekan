@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { isFileValid } from './fileValidation';
@@ -122,7 +123,7 @@ Attachments = new FilesCollection({
       return false;
     }
 
-    const board = Boards.findOne(fileObj.meta.boardId);
+    const board = ReactiveCache.getBoard(fileObj.meta.boardId);
     if (board.isPublic()) {
       return true;
     }
@@ -134,13 +135,13 @@ Attachments = new FilesCollection({
 if (Meteor.isServer) {
   Attachments.allow({
     insert(userId, fileObj) {
-      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     update(userId, fileObj) {
-      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     remove(userId, fileObj) {
-      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     fetch: ['meta'],
   });
