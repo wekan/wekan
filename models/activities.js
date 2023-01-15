@@ -20,10 +20,10 @@ Activities.helpers({
     return ReactiveCache.getBoard(this.oldBoardId);
   },
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
   member() {
-    return Users.findOne(this.memberId);
+    return ReactiveCache.getUser(this.memberId);
   },
   list() {
     return ReactiveCache.getList(this.listId);
@@ -203,7 +203,7 @@ if (Meteor.isServer) {
       if (board) {
         const comment = params.comment;
         const knownUsers = board.members.map(member => {
-          const u = Users.findOne(member.userId);
+          const u = ReactiveCache.getUser(member.userId);
           if (u) {
             member.username = u.username;
             member.emails = u.emails;

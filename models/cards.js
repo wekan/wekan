@@ -754,7 +754,7 @@ Cards.helpers({
   },
 
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 
   isAssigned(memberId) {
@@ -2744,7 +2744,7 @@ function cardMembers(userId, doc, fieldNames, modifier) {
   // Say hello to the new member
   if (modifier.$addToSet && modifier.$addToSet.members) {
     memberId = modifier.$addToSet.members;
-    const username = Users.findOne(memberId).username;
+    const username = ReactiveCache.getUser(memberId).username;
     if (!_.contains(doc.members, memberId)) {
       Activities.insert({
         userId,
@@ -2762,7 +2762,7 @@ function cardMembers(userId, doc, fieldNames, modifier) {
   // Say goodbye to the former member
   if (modifier.$pull && modifier.$pull.members) {
     memberId = modifier.$pull.members;
-    const username = Users.findOne(memberId).username;
+    const username = ReactiveCache.getUser(memberId).username;
     // Check that the former member is member of the card
     if (_.contains(doc.members, memberId)) {
       Activities.insert({
@@ -2785,7 +2785,7 @@ function cardAssignees(userId, doc, fieldNames, modifier) {
   // Say hello to the new assignee
   if (modifier.$addToSet && modifier.$addToSet.assignees) {
     assigneeId = modifier.$addToSet.assignees;
-    const username = Users.findOne(assigneeId).username;
+    const username = ReactiveCache.getUser(assigneeId).username;
     if (!_.contains(doc.assignees, assigneeId)) {
       Activities.insert({
         userId,
@@ -2802,7 +2802,7 @@ function cardAssignees(userId, doc, fieldNames, modifier) {
   // Say goodbye to the former assignee
   if (modifier.$pull && modifier.$pull.assignees) {
     assigneeId = modifier.$pull.assignees;
-    const username = Users.findOne(assigneeId).username;
+    const username = ReactiveCache.getUser(assigneeId).username;
     // Check that the former assignee is assignee of the card
     if (_.contains(doc.assignees, assigneeId)) {
       Activities.insert({
@@ -2967,7 +2967,7 @@ const findDueCards = days => {
       archived: false,
       dueAt: { $gte: $from, $lt: $to },
     }).forEach(card => {
-      const username = Users.findOne(card.userId).username;
+      const username = ReactiveCache.getUser(card.userId).username;
       const activity = {
         userId: card.userId,
         username,
@@ -3162,7 +3162,7 @@ if (Meteor.isServer) {
           },
         );
       }
-      const username = Users.findOne(userId).username;
+      const username = ReactiveCache.getUser(userId).username;
       const activity = {
         userId,
         username,
@@ -3343,9 +3343,7 @@ if (Meteor.isServer) {
       },
       { sort: ['sort'] },
     );
-    const check = Users.findOne({
-      _id: req.body.authorId,
-    });
+    const check = ReactiveCache.getUser(req.body.authorId);
     const members = req.body.members;
     const assignees = req.body.assignees;
     if (typeof check !== 'undefined') {

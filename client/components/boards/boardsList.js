@@ -166,14 +166,7 @@ BlazeComponent.extendComponent({
       if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue) {
         query.$and.push({ 'permission': 'private' });
       }
-      const currUser = Users.findOne(Meteor.userId());
-
-      // const currUser = Users.findOne(Meteor.userId(), {
-      //   fields: {
-      //     orgs: 1,
-      //     teams: 1,
-      //   },
-      // });
+      const currUser = ReactiveCache.getCurrentUser();
 
       let orgIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
       if (orgIdsUserBelongs && orgIdsUserBelongs != '') {

@@ -503,9 +503,7 @@ Users.attachSchema(
 
 Users.allow({
   update(userId, doc) {
-    const user = Users.findOne({
-      _id: userId,
-    });
+    const user = ReactiveCache.getUser(userId);
     if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
       return true;
     if (!user) {
@@ -1445,7 +1443,7 @@ if (Meteor.isServer) {
           });
         }
         Accounts.sendEnrollmentEmail(newUserId);
-        user = Users.findOne(newUserId);
+        user = ReactiveCache.getUser(newUserId);
       }
 
       board.addMember(user._id);
@@ -1949,9 +1947,7 @@ if (Meteor.isServer) {
 
   Users.after.insert((userId, doc) => {
     // HACK
-    doc = Users.findOne({
-      _id: doc._id,
-    });
+    doc = ReactiveCache.getUser(doc._id);
     if (doc.createdThroughApi) {
       // The admin user should be able to create a user despite disabling registration because
       // it is two different things (registration and creation).

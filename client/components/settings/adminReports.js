@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { AttachmentStorage } from '/models/attachments';
 import { CardSearchPagedComponent } from '/client/lib/cardSearch';
@@ -163,7 +164,7 @@ class AdminReport extends BlazeComponent {
   userNames(members) {
     let text = '';
     members.forEach(member => {
-      const user = Users.findOne(member.userId);
+      const user = ReactiveCache.getUser(member.userId);
       text += text ? ', ' : '';
       if (user) {
         text += user.username;
@@ -181,7 +182,7 @@ class AdminReport extends BlazeComponent {
   userNames(userIds) {
     let text = '';
     userIds.forEach(userId => {
-      const user = Users.findOne(userId);
+      const user = ReactiveCache.getUser(userId);
       text += text ? ', ' : '';
       text += user.username;
     });

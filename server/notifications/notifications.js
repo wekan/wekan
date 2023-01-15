@@ -22,7 +22,7 @@ Notifications = {
   getUsers: watchers => {
     const users = [];
     watchers.forEach(userId => {
-      const user = Users.findOne(userId);
+      const user = ReactiveCache.getUser(userId);
       if (user) users.push(user);
     });
     return users;

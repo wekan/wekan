@@ -18,10 +18,10 @@ Meteor.publish('boards', function() {
 
   // Defensive programming to verify that starredBoards has the expected
   // format -- since the field is in the `profile` a user can modify it.
-  // const { starredBoards = [] } = (Users.findOne(userId) || {}).profile || {};
+  // const { starredBoards = [] } = (ReactiveCache.getUser(userId) || {}).profile || {};
   // check(starredBoards, [String]);
 
-  // let currUser = Users.findOne(userId);
+  // let currUser = ReactiveCache.getUser(userId);
   // let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
   // let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
   // let orgsIds = [];
@@ -165,7 +165,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
   check(isArchived, Boolean);
   const thisUserId = this.userId;
   const $or = [{ permission: 'public' }];
-  let currUser =  (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : Users.findOne(thisUserId);
+  let currUser =  (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : ReactiveCache.getUser(thisUserId);
   let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
   let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
   let orgsIds = [];

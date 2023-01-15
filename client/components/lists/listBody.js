@@ -353,7 +353,7 @@ BlazeComponent.extendComponent({
             const currentBoard = Utils.getCurrentBoard();
             callback(
               $.map(currentBoard.activeMembers(), member => {
-                const user = Users.findOne(member.userId);
+                const user = ReactiveCache.getUser(member.userId);
                 return user.username.indexOf(term) === 0 ? user : null;
               }),
             );

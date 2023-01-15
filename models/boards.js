@@ -1597,7 +1597,7 @@ Boards.userBoards = (
   selector = {},
   projection = {},
 ) => {
-  const user = Users.findOne(userId);
+  const user = ReactiveCache.getUser(userId);
   if (!user) {
     return [];
   }

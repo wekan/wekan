@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Team = new Mongo.Collection('team');
 
 /**
@@ -77,10 +79,8 @@ Team.attachSchema(
 if (Meteor.isServer) {
   Team.allow({
     insert(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -88,10 +88,8 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     update(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -99,10 +97,8 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     remove(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;

@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Meteor.publish('globalwebhooks', () => {
   const boardId = Integrations.Const.GLOBAL_WEBHOOK_ID;
   return Integrations.find({
@@ -37,8 +39,10 @@ Meteor.publish('setting', () => {
 });
 
 Meteor.publish('mailServer', function() {
-  if (!Match.test(this.userId, String)) return [];
-  const user = Users.findOne(this.userId);
+  const user = ReactiveCache.getCurrentUser();
+  if (!user) {
+    return [];
+  }
   if (user && user.isAdmin) {
     return Settings.find(
       {},

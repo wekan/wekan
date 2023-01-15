@@ -160,7 +160,7 @@ Settings.helpers({
 });
 Settings.allow({
   update(userId) {
-    const user = Users.findOne(userId);
+    const user = ReactiveCache.getUser(userId);
     return user && user.isAdmin;
   },
 });
@@ -250,16 +250,13 @@ if (Meteor.isServer) {
 
   function sendInvitationEmail(_id) {
     const icode = InvitationCodes.findOne(_id);
-    const author = Users.findOne(Meteor.userId());
+    const author = ReactiveCache.getCurrentUser();
     try {
-      const fullName = Users.findOne(icode.authorId)
-                  && Users.findOne(icode.authorId).profile
-                  && Users.findOne(icode.authorId).profile !== undefined
-                  && Users.findOne(icode.authorId).profile.fullname ?  Users.findOne(icode.authorId).profile.fullname : "";
+      const fullName = ReactiveCache.getUser(icode.authorId)?.profile?.fullname || "";
 
       const params = {
         email: icode.email,
-        inviter: fullName != "" ? fullName + " (" + Users.findOne(icode.authorId).username + " )" : Users.findOne(icode.authorId).username,
+        inviter: fullName != "" ? fullName + " (" + ReactiveCache.getUser(icode.authorId).username + " )" : ReactiveCache.getUser(icode.authorId).username,
         user: icode.email.split('@')[0],
         icode: icode.code,
         url: FlowRouter.url('sign-up'),
@@ -344,7 +341,7 @@ if (Meteor.isServer) {
       check(emails, [String]);
       check(boards, [String]);
 
-      const user = Users.findOne(Meteor.userId());
+      const user = ReactiveCache.getCurrentUser();
       if (!user.isAdmin && !isNonAdminAllowedToSendMail(user)) {
         rc = -1;
         throw new Meteor.Error('not-allowed');

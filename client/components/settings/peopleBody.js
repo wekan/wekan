@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 const orgsPerPage = 25;
 const teamsPerPage = 25;
 const usersPerPage = 25;
@@ -202,7 +204,7 @@ Template.teamRow.helpers({
 
 Template.peopleRow.helpers({
   userData() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 });
 
@@ -245,7 +247,7 @@ Template.editTeamPopup.helpers({
 
 Template.editUserPopup.helpers({
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
   authentications() {
     return Template.instance().authenticationMethods.get();
@@ -258,12 +260,12 @@ Template.editUserPopup.helpers({
   },
   isSelected(match) {
     const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
+    const selected = ReactiveCache.getUser(userId).authenticationMethod;
     return selected === match;
   },
   isLdap() {
     const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
+    const selected = ReactiveCache.getUser(userId).authenticationMethod;
     return selected === 'ldap';
   },
   errorMessage() {
@@ -318,7 +320,7 @@ Template.newTeamPopup.helpers({
 
 Template.newUserPopup.helpers({
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
   authentications() {
     return Template.instance().authenticationMethods.get();
@@ -332,7 +334,7 @@ Template.newUserPopup.helpers({
   isSelected(match) {
     const userId = Template.instance().data.userId;
     if(userId){
-      const selected = Users.findOne(userId).authenticationMethod;
+      const selected = ReactiveCache.getUser(userId).authenticationMethod;
       return selected === match;
     }
     else{
@@ -341,7 +343,7 @@ Template.newUserPopup.helpers({
   },
   isLdap() {
     const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
+    const selected = ReactiveCache.getUser(userId).authenticationMethod;
     return selected === 'ldap';
   },
   errorMessage() {
@@ -382,7 +384,7 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {},
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
   events() {
     return [
@@ -440,7 +442,7 @@ BlazeComponent.extendComponent({
 
           if(document.getElementById('addAction').checked){
             for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
-              currentUser = Users.findOne(selectedUserChkBoxUserIds[i]);
+              currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
               userTms = currentUser.teams;
               if(userTms == undefined || userTms.length == 0){
                 userTms = [];
@@ -469,7 +471,7 @@ BlazeComponent.extendComponent({
           }
           else{
             for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
-              currentUser = Users.findOne(selectedUserChkBoxUserIds[i]);
+              currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
               userTms = currentUser.teams;
               if(userTms !== undefined || userTms.length > 0)
               {
@@ -647,7 +649,7 @@ Template.editTeamPopup.events({
 Template.editUserPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     const username = templateInstance.find('.js-profile-username').value.trim();
     const fullname = templateInstance.find('.js-profile-fullname').value.trim();
     const initials = templateInstance.find('.js-profile-initials').value.trim();
@@ -1139,19 +1141,19 @@ Template.settingsUserPopup.events({
 
 Template.settingsUserPopup.helpers({
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
   authentications() {
     return Template.instance().authenticationMethods.get();
   },
   isSelected(match) {
     const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
+    const selected = ReactiveCache.getUser(userId).authenticationMethod;
     return selected === match;
   },
   isLdap() {
     const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
+    const selected = ReactiveCache.getUser(userId).authenticationMethod;
     return selected === 'ldap';
   },
   errorMessage() {

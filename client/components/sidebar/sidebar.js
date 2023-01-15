@@ -170,13 +170,13 @@ EscapeActions.register(
 
 Template.memberPopup.helpers({
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
   },
   memberType() {
-    const type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
+    const type = ReactiveCache.getUser(this.userId).isBoardAdmin() ? 'admin' : 'normal';
     if (type === 'normal') {
       const currentBoard = Utils.getCurrentBoard();
       const commentOnly = currentBoard.hasCommentOnly(this.userId);
@@ -196,7 +196,7 @@ Template.memberPopup.helpers({
     }
   },
   isInvited() {
-    return Users.findOne(this.userId).isInvitedTo(Session.get('currentBoard'));
+    return ReactiveCache.getUser(this.userId).isInvitedTo(Session.get('currentBoard'));
   },
 });
 
@@ -299,7 +299,7 @@ Template.memberPopup.events({
 
 Template.removeMemberPopup.helpers({
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
   board() {
     return Utils.getCurrentBoard();
@@ -1450,7 +1450,7 @@ BlazeComponent.extendComponent({
 
   isBoardMember() {
     const userId = this.currentData().__originalId;
-    const user = Users.findOne(userId);
+    const user = ReactiveCache.getUser(userId);
     return user && user.isBoardMember();
   },
 

@@ -1,12 +1,13 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Meteor.publish('team', function(query, limit) {
   check(query, Match.OneOf(Object, null));
   check(limit, Number);
 
-  if (!Match.test(this.userId, String)) {
+  const user = ReactiveCache.getCurrentUser();
+  if (!user) {
     return [];
   }
-
-  const user = Users.findOne(this.userId);
   if (user && user.isAdmin) {
     return Team.find(query, {
       limit,

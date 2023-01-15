@@ -253,17 +253,17 @@ Swimlanes.helpers({
   },
 
   isListTemplatesSwimlane() {
-    const user = Users.findOne(Meteor.userId());
+    const user = ReactiveCache.getCurrentUser();
     return (user.profile || {}).listTemplatesSwimlaneId === this._id;
   },
 
   isCardTemplatesSwimlane() {
-    const user = Users.findOne(Meteor.userId());
+    const user = ReactiveCache.getCurrentUser();
     return (user.profile || {}).cardTemplatesSwimlaneId === this._id;
   },
 
   isBoardTemplatesSwimlane() {
-    const user = Users.findOne(Meteor.userId());
+    const user = ReactiveCache.getCurrentUser();
     return (user.profile || {}).boardTemplatesSwimlaneId === this._id;
   },
 

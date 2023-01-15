@@ -134,7 +134,7 @@ if (Meteor.isServer) {
         });
 
         const userId = params.userId ? params.userId : integrations[0].userId;
-        const user = Users.findOne(userId);
+        const user = ReactiveCache.getUser(userId);
         const text = `${params.user} ${TAPi18n.__(
           description,
           quoteParams,

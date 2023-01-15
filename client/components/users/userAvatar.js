@@ -16,13 +16,13 @@ Template.userAvatar.helpers({
   },
 
   memberType() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
 /*
   presenceStatusClassName() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
     if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
     else if (!userPresence) return 'disconnected';
@@ -36,12 +36,12 @@ Template.userAvatar.helpers({
 
 Template.userAvatarInitials.helpers({
   initials() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     return user && user.getInitials();
   },
 
   viewPortWidth() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     return ((user && user.getInitials().length) || 1) * 12;
   },
 });
@@ -249,7 +249,7 @@ Template.cardMembersPopup.helpers({
   },
 
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 });
 
@@ -264,7 +264,7 @@ Template.cardMembersPopup.events({
 
 Template.cardMemberPopup.helpers({
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 });
 

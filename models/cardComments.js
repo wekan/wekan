@@ -94,7 +94,7 @@ CardComments.helpers({
   },
 
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 
   reactions() {

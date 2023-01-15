@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { toggleNotificationsDrawer } from './notifications.js';
 
 Template.notificationsDrawer.onCreated(function() {
@@ -14,7 +15,7 @@ Template.notificationsDrawer.onCreated(function() {
 
 Template.notificationsDrawer.helpers({
   transformedProfile() {
-    return Users.findOne(Meteor.userId());
+    return ReactiveCache.getCurrentUser();
   },
   readNotifications() {
     const readNotifications = _.filter(

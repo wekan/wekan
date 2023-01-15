@@ -31,8 +31,16 @@ ReactiveCacheServer = {
     const ret = CustomFields.find(selector).fetch();
     return ret;
   },
+  getUser(id) {
+    const ret = Users.findOne(id);
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
+    return ret;
+  },
+  getCurrentUser() {
+    const ret =  Meteor.user();
     return ret;
   },
 }
@@ -111,6 +119,16 @@ ReactiveCacheClient = {
     const ret = this.__customFields.get(Jsons.stringify(selector));
     return ret;
   },
+  getUser(id) {
+    if (!this.__user) {
+      this.__user = new DataCache(userId => {
+        const _ret = Users.findOne(userId);
+        return _ret;
+      });
+    }
+    const ret = this.__user.get(id);
+    return ret;
+  },
   getCurrentSetting() {
     if (!this.__currentSetting || !this.__currentSetting.get()) {
       this.__currentSetting = new DataCache(() => {
@@ -119,6 +137,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__currentSetting.get();
+    return ret;
+  },
+  getCurrentUser() {
+    if (!this.__currentUser || !this.__currentUser.get()) {
+      this.__currentUser = new DataCache(() => {
+        const _ret = Meteor.user();
+        return _ret;
+      });
+    }
+    const ret = this.__currentUser.get();
     return ret;
   }
 }
@@ -193,12 +221,30 @@ ReactiveCache = {
     }
     return ret;
   },
+  getUser(id) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getUser(id);
+    } else {
+      ret = ReactiveCacheClient.getUser(id);
+    }
+    return ret;
+  },
   getCurrentSetting() {
     let ret;
     if (Meteor.isServer) {
       ret = ReactiveCacheServer.getCurrentSetting();
     } else {
       ret = ReactiveCacheClient.getCurrentSetting();
+    }
+    return ret;
+  },
+  getCurrentUser() {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getCurrentUser();
+    } else {
+      ret = ReactiveCacheClient.getCurrentUser();
     }
     return ret;
   },

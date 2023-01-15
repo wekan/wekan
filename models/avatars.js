@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { formatFleURL } from 'meteor/ostrio:files/lib';
@@ -100,7 +101,7 @@ Avatars = new FilesCollection({
     const isValid = Promise.await(isFileValid(fileObj, avatarsUploadMimeTypes, avatarsUploadSize, avatarsUploadExternalProgram));
 
     if (isValid) {
-      Users.findOne(fileObj.userId).setAvatarUrl(`${formatFleURL(fileObj)}?auth=false&brokenIsFine=true`);
+      ReactiveCache.getUser(fileObj.userId).setAvatarUrl(`${formatFleURL(fileObj)}?auth=false&brokenIsFine=true`);
     } else {
       Avatars.remove(fileObj._id);
     }
@@ -112,7 +113,7 @@ Avatars = new FilesCollection({
   onBeforeRemove(files) {
     files.forEach(fileObj => {
       if (fileObj.userId) {
-        Users.findOne(fileObj.userId).setAvatarUrl('');
+        ReactiveCache.getUser(fileObj.userId).setAvatarUrl('');
       }
     });
 

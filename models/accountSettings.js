@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 AccountSettings = new Mongo.Collection('accountSettings');
 
 AccountSettings.attachSchema(
@@ -44,7 +46,7 @@ AccountSettings.attachSchema(
 
 AccountSettings.allow({
   update(userId) {
-    const user = Users.findOne(userId);
+    const user = ReactiveCache.getUser(userId);
     return user && user.isAdmin;
   },
 });
