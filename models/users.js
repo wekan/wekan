@@ -503,8 +503,8 @@ Users.attachSchema(
 
 Users.allow({
   update(userId, doc) {
-    const user = ReactiveCache.getUser(userId);
-    if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+    const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+    if (user?.isAdmin)
       return true;
     if (!user) {
       return false;
@@ -540,7 +540,7 @@ Users.allow({
 // Non-Admin users can not change to Admin
 Users.deny({
   update(userId, board, fieldNames) {
-    return _.contains(fieldNames, 'isAdmin') && !Meteor.user().isAdmin;
+    return _.contains(fieldNames, 'isAdmin') && !ReactiveCache.getCurrentUser().isAdmin;
   },
   fetch: [],
 });
@@ -1140,50 +1140,50 @@ Users.mutations({
 Meteor.methods({
   setListSortBy(value) {
     check(value, String);
-    Meteor.user().setListSortBy(value);
+    ReactiveCache.getCurrentUser().setListSortBy(value);
   },
   toggleDesktopDragHandles() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
   },
   toggleHideCheckedItems() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.toggleHideCheckedItems();
   },
   toggleSystemMessages() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.toggleSystem(user.hasHiddenSystemMessages());
   },
   toggleCustomFieldsGrid() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.toggleFieldsGrid(user.hasCustomFieldsGrid());
   },
   toggleCardMaximized() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.toggleCardMaximized(user.hasCardMaximized());
   },
   toggleMinicardLabelText() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
   },
   toggleRescueCardDescription() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.toggleRescueCardDescription(user.hasRescuedCardDescription());
   },
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);
-    Meteor.user().setShowCardsCountAt(limit);
+    ReactiveCache.getCurrentUser().setShowCardsCountAt(limit);
   },
   changeStartDayOfWeek(startDay) {
     check(startDay, Number);
-    Meteor.user().setStartDayOfWeek(startDay);
+    ReactiveCache.getCurrentUser().setStartDayOfWeek(startDay);
   },
 });
 
 if (Meteor.isServer) {
   Meteor.methods({
     setAllUsersHideSystemMessages() {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         // If setting is missing, add it
         Users.update(
           {
@@ -1241,7 +1241,7 @@ if (Meteor.isServer) {
       check(importUsernames, Array);
       check(userOrgsArray, Array);
       check(userTeamsArray, Array);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         const nUsersWithUsername = Users.find({
           username,
         }).count();
@@ -1283,7 +1283,7 @@ if (Meteor.isServer) {
     setUsername(username, userId) {
       check(username, String);
       check(userId, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         const nUsersWithUsername = Users.find({
           username,
         }).count();
@@ -1301,7 +1301,7 @@ if (Meteor.isServer) {
     setEmail(email, userId) {
       check(email, String);
       check(username, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
         }
@@ -1335,7 +1335,7 @@ if (Meteor.isServer) {
       check(username, String);
       check(email, String);
       check(userId, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
         }
@@ -1346,17 +1346,15 @@ if (Meteor.isServer) {
     setPassword(newPassword, userId) {
       check(userId, String);
       check(newPassword, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
-        if (Meteor.user().isAdmin) {
-          Accounts.setPassword(userId, newPassword);
-        }
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+        Accounts.setPassword(userId, newPassword);
       }
     },
     setEmailVerified(email, verified, userId) {
       check(email, String);
       check(verified, Boolean);
       check(userId, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.update(userId, {
           $set: {
             emails: [
@@ -1372,7 +1370,7 @@ if (Meteor.isServer) {
     setInitials(initials, userId) {
       check(initials, String);
       check(userId, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.update(userId, {
           $set: {
             'profile.initials': initials,
@@ -1385,7 +1383,7 @@ if (Meteor.isServer) {
       check(username, String);
       check(boardId, String);
 
-      const inviter = Meteor.user();
+      const inviter = ReactiveCache.getCurrentUser();
       const board = ReactiveCache.getBoard(boardId);
       const allowInvite =
         inviter &&
@@ -1526,11 +1524,11 @@ if (Meteor.isServer) {
 
       if (!Meteor.users.findOne(userId))
         throw new Meteor.Error(404, 'User not found');
-      if (!Meteor.user().isAdmin)
+      if (!ReactiveCache.getCurrentUser().isAdmin)
         throw new Meteor.Error(403, 'Permission denied');
 
       ImpersonatedUsers.insert({
-        adminId: Meteor.user()._id,
+        adminId: ReactiveCache.getCurrentUser()._id,
         userId: userId,
         reason: 'clickedImpersonate',
       });
@@ -1546,7 +1544,7 @@ if (Meteor.isServer) {
     setUsersTeamsTeamDisplayName(teamId, teamDisplayName) {
       check(teamId, String);
       check(teamDisplayName, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.find({
           teams: {
             $elemMatch: { teamId: teamId },
@@ -1571,7 +1569,7 @@ if (Meteor.isServer) {
     setUsersOrgsOrgDisplayName(orgId, orgDisplayName) {
       check(orgId, String);
       check(orgDisplayName, String);
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.find({
           orgs: {
             $elemMatch: { orgId: orgId },

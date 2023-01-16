@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 // We use these when displaying notifications in the notificationsDrawer
 
 // gets all activities associated with the current user
@@ -94,7 +96,7 @@ Meteor.publish('notificationUsers', function() {
 });
 
 function activities() {
-  const activityIds = Meteor.user()?.profile?.notifications?.map(v => v.activity) || [];
+  const activityIds = ReactiveCache.getCurrentUser()?.profile?.notifications?.map(v => v.activity) || [];
   let ret = [];
   if (activityIds.length > 0) {
     ret = Activities.find({

@@ -167,7 +167,7 @@ Template.attachmentViewer.events({
 
 Template.attachmentGallery.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   fileSize(size) {
     const ret = filesize(size);

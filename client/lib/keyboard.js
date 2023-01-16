@@ -104,7 +104,7 @@ Mousetrap.bind(numArray, (evt, key) => {
   }
   board = ReactiveCache.getBoard(currentBoardId);
   labels = board.labels;
-  if(MultiSelection.isActive() && Meteor.user().isBoardMember())
+  if(MultiSelection.isActive() && ReactiveCache.getCurrentUser().isBoardMember())
   {
     const cardIds = MultiSelection.getSelectedCardIds();
     for (const cardId of cardIds)
@@ -122,7 +122,7 @@ Mousetrap.bind(numArray, (evt, key) => {
   if (!cardId) {
     return;
   }
-  if (Meteor.user().isBoardMember()) {
+  if (ReactiveCache.getCurrentUser().isBoardMember()) {
     const card = ReactiveCache.getCard(cardId);
     if(num <= board.labels.length)
     {
@@ -142,7 +142,7 @@ Mousetrap.bind('space', evt => {
     return;
   }
 
-  if (Meteor.user().isBoardMember()) {
+  if (ReactiveCache.getCurrentUser().isBoardMember()) {
     const card = ReactiveCache.getCard(cardId);
     card.toggleMember(currentUserId);
     // We should prevent scrolling in card when spacebar is clicked
@@ -162,11 +162,7 @@ Mousetrap.bind('c', evt => {
     return;
   }
 
-  if (
-    Meteor.user().isBoardMember() &&
-    !Meteor.user().isCommentOnly() &&
-    !Meteor.user().isWorker()
-  ) {
+  if (Utils.canModifyBoard()) {
     const card = ReactiveCache.getCard(cardId);
     card.archive();
     // We should prevent scrolling in card when spacebar is clicked

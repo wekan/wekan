@@ -111,7 +111,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
       {
         archived: false,
         'members.userId': Meteor.userId(),
-        _id: { $ne: Meteor.user().getTemplatesBoardId() },
+        _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
       },
       {
         sort: { sort: 1 },

@@ -103,7 +103,7 @@ Integrations.Const = {
 const permissionHelper = {
   allow(userId, doc) {
     const user = ReactiveCache.getUser(userId);
-    const isAdmin = user && Meteor.user().isAdmin;
+    const isAdmin = user && ReactiveCache.getCurrentUser().isAdmin;
     return isAdmin || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
 };

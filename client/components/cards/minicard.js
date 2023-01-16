@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { CustomFieldStringTemplate } from '/client/lib/customFields'
 
@@ -113,7 +114,7 @@ BlazeComponent.extendComponent({
 
 Template.minicard.helpers({
   hiddenMinicardLabelText() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {

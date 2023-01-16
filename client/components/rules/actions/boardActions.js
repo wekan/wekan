@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   onCreated() {},
 
@@ -7,7 +9,7 @@ BlazeComponent.extendComponent({
         archived: false,
         'members.userId': Meteor.userId(),
         _id: {
-          $ne: Meteor.user().getTemplatesBoardId(),
+          $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId(),
         },
       },
       {

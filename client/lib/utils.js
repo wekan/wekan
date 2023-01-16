@@ -68,7 +68,7 @@ Utils = {
     return ret;
   },
   canModifyCard() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     const ret = (
       currentUser &&
       currentUser.isBoardMember() &&
@@ -78,7 +78,7 @@ Utils = {
     return ret;
   },
   canModifyBoard() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     const ret = (
       currentUser &&
       currentUser.isBoardMember() &&
@@ -94,9 +94,9 @@ Utils = {
     window.location.reload();
   },
   setBoardView(view) {
-    currentUser = Meteor.user();
+    currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      Meteor.user().setBoardView(view);
+      ReactiveCache.getCurrentUser().setBoardView(view);
     } else if (view === 'board-view-swimlanes') {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();
@@ -118,7 +118,7 @@ Utils = {
   },
 
   boardView() {
-    currentUser = Meteor.user();
+    currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
     } else if (
@@ -334,7 +334,7 @@ Utils = {
 
   // returns if desktop drag handles are enabled
   isShowDesktopDragHandles() {
-    //const currentUser = Meteor.user();
+    //const currentUser = ReactiveCache.getCurrentUser();
     //if (currentUser) {
     //  return (currentUser.profile || {}).showDesktopDragHandles;
     //} else if (window.localStorage.getItem('showDesktopDragHandles')) {
@@ -451,7 +451,7 @@ Utils = {
     window._paq = window._paq || [];
     window._paq.push(['setDoNotTrack', data.doNotTrack]);
     if (data.withUserName) {
-      window._paq.push(['setUserId', Meteor.user().username]);
+      window._paq.push(['setUserId', ReactiveCache.getCurrentUser().username]);
     }
     window._paq.push(['trackPageView']);
     window._paq.push(['enableLinkTracking']);

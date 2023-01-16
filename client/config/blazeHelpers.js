@@ -23,6 +23,11 @@ Blaze.registerHelper('currentSetting', () => {
   return ret;
 });
 
+Blaze.registerHelper('currentUser', () => {
+  const ret = ReactiveCache.getCurrentUser();
+  return ret;
+});
+
 Blaze.registerHelper('getUser', userId => ReactiveCache.getUser(userId));
 
 Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));

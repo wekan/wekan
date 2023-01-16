@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 /*
@@ -64,7 +65,7 @@ BlazeComponent.extendComponent({
 
   isStarred() {
     const boardId = Session.get('currentBoard');
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     return user && user.hasStarred(boardId);
   },
 
@@ -75,7 +76,7 @@ BlazeComponent.extendComponent({
   },
   /*
   showSort() {
-    return Meteor.user().hasSortBy();
+    return ReactiveCache.getCurrentUser().hasSortBy();
   },
   directionClass() {
     return this.currentDirection() === -1 ? DOWNCLS : UPCLS;
@@ -85,10 +86,10 @@ BlazeComponent.extendComponent({
     Meteor.call('setListSortBy', direction + this.currentListSortBy());
   },
   currentDirection() {
-    return Meteor.user().getListSortByDirection();
+    return ReactiveCache.getCurrentUser().getListSortByDirection();
   },
   currentListSortBy() {
-    return Meteor.user().getListSortBy();
+    return ReactiveCache.getCurrentUser().getListSortBy();
   },
   listSortShortDesc() {
     return `list-label-short-${this.currentListSortBy()}`;
@@ -99,7 +100,7 @@ BlazeComponent.extendComponent({
       {
         'click .js-edit-board-title': Popup.open('boardChangeTitle'),
         'click .js-star-board'() {
-          Meteor.user().toggleBoardStar(Session.get('currentBoard'));
+          ReactiveCache.getCurrentUser().toggleBoardStar(Session.get('currentBoard'));
         },
         'click .js-open-board-menu': Popup.open('boardMenu'),
         'click .js-change-visibility': Popup.open('boardChangeVisibility'),
@@ -306,7 +307,7 @@ const CreateBoard = BlazeComponent.extendComponent({
   onSubmit(event) {
     super.onSubmit(event);
     // Immediately star boards crated with the headerbar popup.
-    Meteor.user().toggleBoardStar(this.boardId.get());
+    ReactiveCache.getCurrentUser().toggleBoardStar(this.boardId.get());
   }
 }.register('headerBarCreateBoardPopup'));
 
@@ -377,7 +378,7 @@ BlazeComponent.extendComponent({
   allowedSortValues() {
     const types = [];
     const pushed = {};
-    Meteor.user()
+    ReactiveCache.getCurrentUser()
       .getListSortTypes()
       .forEach(type => {
         const key = type.replace(/^-/, '');
@@ -393,16 +394,16 @@ BlazeComponent.extendComponent({
     return types;
   },
   Direction() {
-    return Meteor.user().getListSortByDirection() === -1
+    return ReactiveCache.getCurrentUser().getListSortByDirection() === -1
       ? this.downClass
       : this.upClass;
   },
   sortby() {
-    return Meteor.user().getListSortBy();
+    return ReactiveCache.getCurrentUser().getListSortBy();
   },
 
   setSortBy(type = null) {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     if (type === null) {
       type = user._getListSortBy();
     } else {

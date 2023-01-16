@@ -51,7 +51,7 @@ Template.userFormsLayout.onCreated(function () {
     }
   });
 
-  if (!Meteor.user()?.profile) {
+  if (!ReactiveCache.getCurrentUser()?.profile) {
       Meteor.call('isOidcRedirectionEnabled', (_, result) => {
         if (result) {
           AccountsTemplates.options.socialLoginStyle = 'redirect';

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 const { calculateIndexData } = Utils;
 
 let swimlaneColors;
@@ -30,7 +31,7 @@ BlazeComponent.extendComponent({
 
 Template.swimlaneFixedHeader.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
 });
 
@@ -47,7 +48,7 @@ Template.swimlaneActionPopup.events({
 
 Template.swimlaneActionPopup.events({
   isCommentOnly() {
-    return Meteor.user().isCommentOnly();
+    return ReactiveCache.getCurrentUser().isCommentOnly();
   },
 });
 

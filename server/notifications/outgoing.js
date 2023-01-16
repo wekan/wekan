@@ -107,7 +107,7 @@ if (Meteor.isServer) {
   };
   Meteor.methods({
     outgoingWebhooks(integration, description, params) {
-      if (Meteor.user()) {
+      if (ReactiveCache.getCurrentUser()) {
         check(integration, Object);
         check(description, String);
         check(params, Object);

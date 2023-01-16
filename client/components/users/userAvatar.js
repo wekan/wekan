@@ -91,9 +91,6 @@ Template.boardOrgRow.helpers({
   orgData() {
     return Org.findOne(this.orgId);
   },
-  currentUser(){
-    return Meteor.user();
-  },
 });
 
 Template.boardOrgName.helpers({
@@ -153,9 +150,6 @@ Template.boardTeamRow.helpers({
   teamData() {
     return Team.findOne(this.teamId);
   },
-  currentUser(){
-    return Meteor.user();
-  },
 });
 
 Template.boardTeamName.helpers({
@@ -182,20 +176,20 @@ BlazeComponent.extendComponent({
   },
 
   isSelected() {
-    const userProfile = Meteor.user().profile;
+    const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     const currentAvatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
     return avatarUrl === currentAvatarUrl;
   },
 
   noAvatarUrl() {
-    const userProfile = Meteor.user().profile;
+    const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     return !avatarUrl;
   },
 
   setAvatar(avatarUrl) {
-    Meteor.user().setAvatarUrl(avatarUrl);
+    ReactiveCache.getCurrentUser().setAvatarUrl(avatarUrl);
   },
 
   setError(error) {

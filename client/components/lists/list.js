@@ -24,14 +24,6 @@ BlazeComponent.extendComponent({
   onRendered() {
     const boardComponent = this.parentComponent().parentComponent();
 
-    function userIsMember() {
-      return (
-        Meteor.user() &&
-        Meteor.user().isBoardMember() &&
-        !Meteor.user().isCommentOnly()
-      );
-    }
-
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
 
@@ -170,9 +162,9 @@ BlazeComponent.extendComponent({
           'option',
           'disabled',
           // Disable drag-dropping when user is not member
-          !userIsMember(),
+          !Utils.canModifyBoard(),
           // Not disable drag-dropping while in multi-selection mode
-          // MultiSelection.isActive() || !userIsMember(),
+          // MultiSelection.isActive() || !Utils.canModifyBoard(),
         );
       }
     });

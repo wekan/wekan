@@ -205,11 +205,10 @@ BlazeComponent.extendComponent({
       }
 
       // Disable drag-dropping if the current user is not a board member
-      //$swimlanesDom.sortable('option', 'disabled', !userIsMember());
       $swimlanesDom.sortable(
         'option',
         'disabled',
-        !Meteor.user() || !Meteor.user().isBoardAdmin(),
+        !ReactiveCache.getCurrentUser()?.isBoardAdmin(),
       );
     });
 
@@ -232,7 +231,7 @@ BlazeComponent.extendComponent({
   },
 
   isViewSwimlanes() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-swimlanes';
     } else {
@@ -243,7 +242,7 @@ BlazeComponent.extendComponent({
   },
 
   isViewLists() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-lists';
     } else {
@@ -252,7 +251,7 @@ BlazeComponent.extendComponent({
   },
 
   isViewCalendar() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-cal';
     } else {
@@ -418,7 +417,7 @@ BlazeComponent.extendComponent({
       },
       select: function(startDate) {
         const currentBoard = Utils.getCurrentBoard();
-        const currentUser = Meteor.user();
+        const currentUser = ReactiveCache.getCurrentUser();
         const $modal = $(`
           <div class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog justify-content-center align-items-center" role="document">
@@ -459,7 +458,7 @@ BlazeComponent.extendComponent({
     };
   },
   isViewCalendar() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-cal';
     } else {

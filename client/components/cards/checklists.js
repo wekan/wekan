@@ -55,7 +55,7 @@ BlazeComponent.extendComponent({
     });
 
     function userIsMember() {
-      return Meteor.user() && Meteor.user().isBoardMember();
+      return ReactiveCache.getCurrentUser()?.isBoardMember();
     }
 
     // Disable sorting if the current user is not a board member
@@ -237,7 +237,7 @@ BlazeComponent.extendComponent({
       {
         archived: false,
         'members.userId': Meteor.userId(),
-        _id: { $ne: Meteor.user().getTemplatesBoardId() },
+        _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
       },
       {
         sort: { sort: 1 /* boards default sorting */ },
@@ -274,7 +274,7 @@ Template.checklists.helpers({
     return ret;
   },
   hideCheckedItems() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) return currentUser.hasHideCheckedItems();
     return false;
   },
@@ -338,7 +338,7 @@ BlazeComponent.extendComponent({
 
 Template.checklistItemDetail.helpers({
   hideCheckedItems() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     if (user) return user.hasHideCheckedItems();
     return false;
   },
@@ -364,11 +364,11 @@ BlazeComponent.extendComponent({
 /** Move Checklist Dialog */
 (class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
-    const ret = Meteor.user().getMoveChecklistDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getMoveChecklistDialogOptions();
     return ret;
   }
   setDone(cardId, options) {
-    Meteor.user().setMoveChecklistDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setMoveChecklistDialogOption(this.currentBoardId, options);
     this.data().checklist.move(cardId);
   }
 }).register('moveChecklistPopup');
@@ -376,11 +376,11 @@ BlazeComponent.extendComponent({
 /** Copy Checklist Dialog */
 (class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
-    const ret = Meteor.user().getCopyChecklistDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getCopyChecklistDialogOptions();
     return ret;
   }
   setDone(cardId, options) {
-    Meteor.user().setCopyChecklistDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setCopyChecklistDialogOption(this.currentBoardId, options);
     this.data().checklist.copy(cardId);
   }
 }).register('copyChecklistPopup');

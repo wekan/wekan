@@ -25,7 +25,7 @@ BlazeComponent.extendComponent({
         searchId = Session.get(`current${capitalizedMode}`);
       }
       const limit = this.page.get() * activitiesPerPage;
-      const user = Meteor.user();
+      const user = ReactiveCache.getCurrentUser();
       const hideSystem = user ? user.hasHiddenSystemMessages() : false;
       if (searchId === null) return;
 
@@ -283,7 +283,7 @@ Template.activity.helpers({
 
 Template.commentReactions.events({
   'click .reaction'(event) {
-    if (Meteor.user().isBoardMember()) {
+    if (ReactiveCache.getCurrentUser().isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
       const cardComment = CardComments.findOne({_id: commentId});
@@ -295,7 +295,7 @@ Template.commentReactions.events({
 
 Template.addReactionPopup.events({
   'click .add-comment-reaction'(event) {
-    if (Meteor.user().isBoardMember()) {
+    if (ReactiveCache.getCurrentUser().isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
       const cardComment = CardComments.findOne({_id: commentId});
@@ -326,7 +326,7 @@ Template.addReactionPopup.helpers({
 
 Template.commentReactions.helpers({
   isSelected(userIds) {
-    return userIds.includes(Meteor.user()._id);
+    return Meteor.userId() && userIds.includes(Meteor.userId());
   },
   userNames(userIds) {
     return Users.find({_id: {$in: userIds}})

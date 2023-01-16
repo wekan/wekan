@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 let listsColors;
@@ -12,12 +13,12 @@ BlazeComponent.extendComponent({
       (!list.getWipLimit('enabled') ||
         list.getWipLimit('soft') ||
         !this.reachedWipLimit()) &&
-      !Meteor.user().isWorker()
+      !ReactiveCache.getCurrentUser().isWorker()
     );
   },
 
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   starred(check = undefined) {
     const list = Template.currentData();
@@ -47,9 +48,9 @@ BlazeComponent.extendComponent({
   },
 
   limitToShowCardsCount() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      return Meteor.user().getLimitToShowCardsCount();
+      return currentUser.getLimitToShowCardsCount();
     } else {
       return false;
     }
@@ -123,13 +124,13 @@ BlazeComponent.extendComponent({
 
 Template.listHeader.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   }
 });
 
 Template.listActionPopup.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
 
   isWipLimitEnabled() {
@@ -279,7 +280,7 @@ Template.listMorePopup.events({
 
 Template.listHeader.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
 });
 

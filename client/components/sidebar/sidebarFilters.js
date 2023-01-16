@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
@@ -171,10 +173,10 @@ BlazeComponent.extendComponent({
 
 Template.multiselectionSidebar.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   isCommentOnly() {
-    return Meteor.user().isCommentOnly();
+    return ReactiveCache.getCurrentUser().isCommentOnly();
   },
 });
 

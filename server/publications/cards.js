@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
@@ -78,7 +79,7 @@ Meteor.publish('myCards', function(sessionId) {
   check(sessionId, String);
 
   const queryParams = new QueryParams();
-  queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
+  queryParams.addPredicate(OPERATOR_USER, ReactiveCache.getCurrentUser().username);
   queryParams.setPredicate(OPERATOR_LIMIT, 200);
 
   const query = buildQuery(queryParams);
@@ -106,7 +107,7 @@ Meteor.publish('myCards', function(sessionId) {
 //   };
 //
 //   if (!allUsers) {
-//     queryParams.users = [Meteor.user().username];
+//     queryParams.users = [ReactiveCache.getCurrentUser().username];
 //   }
 //
 //   return buildQuery(sessionId, queryParams);

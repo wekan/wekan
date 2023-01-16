@@ -396,7 +396,7 @@ if (Meteor.isServer) {
       if (!Meteor.userId()) {
         throw new Meteor.Error('invalid-user');
       }
-      const user = Meteor.user();
+      const user = ReactiveCache.getCurrentUser();
       if (!user.emails || !user.emails[0] || !user.emails[0].address) {
         throw new Meteor.Error('email-invalid');
       }

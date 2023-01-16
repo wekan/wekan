@@ -118,7 +118,7 @@ if (Meteor.isServer) {
       orgWebsite,
       orgIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(orgDisplayName, String);
         check(orgDesc, String);
         check(orgShortName, String);
@@ -166,7 +166,7 @@ if (Meteor.isServer) {
       }
     },
     setOrgDisplayName(org, orgDisplayName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgDisplayName, String);
         Org.update(org, {
@@ -177,7 +177,7 @@ if (Meteor.isServer) {
     },
 
     setOrgDesc(org, orgDesc) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgDesc, String);
         Org.update(org, {
@@ -187,7 +187,7 @@ if (Meteor.isServer) {
     },
 
     setOrgShortName(org, orgShortName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgShortName, String);
         Org.update(org, {
@@ -197,7 +197,7 @@ if (Meteor.isServer) {
     },
 
     setOrgIsActive(org, orgIsActive) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgIsActive, Boolean);
         Org.update(org, {
@@ -238,7 +238,7 @@ if (Meteor.isServer) {
       orgWebsite,
       orgIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgDisplayName, String);
         check(orgDesc, String);

@@ -216,10 +216,7 @@ BlazeComponent.extendComponent({
   canSeeAddCard() {
     return (
       !this.reachedWipLimit() &&
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      Utils.canModifyCard()
     );
   },
 
@@ -620,7 +617,7 @@ BlazeComponent.extendComponent({
 
     this.board = {};
     if (this.isTemplateSearch) {
-      const boardId = (Meteor.user().profile || {}).templatesBoardId;
+      const boardId = (ReactiveCache.getCurrentUser().profile || {}).templatesBoardId;
       if (boardId) {
         this.board = ReactiveCache.getBoard(boardId);
       }
@@ -789,7 +786,7 @@ BlazeComponent.extendComponent({
       Meteor.settings.public.sandstorm;
 
     if (isSandstorm) {
-      const user = Meteor.user();
+      const user = ReactiveCache.getCurrentUser();
       if (user) {
         if (Utils.boardView() === 'board-view-swimlanes') {
           this.swimlaneId = this.parentComponent()

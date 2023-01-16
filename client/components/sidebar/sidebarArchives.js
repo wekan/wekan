@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 //archivedRequested = false;
@@ -159,7 +160,7 @@ BlazeComponent.extendComponent({
 
 Template.archivesSidebar.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   isWorker() {
     const currentBoard = Utils.getCurrentBoard();

@@ -64,16 +64,16 @@ BlazeComponent.extendComponent({
   },
 
   hiddenSystemMessages() {
-    return Meteor.user().hasHiddenSystemMessages();
+    return ReactiveCache.getCurrentUser().hasHiddenSystemMessages();
   },
 
   customFieldsGrid() {
-    return Meteor.user().hasCustomFieldsGrid();
+    return ReactiveCache.getCurrentUser().hasCustomFieldsGrid();
   },
 
 
   cardMaximized() {
-    return !Utils.getPopupCardId() && Meteor.user().hasCardMaximized();
+    return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
   },
 
   scrollParentContainer() {
@@ -193,7 +193,7 @@ BlazeComponent.extendComponent({
         cardId: card._id,
         boardId: card.boardId,
         listId: card.listId,
-        user: Meteor.user().username,
+        user: ReactiveCache.getCurrentUser().username,
         url: '',
       };
 
@@ -288,7 +288,7 @@ BlazeComponent.extendComponent({
     });
 
     function userIsMember() {
-      return Meteor.user() && Meteor.user().isBoardMember();
+      return ReactiveCache.getCurrentUser()?.isBoardMember();
     }
 
     // Disable sorting if the current user is not a board member
@@ -652,7 +652,7 @@ Template.cardDetailsActionsPopup.helpers({
   },
 
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
 });
 
@@ -814,11 +814,11 @@ Template.editCardAssignerForm.events({
 /** Move Card Dialog */
 (class extends DialogWithBoardSwimlaneList {
   getDialogOptions() {
-    const ret = Meteor.user().getMoveAndCopyDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
   setDone(boardId, swimlaneId, listId, options) {
-    Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
     const minOrder = card.getMinSort(listId, swimlaneId);
     card.move(boardId, swimlaneId, listId, minOrder - 1);
@@ -828,11 +828,11 @@ Template.editCardAssignerForm.events({
 /** Copy Card Dialog */
 (class extends DialogWithBoardSwimlaneList {
   getDialogOptions() {
-    const ret = Meteor.user().getMoveAndCopyDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
   setDone(boardId, swimlaneId, listId, options) {
-    Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
     // const textarea = $('#copy-card-title');
@@ -855,11 +855,11 @@ Template.editCardAssignerForm.events({
 /** Convert Checklist-Item to card dialog */
 (class extends DialogWithBoardSwimlaneList {
   getDialogOptions() {
-    const ret = Meteor.user().getMoveAndCopyDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
   setDone(boardId, swimlaneId, listId, options) {
-    Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
     const textarea = this.$('#copy-card-title');
@@ -885,11 +885,11 @@ Template.editCardAssignerForm.events({
 /** Copy many cards dialog */
 (class extends DialogWithBoardSwimlaneList {
   getDialogOptions() {
-    const ret = Meteor.user().getMoveAndCopyDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
   setDone(boardId, swimlaneId, listId, options) {
-    Meteor.user().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
     const textarea = this.$('#copy-card-title');
@@ -966,7 +966,7 @@ BlazeComponent.extendComponent({
         archived: false,
         'members.userId': Meteor.userId(),
         _id: {
-          $ne: Meteor.user().getTemplatesBoardId(),
+          $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId(),
         },
       },
       {
@@ -1563,8 +1563,8 @@ EscapeActions.register(
   () => {
     // if card description diverges from database due to editing
     // ask user whether changes should be applied
-    if (Meteor.user()) {
-      if (Meteor.user().profile.rescueCardDescription == true) {
+    if (ReactiveCache.getCurrentUser()) {
+      if (ReactiveCache.getCurrentUser().profile.rescueCardDescription == true) {
         currentDescription = document.getElementsByClassName("editor js-new-description-input").item(0)
         if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription())) {
           if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {

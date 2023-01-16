@@ -116,7 +116,7 @@ if (Meteor.isServer) {
       teamWebsite,
       teamIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(teamDisplayName, String);
         check(teamDesc, String);
         check(teamShortName, String);
@@ -163,7 +163,7 @@ if (Meteor.isServer) {
       }
     },
     setTeamDisplayName(team, teamDisplayName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamDisplayName, String);
         Team.update(team, {
@@ -174,7 +174,7 @@ if (Meteor.isServer) {
     },
 
     setTeamDesc(team, teamDesc) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamDesc, String);
         Team.update(team, {
@@ -184,7 +184,7 @@ if (Meteor.isServer) {
     },
 
     setTeamShortName(team, teamShortName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamShortName, String);
         Team.update(team, {
@@ -194,7 +194,7 @@ if (Meteor.isServer) {
     },
 
     setTeamIsActive(team, teamIsActive) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamIsActive, Boolean);
         Team.update(team, {
@@ -235,7 +235,7 @@ if (Meteor.isServer) {
       teamWebsite,
       teamIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamDisplayName, String);
         check(teamDesc, String);

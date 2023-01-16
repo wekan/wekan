@@ -112,7 +112,7 @@ BlazeComponent.extendComponent({
         'click .js-toggle-sidebar': this.toggle,
         'click .js-back-home': this.setView,
         'click .js-toggle-minicard-label-text'() {
-          currentUser = Meteor.user();
+          currentUser = ReactiveCache.getCurrentUser();
           if (currentUser) {
             Meteor.call('toggleMinicardLabelText');
           } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
@@ -138,7 +138,7 @@ Blaze.registerHelper('Sidebar', () => Sidebar);
 
 Template.homeSidebar.helpers({
   hiddenMinicardLabelText() {
-    currentUser = Meteor.user();
+    currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
@@ -173,7 +173,7 @@ Template.memberPopup.helpers({
     return ReactiveCache.getUser(this.userId);
   },
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   memberType() {
     const type = ReactiveCache.getUser(this.userId).isBoardAdmin() ? 'admin' : 'normal';
@@ -249,7 +249,7 @@ Template.boardMenuPopup.onCreated(function() {
 
 Template.boardMenuPopup.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   withApi() {
     return Template.instance().apiEnabled.get();
@@ -359,11 +359,11 @@ BlazeComponent.extendComponent({
 
 Template.membersWidget.helpers({
   isInvited() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     return user && user.isInvitedTo(Session.get('currentBoard'));
   },
   isWorker() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     if (user) {
       return Meteor.call(Boards.hasWorker(user.memberId));
     } else {
@@ -371,7 +371,7 @@ Template.membersWidget.helpers({
     }
   },
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   AtLeastOneOrgWasCreated(){
     let orgs = Org.find({}, {sort: { createdAt: -1 }});
@@ -407,13 +407,13 @@ Template.membersWidget.events({
   },
   'click .js-member-invite-accept'() {
     const boardId = Session.get('currentBoard');
-    Meteor.user().removeInvite(boardId);
+    ReactiveCache.getCurrentUser().removeInvite(boardId);
   },
   'click .js-member-invite-decline'() {
     const boardId = Session.get('currentBoard');
     Meteor.call('quitBoard', boardId, (err, ret) => {
       if (!err && ret) {
-        Meteor.user().removeInvite(boardId);
+        ReactiveCache.getCurrentUser().removeInvite(boardId);
         FlowRouter.go('home');
       }
     });
@@ -605,7 +605,7 @@ Template.labelsWidget.events({
 
 Template.labelsWidget.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
 });
 
@@ -640,7 +640,7 @@ function draggableMembersLabelsWidgets() {
       });
 
       function userIsMember() {
-        return Meteor.user() && Meteor.user().isBoardMember();
+        return ReactiveCache.getCurrentUser()?.isBoardMember();
       }
 
       this.autorun(() => {

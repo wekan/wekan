@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 const { calculateIndex } = Utils;
 
 function currentListIsInThisSwimlane(swimlaneId) {
@@ -10,7 +11,7 @@ function currentListIsInThisSwimlane(swimlaneId) {
 
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Utils.getCurrentCard();
-  //const currentUser = Meteor.user();
+  //const currentUser = ReactiveCache.getCurrentUser();
   if (
     //currentUser &&
     //currentUser.profile &&
@@ -104,15 +105,6 @@ function initSortable(boardComponent, $listsDom) {
     },
   });
 
-  //function userIsMember() {
-  //  return (
-  //    Meteor.user() &&
-  //    Meteor.user().isBoardMember() &&
-  //    !Meteor.user().isCommentOnly() &&
-  //    !Meteor.user().isWorker()
-  //  );
-  //}
-
   boardComponent.autorun(() => {
     if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
       $listsDom.sortable({
@@ -129,11 +121,7 @@ function initSortable(boardComponent, $listsDom) {
       $listsDom.sortable(
         'option',
         'disabled',
-        // Disable drag-dropping when user is not member/is worker
-        //!userIsMember() || Meteor.user().isWorker(),
-        !Meteor.user() || !Meteor.user().isBoardAdmin(),
-        // Not disable drag-dropping while in multi-selection mode
-        // MultiSelection.isActive() || !userIsMember(),
+        !ReactiveCache.getCurrentUser()?.isBoardAdmin(),
       );
     }
   });
@@ -294,12 +282,6 @@ BlazeComponent.extendComponent({
 Template.swimlane.helpers({
   canSeeAddList() {
     return Meteor.user().isBoardAdmin();
-    /*
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-      */
   },
 });
 
