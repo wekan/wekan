@@ -24,6 +24,8 @@ and fixes the following bugs:
 
 - [Fix API Edit card function does nothing](https://github.com/wekan/wekan/commit/eda2b3b406aaa9cee229b65c3fcd453293de4535).
   Thanks to gu1ll0me, HEMGDevelopment and xet7.
+- [Fix Customfields are not added to new cards created with the API](https://github.com/wekan/wekan/commit/beaa50551d1eaccdb05f69c74384b349d4bd5b31).
+  Thanks to HEMGDevelopment and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
