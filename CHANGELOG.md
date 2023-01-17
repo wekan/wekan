@@ -11,6 +11,14 @@ This release adds the following updates:
 
 - [Forked minio npm package to @wekanteam/minio to update package dependencies. S3/MinIO support In Progress](https://github.com/wekan/wekan/commit/cd1750f368aca5a474f08acd85996258d8781386).
   Thanks to xet7.
+- Updated GitHub Actions.
+  [Part 1](https://github.com/wekan/wekan/commit/05139ed553cc9792699ad46190be40e4edf3d323),
+  [Part 2](https://github.com/wekan/wekan/commit/e0aad13fefb1c31a851dd0dbc3a9885a6be564c9),
+  [Part 3](https://github.com/wekan/wekan/commit/1e73f9b90963b55dbae8ff1668d482da278869f4),
+  [Part 4](https://github.com/wekan/wekan/commit/bd0b5391835734e668df92db6b1a0439fd8e30bc).
+  Thanks to dependabot.
+- [Upgraded to Meteor 2.10.0](https://github.com/wekan/wekan/commit/434ce9f7c49412b3c0df766789231ce772725ff9).
+  Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
