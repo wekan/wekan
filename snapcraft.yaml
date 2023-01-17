@@ -1,5 +1,5 @@
 name: wekan
-version: '6.70'
+version: '6.71'
 base: core20
 summary: Open Source kanban
 description: |
@@ -160,9 +160,9 @@ parts:
             # Cleanup
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v6.70/wekan-6.70-amd64.zip
-            unzip wekan-6.70-amd64.zip
-            rm wekan-6.70-amd64.zip
+            wget https://github.com/wekan/wekan/releases/download/v6.71/wekan-6.71-amd64.zip
+            unzip wekan-6.71-amd64.zip
+            rm wekan-6.71-amd64.zip
             cd ..
             ##cd .build/bundle
             ##find . -type d -name '*-garbage*' | xargs rm -rf
