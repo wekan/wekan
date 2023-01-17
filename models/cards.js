@@ -3502,7 +3502,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramListId = req.params.listId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      if (req.body.hasOwnProperty('title')) {
+      if (req.body.title) {
         const newTitle = req.body.title;
         Cards.direct.update(
           {
@@ -3518,7 +3518,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           },
         );
       }
-      if (req.body.hasOwnProperty('sort')) {
+      if (req.body.sort) {
         const newSort = req.body.sort;
         Cards.direct.update(
           {
@@ -3534,7 +3534,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           },
         );
       }
-      if (req.body.hasOwnProperty('parentId')) {
+      if (req.body.parentId) {
         const newParentId = req.body.parentId;
         Cards.direct.update(
           {
@@ -3550,7 +3550,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           },
         );
       }
-      if (req.body.hasOwnProperty('description')) {
+      if (req.body.description) {
         const newDescription = req.body.description;
         Cards.direct.update(
           {
@@ -3566,7 +3566,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           },
         );
       }
-      if (req.body.hasOwnProperty('color')) {
+      if (req.body.color) {
         const newColor = req.body.color;
         Cards.direct.update(
           {
@@ -3578,7 +3578,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { color: newColor } },
         );
       }
-      if (req.body.hasOwnProperty('vote')) {
+      if (req.body.vote) {
         const newVote = req.body.vote;
         newVote.positive = [];
         newVote.negative = [];
@@ -3596,7 +3596,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { vote: newVote } },
         );
       }
-      if (req.body.hasOwnProperty('poker')) {
+      if (req.body.poker) {
         const newPoker = req.body.poker;
         newPoker.one = [];
         newPoker.two = [];
@@ -3621,7 +3621,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { poker: newPoker } },
         );
       }
-      if (req.body.hasOwnProperty('labelIds')) {
+      if (req.body.labelIds) {
         let newlabelIds = req.body.labelIds;
         if (_.isString(newlabelIds)) {
           if (newlabelIds === '') {
@@ -3644,7 +3644,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           },
         );
       }
-      if (req.body.hasOwnProperty('requestedBy')) {
+      if (req.body.requestedBy) {
         const newrequestedBy = req.body.requestedBy;
         Cards.direct.update(
           {
@@ -3656,7 +3656,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { requestedBy: newrequestedBy } },
         );
       }
-      if (req.body.hasOwnProperty('assignedBy')) {
+      if (req.body.assignedBy) {
         const newassignedBy = req.body.assignedBy;
         Cards.direct.update(
           {
@@ -3668,7 +3668,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { assignedBy: newassignedBy } },
         );
       }
-      if (req.body.hasOwnProperty('receivedAt')) {
+      if (req.body.receivedAt) {
         const newreceivedAt = req.body.receivedAt;
         Cards.direct.update(
           {
@@ -3680,7 +3680,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { receivedAt: newreceivedAt } },
         );
       }
-      if (req.body.hasOwnProperty('startAt')) {
+      if (req.body.startAt) {
         const newstartAt = req.body.startAt;
         Cards.direct.update(
           {
@@ -3692,7 +3692,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { startAt: newstartAt } },
         );
       }
-      if (req.body.hasOwnProperty('dueAt')) {
+      if (req.body.dueAt) {
         const newdueAt = req.body.dueAt;
         Cards.direct.update(
           {
@@ -3704,7 +3704,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { dueAt: newdueAt } },
         );
       }
-      if (req.body.hasOwnProperty('endAt')) {
+      if (req.body.endAt) {
         const newendAt = req.body.endAt;
         Cards.direct.update(
           {
@@ -3716,7 +3716,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { endAt: newendAt } },
         );
       }
-      if (req.body.hasOwnProperty('spentTime')) {
+      if (req.body.spentTime) {
         const newspentTime = req.body.spentTime;
         Cards.direct.update(
           {
@@ -3728,7 +3728,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { spentTime: newspentTime } },
         );
       }
-      if (req.body.hasOwnProperty('isOverTime')) {
+      if (req.body.isOverTime) {
         const newisOverTime = req.body.isOverTime;
         Cards.direct.update(
           {
@@ -3740,7 +3740,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { isOverTime: newisOverTime } },
         );
       }
-      if (req.body.hasOwnProperty('customFields')) {
+      if (req.body.customFields) {
         const newcustomFields = req.body.customFields;
         Cards.direct.update(
           {
@@ -3752,7 +3752,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { customFields: newcustomFields } },
         );
       }
-      if (req.body.hasOwnProperty('members')) {
+      if (req.body.members) {
         let newmembers = req.body.members;
         if (_.isString(newmembers)) {
           if (newmembers === '') {
@@ -3771,7 +3771,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { members: newmembers } },
         );
       }
-      if (req.body.hasOwnProperty('assignees')) {
+      if (req.body.assignees) {
         let newassignees = req.body.assignees;
         if (_.isString(newassignees)) {
           if (newassignees === '') {
@@ -3790,7 +3790,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { assignees: newassignees } },
         );
       }
-      if (req.body.hasOwnProperty('swimlaneId')) {
+      if (req.body.swimlaneId) {
         const newParamSwimlaneId = req.body.swimlaneId;
         Cards.direct.update(
           {
@@ -3802,7 +3802,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           { $set: { swimlaneId: newParamSwimlaneId } },
         );
       }
-      if (req.body.hasOwnProperty('listId')) {
+      if (req.body.listId) {
         const newParamListId = req.body.listId;
         Cards.direct.update(
           {
