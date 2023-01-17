@@ -3327,8 +3327,17 @@ if (Meteor.isServer) {
     Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramListId = req.params.listId;
     const paramParentId = req.params.parentId;
-
     const nextCardNumber = board.getNextCardNumber();
+
+    let customFieldsArr = [];
+    _.forEach(
+      CustomFields.find({'boardIds': paramBoardId}).fetch(),
+      function (field) {
+        if (field.automaticallyOnCard || field.alwaysOnCard)
+          customFieldsArr.push({ _id: field._id, value: null });
+      },
+    );
+
     const currentCards = Cards.find(
       {
         listId: paramListId,
@@ -3352,6 +3361,7 @@ if (Meteor.isServer) {
         swimlaneId: req.body.swimlaneId,
         sort: currentCards.count(),
         cardNumber: nextCardNumber,
+        customFields: customFieldsArr,
         members,
         assignees,
       });
