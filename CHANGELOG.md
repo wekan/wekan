@@ -20,6 +20,11 @@ This release adds the following updates:
 - [Upgraded to Meteor 2.10.0](https://github.com/wekan/wekan/commit/434ce9f7c49412b3c0df766789231ce772725ff9).
   Thanks to Meteor developers.
 
+and fixes the following bugs:
+
+- [Fix API Edit card function does nothing](https://github.com/wekan/wekan/commit/eda2b3b406aaa9cee229b65c3fcd453293de4535).
+  Thanks to gu1ll0me, HEMGDevelopment and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.70 2023-01-14 WeKan ® release
