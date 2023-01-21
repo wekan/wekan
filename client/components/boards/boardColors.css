@@ -1595,6 +1595,11 @@
   background: #262626;
   color: #fff;
 }
+@media screen and (min-width: 801px) {
+  .board-color-moderndark .js-toggle-desktop-drag-handles {
+    padding-top: 6px
+  }
+}
 .board-color-moderndark#header #header-main-bar .board-header-btn.emphasis {
   background: #2a2a2a;
 }
