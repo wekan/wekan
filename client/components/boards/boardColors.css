@@ -1595,6 +1595,11 @@
   background: #262626;
   color: #fff;
 }
+@media screen and (min-width: 801px) {
+  .board-color-moderndark .js-toggle-desktop-drag-handles {
+    padding-top: 6px
+  }
+}
 .board-color-moderndark#header #header-main-bar .board-header-btn.emphasis {
   background: #2a2a2a;
 }
@@ -1628,6 +1633,9 @@
   .board-color-moderndark.pop-over .header {
     background: #2a2a2a;
     color: #fff;
+  }
+  #header.board-color-moderndark #header-main-bar .board-header-btn i.fa {
+    margin: 0 8px;
   }
 }
 .board-color-moderndark#header ul li.current,
@@ -1704,7 +1712,6 @@
   background: rgba(255,255,255,0.2);
 }
 .board-color-moderndark#header #header-main-bar h1 {
-  /* font-family: Poppins; */
   font-weight: bold;
   line-height: 0.8em;
   padding-top: 10px;
@@ -1716,9 +1723,6 @@
   background-color: #494949;
   color: #ccc;
   padding: 4px 0;
-}
-.board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header {
-  /* font-family: Poppins; */
 }
 .board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header-menu {
   padding: 6px;
@@ -1759,6 +1763,19 @@
 .board-color-moderndark .minicard {
   line-height: 14px;
   color: #eee;
+}
+@media screen and (max-width: 800px) {
+  .board-color-moderndark .list-header .list-header-name {
+    line-height: 40px;
+  }
+}
+@media screen and (min-width: 801px) {
+  .board-color-moderndark .list-header .list-header-name {
+    float: left;
+  }
+  .board-color-moderndark .list-header .list-header-menu {
+    padding: 0 10px 10px;
+  }
 }
 .board-color-moderndark .list-header .list-header-menu {
   padding: 10px;
@@ -1857,6 +1874,15 @@
 @media screen and (max-width: 800px) {
   .board-color-moderndark .card-details {
     width: 98%;
+  }
+  .card-details-popup {
+    padding: 0px;
+  }
+  .card-details-left, .card-details-right {
+    padding: 0px 10px;
+  }
+  .card-details .card-details-header .card-details-menu-mobile-web {
+    margin-right: 0;
   }
 }
 @media screen and (min-width: 801px) {
