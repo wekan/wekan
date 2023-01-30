@@ -949,7 +949,7 @@
     "context-separator": "/",
     "myCardsViewChange-title": "My Cards View",
     "myCardsViewChangePopup-title": "My Cards View",
-    "myCardsViewChange-choice-boards": "Boards",
+    "myCardsViewChange-choice-boards": "Πίνακες",
     "myCardsViewChange-choice-table": "Table",
     "myCardsSortChange-title": "My Cards Sort",
     "myCardsSortChangePopup-title": "My Cards Sort",
@@ -1187,9 +1187,9 @@
     "version-name": "Version-Name",
     "size": "Size",
     "storage": "Storage",
-    "action": "Action",
+    "action": "Ενέργεια",
     "board-title": "Board Title",
-    "attachmentRenamePopup-title": "Rename",
+    "attachmentRenamePopup-title": "Μετανομασία",
     "uploading": "Uploading",
     "remaining_time": "Remaining time",
     "speed": "Speed",
@@ -1200,5 +1200,5 @@
     "forgot-password": "Forgot password",
     "minicardDetailsActionsPopup-title": "Card Details",
     "Mongo_sessions_count": "Mongo sessions count",
-    "change-visibility": "Change Visibility"
+    "change-visibility": "Αλλαγή Ορατότητας"
 }
