@@ -17,6 +17,8 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/c7330a47a02efc609a383ddf8d4ad6f409595e01),
   [Part 3](https://github.com/wekan/wekan/commit/7d7c45c33f9eaa3e4db90758d97c49363f47d0f3),
   [Part 4](https://github.com/wekan/wekan/commit/bed2669ff8e136d4aedbd66bc2dfd73c38e18469).
+- [Upgrade Snap Candidate to MongoDB 6.0.4](https://github.com/wekan/wekan/commit/0043fe010f83a4849bf2718c250c5efeac5ddc01).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
