@@ -51,7 +51,7 @@
     "activity-created": "kreirao/la je %s",
     "activity-customfield-created": "kreirao/la je prilagođeno polje %s",
     "activity-excluded": "izdvojio/la je %s iz %s",
-    "activity-imported": "uvezeno %s u %s iz %s ",
+    "activity-imported": "uvezeno %s u %s iz %s",
     "activity-imported-board": "uvezeno %s iz %s",
     "activity-joined": "spojen",
     "activity-moved": "moved %s from %s to %s",

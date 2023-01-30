@@ -447,7 +447,7 @@
     "import-csv-placeholder": "Klistra in CSV/TSV data här",
     "import-map-members": "Kartlägg medlemmar",
     "import-members-map": "Din importerade tavla har några medlemmar. Vänligen matcha medlemmarna du vill importera mot dina användare",
-    "import-members-map-note": "Notera: Ommappade medlemmar kommer tilldelas den nuvarande användaren. ",
+    "import-members-map-note": "Notera: Ommappade medlemmar kommer tilldelas den nuvarande användaren.",
     "import-show-user-mapping": "Granska medlemskartläggning",
     "import-user-select": "Välj din befintliga användare du vill använda som den här medlemmen",
     "importMapMembersAddPopup-title": "Välj medlem",
