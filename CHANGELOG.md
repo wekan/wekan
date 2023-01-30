@@ -12,7 +12,8 @@ This release adds the following updates:
 - [Upgraded to Meteor 2.11.0-beta.0 for MongoDB 6.x support https://github.com/meteor/meteor/pull/12470](https://github.com/wekan/wekan/commit/38af077a94a9dd837cfa556b46ad13e13569cecb).
   Thanks to Meteor developers.
 - Updated translations to use new Go-based transifex-client https://developers.transifex.com/docs/cli ,
-  but it seems now all translations look like 100% translated, maybe something is wrong.
+  but it seems now all translations look like 100% translated, maybe something is wrong,
+  so discussing about it with Transifex Support.
   [Part 1](https://github.com/wekan/wekan/commit/2d7639262f266810fd863e3339485371e03cb8e6),
   [Part 2](https://github.com/wekan/wekan/commit/c7330a47a02efc609a383ddf8d4ad6f409595e01),
   [Part 3](https://github.com/wekan/wekan/commit/7d7c45c33f9eaa3e4db90758d97c49363f47d0f3),
