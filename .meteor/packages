@@ -6,7 +6,7 @@
 meteor-base@1.5.1
 
 # Build system
-ecmascript@0.16.6-beta2110.0
+ecmascript@0.16.5
 standard-minifier-js@2.8.1
 mquandalle:jade
 coffeescript@2.4.1!
@@ -21,7 +21,7 @@ cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
 easy:search
-mongo@1.16.5-beta2110.0
+mongo@1.16.4
 mquandalle:collection-mutations
 
 # Account system
