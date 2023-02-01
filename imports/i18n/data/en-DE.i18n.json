@@ -1114,7 +1114,7 @@
   "minimize-card": "Minimize Card",
   "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
   "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it",
-  "subject": "Subject",
+  "subject": "Betreff",
   "details": "Details",
   "carbon-copy": "Carbon Copy (Cc:)",
   "ticket": "Ticket",
