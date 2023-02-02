@@ -98,14 +98,14 @@ parts:
         source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.6.1.tgz
         plugin: dump
 
-    mongodb44:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.18.tgz
-        plugin: dump
-        organize:
-          bin: mongo44bin
-          usr: mongo44usr
-        stage:
-          - -init
+#    mongodb44:
+#        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.18.tgz
+#        plugin: dump
+#        organize:
+#          bin: mongo44bin
+#          usr: mongo44usr
+#        stage:
+#          - -init
 
     wekan:
         source: .
