@@ -1,55 +1,10 @@
-# This is the configuration of the Transifex tool that we use to manage the
-# translations on Wekan. Documentation at: http://docs.transifex.com/client.
-#
-# Push
-# ====
-#
-# It is recommended that contributors use the Transifex web UI to create and
-# edit translated strings. However in case a contributor has directly jumped
-# into the code and made its translations in the corresponding i18n.json file
-# we can push it using
-#
-# > tx push -t -l ar
-#
-# Where `ar` is the language identifier. In addition, the project maintainer
-# should push the English source file to Transifex at least before each release
-# candidate using:
-#
-# > tx push -s
-#
-# Pull
-# ====
-#
-# The set of accepted language is directly managed in Transifex, the only
-# restriction we define to bundle a new language in the application, is that its
-# completion is at least at 75%.
-#
-# We use:
-#
-# > tx pull
-#
-# to download new versions of existing translations, and
-#
-# > tx pull -a --minimum-perc=75
-#
-# to download new sufficiently advanced translations.
-
 [main]
-host = https://www.transifex.com
-# tap:i18n requires us to use `-` separator in the language identifiers whereas
-# Transifex uses a `_` separator, without an option to customize it on one side
-# or the other, so we need to do a Manual mapping.
-lang_map = ar_DZ:ar-DZ, ar_EG:ar-EG, az_AZ:az-AZ, az@latin:az-LA, bg_BG:bg, cs_CZ:cs-CZ, cy_GB:cy-GB, de_AT:de-AT, de_CH:de-CH, en_BR:en-BR, en_DE:en-DE, en_IT:en-IT, en_GB:en-GB, en_MY:en-MY, et_EE:et-EE, ast_ES:ast-ES, es_AR:es-AR, en@ysv:en-YS, es_CL:es-CL, es_419:es-LA, es_PE:es-PE, es_MX:es-MX, es_TX:es-TX, es_PY:es-PY, el_GR:el-GR, fa_IR:fa-IR, ja-Hira:ja-HI, ja_JP:ja, fi_FI:fi, fr_FR:fr-FR, fr_CH:fr-CH, fy_NL:fy-NL, gl_ES:gl-ES, gu_IN:gu-IN, he_IL:he-IL, hi_IN:hi-IN, hu_HU:hu, id_ID:id, mn_MN:mn, ms_MY:ms-MY, nl_NL:nl-NL, ko_KR:ko-KR, lv_LV:lv, pl_PL:pl-PL, pt_BR:pt-BR, ro_RO:ro-RO, ru_UA:ru-UA, sl_SI:sl, uk_UA:uk-UA, uz@Arab:uz-AR, uz@Latn:uz-LA, uz_UZ:uz-UZ, vec:ve-CC, vep:ve-PP, vls:vl-SS, war:wa-RR, vi_VN:vi-VN, zh_CN:zh-CN, zh_TW:zh-TW, zh_Hans:zh-Hans, zh_HK:zh-HK, zu_ZA:zu-ZA
+host     = https://www.transifex.com
+lang_map = es_AR: es-AR, es_419: es-LA, es_TX: es-TX, he_IL: he-IL, zh_CN: zh-CN, ar_EG: ar-EG, cs_CZ: cs-CZ, fa_IR: fa-IR, ms_MY: ms-MY, nl_NL: nl-NL, de_CH: de-CH, en_IT: en-IT, uz_UZ: uz-UZ, fr_CH: fr-CH, hi_IN: hi-IN, et_EE: et-EE, es_PE: es-PE, es_MX: es-MX, gl_ES: gl-ES, mn_MN: mn, sl_SI: sl, zh_TW: zh-TW, ast_ES: ast-ES, es_CL: es-CL, ja_JP: ja, lv_LV: lv, ro_RO: ro-RO, az_AZ: az-AZ, cy_GB: cy-GB, gu_IN: gu-IN, pl_PL: pl-PL, vep: ve-PP, en_BR: en-BR, en@ysv: en-YS, hu_HU: hu, ko_KR: ko-KR, pt_BR: pt-BR, zh_HK: zh-HK, zu_ZA: zu-ZA, en_MY: en-MY, ja-Hira: ja-HI, fi_FI: fi, vec: ve-CC, vi_VN: vi-VN, fr_FR: fr-FR, id_ID: id, zh_Hans: zh-Hans, en_DE: en-DE, en_GB: en-GB, el_GR: el-GR, uk_UA: uk-UA, az@latin: az-LA, de_AT: de-AT, uz@Latn: uz-LA, vls: vl-SS, ar_DZ: ar-DZ, bg_BG: bg, es_PY: es-PY, fy_NL: fy-NL, uz@Arab: uz-AR, ru_UA: ru-UA, war: wa-RR
 
-[wekan.application]
+[o:wekan:p:wekan:r:application]
 file_filter = imports/i18n/data/<lang>.i18n.json
+source_file = imports/i18n/data/en.i18n.json
 source_lang = en
-type = KEYVALUEJSON
+type        = KEYVALUEJSON
 
-# We might have a dedicated second resource later to translate the “Welcome
-# Board” data.
-#
-# [wekan.welcomeBoard]
-# file_filter = private/welcomeBoard/<lang>.json
-# source_lang = en
-# type = KEYVALUEJSON
