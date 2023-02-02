@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-6.0.4.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.14.tgz
         plugin: dump
         stage-packages:
             - libssl1.1
@@ -90,8 +90,30 @@ parts:
         prime:
             - $mongo
 
+    mongosh:
+        source: https://downloads.mongodb.com/compass/mongodb-mongosh_1.6.2_amd64.deb
+        filesets:
+            mongo:
+                - bin
+                - usr
+        stage:
+            - $mongo
+        prime:
+            - $mongo
+
+    mongotools:
+        source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.6.1.tgz
+        filesets:
+            mongo:
+                - bin
+                - usr
+        stage:
+            - $mongo
+        prime:
+            - $mongo
+
     mongodb44:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.16.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.18.tgz
         plugin: dump
         organize:
           bin: mongo44bin
