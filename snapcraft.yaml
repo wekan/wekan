@@ -112,7 +112,7 @@ parts:
         stage:
             - $mongotools
         prime:
-            - $mongo
+            - $mongotools
 
     mongodb44:
         source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.18.tgz
