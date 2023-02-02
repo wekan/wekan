@@ -92,23 +92,25 @@ parts:
 
     mongosh:
         source: https://downloads.mongodb.com/compass/mongodb-mongosh_1.6.2_amd64.deb
+        plugin: dump
         filesets:
-            mongo:
+            mongosh:
                 - bin
                 - usr
         stage:
-            - $mongo
+            - $mongosh
         prime:
-            - $mongo
+            - $mongosh
 
     mongotools:
         source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.6.1.tgz
+        plugin: dump
         filesets:
-            mongo:
+            mongotools:
                 - bin
                 - usr
         stage:
-            - $mongo
+            - $mongotools
         prime:
             - $mongo
 
