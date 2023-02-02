@@ -5,12 +5,12 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.72 2023-02-02 WeKan ® release
 
 This release adds the following updates:
 
-- [Upgraded to Meteor 2.11.0-beta.0 for MongoDB 6.x support https://github.com/meteor/meteor/pull/12470](https://github.com/wekan/wekan/commit/38af077a94a9dd837cfa556b46ad13e13569cecb).
-  Thanks to Meteor developers.
+- [Change back to MongoDB 5, shell and tool](https://github.com/wekan/wekan/commit/1733203f8e236bd62ef34ea1878d3a63db5eccc4).
+  Thanks to xet7.
 - Updated translations to use new Go-based transifex-client https://developers.transifex.com/docs/cli ,
   but it seems now all translations look like 100% translated, maybe something is wrong,
   so discussing about it with Transifex Support.
@@ -18,8 +18,6 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/c7330a47a02efc609a383ddf8d4ad6f409595e01),
   [Part 3](https://github.com/wekan/wekan/commit/7d7c45c33f9eaa3e4db90758d97c49363f47d0f3),
   [Part 4](https://github.com/wekan/wekan/commit/bed2669ff8e136d4aedbd66bc2dfd73c38e18469).
-- [Upgrade Snap Candidate to MongoDB 6.0.4](https://github.com/wekan/wekan/commit/0043fe010f83a4849bf2718c250c5efeac5ddc01).
-  Thanks to MongoDB developers.
 - Updated dependencies
   [Part 1](https://github.com/wekan/wekan/commit/362fb66b84e7200c3f7482ab8b79ae8ac0b11832),
   [Part 1](https://github.com/wekan/wekan/commit/b4963d872b9dc2f19dd3fe418fdbf4f7364a7a47),
