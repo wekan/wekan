@@ -7,28 +7,56 @@ ReactiveCacheServer = {
     const ret = Boards.findOne(idOrFirstObjectSelector);
     return ret;
   },
+  getBoards(selector) {
+    const ret = Boards.find(selector).fetch();
+    return ret;
+  },
   getList(idOrFirstObjectSelector) {
     const ret = Lists.findOne(idOrFirstObjectSelector);
+    return ret;
+  },
+  getLists(selector) {
+    const ret = Lists.find(selector).fetch();
     return ret;
   },
   getSwimlane(idOrFirstObjectSelector) {
     const ret = Swimlanes.findOne(idOrFirstObjectSelector);
     return ret;
   },
+  getSwimlanes(selector) {
+    const ret = Swimlanes.find(selector).fetch();
+    return ret;
+  },
   getChecklist(idOrFirstObjectSelector) {
     const ret = Checklists.findOne(idOrFirstObjectSelector);
+    return ret;
+  },
+  getChecklists(selector) {
+    const ret = Checklists.find(selector).fetch();
     return ret;
   },
   getChecklistItem(idOrFirstObjectSelector) {
     const ret = ChecklistItems.findOne(idOrFirstObjectSelector);
     return ret;
   },
+  getChecklistItems(selector) {
+    const ret = ChecklistItems.find(selector).fetch();
+    return ret;
+  },
   getCard(idOrFirstObjectSelector) {
     const ret = Cards.findOne(idOrFirstObjectSelector);
     return ret;
   },
+  getCards(selector) {
+    const ret = Cards.find(selector).fetch();
+    return ret;
+  },
   getCardComment(idOrFirstObjectSelector) {
     const ret = CardComments.findOne(idOrFirstObjectSelector);
+    return ret;
+  },
+  getCardComments(selector) {
+    const ret = CardComments.find(selector).fetch();
     return ret;
   },
   getCustomField(idOrFirstObjectSelector) {
@@ -43,20 +71,40 @@ ReactiveCacheServer = {
     const ret = Attachments.findOne(idOrFirstObjectSelector);
     return ret;
   },
+  getAttachments(selector) {
+    const ret = Attachments.find(selector).fetch();
+    return ret;
+  },
   getUser(idOrFirstObjectSelector) {
     const ret = Users.findOne(idOrFirstObjectSelector);
+    return ret;
+  },
+  getUsers(selector) {
+    const ret = Users.find(selector).fetch();
     return ret;
   },
   getOrg(idOrFirstObjectSelector) {
     const ret = Org.findOne(idOrFirstObjectSelector);
     return ret;
   },
+  getOrgs(selector) {
+    const ret = Org.find(selector).fetch();
+    return ret;
+  },
   getTeam(idOrFirstObjectSelector) {
     const ret = Team.findOne(idOrFirstObjectSelector);
     return ret;
   },
+  getTeams(selector) {
+    const ret = Team.find(selector).fetch();
+    return ret;
+  },
   getActivity(idOrFirstObjectSelector) {
     const ret = Activities.findOne(idOrFirstObjectSelector);
+    return ret;
+  },
+  getActivities(selector) {
+    const ret = Activities.find(selector).fetch();
     return ret;
   },
   getCurrentSetting() {
@@ -83,6 +131,16 @@ ReactiveCacheClient = {
     const ret = this.__board.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
+  getBoards(selector) {
+    if (!this.__boards) {
+      this.__boards = new DataCache(_selector => {
+        const _ret = Boards.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__boards.get(Jsons.stringify(selector));
+    return ret;
+  },
   getList(idOrFirstObjectSelector) {
     if (!this.__list) {
       this.__list = new DataCache(_idOrFirstObjectSelector => {
@@ -91,6 +149,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__list.get(Jsons.stringify(idOrFirstObjectSelector));
+    return ret;
+  },
+  getLists(selector) {
+    if (!this.__lists) {
+      this.__lists = new DataCache(_selector => {
+        const _ret = Lists.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__lists.get(Jsons.stringify(selector));
     return ret;
   },
   getSwimlane(idOrFirstObjectSelector) {
@@ -103,6 +171,16 @@ ReactiveCacheClient = {
     const ret = this.__swimlane.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
+  getSwimlanes(selector) {
+    if (!this.__swimlanes) {
+      this.__swimlanes = new DataCache(_selector => {
+        const _ret = Swimlanes.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__swimlanes.get(Jsons.stringify(selector));
+    return ret;
+  },
   getChecklist(idOrFirstObjectSelector) {
     if (!this.__checklist) {
       this.__checklist = new DataCache(_idOrFirstObjectSelector => {
@@ -111,6 +189,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__checklist.get(Jsons.stringify(idOrFirstObjectSelector));
+    return ret;
+  },
+  getChecklists(selector) {
+    if (!this.__checklists) {
+      this.__checklists = new DataCache(_selector => {
+        const _ret = Checklists.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__checklists.get(Jsons.stringify(selector));
     return ret;
   },
   getChecklistItem(idOrFirstObjectSelector) {
@@ -123,6 +211,16 @@ ReactiveCacheClient = {
     const ret = this.__checklistItem.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
+  getChecklistItems(selector) {
+    if (!this.__checklistItems) {
+      this.__checklistItems = new DataCache(_selector => {
+        const _ret = ChecklistItems.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__checklistItems.get(Jsons.stringify(selector));
+    return ret;
+  },
   getCard(idOrFirstObjectSelector) {
     if (!this.__card) {
       this.__card = new DataCache(_idOrFirstObjectSelector => {
@@ -133,6 +231,16 @@ ReactiveCacheClient = {
     const ret = this.__card.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
+  getCards(selector) {
+    if (!this.__cards) {
+      this.__cards = new DataCache(_selector => {
+        const _ret = Cards.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__cards.get(Jsons.stringify(selector));
+    return ret;
+  },
   getCardComment(idOrFirstObjectSelector) {
     if (!this.__cardComment) {
       this.__cardComment = new DataCache(_idOrFirstObjectSelector => {
@@ -141,6 +249,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__cardComment.get(Jsons.stringify(idOrFirstObjectSelector));
+    return ret;
+  },
+  getCardComments(selector) {
+    if (!this.__cardComments) {
+      this.__cardComments = new DataCache(_selector => {
+        const _ret = CardComments.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__cardComments.get(Jsons.stringify(selector));
     return ret;
   },
   getCustomField(idOrFirstObjectSelector) {
@@ -173,6 +291,16 @@ ReactiveCacheClient = {
     const ret = this.__attachment.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
+  getAttachments(selector) {
+    if (!this.__attachments) {
+      this.__attachments = new DataCache(_selector => {
+        const _ret = Attachments.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__attachments.get(Jsons.stringify(selector));
+    return ret;
+  },
   getUser(idOrFirstObjectSelector) {
     if (!this.__user) {
       this.__user = new DataCache(_idOrFirstObjectSelector => {
@@ -181,6 +309,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__user.get(Jsons.stringify(idOrFirstObjectSelector));
+    return ret;
+  },
+  getUsers(selector) {
+    if (!this.__users) {
+      this.__users = new DataCache(_selector => {
+        const _ret = Users.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__users.get(Jsons.stringify(selector));
     return ret;
   },
   getOrg(idOrFirstObjectSelector) {
@@ -193,6 +331,16 @@ ReactiveCacheClient = {
     const ret = this.__org.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
+  getOrgs(selector) {
+    if (!this.__orgs) {
+      this.__orgs = new DataCache(_selector => {
+        const _ret = Org.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__orgs.get(Jsons.stringify(idOrFirstObjectSelector));
+    return ret;
+  },
   getTeam(idOrFirstObjectSelector) {
     if (!this.__team) {
       this.__team = new DataCache(_idOrFirstObjectSelector => {
@@ -203,6 +351,16 @@ ReactiveCacheClient = {
     const ret = this.__team.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
+  getTeams(selector) {
+    if (!this.__teams) {
+      this.__teams = new DataCache(_selector => {
+        const _ret = Team.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__teams.get(Jsons.stringify(selector));
+    return ret;
+  },
   getActivity(idOrFirstObjectSelector) {
     if (!this.__activity) {
       this.__activity = new DataCache(_idOrFirstObjectSelector => {
@@ -211,6 +369,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__activity.get(Jsons.stringify(idOrFirstObjectSelector));
+    return ret;
+  },
+  getActivities(selector) {
+    if (!this.__activities) {
+      this.__activities = new DataCache(_selector => {
+        const _ret = Activities.find(Jsons.parse(_selector)).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__activities.get(Jsons.stringify(selector));
     return ret;
   },
   getCurrentSetting() {
@@ -251,12 +419,30 @@ ReactiveCache = {
     }
     return ret;
   },
+  getBoards(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getBoards(selector);
+    } else {
+      ret = ReactiveCacheClient.getBoards(selector);
+    }
+    return ret;
+  },
   getList(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
       ret = ReactiveCacheServer.getList(idOrFirstObjectSelector);
     } else {
       ret = ReactiveCacheClient.getList(idOrFirstObjectSelector);
+    }
+    return ret;
+  },
+  getLists(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getLists(selector);
+    } else {
+      ret = ReactiveCacheClient.getLists(selector);
     }
     return ret;
   },
@@ -269,12 +455,30 @@ ReactiveCache = {
     }
     return ret;
   },
+  getSwimlanes(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getSwimlanes(selector);
+    } else {
+      ret = ReactiveCacheClient.getSwimlanes(selector);
+    }
+    return ret;
+  },
   getChecklist(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
       ret = ReactiveCacheServer.getChecklist(idOrFirstObjectSelector);
     } else {
       ret = ReactiveCacheClient.getChecklist(idOrFirstObjectSelector);
+    }
+    return ret;
+  },
+  getChecklists(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getChecklists(selector);
+    } else {
+      ret = ReactiveCacheClient.getChecklists(selector);
     }
     return ret;
   },
@@ -287,6 +491,15 @@ ReactiveCache = {
     }
     return ret;
   },
+  getChecklistItems(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getChecklistItems(selector);
+    } else {
+      ret = ReactiveCacheClient.getChecklistItems(selector);
+    }
+    return ret;
+  },
   getCard(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
@@ -296,12 +509,30 @@ ReactiveCache = {
     }
     return ret;
   },
+  getCards(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getCards(selector);
+    } else {
+      ret = ReactiveCacheClient.getCards(selector);
+    }
+    return ret;
+  },
   getCardComment(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
       ret = ReactiveCacheServer.getCardComment(idOrFirstObjectSelector);
     } else {
       ret = ReactiveCacheClient.getCardComment(idOrFirstObjectSelector);
+    }
+    return ret;
+  },
+  getCardComments(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getCardComments(selector);
+    } else {
+      ret = ReactiveCacheClient.getCardComments(selector);
     }
     return ret;
   },
@@ -332,12 +563,30 @@ ReactiveCache = {
     }
     return ret;
   },
+  getAttachments(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getAttachments(selector);
+    } else {
+      ret = ReactiveCacheClient.getAttachments(selector);
+    }
+    return ret;
+  },
   getUser(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
       ret = ReactiveCacheServer.getUser(idOrFirstObjectSelector);
     } else {
       ret = ReactiveCacheClient.getUser(idOrFirstObjectSelector);
+    }
+    return ret;
+  },
+  getUsers(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getUsers(selector);
+    } else {
+      ret = ReactiveCacheClient.getUsers(selector);
     }
     return ret;
   },
@@ -350,6 +599,15 @@ ReactiveCache = {
     }
     return ret;
   },
+  getOrgs(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getOrgs(selector);
+    } else {
+      ret = ReactiveCacheClient.getOrgs(selector);
+    }
+    return ret;
+  },
   getTeam(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
@@ -359,12 +617,30 @@ ReactiveCache = {
     }
     return ret;
   },
+  getTeams(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getTeams(selector);
+    } else {
+      ret = ReactiveCacheClient.getTeams(selector);
+    }
+    return ret;
+  },
   getActivity(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
       ret = ReactiveCacheServer.getActivity(idOrFirstObjectSelector);
     } else {
       ret = ReactiveCacheClient.getActivity(idOrFirstObjectSelector);
+    }
+    return ret;
+  },
+  getActivities(selector) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getActivities(selector);
+    } else {
+      ret = ReactiveCacheClient.getActivities(selector);
     }
     return ret;
   },
