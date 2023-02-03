@@ -66,7 +66,7 @@ function getPrevAttachmentId(currentAttachmentId) {
 
 function openAttachmentViewer(attachmentId){
 
-    const attachment = Attachments.findOne({_id: attachmentId});
+    const attachment = ReactiveCache.getAttachment(attachmentId);
 
     $("#attachment-name").text(attachment.name);
 

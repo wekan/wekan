@@ -151,20 +151,20 @@ if (Meteor.isServer) {
       check(fileObjId, String);
       check(storageDestination, String);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
       moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
     },
     renameAttachment(fileObjId, newName) {
       check(fileObjId, String);
       check(newName, String);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
       rename(fileObj, newName, fileStoreStrategyFactory);
     },
     validateAttachment(fileObjId) {
       check(fileObjId, String);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
       const isValid = Promise.await(isFileValid(fileObj, attachmentUploadMimeTypes, attachmentUploadSize, attachmentUploadExternalProgram));
 
       if (!isValid) {
@@ -177,7 +177,7 @@ if (Meteor.isServer) {
 
       Meteor.call('validateAttachment', fileObjId);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
 
       if (fileObj) {
         Meteor.defer(() => Meteor.call('moveAttachmentToStorage', fileObjId, storageDestination));

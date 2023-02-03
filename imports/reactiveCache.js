@@ -39,6 +39,10 @@ ReactiveCacheServer = {
     const ret = CustomFields.find(selector).fetch();
     return ret;
   },
+  getAttachment(id) {
+    const ret = Attachments.findOne(id);
+    return ret;
+  },
   getUser(id) {
     const ret = Users.findOne(id);
     return ret;
@@ -157,6 +161,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__customFields.get(Jsons.stringify(selector));
+    return ret;
+  },
+  getAttachment(id) {
+    if (!this.__attachment) {
+      this.__attachment = new DataCache(_id => {
+        const _ret = Attachments.findOne(_id);
+        return _ret;
+      });
+    }
+    const ret = this.__attachment.get(id);
     return ret;
   },
   getUser(id) {
@@ -306,6 +320,15 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getCustomFields(selector);
     } else {
       ret = ReactiveCacheClient.getCustomFields(selector);
+    }
+    return ret;
+  },
+  getAttachment(id) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getAttachment(id);
+    } else {
+      ret = ReactiveCacheClient.getAttachment(id);
     }
     return ret;
   },

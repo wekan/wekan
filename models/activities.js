@@ -44,7 +44,7 @@ Activities.helpers({
     return ReactiveCache.getCardComment(this.commentId);
   },
   attachment() {
-    return Attachments.findOne(this.attachmentId);
+    return ReactiveCache.getAttachment(this.attachmentId);
   },
   checklist() {
     return Checklists.findOne(this.checklistId);
