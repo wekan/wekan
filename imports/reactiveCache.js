@@ -3,60 +3,60 @@ import { Jsons } from './jsons';
 
 // Server isn't reactive, so search for the data always.
 ReactiveCacheServer = {
-  getBoard(id) {
-    const ret = Boards.findOne(id);
+  getBoard(idOrFirstObjectSelector) {
+    const ret = Boards.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getList(id) {
-    const ret = Lists.findOne(id);
+  getList(idOrFirstObjectSelector) {
+    const ret = Lists.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getSwimlane(id) {
-    const ret = Swimlanes.findOne(id);
+  getSwimlane(idOrFirstObjectSelector) {
+    const ret = Swimlanes.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getChecklist(id) {
-    const ret = Checklists.findOne(id);
+  getChecklist(idOrFirstObjectSelector) {
+    const ret = Checklists.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getChecklistItem(id) {
-    const ret = ChecklistItems.findOne(id);
+  getChecklistItem(idOrFirstObjectSelector) {
+    const ret = ChecklistItems.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getCard(id) {
-    const ret = Cards.findOne(id);
+  getCard(idOrFirstObjectSelector) {
+    const ret = Cards.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getCardComment(id) {
-    const ret = CardComments.findOne(id);
+  getCardComment(idOrFirstObjectSelector) {
+    const ret = CardComments.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getCustomField(id) {
-    const ret = CustomFields.findOne(id);
+  getCustomField(idOrFirstObjectSelector) {
+    const ret = CustomFields.findOne(idOrFirstObjectSelector);
     return ret;
   },
   getCustomFields(selector) {
     const ret = CustomFields.find(selector).fetch();
     return ret;
   },
-  getAttachment(id) {
-    const ret = Attachments.findOne(id);
+  getAttachment(idOrFirstObjectSelector) {
+    const ret = Attachments.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getUser(id) {
-    const ret = Users.findOne(id);
+  getUser(idOrFirstObjectSelector) {
+    const ret = Users.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getOrg(id) {
-    const ret = Org.findOne(id);
+  getOrg(idOrFirstObjectSelector) {
+    const ret = Org.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getTeam(id) {
-    const ret = Team.findOne(id);
+  getTeam(idOrFirstObjectSelector) {
+    const ret = Team.findOne(idOrFirstObjectSelector);
     return ret;
   },
-  getActivity(id) {
-    const ret = Activities.findOne(id);
+  getActivity(idOrFirstObjectSelector) {
+    const ret = Activities.findOne(idOrFirstObjectSelector);
     return ret;
   },
   getCurrentSetting() {
@@ -73,144 +73,144 @@ ReactiveCacheServer = {
 // saving the result has a big advantage if the query is big and often searched for the same data again and again
 // if the data is changed in the client, the data is saved to the server and depending code is reactive called again
 ReactiveCacheClient = {
-  getBoard(id) {
+  getBoard(idOrFirstObjectSelector) {
     if (!this.__board) {
-      this.__board = new DataCache(boardId => {
-        const _ret = Boards.findOne(boardId);
+      this.__board = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Boards.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__board.get(id);
+    const ret = this.__board.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getList(id) {
+  getList(idOrFirstObjectSelector) {
     if (!this.__list) {
-      this.__list = new DataCache(listId => {
-        const _ret = Lists.findOne(listId);
+      this.__list = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Lists.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__list.get(id);
+    const ret = this.__list.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getSwimlane(id) {
+  getSwimlane(idOrFirstObjectSelector) {
     if (!this.__swimlane) {
-      this.__swimlane = new DataCache(swimlaneId => {
-        const _ret = Swimlanes.findOne(swimlaneId);
+      this.__swimlane = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Swimlanes.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__swimlane.get(id);
+    const ret = this.__swimlane.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getChecklist(id) {
+  getChecklist(idOrFirstObjectSelector) {
     if (!this.__checklist) {
-      this.__checklist = new DataCache(checklistId => {
-        const _ret = Checklists.findOne(checklistId);
+      this.__checklist = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Checklists.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__checklist.get(id);
+    const ret = this.__checklist.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getChecklistItem(id) {
+  getChecklistItem(idOrFirstObjectSelector) {
     if (!this.__checklistItem) {
-      this.__checklistItem = new DataCache(_id => {
-        const _ret = ChecklistItems.findOne(_id);
+      this.__checklistItem = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = ChecklistItems.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__checklistItem.get(id);
+    const ret = this.__checklistItem.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getCard(id) {
+  getCard(idOrFirstObjectSelector) {
     if (!this.__card) {
-      this.__card = new DataCache(cardId => {
-        const _ret = Cards.findOne(cardId);
+      this.__card = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Cards.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__card.get(id);
+    const ret = this.__card.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getCardComment(id) {
+  getCardComment(idOrFirstObjectSelector) {
     if (!this.__cardComment) {
-      this.__cardComment = new DataCache(_id => {
-        const _ret = CardComments.findOne(_id);
+      this.__cardComment = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = CardComments.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__cardComment.get(id);
+    const ret = this.__cardComment.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getCustomField(id) {
+  getCustomField(idOrFirstObjectSelector) {
     if (!this.__customField) {
-      this.__customField = new DataCache(customFieldId => {
-        const _ret = CustomFields.findOne(customFieldId);
+      this.__customField = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = CustomFields.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__customField.get(id);
+    const ret = this.__customField.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
   getCustomFields(selector) {
     if (!this.__customFields) {
-      this.__customFields = new DataCache(sel => {
-        const _ret = CustomFields.find(Jsons.parse(sel)).fetch();
+      this.__customFields = new DataCache(_selector => {
+        const _ret = CustomFields.find(Jsons.parse(_selector)).fetch();
         return _ret;
       });
     }
     const ret = this.__customFields.get(Jsons.stringify(selector));
     return ret;
   },
-  getAttachment(id) {
+  getAttachment(idOrFirstObjectSelector) {
     if (!this.__attachment) {
-      this.__attachment = new DataCache(_id => {
-        const _ret = Attachments.findOne(_id);
+      this.__attachment = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Attachments.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__attachment.get(id);
+    const ret = this.__attachment.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getUser(id) {
+  getUser(idOrFirstObjectSelector) {
     if (!this.__user) {
-      this.__user = new DataCache(userId => {
-        const _ret = Users.findOne(userId);
+      this.__user = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Users.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__user.get(id);
+    const ret = this.__user.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getOrg(id) {
+  getOrg(idOrFirstObjectSelector) {
     if (!this.__org) {
-      this.__org = new DataCache(_id => {
-        const _ret = Org.findOne(_id);
+      this.__org = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Org.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__org.get(id);
+    const ret = this.__org.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getTeam(id) {
+  getTeam(idOrFirstObjectSelector) {
     if (!this.__team) {
-      this.__team = new DataCache(_id => {
-        const _ret = Team.findOne(_id);
+      this.__team = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Team.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__team.get(id);
+    const ret = this.__team.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
-  getActivity(id) {
+  getActivity(idOrFirstObjectSelector) {
     if (!this.__activity) {
-      this.__activity = new DataCache(_id => {
-        const _ret = Activities.findOne(_id);
+      this.__activity = new DataCache(_idOrFirstObjectSelector => {
+        const _ret = Activities.findOne(Jsons.parse(_idOrFirstObjectSelector));
         return _ret;
       });
     }
-    const ret = this.__activity.get(id);
+    const ret = this.__activity.get(Jsons.stringify(idOrFirstObjectSelector));
     return ret;
   },
   getCurrentSetting() {
@@ -242,75 +242,75 @@ ReactiveCacheClient = {
 // - The Programmer hasn't to care about in which context he call's this class
 // - having all queries together in 1 class to make it possible to see which queries in Wekan happens, e.g. with console.log
 ReactiveCache = {
-  getBoard(id) {
+  getBoard(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getBoard(id);
+      ret = ReactiveCacheServer.getBoard(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getBoard(id);
+      ret = ReactiveCacheClient.getBoard(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getList(id) {
+  getList(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getList(id);
+      ret = ReactiveCacheServer.getList(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getList(id);
+      ret = ReactiveCacheClient.getList(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getSwimlane(id) {
+  getSwimlane(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getSwimlane(id);
+      ret = ReactiveCacheServer.getSwimlane(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getSwimlane(id);
+      ret = ReactiveCacheClient.getSwimlane(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getChecklist(id) {
+  getChecklist(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getChecklist(id);
+      ret = ReactiveCacheServer.getChecklist(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getChecklist(id);
+      ret = ReactiveCacheClient.getChecklist(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getChecklistItem(id) {
+  getChecklistItem(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getChecklistItem(id);
+      ret = ReactiveCacheServer.getChecklistItem(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getChecklistItem(id);
+      ret = ReactiveCacheClient.getChecklistItem(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getCard(id) {
+  getCard(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getCard(id);
+      ret = ReactiveCacheServer.getCard(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getCard(id);
+      ret = ReactiveCacheClient.getCard(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getCardComment(id) {
+  getCardComment(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getCardComment(id);
+      ret = ReactiveCacheServer.getCardComment(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getCardComment(id);
+      ret = ReactiveCacheClient.getCardComment(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getCustomField(id) {
+  getCustomField(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getCustomField(id);
+      ret = ReactiveCacheServer.getCustomField(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getCustomField(id);
+      ret = ReactiveCacheClient.getCustomField(idOrFirstObjectSelector);
     }
     return ret;
   },
@@ -323,48 +323,48 @@ ReactiveCache = {
     }
     return ret;
   },
-  getAttachment(id) {
+  getAttachment(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getAttachment(id);
+      ret = ReactiveCacheServer.getAttachment(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getAttachment(id);
+      ret = ReactiveCacheClient.getAttachment(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getUser(id) {
+  getUser(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getUser(id);
+      ret = ReactiveCacheServer.getUser(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getUser(id);
+      ret = ReactiveCacheClient.getUser(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getOrg(id) {
+  getOrg(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getOrg(id);
+      ret = ReactiveCacheServer.getOrg(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getOrg(id);
+      ret = ReactiveCacheClient.getOrg(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getTeam(id) {
+  getTeam(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getTeam(id);
+      ret = ReactiveCacheServer.getTeam(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getTeam(id);
+      ret = ReactiveCacheClient.getTeam(idOrFirstObjectSelector);
     }
     return ret;
   },
-  getActivity(id) {
+  getActivity(idOrFirstObjectSelector) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getActivity(id);
+      ret = ReactiveCacheServer.getActivity(idOrFirstObjectSelector);
     } else {
-      ret = ReactiveCacheClient.getActivity(id);
+      ret = ReactiveCacheClient.getActivity(idOrFirstObjectSelector);
     }
     return ret;
   },
