@@ -43,6 +43,10 @@ ReactiveCacheServer = {
     const ret = Users.findOne(id);
     return ret;
   },
+  getActivity(id) {
+    const ret = Activities.findOne(id);
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -155,6 +159,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__user.get(id);
+    return ret;
+  },
+  getActivity(id) {
+    if (!this.__activity) {
+      this.__activity = new DataCache(_id => {
+        const _ret = Activities.findOne(_id);
+        return _ret;
+      });
+    }
+    const ret = this.__activity.get(id);
     return ret;
   },
   getCurrentSetting() {
@@ -273,6 +287,15 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getUser(id);
     } else {
       ret = ReactiveCacheClient.getUser(id);
+    }
+    return ret;
+  },
+  getActivity(id) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getActivity(id);
+    } else {
+      ret = ReactiveCacheClient.getActivity(id);
     }
     return ret;
   },

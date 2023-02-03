@@ -16,15 +16,15 @@ Template.notification.events({
 Template.notification.helpers({
   mode: 'board',
   isOfActivityType(activityId, type) {
-    const activity = Activities.findOne(activityId);
+    const activity = ReactiveCache.getActivity(activityId);
     return activity && activity.activityType === type;
   },
   activityType(activityId) {
-    const activity = Activities.findOne(activityId);
+    const activity = ReactiveCache.getActivity(activityId);
     return activity ? activity.activityType : '';
   },
   activityUser(activityId) {
-    const activity = Activities.findOne(activityId);
+    const activity = ReactiveCache.getActivity(activityId);
     return activity && activity.userId;
   },
 });
