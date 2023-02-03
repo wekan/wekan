@@ -102,7 +102,7 @@ ChecklistItems.mutations({
     return { $set: { isFinished: !this.isFinished } };
   },
   move(checklistId, sortIndex) {
-    const cardId = Checklists.findOne(checklistId).cardId;
+    const cardId = ReactiveCache.getChecklist(checklistId).cardId;
     const mutatedFields = {
       cardId,
       checklistId,
@@ -163,7 +163,7 @@ function publishChekListCompleted(userId, doc) {
   const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
-  const checkList = Checklists.findOne({ _id: checklistId });
+  const checkList = ReactiveCache.getChecklist(checklistId);
   if (checkList.isFinished()) {
     const act = {
       userId,
@@ -183,7 +183,7 @@ function publishChekListUncompleted(userId, doc) {
   const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
-  const checkList = Checklists.findOne({ _id: checklistId });
+  const checkList = ReactiveCache.getChecklist(checklistId);
   // BUGS in IFTTT Rules: https://github.com/wekan/wekan/issues/1972
   //       Currently in checklist all are set as uncompleted/not checked,
   //       IFTTT Rule does not move card to other list.

@@ -47,7 +47,7 @@ Activities.helpers({
     return ReactiveCache.getAttachment(this.attachmentId);
   },
   checklist() {
-    return Checklists.findOne(this.checklistId);
+    return ReactiveCache.getChecklist(this.checklistId);
   },
   checklistItem() {
     return ReactiveCache.getChecklistItem(this.checklistItemId);

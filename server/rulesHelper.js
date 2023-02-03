@@ -338,7 +338,7 @@ RulesHelper = {
         sort: 0,
       });
       const itemsArray = action.checklistItems.split(',');
-      const checkList = Checklists.findOne({ _id: checkListId });
+      const checkList = ReactiveCache.getChecklist(checkListId);
       for (let i = 0; i < itemsArray.length; i++) {
         ChecklistItems.insert({
           title: itemsArray[i],
