@@ -50,7 +50,7 @@ Activities.helpers({
     return Checklists.findOne(this.checklistId);
   },
   checklistItem() {
-    return ChecklistItems.findOne(this.checklistItemId);
+    return ReactiveCache.getChecklistItem(this.checklistItemId);
   },
   subtasks() {
     return ReactiveCache.getCard(this.subtaskId);

@@ -66,7 +66,7 @@ Template.activities.helpers({
 BlazeComponent.extendComponent({
   checkItem() {
     const checkItemId = this.currentData().activity.checklistItemId;
-    const checkItem = ChecklistItems.findOne({ _id: checkItemId });
+    const checkItem = ReactiveCache.getChecklistItem(checkItemId);
     return checkItem && checkItem.title;
   },
 

@@ -19,6 +19,10 @@ ReactiveCacheServer = {
     const ret = Checklists.findOne(id);
     return ret;
   },
+  getChecklistItem(id) {
+    const ret = ChecklistItems.findOne(id);
+    return ret;
+  },
   getCard(id) {
     const ret = Cards.findOne(id);
     return ret;
@@ -87,6 +91,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__checklist.get(id);
+    return ret;
+  },
+  getChecklistItem(id) {
+    if (!this.__checklistItem) {
+      this.__checklistItem = new DataCache(_id => {
+        const _ret = ChecklistItems.findOne(_id);
+        return _ret;
+      });
+    }
+    const ret = this.__checklistItem.get(id);
     return ret;
   },
   getCard(id) {
@@ -191,6 +205,15 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getChecklist(id);
     } else {
       ret = ReactiveCacheClient.getChecklist(id);
+    }
+    return ret;
+  },
+  getChecklistItem(id) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getChecklistItem(id);
+    } else {
+      ret = ReactiveCacheClient.getChecklistItem(id);
     }
     return ret;
   },

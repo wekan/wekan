@@ -270,7 +270,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklistItem = ChecklistItems.findOne({ _id: paramItemId });
+      const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
       if (checklistItem) {
         JsonRoutes.sendResult(res, {
           code: 200,
