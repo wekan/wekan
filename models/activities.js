@@ -56,7 +56,7 @@ Activities.helpers({
     return ReactiveCache.getCard(this.subtaskId);
   },
   customField() {
-    return CustomFields.findOne(this.customFieldId);
+    return ReactiveCache.getCustomField(this.customFieldId);
   },
   // Label activity did not work yet, unable to edit labels when tried this.
   //label() {

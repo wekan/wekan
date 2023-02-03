@@ -159,7 +159,7 @@ BlazeComponent.extendComponent({
   },
 
   lastCustomField() {
-    const lastCustomField = CustomFields.findOne(
+    const lastCustomField = ReactiveCache.getCustomField(
       this.currentData().activity.customFieldId,
     );
     if (!lastCustomField) return null;
@@ -167,7 +167,7 @@ BlazeComponent.extendComponent({
   },
 
   lastCustomFieldValue() {
-    const lastCustomField = CustomFields.findOne(
+    const lastCustomField = ReactiveCache.getCustomField(
       this.currentData().activity.customFieldId,
     );
     if (!lastCustomField) return null;
