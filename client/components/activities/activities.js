@@ -286,7 +286,7 @@ Template.commentReactions.events({
     if (ReactiveCache.getCurrentUser().isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
-      const cardComment = CardComments.findOne({_id: commentId});
+      const cardComment = ReactiveCache.getCardComment(commentId);
       cardComment.toggleReaction(codepoint);
     }
   },
@@ -298,7 +298,7 @@ Template.addReactionPopup.events({
     if (ReactiveCache.getCurrentUser().isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
-      const cardComment = CardComments.findOne({_id: commentId});
+      const cardComment = ReactiveCache.getCardComment(commentId);
       cardComment.toggleReaction(codepoint);
     }
     Popup.back();

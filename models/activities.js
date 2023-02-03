@@ -41,7 +41,7 @@ Activities.helpers({
     return ReactiveCache.getCard(this.cardId);
   },
   comment() {
-    return CardComments.findOne(this.commentId);
+    return ReactiveCache.getCardComment(this.commentId);
   },
   attachment() {
     return Attachments.findOne(this.attachmentId);

@@ -213,7 +213,7 @@ if (isSandstorm && Meteor.isServer) {
           }
 
           if (doc.activityType === 'addComment') {
-            const comment = CardComments.findOne(doc.commentId);
+            const comment = ReactiveCache.getCardComment(doc.commentId);
             caption = { defaultText: comment.text };
             const activeMembers = _.pluck(
               ReactiveCache.getBoard(sandstormBoard._id).activeMembers(),

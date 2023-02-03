@@ -27,6 +27,10 @@ ReactiveCacheServer = {
     const ret = Cards.findOne(id);
     return ret;
   },
+  getCardComment(id) {
+    const ret = CardComments.findOne(id);
+    return ret;
+  },
   getCustomField(id) {
     const ret = CustomFields.findOne(id);
     return ret;
@@ -111,6 +115,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__card.get(id);
+    return ret;
+  },
+  getCardComment(id) {
+    if (!this.__cardComment) {
+      this.__cardComment = new DataCache(_id => {
+        const _ret = CardComments.findOne(_id);
+        return _ret;
+      });
+    }
+    const ret = this.__cardComment.get(id);
     return ret;
   },
   getCustomField(id) {
@@ -223,6 +237,15 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getCard(id);
     } else {
       ret = ReactiveCacheClient.getCard(id);
+    }
+    return ret;
+  },
+  getCardComment(id) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getCardComment(id);
+    } else {
+      ret = ReactiveCacheClient.getCardComment(id);
     }
     return ret;
   },
