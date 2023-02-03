@@ -1644,7 +1644,7 @@ BlazeComponent.extendComponent({
 
 Template.removeBoardOrgPopup.helpers({
   org() {
-    return Org.findOne(this.orgId);
+    return ReactiveCache.getOrg(this.orgId);
   },
 });
 

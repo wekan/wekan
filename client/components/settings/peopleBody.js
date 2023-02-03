@@ -192,7 +192,7 @@ BlazeComponent.extendComponent({
 
 Template.orgRow.helpers({
   orgData() {
-    return Org.findOne(this.orgId);
+    return ReactiveCache.getOrg(this.orgId);
   },
 });
 
@@ -229,7 +229,7 @@ Template.editUserPopup.onCreated(function () {
 
 Template.editOrgPopup.helpers({
   org() {
-    return Org.findOne(this.orgId);
+    return ReactiveCache.getOrg(this.orgId);
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
@@ -302,7 +302,7 @@ Template.newUserPopup.onCreated(function () {
 
 Template.newOrgPopup.helpers({
   org() {
-    return Org.findOne(this.orgId);
+    return ReactiveCache.getOrg(this.orgId);
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
@@ -354,7 +354,7 @@ Template.newUserPopup.helpers({
 BlazeComponent.extendComponent({
   onCreated() {},
   org() {
-    return Org.findOne(this.orgId);
+    return ReactiveCache.getOrg(this.orgId);
   },
   events() {
     return [
@@ -564,7 +564,7 @@ BlazeComponent.extendComponent({
 Template.editOrgPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const org = Org.findOne(this.orgId);
+    const org = ReactiveCache.getOrg(this.orgId);
 
     const orgDisplayName = templateInstance
       .find('.js-orgDisplayName')

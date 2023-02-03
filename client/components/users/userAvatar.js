@@ -89,18 +89,18 @@ BlazeComponent.extendComponent({
 
 Template.boardOrgRow.helpers({
   orgData() {
-    return Org.findOne(this.orgId);
+    return ReactiveCache.getOrg(this.orgId);
   },
 });
 
 Template.boardOrgName.helpers({
   orgName() {
-    const org = Org.findOne(this.orgId);
+    const org = ReactiveCache.getOrg(this.orgId);
     return org && org.orgDisplayName;
   },
 
   orgViewPortWidth() {
-    const org = Org.findOne(this.orgId);
+    const org = ReactiveCache.getOrg(this.orgId);
     return ((org && org.orgDisplayName.length) || 1) * 12;
   },
 });
