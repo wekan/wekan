@@ -1845,7 +1845,7 @@ BlazeComponent.extendComponent({
 
 Template.removeBoardTeamPopup.helpers({
   team() {
-    return Team.findOne(this.teamId);
+    return ReactiveCache.getTeam(this.teamId);
   },
 });
 

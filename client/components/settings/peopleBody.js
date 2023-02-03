@@ -198,7 +198,7 @@ Template.orgRow.helpers({
 
 Template.teamRow.helpers({
   teamData() {
-    return Team.findOne(this.teamId);
+    return ReactiveCache.getTeam(this.teamId);
   },
 });
 
@@ -238,7 +238,7 @@ Template.editOrgPopup.helpers({
 
 Template.editTeamPopup.helpers({
   team() {
-    return Team.findOne(this.teamId);
+    return ReactiveCache.getTeam(this.teamId);
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
@@ -311,7 +311,7 @@ Template.newOrgPopup.helpers({
 
 Template.newTeamPopup.helpers({
   team() {
-    return Team.findOne(this.teamId);
+    return ReactiveCache.getTeam(this.teamId);
   },
   errorMessage() {
     return Template.instance().errorMessage.get();
@@ -369,7 +369,7 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {},
   team() {
-    return Team.findOne(this.teamId);
+    return ReactiveCache.getTeam(this.teamId);
   },
   events() {
     return [
@@ -605,7 +605,7 @@ Template.editOrgPopup.events({
 Template.editTeamPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const team = Team.findOne(this.teamId);
+    const team = ReactiveCache.getTeam(this.teamId);
 
     const teamDisplayName = templateInstance
       .find('.js-teamDisplayName')

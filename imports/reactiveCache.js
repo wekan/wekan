@@ -47,6 +47,10 @@ ReactiveCacheServer = {
     const ret = Org.findOne(id);
     return ret;
   },
+  getTeam(id) {
+    const ret = Team.findOne(id);
+    return ret;
+  },
   getActivity(id) {
     const ret = Activities.findOne(id);
     return ret;
@@ -173,6 +177,16 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__org.get(id);
+    return ret;
+  },
+  getTeam(id) {
+    if (!this.__team) {
+      this.__team = new DataCache(_id => {
+        const _ret = Team.findOne(_id);
+        return _ret;
+      });
+    }
+    const ret = this.__team.get(id);
     return ret;
   },
   getActivity(id) {
@@ -310,6 +324,15 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getOrg(id);
     } else {
       ret = ReactiveCacheClient.getOrg(id);
+    }
+    return ret;
+  },
+  getTeam(id) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getTeam(id);
+    } else {
+      ret = ReactiveCacheClient.getTeam(id);
     }
     return ret;
   },

@@ -148,18 +148,18 @@ BlazeComponent.extendComponent({
 
 Template.boardTeamRow.helpers({
   teamData() {
-    return Team.findOne(this.teamId);
+    return ReactiveCache.getTeam(this.teamId);
   },
 });
 
 Template.boardTeamName.helpers({
   teamName() {
-    const team = Team.findOne(this.teamId);
+    const team = ReactiveCache.getTeam(this.teamId);
     return team && team.teamDisplayName;
   },
 
   teamViewPortWidth() {
-    const team = Team.findOne(this.teamId);
+    const team = ReactiveCache.getTeam(this.teamId);
     return ((team && team.teamDisplayName.length) || 1) * 12;
   },
 });
