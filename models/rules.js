@@ -58,7 +58,7 @@ Rules.mutations({
 
 Rules.helpers({
   getAction() {
-    return Actions.findOne({ _id: this.actionId });
+    return ReactiveCache.getAction(this.actionId);
   },
   getTrigger() {
     return Triggers.findOne({ _id: this.triggerId });
@@ -70,7 +70,7 @@ Rules.helpers({
     return Triggers.findOne({ _id: this.triggerId });
   },
   action() {
-    return Actions.findOne({ _id: this.actionId });
+    return ReactiveCache.getAction(this.actionId);
   },
 });
 

@@ -115,6 +115,14 @@ ReactiveCacheServer = {
     const ret = Rules.find(selector, options).fetch();
     return ret;
   },
+  getAction(idOrFirstObjectSelector, options) {
+    const ret = Actions.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getActions(selector, options) {
+    const ret = Actions.find(selector, options).fetch();
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -465,6 +473,30 @@ ReactiveCacheClient = {
     const ret = this.__rules.get(Jsons.stringify(select));
     return ret;
   },
+  getAction(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__action) {
+      this.__action = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = Actions.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__action.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getActions(selector, options) {
+    const select = {selector, options}
+    if (!this.__actions) {
+      this.__actions = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        const _ret = Actions.find(__select.selector, __select.options).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__actions.get(Jsons.stringify(select));
+    return ret;
+  },
   getCurrentSetting() {
     if (!this.__currentSetting || !this.__currentSetting.get()) {
       this.__currentSetting = new DataCache(() => {
@@ -743,6 +775,24 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getRules(selector, options);
     } else {
       ret = ReactiveCacheClient.getRules(selector, options);
+    }
+    return ret;
+  },
+  getAction(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getAction(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getAction(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getActions(selector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getActions(selector, options);
+    } else {
+      ret = ReactiveCacheClient.getActions(selector, options);
     }
     return ret;
   },
