@@ -7,7 +7,7 @@ import Team from '/models/team';
 
 Template.userAvatar.helpers({
   userData() {
-    return Users.findOne(this.userId, {
+    return ReactiveCache.getUser(this.userId, {
       fields: {
         profile: 1,
         username: 1,
