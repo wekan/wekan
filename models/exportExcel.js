@@ -42,9 +42,7 @@ runOnServer(function() {
         'services.resume.loginTokens.hashedToken': hashToken,
       });
       adminId = user._id.toString();
-      impersonateDone = ImpersonatedUsers.findOne({
-        adminId: adminId,
-      });
+      impersonateDone = ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
       user = ReactiveCache.getUser({

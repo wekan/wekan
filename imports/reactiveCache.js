@@ -139,6 +139,14 @@ ReactiveCacheServer = {
     const ret = Triggers.find(selector, options).fetch();
     return ret;
   },
+  getImpersonatedUser(idOrFirstObjectSelector, options) {
+    const ret = ImpersonatedUsers.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getImpersonatedUsers(selector, options) {
+    const ret = ImpersonatedUsers.find(selector, options).fetch();
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -561,6 +569,30 @@ ReactiveCacheClient = {
     const ret = this.__triggers.get(Jsons.stringify(select));
     return ret;
   },
+  getImpersonatedUser(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__impersonatedUser) {
+      this.__impersonatedUser = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = ImpersonatedUsers.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__impersonatedUser.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getImpersonatedUsers(selector, options) {
+    const select = {selector, options}
+    if (!this.__impersonatedUsers) {
+      this.__impersonatedUsers = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        const _ret = ImpersonatedUsers.find(__select.selector, __select.options).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__impersonatedUsers.get(Jsons.stringify(select));
+    return ret;
+  },
   getCurrentSetting() {
     if (!this.__currentSetting || !this.__currentSetting.get()) {
       this.__currentSetting = new DataCache(() => {
@@ -893,6 +925,24 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getTriggers(selector, options);
     } else {
       ret = ReactiveCacheClient.getTriggers(selector, options);
+    }
+    return ret;
+  },
+  getImpersonatedUser(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getImpersonatedUser(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getImpersonatedUser(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getImpersonatedUsers(selector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getImpersonatedUsers(selector, options);
+    } else {
+      ret = ReactiveCacheClient.getImpersonatedUsers(selector, options);
     }
     return ret;
   },

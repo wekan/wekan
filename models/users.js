@@ -1532,9 +1532,7 @@ if (Meteor.isServer) {
     },
     isImpersonated(userId) {
       check(userId, String);
-      const isImpersonated = ImpersonatedUsers.findOne({
-        userId: userId,
-      });
+      const isImpersonated = ReactiveCache.getImpersonatedUser({ userId: userId });
       return isImpersonated;
     },
     setUsersTeamsTeamDisplayName(teamId, teamDisplayName) {
