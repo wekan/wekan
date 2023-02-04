@@ -285,7 +285,7 @@ if (Meteor.isServer) {
         Authentication.checkBoardAccess(req.userId, paramBoardId);
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: CardComments.findOne({
+          data: ReactiveCache.getCardComment({
             _id: paramCommentId,
             cardId: paramCardId,
             boardId: paramBoardId,
@@ -332,7 +332,7 @@ if (Meteor.isServer) {
           },
         });
 
-        const cardComment = CardComments.findOne({
+        const cardComment = ReactiveCache.getCardComment({
           _id: id,
           cardId: paramCardId,
           boardId: paramBoardId,

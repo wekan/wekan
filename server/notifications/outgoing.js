@@ -75,7 +75,7 @@ if (Meteor.isServer) {
     const newComment = data.comment;
     if (paramCardId && paramBoardId && newComment) {
       // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
-      const comment = CardComments.findOne({
+      const comment = ReactiveCache.getCardComment({
         _id: paramCommentId,
         cardId: paramCardId,
         boardId: paramBoardId,
