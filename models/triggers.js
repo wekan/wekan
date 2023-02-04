@@ -41,9 +41,7 @@ Triggers.helpers({
   },
 
   getRule() {
-    return Rules.findOne({
-      triggerId: this._id,
-    });
+    return ReactiveCache.getRule({ triggerId: this._id });
   },
 
   fromList() {

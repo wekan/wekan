@@ -107,6 +107,14 @@ ReactiveCacheServer = {
     const ret = Activities.find(selector, options).fetch();
     return ret;
   },
+  getRule(idOrFirstObjectSelector, options) {
+    const ret = Rules.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getRules(selector, options) {
+    const ret = Rules.find(selector, options).fetch();
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -433,6 +441,30 @@ ReactiveCacheClient = {
     const ret = this.__activities.get(Jsons.stringify(select));
     return ret;
   },
+  getRule(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__rule) {
+      this.__rule = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = Rules.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__rule.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getRules(selector, options) {
+    const select = {selector, options}
+    if (!this.__rules) {
+      this.__rules = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        const _ret = Rules.find(__select.selector, __select.options).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__rules.get(Jsons.stringify(select));
+    return ret;
+  },
   getCurrentSetting() {
     if (!this.__currentSetting || !this.__currentSetting.get()) {
       this.__currentSetting = new DataCache(() => {
@@ -693,6 +725,24 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getActivities(selector, options);
     } else {
       ret = ReactiveCacheClient.getActivities(selector, options);
+    }
+    return ret;
+  },
+  getRule(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getRule(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getRule(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getRules(selector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getRules(selector, options);
+    } else {
+      ret = ReactiveCacheClient.getRules(selector, options);
     }
     return ret;
   },

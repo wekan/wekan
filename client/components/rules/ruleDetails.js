@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.subscribe('allRules');
@@ -7,9 +9,7 @@ BlazeComponent.extendComponent({
 
   trigger() {
     const ruleId = this.data().ruleId;
-    const rule = Rules.findOne({
-      _id: ruleId.get(),
-    });
+    const rule = ReactiveCache.getRule(ruleId.get());
     const trigger = Triggers.findOne({
       _id: rule.triggerId,
     });
@@ -19,9 +19,7 @@ BlazeComponent.extendComponent({
   },
   action() {
     const ruleId = this.data().ruleId;
-    const rule = Rules.findOne({
-      _id: ruleId.get(),
-    });
+    const rule = ReactiveCache.getRule(ruleId.get());
     const action = Actions.findOne({
       _id: rule.actionId,
     });
