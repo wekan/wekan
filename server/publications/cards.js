@@ -180,7 +180,7 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_TEAM)) {
       const teams = [];
       queryParams.getPredicates(OPERATOR_TEAM).forEach(name => {
-        const team = Team.findOne({
+        const team = ReactiveCache.getTeam({
           $or: [
             { teamDisplayName: name },
             { teamShortName: name }
