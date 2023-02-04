@@ -293,7 +293,7 @@ RulesHelper = {
         title: action.checklistName,
         cardId: card._id,
       });
-      const checkItem = ChecklistItems.findOne({
+      const checkItem = ReactiveCache.getChecklistItem({
         title: action.checkItemName,
         checkListId: checkList._id,
       });
@@ -304,7 +304,7 @@ RulesHelper = {
         title: action.checklistName,
         cardId: card._id,
       });
-      const checkItem = ChecklistItems.findOne({
+      const checkItem = ReactiveCache.getChecklistItem({
         title: action.checkItemName,
         checkListId: checkList._id,
       });
