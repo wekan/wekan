@@ -55,7 +55,7 @@ Triggers.helpers({
   },
 
   findList(title) {
-    return Lists.findOne({
+    return ReactiveCache.getList({
       title,
     });
   },

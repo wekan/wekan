@@ -57,7 +57,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
     if (!this.selectedSwimlaneId.get() || !ReactiveCache.getSwimlane({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstSwimlaneId();
     }
-    if (!this.selectedListId.get() || !Lists.findOne({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
+    if (!this.selectedListId.get() || !ReactiveCache.getList({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstListId();
     }
   }

@@ -150,7 +150,7 @@ Swimlanes.helpers({
 
   move(toBoardId) {
     this.lists().forEach(list => {
-      const toList = Lists.findOne({
+      const toList = ReactiveCache.getList({
         boardId: toBoardId,
         title: list.title,
         archived: false,

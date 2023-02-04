@@ -251,7 +251,7 @@ BlazeComponent.extendComponent({
           if (lastList) {
             const positionInput = this.find('.list-position-input');
             const position = positionInput.value.trim();
-            const ret = Lists.findOne({ boardId: Utils.getCurrentBoardId(), _id: position, archived: false })
+            const ret = ReactiveCache.getList({ boardId: Utils.getCurrentBoardId(), _id: position, archived: false })
             sortIndex = parseInt(JSON.stringify(ret['sort']))
             sortIndex = sortIndex+1
           } else {

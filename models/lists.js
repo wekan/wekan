@@ -195,7 +195,7 @@ Lists.helpers({
     this.swimlaneId = swimlaneId;
 
     let _id = null;
-    const existingListWithSameName = Lists.findOne({
+    const existingListWithSameName = ReactiveCache.getList({
       boardId,
       title: this.title,
       archived: false,
@@ -219,7 +219,7 @@ Lists.helpers({
   },
 
   move(boardId, swimlaneId) {
-    const boardList = Lists.findOne({
+    const boardList = ReactiveCache.getList({
       boardId,
       title: this.title,
       archived: false,
@@ -534,7 +534,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Lists.findOne({
+        data: ReactiveCache.getList({
           _id: paramListId,
           boardId: paramBoardId,
           archived: false,

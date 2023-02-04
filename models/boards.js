@@ -763,7 +763,7 @@ Boards.helpers({
    * @returns Document the last list
    */
   getLastList() {
-    const ret = Lists.findOne({ boardId: this._id }, { sort: { sort: 'desc' } });
+    const ret = ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
     return ret;
   },
 

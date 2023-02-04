@@ -69,10 +69,10 @@ RulesHelper = {
       if (action.listName === '*') {
         list = card.list();
         if (boardId !== action.boardId) {
-          list = Lists.findOne({ title: list.title, boardId: action.boardId });
+          list = ReactiveCache.getList({ title: list.title, boardId: action.boardId });
         }
       } else {
-        list = Lists.findOne({
+        list = ReactiveCache.getList({
           title: action.listName,
           boardId: action.boardId,
         });
@@ -349,7 +349,7 @@ RulesHelper = {
       }
     }
     if (action.actionType === 'createCard') {
-      const list = Lists.findOne({ title: action.listName, boardId });
+      const list = ReactiveCache.getList({ title: action.listName, boardId });
       let listId = '';
       let swimlaneId = '';
       const swimlane = ReactiveCache.getSwimlane({
@@ -375,7 +375,7 @@ RulesHelper = {
       });
     }
     if (action.actionType === 'linkCard') {
-      const list = Lists.findOne({ title: action.listName, boardId: action.boardId });
+      const list = ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
       const card = ReactiveCache.getCard(activity.cardId);
       let listId = '';
       let swimlaneId = '';
