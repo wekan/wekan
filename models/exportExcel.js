@@ -38,7 +38,7 @@ runOnServer(function() {
     const loginToken = params.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
-      user = Meteor.users.findOne({
+      user = ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
       adminId = user._id.toString();

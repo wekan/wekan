@@ -1518,7 +1518,7 @@ if (Meteor.isServer) {
     impersonate(userId) {
       check(userId, String);
 
-      if (!Meteor.users.findOne(userId))
+      if (!ReactiveCache.getUser(userId))
         throw new Meteor.Error(404, 'User not found');
       if (!ReactiveCache.getCurrentUser().isAdmin)
         throw new Meteor.Error(403, 'Permission denied');
@@ -1621,7 +1621,7 @@ if (Meteor.isServer) {
       user.authenticationMethod = 'oauth2';
 
       // see if any existing user has this email address or username, otherwise create new
-      const existingUser = Meteor.users.findOne({
+      const existingUser = ReactiveCache.getUser({
         $or: [
           {
             'emails.address': email,
@@ -2025,7 +2025,7 @@ if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/user', function (req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
-      const data = Meteor.users.findOne({
+      const data = ReactiveCache.getUser({
         _id: req.userId,
       });
       delete data.services;
@@ -2106,11 +2106,11 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId(req.userId);
       let id = req.params.userId;
-      let user = Meteor.users.findOne({
+      let user = ReactiveCache.getUser({
         _id: id,
       });
       if (!user) {
-        user = Meteor.users.findOne({
+        user = ReactiveCache.getUser({
           username: id,
         });
         id = user._id;
@@ -2171,7 +2171,7 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
       const action = req.body.action;
-      let data = Meteor.users.findOne({
+      let data = ReactiveCache.getUser({
         _id: id,
       });
       if (data !== undefined) {
@@ -2221,9 +2221,7 @@ if (Meteor.isServer) {
               },
             );
           }
-          data = Meteor.users.findOne({
-            _id: id,
-          });
+          data = ReactiveCache.getUser(id);
         }
       }
       JsonRoutes.sendResult(res, {
@@ -2269,9 +2267,7 @@ if (Meteor.isServer) {
         const boardId = req.params.boardId;
         const action = req.body.action;
         const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
-        let data = Meteor.users.findOne({
-          _id: userId,
-        });
+        let data = ReactiveCache.getUser(userId);
         if (data !== undefined) {
           if (action === 'add') {
             data = Boards.find({
@@ -2332,9 +2328,7 @@ if (Meteor.isServer) {
         const userId = req.params.userId;
         const boardId = req.params.boardId;
         const action = req.body.action;
-        let data = Meteor.users.findOne({
-          _id: userId,
-        });
+        let data = ReactiveCache.getUser(userId);
         if (data !== undefined) {
           if (action === 'remove') {
             data = Boards.find({
