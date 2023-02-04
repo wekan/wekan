@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Exporter } from './exporter';
 import { Meteor } from 'meteor/meteor';
 
@@ -43,7 +44,7 @@ if (Meteor.isServer) {
       });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
-      user = Users.findOne({ _id: req.userId, isAdmin: true });
+      user = ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
     }
     const exporter = new Exporter(boardId);
     if (exporter.canExport(user) || impersonateDone) {
@@ -107,7 +108,7 @@ if (Meteor.isServer) {
         });
       } else if (!Meteor.settings.public.sandstorm) {
         Authentication.checkUserId(req.userId);
-        user = Users.findOne({ _id: req.userId, isAdmin: true });
+        user = ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
       }
       const exporter = new Exporter(boardId, attachmentId);
       if (exporter.canExport(user) || impersonateDone) {
@@ -163,7 +164,7 @@ if (Meteor.isServer) {
       });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
-      user = Users.findOne({
+      user = ReactiveCache.getUser({
         _id: req.userId,
         isAdmin: true,
       });

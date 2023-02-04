@@ -312,7 +312,7 @@ if (isSandstorm && Meteor.isServer) {
     const username = doc.services.sandstorm.preferredHandle;
     let appendNumber = 0;
     while (
-      Users.findOne({
+      ReactiveCache.getUser({
         _id: { $ne: doc._id },
         username: generateUniqueUsername(username, appendNumber),
       })

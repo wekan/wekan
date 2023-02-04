@@ -515,7 +515,7 @@ Users.allow({
     const adminsNumber = Users.find({
       isAdmin: true,
     }).count();
-    const { isAdmin } = Users.findOne(
+    const isAdmin = ReactiveCache.getUser(
       {
         _id: userId,
       },
@@ -1262,10 +1262,8 @@ if (Meteor.isServer) {
             from: 'admin',
           });
           const user =
-            Users.findOne(username) ||
-            Users.findOne({
-              username,
-            });
+            ReactiveCache.getUser(username) ||
+            ReactiveCache.getUser({ username });
           if (user) {
             Users.update(user._id, {
               $set: {
@@ -1305,7 +1303,7 @@ if (Meteor.isServer) {
         if (Array.isArray(email)) {
           email = email.shift();
         }
-        const existingUser = Users.findOne(
+        const existingUser = ReactiveCache.getUser(
           {
             'emails.address': email,
           },
@@ -1402,7 +1400,7 @@ if (Meteor.isServer) {
       const posAt = username.indexOf('@');
       let user = null;
       if (posAt >= 0) {
-        user = Users.findOne({
+        user = ReactiveCache.getUser({
           emails: {
             $elemMatch: {
               address: username,
@@ -1411,10 +1409,8 @@ if (Meteor.isServer) {
         });
       } else {
         user =
-          Users.findOne(username) ||
-          Users.findOne({
-            username,
-          });
+          ReactiveCache.getUser(username) ||
+          ReactiveCache.getUser({ username });
       }
       if (user) {
         if (user._id === inviter._id)

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { runOnServer } from './runOnServer';
 
@@ -46,7 +47,7 @@ runOnServer(function() {
       });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
-      user = Users.findOne({
+      user = ReactiveCache.getUser({
         _id: req.userId,
         isAdmin: true,
       });

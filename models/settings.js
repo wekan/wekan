@@ -349,7 +349,7 @@ if (Meteor.isServer) {
       emails.forEach(email => {
         if (email && SimpleSchema.RegEx.Email.test(email)) {
           // Checks if the email is already link to an account.
-          const userExist = Users.findOne({ email });
+          const userExist = ReactiveCache.getUser({ email });
           if (userExist) {
             rc = -1;
             throw new Meteor.Error(

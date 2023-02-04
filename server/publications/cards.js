@@ -334,7 +334,7 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_USER)) {
       const users = [];
       queryParams.getPredicates(OPERATOR_USER).forEach(username => {
-        const user = Users.findOne({ username });
+        const user = ReactiveCache.getUser({ username });
         if (user) {
           users.push(user._id);
         } else {
@@ -352,7 +352,7 @@ function buildSelector(queryParams) {
       if (queryParams.hasOperator(key)) {
         const users = [];
         queryParams.getPredicates(key).forEach(username => {
-          const user = Users.findOne({ username });
+          const user = ReactiveCache.getUser({ username });
           if (user) {
             users.push(user._id);
           } else {

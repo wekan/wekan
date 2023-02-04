@@ -1646,7 +1646,7 @@ Template.cardAssigneesPopup.helpers({
 
 Template.cardAssigneePopup.helpers({
   userData() {
-    return Users.findOne(this.userId, {
+    return ReactiveCache.getUser(this.userId, {
       fields: {
         profile: 1,
         username: 1,
