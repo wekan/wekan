@@ -158,7 +158,7 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_ORG)) {
       const orgs = [];
       queryParams.getPredicates(OPERATOR_ORG).forEach(name => {
-        const org = Org.findOne({
+        const org = ReactiveCache.getOrg({
           $or: [
             { orgDisplayName: name },
             { orgShortName: name }
