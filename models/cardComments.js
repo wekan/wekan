@@ -98,7 +98,7 @@ CardComments.helpers({
   },
 
   reactions() {
-    const cardCommentReactions = CardCommentReactions.findOne({cardCommentId: this._id});
+    const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
     return !!cardCommentReactions ? cardCommentReactions.reactions : [];
   },
 
@@ -107,7 +107,7 @@ CardComments.helpers({
       return false;
     } else {
 
-      const cardCommentReactions = CardCommentReactions.findOne({cardCommentId: this._id});
+      const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
       const reactions = !!cardCommentReactions ? cardCommentReactions.reactions : [];
       const userId = Meteor.userId();
       const reaction = reactions.find(r => r.reactionCodepoint === reactionCodepoint);

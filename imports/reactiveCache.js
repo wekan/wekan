@@ -59,6 +59,14 @@ ReactiveCacheServer = {
     const ret = CardComments.find(selector, options).fetch();
     return ret;
   },
+  getCardCommentReaction(idOrFirstObjectSelector, options) {
+    const ret = CardCommentReactions.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getCardCommentReactions(selector, options) {
+    const ret = CardCommentReactions.find(selector, options).fetch();
+    return ret;
+  },
   getCustomField(idOrFirstObjectSelector, options) {
     const ret = CustomFields.findOne(idOrFirstObjectSelector, options);
     return ret;
@@ -311,6 +319,30 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__cardComments.get(Jsons.stringify(select));
+    return ret;
+  },
+  getCardCommentReaction(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__cardCommentReaction) {
+      this.__cardCommentReaction = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = CardCommentReactions.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__cardCommentReaction.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getCardCommentReactions(selector, options) {
+    const select = {selector, options}
+    if (!this.__cardCommentReactions) {
+      this.__cardCommentReactions = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        const _ret = CardCommentReactions.find(__select.selector, __select.options).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__cardCommentReactions.get(Jsons.stringify(select));
     return ret;
   },
   getCustomField(idOrFirstObjectSelector, options) {
@@ -681,6 +713,24 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getCardComments(selector, options);
     } else {
       ret = ReactiveCacheClient.getCardComments(selector, options);
+    }
+    return ret;
+  },
+  getCardCommentReaction(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getCardCommentReaction(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getCardCommentReaction(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getCardCommentReactions(selector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getCardCommentReactions(selector, options);
+    } else {
+      ret = ReactiveCacheClient.getCardCommentReactions(selector, options);
     }
     return ret;
   },
