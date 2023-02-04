@@ -10,9 +10,7 @@ BlazeComponent.extendComponent({
   trigger() {
     const ruleId = this.data().ruleId;
     const rule = ReactiveCache.getRule(ruleId.get());
-    const trigger = Triggers.findOne({
-      _id: rule.triggerId,
-    });
+    const trigger = ReactiveCache.getTrigger(rule.triggerId);
     const desc = trigger.description();
     const upperdesc = desc.charAt(0).toUpperCase() + desc.substr(1);
     return upperdesc;

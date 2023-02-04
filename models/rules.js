@@ -61,13 +61,13 @@ Rules.helpers({
     return ReactiveCache.getAction(this.actionId);
   },
   getTrigger() {
-    return Triggers.findOne({ _id: this.triggerId });
+    return ReactiveCache.getTrigger(this.triggerId);
   },
   board() {
     return ReactiveCache.getBoard(this.boardId);
   },
   trigger() {
-    return Triggers.findOne({ _id: this.triggerId });
+    return ReactiveCache.getTrigger(this.triggerId);
   },
   action() {
     return ReactiveCache.getAction(this.actionId);

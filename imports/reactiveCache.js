@@ -123,6 +123,14 @@ ReactiveCacheServer = {
     const ret = Actions.find(selector, options).fetch();
     return ret;
   },
+  getTrigger(idOrFirstObjectSelector, options) {
+    const ret = Triggers.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getTriggers(selector, options) {
+    const ret = Triggers.find(selector, options).fetch();
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -497,6 +505,30 @@ ReactiveCacheClient = {
     const ret = this.__actions.get(Jsons.stringify(select));
     return ret;
   },
+  getTrigger(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__trigger) {
+      this.__trigger = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = Triggers.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__trigger.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getTriggers(selector, options) {
+    const select = {selector, options}
+    if (!this.__triggers) {
+      this.__triggers = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        const _ret = Triggers.find(__select.selector, __select.options).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__triggers.get(Jsons.stringify(select));
+    return ret;
+  },
   getCurrentSetting() {
     if (!this.__currentSetting || !this.__currentSetting.get()) {
       this.__currentSetting = new DataCache(() => {
@@ -793,6 +825,24 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getActions(selector, options);
     } else {
       ret = ReactiveCacheClient.getActions(selector, options);
+    }
+    return ret;
+  },
+  getTrigger(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getTrigger(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getTrigger(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getTriggers(selector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getTriggers(selector, options);
+    } else {
+      ret = ReactiveCacheClient.getTriggers(selector, options);
     }
     return ret;
   },
