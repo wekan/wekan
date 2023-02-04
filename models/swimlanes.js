@@ -437,7 +437,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Swimlanes.findOne({
+        data: ReactiveCache.getSwimlane({
           _id: paramSwimlaneId,
           boardId: paramBoardId,
           archived: false,
@@ -501,7 +501,7 @@ if (Meteor.isServer) {
       const paramSwimlaneId = req.params.swimlaneId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       const board = ReactiveCache.getBoard(paramBoardId);
-      const swimlane = Swimlanes.findOne({
+      const swimlane = ReactiveCache.getSwimlane({
         _id: paramSwimlaneId,
         boardId: paramBoardId,
       });

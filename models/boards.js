@@ -783,7 +783,7 @@ Boards.helpers({
   },
 
   nextSwimlane(swimlane) {
-    return Swimlanes.findOne(
+    return ReactiveCache.getSwimlane(
       {
         boardId: this._id,
         archived: false,
@@ -1193,13 +1193,13 @@ Boards.helpers({
   },
 
   getDefaultSwimline() {
-    let result = Swimlanes.findOne({ boardId: this._id });
+    let result = ReactiveCache.getSwimlane({ boardId: this._id });
     if (result === undefined) {
       Swimlanes.insert({
         title: TAPi18n.__('default'),
         boardId: this._id,
       });
-      result = Swimlanes.findOne({ boardId: this._id });
+      result = ReactiveCache.getSwimlane({ boardId: this._id });
     }
     return result;
   },

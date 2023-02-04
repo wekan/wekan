@@ -13,12 +13,12 @@ BlazeComponent.extendComponent({
     const listId = targetBoard.getDefaultSubtasksListId();
 
     //Get the full swimlane data for the parent task.
-    const parentSwimlane = Swimlanes.findOne({
+    const parentSwimlane = ReactiveCache.getSwimlane({
       boardId: crtBoard._id,
       _id: card.swimlaneId,
     });
     //find the swimlane of the same name in the target board.
-    const targetSwimlane = Swimlanes.findOne({
+    const targetSwimlane = ReactiveCache.getSwimlane({
       boardId: targetBoard._id,
       title: parentSwimlane.title,
     });

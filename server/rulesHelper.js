@@ -88,19 +88,19 @@ RulesHelper = {
       if (action.swimlaneName === '*') {
         swimlane = ReactiveCache.getSwimlane(card.swimlaneId);
         if (boardId !== action.boardId) {
-          swimlane = Swimlanes.findOne({
+          swimlane = ReactiveCache.getSwimlane({
             title: swimlane.title,
             boardId: action.boardId,
           });
         }
       } else {
-        swimlane = Swimlanes.findOne({
+        swimlane = ReactiveCache.getSwimlane({
           title: action.swimlaneName,
           boardId: action.boardId,
         });
       }
       if (swimlane === undefined) {
-        swimlaneId = Swimlanes.findOne({
+        swimlaneId = ReactiveCache.getSwimlane({
           title: 'Default',
           boardId: action.boardId,
         })._id;
@@ -352,7 +352,7 @@ RulesHelper = {
       const list = Lists.findOne({ title: action.listName, boardId });
       let listId = '';
       let swimlaneId = '';
-      const swimlane = Swimlanes.findOne({
+      const swimlane = ReactiveCache.getSwimlane({
         title: action.swimlaneName,
         boardId,
       });
@@ -362,7 +362,7 @@ RulesHelper = {
         listId = list._id;
       }
       if (swimlane === undefined) {
-        swimlaneId = Swimlanes.findOne({ title: 'Default', boardId })._id;
+        swimlaneId = ReactiveCache.getSwimlane({ title: 'Default', boardId })._id;
       } else {
         swimlaneId = swimlane._id;
       }
@@ -379,7 +379,7 @@ RulesHelper = {
       const card = ReactiveCache.getCard(activity.cardId);
       let listId = '';
       let swimlaneId = '';
-      const swimlane = Swimlanes.findOne({
+      const swimlane = ReactiveCache.getSwimlane({
         title: action.swimlaneName,
         boardId: action.boardId,
       });
@@ -389,7 +389,7 @@ RulesHelper = {
         listId = list._id;
       }
       if (swimlane === undefined) {
-        swimlaneId = Swimlanes.findOne({ title: 'Default', boardId: action.boardId })._id;
+        swimlaneId = ReactiveCache.getSwimlane({ title: 'Default', boardId: action.boardId })._id;
       } else {
         swimlaneId = swimlane._id;
       }

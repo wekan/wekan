@@ -440,7 +440,7 @@ BlazeComponent.extendComponent({
     if (Utils.boardView() === 'board-view-swimlanes')
       this.swimlaneId = Blaze.getData(swimlane[0])._id;
     else if (Utils.boardView() === 'board-view-lists' || !Utils.boardView)
-      this.swimlaneId = Swimlanes.findOne({ boardId: this.boardId })._id;
+      this.swimlaneId = ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
   },
 
   boards() {
@@ -642,7 +642,7 @@ BlazeComponent.extendComponent({
       );
       if (Utils.boardView() === 'board-view-swimlanes')
         this.swimlaneId = Blaze.getData(swimlane[0])._id;
-      else this.swimlaneId = Swimlanes.findOne({ boardId: this.boardId })._id;
+      else this.swimlaneId = ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
       // List where to insert card
       this.listId = Blaze.getData(this.list[0])._id;
     }
