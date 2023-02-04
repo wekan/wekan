@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 // exporter maybe is broken since Gridfs introduced, add fs and path
 import { createWorkbook } from './createWorkbook';
 
@@ -33,7 +34,7 @@ class ExporterCardPDF {
         };
         _.extend(
           result,
-          Boards.findOne(this._boardId, {
+          ReactiveCache.getBoard(this._boardId, {
             fields: {
               stars: 0,
             },
@@ -621,7 +622,7 @@ class ExporterCardPDF {
   }
 
   canExport(user) {
-    const board = Boards.findOne(this._boardId);
+    const board = ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

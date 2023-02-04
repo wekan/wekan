@@ -250,7 +250,7 @@ if (isSandstorm && Meteor.isServer) {
       isWorker,
     };
 
-    const boardMembers = Boards.findOne(sandstormBoard._id).members;
+    const boardMembers = ReactiveCache.getBoard(sandstormBoard._id).members;
     const memberIndex = _.pluck(boardMembers, 'userId').indexOf(userId);
 
     let modifier;
@@ -288,7 +288,7 @@ if (isSandstorm && Meteor.isServer) {
   // called, the user is inserted into the database but not connected. So
   // despite the appearances `userId` is null in this block.
   Users.after.insert((userId, doc) => {
-    if (!Boards.findOne(sandstormBoard._id)) {
+    if (!ReactiveCache.getBoard(sandstormBoard._id)) {
       Boards.insert(sandstormBoard, { validate: false });
       Swimlanes.insert({
         title: 'Default',

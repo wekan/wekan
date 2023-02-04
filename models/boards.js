@@ -1689,7 +1689,7 @@ if (Meteor.isServer) {
   Meteor.methods({
     getBackgroundImageURL(boardId) {
       check(boardId, String);
-      return Boards.findOne({ boardId: boardId }, {}, { backgroundImageUrl: 1 });
+      return ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
     },
     quitBoard(boardId) {
       check(boardId, String);
@@ -1781,7 +1781,7 @@ if (Meteor.isServer) {
 
 // Insert new board at last position in sort order.
 Boards.before.insert((userId, doc) => {
-  const lastBoard = Boards.findOne(
+  const lastBoard = ReactiveCache.getBoard(
     { sort: { $exists: true } },
     { sort: { sort: -1 } },
   );
@@ -2061,7 +2061,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Boards.findOne({ _id: paramBoardId }),
+        data: ReactiveCache.getBoard(paramBoardId),
       });
     } catch (error) {
       JsonRoutes.sendResult(res, {
@@ -2178,7 +2178,7 @@ if (Meteor.isServer) {
     Authentication.checkBoardAccess(req.userId, id);
     try {
       if (req.body.hasOwnProperty('label')) {
-        const board = Boards.findOne({ _id: id });
+        const board = ReactiveCache.getBoard(id);
         const color = req.body.label.color;
         const name = req.body.label.name;
         const labelId = Random.id(6);
@@ -2225,7 +2225,7 @@ if (Meteor.isServer) {
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
       const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
-      const board = Boards.findOne({ _id: boardId });
+      const board = ReactiveCache.getBoard(boardId);
       function isTrue(data) {
         try {
           return data.toLowerCase() === 'true';

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
@@ -35,7 +36,7 @@ class ExporterExcel {
     };
     _.extend(
       result,
-      Boards.findOne(this._boardId, {
+      ReactiveCache.getBoard(this._boardId, {
         fields: {
           stars: 0,
         },
@@ -886,7 +887,7 @@ class ExporterExcel {
   }
 
   canExport(user) {
-    const board = Boards.findOne(this._boardId);
+    const board = ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

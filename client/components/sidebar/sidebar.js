@@ -619,7 +619,7 @@ function draggableMembersLabelsWidgets() {
     const currentBoardId = Tracker.nonreactive(() => {
       return Session.get('currentBoard');
     });
-    Boards.findOne(currentBoardId, {
+    ReactiveCache.getBoard(currentBoardId, {
       fields: {
         members: 1,
         labels: 1,

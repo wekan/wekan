@@ -899,7 +899,7 @@ Users.helpers({
   },
 
   getTemplatesBoardSlug() {
-    //return (Boards.findOne((this.profile || {}).templatesBoardId) || {}).slug;
+    //return (ReactiveCache.getBoard((this.profile || {}).templatesBoardId) || {}).slug;
     return 'templates';
   },
 
