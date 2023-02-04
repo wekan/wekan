@@ -533,7 +533,7 @@ Cards.helpers({
     // Map custom fields to new board
     return this.customFields.map(cf => {
       const oldCf = ReactiveCache.getCustomField(cf._id);
-      const newCf = CustomFields.findOne({
+      const newCf = ReactiveCache.getCustomField({
         boardIds: boardId,
         name: oldCf.name,
         type: oldCf.type,

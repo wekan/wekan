@@ -337,7 +337,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: CustomFields.findOne({
+        data: ReactiveCache.getCustomField({
           _id: paramCustomFieldId,
           boardIds: { $in: [paramBoardId] },
         }),
@@ -377,7 +377,7 @@ if (Meteor.isServer) {
       boardIds: [board._id],
     });
 
-    const customField = CustomFields.findOne({
+    const customField = ReactiveCache.getCustomField({
       _id: id,
       boardIds: { $in: [paramBoardId] },
     });

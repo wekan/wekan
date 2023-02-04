@@ -372,14 +372,14 @@ class AdvancedFilter {
   }
 
   _fieldNameToId(field) {
-    const found = CustomFields.findOne({
+    const found = ReactiveCache.getCustomField({
       name: field,
     });
     return found._id;
   }
 
   _fieldValueToId(field, value) {
-    const found = CustomFields.findOne({
+    const found = ReactiveCache.getCustomField({
       name: field,
     });
     if (
