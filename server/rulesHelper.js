@@ -275,21 +275,21 @@ RulesHelper = {
       }
     }
     if (action.actionType === 'checkAll') {
-      const checkList = Checklists.findOne({
+      const checkList = ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
       checkList.checkAllItems();
     }
     if (action.actionType === 'uncheckAll') {
-      const checkList = Checklists.findOne({
+      const checkList = ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
       checkList.uncheckAllItems();
     }
     if (action.actionType === 'checkItem') {
-      const checkList = Checklists.findOne({
+      const checkList = ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
@@ -300,7 +300,7 @@ RulesHelper = {
       checkItem.check();
     }
     if (action.actionType === 'uncheckItem') {
-      const checkList = Checklists.findOne({
+      const checkList = ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });

@@ -303,7 +303,7 @@ if (Meteor.isServer) {
       const paramChecklistId = req.params.checklistId;
       const paramCardId = req.params.cardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklist = Checklists.findOne({
+      const checklist = ReactiveCache.getChecklist({
         _id: paramChecklistId,
         cardId: paramCardId,
       });
