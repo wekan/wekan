@@ -805,7 +805,7 @@ Boards.helpers({
   },
 
   hasOvertimeCards() {
-    const card = Cards.findOne({
+    const card = ReactiveCache.getCard({
       isOvertime: true,
       boardId: this._id,
       archived: false,
@@ -814,7 +814,7 @@ Boards.helpers({
   },
 
   hasSpentTimeCards() {
-    const card = Cards.findOne({
+    const card = ReactiveCache.getCard({
       spentTime: { $gt: 0 },
       boardId: this._id,
       archived: false,

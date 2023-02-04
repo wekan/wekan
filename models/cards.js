@@ -727,7 +727,7 @@ Cards.helpers({
       archived: false,
     };
     const sorting = top ? 1 : -1;
-    const card = Cards.findOne(selector, { sort: { sort: sorting } });
+    const card = ReactiveCache.getCard(selector, { sort: { sort: sorting } }, true);
     let ret = null
     if (card) {
       ret = card.sort;
@@ -3287,7 +3287,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Cards.findOne({
+        data: ReactiveCache.getCard({
           _id: paramCardId,
           listId: paramListId,
           boardId: paramBoardId,
@@ -3937,7 +3937,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramCustomFieldId = req.params.customFieldId;
       const paramCustomFieldValue = req.body.value;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const card = Cards.findOne({
+      const card = ReactiveCache.getCard({
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,

@@ -566,7 +566,7 @@ BlazeComponent.extendComponent({
           const impBoardId = $('.js-select-boards option:selected').val();
           if (
             !impBoardId ||
-            Cards.findOne({ linkedId: impBoardId, archived: false })
+            ReactiveCache.getCard({ linkedId: impBoardId, archived: false })
           ) {
             Popup.back();
             return;

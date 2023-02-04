@@ -552,9 +552,9 @@ ReactiveCache = {
     }
     return ret;
   },
-  getCard(idOrFirstObjectSelector, options) {
+  getCard(idOrFirstObjectSelector, options, noCache = false) {
     let ret;
-    if (Meteor.isServer) {
+    if (Meteor.isServer || noCache === true) {
       ret = ReactiveCacheServer.getCard(idOrFirstObjectSelector, options);
     } else {
       ret = ReactiveCacheClient.getCard(idOrFirstObjectSelector, options);
