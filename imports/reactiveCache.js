@@ -147,6 +147,14 @@ ReactiveCacheServer = {
     const ret = ImpersonatedUsers.find(selector, options).fetch();
     return ret;
   },
+  getIntegration(idOrFirstObjectSelector, options) {
+    const ret = Integrations.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getIntegrations(selector, options) {
+    const ret = Integrations.find(selector, options).fetch();
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -593,6 +601,30 @@ ReactiveCacheClient = {
     const ret = this.__impersonatedUsers.get(Jsons.stringify(select));
     return ret;
   },
+  getIntegration(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__integration) {
+      this.__integration = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = Integrations.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__integration.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getIntegrations(selector, options) {
+    const select = {selector, options}
+    if (!this.__integrations) {
+      this.__integrations = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        const _ret = Integrations.find(__select.selector, __select.options).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__integrations.get(Jsons.stringify(select));
+    return ret;
+  },
   getCurrentSetting() {
     if (!this.__currentSetting || !this.__currentSetting.get()) {
       this.__currentSetting = new DataCache(() => {
@@ -943,6 +975,24 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getImpersonatedUsers(selector, options);
     } else {
       ret = ReactiveCacheClient.getImpersonatedUsers(selector, options);
+    }
+    return ret;
+  },
+  getIntegration(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getIntegration(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getIntegration(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getIntegrations(selector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getIntegrations(selector, options);
+    } else {
+      ret = ReactiveCacheClient.getIntegrations(selector, options);
     }
     return ret;
   },

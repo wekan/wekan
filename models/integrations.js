@@ -177,7 +177,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Integrations.findOne(
+        data: ReactiveCache.getIntegration(
           { _id: paramIntId, boardId: paramBoardId },
           { fields: { token: 0 } },
         ),
@@ -324,7 +324,7 @@ if (Meteor.isServer) {
 
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: Integrations.findOne(
+          data: ReactiveCache.getIntegration(
             { _id: paramIntId, boardId: paramBoardId },
             { fields: { _id: 1, activities: 1 } },
           ),
@@ -364,7 +364,7 @@ if (Meteor.isServer) {
 
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: Integrations.findOne(
+          data: ReactiveCache.getIntegration(
             { _id: paramIntId, boardId: paramBoardId },
             { fields: { _id: 1, activities: 1 } },
           ),

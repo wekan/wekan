@@ -437,7 +437,7 @@ BlazeComponent.extendComponent({
     for (const k in condition) {
       if (!condition[k]) delete condition[k];
     }
-    return Integrations.findOne(condition);
+    return ReactiveCache.getIntegration(condition);
   },
   onCreated() {
     this.disabled = new ReactiveVar(false);

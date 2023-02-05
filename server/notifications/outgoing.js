@@ -163,7 +163,7 @@ if (Meteor.isServer) {
           data: is2way ? { description, ...clonedParams } : value,
         };
 
-        if (!Integrations.findOne({ url: integration.url })) return;
+        if (!ReactiveCache.getIntegration({ url: integration.url })) return;
 
         const url = integration.url;
 
