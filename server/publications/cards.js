@@ -648,7 +648,7 @@ Meteor.publish('brokenCards', function(sessionId) {
 Meteor.publish('nextPage', function(sessionId) {
   check(sessionId, String);
 
-  const session = SessionData.findOne({ sessionId });
+  const session = ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
@@ -658,7 +658,7 @@ Meteor.publish('nextPage', function(sessionId) {
 Meteor.publish('previousPage', function(sessionId) {
   check(sessionId, String);
 
-  const session = SessionData.findOne({ sessionId });
+  const session = ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 

@@ -155,6 +155,14 @@ ReactiveCacheServer = {
     const ret = Integrations.find(selector, options).fetch();
     return ret;
   },
+  getSessionData(idOrFirstObjectSelector, options) {
+    const ret = SessionData.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getSessionDatas(selector, options) {
+    const ret = SessionData.find(selector, options).fetch();
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -994,6 +1002,16 @@ ReactiveCache = {
     } else {
       ret = ReactiveCacheClient.getIntegrations(selector, options);
     }
+    return ret;
+  },
+  getSessionData(idOrFirstObjectSelector, options) {
+    // no reactive cache, otherwise global search will not work anymore
+    let ret = ReactiveCacheServer.getSessionData(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getSessionDatas(selector, options) {
+    // no reactive cache, otherwise global search will not work anymore
+    let ret = ReactiveCacheServer.getSessionDatas(selector, options);
     return ret;
   },
   getCurrentSetting() {

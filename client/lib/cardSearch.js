@@ -62,8 +62,8 @@ export class CardSearchPagedComponent extends BlazeComponent {
   }
 
   getSessionData(sessionId) {
-    return SessionData.findOne({
-      sessionId: sessionId ? sessionId : SessionData.getSessionId(),
+    return ReactiveCache.getSessionData({
+      sessionId: sessionId || SessionData.getSessionId(),
     });
   }
 
