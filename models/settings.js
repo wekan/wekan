@@ -249,7 +249,7 @@ if (Meteor.isServer) {
   }
 
   function sendInvitationEmail(_id) {
-    const icode = InvitationCodes.findOne(_id);
+    const icode = ReactiveCache.getInvitationCode(_id);
     const author = ReactiveCache.getCurrentUser();
     try {
       const fullName = ReactiveCache.getUser(icode.authorId)?.profile?.fullname || "";
@@ -358,7 +358,7 @@ if (Meteor.isServer) {
             );
           }
           // Checks if the email is already link to an invitation.
-          const invitation = InvitationCodes.findOne({ email });
+          const invitation = ReactiveCache.getInvitationCode({ email });
           if (invitation) {
             InvitationCodes.update(invitation, {
               $set: { boardsToBeInvited: boards },

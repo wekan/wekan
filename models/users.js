@@ -1671,7 +1671,7 @@ if (Meteor.isServer) {
         'The invitation code is required',
       );
     }
-    const invitationCode = InvitationCodes.findOne({
+    const invitationCode = ReactiveCache.getInvitationCode({
       code: options.profile.invitationcode,
       email: options.email,
       valid: true,
@@ -1963,12 +1963,12 @@ if (Meteor.isServer) {
       let invitationCode = null;
       if (doc.authenticationMethod.toLowerCase() == 'oauth2') {
         // OIDC authentication mode
-        invitationCode = InvitationCodes.findOne({
+        invitationCode = ReactiveCache.getInvitationCode({
           email: doc.emails[0].address.toLowerCase(),
           valid: true,
         });
       } else {
-        invitationCode = InvitationCodes.findOne({
+        invitationCode = ReactiveCache.getInvitationCode({
           code: doc.profile.icode,
           valid: true,
         });

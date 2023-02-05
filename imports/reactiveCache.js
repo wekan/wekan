@@ -163,6 +163,14 @@ ReactiveCacheServer = {
     const ret = SessionData.find(selector, options).fetch();
     return ret;
   },
+  getInvitationCode(idOrFirstObjectSelector, options) {
+    const ret = InvitationCodes.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getInvitationCodes(selector, options) {
+    const ret = InvitationCodes.find(selector, options).fetch();
+    return ret;
+  },
   getCurrentSetting() {
     const ret = Settings.findOne();
     return ret;
@@ -633,6 +641,30 @@ ReactiveCacheClient = {
     const ret = this.__integrations.get(Jsons.stringify(select));
     return ret;
   },
+  getInvitationCode(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__invitationCode) {
+      this.__invitationCode = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = InvitationCodes.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__invitationCode.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getInvitationCodes(selector, options) {
+    const select = {selector, options}
+    if (!this.__invitationCodes) {
+      this.__invitationCodes = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        const _ret = InvitationCodes.find(__select.selector, __select.options).fetch();
+        return _ret;
+      });
+    }
+    const ret = this.__invitationCodes.get(Jsons.stringify(select));
+    return ret;
+  },
   getCurrentSetting() {
     if (!this.__currentSetting || !this.__currentSetting.get()) {
       this.__currentSetting = new DataCache(() => {
@@ -1012,6 +1044,24 @@ ReactiveCache = {
   getSessionDatas(selector, options) {
     // no reactive cache, otherwise global search will not work anymore
     let ret = ReactiveCacheServer.getSessionDatas(selector, options);
+    return ret;
+  },
+  getInvitationCode(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getInvitationCode(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getInvitationCode(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getInvitationCodes(selector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getInvitationCodes(selector, options);
+    } else {
+      ret = ReactiveCacheClient.getInvitationCodes(selector, options);
+    }
     return ret;
   },
   getCurrentSetting() {
