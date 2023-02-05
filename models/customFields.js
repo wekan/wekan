@@ -219,7 +219,7 @@ function customFieldDeletion(userId, doc) {
 // instead it shows undefined, and no listId and swimlaneId.
 function customFieldEdit(userId, doc) {
   const card = ReactiveCache.getCard(doc.cardId);
-  const customFieldValue = Activities.findOne({ customFieldId: doc._id }).value;
+  const customFieldValue = ReactiveCache.getActivity({ customFieldId: doc._id }).value;
   Activities.insert({
     userId,
     activityType: 'setCustomField',
