@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Update docker-compose.yml: removes quotes, with quotes this setting is not working](https://github.com/wekan/wekan/pull/4829).
+  Thanks to q16marvin.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.72 2023-02-02 WeKan ® release
 
 This release adds the following updates:
