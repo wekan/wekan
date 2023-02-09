@@ -163,7 +163,7 @@ Utils = {
 
   archivedBoardIds() {
     const archivedBoards = [];
-    Boards.find({ archived: false }).forEach(board => {
+    ReactiveCache.getBoards({ archived: false }).forEach(board => {
       archivedBoards.push(board._id);
     });
     return archivedBoards;

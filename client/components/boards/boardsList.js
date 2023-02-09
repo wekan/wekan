@@ -181,9 +181,10 @@ BlazeComponent.extendComponent({
       };
     }
 
-    return Boards.find(query, {
+    const ret = ReactiveCache.getBoards(query, {
       sort: { sort: 1 /* boards default sorting */ },
     });
+    return ret;
   },
   boardLists(boardId) {
     let boardLists = [];
@@ -248,7 +249,7 @@ BlazeComponent.extendComponent({
             'copyBoard',
             this.currentData()._id,
             {
-              sort: Boards.find({ archived: false }).count(),
+              sort: ReactiveCache.getBoards({ archived: false }).length,
               type: 'board',
               title: ReactiveCache.getBoard(this.currentData()._id).title,
             },
@@ -324,7 +325,7 @@ BlazeComponent.extendComponent({
               query.$and[2].$or.push({ 'orgs.orgId': { $in: selectedOrgsValues } });
             }
 
-            let filteredBoards = Boards.find(query, {}).fetch();
+            let filteredBoards = ReactiveCache.getBoards(query, {});
             let allBoards = document.getElementsByClassName("js-board");
             let currBoard;
             if (filteredBoards.length > 0) {

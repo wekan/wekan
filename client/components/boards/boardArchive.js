@@ -10,12 +10,13 @@ BlazeComponent.extendComponent({
   },
 
   archivedBoards() {
-    return Boards.find(
+    const ret = ReactiveCache.getBoards(
       { archived: true },
       {
         sort: { archivedAt: -1, modifiedAt: -1 },
       },
     );
+    return ret;
   },
 
   events() {

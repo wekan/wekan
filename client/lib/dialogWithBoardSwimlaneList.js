@@ -107,7 +107,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
 
   /** returns all available board */
   boards() {
-    const ret = Boards.find(
+    const ret = ReactiveCache.getBoards(
       {
         archived: false,
         'members.userId': Meteor.userId(),

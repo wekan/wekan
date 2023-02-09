@@ -345,7 +345,8 @@ class MoveSwimlaneComponent extends BlazeComponent {
   }
 
   toBoards() {
-    return Boards.find(this.toBoardsSelector(), { sort: { title: 1 } });
+    const ret = ReactiveCache.getBoards(this.toBoardsSelector(), { sort: { title: 1 } });
+    return ret;
   }
 
   events() {

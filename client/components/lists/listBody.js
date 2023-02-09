@@ -444,7 +444,7 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    const boards = Boards.find(
+    const ret = ReactiveCache.getBoards(
       {
         archived: false,
         'members.userId': Meteor.userId(),
@@ -455,7 +455,7 @@ BlazeComponent.extendComponent({
         sort: { sort: 1 /* boards default sorting */ },
       },
     );
-    return boards;
+    return ret;
   },
 
   swimlanes() {
@@ -650,7 +650,7 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    const boards = Boards.find(
+    const ret = ReactiveCache.getBoards(
       {
         archived: false,
         'members.userId': Meteor.userId(),
@@ -661,7 +661,7 @@ BlazeComponent.extendComponent({
         sort: { sort: 1 /* boards default sorting */ },
       },
     );
-    return boards;
+    return ret;
   },
 
   results() {
@@ -752,7 +752,7 @@ BlazeComponent.extendComponent({
               'copyBoard',
               element.linkedId,
               {
-                sort: Boards.find({ archived: false }).count(),
+                sort: ReactiveCache.getBoards({ archived: false }).length,
                 type: 'board',
                 title: element.title,
               },
