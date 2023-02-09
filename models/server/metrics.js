@@ -174,7 +174,7 @@ Meteor.startup(() => {
 
         getBoards(boardWithMostActivities).forEach((board, index) => {
           metricsRes +=
-            `wekan_top10BoardsWithMostActivities{n=${board.title}} ${
+            `wekan_top10BoardsWithMostActivities{n="${board.title}"} ${
               index + 1
             }` + '\n';
         });
