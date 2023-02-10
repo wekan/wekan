@@ -11,6 +11,10 @@ This release fixes the following bugs:
 
 - [Update docker-compose.yml: removes quotes, with quotes this setting is not working](https://github.com/wekan/wekan/pull/4829).
   Thanks to q16marvin.
+- [Fix double quotes around metric label](https://github.com/wekan/wekan/pull/4831).
+  Thanks to garciadavy.
+- [Back to MongoDB 6.x](https://github.com/wekan/wekan/commit/b5d35d464501cbca4dc4e4ee403c8bb205024b21).
+  Thanks to urmel1960 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
