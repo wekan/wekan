@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   wekandb-dev:
-    image: mongo:5
+    image: mongo:6
     container_name: wekan-dev-db
     restart: unless-stopped
     command: mongod --oplogSize 128
