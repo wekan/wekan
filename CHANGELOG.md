@@ -7,12 +7,7 @@ Download section.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
-
-- [Updated dependencies](https://github.com/wekan/wekan/commit/10c1df7af4fb81e8a246cb59d097ef3d791ff7ac).
-  Thanks to developers of dependencies.
-
-and fixes the following bugs:
+This release fixes the following bugs:
 
 - [Update docker-compose.yml: removes quotes, with quotes this setting is not working](https://github.com/wekan/wekan/pull/4829).
   Thanks to q16marvin.
@@ -20,6 +15,8 @@ and fixes the following bugs:
   Thanks to garciadavy.
 - [Back to MongoDB 6.x](https://github.com/wekan/wekan/commit/b5d35d464501cbca4dc4e4ee403c8bb205024b21).
   Thanks to urmel1960 and xet7.
+- [Try to fix building WeKan](https://github.com/wekan/wekan/commit/d9a7e135d33339aedf23875b67ac29c6f11f1bdb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
