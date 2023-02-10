@@ -5,6 +5,15 @@ Download section.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix typos in Snap config](https://github.com/wekan/wekan/commit/7ca489478950094177f93574d259af61a5ae00c0).
+  Thanks to urmel1960 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.73 2023-02-10 WeKan ® release
 
 This release fixes the following bugs:
