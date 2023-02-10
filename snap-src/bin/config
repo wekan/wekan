@@ -33,8 +33,8 @@ KEY_S3="s3"
 #
 # CMD ["node", "/build/main.js"]
 DESCRIPTION_NODE_OPTIONS="Add more Node heap. https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132 . Default: node-options=\"--max_old_space_size=4096\""
-DEFAULT_NODE_OPTIONS="--max_old_space_size=4096"
-KEYS_NODE_OPTIONS="node-options"
+DEFAULT_NODE_OPTIONS=""
+KEY_NODE_OPTIONS="node-options"
 
 # default values
 DESCRIPTION_DEBUG="Debug OIDC OAuth2 etc. Example: sudo snap set wekan debug='true'"
@@ -227,7 +227,7 @@ KEY_MATOMO_WITH_USERNAME="matomo-with-username"
 
 DESCRIPTION_METRICS_ALLOWED_IP_ADDRESSES="Metrics allowed IP addresses, separated by ',' . https://github.com/wekan/wekan/wiki/Metrics"
 DEFAULT_METRICS_ALLOWED_IP_ADDRESSES=""
-KEY_METRICS_ALLOWED_IP_ADDRESSES"metrics-allowed-ip-addresses"
+KEY_METRICS_ALLOWED_IP_ADDRESSES="metrics-allowed-ip-addresses"
 
 DESCRIPTION_BROWSER_POLICY_ENABLED="Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.\n"\
 "\t\t\t Setting this to false is not recommended, it also disables all other browser policy protections\n"\
