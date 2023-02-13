@@ -4,7 +4,7 @@ Required versions of Node.js, MongoDB etc are listed at https://wekan.github.io
 Download section.
 
 Note:
-- Snap Candidate has newest WeKan with MongoDB 6
+- Snap Candidate has newest WeKan with MongoDB 6 https://github.com/wekan/wekan/issues/4824#issuecomment-1425753485
 - Snap Beta has newest WeKan with MongoDB 5 https://github.com/wekan/wekan/issues/4780#issuecomment-1427625571
 - Snap Stable has old WeKan 6.09 with MongoDB 3.2.2 
 
