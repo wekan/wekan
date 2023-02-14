@@ -162,11 +162,8 @@ Utils = {
   },
 
   archivedBoardIds() {
-    const archivedBoards = [];
-    ReactiveCache.getBoards({ archived: false }).forEach(board => {
-      archivedBoards.push(board._id);
-    });
-    return archivedBoards;
+    const ret = ReactiveCache.getBoards({ archived: false }).map(board => board._id);
+    return ret;
   },
 
   dueCardsView() {
