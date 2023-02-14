@@ -113,7 +113,7 @@ BlazeComponent.extendComponent({
       // to appear
       const cardCount = this.data()
         .cards(this.idOrNull(swimlaneId))
-        .count();
+        .length;
       if (this.cardlimit.get() < cardCount) {
         this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
       }
@@ -201,16 +201,17 @@ BlazeComponent.extendComponent({
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    return Cards.find(Filter.mongoSelector(selector), {
+    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), {
       // sort: ['sort'],
       sort: sortBy,
       limit,
     });
+    return ret;
   },
 
   showSpinner(swimlaneId) {
     const list = Template.currentData();
-    return list.cards(swimlaneId).count() > this.cardlimit.get();
+    return list.cards(swimlaneId).length > this.cardlimit.get();
   },
 
   canSeeAddCard() {
@@ -225,7 +226,7 @@ BlazeComponent.extendComponent({
     return (
       !list.getWipLimit('soft') &&
       list.getWipLimit('enabled') &&
-      list.getWipLimit('value') <= list.cards().count()
+      list.getWipLimit('value') <= list.cards().length
     );
   },
 
@@ -494,7 +495,7 @@ BlazeComponent.extendComponent({
       return [];
     }
     const ownCardsIds = this.board.cards().map(card => card.getRealId());
-    return Cards.find(
+    const ret = ReactiveCache.getCards(
     {
       boardId: this.selectedBoardId.get(),
       swimlaneId: this.selectedSwimlaneId.get(),
@@ -507,6 +508,7 @@ BlazeComponent.extendComponent({
     {
       sort: { sort: 1 },
     });
+    return ret;
   },
 
   getSortIndex() {

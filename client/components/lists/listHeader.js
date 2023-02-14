@@ -64,14 +64,15 @@ BlazeComponent.extendComponent({
         .parentComponent()
         .data()._id;
 
-    return list.cards(swimlaneId).count();
+    const ret = list.cards(swimlaneId).length;
+    return ret;
   },
 
   reachedWipLimit() {
     const list = Template.currentData();
     return (
       list.getWipLimit('enabled') &&
-      list.getWipLimit('value') <= list.cards().count()
+      list.getWipLimit('value') <= list.cards().length
     );
   },
 
@@ -79,7 +80,7 @@ BlazeComponent.extendComponent({
     const list = Template.currentData();
     return (
       list.getWipLimit('enabled') &&
-      list.getWipLimit('value') < list.cards().count()
+      list.getWipLimit('value') < list.cards().length
     );
   },
 
@@ -184,7 +185,7 @@ BlazeComponent.extendComponent({
       10,
     );
 
-    if (limit < list.cards().count() && !list.getWipLimit('soft')) {
+    if (limit < list.cards().length && !list.getWipLimit('soft')) {
       Template.instance()
         .$('.wip-limit-error')
         .click();
@@ -199,9 +200,9 @@ BlazeComponent.extendComponent({
 
     if (
       list.getWipLimit('soft') &&
-      list.getWipLimit('value') < list.cards().count()
+      list.getWipLimit('value') < list.cards().length
     ) {
-      list.setWipLimit(list.cards().count());
+      list.setWipLimit(list.cards().length);
     }
     Meteor.call('enableSoftLimit', Template.currentData()._id);
   },
@@ -211,9 +212,9 @@ BlazeComponent.extendComponent({
     // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
     if (
       !list.getWipLimit('enabled') &&
-      list.getWipLimit('value') < list.cards().count()
+      list.getWipLimit('value') < list.cards().length
     ) {
-      list.setWipLimit(list.cards().count());
+      list.setWipLimit(list.cards().length);
     }
     Meteor.call('enableWipLimit', list._id);
   },
@@ -250,12 +251,12 @@ Template.listMorePopup.events({
     const allCardIds = _.pluck(allCards, '_id');
     // it's okay if the linked cards are on the same list
     if (
-      Cards.find({
+      ReactiveCache.getCards({
         $and: [
           { listId: { $ne: this._id } },
           { linkedId: { $in: allCardIds } },
         ],
-      }).count() === 0
+      }).length === 0
     ) {
       allCardIds.map(_id => Cards.remove(_id));
       Lists.remove(this._id);

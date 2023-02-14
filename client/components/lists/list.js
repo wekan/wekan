@@ -90,7 +90,7 @@ BlazeComponent.extendComponent({
         $cards.sortable('cancel');
 
         if (MultiSelection.isActive()) {
-          Cards.find(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
+          ReactiveCache.getCards(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
             const newSwimlaneId = targetSwimlaneId
               ? targetSwimlaneId
               : card.swimlaneId || defaultSwimlaneId;
@@ -174,7 +174,6 @@ BlazeComponent.extendComponent({
       const currentBoardId = Tracker.nonreactive(() => {
         return Session.get('currentBoard');
       });
-      Cards.find({ boardId: currentBoardId }).fetch();
       Tracker.afterFlush(() => {
         $cards.find(itemsSelector).droppable({
           hoverClass: 'draggable-hover-card',

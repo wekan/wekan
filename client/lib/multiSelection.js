@@ -50,7 +50,7 @@ function getCardsBetween(idA, idB) {
     };
   }
 
-  return Cards.find(Filter.mongoSelector(selector)).map(pluckId);
+  return ReactiveCache.getCards(Filter.mongoSelector(selector)).map(pluckId);
 }
 
 MultiSelection = {
@@ -79,7 +79,7 @@ MultiSelection = {
   },
 
   count() {
-    return Cards.find(this.getMongoSelector()).count();
+    return ReactiveCache.getCards(this.getMongoSelector()).length;
   },
 
   isEmpty() {

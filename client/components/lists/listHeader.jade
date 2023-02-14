@@ -15,11 +15,11 @@ template(name="listHeader")
           = title
         if wipLimit.enabled
          |&nbsp;(
-         span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.count}}
+         span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
          |/#{wipLimit.value})
 
-      if showCardsCountForList cards.count
-        span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.count}}
+      if showCardsCountForList cards.length
+        span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
 
       if isMiniScreen
         if currentList
@@ -79,7 +79,7 @@ template(name="listActionPopup")
             i.fa.fa-paint-brush
             | {{_ 'set-color-list'}}
     ul.pop-over-list
-      if cards.count
+      if cards.length
         li
           a.js-select-cards
             i.fa.fa-check-square

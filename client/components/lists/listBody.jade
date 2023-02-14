@@ -1,7 +1,7 @@
 template(name="listBody")
   .list-body
     .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
-      if cards.count
+      if cards.length
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
       ul.sidebar-list

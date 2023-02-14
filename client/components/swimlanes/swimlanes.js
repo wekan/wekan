@@ -170,7 +170,7 @@ BlazeComponent.extendComponent({
         .parentComponent()
         .data()._id;
       const cards = list.cards(swimlaneId);
-      if (cards.count() === 0) {
+      if (cards.length === 0) {
         return false;
       }
     }
@@ -306,7 +306,7 @@ BlazeComponent.extendComponent({
         .parentComponent()
         .data()._id;
       const cards = list.cards(swimlaneId);
-      if (cards.count() === 0) {
+      if (cards.length === 0) {
         return false;
       }
     }

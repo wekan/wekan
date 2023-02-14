@@ -977,10 +977,11 @@ BlazeComponent.extendComponent({
   cards() {
     const currentId = Utils.getCurrentCardId();
     if (this.parentBoard.get()) {
-      return Cards.find({
+      const ret = ReactiveCache.getCards({
         boardId: this.parentBoard.get(),
         _id: { $ne: currentId },
       });
+      return ret;
     } else {
       return [];
     }
@@ -1023,7 +1024,7 @@ BlazeComponent.extendComponent({
         'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();
           // verify that there are no linked cards
-          if (Cards.find({ linkedId: this._id }).count() === 0) {
+          if (ReactiveCache.getCards({ linkedId: this._id }).length === 0) {
             Cards.remove(this._id);
           } else {
             // TODO: Maybe later we can list where the linked cards are.

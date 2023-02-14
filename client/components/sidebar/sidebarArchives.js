@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
   },
 
   archivedCards() {
-    return Cards.find(
+    const ret = ReactiveCache.getCards(
       {
         archived: true,
         boardId: Session.get('currentBoard'),
@@ -43,6 +43,7 @@ BlazeComponent.extendComponent({
         sort: { archivedAt: -1, modifiedAt: -1 },
       },
     );
+    return ret;
   },
 
   archivedLists() {

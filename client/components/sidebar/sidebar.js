@@ -279,10 +279,10 @@ Template.memberPopup.events({
     // This works from removing member from board, card members and assignees.
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
-    Cards.find({ boardId, members: memberId }).forEach(card => {
+    ReactiveCache.getCards({ boardId, members: memberId }).forEach(card => {
       card.unassignMember(memberId);
     });
-    Cards.find({ boardId, assignees: memberId }).forEach(card => {
+    ReactiveCache.getCards({ boardId, assignees: memberId }).forEach(card => {
       card.unassignAssignee(memberId);
     });
     ReactiveCache.getBoard(boardId).removeMember(memberId);
