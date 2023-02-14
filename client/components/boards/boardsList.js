@@ -220,12 +220,10 @@ BlazeComponent.extendComponent({
   },
 
   hasOvertimeCards() {
-    subManager.subscribe('board', this.currentData()._id, false);
     return this.currentData().hasOvertimeCards();
   },
 
   hasSpentTimeCards() {
-    subManager.subscribe('board', this.currentData()._id, false);
     return this.currentData().hasSpentTimeCards();
   },
 

@@ -8,7 +8,7 @@ import Org from "../../models/org";
 import Team from "../../models/team";
 import Attachments from '../../models/attachments';
 
-Meteor.publish('boards', function() {
+Meteor.publishRelations('boards', function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
@@ -32,7 +32,7 @@ Meteor.publish('boards', function() {
   // if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
   //   teamsIds = teamIdsUserBelongs.split(',');
   // }
-  return Boards.find(
+  this.cursor(Boards.find(
     {
       archived: false,
       _id: { $in: Boards.userBoardIds(userId, false) },
@@ -47,24 +47,37 @@ Meteor.publish('boards', function() {
       // ],
     },
     {
-      fields: {
-        _id: 1,
-        boardId: 1,
-        archived: 1,
-        slug: 1,
-        title: 1,
-        description: 1,
-        color: 1,
-        members: 1,
-        orgs: 1,
-        teams: 1,
-        permission: 1,
-        type: 1,
-        sort: 1,
-      },
       sort: { sort: 1 /* boards default sorting */ },
     },
+  ),
+    function(boardId, board) {
+      this.cursor(
+        Lists.find(
+          { boardId, archived: false },
+          { fields: {
+            _id: 1,
+            title: 1,
+            boardId: 1,
+            archived: 1,
+            sort: 1
+          }}
+        )
+      );
+      this.cursor(
+        Cards.find(
+          { boardId, archived: false },
+          { fields: {
+            _id: 1,
+            boardId: 1,
+            listId: 1,
+            archived: 1,
+            sort: 1
+          }}
+        )
+      );
+    }
   );
+  return this.ready();
 });
 
 Meteor.publish('boardsReport', function() {
