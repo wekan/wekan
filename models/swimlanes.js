@@ -169,7 +169,7 @@ Swimlanes.helpers({
         });
       }
 
-      Cards.find({
+      ReactiveCache.getCards({
         listId: list._id,
         swimlaneId: this._id,
       }).forEach(card => {
@@ -188,13 +188,14 @@ Swimlanes.helpers({
   },
 
   cards() {
-    return Cards.find(
+    const ret = ReactiveCache.getCards(
       Filter.mongoSelector({
         swimlaneId: this._id,
         archived: false,
       }),
       { sort: ['sort'] },
     );
+    return ret;
   },
 
   lists() {
@@ -227,7 +228,8 @@ Swimlanes.helpers({
   },
 
   allCards() {
-    return Cards.find({ swimlaneId: this._id });
+    const ret = ReactiveCache.getCards({ swimlaneId: this._id });
+    return ret;
   },
 
   board() {

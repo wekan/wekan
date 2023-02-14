@@ -209,7 +209,7 @@ Lists.helpers({
     }
 
     // Copy all cards in list
-    Cards.find({
+    ReactiveCache.getCards({
       swimlaneId: oldSwimlaneId,
       listId: oldId,
       archived: false,
@@ -253,7 +253,8 @@ Lists.helpers({
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    return Cards.find(Filter.mongoSelector(selector), { sort: ['sort'] });
+    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), { sort: ['sort'] });
+    return ret;
   },
 
   cardsUnfiltered(swimlaneId) {
@@ -262,11 +263,13 @@ Lists.helpers({
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    return Cards.find(selector, { sort: ['sort'] });
+    const ret = ReactiveCache.getCards(selector, { sort: ['sort'] });
+    return ret;
   },
 
   allCards() {
-    return Cards.find({ listId: this._id });
+    const ret = ReactiveCache.getCards({ listId: this._id });
+    return ret;
   },
 
   board() {
@@ -450,7 +453,7 @@ if (Meteor.isServer) {
   });
 
   Lists.before.remove((userId, doc) => {
-    const cards = Cards.find({ listId: doc._id });
+    const cards = ReactiveCache.getCards({ listId: doc._id });
     if (cards) {
       cards.forEach(card => {
         Cards.remove(card._id);

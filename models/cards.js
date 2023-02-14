@@ -600,7 +600,7 @@ Cards.helpers({
     });
 
     // copy subtasks
-    Cards.find({ parentId: oldId }).forEach(subtask => {
+    ReactiveCache.getCards({ parentId: oldId }).forEach(subtask => {
       subtask.parentId = _id;
       subtask._id = null;
       Cards.insert(subtask);
@@ -865,7 +865,7 @@ Cards.helpers({
   },
 
   subtasks() {
-    return Cards.find(
+    const ret = ReactiveCache.getCards(
       {
         parentId: this._id,
         archived: false,
@@ -876,34 +876,37 @@ Cards.helpers({
         },
       },
     );
+    return ret;
   },
 
   subtasksFinished() {
-    return Cards.find({
+    const ret = ReactiveCache.getCards({
       parentId: this._id,
       archived: true,
     });
+    return ret;
   },
 
   allSubtasks() {
-    return Cards.find({
+    const ret = ReactiveCache.getCards({
       parentId: this._id,
     });
+    return ret;
   },
 
   subtasksCount() {
     const subtasks = this.subtasks();
-    return subtasks.count();
+    return subtasks.length;
   },
 
   subtasksFinishedCount() {
     const subtasksArchived = this.subtasksFinished();
-    return subtasksArchived.count();
+    return subtasksArchived.length;
   },
 
   allSubtasksCount() {
     const allSubtasks = this.allSubtasks();
-    return allSubtasks.count();
+    return allSubtasks.length;
   },
 
   allowsSubtasks() {
@@ -990,7 +993,7 @@ Cards.helpers({
     if (
       !list.getWipLimit('soft') &&
       list.getWipLimit('enabled') &&
-      list.getWipLimit('value') === list.cards().count()
+      list.getWipLimit('value') === list.cards().length
     ) {
       return false;
     }
@@ -1929,7 +1932,7 @@ Cards.helpers({
 
 Cards.mutations({
   applyToChildren(funct) {
-    Cards.find({
+    ReactiveCache.getCards({
       parentId: this._id,
     }).forEach(card => {
       funct(card);
@@ -2963,7 +2966,7 @@ function cardRemover(userId, doc) {
 
 const findDueCards = days => {
   const seekDue = ($from, $to, activityType) => {
-    Cards.find({
+    ReactiveCache.getCards({
       archived: false,
       dueAt: { $gte: $from, $lt: $to },
     }).forEach(card => {
@@ -3207,7 +3210,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Cards.find({
+        data: ReactiveCache.getCards({
           boardId: paramBoardId,
           swimlaneId: paramSwimlaneId,
           archived: false,
@@ -3249,7 +3252,7 @@ if (Meteor.isServer) {
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: Cards.find({
+      data: ReactiveCache.getCards({
         boardId: paramBoardId,
         listId: paramListId,
         archived: false,
@@ -3336,7 +3339,7 @@ if (Meteor.isServer) {
       },
     );
 
-    const currentCards = Cards.find(
+    const currentCards = ReactiveCache.getCards(
       {
         listId: paramListId,
         archived: false,
@@ -3355,7 +3358,7 @@ if (Meteor.isServer) {
         description: req.body.description,
         userId: req.body.authorId,
         swimlaneId: req.body.swimlaneId,
-        sort: currentCards.count(),
+        sort: currentCards.length,
         cardNumber: nextCardNumber,
         customFields: customFieldsArr,
         members,
@@ -3394,10 +3397,10 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
     JsonRoutes.sendResult(res, {
       code: 200,
       data: {
-        board_cards_count: Cards.find({
+        board_cards_count: ReactiveCache.getCards({
           boardId: paramBoardId,
           archived: false,
-        }).count(),
+        }),
       }
     });
   } catch (error) {
@@ -3427,11 +3430,11 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
-          list_cards_count: Cards.find({
+          list_cards_count: ReactiveCache.getCards({
             boardId: paramBoardId,
             listId: paramListId,
             archived: false,
-          }).count(),
+          }).length,
         }
       });
     } catch (error) {
@@ -3901,7 +3904,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Cards.find({
+        data: ReactiveCache.getCards({
           boardId: paramBoardId,
           customFields: {
             $elemMatch: {
@@ -3910,7 +3913,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
             },
           },
           archived: false,
-        }).fetch(),
+        }),
       });
     },
   );

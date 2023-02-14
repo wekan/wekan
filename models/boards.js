@@ -654,7 +654,7 @@ Boards.helpers({
       cf.boardIds = [_id];
       cfMap[id] = CustomFields.insert(cf);
     });
-    Cards.find({ boardId: _id }).forEach(card => {
+    ReactiveCache.getCards({ boardId: _id }).forEach(card => {
       Cards.update(card._id, {
         $set: {
           customFields: card.customFields.map(cf => {
@@ -732,10 +732,11 @@ Boards.helpers({
   },
 
   cards() {
-    return Cards.find(
+    const ret = ReactiveCache.getCards(
       { boardId: this._id, archived: false },
       { sort: { title: 1 } },
     );
+    return ret;
   },
 
   lists() {
@@ -824,7 +825,7 @@ Boards.helpers({
 
   activities() {
     let linkedBoardId = [this._id];
-    Cards.find({
+    ReactiveCache.getCards({
       "type": "cardType-linkedBoard",
       "boardId": this._id}
       ).forEach(card => {
@@ -1008,7 +1009,8 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    return Cards.find(query, projection);
+    const ret = ReactiveCache.getCards(query, projection);
+    return ret;
   },
 
   searchSwimlanes(term) {
@@ -1085,7 +1087,7 @@ Boards.helpers({
         { description: regex },
         { customFields: { $elemMatch: { value: regex } } },
       ];
-      ret = Cards.find(query, projection);
+      ret = ReactiveCache.getCards(query, projection);
     }
     return ret;
   },
@@ -1205,7 +1207,7 @@ Boards.helpers({
   },
 
   getNextCardNumber() {
-    const boardCards = Cards.find(
+    const boardCards = ReactiveCache.getCard(
       {
         boardId: this._id
       },
@@ -1213,26 +1215,27 @@ Boards.helpers({
         sort: { cardNumber: -1 },
         limit: 1
       }
-    ).fetch();
+    , true);
 
     // If no card is assigned to the board, return 1
-    if (!boardCards || boardCards.length === 0) {
+    if (!boardCards) {
       return 1;
     }
 
-    const maxCardNr = !!boardCards[0].cardNumber ? boardCards[0].cardNumber : 0;
+    const maxCardNr = !!boardCards.cardNumber ? boardCards.cardNumber : 0;
     return maxCardNr + 1;
   },
 
   cardsDueInBetween(start, end) {
-    return Cards.find({
+    const ret = ReactiveCache.getCards({
       boardId: this._id,
       dueAt: { $gte: start, $lte: end },
     });
+    return ret;
   },
 
   cardsInInterval(start, end) {
-    return Cards.find({
+    const ret = ReactiveCache.getCards({
       boardId: this._id,
       $or: [
         {
@@ -1261,6 +1264,7 @@ Boards.helpers({
         },
       ],
     });
+    return ret;
   },
 
   isTemplateBoard() {

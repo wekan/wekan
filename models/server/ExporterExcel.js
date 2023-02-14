@@ -43,7 +43,7 @@ class ExporterExcel {
       }),
     );
     result.lists = Lists.find(byBoard, noBoardId).fetch();
-    result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
+    result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
     result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
     result.customFields = CustomFields.find(
       {
@@ -77,9 +77,9 @@ class ExporterExcel {
         }).fetch(),
       );
       result.subtaskItems.push(
-        ...Cards.find({
+        ...ReactiveCache.getCards({
           parentId: card._id,
-        }).fetch(),
+        }),
       );
     });
     result.rules.forEach((rule) => {
