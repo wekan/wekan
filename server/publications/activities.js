@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 // We use activities fields at two different places:
 // 1. The board sidebar
 // 2. The card activity tab
@@ -17,7 +19,7 @@ Meteor.publish('activities', (kind, id, limit, hideSystem) => {
   // Get linkedBoard
   let linkedElmtId = [id];
   if (kind == 'board') {
-    Cards.find({
+    ReactiveCache.getCards({
       "type": "cardType-linkedBoard",
       "boardId": id}
       ).forEach(card => {
