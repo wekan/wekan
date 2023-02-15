@@ -1,4 +1,11 @@
-## Contributing to wiki
+## Contributing Security related
+
+For responsible security disclosure, please follow this process:
+https://github.com/wekan/wekan/blob/master/SECURITY.md
+
+CVE Hall of Fame is at https://wekan.github.io/hall-of-fame/
+
+## Contributing to Documentation Wiki
 
 Please clone wiki:
 ```
@@ -12,12 +19,27 @@ https://github.com/wekan/wekan/issues
 
 [Building WeKan and sending PR](https://github.com/wekan/wekan/wiki/Emoji).
 
-Also see other docs at wiki.
+WeKan code contributors Hall of Fame is at ChangeLog, where
+GitHub usernames are mentioned with changes added:
 
-Do not use code formattung or linting like eslist
-or prettier.
+https://github.com/wekan/wekan/blob/master/CHANGELOG.md
+
+Changes can be like typo fixes, bugfixes, features, or anything else
+like for example at open GitHub issues https://github.com/wekan/wekan/issues .
+Closed issues are already fixed or implemented.
+
+Also see other docs at wiki, for example:
+
+https://github.com/wekan/wekan/wiki/Developer-Documentation
+
+Do not use code formatting or linting like eslist or prettier.
+
+Only send minimal changed code lines, that are related to feature or fix.
 
 WeKan code has MIT license.
+
+WeKan maintainer xet7 checks PR for typos etc before accepting to WeKan,
+so that WeKan code will still work OK.
 
 ## Contributing translations
 
@@ -33,3 +55,11 @@ Maintainer of WeKan xet7 downloads all newest
 translations from Transifex and adds
 them to WeKan repo before making
 new release.
+
+## About WeKan Organization https://github.com/wekan
+
+xet7 rarely adds any new members to GitHub Organization,
+because xet7 prefers to check PRs.
+
+For some repos (other than https://github.com/wekan/wekan ),
+some contributors have direct commit access.
