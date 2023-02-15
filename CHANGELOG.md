@@ -10,6 +10,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix "Top 10 boards" metric order](https://github.com/wekan/wekan/pull/4835).
+  Thanks to garciadavy.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.74 2023-02-10 WeKan ® release
 
 This release fixes the following bugs:
