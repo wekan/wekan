@@ -9,21 +9,27 @@ function acceptedIpAddress(ipAddress) {
   );
 }
 
-const getBoardIdWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
+const getBoardTitleWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
   return Promise.await(
     Activities.rawCollection()
       .aggregate([
-        {
-          $match: {
-            modifiedAt: { $gte: dateWithXdaysAgo },
-          },
-        },
-        { $group: { _id: '$boardId', count: { $sum: 1 } } },
-        { $sort: { count: -1 } },
-      ])
-      .limit(nbLimit)
-      .toArray(),
-  );
+      {
+          $match: { modifiedAt: { $gte: dateWithXdaysAgo }}
+      },
+      {
+       $group: { _id: '$boardId', count: { $sum: 1 } }
+      },
+      {
+       $sort: { count: -1 }
+      },
+      {
+       $lookup: { from: 'boards', localField: '_id', foreignField: '_id', as: 'lookup'}
+      },
+      {
+       $project: { "lookup.title":1, "count":1}
+      }])
+      .limit(nbLimit).toArray()
+      );
 };
 
 const getBoards = (boardIds) => {
@@ -163,21 +169,22 @@ Meteor.startup(() => {
 
         metricsRes +=
           '# Top 10 boards with most activities dated 30 days ago\n';
-        //Get top 10 table with most activities in current month
-        const boardIdWithMostActivities = getBoardIdWithMostActivities(
+        //Get top 10 table with most activities in current month       
+        const boardTitleWithMostActivities = getBoardTitleWithMostActivities(
           dateWithXdaysAgo,
           xdays,
         );
-        const boardWithMostActivities = boardIdWithMostActivities.map(
-          (board) => board._id,
+        
+        const boardWithMostActivities = boardTitleWithMostActivities.map(
+          (board) => board.lookup[0].title,
         );
 
-        getBoards(boardWithMostActivities).forEach((board, index) => {
+        boardWithMostActivities.forEach((title, index) => {
           metricsRes +=
-            `wekan_top10BoardsWithMostActivities{n="${board.title}"} ${
+            `wekan_top10BoardsWithMostActivities{n="${title}"} ${
               index + 1
             }` + '\n';
-        });
+        });       
 
         res.writeHead(200); // HTTP status
         res.end(metricsRes);
