@@ -63,3 +63,7 @@ because xet7 prefers to check PRs.
 
 For some repos (other than https://github.com/wekan/wekan ),
 some contributors have direct commit access.
+
+Some contributors are mentioned at this outdated page:
+
+https://github.com/wekan/wekan/wiki/Team
