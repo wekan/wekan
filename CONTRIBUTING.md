@@ -38,6 +38,10 @@ Only send minimal changed code lines, that are related to feature or fix.
 
 WeKan code has MIT license.
 
+About 300 persons have contributed to WeKan, stats at:
+
+https://www.openhub.net/p/wekan
+
 WeKan maintainer xet7 checks PR for typos etc before accepting to WeKan,
 so that WeKan code will still work OK.
 
