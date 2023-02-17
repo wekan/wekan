@@ -12,7 +12,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated to Node.js v14.21.3. Thanks to Node.js developers](https://github.com/wekan/wekan/commit/dd6e7372b77ec963c3623953a7613f1e468e5745).
+  Thanks to Node.js developers.
+
+and fixes the following bugs:
 
 - [Fix "Top 10 boards" metric order](https://github.com/wekan/wekan/pull/4835).
   Thanks to garciadavy.
