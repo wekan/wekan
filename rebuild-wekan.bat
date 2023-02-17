@@ -15,8 +15,8 @@ REM Install chocolatey
 
 choco install -y git curl python2 dotnet4.5.2 nano mongodb-4 mongoclient
 
-curl -O https://nodejs.org/dist/v14.21.2/node-v14.21.2-x64.msi
-call node-v14.21.2-x64.msi
+curl -O https://nodejs.org/dist/v14.21.3/node-v14.21.3-x64.msi
+call node-v14.21.3-x64.msi
 
 call npm config -g set msvs_version 2015
 call meteor npm config -g set msvs_version 2015
