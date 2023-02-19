@@ -12,7 +12,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Try to fix some security issues](https://github.com/wekan/wekan/commit/ff993e7c917b5650a790238e95c78001e4f0e039).
+  Thanks to responsible security disclosure contributors and xet7.
+
+and adds the following updates:
 
 - [Updated to Node.js v14.21.3. Thanks to Node.js developers](https://github.com/wekan/wekan/commit/dd6e7372b77ec963c3623953a7613f1e468e5745).
   Thanks to Node.js developers.
