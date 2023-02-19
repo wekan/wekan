@@ -16,6 +16,8 @@ This release adds the following updates:
 
 - [Updated to Node.js v14.21.3. Thanks to Node.js developers](https://github.com/wekan/wekan/commit/dd6e7372b77ec963c3623953a7613f1e468e5745).
   Thanks to Node.js developers.
+- [Updated webmanifest to have PWA as fullscreen](https://github.com/wekan/wekan/commit/ed058914b53e3575b6e8036fed45fba5e0893001).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
