@@ -799,7 +799,7 @@ BlazeComponent.extendComponent({
   },
 
   lists() {
-    return Lists.find(
+    return ReactiveCache.getLists(
       {
         boardId: this.currentBoard._id,
         archived: false,
@@ -811,7 +811,7 @@ BlazeComponent.extendComponent({
   },
 
   hasLists() {
-    return this.lists().count() > 0;
+    return this.lists().length > 0;
   },
 
   isListSelected() {
@@ -998,7 +998,7 @@ BlazeComponent.extendComponent({
   },
 
   lists() {
-    return Lists.find(
+    return ReactiveCache.getLists(
       {
         boardId: this.currentBoard._id,
         archived: false,
@@ -1010,7 +1010,7 @@ BlazeComponent.extendComponent({
   },
 
   hasLists() {
-    return this.lists().count() > 0;
+    return this.lists().length > 0;
   },
 
   isListSelected() {
@@ -1346,7 +1346,7 @@ BlazeComponent.extendComponent({
   },
 
  lists() {
-    return Lists.find(
+    return ReactiveCache.getLists(
       {
         boardId: this.currentBoard._id,
         archived: false,
@@ -1358,7 +1358,7 @@ BlazeComponent.extendComponent({
   },
 
   hasLists() {
-    return this.lists().count() > 0;
+    return this.lists().length > 0;
   },
 
   isListSelected() {

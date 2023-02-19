@@ -187,8 +187,8 @@ BlazeComponent.extendComponent({
     return ret;
   },
   boardLists(boardId) {
-    const lists = Lists.find({ 'boardId': boardId, 'archived': false },{sort: ['sort','asc']});
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
+    const lists = ReactiveCache.getLists({ 'boardId': boardId, 'archived': false },{sort: ['sort','asc']});
     const ret = lists.map(list => {
       let cardCount = ReactiveCache.getCards({ 'boardId': boardId, 'listId': list._id }).length;
       return `${list.title}: ${cardCount}`;

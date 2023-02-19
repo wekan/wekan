@@ -61,7 +61,7 @@ BlazeComponent.extendComponent({
 
     // fix lists sort field if there are null values
     const nullSortLists = currentBoardData.nullSortLists();
-    if (nullSortLists.count() > 0) {
+    if (nullSortLists.length > 0) {
       const lists = currentBoardData.lists();
       let count = 0;
       lists.forEach(l => {
@@ -215,7 +215,7 @@ BlazeComponent.extendComponent({
     // If there is no data in the board (ie, no lists) we autofocus the list
     // creation form by clicking on the corresponding element.
     const currentBoard = Utils.getCurrentBoard();
-    if (Utils.canModifyBoard() && currentBoard.lists().count() === 0) {
+    if (Utils.canModifyBoard() && currentBoard.lists().length === 0) {
       boardComponent.openNewListForm();
     }
   },

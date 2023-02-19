@@ -47,7 +47,7 @@ BlazeComponent.extendComponent({
   },
 
   archivedLists() {
-    return Lists.find(
+    return ReactiveCache.getLists(
       {
         archived: true,
         boardId: Session.get('currentBoard'),

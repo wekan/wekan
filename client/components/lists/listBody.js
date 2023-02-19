@@ -479,14 +479,14 @@ BlazeComponent.extendComponent({
     if (!this.selectedBoardId.get()) {
       return [];
     }
-    const lists = Lists.find(
+    const lists = ReactiveCache.getLists(
     {
       boardId: this.selectedBoardId.get()
     },
     {
       sort: { sort: 1 },
     });
-    if (lists.count()) this.selectedListId.set(lists.fetch()[0]._id);
+    if (lists.length) this.selectedListId.set(lists[0]._id);
     return lists;
   },
 
@@ -740,7 +740,7 @@ BlazeComponent.extendComponent({
           } else if (this.isListTemplateSearch) {
             element.sort = ReactiveCache.getSwimlane(this.swimlaneId)
               .lists()
-              .count();
+              .length;
             element.type = 'list';
             _id = element.copy(this.boardId, this.swimlaneId);
           } else if (this.isSwimlaneTemplateSearch) {

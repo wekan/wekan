@@ -6,7 +6,7 @@ function getCardsBetween(idA, idB) {
   }
 
   function getListsStrictlyBetween(id1, id2) {
-    return Lists.find({
+    return ReactiveCache.getLists({
       $and: [
         { sort: { $gt: ReactiveCache.getList(id1).sort } },
         { sort: { $lt: ReactiveCache.getList(id2).sort } },
