@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import { TAPi18n } from '/imports/i18n';
 
 const activitiesPerPage = 500;

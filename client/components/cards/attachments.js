@@ -1,4 +1,5 @@
 import { ObjectID } from 'bson';
+import DOMPurify from 'isomorphic-dompurify';
 
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
@@ -20,6 +21,9 @@ Template.attachmentsGalery.helpers({
   fileSize(size) {
     const ret = filesize(size);
     return ret;
+  },
+  sanitize(value) {
+    return DOMPurify.sanitize(value);
   },
 });
 
@@ -49,6 +53,10 @@ Template.cardAttachmentsPopup.events({
       let uploads = [];
       for (const file of files) {
         const fileId = new ObjectID().toString();
+        // If filename is not same as sanitized filename, has XSS, then cancel upload
+        if (file.name !== DOMPurify.sanitize(file.name)) {
+          return false;
+        }
         const config = {
           file: file,
           fileId: fileId,

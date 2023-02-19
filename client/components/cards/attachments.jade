@@ -34,22 +34,22 @@ template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{link}}" title="{{name}}")
+        a.attachment-thumbnail.swipebox(href="{{link}}" title="{{sanitize name}}")
           if link
             if isImage
-              img.attachment-thumbnail-img(src="{{link}}")
+              img.attachment-thumbnail-img(src="{{link}}" title="{{sanitize name}}")
             else if($eq extension 'mp3')
-                video(width="100%" height="100%" controls="true")
-                  source(src="{{link}}" type="audio/mpeg")
+              video(width="100%" height="100%" title="{{sanitize name}}" controls="true")
+                source(src="{{link}}" type="audio/mpeg")
             else if($eq extension 'ogg')
-                video(width="100%" height="100%" controls="true")
-                  source(src="{{link}}" type="video/ogg")
+              video(width="100%" height="100%" title="{{sanitize name}}" controls="true")
+                source(src="{{link}}" type="video/ogg")
             else if($eq extension 'webm')
-                video(width="100%" height="100%" controls="true")
-                  source(src="{{link}}" type="video/webm")
+              video(width="100%" height="100%" title="{{sanitize name}}" controls="true")
+                source(src="{{link}}" type="video/webm")
             else if($eq extension 'mp4')
-                video(width="100%" height="100%" controls="true")
-                  source(src="{{link}}" type="video/mp4")
+              video(width="100%" height="100%" title="{{sanitize name}}" controls="true")
+                source(src="{{link}}" type="video/mp4")
             else
               span.attachment-thumbnail-ext= extension
         p.attachment-details
