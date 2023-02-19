@@ -512,5 +512,8 @@
   "description": "Open Source kanban with MIT license",
   "dir": "auto",
   "scope": "https://boards.wekan.team",
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "display_override": [
+    "fullscreen"
+  ]
 }
