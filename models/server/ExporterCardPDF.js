@@ -40,7 +40,7 @@ class ExporterCardPDF {
             },
           }),
         );
-        result.lists = Lists.find(byBoard, noBoardId).fetch();
+        result.lists = ReactiveCache.getLists(byBoard, noBoardId);
         result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
         result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
         result.customFields = CustomFields.find(

@@ -140,7 +140,7 @@ Swimlanes.helpers({
     }
 
     // Copy all lists in swimlane
-    Lists.find(query).forEach(list => {
+    ReactiveCache.getLists(query).forEach(list => {
       list.type = 'list';
       list.swimlaneId = oldId;
       list.boardId = boardId;
@@ -203,7 +203,7 @@ Swimlanes.helpers({
   },
   newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
-    return Lists.find(
+    return ReactiveCache.getLists(
       {
         boardId: this.boardId,
         swimlaneId: { $in: [this._id, ''] },
@@ -213,7 +213,7 @@ Swimlanes.helpers({
     );
   },
   draggableLists() {
-    return Lists.find(
+    return ReactiveCache.getLists(
       {
         boardId: this.boardId,
         swimlaneId: { $in: [this._id, ''] },
@@ -224,7 +224,7 @@ Swimlanes.helpers({
   },
 
   myLists() {
-    return Lists.find({ swimlaneId: this._id });
+    return ReactiveCache.getLists({ swimlaneId: this._id });
   },
 
   allCards() {
@@ -344,7 +344,7 @@ if (Meteor.isServer) {
   });
 
   Swimlanes.before.remove(function(userId, doc) {
-    const lists = Lists.find(
+    const lists = ReactiveCache.getLists(
       {
         boardId: doc.boardId,
         swimlaneId: { $in: [doc._id, ''] },
@@ -353,7 +353,7 @@ if (Meteor.isServer) {
       { sort: ['sort'] },
     );
 
-    if (lists.count() < 2) {
+    if (lists.length < 2) {
       lists.forEach(list => {
         list.remove();
       });

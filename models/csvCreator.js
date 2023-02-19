@@ -256,10 +256,10 @@ export class CsvCreator {
         createdAt: this._now(),
       };
       if (csvData[i][this.fieldIndex.stage]) {
-        const existingList = Lists.find({
+        const existingList = ReactiveCache.getLists({
           title: csvData[i][this.fieldIndex.stage],
           boardId,
-        }).fetch();
+        });
         if (existingList.length > 0) {
           continue;
         } else {

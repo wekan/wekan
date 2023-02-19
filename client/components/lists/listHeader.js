@@ -246,8 +246,7 @@ BlazeComponent.extendComponent({
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function() {
     Popup.back();
-    // TODO how can we avoid the fetch call?
-    const allCards = this.allCards().fetch();
+    const allCards = this.allCards();
     const allCardIds = _.pluck(allCards, '_id');
     // it's okay if the linked cards are on the same list
     if (

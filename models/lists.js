@@ -365,7 +365,7 @@ Lists.mutations({
 });
 
 Lists.userArchivedLists = userId => {
-  return Lists.find({
+  return ReactiveCache.getLists({
     boardId: { $in: Boards.userBoardIds(userId, null) },
     archived: true,
   })
@@ -376,7 +376,7 @@ Lists.userArchivedListIds = () => {
 };
 
 Lists.archivedLists = () => {
-  return Lists.find({ archived: true });
+  return ReactiveCache.getLists({ archived: true });
 };
 
 Lists.archivedListIds = () => {
@@ -413,7 +413,7 @@ Meteor.methods({
   myLists() {
     // my lists
     return _.uniq(
-      Lists.find(
+      ReactiveCache.getLists(
         {
           boardId: { $in: Boards.userBoardIds(this.userId) },
           archived: false,
@@ -422,7 +422,6 @@ Meteor.methods({
           fields: { title: 1 },
         },
       )
-        .fetch()
         .map(list => {
           return list.title;
         }),
@@ -502,7 +501,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Lists.find({ boardId: paramBoardId, archived: false }).map(
+        data: ReactiveCache.getLists({ boardId: paramBoardId, archived: false }).map(
           function(doc) {
             return {
               _id: doc._id,
@@ -567,7 +566,7 @@ if (Meteor.isServer) {
       const id = Lists.insert({
         title: req.body.title,
         boardId: paramBoardId,
-        sort: board.lists().count(),
+        sort: board.lists().length,
       });
       JsonRoutes.sendResult(res, {
         code: 200,

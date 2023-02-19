@@ -747,7 +747,7 @@ Boards.helpers({
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
     const value = ReactiveCache.getCurrentUser()._getListSortBy();
     const sortKey = { starred: -1, [value[0]]: value[1] }; // [["starred",-1],value];
-    return Lists.find(
+    return ReactiveCache.getLists(
       {
         boardId: this._id,
         archived: false,
@@ -757,7 +757,7 @@ Boards.helpers({
   },
 
   draggableLists() {
-    return Lists.find({ boardId: this._id }, { sort: { sort: 1 } });
+    return ReactiveCache.getLists({ boardId: this._id }, { sort: { sort: 1 } });
   },
 
   /** returns the last list
@@ -769,7 +769,7 @@ Boards.helpers({
   },
 
   nullSortLists() {
-    return Lists.find({
+    return ReactiveCache.getLists({
       boardId: this._id,
       archived: false,
       sort: { $eq: null },
@@ -1056,7 +1056,7 @@ Boards.helpers({
         query.$or = [{ title: regex }, { description: regex }];
       }
 
-      ret = Lists.find(query, projection);
+      ret = ReactiveCache.getLists(query, projection);
     }
     return ret;
   },
