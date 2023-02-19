@@ -105,7 +105,7 @@ a security issue, we'd like to know about it, and also how to fix it:
 
 Typical already known or "no impact" bugs such as:
 
-- Brute force password guessign. Currently there is
+- Brute force password guessing. Currently there is
   [brute force protection with eluck:accounts-lockout](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v080-2018-04-04-wekan-release).
 - Security issues related to that Wekan uses Meteor 1.6.0.1 related packages, and upgrading to newer
   Meteor 1.6.1 is complicated process that requires lots of changes to many dependency packages.
