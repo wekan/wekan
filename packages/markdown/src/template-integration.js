@@ -65,6 +65,7 @@ if (Package.ui) {
       text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
     }
 
+    // Using isomorphic-dompurify that is isometric so it works also serverside
     return HTML.Raw(DOMPurify.sanitize(Markdown.render(text), {ALLOW_UNKNOWN_PROTOCOLS: true}));
   }));
 }

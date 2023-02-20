@@ -151,6 +151,7 @@ if (Meteor.isServer) {
       check(fileObjId, String);
       check(newName, String);
       // If new name is same as sanitized name, does not have XSS, allow rename file
+      // Using isomorphic-dompurify that is isometric so it works also serverside.
       if (newName === DOMPurify.sanitize(newName)) {
         const fileObj = Attachments.findOne({_id: fileObjId});
         rename(fileObj, newName, fileStoreStrategyFactory);

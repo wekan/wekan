@@ -1,5 +1,5 @@
 import { ObjectID } from 'bson';
-import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from 'dompurify';
 
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
