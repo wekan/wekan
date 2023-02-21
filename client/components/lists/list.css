@@ -126,6 +126,9 @@
 .list-body .minicards form {
   margin-bottom: 9px;
 }
+.list-body .minicards .add-controls button {
+  min-height: 50px;
+}
 .list-body .open-minicard-composer {
   border-radius: 2px;
   color: #8c8c8c;

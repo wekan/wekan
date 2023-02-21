@@ -8,7 +8,7 @@ button {
   border-radius: 3px;
   display: block;
   margin-bottom: 12px;
-  min-height: 50px;
+  min-height: 34px;
   padding: 7px;
 }
 select.full,
