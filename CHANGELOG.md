@@ -17,6 +17,11 @@ This release adds the following updates:
 - [Updated release scripts](https://github.com/wekan/wekan/commit/cae0b29500ff417598690590f43bc1e1875a4b4e).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Try to fix build errors on some platforms](https://github.com/wekan/wekan/commit/fd9478dc57a81aadb275a205766c44285efb4c61).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.75 2023-02-21 WeKan ® release
