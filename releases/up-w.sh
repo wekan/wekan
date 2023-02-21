@@ -11,4 +11,4 @@ if [ $# -ne 1 ]
 fi
 
 # 2) Upload windows release to download server
-scp ../../Julkinen/wekan-$1-amd64-windows.zip x2:/data/websites/releases.wekan.team/public/windows/
+scp ../../Julkinen/wekan-$1-amd64-windows.zip x2:/data/websites/releases.wekan.team/windows/
