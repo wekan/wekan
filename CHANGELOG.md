@@ -52,6 +52,8 @@ and fixes the following bugs:
   Thanks to garciadavy.
 - [Swipebox slide background gradient of black to blue, so that back SVG images are visible](https://github.com/wekan/wekan/commit/c3577aa434ac5330d664f17d0771ff9679cced86).
   Thanks to xet7.
+- [Fix typo](https://github.com/wekan/wekan/pull/4840).
+  Thanks to robert-scheck.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
