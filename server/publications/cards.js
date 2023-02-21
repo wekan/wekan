@@ -282,10 +282,10 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_LIST)) {
       const queryLists = [];
       queryParams.getPredicates(OPERATOR_LIST).forEach(query => {
-        const lists = Lists.find({
+        const lists = ReactiveCache.getLists({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
-        if (lists.count()) {
+        if (lists.length) {
           lists.forEach(list => {
             queryLists.push(list._id);
           });
