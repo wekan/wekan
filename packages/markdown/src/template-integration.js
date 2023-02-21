@@ -7,7 +7,7 @@ var Markdown = require('markdown-it')({
   breaks: true,
 });
 
-import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
+//import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
 // Static URL Scheme Listing
 var urlschemes = [
@@ -48,9 +48,9 @@ Markdown.use(mathjax);
 // https://github.com/wekan/cli-table3
 // https://www.npmjs.com/package/@wekanteam/markdown-it-mermaid
 // https://github.com/wekan/markdown-it-mermaid
-Markdown.use(markdownItMermaid,{
-  maxTextSize: 200000,
-});
+//Markdown.use(markdownItMermaid,{
+//  maxTextSize: 200000,
+//});
 
 if (Package.ui) {
   const Template = Package.templating.Template;
