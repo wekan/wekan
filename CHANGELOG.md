@@ -21,6 +21,8 @@ and fixes the following bugs:
 
 - [Try to fix build errors on some platforms](https://github.com/wekan/wekan/commit/fd9478dc57a81aadb275a205766c44285efb4c61).
   Thanks to xet7.
+- [Fix at bottom of list Add button to be higher, so that text Add is not over button borders](https://github.com/wekan/wekan/commit/139a1c0f784443103397c9b6c8c17d5432ce9bdd).
+  Thanks to WeKan commercial support customer and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
