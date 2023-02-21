@@ -29,8 +29,8 @@ rm -rf bundle
 rm wekan-$1-s390x.zip
 
 #rm wekan-$1.zip
-#wget https://releases.wekan.team/wekan-$1.zip
-7za x wekan-$1.zip
+#wget https://releases.wekan.team/wekan-$1-amd64.zip
+7za x wekan-$1-amd64.zip
 
 (cd bundle/programs/server && chmod u+w *.json && cd node_modules/fibers && node build.js)
 #cd ../../../..

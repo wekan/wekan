@@ -11,4 +11,4 @@ fi
 mkdir ~/rel$1
 mv ~/repos/wekan/wekan-$1*.zip /home/wekan/rel$1/
 mv ~/Julkinen/wekan-$1*.zip /home/wekan/rel$1/
-mv /home/wekan/repos/wekan/.build/wekan-$1.zip /home/wekan/rel$1/wekan-$1-amd64.zip
+mv /home/wekan/repos/wekan/.build/wekan-$1-amd64.zip /home/wekan/rel$1/wekan-$1-amd64.zip
