@@ -25,6 +25,8 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/commit/139a1c0f784443103397c9b6c8c17d5432ce9bdd),
   [Part 2](https://github.com/wekan/wekan/commit/c27a2b22c604377170c34f30e4b5710e18ae47c8).
   Thanks to WeKan commercial support customer and xet7.
+- [Removed Mermaid, because newest Mermaid does not work anymore](https://github.com/wekan/wekan/commit/67500abcd4d034ebed2d13f5156123d5f70bd014).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
