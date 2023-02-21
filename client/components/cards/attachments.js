@@ -228,7 +228,9 @@ BlazeComponent.extendComponent({
           const name = this.$('.js-edit-attachment-name')[0]
             .value
             .trim() + this.data().extensionWithDot;
-          Meteor.call('renameAttachment', this.data()._id, name);
+          if (name === DOMPurify.sanitize(name)) {
+            Meteor.call('renameAttachment', this.data()._id, name);
+          }
           Popup.back(2);
         },
       }

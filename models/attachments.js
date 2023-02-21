@@ -6,7 +6,6 @@ import fs from 'fs';
 import path from 'path';
 import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs, AttachmentStoreStrategyS3 } from '/models/lib/attachmentStoreStrategy';
 import FileStoreStrategyFactory, {moveToStorage, rename, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3} from '/models/lib/fileStoreStrategy';
-import DOMPurify from 'isomorphic-dompurify';
 
 let attachmentUploadExternalProgram;
 let attachmentUploadMimeTypes = [];
@@ -150,12 +149,9 @@ if (Meteor.isServer) {
     renameAttachment(fileObjId, newName) {
       check(fileObjId, String);
       check(newName, String);
-      // If new name is same as sanitized name, does not have XSS, allow rename file
-      // Using isomorphic-dompurify that is isometric so it works also serverside.
-      if (newName === DOMPurify.sanitize(newName)) {
-        const fileObj = Attachments.findOne({_id: fileObjId});
-        rename(fileObj, newName, fileStoreStrategyFactory);
-      }
+
+      const fileObj = Attachments.findOne({_id: fileObjId});
+      rename(fileObj, newName, fileStoreStrategyFactory);
     },
     validateAttachment(fileObjId) {
       check(fileObjId, String);
