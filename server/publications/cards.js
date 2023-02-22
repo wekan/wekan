@@ -260,10 +260,10 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_SWIMLANE)) {
       const querySwimlanes = [];
       queryParams.getPredicates(OPERATOR_SWIMLANE).forEach(query => {
-        const swimlanes = Swimlanes.find({
+        const swimlanes = ReactiveCache.getSwimlanes({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
-        if (swimlanes.count()) {
+        if (swimlanes.length) {
           swimlanes.forEach(swim => {
             querySwimlanes.push(swim._id);
           });
