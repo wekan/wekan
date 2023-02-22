@@ -16,10 +16,11 @@ BlazeComponent.extendComponent({
   },
 
   customFieldsSum() {
-    return CustomFields.find({
+    const ret = ReactiveCache.getCustomFields({
       boardIds: { $in: [Session.get('currentBoard')] },
       showSumAtTopOfList: true,
     });
+    return ret;
   },
 
   openForm(options) {
@@ -269,8 +270,7 @@ BlazeComponent.extendComponent({
     arr = [];
     _.forEach(
       ReactiveCache.getBoard(currentBoardId)
-        .customFields()
-        .fetch(),
+        .customFields(),
       function (field) {
         if (field.automaticallyOnCard || field.alwaysOnCard)
           arr.push({ _id: field._id, value: null });

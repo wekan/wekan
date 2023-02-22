@@ -1,10 +1,12 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 BlazeComponent.extendComponent({
   customFields() {
-    return CustomFields.find({
+    const ret = ReactiveCache.getCustomFields({
       boardIds: { $in: [Session.get('currentBoard')] },
     });
+    return ret;
   },
 
   events() {
