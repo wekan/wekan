@@ -70,9 +70,9 @@ class ExporterCardPDF {
             }).fetch(),
           );
           result.checklistItems.push(
-            ...ChecklistItems.find({
+            ...ReactiveCache.getChecklistItems({
               cardId: card._id,
-            }).fetch(),
+            }),
           );
           result.subtaskItems.push(
             ...ReactiveCache.getCards({

@@ -1,5 +1,4 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { DataCache } from 'meteor-reactive-cache'
 
 Checklists = new Mongo.Collection('checklists');
 
@@ -73,7 +72,7 @@ Checklists.helpers({
     delete copyObj._id;
     copyObj.cardId = newCardId;
     const newChecklistId = Checklists.insert(copyObj);
-    ChecklistItems.find({ checklistId: this._id }).forEach(function(
+    ReactiveCache.getChecklistItems({ checklistId: this._id }).forEach(function(
       item,
     ) {
       item._id = null;
@@ -88,18 +87,14 @@ Checklists.helpers({
     return ret;
   },
   items() {
-    if (!this._items) {
-      this._items = new DataCache(() => ChecklistItems.find(
-        {
-          checklistId: this._id,
-        },
-        { sort: ['sort'] },
+    const ret = ReactiveCache.getChecklistItems(
+      {
+        checklistId: this._id,
+      },
+      { sort: ['sort'] },
+    );
+    return ret;
 
-      )
-      .fetch()
-      , 1000);
-    }
-    return this._items.get();
   },
   firstItem() {
     const ret = _.first(this.items());
@@ -129,13 +124,13 @@ Checklists.helpers({
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
   checkAllItems() {
-    const checkItems = ChecklistItems.find({ checklistId: this._id });
+    const checkItems = ReactiveCache.getChecklistItems({ checklistId: this._id });
     checkItems.forEach(function(item) {
       item.check();
     });
   },
   uncheckAllItems() {
-    const checkItems = ChecklistItems.find({ checklistId: this._id });
+    const checkItems = ReactiveCache.getChecklistItems({ checklistId: this._id });
     checkItems.forEach(function(item) {
       item.uncheck();
     });
@@ -185,7 +180,7 @@ Checklists.mutations({
       });
     });
     // update every checklist-item
-    ChecklistItems.find(
+    ReactiveCache.getChecklistItems(
       {checklistId: this._id}
     ).forEach(checklistItem => {
       ChecklistItems.update(checklistItem._id, {
@@ -311,7 +306,7 @@ if (Meteor.isServer) {
         cardId: paramCardId,
       });
       if (checklist) {
-        checklist.items = ChecklistItems.find({
+        checklist.items = ReactiveCache.getChecklistItems({
           checklistId: checklist._id,
         }).map(function(doc) {
           return {
