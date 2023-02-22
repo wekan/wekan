@@ -329,9 +329,10 @@ Template.commentReactions.helpers({
     return Meteor.userId() && userIds.includes(Meteor.userId());
   },
   userNames(userIds) {
-    return Users.find({_id: {$in: userIds}})
-                .map(user => user.profile.fullname)
-                .join(', ');
+    const ret = ReactiveCache.getUsers({_id: {$in: userIds}})
+      .map(user => user.profile.fullname)
+      .join(', ');
+    return ret;
   }
 })
 

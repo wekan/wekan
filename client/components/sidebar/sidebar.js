@@ -1718,13 +1718,13 @@ BlazeComponent.extendComponent({
                 "teams.teamId": { $in: boardTeams.map(t => t.teamId) },
               };
 
-              const boardTeamUsers = Users.find(query, {
+              const boardTeamUsers = ReactiveCache.getUsers(query, {
                 sort: { sort: 1 },
               });
 
               if(boardTeams !== undefined && boardTeams.length > 0){
                 let index;
-                if(boardTeamUsers && boardTeamUsers.count() > 0){
+                if (boardTeamUsers && boardTeamUsers.length > 0) {
                   boardTeamUsers.forEach((u) => {
                     index = members.findIndex(function(m){ return m.userId == u._id});
                     if(index == -1){
@@ -1817,13 +1817,13 @@ BlazeComponent.extendComponent({
             "teams.teamId": stringTeamId
           };
 
-          const boardTeamUsers = Users.find(query, {
+          const boardTeamUsers = ReactiveCache.getUsers(query, {
             sort: { sort: 1 },
           });
 
           if(currentBoard.teams !== undefined && currentBoard.teams.length > 0){
             let index;
-            if(boardTeamUsers && boardTeamUsers.count() > 0){
+            if (boardTeamUsers && boardTeamUsers.length > 0) {
               boardTeamUsers.forEach((u) => {
                 index = members.findIndex(function(m){ return m.userId == u._id});
                 if(index !== -1 && (u.isAdmin === undefined || u.isAdmin == false)){

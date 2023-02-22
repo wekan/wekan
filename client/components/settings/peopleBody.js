@@ -161,11 +161,11 @@ BlazeComponent.extendComponent({
     return teams;
   },
   peopleList() {
-    const users = Users.find(this.findUsersOptions.get(), {
+    const users = ReactiveCache.getUsers(this.findUsersOptions.get(), {
       sort: { username: 1 },
       fields: { _id: true },
     });
-    this.numberPeople.set(users.count(false));
+    this.numberPeople.set(users.length);
     return users;
   },
   orgNumber() {
@@ -1073,7 +1073,7 @@ Template.newUserPopup.events({
 Template.settingsOrgPopup.events({
   'click #deleteButton'(event) {
     event.preventDefault();
-    if(Users.find({"orgs.orgId": this.orgId}).count() > 0)
+    if (ReactiveCache.getUsers({"orgs.orgId": this.orgId}).length > 0)
     {
       let orgClassList = document.getElementById("deleteOrgWarningMessage").classList;
       if(orgClassList.contains('hide'))
@@ -1091,7 +1091,7 @@ Template.settingsOrgPopup.events({
 Template.settingsTeamPopup.events({
   'click #deleteButton'(event) {
     event.preventDefault();
-    if(Users.find({"teams.teamId": this.teamId}).count() > 0)
+    if (ReactiveCache.getUsers({"teams.teamId": this.teamId}).length > 0)
     {
       let teamClassList = document.getElementById("deleteTeamWarningMessage").classList;
       if(teamClassList.contains('hide'))

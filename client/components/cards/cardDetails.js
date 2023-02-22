@@ -1605,7 +1605,7 @@ Template.cardAssigneesPopup.onCreated(function () {
   //   "teams.teamId": { $in: currBoard.teams.map(t => t.teamId) },
   // };
 
-  // let boardTeamUsers = Users.find(query, {
+  // let boardTeamUsers = ReactiveCache.getUsers(query, {
   //   sort: { sort: 1 },
   // });
 
