@@ -638,7 +638,7 @@ Boards.helpers({
     const _id = Boards.insert(this);
 
     // Copy all swimlanes in board
-    Swimlanes.find({
+    ReactiveCache.getSwimlanes({
       boardId: oldId,
       archived: false,
     }).forEach(swimlane => {
@@ -777,7 +777,7 @@ Boards.helpers({
   },
 
   swimlanes() {
-    return Swimlanes.find(
+    return ReactiveCache.getSwimlanes(
       { boardId: this._id, archived: false },
       { sort: { sort: 1 } },
     );
@@ -798,7 +798,7 @@ Boards.helpers({
   },
 
   nullSortSwimlanes() {
-    return Swimlanes.find({
+    return ReactiveCache.getSwimlanes({
       boardId: this._id,
       archived: false,
       sort: { $eq: null },
@@ -1031,7 +1031,7 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    return Swimlanes.find(query, projection);
+    return ReactiveCache.getSwimlanes(query, projection);
   },
 
   searchLists(term) {

@@ -44,7 +44,7 @@ class ExporterExcel {
     );
     result.lists = ReactiveCache.getLists(byBoard, noBoardId);
     result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
-    result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
+    result.swimlanes = ReactiveCache.getSwimlanes(byBoard, noBoardId);
     result.customFields = CustomFields.find(
       {
         boardIds: {

@@ -471,7 +471,7 @@ BlazeComponent.extendComponent({
       sort: { sort: 1 },
     });
     if (swimlanes.length)
-      this.selectedSwimlaneId.set(swimlanes.fetch()[0]._id);
+      this.selectedSwimlaneId.set(swimlanes[0]._id);
     return swimlanes;
   },
 

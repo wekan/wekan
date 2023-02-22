@@ -305,7 +305,7 @@ Swimlanes.mutations({
 });
 
 Swimlanes.userArchivedSwimlanes = userId => {
-  return Swimlanes.find({
+  return ReactiveCache.getSwimlanes({
     boardId: { $in: Boards.userBoardIds(userId, null) },
     archived: true,
   })
@@ -316,7 +316,7 @@ Swimlanes.userArchivedSwimlaneIds = () => {
 };
 
 Swimlanes.archivedSwimlanes = () => {
-  return Swimlanes.find({ archived: true });
+  return ReactiveCache.getSwimlanes({ archived: true });
 };
 
 Swimlanes.archivedSwimlaneIds = () => {
@@ -402,7 +402,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Swimlanes.find({ boardId: paramBoardId, archived: false }).map(
+        data: ReactiveCache.getSwimlanes({ boardId: paramBoardId, archived: false }).map(
           function(doc) {
             return {
               _id: doc._id,
@@ -471,7 +471,7 @@ if (Meteor.isServer) {
       const id = Swimlanes.insert({
         title: req.body.title,
         boardId: paramBoardId,
-        sort: board.swimlanes().count(),
+        sort: board.swimlanes().length,
       });
       JsonRoutes.sendResult(res, {
         code: 200,
