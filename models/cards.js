@@ -1483,13 +1483,13 @@ Cards.helpers({
   },
   voteMemberPositive() {
     if (this.vote && this.vote.positive)
-      return Users.find({ _id: { $in: this.vote.positive } });
+      return ReactiveCache.getUsers({ _id: { $in: this.vote.positive } });
     return [];
   },
 
   voteMemberNegative() {
     if (this.vote && this.vote.negative)
-      return Users.find({ _id: { $in: this.vote.negative } });
+      return ReactiveCache.getUsers({ _id: { $in: this.vote.negative } });
     return [];
   },
   voteState() {
@@ -1577,52 +1577,52 @@ Cards.helpers({
   },
   pokerMemberOne() {
     if (this.poker && this.poker.one)
-      return Users.find({ _id: { $in: this.poker.one } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.one } });
     return [];
   },
   pokerMemberTwo() {
     if (this.poker && this.poker.two)
-      return Users.find({ _id: { $in: this.poker.two } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.two } });
     return [];
   },
   pokerMemberThree() {
     if (this.poker && this.poker.three)
-      return Users.find({ _id: { $in: this.poker.three } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.three } });
     return [];
   },
   pokerMemberFive() {
     if (this.poker && this.poker.five)
-      return Users.find({ _id: { $in: this.poker.five } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.five } });
     return [];
   },
   pokerMemberEight() {
     if (this.poker && this.poker.eight)
-      return Users.find({ _id: { $in: this.poker.eight } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.eight } });
     return [];
   },
   pokerMemberThirteen() {
     if (this.poker && this.poker.thirteen)
-      return Users.find({ _id: { $in: this.poker.thirteen } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.thirteen } });
     return [];
   },
   pokerMemberTwenty() {
     if (this.poker && this.poker.twenty)
-      return Users.find({ _id: { $in: this.poker.twenty } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.twenty } });
     return [];
   },
   pokerMemberForty() {
     if (this.poker && this.poker.forty)
-      return Users.find({ _id: { $in: this.poker.forty } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.forty } });
     return [];
   },
   pokerMemberOneHundred() {
     if (this.poker && this.poker.oneHundred)
-      return Users.find({ _id: { $in: this.poker.oneHundred } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.oneHundred } });
     return [];
   },
   pokerMemberUnsure() {
     if (this.poker && this.poker.unsure)
-      return Users.find({ _id: { $in: this.poker.unsure } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.unsure } });
     return [];
   },
   pokerState() {

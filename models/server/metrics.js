@@ -69,7 +69,7 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered users\n';
 
         // Get number of registered user
-        resCount = Users.find({}).count(); // KPI 2
+        resCount = ReactiveCache.getUsers({}).length; // KPI 2
         metricsRes += 'wekan_registeredUsers ' + resCount + '\n';
         resCount = 0;
 
@@ -87,7 +87,7 @@ Meteor.startup(() => {
         // Get number of registered boards by registered users
         resCount =
           Boards.find({ archived: false, type: 'board' }).count() /
-          Users.find({}).count(); // KPI 4
+          ReactiveCache.getUsers({}).length; // KPI 4
         metricsRes +=
           'wekan_registeredboardsBysRegisteredUsers ' + resCount + '\n';
         resCount = 0;
@@ -118,9 +118,9 @@ Meteor.startup(() => {
         let dateWithXdaysAgo = new Date(
           new Date() - xdays * 24 * 60 * 60 * 1000,
         );
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated5DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -131,9 +131,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 10 days ago
         xdays = 10;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated10DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -144,9 +144,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 20 days ago
         xdays = 20;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated20DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -157,9 +157,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 20 days ago
         xdays = 30;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated30DaysAgo ' + resCount + '\n';
         resCount = 0;

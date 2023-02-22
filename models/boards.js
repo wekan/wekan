@@ -883,7 +883,7 @@ Boards.helpers({
   },
 
   memberUsers() {
-    return Users.find({ _id: { $in: _.pluck(this.members, 'userId') } });
+    return ReactiveCache.getUsers({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
   getLabel(name, color) {

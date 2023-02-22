@@ -147,8 +147,7 @@ class ExporterCardPDF {
             'profile.avatarUrl': 1,
           },
         };
-        result.users = Users.find(byUserIds, userFields)
-          .fetch()
+        result.users = ReactiveCache.getUsers(byUserIds, userFields)
           .map((user) => {
             // user avatar is stored as a relative url, we export absolute
             if ((user.profile || {}).avatarUrl) {

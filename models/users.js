@@ -512,9 +512,9 @@ Users.allow({
     return doc._id === userId;
   },
   remove(userId, doc) {
-    const adminsNumber = Users.find({
+    const adminsNumber = ReactiveCache.getUsers({
       isAdmin: true,
-    }).count();
+    }).length;
     const isAdmin = ReactiveCache.getUser(
       {
         _id: userId,
@@ -1242,12 +1242,12 @@ if (Meteor.isServer) {
       check(userOrgsArray, Array);
       check(userTeamsArray, Array);
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        const nUsersWithUsername = Users.find({
+        const nUsersWithUsername = ReactiveCache.getUsers({
           username,
-        }).count();
-        const nUsersWithEmail = Users.find({
+        }).length;
+        const nUsersWithEmail = ReactiveCache.getUsers({
           email,
-        }).count();
+        }).length;
         if (nUsersWithUsername > 0) {
           throw new Meteor.Error('username-already-taken');
         } else if (nUsersWithEmail > 0) {
@@ -1282,9 +1282,9 @@ if (Meteor.isServer) {
       check(username, String);
       check(userId, String);
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        const nUsersWithUsername = Users.find({
+        const nUsersWithUsername = ReactiveCache.getUsers({
           username,
-        }).count();
+        }).length;
         if (nUsersWithUsername > 0) {
           throw new Meteor.Error('username-already-taken');
         } else {
@@ -1539,7 +1539,7 @@ if (Meteor.isServer) {
       check(teamId, String);
       check(teamDisplayName, String);
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        Users.find({
+        ReactiveCache.getUsers({
           teams: {
             $elemMatch: { teamId: teamId },
           },
@@ -1564,7 +1564,7 @@ if (Meteor.isServer) {
       check(orgId, String);
       check(orgDisplayName, String);
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        Users.find({
+        ReactiveCache.getUsers({
           orgs: {
             $elemMatch: { orgId: orgId },
           },
@@ -1587,7 +1587,7 @@ if (Meteor.isServer) {
     },
   });
   Accounts.onCreateUser((options, user) => {
-    const userCount = Users.find().count();
+    const userCount = ReactiveCache.getUsers().length;
     if (userCount === 0) {
       user.isAdmin = true;
     }
@@ -1715,7 +1715,7 @@ const addCronJob = _.debounce(
       name: 'notification_cleanup',
       schedule: (parser) => parser.text('every 1 days'),
       job: () => {
-        for (const user of Users.find()) {
+        for (const user of ReactiveCache.getUsers()) {
           if (!user.profile || !user.profile.notifications) continue;
           for (const notification of user.profile.notifications) {
             if (notification.read) {
