@@ -45,7 +45,7 @@ class ExporterExcel {
     result.lists = ReactiveCache.getLists(byBoard, noBoardId);
     result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
     result.swimlanes = ReactiveCache.getSwimlanes(byBoard, noBoardId);
-    result.customFields = CustomFields.find(
+    result.customFields = ReactiveCache.getCustomFields(
       {
         boardIds: {
           $in: [this.boardId],
@@ -56,7 +56,7 @@ class ExporterExcel {
           boardId: 0,
         },
       },
-    ).fetch();
+    );
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
     result.rules = Rules.find(byBoard, noBoardId).fetch();

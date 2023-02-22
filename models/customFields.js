@@ -307,7 +307,7 @@ if (Meteor.isServer) {
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: CustomFields.find({ boardIds: { $in: [paramBoardId] } }).map(
+      data: ReactiveCache.getCustomFields({ boardIds: { $in: [paramBoardId] } }).map(
         function(cf) {
           return {
             _id: cf._id,

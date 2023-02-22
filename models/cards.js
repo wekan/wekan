@@ -3332,7 +3332,7 @@ if (Meteor.isServer) {
 
     let customFieldsArr = [];
     _.forEach(
-      CustomFields.find({'boardIds': paramBoardId}).fetch(),
+      ReactiveCache.getCustomFields({'boardIds': paramBoardId}),
       function (field) {
         if (field.automaticallyOnCard || field.alwaysOnCard)
           customFieldsArr.push({ _id: field._id, value: null });

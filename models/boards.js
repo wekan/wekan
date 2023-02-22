@@ -648,7 +648,7 @@ Boards.helpers({
 
     // copy custom field definitions
     const cfMap = {};
-    CustomFields.find({ boardIds: oldId }).forEach(cf => {
+    ReactiveCache.getCustomFields({ boardIds: oldId }).forEach(cf => {
       const id = cf._id;
       delete cf._id;
       cf.boardIds = [_id];
@@ -966,10 +966,11 @@ Boards.helpers({
   },
 
   customFields() {
-    return CustomFields.find(
+    const ret = ReactiveCache.getCustomFields(
       { boardIds: { $in: [this._id] } },
       { sort: { name: 1 } },
     );
+    return ret;
   },
 
   // XXX currently mutations return no value so we have an issue when using addLabel in import
