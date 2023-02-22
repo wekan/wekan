@@ -65,7 +65,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   setFirstSwimlaneId() {
     try {
       const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const swimlaneId = board.swimlanes().fetch()[0]._id;
+      const swimlaneId = board.swimlanes()[0]._id;
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
   }

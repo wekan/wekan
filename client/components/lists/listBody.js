@@ -463,14 +463,14 @@ BlazeComponent.extendComponent({
     if (!this.selectedBoardId.get()) {
       return [];
     }
-    const swimlanes = Swimlanes.find(
+    const swimlanes = ReactiveCache.getSwimlanes(
     {
       boardId: this.selectedBoardId.get()
     },
     {
       sort: { sort: 1 },
     });
-    if (swimlanes.count())
+    if (swimlanes.length)
       this.selectedSwimlaneId.set(swimlanes.fetch()[0]._id);
     return swimlanes;
   },
@@ -746,7 +746,7 @@ BlazeComponent.extendComponent({
           } else if (this.isSwimlaneTemplateSearch) {
             element.sort = ReactiveCache.getBoard(this.boardId)
               .swimlanes()
-              .count();
+              .length;
             element.type = 'swimlane';
             _id = element.copy(this.boardId);
           } else if (this.isBoardTemplateSearch) {

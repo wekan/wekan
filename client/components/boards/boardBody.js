@@ -46,7 +46,7 @@ BlazeComponent.extendComponent({
     // fix swimlanes sort field if there are null values
     const currentBoardData = Utils.getCurrentBoard();
     const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
-    if (nullSortSwimlanes.count() > 0) {
+    if (nullSortSwimlanes.length > 0) {
       const swimlanes = currentBoardData.swimlanes();
       let count = 0;
       swimlanes.forEach(s => {

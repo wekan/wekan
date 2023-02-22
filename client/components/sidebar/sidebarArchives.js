@@ -59,7 +59,7 @@ BlazeComponent.extendComponent({
   },
 
   archivedSwimlanes() {
-    return Swimlanes.find(
+    return ReactiveCache.getSwimlanes(
       {
         archived: true,
         boardId: Session.get('currentBoard'),
