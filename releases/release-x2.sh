@@ -10,8 +10,10 @@ fi
 echo "Release: x64"
 cd /data/websites/releases.wekan.team
 mkdir -p /data/websites/old-releases
+mv wekan-$1.zip /data/websites/old-releases/
 mv wekan-$1-amd64.zip /data/websites/old-releases/
 cp wekan-$2-amd64.zip wekan-latest-amd64.zip
+cp wekan-$2-amd64.zip wekan-$2.zip
 sha256sum wekan-*.zip > SHA256SUMS.txt
 
 echo "Release: x64 windows"
