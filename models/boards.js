@@ -680,7 +680,7 @@ Boards.helpers({
       trigger.boardId = _id;
       triggersMap[id] = Triggers.insert(trigger);
     });
-    Rules.find({ boardId: oldId }).forEach(rule => {
+    ReactiveCache.getRules({ boardId: oldId }).forEach(rule => {
       delete rule._id;
       rule.boardId = _id;
       rule.actionId = actionsMap[rule.actionId];

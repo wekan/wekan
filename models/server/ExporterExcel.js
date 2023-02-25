@@ -59,7 +59,7 @@ class ExporterExcel {
     );
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
-    result.rules = Rules.find(byBoard, noBoardId).fetch();
+    result.rules = ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
     result.checklistItems = [];
     result.subtaskItems = [];
