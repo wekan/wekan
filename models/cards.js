@@ -8,7 +8,6 @@ import {
 } from '../config/const';
 import Attachments, { fileStoreStrategyFactory } from "./attachments";
 import { copyFile } from './lib/fileStoreStrategy.js';
-import { DataCache } from 'meteor-reactive-cache';
 
 Cards = new Mongo.Collection('cards');
 
@@ -595,7 +594,7 @@ Cards.helpers({
       });
 
     // copy checklists
-    Checklists.find({ cardId: oldId }).forEach(ch => {
+    ReactiveCache.getChecklists({ cardId: oldId }).forEach(ch => {
       ch.copy(_id);
     });
 
@@ -811,10 +810,8 @@ Cards.helpers({
   },
 
   checklists() {
-    if (!this._checklists) {
-      this._checklists = new DataCache(() => Checklists.find({ cardId: this.getRealId() }, { sort: { sort: 1 } }).fetch(), 1000);
-    }
-    return this._checklists.get();
+    const ret = ReactiveCache.getChecklists({ cardId: this.getRealId() }, { sort: { sort: 1 } });
+    return ret;
   },
 
   firstChecklist() {

@@ -65,9 +65,9 @@ class ExporterCardPDF {
         result.actions = [];
         result.cards.forEach((card) => {
           result.checklists.push(
-            ...Checklists.find({
+            ...ReactiveCache.getChecklists({
               cardId: card._id,
-            }).fetch(),
+            }),
           );
           result.checklistItems.push(
             ...ReactiveCache.getChecklistItems({

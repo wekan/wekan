@@ -256,7 +256,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklists = Checklists.find({ cardId: paramCardId }).map(function(
+      const checklists = ReactiveCache.getChecklists({ cardId: paramCardId }).map(function(
         doc,
       ) {
         return {
