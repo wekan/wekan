@@ -426,7 +426,8 @@ BlazeComponent.extendComponent({
   },
   integrations() {
     const boardId = this.boardId();
-    return Integrations.find({ boardId: `${boardId}` }).fetch();
+    const ret = ReactiveCache.getIntegrations({ boardId });
+    return ret;
   },
   types() {
     return Integrations.Const.WEBHOOK_TYPES;

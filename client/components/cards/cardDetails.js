@@ -197,11 +197,11 @@ BlazeComponent.extendComponent({
         url: '',
       };
 
-      const integrations = Integrations.find({
+      const integrations = ReactiveCache.getIntegrations({
         boardId: { $in: [card.boardId, Integrations.Const.GLOBAL_WEBHOOK_ID] },
         enabled: true,
         activities: { $in: ['CardDetailsRendered', 'all'] },
-      }).fetch();
+      });
 
       if (integrations.length > 0) {
         integrations.forEach((integration) => {
