@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.subscribe('allRules');
@@ -5,9 +7,10 @@ BlazeComponent.extendComponent({
 
   rules() {
     const boardId = Session.get('currentBoard');
-    return Rules.find({
+    const ret = ReactiveCache.getRules({
       boardId,
     });
+    return ret;
   },
   events() {
     return [{}];

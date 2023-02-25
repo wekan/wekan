@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.showBoardTrigger = new ReactiveVar(true);
@@ -31,7 +33,8 @@ BlazeComponent.extendComponent({
   },
 
   rules() {
-    return Rules.find({});
+    const ret = ReactiveCache.getRules({});
+    return ret;
   },
 
   name() {

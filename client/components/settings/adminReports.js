@@ -141,7 +141,7 @@ class AdminReport extends BlazeComponent {
   results() {
     const rules = [];
 
-    Rules.find().forEach(rule => {
+    ReactiveCache.getRules().forEach(rule => {
       rules.push({
         _id: rule._id,
         title: rule.title,
