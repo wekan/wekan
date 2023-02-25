@@ -25,6 +25,8 @@ and fixes the following bugs:
 
 - [Fixed indentation for image size and compression in docker-compose.yml](https://github.com/wekan/wekan/pull/4846).
   Thanks to Entepotenz.
+- [Made ☰ menu buttons bigger at minicard and list, they were too hard to click when they were small](https://github.com/wekan/wekan/commit/c2cf850179ad0079d83561675b6dc2c59825cc11).
+  Thanks to mohammadZahedian and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
