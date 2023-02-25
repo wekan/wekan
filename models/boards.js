@@ -667,7 +667,7 @@ Boards.helpers({
 
     // copy rules, actions, and triggers
     const actionsMap = {};
-    Actions.find({ boardId: oldId }).forEach(action => {
+    ReactiveCache.getActions({ boardId: oldId }).forEach(action => {
       const id = action._id;
       delete action._id;
       action.boardId = _id;

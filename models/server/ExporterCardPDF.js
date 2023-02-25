@@ -90,12 +90,12 @@ class ExporterCardPDF {
             ).fetch(),
           );
           result.actions.push(
-            ...Actions.find(
+            ...ReactiveCache.getActions(
               {
                 _id: rule.actionId,
               },
               noBoardId,
-            ).fetch(),
+            ),
           );
         });
 
