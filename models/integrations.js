@@ -142,7 +142,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      const data = Integrations.find(
+      const data = ReactiveCache.getIntegrations(
         { boardId: paramBoardId },
         { fields: { token: 0 } },
       ).map(function(doc) {

@@ -334,12 +334,12 @@ if (Meteor.isServer) {
       }
     });
 
-    const integrations = Integrations.find({
+    const integrations = ReactiveCache.getIntegrations({
       boardId: { $in: [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID] },
       // type: 'outgoing-webhooks', // all types
       enabled: true,
       activities: { $in: [description, 'all'] },
-    }).fetch();
+    });
     if (integrations.length > 0) {
       params.watchers = watchers;
       integrations.forEach(integration => {
