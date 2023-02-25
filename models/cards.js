@@ -767,12 +767,12 @@ Cards.helpers({
   activities() {
     let ret;
     if (this.isLinkedBoard()) {
-      ret = Activities.find(
+      ret = ReactiveCache.getActivities(
         { boardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
     } else {
-      ret = Activities.find({ cardId: this.getRealId() }, { sort: { createdAt: -1 } });
+      ret = ReactiveCache.getActivities({ cardId: this.getRealId() }, { sort: { createdAt: -1 } });
     }
     return ret;
   },
@@ -2647,7 +2647,7 @@ Cards.mutations({
 
 function updateActivities(doc, fieldNames, modifier) {
   if (_.contains(fieldNames, 'labelIds') && _.contains(fieldNames, 'boardId')) {
-    Activities.find({
+    ReactiveCache.getActivities({
       activityType: 'addedLabel',
       cardId: doc._id,
     }).forEach(a => {

@@ -170,7 +170,7 @@ Checklists.mutations({
    */
   move(newCardId) {
     // update every activity
-    Activities.find(
+    ReactiveCache.getActivities(
       {checklistId: this._id}
     ).forEach(activity => {
       Activities.update(activity._id, {
@@ -219,7 +219,7 @@ if (Meteor.isServer) {
   });
 
   Checklists.before.remove((userId, doc) => {
-    const activities = Activities.find({ checklistId: doc._id });
+    const activities = ReactiveCache.getActivities({ checklistId: doc._id });
     const card = ReactiveCache.getCard(doc.cardId);
     if (activities) {
       activities.forEach(activity => {

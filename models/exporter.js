@@ -105,7 +105,7 @@ export class Exporter {
       { fields: { boardIds: 0 } },
     );
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
-    result.activities = Activities.find(byBoard, noBoardId).fetch();
+    result.activities = ReactiveCache.getActivities(byBoard, noBoardId);
     result.rules = ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
     result.checklistItems = [];

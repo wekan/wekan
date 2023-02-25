@@ -831,8 +831,8 @@ Boards.helpers({
       ).forEach(card => {
         linkedBoardId.push(card.linkedId);
     });
-    return Activities.find({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
-    //return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
+    const ret = ReactiveCache.getActivities({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
+    return ret;
   },
 
   activeMembers(){
