@@ -382,11 +382,11 @@ Template.membersWidget.helpers({
   },
 
   AtLeastOneTeamWasCreated(){
-    let teams = Team.find({}, {sort: { createdAt: -1 }});
+    let teams = ReactiveCache.getTeams({}, {sort: { createdAt: -1 }});
     if(teams === undefined)
       return false;
 
-    return teams.count() > 0;
+    return teams.length > 0;
   },
 });
 
@@ -1753,8 +1753,8 @@ BlazeComponent.extendComponent({
 
 Template.addBoardTeamPopup.helpers({
   teamsDatas() {
-    let teams = Team.find({}, {sort: { teamDisplayName: 1 }});
-    return teams;
+    let ret = ReactiveCache.getTeams({}, {sort: { teamDisplayName: 1 }});
+    return ret;
   },
 });
 
