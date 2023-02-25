@@ -674,7 +674,7 @@ Boards.helpers({
       actionsMap[id] = Actions.insert(action);
     });
     const triggersMap = {};
-    Triggers.find({ boardId: oldId }).forEach(trigger => {
+    ReactiveCache.getTriggers({ boardId: oldId }).forEach(trigger => {
       const id = trigger._id;
       delete trigger._id;
       trigger.boardId = _id;

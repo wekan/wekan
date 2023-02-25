@@ -84,12 +84,12 @@ class ExporterExcel {
     });
     result.rules.forEach((rule) => {
       result.triggers.push(
-        ...Triggers.find(
+        ...ReactiveCache.getTriggers(
           {
             _id: rule.triggerId,
           },
           noBoardId,
-        ).fetch(),
+        ),
       );
       result.actions.push(
         ...ReactiveCache.getActions(
