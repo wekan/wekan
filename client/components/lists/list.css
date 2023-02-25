@@ -112,6 +112,9 @@
   color: #4d4d4d;
   padding-left: 4px;
 }
+.js-open-list-menu {
+  font-size: 18px;
+}
 .list-body {
   flex: 1 1 auto;
   flex-direction: column;

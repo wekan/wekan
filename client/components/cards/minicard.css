@@ -45,12 +45,12 @@
 }
 .minicard-details-menu-with-handle {
   float: right;
-  font-size: 14px;
+  font-size: 18px;
   padding-right: 30px;
 }
 .minicard-details-menu {
   float: right;
-  font-size: 14px;
+  font-size: 18px;
 }
 @media print {
   .minicard-details-menu,
