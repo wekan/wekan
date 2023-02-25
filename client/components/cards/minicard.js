@@ -168,4 +168,9 @@ Template.minicardDetailsActionsPopup.events({
     this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
     Popup.back();
   },
+  'click .js-archive': Popup.afterConfirm('cardArchive', function () {
+    Popup.close();
+    this.archive();
+    Utils.goBoardId(this.boardId);
+  }),
 });
