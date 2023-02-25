@@ -287,8 +287,8 @@ services:
       #---------------------------------------------------------------
       # ==== Allow to shrink attached/pasted image ====
       # https://github.com/wekan/wekan/pull/2544
-      #-MAX_IMAGE_PIXEL=1024
-      #-IMAGE_COMPRESS_RATIO=80
+      #- MAX_IMAGE_PIXEL=1024
+      #- IMAGE_COMPRESS_RATIO=80
       #---------------------------------------------------------------
       # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
       # Number of days after a notification is read before we remove it.
