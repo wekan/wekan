@@ -483,7 +483,7 @@ function buildSelector(queryParams) {
 
       const attachments = Attachments.find({ 'original.name': regex });
 
-      const comments = CardComments.find(
+      const comments = ReactiveCache.getCardComments(
         { text: regex },
         { fields: { cardId: 1 } },
       );
