@@ -170,25 +170,25 @@ CustomFields.allow({
   insert(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      ReactiveCache.getBoards({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }),
     );
   },
   update(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      ReactiveCache.getBoards({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }),
     );
   },
   remove(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      ReactiveCache.getBoards({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }),
     );
   },
   fetch: ['userId', 'boardIds'],

@@ -245,7 +245,7 @@ function buildSelector(queryParams) {
         const boards = Boards.userSearch(userId, {
           title: new RegExp(escapeForRegex(query), 'i'),
         });
-        if (boards.count()) {
+        if (boards.length) {
           boards.forEach(board => {
             queryBoards.push(board._id);
           });
@@ -372,7 +372,7 @@ function buildSelector(queryParams) {
           labels: { $elemMatch: { color: label.toLowerCase() } },
         });
 
-        if (boards.count()) {
+        if (boards.length) {
           boards.forEach(board => {
             // eslint-disable-next-line no-console
             // console.log('board:', board);
@@ -396,7 +396,7 @@ function buildSelector(queryParams) {
             labels: { $elemMatch: { name: reLabel } },
           });
 
-          if (boards.count()) {
+          if (boards.length) {
             boards.forEach(board => {
               board.labels
                 .filter(boardLabel => {

@@ -1556,10 +1556,10 @@ Boards.uniqueTitle = title => {
   );
   const base = escapeForRegex(m.groups.title);
   const baseTitle = m.groups.title;
-  boards = Boards.find({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
-  if (boards.count() > 0) {
+  boards = ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
+  if (boards.length > 0) {
     let num = 0;
-    Boards.find({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
+    ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
       board => {
         const m = board.title.match(
           new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
@@ -1589,7 +1589,8 @@ Boards.userSearch = (
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
   }
-  return Boards.find(selector, projection);
+  const ret = ReactiveCache.getBoards(selector, projection);
+  return ret;
 };
 
 Boards.userBoards = (
@@ -1617,7 +1618,7 @@ Boards.userBoards = (
     { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
   ];
 
-  return Boards.find(selector, projection);
+  return ReactiveCache.getBoards(selector, projection);
 };
 
 Boards.userBoardIds = (userId, archived = false, selector = {}) => {
@@ -1972,7 +1973,7 @@ if (Meteor.isServer) {
         req.userId === paramUserId,
       );
 
-      const data = Boards.find(
+      const data = ReactiveCache.getBoards(
         {
           archived: false,
           'members.userId': paramUserId,
@@ -2008,7 +2009,7 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Boards.find(
+        data: ReactiveCache.getBoards(
           { permission: 'public' },
           {
             sort: { sort: 1 /* boards default sorting */ },
@@ -2040,8 +2041,8 @@ if (Meteor.isServer) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
-          private: Boards.find({ permission: 'private' }).count(),
-          public: Boards.find({ permission: 'public' }).count(),
+          private: ReactiveCache.getBoards({ permission: 'private' }).length,
+          public: ReactiveCache.getBoards({ permission: 'public' }).length,
         },
       });
     } catch (error) {

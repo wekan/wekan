@@ -33,7 +33,8 @@ const getBoardTitleWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
 };
 
 const getBoards = (boardIds) => {
-  return Boards.find({ _id: { $in: boardIds } }).fetch();
+  const ret = ReactiveCache.getBoards({ _id: { $in: boardIds } });
+  return ret;
 };
 Meteor.startup(() => {
   WebApp.connectHandlers.use('/metrics', (req, res, next) => {
@@ -77,7 +78,7 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered boards\n';
 
         // Get number of registered boards
-        resCount = Boards.find({ archived: false, type: 'board' }).count(); // KPI 3
+        resCount = ReactiveCache.getBoards({ archived: false, type: 'board' }).length; // KPI 3
         metricsRes += 'wekan_registeredboards ' + resCount + '\n';
         resCount = 0;
 
@@ -86,7 +87,7 @@ Meteor.startup(() => {
 
         // Get number of registered boards by registered users
         resCount =
-          Boards.find({ archived: false, type: 'board' }).count() /
+          ReactiveCache.getBoards({ archived: false, type: 'board' }).length /
           ReactiveCache.getUsers({}).length; // KPI 4
         metricsRes +=
           'wekan_registeredboardsBysRegisteredUsers ' + resCount + '\n';
@@ -96,11 +97,11 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered boards\n';
 
         // Get board numbers with only one member
-        resCount = Boards.find({
+        resCount = ReactiveCache.getBoards({
           archived: false,
           type: 'board',
           members: { $size: 1 },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_registeredboardsWithOnlyOneMember ' + resCount + '\n';
         resCount = 0;

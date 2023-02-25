@@ -2029,7 +2029,7 @@ if (Meteor.isServer) {
       delete data.services;
 
       // get all boards where the user is member of
-      let boards = Boards.find(
+      let boards = ReactiveCache.getBoards(
         {
           type: 'board',
           'members.userId': req.userId,
@@ -2115,7 +2115,7 @@ if (Meteor.isServer) {
       }
 
       // get all boards where the user is member of
-      let boards = Boards.find(
+      let boards = ReactiveCache.getBoards(
         {
           type: 'board',
           'members.userId': id,
@@ -2174,7 +2174,7 @@ if (Meteor.isServer) {
       });
       if (data !== undefined) {
         if (action === 'takeOwnership') {
-          data = Boards.find(
+          data = ReactiveCache.getBoards(
             {
               'members.userId': id,
               'members.isAdmin': true,
@@ -2268,7 +2268,7 @@ if (Meteor.isServer) {
         let data = ReactiveCache.getUser(userId);
         if (data !== undefined) {
           if (action === 'add') {
-            data = Boards.find({
+            data = ReactiveCache.getBoards({
               _id: boardId,
             }).map(function (board) {
               if (!board.hasMember(userId)) {
@@ -2329,7 +2329,7 @@ if (Meteor.isServer) {
         let data = ReactiveCache.getUser(userId);
         if (data !== undefined) {
           if (action === 'remove') {
-            data = Boards.find({
+            data = ReactiveCache.getBoards({
               _id: boardId,
             }).map(function (board) {
               if (board.hasMember(userId)) {
