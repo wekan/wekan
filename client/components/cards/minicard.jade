@@ -129,11 +129,11 @@ template(name="minicard")
 
     .badges
       unless currentUser.isNoComments
-        if comments.count
-          .badge(title="{{_ 'card-comments-title' comments.count }}")
+        if comments.length
+          .badge(title="{{_ 'card-comments-title' comments.length }}")
             span.badge-icon.fa.fa-comment-o.badge-comment
               = ' '
-              = comments.count
+              = comments.length
             //span.badge-comment.badge-text
             //|  {{_ 'comment'}}
       if getDescription

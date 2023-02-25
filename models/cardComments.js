@@ -172,7 +172,7 @@ CardComments.textSearch = (userId, textArray) => {
   // eslint-disable-next-line no-console
   // console.log('cardComments selector:', selector);
 
-  const comments = CardComments.find(selector);
+  const comments = ReactiveCache.getCardComments(selector);
   // eslint-disable-next-line no-console
   // console.log('count:', comments.count());
   // eslint-disable-next-line no-console
@@ -246,7 +246,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: CardComments.find({
+        data: ReactiveCache.getCardComments({
           boardId: paramBoardId,
           cardId: paramCardId,
         }).map(function (doc) {

@@ -606,7 +606,7 @@ Cards.helpers({
     });
 
     // copy card comments
-    CardComments.find({ cardId: oldId }).forEach(cmt => {
+    ReactiveCache.getCardComments({ cardId: oldId }).forEach(cmt => {
       cmt.copy(_id);
     });
     // restore the id, otherwise new copies will fail
@@ -780,12 +780,12 @@ Cards.helpers({
   comments() {
     let ret
     if (this.isLinkedBoard()) {
-      ret = CardComments.find(
+      ret = ReactiveCache.getCardComments(
         { boardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
     } else {
-      ret = CardComments.find(
+      ret = ReactiveCache.getCardComments(
         { cardId: this.getRealId() },
         { sort: { createdAt: -1 } },
       );

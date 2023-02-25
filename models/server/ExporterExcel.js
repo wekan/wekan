@@ -57,7 +57,7 @@ class ExporterExcel {
         },
       },
     );
-    result.comments = CardComments.find(byBoard, noBoardId).fetch();
+    result.comments = ReactiveCache.getCardComments(byBoard, noBoardId);
     result.activities = ReactiveCache.getActivities(byBoard, noBoardId);
     result.rules = ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
