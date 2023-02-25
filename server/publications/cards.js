@@ -436,7 +436,7 @@ function buildSelector(queryParams) {
           case PREDICATE_CHECKLIST:
             selector.$and.push({
               _id: {
-                $in: Checklists.find({}, { fields: { cardId: 1 } }).map(
+                $in: ReactiveCache.getChecklists({}, { fields: { cardId: 1 } }).map(
                   a => a.cardId,
                 ),
               },
@@ -471,7 +471,7 @@ function buildSelector(queryParams) {
         { title: regex },
         { fields: { cardId: 1, checklistId: 1 } },
       );
-      const checklists = Checklists.find(
+      const checklists = ReactiveCache.getChecklists(
         {
           $or: [
             { title: regex },
