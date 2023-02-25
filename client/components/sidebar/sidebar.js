@@ -374,11 +374,11 @@ Template.membersWidget.helpers({
     return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   AtLeastOneOrgWasCreated(){
-    let orgs = Org.find({}, {sort: { createdAt: -1 }});
+    let orgs = ReactiveCache.getOrgs({}, {sort: { createdAt: -1 }});
     if(orgs === undefined)
       return false;
 
-    return orgs.count() > 0;
+    return orgs.length > 0;
   },
 
   AtLeastOneTeamWasCreated(){
@@ -1580,8 +1580,8 @@ BlazeComponent.extendComponent({
 
 Template.addBoardOrgPopup.helpers({
   orgsDatas() {
-    let orgs = Org.find({}, {sort: { orgDisplayName: 1 }});
-    return orgs;
+    let ret = ReactiveCache.getOrgs({}, {sort: { orgDisplayName: 1 }});
+    return ret;
   },
 });
 

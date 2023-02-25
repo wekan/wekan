@@ -145,11 +145,11 @@ BlazeComponent.extendComponent({
     this.loading.set(w);
   },
   orgList() {
-    const orgs = Org.find(this.findOrgsOptions.get(), {
+    const orgs = ReactiveCache.getOrgs(this.findOrgsOptions.get(), {
       sort: { orgDisplayName: 1 },
       fields: { _id: true },
     });
-    this.numberOrgs.set(orgs.count(false));
+    this.numberOrgs.set(orgs.length);
     return orgs;
   },
   teamList() {
@@ -253,7 +253,8 @@ Template.editUserPopup.helpers({
     return Template.instance().authenticationMethods.get();
   },
   orgsDatas() {
-    return Org.find({}, {sort: { orgDisplayName: 1 }});
+    const ret = ReactiveCache.getOrgs({}, {sort: { orgDisplayName: 1 }});
+    return ret;
   },
   teamsDatas() {
     return Team.find({}, {sort: { teamDisplayName: 1 }});
@@ -326,7 +327,8 @@ Template.newUserPopup.helpers({
     return Template.instance().authenticationMethods.get();
   },
   orgsDatas() {
-    return Org.find({}, {sort: { orgDisplayName: 1 }});
+    const ret = ReactiveCache.getOrgs({}, {sort: { orgDisplayName: 1 }});
+    return ret;
   },
   teamsDatas() {
     return Team.find({}, {sort: { teamDisplayName: 1 }});
