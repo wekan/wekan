@@ -17,7 +17,7 @@ RulesHelper = {
     }
     const matchingFields = TriggersDef[activityType].matchingFields;
     const matchingMap = this.buildMatchingFieldsMap(activity, matchingFields);
-    const matchingTriggers = Triggers.find(matchingMap);
+    const matchingTriggers = ReactiveCache.getTriggers(matchingMap);
     const matchingRules = [];
     matchingTriggers.forEach(function(trigger) {
       const rule = trigger.getRule();
