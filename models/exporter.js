@@ -77,8 +77,7 @@ export class Exporter {
     const byBoardAndAttachment = this._attachmentId
       ? { boardId: this._boardId, _id: this._attachmentId }
       : byBoard;
-    result.attachments = Attachments.find(byBoardAndAttachment)
-      .fetch()
+    result.attachments = ReactiveCache.getAttachments(byBoardAndAttachment)
       .map((attachment) => {
         let filebase64 = null;
         filebase64 = getBase64DataSync(attachment);

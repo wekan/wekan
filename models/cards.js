@@ -588,7 +588,6 @@ Cards.helpers({
 
     // Copy attachments
     oldCard.attachments()
-      .map(att => att.get())
       .forEach(att => {
         copyFile(att, _id, fileStoreStrategyFactory);
       });
