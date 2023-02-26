@@ -730,17 +730,6 @@ BlazeComponent.extendComponent({
 Template.cardMembersPopup.onCreated(function () {
   let currBoard = Utils.getCurrentBoard();
   let members = currBoard.activeMembers();
-
-  // let query = {
-  //   "teams.teamId": { $in: currBoard.teams.map(t => t.teamId) },
-  // };
-
-  // let boardTeamUsers = Users.find(query, {
-  //   sort: { sort: 1 },
-  // });
-
-  // members = currBoard.activeMembers2(members, boardTeamUsers);
-
   this.members = new ReactiveVar(members);
 });
 
@@ -760,16 +749,6 @@ Template.cardMembersPopup.helpers({
 const filterMembers = (filterTerm) => {
   let currBoard = Utils.getCurrentBoard();
   let members = currBoard.activeMembers();
-
-  // let query = {
-  //   "teams.teamId": { $in: currBoard.teams.map(t => t.teamId) },
-  // };
-
-  // let boardTeamUsers = Users.find(query, {
-  //   sort: { sort: 1 },
-  // });
-
-  // members = currBoard.activeMembers2(members, boardTeamUsers);
 
   if (filterTerm) {
     members = members
@@ -1600,17 +1579,6 @@ EscapeActions.register(
 Template.cardAssigneesPopup.onCreated(function () {
   let currBoard = Utils.getCurrentBoard();
   let members = currBoard.activeMembers();
-
-  // let query = {
-  //   "teams.teamId": { $in: currBoard.teams.map(t => t.teamId) },
-  // };
-
-  // let boardTeamUsers = ReactiveCache.getUsers(query, {
-  //   sort: { sort: 1 },
-  // });
-
-  // members = currBoard.activeMembers2(members, boardTeamUsers);
-
   this.members = new ReactiveVar(members);
 });
 
