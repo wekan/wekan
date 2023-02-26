@@ -41,7 +41,7 @@ Template.attachmentGallery.events({
 });
 
 function getNextAttachmentId(currentAttachmentId) {
-    const attachments = Attachments.find({'meta.cardId': cardId}).get();
+    const attachments = ReactiveCache.getAttachments({'meta.cardId': cardId});
 
     let i = 0;
     for (; i < attachments.length; i++) {
@@ -53,7 +53,7 @@ function getNextAttachmentId(currentAttachmentId) {
 }
 
 function getPrevAttachmentId(currentAttachmentId) {
-  const attachments = Attachments.find({'meta.cardId': cardId}).get();
+  const attachments = ReactiveCache.getAttachments({'meta.cardId': cardId});
 
   let i = 0;
   for (; i < attachments.length; i++) {

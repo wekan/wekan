@@ -45,7 +45,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   getBoardsWithAttachments() {
-    this.attachments = Attachments.find().get();
+    this.attachments = ReactiveCache.getAttachments();
     this.attachmentsByBoardId = _.chain(this.attachments)
       .groupBy(fileObj => fileObj.meta.boardId)
       .value();
