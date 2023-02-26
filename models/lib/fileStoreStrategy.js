@@ -696,6 +696,7 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
 };
 
 export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
+  const newCard = Cards.findOne(newCardId);
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const readStream = strategyRead.getReadStream();
@@ -721,10 +722,10 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
           fileName: fileObj.name,
           type: fileObj.type,
           meta: {
-            boardId: fileObj.meta.boardId,
+            boardId: newCard.boardId,
             cardId: newCardId,
-            listId: fileObj.meta.listId,
-            swimlaneId: fileObj.meta.swimlaneId,
+            listId: newCard.listId,
+            swimlaneId: newCard.swimlaneId,
             source: 'copy',
             copyFrom: fileObj._id,
             copyStorage: strategyRead.getStorageName(),
