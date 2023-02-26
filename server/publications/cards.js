@@ -427,7 +427,7 @@ function buildSelector(queryParams) {
           case PREDICATE_ATTACHMENT:
             selector.$and.push({
               _id: {
-                $in: Attachments.find({}, { fields: { cardId: 1 } }).map(
+                $in: ReactiveCache.getAttachments({}, { fields: { cardId: 1 } }).map(
                   a => a.cardId,
                 ),
               },
@@ -481,7 +481,7 @@ function buildSelector(queryParams) {
         { fields: { cardId: 1 } },
       );
 
-      const attachments = Attachments.find({ 'original.name': regex });
+      const attachments = ReactiveCache.getAttachments({ 'original.name': regex });
 
       const comments = ReactiveCache.getCardComments(
         { text: regex },
