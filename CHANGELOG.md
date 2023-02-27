@@ -29,6 +29,10 @@ and fixes the following bugs:
   Thanks to mohammadZahedian and xet7.
 - [Added "Move card to archive" to minicard ☰ menu](https://github.com/wekan/wekan/commit/1deccf2f4b5ba1a72bc76d5ae83858e6c50b36ae).
   Thanks to mohammadZahedian and xet7.
+- [Fix attachment migration error about avatarUrl startsWith undefined](https://github.com/wekan/wekan/commit/7b2cff4c5e7bae4971776638b680696596edc7e6).
+  Thanks to xet7.
+- [Temporarily disable file validation, because it prevents migrating some attachments at wekan/server/migrations.js to ostrio Meteor-Files](https://github.com/wekan/wekan/commit/9216a69c0541325be6941c07d256b07627a8ec73).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
