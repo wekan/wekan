@@ -13,6 +13,7 @@ if (Meteor.isServer) {
 export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, externalCommandLine) {
   let isValid = true;
 
+/*
   if (mimeTypesAllowed.length) {
     const mimeTypeResult = await FileType.fromFile(fileObj.path);
 
@@ -43,6 +44,7 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
   if (isValid) {
     console.debug("Validation of uploaded file successful: file " + fileObj.path);
   }
+*/
 
   return isValid;
 }
