@@ -10,7 +10,7 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.77 2023-02-27 WeKan ® release
 
 This release adds the following updates:
 
