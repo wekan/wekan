@@ -31,7 +31,9 @@ and fixes the following bugs:
   Thanks to mohammadZahedian and xet7.
 - [Fix attachment migration error about avatarUrl startsWith undefined](https://github.com/wekan/wekan/commit/7b2cff4c5e7bae4971776638b680696596edc7e6).
   Thanks to xet7.
-- [Temporarily disable file validation, because it prevents migrating some attachments at wekan/server/migrations.js to ostrio Meteor-Files](https://github.com/wekan/wekan/commit/9216a69c0541325be6941c07d256b07627a8ec73).
+- Try to fix attachment migrations to ostrioFiles, allow existing files to be migrated.
+  [Part 1](https://github.com/wekan/wekan/commit/9216a69c0541325be6941c07d256b07627a8ec73),
+  [Part 2](https://github.com/wekan/wekan/commit/16ad6bf9fc75b39e6e8cedb8a5a98ec963ccf14a).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
