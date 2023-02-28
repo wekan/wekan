@@ -10,6 +10,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# v6.78 2023-02-28 WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Try to fix some security issue](https://github.com/wekan/wekan/commit/5d79c231ed3cfc09636ab678b3f62ea9f36160f2).
+  Thanks to Responsible Security Disclousure contributors and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.77 2023-02-27 WeKan ® release
 
 This release adds the following updates:
