@@ -202,7 +202,7 @@ BlazeComponent.extendComponent({
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), {
+    const ret = Cards.find(Filter.mongoSelector(selector), {
       // sort: ['sort'],
       sort: sortBy,
       limit,
