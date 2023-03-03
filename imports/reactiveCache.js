@@ -1084,4 +1084,30 @@ ReactiveCache = {
   },
 }
 
-export { ReactiveCache };
+// Client side little MiniMongo DB "Index"
+ReactiveMiniMongoIndex = {
+  getSubTasksWithParentId(parentId, addSelect = {}, options) {
+    let ret = []
+    if (parentId) {
+      const select = {addSelect, options}
+      if (!this.__subTasksWithId) {
+        this.__subTasksWithId = new DataCache(_select => {
+          const __select = Jsons.parse(_select);
+          const _subTasks = ReactiveCache.getCards(
+            { parentId: { $exists: true },
+              ...__select.addSelect,
+            }, __select.options);
+          const _ret = _.groupBy(_subTasks, 'parentId')
+          return _ret;
+        });
+      }
+      ret = this.__subTasksWithId.get(Jsons.stringify(select));
+      if (ret) {
+        ret = ret[parentId] || [];
+      }
+    }
+    return ret;
+  }
+}
+
+export { ReactiveCache, ReactiveMiniMongoIndex };

@@ -1,4 +1,4 @@
-import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 import {
   ALLOWED_COLORS,
@@ -861,12 +861,9 @@ Cards.helpers({
   },
 
   subtasks() {
-    const ret = ReactiveCache.getCards(
-      {
-        parentId: this._id,
+    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this._id, {
         archived: false,
-      },
-      {
+      }, {
         sort: {
           sort: 1,
         },
@@ -876,17 +873,14 @@ Cards.helpers({
   },
 
   subtasksFinished() {
-    const ret = ReactiveCache.getCards({
-      parentId: this._id,
+    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this._id, {
       archived: true,
     });
     return ret;
   },
 
   allSubtasks() {
-    const ret = ReactiveCache.getCards({
-      parentId: this._id,
-    });
+    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this._id);
     return ret;
   },
 
