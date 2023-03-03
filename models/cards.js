@@ -809,7 +809,7 @@ Cards.helpers({
   },
 
   checklists() {
-    const ret = ReactiveCache.getChecklists({ cardId: this.getRealId() }, { sort: { sort: 1 } });
+    const ret = ReactiveMiniMongoIndex.getChecklistsWithCardId(this.getRealId(), {}, { sort: { sort: 1 } });
     return ret;
   },
 

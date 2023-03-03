@@ -1107,6 +1107,28 @@ ReactiveMiniMongoIndex = {
       }
     }
     return ret;
+  },
+  getChecklistsWithCardId(cardId, addSelect = {}, options) {
+    let ret = []
+    if (cardId) {
+      const select = {addSelect, options}
+      if (!this.__checklistsWithId) {
+        this.__checklistsWithId = new DataCache(_select => {
+          const __select = Jsons.parse(_select);
+          const _checklists = ReactiveCache.getChecklists(
+            { cardId: { $exists: true },
+              ...__select.addSelect,
+            }, __select.options);
+          const _ret = _.groupBy(_checklists, 'cardId')
+          return _ret;
+        });
+      }
+      ret = this.__checklistsWithId.get(Jsons.stringify(select));
+      if (ret) {
+        ret = ret[cardId] || [];
+      }
+    }
+    return ret;
   }
 }
 
