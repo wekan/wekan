@@ -1129,6 +1129,28 @@ ReactiveMiniMongoIndex = {
       }
     }
     return ret;
+  },
+  getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options) {
+    let ret = []
+    if (checklistId) {
+      const select = {addSelect, options}
+      if (!this.__checklistItemsWithId) {
+        this.__checklistItemsWithId = new DataCache(_select => {
+          const __select = Jsons.parse(_select);
+          const _checklistItems = ReactiveCache.getChecklistItems(
+            { checklistId: { $exists: true },
+              ...__select.addSelect,
+            }, __select.options);
+          const _ret = _.groupBy(_checklistItems, 'checklistId')
+          return _ret;
+        });
+      }
+      ret = this.__checklistItemsWithId.get(Jsons.stringify(select));
+      if (ret) {
+        ret = ret[checklistId] || [];
+      }
+    }
+    return ret;
   }
 }
 

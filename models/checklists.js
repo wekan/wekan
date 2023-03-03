@@ -1,4 +1,4 @@
-import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 
 Checklists = new Mongo.Collection('checklists');
 
@@ -87,12 +87,7 @@ Checklists.helpers({
     return ret;
   },
   items() {
-    const ret = ReactiveCache.getChecklistItems(
-      {
-        checklistId: this._id,
-      },
-      { sort: ['sort'] },
-    );
+    const ret = ReactiveMiniMongoIndex.getChecklistItemsWithChecklistId(this._id, {}, { sort: ['sort'] });
     return ret;
 
   },
