@@ -784,8 +784,9 @@ Cards.helpers({
         { sort: { createdAt: -1 } },
       );
     } else {
-      ret = ReactiveCache.getCardComments(
-        { cardId: this.getRealId() },
+      ret = ReactiveMiniMongoIndex.getCardCommentsWithCardId(
+        this.getRealId(),
+        {},
         { sort: { createdAt: -1 } },
       );
     }

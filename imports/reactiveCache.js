@@ -1151,6 +1151,28 @@ ReactiveMiniMongoIndex = {
       }
     }
     return ret;
+  },
+  getCardCommentsWithCardId(cardId, addSelect = {}, options) {
+    let ret = []
+    if (cardId) {
+      const select = {addSelect, options}
+      if (!this.__cardCommentsWithId) {
+        this.__cardCommentsWithId = new DataCache(_select => {
+          const __select = Jsons.parse(_select);
+          const _cardComments = ReactiveCache.getCardComments(
+            { cardId: { $exists: true },
+              ...__select.addSelect,
+            }, __select.options);
+          const _ret = _.groupBy(_cardComments, 'cardId')
+          return _ret;
+        });
+      }
+      ret = this.__cardCommentsWithId.get(Jsons.stringify(select));
+      if (ret) {
+        ret = ret[cardId] || [];
+      }
+    }
+    return ret;
   }
 }
 
