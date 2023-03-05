@@ -218,6 +218,8 @@ BlazeComponent.extendComponent({
     if (Utils.canModifyBoard() && currentBoard.lists().length === 0) {
       boardComponent.openNewListForm();
     }
+
+    Utils.setBackgroundImage();
   },
 
   notDisplayThisBoard() {

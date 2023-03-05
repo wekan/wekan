@@ -333,7 +333,6 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     this.setLoading(false);
-    Utils.setBackgroundImage();
   },
 
   setError(error) {
