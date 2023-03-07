@@ -202,11 +202,11 @@ BlazeComponent.extendComponent({
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    const ret = Cards.find(Filter.mongoSelector(selector), {
+    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), {
       // sort: ['sort'],
       sort: sortBy,
       limit,
-    });
+    }, true);
     return ret;
   },
 
