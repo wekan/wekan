@@ -7,168 +7,231 @@ ReactiveCacheServer = {
     const ret = Boards.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getBoards(selector, options) {
-    const ret = Boards.find(selector, options).fetch();
+  getBoards(selector, options, getQuery) {
+    let ret = Boards.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getList(idOrFirstObjectSelector, options) {
     const ret = Lists.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getLists(selector, options) {
-    const ret = Lists.find(selector, options).fetch();
+  getLists(selector, options, getQuery) {
+    let ret = Lists.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getSwimlane(idOrFirstObjectSelector, options) {
     const ret = Swimlanes.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getSwimlanes(selector, options) {
-    const ret = Swimlanes.find(selector, options).fetch();
+  getSwimlanes(selector, options, getQuery) {
+    let ret = Swimlanes.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getChecklist(idOrFirstObjectSelector, options) {
     const ret = Checklists.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getChecklists(selector, options) {
-    const ret = Checklists.find(selector, options).fetch();
+  getChecklists(selector, options, getQuery) {
+    let ret = Checklists.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getChecklistItem(idOrFirstObjectSelector, options) {
     const ret = ChecklistItems.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getChecklistItems(selector, options) {
-    const ret = ChecklistItems.find(selector, options).fetch();
+  getChecklistItems(selector, options, getQuery) {
+    let ret = ChecklistItems.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getCard(idOrFirstObjectSelector, options) {
     const ret = Cards.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getCards(selector, options) {
-    const ret = Cards.find(selector, options).fetch();
+  getCards(selector, options, getQuery) {
+    let ret = Cards.find(selector, options, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getCardComment(idOrFirstObjectSelector, options) {
     const ret = CardComments.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getCardComments(selector, options) {
-    const ret = CardComments.find(selector, options).fetch();
+  getCardComments(selector, options, getQuery) {
+    let ret = CardComments.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getCardCommentReaction(idOrFirstObjectSelector, options) {
     const ret = CardCommentReactions.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getCardCommentReactions(selector, options) {
-    const ret = CardCommentReactions.find(selector, options).fetch();
+  getCardCommentReactions(selector, options, getQuery) {
+    let ret = CardCommentReactions.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getCustomField(idOrFirstObjectSelector, options) {
     const ret = CustomFields.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getCustomFields(selector, options) {
-    const ret = CustomFields.find(selector, options).fetch();
+  getCustomFields(selector, options, getQuery) {
+    let ret = CustomFields.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getAttachment(idOrFirstObjectSelector, options) {
     const ret = Attachments.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getAttachments(selector, options) {
-    const ret = Attachments.find(selector, options).fetch();
+  getAttachments(selector, options, getQuery) {
+    let ret = Attachments.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getUser(idOrFirstObjectSelector, options) {
     const ret = Users.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getUsers(selector, options) {
-    const ret = Users.find(selector, options).fetch();
+  getUsers(selector, options, getQuery) {
+    let ret = Users.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getOrg(idOrFirstObjectSelector, options) {
     const ret = Org.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getOrgs(selector, options) {
-    const ret = Org.find(selector, options).fetch();
+  getOrgs(selector, options, getQuery) {
+    let ret = Org.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getTeam(idOrFirstObjectSelector, options) {
     const ret = Team.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getTeams(selector, options) {
-    const ret = Team.find(selector, options).fetch();
+  getTeams(selector, options, getQuery) {
+    let ret = Team.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getActivity(idOrFirstObjectSelector, options) {
     const ret = Activities.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getActivities(selector, options) {
-    const ret = Activities.find(selector, options).fetch();
+  getActivities(selector, options, getQuery) {
+    let ret = Activities.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getRule(idOrFirstObjectSelector, options) {
     const ret = Rules.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getRules(selector, options) {
-    const ret = Rules.find(selector, options).fetch();
+  getRules(selector, options, getQuery) {
+    let ret = Rules.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getAction(idOrFirstObjectSelector, options) {
     const ret = Actions.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getActions(selector, options) {
-    const ret = Actions.find(selector, options).fetch();
+  getActions(selector, options, getQuery) {
+    let ret = Actions.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getTrigger(idOrFirstObjectSelector, options) {
     const ret = Triggers.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getTriggers(selector, options) {
-    const ret = Triggers.find(selector, options).fetch();
+  getTriggers(selector, options, getQuery) {
+    let ret = Triggers.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getImpersonatedUser(idOrFirstObjectSelector, options) {
     const ret = ImpersonatedUsers.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getImpersonatedUsers(selector, options) {
-    const ret = ImpersonatedUsers.find(selector, options).fetch();
+  getImpersonatedUsers(selector, options, getQuery) {
+    let ret = ImpersonatedUsers.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getIntegration(idOrFirstObjectSelector, options) {
     const ret = Integrations.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getIntegrations(selector, options) {
-    const ret = Integrations.find(selector, options).fetch();
+  getIntegrations(selector, options, getQuery) {
+    let ret = Integrations.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getSessionData(idOrFirstObjectSelector, options) {
     const ret = SessionData.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getSessionDatas(selector, options) {
-    const ret = SessionData.find(selector, options).fetch();
+  getSessionDatas(selector, options, getQuery) {
+    let ret = SessionData.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getInvitationCode(idOrFirstObjectSelector, options) {
     const ret = InvitationCodes.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
-  getInvitationCodes(selector, options) {
-    const ret = InvitationCodes.find(selector, options).fetch();
+  getInvitationCodes(selector, options, getQuery) {
+    let ret = InvitationCodes.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
     return ret;
   },
   getCurrentSetting() {
@@ -197,12 +260,15 @@ ReactiveCacheClient = {
     const ret = this.__board.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getBoards(selector, options) {
-    const select = {selector, options}
+  getBoards(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__boards) {
       this.__boards = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Boards.find(__select.selector, __select.options).fetch();
+        let _ret = Boards.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -221,12 +287,15 @@ ReactiveCacheClient = {
     const ret = this.__list.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getLists(selector, options) {
-    const select = {selector, options}
+  getLists(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__lists) {
       this.__lists = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Lists.find(__select.selector, __select.options).fetch();
+        let _ret = Lists.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -245,12 +314,15 @@ ReactiveCacheClient = {
     const ret = this.__swimlane.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getSwimlanes(selector, options) {
-    const select = {selector, options}
+  getSwimlanes(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__swimlanes) {
       this.__swimlanes = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Swimlanes.find(__select.selector, __select.options).fetch();
+        let _ret = Swimlanes.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -269,12 +341,15 @@ ReactiveCacheClient = {
     const ret = this.__checklist.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getChecklists(selector, options) {
-    const select = {selector, options}
+  getChecklists(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__checklists) {
       this.__checklists = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Checklists.find(__select.selector, __select.options).fetch();
+        let _ret = Checklists.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -293,12 +368,15 @@ ReactiveCacheClient = {
     const ret = this.__checklistItem.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getChecklistItems(selector, options) {
-    const select = {selector, options}
+  getChecklistItems(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__checklistItems) {
       this.__checklistItems = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = ChecklistItems.find(__select.selector, __select.options).fetch();
+        let _ret = ChecklistItems.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -317,12 +395,15 @@ ReactiveCacheClient = {
     const ret = this.__card.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getCards(selector, options) {
-    const select = {selector, options}
+  getCards(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__cards) {
       this.__cards = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Cards.find(__select.selector, __select.options).fetch();
+        let _ret = Cards.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -341,12 +422,15 @@ ReactiveCacheClient = {
     const ret = this.__cardComment.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getCardComments(selector, options) {
-    const select = {selector, options}
+  getCardComments(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__cardComments) {
       this.__cardComments = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = CardComments.find(__select.selector, __select.options).fetch();
+        let _ret = CardComments.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -365,12 +449,15 @@ ReactiveCacheClient = {
     const ret = this.__cardCommentReaction.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getCardCommentReactions(selector, options) {
-    const select = {selector, options}
+  getCardCommentReactions(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__cardCommentReactions) {
       this.__cardCommentReactions = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = CardCommentReactions.find(__select.selector, __select.options).fetch();
+        let _ret = CardCommentReactions.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -389,12 +476,15 @@ ReactiveCacheClient = {
     const ret = this.__customField.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getCustomFields(selector, options) {
-    const select = {selector, options}
+  getCustomFields(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__customFields) {
       this.__customFields = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = CustomFields.find(__select.selector, __select.options).fetch();
+        let _ret = CustomFields.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -413,12 +503,15 @@ ReactiveCacheClient = {
     const ret = this.__attachment.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getAttachments(selector, options) {
-    const select = {selector, options}
+  getAttachments(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__attachments) {
       this.__attachments = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Attachments.find(__select.selector, __select.options).fetch();
+        let _ret = Attachments.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -437,12 +530,15 @@ ReactiveCacheClient = {
     const ret = this.__user.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getUsers(selector, options) {
-    const select = {selector, options}
+  getUsers(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__users) {
       this.__users = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Users.find(__select.selector, __select.options).fetch();
+        let _ret = Users.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -461,12 +557,15 @@ ReactiveCacheClient = {
     const ret = this.__org.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getOrgs(selector, options) {
-    const select = {selector, options}
+  getOrgs(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__orgs) {
       this.__orgs = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Org.find(__select.selector, __select.options).fetch();
+        let _ret = Org.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -485,12 +584,15 @@ ReactiveCacheClient = {
     const ret = this.__team.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getTeams(selector, options) {
-    const select = {selector, options}
+  getTeams(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__teams) {
       this.__teams = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Team.find(__select.selector, __select.options).fetch();
+        let _ret = Team.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -509,12 +611,15 @@ ReactiveCacheClient = {
     const ret = this.__activity.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getActivities(selector, options) {
-    const select = {selector, options}
+  getActivities(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__activities) {
       this.__activities = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Activities.find(__select.selector, __select.options).fetch();
+        let _ret = Activities.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -533,12 +638,15 @@ ReactiveCacheClient = {
     const ret = this.__rule.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getRules(selector, options) {
-    const select = {selector, options}
+  getRules(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__rules) {
       this.__rules = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Rules.find(__select.selector, __select.options).fetch();
+        let _ret = Rules.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -557,12 +665,15 @@ ReactiveCacheClient = {
     const ret = this.__action.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getActions(selector, options) {
-    const select = {selector, options}
+  getActions(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__actions) {
       this.__actions = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Actions.find(__select.selector, __select.options).fetch();
+        let _ret = Actions.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -581,12 +692,15 @@ ReactiveCacheClient = {
     const ret = this.__trigger.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getTriggers(selector, options) {
-    const select = {selector, options}
+  getTriggers(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__triggers) {
       this.__triggers = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Triggers.find(__select.selector, __select.options).fetch();
+        let _ret = Triggers.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -605,12 +719,15 @@ ReactiveCacheClient = {
     const ret = this.__impersonatedUser.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getImpersonatedUsers(selector, options) {
-    const select = {selector, options}
+  getImpersonatedUsers(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__impersonatedUsers) {
       this.__impersonatedUsers = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = ImpersonatedUsers.find(__select.selector, __select.options).fetch();
+        let _ret = ImpersonatedUsers.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -629,12 +746,15 @@ ReactiveCacheClient = {
     const ret = this.__integration.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getIntegrations(selector, options) {
-    const select = {selector, options}
+  getIntegrations(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__integrations) {
       this.__integrations = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = Integrations.find(__select.selector, __select.options).fetch();
+        let _ret = Integrations.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -653,12 +773,15 @@ ReactiveCacheClient = {
     const ret = this.__invitationCode.get(Jsons.stringify(idOrFirstObjectSelect));
     return ret;
   },
-  getInvitationCodes(selector, options) {
-    const select = {selector, options}
+  getInvitationCodes(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
     if (!this.__invitationCodes) {
       this.__invitationCodes = new DataCache(_select => {
         const __select = Jsons.parse(_select);
-        const _ret = InvitationCodes.find(__select.selector, __select.options).fetch();
+        let _ret = InvitationCodes.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
         return _ret;
       });
     }
@@ -703,12 +826,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getBoards(selector, options) {
+  getBoards(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getBoards(selector, options);
+      ret = ReactiveCacheServer.getBoards(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getBoards(selector, options);
+      ret = ReactiveCacheClient.getBoards(selector, options, getQuery);
     }
     return ret;
   },
@@ -721,12 +844,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getLists(selector, options) {
+  getLists(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getLists(selector, options);
+      ret = ReactiveCacheServer.getLists(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getLists(selector, options);
+      ret = ReactiveCacheClient.getLists(selector, options, getQuery);
     }
     return ret;
   },
@@ -739,12 +862,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getSwimlanes(selector, options) {
+  getSwimlanes(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getSwimlanes(selector, options);
+      ret = ReactiveCacheServer.getSwimlanes(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getSwimlanes(selector, options);
+      ret = ReactiveCacheClient.getSwimlanes(selector, options, getQuery);
     }
     return ret;
   },
@@ -757,12 +880,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getChecklists(selector, options) {
+  getChecklists(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getChecklists(selector, options);
+      ret = ReactiveCacheServer.getChecklists(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getChecklists(selector, options);
+      ret = ReactiveCacheClient.getChecklists(selector, options, getQuery);
     }
     return ret;
   },
@@ -775,12 +898,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getChecklistItems(selector, options) {
+  getChecklistItems(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getChecklistItems(selector, options);
+      ret = ReactiveCacheServer.getChecklistItems(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getChecklistItems(selector, options);
+      ret = ReactiveCacheClient.getChecklistItems(selector, options, getQuery);
     }
     return ret;
   },
@@ -793,12 +916,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getCards(selector, options) {
+  getCards(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getCards(selector, options);
+      ret = ReactiveCacheServer.getCards(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getCards(selector, options);
+      ret = ReactiveCacheClient.getCards(selector, options, getQuery);
     }
     return ret;
   },
@@ -811,12 +934,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getCardComments(selector, options) {
+  getCardComments(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getCardComments(selector, options);
+      ret = ReactiveCacheServer.getCardComments(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getCardComments(selector, options);
+      ret = ReactiveCacheClient.getCardComments(selector, options, getQuery);
     }
     return ret;
   },
@@ -829,12 +952,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getCardCommentReactions(selector, options) {
+  getCardCommentReactions(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getCardCommentReactions(selector, options);
+      ret = ReactiveCacheServer.getCardCommentReactions(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getCardCommentReactions(selector, options);
+      ret = ReactiveCacheClient.getCardCommentReactions(selector, options, getQuery);
     }
     return ret;
   },
@@ -847,12 +970,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getCustomFields(selector, options) {
+  getCustomFields(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getCustomFields(selector, options);
+      ret = ReactiveCacheServer.getCustomFields(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getCustomFields(selector, options);
+      ret = ReactiveCacheClient.getCustomFields(selector, options, getQuery);
     }
     return ret;
   },
@@ -865,12 +988,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getAttachments(selector, options) {
+  getAttachments(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getAttachments(selector, options);
+      ret = ReactiveCacheServer.getAttachments(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getAttachments(selector, options);
+      ret = ReactiveCacheClient.getAttachments(selector, options, getQuery);
     }
     return ret;
   },
@@ -883,12 +1006,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getUsers(selector, options) {
+  getUsers(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getUsers(selector, options);
+      ret = ReactiveCacheServer.getUsers(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getUsers(selector, options);
+      ret = ReactiveCacheClient.getUsers(selector, options, getQuery);
     }
     return ret;
   },
@@ -901,12 +1024,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getOrgs(selector, options) {
+  getOrgs(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getOrgs(selector, options);
+      ret = ReactiveCacheServer.getOrgs(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getOrgs(selector, options);
+      ret = ReactiveCacheClient.getOrgs(selector, options, getQuery);
     }
     return ret;
   },
@@ -919,12 +1042,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getTeams(selector, options) {
+  getTeams(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getTeams(selector, options);
+      ret = ReactiveCacheServer.getTeams(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getTeams(selector, options);
+      ret = ReactiveCacheClient.getTeams(selector, options, getQuery);
     }
     return ret;
   },
@@ -937,12 +1060,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getActivities(selector, options) {
+  getActivities(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getActivities(selector, options);
+      ret = ReactiveCacheServer.getActivities(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getActivities(selector, options);
+      ret = ReactiveCacheClient.getActivities(selector, options, getQuery);
     }
     return ret;
   },
@@ -955,12 +1078,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getRules(selector, options) {
+  getRules(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getRules(selector, options);
+      ret = ReactiveCacheServer.getRules(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getRules(selector, options);
+      ret = ReactiveCacheClient.getRules(selector, options, getQuery);
     }
     return ret;
   },
@@ -973,12 +1096,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getActions(selector, options) {
+  getActions(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getActions(selector, options);
+      ret = ReactiveCacheServer.getActions(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getActions(selector, options);
+      ret = ReactiveCacheClient.getActions(selector, options, getQuery);
     }
     return ret;
   },
@@ -991,12 +1114,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getTriggers(selector, options) {
+  getTriggers(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getTriggers(selector, options);
+      ret = ReactiveCacheServer.getTriggers(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getTriggers(selector, options);
+      ret = ReactiveCacheClient.getTriggers(selector, options, getQuery);
     }
     return ret;
   },
@@ -1009,12 +1132,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getImpersonatedUsers(selector, options) {
+  getImpersonatedUsers(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getImpersonatedUsers(selector, options);
+      ret = ReactiveCacheServer.getImpersonatedUsers(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getImpersonatedUsers(selector, options);
+      ret = ReactiveCacheClient.getImpersonatedUsers(selector, options, getQuery);
     }
     return ret;
   },
@@ -1027,12 +1150,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getIntegrations(selector, options) {
+  getIntegrations(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getIntegrations(selector, options);
+      ret = ReactiveCacheServer.getIntegrations(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getIntegrations(selector, options);
+      ret = ReactiveCacheClient.getIntegrations(selector, options, getQuery);
     }
     return ret;
   },
@@ -1041,9 +1164,9 @@ ReactiveCache = {
     let ret = ReactiveCacheServer.getSessionData(idOrFirstObjectSelector, options);
     return ret;
   },
-  getSessionDatas(selector, options) {
+  getSessionDatas(selector, options, getQuery) {
     // no reactive cache, otherwise global search will not work anymore
-    let ret = ReactiveCacheServer.getSessionDatas(selector, options);
+    let ret = ReactiveCacheServer.getSessionDatas(selector, options, getQuery);
     return ret;
   },
   getInvitationCode(idOrFirstObjectSelector, options) {
@@ -1055,12 +1178,12 @@ ReactiveCache = {
     }
     return ret;
   },
-  getInvitationCodes(selector, options) {
+  getInvitationCodes(selector, options, getQuery) {
     let ret;
     if (Meteor.isServer) {
-      ret = ReactiveCacheServer.getInvitationCodes(selector, options);
+      ret = ReactiveCacheServer.getInvitationCodes(selector, options, getQuery);
     } else {
-      ret = ReactiveCacheClient.getInvitationCodes(selector, options);
+      ret = ReactiveCacheClient.getInvitationCodes(selector, options, getQuery);
     }
     return ret;
   },
