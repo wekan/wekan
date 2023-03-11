@@ -5,21 +5,25 @@ import Rules from '/models/rules';
 
 Meteor.publish('rules', ruleId => {
   check(ruleId, String);
-  return Rules.find({
+  const ret = Rules.find({
     _id: ruleId,
   });
+  return ret;
 });
 
 Meteor.publish('allRules', () => {
-  return Rules.find({});
+  const ret = Rules.find({});
+  return ret;
 });
 
 Meteor.publish('allTriggers', () => {
-  return Triggers.find({});
+  const ret = Triggers.find({});
+  return ret;
 });
 
 Meteor.publish('allActions', () => {
-  return Actions.find({});
+  const ret = Actions.find({});
+  return ret;
 });
 
 Meteor.publish('rulesReport', () => {
@@ -34,10 +38,11 @@ Meteor.publish('rulesReport', () => {
     boardIds.push(rule.boardId);
   });
 
-  return [
+  const ret = [
     rules,
     Actions.find({ _id: { $in: actionIds } }),
     Triggers.find({ _id: { $in: triggerIds } }),
     Boards.find({ _id: { $in: boardIds } }, { fields: { title: 1 } }),
   ];
+  return ret;
 });

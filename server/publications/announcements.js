@@ -1,3 +1,4 @@
 Meteor.publish('announcements', function() {
-  return Announcements.find();
+  const ret = Announcements.find();
+  return ret;
 });

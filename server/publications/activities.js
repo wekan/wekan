@@ -33,8 +33,9 @@ Meteor.publish('activities', (kind, id, limit, hideSystem) => {
   const selector = hideSystem
     ? { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] }
     : { [`${kind}Id`]: { $in: linkedElmtId } };
-  return Activities.find(selector, {
+  const ret = Activities.find(selector, {
     limit,
     sort: { createdAt: -1 },
   });
+  return ret;
 });

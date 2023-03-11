@@ -1,4 +1,5 @@
 import Avatars from '../../models/avatars';
 Meteor.publish('my-avatars', function() {
-  return Avatars.find({ userId: this.userId }).cursor;
+  const ret = Avatars.find({ userId: this.userId }).cursor;
+  return ret;
 });

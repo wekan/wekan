@@ -1,3 +1,4 @@
 Meteor.publish('customFields', function() {
-  return CustomFields.find();
+  const ret = CustomFields.find();
+  return ret;
 });

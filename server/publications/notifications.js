@@ -4,95 +4,104 @@ import { ReactiveCache } from '/imports/reactiveCache';
 
 // gets all activities associated with the current user
 Meteor.publish('notificationActivities', () => {
-  return activities();
+  const ret = activities();
+  return ret;
 });
 
 // gets all attachments associated with activities associated with the current user
 Meteor.publish('notificationAttachments', function() {
-  return Attachments.find({
+  const ret = Attachments.find({
     _id: {
       $in: activities()
         .map(v => v.attachmentId)
         .filter(v => !!v),
     }.cursor,
   });
+  return ret;
 });
 
 // gets all cards associated with activities associated with the current user
 Meteor.publish('notificationCards', function() {
-  return Cards.find({
+  const ret = Cards.find({
     _id: {
       $in: activities()
         .map(v => v.cardId)
         .filter(v => !!v),
     },
   });
+  return ret;
 });
 
 // gets all checklistItems associated with activities associated with the current user
 Meteor.publish('notificationChecklistItems', function() {
-  return ChecklistItems.find({
+  const ret = ChecklistItems.find({
     _id: {
       $in: activities()
         .map(v => v.checklistItemId)
         .filter(v => !!v),
     },
   });
+  return ret;
 });
 
 // gets all checklists associated with activities associated with the current user
 Meteor.publish('notificationChecklists', function() {
-  return Checklists.find({
+  const ret = Checklists.find({
     _id: {
       $in: activities()
         .map(v => v.checklistId)
         .filter(v => !!v),
     },
   });
+  return ret;
 });
 
 // gets all comments associated with activities associated with the current user
 Meteor.publish('notificationComments', function() {
-  return CardComments.find({
+  const ret = CardComments.find({
     _id: {
       $in: activities()
         .map(v => v.commentId)
         .filter(v => !!v),
     },
   });
+  return ret;
 });
 
 // gets all lists associated with activities associated with the current user
 Meteor.publish('notificationLists', function() {
-  return Lists.find({
+  const ret = Lists.find({
     _id: {
       $in: activities()
         .map(v => v.listId)
         .filter(v => !!v),
     },
   });
+  return ret;
 });
 
 // gets all swimlanes associated with activities associated with the current user
 Meteor.publish('notificationSwimlanes', function() {
-  return Swimlanes.find({
+  const ret = Swimlanes.find({
     _id: {
       $in: activities()
         .map(v => v.swimlaneId)
         .filter(v => !!v),
     },
   });
+  return ret;
 });
 
 // gets all users associated with activities associated with the current user
 Meteor.publish('notificationUsers', function() {
-  return Users.find({
+  const ret = Users.find({
     _id: {
       $in: activities()
         .map(v => v.userId)
         .filter(v => !!v),
     },
   });
+  return ret;
 });
 
 function activities() {

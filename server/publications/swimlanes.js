@@ -8,12 +8,13 @@ Meteor.methods({
     const swimlane = ReactiveCache.getSwimlane(swimlaneId);
     const toBoard = ReactiveCache.getBoard(toBoardId);
 
+    let ret = false;
     if (swimlane && toBoard) {
       swimlane.copy(toBoardId);
-      return true;
+      ret = true;
     }
 
-    return false;
+    return ret;
   },
 
   moveSwimlane(swimlaneId, toBoardId) {
@@ -23,12 +24,13 @@ Meteor.methods({
     const swimlane = ReactiveCache.getSwimlane(swimlaneId);
     const toBoard = ReactiveCache.getBoard(toBoardId);
 
+    let ret = false;
     if (swimlane && toBoard) {
       swimlane.move(toBoardId);
 
-      return true;
+      ret = true;
     }
 
-    return false;
+    return ret;
   },
 });

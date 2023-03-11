@@ -1,3 +1,4 @@
 Meteor.publish('accountSettings', function() {
-  return AccountSettings.find();
+  const ret = AccountSettings.find();
+  return ret;
 });

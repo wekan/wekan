@@ -3,7 +3,7 @@ Meteor.publish('user-miniprofile', function (usernames) {
 
   // eslint-disable-next-line no-console
   // console.log('usernames:', usernames);
-  return Users.find(
+  const ret = Users.find(
     {
       $or: [
         { username: { $in: usernames } },
@@ -17,10 +17,11 @@ Meteor.publish('user-miniprofile', function (usernames) {
       },
     },
   );
+  return ret;
 });
 
 Meteor.publish('user-admin', function () {
-  return Meteor.users.find(this.userId, {
+  const ret = Meteor.users.find(this.userId, {
     fields: {
       isAdmin: 1,
       teams: 1,
@@ -28,11 +29,12 @@ Meteor.publish('user-admin', function () {
       authenticationMethod: 1,
     },
   });
+  return ret;
 });
 
 Meteor.publish('user-authenticationMethod', function (match) {
   check(match, String);
-  return Users.find(
+  const ret = Users.find(
     { $or: [{ _id: match }, { email: match }, { username: match }] },
     {
       fields: {
@@ -42,6 +44,7 @@ Meteor.publish('user-authenticationMethod', function (match) {
       },
     },
   );
+  return ret;
 });
 
 // update last connection date and last connection average time (in seconds) for a user

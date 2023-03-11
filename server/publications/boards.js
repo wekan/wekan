@@ -77,7 +77,8 @@ Meteor.publishRelations('boards', function() {
       );
     }
   );
-  return this.ready();
+  const ret = this.ready();
+  return ret;
 });
 
 Meteor.publish('boardsReport', function() {
@@ -132,19 +133,20 @@ Meteor.publish('boardsReport', function() {
     }
   })
 
-  return [
+  const ret = [
     boards,
     Users.find({ _id: { $in: userIds } }, { fields: Users.safeFields }),
     Team.find({ _id: { $in: teamIds } }),
     Org.find({ _id: { $in: orgIds } }),
   ]
+  return ret;
 });
 
 Meteor.publish('archivedBoards', function() {
   const userId = this.userId;
   if (!Match.test(userId, String)) return [];
 
-  return Boards.find(
+  const ret = Boards.find(
     {
       _id: { $in: Boards.userBoardIds(userId, true)},
       archived: true,
@@ -168,6 +170,7 @@ Meteor.publish('archivedBoards', function() {
       sort: { archivedAt: -1, modifiedAt: -1 },
     },
   );
+  return ret;
 });
 
 // If isArchived = false, this will only return board elements which are not archived.
@@ -332,7 +335,8 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
     },
   );
 
-  return this.ready();
+  const ret = this.ready();
+  return ret;
 });
 
 Meteor.methods({
@@ -340,13 +344,14 @@ Meteor.methods({
     check(boardId, String);
     check(properties, Object);
 
+    let ret = null;
     const board = ReactiveCache.getBoard(boardId);
     if (board) {
       for (const key in properties) {
         board[key] = properties[key];
       }
-      return board.copy();
+      ret = board.copy();
     }
-    return null;
+    return ret;
   },
 });

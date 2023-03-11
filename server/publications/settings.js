@@ -2,12 +2,13 @@ import { ReactiveCache } from '/imports/reactiveCache';
 
 Meteor.publish('globalwebhooks', () => {
   const boardId = Integrations.Const.GLOBAL_WEBHOOK_ID;
-  return Integrations.find({
+  const ret = Integrations.find({
     boardId,
   });
+  return ret;
 });
 Meteor.publish('setting', () => {
-  return Settings.find(
+  const ret = Settings.find(
     {},
     {
       fields: {
@@ -36,15 +37,15 @@ Meteor.publish('setting', () => {
       },
     },
   );
+  return ret;
 });
 
 Meteor.publish('mailServer', function() {
   const user = ReactiveCache.getCurrentUser();
-  if (!user) {
-    return [];
-  }
+
+  let ret = []
   if (user && user.isAdmin) {
-    return Settings.find(
+    ret = Settings.find(
       {},
       {
         fields: {
@@ -57,5 +58,5 @@ Meteor.publish('mailServer', function() {
       },
     );
   }
-  return [];
+  return ret;
 });

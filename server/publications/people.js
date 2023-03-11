@@ -4,13 +4,11 @@ Meteor.publish('people', function(query, limit) {
   check(query, Match.OneOf(Object, null));
   check(limit, Number);
 
+  let ret = [];
   const user = ReactiveCache.getCurrentUser();
-  if (!user) {
-    return [];
-  }
 
   if (user && user.isAdmin) {
-    return Users.find(query, {
+    ret = Users.find(query, {
       limit,
       sort: { createdAt: -1 },
       fields: {
@@ -29,5 +27,5 @@ Meteor.publish('people', function(query, limit) {
     });
   }
 
-  return [];
+  return ret;
 });

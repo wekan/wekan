@@ -72,7 +72,8 @@ Meteor.publishRelations('popupCardData', function(cardId) {
       this.cursor(Lists.find({boardId: card.boardId}));
     },
   );
-  return this.ready()
+  const ret = this.ready()
+  return ret;
 });
 
 Meteor.publish('myCards', function(sessionId) {
@@ -89,7 +90,8 @@ Meteor.publish('myCards', function(sessionId) {
     listId: 1,
   };
 
-  return findCards(sessionId, query);
+  const ret = findCards(sessionId, query);
+  return ret;
 });
 
 // Meteor.publish('dueCards', function(sessionId, allUsers = false) {
@@ -121,7 +123,8 @@ Meteor.publish('globalSearch', function(sessionId, params, text) {
   // eslint-disable-next-line no-console
   // console.log('queryParams:', params);
 
-  return findCards(sessionId, buildQuery(new QueryParams(params, text)));
+  const ret = findCards(sessionId, buildQuery(new QueryParams(params, text)));
+  return ret;
 });
 
 function buildSelector(queryParams) {
@@ -642,7 +645,8 @@ Meteor.publish('brokenCards', function(sessionId) {
   ];
   // console.log('brokenCards selector:', query.selector);
 
-  return findCards(sessionId, query);
+  const ret = findCards(sessionId, query);
+  return ret;
 });
 
 Meteor.publish('nextPage', function(sessionId) {
@@ -652,7 +656,8 @@ Meteor.publish('nextPage', function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
-  return findCards(sessionId, new Query(session.getSelector(), projection));
+  const ret = findCards(sessionId, new Query(session.getSelector(), projection));
+  return ret;
 });
 
 Meteor.publish('previousPage', function(sessionId) {
@@ -662,7 +667,8 @@ Meteor.publish('previousPage', function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 
-  return findCards(sessionId, new Query(session.getSelector(), projection));
+  const ret = findCards(sessionId, new Query(session.getSelector(), projection));
+  return ret;
 });
 
 function findCards(sessionId, query) {

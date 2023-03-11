@@ -5,11 +5,10 @@ Meteor.publish('team', function(query, limit) {
   check(limit, Number);
 
   const user = ReactiveCache.getCurrentUser();
-  if (!user) {
-    return [];
-  }
+
+  let ret = [];
   if (user && user.isAdmin) {
-    return Team.find(query, {
+    ret = Team.find(query, {
       limit,
       sort: { createdAt: -1 },
       fields: {
@@ -24,5 +23,5 @@ Meteor.publish('team', function(query, limit) {
     });
   }
 
-  return [];
+  return ret;
 });

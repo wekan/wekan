@@ -1,3 +1,4 @@
 Meteor.publish('tableVisibilityModeSettings', function() {
-  return TableVisibilityModeSettings.find();
+  const ret = TableVisibilityModeSettings.find();
+  return ret;
 });
