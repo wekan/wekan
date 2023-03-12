@@ -225,9 +225,10 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       this.cursor(Integrations.find({ boardId }));
       this.cursor(CardCommentReactions.find({ boardId }));
       this.cursor(
-        CustomFields.find(
+        ReactiveCache.getCustomFields(
           { boardIds: { $in: [boardId] } },
           { sort: { name: 1 } },
+          true,
         ),
       );
 

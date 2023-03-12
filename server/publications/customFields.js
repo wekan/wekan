@@ -1,4 +1,4 @@
 Meteor.publish('customFields', function() {
-  const ret = CustomFields.find();
+  const ret = ReactiveCache.getCustomFields(null, null, true);
   return ret;
 });
