@@ -54,13 +54,17 @@ Meteor.publish('notificationChecklistItems', function() {
 
 // gets all checklists associated with activities associated with the current user
 Meteor.publish('notificationChecklists', function() {
-  const ret = Checklists.find({
-    _id: {
-      $in: activities()
-        .map(v => v.checklistId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getChecklists(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.checklistId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
   return ret;
 });
 

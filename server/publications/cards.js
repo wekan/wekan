@@ -791,7 +791,7 @@ function findCards(sessionId, query) {
       ReactiveCache.getLists({ _id: { $in: lists } }, { fields }, true),
       ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
       ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
-      Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
+      ReactiveCache.getChecklists({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       ReactiveCache.getChecklistItems({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       Attachments.find({ 'meta.cardId': { $in: cards.map(c => c._id) } }).cursor,
       CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
