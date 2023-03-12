@@ -74,13 +74,17 @@ Meteor.publish('notificationComments', function() {
 
 // gets all lists associated with activities associated with the current user
 Meteor.publish('notificationLists', function() {
-  const ret = Lists.find({
-    _id: {
-      $in: activities()
-        .map(v => v.listId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getLists(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.listId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
   return ret;
 });
 

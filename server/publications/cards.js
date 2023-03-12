@@ -77,7 +77,7 @@ Meteor.publishRelations('popupCardData', function(cardId) {
     ),
     function(cardId, card) {
       this.cursor(ReactiveCache.getBoards({_id: card.boardId}, {}, true));
-      this.cursor(Lists.find({boardId: card.boardId}));
+      this.cursor(ReactiveCache.getLists({boardId: card.boardId}, {}, true));
     },
   );
   const ret = this.ready()
@@ -787,7 +787,7 @@ function findCards(sessionId, query) {
         { _id: { $in: swimlanes } },
         { fields: { ...fields, color: 1 } },
       ),
-      Lists.find({ _id: { $in: lists } }, { fields }),
+      ReactiveCache.getLists({ _id: { $in: lists } }, { fields }, true),
       CustomFields.find({ _id: { $in: customFieldIds } }),
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
