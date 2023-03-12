@@ -2,7 +2,7 @@ import Attachments from '/models/attachments';
 import { ObjectID } from 'bson';
 
 Meteor.publish('attachmentsList', function(limit) {
-  const ret = Attachments.find(
+  const ret = ReactiveCache.getAttachments(
     {},
     {
       fields: {
@@ -19,6 +19,7 @@ Meteor.publish('attachmentsList', function(limit) {
       },
       limit: limit,
     },
+    true,
   ).cursor;
   return ret;
 });

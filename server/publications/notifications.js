@@ -10,13 +10,17 @@ Meteor.publish('notificationActivities', () => {
 
 // gets all attachments associated with activities associated with the current user
 Meteor.publish('notificationAttachments', function() {
-  const ret = Attachments.find({
-    _id: {
-      $in: activities()
-        .map(v => v.attachmentId)
-        .filter(v => !!v),
-    }.cursor,
-  });
+  const ret = ReactiveCache.getAttachments(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.attachmentId)
+          .filter(v => !!v),
+      },
+    },
+    {},
+    true,
+  ).cursor;
   return ret;
 });
 
