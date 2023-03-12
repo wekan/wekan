@@ -56,7 +56,11 @@ import Team from "../../models/team";
 
 Meteor.publish('card', cardId => {
   check(cardId, String);
-  const ret = Cards.find({ _id: cardId });
+  const ret = ReactiveCache.getCards(
+    { _id: cardId },
+    {},
+    true,
+  );
   return ret;
 });
 
@@ -66,7 +70,11 @@ Meteor.publish('card', cardId => {
 Meteor.publishRelations('popupCardData', function(cardId) {
   check(cardId, String);
   this.cursor(
-    Cards.find({_id: cardId}),
+    ReactiveCache.getCards(
+      { _id: cardId },
+      {},
+      true,
+    ),
     function(cardId, card) {
       this.cursor(ReactiveCache.getBoards({_id: card.boardId}, {}, true));
       this.cursor(Lists.find({boardId: card.boardId}));
@@ -680,7 +688,7 @@ function findCards(sessionId, query) {
   // eslint-disable-next-line no-console
   // console.log('projection:', query.projection);
 
-  const cards = Cards.find(query.selector, query.projection);
+  const cards = ReactiveCache.getCards(query.selector, query.projection, true);
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
 

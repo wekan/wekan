@@ -65,7 +65,7 @@ Meteor.publishRelations('boards', function() {
         )
       );
       this.cursor(
-        Cards.find(
+        ReactiveCache.getCards(
           { boardId, archived: false },
           { fields: {
             _id: 1,
@@ -73,7 +73,8 @@ Meteor.publishRelations('boards', function() {
             listId: 1,
             archived: 1,
             sort: 1
-          }}
+          }},
+          true,
         )
       );
     }
@@ -271,10 +272,13 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       linkedBoardCards.selector = _ids => ({ boardId: _ids });
 
       this.cursor(
-        Cards.find({
-          boardId: { $in: [boardId, board.subtasksDefaultBoardId] },
-          archived: isArchived,
-        }),
+        ReactiveCache.getCards({
+            boardId: { $in: [boardId, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          },
+          {},
+          true,
+        ),
         function(cardId, card) {
           if (card.type === 'cardType-linkedCard') {
             const impCardId = card.linkedId;

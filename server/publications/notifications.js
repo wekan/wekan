@@ -22,13 +22,17 @@ Meteor.publish('notificationAttachments', function() {
 
 // gets all cards associated with activities associated with the current user
 Meteor.publish('notificationCards', function() {
-  const ret = Cards.find({
-    _id: {
-      $in: activities()
-        .map(v => v.cardId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getCards(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.cardId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
   return ret;
 });
 
