@@ -478,7 +478,7 @@ function buildSelector(queryParams) {
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
 
-      const items = ChecklistItems.find(
+      const items = ReactiveCache.getChecklistItems(
         { title: regex },
         { fields: { cardId: 1, checklistId: 1 } },
       );
@@ -792,7 +792,7 @@ function findCards(sessionId, query) {
       ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
       ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
-      ChecklistItems.find({ cardId: { $in: cards.map(c => c._id) } }),
+      ReactiveCache.getChecklistItems({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       Attachments.find({ 'meta.cardId': { $in: cards.map(c => c._id) } }).cursor,
       CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
       SessionData.find({ userId, sessionId }),

@@ -38,13 +38,17 @@ Meteor.publish('notificationCards', function() {
 
 // gets all checklistItems associated with activities associated with the current user
 Meteor.publish('notificationChecklistItems', function() {
-  const ret = ChecklistItems.find({
-    _id: {
-      $in: activities()
-        .map(v => v.checklistItemId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getChecklistItems(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.checklistItemId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
   return ret;
 });
 
