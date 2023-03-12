@@ -20,10 +20,10 @@ if (Meteor.isServer) {
   }
 
   if (process.env.AVATARS_UPLOAD_MAX_SIZE) {
-    avatarsUploadSize = parseInt(process.env.AVATARS_UPLOAD_MAX_SIZE);
+    avatarsUploadSize_ = parseInt(process.env.AVATARS_UPLOAD_MAX_SIZE);
 
-    if (isNaN(avatarsUploadSize)) {
-      avatarsUploadSize = 0
+    if (_.isNumber(avatarsUploadSize_) && avatarsUploadSize_ > 0) {
+      avatarsUploadSize = avatarsUploadSize_;
     }
   }
 
