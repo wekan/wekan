@@ -5,14 +5,18 @@ import Rules from '/models/rules';
 
 Meteor.publish('rules', ruleId => {
   check(ruleId, String);
-  const ret = Rules.find({
-    _id: ruleId,
-  });
+  const ret = ReactiveCache.getRules(
+    {
+      _id: ruleId,
+    },
+    {},
+    true,
+  );
   return ret;
 });
 
 Meteor.publish('allRules', () => {
-  const ret = Rules.find({});
+  const ret = ReactiveCache.getRules({}, {}, true);
   return ret;
 });
 
@@ -27,7 +31,7 @@ Meteor.publish('allActions', () => {
 });
 
 Meteor.publish('rulesReport', () => {
-  const rules = Rules.find();
+  const rules = ReactiveCache.getRules({}, {}, true);
   const actionIds = [];
   const triggerIds = [];
   const boardIds = [];
