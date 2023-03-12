@@ -26,7 +26,7 @@ Meteor.publish('allTriggers', () => {
 });
 
 Meteor.publish('allActions', () => {
-  const ret = Actions.find({});
+  const ret = ReactiveCache.getActions({}, {}, true);
   return ret;
 });
 
@@ -44,7 +44,7 @@ Meteor.publish('rulesReport', () => {
 
   const ret = [
     rules,
-    Actions.find({ _id: { $in: actionIds } }),
+    ReactiveCache.getActions({ _id: { $in: actionIds } }, {}, true),
     Triggers.find({ _id: { $in: triggerIds } }),
     ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { title: 1 } }, true),
   ];
