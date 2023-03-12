@@ -794,7 +794,7 @@ function findCards(sessionId, query) {
       ReactiveCache.getChecklists({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       ReactiveCache.getChecklistItems({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       Attachments.find({ 'meta.cardId': { $in: cards.map(c => c._id) } }).cursor,
-      CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
+      ReactiveCache.getCardComments({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       SessionData.find({ userId, sessionId }),
     ];
   }

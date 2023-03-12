@@ -70,13 +70,17 @@ Meteor.publish('notificationChecklists', function() {
 
 // gets all comments associated with activities associated with the current user
 Meteor.publish('notificationComments', function() {
-  const ret = CardComments.find({
-    _id: {
-      $in: activities()
-        .map(v => v.commentId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getCardComments(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.commentId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
   return ret;
 });
 
