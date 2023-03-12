@@ -132,9 +132,13 @@ function activities() {
   const activityIds = ReactiveCache.getCurrentUser()?.profile?.notifications?.map(v => v.activity) || [];
   let ret = [];
   if (activityIds.length > 0) {
-    ret = Activities.find({
-      _id: { $in: activityIds },
-    });
-  return ret;
+    ret = ReactiveCache.getActivities(
+      {
+        _id: { $in: activityIds },
+      },
+      {},
+      true,
+    );
   }
+  return ret;
 }

@@ -33,9 +33,12 @@ Meteor.publish('activities', (kind, id, limit, hideSystem) => {
   const selector = hideSystem
     ? { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] }
     : { [`${kind}Id`]: { $in: linkedElmtId } };
-  const ret = Activities.find(selector, {
-    limit,
-    sort: { createdAt: -1 },
-  });
+  const ret = ReactiveCache.getActivities(selector,
+    {
+      limit,
+      sort: { createdAt: -1 },
+    },
+    true,
+  );
   return ret;
 });
