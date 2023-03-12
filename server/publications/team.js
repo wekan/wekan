@@ -8,19 +8,22 @@ Meteor.publish('team', function(query, limit) {
 
   let ret = [];
   if (user && user.isAdmin) {
-    ret = Team.find(query, {
-      limit,
-      sort: { createdAt: -1 },
-      fields: {
-        teamDisplayName: 1,
-        teamDesc: 1,
-        teamShortName: 1,
-        teamWebsite: 1,
-        teams: 1,
-        createdAt: 1,
-        teamIsActive: 1,
+    ret = ReactiveCache.getTeams(query,
+      {
+        limit,
+        sort: { createdAt: -1 },
+        fields: {
+          teamDisplayName: 1,
+          teamDesc: 1,
+          teamShortName: 1,
+          teamWebsite: 1,
+          teams: 1,
+          createdAt: 1,
+          teamIsActive: 1,
+        }
       },
-    });
+      true,
+    );
   }
 
   return ret;

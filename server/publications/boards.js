@@ -142,7 +142,7 @@ Meteor.publish('boardsReport', function() {
   const ret = [
     boards,
     ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
-    Team.find({ _id: { $in: teamIds } }),
+    ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, true),
     ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
   ]
   return ret;
