@@ -794,9 +794,10 @@ Cards.helpers({
   },
 
   attachments() {
-    const ret = Attachments.find(
+    const ret = ReactiveCache.getAttachments(
       { 'meta.cardId': this.getRealId() },
       { sort: { uploadedAt: -1 } },
+      true,
     ).each();
     return ret;
   },

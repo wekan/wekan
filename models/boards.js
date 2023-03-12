@@ -2259,8 +2259,8 @@ if (Meteor.isServer) {
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: Attachments
-        .find({'meta.boardId': paramBoardId })
+      data: ReactiveCache
+        .getAttachments({'meta.boardId': paramBoardId }, {}, true)
         .each()
         .map(function(attachment) {
           return {
