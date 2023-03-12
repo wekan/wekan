@@ -222,7 +222,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
     function(boardId, board) {
       this.cursor(ReactiveCache.getLists({ boardId, archived: isArchived }, {}, true));
       this.cursor(ReactiveCache.getSwimlanes({ boardId, archived: isArchived }, {}, true));
-      this.cursor(Integrations.find({ boardId }));
+      this.cursor(ReactiveCache.getIntegrations({ boardId }, {}, true));
       this.cursor(CardCommentReactions.find({ boardId }));
       this.cursor(
         ReactiveCache.getCustomFields(

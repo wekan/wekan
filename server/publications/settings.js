@@ -2,9 +2,13 @@ import { ReactiveCache } from '/imports/reactiveCache';
 
 Meteor.publish('globalwebhooks', () => {
   const boardId = Integrations.Const.GLOBAL_WEBHOOK_ID;
-  const ret = Integrations.find({
-    boardId,
-  });
+  const ret = ReactiveCache.getIntegrations(
+    {
+      boardId,
+    },
+    {},
+    true,
+  );
   return ret;
 });
 Meteor.publish('setting', () => {
