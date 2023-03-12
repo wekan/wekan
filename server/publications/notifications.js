@@ -106,13 +106,17 @@ Meteor.publish('notificationSwimlanes', function() {
 
 // gets all users associated with activities associated with the current user
 Meteor.publish('notificationUsers', function() {
-  const ret = Users.find({
-    _id: {
-      $in: activities()
-        .map(v => v.userId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getUsers(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.userId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
   return ret;
 });
 

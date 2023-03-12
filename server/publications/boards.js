@@ -141,7 +141,7 @@ Meteor.publish('boardsReport', function() {
 
   const ret = [
     boards,
-    Users.find({ _id: { $in: userIds } }, { fields: Users.safeFields }),
+    ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
     Team.find({ _id: { $in: teamIds } }),
     Org.find({ _id: { $in: orgIds } }),
   ]
@@ -326,7 +326,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         // and sending it triggers a subtle bug:
         // https://github.com/wefork/wekan/issues/15
         this.cursor(
-          Users.find(
+          ReactiveCache.getUsers(
             {
               _id: { $in: _.without(memberIds, thisUserId) },
             },
@@ -338,6 +338,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
                 'profile.initials': 1,
               },
             },
+            true,
           ),
         );
 

@@ -8,7 +8,7 @@ Meteor.publish('people', function(query, limit) {
   const user = ReactiveCache.getCurrentUser();
 
   if (user && user.isAdmin) {
-    ret = Users.find(query, {
+    ret = ReactiveCache.getUsers(query, {
       limit,
       sort: { createdAt: -1 },
       fields: {
@@ -24,7 +24,8 @@ Meteor.publish('people', function(query, limit) {
         orgs: 1,
         teams: 1,
       },
-    });
+    },
+    true);
   }
 
   return ret;

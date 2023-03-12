@@ -3,7 +3,7 @@ Meteor.publish('user-miniprofile', function (usernames) {
 
   // eslint-disable-next-line no-console
   // console.log('usernames:', usernames);
-  const ret = Users.find(
+  const ret = ReactiveCache.getUsers(
     {
       $or: [
         { username: { $in: usernames } },
@@ -16,6 +16,7 @@ Meteor.publish('user-miniprofile', function (usernames) {
         importUsernames: 1,
       },
     },
+    true,
   );
   return ret;
 });
@@ -34,7 +35,7 @@ Meteor.publish('user-admin', function () {
 
 Meteor.publish('user-authenticationMethod', function (match) {
   check(match, String);
-  const ret = Users.find(
+  const ret = ReactiveCache.getUsers(
     { $or: [{ _id: match }, { email: match }, { username: match }] },
     {
       fields: {
@@ -43,6 +44,7 @@ Meteor.publish('user-authenticationMethod', function (match) {
         orgs: 1,
       },
     },
+    true,
   );
   return ret;
 });
@@ -100,9 +102,9 @@ I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
     //   console.log('connection.Id on close...', connection.id);
     //   // Get all user that were connected to this socket
     //   // And update last connection date and last connection average time (in seconds) for each user
-    //   let lstOfUserThatWasConnectedToThisSocket = Users.find({
+    //   let lstOfUserThatWasConnectedToThisSocket = ReactiveCache.getUsers({
     //     lastconnectedSocketId: connection.id,
-    //   }).fetch();
+    //   }, {}, true).fetch();
     //   if (
     //     lstOfUserThatWasConnectedToThisSocket !== undefined &&
     //     lstOfUserThatWasConnectedToThisSocket.length > 0
