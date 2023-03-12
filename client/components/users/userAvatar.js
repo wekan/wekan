@@ -172,7 +172,8 @@ BlazeComponent.extendComponent({
   },
 
   uploadedAvatars() {
-    return Avatars.find({ userId: Meteor.userId() }).each();
+    const ret = ReactiveCache.getAvatars({ userId: Meteor.userId() }, {}, true).each();
+    return ret;
   },
 
   isSelected() {

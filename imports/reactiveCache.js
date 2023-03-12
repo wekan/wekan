@@ -113,6 +113,17 @@ ReactiveCacheServer = {
     }
     return ret;
   },
+  getAvatar(idOrFirstObjectSelector, options) {
+    const ret = Avatars.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getAvatars(selector, options, getQuery) {
+    let ret = Avatars.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
+    return ret;
+  },
   getUser(idOrFirstObjectSelector, options) {
     const ret = Users.findOne(idOrFirstObjectSelector, options);
     return ret;
@@ -516,6 +527,33 @@ ReactiveCacheClient = {
       });
     }
     const ret = this.__attachments.get(Jsons.stringify(select));
+    return ret;
+  },
+  getAvatar(idOrFirstObjectSelector, options) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__avatar) {
+      this.__avatar = new DataCache(_idOrFirstObjectSelect => {
+        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const _ret = Avatars.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__avatar.get(Jsons.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getAvatars(selector, options, getQuery) {
+    const select = {selector, options, getQuery}
+    if (!this.__avatars) {
+      this.__avatars = new DataCache(_select => {
+        const __select = Jsons.parse(_select);
+        let _ret = Avatars.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
+        return _ret;
+      });
+    }
+    const ret = this.__avatars.get(Jsons.stringify(select));
     return ret;
   },
   getUser(idOrFirstObjectSelector, options) {
@@ -994,6 +1032,24 @@ ReactiveCache = {
       ret = ReactiveCacheServer.getAttachments(selector, options, getQuery);
     } else {
       ret = ReactiveCacheClient.getAttachments(selector, options, getQuery);
+    }
+    return ret;
+  },
+  getAvatar(idOrFirstObjectSelector, options) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getAvatar(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getAvatar(idOrFirstObjectSelector, options);
+    }
+    return ret;
+  },
+  getAvatars(selector, options, getQuery) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getAvatars(selector, options, getQuery);
+    } else {
+      ret = ReactiveCacheClient.getAvatars(selector, options, getQuery);
     }
     return ret;
   },
