@@ -8,19 +8,22 @@ Meteor.publish('org', function(query, limit) {
   const user = ReactiveCache.getCurrentUser();
 
   if (user && user.isAdmin) {
-    ret = Org.find(query, {
-      limit,
-      sort: { createdAt: -1 },
-      fields: {
-        orgDisplayName: 1,
-        orgDesc: 1,
-        orgShortName: 1,
-        orgWebsite: 1,
-        orgTeams: 1,
-        createdAt: 1,
-        orgIsActive: 1,
+    ret = ReactiveCache.getOrgs(query,
+      {
+        limit,
+        sort: { createdAt: -1 },
+        fields: {
+          orgDisplayName: 1,
+          orgDesc: 1,
+          orgShortName: 1,
+          orgWebsite: 1,
+          orgTeams: 1,
+          createdAt: 1,
+          orgIsActive: 1,
+        }
       },
-    });
+      true,
+    );
   }
 
   return ret;
