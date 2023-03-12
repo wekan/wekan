@@ -134,7 +134,7 @@
   "attachmentDeletePopup-title": "Delete Attachment?",
   "attachments": "Attachments",
   "auto-watch": "Automatically watch boards when they are created",
-  "avatar-too-big": "The avatar is too large (520KB max)",
+  "avatar-too-big": "The avatar is too large (__size__ max)",
   "back": "Back",
   "board-change-color": "Change color",
   "show-at-all-boards-page" : "Show at All Boards page",
