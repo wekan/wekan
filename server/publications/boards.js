@@ -221,7 +221,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
     ),
     function(boardId, board) {
       this.cursor(ReactiveCache.getLists({ boardId, archived: isArchived }, {}, true));
-      this.cursor(Swimlanes.find({ boardId, archived: isArchived }));
+      this.cursor(ReactiveCache.getSwimlanes({ boardId, archived: isArchived }, {}, true));
       this.cursor(Integrations.find({ boardId }));
       this.cursor(CardCommentReactions.find({ boardId }));
       this.cursor(

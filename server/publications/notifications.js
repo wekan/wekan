@@ -90,13 +90,17 @@ Meteor.publish('notificationLists', function() {
 
 // gets all swimlanes associated with activities associated with the current user
 Meteor.publish('notificationSwimlanes', function() {
-  const ret = Swimlanes.find({
-    _id: {
-      $in: activities()
-        .map(v => v.swimlaneId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getSwimlanes(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.swimlaneId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
   return ret;
 });
 
