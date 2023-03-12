@@ -32,7 +32,7 @@ Meteor.publishRelations('boards', function() {
   // if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
   //   teamsIds = teamIdsUserBelongs.split(',');
   // }
-  this.cursor(Boards.find(
+  this.cursor(ReactiveCache.getBoards(
     {
       archived: false,
       _id: { $in: Boards.userBoardIds(userId, false) },
@@ -49,6 +49,7 @@ Meteor.publishRelations('boards', function() {
     {
       sort: { sort: 1 /* boards default sorting */ },
     },
+    true,
   ),
     function(boardId, board) {
       this.cursor(
@@ -87,7 +88,7 @@ Meteor.publish('boardsReport', function() {
   // array to tell the client to remove the previously published docs.
   if (!Match.test(userId, String) || !userId) return [];
 
-  const boards = Boards.find(
+  const boards = ReactiveCache.getBoards(
     {
       _id: { $in: Boards.userBoardIds(userId, null) },
     },
@@ -110,6 +111,7 @@ Meteor.publish('boardsReport', function() {
       },
       sort: { sort: 1 /* boards default sorting */ },
     },
+    true,
   );
 
   const userIds = [];
@@ -146,7 +148,7 @@ Meteor.publish('archivedBoards', function() {
   const userId = this.userId;
   if (!Match.test(userId, String)) return [];
 
-  const ret = Boards.find(
+  const ret = ReactiveCache.getBoards(
     {
       _id: { $in: Boards.userBoardIds(userId, true)},
       archived: true,
@@ -169,6 +171,7 @@ Meteor.publish('archivedBoards', function() {
       },
       sort: { archivedAt: -1, modifiedAt: -1 },
     },
+    true,
   );
   return ret;
 });
@@ -200,7 +203,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
   }
 
   this.cursor(
-    Boards.find(
+    ReactiveCache.getBoards(
       {
         _id: boardId,
         archived: false,
@@ -210,6 +213,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         // Sort required to ensure oplog usage
       },
       { limit: 1, sort: { sort: 1 /* boards default sorting */ } },
+      true,
     ),
     function(boardId, board) {
       this.cursor(Lists.find({ boardId, archived: isArchived }));

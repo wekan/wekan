@@ -42,7 +42,7 @@ Meteor.publish('rulesReport', () => {
     rules,
     Actions.find({ _id: { $in: actionIds } }),
     Triggers.find({ _id: { $in: triggerIds } }),
-    Boards.find({ _id: { $in: boardIds } }, { fields: { title: 1 } }),
+    ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { title: 1 } }, true),
   ];
   return ret;
 });
