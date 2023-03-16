@@ -13,39 +13,41 @@ BlazeComponent.extendComponent({
     const sidebar = Sidebar;
     sidebar && sidebar.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
-      let mode = this.data().mode;
-      const capitalizedMode = Utils.capitalize(mode);
-      let searchId;
-      if (mode === 'linkedcard' || mode === 'linkedboard') {
-        searchId = Utils.getCurrentCard().linkedId;
-        mode = mode.replace('linked', '');
-      } else if (mode === 'card') {
-        searchId = Utils.getCurrentCardId();
-      } else {
-        searchId = Session.get(`current${capitalizedMode}`);
-      }
-      const limit = this.page.get() * activitiesPerPage;
-      const user = ReactiveCache.getCurrentUser();
-      const hideSystem = user ? user.hasHiddenSystemMessages() : false;
-      if (searchId === null) return;
-
-      this.subscribe('activities', mode, searchId, limit, hideSystem, () => {
-        this.loadNextPageLocked = false;
-
-        // TODO the guard can be removed as soon as the TODO above is resolved
-        if (!sidebar) return;
-        // If the sibear peak hasn't increased, that mean that there are no more
-        // activities, and we can stop calling new subscriptions.
-        // XXX This is hacky! We need to know excatly and reactively how many
-        // activities there are, we probably want to denormalize this number
-        // dirrectly into card and board documents.
-        const nextPeakBefore = sidebar.callFirstWith(null, 'getNextPeak');
-        sidebar.calculateNextPeak();
-        const nextPeakAfter = sidebar.callFirstWith(null, 'getNextPeak');
-        if (nextPeakBefore === nextPeakAfter) {
-          sidebar.callFirstWith(null, 'resetNextPeak');
+      let mode = this.data()?.mode;
+      if (mode) {
+        const capitalizedMode = Utils.capitalize(mode);
+        let searchId;
+        if (mode === 'linkedcard' || mode === 'linkedboard') {
+          searchId = Utils.getCurrentCard().linkedId;
+          mode = mode.replace('linked', '');
+        } else if (mode === 'card') {
+          searchId = Utils.getCurrentCardId();
+        } else {
+          searchId = Session.get(`current${capitalizedMode}`);
         }
-      });
+        const limit = this.page.get() * activitiesPerPage;
+        const user = ReactiveCache.getCurrentUser();
+        const hideSystem = user ? user.hasHiddenSystemMessages() : false;
+        if (searchId === null) return;
+
+        this.subscribe('activities', mode, searchId, limit, hideSystem, () => {
+          this.loadNextPageLocked = false;
+
+          // TODO the guard can be removed as soon as the TODO above is resolved
+          if (!sidebar) return;
+          // If the sibear peak hasn't increased, that mean that there are no more
+          // activities, and we can stop calling new subscriptions.
+          // XXX This is hacky! We need to know excatly and reactively how many
+          // activities there are, we probably want to denormalize this number
+          // dirrectly into card and board documents.
+          const nextPeakBefore = sidebar.callFirstWith(null, 'getNextPeak');
+          sidebar.calculateNextPeak();
+          const nextPeakAfter = sidebar.callFirstWith(null, 'getNextPeak');
+          if (nextPeakBefore === nextPeakAfter) {
+            sidebar.callFirstWith(null, 'resetNextPeak');
+          }
+        });
+      }
     });
   },
   loadNextPage() {
