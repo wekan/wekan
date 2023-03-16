@@ -3,9 +3,12 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import { formatFleURL } from 'meteor/ostrio:files/lib';
 import { isFileValid } from './fileValidation';
 import { createBucket } from './lib/grid/createBucket';
+import { TAPi18n } from '/imports/i18n';
 import fs from 'fs';
 import path from 'path';
 import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs, STORAGE_NAME_FILESYSTEM } from '/models/lib/fileStoreStrategy';
+
+const filesize = require('filesize');
 
 let avatarsUploadExternalProgram;
 let avatarsUploadMimeTypes = [];
@@ -20,10 +23,10 @@ if (Meteor.isServer) {
   }
 
   if (process.env.AVATARS_UPLOAD_MAX_SIZE) {
-    avatarsUploadSize = parseInt(process.env.AVATARS_UPLOAD_MAX_SIZE);
+    avatarsUploadSize_ = parseInt(process.env.AVATARS_UPLOAD_MAX_SIZE);
 
-    if (isNaN(avatarsUploadSize)) {
-      avatarsUploadSize = 0
+    if (_.isNumber(avatarsUploadSize_) && avatarsUploadSize_ > 0) {
+      avatarsUploadSize = avatarsUploadSize_;
     }
   }
 
@@ -84,7 +87,7 @@ Avatars = new FilesCollection({
     if (file.size <= avatarsUploadSize && file.type.startsWith('image/')) {
       return true;
     }
-    return 'avatar-too-big';
+    return TAPi18n.__('avatar-too-big', {size: filesize(avatarsUploadSize)});
   },
   onAfterUpload(fileObj) {
     // current storage is the filesystem, update object and database
