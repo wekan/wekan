@@ -569,25 +569,34 @@ template(name="cardDetails")
             +attachmentGallery
       hr
 
+      unless currentUser.isNoComments
+        .comment-title
+          h3.card-details-item-title
+            i.fa.fa-comment-o
+            | {{_ 'comments'}}
+
+        if currentBoard.allowsComments
+          if currentUser.isBoardMember
+            unless currentUser.isNoComments
+              +commentForm
+              +comments
+      hr
+
     .card-details-right
 
       unless currentUser.isNoComments
         .activity-title
           h3.card-details-item-title
             i.fa.fa-history
-            | {{ _ 'activity'}}
+            | {{ _ 'activities'}}
           if currentUser.isBoardMember
-            .material-toggle-switch(title="{{_ 'hide-system-messages'}}")
-              //span.toggle-switch-title
-              if hiddenSystemMessages
-                input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
+            .material-toggle-switch(title="{{_ 'show-activities'}}")
+              if showActivities
+                input.toggle-switch(type="checkbox" id="toggleShowActivitiesCard" checked="checked")
               else
-                input.toggle-switch(type="checkbox" id="toggleButton")
-              label.toggle-label(for="toggleButton")
-      if currentBoard.allowsComments
-        if currentUser.isBoardMember
-          unless currentUser.isNoComments
-            +commentForm
+                input.toggle-switch(type="checkbox" id="toggleShowActivitiesCard")
+              label.toggle-label(for="toggleShowActivitiesCard")
+
       unless currentUser.isNoComments
         if isLoaded.get
           if isLinkedCard

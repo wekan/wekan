@@ -1,11 +1,12 @@
 template(name="activities")
-  .activities.js-sidebar-activities
-    //- We should use Template.dynamic here but there is a bug with
-    //- blaze-components: https://github.com/peerlibrary/meteor-blaze-components/issues/30
-    if $eq mode "board"
-      +boardActivities
-    else
-      +cardActivities
+  if showActivities
+    .activities.js-sidebar-activities
+      //- We should use Template.dynamic here but there is a bug with
+      //- blaze-components: https://github.com/peerlibrary/meteor-blaze-components/issues/30
+      if $eq mode "board"
+        +boardActivities
+      else
+        +cardActivities
 
 template(name="boardActivities")
   each activityData in currentBoard.activities
@@ -14,31 +15,6 @@ template(name="boardActivities")
 template(name="cardActivities")
   each activityData in activities
     +activity(activity=activityData card=card mode=mode)
-
-template(name="editOrDeleteComment")
-  a.js-open-inlined-form {{_ "edit"}}
-  = ' - '
-  a.js-delete-comment {{_ "delete"}}
-
-template(name="deleteCommentPopup")
-  p {{_ "comment-delete"}}
-  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
-
-template(name="commentReactions")
-  .reactions
-    each reaction in reactions
-      span.reaction(class="{{#if isSelected reaction.userIds}}selected{{/if}}" data-codepoint="#{reaction.reactionCodepoint}" title="{{userNames reaction.userIds}}")
-        span.reaction-codepoint !{reaction.reactionCodepoint}
-        span.reaction-count #{reaction.userIds.length}
-    if (currentUser.isBoardMember)
-      a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
-        i.fa.fa-smile-o
-        i.fa.fa-plus
-
-template(name="addReactionPopup")
-  .reactions-popup
-    each codepoint in codepoints
-      span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}
 
 template(name="activity")
   .activity(data-id=activity._id)
@@ -129,38 +105,17 @@ template(name="activity")
         | {{{_ 'activity-checklist-item-removed' (sanitize activity.checklist.title) cardLink}}}.
 
       //- comment activity ----------------------------------------------------
-      if($eq mode 'card')
-        //- if we are in card mode we display the comment in a way that it
-        //- can be edited by the owner
-        if($eq activity.activityType 'addComment')
-          +inlinedForm(classNames='js-edit-comment')
-            +editor(autofocus=true)
-              = activity.comment.text
-            .edit-controls
-              button.primary(type="submit") {{_ 'edit'}}
-              .fa.fa-times-thin.js-close-inlined-form
-          else
-            .activity-comment
-              +viewer
-                = activity.comment.text
-            +commentReactions(reactions=activity.comment.reactions commentId=activity.comment._id)
-            if($eq currentUser._id activity.comment.userId)
-              +editOrDeleteComment
-            else if currentUser.isBoardAdmin
-              +editOrDeleteComment
+      if($eq activity.activityType 'deleteComment')
+        | {{{_ 'activity-deleteComment' activity.commentId}}}.
 
-        if($eq activity.activityType 'deleteComment')
-          | {{{_ 'activity-deleteComment' activity.commentId}}}.
+      if($eq activity.activityType 'editComment')
+        | {{{_ 'activity-editComment' activity.commentId}}}.
 
-        if($eq activity.activityType 'editComment')
-          | {{{_ 'activity-editComment' activity.commentId}}}.
-      else
-        //- if we are not in card mode we only display a summary of the comment
-        if($eq activity.activityType 'addComment')
-          | {{{_ 'activity-on' cardLink}}}
-          a.activity-comment(href="{{ activity.card.originRelativeUrl }}")
-            +viewer
-              = activity.comment.text
+      if($eq activity.activityType 'addComment')
+        | {{{_ 'activity-on' cardLink}}}
+        a.activity-comment(href="{{ activity.card.originRelativeUrl }}")
+          +viewer
+            = activity.comment.text
 
       //- date activity ------------------------------------------------
       if($eq activity.activityType 'a-receivedAt')

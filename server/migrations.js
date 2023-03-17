@@ -1457,3 +1457,19 @@ Migrations.add('remove-unused-planning-poker', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('remove-user-profile-hiddenSystemMessages', () => {
+  Users.update(
+    {
+      "profile.hiddenSystemMessages": {
+        $exists: true,
+      },
+    },
+    {
+      $unset: {
+        "profile.hiddenSystemMessages": 1,
+      },
+    },
+    noValidateMulti,
+  );
+});

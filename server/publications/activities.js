@@ -5,7 +5,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // 2. The card activity tab
 // We use this publication to paginate for these two publications.
 
-Meteor.publish('activities', (kind, id, limit, hideSystem) => {
+Meteor.publish('activities', (kind, id, limit, showActivities) => {
   check(
     kind,
     Match.Where(x => {
@@ -14,7 +14,7 @@ Meteor.publish('activities', (kind, id, limit, hideSystem) => {
   );
   check(id, String);
   check(limit, Number);
-  check(hideSystem, Boolean);
+  check(showActivities, Boolean);
 
   // Get linkedBoard
   let linkedElmtId = [id];
@@ -27,12 +27,9 @@ Meteor.publish('activities', (kind, id, limit, hideSystem) => {
     });
   }
 
-  //const selector = hideSystem
-  //  ? { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: id }] }
-  //  : { [`${kind}Id`]: id };
-  const selector = hideSystem
-    ? { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] }
-    : { [`${kind}Id`]: { $in: linkedElmtId } };
+  const selector = showActivities
+    ? { [`${kind}Id`]: { $in: linkedElmtId } }
+    : { $and: [{ activityType: 'addComment' }, { [`${kind}Id`]: { $in: linkedElmtId } }] };
   const ret = ReactiveCache.getActivities(selector,
     {
       limit,

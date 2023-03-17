@@ -7,3 +7,59 @@ template(name="commentForm")
         | {{getUnsavedValue 'cardComment' currentCard._id}}
       .add-controls
         button.primary.confirm.clear.js-add-comment(type="submit") {{_ 'comment'}}
+
+template(name="comments")
+  .comments
+    each commentData in getComments
+      +comment(commentData)
+
+template(name="comment")
+  .comment
+    +userAvatar(userId=userId)
+    p.comment-desc
+      span.comment-member
+        +memberName(user=user)
+
+      +inlinedForm(classNames='js-edit-comment')
+        +editor(autofocus=true)
+          = text
+        .edit-controls
+          button.primary(type="submit") {{_ 'edit'}}
+          .fa.fa-times-thin.js-close-inlined-form
+      else
+        .comment-text
+          +viewer
+            = text
+        +commentReactions(reactions=reactions commentId=_id)
+        span(title=createdAt).comment-meta {{ moment createdAt }}
+          if($eq currentUser._id userId)
+            +editOrDeleteComment
+          else if currentUser.isBoardAdmin
+            +editOrDeleteComment
+
+template(name="editOrDeleteComment")
+  = ' - '
+  a.js-open-inlined-form {{_ "edit"}}
+  = ' - '
+  a.js-delete-comment {{_ "delete"}}
+
+template(name="deleteCommentPopup")
+  p {{_ "comment-delete"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="commentReactions")
+  .reactions
+    each reaction in reactions
+      span.reaction(class="{{#if isSelected reaction.userIds}}selected{{/if}}" data-codepoint="#{reaction.reactionCodepoint}" title="{{userNames reaction.userIds}}")
+        span.reaction-codepoint !{reaction.reactionCodepoint}
+        span.reaction-count #{reaction.userIds.length}
+    if (currentUser.isBoardMember)
+      a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
+        i.fa.fa-smile-o
+        i.fa.fa-plus
+
+template(name="addReactionPopup")
+  .reactions-popup
+    each codepoint in codepoints
+      span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}
+

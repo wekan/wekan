@@ -336,12 +336,12 @@ BlazeComponent.extendComponent({
   allowUserDelete() {
     return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
   },
-  allHideSystemMessages() {
-    Meteor.call('setAllUsersHideSystemMessages', (err, ret) => {
+  allBoardsHideActivities() {
+    Meteor.call('setAllBoardsHideActivities', (err, ret) => {
       if (!err && ret) {
         if (ret === true) {
           const message = `${TAPi18n.__(
-            'now-system-messages-of-all-users-are-hidden',
+            'now-activities-of-all-boards-are-hidden',
           )}`;
           alert(message);
         }
@@ -359,7 +359,7 @@ BlazeComponent.extendComponent({
         'click button.js-accounts-save': this.saveAccountsChange,
       },
       {
-        'click button.js-all-hide-system-messages': this.allHideSystemMessages,
+        'click button.js-all-boards-hide-activities': this.allBoardsHideActivities,
       },
     ];
   },
@@ -376,12 +376,12 @@ BlazeComponent.extendComponent({
   allowPrivateOnly() {
     return TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
   },
-  allHideSystemMessages() {
-    Meteor.call('setAllUsersHideSystemMessages', (err, ret) => {
+  allBoardsHideActivities() {
+    Meteor.call('setAllBoardsHideActivities', (err, ret) => {
       if (!err && ret) {
         if (ret === true) {
           const message = `${TAPi18n.__(
-            'now-system-messages-of-all-users-are-hidden',
+            'now-activities-of-all-boards-are-hidden',
           )}`;
           alert(message);
         }
@@ -399,7 +399,7 @@ BlazeComponent.extendComponent({
         'click button.js-tableVisibilityMode-save': this.saveTableVisibilityChange,
       },
       {
-        'click button.js-all-hide-system-messages': this.allHideSystemMessages,
+        'click button.js-all-boards-hide-activities': this.allBoardsHideActivities,
       },
     ];
   },

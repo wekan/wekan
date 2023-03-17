@@ -634,6 +634,10 @@ Boards.attachSchema(
       decimal: true,
       defaultValue: -1,
     },
+    showActivities: {
+      type: Boolean,
+      defaultValue: false,
+    },
   }),
 );
 
@@ -1544,6 +1548,10 @@ Boards.mutations({
   move(sortIndex) {
     return { $set: { sort: sortIndex } };
   },
+
+  toggleShowActivities() {
+    return { $set: { showActivities: !this.showActivities } };
+  },
 });
 
 function boardRemover(userId, doc) {
@@ -1750,6 +1758,26 @@ if (Meteor.isServer) {
           return board.title;
         }),
       ).sort();
+    },
+    setAllBoardsHideActivities() {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+        Boards.update(
+          {
+            showActivities: true
+          },
+          {
+            $set: {
+              showActivities: false,
+            },
+          },
+          {
+            multi: true,
+          },
+        );
+        return true;
+      } else {
+        return false;
+      }
     },
   });
 

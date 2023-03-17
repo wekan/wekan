@@ -17,8 +17,10 @@ BlazeComponent.extendComponent({
       if (mode) {
         const capitalizedMode = Utils.capitalize(mode);
         let searchId;
+        const showActivities = this.showActivities();
         if (mode === 'linkedcard' || mode === 'linkedboard') {
-          searchId = Utils.getCurrentCard().linkedId;
+          const currentCard = Utils.getCurrentCard();
+          searchId = currentCard.linkedId;
           mode = mode.replace('linked', '');
         } else if (mode === 'card') {
           searchId = Utils.getCurrentCardId();
@@ -26,11 +28,9 @@ BlazeComponent.extendComponent({
           searchId = Session.get(`current${capitalizedMode}`);
         }
         const limit = this.page.get() * activitiesPerPage;
-        const user = ReactiveCache.getCurrentUser();
-        const hideSystem = user ? user.hasHiddenSystemMessages() : false;
         if (searchId === null) return;
 
-        this.subscribe('activities', mode, searchId, limit, hideSystem, () => {
+        this.subscribe('activities', mode, searchId, limit, showActivities, () => {
           this.loadNextPageLocked = false;
 
           // TODO the guard can be removed as soon as the TODO above is resolved
@@ -56,14 +56,26 @@ BlazeComponent.extendComponent({
       this.loadNextPageLocked = true;
     }
   },
-}).register('activities');
-
-Template.activities.helpers({
-  activities() {
-    const ret = this.card.activities();
+  showActivities() {
+    let ret = false;
+    let mode = this.data()?.mode;
+    if (mode) {
+      if (mode === 'linkedcard' || mode === 'linkedboard') {
+        const currentCard = Utils.getCurrentCard();
+        ret = currentCard.showActivities ?? false;
+      } else if (mode === 'card') {
+        ret = this.data()?.card?.showActivities ?? false;
+      } else {
+        ret = Utils.getCurrentBoard().showActivities ?? false;
+      }
+    }
     return ret;
   },
-});
+  activities() {
+    const ret = this.data().card.activities();
+    return ret;
+  },
+}).register('activities');
 
 BlazeComponent.extendComponent({
   checkItem() {
@@ -249,32 +261,6 @@ BlazeComponent.extendComponent({
     return customField.name;
   },
 
-  events() {
-    return [
-      {
-        // XXX We should use Popup.afterConfirmation here
-        'click .js-delete-comment': Popup.afterConfirm('deleteComment', () => {
-          const commentId = this.data().activity.commentId;
-          CardComments.remove(commentId);
-          Popup.back();
-        }),
-        'submit .js-edit-comment'(evt) {
-          evt.preventDefault();
-          const commentText = this.currentComponent()
-            .getValue()
-            .trim();
-          const commentId = Template.parentData().activity.commentId;
-          if (commentText) {
-            CardComments.update(commentId, {
-              $set: {
-                text: commentText,
-              },
-            });
-          }
-        },
-      },
-    ];
-  },
 }).register('activity');
 
 Template.activity.helpers({

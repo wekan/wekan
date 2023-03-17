@@ -144,8 +144,6 @@ template(name='tableVisibilityModeSettings')
 
 template(name='accountSettings')
   ul#account-setting.setting-detail
-    li
-      button.js-all-hide-system-messages.primary {{_ 'hide-system-messages-of-all-users'}}
     li.accounts-form
       .title {{_ 'accounts-allowEmailChange'}}
       .form-group.flex
@@ -185,6 +183,8 @@ template(name='announcementSettings')
 
 template(name='layoutSettings')
   ul#layout-setting.setting-detail
+    li
+      button.js-all-boards-hide-activities.primary {{_ 'hide-activities-of-all-boards'}}
     li.layout-form
       .title {{_ 'oidc-button-text'}}
       .form-group
