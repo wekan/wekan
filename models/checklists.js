@@ -118,6 +118,13 @@ Checklists.helpers({
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
+  showChecklist(hideCheckedChecklistItems) {
+    let ret = true;
+    if (this.isFinished() && hideCheckedChecklistItems === true) {
+      ret = false;
+    }
+    return ret;
+  },
   checkAllItems() {
     const checkItems = ReactiveCache.getChecklistItems({ checklistId: this._id });
     checkItems.forEach(function(item) {

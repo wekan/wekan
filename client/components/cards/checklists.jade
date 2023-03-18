@@ -20,7 +20,8 @@ template(name="checklists")
 
   .card-checklist-items
     each checklist in checklists
-      +checklistDetail(checklist = checklist card = card)
+      if checklist.showChecklist card.hideCheckedChecklistItems
+        +checklistDetail(checklist = checklist card = card)
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
