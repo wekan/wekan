@@ -477,6 +477,13 @@ Cards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    hideCheckedChecklistItems: {
+      /**
+       * hide the checked checklist-items?
+       */
+      type: Boolean,
+      optional: true,
+    },
   }),
 );
 
@@ -2175,6 +2182,14 @@ Cards.mutations({
     return {
       $set: {
         showActivities: !this.showActivities,
+      }
+    };
+  },
+
+  toggleHideCheckedChecklistItems() {
+    return {
+      $set: {
+        hideCheckedChecklistItems: !this.hideCheckedChecklistItems,
       }
     };
   },

@@ -1473,3 +1473,19 @@ Migrations.add('remove-user-profile-hiddenSystemMessages', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('remove-user-profile-hideCheckedItems', () => {
+  Users.update(
+    {
+      "profile.hideCheckedItems": {
+        $exists: true,
+      },
+    },
+    {
+      $unset: {
+        "profile.hideCheckedItems": 1,
+      },
+    },
+    noValidateMulti,
+  );
+});

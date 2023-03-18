@@ -201,15 +201,8 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    const events = {
-      'click #toggleHideCheckedItemsButton'() {
-        Meteor.call('toggleHideCheckedItems');
-      },
-    };
-
     return [
       {
-        ...events,
         'click .js-open-checklist-details-menu': Popup.open('checklistActions'),
         'submit .js-add-checklist': this.addChecklist,
         'submit .js-edit-checklist-title': this.editChecklist,
@@ -274,10 +267,10 @@ Template.checklists.helpers({
     const ret = card.checklists();
     return ret;
   },
-  hideCheckedItems() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) return currentUser.hasHideCheckedItems();
-    return false;
+  hideCheckedChecklistItems() {
+    const card = ReactiveCache.getCard(this.cardId);
+    const ret = card.hideCheckedChecklistItems ?? false;
+    return ret;
   },
 });
 
@@ -338,11 +331,6 @@ BlazeComponent.extendComponent({
 }).register('editChecklistItemForm');
 
 Template.checklistItemDetail.helpers({
-  hideCheckedItems() {
-    const user = ReactiveCache.getCurrentUser();
-    if (user) return user.hasHideCheckedItems();
-    return false;
-  },
 });
 
 BlazeComponent.extendComponent({
