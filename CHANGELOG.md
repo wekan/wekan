@@ -12,7 +12,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Upgraded to Meteor 2.11.0](https://github.com/wekan/wekan/commit/e48db7d7ea7e70dc767576126be35927ced24ee5).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
 
 - [Avatar upload was broken if no size is configured](https://github.com/wekan/wekan/pull/4857).
   Thanks to mfilser.
