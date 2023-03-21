@@ -10,6 +10,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Avatar upload was broken if no size is configured](https://github.com/wekan/wekan/pull/4857).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.78 2023-02-28 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
