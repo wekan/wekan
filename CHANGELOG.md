@@ -10,12 +10,14 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.79 2023-03-22 WeKan ® release
 
 This release adds the following updates:
 
 - [Upgraded to Meteor 2.11.0](https://github.com/wekan/wekan/commit/e48db7d7ea7e70dc767576126be35927ced24ee5).
   Thanks to Meteor developers.
+- [Use MongoDB 6](https://github.com/wekan/wekan/commit/4aeab872de2c9d0365a4b8872b6b015a36666615).
+  Thanks to to MongoDB.
 
 and fixes the following bugs:
 
