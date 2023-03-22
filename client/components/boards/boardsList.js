@@ -199,15 +199,12 @@ BlazeComponent.extendComponent({
   },
 
   boardMembers(boardId) {
-    let boardMembers = [];
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     const lists = ReactiveCache.getBoard(boardId)
-    let members = lists.members
-    members.forEach(member => {
-      boardMembers.push(member.userId);
-    });
-    */
+    const boardMembers = lists?.members.map(member => member.userId);
     return boardMembers;
+    */
+    return [];
   },
 
   isStarred() {
