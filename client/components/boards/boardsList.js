@@ -151,8 +151,8 @@ BlazeComponent.extendComponent({
       }
       const currUser = ReactiveCache.getCurrentUser();
 
-      let orgIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
-      if (orgIdsUserBelongs && orgIdsUserBelongs != '') {
+      let orgIdsUserBelongs = currUser?.orgIdsUserBelongs() || '';
+      if (orgIdsUserBelongs) {
         let orgsIds = orgIdsUserBelongs.split(',');
         // for(let i = 0; i < orgsIds.length; i++){
         //   query.$and[2].$or.push({'orgs.orgId': orgsIds[i]});
@@ -162,8 +162,8 @@ BlazeComponent.extendComponent({
         query.$and[2].$or.push({ 'orgs.orgId': { $in: orgsIds } });
       }
 
-      let teamIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
-      if (teamIdsUserBelongs && teamIdsUserBelongs != '') {
+      let teamIdsUserBelongs = currUser?.teamIdsUserBelongs() || '';
+      if (teamIdsUserBelongs) {
         let teamsIds = teamIdsUserBelongs.split(',');
         // for(let i = 0; i < teamsIds.length; i++){
         //   query.$or[2].$or.push({'teams.teamId': teamsIds[i]});
