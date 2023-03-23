@@ -10,6 +10,25 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following improvements:
+
+- [Helm Charts secretEnv: Modify secret and deployment to allow users to provide secretEnv with empty value](https://github.com/wekan/charts/pull/13).
+  Thanks to jehutyy.
+
+and fixes the following bugs:
+
+- [Custom Fields, display Grid Button only if more than 1 custom field](https://github.com/wekan/wekan/pull/4864).
+  Thanks to mfilser.
+- Helm Charts: Add missing data-storage as pvc for WRITABLE_PATH.
+  [Part 1](https://github.com/wekan/charts/issues/14),
+  [Part 2](https://github.com/wekan/charts/pull/15),
+  [Part 3](https://github.com/wekan/charts/pull/16).
+  Thanks to Nightreaver, NotTheEvilOne and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.79 2023-03-22 WeKan ® release
 
 This release adds the following updates:
