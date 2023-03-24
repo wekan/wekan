@@ -10,6 +10,16 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Helm Chart - fix: broken secretEnv indentation](https://github.com/wekan/charts/pull/18).
+  Fixed in already released WeKan Helm Chart 1.2.7.
+  Thanks to Nightreaver.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.80 2023-03-23 WeKan ® release
 
 This release adds the following improvements:
