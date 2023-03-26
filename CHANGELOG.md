@@ -19,6 +19,8 @@ This release fixes the following bugs:
   Thanks to Nightreaver.
 - [Fix Bug: Cardoptions disappear behind scrollbar in german](https://github.com/wekan/wekan/commit/bf636725e8637200c2121e754297d281f8c38d4e).
   Thanks to Meeques and xet7.
+- [Add some info about allowed filesizes and filetypes for attachments and avatars](https://github.com/wekan/wekan/commit/5b3bd8ff2a29e2c1ada4c49de4c50c132b603863).
+  Thanks to Meeques and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
