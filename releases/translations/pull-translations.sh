@@ -1,6 +1,9 @@
 cd ~/repos/wekan
 
-tx pull -a
+
+tx pull -a -f --json
+
+#tx pull -a
 
 # https://developers.transifex.com/docs/cli
 # New Go-based transifex client.

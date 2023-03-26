@@ -1,0 +1,7244 @@
+{
+    "accept": {
+        "string": "同意",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-activity-notify": {
+        "string": "活动通知",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addAttachment": {
+        "string": "添加附件 __attachment__ 到看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-deleteAttachment": {
+        "string": "删除看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的附件 __attachment__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addSubtask": {
+        "string": "添加子任务 __subtask__  到看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addLabel": {
+        "string": "添加标签 __label__  到看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addedLabel": {
+        "string": "添加标签 __label__  到看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-removeLabel": {
+        "string": "移除看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的标签 __label__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-removedLabel": {
+        "string": "移除看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的标签 __label__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addChecklist": {
+        "string": "添加清单 __checklist__  到看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addChecklistItem": {
+        "string": "添加清单项 __checklistItem__ 到看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的清单 __checklist__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-removeChecklist": {
+        "string": "移除看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的清单 __checklist__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-removeChecklistItem": {
+        "string": "移除看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的清单 __checklist__ 清单项 __checklistItem__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-checkedItem": {
+        "string": "选中看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的清单 __checklist__ 的清单项 __checklistItem__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-uncheckedItem": {
+        "string": "反选看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的清单 __checklist__ 的清单项 __checklistItem__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-completeChecklist": {
+        "string": "完成检查列表  __checklist__  卡片  __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-uncompleteChecklist": {
+        "string": "看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的清单 __checklist__ 未完成",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addComment": {
+        "string": "对看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 发表了评论: __comment__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-editComment": {
+        "string": "编辑卡片中的评论：看板__board__中的泳道__swimlane__中的列表__list__中的评论__comment__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-deleteComment": {
+        "string": "删除卡片中的评论：看板__board__中的泳道__swimlane__中的列表__list__中的评论__comment__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-createBoard": {
+        "string": "创建看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-createSwimlane": {
+        "string": "创建泳道 __swimlane__ 到看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-createCard": {
+        "string": "在看板 __board__ 的泳道 __swimlane__ 的列表 __list__ 中添加卡片 __card__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-createCustomField": {
+        "string": "已创建看板__board__中的自定义字段__customField__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-deleteCustomField": {
+        "string": "已删除看板__board__中的自定义字段__customField__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-setCustomField": {
+        "string": "编辑定制字段__customField__：看板__board__中的泳道__swimlane__中的列表__list__中的卡片__card__中的__customFieldValue__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-createList": {
+        "string": "添加列表 __list__ 至看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-addBoardMember": {
+        "string": "添加成员 __member__ 到看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-archivedBoard": {
+        "string": "看板 __board__ 已被移入归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-archivedCard": {
+        "string": "将看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 移动到归档中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-archivedList": {
+        "string": "看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 已被移入归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-archivedSwimlane": {
+        "string": "看板 __board__ 中的泳道 __swimlane__ 已被移入归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-importBoard": {
+        "string": "导入看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-importCard": {
+        "string": "已将卡片 __card__ 导入到 __board__ 看板中的 __swimlane__ 泳道中的 __list__ 列表中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-importList": {
+        "string": "已将列表导入到 __board__ 看板中的 __swimlane__  泳道中的 __list__  列表中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-joinMember": {
+        "string": "已将成员 __member__  添加到 __board__ 看板中的 __swimlane__ 泳道中的 __list__  列表中的 __card__ 卡片中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-moveCard": {
+        "string": "移动卡片 __card__ 到看板 __board__ 从列表 __oldList__ 泳道 __oldSwimlane__ 至列表 __list__ 泳道 __swimlane__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-moveCardToOtherBoard": {
+        "string": "移动卡片 __card__ 从列表  __oldList__ 泳道 __oldSwimlane__ 看板  __oldBoard__ 至列表 __list__ 泳道 __swimlane__ 看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-removeBoardMember": {
+        "string": "从看板 __board__ 移除成员 __member__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-restoredCard": {
+        "string": "恢复卡片 __card__ 至列表 __list__ 泳道 __swimlane__  看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-unjoinMember": {
+        "string": "移除成员  __member__  从卡片 __card__ 列表 __list__ a泳道 __swimlane__ 看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-withBoardTitle": {
+        "string": "看板__board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-withCardTitle": {
+        "string": "[看板 __board__] 卡片 __card__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "actions": {
+        "string": "动作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activities": {
+        "string": "活动",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity": {
+        "string": "活动",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-added": {
+        "string": "添加 %s 至 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-archived": {
+        "string": "%s 已被移入归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-attached": {
+        "string": "添加附件 %s 至 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-created": {
+        "string": "创建 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-customfield-created": {
+        "string": "创建了自定义字段 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-excluded": {
+        "string": "排除 %s 从 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-imported": {
+        "string": "导入 %s 至 %s 从 %s 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-imported-board": {
+        "string": "已导入 %s 从 %s 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-joined": {
+        "string": "已关联 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-moved": {
+        "string": "将 %s 从 %s 移动到 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-on": {
+        "string": "在 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-removed": {
+        "string": "从 %s 中移除 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-sent": {
+        "string": "发送 %s 至 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-unjoined": {
+        "string": "已解除 %s 关联",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-subtask-added": {
+        "string": "已添加子任务到%s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checked-item": {
+        "string": "勾选%s于清单%s 共 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-unchecked-item": {
+        "string": "未勾选 %s  于清单 %s 共 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-added": {
+        "string": "已经将清单添加到 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-removed": {
+        "string": "已从%s移除待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-completed": {
+        "string": "完成清单%s共%s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-uncompleted": {
+        "string": "未完成清单 %s 共 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-item-added": {
+        "string": "添加清单项至'%s' 于 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-item-removed": {
+        "string": "已从 '%s' 于 %s中 移除一个清单项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add": {
+        "string": "添加",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checked-item-card": {
+        "string": "勾选 %s 与清单 %s 中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-unchecked-item-card": {
+        "string": "取消勾选 %s 于清单 %s中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-completed-card": {
+        "string": "完成检查列表  __checklist__  卡片  __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-checklist-uncompleted-card": {
+        "string": "未完成清单 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-editComment": {
+        "string": "评论已编辑",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-deleteComment": {
+        "string": "评论已删除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-receivedDate": {
+        "string": "已将接收日期从 %s 修改为 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-startDate": {
+        "string": "已将开始日期从 %s 修改为 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-dueDate": {
+        "string": "已将到期日期从 %s 修改为 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-endDate": {
+        "string": "已将结束日期从 %s 修改为 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-attachment": {
+        "string": "添加附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-board": {
+        "string": "添加看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-template": {
+        "string": "添加模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-card": {
+        "string": "添加卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-card-to-top-of-list": {
+        "string": "添加卡片到列表顶部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-card-to-bottom-of-list": {
+        "string": "添加卡片到列表底部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-swimlane": {
+        "string": "添加泳道图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-subtask": {
+        "string": "添加子任务",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-checklist": {
+        "string": "添加清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-checklist-item": {
+        "string": "添加项目清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "close-add-checklist-item": {
+        "string": "关闭向清单表单添加项目",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "close-edit-checklist-item": {
+        "string": "关闭编辑一个项目到清单表单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "convertChecklistItemToCardPopup-title": {
+        "string": "转为卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-cover": {
+        "string": "添加封面",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-label": {
+        "string": "添加标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-list": {
+        "string": "添加列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-members": {
+        "string": "添加成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "added": {
+        "string": "添加",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "addMemberPopup-title": {
+        "string": "成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "memberPopup-title": {
+        "string": "成员设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "admin": {
+        "string": "管理员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "admin-desc": {
+        "string": "可以浏览并编辑卡片，移除成员，并且更改该看板的设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "admin-announcement": {
+        "string": "通知",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "admin-announcement-active": {
+        "string": "激活系统通知",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "admin-announcement-title": {
+        "string": "管理员的通知",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "all-boards": {
+        "string": "全部看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "and-n-other-card": {
+        "string": "和其他 __count__ 个卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "and-n-other-card_plural": {
+        "string": "和其他 __count__ 个卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "apply": {
+        "string": "应用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "app-is-offline": {
+        "string": "加载中，请稍后。刷新页面将导致数据丢失，如果加载长时间不起作用，请检查服务器是否已经停止工作。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "app-try-reconnect": {
+        "string": "尝试重新建立连接。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archive": {
+        "string": "归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archive-all": {
+        "string": "全部归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archive-board": {
+        "string": "将看板归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archive-card": {
+        "string": "将卡片归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archive-list": {
+        "string": "将列表归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archive-swimlane": {
+        "string": "将泳道归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archive-selection": {
+        "string": "将选择归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archiveBoardPopup-title": {
+        "string": "是否归档看板？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archived-items": {
+        "string": "归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archived-boards": {
+        "string": "归档的看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "restore-board": {
+        "string": "还原看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-archived-boards": {
+        "string": "没有归档的看板。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archives": {
+        "string": "归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "template": {
+        "string": "模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "templates": {
+        "string": "模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "template-container": {
+        "string": "模板容器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-template-container": {
+        "string": "新增模板容器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "assign-member": {
+        "string": "指派成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attached": {
+        "string": "附加",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachment": {
+        "string": "附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachment-delete-pop": {
+        "string": "删除附件的操作不可逆。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachmentDeletePopup-title": {
+        "string": "删除附件？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachments": {
+        "string": "附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "auto-watch": {
+        "string": "自动关注新建的看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "avatar-too-big": {
+        "string": "The avatar is too large (__size__ max)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "back": {
+        "string": "返回",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-change-color": {
+        "string": "更改颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-at-all-boards-page": {
+        "string": "现在在所有面板页面",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-info-on-my-boards": {
+        "string": "面板全局设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardInfoOnMyBoardsPopup-title": {
+        "string": "面板全局设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardInfoOnMyBoards-title": {
+        "string": "面板全局设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-card-counter-per-list": {
+        "string": "显示每个列表的卡数",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-board_members-avatar": {
+        "string": "显示面板成员头像",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-nb-stars": {
+        "string": "%s 星标",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-not-found": {
+        "string": "看板不存在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-private-info": {
+        "string": "该看板将被设为 <strong>私有</strong>.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-public-info": {
+        "string": "该看板将被设为 <strong>公开</strong>.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-drag-drop-reorder-or-click-open": {
+        "string": "对看板图标进行拖拽排序。点击看板图标打开看板。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardChangeColorPopup-title": {
+        "string": "修改看板背景",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardChangeTitlePopup-title": {
+        "string": "重命名看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardChangeVisibilityPopup-title": {
+        "string": "更改可视级别",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardChangeWatchPopup-title": {
+        "string": "更改关注状态",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardMenuPopup-title": {
+        "string": "看板设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardChangeViewPopup-title": {
+        "string": "看板视图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boards": {
+        "string": "看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-view": {
+        "string": "看板视图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-view-cal": {
+        "string": "日历",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-view-swimlanes": {
+        "string": "泳道图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-view-collapse": {
+        "string": "崩溃",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-view-gantt": {
+        "string": "甘特图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-view-lists": {
+        "string": "列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "bucket-example": {
+        "string": "Like “Bucket List” for example",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cancel": {
+        "string": "取消",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-archived": {
+        "string": "归档这个卡片。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-archived": {
+        "string": "归档这个看板。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-comments-title": {
+        "string": "该卡片有 %s 条评论",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-delete-notice": {
+        "string": "彻底删除的操作不可恢复，你将会丢失该卡片相关的所有操作记录。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-delete-pop": {
+        "string": "所有的活动将从活动摘要中被移除且您将无法重新打开该卡片。此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-delete-suggest-archive": {
+        "string": "您可以移动卡片到活动以便从看板中删除并保持活动。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-archive-pop": {
+        "string": "归档卡片后，卡片在此列表中将不可见。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-archive-suggest-cancel": {
+        "string": "稍后你可以从归档中恢复卡片。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-due": {
+        "string": "到期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-due-on": {
+        "string": "期限",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-spent": {
+        "string": "耗时",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-edit-attachments": {
+        "string": "编辑附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-edit-custom-fields": {
+        "string": "编辑自定义字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-edit-labels": {
+        "string": "编辑标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-edit-members": {
+        "string": "编辑成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-labels-title": {
+        "string": "更改该卡片上的标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-members-title": {
+        "string": "在该卡片中添加或移除看板成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-start": {
+        "string": "开始",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-start-on": {
+        "string": "始于",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardAttachmentsPopup-title": {
+        "string": "附件来源",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardCustomField-datePopup-title": {
+        "string": "修改日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardCustomFieldsPopup-title": {
+        "string": "编辑自定义字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardStartVotingPopup-title": {
+        "string": "建立投票",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "positiveVoteMembersPopup-title": {
+        "string": "支持",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "negativeVoteMembersPopup-title": {
+        "string": "反对",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-edit-voting": {
+        "string": "编辑投票",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editVoteEndDatePopup-title": {
+        "string": "修改投票截止日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "allowNonBoardMembers": {
+        "string": "允许所有已登入账户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "vote-question": {
+        "string": "投票题目",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "vote-public": {
+        "string": "查看投票结果",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "vote-for-it": {
+        "string": "同意",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "vote-against": {
+        "string": "反对",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "deleteVotePopup-title": {
+        "string": "删除投票？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "vote-delete-pop": {
+        "string": "永久删除。此操作会将所有数据删除掉。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardStartPlanningPokerPopup-title": {
+        "string": "开始一次计划扑克",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-edit-planning-poker": {
+        "string": "编辑计划扑克",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editPokerEndDatePopup-title": {
+        "string": "更改计划扑克投票截止日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-question": {
+        "string": "计划扑克",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-one": {
+        "string": "1",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-two": {
+        "string": "2",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-three": {
+        "string": "3",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-five": {
+        "string": "5",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-eight": {
+        "string": "8",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-thirteen": {
+        "string": "13",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-twenty": {
+        "string": "20",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-forty": {
+        "string": "40",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-oneHundred": {
+        "string": "100",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-unsure": {
+        "string": "？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-finish": {
+        "string": "完成",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-result-votes": {
+        "string": "投票",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-result-who": {
+        "string": "何人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-replay": {
+        "string": "重播",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "set-estimation": {
+        "string": "设置预估时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "deletePokerPopup-title": {
+        "string": "删除计划扑克？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "poker-delete-pop": {
+        "string": "永久删除。对该计划扑克的所有操作记录将会丢失。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardDeletePopup-title": {
+        "string": "彻底删除卡片？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardArchivePopup-title": {
+        "string": "归档卡片？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardDetailsActionsPopup-title": {
+        "string": "卡片操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardLabelsPopup-title": {
+        "string": "标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardMembersPopup-title": {
+        "string": "成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardMorePopup-title": {
+        "string": "更多",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardTemplatePopup-title": {
+        "string": "新建模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cards": {
+        "string": "卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cards-count": {
+        "string": "卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cards-count-one": {
+        "string": "卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "casSignIn": {
+        "string": "用CAS登录",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardType-card": {
+        "string": "卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardType-linkedCard": {
+        "string": "已链接卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardType-linkedBoard": {
+        "string": "已链接看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "change": {
+        "string": "变更",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "change-avatar": {
+        "string": "更改头像",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "change-password": {
+        "string": "更改密码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "change-permissions": {
+        "string": "更改权限",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "change-settings": {
+        "string": "更改设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "changeAvatarPopup-title": {
+        "string": "更改头像",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "changeLanguagePopup-title": {
+        "string": "更改语言",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "changePasswordPopup-title": {
+        "string": "更改密码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "changePermissionsPopup-title": {
+        "string": "更改权限",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "changeSettingsPopup-title": {
+        "string": "更改设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subtasks": {
+        "string": "子任务",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "checklists": {
+        "string": "清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "click-to-star": {
+        "string": "点此来标记该看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "click-to-unstar": {
+        "string": "点此来去除该看板的标记",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "clipboard": {
+        "string": "剪贴板或者拖放文件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "close": {
+        "string": "关闭",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "close-board": {
+        "string": "关闭看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "close-board-pop": {
+        "string": "您可以通过主页头部的“归档”按钮，来恢复看板。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "close-card": {
+        "string": "关闭卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-black": {
+        "string": "黑色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-blue": {
+        "string": "蓝色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-crimson": {
+        "string": "深红",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-darkgreen": {
+        "string": "墨绿",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-gold": {
+        "string": "金",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-gray": {
+        "string": "灰",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-green": {
+        "string": "绿色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-indigo": {
+        "string": "靛蓝",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-lime": {
+        "string": "绿黄",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-magenta": {
+        "string": "洋红",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-mistyrose": {
+        "string": "玫瑰红",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-navy": {
+        "string": "藏青",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-orange": {
+        "string": "橙色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-paleturquoise": {
+        "string": "宝石绿",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-peachpuff": {
+        "string": "桃红",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-pink": {
+        "string": "粉红",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-plum": {
+        "string": "紫红",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-purple": {
+        "string": "紫色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-red": {
+        "string": "红色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-saddlebrown": {
+        "string": "棕褐",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-silver": {
+        "string": "银",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-sky": {
+        "string": "天蓝",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-slateblue": {
+        "string": "石板蓝",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-white": {
+        "string": "白",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "color-yellow": {
+        "string": "黄色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "unset-color": {
+        "string": "复原",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "comment": {
+        "string": "评论",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "comment-placeholder": {
+        "string": "添加评论",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "comment-only": {
+        "string": "仅能评论",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "comment-only-desc": {
+        "string": "仅能在卡片上评论。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "comment-delete": {
+        "string": "确定要删除评论？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "deleteCommentPopup-title": {
+        "string": "删除评论？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-comments": {
+        "string": "暂无评论",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-comments-desc": {
+        "string": "无法查看评论和活动。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "worker": {
+        "string": "人员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "worker-desc": {
+        "string": "只能移动卡片，分配给卡片和评论",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "computer": {
+        "string": "从本机上传",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "confirm-subtask-delete-popup": {
+        "string": "确定要删除子任务吗？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "confirm-checklist-delete-popup": {
+        "string": "确定要删除清单吗？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subtaskDeletePopup-title": {
+        "string": "删除子任务？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "checklistDeletePopup-title": {
+        "string": "删除待办清单？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copy-card-link-to-clipboard": {
+        "string": "复制卡片链接到剪贴板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copy-text-to-clipboard": {
+        "string": "复制文本到剪贴板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "linkCardPopup-title": {
+        "string": "链接卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "searchElementPopup-title": {
+        "string": "搜索",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copyCardPopup-title": {
+        "string": "复制卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copyManyCardsPopup-title": {
+        "string": "将模板复制到多张卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copyManyCardsPopup-instructions": {
+        "string": "以JSON格式表示目标卡片的标题和描述",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copyManyCardsPopup-format": {
+        "string": "[ {\\\"title\\\": \\\"第一个卡片的标题\\\", \\\"description\\\":\\\"第一个卡片的描述\\\"}, {\\\"title\\\":\\\"第二个卡片的标题\\\",\\\"description\\\":\\\"第二个卡片的描述\\\"},{\\\"title\\\":\\\"最后一个卡片的标题\\\",\\\"description\\\":\\\"最后一个卡片的描述\\\"} ]",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "create": {
+        "string": "创建",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "createBoardPopup-title": {
+        "string": "创建看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "chooseBoardSourcePopup-title": {
+        "string": "导入看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "createLabelPopup-title": {
+        "string": "创建标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "createCustomField": {
+        "string": "创建字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "createCustomFieldPopup-title": {
+        "string": "创建字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "current": {
+        "string": "当前",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-delete-pop": {
+        "string": "没有撤销，此动作将从所有卡片中移除自定义字段并销毁历史。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-checkbox": {
+        "string": "选择框",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-currency": {
+        "string": "货币",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-currency-option": {
+        "string": "货币代码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-date": {
+        "string": "日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-dropdown": {
+        "string": "下拉列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-dropdown-none": {
+        "string": "(无)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-dropdown-options": {
+        "string": "列表选项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-dropdown-options-placeholder": {
+        "string": "回车可以加入更多选项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-dropdown-unknown": {
+        "string": "(未知)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-number": {
+        "string": "数字",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-text": {
+        "string": "文本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-fields": {
+        "string": "自定义字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "date": {
+        "string": "日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "decline": {
+        "string": "拒绝",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "default-avatar": {
+        "string": "默认头像",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete": {
+        "string": "删除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "deleteCustomFieldPopup-title": {
+        "string": "删除自定义字段？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "deleteLabelPopup-title": {
+        "string": "删除标签？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "description": {
+        "string": "描述",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "disambiguateMultiLabelPopup-title": {
+        "string": "消除标签歧义",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "disambiguateMultiMemberPopup-title": {
+        "string": "消除成员歧义",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "discard": {
+        "string": "放弃",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "done": {
+        "string": "完成",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "download": {
+        "string": "下载",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "edit": {
+        "string": "编辑",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "edit-avatar": {
+        "string": "更改头像",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "edit-profile": {
+        "string": "编辑资料",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "edit-wip-limit": {
+        "string": "编辑最大任务数",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "soft-wip-limit": {
+        "string": "最大任务数软限制",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editCardStartDatePopup-title": {
+        "string": "修改起始日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editCardDueDatePopup-title": {
+        "string": "修改截止日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editCustomFieldPopup-title": {
+        "string": "编辑字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "addReactionPopup-title": {
+        "string": "新增动作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editCardSpentTimePopup-title": {
+        "string": "修改耗时",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editLabelPopup-title": {
+        "string": "更改标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editNotificationPopup-title": {
+        "string": "编辑通知",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editProfilePopup-title": {
+        "string": "编辑资料",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email": {
+        "string": "邮箱",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-enrollAccount-subject": {
+        "string": "已为您在 __siteName__ 创建帐号",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-enrollAccount-text": {
+        "string": "尊敬的 __user__,\\n\\n点击下面的链接，即刻开始使用这项服务。\\n\\n__url__\\n\\n谢谢。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-fail": {
+        "string": "邮件发送失败",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-fail-text": {
+        "string": "尝试发送邮件时出错",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-invalid": {
+        "string": "邮件地址错误",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-invite": {
+        "string": "发送邮件邀请",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-invite-subject": {
+        "string": "__inviter__ 向您发出邀请",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-invite-text": {
+        "string": "尊敬的 __user__,\\n\\n__inviter__ 邀请您加入看板 \\\"__board__\\\" 参与协作。\\n\\n请点击下面的链接访问看板：\\n\\n__url__\\n\\n谢谢。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-resetPassword-subject": {
+        "string": "重置您的 __siteName__ 密码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-resetPassword-text": {
+        "string": "尊敬的 __user__,\\n\\n点击下面的链接，重置您的密码：\\n\\n__url__\\n\\n谢谢。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-sent": {
+        "string": "邮件已发送",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-verifyEmail-subject": {
+        "string": "在 __siteName__ 验证您的邮件地址",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-verifyEmail-text": {
+        "string": "尊敬的 __user__,\\n\\n点击下面的链接，验证您的邮件地址：\\n\\n__url__\\n\\n谢谢。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "enable-wip-limit": {
+        "string": "启用最大任务数限制",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-board-doesNotExist": {
+        "string": "该看板不存在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-board-notAdmin": {
+        "string": "需要成为管理员才能执行此操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-board-notAMember": {
+        "string": "需要成为看板成员才能执行此操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-json-malformed": {
+        "string": "文本不是合法的 JSON",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-json-schema": {
+        "string": "JSON 数据没有用正确的格式包含合适的信息",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-csv-schema": {
+        "string": "CSV（逗号分隔值）/TSV（制表符分隔值）数据格式的不正确",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-list-doesNotExist": {
+        "string": "不存在此列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-user-doesNotExist": {
+        "string": "该用户不存在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-user-notAllowSelf": {
+        "string": "无法邀请自己",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-user-notCreated": {
+        "string": "该用户未能成功创建",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-username-taken": {
+        "string": "此用户名已被使用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-orgname-taken": {
+        "string": "此组织名称已被使用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-teamname-taken": {
+        "string": "此团队名称已被使用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-email-taken": {
+        "string": "此邮箱已被使用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-board": {
+        "string": "导出看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-board-json": {
+        "string": "看板导出为JSON",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-board-csv": {
+        "string": "看板导出为CSV",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-board-tsv": {
+        "string": "看板导出为TSV",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-board-excel": {
+        "string": "看板导出为Excel",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "user-can-not-export-excel": {
+        "string": "用户无法导出Excel",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-board-html": {
+        "string": "看板导出为HTML",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-card": {
+        "string": "导出卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "export-card-pdf": {
+        "string": "卡片导出为PDF",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "user-can-not-export-card-to-pdf": {
+        "string": "用户无法将卡片导出为PDF",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "exportBoardPopup-title": {
+        "string": "导出看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "exportCardPopup-title": {
+        "string": "导出卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "sort": {
+        "string": "排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "sorted": {
+        "string": "已排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-sort": {
+        "string": "删除排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "sort-desc": {
+        "string": "点此来将列表排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-sort-by": {
+        "string": "按此来将列表排序：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-label-modifiedAt": {
+        "string": "上次访问时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-label-title": {
+        "string": "列表名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-label-sort": {
+        "string": "您手动指定的顺序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-label-short-modifiedAt": {
+        "string": "(L)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-label-short-title": {
+        "string": "(N)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-label-short-sort": {
+        "string": "(M)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter": {
+        "string": "过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-cards": {
+        "string": "过滤卡片或列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-dates-label": {
+        "string": "按日期过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-no-due-date": {
+        "string": "无截止日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-overdue": {
+        "string": "逾期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-due-today": {
+        "string": "今天到期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-due-this-week": {
+        "string": "这周到期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-due-tomorrow": {
+        "string": "明天到期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-filter-label": {
+        "string": "以标题过滤列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-clear": {
+        "string": "清空过滤器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-labels-label": {
+        "string": "根据标签过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-no-label": {
+        "string": "无标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-member-label": {
+        "string": "按成员过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-no-member": {
+        "string": "无成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-assignee-label": {
+        "string": "按指定人过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-no-assignee": {
+        "string": "没有指派人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-custom-fields-label": {
+        "string": "按自定义字段过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-no-custom-fields": {
+        "string": "无自定义字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-show-archive": {
+        "string": "显示归档的列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-hide-empty": {
+        "string": "隐藏空列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-on": {
+        "string": "过滤器启用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-on-desc": {
+        "string": "你正在过滤该看板上的卡片，点此编辑过滤。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-to-selection": {
+        "string": "要选择的过滤器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "other-filters-label": {
+        "string": "其他过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "advanced-filter-label": {
+        "string": "高级过滤器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "advanced-filter-description": {
+        "string": "高级过滤器可以使用包含如下操作符的字符串进行过滤：== != <= >= && || ( ) 。操作符之间用空格隔开。输入字段名和数值就可以过滤所有自定义字段。例如：Field1 == Value1。注意如果字段名或数值包含空格，需要用单引号。例如: 'Field 1' == 'Value 1'。要跳过单个控制字符(' \\/)，请使用 \\ 转义字符。例如: Field1 = I\\'m。支持组合使用多个条件，例如: F1 == V1 || F1 == V2。通常以从左到右的顺序进行判断。可以通过括号修改顺序,例如：F1 == V1 && ( F2 == V2 || F2 == V3 )。也支持使用正则表达式搜索文本字段。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "fullname": {
+        "string": "全称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "header-logo-title": {
+        "string": "返回您的看板页",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hide-system-messages": {
+        "string": "隐藏系统消息",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "headerBarCreateBoardPopup-title": {
+        "string": "创建看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "home": {
+        "string": "首页",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import": {
+        "string": "导入",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "impersonate-user": {
+        "string": "模拟用户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "link": {
+        "string": "链接",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board": {
+        "string": "导入看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-c": {
+        "string": "导入看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-title-trello": {
+        "string": "从Trello导入看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-title-wekan": {
+        "string": "从以前的导出数据导入看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-title-csv": {
+        "string": "导入CSV/TSV看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "from-trello": {
+        "string": "自 Trello",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "from-wekan": {
+        "string": "自以前的导出",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "from-csv": {
+        "string": "从CSV/TSV",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-instruction-trello": {
+        "string": "在你的Trello看板中，点击“菜单”，然后选择“更多”，“打印与导出”，“导出为 JSON” 并拷贝结果文本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-instruction-csv": {
+        "string": "粘贴逗号分隔值（CSV）/制表符分隔值（TSV）。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-instruction-wekan": {
+        "string": "在您的看板，点击“菜单”，然后“导出看板”，复制下载文件中的文本。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-board-instruction-about-errors": {
+        "string": "如果在导入看板时出现错误，导入工作可能仍然在进行中，并且看板已经出现在全部看板页。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-json-placeholder": {
+        "string": "粘贴您有效的 JSON 数据至此",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-csv-placeholder": {
+        "string": "在此处粘贴有效的CSV/TSV数据",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-map-members": {
+        "string": "映射成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-members-map": {
+        "string": "您导入的看板有一些成员，请映射这些成员到您导入的用户。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-members-map-note": {
+        "string": "提示：未指定用户将被指派给当前用户。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-show-user-mapping": {
+        "string": "核对成员映射",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-user-select": {
+        "string": "为这个成员选择您已经存在的用户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "importMapMembersAddPopup-title": {
+        "string": "选择成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "info": {
+        "string": "版本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "initials": {
+        "string": "缩写",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invalid-date": {
+        "string": "无效日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invalid-time": {
+        "string": "非法时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invalid-user": {
+        "string": "非法用户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "joined": {
+        "string": "关联",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "just-invited": {
+        "string": "您刚刚被邀请加入此看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "keyboard-shortcuts": {
+        "string": "键盘快捷键",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "label-create": {
+        "string": "创建标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "label-default": {
+        "string": "%s 标签（默认）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "label-delete-pop": {
+        "string": "此操作不可逆，这将会删除该标签并清除它的历史记录。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "labels": {
+        "string": "标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "language": {
+        "string": "语言",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "last-admin-desc": {
+        "string": "你不能更改角色，因为至少需要一名管理员。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "leave-board": {
+        "string": "离开看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "leave-board-pop": {
+        "string": "确认要离开 __boardTitle__ 吗？此看板的所有卡片都会将您移除。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "leaveBoardPopup-title": {
+        "string": "离开看板?",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "link-card": {
+        "string": "关联至该卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-archive-cards": {
+        "string": "将此列表中的所有卡片归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-archive-cards-pop": {
+        "string": "将移动看板中列表的所有卡片，查看或回复归档中的卡片，点击“菜单”->“归档”",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-move-cards": {
+        "string": "移动列表中的所有卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-select-cards": {
+        "string": "选择列表中的所有卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "set-color-list": {
+        "string": "设置颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "listActionPopup-title": {
+        "string": "列表操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "settingsUserPopup-title": {
+        "string": "用户设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "settingsTeamPopup-title": {
+        "string": "团队设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "settingsOrgPopup-title": {
+        "string": "组织设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "swimlaneActionPopup-title": {
+        "string": "泳道图操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "swimlaneAddPopup-title": {
+        "string": "在下面添加一个泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "listImportCardPopup-title": {
+        "string": "导入 Trello 卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "listImportCardsTsvPopup-title": {
+        "string": "导入Excel CSV/TSV",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "listMorePopup-title": {
+        "string": "更多",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "link-list": {
+        "string": "关联到这个列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-delete-pop": {
+        "string": "所有活动将被从活动动态中删除并且你无法恢复他们，此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-delete-suggest-archive": {
+        "string": "您可以移动列表到归档以将其从看板中移除并保留活动。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "lists": {
+        "string": "列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "swimlanes": {
+        "string": "泳道图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "log-out": {
+        "string": "退出",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "log-in": {
+        "string": "登录",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "loginPopup-title": {
+        "string": "登录",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "memberMenuPopup-title": {
+        "string": "成员设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "members": {
+        "string": "成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "menu": {
+        "string": "菜单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-selection": {
+        "string": "移动选择",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "moveCardPopup-title": {
+        "string": "移动卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "moveCardToBottom-title": {
+        "string": "移动至底端",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "moveCardToTop-title": {
+        "string": "移动至顶端",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "moveSelectionPopup-title": {
+        "string": "移动选择",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "multi-selection": {
+        "string": "多选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "multi-selection-label": {
+        "string": "设置标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "multi-selection-member": {
+        "string": "选择成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "multi-selection-on": {
+        "string": "多选启用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "muted": {
+        "string": "静默",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "muted-info": {
+        "string": "你将不会收到此看板的任何变更通知",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "my-boards": {
+        "string": "我的看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "name": {
+        "string": "名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-archived-cards": {
+        "string": "存档中没有卡片。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-archived-lists": {
+        "string": "存档中没有清单。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-archived-swimlanes": {
+        "string": "存档中没有泳道。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-results": {
+        "string": "无结果",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "normal": {
+        "string": "普通",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "normal-desc": {
+        "string": "可以创建以及编辑卡片，无法更改设置。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "not-accepted-yet": {
+        "string": "邀请尚未接受",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "notify-participate": {
+        "string": "接收任何卡的更新作为创建者或成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "notify-watch": {
+        "string": "接收所有关注的面板、列表、及卡片的更新",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "optional": {
+        "string": "可选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "or": {
+        "string": "或",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "page-maybe-private": {
+        "string": "本页面被设为私有. 您必须 <a href='%s'>登录</a>以浏览其中内容。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "page-not-found": {
+        "string": "页面不存在。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "password": {
+        "string": "密码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "paste-or-dragdrop": {
+        "string": "从剪贴板粘贴，或者拖放文件到它上面 (仅限于图片)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "participating": {
+        "string": "参与",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "preview": {
+        "string": "预览",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "previewAttachedImagePopup-title": {
+        "string": "预览",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "previewClipboardImagePopup-title": {
+        "string": "预览",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "private": {
+        "string": "私有",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "private-desc": {
+        "string": "该看板将被设为私有。只有该看板成员才可以进行查看和编辑。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "profile": {
+        "string": "资料",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "public": {
+        "string": "公开",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "public-desc": {
+        "string": "该看板将被公开。任何人均可通过链接查看，并且将对Google和其他搜索引擎开放。只有添加至该看板的成员才可进行编辑。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "quick-access-description": {
+        "string": "星标看板在导航条中添加快捷方式",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-cover": {
+        "string": "移除封面",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-from-board": {
+        "string": "从看板中删除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-label": {
+        "string": "移除标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "listDeletePopup-title": {
+        "string": "删除列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-member": {
+        "string": "移除成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-member-from-card": {
+        "string": "从该卡片中移除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-member-pop": {
+        "string": "确定从 __boardTitle__ 中移除 __name__ (__username__) 吗? 该成员将被从该看板的所有卡片中移除，同时他会收到一条提醒。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "removeMemberPopup-title": {
+        "string": "删除成员？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "rename": {
+        "string": "重命名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "rename-board": {
+        "string": "重命名看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "restore": {
+        "string": "还原",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "rescue-card-description": {
+        "string": "在关闭未保存的卡片描述前显示确认对话",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "rescue-card-description-dialogue": {
+        "string": "用您的更改覆盖当前卡片描述？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "save": {
+        "string": "保存",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "search": {
+        "string": "搜索",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "rules": {
+        "string": "规则",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "search-cards": {
+        "string": "搜寻看板內的卡片/列表标题、描述、自定义字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "search-example": {
+        "string": "输入查询信息后按回车",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "select-color": {
+        "string": "选择颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "select-board": {
+        "string": "选择看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "set-wip-limit-value": {
+        "string": "设置此列表中的最大任务数",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "setWipLimitPopup-title": {
+        "string": "设置最大任务数",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-assign-self": {
+        "string": "指派当前卡片给自己",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-autocomplete-emoji": {
+        "string": "表情符号自动补全",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-autocomplete-members": {
+        "string": "自动补全成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-clear-filters": {
+        "string": "清空全部过滤器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-close-dialog": {
+        "string": "关闭对话框",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-filter-my-cards": {
+        "string": "过滤我的卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-show-shortcuts": {
+        "string": "显示此快捷键列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-toggle-filterbar": {
+        "string": "切换过滤器边栏",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-toggle-searchbar": {
+        "string": "切换查询边栏",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortcut-toggle-sidebar": {
+        "string": "切换面板边栏",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-cards-minimum-count": {
+        "string": "当列表中的卡片多于此阈值时将显示数量",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "sidebar-open": {
+        "string": "打开侧栏",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "sidebar-close": {
+        "string": "打开侧栏",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "signupPopup-title": {
+        "string": "创建账户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "star-board-title": {
+        "string": "点此来标记该看板，它将会出现在您的看板列表顶部。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "starred-boards": {
+        "string": "已标记看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "starred-boards-description": {
+        "string": "已标记看板将会出现在您的看板列表顶部。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subscribe": {
+        "string": "订阅",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "team": {
+        "string": "团队",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "this-board": {
+        "string": "该看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "this-card": {
+        "string": "该卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "spent-time-hours": {
+        "string": "耗时 （小时）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "overtime-hours": {
+        "string": "超时 （小时）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "overtime": {
+        "string": "超时",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "has-overtime-cards": {
+        "string": "有超时卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "has-spenttime-cards": {
+        "string": "耗时卡",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "time": {
+        "string": "时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "title": {
+        "string": "标题",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "toggle-labels": {
+        "string": "切换卡片标签1-9，多选添加标签1-9",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-labels-multiselect": {
+        "string": "多选移除标签1-9",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "tracking": {
+        "string": "跟踪",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "tracking-info": {
+        "string": "当任何包含您（作为创建者或成员）的卡片发生变更时，您将得到通知。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "type": {
+        "string": "类型",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "unassign-member": {
+        "string": "取消指派成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "unsaved-description": {
+        "string": "存在未保存的描述",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "unwatch": {
+        "string": "取消关注",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "upload": {
+        "string": "上传",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "upload-avatar": {
+        "string": "上传头像",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "uploaded-avatar": {
+        "string": "头像已经上传",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-top-left-corner-logo-image-url": {
+        "string": "通过图片链接设置左上角图标",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-top-left-corner-logo-link-url": {
+        "string": "设置左上角图标链接地址",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-top-left-corner-logo-height": {
+        "string": "设置左上角图标高度。默认值：27",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-login-logo-image-url": {
+        "string": "设置登录图标链接地址",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-login-logo-link-url": {
+        "string": "设置登录图标链接",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-help-link-url": {
+        "string": "自定义帮助链接",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "text-below-custom-login-logo": {
+        "string": "设置登录图标下方文字",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "automatic-linked-url-schemes": {
+        "string": "自定义URL模式下URL链接默认为可点击。每行仅限一种URL模式。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "username": {
+        "string": "用户名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "import-usernames": {
+        "string": "导入用户名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "view-it": {
+        "string": "查看",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "warn-list-archived": {
+        "string": "警告：此卡片在列表归档中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "watch": {
+        "string": "关注",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "watching": {
+        "string": "关注",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "watching-info": {
+        "string": "当此看板发生变更时会通知你",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "welcome-board": {
+        "string": "“欢迎”看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "welcome-swimlane": {
+        "string": "里程碑 1",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "welcome-list1": {
+        "string": "基本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "welcome-list2": {
+        "string": "高阶",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-templates-swimlane": {
+        "string": "卡片模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-templates-swimlane": {
+        "string": "列表模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-templates-swimlane": {
+        "string": "看板模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "what-to-do": {
+        "string": "要做什么？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "wipLimitErrorPopup-title": {
+        "string": "无效的最大任务数",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "wipLimitErrorPopup-dialog-pt1": {
+        "string": "此列表中的任务数量已经超过了设置的最大任务数。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "wipLimitErrorPopup-dialog-pt2": {
+        "string": "请将一些任务移出此列表，或者设置一个更大的最大任务数。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "admin-panel": {
+        "string": "管理面板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "settings": {
+        "string": "设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "people": {
+        "string": "人员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "registration": {
+        "string": "注册",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "disable-self-registration": {
+        "string": "禁止自助注册",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "disable-forgot-password": {
+        "string": "禁用忘记密码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invite": {
+        "string": "邀请",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invite-people": {
+        "string": "邀请人员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "to-boards": {
+        "string": "To board(s)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-addresses": {
+        "string": "电子邮箱地址",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-host-description": {
+        "string": "用于发送邮件的SMTP服务器地址。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-port-description": {
+        "string": "SMTP服务器端口。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-tls-description": {
+        "string": "对SMTP服务器启用TLS支持",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-host": {
+        "string": "SMTP服务器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-port": {
+        "string": "SMTP端口",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-username": {
+        "string": "用户名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-password": {
+        "string": "密码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "smtp-tls": {
+        "string": "TLS支持",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "send-from": {
+        "string": "发件人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "send-smtp-test": {
+        "string": "给自己发送一封测试邮件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invitation-code": {
+        "string": "邀请码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-invite-register-subject": {
+        "string": "__inviter__ 向您发出邀请",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-invite-register-text": {
+        "string": "亲爱的__user__：\\n__inviter__ 邀请您加入到看板\\n\\n请点击下面的链接：\\n__url__\\n\\n您的邀请码是：__icode__\\n\\n谢谢。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-smtp-test-subject": {
+        "string": "通过SMTP发送测试邮件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "email-smtp-test-text": {
+        "string": "你已成功发送邮件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-invitation-code-not-exist": {
+        "string": "邀请码不存在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-notAuthorized": {
+        "string": "您无权查看此页面。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "webhook-title": {
+        "string": "Webhook名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "webhook-token": {
+        "string": "Token(认证选项)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "outgoing-webhooks": {
+        "string": "外部Web挂钩",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "bidirectional-webhooks": {
+        "string": "双向Webhook",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "outgoingWebhooksPopup-title": {
+        "string": "外部Web挂钩",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardCardTitlePopup-title": {
+        "string": "卡片标题过滤",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "disable-webhook": {
+        "string": "禁用Webhook",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "global-webhook": {
+        "string": "全局Webhook",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "new-outgoing-webhook": {
+        "string": "新建外部Web挂钩",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-name": {
+        "string": "(未知)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_version": {
+        "string": "Node.js版本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Meteor_version": {
+        "string": "Meteor版本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "MongoDB_version": {
+        "string": "MongoDB版本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "MongoDB_storage_engine": {
+        "string": "MongoDB存储引擎",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "MongoDB_Oplog_enabled": {
+        "string": "MongoDB Oplog已启用",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Arch": {
+        "string": "系统架构",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Cpus": {
+        "string": "系统 CPU数量",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Freemem": {
+        "string": "系统可用内存",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Loadavg": {
+        "string": "系统负载均衡",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Platform": {
+        "string": "系统平台",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Release": {
+        "string": "系统发布版本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Totalmem": {
+        "string": "系统全部内存",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Type": {
+        "string": "系统类型",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "OS_Uptime": {
+        "string": "系统运行时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "days": {
+        "string": "天",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hours": {
+        "string": "小时",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "minutes": {
+        "string": "分钟",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "seconds": {
+        "string": "秒",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-field-on-card": {
+        "string": "在卡片上显示此字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "automatically-field-on-card": {
+        "string": "添加字段至新卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "always-field-on-card": {
+        "string": "添加字段至所有卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "showLabel-field-on-card": {
+        "string": "在迷你卡片上显示字段标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "showSum-field-on-list": {
+        "string": "在列表顶部显示字段总和",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "yes": {
+        "string": "是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no": {
+        "string": "否",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "accounts": {
+        "string": "账号",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "accounts-allowEmailChange": {
+        "string": "允许邮箱变更",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "accounts-allowUserNameChange": {
+        "string": "允许变更用户名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "tableVisibilityMode-allowPrivateOnly": {
+        "string": "看板可见性：仅显示私人看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "tableVisibilityMode": {
+        "string": "看板可见性",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "createdAt": {
+        "string": "创建于",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "modifiedAt": {
+        "string": "修改时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "verified": {
+        "string": "已验证",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "active": {
+        "string": "活跃",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-received": {
+        "string": "已接收",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-received-on": {
+        "string": "接收于",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-end": {
+        "string": "结束",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-end-on": {
+        "string": "结束于",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editCardReceivedDatePopup-title": {
+        "string": "修改接收日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editCardEndDatePopup-title": {
+        "string": "修改结束日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "setCardColorPopup-title": {
+        "string": "设置颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "setCardActionsColorPopup-title": {
+        "string": "选择一种颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "setSwimlaneColorPopup-title": {
+        "string": "选择一种颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "setListColorPopup-title": {
+        "string": "选择一种颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "assigned-by": {
+        "string": "指派人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "requested-by": {
+        "string": "需求人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-sorting-by-number": {
+        "string": "根据编号对卡片排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-delete-notice": {
+        "string": "删除时永久操作，将会丢失此看板上的所有列表、卡片和动作。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-board-confirm-popup": {
+        "string": "所有列表、卡片、标签和活动都回被删除，将无法恢复看板内容。不支持撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardDeletePopup-title": {
+        "string": "删除看板？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-board": {
+        "string": "删除看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "default-subtasks-board": {
+        "string": "__board__ 看板的子任务",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "default": {
+        "string": "默认",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "queue": {
+        "string": "队列",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subtask-settings": {
+        "string": "子任务设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-settings": {
+        "string": "卡片设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "minicard-settings": {
+        "string": "小卡片设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardSubtaskSettingsPopup-title": {
+        "string": "看板子任务设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardCardSettingsPopup-title": {
+        "string": "卡片设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardMinicardSettingsPopup-title": {
+        "string": "小卡片设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "deposit-subtasks-board": {
+        "string": "将子任务放入以下看板：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "deposit-subtasks-list": {
+        "string": "将子任务放入以下列表：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-parent-in-minicard": {
+        "string": "显示上一级卡片：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "description-on-minicard": {
+        "string": "小卡片描述",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "prefix-with-full-path": {
+        "string": "完整路径前缀",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "prefix-with-parent": {
+        "string": "上级前缀",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subtext-with-full-path": {
+        "string": "子标题显示完整路径",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subtext-with-parent": {
+        "string": "子标题显示上级",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "change-card-parent": {
+        "string": "修改卡片的上级",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "parent-card": {
+        "string": "上级卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "source-board": {
+        "string": "源看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-parent": {
+        "string": "不显示上级",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-added-label": {
+        "string": "已添加标签 '%s' 到 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-removed-label": {
+        "string": "已将标签 '%s' 从 %s 移除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-delete-attach": {
+        "string": "已从 %s 删除附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-added-label-card": {
+        "string": "已添加标签 '%s'",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-removed-label-card": {
+        "string": "已移除标签 '%s'",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-delete-attach-card": {
+        "string": "已删除附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-set-customfield": {
+        "string": "设置自定义字段 '%s' 至 '%s' 于 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "activity-unset-customfield": {
+        "string": "未设置自定义字段  '%s' 于 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-rule": {
+        "string": "规则",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-add-trigger": {
+        "string": "添加触发器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-add-action": {
+        "string": "添加行动",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-board-rules": {
+        "string": "看板规则",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-add-rule": {
+        "string": "添加规则",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-view-rule": {
+        "string": "查看规则",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-delete-rule": {
+        "string": "删除规则",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-new-rule-name": {
+        "string": "新建规则标题",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-no-rules": {
+        "string": "暂无规则",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-trigger": {
+        "string": "触发器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-action": {
+        "string": "操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-a-card": {
+        "string": "当一张卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-is": {
+        "string": "是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-is-moved": {
+        "string": "已经移动",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-added-to": {
+        "string": "添加到",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-removed-from": {
+        "string": "已移除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-the-board": {
+        "string": "该看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-list": {
+        "string": "列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "set-filter": {
+        "string": "设置过滤器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-moved-to": {
+        "string": "移至",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-moved-from": {
+        "string": "已移动",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-archived": {
+        "string": "已移动到归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-unarchived": {
+        "string": "已从归档中恢复",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-a-card": {
+        "string": "一个卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-a-label-is": {
+        "string": "当一个标签是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-the-label": {
+        "string": "当该标签是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-list-name": {
+        "string": "列表名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-a-member": {
+        "string": "当一个成员是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-the-member": {
+        "string": "当该成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-name": {
+        "string": "名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-a-attach": {
+        "string": "当一个附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-a-checklist": {
+        "string": "当一个清单是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-the-checklist": {
+        "string": "当该清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-completed": {
+        "string": "已完成",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-made-incomplete": {
+        "string": "置为未完成",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-a-item": {
+        "string": "当一个清单项是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-the-item": {
+        "string": "当该清单项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-checked": {
+        "string": "勾选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-unchecked": {
+        "string": "未勾选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-move-card-to": {
+        "string": "移动卡片到",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-top-of": {
+        "string": "的顶部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-bottom-of": {
+        "string": "的尾部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-its-list": {
+        "string": "其列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-archive": {
+        "string": "归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-unarchive": {
+        "string": "从归档中恢复",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-card": {
+        "string": "卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-add": {
+        "string": "添加",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-remove": {
+        "string": "移除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-label": {
+        "string": "标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-member": {
+        "string": "成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-remove-all": {
+        "string": "从卡片移除所有成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-set-color": {
+        "string": "设置颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-checklist": {
+        "string": "清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-check-all": {
+        "string": "勾选所有",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-uncheck-all": {
+        "string": "取消勾选所有",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-items-check": {
+        "string": "清单条目",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-check": {
+        "string": "勾选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-uncheck": {
+        "string": "取消勾选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-item": {
+        "string": "条目",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-of-checklist": {
+        "string": "清单的",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-send-email": {
+        "string": "发送邮件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-to": {
+        "string": "收件人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-of": {
+        "string": "分之",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-subject": {
+        "string": "标题",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-rule-details": {
+        "string": "规则详情",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-move-to-top-gen": {
+        "string": "移动卡片到其列表顶部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-move-to-top-spec": {
+        "string": "移动卡片到列表顶部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-move-to-bottom-gen": {
+        "string": "移动卡片到其列表尾部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-move-to-bottom-spec": {
+        "string": "移动卡片到列表尾部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-send-email": {
+        "string": "发送邮件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-send-email-to": {
+        "string": "收件人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-send-email-subject": {
+        "string": "标题",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-send-email-message": {
+        "string": "消息",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-archive": {
+        "string": "将卡片归档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-unarchive": {
+        "string": "从归档中恢复卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-add-label": {
+        "string": "添加标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-remove-label": {
+        "string": "移除标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-create-card": {
+        "string": "创建新卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-in-list": {
+        "string": "在列表中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-in-swimlane": {
+        "string": "在泳道中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-add-member": {
+        "string": "添加成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-remove-member": {
+        "string": "移除成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-remove-all-member": {
+        "string": "移除所有成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-check-all": {
+        "string": "勾选所有列表项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-uncheck-all": {
+        "string": "取消勾选所有列表项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-check-one": {
+        "string": "勾选该项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-uncheck-one": {
+        "string": "取消勾选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-check-of-list": {
+        "string": "清单的",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-add-checklist": {
+        "string": "添加待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-d-remove-checklist": {
+        "string": "移动待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-by": {
+        "string": "在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-add-checklist": {
+        "string": "添加待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-with-items": {
+        "string": "与项目",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-items-list": {
+        "string": "项目1，项目2，项目3",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-add-swimlane": {
+        "string": "添加泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-swimlane-name": {
+        "string": "泳道名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-board-note": {
+        "string": "注意：保留一个空字段去匹配所有可能的值。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-checklist-note": {
+        "string": "注意：清单中的项目必须用都好分割。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-when-a-card-is-moved": {
+        "string": "当移动卡片到另一个列表时",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-set": {
+        "string": "设置",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-update": {
+        "string": "更新",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-datefield": {
+        "string": "日期字段",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-df-start-at": {
+        "string": "开始",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-df-due-at": {
+        "string": "至",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-df-end-at": {
+        "string": "结束",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-df-received-at": {
+        "string": "已接收",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-to-current-datetime": {
+        "string": "到当前日期/时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-remove-value-from": {
+        "string": "从变量中移动",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "r-link-card": {
+        "string": "Link card to",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "ldap": {
+        "string": "LDAP",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "oauth2": {
+        "string": "OAuth2",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cas": {
+        "string": "CAS",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "authentication-method": {
+        "string": "认证方式",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "authentication-type": {
+        "string": "认证类型",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-product-name": {
+        "string": "自定义产品名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "layout": {
+        "string": "布局",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hide-logo": {
+        "string": "隐藏图标",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hide-card-counter-list": {
+        "string": "隐藏所有卡片计数器列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hide-board-member-list": {
+        "string": "从所有看板隐藏看板成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-custom-html-after-body-start": {
+        "string": "添加定制的HTML在开始<body>之前",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-custom-html-before-body-end": {
+        "string": "添加定制的HTML在结束</body>之后",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-undefined": {
+        "string": "出了点问题",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "error-ldap-login": {
+        "string": "尝试登录时出错",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "display-authentication-method": {
+        "string": "显示认证方式",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "oidc-button-text": {
+        "string": "自定义 OIDC 按钮文本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "default-authentication-method": {
+        "string": "默认认证方式",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "duplicate-board": {
+        "string": "复制看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "org-number": {
+        "string": "组织数量为：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "team-number": {
+        "string": "团队数量为：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "people-number": {
+        "string": "人数是：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "swimlaneDeletePopup-title": {
+        "string": "是否删除泳道？",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "swimlane-delete-pop": {
+        "string": "所有活动将从活动源中删除，您将无法恢复泳道。此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "restore-all": {
+        "string": "全部恢复",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-all": {
+        "string": "全部删除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "loading": {
+        "string": "加载中，请稍等。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "previous_as": {
+        "string": "上次是",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-a-dueAt": {
+        "string": "修改到期时间：\\n时间：__timeValue__\\n位置：__card__\\n上一个到期日是 __timeOldValue__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-a-endAt": {
+        "string": "修改结束时间从  (__timeOldValue__) 至 __timeValue__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-a-startAt": {
+        "string": "修改开始时间从 (__timeOldValue__) 至 __timeValue__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-a-receivedAt": {
+        "string": "修改接收时间从 (__timeOldValue__) 至 __timeValue__",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "a-dueAt": {
+        "string": "修改到期时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "a-endAt": {
+        "string": "修改结束时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "a-startAt": {
+        "string": "修改开始时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "a-receivedAt": {
+        "string": "修改接收时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "almostdue": {
+        "string": "当前到期时间%s即将到来",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "pastdue": {
+        "string": "当前到期时间%s已过",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "duenow": {
+        "string": "当前到期时间%s为今天",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-newDue": {
+        "string": "__list__/__card__ 有 1st 到期提醒 [__board__]",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-withDue": {
+        "string": "__list__/__card__ 到期提醒 [__board__]",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-almostdue": {
+        "string": "__card__ 的当前到期提醒(__timeValue__) 正在接近",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-pastdue": {
+        "string": "__card__ 的当前到期提醒(__timeValue__) 已经过去了",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-duenow": {
+        "string": "__card__ 的当前到期提醒(__timeValue__) 现在到期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "act-atUserComment": {
+        "string": "[__board__] __list__/__card__ 提到了您",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-user-confirm-popup": {
+        "string": "确实要删除此帐户吗？此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-team-confirm-popup": {
+        "string": "请确认是否删除此团队？此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-org-confirm-popup": {
+        "string": "请确认是否删除此组织？此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "accounts-allowUserDelete": {
+        "string": "允许用户自行删除其帐户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hide-minicard-label-text": {
+        "string": "隐藏迷你卡片标签文本",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-desktop-drag-handles": {
+        "string": "显示桌面拖放手柄",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "assignee": {
+        "string": "被指派人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardAssigneesPopup-title": {
+        "string": "被指派人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "addmore-detail": {
+        "string": "添加更详细的说明",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-on-card": {
+        "string": "显示卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "show-on-minicard": {
+        "string": "展示小卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "new": {
+        "string": "新",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editOrgPopup-title": {
+        "string": "编辑组织",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "newOrgPopup-title": {
+        "string": "创建组织",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editTeamPopup-title": {
+        "string": "编辑团队",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "newTeamPopup-title": {
+        "string": "创建团队",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editUserPopup-title": {
+        "string": "修改用户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "newUserPopup-title": {
+        "string": "新增用户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "notifications": {
+        "string": "提示",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "help": {
+        "string": "帮助",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "view-all": {
+        "string": "查看全部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-by-unread": {
+        "string": "过滤未读",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "mark-all-as-read": {
+        "string": "标记全部已读",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-all-read": {
+        "string": "移除所有已读",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "allow-rename": {
+        "string": "允许重命名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "allowRenamePopup-title": {
+        "string": "允许重命名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "start-day-of-week": {
+        "string": "设定一周的开始",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "monday": {
+        "string": "周一",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "tuesday": {
+        "string": "周二",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "wednesday": {
+        "string": "周三",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "thursday": {
+        "string": "周四",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "friday": {
+        "string": "周五",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "saturday": {
+        "string": "周六",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "sunday": {
+        "string": "周日",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "status": {
+        "string": "状态",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "swimlane": {
+        "string": "泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "owner": {
+        "string": "所有者",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "last-modified-at": {
+        "string": "上次修改时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "last-activity": {
+        "string": "上次活动",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "voting": {
+        "string": "投票",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archived": {
+        "string": "存档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-linked-card-before-this-card": {
+        "string": "在你首次删除卡片前你无法删除此选项卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-linked-cards-before-this-list": {
+        "string": "在首先删除指向此列表中的卡的链接卡之前，不能删除此列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hide-checked-items": {
+        "string": "隐藏选中项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "task": {
+        "string": "任务",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "create-task": {
+        "string": "创建任务",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "ok": {
+        "string": "确认",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "organizations": {
+        "string": "组织",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "teams": {
+        "string": "团队",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "displayName": {
+        "string": "显示名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "shortName": {
+        "string": "简称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "website": {
+        "string": "网站",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "person": {
+        "string": "人员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "my-cards": {
+        "string": "我的卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card": {
+        "string": "卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list": {
+        "string": "列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board": {
+        "string": "看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "context-separator": {
+        "string": "/",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsViewChange-title": {
+        "string": "我的卡片展示",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsViewChangePopup-title": {
+        "string": "我的卡片展示",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsViewChange-choice-boards": {
+        "string": "看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsViewChange-choice-table": {
+        "string": "表格",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsSortChange-title": {
+        "string": "我的卡片排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsSortChangePopup-title": {
+        "string": "我的卡片排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsSortChange-choice-board": {
+        "string": "根据看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "myCardsSortChange-choice-dueat": {
+        "string": "根据截至日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "dueCards-title": {
+        "string": "逾期的卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "dueCardsViewChange-title": {
+        "string": "逾期卡片视图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "dueCardsViewChangePopup-title": {
+        "string": "逾期卡片视图",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "dueCardsViewChange-choice-me": {
+        "string": "我",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "dueCardsViewChange-choice-all": {
+        "string": "所有用户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "dueCardsViewChange-choice-all-description": {
+        "string": "根据截至日期显示用户有权限访问的看板中未完成的卡片。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "broken-cards": {
+        "string": "损坏的卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-title-not-found": {
+        "string": "无法找到看板 '%s'",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "swimlane-title-not-found": {
+        "string": "找不到泳道 %s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "list-title-not-found": {
+        "string": "无法找到列表%s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "label-not-found": {
+        "string": "无法找到标签%s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "label-color-not-found": {
+        "string": "无法找到标签颜色%s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "user-username-not-found": {
+        "string": "用户名%s无法找到",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "comment-not-found": {
+        "string": "找不到评论包含%s的卡片。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "org-name-not-found": {
+        "string": "%s组织不存在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "team-name-not-found": {
+        "string": "%s团队不存在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-title": {
+        "string": "查询所有看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "no-cards-found": {
+        "string": "无法查询到卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "one-card-found": {
+        "string": "查询到一个卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "n-cards-found": {
+        "string": "查询到%s个卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "n-n-of-n-cards-found": {
+        "string": "__start__-__end__ 共 __total__ 卡片被找到",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-board": {
+        "string": "看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-board-abbrev": {
+        "string": "b",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-swimlane": {
+        "string": "泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-swimlane-abbrev": {
+        "string": "s",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-list": {
+        "string": "列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-list-abbrev": {
+        "string": "l",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-label": {
+        "string": "标签",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-label-abbrev": {
+        "string": "#",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-user": {
+        "string": "用户",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-user-abbrev": {
+        "string": "@",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-member": {
+        "string": "成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-member-abbrev": {
+        "string": "m",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-assignee": {
+        "string": "指定人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-assignee-abbrev": {
+        "string": "a",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-creator": {
+        "string": "创建者",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-status": {
+        "string": "状态",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-due": {
+        "string": "至",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-created": {
+        "string": "已创建",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-modified": {
+        "string": "已编辑",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-sort": {
+        "string": "排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-comment": {
+        "string": "评论",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-has": {
+        "string": "已有",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-limit": {
+        "string": "限制",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-debug": {
+        "string": "调试",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-org": {
+        "string": "组织",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-team": {
+        "string": "团队",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-archived": {
+        "string": "存档",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-open": {
+        "string": "打开",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-ended": {
+        "string": "结束",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-all": {
+        "string": "所有",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-overdue": {
+        "string": "过期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-week": {
+        "string": "周",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-month": {
+        "string": "月",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-quarter": {
+        "string": "季度",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-year": {
+        "string": "年",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-due": {
+        "string": "至",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-modified": {
+        "string": "已编辑",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-created": {
+        "string": "已创建",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-attachment": {
+        "string": "附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-description": {
+        "string": "描述",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-checklist": {
+        "string": "清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-start": {
+        "string": "开始",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-end": {
+        "string": "结束",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-assignee": {
+        "string": "指定人",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-member": {
+        "string": "成员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-public": {
+        "string": "公开",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-private": {
+        "string": "私有",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-selector": {
+        "string": "选择器",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "predicate-projection": {
+        "string": "预测",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-unknown-error": {
+        "string": "%s不是维护人员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-number-expected": {
+        "string": "运算符__operator__ 需要相应数字才能获得 '__value__'值",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-sort-invalid": {
+        "string": "排序%s无效",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-status-invalid": {
+        "string": "%s不是一个有效的状态",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-has-invalid": {
+        "string": "%s不是有效的检查项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-limit-invalid": {
+        "string": "%s不是有效的限值，限值必须为正整数。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "operator-debug-invalid": {
+        "string": "%s不是有效的调试谓词",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "next-page": {
+        "string": "下一页",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "previous-page": {
+        "string": "上一页",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "heading-notes": {
+        "string": "注释",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-heading": {
+        "string": "查询指示信息",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-description": {
+        "string": "搜索可以包括用于细化搜索的运算符。 运算符是通过编写以冒号分隔的运算符名称和值来指定的。 例如，`list:Blocked` 的运算符规范会将搜索限制为包含在名为 *Blocked* 的列表中的卡片。 如果值包含空格或特殊字符，则必须用引号括起来（例如`__operator_list__:\\\"To Review\\\"`）。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operators": {
+        "string": "可利用的维护人员",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-board": {
+        "string": "看板：看板中的卡片<title>必须匹配相应的*<title>*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-list": {
+        "string": "列表：列表内的卡片<title>必须匹配对应的*<title>*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-swimlane": {
+        "string": "泳道：泳道中的卡片<title>必须匹配相应的*<title>*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-comment": {
+        "string": "`__operator_comment__:<text>` - 卡片评论包含 *<text>*.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-label": {
+        "string": "标签：【标签<color>】卡片<name>要匹配*<color>*或*<name>*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-hash": {
+        "string": "`__operator_label_abbrev__<name|color>` - 的简写 `__operator_label__:1` 或 `__operator_label__:2`",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-user": {
+        "string": "`__operator_user__:<username>` - cards where *<username>* is a *member* or *assignee*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-at": {
+        "string": "`__operator_user_abbrev__username` - shorthand for `user:<username>`",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-member": {
+        "string": "`__operator_member__:<username>` - cards where *<username>* is a *member*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-assignee": {
+        "string": "`__operator_assignee__:<username>` - cards where *<username>* is an *assignee*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-creator": {
+        "string": "`__operator_creator__:<username>` - cards where *<username>* is the card's creator",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-org": {
+        "string": "`__operator_org__:<display name|short name>` - cards belonging to a board assigned to organization *<name>*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-team": {
+        "string": "`__operator_team__:<display name|short name>` - cards belonging to a board assigned to team *<name>*",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-due": {
+        "string": "`__operator_due__:<n>` - cards which are due up to *<n>* days from now.  `__operator_due__:__predicate_overdue__ lists all cards past their due date.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-created": {
+        "string": "`__operator_created__:<n>` - cards which were created *<n>* days ago or less",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-modified": {
+        "string": "`__operator_modified__:<n>` - cards which were modified *<n>* days ago or less",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-status": {
+        "string": "`__operator_status__:<status>` - where *<status>* is one of the following:",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-status-archived": {
+        "string": "可用卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-status-all": {
+        "string": "所有可用和不可用卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-status-ended": {
+        "string": "卡片需要设置结束日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-status-public": {
+        "string": "公共卡片只能存在于公共看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-status-private": {
+        "string": "私有卡片只能存在于私有看板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-has": {
+        "string": "`__operator_has__:<field>` - where *<field>* is one of `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` or `__predicate_member__`.  Placing a `-` in front of *<field>* searches for the absence of a value in that field (e.g. `has:-due` searches for cards without a due date).",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-sort": {
+        "string": "`__operator_sort__:<sort-name>` - where *<sort-name>* is one of `__predicate_due__`, `__predicate_created__` or `__predicate_modified__`.  For a descending sort, place a `-` in front of the sort name.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-operator-limit": {
+        "string": "__operator_limit__:<n> - <n>为每页所显示的卡片数量，必须为正整数。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-notes-1": {
+        "string": "多操作者需要预先指定。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-notes-2": {
+        "string": "Similar operators are *OR*ed together.  Cards that match any of the conditions will be returned.\\n`__operator_list__:Available __operator_list__:Blocked` would return cards contained in any list named *Blocked* or *Available*.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-notes-3": {
+        "string": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.  `__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-notes-3-2": {
+        "string": "现阶段，天数可以设置为正负整数或者使用 `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` or `__predicate_year__`",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-notes-4": {
+        "string": "文本搜索大小写不敏感。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "globalSearch-instructions-notes-5": {
+        "string": "默认情况下，不搜索存档卡片。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "link-to-search": {
+        "string": "关联至本次查询",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "excel-font": {
+        "string": "Arial",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "number": {
+        "string": "数字",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "label-colors": {
+        "string": "标签颜色",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "label-names": {
+        "string": "标签名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "archived-at": {
+        "string": "归档于",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "sort-cards": {
+        "string": "排序卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardsSortPopup-title": {
+        "string": "排序卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "due-date": {
+        "string": "截至日期",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "server-error": {
+        "string": "服务错误",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "server-error-troubleshooting": {
+        "string": "请提交服务器生成的出错信息。\\n使用 snap 安装，运行：  `sudo snap logs wekan.wekan`\\n使用 Docker 安装，运营：‘sudo docker logs wekan-app‘",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "title-alphabetically": {
+        "string": "标题（按字母顺序）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "created-at-newest-first": {
+        "string": "创建时间（最新）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "created-at-oldest-first": {
+        "string": "创建时间（最旧）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "links-heading": {
+        "string": "链接",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "hide-system-messages-of-all-users": {
+        "string": "对所有用户隐藏系统消息",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "now-system-messages-of-all-users-are-hidden": {
+        "string": "系统消息已对所有用户隐藏。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-swimlane": {
+        "string": "移动泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "moveSwimlanePopup-title": {
+        "string": "移动泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-stringtemplate": {
+        "string": "字符串模板",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-stringtemplate-format": {
+        "string": "格式（使用 %{value} 作为占位符）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-stringtemplate-separator": {
+        "string": "分隔符（使用 &#32; 或者 &nbsp; 表示空格）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-field-stringtemplate-item-placeholder": {
+        "string": "按 enter 键添加更多项目",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "creator": {
+        "string": "创建者",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filesReportTitle": {
+        "string": "文件报告",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "reports": {
+        "string": "报告",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "rulesReportTitle": {
+        "string": "规则报告",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "boardsReportTitle": {
+        "string": "面板报告",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardsReportTitle": {
+        "string": "卡片报告",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copy-swimlane": {
+        "string": "复制泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copySwimlanePopup-title": {
+        "string": "复制泳道",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "display-card-creator": {
+        "string": "显示卡片创建者",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "wait-spinner": {
+        "string": "Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Bounce": {
+        "string": "Bounce Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Cube": {
+        "string": "Cube Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Cube-Grid": {
+        "string": "Cube-Grid Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Dot": {
+        "string": "Dot Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Double-Bounce": {
+        "string": "Double Bounce Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Rotateplane": {
+        "string": "Rotateplane Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Scaleout": {
+        "string": "Scaleout Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Wave": {
+        "string": "Wave Wait Spinner",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "maximize-card": {
+        "string": "最大化卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "minimize-card": {
+        "string": "最小化卡片",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-org-warning-message": {
+        "string": "无法删除该组织，至少还有一个用户属于该组织。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "delete-team-warning-message": {
+        "string": "无法删除该团队，至少还有一个用户属于该团队。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subject": {
+        "string": "标题",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "details": {
+        "string": "详情",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "carbon-copy": {
+        "string": "Carbon Copy (Cc:)",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "ticket": {
+        "string": "票据",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "tickets": {
+        "string": "票据",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "ticket-number": {
+        "string": "票据号",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "open": {
+        "string": "已打开",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "pending": {
+        "string": "等待中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "closed": {
+        "string": "已关闭",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "resolved": {
+        "string": "已解決",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cancelled": {
+        "string": "已取消",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "history": {
+        "string": "历史记录",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "request": {
+        "string": "要求",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "requests": {
+        "string": "要求",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "help-request": {
+        "string": "请求协助",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "editCardSortOrderPopup-title": {
+        "string": "调整排序",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "cardDetailsPopup-title": {
+        "string": "卡片详情",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-teams": {
+        "string": "添加团队",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-teams-label": {
+        "string": "已添加团队如下面列表所示：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-team-from-table": {
+        "string": "请确认是否删除面板上此团队？此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "confirm-btn": {
+        "string": "确认",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-btn": {
+        "string": "移除",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-card-title-label": {
+        "string": "按卡片标题筛选",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invite-people-success": {
+        "string": "成功发送注册邀请",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invite-people-error": {
+        "string": "发送注册邀请时出错",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "can-invite-if-same-mailDomainName": {
+        "string": "电子邮件域名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "to-create-teams-contact-admin": {
+        "string": "请联系管理员创建团队。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_total_heap_size": {
+        "string": "节点堆：堆的总大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_total_heap_size_executable": {
+        "string": "节点堆:可执行的堆总大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_total_physical_size": {
+        "string": "节点堆:总物理大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_total_available_size": {
+        "string": "节点堆：可用总大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_used_heap_size": {
+        "string": "节点堆：已使用堆大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_heap_size_limit": {
+        "string": "节点堆：堆大小限制",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_malloced_memory": {
+        "string": "节点堆:内存异常",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_peak_malloced_memory": {
+        "string": "节点堆:峰值失位内存",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_does_zap_garbage": {
+        "string": "节点堆:覆盖垃圾",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_number_of_native_contexts": {
+        "string": "节点堆:本机上下文的数量",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_heap_number_of_detached_contexts": {
+        "string": "节点堆:分离上下文的数量",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_memory_usage_rss": {
+        "string": "节点内存使用:常驻集大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_memory_usage_heap_total": {
+        "string": "节点内存使用:已分配堆的总大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_memory_usage_heap_used": {
+        "string": "节点内存使用情况：实际已使用的内存",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Node_memory_usage_external": {
+        "string": "节点内存使用:外部",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-organizations": {
+        "string": "新建组织",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "add-organizations-label": {
+        "string": "已添加组织如下面列表所示：",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remove-organization-from-board": {
+        "string": "请确认是否删除面板上此组织？此操作无法撤销。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "to-create-organizations-contact-admin": {
+        "string": "请联系管理员创建组织。",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "custom-legal-notice-link-url": {
+        "string": "自定义设置法律声明地址",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "acceptance_of_our_legalNotice": {
+        "string": "继续，即意味着您已同意接受相关声明条款约束",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "legalNotice": {
+        "string": "法律声明",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copied": {
+        "string": "已复制！",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "checklistActionsPopup-title": {
+        "string": "清单操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "moveChecklist": {
+        "string": "移动待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "moveChecklistPopup-title": {
+        "string": "移动待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "newlineBecomesNewChecklistItem": {
+        "string": "可换行来新增一个待办清单项",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copyChecklist": {
+        "string": "复制待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "copyChecklistPopup-title": {
+        "string": "复制待办清单",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "card-show-lists": {
+        "string": "卡片显示列表",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "subtaskActionsPopup-title": {
+        "string": "子任务操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachmentActionsPopup-title": {
+        "string": "附件操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachment-move-storage-fs": {
+        "string": "移动附件到filesystem",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachment-move-storage-gridfs": {
+        "string": "移动附件到GridFS",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachment-move-storage-s3": {
+        "string": "Move attachment to S3",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachment-move": {
+        "string": "移动附件",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-all-attachments-to-fs": {
+        "string": "移动所有附件到filesystem",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-all-attachments-to-gridfs": {
+        "string": "移动所有附件到GridFS",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-all-attachments-to-s3": {
+        "string": "Move all attachments to S3",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-all-attachments-of-board-to-fs": {
+        "string": "移动所有看板附件到filesystem",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-all-attachments-of-board-to-gridfs": {
+        "string": "移动所有看板附件到GridFS",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "move-all-attachments-of-board-to-s3": {
+        "string": "Move all attachments of board to S3",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "path": {
+        "string": "路径",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "version-name": {
+        "string": "版本名称",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "size": {
+        "string": "大小",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "storage": {
+        "string": "存储",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "action": {
+        "string": "操作",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "board-title": {
+        "string": "面板标题",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "attachmentRenamePopup-title": {
+        "string": "重命名",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "uploading": {
+        "string": "上传中",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "remaining_time": {
+        "string": "剩余时间",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "speed": {
+        "string": "速度",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "progress": {
+        "string": "进度",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "password-again": {
+        "string": "密码（验证）",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "if-you-already-have-an-account": {
+        "string": "如果账号已存在",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "register": {
+        "string": "注册",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "forgot-password": {
+        "string": "忘记密码",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "minicardDetailsActionsPopup-title": {
+        "string": "卡片详情",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "Mongo_sessions_count": {
+        "string": "Mongo sessions count",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "change-visibility": {
+        "string": "更改可视级别",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "max-upload-filesize": {
+        "string": "Max upload filesize in bytes:",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "allowed-upload-filetypes": {
+        "string": "Allowed upload filetypes:",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "max-avatar-filesize": {
+        "string": "Max avatar filesize in bytes:",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "allowed-avatar-filetypes": {
+        "string": "Allowed avatar filetypes:",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "invalid-file": {
+        "string": "If filename is invalid, upload or rename is cancelled.",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    }
+}
