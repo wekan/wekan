@@ -125,6 +125,8 @@
 .list-body .minicards {
   flex-grow: 1;
   flex-shrink: 0;
+  /** get card drag/drop working for empty swimlanes */
+  min-height: 32px;
 }
 .list-body .minicards form {
   margin-bottom: 9px;
