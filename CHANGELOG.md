@@ -17,6 +17,8 @@ This release fixes the following bugs:
 - [Helm Chart - fix: broken secretEnv indentation](https://github.com/wekan/charts/pull/18).
   Fixed in already released WeKan Helm Chart 1.2.7.
   Thanks to Nightreaver.
+- [Fix Bug: Cardoptions disappear behind scrollbar in german](https://github.com/wekan/wekan/commit/bf636725e8637200c2121e754297d281f8c38d4e).
+  Thanks to Meeques and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
