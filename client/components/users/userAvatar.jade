@@ -102,6 +102,13 @@ template(name="changeAvatarPopup")
         i.fa.fa-check
        p.sub-name {{_ 'default-avatar'}}
   input.hide.js-upload-avatar-input(accept="image/*;capture=camera" type="file")
+  if Meteor.settings.public.avatarsUploadMaxSize
+    | {{_ 'max-avatar-filesize'}} {{Meteor.settings.public.avatarsUploadMaxSize}}
+    br
+  if Meteor.settings.public.avatarsUploadMimeTypes
+    | {{_ 'allowed-avatar-filetypes'}} {{Meteor.settings.public.avatarsUploadMimeTypes}}
+    br
+  | {{_ 'invalid-file'}}
   button.full.js-upload-avatar
     i.fa.fa-upload
     | {{_ 'upload-avatar'}}

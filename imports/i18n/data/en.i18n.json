@@ -1202,5 +1202,10 @@
   "forgot-password": "Forgot password",
   "minicardDetailsActionsPopup-title": "Card Details",
   "Mongo_sessions_count": "Mongo sessions count",
-  "change-visibility": "Change Visibility"
+  "change-visibility": "Change Visibility",
+  "max-upload-filesize": "Max upload filesize in bytes:",
+  "allowed-upload-filetypes": "Allowed upload filetypes:",
+  "max-avatar-filesize": "Max avatar filesize in bytes:",
+  "allowed-avatar-filetypes": "Allowed avatar filetypes:",
+  "invalid-file": "If filename is invalid, upload or rename is cancelled."
 }

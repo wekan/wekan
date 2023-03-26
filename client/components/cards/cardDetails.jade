@@ -554,6 +554,13 @@ template(name="cardDetails")
           h3.card-details-item-title
             i.fa.fa-paperclip
             | {{_ 'attachments'}}
+          if Meteor.settings.public.attachmentsUploadMaxSize
+            | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}} 
+            br
+          if Meteor.settings.public.attachmentsUploadMimeTypes
+            | {{_ 'allowed-upload-filetypes'}} {{Meteor.settings.public.attachmentsUploadMimeTypes}}
+            br
+          | {{_ 'invalid-file'}}
           .card-checklist-attachmentGalery.card-attachmentGalery
             +attachmentsGalery
       hr
