@@ -21,6 +21,8 @@ This release fixes the following bugs:
   Thanks to Meeques and xet7.
 - [Add some info about allowed filesizes and filetypes for attachments and avatars](https://github.com/wekan/wekan/commit/5b3bd8ff2a29e2c1ada4c49de4c50c132b603863).
   Thanks to Meeques and xet7.
+- [Disable MongoDB telemetry and free monitoring in WeKan Snap](https://github.com/wekan/wekan/commit/df152e292dadd10a9873c21fff9571b98a06eec6).
+  Thanks to webenefits and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
