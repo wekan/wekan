@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "De avatar is te groot (__size__ max)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7212,31 +7212,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "Maximale upload bestandsgrootte in bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "Toegestane upload bestandstypen:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "Maximale avatar bestandsgrootte in bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "Toegestane avatar bestandstypen:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "Als de bestandsnaam ongeldig is wordt de upload of het hernoemen geannuleerd.",
         "context": "",
         "developer_comment": "",
         "character_limit": null

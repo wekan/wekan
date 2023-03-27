@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "Das Profilbild ist zu groß (__Größe__ max)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1074,7 +1074,7 @@
         "character_limit": null
     },
     "card-labels-title": {
-        "string": "Change the labels for the card.",
+        "string": "Labels für diese Karten ändern.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2196,7 +2196,7 @@
         "character_limit": null
     },
     "error-csv-schema": {
-        "string": "Your CSV(Comma Separated Values)/TSV (Tab Separated Values) does not include the proper information in the correct format ",
+        "string": "Deine CSV(Kommatgetrennte Werte)/TSV (Tab getrennte Werte) enthält keine korrekten Informationen im geforderten Format ",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2940,13 +2940,13 @@
         "character_limit": null
     },
     "log-in": {
-        "string": "Log In",
+        "string": "Einloggen",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "loginPopup-title": {
-        "string": "Log In",
+        "string": "Einloggen",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4068,7 +4068,7 @@
         "character_limit": null
     },
     "showLabel-field-on-card": {
-        "string": "Show field label on minicard",
+        "string": "Feld für Label auf Minikarte anzeigen",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4440,7 +4440,7 @@
         "character_limit": null
     },
     "r-board-rules": {
-        "string": "Board rules",
+        "string": "Board-Regeln",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4500,7 +4500,7 @@
         "character_limit": null
     },
     "r-is-moved": {
-        "string": "is moved",
+        "string": "wird verschoben",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4638,7 +4638,7 @@
         "character_limit": null
     },
     "r-when-the-item": {
-        "string": "When the checklist item",
+        "string": "Wenn der Checklisten Eintrag",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4998,7 +4998,7 @@
         "character_limit": null
     },
     "r-board-note": {
-        "string": "Note: leave a field empty to match every possible value. ",
+        "string": "Hinweis: Lass ein Feld leer, um alle möglichen Werte zu finden.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5184,19 +5184,19 @@
         "character_limit": null
     },
     "org-number": {
-        "string": "The number of organizations is: ",
+        "string": "Die Anzahl der Organisationen ist:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "team-number": {
-        "string": "The number of teams is: ",
+        "string": "Die Anzahl der Teams ist:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "people-number": {
-        "string": "The number of people is: ",
+        "string": "Die Anzahl der Personen ist:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7212,31 +7212,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "Maximale Dateigröße zum Hochladen in Bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "Erlaubte Dateitypen zum Hochladen:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "Maximale Profilbild Größe in Bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "Erlaubte Profilbild Dateitypen:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "Wenn der Dateiname ungültig ist, wird das Hochladen oder Umbenennen abgebrochen.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
