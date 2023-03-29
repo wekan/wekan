@@ -58,7 +58,7 @@ install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
 
 - WeKan ® is used in [most countries of the world](https://snapcraft.io/wekan).
-- WeKan ® largest user has 22k users using WeKan ® in their company.
+- WeKan ® largest user has 30k users using WeKan ® in their company.
 - WeKan ® has been [translated](https://transifex.com/wekan/wekan) to about 105 languages.
 - [Features][features]: WeKan ® has real-time user interface.
 - [Platforms][platforms]: WeKan ® supports many platforms.
