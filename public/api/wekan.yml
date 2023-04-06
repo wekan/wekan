@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.81
+  version: v6.82
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2185,7 +2185,8 @@ paths:
       parameters:
         - name: action
           in: formData
-          description: the action value
+          description: |
+            the action (needs to be `add`)
           type: string
           required: true
         - name: isAdmin
@@ -2204,6 +2205,12 @@ paths:
           in: formData
           description: |
             only enable comments
+          type: boolean
+          required: true
+        - name: isWorker
+          in: formData
+          description: |
+            is the user a board worker
           type: boolean
           required: true
         - name: board

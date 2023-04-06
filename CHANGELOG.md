@@ -10,7 +10,7 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v6.82 2023-04-07 WeKan ® release
 
 This release fixes the following bugs:
 
@@ -20,7 +20,7 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Fix broken add_board_member API and return value for remove_board_member](https://github.com/wekan/wekan/pull/4880).
   Thanks to gustavengstrom.
-- [Try to fix card open position](https://github.com/wekan/wekan/commit/f258d8d51784839d06b34e43ec50951603340037).
+- [Try to fix card open position and make card resizeable](https://github.com/wekan/wekan/commit/f258d8d51784839d06b34e43ec50951603340037).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
