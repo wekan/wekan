@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "Awatar jest zbyt duży (maksymalnie __size__)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2196,7 +2196,7 @@
         "character_limit": null
     },
     "error-csv-schema": {
-        "string": "Your CSV(Comma Separated Values)/TSV (Tab Separated Values) does not include the proper information in the correct format ",
+        "string": "Twój plik CSV (plik oddzielony przecinkami)/TSV (plik oddzielony tabulatorami) nie zawiera danych w poprawnym formacie",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4998,7 +4998,7 @@
         "character_limit": null
     },
     "r-board-note": {
-        "string": "Note: leave a field empty to match every possible value. ",
+        "string": "Uwaga: pozostaw pole puste, aby każda wartość była brana pod uwagę.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5184,19 +5184,19 @@
         "character_limit": null
     },
     "org-number": {
-        "string": "The number of organizations is: ",
+        "string": "Liczba organizacji:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "team-number": {
-        "string": "The number of teams is: ",
+        "string": "Liczba zespołów:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "people-number": {
-        "string": "The number of people is: ",
+        "string": "Liczba użytkowników to:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7212,31 +7212,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "Maksymalny rozmiar przesyłanego pliku w bajtach to:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "Dozwolone do przesłania typy plików:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "Maksymalny rozmiar pliku awatara w bajtach:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "Dozwolone typy plików awatara:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "Jeżeli nazwa pliku jest nieprawidłowa, przesyłanie lub zmiana nazwy zostanie anulowane.",
         "context": "",
         "developer_comment": "",
         "character_limit": null

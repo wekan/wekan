@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "头像尺寸过大 (__size__ 最大)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -972,7 +972,7 @@
         "character_limit": null
     },
     "bucket-example": {
-        "string": "Like “Bucket List” for example",
+        "string": "例：Bucket List",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3768,7 +3768,7 @@
         "character_limit": null
     },
     "to-boards": {
-        "string": "To board(s)",
+        "string": "至看板",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7212,31 +7212,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "文件最大：",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "允许上传文件类型：",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "头像文件最大：",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "头像文件允许类型：",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "如果文件名无效，则取消上传或重命名。\\n ",
         "context": "",
         "developer_comment": "",
         "character_limit": null
