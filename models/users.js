@@ -1459,7 +1459,7 @@ if (Meteor.isServer) {
       try {
         const fullName =
           inviter.profile !== undefined &&
-          inviter.profile.fullname !== undefined
+            inviter.profile.fullname !== undefined
             ? inviter.profile.fullname
             : '';
         const userFullName =
@@ -2256,9 +2256,11 @@ if (Meteor.isServer) {
    *
    * @param {string} boardId the board ID
    * @param {string} userId the user ID
+   * @param {string} action the action (needs to be `add`)
    * @param {boolean} isAdmin is the user an admin of the board
    * @param {boolean} isNoComments disable comments
    * @param {boolean} isCommentOnly only enable comments
+   * @param {boolean} isWorker is the user a board worker
    * @return_type {_id: string,
    *               title: string}
    */
@@ -2271,7 +2273,7 @@ if (Meteor.isServer) {
         const userId = req.params.userId;
         const boardId = req.params.boardId;
         const action = req.body.action;
-        const { isAdmin, isNoComments, isCommentOnly } = req.body;
+        const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
         let data = Meteor.users.findOne({
           _id: userId,
         });
@@ -2291,6 +2293,7 @@ if (Meteor.isServer) {
                   isTrue(isAdmin),
                   isTrue(isNoComments),
                   isTrue(isCommentOnly),
+                  isTrue(isWorker),
                   userId,
                 );
               }
@@ -2301,10 +2304,7 @@ if (Meteor.isServer) {
             });
           }
         }
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: query,
-        });
+        JsonRoutes.sendResult(res, { code: 200, data });
       } catch (error) {
         JsonRoutes.sendResult(res, {
           code: 200,
@@ -2355,10 +2355,7 @@ if (Meteor.isServer) {
             });
           }
         }
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: query,
-        });
+        JsonRoutes.sendResult(res, { code: 200, data });
       } catch (error) {
         JsonRoutes.sendResult(res, {
           code: 200,
