@@ -84,7 +84,7 @@
   overflow-x: hidden;
   background: #f7f7f7;
   border-radius: bottom 3px;
-  z-index: 20;
+  z-index: 30;
   animation: flexGrowIn 0.1s;
   box-shadow: 0 0 7px 0 #b3b3b3;
   transition: flex-basis 0.1s;
@@ -245,6 +245,13 @@
   padding-top: 10px;
 }
 @media screen and (min-width: 801px) {
+  .card-details {
+    top: 0px;
+    left: 400px;
+    width: 47%;
+    position: absolute;
+    resize: both;
+  }
   .card-details-maximized {
     padding: 0;
     flex-shrink: 0;
