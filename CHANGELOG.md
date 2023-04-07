@@ -10,6 +10,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix open card position by opening card to fullscreen](https://github.com/wekan/wekan/commit/030faf918e64ab5ee359703c038c7c7a3d3154ae).
+  Thanks to SmartPhoneLover, BabyFnord and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.82 2023-04-07 WeKan ® release
 
 This release fixes the following bugs:
