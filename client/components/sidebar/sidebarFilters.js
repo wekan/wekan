@@ -53,6 +53,11 @@ BlazeComponent.extendComponent({
           Filter.dueAt.thisWeek();
           Filter.resetExceptions();
         },
+        'click .js-toggle-due-next-week-filter'(evt) {
+          evt.preventDefault();
+          Filter.dueAt.nextWeek();
+          Filter.resetExceptions();
+        },
         'click .js-toggle-archive-filter'(evt) {
           evt.preventDefault();
           Filter.archive.toggle(this.currentData()._id);
