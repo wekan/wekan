@@ -55,7 +55,12 @@ class DateFilter {
 
   // thisWeek is a convenience method for calling relativeWeek with 1
   thisWeek() {
-    this.relativeWeek(1);
+    this.relativeWeek(1, 'this')
+  }
+
+  // nextWeek is a convenience method for calling relativeWeek with 1
+  nextWeek() {
+    this.relativeWeek(1, 'next')
   }
 
   // relativeDay builds a filter starting from now and including all
@@ -83,11 +88,17 @@ class DateFilter {
     this._updateState('day');
   }
 
-  // relativeWeek builds a filter starting from today and including all
+  // relativeWeek builds a filter starting from today (for this week)
+  // or 7 days after (for next week) and including all
   // weeks up to today +/- offset. This considers the user's preferred
   // start of week day (as defined by Meteor).
-  relativeWeek(offset) {
-    if (this._filterState == 'week') {
+  relativeWeek(offset, week) {
+    if (this._filterState == 'thisweek') {
+      this.reset();
+      return;
+    }
+
+    if (this._filterState == 'nextweek') {
       this.reset();
       return;
     }
@@ -99,25 +110,40 @@ class DateFilter {
     const currentUser = Meteor.user();
     const weekStartDay = currentUser ? currentUser.getStartDayOfWeek() : 1;
 
-    // Moments are mutable so they must be cloned before modification
-    var thisWeekStart = moment()
-      .startOf('day')
-      .startOf('week')
-      .add(weekStartDay, 'days');
-    var thisWeekEnd = thisWeekStart
-      .clone()
-      .add(offset, 'week')
-      .endOf('day');
-    var startDate = thisWeekStart.toDate();
-    var endDate = thisWeekEnd.toDate();
+    if (week === 'this') {
+      // Moments are mutable so they must be cloned before modification
+      var WeekStart = moment()
+        .startOf('day')
+        .startOf('week')
+        .add(weekStartDay, 'days');
+      var WeekEnd = WeekStart
+        .clone()
+        .add(offset, 'week')
+        .endOf('day');
+
+      this._updateState('thisweek');
+    } else if (week === 'next') {
+      // Moments are mutable so they must be cloned before modification
+      var WeekStart = moment()
+        .startOf('day')
+        .startOf('week')
+        .add(weekStartDay + 7, 'days');
+      var WeekEnd = WeekStart
+        .clone()
+        .add(offset, 'week')
+        .endOf('day');
+
+     this._updateState('nextweek');
+    }
+
+    var startDate = WeekStart.toDate();
+    var endDate = WeekEnd.toDate();
 
     if (offset >= 0) {
       this._filter = { $gte: startDate, $lte: endDate };
     } else {
       this._filter = { $lte: startDate, $gte: endDate };
     }
-
-    this._updateState('week');
   }
 
   // noDate builds a filter for items where date is not set

@@ -109,13 +109,18 @@ template(name="filterSidebar")
           | {{_ 'filter-due-tomorrow' }}
         if Filter.dueAt.isSelected 'tomorrow'
           i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'week'}}active{{/if}}")
+    li(class="{{#if Filter.dueAt.isSelected 'thisweek'}}active{{/if}}")
       a.name.js-toggle-due-this-week-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-this-week' }}
-        if Filter.dueAt.isSelected 'week'
+        if Filter.dueAt.isSelected 'thisweek'
           i.fa.fa-check
-
+    li(class="{{#if Filter.dueAt.isSelected 'nextweek'}}active{{/if}}")
+      a.name.js-toggle-due-next-week-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-due-next-week' }}
+        if Filter.dueAt.isSelected 'nextweek'
+          i.fa.fa-check
   hr
   h3
     i.fa.fa-list-alt

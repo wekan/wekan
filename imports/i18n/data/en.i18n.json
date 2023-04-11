@@ -404,6 +404,7 @@
   "filter-overdue": "Overdue",
   "filter-due-today": "Due today",
   "filter-due-this-week": "Due this week",
+  "filter-due-next-week": "Due next week",
   "filter-due-tomorrow": "Due tomorrow",
   "list-filter-label": "Filter List by Title",
   "filter-clear": "Clear filter",
