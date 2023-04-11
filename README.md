@@ -16,9 +16,9 @@ Other platforms and compatible software versions at https://wekan.github.io Down
 - [OSS Insight](https://ossinsight.io/analyze/wekan/wekan)
 - [CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
 
-## [Translate WeKan ® at Transifex](https://transifex.com/wekan/wekan)
+## [Translate WeKan ® at Transifex](https://app.transifex.com/wekan/)
 
-Translations to non-English languages are accepted only at [Transifex](https://transifex.com/wekan/wekan) using webbrowser.
+Translations to non-English languages are accepted only at [Transifex](https://app.transifex.com/wekan/) using webbrowser.
 New English strings of new features can be added as PRs to master branch file wekan/imports/i18n/data/en.i18n.json .
 
 ## [WeKan ® feature requests and bugs](https://github.com/wekan/wekan/issues)
@@ -59,7 +59,7 @@ that by providing one-click installation on various platforms.
 
 - WeKan ® is used in [most countries of the world](https://snapcraft.io/wekan).
 - WeKan ® largest user has 30k users using WeKan ® in their company.
-- WeKan ® has been [translated](https://transifex.com/wekan/wekan) to about 105 languages.
+- WeKan ® has been [translated](https://app.transifex.com/wekan/) to about 105 languages.
 - [Features][features]: WeKan ® has real-time user interface.
 - [Platforms][platforms]: WeKan ® supports many platforms.
   WeKan ® is critical part of new platforms Wekan is currently being integrated to.
@@ -116,7 +116,7 @@ with [Meteor](https://www.meteor.com).
 [wekan_issues]: https://github.com/wekan/wekan/issues
 [docker_image]: https://hub.docker.com/r/wekanteam/wekan/
 [wekan_wiki]: https://github.com/wekan/wekan/wiki
-[translate_wekan]: https://www.transifex.com/wekan/wekan/
+[translate_wekan]: https://app.transifex.com/wekan/
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
 [discussions]: https://github.com/wekan/wekan/discussions
