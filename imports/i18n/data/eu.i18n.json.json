@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "Avatarra handiegia da (__tamaina__ gehienez)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2425,6 +2425,12 @@
     },
     "filter-due-this-week": {
         "string": "Aste honetarako",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-due-next-week": {
+        "string": "Due next week",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7212,31 +7218,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "Kargatzeko fitxategien gehienezko tamaina bytetan:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "Kargatzeko baimendutako fitxategi motak:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "Avatar fitxategien gehienezko tamaina bytetan:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "Baimendutako avatar fitxategi motak:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "Fitxategi-izena baliogabea bada, karga edo izena aldaketa bertan behera geratuko da.",
         "context": "",
         "developer_comment": "",
         "character_limit": null

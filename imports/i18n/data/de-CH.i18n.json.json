@@ -2429,6 +2429,12 @@
         "developer_comment": "",
         "character_limit": null
     },
+    "filter-due-next-week": {
+        "string": "Due next week",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
     "filter-due-tomorrow": {
         "string": "morgen fällig",
         "context": "",

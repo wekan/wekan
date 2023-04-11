@@ -2424,7 +2424,13 @@
         "character_limit": null
     },
     "filter-due-this-week": {
-        "string": "Para nesta semana",
+        "string": "Para esta semana",
+        "context": "",
+        "developer_comment": "",
+        "character_limit": null
+    },
+    "filter-due-next-week": {
+        "string": "Para a próxima semana",
         "context": "",
         "developer_comment": "",
         "character_limit": null
