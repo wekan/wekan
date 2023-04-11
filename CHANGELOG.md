@@ -10,6 +10,17 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Get card drag/drop working for empty swimlane](https://github.com/wekan/wekan/pull/4883).
+  Thanks to mfilser.
+- [Added 'next week' due date filter](https://github.com/wekan/wekan/pull/4884).
+  Thanks to helioguardabaxo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.83 2023-04-08 WeKan ® release
 
 This release fixes the following bugs:
