@@ -4,7 +4,7 @@ import { createObjectId } from './grid/createObjectId';
 import { httpStreamOutput } from './httpStream.js';
 //import {} from './s3/Server-side-file-store.js';
 import { ObjectID } from 'bson';
-var Minio = require('@wekanteam/minio');
+var Minio = require('minio');
 
 export const STORAGE_NAME_FILESYSTEM = "fs";
 export const STORAGE_NAME_GRIDFS     = "gridfs";
