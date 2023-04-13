@@ -2430,7 +2430,7 @@
         "character_limit": null
     },
     "filter-due-next-week": {
-        "string": "Due next week",
+        "string": "Förfaller denna vecka",
         "context": "",
         "developer_comment": "",
         "character_limit": null

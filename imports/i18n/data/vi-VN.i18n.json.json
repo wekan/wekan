@@ -1,6 +1,6 @@
 {
     "accept": {
-        "string": "Accept",
+        "string": "Chấp nhận",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "Hình đại diện quá dung lượng (__size__ max)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2196,7 +2196,7 @@
         "character_limit": null
     },
     "error-csv-schema": {
-        "string": "Your CSV(Comma Separated Values)/TSV (Tab Separated Values) does not include the proper information in the correct format ",
+        "string": "CSV(Giá trị được phân tách bằng dấu phẩy)/TSV (Giá trị được phân tách bằng tab) của bạn không đúng định dạng",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2430,7 +2430,7 @@
         "character_limit": null
     },
     "filter-due-next-week": {
-        "string": "Due next week",
+        "string": "Đến hạn vào tuần tới",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5004,7 +5004,7 @@
         "character_limit": null
     },
     "r-board-note": {
-        "string": "Note: leave a field empty to match every possible value. ",
+        "string": "Lưu ý: để trống một trường để khớp với mọi giá trị có thể.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5190,19 +5190,19 @@
         "character_limit": null
     },
     "org-number": {
-        "string": "The number of organizations is: ",
+        "string": "Số tổ chức là:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "team-number": {
-        "string": "The number of teams is: ",
+        "string": "Số đội là:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "people-number": {
-        "string": "The number of people is: ",
+        "string": "Số người là:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7218,31 +7218,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "Kích thước tệp tải lên tối đa tính bằng byte:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "Các loại tệp tải lên được phép:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "Kích thước tệp hình đại diện tối đa tính bằng byte:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "Các loại tệp hình đại diện được phép:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "Nếu tên tệp không hợp lệ, quá trình tải lên hoặc đổi tên sẽ bị hủy.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
