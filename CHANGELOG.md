@@ -23,6 +23,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Added uploadedAt and copies to be migrated when migrating CollectionFS to ostrio-files](https://github.com/wekan/wekan/commit/0090734cd85435e852d2546d20c5a16a24a1ae66).
   Thanks to xet7
+- [Added more descriptive times of attachment migrations and uploads](https://github.com/wekan/wekan/commit/f11650ece1ccd8cd8ff820c1ccb39086129e01d0).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
