@@ -17,6 +17,11 @@ This release adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/fb37f48a86732be40c20c58eb336fa262218d0fe).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Disable file validation temporarily, because it causes data loss of some attachments when upgrading](https://github.com/wekan/wekan/commit/e7122a9b368e25cc155f39e34fff741fcc9f004c).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.84 2023-04-11 WeKan ® release
