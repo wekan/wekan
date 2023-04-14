@@ -1281,7 +1281,8 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
             cardId: fileObj.cardId,
             listId: fileObj.listId,
             swimlaneId: fileObj.swimlaneId,
-            uploadedAt: fileObj.uploadedAt,
+            uploadedBeforeMigration: fileObj.uploadedAt,
+            migrationTime: this.now(),
             copies: fileObj.copies,
             source: 'import'
           },
