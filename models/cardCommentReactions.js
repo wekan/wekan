@@ -1,5 +1,14 @@
 const commentReactionSchema = new SimpleSchema({
-  reactionCodepoint: { type: String, optional: false },
+  reactionCodepoint: {
+    type: String,
+    optional: false,
+    max: 9, // max length of reaction code
+    custom() {
+      if (!this.value.match(/^&#\d{4,6};$/)) { // regex for only valid reactions
+        return "incorrectReactionCode";
+      }
+    },
+  },
   userIds: { type: [String], defaultValue: [] }
 });
 
