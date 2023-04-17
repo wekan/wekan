@@ -192,7 +192,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
-- Try to fix some security issues.
+- Security Fix of Filebleed in WeKan. That is XSS in filename.
   [Part 1](https://github.com/wekan/wekan/commit/ff993e7c917b5650a790238e95c78001e4f0e039),
   [Part 2](https://github.com/wekan/wekan/commit/382168a5b428a7124d368c4fcb37e7e140e7ec8b).
   Thanks to responsible security disclosure contributors and xet7.
