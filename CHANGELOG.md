@@ -31,6 +31,8 @@ and fixes the following bugs:
   Thanks to g-roliveira, iamabrantes, Floaz, koelle25, scott-dunt, mfilser and xet7.
 - [Fixed count of found cards in Global Search](https://github.com/wekan/wekan/commit/9af03b0416b532f2084d0320b95388f0009fb364).
   Thanks to xet7.
+- [Fix Card opens full width by opening at left](https://github.com/wekan/wekan/commit/418fe725e5846620a244b22bce2e0d1194ebf033).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
