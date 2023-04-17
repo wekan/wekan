@@ -248,13 +248,12 @@
   .card-details {
     top: 97px;
     left: 0;
-    right: 0;
+    width: 600px;
     bottom: 0;
     position: fixed;
     resize: both;
   }
   .card-details-maximized {
-/*
     padding: 0;
     flex-shrink: 0;
     flex-basis: calc(100% - 20px);
@@ -274,7 +273,6 @@
     height: calc(100% - 20px);
     width: calc(100% - 20px);
     float: left;
-*/
   }
   .card-details-maximized .card-details-left {
     float: left;
