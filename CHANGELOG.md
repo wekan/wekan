@@ -29,6 +29,8 @@ and fixes the following bugs:
   Thanks to emilburggraf, psteinforth, craig-silva, Daniel-H76, benh57, falkheiland and xet7.
 - [Save files serverside with filename ObjectID, without filename](https://github.com/wekan/wekan/commit/76ac070f9b99388fa9e13bd987b1c93ed1f465c7).
   Thanks to g-roliveira, iamabrantes, Floaz, koelle25, scott-dunt, mfilser and xet7.
+- [Fixed count of found cards in Global Search](https://github.com/wekan/wekan/commit/9af03b0416b532f2084d0320b95388f0009fb364).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
