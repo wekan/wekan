@@ -25,6 +25,8 @@ and fixes the following bugs:
   Thanks to xet7
 - [Added more descriptive times of attachment migrations and uploads](https://github.com/wekan/wekan/commit/f11650ece1ccd8cd8ff820c1ccb39086129e01d0).
   Thanks to xet7.
+- [Fix LDAP Group Filtering does not work](https://github.com/wekan/wekan/commit/2da7b1d5420d7621cafa387db5c63bf1612e3d08).
+  Thanks to emilburggraf, psteinforth, craig-silva, Daniel-H76, benh57, falkheiland and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
