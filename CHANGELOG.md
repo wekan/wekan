@@ -27,6 +27,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix LDAP Group Filtering does not work](https://github.com/wekan/wekan/commit/2da7b1d5420d7621cafa387db5c63bf1612e3d08).
   Thanks to emilburggraf, psteinforth, craig-silva, Daniel-H76, benh57, falkheiland and xet7.
+- [Save files serverside with filename ObjectID, without filename](https://github.com/wekan/wekan/commit/76ac070f9b99388fa9e13bd987b1c93ed1f465c7).
+  Thanks to g-roliveira, iamabrantes, Floaz, koelle25, scott-dunt, mfilser and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
