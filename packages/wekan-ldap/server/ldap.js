@@ -389,7 +389,7 @@ export default class LDAP {
     filter.push(')');
 
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, username),
+      filter: filter.join('').replace(/#{username}/g, username).replace("\\", "\\\\"),
       scope : 'sub',
     };
 
@@ -437,7 +437,7 @@ export default class LDAP {
     filter.push(')');
 
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, username),
+      filter: filter.join('').replace(/#{username}/g, username).replace("\\", "\\\\"),
       scope : 'sub',
     };
 
