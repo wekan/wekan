@@ -1250,7 +1250,11 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
   AttachmentsOld.find().forEach(function(fileObj) {
     const newFileName = fileObj.name();
     const storagePath = Attachments.storagePath({});
-    const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
+    // OLD:
+    // const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
+    // NEW: Save file only with filename of ObjectID, not including filename.
+    // Fixes https://github.com/wekan/wekan/issues/4416#issuecomment-1510517168
+    const filePath = path.join(storagePath, `${fileObj._id}`);
 
     // This is "example" variable, change it to the userId that you might be using.
     const userId = fileObj.userId;
@@ -1318,7 +1322,11 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
   AvatarsOld.find().forEach(function(fileObj) {
     const newFileName = fileObj.name();
     const storagePath = Avatars.storagePath({});
-    const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
+    // OLD:
+    // const filePath = path.join(storagePath, `${fileObj._id}-${newFileName}`);
+    // NEW: Save file only with filename of ObjectID, not including filename.
+    // Fixes https://github.com/wekan/wekan/issues/4416#issuecomment-1510517168
+    const filePath = path.join(storagePath, `${fileObj._id}`);
 
     // This is "example" variable, change it to the userId that you might be using.
     const userId = fileObj.userId;
