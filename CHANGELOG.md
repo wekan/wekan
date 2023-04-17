@@ -12,7 +12,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following CRITICAL SECURITY FIXES:
+
+- [Security fix to ReactionBleed in WeKan. It is XSS in feature "Reaction to comment"](https://github.com/wekan/wekan/commit/47ac33d6c234359c31d9b5eae49ed3e793907279).
+  Thanks to Alexander Starikov at Jet Infosystems (https://jetinfosystems.com/).
+
+and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/fb37f48a86732be40c20c58eb336fa262218d0fe).
   Thanks to xet7.
