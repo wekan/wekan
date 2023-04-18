@@ -168,7 +168,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     } else if (this.resultsCount === 1) {
       return TAPi18n.__('one-card-found');
     } else if (this.resultsCount === this.totalHits) {
-      return TAPi18n.__('n-cards-found').replace('%s', this.resultsCount);
+      return TAPi18n.__('n-cards-found', {sprintf: [this.resultsCount]});
     }
 
     return TAPi18n.__('n-n-of-n-cards-found', {
