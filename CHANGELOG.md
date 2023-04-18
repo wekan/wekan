@@ -3,7 +3,13 @@
 Required versions of Node.js, MongoDB etc are listed at https://wekan.github.io
 Download section.
 
-Newest WeKan is on platforms: Snap Candidate, Docker, Kubernetes, Source/Bundle.
+Newest WeKan is on platforms: Snap Candidate, Docker, Kubernetes, Source/Bundle. Download section at https://wekan.github.io
+
+In Progress is:
+- Getting newest WeKan to all platforms, fixing any migration and upgrade issues
+- Adding more platforms
+- Developing all paid features and fixes https://wekan.team/commercial-support/
+- More info and news at https://github.com/wekan/wekan/issues/4578#issuecomment-1505909376
 
 Note:
 - Snap Candidate has newest WeKan with MongoDB 6 https://github.com/wekan/wekan/issues/4824#issuecomment-1425753485
