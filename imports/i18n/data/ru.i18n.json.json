@@ -390,7 +390,7 @@
         "character_limit": null
     },
     "activity-checklist-completed": {
-        "string": "completed checklist %s of %s",
+        "string": "завершил чек-лист %s из %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "Аватар слишком большой (__size__ максимум)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -924,7 +924,7 @@
         "character_limit": null
     },
     "boardChangeViewPopup-title": {
-        "string": "Board View",
+        "string": "Вид доски",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -936,7 +936,7 @@
         "character_limit": null
     },
     "board-view": {
-        "string": "Board View",
+        "string": "Вид доски",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1974,7 +1974,7 @@
         "character_limit": null
     },
     "disambiguateMultiMemberPopup-title": {
-        "string": "Disambiguate Member Action",
+        "string": "Разрешить конфликт участников",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2196,7 +2196,7 @@
         "character_limit": null
     },
     "error-csv-schema": {
-        "string": "Your CSV(Comma Separated Values)/TSV (Tab Separated Values) does not include the proper information in the correct format ",
+        "string": "Ваши данные CSV (с разделителями запятой)/TSV (с разделителями табулятором) не содержат информации в корректном формате",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2430,7 +2430,7 @@
         "character_limit": null
     },
     "filter-due-next-week": {
-        "string": "Due next week",
+        "string": "Крайний срок - следующая неделя",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2814,7 +2814,7 @@
         "character_limit": null
     },
     "leaveBoardPopup-title": {
-        "string": "Leave Board ?",
+        "string": "Покинуть доску?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3978,7 +3978,7 @@
         "character_limit": null
     },
     "OS_Arch": {
-        "string": "OS Arch",
+        "string": "Архитектура ОС",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4056,7 +4056,7 @@
         "character_limit": null
     },
     "show-field-on-card": {
-        "string": "Show this field on card",
+        "string": "Показать это поле на карточке",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5004,7 +5004,7 @@
         "character_limit": null
     },
     "r-board-note": {
-        "string": "Note: leave a field empty to match every possible value. ",
+        "string": "Примечание: пустое поле соответствует любым возможным значениям.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5190,19 +5190,19 @@
         "character_limit": null
     },
     "org-number": {
-        "string": "The number of organizations is: ",
+        "string": "Количество организаций:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "team-number": {
-        "string": "The number of teams is: ",
+        "string": "Количество команд:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "people-number": {
-        "string": "The number of people is: ",
+        "string": "Количество человек:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7218,31 +7218,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "Максимальный размер загрузки (в байтах):",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "Типы файлов для загрузки:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "Максимальный размер аватара (в байтах):",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "Типы файлов аватара:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "Если имя файла недопустимо, загрузка или переименование будут отменены.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
