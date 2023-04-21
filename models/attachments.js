@@ -95,6 +95,7 @@ Attachments = new FilesCollection({
       fileObj.versions[versionName].storage = STORAGE_NAME_FILESYSTEM;
     });
 
+    this._now = new Date();
     Attachments.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
     Attachments.update({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio" : this._now() } });
 
