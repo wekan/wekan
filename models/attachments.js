@@ -97,7 +97,7 @@ Attachments = new FilesCollection({
 
     this._now = new Date();
     Attachments.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
-    Attachments.update({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio" : this._now() } });
+    Attachments.update({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio" : this._now } });
 
     let storageDestination = fileObj.meta.copyStorage || STORAGE_NAME_GRIDFS;
     Meteor.defer(() => Meteor.call('validateAttachmentAndMoveToStorage', fileObj._id, storageDestination));
