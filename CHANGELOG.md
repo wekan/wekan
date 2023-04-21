@@ -27,7 +27,9 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-- [Fix Exception in callback of async function: TypeError: this._now is not a function](https://github.com/wekan/wekan/commit/aeb0f1e6d8d9f5d8808128f4049768bea57ca164).
+- Fix Exception in callback of async function: TypeError: this._now is not a function
+  [Part 1](https://github.com/wekan/wekan/commit/aeb0f1e6d8d9f5d8808128f4049768bea57ca164),
+  [Part 2](https://github.com/wekan/wekan/commit/aef6967d4c90544aa0281d22b6df46b2dd40467f).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
