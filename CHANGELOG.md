@@ -20,7 +20,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Feature: Show plus sign in front of attachments](https://github.com/wekan/wekan/commit/2b13158fcd37ff7163fc3d97b88b6bf920dd7b9c).
+  Thanks to Meeques and xet7.
+
+and fixes the following bugs:
 
 - [Fix Exception in callback of async function: TypeError: this._now is not a function](https://github.com/wekan/wekan/commit/aeb0f1e6d8d9f5d8808128f4049768bea57ca164).
   Thanks to xet7.
