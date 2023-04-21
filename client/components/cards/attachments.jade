@@ -32,6 +32,12 @@ template(name="attachmentDeletePopup")
 
 template(name="attachmentsGalery")
   .attachments-galery
+    if currentUser.isBoardMember
+      unless currentUser.isCommentOnly
+        unless currentUser.isWorker
+          //li.attachment-item.add-attachment
+          a.js-add-attachment(title="{{_ 'add-attachment' }}")
+            i.fa.fa-plus
     each attachments
       .attachment-item
         a.attachment-thumbnail.swipebox(href="{{link}}" title="{{sanitize name}}")
@@ -63,13 +69,6 @@ template(name="attachmentsGalery")
               unless currentUser.isCommentOnly
                 unless currentUser.isWorker
                   a.fa.fa-navicon.attachment-details-menu.js-open-attachment-menu(title="{{_ 'attachmentActionsPopup-title'}}")
-
-    if currentUser.isBoardMember
-      unless currentUser.isCommentOnly
-        unless currentUser.isWorker
-          //li.attachment-item.add-attachment
-          a.js-add-attachment(title="{{_ 'add-attachment' }}")
-            i.fa.fa-plus
 
 template(name="attachmentActionsPopup")
   ul.pop-over-list
