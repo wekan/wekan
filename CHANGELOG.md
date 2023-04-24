@@ -25,6 +25,11 @@ This release adds the following new features:
 - [Feature: Show plus sign in front of attachments](https://github.com/wekan/wekan/commit/2b13158fcd37ff7163fc3d97b88b6bf920dd7b9c).
   Thanks to Meeques and xet7.
 
+and adds the following updates:
+
+- [Upgrade to Meteor 2.12-beta.2](https://github.com/wekan/wekan/commit/4d9d4a9dfdd5bb0fc5997351df8995f72d9ca82c).
+  Thanks to Meteor developers.
+
 and fixes the following bugs:
 
 - Fix Exception in callback of async function: TypeError: this._now is not a function
