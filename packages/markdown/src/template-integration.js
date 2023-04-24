@@ -65,6 +65,6 @@ if (Package.ui) {
       text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
     }
 
-    return HTML.Raw(DOMPurify.sanitize(Markdown.render(text), {ALLOW_UNKNOWN_PROTOCOLS: true}));
+    return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '&lt;!--').replace('-->', '--&gt;'), {ALLOW_UNKNOWN_PROTOCOLS: true}));
   }));
 }
