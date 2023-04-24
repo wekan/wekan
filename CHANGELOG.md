@@ -20,7 +20,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Escape HTML comment tags so that HTML comments are visible](https://github.com/wekan/wekan/commit/167863d95711249e69bb3511175d73b34acbbdb3).
+  Thanks to xet7.
+
+and adds the following new features:
 
 - [Feature: Show plus sign in front of attachments](https://github.com/wekan/wekan/commit/2b13158fcd37ff7163fc3d97b88b6bf920dd7b9c).
   Thanks to Meeques and xet7.
