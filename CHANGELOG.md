@@ -20,9 +20,9 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES:
+This release fixes the following CRITICAL SECURITY FIXES:
 
-- [Escape HTML comment tags so that HTML comments are visible](https://github.com/wekan/wekan/commit/167863d95711249e69bb3511175d73b34acbbdb3).
+- [Security fix to InvisibleBleed in WeKan. Escape HTML comment tags so that HTML comments are visible](https://github.com/wekan/wekan/commit/167863d95711249e69bb3511175d73b34acbbdb3).
   Thanks to xet7.
 
 and adds the following new features:
