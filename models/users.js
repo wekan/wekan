@@ -539,6 +539,15 @@ Users.allow({
   fetch: [],
 });
 
+// Non-Admin users can not change to Admin
+Users.deny({
+  update(userId, board, fieldNames) {
+    return _.contains(fieldNames, 'isAdmin') && !Meteor.user().isAdmin;
+  },
+  fetch: [],
+});
+
+
 // Search a user in the complete server database by its name, username or emails adress. This
 // is used for instance to add a new user to a board.
 UserSearchIndex = new Index({
