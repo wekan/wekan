@@ -23,7 +23,9 @@ Note:
 This release fixes the following CRITICAL SECURITY FIXES:
 
 - [Security fix to InvisibleBleed in WeKan. Escape HTML comment tags so that HTML comments are visible](https://github.com/wekan/wekan/commit/167863d95711249e69bb3511175d73b34acbbdb3).
-  Thanks to xet7.
+  Thanks to xet7 for fixing.
+- [Security Fix to AdminBleed in WeKan, so that non-admin can not change to Admin](https://github.com/wekan/wekan/commit/cbad4cf5943d47b916f64b4582f8ca76a9dfd743).
+  Thanks to Christian Pöschl of usd AG Responsible Disclosure Team for reporting and xet7 for fixing.
 
 and adds the following new features:
 
@@ -49,7 +51,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release adds the following CRITICAL SECURITY FIXES:
 
 - [Security fix to ReactionBleed in WeKan. It is XSS in feature "Reaction to comment"](https://github.com/wekan/wekan/commit/47ac33d6c234359c31d9b5eae49ed3e793907279).
-  Thanks to Alexander Starikov at Jet Infosystems (https://jetinfosystems.com/).
+  Thanks to Alexander Starikov at Jet Infosystems (https://jetinfosystems.com/) for reporting and fixing.
 
 and adds the following updates:
 
