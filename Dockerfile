@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ubuntu:22.10 as wekan
+FROM --platform=linux/amd64 ubuntu:23.04 as wekan
 LABEL maintainer="wekan"
 
 # 2022-09-04:
@@ -22,7 +22,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
     NODE_VERSION=v14.21.3 \
-    METEOR_RELEASE=2.8.1 \
+    METEOR_RELEASE=METEOR@2.12-beta.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
