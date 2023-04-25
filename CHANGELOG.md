@@ -44,7 +44,9 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/aef6967d4c90544aa0281d22b6df46b2dd40467f).
   Thanks to xet7.
 - [Remove extra debug message and disable some rarely used feature that produces errors](https://github.com/wekan/wekan/commit/c0bdde26cfd2ae6d1aeaf8b5c7ce0eb72ada6dec).
-  Thanas to xet7.
+  Thanks to xet7.
+- [Revert some migration filename changes](https://github.com/wekan/wekan/commit/3300bbe9e7a6c02c753b0d1f2e8547d1d85cb76c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
