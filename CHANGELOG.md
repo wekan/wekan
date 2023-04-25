@@ -36,10 +36,12 @@ and adds the following updates:
 
 - [Upgrade to Meteor 2.12-beta.2](https://github.com/wekan/wekan/commit/4d9d4a9dfdd5bb0fc5997351df8995f72d9ca82c).
   Thanks to Meteor developers.
+- [Update Docker Ubuntu base image and Meteor version](https://github.com/wekan/wekan/commit/bcd43629cc4074bc4f9b0b70189645ae91cfe59a).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
-- Fix Exception in callback of async function: TypeError: this._now is not a function
+- Fix Exception in callback of async function: TypeError: this._now is not a function.
   [Part 1](https://github.com/wekan/wekan/commit/aeb0f1e6d8d9f5d8808128f4049768bea57ca164),
   [Part 2](https://github.com/wekan/wekan/commit/aef6967d4c90544aa0281d22b6df46b2dd40467f).
   Thanks to xet7.
