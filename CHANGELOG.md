@@ -43,6 +43,8 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/commit/aeb0f1e6d8d9f5d8808128f4049768bea57ca164),
   [Part 2](https://github.com/wekan/wekan/commit/aef6967d4c90544aa0281d22b6df46b2dd40467f).
   Thanks to xet7.
+- [Remove extra debug message and disable some rarely used feature that produces errors](https://github.com/wekan/wekan/commit/c0bdde26cfd2ae6d1aeaf8b5c7ce0eb72ada6dec).
+  Thanas to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
