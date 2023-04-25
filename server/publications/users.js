@@ -85,7 +85,8 @@ I20221023-09:15:09.602(3)?     at Server._handleConnect (packages/ddp-server/liv
 I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
 */
 
-  if (process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS !== '') {
+  if (process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS) {
+/*
     Meteor.onConnection(function (connection) {
     // console.log(
     //   'Meteor.server.stream_server.open_sockets',
@@ -127,5 +128,6 @@ I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
         }),
       );
     });
+*/
   }
 }

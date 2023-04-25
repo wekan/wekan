@@ -59,7 +59,7 @@ Template.userFormsLayout.onCreated(function () {
           };
           Meteor.loginWithOidc(options);
         }
-        else console.log("oidc redirect not set");
+        //else console.log("oidc redirect not set");
       });
   }
   Meteor.call('isDisableRegistration', (_, result) => {
