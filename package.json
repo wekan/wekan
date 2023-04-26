@@ -23,6 +23,7 @@
   "dependencies": {
     "@babel/core": "^7.15.5",
     "@babel/runtime": "^7.15.4",
+    "@mapbox/node-pre-gyp": "^1.0.10",
     "ajv": "^6.12.6",
     "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
@@ -50,6 +51,7 @@
     "meteor-node-stubs": "^1.1.0",
     "minio": "^7.0.33",
     "moment": "^2.29.4",
+    "node-gyp": "^9.3.1",
     "nodemailer": "^6.6.3",
     "os": "^0.1.2",
     "page": "^1.11.6",
