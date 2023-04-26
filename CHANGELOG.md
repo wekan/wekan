@@ -18,7 +18,7 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# v6.86 2023-04-25 WeKan ® release
+# v6.86 2023-04-26 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY FIXES:
 
@@ -48,6 +48,8 @@ and fixes the following bugs:
 - [Remove extra debug message and disable some rarely used feature that produces errors](https://github.com/wekan/wekan/commit/c0bdde26cfd2ae6d1aeaf8b5c7ce0eb72ada6dec).
   Thanks to xet7.
 - [Revert some migration filename changes](https://github.com/wekan/wekan/commit/3300bbe9e7a6c02c753b0d1f2e8547d1d85cb76c).
+  Thanks to xet7.
+- [Add back node-gyp related dependencies](https://github.com/wekan/wekan/commit/712dbb8e73df740816eb66257e834bc7e22bd0fb).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
