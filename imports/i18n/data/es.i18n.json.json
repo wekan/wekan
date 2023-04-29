@@ -1,6 +1,6 @@
 {
     "accept": {
-        "string": "Accept",
+        "string": "Aceptar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -162,7 +162,7 @@
         "character_limit": null
     },
     "act-addBoardMember": {
-        "string": "añadido el mimbro __member__ al tablero __board__",
+        "string": "se ha añadido __member__ al tablero __board__",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -276,7 +276,7 @@
         "character_limit": null
     },
     "activity-added": {
-        "string": "added %s to %s",
+        "string": "ha añadido %s a %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -288,13 +288,13 @@
         "character_limit": null
     },
     "activity-attached": {
-        "string": "attached %s to %s",
+        "string": "adjuntado(s) %s a %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-created": {
-        "string": "created %s",
+        "string": "ha creado %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -306,19 +306,19 @@
         "character_limit": null
     },
     "activity-excluded": {
-        "string": "excluded %s from %s",
+        "string": "ha excluido %s de %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-imported": {
-        "string": "imported %s into %s from %s",
+        "string": "ha importado %s en %s desde %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-imported-board": {
-        "string": "imported %s from %s",
+        "string": "ha importado %s desde %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -330,7 +330,7 @@
         "character_limit": null
     },
     "activity-moved": {
-        "string": "moved %s from %s to %s",
+        "string": "ha movido %s de %s a %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -342,13 +342,13 @@
         "character_limit": null
     },
     "activity-removed": {
-        "string": "removed %s from %s",
+        "string": "ha eliminado %s de %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-sent": {
-        "string": "sent %s to %s",
+        "string": "ha enviado %s a %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -366,7 +366,7 @@
         "character_limit": null
     },
     "activity-checked-item": {
-        "string": "checked %s in checklist %s of %s",
+        "string": "marcado %s en la lista de verificación %s de %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -378,7 +378,7 @@
         "character_limit": null
     },
     "activity-checklist-added": {
-        "string": "added checklist to %s",
+        "string": "ha agregado una lista de verificación a %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -402,7 +402,7 @@
         "character_limit": null
     },
     "activity-checklist-item-added": {
-        "string": "added checklist item to '%s' in %s",
+        "string": "ha agregado el elemento de la lista de verificación a '%s' en %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -624,7 +624,7 @@
         "character_limit": null
     },
     "admin-announcement-title": {
-        "string": "Announcement from Administrator",
+        "string": "Anuncio del administrador",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -810,7 +810,7 @@
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "The avatar is too large (__size__ max)",
+        "string": "El avatar es demasiado grande (__size__ máx)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2196,7 +2196,7 @@
         "character_limit": null
     },
     "error-csv-schema": {
-        "string": "Your CSV(Comma Separated Values)/TSV (Tab Separated Values) does not include the proper information in the correct format ",
+        "string": "Su CSV(Valores separados por coma)/TSV(Valores separados por tab) no incluyen la información apropiada en el formato correcto",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2430,7 +2430,7 @@
         "character_limit": null
     },
     "filter-due-next-week": {
-        "string": "Due next week",
+        "string": "Vence la próxima semana",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3330,7 +3330,7 @@
         "character_limit": null
     },
     "setWipLimitPopup-title": {
-        "string": "Set WIP Limit",
+        "string": "Establecer el límite del trabajo en proceso",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3900,7 +3900,7 @@
         "character_limit": null
     },
     "outgoing-webhooks": {
-        "string": "Outgoing Webhooks",
+        "string": "Webhooks salientes",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3912,7 +3912,7 @@
         "character_limit": null
     },
     "outgoingWebhooksPopup-title": {
-        "string": "Outgoing Webhooks",
+        "string": "Webhooks salientes",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5004,7 +5004,7 @@
         "character_limit": null
     },
     "r-board-note": {
-        "string": "Note: leave a field empty to match every possible value. ",
+        "string": "Nota: deje un campo vacío para que coincida con todos los valores posibles",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5190,19 +5190,19 @@
         "character_limit": null
     },
     "org-number": {
-        "string": "The number of organizations is: ",
+        "string": "El número de organizaciones es:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "team-number": {
-        "string": "The number of teams is: ",
+        "string": "El número de equipos es:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "people-number": {
-        "string": "The number of people is: ",
+        "string": "El número de personas es:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5220,7 +5220,7 @@
         "character_limit": null
     },
     "restore-all": {
-        "string": "Restore all",
+        "string": "Restaurar todo",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7218,31 +7218,31 @@
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Max upload filesize in bytes:",
+        "string": "Máximo tamaño de archivo para cargar en bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Allowed upload filetypes:",
+        "string": "Tipos de archivo permitidos para la carga:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Max avatar filesize in bytes:",
+        "string": "Máximo tamaño de archivo de avatar en bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Allowed avatar filetypes:",
+        "string": "Tipos de archivo permitidos para el avatar:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "If filename is invalid, upload or rename is cancelled.",
+        "string": "Si el nombre de archivo no es válido, la carga o el cambio de nombre es cancelado.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
