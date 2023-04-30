@@ -42,14 +42,6 @@ BlazeComponent.extendComponent({
     }
   },
 
-  close() {
-    if (this._isOpen.get()) {
-      this._isOpen.set(false);
-      EscapeActions.executeUpTo('detailsPane');
-      this.toggle()
-    }
-  },
-
   hide() {
     if (this._isOpen.get()) {
       this._isOpen.set(false);
