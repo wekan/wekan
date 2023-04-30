@@ -42,6 +42,14 @@ BlazeComponent.extendComponent({
     }
   },
 
+  close() {
+    if (this._isOpen.get()) {
+      this._isOpen.set(false);
+      EscapeActions.executeUpTo('detailsPane');
+      this.toggle()
+    }
+  },
+
   hide() {
     if (this._isOpen.get()) {
       this._isOpen.set(false);
@@ -124,6 +132,9 @@ BlazeComponent.extendComponent({
         },
         'click .js-shortcuts'() {
           FlowRouter.go('shortcuts');
+        },
+        'click .js-close-sidebar'() {
+          Sidebar.toggle()
         },
       },
     ];

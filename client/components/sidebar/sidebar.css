@@ -14,6 +14,12 @@
   box-shadow: -10px 0px 5px -10px #b3b3b3;
   z-index: 10;
 }
+.sidebar-xmark {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 25px;
+}
 .sidebar .sidebar-content {
   padding: 12px;
   margin-bottom: 1.6em;
@@ -24,6 +30,7 @@
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  width: 90%;
 }
 .sidebar .sidebar-content .hide-btn {
   display: none;
