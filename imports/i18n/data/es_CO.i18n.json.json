@@ -1,12 +1,12 @@
 {
     "accept": {
-        "string": "Onartu",
+        "string": "Accept",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "act-activity-notify": {
-        "string": "Jardueraren jakinarazpena",
+        "string": "Activity Notification",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -192,19 +192,19 @@
         "character_limit": null
     },
     "act-importBoard": {
-        "string": "__board__ arbela inportatu da",
+        "string": "imported board __board__",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "act-importCard": {
-        "string": "__board__ arbeleko __swimlane__  erraileko __list__  zerrendako  __card__ txartela inportatu da",
+        "string": "imported card  __card__ to list __list__ at swimlane __swimlane__ at board __board__",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "act-importList": {
-        "string": "__board__ arbeleko __swimlane__ erraileko __list__ zerrenda inportatu da",
+        "string": "imported list __list__ to swimlane __swimlane__ at board __board__",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -258,133 +258,133 @@
         "character_limit": null
     },
     "actions": {
-        "string": "Ekintzak",
+        "string": "Actions",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activities": {
-        "string": "Jarduerak",
+        "string": "Activities",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity": {
-        "string": "Jarduera",
+        "string": "Activity",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-added": {
-        "string": "%s %s(e)ra gehituta",
+        "string": "added %s to %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-archived": {
-        "string": "%s biltegira eraman da",
+        "string": "%s moved to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-attached": {
-        "string": "%s %s(e)ra erantsita",
+        "string": "attached %s to %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-created": {
-        "string": "%s sortuta",
+        "string": "created %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-customfield-created": {
-        "string": "%s eremu pertsonalizatua sortu da",
+        "string": "created custom field %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-excluded": {
-        "string": "%s %s(e)tik kanpo utzita",
+        "string": "excluded %s from %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-imported": {
-        "string": "%s inportatuta %s(e)ra %s(e)tik",
+        "string": "imported %s into %s from %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-imported-board": {
-        "string": "%s inportatuta %s(e)tik",
+        "string": "imported %s from %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-joined": {
-        "string": "%s(e)ra elkartuta",
+        "string": "joined %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-moved": {
-        "string": "%s %s(e)tik %s(e)ra eramanda",
+        "string": "moved %s from %s to %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-on": {
-        "string": "%s-n",
+        "string": "on %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-removed": {
-        "string": "%s %s(e)tik kenduta",
+        "string": "removed %s from %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-sent": {
-        "string": "%s %s(e)ri bidalita",
+        "string": "sent %s to %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-unjoined": {
-        "string": "%s utzita",
+        "string": "unjoined %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-subtask-added": {
-        "string": "%s-ra azpiataza gehitu da",
+        "string": "added subtask to %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-checked-item": {
-        "string": "%s markatu da %s kontrol-zerrendan ( %s)",
+        "string": "checked %s in checklist %s of %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-unchecked-item": {
-        "string": "%s desmarkatu da %s kontrol-zerrendan (%s)",
+        "string": "unchecked %s in checklist %s of %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-checklist-added": {
-        "string": "kontrol-zerrenda %s-ra gehitu da",
+        "string": "added checklist to %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-checklist-removed": {
-        "string": "kontrol zerrenda %s-tik kendu da",
+        "string": "removed a checklist from %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -402,7 +402,7 @@
         "character_limit": null
     },
     "activity-checklist-item-added": {
-        "string": "egiaztaketa zerrendako elementuak '%s'(e)ra gehituta %s(e)n",
+        "string": "added checklist item to '%s' in %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -414,19 +414,19 @@
         "character_limit": null
     },
     "add": {
-        "string": "Gehitu",
+        "string": "Add",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-checked-item-card": {
-        "string": "%s markatu da %s kontrol-zerrendan",
+        "string": "checked %s in checklist %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-unchecked-item-card": {
-        "string": "%s desmarkatu da %s kontrol-zerrendan",
+        "string": "unchecked %s in checklist %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -438,19 +438,19 @@
         "character_limit": null
     },
     "activity-checklist-uncompleted-card": {
-        "string": "%s kontrol-zerrenda osatu gabe",
+        "string": "uncompleted the checklist %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-editComment": {
-        "string": "%s iruzkina editatu da",
+        "string": "edited comment %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "activity-deleteComment": {
-        "string": "%s iruzkina ezabatu da",
+        "string": "deleted comment %s",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -480,61 +480,61 @@
         "character_limit": null
     },
     "add-attachment": {
-        "string": "Gehitu eranskina",
+        "string": "Add Attachment",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-board": {
-        "string": "Gehitu arbela",
+        "string": "Add Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-template": {
-        "string": "Gehitu txantiloia",
+        "string": "Add Template",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-card": {
-        "string": "Gehitu txartela",
+        "string": "Add Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-card-to-top-of-list": {
-        "string": "Gehitu txartela zerrendaren goiko aldean",
+        "string": "Add Card to Top of List",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-card-to-bottom-of-list": {
-        "string": "Gehitu txartela zerrendaren beheko aldean",
+        "string": "Add Card to Bottom of List",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-swimlane": {
-        "string": "Gehitu erraila",
+        "string": "Add Swimlane",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-subtask": {
-        "string": "Gehitu azpiataza",
+        "string": "Add Subtask",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-checklist": {
-        "string": "Gehitu kontrol-zerrenda",
+        "string": "Add Checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-checklist-item": {
-        "string": "Gehitu elementu bat kontrol-zerrendara",
+        "string": "Add an item to checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -552,277 +552,277 @@
         "character_limit": null
     },
     "convertChecklistItemToCardPopup-title": {
-        "string": "Txartela bihurtu",
+        "string": "Convert to Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-cover": {
-        "string": "Gehitu azala",
+        "string": "Add Cover",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-label": {
-        "string": "Gehitu etiketa",
+        "string": "Add Label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-list": {
-        "string": "Gehitu zerrenda",
+        "string": "Add List",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-members": {
-        "string": "Gehitu kideak",
+        "string": "Add Members",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "added": {
-        "string": "Gehituta",
+        "string": "Added",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "addMemberPopup-title": {
-        "string": "Kideak",
+        "string": "Members",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "memberPopup-title": {
-        "string": "Kidearen ezarpenak",
+        "string": "Member Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "admin": {
-        "string": "Kudeatzailea",
+        "string": "Admin",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "admin-desc": {
-        "string": "Txartelak ikusi eta editatu ditzake, kideak kendu, eta arbelaren ezarpenak aldatu.",
+        "string": "Can view and edit cards, remove members, and change settings for the board.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "admin-announcement": {
-        "string": "Jakinarazpena",
+        "string": "Announcement",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "admin-announcement-active": {
-        "string": "Gaitu Sistema-eremuko Jakinarazpena",
+        "string": "Active System-Wide Announcement",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "admin-announcement-title": {
-        "string": "Administrariaren jakinarazpena",
+        "string": "Announcement from Administrator",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "all-boards": {
-        "string": "Arbel guztiak",
+        "string": "All boards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "and-n-other-card": {
-        "string": "Eta beste txartel __count__",
+        "string": "And __count__ other card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "and-n-other-card_plural": {
-        "string": "Eta beste  __count__ txartel",
+        "string": "And __count__ other cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "apply": {
-        "string": "Aplikatu",
+        "string": "Apply",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "app-is-offline": {
-        "string": "Kargatzen, itxaron mesedez. Orria freskatzeak datuak galtzea eragingo du. Kargatzeak ez badu funtzionatzen, egiaztatu zerbitzaria ez dela gelditu.",
+        "string": "Loading, please wait. Refreshing the page will cause data loss. If loading does not work, please check that server has not stopped.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "app-try-reconnect": {
-        "string": "Saiatu birkonektatzen.",
+        "string": "Try to reconnect.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archive": {
-        "string": "Eraman biltegira",
+        "string": "Move to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archive-all": {
-        "string": "Eraman guztiak biltegira",
+        "string": "Move All to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archive-board": {
-        "string": "Mugitu arbela biltegira",
+        "string": "Move Board to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archive-card": {
-        "string": "Eraman txartela biltegira",
+        "string": "Move Card to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archive-list": {
-        "string": "Eraman zerrenda biltegira",
+        "string": "Move List to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archive-swimlane": {
-        "string": "Eraman erraila biltegira",
+        "string": "Move Swimlane to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archive-selection": {
-        "string": "Eraman hautapena biltegira",
+        "string": "Move selection to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archiveBoardPopup-title": {
-        "string": "Mugitu arbela biltegira?",
+        "string": "Move Board to Archive?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archived-items": {
-        "string": "Biltegia",
+        "string": "Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archived-boards": {
-        "string": "Biltegiko arbelak",
+        "string": "Boards in Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "restore-board": {
-        "string": "Berreskuratu arbela",
+        "string": "Restore Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-archived-boards": {
-        "string": "Ez dago arbelik biltegian",
+        "string": "No Boards in Archive.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "archives": {
-        "string": "Biltegia",
+        "string": "Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "template": {
-        "string": "Txantiloia",
+        "string": "Template",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "templates": {
-        "string": "Txantiloiak",
+        "string": "Templates",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "template-container": {
-        "string": "Txantiloien edukiontzia",
+        "string": "Template Container",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "add-template-container": {
-        "string": "Gehitu txantiloien edukiontzia",
+        "string": "Add Template Container",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "assign-member": {
-        "string": "Esleitu kidea",
+        "string": "Assign member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "attached": {
-        "string": "erantsita",
+        "string": "attached",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "attachment": {
-        "string": "Eranskina",
+        "string": "Attachment",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "attachment-delete-pop": {
-        "string": "Eranskina ezabatzea behin betikoa da. Ez dago desegiterik.",
+        "string": "Deleting an attachment is permanent. There is no undo.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "attachmentDeletePopup-title": {
-        "string": "Ezabatu eranskina?",
+        "string": "Delete Attachment?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "attachments": {
-        "string": "Eranskinak",
+        "string": "Attachments",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "auto-watch": {
-        "string": "Automatikoki jarraitu arbelak hauek sortzean",
+        "string": "Automatically watch boards when they are created",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "avatar-too-big": {
-        "string": "Avatarra handiegia da (__tamaina__ gehienez)",
+        "string": "The avatar is too large (__size__ max)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "back": {
-        "string": "Atzera",
+        "string": "Back",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-change-color": {
-        "string": "Aldatu kolorea",
+        "string": "Change color",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -858,103 +858,103 @@
         "character_limit": null
     },
     "show-board_members-avatar": {
-        "string": "Erakutsi arbeleko kideen avatarrak",
+        "string": "Show Board members avatars",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-nb-stars": {
-        "string": "%s izar",
+        "string": "%s stars",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-not-found": {
-        "string": "Ez da arbela aurkitu",
+        "string": "Board not found",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-private-info": {
-        "string": "Arbel hau <strong>pribatua</strong> izango da.",
+        "string": "This board will be <strong>private</strong>.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-public-info": {
-        "string": "Arbel hau <strong>publikoa</strong> izango da.",
+        "string": "This board will be <strong>public</strong>.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-drag-drop-reorder-or-click-open": {
-        "string": "Arrastatu eta jaregin arbeleko ikonoak ordenatzeko. Klikatu arbeleko ikonoa arbela irekitzeko.",
+        "string": "Drag and drop to reorder board icons. Click board icon to open board.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardChangeColorPopup-title": {
-        "string": "Aldatu arbelaren atzeko planoa",
+        "string": "Change Board Background",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardChangeTitlePopup-title": {
-        "string": "Aldatu izena arbelari",
+        "string": "Rename Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardChangeVisibilityPopup-title": {
-        "string": "Aldatu ikusgaitasuna",
+        "string": "Change Visibility",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardChangeWatchPopup-title": {
-        "string": "Aldatu ikuskatzea",
+        "string": "Change Watch",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardMenuPopup-title": {
-        "string": "Arbelaren ezarpenak",
+        "string": "Board Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardChangeViewPopup-title": {
-        "string": "Arbela ikuspegia",
+        "string": "Board View",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boards": {
-        "string": "Arbelak",
+        "string": "Boards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-view": {
-        "string": "Arbela ikuspegia",
+        "string": "Board View",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-view-cal": {
-        "string": "Egutegia",
+        "string": "Calendar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-view-swimlanes": {
-        "string": "Errailak",
+        "string": "Swimlanes",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-view-collapse": {
-        "string": "Tolestu",
+        "string": "Collapse",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -966,199 +966,199 @@
         "character_limit": null
     },
     "board-view-lists": {
-        "string": "Zerrendak",
+        "string": "Lists",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "bucket-example": {
-        "string": "Esaterako \\\"Pertz zerrenda\\\"",
+        "string": "Like “Bucket List” for example",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cancel": {
-        "string": "Utzi",
+        "string": "Cancel",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-archived": {
-        "string": "Txartel hau biltegira eraman da",
+        "string": "This card is moved to Archive.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-archived": {
-        "string": "Arbel hau biltegira eraman da",
+        "string": "This board is moved to Archive.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-comments-title": {
-        "string": "Txartel honek iruzkin %s  dauka.",
+        "string": "This card has %s comment.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-delete-notice": {
-        "string": "Ezabaketa behin betiko da. Txartel honi lotutako ekintza guztiak galduko dituzu.",
+        "string": "Deleting is permanent. You will lose all actions associated with this card.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-delete-pop": {
-        "string": "Ekintza guztiak ekintza jariotik kenduko dira eta ezin izango duzu txartela berrireki. Ez dago desegiterik.",
+        "string": "All actions will be removed from the activity feed and you won't be able to re-open the card. There is no undo.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-delete-suggest-archive": {
-        "string": "Eraman dezakezu txartel bat biltegira arbeletik kentzeko eta aktibitatea mantendu.",
+        "string": "You can move a card to Archive to remove it from the board and preserve the activity.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-archive-pop": {
-        "string": "Txartela ez da ikusiko zerrenda honetan txartela gorde ondoren.",
+        "string": "Card will not be visible at this list after archiving card.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-archive-suggest-cancel": {
-        "string": "Geroago txartela berreskuratu dezakezu biltegitik.",
+        "string": "You can later restore card from Archive.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-due": {
-        "string": "Epemuga",
+        "string": "Due",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-due-on": {
-        "string": "Epemuga",
+        "string": "Due on",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-spent": {
-        "string": "Erabilitako denbora",
+        "string": "Spent Time",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-edit-attachments": {
-        "string": "Editatu eranskinak",
+        "string": "Edit attachments",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-edit-custom-fields": {
-        "string": "Editatu eremu pertsonalizatuak",
+        "string": "Edit custom fields",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-edit-labels": {
-        "string": "Editatu etiketak",
+        "string": "Edit labels",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-edit-members": {
-        "string": "Editatu kideak",
+        "string": "Edit members",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-labels-title": {
-        "string": "Aldatu txartelaren etiketak",
+        "string": "Change the labels for the card.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-members-title": {
-        "string": "Gehitu edo kendu arbeleko kideak txarteletik.",
+        "string": "Add or remove members of the board from the card.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-start": {
-        "string": "Hasiera",
+        "string": "Start",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-start-on": {
-        "string": "Hasiera",
+        "string": "Starts on",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardAttachmentsPopup-title": {
-        "string": "Erantsi hemendik",
+        "string": "Attach From",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardCustomField-datePopup-title": {
-        "string": "Aldatu data",
+        "string": "Change date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardCustomFieldsPopup-title": {
-        "string": "Editatu eremu pertsonalizatuak",
+        "string": "Edit custom fields",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardStartVotingPopup-title": {
-        "string": "Hasi bozketa",
+        "string": "Start a vote",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "positiveVoteMembersPopup-title": {
-        "string": "Aldekoak",
+        "string": "Proponents",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "negativeVoteMembersPopup-title": {
-        "string": "Kontrakoak",
+        "string": "Opponents",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-edit-voting": {
-        "string": "Editatu bozketa",
+        "string": "Edit voting",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editVoteEndDatePopup-title": {
-        "string": "Aldatu bozketa eta data",
+        "string": "Change vote end date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowNonBoardMembers": {
-        "string": "Baimendu saioa hasitako erabiltzaile guztiei",
+        "string": "Allow all logged in users",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "vote-question": {
-        "string": "Bozketaren galdera",
+        "string": "Voting question",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "vote-public": {
-        "string": "Erakutsi zeinek zer bozkatu duen",
+        "string": "Show who voted what",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1176,13 +1176,13 @@
         "character_limit": null
     },
     "deleteVotePopup-title": {
-        "string": "Botoa ezabatu?",
+        "string": "Delete vote?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "vote-delete-pop": {
-        "string": "Ezabatzea behin betirako da. Boto honekin lotutako ekintza guztiak galduko dira.",
+        "string": "Deleting is permanent. You will lose all actions associated with this vote.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1272,31 +1272,31 @@
         "character_limit": null
     },
     "poker-finish": {
-        "string": "Bukatu da",
+        "string": "Finish",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "poker-result-votes": {
-        "string": "Botoak",
+        "string": "Votes",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "poker-result-who": {
-        "string": "Nor",
+        "string": "Who",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "poker-replay": {
-        "string": "Erreprodukzioa",
+        "string": "Replay",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "set-estimation": {
-        "string": "Ezarri estimazioa",
+        "string": "Set Estimation",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1314,253 +1314,253 @@
         "character_limit": null
     },
     "cardDeletePopup-title": {
-        "string": "Ezabatu txartela?",
+        "string": "Delete Card?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardArchivePopup-title": {
-        "string": "Gorde txartela?",
+        "string": "Archive Card?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardDetailsActionsPopup-title": {
-        "string": "Txartel-ekintzak",
+        "string": "Card Actions",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardLabelsPopup-title": {
-        "string": "Etiketak",
+        "string": "Labels",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardMembersPopup-title": {
-        "string": "Kideak",
+        "string": "Members",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardMorePopup-title": {
-        "string": "Gehiago",
+        "string": "More",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardTemplatePopup-title": {
-        "string": "Sortu txantiloia",
+        "string": "Create template",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cards": {
-        "string": "Txartelak",
+        "string": "Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cards-count": {
-        "string": "Txartelak",
+        "string": "Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cards-count-one": {
-        "string": "Txartela",
+        "string": "Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "casSignIn": {
-        "string": "Ireki saioa CASekin",
+        "string": "Sign In with CAS",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardType-card": {
-        "string": "Txartela",
+        "string": "Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardType-linkedCard": {
-        "string": "Txartel estekatuta",
+        "string": "Linked Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardType-linkedBoard": {
-        "string": "Estekatutako arbela",
+        "string": "Linked Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "change": {
-        "string": "Aldatu",
+        "string": "Change",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "change-avatar": {
-        "string": "Aldatu avatarra",
+        "string": "Change Avatar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "change-password": {
-        "string": "Aldatu pasahitza",
+        "string": "Change Password",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "change-permissions": {
-        "string": "Aldatu baimenak",
+        "string": "Change permissions",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "change-settings": {
-        "string": "Aldatu ezarpenak",
+        "string": "Change Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "changeAvatarPopup-title": {
-        "string": "Aldatu avatarra",
+        "string": "Change Avatar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "changeLanguagePopup-title": {
-        "string": "Aldatu hizkuntza",
+        "string": "Change Language",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "changePasswordPopup-title": {
-        "string": "Aldatu pasahitza",
+        "string": "Change Password",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "changePermissionsPopup-title": {
-        "string": "Aldatu baimenak",
+        "string": "Change Permissions",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "changeSettingsPopup-title": {
-        "string": "Aldatu ezarpenak",
+        "string": "Change Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "subtasks": {
-        "string": "Azpiatazak",
+        "string": "Subtasks",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "checklists": {
-        "string": "Kontrol-zerrendak",
+        "string": "Checklists",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "click-to-star": {
-        "string": "Egin klik arbel honi izarra jartzeko",
+        "string": "Click to star this board.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "click-to-unstar": {
-        "string": "Egin klik arbel honi izarra kentzeko",
+        "string": "Click to unstar this board.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "clipboard": {
-        "string": "Kopiatu eta itsatsi edo arrastatu eta jaregin",
+        "string": "Clipboard or drag & drop",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "close": {
-        "string": "Itxi",
+        "string": "Close",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "close-board": {
-        "string": "Itxi arbela",
+        "string": "Close Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "close-board-pop": {
-        "string": "Arbela berreskuratu dezakezu hasierako goiburuko \\\"Biltegia\\\" botoian klik eginez",
+        "string": "You will be able to restore the board by clicking the “Archive” button from the home header.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "close-card": {
-        "string": "Txartel itxia",
+        "string": "Close Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-black": {
-        "string": "beltza",
+        "string": "black",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-blue": {
-        "string": "urdina",
+        "string": "blue",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-crimson": {
-        "string": "gorrimina",
+        "string": "crimson",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-darkgreen": {
-        "string": "berde iluna",
+        "string": "darkgreen",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-gold": {
-        "string": "urre kolorea",
+        "string": "gold",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-gray": {
-        "string": "grisa",
+        "string": "gray",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-green": {
-        "string": "berdea",
+        "string": "green",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-indigo": {
-        "string": "indigoa",
+        "string": "indigo",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-lime": {
-        "string": "lima",
+        "string": "lime",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1572,151 +1572,151 @@
         "character_limit": null
     },
     "color-mistyrose": {
-        "string": "arrosa",
+        "string": "mistyrose",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-navy": {
-        "string": "itsas-urdina",
+        "string": "navy",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-orange": {
-        "string": "laranja",
+        "string": "orange",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-paleturquoise": {
-        "string": "berde urdinxka",
+        "string": "paleturquoise",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-peachpuff": {
-        "string": "mertxika",
+        "string": "peachpuff",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-pink": {
-        "string": "larrosa",
+        "string": "pink",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-plum": {
-        "string": "arana",
+        "string": "plum",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-purple": {
-        "string": "purpura",
+        "string": "purple",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-red": {
-        "string": "gorria",
+        "string": "red",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-saddlebrown": {
-        "string": "marroi laranja",
+        "string": "saddlebrown",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-silver": {
-        "string": "zilar kolorea",
+        "string": "silver",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-sky": {
-        "string": "zerua",
+        "string": "sky",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-slateblue": {
-        "string": "urdin grisa",
+        "string": "slateblue",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-white": {
-        "string": "zuria",
+        "string": "white",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "color-yellow": {
-        "string": "horia",
+        "string": "yellow",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "unset-color": {
-        "string": "Zehaztu gabea",
+        "string": "Unset",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "comment": {
-        "string": "Iruzkina",
+        "string": "Comment",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "comment-placeholder": {
-        "string": "Idatzi iruzkin bat",
+        "string": "Write Comment",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "comment-only": {
-        "string": "Iruzkinak besterik ez",
+        "string": "Comment only",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "comment-only-desc": {
-        "string": "Iruzkinak txarteletan soilik egin daitezke",
+        "string": "Can comment on cards only.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "comment-delete": {
-        "string": "Ziur zaude iruzkina ezabatu nahi duzula?",
+        "string": "Are you sure you want to delete the comment?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "deleteCommentPopup-title": {
-        "string": "Ezabatu iruzkina?",
+        "string": "Delete comment?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-comments": {
-        "string": "Iruzkinik ez",
+        "string": "No comments",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-comments-desc": {
-        "string": "Ezin dira iruzkinak eta aktibitateak ikusi.",
+        "string": "Can not see comments and activities.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "worker": {
-        "string": "Langilea",
+        "string": "Worker",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1728,67 +1728,67 @@
         "character_limit": null
     },
     "computer": {
-        "string": "Ordenagailua",
+        "string": "Computer",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "confirm-subtask-delete-popup": {
-        "string": "Ziur zaude azpiataza ezabatu nahi duzula?",
+        "string": "Are you sure you want to delete subtask?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "confirm-checklist-delete-popup": {
-        "string": "Ziur kontrol-zerrenda ezabatu nahi duzula?",
+        "string": "Are you sure you want to delete the checklist?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "subtaskDeletePopup-title": {
-        "string": "Ezabatu azpi-ataza?",
+        "string": "Delete Subtask?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "checklistDeletePopup-title": {
-        "string": "Ezabatu kontrol-zerrenda?",
+        "string": "Delete Checklist?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "copy-card-link-to-clipboard": {
-        "string": "Kopiatu txartela arbelera",
+        "string": "Copy card link to clipboard",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "copy-text-to-clipboard": {
-        "string": "Kopiatu testua arbelean",
+        "string": "Copy text to clipboard",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "linkCardPopup-title": {
-        "string": "Estekatu txartela",
+        "string": "Link Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "searchElementPopup-title": {
-        "string": "Bilatu",
+        "string": "Search",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "copyCardPopup-title": {
-        "string": "Kopiatu txartela",
+        "string": "Copy Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "copyManyCardsPopup-title": {
-        "string": "Kopiatu txantiloia txartel askotan",
+        "string": "Copy Template to Many Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -1806,559 +1806,559 @@
         "character_limit": null
     },
     "create": {
-        "string": "Sortu",
+        "string": "Create",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "createBoardPopup-title": {
-        "string": "Sortu arbela",
+        "string": "Create Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "chooseBoardSourcePopup-title": {
-        "string": "Inportatu arbela",
+        "string": "Import board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "createLabelPopup-title": {
-        "string": "Sortu etiketa",
+        "string": "Create Label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "createCustomField": {
-        "string": "Sortu eremua",
+        "string": "Create Field",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "createCustomFieldPopup-title": {
-        "string": "Sortu eremua",
+        "string": "Create Field",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "current": {
-        "string": "unekoa",
+        "string": "current",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-delete-pop": {
-        "string": "Ez du atzera bueltarik. Honek eremu pertsonalizatua txartel guztietatik kenduko du eta bere historia ezabatuko du.",
+        "string": "There is no undo. This will remove this custom field from all cards and destroy its history.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-checkbox": {
-        "string": "Kontrol-laukia",
+        "string": "Checkbox",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-currency": {
-        "string": "Moneta",
+        "string": "Currency",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-currency-option": {
-        "string": "Monetaren ikurra",
+        "string": "Currency Code",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-date": {
-        "string": "Data",
+        "string": "Date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-dropdown": {
-        "string": "Goitik beherako zerrenda",
+        "string": "Dropdown List",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-dropdown-none": {
-        "string": "(bat ere ez)",
+        "string": "(none)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-dropdown-options": {
-        "string": "Zerrendaren aukerak",
+        "string": "List Options",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-dropdown-options-placeholder": {
-        "string": "Sakatu Sartu aukera gehiago gehitzeko",
+        "string": "Press enter to add more options",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-dropdown-unknown": {
-        "string": "(ezezaguna)",
+        "string": "(unknown)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-number": {
-        "string": "Zenbakia",
+        "string": "Number",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-field-text": {
-        "string": "Testua",
+        "string": "Text",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-fields": {
-        "string": "Eremu pertsonalizatuak",
+        "string": "Custom Fields",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "date": {
-        "string": "Data",
+        "string": "Date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "decline": {
-        "string": "Ukatu",
+        "string": "Decline",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "default-avatar": {
-        "string": "Lehenetsitako avatarra",
+        "string": "Default avatar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "delete": {
-        "string": "Ezabatu",
+        "string": "Delete",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "deleteCustomFieldPopup-title": {
-        "string": "Eremu pertsonalizatua ezabatu?",
+        "string": "Delete Custom Field?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "deleteLabelPopup-title": {
-        "string": "Ezabatu etiketa?",
+        "string": "Delete Label?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "description": {
-        "string": "Deskripzioa",
+        "string": "Description",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "disambiguateMultiLabelPopup-title": {
-        "string": "Argitu etiketaren ekintza",
+        "string": "Disambiguate Label Action",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "disambiguateMultiMemberPopup-title": {
-        "string": "Argitu kidearen ekintza",
+        "string": "Disambiguate Member Action",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "discard": {
-        "string": "Baztertu",
+        "string": "Discard",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "done": {
-        "string": "Egina",
+        "string": "Done",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "download": {
-        "string": "Deskargatu",
+        "string": "Download",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "edit": {
-        "string": "Editatu",
+        "string": "Edit",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "edit-avatar": {
-        "string": "Aldatu avatarra",
+        "string": "Change Avatar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "edit-profile": {
-        "string": "Editatu profila",
+        "string": "Edit Profile",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "edit-wip-limit": {
-        "string": "WIP muga editatu",
+        "string": "Edit WIP Limit",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "soft-wip-limit": {
-        "string": "WIP muga malgua",
+        "string": "Soft WIP Limit",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editCardStartDatePopup-title": {
-        "string": "Aldatu hasiera data",
+        "string": "Change start date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editCardDueDatePopup-title": {
-        "string": "Aldatu epemuga data",
+        "string": "Change due date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editCustomFieldPopup-title": {
-        "string": "Editatu eremua",
+        "string": "Edit Field",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "addReactionPopup-title": {
-        "string": "Gehitu erreakzioa",
+        "string": "Add reaction",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editCardSpentTimePopup-title": {
-        "string": "Aldatu erabilitako denbora",
+        "string": "Change spent time",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editLabelPopup-title": {
-        "string": "Aldatu etiketa",
+        "string": "Change Label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editNotificationPopup-title": {
-        "string": "Editatu jakinarazpena",
+        "string": "Edit Notification",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "editProfilePopup-title": {
-        "string": "Editatu profila",
+        "string": "Edit Profile",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email": {
-        "string": "e-posta",
+        "string": "Email",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-enrollAccount-subject": {
-        "string": "Kontu bat sortu zaizu __siteName__ gunean",
+        "string": "An account created for you on __siteName__",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-enrollAccount-text": {
-        "string": "Kaixo __user__,\\n\\nZerbitzua erabiltzen hasteko, egin klik beheko loturan.\\n\\n__url__\\n\\nEskerrik asko.",
+        "string": "Hello __user__,\\n\\nTo start using the service, simply click the link below.\\n\\n__url__\\n\\nThanks.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-fail": {
-        "string": "E-posta bidalketak huts egin du",
+        "string": "Sending email failed",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-fail-text": {
-        "string": "Arazoa mezua bidaltzen saiatzen",
+        "string": "Error trying to send email",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-invalid": {
-        "string": "Baliogabeko e-posta",
+        "string": "Invalid email",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-invite": {
-        "string": "Gonbidatu e-posta bidez",
+        "string": "Invite via Email",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-invite-subject": {
-        "string": "__inviter__ erabiltzaileak gonbidapen bat bidali dizu",
+        "string": "__inviter__ sent you an invitation",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-invite-text": {
-        "string": "Kaixo __user__,\\n\\n__inviter__ erabiltzaileak \\\"__board__\\\" arbelera elkartzera gonbidatzen zaitu elkar-lanean aritzeko.\\n\\nJarraitu mesedez lotura hau:\\n\\n__url__\\n\\nEskerrik asko.",
+        "string": "Dear __user__,\\n\\n__inviter__ invites you to join board \\\"__board__\\\" for collaborations.\\n\\nPlease follow the link below:\\n\\n__url__\\n\\nThanks.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-resetPassword-subject": {
-        "string": "Leheneratu zure __siteName__ guneko pasahitza",
+        "string": "Reset your password on __siteName__",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-resetPassword-text": {
-        "string": "Kaixo __user__,\\n\\nZure pasahitza berrezartzeko, egin klik beheko loturan.\\n\\n__url__\\n\\nEskerrik asko.",
+        "string": "Hello __user__,\\n\\nTo reset your password, simply click the link below.\\n\\n__url__\\n\\nThanks.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-sent": {
-        "string": "E-posta bidali da",
+        "string": "Email sent",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-verifyEmail-subject": {
-        "string": "Egiaztatu __siteName__ guneko zure e-posta helbidea.",
+        "string": "Verify your email address on __siteName__",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-verifyEmail-text": {
-        "string": "Kaixo __user__,\\n\\nZure e-posta kontua egiaztatzeko, egin klik beheko loturan.\\n\\n__url__\\n\\nEskerrik asko.",
+        "string": "Hello __user__,\\n\\nTo verify your account email, simply click the link below.\\n\\n__url__\\n\\nThanks.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "enable-wip-limit": {
-        "string": "WIP muga gaitu",
+        "string": "Enable WIP Limit",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-board-doesNotExist": {
-        "string": "Arbel hau ez da existitzen",
+        "string": "This board does not exist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-board-notAdmin": {
-        "string": "Arbel honetako kudeatzailea izan behar zara hori egin ahal izateko",
+        "string": "You need to be admin of this board to do that",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-board-notAMember": {
-        "string": "Arbel honetako kidea izan behar zara hori egin ahal izateko",
+        "string": "You need to be a member of this board to do that",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-json-malformed": {
-        "string": "Zure testua ez da baliozko JSON",
+        "string": "Your text is not valid JSON",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-json-schema": {
-        "string": "Zure JSON datuek ez dute formatu zuzenaren informazio egokia",
+        "string": "Your JSON data does not include the proper information in the correct format",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-csv-schema": {
-        "string": "Zure CSV (komaz bereizitako balioak)/TSV (tabulazio bereizitako balioak) ez du informazio egokia formatu egokian sartzen",
+        "string": "Your CSV(Comma Separated Values)/TSV (Tab Separated Values) does not include the proper information in the correct format ",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-list-doesNotExist": {
-        "string": "Zerrenda hau ez da existitzen",
+        "string": "This list does not exist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-user-doesNotExist": {
-        "string": "Erabiltzaile hau ez da existitzen",
+        "string": "This user does not exist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-user-notAllowSelf": {
-        "string": "Ezin duzu zure burua gonbidatu",
+        "string": "You can not invite yourself",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-user-notCreated": {
-        "string": "Erabiltzaile hau sortu gabe dago",
+        "string": "This user is not created",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-username-taken": {
-        "string": "Erabiltzaile-izen hori hartuta dago",
+        "string": "This username is already taken",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-orgname-taken": {
-        "string": "Erakunde izen hori dagoeneko erabiltzen ari da",
+        "string": "This organization name is already taken",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-teamname-taken": {
-        "string": "Talde izen hori dagoeneko erabiltzen ari da",
+        "string": "This team name is already taken",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-email-taken": {
-        "string": "E-mail hori hartuta dago",
+        "string": "Email has already been taken",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-board": {
-        "string": "Esportatu arbela",
+        "string": "Export board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-board-json": {
-        "string": "Esportatu arbela JSON gisa",
+        "string": "Export board to JSON",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-board-csv": {
-        "string": "Esportatu arbela CSV gisa",
+        "string": "Export board to CSV",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-board-tsv": {
-        "string": "Esportatu arbela TSV gisa",
+        "string": "Export board to TSV",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-board-excel": {
-        "string": "Esportatu arbela Excel gisa",
+        "string": "Export board to Excel",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "user-can-not-export-excel": {
-        "string": "Erabiltzaileak ezin du esportatu Excel gisa",
+        "string": "User can not export Excel",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-board-html": {
-        "string": "Esportatu arbela HTLM gisa",
+        "string": "Export board to HTML",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-card": {
-        "string": "Esportatu txartela",
+        "string": "Export card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "export-card-pdf": {
-        "string": "Esportatu txartela PDF gisa",
+        "string": "Export card to PDF",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "user-can-not-export-card-to-pdf": {
-        "string": "Erabiltzaileak ezin du txartela PDF gisa esportatu",
+        "string": "User can not export card to PDF",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "exportBoardPopup-title": {
-        "string": "Esportatu arbela",
+        "string": "Export board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "exportCardPopup-title": {
-        "string": "Esportatu txartela",
+        "string": "Export card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "sort": {
-        "string": "Ordenatu",
+        "string": "Sort",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "sorted": {
-        "string": "Ordenatu da",
+        "string": "Sorted",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "remove-sort": {
-        "string": "Kendu ordena",
+        "string": "Remove sort",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "sort-desc": {
-        "string": "Klik egin zerrenda ordenatzeko",
+        "string": "Click to Sort List",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-sort-by": {
-        "string": "Ordenatu zerrenda honen arabera:",
+        "string": "Sort the List By:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-label-modifiedAt": {
-        "string": "Azkenekoz ikusita",
+        "string": "Last Access Time",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-label-title": {
-        "string": "Zerrendaren izena",
+        "string": "Name of the List",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2388,199 +2388,199 @@
         "character_limit": null
     },
     "filter": {
-        "string": "Iragazi",
+        "string": "Filter",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-cards": {
-        "string": "Zerrendako txartelak iragazi",
+        "string": "Filter Cards or Lists",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-dates-label": {
-        "string": "Iragazi dataren arabera",
+        "string": "Filter by date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-no-due-date": {
-        "string": "Epemugarik ez",
+        "string": "No due date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-overdue": {
-        "string": "Atzeratuta",
+        "string": "Overdue",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-due-today": {
-        "string": "Gaurko",
+        "string": "Due today",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-due-this-week": {
-        "string": "Aste honetarako",
+        "string": "Due this week",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-due-next-week": {
-        "string": "Datorren astean egitekoa",
+        "string": "Due next week",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-due-tomorrow": {
-        "string": "Biharko",
+        "string": "Due tomorrow",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-filter-label": {
-        "string": "Iragazi zerrenda tituluaren arabera",
+        "string": "Filter List by Title",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-clear": {
-        "string": "Garbitu iragazkia",
+        "string": "Clear filter",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-labels-label": {
-        "string": "Iragazi etiketaren arabera",
+        "string": "Filter by label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-no-label": {
-        "string": "Etiketarik ez",
+        "string": "No label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-member-label": {
-        "string": "Iragazi kidearen arabera",
+        "string": "Filter by member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-no-member": {
-        "string": "Kiderik ez",
+        "string": "No member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-assignee-label": {
-        "string": "Iragazi esleipenaren arabera",
+        "string": "Filter by assignee",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-no-assignee": {
-        "string": "Esleitu gabe",
+        "string": "No assignee",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-custom-fields-label": {
-        "string": "Iragazi eremu pertsonalizatuen arabera",
+        "string": "Filter by Custom Fields",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-no-custom-fields": {
-        "string": "Eremu pertsonalizaturik ez",
+        "string": "No Custom Fields",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-show-archive": {
-        "string": "Erakutsi gordetako zerrendak",
+        "string": "Show archived lists",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-hide-empty": {
-        "string": "Ezkutatu hutsik dauden zerrendak",
+        "string": "Hide empty lists",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-on": {
-        "string": "Iragazkia gaituta dago",
+        "string": "Filter is on",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-on-desc": {
-        "string": "Arbel honetako txartela iragazten ari zara. Egin klik hemen iragazkia editatzeko.",
+        "string": "You are filtering cards on this board. Click here to edit filter.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-to-selection": {
-        "string": "Iragazketa aukerara",
+        "string": "Filter to selection",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "other-filters-label": {
-        "string": "Beste iragazkiak",
+        "string": "Other Filters",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "advanced-filter-label": {
-        "string": "Iragazte aurreratua",
+        "string": "Advanced Filter",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "advanced-filter-description": {
-        "string": "Iragazki aurreratuak operadoreak dituen kate bat idazteko aukera ematen du: == != <= >= && || ( ) Eragileen arteko bereizle gisa espazio bat erabiltzen da. Eremu pertsonalizatu guztiak iragazi ditzakezu haien izenak eta balioak idatziz. Adibidez: Eremua1 == Balioa1. Oharra: eremuek edo balioek zuriuneak badituzte, komatxo bakarrean bildu behar dituzu. Adibidez: 'Eremua 1' == 'Balioa 1'. Kontrol-karaktere bakarrak (' \\/) saltatzeko, \\ erabil dezakezu. Adibidez: Field1 == I\\'m. Gainera, hainbat baldintza konbina ditzakezu. Adibidez: F1 == V1 || F1 == V2. Normalean operadore guztiak ezkerretik eskuinera interpretatzen dira. Ordena alda dezakezu parentesi jarriz. Adibidez: F1 == V1 && ( F2 == V2 || F2 == V3 ). Testu-eremuak ere bilatu ditzakezu regex erabiliz: F1 == /Tes.*/i",
+        "string": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "fullname": {
-        "string": "Izen abizenak",
+        "string": "Full Name",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "header-logo-title": {
-        "string": "Itzuli zure arbelen orrira.",
+        "string": "Go back to your boards page.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "hide-system-messages": {
-        "string": "Ezkutatu sistemako mezuak",
+        "string": "Hide system messages",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "headerBarCreateBoardPopup-title": {
-        "string": "Sortu arbela",
+        "string": "Create Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "home": {
-        "string": "Hasiera",
+        "string": "Home",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import": {
-        "string": "Inportatu",
+        "string": "Import",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2592,67 +2592,67 @@
         "character_limit": null
     },
     "link": {
-        "string": "Esteka",
+        "string": "Link",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-board": {
-        "string": "inportatu arbela",
+        "string": "import board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-board-c": {
-        "string": "Inportatu arbela",
+        "string": "Import board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-board-title-trello": {
-        "string": "Inportatu arbela Trellotik",
+        "string": "Import board from Trello",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-board-title-wekan": {
-        "string": "Inportatu arbela aurrez egindako esportazio batetik",
+        "string": "Import board from previous export",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-board-title-csv": {
-        "string": "Inportatu arbela CSV/TSV-tik",
+        "string": "Import board from CSV/TSV",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "from-trello": {
-        "string": "Trellotik",
+        "string": "From Trello",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "from-wekan": {
-        "string": "Aurreko esportazio batetik",
+        "string": "From previous export",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "from-csv": {
-        "string": "CSV/TSV-tik",
+        "string": "From CSV/TSV",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-board-instruction-trello": {
-        "string": "Zure Trello arbelean, aukeratu 'Menu\\\", 'More', 'Print and Export', 'Export JSON', eta kopiatu jasotako testua hemen.",
+        "string": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-board-instruction-csv": {
-        "string": "Itsatsi zure Comma Separated Values(CSV)/ Tab Separated Values (TSV)-an .",
+        "string": "Paste in your Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2670,19 +2670,19 @@
         "character_limit": null
     },
     "import-json-placeholder": {
-        "string": "Isatsi baliozko JSON datuak hemen",
+        "string": "Paste your valid JSON data here",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-csv-placeholder": {
-        "string": "Itsatsi baliozko CSV/TSV datuak hemen",
+        "string": "Paste your valid CSV/TSV data here",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-map-members": {
-        "string": "Kideen mapa",
+        "string": "Map members",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2700,7 +2700,7 @@
         "character_limit": null
     },
     "import-show-user-mapping": {
-        "string": "Berrikusi kideen mapa",
+        "string": "Review members mapping",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2718,163 +2718,163 @@
         "character_limit": null
     },
     "info": {
-        "string": "Bertsioa",
+        "string": "Version",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "initials": {
-        "string": "Inizialak",
+        "string": "Initials",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-date": {
-        "string": "Baliogabeko data",
+        "string": "Invalid date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-time": {
-        "string": "Baliogabeko denbora",
+        "string": "Invalid time",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-user": {
-        "string": "Baliogabeko erabiltzailea",
+        "string": "Invalid user",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "joined": {
-        "string": "elkartu da",
+        "string": "joined",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "just-invited": {
-        "string": "Arbel honetara gonbidatu berri zaituzte",
+        "string": "You are just invited to this board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "keyboard-shortcuts": {
-        "string": "Teklatu laster-bideak",
+        "string": "Keyboard shortcuts",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "label-create": {
-        "string": "Sortu etiketa",
+        "string": "Create Label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "label-default": {
-        "string": "%s etiketa (lehenetsia)",
+        "string": "%s label (default)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "label-delete-pop": {
-        "string": "Ez dago desegiterik. Honek etiketa hau kenduko du txartel guztietatik eta bere historiala suntsitu.",
+        "string": "There is no undo. This will remove this label from all cards and destroy its history.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "labels": {
-        "string": "Etiketak",
+        "string": "Labels",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "language": {
-        "string": "Hizkuntza",
+        "string": "Language",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "last-admin-desc": {
-        "string": "Ezin duzu rola aldatu gutxienez kudeatzaile bat behar delako.",
+        "string": "You can’t change roles because there must be at least one admin.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "leave-board": {
-        "string": "Utzi arbela",
+        "string": "Leave Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "leave-board-pop": {
-        "string": "Ziur zaude __boardTitle__ utzi nahi duzula? Arbel honetako txartel guztietatik ezabatua izango zara.",
+        "string": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "leaveBoardPopup-title": {
-        "string": "Arbela utzi?",
+        "string": "Leave Board ?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "link-card": {
-        "string": "Lotura txartel honetara",
+        "string": "Link to this card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-archive-cards": {
-        "string": "Eraman zerrendako txartel guztiak biltegira",
+        "string": "Move all cards in this list to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-archive-cards-pop": {
-        "string": "Honek arbeleko zerrenda horren txartel guztiak kenduko ditu. Biltegiko txartelak ikusi eta atzera arbelera eramateko klikatu \\\"Menua\\\" >  \\\"Biltegia\\\".",
+        "string": "This will remove all the cards in this list from the board. To view cards in Archive and bring them back to the board, click “Menu” > “Archive”.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-move-cards": {
-        "string": "Lekuz aldatu zerrendako txartel guztiak",
+        "string": "Move all cards in this list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-select-cards": {
-        "string": "Aukeratu zerrenda honetako txartel guztiak",
+        "string": "Select all cards in this list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "set-color-list": {
-        "string": "Aukeratu kolorea",
+        "string": "Set Color",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "listActionPopup-title": {
-        "string": "Zerrendaren ekintzak",
+        "string": "List Actions",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "settingsUserPopup-title": {
-        "string": "Erabiltzailearen ezarpenak",
+        "string": "User Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "settingsTeamPopup-title": {
-        "string": "Taldearen ezarpenak",
+        "string": "Team Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "settingsOrgPopup-title": {
-        "string": "Erakundearen ezarpenak",
+        "string": "Organization Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -2892,121 +2892,121 @@
         "character_limit": null
     },
     "listImportCardPopup-title": {
-        "string": "Inportatu Trello txartel bat",
+        "string": "Import a Trello card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "listImportCardsTsvPopup-title": {
-        "string": "Inportatu Excel CSV/TSV",
+        "string": "Import Excel CSV/TSV",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "listMorePopup-title": {
-        "string": "Gehiago",
+        "string": "More",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "link-list": {
-        "string": "Lotura zerrenda honetara",
+        "string": "Link to this list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-delete-pop": {
-        "string": "Ekintza guztiak ekintza jariotik kenduko dira eta ezin izango duzu zerrenda berreskuratu. Ez dago desegiterik.",
+        "string": "All actions will be removed from the activity feed and you won't be able to recover the list. There is no undo.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-delete-suggest-archive": {
-        "string": "Eraman ahal duzu zerrenda bat biltegira arbeletik kentzeko aktibitatea mantentzen.",
+        "string": "You can move a list to Archive to remove it from the board and preserve the activity.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "lists": {
-        "string": "Zerrendak",
+        "string": "Lists",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "swimlanes": {
-        "string": "Errailak",
+        "string": "Swimlanes",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "log-out": {
-        "string": "Itxi saioa",
+        "string": "Log Out",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "log-in": {
-        "string": "Hasi saioa",
+        "string": "Log In",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "loginPopup-title": {
-        "string": "Hasi saioa",
+        "string": "Log In",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "memberMenuPopup-title": {
-        "string": "Kidearen ezarpenak",
+        "string": "Member Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "members": {
-        "string": "Kideak",
+        "string": "Members",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "menu": {
-        "string": "Menua",
+        "string": "Menu",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "move-selection": {
-        "string": "Lekuz aldatu hautaketa",
+        "string": "Move selection",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "moveCardPopup-title": {
-        "string": "Lekuz aldatu txartela",
+        "string": "Move Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "moveCardToBottom-title": {
-        "string": "Eraman behera",
+        "string": "Move to Bottom",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "moveCardToTop-title": {
-        "string": "Eraman gora",
+        "string": "Move to Top",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "moveSelectionPopup-title": {
-        "string": "Lekuz aldatu hautaketa",
+        "string": "Move selection",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "multi-selection": {
-        "string": "Hautaketa anitza",
+        "string": "Multi-Selection",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3024,73 +3024,73 @@
         "character_limit": null
     },
     "multi-selection-on": {
-        "string": "Hautaketa anitza gaituta dago",
+        "string": "Multi-Selection is on",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "muted": {
-        "string": "Mututua",
+        "string": "Muted",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "muted-info": {
-        "string": "Ez zaizkizu jakinaraziko arbel honi egindako aldaketak",
+        "string": "You will never be notified of any changes in this board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "my-boards": {
-        "string": "Nire arbelak",
+        "string": "My Boards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "name": {
-        "string": "Izena",
+        "string": "Name",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-archived-cards": {
-        "string": "Biltegian ez dago txartelik.",
+        "string": "No cards in Archive.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-archived-lists": {
-        "string": "Biltegian ez dago zerrendarik.",
+        "string": "No lists in Archive.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-archived-swimlanes": {
-        "string": "Biltegian ez dago errailik.",
+        "string": "No swimlanes in Archive.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-results": {
-        "string": "Emaitzarik ez",
+        "string": "No results",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "normal": {
-        "string": "Arrunta",
+        "string": "Normal",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "normal-desc": {
-        "string": "Txartelak ikusi eta editatu ditzake. Ezin ditu ezarpenak aldatu.",
+        "string": "Can view and edit cards. Can't change settings.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "not-accepted-yet": {
-        "string": "Gonbidapena ez da oraindik onartu",
+        "string": "Invitation not accepted yet",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3102,169 +3102,169 @@
         "character_limit": null
     },
     "notify-watch": {
-        "string": "Jaso ikuskatzen dituzun arbel, zerrenda edo txartelen jakinarazpenak",
+        "string": "Receive updates to any boards, lists, or cards you’re watching",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "optional": {
-        "string": "aukerazkoa",
+        "string": "optional",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "or": {
-        "string": "edo",
+        "string": "or",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "page-maybe-private": {
-        "string": "Orri hau pribatua izan daiteke. Agian <a href='%s'>saioa hasi</a> eta gero ikusi ahal izango duzu.",
+        "string": "This page may be private. You may be able to view it by <a href='%s'>logging in</a>.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "page-not-found": {
-        "string": "Ez da orria aurkitu.",
+        "string": "Page not found.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "password": {
-        "string": "Pasahitza",
+        "string": "Password",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "paste-or-dragdrop": {
-        "string": "itsasteko, edo irudi fitxategia arrastatu eta jaregiteko (irudia besterik ez)",
+        "string": "to paste, or drag & drop image file to it (image only)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "participating": {
-        "string": "Parte-hartzen",
+        "string": "Participating",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "preview": {
-        "string": "Aurreikusi",
+        "string": "Preview",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "previewAttachedImagePopup-title": {
-        "string": "Aurreikusi",
+        "string": "Preview",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "previewClipboardImagePopup-title": {
-        "string": "Aurreikusi",
+        "string": "Preview",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "private": {
-        "string": "Pribatua",
+        "string": "Private",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "private-desc": {
-        "string": "Arbel hau pribatua da. Arbelera gehitutako jendeak besterik ezin du ikusi eta editatu.",
+        "string": "This board is private. Only people added to the board can view and edit it.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "profile": {
-        "string": "Profila",
+        "string": "Profile",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "public": {
-        "string": "Publikoa",
+        "string": "Public",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "public-desc": {
-        "string": "Arbel hau publikoa da lotura duen edonorentzat ikusgai dago eta Google bezalako bilatzaileetan agertuko da. Arbelera gehitutako kideek besterik ezin dute editatu.",
+        "string": "This board is public. It's visible to anyone with the link and will show up in search engines like Google. Only people added to the board can edit.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "quick-access-description": {
-        "string": "Jarri izarra arbel bati barra honetan lasterbide bat sortzeko",
+        "string": "Star a board to add a shortcut in this bar.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "remove-cover": {
-        "string": "Kendu azala",
+        "string": "Remove Cover",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "remove-from-board": {
-        "string": "Kendu arbeletik",
+        "string": "Remove from Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "remove-label": {
-        "string": "Kendu etiketa",
+        "string": "Remove Label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "listDeletePopup-title": {
-        "string": "Ezabatu zerrenda?",
+        "string": "Delete List ?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "remove-member": {
-        "string": "Kendu kidea",
+        "string": "Remove Member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "remove-member-from-card": {
-        "string": "Kendu txarteletik",
+        "string": "Remove from Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "remove-member-pop": {
-        "string": "Kendu __name__ (__username__) __boardTitle__ arbeletik? Kidea arbel honetako txartel guztietatik kenduko da. Jakinarazpenak bidaliko dira.",
+        "string": "Remove __name__ (__username__) from __boardTitle__? The member will be removed from all cards on this board. They will receive a notification.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "removeMemberPopup-title": {
-        "string": "Kendu kidea?",
+        "string": "Remove Member?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "rename": {
-        "string": "Aldatu izena",
+        "string": "Rename",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "rename-board": {
-        "string": "Aldatu izena arbelari",
+        "string": "Rename Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "restore": {
-        "string": "Berrezarri",
+        "string": "Restore",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3282,37 +3282,37 @@
         "character_limit": null
     },
     "save": {
-        "string": "Gorde",
+        "string": "Save",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "search": {
-        "string": "Bilatu",
+        "string": "Search",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "rules": {
-        "string": "Arauak",
+        "string": "Rules",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "search-cards": {
-        "string": "Bilatu arbel honetako txartel/zerrenden tituluetan, deskripzioetan eta eremu pertsonalizatuetan",
+        "string": "Search from card/list titles, descriptions and custom fields on this board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "search-example": {
-        "string": "Idatzi bilatzen duzun testua eta sakatu Sartu",
+        "string": "Write text you search and press Enter",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "select-color": {
-        "string": "Aukeratu kolorea",
+        "string": "Select Color",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3324,61 +3324,61 @@
         "character_limit": null
     },
     "set-wip-limit-value": {
-        "string": "Zerrenda honetako atazen muga maximoa ezarri",
+        "string": "Set a limit for the maximum number of tasks in this list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "setWipLimitPopup-title": {
-        "string": "WIP muga ezarri",
+        "string": "Set WIP Limit",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-assign-self": {
-        "string": "Esleitu zure burua txartel honetara",
+        "string": "Assign yourself to current card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-autocomplete-emoji": {
-        "string": "Automatikoki osatu emojia",
+        "string": "Autocomplete emoji",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-autocomplete-members": {
-        "string": "Automatikoki osatu kideak",
+        "string": "Autocomplete members",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-clear-filters": {
-        "string": "Garbitu iragazki guztiak",
+        "string": "Clear all filters",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-close-dialog": {
-        "string": "Itxi elkarrizketa-koadroa",
+        "string": "Close Dialog",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-filter-my-cards": {
-        "string": "Iragazi nire txartelak",
+        "string": "Filter my cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-show-shortcuts": {
-        "string": "Erakutsi lasterbideen zerrenda hau",
+        "string": "Bring up this shortcuts list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "shortcut-toggle-filterbar": {
-        "string": "Txandakatu iragazkiaren albo-barra",
+        "string": "Toggle Filter Sidebar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3390,115 +3390,115 @@
         "character_limit": null
     },
     "shortcut-toggle-sidebar": {
-        "string": "Txandakatu arbelaren albo-barra",
+        "string": "Toggle Board Sidebar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "show-cards-minimum-count": {
-        "string": "Erakutsi txartel kopurua hau baino handiagoa denean:",
+        "string": "Show cards count if list contains more than",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "sidebar-open": {
-        "string": "Ireki albo-barra",
+        "string": "Open Sidebar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "sidebar-close": {
-        "string": "Itxi albo-barra",
+        "string": "Close Sidebar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "signupPopup-title": {
-        "string": "Sortu kontu bat",
+        "string": "Create an Account",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "star-board-title": {
-        "string": "Egin klik arbel honi izarra jartzeko, zure arbelen zerrendaren goialdean agertuko da",
+        "string": "Click to star this board. It will show up at top of your boards list.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "starred-boards": {
-        "string": "Izardun arbelak",
+        "string": "Starred Boards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "starred-boards-description": {
-        "string": "Izardun arbelak zure arbelen zerrendaren goialdean agertuko dira",
+        "string": "Starred boards show up at the top of your boards list.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "subscribe": {
-        "string": "Harpidetu",
+        "string": "Subscribe",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "team": {
-        "string": "Taldea",
+        "string": "Team",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "this-board": {
-        "string": "arbel hau",
+        "string": "this board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "this-card": {
-        "string": "txartel hau",
+        "string": "this card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "spent-time-hours": {
-        "string": "Erabilitako denbora (orduak)",
+        "string": "Spent time (hours)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "overtime-hours": {
-        "string": "Luzapena (orduak)",
+        "string": "Overtime (hours)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "overtime": {
-        "string": "Luzapena",
+        "string": "Overtime",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "has-overtime-cards": {
-        "string": "Luzapen txartelak ditu",
+        "string": "Has overtime cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "has-spenttime-cards": {
-        "string": "Erabilitako denbora txartelak ditu",
+        "string": "Has spent time cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "time": {
-        "string": "Ordua",
+        "string": "Time",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "title": {
-        "string": "Izenburua",
+        "string": "Title",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3516,85 +3516,85 @@
         "character_limit": null
     },
     "tracking": {
-        "string": "Jarraitzen",
+        "string": "Tracking",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "tracking-info": {
-        "string": "Sortzaile edo kide gisa parte-hartzen duzun txartelei egindako aldaketak jakinaraziko zaizkizu.",
+        "string": "You will be notified of any changes to those cards you are involved as creator or member.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "type": {
-        "string": "Mota",
+        "string": "Type",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "unassign-member": {
-        "string": "Kendu kidea",
+        "string": "Unassign member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "unsaved-description": {
-        "string": "Gorde gabeko deskripzio bat duzu",
+        "string": "You have an unsaved description.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "unwatch": {
-        "string": "Utzi ikuskatzeari",
+        "string": "Unwatch",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "upload": {
-        "string": "Igo",
+        "string": "Upload",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "upload-avatar": {
-        "string": "Igo avatar bat",
+        "string": "Upload an avatar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "uploaded-avatar": {
-        "string": "Avatar bat igo da",
+        "string": "Uploaded an avatar",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-top-left-corner-logo-image-url": {
-        "string": "Pertsonalizatutako goiko ezkerreko izkinako logotipoaren irudiaren URLa",
+        "string": "Custom Top Left Corner Logo Image URL",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-top-left-corner-logo-link-url": {
-        "string": "Pertsonalizatutako goiko ezkerreko izkinako logotipoaren estekaren URLa",
+        "string": "Custom Top Left Corner Logo Link URL",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-top-left-corner-logo-height": {
-        "string": "Pertsonalizatutako goiko ezkerreko izkinako logotipoaren zabalera. Lehenetsia: 27",
+        "string": "Custom Top Left Corner Logo Height. Default: 27",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-login-logo-image-url": {
-        "string": "Pertsonalizatutako saioa hasteko logotipoaren irudiaren URLa",
+        "string": "Custom Login Logo Image URL",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "custom-login-logo-link-url": {
-        "string": "Pertsonalizatutako saioa hasteko logotipoaren estekaren URLa",
+        "string": "Custom Login Logo Link URL",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3606,7 +3606,7 @@
         "character_limit": null
     },
     "text-below-custom-login-logo": {
-        "string": "Pertsonalizatutako saioa hasteko logotipoaren azpiko testua",
+        "string": "Text below Custom Login Logo",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3618,49 +3618,49 @@
         "character_limit": null
     },
     "username": {
-        "string": "Erabiltzaile-izena",
+        "string": "Username",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "import-usernames": {
-        "string": "Inportatu erabiltzaile-izenak",
+        "string": "Import Usernames",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "view-it": {
-        "string": "Ikusi",
+        "string": "View it",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "warn-list-archived": {
-        "string": "abisua: txartel hau biltegiko zerrenda batean dago",
+        "string": "warning: this card is in an list at Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "watch": {
-        "string": "Ikuskatu",
+        "string": "Watch",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "watching": {
-        "string": "Ikuskatzen",
+        "string": "Watching",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "watching-info": {
-        "string": "Arbel honi egindako aldaketak jakinaraziko zaizkizu",
+        "string": "You will be notified of any change in this board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "welcome-board": {
-        "string": "Ongi etorri arbela",
+        "string": "Welcome Board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3672,187 +3672,187 @@
         "character_limit": null
     },
     "welcome-list1": {
-        "string": "Oinarrizkoa",
+        "string": "Basics",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "welcome-list2": {
-        "string": "Aurreratua",
+        "string": "Advanced",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-templates-swimlane": {
-        "string": "Txartel txantiloiak",
+        "string": "Card Templates",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "list-templates-swimlane": {
-        "string": "Zerrenda txantiloiak",
+        "string": "List Templates",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-templates-swimlane": {
-        "string": "Arbel txantiloiak",
+        "string": "Board Templates",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "what-to-do": {
-        "string": "Zer egin nahi duzu?",
+        "string": "What do you want to do?",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "wipLimitErrorPopup-title": {
-        "string": "Baliogabeko WIP muga",
+        "string": "Invalid WIP Limit",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "wipLimitErrorPopup-dialog-pt1": {
-        "string": "Zerrenda honetako atazen muga, WIP-en ezarritakoa baina handiagoa da",
+        "string": "The number of tasks in this list is higher than the WIP limit you've defined.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "wipLimitErrorPopup-dialog-pt2": {
-        "string": "Mugitu zenbait ataza zerrenda honetatik, edo WIP muga handiagoa ezarri.",
+        "string": "Please move some tasks out of this list, or set a higher WIP limit.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "admin-panel": {
-        "string": "Kudeaketa panela",
+        "string": "Admin Panel",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "settings": {
-        "string": "Ezarpenak",
+        "string": "Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "people": {
-        "string": "Jendea",
+        "string": "People",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "registration": {
-        "string": "Izen-ematea",
+        "string": "Registration",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "disable-self-registration": {
-        "string": "Desgaitu nork bere burua erregistratzea",
+        "string": "Disable Self-Registration",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "disable-forgot-password": {
-        "string": "Desgaitu ahaztutako pasahitza",
+        "string": "Disable Forgot Password",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invite": {
-        "string": "Gonbidatu",
+        "string": "Invite",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invite-people": {
-        "string": "Gonbidatu jendea",
+        "string": "Invite People",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "to-boards": {
-        "string": "Arbele(ta)ra",
+        "string": "To board(s)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-addresses": {
-        "string": "E-posta helbideak",
+        "string": "Email Addresses",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-host-description": {
-        "string": "Zure e-posta mezuez arduratzen den SMTP zerbitzariaren helbidea",
+        "string": "The address of the SMTP server that handles your emails.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-port-description": {
-        "string": "Zure SMTP zerbitzariak bidalitako e-posta mezuentzat erabiltzen duen kaia.",
+        "string": "The port your SMTP server uses for outgoing emails.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-tls-description": {
-        "string": "Gaitu TLS euskarria SMTP zerbitzariarentzat",
+        "string": "Enable TLS support for SMTP server",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-host": {
-        "string": "SMTP ostalaria",
+        "string": "SMTP Host",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-port": {
-        "string": "SMTP kaia",
+        "string": "SMTP Port",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-username": {
-        "string": "Erabiltzaile-izena",
+        "string": "Username",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-password": {
-        "string": "Pasahitza",
+        "string": "Password",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "smtp-tls": {
-        "string": "TLS euskarria",
+        "string": "TLS support",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "send-from": {
-        "string": "Nork",
+        "string": "From",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "send-smtp-test": {
-        "string": "Bidali posta elektroniko mezu bat zure buruari",
+        "string": "Send a test email to yourself",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invitation-code": {
-        "string": "Gonbidapen kodea",
+        "string": "Invitation Code",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-invite-register-subject": {
-        "string": "__inviter__ erabiltzaileak gonbidapen bat bidali dizu",
+        "string": "__inviter__ sent you an invitation",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3864,25 +3864,25 @@
         "character_limit": null
     },
     "email-smtp-test-subject": {
-        "string": "SMTP probaren posta elektronikoa",
+        "string": "SMTP Test Email",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "email-smtp-test-text": {
-        "string": "Arrakastaz bidali duzu posta elektroniko mezua",
+        "string": "You have successfully sent an email",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-invitation-code-not-exist": {
-        "string": "Gonbidapen kodea ez da existitzen",
+        "string": "Invitation code doesn't exist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "error-notAuthorized": {
-        "string": "Ez duzu orri hau ikusteko baimenik.",
+        "string": "You are not authorized to view this page.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3900,7 +3900,7 @@
         "character_limit": null
     },
     "outgoing-webhooks": {
-        "string": "Irteerako Webhook-ak",
+        "string": "Outgoing Webhooks",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3912,13 +3912,13 @@
         "character_limit": null
     },
     "outgoingWebhooksPopup-title": {
-        "string": "Irteerako Webhook-ak",
+        "string": "Outgoing Webhooks",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardCardTitlePopup-title": {
-        "string": "Txartelen tituluen iragazkia",
+        "string": "Card Title Filter",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3936,31 +3936,31 @@
         "character_limit": null
     },
     "new-outgoing-webhook": {
-        "string": "Irteera-webhook berria",
+        "string": "New Outgoing Webhook",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no-name": {
-        "string": "(Ezezaguna)",
+        "string": "(Unknown)",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "Node_version": {
-        "string": "Nodo bertsioa",
+        "string": "Node version",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "Meteor_version": {
-        "string": "Meteor bertsioa",
+        "string": "Meteor version",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "MongoDB_version": {
-        "string": "MongoDB bertsioa",
+        "string": "MongoDB version",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -3978,103 +3978,103 @@
         "character_limit": null
     },
     "OS_Arch": {
-        "string": "SE Arkitektura",
+        "string": "OS Arch",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Cpus": {
-        "string": "SE PUZ kopurua",
+        "string": "OS CPU Count",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Freemem": {
-        "string": "SE Memoria librea",
+        "string": "OS Free Memory",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Loadavg": {
-        "string": "SE batez besteko karga",
+        "string": "OS Load Average",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Platform": {
-        "string": "SE plataforma",
+        "string": "OS Platform",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Release": {
-        "string": "SE kaleratzea",
+        "string": "OS Release",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Totalmem": {
-        "string": "SE memoria guztira",
+        "string": "OS Total Memory",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Type": {
-        "string": "SE mota",
+        "string": "OS Type",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "OS_Uptime": {
-        "string": "SE denbora abiatuta",
+        "string": "OS Uptime",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "days": {
-        "string": "egun",
+        "string": "days",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "hours": {
-        "string": "ordu",
+        "string": "hours",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "minutes": {
-        "string": "minutu",
+        "string": "minutes",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "seconds": {
-        "string": "segundo",
+        "string": "seconds",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "show-field-on-card": {
-        "string": "Erakutsi eremu hau txartelean",
+        "string": "Show this field on card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "automatically-field-on-card": {
-        "string": "Gehitu eremua txartel berrietan",
+        "string": "Add field to new cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "always-field-on-card": {
-        "string": "Gehitu eremua txartel guztietan",
+        "string": "Add field to all cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "showLabel-field-on-card": {
-        "string": "Erakutsi eremuen etiketa minitxateletan",
+        "string": "Show field label on minicard",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4086,31 +4086,31 @@
         "character_limit": null
     },
     "yes": {
-        "string": "Bai",
+        "string": "Yes",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "no": {
-        "string": "Ez",
+        "string": "No",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "accounts": {
-        "string": "Kontuak",
+        "string": "Accounts",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "accounts-allowEmailChange": {
-        "string": "Baimendu e-mail aldaketa",
+        "string": "Allow Email Change",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "accounts-allowUserNameChange": {
-        "string": "Baimendu erabiltzaile-izena aldatzea",
+        "string": "Allow Username Change",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4128,7 +4128,7 @@
         "character_limit": null
     },
     "createdAt": {
-        "string": "Noiz sortua",
+        "string": "Created at",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4140,19 +4140,19 @@
         "character_limit": null
     },
     "verified": {
-        "string": "Egiaztatuta",
+        "string": "Verified",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "active": {
-        "string": "Gaituta",
+        "string": "Active",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-received": {
-        "string": "Jasota",
+        "string": "Received",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4182,31 +4182,31 @@
         "character_limit": null
     },
     "editCardEndDatePopup-title": {
-        "string": "Aldatu bukaerako data",
+        "string": "Change end date",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "setCardColorPopup-title": {
-        "string": "Ezarri kolorea",
+        "string": "Set color",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "setCardActionsColorPopup-title": {
-        "string": "Aukeratu kolore bat",
+        "string": "Choose a color",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "setSwimlaneColorPopup-title": {
-        "string": "Aukeratu kolore bat",
+        "string": "Choose a color",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "setListColorPopup-title": {
-        "string": "Aukeratu kolore bat",
+        "string": "Choose a color",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4224,19 +4224,19 @@
         "character_limit": null
     },
     "card-sorting-by-number": {
-        "string": "Ordenatu txartelak zenbakiaren arabera",
+        "string": "Card sorting by number",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "board-delete-notice": {
-        "string": "Behin betiko ezabatzen du. Zerrenda guztiak, txartelak eta arbel honi lotutako aktibitate guztiak galduko dituzu.",
+        "string": "Deleting is permanent. You will lose all lists, cards and actions associated with this board.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "delete-board-confirm-popup": {
-        "string": "Zerrenda, txartel eta aktibitate guztiak ezabatuko dira eta ezingo dituzu berreskuratu arbelaren edukiak. Atzera bueltarik ez du.",
+        "string": "All lists, cards, labels, and activities will be deleted and you won't be able to recover the board contents. There is no undo.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4260,55 +4260,55 @@
         "character_limit": null
     },
     "default": {
-        "string": "Lehenetsia",
+        "string": "Default",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "queue": {
-        "string": "Ilara",
+        "string": "Queue",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "subtask-settings": {
-        "string": "Azpiatazaren ezarpenak",
+        "string": "Subtasks Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card-settings": {
-        "string": "Txartelaren ezarpenak",
+        "string": "Card Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "minicard-settings": {
-        "string": "Minitxartelaren ezarpenak",
+        "string": "Minicard Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardSubtaskSettingsPopup-title": {
-        "string": "Arbeleko azpiatazaren ezarpenak",
+        "string": "Board Subtasks Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardCardSettingsPopup-title": {
-        "string": "Txartelaren ezarpenak",
+        "string": "Card Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "boardMinicardSettingsPopup-title": {
-        "string": "Minitxartelaren ezarpenak",
+        "string": "Minicard Settings",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "deposit-subtasks-board": {
-        "string": "Ipini azpiatazak arbel honetan:",
+        "string": "Deposit subtasks to this board:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4320,7 +4320,7 @@
         "character_limit": null
     },
     "show-parent-in-minicard": {
-        "string": "Erakutsi gurasoa minitxartelean:",
+        "string": "Show parent in minicard:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4356,19 +4356,19 @@
         "character_limit": null
     },
     "change-card-parent": {
-        "string": "Aldatu txartelaren gurasoa",
+        "string": "Change card's parent",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "parent-card": {
-        "string": "Guraso-txartela",
+        "string": "Parent card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "source-board": {
-        "string": "Jatorrizko arbela",
+        "string": "Source board",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4554,13 +4554,13 @@
         "character_limit": null
     },
     "r-archived": {
-        "string": "Biltegira eraman da",
+        "string": "Moved to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-unarchived": {
-        "string": "Biltegitik berreskuratu da",
+        "string": "Restored from Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4662,7 +4662,7 @@
         "character_limit": null
     },
     "r-move-card-to": {
-        "string": "Eraman txartela hona:",
+        "string": "Move card to",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4686,31 +4686,31 @@
         "character_limit": null
     },
     "r-archive": {
-        "string": "Eraman biltegira",
+        "string": "Move to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-unarchive": {
-        "string": "Biltegitik berreskuratu",
+        "string": "Restore from Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-card": {
-        "string": "txartela",
+        "string": "card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-add": {
-        "string": "Gehitu",
+        "string": "Add",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-remove": {
-        "string": "Kendu",
+        "string": "Remove",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4728,7 +4728,7 @@
         "character_limit": null
     },
     "r-remove-all": {
-        "string": "Kendu txarteleko kide guztiak",
+        "string": "Remove all members from the card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4740,7 +4740,7 @@
         "character_limit": null
     },
     "r-checklist": {
-        "string": "kontrol-zerrenda",
+        "string": "checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4758,7 +4758,7 @@
         "character_limit": null
     },
     "r-items-check": {
-        "string": "kontrol-zerrendaren elementuak",
+        "string": "items of checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4782,7 +4782,7 @@
         "character_limit": null
     },
     "r-of-checklist": {
-        "string": "kontrol-zerrendatik",
+        "string": "of checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4794,7 +4794,7 @@
         "character_limit": null
     },
     "r-to": {
-        "string": "honi",
+        "string": "to",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4806,7 +4806,7 @@
         "character_limit": null
     },
     "r-subject": {
-        "string": "gaia",
+        "string": "subject",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4818,85 +4818,85 @@
         "character_limit": null
     },
     "r-d-move-to-top-gen": {
-        "string": "Eraman txartela zerrenda honen goiko aldera",
+        "string": "Move card to top of its list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-move-to-top-spec": {
-        "string": "Eraman txartela zerrendaren goiko aldera",
+        "string": "Move card to top of list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-move-to-bottom-gen": {
-        "string": "Eraman txartela zerrenda honen beheko aldera",
+        "string": "Move card to bottom of its list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-move-to-bottom-spec": {
-        "string": "Eraman txartela zerrendaren beheko aldera",
+        "string": "Move card to bottom of list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-send-email": {
-        "string": "Bidali mezu elektronikoa",
+        "string": "Send email",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-send-email-to": {
-        "string": "honi",
+        "string": "to",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-send-email-subject": {
-        "string": "gaia",
+        "string": "subject",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-send-email-message": {
-        "string": "mezua",
+        "string": "message",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-archive": {
-        "string": "Eraman txartela biltegira",
+        "string": "Move card to Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-unarchive": {
-        "string": "Berreskuratu txartela biltegitik",
+        "string": "Restore card from Archive",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-add-label": {
-        "string": "Gehitu etiketa",
+        "string": "Add label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-remove-label": {
-        "string": "Kendu etiketa",
+        "string": "Remove label",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-create-card": {
-        "string": "Sortu txartel berria",
+        "string": "Create new card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-in-list": {
-        "string": "zerrendan",
+        "string": "in list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4908,61 +4908,61 @@
         "character_limit": null
     },
     "r-d-add-member": {
-        "string": "Gehitu kide bat",
+        "string": "Add member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-remove-member": {
-        "string": "Kendu kide bat",
+        "string": "Remove member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-remove-all-member": {
-        "string": "Kendu kide guztiak",
+        "string": "Remove all member",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-check-all": {
-        "string": "Markatu zerrenda bateko elementu guztiak",
+        "string": "Check all items of a list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-uncheck-all": {
-        "string": "Desmarkatu zerrenda bateko elementu guztiak",
+        "string": "Uncheck all items of a list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-check-one": {
-        "string": "Markatu elementua",
+        "string": "Check item",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-uncheck-one": {
-        "string": "Desmarkatu elementua",
+        "string": "Uncheck item",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-check-of-list": {
-        "string": "kontrol-zerrendatik",
+        "string": "of checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-add-checklist": {
-        "string": "Gehitu kontrol-zerrenda",
+        "string": "Add checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-d-remove-checklist": {
-        "string": "Kendu kontrol-zerrenda",
+        "string": "Remove checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -4974,19 +4974,19 @@
         "character_limit": null
     },
     "r-add-checklist": {
-        "string": "Gehitu kontrol-zerrenda",
+        "string": "Add checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-with-items": {
-        "string": "elementurekin",
+        "string": "with items",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-items-list": {
-        "string": "1elementua,2elementua,3elementua",
+        "string": "item1,item2,item3",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5004,31 +5004,31 @@
         "character_limit": null
     },
     "r-board-note": {
-        "string": "Oharra: utzi eremu bat hutsik balio posible guztiekin bat etortzeko.",
+        "string": "Note: leave a field empty to match every possible value. ",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-checklist-note": {
-        "string": "Oharra: kontrol-zerrendaren elementuak idatzi behar dira koma bidez bereizita.",
+        "string": "Note: checklist's items have to be written as comma separated values.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-when-a-card-is-moved": {
-        "string": "Txartela beste zerrendara eramatean",
+        "string": "When a card is moved to another list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-set": {
-        "string": "Ezarri",
+        "string": "Set",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "r-update": {
-        "string": "Eguneratu",
+        "string": "Update",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5058,7 +5058,7 @@
         "character_limit": null
     },
     "r-df-received-at": {
-        "string": "jasota",
+        "string": "received",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5100,13 +5100,13 @@
         "character_limit": null
     },
     "authentication-method": {
-        "string": "Autentifikazio metodoa",
+        "string": "Authentication method",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "authentication-type": {
-        "string": "Autentifikazio mota",
+        "string": "Authentication type",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5118,25 +5118,25 @@
         "character_limit": null
     },
     "layout": {
-        "string": "Diseinua",
+        "string": "Layout",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "hide-logo": {
-        "string": "Ezkutatu logoa",
+        "string": "Hide Logo",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "hide-card-counter-list": {
-        "string": "Ezkutatu txartelen kontagailuen zerrenda arbel guztietan",
+        "string": "Hide card counter list on All Boards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "hide-board-member-list": {
-        "string": "Ezkutatu kideen zerrenda arbel guztietan",
+        "string": "Hide board member list on All Boards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5190,19 +5190,19 @@
         "character_limit": null
     },
     "org-number": {
-        "string": "Erakunde kopurua hau da:",
+        "string": "The number of organizations is: ",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "team-number": {
-        "string": "Taldeen kopurua hau da:",
+        "string": "The number of teams is: ",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "people-number": {
-        "string": "Jendearen kopurua hau da:",
+        "string": "The number of people is: ",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5370,7 +5370,7 @@
         "character_limit": null
     },
     "hide-minicard-label-text": {
-        "string": "Ezkutatu minitxartelaren etiketaren testua",
+        "string": "Hide minicard label text",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5400,7 +5400,7 @@
         "character_limit": null
     },
     "show-on-card": {
-        "string": "Erakutsi txartelan",
+        "string": "Show on Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5586,19 +5586,19 @@
         "character_limit": null
     },
     "archived": {
-        "string": "Gordeta",
+        "string": "Archived",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "delete-linked-card-before-this-card": {
-        "string": "Ezin duzu txartel hau ezabatu estekatuta dituen txartelak ezabatu arte",
+        "string": "You can not delete this card before first deleting linked card that has",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "delete-linked-cards-before-this-list": {
-        "string": "Ezin duzu zerrenda hau ezabatu honen txarteleei estekatutako txartelak ezabatu arte",
+        "string": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5610,13 +5610,13 @@
         "character_limit": null
     },
     "task": {
-        "string": "Ataza",
+        "string": "Task",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "create-task": {
-        "string": "Sortu ataza",
+        "string": "Create Task",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5664,13 +5664,13 @@
         "character_limit": null
     },
     "my-cards": {
-        "string": "Nire txartelak",
+        "string": "My Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "card": {
-        "string": "Txartela",
+        "string": "Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5706,7 +5706,7 @@
         "character_limit": null
     },
     "myCardsViewChange-choice-boards": {
-        "string": "Arbelak",
+        "string": "Boards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5718,13 +5718,13 @@
         "character_limit": null
     },
     "myCardsSortChange-title": {
-        "string": "Ordenatu nire txartelak",
+        "string": "My Cards Sort",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "myCardsSortChangePopup-title": {
-        "string": "Ordenatu nire txartelak",
+        "string": "My Cards Sort",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5742,19 +5742,19 @@
         "character_limit": null
     },
     "dueCards-title": {
-        "string": "Txartelen epemuga",
+        "string": "Due Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "dueCardsViewChange-title": {
-        "string": "Txartelen epemugen ikuspegia",
+        "string": "Due Cards View",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "dueCardsViewChangePopup-title": {
-        "string": "Txartelen epemugen ikuspegia",
+        "string": "Due Cards View",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5772,13 +5772,13 @@
         "character_limit": null
     },
     "dueCardsViewChange-choice-all-description": {
-        "string": "Erabiltzaileak baimena duen arbeletako *Epemuga* data duten txartel osatugabe guztiak erakusten ditu.",
+        "string": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "broken-cards": {
-        "string": "Puskatutako txartelak",
+        "string": "Broken Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5820,7 +5820,7 @@
         "character_limit": null
     },
     "comment-not-found": {
-        "string": "Ez da aurkitu '%s' testua iruzkinetan duen txartelik..",
+        "string": "Card with comment containing text '%s' not found.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -5844,19 +5844,19 @@
         "character_limit": null
     },
     "no-cards-found": {
-        "string": "Ez da txartelik aurkitu",
+        "string": "No Cards Found",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "one-card-found": {
-        "string": "Txartel bat aurkitu da",
+        "string": "One Card Found",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "n-cards-found": {
-        "string": "%s txartel aurkitu dira",
+        "string": "%s Cards Found",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6024,7 +6024,7 @@
         "character_limit": null
     },
     "predicate-archived": {
-        "string": "gordeta",
+        "string": "archived",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6108,7 +6108,7 @@
         "character_limit": null
     },
     "predicate-checklist": {
-        "string": "kontrol-zerrenda",
+        "string": "checklist",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6420,7 +6420,7 @@
         "character_limit": null
     },
     "globalSearch-instructions-notes-5": {
-        "string": "Berez, gordetako txartelak ez dira bilatzen",
+        "string": "By default archived cards are not searched.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6438,7 +6438,7 @@
         "character_limit": null
     },
     "number": {
-        "string": "Zenbakia",
+        "string": "Number",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6456,19 +6456,19 @@
         "character_limit": null
     },
     "archived-at": {
-        "string": "hemen gordeta:",
+        "string": "archived at",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "sort-cards": {
-        "string": "Ordenatu txartelak",
+        "string": "Sort Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "cardsSortPopup-title": {
-        "string": "Ordenatu txartelak",
+        "string": "Sort Cards",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6540,7 +6540,7 @@
         "character_limit": null
     },
     "custom-field-stringtemplate": {
-        "string": "Kate txantiloia",
+        "string": "String Template",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6612,7 +6612,7 @@
         "character_limit": null
     },
     "display-card-creator": {
-        "string": "Erakutsi txartelaren sortzailea",
+        "string": "Display Card Creator",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6672,13 +6672,13 @@
         "character_limit": null
     },
     "maximize-card": {
-        "string": "Maximizatu txartela",
+        "string": "Maximize Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "minimize-card": {
-        "string": "Minimizatu txartela",
+        "string": "Minimize Card",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6792,7 +6792,7 @@
         "character_limit": null
     },
     "cardDetailsPopup-title": {
-        "string": "Txartelaren zehetasunak",
+        "string": "Card Details",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -6822,13 +6822,13 @@
         "character_limit": null
     },
     "remove-btn": {
-        "string": "Kendu",
+        "string": "Remove",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "filter-card-title-label": {
-        "string": "Iragazi txartelaren tituluaren arabera",
+        "string": "Filter by card title",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7146,7 +7146,7 @@
         "character_limit": null
     },
     "attachmentRenamePopup-title": {
-        "string": "Aldatu izena",
+        "string": "Rename",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7200,7 +7200,7 @@
         "character_limit": null
     },
     "minicardDetailsActionsPopup-title": {
-        "string": "Txartelaren zehetasunak",
+        "string": "Card Details",
         "context": "",
         "developer_comment": "",
         "character_limit": null
@@ -7212,37 +7212,37 @@
         "character_limit": null
     },
     "change-visibility": {
-        "string": "Aldatu ikusgaitasuna",
+        "string": "Change Visibility",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-upload-filesize": {
-        "string": "Kargatzeko fitxategien gehienezko tamaina bytetan:",
+        "string": "Max upload filesize in bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-upload-filetypes": {
-        "string": "Kargatzeko baimendutako fitxategi motak:",
+        "string": "Allowed upload filetypes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "max-avatar-filesize": {
-        "string": "Avatar fitxategien gehienezko tamaina bytetan:",
+        "string": "Max avatar filesize in bytes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "allowed-avatar-filetypes": {
-        "string": "Baimendutako avatar fitxategi motak:",
+        "string": "Allowed avatar filetypes:",
         "context": "",
         "developer_comment": "",
         "character_limit": null
     },
     "invalid-file": {
-        "string": "Fitxategi-izena baliogabea bada, karga edo izena aldaketa bertan behera geratuko da.",
+        "string": "If filename is invalid, upload or rename is cancelled.",
         "context": "",
         "developer_comment": "",
         "character_limit": null
