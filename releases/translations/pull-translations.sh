@@ -1,9 +1,6 @@
 cd ~/repos/wekan
 
-
-tx pull -a -f --json
-
-#tx pull -a
+tx --config .tx/config pull -a -f
 
 # https://developers.transifex.com/docs/cli
 # New Go-based transifex client.
@@ -11,4 +8,3 @@ tx pull -a -f --json
 # 2. Pushed all: tx push -a -l
 # 3. Pulled all: tx pull -a -l
 # Although now all show as translated, maybe I did something wrong.
- 
