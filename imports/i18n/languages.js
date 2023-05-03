@@ -189,6 +189,12 @@ export default {
     name: "español de Chile",
     load: () => import('./data/es-CL.i18n.json'),
   },
+  "es-CO": {
+    code: "es",
+    tag: "es-CO",
+    name: "español en Colombia",
+    load: () => import('./data/es-CO.i18n.json'),
+  },
   "es-LA": {
     code: "es",
     tag: "es-LA",
