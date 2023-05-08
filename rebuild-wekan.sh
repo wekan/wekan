@@ -1,10 +1,11 @@
 #!/bin/bash
 
 
-echo "Recommended for development: Ubuntu 22.04 amd64 Jammy Jellyfish daily iso, directly to SSD disk or dual boot, not VM. Works fast."
-echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
-echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
-echo "      You can still use any other locale as your main locale."
+echo "Recommended for development: Newest Ubuntu or Debian amd64, directly to SSD disk or dual boot, not VM. Works fast."
+echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
+echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
+echo "       You can still use any other locale as your main locale."
+echo "Note2: Console output is also logged to ../wekan-log.txt"
 
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
 
@@ -14,7 +15,7 @@ function pause(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:4000" "Run Meteor for dev on http://localhost:4000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Quit")
+options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:4000" "Run Meteor for dev on http://localhost:4000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:4000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -122,6 +123,16 @@ do
 		#---------------------------------------------------------------------
 		break
 		;;
+
+
+    "Run Meteor for dev on http://localhost:4000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0")
+                #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
+                #---------------------------------------------------------------------
+                # Logging of terminal output to console and to ../wekan-log.txt at end of this line: 2>&1 | tee ../wekan-log.txt
+                WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000 2>&1 | tee ../wekan-log.txt
+                #---------------------------------------------------------------------
+                break
+                ;;
 
     "Run Meteor for dev on http://localhost:4000 with bundle visualizer")
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
