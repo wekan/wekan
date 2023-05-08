@@ -25,8 +25,8 @@ This release adds the following new features:
 - Added to meteor development options for logging also to ../wekan-log.txt, and showing deprecated API that is Meteor v2.12 new feature.
   [Part 1](https://github.com/wekan/wekan/commit/9fc52838562c3179775a6b24c23d0385363a0661),
   [Part 2](https://github.com/wekan/wekan/commit/521e840b54dd896eb192834133c5134a104f1d0b),
-  [Part 3](https://github.com/wekan/wekan/commit/e6c59fc9b0ac53abd7519121d3bff700b1a43c24).
-
+  [Part 3](https://github.com/wekan/wekan/commit/e6c59fc9b0ac53abd7519121d3bff700b1a43c24),
+  [Part 4](https://github.com/wekan/wekan/commit/0bd9f309a10dff200efe6e38c6161deaf93c776d).
   Thanks to Meteor developers and xet7.
 - [API: Added User and Admin API for New Checklist Item and Edit Card Custom Field](https://github.com/wekan/wekan/pull/4911).
   Thanks to DimDz.
