@@ -38,6 +38,11 @@ and adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/521e840b54dd896eb192834133c5134a104f1d0b).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Added X for closing card opened in Global Search](https://github.com/wekan/wekan/pull/4910).
+  Thanks to deniszulic.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.86 2023-04-26 WeKan ® release
