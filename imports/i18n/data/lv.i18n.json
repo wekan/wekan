@@ -423,7 +423,7 @@
   "filter-to-selection": "Filtrs uz iezīmēto",
   "other-filters-label": "Citi filtri",
   "advanced-filter-label": "Papildu filtri",
-  "advanced-filter-description": "Papildu filtri ļauj meklēt ar šādiem operatoriem: == != <= >= && || ( ) Starp operatoriem jāatstāj atstarpe. Lai filtrētu papildlaukus, norādiet tā nosaukumu un vērtību. Piemērs: Lauks1 == Vērtība1. Piezīme: ja lauki vai vērtības satur atstarpes, ievietojiet tekstu pēdiņās. Piemērs: 'Lauks 1' == 'Vērtība 1'. Lai ievadītu kontrolsimbolus (pēdiņās un slīpsvītras), pirms tiem ievadiet \\. Piemērs: Lauks1 == 'Rībēj\\' Rīga'. Papildus var kombinēt vairākus nosacījumus. Piemērs: L1 == V1 || L1 == V2. Parasti operatori tiek interpretēti no kreisās uz labo pusi. Secību var mainīt ar iekavām. Piemērs: L1 == V1 && ( L2 == V2 || L2 == V3 ). Papildus teksta laukus var filtrēt ar RegEx: L1 == /Tes.*/i",
+  "advanced-filter-description": "Papildu filtri ļauj meklēt ar šādiem operatoriem: == != <= >= && || ( ) Starp operatoriem jāatstāj atstarpe. Lai filtrētu papildlaukus, norādiet tā nosaukumu un vērtību. Piemērs: Lauks1 == Vērtība1. Piezīme: ja lauki vai vērtības satur atstarpes, ievietojiet tekstu pēdiņās. Piemērs: 'Lauks 1' == 'Vērtība 1'. Lai ievadītu kontrolsimbolus (pēdiņās un slīpsvītras), pirms tiem ievadiet \\\\. Piemērs: Lauks1 == 'Rībēj\\\\' Rīga'. Papildus var kombinēt vairākus nosacījumus. Piemērs: L1 == V1 || L1 == V2. Parasti operatori tiek interpretēti no kreisās uz labo pusi. Secību var mainīt ar iekavām. Piemērs: L1 == V1 && ( L2 == V2 || L2 == V3 ). Papildus teksta laukus var filtrēt ar RegEx: L1 == /Tes.*/i",
   "fullname": "Pilnais vārds un uzvārds",
   "header-logo-title": "Atpakaļ uz jūsu dēļiem",
   "hide-system-messages": "Slēpt darbības",
