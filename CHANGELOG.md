@@ -24,6 +24,8 @@ This release adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/2b91557ad2931b3004a1da1ba0c790ed0e0546d3).
   Thanks to developers of dependencies.
+- [Upgraded to Meteor 2.12](https://github.com/wekan/wekan/commit/d519429ea14de3740408fbca3d231a1440562201).
+  Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
