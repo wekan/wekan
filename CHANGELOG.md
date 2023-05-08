@@ -37,10 +37,9 @@ and adds the following updates:
   Thanks to developers of dependencies.
 - [Upgraded to Meteor 2.12](https://github.com/wekan/wekan/commit/d519429ea14de3740408fbca3d231a1440562201).
   Thanks to Meteor developers.
-- Updated translations.
+- [Updated translations](https://github.com/wekan/wekan/commit/40c077101a94f639b90f607624c4c72e12235711).
   xet7 fixed all translations of advanced filter description to have correct escaping of slash and backslash,
   so that bulding bundle of WeKan would not crash to invalid JSON syntax in translations.
-  [Part 1](https://github.com/wekan/wekan/commit/40c077101a94f639b90f607624c4c72e12235711),
   Thanks to xet7.
 
 and fixes the following bugs:
