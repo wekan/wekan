@@ -3924,6 +3924,66 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       });
     },
   );
+
+  /**
+  * @operation edit_card_custom_field
+  * @summary Edit Custom Field in a Card
+  *
+  * @description Edit a custom field value in a card
+  * @param {string} boardId the board ID of the card
+  * @param {string} listId the list ID of the card
+  * @param {string} cardId the ID of the card
+  * @param {string} customFieldId the ID of the custom field
+  * @param {string} value the new custom field value
+  * @return_type {_id: string, customFields: object}
+  */
+  JsonRoutes.add(
+    'POST',
+    '/api/boards/:boardId/lists/:listId/cards/:cardId/customFields/:customFieldId',
+    function(req, res) {
+      const paramBoardId = req.params.boardId;
+      const paramCardId = req.params.cardId;
+      const paramListId = req.params.listId;
+      const paramCustomFieldId = req.params.customFieldId;
+      const paramCustomFieldValue = req.body.value;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      const card = Cards.findOne({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false,
+      });
+      if (!card) {
+        throw new Meteor.Error(404, 'Card not found');
+      }
+      const customFields = card.customFields || [];
+      const updatedCustomFields = customFields.map(cf => {
+        if (cf._id === paramCustomFieldId) {
+          return {
+            _id: cf._id,
+            value: paramCustomFieldValue,
+          };
+        }
+        return cf;
+      });
+      Cards.direct.update(
+        {
+          _id: paramCardId,
+          listId: paramListId,
+          boardId: paramBoardId,
+          archived: false,
+        },
+        { $set: { customFields: updatedCustomFields } },
+      );
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: paramCardId,
+          customFields: updatedCustomFields,
+        },
+      });
+    },
+  );
 }
 
 export default Cards;
