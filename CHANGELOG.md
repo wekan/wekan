@@ -20,7 +20,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features for WeKan code contributors:
+
+- [Added to meteor development options for logging also to ../wekan-log.txt, and showing deprecated API that is Meteor v2.12 new feature](https://github.com/wekan/wekan/commit/9fc52838562c3179775a6b24c23d0385363a0661).
+  Thanks to Meteor developers and xet7.
+
+and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/2b91557ad2931b3004a1da1ba0c790ed0e0546d3).
   Thanks to developers of dependencies.
