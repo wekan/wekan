@@ -14,22 +14,17 @@ fi
 #   install dependencies.
 
 if [ ! -d ~/python/esprima-python ]; then
-  sudo apt-get -y install python3-pip
-  pip3 install -U setuptools wheel
+  sudo apt-get -y install python3-pip python3-swagger-spec-validator python3-wheel python3-setuptools
   sudo npm install -g api2html
-  mkdir -p ~/python
-  cd ~/python
-  git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
-  cd ~/python/esprima-python
+  (mkdir -p ~/python && cd ~/python && git clone --depth 1 -b master https://github.com/Kronuz/esprima-python)
+  (cd ~/python/esprima-python && git fetch origin pull/20/head:delete_fix && git checkout delete_fix &&  sudo python3 setup.py install --record files.txt)
+  #(cd ~/python/esprima-python && git fetch origin pull/20/head:delete_fix && git checkout delete_fix && sudo pip3 install .)
   # temporary fix until https://github.com/Kronuz/esprima-python/pull/20 gets merged
-  git fetch origin pull/20/head:delete_fix
-  git checkout delete_fix
   # a) Generating docs works on Kubuntu 21.10 with this,
   #    but generating Sandstorm WeKan package does not work
   #    https://github.com/wekan/wekan/issues/4280
   #    https://github.com/sandstorm-io/sandstorm/issues/3600
   #      sudo pip3 install .
-  sudo pip3 install .
   # b) Generating docs Works on Linux Mint with this,
   #    and also generating Sandstorm WeKan package works:
   #      sudo python3 setup.py install --record files.txt
