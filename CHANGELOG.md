@@ -22,7 +22,11 @@ Note:
 
 This release adds the following new features:
 
-- [Added to meteor development options for logging also to ../wekan-log.txt, and showing deprecated API that is Meteor v2.12 new feature](https://github.com/wekan/wekan/commit/9fc52838562c3179775a6b24c23d0385363a0661).
+- Added to meteor development options for logging also to ../wekan-log.txt, and showing deprecated API that is Meteor v2.12 new feature.
+  [Part 1](https://github.com/wekan/wekan/commit/9fc52838562c3179775a6b24c23d0385363a0661),
+  [Part 2](https://github.com/wekan/wekan/commit/521e840b54dd896eb192834133c5134a104f1d0b),
+  [Part 3](https://github.com/wekan/wekan/commit/e6c59fc9b0ac53abd7519121d3bff700b1a43c24).
+
   Thanks to Meteor developers and xet7.
 - [API: Added User and Admin API for New Checklist Item and Edit Card Custom Field](https://github.com/wekan/wekan/pull/4911).
   Thanks to DimDz.
@@ -37,7 +41,6 @@ and adds the following updates:
   xet7 fixed all translations of advanced filter description to have correct escaping of slash and backslash,
   so that bulding bundle of WeKan would not crash to invalid JSON syntax in translations.
   [Part 1](https://github.com/wekan/wekan/commit/40c077101a94f639b90f607624c4c72e12235711),
-  [Part 2](https://github.com/wekan/wekan/commit/521e840b54dd896eb192834133c5134a104f1d0b).
   Thanks to xet7.
 
 and fixes the following bugs:
