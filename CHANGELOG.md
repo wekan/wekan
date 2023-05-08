@@ -48,6 +48,11 @@ and fixes the following bugs:
 - [Added X for closing card opened in Global Search](https://github.com/wekan/wekan/pull/4910).
   Thanks to deniszulic.
 
+and tried to fix the following bugs:
+
+- [Tried to fix building WeKan OpenAPI docs using Ubuntu 23.04 amd64 with XFCE desktop, but it did not work, still getting error: Failed to parse the source OpenAPI document](https://github.com/wekan/wekan/commit/97c6b6531502d09cbd6c267212651f3036338a11).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.86 2023-04-26 WeKan ® release
