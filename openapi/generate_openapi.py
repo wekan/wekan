@@ -67,11 +67,9 @@ def get_req_body_elems(obj, elems):
         get_req_body_elems(obj.right, elems)
     elif obj.type in ('ReturnStatement', 'UnaryExpression'):
         get_req_body_elems(obj.argument, elems)
-    elif obj.type == 'Literal':
-        pass
     elif obj.type == 'Identifier':
         return obj.name
-    elif obj.type == 'FunctionDeclaration':
+    elif obj.type in ['Literal', 'FunctionDeclaration', 'ThrowStatement']:
         pass
     else:
         print(obj)
