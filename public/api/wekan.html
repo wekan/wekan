@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v6.85</title>
+    <title>Wekan REST API v6.87</title>
 
     <style>
     </style>
@@ -1558,7 +1558,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v6.85">Wekan REST API v6.85</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v6.87">Wekan REST API v6.87</a>
             
           </li>
         
@@ -1675,6 +1675,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                     
                   </li>
                 
+                  <li>
+                    <a href="#new_checklist_item" class="toc-h2 toc-link" data-title="">new_checklist_item</a>
+                    
+                  </li>
+                
               </ul>
             
           </li>
@@ -1769,6 +1774,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                 
                   <li>
                     <a href="#delete_card" class="toc-h2 toc-link" data-title="">delete_card</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#edit_card_custom_field" class="toc-h2 toc-link" data-title="">edit_card_custom_field</a>
                     
                   </li>
                 
@@ -2161,7 +2171,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v6.85</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v6.87</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -6281,6 +6291,279 @@ System.out.println(response.toString());
 To perform this operation, you must be authenticated by means of one of the following methods:
 UserSecurity
 </aside>
+<h2 id="new_checklist_item">new_checklist_item</h2>
+<p><a id="opIdnew_checklist_item"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X POST /api/boards/{board}/cards/{card}/checklists/{checklist}/items \
+  -H <span class="hljs-string">&#x27;Content-Type: multipart/form-data&#x27;</span> \
+  -H <span class="hljs-string">&#x27;Accept: application/json&#x27;</span> \
+  -H <span class="hljs-string">&#x27;Authorization: API_KEY&#x27;</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/boards/{board}/cards/{card}/checklists/{checklist}/items</span> <span class="hljs-meta">HTTP/1.1</span>
+
+<span class="fortran">Content-<span class="hljs-keyword">Type</span>: multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span>
+Accept: application/json
+
+</span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">&#x27;{
+  &quot;title&quot;: &quot;string&quot;
+}&#x27;</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>:<span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>:<span class="hljs-string">&#x27;API_KEY&#x27;</span>
+};
+
+fetch(<span class="hljs-string">&#x27;/api/boards/{board}/cards/{card}/checklists/{checklist}/items&#x27;</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>);
+<span class="hljs-keyword">const</span> inputBody = {
+  <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+};
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>:<span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>:<span class="hljs-string">&#x27;API_KEY&#x27;</span>
+};
+
+fetch(<span class="hljs-string">&#x27;/api/boards/{board}/cards/{card}/checklists/{checklist}/items&#x27;</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(inputBody),
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;rest-client&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;json&#x27;</span>
+
+headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span> =&gt; <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span> =&gt; <span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span> =&gt; <span class="hljs-string">&#x27;API_KEY&#x27;</span>
+}
+
+result = RestClient.post <span class="hljs-string">&#x27;/api/boards/{board}/cards/{card}/checklists/{checklist}/items&#x27;</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>: <span class="hljs-string">&#x27;API_KEY&#x27;</span>
+}
+
+r = requests.post(<span class="hljs-string">&#x27;/api/boards/{board}/cards/{card}/checklists/{checklist}/items&#x27;</span>, headers = headers)
+
+<span class="hljs-built_in">print</span>(r.json())
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&quot;/api/boards/{board}/cards/{card}/checklists/{checklist}/items&quot;</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">&quot;POST&quot;</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">&quot;bytes&quot;</span>
+       <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">&quot;Content-Type&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;multipart/form-data&quot;</span>},
+        <span class="hljs-string">&quot;Accept&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;application/json&quot;</span>},
+        <span class="hljs-string">&quot;Authorization&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;API_KEY&quot;</span>},
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">&quot;POST&quot;</span>, <span class="hljs-string">&quot;/api/boards/{board}/cards/{card}/checklists/{checklist}/items&quot;</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<pre class="highlight tab tab-php"><code> <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+    <span class="hljs-string">&#x27;Accept&#x27;</span> =&gt; <span class="hljs-string">&#x27;application/json&#x27;</span>,
+    <span class="hljs-string">&#x27;Authorization&#x27;</span> =&gt; <span class="hljs-string">&#x27;API_KEY&#x27;</span>,
+);
+
+<span class="hljs-variable">$client</span> = <span class="hljs-keyword">new</span> \GuzzleHttp\Client();
+
+<span class="hljs-comment">// Define array of request body.</span>
+<span class="hljs-variable">$request_body</span> = <span class="hljs-keyword">array</span>();
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$response</span> = <span class="hljs-variable">$client</span>-&gt;request(<span class="hljs-string">&#x27;POST&#x27;</span>,<span class="hljs-string">&#x27;/api/boards/{board}/cards/{card}/checklists/{checklist}/items&#x27;</span>, <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">&#x27;headers&#x27;</span> =&gt; <span class="hljs-variable">$headers</span>,
+        <span class="hljs-string">&#x27;json&#x27;</span> =&gt; <span class="hljs-variable">$request_body</span>,
+       )
+    );
+    print_r(<span class="hljs-variable">$response</span>-&gt;getBody()-&gt;getContents());
+ }
+ <span class="hljs-keyword">catch</span> (\GuzzleHttp\<span class="hljs-built_in">Exception</span>\BadResponseException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-comment">// handle exception or api errors.</span>
+    print_r(<span class="hljs-variable">$e</span>-&gt;getMessage());
+ }
+
+ <span class="hljs-comment">// ...</span>
+
+</code></pre>
+<p><code>POST /api/boards/{board}/cards/{card}/checklists/{checklist}/items</code></p>
+<p><em>add a new item to a checklist</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
+
+</code></pre>
+<h3 id="new_checklist_item-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the board ID</td>
+</tr>
+<tr>
+<td>card</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the card ID</td>
+</tr>
+<tr>
+<td>checklist</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the checklist</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» title</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the title of the new item</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions-13">Detailed descriptions</h4>
+<p><strong>board</strong>: the board ID</p>
+<p><strong>card</strong>: the card ID</p>
+<p><strong>checklist</strong>: the ID of the checklist</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;_id&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+<h3 id="new_checklist_item-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="new_checklist_item-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» _id</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
 <h1 id="wekan-rest-api-checklistitems">ChecklistItems</h1>
 <h2 id="get_checklist_item">get_checklist_item</h2>
 <p><a id="opIdget_checklist_item"></a></p>
@@ -6471,7 +6754,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-13">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-14">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>card</strong>: the card ID</p>
 <p><strong>checklist</strong>: the checklist ID</p>
@@ -6746,7 +7029,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-14">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-15">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>card</strong>: the card ID</p>
 <p><strong>checklist</strong>: the checklist ID</p>
@@ -6996,7 +7279,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-15">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-16">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>card</strong>: the card ID</p>
 <p><strong>checklist</strong>: the checklist ID</p>
@@ -7232,7 +7515,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-16">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-17">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID of the card</p>
 <p><strong>card</strong>: the ID of the card</p>
 <blockquote>
@@ -7525,7 +7808,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-17">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-18">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID of the card</p>
 <p><strong>card</strong>: the ID of the card</p>
 <blockquote>
@@ -7765,7 +8048,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-18">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-19">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID of the card</p>
 <p><strong>card</strong>: the ID of the card</p>
 <p><strong>comment</strong>: the ID of the comment to retrieve</p>
@@ -7989,7 +8272,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-19">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-20">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID of the card</p>
 <p><strong>card</strong>: the ID of the card</p>
 <p><strong>comment</strong>: the ID of the comment to delete</p>
@@ -8231,7 +8514,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-20">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-21">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>customField</strong>: the list ID</p>
 <p><strong>customFieldValue</strong>: the value to look for</p>
@@ -8492,7 +8775,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-21">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-22">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <blockquote>
 <p>Example responses</p>
@@ -8724,7 +9007,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-22">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-23">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>list</strong>: the list ID</p>
 <blockquote>
@@ -9057,7 +9340,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-23">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-24">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID of the new card</p>
 <p><strong>list</strong>: the list ID of the new card</p>
 <blockquote>
@@ -9297,7 +9580,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-24">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-25">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>list</strong>: the list ID of the card</p>
 <p><strong>card</strong>: the card ID</p>
@@ -9861,7 +10144,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-25">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-26">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID of the card</p>
 <p><strong>list</strong>: the list ID of the card</p>
 <p><strong>card</strong>: the ID of the card</p>
@@ -10104,7 +10387,7 @@ is not put in the recycle bin.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-26">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-27">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID of the card</p>
 <p><strong>list</strong>: the list ID of the card</p>
 <p><strong>card</strong>: the ID of the card</p>
@@ -10153,6 +10436,296 @@ is not put in the recycle bin.</p>
 <tr>
 <td>» _id</td>
 <td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="edit_card_custom_field">edit_card_custom_field</h2>
+<p><a id="opIdedit_card_custom_field"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X POST /api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField} \
+  -H <span class="hljs-string">&#x27;Content-Type: multipart/form-data&#x27;</span> \
+  -H <span class="hljs-string">&#x27;Accept: application/json&#x27;</span> \
+  -H <span class="hljs-string">&#x27;Authorization: API_KEY&#x27;</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}</span> <span class="hljs-meta">HTTP/1.1</span>
+
+<span class="fortran">Content-<span class="hljs-keyword">Type</span>: multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span>
+Accept: application/json
+
+</span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">&#x27;{
+  &quot;value&quot;: &quot;string&quot;
+}&#x27;</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>:<span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>:<span class="hljs-string">&#x27;API_KEY&#x27;</span>
+};
+
+fetch(<span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}&#x27;</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>);
+<span class="hljs-keyword">const</span> inputBody = {
+  <span class="hljs-string">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+};
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>:<span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>:<span class="hljs-string">&#x27;API_KEY&#x27;</span>
+};
+
+fetch(<span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}&#x27;</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(inputBody),
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;rest-client&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;json&#x27;</span>
+
+headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span> =&gt; <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span> =&gt; <span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span> =&gt; <span class="hljs-string">&#x27;API_KEY&#x27;</span>
+}
+
+result = RestClient.post <span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}&#x27;</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>: <span class="hljs-string">&#x27;API_KEY&#x27;</span>
+}
+
+r = requests.post(<span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}&#x27;</span>, headers = headers)
+
+<span class="hljs-built_in">print</span>(r.json())
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&quot;/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}&quot;</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">&quot;POST&quot;</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">&quot;bytes&quot;</span>
+       <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">&quot;Content-Type&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;multipart/form-data&quot;</span>},
+        <span class="hljs-string">&quot;Accept&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;application/json&quot;</span>},
+        <span class="hljs-string">&quot;Authorization&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;API_KEY&quot;</span>},
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">&quot;POST&quot;</span>, <span class="hljs-string">&quot;/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}&quot;</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<pre class="highlight tab tab-php"><code> <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+    <span class="hljs-string">&#x27;Accept&#x27;</span> =&gt; <span class="hljs-string">&#x27;application/json&#x27;</span>,
+    <span class="hljs-string">&#x27;Authorization&#x27;</span> =&gt; <span class="hljs-string">&#x27;API_KEY&#x27;</span>,
+);
+
+<span class="hljs-variable">$client</span> = <span class="hljs-keyword">new</span> \GuzzleHttp\Client();
+
+<span class="hljs-comment">// Define array of request body.</span>
+<span class="hljs-variable">$request_body</span> = <span class="hljs-keyword">array</span>();
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$response</span> = <span class="hljs-variable">$client</span>-&gt;request(<span class="hljs-string">&#x27;POST&#x27;</span>,<span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}&#x27;</span>, <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">&#x27;headers&#x27;</span> =&gt; <span class="hljs-variable">$headers</span>,
+        <span class="hljs-string">&#x27;json&#x27;</span> =&gt; <span class="hljs-variable">$request_body</span>,
+       )
+    );
+    print_r(<span class="hljs-variable">$response</span>-&gt;getBody()-&gt;getContents());
+ }
+ <span class="hljs-keyword">catch</span> (\GuzzleHttp\<span class="hljs-built_in">Exception</span>\BadResponseException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-comment">// handle exception or api errors.</span>
+    print_r(<span class="hljs-variable">$e</span>-&gt;getMessage());
+ }
+
+ <span class="hljs-comment">// ...</span>
+
+</code></pre>
+<p><code>POST /api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}</code></p>
+<p><em>Edit Custom Field in a Card</em></p>
+<p>Edit a custom field value in a card</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">value:</span> <span class="hljs-string">string</span>
+
+</code></pre>
+<h3 id="edit_card_custom_field-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the board ID of the card</td>
+</tr>
+<tr>
+<td>list</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the list ID of the card</td>
+</tr>
+<tr>
+<td>card</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the card</td>
+</tr>
+<tr>
+<td>customField</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the custom field</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» value</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the new custom field value</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions-28">Detailed descriptions</h4>
+<p><strong>board</strong>: the board ID of the card</p>
+<p><strong>list</strong>: the list ID of the card</p>
+<p><strong>card</strong>: the ID of the card</p>
+<p><strong>customField</strong>: the ID of the custom field</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;_id&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;customFields&quot;</span>: {}
+}
+</code></pre>
+<h3 id="edit_card_custom_field-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="edit_card_custom_field-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» _id</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» customFields</td>
+<td>object</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
@@ -10338,7 +10911,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-27">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-29">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>list</strong>: the List ID</p>
 <blockquote>
@@ -10571,7 +11144,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-28">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-30">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>swimlane</strong>: the swimlane ID</p>
 <blockquote>
@@ -11397,7 +11970,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-29">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-31">Detailed descriptions</h4>
 <p><strong>customField</strong>: the ID of the custom field</p>
 <blockquote>
 <p>Example responses</p>
@@ -11972,7 +12545,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-30">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-32">Detailed descriptions</h4>
 <p><strong>customField</strong>: the ID of the custom field</p>
 <blockquote>
 <p>Example responses</p>
@@ -12966,7 +13539,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-31">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-33">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <blockquote>
 <p>Example responses</p>
@@ -13306,7 +13879,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-32">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-34">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <blockquote>
 <p>Example responses</p>
@@ -13538,7 +14111,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-33">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-35">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>int</strong>: the integration ID</p>
 <blockquote>
@@ -13832,7 +14405,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-34">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-36">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>int</strong>: the integration ID</p>
 <blockquote>
@@ -14065,7 +14638,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-35">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-37">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>int</strong>: the integration ID</p>
 <blockquote>
@@ -14298,7 +14871,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-36">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-38">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>int</strong>: the integration ID</p>
 <blockquote>
@@ -14552,7 +15125,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-37">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-39">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>int</strong>: the integration ID</p>
 <blockquote>
@@ -14768,7 +15341,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-38">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-40">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <blockquote>
 <p>Example responses</p>
@@ -15035,7 +15608,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-39">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-41">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <blockquote>
 <p>Example responses</p>
@@ -15267,7 +15840,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-40">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-42">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>list</strong>: the List ID</p>
 <blockquote>
@@ -15498,7 +16071,7 @@ The list is not put in the recycle bin.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-41">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-43">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>list</strong>: the ID of the list to remove</p>
 <blockquote>
@@ -15807,7 +16380,7 @@ to later change the permissions.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-42">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-44">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>user</strong>: the user ID</p>
 <blockquote>
@@ -16081,7 +16654,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-43">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-45">Detailed descriptions</h4>
 <p><strong>board</strong>: the board ID</p>
 <p><strong>user</strong>: the user ID</p>
 <blockquote>
@@ -16316,7 +16889,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-44">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-46">Detailed descriptions</h4>
 <p><strong>user</strong>: the ID of the user to create token for.</p>
 <blockquote>
 <p>Example responses</p>
@@ -17536,7 +18109,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-45">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-47">Detailed descriptions</h4>
 <p><strong>user</strong>: the user ID or username</p>
 <blockquote>
 <p>Example responses</p>
@@ -17851,7 +18424,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-46">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-48">Detailed descriptions</h4>
 <p><strong>user</strong>: the user ID</p>
 <blockquote>
 <p>Example responses</p>
@@ -18085,7 +18658,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-47">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-49">Detailed descriptions</h4>
 <p><strong>user</strong>: the ID of the user to delete</p>
 <blockquote>
 <p>Example responses</p>
@@ -18311,7 +18884,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-48">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-50">Detailed descriptions</h4>
 <p><strong>board</strong>: the ID of the board</p>
 <blockquote>
 <p>Example responses</p>
@@ -18578,7 +19151,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-49">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-51">Detailed descriptions</h4>
 <p><strong>board</strong>: the ID of the board</p>
 <blockquote>
 <p>Example responses</p>
@@ -18810,7 +19383,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-50">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-52">Detailed descriptions</h4>
 <p><strong>board</strong>: the ID of the board</p>
 <p><strong>swimlane</strong>: the ID of the swimlane</p>
 <blockquote>
@@ -19031,7 +19604,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-51">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-53">Detailed descriptions</h4>
 <p><strong>board</strong>: the ID of the board</p>
 <p><strong>swimlane</strong>: the ID of the swimlane</p>
 <blockquote>

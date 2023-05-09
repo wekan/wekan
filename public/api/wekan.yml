@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.85
+  version: v6.87
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -519,6 +519,53 @@ paths:
           in: path
           description: |
             the ID of the checklist to remove
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+  /api/boards/{board}/cards/{card}/checklists/{checklist}/items:
+    post:
+      operationId: new_checklist_item
+      summary: add a new item to a checklist
+      tags:
+        - Checklists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: |
+            the title of the new item
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the card ID
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: |
+            the ID of the checklist
           type: string
           required: true
       produces:
@@ -2080,6 +2127,63 @@ paths:
             properties:
               _id:
                 type: string
+  /api/boards/{board}/lists/{list}/cards/{card}/customFields/{customField}:
+    post:
+      operationId: edit_card_custom_field
+      summary: Edit Custom Field in a Card
+      description: |
+        Edit a custom field value in a card
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: value
+          in: formData
+          description: |
+            the new custom field value
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: |
+            the board ID of the card
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: |
+            the list ID of the card
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the ID of the card
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: |
+            the ID of the custom field
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              customFields:
+                type: object
   /api/boards/{board}/lists/{list}/cards_count:
     get:
       operationId: get_list_cards_count
