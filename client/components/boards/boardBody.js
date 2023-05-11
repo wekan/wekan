@@ -422,6 +422,44 @@ BlazeComponent.extendComponent({
           revertFunc();
         }
       },
+      select: function(startDate) {
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const currentUser = Meteor.user();
+        const $modal = $(`
+          <div class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog justify-content-center align-items-center" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Card Title</h5>
+                </div>
+                <div class="modal-body text-center">
+                  <input type="text" class="form-control" id="card-title-input" placeholder="Card Title">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="create-card-button">Create Card</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `);
+        $modal.modal('show');
+        $modal.find('#create-card-button').click(function() {
+          const myTitle = $modal.find('#card-title-input').val();
+          if (myTitle) {
+            const firstList = currentBoard.draggableLists().fetch()[0];
+            const firstSwimlane = currentBoard.swimlanes().fetch()[0];
+            Meteor.call('createCardWithDueDate', currentBoard._id, firstList._id, myTitle, startDate.toDate(), firstSwimlane._id, function(error, result) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Card Created", result);
+              }
+            });
+            $modal.modal('hide');
+          }
+        });
+      },
     };
   },
   isViewCalendar() {

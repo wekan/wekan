@@ -167,3 +167,11 @@
   border-color: #2b004d;
   color: #fff !important;
 }
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-header {
+  text-align: center;
+}
