@@ -25,6 +25,11 @@ This release adds the following new features:
 - [Create Card on Calendar View](https://github.com/wekan/wekan/pull/4922).
   Thanks to DimDz.
 
+and fixes the following bugs:
+
+- [OpenaAPI: Also ignores ThrowStatement](https://github.com/wekan/wekan/pull/4918).
+  Thanks to bentiss.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.87 2023-05-08 WeKan ® release
