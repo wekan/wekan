@@ -461,7 +461,6 @@ BlazeComponent.extendComponent({
         });
       },
     };
-    };
   },
   isViewCalendar() {
     currentUser = Meteor.user();
