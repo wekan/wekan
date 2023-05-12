@@ -328,6 +328,7 @@ BlazeComponent.extendComponent({
       id: 'calendar-view',
       defaultView: 'agendaDay',
       editable: true,
+      selecatble: true,
       timezone: 'local',
       weekNumbers: true,
       header: {
