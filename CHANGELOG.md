@@ -18,6 +18,17 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix for the Create Card at Calendar](https://github.com/wekan/wekan/pull/4923).
+  Thanks to DimDz.
+- [Fixed broken migration migrate-attachments-collectionFS-to-ostrioFiles](https://github.com/wekan/wekan/pull/4926).
+  Thanks to Aman-Maheshwari.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.88 2023-05-11 WeKan ® release
 
 This release adds the following new features:
