@@ -2943,6 +2943,27 @@ function cardCreation(userId, doc) {
   });
 }
 
+Meteor.methods({
+  createCardWithDueDate: function(boardId, listId, title, dueDate, swimlaneId) {
+    check(boardId, String);
+    check(listId, String);
+    check(title, String);
+    check(dueDate, Date);
+    check(swimlaneId, String);
+    const card = {
+      title,
+      listId,
+      boardId,
+      swimlaneId,
+      createdAt: new Date(),
+      dueAt: dueDate,
+      sort: 0,
+    };
+    const cardId = Cards.insert(card);
+    return cardId;
+  },
+});
+
 function cardRemover(userId, doc) {
   ChecklistItems.remove({
     cardId: doc._id,
