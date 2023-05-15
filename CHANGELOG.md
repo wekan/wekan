@@ -18,6 +18,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming  WeKan ® release
+
+This release fixes the following bugs:
+
+- [To get corrent API docs generated, moved new_checklist_item API to correct file where is other checklist item API](https://github.com/wekan/wekan/commit/9de704040172e37769fa28cf571f293dfbd8bbb5).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.89 2023-05-12 WeKan ® release
 
 This release fixes the following bugs:
