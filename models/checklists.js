@@ -384,51 +384,6 @@ if (Meteor.isServer) {
   );
 
   /**
-  * @operation new_checklist_item
-  * @summary add a new item to a checklist
-  *
-  * @param {string} boardId the board ID
-  * @param {string} cardId the card ID
-  * @param {string} checklistId the ID of the checklist
-  * @param {string} title the title of the new item
-  * @return_type {_id: string}
-  */
-
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items',
-    function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramChecklistId = req.params.checklistId;
-      const paramCardId = req.params.cardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklist = Checklists.findOne({
-        _id: paramChecklistId,
-        cardId: paramCardId,
-      });
-      if (checklist) {
-        const id = ChecklistItems.insert({
-          cardId: paramCardId,
-          checklistId: paramChecklistId,
-          title: req.body.title,
-          isFinished: false,
-          sort: 0,
-        });
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: {
-            _id: id,
-          },
-        });
-      } else {
-        JsonRoutes.sendResult(res, {
-          code: 404,
-        });
-      }
-    },
-  );
-
-  /**
    * @operation delete_checklist
    * @summary Delete a checklist
    *
