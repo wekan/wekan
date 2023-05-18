@@ -37,6 +37,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py customfields BOARDID # Custom Fields of BOARDID
     python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
     python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
+    python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE
     python3 api.py listattachments BOARDID # List attachments
 
   Admin API:
@@ -216,6 +217,25 @@ if arguments == 6:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- EDIT CARD END -----------
+
+    if sys.argv[1] == 'editcustomfield':
+
+        # ------- EDIT CUSTOMFIELD START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        customfieldid = sys.argv[5]
+        newcustomfieldvalue = sys.argv[6]
+        edfield = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid + s + 'customFields' + s + customfieldid
+        #print(edfield)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {'_id': '{}'.format(customfieldid), 'value': '{}'.format(newcustomfieldvalue)}
+        #print(post_data)
+        body = requests.post(edfield, data=post_data, headers=headers)
+        print("=== EDIT CUSTOMFIELD ===\n")
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- EDIT CUSTOMFIELD END -----------
 
 if arguments == 4:
 
