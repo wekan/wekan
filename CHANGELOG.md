@@ -20,7 +20,12 @@ Note:
 
 # Upcoming  WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Added Edit Custom Field Value to api.py](https://github.com/wekan/wekan/commit/ea908adbf9b75607c61c0cbc2b23886aa8e95fe7).
+  Thanks to RazvanTinca and xet7.
+
+and fixes the following bugs:
 
 - [To get corrent API docs generated, moved new_checklist_item API to correct file where is other checklist item API](https://github.com/wekan/wekan/commit/9de704040172e37769fa28cf571f293dfbd8bbb5).
   Thanks to xet7.
