@@ -25,6 +25,13 @@ This release adds the following new features:
 - [Added Edit Custom Field Value to api.py](https://github.com/wekan/wekan/commit/ea908adbf9b75607c61c0cbc2b23886aa8e95fe7).
   Thanks to RazvanTinca and xet7.
 
+and adds the following updates:
+
+- Update docker-compose.yml info about Docker images used.
+  [Part 1](https://github.com/wekan/wekan/commit/30ada6086245eb9957385d96132268344ce9513b),
+  [Part 2](https://github.com/wekan/wekan/commit/e83b0ac6519be4163cb6702a4a97d10e7315f5d9).
+  Thanks to xet7.
+
 and fixes the following bugs:
 
 - [To get corrent API docs generated, moved new_checklist_item API to correct file where is other checklist item API](https://github.com/wekan/wekan/commit/9de704040172e37769fa28cf571f293dfbd8bbb5).
