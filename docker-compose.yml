@@ -119,12 +119,17 @@ services:
   wekan:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) Quay automatic builds do work work, https://quay.io/wekan/wekan
-    image: quay.io/wekan/wekan
-    # b) Using specific version tag:
-    # image: quay.io/wekan/wekan:v4.52
-    # c) Docker Hub builds do work https://hub.docker.com/r/wekanteam/wekan
-    # image: wekanteam/wekan
+    # Both Quay and Docker Hub has latest, but because
+    # latest tag changes when is newest release,
+    # when upgrading would be better to use version tag.
+    # a) Quay:
+    image: quay.io/wekan/wekan:latest
+    # b) Docker Hub:
+    #image: wekanteam/wekan:latest
+    # c) Using specific version tag is better:
+    # image: quay.io/wekan/wekan:v6.89
+    # image: wekanteam/wekan:v6.89
+    # e) TODO: Also push images to GitHub Container registry.
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
     # On CentOS 7 there is seccomp issue with glibc 6,
