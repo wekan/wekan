@@ -36,6 +36,8 @@ and fixes the following bugs:
 
 - [To get corrent API docs generated, moved new_checklist_item API to correct file where is other checklist item API](https://github.com/wekan/wekan/commit/9de704040172e37769fa28cf571f293dfbd8bbb5).
   Thanks to xet7.
+- [Fix sharedDataFolder persisdent provide by k8s has no permission to mkdir and write](https://github.com/wekan/charts/commit/54c11ec8d7d165309632c455003b6e861e43fb4c).
+  Thanks to new2001y.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
