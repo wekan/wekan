@@ -31,6 +31,10 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/30ada6086245eb9957385d96132268344ce9513b),
   [Part 2](https://github.com/wekan/wekan/commit/e83b0ac6519be4163cb6702a4a97d10e7315f5d9).
   Thanks to xet7.
+- [Upgrade Snap Candidate to MongoDB 6.0.6](https://github.com/wekan/wekan/commit/87fc4f936a2e37c0b9e3353a7b6f93dbff7fc2b7).
+  Thanks to MongoDB developers.
+- [Use GitHub Docker Registry. Updated release scripts](https://github.com/wekan/wekan/commit/28e5b0bd5b270b2e2d3de5dad46804ac0d20d898).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
