@@ -111,18 +111,20 @@ services:
 
   wekan:
     #-------------------------------------------------------------------------------------
-    # ==== WEKAN FROM QUAY OR DOCKER HUB ====
-    # Both Quay and Docker Hub has latest, but because
+    # ==== WEKAN FROM GITHUB/QUAY/DOCKER HUB ====
+    # All of GitHub, Quay and Docker Hub have latest, but because
     # latest tag changes when is newest release,
     # when upgrading would be better to use version tag.
-    # a) Quay:
-    image: quay.io/wekan/wekan:latest
-    # b) Docker Hub:
-    #image: wekanteam/wekan:latest
-    # c) Using specific version tag is better:
+    # a) Using specific version tag is better:
+    # image: ghcr.io/wekan/wekan:v6.89
     # image: quay.io/wekan/wekan:v6.89
     # image: wekanteam/wekan:v6.89
-    # e) TODO: Also push images to GitHub Container registry.
+    # b) GitHub Container registry.
+    image: ghcr.io/wekan/wekan:latest
+    # c) Quay:
+    #image: quay.io/wekan/wekan:latest
+    # d) Docker Hub:
+    #image: wekanteam/wekan:latest
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
     # On CentOS 7 there is seccomp issue with glibc 6,

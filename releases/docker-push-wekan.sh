@@ -12,14 +12,25 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
-docker tag $1 quay.io/wekan/wekan:v$2
-docker push quay.io/wekan/wekan:v$2
+sudo apt -y install skopeo
 
-docker tag $1 quay.io/wekan/wekan:latest
-docker push quay.io/wekan/wekan:latest
+# Quay
+#docker tag $1 quay.io/wekan/wekan:v$2
+#docker push quay.io/wekan/wekan:v$2
+#docker tag $1 quay.io/wekan/wekan:latest
+#docker push quay.io/wekan/wekan:latest
 
-docker tag $1 wekanteam/wekan:v$2
-docker push wekanteam/wekan:v$2
+# Docker Hub
+#docker tag $1 wekanteam/wekan:v$2
+#docker push wekanteam/wekan:v$2
+#docker tag $1 wekanteam/wekan:latest
+#docker push wekanteam/wekan:latest
 
-docker tag $1 wekanteam/wekan:latest
-docker push wekanteam/wekan:latest
+# GitHub
+docker tag $1 ghcr.io/wekan/wekan:v$2
+docker push ghcr.io/wekan/wekan:v$2
+docker tag $1 ghcr.io/wekan/wekan:latest
+docker push ghcr.io/wekan/wekan:latest
+
+skopeo copy docker://ghcr.io/wekan/wekan docker://quay.io/wekan/wekan
+skopeo copy docker://ghcr.io/wekan/wekan docker://wekanteam/wekan
