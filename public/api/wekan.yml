@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.89
+  version: v6.90
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -539,7 +539,7 @@ paths:
       operationId: new_checklist_item
       summary: add a new item to a checklist
       tags:
-        - Checklists
+        - ChecklistItems
       consumes:
         - multipart/form-data
         - application/json
