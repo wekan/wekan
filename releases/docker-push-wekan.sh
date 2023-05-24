@@ -32,5 +32,4 @@ docker push ghcr.io/wekan/wekan:v$2
 docker tag $1 ghcr.io/wekan/wekan:latest
 docker push ghcr.io/wekan/wekan:latest
 
-skopeo copy docker://ghcr.io/wekan/wekan docker://quay.io/wekan/wekan
-skopeo copy docker://ghcr.io/wekan/wekan docker://wekanteam/wekan
+~/repos/wekan/releases/docker-registry-sync.sh

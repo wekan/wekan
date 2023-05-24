@@ -12,8 +12,6 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
-sudo apt -y install skopeo
-
 # Quay
 #docker tag $1 quay.io/wekan/wekan-gantt-gpl:v$2
 #docker push quay.io/wekan/wekan-gantt-gpl:v$2
@@ -32,5 +30,4 @@ docker push ghcr.io/wekan/wekan-gantt-gpl:v$2
 docker tag $1 ghcr.io/wekan/wekan-gantt-gpl:latest
 docker push ghcr.io/wekan/wekan-gantt-gpl:latest
 
-skopeo copy docker://ghcr.io/wekan/wekan-gantt-gpl docker://quay.io/wekan/wekan-gantt-gpl
-skopeo copy docker://ghcr.io/wekan/wekan-gantt-gpl docker://wekanteam/wekan-gantt-gpl
+~/repos/wekan/releases/docker-registry-sync.sh
