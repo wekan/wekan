@@ -85,6 +85,7 @@ Meteor.publish('boardsReport', function() {
         title: 1,
         description: 1,
         color: 1,
+        backgroundImageURL: 1,
         members: 1,
         orgs: 1,
         teams: 1,

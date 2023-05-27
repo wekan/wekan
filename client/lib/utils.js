@@ -1,4 +1,20 @@
 Utils = {
+  setBackgroundImage() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if (currentBoard.backgroundImageURL) {
+      $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
+      $(".minicard").css({"padding":"8px 8px 2px","box-shadow":"0 2px 3px rgba(0, 0, 0, 0.37)"});
+      $(".minicard .minicard-members,.minicard .minicard-assignees,.minicard .minicard-creator").css({"margin": "12px -0px 0px 5px"});
+      $(".list").css({"margin":"8px","height":"fit-content","border-left":"none","border-radius":"3px"});
+      $(".list-header-add").css({"padding":"10px 12px 4px"});
+      $(".list-header").css({"padding":"15px 12px 4px","border-top-left-radius":"3px","border-top-right-radius":"3px"});
+      $(".list-header .list-header-name").css({"font-size":"15px","line-height":"15px"});
+      $(".list-header .list-header-menu").css({"padding":"none"});
+      $("#header #header-main-bar .board-header-btn").css({"padding":"2px","margin":"0 5px"});
+      $(".swimlane").css({"background":"none"});
+      $(".board-canvas").css({"background":"none"});
+    }
+  },
   /** returns the current board id
    * <li> returns the current board id or the board id of the popup card if set
    */

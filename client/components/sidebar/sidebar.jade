@@ -138,6 +138,14 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
+template(name="boardChangeBackgroundImagePopup")
+  form
+    label
+      | {{_ 'board-background-image-url'}}
+      input.js-board-background-image-url(type="text" value="{{backgroundImageURL}}" autofocus)
+    div.buttonsContainer
+      input.primary.wide(type="submit" value="{{_ 'save'}}")
+
 template(name="boardInfoOnMyBoardsPopup")
   form.board-info-on-my-boards
     h3 {{_ 'show-at-all-boards-page'}}
@@ -409,6 +417,10 @@ template(name="boardMenuPopup")
         a.js-change-board-color
           i.fa.fa-paint-brush
           | {{_ 'board-change-color'}}
+      li
+        a.js-change-background-image
+          i.fa.fa-picture-o
+          | {{_ 'board-change-background-image'}}
     if currentUser.isBoardAdmin
       unless currentSetting.hideBoardMemberList
         unless currentSetting.hideCardCounterList

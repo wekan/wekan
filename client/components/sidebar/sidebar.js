@@ -158,7 +158,7 @@ Template.boardInfoOnMyBoardsPopup.helpers({
   hideBoardMemberList() {
     return Utils.isMiniScreen() && Session.get('currentBoard');
   },
-})
+});
 
 EscapeActions.register(
   'sidebarView',
@@ -218,6 +218,7 @@ Template.boardMenuPopup.events({
     Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
+  'click .js-change-background-image': Popup.open('boardChangeBackgroundImage'),
   'click .js-board-info-on-my-boards': Popup.open('boardInfoOnMyBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
@@ -334,6 +335,7 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     this.setLoading(false);
+    Utils.setBackgroundImage();
   },
 
   setError(error) {
@@ -676,6 +678,30 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('boardChangeColorPopup');
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        submit(event) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const backgroundImageURL = this.find('.js-board-background-image-url').value.trim();
+          currentBoard.setBackgroundImageURL(backgroundImageURL);
+          Utils.setBackgroundImage();
+          Popup.back();
+          event.preventDefault();
+        },
+      },
+    ];
+  },
+}).register('boardChangeBackgroundImagePopup');
+
+Template.boardChangeBackgroundImagePopup.helpers({
+  backgroundImageURL() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.backgroundImageURL;
+  },
+});
 
 BlazeComponent.extendComponent({
   onCreated() {

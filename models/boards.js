@@ -294,6 +294,13 @@ Boards.attachSchema(
         }
       },
     },
+    backgroundImageURL: {
+      /**
+       * The background image URL of the board.
+       */
+      type: String,
+      optional: true,
+    },
     allowsCardCounterList: {
       /**
        * Show card counter per list
@@ -1266,6 +1273,16 @@ Boards.mutations({
     return { $set: { color } };
   },
 
+  setBackgroundImageURL(backgroundImageURL) {
+    if(Meteor.user().isBoardAdmin()) {
+      return { $set: { backgroundImageURL } };
+    } else if (Meteor.user().isAdmin()) {
+      return { $set: { backgroundImageURL } };
+    } else {
+      return false;
+    }
+  },
+
   setVisibility(visibility) {
     return { $set: { permission: visibility } };
   },
@@ -1637,6 +1654,10 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
+    getBackgroundImageURL(boardId) {
+      check(boardId, String);
+      return Boards.findOne({ boardId: boardId }, {}, { backgroundImageUrl: 1 });
+    },
     quitBoard(boardId) {
       check(boardId, String);
       const board = Boards.findOne(boardId);
