@@ -18,6 +18,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [BoardAdmin and Admin can now set board background image URL](https://github.com/wekan/wekan/commit/49ef80ab6c2dc038941558f68eface5e82a87593).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.90 2023-05-24 WeKan ® release
 
 This release adds the following new features:
