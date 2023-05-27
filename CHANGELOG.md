@@ -18,6 +18,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Moved minicard labels from above minicard title to below minicard title](https://github.com/wekan/wekan/commit/b33a3ef254719dede124921bde40ce8a47c796fc).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.91 2023-05-27 WeKan ® release
 
 This release adds the following new features:
