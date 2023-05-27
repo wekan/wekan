@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.90
+  version: v6.91
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2944,6 +2944,11 @@ definitions:
           - modern
           - moderndark
           - exodark
+      backgroundImageURL:
+        description: |
+           The background image URL of the board.
+        type: string
+        x-nullable: true
       allowsCardCounterList:
         description: |
            Show card counter per list
