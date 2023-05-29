@@ -20,10 +20,15 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following improvements:
 
 - [Moved minicard labels from above minicard title to below minicard title](https://github.com/wekan/wekan/commit/b33a3ef254719dede124921bde40ce8a47c796fc).
   Thanks to xet7.
+- [Changed Due Date etc dates to be at top of Minicard](https://github.com/wekan/wekan/commit/a3d37e621c1eeeb9cd586b8fb644eae498df7ac4).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
 - [Fix Docker latest tags at Docker Hub, Quay and GitHub](https://github.com/wekan/wekan/commit/2d8ac3bf8085c913d14fb8a89f84769366073967).
   Thanks to rikhuijzer and xet7.
 - [Fixes for Create Card at Calendar](https://github.com/wekan/wekan/pull/4934).
