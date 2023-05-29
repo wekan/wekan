@@ -24,6 +24,8 @@ This release fixes the following bugs:
 
 - [Moved minicard labels from above minicard title to below minicard title](https://github.com/wekan/wekan/commit/b33a3ef254719dede124921bde40ce8a47c796fc).
   Thanks to xet7.
+- [Fix Docker latest tags at Docker Hub, Quay and GitHub](https://github.com/wekan/wekan/commit/2d8ac3bf8085c913d14fb8a89f84769366073967).
+  Thanks to rikhuijzer and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
