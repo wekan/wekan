@@ -26,6 +26,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix Docker latest tags at Docker Hub, Quay and GitHub](https://github.com/wekan/wekan/commit/2d8ac3bf8085c913d14fb8a89f84769366073967).
   Thanks to rikhuijzer and xet7.
+- [Fixes for Create Card at Calendar](https://github.com/wekan/wekan/pull/4934).
+  Thanks to DimDz.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
