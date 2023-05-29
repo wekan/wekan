@@ -167,11 +167,40 @@
   border-color: #2b004d;
   color: #fff !important;
 }
+/* Modal Styles */
 .modal-dialog {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 70%;
 }
 .modal-header {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #ccc;
+}
+.modal-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-size: 18px;
+}
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4px;
+  border-top: 1px solid #ccc;
+}
+.close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 25px;
 }
