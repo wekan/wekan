@@ -1834,19 +1834,20 @@
   background-color: #4d4d4d !important;
 }
 .board-color-moderndark .minicard .minicard-labels {
-  margin-bottom: 4px;
+  margin: 8px 0 4px;
 }
 .board-color-moderndark .minicard .card-label {
   font-size: 11px;
   font-weight: 400;
   padding: 1px 6px 0;
   border-radius: 2px;
+  line-height: 18px;
 }
 .board-color-moderndark .minicard .badges {
   color: #bbb;
 }
 .board-color-moderndark .minicard .date {
-  margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 11px;
 }
 .board-color-moderndark .card-date {
