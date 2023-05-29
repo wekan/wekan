@@ -431,14 +431,16 @@ BlazeComponent.extendComponent({
             <div class="modal-dialog justify-content-center align-items-center" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Card Title</h5>
+                  <h5 class="modal-title">${TAPi18n.__('r-create-card')}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
                 <div class="modal-body text-center">
-                  <input type="text" class="form-control" id="card-title-input" placeholder="Card Title">
+                  <input type="text" class="form-control" id="card-title-input" placeholder="">
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="create-card-button">Create Card</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal"Cancel</button>
+                  <button type="button" class="btn btn-primary" id="create-card-button">${TAPi18n.__('add-card')}</button>
                 </div>
               </div>
             </div>
