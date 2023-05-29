@@ -12,18 +12,6 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
-# Quay
-#docker tag $1 quay.io/wekan/wekan-gantt-gpl:v$2
-#docker push quay.io/wekan/wekan-gantt-gpl:v$2
-#docker tag $1 quay.io/wekan/wekan-gantt-gpl:latest
-#docker push quay.io/wekan/wekan-gantt-gpl:latest
-
-# Docker Hub
-#docker tag $1 wekanteam/wekan-gantt-gpl:v$2
-#docker push wekanteam/wekan-gantt-gpl:v$2
-#docker tag $1 wekanteam/wekan-gantt-gpl:latest
-#docker push wekanteam/wekan-gantt-gpl:latest
-
 # GitHub
 docker tag $1 ghcr.io/wekan/wekan-gantt-gpl:v$2
 docker push ghcr.io/wekan/wekan-gantt-gpl:v$2
@@ -31,3 +19,15 @@ docker tag $1 ghcr.io/wekan/wekan-gantt-gpl:latest
 docker push ghcr.io/wekan/wekan-gantt-gpl:latest
 
 ~/repos/wekan/releases/docker-registry-sync.sh
+
+# Quay
+docker tag $1 quay.io/wekan/wekan-gantt-gpl:v$2
+docker push quay.io/wekan/wekan-gantt-gpl:v$2
+docker tag $1 quay.io/wekan/wekan-gantt-gpl:latest
+docker push quay.io/wekan/wekan-gantt-gpl:latest
+
+# Docker Hub
+docker tag $1 wekanteam/wekan-gantt-gpl:v$2
+docker push wekanteam/wekan-gantt-gpl:v$2
+docker tag $1 wekanteam/wekan-gantt-gpl:latest
+docker push wekanteam/wekan-gantt-gpl:latest
