@@ -18,6 +18,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Layout fixes for modern-dark after shuffling labels and date field on minicard](https://github.com/wekan/wekan/pull/4935).
+  Thanks to jghaanstra.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.92 2023-05-29 WeKan ® release
 
 This release adds the following improvements:
