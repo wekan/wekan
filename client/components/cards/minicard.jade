@@ -9,6 +9,24 @@ template(name="minicard")
         .fa.fa-arrows
     else
       a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+    .dates
+      if getReceived
+        unless getStart
+          unless getDue
+            unless getEnd
+              .date
+                +minicardReceivedDate
+      if getStart
+        .date
+          +minicardStartDate
+      if getDue
+        .date
+          +minicardDueDate
+      if getEnd
+         +minicardEndDate
+      if getSpentTime
+        .date
+          +cardSpentTime
     if cover
       .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
     .minicard-title
@@ -46,25 +64,6 @@ template(name="minicard")
                 = name
           if hiddenMinicardLabelText
             .minicard-label(class="card-label-{{color}}" title="{{name}}")
-
-    .dates
-      if getReceived
-        unless getStart
-          unless getDue
-            unless getEnd
-              .date
-                +minicardReceivedDate
-      if getStart
-        .date
-          +minicardStartDate
-      if getDue
-        .date
-          +minicardDueDate
-      if getEnd
-         +minicardEndDate
-      if getSpentTime
-        .date
-          +cardSpentTime
 
     .minicard-custom-fields
       each customFieldsWD
