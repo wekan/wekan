@@ -3010,6 +3010,14 @@ definitions:
         description: |
            Does the board allows cover attachment on minicard?
         type: boolean
+      allowsBadgeAttachmentOnMinicard:
+        description: |
+           Does the board allows badge attachment on minicard?
+        type: boolean
+      allowsCardSortingByNumberOnMinicard:
+        description: |
+           Does the board allows card sorting by number on minicard?
+        type: boolean
       allowsCardNumber:
         description: |
            Does the board allows card numbers?

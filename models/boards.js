@@ -415,6 +415,22 @@ Boards.attachSchema(
       defaultValue: false,
     },
 
+    allowsBadgeAttachmentOnMinicard: {
+      /**
+       * Does the board allows badge attachment on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
+    allowsCardSortingByNumberOnMinicard: {
+      /**
+       * Does the board allows card sorting by number on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsCardNumber: {
       /**
        * Does the board allows card numbers?
@@ -1469,6 +1485,14 @@ Boards.mutations({
 
   setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
     return { $set: { allowsCoverAttachmentOnMinicard } };
+  },
+
+  setallowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
+    return { $set: { allowsBadgeAttachmentOnMinicard } };
+  },
+
+  setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
+    return { $set: { allowsCardSortingByNumberOnMinicard } };
   },
 
   setAllowsActivities(allowsActivities) {

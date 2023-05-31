@@ -132,9 +132,10 @@ template(name="minicard")
           if expiredPoker
             span.badge-text {{ getPokerEstimation }}
       if attachments.length
-        .badge
-          span.badge-icon.fa.fa-paperclip
-          span.badge-text= attachments.length
+        if currentBoard.allowsBadgeAttachmentOnMinicard
+          .badge
+            span.badge-icon.fa.fa-paperclip
+            span.badge-text= attachments.length
       if checklists.count
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
@@ -145,9 +146,10 @@ template(name="minicard")
           span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
           //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
       if currentBoard.allowsCardSortingByNumber
-        .badge
-          span.badge-icon.fa.fa-sort
-          span.badge-text.check-list-sort {{ sort }}
+        if currentBoard.allowsCardSortingByNumberOnMinicard
+          .badge
+            span.badge-icon.fa.fa-sort
+            span.badge-text.check-list-sort {{ sort }}
     if currentBoard.allowsDescriptionTextOnMinicard
       if getDescription
         .minicard-description

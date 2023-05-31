@@ -308,6 +308,18 @@ template(name="boardMinicardSettingsPopup")
         span
           i.fa.fa-paperclip
           | {{_ 'cover-attachment-on-minicard'}}
+    div.check-div
+      a.flex.js-field-has-badge-attachment-on-minicard(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-paperclip
+          | {{_ 'badge-attachment-on-minicard'}}
+    div.check-div
+      a.flex.js-field-has-card-sorting-by-number-on-minicard(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-sort
+          | {{_ 'card-sorting-by-number-on-minicard'}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
