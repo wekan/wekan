@@ -407,6 +407,14 @@ Boards.attachSchema(
       defaultValue: false,
     },
 
+    allowsCoverAttachmentOnMinicard: {
+      /**
+       * Does the board allows cover attachment on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsCardNumber: {
       /**
        * Does the board allows card numbers?
@@ -1457,6 +1465,10 @@ Boards.mutations({
 
   setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
     return { $set: { allowsDescriptionTextOnMinicard } };
+  },
+
+  setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
+    return { $set: { allowsCoverAttachmentOnMinicard } };
   },
 
   setAllowsActivities(allowsActivities) {

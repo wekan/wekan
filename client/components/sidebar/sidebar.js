@@ -1326,6 +1326,10 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsDescriptionTextOnMinicard;
   },
 
+  allowsCoverAttachmentOnMinicard() {
+    return this.currentBoard.allowsCoverAttachmentOnMinicard;
+  },
+
  lists() {
     return Lists.find(
       {
@@ -1365,6 +1369,22 @@ BlazeComponent.extendComponent({
           $('.js-field-has-description-text-on-minicard').toggleClass(
             CKCLS,
             this.currentBoard.allowsDescriptionTextOnMinicard,
+          );
+        },
+        'click .js-field-has-cover-attachment-on-minicard'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsCoverAttachmentOnMinicard = !this.currentBoard
+            .allowsCoverAttachmentOnMinicard;
+          this.currentBoard.setallowsCoverAttachmentOnMinicard(
+            this.currentBoard.allowsCoverAttachmentOnMinicard,
+          );
+          $(`.js-field-has-cover-attachment-on-minicard ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCoverAttachmentOnMinicard,
+          );
+          $('.js-field-has-cover-attachment-on-minicard').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCoverAttachmentOnMinicard,
           );
         },
       },
