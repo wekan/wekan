@@ -256,10 +256,12 @@ BlazeComponent.extendComponent({
       {
         submit(evt) {
           evt.preventDefault();
-          const lastList = this.currentBoard.getLastList();
-          const sortIndex = Utils.calculateIndexData(lastList, null).base;
           const titleInput = this.find('.list-name-input');
           const title = titleInput.value.trim();
+          const positionInput = this.find('.list-position-input');
+          const position = positionInput.value.trim();
+          const ret = Lists.findOne({ boardId: Session.get('currentBoard'), _id: position, archived: false })
+          const sortIndex = JSON.stringify(ret['sort'])
           if (title) {
             Lists.insert({
               title,

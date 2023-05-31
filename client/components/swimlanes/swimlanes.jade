@@ -51,6 +51,10 @@ template(name="addListForm")
           +inlinedForm(autoclose=false)
             input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
               autocomplete="off" autofocus)
+            | {{_ 'add-after-list'}}
+            select.list-position-input.full-line
+              each currentBoard.lists
+                option(value="{{_id}}") {{title}}
             .edit-controls.clearfix
               button.primary.confirm(type="submit") {{_ 'save'}}
               .fa.fa-times-thin.js-close-inlined-form
