@@ -302,6 +302,12 @@ template(name="boardMinicardSettingsPopup")
         span
           i.fa.fa-align-left
           | {{_ 'description-on-minicard'}}
+    div.check-div
+      a.flex.js-field-has-cover-attachment-on-minicard(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-paperclip
+          | {{_ 'cover-attachment-on-minicard'}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings

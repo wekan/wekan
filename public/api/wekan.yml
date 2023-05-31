@@ -3006,6 +3006,10 @@ definitions:
         description: |
            Does the board allows description text on minicard?
         type: boolean
+      allowsCoverAttachmentOnMinicard:
+        description: |
+           Does the board allows cover attachment on minicard?
+        type: boolean
       allowsCardNumber:
         description: |
            Does the board allows card numbers?

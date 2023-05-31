@@ -28,7 +28,8 @@ template(name="minicard")
         .date
           +cardSpentTime
     if cover
-      .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
+      if currentBoard.allowsCoverAttachmentOnMinicard
+        .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
     .minicard-title
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
         .parent-prefix
