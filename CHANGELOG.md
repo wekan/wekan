@@ -35,6 +35,8 @@ This release adds the following new features:
 
 - [Added list position when create a new list on board](https://github.com/wekan/wekan/pull/4938).
   Thanks to helioguardabaxo.
+- [Added option to show/hide cover attachment on minicard](https://github.com/wekan/wekan/pull/4939).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
