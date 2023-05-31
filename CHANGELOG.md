@@ -18,6 +18,26 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming v7.00 WeKan ® release
+
+This version number and and some before it is reserved for upcoming PR from mfilser.
+
+This release adds the following new features:
+
+- Speed improvements to Board and List loading.
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# Upcoming Next WeKan ® release
+
+This release adds the following new features:
+
+- [Added list position when create a new list on board](https://github.com/wekan/wekan/pull/4938).
+  Thanks to helioguardabaxo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.93 2023-05-29 WeKan ® release
 
 This release fixes the following bugs:
