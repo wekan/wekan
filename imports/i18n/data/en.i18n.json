@@ -729,7 +729,7 @@
   "show-parent-in-minicard": "Show parent in minicard:",
   "description-on-minicard": "Description on minicard",
   "cover-attachment-on-minicard": "Cover attachment on minicard",
-  "badge-attachment-on-minicard": "Badge attachment on minicard",
+  "badge-attachment-on-minicard": "Count of attachments on minicard",
   "card-sorting-by-number-on-minicard": "Card sorting by number on minicard",
   "prefix-with-full-path": "Prefix with full path",
   "prefix-with-parent": "Prefix with parent",
