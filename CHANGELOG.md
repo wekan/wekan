@@ -39,6 +39,8 @@ This release adds the following new features:
   Thanks to helioguardabaxo.
 - [Badges show minicard](https://github.com/wekan/wekan/pull/4940).
   Thanks to helioguardabaxo.
+- [Added conditional to show after list field only if board has at least one list. Now after list shows the last list by default](https://github.com/wekan/wekan/pull/4941).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
