@@ -41,15 +41,24 @@ template(name="editSwimlaneTitleForm")
 template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
-       li: a.js-set-swimlane-color {{_ 'select-color'}}
+       li: a.js-set-swimlane-color
+        i.fa.fa-paint-brush
+        | {{_ 'select-color'}}
     unless this.isTemplateContainer
       hr
       ul.pop-over-list
-        li: a.js-close-swimlane {{_ 'archive-swimlane'}}
+        li: a.js-close-swimlane
+          i.fa.fa-arrow-right
+          i.fa.fa-archive
+          | {{_ 'archive-swimlane'}}
       ul.pop-over-list
-        li: a.js-copy-swimlane {{_ 'copy-swimlane'}}
+        li: a.js-copy-swimlane
+          i.fa.fa-copy
+          | {{_ 'copy-swimlane'}}
       ul.pop-over-list
-        li: a.js-move-swimlane {{_ 'move-swimlane'}}
+        li: a.js-move-swimlane
+          i.fa.fa-arrow-up
+          | {{_ 'move-swimlane'}}
 
 template(name="swimlaneAddPopup")
   unless currentUser.isCommentOnly
