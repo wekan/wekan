@@ -41,6 +41,8 @@ This release adds the following new features:
   Thanks to helioguardabaxo.
 - [Added conditional to show after list field only if board has at least one list. Now after list shows the last list by default](https://github.com/wekan/wekan/pull/4941).
   Thanks to helioguardabaxo.
+- [Changed Add List to be at left. Before it was at right](https://github.com/wekan/wekan/commit/467835192fbcd9d4016674fa2ee406258cc106e7).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
