@@ -37,8 +37,10 @@ This release adds the following new features:
   Thanks to helioguardabaxo.
 - [Added option to show/hide cover attachment on minicard](https://github.com/wekan/wekan/pull/4939).
   Thanks to helioguardabaxo.
-- [Badges show minicard](https://github.com/wekan/wekan/pull/4940).
+- [Count of attachments on minicard. (Badges renamed to Count of attachments)](https://github.com/wekan/wekan/pull/4940).
   Thanks to helioguardabaxo.
+- [Renamed Badge to Count of attachments on minicard. Changed icons to Cover image on minicard](https://github.com/wekan/wekan/commit/825742359ef0738b110ed0904853c604bdbd1bac).
+  Thanks to xet7. 
 - [Added conditional to show after list field only if board has at least one list. Now after list shows the last list by default](https://github.com/wekan/wekan/pull/4941).
   Thanks to helioguardabaxo.
 - [Changed Add List to be at left. Before it was at right](https://github.com/wekan/wekan/commit/467835192fbcd9d4016674fa2ee406258cc106e7).
