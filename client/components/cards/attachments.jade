@@ -75,7 +75,8 @@ template(name="attachmentActionsPopup")
     li
       if isImage
         a(class="{{#if isCover}}js-remove-cover{{else}}js-add-cover{{/if}}")
-          i.fa.fa-thumb-tack
+          i.fa.fa-book
+          i.fa.fa-picture-o
           if isCover
             | {{_ 'remove-cover'}}
           else
