@@ -47,6 +47,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added icons to swimlane action popup](https://github.com/wekan/wekan/pull/4943).
   Thanks to helioguardabaxo.
+- [Added translations to Sort](https://github.com/wekan/wekan/pull/4945).
+  Thanks to DimDz.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
