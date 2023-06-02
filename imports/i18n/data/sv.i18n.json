@@ -1087,6 +1087,7 @@
   "label-names": "Märkningsnamn",
   "archived-at": "arkiverad den",
   "sort-cards": "Sortera kort",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "Sortera kort",
   "due-date": "Förfallodatum",
   "server-error": "Serverfel",

@@ -1087,6 +1087,7 @@
   "label-names": "Noms d'etiquetes",
   "archived-at": "arxivat a",
   "sort-cards": "Ordenar fitxes",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "Ordenar fitxes",
   "due-date": "Data de venciment",
   "server-error": "Error del servidor",

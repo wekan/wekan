@@ -1087,6 +1087,7 @@
   "label-names": "標籤名稱",
   "archived-at": "封存於",
   "sort-cards": "排序卡片",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "排序卡片",
   "due-date": "到期日",
   "server-error": "伺服器錯誤",

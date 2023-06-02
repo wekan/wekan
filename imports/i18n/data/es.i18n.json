@@ -1087,6 +1087,7 @@
   "label-names": "Nombres de las etiquetas",
   "archived-at": "archivado el",
   "sort-cards": "Ordenar tarjetas",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "Ordenar tarjetas",
   "due-date": "Fecha de Vencimiento",
   "server-error": "Error del Servidor",

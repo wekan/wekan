@@ -1087,6 +1087,7 @@
   "label-names": "ラベル名",
   "archived-at": "アーカイブされた：",
   "sort-cards": "カードの並び替え",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "カードの並び替え",
   "due-date": "期限日",
   "server-error": "サーバーエラー",

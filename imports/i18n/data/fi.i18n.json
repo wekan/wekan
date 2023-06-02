@@ -1087,6 +1087,7 @@
   "label-names": "Nimilappujen nimet",
   "archived-at": "arkistoitu",
   "sort-cards": "Lajittele kortit",
+  "sort-is-on": "Lajittelu on käytössä",
   "cardsSortPopup-title": "Lajittele kortit",
   "due-date": "Eräpäivä",
   "server-error": "Palvelin virhe",

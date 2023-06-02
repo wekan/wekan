@@ -1087,6 +1087,7 @@
   "label-names": "라벨 이름",
   "archived-at": "archived at",
   "sort-cards": "카드 정렬",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "카드 정렬",
   "due-date": "마감 일자",
   "server-error": "서버 에러",

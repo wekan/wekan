@@ -1087,6 +1087,7 @@
   "label-names": "Etikettide nimed",
   "archived-at": "arhiveeritud aadressil",
   "sort-cards": "Sorteeri kaardid",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "Sorteeri kaardid",
   "due-date": "Tähtaeg",
   "server-error": "Serveri viga",

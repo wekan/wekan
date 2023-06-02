@@ -1087,6 +1087,7 @@
   "label-names": "Noms d'étiquette",
   "archived-at": "archivée le",
   "sort-cards": "Trier les cartes",
+  "sort-is-on": "Sort is on",
   "cardsSortPopup-title": "Trier les cartes",
   "due-date": "Date d'échéance",
   "server-error": "Erreur serveur",
