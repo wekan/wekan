@@ -39,9 +39,9 @@ template(name="boardHeaderBar")
             span {{_ watchLevel}}
           a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
             i.fa.fa-sort
-            span {{#if isSortActive }}{{_ 'Sort is on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
+            span {{#if isSortActive }}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
             if isSortActive
-              a.board-header-btn-close.js-sort-reset(title="Remove Sort")
+              a.board-header-btn-close.js-sort-reset(title="{{_ 'remove-sort'}}")
                 i.fa.fa-times-thin
 
         else
@@ -82,9 +82,9 @@ template(name="boardHeaderBar")
             span {{_ watchLevel}}
           a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
             i.fa.fa-sort
-            span {{#if isSortActive }}{{_ 'Sort is on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
+            span {{#if isSortActive }}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
             if isSortActive
-              a.board-header-btn-close.js-sort-reset(title="Remove Sort")
+              a.board-header-btn-close.js-sort-reset(title="{{_ 'remove-sort'}}")
                 i.fa.fa-times-thin
 
         else
