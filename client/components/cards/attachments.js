@@ -197,14 +197,17 @@ BlazeComponent.extendComponent({
           Popup.back();
         },
         'click .js-add-background-image'() {
-          Utils.setBackgroundImage($(".attachment-thumbnail-img").attr("src"));
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const url=$(".attachment-thumbnail-img").attr("src");
+          currentBoard.setBackgroundImageURL(url);
+          Utils.setBackgroundImage(url);
           Popup.back();
           event.preventDefault();
         },
         'click .js-remove-background-image'() {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           currentBoard.setBackgroundImageURL("");
-          Utils.setBackgroundImage();
+          Utils.setBackgroundImage("");
           Popup.back();
           Utils.reload();
           event.preventDefault();
