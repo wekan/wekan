@@ -1,8 +1,15 @@
 Utils = {
-  setBackgroundImage() {
+  setBackgroundImage(url) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    if (currentBoard.backgroundImageURL) {
-      $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
+    if (url !== currentBoard.backgroundImageURL) {
+      if (url) {
+        currentBoard.setBackgroundImageURL(url);
+      } else {
+        currentBoard.setBackgroundImageURL("");
+      }
+    }
+    if (url) {
+      $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + url + ")","background-size":"cover"});
       $(".minicard").css({"padding":"8px 8px 2px","box-shadow":"0 2px 3px rgba(0, 0, 0, 0.37)"});
       $(".minicard .minicard-members,.minicard .minicard-assignees,.minicard .minicard-creator").css({"margin": "12px -0px 0px 5px"});
       $(".list").css({"margin":"8px","height":"fit-content","border-left":"none","border-radius":"3px"});
@@ -13,22 +20,8 @@ Utils = {
       $("#header #header-main-bar .board-header-btn").css({"padding":"2px","margin":"0 5px"});
       $(".swimlane").css({"background":"none"});
       $(".board-canvas").css({"background":"none"});
-    }
-  },
-  unsetBackgroundImage() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    if (currentBoard.backgroundImageURL) {
-      $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"none","background-size":"auto"});
-      $(".minicard").css({"padding":"6px 8px 2px","box-shadow":"0 1px 2px rgba(0,0,0,0.15)"});
-      $(".minicard .minicard-members,.minicard .minicard-assignees,.minicard .minicard-creator").css({"margin": "12px -0px 4px 5px"});
-      $(".list").css({"margin":"0px","height":"fit-content","border-left":"none","border-radius":"0px"});
-      $(".list-header-add").css({"padding":"10px 12px 4px"});
-      $(".list-header").css({"padding":"15px 12px 4px","border-top-left-radius":"3px","border-top-right-radius":"3px"});
-      $(".list-header .list-header-name").css({"font-size":"15px","line-height":"15px"});
-      $(".list-header .list-header-menu").css({"padding":"none"});
-      $("#header #header-main-bar .board-header-btn").css({"padding":"2px","margin":"0 5px"});
-      $(".swimlane").css({"background":"none"});
-      $(".board-canvas").css({"background":"none"});
+    } else {
+      $(".board-wrapper,.board-wrapper .board-canvas").css({"background": currentBoard.background.color});
     }
   },
   /** returns the current board id

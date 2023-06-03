@@ -691,6 +691,14 @@ BlazeComponent.extendComponent({
           Popup.back();
           event.preventDefault();
         },
+        'click .js-remove-background-image'() {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          currentBoard.setBackgroundImageURL("");
+          Utils.setBackgroundImage("");
+          Popup.back();
+          //Utils.reload();
+          event.preventDefault();
+        },
       },
     ];
   },
