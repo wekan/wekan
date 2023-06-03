@@ -52,7 +52,8 @@ This release adds the following new features:
 - Set card attachment as background image.
   [Part 1](https://github.com/wekan/wekan/commit/8c6df7f20c946163b447227ff2f0d4da681cffb2),
   [Part 2](https://github.com/wekan/wekan/commit/ed92db87bc0415d3c0bb7f2803d92f8fd7726517),
-  [Part 3](https://github.com/wekan/wekan/commit/01a1eb177e151c3042e1975de771737a6697342f).
+  [Part 3](https://github.com/wekan/wekan/commit/01a1eb177e151c3042e1975de771737a6697342f),
+  [Part 4](https://github.com/wekan/wekan/commit/47380244b827a79426ea92d5a96374b72c5b0811).
   Thanks to xet7.
 
 and adds the following updates:
