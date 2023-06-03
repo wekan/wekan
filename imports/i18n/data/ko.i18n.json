@@ -140,6 +140,8 @@
   "board-change-color": "보드 색 변경",
   "board-change-background-image": "배경 이미지 변경",
   "board-background-image-url": "배경 이미지 URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "모든 게시판 페이지에서 보이기",
   "board-info-on-my-boards" : "모든 게시판 설정",
   "boardInfoOnMyBoardsPopup-title" : "모든 게시판 설정",

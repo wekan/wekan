@@ -140,6 +140,8 @@
   "board-change-color": "Ändra färg",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Visa på sidan alla tavlor",
   "board-info-on-my-boards" : "Alla tavlors inställningar",
   "boardInfoOnMyBoardsPopup-title" : "Alla tavlors inställningar",

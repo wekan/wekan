@@ -140,6 +140,8 @@
   "board-change-color": "更改颜色",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "现在在所有面板页面",
   "board-info-on-my-boards" : "面板全局设置",
   "boardInfoOnMyBoardsPopup-title" : "面板全局设置",

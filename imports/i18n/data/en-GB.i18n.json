@@ -140,6 +140,8 @@
   "board-change-color": "Change colour",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Show at All Boards page",
   "board-info-on-my-boards" : "All Boards Settings",
   "boardInfoOnMyBoardsPopup-title" : "All Boards Settings",

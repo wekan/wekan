@@ -140,6 +140,8 @@
   "board-change-color": "Обоји корице књиге пословања",
   "board-change-background-image": "Насловница пословне књиге",
   "board-background-image-url": "Веза до слике за насловницу пословне књиге",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Прикажи на полазној страни где су све пословне књиге",
   "board-info-on-my-boards" : "Правила за све књиге пословања",
   "boardInfoOnMyBoardsPopup-title" : "Правила за све књиге пословања",

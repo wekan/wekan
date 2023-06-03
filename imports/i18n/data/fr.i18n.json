@@ -140,6 +140,8 @@
   "board-change-color": "Changer la couleur",
   "board-change-background-image": "Changer l'image de fond",
   "board-background-image-url": "URL de l'image de fond",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Afficher sur la page de tous les tableaux",
   "board-info-on-my-boards" : "Paramètres de tous les tableaux",
   "boardInfoOnMyBoardsPopup-title" : "Paramètres de tous les tableaux",

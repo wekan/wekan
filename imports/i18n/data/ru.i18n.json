@@ -140,6 +140,8 @@
   "board-change-color": "Изменить цвет",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Показать на всех досках",
   "board-info-on-my-boards" : "Настройки всех досок",
   "boardInfoOnMyBoardsPopup-title" : "Настройки всех досок",

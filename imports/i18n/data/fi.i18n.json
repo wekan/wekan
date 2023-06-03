@@ -140,6 +140,8 @@
   "board-change-color": "Muokkaa väriä",
   "board-change-background-image": "Vaihda taustakuva",
   "board-background-image-url": "Taustakuvan URL",
+  "add-background-image": "Lisää taustakuva",
+  "remove-background-image": "Poista taustakuva",
   "show-at-all-boards-page" : "Näytä Kaikki taulut sivulla",
   "board-info-on-my-boards" : "Kaikki taulut asetukset",
   "boardInfoOnMyBoardsPopup-title" : "Kaikki taulut asetukset",

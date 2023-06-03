@@ -140,6 +140,8 @@
   "board-change-color": "Alterar cor",
   "board-change-background-image": "Alterar Imagem de Fundo",
   "board-background-image-url": "URL da Imagem de Fundo",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Mostrar na página Todos os Quadros",
   "board-info-on-my-boards" : "Configurações de Todos os Quadros",
   "boardInfoOnMyBoardsPopup-title" : "Configurações de Todos os Quadros",

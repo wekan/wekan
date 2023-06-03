@@ -140,6 +140,8 @@
   "board-change-color": "Wijzig kleur",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Toon op Alle borden pagina",
   "board-info-on-my-boards" : "Alle borden instellingen",
   "boardInfoOnMyBoardsPopup-title" : "Alle borden instellingen",

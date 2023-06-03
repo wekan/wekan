@@ -140,6 +140,8 @@
   "board-change-color": "Canvia el color",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Mostra tots els Taulers",
   "board-info-on-my-boards" : "Configuració de tots els taulers",
   "boardInfoOnMyBoardsPopup-title" : "Configuració de tots els taulers",

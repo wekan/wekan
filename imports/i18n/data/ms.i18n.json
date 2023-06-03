@@ -140,6 +140,8 @@
   "board-change-color": "Ubah Warna",
   "board-change-background-image": "Change Background Image",
   "board-background-image-url": "Background Image URL",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "Papar laman semua Papan",
   "board-info-on-my-boards" : "Semua tetapan Papa",
   "boardInfoOnMyBoardsPopup-title" : "Semua tetapan Papa",

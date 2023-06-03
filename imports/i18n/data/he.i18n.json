@@ -140,6 +140,8 @@
   "board-change-color": "שינוי צבע",
   "board-change-background-image": "החלפת תמונת רקע",
   "board-background-image-url": "כתובת תמונת רקע",
+  "add-background-image": "Add Background Image",
+  "remove-background-image": "Remove Background Image",
   "show-at-all-boards-page" : "הצגה בעמוד כל הלוחות",
   "board-info-on-my-boards" : "הגדרות כל הלוחות",
   "boardInfoOnMyBoardsPopup-title" : "הגדרות כל הלוחות",
