@@ -14,7 +14,7 @@ babel-compiler@7.10.4
 babel-runtime@1.5.1
 base64@1.0.12
 binary-heap@1.0.11
-blaze@2.6.2
+blaze@2.7.1
 blaze-tools@1.1.3
 boilerplate-generator@1.7.1
 caching-compiler@1.2.2
@@ -119,7 +119,7 @@ msavin:usercache@1.8.0
 npm-mongo@4.16.0
 oauth@2.2.0
 oauth2@1.3.2
-observe-sequence@1.0.20
+observe-sequence@1.0.21
 ongoworks:speakingurl@1.1.0
 ordered-dict@1.1.0
 ostrio:cookies@2.7.2
@@ -205,7 +205,7 @@ simple:rest-accounts-password@1.2.2
 simple:rest-bearer-token-parser@1.1.1
 simple:rest-json-error-handler@1.1.1
 socket-stream-client@0.5.1
-spacebars@1.3.0
+spacebars@1.4.1
 spacebars-compiler@1.3.1
 standard-minifier-js@2.8.1
 templates:tabs@2.3.0
