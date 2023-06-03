@@ -50,6 +50,11 @@ This release adds the following new features:
 - [Added translations to Sort](https://github.com/wekan/wekan/pull/4945).
   Thanks to DimDz.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/edf08c8cd44062cbdaa0cc98d10ec045a524cff3).
+  Thanks to developers of dependencies.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.93 2023-05-29 WeKan ® release
