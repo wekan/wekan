@@ -81,14 +81,14 @@ template(name="attachmentActionsPopup")
             | {{_ 'remove-cover'}}
           else
             | {{_ 'add-cover'}}
-      if isImage
-        a(class="{{#if isBackgroundImage}}js-remove-background-image{{else}}js-add-background-image{{/if}}")
-          i.fa.fa-picture-o
-          if isBackgroundImage
-            | {{_ 'remove-background-image'}}
-          else
-            | {{_ 'add-background-image'}}
       if currentUser.isBoardAdmin
+        if isImage
+          a(class="{{#if isBackgroundImage}}js-remove-background-image{{else}}js-add-background-image{{/if}}")
+            i.fa.fa-picture-o
+            if isBackgroundImage
+              | {{_ 'remove-background-image'}}
+            else
+              | {{_ 'add-background-image'}}
         a.js-rename
           i.fa.fa-pencil-square-o
           | {{_ 'rename'}}

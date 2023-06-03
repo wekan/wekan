@@ -175,6 +175,10 @@ BlazeComponent.extendComponent({
     const ret = Cards.findOne(this.data().meta.cardId).coverId == this.data()._id;
     return ret;
   },
+  isBackgroundImage() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.backgroundImageURL === $(".attachment-thumbnail-img").attr("src");
+  },
   events() {
     return [
       {
@@ -190,6 +194,20 @@ BlazeComponent.extendComponent({
         'click .js-remove-cover'() {
           Cards.findOne(this.data().meta.cardId).unsetCover();
           Popup.back();
+        },
+        'click .js-add-background-image'() {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          currentBoard.setBackgroundImageURL($(".attachment-thumbnail-img").attr("src"));
+          Utils.setBackgroundImage();
+          Popup.back();
+          event.preventDefault();
+        },
+        'click .js-remove-background-image'() {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          currentBoard.setBackgroundImageURL("");
+          Utils.setBackgroundImage();
+          Popup.back();
+          Utils.reload();
         },
         'click .js-move-storage-fs'() {
           Meteor.call('moveAttachmentToStorage', this.data()._id, "fs");
