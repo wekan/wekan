@@ -49,6 +49,9 @@ This release adds the following new features:
   Thanks to helioguardabaxo.
 - [Added translations to Sort](https://github.com/wekan/wekan/pull/4945).
   Thanks to DimDz.
+- Set card attachment as background image. In Progress.
+  [Part 1](https://github.com/wekan/wekan/commit/8c6df7f20c946163b447227ff2f0d4da681cffb2).
+  Thanks to xet7.
 
 and adds the following updates:
 
