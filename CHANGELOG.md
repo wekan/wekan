@@ -61,6 +61,11 @@ and adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/edf08c8cd44062cbdaa0cc98d10ec045a524cff3).
   Thanks to developers of dependencies.
 
+and fixes the following bugs:
+
+- [Fix 6.93 with brackground image breaks scrolling on lists within swimlanes](https://github.com/wekan/wekan/commit/04aaa6f30cfe59769c9b1c75cf8921fcc99b1977).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.93 2023-05-29 WeKan ® release
