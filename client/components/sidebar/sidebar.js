@@ -694,9 +694,8 @@ BlazeComponent.extendComponent({
         'click .js-remove-background-image'() {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           currentBoard.setBackgroundImageURL("");
-          Utils.setBackgroundImage("");
           Popup.back();
-          //Utils.reload();
+          Utils.reload();
           event.preventDefault();
         },
       },
