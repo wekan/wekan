@@ -15,8 +15,10 @@
   /*resize: both;  - List width and height resizeable */
   /* overflow: auto; - List width and height resizeable */
 }
-.list:first-child {
+[id^="swimlane-"] .list:first-child {
   min-width: 20px;
+}
+.list:first-child {
   margin-left: 5px;
   border-left: none;
 }
