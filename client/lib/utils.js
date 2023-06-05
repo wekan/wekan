@@ -6,6 +6,7 @@ Utils = {
     if (currentBoard.backgroundImageURL !== undefined) {
       $(".board-wrapper").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
+      $(".minicard").css({"opacity": "0.9"});
     } else if (currentBoard["background-color"]) {
       currentBoard.setColor(currentBoard["background-color"]);
     }
