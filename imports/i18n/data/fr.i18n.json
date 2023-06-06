@@ -731,7 +731,7 @@
   "show-parent-in-minicard": "Voir la carte parente dans la mini-carte :",
   "description-on-minicard": "Description sur la mini-carte",
   "cover-attachment-on-minicard": "Cover image on minicard",
-  "badge-attachment-on-minicard": "Count of attachments on minicard",
+  "badge-attachment-on-minicard": "Compteur de pièces jointes sur la mini-carte",
   "card-sorting-by-number-on-minicard": "Tri numérique des cartes sur la mini-carte",
   "prefix-with-full-path": "Préfixer avec le chemin complet",
   "prefix-with-parent": "Préfixer avec le parent",
