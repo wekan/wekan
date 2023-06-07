@@ -490,6 +490,47 @@ if (Meteor.isServer) {
   });
 
   /**
+   * @operation edit_swimlane
+   *
+   * @summary Edit the title of a swimlane
+   *
+   * @param {string} boardId the ID of the board
+   * @param {string} swimlaneId the ID of the swimlane to edit
+   * @param {string} title the new title of the swimlane
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add('PUT', '/api/boards/:boardId/swimlanes/:swimlaneId', function(req, res) {
+    try {
+      const paramBoardId = req.params.boardId;
+      const paramSwimlaneId = req.params.swimlaneId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      const board = Boards.findOne(paramBoardId);
+      const swimlane = Swimlanes.findOne({
+        _id: paramSwimlaneId,
+        boardId: paramBoardId,
+      });
+      if (!swimlane) {
+        throw new Meteor.Error('not-found', 'Swimlane not found');
+      }
+      Swimlanes.update(
+        { _id: paramSwimlaneId },
+        { $set: { title: req.body.title } }
+      );
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: paramSwimlaneId,
+        },
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  /**
    * @operation delete_swimlane
    *
    * @summary Delete a swimlane
