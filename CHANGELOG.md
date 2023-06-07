@@ -29,6 +29,15 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Revert smaller swimlane height](https://github.com/wekan/wekan/commit/95efcbe71727ea2be5d2c9a1fa7fd2de76f71ef2).
+  Thanks to kovacs-andras and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.94 2023-06-07 WeKan ® release
 
 This release adds the following new features:
