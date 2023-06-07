@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v6.93</title>
+    <title>Wekan REST API v6.94</title>
 
     <style>
     </style>
@@ -1558,7 +1558,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v6.93">Wekan REST API v6.93</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v6.94">Wekan REST API v6.94</a>
             
           </li>
         
@@ -1998,6 +1998,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                   </li>
                 
                   <li>
+                    <a href="#edit_swimlane" class="toc-h2 toc-link" data-title="">edit_swimlane</a>
+                    
+                  </li>
+                
+                  <li>
                     <a href="#delete_swimlane" class="toc-h2 toc-link" data-title="">delete_swimlane</a>
                     
                   </li>
@@ -2171,7 +2176,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v6.93</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v6.94</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -3601,6 +3606,9 @@ System.out.println(response.toString());
   <span class="hljs-attr">&quot;allowsDescriptionTitle&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionText&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionTextOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCoverAttachmentOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsBadgeAttachmentOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCardSortingByNumberOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsCardNumber&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsActivities&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsLabels&quot;</span>: <span class="hljs-literal">true</span>,
@@ -19429,6 +19437,271 @@ System.out.println(response.toString());
 To perform this operation, you must be authenticated by means of one of the following methods:
 UserSecurity
 </aside>
+<h2 id="edit_swimlane">edit_swimlane</h2>
+<p><a id="opIdedit_swimlane"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X PUT /api/boards/{board}/swimlanes/{swimlane} \
+  -H <span class="hljs-string">&#x27;Content-Type: multipart/form-data&#x27;</span> \
+  -H <span class="hljs-string">&#x27;Accept: application/json&#x27;</span> \
+  -H <span class="hljs-string">&#x27;Authorization: API_KEY&#x27;</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">PUT</span> <span class="hljs-string">/api/boards/{board}/swimlanes/{swimlane}</span> <span class="hljs-meta">HTTP/1.1</span>
+
+<span class="fortran">Content-<span class="hljs-keyword">Type</span>: multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span>
+Accept: application/json
+
+</span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">&#x27;{
+  &quot;title&quot;: &quot;string&quot;
+}&#x27;</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>:<span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>:<span class="hljs-string">&#x27;API_KEY&#x27;</span>
+};
+
+fetch(<span class="hljs-string">&#x27;/api/boards/{board}/swimlanes/{swimlane}&#x27;</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;PUT&#x27;</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>);
+<span class="hljs-keyword">const</span> inputBody = {
+  <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+};
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>:<span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>:<span class="hljs-string">&#x27;API_KEY&#x27;</span>
+};
+
+fetch(<span class="hljs-string">&#x27;/api/boards/{board}/swimlanes/{swimlane}&#x27;</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;PUT&#x27;</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(inputBody),
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;rest-client&#x27;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;json&#x27;</span>
+
+headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span> =&gt; <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span> =&gt; <span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span> =&gt; <span class="hljs-string">&#x27;API_KEY&#x27;</span>
+}
+
+result = RestClient.put <span class="hljs-string">&#x27;/api/boards/{board}/swimlanes/{swimlane}&#x27;</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+  <span class="hljs-string">&#x27;Accept&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>,
+  <span class="hljs-string">&#x27;Authorization&#x27;</span>: <span class="hljs-string">&#x27;API_KEY&#x27;</span>
+}
+
+r = requests.put(<span class="hljs-string">&#x27;/api/boards/{board}/swimlanes/{swimlane}&#x27;</span>, headers = headers)
+
+<span class="hljs-built_in">print</span>(r.json())
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">&quot;/api/boards/{board}/swimlanes/{swimlane}&quot;</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">&quot;PUT&quot;</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">&quot;bytes&quot;</span>
+       <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">&quot;Content-Type&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;multipart/form-data&quot;</span>},
+        <span class="hljs-string">&quot;Accept&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;application/json&quot;</span>},
+        <span class="hljs-string">&quot;Authorization&quot;</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;API_KEY&quot;</span>},
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">&quot;PUT&quot;</span>, <span class="hljs-string">&quot;/api/boards/{board}/swimlanes/{swimlane}&quot;</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<pre class="highlight tab tab-php"><code> <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
+    <span class="hljs-string">&#x27;Accept&#x27;</span> =&gt; <span class="hljs-string">&#x27;application/json&#x27;</span>,
+    <span class="hljs-string">&#x27;Authorization&#x27;</span> =&gt; <span class="hljs-string">&#x27;API_KEY&#x27;</span>,
+);
+
+<span class="hljs-variable">$client</span> = <span class="hljs-keyword">new</span> \GuzzleHttp\Client();
+
+<span class="hljs-comment">// Define array of request body.</span>
+<span class="hljs-variable">$request_body</span> = <span class="hljs-keyword">array</span>();
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$response</span> = <span class="hljs-variable">$client</span>-&gt;request(<span class="hljs-string">&#x27;PUT&#x27;</span>,<span class="hljs-string">&#x27;/api/boards/{board}/swimlanes/{swimlane}&#x27;</span>, <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">&#x27;headers&#x27;</span> =&gt; <span class="hljs-variable">$headers</span>,
+        <span class="hljs-string">&#x27;json&#x27;</span> =&gt; <span class="hljs-variable">$request_body</span>,
+       )
+    );
+    print_r(<span class="hljs-variable">$response</span>-&gt;getBody()-&gt;getContents());
+ }
+ <span class="hljs-keyword">catch</span> (\GuzzleHttp\<span class="hljs-built_in">Exception</span>\BadResponseException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-comment">// handle exception or api errors.</span>
+    print_r(<span class="hljs-variable">$e</span>-&gt;getMessage());
+ }
+
+ <span class="hljs-comment">// ...</span>
+
+</code></pre>
+<p><code>PUT /api/boards/{board}/swimlanes/{swimlane}</code></p>
+<p><em>Edit the title of a swimlane</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
+
+</code></pre>
+<h3 id="edit_swimlane-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the board</td>
+</tr>
+<tr>
+<td>swimlane</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the swimlane to edit</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» title</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the new title of the swimlane</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions-53">Detailed descriptions</h4>
+<p><strong>board</strong>: the ID of the board</p>
+<p><strong>swimlane</strong>: the ID of the swimlane to edit</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;_id&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+<h3 id="edit_swimlane-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="edit_swimlane-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» _id</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
 <h2 id="delete_swimlane">delete_swimlane</h2>
 <p><a id="opIddelete_swimlane"></a></p>
 <blockquote>
@@ -19605,7 +19878,7 @@ System.out.println(response.toString());
 </tr>
 </tbody>
 </table>
-<h4 id="detailed-descriptions-53">Detailed descriptions</h4>
+<h4 id="detailed-descriptions-54">Detailed descriptions</h4>
 <p><strong>board</strong>: the ID of the board</p>
 <p><strong>swimlane</strong>: the ID of the swimlane</p>
 <blockquote>
@@ -19725,6 +19998,9 @@ UserSecurity
   <span class="hljs-attr">&quot;allowsDescriptionTitle&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionText&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsDescriptionTextOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCoverAttachmentOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsBadgeAttachmentOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;allowsCardSortingByNumberOnMinicard&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsCardNumber&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsActivities&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;allowsLabels&quot;</span>: <span class="hljs-literal">true</span>,
@@ -19959,6 +20235,27 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>Does the board allows description text on minicard?</td>
+</tr>
+<tr>
+<td>allowsCoverAttachmentOnMinicard</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows cover attachment on minicard?</td>
+</tr>
+<tr>
+<td>allowsBadgeAttachmentOnMinicard</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows badge attachment on minicard?</td>
+</tr>
+<tr>
+<td>allowsCardSortingByNumberOnMinicard</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows card sorting by number on minicard?</td>
 </tr>
 <tr>
 <td>allowsCardNumber</td>

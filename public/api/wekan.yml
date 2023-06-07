@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.93
+  version: v6.94
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2483,6 +2483,46 @@ paths:
             200 response
           schema:
             $ref: "#/definitions/Swimlanes"
+    put:
+      operationId: edit_swimlane
+      summary: Edit the title of a swimlane
+      tags:
+        - Swimlanes
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: |
+            the new title of the swimlane
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: |
+            the ID of the board
+          type: string
+          required: true
+        - name: swimlane
+          in: path
+          description: |
+            the ID of the swimlane to edit
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
     delete:
       operationId: delete_swimlane
       summary: Delete a swimlane
@@ -3152,6 +3192,9 @@ definitions:
       - allowsDescriptionTitle
       - allowsDescriptionText
       - allowsDescriptionTextOnMinicard
+      - allowsCoverAttachmentOnMinicard
+      - allowsBadgeAttachmentOnMinicard
+      - allowsCardSortingByNumberOnMinicard
       - allowsCardNumber
       - allowsActivities
       - allowsLabels
