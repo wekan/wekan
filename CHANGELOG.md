@@ -55,6 +55,8 @@ This release adds the following new features:
   [Part 3](https://github.com/wekan/wekan/commit/01a1eb177e151c3042e1975de771737a6697342f),
   [Part 4](https://github.com/wekan/wekan/commit/47380244b827a79426ea92d5a96374b72c5b0811).
   Thanks to xet7.
+- [Edit the title of a swimlane using API](https://github.com/wekan/wekan/pull/4950).
+  Thanks to DimDz.
 
 and adds the following updates:
 
