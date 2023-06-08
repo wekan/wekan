@@ -118,7 +118,7 @@ class DateFilter {
         .add(weekStartDay, 'days');
       var WeekEnd = WeekStart
         .clone()
-        .add(offset, 'week')
+        .add(6, 'days')
         .endOf('day');
 
       this._updateState('thisweek');
@@ -130,7 +130,7 @@ class DateFilter {
         .add(weekStartDay + 7, 'days');
       var WeekEnd = WeekStart
         .clone()
-        .add(offset, 'week')
+        .add(6, 'days')
         .endOf('day');
 
      this._updateState('nextweek');
