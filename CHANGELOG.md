@@ -29,6 +29,20 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Docker Health Check](https://github.com/wekan/wekan/pull/4954).
+  Thanks to luketainton.
+
+and fixes the following bugs:
+
+- [Fix due date filter for next and this week](https://github.com/wekan/wekan/pull/4953).
+  Thanks to helioguardabaxo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.95 2023-06-07 WeKan ® release
 
 This release fixes the following bugs:
