@@ -250,7 +250,7 @@ RUN \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
     mkdir /data && \
-    chown wekan --recursive /data && \
+    chown wekan --recursive /data
     #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
     #rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
