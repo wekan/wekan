@@ -40,7 +40,9 @@ and fixes the following bugs:
 
 - [Fix due date filter for next and this week](https://github.com/wekan/wekan/pull/4953).
   Thanks to helioguardabaxo.
-- [Fixed Rare bug: All Boards page icons random dance. Commented out All Boards show members, cards counts, and some migrations](https://github.com/wekan/wekan/commit/b75e16f104390211e3e26c500c0a54687fee329d.
+- Fixed Rare bug: All Boards page icons random dance. Disabled cards counts and card members at All Boards page.
+  [Part 1](https://github.com/wekan/wekan/commit/b75e16f104390211e3e26c500c0a54687fee329d),
+  [Part 2](https://github.com/wekan/wekan/commit/e1a00090ba0ca192ba30f735a13d1ec5b5aa6bc1).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
