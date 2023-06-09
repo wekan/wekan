@@ -51,10 +51,12 @@ Settings.attachSchema(
     displayAuthenticationMethod: {
       type: Boolean,
       optional: true,
+      defaultValue: true,
     },
     defaultAuthenticationMethod: {
       type: String,
       optional: false,
+      defaultValue: 'password',
     },
     spinnerName: {
       type: String,
@@ -63,14 +65,17 @@ Settings.attachSchema(
     hideLogo: {
       type: Boolean,
       optional: true,
+      defaultValue: false,
     },
     hideCardCounterList: {
       type: Boolean,
       optional: true,
+      defaultValue: false,
     },
     hideBoardMemberList: {
       type: Boolean,
       optional: true,
+      defaultValue: false,
     },
     customLoginLogoImageUrl: {
       type: String,

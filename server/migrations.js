@@ -54,6 +54,7 @@ const noValidate = {
 };
 const noValidateMulti = { ...noValidate, multi: true };
 
+/*
 Migrations.add('board-background-color', () => {
   const defaultColor = '#16A085';
   Boards.update(
@@ -90,7 +91,6 @@ Migrations.add('add-cardcounterlist-allowed', () => {
   );
 });
 
-/*
 Migrations.add('add-boardmemberlist-allowed', () => {
   Boards.update(
     {
@@ -106,7 +106,6 @@ Migrations.add('add-boardmemberlist-allowed', () => {
     noValidateMulti,
   );
 });
-*/
 
 Migrations.add('lowercase-board-permission', () => {
   ['Public', 'Private'].forEach(permission => {
@@ -118,7 +117,6 @@ Migrations.add('lowercase-board-permission', () => {
   });
 });
 
-/*
 // Security migration: see https://github.com/wekan/wekan/issues/99
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
@@ -259,6 +257,7 @@ Migrations.add('add-swimlanes', () => {
   });
 });
 
+/*
 Migrations.add('add-views', () => {
   Boards.find().forEach(board => {
     if (!board.hasOwnProperty('view')) {
@@ -270,6 +269,7 @@ Migrations.add('add-views', () => {
     }
   });
 });
+*/
 
 Migrations.add('add-checklist-items', () => {
   Checklists.find().forEach(checklist => {
@@ -308,6 +308,7 @@ Migrations.add('add-card-types', () => {
   });
 });
 
+/*
 Migrations.add('add-custom-fields-to-cards', () => {
   Cards.update(
     {
@@ -452,6 +453,7 @@ Migrations.add('add-authenticationMethod', () => {
     noValidateMulti,
   );
 });
+*/
 
 Migrations.add('remove-tag', () => {
   Users.update(
@@ -477,6 +479,7 @@ Migrations.add('remove-customFields-references-broken', () => {
   );
 });
 
+/*
 Migrations.add('add-product-name', () => {
   Settings.update(
     {
@@ -572,6 +575,7 @@ Migrations.add('add-defaultAuthenticationMethod', () => {
     noValidateMulti,
   );
 });
+*/
 
 Migrations.add('add-templates', () => {
   Boards.update(
@@ -817,6 +821,7 @@ Migrations.add('fix-incorrect-dates', () => {
   );
 });
 
+/*
 Migrations.add('add-assignee', () => {
   Cards.update(
     {
@@ -1120,6 +1125,7 @@ Migrations.add('add-description-text-allowed-on-minicard', () => {
     noValidateMulti,
   );
 });
+*/
 
 Migrations.add('add-sort-field-to-boards', () => {
   Boards.find().forEach((board, index) => {

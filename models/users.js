@@ -171,6 +171,7 @@ Users.attachSchema(
        */
       type: Boolean,
       optional: true,
+      defaultValue: false,
     },
     'profile.hideCheckedItems': {
       /**
@@ -384,6 +385,7 @@ Users.attachSchema(
         'board-view-lists',
         'board-view-cal',
       ],
+      defaultValue: 'board-view-swimlanes',
     },
     'profile.listSortBy': {
       /**
