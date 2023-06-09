@@ -31,7 +31,12 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Found and fixed more InvisibleBleed of WeKan](https://github.com/wekan/wekan/commit/4c016169c55e0dc5df9533795ddfec424a053300).
+  Thanks to xet7.
+
+and adds the following new features:
 
 - [Docker Health Check](https://github.com/wekan/wekan/pull/4954).
   Thanks to luketainton.
