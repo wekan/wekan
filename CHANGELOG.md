@@ -50,6 +50,8 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/e1a00090ba0ca192ba30f735a13d1ec5b5aa6bc1),
   [Part 3](https://github.com/wekan/wekan/commit/9ab0efe87adbc872af287fb8254cccb6dd44aec3).
   Thanks to xet7.
+- [Docker build was broken because of wrong curl install](https://github.com/wekan/wekan/pull/4955).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
