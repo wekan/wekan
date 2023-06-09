@@ -64,7 +64,10 @@ if (Package.ui) {
     if (self.templateContentBlock) {
       text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
     }
-
-    return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '&lt;!--').replace('-->', '--&gt;'), {ALLOW_UNKNOWN_PROTOCOLS: true}));
+    if (text.includes("[]") !== false || text.includes("<!--") !== false || text.includes("-->") !== false) {
+      return HTML.Raw('<h2 style="color: red; background-color: yellow;">WARNING! HIDDEN TEXT!</h2><pre style="background-color: red;">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;').replace('<pre>', '').replace('</pre>','') + '</pre>'));
+    } else {
+      return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '&lt;!--').replace('-->', '--&gt;'), {ALLOW_UNKNOWN_PROTOCOLS: true}));
+    }
   }));
 }
