@@ -250,16 +250,23 @@ RUN \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
     mkdir /data && \
-    chown wekan --recursive /data
+    chown wekan --recursive /data && \
     #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
     #rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
+    \
+    # Health Check dependencies
+    apt-get install -y --no-install-recommends curl
+
 
 ENV PORT=8080
 EXPOSE $PORT
 USER wekan
 
 STOPSIGNAL SIGKILL
+
+HEALTHCHECK --start-period=30s --interval=30s --timeout=10s --retries=3 \
+  CMD curl --fail "http://localhost:$PORT" || exit 1
 
 #---------------------------------------------------------------------
 # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
