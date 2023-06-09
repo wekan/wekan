@@ -448,13 +448,14 @@ template(name="boardMenuPopup")
         a.js-change-background-image
           i.fa.fa-picture-o
           | {{_ 'board-change-background-image'}}
-    if currentUser.isBoardAdmin
-      unless currentSetting.hideBoardMemberList
-        unless currentSetting.hideCardCounterList
-          li
-            a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
-              i.fa.fa-id-card-o
-              | {{_ 'board-info-on-my-boards'}}
+    //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
+    //if currentUser.isBoardAdmin
+    //  unless currentSetting.hideBoardMemberList
+    //    unless currentSetting.hideCardCounterList
+    //      li
+    //        a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
+    //          i.fa.fa-id-card-o
+    //          | {{_ 'board-info-on-my-boards'}}
   hr
   ul.pop-over-list
     if withApi
