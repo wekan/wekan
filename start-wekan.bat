@@ -1,5 +1,31 @@
 @ECHO OFF
 
+REM # ------------------- HOWTO ---------------------
+REM # https://github.com/wekan/wekan/wiki/Offline
+
+REM #-------------------- REQUIRED SETTINGS START --------------------
+
+REM # Writable path required to exist and be writable for attachments to migrate and work correctly
+SET WRITABLE_PATH=..
+
+REM # MongoDB database URL required
+SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
+
+REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
+REM # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
+REM # If ROOT_URL is not correct, these do not work: translations, uploading attachments.
+SET ROOT_URL=http://localhost:2000
+
+REM # Must change to YOUR-PORT-NUMBER:
+SET PORT=2000
+
+REM #------------------- REQUIRED SETTINGS END ----------------------
+
+REM #-------------------- OPTIONAL SETTINGS START -------------------
+REM # If at public Internet, required different settings:
+REM # - For ROOT_URL: https://github.com/wekan/wekan/wiki/Settings
+REM # - For SSL/TLS, also at above wiki right menu: config for Caddy/Nginx/Apache
+
 REM ------------------------------------------------------------
 
 REM # Debug OIDC OAuth2 etc.
@@ -494,4 +520,7 @@ REM # SET NODE_OPTIONS="--max_old_space_size=4096"
 REM # Add more stack. ulimit is not at Windows, stack-size is at Windows:
 REM #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
 REM #node --stack-size=65500 main.js
+
+REM #-------------------- OPTIONAL SETTINGS END --------------------
+
 node main.js
