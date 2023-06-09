@@ -17,4 +17,4 @@ require('jquery-ui/ui/widgets/draggable')
 require('jquery-ui/ui/widgets/droppable')
 
 // enable touch on mobile
-require('jquery-ui-touch-punch')
+require('@rwap/jquery-ui-touch-punch')
