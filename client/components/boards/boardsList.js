@@ -7,21 +7,13 @@ Template.boardList.helpers({
     return Settings.findOne();
   },
   hideCardCounterList() {
-    // Fix Rare bug: Board Icons random dance https://github.com/wekan/wekan/issues/4214
-    //               by commenting out following line,
-    //               where it probably counts too often at realtime,
-    //               and makes cards that have card count and member list change size
-    //               and order all the time:
-    //return Utils.isMiniScreen() && Session.get('currentBoard');
+    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
+       return Utils.isMiniScreen() && Session.get('currentBoard'); */
     return true;
   },
   hideBoardMemberList() {
-    // Fix Rare bug: Board Icons random dance https://github.com/wekan/wekan/issues/4214
-    //               by commenting out following line,
-    //               where it probably counts too often at realtime,
-    //               and makes cards that have card count and member list change size
-    //               and order all the time:
-    //return Utils.isMiniScreen() && Session.get('currentBoard');
+    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
+       return Utils.isMiniScreen() && Session.get('currentBoard'); */
     return true;
   },
 })
@@ -64,6 +56,7 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     const itemsSelector = '.js-board:not(.placeholder)';
+
     const $boards = this.$('.js-boards');
     $boards.sortable({
       connectWith: '.js-boards',
@@ -95,9 +88,7 @@ BlazeComponent.extendComponent({
         // DOM in its initial state. The card move is then handled reactively by
         // Blaze with the below query.
         $boards.sortable('cancel');
-        // Fix Rare bug: Board Icons random dance https://github.com/wekan/wekan/issues/4214
-        //               by commenting out following line:
-        //board.move(sortIndex.base);
+        board.move(sortIndex.base);
       },
     });
 
@@ -221,29 +212,27 @@ BlazeComponent.extendComponent({
     });
   },
   boardLists(boardId) {
-/*
     let boardLists = [];
     const lists = Lists.find({ 'boardId': boardId, 'archived': false },{sort: ['sort','asc']});
+    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     lists.forEach(list => {
       let cardCount = Cards.find({ 'boardId': boardId, 'listId': list._id }).count()
       boardLists.push(`${list.title}: ${cardCount}`);
     });
+    */
     return boardLists;
-*/
-   return false;
   },
 
   boardMembers(boardId) {
-/*
     let boardMembers = [];
+    /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     const lists = Boards.findOne({ '_id': boardId })
-    let members = lists.members
+    let members = lists.members;
     members.forEach(member => {
       boardMembers.push(member.userId);
     });
+    */
     return boardMembers;
-*/
-   return false;
   },
 
   isStarred() {

@@ -294,14 +294,6 @@ Boards.attachSchema(
         }
       },
     },
-    background: {
-      /**
-       * The background color of the board.
-       */
-      type: String,
-      optional: true,
-      defaultValue: '#16A085',
-    },
     backgroundImageURL: {
       /**
        * The background image URL of the board.
@@ -314,7 +306,6 @@ Boards.attachSchema(
        * Show card counter per list
        */
       type: Boolean,
-      optional: false,
       defaultValue: false,
     },
     allowsBoardMemberList: {
@@ -366,7 +357,6 @@ Boards.attachSchema(
        * Does the board allows subtasks?
        */
       type: Boolean,
-      optional: false,
       defaultValue: true,
     },
 
@@ -1318,7 +1308,7 @@ Boards.mutations({
   },
 
   setVisibility(visibility) {
-    return { $set: { permission: visibility.toLowerCase() } };
+    return { $set: { permission: visibility } };
   },
 
   addLabel(name, color) {
