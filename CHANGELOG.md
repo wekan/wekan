@@ -54,6 +54,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Try to fix Docker build by removing empty continuation lines](https://github.com/wekan/wekan/commit/b008986122e258e725379264850d16d06c445db1).
   Thanks to xet7.
+- [Clarified required settings for start-wekan.bat and start-wekan.sh](https://github.com/wekan/wekan/commit/3e6b396d0913e6747714a9f87e2161bba0ce525e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
