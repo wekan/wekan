@@ -42,7 +42,8 @@ and fixes the following bugs:
   Thanks to helioguardabaxo.
 - Fixed Rare bug: All Boards page icons random dance. Disabled cards counts and card members at All Boards page.
   [Part 1](https://github.com/wekan/wekan/commit/b75e16f104390211e3e26c500c0a54687fee329d),
-  [Part 2](https://github.com/wekan/wekan/commit/e1a00090ba0ca192ba30f735a13d1ec5b5aa6bc1).
+  [Part 2](https://github.com/wekan/wekan/commit/e1a00090ba0ca192ba30f735a13d1ec5b5aa6bc1),
+  [Part 3](https://github.com/wekan/wekan/commit/9ab0efe87adbc872af287fb8254cccb6dd44aec3).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
