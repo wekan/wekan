@@ -52,6 +52,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Docker build was broken because of wrong curl install](https://github.com/wekan/wekan/pull/4955).
   Thanks to mfilser.
+- [Try to fix Docker build by removing empty continuation lines](https://github.com/wekan/wekan/commit/b008986122e258e725379264850d16d06c445db1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
