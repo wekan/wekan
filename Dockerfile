@@ -254,9 +254,6 @@ RUN \
     #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
     #rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
-    \
-    # Health Check dependencies
-    apt-get install -y --no-install-recommends curl
 
 
 ENV PORT=8080
