@@ -56,6 +56,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Clarified required settings for start-wekan.bat and start-wekan.sh](https://github.com/wekan/wekan/commit/3e6b396d0913e6747714a9f87e2161bba0ce525e).
   Thanks to xet7.
+- [Fixed drag-drop at Ubuntu Touch Morph Browser and WeKan OpenStore app by changing jquery-ui-touch-punch to newer updated @rwap/jquery-ui-touch-punch](https://github.com/wekan/wekan/commit/af63259f091cb2ade84493a288ea37c53cd37321).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
