@@ -64,10 +64,16 @@ if (Package.ui) {
     if (self.templateContentBlock) {
       text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
     }
-    if (text.includes("[]") !== false || text.includes("<!--") !== false || text.includes("-->") !== false) {
-      return HTML.Raw('<h2 style="color: red; background-color: yellow;">WARNING! HIDDEN TEXT!</h2><pre style="background-color: red;">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;').replace('<pre>', '').replace('</pre>','') + '</pre>'));
+    if (text.includes("[]") !== false) {
+      // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
+      // If markdown link does not have description, do not render markdown, instead show all of markdown source code using preformatted text.
+      // Also show html comments.
+      return HTML.Raw('<pre style="background-color: red;" title="Warning! Hidden markdown link description!" aria-label="Warning! Hidden markdown link description!">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;')) + '</pre>');
     } else {
-      return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '&lt;!--').replace('-->', '--&gt;'), {ALLOW_UNKNOWN_PROTOCOLS: true}));
+      // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
+      // If text does not have hidden markdown link, render all markdown.
+      // Also show html comments.
+      return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>'), {ALLOW_UNKNOWN_PROTOCOLS: true}));
     }
   }));
 }
