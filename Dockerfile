@@ -241,7 +241,8 @@ RUN \
     mv $(which tar)~ $(which tar) && \
     \
     # Cleanup
-    apt-get remove --purge -y ${BUILD_DEPS} && \
+    BUILD_DEPS_NO_CURL=$(echo $BUILD_DEPS | sed "s/curl //g") \
+    apt-get remove --purge -y ${BUILD_DEPS_NO_CURL} && \
     apt-get autoremove -y && \
     npm uninstall -g api2html &&\
     rm -R /tmp/* && \
@@ -260,6 +261,8 @@ EXPOSE $PORT
 USER wekan
 
 STOPSIGNAL SIGKILL
+
+HEALTHCHECK CMD curl http://localhost:$PORT || exit 1
 
 #---------------------------------------------------------------------
 # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132

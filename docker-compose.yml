@@ -717,6 +717,12 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-files:/data:rw
+    healthcheck:
+      test: curl http://localhost:8080 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
