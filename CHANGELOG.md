@@ -29,7 +29,7 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
-# Upcoming WeKan ® release
+# v6.96 2023-06-10 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
