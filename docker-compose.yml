@@ -108,6 +108,12 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - wekan-db:/data/db
       - wekan-db-dump:/dump
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   wekan:
     #-------------------------------------------------------------------------------------
@@ -706,7 +712,8 @@ services:
       # - WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
     depends_on:
-      - wekandb
+      wekandb:
+        condition: service_healthy
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-files:/data:rw
