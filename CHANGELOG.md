@@ -36,6 +36,11 @@ This release adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/d93481d84009922c22a4eaaf49624f7153f737dd).
   Thanks to developers of dependencies.
 
+and removes the following features:
+
+- [Feature: Docker Health Check](https://github.com/wekan/wekan/commit/c8ec8d456b481b10cbf135d5289093a57b2e547f).
+  Thanks to luketainton, mfilser and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.96 2023-06-10 WeKan ® release
