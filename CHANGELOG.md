@@ -29,6 +29,15 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# Upcoming Next WeKan ® release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/d93481d84009922c22a4eaaf49624f7153f737dd).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.96 2023-06-10 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
