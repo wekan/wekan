@@ -33,7 +33,9 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
-- [Found and fixed more InvisibleBleed of WeKan](https://github.com/wekan/wekan/commit/4c016169c55e0dc5df9533795ddfec424a053300).
+- Found and fixed more InvisibleBleed of WeKan.
+  [Part 1](https://github.com/wekan/wekan/commit/4c016169c55e0dc5df9533795ddfec424a053300),
+  [Part 2](https://github.com/wekan/wekan/commit/df40384200d10595a7a9cd582d8534295eec5036).
   Thanks to xet7.
 
 and adds the following new features:
