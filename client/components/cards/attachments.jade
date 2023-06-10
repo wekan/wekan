@@ -42,7 +42,9 @@ template(name="attachmentsGalery")
       .attachment-item
         a.attachment-thumbnail.swipebox(href="{{link}}" title="{{sanitize name}}")
           if link
-            if isImage
+            if($eq extension 'svg')
+              img.attachment-thumbnail-img(src="{{link}}" title="{{sanitize name}}" type="image/svg+xml")
+            else if isImage
               img.attachment-thumbnail-img(src="{{link}}" title="{{sanitize name}}")
             else if($eq extension 'mp3')
               video(width="100%" height="100%" title="{{sanitize name}}" controls="true")
