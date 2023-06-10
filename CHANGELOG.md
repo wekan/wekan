@@ -60,6 +60,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed drag-drop at Ubuntu Touch Morph Browser and WeKan OpenStore app by changing jquery-ui-touch-punch to newer updated @rwap/jquery-ui-touch-punch](https://github.com/wekan/wekan/commit/af63259f091cb2ade84493a288ea37c53cd37321).
   Thanks to xet7.
+- [Try to fix SVG image failed to render](https://github.com/wekan/wekan/commit/7a3c340d657894bf72130b7e51e313e3b020f9cf).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
