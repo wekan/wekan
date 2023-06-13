@@ -179,6 +179,9 @@
 #js-wip-limit-edit div {
   float: left;
 }
+#js-list-width-edit .list-width-error {
+  display: none;
+}
 @media screen and (max-width: 800px) {
   .mini-list {
     flex: 0 0 60px;

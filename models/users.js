@@ -422,6 +422,24 @@ Users.attachSchema(
       type: String,
       defaultValue: '',
     },
+    'profile.listWidths': {
+      /**
+       * User-specified width of each list (or nothing if default).
+       * profile[boardId][listId] = width;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
+    'profile.swimlaneHeights': {
+      /**
+       * User-specified heights of each swimlane (or nothing if default).
+       * profile[boardId][swimlaneId] = height;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     services: {
       /**
        * services field of the user
@@ -758,6 +776,19 @@ Users.helpers({
   },
   getListSortByDirection() {
     return this._getListSortBy()[1];
+  },
+
+  getListWidths() {
+    const { listWidths = {} } = this.profile || {};
+    return listWidths;
+  },
+  getListWidth(boardId, listId) {
+    const listWidths = this.getListWidths();
+    if (listWidths[boardId] && listWidths[boardId][listId]) {
+      return listWidths[boardId][listId];
+    } else {
+      return 270; //TODO(mark-i-m): default?
+    }
   },
 
   /** returns all confirmed move and copy dialog field values
@@ -1137,6 +1168,19 @@ Users.mutations({
       },
     };
   },
+
+  setListWidth(boardId, listId, width) {
+    let currentWidths = this.getListWidths();
+    if (!currentWidths[boardId]) {
+      currentWidths[boardId] = {};
+    }
+    currentWidths[boardId][listId] = width;
+    return {
+      $set: {
+        'profile.listWidths': currentWidths,
+      },
+    };
+  },
 });
 
 Meteor.methods({
@@ -1179,6 +1223,13 @@ Meteor.methods({
   changeStartDayOfWeek(startDay) {
     check(startDay, Number);
     Meteor.user().setStartDayOfWeek(startDay);
+  },
+  applyListWidth(boardId, listId, width) {
+    check(boardId, String);
+    check(listId, String);
+    check(width, Number);
+    const user = Meteor.user();
+    user.setListWidth(boardId, listId, width);
   },
 });
 
