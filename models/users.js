@@ -791,6 +791,19 @@ Users.helpers({
     }
   },
 
+  getSwimlaneHeights() {
+    const { swimlaneHeights = {} } = this.profile || {};
+    return swimlaneHeights;
+  },
+  getSwimlaneHeight(boardId, listId) {
+    const swimlaneHeights = this.getSwimlaneHeights();
+    if (swimlaneHeights[boardId] && swimlaneHeights[boardId][listId]) {
+      return swimlaneHeights[boardId][listId];
+    } else {
+      return 270; //TODO(mark-i-m): default?
+    }
+  },
+
   /** returns all confirmed move and copy dialog field values
    * <li> the board, swimlane and list id is stored for each board
    */
@@ -1181,6 +1194,19 @@ Users.mutations({
       },
     };
   },
+
+  setSwimlaneHeight(boardId, swimlaneId, height) {
+    let currentHeights = this.getSwimlaneHeights();
+    if (!currentHeights[boardId]) {
+      currentHeights[boardId] = {};
+    }
+    currentHeights[boardId][swimlaneId] = height;
+    return {
+      $set: {
+        'profile.swimlaneHeights': currentHeights,
+      },
+    };
+  },
 });
 
 Meteor.methods({
@@ -1230,6 +1256,13 @@ Meteor.methods({
     check(width, Number);
     const user = Meteor.user();
     user.setListWidth(boardId, listId, width);
+  },
+  applySwimlaneHeight(boardId, swimlaneId, height) {
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(height, Number);
+    const user = Meteor.user();
+    user.setSwimlaneHeight(boardId, swimlaneId, height);
   },
 });
 
