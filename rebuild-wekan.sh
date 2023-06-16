@@ -146,9 +146,9 @@ do
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000")
 		if [[ "$OSTYPE" == "darwin"* ]]; then
-		  IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		  IPADDRESS=$(ifconfig | grep broadcast | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
 		else
-		  IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		  IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1 | grep '192.')
 		fi
 		echo "Your IP address is $IPADDRESS"
 		#---------------------------------------------------------------------
