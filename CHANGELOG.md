@@ -29,6 +29,15 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update rebuild-wekan.sh to use local network IP address](https://github.com/wekan/wekan/commit/6479c6a5c516ade68d50849115367be90d3199a2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.97 2023-06-10 WeKan ® release
 
 This release adds the following updates:
