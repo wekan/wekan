@@ -739,6 +739,12 @@ export default {
     name: "ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⴰⵏⴰⵡⴰⵢⵜ",
     load: () => import('./data/zgh.i18n.json'),
   },
+  "yue_CN": {
+    code: "yue",
+    tag: "yue_CN",
+    name: "廣東話",
+    load: () => import('./data/yue_CN.i18n.json'),
+  },
   "zh-CN": {
     code: "zh",
     tag: "zh-CN",
@@ -756,6 +762,12 @@ export default {
     tag: "zh-Hans",
     name: "简化字",
     load: () => import('./data/zh-Hans.i18n.json'),
+  },
+  "zh-Hant": {
+    code: "zh",
+    tag: "zh-Hant",
+    name: "正體字",
+    load: () => import('./data/zh-Hant.i18n.json'),
   },
   "zh-HK": {
     code: "zh",
