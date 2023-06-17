@@ -36,6 +36,11 @@ This release adds the following updates:
 - [Update rebuild-wekan.sh to use local network IP address](https://github.com/wekan/wekan/commit/6479c6a5c516ade68d50849115367be90d3199a2).
   Thanks to xet7.
 
+and adds the following upcoming translations:
+
+- [Added translations: Cantonese (China) (yue_CN) and Chinese Traditional (zh-Hant)](https://github.com/wekan/wekan/commit/dc2835d3410fcd7fd376a2be765c63236696605e).
+  Thanks to translators.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.97 2023-06-10 WeKan ® release
