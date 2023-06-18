@@ -4,8 +4,19 @@ import { TAPi18n } from '/imports/i18n';
 // the language reactively. If the user is not connected we use the language
 // information provided by the browser, and default to english.
 
-Meteor.startup(() => {
-  const currentUser = Meteor.user();
+Meteor.startup(async () => {
+  let currentUser = Meteor.user();
+  // If we're still logging in, wait (#4967)
+  if (!currentUser && Meteor.loggingIn()) {
+    await new Promise((resolve) => {
+      Tracker.autorun(() => {
+        if (!Meteor.loggingIn()) {
+          resolve();
+        }
+      });
+    });
+    currentUser = Meteor.user();
+  }
   // Select first available language
   const [language] = [
     // User profile
