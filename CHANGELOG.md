@@ -35,11 +35,22 @@ This release adds the following updates:
 
 - [Update rebuild-wekan.sh to use local network IP address](https://github.com/wekan/wekan/commit/6479c6a5c516ade68d50849115367be90d3199a2).
   Thanks to xet7.
+- Update GitHub Actions.
+  [Part 1](https://github.com/wekan/wekan/pull/4970),
+  [Part 2](https://github.com/wekan/wekan/pull/4971).
+  Thanks to dependabot.
 
 and adds the following upcoming translations:
 
 - [Added translations: Cantonese (China) (yue_CN) and Chinese Traditional (zh-Hant)](https://github.com/wekan/wekan/commit/dc2835d3410fcd7fd376a2be765c63236696605e).
   Thanks to translators.
+
+and fixes the following bugs:
+
+- [Wait until user has logged in before fetching language preference](https://github.com/wekan/wekan/pull/4968).
+  Thanks to simon816.
+- [Always fetch favicons from / path](https://github.com/wekan/wekan/commit/4d9f76cc68f435b1bbeeb51833dbce931f626b6d).
+  Thanks to nebulade.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
