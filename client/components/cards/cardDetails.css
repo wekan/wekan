@@ -248,6 +248,14 @@
   padding-top: 10px;
 }
 @media screen and (min-width: 801px) {
+  .card-details {
+    top: 97px;
+    left: calc(50% - (600px / 2));
+    width: 600px;
+    bottom: 0;
+    position: fixed;
+    resize: both;
+  }
   .card-details-maximized {
     top: 97px;
     left: 0;
