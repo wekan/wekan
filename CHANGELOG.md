@@ -31,7 +31,12 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Add checklist at top](https://github.com/wekan/wekan/pull/4973).
+  Thanks to mfilser.
+
+and adds the following updates:
 
 - [Update rebuild-wekan.sh to use local network IP address](https://github.com/wekan/wekan/commit/6479c6a5c516ade68d50849115367be90d3199a2).
   Thanks to xet7.
