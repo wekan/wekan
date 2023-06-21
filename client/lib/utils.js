@@ -331,20 +331,51 @@ Utils = {
       increment = 1;
       // If we drop the card in the first position
     } else if (!prevData) {
-      base = nextData.sort - 1;
-      increment = -1;
+      const nextSortIndex = nextData.sort;
+      const ceil = Math.ceil(nextSortIndex - 1);
+      if (ceil < nextSortIndex) {
+        increment = nextSortIndex - ceil;
+        base = nextSortIndex - increment;
+      } else {
+        base = nextData.sort - 1;
+        increment = -1;
+      }
       // If we drop the card in the last position
     } else if (!nextData) {
-      base = prevData.sort + 1;
-      increment = 1;
+      const prevSortIndex = prevData.sort;
+      const floor = Math.floor(prevSortIndex + 1);
+      if (floor > prevSortIndex) {
+        increment = prevSortIndex - floor;
+        base = prevSortIndex - increment;
+      } else {
+        base = prevData.sort + 1;
+        increment = 1;
+      }
     }
     // In the general case take the average of the previous and next element
     // sort indexes.
     else {
       const prevSortIndex = prevData.sort;
       const nextSortIndex = nextData.sort;
-      increment = (nextSortIndex - prevSortIndex) / (nItems + 1);
-      base = prevSortIndex + increment;
+      if (nItems == 1 ) {
+        if (prevSortIndex < 0 ) {
+          const ceil = Math.ceil(nextSortIndex - 1);
+          if (ceil < nextSortIndex && ceil > prevSortIndex) {
+            increment = ceil - prevSortIndex;
+          }
+        } else {
+          const floor = Math.floor(nextSortIndex - 1);
+          if (floor < nextSortIndex && floor > prevSortIndex) {
+            increment = floor - prevSortIndex;
+          }
+        }
+      }
+      if (!increment) {
+        increment = (nextSortIndex - prevSortIndex) / (nItems + 1);
+      }
+      if (!base) {
+        base = prevSortIndex + increment;
+      }
     }
     // XXX Return a generator that yield values instead of a base with a
     // increment number.
@@ -356,34 +387,16 @@ Utils = {
 
   // Determine the new sort index
   calculateIndex(prevCardDomElement, nextCardDomElement, nCards = 1) {
-    let base, increment;
-    // If we drop the card to an empty column
-    if (!prevCardDomElement && !nextCardDomElement) {
-      base = 0;
-      increment = 1;
-      // If we drop the card in the first position
-    } else if (!prevCardDomElement) {
-      base = Blaze.getData(nextCardDomElement).sort - 1;
-      increment = -1;
-      // If we drop the card in the last position
-    } else if (!nextCardDomElement) {
-      base = Blaze.getData(prevCardDomElement).sort + 1;
-      increment = 1;
+    let prevData = null;
+    let nextData = null;
+    if (prevCardDomElement) {
+      prevData = Blaze.getData(prevCardDomElement)
     }
-    // In the general case take the average of the previous and next element
-    // sort indexes.
-    else {
-      const prevSortIndex = Blaze.getData(prevCardDomElement).sort;
-      const nextSortIndex = Blaze.getData(nextCardDomElement).sort;
-      increment = (nextSortIndex - prevSortIndex) / (nCards + 1);
-      base = prevSortIndex + increment;
+    if (nextCardDomElement) {
+      nextData = Blaze.getData(nextCardDomElement);
     }
-    // XXX Return a generator that yield values instead of a base with a
-    // increment number.
-    return {
-      base,
-      increment,
-    };
+    const ret = Utils.calculateIndexData(prevData, nextData, nCards);
+    return ret;
   },
 
   manageCustomUI() {
