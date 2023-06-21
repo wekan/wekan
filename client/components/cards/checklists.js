@@ -132,13 +132,22 @@ BlazeComponent.extendComponent({
       let checklistItems = [title];
       if (newlineBecomesNewChecklistItem.checked) {
         checklistItems = title.split('\n').map(_value => _value.trim());
+        if (this.currentData().position === 'top') {
+          checklistItems = checklistItems.reverse();
+        }
       }
       for (let checklistItem of checklistItems) {
+        let sortIndex;
+        if (this.currentData().position === 'top') {
+          sortIndex = Utils.calculateIndexData(null, checklist.firstItem()).base;
+        } else {
+          sortIndex = Utils.calculateIndexData(checklist.lastItem(), null).base;
+        }
         ChecklistItems.insert({
           title: checklistItem,
           checklistId: checklist._id,
           cardId: checklist.cardId,
-          sort: Utils.calculateIndexData(checklist.lastItem()).base,
+          sort: sortIndex,
         });
       }
     }

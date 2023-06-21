@@ -92,6 +92,13 @@ template(name="editChecklistItemForm")
         | {{_ 'convertChecklistItemToCardPopup-title'}}
 
 template(name="checklistItems")
+  if checklist.items.count
+    if canModifyCard
+      +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist position="top")
+        +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=true)
+      else
+        a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
+          i.fa.fa-plus
   .checklist-items.js-checklist-items
     each item in checklist.items
       +inlinedForm(classNames="js-edit-checklist-item" item = item checklist = checklist)
