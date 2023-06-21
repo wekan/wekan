@@ -33,7 +33,9 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release adds the following new features:
 
-- [Add checklist at top](https://github.com/wekan/wekan/pull/4973).
+- Add checklist at top.
+  [Part 1](https://github.com/wekan/wekan/pull/4973),
+  [Part 2](https://github.com/wekan/wekan/pull/4974).
   Thanks to mfilser.
 
 and adds the following updates:
