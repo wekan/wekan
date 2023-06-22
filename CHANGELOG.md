@@ -58,6 +58,10 @@ and fixes the following bugs:
   Thanks to simon816.
 - [Always fetch favicons from / path](https://github.com/wekan/wekan/commit/4d9f76cc68f435b1bbeeb51833dbce931f626b6d).
   Thanks to nebulade.
+- [Rounding sort number to next integer](https://github.com/wekan/wekan/pull/4975).
+  Thanks to mfilser.
+- [Reduce list scroll speed while drag/drop the minicard](https://github.com/wekan/wekan/pull/4976).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
