@@ -31,7 +31,12 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/92c57fc91ea063914730647d0add8dae77187424).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [New popup scrolls to top and restore previous position after closing again](https://github.com/wekan/wekan/pull/4979).
   Thanks to mfilser.
