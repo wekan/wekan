@@ -540,11 +540,14 @@ export class Query {
             }
           } else if (operator === OPERATOR_LIMIT) {
             const limit = parseInt(value, 10);
-            if (isNaN(limit) || limit < 1) {
+            if (isNaN(limit) || limit < 0) {
               this.addError(OPERATOR_LIMIT, {
                 tag: 'operator-limit-invalid',
                 value,
               });
+              continue;
+            } else if (limit == 0) {
+              // no limit
               continue;
             } else {
               value = limit;

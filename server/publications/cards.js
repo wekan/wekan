@@ -562,8 +562,10 @@ function buildProjection(query) {
       sort: 1,
     },
     skip,
-    limit,
   };
+  if (limit > 0) {
+    projection.limit = limit;
+  }
 
   if (query.getQueryParams().hasOperator(OPERATOR_SORT)) {
     const order =
