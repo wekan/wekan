@@ -35,6 +35,8 @@ This release adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/92c57fc91ea063914730647d0add8dae77187424).
   Thanks to developers of dependencies.
+- [Added Snap MONGO_URL to rebuild-wekan.sh dev options](https://github.com/wekan/wekan/commit/7d59ae93f9263c383a1c8c8605490d54b1e09ed7).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
