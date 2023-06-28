@@ -42,6 +42,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Copy Checklist dialog now set's the last selected board](https://github.com/wekan/wekan/pull/4980).
   Thanks to mfilser.
+- [Copy Checklist only copied the checklist items at the first time, now always](https://github.com/wekan/wekan/pull/4981).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
