@@ -13,8 +13,8 @@ Utils = {
     if (currentBoard.backgroundImageURL) {
       $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
-    } else {
-      $(".board-wrapper,.board-wrapper .board-canvas").css({"background": currentBoard.background-color});
+    } else if (currentBoard.background-color) {
+        $(".board-wrapper,.board-wrapper .board-canvas").css({"background": currentBoard.background-color});
     }
   },
   /** returns the current board id
