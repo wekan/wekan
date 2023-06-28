@@ -75,15 +75,6 @@ BlazeComponent.extendComponent({
     return !Utils.getPopupCardId() && Meteor.user().hasCardMaximized();
   },
 
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
-
   scrollParentContainer() {
     const cardPanelWidth = 600;
     const parentComponent = this.parentComponent();
@@ -661,14 +652,6 @@ Template.cardDetailsActionsPopup.helpers({
 
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
-  },
-
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
-    );
   },
 });
 

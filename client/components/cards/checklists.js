@@ -71,15 +71,6 @@ BlazeComponent.extendComponent({
     });
   },
 
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
-
   /** returns the finished percent of the checklist */
   finishedPercent() {
     const ret = this.data().checklist.finishedPercent();
@@ -154,15 +145,6 @@ BlazeComponent.extendComponent({
     // We keep the form opened, empty it.
     textarea.value = '';
     textarea.focus();
-  },
-
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
   },
 
   deleteItem() {
@@ -299,14 +281,6 @@ BlazeComponent.extendComponent({
   onRendered() {
     autosize(this.$('textarea.js-add-checklist-item'));
   },
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
   events() {
     return [
       {
@@ -344,14 +318,6 @@ BlazeComponent.extendComponent({
   onRendered() {
     autosize(this.$('textarea.js-edit-checklist-item'));
   },
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
   events() {
     return [
       {
@@ -368,14 +334,6 @@ BlazeComponent.extendComponent({
 }).register('editChecklistItemForm');
 
 Template.checklistItemDetail.helpers({
-  canModifyCard() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  },
   hideCheckedItems() {
     const user = Meteor.user();
     if (user) return user.hasHideCheckedItems();

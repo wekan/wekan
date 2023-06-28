@@ -58,6 +58,25 @@ Utils = {
     const ret = Cards.findOne(cardId);
     return ret;
   },
+  canModifyCard() {
+    const currentUser = Meteor.user();
+    const ret = (
+      currentUser &&
+      currentUser.isBoardMember() &&
+      !currentUser.isCommentOnly() &&
+      !currentUser.isWorker()
+    );
+    return ret;
+  },
+  canModifyBoard() {
+    const currentUser = Meteor.user();
+    const ret = (
+      currentUser &&
+      currentUser.isBoardMember() &&
+      !currentUser.isCommentOnly()
+    );
+    return ret;
+  },
   reload() {
     // we move all window.location.reload calls into this function
     // so we can disable it when running tests.
