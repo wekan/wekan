@@ -58,6 +58,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Global search, found cards count is now substituted by the translation function itself](https://github.com/wekan/wekan/pull/4986).
   Thanks to mfilser.
+- [Utils of canModifyCard and canModifyBoard + move this general functions to Utils class](https://github.com/wekan/wekan/pull/4987).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
