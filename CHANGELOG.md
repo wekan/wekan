@@ -46,6 +46,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Attachment copy changes now the boardId, listId and swimlaneId in the collection data](https://github.com/wekan/wekan/pull/4982).
   Thanks to mfilser.
+- [Admin attachment view was missing the column header "S3FileId"](https://github.com/wekan/wekan/pull/4983).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
