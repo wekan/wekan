@@ -40,6 +40,8 @@ and fixes the following bugs:
 
 - [New popup scrolls to top and restore previous position after closing again](https://github.com/wekan/wekan/pull/4979).
   Thanks to mfilser.
+- [Copy Checklist dialog now set's the last selected board](https://github.com/wekan/wekan/pull/4980).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
