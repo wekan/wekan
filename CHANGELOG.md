@@ -62,7 +62,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - Set background color only if it exists.
   [Part 1](https://github.com/wekan/wekan/commit/45d33fa2e459717064969a1729e016d4004e5435),
-  [Part 2](https://github.com/wekan/wekan/commit/c6cad13f1e86fea44c7c16e1a194c6d7164e824a).
+  [Part 2](https://github.com/wekan/wekan/commit/c6cad13f1e86fea44c7c16e1a194c6d7164e824a),
+  [Part 3](https://github.com/wekan/wekan/commit/549b15000b538d6e5013cc978c0f49e753fd903a).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
