@@ -52,6 +52,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Admin attachment view was missing the column header "S3FileId"](https://github.com/wekan/wekan/pull/4983).
   Thanks to mfilser.
+- [Global Search, limit 0 is no limit](https://github.com/wekan/wekan/pull/4984).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
