@@ -66,11 +66,11 @@ Checklists.attachSchema(
 
 Checklists.helpers({
   copy(newCardId) {
-    const oldChecklistId = this._id;
-    this._id = null;
-    this.cardId = newCardId;
-    const newChecklistId = Checklists.insert(this);
-    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(function(
+    let copyObj = Object.assign({}, this);
+    delete copyObj._id;
+    copyObj.cardId = newCardId;
+    const newChecklistId = Checklists.insert(copyObj);
+    ChecklistItems.find({ checklistId: this._id }).forEach(function(
       item,
     ) {
       item._id = null;
