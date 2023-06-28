@@ -41,7 +41,10 @@ BlazeComponent.extendComponent({
   },
 
   fileSize(size) {
-    const ret = filesize(size);
+    let ret = "";
+    if (_.isNumber(size)) {
+      ret = filesize(size);
+    }
     return ret;
   },
 }).register('statistics');
