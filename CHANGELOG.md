@@ -56,6 +56,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Admin Report, fixing filesize if not a number](https://github.com/wekan/wekan/pull/4985).
   Thanks to mfilser.
+- [Global search, found cards count is now substituted by the translation function itself](https://github.com/wekan/wekan/pull/4986).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
