@@ -10,10 +10,10 @@ Utils = {
       }
     }
 */
-    if (currentBoard.backgroundImageURL) {
+    if (currentBoard.backgroundImageURL !== undefined) {
       $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
-    } else if (currentBoard.background-color) {
+    } else if (currentBoard.background-color !== undefined) {
         $(".board-wrapper,.board-wrapper .board-canvas").css({"background": currentBoard.background-color});
     }
   },
