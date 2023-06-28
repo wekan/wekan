@@ -44,6 +44,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Copy Checklist only copied the checklist items at the first time, now always](https://github.com/wekan/wekan/pull/4981).
   Thanks to mfilser.
+- [Attachment copy changes now the boardId, listId and swimlaneId in the collection data](https://github.com/wekan/wekan/pull/4982).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
