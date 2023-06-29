@@ -120,6 +120,13 @@
   max-width: 100px;
   margin-right: 4px;
 }
+.minicard .minicard-custom-field-item-fullwidth {
+  flex-grow: 1;
+  display: block;
+  word-wrap: break-word;
+  max-width: 100%;
+  margin-right: 4px;
+}
 .minicard .handle {
   width: 20px;
   height: 20px;
