@@ -65,6 +65,8 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/c6cad13f1e86fea44c7c16e1a194c6d7164e824a),
   [Part 3](https://github.com/wekan/wekan/commit/549b15000b538d6e5013cc978c0f49e753fd903a).
   Thanks to xet7.
+- [If there is no Custom Field label at minicard, show value full width](https://github.com/wekan/wekan/commit/ffea7aff99db555d357876e1415f9015154782cc).
+  Thanks to koluka and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
