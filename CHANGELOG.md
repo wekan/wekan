@@ -33,11 +33,13 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release adds the following new features:
 
-- Preview PDF.
-  [Part 1](https://github.com/wekan/wekan/pull/4989),
-  [Part 2](https://github.com/wekan/wekan/commit/83ae1d4a19925363d8f176553fb10a98a77420be).
-  Thanks to VidVidex and xet7.
-- [Show Meteor dependency chain with rebuild-wekan.sh](commit ba9f9705d43189d2491266af1fd4817ff34a3b59).
+- [Preview PDF](https://github.com/wekan/wekan/pull/4989).
+  Thanks to VidVidex.
+- [Preview PDF translations](https://github.com/wekan/wekan/commit/83ae1d4a19925363d8f176553fb10a98a77420be).
+  Thanks xet7.
+- [Preview PDF to have full width, close at top, and improve viewing at mobile](https://github.com/wekan/wekan/commit/4be5727a18472920ed775b8a2024b9c8ca2fdf0a).
+  Thanks to xet7.
+- [Show Meteor dependency chain with rebuild-wekan.sh](https://github.com/wekan/wekan/commit/ba9f9705d43189d2491266af1fd4817ff34a3b59).
   Thanks to xet7.
 
 and adds the following updates:
