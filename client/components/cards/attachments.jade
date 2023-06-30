@@ -34,8 +34,8 @@ template(name="attachmentsGallery")
   #viewer-overlay.hidden
     #viewer-container
       object#pdf-viewer(type="application/pdf")
-        span.pdf-preview-error Your device does not support previewing pdfs. Try downloading instead.
-    a#viewer-close.fa.fa-times-thin
+        span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
+      a#viewer-close.fa.fa-times-thin
 
   .attachments-gallery
     if currentUser.isBoardMember
