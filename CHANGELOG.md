@@ -50,6 +50,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/7d59ae93f9263c383a1c8c8605490d54b1e09ed7),
   [Part 2](https://github.com/wekan/wekan/commit/3c2cc351f4bbe82b6870bab0e1891823c359e789).
   Thanks to xet7.
+- [MongoDB 6.0.7 at Snap](https://github.com/wekan/wekan/commit/5babe0358deae4b01261ee8655ec0e5a38f0344d).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
