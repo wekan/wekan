@@ -541,8 +541,8 @@ template(name="cardDetails")
           +viewer
             = getDescription
 
-      .card-checklist-attachmentGalerys
-        .card-checklist-attachmentGalery.card-checklists
+      .card-checklist-attachmentGalleries
+        .card-checklist-attachmentGallery.card-checklists
           if currentBoard.allowsChecklists
             hr
             +checklists(cardId = _id)
@@ -555,14 +555,14 @@ template(name="cardDetails")
             i.fa.fa-paperclip
             | {{_ 'attachments'}}
           if Meteor.settings.public.attachmentsUploadMaxSize
-            | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}} 
+            | {{_ 'max-upload-filesize'}} {{Meteor.settings.public.attachmentsUploadMaxSize}}
             br
           if Meteor.settings.public.attachmentsUploadMimeTypes
             | {{_ 'allowed-upload-filetypes'}} {{Meteor.settings.public.attachmentsUploadMimeTypes}}
             br
           | {{_ 'invalid-file'}}
-          .card-checklist-attachmentGalery.card-attachmentGalery
-            +attachmentsGalery
+          .card-checklist-attachmentGallery.card-attachmentGallery
+            +attachmentsGallery
       hr
 
     .card-details-right

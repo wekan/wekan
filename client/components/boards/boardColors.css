@@ -1976,7 +1976,7 @@
   background-color: #ccc;
   color: #222;
 }
-.board-color-moderndark .attachments-galery .attachment-item {
+.board-color-moderndark .attachments-gallery .attachment-item {
   color: #222;
 }
 .board-color-moderndark .minicard-description {
@@ -2148,10 +2148,10 @@
 .board-color-exodark .sidebar-content {
   box-shadow: 0 0 7px 0 #00897b;
 }
-.board-color-exodark .attachments-galery .attachment-item {
+.board-color-exodark .attachments-gallery .attachment-item {
   background: #2b2b2b;
 }
-.board-color-exodark .attachments-galery .attachment-item:hover {
+.board-color-exodark .attachments-gallery .attachment-item:hover {
   border: 1px solid #00897b;
   background: #2b2b2b;
 }
