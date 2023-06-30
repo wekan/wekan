@@ -96,7 +96,8 @@
   text-align: center;
 }
 #pdf-viewer {
-  width: 40vw;
+  margin-top: 4vh;
+  width: 100%;
   height: 100vh;
 }
 .pdf-preview-error{
@@ -105,18 +106,7 @@
   font-size: 2em;
   color: white;
 }
-@media screen and (max-width: 1600px) {
-  #pdf-viewer {
-    width: 60vw;
-  }
-}
-
 @media screen and (max-width: 800px) {
-
-  #pdf-viewer {
-    width: 100vh;
-  }
-
   .attachments-gallery .attachment-item {
     width: 48%;
   }
@@ -128,6 +118,10 @@
   }
 }
 @media screen and (max-width: 360px) {
+  #pdf-viewer {
+    margin-top: 5vh;
+    width: 100%;
+  }
   .attachments-gallery .attachment-item {
     width: 100%;
   }
