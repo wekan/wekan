@@ -31,7 +31,14 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- Preview PDF.
+  [Part 1](https://github.com/wekan/wekan/pull/4989),
+  [Part 2](https://github.com/wekan/wekan/commit/83ae1d4a19925363d8f176553fb10a98a77420be).
+  Thanks to VidVidex and xet7.
+
+and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/92c57fc91ea063914730647d0add8dae77187424).
   Thanks to developers of dependencies.
