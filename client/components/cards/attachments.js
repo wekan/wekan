@@ -5,6 +5,17 @@ const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
 
 Template.attachmentsGalery.events({
+  'click .pdf'(event) {
+    let link = $(event.currentTarget).attr("href");
+    $("#pdf-viewer").attr("data", link);
+    $("#viewer-overlay").removeClass("hidden");
+  },
+  'click #viewer-container'(event) {
+    $("#viewer-overlay").addClass("hidden");
+  },
+  'click #viewer-close'(event) {
+    $("#viewer-overlay").addClass("hidden");
+  },
   'click .js-add-attachment': Popup.open('cardAttachments'),
   // If we let this event bubble, FlowRouter will handle it and empty the page
   // content, see #101.

@@ -31,6 +31,12 @@ template(name="attachmentDeletePopup")
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="attachmentsGalery")
+  #viewer-overlay.hidden
+    #viewer-container
+      object#pdf-viewer(type="application/pdf")
+        span.pdf-preview-error Your device does not support previewing pdfs. Try downloading instead.
+    a#viewer-close.fa.fa-times-thin
+
   .attachments-galery
     if currentUser.isBoardMember
       unless currentUser.isCommentOnly
@@ -40,7 +46,8 @@ template(name="attachmentsGalery")
             i.fa.fa-plus
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{link}}" title="{{sanitize name}}")
+
+        span.attachment-thumbnail(href="{{link}}" title="{{sanitize name}}" class="{{#if isImage}}swipebox{{/if}} {{#if $eq extension 'pdf'}}pdf{{/if}}")
           if link
             if($eq extension 'svg')
               img.attachment-thumbnail-img(src="{{link}}" title="{{sanitize name}}" type="image/svg+xml")

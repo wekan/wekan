@@ -1,7 +1,7 @@
 .slide {
   /* swipebox slide background gradient of black to blue, so that back SVG images are visible */
   background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%); 
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%);
 }
 .attachment-upload {
   text-align: center;
@@ -69,7 +69,54 @@
   border: 1px solid #000;
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
+#viewer-overlay{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 48px;  /* height of the navbar */
+  left: 0;
+  z-index: 9999 !important;
+  background: rgba(13,13,13,0.9);
+}
+#viewer-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#viewer-close {
+  color:white;
+  cursor: pointer;
+  font-size: 4em;
+  top: 0;
+  right: 16px;
+  position: absolute;
+  padding: 20 20;
+}
+#viewer-container{
+  text-align: center;
+}
+#pdf-viewer {
+  width: 40vw;
+  height: 100vh;
+}
+.pdf-preview-error{
+  margin-top: 20vh;
+  display: block;
+  font-size: 2em;
+  color: white;
+}
+@media screen and (max-width: 1600px) {
+  #pdf-viewer {
+    width: 60vw;
+  }
+}
+
 @media screen and (max-width: 800px) {
+
+  #pdf-viewer {
+    width: 100vh;
+  }
+
   .attachments-galery .attachment-item {
     width: 48%;
   }
