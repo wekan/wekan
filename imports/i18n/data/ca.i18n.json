@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Tipus de fitxers permesos:",
   "max-avatar-filesize": "Tamany màxim del fitxer d'avatar en bytes:",
   "allowed-avatar-filetypes": "Tipus de fitxer permesos per a l'avatar:",
-  "invalid-file": "Si el nom de fitxer és invàlid, actualitzar o renombrar  es cancel·la."
+  "invalid-file": "Si el nom de fitxer és invàlid, actualitzar o renombrar  es cancel·la.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

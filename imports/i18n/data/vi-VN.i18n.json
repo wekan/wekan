@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Các loại tệp tải lên được phép:",
   "max-avatar-filesize": "Kích thước tệp hình đại diện tối đa tính bằng byte:",
   "allowed-avatar-filetypes": "Các loại tệp hình đại diện được phép:",
-  "invalid-file": "Nếu tên tệp không hợp lệ, quá trình tải lên hoặc đổi tên sẽ bị hủy."
+  "invalid-file": "Nếu tên tệp không hợp lệ, quá trình tải lên hoặc đổi tên sẽ bị hủy.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

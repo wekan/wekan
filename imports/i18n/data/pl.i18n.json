@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Dozwolone do przesłania typy plików:",
   "max-avatar-filesize": "Maksymalny rozmiar pliku awatara w bajtach:",
   "allowed-avatar-filetypes": "Dozwolone typy plików awatara:",
-  "invalid-file": "Jeżeli nazwa pliku jest nieprawidłowa, przesyłanie lub zmiana nazwy zostanie anulowane."
+  "invalid-file": "Jeżeli nazwa pliku jest nieprawidłowa, przesyłanie lub zmiana nazwy zostanie anulowane.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

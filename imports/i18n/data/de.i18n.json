@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Erlaubte Dateitypen zum Hochladen:",
   "max-avatar-filesize": "Maximale Profilbild Größe in Bytes:",
   "allowed-avatar-filetypes": "Erlaubte Profilbild Dateitypen:",
-  "invalid-file": "Wenn der Dateiname ungültig ist, wird das Hochladen oder Umbenennen abgebrochen."
+  "invalid-file": "Wenn der Dateiname ungültig ist, wird das Hochladen oder Umbenennen abgebrochen.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

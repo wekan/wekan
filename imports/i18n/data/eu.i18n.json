@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Kargatzeko baimendutako fitxategi motak:",
   "max-avatar-filesize": "Avatar fitxategien gehienezko tamaina bytetan:",
   "allowed-avatar-filetypes": "Baimendutako avatar fitxategi motak:",
-  "invalid-file": "Fitxategi-izena baliogabea bada, karga edo izena aldaketa bertan behera geratuko da."
+  "invalid-file": "Fitxategi-izena baliogabea bada, karga edo izena aldaketa bertan behera geratuko da.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

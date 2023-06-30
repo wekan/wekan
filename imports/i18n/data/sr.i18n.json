@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Дозвољене врсте датотека за слање:",
   "max-avatar-filesize": "Максимална величина сличице (у бајтима):",
   "allowed-avatar-filetypes": "Дозвољене врсте слика:",
-  "invalid-file": "Ако са именом датотеке нешто није у реду тада ће и слање и преименовање бити отказано."
+  "invalid-file": "Ако са именом датотеке нешто није у реду тада ће и слање и преименовање бити отказано.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

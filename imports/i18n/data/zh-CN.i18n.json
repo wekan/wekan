@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "允许上传文件类型：",
   "max-avatar-filesize": "头像文件最大：",
   "allowed-avatar-filetypes": "头像文件允许类型：",
-  "invalid-file": "如果文件名无效，则取消上传或重命名。\n "
+  "invalid-file": "如果文件名无效，则取消上传或重命名。\n ",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

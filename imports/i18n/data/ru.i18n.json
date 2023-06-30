@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Типы файлов для загрузки:",
   "max-avatar-filesize": "Максимальный размер аватара (в байтах):",
   "allowed-avatar-filetypes": "Типы файлов аватара:",
-  "invalid-file": "Если имя файла недопустимо, загрузка или переименование будут отменены."
+  "invalid-file": "Если имя файла недопустимо, загрузка или переименование будут отменены.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

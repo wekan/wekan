@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Toegestane upload bestandstypen:",
   "max-avatar-filesize": "Maximale avatar bestandsgrootte in bytes:",
   "allowed-avatar-filetypes": "Toegestane avatar bestandstypen:",
-  "invalid-file": "Als de bestandsnaam ongeldig is wordt de upload of het hernoemen geannuleerd."
+  "invalid-file": "Als de bestandsnaam ongeldig is wordt de upload of het hernoemen geannuleerd.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Sallitut tiedostotyypit:",
   "max-avatar-filesize": "Maksimi profiilikuvan tiedostokoko bytes:",
   "allowed-avatar-filetypes": "Sallitut profiilikuva tiedostotyypit:",
-  "invalid-file": "Jos tiedostonimi ei kelpaa, liittäminen tai uudelleennimeäminen perutaan."
+  "invalid-file": "Jos tiedostonimi ei kelpaa, liittäminen tai uudelleennimeäminen perutaan.",
+  "preview-pdf-not-supported": "Laitteesi ei tue PDF-esikatselua. Yritä sen sijaan ladata."
 }

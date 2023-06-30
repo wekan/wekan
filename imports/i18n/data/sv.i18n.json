@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Tillåtna filtyper att ladda upp:",
   "max-avatar-filesize": "Maximal avatar filstorlek i byte:",
   "allowed-avatar-filetypes": "Tillåtna filtyper för avatar:",
-  "invalid-file": "Om filnamnet är ogiltigt avbryts uppladdningen eller omdöps filen."
+  "invalid-file": "Om filnamnet är ogiltigt avbryts uppladdningen eller omdöps filen.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

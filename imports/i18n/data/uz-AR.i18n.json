@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Allowed upload filetypes:",
   "max-avatar-filesize": "Max avatar filesize in bytes:",
   "allowed-avatar-filetypes": "Allowed avatar filetypes:",
-  "invalid-file": "If filename is invalid, upload or rename is cancelled."
+  "invalid-file": "If filename is invalid, upload or rename is cancelled.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

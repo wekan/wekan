@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Types de fichier autorisés pour l'upload :",
   "max-avatar-filesize": "Taille maximum du fichier de l'avatar en octets :",
   "allowed-avatar-filetypes": "Types de fichier autorisés pour l'avatar :",
-  "invalid-file": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé."
+  "invalid-file": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }

@@ -1219,5 +1219,6 @@
   "allowed-upload-filetypes": "Tipos de archivo permitidos para la carga:",
   "max-avatar-filesize": "Máximo tamaño de archivo de avatar en bytes:",
   "allowed-avatar-filetypes": "Tipos de archivo permitidos para el avatar:",
-  "invalid-file": "Si el nombre de archivo no es válido, la carga o el cambio de nombre es cancelado."
+  "invalid-file": "Si el nombre de archivo no es válido, la carga o el cambio de nombre es cancelado.",
+  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
 }
