@@ -7,11 +7,11 @@
   text-align: center;
   font-weight: bold;
 }
-.attachments-galery {
+.attachments-gallery {
   display: flex;
   flex-wrap: wrap;
 }
-.attachments-galery .attachment-item {
+.attachments-gallery .attachment-item {
   width: 31.33%;
   margin: 10px 1% 0;
   text-align: center;
@@ -20,40 +20,40 @@
   background: #ededed;
   min-height: 120px;
 }
-.attachments-galery .attachment-item:hover {
+.attachments-gallery .attachment-item:hover {
   background: #e0e0e0;
 }
-.attachments-galery .attachment-item.add-attachment {
+.attachments-gallery .attachment-item.add-attachment {
   display: flex;
   align-items: center;
 }
-.attachments-galery .attachment-item.add-attachment a {
+.attachments-gallery .attachment-item.add-attachment a {
   display: block;
   margin: auto;
 }
-.attachments-galery .attachment-item .attachment-thumbnail {
+.attachments-gallery .attachment-item .attachment-thumbnail {
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
-.attachments-galery .attachment-item .attachment-thumbnail .attachment-thumbnail-img {
+.attachments-gallery .attachment-item .attachment-thumbnail .attachment-thumbnail-img {
   max-height: 100%;
   max-width: 100%;
 }
-.attachments-galery .attachment-item .attachment-thumbnail .attachment-thumbnail-ext {
+.attachments-gallery .attachment-item .attachment-thumbnail .attachment-thumbnail-ext {
   text-transform: uppercase;
   font-size: 1.6em;
 }
-.attachments-galery .attachment-item .attachment-details {
+.attachments-gallery .attachment-item .attachment-details {
   font-size: 0.75em;
   margin: 3px;
 }
-.attachments-galery .attachment-item .attachment-details .attachment-details-actions a {
+.attachments-gallery .attachment-item .attachment-details .attachment-details-actions a {
   display: block;
 }
-.attachments-galery .attachment-item .attachment-details .attachment-details-actions a.attachment-details-menu {
+.attachments-gallery .attachment-item .attachment-details .attachment-details-actions a.attachment-details-menu {
   padding-top: 10px;
 }
 .attachment-image-preview {
@@ -117,21 +117,21 @@
     width: 100vh;
   }
 
-  .attachments-galery .attachment-item {
+  .attachments-gallery .attachment-item {
     width: 48%;
   }
-  .attachments-galery .attachment-item .attachment-thumbnail {
+  .attachments-gallery .attachment-item .attachment-thumbnail {
     height: 130px;
   }
-  .attachments-galery .attachment-item .attachment-details {
+  .attachments-gallery .attachment-item .attachment-details {
     font-size: 1.1em;
   }
 }
 @media screen and (max-width: 360px) {
-  .attachments-galery .attachment-item {
+  .attachments-gallery .attachment-item {
     width: 100%;
   }
-  .attachments-galery .attachment-item .attachment-thumbnail {
+  .attachments-gallery .attachment-item .attachment-thumbnail {
     height: 200px;
   }
 }

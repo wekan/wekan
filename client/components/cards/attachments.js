@@ -4,7 +4,7 @@ import DOMPurify from 'dompurify';
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
 
-Template.attachmentsGalery.events({
+Template.attachmentsGallery.events({
   'click .pdf'(event) {
     let link = $(event.currentTarget).attr("href");
     $("#pdf-viewer").attr("data", link);
@@ -25,7 +25,7 @@ Template.attachmentsGalery.events({
   'click .js-open-attachment-menu': Popup.open('attachmentActions'),
 });
 
-Template.attachmentsGalery.helpers({
+Template.attachmentsGallery.helpers({
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
   },

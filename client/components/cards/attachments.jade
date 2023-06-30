@@ -30,14 +30,14 @@ template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
-template(name="attachmentsGalery")
+template(name="attachmentsGallery")
   #viewer-overlay.hidden
     #viewer-container
       object#pdf-viewer(type="application/pdf")
         span.pdf-preview-error Your device does not support previewing pdfs. Try downloading instead.
     a#viewer-close.fa.fa-times-thin
 
-  .attachments-galery
+  .attachments-gallery
     if currentUser.isBoardMember
       unless currentUser.isCommentOnly
         unless currentUser.isWorker
