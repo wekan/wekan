@@ -37,6 +37,8 @@ This release adds the following new features:
   [Part 1](https://github.com/wekan/wekan/pull/4989),
   [Part 2](https://github.com/wekan/wekan/commit/83ae1d4a19925363d8f176553fb10a98a77420be).
   Thanks to VidVidex and xet7.
+- [Show Meteor dependency chain with rebuild-wekan.sh](commit ba9f9705d43189d2491266af1fd4817ff34a3b59).
+  Thanks to xet7.
 
 and adds the following updates:
 
