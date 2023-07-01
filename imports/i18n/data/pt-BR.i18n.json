@@ -1220,5 +1220,5 @@
   "max-avatar-filesize": "Tamanho máximo do arquivo do avatar em bytes:",
   "allowed-avatar-filetypes": "Tipos de arquivos permitidos para avatar:",
   "invalid-file": "Se nome do arquivo for inválido, o upload ou renomeação será cancelada.",
-  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
+  "preview-pdf-not-supported": "Seu dispositivo não suporta a pré-visualização de PDF. Tente baixar o arquivo."
 }
