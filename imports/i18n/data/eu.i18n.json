@@ -732,7 +732,7 @@
   "description-on-minicard": "Description on minicard",
   "cover-attachment-on-minicard": "minitxartelaren azalaren irudia",
   "badge-attachment-on-minicard": "Eranskinen kopurua minitxartelean",
-  "card-sorting-by-number-on-minicard": "Card sorting by number on minicard",
+  "card-sorting-by-number-on-minicard": "Txartelak zenbakien arabera ordenatzea minitxartelean",
   "prefix-with-full-path": "Prefix with full path",
   "prefix-with-parent": "Prefix with parent",
   "subtext-with-full-path": "Subtext with full path",
@@ -1089,7 +1089,7 @@
   "label-names": "Label Names",
   "archived-at": "hemen gordeta:",
   "sort-cards": "Ordenatu txartelak",
-  "sort-is-on": "Sort is on",
+  "sort-is-on": "Ordenatzea aktibatuta dago",
   "cardsSortPopup-title": "Ordenatu txartelak",
   "due-date": "Due Date",
   "server-error": "Server Error",
@@ -1220,5 +1220,5 @@
   "max-avatar-filesize": "Avatar fitxategien gehienezko tamaina bytetan:",
   "allowed-avatar-filetypes": "Baimendutako avatar fitxategi motak:",
   "invalid-file": "Fitxategi-izena baliogabea bada, karga edo izena aldaketa bertan behera geratuko da.",
-  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
+  "preview-pdf-not-supported": "Zure gailuak ez du onartzen PDF aurrebistarik. Saiatu deskargatzen."
 }
