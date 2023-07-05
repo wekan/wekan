@@ -80,7 +80,9 @@ and fixes the following bugs:
   Thanks to xet7.
 - [If there is no Custom Field label at minicard, show value full width](https://github.com/wekan/wekan/commit/ffea7aff99db555d357876e1415f9015154782cc).
   Thanks to koluka and xet7.
-- [API: Fix /api/boards/{boardId}/attachments endpoint](https://github.com/wekan/wekan/pull/4991).
+- API: Fix /api/boards/{boardId}/attachments endpoint.
+  [Part 1](https://github.com/wekan/wekan/pull/4991),
+  [Part 2](https://github.com/wekan/wekan/pull/4992).
   Thanks to VidVidex.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
