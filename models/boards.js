@@ -2266,27 +2266,33 @@ if (Meteor.isServer) {
    * @return_type [{attachmentId: string,
    *                attachmentName: string,
    *                attachmentType: string,
-   *                cardId: string,
+   *                url: string,
+   *                urlDownload: string,
+   *                boardId: string,
+   *                swimlaneId: string,
    *                listId: string,
-   *                swimlaneId: string}]
+   *                cardId: string
+   * }]
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
     const paramBoardId = req.params.boardId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: Attachments.files
-        .find({ boardId: paramBoardId }, { fields: { boardId: 0 } })
-        .map(function(doc) {
+      data: Attachments
+        .find({'meta.boardId': paramBoardId })
+        .each()
+        .map(function(attachment) {
           return {
-            attachmentId: doc._id,
-            attachmentName: doc.original.name,
-            attachmentType: doc.original.type,
-            url: FlowRouter.url(doc.url()),
-            urlDownload: `${FlowRouter.url(doc.url())}?download=true&token=`,
-            cardId: doc.cardId,
-            listId: doc.listId,
-            swimlaneId: doc.swimlaneId,
+            attachmentId: attachment._id,
+            attachmentName: attachment.name,
+            attachmentType: attachment.type,
+            url: FlowRouter.url(attachment.link()),
+            urlDownload: `${FlowRouter.url(attachment.link())}?download=true&token=`,
+            boardId: attachment.meta.boardId,
+            swimlaneId: attachment.meta.swimlaneId,
+            listId: attachment.meta.listId,
+            cardId: attachment.meta.cardId
           };
         }),
     });
