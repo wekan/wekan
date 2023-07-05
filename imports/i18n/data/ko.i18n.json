@@ -1220,5 +1220,5 @@
   "max-avatar-filesize": "최대 아바타 바이트 단위 파일크기:",
   "allowed-avatar-filetypes": "허용된 아바타 파일유형:",
   "invalid-file": "파일명이 잘못됐다면, 업로드 또는 이름 바꾸기가 취소됩니다.",
-  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
+  "preview-pdf-not-supported": "장치가 PDF 미리보기를 지원하지 않습니다. 대신 내려받기를 시도하세요."
 }
