@@ -1,8 +1,3 @@
-.slide {
-  /* swipebox slide background gradient of black to blue, so that back SVG images are visible */
-  background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%);
-}
 .attachment-upload {
   text-align: center;
   font-weight: bold;
@@ -83,26 +78,53 @@
   top: 48px;  /* height of the navbar */
   left: 0;
   z-index: 9999 !important;
-  background: rgba(13,13,13,0.9);
+  background: rgba(13,13,13,0.95);
 }
 #viewer-container {
-  position: relative;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   height: 100%;
+}
+#viewer-top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px;
+}
+#attachment-name {
+  color: white;
+  font-size: 1.5em;
+  max-width: calc(100% - 50px); /* Make sure the name does not overlap the close button */
 }
 #viewer-close {
   color:white;
   cursor: pointer;
   font-size: 4em;
   top: 0;
-  right: 16px;
+  right: 8px;
   position: absolute;
-  padding: 20 20;
 }
-#viewer-container {
-  text-align: center;
+.attachment-arrow {
+  font-size: 4em;
+  color:white;
+  cursor: pointer;
+  align-self: center;
+  margin: 0 20px;
+}
+#image-viewer {
+  background:
+    repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%)
+      50% / 20px 20px; /* Checkerboard background for transparent images */
+  max-width: 100%;
 }
 #pdf-viewer {
+  width: 40vw;
+  height: 100vh;
+}
+#txt-viewer{
+  background-color: white;
   width: 40vw;
   height: 100vh;
 }
@@ -120,8 +142,32 @@
 }
 
 @media screen and (max-width: 800px) {
+  #viewer-container {
+    display: block;
+  }
+  .attachment-arrow{
+    position: absolute;
+    bottom: 2.2em;
+    font-size: 1.6em;
+    padding: 16px;
+  }
+  #prev-attachment{
+    left: 0;
+  }
+  #next-attachment{
+    right: 0;
+  }
   #pdf-viewer {
-    width: 100vh;
+    width: 100%;
+    height: calc(100vh - 155px);  /* Full height - height of top and bottom bars */
+  }
+  #txt-viewer {
+    width: 100%;
+    height: calc(100vh - 155px);  /* Full height - height of top and bottom bars */
+  }
+  #audio-viewer {
+    margin-top: 20%;
+    width: 100%;
   }
   .attachment-thumbnail-container {
     width: 100px;

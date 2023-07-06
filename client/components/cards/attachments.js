@@ -4,11 +4,19 @@ import DOMPurify from 'dompurify';
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
 
+// We store current card ID and the ID of currently opened attachment in a
+// global var. This is used so that we know what's the next attachment to open
+// when the user clicks on the prev/next button in the attachment viewer.
+let cardId = null;
+let openAttachmentId = null;
+
 Template.attachmentGallery.events({
-  'click .pdf'(event) {
-    let link = $(event.currentTarget).attr("href");
-    $("#pdf-viewer").attr("data", link);
-    $("#viewer-overlay").removeClass("hidden");
+  'click .open-preview'(event) {
+
+    openAttachmentId = $(event.currentTarget).attr("data-attachment-id");
+    cardId = $(event.currentTarget).attr("data-card-id");
+
+    openAttachmentViewer(openAttachmentId);
   },
   'click .js-add-attachment': Popup.open('cardAttachments'),
   // If we let this event bubble, FlowRouter will handle it and empty the page
@@ -24,13 +32,129 @@ Template.attachmentGallery.events({
   }),
 });
 
+function getNextAttachmentId(currentAttachmentId) {
+    const attachments = Attachments.find({'meta.cardId': cardId}).get();
+
+    let i = 0;
+    for (; i < attachments.length; i++) {
+      if (attachments[i]._id === currentAttachmentId) {
+        break;
+      }
+    }
+    return attachments[(i + 1 + attachments.length) % attachments.length]._id;
+}
+
+function getPrevAttachmentId(currentAttachmentId) {
+  const attachments = Attachments.find({'meta.cardId': cardId}).get();
+
+  let i = 0;
+  for (; i < attachments.length; i++) {
+    if (attachments[i]._id === currentAttachmentId) {
+      break;
+    }
+  }
+  return attachments[(i - 1 + attachments.length) % attachments.length]._id;
+}
+
+function openAttachmentViewer(attachmentId){
+
+    const attachment = Attachments.findOne({_id: attachmentId});
+
+    $("#attachment-name").text(attachment.name);
+
+    // IMPORTANT: if you ever add a new viewer, make sure you also implement
+    // cleanup in the closeAttachmentViewer() function
+    switch(true){
+      case (attachment.isImage):
+        $("#image-viewer").attr("src", attachment.link());
+        $("#image-viewer").removeClass("hidden");
+        break;
+      case (attachment.isPDF):
+        $("#pdf-viewer").attr("data", attachment.link());
+        $("#pdf-viewer").removeClass("hidden");
+        break;
+      case (attachment.isVideo):
+        // We have to create a new <source> DOM element and append it to the video
+        // element, otherwise the video won't load
+        let videoSource = document.createElement('source');
+        videoSource.setAttribute('src', attachment.link());
+        $("#video-viewer").append(videoSource);
+
+        $("#video-viewer").removeClass("hidden");
+        break;
+      case (attachment.isAudio):
+        // We have to create a new <source> DOM element and append it to the audio
+        // element, otherwise the audio won't load
+        let audioSource = document.createElement('source');
+        audioSource.setAttribute('src', attachment.link());
+        $("#audio-viewer").append(audioSource);
+
+        $("#audio-viewer").removeClass("hidden");
+        break;
+      case (attachment.isText):
+      case (attachment.isJSON):
+        $("#txt-viewer").attr("data", attachment.link());
+        $("#txt-viewer").removeClass("hidden");
+        break;
+    }
+
+    $("#viewer-overlay").removeClass("hidden");
+}
+
+function closeAttachmentViewer() {
+  $("#viewer-overlay").addClass("hidden");
+
+  // We need to reset the viewers to avoid showing previous attachments
+  $("#image-viewer").attr("src", "");
+  $("#image-viewer").addClass("hidden");
+
+  $("#pdf-viewer").attr("data", "");
+  $("#pdf-viewer").addClass("hidden");
+
+  $("#txt-viewer").attr("data", "");
+  $("#txt-viewer").addClass("hidden");
+
+  $("#video-viewer").get(0).pause(); // Stop playback
+  $("#video-viewer").get(0).currentTime = 0;
+  $("#video-viewer").empty();
+  $("#video-viewer").addClass("hidden");
+
+  $("#audio-viewer").get(0).pause(); // Stop playback
+  $("#audio-viewer").get(0).currentTime = 0;
+  $("#audio-viewer").empty();
+  $("#audio-viewer").addClass("hidden");
+}
+
 Template.attachmentViewer.events({
   'click #viewer-container'(event) {
-    $("#viewer-overlay").addClass("hidden");
+
+    // Make sure the click was on #viewer-container and not on any of its children
+    if(event.target !== event.currentTarget) return;
+
+    closeAttachmentViewer();
   },
-  'click #viewer-close'(event) {
-    $("#viewer-overlay").addClass("hidden");
+  'click #viewer-content'(event) {
+
+    // Make sure the click was on #viewer-content and not on any of its children
+    if(event.target !== event.currentTarget) return;
+
+    closeAttachmentViewer();
   },
+  'click #viewer-close'() {
+    closeAttachmentViewer();
+  },
+  'click #next-attachment'(event) {
+    closeAttachmentViewer()
+    const id = getNextAttachmentId(openAttachmentId);
+    openAttachmentId = id;
+    openAttachmentViewer(id);
+  },
+  'click #prev-attachment'(event) {
+    closeAttachmentViewer()
+    const id = getPrevAttachmentId(openAttachmentId);
+    openAttachmentId = id;
+    openAttachmentViewer(id);
+  }
 });
 
 Template.attachmentGallery.helpers({

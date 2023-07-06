@@ -32,10 +32,20 @@ template(name="attachmentDeletePopup")
 
 template(name="attachmentViewer")
   #viewer-overlay.hidden
-    #viewer-container
-      object#pdf-viewer(type="application/pdf")
-        span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
+    #viewer-top-bar
+      span#attachment-name
       a#viewer-close.fa.fa-times-thin
+
+    #viewer-container
+      i.fa.fa-chevron-left.attachment-arrow#prev-attachment
+      #viewer-content
+        img#image-viewer.hidden
+        video#video-viewer.hidden(controls="true")
+        audio#audio-viewer.hidden(controls="true")
+        object#pdf-viewer.hidden(type="application/pdf")
+          span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
+        object#txt-viewer.hidden(type="text/plain")
+      i.fa.fa-chevron-right.attachment-arrow#next-attachment
 
 template(name="attachmentGallery")
 
@@ -47,7 +57,7 @@ template(name="attachmentGallery")
     each attachments
 
       .attachment-item
-        .attachment-thumbnail-container(href="{{link}}" class="{{#if isImage}}swipebox{{/if}} {{#if $eq extension 'pdf'}}pdf{{/if}}")
+        .attachment-thumbnail-container.open-preview(data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
           if link
             if(isImage)
               img.attachment-thumbnail(src="{{link}}" title="{{sanitize name}}")
