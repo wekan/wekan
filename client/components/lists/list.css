@@ -16,7 +16,6 @@
   /* overflow: auto; - List width and height resizeable */
 }
 .list:first-child {
-  min-width: 20px;
   margin-left: 5px;
   border-left: none;
 }
