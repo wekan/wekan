@@ -7,69 +7,76 @@
   text-align: center;
   font-weight: bold;
 }
-.attachments-gallery {
+.attachment-gallery {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
-.attachments-gallery .attachment-item {
-  width: 31.33%;
-  margin: 10px 1% 0;
-  text-align: center;
-  border-radius: 3px;
-  overflow: auto;
-  background: #ededed;
-  min-height: 120px;
+.attachment-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 16px;
 }
-.attachments-gallery .attachment-item:hover {
+.attachment-item:hover {
   background: #e0e0e0;
 }
-.attachments-gallery .attachment-item.add-attachment {
-  display: flex;
-  align-items: center;
-}
-.attachments-gallery .attachment-item.add-attachment a {
+.attachment-thumbnail-container {
   display: block;
-  margin: auto;
+  width: 150px;
+  min-width: 150px;
+  max-height: 150px;
+  padding-right: 16px;
+
 }
-.attachments-gallery .attachment-item .attachment-thumbnail {
-  height: 80px;
+.attachment-thumbnail {
+  max-width: 150px;
+  max-height: 150px;
+  min-height: 2em;
+  cursor: pointer;
+}
+.attachment-thumbnail-text {
+  min-height: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  font-size: 2em;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-.attachments-gallery .attachment-item .attachment-thumbnail .attachment-thumbnail-img {
-  max-height: 100%;
-  max-width: 100%;
-}
-.attachments-gallery .attachment-item .attachment-thumbnail .attachment-thumbnail-ext {
-  text-transform: uppercase;
-  font-size: 1.6em;
-}
-.attachments-gallery .attachment-item .attachment-details {
-  font-size: 0.75em;
-  margin: 3px;
-}
-.attachments-gallery .attachment-item .attachment-details .attachment-details-actions a {
+.attachment-details-container {
   display: block;
+  flex-grow: 1;
 }
-.attachments-gallery .attachment-item .attachment-details .attachment-details-actions a.attachment-details-menu {
-  padding-top: 10px;
+.attachment-details {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 25px; /* Make sure the icons are not to far to the right */
 }
-.attachment-image-preview {
-  max-width: 100px;
-  display: block;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+.attachment-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.preview-clipboard-image {
-  width: 280px;
-  max-width: 100%;
-  height: 200px;
-  display: block;
-  border: 1px solid #000;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+.add-attachment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #555;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 16px;
 }
-#viewer-overlay{
+.icon {
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.icon:hover {
+  color: #666;
+}
+#viewer-overlay {
   width: 100%;
   height: 100vh;
   position: fixed;
@@ -92,40 +99,43 @@
   position: absolute;
   padding: 20 20;
 }
-#viewer-container{
+#viewer-container {
   text-align: center;
 }
 #pdf-viewer {
-  margin-top: 4vh;
-  width: 100%;
+  width: 40vw;
   height: 100vh;
 }
-.pdf-preview-error{
+.pdf-preview-error {
   margin-top: 20vh;
   display: block;
   font-size: 2em;
   color: white;
 }
-@media screen and (max-width: 800px) {
-  .attachments-gallery .attachment-item {
-    width: 48%;
-  }
-  .attachments-gallery .attachment-item .attachment-thumbnail {
-    height: 130px;
-  }
-  .attachments-gallery .attachment-item .attachment-details {
-    font-size: 1.1em;
+
+@media screen and (max-width: 1600px) {
+  #pdf-viewer {
+    width: 60vw;
   }
 }
-@media screen and (max-width: 360px) {
+
+@media screen and (max-width: 800px) {
   #pdf-viewer {
-    margin-top: 5vh;
-    width: 100%;
+    width: 100vh;
   }
-  .attachments-gallery .attachment-item {
-    width: 100%;
+  .attachment-thumbnail-container {
+    width: 100px;
+    min-width: 100px;
   }
-  .attachments-gallery .attachment-item .attachment-thumbnail {
-    height: 200px;
+  .attachment-thumbnail {
+    max-width: 100px;
+  }
+  .attachment-details {
+    flex-direction: column;
+    margin-right: 0px;
+  }
+  .attachment-actions {
+    flex-direction: row;
+    margin-top: 10px;
   }
 }

@@ -4,17 +4,11 @@ import DOMPurify from 'dompurify';
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
 
-Template.attachmentsGallery.events({
+Template.attachmentGallery.events({
   'click .pdf'(event) {
     let link = $(event.currentTarget).attr("href");
     $("#pdf-viewer").attr("data", link);
     $("#viewer-overlay").removeClass("hidden");
-  },
-  'click #viewer-container'(event) {
-    $("#viewer-overlay").addClass("hidden");
-  },
-  'click #viewer-close'(event) {
-    $("#viewer-overlay").addClass("hidden");
   },
   'click .js-add-attachment': Popup.open('cardAttachments'),
   // If we let this event bubble, FlowRouter will handle it and empty the page
@@ -23,9 +17,23 @@ Template.attachmentsGallery.events({
     event.stopPropagation();
   },
   'click .js-open-attachment-menu': Popup.open('attachmentActions'),
+  'click .js-rename': Popup.open('attachmentRename'),
+  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
+    Attachments.remove(this._id);
+    Popup.back(2);
+  }),
 });
 
-Template.attachmentsGallery.helpers({
+Template.attachmentViewer.events({
+  'click #viewer-container'(event) {
+    $("#viewer-overlay").addClass("hidden");
+  },
+  'click #viewer-close'(event) {
+    $("#viewer-overlay").addClass("hidden");
+  },
+});
+
+Template.attachmentGallery.helpers({
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
   },
@@ -194,11 +202,6 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-rename': Popup.open('attachmentRename'),
-        'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
-          Attachments.remove(this._id);
-          Popup.back(2);
-        }),
         'click .js-add-cover'() {
           Cards.findOne(this.data().meta.cardId).setCover(this.data()._id);
           Popup.back();
