@@ -84,6 +84,10 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/pull/4991),
   [Part 2](https://github.com/wekan/wekan/pull/4992).
   Thanks to VidVidex.
+- [Improved attachment gallery and attachment viewer](https://github.com/wekan/wekan/pull/4995).
+  Thanks to VidVidex.
+- [Removed horka:swipebox](https://github.com/wekan/wekan/commit/4148238af31ad31b6190221ad69db865f9ed5ccc).
+  Thanks to VidVidex and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
