@@ -49,7 +49,8 @@ template(name="minicard")
         if currentBoard.allowsCardNumber
           span.card-number
             | ##{getCardNumber}
-        = getTitle
+        b
+          = getTitle
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}
