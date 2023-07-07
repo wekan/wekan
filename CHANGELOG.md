@@ -88,6 +88,10 @@ and fixes the following bugs:
   Thanks to VidVidex.
 - [Removed horka:swipebox](https://github.com/wekan/wekan/commit/4148238af31ad31b6190221ad69db865f9ed5ccc).
   Thanks to VidVidex and xet7.
+- [Bold minicard custom field title](https://github.com/wekan/wekan/pull/4993).
+  Thanks to VidVidex.
+- [Revert first list width change](https://github.com/wekan/wekan/pull/4993).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
