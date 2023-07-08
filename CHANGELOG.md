@@ -92,6 +92,8 @@ and fixes the following bugs:
   Thanks to VidVidex.
 - [Revert first list width change](https://github.com/wekan/wekan/pull/4993).
   Thanks to xet7.
+- [Fixed maximum call stack exceeded by removing bootstrap 3, datepicker and summernote. Updated jquery. Disabled attachments viewer that opens empty when opening card. Fixes all npm audit errors](https://github.com/wekan/wekan/commit/140a134a11d0b262f69e4f343dddddb87c978748).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
