@@ -31,7 +31,9 @@ template(name="attachmentDeletePopup")
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="attachmentViewer")
-  #viewer-overlay.hidden
+// Disabled attachment viewer, because it opens with empty content
+// when opening card.
+//#viewer-overlay.hidden
     #viewer-top-bar
       span#attachment-name
       a#viewer-close.fa.fa-times-thin
