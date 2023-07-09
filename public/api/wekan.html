@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v6.98</title>
+    <title>Wekan REST API v6.99</title>
 
     <style>
     </style>
@@ -1558,7 +1558,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v6.98">Wekan REST API v6.98</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v6.99">Wekan REST API v6.99</a>
             
           </li>
         
@@ -2176,7 +2176,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v6.98</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v6.99</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -4022,9 +4022,12 @@ System.out.println(response.toString());
     <span class="hljs-attr">&quot;attachmentId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;attachmentName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;attachmentType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;cardId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;urlDownload&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;boardId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;swimlaneId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;listId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;swimlaneId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    <span class="hljs-attr">&quot;cardId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   }
 ]
 </code></pre>
@@ -4082,7 +4085,28 @@ System.out.println(response.toString());
 <td>none</td>
 </tr>
 <tr>
-<td>» cardId</td>
+<td>» url</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» urlDownload</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» boardId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» swimlaneId</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>
@@ -4096,7 +4120,7 @@ System.out.println(response.toString());
 <td>none</td>
 </tr>
 <tr>
-<td>» swimlaneId</td>
+<td>» cardId</td>
 <td>string</td>
 <td>false</td>
 <td>none</td>

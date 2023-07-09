@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v6.98
+  version: v6.99
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -320,12 +320,18 @@ paths:
                   type: string
                 attachmentType:
                   type: string
-                cardId:
+                url:
                   type: string
-                listId:
+                urlDownload:
+                  type: string
+                boardId:
                   type: string
                 swimlaneId:
                   type: string
+                listId:
+                  type: string
+                cardId:
+                  type: string  
   /api/boards/{board}/attachments/{attachment}/export:
     get:
       operationId: exportJson
