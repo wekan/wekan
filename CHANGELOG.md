@@ -36,6 +36,11 @@ This release adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/95d3e5cdc6136a9778bf7c84812a6d62ef6d4044).
   Thanks to developers of dependencies.
 
+and fixes the following bugs:
+
+- [Fix for migration "attachment-cardCopy-fix-boardId-etc"](https://github.com/wekan/wekan/pull/4999).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v6.99 2023-07-09 WeKan ® release
