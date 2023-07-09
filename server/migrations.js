@@ -1425,13 +1425,15 @@ Migrations.add('attachment-cardCopy-fix-boardId-etc', () => {
   Attachments.find( {"meta.source": "copy"} ).forEach(_attachment => {
     const cardId = _attachment.meta.cardId;
     const card = Cards.findOne(cardId);
-    console.log("update attachment id: ", _attachment._id);
-    Attachments.update(_attachment._id, {
-      $set: {
-        "meta.boardId": card.boardId,
-        "meta.listId": card.listId,
-        "meta.swimlaneId": card.swimlaneId,
-      }
-    });
+    if (card.boardId && card.listId && card.swimlaneId) {
+      console.log("update attachment id: ", _attachment._id);
+      Attachments.update(_attachment._id, {
+        $set: {
+          "meta.boardId": card.boardId,
+          "meta.listId": card.listId,
+          "meta.swimlaneId": card.swimlaneId,
+        }
+      });
+    }
   });
 });
