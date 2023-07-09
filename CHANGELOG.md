@@ -29,6 +29,15 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Added back npm packages: fibers and @mapbox/node-pre-gyp](https://github.com/wekan/wekan/commit/8bf40e219a9fa55b8f2ef19dbf6acc58d646b968).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.99.1 2023-07-10 WeKan ® release
 
 This release adds the following updates:
