@@ -10,6 +10,10 @@ const prettyMilliseconds = require('pretty-ms');
 let cardId = null;
 let openAttachmentId = null;
 
+
+// Stores link to the attachment for which attachment actions popup was opened
+attachmentActionsLink = null
+
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
 
@@ -25,6 +29,9 @@ Template.attachmentGallery.events({
     event.stopPropagation();
   },
   'click .js-open-attachment-menu': Popup.open('attachmentActions'),
+  'mouseover .js-open-attachment-menu'(event) { // For some reason I cannot combine handlers for "click .js-open-attachment-menu" and "mouseover .js-open-attachment-menu" events so this is a quick workaround.
+    attachmentActionsLink = event.currentTarget.getAttribute("data-attachment-link");
+  },
   'click .js-rename': Popup.open('attachmentRename'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
     Attachments.remove(this._id);
@@ -336,9 +343,8 @@ BlazeComponent.extendComponent({
         },
         'click .js-add-background-image'() {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
-          const url=$(".attachment-thumbnail-img").attr("src");
-          currentBoard.setBackgroundImageURL(url);
-          Utils.setBackgroundImage(url);
+          currentBoard.setBackgroundImageURL(attachmentActionsLink);
+          Utils.setBackgroundImage(attachmentActionsLink);
           Popup.back();
           event.preventDefault();
         },
