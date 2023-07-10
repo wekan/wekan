@@ -12,7 +12,7 @@ let openAttachmentId = null;
 
 
 // Stores link to the attachment for which attachment actions popup was opened
-attachmentActionsLink = null
+attachmentActionsLink = null;
 
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
