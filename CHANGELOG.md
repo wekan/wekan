@@ -29,6 +29,15 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# v6.99.3 2023-07-10 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix migration attachment-cardCopy-fix-boardId-etc. Part 2](https://github.com/wekan/wekan/commit/8555c24eb21134eda9b4d71494676b39d126ef35).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.99.2 2023-07-10 WeKan ® release
 
 This release adds the following updates:
