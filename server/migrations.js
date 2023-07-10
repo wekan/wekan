@@ -1421,6 +1421,7 @@ Migrations.add('migrate-attachment-migration-fix-source-import', () => {
   );
 });
 
+/*
 Migrations.add('attachment-cardCopy-fix-boardId-etc', () => {
   Attachments.find( {"meta.source": "copy"} ).forEach(_attachment => {
     const cardId = _attachment.meta.cardId;
@@ -1437,3 +1438,4 @@ Migrations.add('attachment-cardCopy-fix-boardId-etc', () => {
     }
   });
 });
+*/
