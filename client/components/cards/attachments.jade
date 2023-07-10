@@ -95,7 +95,7 @@ template(name="attachmentGallery")
               if currentUser.isBoardMember
                 unless currentUser.isCommentOnly
                   unless currentUser.isWorker
-                    a.fa.fa-navicon.icon.js-open-attachment-menu(title="{{_ 'attachmentActionsPopup-title'}}")
+                    a.fa.fa-navicon.icon.js-open-attachment-menu(data-attachment-link="{{link}}" title="{{_ 'attachmentActionsPopup-title'}}")
 
 
 template(name="attachmentActionsPopup")
