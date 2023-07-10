@@ -29,6 +29,15 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# v6.99.5 2023-07-10 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Reverted bold of minicard title](https://github.com/wekan/wekan/commit/c7dc912dd4403845a123d9202e930c886788db5b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v6.99.4 2023-07-10 WeKan ® release
 
 This release fixes the following bugs:
