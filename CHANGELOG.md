@@ -29,9 +29,14 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
-# v6.99.6 2023-07-11 WeKan ® release
+# v6.99.7 2023-07-11 WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/pull/5008).
+  Thanks to dependabot.
+
+and fixes the following bugs:
 
 - [Fix setting background image](https://github.com/wekan/wekan/pull/5004).
   Thanks to VidVidex.
