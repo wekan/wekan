@@ -37,6 +37,8 @@ This release fixes the following bugs:
   Thanks to VidVidex.
 - [Added missing character](https://github.com/wekan/wekan/commit/4431ec5a2761d56685d2fca1202679b9bdcd9b81).
   Thanks to xet7.
+- [Added back datepicker](https://github.com/wekan/wekan/commit/912479baa48354a68bc807737a3db7975a4cb95c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
