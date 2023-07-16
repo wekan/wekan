@@ -287,15 +287,16 @@ Meteor.methods({
     check(info, Object);
     check(userId, String);
     var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
-    if (propagateOidcData)
-    {
+    if (propagateOidcData) {
       users= Meteor.users;
       user = users.findOne({'services.oidc.id':  userId});
 
-      if(user)
-      {
-        //updates/creates Groups and user admin privileges accordingly
-        addGroupsWithAttributes(user, info.groups);
+      if(user) {
+        //updates/creates Groups and user admin privileges accordingly if not undefined
+        if (info.groups) {
+          addGroupsWithAttributes(user, info.groups);
+        }
+
         if(info.email) addEmail(user, info.email);
         if(info.fullname) changeFullname(user, info.fullname);
         if(info.username) changeUsername(user, info.username);
