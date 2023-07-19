@@ -1,4 +1,4 @@
-import { DataCache } from 'meteor-reactive-cache';
+import { DataCache } from '@wekanteam/meteor-reactive-cache';
 import { Jsons } from './jsons';
 
 // Server isn't reactive, so search for the data always.
