@@ -18,15 +18,6 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# v7.01 2023-07-19 WeKan ® release
-
-This release fixes the following bugs:
-
-- [Added missing @babel/runtime](https://github.com/wekan/wekan/commit/60cb5fb0176ecb623d494613aab196f252c16752).
-  Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
 # v7.00 2023-07-19 WeKan ® release
 
 This release adds the following new features:
@@ -37,6 +28,11 @@ This release adds the following new features:
 and adds the following updates:
 
 - [Forked meteor-globals and meteor-reactive-cache to @wekanteam/meteor-globals and @wekanteam/meteor-reactive-cache to update to newest dependencies](https://github.com/wekan/wekan/commit/1c5857f0646658b121d7612b6176ec5e09c68592).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Added missing @babel/runtime](https://github.com/wekan/wekan/commit/60cb5fb0176ecb623d494613aab196f252c16752).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
