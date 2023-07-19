@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v7.00",
+  "version": "v7.01.0",
   "description": "Open-Source kanban",
   "private": true,
   "repository": {
@@ -20,6 +20,7 @@
     "sinon-chai": "^3.7.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.22.6",
     "@mapbox/node-pre-gyp": "^1.0.10",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
     "@wekanteam/meteor-globals": "^1.1.4",
