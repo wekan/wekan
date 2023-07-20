@@ -24,6 +24,8 @@ This release fixes the following bugs:
 
 - [Fix for Calendar View Create Card](https://github.com/wekan/wekan/pull/5019).
   Thanks to DimDz.
+- [Minicard didn't show the assignee](https://github.com/wekan/wekan/pull/5021).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
