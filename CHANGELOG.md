@@ -18,6 +18,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix for Calendar View Create Card](https://github.com/wekan/wekan/pull/5019).
+  Thanks to DimDz.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.00 2023-07-19 WeKan ® release
 
 This release adds the following new features:
