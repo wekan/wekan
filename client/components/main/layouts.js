@@ -161,7 +161,7 @@ Template.userFormsLayout.events({
   },
   'DOMSubtreeModified #at-oidc'(event) {
     if (alreadyCheck <= 2) {
-      let currSetting = Utils.getCurrentSetting();
+      let currSetting = ReactiveCache.getCurrentSetting();
       let oidcBtnElt = $("#at-oidc");
       if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
         let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
@@ -182,7 +182,7 @@ Template.userFormsLayout.events({
   'DOMSubtreeModified .at-form'(event) {
     if (alreadyCheck <= 2 && !isCheckDone) {
       if (document.getElementById("at-oidc") != null) {
-        let currSetting = Utils.getCurrentSetting();
+        let currSetting = ReactiveCache.getCurrentSetting();
         let oidcBtnElt = $("#at-oidc");
         if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
           let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;

@@ -32,7 +32,7 @@ Template.memberMenuPopup.helpers({
     }
   },
   isSameDomainNameSettingValue(){
-    const currSett = Utils.getCurrentSetting();
+    const currSett = ReactiveCache.getCurrentSetting();
     if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
       currentUser = ReactiveCache.getCurrentUser();
       if (currentUser) {
