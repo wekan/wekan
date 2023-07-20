@@ -168,11 +168,28 @@
   color: #fff !important;
 }
 /* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
 .modal-dialog {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70%;
+  height: 25%; /* Adjust the height to make it smaller */
+  position: relative;
+  margin: 10% auto; /* This margin will help center the modal vertically */
+  max-width: 400px; /* Adjust the max-width to make it smaller */
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 .modal-header {
   display: flex;
@@ -203,4 +220,5 @@
   top: 5px;
   right: 5px;
   font-size: 25px;
+  cursor: pointer;
 }
