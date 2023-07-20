@@ -732,7 +732,7 @@
   "description-on-minicard": "小卡片描述",
   "cover-attachment-on-minicard": "小卡片封面图片",
   "badge-attachment-on-minicard": "小卡片附件数量",
-  "card-sorting-by-number-on-minicard": "Card sorting by number on minicard",
+  "card-sorting-by-number-on-minicard": "卡片按小卡片编号排序",
   "prefix-with-full-path": "完整路径前缀",
   "prefix-with-parent": "上级前缀",
   "subtext-with-full-path": "子标题显示完整路径",
@@ -1089,7 +1089,7 @@
   "label-names": "标签名",
   "archived-at": "归档于",
   "sort-cards": "排序卡片",
-  "sort-is-on": "Sort is on",
+  "sort-is-on": "已排序",
   "cardsSortPopup-title": "排序卡片",
   "due-date": "截至日期",
   "server-error": "服务错误",
@@ -1220,5 +1220,5 @@
   "max-avatar-filesize": "头像文件最大：",
   "allowed-avatar-filetypes": "头像文件允许类型：",
   "invalid-file": "如果文件名无效，则取消上传或重命名。\n ",
-  "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead."
+  "preview-pdf-not-supported": "您的设备不支持pdf预览，请尝试下载"
 }
