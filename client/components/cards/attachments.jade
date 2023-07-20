@@ -87,14 +87,13 @@ template(name="attachmentGallery")
             .attachment-actions
               a.js-download(href="{{link}}?download=true", download="{{name}}")
                 i.fa.fa-download.icon(title="{{_ 'download'}}")
-              if currentUser.isBoardAdmin
-                a.js-rename
-                  i.fa.fa-pencil-square-o.icon(title="{{_ 'rename'}}")
-                a.js-confirm-delete
-                  i.fa.fa-trash.icon(title="{{_ 'delete'}}")
               if currentUser.isBoardMember
                 unless currentUser.isCommentOnly
                   unless currentUser.isWorker
+                    a.js-rename
+                      i.fa.fa-pencil-square-o.icon(title="{{_ 'rename'}}")
+                    a.js-confirm-delete
+                      i.fa.fa-trash.icon(title="{{_ 'delete'}}")
                     a.fa.fa-navicon.icon.js-open-attachment-menu(data-attachment-link="{{link}}" title="{{_ 'attachmentActionsPopup-title'}}")
 
 
