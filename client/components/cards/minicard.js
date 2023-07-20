@@ -73,7 +73,7 @@ BlazeComponent.extendComponent({
       ret =
         board.allowsAssignee === null ||
         board.allowsAssignee === undefined ||
-        board.allowsAssigne
+        board.allowsAssignee
       ;
     }
     return ret;
