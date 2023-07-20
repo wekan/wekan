@@ -19,7 +19,7 @@ Blaze.registerHelper('currentList', () => {
 });
 
 Blaze.registerHelper('currentSetting', () => {
-  const ret = Utils.getCurrentSetting();
+  const ret = ReactiveCache.getCurrentSetting();
   return ret;
 });
 

@@ -58,16 +58,16 @@ BlazeComponent.extendComponent({
   },
   toggleForgotPassword() {
     this.setLoading(true);
-    const forgotPasswordClosed = Utils.getCurrentSetting().disableForgotPassword;
-    Settings.update(Utils.getCurrentSetting()._id, {
+    const forgotPasswordClosed = ReactiveCache.getCurrentSetting().disableForgotPassword;
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
       $set: { disableForgotPassword: !forgotPasswordClosed },
     });
     this.setLoading(false);
   },
   toggleRegistration() {
     this.setLoading(true);
-    const registrationClosed = Utils.getCurrentSetting().disableRegistration;
-    Settings.update(Utils.getCurrentSetting()._id, {
+    const registrationClosed = ReactiveCache.getCurrentSetting().disableRegistration;
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
       $set: { disableRegistration: !registrationClosed },
     });
     this.setLoading(false);
@@ -163,7 +163,7 @@ BlazeComponent.extendComponent({
         .trim();
       const from = this.checkField('#mail-server-from');
       const tls = $('#mail-server-tls.is-checked').length > 0;
-      Settings.update(Utils.getCurrentSetting()._id, {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, {
         $set: {
           'mailServer.host': host,
           'mailServer.port': port,
@@ -243,7 +243,7 @@ BlazeComponent.extendComponent({
     const spinnerName = $('#spinnerName').val();
 
     try {
-      Settings.update(Utils.getCurrentSetting()._id, {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, {
         $set: {
           productName,
           hideLogo: hideLogoChange,
