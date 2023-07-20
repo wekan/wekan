@@ -26,6 +26,8 @@ This release fixes the following bugs:
   Thanks to DimDz.
 - [Minicard didn't show the assignee](https://github.com/wekan/wekan/pull/5021).
   Thanks to mfilser.
+- [Helm Chart: Add imagePullPolicy to initContainer. Needed for running wekan when restarting while offline](https://github.com/wekan/charts/pull/21).
+  Thanks to jadams.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -63,6 +65,8 @@ This release fixes the following bugs:
 
 - [Fix card creation. Now date fields are checked if they are empty](https://github.com/wekan/wekan/pull/5009).
   Thanks to helioguardabaxo.
+- [Helm Chart: Changes for Openshift](https://github.com/wekan/charts/pull/20).
+  Thanks to salleman33.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
