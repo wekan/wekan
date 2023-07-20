@@ -28,6 +28,8 @@ This release fixes the following bugs:
   Thanks to mfilser.
 - [Helm Chart: Add imagePullPolicy to initContainer. Needed for running wekan when restarting while offline](https://github.com/wekan/charts/pull/21).
   Thanks to jadams.
+- [Removing Utils.getCurrentSetting() and use ReactiveCache directly](https://github.com/wekan/wekan/pull/5022).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
