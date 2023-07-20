@@ -417,35 +417,37 @@ BlazeComponent.extendComponent({
           revertFunc();
         }
       },
-      select: function(startDate) {
+      select: function (startDate) {
         const currentBoard = Utils.getCurrentBoard();
         const currentUser = ReactiveCache.getCurrentUser();
-        const $modal = $(`
-          <div class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog justify-content-center align-items-center" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">${TAPi18n.__('r-create-card')}</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body text-center">
-                  <input type="text" class="form-control" id="card-title-input" placeholder="">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="create-card-button">${TAPi18n.__('add-card')}</button>
-                </div>
-              </div>
+        const modalElement = document.createElement('div');
+        modalElement.classList.add('modal', 'fade');
+        modalElement.setAttribute('tabindex', '-1');
+        modalElement.setAttribute('role', 'dialog');
+        modalElement.innerHTML = `
+        <div class="modal-dialog justify-content-center align-items-center" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">${TAPi18n.__('r-create-card')}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              <input type="text" class="form-control" id="card-title-input" placeholder="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="create-card-button">${TAPi18n.__('add-card')}</button>
             </div>
           </div>
-        `);
-        $modal.modal('show');
-        $modal.find('#create-card-button').click(function() {
-          const myTitle = $modal.find('#card-title-input').val();
+        </div>
+        `;
+        const createCardButton = modalElement.querySelector('#create-card-button');
+        createCardButton.addEventListener('click', function () {
+          const myTitle = modalElement.querySelector('#card-title-input').value;
           if (myTitle) {
-            const firstList = currentBoard.draggableLists().fetch()[0];
-            const firstSwimlane = currentBoard.swimlanes().fetch()[0];
+            const firstList = currentBoard.draggableLists()[0];
+            const firstSwimlane = currentBoard.swimlanes()[0];
             Meteor.call('createCardWithDueDate', currentBoard._id, firstList._id, myTitle, startDate.toDate(), firstSwimlane._id, function(error, result) {
               if (error) {
                 console.log(error);
@@ -453,10 +455,20 @@ BlazeComponent.extendComponent({
                 console.log("Card Created", result);
               }
             });
-            $modal.modal('hide');
+            closeModal();
           }
         });
-      },
+        document.body.appendChild(modalElement);
+        const openModal = function() {
+          modalElement.style.display = 'flex';
+        };
+        const closeModal = function() {
+          modalElement.style.display = 'none';
+        };
+        const closeButton = modalElement.querySelector('[data-dismiss="modal"]');
+        closeButton.addEventListener('click', closeModal);
+        openModal();
+      }
     };
   },
   isViewCalendar() {
