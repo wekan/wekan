@@ -30,6 +30,8 @@ This release fixes the following bugs:
   Thanks to jadams.
 - [Removing Utils.getCurrentSetting() and use ReactiveCache directly](https://github.com/wekan/wekan/pull/5022).
   Thanks to mfilser.
+- [Attachment rename and delete works now again for non board admins](https://github.com/wekan/wekan/pull/5023).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
