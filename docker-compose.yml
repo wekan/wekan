@@ -120,7 +120,7 @@ services:
     # image: quay.io/wekan/wekan:v6.89
     # image: wekanteam/wekan:v6.89
     # b) GitHub Container registry.
-    image: ghcr.io/wekan/wekan:latest
+    #image: ghcr.io/wekan/wekan:latest
     # c) Quay:
     #image: quay.io/wekan/wekan:latest
     # d) Docker Hub:
@@ -140,16 +140,16 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
     # ==== and use commands: docker-compose up -d --build
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
       # For example, if you want to have wekan on port 3001,
       # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
-      - 80:8080
+      - 3001:8080
     environment:
       #-----------------------------------------------------------------
       # ==== WRITEABLE PATH FOR FILE UPLOADS ====
@@ -177,7 +177,7 @@ services:
       #  - http://example.com
       #  - http://boards.example.com
       #  - http://192.168.1.100    <=== using at local LAN
-      - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
+      - ROOT_URL=http://162.55.182.68:3001  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.

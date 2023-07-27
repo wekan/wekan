@@ -1,0 +1,19 @@
+{
+  "activity-added": "custom1 added %s to %s",
+  "activity-archived": "custom %s moved to Archive",
+  "activity-attached": "custom attached %s to %s",
+  "activity-created": "custom created %s",
+  "activity-customfield-created": "custom created custom field %s",
+  "activity-excluded": "custom excluded %s from %s",
+  "activity-imported": "custom imported %s into %s from %s",
+  "activity-imported-board": "custom imported %s from %s",
+  "activity-joined": "custom joined %s",
+  "activity-moved": "custom moved %s from %s to %s",
+  "activity-on": "on %s",
+  "activity-removed": "custom removed %s from %s",
+  "activity-sent": "custom sent %s to %s",
+  "activity-unjoined": "custom unjoined %s",
+  "activity-subtask-added": "custom added subtask to %s",
+  "activity-checked-item": "custom checked %s in checklist %s of %s",
+  "activity-unchecked-item": "custom unchecked %s in checklist %s of %s"
+}
