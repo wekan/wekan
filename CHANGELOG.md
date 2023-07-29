@@ -24,6 +24,8 @@ This release adds the following new features:
 
 - [Make swimlane height and list width adjustable](https://github.com/wekan/wekan/pull/4964).
   Thanks to mark-i-m.
+- [Don't translate swimlane height and list width minimum value](https://github.com/wekan/wekan/commit/7baf7d2256b87f66aa31ee282e08ebbd4564202d).
+  Thanks to xet7.
 
 and adds the following updates:
 
