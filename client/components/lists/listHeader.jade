@@ -171,7 +171,7 @@ template(name="setListWidthPopup")
 
 template(name="listWidthErrorPopup")
   .list-width-invalid
-    p {{_ 'list-width-error-message'}}
+    p {{_ 'list-width-error-message'}} '&gt;=100'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")

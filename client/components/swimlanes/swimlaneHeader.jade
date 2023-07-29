@@ -95,7 +95,7 @@ template(name="setSwimlaneHeightPopup")
 
 template(name="swimlaneHeightErrorPopup")
   .swimlane-height-invalid
-    p {{_ 'swimlane-height-error-message'}}
+    p {{_ 'swimlane-height-error-message'}} '&gt;=100'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="swimlaneDeletePopup")
