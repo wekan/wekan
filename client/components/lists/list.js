@@ -194,6 +194,12 @@ BlazeComponent.extendComponent({
       });
     });
   },
+
+  listWidth() {
+    const user = Meteor.user();
+    const list = Template.currentData();
+    return user.getListWidth(list.boardId, list._id);
+  },
 }).register('list');
 
 Template.miniList.events({
