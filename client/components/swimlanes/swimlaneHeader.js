@@ -37,6 +37,7 @@ Template.swimlaneFixedHeader.helpers({
 
 Template.swimlaneActionPopup.events({
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
+  'click .js-set-swimlane-height': Popup.open('setSwimlaneHeight'),
   'click .js-close-swimlane'(event) {
     event.preventDefault();
     this.archive();
@@ -129,3 +130,45 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('setSwimlaneColorPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentSwimlane = this.currentData();
+  },
+
+  applySwimlaneHeight() {
+    const swimlane = this.currentData();
+    const board = swimlane.boardId;
+    const height = parseInt(
+      Template.instance()
+        .$('.swimlane-height-value')
+        .val(),
+      10,
+    );
+
+    // FIXME(mark-i-m): where do we put constants?
+    if (height < 100 || !height) {
+      Template.instance()
+        .$('.swimlane-height-error')
+        .click();
+    } else {
+      Meteor.call('applySwimlaneHeight', board, swimlane._id, height);
+      Popup.back();
+    }
+  },
+
+  swimlaneHeightValue() {
+    const swimlane = this.currentData();
+    const board = swimlane.boardId;
+    return Meteor.user().getSwimlaneHeight(board, swimlane._id);
+  },
+
+  events() {
+    return [
+      {
+        'click .swimlane-height-apply': this.applySwimlaneHeight,
+        'click .swimlane-height-error': Popup.open('swimlaneHeightError'),
+      },
+    ];
+  },
+}).register('setSwimlaneHeightPopup');

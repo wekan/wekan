@@ -223,6 +223,12 @@ BlazeComponent.extendComponent({
       },
     ];
   },
+
+  swimlaneHeight() {
+    const user = Meteor.user();
+    const swimlane = Template.currentData();
+    return user.getSwimlaneHeight(swimlane.boardId, swimlane._id);
+  },
 }).register('swimlane');
 
 BlazeComponent.extendComponent({
