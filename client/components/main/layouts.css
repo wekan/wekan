@@ -639,3 +639,7 @@ a:not(.disabled).is-active i.fa {
     transform: rotate(360deg);
   }
 }
+
+.at-pwd-form {
+  display: none;
+}

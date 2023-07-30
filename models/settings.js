@@ -521,8 +521,8 @@ if (Meteor.isServer) {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
     },
 
-    isPasswordLoginDisabled() {
-      return process.env.PASSWORD_LOGIN_ENABLED === 'false';
+    isPasswordLoginEnabled() {
+      return !(process.env.PASSWORD_LOGIN_ENABLED === 'false');
     },
     isOidcRedirectionEnabled(){
       return process.env.OIDC_REDIRECTION_ENABLED === 'true' && Object.keys(loadOidcConfig("oidc")).length > 0;
