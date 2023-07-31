@@ -196,7 +196,7 @@ BlazeComponent.extendComponent({
   },
 
   listWidth() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     const list = Template.currentData();
     return user.getListWidth(list.boardId, list._id);
   },
