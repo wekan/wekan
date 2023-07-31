@@ -1671,10 +1671,8 @@ if (Meteor.isServer) {
     },
   });
   Accounts.onCreateUser((options, user) => {
-    const userCount = ReactiveCache.getUsers().length;
-    if (userCount === 0) {
-      user.isAdmin = true;
-    }
+    const userCount = ReactiveCache.getUsers({}, {}, true).count();
+    user.isAdmin = userCount === 0;
 
     if (user.services.oidc) {
       let email = user.services.oidc.email;
