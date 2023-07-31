@@ -45,7 +45,14 @@ export const TAPi18n = {
   },
   async loadLanguage(language) {
     if (language in languages && 'load' in languages[language]) {
-      const data = await languages[language].load();
+      let data = await languages[language].load();
+      //customize the strings [added by Yevhenii]
+      try {
+        let custom_data = await languages[language].load_custom();//import(filepath);
+        data = {...data, ...custom_data};
+      } catch (ex) {
+        console.error(ex);
+      }
       this.i18n.addResourceBundle(language, DEFAULT_NAMESPACE, data);
     } else {
       throw new Error(`Language ${language} is not supported`);
