@@ -36,6 +36,8 @@ and fixes the following bugs:
 
 - [Only selectively show login elements once settings is loaded](https://github.com/wekan/wekan/pull/5032).
   Thanks to nebulade.
+- [First registration after installation must be an admin account](https://github.com/wekan/wekan/pull/5037).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
