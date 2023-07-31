@@ -559,9 +559,6 @@ a:not(.disabled).is-active i.fa {
   top: 45px;
   left: 10px;
 }
-#isSettingDatabaseCallDone {
-  display: none;
-}
 .at-link {
   color: #17683a;
   text-decoration: underline;

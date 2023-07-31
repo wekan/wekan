@@ -20,8 +20,6 @@ const validator = {
   },
 };
 
-// let isSettingDatabaseFctCallDone = false;
-
 Template.userFormsLayout.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
@@ -37,11 +35,6 @@ Template.userFormsLayout.onCreated(function () {
         oidcBtnElt.html(htmlvalue);
       }
 
-      // isSettingDatabaseFctCallDone = true;
-      if (currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined)
-        document.getElementById("isSettingDatabaseCallDone").style.display = 'none';
-      else
-        document.getElementById("isSettingDatabaseCallDone").style.display = 'block';
       return this.stop();
     },
   });
@@ -86,10 +79,6 @@ Template.userFormsLayout.onRendered(() => {
 });
 
 Template.userFormsLayout.helpers({
-  // isSettingDatabaseCallDone(){
-  //   return isSettingDatabaseFctCallDone;
-  // },
-
   isLegalNoticeLinkExist() {
     const currSet = Template.instance().currentSetting.get();
     if (currSet && currSet !== undefined && currSet != null) {
