@@ -2,7 +2,8 @@ template(name="swimlane")
   .swimlane
     +swimlaneHeader
   unless collapseSwimlane
-    .swimlane.js-lists.js-swimlane(id="swimlane-{{_id}}")
+    .swimlane.js-lists.js-swimlane(id="swimlane-{{_id}}"
+                                   style="height:{{swimlaneHeight}}px;")
       if isMiniScreen
         if currentListIsInThisSwimlane _id
           +list(currentList)

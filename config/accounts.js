@@ -4,7 +4,7 @@ const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
 let disableRegistration = false;
 let disableForgotPassword = false;
-let passwordLoginDisabled = false;
+let passwordLoginEnabled = false;
 let oidcRedirectionEnabled = false;
 let oauthServerUrl = "home";
 let oauthDashboardUrl = "";
@@ -16,11 +16,9 @@ Meteor.call('isOidcRedirectionEnabled', (_, result) => {
   }
 });
 
-Meteor.call('isPasswordLoginDisabled', (_, result) => {
+Meteor.call('isPasswordLoginEnabled', (_, result) => {
   if (result) {
-    passwordLoginDisabled = true;
-    //console.log('passwordLoginDisabled');
-    //console.log(result);
+    passwordLoginEnabled = true;
   }
 });
 

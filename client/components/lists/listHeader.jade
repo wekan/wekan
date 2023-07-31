@@ -64,6 +64,11 @@ template(name="listActionPopup")
   hr
   ul.pop-over-list
     li
+      a.js-set-list-width
+        i.fa.fa-arrows-h
+        |  {{_ 'set-list-width'}}
+  ul.pop-over-list
+    li
       a.js-toggle-watch-list
         if isWatching
           i.fa.fa-eye
@@ -154,6 +159,19 @@ template(name="wipLimitErrorPopup")
   .wip-limit-invalid
     p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
     p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
+
+template(name="setListWidthPopup")
+  #js-list-width-edit
+    label {{_ 'set-list-width-value'}}
+      p
+        input.list-width-value(type="number" value="{{ listWidthValue }}" min="100")
+        input.list-width-apply(type="submit" value="{{_ 'apply'}}")
+        input.list-width-error
+
+template(name="listWidthErrorPopup")
+  .list-width-invalid
+    p {{_ 'list-width-error-message'}} '&gt;=100'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")

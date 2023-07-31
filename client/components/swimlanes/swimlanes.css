@@ -116,6 +116,9 @@
   left: 87vw;
   font-size: 24px;
 }
+#js-swimlane-height-edit .swimlane-height-error {
+  display: none;
+}
 .list-group {
   height: 100%;
 }

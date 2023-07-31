@@ -45,9 +45,9 @@ Template.userFormsLayout.onCreated(function () {
       return this.stop();
     },
   });
-  Meteor.call('isPasswordLoginDisabled', (_, result) => {
+  Meteor.call('isPasswordLoginEnabled', (_, result) => {
     if (result) {
-      $('.at-pwd-form').hide();
+      $('.at-pwd-form').show();
     }
   });
 

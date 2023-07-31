@@ -44,6 +44,9 @@ template(name="swimlaneActionPopup")
        li: a.js-set-swimlane-color
         i.fa.fa-paint-brush
         | {{_ 'select-color'}}
+       li: a.js-set-swimlane-height
+        i.fa.fa-arrows-v
+        |  {{_ 'set-swimlane-height'}}
     unless this.isTemplateContainer
       hr
       ul.pop-over-list
@@ -81,6 +84,19 @@ template(name="setSwimlaneColorPopup")
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+template(name="setSwimlaneHeightPopup")
+  #js-swimlane-height-edit
+    label {{_ 'set-swimlane-height-value'}}
+      p
+        input.swimlane-height-value(type="number" value="{{ swimlaneHeightValue }}" min="100")
+        input.swimlane-height-apply(type="submit" value="{{_ 'apply'}}")
+        input.swimlane-height-error
+
+template(name="swimlaneHeightErrorPopup")
+  .swimlane-height-invalid
+    p {{_ 'swimlane-height-error-message'}} '&gt;=100'
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="swimlaneDeletePopup")
   p {{_ "swimlane-delete-pop"}}
