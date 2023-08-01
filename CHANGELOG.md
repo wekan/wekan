@@ -42,6 +42,8 @@ and fixes the following bugs:
   Thanks to nebulade.
 - [First registration after installation must be an admin account](https://github.com/wekan/wekan/pull/5037).
   Thanks to mfilser.
+- [Fix get_board_cards_count](https://github.com/wekan/wekan/pull/5040).
+  Thanks to Pandetthe.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
