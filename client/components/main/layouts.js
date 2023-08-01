@@ -20,36 +20,10 @@ const validator = {
   },
 };
 
-// let isSettingDatabaseFctCallDone = false;
-
 Template.userFormsLayout.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
-
-  Meteor.subscribe('setting', {
-    onReady() {
-      templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
-      let currSetting = templateInstance.currentSetting.curValue;
-      let oidcBtnElt = $("#at-oidc");
-      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
-        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
-        oidcBtnElt.html(htmlvalue);
-      }
-
-      // isSettingDatabaseFctCallDone = true;
-      if (currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined)
-        document.getElementById("isSettingDatabaseCallDone").style.display = 'none';
-      else
-        document.getElementById("isSettingDatabaseCallDone").style.display = 'block';
-      return this.stop();
-    },
-  });
-  Meteor.call('isPasswordLoginEnabled', (_, result) => {
-    if (result) {
-      $('.at-pwd-form').show();
-    }
-  });
 
   if (!ReactiveCache.getCurrentUser()?.profile) {
       Meteor.call('isOidcRedirectionEnabled', (_, result) => {
@@ -60,9 +34,9 @@ Template.userFormsLayout.onCreated(function () {
           };
           Meteor.loginWithOidc(options);
         }
-        //else console.log("oidc redirect not set");
       });
   }
+
   Meteor.call('isDisableRegistration', (_, result) => {
     if (result) {
       $('.at-signup-link').hide();
@@ -74,7 +48,6 @@ Template.userFormsLayout.onCreated(function () {
       $('.at-pwd-link').hide();
     }
   });
-
 });
 
 Template.userFormsLayout.onRendered(() => {
@@ -86,10 +59,6 @@ Template.userFormsLayout.onRendered(() => {
 });
 
 Template.userFormsLayout.helpers({
-  // isSettingDatabaseCallDone(){
-  //   return isSettingDatabaseFctCallDone;
-  // },
-
   isLegalNoticeLinkExist() {
     const currSet = Template.instance().currentSetting.get();
     if (currSet && currSet !== undefined && currSet != null) {
