@@ -25,12 +25,6 @@ Template.userFormsLayout.onCreated(function () {
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
 
-  Meteor.call('isPasswordLoginEnabled', (_, result) => {
-    if (result) {
-      $('.at-pwd-form').show();
-    }
-  });
-
   if (!ReactiveCache.getCurrentUser()?.profile) {
       Meteor.call('isOidcRedirectionEnabled', (_, result) => {
         if (result) {
@@ -42,6 +36,7 @@ Template.userFormsLayout.onCreated(function () {
         }
       });
   }
+
   Meteor.call('isDisableRegistration', (_, result) => {
     if (result) {
       $('.at-signup-link').hide();
@@ -53,7 +48,6 @@ Template.userFormsLayout.onCreated(function () {
       $('.at-pwd-link').hide();
     }
   });
-
 });
 
 Template.userFormsLayout.onRendered(() => {

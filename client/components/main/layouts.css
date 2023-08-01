@@ -564,6 +564,9 @@ a:not(.disabled).is-active i.fa {
   text-decoration: underline;
   text-decoration-color: #17683a;
 }
+.at-pwd-form, .at-sep, .at-oauth {
+  display: none;
+}
 @-moz-keyframes fadeIn {
   from {
     opacity: 0;
@@ -635,8 +638,4 @@ a:not(.disabled).is-active i.fa {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.at-pwd-form {
-  display: none;
 }

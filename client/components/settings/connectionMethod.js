@@ -16,11 +16,27 @@ Template.connectionMethod.onCreated(function() {
 
     // If only the default authentication available, hides the select boxe
     const content = $('.at-form-authentication');
-    if (!(this.authenticationMethods.get().length > 1)) {
-      content.hide();
-    } else {
+    // OAuth method is a separate button, so ignore it in the count
+    const formAuthenticationMethods = this.authenticationMethods.get().filter((method) => method.value !== 'oauth2');
+    if (formAuthenticationMethods > 1) {
       content.show();
+    } else {
+      content.hide();
     }
+
+    if (this.authenticationMethods.get().some((method) => method.value === 'oauth2')) {
+      $('.at-oauth').show();
+    }
+
+    Meteor.call('isPasswordLoginEnabled', (_, result) => {
+      if (result) {
+        $('.at-pwd-form').show();
+      }
+
+      if (result && this.authenticationMethods.get().length > 1) {
+        $('.at-sep').show();
+      }
+    });
   });
 });
 
