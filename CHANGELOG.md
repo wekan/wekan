@@ -48,6 +48,8 @@ and fixes the following bugs:
   Thanks to nebulade.
 - [Drag board made translateable](https://github.com/wekan/wekan/commit/62c2d59f469a3e4d11df010ed65561defdda991f).
   Thanks to xet7.
+- [Fixed v7.01.0 fresh install in listview first column small](https://github.com/wekan/wekan/commit/7b607b2aaf852b550d968c2f1ec17f53fb5d686e).
+  Thanks to intellekta and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
