@@ -46,6 +46,8 @@ and fixes the following bugs:
   Thanks to Pandetthe.
 - [Login layout code cleanup](https://github.com/wekan/wekan/pull/5041).
   Thanks to nebulade.
+- [Drag board made translateable](https://github.com/wekan/wekan/commit/62c2d59f469a3e4d11df010ed65561defdda991f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
