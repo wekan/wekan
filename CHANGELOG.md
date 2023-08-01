@@ -35,6 +35,8 @@ and adds the following updates:
   Thanks to Meteor developers.
 - [Update WeKan Docker to Node.js 14.21.4](https://github.com/wekan/wekan/commit/8dc7aa490a456cbf3207d266470febe69c0d5b6a).
   Thanks to Meteor and xet7.
+- [Upgrade to MongoDB 6.0.8 in Snap Candidate](https://github.com/wekan/wekan/commit/a773abaf2f4c77cbf586e2b0cba7b9ce412527ef).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
