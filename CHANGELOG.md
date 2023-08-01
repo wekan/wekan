@@ -44,6 +44,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix get_board_cards_count](https://github.com/wekan/wekan/pull/5040).
   Thanks to Pandetthe.
+- [Login layout code cleanup](https://github.com/wekan/wekan/pull/5041).
+  Thanks to nebulade.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
