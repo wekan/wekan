@@ -25,19 +25,6 @@ Template.userFormsLayout.onCreated(function () {
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
 
-  Meteor.subscribe('setting', {
-    onReady() {
-      templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
-      let currSetting = templateInstance.currentSetting.curValue;
-      let oidcBtnElt = $("#at-oidc");
-      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
-        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
-        oidcBtnElt.html(htmlvalue);
-      }
-
-      return this.stop();
-    },
-  });
   Meteor.call('isPasswordLoginEnabled', (_, result) => {
     if (result) {
       $('.at-pwd-form').show();
@@ -53,7 +40,6 @@ Template.userFormsLayout.onCreated(function () {
           };
           Meteor.loginWithOidc(options);
         }
-        //else console.log("oidc redirect not set");
       });
   }
   Meteor.call('isDisableRegistration', (_, result) => {
