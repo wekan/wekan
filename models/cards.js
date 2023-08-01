@@ -3392,7 +3392,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
         board_cards_count: ReactiveCache.getCards({
           boardId: paramBoardId,
           archived: false,
-        }),
+        }).length,
       }
     });
   } catch (error) {
