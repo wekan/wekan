@@ -33,6 +33,8 @@ and adds the following updates:
 
 - [Upgrade to Meteor 2.13 and Node.js 14.21.4](https://github.com/wekan/wekan/commit/caa8d087389b3f212c5eb4b7f538f3ad7c8c1227).
   Thanks to Meteor developers.
+- [Update WeKan Docker to Node.js 14.21.4](https://github.com/wekan/wekan/commit/8dc7aa490a456cbf3207d266470febe69c0d5b6a).
+  Thanks to Meteor and xet7.
 
 and fixes the following bugs:
 
