@@ -1,5 +1,7 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+Newest Node.js is at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
+
 Required versions of Node.js, MongoDB etc are listed at https://wekan.github.io
 Download section.
 

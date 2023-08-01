@@ -21,8 +21,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v14.21.3 \
-    METEOR_RELEASE=METEOR@2.12-beta.2 \
+    NODE_VERSION=v14.21.4 \
+    METEOR_RELEASE=METEOR@2.13 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -185,13 +185,17 @@ RUN \
     ln -sf $(which bsdtar) $(which tar) && \
     \
     # Download nodejs
-    wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
     #---------------------------------------------------------------------------------------------
     \
     # Verify nodejs authenticity
-    grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
-    rm -f SHASUMS256.txt.asc && \
+    grep node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt | shasum -a 256 -c - && \
+    rm -f SHASUMS256.txt && \
+    #grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
+    #rm -f SHASUMS256.txt.asc && \
     \
     # Install Node
     tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
