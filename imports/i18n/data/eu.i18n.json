@@ -1228,5 +1228,6 @@
   "max-avatar-filesize": "Avatar fitxategien gehienezko tamaina bytetan:",
   "allowed-avatar-filetypes": "Baimendutako avatar fitxategi motak:",
   "invalid-file": "Fitxategi-izena baliogabea bada, karga edo izena aldaketa bertan behera geratuko da.",
-  "preview-pdf-not-supported": "Zure gailuak ez du onartzen PDF aurrebistarik. Saiatu deskargatzen."
+  "preview-pdf-not-supported": "Zure gailuak ez du onartzen PDF aurrebistarik. Saiatu deskargatzen.",
+  "drag-board": "Drag board"
 }

@@ -1228,5 +1228,6 @@
   "max-avatar-filesize": "바이트 단위 최대 아바타 파일크기:",
   "allowed-avatar-filetypes": "허용된 아바타 파일유형:",
   "invalid-file": "파일명이 잘못됐으면, 업로드 또는 이름바꾸기가 취소됩니다.",
-  "preview-pdf-not-supported": "장치에서 PDF 미리보기를 지원하지 않습니다. 대신 다운로드를 해보세요."
+  "preview-pdf-not-supported": "장치에서 PDF 미리보기를 지원하지 않습니다. 대신 다운로드를 해보세요.",
+  "drag-board": "Drag board"
 }

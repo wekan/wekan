@@ -1228,5 +1228,6 @@
   "max-avatar-filesize": "Maximale Profilbild Größe in Bytes:",
   "allowed-avatar-filetypes": "Erlaubte Profilbild Dateitypen:",
   "invalid-file": "Wenn der Dateiname ungültig ist, wird das Hochladen oder Umbenennen abgebrochen.",
-  "preview-pdf-not-supported": "Dein Gerät unterstützt keine PDF Vorschau. Versuche sie stattdessen herunterzuladen."
+  "preview-pdf-not-supported": "Dein Gerät unterstützt keine PDF Vorschau. Versuche sie stattdessen herunterzuladen.",
+  "drag-board": "Drag board"
 }

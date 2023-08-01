@@ -1228,5 +1228,6 @@
   "max-avatar-filesize": "头像文件最大：",
   "allowed-avatar-filetypes": "头像文件允许类型：",
   "invalid-file": "如果文件名无效，则取消上传或重命名。\n ",
-  "preview-pdf-not-supported": "您的设备不支持pdf预览，请尝试下载"
+  "preview-pdf-not-supported": "您的设备不支持pdf预览，请尝试下载",
+  "drag-board": "Drag board"
 }

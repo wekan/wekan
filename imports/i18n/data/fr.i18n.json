@@ -1228,5 +1228,6 @@
   "max-avatar-filesize": "Taille maximum du fichier de l'avatar en octets :",
   "allowed-avatar-filetypes": "Types de fichier autorisés pour l'avatar :",
   "invalid-file": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
-  "preview-pdf-not-supported": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement."
+  "preview-pdf-not-supported": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
+  "drag-board": "Drag board"
 }
