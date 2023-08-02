@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.01
+  version: v7.02
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1828,7 +1828,7 @@ paths:
         - name: assignees
           in: formData
           description: |
-            the array of maximum one ID of assignee of the new card
+            the assignee IDs list of the new card
           type: string
           required: false
         - name: title
@@ -3593,16 +3593,6 @@ definitions:
         description: |
            is the list sorted
         type: number
-        x-nullable: true
-      width:
-        description: |
-           list width, default 270px
-        type: string
-        x-nullable: true
-      height:
-        description: |
-           list height
-        type: string
         x-nullable: true
       updatedAt:
         description: |
