@@ -29,10 +29,12 @@ sudo cp $(which tar) $(which tar)~
 sudo ln -sf $(which bsdtar) $(which tar)
 
 # Install nodejs
-wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
-wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc
+wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
+wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt
+#wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
+#wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc
 
-grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c -
+grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt | shasum -a 256 -c -
 
 tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
 rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
