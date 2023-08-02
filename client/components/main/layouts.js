@@ -26,36 +26,64 @@ Template.userFormsLayout.onCreated(function () {
   templateInstance.isLoading = new ReactiveVar(false);
 
   if (!ReactiveCache.getCurrentUser()?.profile) {
-      Meteor.call('isOidcRedirectionEnabled', (_, result) => {
-        if (result) {
-          AccountsTemplates.options.socialLoginStyle = 'redirect';
-          options = {
-            loginStyle: AccountsTemplates.options.socialLoginStyle,
-          };
-          Meteor.loginWithOidc(options);
-        }
-      });
+    Meteor.call('isOidcRedirectionEnabled', (_, result) => {
+      if (result) {
+        AccountsTemplates.options.socialLoginStyle = 'redirect';
+        options = {
+          loginStyle: AccountsTemplates.options.socialLoginStyle,
+        };
+        Meteor.loginWithOidc(options);
+      }
+    });
   }
-
-  Meteor.call('isDisableRegistration', (_, result) => {
-    if (result) {
-      $('.at-signup-link').hide();
-    }
-  });
-
-  Meteor.call('isDisableForgotPassword', (_, result) => {
-    if (result) {
-      $('.at-pwd-link').hide();
-    }
-  });
 });
 
 Template.userFormsLayout.onRendered(() => {
-  AccountsTemplates.state.form.keys = new Proxy(
-    AccountsTemplates.state.form.keys,
-    validator,
-  );
-  EscapeActions.executeAll();
+  Meteor.call('getAuthenticationsEnabled', (_, result) => {
+    let enabledAuthenticationMethods = [ 'password' ]; // we show/hide this based on isPasswordLoginEnabled
+
+    if (result) {
+      Object.keys(result).forEach((m) => {
+        if (result[m]) enabledAuthenticationMethods.push(m);
+      });
+    }
+
+    Meteor.call('isPasswordLoginEnabled', (_, result) => {
+      if (result) {
+        $('.at-pwd-form').show();
+      }
+
+      if (result && enabledAuthenticationMethods.length > 1) {
+        $('.at-sep').show();
+      }
+    });
+
+    Meteor.call('isDisableRegistration', (_, result) => {
+      if (result) {
+        $('.at-signup-link').hide();
+      }
+    });
+
+    Meteor.call('isDisableForgotPassword', (_, result) => {
+      if (result) {
+        $('.at-pwd-link').hide();
+      }
+    });
+
+    if (enabledAuthenticationMethods.indexOf('oauth2') !== -1) {
+      // TODO find better way to run this code once the oauth2 UI is injected in the DOM
+      (function waitForElementAndShow() {
+        if (!$('.at-oauth')[0]) return setTimeout(waitForElementAndShow, 100);
+        $('.at-oauth').show();
+      })();
+    }
+
+    AccountsTemplates.state.form.keys = new Proxy(
+      AccountsTemplates.state.form.keys,
+      validator,
+    );
+    EscapeActions.executeAll();
+  });
 });
 
 Template.userFormsLayout.helpers({
