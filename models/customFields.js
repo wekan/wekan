@@ -549,7 +549,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: { _id: customFieldId },
+        data: { _id: paramDropdownItemId },
       });
     },
   );
