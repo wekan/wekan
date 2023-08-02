@@ -39,6 +39,8 @@ and adds the following updates:
   Thanks to MongoDB developers.
 - [Upgrade WeKan Snap Candidate to Node.js 14.21.4](https://github.com/wekan/wekan/commit/0161f19ba7ac63c40933bb4550f5397ddecd3452).
   Thanks to Meteor and xet7.
+- [Upgrade WeKan StackSmith to Node.js 14.21.4](https://github.com/wekan/wekan/commit/f0620ce8800eccff4da822048f90ee4812560937).
+  Thanks to Meteor and xet7.
 
 and fixes the following bugs:
 
