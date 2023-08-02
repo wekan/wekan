@@ -41,6 +41,8 @@ and adds the following updates:
   Thanks to Meteor and xet7.
 - [Upgrade WeKan StackSmith to Node.js 14.21.4](https://github.com/wekan/wekan/commit/f0620ce8800eccff4da822048f90ee4812560937).
   Thanks to Meteor and xet7.
+- [Upgrade to Node.js 14.21.4 at build scripts and remaining Docker containers](https://github.com/wekan/wekan/commit/9f6e6bdc8193d86387166468578a6a24811ca9ec).
+  Thanks to Meteor and xet7.
 
 and fixes the following bugs:
 
