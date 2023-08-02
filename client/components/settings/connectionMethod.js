@@ -23,20 +23,6 @@ Template.connectionMethod.onCreated(function() {
     } else {
       content.hide();
     }
-
-    if (this.authenticationMethods.get().some((method) => method.value === 'oauth2')) {
-      $('.at-oauth').show();
-    }
-
-    Meteor.call('isPasswordLoginEnabled', (_, result) => {
-      if (result) {
-        $('.at-pwd-form').show();
-      }
-
-      if (result && this.authenticationMethods.get().length > 1) {
-        $('.at-sep').show();
-      }
-    });
   });
 });
 
