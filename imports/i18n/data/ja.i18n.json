@@ -1229,5 +1229,5 @@
   "allowed-avatar-filetypes": "アバターに使用できるファイルタイプ",
   "invalid-file": "無効なファイル名の場合アップロードまたは名前の変更は取り消されます。",
   "preview-pdf-not-supported": "この端末はPDFのプレビューに対応していません。他の端末でダウンロードしてください。",
-  "drag-board": "Drag board"
+  "drag-board": "ドラッグボード"
 }
