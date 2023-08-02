@@ -40,21 +40,27 @@ do
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 14.21.3
-			sudo npm -g install npm
-			#sudo npm -g install npm
-			## Latest npm with Meteor 2.2
+			# Using custom Node.js mirror with n Node.js version manager
+			# - Custom source: https://github.com/tj/n#custom-source
+			# - sudo -E uses existing environment variables, so that this can be used in build script:
+			#   https://github.com/tj/n/issues/584#issuecomment-523640742
+			export N_NODE_MIRROR=https://github.com/wekan/node-v14-esm/releases/download
+			sudo -E n 14.21.4
 			sudo npm -g uninstall node-pre-gyp
+			# Latest fibers for Meteor sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp sudo npm -g install fibers
 			sudo npm -g install @mapbox/node-pre-gyp
-			# Latest fibers for Meteor 2.2
-			#sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-			#sudo npm -g install fibers
 			# Install Meteor, if it's not yet installed
 			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
-			pause '1) Install XCode 2) Install Node 14.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
+			brew install npm
+			npm -g install n
+			export N_NODE_MIRROR=https://github.com/wekan/node-v14-esm/releases/download
+			n 14.21.4
+			npm -g uninstall node-pre-gyp
+			npm -g install @mapbox/node-pre-gyp
+			npm -g install meteor
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
 		        # POSIX compatibility layer and Linux environment emulation for Windows
 		        echo "TODO: Add Cygwin";

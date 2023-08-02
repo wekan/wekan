@@ -4,7 +4,7 @@ FROM amd64/alpine:3.7 AS builder
 ENV QEMU_VERSION=v4.2.0-6 \
     QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
-    NODE_VERSION=v14.21.3 \
+    NODE_VERSION=v14.21.4 \
     WEKAN_VERSION=latest  \
     WEKAN_ARCHITECTURE=arm64 \
     NODE_OPTIONS="--max_old_space_size=4096"
@@ -33,8 +33,10 @@ RUN apk update && apk add ca-certificates outils-sha1 && \
     unzip wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
     \
     # Download node and shasums
-    wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
-    wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
     \
     # Verify nodejs authenticity
     grep node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | sha256sum -c - && \
