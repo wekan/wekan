@@ -20,6 +20,17 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix return value of edit_custom_field_dropdown_item](https://github.com/wekan/wekan/pull/5047).
+  Thanks to Pandetthe.
+- [Move authentication UI handling in correct place](https://github.com/wekan/wekan/pull/5049).
+  Thanks to nebulade.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.02 2023-08-02 WeKan ® release
 
 This release adds the following new features:
