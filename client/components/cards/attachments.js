@@ -35,24 +35,24 @@ Template.attachmentGallery.events({
   },
   'click .js-rename': Popup.open('attachmentRename'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
-    Attachments.remove(this._id);
-    Popup.back(2);
+      Attachments.remove(this._id);
+      Popup.back(2);
   }),
 });
 
-function getNextAttachmentId(currentAttachmentId) {
+function getNextAttachmentId(currentAttachmentId, offset = 0) {
     const attachments = ReactiveCache.getAttachments({'meta.cardId': cardId});
 
-    let i = 0;
-    for (; i < attachments.length; i++) {
-      if (attachments[i]._id === currentAttachmentId) {
-        break;
-      }
+  let i = 0;
+  for (; i < attachments.length; i++) {
+    if (attachments[i]._id === currentAttachmentId) {
+      break;
     }
-    return attachments[(i + 1 + attachments.length) % attachments.length]._id;
+  }
+  return attachments[(i + offset + 1 + attachments.length) % attachments.length]._id;
 }
 
-function getPrevAttachmentId(currentAttachmentId) {
+function getPrevAttachmentId(currentAttachmentId, offset = 0) {
   const attachments = ReactiveCache.getAttachments({'meta.cardId': cardId});
 
   let i = 0;
@@ -61,52 +61,70 @@ function getPrevAttachmentId(currentAttachmentId) {
       break;
     }
   }
-  return attachments[(i - 1 + attachments.length) % attachments.length]._id;
+  return attachments[(i + offset - 1 + attachments.length) % attachments.length]._id;
 }
 
-function openAttachmentViewer(attachmentId){
+function attachmentCanBeOpened(attachment) {
+  return (
+    attachment.isImage ||
+    attachment.isPDF ||
+    attachment.isText ||
+    attachment.isJSON ||
+    attachment.isVideo ||
+    attachment.isAudio
+  );
+}
 
-    const attachment = ReactiveCache.getAttachment(attachmentId);
+function openAttachmentViewer(attachmentId) {
+  const attachment = ReactiveCache.getAttachment(attachmentId);
 
-    $("#attachment-name").text(attachment.name);
+  // Check if we can open the attachment (if we have a viewer for it) and exit if not
+  if (!attachmentCanBeOpened(attachment)) {
+    return;
+  }
 
-    // IMPORTANT: if you ever add a new viewer, make sure you also implement
-    // cleanup in the closeAttachmentViewer() function
-    switch(true){
-      case (attachment.isImage):
-        $("#image-viewer").attr("src", attachment.link());
-        $("#image-viewer").removeClass("hidden");
-        break;
-      case (attachment.isPDF):
-        $("#pdf-viewer").attr("data", attachment.link());
-        $("#pdf-viewer").removeClass("hidden");
-        break;
-      case (attachment.isVideo):
-        // We have to create a new <source> DOM element and append it to the video
-        // element, otherwise the video won't load
-        let videoSource = document.createElement('source');
-        videoSource.setAttribute('src', attachment.link());
-        $("#video-viewer").append(videoSource);
+  /*
+  Instructions for adding a new viewer:
+    - add a new case to the switch statement below
+    - implement cleanup in the closeAttachmentViewer() function, if necessary
+    - mark attachment type as openable by adding a new condition to the attachmentCanBeOpened function
+  */
+  switch(true){
+    case (attachment.isImage):
+      $("#image-viewer").attr("src", attachment.link());
+      $("#image-viewer").removeClass("hidden");
+      break;
+    case (attachment.isPDF):
+      $("#pdf-viewer").attr("data", attachment.link());
+      $("#pdf-viewer").removeClass("hidden");
+      break;
+    case (attachment.isVideo):
+      // We have to create a new <source> DOM element and append it to the video
+      // element, otherwise the video won't load
+      let videoSource = document.createElement('source');
+      videoSource.setAttribute('src', attachment.link());
+      $("#video-viewer").append(videoSource);
 
-        $("#video-viewer").removeClass("hidden");
-        break;
-      case (attachment.isAudio):
-        // We have to create a new <source> DOM element and append it to the audio
-        // element, otherwise the audio won't load
-        let audioSource = document.createElement('source');
-        audioSource.setAttribute('src', attachment.link());
-        $("#audio-viewer").append(audioSource);
+      $("#video-viewer").removeClass("hidden");
+      break;
+    case (attachment.isAudio):
+      // We have to create a new <source> DOM element and append it to the audio
+      // element, otherwise the audio won't load
+      let audioSource = document.createElement('source');
+      audioSource.setAttribute('src', attachment.link());
+      $("#audio-viewer").append(audioSource);
 
-        $("#audio-viewer").removeClass("hidden");
-        break;
-      case (attachment.isText):
-      case (attachment.isJSON):
-        $("#txt-viewer").attr("data", attachment.link());
-        $("#txt-viewer").removeClass("hidden");
-        break;
-    }
+      $("#audio-viewer").removeClass("hidden");
+      break;
+    case (attachment.isText):
+    case (attachment.isJSON):
+      $("#txt-viewer").attr("data", attachment.link());
+      $("#txt-viewer").removeClass("hidden");
+      break;
+  }
 
-    $("#viewer-overlay").removeClass("hidden");
+  $('#attachment-name').text(attachment.name);
+  $('#viewer-overlay').removeClass('hidden');
 }
 
 function closeAttachmentViewer() {
@@ -152,16 +170,36 @@ Template.attachmentViewer.events({
     closeAttachmentViewer();
   },
   'click #next-attachment'(event) {
-    closeAttachmentViewer()
-    const id = getNextAttachmentId(openAttachmentId);
-    openAttachmentId = id;
-    openAttachmentViewer(id);
+    closeAttachmentViewer();
+
+    let i = 0;
+    // Find an attachment that can be opened
+    while (true) {
+      const id = getNextAttachmentId(openAttachmentId, i);
+      const attachment = ReactiveCache.getAttachment(id);
+      if (attachmentCanBeOpened(attachment)) {
+        openAttachmentId = id;
+        openAttachmentViewer(id);
+        break;
+      }
+      i++;
+    }
   },
   'click #prev-attachment'(event) {
-    closeAttachmentViewer()
-    const id = getPrevAttachmentId(openAttachmentId);
-    openAttachmentId = id;
-    openAttachmentViewer(id);
+    closeAttachmentViewer();
+
+    let i = 0;
+    // Find an attachment that can be opened
+    while (true) {
+      const id = getPrevAttachmentId(openAttachmentId, i);
+      const attachment = ReactiveCache.getAttachment(id);
+      if (attachmentCanBeOpened(attachment)) {
+        openAttachmentId = id;
+        openAttachmentViewer(id);
+        break;
+      }
+      i--;
+    }
   }
 });
 
