@@ -59,10 +59,6 @@ Template.userFormsLayout.onRendered(() => {
       if (result) {
         $('.at-pwd-form').show();
       }
-
-      if (result && enabledAuthenticationMethods.length > 1) {
-        $('.at-sep').show();
-      }
     });
 
     Meteor.call('isDisableRegistration', (_, result) => {
