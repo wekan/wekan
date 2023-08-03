@@ -35,6 +35,13 @@ Template.userFormsLayout.onCreated(function () {
         Meteor.loginWithOidc(options);
       }
     });
+
+    Meteor.subscribe('setting', {
+      onReady() {
+        templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
+        return this.stop();
+      },
+    });
   }
 });
 
@@ -51,10 +58,6 @@ Template.userFormsLayout.onRendered(() => {
     Meteor.call('isPasswordLoginEnabled', (_, result) => {
       if (result) {
         $('.at-pwd-form').show();
-      }
-
-      if (result && enabledAuthenticationMethods.length > 1) {
-        $('.at-sep').show();
       }
     });
 
