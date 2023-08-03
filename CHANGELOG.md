@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix edit_swimlane](https://github.com/wekan/wekan/pull/5055).
+  Thanks to Pandetthe.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.03 2023-08-02 WeKan ® release
 
 This release fixes the following bugs:
