@@ -29,6 +29,19 @@ This release fixes the following bugs:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix edit_swimlane](https://github.com/wekan/wekan/pull/5055).
+  Thanks to Pandetthe.
+. [Login layout fixes 2](https://github.com/wekan/wekan/pull/5056).
+  Thanks to nebulade.
+- [Do not open preview for attachments that cannot be previewed](https://github.com/wekan/wekan/pull/5058).
+  Thanks to VidVidex.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.03 2023-08-02 WeKan ® release
 
 This release fixes the following bugs:
