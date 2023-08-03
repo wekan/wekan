@@ -510,7 +510,7 @@ if (Meteor.isServer) {
       if (!swimlane) {
         throw new Meteor.Error('not-found', 'Swimlane not found');
       }
-      Swimlanes.update(
+      Swimlanes.direct.update(
         { _id: paramSwimlaneId },
         { $set: { title: req.body.title } }
       );
