@@ -158,46 +158,7 @@ ENV \
 #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
 #---------------------------------------------------------------------
 
-# Install OS
-RUN set -o xtrace \
-  && useradd --user-group -m --system --home-dir /home/wekan wekan \
-  && apt-get update \
-  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
-
-# OLD:
-#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$ARCHITECTURE.tar.xz" \
-#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/SHASUMS256.txt.asc" \
-
-# Install NodeJS
-RUN set -o xtrace \
-  && cd /tmp \
-  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz" \
-  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt" \
-  && grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
-  && tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-  && rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt \
-  && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-  && mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config \
-  && npm install -g npm@${NPM_VERSION} \
-  && chown wekan:wekan --recursive /home/wekan/.config
-
-ENV DEBIAN_FRONTEND=dialog
-
-USER wekan
-
-# Install Meteor
-RUN set -o xtrace \
-  && cd /home/wekan \
-  && curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh \
-  # Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
-  && sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /home/wekan/install-meteor.sh \
-  && sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh \
-  && printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n" \
-  && sh /home/wekan/install-meteor.sh
-
 ENV PATH=$PATH:/home/wekan/.meteor/
-
-USER root
 
 RUN echo "export PATH=$PATH" >> /etc/environment
 
@@ -229,7 +190,41 @@ COPY \
     packages \
     /home/wekan/app/packages/
 
-RUN set -o xtrace && \
+# Install OS
+RUN set -o xtrace \
+  && useradd --user-group --no-create-home --system --home-dir /home/wekan wekan \
+  && apt-get update \
+  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
+
+# OLD:
+#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$ARCHITECTURE.tar.xz" \
+#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/SHASUMS256.txt.asc" \
+
+# Install NodeJS
+RUN set -o xtrace \
+  && cd /tmp \
+  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz" \
+  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt" \
+  && grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+  && tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+  && rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt \
+  && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
+  && mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config \
+  && npm install -g npm@${NPM_VERSION} \
+  && chown wekan:wekan --recursive /home/wekan/.config
+
+# Install Meteor
+RUN set -o xtrace \
+  && cd /home/wekan \
+  && curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh \
+  # Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
+  && sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /home/wekan/install-meteor.sh \
+  && sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh \
+  && printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n" \
+  && chown wekan:wekan -R /home/wekan \
+  && gosu wekan:wekan sh /home/wekan/install-meteor.sh
+
+RUN set -o xtrace  && \
     chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help && \
