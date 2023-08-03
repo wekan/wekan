@@ -35,6 +35,13 @@ Template.userFormsLayout.onCreated(function () {
         Meteor.loginWithOidc(options);
       }
     });
+
+    Meteor.subscribe('setting', {
+      onReady() {
+        templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
+        return this.stop();
+      },
+    });
   }
 });
 
