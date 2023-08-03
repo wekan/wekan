@@ -18,7 +18,7 @@ Template.connectionMethod.onCreated(function() {
     const content = $('.at-form-authentication');
     // OAuth method is a separate button, so ignore it in the count
     const formAuthenticationMethods = this.authenticationMethods.get().filter((method) => method.value !== 'oauth2');
-    if (formAuthenticationMethods > 1) {
+    if (formAuthenticationMethods.length > 1) {
       content.show();
     } else {
       content.hide();
