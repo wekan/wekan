@@ -147,6 +147,7 @@ BlazeComponent.extendComponent({
     );
 
     // FIXME(mark-i-m): where do we put constants?
+    //                  also in imports/i18n/data/en.i18n.json
     if (height < 100 || !height) {
       Template.instance()
         .$('.swimlane-height-error')
