@@ -20,6 +20,20 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/529a43fa0e47ff478dd6b2e6f1c7b4513fe0bbbb).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Make default swimlane auto-height](https://github.com/wekan/wekan/pull/5059).
+  Thanks to mark-i-m.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.04 2023-08-03 WeKan ® release
 
 This release fixes the following bugs:
