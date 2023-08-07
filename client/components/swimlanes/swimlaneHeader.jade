@@ -87,7 +87,8 @@ template(name="setSwimlaneColorPopup")
 
 template(name="setSwimlaneHeightPopup")
   #js-swimlane-height-edit
-    label {{_ 'set-swimlane-height-value'}}
+    label a) {{_ 'set-swimlane-height-value'}}
+    label b) -1
       p
         input.swimlane-height-value(type="number" value="{{ swimlaneHeightValue }}" min="100")
         input.swimlane-height-apply(type="submit" value="{{_ 'apply'}}")
