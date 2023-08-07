@@ -24,7 +24,7 @@ template(name="swimlaneFixedHeader")
     unless currentUser.isCommentOnly
       if currentUser.isBoardAdmin
         a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
-        a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+      a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
       unless isTouchScreen
         if isShowDesktopDragHandles
           a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
@@ -41,27 +41,29 @@ template(name="editSwimlaneTitleForm")
 template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
-       li: a.js-set-swimlane-color
-        i.fa.fa-paint-brush
-        | {{_ 'select-color'}}
+       if currentUser.isBoardAdmin
+         li: a.js-set-swimlane-color
+          i.fa.fa-paint-brush
+          | {{_ 'select-color'}}
        li: a.js-set-swimlane-height
         i.fa.fa-arrows-v
         |  {{_ 'set-swimlane-height'}}
-    unless this.isTemplateContainer
-      hr
-      ul.pop-over-list
-        li: a.js-close-swimlane
-          i.fa.fa-arrow-right
-          i.fa.fa-archive
-          | {{_ 'archive-swimlane'}}
-      ul.pop-over-list
-        li: a.js-copy-swimlane
-          i.fa.fa-copy
-          | {{_ 'copy-swimlane'}}
-      ul.pop-over-list
-        li: a.js-move-swimlane
-          i.fa.fa-arrow-up
-          | {{_ 'move-swimlane'}}
+    if currentUser.isBoardAdmin
+      unless this.isTemplateContainer
+        hr
+        ul.pop-over-list
+          li: a.js-close-swimlane
+            i.fa.fa-arrow-right
+            i.fa.fa-archive
+            | {{_ 'archive-swimlane'}}
+        ul.pop-over-list
+          li: a.js-copy-swimlane
+            i.fa.fa-copy
+            | {{_ 'copy-swimlane'}}
+        ul.pop-over-list
+          li: a.js-move-swimlane
+            i.fa.fa-arrow-up
+            | {{_ 'move-swimlane'}}
 
 template(name="swimlaneAddPopup")
   unless currentUser.isCommentOnly
