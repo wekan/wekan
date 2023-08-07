@@ -798,7 +798,7 @@ Users.helpers({
     if (swimlaneHeights[boardId] && swimlaneHeights[boardId][listId]) {
       return swimlaneHeights[boardId][listId];
     } else {
-      return 270; //TODO(mark-i-m): default?
+      return -1;
     }
   },
 

@@ -227,7 +227,8 @@ BlazeComponent.extendComponent({
   swimlaneHeight() {
     const user = Meteor.user();
     const swimlane = Template.currentData();
-    return user.getSwimlaneHeight(swimlane.boardId, swimlane._id);
+    const height = user.getSwimlaneHeight(swimlane.boardId, swimlane._id);
+    return height == -1 ? "auto" : (height + "px");
   },
 }).register('swimlane');
 
