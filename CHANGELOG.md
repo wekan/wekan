@@ -31,6 +31,8 @@ and fixes the following bugs:
 
 - [Make default swimlane auto-height](https://github.com/wekan/wekan/pull/5059).
   Thanks to mark-i-m.
+- [Show option b) -1 for disabling swimlane height at swimlane height popup](https://github.com/wekan/wekan/commit/ab4073721151e1308b2e9ffd32a1ee765c7b7668).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
