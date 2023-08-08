@@ -35,6 +35,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed Normal (non-admin) board users cannot adjust swimlane height](https://github.com/wekan/wekan/commit/6b1403984f3b11700f6b06b4eff64a062916381a).
   Thanks to mgdbbrt and xet7.
+- [Fixing positioning of opened cards](https://github.com/wekan/wekan/pull/5066).
+  Thanks to chrisi51.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
