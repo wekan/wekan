@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Alphabetic ordered member lists on assigne and member lists](https://github.com/wekan/wekan/pull/5071).
+  Thanks to chrisi51.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.05 2023-08-08 WeKan ® release
 
 This release adds the following updates:
