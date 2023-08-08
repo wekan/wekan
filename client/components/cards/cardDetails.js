@@ -752,7 +752,7 @@ Template.cardMembersPopup.events({
 
 Template.cardMembersPopup.helpers({
   members() {
-    return Template.instance().members.get();
+    return _.sortBy(Template.instance().members.get(),'fullname');
   },
 });
 
@@ -1614,7 +1614,7 @@ Template.cardAssigneesPopup.helpers({
   },
 
   members() {
-    return Template.instance().members.get();
+    return _.sortBy(Template.instance().members.get(),'fullname');
   },
 
   user() {
