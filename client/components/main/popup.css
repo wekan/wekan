@@ -88,7 +88,7 @@
   height: 20px;
 }
 .pop-over .quiet {
-  padding: 6px 6px 4px;
+/*  padding: 6px 6px 4px;*/
 }
 .pop-over.search-over {
   background: #f0f0f0;
@@ -152,6 +152,14 @@
   text-decoration: none;
   overflow: hidden;
   line-height: 33px;
+  display:flex;
+/*  flex-wrap:wrap;*/
+  gap:5px;
+  align-items: center;
+}
+.pop-over-list li > a > .member{
+  align-self: flex-start;
+  flex:0 0 auto;
 }
 .pop-over-list li > a .item-name {
   display: block;
