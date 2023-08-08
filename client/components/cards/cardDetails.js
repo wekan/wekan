@@ -79,15 +79,19 @@ BlazeComponent.extendComponent({
   scrollParentContainer() {
     const cardPanelWidth = 600;
     const parentComponent = this.parentComponent();
-
     /*
         // Incomplete fix about bug where opening card scrolls to wrong place
         // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
         // TODO sometimes parentComponent is not available, maybe because it's not
         // yet created?!
-        if (!parentComponent) return;
-        const bodyBoardComponent = parentComponent.parentComponent();
+        //
+	// uncommented again by chrisi51
+        // only with that, the autoscroll feature is working properly
+        // after my fixes, all scrollings where correct
     */
+	if (!parentComponent) return;
+        const bodyBoardComponent = parentComponent.parentComponent();
+
 
     //On Mobile View Parent is Board, Not Board Body. I cant see how this funciton should work then.
     if (bodyBoardComponent === null) return;
@@ -215,6 +219,12 @@ BlazeComponent.extendComponent({
         });
       }
       //-------------
+    }
+
+    if (!Utils.isMiniScreen()) {
+      Meteor.setTimeout(() => {
+        this.scrollParentContainer();
+      }, 500);
     }
 
     const $checklistsDom = this.$('.card-checklist-items');
@@ -442,11 +452,11 @@ BlazeComponent.extendComponent({
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
-          if (!Utils.isMiniScreen()) {
-            Meteor.setTimeout(() => {
-              this.scrollParentContainer();
-            }, 500);
-          }
+//          if (!Utils.isMiniScreen()) {
+//            Meteor.setTimeout(() => {
+//              this.scrollParentContainer();
+//            }, 500);
+//          }
         },
         'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');

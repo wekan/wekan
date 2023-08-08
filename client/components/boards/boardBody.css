@@ -19,6 +19,7 @@
 .board-wrapper .board-canvas.is-sibling-sidebar-open {
   margin-right: 248px;
 }
+.board-wrapper .board-canvas.overlayed {overflow:hidden}
 .board-wrapper .board-canvas .board-overlay {
   position: fixed;
   left: 0;
