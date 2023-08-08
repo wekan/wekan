@@ -21,7 +21,8 @@ template(name="boardBody")
       .board-canvas.js-swimlanes(
         class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
         class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
-        class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
+        class="{{#if draggingActive.get}}is-dragging-active{{/if}}"
+        class="{{#if showOverlay.get}}overlayed{{/if}}")
         if showOverlay.get
           .board-overlay
         if currentBoard.isTemplatesBoard
