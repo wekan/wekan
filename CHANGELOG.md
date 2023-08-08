@@ -37,6 +37,8 @@ and fixes the following bugs:
   Thanks to mgdbbrt and xet7.
 - [Fixing positioning of opened cards](https://github.com/wekan/wekan/pull/5066).
   Thanks to chrisi51.
+- [Cleaner memberlist popups](https://github.com/wekan/wekan/issues/5068).
+  Thanks to chrisi51.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
