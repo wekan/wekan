@@ -22,7 +22,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated exceljs and jszip](https://github.com/wekan/wekan/commit/f9823f67bd7ded44982298b15487f945e8216b60).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Alphabetic ordered member lists on assigne and member lists](https://github.com/wekan/wekan/pull/5071).
   Thanks to chrisi51.
