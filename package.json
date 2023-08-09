@@ -33,7 +33,7 @@
     "dompurify": "^2.4.1",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
-    "exceljs": "^4.2.1",
+    "exceljs": "git+https://github.com/exceljs/exceljs.git",
     "fibers": "^5.0.3",
     "file-type": "^16.5.4",
     "filesize": "^8.0.7",
