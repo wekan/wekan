@@ -52,7 +52,8 @@ BlazeComponent.extendComponent({
       appendTo: '.edit-labels-pop-over',
       helper(element, currentItem) {
         let ret = currentItem.clone();
-        if (currentItem.closest('.popup-container-depth-0').size() == 0) { // only set css transform at every sub-popup, not at the main popup
+        if (currentItem.closest('.popup-container-depth-0').length == 0)
+        { // only set css transform at every sub-popup, not at the main popup
           const content = currentItem.closest('.content')[0]
           const offsetLeft = content.offsetLeft;
           const offsetTop = $('.pop-over > .header').height() * -1;
