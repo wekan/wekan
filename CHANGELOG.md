@@ -31,6 +31,8 @@ and fixes the following bugs:
 
 - [Alphabetic ordered member lists on assigne and member lists](https://github.com/wekan/wekan/pull/5071).
   Thanks to chrisi51.
+- [Label drag/drop (reorder labels) works now again](https://github.com/wekan/wekan/pull/5075).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
