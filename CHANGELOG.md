@@ -26,6 +26,8 @@ This release adds the following updates:
 
 - [Updated exceljs and jszip](https://github.com/wekan/wekan/commit/f9823f67bd7ded44982298b15487f945e8216b60).
   Thanks to developers of dependencies.
+- [Update building Windows bundle](https://github.com/wekan/wekan/commit/6d1705af344a36e1cd7846c3d41e486ae0200e2e).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
