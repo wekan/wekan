@@ -85,14 +85,14 @@
   "add-card": "Ajouter une carte",
   "add-card-to-top-of-list": "Ajouter la carte en haut de la liste",
   "add-card-to-bottom-of-list": "Ajouter la carte en bas de la liste",
-  "setListWidthPopup-title": "Régler la largeur de la liste",
-  "set-list-width": "Régler la largeur de la liste",
-  "set-list-width-value": "Régler la largeur de la liste (pixels)",
+  "setListWidthPopup-title": "Définir la largeur de la liste",
+  "set-list-width": "Définir la largeur de la liste",
+  "set-list-width-value": "Définir la largeur de la liste (pixels)",
   "list-width-error-message": "La largeur de la liste doit être un entier positif",
-  "setSwimlaneHeightPopup-title": "Set Swimlane Height",
-  "set-swimlane-height": "Set Swimlane Height",
-  "set-swimlane-height-value": "Swimlane Height (pixels)",
-  "swimlane-height-error-message": "Swimlane height must be a positive integer",
+  "setSwimlaneHeightPopup-title": "Définir la hauteur du couloir",
+  "set-swimlane-height": "Définir la hauteur du couloir",
+  "set-swimlane-height-value": "Hauteur du couloir (pixels)",
+  "swimlane-height-error-message": "La hauteur du couloir doit être un entier positif",
   "add-swimlane": "Ajouter un couloir",
   "add-subtask": "Ajouter une sous-tâche",
   "add-checklist": "Ajouter une checklist",
@@ -1229,5 +1229,5 @@
   "allowed-avatar-filetypes": "Types de fichier autorisés pour l'avatar :",
   "invalid-file": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
   "preview-pdf-not-supported": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
-  "drag-board": "Drag board"
+  "drag-board": "Glisser le tableau"
 }
