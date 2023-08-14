@@ -11,6 +11,9 @@ const prettyMilliseconds = require('pretty-ms');
 let cardId = null;
 let openAttachmentId = null;
 
+// Used to store the start and end coordinates of a touch event for attachment swiping
+let touchStartCoords = null;
+let touchEndCoords = null;
 
 // Stores link to the attachment for which attachment actions popup was opened
 attachmentActionsLink = null;
@@ -151,7 +154,80 @@ function closeAttachmentViewer() {
   $("#audio-viewer").addClass("hidden");
 }
 
+function openNextAttachment() {
+  closeAttachmentViewer();
+
+    let i = 0;
+    // Find an attachment that can be opened
+    while (true) {
+      const id = getNextAttachmentId(openAttachmentId, i);
+      const attachment = ReactiveCache.getAttachment(id);
+      if (attachmentCanBeOpened(attachment)) {
+        openAttachmentId = id;
+        openAttachmentViewer(id);
+        break;
+      }
+      i++;
+    }
+}
+
+function openPrevAttachment() {
+  closeAttachmentViewer();
+
+    let i = 0;
+    // Find an attachment that can be opened
+    while (true) {
+      const id = getPrevAttachmentId(openAttachmentId, i);
+      const attachment = ReactiveCache.getAttachment(id);
+      if (attachmentCanBeOpened(attachment)) {
+        openAttachmentId = id;
+        openAttachmentViewer(id);
+        break;
+      }
+      i--;
+    }
+}
+
+function processTouch(){
+
+  xDist = touchEndCoords.x - touchStartCoords.x;
+  yDist = touchEndCoords.y - touchStartCoords.y;
+
+  console.log("xDist: " + xDist);
+
+  // Left swipe
+  if (Math.abs(xDist) > Math.abs(yDist) && xDist < 0) {
+    openNextAttachment();
+  }
+
+  // Right swipe
+  if (Math.abs(xDist) > Math.abs(yDist) && xDist > 0) {
+    openPrevAttachment();
+  }
+
+  // Up swipe
+  if (Math.abs(yDist) > Math.abs(xDist) && yDist < 0) {
+    closeAttachmentViewer();
+  }
+
+}
+
 Template.attachmentViewer.events({
+  'touchstart #viewer-container'(event) {
+    console.log("touchstart")
+    touchStartCoords = {
+      x: event.changedTouches[0].screenX,
+      y: event.changedTouches[0].screenY
+    }
+  },
+  'touchend #viewer-container'(event) {
+    console.log("touchend")
+    touchEndCoords = {
+      x: event.changedTouches[0].screenX,
+      y: event.changedTouches[0].screenY
+    }
+    processTouch();
+  },
   'click #viewer-container'(event) {
 
     // Make sure the click was on #viewer-container and not on any of its children
@@ -169,38 +245,12 @@ Template.attachmentViewer.events({
   'click #viewer-close'() {
     closeAttachmentViewer();
   },
-  'click #next-attachment'(event) {
-    closeAttachmentViewer();
-
-    let i = 0;
-    // Find an attachment that can be opened
-    while (true) {
-      const id = getNextAttachmentId(openAttachmentId, i);
-      const attachment = ReactiveCache.getAttachment(id);
-      if (attachmentCanBeOpened(attachment)) {
-        openAttachmentId = id;
-        openAttachmentViewer(id);
-        break;
-      }
-      i++;
-    }
+  'click #next-attachment'() {
+    openNextAttachment();
   },
-  'click #prev-attachment'(event) {
-    closeAttachmentViewer();
-
-    let i = 0;
-    // Find an attachment that can be opened
-    while (true) {
-      const id = getPrevAttachmentId(openAttachmentId, i);
-      const attachment = ReactiveCache.getAttachment(id);
-      if (attachmentCanBeOpened(attachment)) {
-        openAttachmentId = id;
-        openAttachmentViewer(id);
-        break;
-      }
-      i--;
-    }
-  }
+  'click #prev-attachment'() {
+    openPrevAttachment();
+  },
 });
 
 Template.attachmentGallery.helpers({
