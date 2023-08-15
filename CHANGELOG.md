@@ -20,7 +20,7 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.06 2023-08-15 WeKan ® release
 
 This release adds the following updates:
 
@@ -35,6 +35,8 @@ and fixes the following bugs:
   Thanks to chrisi51.
 - [Label drag/drop (reorder labels) works now again](https://github.com/wekan/wekan/pull/5075).
   Thanks to mfilser.
+- [Add attachment swiping](https://github.com/wekan/wekan/pull/5080).
+  Thanks to VidVidex.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
