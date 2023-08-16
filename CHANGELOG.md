@@ -31,7 +31,7 @@ and fixes the following bugs:
 
 - [Fix downloading attachments with unusual filenames](https://github.com/wekan/wekan/pull/5083).
   Thanks to VidVidex.
-- [Add warning to beginning of sanitized filename](https://github.com/wekan/wekan/commit/33fcad6779bb8d8d1bab80fece07ef4231e4beee).
+- [Add some filename, if there is no filename after sanitize](https://github.com/wekan/wekan/commit/3d1a161c59a0cb4eafb50ab2fdb04443d54b2086).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
