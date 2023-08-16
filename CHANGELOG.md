@@ -24,7 +24,9 @@ Note:
 
 This release adds the following updates:
 
-- [Updated release scripts](https://github.com/wekan/wekan/commit/558d406148eb47c27de9828b541f6081ceac224a).
+- Updated release scripts.
+  [Part 1](https://github.com/wekan/wekan/commit/558d406148eb47c27de9828b541f6081ceac224a),
+  [Part 2](https://github.com/wekan/wekan/commit/d6b960f79a5cb9db83587fae7d9c83d2ee63d90c).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
