@@ -27,6 +27,13 @@ This release adds the following updates:
 - [Update Windows bundle build script](https://github.com/wekan/wekan/commit/d48068f63c93fc5a9f8041acb220d6491b5e22ae).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix downloading attachments with unusual filenames](https://github.com/wekan/wekan/pull/5083).
+  Thanks to VidVidex.
+- [Add warning to beginning of sanitized filename](https://github.com/wekan/wekan/commit/33fcad6779bb8d8d1bab80fece07ef4231e4beee).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.06 2023-08-15 WeKan ® release
