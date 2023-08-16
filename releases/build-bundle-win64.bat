@@ -29,7 +29,9 @@ ECHO 6) Copying WeKan.zip to sync directory
 CALL COPY wekan-%1-amd64-windows.zip Z:\
 
 ECHO 7) Done. Starting WeKan.
-CALL start-wekan.bat
+CD bundle
+CALL ..\start-wekan.bat
+CD ..
 
 GOTO :eof
 
