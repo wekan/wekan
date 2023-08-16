@@ -292,13 +292,16 @@ Template.cardAttachmentsPopup.events({
       let uploads = [];
       for (const file of files) {
         const fileId = new ObjectID().toString();
-        // If filename is not same as sanitized filename, has XSS, then cancel upload
-        if (file.name !== DOMPurify.sanitize(file.name)) {
-          return false;
+        const fileName = DOMPurify.sanitize(file.name);
+
+        if (fileName !== file.name) {
+          console.warn('Detected possible XSS in file: ', file.name + '. Renamed to: ', fileName + '.');
         }
+
         const config = {
           file: file,
           fileId: fileId,
+          fileName: fileName,
           meta: Utils.getCommonAttachmentMetaFrom(card),
           chunkSize: 'dynamic',
         };
