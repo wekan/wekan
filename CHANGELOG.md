@@ -37,6 +37,8 @@ This release adds the following updates:
   Thanks to developers of dependencies.
 - [Update building Windows bundle](https://github.com/wekan/wekan/commit/6d1705af344a36e1cd7846c3d41e486ae0200e2e).
   Thanks to xet7.
+- [s390x disabled, because there is problem adding fibers](https://github.com/wekan/wekan/commit/9bf3b960a199ec8d65faab3061947d809144ebdc).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
