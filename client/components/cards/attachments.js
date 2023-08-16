@@ -292,10 +292,13 @@ Template.cardAttachmentsPopup.events({
       let uploads = [];
       for (const file of files) {
         const fileId = new ObjectID().toString();
-        const fileName = DOMPurify.sanitize(file.name);
+        const warning = "WARNING-XSS-SANITIZED-";
+        let fileName = DOMPurify.sanitize(file.name);
 
         if (fileName !== file.name) {
-          console.warn('Detected possible XSS in file: ', file.name + '. Renamed to: ', fileName + '.');
+          // console.warn('Detected possible XSS in file: ', file.name + '. Renamed to: ', fileName + '.');
+          // Add warning about XSS sanitized:
+          fileName = warning.concat(fileName);
         }
 
         const config = {
