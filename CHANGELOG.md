@@ -28,6 +28,8 @@ This release adds the following new features:
   Thanks to ipyramiddev.
 - [Added remaining translations to feature custom translation strings at Admin Panel](https://github.com/wekan/wekan/commit/c769bed7dd6d61b5f56e0ec5d43c9f2662a156d2).
   Thanks to xet7.
+- [Corrected source code so that it works correctly with reactiveCache](https://github.com/wekan/wekan/pull/5087).
+  Thanks to ipyramiddev.
 
 and adds the following updates:
 
