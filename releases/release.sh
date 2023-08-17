@@ -25,7 +25,7 @@ git push
 git push
 
 # 5) Build Bundle
-~/repos/wekan/releases/release-bundle.sh $1
+#~/repos/wekan/releases/release-bundle.sh $1
 
 # 6) Build Sandstorm
 #~/repos/wekan/releases/release-sandstorm.sh $1
