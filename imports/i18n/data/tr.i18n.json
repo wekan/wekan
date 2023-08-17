@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "Allowed avatar filetypes:",
   "invalid-file": "If filename is invalid, upload or rename is cancelled.",
   "preview-pdf-not-supported": "Your device does not support previewing PDF. Try downloading instead.",
-  "drag-board": "Drag board"
+  "drag-board": "Drag board",
+  "translation-number": "The number of custom translation strings is:",
+  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
+  "newTranslationPopup-title": "New custom translation string",
+  "editTranslationPopup-title": "Edit custom translation string",
+  "settingsTranslationPopup-title": "Delete this custom translation string?",
+  "translation": "Translation",
+  "text": "Metin",
+  "translation-text": "Translation text"
 }

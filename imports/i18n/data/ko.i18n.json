@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "허용된 아바타 파일유형:",
   "invalid-file": "파일명이 잘못됐다면, 업로드 또는 이름 바꾸기가 취소됩니다.",
   "preview-pdf-not-supported": "장치가 PDF 미리보기를 지원하지 않습니다. 대신 내려받기를 시도하세요.",
-  "drag-board": "Drag board"
+  "drag-board": "Drag board",
+  "translation-number": "The number of custom translation strings is:",
+  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
+  "newTranslationPopup-title": "New custom translation string",
+  "editTranslationPopup-title": "Edit custom translation string",
+  "settingsTranslationPopup-title": "Delete this custom translation string?",
+  "translation": "Translation",
+  "text": "텍스트",
+  "translation-text": "Translation text"
 }

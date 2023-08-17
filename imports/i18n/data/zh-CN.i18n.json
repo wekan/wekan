@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "头像文件允许类型：",
   "invalid-file": "如果文件名无效，则取消上传或重命名。\n ",
   "preview-pdf-not-supported": "您的设备不支持pdf预览，请尝试下载",
-  "drag-board": "拖拽看板"
+  "drag-board": "拖拽看板",
+  "translation-number": "The number of custom translation strings is:",
+  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
+  "newTranslationPopup-title": "New custom translation string",
+  "editTranslationPopup-title": "Edit custom translation string",
+  "settingsTranslationPopup-title": "Delete this custom translation string?",
+  "translation": "Translation",
+  "text": "文本",
+  "translation-text": "Translation text"
 }

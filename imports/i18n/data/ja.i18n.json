@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "アバターに使用できるファイルタイプ",
   "invalid-file": "無効なファイル名の場合アップロードまたは名前の変更は取り消されます。",
   "preview-pdf-not-supported": "この端末はPDFのプレビューに対応していません。他の端末でダウンロードしてください。",
-  "drag-board": "ドラッグボード"
+  "drag-board": "ドラッグボード",
+  "translation-number": "The number of custom translation strings is:",
+  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
+  "newTranslationPopup-title": "New custom translation string",
+  "editTranslationPopup-title": "Edit custom translation string",
+  "settingsTranslationPopup-title": "Delete this custom translation string?",
+  "translation": "Translation",
+  "text": "テキスト",
+  "translation-text": "Translation text"
 }

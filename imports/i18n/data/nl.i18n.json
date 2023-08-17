@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "Toegestane avatar bestandstypen:",
   "invalid-file": "Als de bestandsnaam ongeldig is wordt de upload of het hernoemen geannuleerd.",
   "preview-pdf-not-supported": "Dit apparaat ondersteund geen voorbeeld PDF. Probeer het daarom te downloaden. ",
-  "drag-board": "Sleep bord"
+  "drag-board": "Sleep bord",
+  "translation-number": "The number of custom translation strings is:",
+  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
+  "newTranslationPopup-title": "New custom translation string",
+  "editTranslationPopup-title": "Edit custom translation string",
+  "settingsTranslationPopup-title": "Delete this custom translation string?",
+  "translation": "Translation",
+  "text": "Tekst",
+  "translation-text": "Translation text"
 }

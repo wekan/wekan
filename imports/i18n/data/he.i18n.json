@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "סוגי תמונות משתמשים מותרים:",
   "invalid-file": "אם שם הקובץ שגוי, העלאה או שינוי שם מושבתים.",
   "preview-pdf-not-supported": "המכשיר שלך לא תומך בהצגה מקדימה של PDF. כדאי לנסות להוריד במקום.",
-  "drag-board": "גרירת לוח"
+  "drag-board": "גרירת לוח",
+  "translation-number": "The number of custom translation strings is:",
+  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
+  "newTranslationPopup-title": "New custom translation string",
+  "editTranslationPopup-title": "Edit custom translation string",
+  "settingsTranslationPopup-title": "Delete this custom translation string?",
+  "translation": "Translation",
+  "text": "טקסט",
+  "translation-text": "Translation text"
 }

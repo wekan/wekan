@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "Sallitut profiilikuva tiedostotyypit:",
   "invalid-file": "Jos tiedostonimi ei kelpaa, liittäminen tai uudelleennimeäminen perutaan.",
   "preview-pdf-not-supported": "Laitteesi ei tue PDF-esikatselua. Yritä sen sijaan ladata.",
-  "drag-board": "Vedä taulua"
+  "drag-board": "Vedä taulua",
+  "translation-number": "Mukautettujen käännösten määrä on:",
+  "delete-translation-confirm-popup": "Haluatko varmasti poistaa tämän mukautetun käännöksen? Tätä ei voi peruuttaa.",
+  "newTranslationPopup-title": "Uusi mukautettu käännös",
+  "editTranslationPopup-title": "Muokkaa mukautettua käännöstä",
+  "settingsTranslationPopup-title": "Poista tämä mukautettu käännös?",
+  "translation": "Käännös",
+  "text": "Teksti",
+  "translation-text": "Käännetty teksti"
 }

@@ -87,7 +87,7 @@
   "add-card-to-bottom-of-list": "Ajouter la carte en bas de la liste",
   "setListWidthPopup-title": "Définir la largeur de la liste",
   "set-list-width": "Définir la largeur de la liste",
-  "set-list-width-value": "Définir la largeur de la liste (pixels)",
+  "set-list-width-value": "Largeur de la liste (pixels)",
   "list-width-error-message": "La largeur de la liste doit être un entier positif",
   "setSwimlaneHeightPopup-title": "Définir la hauteur du couloir",
   "set-swimlane-height": "Définir la hauteur du couloir",
@@ -1229,5 +1229,13 @@
   "allowed-avatar-filetypes": "Types de fichier autorisés pour l'avatar :",
   "invalid-file": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
   "preview-pdf-not-supported": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
-  "drag-board": "Glisser le tableau"
+  "drag-board": "Glisser le tableau",
+  "translation-number": "The number of custom translation strings is:",
+  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
+  "newTranslationPopup-title": "New custom translation string",
+  "editTranslationPopup-title": "Edit custom translation string",
+  "settingsTranslationPopup-title": "Delete this custom translation string?",
+  "translation": "Translation",
+  "text": "Texte",
+  "translation-text": "Translation text"
 }
