@@ -11,12 +11,7 @@ if [ $# -ne 1 ]
 fi
 
 # 2) Install parallel if it's not installed yet
-
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  sudo apt-get -y install parallel
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  brew install parallel
-fi
+sudo apt-get -y install parallel
 
 # 3) Download releases from build servers and
 #    upload releases to download server,

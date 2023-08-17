@@ -8,8 +8,7 @@ if [ $# -ne 1 ]
 fi
 
 
-mkdir /Users/wekan/Downloads/rel$1
-mv /Users/wekan/repos/wekan/wekan-$1*.zip /Users/wekan/Downloads/rel$1/
-mv /Users/wekan/Downloads/WindowsJaettu/wekan-$1-amd64-windows.zip /Users/wekan/Downloads/rel$1/
-curl -O https://releases.wekan.team/wekan-$1-amd64.zip
-mv /Users/wekan/repos/wekan/wekan-$1-amd64.zip /Users/wekan/Downloads/rel$1/wekan-$1-amd64.zip
+mkdir ~/rel$1
+mv ~/repos/wekan/wekan-$1*.zip /home/wekan/rel$1/
+mv ~/Julkinen/wekan-$1*.zip /home/wekan/rel$1/
+mv /home/wekan/repos/wekan/.build/wekan-$1-amd64.zip /home/wekan/rel$1/wekan-$1-amd64.zip

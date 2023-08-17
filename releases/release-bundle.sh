@@ -1,16 +1,9 @@
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  sudo apt-get -y install parallel
-  cd ~/repos/wekan
-  ./releases/rebuild-release.sh
-  cd ~/repos/wekan/.build
-  zip -r wekan-$1-amd64.zip bundle
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  brew install parallel
-  cd /Users/wekan/repos/wekan
-  ./releases/rebuild-release.sh
-  cd ~/repos/wekan/.build
-  zip -r wekan-$1-amd64.zip bundle
-fi
+cd ~/repos/wekan
+sudo apt-get -y install parallel
+./releases/rebuild-release.sh
+#./releases/delete-phantomjs.sh
+cd ~/repos/wekan/.build
+zip -r wekan-$1-amd64.zip bundle
 
 {
   scp ~/repos/wekan/releases/build-bundle-arm64.sh a:/home/wekan/
