@@ -47,13 +47,13 @@ export const TAPi18n = {
   async loadLanguage(language) {
     if (language in languages && 'load' in languages[language]) {
       let data = await languages[language].load();
+
       let custom_translations = [];
-      if (Meteor.isServer) {
-        custom_translations = Translation.find({language: language}, {fields: { text: true, translationText: true }}).fetch();
-      } else if (Meteor.isClient) {
-        await Meteor.subscribe('translation', {language: language}, 0);
-        custom_translations = ReactiveCache.getTranslations({language: language}, {fields: { text: true, translationText: true }});
+      if (Meteor.isClient) {
+        await Meteor.subscribe('translation', {language: language},  0);
       }
+      custom_translations = ReactiveCache.getTranslations({language: language}, {fields: { text: true, translationText: true }});
+
       if (custom_translations && custom_translations.length > 0) {
         data = custom_translations.reduce((acc, cur) => (acc[cur.text]=cur.translationText, acc), data);
       }
