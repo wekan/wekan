@@ -1261,6 +1261,17 @@ ReactiveCache = {
     }
     return ret;
   },
+  getTranslations(selector, options, getQuery) {
+    let ret = Translation.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
+    return ret;
+  },
+  getTranslation(idOrFirstObjectSelector, options) {
+    const ret = Translation.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  }
 }
 
 // Client side little MiniMongo DB "Index"
