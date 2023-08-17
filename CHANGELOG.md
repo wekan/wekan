@@ -26,6 +26,8 @@ This release adds the following updates:
 
 - [Upgraded Snap Candidate MongoDB to 6.0.9](https://github.com/wekan/wekan/commit/9d5af24e7b656c2bf6ad32bc8360bb80374408d6).
   Thanks to MongoDB developers.
+- [Fixed building s390x release](https://github.com/wekan/wekan/commit/73f943f89a89374a83cdfb31f0bfbfdfe4d6f52e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
