@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix broken attachment preview in Safari](https://github.com/wekan/wekan/pull/5088).
+  Thanks to VidVidex.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.08 2023-08-17 WeKan ® release
 
 This release adds the following new features:
