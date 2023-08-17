@@ -1230,12 +1230,12 @@
   "invalid-file": "Se nome do arquivo for inválido, o upload ou renomeação será cancelada.",
   "preview-pdf-not-supported": "Seu dispositivo não suporta a pré-visualização de PDF. Tente baixar o arquivo.",
   "drag-board": "Arrastar quadro",
-  "translation-number": "The number of custom translation strings is:",
-  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
-  "newTranslationPopup-title": "New custom translation string",
-  "editTranslationPopup-title": "Edit custom translation string",
-  "settingsTranslationPopup-title": "Delete this custom translation string?",
-  "translation": "Translation",
+  "translation-number": "O número de textos de tradução customizados é:",
+  "delete-translation-confirm-popup": "Você tem certeza que deseja excluir este texto de tradução customizado? Não há como desfazer.",
+  "newTranslationPopup-title": "Novo texto de tradução customizado",
+  "editTranslationPopup-title": "Editar texto de tradução customizado",
+  "settingsTranslationPopup-title": "Excluir este texto de tradução customizado?",
+  "translation": "Tradução",
   "text": "Texto",
-  "translation-text": "Translation text"
+  "translation-text": "Texto de tradução"
 }
