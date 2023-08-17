@@ -14,10 +14,10 @@ SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
 REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
 REM # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
 REM # If ROOT_URL is not correct, these do not work: translations, uploading attachments.
-SET ROOT_URL=http://localhost:2000
+SET ROOT_URL=http://192.168.0.21
 
 REM # Must change to YOUR-PORT-NUMBER:
-SET PORT=2000
+SET PORT=80
 
 REM #------------------- REQUIRED SETTINGS END ----------------------
 
@@ -32,14 +32,6 @@ REM # Debug OIDC OAuth2 etc.
 REM SET DEBUG=true
 
 REM ------------------------------------------------------------
-
-SET ROOT_URL=http://localhost
-SET PORT=80
-SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
-
-REM Writable path for temporary saving attachments during migration to Meteor-Files
-REM Create directory wekan-uploads
-SET WRITABLE_PATH=..
 
 REM # ==== AWS S3 FOR FILES ====
 REM # Any region. For example:
