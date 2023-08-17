@@ -1230,12 +1230,12 @@
   "invalid-file": "Fitxategi-izena baliogabea bada, karga edo izena aldaketa bertan behera geratuko da.",
   "preview-pdf-not-supported": "Zure gailuak ez du onartzen PDF aurrebistarik. Saiatu deskargatzen.",
   "drag-board": "Arrastatu taula",
-  "translation-number": "The number of custom translation strings is:",
-  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
-  "newTranslationPopup-title": "New custom translation string",
-  "editTranslationPopup-title": "Edit custom translation string",
-  "settingsTranslationPopup-title": "Delete this custom translation string?",
-  "translation": "Translation",
+  "translation-number": "Itzulpen-kate pertsonalizatuen kopurua hau da:",
+  "delete-translation-confirm-popup": "Ziur itzulpen-kate pertsonalizatu hau ezabatu nahi duzula? Ezin da desegin.",
+  "newTranslationPopup-title": "Itzulpen-kate pertsonalizatu berria",
+  "editTranslationPopup-title": "Editatu itzulpen-kate pertsonalizatua",
+  "settingsTranslationPopup-title": "Itzulpen-kate pertsonalizatu hau ezabatu nahi duzu?",
+  "translation": "Itzulpena",
   "text": "Testua",
-  "translation-text": "Translation text"
+  "translation-text": "itzulpenaren testua"
 }
