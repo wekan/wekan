@@ -22,7 +22,14 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Custom translation strings at Admin Panel](https://github.com/wekan/wekan/pull/5085).
+  Thanks to ipyramiddev.
+- [Added remaining translations to feature custom translation strings at Admin Panel](https://github.com/wekan/wekan/commit/c769bed7dd6d61b5f56e0ec5d43c9f2662a156d2).
+  Thanks to xet7.
+
+and adds the following updates:
 
 - Updated release scripts.
   [Part 1](https://github.com/wekan/wekan/commit/558d406148eb47c27de9828b541f6081ceac224a),
