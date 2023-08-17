@@ -231,14 +231,20 @@ Template.attachmentViewer.events({
   'click #viewer-container'(event) {
 
     // Make sure the click was on #viewer-container and not on any of its children
-    if(event.target !== event.currentTarget) return;
+    if(event.target !== event.currentTarget) {
+      event.stopPropagation();
+      return;
+    }
 
     closeAttachmentViewer();
   },
   'click #viewer-content'(event) {
 
     // Make sure the click was on #viewer-content and not on any of its children
-    if(event.target !== event.currentTarget) return;
+    if(event.target !== event.currentTarget) {
+      event.stopPropagation();
+      return;
+    }
 
     closeAttachmentViewer();
   },

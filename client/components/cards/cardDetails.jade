@@ -2,6 +2,9 @@ template(name="cardDetailsPopup")
   +cardDetails(popupCard)
 
 template(name="cardDetails")
+
+  +attachmentViewer
+
   section.card-details.js-card-details(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}'): .card-details-canvas
     .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}')
       +inlinedForm(classNames="js-card-details-title")
@@ -562,7 +565,6 @@ template(name="cardDetails")
             br
           | {{_ 'invalid-file'}}
           .card-checklist-attachmentGallery.card-attachmentGallery
-            +attachmentViewer
             +attachmentGallery
       hr
 
