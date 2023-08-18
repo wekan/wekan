@@ -440,7 +440,7 @@
   "filter-to-selection": "Filtre vers la sélection",
   "other-filters-label": "Autres filtres",
   "advanced-filter-label": "Filtre avancé",
-  "advanced-filter-description": "Le filtre avancé permet d'écrire une chaîne contenant les opérateur suivants : == != <= >= && || ( ). Les opérateurs doivent être séparés par des espaces. Vous pouvez filtrer tous les champs personnalisés en saisissant leur nom et leur valeur. Par exemple : champ1 == valeur1. Remarque : si des champs ou valeurs contiennent des espaces, vous devez les mettre entre apostrophes. Par exemple : 'champ 1' = 'valeur 1'. Pour échapper un caractère de contrôle (' \\\\/), vous pouvez utiliser \\\\. Par exemple : champ1 = I\\\\'m. Il est également possible de combiner plusieurs conditions. Par exemple : f1 == v1 || f2 == v2. Normalement, tous les opérateurs sont interprétés de gauche à droite. Vous pouvez changer l'ordre à l'aide de parenthèses. Par exemple : f1 == v1 and (f2 == v2 || f2 == v3). Vous pouvez également chercher parmi les champs texte en utilisant des expressions régulières : f1 == /Test.*/i",
+  "advanced-filter-description": "Le filtre avancé permet d'écrire une chaîne contenant les opérateur suivants : == != <= >= && || ( ). Les opérateurs doivent être séparés par des espaces. Vous pouvez filtrer tous les champs personnalisés en saisissant leur nom et leur valeur. Par exemple : champ1 == valeur1. Remarque : si des champs ou valeurs contiennent des espaces, vous devez les mettre entre apostrophes. Par exemple : 'champ 1' == 'valeur 1'. Pour échapper un caractère de contrôle (' \\/), vous pouvez utiliser \\. Par exemple : champ1 == I\\'m. Il est également possible de combiner plusieurs conditions. Par exemple : f1 == v1 || f2 == v2. Normalement, tous les opérateurs sont interprétés de gauche à droite. Vous pouvez changer l'ordre à l'aide de parenthèses. Par exemple : F1 == V1 && ( F2 == V2 || F2 == V3 ). Vous pouvez également chercher parmi les champs texte en utilisant des expressions régulières : f1 == /Test.*/i",
   "fullname": "Nom complet",
   "header-logo-title": "Retourner à la page des tableaux",
   "hide-system-messages": "Masquer les messages système",
@@ -1230,12 +1230,12 @@
   "invalid-file": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
   "preview-pdf-not-supported": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
   "drag-board": "Glisser le tableau",
-  "translation-number": "The number of custom translation strings is:",
-  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
-  "newTranslationPopup-title": "New custom translation string",
-  "editTranslationPopup-title": "Edit custom translation string",
-  "settingsTranslationPopup-title": "Delete this custom translation string?",
-  "translation": "Translation",
+  "translation-number": "Le nombre de traductions personnalisées est de :",
+  "delete-translation-confirm-popup": "Êtes-vous sûr de vouloir supprimer cette traduction personnalisée ? Cela est irréversible.",
+  "newTranslationPopup-title": "Nouvelle traduction personnalisée",
+  "editTranslationPopup-title": "Éditer la traduction personnalisée",
+  "settingsTranslationPopup-title": "Supprimer cette traduction personnalisée ?",
+  "translation": "Traduction",
   "text": "Texte",
-  "translation-text": "Translation text"
+  "translation-text": "Texte traduit"
 }

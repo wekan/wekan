@@ -1230,12 +1230,12 @@
   "invalid-file": "Wenn der Dateiname ungültig ist, wird das Hochladen oder Umbenennen abgebrochen.",
   "preview-pdf-not-supported": "Dein Gerät unterstützt keine PDF Vorschau. Versuche sie stattdessen herunterzuladen.",
   "drag-board": "Das Board ziehen nach",
-  "translation-number": "The number of custom translation strings is:",
-  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
-  "newTranslationPopup-title": "New custom translation string",
-  "editTranslationPopup-title": "Edit custom translation string",
-  "settingsTranslationPopup-title": "Delete this custom translation string?",
-  "translation": "Translation",
+  "translation-number": "Die Anzahl benutzerdefinierter String-Übersetzungen ist:",
+  "delete-translation-confirm-popup": "Möchten Sie diese benutzerdefinierte String-Übersetzung wirklich löschen? Die Aktion kann nicht rückgängig gemacht werden.",
+  "newTranslationPopup-title": "Neue benutzerdefinierte String-Übersetzung",
+  "editTranslationPopup-title": "Bearbeite die benutzerdefinierte String-Übersetzung",
+  "settingsTranslationPopup-title": "Soll die benutzerdefinierte String-Übersetzung gelöscht werden?",
+  "translation": "Übersetzung",
   "text": "Text",
-  "translation-text": "Translation text"
+  "translation-text": "Übersetzungstext"
 }
