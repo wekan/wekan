@@ -1229,13 +1229,13 @@
   "allowed-avatar-filetypes": "허용된 아바타 파일유형:",
   "invalid-file": "파일명이 잘못됐다면, 업로드 또는 이름 바꾸기가 취소됩니다.",
   "preview-pdf-not-supported": "장치가 PDF 미리보기를 지원하지 않습니다. 대신 내려받기를 시도하세요.",
-  "drag-board": "Drag board",
-  "translation-number": "The number of custom translation strings is:",
-  "delete-translation-confirm-popup": "Are you sure you want to delete this custom translation string? There is no undo.",
-  "newTranslationPopup-title": "New custom translation string",
-  "editTranslationPopup-title": "Edit custom translation string",
-  "settingsTranslationPopup-title": "Delete this custom translation string?",
-  "translation": "Translation",
+  "drag-board": "드래그 보드",
+  "translation-number": "사용자정의 번역 문자열의 갯수는:",
+  "delete-translation-confirm-popup": "이 사용자정의 번역 문자열을 삭제하시겠습니까? 되돌릴 수 없습니다.",
+  "newTranslationPopup-title": "새 사용자정의 번역 문자열",
+  "editTranslationPopup-title": "사용자정의 번역 문자열 수정",
+  "settingsTranslationPopup-title": "이 사용자정의 번역 문자열을 삭제합니까?",
+  "translation": "번역",
   "text": "텍스트",
-  "translation-text": "Translation text"
+  "translation-text": "번역 문구"
 }
