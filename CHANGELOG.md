@@ -22,7 +22,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Move card to other boards API](https://github.com/wekan/wekan/pull/5090).
+  Thanks to DimDz.
+
+and adds the following updates:
 
 - [Upgraded Snap Candidate MongoDB to 6.0.9](https://github.com/wekan/wekan/commit/9d5af24e7b656c2bf6ad32bc8360bb80374408d6).
   Thanks to MongoDB developers.
