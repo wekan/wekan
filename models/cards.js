@@ -3499,6 +3499,9 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
+      const newBoardId = req.body.newBoardId;
+      const newSwimlaneId = req.body.newSwimlaneId;
+      const newListId = req.body.newListId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       if (req.body.title) {
@@ -3825,6 +3828,34 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
             fieldName: 'listId',
           },
           paramListId,
+        );
+      }
+      if (newBoardId && newSwimlaneId && newListId) {
+        // Move the card to the new board, swimlane, and list
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              boardId: newBoardId,
+              swimlaneId: newSwimlaneId,
+              listId: newListId,
+            },
+          },
+        );
+
+        const card = ReactiveCache.getCard(paramCardId);
+        cardMove(
+          req.userId,
+          card,
+          ['boardId', 'swimlaneId', 'listId'],
+          newListId,
+          newSwimlaneId,
+          newBoardId,
         );
       }
       JsonRoutes.sendResult(res, {
