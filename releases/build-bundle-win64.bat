@@ -6,8 +6,8 @@ ECHO 1) Deleting old bundle
 CALL DEL /F /S /Q bundle
 
 ECHO 2) Downloading new WeKan.zip
-REM CALL DEL wekan-%1-amd64.zip
-REM CALL wget https://releases.wekan.team/wekan-%1-amd64.zip
+CALL DEL wekan-%1-amd64.zip
+CALL wget https://releases.wekan.team/wekan-%1-amd64.zip
 
 ECHO 3) Unarchiving new WeKan
 CALL 7z x wekan-%1-amd64.zip
