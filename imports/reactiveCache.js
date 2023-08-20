@@ -255,6 +255,17 @@ ReactiveCacheServer = {
     const ret =  Meteor.user();
     return ret;
   },
+  getTranslation(idOrFirstObjectSelector = {}, options = {}) {
+    const ret = Translation.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  getTranslations(selector = {}, options = {}, getQuery = false) {
+    let ret = Translation.find(selector, options);
+    if (getQuery !== true) {
+      ret = ret.fetch();
+    }
+    return ret;
+  }
 }
 
 // only the Client is reactive
@@ -847,6 +858,33 @@ ReactiveCacheClient = {
     }
     const ret = this.__currentUser.get();
     return ret;
+  },
+  getTranslation(idOrFirstObjectSelector = {}, options = {}) {
+    const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
+    if (!this.__translation) {
+      this.__translation = new DataCache(_idOrFirstObjectSelect => {
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
+        const _ret = Translation.findOne(__select.idOrFirstObjectSelector, __select.options);
+        return _ret;
+      });
+    }
+    const ret = this.__translation.get(EJSON.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getTranslations(selector = {}, options = {}, getQuery = false) {
+    const select = {selector, options, getQuery}
+    if (!this.__translations) {
+      this.__translations = new DataCache(_select => {
+        const __select = EJSON.parse(_select);
+        let _ret = Translation.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
+        return _ret;
+      });
+    }
+    const ret = this.__translations.get(EJSON.stringify(select));
+    return ret;
   }
 }
 
@@ -1263,17 +1301,24 @@ ReactiveCache = {
     }
     return ret;
   },
-  getTranslations(selector, options, getQuery) {
-    let ret = Translation.find(selector, options);
-    if (getQuery !== true) {
-      ret = ret.fetch();
+  getTranslation(idOrFirstObjectSelector = {}, options = {}) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getTranslation(idOrFirstObjectSelector, options);
+    } else {
+      ret = ReactiveCacheClient.getTranslation(idOrFirstObjectSelector, options);
     }
     return ret;
   },
-  getTranslation(idOrFirstObjectSelector, options) {
-    const ret = Translation.findOne(idOrFirstObjectSelector, options);
+  getTranslations(selector = {}, options = {}, getQuery = false) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveCacheServer.getTranslations(selector, options, getQuery);
+    } else {
+      ret = ReactiveCacheClient.getTranslations(selector, options, getQuery);
+    }
     return ret;
-  }
+  },
 }
 
 // Client side little MiniMongo DB "Index"
