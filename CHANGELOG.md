@@ -39,6 +39,10 @@ and adds the following updates:
   Thanks to mfilser.
 - [ReactiveCache, serialize and parse json with EJSON](https://github.com/wekan/wekan/pull/5092).
   Thanks to mfilser.
+- [Translations are working on the client side again](https://github.com/wekan/wekan/pull/5093).
+  Thanks to mfilser.
+- [ReactiveCache, full implementation of the collection "Translation"](https://github.com/wekan/wekan/pull/5094).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
