@@ -1,5 +1,4 @@
 import { DataCache } from '@wekanteam/meteor-reactive-cache';
-import { Jsons } from './jsons';
 
 // Server isn't reactive, so search for the data always.
 ReactiveCacheServer = {
@@ -266,19 +265,19 @@ ReactiveCacheClient = {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__board) {
       this.__board = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Boards.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__board.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__board.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getBoards(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__boards) {
       this.__boards = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Boards.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -286,26 +285,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__boards.get(Jsons.stringify(select));
+    const ret = this.__boards.get(EJSON.stringify(select));
     return ret;
   },
   getList(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__list) {
       this.__list = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Lists.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__list.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__list.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getLists(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__lists) {
       this.__lists = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Lists.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -313,26 +312,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__lists.get(Jsons.stringify(select));
+    const ret = this.__lists.get(EJSON.stringify(select));
     return ret;
   },
   getSwimlane(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__swimlane) {
       this.__swimlane = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Swimlanes.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__swimlane.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__swimlane.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getSwimlanes(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__swimlanes) {
       this.__swimlanes = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Swimlanes.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -340,26 +339,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__swimlanes.get(Jsons.stringify(select));
+    const ret = this.__swimlanes.get(EJSON.stringify(select));
     return ret;
   },
   getChecklist(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__checklist) {
       this.__checklist = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Checklists.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__checklist.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__checklist.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getChecklists(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__checklists) {
       this.__checklists = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Checklists.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -367,26 +366,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__checklists.get(Jsons.stringify(select));
+    const ret = this.__checklists.get(EJSON.stringify(select));
     return ret;
   },
   getChecklistItem(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__checklistItem) {
       this.__checklistItem = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = ChecklistItems.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__checklistItem.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__checklistItem.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getChecklistItems(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__checklistItems) {
       this.__checklistItems = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = ChecklistItems.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -394,26 +393,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__checklistItems.get(Jsons.stringify(select));
+    const ret = this.__checklistItems.get(EJSON.stringify(select));
     return ret;
   },
   getCard(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__card) {
       this.__card = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Cards.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__card.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__card.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getCards(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__cards) {
       this.__cards = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Cards.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -421,26 +420,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__cards.get(Jsons.stringify(select));
+    const ret = this.__cards.get(EJSON.stringify(select));
     return ret;
   },
   getCardComment(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__cardComment) {
       this.__cardComment = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = CardComments.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__cardComment.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__cardComment.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getCardComments(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__cardComments) {
       this.__cardComments = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = CardComments.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -448,26 +447,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__cardComments.get(Jsons.stringify(select));
+    const ret = this.__cardComments.get(EJSON.stringify(select));
     return ret;
   },
   getCardCommentReaction(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__cardCommentReaction) {
       this.__cardCommentReaction = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = CardCommentReactions.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__cardCommentReaction.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__cardCommentReaction.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getCardCommentReactions(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__cardCommentReactions) {
       this.__cardCommentReactions = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = CardCommentReactions.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -475,26 +474,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__cardCommentReactions.get(Jsons.stringify(select));
+    const ret = this.__cardCommentReactions.get(EJSON.stringify(select));
     return ret;
   },
   getCustomField(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__customField) {
       this.__customField = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = CustomFields.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__customField.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__customField.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getCustomFields(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__customFields) {
       this.__customFields = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = CustomFields.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -502,26 +501,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__customFields.get(Jsons.stringify(select));
+    const ret = this.__customFields.get(EJSON.stringify(select));
     return ret;
   },
   getAttachment(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__attachment) {
       this.__attachment = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Attachments.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__attachment.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__attachment.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getAttachments(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__attachments) {
       this.__attachments = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Attachments.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -529,26 +528,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__attachments.get(Jsons.stringify(select));
+    const ret = this.__attachments.get(EJSON.stringify(select));
     return ret;
   },
   getAvatar(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__avatar) {
       this.__avatar = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Avatars.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__avatar.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__avatar.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getAvatars(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__avatars) {
       this.__avatars = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Avatars.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -556,26 +555,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__avatars.get(Jsons.stringify(select));
+    const ret = this.__avatars.get(EJSON.stringify(select));
     return ret;
   },
   getUser(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__user) {
       this.__user = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Users.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__user.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__user.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getUsers(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__users) {
       this.__users = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Users.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -583,26 +582,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__users.get(Jsons.stringify(select));
+    const ret = this.__users.get(EJSON.stringify(select));
     return ret;
   },
   getOrg(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__org) {
       this.__org = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Org.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__org.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__org.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getOrgs(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__orgs) {
       this.__orgs = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Org.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -610,26 +609,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__orgs.get(Jsons.stringify(select));
+    const ret = this.__orgs.get(EJSON.stringify(select));
     return ret;
   },
   getTeam(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__team) {
       this.__team = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Team.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__team.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__team.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getTeams(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__teams) {
       this.__teams = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Team.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -637,26 +636,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__teams.get(Jsons.stringify(select));
+    const ret = this.__teams.get(EJSON.stringify(select));
     return ret;
   },
   getActivity(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__activity) {
       this.__activity = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Activities.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__activity.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__activity.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getActivities(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__activities) {
       this.__activities = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Activities.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -664,26 +663,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__activities.get(Jsons.stringify(select));
+    const ret = this.__activities.get(EJSON.stringify(select));
     return ret;
   },
   getRule(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__rule) {
       this.__rule = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Rules.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__rule.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__rule.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getRules(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__rules) {
       this.__rules = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Rules.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -691,26 +690,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__rules.get(Jsons.stringify(select));
+    const ret = this.__rules.get(EJSON.stringify(select));
     return ret;
   },
   getAction(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__action) {
       this.__action = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Actions.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__action.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__action.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getActions(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__actions) {
       this.__actions = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Actions.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -718,26 +717,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__actions.get(Jsons.stringify(select));
+    const ret = this.__actions.get(EJSON.stringify(select));
     return ret;
   },
   getTrigger(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__trigger) {
       this.__trigger = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Triggers.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__trigger.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__trigger.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getTriggers(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__triggers) {
       this.__triggers = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Triggers.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -745,26 +744,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__triggers.get(Jsons.stringify(select));
+    const ret = this.__triggers.get(EJSON.stringify(select));
     return ret;
   },
   getImpersonatedUser(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__impersonatedUser) {
       this.__impersonatedUser = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = ImpersonatedUsers.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__impersonatedUser.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__impersonatedUser.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getImpersonatedUsers(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__impersonatedUsers) {
       this.__impersonatedUsers = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = ImpersonatedUsers.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -772,26 +771,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__impersonatedUsers.get(Jsons.stringify(select));
+    const ret = this.__impersonatedUsers.get(EJSON.stringify(select));
     return ret;
   },
   getIntegration(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__integration) {
       this.__integration = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = Integrations.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__integration.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__integration.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getIntegrations(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__integrations) {
       this.__integrations = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = Integrations.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -799,26 +798,26 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__integrations.get(Jsons.stringify(select));
+    const ret = this.__integrations.get(EJSON.stringify(select));
     return ret;
   },
   getInvitationCode(idOrFirstObjectSelector = {}, options = {}) {
     const idOrFirstObjectSelect = {idOrFirstObjectSelector, options}
     if (!this.__invitationCode) {
       this.__invitationCode = new DataCache(_idOrFirstObjectSelect => {
-        const __select = Jsons.parse(_idOrFirstObjectSelect);
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
         const _ret = InvitationCodes.findOne(__select.idOrFirstObjectSelector, __select.options);
         return _ret;
       });
     }
-    const ret = this.__invitationCode.get(Jsons.stringify(idOrFirstObjectSelect));
+    const ret = this.__invitationCode.get(EJSON.stringify(idOrFirstObjectSelect));
     return ret;
   },
   getInvitationCodes(selector = {}, options = {}, getQuery = false) {
     const select = {selector, options, getQuery}
     if (!this.__invitationCodes) {
       this.__invitationCodes = new DataCache(_select => {
-        const __select = Jsons.parse(_select);
+        const __select = EJSON.parse(_select);
         let _ret = InvitationCodes.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
@@ -826,7 +825,7 @@ ReactiveCacheClient = {
         return _ret;
       });
     }
-    const ret = this.__invitationCodes.get(Jsons.stringify(select));
+    const ret = this.__invitationCodes.get(EJSON.stringify(select));
     return ret;
   },
   getCurrentSetting() {
@@ -1285,7 +1284,7 @@ ReactiveMiniMongoIndex = {
       const select = {addSelect, options}
       if (!this.__subTasksWithId) {
         this.__subTasksWithId = new DataCache(_select => {
-          const __select = Jsons.parse(_select);
+          const __select = EJSON.parse(_select);
           const _subTasks = ReactiveCache.getCards(
             { parentId: { $exists: true },
               ...__select.addSelect,
@@ -1294,7 +1293,7 @@ ReactiveMiniMongoIndex = {
           return _ret;
         });
       }
-      ret = this.__subTasksWithId.get(Jsons.stringify(select));
+      ret = this.__subTasksWithId.get(EJSON.stringify(select));
       if (ret) {
         ret = ret[parentId] || [];
       }
@@ -1307,7 +1306,7 @@ ReactiveMiniMongoIndex = {
       const select = {addSelect, options}
       if (!this.__checklistsWithId) {
         this.__checklistsWithId = new DataCache(_select => {
-          const __select = Jsons.parse(_select);
+          const __select = EJSON.parse(_select);
           const _checklists = ReactiveCache.getChecklists(
             { cardId: { $exists: true },
               ...__select.addSelect,
@@ -1316,7 +1315,7 @@ ReactiveMiniMongoIndex = {
           return _ret;
         });
       }
-      ret = this.__checklistsWithId.get(Jsons.stringify(select));
+      ret = this.__checklistsWithId.get(EJSON.stringify(select));
       if (ret) {
         ret = ret[cardId] || [];
       }
@@ -1329,7 +1328,7 @@ ReactiveMiniMongoIndex = {
       const select = {addSelect, options}
       if (!this.__checklistItemsWithId) {
         this.__checklistItemsWithId = new DataCache(_select => {
-          const __select = Jsons.parse(_select);
+          const __select = EJSON.parse(_select);
           const _checklistItems = ReactiveCache.getChecklistItems(
             { checklistId: { $exists: true },
               ...__select.addSelect,
@@ -1338,7 +1337,7 @@ ReactiveMiniMongoIndex = {
           return _ret;
         });
       }
-      ret = this.__checklistItemsWithId.get(Jsons.stringify(select));
+      ret = this.__checklistItemsWithId.get(EJSON.stringify(select));
       if (ret) {
         ret = ret[checklistId] || [];
       }
@@ -1351,7 +1350,7 @@ ReactiveMiniMongoIndex = {
       const select = {addSelect, options}
       if (!this.__cardCommentsWithId) {
         this.__cardCommentsWithId = new DataCache(_select => {
-          const __select = Jsons.parse(_select);
+          const __select = EJSON.parse(_select);
           const _cardComments = ReactiveCache.getCardComments(
             { cardId: { $exists: true },
               ...__select.addSelect,
@@ -1360,7 +1359,7 @@ ReactiveMiniMongoIndex = {
           return _ret;
         });
       }
-      ret = this.__cardCommentsWithId.get(Jsons.stringify(select));
+      ret = this.__cardCommentsWithId.get(EJSON.stringify(select));
       if (ret) {
         ret = ret[cardId] || [];
       }

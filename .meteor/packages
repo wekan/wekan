@@ -173,3 +173,4 @@ minifier-css@1.6.4
 blaze
 kadira:blaze-layout
 peerlibrary:blaze-components
+ejson
