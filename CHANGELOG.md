@@ -35,6 +35,10 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/73f943f89a89374a83cdfb31f0bfbfdfe4d6f52e),
   [Part 2](https://github.com/wekan/wekan/commit/7dfb1eb6ce00166a6263f98b9bf975b8a84d1143).
   Thanks to xet7.
+- [ReactiveCache, use default parameters](https://github.com/wekan/wekan/pull/5091).
+  Thanks to mfilser.
+- [ReactiveCache, serialize and parse json with EJSON](https://github.com/wekan/wekan/pull/5092).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
