@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.08
+  version: v7.09
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1930,6 +1930,21 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: newBoardId
+          in: formData
+          description: the newBoardId value
+          type: string
+          required: true
+        - name: newSwimlaneId
+          in: formData
+          description: the newSwimlaneId value
+          type: string
+          required: true
+        - name: newListId
+          in: formData
+          description: the newListId value
+          type: string
+          required: true
         - name: title
           in: formData
           description: |

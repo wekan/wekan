@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v7.08</title>
+    <title>Wekan REST API v7.09</title>
 
     <style>
     </style>
@@ -1548,7 +1548,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v7.08">Wekan REST API v7.08</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v7.09">Wekan REST API v7.09</a>
             
           </li>
         
@@ -2057,7 +2057,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v7.08</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v7.09</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -9645,6 +9645,9 @@ Accept: application/json
 
 </span></code></pre>
 <pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">&#x27;{
+  &quot;newBoardId&quot;: &quot;string&quot;,
+  &quot;newSwimlaneId&quot;: &quot;string&quot;,
+  &quot;newListId&quot;: &quot;string&quot;,
   &quot;title&quot;: &quot;string&quot;,
   &quot;sort&quot;: &quot;string&quot;,
   &quot;parentId&quot;: &quot;string&quot;,
@@ -9689,6 +9692,9 @@ fetch(<span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{ca
 </code></pre>
 <pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>);
 <span class="hljs-keyword">const</span> inputBody = {
+  <span class="hljs-string">&quot;newBoardId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-string">&quot;newSwimlaneId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-string">&quot;newListId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;sort&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;parentId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -9838,7 +9844,10 @@ System.out.println(response.toString());
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
-<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
+<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">newBoardId:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">newSwimlaneId:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">newListId:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">sort:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">parentId:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">description:</span> <span class="hljs-string">string</span>
@@ -9899,8 +9908,29 @@ System.out.println(response.toString());
 <td>body</td>
 <td>body</td>
 <td>object</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
+</tr>
+<tr>
+<td>» newBoardId</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the newBoardId value</td>
+</tr>
+<tr>
+<td>» newSwimlaneId</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the newSwimlaneId value</td>
+</tr>
+<tr>
+<td>» newListId</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the newListId value</td>
 </tr>
 <tr>
 <td>» title</td>

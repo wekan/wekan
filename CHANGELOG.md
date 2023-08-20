@@ -20,7 +20,7 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.09 2023-08-21 WeKan ® release
 
 This release adds the following new features:
 
@@ -42,6 +42,8 @@ and adds the following updates:
 - [Translations are working on the client side again](https://github.com/wekan/wekan/pull/5093).
   Thanks to mfilser.
 - [ReactiveCache, full implementation of the collection "Translation"](https://github.com/wekan/wekan/pull/5094).
+  Thanks to mfilser.
+- [Attachments, big images are now fully displayed](https://github.com/wekan/wekan/pull/5095).
   Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
