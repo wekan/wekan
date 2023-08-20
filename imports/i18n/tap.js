@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import Translation from '/models/translation';
@@ -44,14 +45,28 @@ export const TAPi18n = {
   getLanguage() {
     return this.current.get();
   },
+  loadTranslation(language) {
+    return new Promise((resolve, reject) => {
+      if (Meteor.isClient) {
+        const translationSubscription = Meteor.subscribe('translation', {language: language},  0, {
+          onReady() {
+            resolve(translationSubscription);
+          },
+          onError(error) {
+            reject(error);
+          }
+        });
+      } else {
+        resolve();
+      }
+    });
+  },
   async loadLanguage(language) {
     if (language in languages && 'load' in languages[language]) {
       let data = await languages[language].load();
 
       let custom_translations = [];
-      if (Meteor.isClient) {
-        await Meteor.subscribe('translation', {language: language},  0);
-      }
+      await this.loadTranslation(language);
       custom_translations = ReactiveCache.getTranslations({language: language}, {fields: { text: true, translationText: true }});
 
       if (custom_translations && custom_translations.length > 0) {
