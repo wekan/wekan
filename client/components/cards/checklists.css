@@ -8,6 +8,17 @@ textarea.js-edit-checklist-item {
   resize: none;
   height: 34px;
 }
+.text-show-at-minicard {
+  width: 350px;
+  text-align: left;
+}
+.text-some-space {
+  width: 20px;
+}
+.text-hide-checked-items {
+  width: 400px;
+  text-align: left;
+}
 .delete-text,
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {

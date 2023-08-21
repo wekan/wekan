@@ -202,6 +202,9 @@ BlazeComponent.extendComponent({
 
   events() {
     const events = {
+      'click #toggleShowChecklistAtMinicardButton'() {
+        Meteor.call('toggleShowChecklistAtMinicard');
+      },
       'click #toggleHideCheckedItemsButton'() {
         Meteor.call('toggleHideCheckedItems');
       },

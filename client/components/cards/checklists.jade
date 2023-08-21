@@ -10,8 +10,20 @@ template(name="checklists")
           a.add-checklist-top.js-open-inlined-form(title="{{_ 'add-checklist'}}")
             i.fa.fa-plus
     if currentUser.isBoardMember
+      span.text-show-at-minicard
+        | {{_ 'show-at-minicard'}}
+      .material-toggle-switch(title="{{_ 'show-checklist-at-minicard'}}")
+        if showChecklistAtMinicard
+          input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicardButton" checked="checked")
+        else
+          input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicardButton")
+        label.toggle-label(for="toggleShowChecklistAtMinicardButton")
+      span.text-some-space
+      span.text-hide-checked-items
+        | {{_ 'hide-checked-items'}}
       .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
         //span.toggle-switch-title
+        //.check-square-icon.i.fa.fa-check-square-o
         if hideCheckedItems
           input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton" checked="checked")
         else
