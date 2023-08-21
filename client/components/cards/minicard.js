@@ -92,6 +92,11 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .minicard-checklists'() {
+          // Prevents clicking checklist at minicard from opening card details,
+          // while still allowing checking checlist items.
+          event.preventDefault();
+        },
         'click .js-linked-link'() {
           if (this.data().isLinkedCard()) Utils.goCardId(this.data().linkedId);
           else if (this.data().isLinkedBoard())

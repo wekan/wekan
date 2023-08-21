@@ -40,6 +40,8 @@ textarea.js-edit-checklist-item {
   display: flex;
   justify-content: space-between;
 }
+
+
 .checklist-progress-bar-container {
   display: flex;
   flex-direction: row;

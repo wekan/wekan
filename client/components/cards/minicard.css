@@ -4,6 +4,9 @@
 .minicard .checklist-details-menu {
   display: none;
 }
+.minicard .checklist-progress-bar-container {
+  width: 190px; /* TODO: Add adjustable width https://github.com/wekan/wekan/pull/4964 */
+}
 .minicard-wrapper {
   cursor: pointer;
   position: relative;
