@@ -8,9 +8,12 @@ textarea.js-edit-checklist-item {
   resize: none;
   height: 34px;
 }
-.text-show-at-minicard {
+.card-details .text-show-at-minicard {
   width: 350px;
   text-align: left;
+}
+.minicard .text-show-at-minicard {
+  display: none;
 }
 .text-some-space {
   width: 20px;

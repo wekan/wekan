@@ -1,3 +1,9 @@
+.minicard .checklists-title,
+.minicard .add-checklist,
+.minicard .add-checklist-item,
+.minicard .checklist-details-menu {
+  display: none;
+}
 .minicard-wrapper {
   cursor: pointer;
   position: relative;
@@ -127,6 +133,14 @@
   max-width: 100%;
   margin-right: 4px;
 }
+/*
+.minicard .checklists-title,
+.minicard .add-checklist,
+.minicard .add-checklist-item,
+.minicard .checklist-details-menu {
+  display: none;
+}
+*/
 .minicard .handle {
   width: 20px;
   height: 20px;
