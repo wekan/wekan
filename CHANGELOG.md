@@ -25,7 +25,8 @@ Note:
 This release adds the following new features:
 
 - At opened card, toggle to show checklist at minicard.
-  [Part 1](https://github.com/wekan/wekan/commit/2a190fdc194ac2fc2d8086521c5a3eaa2aff0641).
+  [Part 1](https://github.com/wekan/wekan/commit/2a190fdc194ac2fc2d8086521c5a3eaa2aff0641),
+  [Part 2](https://github.com/wekan/wekan/commit/2c99d1cecbaab8556b65bce857b8d93c2cc62c37).
   Thanks to xet7.
 
 and adds the following updates:
