@@ -1237,5 +1237,7 @@
   "settingsTranslationPopup-title": "Itzulpen-kate pertsonalizatu hau ezabatu nahi duzu?",
   "translation": "Itzulpena",
   "text": "Testua",
-  "translation-text": "itzulpenaren testua"
+  "translation-text": "itzulpenaren testua",
+  "show-at-minicard": "Show at minicard",
+  "show-checklist-at-minicard": "Show checklist at minicard"
 }

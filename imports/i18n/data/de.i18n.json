@@ -1237,5 +1237,7 @@
   "settingsTranslationPopup-title": "Soll die benutzerdefinierte String-Übersetzung gelöscht werden?",
   "translation": "Übersetzung",
   "text": "Text",
-  "translation-text": "Übersetzungstext"
+  "translation-text": "Übersetzungstext",
+  "show-at-minicard": "Show at minicard",
+  "show-checklist-at-minicard": "Show checklist at minicard"
 }

@@ -1237,5 +1237,7 @@
   "settingsTranslationPopup-title": "Excluir este texto de tradução customizado?",
   "translation": "Tradução",
   "text": "Texto",
-  "translation-text": "Texto de tradução"
+  "translation-text": "Texto de tradução",
+  "show-at-minicard": "Show at minicard",
+  "show-checklist-at-minicard": "Show checklist at minicard"
 }

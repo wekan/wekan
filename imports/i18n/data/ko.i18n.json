@@ -1237,5 +1237,7 @@
   "settingsTranslationPopup-title": "이 사용자정의 번역 문자열을 삭제합니까?",
   "translation": "번역",
   "text": "텍스트",
-  "translation-text": "번역 문구"
+  "translation-text": "번역 문구",
+  "show-at-minicard": "Show at minicard",
+  "show-checklist-at-minicard": "Show checklist at minicard"
 }

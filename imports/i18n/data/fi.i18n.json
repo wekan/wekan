@@ -1237,5 +1237,7 @@
   "settingsTranslationPopup-title": "Poista tämä mukautettu käännös?",
   "translation": "Käännös",
   "text": "Teksti",
-  "translation-text": "Käännetty teksti"
+  "translation-text": "Käännetty teksti",
+  "show-at-minicard": "Näytä minikortilla",
+  "show-checklist-at-minicard": "Näytä tarkistuslista minikortilla"
 }
