@@ -66,7 +66,7 @@ export default class LDAP {
       }
       return value;
     } else {
-      Log.warn(`Lookup for unset variable: ${name}`);
+      //Log.warn(`Lookup for unset variable: ${name}`);
     }
   }
 
