@@ -33,6 +33,8 @@ and fixes the following bugs:
   Thanks to  VidVidex.
 - [Replaced ldap logger https://www.npmjs.com/package/bunyan with https://docs.meteor.com/packages/logging.html, because bunyan did show dtrace errors when building WeKan](https://github.com/wekan/wekan/commit/e83945c1a6c08fe58f660bcd7b7f8494f629e913).
   Thanks to xet7.
+- [Comment out warning about unset variable at ldap.js](https://github.com/wekan/wekan/commit/7f91055d8c7ed508b2f6fca111f17ec1353c445a).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
