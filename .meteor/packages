@@ -174,3 +174,4 @@ blaze
 kadira:blaze-layout
 peerlibrary:blaze-components
 ejson
+logging
