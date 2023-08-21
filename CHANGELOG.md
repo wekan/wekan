@@ -22,7 +22,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [In rebuild-wekan.sh, option 9 to Save Meteor dependency chain to ../meteor-deps.txt](https://github.com/wekan/wekan/commit/7c80a34cf238cbccfe4fed0fb92cf73ddff6beed).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Correctly display preview for very tall images](https://github.com/wekan/wekan/pull/5097).
   Thanks to  VidVidex.
