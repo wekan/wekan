@@ -1239,5 +1239,6 @@
   "text": "文本",
   "translation-text": "Translation text",
   "show-at-minicard": "Show at minicard",
-  "show-checklist-at-minicard": "Show checklist at minicard"
+  "show-checklist-at-minicard": "Show checklist at minicard",
+  "show-subtasks-field": "Show subtasks field"
 }

@@ -1239,5 +1239,6 @@
   "text": "Texto",
   "translation-text": "Texto de tradução",
   "show-at-minicard": "Mostrar no mini cartão",
-  "show-checklist-at-minicard": "Mostrar lista de verificação no mini cartão"
+  "show-checklist-at-minicard": "Mostrar lista de verificação no mini cartão",
+  "show-subtasks-field": "Show subtasks field"
 }
