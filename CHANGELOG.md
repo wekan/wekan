@@ -39,7 +39,9 @@ and fixes the following bugs:
 
 - [Correctly display preview for very tall images](https://github.com/wekan/wekan/pull/5097).
   Thanks to  VidVidex.
-- [Replaced ldap logger https://www.npmjs.com/package/bunyan with https://docs.meteor.com/packages/logging.html, because bunyan did show dtrace errors when building WeKan](https://github.com/wekan/wekan/commit/e83945c1a6c08fe58f660bcd7b7f8494f629e913).
+- Replaced ldap logger https://www.npmjs.com/package/bunyan with https://docs.meteor.com/packages/logging.html, because bunyan did show dtrace errors when building WeKan.
+  [Part 1](https://github.com/wekan/wekan/commit/e83945c1a6c08fe58f660bcd7b7f8494f629e913),
+  [Part 2](https://github.com/wekan/wekan/commit/427eb8ebd16b847eb278cd319adb75adc5206e99).
   Thanks to xet7.
 - [Comment out warning about unset variable at ldap.js](https://github.com/wekan/wekan/commit/7f91055d8c7ed508b2f6fca111f17ec1353c445a).
   Thanks to xet7.
