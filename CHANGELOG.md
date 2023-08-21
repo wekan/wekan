@@ -22,7 +22,13 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- At opened card, toggle to show checklist at minicard.
+  [Part 1](https://github.com/wekan/wekan/commit/2a190fdc194ac2fc2d8086521c5a3eaa2aff0641).
+  Thanks to xet7.
+
+and adds the following updates:
 
 - [In rebuild-wekan.sh, option 9 to Save Meteor dependency chain to ../meteor-deps.txt](https://github.com/wekan/wekan/commit/7c80a34cf238cbccfe4fed0fb92cf73ddff6beed).
   Thanks to xet7.
