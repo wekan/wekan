@@ -148,7 +148,6 @@ shell-server@0.5.0
 email@2.2.5
 dynamic-import@0.7.3
 cfs:gridfs
-rzymek:fullcalendar
 msavin:usercache
 # Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
 meteorhacks:subs-manager
@@ -175,3 +174,5 @@ kadira:blaze-layout
 peerlibrary:blaze-components
 ejson
 logging
+wekan-fullcalendar
+momentjs:moment@2.29.3
