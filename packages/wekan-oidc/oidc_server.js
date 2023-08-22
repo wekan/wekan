@@ -42,7 +42,7 @@ OAuth.registerService('oidc', 2, null, function (query) {
 
   if (userinfo.ocs) userinfo = userinfo.ocs.data; // Nextcloud hack
   if (userinfo.metadata) userinfo = userinfo.metadata // Openshift hack
-  if (debug) console.log('IIII: userinfo:', userinfo);
+  if (debug) console.log('XXX: userinfo:', userinfo);
 
   serviceData.id = userinfo[process.env.OAUTH2_ID_MAP]; // || userinfo["id"];
   serviceData.username = userinfo[process.env.OAUTH2_USERNAME_MAP]; // || userinfo["uid"];
