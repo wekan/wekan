@@ -1234,11 +1234,11 @@
   "delete-translation-confirm-popup": "Är du säker att du vill radera denna översatta fras? Det går inte att ångra.",
   "newTranslationPopup-title": "Ny anspassad översättning",
   "editTranslationPopup-title": "Ändra översatt fras",
-  "settingsTranslationPopup-title": "Delete this custom translation string?",
-  "translation": "Translation",
+  "settingsTranslationPopup-title": "Radera översatt fras?",
+  "translation": "Översättning",
   "text": "Text",
-  "translation-text": "Translation text",
-  "show-at-minicard": "Show at minicard",
-  "show-checklist-at-minicard": "Show checklist at minicard",
-  "show-subtasks-field": "Show subtasks field"
+  "translation-text": "Översatt text",
+  "show-at-minicard": "Visa på minikort",
+  "show-checklist-at-minicard": "Visa checklista på minikort",
+  "show-subtasks-field": "Visa underuppgiftsfält"
 }

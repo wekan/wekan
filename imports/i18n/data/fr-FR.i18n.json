@@ -1238,7 +1238,7 @@
   "translation": "Traduction",
   "text": "Texte",
   "translation-text": "Texte traduit",
-  "show-at-minicard": "Show at minicard",
-  "show-checklist-at-minicard": "Show checklist at minicard",
-  "show-subtasks-field": "Show subtasks field"
+  "show-at-minicard": "Afficher sur la mini-carte",
+  "show-checklist-at-minicard": "Afficher la check-list sur la mini-carte",
+  "show-subtasks-field": "Afficher le champ des sous-tâches"
 }
