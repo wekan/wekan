@@ -202,12 +202,6 @@ BlazeComponent.extendComponent({
 
   events() {
     const events = {
-      'click #toggleShowChecklistAtMinicardButton'() {
-        Meteor.call('toggleShowChecklistAtMinicard');
-      },
-      'click #toggleHideCheckedItemsButton'() {
-        Meteor.call('toggleHideCheckedItems');
-      },
     };
 
     return [
@@ -277,6 +271,11 @@ Template.checklists.helpers({
     const ret = card.checklists();
     return ret;
   },
+  showAtMinicard() {
+    const card = ReactiveCache.getCard(this.cardId);
+    const ret = card.checklists({'showAtMinicard':1});
+    return ret;
+  },
   hideCheckedItems() {
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) return currentUser.hasHideCheckedItems();
@@ -304,9 +303,26 @@ BlazeComponent.extendComponent({
 }).register('addChecklistItemForm');
 
 BlazeComponent.extendComponent({
+  toggleItem() {
+    const checklist = this.currentData().checklist;
+    const item = this.currentData().item;
+    if (checklist && item && item._id) {
+      item.toggleItem();
+    }
+  },
   events() {
     return [
       {
+        'click .js-checklist-item .check-box-container': this.toggleItem,
+        'click #toggleShowChecklistAtMinicardButton'() {
+          const checklist = this.checklist;
+          if (checklist && checklist._id) {
+            Meteor.call('toggleShowChecklistAtMinicard', checklist._id);
+          }
+        },
+        'click #toggleHideCheckedItemsButton'() {
+          Meteor.call('toggleHideCheckedItems');
+        },
         'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
           Popup.back(2);
           const checklist = this.checklist;

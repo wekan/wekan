@@ -920,7 +920,7 @@
   "cardAssigneesPopup-title": "Administrador",
   "addmore-detail": "Adicionar descrição detalhada",
   "show-on-card": "Mostrar no Cartão",
-  "show-on-minicard": "Exibir no Mini cartão",
+  "show-on-minicard": "Mostrar no Mini cartão",
   "new": "Novo",
   "editOrgPopup-title": "Editar Organização",
   "newOrgPopup-title": "Nova Organização",
@@ -1240,5 +1240,5 @@
   "translation-text": "Texto de tradução",
   "show-at-minicard": "Mostrar no mini cartão",
   "show-checklist-at-minicard": "Mostrar lista de verificação no mini cartão",
-  "show-subtasks-field": "Show subtasks field"
+  "show-subtasks-field": "Mostrar campo subtarefas"
 }

@@ -111,12 +111,11 @@ template(name="minicard")
                     +viewer
                       = trueValue
 
-    .minicard-checklists
-      .card-checklist-attachmentGalleries
-        .card-checklist-attachmentGallery.card-checklists
-          if currentBoard.allowsChecklists
-            hr
-            +checklists(cardId = _id)
+    .card-checklist-attachmentGalleries
+      .card-checklist-attachmentGallery.card-checklists
+        if currentBoard.allowsChecklists
+          hr
+          +checklists(cardId=_id showAtMinicard=true)
 
     if showAssignee
       if getAssignees

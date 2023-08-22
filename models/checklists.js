@@ -203,7 +203,7 @@ Checklists.mutations({
     };
   },
 
-  toggleShowChecklistAtMinicard() {
+  toggleShowChecklistAtMinicard(checklistId) {
     const value = this.hasShowChecklistAtMinicard();
     return {
       $set: {
