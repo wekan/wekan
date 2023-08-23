@@ -32,8 +32,10 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added show-subtasks-field to be translateable at Board Settings / Subtasks Settings](https://github.com/wekan/wekan/commit/e60eddda0440f49d769d73db212322d5ba994662).
   Thanks to xet7.
-- [Default board for users](https://github.com/wekan/wekan/pull/5098).
+- [After OIDC login, add users to board DEFAULT_BOARD_ID](https://github.com/wekan/wekan/pull/5098).
   Thanks to diegosteiner.
+- [Added DEFAULT_BOARD_ID environment variable setting to all WeKan platforms](https://github.com/wekan/wekan/commit/a781c0e7dcfdbe34c1483ee83cec12455b7026f7).
+  Thanks to xet7.
 
 and adds the following updates:
 
