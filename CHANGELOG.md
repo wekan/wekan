@@ -43,6 +43,8 @@ and adds the following updates:
   Thanks to helioguardabaxo.
 - [Renamed directory packages/meteor-fullcalendar to packages/wekan-fullcalendar](https://github.com/wekan/wekan/commit/2d652df176b63f7cc27e9de51fbf2f2cbd52ef34).
   Thanks to xet7.
+- [Removed old demo API key to silence GitHub secret scanning warning](https://github.com/wekan/wekan/commit/c22e71e3a2175260e483a08026e1ea3446dc77fa).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
