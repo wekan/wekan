@@ -57,6 +57,10 @@
       # If you disable Wekan API with false, Export Board does not work.
       export WITH_API=true
       #---------------------------------------------------------------
+      # ==== AFTER OIDC LOGIN, ADD USERS AUTOMATICALLY TO THIS BOARD ID ====
+      # https://github.com/wekan/wekan/pull/5098
+      #- DEFAULT_BOARD_ID=abcd1234
+      #---------------------------------------------------------------
       # ==== PASSWORD BRUTE FORCE PROTECTION ====
       #https://atmospherejs.com/lucasantoniassi/accounts-lockout
       #Defaults below. Uncomment to change. wekan/server/accounts-lockout.js

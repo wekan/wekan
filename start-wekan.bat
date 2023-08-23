@@ -55,6 +55,10 @@ REM SET RESULTS_PER_PAGE=20
 REM # If you disable Wekan API with false, Export Board does not work.
 SET WITH_API=true
 
+REM # ==== AFTER OIDC LOGIN, ADD USERS AUTOMATICALLY TO THIS BOARD ID ====
+REM # https://github.com/wekan/wekan/pull/5098
+REM SET DEFAULT_BOARD_ID=abcd1234
+
 REM # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
 REM # https://github.com/wekan/wekan/pull/2560
 SET RICHER_CARD_COMMENT_EDITOR=false
