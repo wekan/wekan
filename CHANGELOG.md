@@ -39,6 +39,10 @@ and adds the following updates:
 
 - [In rebuild-wekan.sh, option 9 to Save Meteor dependency chain to ../meteor-deps.txt](https://github.com/wekan/wekan/commit/7c80a34cf238cbccfe4fed0fb92cf73ddff6beed).
   Thanks to xet7.
+- [Update FullCalendar version to 3.10.5](https://github.com/wekan/wekan/pull/5100).
+  Thanks to helioguardabaxo.
+- [Renamed directory packages/meteor-fullcalendar to packages/wekan-fullcalendar](https://github.com/wekan/wekan/commit/2d652df176b63f7cc27e9de51fbf2f2cbd52ef34).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
