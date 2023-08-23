@@ -32,6 +32,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added show-subtasks-field to be translateable at Board Settings / Subtasks Settings](https://github.com/wekan/wekan/commit/e60eddda0440f49d769d73db212322d5ba994662).
   Thanks to xet7.
+- [Default board for users](https://github.com/wekan/wekan/pull/5098).
+  Thanks to diegosteiner.
 
 and adds the following updates:
 
