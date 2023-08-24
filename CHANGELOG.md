@@ -36,6 +36,8 @@ This release adds the following new features:
   Thanks to diegosteiner.
 - [Added DEFAULT_BOARD_ID environment variable setting to all WeKan platforms](https://github.com/wekan/wekan/commit/a781c0e7dcfdbe34c1483ee83cec12455b7026f7).
   Thanks to xet7.
+- [Make available translation text to set empty string](https://github.com/wekan/wekan/pull/5103).
+  Thanks to ipyramiddev.
 
 and adds the following updates:
 
