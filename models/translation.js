@@ -23,10 +23,11 @@ Translation.attachSchema(
        * the translation text
        */
       type: String,
+      optional: true,
     },
     createdAt: {
       /**
-       * creation date of the organization user
+       * creation date of the translation custom string
        */
       type: Date,
       // eslint-disable-next-line consistent-return
