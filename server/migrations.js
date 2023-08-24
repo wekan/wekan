@@ -7,9 +7,9 @@ import Actions from '../models/actions';
 import Activities from '../models/activities';
 import Announcements from '../models/announcements';
 import Attachments from '../models/attachments';
-import AttachmentsOld from '../models/attachments_old';
+//import AttachmentsOld from '../models/attachments_old';
 import Avatars from '../models/avatars';
-import AvatarsOld from '../models/avatars_old';
+//import AvatarsOld from '../models/avatars_old';
 import Boards from '../models/boards';
 import CardComments from '../models/cardComments';
 import Cards from '../models/cards';
@@ -1245,6 +1245,7 @@ Migrations.add('add-card-details-show-lists', () => {
   );
 });
 
+/*
 Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
   Meteor.settings.public.ostrioFilesMigrationInProgress = "true";
   AttachmentsOld.find().forEach(function(fileObj) {
@@ -1404,6 +1405,7 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
   });
   Meteor.settings.public.ostrioFilesMigrationInProgress = "false";
 });
+*/
 
 Migrations.add('migrate-attachment-drop-index-cardId', () => {
   try {
