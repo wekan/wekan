@@ -60,6 +60,10 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Comment out warning about unset variable at ldap.js](https://github.com/wekan/wekan/commit/7f91055d8c7ed508b2f6fca111f17ec1353c445a).
   Thanks to xet7.
+- [Removed CollectionFS and and attachment migrations, because they prevented using newest Node.js MongoDB driver for MongoDB 6.x](https://github.com/wekan/wekan/commit/3b936ff6e7ed733a65488f1384f868e17b8ab751).
+  Thanks to xet7.
+- [Hide incomplete feature Show checklist at minicard](https://github.com/wekan/wekan/commit/75d524f61558b2b6003220c43aa23adb142da91d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
