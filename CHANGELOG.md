@@ -66,6 +66,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Hide incomplete feature Show checklist at minicard](https://github.com/wekan/wekan/commit/75d524f61558b2b6003220c43aa23adb142da91d).
   Thanks to xet7.
+- [Fix for CalendarView, Create Card without Refresh](https://github.com/wekan/wekan/pull/5105).
+  Thanks to DimDz.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
