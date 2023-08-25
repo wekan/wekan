@@ -57,14 +57,14 @@ and adds the following updates:
 and fixes the following bugs:
 
 - [Correctly display preview for very tall images](https://github.com/wekan/wekan/pull/5097).
-  Thanks to  VidVidex.
+  Thanks to VidVidex.
 - Replaced ldap logger https://www.npmjs.com/package/bunyan with https://docs.meteor.com/packages/logging.html, because bunyan did show dtrace errors when building WeKan.
   [Part 1](https://github.com/wekan/wekan/commit/e83945c1a6c08fe58f660bcd7b7f8494f629e913),
   [Part 2](https://github.com/wekan/wekan/commit/427eb8ebd16b847eb278cd319adb75adc5206e99).
   Thanks to xet7.
 - [Comment out warning about unset variable at ldap.js](https://github.com/wekan/wekan/commit/7f91055d8c7ed508b2f6fca111f17ec1353c445a).
   Thanks to xet7.
-- [Removed CollectionFS and and attachment migrations, because they prevented using newest Node.js MongoDB driver for MongoDB 6.x](https://github.com/wekan/wekan/commit/3b936ff6e7ed733a65488f1384f868e17b8ab751).
+- [Removed CollectionFS and and attachment migrations, because they prevented using MONGO_URL username/passwrod with MongoDB 6.x, CollectionFS forced old MongoDB driver](https://github.com/wekan/wekan/commit/3b936ff6e7ed733a65488f1384f868e17b8ab751).
   Thanks to xet7.
 - [Hide incomplete feature Show checklist at minicard](https://github.com/wekan/wekan/commit/75d524f61558b2b6003220c43aa23adb142da91d).
   Thanks to xet7.
