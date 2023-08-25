@@ -40,6 +40,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Make available translation text to set empty string](https://github.com/wekan/wekan/pull/5103).
   Thanks to ipyramiddev.
+- [Added a condition to filter unwanted webhooks](https://github.com/wekan/wekan/pull/5106).
+  Thanks to ipyramiddev.
 
 and adds the following updates:
 
