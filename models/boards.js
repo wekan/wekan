@@ -836,7 +836,8 @@ Boards.helpers({
   },
 
   activeMembers(){
-    return _.where(this.members, { isActive: true });
+    const members = _.where(this.members, { isActive: true });
+    return _.sortBy(members, 'username');
   },
 
   activeOrgs() {
