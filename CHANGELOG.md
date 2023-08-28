@@ -70,6 +70,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix for CalendarView, Create Card without Refresh](https://github.com/wekan/wekan/pull/5105).
   Thanks to DimDz.
+- [Active members list now is ordered](https://github.com/wekan/wekan/pull/5107).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
