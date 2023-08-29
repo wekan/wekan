@@ -53,6 +53,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Removed old demo API key to silence GitHub secret scanning warning](https://github.com/wekan/wekan/commit/c22e71e3a2175260e483a08026e1ea3446dc77fa).
   Thanks to xet7.
+- [Added assetlinks.json](https://github.com/wekan/wekan/commit/74b98a5ee40564448906f41cf66f93ee73faaea1).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
