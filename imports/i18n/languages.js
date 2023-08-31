@@ -1,4 +1,25 @@
 export default {
+  "af": {
+    code: "af",
+    tag: "af",
+    name: "Afrikaans",
+    load: () => import('./data/af.i18n.json'),
+    rtl: "false",
+  },
+  "af_ZA": {
+    code: "af",
+    tag: "af_ZA",
+    name: "Afrikaans (South Africa)",
+    load: () => import('./data/af_ZA.i18n.json'),
+    rtl: "false",
+  },
+  "en_ZA": {
+    code: "en",
+    tag: "en_ZA",
+    name: "English (South Africa)",
+    load: () => import('./data/en_ZA.i18n.json'),
+    rtl: "false",
+  },
   "ar-DZ": {
     code: "ar",
     tag: "ar-DZ",
