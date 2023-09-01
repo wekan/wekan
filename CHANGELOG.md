@@ -76,6 +76,8 @@ and fixes the following bugs:
   Thanks to DimDz.
 - [Active members list now is ordered](https://github.com/wekan/wekan/pull/5107).
   Thanks to helioguardabaxo.
+- [Removed limit when setting Swimlane max height](https://github.com/wekan/wekan/commit/7f9aa7509314a85a550dd16615429c5e030b5f2b).
+  Thanks to Meeques, mark-i-m and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
