@@ -57,7 +57,9 @@ and adds the following updates:
   Thanks to xet7.
 - [Update translations. Added Afrikaans (af), Afrikaans (South africa)(af_ZA), English (South Africa)(en_ZA)](https://github.com/wekan/wekan/commit/ee4a3b5b35ade479b8ddf7cdedf56aa1ef676b3f).
   Thanks to translators.
-- [Updated dependencies](https://github.com/wekan/wekan/commit/4933bf8203dd615ca02963bd502a1cca2584bbac).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/4933bf8203dd615ca02963bd502a1cca2584bbac),
+  [Part 2](https://github.com/wekan/wekan/pull/5119).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
