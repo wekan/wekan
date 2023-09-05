@@ -82,6 +82,8 @@ and fixes the following bugs:
   Thanks to helioguardabaxo.
 - [Removed limit when setting Swimlane max height](https://github.com/wekan/wekan/commit/7f9aa7509314a85a550dd16615429c5e030b5f2b).
   Thanks to Meeques, mark-i-m and xet7.
+- [Fixed Can't login via LDAP because of some Node.js issues](https://github.com/wekan/wekan/commit/c898a3f5ea689469f4e1003b90162bd4233b6aeb).
+  Thanks to Danny-Graf and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
