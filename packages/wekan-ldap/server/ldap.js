@@ -4,15 +4,19 @@ import { Log } from 'meteor/logging'
 
 // copied from https://github.com/ldapjs/node-ldapjs/blob/a113953e0d91211eb945d2a3952c84b7af6de41c/lib/filters/index.js#L167
 function escapedToHex (str) {
-  return str.replace(/\\([0-9a-f][^0-9a-f]|[0-9a-f]$|[^0-9a-f]|$)/gi, function (match, p1) {
-    if (!p1) {
-      return '\\5c';
-    }
+  if (str !== undefined) {
+    return str.replace(/\\([0-9a-f][^0-9a-f]|[0-9a-f]$|[^0-9a-f]|$)/gi, function (match, p1) {
+      if (!p1) {
+        return '\\5c';
+      }
 
-    const hexCode = p1.charCodeAt(0).toString(16);
-    const rest = p1.substring(1);
-    return '\\' + hexCode + rest;
-  });
+      const hexCode = p1.charCodeAt(0).toString(16);
+      const rest = p1.substring(1);
+      return '\\' + hexCode + rest;
+    });
+  } else {
+    return undefined;
+  }
 }
 
 export default class LDAP {
