@@ -137,7 +137,6 @@ rajit:bootstrap3-datepicker-en-nz
 # UI components
 ostrio:i18n
 reactive-var@1.0.12
-fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
 mquandalle:mousetrap-bindglobal
@@ -173,3 +172,4 @@ ejson
 logging
 wekan-fullcalendar
 momentjs:moment@2.29.3
+wekan-fontawesome

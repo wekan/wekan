@@ -27,7 +27,7 @@ template(name="memberMenuPopup")
           | {{_ 'globalSearch-title'}}
       li
         a(href="{{pathFor 'home'}}")
-          span.fa.fa-home
+          span.fa.fa-house
           | {{_ 'all-boards'}}
       li
         a(href="{{pathFor 'public'}}")
@@ -65,7 +65,7 @@ template(name="memberMenuPopup")
           | {{_ 'change-settings'}}
       li
         a.js-change-avatar
-          i.fa.fa-picture-o
+          i.fa.fa-image-portrait
           | {{_ 'edit-avatar'}}
       unless isSandstorm
         if isNotOAuth2AuthenticationMethod

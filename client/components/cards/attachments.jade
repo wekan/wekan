@@ -103,7 +103,7 @@ template(name="attachmentActionsPopup")
       if isImage
         a(class="{{#if isCover}}js-remove-cover{{else}}js-add-cover{{/if}}")
           i.fa.fa-book
-          i.fa.fa-picture-o
+          i.fa.fa-image
           if isCover
             | {{_ 'remove-cover'}}
           else
@@ -111,7 +111,7 @@ template(name="attachmentActionsPopup")
       if currentUser.isBoardAdmin
         if isImage
           a(class="{{#if isBackgroundImage}}js-remove-background-image{{else}}js-add-background-image{{/if}}")
-            i.fa.fa-picture-o
+            i.fa.fa-image
             if isBackgroundImage
               | {{_ 'remove-background-image'}}
             else
