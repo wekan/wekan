@@ -94,6 +94,8 @@ and fixes the following bugs:
   Thanks to Danny-Graf and xet7.
 - [Stop using /etc/timezone in Docker. Only use /etc/localtime](https://github.com/wekan/wekan/commit/7baa95fcab5447a359c84a2139b1968f0332f683).
   Thanks to dabiao2008 and xet7.
+- [Fix createCardWithDueDate Error: User id is required](https://github.com/wekan/wekan/commit/7d1ab0a38875909de02230e70181a7ddb5187870).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
