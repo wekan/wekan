@@ -92,6 +92,8 @@ and fixes the following bugs:
   Thanks to Meeques, mark-i-m and xet7.
 - [Fixed Can't login via LDAP because of some Node.js issues](https://github.com/wekan/wekan/commit/c898a3f5ea689469f4e1003b90162bd4233b6aeb).
   Thanks to Danny-Graf and xet7.
+- [Stop using /etc/timezone in Docker. Only use /etc/localtime](https://github.com/wekan/wekan/commit/7baa95fcab5447a359c84a2139b1968f0332f683).
+  Thanks to dabiao2008 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
