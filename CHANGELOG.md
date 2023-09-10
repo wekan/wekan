@@ -61,6 +61,10 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/4933bf8203dd615ca02963bd502a1cca2584bbac),
   [Part 2](https://github.com/wekan/wekan/pull/5119).
   Thanks to developers of dependencies.
+- [Update Font Awesome version to 6.4.2](https://github.com/wekan/wekan/pull/5125).
+  Thanks to helioguardabaxo.
+- [Removed Font Awesome not in use directories svgs, scss and less](https://github.com/wekan/wekan/commit/473e2c28c6093403881515067e1b0560eddc85b2).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
