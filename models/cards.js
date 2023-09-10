@@ -2932,6 +2932,7 @@ Meteor.methods({
       createdAt: new Date(),
       dueAt: dueDate,
       sort: 0,
+      usedId: Meteor.userId(),
     };
     const cardId = Cards.insert(card);
     return cardId;
