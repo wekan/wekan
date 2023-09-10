@@ -45,7 +45,6 @@ ejson@1.1.3
 email@2.2.5
 es5-shim@4.8.0
 fetch@0.1.3
-fortawesome:fontawesome@4.7.0
 geojson-utils@1.0.11
 hot-code-push@1.0.4
 html-tools@1.1.3
@@ -235,6 +234,7 @@ wekan-accounts-cas@0.1.0
 wekan-accounts-lockout@1.0.0
 wekan-accounts-oidc@1.0.10
 wekan-accounts-sandstorm@0.8.0
+wekan-fontawesome@6.4.2
 wekan-fullcalendar@3.10.5
 wekan-ldap@0.0.2
 wekan-markdown@1.0.9
