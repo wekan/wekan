@@ -77,7 +77,6 @@ Package.onUse(function (api) {
     'bootstrap-datepicker/dist/locales/bootstrap-datepicker.sr.min.js',
     'bootstrap-datepicker/dist/locales/bootstrap-datepicker.sr-latin.min.js',
     'bootstrap-datepicker/dist/locales/bootstrap-datepicker.sv.min.js',
-    'bootstrap-datepicker/dist/locales/bootstrap-datepicker.sw.min.js',
     'bootstrap-datepicker/dist/locales/bootstrap-datepicker.ta.min.js',
     'bootstrap-datepicker/dist/locales/bootstrap-datepicker.tg.min.js',
     'bootstrap-datepicker/dist/locales/bootstrap-datepicker.th.min.js',
