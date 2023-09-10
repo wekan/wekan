@@ -105,9 +105,9 @@ services:
       - 27017
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       - wekan-db:/data/db
       - wekan-db-dump:/dump
+      #- /etc/timezone:/etc/timezone:ro # Do not use https://github.com/wekan/wekan/issues/5123
 
   wekan:
     #-------------------------------------------------------------------------------------
