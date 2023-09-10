@@ -920,7 +920,7 @@
   "cardAssigneesPopup-title": "Assignee",
   "addmore-detail": "Add a more detailed description",
   "show-on-card": "Erakutsi txartelan",
-  "show-on-minicard": "Show on Minicard",
+  "show-on-minicard": "Erakutsi minitxartelean",
   "new": "New",
   "editOrgPopup-title": "Edit Organization",
   "newOrgPopup-title": "New Organization",
@@ -1238,7 +1238,7 @@
   "translation": "Itzulpena",
   "text": "Testua",
   "translation-text": "itzulpenaren testua",
-  "show-at-minicard": "Show at minicard",
-  "show-checklist-at-minicard": "Show checklist at minicard",
-  "show-subtasks-field": "Show subtasks field"
+  "show-at-minicard": "Erakutsi minitxartelean",
+  "show-checklist-at-minicard": "Erakutsi kontrol-zerrenda minitxartelean",
+  "show-subtasks-field": "azpi-zereginen eremua bezala"
 }
