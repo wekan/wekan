@@ -23,6 +23,7 @@ Package.onUse(function(api) {
 
   api.addFiles([
     'fontawesome-free/css/fontawesome.css',
+    'fontawesome-free/css/all.css',
     'fontawesome-free/css/brands.css',
     'fontawesome-free/css/regular.css',
     'fontawesome-free/css/solid.css',
