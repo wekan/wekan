@@ -65,6 +65,8 @@ and adds the following updates:
   Thanks to helioguardabaxo.
 - [Removed Font Awesome not in use directories svgs, scss and less](https://github.com/wekan/wekan/commit/473e2c28c6093403881515067e1b0560eddc85b2).
   Thanks to xet7.
+- [Add all Font Awesome characters](https://github.com/wekan/wekan/pull/5128).
+  Thanks to helioguardabaxo.
 - [Update Bootstrap Datepicker version to 1.10.0](https://github.com/wekan/wekan/pull/5126).
   Thanks to helioguardabaxo.
 - [Removed non-existing sw translation and not needed files from bootstrap-datepicker](https://github.com/wekan/wekan/commit/dfe05cc924767e69f40a7332f0e0196ddf2bc8d5).
