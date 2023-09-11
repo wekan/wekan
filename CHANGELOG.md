@@ -71,6 +71,8 @@ and adds the following updates:
   Thanks to helioguardabaxo.
 - [Removed non-existing sw translation and not needed files from bootstrap-datepicker](https://github.com/wekan/wekan/commit/dfe05cc924767e69f40a7332f0e0196ddf2bc8d5).
   Thanks to xet7.
+- [Upgraded to Meteor 2.13.3](https://github.com/wekan/wekan/commit/6b88ae2ba26427ab58597b580440e601fd77b320).
+  Thanks to Meteor developers.
 
 and fixes the following bugs:
 
