@@ -60,6 +60,7 @@ and adds the following updates:
 - Updated dependencies.
   [Part 1](https://github.com/wekan/wekan/commit/4933bf8203dd615ca02963bd502a1cca2584bbac),
   [Part 2](https://github.com/wekan/wekan/pull/5119).
+  [Part 3](https://github.com/wekan/wekan/pull/5129).
   Thanks to developers of dependencies.
 - [Update Font Awesome version to 6.4.2](https://github.com/wekan/wekan/pull/5125).
   Thanks to helioguardabaxo.
