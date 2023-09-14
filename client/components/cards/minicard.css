@@ -265,6 +265,7 @@
 }
 .minicard .minicard-description {
   padding: 6px 0 0 8px;
+  color: #000;
   background-color: #eee;
   width: 100%;
   margin-bottom: 2px;
