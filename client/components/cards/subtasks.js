@@ -68,6 +68,10 @@ BlazeComponent.extendComponent({
     }
   },
 
+  isBoardAdmin() {
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
+
   editSubtask(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-edit-subtask-item');
@@ -104,6 +108,9 @@ BlazeComponent.extendComponent({
 }).register('subtaskItemDetail');
 
 BlazeComponent.extendComponent({
+  isBoardAdmin() {
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
   events() {
     return [
       {
@@ -129,3 +136,14 @@ BlazeComponent.extendComponent({
     ]
   }
 }).register('subtaskActionsPopup');
+
+Template.editSubtaskItemForm.helpers({
+  user() {
+    return ReactiveCache.getUser(this.userId);
+  },
+  isBoardAdmin() {
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
+});
+
+

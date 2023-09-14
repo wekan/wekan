@@ -26,8 +26,7 @@ template(name="subtaskDetail")
       .subtask-title
         span
         if canModifyCard
-          if currentUser.isBoardAdmin
-            a.fa.fa-navicon.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
+          a.fa.fa-navicon.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
             +viewer
@@ -95,7 +94,8 @@ template(name="subtaskActionsPopup")
       a.js-view-subtask(title="{{ subtask.title }}")
         i.fa.fa-eye
         | {{_ "view-it"}}
-      a.js-delete-subtask.delete-subtask
-        i.fa.fa-trash
-        | {{_ "delete"}} ...
+      if currentUser.isBoardAdmin
+        a.js-delete-subtask.delete-subtask
+          i.fa.fa-trash
+          | {{_ "delete"}} ...
 
