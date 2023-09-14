@@ -107,6 +107,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix minicard description text color to black, so that it is visible at light grey background](https://github.com/wekan/wekan/commit/ab944e51c728412d455d88b5714e84393eccb210).
   Thanks to xet7.
+- [Fix mini width of add list also to moderndark theme](https://github.com/wekan/wekan/commit/05c6e101ff32efb42365ac2ffbd802497d5199ac).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
