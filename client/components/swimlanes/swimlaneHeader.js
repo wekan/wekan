@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 const { calculateIndexData } = Utils;
 
@@ -32,6 +33,53 @@ BlazeComponent.extendComponent({
 Template.swimlaneFixedHeader.helpers({
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
+  isTitleDefault(title) {
+    // https://github.com/wekan/wekan/issues/4763
+    // https://github.com/wekan/wekan/issues/4742
+    // Translation text for "default" does not work, it returns an object.
+    // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
+    // This can happen, if swimlane does not have name.
+    // Yes, this is fixing the symptom (Swimlane title does not have title)
+    // instead of fixing the problem (Add Swimlane title when creating swimlane)
+    // because there could be thousands of swimlanes, adding name Default to all of them
+    // would be very slow.
+    if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
+      if (`${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") && `${TAPi18n.__('defaultdefault')}`.endsWith('returned an object instead of string.')) {
+        return 'Default';
+      } else  {
+        return `${TAPi18n.__('defaultdefault')}`;
+      }
+    } else if (title === 'Default') {
+      return `${TAPi18n.__('defaultdefault')}`;
+    } else  {
+      return title;
+    }
+  },
+});
+
+Template.editSwimlaneTitleForm.helpers({
+  isTitleDefault(title) {
+    // https://github.com/wekan/wekan/issues/4763
+    // https://github.com/wekan/wekan/issues/4742
+    // Translation text for "default" does not work, it returns an object.
+    // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
+    // This can happen, if swimlane does not have name.
+    // Yes, this is fixing the symptom (Swimlane title does not have title)
+    // instead of fixing the problem (Add Swimlane title when creating swimlane) 
+    // because there could be thousands of swimlanes, adding name Default to all of them
+    // would be very slow.
+    if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
+      if (`${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") && `${TAPi18n.__('defaultdefault')}`.endsWith('returned an object instead of string.')) {
+        return 'Default';
+      } else  {
+        return `${TAPi18n.__('defaultdefault')}`;
+      }
+    } else if (title === 'Default') {
+      return `${TAPi18n.__('defaultdefault')}`;
+    } else  {
+      return title;
+    }
   },
 });
 

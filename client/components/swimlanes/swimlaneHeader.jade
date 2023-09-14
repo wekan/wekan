@@ -17,9 +17,11 @@ template(name="swimlaneFixedHeader")
         | {{_ 'list-templates-swimlane'}}
       else if $eq title 'Board Templates'
         | {{_ 'board-templates-swimlane'}}
+      else if $eq title 'Default'
+        | {{_ 'defaultdefault'}}
       else
         +viewer
-          = title
+          | {{isTitleDefault title}}
   .swimlane-header-menu
     unless currentUser.isCommentOnly
       if currentUser.isBoardAdmin
@@ -33,7 +35,7 @@ template(name="swimlaneFixedHeader")
 
 template(name="editSwimlaneTitleForm")
   .list-composer
-    input.list-name-input.full-line(type="text" value=title autofocus)
+    input.list-name-input.full-line(type="text" value="{{isTitleDefault title}}" autofocus)
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.fa.fa-times-thin.js-close-inlined-form
