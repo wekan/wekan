@@ -101,6 +101,8 @@ and fixes the following bugs:
   Thanks to dabiao2008 and xet7.
 - [Fix createCardWithDueDate Error: User id is required](https://github.com/wekan/wekan/commit/7d1ab0a38875909de02230e70181a7ddb5187870).
   Thanks to xet7.
+- [Fix Swimlane Default title from "key default returned an object instead of string" to translated title of "Default"](https://github.com/wekan/wekan/commit/73a25775e1cb7b1f1b355707e21e3704b98ca9c5).
+  Thanks to titho85, hpvb and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
