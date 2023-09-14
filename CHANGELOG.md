@@ -103,6 +103,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Swimlane Default title from "key default returned an object instead of string" to translated title of "Default"](https://github.com/wekan/wekan/commit/73a25775e1cb7b1f1b355707e21e3704b98ca9c5).
   Thanks to titho85, hpvb and xet7.
+- [Fix allow normal user to view subtasks at subtasks board](https://github.com/wekan/wekan/commit/22d98fec38dd16b4cc8ad0fdca8c2973e9779e08).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
