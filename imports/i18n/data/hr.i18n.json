@@ -727,6 +727,7 @@
   "delete-board": "Obriši ploču",
   "default-subtasks-board": "Subtasks for __board__ board",
   "default": "Zadano",
+  "defaultdefault": "Zadano",
   "queue": "Queue",
   "subtask-settings": "Subtasks Settings",
   "card-settings": "Card Settings",

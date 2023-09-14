@@ -727,6 +727,7 @@
   "delete-board": "Supprimer le tableau",
   "default-subtasks-board": "Sous-tâches du tableau __board__",
   "default": "Défaut",
+  "defaultdefault": "Défaut",
   "queue": "Queue",
   "subtask-settings": "Paramètres des sous-tâches",
   "card-settings": "Paramètres de la carte",

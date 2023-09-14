@@ -727,6 +727,7 @@
   "delete-board": "Изтрий таблото",
   "default-subtasks-board": "Подзадачи за табло __board__",
   "default": "по подразбиране",
+  "defaultdefault": "по подразбиране",
   "queue": "Опашка",
   "subtask-settings": "Настройки на Подзадачите",
   "card-settings": "Card Settings",

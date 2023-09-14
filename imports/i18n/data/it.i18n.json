@@ -727,6 +727,7 @@
   "delete-board": "Elimina bacheca",
   "default-subtasks-board": "Sottocompiti per la bacheca __board__",
   "default": "Predefinito",
+  "defaultdefault": "Predefinito",
   "queue": "Coda",
   "subtask-settings": "Impostazioni sotto-compiti",
   "card-settings": "Impostazioni scheda",

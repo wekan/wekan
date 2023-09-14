@@ -727,6 +727,7 @@
   "delete-board": "Poista taulu",
   "default-subtasks-board": "Alitehtävät taululle __board__",
   "default": "Oletus",
+  "defaultdefault": "Oletus",
   "queue": "Jono",
   "subtask-settings": "Alitehtävä-asetukset",
   "card-settings": "Kortin asetukset",

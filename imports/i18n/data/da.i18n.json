@@ -727,6 +727,7 @@
   "delete-board": "Slet tavle",
   "default-subtasks-board": "Delopgaver for tavlen __board__",
   "default": "Standard",
+  "defaultdefault": "Standard",
   "queue": "Kø",
   "subtask-settings": "Indstillinger for delopgaver",
   "card-settings": "Indstillinger for kort",

@@ -727,6 +727,7 @@
   "delete-board": "ボードを削除",
   "default-subtasks-board": "__board__ ボードのサブタスク",
   "default": "デフォルト",
+  "defaultdefault": "デフォルト",
   "queue": "キュー",
   "subtask-settings": "サブタスク設定",
   "card-settings": "カード設定",

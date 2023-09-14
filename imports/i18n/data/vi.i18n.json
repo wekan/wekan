@@ -727,6 +727,7 @@
   "delete-board": "Xoá Bảng",
   "default-subtasks-board": "Nhiệm vụ phụ cho __board__ bảng",
   "default": "Mặc định",
+  "defaultdefault": "Mặc định",
   "queue": "Hàng đợi",
   "subtask-settings": "Cài đặt Nhiệm vụ phụ",
   "card-settings": "Cài đặt Thẻ",

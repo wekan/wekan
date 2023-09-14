@@ -727,6 +727,7 @@
   "delete-board": "मिटाएँ बोर्ड",
   "default-subtasks-board": "Subtasks for __board__ बोर्ड",
   "default": "Default",
+  "defaultdefault": "Default",
   "queue": "Queue",
   "subtask-settings": "Subtasks  व्यवस्था",
   "card-settings": "Card Settings",

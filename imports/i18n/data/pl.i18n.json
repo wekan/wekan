@@ -727,6 +727,7 @@
   "delete-board": "Usuń tablicę",
   "default-subtasks-board": "Podzadania dla tablicy __board__",
   "default": "Domyślny",
+  "defaultdefault": "Domyślny",
   "queue": "Kolejka",
   "subtask-settings": "Ustawienia podzadań",
   "card-settings": "Ustawienia kart",

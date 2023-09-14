@@ -727,6 +727,7 @@
   "delete-board": "حذف برد",
   "default-subtasks-board": "زیروظایفِ برد __board__",
   "default": "پیش‌فرض",
+  "defaultdefault": "پیش‌فرض",
   "queue": "صف",
   "subtask-settings": "تنظیمات زیروظایف",
   "card-settings": "تنظیمات کارت",

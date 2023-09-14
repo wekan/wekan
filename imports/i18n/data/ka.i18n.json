@@ -727,6 +727,7 @@
   "delete-board": "დაფის წაშლა",
   "default-subtasks-board": "ქვესაქმიანობა __board__  დაფისთვის",
   "default": "Default",
+  "defaultdefault": "Default",
   "queue": "რიგი",
   "subtask-settings": "ქვესაქმიანობების პარამეტრები",
   "card-settings": "Card Settings",

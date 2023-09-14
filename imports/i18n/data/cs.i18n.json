@@ -727,6 +727,7 @@
   "delete-board": "Smazat tablo",
   "default-subtasks-board": "Podúkoly pro tablo __board__",
   "default": "Výchozí",
+  "defaultdefault": "Výchozí",
   "queue": "Fronta",
   "subtask-settings": "Nastavení podúkolů",
   "card-settings": "Nastavení karet",

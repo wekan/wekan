@@ -727,6 +727,7 @@
   "delete-board": "Izbriši tablo",
   "default-subtasks-board": "Podopravila za tablo",
   "default": "Privzeto",
+  "defaultdefault": "Privzeto",
   "queue": "Čakalna vrsta",
   "subtask-settings": "Nastavitve podopravil",
   "card-settings": "Nastavitve kartice",

@@ -727,6 +727,7 @@
   "delete-board": "Verwijder bord",
   "default-subtasks-board": "Subtaken voor __board__ bord",
   "default": "Standaard",
+  "defaultdefault": "Standaard",
   "queue": "Rij",
   "subtask-settings": "Subtaak Instellingen",
   "card-settings": "Kaart Instellingen",

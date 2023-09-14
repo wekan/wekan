@@ -727,6 +727,7 @@
   "delete-board": "Panoyu Sil",
   "default-subtasks-board": "__board__ panosu için alt görevler",
   "default": "Varsayılan",
+  "defaultdefault": "Varsayılan",
   "queue": "Sıra",
   "subtask-settings": "Alt Görev ayarları",
   "card-settings": "Kart ayarları",

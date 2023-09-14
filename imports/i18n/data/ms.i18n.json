@@ -727,6 +727,7 @@
   "delete-board": "Hapus papan",
   "default-subtasks-board": "subtugas untuk __board__ papan",
   "default": "Lalai",
+  "defaultdefault": "Lalai",
   "queue": "Giliran",
   "subtask-settings": "Tetapan Subtugas",
   "card-settings": "Tetapan Kad",

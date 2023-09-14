@@ -727,6 +727,7 @@
   "delete-board": "Excluir quadro",
   "default-subtasks-board": "Subtarefas para quadro __board__",
   "default": "Padrão",
+  "defaultdefault": "Padrão",
   "queue": "Fila",
   "subtask-settings": "Configurações de subtarefas",
   "card-settings": "Configurações do Cartão",

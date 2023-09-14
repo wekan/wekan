@@ -727,6 +727,7 @@
   "delete-board": "Избаци пословну књигу",
   "default-subtasks-board": "Под задаци за __board__ књигу пословања",
   "default": "Подразумевано",
+  "defaultdefault": "Подразумевано",
   "queue": "Ред",
   "subtask-settings": "Подешавања подзадатака",
   "card-settings": "Подешавања картице са задацима",

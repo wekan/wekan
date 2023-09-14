@@ -727,6 +727,7 @@
   "delete-board": "보드 삭제",
   "default-subtasks-board": "Subtasks for __board__ board",
   "default": "기본",
+  "defaultdefault": "기본",
   "queue": "큐",
   "subtask-settings": "Subtasks Settings",
   "card-settings": "카드 설정",

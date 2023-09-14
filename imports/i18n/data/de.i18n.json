@@ -727,6 +727,7 @@
   "delete-board": "Board löschen",
   "default-subtasks-board": "Teilaufgabe für __board__ Board",
   "default": "Standard",
+  "defaultdefault": "Standard",
   "queue": "Warteschlange",
   "subtask-settings": "Einstellungen für Teilaufgaben",
   "card-settings": "Karten-Einstellungen",

@@ -727,6 +727,7 @@
   "delete-board": "Dzēst dēli",
   "default-subtasks-board": "Apakšuzdevumi priekš __board__ dēļa",
   "default": "Noklusēts",
+  "defaultdefault": "Noklusēts",
   "queue": "Rinda",
   "subtask-settings": "Apakšuzdevumu iestatījumi",
   "card-settings": "Kartiņas iestatījumi",

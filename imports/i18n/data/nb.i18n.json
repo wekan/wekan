@@ -727,6 +727,7 @@
   "delete-board": "Slett Tavle",
   "default-subtasks-board": "Underoppgave for __board__ tavle",
   "default": "Standard",
+  "defaultdefault": "Standard",
   "queue": "Kø",
   "subtask-settings": "Innstillinger Underoppgave",
   "card-settings": "Innstillinger Kort",

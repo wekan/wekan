@@ -727,6 +727,7 @@
   "delete-board": "Suprimeix el tauler",
   "default-subtasks-board": "Subtasques per al tauler __board__",
   "default": "Per defecte",
+  "defaultdefault": "Per defecte",
   "queue": "Cua",
   "subtask-settings": "Configuració de subtasques",
   "card-settings": "Configuració de fitxa",

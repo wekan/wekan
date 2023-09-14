@@ -727,6 +727,7 @@
   "delete-board": "Удалить доску",
   "default-subtasks-board": "Подзадача для доски __board__",
   "default": "По умолчанию",
+  "defaultdefault": "По умолчанию",
   "queue": "Очередь",
   "subtask-settings": "Настройки подзадач",
   "card-settings": "Настройки карточки",

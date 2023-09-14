@@ -727,6 +727,7 @@
   "delete-board": "Tábla törlése",
   "default-subtasks-board": "Rész-feladatok ehhez a Táblához: __board__",
   "default": "Alapértelmezett",
+  "defaultdefault": "Alapértelmezett",
   "queue": "Feladat sor",
   "subtask-settings": "Rész-feladat beállításai",
   "card-settings": "Kátya beállítások",

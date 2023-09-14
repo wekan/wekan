@@ -1,4 +1,4 @@
-cd ~/repos/wekan
+#cd ~/repos/wekan
 
 tx --config .tx/config pull -a -f
 

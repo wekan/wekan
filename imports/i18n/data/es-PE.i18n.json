@@ -727,6 +727,7 @@
   "delete-board": "Eliminar el tablero",
   "default-subtasks-board": "Subtareas para el tablero __board__",
   "default": "Por defecto",
+  "defaultdefault": "Por defecto",
   "queue": "Cola",
   "subtask-settings": "Configuración de subtareas",
   "card-settings": "Configuración de tarjeta",

@@ -727,6 +727,7 @@
   "delete-board": "Ta bort tavla",
   "default-subtasks-board": "Deluppgifter för __board__ board",
   "default": "Standard",
+  "defaultdefault": "Standard",
   "queue": "Kö",
   "subtask-settings": "Deluppgift inställningar",
   "card-settings": "Kortinställningar",

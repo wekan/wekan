@@ -727,6 +727,7 @@
   "delete-board": "删除看板",
   "default-subtasks-board": "__board__ 看板的子任务",
   "default": "默认",
+  "defaultdefault": "默认",
   "queue": "队列",
   "subtask-settings": "子任务设置",
   "card-settings": "卡片设置",

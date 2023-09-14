@@ -727,6 +727,7 @@
   "delete-board": "Kustuta juhatus",
   "default-subtasks-board": "Juhatuse __board__ alamülesanded",
   "default": "Vaikimisi",
+  "defaultdefault": "Vaikimisi",
   "queue": "Saba",
   "subtask-settings": "Alaülesannete seaded",
   "card-settings": "Kaardi seaded",
