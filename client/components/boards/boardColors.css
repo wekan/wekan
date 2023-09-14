@@ -1740,10 +1740,19 @@
   background: #666;
   border-radius: 0;
   border: 0px solid #666;
-  flex: 0 0 265px;
 }
 .board-color-moderndark .swimlane .list:first-child {
-  margin-left: 0;
+  color: #eee;
+  min-width: 20px;
+  margin-left: 0px;
+  border-left: none;
+}
+.board-color-moderndark .swimlane .list-composer .list-header-add .inlined-form .edit-controls .quiet,
+.board-color-moderndark .swimlane .list-composer .list-header-add .inlined-form .edit-controls .quiet a.js-list-template {
+  color: #eee;
+}
+.board-color-moderndark .swimlane .list:nth-child {
+  flex: 0 0 265px;
 }
 .board-color-moderndark .swimlane .list:nth-child(even) .list-header,
 .board-color-moderndark .swimlane .list:nth-child(even) .list-body {
@@ -1811,6 +1820,7 @@
 .board-color-moderndark .list .list-composer .open-list-composer i {
   color: #bbb;
 }
+.board-color-moderndark .swimlane .list:first-child .open-list-composer:hover i,
 .board-color-moderndark .list-body a.open-minicard-composer:hover,
 .board-color-moderndark .list-body a.open-minicard-composer:hover i,
 .board-color-moderndark .list .list-composer .open-list-composer:hover i {
