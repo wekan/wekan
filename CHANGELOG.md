@@ -105,6 +105,8 @@ and fixes the following bugs:
   Thanks to titho85, hpvb and xet7.
 - [Fix allow normal user to view subtasks at subtasks board](https://github.com/wekan/wekan/commit/22d98fec38dd16b4cc8ad0fdca8c2973e9779e08).
   Thanks to xet7.
+- [Fix minicard description text color to black, so that it is visible at light grey background](https://github.com/wekan/wekan/commit/ab944e51c728412d455d88b5714e84393eccb210).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
