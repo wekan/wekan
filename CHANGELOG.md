@@ -109,6 +109,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix mini width of add list also to moderndark theme](https://github.com/wekan/wekan/commit/05c6e101ff32efb42365ac2ffbd802497d5199ac).
   Thanks to xet7.
+- [Fixed typo at ldap.js](https://github.com/wekan/wekan/commit/c27a00a4a872cca280ee07079f93941bbee9844f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
