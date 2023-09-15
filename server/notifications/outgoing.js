@@ -66,6 +66,8 @@ if (Meteor.isServer) {
     'swimlaneId',
     'customField',
     'customFieldValue',
+    'labelId',
+    'label',
     'attachmentId',
   ];
   const responseFunc = data => {
@@ -126,6 +128,7 @@ if (Meteor.isServer) {
           'checklist',
           'swimlane',
           'oldSwimlane',
+          'labelId',
           'label',
           'attachment',
           'attachmentId',

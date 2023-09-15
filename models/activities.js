@@ -58,10 +58,10 @@ Activities.helpers({
   customField() {
     return ReactiveCache.getCustomField(this.customFieldId);
   },
-  // Label activity did not work yet, unable to edit labels when tried this.
-  //label() {
-  //  return ReactiveCache.getCard(this.labelId);
-  //},
+  label() {
+    // Label activity did not work yet, unable to edit labels when tried this.
+    return ReactiveCache.getCard(this.labelId);
+  },
 });
 
 Activities.before.update((userId, doc, fieldNames, modifier) => {
@@ -101,8 +101,8 @@ if (Meteor.isServer) {
       { partialFilterExpression: { customFieldId: { $exists: true } } },
     );
     // Label activity did not work yet, unable to edit labels when tried this.
-    //Activities._collection._dropIndex({ labelId: 1 }, { "indexKey": -1 });
-    //Activities._collection._dropIndex({ labelId: 1 }, { partialFilterExpression: { labelId: { $exists: true } } });
+    //Activities._collection.dropIndex({ labelId: 1 }, { "indexKey": -1 });
+    //Activities._collection.dropIndex({ labelId: 1 }, { partialFilterExpression: { labelId: { $exists: true } } });
   });
 
   Activities.after.insert((userId, doc) => {
@@ -280,11 +280,19 @@ if (Meteor.isServer) {
       }
     }
     // Label activity did not work yet, unable to edit labels when tried this.
-    //if (activity.labelId) {
-    //  const label = activity.label();
-    //  params.label = label.name;
-    //  params.labelId = activity.labelId;
-    //}
+    if (activity.labelId) {
+      const label = activity.label();
+      if (label) {
+        if (label.name) {
+          params.label = label.name;
+        } else if (label.color) {
+          params.label = label.color;
+        }
+        if (label._id) {
+          params.labelId = label._id;
+        }
+      }
+    }
     if (
       (!activity.timeKey || activity.timeKey === 'dueAt') &&
       activity.timeValue
