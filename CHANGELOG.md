@@ -74,6 +74,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Upgraded to Meteor 2.13.3](https://github.com/wekan/wekan/commit/6b88ae2ba26427ab58597b580440e601fd77b320).
   Thanks to Meteor developers.
+- [Upgrade Snap Candidate to MongoDB 6.0.10](https://github.com/wekan/wekan/commit/522ab40f436be5656fd6fbd8057c6715afa2fa36).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
