@@ -111,6 +111,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed typo at ldap.js](https://github.com/wekan/wekan/commit/c27a00a4a872cca280ee07079f93941bbee9844f).
   Thanks to xet7.
+- [Try to get some label outgoing webhooks working](https://github.com/wekan/wekan/commit/b40654cdfea61cd7a0a6c7f5efca86b62b3a2cbd).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
