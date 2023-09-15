@@ -1,12 +1,3 @@
-.minicard .checklists-title,
-.minicard .add-checklist,
-.minicard .add-checklist-item,
-.minicard .checklist-details-menu {
-  display: none;
-}
-.minicard .checklist-progress-bar-container {
-  width: 190px; /* TODO: Add adjustable width https://github.com/wekan/wekan/pull/4964 */
-}
 .minicard-wrapper {
   cursor: pointer;
   position: relative;
@@ -138,14 +129,6 @@
   max-width: 100%;
   margin-right: 4px;
 }
-/*
-.minicard .checklists-title,
-.minicard .add-checklist,
-.minicard .add-checklist-item,
-.minicard .checklist-details-menu {
-  display: none;
-}
-*/
 .minicard .handle {
   width: 20px;
   height: 20px;
