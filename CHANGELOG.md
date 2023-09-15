@@ -115,6 +115,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Try to get some label outgoing webhooks working](https://github.com/wekan/wekan/commit/b40654cdfea61cd7a0a6c7f5efca86b62b3a2cbd).
   Thanks to xet7.
+- [Fix missing fontawesome icons](https://github.com/wekan/wekan/pull/5133).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
