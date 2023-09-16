@@ -316,7 +316,7 @@ template(name="boardMinicardSettingsPopup")
         .materialCheckBox(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
         span
           i.fa.fa-book
-          i.fa.fa-image
+          i.fa.fa-picture-o
           | {{_ 'cover-attachment-on-minicard'}}
     div.check-div
       a.flex.js-field-has-badge-attachment-on-minicard(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
@@ -447,7 +447,7 @@ template(name="boardMenuPopup")
           | {{_ 'board-change-color'}}
       li
         a.js-change-background-image
-          i.fa.fa-image
+          i.fa.fa-picture-o
           | {{_ 'board-change-background-image'}}
     //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     //if currentUser.isBoardAdmin
@@ -471,11 +471,11 @@ template(name="boardMenuPopup")
           | {{_ 'outgoing-webhooks'}}
       li
         a.js-card-settings
-          i.fa.fa-address-card
+          i.fa.fa-id-card-o
           | {{_ 'card-settings'}}
       li
         a.js-minicard-settings
-          i.fa.fa-id-card
+          i.fa.fa-id-card-o
           | {{_ 'minicard-settings'}}
       li
         a.js-subtask-settings

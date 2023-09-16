@@ -22,7 +22,8 @@
   transform: rotate(4deg);
   display: block !important;
 }
-.board-list li.starred .fa-star {
+.board-list li.starred .fa-star,
+.board-list li.starred .fa-star-o {
   opacity: 1;
 }
 .board-list .board-list-item {
@@ -72,7 +73,8 @@
 .board-list .js-add-board :hover {
   background-color: #939393;
 }
-.board-list .fa-star {
+.board-list .fa-star,
+.board-list .fa-star-o {
   bottom: 0;
   font-size: 14px;
   height: 18px;
@@ -131,24 +133,28 @@
 }
 .board-list li:hover a:hover .fa-star,
 .board-list li:hover a:hover .fa-clone,
-.board-list li:hover a:hover .fa-archive {
+.board-list li:hover a:hover .fa-archive,
+.board-list li:hover a:hover .fa-star-o {
   color: #fff;
 }
 .board-list li:hover a .fa-star,
 .board-list li:hover a .fa-clone,
-.board-list li:hover a .fa-archive {
+.board-list li:hover a .fa-archive,
+.board-list li:hover a .fa-star-o {
   color: #fff;
   opacity: 0.75;
 }
 .board-list li:hover a .fa-star:hover,
 .board-list li:hover a .fa-clone:hover,
-.board-list li:hover a .fa-archive:hover {
+.board-list li:hover a .fa-archive:hover,
+.board-list li:hover a .fa-star-o:hover {
   font-size: 18px;
   opacity: 1;
 }
 .board-list li:hover a .fa-star.is-star-active,
 .board-list li:hover a .fa-clone.is-star-active,
-.board-list li:hover a .fa-archive.is-star-active {
+.board-list li:hover a .fa-archive.is-star-active,
+.board-list li:hover a .fa-star-o.is-star-active {
   opacity: 1;
 }
 .board-backgrounds-list .board-background-select {
