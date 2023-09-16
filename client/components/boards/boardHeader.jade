@@ -13,13 +13,11 @@ template(name="boardHeaderBar")
         if currentUser
           with currentBoard
             a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
-              i.fa.fa-pen-to-square
+              i.fa.fa-pencil-square-o
 
           a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
             title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-            //- i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-            i.fa(class="fa-star fa{{#unless isStarred}}-regular{{else}}-solid{{/unless}}")
-            //- fa fa-star fa-regular
+            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
             if showStarCounter
               span
                 = currentBoard.stars
@@ -58,7 +56,7 @@ template(name="boardHeaderBar")
         if currentUser
           with currentBoard
             a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
-              i.fa.fa-pen-to-square
+              i.fa.fa-pencil-square-o
 
           a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
             title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
@@ -126,7 +124,7 @@ template(name="boardHeaderBar")
           if $eq boardView 'board-view-swimlanes'
             i.fa.fa-th-large
           if $eq boardView 'board-view-lists'
-            i.fa.fa-brands.fa-trello
+            i.fa.fa-trello
           if $eq boardView 'board-view-cal'
             i.fa.fa-calendar
           span {{#if boardView}}{{_ boardView}}{{else}}{{_ 'board-view-swimlanes'}}{{/if}}
@@ -135,7 +133,7 @@ template(name="boardHeaderBar")
         a.board-header-btn.js-multiselection-activate(
             title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
             class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
-          i.fa.fa-regular.fa-square-check
+          i.fa.fa-check-square-o
           span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
           if MultiSelection.isActive
             a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
@@ -207,14 +205,14 @@ template(name="boardChangeViewPopup")
     li
       with "board-view-lists"
         a.js-open-lists-view
-          i.fa.fa-brands.fa-trello.colorful
+          i.fa.fa-trello.colorful
           | {{_ 'board-view-lists'}}
           if $eq Utils.boardView "board-view-lists"
             i.fa.fa-check
     li
       with "board-view-cal"
         a.js-open-cal-view
-          i.fa.fa-calendar-days.colorful
+          i.fa.fa-calendar.colorful
           | {{_ 'board-view-cal'}}
           if $eq Utils.boardView "board-view-cal"
             i.fa.fa-check

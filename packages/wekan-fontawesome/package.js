@@ -22,10 +22,14 @@ Package.onUse(function(api) {
   ], 'client');
 
   api.addFiles([
-    'fontawesome-free/css/fontawesome.css',
     'fontawesome-free/css/all.css',
     'fontawesome-free/css/brands.css',
+    'fontawesome-free/css/fontawesome.css',
     'fontawesome-free/css/regular.css',
     'fontawesome-free/css/solid.css',
+    'fontawesome-free/css/svg-with-js.css',
+    'fontawesome-free/css/v4-font-face.css',
+    'fontawesome-free/css/v4-shims.css',
+    'fontawesome-free/css/v5-font-face.css',
   ], 'client');
 });
