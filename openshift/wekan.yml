@@ -62,7 +62,7 @@ objects:
       targetPort: 8080
     selector:
       name: "${WEKAN_SERVICE_NAME}"
-    sessionAffinity: None
+    sessionAffinity: ClientIP
     type: ClusterIP
 - apiVersion: v1
   kind: Service
