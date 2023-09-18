@@ -119,6 +119,8 @@ and fixes the following bugs:
   Thanks to helioguardabaxo.
 - [Font Awesome 6.4.2 adding missing icons](https://github.com/wekan/wekan/pull/5134).
   Thanks to mfilser.
+- [Make sessinAffinity stickable to clientIP](https://github.com/wekan/wekan/pull/5136).
+  Thanks to Dexus.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
