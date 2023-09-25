@@ -42,6 +42,8 @@ This release adds the following new features:
   Thanks to ipyramiddev.
 - [Added a condition to filter unwanted webhooks](https://github.com/wekan/wekan/pull/5106).
   Thanks to ipyramiddev.
+- [Added docker-compose.yml-arm64](https://github.com/wekan/wekan/commit/e103bf46dd796b5c589b315ca68c7a60b5e388db).
+  Thanks to xet7.
 
 and adds the following updates:
 
