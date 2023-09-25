@@ -120,7 +120,7 @@ services:
     # image: quay.io/wekan/wekan:v6.89
     # image: wekanteam/wekan:v6.89
     # b) GitHub Container registry.
-    image: ghcr.io/wekan/wekan:latest
+    image: ghcr.io/wekan/wekan:main
     # c) Quay:
     #image: quay.io/wekan/wekan:latest
     # d) Docker Hub:
