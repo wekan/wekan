@@ -121,6 +121,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Make sessinAffinity stickable to clientIP](https://github.com/wekan/wekan/pull/5136).
   Thanks to Dexus.
+- [Renamed WeKan repo branch master to main](https://github.com/wekan/wekan/commit/549982b5e10c240fb2358c21b0781fef2e63a2ba).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
