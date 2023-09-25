@@ -7,7 +7,7 @@ If you can not login for any reason: https://github.com/wekan/wekan/wiki/Forgot-
 Email settings, only SMTP MAIL_URL and MAIL_FROM are in use: https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
 
 The following types of issues should be reported separately:
-- SECURITY ISSUES: https://github.com/wekan/wekan/blob/master/SECURITY.md
+- SECURITY ISSUES: https://github.com/wekan/wekan/blob/main/SECURITY.md
 - UCS: https://github.com/wekan/univention/issues
 -->
 
