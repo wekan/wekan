@@ -85,8 +85,10 @@ and adds the following updates:
   Thanks to xet7.
 - [Removed disabled codeql-analysis workflow](https://github.com/wekan/wekan/commit/240e05ba1640e92de639ddded5c4a20b32a74d2a).
   Thanks to xet7.
-- [Updated versions at Dockerfile. arm64 Dockerfile does not work yet](https://github.com/wekan/wekan/commit/637442563ea843a89396d557db3327c1775e6a12).
+- [Updated versions at Dockerfile](https://github.com/wekan/wekan/commit/637442563ea843a89396d557db3327c1775e6a12).
   Thanks to xet7.
+- [Fixed arm64 Dockerfile](https://github.com/wekan/wekan/commit/73e690a5fee24707377d3fe7985c52947cbc8929).
+  Thanks to manfromdownunder and xet7.
 
 and fixes the following bugs:
 
