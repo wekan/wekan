@@ -76,6 +76,11 @@ and adds the following updates:
   Thanks to Meteor developers.
 - [Upgrade Snap Candidate to MongoDB 6.0.10](https://github.com/wekan/wekan/commit/522ab40f436be5656fd6fbd8057c6715afa2fa36).
   Thanks to MongoDB developers.
+- Renamed WeKan repo branch master to main.
+  [Part 1](https://github.com/wekan/wekan/commit/549982b5e10c240fb2358c21b0781fef2e63a2ba),
+  [Part 2](https://github.com/wekan/wekan/commit/fa32010a656a47a6fba9a625d6ab216c9b2034df),
+  [Part 3](https://github.com/wekan/wekan/commit/b68493b009bbbb63cf26c9020299762c2a2717aa).
+  Thanks to xet7.
 - [Use newest Docker build from newest main branch commit at docker-compose.yml](https://github.com/wekan/wekan/commit/8cba42efbefeac159c0c653b53f6464a2fc5ed09).
   Thanks to xet7.
 
@@ -123,11 +128,6 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Make sessinAffinity stickable to clientIP](https://github.com/wekan/wekan/pull/5136).
   Thanks to Dexus.
-- Renamed WeKan repo branch master to main.
-  [Part 1](https://github.com/wekan/wekan/commit/549982b5e10c240fb2358c21b0781fef2e63a2ba),
-  [Part 2](https://github.com/wekan/wekan/commit/fa32010a656a47a6fba9a625d6ab216c9b2034df),
-  [Part 3](https://github.com/wekan/wekan/commit/b68493b009bbbb63cf26c9020299762c2a2717aa).
-  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
