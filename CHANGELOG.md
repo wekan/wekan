@@ -123,7 +123,8 @@ and fixes the following bugs:
   Thanks to Dexus.
 - Renamed WeKan repo branch master to main.
   [Part 1](https://github.com/wekan/wekan/commit/549982b5e10c240fb2358c21b0781fef2e63a2ba),
-  [Part 2](https://github.com/wekan/wekan/commit/fa32010a656a47a6fba9a625d6ab216c9b2034df).
+  [Part 2](https://github.com/wekan/wekan/commit/fa32010a656a47a6fba9a625d6ab216c9b2034df),
+  [Part 3](https://github.com/wekan/wekan/commit/b68493b009bbbb63cf26c9020299762c2a2717aa).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
