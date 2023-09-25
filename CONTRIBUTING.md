@@ -1,7 +1,7 @@
 ## Contributing Security related
 
 For responsible security disclosure, please follow this process:
-https://github.com/wekan/wekan/blob/master/SECURITY.md
+https://github.com/wekan/wekan/blob/main/SECURITY.md
 
 CVE Hall of Fame is at https://wekan.github.io/hall-of-fame/
 
@@ -22,7 +22,7 @@ https://github.com/wekan/wekan/issues
 WeKan code contributors Hall of Fame is at ChangeLog, where
 GitHub usernames are mentioned with changes added:
 
-https://github.com/wekan/wekan/blob/master/CHANGELOG.md
+https://github.com/wekan/wekan/blob/main/CHANGELOG.md
 
 Changes can be like typo fixes, bugfixes, features, or anything else
 like for example at open GitHub issues https://github.com/wekan/wekan/issues .
@@ -53,7 +53,7 @@ https://transifex.com/wekan/wekan
 When adding new features, in your PR to
 https://github.com/wekan/wekan/pulls
 only add new English source language strings
-to https://github.com/wekan/wekan/blob/master/imports/i18n/data/en.i18n.json
+to https://github.com/wekan/wekan/blob/main/imports/i18n/data/en.i18n.json
 
 Maintainer of WeKan xet7 downloads all newest
 translations from Transifex and adds

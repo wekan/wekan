@@ -2691,7 +2691,7 @@ and adds the following accessibility improvements:
 
 - Made WeKan zoomable by recommendation of Axe browser extension
   https://github.com/wekan/wekan/issues/459#issuecomment-999098233 by changing meta viewport settings at
-  https://github.com/wekan/wekan/blob/master/client/components/main/layouts.jade#L3 ,
+  https://github.com/wekan/wekan/blob/main/client/components/main/layouts.jade#L3 ,
   in some commit of this WeKan v5.88.
   Thanks to xet7.
 
@@ -6545,7 +6545,7 @@ This release fixes the following CRITICAL SECURITY VULNERABILITIES:
 - [Fix XSS bug reported today 4 hours ago by Cyb3rjunky](https://github.com/wekan/wekan/commit/482682e50079d70c5113169020d6834013b57c11).
   Logged in users could run javascript in input fields.
   This affects Wekan versions v3.12-v3.84.
-  In [Wekan v3.12](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v312-2019-08-09-wekan-release)
+  In [Wekan v3.12](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v312-2019-08-09-wekan-release)
   there was [changes for XSS filter to allow inserting images, videos etc
   on comment WYSIWYG editor](https://github.com/wekan/wekan/pull/2593)
   so features related to that are now removed.
@@ -9011,7 +9011,7 @@ This release adds the following new features:
 and fixes the following bugs:
 
 - Revert [Sandstorm API changes](https://github.com/wekan/wekan/commit/be03a191c4321c2f80116c0ee1ae6c826d882535)
-  that were done at [Wekan v2.05](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v205-2019-01-27-wekan-release)
+  that were done at [Wekan v2.05](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v205-2019-01-27-wekan-release)
   to fix #2143. Thanks to pantraining and xet7.
 
 Thanks to above GitHub users and translators for contributions.
@@ -9158,7 +9158,7 @@ Update translations. Thanks to translators.
 This release adds the following new features:
 
 - [IFTTT Rules improvements](https://github.com/wekan/wekan/pull/2088). Thanks to Angtrim.
-- Add [find.sh](https://github.com/wekan/wekan/blob/master/find.sh) bash script that ignores
+- Add [find.sh](https://github.com/wekan/wekan/blob/main/find.sh) bash script that ignores
   extra directories when searching. xet7 uses this a lot when developing. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions.
@@ -10669,7 +10669,7 @@ This release adds the following new features:
 
 - [Checklist templates](https://github.com/wekan/wekan/pull/1470);
 - Added [Finnish language changelog](https://github.com/wekan/wekan/tree/devel/meta/t9n-changelog)
-  and [more Finnish traslations](https://github.com/wekan/wekan/blob/master/sandstorm-pkgdef.capnp)
+  and [more Finnish traslations](https://github.com/wekan/wekan/blob/main/sandstorm-pkgdef.capnp)
   to Sandstorm.
 
 Thanks to GitHub users erikturk and xet7 for their contributions.
