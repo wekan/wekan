@@ -1,21 +1,12 @@
-FROM amd64/alpine:3.7 AS builder
+FROM amd64/alpine:latest AS builder
 
 # Set the environment variables for builder
-ENV QEMU_VERSION=v4.2.0-6 \
+ENV QEMU_VERSION=v7.2.0-1 \
     QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
     NODE_VERSION=v14.21.4 \
     WEKAN_VERSION=latest  \
-    WEKAN_ARCHITECTURE=arm64 \
-    NODE_OPTIONS="--max_old_space_size=4096"
-
-#---------------------------------------------------------------------
-# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
-# Add more Node heap:
-#   NODE_OPTIONS="--max_old_space_size=4096"
-# Add more stack:
-#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
-#---------------------------------------------------------------------
+    WEKAN_ARCHITECTURE=arm64
 
     # Install dependencies
 RUN apk update && apk add ca-certificates outils-sha1 && \
@@ -33,6 +24,8 @@ RUN apk update && apk add ca-certificates outils-sha1 && \
     unzip wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
     \
     # Download node and shasums
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt && \
     #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
     #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
     #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
@@ -45,13 +38,13 @@ RUN apk update && apk add ca-certificates outils-sha1 && \
     tar xvzf node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz
 
 # Build wekan dockerfile
-FROM arm64v8/ubuntu:19.10
+FROM arm64v8/ubuntu:23.04
 LABEL maintainer="wekan"
 
 # Set the environment variables (defaults where required)
 ENV QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
-    NODE_VERSION=v14.21.3 \
+    NODE_VERSION=v14.21.4 \
     NODE_ENV=production \
     NPM_VERSION=latest \
     WITH_API=true \
@@ -91,16 +84,5 @@ HEALTHCHECK --start-period=30s --interval=30s --timeout=10s --retries=3 \
 EXPOSE $PORT
 USER wekan
 
-#---------------------------------------------------------------------
-# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
-# Add more Node heap:
-#   NODE_OPTIONS="--max_old_space_size=4096"
-# Add more stack:
-#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
-#---------------------------------------------------------------------
-#
-#CMD ["node", "/home/wekan/bundle/main.js"]
-
-#CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /home/wekan/bundle/main.js"]
 CMD ["bash", "-c", "ulimit -s 65500; exec node /home/wekan/bundle/main.js"]
 
