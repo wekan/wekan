@@ -1,13 +1,16 @@
 FROM arm64v8/ubuntu:23.04 AS builder
+#FROM --platform=linux/amd64 amd64/ubuntu:23.04 AS builder
+#FROM --platform=linux/amd64 ghcr.io/wekan/wekan:main AS builder
+#FROM arm64v8/ubuntu:23.04 AS builder
 #FROM amd64/alpine:latest AS builder
 
 # Set the environment variables for builder
 ENV QEMU_VERSION=v7.2.0-1 \
-    QEMU_ARCHITECTURE=aarch64 \
-    NODE_ARCHITECTURE=linux-arm64 \
+    QEMU_ARCHITECTURE=s390x \
+    NODE_ARCHITECTURE=linux-s390x \
     NODE_VERSION=v14.21.4 \
     WEKAN_VERSION=latest  \
-    WEKAN_ARCHITECTURE=arm64
+    WEKAN_ARCHITECTURE=s390x
 
     # Install dependencies
 #RUN apk update && apk add ca-certificates outils-sha1 && \
@@ -18,8 +21,8 @@ RUN apt update && apt install ca-certificates wget unzip -y && \
     wget https://github.com/multiarch/qemu-user-static/releases/download/${QEMU_VERSION}/qemu-${QEMU_ARCHITECTURE}-static.tar.gz -O - | tar -xz && \
     \
     # Download wekan and shasum
-    wget https://releases.wekan.team/raspi3/wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
-    wget https://releases.wekan.team/raspi3/SHA256SUMS.txt && \
+    wget https://releases.wekan.team/${WEKAN_ARCHITECTURE}/wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
+    wget https://releases.wekan.team/${WEKAN_ARCHITECTURE}/SHA256SUMS.txt && \
     # Verify wekan
     grep wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip SHA256SUMS.txt | sha256sum -c - && \
     \
@@ -41,12 +44,12 @@ RUN apt update && apt install ca-certificates wget unzip -y && \
     tar xvzf node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz
 
 # Build wekan dockerfile
-FROM --platform=linux/arm64 arm64v8/ubuntu:23.04
+FROM --platform=linux/s390x s390x/ubuntu:23.04
 LABEL maintainer="wekan"
 
 # Set the environment variables (defaults where required)
-ENV QEMU_ARCHITECTURE=aarch64 \
-    NODE_ARCHITECTURE=linux-arm64 \
+ENV QEMU_ARCHITECTURE=s390x \
+    NODE_ARCHITECTURE=linux-s390x \
     NODE_VERSION=v14.21.4 \
     NODE_ENV=production \
     NPM_VERSION=latest \
@@ -89,4 +92,3 @@ EXPOSE $PORT
 USER wekan
 
 CMD ["bash", "-c", "ulimit -s 65500; exec node /home/wekan/bundle/main.js"]
-
