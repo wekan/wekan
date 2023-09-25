@@ -76,6 +76,8 @@ and adds the following updates:
   Thanks to Meteor developers.
 - [Upgrade Snap Candidate to MongoDB 6.0.10](https://github.com/wekan/wekan/commit/522ab40f436be5656fd6fbd8057c6715afa2fa36).
   Thanks to MongoDB developers.
+- [Use newest Docker build from newest main branch commit at docker-compose.yml](https://github.com/wekan/wekan/commit/8cba42efbefeac159c0c653b53f6464a2fc5ed09).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
