@@ -89,6 +89,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Fixed arm64 Dockerfile](https://github.com/wekan/wekan/commit/73e690a5fee24707377d3fe7985c52947cbc8929).
   Thanks to manfromdownunder and xet7.
+- [Added Dockerfile for s390x](https://github.com/wekan/wekan/commit/eacb310e59e03b44b0249206b28e4cb3adf163d0).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
