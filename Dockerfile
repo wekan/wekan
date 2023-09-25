@@ -25,7 +25,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     METEOR_RELEASE=METEOR@2.13 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=latest \
+    NPM_VERSION=9.8.1 \
     FIBERS_VERSION=4.0.1 \
     ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
@@ -211,7 +211,7 @@ RUN \
     #paxctl -mC `which node` && \
     \
     # Install Node dependencies. Python path for node-gyp.
-    npm install -g npm@${NPM_VERSION} && \
+    #npm install -g npm@${NPM_VERSION} && \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
@@ -230,11 +230,11 @@ RUN \
     mkdir -p /home/wekan/.npm && \
     chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor && \
     chmod u+w *.json && \
-    gosu wekan:wekan npm install && \
+    gosu wekan:wekan meteor npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     chmod u+w *.json && \
-    gosu wekan:wekan npm install && \
+    gosu wekan:wekan meteor npm install && \
     cd node_modules/fibers && \
     node build.js && \
     cd ../.. && \
