@@ -83,6 +83,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Use newest Docker build from newest main branch commit at docker-compose.yml](https://github.com/wekan/wekan/commit/8cba42efbefeac159c0c653b53f6464a2fc5ed09).
   Thanks to xet7.
+- [Removed disabled codeql-analysis workflow](https://github.com/wekan/wekan/commit/240e05ba1640e92de639ddded5c4a20b32a74d2a).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
