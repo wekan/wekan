@@ -76,62 +76,6 @@ BlazeComponent.extendComponent({
     return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
   },
 
-  scrollParentContainer() {
-    const cardPanelWidth = 600;
-    const parentComponent = this.parentComponent();
-
-    /*
-        // Incomplete fix about bug where opening card scrolls to wrong place
-        // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
-        // TODO sometimes parentComponent is not available, maybe because it's not
-        // yet created?!
-        if (!parentComponent) return;
-        const bodyBoardComponent = parentComponent.parentComponent();
-    */
-
-    //On Mobile View Parent is Board, Not Board Body. I cant see how this funciton should work then.
-    if (bodyBoardComponent === null) return;
-    const $cardView = this.$(this.firstNode());
-    const $cardContainer = bodyBoardComponent.$('.js-swimlanes');
-
-    /*
-        // Incomplete fix about bug where opening card scrolls to wrong place
-        // https://github.com/wekan/wekan/issues/4572#issuecomment-1184149395
-        // TODO sometimes cardContainer is not available, maybe because it's not yet
-        // created?!
-        if (!$cardContainer) return;
-    */
-
-    const cardContainerScroll = $cardContainer.scrollLeft();
-    const cardContainerWidth = $cardContainer.width();
-
-    const cardViewStart = $cardView.offset().left;
-    const cardViewEnd = cardViewStart + cardPanelWidth;
-
-    let offset = false;
-    if (cardViewStart < 0) {
-      offset = cardViewStart;
-    } else if (cardViewEnd > cardContainerWidth) {
-      offset = cardViewEnd - cardContainerWidth;
-    }
-
-    if (offset) {
-      bodyBoardComponent.scrollLeft(cardContainerScroll + offset);
-    }
-
-    //Scroll top
-    const cardViewStartTop = $cardView.offset().top;
-    const cardContainerScrollTop = $cardContainer.scrollTop();
-
-    let topOffset = false;
-    if (cardViewStartTop !== 100) {
-      topOffset = cardViewStartTop - 100;
-    }
-    if (topOffset !== false) {
-      bodyBoardComponent.scrollTop(cardContainerScrollTop + topOffset);
-    }
-  },
-
   presentParentTask() {
     let result = this.currentBoard.presentParentTask;
     if (result === null || result === undefined) {
@@ -442,20 +386,10 @@ BlazeComponent.extendComponent({
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
-          if (!Utils.isMiniScreen()) {
-            Meteor.setTimeout(() => {
-              this.scrollParentContainer();
-            }, 500);
-          }
         },
         'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
-          if (!Utils.isMiniScreen()) {
-            Meteor.setTimeout(() => {
-              this.scrollParentContainer();
-            }, 500);
-          }
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
