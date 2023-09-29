@@ -93,6 +93,8 @@ and adds the following updates:
   Thanks to manfromdownunder and xet7.
 - [Added Dockerfile for s390x](https://github.com/wekan/wekan/commit/eacb310e59e03b44b0249206b28e4cb3adf163d0).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/52ce6da32c54d8c65ed679072c64fda66e1606a0).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
