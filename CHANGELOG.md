@@ -138,6 +138,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Make sessinAffinity stickable to clientIP](https://github.com/wekan/wekan/pull/5136).
   Thanks to Dexus.
+- [Users can't change their password since V7.02](https://github.com/wekan/wekan/pull/5146).
+  Thanks to nebulade.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
