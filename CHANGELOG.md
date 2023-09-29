@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [docker-compose.yml back to latest docker image tag](https://github.com/wekan/wekan/commit/cfa0a063ce4ac5b2dcfa9952764cb15ce21bc263).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.10 2023-09-29 WeKan ® release
 
 This release adds the following new features:
