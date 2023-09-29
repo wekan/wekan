@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.09
+  version: v7.10
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3416,6 +3416,11 @@ definitions:
         description: |
            When was the checklist finished
         type: string
+        x-nullable: true
+      showAtMinicard:
+        description: |
+           Show at minicard. Default: false.
+        type: boolean
         x-nullable: true
       createdAt:
         description: |
