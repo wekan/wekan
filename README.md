@@ -109,7 +109,7 @@ with [Meteor](https://www.meteor.com).
 
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[screenshot_wekan]: https://wekan.github.io/wekan-markdown.png
+[screenshot_wekan]: https://wekan.github.io/wekan-dark-mode.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
 [wekan_issues]: https://github.com/wekan/wekan/issues
