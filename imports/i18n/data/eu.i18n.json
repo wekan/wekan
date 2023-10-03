@@ -1241,5 +1241,6 @@
   "translation-text": "itzulpenaren testua",
   "show-at-minicard": "Erakutsi minitxartelean",
   "show-checklist-at-minicard": "Erakutsi kontrol-zerrenda minitxartelean",
-  "show-subtasks-field": "azpi-zereginen eremua bezala"
+  "show-subtasks-field": "azpi-zereginen eremua bezala",
+  "convert-to-markdown": "Convert to markdown"
 }

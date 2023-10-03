@@ -1241,5 +1241,6 @@
   "translation-text": "Texte traduit",
   "show-at-minicard": "Afficher sur la mini-carte",
   "show-checklist-at-minicard": "Afficher la check-list sur la mini-carte",
-  "show-subtasks-field": "Afficher le champ des sous-tâches"
+  "show-subtasks-field": "Afficher le champ des sous-tâches",
+  "convert-to-markdown": "Convert to markdown"
 }

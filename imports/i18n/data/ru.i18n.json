@@ -1241,5 +1241,6 @@
   "translation-text": "Translation text",
   "show-at-minicard": "Показать на миникарточке",
   "show-checklist-at-minicard": "Показать Чек-лист на миникарточке",
-  "show-subtasks-field": "Show subtasks field"
+  "show-subtasks-field": "Show subtasks field",
+  "convert-to-markdown": "Convert to markdown"
 }

@@ -1241,5 +1241,6 @@
   "translation-text": "Te vertalen tekst",
   "show-at-minicard": "Toon op minikaart",
   "show-checklist-at-minicard": "Toon checklist op minikaart",
-  "show-subtasks-field": "Toon subtakenveld"
+  "show-subtasks-field": "Toon subtakenveld",
+  "convert-to-markdown": "Convert to markdown"
 }

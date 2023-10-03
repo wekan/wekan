@@ -1241,5 +1241,6 @@
   "translation-text": "Käännetty teksti",
   "show-at-minicard": "Näytä minikortilla",
   "show-checklist-at-minicard": "Näytä tarkistuslista minikortilla",
-  "show-subtasks-field": "Näytä alitehtävät kenttä"
+  "show-subtasks-field": "Näytä alitehtävät kenttä",
+  "convert-to-markdown": "Muuta markdowniksi"
 }

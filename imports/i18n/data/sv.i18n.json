@@ -1241,5 +1241,6 @@
   "translation-text": "Översatt text",
   "show-at-minicard": "Visa på minikort",
   "show-checklist-at-minicard": "Visa checklista på minikort",
-  "show-subtasks-field": "Visa underuppgiftsfält"
+  "show-subtasks-field": "Visa underuppgiftsfält",
+  "convert-to-markdown": "Convert to markdown"
 }

@@ -1241,5 +1241,6 @@
   "translation-text": "טקסט תרגום",
   "show-at-minicard": "הצגה בכרטיסון",
   "show-checklist-at-minicard": "הצגת רשימת מטלות על הכרטיסון",
-  "show-subtasks-field": "הצגת שדה תת־משימות"
+  "show-subtasks-field": "הצגת שדה תת־משימות",
+  "convert-to-markdown": "Convert to markdown"
 }
