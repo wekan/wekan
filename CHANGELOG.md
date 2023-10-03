@@ -33,6 +33,10 @@ and adds the following updates:
 
 - [docker-compose.yml back to latest docker image tag](https://github.com/wekan/wekan/commit/cfa0a063ce4ac5b2dcfa9952764cb15ce21bc263).
   Thanks to xet7.
+- [Updated year at license](https://github.com/wekan/wekan/commit/0e902d73a881e4f1a17ee7f2028e1b041872ab61).
+  Thanks to xet7.
+- [Updated screenshot at readme](https://github.com/wekan/wekan/commit/be72274ca515dc7b652cb1b93361e97089186166).
+  Thanks to xet7.
 
 and fixed the following bugs:
 
