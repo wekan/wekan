@@ -22,7 +22,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Feature: Convert to Markdown button at editor of Card Description and Comment. Useful when there is no WYSIWYG editor](https://github.com/wekan/wekan/commit/069e2c69b2e00e402628a3123164af257533ddc6).
+  Thanks to BabyFnord and xet7.
+
+and adds the following updates:
 
 - [docker-compose.yml back to latest docker image tag](https://github.com/wekan/wekan/commit/cfa0a063ce4ac5b2dcfa9952764cb15ce21bc263).
   Thanks to xet7.
