@@ -37,6 +37,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated screenshot at readme](https://github.com/wekan/wekan/commit/be72274ca515dc7b652cb1b93361e97089186166).
   Thanks to xet7.
+- [Added info to docker-compose.yml about newest docker image of newest git commit automatic build](https://github.com/wekan/wekan/commit/c9e80eaa03e42d1976576ad6553c056840f3060c).
+  Thanks to xet7.
 
 and fixed the following bugs:
 
