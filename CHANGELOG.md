@@ -34,6 +34,11 @@ and adds the following updates:
 - [docker-compose.yml back to latest docker image tag](https://github.com/wekan/wekan/commit/cfa0a063ce4ac5b2dcfa9952764cb15ce21bc263).
   Thanks to xet7.
 
+and fixed the following bugs:
+
+- [Fixed can not close sidebar at Modern theme](https://github.com/wekan/wekan/commit/53e569d28582a04d7bac49c23cd04ed8f546ed71).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.10 2023-09-29 WeKan ® release
