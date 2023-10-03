@@ -26,6 +26,8 @@ This release adds the following new features:
 
 - [Feature: Convert to Markdown button at editor of Card Description and Comment. Useful when there is no WYSIWYG editor](https://github.com/wekan/wekan/commit/069e2c69b2e00e402628a3123164af257533ddc6).
   Thanks to BabyFnord and xet7.
+- [Feature: Copy Card Details code block to clipboard](https://github.com/wekan/wekan/commit/0cc63b810c5a9e23a8a3939a11176f25c1fa8dc7).
+  Thanks to C0rn3j and xet7.
 
 and adds the following updates:
 
