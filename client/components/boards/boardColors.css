@@ -1536,9 +1536,6 @@
 .board-color-modern .sidebar .sidebar-shadow {
   box-shadow: 0 0 60px rgba(0,0,0,0.2);
 }
-.board-color-modern .sidebar .sidebar-content {
-  padding: 30px;
-}
 .board-color-modern .board-color-modern section#notifications-drawer {
   border-radius: 5px;
 }
