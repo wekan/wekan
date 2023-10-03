@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+var converter = require('@wekanteam/html-to-markdown');
 
 const specialHandles = [
   {userId: 'board_members', username: 'board_members'},
@@ -49,7 +50,8 @@ BlazeComponent.extendComponent({
       autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
-    if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false) {
+/*
+    if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true || Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
       const isSmall = Utils.isMiniScreen();
       const toolbar = isSmall
         ? [
@@ -269,6 +271,8 @@ BlazeComponent.extendComponent({
     } else {
       enableTextarea();
     }
+*/
+    enableTextarea();
   },
   events() {
     return [
@@ -279,6 +283,10 @@ BlazeComponent.extendComponent({
 
           const $tooltip = this.$('.copied-tooltip');
           Utils.showCopied(promise, $tooltip);
+        },
+        'click a.fa.fa-brands.fa-markdown'(event) {
+          const $editor = this.$('textarea.editor');
+          $editor[0].value = converter.convert($editor[0].value);
         },
       }
     ]

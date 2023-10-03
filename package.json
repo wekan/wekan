@@ -13,16 +13,14 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "chai": "^4.3.8",
-    "chai-as-promised": "^7.1.1",
     "flatted": "^3.2.2",
-    "sinon": "^13.0.2",
-    "sinon-chai": "^3.7.0"
+    "sinon": "^13.0.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.11",
     "@mapbox/node-pre-gyp": "^1.0.10",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
+    "@wekanteam/html-to-markdown": "^1.0.2",
     "@wekanteam/meteor-globals": "^1.1.4",
     "@wekanteam/meteor-reactive-cache": "^1.0.6",
     "ajv": "^6.12.6",
