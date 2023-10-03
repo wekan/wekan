@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 var converter = require('@wekanteam/html-to-markdown');
 
 const specialHandles = [
@@ -10,6 +11,33 @@ const specialHandleNames = specialHandles.map(m => m.username);
 
 BlazeComponent.extendComponent({
   onRendered() {
+    // Start: Copy <pre> code https://github.com/wekan/wekan/issues/5149
+    // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
+    //       - Also this same TODO below at event, if someone gets it working.
+    var copy = function(target) {
+      var textArea = document.createElement('textarea');
+      textArea.setAttribute('style','width:1px;border:0;opacity:0;');
+      document.body.appendChild(textArea);
+      textArea.value = target.innerHTML;
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+    var pres = document.querySelectorAll(".viewer > pre");
+    pres.forEach(function(pre){
+      var button = document.createElement("a");
+      button.className = "fa fa-copy btn btn-sm right";
+      // TODO: Translate text 'Copy text to clipboard'
+      button.setAttribute('title','Copy text to clipboard');
+      button.innerHTML = '';
+      pre.parentNode.insertBefore(button, pre);
+      button.addEventListener('click', function(e){
+        e.preventDefault();
+        copy(pre.childNodes[0]);
+      })
+    })
+    // End: Copy <pre> code
+
     const textareaSelector = 'textarea';
     const mentions = [
       // User mentions
@@ -45,6 +73,7 @@ BlazeComponent.extendComponent({
         index: 1,
       },
     ];
+
     const enableTextarea = function() {
       const $textarea = this.$(textareaSelector);
       autosize($textarea);
@@ -288,6 +317,10 @@ BlazeComponent.extendComponent({
           const $editor = this.$('textarea.editor');
           $editor[0].value = converter.convert($editor[0].value);
         },
+        // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
+        //'click .js-close-inlined-form'(event) {
+        //  Utils.copyPre();
+        //},
       }
     ]
   }
