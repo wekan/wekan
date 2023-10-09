@@ -44,6 +44,8 @@ and fixed the following bugs:
 
 - [Fixed can not close sidebar at Modern theme](https://github.com/wekan/wekan/commit/53e569d28582a04d7bac49c23cd04ed8f546ed71).
   Thanks to xet7.
+- [Fix LDAP login](https://github.com/wekan/wekan/pull/5159).
+  Thanks to faburem.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
