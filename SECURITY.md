@@ -94,16 +94,20 @@ A:
 
 ## PubSub
 
+- It is not security issue to show some text or image, that user has permission to see. It is a security issue, if browserside is some text or image that user should not see.
+- Meteor has browserside minimongo database, made with Javascript, updated with Publish/Subscribe, PubSub.
 - Publish/Subscribe means, that realtime web framework reads database changes stream, and then immediately updates webpage,
   like like dashboards, chat, kanban. That is the point in any realtime web framework in any programming language.
+- Yes, you should check with Meteor DevTools Evolved Chromium/Firefox extension that at minimongo is only text that user has permission to see.
+- Do checking as logged in user, and logged out user.
+- Check permissions and sanitize before allowing some change, because someone could modify content of input field, PubSub/websocket data, etc.
+- If you have REST API, also check that only those that have login token, and have permission, can view or edit text
+- You should not include any data user is not allowed to see. Not to webpage text, not to websockets/PubSub, etc.
+- Minimongo should not have password hashes PubSub https://wekan.github.io/hall-of-fame/userbleed/
 - PubSub uses Websockets, so you need those to be enabled at webserver like Caddy/Nginx/Apache etc, examples of settings
   at right menu of https://github.com/wekan/wekan/wiki
-- Clientside https://github.com/wekan/wekan/tree/main/client/components subscribes to those
-  pubsub https://github.com/wekan/wekan/tree/main/server/publications or calls meteor methods at https://github.com/wekan/wekan/tree/main/models
-- You should not include any data user is not allowed to see. Not to webpage text, not to websockets/PubSub, etc.
-- Check permissions and sanitize before allowing some change, because someone could modify content of input field, PubSub/websocket data, etc.
-- It is not security issue to show some text, that user has permission to see.
-- Do not include password hashes in PubSub https://wekan.github.io/hall-of-fame/userbleed/
+- Clientside https://github.com/wekan/wekan/tree/main/client/components subscribes to 
+  PubSub https://github.com/wekan/wekan/tree/main/server/publications or calls meteor methods at https://github.com/wekan/wekan/tree/main/models
 - For Admin:
   - You can have input field for password https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
   - You can save password to database https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
@@ -111,7 +115,12 @@ A:
     - Note that currentUser uses code like Meteor.user() in .js file
   - Do not have password hashes in PubSub https://github.com/wekan/wekan/blob/main/server/publications/users.js
   - Only show Admin Panel to Admin https://github.com/wekan/wekan/blob/main/client/components/settings/settingBody.jade#L3
+- If there is a lot of data, use pagination https://github.com/wekan/wekan/blob/main/client/components/settings/peopleBody.js
+- Only have limited amount of data published in PubSub. Limit in MongoDB query in publications how much is published. Too much could make browser too slow.
 - Use Environment variables for any email etc passwords.
+- But what if you would like to remove minimongo? And only use Meteor methods for saving? In that case, you don't have realtime updates,
+  and you need to write much more code to load and save data yourself, handle any multi user data saving conflicts yourself,
+  and many Meteor Atmospherejs.com PubSub using packages would not work anymore https://github.com/wekan/we
 
 ## PubSub: Fix that user can not change to Admin
 
