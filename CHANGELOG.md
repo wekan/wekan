@@ -39,6 +39,12 @@ and adds the following updates:
   Thanks to xet7.
 - [Added info to docker-compose.yml about newest docker image of newest git commit automatic build](https://github.com/wekan/wekan/commit/c9e80eaa03e42d1976576ad6553c056840f3060c).
   Thanks to xet7.
+- Updated SECURITY.md.
+  [Part 1](https://github.com/wekan/wekan/commit/aae7960f251fe626d8bb319643e4cd939a8fbfa9),
+  [Part 2](https://github.com/wekan/wekan/commit/f5355422ee21d54e26785f483a7eaecade3d1b64),
+  [Part 3](https://github.com/wekan/wekan/commit/fe985e219a9e467973e9449762fc17c6a94e9031),
+  [Part 4](https://github.com/wekan/wekan/commit/90da40fde0b2c68d3f751fe8ff2a06f3180cf6d9),
+  [Part 5](https://github.com/wekan/wekan/commit/2c74240bcb9d24e206ffe4e59bc8242a6abd07d9).
 
 and fixed the following bugs:
 
