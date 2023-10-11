@@ -100,7 +100,8 @@ A:
   like like dashboards, chat, kanban. That is the point in any realtime web framework in any programming language.
 - Yes, you should check with Meteor DevTools Evolved Chromium/Firefox extension that at minimongo is only text that user has permission to see.
 - Do checking as logged in user, and logged out user.
-- Check permissions and sanitize before allowing some change, because someone could modify content of input field, PubSub/websocket data, etc.
+- Check permissions and sanitize before allowing some change, because someone could modify content of input field,
+  PubSub/websocket data (for example with Burp Suite Community Edition), etc.
 - If you have REST API, also check that only those that have login token, and have permission, can view or edit text
 - You should not include any data user is not allowed to see. Not to webpage text, not to websockets/PubSub, etc.
 - Minimongo should not have password hashes PubSub https://wekan.github.io/hall-of-fame/userbleed/
