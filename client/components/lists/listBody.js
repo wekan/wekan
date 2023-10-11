@@ -646,6 +646,7 @@ BlazeComponent.extendComponent({
     if (this.isTemplateSearch) {
       const boardId = (ReactiveCache.getCurrentUser().profile || {}).templatesBoardId;
       if (boardId) {
+        subManager.subscribe('board', boardId, false);
         this.board = ReactiveCache.getBoard(boardId);
       }
     } else {
