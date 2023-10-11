@@ -1,7 +1,7 @@
 {
-  "accept": "Accept",
-  "act-activity-notify": "Activity Notification",
-  "act-addAttachment": "added attachment __attachment__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+  "accept": "同意",
+  "act-activity-notify": "活动通知",
+  "act-addAttachment": "添加附件 __attachment__ 到看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中",
   "act-deleteAttachment": "deleted attachment __attachment__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "act-addSubtask": "added subtask __subtask__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "act-addLabel": "Added label __label__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
