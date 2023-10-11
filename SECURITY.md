@@ -48,31 +48,121 @@ like Snap and Docker have their own specific sandboxing etc features.
 
 Standalone Wekan by default does not load any files from Internet, like fonts, CSS, etc.
 This also means all Standalone Wekan functionality works in offline local networks.
-Wekan is used by companies that have [thousands of users](https://github.com/wekan/wekan/wiki/AWS) and at healthcare.
+WeKan is used at most countries of the world https://snapcraft.io/wekan
+and by by companies that have 30k users.
 
-Wekan uses xss package for input fields like cards, as you can see from
-[package.json](https://github.com/wekan/wekan/blob/main/package.json). Other used versions can be seen from
-[Meteor versions file](https://github.com/wekan/wekan/blob/main/.meteor/versions).
-Forms can include markdown links, html, image tags etc like you see at https://wekan.github.io .
-It's possible to add attachments to cards, and markdown/html links to files.
+- Wekan private board attachments are not accessible without logging in.
+- There is feature to set board public, so that board is visible without logging in in readonly mode, with realtime updates.
+- Admin Panel has feature to disable all public boards, so all boards are private.
 
-Wekan attachments are not accessible without logging in. Import from Trello works by copying
-Trello export JSON to Wekan Trello import page, and in Trello JSON file there is direct links to all publicly
-accessible Trello attachment files, that Standalone Wekan downloads directly to Wekan MongoDB database in
-[CollectionFS](https://github.com/wekan/wekan/pull/875) format. When Wekan board is exported in
-Wekan JSON format, all board attachments are included in Wekan JSON file as base64 encoded text.
-That Wekan JSON format file can be imported to Sandstorm Wekan with all the attachments, when we get
-latest Wekan version working on Sandstorm, only couple of bugs are left before that. In Sandstorm it's not
-possible yet to import from Trello with attachments, because Wekan does not implement Sandstorm-compatible
-access to outside of Wekan grain.
+## SSL/TLS
 
-Standalone Wekan only has password auth currently, there is work in progress to add
-[oauth2](https://github.com/wekan/wekan/pull/1578), [Openid](https://github.com/wekan/wekan/issues/538),
-[LDAP](https://github.com/wekan/wekan/issues/119) etc. If you need more login security for Standalone Wekan now,
-it's possible add additional [Google Auth proxybouncer](https://github.com/wekan/wekan/wiki/Let's-Encrypt-and-Google-Auth) in front of password auth, and then use Google Authenticator for Google Auth. Standalone Wekan does have [brute force protection with eluck:accounts-lockout and browser-policy clickjacking protection](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v080-2018-04-04-wekan-release). You can also optionally use some [WAF](https://en.wikipedia.org/wiki/Web_application_firewall)
-like for example [AWS WAF](https://aws.amazon.com/waf/).
+- SSL/TLS encrypts traffic between webbrowser and webserver.
+- If you are thinking about TLS MITM, look at Caddy 2 webserver MITM detections.
+- Let's Encrypt TLS requires publicly accessible webserver, that Let's Encrypt TLS validation servers check.
+- If firewall limits to only allowed IP addresses, you may need non-Let's Encrypt TLS cert.
+- For On Premise:
+  - https://caddyserver.com/docs/automatic-https#local-https
+  - https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config
+  - https://github.com/wekan/wekan/wiki/Azure
+  - https://github.com/wekan/wekan/wiki/Traefik-and-self-signed-SSL-certs
 
-[All Wekan Platforms](https://github.com/wekan/wekan/wiki/Platforms)
+## XSS
+
+- Dompurify https://www.npmjs.com/package/dompurify
+  - WeKan uses dompurify npm package to filter for XSS at fields like cards, as you can see from
+    [package.json](https://github.com/wekan/wekan/blob/main/package.json). Other used versions can be seen from
+    [Meteor versions file](https://github.com/wekan/wekan/blob/main/.meteor/versions).
+  - Forms can include markdown links, html, image tags etc like you see at https://wekan.github.io .
+  - It's possible to add attachments to cards, and markdown/html links to files.
+  - Dompurify cleans up viewed code, so Javascript in input fields does not execute
+    - https://wekan.github.io/hall-of-fame/fieldbleed/
+- Reaction in comment is now checked, that it does not have extra added code
+  - https://wekan.github.io/hall-of-fame/reactionbleed/
+- https://github.com/wekan/wekan/blob/main/packages/markdown/src/template-integration.js#L76
+
+## QA about PubSub
+
+Q:
+
+Hello,
+I have just seen the Meteor DevTools Evolved extension and was wondering if anyone had asked themselves the question of security.
+Insofar as all data is shown in the minimongo tab in plain text.
+How can data be hidden from this extension?
+
+A:
+
+## PubSub
+
+- Publish/Subscribe means, that realtime web framework reads database changes stream, and then immediately updates webpage,
+  like like dashboards, chat, kanban. That is the point in any realtime web framework in any programming language.
+- PubSub uses Websockets, so you need those to be enabled at webserver like Caddy/Nginx/Apache etc, examples of settings
+  at right menu of https://github.com/wekan/wekan/wiki
+- Clientside https://github.com/wekan/wekan/tree/main/client/components subscribes to those
+  pubsub https://github.com/wekan/wekan/tree/main/server/publications or calls meteor methods at https://github.com/wekan/wekan/tree/main/models
+- You should not include any data user is not allowed to see. Not to webpage text, not to websockets/PubSub, etc.
+- Check permissions and sanitize before allowing some change, because someone could modify content of input field, PubSub/websocket data, etc.
+- It is not security issue to show some text, that user has permission to see.
+- Do not include password hashes in PubSub https://wekan.github.io/hall-of-fame/userbleed/
+- For Admin:
+  - You can have input field for password https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
+  - You can save password to database https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
+  - Check that only current user or Admin can change password https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
+  - Do not have password hashes in PubSub https://github.com/wekan/wekan/blob/main/server/publications/users.js
+  - Only show Admin Panel to Admin https://github.com/wekan/wekan/blob/main/client/components/settings/settingBody.jade#L3
+- Use Environment variables for any email etc passwords.
+
+## PubSub: Fix that user can not change to Admin
+
+- With PubSub, there is checking, that someone modifying Websockets content, like permission isAdmin, can not change to Admin.
+- https://github.com/wekan/wekan/commit/cbad4cf5943d47b916f64b4582f8ca76a9dfd743
+- https://wekan.github.io/hall-of-fame/adminbleed/
+
+## Permissions and Roles
+
+- For any user permissions, it's best to use Meteor package package https://github.com/Meteor-Community-Packages/meteor-roles .
+- Currently WeKan has custom hardcoded permissions, WeKan does not yet use that meteor-roles package.
+  - Using permissions at WeKan sidebar https://github.com/wekan/wekan/blob/main/client/components/sidebar/sidebar.js#L1854-L1875
+  - List of roles https://github.com/wekan/wekan/wiki/REST-API-Role . Change at board or Admin Panel. Also Organizations/Teams.
+  - Worker role: https://github.com/wekan/wekan/issues/2788
+  - Not implemented yet: Granular Roles https://github.com/wekan/wekan/issues/3022
+- Check is user logged in, with `if (Meteor.user()) {`
+- Check is code running at server `if (Meteor.isServer()) {` or client `if Meteor.isClient()) {` .
+- Here is some authentication code https://github.com/wekan/wekan/blob/main/server/authentication.js
+
+## Environment variables
+
+- For any passwords, use environment variables, those are serverside
+- Do not copy environment variable to public variable that is visible browserside https://github.com/wekan/wekan/blob/main/server/max-size.js
+
+```
+Meteor.startup(() => {
+  if (process.env.HEADER_LOGIN_ID) {
+    Meteor.settings.public.attachmentsUploadMaxSize   = process.env.ATTACHMENTS_UPLOAD_MAX_SIZE;
+    Meteor.settings.public.attachmentsUploadMimeTypes = process.env.ATTACHMENTS_UPLOAD_MIME_TYPES;
+    Meteor.settings.public.avatarsUploadMaxSize       = process.env.AVATARS_UPLOAD_MAX_SIZE;
+```
+
+- For serverside, you can set Meteor.settings.variablename, without text public
+- For WeKan kanban, there is feature for setting board public, it can be viewed by anyone, there is realtime updates. But 
+- Some of those permissions are checked at users.js models at https://github.com/wekan/wekan/tree/main/models
+- Environment variables are used for email server passwords, etc, at all platforms https://github.com/wekan/wekan/commit/a781c0e7dcfdbe34c1483ee83cec12455b7026f7
+
+## Escape HTML comment tags so that HTML comments are visible
+
+- Someone reported, that it is problem that content of HTML comments in edit mode, are not visible at at view mode, so this makes HTML comments visible.
+- https://github.com/wekan/wekan/commit/167863d95711249e69bb3511175d73b34acbbdb3
+- https://wekan.github.io/hall-of-fame/invisiblebleed/
+
+## Attachments: XSS in filename is sanitized
+
+- https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
+- https://wekan.github.io/hall-of-fame/filebleed/
+
+## Brute force login protection
+
+- https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d
+- https://github.com/wekan/wekan/tree/main/packages/wekan-accounts-lockout
 
 ### Sandstorm Wekan Security
 
@@ -105,12 +195,6 @@ a security issue, we'd like to know about it, and also how to fix it:
 
 Typical already known or "no impact" bugs such as:
 
-- Brute force password guessing. Currently there is
-  [brute force protection with eluck:accounts-lockout](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v080-2018-04-04-wekan-release).
-- Security issues related to that Wekan uses Meteor 1.6.0.1 related packages, and upgrading to newer
-  Meteor 1.6.1 is complicated process that requires lots of changes to many dependency packages.
-  Upgrading [has been tried many times, spending a lot of time](https://github.com/meteor/meteor/issues/9609)
-  but there still is issues. Helping with package upgrades is very welcome.
 - [Wekan API old tokens not replaced correctly](https://github.com/wekan/wekan/issues/1437)
 - Missing Cookie flags on non-session cookies or 3rd party cookies
 - Logout CSRF
