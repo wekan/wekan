@@ -108,6 +108,7 @@ A:
   - You can have input field for password https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
   - You can save password to database https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
   - Check that only current user or Admin can change password https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
+    - Note that currentUser uses code like Meteor.user() in .js file
   - Do not have password hashes in PubSub https://github.com/wekan/wekan/blob/main/server/publications/users.js
   - Only show Admin Panel to Admin https://github.com/wekan/wekan/blob/main/client/components/settings/settingBody.jade#L3
 - Use Environment variables for any email etc passwords.
