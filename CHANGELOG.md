@@ -52,6 +52,8 @@ and fixed the following bugs:
   Thanks to xet7.
 - [Fix LDAP login](https://github.com/wekan/wekan/pull/5159).
   Thanks to faburem.
+- [Fix can't use card template](https://github.com/wekan/wekan/pull/5161).
+  Thanks to faburem.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
