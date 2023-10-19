@@ -248,10 +248,10 @@
   padding-top: 10px;
 }
 @media screen and (min-width: 801px) {
-  .card-details-maximized {
+  .card-details {
     top: 97px;
-    left: 0;
-    right:0;
+    left: calc(50% - (600px / 2));
+    width: 600px;
     bottom: 0;
     position: fixed;
     resize: both;
@@ -270,6 +270,10 @@
     box-shadow: 0 0 7px 0 #b3b3b3;
     transition: flex-basis 0.1s;
     box-sizing: border-box;
+    top: 97px;
+    left: 0px;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
     float: left;
   }
   .card-details-maximized .card-details-left {
