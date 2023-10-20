@@ -54,6 +54,8 @@ and fixed the following bugs:
   Thanks to faburem.
 - [Fix can't use card template](https://github.com/wekan/wekan/pull/5161).
   Thanks to faburem.
+- [Open card details always in the middle of the screen](https://github.com/wekan/wekan/pull/5168).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
