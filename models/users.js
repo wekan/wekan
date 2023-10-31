@@ -1325,6 +1325,14 @@ if (Meteor.isServer) {
       check(importUsernames, Array);
       check(userOrgsArray, Array);
       check(userTeamsArray, Array);
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (fullname.includes('/') ||
+         username.includes('/') ||
+         email.includes('/') ||
+         initials.includes('/')) {
+         return false;
+      }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         const nUsersWithUsername = ReactiveCache.getUsers({
           username,
@@ -1365,6 +1373,12 @@ if (Meteor.isServer) {
     setUsername(username, userId) {
       check(username, String);
       check(userId, String);
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (username.includes('/') ||
+         userId.includes('/')) {
+         return false;
+      }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         const nUsersWithUsername = ReactiveCache.getUsers({
           username,
@@ -1383,6 +1397,12 @@ if (Meteor.isServer) {
     setEmail(email, userId) {
       check(email, String);
       check(username, String);
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (username.includes('/') ||
+         email.includes('/')) {
+         return false;
+      }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
@@ -1417,6 +1437,13 @@ if (Meteor.isServer) {
       check(username, String);
       check(email, String);
       check(userId, String);
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (username.includes('/') ||
+         email.includes('/') ||
+         userId.includes('/')) {
+         return false;
+      }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
@@ -1436,6 +1463,12 @@ if (Meteor.isServer) {
       check(email, String);
       check(verified, Boolean);
       check(userId, String);
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (email.includes('/') ||
+         userId.includes('/')) {
+         return false;
+      }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.update(userId, {
           $set: {
@@ -1452,6 +1485,12 @@ if (Meteor.isServer) {
     setInitials(initials, userId) {
       check(initials, String);
       check(userId, String);
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (initials.includes('/') ||
+         userId.includes('/')) {
+         return false;
+      }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.update(userId, {
           $set: {
@@ -1464,7 +1503,12 @@ if (Meteor.isServer) {
     inviteUserToBoard(username, boardId) {
       check(username, String);
       check(boardId, String);
-
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (username.includes('/') ||
+          boardId.includes('/')) {
+         return false;
+      }
       const inviter = ReactiveCache.getCurrentUser();
       const board = ReactiveCache.getBoard(boardId);
       const allowInvite =
@@ -1507,6 +1551,12 @@ if (Meteor.isServer) {
         // Set in lowercase email before creating account
         const email = username.toLowerCase();
         username = email.substring(0, posAt);
+        // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+        // Thanks to mc-marcy and xet7 !
+        if (username.includes('/') ||
+           email.includes('/')) {
+           return false;
+        }
         const newUserId = Accounts.createUser({
           username,
           email,
@@ -1687,6 +1737,16 @@ if (Meteor.isServer) {
           verified: true,
         },
       ];
+
+
+      // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
+      // Thanks to mc-marcy and xet7 !
+      if (user.username.includes('/') ||
+         email.includes('/')) {
+         return false;
+      }
+
+
       const initials = user.services.oidc.fullname
         .split(/\s+/)
         .reduce((memo, word) => {
