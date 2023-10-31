@@ -51,6 +51,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/75de7b119d868e0e1ef650d7d795b7349b1c9281),
   [Part 1](https://github.com/wekan/wekan/commit/974c17723705d58b660154bb2fd8997c018ddddc).
   Thanks to developers of dependencies.
+- [Docker base image to Ubuntu 23.10](https://github.com/wekan/wekan/commit/0f99f22fa5bfc7d3764de2a7f34165f699571449).
+  Thanks to Ubuntu developers.
 
 and fixed the following bugs:
 
