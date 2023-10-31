@@ -22,7 +22,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Fix Security issue: Hyperlink injection](https://github.com/wekan/wekan/commit/4fe168b03b1f4303c2b117d24ad63ca9f40a02d2).
+  Thanks to mc-marcy and xet7.
+
+and adds the following new features:
 
 - [Feature: Convert to Markdown button at editor of Card Description and Comment. Useful when there is no WYSIWYG editor](https://github.com/wekan/wekan/commit/069e2c69b2e00e402628a3123164af257533ddc6).
   Thanks to BabyFnord and xet7.
