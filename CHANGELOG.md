@@ -58,6 +58,8 @@ and adds the following updates:
   Thanks to developers of dependencies.
 - [Docker base image to Ubuntu 23.10](https://github.com/wekan/wekan/commit/0f99f22fa5bfc7d3764de2a7f34165f699571449).
   Thanks to Ubuntu developers.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/8323649cf098388684ea5e690dcb233171440345).
+  Thanks to zodern.
 
 and fixed the following bugs:
 
