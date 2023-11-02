@@ -22,7 +22,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated Snap Candidate MongoDB to 6.0.11](https://github.com/wekan/wekan/commit/ff4c8a5d23d9315ad12970c35cf2928b204b073b).
+  Thanks to MongoDB developers.
+
+and fixes the following bugs:
 
 -  [Fix Windows build bundle script](https://github.com/wekan/wekan/commit/720d4223e21da7fa6651dcb51def81a8e081750d).
    Thanks to xet7.
