@@ -60,6 +60,8 @@ and adds the following updates:
   Thanks to Ubuntu developers.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/8323649cf098388684ea5e690dcb233171440345).
   Thanks to zodern.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/b54d17467cd2868091c52240594630923875946c).
+  Thanks to exceljs developers.
 
 and fixed the following bugs:
 
