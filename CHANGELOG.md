@@ -36,6 +36,9 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v7.11 2023-11-02 WeKan ® release
 
+Known issues: At some non-amd64 platforms, Node.js 14.x may show segmentation fault.
+This will be fixed when upgrading to Node.js 18.x or newer works.
+
 This release fixes the following CRITICAL SECURITY ISSUES:
 
 - [Fix Security issue: Hyperlink injection](https://github.com/wekan/wekan/commit/4fe168b03b1f4303c2b117d24ad63ca9f40a02d2).
