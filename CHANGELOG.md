@@ -29,8 +29,10 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
--  [Fix Windows build bundle script](https://github.com/wekan/wekan/commit/720d4223e21da7fa6651dcb51def81a8e081750d).
-   Thanks to xet7.
+- [Fix Add List button too wide at themes: Clearblue, Modern, Exodark](https://github.com/wekan/wekan/commit/b756150f76c711cf93aa486a55d0e3340f558c01).
+  Thanks to xet7.
+- [Fix Windows build bundle script](https://github.com/wekan/wekan/commit/720d4223e21da7fa6651dcb51def81a8e081750d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
