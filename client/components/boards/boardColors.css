@@ -1060,8 +1060,13 @@
 .board-color-clearblue .swimlane {
   background: none;
 }
-.board-color-clearblue .list:first-child {
-  margin-left: 15px;
+.board-color-clearblue .swimlane .list:first-child {
+  min-width: 20px;
+  margin-left: 0px;
+  border-left: none;
+}
+.board-color-clearblue .swimlane .list:nth-child {
+  flex: 0 0 265px;
 }
 .board-color-clearblue .list {
   background: rgba(255,255,255,0.35);
@@ -1073,8 +1078,10 @@
   background: rgba(255,255,255,0.1);
   height: min-content;
   flex: unset;
-  width: 270px;
   padding-bottom: 16px;
+  min-width: 20px;
+  margin-left: 0px;
+  border-left: none;
 }
 .board-color-clearblue .list.list-composer .open-list-composer {
   border-radius: 7px;
@@ -1082,6 +1089,7 @@
   padding: 7px 10px;
   display: block;
 }
+.board-color-clearblue .list.list-composer .open-list-composer:hover i,
 .board-color-clearblue .list.list-composer .open-list-composer:hover {
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   background: rgba(255,255,255,0.7);
@@ -1452,12 +1460,17 @@
   background: none;
   box-shadow: none;
 }
-.board-color-modern .list:first-child {
-  margin-left: 5px;
+.board-color-modern .swimlane .list:first-child {
+  min-width: 20px;
+  margin-left: 0px;
+  border-left: none;
 }
+.board-color-modern .swimlane .list:nth-child {
+  flex: 0 0 265px;
+ }
 .board-color-modern .list.list-composer.js-list-composer {
   transition: all 0.3s ease;
-  min-width: 80px;
+  min-width: 20px;
 }
 .board-color-modern .open-list-composer.js-open-inlined-form:hover {
   color: #222;
@@ -2100,6 +2113,18 @@
   background: #222;
   box-shadow: inset 15px 15px 37px #1c1c1c, inset -15px -15px 37px #282828;
   border: none;
+}
+.board-color-exodark .swimlane .list:first-child {
+  min-width: 20px;
+  margin-left: 0px;
+  border-left: none;
+}
+.board-color-exodark .swimlane .list:nth-child {
+  flex: 0 0 265px;
+}
+.board-color-exodark .list.list-composer.js-list-composer {
+  transition: all 0.3s ease;
+  min-width: 0;
 }
 .board-color-exodark .list-header {
   border-top-right-radius: 15px;
