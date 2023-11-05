@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Upgraded to Meteor 2.14-beta.0](https://github.com/wekan/wekan/commit/55903472aae0032a49f03529cc9013007a20475e).
+  Thanks to Meteor developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.12 2023-11-02 WeKan ® release
 
 This release adds the following updates:
