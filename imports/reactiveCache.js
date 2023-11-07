@@ -1410,6 +1410,28 @@ ReactiveMiniMongoIndex = {
       }
     }
     return ret;
+  },
+  getActivityWithId(activityId, addSelect = {}, options) {
+    let ret = []
+    if (activityId) {
+      const select = {addSelect, options}
+      if (!this.__activityWithId) {
+        this.__activityWithId = new DataCache(_select => {
+          const __select = EJSON.parse(_select);
+          const _activities = ReactiveCache.getActivities(
+            { _id: { $exists: true },
+              ...__select.addSelect,
+            }, __select.options);
+          const _ret = _.indexBy(_activities, '_id')
+          return _ret;
+        });
+      }
+      ret = this.__activityWithId.get(EJSON.stringify(select));
+      if (ret) {
+        ret = ret[activityId];
+      }
+    }
+    return ret;
   }
 }
 

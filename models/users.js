@@ -1,4 +1,4 @@
-import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
@@ -853,7 +853,7 @@ Users.helpers({
       // this preserves their db sort order for editing
       notification.dbIndex = index;
       if (!notification.activityObj && typeof(notification.activity) === 'string') {
-        notification.activityObj = ReactiveCache.getActivity(notification.activity);
+        notification.activityObj = ReactiveMiniMongoIndex.getActivityWithId(notification.activity);
       }
     }
     // this sorts them newest to oldest to match Trello's behavior
