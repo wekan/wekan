@@ -852,7 +852,9 @@ Users.helpers({
       const notification = notifications[index];
       // this preserves their db sort order for editing
       notification.dbIndex = index;
-      notification.activity = ReactiveCache.getActivity(notification.activity);
+      if (!notification.activityObj && typeof(notification.activity) === 'string') {
+        notification.activityObj = ReactiveCache.getActivity(notification.activity);
+      }
     }
     // this sorts them newest to oldest to match Trello's behavior
     notifications.reverse();
