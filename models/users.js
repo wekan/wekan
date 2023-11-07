@@ -856,9 +856,9 @@ Users.helpers({
         notification.activityObj = ReactiveMiniMongoIndex.getActivityWithId(notification.activity);
       }
     }
-    // this sorts them newest to oldest to match Trello's behavior
-    notifications.reverse();
-    return notifications;
+    // newest first. don't use reverse() because it changes the array inplace, so sometimes the array is reversed twice and oldest items at top again
+    const ret = notifications.toReversed();
+    return ret;
   },
 
   hasShowDesktopDragHandles() {
