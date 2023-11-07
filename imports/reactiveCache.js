@@ -1321,9 +1321,63 @@ ReactiveCache = {
   },
 }
 
+// Server isn't reactive, so search for the data always.
+ReactiveMiniMongoIndexServer = {
+  getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
+    let ret = []
+    if (parentId) {
+      ret = ReactiveCache.getCards(
+        { parentId,
+          ...addSelect,
+        }, options);
+    }
+    return ret;
+  },
+  getChecklistsWithCardId(cardId, addSelect = {}, options = {}) {
+    let ret = []
+    if (cardId) {
+      ret = ReactiveCache.getChecklists(
+        { cardId,
+          ...addSelect,
+        }, options);
+    }
+    return ret;
+  },
+  getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options = {}) {
+    let ret = []
+    if (checklistId) {
+      ret = ReactiveCache.getChecklistItems(
+        { checklistId,
+          ...addSelect,
+        }, options);
+    }
+    return ret;
+  },
+  getCardCommentsWithCardId(cardId, addSelect = {}, options = {}) {
+    let ret = []
+    if (cardId) {
+      ret = ReactiveCache.getCardComments(
+        { cardId,
+          ...addSelect,
+        }, options);
+    }
+    return ret;
+  },
+  getActivityWithId(activityId, addSelect = {}, options = {}) {
+    let ret = []
+    if (activityId) {
+      ret = ReactiveCache.getActivities(
+        { _id: activityId,
+          ...addSelect,
+        }, options);
+    }
+    return ret;
+  }
+}
+
 // Client side little MiniMongo DB "Index"
-ReactiveMiniMongoIndex = {
-  getSubTasksWithParentId(parentId, addSelect = {}, options) {
+ReactiveMiniMongoIndexClient = {
+  getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
     let ret = []
     if (parentId) {
       const select = {addSelect, options}
@@ -1345,7 +1399,7 @@ ReactiveMiniMongoIndex = {
     }
     return ret;
   },
-  getChecklistsWithCardId(cardId, addSelect = {}, options) {
+  getChecklistsWithCardId(cardId, addSelect = {}, options = {}) {
     let ret = []
     if (cardId) {
       const select = {addSelect, options}
@@ -1367,7 +1421,7 @@ ReactiveMiniMongoIndex = {
     }
     return ret;
   },
-  getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options) {
+  getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options = {}) {
     let ret = []
     if (checklistId) {
       const select = {addSelect, options}
@@ -1384,12 +1438,18 @@ ReactiveMiniMongoIndex = {
       }
       ret = this.__checklistItemsWithId.get(EJSON.stringify(select));
       if (ret) {
+        if (Meteor.isServer) {
+          ret[checklistId] = ReactiveCache.getChecklistItems(
+            {checklistId: checklistId,
+              ...addSelect
+            }, options);
+        }
         ret = ret[checklistId] || [];
       }
     }
     return ret;
   },
-  getCardCommentsWithCardId(cardId, addSelect = {}, options) {
+  getCardCommentsWithCardId(cardId, addSelect = {}, options = {}) {
     let ret = []
     if (cardId) {
       const select = {addSelect, options}
@@ -1411,7 +1471,7 @@ ReactiveMiniMongoIndex = {
     }
     return ret;
   },
-  getActivityWithId(activityId, addSelect = {}, options) {
+  getActivityWithId(activityId, addSelect = {}, options = {}) {
     let ret = []
     if (activityId) {
       const select = {addSelect, options}
@@ -1430,6 +1490,60 @@ ReactiveMiniMongoIndex = {
       if (ret) {
         ret = ret[activityId];
       }
+    }
+    return ret;
+  }
+}
+
+// global Reactive MiniMongo Index Cache class to avoid big overhead while searching for the same data often again
+// This class calls 2 implementation, for server and client code
+//
+// having this class here has several advantages:
+// - The Programmer hasn't to care about in which context he call's this class
+// - having all queries together in 1 class to make it possible to see which queries in Wekan happens, e.g. with console.log
+ReactiveMiniMongoIndex = {
+  getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveMiniMongoIndexServer.getSubTasksWithParentId(parentId, addSelect, options);
+    } else {
+      ret = ReactiveMiniMongoIndexClient.getSubTasksWithParentId(parentId, addSelect, options);
+    }
+    return ret;
+  },
+  getChecklistsWithCardId(cardId, addSelect = {}, options = {}) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveMiniMongoIndexServer.getChecklistsWithCardId(cardId, addSelect, options);
+    } else {
+      ret = ReactiveMiniMongoIndexClient.getChecklistsWithCardId(cardId, addSelect, options);
+    }
+    return ret;
+  },
+  getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options = {}) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveMiniMongoIndexServer.getChecklistItemsWithChecklistId(checklistId, addSelect, options);
+    } else {
+      ret = ReactiveMiniMongoIndexClient.getChecklistItemsWithChecklistId(checklistId, addSelect, options);
+    }
+    return ret;
+  },
+  getCardCommentsWithCardId(cardId, addSelect = {}, options = {}) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveMiniMongoIndexServer.getCardCommentsWithCardId(cardId, addSelect, options);
+    } else {
+      ret = ReactiveMiniMongoIndexClient.getCardCommentsWithCardId(cardId, addSelect, options);
+    }
+    return ret;
+  },
+  getActivityWithId(activityId, addSelect = {}, options = {}) {
+    let ret;
+    if (Meteor.isServer) {
+      ret = ReactiveMiniMongoIndexServer.getActivityWithId(activityId, addSelect, options);
+    } else {
+      ret = ReactiveMiniMongoIndexClient.getActivityWithId(activityId, addSelect, options);
     }
     return ret;
   }
