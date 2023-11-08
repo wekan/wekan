@@ -21,6 +21,9 @@
   font-size: 25px;
   padding: 10px;
 }
+.sidebar-xmark:hover {
+  background: rgba(0,0,0,0.15);
+}
 .sidebar .sidebar-content {
   padding: 12px;
   margin-bottom: 1.6em;
