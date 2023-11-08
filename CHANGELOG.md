@@ -27,6 +27,11 @@ This release adds the following updates:
 - [Upgraded to Meteor 2.14-beta.0](https://github.com/wekan/wekan/commit/55903472aae0032a49f03529cc9013007a20475e).
   Thanks to Meteor developers.
 
+and fixes the following bugs:
+
+- [Removed double edit text from card description](https://github.com/wekan/wekan/commit/972981a57997fdaeb5202a3c588cd9eb83516360).
+  Thanks to derbolle and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.12 2023-11-02 WeKan ® release
