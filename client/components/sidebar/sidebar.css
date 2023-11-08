@@ -16,9 +16,10 @@
 }
 .sidebar-xmark {
   position: absolute;
-  right: 10px;
-  top: 5px;
+  right: 0px;
+  top: 0px;
   font-size: 25px;
+  padding: 10px;
 }
 .sidebar .sidebar-content {
   padding: 12px;
