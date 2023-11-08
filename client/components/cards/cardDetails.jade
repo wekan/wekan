@@ -529,8 +529,6 @@ template(name="cardDetails")
                 if getDescription
                   +viewer
                     = getDescription
-                else
-                  | {{_ 'edit'}}
                 if (hasUnsavedValue 'cardDescription' _id)
                   p.quiet
                     | {{_ 'unsaved-description'}}
