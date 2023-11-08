@@ -527,9 +527,10 @@ template(name="cardDetails")
               if currentBoard.allowsDescriptionText
                 a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
                   i.fa.fa-pencil-square-o
-                if getDescription
-                  +viewer
-                    = getDescription
+                a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
+                  if getDescription
+                    +viewer
+                      = getDescription
                 if (hasUnsavedValue 'cardDescription' _id)
                   p.quiet
                     | {{_ 'unsaved-description'}}
