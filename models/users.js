@@ -1,4 +1,4 @@
-import { ReactiveCache } from '/imports/reactiveCache';
+import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
@@ -852,11 +852,13 @@ Users.helpers({
       const notification = notifications[index];
       // this preserves their db sort order for editing
       notification.dbIndex = index;
-      notification.activity = ReactiveCache.getActivity(notification.activity);
+      if (!notification.activityObj && typeof(notification.activity) === 'string') {
+        notification.activityObj = ReactiveMiniMongoIndex.getActivityWithId(notification.activity);
+      }
     }
-    // this sorts them newest to oldest to match Trello's behavior
-    notifications.reverse();
-    return notifications;
+    // newest first. don't use reverse() because it changes the array inplace, so sometimes the array is reversed twice and oldest items at top again
+    const ret = notifications.toReversed();
+    return ret;
   },
 
   hasShowDesktopDragHandles() {
