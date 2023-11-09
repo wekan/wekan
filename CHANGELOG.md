@@ -31,6 +31,8 @@ and fixes the following bugs:
 
 - [Removed double edit text from card description](https://github.com/wekan/wekan/commit/972981a57997fdaeb5202a3c588cd9eb83516360).
   Thanks to derbolle and xet7.
+- [Fix Notifications are identical until one is marked read](https://github.com/wekan/wekan/pull/5189).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
