@@ -1891,7 +1891,8 @@ if (Meteor.isServer) {
     // Avatar URLs from CollectionFS to Meteor-Files, at users collection avatarUrl field:
     Users.find({ "profile.avatarUrl": { $regex: "/cfs/files/avatars/" } }).forEach(function (doc) {
         doc.profile.avatarUrl = doc.profile.avatarUrl.replace("/cfs/files/avatars/", "/cdn/storage/avatars/");
-      Users.save(doc);
+      // Try to fix Users.save is not a fuction, by commenting it out:
+      //Users.save(doc);
     });
     /* TODO: Optionally, for additional complexity:
        a) Support SubURLs with parthname from ROOT_URL
