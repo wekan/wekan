@@ -28,6 +28,8 @@ This release fixes the following bugs:
   Thanks to kovacs-andras and xet7.
 - [Commented out links at My Cards Table, because they unexpectly caused to go elsewhere from current view](https://github.com/wekan/wekan/commit/2c36fe3d45a0f95f8ba18526ffd1dc230f6f46a8).
   Thanks to xet7.
+- [Add more Docker Labels to Dockerfile](https://github.com/wekan/wekan/commit/52e76c5496b6621916b61f35d5b68687685e0809).
+  Thanks to mueller-ma and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
