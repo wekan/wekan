@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# v7.16 2023-11-09 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix users.save is not a function](https://github.com/wekan/wekan/commit/42ece21fa14113a28792bf97dfd899a064f0ea56).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.15 2023-11-09 WeKan ® release
 
 This release fixes the following bugs:
