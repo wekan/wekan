@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix missing profile/avatar pictures](https://github.com/wekan/wekan/commit/4e97a5351a4ac715d21503a129f12fe5bf3f4016).
+  Thanks to kovacs-andras and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.14 2023-11-09 WeKan ® release
 
 This release adds the following updates:
