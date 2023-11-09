@@ -20,6 +20,15 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix move card rule on checklist complete doesn't work, with ReactiveMiniMongoIndex for Server-Side](https://github.com/wekan/wekan/pull/5194).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.16 2023-11-09 WeKan ® release
 
 This release fixes the following bugs:
