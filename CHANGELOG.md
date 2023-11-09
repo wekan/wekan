@@ -26,6 +26,8 @@ This release fixes the following bugs:
 
 - [Fix missing profile/avatar pictures](https://github.com/wekan/wekan/commit/4e97a5351a4ac715d21503a129f12fe5bf3f4016).
   Thanks to kovacs-andras and xet7.
+- [Commented out links at My Cards Table, because they unexpectly caused to go elsewhere from current view](https://github.com/wekan/wekan/commit/2c36fe3d45a0f95f8ba18526ffd1dc230f6f46a8).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
