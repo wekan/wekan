@@ -1,5 +1,7 @@
 FROM --platform=linux/amd64 ubuntu:23.10 as wekan
-LABEL maintainer="wekan"
+LABEL maintainer="wekan" \
+      org.opencontainers.image.ref.name="ubuntu" \
+      org.opencontainers.image.version="23.10"
 
 # 2022-09-04:
 # - above "--platform=linux/amd64 ubuntu:22.04 as wekan" is needed to build Dockerfile
