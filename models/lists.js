@@ -453,8 +453,19 @@ if (Meteor.isServer) {
     });
   });
 
-  Lists.after.update((userId, doc) => {
-    if (doc.archived) {
+  Lists.after.update((userId, doc, fieldNames) => {
+    if (fieldNames.includes('title')) {
+      Activities.insert({
+        userId,
+        type: 'list',
+        activityType: 'changedListTitle',
+        listId: doc._id,
+        boardId: doc.boardId,
+        // this preserves the name so that the activity can be useful after the
+        // list is deleted
+        title: doc.title,
+      });
+    } else if (doc.archived)  {
       Activities.insert({
         userId,
         type: 'list',
@@ -465,7 +476,7 @@ if (Meteor.isServer) {
         // list is deleted
         title: doc.title,
       });
-    } else {
+    } else if (fieldNames.includes('archived'))  {
       Activities.insert({
         userId,
         type: 'list',
