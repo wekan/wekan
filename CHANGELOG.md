@@ -27,6 +27,11 @@ This release adds the following updates:
 - [Updated release scripts](https://github.com/wekan/wekan/commit/d4252f30567665897c6314b578dff1fe294265de).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Add Docker label org.opencontainers.image.source](https://github.com/wekan/wekan/pull/5196).
+  Thanks to mueller-ma.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.17 2023-11-09 WeKan ® release
