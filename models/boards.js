@@ -1845,7 +1845,6 @@ if (Meteor.isServer) {
     if (!_.contains(fieldNames, 'members')) {
       return;
     }
-
     if (modifier.$set) {
       const boardId = doc._id;
       foreachRemovedMember(doc, modifier.$set, memberId => {
@@ -1899,10 +1898,21 @@ if (Meteor.isServer) {
 
   // Add a new activity if we add or remove a member to the board
   Boards.after.update((userId, doc, fieldNames, modifier) => {
+    console.log('board',doc)
+    if (fieldNames.includes('title')) {
+      Activities.insert({
+        userId,
+        type: 'board',
+        activityType: 'changedBoardTitle',
+        boardId: doc._id,
+        // this preserves the name so that the activity can be useful after the
+        // list is deleted
+        title: doc.title,
+      });
+    }
     if (!_.contains(fieldNames, 'members')) {
       return;
     }
-
     // Say hello to the new member
     if (modifier.$push && modifier.$push.members) {
       const memberId = modifier.$push.members.userId;
