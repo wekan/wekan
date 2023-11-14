@@ -371,14 +371,39 @@ if (Meteor.isServer) {
     });
   });
 
-  Swimlanes.after.update((userId, doc) => {
-    if (doc.archived) {
+  Swimlanes.after.update((userId, doc, fieldNames) => {
+    if (fieldNames.includes('title')) {
+      Activities.insert({
+        userId,
+        type: 'swimlane',
+        activityType: 'changedSwimlaneTitle',
+        listId: doc._id,
+        boardId: doc.boardId,
+        // this preserves the name so that the activity can be useful after the
+        // list is deleted
+        title: doc.title,
+      });
+    } else if (doc.archived)  {
       Activities.insert({
         userId,
         type: 'swimlane',
         activityType: 'archivedSwimlane',
-        swimlaneId: doc._id,
+        listId: doc._id,
         boardId: doc.boardId,
+        // this preserves the name so that the activity can be useful after the
+        // list is deleted
+        title: doc.title,
+      });
+    } else if (fieldNames.includes('archived'))  {
+      Activities.insert({
+        userId,
+        type: 'swimlane',
+        activityType: 'restoredSwimlane',
+        listId: doc._id,
+        boardId: doc.boardId,
+        // this preserves the name so that the activity can be useful after the
+        // list is deleted
+        title: doc.title,
       });
     }
   });
