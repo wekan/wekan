@@ -1898,7 +1898,6 @@ if (Meteor.isServer) {
 
   // Add a new activity if we add or remove a member to the board
   Boards.after.update((userId, doc, fieldNames, modifier) => {
-    console.log('board',doc)
     if (fieldNames.includes('title')) {
       Activities.insert({
         userId,
