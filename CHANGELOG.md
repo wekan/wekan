@@ -22,7 +22,12 @@ Note:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added restore list and changing list title to outgoing webhooks](https://github.com/wekan/wekan/pull/5198).
+  Thanks to gustavengstrom.
+
+and adds the following updates:
 
 - [Updated release scripts](https://github.com/wekan/wekan/commit/d4252f30567665897c6314b578dff1fe294265de).
   Thanks to xet7.
