@@ -20,6 +20,20 @@ Note:
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Updated swimlane (restore and changed title) and board (changed title) webhooks](https://github.com/wekan/wekan/pull/5205).
+  Thanks to gustavengstrom.
+
+and fixes the following bugs:
+
+- [Removed console.log](https://github.com/wekan/wekan/commit/0c54c1540c494bb7ffeb61a89cbc9a79c8f05d19).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.18 2023-11-14 WeKan ® release
 
 This release adds the following new features:
