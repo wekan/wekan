@@ -30,7 +30,7 @@ mv wekan-$1-arm64.zip /data/websites/old-releases/raspi3/
 cp wekan-$2-arm64.zip wekan-latest-arm64.zip
 sha256sum wekan-*.zip > SHA256SUMS.txt
 
-#echo "Release: s390x"
+echo "Release: s390x"
 cd /data/websites/releases.wekan.team/s390x
 mkdir -p /data/websites/old-releases/s390x
 mv wekan-$1-s390x.zip /data/websites/old-releases/s390x/
