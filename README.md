@@ -96,6 +96,11 @@ that by providing one-click installation on various platforms.
 We also welcome sponsors for features and bugfixes.
 By working directly with WeKan ® you get the benefit of active maintenance and new features added by growing WeKan ® developer community.
 
+You can [self-host Wekan in one-click](https://app.trydome.io/signup?package=wekan) on Dome:
+
+[![Deploy to Dome](https://trydome.io/button.svg)](https://app.trydome.io/signup?package=wekan)
+
+
 ## Screenshot
 
 [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
