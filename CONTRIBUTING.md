@@ -84,7 +84,7 @@ new release.
 
 Only xet7 has write access to WeKan Organization.
 
-xet7 all PRs before merging.
+xet7 reviews all PRs before merging.
 
 There has been over 300 contributors to WeKan, newest stats at:
 
