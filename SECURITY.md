@@ -1,3 +1,5 @@
+About money, see [CONTRIBUTING.md](CONTRIBUTING.md)
+
 Security is very important to us. If you discover any issue regarding security, please disclose
 the information responsibly by sending an email to support (at) wekan.team using
 [this PGP public key](support-at-wekan.team_pgp-publickey.asc) and not by
