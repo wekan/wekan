@@ -62,12 +62,10 @@ new release.
 
 ## About WeKan Organization https://github.com/wekan
 
-xet7 rarely adds any new members to GitHub Organization,
-because xet7 prefers to check PRs.
+Only xet7 has write access to WeKan Organization.
 
-For some repos (other than https://github.com/wekan/wekan ),
-some contributors have direct commit access.
+xet7 all PRs before merging.
 
-Some contributors are mentioned at this outdated page:
+There has been over 300 contributors to WeKan, newest stats at:
 
-https://github.com/wekan/wekan/wiki/Team
+https://www.openhub.net/p/wekan
