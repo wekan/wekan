@@ -1,3 +1,23 @@
+## About money
+
+Not paid:
+
+- Money is not paid for these, everyone uses their own time at their own cost:
+  - Security reports, see [SECURITY.md](SECURITY.md)
+  - Pull requests
+  - xet7 checking pull requests
+- Public Community Support
+  - https://github.com/wekan/wekan/issues
+
+Paid by customers of WeKan Team:
+
+- Commercial Support at https://wekan.team/commercial-support/
+  - Support
+  - Private Chat
+  - Features
+  - Fixes
+  - Hosting
+
 ## Contributing Security related
 
 For responsible security disclosure, please follow this process:
