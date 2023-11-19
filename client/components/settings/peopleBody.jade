@@ -317,7 +317,7 @@ template(name="editOrgPopup")
       input.js-orgAutoAddUsersWithDomainName(type="text" value=org.orgAutoAddUsersWithDomainName)
     label
       | {{_ 'website'}}
-      input.js-orgWebsite(type="text" value=org.orgWebsite required)
+      input.js-orgWebsite(type="text" value=org.orgWebsite)
     label
       | {{_ 'active'}}
       select.select-active.js-org-isactive
@@ -343,7 +343,7 @@ template(name="editTeamPopup")
       input.js-teamShortName(type="text" value=team.teamShortName required)
     label
       | {{_ 'website'}}
-      input.js-teamWebsite(type="text" value=team.teamWebsite required)
+      input.js-teamWebsite(type="text" value=team.teamWebsite)
     label
       | {{_ 'active'}}
       select.select-active.js-team-isactive
@@ -473,7 +473,7 @@ template(name="newTeamPopup")
       input.js-teamShortName(type="text" value="" required)
     label
       | {{_ 'website'}}
-      input.js-teamWebsite(type="text" value="" required)
+      input.js-teamWebsite(type="text" value="")
     label
       | {{_ 'active'}}
       select.select-active.js-team-isactive
