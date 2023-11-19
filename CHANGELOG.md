@@ -39,6 +39,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix to not anymore show confusing Organization Id and Team Id fields at Admin Panel / People / People / Edit user](https://github.com/wekan/wekan/commit/6405c35bc08fc73657a4111c6fd72a8bd72ded70).
   Thanks to xet7.
+- [Fix to not anymore require website for Organization and Team](https://github.com/wekan/wekan/commit/d4d6a5f96d88a89eb47ee56ba9857e859203a53c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
