@@ -413,7 +413,7 @@ template(name="editUserPopup")
         each value in orgsDatas
           option(value="{{value._id}}") {{value.orgDisplayName}}
       input#jsUserOrgsInPut.js-userOrgs(type="text" value=user.orgsUserBelongs, disabled)
-      input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="text" value=user.orgIdsUserBelongs)
+      input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="hidden" value=user.orgIdsUserBelongs)
     label
       | {{_ 'teams'}}
       i.fa.fa-plus-square#addUserTeam
@@ -423,7 +423,7 @@ template(name="editUserPopup")
         each value in teamsDatas
           option(value="{{value._id}}") {{_ value.teamDisplayName}}
       input#jsUserTeamsInPut.js-userteams(type="text" value=user.teamsUserBelongs, disabled)
-      input#jsUserTeamIdsInPut.js-userteamIds.hide(type="text" value=user.teamIdsUserBelongs)
+      input#jsUserTeamIdsInPut.js-userteamIds.hide(type="hidden" value=user.teamIdsUserBelongs)
 
     hr
     label
