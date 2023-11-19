@@ -37,6 +37,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix typos at oidc_server.js](https://github.com/wekan/wekan/commit/cd51ad75086950f29adf245b6d6c0b43e69da171).
   Thanks to xet7.
+- [Fix to not anymore show confusing Organization Id and Team Id fields at Admin Panel / People / People / Edit user](https://github.com/wekan/wekan/commit/6405c35bc08fc73657a4111c6fd72a8bd72ded70).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
