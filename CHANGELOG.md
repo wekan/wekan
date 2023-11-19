@@ -35,6 +35,8 @@ and fixes the following bugs:
 
 - [Removed console.log](https://github.com/wekan/wekan/commit/0c54c1540c494bb7ffeb61a89cbc9a79c8f05d19).
   Thanks to xet7.
+- [Fix typos at oidc_server.js](https://github.com/wekan/wekan/commit/cd51ad75086950f29adf245b6d6c0b43e69da171).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
