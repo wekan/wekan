@@ -316,13 +316,13 @@ Meteor.methods({
 
     if (defaultBoardId)
     {
-      const board = Boards.findOne(defaultBoardId)
-      const user = Users.findOne({ 'services.oidc.id': oidcUserId })
+      const board = Boards.findOne(defaultBoardId);
+      const user = Users.findOne({ 'services.oidc.id': oidcUserId });
       const memberIndex = _.pluck(board.members, 'userId').indexOf(user._id);
 
       if(board && memberIndex < 0)
       {
-        board.addMember(user._id)
+        board.addMember(user._id);
       }
     }
   }
