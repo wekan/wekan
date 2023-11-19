@@ -576,12 +576,14 @@ Template.editOrgPopup.events({
       .value.trim();
     const orgDesc = templateInstance.find('.js-orgDesc').value.trim();
     const orgShortName = templateInstance.find('.js-orgShortName').value.trim();
+    const orgAutoAddUsersWithDomainName = templateInstance.find('.js-orgAutoAddUsersWithDomainName').value.trim();
     const orgWebsite = templateInstance.find('.js-orgWebsite').value.trim();
     const orgIsActive = templateInstance.find('.js-org-isactive').value.trim() == 'true';
 
     const isChangeOrgDisplayName = orgDisplayName !== org.orgDisplayName;
     const isChangeOrgDesc = orgDesc !== org.orgDesc;
     const isChangeOrgShortName = orgShortName !== org.orgShortName;
+    const isChangeOrgAutoAddUsersWithDomainName = orgAutoAddUsersWithDomainName !== org.orgAutoAddUsersWithDomainName;
     const isChangeOrgWebsite = orgWebsite !== org.orgWebsite;
     const isChangeOrgIsActive = orgIsActive !== org.orgIsActive;
 
@@ -589,6 +591,7 @@ Template.editOrgPopup.events({
       isChangeOrgDisplayName ||
       isChangeOrgDesc ||
       isChangeOrgShortName ||
+      isChangeOrgAutoAddUsersWithDomainName ||
       isChangeOrgWebsite ||
       isChangeOrgIsActive
     ) {
@@ -598,6 +601,7 @@ Template.editOrgPopup.events({
         orgDisplayName,
         orgDesc,
         orgShortName,
+        orgAutoAddUsersWithDomainName,
         orgWebsite,
         orgIsActive,
       );
@@ -920,6 +924,7 @@ Template.newOrgPopup.events({
       .value.trim();
     const orgDesc = templateInstance.find('.js-orgDesc').value.trim();
     const orgShortName = templateInstance.find('.js-orgShortName').value.trim();
+    const orgAutoAddUsersWithDomainName = templateInstance.find('.js-orgAutoAddUsersWithDomainName').value.trim();
     const orgWebsite = templateInstance.find('.js-orgWebsite').value.trim();
     const orgIsActive =
       templateInstance.find('.js-org-isactive').value.trim() == 'true';
@@ -929,6 +934,7 @@ Template.newOrgPopup.events({
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     );
