@@ -962,6 +962,7 @@
   "teams": "Команды",
   "displayName": "Отображаемое название",
   "shortName": "Короткое название",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Вебсайт",
   "person": "Представитель",
   "my-cards": "Мои карточки",

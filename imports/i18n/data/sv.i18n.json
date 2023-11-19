@@ -962,6 +962,7 @@
   "teams": "Grupper",
   "displayName": "Visningsnamn",
   "shortName": "Kortnamn",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Webbsida",
   "person": "Person",
   "my-cards": "Mina kort",

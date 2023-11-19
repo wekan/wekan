@@ -962,6 +962,7 @@
   "teams": "Teams",
   "displayName": "Tên Hiển Thị",
   "shortName": "Tên ngắn",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Website",
   "person": "Cá nhân",
   "my-cards": "Thẻ của tôi",

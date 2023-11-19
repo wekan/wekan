@@ -962,6 +962,7 @@
   "teams": "Equips",
   "displayName": "Nom de visualització",
   "shortName": "Nom curt",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Lloc web",
   "person": "Persona",
   "my-cards": "Les meves fitxes",

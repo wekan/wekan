@@ -962,6 +962,7 @@
   "teams": "Týmy",
   "displayName": "Zobrazovaný název",
   "shortName": "Krátký název",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Webová stránka",
   "person": "Osoba",
   "my-cards": "Moje karty",

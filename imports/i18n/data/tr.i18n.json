@@ -962,6 +962,7 @@
   "teams": "Takımlar",
   "displayName": "Görünen İsim",
   "shortName": "Kısa ad",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Web Site",
   "person": "Kişi",
   "my-cards": "Kartlarım",

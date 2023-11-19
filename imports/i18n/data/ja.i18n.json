@@ -962,6 +962,7 @@
   "teams": "チーム",
   "displayName": "表示名",
   "shortName": "短縮名",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "ウェブサイト",
   "person": "Person",
   "my-cards": "自分のカード",

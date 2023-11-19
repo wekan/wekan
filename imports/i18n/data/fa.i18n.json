@@ -962,6 +962,7 @@
   "teams": "تیم ها",
   "displayName": "نام نمایشی",
   "shortName": "نام کوتاه",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "وبسایت",
   "person": "فرد",
   "my-cards": "کارت های من",

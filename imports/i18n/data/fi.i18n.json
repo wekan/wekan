@@ -962,6 +962,7 @@
   "teams": "Tiimit",
   "displayName": "Näyttönimi",
   "shortName": "Lyhyt nimi",
+  "autoAddUsersWithDomainName": "Lisää automaattisesti käyttäjiä verkkotunnuksen nimellä",
   "website": "Verkkosivusto",
   "person": "Henkilö",
   "my-cards": "Korttini",
