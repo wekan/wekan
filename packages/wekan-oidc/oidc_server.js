@@ -312,19 +312,23 @@ Meteor.methods({
     check(info, Object);
     check(oidcUserId, String);
 
-    const defaultBoardId = process.env.DEFAULT_BOARD_ID || false;
+    const defaultBoardParams = (process.env.DEFAULT_BOARD_ID || '').split(':');
+    const defaultBoardId = defaultBoardParams.shift()
+    if (!defaultBoardId) return
 
-    if (defaultBoardId)
-    {
-      const board = Boards.findOne(defaultBoardId);
-      const user = Users.findOne({ 'services.oidc.id': oidcUserId });
-      const memberIndex = _.pluck(board.members, 'userId').indexOf(user._id);
+    const board = Boards.findOne(defaultBoardId)
+    const userId = Users.findOne({ 'services.oidc.id': oidcUserId })?._id
+    const memberIndex = _.pluck(board?.members, 'userId').indexOf(userId);
+    if(!board || !userId || memberIndex > -1) return
 
-      if(board && memberIndex < 0)
-      {
-        board.addMember(user._id);
-      }
-    }
+    board.addMember(userId)
+    board.setMemberPermission(
+      userId,
+      defaultBoardParams.contains("isAdmin"),
+      defaultBoardParams.contains("isNoComments"),
+      defaultBoardParams.contains("isCommentsOnly"),
+      defaultBoardParams.contains("isWorker")
+    )
   }
 });
 
