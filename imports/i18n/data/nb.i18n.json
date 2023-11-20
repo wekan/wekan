@@ -962,6 +962,7 @@
   "teams": "Team",
   "displayName": "Visningsnavn",
   "shortName": "Initialer",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Nettsted",
   "person": "Person",
   "my-cards": "Mine Kort",

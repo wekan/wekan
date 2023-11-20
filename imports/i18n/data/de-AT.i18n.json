@@ -962,6 +962,7 @@
   "teams": "Teams",
   "displayName": "Anzeigename",
   "shortName": "Kurzname",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Webseite",
   "person": "Person",
   "my-cards": "Meine Karten",

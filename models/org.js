@@ -30,6 +30,14 @@ Org.attachSchema(
       optional: true,
       max: 255,
     },
+    orgAutoAddUsersWithDomainName: {
+      /**
+       * automatically add users with domain name
+       */
+      type: String,
+      optional: true,
+      max: 255,
+    },
     orgWebsite: {
       /**
        * website of the organization
@@ -115,6 +123,7 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
@@ -122,6 +131,7 @@ if (Meteor.isServer) {
         check(orgDisplayName, String);
         check(orgDesc, String);
         check(orgShortName, String);
+        check(orgAutoAddUsersWithDomainName, String);
         check(orgWebsite, String);
         check(orgIsActive, Boolean);
 
@@ -133,6 +143,7 @@ if (Meteor.isServer) {
             orgDisplayName,
             orgDesc,
             orgShortName,
+            orgAutoAddUsersWithDomainName,
             orgWebsite,
             orgIsActive,
           });
@@ -143,12 +154,14 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
       check(orgDisplayName, String);
       check(orgDesc, String);
       check(orgShortName, String);
+      check(orgAutoAddUsersWithDomainName, String);
       check(orgWebsite, String);
       check(orgIsActive, Boolean);
 
@@ -160,6 +173,7 @@ if (Meteor.isServer) {
           orgDisplayName,
           orgDesc,
           orgShortName,
+          orgAutoAddUsersWithDomainName,
           orgWebsite,
           orgIsActive,
         });
@@ -196,6 +210,16 @@ if (Meteor.isServer) {
       }
     },
 
+    setAutoAddUsersWithDomainName(org, orgAutoAddUsersWithDomainName) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+        check(org, Object);
+        check(orgAutoAddUsersWithDomainName, String);
+        Org.update(org, {
+          $set: { orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName },
+        });
+      }
+    },
+
     setOrgIsActive(org, orgIsActive) {
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
@@ -210,6 +234,7 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
@@ -217,6 +242,7 @@ if (Meteor.isServer) {
       check(orgDisplayName, String);
       check(orgDesc, String);
       check(orgShortName, String);
+      check(orgAutoAddUsersWithDomainName, String);
       check(orgWebsite, String);
       check(orgIsActive, Boolean);
       Org.update(org, {
@@ -224,6 +250,7 @@ if (Meteor.isServer) {
           orgDisplayName: orgDisplayName,
           orgDesc: orgDesc,
           orgShortName: orgShortName,
+          orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName,
           orgWebsite: orgWebsite,
           orgIsActive: orgIsActive,
         },
@@ -235,6 +262,7 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
@@ -243,6 +271,7 @@ if (Meteor.isServer) {
         check(orgDisplayName, String);
         check(orgDesc, String);
         check(orgShortName, String);
+        check(orgAutoAddUsersWithDomainName, String);
         check(orgWebsite, String);
         check(orgIsActive, Boolean);
         Org.update(org, {
@@ -250,6 +279,7 @@ if (Meteor.isServer) {
             orgDisplayName: orgDisplayName,
             orgDesc: orgDesc,
             orgShortName: orgShortName,
+            orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName,
             orgWebsite: orgWebsite,
             orgIsActive: orgIsActive,
           },

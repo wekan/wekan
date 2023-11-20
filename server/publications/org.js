@@ -16,6 +16,7 @@ Meteor.publish('org', function(query, limit) {
           orgDisplayName: 1,
           orgDesc: 1,
           orgShortName: 1,
+          orgAutoAddUsersWithDomainName: 1,
           orgWebsite: 1,
           orgTeams: 1,
           createdAt: 1,

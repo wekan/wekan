@@ -962,6 +962,7 @@
   "teams": "Teams",
   "displayName": "Display Name",
   "shortName": "Short Name",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "موقع الكتروني",
   "person": "شخص",
   "my-cards": "My Cards",

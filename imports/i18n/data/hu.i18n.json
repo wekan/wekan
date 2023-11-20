@@ -962,6 +962,7 @@
   "teams": "Csoportok",
   "displayName": "Megjelenítendő név",
   "shortName": "Rövid név",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Weboldal",
   "person": "Személy",
   "my-cards": "Kártyáim",

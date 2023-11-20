@@ -962,6 +962,7 @@
   "teams": "Équipes",
   "displayName": "Nom d'Affichage",
   "shortName": "Nom Court",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Site Web",
   "person": "Personne",
   "my-cards": "Mes Cartes",

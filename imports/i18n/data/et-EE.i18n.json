@@ -962,6 +962,7 @@
   "teams": "Meeskonnad",
   "displayName": "Kuva nimi",
   "shortName": "Lühike nimi",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Veebileht",
   "person": "Isik",
   "my-cards": "Minu kaardid",

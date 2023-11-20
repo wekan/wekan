@@ -962,6 +962,7 @@
   "teams": "团队",
   "displayName": "显示名称",
   "shortName": "简称",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "网站",
   "person": "人员",
   "my-cards": "我的卡片",

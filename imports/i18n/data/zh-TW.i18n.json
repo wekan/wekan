@@ -962,6 +962,7 @@
   "teams": "團隊",
   "displayName": "顯示用名稱",
   "shortName": "排序用名稱",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "網站",
   "person": "人物",
   "my-cards": "我的卡片",

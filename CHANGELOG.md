@@ -26,11 +26,37 @@ This release adds the following new features:
 
 - [Updated swimlane (restore and changed title) and board (changed title) webhooks](https://github.com/wekan/wekan/pull/5205).
   Thanks to gustavengstrom.
+- When user logins, "Automatically add user with the domain name" (at Admin Panel / Organizations) to Organization.
+  [Part 1](https://github.com/wekan/wekan/commit/6e2f84673e98abec07a10c843ab83bed50774b35),
+  [Part 2](https://github.com/wekan/wekan/commit/9bc63669933bd763930add22ad7d05d89566d3ee).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Added governance.md](https://github.com/wekan/wekan/commit/2b1d2222cc900e8c815c30a4d07c897e30ba3636).
+  Thanks to xet7.
+- Updated contributing.md.
+  [Part 1](https://github.com/wekan/wekan/commit/d840cb3be7b1788a4dbdd09ef45690afcf6b3dd4),
+  [Part 2](https://github.com/wekan/wekan/commit/e91e68c48c6392814fbc1362b7ae15ead34e7e47),
+  [Part 3](https://github.com/wekan/wekan/commit/026236edc962a8fc3863b9a4f7dc1d1f5dec3b5c),
+  [Part 4](https://github.com/wekan/wekan/commit/59874d16b9cf95ff05d92dd4d3bbdcb42fd37a94).
+- [Updated security.md](https://github.com/wekan/wekan/commit/f047c6da295c4ab5ddc6d4d0a8137f419d8704d5).
+- Updated code of conduct.md.
+  [Part 1](https://github.com/wekan/wekan/commit/c4293ecd95b9faec846060bcbcb8362cb58a54e6),
+  [Part 2](https://github.com/wekan/wekan/commit/f512047ac6439e53f92359f45ab907c629d225a9).
 
 and fixes the following bugs:
 
 - [Removed console.log](https://github.com/wekan/wekan/commit/0c54c1540c494bb7ffeb61a89cbc9a79c8f05d19).
   Thanks to xet7.
+- [Fix typos at oidc_server.js](https://github.com/wekan/wekan/commit/cd51ad75086950f29adf245b6d6c0b43e69da171).
+  Thanks to xet7.
+- [Fix to not anymore show confusing Organization Id and Team Id fields at Admin Panel / People / People / Edit user](https://github.com/wekan/wekan/commit/6405c35bc08fc73657a4111c6fd72a8bd72ded70).
+  Thanks to xet7.
+- [Fix to not anymore require website for Organization and Team](https://github.com/wekan/wekan/commit/d4d6a5f96d88a89eb47ee56ba9857e859203a53c).
+  Thanks to xet7.
+- [Snap: Disable apparmor="DENIED" in syslog](https://github.com/wekan/wekan/commit/2048975e92152bb1c397b61fc2fd0a8124fade58).
+  Thanks to diegargon, webenefits and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

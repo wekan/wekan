@@ -962,6 +962,7 @@
   "teams": "Тимови",
   "displayName": "Име које се приказује",
   "shortName": "Скраћеница",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Интернет страница",
   "person": "Особа",
   "my-cards": "Моја задужења",

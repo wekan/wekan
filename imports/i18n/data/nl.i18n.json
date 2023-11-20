@@ -962,6 +962,7 @@
   "teams": "Teams",
   "displayName": "Schermnaam",
   "shortName": "Korte naam",
+  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
   "website": "Website",
   "person": "Persoon",
   "my-cards": "Mijn kaarten",
