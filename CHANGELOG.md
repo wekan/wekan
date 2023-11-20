@@ -1,22 +1,17 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-Newest Node.js is at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
+Newest WeKan at these amd64 platforms:
 
-Required versions of Node.js, MongoDB etc are listed at https://wekan.github.io
-Download section.
+- Linux bundle
+- Snap Candidate
+- Docker
+- Kubernetes
 
-Newest WeKan is on platforms: Snap Candidate, Docker, Kubernetes, Source/Bundle. Download section at https://wekan.github.io
+Fixing other platforms In Progress.
 
-In Progress is:
-- Getting newest WeKan to all platforms, fixing any migration and upgrade issues
-- Adding more platforms
-- Developing all paid features and fixes https://wekan.team/commercial-support/
-- More info and news at https://github.com/wekan/wekan/issues/4578#issuecomment-1505909376
-
-Note:
-- Snap Candidate has newest WeKan with MongoDB 6 https://github.com/wekan/wekan/issues/4824#issuecomment-1425753485
-- Snap Beta has old WeKan with MongoDB 5 https://github.com/wekan/wekan/issues/4780#issuecomment-1427625571
-- Snap Stable has old WeKan 6.09 with MongoDB 3.2.2 
+- Install info at Server part of webpage https://wekan.github.io
+- Newest Node.js is at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
+- MongoDB 6.x
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
