@@ -31,6 +31,20 @@ This release adds the following new features:
   [Part 2](https://github.com/wekan/wekan/commit/9bc63669933bd763930add22ad7d05d89566d3ee).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Added governance.md](https://github.com/wekan/wekan/commit/2b1d2222cc900e8c815c30a4d07c897e30ba3636).
+  Thanks to xet7.
+- Updated contributing.md.
+  [Part 1](https://github.com/wekan/wekan/commit/d840cb3be7b1788a4dbdd09ef45690afcf6b3dd4),
+  [Part 2](https://github.com/wekan/wekan/commit/e91e68c48c6392814fbc1362b7ae15ead34e7e47),
+  [Part 3](https://github.com/wekan/wekan/commit/026236edc962a8fc3863b9a4f7dc1d1f5dec3b5c),
+  [Part 4](https://github.com/wekan/wekan/commit/59874d16b9cf95ff05d92dd4d3bbdcb42fd37a94).
+- [Updated security.md](https://github.com/wekan/wekan/commit/f047c6da295c4ab5ddc6d4d0a8137f419d8704d5).
+- Updated code of conduct.md.
+  [Part 1](https://github.com/wekan/wekan/commit/c4293ecd95b9faec846060bcbcb8362cb58a54e6),
+  [Part 2](https://github.com/wekan/wekan/commit/f512047ac6439e53f92359f45ab907c629d225a9).
+
 and fixes the following bugs:
 
 - [Removed console.log](https://github.com/wekan/wekan/commit/0c54c1540c494bb7ffeb61a89cbc9a79c8f05d19).
