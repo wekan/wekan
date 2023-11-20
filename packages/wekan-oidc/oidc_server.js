@@ -313,17 +313,17 @@ Meteor.methods({
     check(oidcUserId, String);
 
     const defaultBoardParams = (process.env.DEFAULT_BOARD_ID || '').split(':');
-    const defaultBoardId = defaultBoardParams.pop()
+    const defaultBoardId = defaultBoardParams.shift()
     if (!defaultBoardId) return
 
     const board = Boards.findOne(defaultBoardId)
-    const user = Users.findOne({ 'services.oidc.id': oidcUserId })
-    const memberIndex = _.pluck(board.members, 'userId').indexOf(user._id);
-    if(!board || memberIndex > -1) return
+    const userId = Users.findOne({ 'services.oidc.id': oidcUserId })?._id
+    const memberIndex = _.pluck(board?.members, 'userId').indexOf(userId);
+    if(!board || !userId || memberIndex > -1) return
 
-    board.addMember(user._id)
+    board.addMember(userId)
     board.setMemberPermission(
-      user._id,
+      userId,
       defaultBoardParams.contains("isAdmin"),
       defaultBoardParams.contains("isNoComments"),
       defaultBoardParams.contains("isCommentsOnly"),
