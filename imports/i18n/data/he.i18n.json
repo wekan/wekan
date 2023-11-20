@@ -962,7 +962,7 @@
   "teams": "צוותים",
   "displayName": "שם התצוגה",
   "shortName": "שם קצר",
-  "autoAddUsersWithDomainName": "Automatically add users with the domain name",
+  "autoAddUsersWithDomainName": "להוסיף אוטומטית משתמשים עם שם התחום",
   "website": "אתר",
   "person": "איש/ה",
   "my-cards": "הכרטיסים שלי",
