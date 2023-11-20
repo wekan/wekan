@@ -26,10 +26,12 @@ This release adds the following new features:
 
 - [Updated swimlane (restore and changed title) and board (changed title) webhooks](https://github.com/wekan/wekan/pull/5205).
   Thanks to gustavengstrom.
-- When user logins, "Automatically add user with the domain name" (at Admin Panel / Organizations) to Organization.
+- When user logins, "Automatically add user with the domain name" (at Admin Panel / Organizations) to Organization. In Progress.
   [Part 1](https://github.com/wekan/wekan/commit/6e2f84673e98abec07a10c843ab83bed50774b35),
   [Part 2](https://github.com/wekan/wekan/commit/9bc63669933bd763930add22ad7d05d89566d3ee).
   Thanks to xet7.
+- [Permissions for default board after OIDC/OAuth2 login](https://github.com/wekan/wekan/pull/5213).
+  Thanks to diegosteiner.
 
 and adds the following updates:
 
