@@ -10,4 +10,40 @@ Managing Big Picture Roadmap wiki pages is easier than hundreds of issues.
 
 ## Platform Updates
 
-...
+Issues related to platforms are being closed, because only list of working platforms is mentioned now
+at WeKan website https://wekan.github.io Install section and at [ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md)
+where is this new text:
+
+> Newest WeKan at amd64 platforms: Linux bundle, Snap Candidate, Docker, Kubernetes. Fixing other platforms In Progress. 
+
+Platform support changes often, because:
+
+- There are many dependencies, that update or break or change often
+- Node.js segfaults at some CPU/OS
+- Some platforms have build errors
+
+Roadmap is to update all existing platforms, and add more platforms.
+
+Upcoming platform upgrades:
+
+- Fix migrations, so that newest WeKan can be released to Snap Stable. (Currently newest is at Snap Candidate).
+
+## WeKan features
+
+Most Meteor WeKan features are listed here:
+
+https://github.com/wekan/wekan/wiki/Deep-Dive-Into-WeKan
+
+Remaining features and all changes are listed here:
+
+https://github.com/wekan/wekan/blob/main/CHANGELOG.md
+
+## Framework updates
+
+WeKan crashes once a week. If someone helps fix that, we can continue using Meteor:
+
+https://forums.meteor.com/t/meteor-application-works-very-slowly-after-1-2-weeks-of-operation/60834
+
+Prototypes for alternative frameworks are listed here:
+
+https://github.com/wekan/wekan/wiki/WeKan-Multiverse-Roadmap
