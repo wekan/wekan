@@ -7,7 +7,8 @@ that is Roadmap of Import/Export/Sync in WeKan. It means, that those issues prog
 updated at that wiki page, when xet7 and other WeKan contributors fix those.
 Many of those issues are In Progress of being fixed and added.
 
-These changes are to speed up development of WeKan. Managing Big Picture Roadmap wiki pages is easier than hundreds of issues.
+These changes are to speed up development of WeKan, and to make it easier to make major changes (internal code changes, not UI changes).
+Managing Big Picture Roadmap wiki pages is easier than hundreds of issues, wiki page is a lot shorter and has much higher information density.
 
 Previous change like this was, when all WeKan branches were merged to one main branch,
 because merging between branches did take a lot of time.
