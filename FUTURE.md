@@ -6,7 +6,11 @@
 that is Roadmap of Import/Export/Sync in WeKan. It means, that those issues progress will be
 updated at that wiki page, when xet7 and other WeKan contributors fix those.
 Many of those issues are In Progress of being fixed and added.
-Managing Big Picture Roadmap wiki pages is easier than hundreds of issues.
+
+These changes are to speed up development of WeKan. Managing Big Picture Roadmap wiki pages is easier than hundreds of issues.
+
+Previous change like this was, when all WeKan branches were merged to one main branch,
+because merging between branches did take a lot of time.
 
 ## Platform Updates
 
