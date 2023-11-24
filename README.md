@@ -2,19 +2,30 @@
 
 # WeKan ® - Open Source kanban
 
+## Downloads
+
+https://wekan.github.io / Install WeKan ® Server
+
 ## Docker Containers
 
+- [GitHub](https://github.com/wekan/wekan/pkgs/container/wekan)
 - [Quay](https://quay.io/repository/wekan/wekan)
 - [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
 
-Other platforms and compatible software versions at https://wekan.github.io Download section.
+docker-compose.yml at https://github.com/wekan/wekan
+
+## Standards
+
+- [WeKan and Standard for Public Code](https://wekan.github.io/standard-for-public-code/) assessment made at 2023-11.
+  Currently Wekan meets 8 out of 16 criteria out of the box.
+  Some others could be met with small changes.
 
 ## Code stats
 
+- [CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
 - [Code Climate](https://codeclimate.com/github/wekan/wekan)
 - [Open Hub](https://www.openhub.net/p/wekan)
 - [OSS Insight](https://ossinsight.io/analyze/wekan/wekan)
-- [CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
 
 ## [Translate WeKan ® at Transifex](https://app.transifex.com/wekan/)
 
