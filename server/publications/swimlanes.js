@@ -1,32 +1,36 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Meteor.methods({
   copySwimlane(swimlaneId, toBoardId) {
     check(swimlaneId, String);
     check(toBoardId, String);
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
-    const toBoard = Boards.findOne(toBoardId);
+    const swimlane = ReactiveCache.getSwimlane(swimlaneId);
+    const toBoard = ReactiveCache.getBoard(toBoardId);
 
+    let ret = false;
     if (swimlane && toBoard) {
       swimlane.copy(toBoardId);
-      return true;
+      ret = true;
     }
 
-    return false;
+    return ret;
   },
 
   moveSwimlane(swimlaneId, toBoardId) {
     check(swimlaneId, String);
     check(toBoardId, String);
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
-    const toBoard = Boards.findOne(toBoardId);
+    const swimlane = ReactiveCache.getSwimlane(swimlaneId);
+    const toBoard = ReactiveCache.getBoard(toBoardId);
 
+    let ret = false;
     if (swimlane && toBoard) {
       swimlane.move(toBoardId);
 
-      return true;
+      ret = true;
     }
 
-    return false;
+    return ret;
   },
 });

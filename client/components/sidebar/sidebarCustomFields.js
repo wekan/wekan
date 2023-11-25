@@ -1,10 +1,12 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 BlazeComponent.extendComponent({
   customFields() {
-    return CustomFields.find({
+    const ret = ReactiveCache.getCustomFields({
       boardIds: { $in: [Session.get('currentBoard')] },
     });
+    return ret;
   },
 
   events() {
@@ -275,7 +277,7 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         'click .js-delete-custom-field': Popup.afterConfirm(
           'deleteCustomField',
           function() {
-            const customField = CustomFields.findOne(this._id);
+            const customField = ReactiveCache.getCustomField(this._id);
             if (customField.boardIds.length > 1) {
               CustomFields.update(customField._id, {
                 $pull: {

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 // exporter maybe is broken since Gridfs introduced, add fs and path
 import { createWorkbook } from './createWorkbook';
 
@@ -33,16 +34,16 @@ class ExporterCardPDF {
         };
         _.extend(
           result,
-          Boards.findOne(this._boardId, {
+          ReactiveCache.getBoard(this._boardId, {
             fields: {
               stars: 0,
             },
           }),
         );
-        result.lists = Lists.find(byBoard, noBoardId).fetch();
-        result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
-        result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
-        result.customFields = CustomFields.find(
+        result.lists = ReactiveCache.getLists(byBoard, noBoardId);
+        result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
+        result.swimlanes = ReactiveCache.getSwimlanes(byBoard, noBoardId);
+        result.customFields = ReactiveCache.getCustomFields(
           {
             boardIds: {
               $in: [this.boardId],
@@ -53,10 +54,10 @@ class ExporterCardPDF {
               boardId: 0,
             },
           },
-        ).fetch();
-        result.comments = CardComments.find(byBoard, noBoardId).fetch();
-        result.activities = Activities.find(byBoard, noBoardId).fetch();
-        result.rules = Rules.find(byBoard, noBoardId).fetch();
+        );
+        result.comments = ReactiveCache.getCardComments(byBoard, noBoardId);
+        result.activities = ReactiveCache.getActivities(byBoard, noBoardId);
+        result.rules = ReactiveCache.getRules(byBoard, noBoardId);
         result.checklists = [];
         result.checklistItems = [];
         result.subtaskItems = [];
@@ -64,37 +65,37 @@ class ExporterCardPDF {
         result.actions = [];
         result.cards.forEach((card) => {
           result.checklists.push(
-            ...Checklists.find({
+            ...ReactiveCache.getChecklists({
               cardId: card._id,
-            }).fetch(),
+            }),
           );
           result.checklistItems.push(
-            ...ChecklistItems.find({
+            ...ReactiveCache.getChecklistItems({
               cardId: card._id,
-            }).fetch(),
+            }),
           );
           result.subtaskItems.push(
-            ...Cards.find({
+            ...ReactiveCache.getCards({
               parentId: card._id,
-            }).fetch(),
+            }),
           );
         });
         result.rules.forEach((rule) => {
           result.triggers.push(
-            ...Triggers.find(
+            ...ReactiveCache.getTriggers(
               {
                 _id: rule.triggerId,
               },
               noBoardId,
-            ).fetch(),
+            ),
           );
           result.actions.push(
-            ...Actions.find(
+            ...ReactiveCache.getActions(
               {
                 _id: rule.actionId,
               },
               noBoardId,
-            ).fetch(),
+            ),
           );
         });
 
@@ -146,8 +147,7 @@ class ExporterCardPDF {
             'profile.avatarUrl': 1,
           },
         };
-        result.users = Users.find(byUserIds, userFields)
-          .fetch()
+        result.users = ReactiveCache.getUsers(byUserIds, userFields)
           .map((user) => {
             // user avatar is stored as a relative url, we export absolute
             if ((user.profile || {}).avatarUrl) {
@@ -621,7 +621,7 @@ class ExporterCardPDF {
   }
 
   canExport(user) {
-    const board = Boards.findOne(this._boardId);
+    const board = ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

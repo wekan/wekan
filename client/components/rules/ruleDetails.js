@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.subscribe('allRules');
@@ -7,24 +9,16 @@ BlazeComponent.extendComponent({
 
   trigger() {
     const ruleId = this.data().ruleId;
-    const rule = Rules.findOne({
-      _id: ruleId.get(),
-    });
-    const trigger = Triggers.findOne({
-      _id: rule.triggerId,
-    });
+    const rule = ReactiveCache.getRule(ruleId.get());
+    const trigger = ReactiveCache.getTrigger(rule.triggerId);
     const desc = trigger.description();
     const upperdesc = desc.charAt(0).toUpperCase() + desc.substr(1);
     return upperdesc;
   },
   action() {
     const ruleId = this.data().ruleId;
-    const rule = Rules.findOne({
-      _id: ruleId.get(),
-    });
-    const action = Actions.findOne({
-      _id: rule.actionId,
-    });
+    const rule = ReactiveCache.getRule(ruleId.get());
+    const action = ReactiveCache.getAction(rule.actionId);
     const desc = action.description();
     const upperdesc = desc.charAt(0).toUpperCase() + desc.substr(1);
     return upperdesc;

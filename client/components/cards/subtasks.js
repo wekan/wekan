@@ -1,22 +1,24 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   addSubtask(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-add-subtask-item');
     const title = textarea.value.trim();
     const cardId = this.currentData().cardId;
-    const card = Cards.findOne(cardId);
+    const card = ReactiveCache.getCard(cardId);
     const sortIndex = -1;
-    const crtBoard = Boards.findOne(card.boardId);
+    const crtBoard = ReactiveCache.getBoard(card.boardId);
     const targetBoard = crtBoard.getDefaultSubtasksBoard();
     const listId = targetBoard.getDefaultSubtasksListId();
 
     //Get the full swimlane data for the parent task.
-    const parentSwimlane = Swimlanes.findOne({
+    const parentSwimlane = ReactiveCache.getSwimlane({
       boardId: crtBoard._id,
       _id: card.swimlaneId,
     });
     //find the swimlane of the same name in the target board.
-    const targetSwimlane = Swimlanes.findOne({
+    const targetSwimlane = ReactiveCache.getSwimlane({
       boardId: targetBoard._id,
       title: parentSwimlane.title,
     });
@@ -66,6 +68,10 @@ BlazeComponent.extendComponent({
     }
   },
 
+  isBoardAdmin() {
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
+
   editSubtask(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-edit-subtask-item');
@@ -102,6 +108,9 @@ BlazeComponent.extendComponent({
 }).register('subtaskItemDetail');
 
 BlazeComponent.extendComponent({
+  isBoardAdmin() {
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
   events() {
     return [
       {
@@ -127,3 +136,14 @@ BlazeComponent.extendComponent({
     ]
   }
 }).register('subtaskActionsPopup');
+
+Template.editSubtaskItemForm.helpers({
+  user() {
+    return ReactiveCache.getUser(this.userId);
+  },
+  isBoardAdmin() {
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
+});
+
+

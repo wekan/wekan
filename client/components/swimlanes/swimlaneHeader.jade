@@ -17,14 +17,16 @@ template(name="swimlaneFixedHeader")
         | {{_ 'list-templates-swimlane'}}
       else if $eq title 'Board Templates'
         | {{_ 'board-templates-swimlane'}}
+      else if $eq title 'Default'
+        | {{_ 'defaultdefault'}}
       else
         +viewer
-          = title
+          | {{isTitleDefault title}}
   .swimlane-header-menu
     unless currentUser.isCommentOnly
       if currentUser.isBoardAdmin
         a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
-        a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+      a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
       unless isTouchScreen
         if isShowDesktopDragHandles
           a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
@@ -33,7 +35,7 @@ template(name="swimlaneFixedHeader")
 
 template(name="editSwimlaneTitleForm")
   .list-composer
-    input.list-name-input.full-line(type="text" value=title autofocus)
+    input.list-name-input.full-line(type="text" value="{{isTitleDefault title}}" autofocus)
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.fa.fa-times-thin.js-close-inlined-form
@@ -41,24 +43,29 @@ template(name="editSwimlaneTitleForm")
 template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
-       li: a.js-set-swimlane-color
-        i.fa.fa-paint-brush
-        | {{_ 'select-color'}}
-    unless this.isTemplateContainer
-      hr
-      ul.pop-over-list
-        li: a.js-close-swimlane
-          i.fa.fa-arrow-right
-          i.fa.fa-archive
-          | {{_ 'archive-swimlane'}}
-      ul.pop-over-list
-        li: a.js-copy-swimlane
-          i.fa.fa-copy
-          | {{_ 'copy-swimlane'}}
-      ul.pop-over-list
-        li: a.js-move-swimlane
-          i.fa.fa-arrow-up
-          | {{_ 'move-swimlane'}}
+       if currentUser.isBoardAdmin
+         li: a.js-set-swimlane-color
+          i.fa.fa-paint-brush
+          | {{_ 'select-color'}}
+       li: a.js-set-swimlane-height
+        i.fa.fa-arrows-v
+        |  {{_ 'set-swimlane-height'}}
+    if currentUser.isBoardAdmin
+      unless this.isTemplateContainer
+        hr
+        ul.pop-over-list
+          li: a.js-close-swimlane
+            i.fa.fa-arrow-right
+            i.fa.fa-archive
+            | {{_ 'archive-swimlane'}}
+        ul.pop-over-list
+          li: a.js-copy-swimlane
+            i.fa.fa-copy
+            | {{_ 'copy-swimlane'}}
+        ul.pop-over-list
+          li: a.js-move-swimlane
+            i.fa.fa-arrow-up
+            | {{_ 'move-swimlane'}}
 
 template(name="swimlaneAddPopup")
   unless currentUser.isCommentOnly
@@ -81,6 +88,20 @@ template(name="setSwimlaneColorPopup")
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+template(name="setSwimlaneHeightPopup")
+  #js-swimlane-height-edit
+    label a) {{_ 'set-swimlane-height-value'}}
+    label b) -1
+      p
+        input.swimlane-height-value(type="number" value="{{ swimlaneHeightValue }}" min="100")
+        input.swimlane-height-apply(type="submit" value="{{_ 'apply'}}")
+        input.swimlane-height-error
+
+template(name="swimlaneHeightErrorPopup")
+  .swimlane-height-invalid
+    p {{_ 'swimlane-height-error-message'}} '&gt;=100'
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="swimlaneDeletePopup")
   p {{_ "swimlane-delete-pop"}}

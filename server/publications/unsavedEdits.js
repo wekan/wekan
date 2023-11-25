@@ -1,5 +1,6 @@
 Meteor.publish('unsaved-edits', function() {
-  return UnsavedEditCollection.find({
+  const ret = UnsavedEditCollection.find({
     userId: this.userId,
   });
+  return ret;
 });

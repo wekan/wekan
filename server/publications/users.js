@@ -3,7 +3,7 @@ Meteor.publish('user-miniprofile', function (usernames) {
 
   // eslint-disable-next-line no-console
   // console.log('usernames:', usernames);
-  return Users.find(
+  const ret = ReactiveCache.getUsers(
     {
       $or: [
         { username: { $in: usernames } },
@@ -16,11 +16,13 @@ Meteor.publish('user-miniprofile', function (usernames) {
         importUsernames: 1,
       },
     },
+    true,
   );
+  return ret;
 });
 
 Meteor.publish('user-admin', function () {
-  return Meteor.users.find(this.userId, {
+  const ret = Meteor.users.find(this.userId, {
     fields: {
       isAdmin: 1,
       teams: 1,
@@ -28,11 +30,12 @@ Meteor.publish('user-admin', function () {
       authenticationMethod: 1,
     },
   });
+  return ret;
 });
 
 Meteor.publish('user-authenticationMethod', function (match) {
   check(match, String);
-  return Users.find(
+  const ret = ReactiveCache.getUsers(
     { $or: [{ _id: match }, { email: match }, { username: match }] },
     {
       fields: {
@@ -41,7 +44,9 @@ Meteor.publish('user-authenticationMethod', function (match) {
         orgs: 1,
       },
     },
+    true,
   );
+  return ret;
 });
 
 // update last connection date and last connection average time (in seconds) for a user
@@ -97,9 +102,9 @@ I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
     //   console.log('connection.Id on close...', connection.id);
     //   // Get all user that were connected to this socket
     //   // And update last connection date and last connection average time (in seconds) for each user
-    //   let lstOfUserThatWasConnectedToThisSocket = Users.find({
+    //   let lstOfUserThatWasConnectedToThisSocket = ReactiveCache.getUsers({
     //     lastconnectedSocketId: connection.id,
-    //   }).fetch();
+    //   }, {}, true).fetch();
     //   if (
     //     lstOfUserThatWasConnectedToThisSocket !== undefined &&
     //     lstOfUserThatWasConnectedToThisSocket.length > 0
@@ -117,16 +122,15 @@ I20221023-09:15:09.602(3)?     at packages/ddp-server/livedata_server.js:1496:18
 
     // update last connected user date (needed for one of the KPI)
     Meteor.server.stream_server.open_sockets.forEach(
-      (socket) =>
-        //console.log('meteor session', socket._meteorSession.userId),
-        socket !== undefined &&
-        socket._meteorSession?.userId !== null &&
-        Users.update(socket._meteorSession.userId, {
-          $set: {
-            lastConnectionDate: new Date(),
-          },
-        }),
-      );
+      (socket) => {
+        if (socket?._meteorSession?.userId) {
+          Users.update(socket._meteorSession.userId, {
+            $set: {
+              lastConnectionDate: new Date(),
+            },
+          });
+        }
+      });
     });
 */
   }

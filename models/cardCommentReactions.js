@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 const commentReactionSchema = new SimpleSchema({
   reactionCodepoint: {
     type: String,
@@ -49,13 +51,13 @@ CardCommentReactions.attachSchema(
 
 CardCommentReactions.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
   fetch: ['boardId'],
 });

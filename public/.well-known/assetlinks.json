@@ -1,0 +1,12 @@
+[ {
+                "relation": ["delegate_permission/common.handle_all_urls"],
+                "target": {
+                        "namespace": "android_app",
+                        "package_name": "team.wekan.boards.twa",
+                        "sha256_cert_fingerprints": [
+                        "AA:AA:ED:7D:4C:9C:5A:A3:B5:DA:10:66:14:34:07:5D:EB:BE:96:CD:82:7B:09:46:47:13:65:29:5B:EA:96:30",
+                        "61:41:86:5B:05:13:9B:64:5F:39:75:5A:16:C3:F2:22:25:6C:DA:74:B9:B0:8C:5F:93:B0:D2:26:65:16:1B:E6"
+                        ]
+                }
+        }
+        ]

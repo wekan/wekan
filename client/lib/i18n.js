@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 // We save the user language preference in the user profile, and use that to set
@@ -5,7 +6,7 @@ import { TAPi18n } from '/imports/i18n';
 // information provided by the browser, and default to english.
 
 Meteor.startup(async () => {
-  let currentUser = Meteor.user();
+  let currentUser = ReactiveCache.getCurrentUser();
   // If we're still logging in, wait (#4967)
   if (!currentUser && Meteor.loggingIn()) {
     await new Promise((resolve) => {
@@ -15,7 +16,7 @@ Meteor.startup(async () => {
         }
       });
     });
-    currentUser = Meteor.user();
+    currentUser = ReactiveCache.getCurrentUser();
   }
   // Select first available language
   const [language] = [

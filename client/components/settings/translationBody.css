@@ -1,0 +1,67 @@
+.main-body {
+  overflow: scroll;
+}
+table {
+  color: #000;
+}
+table td,
+table th {
+  border: 1px solid #d2d0d0;
+  text-align: left;
+  padding: 8px;
+}
+table tr:nth-child(even) {
+  background-color: #ddd;
+}
+.ext-box {
+  display: flex;
+  flex-direction: row;
+  height: 34px;
+}
+.ext-box .ext-box-left {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+.ext-box span {
+  vertical-align: center;
+  line-height: 34px;
+}
+.ext-box input,
+.ext-box button {
+  padding: 0;
+}
+.ext-box button {
+  min-width: 90px;
+}
+.content-wrapper {
+  margin-top: 10px;
+}
+.buttonsContainer {
+  display: flex;
+}
+.buttonsContainer input {
+  margin: 0;
+}
+.buttonsContainer div {
+  margin: auto;
+}
+.more-settings-translation {
+  margin-left: 10px;
+}
+#cancelBtn {
+  margin-left: 5% !important;
+  background: #ffa500;
+  color: #fff;
+}
+#deleteAction {
+  margin-left: 5% !important;
+}
+p.js-translation-language {
+  font-weight: bold;
+  color: #000;
+}
+p.js-translation-text {
+  font-weight: bold;
+  color: #000;
+}

@@ -33,7 +33,8 @@ const getBoardTitleWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
 };
 
 const getBoards = (boardIds) => {
-  return Boards.find({ _id: { $in: boardIds } }).fetch();
+  const ret = ReactiveCache.getBoards({ _id: { $in: boardIds } });
+  return ret;
 };
 Meteor.startup(() => {
   WebApp.connectHandlers.use('/metrics', (req, res, next) => {
@@ -69,7 +70,7 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered users\n';
 
         // Get number of registered user
-        resCount = Users.find({}).count(); // KPI 2
+        resCount = ReactiveCache.getUsers({}).length; // KPI 2
         metricsRes += 'wekan_registeredUsers ' + resCount + '\n';
         resCount = 0;
 
@@ -77,7 +78,7 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered boards\n';
 
         // Get number of registered boards
-        resCount = Boards.find({ archived: false, type: 'board' }).count(); // KPI 3
+        resCount = ReactiveCache.getBoards({ archived: false, type: 'board' }).length; // KPI 3
         metricsRes += 'wekan_registeredboards ' + resCount + '\n';
         resCount = 0;
 
@@ -86,8 +87,8 @@ Meteor.startup(() => {
 
         // Get number of registered boards by registered users
         resCount =
-          Boards.find({ archived: false, type: 'board' }).count() /
-          Users.find({}).count(); // KPI 4
+          ReactiveCache.getBoards({ archived: false, type: 'board' }).length /
+          ReactiveCache.getUsers({}).length; // KPI 4
         metricsRes +=
           'wekan_registeredboardsBysRegisteredUsers ' + resCount + '\n';
         resCount = 0;
@@ -96,11 +97,11 @@ Meteor.startup(() => {
         metricsRes += '# Number of registered boards\n';
 
         // Get board numbers with only one member
-        resCount = Boards.find({
+        resCount = ReactiveCache.getBoards({
           archived: false,
           type: 'board',
           members: { $size: 1 },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_registeredboardsWithOnlyOneMember ' + resCount + '\n';
         resCount = 0;
@@ -118,9 +119,9 @@ Meteor.startup(() => {
         let dateWithXdaysAgo = new Date(
           new Date() - xdays * 24 * 60 * 60 * 1000,
         );
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated5DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -131,9 +132,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 10 days ago
         xdays = 10;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated10DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -144,9 +145,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 20 days ago
         xdays = 20;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated20DaysAgo ' + resCount + '\n';
         resCount = 0;
@@ -157,9 +158,9 @@ Meteor.startup(() => {
         // Get number of users with last connection dated 20 days ago
         xdays = 30;
         dateWithXdaysAgo = new Date(new Date() - xdays * 24 * 60 * 60 * 1000);
-        resCount = Users.find({
+        resCount = ReactiveCache.getUsers({
           lastConnectionDate: { $gte: dateWithXdaysAgo },
-        }).count(); // KPI 5
+        }).length; // KPI 5
         metricsRes +=
           'wekan_usersWithLastConnectionDated30DaysAgo ' + resCount + '\n';
         resCount = 0;

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { runOnServer } from './runOnServer';
 
@@ -39,16 +40,14 @@ runOnServer(function() {
     const loginToken = params.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
-      user = Meteor.users.findOne({
+      user = ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
       adminId = user._id.toString();
-      impersonateDone = ImpersonatedUsers.findOne({
-        adminId: adminId,
-      });
+      impersonateDone = ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
-      user = Users.findOne({
+      user = ReactiveCache.getUser({
         _id: req.userId,
         isAdmin: true,
       });

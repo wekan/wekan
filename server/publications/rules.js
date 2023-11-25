@@ -5,25 +5,33 @@ import Rules from '/models/rules';
 
 Meteor.publish('rules', ruleId => {
   check(ruleId, String);
-  return Rules.find({
-    _id: ruleId,
-  });
+  const ret = ReactiveCache.getRules(
+    {
+      _id: ruleId,
+    },
+    {},
+    true,
+  );
+  return ret;
 });
 
 Meteor.publish('allRules', () => {
-  return Rules.find({});
+  const ret = ReactiveCache.getRules({}, {}, true);
+  return ret;
 });
 
 Meteor.publish('allTriggers', () => {
-  return Triggers.find({});
+  const ret = ReactiveCache.getTriggers({}, {}, true);
+  return ret;
 });
 
 Meteor.publish('allActions', () => {
-  return Actions.find({});
+  const ret = ReactiveCache.getActions({}, {}, true);
+  return ret;
 });
 
 Meteor.publish('rulesReport', () => {
-  const rules = Rules.find();
+  const rules = ReactiveCache.getRules({}, {}, true);
   const actionIds = [];
   const triggerIds = [];
   const boardIds = [];
@@ -34,10 +42,11 @@ Meteor.publish('rulesReport', () => {
     boardIds.push(rule.boardId);
   });
 
-  return [
+  const ret = [
     rules,
-    Actions.find({ _id: { $in: actionIds } }),
-    Triggers.find({ _id: { $in: triggerIds } }),
-    Boards.find({ _id: { $in: boardIds } }, { fields: { title: 1 } }),
+    ReactiveCache.getActions({ _id: { $in: actionIds } }, {}, true),
+    ReactiveCache.getTriggers({ _id: { $in: triggerIds } }, {}, true),
+    ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { title: 1 } }, true),
   ];
+  return ret;
 });

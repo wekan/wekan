@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 
 Triggers = new Mongo.Collection('triggers');
@@ -24,13 +25,13 @@ Triggers.before.update((userId, doc, fieldNames, modifier) => {
 
 Triggers.allow({
   insert(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
 });
 
@@ -40,21 +41,19 @@ Triggers.helpers({
   },
 
   getRule() {
-    return Rules.findOne({
-      triggerId: this._id,
-    });
+    return ReactiveCache.getRule({ triggerId: this._id });
   },
 
   fromList() {
-    return Lists.findOne(this.fromId);
+    return ReactiveCache.getList(this.fromId);
   },
 
   toList() {
-    return Lists.findOne(this.toId);
+    return ReactiveCache.getList(this.toId);
   },
 
   findList(title) {
-    return Lists.findOne({
+    return ReactiveCache.getList({
       title,
     });
   },

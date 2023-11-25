@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 InvitationCodes = new Mongo.Collection('invitation_codes');
 
 InvitationCodes.attachSchema(
@@ -54,7 +56,7 @@ InvitationCodes.attachSchema(
 
 InvitationCodes.helpers({
   author() {
-    return Users.findOne(this.authorId);
+    return ReactiveCache.getUser(this.authorId);
   },
 });
 

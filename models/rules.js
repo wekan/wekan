@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 
 Rules = new Mongo.Collection('rules');
@@ -57,31 +58,31 @@ Rules.mutations({
 
 Rules.helpers({
   getAction() {
-    return Actions.findOne({ _id: this.actionId });
+    return ReactiveCache.getAction(this.actionId);
   },
   getTrigger() {
-    return Triggers.findOne({ _id: this.triggerId });
+    return ReactiveCache.getTrigger(this.triggerId);
   },
   board() {
-    return Boards.findOne({ _id: this.boardId });
+    return ReactiveCache.getBoard(this.boardId);
   },
   trigger() {
-    return Triggers.findOne({ _id: this.triggerId });
+    return ReactiveCache.getTrigger(this.triggerId);
   },
   action() {
-    return Actions.findOne({ _id: this.actionId });
+    return ReactiveCache.getAction(this.actionId);
   },
 });
 
 Rules.allow({
   insert(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
 });
 

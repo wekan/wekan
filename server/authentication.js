@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import Fiber from 'fibers';
 
 Meteor.startup(() => {
@@ -20,7 +21,7 @@ Meteor.startup(() => {
       error.statusCode = 401;
       throw error;
     }
-    const admin = Users.findOne({ _id: userId, isAdmin: true });
+    const admin = ReactiveCache.getUser({ _id: userId, isAdmin: true });
 
     if (admin === undefined) {
       const error = new Meteor.Error('Forbidden', 'Forbidden');
@@ -43,7 +44,7 @@ Meteor.startup(() => {
   // This throws an error if otherReq is false and the user is not an admin
   Authentication.checkAdminOrCondition = function(userId, otherReq) {
     if (otherReq) return;
-    const admin = Users.findOne({ _id: userId, isAdmin: true });
+    const admin = ReactiveCache.getUser({ _id: userId, isAdmin: true });
     if (admin === undefined) {
       const error = new Meteor.Error('Forbidden', 'Forbidden');
       error.statusCode = 403;
@@ -55,7 +56,7 @@ Meteor.startup(() => {
   Authentication.checkBoardAccess = function(userId, boardId) {
     Authentication.checkLoggedIn(userId);
 
-    const board = Boards.findOne({ _id: boardId });
+    const board = ReactiveCache.getBoard(boardId);
     const normalAccess =
       board.permission === 'public' ||
       board.members.some(e => e.userId === userId && e.isActive);

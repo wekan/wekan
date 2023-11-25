@@ -1,5 +1,8 @@
-FROM --platform=linux/amd64 ubuntu:23.04 as wekan
-LABEL maintainer="wekan"
+FROM --platform=linux/amd64 ubuntu:23.10 as wekan
+LABEL maintainer="wekan" \
+      org.opencontainers.image.ref.name="ubuntu" \
+      org.opencontainers.image.version="23.10" \
+      org.opencontainers.image.source="https://github.com/wekan/wekan"
 
 # 2022-09-04:
 # - above "--platform=linux/amd64 ubuntu:22.04 as wekan" is needed to build Dockerfile
@@ -21,16 +24,17 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v14.21.3 \
-    METEOR_RELEASE=METEOR@2.12-beta.2 \
+    NODE_VERSION=v14.21.4 \
+    METEOR_RELEASE=METEOR@2.13.3 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=latest \
+    NPM_VERSION=9.8.1 \
     FIBERS_VERSION=4.0.1 \
     ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
     WITH_API=true \
     RESULTS_PER_PAGE="" \
+    DEFAULT_BOARD_ID="" \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15 \
@@ -185,13 +189,17 @@ RUN \
     ln -sf $(which bsdtar) $(which tar) && \
     \
     # Download nodejs
-    wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
     #---------------------------------------------------------------------------------------------
     \
     # Verify nodejs authenticity
-    grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
-    rm -f SHASUMS256.txt.asc && \
+    grep node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt | shasum -a 256 -c - && \
+    rm -f SHASUMS256.txt && \
+    #grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
+    #rm -f SHASUMS256.txt.asc && \
     \
     # Install Node
     tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
@@ -206,7 +214,7 @@ RUN \
     #paxctl -mC `which node` && \
     \
     # Install Node dependencies. Python path for node-gyp.
-    npm install -g npm@${NPM_VERSION} && \
+    #npm install -g npm@${NPM_VERSION} && \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
@@ -225,11 +233,11 @@ RUN \
     mkdir -p /home/wekan/.npm && \
     chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor && \
     chmod u+w *.json && \
-    gosu wekan:wekan npm install && \
+    gosu wekan:wekan meteor npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     chmod u+w *.json && \
-    gosu wekan:wekan npm install && \
+    gosu wekan:wekan meteor npm install && \
     cd node_modules/fibers && \
     node build.js && \
     cd ../.. && \

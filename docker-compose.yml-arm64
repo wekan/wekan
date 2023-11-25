@@ -1,0 +1,782 @@
+version: '2'
+
+#---------------------------------------------------------------------------------------------------------
+# ==== START ====
+# docker-compose up -d -f docker-compose.yml-arm64
+#---------------------------------------------------------------------------------------------------------
+# Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
+#---------------------------------------------------------------------------------------------------------
+# ==== CREATING USERS AND LOGGING IN TO WEKAN ====
+# https://github.com/wekan/wekan/wiki/Adding-users
+#---------------------------------------------------------------------------------------------------------
+# ==== FORGOT PASSWORD ====
+# https://github.com/wekan/wekan/wiki/Forgot-Password
+#---------------------------------------------------------------------------------------------------------
+# ==== Upgrading Wekan to new version =====
+# NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
+#       see https://github.com/wekan/wekan/wiki/Backup
+# 1) Stop Wekan:
+#      docker-compose stop
+# 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
+#      docker rm wekan-app
+# 3) Get newest docker-compose.yml from https://github.com/wekan/wekan to have correct image,
+#    for example: "image: quay.io/wekan/wekan" or version tag "image: quay.io/wekan/wekan:v4.52"
+# 4) Start Wekan:
+#      docker-compose up -d
+#----------------------------------------------------------------------------------
+# ==== OPTIONAL: DEDICATED DOCKER USER ====
+# 1) Optionally create a dedicated user for Wekan, for example:
+#      sudo useradd -d /home/wekan -m -s /bin/bash wekan
+# 2) Add this user to the docker group, then logout+login or reboot:
+#      sudo usermod -aG docker wekan
+# 3) Then login as user wekan.
+# 4) Create this file /home/wekan/docker-compose.yml with your modifications.
+#----------------------------------------------------------------------------------
+# ==== RUN DOCKER AS SERVICE ====
+# 1a) Running Docker as service, on Systemd like Debian 9, Ubuntu 16.04, CentOS 7:
+#      sudo systemctl enable docker
+#      sudo systemctl start docker
+# 1b) Running Docker as service, on init.d like Debian 8, Ubuntu 14.04, CentOS 6:
+#      sudo update-rc.d docker defaults
+#      sudo service docker start
+# ----------------------------------------------------------------------------------
+# ==== USAGE OF THIS docker-compose.yml ====
+# 1) For seeing does Wekan work, try this and check with your web browser:
+#      docker-compose up
+# 2) Stop Wekan and start Wekan in background:
+#     docker-compose stop
+#     docker-compose up -d
+# 3) See running Docker containers:
+#     docker ps
+# 4) Stop Docker containers:
+#     docker-compose stop
+# ----------------------------------------------------------------------------------
+# ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
+# https://github.com/wekan/wekan/wiki/Backup
+# If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
+# 1) Going inside containers:
+#    a) Wekan app, does not contain data
+#         docker exec -it wekan-app bash
+#    b) MongoDB, contains all data
+#         docker exec -it wekan-db bash
+# 2) Copying database to outside of container:
+#      docker exec -it wekan-db bash
+#      cd /data
+#      mongodump
+#      exit
+#      docker cp wekan-db:/data/dump .
+# 3) Restoring database
+#      # 1) Stop wekan
+#             docker stop wekan-app
+#      # 2) Go inside database container
+#             docker exec -it wekan-db bash
+#      # 3) and data directory
+#             cd /data
+#      # 4) Remove previous dump
+#             rm -rf dump
+#      # 5) Exit db container
+#             exit
+#      # 6) Copy dump to inside docker container
+#             docker cp dump wekan-db:/data/
+#      # 7) Go inside database container
+#             docker exec -it wekan-db bash
+#      # 8) and data directory
+#             cd /data
+#      # 9) Restore
+#             mongorestore --drop
+#      # 10) Exit db container
+#             exit
+#      # 11) Start wekan
+#             docker start wekan-app
+#-------------------------------------------------------------------------
+
+services:
+
+  wekandb:
+    #-------------------------------------------------------------------------------------
+    # ==== MONGODB FROM DOCKER HUB ====
+    image: mongo:6
+    #-------------------------------------------------------------------------------------
+    container_name: wekan-db
+    restart: always
+    # command: mongod --oplogSize 128
+    # Syslog: mongod --syslog --oplogSize 128 --quiet
+    # Disable MongoDB logs:
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    networks:
+      - wekan-tier
+    expose:
+      - 27017
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - wekan-db:/data/db
+      - wekan-db-dump:/dump
+      #- /etc/timezone:/etc/timezone:ro # Do not use https://github.com/wekan/wekan/issues/5123
+
+  wekan:
+    #-------------------------------------------------------------------------------------
+    # ==== WEKAN FROM GITHUB/QUAY/DOCKER HUB ====
+    # All of GitHub, Quay and Docker Hub have latest, but because
+    # latest tag changes when is newest release,
+    # when upgrading would be better to use version tag.
+    # a) Using specific version tag is better:
+    # image: ghcr.io/wekan/wekan:v6.89
+    # image: quay.io/wekan/wekan:v6.89
+    # image: wekanteam/wekan:v6.89
+    # b) GitHub Container registry.
+    #image: ghcr.io/wekan/wekan:main
+    image: ghcr.io/wekan/wekan:v7.09-arm64
+    # c) Quay:
+    #image: quay.io/wekan/wekan:latest
+    # d) Docker Hub:
+    #image: wekanteam/wekan:latest
+    #-------------------------------------------------------------------------------------
+    container_name: wekan-app
+    # On CentOS 7 there is seccomp issue with glibc 6,
+    # so CentOS 7 users shoud use these security_opt seccomp:unconfined
+    # settings to get WeKan working. See:
+    #   - https://github.com/wekan/wekan/issues/4585
+    #   - https://github.com/wekan/wekan/issues/4587
+    #security_opt:
+    #  - seccomp:unconfined
+    restart: always
+    networks:
+      - wekan-tier
+    #-------------------------------------------------------------------------------------
+    # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
+    # ==== and use commands: docker-compose up -d --build
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile
+    #-------------------------------------------------------------------------------------
+    ports:
+      # Docker outsideport:insideport. Do not add anything extra here.
+      # For example, if you want to have wekan on port 3001,
+      # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
+      # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
+      - 80:8080
+    environment:
+      #-----------------------------------------------------------------
+      # ==== WRITEABLE PATH FOR FILE UPLOADS ====
+      - WRITABLE_PATH=/data
+      #-----------------------------------------------------------------
+      # ==== AWS S3 FOR FILES ====
+      # Any region. For example:
+      #   us-standard,us-west-1,us-west-2,
+      #   eu-west-1,eu-central-1,
+      #   ap-southeast-1,ap-northeast-1,sa-east-1
+      #
+      #- S3='{"s3":{"key": "xxx", "secret": "xxx", "bucket": "xxx", "region": "xxx"}}'
+      #-----------------------------------------------------------------
+      # ==== MONGO_URL ====
+      - MONGO_URL=mongodb://wekandb:27017/wekan
+      #---------------------------------------------------------------
+      # ==== ROOT_URL SETTING ====
+      # Change ROOT_URL to your real Wekan URL, for example:
+      # If you have Caddy/Nginx/Apache providing SSL
+      #  - https://example.com
+      #  - https://boards.example.com
+      # This can be problematic with avatars https://github.com/wekan/wekan/issues/1776
+      #  - https://example.com/wekan
+      # If without https, can be only wekan node, no need for Caddy/Nginx/Apache if you don't need them
+      #  - http://example.com
+      #  - http://boards.example.com
+      #  - http://192.168.1.100    <=== using at local LAN
+      - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
+      #---------------------------------------------------------------
+      # ==== EMAIL SETTINGS ====
+      # Email settings are only at MAIL_URL and MAIL_FROM.
+      # Admin Panel has test button, but it's not used for settings.
+      #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+      #   For SSL in email, change smtp:// to smtps://
+      # NOTE: Special characters need to be url-encoded in MAIL_URL.
+      #       You can encode those characters for example at: https://www.urlencoder.org
+      #- MAIL_URL=smtp://user:pass@mailserver.example.com:25/
+      - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
+      - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
+      # Currently MAIL_SERVICE is not in use.
+      #- MAIL_SERVICE=Outlook365
+      #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
+      #- MAIL_SERVICE_PASSWORD=SecretPassword
+      #---------------------------------------------------------------
+      # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
+      # Add more Node heap, this is done by default at Dockerfile:
+      #   - NODE_OPTIONS="--max_old_space_size=4096"
+      # Add more stack, this is done at Dockerfile:
+      #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+      #---------------------------------------------------------------
+      # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
+      # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
+      # We've fixed our CPU usage problem today with an environment
+      # change around Wekan. I wasn't aware during implementation
+      # that if you're using more than 1 instance of Wekan
+      # (or any MeteorJS based tool) you're supposed to set
+      # MONGO_OPLOG_URL as an environment variable.
+      # Without setting it, Meteor will perform a poll-and-diff
+      # update of it's dataset. With it, Meteor will update from
+      # the OPLOG. See here
+      #   https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
+      # After setting
+      # MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
+      # the CPU usage for all Wekan instances dropped to an average
+      # of less than 10% with only occasional spikes to high usage
+      # (I guess when someone is doing a lot of work)
+      # - MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
+      #---------------------------------------------------------------
+      # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
+      # https://github.com/edemaine/kadira-compose
+      # https://github.com/meteor/meteor-apm-agent
+      # https://blog.meteor.com/kadira-apm-is-now-open-source-490469ffc85f
+      #- APM_OPTIONS_ENDPOINT=http://<kadira-ip>:11011
+      #- APM_APP_ID=
+      #- APM_APP_SECRET=
+      #---------------------------------------------------------------
+      # ==== OPTIONAL: LOGS AND STATS ====
+      # https://github.com/wekan/wekan/wiki/Logs
+      #
+      # Daily export of Wekan changes as JSON to Logstash and ElasticSearch / Kibana (ELK)
+      # https://github.com/wekan/wekan-logstash
+      #
+      # Statistics Python script for Wekan Dashboard
+      # https://github.com/wekan/wekan-stats
+      #
+      # Console, file, and zulip logger on database changes https://github.com/wekan/wekan/pull/1010
+      # with fix to replace console.log by winston logger https://github.com/wekan/wekan/pull/1033
+      # but there could be bug https://github.com/wekan/wekan/issues/1094
+      #
+      # There is Feature Request: Logging date and time of all activity with summary reports,
+      # and requesting reason for changing card to other column https://github.com/wekan/wekan/issues/1598
+      #---------------------------------------------------------------
+      # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
+      #- RESULTS_PER_PAGE=20
+      #---------------------------------------------------------------
+      # ==== AFTER OIDC LOGIN, ADD USERS AUTOMATICALLY TO THIS BOARD ID ====
+      # https://github.com/wekan/wekan/pull/5098
+      #- DEFAULT_BOARD_ID=abcd1234
+      #---------------------------------------------------------------
+      # ==== WEKAN API AND EXPORT BOARD ====
+      # Wekan Export Board works when WITH_API=true.
+      # https://github.com/wekan/wekan/wiki/REST-API
+      # https://github.com/wekan/wekan-gogs
+      # If you disable Wekan API with false, Export Board does not work.
+      - WITH_API=true
+      #---------------------------------------------------------------
+      # ==== PASSWORD BRUTE FORCE PROTECTION ====
+      #https://atmospherejs.com/lucasantoniassi/accounts-lockout
+      #Defaults below. Uncomment to change. wekan/server/accounts-lockout.js
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+      #---------------------------------------------------------------
+      # ==== ACCOUNT OPTIONS ====
+      # https://docs.meteor.com/api/accounts-multi.html#AccountsCommon-config
+      # Defaults below. Uncomment to change. wekan/server/accounts-common.js
+      # - ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90
+      #---------------------------------------------------------------
+      # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
+      # https://github.com/wekan/wekan/pull/2560
+      - RICHER_CARD_COMMENT_EDITOR=false
+      #---------------------------------------------------------------
+      # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
+      # https://github.com/wekan/wekan/issues/2518
+      - CARD_OPENED_WEBHOOK_ENABLED=false
+      #---------------------------------------------------------------
+      # ==== Allow configuration to validate uploaded attachments ====
+      #-ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM=/usr/local/bin/avscan {file}
+      #-ATTACHMENTS_UPLOAD_MIME_TYPES=image/*,text/*
+      #-ATTACHMENTS_UPLOAD_MAX_SIZE=5000000
+      #---------------------------------------------------------------
+      # ==== Allow configuration to validate uploaded avatars ====
+      #-AVATARS_UPLOAD_EXTERNAL_PROGRAM=/usr/local/bin/avscan {file}
+      #-AVATARS_UPLOAD_MIME_TYPES=image/*
+      #-AVATARS_UPLOAD_MAX_SIZE=500000
+      #---------------------------------------------------------------
+      # ==== Allow to shrink attached/pasted image ====
+      # https://github.com/wekan/wekan/pull/2544
+      #- MAX_IMAGE_PIXEL=1024
+      #- IMAGE_COMPRESS_RATIO=80
+      #---------------------------------------------------------------
+      # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+      # Number of days after a notification is read before we remove it.
+      # Default: 2
+      #- NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
+      #---------------------------------------------------------------
+      # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
+      # https://github.com/wekan/wekan/pull/2541
+      # Introduced a system env var BIGEVENTS_PATTERN default as "NONE",
+      # so any activityType matches the pattern, system will send out
+      # notifications to all board members no matter they are watching
+      # or tracking the board or not. Owner of the wekan server can
+      # disable the feature by setting this variable to "NONE" or
+      # change the pattern to any valid regex. i.e. '|' delimited
+      # activityType names.
+      # a) Example
+      #- BIGEVENTS_PATTERN=due
+      # b) All
+      #- BIGEVENTS_PATTERN=received|start|due|end
+      # c) Disabled
+      - BIGEVENTS_PATTERN=NONE
+      #---------------------------------------------------------------
+      # ==== EMAIL DUE DATE NOTIFICATION =====
+      # https://github.com/wekan/wekan/pull/2536
+      # System timelines will be showing any user modification for
+      # dueat startat endat receivedat, also notification to
+      # the watchers and if any card is due, about due or past due.
+      #
+      # Notify due days, default is None, 2 days before and on the event day
+      #- NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2,0
+      #
+      # Notify due at hour of day. Default every morning at 8am. Can be 0-23.
+      # If env variable has parsing error, use default. Notification sent to watchers.
+      #- NOTIFY_DUE_AT_HOUR_OF_DAY=8
+      #-----------------------------------------------------------------
+      # ==== EMAIL NOTIFICATION TIMEOUT, ms =====
+      # Default: 30000 ms = 30s
+      #- EMAIL_NOTIFICATION_TIMEOUT=30000
+      #-----------------------------------------------------------------
+      # ==== CORS =====
+      # CORS: Set Access-Control-Allow-Origin header.
+      #- CORS=*
+      # CORS_ALLOW_HEADERS: Set Access-Control-Allow-Headers header.  "Authorization,Content-Type" is required for cross-origin use of the API.
+      #- CORS_ALLOW_HEADERS=Authorization,Content-Type
+      # CORS_EXPOSE_HEADERS: Set Access-Control-Expose-Headers header.  This is not needed for typical CORS situations
+      #- CORS_EXPOSE_HEADERS=*
+      #-----------------------------------------------------------------
+      # ==== MATOMO INTEGRATION ====
+      # Optional: Integration with Matomo https://matomo.org that is installed to your server
+      # The address of the server where Matomo is hosted.
+      #- MATOMO_ADDRESS=https://example.com/matomo
+      # The value of the site ID given in Matomo server for Wekan
+      #- MATOMO_SITE_ID=1
+      # The option do not track which enables users to not be tracked by matomo
+      #- MATOMO_DO_NOT_TRACK=true
+      # The option that allows matomo to retrieve the username:
+      #- MATOMO_WITH_USERNAME=true
+      #-----------------------------------------------------------------
+      # ==== BROWSER POLICY AND TRUSTED IFRAME URL ====
+      # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
+      # Setting this to false is not recommended, it also disables all other browser policy protections
+      # and allows all iframing etc. See wekan/server/policy.js
+      - BROWSER_POLICY_ENABLED=true
+      # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
+      #- TRUSTED_URL=https://intra.example.com
+      #-----------------------------------------------------------------
+      # ==== METRICS ALLOWED IP ADDRESSES ====
+      # https://github.com/wekan/wekan/wiki/Metrics
+      #- METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
+      #-----------------------------------------------------------------
+      # ==== OUTGOING WEBHOOKS ====
+      # What to send to Outgoing Webhook, or leave out. If commented out the default values will be: cardId,listId,oldListId,boardId,comment,user,card,commentId,swimlaneId,customerField,customFieldValue
+      #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
+      #-----------------------------------------------------------------
+      # ==== Debug OIDC OAuth2 etc ====
+      #- DEBUG=true
+      #---------------------------------------------
+      # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
+      # https://github.com/wekan/wekan/wiki/autologin
+      #- OIDC_REDIRECTION_ENABLED=true
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 ORACLE on premise identity manager OIM ====
+      #- ORACLE_OIM_ENABLED=true
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 AZURE ====
+      # https://github.com/wekan/wekan/wiki/Azure
+      # 1) Register the application with Azure. Make sure you capture
+      #    the application ID as well as generate a secret key.
+      # 2) Configure the environment variables. This differs slightly
+      #     by installation type, but make sure you have the following:
+      #- OAUTH2_ENABLED=true
+      # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
+      #- OAUTH2_CA_CERT=ABCD1234
+      # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
+      #- OAUTH2_ADFS_ENABLED=false
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
+      # Application GUID captured during app registration:
+      #- OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+      # Secret key generated during app registration:
+      #- OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      #- OAUTH2_SERVER_URL=https://login.microsoftonline.com/
+      #- OAUTH2_AUTH_ENDPOINT=/oauth2/v2.0/authorize
+      #- OAUTH2_USERINFO_ENDPOINT=https://graph.microsoft.com/oidc/userinfo
+      #- OAUTH2_TOKEN_ENDPOINT=/oauth2/v2.0/token
+      # The claim name you want to map to the unique ID field:
+      #- OAUTH2_ID_MAP=email
+      # The claim name you want to map to the username field:
+      #- OAUTH2_USERNAME_MAP=email
+      # The claim name you want to map to the full name field:
+      #- OAUTH2_FULLNAME_MAP=name
+      # The claim name you want to map to the email field:
+      #- OAUTH2_EMAIL_MAP=email
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 Nextcloud ====
+      # 1) Register the application with Nextcloud: https://your.nextcloud/index.php/settings/admin/security
+      #    Make sure you capture the application ID as well as generate a secret key.
+      #    Use https://your.wekan/_oauth/oidc for the redirect URI.
+      # 2) Configure the environment variables. This differs slightly
+      #     by installation type, but make sure you have the following:
+      #- OAUTH2_ENABLED=true
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
+      # Application GUID captured during app registration:
+      #- OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+      # Secret key generated during app registration:
+      #- OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      #- OAUTH2_SERVER_URL=https://your-nextcloud.tld
+      #- OAUTH2_AUTH_ENDPOINT=/index.php/apps/oauth2/authorize
+      #- OAUTH2_USERINFO_ENDPOINT=/ocs/v2.php/cloud/user?format=json
+      #- OAUTH2_TOKEN_ENDPOINT=/index.php/apps/oauth2/api/v1/token
+      # The claim name you want to map to the unique ID field:
+      #- OAUTH2_ID_MAP=id
+      # The claim name you want to map to the username field:
+      #- OAUTH2_USERNAME_MAP=id
+      # The claim name you want to map to the full name field:
+      #- OAUTH2_FULLNAME_MAP=display-name
+      # The claim name you want to map to the email field:
+      #- OAUTH2_EMAIL_MAP=email
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 KEYCLOAK ====
+      # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
+      #- OAUTH2_ENABLED=true
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
+      #- OAUTH2_CLIENT_ID=<Keycloak create Client ID>
+      #- OAUTH2_SERVER_URL=<Keycloak server name>/auth
+      #- OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
+      #- OAUTH2_USERINFO_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/userinfo
+      #- OAUTH2_TOKEN_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/token
+      #- OAUTH2_SECRET=<keycloak client secret>
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 DOORKEEPER ====
+      # https://github.com/wekan/wekan/issues/1874
+      # https://github.com/wekan/wekan/wiki/OAuth2
+      # Enable the OAuth2 connection
+      #- OAUTH2_ENABLED=true
+      # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
+      # OAuth2 Client ID.
+      #- OAUTH2_CLIENT_ID=abcde12345
+      # OAuth2 Secret.
+      #- OAUTH2_SECRET=54321abcde
+      # OAuth2 Server URL.
+      #- OAUTH2_SERVER_URL=https://chat.example.com
+      # OAuth2 Authorization Endpoint.
+      #- OAUTH2_AUTH_ENDPOINT=/oauth/authorize
+      # OAuth2 Userinfo Endpoint.
+      #- OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
+      # OAuth2 Token Endpoint.
+      #- OAUTH2_TOKEN_ENDPOINT=/oauth/token
+      # OAUTH2 ID Token Whitelist Fields.
+      #- OAUTH2_ID_TOKEN_WHITELIST_FIELDS=""
+      # OAUTH2 Request Permissions.
+      #- OAUTH2_REQUEST_PERMISSIONS=openid profile email
+      # OAuth2 ID Mapping
+      #- OAUTH2_ID_MAP=
+      # OAuth2 Username Mapping
+      #- OAUTH2_USERNAME_MAP=
+      # OAuth2 Fullname Mapping
+      #- OAUTH2_FULLNAME_MAP=
+      # OAuth2 Email Mapping
+      #- OAUTH2_EMAIL_MAP=
+      #-----------------------------------------------------------------
+      # ==== LDAP: UNCOMMENT ALL TO ENABLE LDAP ====
+      # https://github.com/wekan/wekan/wiki/LDAP
+      # For Snap settings see https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
+      # Most settings work both on Snap and Docker below.
+      # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
+      #
+      # The default authentication method used if a user does not exist to create and authenticate. Can be set as ldap.
+      # (this is set properly in the Admin Panel, changing this item does not remove Password login option)
+      #- DEFAULT_AUTHENTICATION_METHOD=ldap
+      #
+      # Enable or not the connection by the LDAP
+      #- LDAP_ENABLE=true
+      #
+      # The port of the LDAP server
+      #- LDAP_PORT=389
+      #
+      # The host server for the LDAP server
+      #- LDAP_HOST=localhost
+      #
+      #-----------------------------------------------------------------
+      # ==== LDAP AD Simple Auth ====
+      #
+      # Set to true, if you want to connect with Active Directory by Simple Authentication.
+      # When using AD Simple Auth, LDAP_BASEDN is not needed.
+      #
+      # Example:
+      #- LDAP_AD_SIMPLE_AUTH=true
+      #
+      # === LDAP User Authentication ===
+      #
+      # a) Option to login to the LDAP server with the user's own username and password, instead of
+      #    an administrator key. Default: false (use administrator key).
+      #
+      # b) When using AD Simple Auth, set to true, when login user is used for binding,
+      #    and LDAP_BASEDN is not needed.
+      #
+      # Example:
+      #- LDAP_USER_AUTHENTICATION=true
+      #
+      # Which field is used to find the user for the user authentication. Default: uid.
+      #- LDAP_USER_AUTHENTICATION_FIELD=uid
+      #
+      # === LDAP Default Domain ===
+      #
+      # a) In case AD SimpleAuth is configured, the default domain is appended to the given
+      #    loginname for creating the correct username for the bind request to AD.
+      #
+      # b) The default domain of the ldap it is used to create email if the field is not map
+      #     correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
+      #
+      # Example :
+      #- LDAP_DEFAULT_DOMAIN=mydomain.com
+      #
+      #-----------------------------------------------------------------
+      # ==== LDAP BASEDN Auth ====
+      #
+      # The base DN for the LDAP Tree
+      #- LDAP_BASEDN=ou=user,dc=example,dc=org
+      #
+      #-----------------------------------------------------------------
+      # Fallback on the default authentication method
+      #- LDAP_LOGIN_FALLBACK=false
+      #
+      # Reconnect to the server if the connection is lost
+      #- LDAP_RECONNECT=true
+      #
+      # Overall timeout, in milliseconds
+      #- LDAP_TIMEOUT=10000
+      #
+      # Specifies the timeout for idle LDAP connections in milliseconds
+      #- LDAP_IDLE_TIMEOUT=10000
+      #
+      # Connection timeout, in milliseconds
+      #- LDAP_CONNECT_TIMEOUT=10000
+      #
+      # If the LDAP needs a user account to search
+      #- LDAP_AUTHENTIFICATION=true
+      #
+      # The search user DN - You need quotes when you have spaces in parameters
+      # 2 examples:
+      #- LDAP_AUTHENTIFICATION_USERDN=CN=ldap admin,CN=users,DC=domainmatter,DC=lan
+      #- LDAP_AUTHENTIFICATION_USERDN=CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com
+      #
+      # The password for the search user
+      #- LDAP_AUTHENTIFICATION_PASSWORD=pwd
+      #
+      # Enable logs for the module
+      #- LDAP_LOG_ENABLED=true
+      #
+      # If the sync of the users should be done in the background
+      #- LDAP_BACKGROUND_SYNC=false
+      #
+      # At which interval does the background task sync.
+      # The format must be as specified in:
+      # https://bunkat.github.io/later/parsers.html#text
+      #- LDAP_BACKGROUND_SYNC_INTERVAL=every 1 hour
+      #
+      #- LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=false
+      #
+      #- LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
+      #
+      # If using LDAPS: LDAP_ENCRYPTION=ssl
+      #- LDAP_ENCRYPTION=false
+      #
+      # The certification for the LDAPS server. Certificate needs to be included in this docker-compose.yml file.
+      #- LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+G2FIdAgIC...-----END CERTIFICATE-----
+      #
+      # Reject Unauthorized Certificate
+      #- LDAP_REJECT_UNAUTHORIZED=false
+      #
+      # Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
+      #- LDAP_USER_SEARCH_FILTER=
+      #
+      # base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree)
+      #- LDAP_USER_SEARCH_SCOPE=one
+      #
+      # Which field is used to find the user, like uid / sAMAccountName
+      #- LDAP_USER_SEARCH_FIELD=sAMAccountName
+      #
+      # Used for pagination (0=unlimited)
+      #- LDAP_SEARCH_PAGE_SIZE=0
+      #
+      # The limit number of entries (0=unlimited)
+      #- LDAP_SEARCH_SIZE_LIMIT=0
+      #
+      # Enable group filtering. Note the authenticated ldap user must be able to query all relevant group data with own login data from ldap.
+      #- LDAP_GROUP_FILTER_ENABLE=false
+      #
+      # The object class for filtering. Example: group
+      #- LDAP_GROUP_FILTER_OBJECTCLASS=
+      #
+      # The attribute of a group identifying it. Example: cn
+      #- LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=
+      #
+      # The attribute inside a group object listing its members. Example: member
+      #- LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=
+      #
+      # The format of the value of LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE. Example: 'dn' if the users dn is saved as value into the attribute.
+      #- LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
+      #
+      # The group name (id) that matches all users.
+      #- LDAP_GROUP_FILTER_GROUP_NAME=
+      #
+      # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier). Example: guid
+      #- LDAP_UNIQUE_IDENTIFIER_FIELD=
+      #
+      # LDAP_UTF8_NAMES_SLUGIFY : Convert the username to utf8
+      #- LDAP_UTF8_NAMES_SLUGIFY=true
+      #
+      # LDAP_USERNAME_FIELD : Which field contains the ldap username. username / sAMAccountName
+      #- LDAP_USERNAME_FIELD=sAMAccountName
+      #
+      # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname. fullname / sAMAccountName
+      #- LDAP_FULLNAME_FIELD=fullname
+      #
+      #- LDAP_MERGE_EXISTING_USERS=false
+      #
+      # Allow existing account matching by e-mail address when username does not match
+      #- LDAP_EMAIL_MATCH_ENABLE=true
+      #
+      # LDAP_EMAIL_MATCH_REQUIRE : require existing account matching by e-mail address when username does match
+      #- LDAP_EMAIL_MATCH_REQUIRE=true
+      #
+      # LDAP_EMAIL_MATCH_VERIFIED : require existing account email address to be verified for matching
+      #- LDAP_EMAIL_MATCH_VERIFIED=true
+      #
+      # LDAP_EMAIL_FIELD : which field contains the LDAP e-mail address
+      #- LDAP_EMAIL_FIELD=mail
+      #-----------------------------------------------------------------
+      #- LDAP_SYNC_USER_DATA=false
+      #
+      #- LDAP_SYNC_USER_DATA_FIELDMAP={"cn":"name", "mail":"email"}
+      #
+      #- LDAP_SYNC_GROUP_ROLES=
+      #
+      # The default domain of the ldap it is used to create email if the field is not map correctly
+      # with the LDAP_SYNC_USER_DATA_FIELDMAP is defined in setting LDAP_DEFAULT_DOMAIN above.
+      #
+      # Enable/Disable syncing of admin status based on ldap groups:
+      #- LDAP_SYNC_ADMIN_STATUS=true
+      #
+      # Comma separated list of admin group names to sync.
+      #- LDAP_SYNC_ADMIN_GROUPS=group1,group2
+      #---------------------------------------------------------------------
+      # Login to LDAP automatically with HTTP header.
+      # In below example for siteminder, at right side of = is header name.
+      #- HEADER_LOGIN_ID=HEADERUID
+      #- HEADER_LOGIN_FIRSTNAME=HEADERFIRSTNAME
+      #- HEADER_LOGIN_LASTNAME=HEADERLASTNAME
+      #- HEADER_LOGIN_EMAIL=HEADEREMAILADDRESS
+      #---------------------------------------------------------------------
+      # ==== LOGOUT TIMER, probably does not work yet ====
+      # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
+      # example : LOGOUT_WITH_TIMER=true
+      #- LOGOUT_WITH_TIMER=
+      #
+      # LOGOUT_IN : The number of days
+      # example : LOGOUT_IN=1
+      #- LOGOUT_IN=
+      #
+      # LOGOUT_ON_HOURS : The number of hours
+      # example : LOGOUT_ON_HOURS=9
+      #- LOGOUT_ON_HOURS=
+      #
+      # LOGOUT_ON_MINUTES : The number of minutes
+      # example : LOGOUT_ON_MINUTES=55
+      #- LOGOUT_ON_MINUTES=
+      #-------------------------------------------------------------------
+      # Hide password login form
+      # - PASSWORD_LOGIN_ENABLED=true
+      #-------------------------------------------------------------------
+      #- CAS_ENABLED=true
+      #- CAS_BASE_URL=https://cas.example.com/cas
+      #- CAS_LOGIN_URL=https://cas.example.com/login
+      #- CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
+      #---------------------------------------------------------------------
+      #- SAML_ENABLED=true
+      #- SAML_PROVIDER=
+      #- SAML_ENTRYPOINT=
+      #- SAML_ISSUER=
+      #- SAML_CERT=
+      #- SAML_IDPSLO_REDIRECTURL=
+      #- SAML_PRIVATE_KEYFILE=
+      #- SAML_PUBLIC_CERTFILE=
+      #- SAML_IDENTIFIER_FORMAT=
+      #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      #- SAML_ATTRIBUTES=
+      #---------------------------------------------------------------------
+      # Wait spinner to use
+      # - WAIT_SPINNER=Bounce
+      #---------------------------------------------------------------------
+    depends_on:
+      - wekandb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - wekan-files:/data:rw
+
+#---------------------------------------------------------------------------------
+# ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
+#  When using Wekan both at office LAN and remote VPN:
+#    1) Have above Wekan docker container config with LAN IP address
+#    2) Copy all of above wekan container config below, look above of this part above and all config below it,
+#       before above depends_on: part:
+#
+#         wekan:
+#            #-------------------------------------------------------------------------------------
+#            # ==== MONGODB AND METEOR VERSION ====
+#            # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch, .....
+#
+#
+#       and change name to different name like wekan2 or wekanvpn, and change ROOT_URL to server VPN IP
+#       address.
+#    3) This way both Wekan containers can use same MongoDB database
+#       and see the same Wekan boards.
+#    4) You could also add 3rd Wekan container for 3rd network etc.
+# EXAMPLE:
+#  wekan2:
+#    ....COPY CONFIG FROM ABOVE TO HERE...
+#    environment:
+#      - ROOT_URL='http://10.10.10.10'
+#      ...COPY CONFIG FROM ABOVE TO HERE...
+#---------------------------------------------------------------------------------
+
+# OPTIONAL NGINX CONFIG FOR REVERSE PROXY
+#  nginx:
+#    image: nginx
+#    container_name: nginx
+#    restart: always
+#    networks:
+#      - wekan-tier
+#    depends_on:
+#      - wekan
+#    ports:
+#      - 80:80
+#      - 443:443
+#    volumes:
+#      - ./nginx/ssl:/etc/nginx/ssl/:ro
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+## Alternative volume config:
+##   volumes:
+##     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+##     - ./nginx/ssl/ssl.conf:/etc/nginx/conf.d/ssl/ssl.conf:ro
+##     - ./nginx/ssl/testvm-ehu.crt:/etc/nginx/conf.d/ssl/certs/mycert.crt:ro
+##     - ./nginx/ssl/testvm-ehu.key:/etc/nginx/conf.d/ssl/certs/mykey.key:ro
+##     - ./nginx/ssl/pphrase:/etc/nginx/conf.d/ssl/pphrase:ro
+
+volumes:
+  wekan-files:
+    driver: local
+  wekan-db:
+    driver: local
+  wekan-db-dump:
+    driver: local
+
+networks:
+  wekan-tier:
+    driver: bridge

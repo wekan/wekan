@@ -1,19 +1,21 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 function getCardsBetween(idA, idB) {
   function pluckId(doc) {
     return doc._id;
   }
 
   function getListsStrictlyBetween(id1, id2) {
-    return Lists.find({
+    return ReactiveCache.getLists({
       $and: [
-        { sort: { $gt: Lists.findOne(id1).sort } },
-        { sort: { $lt: Lists.findOne(id2).sort } },
+        { sort: { $gt: ReactiveCache.getList(id1).sort } },
+        { sort: { $lt: ReactiveCache.getList(id2).sort } },
       ],
       archived: false,
     }).map(pluckId);
   }
 
-  const cards = _.sortBy([Cards.findOne(idA), Cards.findOne(idB)], c => {
+  const cards = _.sortBy([ReactiveCache.getCard(idA), ReactiveCache.getCard(idB)], c => {
     return c.sort;
   });
 
@@ -48,7 +50,7 @@ function getCardsBetween(idA, idB) {
     };
   }
 
-  return Cards.find(Filter.mongoSelector(selector)).map(pluckId);
+  return ReactiveCache.getCards(Filter.mongoSelector(selector)).map(pluckId);
 }
 
 MultiSelection = {
@@ -77,7 +79,7 @@ MultiSelection = {
   },
 
   count() {
-    return Cards.find(this.getMongoSelector()).count();
+    return ReactiveCache.getCards(this.getMongoSelector()).length;
   },
 
   isEmpty() {

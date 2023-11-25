@@ -4,12 +4,12 @@ BlazeComponent.extendComponent({
   },
 
   cards() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard.searchCards(this.term.get());
   },
 
   lists() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     return currentBoard.searchLists(this.term.get());
   },
 

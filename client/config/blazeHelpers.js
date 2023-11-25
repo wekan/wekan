@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Blaze } from 'meteor/blaze';
 import { Session } from 'meteor/session';
 import moment from 'moment/min/moment-with-locales';
@@ -13,15 +14,21 @@ Blaze.registerHelper('currentCard', () => {
 });
 
 Blaze.registerHelper('currentList', () => {
-  const listId = Session.get('currentList');
-  if (listId) {
-    return Lists.findOne(listId);
-  } else {
-    return null;
-  }
+  const ret = Utils.getCurrentList();
+  return ret;
 });
 
-Blaze.registerHelper('getUser', userId => Users.findOne(userId));
+Blaze.registerHelper('currentSetting', () => {
+  const ret = ReactiveCache.getCurrentSetting();
+  return ret;
+});
+
+Blaze.registerHelper('currentUser', () => {
+  const ret = ReactiveCache.getCurrentUser();
+  return ret;
+});
+
+Blaze.registerHelper('getUser', userId => ReactiveCache.getUser(userId));
 
 Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));
 

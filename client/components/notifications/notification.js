@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Template.notification.events({
   'click .read-status .materialCheckBox'() {
     const update = {};
@@ -7,22 +9,22 @@ Template.notification.events({
     Users.update(Meteor.userId(), { $set: update });
   },
   'click .remove a'() {
-    Meteor.user().removeNotification(this.activityData._id);
+    ReactiveCache.getCurrentUser().removeNotification(this.activityData._id);
   },
 });
 
 Template.notification.helpers({
   mode: 'board',
   isOfActivityType(activityId, type) {
-    const activity = Activities.findOne(activityId);
+    const activity = ReactiveCache.getActivity(activityId);
     return activity && activity.activityType === type;
   },
   activityType(activityId) {
-    const activity = Activities.findOne(activityId);
+    const activity = ReactiveCache.getActivity(activityId);
     return activity ? activity.activityType : '';
   },
   activityUser(activityId) {
-    const activity = Activities.findOne(activityId);
+    const activity = ReactiveCache.getActivity(activityId);
     return activity && activity.userId;
   },
 });

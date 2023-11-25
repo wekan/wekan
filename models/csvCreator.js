@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+import { isEmptyObject } from 'jquery';
 import Boards from './boards';
 
 export class CsvCreator {
@@ -254,10 +256,10 @@ export class CsvCreator {
         createdAt: this._now(),
       };
       if (csvData[i][this.fieldIndex.stage]) {
-        const existingList = Lists.find({
+        const existingList = ReactiveCache.getLists({
           title: csvData[i][this.fieldIndex.stage],
           boardId,
-        }).fetch();
+        });
         if (existingList.length > 0) {
           continue;
         } else {
@@ -282,10 +284,6 @@ export class CsvCreator {
       const cardToCreate = {
         archived: false,
         boardId,
-        createdAt:
-          csvData[i][this.fieldIndex.createdAt] !== ' ' || ''
-            ? this._now(new Date(csvData[i][this.fieldIndex.createdAt]))
-            : null,
         dateLastActivity: this._now(),
         description: csvData[i][this.fieldIndex.description],
         listId: this.lists[csvData[i][this.fieldIndex.stage]],
@@ -293,28 +291,37 @@ export class CsvCreator {
         sort: -1,
         title: csvData[i][this.fieldIndex.title],
         userId: this._user(),
-        startAt:
-          csvData[i][this.fieldIndex.startAt] !== ' ' || ''
-            ? this._now(new Date(csvData[i][this.fieldIndex.startAt]))
-            : null,
-        dueAt:
-          csvData[i][this.fieldIndex.dueAt] !== ' ' || ''
-            ? this._now(new Date(csvData[i][this.fieldIndex.dueAt]))
-            : null,
-        endAt:
-          csvData[i][this.fieldIndex.endAt] !== ' ' || ''
-            ? this._now(new Date(csvData[i][this.fieldIndex.endAt]))
-            : null,
         spentTime: null,
         labelIds: [],
-        modifiedAt:
-          csvData[i][this.fieldIndex.modifiedAt] !== ' ' || ''
-            ? this._now(new Date(csvData[i][this.fieldIndex.modifiedAt]))
-            : null,
       };
+      if (csvData[i][this.fieldIndex.createdAt] !== ' ' || '') {
+        if (csvData[i][this.fieldIndex.createdAt].length !== 0) {
+        cardToCreate.createdAt = this._now(new Date(csvData[i][this.fieldIndex.createdAt]))
+        }
+      }
+      if (csvData[i][this.fieldIndex.startAt] !== ' ' || '') {
+        if (csvData[i][this.fieldIndex.startAt].length !== 0) {
+        cardToCreate.startAt = this._now(new Date(csvData[i][this.fieldIndex.startAt]))
+        }
+      }
+      if (csvData[i][this.fieldIndex.dueAt] !== ' ' || '') {
+        if (csvData[i][this.fieldIndex.dueAt].length !== 0) {
+        cardToCreate.dueAt = this._now(new Date(csvData[i][this.fieldIndex.dueAt]))
+        }
+      }
+      if (csvData[i][this.fieldIndex.endAt] !== ' ' || '') {
+        if (csvData[i][this.fieldIndex.endAt].length !== 0) {
+        cardToCreate.endAt = this._now(new Date(csvData[i][this.fieldIndex.endAt]))
+        }
+      }
+      if (csvData[i][this.fieldIndex.modifiedAt] !== ' ' || '') {
+        if (csvData[i][this.fieldIndex.modifiedAt].length !== 0) {
+        cardToCreate.modifiedAt = this._now(new Date(csvData[i][this.fieldIndex.modifiedAt]))
+        }
+      }
       // add the labels
       if (csvData[i][this.fieldIndex.labels]) {
-        const board = Boards.findOne(boardId);
+        const board = ReactiveCache.getBoard(boardId);
         for (const importedLabel of csvData[i][this.fieldIndex.labels].split(
           ' ',
         )) {
@@ -370,8 +377,8 @@ export class CsvCreator {
           }
           cardToCreate.customFields = customFields;
         });
-        Cards.direct.insert(cardToCreate);
       }
+      Cards.direct.insert(cardToCreate);
     }
   }
 
@@ -381,7 +388,7 @@ export class CsvCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = Boards.findOne(currentBoardId);
+      const currentBoard = ReactiveCache.getBoard(currentBoardId);
       currentBoard.archive();
     }
     this.mapHeadertoCardFieldIndex(board[0]);

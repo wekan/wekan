@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 CustomFields = new Mongo.Collection('customFields');
 
 /**
@@ -168,25 +170,25 @@ CustomFields.allow({
   insert(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      ReactiveCache.getBoards({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }),
     );
   },
   update(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      ReactiveCache.getBoards({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }),
     );
   },
   remove(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      Boards.find({
+      ReactiveCache.getBoards({
         _id: { $in: doc.boardIds },
-      }).fetch(),
+      }),
     );
   },
   fetch: ['userId', 'boardIds'],
@@ -216,8 +218,8 @@ function customFieldDeletion(userId, doc) {
 // This has some bug, it does not show edited customField value at Outgoing Webhook,
 // instead it shows undefined, and no listId and swimlaneId.
 function customFieldEdit(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
-  const customFieldValue = Activities.findOne({ customFieldId: doc._id }).value;
+  const card = ReactiveCache.getCard(doc.cardId);
+  const customFieldValue = ReactiveCache.getActivity({ customFieldId: doc._id }).value;
   Activities.insert({
     userId,
     activityType: 'setCustomField',
@@ -305,7 +307,7 @@ if (Meteor.isServer) {
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: CustomFields.find({ boardIds: { $in: [paramBoardId] } }).map(
+      data: ReactiveCache.getCustomFields({ boardIds: { $in: [paramBoardId] } }).map(
         function(cf) {
           return {
             _id: cf._id,
@@ -335,7 +337,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: CustomFields.findOne({
+        data: ReactiveCache.getCustomField({
           _id: paramCustomFieldId,
           boardIds: { $in: [paramBoardId] },
         }),
@@ -363,7 +365,7 @@ if (Meteor.isServer) {
   ) {
     const paramBoardId = req.params.boardId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
-    const board = Boards.findOne({ _id: paramBoardId });
+    const board = ReactiveCache.getBoard(paramBoardId);
     const id = CustomFields.direct.insert({
       name: req.body.name,
       type: req.body.type,
@@ -375,7 +377,7 @@ if (Meteor.isServer) {
       boardIds: [board._id],
     });
 
-    const customField = CustomFields.findOne({
+    const customField = ReactiveCache.getCustomField({
       _id: id,
       boardIds: { $in: [paramBoardId] },
     });
@@ -547,7 +549,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: { _id: customFieldId },
+        data: { _id: paramDropdownItemId },
       });
     },
   );

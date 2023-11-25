@@ -1,19 +1,21 @@
 import ldapjs from 'ldapjs';
-import util from 'util';
-import Bunyan from 'bunyan';
-import {log_debug, log_info, log_warn, log_error} from './logger';
+import { Log } from 'meteor/logging';
 
 // copied from https://github.com/ldapjs/node-ldapjs/blob/a113953e0d91211eb945d2a3952c84b7af6de41c/lib/filters/index.js#L167
 function escapedToHex (str) {
-  return str.replace(/\\([0-9a-f][^0-9a-f]|[0-9a-f]$|[^0-9a-f]|$)/gi, function (match, p1) {
-    if (!p1) {
-      return '\\5c';
-    }
+  if (str !== undefined) {
+    return str.replace(/\\([0-9a-f][^0-9a-f]|[0-9a-f]$|[^0-9a-f]|$)/gi, function (match, p1) {
+      if (!p1) {
+        return '\\5c';
+      }
 
-    const hexCode = p1.charCodeAt(0).toString(16);
-    const rest = p1.substring(1);
-    return '\\' + hexCode + rest;
-  });
+      const hexCode = p1.charCodeAt(0).toString(16);
+      const rest = p1.substring(1);
+      return '\\' + hexCode + rest;
+    });
+  } else {
+    return undefined;
+  }
 }
 
 export default class LDAP {
@@ -37,7 +39,7 @@ export default class LDAP {
       Authentication_Password            : this.constructor.settings_get('LDAP_AUTHENTIFICATION_PASSWORD'),
       Authentication_Fallback            : this.constructor.settings_get('LDAP_LOGIN_FALLBACK'),
       BaseDN                             : this.constructor.settings_get('LDAP_BASEDN'),
-      Internal_Log_Level                 : this.constructor.settings_get('INTERNAL_LOG_LEVEL'),
+      Internal_Log_Level                 : this.constructor.settings_get('INTERNAL_LOG_LEVEL'), //this setting does not have any effect any more and should be deprecated
       User_Authentication                : this.constructor.settings_get('LDAP_USER_AUTHENTICATION'),
       User_Authentication_Field          : this.constructor.settings_get('LDAP_USER_AUTHENTICATION_FIELD'),
       User_Attributes                    : this.constructor.settings_get('LDAP_USER_ATTRIBUTES'),
@@ -67,7 +69,7 @@ export default class LDAP {
       }
       return value;
     } else {
-      log_warn(`Lookup for unset variable: ${name}`);
+      //Log.warn(`Lookup for unset variable: ${name}`);
     }
   }
 
@@ -87,7 +89,7 @@ export default class LDAP {
   }
 
   connectAsync(callback) {
-    log_info('Init setup');
+    Log.info('Init setup');
 
     let replied = false;
 
@@ -98,15 +100,6 @@ export default class LDAP {
       idleTimeout   : this.options.idle_timeout,
       reconnect     : this.options.Reconnect,
     };
-
-    if (this.options.Internal_Log_Level !== 'disabled') {
-      connectionOptions.log = new Bunyan({
-        name     : 'ldapjs',
-        component: 'client',
-        stream   : process.stderr,
-        level    : this.options.Internal_Log_Level,
-      });
-    }
 
     const tlsOptions = {
       rejectUnauthorized: this.options.reject_unauthorized,
@@ -134,15 +127,15 @@ export default class LDAP {
       connectionOptions.url = `ldap://${connectionOptions.url}`;
     }
 
-    log_info('Connecting', connectionOptions.url);
-    log_debug(`connectionOptions${util.inspect(connectionOptions)}`);
+    Log.info(`Connecting ${connectionOptions.url}`);
+    Log.debug(`connectionOptions ${JSON.stringify(connectionOptions)}`);
 
     this.client = ldapjs.createClient(connectionOptions);
 
     this.bindSync = Meteor.wrapAsync(this.client.bind, this.client);
 
     this.client.on('error', (error) => {
-      log_error('connection', error);
+      Log.error(`connection ${error}`);
       if (replied === false) {
         replied = true;
         callback(error, null);
@@ -150,12 +143,12 @@ export default class LDAP {
     });
 
     this.client.on('idle', () => {
-      log_info('Idle');
+      Log.info('Idle');
       this.disconnect();
     });
 
     this.client.on('close', () => {
-      log_info('Closed');
+      Log.info('Closed');
     });
 
     if (this.options.encryption === 'tls') {
@@ -164,12 +157,12 @@ export default class LDAP {
       // https://github.com/mcavage/node-ldapjs/issues/349
       tlsOptions.host = this.options.host;
 
-      log_info('Starting TLS');
-      log_debug('tlsOptions', tlsOptions);
+      Log.info('Starting TLS');
+      Log.debug(`tlsOptions ${JSON.stringify(tlsOptions)}`);
 
       this.client.starttls(tlsOptions, null, (error, response) => {
         if (error) {
-          log_error('TLS connection', error);
+          Log.error(`TLS connection ${JSON.stringify(error)}`);
           if (replied === false) {
             replied = true;
             callback(error, null);
@@ -177,7 +170,7 @@ export default class LDAP {
           return;
         }
 
-        log_info('TLS connected');
+        Log.info('TLS connected');
         this.connected = true;
         if (replied === false) {
           replied = true;
@@ -186,7 +179,7 @@ export default class LDAP {
       });
     } else {
       this.client.on('connect', (response) => {
-        log_info('LDAP connected');
+        Log.info('LDAP connected');
         this.connected = true;
         if (replied === false) {
           replied = true;
@@ -197,7 +190,7 @@ export default class LDAP {
 
     setTimeout(() => {
       if (replied === false) {
-        log_error('connection time out', connectionOptions.connectTimeout);
+        Log.error(`connection time out ${connectionOptions.connectTimeout}`);
         replied = true;
         callback(new Error('Timeout'));
       }
@@ -218,7 +211,7 @@ export default class LDAP {
     const usernameFilter = this.options.User_Search_Field.split(',').map((item) => `(${item}=${username})`);
 
     if (usernameFilter.length === 0) {
-      log_error('LDAP_LDAP_User_Search_Field not defined');
+      Log.error('LDAP_LDAP_User_Search_Field not defined');
     } else if (usernameFilter.length === 1) {
       filter.push(`${usernameFilter[0]}`);
     } else {
@@ -248,7 +241,7 @@ export default class LDAP {
       userDn = `${this.options.User_Authentication_Field}=${username},${this.options.BaseDN}`;
     }
 
-    log_info('Binding with User', userDn);
+    Log.info(`Binding with User ${userDn}`);
 
     this.bindSync(userDn, password);
     this.domainBinded = true;
@@ -263,7 +256,7 @@ export default class LDAP {
       return;
     }
 
-    log_info('Binding UserDN', this.options.Authentication_UserDN);
+    Log.info(`Binding UserDN ${this.options.Authentication_UserDN}`);
 
     this.bindSync(this.options.Authentication_UserDN, this.options.Authentication_Password);
     this.domainBinded = true;
@@ -286,9 +279,9 @@ export default class LDAP {
       };
     }
 
-    log_info('Searching user', username);
-    log_debug('searchOptions', searchOptions);
-    log_debug('BaseDN', this.options.BaseDN);
+    Log.info(`Searching user ${username}`);
+    Log.debug(`searchOptions ${searchOptions}`);
+    Log.debug(`BaseDN ${this.options.BaseDN}`);
 
     if (page) {
       return this.searchAllPaged(this.options.BaseDN, searchOptions, page);
@@ -326,9 +319,9 @@ export default class LDAP {
       scope: 'sub',
     };
 
-    log_info('Searching by id', id);
-    log_debug('search filter', searchOptions.filter.toString());
-    log_debug('BaseDN', this.options.BaseDN);
+    Log.info(`Searching by id ${id}`);
+    Log.debug(`search filter ${searchOptions.filter.toString()}`);
+    Log.debug(`BaseDN ${this.options.BaseDN}`);
 
     const result = this.searchAllSync(this.options.BaseDN, searchOptions);
 
@@ -337,7 +330,7 @@ export default class LDAP {
     }
 
     if (result.length > 1) {
-      log_error('Search by id', id, 'returned', result.length, 'records');
+      Log.error(`Search by id ${id} returned ${result.length} records`);
     }
 
     return result[0];
@@ -351,9 +344,9 @@ export default class LDAP {
       scope : this.options.User_Search_Scope || 'sub',
     };
 
-    log_info('Searching user', username);
-    log_debug('searchOptions', searchOptions);
-    log_debug('BaseDN', this.options.BaseDN);
+    Log.info(`Searching user ${username}`);
+    Log.debug(`searchOptions ${searchOptions}`);
+    Log.debug(`BaseDN ${this.options.BaseDN}`);
 
     const result = this.searchAllSync(this.options.BaseDN, searchOptions);
 
@@ -362,7 +355,7 @@ export default class LDAP {
     }
 
     if (result.length > 1) {
-      log_error('Search by username', username, 'returned', result.length, 'records');
+      Log.error(`Search by username ${username} returned ${result.length} records`);
     }
 
     return result[0];
@@ -393,7 +386,7 @@ export default class LDAP {
       scope : 'sub',
     };
 
-    log_debug('Group list filter LDAP:', searchOptions.filter);
+    Log.debug(`Group list filter LDAP: ${searchOptions.filter}`);
 
     const result = this.searchAllSync(this.options.BaseDN, searchOptions);
 
@@ -406,7 +399,7 @@ export default class LDAP {
     result.map((item) => {
       groups.push(item[grp_identifier]);
     });
-    log_debug(`Groups: ${groups.join(', ')}`);
+    Log.debug(`Groups: ${groups.join(', ')}`);
     return groups;
 
   }
@@ -441,7 +434,7 @@ export default class LDAP {
       scope : 'sub',
     };
 
-    log_debug('Group filter LDAP:', searchOptions.filter);
+    Log.debug(`Group filter LDAP: ${searchOptions.filter}`);
 
     const result = this.searchAllSync(this.options.BaseDN, searchOptions);
 
@@ -475,7 +468,7 @@ export default class LDAP {
     this.bindIfNecessary();
 
     const processPage = ({ entries, title, end, next }) => {
-      log_info(title);
+      Log.info(title);
       // Force LDAP idle to wait the record processing
       this.client._updateIdle(true);
       page(null, entries, {
@@ -489,13 +482,13 @@ export default class LDAP {
 
     this.client.search(BaseDN, options, (error, res) => {
       if (error) {
-        log_error(error);
+        Log.error(error);
         page(error);
         return;
       }
 
       res.on('error', (error) => {
-        log_error(error);
+        Log.error(error);
         page(error);
         return;
       });
@@ -526,7 +519,7 @@ export default class LDAP {
             end  : true,
           });
         } else if (entries.length) {
-          log_info('Page');
+          Log.info('Page');
           processPage({
             entries,
             title: 'Page',
@@ -555,13 +548,13 @@ export default class LDAP {
 
     this.client.search(BaseDN, options, (error, res) => {
       if (error) {
-        log_error(error);
+        Log.error(error);
         callback(error);
         return;
       }
 
       res.on('error', (error) => {
-        log_error(error);
+        Log.error(error);
         callback(error);
         return;
       });
@@ -573,25 +566,25 @@ export default class LDAP {
       });
 
       res.on('end', () => {
-        log_info('Search result count', entries.length);
+        Log.info(`Search result count ${entries.length}`);
         callback(null, entries);
       });
     });
   }
 
   authSync(dn, password) {
-    log_info('Authenticating', dn);
+    Log.info(`Authenticating ${dn}`);
 
     try {
       if (password === '') {
         throw new Error('Password is not provided');
       }
       this.bindSync(dn, password);
-      log_info('Authenticated', dn);
+      Log.info(`Authenticated ${dn}`);
       return true;
     } catch (error) {
-      log_info('Not authenticated', dn);
-      log_debug('error', error);
+      Log.info(`Not authenticated ${dn}`);
+      Log.debug('error', error);
       return false;
     }
   }
@@ -599,7 +592,7 @@ export default class LDAP {
   disconnect() {
     this.connected    = false;
     this.domainBinded = false;
-    log_info('Disconecting');
+    Log.info('Disconecting');
     this.client.unbind();
   }
 }

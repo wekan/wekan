@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import Cards from '/models/cards';
 import Avatars from '/models/avatars';
 import Users from '/models/users';
@@ -6,7 +7,7 @@ import Team from '/models/team';
 
 Template.userAvatar.helpers({
   userData() {
-    return Users.findOne(this.userId, {
+    return ReactiveCache.getUser(this.userId, {
       fields: {
         profile: 1,
         username: 1,
@@ -15,13 +16,13 @@ Template.userAvatar.helpers({
   },
 
   memberType() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
 /*
   presenceStatusClassName() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
     if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
     else if (!userPresence) return 'disconnected';
@@ -35,12 +36,12 @@ Template.userAvatar.helpers({
 
 Template.userAvatarInitials.helpers({
   initials() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     return user && user.getInitials();
   },
 
   viewPortWidth() {
-    const user = Users.findOne(this.userId);
+    const user = ReactiveCache.getUser(this.userId);
     return ((user && user.getInitials().length) || 1) * 12;
   },
 });
@@ -88,21 +89,18 @@ BlazeComponent.extendComponent({
 
 Template.boardOrgRow.helpers({
   orgData() {
-    return Org.findOne(this.orgId);
-  },
-  currentUser(){
-    return Meteor.user();
+    return ReactiveCache.getOrg(this.orgId);
   },
 });
 
 Template.boardOrgName.helpers({
   orgName() {
-    const org = Org.findOne(this.orgId);
+    const org = ReactiveCache.getOrg(this.orgId);
     return org && org.orgDisplayName;
   },
 
   orgViewPortWidth() {
-    const org = Org.findOne(this.orgId);
+    const org = ReactiveCache.getOrg(this.orgId);
     return ((org && org.orgDisplayName.length) || 1) * 12;
   },
 });
@@ -150,21 +148,18 @@ BlazeComponent.extendComponent({
 
 Template.boardTeamRow.helpers({
   teamData() {
-    return Team.findOne(this.teamId);
-  },
-  currentUser(){
-    return Meteor.user();
+    return ReactiveCache.getTeam(this.teamId);
   },
 });
 
 Template.boardTeamName.helpers({
   teamName() {
-    const team = Team.findOne(this.teamId);
+    const team = ReactiveCache.getTeam(this.teamId);
     return team && team.teamDisplayName;
   },
 
   teamViewPortWidth() {
-    const team = Team.findOne(this.teamId);
+    const team = ReactiveCache.getTeam(this.teamId);
     return ((team && team.teamDisplayName.length) || 1) * 12;
   },
 });
@@ -177,24 +172,25 @@ BlazeComponent.extendComponent({
   },
 
   uploadedAvatars() {
-    return Avatars.find({ userId: Meteor.userId() }).each();
+    const ret = ReactiveCache.getAvatars({ userId: Meteor.userId() }, {}, true).each();
+    return ret;
   },
 
   isSelected() {
-    const userProfile = Meteor.user().profile;
+    const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     const currentAvatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
     return avatarUrl === currentAvatarUrl;
   },
 
   noAvatarUrl() {
-    const userProfile = Meteor.user().profile;
+    const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
     return !avatarUrl;
   },
 
   setAvatar(avatarUrl) {
-    Meteor.user().setAvatarUrl(avatarUrl);
+    ReactiveCache.getCurrentUser().setAvatarUrl(avatarUrl);
   },
 
   setError(error) {
@@ -248,7 +244,7 @@ Template.cardMembersPopup.helpers({
   },
 
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 });
 
@@ -263,13 +259,13 @@ Template.cardMembersPopup.events({
 
 Template.cardMemberPopup.helpers({
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 });
 
 Template.cardMemberPopup.events({
   'click .js-remove-member'() {
-    Cards.findOne(this.cardId).unassignMember(this.userId);
+    ReactiveCache.getCard(this.cardId).unassignMember(this.userId);
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),

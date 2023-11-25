@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import DOMPurify from 'dompurify';
 
@@ -74,13 +75,13 @@ CardComments.attachSchema(
 
 CardComments.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
   update(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return userId === doc.userId || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   remove(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return userId === doc.userId || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
   fetch: ['userId', 'boardId'],
 });
@@ -93,11 +94,11 @@ CardComments.helpers({
   },
 
   user() {
-    return Users.findOne(this.userId);
+    return ReactiveCache.getUser(this.userId);
   },
 
   reactions() {
-    const cardCommentReactions = CardCommentReactions.findOne({cardCommentId: this._id});
+    const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
     return !!cardCommentReactions ? cardCommentReactions.reactions : [];
   },
 
@@ -106,7 +107,7 @@ CardComments.helpers({
       return false;
     } else {
 
-      const cardCommentReactions = CardCommentReactions.findOne({cardCommentId: this._id});
+      const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
       const reactions = !!cardCommentReactions ? cardCommentReactions.reactions : [];
       const userId = Meteor.userId();
       const reaction = reactions.find(r => r.reactionCodepoint === reactionCodepoint);
@@ -146,7 +147,7 @@ CardComments.helpers({
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
 function commentCreation(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   Activities.insert({
     userId,
     activityType: 'addComment',
@@ -171,7 +172,7 @@ CardComments.textSearch = (userId, textArray) => {
   // eslint-disable-next-line no-console
   // console.log('cardComments selector:', selector);
 
-  const comments = CardComments.find(selector);
+  const comments = ReactiveCache.getCardComments(selector);
   // eslint-disable-next-line no-console
   // console.log('count:', comments.count());
   // eslint-disable-next-line no-console
@@ -193,7 +194,7 @@ if (Meteor.isServer) {
   });
 
   CardComments.after.update((userId, doc) => {
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'editComment',
@@ -206,7 +207,7 @@ if (Meteor.isServer) {
   });
 
   CardComments.before.remove((userId, doc) => {
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'deleteComment',
@@ -216,7 +217,7 @@ if (Meteor.isServer) {
       listId: card.listId,
       swimlaneId: card.swimlaneId,
     });
-    const activity = Activities.findOne({ commentId: doc._id });
+    const activity = ReactiveCache.getActivity({ commentId: doc._id });
     if (activity) {
       Activities.remove(activity._id);
     }
@@ -245,7 +246,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: CardComments.find({
+        data: ReactiveCache.getCardComments({
           boardId: paramBoardId,
           cardId: paramCardId,
         }).map(function (doc) {
@@ -284,7 +285,7 @@ if (Meteor.isServer) {
         Authentication.checkBoardAccess(req.userId, paramBoardId);
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: CardComments.findOne({
+          data: ReactiveCache.getCardComment({
             _id: paramCommentId,
             cardId: paramCardId,
             boardId: paramBoardId,
@@ -331,7 +332,7 @@ if (Meteor.isServer) {
           },
         });
 
-        const cardComment = CardComments.findOne({
+        const cardComment = ReactiveCache.getCardComment({
           _id: id,
           cardId: paramCardId,
           boardId: paramBoardId,

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 BlazeLayout.setRoot('body');
@@ -19,80 +20,76 @@ const validator = {
   },
 };
 
-// let isSettingDatabaseFctCallDone = false;
-
 Template.userFormsLayout.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
 
-  Meteor.subscribe('setting', {
-    onReady() {
-      templateInstance.currentSetting.set(Settings.findOne());
-      let currSetting = templateInstance.currentSetting.curValue;
-      let oidcBtnElt = $("#at-oidc");
-      if(currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined){
-        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
-        oidcBtnElt.html(htmlvalue);
+  if (!ReactiveCache.getCurrentUser()?.profile) {
+    Meteor.call('isOidcRedirectionEnabled', (_, result) => {
+      if (result) {
+        AccountsTemplates.options.socialLoginStyle = 'redirect';
+        options = {
+          loginStyle: AccountsTemplates.options.socialLoginStyle,
+        };
+        Meteor.loginWithOidc(options);
       }
+    });
 
-      // isSettingDatabaseFctCallDone = true;
-      if (currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined)
-        document.getElementById("isSettingDatabaseCallDone").style.display = 'none';
-      else
-        document.getElementById("isSettingDatabaseCallDone").style.display = 'block';
-      return this.stop();
-    },
-  });
-  Meteor.call('isPasswordLoginDisabled', (_, result) => {
-    if (result) {
-      $('.at-pwd-form').hide();
-    }
-  });
-
-  if (!Meteor.user()?.profile) {
-      Meteor.call('isOidcRedirectionEnabled', (_, result) => {
-        if (result) {
-          AccountsTemplates.options.socialLoginStyle = 'redirect';
-          options = {
-            loginStyle: AccountsTemplates.options.socialLoginStyle,
-          };
-          Meteor.loginWithOidc(options);
-        }
-        //else console.log("oidc redirect not set");
-      });
+    Meteor.subscribe('setting', {
+      onReady() {
+        templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
+        return this.stop();
+      },
+    });
   }
-  Meteor.call('isDisableRegistration', (_, result) => {
-    if (result) {
-      $('.at-signup-link').hide();
-    }
-  });
-
-  Meteor.call('isDisableForgotPassword', (_, result) => {
-    if (result) {
-      $('.at-pwd-link').hide();
-    }
-  });
-
 });
 
 Template.userFormsLayout.onRendered(() => {
-  AccountsTemplates.state.form.keys = new Proxy(
-    AccountsTemplates.state.form.keys,
-    validator,
-  );
-  EscapeActions.executeAll();
+  Meteor.call('getAuthenticationsEnabled', (_, result) => {
+    let enabledAuthenticationMethods = [ 'password' ]; // we show/hide this based on isPasswordLoginEnabled
+
+    if (result) {
+      Object.keys(result).forEach((m) => {
+        if (result[m]) enabledAuthenticationMethods.push(m);
+      });
+    }
+
+    Meteor.call('isPasswordLoginEnabled', (_, result) => {
+      if (result) {
+        $('.at-pwd-form').show();
+      }
+    });
+
+    Meteor.call('isDisableRegistration', (_, result) => {
+      if (result) {
+        $('.at-signup-link').hide();
+      }
+    });
+
+    Meteor.call('isDisableForgotPassword', (_, result) => {
+      if (result) {
+        $('.at-pwd-link').hide();
+      }
+    });
+
+    if (enabledAuthenticationMethods.indexOf('oauth2') !== -1) {
+      // TODO find better way to run this code once the oauth2 UI is injected in the DOM
+      (function waitForElementAndShow() {
+        if (!$('.at-oauth')[0]) return setTimeout(waitForElementAndShow, 100);
+        $('.at-oauth').show();
+      })();
+    }
+
+    AccountsTemplates.state.form.keys = new Proxy(
+      AccountsTemplates.state.form.keys,
+      validator,
+    );
+    EscapeActions.executeAll();
+  });
 });
 
 Template.userFormsLayout.helpers({
-  currentSetting() {
-    return Template.instance().currentSetting.get();
-  },
-
-  // isSettingDatabaseCallDone(){
-  //   return isSettingDatabaseFctCallDone;
-  // },
-
   isLegalNoticeLinkExist() {
     const currSet = Template.instance().currentSetting.get();
     if (currSet && currSet !== undefined && currSet != null) {
@@ -164,7 +161,7 @@ Template.userFormsLayout.events({
   },
   'DOMSubtreeModified #at-oidc'(event) {
     if (alreadyCheck <= 2) {
-      let currSetting = Settings.findOne();
+      let currSetting = ReactiveCache.getCurrentSetting();
       let oidcBtnElt = $("#at-oidc");
       if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
         let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
@@ -185,7 +182,7 @@ Template.userFormsLayout.events({
   'DOMSubtreeModified .at-form'(event) {
     if (alreadyCheck <= 2 && !isCheckDone) {
       if (document.getElementById("at-oidc") != null) {
-        let currSetting = Settings.findOne();
+        let currSetting = ReactiveCache.getCurrentSetting();
         let oidcBtnElt = $("#at-oidc");
         if (currSetting && currSetting !== undefined && currSetting.oidcBtnText !== undefined && oidcBtnElt != null && oidcBtnElt != undefined) {
           let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;

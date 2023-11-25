@@ -1,6 +1,8 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Utils = {
   setBackgroundImage(url) {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
       $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
@@ -31,26 +33,38 @@ Utils = {
     const ret = Session.get('popupCardId');
     return ret;
   },
+  getCurrentListId() {
+    const ret = Session.get('currentList');
+    return ret;
+  },
   /** returns the current board
    * <li> returns the current board or the board of the popup card if set
    */
   getCurrentBoard() {
     const boardId = Utils.getCurrentBoardId();
-    const ret = Boards.findOne(boardId);
+    const ret = ReactiveCache.getBoard(boardId);
     return ret;
   },
   getCurrentCard(ignorePopupCard) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
-    const ret = Cards.findOne(cardId);
+    const ret = ReactiveCache.getCard(cardId);
+    return ret;
+  },
+  getCurrentList() {
+    const listId = this.getCurrentListId();
+    let ret = null;
+    if (listId) {
+      ret = ReactiveCache.getList(listId);
+    }
     return ret;
   },
   getPopupCard() {
     const cardId = Utils.getPopupCardId();
-    const ret = Cards.findOne(cardId);
+    const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
   canModifyCard() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     const ret = (
       currentUser &&
       currentUser.isBoardMember() &&
@@ -60,7 +74,7 @@ Utils = {
     return ret;
   },
   canModifyBoard() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     const ret = (
       currentUser &&
       currentUser.isBoardMember() &&
@@ -76,9 +90,9 @@ Utils = {
     window.location.reload();
   },
   setBoardView(view) {
-    currentUser = Meteor.user();
+    currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      Meteor.user().setBoardView(view);
+      ReactiveCache.getCurrentUser().setBoardView(view);
     } else if (view === 'board-view-swimlanes') {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();
@@ -100,7 +114,7 @@ Utils = {
   },
 
   boardView() {
-    currentUser = Meteor.user();
+    currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
     } else if (
@@ -144,11 +158,8 @@ Utils = {
   },
 
   archivedBoardIds() {
-    const archivedBoards = [];
-    Boards.find({ archived: false }).forEach(board => {
-      archivedBoards.push(board._id);
-    });
-    return archivedBoards;
+    const ret = ReactiveCache.getBoards({ archived: false }).map(board => board._id);
+    return ret;
   },
 
   dueCardsView() {
@@ -183,7 +194,7 @@ Utils = {
 
   // XXX We should remove these two methods
   goBoardId(_id) {
-    const board = Boards.findOne(_id);
+    const board = ReactiveCache.getBoard(_id);
     return (
       board &&
       FlowRouter.go('board', {
@@ -194,8 +205,8 @@ Utils = {
   },
 
   goCardId(_id) {
-    const card = Cards.findOne(_id);
-    const board = Boards.findOne(card.boardId);
+    const card = ReactiveCache.getCard(_id);
+    const board = ReactiveCache.getBoard(card.boardId);
     return (
       board &&
       FlowRouter.go('card', {
@@ -208,7 +219,7 @@ Utils = {
   getCommonAttachmentMetaFrom(card) {
     const meta = {};
     if (card.isLinkedCard()) {
-      meta.boardId = Cards.findOne(card.linkedId).boardId;
+      meta.boardId = ReactiveCache.getCard(card.linkedId).boardId;
       meta.cardId = card.linkedId;
     } else {
       meta.boardId = card.boardId;
@@ -316,7 +327,7 @@ Utils = {
 
   // returns if desktop drag handles are enabled
   isShowDesktopDragHandles() {
-    //const currentUser = Meteor.user();
+    //const currentUser = ReactiveCache.getCurrentUser();
     //if (currentUser) {
     //  return (currentUser.profile || {}).showDesktopDragHandles;
     //} else if (window.localStorage.getItem('showDesktopDragHandles')) {
@@ -421,7 +432,7 @@ Utils = {
   },
 
   setCustomUI(data) {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
       DocHead.setTitle(`${currentBoard.title} - ${data.productName}`);
     } else {
@@ -433,7 +444,7 @@ Utils = {
     window._paq = window._paq || [];
     window._paq.push(['setDoNotTrack', data.doNotTrack]);
     if (data.withUserName) {
-      window._paq.push(['setUserId', Meteor.user().username]);
+      window._paq.push(['setUserId', ReactiveCache.getCurrentUser().username]);
     }
     window._paq.push(['trackPageView']);
     window._paq.push(['enableLinkTracking']);

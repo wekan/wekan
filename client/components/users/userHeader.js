@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 Template.headerUserBar.events({
@@ -13,27 +14,27 @@ BlazeComponent.extendComponent({
 
 Template.memberMenuPopup.helpers({
   templatesBoardId() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      return Meteor.user().getTemplatesBoardId();
+      return currentUser.getTemplatesBoardId();
     } else {
       // No need to getTemplatesBoardId on public board
       return false;
     }
   },
   templatesBoardSlug() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      return Meteor.user().getTemplatesBoardSlug();
+      return currentUser.getTemplatesBoardSlug();
     } else {
       // No need to getTemplatesBoardSlug() on public board
       return false;
     }
   },
   isSameDomainNameSettingValue(){
-    const currSett = Settings.findOne();
+    const currSett = ReactiveCache.getCurrentSetting();
     if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
-      currentUser = Meteor.user();
+      currentUser = ReactiveCache.getCurrentUser();
       if (currentUser) {
         let found = false;
         for(let i = 0; i < currentUser.emails.length; i++) {
@@ -51,7 +52,7 @@ Template.memberMenuPopup.helpers({
       return false;
   },
   isNotOAuth2AuthenticationMethod(){
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return currentUser.authenticationMethod.toLowerCase() != 'oauth2';
     } else {
@@ -140,12 +141,6 @@ Template.invitePeoplePopup.events({
   },
 });
 
-Template.invitePeoplePopup.helpers({
-  currentSetting() {
-    return Settings.findOne();
-  },
-});
-
 Template.editProfilePopup.helpers({
   allowEmailChange() {
     Meteor.call('AccountSettings.allowEmailChange', (_, result) => {
@@ -191,9 +186,9 @@ Template.editProfilePopup.events({
         'profile.initials': initials,
       },
     });
-    isChangeUserName = username !== Meteor.user().username;
+    isChangeUserName = username !== ReactiveCache.getCurrentUser().username;
     isChangeEmail =
-      email.toLowerCase() !== Meteor.user().emails[0].address.toLowerCase();
+      email.toLowerCase() !== ReactiveCache.getCurrentUser().emails[0].address.toLowerCase();
     if (isChangeUserName && isChangeEmail) {
       Meteor.call(
         'setUsernameAndEmail',
@@ -253,6 +248,7 @@ Template.editProfilePopup.events({
 // XXX For some reason the useraccounts autofocus isnt working in this case.
 // See https://github.com/meteor-useraccounts/core/issues/384
 Template.changePasswordPopup.onRendered(function() {
+  $('.at-pwd-form').show();
   this.find('#at-field-current_password').focus();
 });
 
@@ -288,7 +284,7 @@ Template.changeLanguagePopup.events({
 
 Template.changeSettingsPopup.helpers({
   hiddenSystemMessages() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).hasHiddenSystemMessages;
     } else if (window.localStorage.getItem('hasHiddenSystemMessages')) {
@@ -298,7 +294,7 @@ Template.changeSettingsPopup.helpers({
     }
   },
   rescueCardDescription() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).rescueCardDescription;
     } else if (window.localStorage.getItem('rescueCardDescription')) {
@@ -308,9 +304,9 @@ Template.changeSettingsPopup.helpers({
     }
   },
   showCardsCountAt() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
-      return Meteor.user().getLimitToShowCardsCount();
+      return currentUser.getLimitToShowCardsCount();
     } else {
       return window.localStorage.getItem('limitToShowCardsCount');
     }

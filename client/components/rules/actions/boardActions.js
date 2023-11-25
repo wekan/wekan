@@ -1,20 +1,22 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   onCreated() {},
 
   boards() {
-    const boards = Boards.find(
+    const ret = ReactiveCache.getBoards(
       {
         archived: false,
         'members.userId': Meteor.userId(),
         _id: {
-          $ne: Meteor.user().getTemplatesBoardId(),
+          $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId(),
         },
       },
       {
         sort: { sort: 1 /* boards default sorting */ },
       },
     );
-    return boards;
+    return ret;
   },
 
   events() {

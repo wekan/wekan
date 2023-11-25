@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { toggleNotificationsDrawer } from './notifications.js';
 
 Template.notificationsDrawer.onCreated(function() {
@@ -14,11 +15,11 @@ Template.notificationsDrawer.onCreated(function() {
 
 Template.notificationsDrawer.helpers({
   transformedProfile() {
-    return Users.findOne(Meteor.userId());
+    return ReactiveCache.getCurrentUser();
   },
   readNotifications() {
     const readNotifications = _.filter(
-      Meteor.user().profile.notifications,
+      ReactiveCache.getCurrentUser().profile.notifications,
       v => !!v.read,
     );
     return readNotifications.length;
@@ -27,7 +28,7 @@ Template.notificationsDrawer.helpers({
 
 Template.notificationsDrawer.events({
   'click .all-read'() {
-    const notifications = Meteor.user().profile.notifications;
+    const notifications = ReactiveCache.getCurrentUser().profile.notifications;
     for (const index in notifications) {
       if (notifications.hasOwnProperty(index) && !notifications[index].read) {
         const update = {};
@@ -43,7 +44,7 @@ Template.notificationsDrawer.events({
     Session.set('showReadNotifications', !Session.get('showReadNotifications'));
   },
   'click .remove-read'() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     for (const notification of user.profile.notifications) {
       if (notification.read) {
         user.removeNotification(notification.activity);

@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 ChecklistItems = new Mongo.Collection('checklistItems');
 
 /**
@@ -68,13 +70,13 @@ ChecklistItems.attachSchema(
 
 ChecklistItems.allow({
   insert(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   update(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMemberByCard(userId, Cards.findOne(doc.cardId));
+    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });
@@ -100,7 +102,7 @@ ChecklistItems.mutations({
     return { $set: { isFinished: !this.isFinished } };
   },
   move(checklistId, sortIndex) {
-    const cardId = Checklists.findOne(checklistId).cardId;
+    const cardId = ReactiveCache.getChecklist(checklistId).cardId;
     const mutatedFields = {
       cardId,
       checklistId,
@@ -113,7 +115,7 @@ ChecklistItems.mutations({
 
 // Activities helper
 function itemCreation(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   Activities.insert({
     userId,
@@ -135,7 +137,7 @@ function itemRemover(userId, doc) {
 }
 
 function publishCheckActivity(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   let activityType;
   if (doc.isFinished) {
@@ -158,10 +160,10 @@ function publishCheckActivity(userId, doc) {
 }
 
 function publishChekListCompleted(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
-  const checkList = Checklists.findOne({ _id: checklistId });
+  const checkList = ReactiveCache.getChecklist(checklistId);
   if (checkList.isFinished()) {
     const act = {
       userId,
@@ -178,10 +180,10 @@ function publishChekListCompleted(userId, doc) {
 }
 
 function publishChekListUncompleted(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
+  const card = ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
-  const checkList = Checklists.findOne({ _id: checklistId });
+  const checkList = ReactiveCache.getChecklist(checklistId);
   // BUGS in IFTTT Rules: https://github.com/wekan/wekan/issues/1972
   //       Currently in checklist all are set as uncompleted/not checked,
   //       IFTTT Rule does not move card to other list.
@@ -233,7 +235,7 @@ if (Meteor.isServer) {
 
   ChecklistItems.before.remove((userId, doc) => {
     itemRemover(userId, doc);
-    const card = Cards.findOne(doc.cardId);
+    const card = ReactiveCache.getCard(doc.cardId);
     const boardId = card.boardId;
     Activities.insert({
       userId,
@@ -268,7 +270,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklistItem = ChecklistItems.findOne({ _id: paramItemId });
+      const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
       if (checklistItem) {
         JsonRoutes.sendResult(res, {
           code: 200,
@@ -301,7 +303,7 @@ if (Meteor.isServer) {
       const paramChecklistId = req.params.checklistId;
       const paramCardId = req.params.cardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklist = Checklists.findOne({
+      const checklist = ReactiveCache.getChecklist({
         _id: paramChecklistId,
         cardId: paramCardId,
       });

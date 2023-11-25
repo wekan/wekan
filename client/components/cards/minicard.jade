@@ -49,8 +49,7 @@ template(name="minicard")
         if currentBoard.allowsCardNumber
           span.card-number
             | ##{getCardNumber}
-        b
-          = getTitle
+        = getTitle
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}
@@ -112,6 +111,12 @@ template(name="minicard")
                     +viewer
                       = trueValue
 
+    .card-checklist-attachmentGalleries
+      .card-checklist-attachmentGallery.card-checklists
+        if currentBoard.allowsChecklists
+          //hr
+          //+checklists(cardId=_id showAtMinicard=true)
+
     if showAssignee
       if getAssignees
         .minicard-assignees.js-minicard-assignees
@@ -130,11 +135,11 @@ template(name="minicard")
 
     .badges
       unless currentUser.isNoComments
-        if comments.count
-          .badge(title="{{_ 'card-comments-title' comments.count }}")
-            span.badge-icon.fa.fa-comment-o.badge-comment
+        if comments.length
+          .badge(title="{{_ 'card-comments-title' comments.length }}")
+            span.badge-icon.fa.fa-comment-o.badge-comment.badge-text
               = ' '
-              = comments.count
+              = comments.length
             //span.badge-comment.badge-text
             //|  {{_ 'comment'}}
       if getDescription
@@ -157,7 +162,7 @@ template(name="minicard")
           .badge
             span.badge-icon.fa.fa-paperclip
             span.badge-text= attachments.length
-      if checklists.count
+      if checklists.length
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
           span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}

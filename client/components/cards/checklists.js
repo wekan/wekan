@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -54,7 +55,7 @@ BlazeComponent.extendComponent({
     });
 
     function userIsMember() {
-      return Meteor.user() && Meteor.user().isBoardMember();
+      return ReactiveCache.getCurrentUser()?.isBoardMember();
     }
 
     // Disable sorting if the current user is not a board member
@@ -84,9 +85,11 @@ BlazeComponent.extendComponent({
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
     let cardId = this.currentData().cardId;
-    const card = Cards.findOne(cardId);
+    const card = ReactiveCache.getCard(cardId);
     //if (card.isLinked()) cardId = card.linkedId;
-    if (card.isLinkedCard()) cardId = card.linkedId;
+    if (card.isLinkedCard()) {
+      cardId = card.linkedId;
+    }
 
     let sortIndex;
     let checklistItemIndex;
@@ -199,9 +202,6 @@ BlazeComponent.extendComponent({
 
   events() {
     const events = {
-      'click #toggleHideCheckedItemsButton'() {
-        Meteor.call('toggleHideCheckedItems');
-      },
     };
 
     return [
@@ -230,25 +230,26 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    return Boards.find(
+    const ret = ReactiveCache.getBoards(
       {
         archived: false,
         'members.userId': Meteor.userId(),
-        _id: { $ne: Meteor.user().getTemplatesBoardId() },
+        _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
       },
       {
         sort: { sort: 1 /* boards default sorting */ },
       },
     );
+    return ret;
   },
 
   swimlanes() {
-    const board = Boards.findOne(this.selectedBoardId.get());
+    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     return board.swimlanes();
   },
 
   aBoardLists() {
-    const board = Boards.findOne(this.selectedBoardId.get());
+    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     return board.lists();
   },
 
@@ -266,12 +267,17 @@ BlazeComponent.extendComponent({
 
 Template.checklists.helpers({
   checklists() {
-    const card = Cards.findOne(this.cardId);
+    const card = ReactiveCache.getCard(this.cardId);
     const ret = card.checklists();
     return ret;
   },
+  showAtMinicard() {
+    const card = ReactiveCache.getCard(this.cardId);
+    const ret = card.checklists({'showAtMinicard':1});
+    return ret;
+  },
   hideCheckedItems() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) return currentUser.hasHideCheckedItems();
     return false;
   },
@@ -297,9 +303,26 @@ BlazeComponent.extendComponent({
 }).register('addChecklistItemForm');
 
 BlazeComponent.extendComponent({
+  toggleItem() {
+    const checklist = this.currentData().checklist;
+    const item = this.currentData().item;
+    if (checklist && item && item._id) {
+      item.toggleItem();
+    }
+  },
   events() {
     return [
       {
+        'click .js-checklist-item .check-box-container': this.toggleItem,
+        'click #toggleShowChecklistAtMinicardButton'() {
+          const checklist = this.checklist;
+          if (checklist && checklist._id) {
+            Meteor.call('toggleShowChecklistAtMinicard', checklist._id);
+          }
+        },
+        'click #toggleHideCheckedItemsButton'() {
+          Meteor.call('toggleHideCheckedItems');
+        },
         'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
           Popup.back(2);
           const checklist = this.checklist;
@@ -335,7 +358,7 @@ BlazeComponent.extendComponent({
 
 Template.checklistItemDetail.helpers({
   hideCheckedItems() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     if (user) return user.hasHideCheckedItems();
     return false;
   },
@@ -361,11 +384,11 @@ BlazeComponent.extendComponent({
 /** Move Checklist Dialog */
 (class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
-    const ret = Meteor.user().getMoveChecklistDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getMoveChecklistDialogOptions();
     return ret;
   }
   setDone(cardId, options) {
-    Meteor.user().setMoveChecklistDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setMoveChecklistDialogOption(this.currentBoardId, options);
     this.data().checklist.move(cardId);
   }
 }).register('moveChecklistPopup');
@@ -373,11 +396,11 @@ BlazeComponent.extendComponent({
 /** Copy Checklist Dialog */
 (class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
-    const ret = Meteor.user().getCopyChecklistDialogOptions();
+    const ret = ReactiveCache.getCurrentUser().getCopyChecklistDialogOptions();
     return ret;
   }
   setDone(cardId, options) {
-    Meteor.user().setCopyChecklistDialogOption(this.currentBoardId, options);
+    ReactiveCache.getCurrentUser().setCopyChecklistDialogOption(this.currentBoardId, options);
     this.data().checklist.copy(cardId);
   }
 }).register('copyChecklistPopup');

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 
 const DateString = Match.Where(function(dateAsString) {
@@ -212,7 +213,7 @@ export class WekanCreator {
         importedMember.fullName = user.profile.fullname;
       }
       importedMember.username = user.username;
-      const wekanUser = Users.findOne({ username: importedMember.username });
+      const wekanUser = ReactiveCache.getUser({ username: importedMember.username });
       if (wekanUser) {
         importedMember.wekanId = wekanUser._id;
       }
@@ -612,7 +613,7 @@ export class WekanCreator {
         : card.parentId;
 
       //if the parent card exists, proceed
-      if (Cards.findOne(parentIdInNewBoard)) {
+      if (ReactiveCache.getCard(parentIdInNewBoard)) {
         //set parent id of the card in the new board to the new id of the parent
         Cards.direct.update(cardIdInNewBoard, {
           $set: {
@@ -907,7 +908,7 @@ export class WekanCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = Boards.findOne(currentBoardId);
+      const currentBoard = ReactiveCache.getBoard(currentBoardId);
       currentBoard.archive();
     }
     this.parseActivities(board);

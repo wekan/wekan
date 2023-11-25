@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Team = new Mongo.Collection('team');
 
 /**
@@ -77,10 +79,8 @@ Team.attachSchema(
 if (Meteor.isServer) {
   Team.allow({
     insert(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -88,10 +88,8 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     update(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -99,10 +97,8 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     remove(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -120,14 +116,14 @@ if (Meteor.isServer) {
       teamWebsite,
       teamIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(teamDisplayName, String);
         check(teamDesc, String);
         check(teamShortName, String);
         check(teamWebsite, String);
         check(teamIsActive, Boolean);
 
-        const nTeamNames = Team.find({ teamShortName }).count();
+        const nTeamNames = ReactiveCache.getTeams({ teamShortName }).length;
         if (nTeamNames > 0) {
           throw new Meteor.Error('teamname-already-taken');
         } else {
@@ -153,7 +149,7 @@ if (Meteor.isServer) {
       check(teamShortName, String);
       check(teamWebsite, String);
       check(teamIsActive, Boolean);
-      const nTeamNames = Team.find({ teamShortName }).count();
+      const nTeamNames = ReactiveCache.getTeams({ teamShortName }).length;
       if (nTeamNames > 0) {
         throw new Meteor.Error('teamname-already-taken');
       } else {
@@ -167,7 +163,7 @@ if (Meteor.isServer) {
       }
     },
     setTeamDisplayName(team, teamDisplayName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamDisplayName, String);
         Team.update(team, {
@@ -178,7 +174,7 @@ if (Meteor.isServer) {
     },
 
     setTeamDesc(team, teamDesc) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamDesc, String);
         Team.update(team, {
@@ -188,7 +184,7 @@ if (Meteor.isServer) {
     },
 
     setTeamShortName(team, teamShortName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamShortName, String);
         Team.update(team, {
@@ -198,7 +194,7 @@ if (Meteor.isServer) {
     },
 
     setTeamIsActive(team, teamIsActive) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamIsActive, Boolean);
         Team.update(team, {
@@ -239,7 +235,7 @@ if (Meteor.isServer) {
       teamWebsite,
       teamIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(team, Object);
         check(teamDisplayName, String);
         check(teamDesc, String);

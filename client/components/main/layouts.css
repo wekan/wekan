@@ -559,13 +559,13 @@ a:not(.disabled).is-active i.fa {
   top: 45px;
   left: 10px;
 }
-#isSettingDatabaseCallDone {
-  display: none;
-}
 .at-link {
   color: #17683a;
   text-decoration: underline;
   text-decoration-color: #17683a;
+}
+.at-pwd-form, .at-sep, .at-oauth {
+  display: none;
 }
 @-moz-keyframes fadeIn {
   from {

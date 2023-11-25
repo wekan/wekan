@@ -1,0 +1,94 @@
+FROM arm64v8/ubuntu:23.04 AS builder
+#FROM --platform=linux/amd64 amd64/ubuntu:23.04 AS builder
+#FROM --platform=linux/amd64 ghcr.io/wekan/wekan:main AS builder
+#FROM arm64v8/ubuntu:23.04 AS builder
+#FROM amd64/alpine:latest AS builder
+
+# Set the environment variables for builder
+ENV QEMU_VERSION=v7.2.0-1 \
+    QEMU_ARCHITECTURE=s390x \
+    NODE_ARCHITECTURE=linux-s390x \
+    NODE_VERSION=v14.21.4 \
+    WEKAN_VERSION=latest  \
+    WEKAN_ARCHITECTURE=s390x
+
+    # Install dependencies
+#RUN apk update && apk add ca-certificates outils-sha1 && \
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt update && apt install ca-certificates wget unzip -y && \
+    \
+    # Download qemu static for our architecture
+    wget https://github.com/multiarch/qemu-user-static/releases/download/${QEMU_VERSION}/qemu-${QEMU_ARCHITECTURE}-static.tar.gz -O - | tar -xz && \
+    \
+    # Download wekan and shasum
+    wget https://releases.wekan.team/${WEKAN_ARCHITECTURE}/wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
+    wget https://releases.wekan.team/${WEKAN_ARCHITECTURE}/SHA256SUMS.txt && \
+    # Verify wekan
+    grep wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip SHA256SUMS.txt | sha256sum -c - && \
+    \
+    # Unzip wekan
+    unzip wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
+    \
+    # Download node and shasums
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
+    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz && \
+    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    \
+    # Verify nodejs authenticity
+    grep node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz SHASUMS256.txt | sha256sum -c - && \
+    \
+    # Extract node and remove tar.gz
+    tar xvzf node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz
+
+# Build wekan dockerfile
+FROM --platform=linux/s390x s390x/ubuntu:23.04
+LABEL maintainer="wekan"
+
+# Set the environment variables (defaults where required)
+ENV QEMU_ARCHITECTURE=s390x \
+    NODE_ARCHITECTURE=linux-s390x \
+    NODE_VERSION=v14.21.4 \
+    NODE_ENV=production \
+    NPM_VERSION=latest \
+    WITH_API=true \
+    PORT=8080 \
+    ROOT_URL=http://localhost \
+    MONGO_URL=mongodb://127.0.0.1:27017/wekan
+
+# Copy qemu-static to image
+COPY --from=builder qemu-${QEMU_ARCHITECTURE}-static /usr/bin
+
+# Copy the app to the image
+COPY --from=builder bundle /home/wekan/bundle
+
+# Copy
+COPY --from=builder node-${NODE_VERSION}-${NODE_ARCHITECTURE} /opt/nodejs
+
+RUN \
+    set -o xtrace && \
+    # Add non-root user wekan
+    useradd --user-group --system --home-dir /home/wekan wekan && \
+    \
+    # Install Node
+    ln -s /opt/nodejs/bin/node /usr/bin/node && \
+    ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
+    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.1 /home/wekan/.config && \
+    chown wekan --recursive /home/wekan/.config
+
+#    \
+#    # Install Node dependencies
+#    #npm install -g npm@${NPM_VERSION} && \
+#    \
+#    # Install Health Check dependencies
+#    #apk add curl
+#
+#HEALTHCHECK --start-period=30s --interval=30s --timeout=10s --retries=3 \
+#  CMD curl --fail "http://localhost:$PORT" || exit 1
+
+EXPOSE $PORT
+USER wekan
+
+CMD ["bash", "-c", "ulimit -s 65500; exec node /home/wekan/bundle/main.js"]

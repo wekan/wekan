@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { CustomFieldStringTemplate } from '/client/lib/customFields'
 
@@ -37,37 +38,45 @@ BlazeComponent.extendComponent({
   },
 
   showCreator() {
-    if (this.data().board()) {
-      return (
-        this.data().board.allowsCreator === null ||
-        this.data().board().allowsCreator === undefined ||
-        this.data().board().allowsCreator
-      );
-      // return this.data().board().allowsCreator;
+    // cache "board" to reduce the mini-mongodb access
+    const board = this.data().board();
+    let ret = false;
+    if (board) {
+      ret =
+        board.allowsCreator === null ||
+        board.allowsCreator === undefined ||
+        board.allowsCreator
+      ;
     }
-    return false;
+    return ret;
   },
 
   showMembers() {
-    if (this.data().board()) {
-      return (
-        this.data().board.allowsMembers === null ||
-        this.data().board().allowsMembers === undefined ||
-        this.data().board().allowsMembers
-      );
+    // cache "board" to reduce the mini-mongodb access
+    const board = this.data().board();
+    let ret = false;
+    if (board) {
+      ret =
+        board.allowsMembers === null ||
+        board.allowsMembers === undefined ||
+        board.allowsMembers
+      ;
     }
-    return false;
+    return ret;
   },
 
   showAssignee() {
-    if (this.data().board()) {
-      return (
-        this.data().board.allowsAssignee === null ||
-        this.data().board().allowsAssignee === undefined ||
-        this.data().board().allowsAssignee
-      );
+    // cache "board" to reduce the mini-mongodb access
+    const board = this.data().board();
+    let ret = false;
+    if (board) {
+      ret =
+        board.allowsAssignee === null ||
+        board.allowsAssignee === undefined ||
+        board.allowsAssignee
+      ;
     }
-    return false;
+    return ret;
   },
 
   /** opens the card label popup only if clicked onto a label
@@ -83,6 +92,11 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .minicard-checklists'() {
+          // Prevents clicking checklist at minicard from opening card details,
+          // while still allowing checking checlist items.
+          event.preventDefault();
+        },
         'click .js-linked-link'() {
           if (this.data().isLinkedCard()) Utils.goCardId(this.data().linkedId);
           else if (this.data().isLinkedBoard())
@@ -105,7 +119,7 @@ BlazeComponent.extendComponent({
 
 Template.minicard.helpers({
   hiddenMinicardLabelText() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {

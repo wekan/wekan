@@ -9,18 +9,10 @@ template(name="checklists")
         else
           a.add-checklist-top.js-open-inlined-form(title="{{_ 'add-checklist'}}")
             i.fa.fa-plus
-    if currentUser.isBoardMember
-      .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
-        //span.toggle-switch-title
-        if hideCheckedItems
-          input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton" checked="checked")
-        else
-          input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton")
-        label.toggle-label(for="toggleHideCheckedItemsButton")
 
   .card-checklist-items
     each checklist in checklists
-      +checklistDetail(checklist = checklist)
+      +checklistDetail(checklist=checklist)
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
@@ -92,7 +84,7 @@ template(name="editChecklistItemForm")
         | {{_ 'convertChecklistItemToCardPopup-title'}}
 
 template(name="checklistItems")
-  if checklist.items.count
+  if checklist.items.length
     if canModifyCard
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist position="top")
         +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=true)
@@ -130,6 +122,27 @@ template(name='checklistItemDetail')
           = item.title
 
 template(name="checklistActionsPopup")
+  if currentUser.isBoardMember
+    span.text-show-at-minicard
+      | {{_ 'show-at-minicard'}}
+    .material-toggle-switch(title="{{_ 'show-checklist-at-minicard'}}")
+      if showAtMinicard
+        input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicardButton" checked="checked")
+      else
+        input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicardButton")
+      label.toggle-label(for="toggleShowChecklistAtMinicardButton")
+    hr
+    span.text-hide-checked-items
+      | {{_ 'hide-checked-items'}}
+    .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
+      //span.toggle-switch-title
+      //.check-square-icon.i.fa.fa-check-square-o
+      if hideCheckedItems
+        input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton" checked="checked")
+      else
+        input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton")
+      label.toggle-label(for="toggleHideCheckedItemsButton")
+    hr
   ul.pop-over-list
     li
       a.js-delete-checklist.delete-checklist

@@ -1,7 +1,7 @@
 template(name="listBody")
   .list-body
     .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
-      if cards.count
+      if cards.length
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
       ul.sidebar-list
@@ -79,23 +79,23 @@ template(name="linkCardPopup")
     select.js-select-boards
       option(value="")
       each boards
-        option(value="{{_id}}") {{title}}
+        option(value="{{_id}}") {{isTitleDefault title}}
     input.primary.confirm.js-link-board(type="button" value="{{_ 'link'}}")
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}") {{title}}
+      option(value="{{_id}}") {{isTitleDefault title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}") {{title}}
+      option(value="{{_id}}") {{isTitleDefault title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
     each cards
-      option(value="{{getId}}") {{getTitle}}
+      option(value="{{getRealId}}") {{getTitle}}
 
   .edit-controls.clearfix
     input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")

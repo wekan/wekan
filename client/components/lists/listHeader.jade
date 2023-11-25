@@ -15,11 +15,11 @@ template(name="listHeader")
           = title
         if wipLimit.enabled
          |&nbsp;(
-         span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.count}}
+         span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
          |/#{wipLimit.value})
 
-      if showCardsCountForList cards.count
-        span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.count}}
+      if showCardsCountForList cards.length
+        span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
 
       if isMiniScreen
         if currentList
@@ -64,6 +64,11 @@ template(name="listActionPopup")
   hr
   ul.pop-over-list
     li
+      a.js-set-list-width
+        i.fa.fa-arrows-h
+        |  {{_ 'set-list-width'}}
+  ul.pop-over-list
+    li
       a.js-toggle-watch-list
         if isWatching
           i.fa.fa-eye
@@ -79,7 +84,7 @@ template(name="listActionPopup")
             i.fa.fa-paint-brush
             | {{_ 'set-color-list'}}
     ul.pop-over-list
-      if cards.count
+      if cards.length
         li
           a.js-select-cards
             i.fa.fa-check-square
@@ -154,6 +159,19 @@ template(name="wipLimitErrorPopup")
   .wip-limit-invalid
     p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
     p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
+
+template(name="setListWidthPopup")
+  #js-list-width-edit
+    label {{_ 'set-list-width-value'}}
+      p
+        input.list-width-value(type="number" value="{{ listWidthValue }}" min="100")
+        input.list-width-apply(type="submit" value="{{_ 'apply'}}")
+        input.list-width-error
+
+template(name="listWidthErrorPopup")
+  .list-width-invalid
+    p {{_ 'list-width-error-message'}} '&gt;=100'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")

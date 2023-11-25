@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Org = new Mongo.Collection('org');
 
 /**
@@ -23,6 +25,14 @@ Org.attachSchema(
     orgShortName: {
       /**
        * short name of the organization
+       */
+      type: String,
+      optional: true,
+      max: 255,
+    },
+    orgAutoAddUsersWithDomainName: {
+      /**
+       * automatically add users with domain name
        */
       type: String,
       optional: true,
@@ -78,10 +88,8 @@ Org.attachSchema(
 if (Meteor.isServer) {
   Org.allow({
     insert(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -89,10 +97,8 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     update(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -100,10 +106,8 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     remove(userId, doc) {
-      const user = Users.findOne({
-        _id: userId,
-      });
-      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      if (user?.isAdmin)
         return true;
       if (!user) {
         return false;
@@ -119,17 +123,19 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(orgDisplayName, String);
         check(orgDesc, String);
         check(orgShortName, String);
+        check(orgAutoAddUsersWithDomainName, String);
         check(orgWebsite, String);
         check(orgIsActive, Boolean);
 
-        const nOrgNames = Org.find({ orgShortName }).count();
+        const nOrgNames = ReactiveCache.getOrgs({ orgShortName }).length;
         if (nOrgNames > 0) {
           throw new Meteor.Error('orgname-already-taken');
         } else {
@@ -137,6 +143,7 @@ if (Meteor.isServer) {
             orgDisplayName,
             orgDesc,
             orgShortName,
+            orgAutoAddUsersWithDomainName,
             orgWebsite,
             orgIsActive,
           });
@@ -147,16 +154,18 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
       check(orgDisplayName, String);
       check(orgDesc, String);
       check(orgShortName, String);
+      check(orgAutoAddUsersWithDomainName, String);
       check(orgWebsite, String);
       check(orgIsActive, Boolean);
 
-      const nOrgNames = Org.find({ orgShortName }).count();
+      const nOrgNames = ReactiveCache.getOrgs({ orgShortName }).length;
       if (nOrgNames > 0) {
         throw new Meteor.Error('orgname-already-taken');
       } else {
@@ -164,13 +173,14 @@ if (Meteor.isServer) {
           orgDisplayName,
           orgDesc,
           orgShortName,
+          orgAutoAddUsersWithDomainName,
           orgWebsite,
           orgIsActive,
         });
       }
     },
     setOrgDisplayName(org, orgDisplayName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgDisplayName, String);
         Org.update(org, {
@@ -181,7 +191,7 @@ if (Meteor.isServer) {
     },
 
     setOrgDesc(org, orgDesc) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgDesc, String);
         Org.update(org, {
@@ -191,7 +201,7 @@ if (Meteor.isServer) {
     },
 
     setOrgShortName(org, orgShortName) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgShortName, String);
         Org.update(org, {
@@ -200,8 +210,18 @@ if (Meteor.isServer) {
       }
     },
 
+    setAutoAddUsersWithDomainName(org, orgAutoAddUsersWithDomainName) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+        check(org, Object);
+        check(orgAutoAddUsersWithDomainName, String);
+        Org.update(org, {
+          $set: { orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName },
+        });
+      }
+    },
+
     setOrgIsActive(org, orgIsActive) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgIsActive, Boolean);
         Org.update(org, {
@@ -214,6 +234,7 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
@@ -221,6 +242,7 @@ if (Meteor.isServer) {
       check(orgDisplayName, String);
       check(orgDesc, String);
       check(orgShortName, String);
+      check(orgAutoAddUsersWithDomainName, String);
       check(orgWebsite, String);
       check(orgIsActive, Boolean);
       Org.update(org, {
@@ -228,6 +250,7 @@ if (Meteor.isServer) {
           orgDisplayName: orgDisplayName,
           orgDesc: orgDesc,
           orgShortName: orgShortName,
+          orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName,
           orgWebsite: orgWebsite,
           orgIsActive: orgIsActive,
         },
@@ -239,14 +262,16 @@ if (Meteor.isServer) {
       orgDisplayName,
       orgDesc,
       orgShortName,
+      orgAutoAddUsersWithDomainName,
       orgWebsite,
       orgIsActive,
     ) {
-      if (Meteor.user() && Meteor.user().isAdmin) {
+      if (ReactiveCache.getCurrentUser()?.isAdmin) {
         check(org, Object);
         check(orgDisplayName, String);
         check(orgDesc, String);
         check(orgShortName, String);
+        check(orgAutoAddUsersWithDomainName, String);
         check(orgWebsite, String);
         check(orgIsActive, Boolean);
         Org.update(org, {
@@ -254,6 +279,7 @@ if (Meteor.isServer) {
             orgDisplayName: orgDisplayName,
             orgDesc: orgDesc,
             orgShortName: orgShortName,
+            orgAutoAddUsersWithDomainName: orgAutoAddUsersWithDomainName,
             orgWebsite: orgWebsite,
             orgIsActive: orgIsActive,
           },

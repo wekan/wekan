@@ -4,7 +4,7 @@ const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
 let disableRegistration = false;
 let disableForgotPassword = false;
-let passwordLoginDisabled = false;
+let passwordLoginEnabled = false;
 let oidcRedirectionEnabled = false;
 let oauthServerUrl = "home";
 let oauthDashboardUrl = "";
@@ -16,11 +16,9 @@ Meteor.call('isOidcRedirectionEnabled', (_, result) => {
   }
 });
 
-Meteor.call('isPasswordLoginDisabled', (_, result) => {
+Meteor.call('isPasswordLoginEnabled', (_, result) => {
   if (result) {
-    passwordLoginDisabled = true;
-    //console.log('passwordLoginDisabled');
-    //console.log(result);
+    passwordLoginEnabled = true;
   }
 });
 
@@ -128,10 +126,9 @@ AccountsTemplates.configure({
 
 AccountsTemplates.configureRoute('changePwd', {
   redirect() {
-    // XXX We should emit a notification once we have a notification system.
-    // Currently the user has no indication that his modification has been
-    // applied.
-    Popup.back();
+    // We should go back with the popup but we don't since user feedback about the change is within the popup only.
+    // Once we have a global feedback popup mechanism we can use that here and close with the following:
+    // Popup.back();
   },
 });
 

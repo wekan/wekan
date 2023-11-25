@@ -2,19 +2,30 @@
 
 # WeKan ® - Open Source kanban
 
+## Downloads
+
+https://wekan.github.io / Install WeKan ® Server
+
 ## Docker Containers
 
+- [GitHub](https://github.com/wekan/wekan/pkgs/container/wekan)
 - [Quay](https://quay.io/repository/wekan/wekan)
 - [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
 
-Other platforms and compatible software versions at https://wekan.github.io Download section.
+docker-compose.yml at https://github.com/wekan/wekan
+
+## Standards
+
+- [WeKan and Standard for Public Code](https://wekan.github.io/standard-for-public-code/) assessment was made at 2023-11.
+  Currently Wekan meets 8 out of 16 criteria out of the box.
+  Some others could be met with small changes.
 
 ## Code stats
 
+- [CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
 - [Code Climate](https://codeclimate.com/github/wekan/wekan)
 - [Open Hub](https://www.openhub.net/p/wekan)
 - [OSS Insight](https://ossinsight.io/analyze/wekan/wekan)
-- [CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
 
 ## [Translate WeKan ® at Transifex](https://app.transifex.com/wekan/)
 
@@ -70,14 +81,14 @@ that by providing one-click installation on various platforms.
   [Mac](https://github.com/wekan/wekan/wiki/Mac) / [Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows).
   [More Platforms](https://github.com/wekan/wekan/wiki/Platforms), bundle for RasPi3 ARM and other CPUs where Node.js and MongoDB exists.
 - 1 GB RAM minimum free for WeKan ®. Production server should have minimum total 4 GB RAM.
-  For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/master/docker-compose.yml): 3 frontend servers,
+  For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/main/docker-compose.yml): 3 frontend servers,
   each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
 - Enough disk space and alerts about low disk space. If you run out disk space, MongoDB database gets corrupted.
 - SECURITY: Updating to newest WeKan ® version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
   Old versions have security issues because of old versions Node.js etc. Only newest WeKan ® is supported.
   WeKan ® on Sandstorm is not usually affected by any Standalone WeKan ® (Snap/Docker/Source) security issues.
 - [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
-  New features and fixes are added to WeKan ® [many times a day](https://github.com/wekan/wekan/blob/master/CHANGELOG.md).
+  New features and fixes are added to WeKan ® [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
 - [Backups](https://github.com/wekan/wekan/wiki/Backup) of WeKan ® database once a day miminum.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bug can cause WeKan ® board to not load at all, requiring manual fixing of database content.
@@ -89,7 +100,7 @@ that by providing one-click installation on various platforms.
 [Developer Documentation][dev_docs]
 
 - There is many companies and individuals contributing code to WeKan ®, to add features and bugfixes
-  [many times a day](https://github.com/wekan/wekan/blob/master/CHANGELOG.md).
+  [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
 - [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
 - [Commercial Support](https://wekan.team/commercial-support/).
 
@@ -109,7 +120,7 @@ with [Meteor](https://www.meteor.com).
 
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[screenshot_wekan]: https://wekan.github.io/wekan-markdown.png
+[screenshot_wekan]: https://wekan.github.io/wekan-dark-mode.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
 [wekan_issues]: https://github.com/wekan/wekan/issues

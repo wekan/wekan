@@ -13,7 +13,8 @@ template(name="sidebar")
           h2
             a.fa.fa-chevron-left.js-back-home
             = getViewTitle
-        +Template.dynamic(template=getViewTemplate)
+        if isOpen
+          +Template.dynamic(template=getViewTemplate)
 
 template(name='homeSidebar')
   hr

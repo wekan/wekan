@@ -3,23 +3,21 @@ Template.connectionMethod.onCreated(function() {
 
   Meteor.call('getAuthenticationsEnabled', (_, result) => {
     if (result) {
+      // Only enabled auth methods without OAuth2/OpenID which is a separate button
+      const tmp = Object.keys(result).filter((k) => result[k]).filter((k) => k !== 'oauth2');
+
       // TODO : add a management of different languages
       // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
-      this.authenticationMethods.set([
-        { value: 'password' },
-        // Gets only the authentication methods availables
-        ...Object.entries(result)
-          .filter(e => e[1])
-          .map(e => ({ value: e[0] })),
-      ]);
+      this.authenticationMethods.set([{ value: 'password' }].concat(tmp.map((k) => { return { value: k }; })));
     }
 
     // If only the default authentication available, hides the select boxe
     const content = $('.at-form-authentication');
-    if (!(this.authenticationMethods.get().length > 1)) {
-      content.hide();
-    } else {
+
+    if (this.authenticationMethods.get().length > 1) {
       content.show();
+    } else {
+      content.hide();
     }
   });
 });

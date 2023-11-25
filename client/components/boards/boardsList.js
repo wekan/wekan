@@ -1,11 +1,9 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
 const subManager = new SubsManager();
 
 Template.boardList.helpers({
-  currentSetting() {
-    return Settings.findOne();
-  },
   hideCardCounterList() {
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
        return Utils.isMiniScreen() && Session.get('currentBoard'); */
@@ -33,10 +31,10 @@ Template.boardListHeaderBar.helpers({
     //}
   },
   templatesBoardId() {
-    return Meteor.user() && Meteor.user().getTemplatesBoardId();
+    return ReactiveCache.getCurrentUser()?.getTemplatesBoardId();
   },
   templatesBoardSlug() {
-    return Meteor.user() && Meteor.user().getTemplatesBoardSlug();
+    return ReactiveCache.getCurrentUser()?.getTemplatesBoardSlug();
   },
 });
 
@@ -44,7 +42,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
     Meteor.subscribe('tableVisibilityModeSettings');
-    let currUser = Meteor.user();
+    let currUser = ReactiveCache.getCurrentUser();
     let userLanguage;
     if (currUser && currUser.profile) {
       userLanguage = currUser.profile.language
@@ -102,51 +100,34 @@ BlazeComponent.extendComponent({
     });
   },
   userHasTeams() {
-    if (Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
+    if (ReactiveCache.getCurrentUser()?.teams?.length > 0)
       return true;
     else
       return false;
   },
   teamsDatas() {
-    if (Meteor.user().teams)
-      return Meteor.user().teams.sort((a, b) => a.teamDisplayName.localeCompare(b.teamDisplayName));
+    const teams = ReactiveCache.getCurrentUser()?.teams
+    if (teams)
+      return teams.sort((a, b) => a.teamDisplayName.localeCompare(b.teamDisplayName));
     else
       return [];
   },
   userHasOrgs() {
-    if (Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
+    if (ReactiveCache.getCurrentUser()?.orgs?.length > 0)
       return true;
     else
       return false;
   },
-  /*
-    userHasTemplates(){
-      if(Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
-        return true;
-      else
-        return false;
-    },
-  */
   orgsDatas() {
-    if (Meteor.user().orgs)
-      return Meteor.user().orgs.sort((a, b) => a.orgDisplayName.localeCompare(b.orgDisplayName));
+    const orgs = ReactiveCache.getCurrentUser()?.orgs;
+    if (orgs)
+      return orgs.sort((a, b) => a.orgDisplayName.localeCompare(b.orgDisplayName));
     else
       return [];
   },
   userHasOrgsOrTeams() {
-    let boolUserHasOrgs;
-    if (Meteor.user() != null && Meteor.user().orgs && Meteor.user().orgs.length > 0)
-      boolUserHasOrgs = true;
-    else
-      boolUserHasOrgs = false;
-
-    let boolUserHasTeams;
-    if (Meteor.user() != null && Meteor.user().teams && Meteor.user().teams.length > 0)
-      boolUserHasTeams = true;
-    else
-      boolUserHasTeams = false;
-
-    return (boolUserHasOrgs || boolUserHasTeams);
+    const ret = this.userHasOrgs() || this.userHasTeams();
+    return ret;
   },
   boards() {
     let query = {
@@ -168,14 +149,7 @@ BlazeComponent.extendComponent({
       if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue) {
         query.$and.push({ 'permission': 'private' });
       }
-      const currUser = Users.findOne(Meteor.userId());
-
-      // const currUser = Users.findOne(Meteor.userId(), {
-      //   fields: {
-      //     orgs: 1,
-      //     teams: 1,
-      //   },
-      // });
+      const currUser = ReactiveCache.getCurrentUser();
 
       let orgIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
       if (orgIdsUserBelongs && orgIdsUserBelongs != '') {
@@ -207,27 +181,28 @@ BlazeComponent.extendComponent({
       };
     }
 
-    return Boards.find(query, {
+    const ret = ReactiveCache.getBoards(query, {
       sort: { sort: 1 /* boards default sorting */ },
     });
+    return ret;
   },
   boardLists(boardId) {
-    let boardLists = [];
-    const lists = Lists.find({ 'boardId': boardId, 'archived': false },{sort: ['sort','asc']});
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-    lists.forEach(list => {
-      let cardCount = Cards.find({ 'boardId': boardId, 'listId': list._id }).count()
-      boardLists.push(`${list.title}: ${cardCount}`);
+    const lists = ReactiveCache.getLists({ 'boardId': boardId, 'archived': false },{sort: ['sort','asc']});
+    const ret = lists.map(list => {
+      let cardCount = ReactiveCache.getCards({ 'boardId': boardId, 'listId': list._id }).length;
+      return `${list.title}: ${cardCount}`;
     });
+    return ret;
     */
-    return boardLists;
+    return [];
   },
 
   boardMembers(boardId) {
     let boardMembers = [];
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
-    const lists = Boards.findOne({ '_id': boardId })
-    let members = lists.members;
+    const lists = ReactiveCache.getBoard(boardId)
+    let members = lists.members
     members.forEach(member => {
       boardMembers.push(member.userId);
     });
@@ -236,26 +211,24 @@ BlazeComponent.extendComponent({
   },
 
   isStarred() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     return user && user.hasStarred(this.currentData()._id);
   },
   isAdministrable() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     return user && user.isBoardAdmin(this.currentData()._id);
   },
 
   hasOvertimeCards() {
-    subManager.subscribe('board', this.currentData()._id, false);
     return this.currentData().hasOvertimeCards();
   },
 
   hasSpentTimeCards() {
-    subManager.subscribe('board', this.currentData()._id, false);
     return this.currentData().hasSpentTimeCards();
   },
 
   isInvited() {
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     return user && user.isInvitedTo(this.currentData()._id);
   },
 
@@ -265,18 +238,18 @@ BlazeComponent.extendComponent({
         'click .js-add-board': Popup.open('createBoard'),
         'click .js-star-board'(evt) {
           const boardId = this.currentData()._id;
-          Meteor.user().toggleBoardStar(boardId);
+          ReactiveCache.getCurrentUser().toggleBoardStar(boardId);
           evt.preventDefault();
         },
         'click .js-clone-board'(evt) {
-          let title = getSlug(Boards.findOne(this.currentData()._id).title) || 'cloned-board';
+          let title = getSlug(ReactiveCache.getBoard(this.currentData()._id).title) || 'cloned-board';
           Meteor.call(
             'copyBoard',
             this.currentData()._id,
             {
-              sort: Boards.find({ archived: false }).count(),
+              sort: ReactiveCache.getBoards({ archived: false }).length,
               type: 'board',
-              title: Boards.findOne(this.currentData()._id).title,
+              title: ReactiveCache.getBoard(this.currentData()._id).title,
             },
             (err, res) => {
               if (err) {
@@ -350,7 +323,7 @@ BlazeComponent.extendComponent({
               query.$and[2].$or.push({ 'orgs.orgId': { $in: selectedOrgsValues } });
             }
 
-            let filteredBoards = Boards.find(query, {}).fetch();
+            let filteredBoards = ReactiveCache.getBoards(query, {});
             let allBoards = document.getElementsByClassName("js-board");
             let currBoard;
             if (filteredBoards.length > 0) {

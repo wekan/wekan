@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { isFileValid } from './fileValidation';
@@ -122,7 +123,7 @@ Attachments = new FilesCollection({
       return false;
     }
 
-    const board = Boards.findOne(fileObj.meta.boardId);
+    const board = ReactiveCache.getBoard(fileObj.meta.boardId);
     if (board.isPublic()) {
       return true;
     }
@@ -134,13 +135,13 @@ Attachments = new FilesCollection({
 if (Meteor.isServer) {
   Attachments.allow({
     insert(userId, fileObj) {
-      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     update(userId, fileObj) {
-      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     remove(userId, fileObj) {
-      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
+      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     fetch: ['meta'],
   });
@@ -150,20 +151,20 @@ if (Meteor.isServer) {
       check(fileObjId, String);
       check(storageDestination, String);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
       moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
     },
     renameAttachment(fileObjId, newName) {
       check(fileObjId, String);
       check(newName, String);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
       rename(fileObj, newName, fileStoreStrategyFactory);
     },
     validateAttachment(fileObjId) {
       check(fileObjId, String);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
       const isValid = Promise.await(isFileValid(fileObj, attachmentUploadMimeTypes, attachmentUploadSize, attachmentUploadExternalProgram));
 
       if (!isValid) {
@@ -176,7 +177,7 @@ if (Meteor.isServer) {
 
       Meteor.call('validateAttachment', fileObjId);
 
-      const fileObj = Attachments.findOne({_id: fileObjId});
+      const fileObj = ReactiveCache.getAttachment(fileObjId);
 
       if (fileObj) {
         Meteor.defer(() => Meteor.call('moveAttachmentToStorage', fileObjId, storageDestination));

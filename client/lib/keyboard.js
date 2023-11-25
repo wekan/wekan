@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 // XXX There is no reason to define these shortcuts globally, they should be
 // attached to a template (most of them will go in the `board` template).
 
@@ -76,14 +78,14 @@ Mousetrap.bind(numbArray, (evt, key) => {
     return;
   }
   const currentBoardId = Session.get('currentBoard');
-  board = Boards.findOne(currentBoardId);
+  board = ReactiveCache.getBoard(currentBoardId);
   labels = board.labels;
   if(MultiSelection.isActive())
   {
     const cardIds = MultiSelection.getSelectedCardIds();
     for (const cardId of cardIds)
     {
-      card = Cards.findOne(cardId);
+      card = ReactiveCache.getCard(cardId);
       if(num <= board.labels.length)
       {
         card.removeLabel(labels[num-1]["_id"]);
@@ -100,14 +102,14 @@ Mousetrap.bind(numArray, (evt, key) => {
   if (currentUserId === null) {
     return;
   }
-  board = Boards.findOne(currentBoardId);
+  board = ReactiveCache.getBoard(currentBoardId);
   labels = board.labels;
-  if(MultiSelection.isActive() && Meteor.user().isBoardMember())
+  if(MultiSelection.isActive() && ReactiveCache.getCurrentUser().isBoardMember())
   {
     const cardIds = MultiSelection.getSelectedCardIds();
     for (const cardId of cardIds)
     {
-      card = Cards.findOne(cardId);
+      card = ReactiveCache.getCard(cardId);
       if(num <= board.labels.length)
       {
         card.addLabel(labels[num-1]["_id"]);
@@ -120,8 +122,8 @@ Mousetrap.bind(numArray, (evt, key) => {
   if (!cardId) {
     return;
   }
-  if (Meteor.user().isBoardMember()) {
-    const card = Cards.findOne(cardId);
+  if (ReactiveCache.getCurrentUser().isBoardMember()) {
+    const card = ReactiveCache.getCard(cardId);
     if(num <= board.labels.length)
     {
       card.toggleLabel(labels[num-1]["_id"]);
@@ -140,8 +142,8 @@ Mousetrap.bind('space', evt => {
     return;
   }
 
-  if (Meteor.user().isBoardMember()) {
-    const card = Cards.findOne(cardId);
+  if (ReactiveCache.getCurrentUser().isBoardMember()) {
+    const card = ReactiveCache.getCard(cardId);
     card.toggleMember(currentUserId);
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
@@ -160,12 +162,8 @@ Mousetrap.bind('c', evt => {
     return;
   }
 
-  if (
-    Meteor.user().isBoardMember() &&
-    !Meteor.user().isCommentOnly() &&
-    !Meteor.user().isWorker()
-  ) {
-    const card = Cards.findOne(cardId);
+  if (Utils.canModifyBoard()) {
+    const card = ReactiveCache.getCard(cardId);
     card.archive();
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't

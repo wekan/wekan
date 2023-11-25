@@ -2,12 +2,13 @@
 // non-archived boards:
 // 1. that the user is a member of
 // 2. the user has starred
+import { ReactiveCache } from '/imports/reactiveCache';
 import Users from "../../models/users";
 import Org from "../../models/org";
 import Team from "../../models/team";
 import Attachments from '../../models/attachments';
 
-Meteor.publish('boards', function() {
+Meteor.publishRelations('boards', function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
@@ -17,10 +18,10 @@ Meteor.publish('boards', function() {
 
   // Defensive programming to verify that starredBoards has the expected
   // format -- since the field is in the `profile` a user can modify it.
-  // const { starredBoards = [] } = (Users.findOne(userId) || {}).profile || {};
+  // const { starredBoards = [] } = (ReactiveCache.getUser(userId) || {}).profile || {};
   // check(starredBoards, [String]);
 
-  // let currUser = Users.findOne(userId);
+  // let currUser = ReactiveCache.getUser(userId);
   // let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
   // let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
   // let orgsIds = [];
@@ -31,7 +32,7 @@ Meteor.publish('boards', function() {
   // if(teamIdsUserBelongs && teamIdsUserBelongs != ''){
   //   teamsIds = teamIdsUserBelongs.split(',');
   // }
-  return Boards.find(
+  this.cursor(ReactiveCache.getBoards(
     {
       archived: false,
       _id: { $in: Boards.userBoardIds(userId, false) },
@@ -46,24 +47,43 @@ Meteor.publish('boards', function() {
       // ],
     },
     {
-      fields: {
-        _id: 1,
-        boardId: 1,
-        archived: 1,
-        slug: 1,
-        title: 1,
-        description: 1,
-        color: 1,
-        members: 1,
-        orgs: 1,
-        teams: 1,
-        permission: 1,
-        type: 1,
-        sort: 1,
-      },
       sort: { sort: 1 /* boards default sorting */ },
     },
+    true,
+  ),
+    function(boardId, board) {
+      this.cursor(
+        ReactiveCache.getLists(
+          { boardId, archived: false },
+          { fields:
+            {
+              _id: 1,
+              title: 1,
+              boardId: 1,
+              archived: 1,
+              sort: 1
+            }
+          },
+          true,
+        )
+      );
+      this.cursor(
+        ReactiveCache.getCards(
+          { boardId, archived: false },
+          { fields: {
+            _id: 1,
+            boardId: 1,
+            listId: 1,
+            archived: 1,
+            sort: 1
+          }},
+          true,
+        )
+      );
+    }
   );
+  const ret = this.ready();
+  return ret;
 });
 
 Meteor.publish('boardsReport', function() {
@@ -72,7 +92,7 @@ Meteor.publish('boardsReport', function() {
   // array to tell the client to remove the previously published docs.
   if (!Match.test(userId, String) || !userId) return [];
 
-  const boards = Boards.find(
+  const boards = ReactiveCache.getBoards(
     {
       _id: { $in: Boards.userBoardIds(userId, null) },
     },
@@ -95,6 +115,7 @@ Meteor.publish('boardsReport', function() {
       },
       sort: { sort: 1 /* boards default sorting */ },
     },
+    true,
   );
 
   const userIds = [];
@@ -118,19 +139,20 @@ Meteor.publish('boardsReport', function() {
     }
   })
 
-  return [
+  const ret = [
     boards,
-    Users.find({ _id: { $in: userIds } }, { fields: Users.safeFields }),
-    Team.find({ _id: { $in: teamIds } }),
-    Org.find({ _id: { $in: orgIds } }),
+    ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
+    ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, true),
+    ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
   ]
+  return ret;
 });
 
 Meteor.publish('archivedBoards', function() {
   const userId = this.userId;
   if (!Match.test(userId, String)) return [];
 
-  return Boards.find(
+  const ret = ReactiveCache.getBoards(
     {
       _id: { $in: Boards.userBoardIds(userId, true)},
       archived: true,
@@ -153,7 +175,9 @@ Meteor.publish('archivedBoards', function() {
       },
       sort: { archivedAt: -1, modifiedAt: -1 },
     },
+    true,
   );
+  return ret;
 });
 
 // If isArchived = false, this will only return board elements which are not archived.
@@ -164,7 +188,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
   check(isArchived, Boolean);
   const thisUserId = this.userId;
   const $or = [{ permission: 'public' }];
-  let currUser =  (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : Users.findOne(thisUserId);
+  let currUser =  (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : ReactiveCache.getUser(thisUserId);
   let orgIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
   let teamIdsUserBelongs = currUser!== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
   let orgsIds = [];
@@ -183,7 +207,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
   }
 
   this.cursor(
-    Boards.find(
+    ReactiveCache.getBoards(
       {
         _id: boardId,
         archived: false,
@@ -193,16 +217,18 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         // Sort required to ensure oplog usage
       },
       { limit: 1, sort: { sort: 1 /* boards default sorting */ } },
+      true,
     ),
     function(boardId, board) {
-      this.cursor(Lists.find({ boardId, archived: isArchived }));
-      this.cursor(Swimlanes.find({ boardId, archived: isArchived }));
-      this.cursor(Integrations.find({ boardId }));
-      this.cursor(CardCommentReactions.find({ boardId }));
+      this.cursor(ReactiveCache.getLists({ boardId, archived: isArchived }, {}, true));
+      this.cursor(ReactiveCache.getSwimlanes({ boardId, archived: isArchived }, {}, true));
+      this.cursor(ReactiveCache.getIntegrations({ boardId }, {}, true));
+      this.cursor(ReactiveCache.getCardCommentReactions({ boardId }, {}, true));
       this.cursor(
-        CustomFields.find(
+        ReactiveCache.getCustomFields(
           { boardIds: { $in: [boardId] } },
           { sort: { name: 1 } },
+          true,
         ),
       );
 
@@ -250,10 +276,13 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       linkedBoardCards.selector = _ids => ({ boardId: _ids });
 
       this.cursor(
-        Cards.find({
-          boardId: { $in: [boardId, board.subtasksDefaultBoardId] },
-          archived: isArchived,
-        }),
+        ReactiveCache.getCards({
+            boardId: { $in: [boardId, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          },
+          {},
+          true,
+        ),
         function(cardId, card) {
           if (card.type === 'cardType-linkedCard') {
             const impCardId = card.linkedId;
@@ -298,7 +327,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         // and sending it triggers a subtle bug:
         // https://github.com/wefork/wekan/issues/15
         this.cursor(
-          Users.find(
+          ReactiveCache.getUsers(
             {
               _id: { $in: _.without(memberIds, thisUserId) },
             },
@@ -310,6 +339,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
                 'profile.initials': 1,
               },
             },
+            true,
           ),
         );
 
@@ -318,7 +348,8 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
     },
   );
 
-  return this.ready();
+  const ret = this.ready();
+  return ret;
 });
 
 Meteor.methods({
@@ -326,13 +357,14 @@ Meteor.methods({
     check(boardId, String);
     check(properties, Object);
 
-    const board = Boards.findOne(boardId);
+    let ret = null;
+    const board = ReactiveCache.getBoard(boardId);
     if (board) {
       for (const key in properties) {
         board[key] = properties[key];
       }
-      return board.copy();
+      ret = board.copy();
     }
-    return null;
+    return ret;
   },
 });

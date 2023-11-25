@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { trelloGetMembersToMap } from './trelloMembersMapper';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
@@ -174,9 +175,9 @@ BlazeComponent.extendComponent({
             this._refreshMembers(
               this.members().map(member => {
                 if (!member.wekanId) {
-                  let user = Users.findOne({ username: member.username });
+                  let user = ReactiveCache.getUser({ username: member.username });
                   if (!user) {
-                    user = Users.findOne({ importUsernames: member.username });
+                    user = ReactiveCache.getUser({ importUsernames: member.username });
                   }
                   if (user) {
                     // eslint-disable-next-line no-console

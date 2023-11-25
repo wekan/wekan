@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
 import {
   OPERATOR_HAS,
@@ -66,7 +67,7 @@ class DueCardsComponent extends CardSearchPagedComponent {
     });
 
     if (Utils.dueCardsView() !== 'all') {
-      queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
+      queryParams.addPredicate(OPERATOR_USER, ReactiveCache.getCurrentUser().username);
     }
 
     this.runGlobalSearch(queryParams);

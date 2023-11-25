@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.rulesCurrentTab = new ReactiveVar('rulesList');
@@ -55,7 +57,7 @@ BlazeComponent.extendComponent({
           let trigger = this.triggerVar.get();
           trigger.userId = '*';
           if (username !== undefined) {
-            const userFound = Users.findOne({ username });
+            const userFound = ReactiveCache.getUser({ username });
             if (userFound !== undefined) {
               trigger.userId = userFound._id;
               this.triggerVar.set(trigger);

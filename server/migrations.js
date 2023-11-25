@@ -7,9 +7,9 @@ import Actions from '../models/actions';
 import Activities from '../models/activities';
 import Announcements from '../models/announcements';
 import Attachments from '../models/attachments';
-import AttachmentsOld from '../models/attachments_old';
+//import AttachmentsOld from '../models/attachments_old';
 import Avatars from '../models/avatars';
-import AvatarsOld from '../models/avatars_old';
+//import AvatarsOld from '../models/avatars_old';
 import Boards from '../models/boards';
 import CardComments from '../models/cardComments';
 import Cards from '../models/cards';
@@ -1245,6 +1245,7 @@ Migrations.add('add-card-details-show-lists', () => {
   );
 });
 
+/*
 Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
   Meteor.settings.public.ostrioFilesMigrationInProgress = "true";
   AttachmentsOld.find().forEach(function(fileObj) {
@@ -1404,6 +1405,7 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
   });
   Meteor.settings.public.ostrioFilesMigrationInProgress = "false";
 });
+*/
 
 Migrations.add('migrate-attachment-drop-index-cardId', () => {
   try {
@@ -1421,17 +1423,21 @@ Migrations.add('migrate-attachment-migration-fix-source-import', () => {
   );
 });
 
+/*
 Migrations.add('attachment-cardCopy-fix-boardId-etc', () => {
   Attachments.find( {"meta.source": "copy"} ).forEach(_attachment => {
     const cardId = _attachment.meta.cardId;
     const card = Cards.findOne(cardId);
-    console.log("update attachment id: ", _attachment._id);
-    Attachments.update(_attachment._id, {
-      $set: {
-        "meta.boardId": card.boardId,
-        "meta.listId": card.listId,
-        "meta.swimlaneId": card.swimlaneId,
-      }
-    });
+    if (card.boardId !== undefined && card.listId !== undefined && card.swimlaneId !== undefined) {
+      console.log("update attachment id: ", _attachment._id);
+      Attachments.update(_attachment._id, {
+        $set: {
+          "meta.boardId": card.boardId,
+          "meta.listId": card.listId,
+          "meta.swimlaneId": card.swimlaneId,
+        }
+      });
+    }
   });
 });
+*/

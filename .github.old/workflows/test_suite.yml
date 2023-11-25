@@ -3,7 +3,7 @@ name: Test suite
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 permissions:
@@ -18,7 +18,7 @@ jobs:
 #    runs-on: ubuntu-latest
 #    steps:
 #    - name: checkout
-#      uses: actions/checkout@v3
+#      uses: actions/checkout@v4
 #
 #    - name: setup node
 #      uses: actions/setup-node@v1
@@ -42,7 +42,7 @@ jobs:
 #    needs: [lintcode]
 #    steps:
 #    - name: checkout
-#      uses: actions/checkout@v3
+#      uses: actions/checkout@v4
 #
 #    - name: setup node
 #      uses: actions/setup-node@v1
@@ -65,7 +65,7 @@ jobs:
 #    needs: [lintcode,lintstyle]
 #    steps:
 #    - name: checkout
-#      uses: actions/checkout@v3
+#      uses: actions/checkout@v4
 #
 #    - name: setup node
 #      uses: actions/setup-node@v1
@@ -90,7 +90,7 @@ jobs:
 
       # CHECKOUTS
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # CACHING
       - name: Install Meteor
@@ -147,7 +147,7 @@ jobs:
     needs: [tests]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download coverage
         uses: actions/download-artifact@v3
@@ -157,7 +157,7 @@ jobs:
 
 
       - name: Coverage Report
-        uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
+        uses: VeryGoodOpenSource/very_good_coverage@v2.2.0
         with:
           path: ".coverage/lcov.info"
           min_coverage: 1 # TODO add tests and increase to 95!

@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 // this hides the notifications drawer if anyone clicks off of the panel
 Template.body.events({
   click(event) {
@@ -12,7 +14,7 @@ Template.body.events({
 
 Template.notifications.helpers({
   unreadNotifications() {
-    const notifications = Users.findOne(Meteor.userId()).notifications();
+    const notifications = ReactiveCache.getCurrentUser().notifications();
     const unreadNotifications = _.filter(notifications, v => !v.read);
     return unreadNotifications.length;
   },

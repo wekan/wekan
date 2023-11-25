@@ -1,0 +1,105 @@
+template(name="translation")
+  .setting-content
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-title.ext-box
+        .ext-box-left
+          if loading.get
+            +spinner
+          else if translationSetting.get
+            span
+              i.fa.fa-font
+              unless isMiniScreen
+                | {{_ 'translation'}}
+            input#searchTranslationInput(placeholder="{{_ 'search'}}")
+            button#searchTranslationButton
+              i.fa.fa-search
+              | {{_ 'search'}}
+            .ext-box-right
+              span {{#unless isMiniScreen}}{{_ 'translation-number'}}{{/unless}} #{translationNumber}
+
+      .content-body
+        .side-menu
+          ul
+            li.active
+              a.js-translation-menu(data-id="translation-setting")
+                i.fa.fa-font
+                | {{_ 'translation'}}
+        .main-body
+          if loading.get
+            +spinner
+          else if translationSetting.get
+            +translationGeneral
+
+template(name="translationGeneral")
+  table
+    tbody
+      tr
+        th {{_ 'language'}}
+        th {{_ 'text'}}
+        th {{_ 'translation-text'}}
+        th
+          +newTranslationRow
+      each translation in translationList
+        +translationRow(translationId=translation._id)
+
+template(name="newTranslationRow")
+  a.new-translation
+    i.fa.fa-plus-square
+    | {{_ 'new'}}
+
+template(name="translationRow")
+  tr
+    td {{translationData.language}}
+    td {{translationData.text}}
+    td {{translationData.translationText}}
+    td
+      a.edit-translation
+        i.fa.fa-edit
+        | {{_ 'edit'}}
+      a.more-settings-translation
+        i.fa.fa-ellipsis-h
+
+template(name="editTranslationPopup")
+  form
+    label
+      | {{_ 'language'}}
+      input.js-translation-language(type="text" value=translation.language required readonly)
+    label
+      | {{_ 'text'}}
+      input.js-translation-text(type="text" value=translation.text required readonly)
+    label
+      | {{_ 'translation-text'}}
+      input.js-translation-translation-text(type="text" value=translation.translationText)
+    hr
+    div.buttonsContainer
+      input.primary.wide(type="submit" value="{{_ 'save'}}")
+
+template(name="newTranslationPopup")
+  form
+    label
+      | {{_ 'language'}}
+      input.js-translation-language(type="text" value="en" required)
+    label
+      | {{_ 'text'}}
+      span.error.hide.text-taken
+        | {{_ 'error-text-taken'}}
+      input.js-translation-text(type="text" value="" required)
+    label
+      | {{_ 'translation-text'}}
+      input.js-translation-translation-text(type="text" value="")
+    hr
+    div.buttonsContainer
+      input.primary.wide(type="submit" value="{{_ 'save'}}")
+
+template(name="settingsTranslationPopup")
+  ul.pop-over-list
+    li
+      form
+        label
+          | {{_ 'delete-translation-confirm-popup'}}
+        br
+        label.hide.orgId(type="text" value=org._id)
+        div.buttonsContainer
+          input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")

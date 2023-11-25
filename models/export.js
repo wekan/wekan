@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { Exporter } from './exporter';
 import { Meteor } from 'meteor/meteor';
 
@@ -34,16 +35,14 @@ if (Meteor.isServer) {
     const loginToken = req.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
-      user = Meteor.users.findOne({
+      user = ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
       adminId = user._id.toString();
-      impersonateDone = ImpersonatedUsers.findOne({
-        adminId: adminId,
-      });
+      impersonateDone = ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
-      user = Users.findOne({ _id: req.userId, isAdmin: true });
+      user = ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
     }
     const exporter = new Exporter(boardId);
     if (exporter.canExport(user) || impersonateDone) {
@@ -98,16 +97,14 @@ if (Meteor.isServer) {
       const loginToken = req.query.authToken;
       if (loginToken) {
         const hashToken = Accounts._hashLoginToken(loginToken);
-        user = Meteor.users.findOne({
+        user = ReactiveCache.getUser({
           'services.resume.loginTokens.hashedToken': hashToken,
         });
         adminId = user._id.toString();
-        impersonateDone = ImpersonatedUsers.findOne({
-          adminId: adminId,
-        });
+        impersonateDone = ReactiveCache.getImpersonatedUser({ adminId: adminId });
       } else if (!Meteor.settings.public.sandstorm) {
         Authentication.checkUserId(req.userId);
-        user = Users.findOne({ _id: req.userId, isAdmin: true });
+        user = ReactiveCache.getUser({ _id: req.userId, isAdmin: true });
       }
       const exporter = new Exporter(boardId, attachmentId);
       if (exporter.canExport(user) || impersonateDone) {
@@ -154,16 +151,14 @@ if (Meteor.isServer) {
     const loginToken = params.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
-      user = Meteor.users.findOne({
+      user = ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
       adminId = user._id.toString();
-      impersonateDone = ImpersonatedUsers.findOne({
-        adminId: adminId,
-      });
+      impersonateDone = ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
-      user = Users.findOne({
+      user = ReactiveCache.getUser({
         _id: req.userId,
         isAdmin: true,
       });

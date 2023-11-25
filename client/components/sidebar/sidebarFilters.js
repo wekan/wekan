@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
@@ -93,7 +95,7 @@ BlazeComponent.extendComponent({
         },
         'click .js-filter-to-selection'(evt) {
           evt.preventDefault();
-          const selectedCards = Cards.find(Filter.mongoSelector()).map(c => {
+          const selectedCards = ReactiveCache.getCards(Filter.mongoSelector()).map(c => {
             return c._id;
           });
           MultiSelection.add(selectedCards);
@@ -104,14 +106,14 @@ BlazeComponent.extendComponent({
 }).register('filterSidebar');
 
 function mutateSelectedCards(mutationName, ...args) {
-  Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach(card => {
+  ReactiveCache.getCards(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach(card => {
     card[mutationName](...args);
   });
 }
 
 BlazeComponent.extendComponent({
   mapSelection(kind, _id) {
-    return Cards.find(MultiSelection.getMongoSelector(), {sort: ['sort']}).map(card => {
+    return ReactiveCache.getCards(MultiSelection.getMongoSelector(), {sort: ['sort']}).map(card => {
       const methodName = kind === 'label' ? 'hasLabel' : 'isAssigned';
       return card[methodName](_id);
     });
@@ -171,10 +173,10 @@ BlazeComponent.extendComponent({
 
 Template.multiselectionSidebar.helpers({
   isBoardAdmin() {
-    return Meteor.user().isBoardAdmin();
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
   isCommentOnly() {
-    return Meteor.user().isCommentOnly();
+    return ReactiveCache.getCurrentUser().isCommentOnly();
   },
 });
 

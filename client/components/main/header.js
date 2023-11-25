@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Meteor.subscribe('user-admin');
 Meteor.subscribe('boards');
 Meteor.subscribe('setting');
@@ -9,7 +11,7 @@ Template.header.onCreated(function(){
 
   Meteor.subscribe('setting', {
     onReady() {
-      templateInstance.currentSetting.set(Settings.findOne());
+      templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
       let currSetting = templateInstance.currentSetting.curValue;
       if(currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined && document.getElementById("headerIsSettingDatabaseCallDone") != null)
         document.getElementById("headerIsSettingDatabaseCallDone").style.display = 'none';
@@ -22,10 +24,6 @@ Template.header.onCreated(function(){
 Template.header.helpers({
   wrappedHeader() {
     return !Session.get('currentBoard');
-  },
-
-  currentSetting() {
-    return Settings.findOne();
   },
 
   hideLogo() {

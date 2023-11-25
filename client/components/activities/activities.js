@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import DOMPurify from 'dompurify';
 import { TAPi18n } from '/imports/i18n';
 
@@ -24,7 +25,7 @@ BlazeComponent.extendComponent({
         searchId = Session.get(`current${capitalizedMode}`);
       }
       const limit = this.page.get() * activitiesPerPage;
-      const user = Meteor.user();
+      const user = ReactiveCache.getCurrentUser();
       const hideSystem = user ? user.hasHiddenSystemMessages() : false;
       if (searchId === null) return;
 
@@ -65,7 +66,7 @@ Template.activities.helpers({
 BlazeComponent.extendComponent({
   checkItem() {
     const checkItemId = this.currentData().activity.checklistItemId;
-    const checkItem = ChecklistItems.findOne({ _id: checkItemId });
+    const checkItem = ReactiveCache.getChecklistItem(checkItemId);
     return checkItem && checkItem.title;
   },
 
@@ -145,7 +146,7 @@ BlazeComponent.extendComponent({
   lastLabel() {
     const lastLabelId = this.currentData().activity.labelId;
     if (!lastLabelId) return null;
-    const lastLabel = Boards.findOne(
+    const lastLabel = ReactiveCache.getBoard(
       this.currentData().activity.boardId,
     ).getLabelById(lastLabelId);
     if (lastLabel && (lastLabel.name === undefined || lastLabel.name === '')) {
@@ -158,7 +159,7 @@ BlazeComponent.extendComponent({
   },
 
   lastCustomField() {
-    const lastCustomField = CustomFields.findOne(
+    const lastCustomField = ReactiveCache.getCustomField(
       this.currentData().activity.customFieldId,
     );
     if (!lastCustomField) return null;
@@ -166,7 +167,7 @@ BlazeComponent.extendComponent({
   },
 
   lastCustomFieldValue() {
-    const lastCustomField = CustomFields.findOne(
+    const lastCustomField = ReactiveCache.getCustomField(
       this.currentData().activity.customFieldId,
     );
     if (!lastCustomField) return null;
@@ -282,10 +283,10 @@ Template.activity.helpers({
 
 Template.commentReactions.events({
   'click .reaction'(event) {
-    if (Meteor.user().isBoardMember()) {
+    if (ReactiveCache.getCurrentUser().isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
-      const cardComment = CardComments.findOne({_id: commentId});
+      const cardComment = ReactiveCache.getCardComment(commentId);
       cardComment.toggleReaction(codepoint);
     }
   },
@@ -294,10 +295,10 @@ Template.commentReactions.events({
 
 Template.addReactionPopup.events({
   'click .add-comment-reaction'(event) {
-    if (Meteor.user().isBoardMember()) {
+    if (ReactiveCache.getCurrentUser().isBoardMember()) {
       const codepoint = event.currentTarget.dataset['codepoint'];
       const commentId = Template.instance().data.commentId;
-      const cardComment = CardComments.findOne({_id: commentId});
+      const cardComment = ReactiveCache.getCardComment(commentId);
       cardComment.toggleReaction(codepoint);
     }
     Popup.back();
@@ -325,12 +326,13 @@ Template.addReactionPopup.helpers({
 
 Template.commentReactions.helpers({
   isSelected(userIds) {
-    return userIds.includes(Meteor.user()._id);
+    return Meteor.userId() && userIds.includes(Meteor.userId());
   },
   userNames(userIds) {
-    return Users.find({_id: {$in: userIds}})
-                .map(user => user.profile.fullname)
-                .join(', ');
+    const ret = ReactiveCache.getUsers({_id: {$in: userIds}})
+      .map(user => user.profile.fullname)
+      .join(', ');
+    return ret;
   }
 })
 

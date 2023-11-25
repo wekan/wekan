@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
@@ -55,7 +56,11 @@ import Team from "../../models/team";
 
 Meteor.publish('card', cardId => {
   check(cardId, String);
-  const ret = Cards.find({ _id: cardId });
+  const ret = ReactiveCache.getCards(
+    { _id: cardId },
+    {},
+    true,
+  );
   return ret;
 });
 
@@ -65,20 +70,25 @@ Meteor.publish('card', cardId => {
 Meteor.publishRelations('popupCardData', function(cardId) {
   check(cardId, String);
   this.cursor(
-    Cards.find({_id: cardId}),
+    ReactiveCache.getCards(
+      { _id: cardId },
+      {},
+      true,
+    ),
     function(cardId, card) {
-      this.cursor(Boards.find({_id: card.boardId}));
-      this.cursor(Lists.find({boardId: card.boardId}));
+      this.cursor(ReactiveCache.getBoards({_id: card.boardId}, {}, true));
+      this.cursor(ReactiveCache.getLists({boardId: card.boardId}, {}, true));
     },
   );
-  return this.ready()
+  const ret = this.ready()
+  return ret;
 });
 
 Meteor.publish('myCards', function(sessionId) {
   check(sessionId, String);
 
   const queryParams = new QueryParams();
-  queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
+  queryParams.addPredicate(OPERATOR_USER, ReactiveCache.getCurrentUser().username);
   queryParams.setPredicate(OPERATOR_LIMIT, 200);
 
   const query = buildQuery(queryParams);
@@ -88,7 +98,8 @@ Meteor.publish('myCards', function(sessionId) {
     listId: 1,
   };
 
-  return findCards(sessionId, query);
+  const ret = findCards(sessionId, query);
+  return ret;
 });
 
 // Meteor.publish('dueCards', function(sessionId, allUsers = false) {
@@ -106,7 +117,7 @@ Meteor.publish('myCards', function(sessionId) {
 //   };
 //
 //   if (!allUsers) {
-//     queryParams.users = [Meteor.user().username];
+//     queryParams.users = [ReactiveCache.getCurrentUser().username];
 //   }
 //
 //   return buildQuery(sessionId, queryParams);
@@ -120,7 +131,8 @@ Meteor.publish('globalSearch', function(sessionId, params, text) {
   // eslint-disable-next-line no-console
   // console.log('queryParams:', params);
 
-  return findCards(sessionId, buildQuery(new QueryParams(params, text)));
+  const ret = findCards(sessionId, buildQuery(new QueryParams(params, text)));
+  return ret;
 });
 
 function buildSelector(queryParams) {
@@ -157,7 +169,7 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_ORG)) {
       const orgs = [];
       queryParams.getPredicates(OPERATOR_ORG).forEach(name => {
-        const org = Org.findOne({
+        const org = ReactiveCache.getOrg({
           $or: [
             { orgDisplayName: name },
             { orgShortName: name }
@@ -179,7 +191,7 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_TEAM)) {
       const teams = [];
       queryParams.getPredicates(OPERATOR_TEAM).forEach(name => {
-        const team = Team.findOne({
+        const team = ReactiveCache.getTeam({
           $or: [
             { teamDisplayName: name },
             { teamShortName: name }
@@ -244,7 +256,7 @@ function buildSelector(queryParams) {
         const boards = Boards.userSearch(userId, {
           title: new RegExp(escapeForRegex(query), 'i'),
         });
-        if (boards.count()) {
+        if (boards.length) {
           boards.forEach(board => {
             queryBoards.push(board._id);
           });
@@ -259,10 +271,10 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_SWIMLANE)) {
       const querySwimlanes = [];
       queryParams.getPredicates(OPERATOR_SWIMLANE).forEach(query => {
-        const swimlanes = Swimlanes.find({
+        const swimlanes = ReactiveCache.getSwimlanes({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
-        if (swimlanes.count()) {
+        if (swimlanes.length) {
           swimlanes.forEach(swim => {
             querySwimlanes.push(swim._id);
           });
@@ -281,10 +293,10 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_LIST)) {
       const queryLists = [];
       queryParams.getPredicates(OPERATOR_LIST).forEach(query => {
-        const lists = Lists.find({
+        const lists = ReactiveCache.getLists({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
-        if (lists.count()) {
+        if (lists.length) {
           lists.forEach(list => {
             queryLists.push(list._id);
           });
@@ -333,7 +345,7 @@ function buildSelector(queryParams) {
     if (queryParams.hasOperator(OPERATOR_USER)) {
       const users = [];
       queryParams.getPredicates(OPERATOR_USER).forEach(username => {
-        const user = Users.findOne({ username });
+        const user = ReactiveCache.getUser({ username });
         if (user) {
           users.push(user._id);
         } else {
@@ -351,7 +363,7 @@ function buildSelector(queryParams) {
       if (queryParams.hasOperator(key)) {
         const users = [];
         queryParams.getPredicates(key).forEach(username => {
-          const user = Users.findOne({ username });
+          const user = ReactiveCache.getUser({ username });
           if (user) {
             users.push(user._id);
           } else {
@@ -371,7 +383,7 @@ function buildSelector(queryParams) {
           labels: { $elemMatch: { color: label.toLowerCase() } },
         });
 
-        if (boards.count()) {
+        if (boards.length) {
           boards.forEach(board => {
             // eslint-disable-next-line no-console
             // console.log('board:', board);
@@ -395,7 +407,7 @@ function buildSelector(queryParams) {
             labels: { $elemMatch: { name: reLabel } },
           });
 
-          if (boards.count()) {
+          if (boards.length) {
             boards.forEach(board => {
               board.labels
                 .filter(boardLabel => {
@@ -426,7 +438,7 @@ function buildSelector(queryParams) {
           case PREDICATE_ATTACHMENT:
             selector.$and.push({
               _id: {
-                $in: Attachments.find({}, { fields: { cardId: 1 } }).map(
+                $in: ReactiveCache.getAttachments({}, { fields: { cardId: 1 } }).map(
                   a => a.cardId,
                 ),
               },
@@ -435,7 +447,7 @@ function buildSelector(queryParams) {
           case PREDICATE_CHECKLIST:
             selector.$and.push({
               _id: {
-                $in: Checklists.find({}, { fields: { cardId: 1 } }).map(
+                $in: ReactiveCache.getChecklists({}, { fields: { cardId: 1 } }).map(
                   a => a.cardId,
                 ),
               },
@@ -466,11 +478,11 @@ function buildSelector(queryParams) {
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
 
-      const items = ChecklistItems.find(
+      const items = ReactiveCache.getChecklistItems(
         { title: regex },
         { fields: { cardId: 1, checklistId: 1 } },
       );
-      const checklists = Checklists.find(
+      const checklists = ReactiveCache.getChecklists(
         {
           $or: [
             { title: regex },
@@ -480,9 +492,9 @@ function buildSelector(queryParams) {
         { fields: { cardId: 1 } },
       );
 
-      const attachments = Attachments.find({ 'original.name': regex });
+      const attachments = ReactiveCache.getAttachments({ 'original.name': regex });
 
-      const comments = CardComments.find(
+      const comments = ReactiveCache.getCardComments(
         { text: regex },
         { fields: { cardId: 1 } },
       );
@@ -641,27 +653,30 @@ Meteor.publish('brokenCards', function(sessionId) {
   ];
   // console.log('brokenCards selector:', query.selector);
 
-  return findCards(sessionId, query);
+  const ret = findCards(sessionId, query);
+  return ret;
 });
 
 Meteor.publish('nextPage', function(sessionId) {
   check(sessionId, String);
 
-  const session = SessionData.findOne({ sessionId });
+  const session = ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
-  return findCards(sessionId, new Query(session.getSelector(), projection));
+  const ret = findCards(sessionId, new Query(session.getSelector(), projection));
+  return ret;
 });
 
 Meteor.publish('previousPage', function(sessionId) {
   check(sessionId, String);
 
-  const session = SessionData.findOne({ sessionId });
+  const session = ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 
-  return findCards(sessionId, new Query(session.getSelector(), projection));
+  const ret = findCards(sessionId, new Query(session.getSelector(), projection));
+  return ret;
 });
 
 function findCards(sessionId, query) {
@@ -673,7 +688,7 @@ function findCards(sessionId, query) {
   // eslint-disable-next-line no-console
   // console.log('projection:', query.projection);
 
-  const cards = Cards.find(query.selector, query.projection);
+  const cards = ReactiveCache.getCards(query.selector, query.projection, true);
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
 
@@ -763,21 +778,23 @@ function findCards(sessionId, query) {
 
     return [
       cards,
-      Boards.find(
+      ReactiveCache.getBoards(
         { _id: { $in: boards } },
         { fields: { ...fields, labels: 1, color: 1 } },
+        true,
       ),
-      Swimlanes.find(
+      ReactiveCache.getSwimlanes(
         { _id: { $in: swimlanes } },
         { fields: { ...fields, color: 1 } },
+        true,
       ),
-      Lists.find({ _id: { $in: lists } }, { fields }),
-      CustomFields.find({ _id: { $in: customFieldIds } }),
-      Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
-      Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
-      ChecklistItems.find({ cardId: { $in: cards.map(c => c._id) } }),
-      Attachments.find({ 'meta.cardId': { $in: cards.map(c => c._id) } }).cursor,
-      CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
+      ReactiveCache.getLists({ _id: { $in: lists } }, { fields }, true),
+      ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
+      ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
+      ReactiveCache.getChecklists({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
+      ReactiveCache.getChecklistItems({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
+      ReactiveCache.getAttachments({ 'meta.cardId': { $in: cards.map(c => c._id) } }, {}, true).cursor,
+      ReactiveCache.getCardComments({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       SessionData.find({ userId, sessionId }),
     ];
   }

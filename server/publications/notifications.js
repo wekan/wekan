@@ -1,105 +1,152 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 // We use these when displaying notifications in the notificationsDrawer
 
 // gets all activities associated with the current user
 Meteor.publish('notificationActivities', () => {
-  return activities();
+  const ret = activities();
+  return ret;
 });
 
 // gets all attachments associated with activities associated with the current user
 Meteor.publish('notificationAttachments', function() {
-  return Attachments.find({
-    _id: {
-      $in: activities()
-        .map(v => v.attachmentId)
-        .filter(v => !!v),
-    }.cursor,
-  });
+  const ret = ReactiveCache.getAttachments(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.attachmentId)
+          .filter(v => !!v),
+      },
+    },
+    {},
+    true,
+  ).cursor;
+  return ret;
 });
 
 // gets all cards associated with activities associated with the current user
 Meteor.publish('notificationCards', function() {
-  return Cards.find({
-    _id: {
-      $in: activities()
-        .map(v => v.cardId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getCards(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.cardId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
+  return ret;
 });
 
 // gets all checklistItems associated with activities associated with the current user
 Meteor.publish('notificationChecklistItems', function() {
-  return ChecklistItems.find({
-    _id: {
-      $in: activities()
-        .map(v => v.checklistItemId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getChecklistItems(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.checklistItemId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
+  return ret;
 });
 
 // gets all checklists associated with activities associated with the current user
 Meteor.publish('notificationChecklists', function() {
-  return Checklists.find({
-    _id: {
-      $in: activities()
-        .map(v => v.checklistId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getChecklists(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.checklistId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
+  return ret;
 });
 
 // gets all comments associated with activities associated with the current user
 Meteor.publish('notificationComments', function() {
-  return CardComments.find({
-    _id: {
-      $in: activities()
-        .map(v => v.commentId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getCardComments(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.commentId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
+  return ret;
 });
 
 // gets all lists associated with activities associated with the current user
 Meteor.publish('notificationLists', function() {
-  return Lists.find({
-    _id: {
-      $in: activities()
-        .map(v => v.listId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getLists(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.listId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
+  return ret;
 });
 
 // gets all swimlanes associated with activities associated with the current user
 Meteor.publish('notificationSwimlanes', function() {
-  return Swimlanes.find({
-    _id: {
-      $in: activities()
-        .map(v => v.swimlaneId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getSwimlanes(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.swimlaneId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
+  return ret;
 });
 
 // gets all users associated with activities associated with the current user
 Meteor.publish('notificationUsers', function() {
-  return Users.find({
-    _id: {
-      $in: activities()
-        .map(v => v.userId)
-        .filter(v => !!v),
+  const ret = ReactiveCache.getUsers(
+    {
+      _id: {
+        $in: activities()
+          .map(v => v.userId)
+          .filter(v => !!v),
+      },
     },
-  });
+    {},
+    true,
+  );
+  return ret;
 });
 
 function activities() {
-  const activityIds = Meteor.user()?.profile?.notifications?.map(v => v.activity) || [];
+  const activityIds = ReactiveCache.getCurrentUser()?.profile?.notifications?.map(v => v.activity) || [];
   let ret = [];
   if (activityIds.length > 0) {
-    ret = Activities.find({
-      _id: { $in: activityIds },
-    });
-  return ret;
+    ret = ReactiveCache.getActivities(
+      {
+        _id: { $in: activityIds },
+      },
+      {},
+      true,
+    );
   }
+  return ret;
 }

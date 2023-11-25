@@ -1,2 +1,2 @@
-cd ~/repos/wekan
+#cd ~/repos/wekan
 tx push -s

@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Integrations = new Mongo.Collection('integrations');
 
 /**
@@ -100,9 +102,9 @@ Integrations.Const = {
 };
 const permissionHelper = {
   allow(userId, doc) {
-    const user = Users.findOne(userId);
-    const isAdmin = user && Meteor.user().isAdmin;
-    return isAdmin || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    const user = ReactiveCache.getUser(userId);
+    const isAdmin = user && ReactiveCache.getCurrentUser().isAdmin;
+    return isAdmin || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
   },
 };
 Integrations.allow({
@@ -140,7 +142,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      const data = Integrations.find(
+      const data = ReactiveCache.getIntegrations(
         { boardId: paramBoardId },
         { fields: { token: 0 } },
       ).map(function(doc) {
@@ -175,7 +177,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Integrations.findOne(
+        data: ReactiveCache.getIntegration(
           { _id: paramIntId, boardId: paramBoardId },
           { fields: { token: 0 } },
         ),
@@ -322,7 +324,7 @@ if (Meteor.isServer) {
 
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: Integrations.findOne(
+          data: ReactiveCache.getIntegration(
             { _id: paramIntId, boardId: paramBoardId },
             { fields: { _id: 1, activities: 1 } },
           ),
@@ -362,7 +364,7 @@ if (Meteor.isServer) {
 
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: Integrations.findOne(
+          data: ReactiveCache.getIntegration(
             { _id: paramIntId, boardId: paramBoardId },
             { fields: { _id: 1, activities: 1 } },
           ),

@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 const Papa = require('papaparse');
 import { TAPi18n } from '/imports/i18n';
@@ -34,7 +35,7 @@ export class Exporter {
     };
     _.extend(
       result,
-      Boards.findOne(this._boardId, {
+      ReactiveCache.getBoard(this._boardId, {
         fields: {
           stars: 0,
         },
@@ -76,8 +77,7 @@ export class Exporter {
     const byBoardAndAttachment = this._attachmentId
       ? { boardId: this._boardId, _id: this._attachmentId }
       : byBoard;
-    result.attachments = Attachments.find(byBoardAndAttachment)
-      .fetch()
+    result.attachments = ReactiveCache.getAttachments(byBoardAndAttachment)
       .map((attachment) => {
         let filebase64 = null;
         filebase64 = getBase64DataSync(attachment);
@@ -96,16 +96,16 @@ export class Exporter {
       return result.attachments.length > 0 ? result.attachments[0] : {};
     }
 
-    result.lists = Lists.find(byBoard, noBoardId).fetch();
-    result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
-    result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
-    result.customFields = CustomFields.find(
+    result.lists = ReactiveCache.getLists(byBoard, noBoardId);
+    result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
+    result.swimlanes = ReactiveCache.getSwimlanes(byBoard, noBoardId);
+    result.customFields = ReactiveCache.getCustomFields(
       { boardIds: this._boardId },
       { fields: { boardIds: 0 } },
-    ).fetch();
-    result.comments = CardComments.find(byBoard, noBoardId).fetch();
-    result.activities = Activities.find(byBoard, noBoardId).fetch();
-    result.rules = Rules.find(byBoard, noBoardId).fetch();
+    );
+    result.comments = ReactiveCache.getCardComments(byBoard, noBoardId);
+    result.activities = ReactiveCache.getActivities(byBoard, noBoardId);
+    result.rules = ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
     result.checklistItems = [];
     result.subtaskItems = [];
@@ -113,37 +113,37 @@ export class Exporter {
     result.actions = [];
     result.cards.forEach((card) => {
       result.checklists.push(
-        ...Checklists.find({
+        ...ReactiveCache.getChecklists({
           cardId: card._id,
-        }).fetch(),
+        }),
       );
       result.checklistItems.push(
-        ...ChecklistItems.find({
+        ...ReactiveCache.getChecklistItems({
           cardId: card._id,
-        }).fetch(),
+        }),
       );
       result.subtaskItems.push(
-        ...Cards.find({
+        ...ReactiveCache.getCards({
           parentId: card._id,
-        }).fetch(),
+        }),
       );
     });
     result.rules.forEach((rule) => {
       result.triggers.push(
-        ...Triggers.find(
+        ...ReactiveCache.getTriggers(
           {
             _id: rule.triggerId,
           },
           noBoardId,
-        ).fetch(),
+        ),
       );
       result.actions.push(
-        ...Actions.find(
+        ...ReactiveCache.getActions(
           {
             _id: rule.actionId,
           },
           noBoardId,
-        ).fetch(),
+        ),
       );
     });
 
@@ -191,8 +191,7 @@ export class Exporter {
         'profile.avatarUrl': 1,
       },
     };
-    result.users = Users.find(byUserIds, userFields)
-      .fetch()
+    result.users = ReactiveCache.getUsers(byUserIds, userFields)
       .map((user) => {
         // user avatar is stored as a relative url, we export absolute
         if ((user.profile || {}).avatarUrl) {
@@ -379,7 +378,7 @@ export class Exporter {
   }
 
   canExport(user) {
-    const board = Boards.findOne(this._boardId);
+    const board = ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

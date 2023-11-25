@@ -78,6 +78,7 @@ template(name="orgGeneral")
         th {{_ 'displayName'}}
         th {{_ 'description'}}
         th {{_ 'shortName'}}
+        th {{_ 'autoAddUsersWithDomainName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
         th {{_ 'active'}}
@@ -159,6 +160,10 @@ template(name="orgRow")
       td {{ orgData.orgShortName }}
     else
       td <s>{{ orgData.orgShortName }}</s>
+    if orgData.orgIsActive
+      td {{ orgData.orgAutoAddUsersWithDomainName }}
+    else
+      td <s>{{ orgData.orgAutoAddUsersWithDomainName }}</s>
     if orgData.orgIsActive
       td {{ orgData.orgWebsite }}
     else
@@ -308,8 +313,11 @@ template(name="editOrgPopup")
       | {{_ 'shortName'}}
       input.js-orgShortName(type="text" value=org.orgShortName required)
     label
+      | {{_ 'autoAddUsersWithDomainName'}}
+      input.js-orgAutoAddUsersWithDomainName(type="text" value=org.orgAutoAddUsersWithDomainName)
+    label
       | {{_ 'website'}}
-      input.js-orgWebsite(type="text" value=org.orgWebsite required)
+      input.js-orgWebsite(type="text" value=org.orgWebsite)
     label
       | {{_ 'active'}}
       select.select-active.js-org-isactive
@@ -335,7 +343,7 @@ template(name="editTeamPopup")
       input.js-teamShortName(type="text" value=team.teamShortName required)
     label
       | {{_ 'website'}}
-      input.js-teamWebsite(type="text" value=team.teamWebsite required)
+      input.js-teamWebsite(type="text" value=team.teamWebsite)
     label
       | {{_ 'active'}}
       select.select-active.js-team-isactive
@@ -405,7 +413,7 @@ template(name="editUserPopup")
         each value in orgsDatas
           option(value="{{value._id}}") {{value.orgDisplayName}}
       input#jsUserOrgsInPut.js-userOrgs(type="text" value=user.orgsUserBelongs, disabled)
-      input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="text" value=user.orgIdsUserBelongs)
+      input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="hidden" value=user.orgIdsUserBelongs)
     label
       | {{_ 'teams'}}
       i.fa.fa-plus-square#addUserTeam
@@ -415,7 +423,7 @@ template(name="editUserPopup")
         each value in teamsDatas
           option(value="{{value._id}}") {{_ value.teamDisplayName}}
       input#jsUserTeamsInPut.js-userteams(type="text" value=user.teamsUserBelongs, disabled)
-      input#jsUserTeamIdsInPut.js-userteamIds.hide(type="text" value=user.teamIdsUserBelongs)
+      input#jsUserTeamIdsInPut.js-userteamIds.hide(type="hidden" value=user.teamIdsUserBelongs)
 
     hr
     label
@@ -436,6 +444,9 @@ template(name="newOrgPopup")
     label
       | {{_ 'shortName'}}
       input.js-orgShortName(type="text" value="" required)
+    label
+      | {{_ 'autoAddUsersWithDomainName'}}
+      input.js-orgAutoAddUsersWithDomainName(type="text" value="")
     label
       | {{_ 'website'}}
       input.js-orgWebsite(type="text" value="" required)
@@ -462,7 +473,7 @@ template(name="newTeamPopup")
       input.js-teamShortName(type="text" value="" required)
     label
       | {{_ 'website'}}
-      input.js-teamWebsite(type="text" value="" required)
+      input.js-teamWebsite(type="text" value="")
     label
       | {{_ 'active'}}
       select.select-active.js-team-isactive

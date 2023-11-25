@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 
 // Filtered view manager
@@ -107,7 +108,7 @@ class DateFilter {
     // preferred starting day of the week. This date should be added
     // to the moment start of week to get the real start of week date.
     // The default is 1, meaning Monday.
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     const weekStartDay = currentUser ? currentUser.getStartDayOfWeek() : 1;
 
     if (week === 'this') {
@@ -371,14 +372,14 @@ class AdvancedFilter {
   }
 
   _fieldNameToId(field) {
-    const found = CustomFields.findOne({
+    const found = ReactiveCache.getCustomField({
       name: field,
     });
     return found._id;
   }
 
   _fieldValueToId(field, value) {
-    const found = CustomFields.findOne({
+    const found = ReactiveCache.getCustomField({
       name: field,
     });
     if (

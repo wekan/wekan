@@ -1,7 +1,19 @@
+.new-comment a.fa.fa-brands.fa-markdown,
+.inlined-form a.fa.fa-brands.fa-markdown {
+  float: right;
+  position: relative;
+  top: 20px;
+  right: 56px;
+}
 .new-comment a.fa.fa-copy,
 .inlined-form a.fa.fa-copy {
   float: right;
   position: relative;
+  top: 20px;
+  right: 6px;
+}
+.js-inlined-form.viewer.btn-sm {
+  position: absolute;
   top: 20px;
   right: 6px;
 }

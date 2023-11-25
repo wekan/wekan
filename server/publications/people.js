@@ -1,14 +1,14 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 Meteor.publish('people', function(query, limit) {
   check(query, Match.OneOf(Object, null));
   check(limit, Number);
 
-  if (!Match.test(this.userId, String)) {
-    return [];
-  }
+  let ret = [];
+  const user = ReactiveCache.getCurrentUser();
 
-  const user = Users.findOne(this.userId);
   if (user && user.isAdmin) {
-    return Users.find(query, {
+    ret = ReactiveCache.getUsers(query, {
       limit,
       sort: { createdAt: -1 },
       fields: {
@@ -24,8 +24,9 @@ Meteor.publish('people', function(query, limit) {
         orgs: 1,
         teams: 1,
       },
-    });
+    },
+    true);
   }
 
-  return [];
+  return ret;
 });

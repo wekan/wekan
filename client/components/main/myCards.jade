@@ -70,13 +70,14 @@ template(name="myCards")
                                 unless isMiniScreen
                                   .my-cards-board-badge(class=board.colorClass, id="header")
                                 .my-cards-card-title-table
-                                  a.minicard-wrapper(href=card.originRelativeUrl)
-                                    | {{card.title}}
+                                  | {{card.title}}
+                                  //a.minicard-wrapper(href=card.originRelativeUrl)
+                                  //  | {{card.title}}
                               td
                                 | {{list.title}}
                               td
-                                a(href=board.originRelativeUrl)
                                 | {{board.title}}
+                                //a(href=board.originRelativeUrl)
                               td
                                 | {{swimlane.title}}
 

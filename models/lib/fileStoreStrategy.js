@@ -696,7 +696,7 @@ export const moveToStorage = function(fileObj, storageDestination, fileStoreStra
 };
 
 export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
-  const newCard = Cards.findOne(newCardId);
+  const newCard = ReactiveCache.getCard(newCardId);
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const readStream = strategyRead.getReadStream();

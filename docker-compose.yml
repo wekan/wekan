@@ -105,9 +105,9 @@ services:
       - 27017
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       - wekan-db:/data/db
       - wekan-db-dump:/dump
+      #- /etc/timezone:/etc/timezone:ro # Do not use https://github.com/wekan/wekan/issues/5123
 
   wekan:
     #-------------------------------------------------------------------------------------
@@ -120,7 +120,10 @@ services:
     # image: quay.io/wekan/wekan:v6.89
     # image: wekanteam/wekan:v6.89
     # b) GitHub Container registry.
+    # b1) Latest release tag:
     image: ghcr.io/wekan/wekan:latest
+    # b2) Newest git commit automatic build:
+    #image: ghcr.io/wekan/wekan:main
     # c) Quay:
     #image: quay.io/wekan/wekan:latest
     # d) Docker Hub:
@@ -245,6 +248,10 @@ services:
       # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
       #- RESULTS_PER_PAGE=20
       #---------------------------------------------------------------
+      # ==== AFTER OIDC LOGIN, ADD USERS AUTOMATICALLY TO THIS BOARD ID ====
+      # https://github.com/wekan/wekan/pull/5098
+      #- DEFAULT_BOARD_ID=abcd1234
+      #---------------------------------------------------------------
       # ==== WEKAN API AND EXPORT BOARD ====
       # Wekan Export Board works when WITH_API=true.
       # https://github.com/wekan/wekan/wiki/REST-API
@@ -361,7 +368,7 @@ services:
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
       # What to send to Outgoing Webhook, or leave out. If commented out the default values will be: cardId,listId,oldListId,boardId,comment,user,card,commentId,swimlaneId,customerField,customFieldValue
-      #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
+      #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,board,list,swimlane,commentId
       #-----------------------------------------------------------------
       # ==== Debug OIDC OAuth2 etc ====
       #- DEBUG=true

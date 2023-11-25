@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import moment from 'moment/min/moment-with-locales';
 
@@ -22,7 +23,7 @@ export class DatePicker extends BlazeComponent {
   }
 
   startDayOfWeek() {
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return currentUser.getStartDayOfWeek();
     } else {

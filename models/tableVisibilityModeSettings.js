@@ -1,3 +1,5 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+
 TableVisibilityModeSettings = new Mongo.Collection('tableVisibilityModeSettings');
 
 TableVisibilityModeSettings.attachSchema(
@@ -44,7 +46,7 @@ TableVisibilityModeSettings.attachSchema(
 
 TableVisibilityModeSettings.allow({
   update(userId) {
-    const user = Users.findOne(userId);
+    const user = ReactiveCache.getUser(userId);
     return user && user.isAdmin;
   },
 });

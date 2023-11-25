@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { AttachmentStorage } from '/models/attachments';
 import { CardSearchPagedComponent } from '/client/lib/cardSearch';
@@ -123,7 +124,7 @@ class AdminReport extends BlazeComponent {
   }
 
   abbreviate(text) {
-    if (text.length > 30) {
+    if (text?.length > 30) {
       return `${text.substr(0, 29)}...`;
     }
     return text;
@@ -140,7 +141,7 @@ class AdminReport extends BlazeComponent {
   results() {
     const rules = [];
 
-    Rules.find().forEach(rule => {
+    ReactiveCache.getRules().forEach(rule => {
       rules.push({
         _id: rule._id,
         title: rule.title,
@@ -161,17 +162,13 @@ class AdminReport extends BlazeComponent {
   collection = Boards;
 
   userNames(members) {
-    let text = '';
-    members.forEach(member => {
-      const user = Users.findOne(member.userId);
-      text += text ? ', ' : '';
-      if (user) {
-        text += user.username;
-      } else {
-        text += member.userId
-      }
-    });
-    return text;
+    const ret = (members || [])
+      .map(_member => {
+        const _ret = ReactiveCache.getUser(_member.userId)?.username || _member.userId;
+        return _ret;
+      })
+      .join(", ");
+    return ret;
   }
 }.register('boardsReport'));
 
@@ -179,13 +176,13 @@ class AdminReport extends BlazeComponent {
   collection = Cards;
 
   userNames(userIds) {
-    let text = '';
-    userIds.forEach(userId => {
-      const user = Users.findOne(userId);
-      text += text ? ', ' : '';
-      text += user.username;
-    });
-    return text;
+    const ret = (userIds || [])
+      .map(_userId => {
+        const _ret = ReactiveCache.getUser(_userId)?.username;
+        return _ret;
+      })
+      .join(", ");
+    return ret
   }
 }.register('cardsReport'));
 

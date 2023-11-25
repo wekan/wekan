@@ -1,3 +1,7 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
+var converter = require('@wekanteam/html-to-markdown');
+
 const specialHandles = [
   {userId: 'board_members', username: 'board_members'},
   {userId: 'card_members', username: 'card_members'}
@@ -7,19 +11,46 @@ const specialHandleNames = specialHandles.map(m => m.username);
 
 BlazeComponent.extendComponent({
   onRendered() {
+    // Start: Copy <pre> code https://github.com/wekan/wekan/issues/5149
+    // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
+    //       - Also this same TODO below at event, if someone gets it working.
+    var copy = function(target) {
+      var textArea = document.createElement('textarea');
+      textArea.setAttribute('style','width:1px;border:0;opacity:0;');
+      document.body.appendChild(textArea);
+      textArea.value = target.innerHTML;
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+    var pres = document.querySelectorAll(".viewer > pre");
+    pres.forEach(function(pre){
+      var button = document.createElement("a");
+      button.className = "fa fa-copy btn btn-sm right";
+      // TODO: Translate text 'Copy text to clipboard'
+      button.setAttribute('title','Copy text to clipboard');
+      button.innerHTML = '';
+      pre.parentNode.insertBefore(button, pre);
+      button.addEventListener('click', function(e){
+        e.preventDefault();
+        copy(pre.childNodes[0]);
+      })
+    })
+    // End: Copy <pre> code
+
     const textareaSelector = 'textarea';
     const mentions = [
       // User mentions
       {
         match: /\B@([\w.-]*)$/,
         search(term, callback) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const currentBoard = Utils.getCurrentBoard();
           callback(
             _.union(
             currentBoard
               .activeMembers()
               .map(member => {
-                const user = Users.findOne(member.userId);
+                const user = ReactiveCache.getUser(member.userId);
                 const username = user.username;
                 const fullName = user.profile && user.profile !== undefined && user.profile.fullname ? user.profile.fullname : "";
                 return username.includes(term) || fullName.includes(term) ? user : null;
@@ -42,12 +73,14 @@ BlazeComponent.extendComponent({
         index: 1,
       },
     ];
+
     const enableTextarea = function() {
       const $textarea = this.$(textareaSelector);
       autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
-    if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false) {
+/*
+    if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true || Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
       const isSmall = Utils.isMiniScreen();
       const toolbar = isSmall
         ? [
@@ -267,6 +300,8 @@ BlazeComponent.extendComponent({
     } else {
       enableTextarea();
     }
+*/
+    enableTextarea();
   },
   events() {
     return [
@@ -278,6 +313,14 @@ BlazeComponent.extendComponent({
           const $tooltip = this.$('.copied-tooltip');
           Utils.showCopied(promise, $tooltip);
         },
+        'click a.fa.fa-brands.fa-markdown'(event) {
+          const $editor = this.$('textarea.editor');
+          $editor[0].value = converter.convert($editor[0].value);
+        },
+        // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
+        //'click .js-close-inlined-form'(event) {
+        //  Utils.copyPre();
+        //},
       }
     ]
   }
@@ -328,13 +371,13 @@ Blaze.Template.registerHelper(
   new Template('mentions', function() {
     const view = this;
     let content = Blaze.toHTML(view.templateContentBlock);
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
       return HTML.Raw(
         DOMPurify.sanitize(content, { ALLOW_UNKNOWN_PROTOCOLS: true }),
       );
     const knowedUsers = _.union(currentBoard.members.map(member => {
-      const u = Users.findOne(member.userId);
+      const u = ReactiveCache.getUser(member.userId);
       if (u) {
         member.username = u.username;
       }

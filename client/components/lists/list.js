@@ -1,3 +1,4 @@
+import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 require('/client/lib/jquery-ui.js')
 
@@ -22,14 +23,6 @@ BlazeComponent.extendComponent({
   // comment below provides further details.
   onRendered() {
     const boardComponent = this.parentComponent().parentComponent();
-
-    function userIsMember() {
-      return (
-        Meteor.user() &&
-        Meteor.user().isBoardMember() &&
-        !Meteor.user().isCommentOnly()
-      );
-    }
 
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
@@ -75,7 +68,7 @@ BlazeComponent.extendComponent({
         const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
         const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
         const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const currentBoard = Utils.getCurrentBoard();
         const defaultSwimlaneId = currentBoard.getDefaultSwimline()._id;
         let targetSwimlaneId = null;
 
@@ -97,7 +90,7 @@ BlazeComponent.extendComponent({
         $cards.sortable('cancel');
 
         if (MultiSelection.isActive()) {
-          Cards.find(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
+          ReactiveCache.getCards(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
             const newSwimlaneId = targetSwimlaneId
               ? targetSwimlaneId
               : card.swimlaneId || defaultSwimlaneId;
@@ -169,9 +162,9 @@ BlazeComponent.extendComponent({
           'option',
           'disabled',
           // Disable drag-dropping when user is not member
-          !userIsMember(),
+          !Utils.canModifyBoard(),
           // Not disable drag-dropping while in multi-selection mode
-          // MultiSelection.isActive() || !userIsMember(),
+          // MultiSelection.isActive() || !Utils.canModifyBoard(),
         );
       }
     });
@@ -181,14 +174,13 @@ BlazeComponent.extendComponent({
       const currentBoardId = Tracker.nonreactive(() => {
         return Session.get('currentBoard');
       });
-      Cards.find({ boardId: currentBoardId }).fetch();
       Tracker.afterFlush(() => {
         $cards.find(itemsSelector).droppable({
           hoverClass: 'draggable-hover-card',
           accept: '.js-member,.js-label',
           drop(event, ui) {
             const cardId = Blaze.getData(this)._id;
-            const card = Cards.findOne(cardId);
+            const card = ReactiveCache.getCard(cardId);
 
             if (ui.draggable.hasClass('js-member')) {
               const memberId = Blaze.getData(ui.draggable.get(0)).userId;
@@ -201,6 +193,12 @@ BlazeComponent.extendComponent({
         });
       });
     });
+  },
+
+  listWidth() {
+    const user = Meteor.user();
+    const list = Template.currentData();
+    return user.getListWidth(list.boardId, list._id);
   },
 }).register('list');
 
