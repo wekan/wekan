@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Upgraded to Meteor 2.14-beta.2](https://github.com/wekan/wekan/commit/126ddda45d07769f9fef67aa74241c9afa04b6a8).
   Thanks to Meteor developers.
+- [Added standard for public code assessment](https://github.com/wekan/wekan/commit/a307bfa1ec82b66d97714bff32d4201aa8e6e6f7).
+  Thanks to those that participated to making of assessment.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
