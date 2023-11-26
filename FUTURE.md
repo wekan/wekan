@@ -38,13 +38,3 @@ https://github.com/wekan/wekan/wiki/Deep-Dive-Into-WeKan
 Remaining features and all changes are listed here:
 
 https://github.com/wekan/wekan/blob/main/CHANGELOG.md
-
-## Framework updates
-
-WeKan crashes once a week. If someone helps fix that, we can continue using Meteor:
-
-https://forums.meteor.com/t/meteor-application-works-very-slowly-after-1-2-weeks-of-operation/60834
-
-Prototypes for alternative frameworks are listed here:
-
-https://github.com/wekan/wekan/wiki/WeKan-Multiverse-Roadmap
