@@ -17,7 +17,7 @@
     "sinon": "^13.0.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.11",
+    "@babel/runtime": "^7.23.4",
     "@mapbox/node-pre-gyp": "^1.0.10",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
     "@wekanteam/html-to-markdown": "^1.0.2",
