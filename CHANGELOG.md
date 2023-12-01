@@ -17,10 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following changes:
+This release adds the following new features:
 
 - [At right sidebar, moved Minicard Settings to Card Settings popup](https://github.com/wekan/wekan/commit/2f2a039e3c1957b8921f3800315508d4f51c21b7).
-  Thanks to xet7.
+  Thanks to Roemer and xet7.
+- [New feature: Sidebar / Card Settings / Creator at minicard](https://github.com/wekan/wekan/commit/f3242869110738210b712761dda67fec34932307).
+  Thanks to Roemer and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
