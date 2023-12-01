@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.21
+  version: v7.22
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2730,6 +2730,10 @@ definitions:
         description: |
            Does the board allow creator?
         type: boolean
+      allowsCreatorOnMinicard:
+        description: |
+           Does the board allow creator?
+        type: boolean
       allowsAssignee:
         description: |
            Does the board allows assignee?
@@ -2855,6 +2859,7 @@ definitions:
       - allowsActivities
       - allowsLabels
       - allowsCreator
+      - allowsCreatorOnMinicard
       - allowsAssignee
       - allowsMembers
       - allowsRequestedBy
