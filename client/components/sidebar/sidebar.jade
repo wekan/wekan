@@ -175,7 +175,7 @@ template(name="boardInfoOnMyBoardsPopup")
 
 template(name="boardCardSettingsPopup")
   form.board-card-settings
-    h3 {{_ 'show-on-card'}}
+    h3 {{_ 'show-on-card'}}, {{_ 'show-on-minicard'}}
     div.check-div
       a.flex.js-field-has-receiveddate(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
@@ -206,14 +206,12 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-users
           | {{_ 'members'}}
-
     div.check-div
       a.flex.js-field-has-creator(class="{{#if allowsCreator}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCreator}}is-checked{{/if}}")
         span
           i.fa.fa-user
           | {{_ 'creator'}}
-
     div.check-div
       a.flex.js-field-has-assignee(class="{{#if allowsAssignee}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsAssignee}}is-checked{{/if}}")
@@ -238,6 +236,12 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-sort
           | {{_ 'card-sorting-by-number'}}
+    div.check-div
+      a.flex.js-field-has-card-sorting-by-number-on-minicard(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-sort
+          | {{_ 'card-sorting-by-number-on-minicard'}}
     div.check-div
       a.flex.js-field-has-card-show-lists(class="{{#if allowsShowLists}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsShowLists}}is-checked{{/if}}")
@@ -272,6 +276,12 @@ template(name="boardCardSettingsPopup")
           | {{_ 'description'}}
           | {{_ 'custom-field-text'}}
     div.check-div
+      a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-align-left
+          | {{_ 'description-on-minicard'}}
+    div.check-div
       a.flex.js-field-has-checklists(class="{{#if allowsChecklists}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsChecklists}}is-checked{{/if}}")
         span
@@ -289,6 +299,19 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-paperclip
           | {{_ 'attachments'}}
+    div.check-div
+      a.flex.js-field-has-badge-attachment-on-minicard(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-paperclip
+          | {{_ 'badge-attachment-on-minicard'}}
+    div.check-div
+      a.flex.js-field-has-cover-attachment-on-minicard(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-book
+          i.fa.fa-picture-o
+          | {{_ 'cover-attachment-on-minicard'}}
     //div.check-div
     //  a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
     //    .materialCheckBox(class="{{#if allowsComments}}is-checked{{/if}}")
@@ -301,35 +324,6 @@ template(name="boardCardSettingsPopup")
     //    span
     //      i.fa.fa-history
     //      | {{_ 'activities'}}
-
-template(name="boardMinicardSettingsPopup")
-  form.board-minicard-settings
-    h3 {{_ 'show-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-        span
-          i.fa.fa-align-left
-          | {{_ 'description-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-cover-attachment-on-minicard(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
-        span
-          i.fa.fa-book
-          i.fa.fa-picture-o
-          | {{_ 'cover-attachment-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-badge-attachment-on-minicard(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
-        span
-          i.fa.fa-paperclip
-          | {{_ 'badge-attachment-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-card-sorting-by-number-on-minicard(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
-        span
-          i.fa.fa-sort
-          | {{_ 'card-sorting-by-number-on-minicard'}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
@@ -473,10 +467,6 @@ template(name="boardMenuPopup")
         a.js-card-settings
           i.fa.fa-id-card-o
           | {{_ 'card-settings'}}
-      li
-        a.js-minicard-settings
-          i.fa.fa-id-card-o
-          | {{_ 'minicard-settings'}}
       li
         a.js-subtask-settings
           i.fa.fa-sitemap
