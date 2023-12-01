@@ -129,7 +129,7 @@ template(name="minicard")
           each getMembers
             +userAvatar(userId=this)
 
-    if showCreator
+    if showCreatorOnMinicard
       .minicard-creator
         +userAvatar(userId=this.userId noRemove=true)
 

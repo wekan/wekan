@@ -920,6 +920,14 @@ BlazeComponent.extendComponent({
     );
   },
 
+  allowsCreatorOnMinicard() {
+    return (
+      this.currentBoard.allowsCreatorOnMinicard === null ||
+      this.currentBoard.allowsCreatorOnMinicard === undefined ||
+      this.currentBoard.allowsCreatorOnMinicard
+    );
+  },
+
   allowsMembers() {
     return this.currentBoard.allowsMembers;
   },
@@ -1119,6 +1127,19 @@ BlazeComponent.extendComponent({
           $('.js-field-has-creator').toggleClass(
             CKCLS,
             this.currentBoard.allowsCreator,
+          );
+        },
+        'click .js-field-has-creator-on-minicard'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsCreatorOnMinicard = !this.currentBoard.allowsCreatorOnMinicard;
+          this.currentBoard.setAllowsCreatorOnMinicard(this.currentBoard.allowsCreatorOnMinicard);
+          $(`.js-field-has-creator-on-minicard ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCreatorOnMinicard,
+          );
+          $('.js-field-has-creator-on-minicard').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCreatorOnMinicard,
           );
         },
         'click .js-field-has-members'(evt) {

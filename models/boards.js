@@ -464,6 +464,14 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCreatorOnMinicard: {
+      /**
+       * Does the board allow creator?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsAssignee: {
       /**
        * Does the board allows assignee?
@@ -1405,6 +1413,10 @@ Boards.mutations({
 
   setAllowsCreator(allowsCreator) {
     return { $set: { allowsCreator } };
+  },
+
+  setAllowsCreatorOnMinicard(allowsCreatorOnMinicard) {
+    return { $set: { allowsCreatorOnMinicard } };
   },
 
   setAllowsMembers(allowsMembers) {

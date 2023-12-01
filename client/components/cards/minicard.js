@@ -37,15 +37,15 @@ BlazeComponent.extendComponent({
     return ret;
   },
 
-  showCreator() {
+  showCreatorOnMinicard() {
     // cache "board" to reduce the mini-mongodb access
     const board = this.data().board();
     let ret = false;
     if (board) {
       ret =
-        board.allowsCreator === null ||
-        board.allowsCreator === undefined ||
-        board.allowsCreator
+        board.allowsCreatorOnMinicard === null ||
+        board.allowsCreatorOnMinicard === undefined ||
+        board.allowsCreatorOnMinicard
       ;
     }
     return ret;
