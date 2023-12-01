@@ -24,6 +24,11 @@ This release adds the following new features:
 - [New feature: Sidebar / Card Settings / Creator at minicard](https://github.com/wekan/wekan/commit/f3242869110738210b712761dda67fec34932307).
   Thanks to Roemer and xet7.
 
+and fixes the following bugs:
+
+- [Fixed Markdown and copy buttons on top of text](https://github.com/wekan/wekan/commit/3cc10c77f99db344d0af3d6d862eb05c909fbf2c).
+  Thanks to mueller-ma and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.21 2023-11-27 WeKan ® release
