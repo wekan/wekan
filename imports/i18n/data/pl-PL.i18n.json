@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Separator (użyj &#32; lub &nbsp; jako odstępu)",
   "custom-field-stringtemplate-item-placeholder": "Wciśnij Enter, aby dodać więcej elementów",
   "creator": "Twórca",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Wykaz plików",
   "reports": "Wykazy",
   "rulesReportTitle": "Wykaz reguł",

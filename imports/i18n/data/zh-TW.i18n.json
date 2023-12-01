@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
   "custom-field-stringtemplate-item-placeholder": "Press enter to add more items",
   "creator": "創建者",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "檔案報告",
   "reports": "報告",
   "rulesReportTitle": "規則報告",

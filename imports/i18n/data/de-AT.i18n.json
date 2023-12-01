@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Trenner (verwende &#32; oder &nbsp; für einen Leerschritt)",
   "custom-field-stringtemplate-item-placeholder": "Drücke die Eingabetaste, um weitere Einträge hinzuzufügen",
   "creator": "Ersteller",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Dateien-Bericht",
   "reports": "Berichte",
   "rulesReportTitle": "Regeln-Bericht",

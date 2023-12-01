@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Avskiljare (använd &#32; eller &nbsp; för mellanslag)",
   "custom-field-stringtemplate-item-placeholder": "Tryck enter för att lägga till fler",
   "creator": "Skapare",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Filrapport",
   "reports": "Rapporter",
   "rulesReportTitle": "Regelrapport",

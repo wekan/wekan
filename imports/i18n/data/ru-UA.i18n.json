@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Разделитель (для пробела используйте &#32; или &nbsp;)",
   "custom-field-stringtemplate-item-placeholder": "Нажмите «Ввод», чтобы добавить больше элементов.",
   "creator": "Автор",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Отчёт по файлам",
   "reports": "Отчёты",
   "rulesReportTitle": "Отчёт по правилам",

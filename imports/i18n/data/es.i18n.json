@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
   "custom-field-stringtemplate-item-placeholder": "Pulsa intro para añadir más elementos",
   "creator": "Creador",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Informe sobre los archivos",
   "reports": "Informes",
   "rulesReportTitle": "Informe sobre las Reglas",

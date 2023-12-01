@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
   "custom-field-stringtemplate-item-placeholder": "Press enter to add more items",
   "creator": "المنشئ",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "تقارير الملفات",
   "reports": "تقارير",
   "rulesReportTitle": "Rules Report",

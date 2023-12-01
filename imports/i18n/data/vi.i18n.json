@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Dấu phân cách (sử dụng &#32; hoặc &nbsp; cho một khoảng trắng)",
   "custom-field-stringtemplate-item-placeholder": "Nhấn enter để thêm các mục khác",
   "creator": "Người tạo",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Tệp báo cáo",
   "reports": "Báo cáo",
   "rulesReportTitle": "Quy tắc Báo cáo",

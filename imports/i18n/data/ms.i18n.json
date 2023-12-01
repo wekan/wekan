@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Pemisah (guna &#32; atau &nbsp; untuk senggang)",
   "custom-field-stringtemplate-item-placeholder": "Tekan 'enter' untuk tambah lagi item",
   "creator": "Pencipta",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Laporan Fail",
   "reports": "Laporan",
   "rulesReportTitle": "Laporan Peraturan",

@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Eraldaja (kasutage &#32; või &nbsp; tühiku jaoks)",
   "custom-field-stringtemplate-item-placeholder": "Vajutage enter, et lisada rohkem objekte",
   "creator": "Looja",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Failide aruanne",
   "reports": "Aruanded",
   "rulesReportTitle": "Reeglite aruanne",

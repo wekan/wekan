@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "구분자 (공백은 &#32; 또는&nbsp; 사용 )",
   "custom-field-stringtemplate-item-placeholder": "항목을 더 추가하려면 Enter 키를 누르십시오.",
   "creator": "생성자",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "필터 보고서",
   "reports": "보고서",
   "rulesReportTitle": "규칙 보고서",

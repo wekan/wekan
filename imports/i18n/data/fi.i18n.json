@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Erotin (käytä &#32; tai &nbsp; välilyöntinä)",
   "custom-field-stringtemplate-item-placeholder": "Paina Enter lisätäksesi lisää kohtia",
   "creator": "Luoja",
+  "creator-on-minicard": "Luoja minikortilla",
   "filesReportTitle": "Tiedostot raportti",
   "reports": "Raportit",
   "rulesReportTitle": "Säännöt raportti",

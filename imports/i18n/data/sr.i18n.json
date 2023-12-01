@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Раздвајач (користите &#32; или &nbsp; за размак)",
   "custom-field-stringtemplate-item-placeholder": "Притисните ентер да додате још ставки",
   "creator": "Задао",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Извештај везан за датотеке",
   "reports": "Извештаји",
   "rulesReportTitle": "Извештај везан за правила",

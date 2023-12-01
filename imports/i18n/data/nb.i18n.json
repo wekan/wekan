@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "Tekstseparator (bruk &#32; eller &nbsp; som separator)",
   "custom-field-stringtemplate-item-placeholder": "Trykk Enter for å legge til flere objekt",
   "creator": "Oppretter",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "Rapportering Filer",
   "reports": "Rapportering",
   "rulesReportTitle": "Rapportering Regler",

@@ -1117,6 +1117,7 @@
   "custom-field-stringtemplate-separator": "分隔符（使用 &#32; 或者 &nbsp; 表示空格）",
   "custom-field-stringtemplate-item-placeholder": "按 enter 键添加更多项目",
   "creator": "创建者",
+  "creator-on-minicard": "Creator on minicard",
   "filesReportTitle": "文件报告",
   "reports": "报告",
   "rulesReportTitle": "规则报告",
