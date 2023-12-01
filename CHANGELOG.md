@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following changes:
+
+- [At right sidebar, moved Minicard Settings to Card Settings popup](https://github.com/wekan/wekan/commit/2f2a039e3c1957b8921f3800315508d4f51c21b7).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.21 2023-11-27 WeKan ® release
 
 This release adds the following updates:
