@@ -60,7 +60,7 @@ and by by companies that have 30k users.
 ## SSL/TLS
 
 - SSL/TLS encrypts traffic between webbrowser and webserver.
-- If you are thinking about TLS MITM, look at Caddy 2 webserver MITM detections.
+- If you are thinking about TLS MITM, look at https://github.com/caddyserver/caddy/issues/2530
 - Let's Encrypt TLS requires publicly accessible webserver, that Let's Encrypt TLS validation servers check.
 - If firewall limits to only allowed IP addresses, you may need non-Let's Encrypt TLS cert.
 - For On Premise:
