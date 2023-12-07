@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated security.md about mitm](https://github.com/wekan/wekan/commit/b4c9c1df9a7e89d263b1864407a7007338ce770d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.22 2023-12-01 WeKan ® release
 
 This release adds the following new features:
