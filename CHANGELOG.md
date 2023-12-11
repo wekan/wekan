@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Updated security.md about mitm](https://github.com/wekan/wekan/commit/b4c9c1df9a7e89d263b1864407a7007338ce770d).
   Thanks to xet7.
+- [Upgraded to Meteor 2.14-rc.3](https://github.com/wekan/wekan/commit/6a3b8a668bc84c89714e44c3865168be81c8e2ed).
+  Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
