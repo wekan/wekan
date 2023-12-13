@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Upgrade to Meteor 2.14](https://github.com/wekan/wekan/commit/75383fe477874a7aaf5caa3b913e2173694efe13).
+  Thanks to Meteor developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.23 2023-12-11 WeKan ® release
 
 This release adds the following updates:
