@@ -154,6 +154,8 @@
       #export OAUTH2_ENABLED=true
       # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
       #export OAUTH2_ADFS_ENABLED=false
+      # Azure AD B2C. https://github.com/wekan/wekan/issues/5242
+      #- OAUTH2_B2C_ENABLED=false
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
       # OAuth2 login style: popup or redirect.
       #export OAUTH2_LOGIN_STYLE=redirect

@@ -27,11 +27,14 @@ OAuth.registerService('oidc', 2, null, function (query) {
   var accessToken = token.access_token || token.id_token;
   var expiresAt = (+new Date) + (1000 * parseInt(token.expires_in, 10));
 
-  var claimsInAccessToken = (process.env.OAUTH2_ADFS_ENABLED === 'true' || process.env.OAUTH2_ADFS_ENABLED === true) || false;
+  var claimsInAccessToken = (process.env.OAUTH2_ADFS_ENABLED === 'true'  ||
+                             process.env.OAUTH2_ADFS_ENABLED === true    ||
+                             process.env.OAUTH2_B2C_ENABLED  === 'true'  ||
+                             process.env.OAUTH2_B2C_ENABLED  === true)   || false;
 
   if(claimsInAccessToken)
   {
-    // hack when using custom claims in the accessToken. On premise ADFS
+    // hack when using custom claims in the accessToken. On premise ADFS. And Azure AD B2C.
     userinfo = getTokenContent(accessToken);
   }
   else
@@ -64,6 +67,10 @@ OAuth.registerService('oidc', 2, null, function (query) {
     serviceData.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
   }
 
+  if (process.env.OAUTH2_B2C_ENABLED  === 'true'  || process.env.OAUTH2_B2C_ENABLED  === true) {
+    serviceData.email = userinfo["emails"][0];
+  }
+
   if (accessToken) {
     var tokenContent = getTokenContent(accessToken);
     var fields = _.pick(tokenContent, getConfiguration().idTokenWhitelistFields);
@@ -76,6 +83,11 @@ OAuth.registerService('oidc', 2, null, function (query) {
 
   profile.name = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
   profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
+
+  if (process.env.OAUTH2_B2C_ENABLED  === 'true'  || process.env.OAUTH2_B2C_ENABLED  === true) {
+    profile.email = userinfo["emails"][0];
+  }
+
   if (debug) console.log('XXX: profile:', profile);
 
 

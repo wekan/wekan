@@ -69,6 +69,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     OIDC_REDIRECTION_ENABLED=false \
     OAUTH2_CA_CERT="" \
     OAUTH2_ADFS_ENABLED=false \
+    OAUTH2_B2C_ENABLED=false \
     OAUTH2_LOGIN_STYLE=redirect \
     OAUTH2_CLIENT_ID="" \
     OAUTH2_SECRET="" \

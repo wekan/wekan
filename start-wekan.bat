@@ -194,6 +194,9 @@ REM SET OAUTH2_CA_CERT=ABCD1234
 REM # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
 REM SET OAUTH2_ADFS_ENABLED=false
 
+REM # Use OAuth2 Azure AD B2C. Also requires OAUTH2_ENABLED=true setting . https://github.com/wekan/wekan/issues/5242
+REM SET DEFAULT_OAUTH2_B2C_ENABLED=false
+
 REM # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
 REM # example: OAUTH2_CLIENT_ID=abcde12345
 REM SET OAUTH2_CLIENT_ID=

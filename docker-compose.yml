@@ -391,6 +391,8 @@ services:
       #- OAUTH2_CA_CERT=ABCD1234
       # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
       #- OAUTH2_ADFS_ENABLED=false
+      # Azure AD B2C. https://github.com/wekan/wekan/issues/5242
+      #- OAUTH2_B2C_ENABLED=false
       # OAuth2 login style: popup or redirect.
       #- OAUTH2_LOGIN_STYLE=redirect
       # Application GUID captured during app registration:

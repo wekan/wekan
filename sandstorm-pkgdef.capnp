@@ -258,6 +258,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "OAUTH2_ENABLED", value="false"),
     (key = "OAUTH2_CA_CERT", value=""),
     (key = "OAUTH2_ADFS_ENABLED", value="false"),
+    (key = "OAUTH2_B2C_ENABLED", value="false"),
     (key = "OAUTH2_CLIENT_ID", value="false"),
     (key = "OAUTH2_SECRET", value=""),
     (key = "OAUTH2_SERVER_URL", value=""),
