@@ -17,7 +17,13 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Azure AD B2C login using OAuth2](https://github.com/wekan/wekan/commit/93be112a9454c894c1ce3146ed377e6a6aeca64a).
+  https://github.com/wekan/wekan/wiki/B2C .
+  Thanks to snowsky and xet7.
+
+and adds the following updates:
 
 - [Upgrade to Meteor 2.14](https://github.com/wekan/wekan/commit/75383fe477874a7aaf5caa3b913e2173694efe13).
   Thanks to Meteor developers.
