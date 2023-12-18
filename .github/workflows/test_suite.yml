@@ -136,7 +136,7 @@ jobs:
         run: sh ./test-wekan.sh -cv
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-folder
           path: .coverage/
