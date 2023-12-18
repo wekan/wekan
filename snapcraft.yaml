@@ -199,6 +199,7 @@ parts:
             # Migrate MongoDB 3 to 6
             wget https://github.com/wekan/migratemongo/archive/refs/heads/main.zip
             unzip main.zip
+            mv migratemongo-main migratemongo
             cp -pR migratemongo $SNAPCRAFT_PART_INSTALL/
             rm -rf migratemongo
             rm main.zip
