@@ -233,9 +233,9 @@ parts:
         source-type: 7z
         organize:
           caddy: bin/caddy
-          CHANGES.txt: CADDY_CHANGES.txt
-          EULA.txt: CADDY_EULA.txt
-          LICENSES.txt: CADDY_LICENSES.txt
-          README.txt: CADDY_README.txt
+          CHANGES.txt: license/CADDY_CHANGES.txt
+          EULA.txt: license/CADDY_EULA.txt
+          LICENSES.txt: license/CADDY_LICENSES.txt
+          README.txt: license/CADDY_README.txt
         stage:
           - -init
