@@ -196,6 +196,11 @@ parts:
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
+            # Migrate MongoDB 3 to 6
+            git clone --depth 1 --branch main https://github.com/wekan/migratemongo
+            rm -rf migratemongo/.git
+            cp -pR migratemongo $SNAPCRAFT_PART_INSTALL/
+            rm -rf migratemongo
             #rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
             # Delete phantomjs that is in accounts-lockout
             #rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt
