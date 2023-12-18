@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Snap: Organized file locations](https://github.com/wekan/wekan/commit/84a228fc1a7ced2b8b146795acc13eb5abb13d24).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.24 2023-12-17 WeKan ® release
 
 This release adds the following new features:
