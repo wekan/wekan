@@ -27,6 +27,8 @@ This release adds the following updates:
   [Part 3](https://github.com/wekan/wekan/pulls/5245).
 - [Updated percolate:synced-cron](https://github.com/wekan/wekan/commit/06397e9e11a689a0a2e6a95ae785749d5a6a695b).
   Thanks to developers of percolate:synced-cron.
+- [Snap: Added MongoDB 3 binaries for migrating to MongoDB 6](https://github.com/wekan/wekan/commit/805458a7638ff6213929bfa70a46b5afeacaedf1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
