@@ -21,6 +21,12 @@ This release adds the following updates:
 
 - [Snap: Organized file locations](https://github.com/wekan/wekan/commit/84a228fc1a7ced2b8b146795acc13eb5abb13d24).
   Thanks to xet7.
+- Updated GitHub Actions.
+  [Part 1](https://github.com/wekan/wekan/pulls/5243),
+  [Part 2](https://github.com/wekan/wekan/pulls/5244),
+  [Part 3](https://github.com/wekan/wekan/pulls/5245).
+- [Updated percolate:synced-cron](https://github.com/wekan/wekan/commit/06397e9e11a689a0a2e6a95ae785749d5a6a695b).
+  Thanks to developers of percolate:synced-cron.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
