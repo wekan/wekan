@@ -33,6 +33,16 @@ This release adds the following updates:
   [Part 3](https://github.com/wekan/wekan/commit/374e67310723f3c0d3ab20f6b2e4bd0b273bce2b).
   Thanks to xet7.
 
+and adds the following translations:
+
+- [Translations: Added German (Germany) (de_DE) and Odia (India) (or_IN)](https://github.com/wekan/wekan/commit/23c2a2bc224e2def4722a35c20f32a21062b4154).
+  Thanks to translators.
+
+and fixes the following bugs:
+
+- [Fix: Export HTML popup](https://github.com/wekan/wekan/pull/5252).
+  Thanks to Lewiscowles1986.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.24 2023-12-17 WeKan ® release
