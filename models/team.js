@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 
 Team = new Mongo.Collection('team');
 

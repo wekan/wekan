@@ -1,5 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ALLOWED_COLORS } from '/config/const';
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 
 Lists = new Mongo.Collection('lists');
 
@@ -76,7 +78,6 @@ Lists.attachSchema(
        * is the list sorted
        */
       type: Number,
-      decimal: true,
       // XXX We should probably provide a default
       optional: true,
     },
@@ -122,8 +123,7 @@ Lists.attachSchema(
       /**
        * value of the WIP
        */
-      type: Number,
-      decimal: false,
+      type: SimpleSchema.Integer,
       defaultValue: 1,
     },
     'wipLimit.enabled': {

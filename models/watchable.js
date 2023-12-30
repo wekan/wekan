@@ -1,9 +1,14 @@
+import SimpleSchema from 'simpl-schema';
+
 // simple version, only toggle watch / unwatch
 const simpleWatchable = collection => {
   collection.attachSchema({
     watchers: {
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'watchers.$': {
+      type: String,
     },
   });
 
@@ -36,12 +41,19 @@ const complexWatchDefault = 'muted';
 
 const complexWatchable = collection => {
   collection.attachSchema({
-    'watchers.$.userId': {
-      type: String,
+    watchers: {
+      type: Array
     },
-    'watchers.$.level': {
-      type: String,
-      allowedValues: complexWatchOptions,
+    'watchers.$': {
+      type: new SimpleSchema({
+        userId: {
+          type: String,
+        },
+        level: {
+          type: String,
+          allowedValues: complexWatchOptions,
+        },
+      })
     },
   });
 

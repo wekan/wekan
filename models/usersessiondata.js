@@ -1,3 +1,6 @@
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
+
 SessionData = new Mongo.Collection('sessiondata');
 
 /**
@@ -54,8 +57,11 @@ SessionData.attachSchema(
       optional: true,
     },
     cards: {
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'cards.$': {
+      type: String,
     },
     selector: {
       type: String,
@@ -69,11 +75,14 @@ SessionData.attachSchema(
       defaultValue: {},
     },
     errorMessages: {
-      type: [String],
+      type: Array,
       optional: true,
     },
+    'errorMessages.$': {
+      type: String,
+    },
     errors: {
-      type: [Object],
+      type: Array,
       optional: true,
       defaultValue: [],
     },

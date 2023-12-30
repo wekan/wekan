@@ -94,3 +94,5 @@ logging@1.3.3
 wekan-fullcalendar
 momentjs:moment@2.29.3
 wekan-fontawesome
+aldeed:schema-deny
+aldeed:schema-index

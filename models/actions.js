@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
 Actions = new Mongo.Collection('actions');
 

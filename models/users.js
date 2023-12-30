@@ -3,6 +3,7 @@ import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
 import { Index, MongoDBEngine } from 'meteor/easy:search';
+import SimpleSchema from 'simpl-schema';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -45,59 +46,71 @@ Users.attachSchema(
       /**
        * the list of organizations that a user belongs to
        */
-      type: [Object],
+      type: Array,
       optional: true,
     },
-    'orgs.$.orgId': {
-      /**
-       * The uniq ID of the organization
-       */
-      type: String,
-    },
-    'orgs.$.orgDisplayName': {
-      /**
-       * The display name of the organization
-       */
-      type: String,
+    'orgs.$': {
+      type: new SimpleSchema({
+        orgId: {
+          /**
+           * The uniq ID of the organization
+           */
+          type: String,
+        },
+        orgDisplayName: {
+          /**
+           * The display name of the organization
+           */
+          type: String,
+        },
+      })
     },
     teams: {
       /**
        * the list of teams that a user belongs to
        */
-      type: [Object],
+      type: Array,
       optional: true,
     },
-    'teams.$.teamId': {
-      /**
-       * The uniq ID of the team
-       */
-      type: String,
-    },
-    'teams.$.teamDisplayName': {
-      /**
-       * The display name of the team
-       */
-      type: String,
+    'teams.$': {
+      type: new SimpleSchema({
+        teamId: {
+          /**
+           * The uniq ID of the team
+           */
+          type: String,
+        },
+        teamDisplayName: {
+          /**
+           * The display name of the team
+           */
+          type: String,
+        },
+      })
     },
     emails: {
       /**
        * the list of emails attached to a user
        */
-      type: [Object],
+      type: Array,
       optional: true,
     },
-    'emails.$.address': {
-      /**
-       * The email address
-       */
-      type: String,
-      regEx: SimpleSchema.RegEx.Email,
-    },
-    'emails.$.verified': {
-      /**
-       * Has the email been verified
-       */
-      type: Boolean,
+    'emails.$': {
+      type: new SimpleSchema({
+        address: {
+          /**
+           * The email address
+           */
+          type: String,
+          regEx: SimpleSchema.RegEx.Email,
+        },
+        verified: {
+          /**
+           * Has the email been verified
+           */
+          type: Boolean,
+        },
+      })
     },
     createdAt: {
       /**
@@ -155,8 +168,11 @@ Users.attachSchema(
       /**
        * list of email buffers of the user
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'profile.emailBuffer.$': {
+      type: String
     },
     'profile.fullname': {
       /**
@@ -218,8 +234,11 @@ Users.attachSchema(
       /**
        * board IDs the user has been invited to
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'profile.invitedBoards.$': {
+      type: String
     },
     'profile.language': {
       /**
@@ -236,23 +255,27 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.moveAndCopyDialog.$.boardId': {
-      /**
-       * last selected board id
-       */
-      type: String,
-    },
-    'profile.moveAndCopyDialog.$.swimlaneId': {
-      /**
-       * last selected swimlane id
-       */
-      type: String,
-    },
-    'profile.moveAndCopyDialog.$.listId': {
-      /**
-       * last selected list id
-       */
-      type: String,
+    'profile.moveAndCopyDialog.$': {
+      type: new SimpleSchema({
+        boardId: {
+          /**
+           * last selected board id
+           */
+          type: String,
+        },
+        swimlaneId: {
+          /**
+           * last selected swimlane id
+           */
+          type: String,
+        },
+        listId: {
+          /**
+           * last selected list id
+           */
+          type: String,
+        },
+      })
     },
     'profile.moveChecklistDialog': {
       /**
@@ -262,29 +285,33 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.moveChecklistDialog.$.boardId': {
-      /**
-       * last selected board id
-       */
-      type: String,
-    },
-    'profile.moveChecklistDialog.$.swimlaneId': {
-      /**
-       * last selected swimlane id
-       */
-      type: String,
-    },
-    'profile.moveChecklistDialog.$.listId': {
-      /**
-       * last selected list id
-       */
-      type: String,
-    },
-    'profile.moveChecklistDialog.$.cardId': {
-      /**
-       * last selected card id
-       */
-      type: String,
+    'profile.moveChecklistDialog.$': {
+      type: new SimpleSchema({
+        boardId: {
+          /**
+           * last selected board id
+           */
+          type: String,
+        },
+        swimlaneId: {
+          /**
+           * last selected swimlane id
+           */
+          type: String,
+        },
+        listId: {
+          /**
+           * last selected list id
+           */
+          type: String,
+        },
+        cardId: {
+          /**
+           * last selected card id
+           */
+          type: String,
+        },
+      })
     },
     'profile.copyChecklistDialog': {
       /**
@@ -294,49 +321,57 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.copyChecklistDialog.$.boardId': {
-      /**
-       * last selected board id
-       */
-      type: String,
-    },
-    'profile.copyChecklistDialog.$.swimlaneId': {
-      /**
-       * last selected swimlane id
-       */
-      type: String,
-    },
-    'profile.copyChecklistDialog.$.listId': {
-      /**
-       * last selected list id
-       */
-      type: String,
-    },
-    'profile.copyChecklistDialog.$.cardId': {
-      /**
-       * last selected card id
-       */
-      type: String,
+    'profile.copyChecklistDialog.$': {
+      type: new SimpleSchema({
+        boardId: {
+          /**
+           * last selected board id
+           */
+          type: String,
+        },
+        swimlaneId: {
+          /**
+           * last selected swimlane id
+           */
+          type: String,
+        },
+        listId: {
+          /**
+           * last selected list id
+           */
+          type: String,
+        },
+        cardId: {
+          /**
+           * last selected card id
+           */
+          type: String,
+        },
+      })
     },
     'profile.notifications': {
       /**
        * enabled notifications for the user
        */
-      type: [Object],
+      type: Array,
       optional: true,
     },
-    'profile.notifications.$.activity': {
-      /**
-       * The id of the activity this notification references
-       */
-      type: String,
-    },
-    'profile.notifications.$.read': {
-      /**
-       * the date on which this notification was read
-       */
-      type: Date,
-      optional: true,
+    'profile.notifications.$': {
+      type: new SimpleSchema({
+        activity: {
+          /**
+           * the id of the activity
+           */
+          type: String,
+        },
+        read: {
+          /**
+           * the date on which this notification was read
+           */
+          type: Date,
+          optional: true,
+        },
+      })
     },
     'profile.rescueCardDescription': {
       /**
@@ -363,8 +398,11 @@ Users.attachSchema(
       /**
        * list of starred board IDs
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'profile.starredBoards.$': {
+      type: String
     },
     'profile.icode': {
       /**
@@ -509,8 +547,11 @@ Users.attachSchema(
       /**
        * username for imported
        */
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'importUsernames.$': {
+      type: String
     },
     lastConnectionDate: {
       type: Date,

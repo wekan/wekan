@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 
 ChecklistItems = new Mongo.Collection('checklistItems');
 
@@ -18,7 +20,6 @@ ChecklistItems.attachSchema(
        * the sorting field of the item
        */
       type: Number,
-      decimal: true,
     },
     isFinished: {
       /**

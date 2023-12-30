@@ -1,3 +1,7 @@
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
+import { Meteor } from 'meteor/meteor';
+
 Translation = new Mongo.Collection('translation');
 
 /**
@@ -122,7 +126,7 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   // Index for Organization User.
   Meteor.startup(() => {
-    Translation._collection.createIndex({ modifiedAt: -1 });
+    Translation.createIndex({ modifiedAt: -1 });
   });
 }
 

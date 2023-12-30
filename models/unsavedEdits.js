@@ -1,3 +1,6 @@
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
+
 // This collection shouldn't be manipulated directly by instead throw the
 // `UnsavedEdits` API on the client.
 UnsavedEditCollection = new Mongo.Collection('unsaved-edits');

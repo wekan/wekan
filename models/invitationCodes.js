@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 
 InvitationCodes = new Mongo.Collection('invitation_codes');
 
@@ -44,8 +46,11 @@ InvitationCodes.attachSchema(
       type: String,
     },
     boardsToBeInvited: {
-      type: [String],
+      type: Array,
       optional: true,
+    },
+    'boardsToBeInvited.$': {
+      type: String,
     },
     valid: {
       type: Boolean,

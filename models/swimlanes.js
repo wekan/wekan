@@ -1,5 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ALLOWED_COLORS } from '/config/const';
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 
 Swimlanes = new Mongo.Collection('swimlanes');
 
@@ -60,7 +62,6 @@ Swimlanes.attachSchema(
        * the sort value of the swimlane
        */
       type: Number,
-      decimal: true,
       // XXX We should probably provide a default
       optional: true,
     },

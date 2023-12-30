@@ -1,5 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 //var nodemailer = require('nodemailer');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
@@ -21,29 +23,33 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
-    'mailServer.username': {
-      type: String,
-      optional: true,
-    },
-    'mailServer.password': {
-      type: String,
-      optional: true,
-    },
-    'mailServer.host': {
-      type: String,
-      optional: true,
-    },
-    'mailServer.port': {
-      type: String,
-      optional: true,
-    },
-    'mailServer.enableTLS': {
-      type: Boolean,
-      optional: true,
-    },
-    'mailServer.from': {
-      type: String,
-      optional: true,
+    mailServer: {
+      type: new SimpleSchema({
+        username: {
+          type: String,
+          optional: true,
+        },
+        password: {
+          type: String,
+          optional: true,
+        },
+        host: {
+          type: String,
+          optional: true,
+        },
+        port: {
+          type: String,
+          optional: true,
+        },
+        enableTLS: {
+          type: Boolean,
+          optional: true,
+        },
+        from: {
+          type: String,
+          optional: true,
+        },
+      })
     },
     productName: {
       type: String,
