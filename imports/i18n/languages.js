@@ -76,7 +76,7 @@ export default {
     code: "br",
     tag: "br",
     name: "Brezhoneg",
-    load: () => import('./data/xxx.i18n.json'),
+    load: () => import('./data/br.i18n.json'),
   },
   "ca": {
     code: "ca",
@@ -88,7 +88,7 @@ export default {
     code: "ca",
     tag: "ca-ES",
     name: "català (Espanya)",
-    load: () => import('./data/ca-ES.i18n.json'),
+    load: () => import('./data/ca_ES.i18n.json'),
   },
   "cmn": {
     code: "cn",
@@ -137,6 +137,12 @@ export default {
     tag: "de-CH",
     name: "Deutsch (Schweiz)",
     load: () => import('./data/de-CH.i18n.json'),
+  },
+  "de-DE": {
+    code: "de",
+    tag: "de-DE",
+    name: "Deutsch (Deutschland)",
+    load: () => import('./data/de_DE.i18n.json'),
   },
   "de": {
     code: "de",
@@ -507,6 +513,12 @@ export default {
     tag: "oc",
     name: "Occitan",
     load: () => import('./data/oc.i18n.json'),
+  },
+  "or-IN": {
+    code: "or",
+    tag: "or-IN",
+    name: "ଓଡିଆ (ଭାରତ)",
+    load: () => import('./data/or_IN.i18n.json'),
   },
   "pa": {
     code: "pa",
