@@ -57,6 +57,9 @@ window.ExportHtml = Popup => {
     Array.from(
       document.querySelectorAll('#header-main-bar .board-header-btns'),
     ).forEach(elem => elem.remove());
+    Array.from(
+      document.querySelectorAll('.js-pop-over, .pop-over'),
+    ).forEach(elem => elem.remove());
     Array.from(document.querySelectorAll('.list-composer')).forEach(elem =>
       elem.remove(),
     );
