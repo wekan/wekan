@@ -57,6 +57,9 @@ window.ExportHtml = Popup => {
     Array.from(
       document.querySelectorAll('#header-main-bar .board-header-btns'),
     ).forEach(elem => elem.remove());
+    Array.from(
+      document.querySelectorAll('.js-pop-over, .pop-over'),
+    ).forEach(elem => elem.remove());
     Array.from(document.querySelectorAll('.list-composer')).forEach(elem =>
       elem.remove(),
     );
@@ -152,6 +155,50 @@ window.ExportHtml = Popup => {
     );
   };
 
+  const getWebFonts = () => {
+    fontUrls = [];
+
+    for (let sheet of document.styleSheets) {
+      // Get the base URL of the stylesheet
+      let baseUrl = sheet.href ? new URL(sheet.href).origin : window.location.origin;
+
+      try {
+        for (let rule of sheet.cssRules) {
+          if (rule.type === CSSRule.FONT_FACE_RULE) {
+            let src = rule.style.getPropertyValue('src');
+            let urlMatch = src.match(/url\(["']?(.+?)["']?\)/);
+            if (urlMatch) {
+              let fontUrl = urlMatch[1];
+
+              // Resolve the URL relative to the stylesheet's base URL
+              let resolvedUrl = new URL(fontUrl, baseUrl);
+              fontUrls.push(resolvedUrl.href); // Using .href to get the absolute URL
+            }
+          }
+        }
+      } catch (e) {
+          console.log('Access to stylesheet blocked:', e);
+      }
+    }
+
+    return fontUrls;
+  };
+
+  const downloadFonts = async(elements, zip) => {
+    await asyncForEach(elements, async elem => {
+      const response = await fetch(elem);
+      const responseBody = await response.blob();
+      const filename = elem.split('/')
+        .pop()
+        .split('?')
+        .shift()
+        .split('#')
+        .shift();
+      const fileFullPath = `webfonts/${filename}`;
+        zip.file(fileFullPath, responseBody);
+    });
+  }
+
   const downloadCardCovers = async (elements, zip, boardSlug) => {
     await asyncForEach(elements, async elem => {
       const response = await fetch(
@@ -194,6 +241,7 @@ window.ExportHtml = Popup => {
     await downloadStylesheets(getStylesheetList(), zip);
     await downloadSrcAttached(getSrcAttached(), zip, boardSlug);
     await downloadCardCovers(getCardCovers(), zip, boardSlug);
+    await downloadFonts(getWebFonts(), zip);
 
     addBoardHTMLToZip(boardSlug, zip);
 
