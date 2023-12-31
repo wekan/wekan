@@ -23,33 +23,30 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
-    mailServer: {
-      type: new SimpleSchema({
-        username: {
-          type: String,
-          optional: true,
-        },
-        password: {
-          type: String,
-          optional: true,
-        },
-        host: {
-          type: String,
-          optional: true,
-        },
-        port: {
-          type: String,
-          optional: true,
-        },
-        enableTLS: {
-          type: Boolean,
-          optional: true,
-        },
-        from: {
-          type: String,
-          optional: true,
-        },
-      })
+    mailServer: Object,
+    'mailServer.username': {
+      type: String,
+      optional: true,
+    },
+    'mailServer.password': {
+      type: String,
+      optional: true,
+    },
+    'mailServer.host': {
+      type: String,
+      optional: true,
+    },
+    'mailServer.port': {
+      type: String,
+      optional: true,
+    },
+    'mailServer.enableTLS': {
+      type: Boolean,
+      optional: true,
+    },
+    'mailServer.from': {
+      type: String,
+      optional: true,
     },
     productName: {
       type: String,

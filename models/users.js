@@ -49,21 +49,18 @@ Users.attachSchema(
       type: Array,
       optional: true,
     },
-    'orgs.$': {
-      type: new SimpleSchema({
-        orgId: {
-          /**
-           * The uniq ID of the organization
-           */
-          type: String,
-        },
-        orgDisplayName: {
-          /**
-           * The display name of the organization
-           */
-          type: String,
-        },
-      })
+    'orgs.$': Object,
+    'orgs.$.orgId': {
+      /**
+       * The uniq ID of the organization
+       */
+      type: String,
+    },
+    'orgs.$.orgDisplayName': {
+      /**
+       * The display name of the organization
+       */
+      type: String,
     },
     teams: {
       /**
@@ -72,21 +69,18 @@ Users.attachSchema(
       type: Array,
       optional: true,
     },
-    'teams.$': {
-      type: new SimpleSchema({
-        teamId: {
-          /**
-           * The uniq ID of the team
-           */
-          type: String,
-        },
-        teamDisplayName: {
-          /**
-           * The display name of the team
-           */
-          type: String,
-        },
-      })
+    'teams.$': Object,
+    'teams.$.teamId': {
+      /**
+       * The uniq ID of the team
+       */
+      type: String,
+    },
+    'teams.$.teamDisplayName': {
+      /**
+       * The display name of the team
+       */
+      type: String,
     },
     emails: {
       /**
@@ -95,22 +89,19 @@ Users.attachSchema(
       type: Array,
       optional: true,
     },
-    'emails.$': {
-      type: new SimpleSchema({
-        address: {
-          /**
-           * The email address
-           */
-          type: String,
-          regEx: SimpleSchema.RegEx.Email,
-        },
-        verified: {
-          /**
-           * Has the email been verified
-           */
-          type: Boolean,
-        },
-      })
+    'emails.$': Object,
+    'emails.$.address': {
+      /**
+       * The email address
+       */
+      type: String,
+      regEx: SimpleSchema.RegEx.Email,
+    },
+    'emails.$.verified': {
+      /**
+       * Has the email been verified
+       */
+      type: Boolean,
     },
     createdAt: {
       /**
@@ -255,27 +246,24 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.moveAndCopyDialog.$': {
-      type: new SimpleSchema({
-        boardId: {
-          /**
-           * last selected board id
-           */
-          type: String,
-        },
-        swimlaneId: {
-          /**
-           * last selected swimlane id
-           */
-          type: String,
-        },
-        listId: {
-          /**
-           * last selected list id
-           */
-          type: String,
-        },
-      })
+    'profile.moveAndCopyDialog.$': Object,
+    'profile.moveAndCopyDialog.$.boardId': {
+      /**
+       * last selected board id
+       */
+      type: String,
+    },
+    'profile.moveAndCopyDialog.$.swimlaneId': {
+      /**
+       * last selected swimlane id
+       */
+      type: String,
+    },
+    'profile.moveAndCopyDialog.$.listId': {
+      /**
+       * last selected list id
+       */
+      type: String,
     },
     'profile.moveChecklistDialog': {
       /**
@@ -285,33 +273,30 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.moveChecklistDialog.$': {
-      type: new SimpleSchema({
-        boardId: {
-          /**
-           * last selected board id
-           */
-          type: String,
-        },
-        swimlaneId: {
-          /**
-           * last selected swimlane id
-           */
-          type: String,
-        },
-        listId: {
-          /**
-           * last selected list id
-           */
-          type: String,
-        },
-        cardId: {
-          /**
-           * last selected card id
-           */
-          type: String,
-        },
-      })
+    'profile.moveChecklistDialog.$': Object,
+    'profile.moveChecklistDialog.$.boardId': {
+      /**
+       * last selected board id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.swimlaneId': {
+      /**
+       * last selected swimlane id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.listId': {
+      /**
+       * last selected list id
+       */
+      type: String,
+    },
+    'profile.moveChecklistDialog.$.cardId': {
+      /**
+       * last selected card id
+       */
+      type: String,
     },
     'profile.copyChecklistDialog': {
       /**
@@ -321,33 +306,30 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
-    'profile.copyChecklistDialog.$': {
-      type: new SimpleSchema({
-        boardId: {
-          /**
-           * last selected board id
-           */
-          type: String,
-        },
-        swimlaneId: {
-          /**
-           * last selected swimlane id
-           */
-          type: String,
-        },
-        listId: {
-          /**
-           * last selected list id
-           */
-          type: String,
-        },
-        cardId: {
-          /**
-           * last selected card id
-           */
-          type: String,
-        },
-      })
+    'profile.copyChecklistDialog.$': Object,
+    'profile.copyChecklistDialog.$.boardId': {
+      /**
+       * last selected board id
+       */
+      type: String,
+    },
+    'profile.copyChecklistDialog.$.swimlaneId': {
+      /**
+       * last selected swimlane id
+       */
+      type: String,
+    },
+    'profile.copyChecklistDialog.$.listId': {
+      /**
+       * last selected list id
+       */
+      type: String,
+    },
+    'profile.copyChecklistDialog.$.cardId': {
+      /**
+       * last selected card id
+       */
+      type: String,
     },
     'profile.notifications': {
       /**
@@ -356,22 +338,19 @@ Users.attachSchema(
       type: Array,
       optional: true,
     },
-    'profile.notifications.$': {
-      type: new SimpleSchema({
-        activity: {
-          /**
-           * the id of the activity
-           */
-          type: String,
-        },
-        read: {
-          /**
-           * the date on which this notification was read
-           */
-          type: Date,
-          optional: true,
-        },
-      })
+    'profile.notifications.$': Object,
+    'profile.notifications.$.activity': {
+      /**
+       * The id of the activity this notification references
+       */
+      type: String,
+    },
+    'profile.notifications.$.read': {
+      /**
+       * the date on which this notification was read
+       */
+      type: Date,
+      optional: true,
     },
     'profile.rescueCardDescription': {
       /**

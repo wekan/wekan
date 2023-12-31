@@ -133,40 +133,37 @@ Boards.attachSchema(
       },
       */
     },
-    'labels.$': {
-      type: new SimpleSchema({
-        _id: {
-          /**
-           * Unique id of a label
-           */
-          // We don't specify that this field must be unique in the board because that
-          // will cause performance penalties and is not necessary since this field is
-          // always set on the server.
-          // XXX Actually if we create a new label, the `_id` is set on the client
-          // without being overwritten by the server, could it be a problem?
-          type: String,
-        },
-        name: {
-          /**
-           * Name of a label
-           */
-          type: String,
-          optional: true,
-        },
-        color: {
-          /**
-           * color of a label.
-           *
-           * Can be amongst `green`, `yellow`, `orange`, `red`, `purple`,
-           * `blue`, `sky`, `lime`, `pink`, `black`,
-           * `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`,
-           * `slateblue`, `magenta`, `gold`, `navy`, `gray`,
-           * `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
-           */
-          type: String,
-          allowedValues: ALLOWED_COLORS,
-        },
-      })
+    'labels.$': Object,
+    'labels.$._id': {
+      /**
+       * Unique id of a label
+       */
+      // We don't specify that this field must be unique in the board because that
+      // will cause performance penalties and is not necessary since this field is
+      // always set on the server.
+      // XXX Actually if we create a new label, the `_id` is set on the client
+      // without being overwritten by the server, could it be a problem?
+      type: String,
+    },
+    'labels.$.name': {
+      /**
+       * Name of a label
+       */
+      type: String,
+      optional: true,
+    },
+    'labels.$.color': {
+      /**
+       * color of a label.
+       *
+       * Can be amongst `green`, `yellow`, `orange`, `red`, `purple`,
+       * `blue`, `sky`, `lime`, `pink`, `black`,
+       * `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`,
+       * `slateblue`, `magenta`, `gold`, `navy`, `gray`,
+       * `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
+       */
+      type: String,
+      allowedValues: ALLOWED_COLORS,
     },
     // XXX We might want to maintain more informations under the member sub-
     // documents like de-normalized meta-data (the date the member joined the
@@ -192,48 +189,45 @@ Boards.attachSchema(
         }
       },
     },
-    'members.$': {
-      type: new SimpleSchema({
-        userId: {
-          /**
-           * The uniq ID of the member
-           */
-          type: String,
-        },
-        isAdmin: {
-          /**
-           * Is the member an admin of the board?
-           */
-          type: Boolean,
-        },
-        isActive: {
-          /**
-           * Is the member active?
-           */
-          type: Boolean,
-        },
-        isNoComments: {
-          /**
-           * Is the member not allowed to make comments
-           */
-          type: Boolean,
-          optional: true,
-        },
-        isCommentOnly: {
-          /**
-           * Is the member only allowed to comment on the board
-           */
-          type: Boolean,
-          optional: true,
-        },
-        isWorker: {
-          /**
-           * Is the member only allowed to move card, assign himself to card and comment
-           */
-          type: Boolean,
-          optional: true,
-        },
-      })
+    'members.$': Object,
+    'members.$.userId': {
+      /**
+       * The uniq ID of the member
+       */
+      type: String,
+    },
+    'members.$.isAdmin': {
+      /**
+       * Is the member an admin of the board?
+       */
+      type: Boolean,
+    },
+    'members.$.isActive': {
+      /**
+       * Is the member active?
+       */
+      type: Boolean,
+    },
+    'members.$.isNoComments': {
+      /**
+       * Is the member not allowed to make comments
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'members.$.isCommentOnly': {
+      /**
+       * Is the member only allowed to make comments
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'members.$.isWorker': {
+      /**
+       * Is the member only allowed to move card, assign himself to card and comment
+       */
+      type: Boolean,
+      optional: true,
     },
     permission: {
       /**
@@ -249,27 +243,24 @@ Boards.attachSchema(
        type: Array,
        optional: true,
     },
-    'orgs.$': {
-      type: new SimpleSchema({
-        orgId:{
-          /**
-           * The uniq ID of the organization
-           */
-          type: String,
-        },
-        orgDisplayName:{
-          /**
-           * The display name of the organization
-           */
-          type: String,
-        },
-        isActive: {
-          /**
-           * Is the organization active?
-           */
-          type: Boolean,
-        },
-      })
+    'orgs.$': Object,
+    'orgs.$.orgId': {
+      /**
+       * The uniq ID of the organization
+       */
+      type: String,
+    },
+    'orgs.$.orgDisplayName': {
+      /**
+       * The display name of the organization
+       */
+      type: String,
+    },
+    'orgs.$.isActive': {
+      /**
+       * Is the organization active?
+       */
+      type: Boolean,
     },
     teams: {
       /**
@@ -278,28 +269,24 @@ Boards.attachSchema(
        type: Array,
        optional: true,
     },
-    'teams.$': {
-      type: new SimpleSchema({
-        teamId:{
-          /**
-           * The uniq ID of the team
-           */
-          type: String,
-        },
-        teamDisplayName:{
-          /**
-           * The display name of the team
-           */
-          type: String,
-        },
-        isActive: {
-          /**
-           * Is the team active?
-           */
-          type: Boolean,
-        },
-
-      })
+    'teams.$': Object,
+    'teams.$.teamId': {
+      /**
+       * The uniq ID of the team
+       */
+      type: String,
+    },
+    'teams.$.teamDisplayName': {
+      /**
+       * The display name of the team
+       */
+      type: String,
+    },
+    'teams.$.isActive': {
+      /**
+       * Is the team active?
+       */
+      type: Boolean,
     },
     color: {
       /**

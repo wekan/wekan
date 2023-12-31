@@ -44,16 +44,13 @@ const complexWatchable = collection => {
     watchers: {
       type: Array
     },
-    'watchers.$': {
-      type: new SimpleSchema({
-        userId: {
-          type: String,
-        },
-        level: {
-          type: String,
-          allowedValues: complexWatchOptions,
-        },
-      })
+    'watchers.$': Object,
+    'watchers.$.userId': {
+      type: String,
+    },
+    'watchers.$.level': {
+      type: String,
+      allowedValues: complexWatchOptions,
     },
   });
 
