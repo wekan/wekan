@@ -132,8 +132,8 @@ if (Meteor.isServer) {
         }
       }
     }
-    if (activity.boardId) {
-      if (board?.title) {
+    if (activity.boardId && activity.boardId !== 'false') {
+      if (board.title) {
         if (board.title.length > 0) {
           params.board = board.title;
         } else {
@@ -344,7 +344,7 @@ if (Meteor.isServer) {
     });
 
     const integrations = ReactiveCache.getIntegrations({
-      boardId: { $in: [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID] },
+      boardId: { $in: [board?._id, Integrations.Const.GLOBAL_WEBHOOK_ID] },
       // type: 'outgoing-webhooks', // all types
       enabled: true,
       activities: { $in: [description, 'all'] },
