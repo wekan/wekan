@@ -51,11 +51,7 @@ template(name="attachmentGallery")
 
   .attachment-gallery
 
-    if currentUser.isAdmin
-      a.attachment-item.add-attachment.js-add-attachment
-        i.fa.fa-plus.icon
-
-    if currentUser.isNormal
+    if canModifyCard
       a.attachment-item.add-attachment.js-add-attachment
         i.fa.fa-plus.icon
 
