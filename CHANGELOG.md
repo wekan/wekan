@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+-[Fix some public board buttons](https://github.com/wekan/wekan/commit/8ae47cb2f82bcc2078cc9c9987f7d7b7f6394493).
+ Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.25 2023-12-30 WeKan ® release
 
 This release adds the following updates:
