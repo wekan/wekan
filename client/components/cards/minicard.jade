@@ -3,12 +3,20 @@ template(name="minicard")
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
-    if isTouchScreenOrShowDesktopDragHandles
-      a.fa.fa-navicon.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-      .handle
-        .fa.fa-arrows
-    else
-      a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+    if currentUser.isAdmin
+      if isTouchScreenOrShowDesktopDragHandles
+        a.fa.fa-navicon.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+        .handle
+          .fa.fa-arrows
+      else
+        a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+    if currentUser.isNormal
+      if isTouchScreenOrShowDesktopDragHandles
+        a.fa.fa-navicon.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+        .handle
+          .fa.fa-arrows
+      else
+        a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
     .dates
       if getReceived
         unless getStart
