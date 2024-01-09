@@ -23,7 +23,10 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
-    mailServer: Object,
+    mailServer: {
+      type: Object,
+      optional: true
+    },
     'mailServer.username': {
       type: String,
       optional: true,
