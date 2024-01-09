@@ -42,7 +42,8 @@ const complexWatchDefault = 'muted';
 const complexWatchable = collection => {
   collection.attachSchema({
     watchers: {
-      type: Array
+      type: Array,
+      optional: true,
     },
     'watchers.$': Object,
     'watchers.$.userId': {
