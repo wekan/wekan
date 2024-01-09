@@ -3,12 +3,13 @@ template(name="minicard")
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
-    if isTouchScreenOrShowDesktopDragHandles
-      a.fa.fa-navicon.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-      .handle
-        .fa.fa-arrows
-    else
-      a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+    if canModifyCard
+      if isTouchScreenOrShowDesktopDragHandles
+        a.fa.fa-navicon.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+        .handle
+          .fa.fa-arrows
+      else
+        a.fa.fa-navicon.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
     .dates
       if getReceived
         unless getStart
@@ -134,7 +135,7 @@ template(name="minicard")
         +userAvatar(userId=this.userId noRemove=true)
 
     .badges
-      unless currentUser.isNoComments
+      if canModifyCard
         if comments.length
           .badge(title="{{_ 'card-comments-title' comments.length }}")
             span.badge-icon.fa.fa-comment-o.badge-comment.badge-text
@@ -189,12 +190,11 @@ template(name="editCardSortOrderPopup")
 
 template(name="minicardDetailsActionsPopup")
   ul.pop-over-list
-    if currentUser.isBoardAdmin
+    if canModifyCard
       li
         a.js-move-card
           i.fa.fa-arrow-right
           | {{_ 'moveCardPopup-title'}}
-    unless currentUser.isWorker
       li
         a.js-copy-card
           i.fa.fa-copy
