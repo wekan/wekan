@@ -26,7 +26,8 @@ and adds the following updates:
 
 - Updated dependencies.
   [Part 1](https://github.com/wekan/wekan/pull/5270),
-  [Part 2](https://github.com/wekan/wekan/pull/5271).
+  [Part 2](https://github.com/wekan/wekan/pull/5271),
+  [Part 3](https://github.com/wekan/wekan/commit/67896adefc4a12a93fed7575f621f8aa924a2ab8).
   Thanks to developers of dependencies.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
