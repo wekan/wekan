@@ -17,6 +17,40 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
+This release adds the following new features:
+
+- [Added archive option to of Wekan API](https://github.com/wekan/wekan/pull/5265).
+  Thanks to gustavengstrom.
+
+and adds the following updates:
+
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5270),
+  [Part 2](https://github.com/wekan/wekan/pull/5271).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.27 2024-01-02 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix missing maximize card](https://github.com/wekan/wekan/commit/f10f80f6559a6cdee020d5ca34fd5991e07617cf).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.26 2024-01-02 WeKan ® release
+
+This release fixes the following bugs:
+
+-[Fix some public board buttons](https://github.com/wekan/wekan/commit/8ae47cb2f82bcc2078cc9c9987f7d7b7f6394493).
+ Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.25 2023-12-30 WeKan ® release
+
 This release adds the following updates:
 
 - [Snap: Organized file locations](https://github.com/wekan/wekan/commit/84a228fc1a7ced2b8b146795acc13eb5abb13d24).
@@ -32,6 +66,8 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/335f0451e07d6ff924c0af3e5a934676c8e69f4c),
   [Part 3](https://github.com/wekan/wekan/commit/374e67310723f3c0d3ab20f6b2e4bd0b273bce2b).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/0e6d83c0852b2da4430f9c902b84c16f5c2ee8bc).
+  Thanks to developers of dependencies.
 
 and adds the following translations:
 
