@@ -3860,6 +3860,25 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
           newBoardId,
         );
       }
+      if (req.body.archive) {
+        function isTrue(data) {
+          return String(data).toLowerCase() === 'true';
+        }
+        var archive = isTrue(req.body.archive);
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: !archive,
+          },
+          {
+            $set: {
+              archived: archive,
+            },
+          },
+        );
+      }
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
