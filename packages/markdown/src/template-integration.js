@@ -36,9 +36,10 @@ for(var i=0; i<urlschemes.length;i++){
 }
 
 var emoji = require('markdown-it-emoji');
-var mathjax = require('markdown-it-mathjax3');
 Markdown.use(emoji);
-Markdown.use(mathjax);
+
+//var mathjax = require('markdown-it-mathjax3');
+//Markdown.use(mathjax);
 
 // Try to fix Mermaid Diagram error: Maximum call stack size exceeded.
 // Added bigger text size for Diagram.
