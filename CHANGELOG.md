@@ -22,6 +22,11 @@ This release removes the following features:
 - [Removed markdown-it-mathjax3](https://github.com/wekan/wekan/commit/19703fed311c894b61e9269cc0b973d0b0275a6a).
   Thanks to Dexus and xet7.
 
+and adds the following updates:
+
+- [Updated to Meteor 2.14.1-beta.0](https://github.com/wekan/wekan/commit/28d640afb40f4d7c9070fa514c910fbf7065a724).
+  Thanks to Meteor developers.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.28 2024-01-23 WeKan ® release
