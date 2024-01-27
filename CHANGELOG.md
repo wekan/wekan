@@ -11,11 +11,11 @@ Fixing other platforms In Progress.
 
 - Install info at Server part of webpage https://wekan.github.io
 - Newest Node.js is at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
-- MongoDB 6.x
+- MongoDB 7.x
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.29 2024-01-27 WeKan ® release
 
 This release removes the following features:
 
