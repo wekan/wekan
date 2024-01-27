@@ -26,6 +26,8 @@ and adds the following updates:
 
 - [Updated to Meteor 2.14.1-beta.0](https://github.com/wekan/wekan/commit/28d640afb40f4d7c9070fa514c910fbf7065a724).
   Thanks to Meteor developers.
+- [Updated to MongoDB 7.0.5 at Snap Candidate and Docker](https://github.com/wekan/wekan/commit/f624211620c5e42ccdd6f931ba473be62437a62c).
+  Thanks to MongoDB developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
