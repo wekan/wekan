@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# v7.30 2024-01-28 WeKan ® release
+
+This release adds the following updates:
+
+- [Back to MongoDB 6.0.13](https://github.com/wekan/wekan/commit/64592d734cfdbe10b48c3aa3ea74e0ba35903976).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.29 2024-01-27 WeKan ® release
 
 This release removes the following features:
