@@ -11,7 +11,7 @@ Fixing other platforms In Progress.
 
 - Install info at Server part of webpage https://wekan.github.io
 - Newest Node.js is at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
-- MongoDB 7.x
+- MongoDB 6.x
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
@@ -20,6 +20,8 @@ Fixing other platforms In Progress.
 This release adds the following updates:
 
 - [Release scripts: Commented out not currently in use builds of WeKan bundle](https://github.com/wekan/wekan/commit/4eb0085243672071a392dc32f77dba3103c592ab).
+  Thanks to xet7.
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/a54e52d34bdab02befda7eefad46d16814d2c46e).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
