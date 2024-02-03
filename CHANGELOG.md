@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Try to fix Snap](https://github.com/wekan/wekan/commit/a54e52d34bdab02befda7eefad46d16814d2c46e).
   Thanks to xet7.
+- [Updated to Meteor 2.15-rc.1 and removed duplicate nodemailer package because of some errors](https://github.com/wekan/wekan/commit/59c42bc1a3a1792a50379be2f9251fce9b45c1a3).
+  Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
