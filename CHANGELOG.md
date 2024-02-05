@@ -15,6 +15,61 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Release scripts: Commented out not currently in use builds of WeKan bundle](https://github.com/wekan/wekan/commit/4eb0085243672071a392dc32f77dba3103c592ab).
+  Thanks to xet7.
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/a54e52d34bdab02befda7eefad46d16814d2c46e).
+  Thanks to xet7.
+- [Updated to Meteor 2.15-rc.1 and removed duplicate nodemailer package because of some errors](https://github.com/wekan/wekan/commit/59c42bc1a3a1792a50379be2f9251fce9b45c1a3).
+  Thanks to Meteor developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.30 2024-01-28 WeKan ® release
+
+This release adds the following updates:
+
+- [Back to MongoDB 6.0.13](https://github.com/wekan/wekan/commit/64592d734cfdbe10b48c3aa3ea74e0ba35903976).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.29 2024-01-27 WeKan ® release
+
+This release removes the following features:
+
+- [Removed markdown-it-mathjax3](https://github.com/wekan/wekan/commit/19703fed311c894b61e9269cc0b973d0b0275a6a).
+  Thanks to Dexus and xet7.
+
+and adds the following updates:
+
+- [Updated to Meteor 2.14.1-beta.0](https://github.com/wekan/wekan/commit/28d640afb40f4d7c9070fa514c910fbf7065a724).
+  Thanks to Meteor developers.
+- [Updated to MongoDB 7.0.5 at Snap Candidate and Docker](https://github.com/wekan/wekan/commit/f624211620c5e42ccdd6f931ba473be62437a62c).
+  Thanks to MongoDB developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.28 2024-01-23 WeKan ® release
+
+This release adds the following new features:
+
+- [Added archive option to of Wekan API](https://github.com/wekan/wekan/pull/5265).
+  Thanks to gustavengstrom.
+
+and adds the following updates:
+
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5270),
+  [Part 2](https://github.com/wekan/wekan/pull/5271),
+  [Part 3](https://github.com/wekan/wekan/commit/67896adefc4a12a93fed7575f621f8aa924a2ab8).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.27 2024-01-02 WeKan ® release
 
 This release fixes the following bugs:

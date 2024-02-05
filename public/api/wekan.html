@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v7.27</title>
+    <title>Wekan REST API v7.30</title>
 
     <style>
     </style>
@@ -1548,7 +1548,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v7.27">Wekan REST API v7.27</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v7.30">Wekan REST API v7.30</a>
             
           </li>
         
@@ -2057,7 +2057,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v7.27</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v7.30</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -9670,7 +9670,8 @@ Accept: application/json
   &quot;assignees&quot;: &quot;string&quot;,
   &quot;swimlaneId&quot;: &quot;string&quot;,
   &quot;listId&quot;: &quot;string&quot;,
-  &quot;authorId&quot;: &quot;string&quot;
+  &quot;authorId&quot;: &quot;string&quot;,
+  &quot;archive&quot;: &quot;string&quot;
 }&#x27;</span>;
 <span class="hljs-keyword">const</span> headers = {
   <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
@@ -9717,7 +9718,8 @@ fetch(<span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{ca
   <span class="hljs-string">&quot;assignees&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;swimlaneId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;listId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-string">&quot;authorId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  <span class="hljs-string">&quot;authorId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-string">&quot;archive&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 };
 <span class="hljs-keyword">const</span> headers = {
   <span class="hljs-string">&#x27;Content-Type&#x27;</span>:<span class="hljs-string">&#x27;multipart/form-data&#x27;</span>,
@@ -9870,6 +9872,7 @@ System.out.println(response.toString());
 <span class="hljs-attr">swimlaneId:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">listId:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">authorId:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">archive:</span> <span class="hljs-string">string</span>
 
 </code></pre>
 <h3 id="edit_card-parameters">Parameters</h3>
@@ -10086,6 +10089,13 @@ System.out.println(response.toString());
 <td>string</td>
 <td>false</td>
 <td>change the owner of the card</td>
+</tr>
+<tr>
+<td>» archive</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the archive value</td>
 </tr>
 </tbody>
 </table>
