@@ -41,7 +41,8 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py listattachments BOARDID # List attachments
     python3 api.py cardsbyswimlane BOARDID LISTID
     python3 api.py getcard BOARDID LISTID CARDID
-
+    python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS
+    
   Admin API:
     python3 api.py users                # All users
     python3 api.py boards               # All Public Boards
@@ -180,6 +181,52 @@ if arguments == 10:
         body = requests.post(customfieldtoboard, data=post_data, headers=headers)
         print(body.text)
         # ------- ADD CUSTOM FIELD TO BOARD END -----------
+
+if arguments == 8:
+
+    if sys.argv[1] == 'addcardwithlabel':
+        # ------- ADD CARD WITH LABEL START -----------
+        authorid = sys.argv[2]
+        boardid = sys.argv[3]
+        swimlaneid = sys.argv[4]
+        listid = sys.argv[5]
+        cardtitle = sys.argv[6]
+        carddescription = sys.argv[7]
+        labelIds = sys.argv[8]  # Aggiunto labelIds
+
+        cardtolist = wekanurl + apiboards + boardid + s + l + s + listid + s + cs
+        # Add card
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {
+            'authorId': '{}'.format(authorid),
+            'title': '{}'.format(cardtitle),
+            'description': '{}'.format(carddescription),
+            'swimlaneId': '{}'.format(swimlaneid),
+            'labelIds': labelIds
+        }
+
+        body = requests.post(cardtolist, data=post_data, headers=headers)
+        print(body.text)
+
+        # Se l'aggiunta della card è andata a buon fine, puoi ottenere l'ID della card appena creata
+        if body.status_code == 200:
+            card_data = body.json()
+            new_card_id = card_data.get('_id')
+
+            # Ora puoi aggiornare la card per includere labelIds
+            if new_card_id:
+                edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + new_card_id
+                put_data = {'labelIds': labelIds}
+                body = requests.put(edcard, data=put_data, headers=headers)
+                print("=== EDIT CARD ===\n")
+                body = requests.get(edcard, headers=headers)
+                data2 = body.text.replace('}', "}\n")
+                print(data2)
+            else:
+                print("Errore nell'ottenere l'ID della card appena creata.")
+        else:
+            print("Errore nell'aggiunta della card.")
+        # ------- ADD CARD WITH LABEL END -----------
 
 if arguments == 7:
 
