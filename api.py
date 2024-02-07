@@ -41,6 +41,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py listattachments BOARDID # List attachments
     python3 api.py cardsbyswimlane BOARDID LISTID
     python3 api.py getcard BOARDID LISTID CARDID
+    python3 api.py addlabel BOARDID LISTID CARDID LABELID
 
   Admin API:
     python3 api.py users                # All users
@@ -238,6 +239,26 @@ if arguments == 6:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- EDIT CUSTOMFIELD END -----------
+
+if arguments == 5:
+
+    if sys.argv[1] == 'addlabel':
+
+        # ------- EDIT CARD START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        labelIds = sys.argv[5]
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        print(edcard)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'labelIds': labelIds}
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== ADD LABEL ===\n")
+        body = requests.get(edcard, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- EDIT CARD END -----------
 
 if arguments == 4:
 
