@@ -39,6 +39,8 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
     python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE
     python3 api.py listattachments BOARDID # List attachments
+    python3 api.py cardsbyswimlane BOARDID LISTID
+    python3 api.py getcard BOARDID LISTID CARDID
 
   Admin API:
     python3 api.py users                # All users
@@ -251,6 +253,31 @@ if arguments == 4:
         print("=== CREATE NEW USER ===\n")
         print(body.text)
         # ------- CREATE NEW USER END -----------
+        
+    if sys.argv[1] == 'getcard':
+
+        # ------- LIST OF CARD START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        listone = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== INFO OF ONE LIST ===\n")
+        print("URL:", listone)  # Stampa l'URL per debug
+        try:
+            response = requests.get(listone, headers=headers)
+            print("=== RESPONSE ===\n")
+            print("Status Code:", response.status_code)  # Stampa il codice di stato per debug
+
+            if response.status_code == 200:
+                data2 = response.text.replace('}', "}\n")
+                print(data2)
+            else:
+                print(f"Error: {response.status_code}")
+                print(f"Response: {response.text}")
+        except Exception as e:
+            print(f"Error in the GET request: {e}")
+        # ------- LISTS OF CARD END -----------
 
 if arguments == 3:
 
@@ -292,6 +319,23 @@ if arguments == 3:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- INFO OF CUSTOM FIELD END -----------
+
+    if sys.argv[1] == 'cardsbyswimlane':
+    # ------- RETRIEVE CARDS BY SWIMLANE ID START -----------
+        boardid = sys.argv[2]
+        swimlaneid = sys.argv[3]
+        cardsbyswimlane = wekanurl + apiboards + boardid + s + sws + s + swimlaneid + s + cs
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== CARDS BY SWIMLANE ID ===\n")
+        print("URL:", cardsbyswimlane)  # Debug
+        try:
+            body = requests.get(cardsbyswimlane, headers=headers)
+            print("Status Code:", body.status_code)  # Debug
+            data = body.text.replace('}', "}\n")
+            print("Data:", data)
+        except Exception as e:
+            print("Error GET:", e)
+    # ------- RETRIEVE CARDS BY SWIMLANE ID END -----------
 
 if arguments == 2:
 
