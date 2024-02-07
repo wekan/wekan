@@ -41,6 +41,8 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py listattachments BOARDID # List attachments
     python3 api.py cardsbyswimlane BOARDID LISTID
     python3 api.py getcard BOARDID LISTID CARDID
+    python3 api.py addlabel BOARDID LISTID CARDID LABELID
+    python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS
 
   Admin API:
     python3 api.py users                # All users
@@ -181,6 +183,52 @@ if arguments == 10:
         print(body.text)
         # ------- ADD CUSTOM FIELD TO BOARD END -----------
 
+if arguments == 8:
+
+    if sys.argv[1] == 'addcardwithlabel':
+        # ------- ADD CARD WITH LABEL START -----------
+        authorid = sys.argv[2]
+        boardid = sys.argv[3]
+        swimlaneid = sys.argv[4]
+        listid = sys.argv[5]
+        cardtitle = sys.argv[6]
+        carddescription = sys.argv[7]
+        labelIds = sys.argv[8]  # Aggiunto labelIds
+
+        cardtolist = wekanurl + apiboards + boardid + s + l + s + listid + s + cs
+        # Add card
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {
+            'authorId': '{}'.format(authorid),
+            'title': '{}'.format(cardtitle),
+            'description': '{}'.format(carddescription),
+            'swimlaneId': '{}'.format(swimlaneid),
+            'labelIds': labelIds
+        }
+
+        body = requests.post(cardtolist, data=post_data, headers=headers)
+        print(body.text)
+
+        # If ok id card
+        if body.status_code == 200:
+            card_data = body.json()
+            new_card_id = card_data.get('_id')
+
+            # Updating card
+            if new_card_id:
+                edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + new_card_id
+                put_data = {'labelIds': labelIds}
+                body = requests.put(edcard, data=put_data, headers=headers)
+                print("=== EDIT CARD ===\n")
+                body = requests.get(edcard, headers=headers)
+                data2 = body.text.replace('}', "}\n")
+                print(data2)
+            else:
+                print("Error obraining ID.")
+        else:
+            print("Error adding card.")
+        # ------- ADD CARD WITH LABEL END -----------
+
 if arguments == 7:
 
     if sys.argv[1] == 'addcard':
@@ -238,6 +286,26 @@ if arguments == 6:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- EDIT CUSTOMFIELD END -----------
+
+if arguments == 5:
+
+    if sys.argv[1] == 'addlabel':
+
+        # ------- EDIT CARD ADD LABEL START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        labelIds = sys.argv[5]
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        print(edcard)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'labelIds': labelIds}
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== ADD LABEL ===\n")
+        body = requests.get(edcard, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- EDIT CARD ADD LABEL END -----------
 
 if arguments == 4:
 
