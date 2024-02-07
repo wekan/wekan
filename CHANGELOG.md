@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [api.py: Added getcard and cardsbyswimlane](https://github.com/wekan/wekan/pull/5287).
+  Thanks to xator91.
+
+and adds the following updates:
 
 - [Release scripts: Commented out not currently in use builds of WeKan bundle](https://github.com/wekan/wekan/commit/4eb0085243672071a392dc32f77dba3103c592ab).
   Thanks to xet7.
