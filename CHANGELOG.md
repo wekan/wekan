@@ -23,6 +23,8 @@ This release adds the following new features:
   Thanks to xator91.
 - [api.py: Add card with label and add a label to a card](https://github.com/wekan/wekan/pull/5290).
   Thanks to xator91.
+- [api.py: Fix BoardID to SwimlaneID in cardsbyswimlane](https://github.com/wekan/wekan/pull/5290).
+  Thanks to xator91.
 
 and adds the following updates:
 
