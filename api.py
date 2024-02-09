@@ -39,7 +39,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
     python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE
     python3 api.py listattachments BOARDID # List attachments
-    python3 api.py cardsbyswimlane BOARDID LISTID
+    python3 api.py cardsbyswimlane SWIMLANEID LISTID
     python3 api.py getcard BOARDID LISTID CARDID
     python3 api.py addlabel BOARDID LISTID CARDID LABELID
     python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS
