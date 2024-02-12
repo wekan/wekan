@@ -1,3 +1,9 @@
+# Try FerretDB instead
+
+https://github.com/wekan/wekan/wiki/PostgreSQL
+
+ToroDB is not developed anymore.
+
 # Docker: Wekan to PostgreSQL read-only mirroring
 
 * [Wekan kanban board, made with Meteor.js framework, running on
