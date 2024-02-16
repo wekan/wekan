@@ -2166,6 +2166,36 @@ if (Meteor.isServer) {
   });
 
   /**
+  * @operation update_board_title
+  * @summary Update the title of a board
+  *
+  * @param {string} boardId the ID of the board to update
+  * @param {string} title the new title for the board
+  */
+  JsonRoutes.add('PUT', '/api/boards/:boardId/title', function(req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const boardId = req.params.boardId;
+      const title = req.body.title;
+
+      Boards.direct.update({ _id: boardId }, { $set: { title } });
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: boardId,
+          title,
+        },
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+  
+  /**
    * @operation add_board_label
    * @summary Add a label to a board
    *
