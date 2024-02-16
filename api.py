@@ -43,6 +43,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py getcard BOARDID LISTID CARDID
     python3 api.py addlabel BOARDID LISTID CARDID LABELID
     python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS
+    python3 api.py editboardtitle BOARDID NEWBOARDTITLE
 
   Admin API:
     python3 api.py users                # All users
@@ -349,6 +350,30 @@ if arguments == 4:
 
 if arguments == 3:
 
+    if sys.argv[1] == 'editboardtitle':
+
+        # ------- EDIT BOARD TITLE START -----------
+        boardid = sys.argv[2]
+        boardtitle = sys.argv[3]
+        edboardtitle = wekanurl + apiboards + boardid + s + 'title'
+        print(edboardtitle)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        post_data = {'title': boardtitle}
+
+        body = requests.put(edboardtitle, json=post_data, headers=headers)
+        print("=== EDIT BOARD TITLE ===\n")
+        #body = requests.get(edboardtitle, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        if body.status_code == 200:
+            print("Succesfull!")
+        else:
+            print(f"Error: {body.status_code}")
+            print(body.text)
+
+        # ------- EDIT BOARD TITLE END -----------
+  
     if sys.argv[1] == 'createlist':
 
         # ------- CREATE LIST START -----------
