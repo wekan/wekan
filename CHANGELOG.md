@@ -25,6 +25,10 @@ This release adds the following new features:
   Thanks to xator91.
 - [api.py: Fix BoardID to SwimlaneID in cardsbyswimlane](https://github.com/wekan/wekan/pull/5290).
   Thanks to xator91.
+- [boards.js: New update board title function for API](https://github.com/wekan/wekan/pull/5300).
+  Thanks to xator91.
+- [api.py: EDIT BOARD TITLE](https://github.com/wekan/wekan/pull/5301).
+  Thanks to xator91.
 
 and adds the following updates:
 
