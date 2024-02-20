@@ -20,15 +20,15 @@ Fixing other platforms In Progress.
 This release adds the following new features:
 
 - [api.py: Added getcard and cardsbyswimlane](https://github.com/wekan/wekan/pull/5287).
-  Thanks to xator91.
+  Thanks to Mirko Genovese (xator91).
 - [api.py: Add card with label and add a label to a card](https://github.com/wekan/wekan/pull/5290).
-  Thanks to xator91.
+  Thanks to Mirko Genovese (xator91).
 - [api.py: Fix BoardID to SwimlaneID in cardsbyswimlane](https://github.com/wekan/wekan/pull/5290).
-  Thanks to xator91.
+  Thanks to Mirko Genovese (xator91).
 - [boards.js: New update board title function for API](https://github.com/wekan/wekan/pull/5300).
-  Thanks to xator91.
+  Thanks to Mirko Genovese (xator91).
 - [api.py: EDIT BOARD TITLE](https://github.com/wekan/wekan/pull/5301).
-  Thanks to xator91.
+  Thanks to Mirko Genovese (xator91).
 
 and adds the following updates:
 
