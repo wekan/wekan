@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [api.py: Added createlabel](https://github.com/wekan/wekan/pull/5308).
+  Thanks to xator91.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.31 2024-02-17 WeKan ® release
 
 This release adds the following new features:
