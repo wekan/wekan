@@ -44,7 +44,8 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py addlabel BOARDID LISTID CARDID LABELID
     python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS
     python3 api.py editboardtitle BOARDID NEWBOARDTITLE
-    python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
+    python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
+    python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
 
   Admin API:
     python3 api.py users                # All users
@@ -308,6 +309,32 @@ if arguments == 5:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- EDIT CARD ADD LABEL END -----------
+
+    if sys.argv[1] == 'editcardcolor':
+        # ------- EDIT CARD COLOR START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        newcolor = sys.argv[5]  
+
+        valid_colors = ['white', 'green', 'yellow', 'orange', 'red', 'purple', 'blue', 'sky', 'lime', 'pink', 'black',
+                    'silver', 'peachpuff', 'crimson', 'plum', 'darkgreen', 'slateblue', 'magenta', 'gold', 'navy',
+                    'gray', 'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo']
+
+        if newcolor not in valid_colors:
+            print("Invalid color. Choose a color from the list.")
+            sys.exit(1)
+
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        print(edcard)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'color': '{}'.format(newcolor)}  
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== EDIT CARD COLOR ===\n")
+        body = requests.get(edcard, headers=headers)
+        data2 = body.text.replace('}', "}\n")
+        print(data2)
+        # ------- EDIT CARD COLOR END -----------
 
 if arguments == 4:
 
