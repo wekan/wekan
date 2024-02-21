@@ -19,7 +19,9 @@ Fixing other platforms In Progress.
 
 This release adds the following new features:
 
-- [api.py: Added createlabel](https://github.com/wekan/wekan/pull/5308).
+- [api.py: Added create label](https://github.com/wekan/wekan/pull/5308).
+  Thanks to xator91.
+- [api.py: Edit card color](https://github.com/wekan/wekan/pull/5309).
   Thanks to xator91.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
