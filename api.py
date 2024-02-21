@@ -44,6 +44,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py addlabel BOARDID LISTID CARDID LABELID
     python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS
     python3 api.py editboardtitle BOARDID NEWBOARDTITLE
+    python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
 
   Admin API:
     python3 api.py users                # All users
@@ -347,6 +348,29 @@ if arguments == 4:
         except Exception as e:
             print(f"Error in the GET request: {e}")
         # ------- LISTS OF CARD END -----------
+
+    if sys.argv[1] == 'createlabel':
+
+        # ------- CREATE LABEL START -----------
+        boardid = sys.argv[2]
+        labelcolor = sys.argv[3]
+        labelname = sys.argv[4]
+        label_url = wekanurl + apiboards + boardid + s + 'labels'
+        print(label_url)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        # Object to send
+        put_data = {'label': {'color': labelcolor, 'name': labelname}}
+        print("URL:", label_url)
+        print("Headers:", headers)
+        print("Data:", put_data)
+        try:
+          response = requests.put(label_url, json=put_data, headers=headers)
+          print("=== CREATE LABELS ===\n")
+          print("Response Status Code:", response.status_code)
+          print("Response Text:", response.text)
+        except Exception as e:
+          print("Error:", e)
+        # ------- CREATE LABEL END -----------
 
 if arguments == 3:
 
