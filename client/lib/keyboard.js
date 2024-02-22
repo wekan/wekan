@@ -33,6 +33,14 @@ Mousetrap.bind('q', () => {
   }
 });
 
+Mousetrap.bind('a', () => {
+  const currentBoardId = Session.get('currentBoard');
+  const currentUserId = Meteor.userId();
+  if (currentBoardId && currentUserId) {
+    Filter.assignees.toggle(currentUserId);
+  }
+});
+
 Mousetrap.bind('x', () => {
   if (Filter.isActive()) {
     Filter.reset();
@@ -179,6 +187,10 @@ Template.keyboardShortcuts.helpers({
     },
     {
       keys: ['q'],
+      action: 'shortcut-filter-my-cards',
+    },
+    {
+      keys: ['a'],
       action: 'shortcut-filter-my-cards',
     },
     {
