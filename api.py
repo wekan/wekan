@@ -46,6 +46,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py editboardtitle BOARDID NEWBOARDTITLE
     python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
     python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
+    python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.)
 
   Admin API:
     python3 api.py users                # All users
@@ -336,7 +337,7 @@ if arguments == 5:
         print(data2)
         # ------- EDIT CARD COLOR END -----------
 
-if arguments == 4:
+if arguments >= 4:
 
     if sys.argv[1] == 'newuser':
 
@@ -398,6 +399,40 @@ if arguments == 4:
         except Exception as e:
           print("Error:", e)
         # ------- CREATE LABEL END -----------
+
+    if sys.argv[1] == 'addchecklist':
+
+        # ------- ADD CHECKLIST START -----------
+        board_id = sys.argv[2]
+        card_id = sys.argv[3]
+        checklist_title = sys.argv[4]
+
+        # Aggiungi la checklist
+        checklist_url = wekanurl + apiboards + board_id + s + cs + s + card_id + '/checklists'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        data = {'title': checklist_title}
+
+        response = requests.post(checklist_url, data=data, headers=headers)
+        response.raise_for_status()
+
+        result = json.loads(response.text)
+        checklist_id = result.get('_id')
+
+        print(f"Checklist '{checklist_title}' created. ID: {checklist_id}")
+
+        # Aggiungi gli items alla checklist
+        items_to_add = sys.argv[5:]  # Gli argomenti successivi sono considerati come titoli degli items
+        for item_title in items_to_add:
+            checklist_item_url = wekanurl + apiboards + board_id + s + cs + s + card_id + s + 'checklists' + s + checklist_id + '/items'
+            item_data = {'title': item_title}
+
+            item_response = requests.post(checklist_item_url, data=item_data, headers=headers)
+            item_response.raise_for_status()
+
+            item_result = json.loads(item_response.text)
+            checklist_item_id = item_result.get('_id')
+
+            print(f"Item '{item_title}' added. ID: {checklist_item_id}")
 
 if arguments == 3:
 
