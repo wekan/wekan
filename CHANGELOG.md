@@ -23,6 +23,8 @@ This release adds the following new features:
   Thanks to xator91.
 - [api.py: Edit card color](https://github.com/wekan/wekan/pull/5309).
   Thanks to xator91.
+- [api.py: Addchecklist with multiple items also or just title](https://github.com/wekan/wekan/pull/5311).
+  Thanks to xator91.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
