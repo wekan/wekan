@@ -32,6 +32,11 @@ This release adds the following new features:
 - [Shortcut a to filter by assignees](https://github.com/wekan/wekan/pull/5318).
   Thanks to DevOpsNB.
 
+and fixes the following bugs:
+
+- [Fixed Error 500 when adding user to a board and multiple same avatar icons by reverting back from Meteor 2.15 to 2.14](https://github.com/wekan/wekan/commit/b5f4be36d4577c391ad19c5e5dd9de3036b8998f).
+  Thanks to xator91, mariogalan, bbyszio, zeo101, laurentm255, johnnytolengo and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.31 2024-02-17 WeKan ® release
