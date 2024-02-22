@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated docs for previous version of WeKan](https://github.com/wekan/wekan/commit/3b0616c1500b5070e660d2ba00968d59600958eb).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [OpenAPI: Fix breakage introduced with blank return](https://github.com/wekan/wekan/pull/5321).
   Thanks to bentiss.
