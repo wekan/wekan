@@ -578,6 +578,7 @@
   "shortcut-clear-filters": "すべてのフィルターを解除する",
   "shortcut-close-dialog": "ダイアログを閉じる",
   "shortcut-filter-my-cards": "カードをフィルター",
+  "shortcut-filter-my-assigned-cards": "Filter my assigned cards",
   "shortcut-show-shortcuts": "このショートカットリストを表示する",
   "shortcut-toggle-filterbar": "フィルターサイドバーの切り替え",
   "shortcut-toggle-searchbar": "検索サイドバーの切り替え",
