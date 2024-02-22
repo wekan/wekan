@@ -191,7 +191,7 @@ Template.keyboardShortcuts.helpers({
     },
     {
       keys: ['a'],
-      action: 'shortcut-filter-my-cards',
+      action: 'shortcut-filter-my-assigned-cards',
     },
     {
       keys: ['f'],
