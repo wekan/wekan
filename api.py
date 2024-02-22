@@ -47,7 +47,8 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
     python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
     python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.)
-
+    python3 api.py deleteallcards BOARDID SWIMLANEID ( * Be careful will delete ALL CARDS INSIDE the swimlanes automatically in every list * )
+    
   Admin API:
     python3 api.py users                # All users
     python3 api.py boards               # All Public Boards
@@ -515,6 +516,37 @@ if arguments == 3:
         except Exception as e:
             print("Error GET:", e)
     # ------- RETRIEVE CARDS BY SWIMLANE ID END -----------
+
+    if sys.argv[1] == 'deleteallcards':
+        boardid = sys.argv[2]
+        swimlaneid = sys.argv[3]
+
+        # ------- GET SWIMLANE CARDS START -----------
+        get_swimlane_cards_url = wekanurl + apiboards + boardid + s + "swimlanes" + s + swimlaneid + s + "cards"
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        try:
+            response = requests.get(get_swimlane_cards_url, headers=headers)
+            response.raise_for_status()
+            cards_data = response.json()
+
+            # Print the details of each card
+            for card in cards_data:
+                # ------- DELETE CARD START -----------
+                delete_card_url = wekanurl + apiboards + boardid + s + "lists" + s + card['listId'] + s + "cards" + s + card['_id']
+                try:
+                    response = requests.delete(delete_card_url, headers=headers)
+                    response.raise_for_status()
+                    deleted_card_data = response.json()
+                    print(f"Card Deleted Successfully. Card ID: {deleted_card_data['_id']}")
+                except requests.exceptions.RequestException as e:
+                    print(f"Error deleting card: {e}")
+                # ------- DELETE CARD END -----------
+
+        except requests.exceptions.RequestException as e:
+            print(f"Error getting swimlane cards: {e}")
+            sys.exit(1)
+        # ------- GET SWIMLANE CARDS END -----------
 
 if arguments == 2:
 
