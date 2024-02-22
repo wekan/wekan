@@ -23,8 +23,14 @@ This release adds the following new features:
   Thanks to xator91.
 - [api.py: Edit card color](https://github.com/wekan/wekan/pull/5309).
   Thanks to xator91.
-- [api.py: Addchecklist with multiple items also or just title](https://github.com/wekan/wekan/pull/5311).
+- [api.py: Add checklist with multiple items also or just title](https://github.com/wekan/wekan/pull/5311).
   Thanks to xator91.
+- [api.py: Delete all cards. Will delete all cards from Swimlanes automatically, will retrieve automatically all list id and delete everything](https://github.com/wekan/wekan/pull/5313).
+  Thanks to xator91.
+- [cards.js: Added a control to check error if card is not updated](https://github.com/wekan/wekan/pull/5312).
+  Thanks to xator91.
+- [Shortcut a to filter by assignees](https://github.com/wekan/wekan/pull/5318).
+  Thanks to DevOpsNB.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
