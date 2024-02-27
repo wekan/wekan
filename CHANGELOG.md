@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following features and bugs:
+
+- [Added back Mathjax that has bug of showing math twice](https://github.com/wekan/wekan/commit/f43dadc06894d874281ec0e449dcc4c81b3c59ad).
+  Thanks to macthecadillac, Dexus and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.34 2024-02-23 WeKan ® release
 
 This release adds the following updates:
