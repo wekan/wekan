@@ -37,17 +37,22 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py customfields BOARDID # Custom Fields of BOARDID
     python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
     python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
-    python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE
+    python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE # Edit Custom Field
     python3 api.py listattachments BOARDID # List attachments
-    python3 api.py cardsbyswimlane SWIMLANEID LISTID
-    python3 api.py getcard BOARDID LISTID CARDID
-    python3 api.py addlabel BOARDID LISTID CARDID LABELID
-    python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS
-    python3 api.py editboardtitle BOARDID NEWBOARDTITLE
-    python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
-    python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`)
-    python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.)
-    python3 api.py deleteallcards BOARDID SWIMLANEID ( * Be careful will delete ALL CARDS INSIDE the swimlanes automatically in every list * )
+    python3 api.py cardsbyswimlane SWIMLANEID LISTID # Retrieve cards list on a swimlane
+    python3 api.py getcard BOARDID LISTID CARDID # Get card info
+    python3 api.py addlabel BOARDID LISTID CARDID LABELID # Add label to a card
+    python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS # Add a card and a label
+    python3 api.py editboardtitle BOARDID NEWBOARDTITLE # Edit board title
+    python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Create a new label
+    python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Edit card color
+    python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.) # Add checklist + item on a card
+    python3 api.py deleteallcards BOARDID SWIMLANEID ( * Be careful will delete ALL CARDS INSIDE the swimlanes automatically in every list * ) # Delete all cards on a swimlane
+    python3 api.py checklistid BOARDID CARDID # Retrieve Checklist ID attached to a card
+    python3 api.py checklistinfo BOARDID CARDID CHECKLISTID # Get checklist info
+    python3 api.py get_list_cards_count BOARDID LISTID # Retrieve how many cards in a list
+    python3 api.py get_board_cards_count BOARDID # Retrieve how many cards in a board
+
     
   Admin API:
     python3 api.py users                # All users
@@ -422,7 +427,7 @@ if arguments >= 4:
         print(f"Checklist '{checklist_title}' created. ID: {checklist_id}")
 
         # Aggiungi gli items alla checklist
-        items_to_add = sys.argv[5:]  # Gli argomenti successivi sono considerati come titoli degli items
+        items_to_add = sys.argv[5:]  
         for item_title in items_to_add:
             checklist_item_url = wekanurl + apiboards + board_id + s + cs + s + card_id + s + 'checklists' + s + checklist_id + '/items'
             item_data = {'title': item_title}
@@ -434,6 +439,22 @@ if arguments >= 4:
             checklist_item_id = item_result.get('_id')
 
             print(f"Item '{item_title}' added. ID: {checklist_item_id}")
+
+    if sys.argv[1] == 'checklistinfo':
+
+        # ------- ADD CHECKLIST START -----------
+        board_id = sys.argv[2]
+        card_id = sys.argv[3]
+        checklist_id = sys.argv[4]
+        checklist_url = wekanurl + apiboards + board_id + s + cs + s + card_id + '/checklists' + s + checklist_id
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        response = requests.get(checklist_url, headers=headers)
+
+        response.raise_for_status()
+
+        checklist_info = response.json()
+        print("Checklist Info:")
+        print(checklist_info)
 
 if arguments == 3:
 
@@ -548,6 +569,39 @@ if arguments == 3:
             sys.exit(1)
         # ------- GET SWIMLANE CARDS END -----------
 
+    if sys.argv[1] == 'get_list_cards_count':
+        # ------- GET LIST CARDS COUNT START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+
+        get_list_cards_count_url = wekanurl + apiboards + boardid +  s + l + s + listid + s + "cards_count"
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        try:
+            response = requests.get(get_list_cards_count_url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            print(f"List Cards Count: {data['list_cards_count']}")
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
+        # ------- GET LIST CARDS COUNT END -----------
+
+    if sys.argv[1] == 'checklistid':
+
+        # ------- ADD CHECKLIST START -----------
+        board_id = sys.argv[2]
+        card_id = sys.argv[3]
+
+        checklist_url = wekanurl + apiboards + board_id + s + cs + s + card_id + '/checklists'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        response = requests.get(checklist_url, headers=headers)
+
+        response.raise_for_status()
+        checklists = response.json()
+        print("Checklists:")
+        for checklist in checklists:
+          print(checklist)
+
 if arguments == 2:
 
     # ------- BOARDS LIST START -----------
@@ -618,6 +672,22 @@ if arguments == 2:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- LISTS OF ATTACHMENTS END -----------
+
+    if sys.argv[1] == 'get_board_cards_count':
+        # ------- GET BOARD CARDS COUNT START -----------
+        boardid = sys.argv[2]
+
+        get_board_cards_count_url = wekanurl + apiboards + boardid + s + "cards_count"
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        try:
+            response = requests.get(get_board_cards_count_url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            print(f"Board Cards Count: {data['board_cards_count']}")
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
+        # ------- GET BOARD CARDS COUNT END -----------
 
 if arguments == 1:
 
