@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following features:
+
+- [api.py: checklistid, checklistinfo, get_list_cards_count and get_board_cards_count](https://github.com/wekan/wekan/pull/5326).
+  Thanks to xator91.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.35 2024-02-27 WeKan ® release
 
 This release adds the following features and bugs:
