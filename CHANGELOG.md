@@ -26,6 +26,8 @@ and fixes the following bugs:
 
 - [Fixed Card image cover should be margin-top:6px since hamburger menu and due date at the top](https://github.com/wekan/wekan/commit/747bc4c08837ad9781d63b9f16b97a64b0bfe7b8).
   Thanks to e-gaulue and xet7.
+- [Try to fix API get cards wrong order. Please test](https://github.com/wekan/wekan/commit/c570405d0267e28f2b2644005d48fb097eac385b).
+  Thanks to mohammadZahedian, xator91 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
