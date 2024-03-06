@@ -22,6 +22,11 @@ This release adds the following features:
 - [api.py: checklistid, checklistinfo, get_list_cards_count and get_board_cards_count](https://github.com/wekan/wekan/pull/5326).
   Thanks to xator91.
 
+and fixes the following bugs:
+
+- [Fixed Card image cover should be margin-top:6px since hamburger menu and due date at the top](https://github.com/wekan/wekan/commit/747bc4c08837ad9781d63b9f16b97a64b0bfe7b8).
+  Thanks to e-gaulue and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.35 2024-02-27 WeKan ® release
