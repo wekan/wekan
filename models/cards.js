@@ -3250,7 +3250,8 @@ if (Meteor.isServer) {
         boardId: paramBoardId,
         listId: paramListId,
         archived: false,
-      }).map(function(doc) {
+      },
+      { sort: ['sort'] }).map(function(doc) {
         return {
           _id: doc._id,
           title: doc.title,
@@ -3260,6 +3261,7 @@ if (Meteor.isServer) {
           dueAt: doc.dueAt,
           endAt: doc.endAt,
           assignees: doc.assignees,
+          sort: doc.sort,
         };
       }),
     });
