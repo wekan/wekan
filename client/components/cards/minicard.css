@@ -99,7 +99,7 @@
   background-size: contain;
   height: 145px;
   user-select: none;
-  margin: -6px -8px 6px -8px;
+  margin: 6px -8px 6px -8px;
   border-radius: top 2px;
 }
 .minicard .minicard-labels {
