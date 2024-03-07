@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed API get swimlane cards wrong order. Please test](https://github.com/wekan/wekan/commit/7beced1e683c2eb2960b0ee40d5ec927d235fa6a).
+  Thanks to mohammadZahedian, xator91 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.36 2024-03-06 WeKan ® release
 
 This release adds the following features:
