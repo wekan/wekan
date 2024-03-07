@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Fixed API get swimlane cards wrong order. Please test](https://github.com/wekan/wekan/commit/7beced1e683c2eb2960b0ee40d5ec927d235fa6a).
   Thanks to mohammadZahedian, xator91 and xet7.
+- [Fixed API get_all_cards doesn't return SwimlaneId. Please test](https://github.com/wekan/wekan/commit/ffafb30b9b394188e1b60ec836ad83f1738c266d).
+  Thanks to mohammadZahedian, xator91 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
