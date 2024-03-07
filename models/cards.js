@@ -3258,6 +3258,7 @@ if (Meteor.isServer) {
           _id: doc._id,
           title: doc.title,
           description: doc.description,
+          swimlaneId: doc.swimlaneId,
           receivedAt: doc.receivedAt,
           startAt: doc.startAt,
           dueAt: doc.dueAt,
