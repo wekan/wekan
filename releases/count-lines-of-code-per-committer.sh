@@ -17,3 +17,7 @@ if [ $# -ne 1 ]
 fi
 
 git log --author=$1 --pretty=tformat: --numstat | awk '{ adds += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s, added:deleted ratio:%s\n", adds, subs, loc, adds/subs }' -
+
+# Related: Most active GitHub users in Finland:
+# https://committers.top/finland.html
+# at 2024-03-08, xet7 was 3rd.
