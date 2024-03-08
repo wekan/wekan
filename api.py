@@ -557,9 +557,12 @@ if arguments == 3:
                 delete_card_url = wekanurl + apiboards + boardid + s + "lists" + s + card['listId'] + s + "cards" + s + card['_id']
                 try:
                     response = requests.delete(delete_card_url, headers=headers)
-                    response.raise_for_status()
-                    deleted_card_data = response.json()
-                    print(f"Card Deleted Successfully. Card ID: {deleted_card_data['_id']}")
+                    if response.status_code == 404:
+                        print(f"Card not found: {card['_id']}")
+                    else:
+                        response.raise_for_status()
+                        deleted_card_data = response.json()
+                        print(f"Card Deleted Successfully. Card ID: {deleted_card_data['_id']}")
                 except requests.exceptions.RequestException as e:
                     print(f"Error deleting card: {e}")
                 # ------- DELETE CARD END -----------
