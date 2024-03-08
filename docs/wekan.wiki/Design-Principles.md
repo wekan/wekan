@@ -1,0 +1,23 @@
+## WeKan Design Principles
+
+- Prevent messing up something https://github.com/wekan/wekan/wiki/Monkey-Proof-Software
+- Original WeKan Design, that WeKan currently has: Intuitive, easy to figure out, polished UI/UX, menu options are there where you would expect then to be. Try to fix anything unexpected. New features added there where it makes most sense. And not so many duplicate menus and texts like Trello.
+- Not the exact design of Trello https://github.com/wekan/wekan/wiki/FAQ#why-does-wekan-look-so-different-now-compared-to--v09 . Also not the exact design of any other software. But note that design of all software changes often, when they are in active development.
+- Some features like Trello:
+  - Import from Trello
+  - Shortcuts https://github.com/wekan/wekan/issues/1878
+  - IFTTT Rules like Trello Butler https://github.com/wekan/wekan/wiki/IFTTT
+  - Progress bar of checklist
+- Some features like Jira:
+  - Multiple assignees
+- Some features not in Trello, like:
+  - FOSS with MIT license
+  - Self-hosting
+  - Swimlanes
+- All the use cases of WeKan feature/fix contributors
+- Cross-platform. Support many CPU/OS/Browsers for Desktop and Mobile. Add support for more.
+  - https://github.com/wekan/wekan/wiki/Browser-compatibility-matrix
+  - https://github.com/wekan/wekan/wiki/PWA
+  - https://github.com/wekan/wekan/wiki/Offline
+  - https://github.com/wekan/wekan/wiki/Mac
+  - https://github.com/wekan/wekan/wiki/Raspberry-Pi
