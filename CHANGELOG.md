@@ -15,6 +15,29 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Added docs wikis to WeKan repo directory docs, to make possible to send PRs](https://github.com/wekan/wekan/commit/73ae73d4c38640e9daedbe8ef9e5b25b877ee804).
+  Thanks to e-gaulue, C0rn3j and xet7.
+- [Added script to count lines of code changed per committer email address, because GitHub removed that feature from web UI](https://github.com/wekan/wekan/commit/835e33bf090022875f50916412f80b6a9b4a3b21).
+  Thanks to bgwines and xet7.
+- [Add info about GitHub top committers at Finland](https://github.com/wekan/wekan/commit/ef5b8887799a75ab797655f39483bc08841815d2).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Updated contributing to wiki](https://github.com/wekan/wekan/commit/8ba3a05648818f6162b2021affeb33066f91c400).
+  Thanks to xet7.
+
+and tried to fix the following bugs:
+
+- [Fix error during delete](https://github.com/wekan/wekan/pull/5336).
+  Thanks to xator91.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.37 2024-03-07 WeKan ® release
 
 This release fixes the following bugs:
