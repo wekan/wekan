@@ -37,6 +37,8 @@ and tried to fix the following bugs:
   Thanks to xator91.
 - [Fixed text below custom login logo not visible](https://github.com/wekan/wekan/commit/00bbc2669814247c0ff79bd816be7bf34bcf08a2).
   Thanks to xet7.
+- [Fixed In RTL, hamburger needs margin](https://github.com/wekan/wekan/commit/abd3c95dfa13cd697ff2fb7e299c85287406772a).
+  Thanks to mohammadZahedian and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
