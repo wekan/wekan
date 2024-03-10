@@ -2240,6 +2240,37 @@ if (Meteor.isServer) {
   });
 
   /**
+   * @operation copy_board
+   * @summary Copy a board to a new one
+   *
+   * @description If your are board admin or wekan admin, this copies the
+   * given board to a new one.
+   *
+   * @param {string} boardId the board
+   * @param {string} title the title of the new board (default to old one)
+   *
+   * @return_type string
+   */
+JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
+  const id = req.params.boardId;
+  const board = ReactiveCache.getBoard(id);
+  const adminAccess = board.members.some(e => e.userId === req.userId && e.isAdmin);
+  Authentication.checkAdminOrCondition(req.userId, adminAccess);
+  try {
+    board['title'] = req.body.title || Boards.uniqueTitle(board.title);
+    ret = board.copy();
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: ret,
+    });
+  } catch (error) {
+    JsonRoutes.sendResult(res, {
+      data: error,
+    });
+  }
+});
+
+  /**
    * @operation set_board_member_permission
    * @tag Users
    * @summary Change the permission of a member of a board
