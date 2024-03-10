@@ -37,10 +37,13 @@ template(name="userFormsLayout")
       else
         img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
         br
-      if currentSetting.textBelowCustomLoginLogo
-        +viewer
-          | {{currentSetting.textBelowCustomLoginLogo}}
-        br
+  if currentSetting.textBelowCustomLoginLogo
+    hr
+    section.textBelowCustomLoginLogo
+      +viewer
+        | {{currentSetting.textBelowCustomLoginLogo}}
+    hr
+  section.auth-layout
     section.auth-dialog
       if isLoading
         +loader
