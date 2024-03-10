@@ -30,6 +30,8 @@ and adds the following updates:
 
 - [Updated contributing to wiki](https://github.com/wekan/wekan/commit/8ba3a05648818f6162b2021affeb33066f91c400).
   Thanks to xet7.
+- [Upgraded to MongoDB 6.0.14 at Snap Candidate](https://github.com/wekan/wekan/commit/07d6c1e5148eb0392357d55d0486a9672378c16f).
+  Thanks to MongoDB developers.
 
 and tried to fix the following bugs:
 
