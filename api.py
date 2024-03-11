@@ -44,6 +44,7 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py addlabel BOARDID LISTID CARDID LABELID # Add label to a card
     python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS # Add a card and a label
     python3 api.py editboardtitle BOARDID NEWBOARDTITLE # Edit board title
+    python3 api.py copyboard BOARDID NEWBOARDTITLE # Copy a board
     python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Create a new label
     python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Edit card color
     python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.) # Add checklist + item on a card
@@ -481,7 +482,31 @@ if arguments == 3:
             print(body.text)
 
         # ------- EDIT BOARD TITLE END -----------
-  
+
+    if sys.argv[1] == 'copyboard':
+
+        # ------- COPY BOARD START -----------
+        boardid = sys.argv[2]
+        boardtitle = sys.argv[3]
+        edboardcopy = wekanurl + apiboards + boardid + s + 'copy'
+        print(edboardcopy)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        post_data = {'title': boardtitle}
+
+        body = requests.post(edboardcopy, json=post_data, headers=headers)
+        print("=== COPY BOARD ===\n")
+        #body = requests.get(edboardcopy, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        if body.status_code == 200:
+            print("Succesfull!")
+        else:
+            print(f"Error: {body.status_code}")
+            print(body.text)
+
+        # ------- COPY BOARD END -----------
+
     if sys.argv[1] == 'createlist':
 
         # ------- CREATE LIST START -----------
