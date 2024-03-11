@@ -1,6 +1,6 @@
 Wekan provides a python script to ease the call of the REST API from command line interface.
 
-# Context 
+# Context
 
 - [API Login to get Bearer token](REST-API#example-call---as-form-data)
 - [API docs and examples for various programming languages](https://wekan.github.io/api/), there is Boards / Export for exporting board with API
@@ -27,7 +27,7 @@ chmod +x wekan.py
 ./wekan.py
 ```
 
-# Usage 
+# Usage
 
 Copy the api.py script to you machine. [Newest Wekan Python CLI api.py here](https://raw.githubusercontent.com/wekan/wekan/master/api.py).
 
