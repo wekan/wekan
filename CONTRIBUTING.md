@@ -27,13 +27,9 @@ CVE Hall of Fame is at https://wekan.github.io/hall-of-fame/
 
 ## Contributing to Documentation Wiki
 
-Please clone wiki:
-```
-git clone https://github.com/wekan/wekan.wiki
-```
-Edit .md files, and add changed files in .zip attachment
-directly to comment of new issue at
-https://github.com/wekan/wekan/issues 
+Fork WeKan repo https://github.com/wekan/wekan ,
+edit `docs` directory content at GitHub web interface,
+and click send PR.
 
 ## Contributing code
 

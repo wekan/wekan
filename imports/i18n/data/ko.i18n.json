@@ -578,6 +578,7 @@
   "shortcut-clear-filters": "모든 필터 초기화",
   "shortcut-close-dialog": "대화 상자 닫기",
   "shortcut-filter-my-cards": "내 카드 필터링",
+  "shortcut-filter-my-assigned-cards": "Filter my assigned cards",
   "shortcut-show-shortcuts": "바로가기 목록을 가져오십시오.",
   "shortcut-toggle-filterbar": "토글 필터 사이드바",
   "shortcut-toggle-searchbar": "검색 사이드바 전환",

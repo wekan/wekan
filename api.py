@@ -37,9 +37,24 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py customfields BOARDID # Custom Fields of BOARDID
     python3 api.py customfield BOARDID CUSTOMFIELDID # Info of CUSTOMFIELDID
     python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
-    python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE
+    python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE # Edit Custom Field
     python3 api.py listattachments BOARDID # List attachments
+    python3 api.py cardsbyswimlane SWIMLANEID LISTID # Retrieve cards list on a swimlane
+    python3 api.py getcard BOARDID LISTID CARDID # Get card info
+    python3 api.py addlabel BOARDID LISTID CARDID LABELID # Add label to a card
+    python3 api.py addcardwithlabel AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION LABELIDS # Add a card and a label
+    python3 api.py editboardtitle BOARDID NEWBOARDTITLE # Edit board title
+    python3 api.py copyboard BOARDID NEWBOARDTITLE # Copy a board
+    python3 api.py createlabel BOARDID LABELCOLOR LABELNAME (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Create a new label
+    python3 api.py editcardcolor BOARDID LISTID CARDID COLOR (Color available: `white`, `green`, `yellow`, `orange`, `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`) # Edit card color
+    python3 api.py addchecklist BOARDID CARDID TITLE ITEM1 ITEM2 ITEM3 ITEM4 (You can add multiple items or just one, or also without any item, just TITLE works as well. * If items or Title contains spaces, you should add ' between them.) # Add checklist + item on a card
+    python3 api.py deleteallcards BOARDID SWIMLANEID ( * Be careful will delete ALL CARDS INSIDE the swimlanes automatically in every list * ) # Delete all cards on a swimlane
+    python3 api.py checklistid BOARDID CARDID # Retrieve Checklist ID attached to a card
+    python3 api.py checklistinfo BOARDID CARDID CHECKLISTID # Get checklist info
+    python3 api.py get_list_cards_count BOARDID LISTID # Retrieve how many cards in a list
+    python3 api.py get_board_cards_count BOARDID # Retrieve how many cards in a board
 
+    
   Admin API:
     python3 api.py users                # All users
     python3 api.py boards               # All Public Boards
@@ -179,6 +194,52 @@ if arguments == 10:
         print(body.text)
         # ------- ADD CUSTOM FIELD TO BOARD END -----------
 
+if arguments == 8:
+
+    if sys.argv[1] == 'addcardwithlabel':
+        # ------- ADD CARD WITH LABEL START -----------
+        authorid = sys.argv[2]
+        boardid = sys.argv[3]
+        swimlaneid = sys.argv[4]
+        listid = sys.argv[5]
+        cardtitle = sys.argv[6]
+        carddescription = sys.argv[7]
+        labelIds = sys.argv[8]  # Aggiunto labelIds
+
+        cardtolist = wekanurl + apiboards + boardid + s + l + s + listid + s + cs
+        # Add card
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        post_data = {
+            'authorId': '{}'.format(authorid),
+            'title': '{}'.format(cardtitle),
+            'description': '{}'.format(carddescription),
+            'swimlaneId': '{}'.format(swimlaneid),
+            'labelIds': labelIds
+        }
+
+        body = requests.post(cardtolist, data=post_data, headers=headers)
+        print(body.text)
+
+        # If ok id card
+        if body.status_code == 200:
+            card_data = body.json()
+            new_card_id = card_data.get('_id')
+
+            # Updating card
+            if new_card_id:
+                edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + new_card_id
+                put_data = {'labelIds': labelIds}
+                body = requests.put(edcard, data=put_data, headers=headers)
+                print("=== EDIT CARD ===\n")
+                body = requests.get(edcard, headers=headers)
+                data2 = body.text.replace('}', "}\n")
+                print(data2)
+            else:
+                print("Error obraining ID.")
+        else:
+            print("Error adding card.")
+        # ------- ADD CARD WITH LABEL END -----------
+
 if arguments == 7:
 
     if sys.argv[1] == 'addcard':
@@ -237,7 +298,53 @@ if arguments == 6:
         print(data2)
         # ------- EDIT CUSTOMFIELD END -----------
 
-if arguments == 4:
+if arguments == 5:
+
+    if sys.argv[1] == 'addlabel':
+
+        # ------- EDIT CARD ADD LABEL START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        labelIds = sys.argv[5]
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        print(edcard)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'labelIds': labelIds}
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== ADD LABEL ===\n")
+        body = requests.get(edcard, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- EDIT CARD ADD LABEL END -----------
+
+    if sys.argv[1] == 'editcardcolor':
+        # ------- EDIT CARD COLOR START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        newcolor = sys.argv[5]  
+
+        valid_colors = ['white', 'green', 'yellow', 'orange', 'red', 'purple', 'blue', 'sky', 'lime', 'pink', 'black',
+                    'silver', 'peachpuff', 'crimson', 'plum', 'darkgreen', 'slateblue', 'magenta', 'gold', 'navy',
+                    'gray', 'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo']
+
+        if newcolor not in valid_colors:
+            print("Invalid color. Choose a color from the list.")
+            sys.exit(1)
+
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        print(edcard)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'color': '{}'.format(newcolor)}  
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== EDIT CARD COLOR ===\n")
+        body = requests.get(edcard, headers=headers)
+        data2 = body.text.replace('}', "}\n")
+        print(data2)
+        # ------- EDIT CARD COLOR END -----------
+
+if arguments >= 4:
 
     if sys.argv[1] == 'newuser':
 
@@ -251,8 +358,154 @@ if arguments == 4:
         print("=== CREATE NEW USER ===\n")
         print(body.text)
         # ------- CREATE NEW USER END -----------
+        
+    if sys.argv[1] == 'getcard':
+
+        # ------- LIST OF CARD START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        listone = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== INFO OF ONE LIST ===\n")
+        print("URL:", listone)  # Stampa l'URL per debug
+        try:
+            response = requests.get(listone, headers=headers)
+            print("=== RESPONSE ===\n")
+            print("Status Code:", response.status_code)  # Stampa il codice di stato per debug
+
+            if response.status_code == 200:
+                data2 = response.text.replace('}', "}\n")
+                print(data2)
+            else:
+                print(f"Error: {response.status_code}")
+                print(f"Response: {response.text}")
+        except Exception as e:
+            print(f"Error in the GET request: {e}")
+        # ------- LISTS OF CARD END -----------
+
+    if sys.argv[1] == 'createlabel':
+
+        # ------- CREATE LABEL START -----------
+        boardid = sys.argv[2]
+        labelcolor = sys.argv[3]
+        labelname = sys.argv[4]
+        label_url = wekanurl + apiboards + boardid + s + 'labels'
+        print(label_url)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        # Object to send
+        put_data = {'label': {'color': labelcolor, 'name': labelname}}
+        print("URL:", label_url)
+        print("Headers:", headers)
+        print("Data:", put_data)
+        try:
+          response = requests.put(label_url, json=put_data, headers=headers)
+          print("=== CREATE LABELS ===\n")
+          print("Response Status Code:", response.status_code)
+          print("Response Text:", response.text)
+        except Exception as e:
+          print("Error:", e)
+        # ------- CREATE LABEL END -----------
+
+    if sys.argv[1] == 'addchecklist':
+
+        # ------- ADD CHECKLIST START -----------
+        board_id = sys.argv[2]
+        card_id = sys.argv[3]
+        checklist_title = sys.argv[4]
+
+        # Aggiungi la checklist
+        checklist_url = wekanurl + apiboards + board_id + s + cs + s + card_id + '/checklists'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        data = {'title': checklist_title}
+
+        response = requests.post(checklist_url, data=data, headers=headers)
+        response.raise_for_status()
+
+        result = json.loads(response.text)
+        checklist_id = result.get('_id')
+
+        print(f"Checklist '{checklist_title}' created. ID: {checklist_id}")
+
+        # Aggiungi gli items alla checklist
+        items_to_add = sys.argv[5:]  
+        for item_title in items_to_add:
+            checklist_item_url = wekanurl + apiboards + board_id + s + cs + s + card_id + s + 'checklists' + s + checklist_id + '/items'
+            item_data = {'title': item_title}
+
+            item_response = requests.post(checklist_item_url, data=item_data, headers=headers)
+            item_response.raise_for_status()
+
+            item_result = json.loads(item_response.text)
+            checklist_item_id = item_result.get('_id')
+
+            print(f"Item '{item_title}' added. ID: {checklist_item_id}")
+
+    if sys.argv[1] == 'checklistinfo':
+
+        # ------- ADD CHECKLIST START -----------
+        board_id = sys.argv[2]
+        card_id = sys.argv[3]
+        checklist_id = sys.argv[4]
+        checklist_url = wekanurl + apiboards + board_id + s + cs + s + card_id + '/checklists' + s + checklist_id
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        response = requests.get(checklist_url, headers=headers)
+
+        response.raise_for_status()
+
+        checklist_info = response.json()
+        print("Checklist Info:")
+        print(checklist_info)
 
 if arguments == 3:
+
+    if sys.argv[1] == 'editboardtitle':
+
+        # ------- EDIT BOARD TITLE START -----------
+        boardid = sys.argv[2]
+        boardtitle = sys.argv[3]
+        edboardtitle = wekanurl + apiboards + boardid + s + 'title'
+        print(edboardtitle)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        post_data = {'title': boardtitle}
+
+        body = requests.put(edboardtitle, json=post_data, headers=headers)
+        print("=== EDIT BOARD TITLE ===\n")
+        #body = requests.get(edboardtitle, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        if body.status_code == 200:
+            print("Succesfull!")
+        else:
+            print(f"Error: {body.status_code}")
+            print(body.text)
+
+        # ------- EDIT BOARD TITLE END -----------
+
+    if sys.argv[1] == 'copyboard':
+
+        # ------- COPY BOARD START -----------
+        boardid = sys.argv[2]
+        boardtitle = sys.argv[3]
+        edboardcopy = wekanurl + apiboards + boardid + s + 'copy'
+        print(edboardcopy)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        post_data = {'title': boardtitle}
+
+        body = requests.post(edboardcopy, json=post_data, headers=headers)
+        print("=== COPY BOARD ===\n")
+        #body = requests.get(edboardcopy, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        if body.status_code == 200:
+            print("Succesfull!")
+        else:
+            print(f"Error: {body.status_code}")
+            print(body.text)
+
+        # ------- COPY BOARD END -----------
 
     if sys.argv[1] == 'createlist':
 
@@ -292,6 +545,90 @@ if arguments == 3:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- INFO OF CUSTOM FIELD END -----------
+
+    if sys.argv[1] == 'cardsbyswimlane':
+    # ------- RETRIEVE CARDS BY SWIMLANE ID START -----------
+        boardid = sys.argv[2]
+        swimlaneid = sys.argv[3]
+        cardsbyswimlane = wekanurl + apiboards + boardid + s + sws + s + swimlaneid + s + cs
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== CARDS BY SWIMLANE ID ===\n")
+        print("URL:", cardsbyswimlane)  # Debug
+        try:
+            body = requests.get(cardsbyswimlane, headers=headers)
+            print("Status Code:", body.status_code)  # Debug
+            data = body.text.replace('}', "}\n")
+            print("Data:", data)
+        except Exception as e:
+            print("Error GET:", e)
+    # ------- RETRIEVE CARDS BY SWIMLANE ID END -----------
+
+    if sys.argv[1] == 'deleteallcards':
+        boardid = sys.argv[2]
+        swimlaneid = sys.argv[3]
+
+        # ------- GET SWIMLANE CARDS START -----------
+        get_swimlane_cards_url = wekanurl + apiboards + boardid + s + "swimlanes" + s + swimlaneid + s + "cards"
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        try:
+            response = requests.get(get_swimlane_cards_url, headers=headers)
+            response.raise_for_status()
+            cards_data = response.json()
+
+            # Print the details of each card
+            for card in cards_data:
+                # ------- DELETE CARD START -----------
+                delete_card_url = wekanurl + apiboards + boardid + s + "lists" + s + card['listId'] + s + "cards" + s + card['_id']
+                try:
+                    response = requests.delete(delete_card_url, headers=headers)
+                    if response.status_code == 404:
+                        print(f"Card not found: {card['_id']}")
+                    else:
+                        response.raise_for_status()
+                        deleted_card_data = response.json()
+                        print(f"Card Deleted Successfully. Card ID: {deleted_card_data['_id']}")
+                except requests.exceptions.RequestException as e:
+                    print(f"Error deleting card: {e}")
+                # ------- DELETE CARD END -----------
+
+        except requests.exceptions.RequestException as e:
+            print(f"Error getting swimlane cards: {e}")
+            sys.exit(1)
+        # ------- GET SWIMLANE CARDS END -----------
+
+    if sys.argv[1] == 'get_list_cards_count':
+        # ------- GET LIST CARDS COUNT START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+
+        get_list_cards_count_url = wekanurl + apiboards + boardid +  s + l + s + listid + s + "cards_count"
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        try:
+            response = requests.get(get_list_cards_count_url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            print(f"List Cards Count: {data['list_cards_count']}")
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
+        # ------- GET LIST CARDS COUNT END -----------
+
+    if sys.argv[1] == 'checklistid':
+
+        # ------- ADD CHECKLIST START -----------
+        board_id = sys.argv[2]
+        card_id = sys.argv[3]
+
+        checklist_url = wekanurl + apiboards + board_id + s + cs + s + card_id + '/checklists'
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        response = requests.get(checklist_url, headers=headers)
+
+        response.raise_for_status()
+        checklists = response.json()
+        print("Checklists:")
+        for checklist in checklists:
+          print(checklist)
 
 if arguments == 2:
 
@@ -363,6 +700,22 @@ if arguments == 2:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- LISTS OF ATTACHMENTS END -----------
+
+    if sys.argv[1] == 'get_board_cards_count':
+        # ------- GET BOARD CARDS COUNT START -----------
+        boardid = sys.argv[2]
+
+        get_board_cards_count_url = wekanurl + apiboards + boardid + s + "cards_count"
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+
+        try:
+            response = requests.get(get_board_cards_count_url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            print(f"Board Cards Count: {data['board_cards_count']}")
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
+        # ------- GET BOARD CARDS COUNT END -----------
 
 if arguments == 1:
 

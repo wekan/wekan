@@ -1,3 +1,11 @@
+# Try FerretDB instead
+
+https://github.com/wekan/wekan/wiki/PostgreSQL
+
+ToroDB is not developed anymore.
+
+ToroDB is compatible with MongoDB 3.0. WeKan 7.x is compatible with MongoDB 6.x.
+
 # Docker: Wekan to PostgreSQL read-only mirroring
 
 * [Wekan kanban board, made with Meteor.js framework, running on
@@ -19,8 +27,8 @@
 2) Clone this repo.
 
 ```bash
-git clone https://github.com/wekan/wekan-postgresql.git
-cd wekan-postgresql
+git clone https://github.com/wekan/wekan
+cd torodb-postgresql
 ```
 
 3) IMPORTANT: In docker-compose.yml, to use Wekan on local network, change ROOT_URL=http://localhost to http://IPADRESS like http://192.168.10.100 or http://example.com

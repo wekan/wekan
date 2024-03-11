@@ -15,15 +15,142 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.38 2024-03-10 WeKan ® release
+
+This release adds the following new features:
+
+- [Added docs wikis to WeKan repo directory docs, to make possible to send PRs](https://github.com/wekan/wekan/commit/73ae73d4c38640e9daedbe8ef9e5b25b877ee804).
+  Thanks to e-gaulue, C0rn3j and xet7.
+- [Added script to count lines of code changed per committer email address, because GitHub removed that feature from web UI](https://github.com/wekan/wekan/commit/835e33bf090022875f50916412f80b6a9b4a3b21).
+  Thanks to bgwines and xet7.
+- [Add info about GitHub top committers at Finland](https://github.com/wekan/wekan/commit/ef5b8887799a75ab797655f39483bc08841815d2).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Updated contributing to wiki](https://github.com/wekan/wekan/commit/8ba3a05648818f6162b2021affeb33066f91c400).
+  Thanks to xet7.
+- [Upgraded to MongoDB 6.0.14 at Snap Candidate](https://github.com/wekan/wekan/commit/07d6c1e5148eb0392357d55d0486a9672378c16f).
+  Thanks to MongoDB developers.
+
+and tried to fix the following bugs:
+
+- [Fix error during delete](https://github.com/wekan/wekan/pull/5336).
+  Thanks to xator91.
+- [Fixed text below custom login logo not visible](https://github.com/wekan/wekan/commit/00bbc2669814247c0ff79bd816be7bf34bcf08a2).
+  Thanks to xet7.
+- [Fixed In RTL, hamburger needs margin](https://github.com/wekan/wekan/commit/abd3c95dfa13cd697ff2fb7e299c85287406772a).
+  Thanks to mohammadZahedian and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.37 2024-03-07 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed API get swimlane cards wrong order. Please test](https://github.com/wekan/wekan/commit/7beced1e683c2eb2960b0ee40d5ec927d235fa6a).
+  Thanks to mohammadZahedian, xator91 and xet7.
+- [Fixed API get_all_cards doesn't return SwimlaneId. Please test](https://github.com/wekan/wekan/commit/ffafb30b9b394188e1b60ec836ad83f1738c266d).
+  Thanks to mohammadZahedian, xator91 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.36 2024-03-06 WeKan ® release
+
+This release adds the following features:
+
+- [api.py: checklistid, checklistinfo, get_list_cards_count and get_board_cards_count](https://github.com/wekan/wekan/pull/5326).
+  Thanks to xator91.
+
+and fixes the following bugs:
+
+- [Fixed Card image cover should be margin-top:6px since hamburger menu and due date at the top](https://github.com/wekan/wekan/commit/747bc4c08837ad9781d63b9f16b97a64b0bfe7b8).
+  Thanks to e-gaulue and xet7.
+- [Try to fix API get cards wrong order. Please test](https://github.com/wekan/wekan/commit/c570405d0267e28f2b2644005d48fb097eac385b).
+  Thanks to mohammadZahedian, xator91 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.35 2024-02-27 WeKan ® release
+
+This release adds the following features and bugs:
+
+- [Added back Mathjax that has bug of showing math twice](https://github.com/wekan/wekan/commit/f43dadc06894d874281ec0e449dcc4c81b3c59ad).
+  Thanks to macthecadillac, Dexus and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.34 2024-02-23 WeKan ® release
 
 This release adds the following updates:
+
+- [Updated translations](https://github.com/wekan/wekan/commit/3cd5d00b0b8d74acb2cd2afbc12f5b9d7aafcbd8).
+  Thanks to translators.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.33 2024-02-23 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated docs for previous version of WeKan](https://github.com/wekan/wekan/commit/3b0616c1500b5070e660d2ba00968d59600958eb).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [OpenAPI: Fix breakage introduced with blank return](https://github.com/wekan/wekan/pull/5321).
+  Thanks to bentiss.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.32 2024-02-22 WeKan ® release
+
+This release adds the following new features:
+
+- [api.py: Added create label](https://github.com/wekan/wekan/pull/5308).
+  Thanks to xator91.
+- [api.py: Edit card color](https://github.com/wekan/wekan/pull/5309).
+  Thanks to xator91.
+- [api.py: Add checklist with multiple items also or just title](https://github.com/wekan/wekan/pull/5311).
+  Thanks to xator91.
+- [api.py: Delete all cards. Will delete all cards from Swimlanes automatically, will retrieve automatically all list id and delete everything](https://github.com/wekan/wekan/pull/5313).
+  Thanks to xator91.
+- [cards.js: Added a control to check error if card is not updated](https://github.com/wekan/wekan/pull/5312).
+  Thanks to xator91.
+- [Shortcut a to filter by assignees](https://github.com/wekan/wekan/pull/5318).
+  Thanks to DevOpsNB.
+
+and fixes the following bugs:
+
+- [Fixed Error 500 when adding user to a board and multiple same avatar icons by reverting back from Meteor 2.15 to 2.14](https://github.com/wekan/wekan/commit/b5f4be36d4577c391ad19c5e5dd9de3036b8998f).
+  Thanks to xator91, mariogalan, bbyszio, zeo101, laurentm255, johnnytolengo and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.31 2024-02-17 WeKan ® release
+
+This release adds the following new features:
+
+- [api.py: Added getcard and cardsbyswimlane](https://github.com/wekan/wekan/pull/5287).
+  Thanks to xator91.
+- [api.py: Add card with label and add a label to a card](https://github.com/wekan/wekan/pull/5290).
+  Thanks to xator91.
+- [api.py: Fix BoardID to SwimlaneID in cardsbyswimlane](https://github.com/wekan/wekan/pull/5290).
+  Thanks to xator91.
+- [boards.js: New update board title function for API](https://github.com/wekan/wekan/pull/5300).
+  Thanks to xator91.
+- [api.py: EDIT BOARD TITLE](https://github.com/wekan/wekan/pull/5301).
+  Thanks to xator91.
+
+and adds the following updates:
 
 - [Release scripts: Commented out not currently in use builds of WeKan bundle](https://github.com/wekan/wekan/commit/4eb0085243672071a392dc32f77dba3103c592ab).
   Thanks to xet7.
 - [Try to fix Snap](https://github.com/wekan/wekan/commit/a54e52d34bdab02befda7eefad46d16814d2c46e).
   Thanks to xet7.
 - [Updated to Meteor 2.15-rc.1 and removed duplicate nodemailer package because of some errors](https://github.com/wekan/wekan/commit/59c42bc1a3a1792a50379be2f9251fce9b45c1a3).
+  Thanks to Meteor developers.
+- [Updated to Meteor 2.15](https://github.com/wekan/wekan/commit/5198ee997cb43b503fcb2edaf781b0521d8096cd).
   Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

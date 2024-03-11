@@ -1,0 +1,1 @@
+Moved to [SECURITY.md](https://github.com/wekan/wekan/blob/main/SECURITY.md)

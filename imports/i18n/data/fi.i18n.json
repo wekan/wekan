@@ -578,6 +578,7 @@
   "shortcut-clear-filters": "Poista kaikki suodattimet",
   "shortcut-close-dialog": "Sulje valintaikkuna",
   "shortcut-filter-my-cards": "Suodata korttini",
+  "shortcut-filter-my-assigned-cards": "Suodata käsittelijä korttini",
   "shortcut-show-shortcuts": "Tuo esiin tämä pikavalintalista",
   "shortcut-toggle-filterbar": "Muokkaa suodatussivupalkin näkyvyyttä",
   "shortcut-toggle-searchbar": "Muokkaa etsintäsivupalkin näkyvyyttä",

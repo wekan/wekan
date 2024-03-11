@@ -2170,6 +2170,36 @@ if (Meteor.isServer) {
   });
 
   /**
+  * @operation update_board_title
+  * @summary Update the title of a board
+  *
+  * @param {string} boardId the ID of the board to update
+  * @param {string} title the new title for the board
+  */
+  JsonRoutes.add('PUT', '/api/boards/:boardId/title', function(req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const boardId = req.params.boardId;
+      const title = req.body.title;
+
+      Boards.direct.update({ _id: boardId }, { $set: { title } });
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: boardId,
+          title,
+        },
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+  
+  /**
    * @operation add_board_label
    * @summary Add a label to a board
    *
@@ -2212,6 +2242,37 @@ if (Meteor.isServer) {
       });
     }
   });
+
+  /**
+   * @operation copy_board
+   * @summary Copy a board to a new one
+   *
+   * @description If your are board admin or wekan admin, this copies the
+   * given board to a new one.
+   *
+   * @param {string} boardId the board
+   * @param {string} title the title of the new board (default to old one)
+   *
+   * @return_type string
+   */
+JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
+  const id = req.params.boardId;
+  const board = ReactiveCache.getBoard(id);
+  const adminAccess = board.members.some(e => e.userId === req.userId && e.isAdmin);
+  Authentication.checkAdminOrCondition(req.userId, adminAccess);
+  try {
+    board['title'] = req.body.title || Boards.uniqueTitle(board.title);
+    ret = board.copy();
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: ret,
+    });
+  } catch (error) {
+    JsonRoutes.sendResult(res, {
+      data: error,
+    });
+  }
+});
 
   /**
    * @operation set_board_member_permission

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.30
+  version: v7.38
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2503,6 +2503,36 @@ paths:
                   type: string
                 listId:
                   type: string
+  /api/boards/{board}/title:
+    put:
+      operationId: update_board_title
+      summary: Update the title of a board
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: |
+            the new title for the board
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: |
+            the ID of the board to update
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards_count:
     get:
       operationId: get_boards_count
