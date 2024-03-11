@@ -1,4 +1,4 @@
-Wekan provide a python script to ease the call of the REST API from command line interface.
+Wekan provides a python script to ease the call of the REST API from command line interface.
 
 # Context 
 
