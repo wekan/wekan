@@ -1,4 +1,4 @@
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 
 // simple version, only toggle watch / unwatch
 const simpleWatchable = collection => {

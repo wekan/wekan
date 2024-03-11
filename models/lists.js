@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ALLOWED_COLORS } from '/config/const';
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 
 Lists = new Mongo.Collection('lists');
 

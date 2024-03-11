@@ -10,7 +10,7 @@ import {
 } from '/config/const';
 import Users from "./users";
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 
 // const escapeForRegex = require('escape-string-regexp');
 
@@ -2198,7 +2198,7 @@ if (Meteor.isServer) {
       });
     }
   });
-  
+
   /**
    * @operation add_board_label
    * @summary Add a label to a board

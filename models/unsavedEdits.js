@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 
 // This collection shouldn't be manipulated directly by instead throw the
 // `UnsavedEdits` API on the client.

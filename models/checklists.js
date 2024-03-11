@@ -1,6 +1,6 @@
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 
 Checklists = new Mongo.Collection('checklists');
 

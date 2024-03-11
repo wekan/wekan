@@ -2,7 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import DOMPurify from 'dompurify';
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 
 CardComments = new Mongo.Collection('card_comments');
 

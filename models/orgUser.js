@@ -1,6 +1,6 @@
 OrgUser = new Mongo.Collection('orgUser');
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 
 /**
  * A Organization User in wekan

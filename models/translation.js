@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 import { Meteor } from 'meteor/meteor';
 
 Translation = new Mongo.Collection('translation');
