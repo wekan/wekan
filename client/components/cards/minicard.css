@@ -175,7 +175,6 @@
   .minicard .minicard-title .viewer {
     display: block;
     word-wrap: break-word;
-    max-width: 230px;
   }
 }
 .minicard .dates {
