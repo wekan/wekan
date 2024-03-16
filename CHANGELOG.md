@@ -15,6 +15,25 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- Clarify usage of api.py.
+  [Part 1](https://github.com/wekan/wekan/pull/5341).
+  [Part 2](https://github.com/wekan/wekan/commit/8f3c948614df0641b0971d1882cc241587d9d3b4).
+  Thanks to e-gaulue and xet7.
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5343),
+  [Part 2](https://github.com/wekan/wekan/pull/5344).
+
+and fixes the following bugs:
+
+- [Make the contents of the cards grow to the list width](https://github.com/wekan/wekan/pull/5346).
+  Thanks to kuba-orlik.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.38 2024-03-10 WeKan ® release
 
 This release adds the following new features:
