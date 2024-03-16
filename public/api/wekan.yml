@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.38
+  version: v7.39
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -963,6 +963,41 @@ paths:
             properties:
               board_cards_count:
                 type: integer
+  /api/boards/{board}/copy:
+    post:
+      operationId: copy_board
+      summary: Copy a board to a new one
+      description: |
+        If your are board admin or wekan admin, this copies the
+         given board to a new one.
+      tags:
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: |
+            the title of the new board (default to old one)
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: |
+            the board
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: string
   /api/boards/{board}/custom-fields:
     get:
       operationId: get_all_custom_fields
