@@ -56,12 +56,12 @@
   float: right;
   font-size: 18px;
   padding-right: 30px;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 .minicard-details-menu {
   float: right;
   font-size: 18px;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 @media print {
   .minicard-details-menu,
