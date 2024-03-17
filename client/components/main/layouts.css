@@ -470,6 +470,7 @@ a:not(.disabled).is-active i.fa {
 .select-authentication {
   width: 100%;
 }
+.textBelowCustomLoginLogo,
 .auth-layout {
   display: flex;
   flex-direction: column;
