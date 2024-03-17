@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed centering of text below custom login logo](https://github.com/wekan/wekan/commit/24c89aeb64cf6266d95f42124419d4f070864631).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.39 2024-03-16 WeKan ® release
 
 This release adds the following updates:
