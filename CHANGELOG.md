@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Fixed centering of text below custom login logo](https://github.com/wekan/wekan/commit/24c89aeb64cf6266d95f42124419d4f070864631).
   Thanks to xet7.
+- [Fixed In RTL, hamburger margin is too much in mobile](https://github.com/wekan/wekan/commit/583fca1814d916490b04947ba8d97dd85168fb22).
+  Thanks to mohammadZahedian and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
