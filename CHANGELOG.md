@@ -15,13 +15,14 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.41 2024-03-18 WeKan ® release
 
 This release fixes the following bugs:
 
 - Fixes for mongosh to allow snap packages to update to the edge/candidate version.
   [Part 1](https://github.com/wekan/wekan/pull/5349),
   [Part 2](https://github.com/wekan/wekan/pull/5350).
+  Thanks to lorodoes.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
