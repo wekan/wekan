@@ -12,7 +12,7 @@ https://wekan.github.io / Install WeKan ® Server
 - [Quay](https://quay.io/repository/wekan/wekan)
 - [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
 
-docker-compose.yml at https://github.com/wekan/wekan
+docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.yml
 
 ## Standards
 
