@@ -1,5 +1,5 @@
 {
-  "accept": "Onartu",
+  "accept": "Ados",
   "act-activity-notify": "Jardueraren jakinarazpena",
   "act-addAttachment": "added attachment __attachment__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "act-deleteAttachment": "deleted attachment __attachment__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
@@ -578,7 +578,7 @@
   "shortcut-clear-filters": "Garbitu iragazki guztiak",
   "shortcut-close-dialog": "Itxi elkarrizketa-koadroa",
   "shortcut-filter-my-cards": "Iragazi nire txartelak",
-  "shortcut-filter-my-assigned-cards": "Filter my assigned cards",
+  "shortcut-filter-my-assigned-cards": "Iragazi esleitutako txartelak",
   "shortcut-show-shortcuts": "Erakutsi lasterbideen zerrenda hau",
   "shortcut-toggle-filterbar": "Txandakatu iragazkiaren albo-barra",
   "shortcut-toggle-searchbar": "Toggle Search Sidebar",
