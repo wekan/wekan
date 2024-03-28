@@ -1690,6 +1690,11 @@
   padding: 4px;
   font-size: 14px;
 }
+@media screen and (max-width: 800px) {
+  .board-color-moderndark#header-quick-access {
+    padding: 0;
+  }
+}
 .board-color-moderndark#header-quick-access .allBoards {
   padding: 5px 10px 0 10px;
 }
@@ -1786,6 +1791,10 @@
 @media screen and (max-width: 800px) {
   .board-color-moderndark .list-header .list-header-name {
     line-height: 40px;
+    padding-top: 10px;
+  }
+  .board-color-moderndark .list-header-black, .board-color-moderndark .mini-list {
+    border-bottom: 0;
   }
 }
 @media screen and (min-width: 801px) {
@@ -1797,7 +1806,6 @@
   }
 }
 .board-color-moderndark .list-header .list-header-menu {
-  padding: 10px;
   top: 0;
 }
 .board-color-moderndark .list-header .list-header-plus-top {
@@ -1894,16 +1902,19 @@
 }
 @media screen and (max-width: 800px) {
   .board-color-moderndark .card-details {
-    width: 98%;
+    width: 94%;
   }
-  .card-details-popup {
-    padding: 0px;
+  .board-color-moderndark .card-details-popup {
+    padding: 0;
   }
-  .card-details-left, .card-details-right {
-    padding: 0px 10px;
+  .board-color-moderndark .card-details-left, .board-color-moderndark .card-details-right {
+    padding: 0px 20px;
   }
-  .card-details .card-details-header .card-details-menu-mobile-web {
+  .board-color-moderndark .card-details .card-details-header .card-details-menu-mobile-web {
     margin-right: 0;
+  }
+  .board-color-moderndark .pop-over > .content-wrapper > .popup-container-depth-0 > .content {
+    width: calc(100% - 20px);
   }
 }
 @media screen and (min-width: 801px) {
