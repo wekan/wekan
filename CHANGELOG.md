@@ -26,8 +26,9 @@ and adds the following updates:
 
 - Updated dependencies.
   [Part 1](https://github.com/wekan/wekan/pull/5355),
-  [Part 2](https://github.com/wekan/wekan/pull/5356).
-  Thanks to dependabot.
+  [Part 2](https://github.com/wekan/wekan/pull/5356),
+  [Part 3](https://github.com/wekan/wekan/commit/1c8f783767a680758f2219d2f416ce3ae2fb0c57).
+  Thanks to dependabot and developers of dependencies.
 - [Small tweaks to moderndark theme](https://github.com/wekan/wekan/pull/5363).
   Thanks to jghaanstra.
 
