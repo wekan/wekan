@@ -15,6 +15,29 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Fixed CRITICAL SECURITY ISSUE by updating meteor-node-stubs](https://github.com/wekan/wekan/commit/c461adff11456734fcb9193b5522cc6451078732).
+  Thanks to Meteor developers.
+
+and adds the following updates:
+
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5355),
+  [Part 2](https://github.com/wekan/wekan/pull/5356).
+  Thanks to dependabot.
+- [Small tweaks to moderndark theme](https://github.com/wekan/wekan/pull/5363).
+  Thanks to jghaanstra.
+
+and fixes the following bugs:
+
+- [Fixed link at readme](https://github.com/wekan/wekan/pull/5360).
+  Thanks to dyercode.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.41 2024-03-18 WeKan ® release
 
 This release fixes the following bugs:
