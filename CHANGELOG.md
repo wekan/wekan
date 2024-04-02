@@ -15,7 +15,7 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.42 2024-04-03 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
