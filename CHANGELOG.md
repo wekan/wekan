@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated release script for Windows On-Premise, that is without container like Docker and Snap](https://github.com/wekan/wekan/commit/802eeb1e6bb87c45fa79298f67ff690e87f939f8).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.42 2024-04-03 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
