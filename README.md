@@ -29,7 +29,7 @@ docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.ym
 
 ## [Translate WeKan ® at Transifex](https://app.transifex.com/wekan/)
 
-Translations to non-English languages are accepted only at [Transifex](https://app.transifex.com/wekan/) using webbrowser.
+Translations to non-English languages are accepted only at [Transifex](https://app.transifex.com/wekan/wekan) using webbrowser.
 New English strings of new features can be added as PRs to master branch file wekan/imports/i18n/data/en.i18n.json .
 
 ## [WeKan ® feature requests and bugs](https://github.com/wekan/wekan/issues)
