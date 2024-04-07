@@ -1,4 +1,4 @@
-Also: [Hall of Shame: Fake companies](https://github.com/wekan/wekan/wiki/Hall-of-Shame:-Fake-companies)
+Also: [Hall of Shame: Fake companies](https://github.com/wekan/wekan/wiki/Hall-of-Shame)
 
 ## These are NOT in any way related to WeKan
 
