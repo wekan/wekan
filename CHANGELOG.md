@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Updated release script for Windows On-Premise, that is without container like Docker and Snap](https://github.com/wekan/wekan/commit/802eeb1e6bb87c45fa79298f67ff690e87f939f8).
   Thanks to xet7.
+- [Updated translations Transifex URL at readme](https://github.com/wekan/wekan/commit/9838af5e5630a6ef34175e110ddfb6bfc225b40c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
