@@ -218,6 +218,10 @@ BlazeComponent.extendComponent({
     const user = ReactiveCache.getCurrentUser();
     return user && user.isBoardAdmin(this.currentData()._id);
   },
+  isAdmin() {
+    const user = ReactiveCache.getCurrentUser();
+    return user.isAdmin;
+  },
 
   hasOvertimeCards() {
     return this.currentData().hasOvertimeCards();

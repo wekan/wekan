@@ -30,9 +30,10 @@ template(name="boardList")
             input#resetBtn(type="button" value="{{_ 'filter-clear'}}")
 
     ul.board-list.clearfix.js-boards
-      li.js-add-board
-        a.board-list-item.label(title="{{_ 'add-board'}}")
-          | {{_ 'add-board'}}
+      if isAdmin
+        li.js-add-board
+         a.board-list-item.label(title="{{_ 'add-board'}}")
+            | {{_ 'add-board'}}
       each boards
         li(class="{{_id}}" class="{{#if isStarred}}starred{{/if}}" class=colorClass).js-board
           if isInvited
