@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated translations Transifex URL at readme](https://github.com/wekan/wekan/commit/9838af5e5630a6ef34175e110ddfb6bfc225b40c).
   Thanks to xet7.
+- [Improve Docker files](https://github.com/wekan/wekan/pull/5377).
+  Thanks to C0rn3j.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
