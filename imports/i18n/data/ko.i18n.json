@@ -1245,5 +1245,6 @@
   "show-at-minicard": "미니카드에 보이기",
   "show-checklist-at-minicard": "미니카드에 확인목록 보이기",
   "show-subtasks-field": "하위할일 항목 보이기",
-  "convert-to-markdown": "Convert to markdown"
+  "convert-to-markdown": "Convert to markdown",
+  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments"
 }

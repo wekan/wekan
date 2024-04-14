@@ -1245,5 +1245,6 @@
   "show-at-minicard": "Toon op minikaart",
   "show-checklist-at-minicard": "Toon checklist op minikaart",
   "show-subtasks-field": "Toon subtakenveld",
-  "convert-to-markdown": "Converteer naar markdown"
+  "convert-to-markdown": "Converteer naar markdown",
+  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments"
 }

@@ -1245,5 +1245,6 @@
   "show-at-minicard": "Показати на міні-карті ",
   "show-checklist-at-minicard": "Показати чеклист на міні-картці",
   "show-subtasks-field": "Показати поле підзадач",
-  "convert-to-markdown": "Конвертувати у markdown"
+  "convert-to-markdown": "Конвертувати у markdown",
+  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments"
 }

@@ -1245,5 +1245,6 @@
   "show-at-minicard": "在小卡片上显示",
   "show-checklist-at-minicard": "小卡片显示清单",
   "show-subtasks-field": "显示子任务字段",
-  "convert-to-markdown": "转换成markdown"
+  "convert-to-markdown": "转换成markdown",
+  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments"
 }
