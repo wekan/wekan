@@ -176,93 +176,92 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
 
-RUN \
-    set -o xtrace && \
-    # Add non-root user wekan
-    useradd --user-group --system --home-dir /home/wekan wekan && \
-    \
-    # OS dependencies
-    apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
-    \
-    # Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
-    # https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
-    cp $(which tar) $(which tar)~ && \
-    ln -sf $(which bsdtar) $(which tar) && \
-    \
-    # Download nodejs
-    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt && \
-    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
-    #---------------------------------------------------------------------------------------------
-    \
-    # Verify nodejs authenticity
-    grep node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt | shasum -a 256 -c - && \
-    rm -f SHASUMS256.txt && \
-    #grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
-    #rm -f SHASUMS256.txt.asc && \
-    \
-    # Install Node
-    tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
-    ln -s /opt/nodejs/bin/node /usr/bin/node && \
-    ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
-    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config && \
-    chown wekan --recursive /home/wekan/.config && \
-    \
-    #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
-    #paxctl -mC `which node` && \
-    \
-    # Install Node dependencies. Python path for node-gyp.
-    #npm install -g npm@${NPM_VERSION} && \
-    \
-    # Change user to wekan and install meteor
-    cd /home/wekan/ && \
-    chown wekan --recursive /home/wekan && \
-    echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
-    gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh && \
-    mv /root/.meteor /home/wekan/ && \
-    chown wekan --recursive /home/wekan/.meteor && \
-    \
-    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
-    cd /home/wekan/.meteor && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
-    \
-    # Build app
-    cd /home/wekan/app && \
-    mkdir -p /home/wekan/.npm && \
-    chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor && \
-    chmod u+w *.json && \
-    gosu wekan:wekan meteor npm install && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
-    cd /home/wekan/app_build/bundle/programs/server/ && \
-    chmod u+w *.json && \
-    gosu wekan:wekan meteor npm install && \
-    cd node_modules/fibers && \
-    node build.js && \
-    cd ../.. && \
-    # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
-    rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
-    mv /home/wekan/app_build/bundle /build && \
-    \
-    # Put back the original tar
-    mv $(which tar)~ $(which tar) && \
-    \
-    # Cleanup
-    apt-get remove --purge -y ${BUILD_DEPS} && \
-    apt-get autoremove -y && \
-    npm uninstall -g api2html &&\
-    rm -R /tmp/* && \
-    rm -R /var/lib/apt/lists/* && \
-    rm -R /home/wekan/.meteor && \
-    rm -R /home/wekan/app && \
-    rm -R /home/wekan/app_build && \
-    mkdir /data && \
-    chown wekan --recursive /data
-    #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
-    #rm -R /home/wekan/python
-    #rm /home/wekan/install_meteor.sh
+RUN <<EOR
+set -o xtrace
+# Add non-root user wekan
+useradd --user-group --system --home-dir /home/wekan wekan
+# OS dependencies
+apt-get update -y
+apt-get install -y --no-install-recommends ${BUILD_DEPS}
+# Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
+# https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
+cp $(which tar) $(which tar)~
+ln -sf $(which bsdtar) $(which tar)
+# Download nodejs
+wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
+wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt
+#wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
+#wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc
+#---------------------------------------------------------------------------------------------
+
+# Verify nodejs authenticity
+grep node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt | shasum -a 256 -c -
+rm -f SHASUMS256.txt
+#grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c -
+#rm -f SHASUMS256.txt.asc
+
+# Install Node
+tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
+rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
+mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs
+ln -s /opt/nodejs/bin/node /usr/bin/node
+ln -s /opt/nodejs/bin/npm /usr/bin/npm
+mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config
+chown wekan --recursive /home/wekan/.config
+
+#DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
+#paxctl -mC `which node`
+
+# Install Node dependencies. Python path for node-gyp.
+#npm install -g npm@${NPM_VERSION}
+
+# Change user to wekan and install meteor
+cd /home/wekan/
+chown wekan --recursive /home/wekan
+echo "Starting meteor ${METEOR_RELEASE} installation...   \n"
+gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh
+mv /root/.meteor /home/wekan/
+chown wekan --recursive /home/wekan/.meteor
+
+sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js
+cd /home/wekan/.meteor
+gosu wekan:wekan /home/wekan/.meteor/meteor -- help;
+
+# Build app
+cd /home/wekan/app
+mkdir -p /home/wekan/.npm
+chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor
+chmod u+w *.json
+gosu wekan:wekan meteor npm install
+gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build
+cd /home/wekan/app_build/bundle/programs/server/
+chmod u+w *.json
+gosu wekan:wekan meteor npm install
+cd node_modules/fibers
+node build.js
+cd ../..
+# Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy
+mv /home/wekan/app_build/bundle /build
+
+# Put back the original tar
+mv $(which tar)~ $(which tar)
+
+# Cleanup
+apt-get remove --purge -y ${BUILD_DEPS}
+apt-get autoremove -y
+npm uninstall -g api2html
+rm -R /tmp/*
+rm -R /var/lib/apt/lists/*
+rm -R /home/wekan/.meteor
+rm -R /home/wekan/app
+rm -R /home/wekan/app_build
+mkdir /data
+chown wekan --recursive /data
+#cat /home/wekan/python/esprima-python/files.txt | xargs rm -R
+#rm -R /home/wekan/python
+#rm /home/wekan/install_meteor.sh
+EOR
 
 ENV PORT=8080
 EXPOSE $PORT
