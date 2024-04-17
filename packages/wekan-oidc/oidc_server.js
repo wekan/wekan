@@ -19,7 +19,7 @@ var serviceData = {};
 var userinfo = {};
 
 OAuth.registerService('oidc', 2, null, function (query) {
-  var debug = process.env.DEBUG || false;
+  var debug = process.env.DEBUG === 'true';
 
   var token = getToken(query);
   if (debug) console.log('XXX: register token:', token);
@@ -135,7 +135,7 @@ if (Meteor.release) {
 
 if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED !== true) {
   var getToken = function (query) {
-    var debug = process.env.DEBUG || false;
+    var debug = process.env.DEBUG === 'true';
     var config = getConfiguration();
     if(config.tokenEndpoint.includes('https://')){
       var serverTokenEndpoint = config.tokenEndpoint;
@@ -181,7 +181,7 @@ if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED 
 if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED === true) {
 
   var getToken = function (query) {
-    var debug = (process.env.DEBUG === 'true' || process.env.DEBUG === true) || false;
+    var debug = process.env.DEBUG === 'true';
     var config = getConfiguration();
     if(config.tokenEndpoint.includes('https://')){
       var serverTokenEndpoint = config.tokenEndpoint;
@@ -240,7 +240,7 @@ if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED 
 
 
 var getUserInfo = function (accessToken) {
-  var debug = process.env.DEBUG || false;
+  var debug = process.env.DEBUG === 'true';
   var config = getConfiguration();
   // Some userinfo endpoints use a different base URL than the authorization or token endpoints.
   // This logic allows the end user to override the setting by providing the full URL to userinfo in their config.
