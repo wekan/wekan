@@ -129,7 +129,7 @@ Meteor.startup(() => {
             validateUrl: process.env.CASE_VALIDATE_URL,
             casVersion: 3.0,
             attributes: {
-              debug: process.env.DEBUG,
+              debug: process.env.DEBUG === 'true',
             },
           },
         },

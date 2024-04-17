@@ -20,7 +20,7 @@ export const TAPi18n = {
       cleanCode: true,
       // Show translations debug messages only when DEBUG=true
       // OLD: debug: Meteor.isDevelopment,
-      debug: process.env.DEBUG,
+      debug: process.env.DEBUG === 'true',
       supportedLngs: Object.values(languages).map(({ tag }) => tag),
       ns: DEFAULT_NAMESPACE,
       defaultNs: DEFAULT_NAMESPACE,
