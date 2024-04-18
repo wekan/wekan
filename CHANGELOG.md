@@ -2,7 +2,7 @@
 
 Newest WeKan at these amd64 platforms:
 
-- Linux bundle
+- Windows and Linux bundle
 - Snap Candidate
 - Docker
 - Kubernetes
@@ -15,7 +15,7 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.43 2024-04-18 WeKan ® release
 
 This release adds the following updates:
 
