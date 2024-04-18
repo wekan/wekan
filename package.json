@@ -51,7 +51,7 @@
     "papaparse": "^5.3.1",
     "pretty-ms": "^7.0.1",
     "qs": "^6.12.1",
-    "simpl-schema": "^1.12.0",
+    "simpl-schema": "^3.4.6",
     "source-map-support": "^0.5.20",
     "uuid": "^8.3.2"
   }
