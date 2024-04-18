@@ -25,7 +25,9 @@ This release adds the following updates:
   Thanks to xet7.
 - [Improve Docker files](https://github.com/wekan/wekan/pull/5377).
   Thanks to C0rn3j.
-- [Updated dependencies](https://github.com/wekan/wekan/commit/08e2f2f2731856255e0b40eb692328424efdf9ac).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/08e2f2f2731856255e0b40eb692328424efdf9ac),
+  [Part 2](https://github.com/wekan/wekan/commit/da99e363cd72cda7d400ce65785a6650e42c72cf).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
