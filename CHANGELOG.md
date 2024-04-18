@@ -25,6 +25,11 @@ This release adds the following updates:
   Thanks to xet7.
 - [Improve Docker files](https://github.com/wekan/wekan/pull/5377).
   Thanks to C0rn3j.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/08e2f2f2731856255e0b40eb692328424efdf9ac).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
 - [Fix DEBUG environment variable check](https://github.com/wekan/wekan/pull/5380).
   Thanks to verdel.
 - [By default, use localized long date-time format](https://github.com/wekan/wekan/pull/5381).
