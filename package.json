@@ -17,7 +17,7 @@
     "sinon": "^13.0.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.24.1",
+    "@babel/runtime": "^7.24.4",
     "@mapbox/node-pre-gyp": "^1.0.10",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
     "@wekanteam/html-to-markdown": "^1.0.2",
@@ -26,7 +26,7 @@
     "ajv": "^6.12.6",
     "bcryptjs": "^2.4.3",
     "bson": "^4.5.2",
-    "dompurify": "^2.4.9",
+    "dompurify": "^2.5.0",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
     "exceljs": "git+https://github.com/exceljs/exceljs.git",
@@ -50,7 +50,7 @@
     "page": "^1.11.6",
     "papaparse": "^5.3.1",
     "pretty-ms": "^7.0.1",
-    "qs": "^6.12.0",
+    "qs": "^6.12.1",
     "simpl-schema": "^1.12.0",
     "source-map-support": "^0.5.20",
     "uuid": "^8.3.2"
