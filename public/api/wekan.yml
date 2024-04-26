@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.43
+  version: v7.44
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3736,6 +3736,10 @@ definitions:
         description: |
            The type of list
         type: string
+      collapsed:
+        description: |
+           is the list collapsed
+        type: boolean
     required:
       - title
       - archived
@@ -3744,6 +3748,7 @@ definitions:
       - createdAt
       - modifiedAt
       - type
+      - collapsed
   ListsWiplimit:
     type: object
     properties:
@@ -3835,6 +3840,10 @@ definitions:
         description: |
            The type of swimlane
         type: string
+      collapsed:
+        description: |
+           is the swimlane collapsed
+        type: boolean
     required:
       - title
       - archived
@@ -3842,3 +3851,4 @@ definitions:
       - createdAt
       - modifiedAt
       - type
+      - collapsed
