@@ -1,37 +1,38 @@
 template(name="listBody")
-  .list-body
-    .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
-      if cards.length
-        +inlinedForm(autoclose=false position="top")
-          +addCardForm(listId=_id position="top")
-      ul.sidebar-list
-        each customFieldsSum
-          li
-            +viewer
-              = name
-            if $eq customFieldsSum.type "number"
+  unless collapsed
+    .list-body
+      .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
+        if cards.length
+          +inlinedForm(autoclose=false position="top")
+            +addCardForm(listId=_id position="top")
+        ul.sidebar-list
+          each customFieldsSum
+            li
               +viewer
-                = value
-            if $eq customFieldsSum.type "currency"
-              +viewer
-                = formattedCurrencyCustomFieldValue(value)
-      each (cardsWithLimit (idOrNull ../../_id))
-        a.minicard-wrapper.js-minicard(href=originRelativeUrl
-          class="{{#if cardIsSelected}}is-selected{{/if}}"
-          class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
-          if MultiSelection.isActive
-            .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
-              class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
-          +minicard(this)
-      if (showSpinner (idOrNull ../../_id))
-        +spinnerList
+                = name
+              if $eq customFieldsSum.type "number"
+                +viewer
+                  = value
+              if $eq customFieldsSum.type "currency"
+                +viewer
+                  = formattedCurrencyCustomFieldValue(value)
+        each (cardsWithLimit (idOrNull ../../_id))
+          a.minicard-wrapper.js-minicard(href=originRelativeUrl
+            class="{{#if cardIsSelected}}is-selected{{/if}}"
+            class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
+            if MultiSelection.isActive
+              .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
+                class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
+            +minicard(this)
+        if (showSpinner (idOrNull ../../_id))
+          +spinnerList
 
-      if canSeeAddCard
-        +inlinedForm(autoclose=false position="bottom")
-          +addCardForm(listId=_id position="bottom")
-        else
-          a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
-            i.fa.fa-plus
+        if canSeeAddCard
+          +inlinedForm(autoclose=false position="bottom")
+            +addCardForm(listId=_id position="bottom")
+          else
+            a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
+              i.fa.fa-plus
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-list(

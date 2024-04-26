@@ -61,6 +61,7 @@ Meteor.publishRelations('boards', function() {
               title: 1,
               boardId: 1,
               archived: 1,
+              collapsed: 1,
               sort: 1
             }
           },
@@ -221,7 +222,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
     ),
     function(boardId, board) {
       this.cursor(ReactiveCache.getLists({ boardId, archived: isArchived }, {}, true));
-      this.cursor(ReactiveCache.getSwimlanes({ boardId, archived: isArchived }, {}, true));
+      this.cursor(ReactiveCache.getSwimlanes({ boardId, collapsed: 1, archived: isArchived }, {}, true));
       this.cursor(ReactiveCache.getIntegrations({ boardId }, {}, true));
       this.cursor(ReactiveCache.getCardCommentReactions({ boardId }, {}, true));
       this.cursor(
