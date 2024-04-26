@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Collapse Lists](https://github.com/wekan/wekan/commit/a601ba542aebefdfa8b5d683d22405ab3d5f8569).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.43 2024-04-18 WeKan ® release
 
 This release adds the following updates:
