@@ -21,6 +21,8 @@ This release adds the following new features:
 
 - [Collapse Lists](https://github.com/wekan/wekan/commit/a601ba542aebefdfa8b5d683d22405ab3d5f8569).
   Thanks to xet7.
+- [Collapse Swimlanes. In Progress, does not work yet, not visible yet](https://github.com/wekan/wekan/commit b704d58f0f3cf5e7785b79d5a6c9f6c63da4159c).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
