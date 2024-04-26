@@ -1,38 +1,3 @@
-/*
-// Minimize swimlanes start https://www.w3schools.com/howto/howto_js_accordion.asp
-
-.accordion
-  cursor: pointer
-  width: 30px
-  height: 20px
-  border: none
-  outline: none
-  font-size: 18px
-  transition: 0.4s
-  padding-top: 0px
-  margin-top: 0px
-
-.accordion:after
-  // Unicode triagle right:
-  content: '\25B6'
-  color: #777
-  font-weight: bold
-  float: left
-
-.active:after
-  // Unicode triangle down:
-  content: '\25BC'
-
-.panel
-  width: 100%
-  max-height: 0
-  overflow: hidden
-  transition: max-height 0.2s ease-out
-  margin: 0px
-  padding: 0px
-
-// Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
-*/
 @media screen and (min-width: 801px) {
   .swimlane.ui-sortable {
     width: max-content;
@@ -47,6 +12,28 @@
   display: flex;
   flex-direction: row;
   overflow: 0;
+}
+.swimlane-header-menu .swimlane-header-collapse-down {
+  font-size: 50%;
+  color: #a6a6a6;
+  position: absolute;
+  top: 5px;
+  left: 100px;
+}
+.swimlane-header-menu .swimlane-header-collapse-up {
+  font-size: 50%;
+  color: #a6a6a6;
+  position: absolute;
+  bottom: 5px;
+  left: 100px;
+}
+.swimlane-header-menu .swimlane-header-uncollapse-up {
+  font-size: 50%;
+  color: #a6a6a6;
+}
+.swimlane-header-menu .swimlane-header-uncollapse-down {
+  font-size: 50%;
+  color: #a6a6a6;
 }
 .swimlane.placeholder {
   background-color: rgba(0,0,0,0.2);

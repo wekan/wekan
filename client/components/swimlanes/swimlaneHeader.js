@@ -18,10 +18,25 @@ BlazeComponent.extendComponent({
       swimlane.rename(newTitle.trim());
     }
   },
+  collapsed(check = undefined) {
+    const swimlane = Template.currentData();
+    const status = swimlane.isCollapsed();
+    if (check === undefined) {
+      // just check
+      return status;
+    } else {
+      swimlane.collapse(!status);
+      return !status;
+    }
+  },
 
   events() {
     return [
       {
+        'click .js-collapse-swimlane'(event) {
+          event.preventDefault();
+          this.collapsed(!this.collapsed());
+        },
         'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
         'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
         submit: this.editTitle,
