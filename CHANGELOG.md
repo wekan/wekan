@@ -22,6 +22,11 @@ This release adds the following new features:
 - [Collapse Lists](https://github.com/wekan/wekan/commit/a601ba542aebefdfa8b5d683d22405ab3d5f8569).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix board not visible at Collapse Lists](https://github.com/wekan/wekan/commit/e6476319bcb06cc71fa0eefa0a608ec3a7b89767).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.43 2024-04-18 WeKan ® release
