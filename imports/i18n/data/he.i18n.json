@@ -1246,5 +1246,7 @@
   "show-checklist-at-minicard": "הצגת רשימת מטלות על הכרטיסון",
   "show-subtasks-field": "הצגת שדה תת־משימות",
   "convert-to-markdown": "המרה ל־Markdown",
-  "import-board-zip": "הוספת קובץ ‎.zip עם קובצי JSON של לוח, ותת־תיקיות בשם הלוח עם קבצים מצורפים"
+  "import-board-zip": "הוספת קובץ ‎.zip עם קובצי JSON של לוח, ותת־תיקיות בשם הלוח עם קבצים מצורפים",
+  "collapse": "צמצום",
+  "uncollapse": "Uncollapse"
 }

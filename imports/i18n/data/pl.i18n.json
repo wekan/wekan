@@ -1246,5 +1246,7 @@
   "show-checklist-at-minicard": "Pokaż listę zadań na minikarcie",
   "show-subtasks-field": "Pokaż pole podzadania",
   "convert-to-markdown": "Zamień na markdown",
-  "import-board-zip": "Dodaj plik .zip z tablicą plików JSON, nazwą tablicy i podkatalogami z załącznikami"
+  "import-board-zip": "Dodaj plik .zip z tablicą plików JSON, nazwą tablicy i podkatalogami z załącznikami",
+  "collapse": "Zwiń",
+  "uncollapse": "Uncollapse"
 }

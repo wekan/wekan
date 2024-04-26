@@ -1246,5 +1246,7 @@
   "show-checklist-at-minicard": "在小卡片上顯示檢查清單",
   "show-subtasks-field": "顯示子工作項目欄位",
   "convert-to-markdown": "轉換為 Markdown",
-  "import-board-zip": "新增包含看板 JSON 檔案與帶有附件的看板名稱子目錄的 .zip 檔案"
+  "import-board-zip": "新增包含看板 JSON 檔案與帶有附件的看板名稱子目錄的 .zip 檔案",
+  "collapse": "損毀",
+  "uncollapse": "Uncollapse"
 }

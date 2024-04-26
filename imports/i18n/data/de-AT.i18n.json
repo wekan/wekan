@@ -1246,5 +1246,7 @@
   "show-checklist-at-minicard": "Show checklist at minicard",
   "show-subtasks-field": "Show subtasks field",
   "convert-to-markdown": "Convert to markdown",
-  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments"
+  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments",
+  "collapse": "Einklappen",
+  "uncollapse": "Uncollapse"
 }

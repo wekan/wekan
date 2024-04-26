@@ -1246,5 +1246,7 @@
   "show-checklist-at-minicard": "Näytä tarkistuslista minikortilla",
   "show-subtasks-field": "Näytä alitehtävät kenttä",
   "convert-to-markdown": "Muuta markdowniksi",
-  "import-board-zip": "Lisää .zip tiedosto jossa on taulu JSON tiedostot, ja taulu nimi alihakemistot liitteineen"
+  "import-board-zip": "Lisää .zip tiedosto jossa on taulu JSON tiedostot, ja taulu nimi alihakemistot liitteineen",
+  "collapse": "Pienennä",
+  "uncollapse": "Suurenna"
 }
