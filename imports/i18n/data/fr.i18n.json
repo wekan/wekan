@@ -175,7 +175,7 @@
   "board-view": "Vue du tableau",
   "board-view-cal": "Calendrier",
   "board-view-swimlanes": "Couloirs",
-  "board-view-collapse": "Diminuer",
+  "board-view-collapse": "Réduire",
   "board-view-gantt": "Gantt",
   "board-view-lists": "Listes",
   "bucket-example": "Comme « todo list » par exemple",
@@ -1247,6 +1247,6 @@
   "show-subtasks-field": "Afficher le champ des sous-tâches",
   "convert-to-markdown": "Convertir en markdown",
   "import-board-zip": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
-  "collapse": "Diminuer",
-  "uncollapse": "Uncollapse"
+  "collapse": "Réduire",
+  "uncollapse": "Développer"
 }

@@ -175,7 +175,7 @@
   "board-view": "Bord overzicht",
   "board-view-cal": "Kalender",
   "board-view-swimlanes": "Swimlanes",
-  "board-view-collapse": "Klap in",
+  "board-view-collapse": "Inklappen",
   "board-view-gantt": "Gantt",
   "board-view-lists": "Lijsten",
   "bucket-example": "Zoals bijvoorbeeld een \"Bucket List\"",
@@ -1246,7 +1246,7 @@
   "show-checklist-at-minicard": "Toon checklist op minikaart",
   "show-subtasks-field": "Toon subtakenveld",
   "convert-to-markdown": "Converteer naar markdown",
-  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments",
-  "collapse": "Klap in",
-  "uncollapse": "Uncollapse"
+  "import-board-zip": "Voeg .zip bestand toe met bord JSON bestanden, en bordnaam subdirectories met bijlagen.",
+  "collapse": "Inklappen",
+  "uncollapse": "Uitklappen"
 }

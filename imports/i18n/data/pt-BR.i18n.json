@@ -1246,7 +1246,7 @@
   "show-checklist-at-minicard": "Mostrar lista de verificação no mini cartão",
   "show-subtasks-field": "Mostrar campo subtarefas",
   "convert-to-markdown": "Converter para markdown",
-  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments",
+  "import-board-zip": "Adicione o arquivo .zip que contém arquivos JSON do quadro e subdiretórios de nomes do quadro com anexos",
   "collapse": "Expandir",
-  "uncollapse": "Uncollapse"
+  "uncollapse": "Compactar"
 }

@@ -175,7 +175,7 @@
   "board-view": "Vue du tableau",
   "board-view-cal": "Calendrier",
   "board-view-swimlanes": "Couloirs",
-  "board-view-collapse": "Diminuer",
+  "board-view-collapse": "Réduire",
   "board-view-gantt": "Gantt",
   "board-view-lists": "Listes",
   "bucket-example": "Comme « todo list » par exemple",
@@ -1246,7 +1246,7 @@
   "show-checklist-at-minicard": "Afficher la check-list sur la mini-carte",
   "show-subtasks-field": "Afficher le champ des sous-tâches",
   "convert-to-markdown": "Convertir en markdown",
-  "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments",
-  "collapse": "Diminuer",
-  "uncollapse": "Uncollapse"
+  "import-board-zip": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
+  "collapse": "Réduire",
+  "uncollapse": "Développer"
 }
