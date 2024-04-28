@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update Docker base container to Ubuntu 24.04, and update software versions](https://github.com/wekan/wekan/commit/63117e87e759af965c8eeceaaa41f52815630d20).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.44 2024-04-26 WeKan ® release
 
 This release adds the following new features:
