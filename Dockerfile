@@ -1,7 +1,7 @@
-FROM --platform=linux/amd64 ubuntu:23.10 as wekan
+FROM --platform=linux/amd64 ubuntu:24.04 as wekan
 LABEL maintainer="wekan" \
       org.opencontainers.image.ref.name="ubuntu" \
-      org.opencontainers.image.version="23.10" \
+      org.opencontainers.image.version="24.04" \
       org.opencontainers.image.source="https://github.com/wekan/wekan"
 
 # 2022-09-04:
@@ -25,10 +25,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
     NODE_VERSION=v14.21.4 \
-    METEOR_RELEASE=METEOR@2.13.3 \
+    METEOR_RELEASE=METEOR@2.14 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=9.8.1 \
+    NPM_VERSION=6.14.17 \
     FIBERS_VERSION=4.0.1 \
     ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
@@ -213,7 +213,7 @@ chown wekan --recursive /home/wekan/.config
 #paxctl -mC `which node`
 
 # Install Node dependencies. Python path for node-gyp.
-#npm install -g npm@${NPM_VERSION}
+npm install -g npm@${NPM_VERSION}
 
 # Change user to wekan and install meteor
 cd /home/wekan/
