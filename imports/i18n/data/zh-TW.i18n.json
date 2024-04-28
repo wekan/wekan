@@ -1248,5 +1248,5 @@
   "convert-to-markdown": "轉換為 Markdown",
   "import-board-zip": "新增包含看板 JSON 檔案與帶有附件的看板名稱子目錄的 .zip 檔案",
   "collapse": "損毀",
-  "uncollapse": "Uncollapse"
+  "uncollapse": "展開"
 }
