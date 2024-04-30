@@ -568,12 +568,6 @@ export default {
     name: "Română (România)",
     load: () => import('./data/ro-RO.i18n.json'),
   },
-  "ru-UA": {
-    code: "ru",
-    tag: "ru-UA",
-    name: "Русский (Украина)",
-    load: () => import('./data/ru-UA.i18n.json'),
-  },
   "ru": {
     code: "ru",
     tag: "ru",
@@ -633,18 +627,6 @@ export default {
     tag: "tr",
     name: "Türkçe",
     load: () => import('./data/tr.i18n.json'),
-  },
-  "ua-UA": {
-    code: "ua",
-    tag: "ua-UA",
-    name: "українська (Україна)",
-    load: () => import('./data/ua-UA.i18n.json'),
-  },
-  "ua": {
-    code: "ua",
-    tag: "ua",
-    name: "українська (Україна)",
-    load: () => import('./data/ua.i18n.json'),
   },
   "ug": {
     code: "ug",
