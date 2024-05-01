@@ -34,13 +34,14 @@ template(name="translation")
 
 template(name="translationGeneral")
   table
-    tbody
+    thead
       tr
         th {{_ 'language'}}
         th {{_ 'text'}}
         th {{_ 'translation-text'}}
         th
           +newTranslationRow
+    tbody
       each translation in translationList
         +translationRow(translationId=translation._id)
 

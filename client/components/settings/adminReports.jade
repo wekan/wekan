@@ -58,18 +58,20 @@ template(name="rulesReport")
   h1 {{_ 'rulesReportTitle'}}
   if resultsCount
     table
-      tr
-        th Rule Title
-        th Board Title
-        th actionType
-        th activityType
+      thead
+        tr
+          th Rule Title
+          th Board Title
+          th actionType
+          th activityType
 
       each rule in results
-        tr
-          td {{ rule.title }}
-          td {{ rule.boardTitle }}
-          td {{ rule.action.actionType }}
-          td {{ rule.trigger.activityType }}
+        tbody
+          tr
+            td {{ rule.title }}
+            td {{ rule.boardTitle }}
+            td {{ rule.action.actionType }}
+            td {{ rule.trigger.activityType }}
   else
     div {{_ 'no-results' }}
 
@@ -77,22 +79,24 @@ template(name="filesReport")
   h1 {{_ 'filesReportTitle'}}
   if resultsCount
     table
-      tr
-        th Filename
-        th.right Size (kB)
-        th MIME Type
-        th Attachment ID
-        th Board ID
-        th Card ID
+      thead
+        tr
+          th Filename
+          th.right Size (kB)
+          th MIME Type
+          th Attachment ID
+          th Board ID
+          th Card ID
 
       each att in results
-        tr
-          td {{ att.name }}
-          td.right {{ fileSize att.size }}
-          td {{ att.type }}
-          td {{ att._id }}
-          td {{ att.meta.boardId }}
-          td {{ att.meta.cardId }}
+        tbody
+          tr
+            td {{ att.name }}
+            td.right {{ fileSize att.size }}
+            td {{ att.type }}
+            td {{ att._id }}
+            td {{ att.meta.boardId }}
+            td {{ att.meta.cardId }}
   else
     div {{_ 'no-results' }}
 
@@ -100,22 +104,24 @@ template(name="cardsReport")
   h1 {{_ 'cardsReportTitle'}}
   if resultsCount
     table.table
-      tr
-        th Card Title
-        th Board
-        th Swimlane
-        th List
-        th Members
-        th Assignees
+      thead
+        tr
+          th Card Title
+          th Board
+          th Swimlane
+          th List
+          th Members
+          th Assignees
 
       each card in results
-        tr
-          td {{abbreviate card.title }}
-          td {{abbreviate card.board.title }}
-          td {{abbreviate card.swimlane.title }}
-          td {{abbreviate card.list.title }}
-          td {{userNames card.members }}
-          td {{userNames card.assignees }}
+        tbody
+          tr
+            td {{abbreviate card.title }}
+            td {{abbreviate card.board.title }}
+            td {{abbreviate card.swimlane.title }}
+            td {{abbreviate card.list.title }}
+            td {{userNames card.members }}
+            td {{userNames card.assignees }}
   else
     div {{_ 'no-results' }}
 
@@ -123,22 +129,24 @@ template(name="boardsReport")
   h1 {{_ 'boardsReportTitle'}}
   if resultsCount
     table.table
-      tr
-        th Title
-        th Id
-        th Permission
-        th Archived?
-        th Members
-        th Organizations
-        th Teams
+      thead
+        tr
+          th Title
+          th Id
+          th Permission
+          th Archived?
+          th Members
+          th Organizations
+          th Teams
 
       each board in results
-        tr
-          td {{abbreviate board.title }}
-          td {{abbreviate board._id }}
-          td {{ board.permission }}
-          td
-            = yesOrNo(board.archived)
-          td {{userNames board.members }}
+        tbody
+          tr
+            td {{abbreviate board.title }}
+            td {{abbreviate board._id }}
+            td {{ board.permission }}
+            td
+              = yesOrNo(board.archived)
+            td {{userNames board.members }}
   else
     div {{_ 'no-results' }}
