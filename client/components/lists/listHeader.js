@@ -31,14 +31,14 @@ BlazeComponent.extendComponent({
       return !status;
     }
   },
-  collapsed(check = undefined) {
-    const list = Template.currentData();
-    const status = list.isCollapsed();
+  listCollapsed(check = undefined) {
+    const user = Meteor.user();
+    const status = user.hasCollapsedList(this._id);
     if (check === undefined) {
       // just check
       return status;
     } else {
-      list.collapse(!status);
+      user.toggleCollapseList(this._id);
       return !status;
     }
   },
@@ -115,9 +115,9 @@ BlazeComponent.extendComponent({
           event.preventDefault();
           this.starred(!this.starred());
         },
-        'click .js-collapse'(event) {
+        'click .js-collapse-list'(event) {
           event.preventDefault();
-          this.collapsed(!this.collapsed());
+          this.listCollapsed(!this.listCollapsed());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
         'click .js-add-card.list-header-plus-top'(event) {

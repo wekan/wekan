@@ -440,6 +440,20 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.listCollapsed': {
+      /**
+       * User-specific list of collapsed list IDs
+       */
+      type: [String],
+      optional: true,
+    },
+    'profile.swimlaneCollapsed': {
+      /**
+       * User-specific list of collapsed swimlane IDs
+       */
+      type: [String],
+      optional: true,
+    },
     services: {
       /**
        * services field of the user
@@ -736,6 +750,36 @@ Users.helpers({
     return _.contains(starredBoards, boardId);
   },
 
+  collapsedLists() {
+    const { collapsedLists = [] } = this.profile || {};
+    return Lists.userLists(
+      this._id,
+      false,
+      { _id: { $in: collapsedLists } },
+      { sort: { sort: 1 } },
+    );
+  },
+
+  hasCollapsedList(listId) {
+    const { collapsedLists = [] } = this.profile || {};
+    return _.contains(collapsedLists, listId);
+  },
+
+  collapsedSwimlanes() {
+    const { collapsedSwimlanes = [] } = this.profile || {};
+    return Swimlanes.userSwimlanes(
+      this._id,
+      false,
+      { _id: { $in: collapsedSwimlanes } },
+      { sort: { sort: 1 } },
+    );
+  },
+
+  hasCollapsedSwimlane(swimlaneId) {
+    const { collapsedSwimlanes = [] } = this.profile || {};
+    return _.contains(collapsedSwimlanes, swimlaneId);
+  },
+
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
     return Boards.userBoards(
@@ -1001,6 +1045,22 @@ Users.mutations({
     return {
       [queryKind]: {
         'profile.starredBoards': boardId,
+      },
+    };
+  },
+  toggleCollapseList(listId) {
+    const queryKind = this.hasCollapsedList(listId) ? '$pull' : '$addToSet';
+    return {
+      [queryKind]: {
+        'profile.listCollapsed': listId,
+      },
+    };
+  },
+  toggleCollapseSwimlane(swimlaneId) {
+    const queryKind = this.hasCollapsedSwimlane(swimlaneId) ? '$pull' : '$addToSet';
+    return {
+      [queryKind]: {
+        'profile.swimlaneCollapsed': swimlaneId,
       },
     };
   },

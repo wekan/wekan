@@ -107,13 +107,6 @@ Swimlanes.attachSchema(
       type: String,
       defaultValue: 'swimlane',
     },
-    collapsed: {
-      /**
-       * is the swimlane collapsed
-       */
-      type: Boolean,
-      defaultValue: false,
-    },
   }),
 );
 
@@ -239,10 +232,6 @@ Swimlanes.helpers({
     return ret;
   },
 
-  isCollapsed() {
-    return this.collapsed === true;
-  },
-
   board() {
     return ReactiveCache.getBoard(this.boardId);
   },
@@ -283,10 +272,6 @@ Swimlanes.helpers({
 Swimlanes.mutations({
   rename(title) {
     return { $set: { title } };
-  },
-
-  collapse(enable = true) {
-    return { $set: { collapsed: !!enable } };
   },
 
   archive() {
