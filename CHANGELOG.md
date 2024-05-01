@@ -21,6 +21,13 @@ This release adds the following updates:
 
 - [Update Docker base container to Ubuntu 24.04, and update software versions](https://github.com/wekan/wekan/commit/63117e87e759af965c8eeceaaa41f52815630d20).
   Thanks to developers of dependencies.
+- [Updated dependencies](https://github.com/wekan/wekan/pull/5392).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Fix display of tables with a large number of rows](https://github.com/wekan/wekan/pull/5393).
+  Thanks to novashdima.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
