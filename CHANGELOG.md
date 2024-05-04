@@ -28,6 +28,10 @@ and fixes the following bugs:
 
 - [Fix display of tables with a large number of rows](https://github.com/wekan/wekan/pull/5393).
   Thanks to novashdima.
+- [Fix white List color and define Silver in CSS instead of leaving it unset](https://github.com/wekan/wekan/pull/5400).
+  Thanks to C0rn3j.
+- [Allow silver color to be set in List and Swimlane](https://github.com/wekan/wekan/pull/5401).
+  Thanks to C0rn3j.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
