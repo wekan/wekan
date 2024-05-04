@@ -1282,6 +1282,15 @@ Meteor.methods({
     const user = ReactiveCache.getCurrentUser();
     user.toggleHideCheckedItems();
   },
+  toggleCollapseList(listId) {
+    check(listId, String);
+    const user = ReactiveCache.getCurrentUser();
+    user.toggleCollapseList(listId);
+  },
+  toggleCollapseSwimlane(swimlaneId) {
+    const user = ReactiveCache.getCurrentUser();
+    user.toggleCollapseSwimlane(swimlaneId);
+  },
   toggleSystemMessages() {
     const user = ReactiveCache.getCurrentUser();
     user.toggleSystem(user.hasHiddenSystemMessages());

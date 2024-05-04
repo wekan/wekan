@@ -32,13 +32,17 @@ BlazeComponent.extendComponent({
     }
   },
   listCollapsed(check = undefined) {
-    const user = Meteor.user();
-    const status = user.hasCollapsedList(this._id);
+    const list = this.currentData()._id;
+    console.log(list);
+    const status = Meteor.call('hasCollapsedList', list);
+    console.log(status);
     if (check === undefined) {
       // just check
       return status;
     } else {
-      user.toggleCollapseList(this._id);
+      console.log('toggleCollapseList');
+      //user.toggleCollapseList(this._id);
+      Meteor.call('toggleCollapseList', list);
       return !status;
     }
   },
