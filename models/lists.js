@@ -146,7 +146,7 @@ Lists.attachSchema(
        */
       type: String,
       optional: true,
-      // silver is the default, so it is left out
+      // silver is the default
       allowedValues: ALLOWED_COLORS,
     },
     type: {
@@ -352,9 +352,6 @@ Lists.mutations({
   },
 
   setColor(newColor) {
-    if (newColor === 'silver') {
-      newColor = null;
-    }
     return {
       $set: {
         color: newColor,
