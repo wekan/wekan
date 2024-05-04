@@ -6,15 +6,15 @@ template(name="listHeader")
       +editListTitleForm
     else
       unless isMiniScreen
-        if listCollapsed
-          a.js-collapse-list(title="{{_ 'uncollapse'}}")
+        if collapsed
+          a.js-collapse(title="{{_ 'uncollapse'}}")
             i.fa.fa-arrow-left.list-header-uncollapse-left
             i.fa.fa-arrow-right.list-header-uncollapse-right
       if isMiniScreen
         if currentList
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       unless isMiniScreen
-        if listCollapsed
+        if collapsed
           if showCardsCountForList cards.length
             br
             span.cardCount {{cardsCount}}
@@ -29,7 +29,7 @@ template(name="listHeader")
            span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
            |/#{wipLimit.value})
       unless isMiniScreen
-        div(class="{{#if listCollapsed}}list-rotated{{/if}}")
+        div(class="{{#if collapsed}}list-rotated{{/if}}")
           h2.list-header-name(
             title="{{ moment modifiedAt 'LLL' }}"
             class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
@@ -39,7 +39,7 @@ template(name="listHeader")
              |&nbsp;(
              span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
              |/#{wipLimit.value})
-        unless listCollapsed
+        unless collapsed
           if showCardsCountForList cards.length
             span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
       if isMiniScreen
@@ -57,14 +57,14 @@ template(name="listHeader")
       else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
-        unless listCollapsed
+        unless collapsed
           div.list-header-menu
             unless currentUser.isCommentOnly
               //if isBoardAdmin
               //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
               if canSeeAddCard
                 a.js-add-card.fa.fa-plus.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
-                a.js-collapse-list(title="{{_ 'collapse'}}")
+                a.js-collapse(title="{{_ 'collapse'}}")
                   i.fa.fa-arrow-right.list-header-collapse-right
                   i.fa.fa-arrow-left.list-header-collapse-left
                 a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
