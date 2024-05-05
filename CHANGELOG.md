@@ -32,6 +32,8 @@ and fixes the following bugs:
   Thanks to C0rn3j.
 - [Allow silver color to be set in List and Swimlane](https://github.com/wekan/wekan/pull/5401).
   Thanks to C0rn3j.
+- [Fix Can't set a Due Date that has a leading zero in time, errors with invalid time](https://github.com/wekan/wekan/commit/9cebee734740790145ca574c539ccebd067cee7e).
+  Thanks to C0rn3j and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
