@@ -785,7 +785,7 @@ function findCards(sessionId, query) {
       ),
       ReactiveCache.getSwimlanes(
         { _id: { $in: swimlanes } },
-        { fields: { ...fields, color: 1, collapsed: 1 } },
+        { fields: { ...fields, color: 1 } },
         true,
       ),
       ReactiveCache.getLists({ _id: { $in: lists } }, { fields }, true),

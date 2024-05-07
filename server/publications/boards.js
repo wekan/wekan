@@ -61,7 +61,6 @@ Meteor.publishRelations('boards', function() {
               title: 1,
               boardId: 1,
               archived: 1,
-              collapsed: 1,
               sort: 1
             }
           },

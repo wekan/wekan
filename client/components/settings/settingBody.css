@@ -7,11 +7,13 @@
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
+  height: 100%;
 }
 .setting-content {
   color: #727479;
   background: #dedede;
   width: 100%;
+  height: 100%;
   position: absolute;
 }
 .setting-content .content-title {
@@ -56,6 +58,8 @@
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+  max-height: 100%;
+  overflow: auto;
 }
 .setting-content .content-body .main-body ul li {
   padding: 0.5rem 0.5rem;

@@ -6,9 +6,10 @@ import moment from 'moment/min/moment-with-locales';
 function adjustedTimeFormat() {
   return moment
     .localeData()
-    .longDateFormat('LT')
-    .replace(/HH/i, 'H');
+    .longDateFormat('LT');
 }
+
+//   .replace(/HH/i, 'H');
 
 export class DatePicker extends BlazeComponent {
   template() {
