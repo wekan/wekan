@@ -640,10 +640,18 @@ Boards.attachSchema(
 Boards.helpers({
   copy() {
     const oldId = this._id;
+    const oldWatchers = this.watchers ? this.watchers.slice() : [];
     delete this._id;
     delete this.slug;
     this.title = this.copyTitle();
     const _id = Boards.insert(this);
+
+    // Temporary remove watchers to disable notifications
+      Boards.update(_id, {
+        $set: {
+          watchers: []
+        },
+    });
 
     // Copy all swimlanes in board
     ReactiveCache.getSwimlanes({
@@ -695,6 +703,12 @@ Boards.helpers({
       rule.triggerId = triggersMap[rule.triggerId];
       Rules.insert(rule);
     });
+
+    // Re-set Watchers to reenable notification
+    Boards.update(_id, {
+      $set: { watchers: oldWatchers }
+    });
+
     return _id;
   },
   /**
