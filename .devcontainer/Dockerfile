@@ -160,12 +160,16 @@ ENV \
 
 ENV PATH=$PATH:/home/wekan/.meteor/
 
-RUN echo "export PATH=$PATH" >> /etc/environment
+RUN <<EOR
+echo "export PATH=$PATH" >> /etc/environment
+EOR
 
 # Copy source dir
-RUN set -o xtrace \
-  && mkdir -p /home/wekan/app/.meteor \
-  && mkdir -p /home/wekan/app/packages
+RUN <<EOR
+set -o xtrace \
+mkdir -p /home/wekan/app/.meteor
+mkdir -p /home/wekan/app/packages
+EOR
 
 COPY \
     .meteor/.finished-upgraders \
@@ -191,55 +195,55 @@ COPY \
     /home/wekan/app/packages/
 
 # Install OS
-RUN set -o xtrace \
-  && useradd --user-group --no-create-home --system --home-dir /home/wekan wekan \
-  && apt-get update \
-  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} curl python3 ca-certificates build-essential \
+RUN <<EOR
+set -o xtrace
 
-# OLD:
-#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$ARCHITECTURE.tar.xz" \
-#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/SHASUMS256.txt.asc" \
+useradd --user-group --no-create-home --system --home-dir /home/wekan wekan
+apt-get update
+apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} curl python3 ca-certificates build-essential
 
 # Install NodeJS
-  && cd /tmp \
-  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz" \
-  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt" \
-  && grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
-  && tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-  && rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt \
-  && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-  && mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config \
-  && npm install -g npm@${NPM_VERSION} \
-  && chown wekan:wekan --recursive /home/wekan/.config \
+cd /tmp
+curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz"
+curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
+grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c -
+tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner
+rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt
+ln -s /usr/local/bin/node /usr/local/bin/nodejs
+mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config
+npm install -g npm@${NPM_VERSION}
+chown wekan:wekan --recursive /home/wekan/.config
 
 # Install Meteor
-  && cd /home/wekan \
-  && curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh \
-  # Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
-  && sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /home/wekan/install-meteor.sh \
-  && sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh \
-  && printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n" \
-  && chown wekan:wekan -R /home/wekan \
-  && gosu wekan:wekan sh /home/wekan/install-meteor.sh && \
+cd /home/wekan
+curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh
 
-    chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor && \
-    cd /home/wekan/.meteor && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor -- help && \
+# Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
+sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /home/wekan/install-meteor.sh
+sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh
+printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n"
+chown wekan:wekan -R /home/wekan
+gosu wekan:wekan sh /home/wekan/install-meteor.sh &&
 
-    # Build app
-    cd /home/wekan/app && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
+chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
+cd /home/wekan/.meteor
+gosu wekan:wekan /home/wekan/.meteor/meteor -- help
 
-    # Cleanup
-    apt-get remove --purge --assume-yes ${BUILD_DEPS} && \
-    apt-get install --assume-yes --no-install-recommends build-essential && \
-    apt-get clean -y && \
-    apt-get autoremove -y && \
-    rm -Rf /tmp/* && \
-    rm -Rf /home/wekan/app_build && \
-    rm -Rf /var/cache/apt /var/lib/apt/lists && \
-    rm -Rf /var/lib/apt/lists/*
+# Build app
+cd /home/wekan/app
+gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js
+gosu wekan:wekan /home/wekan/.meteor/meteor npm install
+
+# Cleanup
+apt-get remove --purge --assume-yes ${BUILD_DEPS}
+apt-get install --assume-yes --no-install-recommends build-essential
+apt-get clean -y
+apt-get autoremove -y
+rm -Rf /tmp/*
+rm -Rf /home/wekan/app_build
+rm -Rf /var/cache/apt /var/lib/apt/lists
+rm -Rf /var/lib/apt/lists/*
+EOR
 
 USER wekan
 
