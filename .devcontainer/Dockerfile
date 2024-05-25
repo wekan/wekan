@@ -1,11 +1,11 @@
-FROM ubuntu:21.10
+FROM debian:11
 LABEL maintainer="sgr"
 
 # 2022-04-25:
 # - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
 #   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
-ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python3 git ca-certificates iproute2"
+ENV BUILD_DEPS="apt-utils apt-transport-https gnupg gosu libarchive-tools wget bzip2 g++ git iproute2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
@@ -30,7 +30,6 @@ ENV \
     ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
     RICHER_CARD_COMMENT_EDITOR=false \
     CARD_OPENED_WEBHOOK_ENABLED=false \
-    ATTACHMENTS_STORE_PATH="" \
     ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM="" \
     ATTACHMENTS_UPLOAD_MIME_TYPES="" \
     ATTACHMENTS_UPLOAD_MAX_SIZE=0 \
@@ -71,6 +70,9 @@ ENV \
     LDAP_ENABLE=false \
     LDAP_PORT=389 \
     LDAP_HOST="" \
+    LDAP_AD_SIMPLE_AUTH="" \
+    LDAP_USER_AUTHENTICATION=false \
+    LDAP_USER_AUTHENTICATION_FIELD=uid \
     LDAP_BASEDN="" \
     LDAP_LOGIN_FALLBACK=false \
     LDAP_RECONNECT=true \
@@ -88,8 +90,6 @@ ENV \
     LDAP_ENCRYPTION=false \
     LDAP_CA_CERT="" \
     LDAP_REJECT_UNAUTHORIZED=false \
-    LDAP_USER_AUTHENTICATION=false \
-    LDAP_USER_AUTHENTICATION_FIELD=uid \
     LDAP_USER_SEARCH_FILTER="" \
     LDAP_USER_SEARCH_SCOPE="" \
     LDAP_USER_SEARCH_FIELD="" \
@@ -144,7 +144,8 @@ ENV \
     SAML_IDENTIFIER_FORMAT="" \
     SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
     SAML_ATTRIBUTES="" \
-    DEFAULT_WAIT_SPINNER="" \
+    ORACLE_OIM_ENABLED=false \
+    WAIT_SPINNER="" \
     S3=""
 # \
 #    NODE_OPTIONS="--max_old_space_size=4096"
@@ -157,56 +158,18 @@ ENV \
 #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
 #---------------------------------------------------------------------
 
-# Install OS
-RUN set -o xtrace \
-  && useradd --user-group -m --system --home-dir /home/wekan wekan \
-  && apt-get update \
-  && apt-get install --assume-yes --no-install-recommends apt-utils apt-transport-https ca-certificates 2>&1 \
-  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
-
-# OLD:
-#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$ARCHITECTURE.tar.xz" \
-#  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/SHASUMS256.txt.asc" \
-
-# Install NodeJS
-RUN set -o xtrace \
-  && cd /tmp \
-  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz" \
-  && curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt" \
-  && grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
-  && tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-  && rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt \
-  && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-  && mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config \
-  && npm install -g npm@${NPM_VERSION} \
-  && chown wekan:wekan --recursive /home/wekan/.config
-
-ENV DEBIAN_FRONTEND=dialog
-
-USER wekan
-
-# Install Meteor
-RUN set -o xtrace \
-  && cd /home/wekan \
-  && curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh \
-  # Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
-  && sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /home/wekan/install-meteor.sh \
-  && sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh \
-  && printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n" \
-  && sh /home/wekan/install-meteor.sh
-
 ENV PATH=$PATH:/home/wekan/.meteor/
 
-USER root
-
-RUN echo "export PATH=$PATH" >> /etc/environment
-
-USER wekan
+RUN <<EOR
+echo "export PATH=$PATH" >> /etc/environment
+EOR
 
 # Copy source dir
-RUN set -o xtrace \
-  && mkdir -p /home/wekan/app/.meteor \
-  && mkdir -p /home/wekan/app/packages
+RUN <<EOR
+set -o xtrace \
+mkdir -p /home/wekan/app/.meteor
+mkdir -p /home/wekan/app/packages
+EOR
 
 COPY \
     .meteor/.finished-upgraders \
@@ -231,39 +194,56 @@ COPY \
     packages \
     /home/wekan/app/packages/
 
-USER root
+# Install OS
+RUN <<EOR
+set -o xtrace
 
-RUN set -o xtrace \
-  && chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
+useradd --user-group --no-create-home --system --home-dir /home/wekan wekan
+apt-get update
+apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} curl python3 ca-certificates build-essential
 
-USER wekan
+# Install NodeJS
+cd /tmp
+curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz"
+curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
+grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c -
+tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner
+rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt
+ln -s /usr/local/bin/node /usr/local/bin/nodejs
+mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config
+npm install -g npm@${NPM_VERSION}
+chown wekan:wekan --recursive /home/wekan/.config
 
-RUN \
-    set -o xtrace && \
-    # Build app
-    cd /home/wekan/app && \
-    /home/wekan/.meteor/meteor add standard-minifier-js && \
-    /home/wekan/.meteor/meteor npm install && \
-    /home/wekan/.meteor/meteor build --directory /home/wekan/app_build
+# Install Meteor
+cd /home/wekan
+curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh
 
-RUN \
-    set -o xtrace && \
-    cd /home/wekan/app_build/bundle/programs/server/ && \
-    chmod u+w package.json npm-shrinkwrap.json && \
-    npm install && \
-    cd node_modules/fibers && \
-    node build.js
+# Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
+sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /home/wekan/install-meteor.sh
+sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh
+printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n"
+chown wekan:wekan -R /home/wekan
+gosu wekan:wekan sh /home/wekan/install-meteor.sh &&
 
-USER root
+chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
+cd /home/wekan/.meteor
+gosu wekan:wekan /home/wekan/.meteor/meteor -- help
+
+# Build app
+cd /home/wekan/app
+gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js
+gosu wekan:wekan /home/wekan/.meteor/meteor npm install
+
 # Cleanup
-RUN \
-    set -o xtrace && \
-    apt-get clean -y && \
-    apt-get autoremove -y && \
-    rm -Rf /tmp/* && \
-    rm -Rf /home/wekan/app_build && \
-    rm -Rf /var/cache/apt /var/lib/apt/lists && \
-    rm -Rf /var/lib/apt/lists/*
+apt-get remove --purge --assume-yes ${BUILD_DEPS}
+apt-get install --assume-yes --no-install-recommends build-essential
+apt-get clean -y
+apt-get autoremove -y
+rm -Rf /tmp/*
+rm -Rf /home/wekan/app_build
+rm -Rf /var/cache/apt /var/lib/apt/lists
+rm -Rf /var/lib/apt/lists/*
+EOR
 
 USER wekan
 
