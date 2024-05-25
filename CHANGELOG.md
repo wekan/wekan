@@ -15,6 +15,26 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update ukrainian translation](https://github.com/wekan/wekan/pull/5405).
+  Thanks to novashdima.
+
+and fixes the following bugs::
+
+- [Optimize SVGs and PNGs to save 550KB](https://github.com/wekan/wekan/pull/5403).
+  Thanks to C0rn3j.
+- [Swap deprecated egrep for grep -E](https://github.com/wekan/wekan/pull/5404).
+  Thanks to C0rn3j.
+- [Remove notification while copying board](https://github.com/wekan/wekan/pull/5412).
+  Thanks to e-gaulue.
+- [Fixed loading of cards if there are more than 20 of them on one swimlane](https://github.com/wekan/wekan/pull/5417).
+  Thanks to novashdima.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.45 2024-05-06 WeKan ® release
 
 This release adds the following updates:
