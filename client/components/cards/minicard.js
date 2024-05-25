@@ -42,11 +42,7 @@ BlazeComponent.extendComponent({
     const board = this.data().board();
     let ret = false;
     if (board) {
-      ret =
-        board.allowsCreatorOnMinicard === null ||
-        board.allowsCreatorOnMinicard === undefined ||
-        board.allowsCreatorOnMinicard
-      ;
+      ret = board.allowsCreatorOnMinicard ?? false;
     }
     return ret;
   },
