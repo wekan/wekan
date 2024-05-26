@@ -5,16 +5,14 @@ template(name="listHeader")
     +inlinedForm
       +editListTitleForm
     else
-      unless isMiniScreen
+      if isMiniScreen
+        if currentList
+          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
+      else
         if collapsed
           a.js-collapse(title="{{_ 'uncollapse'}}")
             i.fa.fa-arrow-left.list-header-uncollapse-left
             i.fa.fa-arrow-right.list-header-uncollapse-right
-      if isMiniScreen
-        if currentList
-          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
-      unless isMiniScreen
-        if collapsed
           if showCardsCountForList cards.length
             br
             span.cardCount {{cardsCount}}
@@ -30,7 +28,7 @@ template(name="listHeader")
            |/#{wipLimit.value})
         if showCardsCountForList cards.length
           span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
-      unless isMiniScreen
+      else
         div(class="{{#if collapsed}}list-rotated{{/if}}")
           h2.list-header-name(
             title="{{ moment modifiedAt 'LLL' }}"
