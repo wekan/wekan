@@ -6,6 +6,7 @@ LABEL maintainer="sgr"
 #   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
 ENV BUILD_DEPS="apt-utils apt-transport-https gnupg gosu libarchive-tools wget bzip2 g++ git iproute2"
+ENV DEV_DEPS="curl python3 ca-certificates build-essential"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
@@ -166,7 +167,8 @@ EOR
 
 # Copy source dir
 RUN <<EOR
-set -o xtrace \
+set -o xtrace
+
 mkdir -p /home/wekan/app/.meteor
 mkdir -p /home/wekan/app/packages
 EOR
@@ -200,17 +202,23 @@ set -o xtrace
 
 useradd --user-group --no-create-home --system --home-dir /home/wekan wekan
 apt-get update
-apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} curl python3 ca-certificates build-essential
+apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} ${DEV_DEPS}
 
 # Install NodeJS
 cd /tmp
 curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz"
 curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
+
+# Verify nodejs authenticity
 grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c -
+
+# Install Node
 tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner
 rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt
 ln -s /usr/local/bin/node /usr/local/bin/nodejs
 mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config
+
+# Install node dependencies. Python path for node-gyp.
 npm install -g npm@${NPM_VERSION}
 chown wekan:wekan --recursive /home/wekan/.config
 
@@ -223,7 +231,7 @@ sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR
 sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh
 printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n"
 chown wekan:wekan -R /home/wekan
-gosu wekan:wekan sh /home/wekan/install-meteor.sh &&
+gosu wekan:wekan sh /home/wekan/install-meteor.sh
 
 chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
 cd /home/wekan/.meteor
@@ -237,12 +245,13 @@ gosu wekan:wekan /home/wekan/.meteor/meteor npm install
 # Cleanup
 apt-get remove --purge --assume-yes ${BUILD_DEPS}
 apt-get install --assume-yes --no-install-recommends build-essential
-apt-get clean -y
-apt-get autoremove -y
+apt-get clean --assume-yes
+apt-get autoremove --assume-yes
 rm -Rf /tmp/*
-rm -Rf /home/wekan/app_build
-rm -Rf /var/cache/apt /var/lib/apt/lists
 rm -Rf /var/lib/apt/lists/*
+rm -Rf /var/cache/apt
+rm -Rf /var/lib/apt/lists
+rm -Rf /home/wekan/app_build
 EOR
 
 USER wekan

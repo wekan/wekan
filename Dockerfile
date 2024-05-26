@@ -190,18 +190,13 @@ ln -sf $(which bsdtar) $(which tar)
 # Download nodejs
 wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
 wget https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt
-#wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
-#wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc
-#---------------------------------------------------------------------------------------------
 
 # Verify nodejs authenticity
 grep node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt | shasum -a 256 -c -
 rm -f SHASUMS256.txt
-#grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c -
-#rm -f SHASUMS256.txt.asc
 
 # Install Node
-tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
+tar xzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
 rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz
 mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs
 ln -s /opt/nodejs/bin/node /usr/bin/node
@@ -212,7 +207,7 @@ chown wekan --recursive /home/wekan/.config
 #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 #paxctl -mC `which node`
 
-# Install Node dependencies. Python path for node-gyp.
+# Install node dependencies
 npm install -g npm@${NPM_VERSION}
 
 # Change user to wekan and install meteor
@@ -248,8 +243,8 @@ mv /home/wekan/app_build/bundle /build
 mv $(which tar)~ $(which tar)
 
 # Cleanup
-apt-get remove --purge -y ${BUILD_DEPS}
-apt-get autoremove -y
+apt-get remove --purge --assume-yes ${BUILD_DEPS}
+apt-get autoremove --assume-yes
 npm uninstall -g api2html
 rm -R /tmp/*
 rm -R /var/lib/apt/lists/*
