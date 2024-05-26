@@ -1,20 +1,24 @@
 FROM debian:11
-LABEL maintainer="sgr"
+LABEL maintainer="wekan"
+LABEL org.opencontainers.image.ref.name="ubuntu"
+LABEL org.opencontainers.image.version="24.04"
+LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
 # 2022-04-25:
 # - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
 #   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
-ENV BUILD_DEPS="apt-utils apt-transport-https gnupg gosu libarchive-tools wget bzip2 g++ git iproute2"
-ENV DEBIAN_FRONTEND=noninteractive
+ENV BUILD_DEPS="apt-utils gnupg gosu wget bzip2 g++ iproute2 apt-transport-https libarchive-tools git"
+ENV DEV_DEPS="curl python3 ca-certificates build-essential"
+ARG DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
     NODE_VERSION=v14.21.4 \
-    METEOR_RELEASE=METEOR@2.13 \
+    METEOR_RELEASE=METEOR@2.14 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=latest \
+    NPM_VERSION=6.14.17 \
     FIBERS_VERSION=4.0.1 \
     ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
@@ -28,14 +32,14 @@ ENV \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15 \
     ACCOUNTS_COMMON_LOGIN_EXPIRATION_IN_DAYS=90 \
-    RICHER_CARD_COMMENT_EDITOR=false \
-    CARD_OPENED_WEBHOOK_ENABLED=false \
     ATTACHMENTS_UPLOAD_EXTERNAL_PROGRAM="" \
     ATTACHMENTS_UPLOAD_MIME_TYPES="" \
     ATTACHMENTS_UPLOAD_MAX_SIZE=0 \
     AVATARS_UPLOAD_EXTERNAL_PROGRAM="" \
     AVATARS_UPLOAD_MIME_TYPES="" \
     AVATARS_UPLOAD_MAX_SIZE=0 \
+    RICHER_CARD_COMMENT_EDITOR=false \
+    CARD_OPENED_WEBHOOK_ENABLED=false \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
     NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE="" \
@@ -47,10 +51,12 @@ ENV \
     MATOMO_SITE_ID="" \
     MATOMO_DO_NOT_TRACK=true \
     MATOMO_WITH_USERNAME=false \
+    METRICS_ALLOWED_IP_ADDRESSES="" \
     BROWSER_POLICY_ENABLED=true \
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
     OAUTH2_ENABLED=false \
+    OIDC_REDIRECTION_ENABLED=false \
     OAUTH2_CA_CERT="" \
     OAUTH2_ADFS_ENABLED=false \
     OAUTH2_B2C_ENABLED=false \
@@ -146,16 +152,15 @@ ENV \
     SAML_ATTRIBUTES="" \
     ORACLE_OIM_ENABLED=false \
     WAIT_SPINNER="" \
+    WRITABLE_PATH=/data \
     S3=""
-# \
-#    NODE_OPTIONS="--max_old_space_size=4096"
 
-#---------------------------------------------------------------------
-# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
-# Add more Node heap:
 #   NODE_OPTIONS="--max_old_space_size=4096"
-# Add more stack:
-#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
+
+#---------------------------------------------
+# == at docker-compose.yml: AUTOLOGIN WITH OIDC/OAUTH2 ====
+# https://github.com/wekan/wekan/wiki/autologin
+#- OIDC_REDIRECTION_ENABLED=true
 #---------------------------------------------------------------------
 
 ENV PATH=$PATH:/home/wekan/.meteor/
@@ -166,7 +171,8 @@ EOR
 
 # Copy source dir
 RUN <<EOR
-set -o xtrace \
+set -o xtrace
+
 mkdir -p /home/wekan/app/.meteor
 mkdir -p /home/wekan/app/packages
 EOR
@@ -198,57 +204,79 @@ COPY \
 RUN <<EOR
 set -o xtrace
 
-useradd --user-group --no-create-home --system --home-dir /home/wekan wekan
-apt-get update
-apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} curl python3 ca-certificates build-essential
+# Add non-root user wekan
+useradd --user-group --system --home-dir /home/wekan wekan
+# OS dependencies
+apt-get update --assume-yes
+apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS} ${DEV_DEPS}
+
+# Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
+# https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
+cp $(which tar) $(which tar)~
+ln -sf $(which bsdtar) $(which tar)
 
 # Install NodeJS
 cd /tmp
-curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.xz"
-curl -fsSLO --compressed "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
-grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt | sha256sum -c -
-tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner
-rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt
-ln -s /usr/local/bin/node /usr/local/bin/nodejs
-mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config
+
+# Download nodejs
+wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz"
+wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
+
+# Verify nodejs authenticity
+grep "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz" "SHASUMS256.txt" | shasum -a 256 -c -
+rm -f "SHASUMS256.txt"
+
+# Install Node
+tar xzf "node-$NODE_VERSION-$ARCHITECTURE.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
+rm "node-$NODE_VERSION-$ARCHITECTURE.tar.gz" "SHASUMS256.txt"
+ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
+mkdir -p "/opt/nodejs/lib/node_modules/fibers/.node-gyp" "/root/.node-gyp/${NODE_VERSION} /home/wekan/.config"
+
+# Install node dependencies
 npm install -g npm@${NPM_VERSION}
-chown wekan:wekan --recursive /home/wekan/.config
+chown --recursive wekan:wekan /home/wekan/.config
 
 # Install Meteor
 cd /home/wekan
-curl https://install.meteor.com/?release=$METEOR_VERSION --output /home/wekan/install-meteor.sh
+chown --recursive wekan:wekan /home/wekan
+echo "Starting meteor ${METEOR_RELEASE} installation...   \n"
+gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh
+mv /root/.meteor /home/wekan/
+chown --recursive wekan:wekan /home/wekan/.meteor
 
-# Replace tar with bsdtar in the install script; https://github.com/jshimko/meteor-launchpad/issues/39
-sed --in-place "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" /home/wekan/install-meteor.sh
-sed --in-place 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' /home/wekan/install-meteor.sh
-printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n"
-chown wekan:wekan -R /home/wekan
-gosu wekan:wekan sh /home/wekan/install-meteor.sh &&
-
-chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
+# sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js
 cd /home/wekan/.meteor
 gosu wekan:wekan /home/wekan/.meteor/meteor -- help
 
-# Build app
+# Build app (Development)
 cd /home/wekan/app
 gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js
 gosu wekan:wekan /home/wekan/.meteor/meteor npm install
 
+# Put back the original tar
+mv $(which tar)~ $(which tar)
+
 # Cleanup
 apt-get remove --purge --assume-yes ${BUILD_DEPS}
 apt-get install --assume-yes --no-install-recommends build-essential
-apt-get clean -y
-apt-get autoremove -y
+apt-get autoremove --assume-yes
+apt-get clean --assume-yes
 rm -Rf /tmp/*
-rm -Rf /home/wekan/app_build
-rm -Rf /var/cache/apt /var/lib/apt/lists
 rm -Rf /var/lib/apt/lists/*
+rm -Rf /var/cache/apt
+rm -Rf /var/lib/apt/lists
+rm -Rf /home/wekan/app_build
+
+mkdir /data
+chown wekan --recursive /data
 EOR
 
 USER wekan
 
 ENV PORT=3000
 EXPOSE $PORT
+
+STOPSIGNAL SIGKILL
 WORKDIR /home/wekan/app
 
 #---------------------------------------------------------------------
@@ -258,7 +286,6 @@ WORKDIR /home/wekan/app
 # Add more stack:
 #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
 #---------------------------------------------------------------------
-#TODO:
-#CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /build/main.js"]
+#
 
 CMD ["/home/wekan/.meteor/meteor", "run", "--verbose", "--settings", "settings.json"]
