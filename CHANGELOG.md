@@ -32,6 +32,12 @@ and fixes the following bugs::
   Thanks to e-gaulue.
 - [Fixed loading of cards if there are more than 20 of them on one swimlane](https://github.com/wekan/wekan/pull/5417).
   Thanks to novashdima.
+- [Devcontainer, reduce image size and other necessary changes for development](https://github.com/wekan/wekan/pull/5418).
+  Thanks to mfilser.
+- [Dockerfile production and dev same build](https://github.com/wekan/wekan/pull/5419).
+  Thanks to mfilser.
+- [Remove second created at on activities](https://github.com/wekan/wekan/pull/5420).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
