@@ -21,8 +21,10 @@ This release adds the following updates:
 
 - [Update ukrainian translation](https://github.com/wekan/wekan/pull/5405).
   Thanks to novashdima.
+- [Updated GitHub issue template for issue instructions to be more visible](https://github.com/wekan/wekan/commit/5124265142c94d5044b81f81eaaa9c3bc01cef58).
+  Thanks to xet7.
 
-and fixes the following bugs::
+and fixes the following bugs:
 
 - [Optimize SVGs and PNGs to save 550KB](https://github.com/wekan/wekan/pull/5403).
   Thanks to C0rn3j.
