@@ -73,10 +73,12 @@ template(name="addChecklistItemForm")
       .material-toggle-switch(title="{{_ 'newlineBecomesNewChecklistItem'}}")
         input.toggle-switch(type="checkbox" id="toggleNewlineBecomesNewChecklistItem")
         label.toggle-label(for="toggleNewlineBecomesNewChecklistItem")
+        | {{_ 'newLineNewItem'}}
       if $eq position 'top'
         .material-toggle-switch(title="{{_ 'newlineBecomesNewChecklistItemOriginOrder'}}")
           input.toggle-switch(type="checkbox" id="toggleNewlineBecomesNewChecklistItemOriginOrder")
           label.toggle-label(for="toggleNewlineBecomesNewChecklistItemOriginOrder")
+          | {{_ 'originOrder'}}
 
 template(name="editChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
