@@ -119,6 +119,7 @@ BlazeComponent.extendComponent({
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
     const newlineBecomesNewChecklistItem = this.find('input#toggleNewlineBecomesNewChecklistItem');
+    const newlineBecomesNewChecklistItemOriginOrder = this.find('input#toggleNewlineBecomesNewChecklistItemOriginOrder');
     const title = textarea.value.trim();
     const checklist = this.currentData().checklist;
 
@@ -127,7 +128,9 @@ BlazeComponent.extendComponent({
       if (newlineBecomesNewChecklistItem.checked) {
         checklistItems = title.split('\n').map(_value => _value.trim());
         if (this.currentData().position === 'top') {
-          checklistItems = checklistItems.reverse();
+          if (newlineBecomesNewChecklistItemOriginOrder.checked === false) {
+            checklistItems = checklistItems.reverse();
+          }
         }
       }
       for (let checklistItem of checklistItems) {

@@ -1196,6 +1196,7 @@
   "moveChecklist": "Move Checklist",
   "moveChecklistPopup-title": "Move Checklist",
   "newlineBecomesNewChecklistItem": "Newline becomes new checklist item",
+  "newlineBecomesNewChecklistItemOriginOrder": "Newline becomes new checklist item, origin order",
   "copyChecklist": "Copy Checklist",
   "copyChecklistPopup-title": "Copy Checklist",
   "card-show-lists": "Card Show Lists",
