@@ -40,6 +40,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Remove second created at on activities](https://github.com/wekan/wekan/pull/5420).
   Thanks to mfilser.
+- [Fix Export CSV/TSV from Board create unhandled Exception](https://github.com/wekan/wekan/pull/5424).
+  Thanks to Dexus.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
