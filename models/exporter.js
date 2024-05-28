@@ -348,9 +348,10 @@ export class Exporter {
             const dropdownOptions = result.customFields.find(
               ({ _id }) => _id === field._id,
             ).settings.dropdownItems;
-            const fieldValue = dropdownOptions.find(
+            const fieldObj = dropdownOptions.find(
               ({ _id }) => _id === field.value,
-            ).name;
+            );
+            const fieldValue = (fieldObj && fieldObj.name) || null;
             customFieldValuesToPush[customFieldMap[field._id].position] =
               fieldValue;
           } else {
