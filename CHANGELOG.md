@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to novashdima.
 - [Updated GitHub issue template for issue instructions to be more visible](https://github.com/wekan/wekan/commit/5124265142c94d5044b81f81eaaa9c3bc01cef58).
   Thanks to xet7.
+- [For development, only recommend Debian 12 amd64, because Sandstorm works at Debian 12. Sandstorm does not work at Ubuntu 24.04](https://github.com/wekan/wekan/commit/1bd30bc12129be8cc8a633a561bb8a5be76823d7).
+  Thanks to xet7. Related https://github.com/sandstorm-io/sandstorm/issues/3712
 
 and fixes the following bugs:
 
