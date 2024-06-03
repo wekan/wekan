@@ -15,6 +15,22 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update Docker base images to Ubuntu 24.04](https://github.com/wekan/wekan/commit/79e2001708b5110b26cf54b15bbbf90f7977fe90).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Only show Board name edit button to BoardAdmin](https://github.com/wekan/wekan/commit/5e2b423ef87c62a70a6b08abd2f185fd560f391f).
+  Thanks to xet7.
+- [Fix Edit Description button is wildly out of place](https://github.com/wekan/wekan/commit/1f2fb2ccce38e9cac348f1c459784d6e5a949ded).
+  Thanks to C0rn3j and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.46 2024-06-03 WeKan ® release
 
 This release adds the following updates:
