@@ -1,4 +1,4 @@
-FROM debian:11
+FROM ubuntu:24.04
 LABEL maintainer="wekan"
 LABEL org.opencontainers.image.ref.name="ubuntu"
 LABEL org.opencontainers.image.version="24.04"
