@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Update Docker base images to Ubuntu 24.04](https://github.com/wekan/wekan/commit/79e2001708b5110b26cf54b15bbbf90f7977fe90).
   Thanks to xet7.
+- [Updated to MongoDB 6.0.15 at Snap Candidate](https://github.com/wekan/wekan/commit/4e2a8735bc2e449a2a3c949d042fb625052a1152).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
