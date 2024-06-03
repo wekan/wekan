@@ -12,8 +12,9 @@ template(name="boardHeaderBar")
       if currentBoard
         if currentUser
           with currentBoard
-            a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
-              i.fa.fa-pencil-square-o
+            if currentUser.isBoardAdmin
+              a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
+                i.fa.fa-pencil-square-o
 
           a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
             title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
