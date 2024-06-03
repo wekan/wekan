@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated to MongoDB 6.0.15 at Snap Candidate](https://github.com/wekan/wekan/commit/4e2a8735bc2e449a2a3c949d042fb625052a1152).
   Thanks to MongoDB developers.
+- [Updated release scripts](https://github.com/wekan/wekan/commit/2c9c9c43561093801004f0268d58b29d9a10b570).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
