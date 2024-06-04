@@ -77,7 +77,7 @@ at Kemi-Tornio AMK, Finland.
 He is credited as having built quality control system
 with comparisons of groups and fitness test calculations,
 company infra, migration from On-Premises to Cloud,
-SLA support, IT support, games, database apps, websites,
+SLA support, IT support, [games](https://github.com/xet7/notegame), database apps, websites,
 [winner of 2th place at EU NGI ONTOCHAIN Hackathon](https://wekan.github.io/donated/ontochain-certificate.png),
 [winner of 20i FOSS Awards](https://wekan.github.io/donated/foss-awards-2022/20i_FOSS_Awards_Winners_Announced_(Press_Release).pdf), and [porting to 30+ CPU/OS](https://github.com/xet7/darkesthour).
 
