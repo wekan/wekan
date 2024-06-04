@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Updated release scripts](https://github.com/wekan/wekan/commit/4a9d881e47751ec49d24af5bf4fd1c5452ceb194).
   Thanks to xet7.
+- [Add changes from wiki to docs](https://github.com/wekan/wekan/commit/13be8160d5b6a894c674d04c37ff9e653e7bd4b0).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
