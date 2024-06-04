@@ -4,9 +4,11 @@
 
 *Make sure you are running at least **v2.21***
 
-### Snap install info, tested 2021-07-16
+### Redirect URL
 
 [About AZURE-NEW-APP-CLIENT-ID and AZURE-NEW-APP-SECRET](https://community.microfocus.com/t5/Identity-Manager-Tips/Creating-the-application-Client-ID-and-Client-Secret-from/ta-p/1776619). The redirect URL is your Wekan root-url+_oauth/oidc like this: https://boards.example.com/_oauth/oidc
+
+<img src="https://wekan.github.io/azure-redirect.png" width="100%" alt="Wekan logo" />
 
 AZURE_DIRECTORY_ID = TENANT-NAME-FOR-YOUR-ORGANIZATION
 

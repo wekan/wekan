@@ -60,6 +60,34 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 
 [Wekan Team](https://wekan.team) is Wekan Commercial Support company run by CEO [xet7](https://github.com/xet7), current maintainer of Wekan. xet7 does respond to feedback at GitHub issues very actively, because Wekan is community driven Open Source project. Because conflicting opinions can not be implemented, sometimes xet7 has to behave like a benevolent dictator. Every Wekan team member is free to choose what to contribute and when. We can not force anybody to implement anything. Wekan development speed increases when new Wekan contributors join and start to send PRs to existing and new issues.
 
+## What is Bio of xet7 ?
+
+[Lauri Ojansivu](https://github.com/xet7) is CEO at [WeKan Team](https://wekan.team),
+Cross-Platform FOSS maintainer,
+Cloud Architect, Full-Stack Developer, SysAdmin and SysOp.
+He has experience of [having added and removed over 4 million lines of code](https://github.com/wekan/wekan/blob/main/releases/count-lines-of-code-per-committer.sh) to
+[Meteor Full-Stack Web Framework](https://www.meteor.com)
+based [WeKan Open Source kanban](https://wekan.github.io),
+that has been [translated to 70+ languages](https://explore.transifex.com/wekan/wekan/),
+and is currently used at [most countries of the world](https://snapcraft.io/wekan).
+At 2024-06-04, he is currently [4h most active GitHub committer at Finland](https://committers.top/finland).
+
+He holds a BBA as computer designer and system engineer
+at Kemi-Tornio AMK, Finland.
+He is credited as having built quality control system
+with comparisons of groups and fitness test calculations,
+company infra, migration from On-Premises to Cloud,
+SLA support, IT support, games, database apps, websites,
+[winner of 2th place at EU NGI ONTOCHAIN Hackathon](https://wekan.github.io/donated/ontochain-certificate.png),
+[winner of 20i FOSS Awards](https://wekan.github.io/donated/foss-awards-2022/20i_FOSS_Awards_Winners_Announced_(Press_Release).pdf), and [porting to 30+ CPU/OS](https://github.com/xet7/darkesthour).
+
+At MeteorJS Dispatches Video Podcast, he has been
+interviewed [about WeKan](https://www.youtube.com/watch?v=ke-mbnZM3zE&t=1342s),
+[Meteor Security](https://www.youtube.com/watch?v=zic-h8jG6F8), and other topics.
+He teaches using computers at local nerd club.
+At his free time, he is porting FOSS software to many CPU/OS,
+and [translating them from English to Finnish](https://xet7.org).
+
 ## How to convince my company management that Wekan "is less evil" than Trello?
 
 Yes, xet7 received this question in Email.

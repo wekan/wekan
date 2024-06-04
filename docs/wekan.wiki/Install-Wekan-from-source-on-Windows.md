@@ -1,14 +1,17 @@
+# Newest Windows info here
+
+https://github.com/wekan/wekan/wiki/Offline
+
+## OLD INFO BELOW, DOES NOT WORK
+
 Also see: [Excel and VBA](Excel-and-VBA)
 
-
-# THIS WORKS
 a) Lowest resource usage: [Windows Subsystem for Linux, build from source](https://github.com/wekan/wekan/issues/2066#issuecomment-468328001)
 
 b) Docker for Windows, [prebuilt without --build option, or build from source](https://github.com/wekan/wekan-dev/issues/12#issuecomment-468657290)
 
 ***
 
-# OLD INFO BELOW, DOES NOT WORK
 
 ### Source install required dependencies
 

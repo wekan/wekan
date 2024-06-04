@@ -1,3 +1,4 @@
+- [More RocketChat fixes here](https://github.com/wekan/wekan/wiki/RocketChat)
 - [OAuth2 small bug](https://github.com/wekan/wekan/issues/1874) - currently OAuth2 works mostly
 
 # OAuth2 providers
@@ -41,6 +42,7 @@ The redirect URL is described in the wekan wiki: https://wekan.example.com/_oaut
 
 ## Rocket.Chat providing OAuth2 login to Wekan
 
+- [More RocketChat fixes here](https://github.com/wekan/wekan/wiki/RocketChat)
 - [RocketChat Skip Install Registration Wizard Fix](https://github.com/RocketChat/Rocket.Chat/issues/31163#issuecomment-1848364117)
 
 > So for someone using snap, it means creating a file `/var/snap/rocketchat-server/common/override-setup-wizard.env ` (the name of the file itself could be anything as long as it has an .env extension) and setting its content to `OVERWRITE_SETTING_Show_Setup_Wizard=completed`

@@ -6,7 +6,7 @@
 * [Meteor WeKan Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
 * [Multiverse WeKan Roadmap](https://github.com/wekan/wekan/wiki/WeKan-Multiverse-Roadmap)
 * [Docs/Manual](https://github.com/wekan/wekan/discussions/4522)
-* [Change Language](https://github.com/wekan/wekan/issues/4518#issuecomment-1133763518)
+* [Change Language](Change-Language)
 * [Forgot Password](Forgot-Password)
 * [About](https://github.com/wekan/wekan/wiki)
 * [Test Edge](Test-Edge)
