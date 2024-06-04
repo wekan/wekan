@@ -22,6 +22,11 @@ This release adds the following updates:
 - [Updated release scripts](https://github.com/wekan/wekan/commit/4a9d881e47751ec49d24af5bf4fd1c5452ceb194).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix Admin Panel pages Organizations and Teams, where HTML Tables were broken](https://github.com/wekan/wekan/commit/36bb5e099ed9f1f88c0399867bd76f040467745c).
+  Thanks to Hekatomb and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.47 2024-06-03 WeKan ® release

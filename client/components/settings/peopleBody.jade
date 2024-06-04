@@ -86,8 +86,8 @@ template(name="orgGeneral")
           +newOrgRow
     tbody
       tr
-        each org in orgList
-          +orgRow(orgId=org._id)
+      each org in orgList
+        +orgRow(orgId=org._id)
 
 template(name="teamGeneral")
   table
@@ -103,8 +103,8 @@ template(name="teamGeneral")
           +newTeamRow
     tbody
       tr
-        each team in teamList
-          +teamRow(teamId=team._id)
+      each team in teamList
+        +teamRow(teamId=team._id)
 
 template(name="peopleGeneral")
   #divAddOrRemoveTeamContainer
