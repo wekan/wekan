@@ -46,8 +46,8 @@ template(name="listsGroup")
 
 template(name="addListForm")
   unless currentUser.isWorker
-    .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
-      if currentUser.isBoardAdmin
+    unless currentUser.isCommentOnly
+      .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
         .list-header-add
           +inlinedForm(autoclose=false)
             input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
