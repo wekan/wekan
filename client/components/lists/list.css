@@ -84,13 +84,17 @@
 }
 .list-rotated {
   width: 10px;
-  margin-top: 10px;
-  margin-left: 0;
+  height: 250px;
+  margin-top: -90px;
+  margin-left: -110px;
   margin-right: 0;
   transform: rotate(90deg);
   position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.list-header .list-rotated {
+
 }
 .list-header .list-header-watch-icon {
   padding-left: 10px;
