@@ -30,6 +30,8 @@ and fixes the following bugs:
 
 - [Fix Admin Panel pages Organizations and Teams, where HTML Tables were broken](https://github.com/wekan/wekan/commit/36bb5e099ed9f1f88c0399867bd76f040467745c).
   Thanks to Hekatomb and xet7.
+- [Try to show more of title of collapsed list](https://github.com/wekan/wekan/commit/ec0e88ad2e914437b4767456a160f2c1138fc5f2).
+  Thanks to C0rn3j and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
