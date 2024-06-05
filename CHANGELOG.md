@@ -32,6 +32,8 @@ and fixes the following bugs:
   Thanks to Hekatomb and xet7.
 - [Try to show more of title of collapsed list](https://github.com/wekan/wekan/commit/ec0e88ad2e914437b4767456a160f2c1138fc5f2).
   Thanks to C0rn3j and xet7.
+- [Allow Normal user to add new swimlane, list and label](https://github.com/wekan/wekan/commit/04b995e77fdb5abc186e02482a75aba6a5cf0759).
+  Thanks to RyanHecht, norrig and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
