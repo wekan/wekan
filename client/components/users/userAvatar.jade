@@ -26,9 +26,9 @@ template(name="orgAvatar")
 template(name="boardOrgRow")
   tr
     if orgData.orgIsActive
-      td <s>{{ orgData.orgDisplayName }}</s>
-    else
       td {{ orgData.orgDisplayName }}
+    else
+      td <s>{{ orgData.orgDisplayName }}</s>
     td
       if currentUser.isBoardAdmin
         a.member.orgOrTeamMember.add-member.js-manage-board-removeOrg(title="{{_ 'remove-from-board'}}")
@@ -39,9 +39,9 @@ template(name="boardOrgRow")
 template(name="boardTeamRow")
   tr
     if teamData.teamIsActive
-      td <s>{{ teamData.teamDisplayName }}</s>
-    else
       td {{ teamData.teamDisplayName }}
+    else
+      td <s>{{ teamData.teamDisplayName }}</s>
     td
       if currentUser.isBoardAdmin
         a.member.orgOrTeamMember.add-member.js-manage-board-removeTeam(title="{{_ 'remove-from-board'}}")
