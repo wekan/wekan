@@ -170,7 +170,26 @@ class AdminReport extends BlazeComponent {
       .join(", ");
     return ret;
   }
+  teams(memberTeams) {
+    const ret = (memberTeams || [])
+      .map(_memberTeam => {
+        const _ret = ReactiveCache.getTeam(_memberTeam.teamId)?.teamDisplayName || _memberTeam.teamId;
+        return _ret;
+      })
+      .join(", ");
+    return ret;
+  }
+  orgs(orgs) {
+    const ret = (orgs || [])
+      .map(_orgs => {
+        const _ret = ReactiveCache.getOrg(_orgs.orgId)?.orgDisplayName || _orgs.orgId;
+        return _ret;
+      })
+      .join(", ");
+    return ret;
+  }
 }.register('boardsReport'));
+
 
 (class extends AdminReport {
   collection = Cards;
