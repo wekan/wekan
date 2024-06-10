@@ -24,6 +24,8 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
+- [Bugfix: Strikethrough inactive Teams and orginizations logic was inverted](https://github.com/wekan/wekan/pull/5435).
+  Thanks to Hekatomb.
 - [Changed back to original icon of Edit Description](https://github.com/wekan/wekan/commit/e3214c874ec9369ab6b865154f7964da8ec55f45).
   Thanks to saschafoerster, C0rn3j and xet7.
 
