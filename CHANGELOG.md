@@ -30,6 +30,8 @@ and fixes the following bugs:
   Thanks to Hekatomb.
 - [Changed back to original icon of Edit Description](https://github.com/wekan/wekan/commit/e3214c874ec9369ab6b865154f7964da8ec55f45).
   Thanks to saschafoerster, C0rn3j and xet7.
+- [Fill out Org and Team in adminReports](https://github.com/wekan/wekan/pull/5440).
+  Thanks to Hekatomb.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
