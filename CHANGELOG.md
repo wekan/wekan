@@ -21,7 +21,9 @@ This release adds the following updates:
 
 - [WeKan new release version number from wiki to WeKan repo docs](https://github.com/wekan/wekan/commit/e5c7650fc8eb5c3fcc6216f12e806ceb56fd94d9).
   Thanks to xet7.
-- [Updated dependencies](https://github.com/wekan/wekan/pull/5430).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5430),
+  [Part 2](https://github.com/wekan/wekan/pull/5441).
   Thanks to dependabot.
 
 and fixes the following bugs:
