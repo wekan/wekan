@@ -272,7 +272,7 @@
     box-sizing: border-box;
     top: 97px;
     left: 0px;
-    height: calc(100% - 20px);
+    height: calc(100% - 100px);
     width: calc(100% - 20px);
     float: left;
   }
