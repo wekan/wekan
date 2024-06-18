@@ -3443,6 +3443,21 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
+.board-color-cleanlight input.primary {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  border-radius: 12px;
+  padding: 6px 12px 6px 12px;
+  background: rgba(23, 23, 28, 1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.board-color-cleanlight input.primary:hover {
+  background: #444455 !important;
+}
+
 .board-color-cleanlight textarea {
   font-size: 18px;
   font-weight: 400;
@@ -3510,7 +3525,7 @@
 }
 
 .board-color-cleanlight button.primary:hover {
-  background: rgba(227, 227, 230, 1);
+  background: #444455;
 }
 
 .board-color-cleanlight button.negate {
@@ -3555,6 +3570,10 @@
 .board-color-cleanlight .minicard .badges .badge.is-finished {
   background: #009B64 !important;
   border-radius: 8px;
+}
+
+.board-color-cleanlight .minicard .badges .badge.is-finished .badge-icon {
+  color: #FFFFFF;
 }
 
 .board-color-cleanlight .swimlane-height-apply {
