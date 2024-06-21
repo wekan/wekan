@@ -17,10 +17,22 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added "Clean dark" and "Clean light" themes that are more clean and modern looking](https://github.com/wekan/wekan/pull/5449).
+  Thanks to abramchikd.
+
+and adds the following updates:
 
 - [Updated docs for WeKan version for Windows](https://github.com/wekan/wekan/commit/9b428150a4fb9efdcb2ae9d3bb59d0da29529e69).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/pull/5446).
+  Thanks to dependabot.
+
+and fixes the following bugs:
+
+- [Task card may overflow below the screen when maximized, making the bottom part not viewable](https://github.com/wekan/wekan/pull/5443).
+  Thanks to Hekatomb.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
