@@ -1190,7 +1190,7 @@
 .board-color-clearblue .list-body .open-minicard-composer {
   color: rgba(0,0,0,0.3);
 }
-.board-color-clearblue .swinlane.ui-sortable-helper {
+.board-color-clearblue .swimlane.ui-sortable-helper {
   transform: rotate(0deg);
 }
 .board-color-clearblue .swimlane .swimlane-header-wrap {
@@ -2250,4 +2250,1375 @@
 .pop-over.board-color-exodark .header {
   background: #2b2b2b;
   color: #fff;
+}
+
+.board-color-cleandark {
+  background: #0A0A14
+}
+
+.board-color-cleandark#header-quick-access {
+  background: #23232B;
+}
+
+.board-color-cleandark#header {
+  background: #23232B;
+}
+
+.board-color-cleandark#header ul li,
+.board-color-cleandark#header-quick-access ul li {
+  color: rgba(255, 255, 255, 50%);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.board-color-cleandark#header-main-bar h1 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px !important;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+}
+
+.board-color-cleandark .list-header-add {
+  background: #23232B !important;
+  border-radius: 12px;
+  margin-top: 10px;
+  padding: 8px;
+  margin-right: 8px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-color-cleandark#header ul li.current,
+.board-color-cleandark#header-quick-access ul li.current {
+  color: rgba(255, 255, 255, 85%);
+}
+
+.board-color-cleandark#header #header-main-bar {
+  background: #23232B;
+  color: rgba(255, 255, 255, 85%);
+}
+
+.board-color-cleandark .swimlane-header {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+}
+
+.board-color-cleandark .board-canvas {
+  background: #0A0A14;
+}
+
+.board-color-cleandark .list {
+  background: none;
+  border-left: none;
+}
+
+.board-color-cleandark .fa {
+  color: #FFFFFF;
+}
+
+.board-color-cleandark .list .list-header {
+  background: none;
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+.board-color-cleandark .list .list-header .list-header-name {
+  background: none;
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+.board-color-cleandark .list .list-header {
+  border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.board-color-cleandark .list .list-header .list-header-menu .fa {
+  color: #FFFFFF;
+}
+
+.board-color-cleandark .card-label {
+  border-radius: 18px;
+  margin-top: 6px;
+}
+
+.board-color-cleandark .list .list-header .list-header-menu .list-header-plus-top {
+  color: #FFFFFF;
+  background: #FF6D00;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.board-color-cleandark .list .list-header .list-header-menu .list-header-plus-top:hover {
+  background: #d25b02;
+}
+
+.board-color-cleandark .open-minicard-composer {
+  width: 16px;
+  height: 22px;
+  padding: 8px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px !important;
+}
+
+.board-color-cleandark .open-minicard-composer:hover {
+  background: #444455 !important;
+}
+
+.board-color-cleandark .open-minicard-composer:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark .open-minicard-composer .fa {
+  width: min-content;
+  color: rgba(255, 255, 255, 85%);
+}
+
+.board-color-cleandark .open-minicard-composer i {
+  margin-right: 0 !important;
+}
+
+.board-color-cleandark .swimlane {
+  background: none;
+}
+
+.board-color-cleandark .sidebar .sidebar-shadow {
+  background: rgba(35, 35, 43, 1) !important;
+  box-shadow: none;
+}
+
+.board-color-cleandark .sidebar .sidebar-shadow hr {
+  background:rgba(255, 255, 255, 0.05);
+}
+
+.board-color-cleandark .sidebar .sidebar-shadow .tab-item {
+  border-radius: 16px;
+  padding: 4px 12px 4px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(57, 57, 71, 1);
+}
+
+.board-color-cleandark .sidebar .sidebar-shadow .tab-item.active {
+  background: rgba(255, 255, 255, 1);
+  color: rgba(10, 10, 20, 1);
+  border: none;
+  padding: 4px 12px 4px 12px !important;
+}
+
+.board-color-cleandark .sidebar .sidebar-shadow .tabs-content-container {
+  border: none;
+}
+
+.board-color-cleandark .minicard {
+  background: #23232B;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  padding: 12px;
+}
+
+.board-color-cleandark .minicard:hover,
+.board-color-cleandark .is-selected .minicard {
+  background: rgba(46, 46, 57, 1) !important;
+}
+
+.board-color-cleandark .minicard .date,
+.board-color-cleandark .minicard .end-date {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.board-color-cleandark .minicard .date a,
+.board-color-cleandark .minicard .end-date,
+.board-color-cleandark .card-details .card-date {
+  padding: 4px 8px 4px 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.board-color-cleandark .minicard .end-date,
+.board-color-cleandark .minicard .due-date,
+.board-color-cleandark .card-details .card-date {
+  background: #444455;
+  border-radius: 8px;
+}
+
+.board-color-cleandark .minicard .end-date:hover,
+.board-color-cleandark .minicard .due-date:hover,
+.board-color-cleandark .card-details .card-date:hover {
+  background: rgba(68, 68, 85, 0.73);
+  border-radius: 8px;
+}
+
+.board-color-cleandark .minicard .date .current,
+.board-color-cleandark .minicard .current,
+.board-color-cleandark .card-details .current {
+  background: #009B64;
+  border-radius: 8px;
+}
+
+.board-color-cleandark .minicard .date .current:hover,
+.board-color-cleandark .minicard .current:hover,
+.board-color-cleandark .card-details .current:hover {
+  background: rgba(0, 155, 100, 0.73);
+  border-radius: 8px;
+}
+
+.board-color-cleandark .minicard .date .due,
+.board-color-cleandark .minicard .due,
+.board-color-cleandark .card-details .due {
+  background: #CC003A;
+  border-radius: 8px;
+}
+
+.board-color-cleandark .minicard .date .due:hover,
+.board-color-cleandark .minicard .due:hover,
+.board-color-cleandark .card-details .due:hover {
+  background: rgba(204, 0, 58, 0.73);
+  border-radius: 8px;
+}
+
+.board-color-cleandark .card-details {
+  background: #23232B;
+  border-radius: 20px;
+  box-shadow: none;
+}
+
+.board-color-cleandark .minicard-assignees {
+  border-bottom: none !important;
+}
+
+.board-color-cleandark .card-details-item a {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.board-color-cleandark .card-details-header {
+  background: #2E2E39 !important;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: left;
+  border-bottom: none !important;
+}
+
+.board-color-cleandark .add-assignee {
+  box-shadow: none !important;
+}
+
+.board-color-cleandark .add-assignee:hover {
+  background: #444455;
+  border-radius: 8px;
+}
+
+.board-color-cleandark .add-checklist-top {
+  display: none !important;
+}
+
+.board-color-cleandark .add-checklist {
+  padding: 8px;
+  width: min-content !important;
+}
+
+.board-color-cleandark .add-checklist:hover {
+  background: #444455 !important;
+  border-radius: 12px !important;
+}
+
+.board-color-cleandark .add-checklist:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark .add-assignee:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark .card-time.card-label-green {
+  background: #009B64;
+  width: min-content;
+  color: #FFFFFF;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 8px;
+  margin-left: 4px;
+}
+
+.board-color-cleandark .card-details .card-details-item-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+}
+
+.board-color-cleandark .card-details hr {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.board-color-cleandark .card-details-canvas {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.board-color-cleandark.pop-over {
+  border-radius: 12px;
+  border: none;
+  background: rgba(46, 46, 57, 1);
+}
+
+.board-color-cleandark.pop-over .header {
+  border-bottom: none;
+  background: inherit;
+
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);;
+}
+
+.board-color-cleandark.pop-over .pop-over-list,
+.board-color-cleandark.pop-over .content {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+}
+
+.board-color-cleandark.pop-over .pop-over-list a:hover {
+  background: #393947 !important;
+}
+
+.board-color-cleandark .member {
+  box-shadow: none !important;
+}
+
+.board-color-cleandark .add-member:hover {
+  background: #444455;
+  border-radius: 8px;
+}
+
+.board-color-cleandark .add-member:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark .add-label {
+  box-shadow: none !important;
+}
+
+.board-color-cleandark .add-label:hover {
+  background: #444455;
+  border-radius: 8px;
+}
+
+.board-color-cleandark .add-label:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark.pop-over .content kbd {
+  background: rgba(46, 46, 57, 1);
+}
+
+.board-color-cleandark .full-name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.board-color-cleandark .username {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.board-color-cleandark .attachment-item:hover {
+  background: rgba(46, 46, 57, 1);
+}
+
+.board-color-cleandark .checklist {
+  background: none;
+  color: #FFFFFF;
+}
+
+.board-color-cleandark .checklist-item {
+  background: none;
+}
+
+.board-color-cleandark .checklist-item:hover {
+  background: rgba(46, 46, 57, 1) !important;
+}
+
+.board-color-cleandark .add-checklist-item {
+  width: min-content !important;
+  padding: 8px;
+}
+
+.board-color-cleandark .add-checklist-item:hover {
+  background: #444455 !important;
+  border-radius: 12px !important;
+}
+
+.board-color-cleandark .add-checklist-item:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark .add-attachment {
+  border-radius: 12px;
+}
+
+.board-color-cleandark .add-attachment:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark .attachment-actions i,
+.board-color-cleandark .attachment-actions a {
+  font-size: 1em !important;
+}
+
+.board-color-cleandark .activity-desc {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.board-color-cleandark .activity-desc .activity-member {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.board-color-cleandark .activity-checklist,
+.board-color-cleandark .activity-comment {
+  background: none !important;
+  color: #FFFFFF;
+  border: 1px solid rgba(0, 155, 100, 1);
+  border-radius: 12px !important;
+}
+
+.board-color-cleandark button[type=submit].primary,
+.board-color-cleandark input[type=submit].primary {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  border-radius: 12px;
+  padding: 6px 12px 6px 12px;
+  background: #FFFFFF;
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleandark textarea {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+  background: rgba(57, 57, 71, 1) !important;
+  border: none !important;
+  border-radius: 12px !important;
+}
+
+.board-color-cleandark .minicard-composer-textarea {
+  background: #23232B !important;
+}
+
+.board-color-cleandark .minicard-composer:hover {
+  background: #23232B !important;
+}
+
+.board-color-cleandark textarea::placeholder {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.board-color-cleandark textarea:focus {
+  border: none !important;
+  box-shadow: none;
+}
+
+.board-color-cleandark input {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.85) !important;
+  background: rgba(57, 57, 71, 1) !important;
+  border-radius: 12px !important;
+  border: none !important;
+}
+
+.board-color-cleandark input::placeholder {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleandark select {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(57, 57, 71, 1);
+  border-radius: 12px;
+  border: none;
+}
+
+.board-color-cleandark button.primary {
+  padding: 6px 12px 6px 12px;
+  border-radius: 12px;
+  border: none;
+  background: #FFFFFF;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleandark button.primary:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.board-color-cleandark button.negate {
+  padding: 6px 12px 6px 12px;
+  border-radius: 12px;
+  border: none;
+  background: #cc003a;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.board-color-cleandark button.negate:hover {
+  background: rgba(204, 0, 58, 0.77);
+}
+
+.board-color-cleandark .card-details .checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.board-color-cleandark .card-details .check-box.materialCheckBox {
+  border-radius: 4px;
+  border: none;
+  background: #393947;
+  height: 24px;
+  width: 24px;
+}
+
+.board-color-cleandark .card-details .check-box.materialCheckBox.is-checked {
+  border-bottom: 2px solid #FFFFFF;
+  border-right: 2px solid #FFFFFF;
+  width: 11px;
+  height: 19px;
+  border-radius: 0;
+  background: none;
+}
+
+.board-color-cleandark .minicard .badges .badge.is-finished {
+  background: #009B64 !important;
+  border-radius: 8px;
+}
+
+.board-color-cleandark .swimlane-height-apply {
+  background: #FFFFFF !important;
+  border-radius: 12px !important;
+  color: #0A0A14 !important;
+}
+
+.board-color-cleandark .swimlane-height-apply:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+.board-color-cleandark .swimlane .swimlane-header-wrap {
+  background-color: #23232B;
+}
+
+.board-color-cleandark .sidebar-list-item-description {
+  color: #FFFFFF;
+}
+
+.board-color-cleandark .sidebar .sidebar-content h3,
+.board-color-cleandark .sidebar .sidebar-content h2,
+.board-color-cleandark .sidebar .sidebar-content h1 {
+  color: #FFFFFF;
+}
+
+.board-color-cleandark #cards span {
+  color: #FFFFFF;
+}
+
+.board-color-cleandark #cards .materialCheckBox {
+  border-radius: 4px;
+  border: none;
+  background: #393947;
+  height: 18px;
+  width: 18px;
+}
+
+.board-color-cleandark #cards .materialCheckBox.is-checked {
+  border-bottom: 2px solid #FFFFFF;
+  border-right: 2px solid #FFFFFF;
+  width: 5px;
+  height: 13px;
+  border-radius: 0;
+  background: none;
+  margin-left: 3px;
+  margin-top: 3px;
+}
+
+.board-color-cleanlight {
+  background: #E0E0E0;
+}
+
+.board-color-cleanlight#header-quick-access {
+  background: #f8f8f9;
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleanlight .board-header-btn {
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleanlight .board-header-btn i {
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleanlight .board-header-btns a {
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleanlight .header-user-bar-name {
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleanlight#header {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.board-color-cleanlight #header-main-bar {
+  background: #f8f8f9 !important;
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleanlight#header ul li,
+.board-color-cleanlight#header-quick-access ul li {
+  color: rgba(10, 10, 20, 0.5) !important;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.board-color-cleanlight#header ul li:hover,
+.board-color-cleanlight#header-quick-access ul li:hover {
+  background: rgba(190, 190, 190, 1) !important;
+  border-radius: 8px;
+  color: rgba(10, 10, 20, 0.5) !important;
+}
+
+.board-color-cleanlight #header-main-bar h1 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px !important;
+  text-align: left;
+  color: rgba(10, 10, 20, 1) !important;
+}
+
+.board-color-cleanlight .list-header-add {
+  background: #FFFFFF !important;
+  border-radius: 12px;
+  margin-top: 10px;
+  padding: 8px;
+  margin-right: 8px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-color-cleanlight#header ul li.current,
+.board-color-cleanlight#header-quick-access ul li.current {
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleanlight#header #header-main-bar {
+  background: #23232B;
+  color: rgba(255, 255, 255, 85%);
+}
+
+.board-color-cleanlight .swimlane-header {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleanlight .board-canvas {
+  background: #FFFFFF;
+}
+
+.board-color-cleanlight .list {
+  background: none;
+  border-left: none;
+}
+
+.board-color-cleanlight .fa {
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleanlight .list .list-header {
+  background: none;
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+.board-color-cleanlight .list .list-header .list-header-name {
+  background: none;
+  color: rgba(10, 10, 20, 1);
+  font-size: 16px;
+}
+
+.board-color-cleanlight .list .list-header {
+  border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.board-color-cleanlight .list .list-header .list-header-menu .fa {
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleanlight .card-label {
+  border-radius: 18px;
+  margin-top: 6px;
+  border: none;
+}
+
+.board-color-cleanlight .list .list-header .list-header-menu .list-header-plus-top {
+  color: #FFFFFF;
+  background: #FF6D00;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.board-color-cleanlight .list .list-header .list-header-menu .list-header-plus-top:hover {
+  background: #d25b02;
+}
+
+.board-color-cleanlight .open-minicard-composer {
+  width: 16px;
+  height: 22px;
+  padding: 8px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px !important;
+}
+
+.board-color-cleanlight .open-minicard-composer:hover {
+  background:rgba(180, 180, 180, 1) !important;
+}
+
+.board-color-cleanlight .open-minicard-composer:hover i {
+  color: #000000 !important;
+}
+
+.board-color-cleanlight .open-minicard-composer .fa {
+  width: min-content;
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleanlight .open-minicard-composer i {
+  margin-right: 0 !important;
+}
+
+.board-color-cleanlight .swimlane {
+  background: none;
+}
+
+.board-color-cleanlight .sidebar .sidebar-shadow {
+  background: rgba(248, 248, 249, 1) !important;
+  box-shadow: none;
+}
+
+.board-color-cleanlight .sidebar .sidebar-shadow hr {
+  background: rgba(23, 23, 28, 0.05);
+}
+
+.board-color-cleanlight .sidebar .sidebar-shadow .tab-item {
+  border-radius: 16px;
+  padding: 4px 12px 4px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.85);
+  background: rgba(234, 234, 237, 1);
+}
+
+.board-color-cleanlight .sidebar .sidebar-shadow .tab-item.active {
+  background: rgba(23, 23, 28, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  padding: 4px 12px 4px 12px !important;
+}
+
+.board-color-cleanlight .sidebar .sidebar-shadow .tabs-content-container {
+  border: none;
+}
+
+.board-color-cleanlight .minicard {
+  background: rgba(248, 248, 249, 1);
+  border-radius: 12px;
+  color: rgba(10, 10, 20, 0.85);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  padding: 12px;
+}
+
+.board-color-cleanlight .minicard:hover,
+.board-color-cleanlight .is-selected .minicard {
+  background: rgba(241, 241, 243, 1) !important;
+}
+
+.board-color-cleanlight .minicard .date,
+.board-color-cleanlight .minicard .end-date {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.board-color-cleanlight .minicard .date a,
+.board-color-cleanlight .minicard .end-date,
+.board-color-cleanlight .card-details .card-date {
+  padding: 4px 8px 4px 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+}
+
+.board-color-cleanlight .minicard .end-date,
+.board-color-cleanlight .minicard .due-date,
+.board-color-cleanlight .card-details .card-date {
+  background: rgba(227, 227, 230, 1);
+  color: rgba(10, 10, 20, 1) !important;
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .minicard .end-date:hover,
+.board-color-cleanlight .minicard .due-date:hover,
+.board-color-cleanlight .card-details .card-date:hover {
+  background: rgba(207, 207, 210, 1);
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .minicard .date .current,
+.board-color-cleanlight .minicard .current,
+.board-color-cleanlight .card-details .current {
+  background: #009B64;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleanlight .minicard .date .current:hover,
+.board-color-cleanlight .minicard .current:hover,
+.board-color-cleanlight .card-details .current:hover {
+  background: rgba(0, 155, 100, 0.73);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleanlight .minicard .date .due,
+.board-color-cleanlight .minicard .due,
+.board-color-cleanlight .card-details .due {
+  background: #CC003A;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleanlight .minicard .date .due:hover,
+.board-color-cleanlight .minicard .due:hover,
+.board-color-cleanlight .card-details .due:hover {
+  background: rgba(204, 0, 58, 0.73);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleanlight .card-details {
+  background: rgba(248, 248, 249, 1);
+  border-radius: 20px;
+  box-shadow: none;
+}
+
+.board-color-cleanlight .minicard-assignees {
+  border-bottom: none !important;
+}
+
+.board-color-cleanlight .card-details-item a {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.5);
+}
+
+.board-color-cleanlight .card-details-header {
+  background: rgba(241, 241, 243, 1) !important;
+  color: rgba(10, 10, 20, 1);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: left;
+  border-bottom: none !important;
+}
+
+.board-color-cleanlight .add-assignee {
+  box-shadow: none !important;
+}
+
+.board-color-cleanlight .add-assignee:hover {
+  background: rgba(227, 227, 230, 1);
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .add-assignee:hover i {
+  color: #000000 !important;
+}
+
+.board-color-cleanlight .add-checklist-top {
+  display: none !important;
+}
+
+.board-color-cleanlight .add-checklist {
+  padding: 8px;
+  width: min-content !important;
+}
+
+.board-color-cleanlight .add-checklist:hover {
+  background: rgba(227, 227, 230, 1) !important;
+  border-radius: 12px !important;
+}
+
+.board-color-cleanlight .add-checklist:hover i {
+  color: #000000 !important;
+}
+
+.board-color-cleanlight .card-time.card-label-green {
+  background: #009B64;
+  width: min-content;
+  color: #FFFFFF;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 8px;
+  margin-left: 4px;
+}
+
+.board-color-cleanlight .card-details .card-details-item-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleanlight .card-details hr {
+  background: rgba(23, 23, 28, 0.05);
+}
+
+.board-color-cleanlight .card-details-canvas {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.5);
+}
+
+.board-color-cleanlight.pop-over {
+  border-radius: 12px;
+  border: none;
+  background: rgba(241, 241, 243, 1);
+}
+
+.board-color-cleanlight.pop-over .header {
+  border-bottom: none;
+  background: inherit;
+
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleanlight.pop-over .pop-over-list,
+.board-color-cleanlight.pop-over .content {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.8);
+}
+
+.board-color-cleanlight.pop-over .pop-over-list a:hover {
+  background: #393947 !important;
+}
+
+.board-color-cleanlight .member {
+  box-shadow: none !important;
+}
+
+.board-color-cleanlight .add-member:hover {
+  background: rgba(227, 227, 230, 1);
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .add-member:hover i {
+  color: #000000 !important;
+}
+
+.board-color-cleanlight .add-label {
+  box-shadow: none !important;
+}
+
+.board-color-cleanlight .add-label:hover {
+  background: rgba(227, 227, 230, 1);
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .add-label:hover i {
+  color: #000000 !important;
+}
+
+.board-color-cleanlight.pop-over .content kbd {
+  background: rgba(180, 180, 180, 1);
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .full-name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleanlight .username {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+
+  color: rgba(10, 10, 20, 0.5) !important;
+}
+
+.board-color-cleanlight .attachment-item:hover {
+  background: rgba(227, 227, 230, 1);
+}
+
+.board-color-cleanlight .checklist {
+  background: none;
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleanlight .checklist-item {
+  background: none;
+}
+
+.board-color-cleanlight .checklist-item:hover {
+  background: rgba(227, 227, 230, 1) !important;
+}
+
+.board-color-cleanlight .add-checklist-item {
+  width: min-content !important;
+  padding: 8px;
+}
+
+.board-color-cleanlight .add-checklist-item:hover {
+  background: rgba(227, 227, 230, 1) !important;
+  border-radius: 12px !important;
+}
+
+.board-color-cleanlight .add-checklist-item:hover i {
+  color: #000000 !important;
+}
+
+.board-color-cleanlight .add-attachment {
+  background: rgba(248, 248, 249, 1) !important;
+  border-radius: 12px;
+  border-color: rgba(197, 197, 200, 1);
+}
+
+.board-color-cleanlight .add-attachment:hover {
+  background: rgba(227, 227, 230, 1) !important;
+}
+
+.board-color-cleanlight .add-attachment:hover i {
+  color: #000000 !important;
+}
+
+.board-color-cleanlight .attachment-actions i,
+.board-color-cleanlight .attachment-actions a {
+  font-size: 1em !important;
+}
+
+.board-color-cleanlight .activity-desc {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.5);
+}
+
+.board-color-cleanlight .activity-desc .activity-member {
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleanlight .activity-checklist,
+.board-color-cleanlight .activity-comment {
+  background: none !important;
+  color: rgba(10, 10, 20, 0.85);
+  border: 1px solid rgba(0, 155, 100, 1);
+  border-radius: 12px !important;
+}
+
+.board-color-cleanlight button[type=submit].primary,
+.board-color-cleanlight input[type=submit].primary {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  border-radius: 12px;
+  padding: 6px 12px 6px 12px;
+  background: rgba(23, 23, 28, 1);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.board-color-cleanlight input.primary {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  border-radius: 12px;
+  padding: 6px 12px 6px 12px;
+  background: rgba(23, 23, 28, 1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.board-color-cleanlight input.primary:hover {
+  background: #444455 !important;
+}
+
+.board-color-cleanlight textarea {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.85);
+  background: rgba(234, 234, 237, 1);
+  border: none !important;
+  border-radius: 12px !important;
+}
+
+.board-color-cleanlight .minicard-composer-textarea {
+  background: #f8f8f9 !important;
+}
+
+.board-color-cleanlight .minicard-composer:hover {
+  background: #f8f8f9 !important;
+}
+
+.board-color-cleanlight textarea::placeholder {
+  color: rgba(10, 10, 20, 0.5) !important;
+}
+
+.board-color-cleanlight textarea:focus {
+  border: none !important;
+  box-shadow: none;
+}
+
+.board-color-cleanlight input {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.85) !important;
+  background: rgba(234, 234, 237, 1) !important;
+  border-radius: 12px !important;
+  border: none !important;
+}
+
+.board-color-cleanlight input::placeholder {
+  color: rgba(10, 10, 20, 0.5) !important;
+}
+
+.board-color-cleanlight select {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(10, 10, 20, 0.85);
+  background: rgba(234, 234, 237, 1);
+  border-radius: 12px;
+  border: none;
+}
+
+.board-color-cleanlight button.primary {
+  padding: 6px 12px 6px 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(23, 23, 28, 1);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.board-color-cleanlight button.primary:hover {
+  background: #444455;
+}
+
+.board-color-cleanlight button.negate {
+  padding: 6px 12px 6px 12px;
+  border-radius: 12px;
+  border: none;
+  background: #cc003a;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.board-color-cleanlight button.negate:hover {
+  background: rgba(204, 0, 58, 0.77);
+}
+
+.board-color-cleanlight .card-details .checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.board-color-cleanlight .card-details .check-box.materialCheckBox {
+  border-radius: 4px;
+  border: none;
+  background: rgba(234, 234, 237, 1);
+  height: 24px;
+  width: 24px;
+}
+
+.board-color-cleanlight .card-details .check-box.materialCheckBox.is-checked {
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
+  width: 11px;
+  height: 19px;
+  border-radius: 0;
+  background: none;
+}
+
+.board-color-cleanlight .minicard .badges .badge.is-finished {
+  background: #009B64 !important;
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .minicard .badges .badge.is-finished .badge-icon {
+  color: #FFFFFF;
+}
+
+.board-color-cleanlight .swimlane-height-apply {
+  background: rgba(23, 23, 28, 1) !important;
+  border-radius: 12px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.board-color-cleanlight .swimlane-height-apply:hover {
+  background: rgba(227, 227, 230, 1) !important;
+}
+
+.board-color-cleanlight .swimlane .swimlane-header-wrap {
+  background-color: rgba(248, 248, 249, 1);
+}
+
+.board-color-cleanlight .sidebar-list-item-description {
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleanlight .sidebar .sidebar-content h3,
+.board-color-cleanlight .sidebar .sidebar-content h2,
+.board-color-cleanlight .sidebar .sidebar-content h1 {
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleanlight #cards span {
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleanlight #cards .materialCheckBox {
+  border-radius: 4px;
+  border: none;
+  background: rgba(234, 234, 237, 1);
+  height: 18px;
+  width: 18px;
+}
+
+.board-color-cleanlight #cards .materialCheckBox.is-checked {
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
+  width: 5px;
+  height: 13px;
+  border-radius: 0;
+  background: none;
+  margin-left: 3px;
+  margin-top: 3px;
 }

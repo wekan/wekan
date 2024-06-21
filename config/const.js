@@ -16,6 +16,8 @@ export const ALLOWED_BOARD_COLORS = [
   'modern',
   'moderndark',
   'exodark',
+  'cleandark',
+  'cleanlight',
 ];
 export const ALLOWED_COLORS = [
   'white',
