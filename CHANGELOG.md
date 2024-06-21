@@ -26,8 +26,10 @@ and adds the following updates:
 
 - [Updated docs for WeKan version for Windows](https://github.com/wekan/wekan/commit/9b428150a4fb9efdcb2ae9d3bb59d0da29529e69).
   Thanks to xet7.
-- [Updated dependencies](https://github.com/wekan/wekan/pull/5446).
-  Thanks to dependabot.
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5446),
+  [Part 2](https://github.com/wekan/wekan/commit/99a8afd6c39591e0d85fe5f55ebc3016b9e7f011).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
