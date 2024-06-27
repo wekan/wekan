@@ -1,4 +1,16 @@
-Welcome to the wekan-snap documentation wiki!
+## Installing newest Snap WeKan
+
+Newest Stable Snap is at Snap Candidate channel:
+
+https://github.com/wekan/wekan/discussions/5385
+
+Later, when xet7 gets database migrations working, newest version will be added to Snap Stable channel too.
+
+
+***
+
+OLD INFO:
+
 
 ## Wekan snap at web
 

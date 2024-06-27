@@ -1,3 +1,15 @@
+## Installing newest Snap WeKan
+
+Newest Stable Snap is at Snap Candidate channel:
+
+https://github.com/wekan/wekan/discussions/5385
+
+Later, when xet7 gets database migrations working, newest version will be added to Snap Stable channel too.
+
+***
+
+OLD INFO:
+
 Snap for Linux, install to your own server or laptop. Automatic Updates. Only Standalone Wekan.
 
 If on Snap Stable automatic update breaks something, [report Wekan for Snap bugs and feature requests here](https://github.com/wekan/wekan-snap/issues), so it can be fixed on some automatic update. If security is critical, keep behind firewall, without any ports open to Internet.
@@ -66,6 +78,13 @@ systemctl restart snap.wekan.wekan
 ```
 
 ### 5) Install all Snap updates automatically between 02:00AM and 04:00AM
+
+#### NEW:
+
+Use `refresh.timer`, see https://github.com/wekan/wekan/issues/5402
+
+#### OLD:
+
 ```
 snap set core refresh.schedule=02:00-04:00
 ```
