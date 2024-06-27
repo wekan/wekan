@@ -242,5 +242,3 @@ template(name="activity")
         = ' @'
       else if(currentData.timeValue)
         | {{_ activity.activityType currentData.timeValue}}
-
-      span(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}

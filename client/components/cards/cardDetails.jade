@@ -525,7 +525,7 @@ template(name="cardDetails")
                 a.fa.fa-times-thin.js-close-inlined-form
             else
               if currentBoard.allowsDescriptionText
-                a.js-open-inlined-form.right(title="{{_ 'edit'}}" value=title)
+                a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
                   i.fa.fa-pencil-square-o
                 if getDescription
                   +viewer

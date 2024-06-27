@@ -35,6 +35,13 @@ docker exec wekan-db mongorestore --drop --dir=/data/dump
 docker start wekan-app
 ```
 # Upgrade Docker Wekan version
+
+## Newest info
+
+https://github.com/wekan/wekan/discussions/5367
+
+## Old info
+
 Note: Do not run `docker-compose down` without verifying your docker-compose file, it does not delete the data by default but caution is advised. Refer to https://docs.docker.com/compose/reference/down/.
 ```bash
 docker-compose stop

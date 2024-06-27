@@ -2,50 +2,30 @@ Also see: [Windows](Windows)
 
 [Other CPU/OS On-Premise WeKan install](https://github.com/wekan/wekan/wiki/Raspberry-Pi)
 
-## Newest Docker WeKan Offline
-
-This works now.
-
-At Internet connected computer, download:
-
-1. Docker for Windows
-2. docker-compose.yml from https://github.com/wekan/wekan
-3. `docker-compose up -d` at Internet connected computer
-4. Save wekan-app and wekan-db containers to files https://docs.docker.com/engine/reference/commandline/save/
-
-At Offline Windows computer:
-
-1. Install Docker for Windows
-2. Load `wekan-app` container from file https://docs.docker.com/engine/reference/commandline/load/
-3. Check what is ID of `wekan-app` container with `docker images`
-4. Change at `docker-compose.yml` wekan-app contaier `image:gc....` to `image:ID` where ID from step 3 above
-5. Do steps 2-4 also for `wekan-db` container
-6. `docker-compose up -d`
-
 ## Wekan Windows 64bit version On-Premise
 
-This does not work yet.
+This is without container (without Docker or Snap).
 
 Right click and download files 1-4:
 
-1. [wekan-7.18-amd64-windows.zip](https://github.com/wekan/wekan/releases/download/v7.18/wekan-7.18-amd64-windows.zip)
+1. [wekan-7.49-amd64-windows.zip](https://github.com/wekan/wekan/releases/download/v7.49/wekan-7.49-amd64-windows.zip)
 
-2. [node-v14.21.4-win-x64.exe](https://github.com/wekan/node-v14-esm/releases/download/v14.21.4/node-v14.21.4-win-x64.exe)
+2. [node.exe](https://nodejs.org/dist/latest-v14.x/win-x64/node.exe)
 
-3. [mongodb-windows-x86_64-6.0.11-signed.msi](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-6.0.11-signed.msi)
+3. [mongodb-windows-x86_64-6.0.15-signed.msi](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-6.0.15-signed.msi)
 
 4. [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/main/start-wekan.bat)
 
 5. Copy files from steps 1-4 with USB stick or DVD to offline Windows computer
 
-6. Double click `mongodb-windows-x86_64-6.0.11-signed.msi` . In installer, uncheck downloading MongoDB compass.
+6. Double click `mongodb-windows-x86_64-6.0.15-signed.msi` . In installer, uncheck downloading MongoDB compass.
 
-7. Unzip `wekan-7.18-amd64-windows.zip` , inside it is directory `bundle`, to it copy other files:
+7. Unzip `wekan-7.49-amd64-windows.zip` , inside it is directory `bundle`, to it copy other files:
 
 ```
 bundle (directory)
   |_ start-wekan.bat (downloaded file)
-  |_ node-v14.21.4-win-x64.exe (downloaded file)
+  |_ node.exe (downloaded file)
   |_ main.js (extracted file)
 ```
 8. Edit `start-wekan.bat` with Notepad. There add [Windows computer IP address](https://support.microsoft.com/en-us/windows/find-your-ip-address-in-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9) , like this, then Wekan will be at http://IP-ADDRESS-HERE/sign-in , for example http://192.168.0.100/sign-in but your different IP address. Add there wekan server computer IP address, not localhost. `node.exe main.js` is at bottom of `start-wekan.bat`, change there longer filename:
@@ -54,7 +34,7 @@ SET ROOT_URL=http://IP-ADDRESS-HERE
 
 SET PORT=80
 
-node-v14.21.4-win-x64.exe main.js
+node.exe main.js
 ```
 If there is already some webserver at port 80, change to other port:
 ```
@@ -74,6 +54,25 @@ Then Wekan will be at http://IP-ADDRESS-HERE:2000/sign-in , for example http://1
 RELATED INFO:
 - Windows 2022 server example https://github.com/wekan/wekan/issues/5084
 - Other settings example https://github.com/wekan/wekan/issues/4932
+
+## Docker WeKan Offline
+
+
+At Internet connected computer, download:
+
+1. Docker for Windows
+2. docker-compose.yml from https://github.com/wekan/wekan
+3. `docker-compose up -d` at Internet connected computer
+4. Save wekan-app and wekan-db containers to files https://docs.docker.com/engine/reference/commandline/save/
+
+At Offline Windows computer:
+
+1. Install Docker for Windows
+2. Load `wekan-app` container from file https://docs.docker.com/engine/reference/commandline/load/
+3. Check what is ID of `wekan-app` container with `docker images`
+4. Change at `docker-compose.yml` wekan-app contaier `image:gc....` to `image:ID` where ID from step 3 above
+5. Do steps 2-4 also for `wekan-db` container
+6. `docker-compose up -d`
 
 ## WeKan Updates
 

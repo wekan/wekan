@@ -15,6 +15,111 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated docs for WeKan version for Windows](https://github.com/wekan/wekan/commit/9b428150a4fb9efdcb2ae9d3bb59d0da29529e69).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.49 2024-06-11 WeKan ® release
+
+This release adds the following updates:
+
+- [WeKan new release version number from wiki to WeKan repo docs](https://github.com/wekan/wekan/commit/e5c7650fc8eb5c3fcc6216f12e806ceb56fd94d9).
+  Thanks to xet7.
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5430),
+  [Part 2](https://github.com/wekan/wekan/pull/5441).
+  Thanks to dependabot.
+
+and fixes the following bugs:
+
+- [Bugfix: Strikethrough inactive Teams and orginizations logic was inverted](https://github.com/wekan/wekan/pull/5435).
+  Thanks to Hekatomb.
+- [Changed back to original icon of Edit Description](https://github.com/wekan/wekan/commit/e3214c874ec9369ab6b865154f7964da8ec55f45).
+  Thanks to saschafoerster, C0rn3j and xet7.
+- [Fill out Org and Team in adminReports](https://github.com/wekan/wekan/pull/5440).
+  Thanks to Hekatomb.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.48 2024-06-06 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/4a9d881e47751ec49d24af5bf4fd1c5452ceb194).
+  Thanks to xet7.
+- Add changes from wiki to docs.
+  [Part 1](https://github.com/wekan/wekan/commit/13be8160d5b6a894c674d04c37ff9e653e7bd4b0),
+  [Part 2](https://github.com/wekan/wekan/commit/e65a8c90177cd948ca8212486a365b65cd7d5372).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix Admin Panel pages Organizations and Teams, where HTML Tables were broken](https://github.com/wekan/wekan/commit/36bb5e099ed9f1f88c0399867bd76f040467745c).
+  Thanks to Hekatomb and xet7.
+- [Try to show more of title of collapsed list](https://github.com/wekan/wekan/commit/ec0e88ad2e914437b4767456a160f2c1138fc5f2).
+  Thanks to C0rn3j and xet7.
+- [Allow Normal user to add new swimlane, list and label](https://github.com/wekan/wekan/commit/04b995e77fdb5abc186e02482a75aba6a5cf0759).
+  Thanks to RyanHecht, norrig and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.47 2024-06-03 WeKan ® release
+
+This release adds the following updates:
+
+- [Update Docker base images to Ubuntu 24.04](https://github.com/wekan/wekan/commit/79e2001708b5110b26cf54b15bbbf90f7977fe90).
+  Thanks to xet7.
+- [Updated to MongoDB 6.0.15 at Snap Candidate](https://github.com/wekan/wekan/commit/4e2a8735bc2e449a2a3c949d042fb625052a1152).
+  Thanks to MongoDB developers.
+- [Updated release scripts](https://github.com/wekan/wekan/commit/2c9c9c43561093801004f0268d58b29d9a10b570).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Only show Board name edit button to BoardAdmin](https://github.com/wekan/wekan/commit/5e2b423ef87c62a70a6b08abd2f185fd560f391f).
+  Thanks to xet7.
+- [Fix Edit Description button is wildly out of place](https://github.com/wekan/wekan/commit/1f2fb2ccce38e9cac348f1c459784d6e5a949ded).
+  Thanks to C0rn3j and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.46 2024-06-03 WeKan ® release
+
+This release adds the following updates:
+
+- [Update ukrainian translation](https://github.com/wekan/wekan/pull/5405).
+  Thanks to novashdima.
+- [Updated GitHub issue template for issue instructions to be more visible](https://github.com/wekan/wekan/commit/5124265142c94d5044b81f81eaaa9c3bc01cef58).
+  Thanks to xet7.
+- [For development, only recommend Debian 12 amd64, because Sandstorm works at Debian 12. Sandstorm does not work at Ubuntu 24.04](https://github.com/wekan/wekan/commit/1bd30bc12129be8cc8a633a561bb8a5be76823d7).
+  Thanks to xet7. Related https://github.com/sandstorm-io/sandstorm/issues/3712
+
+and fixes the following bugs:
+
+- [Optimize SVGs and PNGs to save 550KB](https://github.com/wekan/wekan/pull/5403).
+  Thanks to C0rn3j.
+- [Swap deprecated egrep for grep -E](https://github.com/wekan/wekan/pull/5404).
+  Thanks to C0rn3j.
+- [Remove notification while copying board](https://github.com/wekan/wekan/pull/5412).
+  Thanks to e-gaulue.
+- [Fixed loading of cards if there are more than 20 of them on one swimlane](https://github.com/wekan/wekan/pull/5417).
+  Thanks to novashdima.
+- [Devcontainer, reduce image size and other necessary changes for development](https://github.com/wekan/wekan/pull/5418).
+  Thanks to mfilser.
+- [Dockerfile production and dev same build](https://github.com/wekan/wekan/pull/5419).
+  Thanks to mfilser.
+- [Remove second created at on activities](https://github.com/wekan/wekan/pull/5420).
+  Thanks to mfilser.
+- [Fix Export CSV/TSV from Board create unhandled Exception](https://github.com/wekan/wekan/pull/5424).
+  Thanks to Dexus.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.45 2024-05-06 WeKan ® release
 
 This release adds the following updates:

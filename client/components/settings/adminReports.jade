@@ -138,7 +138,6 @@ template(name="boardsReport")
           th Members
           th Organizations
           th Teams
-
       each board in results
         tbody
           tr
@@ -148,5 +147,7 @@ template(name="boardsReport")
             td
               = yesOrNo(board.archived)
             td {{userNames board.members }}
+            td {{orgs board.orgs }}
+            td {{teams board.teams }}
   else
     div {{_ 'no-results' }}

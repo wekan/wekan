@@ -1,13 +1,11 @@
 #!/bin/bash
 
 
-echo "Recommended for development: Newest Ubuntu or Debian amd64, directly to SSD disk or dual boot, not VM. Works fast."
+echo "Recommended for development: Debian 12 amd64, directly to SSD disk or dual boot, not VM. Works fast."
 echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."
 echo "Note2: Console output is also logged to ../wekan-log.txt"
-
-#Below script installs newest node 8.x for Debian/Ubuntu/Mint.
 
 function pause(){
 	read -p "$*"

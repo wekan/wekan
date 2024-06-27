@@ -24,8 +24,7 @@ template(name="swimlaneFixedHeader")
           | {{isTitleDefault title}}
   .swimlane-header-menu
     unless currentUser.isCommentOnly
-      if currentUser.isBoardAdmin
-        a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
+      a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
       a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
       //// TODO: Collapse Swimlane: make button working, etc.
       //unless collapsed

@@ -11,7 +11,8 @@
   background: #dedede;
   display: flex;
   flex-direction: row;
-  overflow: 0;
+  overflow: auto;
+  max-height: 100%;
 }
 .swimlane-header-menu .swimlane-header-collapse-down {
   font-size: 50%;
