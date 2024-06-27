@@ -28,6 +28,11 @@ This release adds the following updates:
   [Part 4](https://github.com/wekan/wekan/commit/0fb2f7fdd6b6cb828ab4ea534204a5b834d2e19a).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix ModernDark Cards not showing correctly](https://github.com/wekan/wekan/pull/5455).
+  Thanks to walster001.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.50 2024-06-22 WeKan ® release
