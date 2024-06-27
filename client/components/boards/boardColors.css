@@ -1920,7 +1920,7 @@
 @media screen and (min-width: 801px) {
   .board-color-moderndark .card-details {
     position: fixed;
-    top: 30px;
+    top: 82px;
     left: calc(50% - 384px);
     width: 768px;
     max-height: calc(100% - 60px);
