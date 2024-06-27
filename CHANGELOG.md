@@ -19,8 +19,38 @@ Fixing other platforms In Progress.
 
 This release adds the following updates:
 
-- [Updated docs for WeKan version for Windows](https://github.com/wekan/wekan/commit/9b428150a4fb9efdcb2ae9d3bb59d0da29529e69).
+- [Updated dependencies](https://github.com/wekan/wekan/pull/5452).
+  Thanks to dependabot.
+- Moved docs from wiki to wekan repo docs directory, organized to subdirectories. Organizing and updating in progress.
+  [Part 1](https://github.com/wekan/wekan/commit/1961e22cbd51e83aa131c8b092c7d43475a021eb),
+  [Part 1](https://github.com/wekan/wekan/commit/ce89ff48331a27ffb42d021833c78df3a462b9db),
+  [Part 1](https://github.com/wekan/wekan/commit/449c02c42a0183a49592ada89bdfb8f25e5db903).
   Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.50 2024-06-22 WeKan ® release
+
+This release adds the following new features:
+
+- [Added "Clean dark" and "Clean light" themes that are more clean and modern looking](https://github.com/wekan/wekan/pull/5449).
+  Thanks to abramchikd.
+
+and adds the following updates:
+
+- Updated docs for WeKan version for Windows.
+  [Part 1](https://github.com/wekan/wekan/commit/9b428150a4fb9efdcb2ae9d3bb59d0da29529e69),
+  [Part 2](https://github.com/wekan/wekan/commit/3c35a6400b88e071a474a552ee941892522c8d59).
+  Thanks to xet7.
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5446),
+  [Part 2](https://github.com/wekan/wekan/commit/99a8afd6c39591e0d85fe5f55ebc3016b9e7f011).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Task card may overflow below the screen when maximized, making the bottom part not viewable](https://github.com/wekan/wekan/pull/5443).
+  Thanks to Hekatomb.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

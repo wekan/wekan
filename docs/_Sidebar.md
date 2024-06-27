@@ -85,6 +85,7 @@
 # <a name="LoginAuth"></a>Login Auth
 
 * [Automatic login](autologin)
+* [Disable Password Login](Disable-Password-Login)
 * [Forgot Password](Forgot-Password)
 * [Admin: Impersonate user](Impersonate-user)
 * [Adding Users](Adding-users)
