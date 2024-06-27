@@ -25,6 +25,7 @@ Morph Browser | No | Yes | Yes | [Ubuntu Touch](https://ubports.com) (based on U
 [Floorp](https://floorp.app) | No | No | Yes | [Win/Mac/Linux](https://github.com/Floorp-Projects/Floorp/releases), more private than Firefox, [Repo](https://github.com/Floorp-Projects/Floorp)
 [Mercury](https://thorium.rocks/mercury) | No | No | Yes | [Win/Linux](https://github.com/Alex313031/Mercury/releases), more private than Firefox, [Repo](https://github.com/Alex313031/Mercury)
 [SeaLion](https://github.com/wicknix/SeaLion) | No | No | Yes | [MacOS 10.7-14.1 x32,x64,ppc,ppc64/Linux x64](https://github.com/wicknix/SeaLion/releases), [Repo](https://github.com/wicknix/SeaLion)
+[LibreWolf](https://librewolf.net) | No | No | Yes | [Win/Mac/Linux](https://librewolf.net/installation/)
 
 ## Chromium based
 
@@ -32,6 +33,7 @@ Browser | [PWA](PWA) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 Chrome | Android Yes | Android Newest | Newest | Win/Mac/Linux
 Chromium | Android Yes | Android Newest | Newest | Win/Mac/Linux/RasPi
+Brave | Android Yes | Android Newest | Newest | Win/Mac/Linux/RasPi
 Vivaldi | Android Yes | Android Newest | Newest | Win/Mac/Linux
 Opera | Android Yes | Android Newest | Newest | Win/Mac/Linux
 Credge, Chromium Edge | Android Yes | Android | Newest | Win/Mac/Linux/Mobile

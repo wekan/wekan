@@ -1,3 +1,5 @@
+[Azure Email Communication Service](https://github.com/wekan/wekan/issues/5453)
+
 [Uberspace Email](https://github.com/wekan/wekan/issues/2009#issuecomment-1017630758)
 
 ## Newest Wekan

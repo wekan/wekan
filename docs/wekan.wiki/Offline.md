@@ -8,7 +8,7 @@ This is without container (without Docker or Snap).
 
 Right click and download files 1-4:
 
-1. [wekan-7.50-amd64-windows.zip](https://github.com/wekan/wekan/releases/download/v7.50/wekan-7.50-amd64-windows.zip)
+1. [wekan-7.49-amd64-windows.zip](https://github.com/wekan/wekan/releases/download/v7.49/wekan-7.49-amd64-windows.zip)
 
 2. [node.exe](https://nodejs.org/dist/latest-v14.x/win-x64/node.exe)
 
@@ -20,7 +20,7 @@ Right click and download files 1-4:
 
 6. Double click `mongodb-windows-x86_64-6.0.15-signed.msi` . In installer, uncheck downloading MongoDB compass.
 
-7. Unzip `wekan-7.50-amd64-windows.zip` , inside it is directory `bundle`, to it copy other files:
+7. Unzip `wekan-7.49-amd64-windows.zip` , inside it is directory `bundle`, to it copy other files:
 
 ```
 bundle (directory)
