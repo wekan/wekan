@@ -2394,17 +2394,6 @@
   background: rgba(46, 46, 57, 1);
 }
 
-.board-color-cleandark.pop-over .header {
-  border-bottom: none;
-  background: inherit;
-
-  font-size:  16px;
-  font-weight: 500;
-  line-height: 24px;
-  text-align: left;
-  color: rgba(255, 255, 255, 1);;
-}
-
 .board-color-cleandark.pop-over .pop-over-list,
 .board-color-cleandark.pop-over .content {
   font-size: 16px;
@@ -2832,7 +2821,7 @@
 .board-color-cleanlight .list-header-add,
 .board-color-cleandark .list-header-add {
   border-radius: 12px;
-  margin-top: 10px;
+  margin-top: 18px;
   padding: 8px;
   margin-right: 8px;
   display: flex;
@@ -2841,9 +2830,27 @@
   margin-left: 10px;
 }
 
+.board-color-cleanlight .list-header-add:hover {
+  background: rgba(227, 227, 230, 1);
+  color: rgba(10, 10, 20, 1);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.board-color-cleandark .list-header-add:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.board-color-cleanlight .list-header-add a:hover i {
+  color: #FFFFFF !important;
+}
+
 .board-color-cleandark .list-header-add {
   background: #23232B !important;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .board-color-cleanlight .card-label,
@@ -2982,7 +2989,7 @@
 }
 
 .board-color-cleandark .card-details-header {
-  background: #2E2E39;
+  background: #2E2E39 !important;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -3070,7 +3077,9 @@
   background: rgba(241, 241, 243, 1);
 }
 
-.board-color-cleanlight.pop-over .header {
+.board-color-cleanlight.pop-over .header,
+.board-color-cleandark.pop-over .header {
+  border-radius: 12px 12px 0 0;
   border-bottom: none;
   background: inherit;
 
@@ -3078,7 +3087,15 @@
   font-weight: 500;
   line-height: 24px;
   text-align: left;
+}
+
+.board-color-cleanlight.pop-over .header {
   color: rgba(10, 10, 20, 1);
+}
+
+
+.board-color-cleandark.pop-over .header {
+  color: rgba(255, 255, 255, 1);;
 }
 
 .board-color-cleanlight.pop-over .pop-over-list,
@@ -3653,4 +3670,23 @@
 .board-color-cleanlight .new-comment .fa,
 .board-color-cleandark .new-comment .fa {
   display: none;
+}
+
+.board-color-cleanlight .pop-over-list li > a,
+.board-color-cleandark .pop-over-list li > a {
+  font-weight: 500;
+}
+
+.board-color-cleanlight .pop-over-list li > a i,
+.board-color-cleandark .pop-over-list li > a i {
+  margin-right: 6px !important;
+}
+
+.board-color-cleanlight .pop-over .quiet {
+  margin-left: 100px !important;
+}
+
+.board-color-cleandark .minicard:hover:not(.minicard-composer),
+.board-color-cleandark .is-selected .minicard, .draggable-hover-card .minicard {
+  background: #23232B;
 }
