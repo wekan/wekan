@@ -21,6 +21,11 @@ This release adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/pull/5452).
   Thanks to dependabot.
+- Moved docs from wiki to wekan repo docs directory, organized to subdirectories. Organizing and updating in progress.
+  [Part 1](https://github.com/wekan/wekan/commit/1961e22cbd51e83aa131c8b092c7d43475a021eb),
+  [Part 1](https://github.com/wekan/wekan/commit/ce89ff48331a27ffb42d021833c78df3a462b9db),
+  [Part 1](https://github.com/wekan/wekan/commit/449c02c42a0183a49592ada89bdfb8f25e5db903).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
