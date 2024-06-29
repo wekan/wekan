@@ -2256,14 +2256,6 @@
   background: #0A0A14
 }
 
-.board-color-cleandark#header-quick-access {
-  background: #23232B;
-}
-
-.board-color-cleandark#header {
-  background: #23232B;
-}
-
 .board-color-cleandark#header ul li,
 .board-color-cleandark#header-quick-access ul li {
   color: rgba(255, 255, 255, 50%);
@@ -2274,23 +2266,11 @@
 }
 
 .board-color-cleandark#header-main-bar h1 {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 500;
   line-height: 24px !important;
   text-align: left;
   color: rgba(255, 255, 255, 1);
-}
-
-.board-color-cleandark .list-header-add {
-  background: #23232B !important;
-  border-radius: 12px;
-  margin-top: 10px;
-  padding: 8px;
-  margin-right: 8px;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .board-color-cleandark#header ul li.current,
@@ -2298,13 +2278,8 @@
   color: rgba(255, 255, 255, 85%);
 }
 
-.board-color-cleandark#header #header-main-bar {
-  background: #23232B;
-  color: rgba(255, 255, 255, 85%);
-}
-
 .board-color-cleandark .swimlane-header {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 500;
   line-height: 24px;
   text-align: left;
@@ -2313,85 +2288,6 @@
 
 .board-color-cleandark .board-canvas {
   background: #0A0A14;
-}
-
-.board-color-cleandark .list {
-  background: none;
-  border-left: none;
-}
-
-.board-color-cleandark .fa {
-  color: #FFFFFF;
-}
-
-.board-color-cleandark .list .list-header {
-  background: none;
-  color: #FFFFFF;
-  font-size: 16px;
-}
-
-.board-color-cleandark .list .list-header .list-header-name {
-  background: none;
-  color: #FFFFFF;
-  font-size: 16px;
-}
-
-.board-color-cleandark .list .list-header {
-  border-bottom: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.board-color-cleandark .list .list-header .list-header-menu .fa {
-  color: #FFFFFF;
-}
-
-.board-color-cleandark .card-label {
-  border-radius: 18px;
-  margin-top: 6px;
-}
-
-.board-color-cleandark .list .list-header .list-header-menu .list-header-plus-top {
-  color: #FFFFFF;
-  background: #FF6D00;
-  padding: 8px;
-  border-radius: 12px;
-}
-
-.board-color-cleandark .list .list-header .list-header-menu .list-header-plus-top:hover {
-  background: #d25b02;
-}
-
-.board-color-cleandark .open-minicard-composer {
-  width: 16px;
-  height: 22px;
-  padding: 8px;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px !important;
-}
-
-.board-color-cleandark .open-minicard-composer:hover {
-  background: #444455 !important;
-}
-
-.board-color-cleandark .open-minicard-composer:hover i {
-  color: #FFFFFF !important;
-}
-
-.board-color-cleandark .open-minicard-composer .fa {
-  width: min-content;
-  color: rgba(255, 255, 255, 85%);
-}
-
-.board-color-cleandark .open-minicard-composer i {
-  margin-right: 0 !important;
-}
-
-.board-color-cleandark .swimlane {
-  background: none;
 }
 
 .board-color-cleandark .sidebar .sidebar-shadow {
@@ -2425,110 +2321,18 @@
   border: none;
 }
 
-.board-color-cleandark .minicard {
-  background: #23232B;
-  border-radius: 12px;
-  color: #FFFFFF;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-  padding: 12px;
-}
-
-.board-color-cleandark .minicard:hover,
-.board-color-cleandark .is-selected .minicard {
-  background: rgba(46, 46, 57, 1) !important;
-}
-
-.board-color-cleandark .minicard .date,
-.board-color-cleandark .minicard .end-date {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-  margin-bottom: 10px;
-}
-
-.board-color-cleandark .minicard .date a,
-.board-color-cleandark .minicard .end-date,
-.board-color-cleandark .card-details .card-date {
-  padding: 4px 8px 4px 8px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-  color: #FFFFFF;
-}
-
-.board-color-cleandark .minicard .end-date,
-.board-color-cleandark .minicard .due-date,
-.board-color-cleandark .card-details .card-date {
-  background: #444455;
-  border-radius: 8px;
-}
-
-.board-color-cleandark .minicard .end-date:hover,
-.board-color-cleandark .minicard .due-date:hover,
-.board-color-cleandark .card-details .card-date:hover {
-  background: rgba(68, 68, 85, 0.73);
-  border-radius: 8px;
-}
-
-.board-color-cleandark .minicard .date .current,
-.board-color-cleandark .minicard .current,
-.board-color-cleandark .card-details .current {
-  background: #009B64;
-  border-radius: 8px;
-}
-
-.board-color-cleandark .minicard .date .current:hover,
-.board-color-cleandark .minicard .current:hover,
-.board-color-cleandark .card-details .current:hover {
-  background: rgba(0, 155, 100, 0.73);
-  border-radius: 8px;
-}
-
-.board-color-cleandark .minicard .date .due,
-.board-color-cleandark .minicard .due,
-.board-color-cleandark .card-details .due {
-  background: #CC003A;
-  border-radius: 8px;
-}
-
-.board-color-cleandark .minicard .date .due:hover,
-.board-color-cleandark .minicard .due:hover,
-.board-color-cleandark .card-details .due:hover {
-  background: rgba(204, 0, 58, 0.73);
-  border-radius: 8px;
-}
-
 .board-color-cleandark .card-details {
   background: #23232B;
   border-radius: 20px;
   box-shadow: none;
 }
 
-.board-color-cleandark .minicard-assignees {
-  border-bottom: none !important;
-}
-
 .board-color-cleandark .card-details-item a {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
   color: rgba(255, 255, 255, 0.5);
-}
-
-.board-color-cleandark .card-details-header {
-  background: #2E2E39 !important;
-  color: rgba(255, 255, 255, 1);
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 28px;
-  text-align: left;
-  border-bottom: none !important;
 }
 
 .board-color-cleandark .add-assignee {
@@ -2572,20 +2376,12 @@
   margin-left: 4px;
 }
 
-.board-color-cleandark .card-details .card-details-item-title {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 24px;
-  text-align: left;
-  color: rgba(255, 255, 255, 1);
-}
-
 .board-color-cleandark .card-details hr {
   background: rgba(255, 255, 255, 0.05);
 }
 
 .board-color-cleandark .card-details-canvas {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -2596,17 +2392,6 @@
   border-radius: 12px;
   border: none;
   background: rgba(46, 46, 57, 1);
-}
-
-.board-color-cleandark.pop-over .header {
-  border-bottom: none;
-  background: inherit;
-
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 24px;
-  text-align: left;
-  color: rgba(255, 255, 255, 1);;
 }
 
 .board-color-cleandark.pop-over .pop-over-list,
@@ -2715,7 +2500,7 @@
 }
 
 .board-color-cleandark .activity-desc {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -2747,7 +2532,7 @@
 }
 
 .board-color-cleandark textarea {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -2757,25 +2542,12 @@
   border-radius: 12px !important;
 }
 
-.board-color-cleandark .minicard-composer-textarea {
-  background: #23232B !important;
-}
-
-.board-color-cleandark .minicard-composer:hover {
-  background: #23232B !important;
-}
-
 .board-color-cleandark textarea::placeholder {
   color: rgba(255, 255, 255, 0.85) !important;
 }
 
-.board-color-cleandark textarea:focus {
-  border: none !important;
-  box-shadow: none;
-}
-
 .board-color-cleandark input {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -2790,7 +2562,7 @@
 }
 
 .board-color-cleandark select {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -2855,29 +2627,6 @@
   background: none;
 }
 
-.board-color-cleandark .minicard .badges .badge.is-finished {
-  background: #009B64 !important;
-  border-radius: 8px;
-}
-
-.board-color-cleandark .swimlane-height-apply {
-  background: #FFFFFF !important;
-  border-radius: 12px !important;
-  color: #0A0A14 !important;
-}
-
-.board-color-cleandark .swimlane-height-apply:hover {
-  background: rgba(255, 255, 255, 0.85) !important;
-}
-
-.board-color-cleandark .swimlane .swimlane-header-wrap {
-  background-color: #23232B;
-}
-
-.board-color-cleandark .sidebar-list-item-description {
-  color: #FFFFFF;
-}
-
 .board-color-cleandark .sidebar .sidebar-content h3,
 .board-color-cleandark .sidebar .sidebar-content h2,
 .board-color-cleandark .sidebar .sidebar-content h1 {
@@ -2896,6 +2645,10 @@
   width: 18px;
 }
 
+.board-color-cleandark .sidebar-list-item-description {
+  color: #FFFFFF;
+}
+
 .board-color-cleandark #cards .materialCheckBox.is-checked {
   border-bottom: 2px solid #FFFFFF;
   border-right: 2px solid #FFFFFF;
@@ -2907,13 +2660,25 @@
   margin-top: 3px;
 }
 
-.board-color-cleanlight {
-  background: #E0E0E0;
+.board-color-cleandark .allBoards {
+  white-space: nowrap;
 }
 
-.board-color-cleanlight#header-quick-access {
-  background: #f8f8f9;
-  color: rgba(10, 10, 20, 0.85);
+.board-color-cleandark#header-quick-access ul.header-quick-access-list li {
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  margin-right: 10px;
+}
+
+.board-color-cleandark#header-quick-access ul.header-quick-access-list {
+  display: flex;
+  align-items: center;
+}
+
+.board-color-cleanlight {
+  background: #E0E0E0;
 }
 
 .board-color-cleanlight .board-header-btn {
@@ -2929,15 +2694,6 @@
 }
 
 .board-color-cleanlight .header-user-bar-name {
-  color: rgba(10, 10, 20, 0.85) !important;
-}
-
-.board-color-cleanlight#header {
-  background: rgba(255, 255, 255, 0.85);
-}
-
-.board-color-cleanlight #header-main-bar {
-  background: #f8f8f9 !important;
   color: rgba(10, 10, 20, 0.85) !important;
 }
 
@@ -2958,23 +2714,16 @@
 }
 
 .board-color-cleanlight #header-main-bar h1 {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 500;
   line-height: 24px !important;
   text-align: left;
   color: rgba(10, 10, 20, 1) !important;
 }
 
-.board-color-cleanlight .list-header-add {
+.board-color-cleanlight {
   background: #FFFFFF !important;
-  border-radius: 12px;
-  margin-top: 10px;
-  padding: 8px;
-  margin-right: 8px;
   color: #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .board-color-cleanlight#header ul li.current,
@@ -2982,13 +2731,8 @@
   color: rgba(10, 10, 20, 0.85) !important;
 }
 
-.board-color-cleanlight#header #header-main-bar {
-  background: #23232B;
-  color: rgba(255, 255, 255, 85%);
-}
-
 .board-color-cleanlight .swimlane-header {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 500;
   line-height: 24px;
   text-align: left;
@@ -2999,84 +2743,189 @@
   background: #FFFFFF;
 }
 
-.board-color-cleanlight .list {
-  background: none;
-  border-left: none;
-}
-
 .board-color-cleanlight .fa {
   color: rgba(10, 10, 20, 1);
 }
 
-.board-color-cleanlight .list .list-header {
-  background: none;
+.board-color-cleandark .fa {
   color: #FFFFFF;
-  font-size: 16px;
 }
 
-.board-color-cleanlight .list .list-header .list-header-name {
+/*fdsfdsfdsfdsfsdddddddddd */
+
+.board-color-cleanlight .list,
+.board-color-cleandark .list {
   background: none;
-  color: rgba(10, 10, 20, 1);
-  font-size: 16px;
+  border-left: none;
 }
 
-.board-color-cleanlight .list .list-header {
+.board-color-cleanlight .list .list-header,
+.board-color-cleandark .list .list-header {
   border-bottom: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 16px;
+  background: none;
 }
 
-.board-color-cleanlight .list .list-header .list-header-menu .fa {
+.board-color-cleanlight .list .list-header-name {
   color: rgba(10, 10, 20, 1);
 }
 
-.board-color-cleanlight .card-label {
-  border-radius: 18px;
-  margin-top: 6px;
-  border: none;
+.board-color-cleandark .list .list-header-name {
+  color: #FFFFFF;
 }
 
-.board-color-cleanlight .list .list-header .list-header-menu .list-header-plus-top {
+.board-color-cleanlight .list:first-child,
+.board-color-cleandark .list:first-child {
+  margin-right: -32px;
+}
+
+.board-color-cleanlight .list .list-header .list-header-menu,
+.board-color-cleandark .list .list-header .list-header-menu {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.board-color-cleanlight .list .list-header .list-header-menu .js-open-list-menu ,
+.board-color-cleandark .list .list-header .list-header-menu .js-open-list-menu {
+  font-size: 16px !important;
+}
+
+.board-color-cleanlight .list .list-header .list-header-menu a,
+.board-color-cleandark .list .list-header .list-header-menu a {
+  margin: 0 !important;
+}
+
+.board-color-cleanlight .list .list-header .list-header-menu .list-header-plus-top,
+.board-color-cleandark .list .list-header .list-header-menu .list-header-plus-top {
   color: #FFFFFF;
   background: #FF6D00;
   padding: 8px;
   border-radius: 12px;
+  font-size: 16px !important;
 }
 
-.board-color-cleanlight .list .list-header .list-header-menu .list-header-plus-top:hover {
+.board-color-cleanlight .list .list-header .list-header-menu .list-header-plus-top:hover,
+.board-color-cleandark .list .list-header .list-header-menu .list-header-plus-top:hover {
   background: #d25b02;
 }
 
-.board-color-cleanlight .open-minicard-composer {
-  width: 16px;
-  height: 22px;
+.board-color-cleanlight .list .list-header .list-header-menu .js-collapse,
+.board-color-cleandark .list .list-header .list-header-menu .js-collapse {
+  display: none;
+}
+
+.board-color-cleanlight .list-header-add,
+.board-color-cleandark .list-header-add {
+  border-radius: 12px;
+  margin-top: 18px;
   padding: 8px;
-  display: flex !important;
-  justify-content: center;
+  margin-right: 8px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.board-color-cleanlight .list-header-add:hover {
+  background: rgba(227, 227, 230, 1);
+  color: rgba(10, 10, 20, 1);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.board-color-cleandark .list-header-add:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.board-color-cleanlight .list-header-add a:hover i {
+  color: #FFFFFF !important;
+}
+
+.board-color-cleandark .list-header-add {
+  background: #23232B !important;
+  color: #FFFFFF !important;
+}
+
+.board-color-cleanlight .card-label,
+.board-color-cleandark .card-label {
+  border-radius: 18px;
+  margin-top: 6px;
+  margin-right: 8px;
+  border: none;
+  padding: 4px 12px;
+}
+
+.board-color-cleanlight .swimlane,
+.board-color-cleandark .swimlane {
+  background: none;
+  gap: 32px;
+}
+
+.board-color-cleanlight .swimlane-height-apply,
+.board-color-cleandark .swimlane-height-apply {
   border-radius: 12px !important;
 }
 
-.board-color-cleanlight .open-minicard-composer:hover {
-  background:rgba(180, 180, 180, 1) !important;
+.board-color-cleandark .swimlane-height-apply {
+  background: #FFFFFF !important;
+  color: #0A0A14 !important;
 }
 
-.board-color-cleanlight .open-minicard-composer:hover i {
-  color: #000000 !important;
+.board-color-cleanlight .swimlane-height-apply {
+  background: rgba(23, 23, 28, 1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
-.board-color-cleanlight .open-minicard-composer .fa {
-  width: min-content;
-  color: rgba(10, 10, 20, 1);
+.board-color-cleandark .swimlane-height-apply:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
 }
 
-.board-color-cleanlight .open-minicard-composer i {
-  margin-right: 0 !important;
+.board-color-cleanlight .swimlane-height-apply:hover {
+  background: rgba(227, 227, 230, 1) !important;
 }
 
-.board-color-cleanlight .swimlane {
-  background: none;
+.board-color-cleanlight .swimlane .swimlane-header-wrap .swimlane-header,
+.board-color-cleandark .swimlane .swimlane-header-wrap .swimlane-header,
+.board-color-cleanlight .swimlane .swimlane-header-wrap .swimlane-header-menu .fa,
+.board-color-cleandark .swimlane .swimlane-header-wrap .swimlane-header-menu .fa {
+  font-size: 16px !important;
+}
+
+.board-color-cleanlight .swimlane .swimlane-header-wrap {
+  background-color: #F1F1F3;
+}
+
+.board-color-cleandark .swimlane .swimlane-header-wrap {
+  background-color: #2E2E39;
+}
+
+.board-color-cleanlight .swimlane .swimlane-header-wrap .swimlane-header-plus-icon,
+.board-color-cleandark .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
+  margin-left: 14px;
+}
+
+.board-color-cleanlight .swimlane .swimlane-header-wrap .list-composer,
+.board-color-cleandark .swimlane .swimlane-header-wrap .list-composer {
+  display: flex;
+  gap: 12px;
+  margin-left: 20px;
+}
+
+.board-color-cleanlight .swimlane .swimlane-header-wrap .swimlane-header .viewer p,
+.board-color-cleandark .swimlane .swimlane-header-wrap .swimlane-header .viewer p {
+  margin-bottom: 0;
+}
+
+.board-color-cleanlight .js-toggle-desktop-drag-handles,
+.board-color-cleandark .js-toggle-desktop-drag-handles {
+  display: none;
 }
 
 .board-color-cleanlight .sidebar .sidebar-shadow {
@@ -3110,115 +2959,63 @@
   border: none;
 }
 
-.board-color-cleanlight .minicard {
-  background: rgba(248, 248, 249, 1);
-  border-radius: 12px;
-  color: rgba(10, 10, 20, 0.85);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-  padding: 12px;
-}
-
-.board-color-cleanlight .minicard:hover,
-.board-color-cleanlight .is-selected .minicard {
-  background: rgba(241, 241, 243, 1) !important;
-}
-
-.board-color-cleanlight .minicard .date,
-.board-color-cleanlight .minicard .end-date {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-  margin-bottom: 10px;
-}
-
-.board-color-cleanlight .minicard .date a,
-.board-color-cleanlight .minicard .end-date,
-.board-color-cleanlight .card-details .card-date {
-  padding: 4px 8px 4px 8px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
-  color: rgba(255, 255, 255, 1);
-}
-
-.board-color-cleanlight .minicard .end-date,
-.board-color-cleanlight .minicard .due-date,
-.board-color-cleanlight .card-details .card-date {
-  background: rgba(227, 227, 230, 1);
-  color: rgba(10, 10, 20, 1) !important;
-  border-radius: 8px;
-}
-
-.board-color-cleanlight .minicard .end-date:hover,
-.board-color-cleanlight .minicard .due-date:hover,
-.board-color-cleanlight .card-details .card-date:hover {
-  background: rgba(207, 207, 210, 1);
-  border-radius: 8px;
-}
-
-.board-color-cleanlight .minicard .date .current,
-.board-color-cleanlight .minicard .current,
-.board-color-cleanlight .card-details .current {
-  background: #009B64;
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 1) !important;
-}
-
-.board-color-cleanlight .minicard .date .current:hover,
-.board-color-cleanlight .minicard .current:hover,
-.board-color-cleanlight .card-details .current:hover {
-  background: rgba(0, 155, 100, 0.73);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 1) !important;
-}
-
-.board-color-cleanlight .minicard .date .due,
-.board-color-cleanlight .minicard .due,
-.board-color-cleanlight .card-details .due {
-  background: #CC003A;
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 1) !important;
-}
-
-.board-color-cleanlight .minicard .date .due:hover,
-.board-color-cleanlight .minicard .due:hover,
-.board-color-cleanlight .card-details .due:hover {
-  background: rgba(204, 0, 58, 0.73);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 1) !important;
-}
-
 .board-color-cleanlight .card-details {
   background: rgba(248, 248, 249, 1);
   border-radius: 20px;
   box-shadow: none;
 }
 
-.board-color-cleanlight .minicard-assignees {
-  border-bottom: none !important;
-}
-
 .board-color-cleanlight .card-details-item a {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
   color: rgba(10, 10, 20, 0.5);
 }
 
-.board-color-cleanlight .card-details-header {
-  background: rgba(241, 241, 243, 1) !important;
-  color: rgba(10, 10, 20, 1);
-  font-size: 24px;
+.board-color-cleanlight .card-details-header,
+.board-color-cleandark .card-details-header {
+  font-size: 24px !important;
   font-weight: 600;
   line-height: 28px;
   text-align: left;
   border-bottom: none !important;
+  padding: 12px 20px !important;
+}
+
+.board-color-cleanlight .card-details-header {
+  background: rgba(241, 241, 243, 1);
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleandark .card-details-header {
+  background: #2E2E39 !important;
+  color: rgba(255, 255, 255, 1);
+}
+
+.board-color-cleanlight .card-details-header .card-details-title,
+.board-color-cleandark .card-details-header .card-details-title {
+  font-size: 24px !important;
+}
+
+.board-color-cleanlight .card-details .card-details-item-title,
+.board-color-cleandark .card-details .card-details-item-title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  font-size:  16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+
+.board-color-cleanlight .card-details .card-details-item-title {
+  color: rgba(10, 10, 20, 1);
+}
+
+.board-color-cleandark .card-details .card-details-item-title {
+  color: rgba(255, 255, 255, 1);
 }
 
 .board-color-cleanlight .add-assignee {
@@ -3262,20 +3059,12 @@
   margin-left: 4px;
 }
 
-.board-color-cleanlight .card-details .card-details-item-title {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 24px;
-  text-align: left;
-  color: rgba(10, 10, 20, 1);
-}
-
 .board-color-cleanlight .card-details hr {
   background: rgba(23, 23, 28, 0.05);
 }
 
 .board-color-cleanlight .card-details-canvas {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -3288,15 +3077,25 @@
   background: rgba(241, 241, 243, 1);
 }
 
-.board-color-cleanlight.pop-over .header {
+.board-color-cleanlight.pop-over .header,
+.board-color-cleandark.pop-over .header {
+  border-radius: 12px 12px 0 0;
   border-bottom: none;
   background: inherit;
 
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 500;
   line-height: 24px;
   text-align: left;
+}
+
+.board-color-cleanlight.pop-over .header {
   color: rgba(10, 10, 20, 1);
+}
+
+
+.board-color-cleandark.pop-over .header {
+  color: rgba(255, 255, 255, 1);;
 }
 
 .board-color-cleanlight.pop-over .pop-over-list,
@@ -3412,7 +3211,7 @@
 }
 
 .board-color-cleanlight .activity-desc {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -3459,7 +3258,7 @@
 }
 
 .board-color-cleanlight textarea {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -3469,25 +3268,18 @@
   border-radius: 12px !important;
 }
 
-.board-color-cleanlight .minicard-composer-textarea {
-  background: #f8f8f9 !important;
-}
-
-.board-color-cleanlight .minicard-composer:hover {
-  background: #f8f8f9 !important;
-}
-
 .board-color-cleanlight textarea::placeholder {
   color: rgba(10, 10, 20, 0.5) !important;
 }
 
-.board-color-cleanlight textarea:focus {
+.board-color-cleanlight textarea:focus,
+.board-color-cleandark textarea:focus {
   border: none !important;
   box-shadow: none;
 }
 
 .board-color-cleanlight input {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -3501,8 +3293,14 @@
   color: rgba(10, 10, 20, 0.5) !important;
 }
 
+.board-color-cleanlight input:focus,
+.board-color-cleandark input:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .board-color-cleanlight select {
-  font-size: 18px;
+  font-size:  16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -3567,29 +3365,6 @@
   background: none;
 }
 
-.board-color-cleanlight .minicard .badges .badge.is-finished {
-  background: #009B64 !important;
-  border-radius: 8px;
-}
-
-.board-color-cleanlight .minicard .badges .badge.is-finished .badge-icon {
-  color: #FFFFFF;
-}
-
-.board-color-cleanlight .swimlane-height-apply {
-  background: rgba(23, 23, 28, 1) !important;
-  border-radius: 12px !important;
-  color: rgba(255, 255, 255, 0.85) !important;
-}
-
-.board-color-cleanlight .swimlane-height-apply:hover {
-  background: rgba(227, 227, 230, 1) !important;
-}
-
-.board-color-cleanlight .swimlane .swimlane-header-wrap {
-  background-color: rgba(248, 248, 249, 1);
-}
-
 .board-color-cleanlight .sidebar-list-item-description {
   color: rgba(10, 10, 20, 0.85);
 }
@@ -3621,4 +3396,297 @@
   background: none;
   margin-left: 3px;
   margin-top: 3px;
+}
+
+.board-color-cleanlight .allBoards {
+  white-space: nowrap;
+}
+
+.board-color-cleanlight#header-quick-access,
+.board-color-cleandark#header-quick-access {
+  padding: 10px 20px;
+  padding-top: 12px !important;
+  gap: 20px;
+}
+
+.board-color-cleandark#header-quick-access {
+  background: #2E2E39 !important;
+}
+
+.board-color-cleanlight#header-quick-access {
+  background: #F1F1F3 !important;
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleanlight#header-quick-access ul.header-quick-access-list li a .viewer,
+.board-color-cleandark#header-quick-access ul.header-quick-access-list li a .viewer {
+  max-width: 400px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+}
+
+.board-color-cleanlight#header-quick-access ul.header-quick-access-list li a .viewer p,
+.board-color-cleandark#header-quick-access ul.header-quick-access-list li a .viewer p {
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.board-color-cleanlight#header-quick-access ul.header-quick-access-list li {
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  margin-right: 10px;
+}
+
+.board-color-cleanlight#header-quick-access ul.header-quick-access-list {
+  display: flex;
+  align-items: center;
+}
+
+.board-color-cleanlight #header-main-bar,
+.board-color-cleanlight#header {
+  background: #F1F1F3 !important;
+  color: rgba(10, 10, 20, 0.85) !important;
+}
+
+.board-color-cleandark #header-main-bar,
+.board-color-cleandark#header {
+  background: #2E2E39 !important;
+  color: #FFFFFF;
+}
+
+.board-color-cleanlight .list-body .open-minicard-composer,
+.board-color-cleandark .list-body .open-minicard-composer {
+  display: none !important;
+}
+
+.board-color-cleanlight .minicard,
+.board-color-cleandark .minicard {
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  padding: 12px;
+}
+
+.board-color-cleanlight .minicard {
+  background: rgba(248, 248, 249, 1);
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleandark .minicard {
+  color: #FFFFFF;
+  background: #23232B;
+}
+
+.board-color-cleanlight .minicard .minicard-details-menu,
+.board-color-cleandark .minicard .minicard-details-menu {
+  font-size: 16px !important;
+}
+
+.board-color-cleanlight .minicard .date,
+.board-color-cleandark .minicard .date,
+.board-color-cleanlight .minicard .end-date,
+.board-color-cleandark .minicard .end-date {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.board-color-cleanlight .minicard .date a,
+.board-color-cleandark .minicard .date a,
+.board-color-cleanlight .minicard .end-date,
+.board-color-cleandark .minicard .end-date,
+.board-color-cleanlight .card-details .card-date,
+.board-color-cleandark .card-details .card-date {
+  padding: 4px 8px 4px 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+}
+
+.board-color-cleanlight .minicard .end-date,
+.board-color-cleandark .minicard .end-date,
+.board-color-cleanlight .minicard .due-date,
+.board-color-cleandark .minicard .due-date,
+.board-color-cleanlight .card-details .card-date,
+.board-color-cleandark .card-details .card-date {
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .minicard .end-date,
+.board-color-cleanlight .minicard .due-date,
+.board-color-cleanlight .card-details .card-date {
+  background: rgba(227, 227, 230, 1);
+  color: rgba(10, 10, 20, 1) !important;
+}
+
+.board-color-cleandark .minicard .end-date,
+.board-color-cleandark .minicard .due-date,
+.board-color-cleandark .card-details .card-date {
+  background: #444455;
+}
+
+.board-color-cleandark .minicard .end-date:hover,
+.board-color-cleandark .minicard .due-date:hover,
+.board-color-cleandark .card-details .card-date:hover {
+  background: rgba(68, 68, 85, 0.73);
+}
+
+.board-color-cleanlight .minicard .end-date:hover,
+.board-color-cleanlight .minicard .due-date:hover,
+.board-color-cleanlight .card-details .card-date:hover {
+  background: rgba(207, 207, 210, 1);
+}
+
+.board-color-cleanlight .minicard .date .current,
+.board-color-cleandark .minicard .date .current,
+.board-color-cleanlight .minicard .current,
+.board-color-cleandark .minicard .current,
+.board-color-cleanlight .card-details .current,
+.board-color-cleandark .card-details .current {
+  background: #009B64;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleandark .minicard .date .current:hover,
+.board-color-cleanlight .minicard .date .current:hover,
+.board-color-cleandark .minicard .current:hover,
+.board-color-cleanlight .minicard .current:hover,
+.board-color-cleandark .card-details .current:hover,
+.board-color-cleanlight .card-details .current:hover {
+  background: rgba(0, 155, 100, 0.73);
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleanlight .minicard .date .due,
+.board-color-cleandark .minicard .date .due,
+.board-color-cleanlight .minicard .due,
+.board-color-cleandark .minicard .due,
+.board-color-cleanlight .card-details .due,
+.board-color-cleandark .card-details .due {
+  background: #CC003A;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleanlight .card-details .due:hover,
+.board-color-cleanlight .minicard .date .due:hover,
+.board-color-cleanlight .minicard .due:hover,
+.board-color-cleandark .minicard .due:hover,
+.board-color-cleandark .minicard .date .due:hover,
+.board-color-cleandark .card-details .due:hover {
+  background: rgba(204, 0, 58, 0.73);
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.board-color-cleanlight .minicard-assignees,
+.board-color-cleandark .minicard-assignees {
+  border-bottom: none !important;
+}
+
+.board-color-cleanlight .minicard-composer-textarea {
+  background: #f8f8f9 !important;
+}
+
+.board-color-cleandark .minicard-composer-textarea {
+  background: #23232B !important;
+}
+
+.board-color-cleanlight .minicard-composer:hover {
+  background: #f8f8f9 !important;
+}
+
+.board-color-cleandark .minicard-composer:hover {
+  background: #23232B !important;
+}
+
+.board-color-cleanlight .minicard .badges .badge.is-finished,
+.board-color-cleandark .minicard .badges .badge.is-finished {
+  background: #009B64 !important;
+  border-radius: 8px;
+}
+
+.board-color-cleanlight .minicard .badges .badge.is-finished .badge-icon {
+  color: #FFFFFF;
+}
+
+.board-color-cleanlight .card-details-item-customfield:has(.checklist-item),
+.board-color-cleandark .card-details-item-customfield:has(.checklist-item) {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.board-color-cleanlight .card-details-item-customfield:has(.checklist-item) div,
+.board-color-cleandark .card-details-item-customfield:has(.checklist-item) div {
+  padding-right: 0 !important;
+}
+
+.board-color-cleanlight .card-details .card-details-items .card-details-item.custom-fields,
+.board-color-cleanlight .card-details .card-details-items .card-details-item.custom-fields {
+  margin-left: auto;
+  flex-grow: 0;
+  border-radius: 12px;
+}
+
+.board-color-cleanlight .card-details-item-customfield:has(.checklist-item) h3,
+.board-color-cleandark .card-details-item-customfield:has(.checklist-item) h3 {
+  width: min-content !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+}
+
+.board-color-cleanlight .new-description .fa,
+.board-color-cleandark .new-description .fa {
+  display: none;
+}
+
+.board-color-cleanlight .card-details-left .viewer p {
+  color: rgba(10, 10, 20, 0.85);
+}
+
+.board-color-cleandark .card-details-left .viewer p {
+  color: #FFFFFF;
+}
+
+.board-color-cleanlight .card-details-left .js-open-inlined-form,
+.board-color-cleandark .card-details-left .js-open-inlined-form {
+  float: right;
+}
+
+.board-color-cleanlight .new-comment .fa,
+.board-color-cleandark .new-comment .fa {
+  display: none;
+}
+
+.board-color-cleanlight .pop-over-list li > a,
+.board-color-cleandark .pop-over-list li > a {
+  font-weight: 500;
+}
+
+.board-color-cleanlight .pop-over-list li > a i,
+.board-color-cleandark .pop-over-list li > a i {
+  margin-right: 6px !important;
+}
+
+.board-color-cleanlight .pop-over .quiet {
+  margin-left: 100px !important;
+}
+
+.board-color-cleandark .minicard:hover:not(.minicard-composer),
+.board-color-cleandark .is-selected .minicard, .draggable-hover-card .minicard {
+  background: #23232B;
 }
