@@ -131,3 +131,7 @@ with [Meteor](https://www.meteor.com).
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
 [discussions]: https://github.com/wekan/wekan/discussions
+
+## One-Click Deployment
+
+[![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploylobe.svg)](https://repocloud.io/details/?app_id=34)
