@@ -15,6 +15,30 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Helm Chart: Add option to set resource limits for initContainer](https://github.com/wekan/charts/pull/33).
+  Thanks to mreichelt-dicos.
+
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/pull/5460).
+  Thanks to dependabot.
+- Added RepoCloud SaaS.
+  [Part 1](https://github.com/wekan/wekan/commit/21d6dfd79090f9885635f55537bd9fa1ef8539e1),
+  [Part 2](https://github.com/wekan/wekan/commit/e663ce038af397f547e8823d61ce5dc2e3cea84d),
+  [Part 3](https://github.com/wekan/wekan.github.io/commit/e9e0550824cdda31daae42df7c497fbd037fd78f).
+  Thanks to RepoCloud.
+
+and fixes the following bugs:
+
+- [Fixes to Clean light and Clean dark themes](https://github.com/wekan/wekan/pull/5458).
+  Thanks to abramchikd.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.51 2024-06-27 WeKan ® release
 
 This release adds the following updates:
