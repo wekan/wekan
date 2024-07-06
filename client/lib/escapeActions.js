@@ -123,6 +123,7 @@ EscapeActions = {
 // the shortcut sould work on textarea and inputs as well.
 Mousetrap.bindGlobal('esc', () => {
   EscapeActions.executeLowest();
+  Sidebar.hide();
 });
 
 // On a left click on the document, we try to exectute one escape action (eg,
