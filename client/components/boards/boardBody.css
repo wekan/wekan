@@ -16,9 +16,6 @@
   transition: margin 0.1s;
   overflow-y: auto;
 }
-.board-wrapper .board-canvas.is-sibling-sidebar-open {
-  margin-right: 248px;
-}
 .board-wrapper .board-canvas .board-overlay {
   position: fixed;
   left: 0;

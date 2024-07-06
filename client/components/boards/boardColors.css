@@ -3288,11 +3288,6 @@ THEME - Clean Light
   color: #FFFFFF;
 }
 
-.board-color-cleanlight .list:first-child,
-.board-color-cleandark .list:first-child {
-  margin-right: -32px;
-}
-
 .board-color-cleanlight .list .list-header .list-header-menu,
 .board-color-cleandark .list .list-header .list-header-menu {
   display: flex;
@@ -3376,7 +3371,6 @@ THEME - Clean Light
 .board-color-cleanlight .swimlane,
 .board-color-cleandark .swimlane {
   background: none;
-  gap: 32px;
 }
 
 .board-color-cleanlight .swimlane-height-apply,
