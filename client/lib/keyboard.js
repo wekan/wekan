@@ -159,7 +159,7 @@ Mousetrap.bind('space', evt => {
   }
 });
 
-Mousetrap.bind('c', evt => {
+Mousetrap.bind('-', evt => {
   const cardId = getSelectedCardId();
   if (!cardId) {
     return;
@@ -222,7 +222,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-assign-self',
     },
     {
-      keys: ['c'],
+      keys: ['-'],
       action: 'archive-card',
     },
     {
