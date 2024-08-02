@@ -24,7 +24,14 @@ This release adds the following new features:
 
 and adds the following updates:
 
-- [Updated dependencies](https://github.com/wekan/wekan/pull/5460).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5460),
+  [Part 2](https://github.com/wekan/wekan/pull/5464),
+  [Part 3](https://github.com/wekan/wekan/pull/5460),
+  [Part 4](https://github.com/wekan/wekan/pull/5469),
+  [Part 5](https://github.com/wekan/wekan/pull/5470),
+  [Part 6](https://github.com/wekan/wekan/pull/5471),
+  [Part 7](https://github.com/wekan/wekan/pull/5473).
   Thanks to dependabot.
 - Added RepoCloud SaaS.
   [Part 1](https://github.com/wekan/wekan/commit/21d6dfd79090f9885635f55537bd9fa1ef8539e1),
@@ -36,6 +43,10 @@ and fixes the following bugs:
 
 - [Fixes to Clean light and Clean dark themes](https://github.com/wekan/wekan/pull/5458).
   Thanks to abramchikd.
+- [Activities, adding back "created at" field](https://github.com/wekan/wekan/pull/5476).
+  Thanks to mfilser.
+- [Fix typos at attachments code](https://github.com/wekan/wekan/commit/de3bc9cb4d20590c45ff72ef7749d830ea3fc16c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
