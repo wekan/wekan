@@ -23,6 +23,8 @@ This release adds the following new features:
   Thanks to mreichelt-dicos.
 - [Helm Chart: Fixes for mongodb persistence. Please test is this correct](https://github.com/wekan/charts/commit/7efb071dd91d76c3971e1865fd18f9d43d8c6891).
   Thanks to emoritzx.
+- [Helm Chart: Added info about rarely used running WeKan at subpath](https://github.com/wekan/charts/commit/7d4176c7b328c5477c1fa29a323574aac78616a9).
+  Thanks to emoritzx.
 
 and adds the following updates:
 
