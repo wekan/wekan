@@ -21,6 +21,8 @@ This release adds the following new features:
 
 - [Helm Chart: Add option to set resource limits for initContainer](https://github.com/wekan/charts/pull/33).
   Thanks to mreichelt-dicos.
+- [Helm Chart: Fixes for mongodb persistence. Please test is this correct](https://github.com/wekan/charts/commit/7efb071dd91d76c3971e1865fd18f9d43d8c6891).
+  Thanks to emoritzx.
 
 and adds the following updates:
 
