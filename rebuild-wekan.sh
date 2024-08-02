@@ -95,12 +95,12 @@ do
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		rm -rf .build/bundle node_modules .meteor/local .build
-		meteor npm install
+		meteor npm install --production
 		meteor build .build --directory --platforms=web.browser
 		rm -rf .build/bundle/programs/web.browser.legacy
-		(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install)
+		(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install --production)
                 (cd .build/bundle/programs/server/node_modules/fibers && node build.js)
-		(cd .build/bundle/programs/server/npm/node_modules/meteor/accounts-password && meteor npm remove bcrypt && meteor npm install bcrypt)
+		(cd .build/bundle/programs/server/npm/node_modules/meteor/accounts-password && meteor npm remove bcrypt && meteor npm install bcrypt --production)
 		# Cleanup
 		cd .build/bundle
 		find . -type d -name '*-garbage*' | xargs rm -rf

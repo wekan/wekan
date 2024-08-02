@@ -1,4 +1,4 @@
-import ldapjs from 'ldapjs';
+import ldapjs from '@wekanteam/ldapjs';
 import { Log } from 'meteor/logging';
 
 // copied from https://github.com/ldapjs/node-ldapjs/blob/a113953e0d91211eb945d2a3952c84b7af6de41c/lib/filters/index.js#L167

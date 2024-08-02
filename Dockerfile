@@ -202,7 +202,7 @@ ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 mkdir -p "/opt/nodejs/lib/node_modules/fibers/.node-gyp" "/root/.node-gyp/${NODE_VERSION} /home/wekan/.config"
 
 # Install node dependencies
-npm install -g npm@${NPM_VERSION}
+npm install -g npm@${NPM_VERSION} --production
 chown --recursive wekan:wekan /home/wekan/.config
 
 # Install Meteor
@@ -222,11 +222,11 @@ cd /home/wekan/app
 mkdir -p /home/wekan/.npm
 chown --recursive wekan:wekan /home/wekan/.npm
 chmod u+w *.json
-gosu wekan:wekan meteor npm install
+gosu wekan:wekan meteor npm install --production
 gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build
 cd /home/wekan/app_build/bundle/programs/server/
 chmod u+w *.json
-gosu wekan:wekan meteor npm install
+gosu wekan:wekan meteor npm install --production
 cd node_modules/fibers
 node build.js
 cd ../..
