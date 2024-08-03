@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v7.52
+  version: v7.53
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3436,9 +3436,6 @@ definitions:
         description: |
            poker estimation value
         type: number
-    required:
-      - question
-      - allowNonBoardMembers
   CardsCustomfields:
     type: object
   ChecklistItems:
