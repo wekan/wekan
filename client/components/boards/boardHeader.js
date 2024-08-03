@@ -6,37 +6,6 @@ const DOWNCLS = 'fa-sort-down';
 const UPCLS = 'fa-sort-up';
 */
 const sortCardsBy = new ReactiveVar('');
-Template.boardMenuPopup.events({
-  'click .js-rename-board': Popup.open('boardChangeTitle'),
-  'click .js-custom-fields'() {
-    Sidebar.setView('customFields');
-    Popup.back();
-  },
-  'click .js-open-archives'() {
-    Sidebar.setView('archives');
-    Popup.back();
-  },
-  'click .js-change-board-color': Popup.open('boardChangeColor'),
-  'click .js-change-language': Popup.open('changeLanguage'),
-  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
-    const currentBoard = Utils.getCurrentBoard();
-    currentBoard.archive();
-    // XXX We should have some kind of notification on top of the page to
-    // confirm that the board was successfully archived.
-    FlowRouter.go('home');
-  }),
-  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
-    const currentBoard = Utils.getCurrentBoard();
-    Popup.back();
-    Boards.remove(currentBoard._id);
-    FlowRouter.go('home');
-  }),
-  'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
-  'click .js-import-board': Popup.open('chooseBoardSource'),
-  'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
-  'click .js-card-settings': Popup.open('boardCardSettings'),
-  'click .js-minicard-settings': Popup.open('boardMinicardSettings'),
-});
 
 Template.boardChangeTitlePopup.events({
   submit(event, templateInstance) {
