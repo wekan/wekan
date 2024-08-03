@@ -44,6 +44,8 @@ and adds the following updates:
   Thanks to RepoCloud.
 - [Updated WeKan app webmanifest](https://github.com/wekan/wekan/commit/745618626535743938b9d2e8c88afe6345807a85).
   Thanks to xet7.
+- [Revert forking of ldapjs](https://github.com/wekan/wekan/commit/c89f3ba3da6512169e033d76377a9190b35a92d2).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
