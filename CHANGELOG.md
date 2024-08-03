@@ -39,6 +39,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Changing card color now closes the popup and doesn't refresh the whole board page](https://github.com/wekan/wekan/pull/5480).
   Thanks to mfilser.
+- [Fix dragscroll package name](https://github.com/wekan/wekan/commit/45674806d78fddb8a3b8a75890e5059cc1a680ea).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
