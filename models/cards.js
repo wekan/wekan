@@ -351,7 +351,7 @@ Cards.attachSchema(
     },
     'poker.question': {
       type: Boolean,
-      defaultValue: false,
+      optional: true,
     },
     'poker.one': {
       /**
@@ -359,7 +359,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.two': {
       /**
@@ -367,7 +366,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.three': {
       /**
@@ -375,7 +373,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.five': {
       /**
@@ -383,7 +380,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.eight': {
       /**
@@ -391,7 +387,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.thirteen': {
       /**
@@ -399,7 +394,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.twenty': {
       /**
@@ -407,7 +401,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.forty': {
       /**
@@ -415,7 +408,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.oneHundred': {
       /**
@@ -423,7 +415,6 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.unsure': {
       /**
@@ -431,16 +422,14 @@ Cards.attachSchema(
        */
       type: [String],
       optional: true,
-      defaultValue: [],
     },
     'poker.end': {
       type: Date,
       optional: true,
-      defaultValue: null,
     },
     'poker.allowNonBoardMembers': {
       type: Boolean,
-      defaultValue: false,
+      optional: true,
     },
     'poker.estimation': {
       /**
