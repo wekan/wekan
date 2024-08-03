@@ -42,6 +42,8 @@ and adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/e663ce038af397f547e8823d61ce5dc2e3cea84d),
   [Part 3](https://github.com/wekan/wekan.github.io/commit/e9e0550824cdda31daae42df7c497fbd037fd78f).
   Thanks to RepoCloud.
+- [Updated WeKan app webmanifest](https://github.com/wekan/wekan/commit/745618626535743938b9d2e8c88afe6345807a85).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
