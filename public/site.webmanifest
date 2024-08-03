@@ -3,6 +3,11 @@
   "short_name": "Wekan",
   "icons": [
     {
+      "src": "svg-etc/wekan-logo-512.svg",
+      "sizes": "any",
+      "type": "image/svg"
+    },
+    {
       "src": "android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
