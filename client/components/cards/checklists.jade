@@ -22,7 +22,7 @@ template(name="checklists")
         i.fa.fa-plus
 
 template(name="checklistDetail")
-  .js-checklist.checklist
+  .js-checklist.checklist.nodragscroll
     +inlinedForm(classNames="js-edit-checklist-title" checklist = checklist)
       +editChecklistItemForm(checklist = checklist)
     else

@@ -8,8 +8,8 @@ LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 # - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
 #   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
 
-ENV BUILD_DEPS="apt-utils gnupg gosu wget bzip2 g++ iproute2 apt-transport-https libarchive-tools git"
-ENV DEV_DEPS="curl python3 ca-certificates build-essential"
+ENV BUILD_DEPS="apt-utils gnupg gosu wget bzip2 g++ iproute2 apt-transport-https libarchive-tools"
+ENV DEV_DEPS="curl python3 ca-certificates build-essential git"
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV \
