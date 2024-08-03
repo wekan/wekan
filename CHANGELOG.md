@@ -43,6 +43,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix dragscroll package name](https://github.com/wekan/wekan/commit/45674806d78fddb8a3b8a75890e5059cc1a680ea).
   Thanks to xet7.
+- [Reducing card size in database if no planning poker was started](https://github.com/wekan/wekan/pull/5481).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
