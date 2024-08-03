@@ -846,13 +846,15 @@ BlazeComponent.extendComponent({
         'click .js-palette-color'() {
           this.currentColor.set(this.currentData().color);
         },
-        'click .js-submit'() {
+        'click .js-submit'(event) {
+          event.preventDefault();
           this.currentCard.setColor(this.currentColor.get());
-          Popup.close();
+          Popup.back();
         },
-        'click .js-remove-color'() {
+        'click .js-remove-color'(event) {
+          event.preventDefault();
           this.currentCard.setColor(null);
-          Popup.close();
+          Popup.back();
         },
       },
     ];
