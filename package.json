@@ -17,9 +17,10 @@
     "sinon": "^13.0.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.24.7",
+    "@babel/runtime": "^7.25.0",
     "@mapbox/node-pre-gyp": "^1.0.10",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
+    "@wekanteam/dragscroll": "github:wekan/dragscroll",
     "@wekanteam/exceljs": "github:wekan/exceljs",
     "@wekanteam/html-to-markdown": "^1.0.2",
     "@wekanteam/meteor-globals": "^1.1.4",
@@ -27,8 +28,7 @@
     "ajv": "^6.12.6",
     "bcryptjs": "^2.4.3",
     "bson": "^4.5.2",
-    "dompurify": "^2.5.5",
-    "dragscroll": "git+https://github.com/mfilser/dragscroll.git#9d1025cc168b314430566d405135d0c17f774944",
+    "dompurify": "^2.5.6",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
     "fibers": "^5.0.3",
@@ -51,7 +51,7 @@
     "page": "^1.11.6",
     "papaparse": "^5.3.1",
     "pretty-ms": "^7.0.1",
-    "qs": "^6.12.1",
+    "qs": "^6.13.0",
     "simpl-schema": "^3.4.6",
     "source-map-support": "^0.5.20",
     "uuid": "^8.3.2"
