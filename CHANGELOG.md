@@ -30,6 +30,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/3f9ae57144dc9befd674c784896d68b5db9df146).
   Thanks to developers of dependencies.
+- [Copied changes from wiki to docs](https://github.com/wekan/wekan/commit/aaca60b6760cc84b56a24fc15c93f23b4a34f06e).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
