@@ -17,12 +17,28 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added Dragscroll to scroll the board](https://github.com/wekan/wekan/pull/5477).
+  Click on an empty space in the board, hold the left mouse and move left and right
+  to scroll the board easily.
+  Thanks to mfilser.
+
+and adds the following updates:
 
 - [Updated release script: New install webpage location](https://github.com/wekan/wekan/commit/5e639a7c2d6dc1182ba95e44875ac8a6798a62be).
   Thanks to xet7.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/3f9ae57144dc9befd674c784896d68b5db9df146).
   Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Board Menu Popup's were opened twice because of 2 same event creation](https://github.com/wekan/wekan/pull/5478).
+  Thanks to mfilser.
+- [Fixing of "mode is undefined" on first activity component creation](https://github.com/wekan/wekan/pull/5479).
+  Thanks to mfilser.
+- [Changing card color now closes the popup and doesn't refresh the whole board page](https://github.com/wekan/wekan/pull/5480).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
