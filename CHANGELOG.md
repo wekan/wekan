@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Helm Chart: Add Support for Overriding Image Registry in Airgapped Environments](https://github.com/wekan/charts/pull/35).
+  Thanks to geilername.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.53 2024-08-03 WeKan ® release
 
 This release adds the following new features:
