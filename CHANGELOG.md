@@ -50,6 +50,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Editor, Bugfix, copy text is now at each editor (textarea) again](https://github.com/wekan/wekan/pull/5495).
   Thanks to mfilser.
+- [Bugfix, Cards Count on mobile view was missing](https://github.com/wekan/wekan/pull/5496).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
