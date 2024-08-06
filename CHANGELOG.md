@@ -36,6 +36,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Remove attachment storage name from attachment list](https://github.com/wekan/wekan/pull/5488).
   Thanks to mfilser.
+- [Attachment popup back was broken since new attachment viewer, now fixed](https://github.com/wekan/wekan/pull/5489).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
