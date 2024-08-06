@@ -23,6 +23,8 @@ This release adds the following new features:
   Thanks to geilername.
 - [PWA, move to standalone (standard) to display the status bar](https://github.com/wekan/wekan/pull/5484)
   Thanks to mfilser.
+- [Added info how with Caddy webserver config, PWA and Android app override icons, showing toolbars, etc](https://github.com/wekan/wekan/commit/55fc342f6d90d8e30b70a8903ecead1c4370bd89).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
