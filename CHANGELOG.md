@@ -34,6 +34,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Little opacity to minicards to see the background image a little bit](https://github.com/wekan/wekan/pull/5487).
   Thanks to mfilser.
+- [Remove attachment storage name from attachment list](https://github.com/wekan/wekan/pull/5488).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
