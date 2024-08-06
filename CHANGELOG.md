@@ -46,6 +46,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Board view, first column a bit smaller to save screen space](https://github.com/wekan/wekan/pull/5493).
   Thanks to mfilser.
+- [Minicard, show creator, defaultValue of schema and other code is now the same](https://github.com/wekan/wekan/pull/5494).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
