@@ -44,6 +44,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Sidebar xmark icon, add padding and background color](https://github.com/wekan/wekan/pull/5492).
   Thanks to mfilser.
+- [Board view, first column a bit smaller to save screen space](https://github.com/wekan/wekan/pull/5493).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
