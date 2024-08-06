@@ -42,6 +42,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Fix empty parentId in cards](https://github.com/wekan/wekan/pull/5491).
   Thanks to mfilser.
+- [Sidebar xmark icon, add padding and background color](https://github.com/wekan/wekan/pull/5492).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
