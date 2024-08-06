@@ -24,6 +24,11 @@ This release adds the following new features:
 - [PWA, move to standalone (standard) to display the status bar](https://github.com/wekan/wekan/pull/5484)
   Thanks to mfilser.
 
+and fixes the following bugs:
+
+- [Don't set background image in .board-canvas too](https://github.com/wekan/wekan/pull/5485).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.53 2024-08-03 WeKan ® release
