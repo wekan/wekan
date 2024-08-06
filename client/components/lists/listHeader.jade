@@ -28,6 +28,8 @@ template(name="listHeader")
            |&nbsp;(
            span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
            |/#{wipLimit.value})
+        if showCardsCountForList cards.length
+          span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
       unless isMiniScreen
         div(class="{{#if collapsed}}list-rotated{{/if}}")
           h2.list-header-name(
