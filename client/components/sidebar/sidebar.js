@@ -913,19 +913,11 @@ BlazeComponent.extendComponent({
   },
 
   allowsCreator() {
-    return (
-      this.currentBoard.allowsCreator === null ||
-      this.currentBoard.allowsCreator === undefined ||
-      this.currentBoard.allowsCreator
-    );
+    return this.currentBoard.allowsCreator ?? false;
   },
 
   allowsCreatorOnMinicard() {
-    return (
-      this.currentBoard.allowsCreatorOnMinicard === null ||
-      this.currentBoard.allowsCreatorOnMinicard === undefined ||
-      this.currentBoard.allowsCreatorOnMinicard
-    );
+    return this.currentBoard.allowsCreatorOnMinicard ?? false;
   },
 
   allowsMembers() {
