@@ -28,6 +28,8 @@ and fixes the following bugs:
 
 - [Don't set background image in .board-canvas too](https://github.com/wekan/wekan/pull/5485).
   Thanks to mfilser.
+- [Bugfix, variable "color" didn't exist](https://github.com/wekan/wekan/pull/5486).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
