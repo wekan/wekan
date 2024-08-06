@@ -48,6 +48,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Minicard, show creator, defaultValue of schema and other code is now the same](https://github.com/wekan/wekan/pull/5494).
   Thanks to mfilser.
+- [Editor, Bugfix, copy text is now at each editor (textarea) again](https://github.com/wekan/wekan/pull/5495).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
