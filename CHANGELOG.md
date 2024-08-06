@@ -52,6 +52,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Bugfix, Cards Count on mobile view was missing](https://github.com/wekan/wekan/pull/5496).
   Thanks to mfilser.
+- [ListHeader, simpler code logic at collapsed if conditions](https://github.com/wekan/wekan/pull/5497).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
