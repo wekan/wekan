@@ -38,6 +38,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Attachment popup back was broken since new attachment viewer, now fixed](https://github.com/wekan/wekan/pull/5489).
   Thanks to mfilser.
+- [Change Meteor.user() to ReactiveCache.getCurrentUser()](https://github.com/wekan/wekan/pull/5490).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
