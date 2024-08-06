@@ -6,8 +6,8 @@ Utils = {
     if (currentBoard.backgroundImageURL !== undefined) {
       $(".board-wrapper").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
-    } else if (currentBoard.color !== undefined) {
-      currentBoard.setColor(currentBoard.color);
+    } else if (currentBoard["background-color"]) {
+      currentBoard.setColor(currentBoard["background-color"]);
     }
   },
   /** returns the current board id
