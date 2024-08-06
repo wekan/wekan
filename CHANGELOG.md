@@ -40,6 +40,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Change Meteor.user() to ReactiveCache.getCurrentUser()](https://github.com/wekan/wekan/pull/5490).
   Thanks to mfilser.
+- [Fix empty parentId in cards](https://github.com/wekan/wekan/pull/5491).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
