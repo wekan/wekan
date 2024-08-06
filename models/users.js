@@ -687,14 +687,11 @@ Users.helpers({
     return '';
   },
   orgIdsUserBelongs() {
+    let ret = '';
     if (this.orgs) {
-      return this.orgs
-        .map(function (org) {
-          return org.orgId;
-        })
-        .join(',');
+      ret = this.orgs.map(org => org.orgId).join(',');
     }
-    return '';
+    return ret;
   },
   teamsUserBelongs() {
     if (this.teams) {
@@ -708,14 +705,11 @@ Users.helpers({
     return '';
   },
   teamIdsUserBelongs() {
+    let ret = '';
     if (this.teams) {
-      return this.teams
-        .map(function (team) {
-          return team.teamId;
-        })
-        .join(',');
+      ret = this.teams.map(team => team.teamId).join(',');
     }
-    return '';
+    return ret;
   },
   boards() {
     return Boards.userBoards(this._id, null, {}, { sort: { sort: 1 } });

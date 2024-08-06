@@ -151,8 +151,8 @@ BlazeComponent.extendComponent({
       }
       const currUser = ReactiveCache.getCurrentUser();
 
-      let orgIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
-      if (orgIdsUserBelongs && orgIdsUserBelongs != '') {
+      let orgIdsUserBelongs = currUser?.orgIdsUserBelongs() || '';
+      if (orgIdsUserBelongs) {
         let orgsIds = orgIdsUserBelongs.split(',');
         // for(let i = 0; i < orgsIds.length; i++){
         //   query.$and[2].$or.push({'orgs.orgId': orgsIds[i]});
@@ -162,8 +162,8 @@ BlazeComponent.extendComponent({
         query.$and[2].$or.push({ 'orgs.orgId': { $in: orgsIds } });
       }
 
-      let teamIdsUserBelongs = currUser !== undefined && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
-      if (teamIdsUserBelongs && teamIdsUserBelongs != '') {
+      let teamIdsUserBelongs = currUser?.teamIdsUserBelongs() || '';
+      if (teamIdsUserBelongs) {
         let teamsIds = teamIdsUserBelongs.split(',');
         // for(let i = 0; i < teamsIds.length; i++){
         //   query.$or[2].$or.push({'teams.teamId': teamsIds[i]});
@@ -199,15 +199,12 @@ BlazeComponent.extendComponent({
   },
 
   boardMembers(boardId) {
-    let boardMembers = [];
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     const lists = ReactiveCache.getBoard(boardId)
-    let members = lists.members
-    members.forEach(member => {
-      boardMembers.push(member.userId);
-    });
-    */
+    const boardMembers = lists?.members.map(member => member.userId);
     return boardMembers;
+    */
+    return [];
   },
 
   isStarred() {
