@@ -224,7 +224,7 @@ BlazeComponent.extendComponent({
   swimlaneHeightValue() {
     const swimlane = this.currentData();
     const board = swimlane.boardId;
-    return Meteor.user().getSwimlaneHeight(board, swimlane._id);
+    return ReactiveCache.getCurrentUser().getSwimlaneHeight(board, swimlane._id);
   },
 
   events() {

@@ -1248,14 +1248,14 @@ Meteor.methods({
     check(boardId, String);
     check(listId, String);
     check(width, Number);
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.setListWidth(boardId, listId, width);
   },
   applySwimlaneHeight(boardId, swimlaneId, height) {
     check(boardId, String);
     check(swimlaneId, String);
     check(height, Number);
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.setSwimlaneHeight(boardId, swimlaneId, height);
   },
 });

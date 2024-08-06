@@ -128,9 +128,6 @@ ReactiveCacheServer = {
     return ret;
   },
   getUsers(selector = {}, options = {}, getQuery = false) {
-  // getUsers(selector, options, getQuery) {
-    // let ret = Users.find(undefined, {});
-    // console.log("getUser count: ", ret.count())
     let ret = Users.find(selector, options);
     if (getQuery !== true) {
       ret = ret.fetch();
