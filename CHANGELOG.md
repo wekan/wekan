@@ -54,6 +54,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [ListHeader, simpler code logic at collapsed if conditions](https://github.com/wekan/wekan/pull/5497).
   Thanks to mfilser.
+- [Bugfix, edit description didn't work if it was clicked](https://github.com/wekan/wekan/pull/5498).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
