@@ -21,6 +21,8 @@ This release adds the following new features:
 
 - [Helm Chart: Add Support for Overriding Image Registry in Airgapped Environments](https://github.com/wekan/charts/pull/35).
   Thanks to geilername.
+- [PWA, move to standalone (standard) to display the status bar](https://github.com/wekan/wekan/pull/5484)
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
