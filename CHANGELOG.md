@@ -32,6 +32,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Bugfix, variable "color" didn't exist](https://github.com/wekan/wekan/pull/5486).
   Thanks to mfilser.
+- [Little opacity to minicards to see the background image a little bit](https://github.com/wekan/wekan/pull/5487).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
