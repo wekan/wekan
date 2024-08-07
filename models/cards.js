@@ -477,9 +477,9 @@ Cards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
-    hideCheckedChecklistItems: {
+    hideFinishedChecklistIfItemsAreHidden: {
       /**
-       * hide the checked checklist-items?
+       * hide completed checklist?
        */
       type: Boolean,
       optional: true,
@@ -2186,10 +2186,10 @@ Cards.mutations({
     };
   },
 
-  toggleHideCheckedChecklistItems() {
+  toggleHideFinishedChecklist() {
     return {
       $set: {
-        hideCheckedChecklistItems: !this.hideCheckedChecklistItems,
+        hideFinishedChecklistIfItemsAreHidden: !this.hideFinishedChecklistIfItemsAreHidden,
       }
     };
   },

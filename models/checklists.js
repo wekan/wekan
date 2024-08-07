@@ -63,6 +63,13 @@ Checklists.attachSchema(
       type: Number,
       decimal: true,
     },
+    hideCheckedChecklistItems: {
+      /**
+       * hide the checked checklist-items?
+       */
+      type: Boolean,
+      optional: true,
+    },
   }),
 );
 
@@ -118,9 +125,9 @@ Checklists.helpers({
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
-  showChecklist(hideCheckedChecklistItems) {
+  showChecklist(hideFinishedChecklistIfItemsAreHidden) {
     let ret = true;
-    if (this.isFinished() && hideCheckedChecklistItems === true) {
+    if (this.isFinished() && hideFinishedChecklistIfItemsAreHidden === true && (this.hideCheckedChecklistItems === true || this.hideAllChecklistItems)) {
       ret = false;
     }
     return ret;
@@ -196,6 +203,13 @@ Checklists.mutations({
       $set: {
         cardId: newCardId,
       },
+    };
+  },
+  toggleHideCheckedChecklistItems() {
+    return {
+      $set: {
+        hideCheckedChecklistItems: !this.hideCheckedChecklistItems,
+      }
     };
   },
 });

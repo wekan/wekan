@@ -958,6 +958,7 @@
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
   "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
   "hide-checked-items": "Hide checked items",
+  "hide-finished-checklist": "Hide finished checklist",
   "task": "Task",
   "create-task": "Create Task",
   "ok": "OK",
@@ -1251,5 +1252,6 @@
   "convert-to-markdown": "Convert to markdown",
   "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments",
   "collapse": "Collapse",
-  "uncollapse": "Uncollapse"
+  "uncollapse": "Uncollapse",
+  "hideCheckedChecklistItems": "Hide checked checklist items"
 }
