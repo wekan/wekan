@@ -56,6 +56,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Bugfix, edit description didn't work if it was clicked](https://github.com/wekan/wekan/pull/5498).
   Thanks to mfilser.
+- [Fix LDAP login fails after upgrade](https://github.com/wekan/wekan/commit/a4169f3da773e4fd961acd0266260085a753cdab).
+  Thanks to juppees and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
