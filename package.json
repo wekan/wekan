@@ -39,7 +39,7 @@
     "jquery": "^3.7.1",
     "jquery-ui": "^1.13.3",
     "jszip": "^3.7.1",
-    "ldapjs": "^3.0.7",
+    "ldapjs": "^2.3.3",
     "markdown-it": "^12.3.2",
     "markdown-it-emoji": "^2.0.0",
     "markdown-it-mathjax3": "^4.3.2",
