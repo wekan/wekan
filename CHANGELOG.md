@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix board backgrounds not showing correctly after v7.54](https://github.com/wekan/wekan/pull/5501).
+  Thanks to walster001.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.54 2024-08-07 WeKan ® release
 
 This release adds the following new features:
