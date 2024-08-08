@@ -718,7 +718,13 @@
 .board-color-dark#header-quick-access ul li.current {
   border-bottom: 4px solid #476483;
 }
-.board-color-dark .ui-sortable,
+
+/* Board Wrapper background fix for dark theme */
+.board-color-dark.board-wrapper {
+    background-color: #2c3e50;
+}
+
+
 .board-color-dark .swimlane,
 .board-color-dark .swimlane >.swimlane-header-wrap,
 .board-color-dark .swimlane >.list.js-list,
@@ -887,7 +893,7 @@
 .board-color-relax#header-quick-access ul li.current {
   border-bottom: 4px solid #3dd37e;
 }
-.board-color-relax .ui-sortable {
+.board-color-relax.board-wrapper {
   background-color: #a7e366;
 }
 .board-color-relax .list-header {
@@ -1054,7 +1060,7 @@
 .board-color-clearblue .toggle-switch:checked ~ .toggle-label:after {
   background-color: #197ddc;
 }
-.board-color-clearblue .board-canvas {
+.board-color-clearblue.board-wrapper {
   background: linear-gradient(135deg, #499bea 0%, #00aecc 100%);
 }
 .board-color-clearblue .swimlane {
@@ -1302,7 +1308,7 @@
 .board-color-natural#header-quick-access {
   background-color: #2d392b;
 }
-.board-color-natural .ui-sortable {
+.board-color-natural.board-wrapper {
   background-color: #dedede;
 }
 .board-color-natural .swimlane .swimlane-header-wrap {
@@ -1433,7 +1439,7 @@
   height: 21px;
   background: #f7f7f7;
 }
-.board-color-modern .board-canvas {
+.board-color-modern.board-wrapper {
   background: #f5f5f5;
 }
 .board-color-modern .swimlane {
@@ -1731,7 +1737,7 @@
   line-height: 0.8em;
   padding-top: 10px;
 }
-.board-color-moderndark .board-canvas {
+.board-color-moderndark.board-wrapper {
   background: #2a2a2a;
 }
 .board-color-moderndark .swimlane .swimlane-header-wrap {
@@ -2110,7 +2116,7 @@
   color: #fff !important;
 }
 */
-.board-color-exodark .board-canvas {
+.board-color-exodark.board-wrapper {
   background: #222;
   /* font-family: Poppins; */
 }
@@ -2252,10 +2258,6 @@
   color: #fff;
 }
 
-.board-color-cleandark {
-  background: #0A0A14
-}
-
 .board-color-cleandark#header-quick-access {
   background: #23232B;
 }
@@ -2311,7 +2313,7 @@
   color: rgba(255, 255, 255, 1);
 }
 
-.board-color-cleandark .board-canvas {
+.board-color-cleandark.board-wrapper {
   background: #0A0A14;
 }
 
@@ -2907,10 +2909,6 @@
   margin-top: 3px;
 }
 
-.board-color-cleanlight {
-  background: #E0E0E0;
-}
-
 .board-color-cleanlight#header-quick-access {
   background: #f8f8f9;
   color: rgba(10, 10, 20, 0.85);
@@ -2995,7 +2993,7 @@
   color: rgba(10, 10, 20, 1);
 }
 
-.board-color-cleanlight .board-canvas {
+.board-color-cleanlight.board-wrapper {
   background: #FFFFFF;
 }
 
