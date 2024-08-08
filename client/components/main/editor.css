@@ -2,15 +2,15 @@
 .inlined-form a.fa.fa-brands.fa-markdown {
   float: right;
   position: absolute;
-  top: -20px;
+  top: -10px;
   right: 60px;
 }
 .new-comment a.fa.fa-copy,
 .inlined-form a.fa.fa-copy {
   float: right;
-  position: absolute;
-  top: -20px;
-  right: 6px;
+  position: relative;
+  top: -10px;
+  right: 5px;
 }
 .js-inlined-form.viewer.btn-sm {
   position: absolute;

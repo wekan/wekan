@@ -15,7 +15,131 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.54 2024-08-07 WeKan ® release
+
+This release adds the following new features:
+
+- [Helm Chart: Add Support for Overriding Image Registry in Airgapped Environments](https://github.com/wekan/charts/pull/35).
+  Thanks to geilername.
+- [PWA, move to standalone (standard) to display the status bar](https://github.com/wekan/wekan/pull/5484)
+  Thanks to mfilser.
+- [Added info how with Caddy webserver config, PWA and Android app override icons, showing toolbars, etc](https://github.com/wekan/wekan/commit/55fc342f6d90d8e30b70a8903ecead1c4370bd89).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Don't set background image in .board-canvas too](https://github.com/wekan/wekan/pull/5485).
+  Thanks to mfilser.
+- [Bugfix, variable "color" didn't exist](https://github.com/wekan/wekan/pull/5486).
+  Thanks to mfilser.
+- [Little opacity to minicards to see the background image a little bit](https://github.com/wekan/wekan/pull/5487).
+  Thanks to mfilser.
+- [Remove attachment storage name from attachment list](https://github.com/wekan/wekan/pull/5488).
+  Thanks to mfilser.
+- [Attachment popup back was broken since new attachment viewer, now fixed](https://github.com/wekan/wekan/pull/5489).
+  Thanks to mfilser.
+- [Change Meteor.user() to ReactiveCache.getCurrentUser()](https://github.com/wekan/wekan/pull/5490).
+  Thanks to mfilser.
+- [Fix empty parentId in cards](https://github.com/wekan/wekan/pull/5491).
+  Thanks to mfilser.
+- [Sidebar xmark icon, add padding and background color](https://github.com/wekan/wekan/pull/5492).
+  Thanks to mfilser.
+- [Board view, first column a bit smaller to save screen space](https://github.com/wekan/wekan/pull/5493).
+  Thanks to mfilser.
+- [Minicard, show creator, defaultValue of schema and other code is now the same](https://github.com/wekan/wekan/pull/5494).
+  Thanks to mfilser.
+- [Editor, Bugfix, copy text is now at each editor (textarea) again](https://github.com/wekan/wekan/pull/5495).
+  Thanks to mfilser.
+- [Bugfix, Cards Count on mobile view was missing](https://github.com/wekan/wekan/pull/5496).
+  Thanks to mfilser.
+- [ListHeader, simpler code logic at collapsed if conditions](https://github.com/wekan/wekan/pull/5497).
+  Thanks to mfilser.
+- [Bugfix, edit description didn't work if it was clicked](https://github.com/wekan/wekan/pull/5498).
+  Thanks to mfilser.
+- [Fix LDAP login fails after upgrade](https://github.com/wekan/wekan/commit/a4169f3da773e4fd961acd0266260085a753cdab).
+  Thanks to juppees and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.53 2024-08-03 WeKan ® release
+
+This release adds the following new features:
+
+- [Added Dragscroll to scroll the board](https://github.com/wekan/wekan/pull/5477).
+  Click on an empty space in the board, hold the left mouse and move left and right
+  to scroll the board easily.
+  Thanks to mfilser.
+
+and adds the following updates:
+
+- [Updated release script: New install webpage location](https://github.com/wekan/wekan/commit/5e639a7c2d6dc1182ba95e44875ac8a6798a62be).
+  Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/3f9ae57144dc9befd674c784896d68b5db9df146).
+  Thanks to developers of dependencies.
+- [Copied changes from wiki to docs](https://github.com/wekan/wekan/commit/aaca60b6760cc84b56a24fc15c93f23b4a34f06e).
+  Thanks to xet7.
+- [Updated Snap Candidate to MongoDB 6.0.16](https://github.com/wekan/wekan/commit/1af1844f37d17f9f54ca358ccf0f44eed1dfbef4).
+  Thanks to MongoDB developers.
+
+and fixes the following bugs:
+
+- [Board Menu Popup's were opened twice because of 2 same event creation](https://github.com/wekan/wekan/pull/5478).
+  Thanks to mfilser.
+- [Fixing of "mode is undefined" on first activity component creation](https://github.com/wekan/wekan/pull/5479).
+  Thanks to mfilser.
+- [Changing card color now closes the popup and doesn't refresh the whole board page](https://github.com/wekan/wekan/pull/5480).
+  Thanks to mfilser.
+- [Fix dragscroll package name](https://github.com/wekan/wekan/commit/45674806d78fddb8a3b8a75890e5059cc1a680ea).
+  Thanks to xet7.
+- [Reducing card size in database if no planning poker was started](https://github.com/wekan/wekan/pull/5481).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.52 2024-08-03 WeKan ® release
+
+This release adds the following new features:
+
+- [Helm Chart: Add option to set resource limits for initContainer](https://github.com/wekan/charts/pull/33).
+  Thanks to mreichelt-dicos.
+- [Helm Chart: Fixes for mongodb persistence. Please test is this correct](https://github.com/wekan/charts/commit/7efb071dd91d76c3971e1865fd18f9d43d8c6891).
+  Thanks to emoritzx.
+- [Helm Chart: Added info about rarely used running WeKan at subpath](https://github.com/wekan/charts/commit/7d4176c7b328c5477c1fa29a323574aac78616a9).
+  Thanks to emoritzx.
+
+and adds the following updates:
+
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5460),
+  [Part 2](https://github.com/wekan/wekan/pull/5464),
+  [Part 3](https://github.com/wekan/wekan/pull/5460),
+  [Part 4](https://github.com/wekan/wekan/pull/5469),
+  [Part 5](https://github.com/wekan/wekan/pull/5470),
+  [Part 6](https://github.com/wekan/wekan/pull/5471),
+  [Part 7](https://github.com/wekan/wekan/pull/5473).
+  Thanks to dependabot.
+- Added RepoCloud SaaS.
+  [Part 1](https://github.com/wekan/wekan/commit/21d6dfd79090f9885635f55537bd9fa1ef8539e1),
+  [Part 2](https://github.com/wekan/wekan/commit/e663ce038af397f547e8823d61ce5dc2e3cea84d),
+  [Part 3](https://github.com/wekan/wekan.github.io/commit/e9e0550824cdda31daae42df7c497fbd037fd78f).
+  Thanks to RepoCloud.
+- [Updated WeKan app webmanifest](https://github.com/wekan/wekan/commit/745618626535743938b9d2e8c88afe6345807a85).
+  Thanks to xet7.
+- [Revert forking of ldapjs](https://github.com/wekan/wekan/commit/c89f3ba3da6512169e033d76377a9190b35a92d2).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fixes to Clean light and Clean dark themes](https://github.com/wekan/wekan/pull/5458).
+  Thanks to abramchikd.
+- [Activities, adding back "created at" field](https://github.com/wekan/wekan/pull/5476).
+  Thanks to mfilser.
+- [Fix typos at attachments code](https://github.com/wekan/wekan/commit/de3bc9cb4d20590c45ff72ef7749d830ea3fc16c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v7.51 2024-06-27 WeKan ® release
 
 This release adds the following updates:
 
@@ -23,9 +147,22 @@ This release adds the following updates:
   Thanks to dependabot.
 - Moved docs from wiki to wekan repo docs directory, organized to subdirectories. Organizing and updating in progress.
   [Part 1](https://github.com/wekan/wekan/commit/1961e22cbd51e83aa131c8b092c7d43475a021eb),
-  [Part 1](https://github.com/wekan/wekan/commit/ce89ff48331a27ffb42d021833c78df3a462b9db),
-  [Part 1](https://github.com/wekan/wekan/commit/449c02c42a0183a49592ada89bdfb8f25e5db903).
+  [Part 2](https://github.com/wekan/wekan/commit/ce89ff48331a27ffb42d021833c78df3a462b9db),
+  [Part 3](https://github.com/wekan/wekan/commit/449c02c42a0183a49592ada89bdfb8f25e5db903),
+  [Part 4](https://github.com/wekan/wekan/commit/0fb2f7fdd6b6cb828ab4ea534204a5b834d2e19a),
+  [Part 5](https://github.com/wekan/wekan/commit/e9c1c620eb938349c30761497066daf41cdcfc19),
+  [Part 6](https://github.com/wekan/wekan/commit/6b7b66801b716e1d0bf2548b18eed4ed4e354f2d),
+  [Part 7](https://github.com/wekan/wekan/commit/1cfaddff9cd4fe84fb74c80d1585f2a5dd65f5ca),
+  [Part 8](https://github.com/wekan/wekan/commit/057ac4031eaa912b849c637e163f4dffa79a9329),
+  [Part 9](https://github.com/wekan/wekan/commit/52375df78380bbe3407b51dc986baaf6f31f40e4),
+  [Part 10](https://github.com/wekan/wekan/commit/00a56f6aaa0c2bcd24ca8829a0718b45e7cedf04),
+  [Part 11](https://github.com/wekan/wekan/commit/c863428aa2597457fc4931e7b1bdd75d6cc2610b).
   Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix ModernDark Cards not showing correctly](https://github.com/wekan/wekan/pull/5455).
+  Thanks to walster001.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

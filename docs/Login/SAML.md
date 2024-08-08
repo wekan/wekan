@@ -1,4 +1,32 @@
-Related SAML code, not in WeKan yet: https://forums.meteor.com/t/what-are-you-working-on/59187
+Related Meteor SAML code, not in WeKan yet: 
+
+- New: https://forums.meteor.com/t/meteor-and-saml/61561
+- Old link: https://forums.meteor.com/t/what-are-you-working-on/59187
+
+Sandstorm has SAML login, and old WeKan that will be updated someday:
+
+- https://github.com/wekan/wekan/wiki/Sandstorm
+
+How SAML works:
+
+- https://ssoready.com/blog/engineering/a-gentle-intro-to-saml/
+- https://news.ycombinator.com/item?id=41036982
+- https://www.sheshbabu.com/posts/visual-explanation-of-saml-authentication/
+- https://news.ycombinator.com/item?id=41057814
+
+Ruby on Rails OmniAuth, that has Shibboleth and SAML:
+
+- https://github.com/omniauth/omniauth/wiki/List-of-Strategies
+- https://github.com/omniauth/omniauth
+
+SAML at SSOReady:
+
+- https://github.com/ssoready/ssoready
+- https://news.ycombinator.com/item?id=41110850
+
+The SSO Wall of Shame:
+
+- https://sso.tax
 
 [SAML Issue](https://github.com/wekan/wekan/issues/708)
 

@@ -117,8 +117,6 @@ template(name="attachmentActionsPopup")
               | {{_ 'remove-background-image'}}
             else
               | {{_ 'add-background-image'}}
-        p.attachment-storage
-          | {{versions.original.storage}}
 
         if $neq versions.original.storage "fs"
           a.js-move-storage-fs

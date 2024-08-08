@@ -16,7 +16,6 @@ template(name="cardActivities")
     +activity(activity=activityData card=card mode=mode)
 
 template(name="editOrDeleteComment")
-  = ' - '
   a.js-open-inlined-form {{_ "edit"}}
   = ' - '
   a.js-delete-comment {{_ "delete"}}
@@ -145,11 +144,10 @@ template(name="activity")
               +viewer
                 = activity.comment.text
             +commentReactions(reactions=activity.comment.reactions commentId=activity.comment._id)
-            span(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}
-              if($eq currentUser._id activity.comment.userId)
-                +editOrDeleteComment
-              else if currentUser.isBoardAdmin
-                +editOrDeleteComment
+            if($eq currentUser._id activity.comment.userId)
+              +editOrDeleteComment
+            else if currentUser.isBoardAdmin
+              +editOrDeleteComment
 
         if($eq activity.activityType 'deleteComment')
           | {{{_ 'activity-deleteComment' activity.commentId}}}.
@@ -242,3 +240,5 @@ template(name="activity")
         = ' @'
       else if(currentData.timeValue)
         | {{_ activity.activityType currentData.timeValue}}
+
+      div(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}

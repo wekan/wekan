@@ -39,7 +39,7 @@ Template.attachmentGallery.events({
   'click .js-rename': Popup.open('attachmentRename'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
       Attachments.remove(this._id);
-      Popup.back(2);
+      Popup.back();
   }),
 });
 
@@ -501,7 +501,7 @@ BlazeComponent.extendComponent({
           if (name === DOMPurify.sanitize(name)) {
             Meteor.call('renameAttachment', this.data()._id, name);
           }
-          Popup.back(2);
+          Popup.back();
         },
       }
     ]

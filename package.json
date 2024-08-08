@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v7.50.0",
+  "version": "v7.54.0",
   "description": "Open-Source kanban",
   "private": true,
   "repository": {
@@ -17,19 +17,20 @@
     "sinon": "^13.0.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.24.7",
+    "@babel/runtime": "^7.25.0",
     "@mapbox/node-pre-gyp": "^1.0.10",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
+    "@wekanteam/dragscroll": "github:wekan/dragscroll",
+    "@wekanteam/exceljs": "github:wekan/exceljs",
     "@wekanteam/html-to-markdown": "^1.0.2",
     "@wekanteam/meteor-globals": "^1.1.4",
     "@wekanteam/meteor-reactive-cache": "^1.0.6",
     "ajv": "^6.12.6",
     "bcryptjs": "^2.4.3",
     "bson": "^4.5.2",
-    "dompurify": "^2.5.5",
+    "dompurify": "^2.5.6",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
-    "exceljs": "git+https://github.com/exceljs/exceljs.git",
     "fibers": "^5.0.3",
     "file-type": "^16.5.4",
     "filesize": "^8.0.7",
@@ -50,7 +51,7 @@
     "page": "^1.11.6",
     "papaparse": "^5.3.1",
     "pretty-ms": "^7.0.1",
-    "qs": "^6.12.1",
+    "qs": "^6.13.0",
     "simpl-schema": "^3.4.6",
     "source-map-support": "^0.5.20",
     "uuid": "^8.3.2"

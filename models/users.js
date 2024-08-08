@@ -687,14 +687,11 @@ Users.helpers({
     return '';
   },
   orgIdsUserBelongs() {
+    let ret = '';
     if (this.orgs) {
-      return this.orgs
-        .map(function (org) {
-          return org.orgId;
-        })
-        .join(',');
+      ret = this.orgs.map(org => org.orgId).join(',');
     }
-    return '';
+    return ret;
   },
   teamsUserBelongs() {
     if (this.teams) {
@@ -708,14 +705,11 @@ Users.helpers({
     return '';
   },
   teamIdsUserBelongs() {
+    let ret = '';
     if (this.teams) {
-      return this.teams
-        .map(function (team) {
-          return team.teamId;
-        })
-        .join(',');
+      ret = this.teams.map(team => team.teamId).join(',');
     }
-    return '';
+    return ret;
   },
   boards() {
     return Boards.userBoards(this._id, null, {}, { sort: { sort: 1 } });
@@ -1254,14 +1248,14 @@ Meteor.methods({
     check(boardId, String);
     check(listId, String);
     check(width, Number);
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.setListWidth(boardId, listId, width);
   },
   applySwimlaneHeight(boardId, swimlaneId, height) {
     check(boardId, String);
     check(swimlaneId, String);
     check(height, Number);
-    const user = Meteor.user();
+    const user = ReactiveCache.getCurrentUser();
     user.setSwimlaneHeight(boardId, swimlaneId, height);
   },
 });

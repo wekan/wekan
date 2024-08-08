@@ -325,7 +325,7 @@ Template.changeSettingsPopup.helpers({
     });
   },
   startDayOfWeek() {
-    currentUser = Meteor.user();
+    currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return currentUser.getStartDayOfWeek();
     } else {
@@ -343,7 +343,7 @@ Template.changeSettingsPopup.events({
     return ret;
   },
   'click .js-toggle-desktop-drag-handles'() {
-    currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       Meteor.call('toggleDesktopDragHandles');
     } else if (window.localStorage.getItem('showDesktopDragHandles')) {
@@ -375,7 +375,7 @@ Template.changeSettingsPopup.events({
       templateInstance.$('#start-day-of-week').val(),
       10,
     );
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (isNaN(minLimit) || minLimit < -1) {
       minLimit = -1;
     }

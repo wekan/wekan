@@ -4,10 +4,11 @@ Utils = {
   setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
-      $(".board-wrapper,.board-wrapper .board-canvas").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
+      $(".board-wrapper").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
-    } else if (currentBoard.color !== undefined) {
-      currentBoard.setColor(currentBoard.color);
+      $(".minicard").css({"opacity": "0.9"});
+    } else if (currentBoard["background-color"]) {
+      currentBoard.setColor(currentBoard["background-color"]);
     }
   },
   /** returns the current board id

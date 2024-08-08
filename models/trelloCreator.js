@@ -450,9 +450,9 @@ export class TrelloCreator {
             }
           };
           if (att.url) {
-            Attachment.load(att.url, opts, cb, true);
+            Attachments.load(att.url, opts, cb, true);
           } else if (att.file) {
-            Attachment.write(att.file, opts, cb, true);
+            Attachments.insert(att.file, opts, cb, true);
           }
         });
 

@@ -1,20 +1,18 @@
 template(name="listHeader")
-  .list-header.js-list-header(
+  .list-header.js-list-header.nodragscroll(
     class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
     class=colorClass)
     +inlinedForm
       +editListTitleForm
     else
-      unless isMiniScreen
+      if isMiniScreen
+        if currentList
+          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
+      else
         if collapsed
           a.js-collapse(title="{{_ 'uncollapse'}}")
             i.fa.fa-arrow-left.list-header-uncollapse-left
             i.fa.fa-arrow-right.list-header-uncollapse-right
-      if isMiniScreen
-        if currentList
-          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
-      unless isMiniScreen
-        if collapsed
           if showCardsCountForList cards.length
             br
             span.cardCount {{cardsCount}}
@@ -28,7 +26,9 @@ template(name="listHeader")
            |&nbsp;(
            span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
            |/#{wipLimit.value})
-      unless isMiniScreen
+        if showCardsCountForList cards.length
+          span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
+      else
         div(class="{{#if collapsed}}list-rotated{{/if}}")
           h2.list-header-name(
             title="{{ moment modifiedAt 'LLL' }}"

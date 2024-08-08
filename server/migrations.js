@@ -1443,3 +1443,17 @@ Migrations.add('attachment-cardCopy-fix-boardId-etc', () => {
   });
 });
 */
+
+Migrations.add('remove-unused-planning-poker', () => {
+  Cards.update(
+    {
+      "poker.question": false,
+    },
+    {
+      $unset: {
+        "poker": 1,
+      },
+    },
+    noValidateMulti,
+  );
+});
