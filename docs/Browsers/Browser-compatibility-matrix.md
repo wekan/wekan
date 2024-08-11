@@ -18,7 +18,7 @@ Any telemetry at any Firefox based browser can be additionally most locked down 
 Browser | [PWA](PWA) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 [Mypal](https://releases.wekan.team/mypal/) | No | No | Newest | For 32bit ReactOS/WinXP/Win7/etc [issue](https://github.com/wekan/wekan/issues/3132), Other 32bit browsers probably not
-Firefox | Android Yes | Android Newest | Newest | Win/Mac/Linux/RasPi
+Firefox | Android Yes | Android Newest | Newest | Win/Mac/Linux/RasPi/[Haiku](https://discuss.haiku-os.org/t/progress-on-porting-firefox/13493/143)
 Morph Browser | No | Yes | Yes | [Ubuntu Touch](https://ubports.com) (based on Ubuntu 16.04) on PinePhone, OnePlus 3, [RasPi3](https://ci.ubports.com/job/rootfs/job/rootfs-rpi/) (not RasPi4 yet). Works best with bluetooth or USB mouse and keyboard.
 [OpenStore App](https://open-store.io/app/wekan.wekanteam) | Yes | Yes | Yes | Based on [Wekan PWA](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license/s7SkzYviC2e963FkT), [Ubuntu Touch](https://ubports.com) app at [OpenStore](https://open-store.io/app/wekan.wekanteam) using Morph browser with Wekan demo & development server https://boards.wekan.team . Tested on [RasPi3](https://ci.ubports.com/job/rootfs/job/rootfs-rpi/). PWA URL is configured here https://github.com/wekan/wekan-openstore/blob/master/wekan.desktop#L3
 [Waterfox](https://www.waterfox.net) | No | No | Yes | Win/Mac/Linux, more private than Firefox, no tracking
@@ -53,6 +53,17 @@ Legacy Edge | No | No | Not | Not compatible with newest WeKan. Worked with Weka
 Browser | [PWA](PWA) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 Internet Explorer | No | No | No | No | No
+
+## Servo based, not tested yet
+
+- Apache 2.0 or MIT license
+- Repo: https://github.com/versotile-org/verso
+
+## Ladybird based, not tested yet:
+
+- BSD-2-Clause license
+- Website: https://ladybird.org
+- Repo: https://github.com/LadybirdBrowser/ladybird
 
 ## Other ways to create Mobile App with Meteor
 
