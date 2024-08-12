@@ -120,7 +120,7 @@ template(name="checklistItems")
           i.fa.fa-plus
 
 template(name='checklistItemDetail')
-  .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if checklist.hideCheckedChecklistItems}} invisible{{/if}}{{/if}}"
+  .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if checklist.hideCheckedChecklistItems}} invisible{{/if}}{{/if}}{{#if checklist.hideAllChecklistItems}} is-checked invisible{{/if}}"
     role="checkbox" aria-checked="{{#if item.isFinished }}true{{else}}false{{/if}}" tabindex="0")
     if canModifyCard
       .check-box-container
@@ -157,6 +157,15 @@ template(name="checklistActionsPopup")
           else
             input.toggle-switch(type="checkbox" id="toggleHideCheckedChecklistItems_{{checklist._id}}")
           label.toggle-label(for="toggleHideCheckedChecklistItems_{{checklist._id}}")
+      a.js-hide-all-checklist-items
+        i.fa.fa-ban
+        | {{_ "hideAllChecklistItems"}} ...
+        .material-toggle-switch(title="{{_ 'hideAllChecklistItems'}}")
+          if checklist.hideAllChecklistItems
+            input.toggle-switch(type="checkbox" id="toggleHideAllChecklistItems_{{checklist._id}}" checked="checked")
+          else
+            input.toggle-switch(type="checkbox" id="toggleHideAllChecklistItems_{{checklist._id}}")
+          label.toggle-label(for="toggleHideAllChecklistItems_{{checklist._id}}")
 
 template(name="copyChecklistPopup")
   +copyAndMoveChecklist

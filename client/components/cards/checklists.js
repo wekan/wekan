@@ -317,6 +317,11 @@ BlazeComponent.extendComponent({
           this.data().checklist.toggleHideCheckedChecklistItems();
           Popup.back();
         },
+        'click .js-hide-all-checklist-items'(event) {
+          event.preventDefault();
+          this.data().checklist.toggleHideAllChecklistItems();
+          Popup.back();
+        },
       }
     ]
   }

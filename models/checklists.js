@@ -70,6 +70,13 @@ Checklists.attachSchema(
       type: Boolean,
       optional: true,
     },
+    hideAllChecklistItems: {
+      /**
+       * hide all checklist items ?
+       */
+      type: Boolean,
+      optional: true,
+    },
   }),
 );
 
@@ -123,7 +130,11 @@ Checklists.helpers({
     return ret;
   },
   isFinished() {
-    return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
+    let ret = this.hideAllChecklistItems;
+    if (!ret) {
+      ret = 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
+    }
+    return ret;
   },
   showChecklist(hideFinishedChecklistIfItemsAreHidden) {
     let ret = true;
@@ -209,6 +220,13 @@ Checklists.mutations({
     return {
       $set: {
         hideCheckedChecklistItems: !this.hideCheckedChecklistItems,
+      }
+    };
+  },
+  toggleHideAllChecklistItems() {
+    return {
+      $set: {
+        hideAllChecklistItems: !this.hideAllChecklistItems,
       }
     };
   },
