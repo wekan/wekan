@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated code of conduct](https://github.com/wekan/wekan/commit/cae6f38b8070cfcc2f2529027f7e66b965a19f05).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.55 2024-08-08 WeKan ® release
 
 This release fixes the following bugs:
