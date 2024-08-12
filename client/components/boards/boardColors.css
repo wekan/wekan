@@ -2127,8 +2127,7 @@
   margin: 10px;
   color: #fff;
   border-radius: 15px;
-  background: #222;
-  box-shadow: inset 15px 15px 37px #1c1c1c, inset -15px -15px 37px #282828;
+  background-color: #1c1c1c;
   border: none;
 }
 .board-color-exodark .swimlane .list:first-child {
