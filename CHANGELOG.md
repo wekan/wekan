@@ -19,6 +19,9 @@ Fixing other platforms In Progress.
 
 This release adds the following updates:
 
+- Updated Browser compatibility matrix.
+  [Part 1](https://github.com/wekan/wekan/commit/cab285c34d1f159120ccd48b17a897e95bd48471),
+  [Part 2](https://github.com/wekan/wekan/commit/ec534c8cca3f0256091c2d870c128d26033d40ad).
 - [Updated code of conduct](https://github.com/wekan/wekan/commit/cae6f38b8070cfcc2f2529027f7e66b965a19f05).
   Thanks to xet7.
 
