@@ -24,6 +24,17 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/ec534c8cca3f0256091c2d870c128d26033d40ad).
 - [Updated code of conduct](https://github.com/wekan/wekan/commit/cae6f38b8070cfcc2f2529027f7e66b965a19f05).
   Thanks to xet7.
+- [Updated Docker build actions](https://github.com/wekan/wekan/pull/5505).
+  Thanks to dependabot.
+- Updated docs for building custom Docker image.
+  [Part 1](https://github.com/wekan/wekan/issues/5509),
+  [Part 2](https://github.com/wekan/wekan/commit/6d6d51310e4168cd0fc75f550d3af35df9ccef9f),
+  [Part 3](https://github.com/wekan/wekan/commit/a94cfd5b91d29f81e51e67ed03ba84f820d4892a).
+
+and fixes the following bugs:
+
+- [Fix ModernDark Mobile View List Titles](https://github.com/wekan/wekan/pull/5503).
+  Thanks to walster001.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
