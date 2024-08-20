@@ -35,6 +35,8 @@ and fixes the following bugs:
 
 - [Fix ModernDark Mobile View List Titles](https://github.com/wekan/wekan/pull/5503).
   Thanks to walster001.
+- [Fix apparmor denied in syslog at Snap Candidate](https://github.com/wekan/wekan/commit/c3909edc5ee7a82b694b19ca7e022cbdfd12affd).
+  Thanks to webenefits and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
