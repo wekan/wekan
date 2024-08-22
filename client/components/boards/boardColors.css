@@ -1,3 +1,7 @@
+/* =============== 
+THEME - NEPHRITIS
+=================*/
+
 .board-color-nephritis#header,
 .board-color-nephritis.sk-spinner div,
 .board-backgrounds-list .board-color-nephritis.background-box,
@@ -70,6 +74,25 @@
 .board-color-nephritis#header-quick-access ul li.current {
   border-bottom: 4px solid #3dd37c;
 }
+
+/* Transparent modern scrollbar - Nephritis*/
+.board-color-nephritis .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+.board-color-nephritis .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-nephritis .list-body {
+ margin-top: 8px;
+}
+
+/* =============== 
+THEME - Pomegranate
+=================*/
+
 .board-color-pomegranate#header,
 .board-color-pomegranate.sk-spinner div,
 .board-backgrounds-list .board-color-pomegranate.background-box,
@@ -142,6 +165,16 @@
 .board-color-pomegranate#header-quick-access ul li.current {
   border-bottom: 4px solid #d7584b;
 }
+
+/* Transparent modern scrollbar - Pomegranate*/
+.board-color-pomegranate .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+/* =============== 
+THEME - Belize
+=================*/
+
 .board-color-belize#header,
 .board-color-belize.sk-spinner div,
 .board-backgrounds-list .board-color-belize.background-box,
@@ -214,6 +247,16 @@
 .board-color-belize#header-quick-access ul li.current {
   border-bottom: 4px solid #459cd6;
 }
+
+/* Transparent modern scrollbar - Belize*/
+.board-color-belize .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+/* =============== 
+THEME - Wisteria
+=================*/
+
 .board-color-wisteria#header,
 .board-color-wisteria.sk-spinner div,
 .board-backgrounds-list .board-color-wisteria.background-box,
@@ -286,6 +329,16 @@
 .board-color-wisteria#header-quick-access ul li.current {
   border-bottom: 4px solid #a765c2;
 }
+
+/* Transparent modern scrollbar - Wisteria*/
+.board-color-wisteria .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+/* =============== 
+THEME - Midnight
+=================*/
+
 .board-color-midnight#header,
 .board-color-midnight.sk-spinner div,
 .board-backgrounds-list .board-color-midnight.background-box,
@@ -358,6 +411,16 @@
 .board-color-midnight#header-quick-access ul li.current {
   border-bottom: 4px solid #476582;
 }
+
+/* Transparent modern scrollbar - Midnight*/
+.board-color-midnight .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+/* =============== 
+THEME - Pumpkin
+=================*/
+
 .board-color-pumpkin#header,
 .board-color-pumpkin.sk-spinner div,
 .board-backgrounds-list .board-color-pumpkin.background-box,
@@ -430,6 +493,17 @@
 .board-color-pumpkin#header-quick-access ul li.current {
   border-bottom: 4px solid #eb984e;
 }
+
+/* Transparent modern scrollbar - Pumpkin*/
+.board-color-pumpkin .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+
+/* =============== 
+THEME - Moderate Pink
+=================*/
+
 .board-color-moderatepink#header,
 .board-color-moderatepink.sk-spinner div,
 .board-backgrounds-list .board-color-moderatepink.background-box,
@@ -502,6 +576,17 @@
 .board-color-moderatepink#header-quick-access ul li.current {
   border-bottom: 4px solid #d77ba7;
 }
+
+/* Transparent modern scrollbar - Moderate Pink*/
+.board-color-moderatepink .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+
+/* =============== 
+THEME - Strong Cyan
+=================*/
+
 .board-color-strongcyan#header,
 .board-color-strongcyan.sk-spinner div,
 .board-backgrounds-list .board-color-strongcyan.background-box,
@@ -574,6 +659,16 @@
 .board-color-strongcyan#header-quick-access ul li.current {
   border-bottom: 4px solid #0adbff;
 }
+
+/* Transparent modern scrollbar - Strong Cyan*/
+.board-color-strongcyan .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+/* =============== 
+THEME - Lime Green
+=================*/
+
 .board-color-limegreen#header,
 .board-color-limegreen.sk-spinner div,
 .board-backgrounds-list .board-color-limegreen.background-box,
@@ -646,6 +741,15 @@
 .board-color-limegreen#header-quick-access ul li.current {
   border-bottom: 4px solid #6fcc89;
 }
+/* Transparent modern scrollbar - Lime Green*/
+.board-color-limegreen .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+/* =============== 
+THEME - Dark
+=================*/
+
 .board-color-dark#header,
 .board-color-dark.sk-spinner div,
 .board-backgrounds-list .board-color-dark.background-box,
@@ -659,6 +763,7 @@
   border-radius: 7px;
   padding: 10px 10px 4px 10px;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  background-color: rgb(255 255 255 / 90%);
 }
 .board-color-dark button[type=submit].primary,
 .board-color-dark input[type=submit].primary,
@@ -820,6 +925,15 @@
   background-color: #ccc;
   color: #222;
 }
+/* Transparent modern scrollbar - Dark*/
+.board-color-dark .board-canvas {
+  scrollbar-color: #ffffff75 #0000002e;
+}
+
+/* =============== 
+THEME - Relax
+=================*/
+
 .board-color-relax#header,
 .board-color-relax.sk-spinner div,
 .board-backgrounds-list .board-color-relax.background-box,
@@ -921,6 +1035,11 @@
   font-weight: bold;
   font-size: 11pt;
 }
+
+/* =============== 
+THEME - Corteza
+=================*/
+
 .board-color-corteza#header,
 .board-color-corteza.sk-spinner div,
 .board-backgrounds-list .board-color-corteza.background-box,
@@ -993,9 +1112,11 @@
 .board-color-corteza#header-quick-access ul li.current {
   border-bottom: 4px solid #76a3b6;
 }
-/*
-  Alternate "Clear" Styling
-*/
+
+/* =============== 
+THEME - Clear Blue
+=================*/
+
 .board-color-clearblue.sk-spinner div,
 .board-backgrounds-list .board-color-clearblue.background-box,
 .board-list .board-color-clearblue a {
@@ -1229,9 +1350,11 @@
   cursor: -webkit-grabbing;
   cursor: grabbing;
 }
-/*
-  Alternate "Natural" Styling
-*/
+
+/* =============== 
+THEME - Natural
+=================*/
+
 .board-color-natural#header,
 .board-color-natural.sk-spinner div,
 .board-backgrounds-list .board-color-natural.background-box,
@@ -1313,9 +1436,11 @@
 .board-color-natural .swimlane .swimlane-header-wrap {
   background-color: #c2c0ab;
 }
-/*
-  Alternate "Modern" Styling
-*/
+
+/* =============== 
+THEME - Modern
+=================*/
+
 .board-color-modern#header,
 .board-color-modern.sk-spinner div,
 .board-backgrounds-list .board-color-modern.background-box,
@@ -1574,9 +1699,11 @@
 .board-color-modern section#notifications-drawer .header .toggle-read {
   top: 18px;
 }
-/*
-  Alternate "Modern Dark" Styling
-*/
+
+/* =============== 
+THEME - Modern Dark
+=================*/
+
 .board-color-moderndark#header,
 .board-color-moderndark.sk-spinner div,
 .board-backgrounds-list .board-color-moderndark.background-box,
@@ -1795,8 +1922,7 @@
 }
 @media screen and (max-width: 800px) {
   .board-color-moderndark .list-header .list-header-name {
-    line-height: unset;
-    vertical-align: middle;
+    line-height: 40px;
     padding-top: 10px;
   }
   .board-color-moderndark .list-header-black, .board-color-moderndark .mini-list {
@@ -2036,6 +2162,11 @@
 .pop-over.board-color-moderndark .pop-over-list li > a:hover {
   background-color: rgba(255,255,255,0.2);
 }
+
+/* =============== 
+THEME - Exodark
+=================*/
+
 .board-color-exodark#header,
 .board-color-exodark.sk-spinner div,
 .board-backgrounds-list .board-color-exodark.background-box,
@@ -2256,6 +2387,10 @@
   background: #2b2b2b;
   color: #fff;
 }
+
+/* =============== 
+THEME - Clean Dark
+=================*/
 
 .board-color-cleandark#header ul li,
 .board-color-cleandark#header-quick-access ul li {
@@ -2677,6 +2812,10 @@
   display: flex;
   align-items: center;
 }
+
+/* =============== 
+THEME - Clean Light
+=================*/
 
 .board-color-cleanlight {
   background: #E0E0E0;
