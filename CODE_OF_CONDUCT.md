@@ -11,7 +11,7 @@ For all code at WeKan GitHub Organization https://github.com/wekan
 
 ## Private reports
 
-- Email support (at) wekan.team using [this PGP public key](support-at-wekan.team_pgp-publickey.asc) if possible
+- Email support@wekan.team
 - Security issues: [SECURITY.md](SECURITY.md)
 - License violations
 - Anything private, sensitive or negative

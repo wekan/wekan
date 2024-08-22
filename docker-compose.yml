@@ -10,13 +10,13 @@
 # NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
 #       see https://github.com/wekan/wekan/wiki/Backup
 # 1) Stop Wekan:
-#      docker-compose stop
+#      docker compose stop
 # 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
 #      docker rm wekan-app
 # 3) Get newest docker-compose.yml from https://github.com/wekan/wekan to have correct image,
 #    for example: "image: quay.io/wekan/wekan" or version tag "image: quay.io/wekan/wekan:v4.52"
 # 4) Start Wekan:
-#      docker-compose up -d
+#      docker compose up -d
 #----------------------------------------------------------------------------------
 # ==== OPTIONAL: DEDICATED DOCKER USER ====
 # 1) Optionally create a dedicated user for Wekan, for example:
@@ -36,14 +36,14 @@
 # ----------------------------------------------------------------------------------
 # ==== USAGE OF THIS docker-compose.yml ====
 # 1) For seeing does Wekan work, try this and check with your web browser:
-#      docker-compose up
+#      docker compose up
 # 2) Stop Wekan and start Wekan in background:
-#     docker-compose stop
-#     docker-compose up -d
+#     docker compose stop
+#     docker compose up -d
 # 3) See running Docker containers:
 #     docker ps
 # 4) Stop Docker containers:
-#     docker-compose stop
+#     docker compose stop
 # ----------------------------------------------------------------------------------
 # ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
 # https://github.com/wekan/wekan/wiki/Backup
@@ -140,7 +140,7 @@ services:
       - wekan-tier
     #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
-    # ==== and use commands: docker-compose up -d --build
+    # ==== and use commands: docker compose up -d --build
     #build:
     #  context: .
     #  dockerfile: Dockerfile
@@ -585,7 +585,7 @@ services:
       # If using LDAPS: LDAP_ENCRYPTION=ssl
       #- LDAP_ENCRYPTION=false
       #
-      # The certification for the LDAPS server. Certificate needs to be included in this docker-compose.yml file.
+      # The certification for the LDAPS server. Certificate needs to be included in this docker compose.yml file.
       #- LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+G2FIdAgIC...-----END CERTIFICATE-----
       #
       # Reject Unauthorized Certificate
