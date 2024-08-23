@@ -26,7 +26,7 @@ Morph Browser | No | Yes | Yes | [Ubuntu Touch](https://ubports.com) (based on U
 [Mercury](https://thorium.rocks/mercury) | No | No | Yes | [Win/Linux](https://github.com/Alex313031/Mercury/releases), more private than Firefox, [Repo](https://github.com/Alex313031/Mercury)
 [SeaLion](https://github.com/wicknix/SeaLion) | No | No | Yes | [MacOS 10.7-14.1 x32,x64,ppc,ppc64/Linux x64](https://github.com/wicknix/SeaLion/releases), [Repo](https://github.com/wicknix/SeaLion)
 [LibreWolf](https://librewolf.net) | No | No | Yes | [Win/Mac/Linux](https://librewolf.net/installation/)
-[Zen Browser](https://www.zen-browser.app/) | No | No | Yes | [Win/Mac/Linux](https://github.com/zen-browser)
+[Zen Browser](https://www.zen-browser.app/) | No | No | Yes | [Win/Mac/Linux](https://www.zen-browser.app/download), [Repos](https://github.com/zen-browser)
 
 ## Chromium based
 
