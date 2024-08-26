@@ -15,7 +15,7 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.56 2024-08-21 WeKan ® release
 
 This release adds the following updates:
 
@@ -30,6 +30,10 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/issues/5509),
   [Part 2](https://github.com/wekan/wekan/commit/6d6d51310e4168cd0fc75f550d3af35df9ccef9f),
   [Part 3](https://github.com/wekan/wekan/commit/a94cfd5b91d29f81e51e67ed03ba84f820d4892a).
+- [Update mongodb chart version to 15.6.18 and enables wekan to be deployed on an OpenShift cluster](https://github.com/wekan/charts/pull/36).
+  Thanks to fobrice.
+- [Upgraded Snap Candidate MongoDB to 6.0.17](https://github.com/wekan/wekan/commit/d63d445b7d5da48c05d0fbd4e560c00283b1aef7).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
