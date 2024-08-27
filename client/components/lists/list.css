@@ -245,11 +245,11 @@
     padding: 15px 19px;
   }
   .list-header {
-    padding: 0 12px 0px;
+	  /*Updated padding values for mobile devices, this should fix text grouping issue*/
+    padding: 20px 0px 20px 0px;
     border-bottom: 0px solid #e4e4e4;
-    height: 60px;
+    min-height: 30px;
     margin-top: 10px;
-    display: flex;
     align-items: center;
   }
   .list-header .list-header-left-icon {

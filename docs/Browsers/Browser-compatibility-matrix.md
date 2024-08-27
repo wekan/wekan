@@ -19,13 +19,14 @@ Browser | [PWA](PWA) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 [Mypal](https://releases.wekan.team/mypal/) | No | No | Newest | For 32bit ReactOS/WinXP/Win7/etc [issue](https://github.com/wekan/wekan/issues/3132), Other 32bit browsers probably not
 Firefox | Android Yes | Android Newest | Newest | Win/Mac/Linux/BSD/RasPi. [Haiku](https://discuss.haiku-os.org/t/progress-on-porting-firefox/13493/143) not tested yet - [HN](https://news.ycombinator.com/item?id=41214762).
-Morph Browser | No | Yes | Yes | [Ubuntu Touch](https://ubports.com) (based on Ubuntu 16.04) on PinePhone, OnePlus 3, [RasPi3](https://ci.ubports.com/job/rootfs/job/rootfs-rpi/) (not RasPi4 yet). Works best with bluetooth or USB mouse and keyboard.
+Morph Browser | No | Yes | Yes | [Ubuntu Touch](https://ubports.com) (based on Ubuntu 16.04) on PinePhone, OnePlus 3, [RasPi3](https://ci.ubports.com/job/rootfs/job/rootfs-rpi/) (not RasPi4 yet). Works best with bluetooth or USB mouse and keyboard. [Repo](https://gitlab.com/ubports/development/core/morph-browser)
 [OpenStore App](https://open-store.io/app/wekan.wekanteam) | Yes | Yes | Yes | Based on [Wekan PWA](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license/s7SkzYviC2e963FkT), [Ubuntu Touch](https://ubports.com) app at [OpenStore](https://open-store.io/app/wekan.wekanteam) using Morph browser with Wekan demo & development server https://boards.wekan.team . Tested on [RasPi3](https://ci.ubports.com/job/rootfs/job/rootfs-rpi/). PWA URL is configured here https://github.com/wekan/wekan-openstore/blob/master/wekan.desktop#L3
-[Waterfox](https://www.waterfox.net) | No | No | Yes | Win/Mac/Linux, more private than Firefox, no tracking
+[Waterfox](https://www.waterfox.net) | No | No | Yes | Win/Mac/Linux, more private than Firefox, no tracking. [Repo](https://github.com/BrowserWorks/Waterfox)
 [Floorp](https://floorp.app) | No | No | Yes | [Win/Mac/Linux](https://github.com/Floorp-Projects/Floorp/releases), more private than Firefox, [Repo](https://github.com/Floorp-Projects/Floorp)
 [Mercury](https://thorium.rocks/mercury) | No | No | Yes | [Win/Linux](https://github.com/Alex313031/Mercury/releases), more private than Firefox, [Repo](https://github.com/Alex313031/Mercury)
 [SeaLion](https://github.com/wicknix/SeaLion) | No | No | Yes | [MacOS 10.7-14.1 x32,x64,ppc,ppc64/Linux x64](https://github.com/wicknix/SeaLion/releases), [Repo](https://github.com/wicknix/SeaLion)
-[LibreWolf](https://librewolf.net) | No | No | Yes | [Win/Mac/Linux](https://librewolf.net/installation/)
+[LibreWolf](https://librewolf.net) | No | No | Yes | [Win/Mac/Linux](https://librewolf.net/installation/), [Repos](https://codeberg.org/librewolf)
+[Zen Browser](https://www.zen-browser.app/) | No | No | Yes | [Win/Mac/Linux](https://www.zen-browser.app/download), [Repos](https://github.com/zen-browser), [Review at YouTube](https://www.youtube.com/watch?v=tKM2N4TQHQY)
 
 ## Chromium based
 
