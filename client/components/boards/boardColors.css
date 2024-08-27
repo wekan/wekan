@@ -1796,7 +1796,6 @@
 @media screen and (max-width: 800px) {
   .board-color-moderndark .list-header .list-header-name {
     line-height: unset;
-    vertical-align: middle;
     padding-top: 10px;
   }
   .board-color-moderndark .list-header-black, .board-color-moderndark .mini-list {
