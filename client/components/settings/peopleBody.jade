@@ -500,9 +500,9 @@ template(name="modifyTeamsUsers")
     | {{_ 'r-action'}}
     .form-group.flex
       input.wekan-form-control#addAction(type="radio" name="action" value="true" checked="checked")
-      span {{_ 'add'}}
+      label(for=addAction) {{_ 'add'}}
       input.wekan-form-control#deleteAction(type="radio" name="action" value="false")
-      span {{_ 'delete'}}
+      label(for=deleteAction) {{_ 'delete'}}
   div.buttonsContainer
     input.primary.wide#addTeamBtn(type="submit" value="{{_ 'save'}}")
     input.primary.wide#cancelBtn(type="submit" value="{{_ 'cancel'}}")
