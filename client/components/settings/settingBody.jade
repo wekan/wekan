@@ -137,9 +137,9 @@ template(name='tableVisibilityModeSettings')
       .title {{_ 'tableVisibilityMode-allowPrivateOnly'}}
       .form-group.flex
         input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="true" checked="{{#if allowPrivateOnly}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#accounts-allowPrivateOnly(type="radio" name="allowPrivateOnly" value="false" checked="{{#unless allowPrivateOnly}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
       button.js-tableVisibilityMode-save.primary {{_ 'save'}}
 
 template(name='accountSettings')
@@ -150,21 +150,21 @@ template(name='accountSettings')
       .title {{_ 'accounts-allowEmailChange'}}
       .form-group.flex
         input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="true" checked="{{#if allowEmailChange}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="false" checked="{{#unless allowEmailChange}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
       .title {{_ 'accounts-allowUserNameChange'}}
       .form-group.flex
         input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="true" checked="{{#if allowUserNameChange}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
       .title {{_ 'accounts-allowUserDelete'}}
       .form-group.flex
         input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="true" checked="{{#if allowUserDelete}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="false" checked="{{#unless allowUserDelete}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
       button.js-accounts-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')
@@ -201,9 +201,9 @@ template(name='layoutSettings')
       .title {{_ 'display-authentication-method'}}
       .form-group.flex
         input.wekan-form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="true" checked="{{#if currentSetting.displayAuthenticationMethod}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="false" checked="{{#unless currentSetting.displayAuthenticationMethod}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
     li.layout-form
       .title {{_ 'default-authentication-method'}}
       +selectAuthenticationMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
@@ -218,9 +218,9 @@ template(name='layoutSettings')
       .title {{_ 'hide-logo'}}
       .form-group.flex
         input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
     li.layout-form
       .title {{_ 'custom-login-logo-image-url'}}
       .form-group
@@ -257,16 +257,16 @@ template(name='layoutSettings')
       .title {{_ 'hide-card-counter-list'}}
       .form-group.flex
         input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="true" checked="{{#if currentSetting.hideCardCounterList}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#hide-card-counter-list(type="radio" name="hideCardCounterList" value="false" checked="{{#unless currentSetting.hideCardCounterList}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
     li.layout-form
       .title {{_ 'hide-board-member-list'}}
       .form-group.flex
         input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="true" checked="{{#if currentSetting.hideBoardMemberList}}checked{{/if}}")
-        span {{_ 'yes'}}
+        label {{_ 'yes'}}
         input.wekan-form-control#hide-board-member-list(type="radio" name="hideBoardMemberList" value="false" checked="{{#unless currentSetting.hideBoardMemberList}}checked{{/unless}}")
-        span {{_ 'no'}}
+        label {{_ 'no'}}
     li
       button.js-save-layout.primary {{_ 'save'}}
 
