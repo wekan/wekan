@@ -15,6 +15,17 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Rework fix for mobile devices to incorporate all themes/list headers](https://github.com/wekan/wekan/pull/5517).
+  Thanks to walster001.
+- [Update templates to use label instead of span](https://github.com/wekan/wekan/pull/5519).
+  Thanks to novashdima.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.56 2024-08-21 WeKan ® release
 
 This release adds the following updates:
