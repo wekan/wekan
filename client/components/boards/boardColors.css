@@ -2596,7 +2596,7 @@ THEME - Exodark
 }
 .board-color-exodark .swimlane .list:first-child {
   min-width: 20px;
-  margin-left: 0px;
+  margin-left: 10px; /*Added 10px margin to prevent butting up against edge of screen */
   border-left: none;
 }
 .board-color-exodark .swimlane .list:nth-child {
