@@ -1417,7 +1417,7 @@ THEME - Clear Blue
 }
 .board-color-clearblue .swimlane .list:first-child {
   min-width: 20px;
-  margin-left: 0px;
+  margin-left: 10px;
   border-left: none;
 }
 .board-color-clearblue .swimlane .list:nth-child {
