@@ -18,14 +18,10 @@ export LC_ALL=C
 export PATH=/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:${PATH}
 export LD_LIBRARY_PATH=/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
-
-echo "DISABLE_MONGODB=${DISABLE_MONGODB}" > "${SNAP_COMMON}/settings.log"
-echo "LC_ALL=${LC_ALL}" >> "${SNAP_COMMON}/settings.log"
-echo "LANG=${LANG}" >> "${SNAP_COMMON}/settings.log"
-echo "PATH=${PATH}" >> "${SNAP_COMMON}/settings.log"
-echo "SNAP_COMMON=${SNAP_COMMON}" >> "{$SNAP_COMMON}/settings.log"
-echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> "${SNAP_COMMON}/settings.log"
-
+# If temporary settings log exists, delete it
+if [ -f ${SNAP_COMMON}/settings.log ]; then
+    rm ${SNAP_COMMON}/settings.log
+fi
 
 #if test -f "$SNAP_COMMON/01-migrate-mongo3-to-mongo5.txt"; then
 #   touch "$SNAP_COMMON/01-migrate-mongo3-to-mongo5.txt"
@@ -85,45 +81,54 @@ echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> "${SNAP_COMMON}/settings.log"
 #    loglast1000lines=""
 #fi
 
-echo "MONGO_URL=${MONGO_URL}" >> "${SNAP_COMMON}/settings.log"
-
 if [ -z "${MONGO_URL}" ]; then
 
     # start mongo deamon
     BIND_OPTIONS=""
     if [ "nill" != "${MONGODB_BIND_UNIX_SOCKET}" ] && [ "x" != "x${MONGODB_BIND_UNIX_SOCKET}" ]; then
         BIND_OPTIONS+=" --unixSocketPrefix ${MONGODB_BIND_UNIX_SOCKET}"
-        echo "BIND_OPTIONS+= --unixSocketPrefix ${MONGODB_BIND_UNIX_SOCKET}" >> "${SNAP_COMMON}/settings.log"
     fi
+    # Newest MongoDB uses --host, not anymore --bind_ip
     if [ "x" != "x${MONGODB_BIND_IP}" ]; then
-        BIND_OPTIONS+=" --bind_ip $MONGODB_BIND_IP"
-        echo "BIND_OPTIONS+= --bind_ip ${MONGODB_BIND_IP}" >> "${SNAP_COMMON}/settings.log"
+        BIND_OPTIONS+=" --host $MONGODB_BIND_IP"
     fi
     if [ "x" != "x${MONGODB_PORT}" ]; then
         BIND_OPTIONS+=" --port ${MONGODB_PORT}"
-        echo "BIND_OPTIONS+= --port ${MONGODB_PORT}" >> "${SNAP_COMMON}/settings.log"
     fi
-    echo "mongodb bind options: ${BIND_OPTIONS}"
-    echo "mongodb bind options: ${BIND_OPTIONS}" >> "${SNAP_COMMON}/settings.log"
 
     if [ "syslog" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to syslog"
-        mongod --dbpath $SNAP_COMMON --syslog --journal $BIND_OPTIONS --quiet
+        mongod --dbpath ${SNAP_COMMON} --syslog --journal ${BIND_OPTIONS} --quiet
         exit 0
     fi
-    echo mongodb log destination: ${MONGO_LOG_DESTINATION} >> "${SNAP_COMMON}/settings.log"
 
     if [ "snapcommon" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to $SNAP_COMMON"
-        mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --quiet
+        mongod --dbpath ${SNAP_COMMON} --logpath ${SNAP_COMMON}/mongodb.log --logappend --journal ${BIND_OPTIONS} --quiet
     fi
-    echo mongodb log destination: ${MONGO_LOG_DESTINATION} >> "${SNAP_COMMON}/settings.log"
 
     if [ "devnull" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to /dev/null"
-        mongod --dbpath $SNAP_COMMON --logpath /dev/null --journal $BIND_OPTIONS --quiet
+        mongod --dbpath ${SNAP_COMMON} --logpath /dev/null --journal ${BIND_OPTIONS} --quiet
     fi
-    echo mongodb log destination: ${MONGO_LOG_DESTINATION} >> "${SNAP_COMMON}/settings.log"
+    #echo "mongodb log destination: ${MONGO_LOG_DESTINATION}" >> "${SNAP_COMMON}/settings.log"
+
+    # Disable MongoDB telemetry and free monitoring
+    mongosh wekan --eval 'disableTelemetry();' ${BIND_OPTIONS}
+    mongosh wekan --eval 'db.disableFreeMonitoring();' ${BIND_OPTIONS}
+
+    # Snap: Disable apparmor="DENIED" at syslog
+    # https://github.com/wekan/wekan/issues/4855
+    mongosh wekan --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});' ${BIND_OPTIONS}
+
+    # Drop indexes on database upgrade, when starting MongoDB
+    #mongosh wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
+
+    # Set MongoDB feature compatibility version
+    mongosh wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' ${BIND_OPTIONS}
+
+    # Delete incomplete uploads so that they would not prevent starting WeKan
+    mongosh wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' ${BIND_OPTIONS}
 
 else
 
@@ -142,27 +147,21 @@ else
         mongod --dbpath ${SNAP_COMMON} --logpath /dev/null --journal ${MONGO_URL} --quiet
     fi
 
-    BIND_OPTIONS=${MONGO_URL}
+    # Disable MongoDB telemetry and free monitoring
+    mongosh ${MONGO_URL} --eval 'disableTelemetry();'
+    mongosh ${MONGO_URL} --eval 'db.disableFreeMonitoring();'
+
+    # Snap: Disable apparmor="DENIED" at syslog
+    # https://github.com/wekan/wekan/issues/4855
+    mongosh ${MONGO_URL} --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});'
+
+    # Drop indexes on database upgrade, when starting MongoDB
+    #mongosh wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
+
+    # Set MongoDB feature compatibility version
+    mongosh ${MONGO_URL} --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });'
+
+    # Delete incomplete uploads so that they would not prevent starting WeKan
+    mongosh ${MONGO_URL} --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});'
+
 fi
-
-
-
-# Disable MongoDB telemetry and free monitoring
-mongosh wekan --eval 'disableTelemetry();' ${BIND_OPTIONS}
-echo "mongosh wekan --eval 'disableTelemetry();' ${BIND_OPTIONS}" >> "${SNAP_COMMON}/settings.log"
-mongosh wekan --eval 'db.disableFreeMonitoring();' ${BIND_OPTIONS}
-echo mongosh wekan --eval 'db.disableFreeMonitoring();' ${BIND_OPTIONS} >> "${SNAP_COMMON}/settings.log"
-
-# Snap: Disable apparmor="DENIED" at syslog
-# https://github.com/wekan/wekan/issues/4855
-mongosh wekan --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});' ${BIND_OPTIONS}
-echo mongosh wekan --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});' ${BIND_OPTIONS} >> "${SNAP_COMMON}/settings.log"
-
-# Drop indexes on database upgrade, when starting MongoDB
-#mongosh wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
-mongosh wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' ${BIND_OPTIONS}
-echo mongosh wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' ${BIND_OPTIONS} >> "${SNAP_COMMON}/settings.log"
-
-# Delete incomplete uploads so that they would not prevent starting WeKan
-mongosh wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' ${BIND_OPTIONS}
-echo mongosh wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' ${BIND_OPTIONS} >> "${SNAP_COMMON}/settings.log"
