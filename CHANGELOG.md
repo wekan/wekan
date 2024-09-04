@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to walster001.
 - [Update templates to use label instead of span](https://github.com/wekan/wekan/pull/5519).
   Thanks to novashdima.
+- [Large updates to UI CSS](https://github.com/wekan/wekan/pull/5523).
+  Thanks to walster001.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
