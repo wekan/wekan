@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release tries to fix the following bugs:
+
+- [Try to fix apparrmor denied in syslog at Snap Candidate](https://github.com/wekan/wekan/commit/a6c8833f652ee84284da2195bf79fb8edaa818b7).
+  Thanks to webenefits and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.57 2024-09-04 WeKan ® release
 
 This release adds the following updates:
