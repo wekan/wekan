@@ -44,7 +44,7 @@
     "markdown-it-emoji": "^2.0.0",
     "markdown-it-mathjax3": "^4.3.2",
     "meteor-accounts-t9n": "^2.6.0",
-    "meteor-node-stubs": "^1.2.9",
+    "meteor-node-stubs": "^1.2.10",
     "minio": "^7.1.3",
     "moment": "^2.29.4",
     "os": "^0.1.2",
