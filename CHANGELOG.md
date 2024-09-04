@@ -25,6 +25,8 @@ This release adds the following updates:
   Thanks to novashdima.
 - [Large updates to UI CSS](https://github.com/wekan/wekan/pull/5523).
   Thanks to walster001.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/1610eff0e9212fdf6423ce5579b7bdaf8e45950b).
+  Thanks to developers of dependencies.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
