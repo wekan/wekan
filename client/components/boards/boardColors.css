@@ -1,3 +1,7 @@
+/* =============== 
+THEME - NEPHRITIS
+=================*/
+
 .board-color-nephritis#header,
 .board-color-nephritis.sk-spinner div,
 .board-backgrounds-list .board-color-nephritis.background-box,
@@ -70,6 +74,35 @@
 .board-color-nephritis#header-quick-access ul li.current {
   border-bottom: 4px solid #3dd37c;
 }
+
+/* Transparent modern scrollbar - Nephritis*/
+.board-color-nephritis .board-canvas {
+  scrollbar-color: #27ae60f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-nephritis .sidebar .sidebar-content {
+  scrollbar-color: #27ae60f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-nephritis .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-nephritis .list-body {
+ margin-top: 8px;
+}
+
+/* === END NEPHRITIS THEME === */
+
+/* =============== 
+THEME - Pomegranate
+=================*/
+
 .board-color-pomegranate#header,
 .board-color-pomegranate.sk-spinner div,
 .board-backgrounds-list .board-color-pomegranate.background-box,
@@ -142,6 +175,35 @@
 .board-color-pomegranate#header-quick-access ul li.current {
   border-bottom: 4px solid #d7584b;
 }
+
+/* Transparent modern scrollbar - pomegranate*/
+.board-color-pomegranate .board-canvas {
+  scrollbar-color: #c0392bf2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-pomegranate .sidebar .sidebar-content {
+  scrollbar-color: #c0392bf2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-pomegranate .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-pomegranate .list-body {
+ margin-top: 8px;
+}
+
+/* === END Pomegranate THEME === */
+
+/* =============== 
+THEME - Belize
+=================*/
+
 .board-color-belize#header,
 .board-color-belize.sk-spinner div,
 .board-backgrounds-list .board-color-belize.background-box,
@@ -214,6 +276,35 @@
 .board-color-belize#header-quick-access ul li.current {
   border-bottom: 4px solid #459cd6;
 }
+
+/* Transparent modern scrollbar - belize*/
+.board-color-belize .board-canvas {
+  scrollbar-color: #2573a7f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-belize .sidebar .sidebar-content {
+  scrollbar-color: #2980b9f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-belize .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-belize .list-body {
+ margin-top: 8px;
+}
+
+/* === END Belize THEME === */
+
+/* =============== 
+THEME - Wisteria
+=================*/
+
 .board-color-wisteria#header,
 .board-color-wisteria.sk-spinner div,
 .board-backgrounds-list .board-color-wisteria.background-box,
@@ -286,6 +377,35 @@
 .board-color-wisteria#header-quick-access ul li.current {
   border-bottom: 4px solid #a765c2;
 }
+
+/* Transparent modern scrollbar - wisteria*/
+.board-color-wisteria .board-canvas {
+  scrollbar-color: #8e44adf2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-wisteria .sidebar .sidebar-content {
+  scrollbar-color: #8e44adf2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-wisteria .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-wisteria .list-body {
+ margin-top: 8px;
+}
+
+/* === END Wisteria THEME === */
+
+/* =============== 
+THEME - Midnight
+=================*/
+
 .board-color-midnight#header,
 .board-color-midnight.sk-spinner div,
 .board-backgrounds-list .board-color-midnight.background-box,
@@ -358,6 +478,35 @@
 .board-color-midnight#header-quick-access ul li.current {
   border-bottom: 4px solid #476582;
 }
+
+/* Transparent modern scrollbar - midnight*/
+.board-color-midnight .board-canvas {
+  scrollbar-color: #2c3e50f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-midnight .sidebar .sidebar-content {
+  scrollbar-color: #2c3e50f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-midnight .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-midnight .list-body {
+ margin-top: 8px;
+}
+
+/* === END Midnight THEME === */
+
+/* =============== 
+THEME - Pumpkin
+=================*/
+
 .board-color-pumpkin#header,
 .board-color-pumpkin.sk-spinner div,
 .board-backgrounds-list .board-color-pumpkin.background-box,
@@ -430,6 +579,35 @@
 .board-color-pumpkin#header-quick-access ul li.current {
   border-bottom: 4px solid #eb984e;
 }
+
+/* Transparent modern scrollbar - pumpkin*/
+.board-color-pumpkin .board-canvas {
+  scrollbar-color: #e67e22f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-pumpkin .sidebar .sidebar-content {
+  scrollbar-color: #e67e22f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-pumpkin .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-pumpkin .list-body {
+ margin-top: 8px;
+}
+
+/* === END Pumpkin THEME === */
+
+/* =============== 
+THEME - Moderate Pink
+=================*/
+
 .board-color-moderatepink#header,
 .board-color-moderatepink.sk-spinner div,
 .board-backgrounds-list .board-color-moderatepink.background-box,
@@ -502,6 +680,35 @@
 .board-color-moderatepink#header-quick-access ul li.current {
   border-bottom: 4px solid #d77ba7;
 }
+
+/* Transparent modern scrollbar - moderatepink*/
+.board-color-moderatepink .board-canvas {
+  scrollbar-color: #cd5a91f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-moderatepink .sidebar .sidebar-content {
+  scrollbar-color: #cd5a91f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-moderatepink .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-moderatepink .list-body {
+ margin-top: 8px;
+}
+
+/* === END Moderatepink THEME === */
+
+/* =============== 
+THEME - Strong Cyan
+=================*/
+
 .board-color-strongcyan#header,
 .board-color-strongcyan.sk-spinner div,
 .board-backgrounds-list .board-color-strongcyan.background-box,
@@ -574,6 +781,35 @@
 .board-color-strongcyan#header-quick-access ul li.current {
   border-bottom: 4px solid #0adbff;
 }
+
+/* Transparent modern scrollbar - strongcyan*/
+.board-color-strongcyan .board-canvas {
+  scrollbar-color: #00aeccf2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-strongcyan .sidebar .sidebar-content {
+ scrollbar-color: #00aeccf2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-strongcyan .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-strongcyan .list-body {
+ margin-top: 8px;
+}
+
+/* === END Strongcyan THEME === */
+
+/* =============== 
+THEME - Lime Green
+=================*/
+
 .board-color-limegreen#header,
 .board-color-limegreen.sk-spinner div,
 .board-backgrounds-list .board-color-limegreen.background-box,
@@ -646,6 +882,35 @@
 .board-color-limegreen#header-quick-access ul li.current {
   border-bottom: 4px solid #6fcc89;
 }
+
+/* Transparent modern scrollbar - limegreen*/
+.board-color-limegreen .board-canvas {
+  scrollbar-color: #4bbf6bf2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-limegreen .sidebar .sidebar-content {
+  scrollbar-color: #4bbf6bf2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-limegreen .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-limegreen .list-body {
+ margin-top: 8px;
+}
+
+/* === END Limegreen THEME === */
+
+/* =============== 
+THEME - Dark
+=================*/
+
 .board-color-dark#header,
 .board-color-dark.sk-spinner div,
 .board-backgrounds-list .board-color-dark.background-box,
@@ -659,6 +924,7 @@
   border-radius: 7px;
   padding: 10px 10px 4px 10px;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
+  background-color: rgb(255 255 255 / 90%);
 }
 .board-color-dark button[type=submit].primary,
 .board-color-dark input[type=submit].primary,
@@ -820,6 +1086,35 @@
   background-color: #ccc;
   color: #222;
 }
+
+/* Transparent modern scrollbar - dark*/
+.board-color-dark .board-canvas {
+  scrollbar-color: #f2f2f2f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-dark .sidebar .sidebar-content {
+  scrollbar-color: #f2f2f2f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-dark .list {
+  border-left: none; /* Remove this property to bring back lines in-between columns if needed*/
+  padding: 0px 1px 8px 1px; /* Improves spacing between columns due to no borders, 8px padding at bottom to separate horizontal scrollbar/lists */
+}
+
+.board-color-dark .list-body {
+ margin-top: 8px;
+}
+
+/* === END Dark THEME === */
+
+/* =============== 
+THEME - Relax
+=================*/
+
 .board-color-relax#header,
 .board-color-relax.sk-spinner div,
 .board-backgrounds-list .board-color-relax.background-box,
@@ -892,7 +1187,7 @@
 .board-color-relax#header-quick-access ul li.current {
   border-bottom: 4px solid #3dd37e;
 }
-.board-color-relax ..board-wrapper {
+.board-color-relax .board-wrapper {
   background-color: #a7e366;
 }
 .board-color-relax .list-header {
@@ -921,6 +1216,35 @@
   font-weight: bold;
   font-size: 11pt;
 }
+
+/* Transparent modern scrollbar - relax*/
+.board-color-relax .board-canvas {
+  scrollbar-color: #fffffff2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-relax .sidebar .sidebar-content {
+  scrollbar-color: #a7e366 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-relax .list {
+  border-left: none;
+ /* padding-bottom: 8px; - Removed to get rid of grey bars for relax theme */
+}
+
+.board-color-relax .list-body {
+ margin-top: 8px;
+}
+
+/* === END Relax THEME === */
+
+/* =============== 
+THEME - Corteza
+=================*/
+
 .board-color-corteza#header,
 .board-color-corteza.sk-spinner div,
 .board-backgrounds-list .board-color-corteza.background-box,
@@ -993,9 +1317,35 @@
 .board-color-corteza#header-quick-access ul li.current {
   border-bottom: 4px solid #76a3b6;
 }
-/*
-  Alternate "Clear" Styling
-*/
+
+/* Transparent modern scrollbar - corteza*/
+.board-color-corteza .board-canvas {
+    scrollbar-color: #568ba2f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-corteza .sidebar .sidebar-content {
+  scrollbar-color: #568ba2f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-corteza .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-corteza .list-body {
+ margin-top: 8px;
+}
+
+/* === END Corteza THEME === */
+
+/* =============== 
+THEME - Clear Blue
+=================*/
+
 .board-color-clearblue.sk-spinner div,
 .board-backgrounds-list .board-color-clearblue.background-box,
 .board-list .board-color-clearblue a {
@@ -1067,7 +1417,7 @@
 }
 .board-color-clearblue .swimlane .list:first-child {
   min-width: 20px;
-  margin-left: 0px;
+  margin-left: 10px; /* Added 10px margin left to stop lists being butted up against the edge of the screen */
   border-left: none;
 }
 .board-color-clearblue .swimlane .list:nth-child {
@@ -1101,7 +1451,7 @@
   color: rgba(0,0,0,0.6);
 }
 .board-color-clearblue .list-header {
-  background-color: rgba(255,255,255,0.25);
+  background-color: rgb(255 255 255 / 68%);
   border-radius: 14px 14px 0 0;
 }
 .board-color-clearblue .list-header:not([class*="list-header-"]) {
@@ -1229,9 +1579,40 @@
   cursor: -webkit-grabbing;
   cursor: grabbing;
 }
-/*
-  Alternate "Natural" Styling
-*/
+
+/* Transparent modern scrollbar - clearblue*/
+.board-color-clearblue .board-canvas {
+  scrollbar-color: #ffffffdb #ffffff00;
+  scrollbar-width: thin;
+}
+
+.board-color-clearblue .list-body {
+  scrollbar-width: thin;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-clearblue .sidebar .sidebar-content {
+   scrollbar-color: #00aecc #ffffff00;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-clearblue .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-clearblue .list-body {
+ margin-top: 8px;
+}
+
+/* === END Clearblue THEME === */
+
+/* =============== 
+THEME - Natural
+=================*/
+
 .board-color-natural#header,
 .board-color-natural.sk-spinner div,
 .board-backgrounds-list .board-color-natural.background-box,
@@ -1313,9 +1694,35 @@
 .board-color-natural .swimlane .swimlane-header-wrap {
   background-color: #c2c0ab;
 }
-/*
-  Alternate "Modern" Styling
-*/
+
+/* Transparent modern scrollbar - natural*/
+.board-color-natural .board-canvas {
+  scrollbar-color: #596557f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-natural .sidebar .sidebar-content {
+  scrollbar-color: #596557f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-natural .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-natural .list-body {
+ margin-top: 8px;
+}
+
+/* === END Natural THEME === */
+
+/* =============== 
+THEME - Modern
+=================*/
+
 .board-color-modern#header,
 .board-color-modern.sk-spinner div,
 .board-backgrounds-list .board-color-modern.background-box,
@@ -1481,7 +1888,7 @@
   color: #222;
 }
 .board-color-modern .list-header {
-  background: none;
+   background: #f5f5f5f2; /*Added background colour same colour as base board background, prevents poor text visibility when bgd image applied*/
 }
 .board-color-modern .list-header .list-header-name {
   /* font-family: Poppins; */
@@ -1574,9 +1981,35 @@
 .board-color-modern section#notifications-drawer .header .toggle-read {
   top: 18px;
 }
-/*
-  Alternate "Modern Dark" Styling
-*/
+
+/* Transparent modern scrollbar - modern*/
+.board-color-modern .board-canvas {
+  scrollbar-color: #333333f2 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-modern .sidebar .sidebar-content {
+  scrollbar-color: #333333f2 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-modern .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-modern .list-body {
+ margin-top: 8px;
+}
+
+/* === END Modern THEME === */
+
+/* =============== 
+THEME - Modern Dark
+=================*/
+
 .board-color-moderndark#header,
 .board-color-moderndark.sk-spinner div,
 .board-backgrounds-list .board-color-moderndark.background-box,
@@ -2035,6 +2468,38 @@
 .pop-over.board-color-moderndark .pop-over-list li > a:hover {
   background-color: rgba(255,255,255,0.2);
 }
+
+/* Transparent moderndark scrollbar - moderndark*/
+.board-color-moderndark .board-canvas {
+  scrollbar-width: thin;
+  scrollbar-color: #343434f2 #999999f2;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-moderndark .sidebar .sidebar-content {
+  scrollbar-width: thin;
+  scrollbar-color: #343434f2 #999999f2;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-moderndark .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-moderndark .list-body {
+ margin-top: 8px;
+}
+
+/* === END ModernDark THEME === */
+
+
+/* =============== 
+THEME - Exodark
+=================*/
+
 .board-color-exodark#header,
 .board-color-exodark.sk-spinner div,
 .board-backgrounds-list .board-color-exodark.background-box,
@@ -2131,7 +2596,7 @@
 }
 .board-color-exodark .swimlane .list:first-child {
   min-width: 20px;
-  margin-left: 0px;
+  margin-left: 10px; /*Added 10px margin to prevent butting up against edge of screen */
   border-left: none;
 }
 .board-color-exodark .swimlane .list:nth-child {
@@ -2255,6 +2720,30 @@
   background: #2b2b2b;
   color: #fff;
 }
+
+/* Transparent modern scrollbar - Exodark*/
+.board-color-exodark .list-body {
+  scrollbar-color: #e4e4e4d4 #202020ba;
+}
+
+.board-color-exodark .list {
+  overflow: hidden;
+}
+
+.board-color-exodark .board-canvas {
+  scrollbar-color: #e4e4e4d4 #202020ba;
+}
+
+/* Apply scrollbar to sidebar content*/
+.board-color-exodark .sidebar .sidebar-content {
+  scrollbar-color: #e4e4e4d4 #202020ba;
+}
+
+/* === END Exodark THEME === */
+
+/* =============== 
+THEME - Clean Dark
+=================*/
 
 .board-color-cleandark#header ul li,
 .board-color-cleandark#header-quick-access ul li {
@@ -2676,6 +3165,33 @@
   display: flex;
   align-items: center;
 }
+
+/* Transparent modern scrollbar - cleandark*/
+.board-color-cleandark .board-canvas {
+  scrollbar-color: #23232be6 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-cleandark .sidebar .sidebar-content {
+  scrollbar-color: #ff6d00 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-cleandark .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-cleandark .list-body {
+ margin-top: 8px;
+}
+
+/* =============== 
+THEME - Clean Light
+=================*/
+/* Please note Clean Light theme elements also contain references to some cleandark theme elements so if unable to find code you're looking for under CleanDark it might be here. This should probably be cleaned up*/
 
 .board-color-cleanlight {
   background: #E0E0E0;
@@ -3685,3 +4201,27 @@
 .board-color-cleandark .is-selected .minicard, .draggable-hover-card .minicard {
   background: #23232B;
 }
+
+/* Transparent modern scrollbar - cleanlight*/
+.board-color-cleanlight .board-canvas {
+  scrollbar-color: #0a0a14d1 #e4e4e400;
+}
+
+
+/* Apply scrollbar to sidebar content*/
+.board-color-cleanlight .sidebar .sidebar-content {
+  scrollbar-color: #0a0a14d1 #e4e4e400;
+}
+
+/* Remove margins in between columns/fix spacing */
+
+.board-color-cleanlight .list {
+  border-left: none;
+  padding-bottom: 8px;
+}
+
+.board-color-cleanlight .list-body {
+ margin-top: 8px;
+}
+
+/* === END CleanDark/Light THEME === */
