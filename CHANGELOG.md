@@ -15,6 +15,16 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release tries to fix the following bugs:
+
+- [Try 2 to fix apparmor denied in syslog at Snap Candidate](https://github.com/wekan/wekan/commit/0a1074ca6e95728b0da30bd701ba783f2a4bdd98).
+  Newest MongoDB uses --host, not anymore --bind_ip.
+  Thanks to webenefits and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.58 2024-09-04 WeKan ® release
 
 This release tries to fix the following bugs:
