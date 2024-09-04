@@ -1417,7 +1417,7 @@ THEME - Clear Blue
 }
 .board-color-clearblue .swimlane .list:first-child {
   min-width: 20px;
-  margin-left: 10px;
+  margin-left: 10px; /* Added 10px margin left to stop lists being butted up against the edge of the screen */
   border-left: none;
 }
 .board-color-clearblue .swimlane .list:nth-child {
