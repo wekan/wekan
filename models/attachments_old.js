@@ -1,36 +1,16 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-
-const storeName = 'attachments';
-const defaultStoreOptions = {
-  beforeWrite: fileObj => {
-    if (!fileObj.isImage()) {
-      return {
-        type: 'application/octet-stream',
-      };
-    }
-    return {};
-  },
-};
-let store;
-store = new FS.Store.GridFS(storeName, {
-  // XXX Add a new store for cover thumbnails so we don't load big images in
-  // the general board view
-  // If the uploaded document is not an image we need to enforce browser
-  // download instead of execution. This is particularly important for HTML
-  // files that the browser will just execute if we don't serve them with the
-  // appropriate `application/octet-stream` MIME header which can lead to user
-  // data leaks. I imagine other formats (like PDF) can also be attack vectors.
-  // See https://github.com/wekan/wekan/issues/99
-  // XXX Should we use `beforeWrite` option of CollectionFS instead of
-  // collection-hooks?
-  // We should use `beforeWrite`.
-  ...defaultStoreOptions,
-});
-AttachmentsOld = new FS.Collection('attachments', {
-  stores: [store],
-});
+import { Meteor } from 'meteor/meteor';
+import { FilesCollection } from 'meteor/ostrio:files';
+import { isFileValid } from './fileValidation';
+import { createBucket } from './lib/grid/createBucket';
+import fs from 'fs';
+import path from 'path';
 
 if (Meteor.isServer) {
+  AttachmentsOld = createBucket('cfs_gridfs.attachments');
+
+/*
+
   Meteor.startup(() => {
     AttachmentsOld.files._ensureIndex({ cardId: 1 });
   });
@@ -113,6 +93,9 @@ if (Meteor.isServer) {
       swimlaneId: doc.swimlaneId,
     });
   });
+
+*/
+
 }
 
 export default AttachmentsOld;
