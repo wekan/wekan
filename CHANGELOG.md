@@ -23,6 +23,8 @@ This release fixes the following bugs:
   Thanks to webenefits and xet7.
 - [Try 4 to fix apparmor denied in syslog at Snap Candidate](https://github.com/wekan/wekan/commit/ecdfc681700633d8688ca709f36924ceced96af8).
   Thanks to webenefits and xet7.
+- [Try 5 to fix apparmor denied in syslog at Snap Candidate](https://github.com/wekan/wekan/commit/e32d2daa4567728e4dd5048c9c575edcac1372da).
+  Thanks to webenefits and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
