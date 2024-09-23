@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Added to Docs CNAME DNS info about CloudFlare and Sandstorm](https://github.com/wekan/wekan/commit/b6e7e03c95dfa68c8de6922ffb7663631e476d91).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.59 2024-09-04 WeKan ® release
 
 This release tries to fix the following bugs:
