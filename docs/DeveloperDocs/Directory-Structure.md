@@ -1,6 +1,6 @@
 # Routing
 
-We're using [FlowRouter](https://github.com/kadirahq/flow-router) client side router inside **[config/router.js](https://github.com/wekan/wekan/tree/main/config/router.js)**.
+We're using [FlowRouter](https://github.com/veliovgroup/flow-router) client side router inside **[config/router.js](https://github.com/wekan/wekan/tree/main/config/router.js)**.
 For accounts there is [AccountsTemplates](https://github.com/meteor-useraccounts) configured in **[config/accounts.js](https://github.com/wekan/wekan/tree/main/config/accounts.js)**.
 
 # Client
@@ -183,5 +183,5 @@ Other files:
 
 # Contributions to this page
 
-This documentation was contributed by [TNick](https://github.com/TNick) and [xet7](https://github.com/xet7) while Wekan was at commit [e2f768c](https://github.com/wekan/wekan/tree/e2f768c6a0f913b7c5f07695dce8cec692037255). 
+This documentation was contributed by [TNick](https://github.com/TNick) and [xet7](https://github.com/xet7) while Wekan was at commit [e2f768c](https://github.com/wekan/wekan/tree/e2f768c6a0f913b7c5f07695dce8cec692037255).
 Please add new files, fixes, updates, etc directly to this page.
