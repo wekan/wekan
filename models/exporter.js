@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 const Papa = require('papaparse');
 import { TAPi18n } from '/imports/i18n';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 //const stringify = require('csv-stringify');
 

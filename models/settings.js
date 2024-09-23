@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 //var nodemailer = require('nodemailer');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable

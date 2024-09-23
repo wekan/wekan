@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 // exporter maybe is broken since Gridfs introduced, add fs and path
 
