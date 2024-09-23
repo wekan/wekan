@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Try 3 to fix apparmor denied in syslog at Snap Candidate. Changed MongoDB --host back to --bind_ip](https://github.com/wekan/wekan/commit/6c54b38cdfd14959f4449cea0c3150bf86708ecd).
   Thanks to webenefits and xet7.
+- [Try 4 to fix apparmor denied in syslog at Snap Candidate](https://github.com/wekan/wekan/commit/ecdfc681700633d8688ca709f36924ceced96af8).
+  Thanks to webenefits and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
