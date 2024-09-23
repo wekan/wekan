@@ -1,5 +1,22 @@
 [Caddy 2 .well-known/assetlinks.json config for WeKan Android Play Store app](../PWA#fullscreen-android-app-with-caddy-and-wekan-server)
 
+# CloudFlare DNS
+
+CNAME:
+
+If some customer has CNAME to hosting platform subdomain,
+hosting platform subdomain needs to be A record IP address to
+hosting server Caddy webserver, because only that way
+it can get Let's Encrypt TLS cert. It can not be nested like
+customer CNAME to hosting CNAME to hosting A record,
+because then getting Let's Encrypt TLS cert does not work.
+
+Wildcard:
+
+Wildcard DNS for Sandstorm only works with CloudFlare DNS.
+It does not work with FreeDNS of Namecheap. More info at
+https://github.com/wekan/wekan/wiki/Sandstorm
+
 ## Caddy 2
 
 WeKan Snap Candidate for any Snap distros: https://github.com/wekan/wekan/wiki/OpenSuse , disable internal old Caddy 1, when using Caddy 2:
