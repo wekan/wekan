@@ -21,6 +21,10 @@ This release adds the following updates:
 
 - [Added to Docs CNAME DNS info about CloudFlare and Sandstorm](https://github.com/wekan/wekan/commit/b6e7e03c95dfa68c8de6922ffb7663631e476d91).
   Thanks to xet7.
+- [Switch from kadira:flow-router to ostrio:flow-router-extra](https://github.com/wekan/wekan/pull/5530).
+  Thanks to imajus.
+- [Removed outdated dependency page. To be seen, does anything break](https://github.com/wekan/wekan/commit/a9d41217bd8c797b28510efec3e21a92d7ec4bba).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
