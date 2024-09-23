@@ -114,12 +114,12 @@ if [ -z "${MONGO_URL}" ]; then
     #echo "mongodb log destination: ${MONGO_LOG_DESTINATION}" >> "${SNAP_COMMON}/settings.log"
 
     # Disable MongoDB telemetry and free monitoring
-    mongosh wekan --eval 'disableTelemetry();' --bind_ip ${MONGODB_BIND_IP} --port ${MONGODB_PORT}
-    mongosh wekan --eval 'db.disableFreeMonitoring();' --bind_ip ${MONGODB_BIND_IP} --port ${MONGODB_PORT}
+    mongosh wekan --eval 'disableTelemetry();' --port ${MONGODB_PORT}
+    mongosh wekan --eval 'db.disableFreeMonitoring();' --port ${MONGODB_PORT}
 
     # Snap: Disable apparmor="DENIED" at syslog
     # https://github.com/wekan/wekan/issues/4855
-    mongosh wekan --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});' --bind_ip ${MONGODB_BIND_IP} --port ${MONGODB_PORT}
+    mongosh wekan --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});' --port ${MONGODB_PORT}
 
     # Drop indexes on database upgrade, when starting MongoDB
     #mongosh wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
@@ -128,7 +128,7 @@ if [ -z "${MONGO_URL}" ]; then
     #mongosh wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' ${BIND_OPTIONS}
 
     # Delete incomplete uploads so that they would not prevent starting WeKan
-    mongosh wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' --bind_ip ${MONGODB_BIND_IP} --port ${MONGODB_PORT}
+    mongosh wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' --port ${MONGODB_PORT}
 
 else
 
