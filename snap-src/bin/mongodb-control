@@ -88,9 +88,9 @@ if [ -z "${MONGO_URL}" ]; then
     if [ "nill" != "${MONGODB_BIND_UNIX_SOCKET}" ] && [ "x" != "x${MONGODB_BIND_UNIX_SOCKET}" ]; then
         BIND_OPTIONS+=" --unixSocketPrefix ${MONGODB_BIND_UNIX_SOCKET}"
     fi
-    # Newest MongoDB uses --host, not anymore --bind_ip
+    # Newest MongoDB uses --host or --bind_ip
     if [ "x" != "x${MONGODB_BIND_IP}" ]; then
-        BIND_OPTIONS+=" --host $MONGODB_BIND_IP"
+        BIND_OPTIONS+=" --bind_ip $MONGODB_BIND_IP"
     fi
     if [ "x" != "x${MONGODB_PORT}" ]; then
         BIND_OPTIONS+=" --port ${MONGODB_PORT}"
