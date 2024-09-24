@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Testing packages without versions from, for upcoming upgrades](https://github.com/wekan/wekan/commit/6e8e581ceb330a7756403efa1f8bbe5a198ff111).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Try 3 to fix apparmor denied in syslog at Snap Candidate. Changed MongoDB --host back to --bind_ip](https://github.com/wekan/wekan/commit/6c54b38cdfd14959f4449cea0c3150bf86708ecd).
   Thanks to webenefits and xet7.
