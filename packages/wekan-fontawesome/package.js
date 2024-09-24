@@ -8,8 +8,6 @@ Package.describe({
 
 
 Package.onUse(function(api) {
-  api.versionsFrom('2.13');
-
   api.addAssets([
     'fontawesome-free/webfonts/fa-brands-400.ttf',
     'fontawesome-free/webfonts/fa-brands-400.woff2',

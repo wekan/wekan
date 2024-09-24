@@ -7,7 +7,6 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('2.13');
   api.use('jquery', 'client');
 
   api.addFiles('bootstrap-datepicker/dist/js/bootstrap-datepicker.js', 'client');

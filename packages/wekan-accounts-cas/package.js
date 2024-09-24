@@ -6,7 +6,6 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('2.7');
   api.use('routepolicy', 'server');
   api.use('webapp', 'server');
   api.use('accounts-base', ['client', 'server']);

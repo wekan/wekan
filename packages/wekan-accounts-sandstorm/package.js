@@ -27,8 +27,6 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('2.7');
-
   api.use('random', ['client', 'server']);
   api.use('accounts-base', ['client', 'server'], {weak: true});
   api.use('webapp', 'server');

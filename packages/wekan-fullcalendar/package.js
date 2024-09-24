@@ -6,9 +6,8 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-    api.versionsFrom('2.13');
     api.use([
-        'momentjs:moment@2.29.3',
+        'momentjs:moment',
         'templating'
     ], 'client');
     api.addFiles([

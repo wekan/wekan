@@ -12,7 +12,6 @@ Package.describe({
 
 
 Package.onUse(function(api) {
-  api.versionsFrom('2.7');
 	api.use('yasaricli:slugify');
 	api.use('ecmascript');
 	api.use('underscore');
