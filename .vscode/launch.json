@@ -1,45 +1,57 @@
 {
   "version": "0.2.0",
   "configurations": [
-      {
-          "type": "chrome",
-          "request": "launch",
-          "name": "Meteor: Chrome",
-          "url": "http://localhost:3000",
-          "webRoot": "${workspaceFolder}"
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Meteor: Node",
+      "runtimeExecutable": "meteor",
+      "runtimeArgs": [
+        "--port=4000",
+        "--exclude-archs=web.browser.legacy,web.cordova",
+        "--raw-logs"
+      ],
+      "env": {
+        "WRITABLE_PATH": "/tmp/uploads",
       },
-      {
-          "type": "node",
-          "request": "launch",
-          "name": "Meteor: Node",
-          "runtimeExecutable": "/home/wekan/.meteor/meteor",
-          "runtimeArgs": ["run", "--inspect-brk=9229"],
-          "outputCapture": "std",
-          "port": 9229,
-          "timeout": 60000
+      "outputCapture": "std",
+      "restart": true,
+      "timeout": 60000
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Meteor: Chrome",
+      "url": "http://localhost:4000",
+      "sourceMapPathOverrides": {
+        "meteor://💻app/*": "${workspaceFolder}/*"
       },
-      {
-          "type": "node",
-          "request": "launch",
-          "name": "Test: Node",
-          "runtimeExecutable": "meteor",
-          "runtimeArgs": [
-            "test",
-            "--inspect-brk=9229",
-            "--port=4040",
-            "--exclude-archs=web.browser.legacy,web.cordova",
-            "--driver-package=meteortesting:mocha",
-            "--settings=settings.json"
-          ],
-          "outputCapture": "std",
-          "port": 9229,
-          "timeout": 60000
-      }
+      "userDataDir": "${env:HOME}/.vscode/chrome"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Node",
+      "runtimeExecutable": "meteor",
+      "runtimeArgs": [
+        "test",
+        "--port=4040",
+        "--exclude-archs=web.browser.legacy,web.cordova",
+        "--driver-package=meteortesting:mocha",
+        "--settings=settings.json",
+        "--raw-logs"
+      ],
+      "env": {
+        "TEST_WATCH": "1"
+      },
+      "outputCapture": "std",
+      "timeout": 60000
+    }
   ],
   "compounds": [
-      {
-          "name": "Meteor: All",
-          "configurations": ["Meteor: Node", "Meteor: Chrome"]
-      }
+    {
+      "name": "Meteor: All",
+      "configurations": ["Meteor: Node", "Meteor: Chrome"]
+    }
   ]
 }
