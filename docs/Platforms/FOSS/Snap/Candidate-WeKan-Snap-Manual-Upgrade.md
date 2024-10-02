@@ -40,7 +40,7 @@ ssh wekanserver
 ```
 #### 5. Save snap settings and set it as executeable
 ```
-sudo snap get wekan > snap-settings.sh
+sudo snap get wekan | awk '{if(NR>1) print "sudo snap set wekan " $1 "=" "\"" $2 "\""}' > snap-settings.sh
 
 chmod +x snap-settings.sh
 ```
