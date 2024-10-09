@@ -1,5 +1,4 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 BlazeComponent.extendComponent({
   addSubtask(event) {

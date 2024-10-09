@@ -26,6 +26,7 @@ mquandalle:collection-mutations
 # Account system
 accounts-password@2.4.0
 useraccounts:core
+useraccounts:flow-routing
 useraccounts:unstyled
 simple:rest-accounts-password
 wekan-ldap
@@ -43,6 +44,7 @@ reactive-dict@1.3.1
 session@1.2.1
 tracker@1.3.3
 underscore@1.0.13
+arillo:flow-router-helpers
 audit-argument-checks@1.0.7
 kadira:dochead
 mquandalle:autofocus
@@ -79,16 +81,16 @@ meteortesting:mocha@2.0.3
 aldeed:simple-schema
 matb33:collection-hooks
 simple:json-routes
+kadira:flow-router
 spacebars
 service-configuration@1.3.2
 communitypackages:picker
 minifier-css@1.6.4
 blaze
+kadira:blaze-layout
 peerlibrary:blaze-components
 ejson@1.1.3
 logging@1.3.3
 wekan-fullcalendar
 momentjs:moment@2.29.3
 wekan-fontawesome
-ostrio:flow-router-extra
-useraccounts:flow-routing-extra

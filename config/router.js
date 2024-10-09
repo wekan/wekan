@@ -1,5 +1,4 @@
 import { TAPi18n } from '/imports/i18n';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 let previousPath;
 FlowRouter.triggers.exit([
@@ -25,7 +24,7 @@ FlowRouter.route('/', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'boardListHeaderBar',
       content: 'boardList',
     });
@@ -49,7 +48,7 @@ FlowRouter.route('/public', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'boardListHeaderBar',
       content: 'boardList',
     });
@@ -79,7 +78,7 @@ FlowRouter.route('/b/:id/:slug', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',
       content: 'board',
     });
@@ -99,7 +98,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',
       content: 'board',
     });
@@ -119,7 +118,7 @@ FlowRouter.route('/shortcuts', {
         onCloseGoTo: previousPath,
       });
     } else {
-      this.render('defaultLayout', {
+      BlazeLayout.render('defaultLayout', {
         headerBar: 'shortcutsHeaderBar',
         content: shortcutsTemplate,
       });
@@ -144,7 +143,7 @@ FlowRouter.route('/b/templates', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'boardListHeaderBar',
       content: 'boardList',
     });
@@ -163,7 +162,7 @@ FlowRouter.route('/my-cards', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'myCardsHeaderBar',
       content: 'myCards',
     });
@@ -183,7 +182,7 @@ FlowRouter.route('/due-cards', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'dueCardsHeaderBar',
       content: 'dueCards',
     });
@@ -210,7 +209,7 @@ FlowRouter.route('/global-search', {
         decodeURIComponent(FlowRouter.getQueryParam('q')),
       );
     }
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'globalSearchHeaderBar',
       content: 'globalSearch',
     });
@@ -230,7 +229,7 @@ FlowRouter.route('/broken-cards', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'brokenCardsHeaderBar',
       content: brokenCardsTemplate,
     });
@@ -254,7 +253,7 @@ FlowRouter.route('/import/:source', {
     Filter.reset();
     Session.set('sortBy', '');
     EscapeActions.executeAll();
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'importHeaderBar',
       content: 'import',
     });
@@ -279,7 +278,7 @@ FlowRouter.route('/setting', {
   ],
   action() {
     Utils.manageCustomUI();
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'setting',
     });
@@ -303,7 +302,7 @@ FlowRouter.route('/information', {
     },
   ],
   action() {
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'information',
     });
@@ -327,7 +326,7 @@ FlowRouter.route('/people', {
     },
   ],
   action() {
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'people',
     });
@@ -351,7 +350,7 @@ FlowRouter.route('/admin-reports', {
     },
   ],
   action() {
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'adminReports',
     });
@@ -375,7 +374,7 @@ FlowRouter.route('/attachments', {
     },
   ],
   action() {
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'attachments',
     });
@@ -399,18 +398,18 @@ FlowRouter.route('/translation', {
     },
   ],
   action() {
-    this.render('defaultLayout', {
+    BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'translation',
     });
   },
 });
 
-FlowRouter.route('*', {
+FlowRouter.notFound = {
   action() {
-    this.render('defaultLayout', { content: 'notFound' });
+    BlazeLayout.render('defaultLayout', { content: 'notFound' });
   },
-});
+};
 
 // We maintain a list of redirections to ensure that we don't break old URLs
 // when we change our routing scheme.

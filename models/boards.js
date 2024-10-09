@@ -9,7 +9,6 @@ import {
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
 import Users from "./users";
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 // const escapeForRegex = require('escape-string-regexp');
 
@@ -2209,7 +2208,7 @@ if (Meteor.isServer) {
       });
     }
   });
-
+  
   /**
    * @operation add_board_label
    * @summary Add a label to a board
