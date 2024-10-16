@@ -206,6 +206,9 @@ template(name="activity")
         if($eq activity.activityType 'archivedList')
           | {{_ 'activity-archived' (sanitize listLabel)}}.
 
+        if($eq activity.activityType 'changedListTitle')
+          {{_ 'activity-changedListTitle' (sanitize listLabel) boardLabelLink}}
+
       //- member activity ----------------------------------------------------
       if($eq activity.activityType 'joinMember')
         if($eq user._id activity.member._id)
