@@ -32,6 +32,8 @@ and fixes the following bugs:
   Thanks to webenefits and xet7.
 - [Try 6 to fix apparmor denied in syslog at Snap Candidate](https://github.com/wekan/wekan/commit/5aa38c2e40429f06aac8bc1bc0b5ac30c5344c6f).
   Thanks to webenefits and xet7.
+- [Renaming list shows in activities](https://github.com/wekan/wekan/pull/5549).
+  Thanks to AdenKoziol.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
