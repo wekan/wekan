@@ -49,6 +49,7 @@
   "activity-archived": "%s moved to Archive",
   "activity-attached": "attached %s to %s",
   "activity-created": "created %s",
+  "activity-changedListTitle": "renamed list to %s",
   "activity-customfield-created": "created custom field %s",
   "activity-excluded": "excluded %s from %s",
   "activity-imported": "imported %s into %s from %s",
