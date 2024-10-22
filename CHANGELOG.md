@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Copied updated Docs from wiki to WeKan repo](https://github.com/wekan/wekan/commit/559251eb0d8aea6a714f14224497d0a25c7a3864).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.61 2024-10-23 WeKan ® release
 
 This release adds the following updates:
