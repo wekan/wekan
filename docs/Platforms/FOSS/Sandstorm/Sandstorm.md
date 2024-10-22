@@ -1,6 +1,54 @@
+# Sandstorm at Debian and Ubuntu
+
+### Sandstorm CloudFlare DNS settings
+
+Source: https://github.com/sandstorm-io/sandstorm/issues/3714#issuecomment-2366866243
+
+For me, it works at CloudFlare DNS using TLS Strict checking and DNS setting clicking to orange cloud icon to make TLS proxy with Origin certificate, that is at /etc/caddy/certs/example.com.pem with above private key and below cert.
+
+DNS records:
+```
+* A example.com ip-address
+@ A example.com ip-address
+```
+Caddyfile, proxy to KVM VM that is running Debian and Sandstorm:
+```
+*.example.com example.com {
+        tls {
+                load /etc/caddy/certs
+                alpn http/1.1
+        }
+
+        reverse_proxy 123.123.123.123:80
+}
+```
+At /opt/sandstorm/sandstorm.conf is domain, http port etc.
+
+Some related info at:
+
+https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config
+
+I also had to wait that Origin certificate becomes active.
+
+But this worked for me only at CloudFlare. It did not work at FreeDNS of Namecheap.
+
+Also, I still need to write script to fix IP address if Dynamic DNS IP address changes, using CloudFlare API, because my cable modem does not have DDNS option for CloudFlare.
+
+Now that there is also a way to run Sandstorm at Ubuntu, it would be possible for me to move Sandstorm from KVM VM to run directly at host, without VM, and proxy from Caddy to localhost port of Sandstorm.
+
+https://groups.google.com/g/sandstorm-dev/c/4JFhr7B7QZU?pli=1
+
+### Debian amd64
+
+Installing Sandstorm works normally
+
+### Ubuntu 24.04 amd64
+
+How to install Sandstorm: https://groups.google.com/g/sandstorm-dev/c/4JFhr7B7QZU
+
 ## Sandstorm Website
 
-[Sandstorm Website](https://sandstorm.io)
+[Sandstorm Website](https://sandstorm.org)
 
 If you have any grains at Sandstorm's **Oasis montly paid service**, please move those to self-hosted, because [only **Oasis grain hosting** part is shutting down](https://sandstorm.io/news/2019-09-15-shutting-down-oasis) - [HN](https://news.ycombinator.com/item?id=20979428). This does not affect any other parts like self-hosting at sandcats.io, App Market, updates, etc.
 

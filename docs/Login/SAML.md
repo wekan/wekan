@@ -9,20 +9,24 @@ Sandstorm has SAML login, and old WeKan that will be updated someday:
 
 How SAML works:
 
-- https://ssoready.com/blog/engineering/a-gentle-intro-to-saml/
+- https://ssoready.com
+- https://github.com/ssoready/ssoready
+- https://news.ycombinator.com/item?id=41110850
+- https://ssoready.com/blog/from-the-founders/an-unpopular-perspective-on-the-sso-tax/
+- https://news.ycombinator.com/item?id=41303844/blog/engineering/a-gentle-intro-to-saml/
 - https://news.ycombinator.com/item?id=41036982
 - https://www.sheshbabu.com/posts/visual-explanation-of-saml-authentication/
 - https://news.ycombinator.com/item?id=41057814
+- https://github.com/ssoready/ssoready
+- https://news.ycombinator.com/item?id=41110850
+- https://ssoready.com/blog/from-the-founders/an-unpopular-perspective-on-the-sso-tax/
+- https://news.ycombinator.com/item?id=41303844
 
 Ruby on Rails OmniAuth, that has Shibboleth and SAML:
 
 - https://github.com/omniauth/omniauth/wiki/List-of-Strategies
 - https://github.com/omniauth/omniauth
-
-SAML at SSOReady:
-
-- https://github.com/ssoready/ssoready
-- https://news.ycombinator.com/item?id=41110850
+- Recent SAML issue https://news.ycombinator.com/item?id=41586031
 
 The SSO Wall of Shame:
 

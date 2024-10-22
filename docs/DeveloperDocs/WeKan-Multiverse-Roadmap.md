@@ -1,3 +1,19 @@
+## What is not Cross-Platform
+
+- Requires CPU to support AVX
+  - Bun Javascript Engine https://bun.sh
+  - MongoDB 5.x and newer https://github.com/turnkeylinux/tracker/issues/1724#issuecomment-2351544191
+- Does not work at s390x
+  - V programming language https://github.com/vlang/v/issues/18737
+  - Bun Javascript Engine https://github.com/oven-sh/bun/issues/2632
+  - Deno Javascript Engine https://github.com/denoland/deno/issues/20212#issuecomment-1756663943
+  - Lazarus IDE https://www.lazarus-ide.org
+    - FreePascal programming language https://www.freepascal.org
+  - TigerBeetle database https://github.com/tigerbeetle/tigerbeetle/issues/2241
+- GUI requires porting to other OS
+  - BBC Basic https://www.bbcbasic.net/wiki/doku.php?id=converting_20programs_20from_20risc_20os_20to_20windows
+  - Tcl/Tk GUI does works at most OS
+
 ## Prototype Strategy
 
 - Try building many prototypes, see what works
@@ -265,8 +281,11 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
 
 ### FreePascal
 
-- Repo https://github.com/wekan/hx/tree/main/prototypes/code/webserver/works/freepascal-router
-- Router and some webpage
+- Repo https://github.com/wekan/wami
+  - Some static pages
+- Previous:
+  - Repo https://github.com/wekan/hx/tree/main/prototypes/code/webserver/works/freepascal-router
+  - Router and some webpage
 - Works at many retro and modern OS, but not at s390x that FreePascal does not support yet https://wiki.freepascal.org/ZSeries
 
 ### FreeDOS and Bash

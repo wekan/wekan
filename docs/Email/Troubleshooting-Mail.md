@@ -141,6 +141,8 @@ sudo snap set wekan mail-from='Wekan Team Boards <info@example.com>'
 ```
 ## Example: AWS SES
 
+Related https://github.com/wekan/wekan/discussions/5518
+
 NOTE: At AWS SES settings, you don't need to convert special characters.
 
 1) At AWS SES, add verified sender email address, verified domain, verified DKIM etc.

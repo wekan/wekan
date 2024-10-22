@@ -128,6 +128,7 @@
 
 # <a name="Features"></a>Features
 
+* [Linked Cards](Linked-Cards)
 * [Drag Drop](https://github.com/wekan/wekan/wiki/Drag-Drop) on Mobile and Desktop
 * [Rclone: Store attachments to cloud storage like S3, MinIO, etc](Rclone)
 * [Python based features](Python)

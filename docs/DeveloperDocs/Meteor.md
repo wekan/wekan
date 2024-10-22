@@ -1,11 +1,49 @@
+## Meteor 3 Example Code
+
+- https://github.com/fredmaiaarantes/simpletasks
+  - MIT License
+  - https://github.com/xet7/simpletasks
+- https://github.com/henriquealbert/meteor-with-prisma
+  - MIT License
+  - https://github.com/xet7/meteor-with-prisma
+- https://github.com/henriquealbert/meteor-pnpm
+  - MIT License
+  - https://github.com/xet7/meteor-pnpm
+
+## Building Multi Platform Mobile Apps
+
+- TWIM 058: Building Multi Platform Mobile Apps https://www.youtube.com/watch?v=ZTtXRJTUCIU 
+- https://www.youtube.com/watch?v=ZTtXRJTUCIU
+- https://github.com/jamauro/pwa-kit
+- https://wekan.team/app/
+- https://github.com/wekan/wekan/wiki/PWA
+- Over 100 icons for different platforms https://github.com/wekan/wekan/blob/main/public/site.webmanifest
+
+## Tip to any programmers
+
+- Try to understand any error messages, and what to do to those errors
+
 ## Videos about upgrading to Meteor 3
 
 - Storyteller
+  - Upcoming:
+    - 2024-09-02: Meteor.js generators https://www.youtube.com/watch?v=Z6nY2wqPgSE
+    - 2024-09-09: Can we build static web pages with Meteor.js? https://www.youtube.com/watch?v=cr-Nm0YFb1w
+    - 2024-09-16: Revisiting Mantra application architecture for today's Meteor.js https://www.youtube.com/watch?v=YyzY7ySqBAg
+  - 2024-08-23: TWIM 052: Year of TWIM in review. Trying to of sometime have xet7 at TWIM show again. They recommended people to help xet7 when possible, xet7 is hitting some walls developing WeKan. https://www.youtube.com/watch?v=c5E3uZST4Vs
+  - 2024-08-20:
+    - Vazco interviewing Storyteller: How to approach building Open Source products? https://www.youtube.com/watch?v=j5BrTYcJDVc
+    - Meteor inteviewing Storyteller: Programmer, open source contributor, entrepreneur https://www.youtube.com/watch?v=dsp0_r8uJx8
+  - Meteor Roles:
+    - 2024-07-33: Meteor Roles the full checkpoint https://www.youtube.com/watch?v=ow1i4UXdbbI
+    - 2024-08-12: Meteor Roles building up teams https://www.youtube.com/watch?v=ZAuSYKfV114
   - 2024-07-15: WeKan Upgrades https://www.youtube.com/watch?v=Zjb3m9JsAD0
   - 2024-07-08: Upgrading Meteor examples https://www.youtube.com/watch?v=jzWXxOe93t4
   - Upcoming and past: https://www.youtube.com/@storytellercz/streams
 - React.js
   - WeKan uses Blaze and Jade, not React.
+  - 2024-09-25:
+    - Meteor 3 React Compiler: https://x.com/FilipeNevola/status/1838911432282583432
   - 2024-08-02:
     - https://www.youtube.com/watch?v=NnT7AbVMnj4
     - https://thenewstack.io/after-a-decade-of-react-is-frontend-a-post-react-world-now/

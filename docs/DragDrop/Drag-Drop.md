@@ -39,3 +39,8 @@ Reorder with drag drop:
   - https://www.redblobgames.com/making-of/draggable/
   - https://news.ycombinator.com/item?id=37703291
 - Fixed Drag at Ubuntu Touch Morph browser https://github.com/wekan/wekan/commit/af63259f091cb2ade84493a288ea37c53cd37321
+
+## Touch UI ideas
+
+- https://blog.la-terminal.net/godot-on-ipad-summer-update/
+- https://news.ycombinator.com/item?id=41415077
