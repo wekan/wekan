@@ -1,7 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 // exporter maybe is broken since Gridfs introduced, add fs and path
 import { createWorkbook } from './createWorkbook';
-// import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 class ExporterCardPDF {
   constructor(boardId) {

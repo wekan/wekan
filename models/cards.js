@@ -8,7 +8,6 @@ import {
 } from '../config/const';
 import Attachments, { fileStoreStrategyFactory } from "./attachments";
 import { copyFile } from './lib/fileStoreStrategy.js';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Cards = new Mongo.Collection('cards');
 

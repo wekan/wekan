@@ -1,8 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
-FlowRouter.Renderer.rootElement = () => document.body;
+BlazeLayout.setRoot('body');
 
 let alreadyCheck = 1;
 let isCheckDone = false;

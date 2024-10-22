@@ -1,7 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;

@@ -2,7 +2,6 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { trelloGetMembersToMap } from './trelloMembersMapper';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 const Papa = require('papaparse');
 
