@@ -34,6 +34,8 @@ and fixes the following bugs:
   Thanks to webenefits and xet7.
 - [Renaming list shows in activities](https://github.com/wekan/wekan/pull/5549).
   Thanks to AdenKoziol.
+- [Fixing opening cards and slow performance of closing cards by reverting switching kadira:flow-router to ostrio:flow-router-extra](https://github.com/wekan/wekan/pull/5552).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
