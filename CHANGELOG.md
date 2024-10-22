@@ -15,12 +15,14 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.61 2024-10-23 WeKan ® release
 
 This release adds the following updates:
 
 - [Testing packages without versions from, for upcoming upgrades](https://github.com/wekan/wekan/commit/6e8e581ceb330a7756403efa1f8bbe5a198ff111).
   Thanks to xet7.
+- [Updated to MongoDB 6.0.18 at Snap Candidate](https://github.com/wekan/wekan/commit/9d92a79a284147380eb08a0c011a8815dae5209b).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
