@@ -329,6 +329,16 @@ files.company.com {
 
 # OLD WAY: Many Snaps on LXC
 
+## Fix: System does not fully support snapd
+
+To server and LXC/LXD containers, install these packages:
+
+```
+sudo apt install libsquashfuse0 squashfuse fuse
+```
+
+Source: https://forum.snapcraft.io/t/system-does-not-fully-support-snapd/14767/11
+
 ## LXD init CIDR
 
 IPv4 CIDR: 10.1.1.1/24
