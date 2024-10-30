@@ -25,6 +25,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Add docs about how at LXC/LXD Fix: System does not fully support snapd](https://github.com/wekan/wekan/commit/508bbb37ce960c88c2a7d0b2cb35e5d8790df19f).
   Thanks to xet7.
+- [Copied from Sandstorm developer discussions to docs fix for running Sandstorm at Ubuntu 24.04](https://github.com/wekan/wekan/commit/8ac9353c5313402e00160843ca57405ebeb128cb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
