@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Copied updated Docs from wiki to WeKan repo](https://github.com/wekan/wekan/commit/559251eb0d8aea6a714f14224497d0a25c7a3864).
   Thanks to xet7.
+- [Updated docs about Linked Cards](https://github.com/wekan/wekan/commit/96627540da0b6e12890ee1660f4ff0f469bb0e25).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
