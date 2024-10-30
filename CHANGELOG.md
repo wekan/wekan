@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated docs about Linked Cards](https://github.com/wekan/wekan/commit/96627540da0b6e12890ee1660f4ff0f469bb0e25).
   Thanks to xet7.
+- [Add docs about how at LXC/LXD Fix: System does not fully support snapd](https://github.com/wekan/wekan/commit/508bbb37ce960c88c2a7d0b2cb35e5d8790df19f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
