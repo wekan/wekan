@@ -44,7 +44,17 @@ Installing Sandstorm works normally
 
 ### Ubuntu 24.04 amd64
 
-How to install Sandstorm: https://groups.google.com/g/sandstorm-dev/c/4JFhr7B7QZU
+At startup was a lot of errors and saw "Permission denied; name = /proc/self/setgroups"
+
+I found this (run as root):
+```
+echo "kernel.apparmor_restrict_unprivileged_userns = 0" >/etc/sysctl.d/99-userns.conf
+sysctl --system
+```
+And I ran it and restarted the Sandstorm service, everything seemed to work fine.
+I hope this might be useful to someone.
+
+Source: https://groups.google.com/g/sandstorm-dev/c/4JFhr7B7QZU
 
 ## Sandstorm Website
 
