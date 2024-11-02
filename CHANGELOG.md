@@ -36,6 +36,8 @@ and fixes the following bugs:
 
 - [Add more stack size](https://github.com/wekan/wekan/commit/324be07b859937966f98feb2aeea8f344c689bb0).
   Thanks to xet7.
+- [Fix Warning: missing space before text for line 210 of jade file client/components/activities/activities.jade](https://github.com/wekan/wekan/commit/a27f8ecfa9971740a019a955d3f8d0e5a5dd8dab).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
