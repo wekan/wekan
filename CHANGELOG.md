@@ -29,6 +29,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Update ldap-sync.py reference](https://github.com/wekan/wekan/pull/5555).
   Thanks to emmanuel-ferdman.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/b24acefa6f6696b702f2c3ceb28d6d6290017bb2).
+  Thanks to developers of dependencies.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
