@@ -27,6 +27,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Copied from Sandstorm developer discussions to docs fix for running Sandstorm at Ubuntu 24.04](https://github.com/wekan/wekan/commit/8ac9353c5313402e00160843ca57405ebeb128cb).
   Thanks to xet7.
+- [Update ldap-sync.py reference](https://github.com/wekan/wekan/pull/5555).
+  Thanks to emmanuel-ferdman.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
