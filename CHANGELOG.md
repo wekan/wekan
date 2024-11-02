@@ -32,6 +32,11 @@ This release adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/b24acefa6f6696b702f2c3ceb28d6d6290017bb2).
   Thanks to developers of dependencies.
 
+and fixes the following bugs:
+
+- [Add more stack size](https://github.com/wekan/wekan/commit/324be07b859937966f98feb2aeea8f344c689bb0).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.61 2024-10-23 WeKan ® release
