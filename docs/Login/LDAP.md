@@ -1,6 +1,6 @@
 ## LDAP info
 
-- [LDAP sync script, that also correctly removes users](https://github.com/wekan/wekan/blob/main/ldap-sync/ldap-sync.py)
+- [LDAP sync script, that also correctly removes users](https://github.com/wekan/wekan/blob/main/docs/Login/ldap-sync/ldap-sync.py)
 - [LDAP AD Simple Auth](LDAP-AD-Simple-Auth) 2021-07-24 and related [Search Filter Settings](https://github.com/wekan/wekan/issues/3908#issuecomment-887545168):
 
 ```
