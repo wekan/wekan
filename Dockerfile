@@ -272,4 +272,4 @@ WORKDIR /home/wekan/app
 #
 # CMD ["node", "/build/main.js"]
 # CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /build/main.js"]
-CMD ["bash", "-c", "ulimit -s 65500; exec node /build/main.js"]
+CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 --max-old-space-size=8192 /build/main.js"]

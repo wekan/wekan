@@ -27,6 +27,17 @@ This release adds the following updates:
   Thanks to xet7.
 - [Copied from Sandstorm developer discussions to docs fix for running Sandstorm at Ubuntu 24.04](https://github.com/wekan/wekan/commit/8ac9353c5313402e00160843ca57405ebeb128cb).
   Thanks to xet7.
+- [Update ldap-sync.py reference](https://github.com/wekan/wekan/pull/5555).
+  Thanks to emmanuel-ferdman.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/b24acefa6f6696b702f2c3ceb28d6d6290017bb2).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Add more stack size](https://github.com/wekan/wekan/commit/324be07b859937966f98feb2aeea8f344c689bb0).
+  Thanks to xet7.
+- [Fix Warning: missing space before text for line 210 of jade file client/components/activities/activities.jade](https://github.com/wekan/wekan/commit/a27f8ecfa9971740a019a955d3f8d0e5a5dd8dab).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

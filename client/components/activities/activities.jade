@@ -207,7 +207,7 @@ template(name="activity")
           | {{_ 'activity-archived' (sanitize listLabel)}}.
 
         if($eq activity.activityType 'changedListTitle')
-          {{_ 'activity-changedListTitle' (sanitize listLabel) boardLabelLink}}
+          | {{_ 'activity-changedListTitle' (sanitize listLabel) boardLabelLink}}
 
       //- member activity ----------------------------------------------------
       if($eq activity.activityType 'joinMember')
