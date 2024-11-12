@@ -133,19 +133,23 @@ BlazeComponent.extendComponent({
           }
         }
       }
+      let addIndex;
+      let sortIndex;
+      if (this.currentData().position === 'top') {
+        sortIndex = Utils.calculateIndexData(null, checklist.firstItem()).base;
+        addIndex = -1;
+      } else {
+        sortIndex = Utils.calculateIndexData(checklist.lastItem(), null).base;
+        addIndex = 1;
+      }
       for (let checklistItem of checklistItems) {
-        let sortIndex;
-        if (this.currentData().position === 'top') {
-          sortIndex = Utils.calculateIndexData(null, checklist.firstItem()).base;
-        } else {
-          sortIndex = Utils.calculateIndexData(checklist.lastItem(), null).base;
-        }
         ChecklistItems.insert({
           title: checklistItem,
           checklistId: checklist._id,
           cardId: checklist.cardId,
           sort: sortIndex,
         });
+        sortIndex += addIndex;
       }
     }
     // We keep the form opened, empty it.
