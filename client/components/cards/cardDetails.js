@@ -63,10 +63,6 @@ BlazeComponent.extendComponent({
     return card.findWatcher(Meteor.userId());
   },
 
-  hiddenSystemMessages() {
-    return ReactiveCache.getCurrentUser().hasHiddenSystemMessages();
-  },
-
   customFieldsGrid() {
     return ReactiveCache.getCurrentUser().hasCustomFieldsGrid();
   },
@@ -377,8 +373,8 @@ BlazeComponent.extendComponent({
           Session.set('cardDetailsIsDragging', false);
           Session.set('cardDetailsIsMouseDown', false);
         },
-        'click #toggleButton'() {
-          Meteor.call('toggleSystemMessages');
+        'click #toggleShowActivitiesCard'() {
+          this.data().toggleShowActivities();
         },
         'click #toggleCustomFieldsGridButton'() {
           Meteor.call('toggleCustomFieldsGrid');

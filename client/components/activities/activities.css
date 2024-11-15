@@ -49,43 +49,6 @@
   margin-top: 5px;
   padding: 5px;
 }
-.activities .activity .activity-desc .reactions {
-  display: flex;
-  margin-top: 5px;
-  gap: 5px;
-}
-.activities .activity .activity-desc .reactions .open-comment-reaction-popup {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  height: 24px;
-}
-.activities .activity .activity-desc .reactions .open-comment-reaction-popup i.fa.fa-smile-o {
-  font-size: 17px;
-  font-weight: 500;
-  margin-left: 2px;
-}
-.activities .activity .activity-desc .reactions .open-comment-reaction-popup i.fa.fa-plus {
-  font-size: 8px;
-  margin-top: -7px;
-  margin-left: 1px;
-}
-.activities .activity .activity-desc .reactions .reaction {
-  cursor: pointer;
-  border: 1px solid #808080;
-  border-radius: 15px;
-  display: flex;
-  padding: 2px 5px;
-}
-.activities .activity .activity-desc .reactions .reaction.selected {
-  background-color: #b0c4de;
-}
-.activities .activity .activity-desc .reactions .reaction:hover {
-  background-color: #b0c4de;
-}
-.activities .activity .activity-desc .reactions .reaction .reaction-count {
-  font-size: 12px;
-}
 .activities .activity .activity-desc .activity-checklist {
   display: block;
   border-radius: 3px;

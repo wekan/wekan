@@ -193,13 +193,6 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
-    'profile.hiddenSystemMessages': {
-      /**
-       * does the user want to hide system messages?
-       */
-      type: Boolean,
-      optional: true,
-    },
     'profile.hiddenMinicardLabelText': {
       /**
        * does the user want to hide minicard label texts?
@@ -865,11 +858,6 @@ Users.helpers({
     return profile.hideCheckedItems || false;
   },
 
-  hasHiddenSystemMessages() {
-    const profile = this.profile || {};
-    return profile.hiddenSystemMessages || false;
-  },
-
   hasCustomFieldsGrid() {
     const profile = this.profile || {};
     return profile.customFieldsGrid || false;
@@ -1069,14 +1057,6 @@ Users.mutations({
     };
   },
 
-  toggleSystem(value = false) {
-    return {
-      $set: {
-        'profile.hiddenSystemMessages': !value,
-      },
-    };
-  },
-
   toggleFieldsGrid(value = false) {
     return {
       $set: {
@@ -1216,10 +1196,6 @@ Meteor.methods({
     const user = ReactiveCache.getCurrentUser();
     user.toggleHideCheckedItems();
   },
-  toggleSystemMessages() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleSystem(user.hasHiddenSystemMessages());
-  },
   toggleCustomFieldsGrid() {
     const user = ReactiveCache.getCurrentUser();
     user.toggleFieldsGrid(user.hasCustomFieldsGrid());
@@ -1262,43 +1238,6 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.methods({
-    setAllUsersHideSystemMessages() {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        // If setting is missing, add it
-        Users.update(
-          {
-            'profile.hiddenSystemMessages': {
-              $exists: false,
-            },
-          },
-          {
-            $set: {
-              'profile.hiddenSystemMessages': true,
-            },
-          },
-          {
-            multi: true,
-          },
-        );
-        // If setting is false, set it to true
-        Users.update(
-          {
-            'profile.hiddenSystemMessages': false,
-          },
-          {
-            $set: {
-              'profile.hiddenSystemMessages': true,
-            },
-          },
-          {
-            multi: true,
-          },
-        );
-        return true;
-      } else {
-        return false;
-      }
-    },
     setCreateUser(
       fullname,
       username,

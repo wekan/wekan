@@ -63,3 +63,78 @@
   display: block;
   margin: auto;
 }
+.comments {
+  clear: both;
+}
+.comments .comment {
+  margin: 0.5px 0;
+  padding: 6px 0;
+  display: flex;
+}
+.comments .comment .member {
+  width: 32px;
+  height: 32px;
+}
+.comments .comment .comment-member {
+  font-weight: 700;
+}
+.comments .comment .comment-desc {
+  word-wrap: break-word;
+  overflow: hidden;
+  flex: 1;
+  align-self: center;
+  margin: 0;
+  margin-left: 3px;
+  overflow: hidden;
+  word-break: break-word;
+}
+.comments .comment .comment-desc .comment-text {
+  display: block;
+  border-radius: 3px;
+  background: #fff;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  margin-top: 5px;
+  padding: 5px;
+}
+.comments .comment .comment-desc .reactions {
+  display: flex;
+  margin-top: 5px;
+  gap: 5px;
+}
+.comments .comment .comment-desc .reactions .open-comment-reaction-popup {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  height: 24px;
+}
+.comments .comment .comment-desc .reactions .open-comment-reaction-popup i.fa.fa-smile-o {
+  font-size: 17px;
+  font-weight: 500;
+  margin-left: 2px;
+}
+.comments .comment .comment-desc .reactions .open-comment-reaction-popup i.fa.fa-plus {
+  font-size: 8px;
+  margin-top: -7px;
+  margin-left: 1px;
+}
+.comments .comment .comment-desc .reactions .reaction {
+  cursor: pointer;
+  border: 1px solid #808080;
+  border-radius: 15px;
+  display: flex;
+  padding: 2px 5px;
+}
+.comments .comment .comment-desc .reactions .reaction.selected {
+  background-color: #b0c4de;
+}
+.comments .comment .comment-desc .reactions .reaction:hover {
+  background-color: #b0c4de;
+}
+.comments .comment .comment-desc .reactions .reaction .reaction-count {
+  font-size: 12px;
+}
+.comments .comment .comment-desc .comment-meta {
+  font-size: 0.8em;
+  color: #999;
+}

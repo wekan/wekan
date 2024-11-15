@@ -473,6 +473,10 @@ Cards.attachSchema(
       optional: true,
       defaultValue: 0,
     },
+    showActivities: {
+      type: Boolean,
+      defaultValue: false,
+    },
   }),
 );
 
@@ -2165,6 +2169,14 @@ Cards.mutations({
     } else {
       return this.assignCustomField(customFieldId);
     }
+  },
+
+  toggleShowActivities() {
+    return {
+      $set: {
+        showActivities: !this.showActivities,
+      }
+    };
   },
 
   setCustomField(customFieldId, value) {

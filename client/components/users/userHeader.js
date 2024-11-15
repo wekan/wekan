@@ -283,16 +283,6 @@ Template.changeLanguagePopup.events({
 });
 
 Template.changeSettingsPopup.helpers({
-  hiddenSystemMessages() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return (currentUser.profile || {}).hasHiddenSystemMessages;
-    } else if (window.localStorage.getItem('hasHiddenSystemMessages')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
   rescueCardDescription() {
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
@@ -350,16 +340,6 @@ Template.changeSettingsPopup.events({
       window.localStorage.removeItem('showDesktopDragHandles');
     } else {
       window.localStorage.setItem('showDesktopDragHandles', 'true');
-    }
-  },
-  'click .js-toggle-system-messages'() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      Meteor.call('toggleSystemMessages');
-    } else if (window.localStorage.getItem('hasHiddenSystemMessages')) {
-      window.localStorage.removeItem('hasHiddenSystemMessages');
-    } else {
-      window.localStorage.setItem('hasHiddenSystemMessages', 'true');
     }
   },
   'click .js-rescue-card-description'() {

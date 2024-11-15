@@ -55,6 +55,41 @@ BlazeComponent.extendComponent({
   },
 }).register('commentForm');
 
+BlazeComponent.extendComponent({
+  getComments() {
+    const ret = this.data().comments();
+    return ret;
+  },
+}).register("comments");
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click .js-delete-comment': Popup.afterConfirm('deleteComment', () => {
+          const commentId = this.data()._id;
+          CardComments.remove(commentId);
+          Popup.back();
+        }),
+        'submit .js-edit-comment'(evt) {
+          evt.preventDefault();
+          const commentText = this.currentComponent()
+            .getValue()
+            .trim();
+          const commentId = this.data()._id;
+          if (commentText) {
+            CardComments.update(commentId, {
+              $set: {
+                text: commentText,
+              },
+            });
+          }
+        },
+      },
+    ];
+  },
+}).register("comment");
+
 // XXX This should be a static method of the `commentForm` component
 function resetCommentInput(input) {
   input.val(''); // without manually trigger, input event won't be fired
