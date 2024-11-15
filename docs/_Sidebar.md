@@ -33,7 +33,8 @@
 
 # <a name="Scaling"></a>Scaling
 
-* [Add more RAM to Node.js to prevent crash](https://github.com/wekan/wekan/issues/3585)
+* [Cron: Hourly restart WeKan, because of memory leaks](Cron)
+* [Maybe: Add more RAM to Node.js to prevent crash](https://github.com/wekan/wekan/issues/3585)
 * [Clustering AWS etc](AWS)
 * [Scaling](Scaling)
 * [Kubernetes](https://github.com/wekan/wekan/tree/main/helm/wekan)
