@@ -44,6 +44,8 @@ and adds the following updates:
   Thanks to developers of dependencies.
 - [Update Snap Candidate to MongoDB 6.0.19. Updated WeKan Windows version numbers. Added Cron docs](https://github.com/wekan/wekan/commit/fb4d95672e37d849ff52954c79eede2af7d2a509).
   Thanks to xet7.
+- [Updated docs sidebar](https://github.com/wekan/wekan/commit/5448a1569113142ab5b2440763c9642c88e86ba4)-
+  Thanks to xet7.
 
 and fixes the following bugs:
 
