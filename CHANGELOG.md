@@ -46,6 +46,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated docs sidebar](https://github.com/wekan/wekan/commit/5448a1569113142ab5b2440763c9642c88e86ba4)-
   Thanks to xet7.
+- [Updated Docker base image to Ubuntu 24.10](https://github.com/wekan/wekan/commit/7a34bc3eb03943506abe5e54501d1906fc16540b).
+  Thanks to Ubuntu developers.
 
 and fixes the following bugs:
 
