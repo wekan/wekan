@@ -9,10 +9,19 @@ template(name="checklists")
         else
           a.add-checklist-top.js-open-inlined-form(title="{{_ 'add-checklist'}}")
             i.fa.fa-plus
+    if currentUser.isBoardMember
+      .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
+        //span.toggle-switch-title
+        if card.hideCheckedChecklistItems
+          input.toggle-switch(type="checkbox" id="toggleHideCheckedChecklistItems" checked="checked")
+        else
+          input.toggle-switch(type="checkbox" id="toggleHideCheckedChecklistItems")
+        label.toggle-label(for="toggleHideCheckedChecklistItems")
 
   .card-checklist-items
     each checklist in checklists
-      +checklistDetail(checklist=checklist)
+      if checklist.showChecklist card.hideCheckedChecklistItems
+        +checklistDetail(checklist = checklist card = card)
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
@@ -47,7 +56,7 @@ template(name="checklistDetail")
         .checklist-progress-text {{finishedPercent}}%
         .checklist-progress-bar
           .checklist-progress(style="width:{{finishedPercent}}%")
-    +checklistItems(checklist = checklist)
+    +checklistItems(checklist = checklist card = card)
 
 template(name="checklistDeletePopup")
   p {{_ 'confirm-checklist-delete-popup'}}
@@ -96,7 +105,7 @@ template(name="checklistItems")
       +inlinedForm(classNames="js-edit-checklist-item" item = item checklist = checklist)
         +editChecklistItemForm(type = 'item' item = item checklist = checklist)
       else
-        +checklistItemDetail(item = item checklist = checklist)
+        +checklistItemDetail(item = item checklist = checklist card = card)
     if canModifyCard
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
         +addChecklistItemForm(checklist=checklist showNewlineBecomesNewChecklistItem=true)
@@ -105,7 +114,7 @@ template(name="checklistItems")
           i.fa.fa-plus
 
 template(name='checklistItemDetail')
-  .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if hideCheckedItems}} invisible{{/if}}{{/if}}"
+  .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if card.hideCheckedChecklistItems}} invisible{{/if}}{{/if}}"
     role="checkbox" aria-checked="{{#if item.isFinished }}true{{else}}false{{/if}}" tabindex="0")
     if canModifyCard
       .check-box-container
@@ -122,27 +131,6 @@ template(name='checklistItemDetail')
           = item.title
 
 template(name="checklistActionsPopup")
-  if currentUser.isBoardMember
-    span.text-show-at-minicard
-      | {{_ 'show-at-minicard'}}
-    .material-toggle-switch(title="{{_ 'show-checklist-at-minicard'}}")
-      if showAtMinicard
-        input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicardButton" checked="checked")
-      else
-        input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicardButton")
-      label.toggle-label(for="toggleShowChecklistAtMinicardButton")
-    hr
-    span.text-hide-checked-items
-      | {{_ 'hide-checked-items'}}
-    .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
-      //span.toggle-switch-title
-      //.check-square-icon.i.fa.fa-check-square-o
-      if hideCheckedItems
-        input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton" checked="checked")
-      else
-        input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton")
-      label.toggle-label(for="toggleHideCheckedItemsButton")
-    hr
   ul.pop-over-list
     li
       a.js-delete-checklist.delete-checklist

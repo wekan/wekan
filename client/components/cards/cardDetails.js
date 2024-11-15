@@ -376,6 +376,9 @@ BlazeComponent.extendComponent({
         'click #toggleShowActivitiesCard'() {
           this.data().toggleShowActivities();
         },
+        'click #toggleHideCheckedChecklistItems'() {
+          this.data().toggleHideCheckedChecklistItems();
+        },
         'click #toggleCustomFieldsGridButton'() {
           Meteor.call('toggleCustomFieldsGrid');
         },

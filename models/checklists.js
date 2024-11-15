@@ -27,14 +27,6 @@ Checklists.attachSchema(
       type: Date,
       optional: true,
     },
-    showAtMinicard: {
-      /**
-       * Show at minicard. Default: false.
-       */
-      type: Boolean,
-      optional: true,
-      defaultValue: false,
-    },
     createdAt: {
       /**
        * Creation date of the checklist
@@ -126,6 +118,13 @@ Checklists.helpers({
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
+  showChecklist(hideCheckedChecklistItems) {
+    let ret = true;
+    if (this.isFinished() && hideCheckedChecklistItems === true) {
+      ret = false;
+    }
+    return ret;
+  },
   checkAllItems() {
     const checkItems = ReactiveCache.getChecklistItems({ checklistId: this._id });
     checkItems.forEach(function(item) {
@@ -141,9 +140,6 @@ Checklists.helpers({
   itemIndex(itemId) {
     const items = ReactiveCache.getChecklist({ _id: this._id }).items;
     return _.pluck(items, '_id').indexOf(itemId);
-  },
-  hasShowChecklistAtMinicard() {
-    return showAtMinicard || false;
   },
 });
 
@@ -199,15 +195,6 @@ Checklists.mutations({
     return {
       $set: {
         cardId: newCardId,
-      },
-    };
-  },
-
-  toggleShowChecklistAtMinicard(checklistId) {
-    const value = this.hasShowChecklistAtMinicard();
-    return {
-      $set: {
-        'showAtMinicard': !value,
       },
     };
   },

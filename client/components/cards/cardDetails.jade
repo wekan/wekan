@@ -549,7 +549,7 @@ template(name="cardDetails")
         .card-checklist-attachmentGallery.card-checklists
           if currentBoard.allowsChecklists
             hr
-            +checklists(cardId = _id)
+            +checklists(cardId = _id card = this)
           if currentBoard.allowsSubtasks
             hr
             +subtasks(cardId = _id)

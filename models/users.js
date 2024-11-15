@@ -172,13 +172,6 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
-    'profile.hideCheckedItems': {
-      /**
-       * does the user want to hide checked checklist items?
-       */
-      type: Boolean,
-      optional: true,
-    },
     'profile.cardMaximized': {
       /**
        * has user clicked maximize card?
@@ -853,11 +846,6 @@ Users.helpers({
     return profile.showDesktopDragHandles || false;
   },
 
-  hasHideCheckedItems() {
-    const profile = this.profile || {};
-    return profile.hideCheckedItems || false;
-  },
-
   hasCustomFieldsGrid() {
     const profile = this.profile || {};
     return profile.customFieldsGrid || false;
@@ -1044,15 +1032,6 @@ Users.mutations({
     return {
       $set: {
         'profile.showDesktopDragHandles': !value,
-      },
-    };
-  },
-
-  toggleHideCheckedItems() {
-    const value = this.hasHideCheckedItems();
-    return {
-      $set: {
-        'profile.hideCheckedItems': !value,
       },
     };
   },
