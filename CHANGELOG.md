@@ -17,7 +17,18 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Added comment section on card details to avoid loading the card comment activities from the server](https://github.com/wekan/wekan/pull/5566).
+  Thanks to mfilser.
+- [Checklist items hide per card](https://github.com/wekan/wekan/pull/5567).
+  Thanks to mfilser.
+- [Checklist multiline insert (many checklist items at once)](https://github.com/wekan/wekan/pull/5568).
+  Thanks to mfilser.
+- [Each checklist can now be configured to hide checked checklist items](https://github.com/wekan/wekan/pull/5569).
+  Thanks to mfilser.
+
+and adds the following updates:
 
 - [Copied updated Docs from wiki to WeKan repo](https://github.com/wekan/wekan/commit/559251eb0d8aea6a714f14224497d0a25c7a3864).
   Thanks to xet7.
