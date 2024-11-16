@@ -79,13 +79,11 @@ template(name="cardCustomField-currency")
 
 template(name="cardCustomField-date")
     if canModifyCard
-      a.js-edit-date(title="{{showTitle}} {{_ 'predicate-week'}} {{showWeek}}" class="{{classes}}")
+      a.js-edit-date(title="{{showTitle}} {{_ 'predicate-week'}}" class="{{classes}}")
         if value
           div.card-date
             time(datetime="{{showISODate}}")
               | {{showDate}}
-              b
-                | {{showWeek}}
         else
           | {{_ 'edit'}}
     else
@@ -93,8 +91,6 @@ template(name="cardCustomField-date")
         div.card-date
           time(datetime="{{showISODate}}")
             | {{showDate}}
-            b
-              | {{showWeek}}
 
 template(name="cardCustomField-dropdown")
     if canModifyCard
