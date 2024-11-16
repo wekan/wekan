@@ -2751,14 +2751,12 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
 }
 
 .board-color-cleandark#header-main-bar h1 {
   font-size:  16px;
   font-weight: 500;
   line-height: 24px !important;
-  text-align: left;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -2771,7 +2769,6 @@ THEME - Clean Dark
   font-size:  16px;
   font-weight: 500;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -2794,7 +2791,6 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 0.85);
   background: rgba(57, 57, 71, 1);
 }
@@ -2820,7 +2816,6 @@ THEME - Clean Dark
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -2873,7 +2868,6 @@ THEME - Clean Dark
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -2888,7 +2882,6 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -2930,7 +2923,6 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
-  text-align: left;
 
   color: rgba(255, 255, 255, 0.85);
 }
@@ -2939,7 +2931,6 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
 
   color: rgba(255, 255, 255, 0.7);
 }
@@ -2992,7 +2983,6 @@ THEME - Clean Dark
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -3013,7 +3003,6 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   border-radius: 12px;
   padding: 6px 12px 6px 12px;
   background: #FFFFFF;
@@ -3024,7 +3013,6 @@ THEME - Clean Dark
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 1);
   background: rgba(57, 57, 71, 1) !important;
   border: none !important;
@@ -3039,7 +3027,6 @@ THEME - Clean Dark
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 0.85) !important;
   background: rgba(57, 57, 71, 1) !important;
   border-radius: 12px !important;
@@ -3054,7 +3041,6 @@ THEME - Clean Dark
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 0.85);
   background: rgba(57, 57, 71, 1);
   border-radius: 12px;
@@ -3069,7 +3055,6 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.85);
 }
 
@@ -3085,7 +3070,6 @@ THEME - Clean Dark
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: #FFFFFF;
 }
 
@@ -3219,7 +3203,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
 }
 
 .board-color-cleanlight#header ul li:hover,
@@ -3233,7 +3216,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 500;
   line-height: 24px !important;
-  text-align: left;
   color: rgba(10, 10, 20, 1) !important;
 }
 
@@ -3246,7 +3228,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 500;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 1);
 }
 
@@ -3454,7 +3435,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.85);
   background: rgba(234, 234, 237, 1);
 }
@@ -3480,7 +3460,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.5);
 }
 
@@ -3489,7 +3468,6 @@ THEME - Clean Light
   font-size: 24px !important;
   font-weight: 600;
   line-height: 28px;
-  text-align: left;
   border-bottom: none !important;
   padding: 12px 20px !important;
 }
@@ -3518,7 +3496,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 500;
   line-height: 24px;
-  text-align: left;
 }
 
 .board-color-cleanlight .card-details .card-details-item-title {
@@ -3578,7 +3555,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.5);
 }
 
@@ -3597,7 +3573,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 500;
   line-height: 24px;
-  text-align: left;
 }
 
 .board-color-cleanlight.pop-over .header {
@@ -3614,7 +3589,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.8);
 }
 
@@ -3657,7 +3631,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
-  text-align: left;
 
   color: rgba(10, 10, 20, 0.85) !important;
 }
@@ -3666,7 +3639,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
 
   color: rgba(10, 10, 20, 0.5) !important;
 }
@@ -3725,7 +3697,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.5);
 }
 
@@ -3746,7 +3717,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   border-radius: 12px;
   padding: 6px 12px 6px 12px;
   background: rgba(23, 23, 28, 1);
@@ -3757,7 +3727,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   border-radius: 12px;
   padding: 6px 12px 6px 12px;
   background: rgba(23, 23, 28, 1) !important;
@@ -3772,7 +3741,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.85);
   background: rgba(234, 234, 237, 1);
   border: none !important;
@@ -3793,7 +3761,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.85) !important;
   background: rgba(234, 234, 237, 1) !important;
   border-radius: 12px !important;
@@ -3814,7 +3781,6 @@ THEME - Clean Light
   font-size:  16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(10, 10, 20, 0.85);
   background: rgba(234, 234, 237, 1);
   border-radius: 12px;
@@ -3829,7 +3795,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -3845,7 +3810,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: #FFFFFF;
 }
 
@@ -3981,7 +3945,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   padding: 12px;
 }
 
@@ -4007,7 +3970,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   margin-bottom: 10px;
 }
 
@@ -4021,7 +3983,6 @@ THEME - Clean Light
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  text-align: left;
   color: rgba(255, 255, 255, 1);
 }
 
