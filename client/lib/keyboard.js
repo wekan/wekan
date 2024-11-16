@@ -139,6 +139,26 @@ Mousetrap.bind(numArray, (evt, key) => {
   }
 });
 
+Mousetrap.bind('m', evt => {
+  const cardId = getSelectedCardId();
+  if (!cardId) {
+    return;
+  }
+
+  const currentUserId = Meteor.userId();
+  if (currentUserId === null) {
+    return;
+  }
+
+  if (ReactiveCache.getCurrentUser().isBoardMember()) {
+    const card = ReactiveCache.getCard(cardId);
+    card.toggleAssignee(currentUserId);
+    // We should prevent scrolling in card when spacebar is clicked
+    // This should do it according to Mousetrap docs, but it doesn't
+    evt.preventDefault();
+  }
+});
+
 Mousetrap.bind('space', evt => {
   const cardId = getSelectedCardId();
   if (!cardId) {
@@ -219,6 +239,10 @@ Template.keyboardShortcuts.helpers({
     },
     {
       keys: ['SPACE'],
+      action: 'shortcut-add-self',
+    },
+    {
+      keys: ['n'],
       action: 'shortcut-assign-self',
     },
     {
