@@ -23,6 +23,7 @@ echo "starting the wekan service..."
 #export NODE_OPTIONS="--max_old_space_size=4096"
 # Add more stack:
 #bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
-bash -c "ulimit -s 65500; exec --stack-size=65500 --max-old-space-size=8192 node main.js"
+#bash -c "ulimit -s 65500; exec --stack-size=65500 --max-old-space-size=8192 node main.js"
+bash -c "ulimit -s 65500; exec node main.js"
 #---------------------------------------------------------------------
 #node main.js

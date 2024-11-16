@@ -411,6 +411,7 @@
       #export WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
 
-      node --stack-size=65500 --max-old-space-size=8192 main.js & >> ~/repos/wekan.log
+      # node --stack-size=65500 --max-old-space-size=8192 main.js & >> ~/repos/wekan.log
+      node main.js & >> ~/repos/wekan.log
       cd ~/repos
 #done

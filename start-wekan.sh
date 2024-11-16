@@ -555,7 +555,8 @@
       #bash -c "ulimit -s 65500; exec node --stack-size=65500 --trace-deprecation main.js"
       #bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
       #-------------------- OPTIONAL SETTINGS END ----------------------
-      bash -c "ulimit -s 65500; exec node --stack-size=65500 --max-old-space-size=8192 main.js"
+      #bash -c "ulimit -s 65500; exec node --stack-size=65500 --max-old-space-size=8192 main.js"
+      bash -c "ulimit -s 65500; exec node main.js"
       #node main.js
       #---------------------------------------------------------------------
       # & >> ../../wekan.log
