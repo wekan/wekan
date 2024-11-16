@@ -1,6 +1,12 @@
-https://galaxy-guide.meteor.com/scaling
+## How We Scaled Meteor JS to Handle 30,000 Concurrent Users at Propiedata
 
-***
+- https://forums.meteor.com/t/first-steps-on-scaling-meteor-js/62570
+
+## Meteor Galaxy Guide
+
+- https://galaxy-guide.meteor.com/scaling
+
+## Pods
 
 Reply from customer at 2023-09-29 about WeKan v7.08:
 
