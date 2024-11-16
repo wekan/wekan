@@ -40,6 +40,8 @@ and fixes the following bugs:
   Thanks to NadavTasher.
 - [Sidebar style overhaul - absolute positioning, weird style fixes, disable sidebar scrollbar](https://github.com/wekan/wekan/pull/5578).
   Thanks to NadavTasher.
+- [Revert adding more stack size](https://github.com/wekan/wekan/commit/edb73982953d63066494dbc096bdeb62f7fe730b).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
