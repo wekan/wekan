@@ -90,6 +90,10 @@
   transition: flex-basis 0.1s;
   box-sizing: border-box;
 }
+.card-details::-webkit-scrollbar {
+  /* Hide scroll bars from middle of the screen */
+  display: none !important;
+}
 .card-details .mCustomScrollBox {
   padding-left: 0;
 }
