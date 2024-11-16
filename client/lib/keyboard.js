@@ -226,7 +226,7 @@ Mousetrap.bind('n', evt => {
     const card = ReactiveCache.getCard(cardId);
 
     // Find the button and click it
-    $(`#js-list-${card.listId} .list-body .minicards .open-minicard-composer`).click()
+    $(`#js-list-${card.listId} .list-body .minicards .open-minicard-composer`).click();
 
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
