@@ -148,6 +148,10 @@
   overflow-y: auto;
   padding: 5px 11px;
 }
+.list-body::-webkit-scrollbar {
+  /* Hide scroll bars from middle of the screen */
+  display: none !important;
+}
 .list-body .minicards {
   flex-grow: 1;
   flex-shrink: 0;
