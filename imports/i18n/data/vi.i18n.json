@@ -574,6 +574,7 @@
   "select-board": "Chọn Bảng",
   "set-wip-limit-value": "Đặt giới hạn cho số lượng nhiệm vụ tối đa trong danh sách này",
   "setWipLimitPopup-title": "Đặt giới hạn WIP",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Chỉ định bạn vào thẻ hiện tại",
   "shortcut-autocomplete-emoji": "Tự động điền biểu tượng cảm xúc",
   "shortcut-autocomplete-members": "Tự động điền Thành viên",

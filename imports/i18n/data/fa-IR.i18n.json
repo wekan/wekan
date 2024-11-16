@@ -574,6 +574,7 @@
   "select-board": "انتخاب برد",
   "set-wip-limit-value": "تعیین بیشینه تعداد وظایف در این فهرست",
   "setWipLimitPopup-title": "Set WIP Limit",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "انتصاب خود به کارت فعلی",
   "shortcut-autocomplete-emoji": "تکمیل خودکار شکلکها",
   "shortcut-autocomplete-members": "تکمیل خودکار کاربرها",

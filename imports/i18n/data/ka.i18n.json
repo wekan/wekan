@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "დააყენეთ შეზღუდვა  დავალებების მაქსიმალურ რაოდენობაზე",
   "setWipLimitPopup-title": "დააყენეთ WIP ლიმიტი",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "მონიშნეთ საკუთარი თავი აღნიშნულ ბარათზე",
   "shortcut-autocomplete-emoji": "emoji-ის ავტომატური შევსება",
   "shortcut-autocomplete-members": "მომხმარებლების ავტომატური შევსება",

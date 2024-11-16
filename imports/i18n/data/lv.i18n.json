@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "Iestatīt maksimālo skaitu ar kartiņām šajā sarakstā",
   "setWipLimitPopup-title": "Uzlikt WIP ierobežojumu",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Pievienot sevi atvērtajai kartiņai",
   "shortcut-autocomplete-emoji": "Emoji automātiska pabeigšana",
   "shortcut-autocomplete-members": "Dalībnieku automātiska pabeigšana",

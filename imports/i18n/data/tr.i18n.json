@@ -574,6 +574,7 @@
   "select-board": "Panoyu Seçin",
   "set-wip-limit-value": "Bu listedeki en fazla öğe sayısı için bir sınır belirleyin",
   "setWipLimitPopup-title": "Devam Eden İş Sınırı Belirle",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Kendini karta ata",
   "shortcut-autocomplete-emoji": "Emojileri otomatik tamamla",
   "shortcut-autocomplete-members": "Üye isimlerini otomatik tamamla",

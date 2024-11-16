@@ -574,6 +574,7 @@
   "select-board": "Valitse taulu",
   "set-wip-limit-value": "Aseta tämän listan tehtävien enimmäismäärä",
   "setWipLimitPopup-title": "Aseta WIP-raja",
+  "shortcut-add-self": "Lisää itsesi nykyiselle kortille",
   "shortcut-assign-self": "Valitse itsesi nykyiselle kortille",
   "shortcut-autocomplete-emoji": "Automaattinen täydennys emojille",
   "shortcut-autocomplete-members": "Automaattinen täydennys jäsenille",

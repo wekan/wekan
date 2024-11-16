@@ -574,6 +574,7 @@
   "select-board": "Выбрать доску",
   "set-wip-limit-value": "Устанавливает ограничение на максимальное количество задач в этом списке",
   "setWipLimitPopup-title": "Задать лимит на кол-во задач",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Связать себя с текущей карточкой",
   "shortcut-autocomplete-emoji": "Автозаполнение emoji",
   "shortcut-autocomplete-members": "Автозаполнение участников",

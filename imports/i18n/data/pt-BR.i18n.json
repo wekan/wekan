@@ -574,6 +574,7 @@
   "select-board": "Selecionar Quadro",
   "set-wip-limit-value": "Defina um limite máximo para o número de tarefas nesta lista",
   "setWipLimitPopup-title": "Definir Limite WIP",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Atribuir a si o cartão atual",
   "shortcut-autocomplete-emoji": "Autocompletar emoji",
   "shortcut-autocomplete-members": "Preenchimento automático de membros",

@@ -574,6 +574,7 @@
   "select-board": "Επιλογή Πίνακα",
   "set-wip-limit-value": "Προσδιορισμός ορίου στο μέγιστο αριθμό εργασιών σε αυτή τη λίστα.",
   "setWipLimitPopup-title": "Set WIP Limit",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Assign yourself to current card",
   "shortcut-autocomplete-emoji": "Autocomplete emoji",
   "shortcut-autocomplete-members": "Autocomplete members",

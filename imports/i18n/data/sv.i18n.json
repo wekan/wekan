@@ -574,6 +574,7 @@
   "select-board": "Välj tavla",
   "set-wip-limit-value": "Ange en gräns för det maximala antalet uppgifter i den här listan",
   "setWipLimitPopup-title": "Ställ in WIP-gräns",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Tilldela dig nuvarande kort",
   "shortcut-autocomplete-emoji": "Komplettera automatiskt emoji",
   "shortcut-autocomplete-members": "Komplettera automatiskt medlemmar",

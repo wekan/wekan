@@ -574,6 +574,7 @@
   "select-board": "ボードを選択",
   "set-wip-limit-value": "このリスト中のタスクの最大数を設定",
   "setWipLimitPopup-title": "仕掛中制限設定",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "自分をこのカードに割り当てる",
   "shortcut-autocomplete-emoji": "絵文字の補完",
   "shortcut-autocomplete-members": "メンバーの補完",

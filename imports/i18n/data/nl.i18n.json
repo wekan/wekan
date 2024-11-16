@@ -574,6 +574,7 @@
   "select-board": "Selecteer Bord",
   "set-wip-limit-value": "Zet een limiet voor het maximaal aantal taken in deze lijst",
   "setWipLimitPopup-title": "Zet een WIP limiet",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Voeg jezelf toe aan huidige kaart",
   "shortcut-autocomplete-emoji": "Emojis automatisch aanvullen",
   "shortcut-autocomplete-members": "Leden automatisch aanvullen",

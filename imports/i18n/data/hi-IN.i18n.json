@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "Set एक limit for the maximum number of tasks अंदर में  यह list",
   "setWipLimitPopup-title": "Set WIP Limit",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Assign yourself तक current कार्ड",
   "shortcut-autocomplete-emoji": "Autocomplete emoji",
   "shortcut-autocomplete-members": "Autocomplete सदस्य",

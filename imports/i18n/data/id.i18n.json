@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "Tetapkan batas untuk jumlah tugas maksimum dalam daftar ini",
   "setWipLimitPopup-title": "Tetapkan Batas WIP",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Masukkan diri anda sendiri ke kartu ini",
   "shortcut-autocomplete-emoji": "Pelengkap Otomatis emoji",
   "shortcut-autocomplete-members": "Autocomplete partisipan",

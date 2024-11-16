@@ -574,6 +574,7 @@
   "select-board": "Обрати дошку",
   "set-wip-limit-value": "Встановіть ліміт максимальної кількості завдань у цьому списку",
   "setWipLimitPopup-title": "Встановити WIP ліміт",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Призначити себе до поточної картки",
   "shortcut-autocomplete-emoji": "Автозаповнення емодзі",
   "shortcut-autocomplete-members": "Автозавершення учасників",

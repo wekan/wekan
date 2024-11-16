@@ -574,6 +574,7 @@
   "select-board": "Vybrat tablo",
   "set-wip-limit-value": "Nastaví limit pro maximální počet úkolů ve sloupci.",
   "setWipLimitPopup-title": "Nastavit WIP Limit",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Přiřadit sebe k aktuální kartě",
   "shortcut-autocomplete-emoji": "Automatické dokončování emoji",
   "shortcut-autocomplete-members": "Automatický výběr uživatel",

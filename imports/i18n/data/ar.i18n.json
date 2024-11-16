@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",
   "setWipLimitPopup-title": "Set WIP Limit",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Assign yourself to current card",
   "shortcut-autocomplete-emoji": "الإكمال التلقائي  للرموز التعبيرية",
   "shortcut-autocomplete-members": "الإكمال التلقائي لأسماء الأعضاء",

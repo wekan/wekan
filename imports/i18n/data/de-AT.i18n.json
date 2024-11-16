@@ -574,6 +574,7 @@
   "select-board": "Board auswählen",
   "set-wip-limit-value": "Setzen Sie ein Limit für die maximale Anzahl von Aufgaben in dieser Liste",
   "setWipLimitPopup-title": "WIP-Limit setzen",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Fügen Sie sich zur aktuellen Karte hinzu",
   "shortcut-autocomplete-emoji": "Emojis vervollständigen",
   "shortcut-autocomplete-members": "Mitglieder vervollständigen",

@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "Omeji maksimalno število opravil v seznamu",
   "setWipLimitPopup-title": "Omeji število kartic",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Dodeli sebe k trenutni kartici",
   "shortcut-autocomplete-emoji": "Samodokončaj emoji",
   "shortcut-autocomplete-members": "Samodokončaj člane",

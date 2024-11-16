@@ -574,6 +574,7 @@
   "select-board": "選擇看板",
   "set-wip-limit-value": "設定此清單中的最大任務數",
   "setWipLimitPopup-title": "設定 WIP 限制",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "分配當前卡片給自己",
   "shortcut-autocomplete-emoji": "自動完成表情符號",
   "shortcut-autocomplete-members": "自動補齊成員",

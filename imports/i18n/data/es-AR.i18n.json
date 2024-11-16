@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "Fijar un límite para el número máximo de tareas en esta lista",
   "setWipLimitPopup-title": "Establecer Límite TEP",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Asignarte a vos mismo en la tarjeta actual",
   "shortcut-autocomplete-emoji": "Autocompletar emonji",
   "shortcut-autocomplete-members": "Autocompletar miembros",

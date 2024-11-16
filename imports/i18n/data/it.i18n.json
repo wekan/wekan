@@ -574,6 +574,7 @@
   "select-board": "Seleziona bacheca",
   "set-wip-limit-value": "Seleziona un limite per il massimo numero di attività in questa lista",
   "setWipLimitPopup-title": "Imposta limite Work In Progress",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Assegna te stesso alla scheda corrente",
   "shortcut-autocomplete-emoji": "Autocompletamento emoji",
   "shortcut-autocomplete-members": "Autocompletamento membri",

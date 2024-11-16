@@ -574,6 +574,7 @@
   "select-board": "Изаберите књигу пословања",
   "set-wip-limit-value": "Поставите границу за максимални дозвољени број задатака на овој деоници",
   "setWipLimitPopup-title": "Поставите ограничење броја послова",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Придружите себе тренутној картици",
   "shortcut-autocomplete-emoji": "Сам попуни emoji",
   "shortcut-autocomplete-members": "Сам попуни сараднике",

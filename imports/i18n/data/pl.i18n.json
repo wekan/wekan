@@ -574,6 +574,7 @@
   "select-board": "Wybierz tablicę",
   "set-wip-limit-value": "Ustaw maksymalny limit kart na tej liście",
   "setWipLimitPopup-title": "Ustaw limit kart na liście",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Przypisz siebie do obecnej karty",
   "shortcut-autocomplete-emoji": "Autouzupełnianie emoji",
   "shortcut-autocomplete-members": "Autouzupełnianie użytkowników",

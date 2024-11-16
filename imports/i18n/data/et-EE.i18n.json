@@ -574,6 +574,7 @@
   "select-board": "Valige juhatus",
   "set-wip-limit-value": "Määrake selles nimekirjas olevate ülesannete maksimaalne arv.",
   "setWipLimitPopup-title": "Määrake WIP limiit",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Määrake ennast praegusele kaardile",
   "shortcut-autocomplete-emoji": "Automaatselt täidetav emotikon",
   "shortcut-autocomplete-members": "Automaatselt täituvad liikmed",

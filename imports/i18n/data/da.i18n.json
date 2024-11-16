@@ -574,6 +574,7 @@
   "select-board": "Select Board",
   "set-wip-limit-value": "Angiv en grænse for det maksimale antal opgaver i denne liste",
   "setWipLimitPopup-title": "Angiv WIP-begrænsning",
+  "shortcut-add-self": "Add yourself to current card",
   "shortcut-assign-self": "Tilknyt dig selv til nuværende kort?",
   "shortcut-autocomplete-emoji": "Auto-fuldfør emoji",
   "shortcut-autocomplete-members": "Auto-fuldfør medlemmer",
