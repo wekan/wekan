@@ -34,6 +34,12 @@ and fixes the following bugs:
   Thanks to NadavTasher.
 - [Disable sidebar showing when filtering using keyboard shortcut](https://github.com/wekan/wekan/pull/5575).
   Thanks to NadavTasher.
+- [Change move-to-archive keyboard shortcut to '-', because of Ctrl + C shortcut](https://github.com/wekan/wekan/pull/5576).
+  Thanks to NadavTasher.
+- [Potential bug(fix?) - Add assign-self keyboard shortcut (old shortcut actually adds)](https://github.com/wekan/wekan/pull/5577).
+  Thanks to NadavTasher.
+- [Sidebar style overhaul - absolute positioning, weird style fixes, disable sidebar scrollbar](https://github.com/wekan/wekan/pull/5578).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
