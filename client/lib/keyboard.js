@@ -3,6 +3,17 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // XXX There is no reason to define these shortcuts globally, they should be
 // attached to a template (most of them will go in the `board` template).
 
+window.addEventListener('keydown', (e) => {
+  // Only handle event if coming from body
+  if (e.target !== document.body) return;
+
+  // Only handle event if it's in another language
+  if (String.fromCharCode(e.which).toLowerCase() === e.key) return;
+
+  // Trigger the corresponding action
+  Mousetrap.trigger(String.fromCharCode(e.which).toLowerCase());
+});
+
 function getHoveredCardId() {
   const card = $('.js-minicard:hover').get(0);
   if (!card) return null;
