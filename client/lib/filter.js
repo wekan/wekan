@@ -237,7 +237,6 @@ class SetFilter {
     if (this._indexOfVal(val) === -1) {
       this._selectedElements.push(val);
       this._dep.changed();
-      showFilterSidebar();
     }
   }
 
