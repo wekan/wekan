@@ -179,6 +179,30 @@ Mousetrap.bind('c', evt => {
   }
 });
 
+Mousetrap.bind('n', evt => {
+  const cardId = getSelectedCardId();
+  if (!cardId) {
+    return;
+  }
+
+  const currentUserId = Meteor.userId();
+  if (currentUserId === null) {
+    return;
+  }
+
+  if (Utils.canModifyBoard()) {
+    // Find the current hovered card
+    const card = ReactiveCache.getCard(cardId);
+
+    // Find the button and click it
+    $(`#js-list-${card.listId} .list-body .minicards .open-minicard-composer`).click()
+
+    // We should prevent scrolling in card when spacebar is clicked
+    // This should do it according to Mousetrap docs, but it doesn't
+    evt.preventDefault();
+  }
+});
+
 Template.keyboardShortcuts.helpers({
   mapping: [
     {
@@ -192,6 +216,10 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['a'],
       action: 'shortcut-filter-my-assigned-cards',
+    },
+    {
+      keys: ['n'],
+      action: 'add-card-to-bottom-of-list',
     },
     {
       keys: ['f'],
