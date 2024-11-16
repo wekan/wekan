@@ -15,6 +15,28 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Always close sidebar when user clicks ESC](https://github.com/wekan/wekan/pull/5571).
+  Thanks to NadavTasher.
+- [Added 'n' shortcut for adding new minicards to current list](https://github.com/wekan/wekan/pull/5570).
+  Thanks to NadavTasher.
+- [Patch to allow shortcuts to work when another keyboard layout is used](https://github.com/wekan/wekan/pull/5574).
+  Thanks to NadavTasher.
+
+and fixes the following bugs:
+
+- [Fix some text alignment issues when using RTL languages](https://github.com/wekan/wekan/pull/5572).
+  Thanks to NadavTasher.
+- [Hide scrollbars where they interrupt](https://github.com/wekan/wekan/pull/5573).
+  Thanks to NadavTasher.
+- [Disable sidebar showing when filtering using keyboard shortcut](https://github.com/wekan/wekan/pull/5575).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.62 2024-11-15 WeKan ® release
 
 This release adds the following new features:
