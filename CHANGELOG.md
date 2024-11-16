@@ -15,7 +15,7 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.63 2024-11-16 WeKan ® release
 
 This release adds the following new features:
 
@@ -25,6 +25,11 @@ This release adds the following new features:
   Thanks to NadavTasher.
 - [Patch to allow shortcuts to work when another keyboard layout is used](https://github.com/wekan/wekan/pull/5574).
   Thanks to NadavTasher.
+
+and adds the following updates:
+
+- [Updated scaling docs](https://github.com/wekan/wekan/commit/92af6f71d9c60acbca8f65c7ec1822818186639c).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
