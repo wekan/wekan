@@ -1,8 +1,3 @@
-@media screen and (min-width: 801px) {
-  .swimlane.ui-sortable {
-    width: max-content;
-  }
-}
 [class=swimlane] {
   position: sticky;
   left: 0;
