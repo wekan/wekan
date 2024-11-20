@@ -152,7 +152,6 @@
   display: flex;
   overflow-y: auto;
   padding: 5px 11px;
-  scrollbar-width: none;
 }
 .list-body .minicards {
   flex-grow: 1;
