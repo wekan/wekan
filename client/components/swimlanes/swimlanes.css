@@ -8,7 +8,6 @@
   flex-direction: row;
   overflow: auto;
   max-height: 100%;
-  scrollbar-width: none;
 }
 .swimlane-header-menu .swimlane-header-collapse-down {
   font-size: 50%;
