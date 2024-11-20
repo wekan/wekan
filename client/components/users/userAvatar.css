@@ -5,6 +5,7 @@
   float: left;
   height: 30px;
   width: 30px;
+  margin: .3vh;
   cursor: pointer;
   user-select: none;
   z-index: 1;

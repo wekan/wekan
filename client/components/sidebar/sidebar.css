@@ -3,16 +3,13 @@
   top: 0;
   bottom: 0;
   right: 0;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 .sidebar .sidebar-shadow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
   background: #f7f7f7;
   box-shadow: -10px 0px 5px -10px #b3b3b3;
-  z-index: 10;
+  height: 100%;
 }
 .sidebar-xmark {
   position: absolute;
@@ -24,17 +21,16 @@
 .sidebar-xmark:hover {
   background: rgba(0,0,0,0.15);
 }
+.sidebar-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px 0px 10px;
+}
 .sidebar .sidebar-content {
-  padding: 12px;
+  padding: 0 12px;
   margin-bottom: 1.6em;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  width: 90%;
 }
 .sidebar .sidebar-content .hide-btn {
   display: none;
@@ -110,21 +106,19 @@
   margin-right: 10px;
 }
 .sidebar .sidebar-shortcuts {
-  position: absolute;
-  margin-left: 40%;
-  padding: 0;
   top: 7px;
   font-size: 0.8em;
   line-height: 1.6em;
   color: #999;
 }
 .board-sidebar {
-  width: 548px;
-  right: -548px;
+  display: none;
+  width: 30vw;
+  z-index: 100;
   transition: top 0.1s, right 0.1s, width 0.1s;
 }
 .board-sidebar.is-open {
-  right: 0;
+  display: block;
 }
 .board-widget h4 {
   margin: 5px 0;

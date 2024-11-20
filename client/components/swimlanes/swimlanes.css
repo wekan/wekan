@@ -1,8 +1,3 @@
-@media screen and (min-width: 801px) {
-  .swimlane.ui-sortable {
-    width: max-content;
-  }
-}
 [class=swimlane] {
   position: sticky;
   left: 0;
@@ -13,6 +8,7 @@
   flex-direction: row;
   overflow: auto;
   max-height: 100%;
+  scrollbar-width: none;
 }
 .swimlane-header-menu .swimlane-header-collapse-down {
   font-size: 50%;
