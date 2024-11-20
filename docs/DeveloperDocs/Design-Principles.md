@@ -7,7 +7,8 @@
   - Polished UI/UX
   - Menu options are there where you would expect then to be.
   - Try to fix anything unexpected.
-  - New features added there where it makes most sense. 
+  - New features added there where it makes most sense.
+  - Not too many toggles and settings, because that is worse. For example, Discord settings has too many toggles and settings. Just select some default.
   - FOSS with MIT license
   - Swimlanes
   - All the use cases of WeKan feature/fix contributors
