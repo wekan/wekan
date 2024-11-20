@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# v7.67 2024-11-21 WeKan ® release
+
+This release adds the following new features:
+
+- [Re-introduce list auto-width feature, Reverted scrollbar hiding, Fixed transparent sidebar bug](https://github.com/wekan/wekan/pull/5586).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.65 2024-11-20 WeKan ® release
 
 This release fixes the following bugs:
