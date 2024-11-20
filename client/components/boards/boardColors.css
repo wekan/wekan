@@ -1958,7 +1958,7 @@ THEME - Modern
 .board-color-modern .pop-over-list li>a .sub-name {
   margin-bottom: 8px;
 }
-.board-color-modern .sidebar .sidebar-shadow {
+.board-color-modern .sidebar {
   box-shadow: 0 0 60px rgba(0,0,0,0.2);
 }
 .board-color-modern .board-color-modern section#notifications-drawer {
@@ -2431,7 +2431,7 @@ THEME - Modern Dark
   background-color: #ccc;
   color: #222;
 }
-.board-color-moderndark .sidebar .sidebar-shadow {
+.board-color-moderndark .sidebar {
   background-color: #222;
   box-shadow: -10px 0 5px -10px #444;
   border-left: 1px solid #333;
@@ -2776,16 +2776,16 @@ THEME - Clean Dark
   background: #0A0A14;
 }
 
-.board-color-cleandark .sidebar .sidebar-shadow {
+.board-color-cleandark .sidebar {
   background: rgba(35, 35, 43, 1) !important;
   box-shadow: none;
 }
 
-.board-color-cleandark .sidebar .sidebar-shadow hr {
+.board-color-cleandark .sidebar hr {
   background:rgba(255, 255, 255, 0.05);
 }
 
-.board-color-cleandark .sidebar .sidebar-shadow .tab-item {
+.board-color-cleandark .sidebar .tab-item {
   border-radius: 16px;
   padding: 4px 12px 4px 12px;
   font-size: 16px;
@@ -2795,14 +2795,14 @@ THEME - Clean Dark
   background: rgba(57, 57, 71, 1);
 }
 
-.board-color-cleandark .sidebar .sidebar-shadow .tab-item.active {
+.board-color-cleandark .sidebar .tab-item.active {
   background: rgba(255, 255, 255, 1);
   color: rgba(10, 10, 20, 1);
   border: none;
   padding: 4px 12px 4px 12px !important;
 }
 
-.board-color-cleandark .sidebar .sidebar-shadow .tabs-content-container {
+.board-color-cleandark .sidebar .tabs-content-container {
   border: none;
 }
 
@@ -3414,16 +3414,16 @@ THEME - Clean Light
   display: none;
 }
 
-.board-color-cleanlight .sidebar .sidebar-shadow {
+.board-color-cleanlight .sidebar {
   background: rgba(248, 248, 249, 1) !important;
   box-shadow: none;
 }
 
-.board-color-cleanlight .sidebar .sidebar-shadow hr {
+.board-color-cleanlight .sidebar hr {
   background: rgba(23, 23, 28, 0.05);
 }
 
-.board-color-cleanlight .sidebar .sidebar-shadow .tab-item {
+.board-color-cleanlight .sidebar .tab-item {
   border-radius: 16px;
   padding: 4px 12px 4px 12px;
   font-size: 16px;
@@ -3433,14 +3433,14 @@ THEME - Clean Light
   background: rgba(234, 234, 237, 1);
 }
 
-.board-color-cleanlight .sidebar .sidebar-shadow .tab-item.active {
+.board-color-cleanlight .sidebar .tab-item.active {
   background: rgba(23, 23, 28, 1);
   color: rgba(255, 255, 255, 1);
   border: none;
   padding: 4px 12px 4px 12px !important;
 }
 
-.board-color-cleanlight .sidebar .sidebar-shadow .tabs-content-container {
+.board-color-cleanlight .sidebar .tabs-content-container {
   border: none;
 }
 

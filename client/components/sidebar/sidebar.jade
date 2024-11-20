@@ -4,22 +4,21 @@ template(name="sidebar")
     //  class="{{#if isTongueHidden}}is-hidden{{/if}}",
     //  title="{{showTongueTitle}}")
     //  i.fa.fa-navicon
-    .sidebar-shadow
-      .sidebar-actions
-        .sidebar-shortcuts
-          a.board-header-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
-            i.fa.fa-keyboard-o
-            span {{_ 'keyboard-shortcuts' }}
-        a.sidebar-xmark.js-close-sidebar &#10005;
-      .sidebar-content.js-board-sidebar-content
-        //a.hide-btn.js-hide-sidebar
-        //  i.fa.fa-navicon
-        unless isDefaultView
-          h2
-            a.fa.fa-chevron-left.js-back-home
-            = getViewTitle
-        if isOpen
-          +Template.dynamic(template=getViewTemplate)
+    .sidebar-actions
+      .sidebar-shortcuts
+        a.board-header-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
+          i.fa.fa-keyboard-o
+          span {{_ 'keyboard-shortcuts' }}
+      a.sidebar-xmark.js-close-sidebar &#10005;
+    .sidebar-content.js-board-sidebar-content
+      //a.hide-btn.js-hide-sidebar
+      //  i.fa.fa-navicon
+      unless isDefaultView
+        h2
+          a.fa.fa-chevron-left.js-back-home
+          = getViewTitle
+      if isOpen
+        +Template.dynamic(template=getViewTemplate)
 
 template(name='homeSidebar')
   hr

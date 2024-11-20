@@ -5,7 +5,7 @@
   right: 0;
   overflow-y: scroll;
 }
-.sidebar .sidebar-shadow {
+.sidebar {
   background: #f7f7f7;
   box-shadow: -10px 0px 5px -10px #b3b3b3;
   height: 100%;
