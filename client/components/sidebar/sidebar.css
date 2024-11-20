@@ -4,7 +4,6 @@
   bottom: 0;
   right: 0;
   overflow-y: scroll;
-  scrollbar-width: none;
 }
 .sidebar .sidebar-shadow {
   background: #f7f7f7;
