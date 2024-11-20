@@ -7,14 +7,12 @@
   border-left: 1px solid #ccc;
   padding: 0;
   float: left;
-  flex: 1;
 }
 [id^="swimlane-"] .list:first-child {
   min-width: 20px;
 }
 .list:first-child {
   border-left: none;
-  flex: none;
 }
 .card-details + .list {
   border-left: none;
@@ -32,9 +30,6 @@
   border-color: transparent;
   box-shadow: none;
   height: 100px;
-}
-.list.list-collapsed {
-  flex: none;
 }
 .list.list-composer .open-list-composer,
 .list .list-composer .open-list-composer {
@@ -152,7 +147,6 @@
   display: flex;
   overflow-y: auto;
   padding: 5px 11px;
-  scrollbar-width: none;
 }
 .list-body .minicards {
   flex-grow: 1;
