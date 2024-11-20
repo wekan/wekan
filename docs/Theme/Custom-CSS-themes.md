@@ -128,7 +128,7 @@ Other:
 .card-details .card-details-header { background-color:#ccc; }
 
 /* sidebar */
-.sidebar-tongue, .sidebar-shadow { background-color:#666 !important; }
+.sidebar-tongue, .sidebar { background-color:#666 !important; }
 .sidebar-content h3, .sidebar-content .activity-desc { color:rgba(255,255,255,.7) !important; }
 ```
 
