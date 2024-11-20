@@ -4,10 +4,7 @@
   bottom: 0;
   right: 0;
   overflow-y: scroll;
-}
-.sidebar::-webkit-scrollbar {
-  /* Hide scroll bars from middle of the screen */
-  display: none !important;
+  scrollbar-width: none;
 }
 .sidebar .sidebar-shadow {
   background: #f7f7f7;
