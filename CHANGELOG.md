@@ -15,6 +15,21 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Add missing semicolon in keyboard.js](https://github.com/wekan/wekan/pull/5580).
+  Thanks to NadavTasher.
+- [Make lists fill up space evenly, change listWidth to max-width](https://github.com/wekan/wekan/pull/5581).
+  Thanks to NadavTasher.
+- [Change way of disabling scrollbars, disable swimlane scrollbars](https://github.com/wekan/wekan/pull/5583).
+  Thanks to NadavTasher.
+- [Improve list auto-width, fix regressions](https://github.com/wekan/wekan/pull/5584).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.63 2024-11-16 WeKan ® release
 
 This release adds the following new features:
