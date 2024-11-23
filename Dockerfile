@@ -224,9 +224,6 @@ USER wekan
 ENV PORT=8080
 EXPOSE ${PORT}
 
-# Set the maximum stack size
-ENV STACK_SIZE=65500
-
 # Define the stop signal for node
 STOPSIGNAL SIGINT
 
@@ -234,4 +231,4 @@ STOPSIGNAL SIGINT
 VOLUME /data
 
 # Set startup command
-CMD ["bash", "-c", "ulimit -s ${STACK_SIZE} && exec node /wekan/main.js"]
+CMD ["bash", "-c", "ulimit -n 65500 && exec node /wekan/main.js"]
