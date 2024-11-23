@@ -1,7 +1,7 @@
 FROM scratch AS downloads
 
 # Download NodeJS bundle
-ADD https://nodejs.org/download/release/v14.21.3/node-v14.21.3-linux-x64.tar.gz node.tar.gz
+ADD https://static.meteor.com/dev-bundle-node-os/v14.21.4/node-v14.21.4-linux-x64.tar.gz node.tar.gz
 
 # Download Meteor bundle
 ADD https://static.meteor.com/packages-bootstrap/2.16/meteor-bootstrap-os.linux.x86_64.tar.gz meteor.tar.gz
