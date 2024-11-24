@@ -231,4 +231,4 @@ STOPSIGNAL SIGINT
 VOLUME /data
 
 # Set startup command
-CMD ["bash", "-c", "ulimit -n 65500 && exec node /wekan/main.js"]
+CMD ["node", "/wekan/main.js"]
