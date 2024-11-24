@@ -19,7 +19,7 @@ Fixing other platforms In Progress.
 
 This release adds the following updates:
 
-- [Speed improvements to building WeKan x86_64 Dockerfile. Using Ubuntu 24.04 Docker base image](https://github.com/wekan/wekan/pull/5588).
+- [Speed improvements to building WeKan x86_64 Dockerfile. Reduced Docker image size from 1 GB to 0.5 GB. Using Ubuntu 24.04 Docker base image](https://github.com/wekan/wekan/pull/5588).
   Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
