@@ -1,31 +1,76 @@
-FROM ubuntu:24.10
+FROM scratch AS downloads
+
+# Download NodeJS bundle
+ADD https://static.meteor.com/dev-bundle-node-os/v14.21.4/node-v14.21.4-linux-x64.tar.gz node.tar.gz
+
+# Download Meteor bundle
+ADD https://static.meteor.com/packages-bootstrap/2.16/meteor-bootstrap-os.linux.x86_64.tar.gz meteor.tar.gz
+
+FROM ubuntu:24.04 AS build
+
+# Install node from official archive
+RUN --mount=type=bind,from=downloads,source=node.tar.gz,target=node.tar.gz \
+    tar xzf node.tar.gz --strip-components=1 --keep-old-files --no-same-owner
+
+# Install meteor from official archive
+RUN --mount=type=bind,from=downloads,source=meteor.tar.gz,target=meteor.tar.gz \
+    tar xzf meteor.tar.gz -C $HOME --no-same-owner
+
+# Update the npm version
+RUN npm install -g npm@6.14.17
+
+# Install several build dependencies
+RUN apt update && \
+    apt install --yes --no-install-suggests --no-install-recommends ssh git g++ curl ca-certificates && \
+    rm -r /var/lib/apt/lists
+
+# Change to temporary working directory
+WORKDIR /workdir
+
+# Copy package.json and package-lock.json to install application dependencies
+COPY package.json .
+COPY package-lock.json .
+
+# Install build dependencies
+RUN $HOME/.meteor/meteor npm install --production
+
+# Copy meteor application configurations
+COPY .meteor .meteor
+
+# Copy application sources
+COPY packages packages
+COPY imports imports
+COPY config config
+COPY models models
+COPY public public
+COPY server server
+COPY client client
+
+# Build the application
+RUN $HOME/.meteor/meteor build --directory /build --allow-superuser
+
+# Enter server bundle directory
+WORKDIR /build/bundle/programs/server
+
+# Install server dependencies
+RUN $HOME/.meteor/meteor npm install --production
+
+# Enter installation directory of fibers
+WORKDIR /build/bundle/programs/server/node_modules/fibers
+
+# Build fibers integrations
+RUN node build.js
+
+FROM ubuntu:24.04 AS wekan
+
+# Add metadata to image
 LABEL maintainer="wekan"
 LABEL org.opencontainers.image.ref.name="ubuntu"
-LABEL org.opencontainers.image.version="24.10"
+LABEL org.opencontainers.image.version="24.04"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
-# 2022-04-25:
-# - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
-#   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
-
-# 2021-09-18:
-# - Above Ubuntu base image copied from Docker Hub ubuntu:hirsute-20210825
-#   to Quay to avoid Docker Hub rate limits.
-ARG DEBIAN_FRONTEND=noninteractive
-
-ENV BUILD_DEPS="apt-utils gnupg gosu wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3"
-
-ENV \
-    DEBUG=false \
-    NODE_VERSION=v14.21.4 \
-    METEOR_RELEASE=METEOR@2.14 \
-    USE_EDGE=false \
-    METEOR_EDGE=1.5-beta.17 \
-    NPM_VERSION=6.14.17 \
-    FIBERS_VERSION=4.0.1 \
-    ARCHITECTURE=linux-x64 \
-    SRC_PATH=./ \
-    WITH_API=true \
+# Set default environment variables
+ENV WITH_API=true \
     RESULTS_PER_PAGE="" \
     DEFAULT_BOARD_ID="" \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3 \
@@ -158,119 +203,32 @@ ENV \
     WRITABLE_PATH=/data \
     S3=""
 
-#   NODE_OPTIONS="--max_old_space_size=4096"
+# Install node and application sources from build stage
+RUN --mount=type=bind,from=downloads,source=node.tar.gz,target=node.tar.gz \
+    --mount=type=bind,from=build,source=/build,target=/build \
+    # Install NodeJS
+    tar xzf node.tar.gz --strip-components=1 --keep-old-files --no-same-owner && \
+    # Add the wekan user
+    useradd --uid 999 --user-group --system wekan && \
+    # Copy wekan bundle
+    cp -r /build/bundle /wekan && \
+    # Remove the web.browser.legacy platform
+    rm -r /wekan/programs/web.browser.legacy && \
+    # Change ownership of wekan directory
+    chown wekan:wekan -R /wekan
 
-#---------------------------------------------
-# == at docker-compose.yml: AUTOLOGIN WITH OIDC/OAUTH2 ====
-# https://github.com/wekan/wekan/wiki/autologin
-#- OIDC_REDIRECTION_ENABLED=true
-#---------------------------------------------------------------------
-
-# Copy the app to the image
-COPY ${SRC_PATH} /home/wekan/app
-
-# Install OS
-RUN <<EOR
-set -o xtrace
-
-# Add non-root user wekan
-useradd --user-group --system --home-dir /home/wekan wekan
-# OS dependencies
-apt-get update --assume-yes
-apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
-
-# Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
-# https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
-cp $(which tar) $(which tar)~
-ln -sf $(which bsdtar) $(which tar)
-
-# Install NodeJS
-cd /tmp
-
-# Download nodejs
-wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz"
-wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
-
-# Verify nodejs authenticity
-grep "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz" "SHASUMS256.txt" | shasum -a 256 -c -
-rm -f "SHASUMS256.txt"
-
-# Install Node
-tar xzf "node-$NODE_VERSION-$ARCHITECTURE.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-rm "node-$NODE_VERSION-$ARCHITECTURE.tar.gz" "SHASUMS256.txt"
-ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
-mkdir -p "/opt/nodejs/lib/node_modules/fibers/.node-gyp" "/root/.node-gyp/${NODE_VERSION} /home/wekan/.config"
-
-# Install node dependencies
-npm install -g npm@${NPM_VERSION} --production
-chown --recursive wekan:wekan /home/wekan/.config
-
-# Install Meteor
-cd /home/wekan
-chown --recursive wekan:wekan /home/wekan
-echo "Starting meteor ${METEOR_RELEASE} installation...   \n"
-gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh
-mv /root/.meteor /home/wekan/
-chown --recursive wekan:wekan /home/wekan/.meteor
-
-sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js
-cd /home/wekan/.meteor
-gosu wekan:wekan /home/wekan/.meteor/meteor -- help
-
-# Build app (Production)
-cd /home/wekan/app
-mkdir -p /home/wekan/.npm
-chown --recursive wekan:wekan /home/wekan/.npm
-chmod u+w *.json
-gosu wekan:wekan meteor npm install --production
-gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build
-cd /home/wekan/app_build/bundle/programs/server/
-chmod u+w *.json
-gosu wekan:wekan meteor npm install --production
-cd node_modules/fibers
-node build.js
-cd ../..
-# Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
-rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy
-mv /home/wekan/app_build/bundle /build
-
-# Put back the original tar
-mv $(which tar)~ $(which tar)
-
-# Cleanup
-apt-get remove --purge --assume-yes ${BUILD_DEPS}
-npm uninstall -g api2html
-apt-get autoremove --assume-yes
-apt-get clean --assume-yes
-rm -Rf /tmp/*
-rm -Rf /var/lib/apt/lists/*
-rm -Rf /var/cache/apt
-rm -Rf /var/lib/apt/lists
-rm -Rf /home/wekan/app_build
-rm -Rf /home/wekan/app
-rm -Rf /home/wekan/.meteor
-
-mkdir /data
-chown wekan --recursive /data
-EOR
-
+# Change to the wekan user
 USER wekan
 
+# Set the port to listen on
 ENV PORT=8080
-EXPOSE $PORT
+EXPOSE ${PORT}
 
-STOPSIGNAL SIGKILL
-WORKDIR /home/wekan/app
+# Define the stop signal for node
+STOPSIGNAL SIGINT
 
-#---------------------------------------------------------------------
-# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
-# Add more Node heap:
-#   NODE_OPTIONS="--max_old_space_size=4096"
-# Add more stack:
-#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
-#---------------------------------------------------------------------
-#
-# CMD ["node", "/build/main.js"]
-# CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /build/main.js"]
-# CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 --max-old-space-size=8192 /build/main.js"]
-CMD ["bash", "-c", "ulimit -s 65500; exec node /build/main.js"]
+# Declare a volume on /data
+VOLUME /data
+
+# Set startup command
+CMD ["node", "/wekan/main.js"]
