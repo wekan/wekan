@@ -215,7 +215,11 @@ RUN --mount=type=bind,from=downloads,source=node.tar.gz,target=node.tar.gz \
     # Remove the web.browser.legacy platform
     rm -r /wekan/programs/web.browser.legacy && \
     # Change ownership of wekan directory
-    chown wekan:wekan -R /wekan
+    chown wekan:wekan -R /wekan && \
+    # Create the data directory
+    mkdir /data && \
+    # Change ownership of data directory
+    chown wekan:root -R /data
 
 # Change to the wekan user
 USER wekan
