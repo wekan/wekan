@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Speed improvements to building WeKan x86_64 Dockerfile](https://github.com/wekan/wekan/pull/5588).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.67 2024-11-21 WeKan ® release
 
 This release adds the following new features:
