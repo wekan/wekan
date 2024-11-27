@@ -15,6 +15,22 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Bump docker/metadata-action from 5.5.1 to 5.6.1](https://github.com/wekan/wekan/pull/5590).
+  Thanks to dependabot.
+
+and fixes the following bugs:
+
+- [Fix issue with comments not showing when using Exodark Theme](https://github.com/wekan/wekan/pull/5595).
+  Thanks to walster001.
+- [Change archive-card shortcut to backtick for better ergonomics](https://github.com/wekan/wekan/pull/5589).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.68 2024-11-24 WeKan ® release
 
 This release adds the following updates:
