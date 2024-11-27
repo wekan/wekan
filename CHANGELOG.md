@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Bump docker/metadata-action from 5.5.1 to 5.6.1](https://github.com/wekan/wekan/pull/5590).
   Thanks to dependabot.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/9c87572f90f16fbdddb6a4dff3984e64acac20cc).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
