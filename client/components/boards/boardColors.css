@@ -2648,6 +2648,9 @@ THEME - Exodark
   background: #2b2b2b !important;
   color: #fff;
 }
+.board-color-exodark .card-details .comment-text {
+  color:#2b2b2b
+} /*Fixes issue with comment text colour blending into background*/
 .board-color-exodark .card-details .card-details-header {
   background: #2b2b2b;
   color: #fff;
