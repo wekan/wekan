@@ -716,6 +716,11 @@ Users.helpers({
     return _.contains(starredBoards, boardId);
   },
 
+  hasAutoWidth(boardId) {
+    const { autoWidths = {} } = this.profile || {};
+    return autoWidths[boardId] === true;
+  },
+
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
     return Boards.userBoards(
@@ -971,6 +976,17 @@ Users.mutations({
     return {
       [queryKind]: {
         'profile.starredBoards': boardId,
+      },
+    };
+  },
+  toggleAutoWidth(boardId) {
+    const { autoWidths = {} } = this.profile || {};
+
+    autoWidths[boardId] = !autoWidths[boardId];
+
+    return {
+      $set: {
+        'profile.autoWidths': autoWidths,
       },
     };
   },

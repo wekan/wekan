@@ -1489,3 +1489,16 @@ Migrations.add('remove-user-profile-hideCheckedItems', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('add-default-auto-width-boards', () => {
+  Users.find().forEach(user => {
+    if (!user.hasOwnProperty('profile.autoWidths')) {
+      // Set default auto widths
+      Users.direct.update(
+        { _id: user._id },
+        { $set: { 'profile.autoWidths': {} } },
+        noValidate,
+      );
+    }
+  });
+});

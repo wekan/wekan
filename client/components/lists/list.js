@@ -200,6 +200,12 @@ BlazeComponent.extendComponent({
     const list = Template.currentData();
     return user.getListWidth(list.boardId, list._id);
   },
+
+  autoWidth() {
+    const user = ReactiveCache.getCurrentUser();
+    const list = Template.currentData();
+    return user.hasAutoWidth(list.boardId);
+  },
 }).register('list');
 
 Template.miniList.events({

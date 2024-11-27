@@ -23,6 +23,10 @@ template(name="boardHeaderBar")
               span
                 = currentBoard.stars
 
+          a.board-header-btn.js-auto-width-board(class="{{#if isAutoWidth}}is-active{{/if}}"
+            title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
+            i.fa(class="fa-solid fa-{{#if isAutoWidth}}compress{{else}}expand{{/if}}")
+
           a.board-header-btn(
             class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
             title="{{_ currentBoard.permission}}")
@@ -65,6 +69,10 @@ template(name="boardHeaderBar")
             if showStarCounter
               span
                 = currentBoard.stars
+
+          a.board-header-btn.js-auto-width-board(class="{{#if isAutoWidth}}is-active{{/if}}"
+            title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
+            i.fa(class="fa-solid fa-{{#if isAutoWidth}}compress{{else}}expand{{/if}}")
 
           a.board-header-btn(
             class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
