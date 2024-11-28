@@ -442,11 +442,15 @@ services:
       # OAuth2 login style: popup or redirect.
       #- OAUTH2_LOGIN_STYLE=redirect
       #- OAUTH2_CLIENT_ID=<Keycloak create Client ID>
-      #- OAUTH2_SERVER_URL=<Keycloak server name>/auth
+      #- OAUTH2_SERVER_URL=<Keycloak server url - https://keycloak.example.com>
       #- OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
       #- OAUTH2_USERINFO_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/userinfo
       #- OAUTH2_TOKEN_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/token
       #- OAUTH2_SECRET=<keycloak client secret>
+      #- OAUTH2_ID_MAP=sub
+      #- OAUTH2_USERNAME_MAP=preferred_username
+      #- OAUTH2_EMAIL_MAP=email
+      #- OAUTH2_FULLNAME_MAP=name
       #-----------------------------------------------------------------
       # ==== OAUTH2 DOORKEEPER ====
       # https://github.com/wekan/wekan/issues/1874
