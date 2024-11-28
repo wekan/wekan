@@ -30,6 +30,8 @@ and fixes the following bugs:
   Thanks to walster001.
 - [Change archive-card shortcut to backtick for better ergonomics](https://github.com/wekan/wekan/pull/5589).
   Thanks to NadavTasher.
+- [Update docker-compose.yml Keycloak part](https://github.com/wekan/wekan/pull/5597).
+  Thanks to malteprang.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
