@@ -4,6 +4,8 @@ Also see: [Windows](Windows)
 
 ## Wekan Windows 64bit version On-Premise
 
+INFO ABOUT SETTINGS: https://github.com/wekan/wekan/issues/5591#issuecomment-2503681293
+
 This is without container (without Docker or Snap).
 
 Right click and download files 1-4:
