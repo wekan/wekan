@@ -89,6 +89,9 @@ BlazeComponent.extendComponent({
   toggleHideBoardMemberList() {
     $('#hide-board-member-list').toggleClass('is-checked');
   },
+  toggleAccessibilityPageEnabled() {
+    $('#accessibility-page-enabled').toggleClass('is-checked');
+  },
   toggleDisplayAuthenticationMethod() {
     $('#display-authentication-method').toggleClass('is-checked');
   },
@@ -239,7 +242,13 @@ BlazeComponent.extendComponent({
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
-
+    const accessibilityPageEnabled = $('input[name=accessibilityPageEnabled]:checked').val() === 'true';
+    const accessibilityTitle = $('#accessibility-title')
+      .val()
+      .trim();
+    const accessibilityContent = $('#accessibility-content')
+      .val()
+      .trim();
     const spinnerName = $('#spinnerName').val();
 
     try {
@@ -263,6 +272,9 @@ BlazeComponent.extendComponent({
           oidcBtnText,
           mailDomainName,
           legalNotice,
+          accessibilityPageEnabled,
+          accessibilityTitle,
+          accessibilityContent,
         },
       });
     } catch (e) {
@@ -301,6 +313,7 @@ BlazeComponent.extendComponent({
         'click a.js-toggle-hide-logo': this.toggleHideLogo,
         'click a.js-toggle-hide-card-counter-list': this.toggleHideCardCounterList,
         'click a.js-toggle-hide-board-member-list': this.toggleHideBoardMemberList,
+        'click a.js-toggle-accessibility-page-enabled': this.toggleAccessibilityPageEnabled,
         'click button.js-save-layout': this.saveLayout,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,

@@ -38,6 +38,9 @@ Meteor.publish('setting', () => {
         oidcBtnText: 1,
         mailDomainName: 1,
         legalNotice: 1,
+        accessibilityPageEnabled: 1,
+        accessibilityTitle: 1,
+        accessibilityContent: 1,
       },
     },
   );

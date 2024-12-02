@@ -1,0 +1,8 @@
+template(name="accessibilityHeaderBar")
+  if currentUser
+    h1
+      | {{_ 'accessibility-title'}}
+
+template(name="accessibility")
+  if currentUser
+    | {{_ 'accessibility-content'}}

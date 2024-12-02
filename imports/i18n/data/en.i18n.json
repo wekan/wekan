@@ -1255,5 +1255,8 @@
   "collapse": "Collapse",
   "uncollapse": "Uncollapse",
   "hideCheckedChecklistItems": "Hide checked checklist items",
-  "hideAllChecklistItems": "Hide all checklist items"
+  "hideAllChecklistItems": "Hide all checklist items",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }

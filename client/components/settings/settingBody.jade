@@ -250,6 +250,21 @@ template(name='layoutSettings')
       .form-group
         input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
     li.layout-form
+      .title {{_ 'accessibility-page-enabled'}}
+      .form-group.flex
+        input.wekan-form-control#accessibility-page-enabled(type="radio" name="accessibilityPageEnabled" value="true" checked="{{#if currentSetting.accessibilityEnabled}}checked{{/if}}")
+        label {{_ 'yes'}}
+        input.wekan-form-control#accessibility-page-enabled(type="radio" name="accessibilityPageEnabled" value="false" checked="{{#unless currentSetting.accessibilityEnabled}}checked{{/unless}}")
+        label {{_ 'no'}}
+    li.layout-form
+      .title {{_ 'accessibility-title'}}
+      .form-group
+        input.wekan-form-control#accessibility-title(type="text", placeholder="" value="{{currentSetting.accessibilityTitle}}")
+    li.layout-form
+      .title {{_ 'accessibility-content'}}
+      .form-group
+        textarea#accessibility-content.wekan-form-control= currentSetting.accessibilityContent
+    li.layout-form
       .title {{_ 'automatic-linked-url-schemes'}}
       .form-group
         textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
