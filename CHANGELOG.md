@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to dependabot.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/9c87572f90f16fbdddb6a4dff3984e64acac20cc).
   Thanks to developers of dependencies.
+- [Updated Windows docs](https://github.com/wekan/wekan/commit/aa33ead7b2efd11bfd9e3f1fb94b564b6bdce119).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
