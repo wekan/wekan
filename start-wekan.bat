@@ -619,7 +619,7 @@ REM SET CAS_BASE_URL=https://cas.example.com/cas
 REM SET CAS_LOGIN_URL=https://cas.example.com/login
 REM SET CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
 
-REML ## https://github.com/wekan/wekan/wiki/SAML
+REM ## https://github.com/wekan/wekan/wiki/SAML
 REM SET SAML_ENABLED=true
 REM SET SAML_PROVIDER=
 REM SET SAML_ENTRYPOINT=
