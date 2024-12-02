@@ -15,7 +15,7 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.69 2024-12-02 WeKan ® release
 
 This release adds the following updates:
 
@@ -25,14 +25,18 @@ This release adds the following updates:
   Thanks to developers of dependencies.
 - [Updated Windows docs](https://github.com/wekan/wekan/commit/aa33ead7b2efd11bfd9e3f1fb94b564b6bdce119).
   Thanks to xet7.
+- [Update docker-compose.yml Keycloak part](https://github.com/wekan/wekan/pull/5597).
+  Thanks to NadavTasher.
+- [Updated Keycloak etc login settings at start-wekan.bat and start-wekan.sh](https://github.com/wekan/wekan/commit/ab4c3bd2fc49e6fa82ec47dccdf9670110cddf98).
+  Thanks to xet7.
+- [Updated release scripts](https://github.com/wekan/wekan/commit/79f7ec27159825db9206f385d9281fd68a2aacf5).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Fix issue with comments not showing when using Exodark Theme](https://github.com/wekan/wekan/pull/5595).
   Thanks to walster001.
 - [Change archive-card shortcut to backtick for better ergonomics](https://github.com/wekan/wekan/pull/5589).
-  Thanks to NadavTasher.
-- [Update docker-compose.yml Keycloak part](https://github.com/wekan/wekan/pull/5597).
   Thanks to malteprang.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
