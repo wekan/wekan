@@ -230,11 +230,15 @@
       # OAuth2 login style: popup or redirect.
       #export OAUTH2_LOGIN_STYLE=redirect
       #export OAUTH2_CLIENT_ID=<Keycloak create Client ID>
-      #export OAUTH2_SERVER_URL=<Keycloak server name>/auth
+      #export OAUTH2_SERVER_URL=<Keycloak server URL - https://keycloak.example.com>
       #export OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
       #export OAUTH2_USERINFO_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/userinfo
       #export OAUTH2_TOKEN_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/token
       #export OAUTH2_SECRET=<keycloak client secret>
+      #export OAUTH2_ID_MAP=sub
+      #export OAUTH2_USERNAME_MAP=preferred_username
+      #export OAUTH2_EMAIL_MAP=email
+      #export OAUTH2_FULLNAME_MAP=name
       #-----------------------------------------------------------------
       # ==== OAUTH2 DOORKEEPER ====
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
