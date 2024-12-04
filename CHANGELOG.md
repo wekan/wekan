@@ -15,6 +15,20 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Helm Chart: Allow to define securityContext for pod and containers](https://github.com/wekan/charts/pull/37).
+  Thanks to maitredede.
+
+and fixes the following bugs:
+
+- [Helm Chart: Service account token does not need to be mounted in op](https://github.com/wekan/charts/pull/38).
+  Thanks to maitredede.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.69 2024-12-02 WeKan ® release
 
 This release adds the following updates:
