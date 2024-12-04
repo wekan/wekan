@@ -21,6 +21,8 @@ This release adds the following new features:
 
 - [Helm Chart: Allow to define securityContext for pod and containers](https://github.com/wekan/charts/pull/37).
   Thanks to maitredede.
+- [Move card to archive, add shortcut key ÷ for Persian keyboard](https://github.com/wekan/wekan/commit/80ea1782f935c74f1b7b1fd0fb7700ef9a39dc64).
+  Thanks to mohammadZahedian and xet7.
 
 and fixes the following bugs:
 
