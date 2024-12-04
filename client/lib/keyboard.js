@@ -210,6 +210,28 @@ Mousetrap.bind('`', evt => {
   }
 });
 
+// Same as above, this time for Persian keyboard.
+// https://github.com/wekan/wekan/pull/5589#issuecomment-2516776519
+Mousetrap.bind('÷', evt => {
+  const cardId = getSelectedCardId();
+  if (!cardId) {
+    return;
+  }
+
+  const currentUserId = Meteor.userId();
+  if (currentUserId === null) {
+    return;
+  }
+
+  if (Utils.canModifyBoard()) {
+    const card = ReactiveCache.getCard(cardId);
+    card.archive();
+    // We should prevent scrolling in card when spacebar is clicked
+    // This should do it according to Mousetrap docs, but it doesn't
+    evt.preventDefault();
+  }
+});
+
 Mousetrap.bind('n', evt => {
   const cardId = getSelectedCardId();
   if (!cardId) {
@@ -285,7 +307,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-assign-self',
     },
     {
-      keys: ['`'],
+      keys: ['`', '÷'],
       action: 'archive-card',
     },
     {
