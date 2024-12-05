@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated release scripts: Disabled Docker registry sync. Only pushing WeKan to GitHub, Quay and Docker Hub](https://github.com/wekan/wekan/commit/17d5fae7bbd96eb6721ad869802cc980c9791c7f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.71 2024-12-05 WeKan ® release
 
 This release adds the following new features:
