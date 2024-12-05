@@ -12,7 +12,8 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
-sudo apt -y install skopeo
+#sudo apt -y install skopeo
+#~/repos/wekan/releases/docker-registry-sync.sh
 
 # Quay
 docker tag $1 quay.io/wekan/wekan:v$2
@@ -20,7 +21,6 @@ docker push quay.io/wekan/wekan:v$2
 docker tag $1 quay.io/wekan/wekan:latest
 docker push quay.io/wekan/wekan:latest
 
-~/repos/wekan/releases/docker-registry-sync.sh
 
 # Docker Hub
 docker tag $1 wekanteam/wekan:v$2
