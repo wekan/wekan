@@ -1255,5 +1255,7 @@
   "collapse": "צמצום",
   "uncollapse": "ביטול צמצום",
   "hideCheckedChecklistItems": "הסתרת פריטים שסומנו ברשימת הפריטים",
-  "hideAllChecklistItems": "הסתרת כל הפריטים ברשימת המטלות"
+  "hideAllChecklistItems": "הסתרת כל הפריטים ברשימת המטלות",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

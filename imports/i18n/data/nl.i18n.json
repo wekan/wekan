@@ -1255,5 +1255,7 @@
   "collapse": "Inklappen",
   "uncollapse": "Uitklappen",
   "hideCheckedChecklistItems": "Verberg aangevinkte checklist items",
-  "hideAllChecklistItems": "Verberg alle checklist items"
+  "hideAllChecklistItems": "Verberg alle checklist items",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

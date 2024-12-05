@@ -1255,5 +1255,7 @@
   "collapse": "Collapse",
   "uncollapse": "展開",
   "hideCheckedChecklistItems": "チェック済みチェックリスト項目を非表示",
-  "hideAllChecklistItems": "すべてのチェックリスト項目を非表示"
+  "hideAllChecklistItems": "すべてのチェックリスト項目を非表示",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

@@ -1255,5 +1255,7 @@
   "collapse": "Expandir",
   "uncollapse": "Compactar",
   "hideCheckedChecklistItems": "Esconder itens concluídos da lista de verificação",
-  "hideAllChecklistItems": "Esconder todos os itens da lista de verificação"
+  "hideAllChecklistItems": "Esconder todos os itens da lista de verificação",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

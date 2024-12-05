@@ -1255,5 +1255,7 @@
   "collapse": "Réduire",
   "uncollapse": "Développer",
   "hideCheckedChecklistItems": "Cacher les éléments cochés de la check-list",
-  "hideAllChecklistItems": "Cacher tous les éléments de la check-list"
+  "hideAllChecklistItems": "Cacher tous les éléments de la check-list",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

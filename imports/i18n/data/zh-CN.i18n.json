@@ -1255,5 +1255,7 @@
   "collapse": "崩溃",
   "uncollapse": "展开",
   "hideCheckedChecklistItems": "隐藏勾选的清单项",
-  "hideAllChecklistItems": "Hide all checklist items"
+  "hideAllChecklistItems": "Hide all checklist items",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

@@ -1255,5 +1255,7 @@
   "collapse": "Fäll ihop",
   "uncollapse": "Expandera",
   "hideCheckedChecklistItems": "Dölj markerade objekt i checklistan",
-  "hideAllChecklistItems": "Dölj alla objekt i checklistan"
+  "hideAllChecklistItems": "Dölj alla objekt i checklistan",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

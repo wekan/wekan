@@ -77,6 +77,7 @@ Template.memberMenuPopup.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-support': Popup.open('support'),
   'click .js-logout'(event) {
     event.preventDefault();
 

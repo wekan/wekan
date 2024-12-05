@@ -1255,5 +1255,7 @@
   "collapse": "संक्षिप्त करें",
   "uncollapse": "Uncollapse",
   "hideCheckedChecklistItems": "Hide checked checklist items",
-  "hideAllChecklistItems": "Hide all checklist items"
+  "hideAllChecklistItems": "Hide all checklist items",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

@@ -1255,5 +1255,7 @@
   "collapse": "Kokkupõrge",
   "uncollapse": "Uncollapse",
   "hideCheckedChecklistItems": "Hide checked checklist items",
-  "hideAllChecklistItems": "Hide all checklist items"
+  "hideAllChecklistItems": "Hide all checklist items",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

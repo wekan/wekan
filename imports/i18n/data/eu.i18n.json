@@ -1255,5 +1255,7 @@
   "collapse": "Tolestu",
   "uncollapse": "Zabaldu",
   "hideCheckedChecklistItems": "Hide checked checklist items",
-  "hideAllChecklistItems": "Hide all checklist items"
+  "hideAllChecklistItems": "Hide all checklist items",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

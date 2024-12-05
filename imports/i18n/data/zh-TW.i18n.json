@@ -1255,5 +1255,7 @@
   "collapse": "損毀",
   "uncollapse": "展開",
   "hideCheckedChecklistItems": "隱藏已勾選的待辦清單項目",
-  "hideAllChecklistItems": "隱藏所有待辦清單項目"
+  "hideAllChecklistItems": "隱藏所有待辦清單項目",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }

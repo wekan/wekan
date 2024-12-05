@@ -1255,5 +1255,7 @@
   "collapse": "Згорнути",
   "uncollapse": "Розгорнути",
   "hideCheckedChecklistItems": "Приховати відмічені елементи чек-листа",
-  "hideAllChecklistItems": "Приховати всі пункти чек-листа"
+  "hideAllChecklistItems": "Приховати всі пункти чек-листа",
+  "support": "Support",
+  "supportPopup-title": "Support"
 }
