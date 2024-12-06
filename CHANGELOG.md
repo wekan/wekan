@@ -19,7 +19,7 @@ Fixing other platforms In Progress.
 
 This release adds the following updates:
 
-- [Updated release scripts: Disabled Docker registry sync. Only pushing WeKan to GitHub, Quay and Docker Hub](https://github.com/wekan/wekan/commit/17d5fae7bbd96eb6721ad869802cc980c9791c7f).
+- [Disabled syncing of old and unrelated docker containers between docker registries](https://github.com/wekan/wekan/commit/17d5fae7bbd96eb6721ad869802cc980c9791c7f).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
