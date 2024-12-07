@@ -347,14 +347,20 @@ BlazeComponent.extendComponent({
         .val(),
       10,
     );
+    const constraint = parseInt(
+      Template.instance()
+        .$('.list-constraint-value')
+        .val(),
+      10,
+    );
 
     // FIXME(mark-i-m): where do we put constants?
-    if (width < 100 || !width) {
+    if (width < 100 || !width || constraint < 100 || !constraint) {
       Template.instance()
         .$('.list-width-error')
         .click();
     } else {
-      Meteor.call('applyListWidth', board, list._id, width);
+      Meteor.call('applyListWidth', board, list._id, width, constraint);
       Popup.back();
     }
   },
@@ -363,6 +369,12 @@ BlazeComponent.extendComponent({
     const list = Template.currentData();
     const board = list.boardId;
     return ReactiveCache.getCurrentUser().getListWidth(board, list._id);
+  },
+
+  listConstraintValue() {
+    const list = Template.currentData();
+    const board = list.boardId;
+    return ReactiveCache.getCurrentUser().getListConstraint(board, list._id);
   },
 
   events() {

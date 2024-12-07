@@ -191,6 +191,7 @@ template(name="setListWidthPopup")
     label {{_ 'set-list-width-value'}}
       p
         input.list-width-value(type="number" value="{{ listWidthValue }}" min="100")
+        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="100")
         input.list-width-apply(type="submit" value="{{_ 'apply'}}")
         input.list-width-error
 

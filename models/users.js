@@ -417,6 +417,24 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.listConstraints': {
+      /**
+       * User-specified constraint of each list (or nothing if default).
+       * profile[boardId][listId] = constraint;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
+    'profile.autoWidthBoards': {
+      /**
+       * User-specified flag for enabling auto-width for boards (false is the default).
+       * profile[boardId][listId] = constraint;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.swimlaneHeights': {
       /**
        * User-specified heights of each swimlane (or nothing if default).
@@ -716,6 +734,11 @@ Users.helpers({
     return _.contains(starredBoards, boardId);
   },
 
+  isAutoWidth(boardId) {
+    const { autoWidthBoards = {} } = this.profile || {};
+    return autoWidthBoards[boardId] === true;
+  },
+
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
     return Boards.userBoards(
@@ -757,7 +780,7 @@ Users.helpers({
   },
 
   getListWidths() {
-    const { listWidths = {} } = this.profile || {};
+    const { listWidths = {}, } = this.profile || {};
     return listWidths;
   },
   getListWidth(boardId, listId) {
@@ -766,6 +789,18 @@ Users.helpers({
       return listWidths[boardId][listId];
     } else {
       return 270; //TODO(mark-i-m): default?
+    }
+  },
+  getListConstraints() {
+    const { listConstraints = {} } = this.profile || {};
+    return listConstraints;
+  },
+  getListConstraint(boardId, listId) {
+    const listConstraints = this.getListConstraints();
+    if (listConstraints[boardId] && listConstraints[boardId][listId]) {
+      return listConstraints[boardId][listId];
+    } else {
+      return 350;
     }
   },
 
@@ -974,6 +1009,15 @@ Users.mutations({
       },
     };
   },
+  toggleAutoWidth(boardId) {
+    const { autoWidthBoards = {} } = this.profile || {};
+    autoWidthBoards[boardId] = !autoWidthBoards[boardId];
+    return {
+      $set: {
+        'profile.autoWidthBoards': autoWidthBoards,
+      },
+    };
+  },
 
   addInvite(boardId) {
     return {
@@ -1148,6 +1192,19 @@ Users.mutations({
     };
   },
 
+  setListConstraint(boardId, listId, constraint) {
+    let currentConstraints = this.getListConstraints();
+    if (!currentConstraints[boardId]) {
+      currentConstraints[boardId] = {};
+    }
+    currentConstraints[boardId][listId] = constraint;
+    return {
+      $set: {
+        'profile.listConstraints': currentConstraints,
+      },
+    };
+  },
+
   setSwimlaneHeight(boardId, swimlaneId, height) {
     let currentHeights = this.getSwimlaneHeights();
     if (!currentHeights[boardId]) {
@@ -1199,12 +1256,14 @@ Meteor.methods({
     check(startDay, Number);
     ReactiveCache.getCurrentUser().setStartDayOfWeek(startDay);
   },
-  applyListWidth(boardId, listId, width) {
+  applyListWidth(boardId, listId, width, constraint) {
     check(boardId, String);
     check(listId, String);
     check(width, Number);
+    check(constraint, Number);
     const user = ReactiveCache.getCurrentUser();
     user.setListWidth(boardId, listId, width);
+    user.setListConstraint(boardId, listId, constraint);
   },
   applySwimlaneHeight(boardId, swimlaneId, height) {
     check(boardId, String);

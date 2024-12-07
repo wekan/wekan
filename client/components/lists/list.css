@@ -7,10 +7,12 @@
   border-left: 1px solid #ccc;
   padding: 0;
   float: left;
-  flex: 1;
 }
 [id^="swimlane-"] .list:first-child {
   min-width: 20px;
+}
+.list.list-auto-width {
+  flex: 1;
 }
 .list:first-child {
   border-left: none;
