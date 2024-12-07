@@ -78,7 +78,7 @@ BlazeComponent.extendComponent({
           ReactiveCache.getCurrentUser().toggleBoardStar(Session.get('currentBoard'));
         },
         'click .js-auto-width-board'() {
-          ReactiveCache.getCurrentUser().toggleAutoWidth(Session.get('currentBoard'));
+          ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
         },
         'click .js-open-board-menu': Popup.open('boardMenu'),
         'click .js-change-visibility': Popup.open('boardChangeVisibility'),
