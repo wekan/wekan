@@ -734,9 +734,9 @@ Users.helpers({
     return _.contains(starredBoards, boardId);
   },
 
-  hasAutoWidth(boardId) {
-    const { autoWidths = {} } = this.profile || {};
-    return autoWidths[boardId] === true;
+  isAutoWidth(boardId) {
+    const { autoWidthBoards = {} } = this.profile || {};
+    return autoWidthBoards[boardId] === true;
   },
 
   invitedBoards() {
@@ -780,7 +780,7 @@ Users.helpers({
   },
 
   getListWidths() {
-    const { listWidths = {} } = this.profile || {};
+    const { listWidths = {}, } = this.profile || {};
     return listWidths;
   },
   getListWidth(boardId, listId) {
@@ -789,6 +789,18 @@ Users.helpers({
       return listWidths[boardId][listId];
     } else {
       return 270; //TODO(mark-i-m): default?
+    }
+  },
+  getListConstraints() {
+    const { listConstraints = {} } = this.profile || {};
+    return listConstraints;
+  },
+  getListConstraint(boardId, listId) {
+    const listConstraints = this.getListConstraints();
+    if (listConstraints[boardId] && listConstraints[boardId][listId]) {
+      return listConstraints[boardId][listId];
+    } else {
+      return 350;
     }
   },
 
@@ -998,13 +1010,11 @@ Users.mutations({
     };
   },
   toggleAutoWidth(boardId) {
-    const { autoWidths = {} } = this.profile || {};
-
-    autoWidths[boardId] = !autoWidths[boardId];
-
+    const { autoWidthBoards = {} } = this.profile || {};
+    autoWidthBoards[boardId] = !autoWidthBoards[boardId];
     return {
       $set: {
-        'profile.autoWidths': autoWidths,
+        'profile.autoWidthBoards': autoWidthBoards,
       },
     };
   },
