@@ -1,6 +1,6 @@
 template(name='list')
   .list.js-list(id="js-list-{{_id}}"
-                style="{{#unless collapsed}}{{#if autoWidth}}min-{{/if}}width:{{listWidth}}px;{{/unless}}"
+                style="{{#unless collapsed}}min-width:{{listWidth}}px;max-width:{{listConstraint}}px;{{/unless}}"
                 class="{{#if collapsed}}list-collapsed{{/if}} {{#if autoWidth}}list-auto-width{{/if}}")
     +listHeader
     +listBody
