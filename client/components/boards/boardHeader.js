@@ -41,7 +41,7 @@ BlazeComponent.extendComponent({
   isAutoWidth() {
     const boardId = Session.get('currentBoard');
     const user = ReactiveCache.getCurrentUser();
-    return user && user.hasAutoWidth(boardId);
+    return user && user.isAutoWidth(boardId);
   },
 
   // Only show the star counter if the number of star is greater than 2

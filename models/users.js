@@ -417,6 +417,15 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.autoWidthBoards': {
+      /**
+       * User-specified flag for enabling auto-width for boards (false is the default).
+       * profile[boardId][listId] = constraint;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.swimlaneHeights': {
       /**
        * User-specified heights of each swimlane (or nothing if default).
