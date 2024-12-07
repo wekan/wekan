@@ -39,7 +39,7 @@ BlazeComponent.extendComponent({
   },
 
   isAutoWidth() {
-    const boardId = Session.get('currentBoard');
+    const boardId = Utils.getCurrentBoardId();
     const user = ReactiveCache.getCurrentUser();
     return user && user.isAutoWidth(boardId);
   },
