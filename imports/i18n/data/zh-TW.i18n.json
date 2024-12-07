@@ -86,10 +86,10 @@
   "add-card": "新增卡片",
   "add-card-to-top-of-list": "新增卡片至清單頂部",
   "add-card-to-bottom-of-list": "新增卡片至清單底部",
-  "setListWidthPopup-title": "設定清單寬度",
-  "set-list-width": "設定最小寬度",
-  "set-list-width-value": "最小寬度（畫素）",
-  "list-width-error-message": "清單寬度必須為正整數",
+  "setListWidthPopup-title": "Set Widths",
+  "set-list-width": "Set Widths",
+  "set-list-width-value": "Set Min & Max Widths (pixels)",
+  "list-width-error-message": "List widths must be integers greater than 100",
   "setSwimlaneHeightPopup-title": "設定泳道高度",
   "set-swimlane-height": "設定泳道高度",
   "set-swimlane-height-value": "泳道高度（畫素）",
@@ -264,6 +264,8 @@
   "checklists": "待辦清單",
   "click-to-star": "將看板加入我的最愛。",
   "click-to-unstar": "從我的最愛移除此看板。",
+  "click-to-enable-auto-width": "Click to enable auto list width.",
+  "click-to-disable-auto-width": "Click to disable auto list width.",
   "clipboard": "剪貼簿貼上或者拖曳檔案",
   "close": "關閉",
   "close-board": "關閉看板",
@@ -1256,6 +1258,6 @@
   "uncollapse": "展開",
   "hideCheckedChecklistItems": "隱藏已勾選的待辦清單項目",
   "hideAllChecklistItems": "隱藏所有待辦清單項目",
-  "support": "Support",
-  "supportPopup-title": "Support"
+  "support": "支援",
+  "supportPopup-title": "支援"
 }

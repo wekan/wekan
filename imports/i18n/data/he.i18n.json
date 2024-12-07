@@ -86,10 +86,10 @@
   "add-card": "הוספת כרטיס",
   "add-card-to-top-of-list": "הוספת כרטיס לראש הרשימה",
   "add-card-to-bottom-of-list": "הוספת כרטיס לתחתית הרשימה",
-  "setListWidthPopup-title": "הגדרת רוחב רשימה",
-  "set-list-width": "הגדרת רוחב מזערי",
-  "set-list-width-value": "רוחב מזערי (פיקסלים)",
-  "list-width-error-message": "רוחב הרשימה חייב להיות מספר שלם וחיובי",
+  "setListWidthPopup-title": "Set Widths",
+  "set-list-width": "Set Widths",
+  "set-list-width-value": "Set Min & Max Widths (pixels)",
+  "list-width-error-message": "List widths must be integers greater than 100",
   "setSwimlaneHeightPopup-title": "הגדרת גובה מסלול",
   "set-swimlane-height": "הגדרת גובה מסלול",
   "set-swimlane-height-value": "גובה מסלול (פיקסלים)",
@@ -264,6 +264,8 @@
   "checklists": "רשימות",
   "click-to-star": "יש ללחוץ להוספת הלוח למועדפים.",
   "click-to-unstar": "יש ללחוץ להסרת הלוח מהמועדפים.",
+  "click-to-enable-auto-width": "Click to enable auto list width.",
+  "click-to-disable-auto-width": "Click to disable auto list width.",
   "clipboard": "לוח גזירים או גרירה ושחרור",
   "close": "סגירה",
   "close-board": "סגירת לוח",
@@ -1256,6 +1258,6 @@
   "uncollapse": "ביטול צמצום",
   "hideCheckedChecklistItems": "הסתרת פריטים שסומנו ברשימת הפריטים",
   "hideAllChecklistItems": "הסתרת כל הפריטים ברשימת המטלות",
-  "support": "Support",
-  "supportPopup-title": "Support"
+  "support": "תמיכה",
+  "supportPopup-title": "תמיכה"
 }
