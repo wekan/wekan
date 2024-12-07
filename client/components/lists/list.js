@@ -208,7 +208,9 @@ BlazeComponent.extendComponent({
   },
 
   autoWidth() {
-    return user.isAutoWidth(Utils.getCurrentBoardId());
+    const user = ReactiveCache.getCurrentUser();
+    const list = Template.currentData();
+    return user.isAutoWidth(list.boardId);
   },
 }).register('list');
 
