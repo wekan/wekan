@@ -417,6 +417,15 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.listConstraints': {
+      /**
+       * User-specified constraint of each list (or nothing if default).
+       * profile[boardId][listId] = constraint;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.autoWidthBoards': {
       /**
        * User-specified flag for enabling auto-width for boards (false is the default).
@@ -1173,6 +1182,19 @@ Users.mutations({
     };
   },
 
+  setListConstraint(boardId, listId, constraint) {
+    let currentConstraints = this.getListConstraints();
+    if (!currentConstraints[boardId]) {
+      currentConstraints[boardId] = {};
+    }
+    currentConstraints[boardId][listId] = constraint;
+    return {
+      $set: {
+        'profile.listConstraints': currentConstraints,
+      },
+    };
+  },
+
   setSwimlaneHeight(boardId, swimlaneId, height) {
     let currentHeights = this.getSwimlaneHeights();
     if (!currentHeights[boardId]) {
@@ -1224,12 +1246,14 @@ Meteor.methods({
     check(startDay, Number);
     ReactiveCache.getCurrentUser().setStartDayOfWeek(startDay);
   },
-  applyListWidth(boardId, listId, width) {
+  applyListWidth(boardId, listId, width, constraint) {
     check(boardId, String);
     check(listId, String);
     check(width, Number);
+    check(constraint, Number);
     const user = ReactiveCache.getCurrentUser();
     user.setListWidth(boardId, listId, width);
+    user.setListConstraint(boardId, listId, constraint);
   },
   applySwimlaneHeight(boardId, swimlaneId, height) {
     check(boardId, String);
