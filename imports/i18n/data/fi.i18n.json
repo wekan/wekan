@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "Piilota ruksatut tarkistuslistan kohdat",
   "hideAllChecklistItems": "Piilota kaikki tarkistuslistan kohdat",
   "support": "Tuki",
-  "supportPopup-title": "Tuki"
+  "supportPopup-title": "Tuki",
+  "accessibility-page-enabled": "Saavutettavuus sivu käytössä",
+  "accessibility-title": "Saavutettavuus otsikko",
+  "accessibility-content": "Saavutettavuus sisältö"
 }

@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "Dölj markerade objekt i checklistan",
   "hideAllChecklistItems": "Dölj alla objekt i checklistan",
   "support": "Support",
-  "supportPopup-title": "Support"
+  "supportPopup-title": "Support",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }

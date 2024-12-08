@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "Приховати відмічені елементи чек-листа",
   "hideAllChecklistItems": "Приховати всі пункти чек-листа",
   "support": "Підтримка",
-  "supportPopup-title": "Підтримка"
+  "supportPopup-title": "Підтримка",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }
