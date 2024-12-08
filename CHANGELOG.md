@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Optional board list auto-width, Support for min & max width for lists](https://github.com/wekan/wekan/pull/5607).
+  Thanks to NadavTasher.
+
+and adds the following updates:
 
 - [Disabled syncing of old and unrelated docker containers between docker registries](https://github.com/wekan/wekan/commit/17d5fae7bbd96eb6721ad869802cc980c9791c7f).
   Thanks to xet7.
