@@ -4022,65 +4022,136 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
     },
   );
 
-  /**
-  * @operation edit_card_custom_field
-  * @summary Edit Custom Field in a Card
-  *
-  * @description Edit a custom field value in a card
-  * @param {string} boardId the board ID of the card
-  * @param {string} listId the list ID of the card
-  * @param {string} cardId the ID of the card
-  * @param {string} customFieldId the ID of the custom field
-  * @param {string} value the new custom field value
-  * @return_type {_id: string, customFields: object}
-  */
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId/customFields/:customFieldId',
-    function(req, res) {
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const paramListId = req.params.listId;
-      const paramCustomFieldId = req.params.customFieldId;
-      const paramCustomFieldValue = req.body.value;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const card = ReactiveCache.getCard({
-        _id: paramCardId,
-        listId: paramListId,
-        boardId: paramBoardId,
-        archived: false,
-      });
-      if (!card) {
+/**
+ * @operation edit_card_custom_field
+ * @summary Edit a Custom Field in a Card
+ *
+ * @description This API endpoint allows the user to edit a custom field value in a specific card.
+ * It validates user access, retrieves the target card, updates the custom field,
+ * and persists the changes in the database.
+ *
+ * @param {string} boardId - The ID of the board containing the card.
+ * @param {string} listId - The ID of the list containing the card.
+ * @param {string} cardId - The ID of the card to be updated.
+ * @param {string} customFieldId - The ID of the custom field to be edited.
+ * @param {string} value - The new value to set for the custom field.
+ * @return_type {_id: string, customFields: object}
+ */
+JsonRoutes.add(
+  'POST',
+  '/api/boards/:boardId/lists/:listId/cards/:cardId/customFields/:customFieldId',
+  function (req, res) {
+    try {
+      const { boardId, listId, cardId, customFieldId } = req.params;
+      const customFieldValue = req.body.value;
+
+      authenticateUser(req.userId, boardId);
+
+      const card = fetchCard(boardId, listId, cardId);
+      if (!card)
         throw new Meteor.Error(404, 'Card not found');
-      }
-      const customFields = card.customFields || [];
-      const updatedCustomFields = customFields.map(cf => {
-        if (cf._id === paramCustomFieldId) {
-          return {
-            _id: cf._id,
-            value: paramCustomFieldValue,
-          };
-        }
-        return cf;
-      });
-      Cards.direct.update(
-        {
-          _id: paramCardId,
-          listId: paramListId,
-          boardId: paramBoardId,
-          archived: false,
-        },
-        { $set: { customFields: updatedCustomFields } },
+
+      const updatedCustomFields = updateCustomField(
+        card.customFields || [],
+        customFieldId,
+        customFieldValue
       );
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-          customFields: updatedCustomFields,
-        },
+
+      updateCardCustomFields(boardId, listId, cardId, updatedCustomFields);
+
+      sendResponse(res, 200, {
+        _id: cardId,
+        customFields: updatedCustomFields,
       });
+    }
+    catch (error)
+    {
+      sendResponse(res, error.errorCode || 500, { error: error.message });
+    }
+  }
+);
+
+/**
+ * Authenticate the user's access to the board.
+ *
+ * @param {string} userId - The ID of the user making the request.
+ * @param {string} boardId - The ID of the board being accessed.
+ * @throws Will throw an error if the user does not have access to the board.
+ */
+function authenticateUser(userId, boardId) {
+  Authentication.checkBoardAccess(userId, boardId);
+}
+
+/**
+ * Retrieve a card by its board, list, and card ID.
+ *
+ * @param {string} boardId - The ID of the board containing the card.
+ * @param {string} listId - The ID of the list containing the card.
+ * @param {string} cardId - The ID of the card to retrieve.
+ * @returns {object|null} The card object if found, or null if not found.
+ */
+function fetchCard(boardId, listId, cardId) {
+  return ReactiveCache.getCard({
+    _id: cardId,
+    listId: listId,
+    boardId: boardId,
+    archived: false,
+  });
+}
+
+/**
+ * Update a custom field value within the list of custom fields.
+ *
+ * @param {Array} customFields - The list of custom fields for the card.
+ * @param {string} customFieldId - The ID of the custom field to update.
+ * @param {string} customFieldValue - The new value to set for the custom field.
+ * @returns {Array} The updated list of custom fields.
+ */
+function updateCustomField(customFields, customFieldId, customFieldValue) {
+  return customFields.map((cf) => {
+    if (cf._id === customFieldId) {
+      return {
+        _id: cf._id,
+        value: customFieldValue,
+      };
+    }
+    return cf;
+  });
+}
+
+/**
+ * Persist the updated custom fields for the card in the database.
+ *
+ * @param {string} boardId - The ID of the board containing the card.
+ * @param {string} listId - The ID of the list containing the card.
+ * @param {string} cardId - The ID of the card being updated.
+ * @param {Array} customFields - The updated list of custom fields.
+ */
+function updateCardCustomFields(boardId, listId, cardId, customFields) {
+  Cards.direct.update(
+    {
+      _id: cardId,
+      listId: listId,
+      boardId: boardId,
+      archived: false,
     },
+    { $set: { customFields: customFields } }
   );
+}
+
+/**
+ * Send an HTTP response with the specified code and data.
+ *
+ * @param {object} res - The response object.
+ * @param {number} code - The HTTP status code to send.
+ * @param {object} data - The data to include in the response.
+ */
+function sendResponse(res, code, data) {
+  JsonRoutes.sendResult(res, {
+    code: code,
+    data: data,
+  });
+}
 }
 
 export default Cards;
