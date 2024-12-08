@@ -11,7 +11,7 @@ Not paid:
 
 Paid by customers of WeKan Team:
 
-- Commercial Support at https://wekan.team/commercial-support/
+- Commercial Support at https://wekan.fi/commercial-support/
   - Support
   - Private Chat
   - Features

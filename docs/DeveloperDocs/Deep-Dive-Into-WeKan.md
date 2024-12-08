@@ -13,7 +13,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Used in most countries of the world https://snapcraft.io/wekan
 - Biggest user have about 30k users, using many pods at Kubernetes
 - Changelog https://github.com/wekan/wekan/blob/main/CHANGELOG.md
-- Commercial Support at https://wekan.team/commercial-support/ . Currently looking who could sponsor more of maintenance and development.
+- Commercial Support at https://wekan.fi/commercial-support/ . Currently looking who could sponsor more of maintenance and development.
 
 ## How much effort to create Meteor WeKan, in COCOMO model
 

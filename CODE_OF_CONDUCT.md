@@ -11,7 +11,7 @@ For all code at WeKan GitHub Organization https://github.com/wekan
 
 ## Private reports
 
-- Email support@wekan.team
+- Email support@wekan.fi
 - Security issues: [SECURITY.md](SECURITY.md)
 - License violations
 - Anything private, sensitive or negative
