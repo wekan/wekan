@@ -86,9 +86,9 @@
   "add-card": "Adicionar Cartão",
   "add-card-to-top-of-list": "Adicionar Cartão no Topo da Lista",
   "add-card-to-bottom-of-list": "Adicionar Cartão no Final da Lista",
-  "setListWidthPopup-title": "Set Widths",
-  "set-list-width": "Set Widths",
-  "set-list-width-value": "Set Min & Max Widths (pixels)",
+  "setListWidthPopup-title": "Definir Largura",
+  "set-list-width": "Definir Largura",
+  "set-list-width-value": "Definir Largura Mínima e Máxima (pixeis)",
   "list-width-error-message": "List widths must be integers greater than 100",
   "setSwimlaneHeightPopup-title": "Definir Altura da Raia",
   "set-swimlane-height": "Definir Altura da Raia",
@@ -264,8 +264,8 @@
   "checklists": "Listas de verificação",
   "click-to-star": "Marcar quadro como favorito.",
   "click-to-unstar": "Remover quadro dos favoritos.",
-  "click-to-enable-auto-width": "Click to enable auto list width.",
-  "click-to-disable-auto-width": "Click to disable auto list width.",
+  "click-to-enable-auto-width": "Clique para habilitar a largura automática da lista",
+  "click-to-disable-auto-width": "Clique para desabilitar a largura automática da lista",
   "clipboard": "Área de Transferência ou arraste e solte",
   "close": "Fechar",
   "close-board": "Fechar Quadro",
@@ -1258,6 +1258,6 @@
   "uncollapse": "Compactar",
   "hideCheckedChecklistItems": "Esconder itens concluídos da lista de verificação",
   "hideAllChecklistItems": "Esconder todos os itens da lista de verificação",
-  "support": "Support",
-  "supportPopup-title": "Support"
+  "support": "Suporte",
+  "supportPopup-title": "Suporte"
 }
