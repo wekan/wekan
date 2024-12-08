@@ -31,6 +31,10 @@ template(name="setting")
                 i.fa.fa-bullhorn
                 | {{_ 'admin-announcement'}}
             li
+              a.js-setting-menu(data-id="accessibility-setting")
+                i.fa.fa-universal-access
+                | {{_ 'accessibility'}}
+            li
               a.js-setting-menu(data-id="layout-setting")
                 i.fa.fa-object-group
                 | {{_ 'layout'}}
@@ -52,6 +56,8 @@ template(name="setting")
             +tableVisibilityModeSettings
           else if announcementSetting.get
             +announcementSettings
+          else if accessibilitySetting.get
+            +accessibilitySettings
           else if layoutSetting.get
             +layoutSettings
           else if webhookSetting.get
@@ -180,6 +186,29 @@ template(name='announcementSettings')
             textarea#admin-announcement.wekan-form-control= currentAnnouncements.body
           li
             button.js-announcement-save.primary {{_ 'save'}}
+
+template(name='accessibilitySettings')
+  ul#accessibility-setting.setting-detail
+    li
+      a.flex.js-toggle-accessibility
+        .materialCheckBox(class="{{#if currentAccessibility.enabled}}is-checked{{/if}}")
+
+        span {{_ 'admin-accessibility-active'}}
+    li
+      .title {{_ 'accessibility-title'}}
+      .form-group
+        input.wekan-form-control#accessibility-title(type="text", placeholder="" value="{{currentSetting.accessibilityTitle}}")
+    li
+      .accessibility-content(class="{{#if currentAccessibility.enabled}}{{else}}hide{{/if}}")
+        ul
+          li
+            .title {{_ 'admin-accessibility-title'}}
+            textarea#admin-accessibility.wekan-form-control= currentAccessibility.accessibilityTitle
+          li
+            .title {{_ 'admin-accessibility-content'}}
+            textarea#admin-accessibility.wekan-form-control= currentAccessibility.accessibilityContent
+          li
+            button.js-accessibility-save.primary {{_ 'save'}}
 
 template(name='layoutSettings')
   ul#layout-setting.setting-detail

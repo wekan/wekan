@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "پنهان کردن موارد انجام شده چک لیست",
   "hideAllChecklistItems": "پنهان کردن همه موارد چک لیست",
   "support": "پشتیبانی",
-  "supportPopup-title": "پشتیبانی"
+  "supportPopup-title": "پشتیبانی",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }

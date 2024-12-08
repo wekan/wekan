@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "隱藏已勾選的待辦清單項目",
   "hideAllChecklistItems": "隱藏所有待辦清單項目",
   "support": "支援",
-  "supportPopup-title": "支援"
+  "supportPopup-title": "支援",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }

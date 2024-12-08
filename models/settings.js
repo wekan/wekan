@@ -117,6 +117,19 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    accessibilityPageEnabled: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    accessibilityTitle: {
+      type: String,
+      optional: true,
+    },
+    accessibilityContent: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,

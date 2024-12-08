@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "Verberg aangevinkte checklist items",
   "hideAllChecklistItems": "Verberg alle checklist items",
   "support": "Ondersteuning",
-  "supportPopup-title": "Ondersteuning"
+  "supportPopup-title": "Ondersteuning",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }

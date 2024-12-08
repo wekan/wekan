@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "Esconder itens concluídos da lista de verificação",
   "hideAllChecklistItems": "Esconder todos os itens da lista de verificação",
   "support": "Suporte",
-  "supportPopup-title": "Suporte"
+  "supportPopup-title": "Suporte",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }

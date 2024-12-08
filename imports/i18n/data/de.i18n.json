@@ -1259,5 +1259,8 @@
   "hideCheckedChecklistItems": "Erledigte Checklisteneinträge ausblenden",
   "hideAllChecklistItems": "Verberge alle Checklisteneinträge",
   "support": "Support",
-  "supportPopup-title": "Support"
+  "supportPopup-title": "Support",
+  "accessibility-page-enabled": "Accessibility page enabled",
+  "accessibility-title": "Accessibility topic",
+  "accessibility-content": "Accessibility content"
 }

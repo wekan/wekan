@@ -72,26 +72,31 @@
   padding: 0 0.5rem;
 }
 .setting-content .content-body .main-body ul li .admin-announcement,
+.setting-content .content-body .main-body ul li .admin-accessibility,
 .setting-content .content-body .main-body ul li .invite-people,
 .setting-content .content-body .main-body ul li .layout {
   padding-left: 20px;
 }
 .setting-content .content-body .main-body ul li .admin-announcement li,
+.setting-content .content-body .main-body ul li .admin-accessibility li,
 .setting-content .content-body .main-body ul li .invite-people li,
 .setting-content .content-body .main-body ul li .layout li {
   min-width: 500px;
 }
 .setting-content .content-body .main-body ul li .admin-announcement li ul.no-margin-bottom,
+.setting-content .content-body .main-body ul li .admin-accessibility li ul.no-margin-bottom,
 .setting-content .content-body .main-body ul li .invite-people li ul.no-margin-bottom,
 .setting-content .content-body .main-body ul li .layout li ul.no-margin-bottom {
   margin-bottom: 0;
 }
 .setting-content .content-body .main-body ul li .admin-announcement li .bg-white a,
+.setting-content .content-body .main-body ul li .admin-accessibility li .bg-white a,
 .setting-content .content-body .main-body ul li .invite-people li .bg-white a,
 .setting-content .content-body .main-body ul li .layout li .bg-white a {
   background: #f7f7f7;
 }
 .setting-content .content-body .main-body ul li .admin-announcement li .bg-white a.is-checked,
+.setting-content .content-body .main-body ul li .admin-accessibility li .bg-white a.is-checked,
 .setting-content .content-body .main-body ul li .invite-people li .bg-white a.is-checked,
 .setting-content .content-body .main-body ul li .layout li .bg-white a.is-checked {
   background: #fff;
