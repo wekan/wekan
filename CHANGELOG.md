@@ -27,6 +27,11 @@ and adds the following updates:
 - [Disabled syncing of old and unrelated docker containers between docker registries](https://github.com/wekan/wekan/commit/17d5fae7bbd96eb6721ad869802cc980c9791c7f).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix in API user role is not considered](https://github.com/wekan/wekan/commit/c062bd63bbfceb3a96f23ea3e8696534694db54e).
+  Thanks to mohammadZahedian and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.71 2024-12-05 WeKan ® release
