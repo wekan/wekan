@@ -102,7 +102,7 @@ that by providing one-click installation on various platforms.
 - There is many companies and individuals contributing code to WeKan ®, to add features and bugfixes
   [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
 - [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
-- [Commercial Support](https://wekan.fi/commercial-support/).
+- [Commercial Support](https://wekan.team/commercial-support/).
 
 We also welcome sponsors for features and bugfixes.
 By working directly with WeKan ® you get the benefit of active maintenance and new features added by growing WeKan ® developer community.
