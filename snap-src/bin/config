@@ -631,6 +631,14 @@ DESCRIPTION_SAML_ATTRIBUTES="SAML Attributes"
 DEFAULT_SAML_ATTRIBUTES=""
 KEY_SAML_ATTRIBUTES="saml-attributes"
 
+DESCRIPTION_OAUTH2_CHECKEMAILS="Set whether a local file containing allowed emails is to be checked when logging in with OIDC"
+DEFAULT_OAUTH2_CHECKEMAILS="false"
+KEY_OAUTH2_CHECKEMAILS="oauth2-checkemails"
+
+DESCRIPTION_OAUTH2_ALLOWEDEMAILS_FILEPATH="Set whether a local file containing allowed emails is to be checked when logging in with OIDC"
+DEFAULT_OAUTH2_ALLOWEDEMAILS_FILEPATH=""
+KEY_OAUTH2_ALLOWEDEMAILS_FILEPATH="oauth2-allowedemails-filepath"
+
 DESCRIPTION_RESULTS_PER_PAGE="Number of search results to show per page by default"
 DEFAULT_RESULTS_PER_PAGE=""
 KEY_RESULTS_PER_PAGE="results-per-page"
