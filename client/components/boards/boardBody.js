@@ -195,6 +195,9 @@ BlazeComponent.extendComponent({
     });
 
     this.autorun(() => {
+      // Always reset dragscroll on view switch
+      dragscroll.reset();
+
       if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',

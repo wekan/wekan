@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import dragscroll from '@wekanteam/dragscroll';
 
 /*
 const DOWNCLS = 'fa-sort-down';
@@ -78,6 +79,7 @@ BlazeComponent.extendComponent({
           ReactiveCache.getCurrentUser().toggleBoardStar(Session.get('currentBoard'));
         },
         'click .js-auto-width-board'() {
+          dragscroll.reset();
           ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
         },
         'click .js-open-board-menu': Popup.open('boardMenu'),
