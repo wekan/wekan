@@ -24,7 +24,7 @@ template(name="swimlane")
             +cardDetails(currentCard)
 
 template(name="listsGroup")
-  .swimlane.list-group.js-lists
+  .swimlane.list-group.js-lists.dragscroll
     if isMiniScreen
       if currentList
         +list(currentList)
