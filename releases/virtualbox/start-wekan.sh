@@ -220,6 +220,12 @@
       #export OAUTH2_FULLNAME_MAP=
       # OAuth2 Email Mapping
       #export OAUTH2_EMAIL_MAP=
+      # ==== OAUTH2 LOCAL FILE EMAIL VERIFICATION ====
+      # During OIDC Login, check a local file for allowed email addresses, one per line
+      # 1) This toggles the feature on or off. 
+      #export OAUTH2_CHECKEMAILS=
+      # 2) This configures the path to the file locally on the server, if path is not set check will be skipped
+      #export OAUTH2_ALLOWEDEMAILS_FILEPATH=
       #---------------------------------------------
       # LDAP_ENABLE : Enable or not the connection by the LDAP
       # example :  export LDAP_ENABLE=true
