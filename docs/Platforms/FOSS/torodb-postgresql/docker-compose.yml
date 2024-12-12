@@ -415,6 +415,12 @@ services:
       # OAuth2 Token Endpoint. Example: /oauth/token
       # example: OAUTH2_TOKEN_ENDPOINT=/oauth/token
       #- OAUTH2_TOKEN_ENDPOINT=
+      # ==== OAUTH2 LOCAL FILE EMAIL VERIFICATION ====
+      # During OIDC Login, check a local file for allowed email addresses, one per line
+      # 1) This toggles the feature on or off. 
+      #- OAUTH2_CHECKEMAILS=
+      # 2) This configures the path to the file locally on the server, if path is not set check will be skipped
+      #- OAUTH2_ALLOWEDEMAILS_FILEPATH=
       #-----------------------------------------------------------------
       # ==== LDAP ====
       # https://github.com/wekan/wekan/wiki/LDAP
