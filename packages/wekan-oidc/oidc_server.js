@@ -70,7 +70,7 @@ OAuth.registerService('oidc', 2, null, function (query) {
     serviceData.accessToken = accessToken;
     serviceData.expiresAt = expiresAt;
 
-    // Oracle OIM and B2C checks remain the same
+    // If on Oracle OIM email is empty or null, get info from username
     if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED === true) {
         if (userinfo[process.env.OAUTH2_EMAIL_MAP]) {
             serviceData.email = userinfo[process.env.OAUTH2_EMAIL_MAP];
@@ -97,8 +97,8 @@ OAuth.registerService('oidc', 2, null, function (query) {
         serviceData.refreshToken = token.refresh_token;
     if (debug) console.log('XXX: serviceData:', serviceData);
 
-    profile.name = userinfo[process.env.OAUTH2_FULLNAME_MAP];
-    profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP];
+    profile.name = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
+    profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];
 
     if (process.env.OAUTH2_B2C_ENABLED === 'true' || process.env.OAUTH2_B2C_ENABLED === true) {
         profile.email = userinfo["emails"][0];
@@ -131,6 +131,7 @@ OAuth.registerService('oidc', 2, null, function (query) {
     }
 
     // Fix OIDC login loop for integer user ID. Thanks to danielkaiser.
+    // https://github.com/wekan/wekan/issues/4795
     Meteor.call('groupRoutineOnLogin', serviceData, "" + serviceData.id);
     Meteor.call('boardRoutineOnLogin', serviceData, "" + serviceData.id);
 
@@ -180,16 +181,16 @@ var getToken = function (query) {
 
 // Function to fetch user information from the OIDC service
 var getUserInfo = function (accessToken) {
-    var debug = process.env.DEBUG === 'true';
+    var debug = process.env.DEBUG === 'true';  // Check if debug mode is enabled
     var config = getConfiguration();
-    var serverUserinfoEndpoint = config.userinfoEndpoint.includes("https://") ?
+    var serverUserinfoEndpoint = config.userinfoEndpoint.includes("https://") ? 
         config.userinfoEndpoint : config.serverUrl + config.userinfoEndpoint;
 
     var response;
     try {
         var getOptions = {
             headers: {
-                "User-Agent": "Meteor",
+                "User-Agent": userAgent,
                 "Authorization": "Bearer " + accessToken
             }
         };
@@ -201,6 +202,12 @@ var getUserInfo = function (accessToken) {
         throw _.extend(new Error("Failed to fetch userinfo from OIDC " + serverUserinfoEndpoint + ": " + err.message),
             {response: err.response});
     }
+
+    // Debug logging if debug is enabled
+    if (debug) {
+        console.log('XXX: getUserInfo response: ', response.data);
+    }
+
     return response.data;
 };
 
@@ -221,8 +228,15 @@ var getTokenContent = function (token) {
             var parts = token.split('.');
             var header = JSON.parse(Buffer.from(parts[0], 'base64').toString());
             content = JSON.parse(Buffer.from(parts[1], 'base64').toString());
+
+            // Extracting the signature (though it's not being used here)
+            var signature = Buffer.from(parts[2], 'base64');
+
+            // Concatenating the header and content for a signed value (though not being used here)
+            var signed = parts[0] + '.' + parts[1];
         } catch (err) {
-            content = { exp: 0 };
+            // Handling error and setting content as { exp: 0 }
+            this.content = { exp: 0 };
         }
     }
     return content;
@@ -255,6 +269,33 @@ Meteor.methods({
     'boardRoutineOnLogin': function(info, userId) {
         check(info, Object);
         check(userId, String);
-        // Add board updates here if needed
+
+        // Parse the default board ID from environment variables
+        const defaultBoardParams = (process.env.DEFAULT_BOARD_ID || '').split(':');
+        const defaultBoardId = defaultBoardParams.shift();
+        if (!defaultBoardId) return;
+
+        // Find the board by ID
+        const board = Boards.findOne(defaultBoardId);
+        if (!board) return;
+
+        // Find the user ID based on the provided userId (could be an OIDC ID)
+        const user = Users.findOne({ 'services.oidc.id': userId });
+        const currentUserId = user?._id;
+        if (!currentUserId) return;
+
+        // Check if the user is already a member of the board
+        const memberIndex = _.pluck(board.members, 'userId').indexOf(currentUserId);
+        if (memberIndex > -1) return;
+
+        // Add the user to the board and set permissions
+        board.addMember(currentUserId);
+        board.setMemberPermission(
+            currentUserId,
+            defaultBoardParams.includes("isAdmin"),
+            defaultBoardParams.includes("isNoComments"),
+            defaultBoardParams.includes("isCommentsOnly"),
+            defaultBoardParams.includes("isWorker")
+        );
     }
 });
