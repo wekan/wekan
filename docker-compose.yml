@@ -484,6 +484,12 @@ services:
       #- OAUTH2_FULLNAME_MAP=
       # OAuth2 Email Mapping
       #- OAUTH2_EMAIL_MAP=
+      # ==== OAUTH2 LOCAL FILE EMAIL VERIFICATION ====
+      # During OIDC Login, check a local file for allowed email addresses, one per line
+      # 1) This toggles the feature on or off. 
+      #- OAUTH2_CHECKEMAILS=
+      # 2) This configures the path to the file locally on the server, if path is not set check will be skipped
+      #- OAUTH2_ALLOWEDEMAILS_FILEPATH=
       #-----------------------------------------------------------------
       # ==== LDAP: UNCOMMENT ALL TO ENABLE LDAP ====
       # https://github.com/wekan/wekan/wiki/LDAP
