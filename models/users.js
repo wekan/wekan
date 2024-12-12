@@ -800,7 +800,7 @@ Users.helpers({
     if (listConstraints[boardId] && listConstraints[boardId][listId]) {
       return listConstraints[boardId][listId];
     } else {
-      return 350;
+      return 550;
     }
   },
 
