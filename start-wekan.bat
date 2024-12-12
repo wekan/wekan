@@ -296,6 +296,12 @@ REM # SET OAUTH2_FULLNAME_MAP=
 REM ## OAuth2 Email Mapping
 REM # SET OAUTH2_EMAIL_MAP=
 
+REM ## ==== OAUTH2 LOCAL FILE EMAIL VERIFICATION ====
+REM ## During OIDC Login, check a local file for allowed email addresses, one per line
+REM ## 1) This toggles the feature on or off. 
+REM SET OAUTH2_CHECKEMAILS=
+REM ## 2) This configures the path to the file locally on the server, if path is not set check will be skipped
+REM SET OAUTH2_ALLOWEDEMAILS_FILEPATH=
 REM ------------------------------------------------------------
 
 REM # Enable the OAuth2 connection
