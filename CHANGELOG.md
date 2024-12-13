@@ -15,6 +15,20 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Changed the default maximum list width](https://github.com/wekan/wekan/pull/5614).
+  Thanks to NadavTasher.
+
+and fixes the following bugs:
+
+- [Fix buggy behaviours in board dragscrolling](https://github.com/wekan/wekan/pull/5618).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.72 2024-12-08 WeKan ® release
 
 This release adds the following new features:
