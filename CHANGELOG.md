@@ -26,6 +26,8 @@ and fixes the following bugs:
 
 - [Fix buggy behaviours in board dragscrolling](https://github.com/wekan/wekan/pull/5618).
   Thanks to NadavTasher.
+- [Revert back to have shortcut "c to archive" back for non-Persian keyboards](https://github.com/wekan/wekan/commit/ba0fdaef72393632ca80b42a3c5d2ee5f5e0c76e).
+  Thanks to hatl and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
