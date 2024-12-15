@@ -190,7 +190,7 @@ Mousetrap.bind('space', evt => {
   }
 });
 
-Mousetrap.bind('`', evt => {
+Mousetrap.bind('c', evt => {
   const cardId = getSelectedCardId();
   if (!cardId) {
     return;
@@ -307,7 +307,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-assign-self',
     },
     {
-      keys: ['`', '÷'],
+      keys: ['c', '÷'],
       action: 'archive-card',
     },
     {
