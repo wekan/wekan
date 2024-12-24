@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
+/*
 // XXX There is no reason to define these shortcuts globally, they should be
 // attached to a template (most of them will go in the `board` template).
 
@@ -255,8 +256,11 @@ Mousetrap.bind('n', evt => {
     evt.preventDefault();
   }
 });
+*/
+
 
 Template.keyboardShortcuts.helpers({
+/*
   mapping: [
     {
       keys: ['w'],
@@ -319,4 +323,5 @@ Template.keyboardShortcuts.helpers({
       action: 'remove-labels-multiselect'
     },
   ],
+*/
 });
