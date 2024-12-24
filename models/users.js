@@ -444,6 +444,13 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.keyboardShortcuts': {
+      /**
+       * User-specified state of keyboard shortcut activation.
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
     services: {
       /**
        * services field of the user
@@ -954,6 +961,11 @@ Users.helpers({
     return 'templates';
   },
 
+  isKeyboardShortcuts() {
+    const { keyboardShortcuts = false } = this.profile || {};
+    return keyboardShortcuts;
+  },
+
   remove() {
     User.remove({
       _id: this._id,
@@ -1015,6 +1027,14 @@ Users.mutations({
     return {
       $set: {
         'profile.autoWidthBoards': autoWidthBoards,
+      },
+    };
+  },
+  toggleKeyboardShortcuts() {
+    const { keyboardShortcuts = false } = this.profile || {};
+    return {
+      $set: {
+        'profile.keyboardShortcuts': !keyboardShortcuts,
       },
     };
   },

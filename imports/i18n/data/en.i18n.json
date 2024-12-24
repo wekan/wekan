@@ -90,6 +90,8 @@
   "set-list-width": "Set Widths",
   "set-list-width-value": "Set Min & Max Widths (pixels)",
   "list-width-error-message": "List widths must be integers greater than 100",
+  "click-to-enable-keyboard-shortcuts": "Click to enable keyboard shortcuts",
+  "click-to-disable-keyboard-shortcuts": "Click to disable keyboard shortcuts",
   "setSwimlaneHeightPopup-title": "Set Swimlane Height",
   "set-swimlane-height": "Set Swimlane Height",
   "set-swimlane-height-value": "Swimlane Height (pixels)",

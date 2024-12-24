@@ -123,11 +123,9 @@ BlazeComponent.extendComponent({
             location.reload();
           }
         },
-/*
         'click .js-shortcuts'() {
           FlowRouter.go('shortcuts');
         },
-*/
         'click .js-close-sidebar'() {
           Sidebar.toggle()
         },

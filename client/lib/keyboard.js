@@ -1,6 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-/*
 // XXX There is no reason to define these shortcuts globally, they should be
 // attached to a template (most of them will go in the `board` template).
 
@@ -14,6 +13,22 @@ window.addEventListener('keydown', (e) => {
   // Trigger the corresponding action
   Mousetrap.trigger(String.fromCharCode(e.which).toLowerCase());
 });
+
+// Store the original stopCallback in a global
+const originalStopCallback = Mousetrap.stopCallback;
+
+// Overwrite the stopCallback to allow for more keyboard shortcut customizations
+Mousetrap.stopCallback = (e, element) => {
+  // Are shortcuts enabled for the user?
+  if (!ReactiveCache.getCurrentUser().isKeyboardShortcuts())
+    return true;
+
+  // Make sure there are no selected characters
+  if (window.getSelection().type === "Range")
+    return true;
+
+  return originalStopCallback(e, element);
+}
 
 function getHoveredCardId() {
   const card = $('.js-minicard:hover').get(0);
@@ -256,11 +271,8 @@ Mousetrap.bind('n', evt => {
     evt.preventDefault();
   }
 });
-*/
-
 
 Template.keyboardShortcuts.helpers({
-/*
   mapping: [
     {
       keys: ['w'],
@@ -323,5 +335,4 @@ Template.keyboardShortcuts.helpers({
       action: 'remove-labels-multiselect'
     },
   ],
-*/
 });
