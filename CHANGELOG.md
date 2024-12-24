@@ -36,7 +36,8 @@ and fixes the following bugs:
   Thanks to hatl and xet7.
 - Hide and disable Keyboard Shortcuts, because they make using Ctrl-C to copy etc impossible.
   [Part 1](https://github.com/wekan/wekan/commit/5606414f8975fa0f75642d2e3a6b48c7559186f9),
-  [Part 2](https://github.com/wekan/wekan/commit/94391d4cde7aed6e37efc6a9127b23ef0c2bd323).
+  [Part 2](https://github.com/wekan/wekan/commit/94391d4cde7aed6e37efc6a9127b23ef0c2bd323),
+  [Part 3](https://github.com/wekan/wekan/commit/8b73c702c39a1fd546e591a096d703a53577ffec).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
