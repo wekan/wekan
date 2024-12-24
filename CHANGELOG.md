@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to NadavTasher.
 - [Updated Developer Docs about docker compose](https://github.com/wekan/wekan/commit/3e3b629aa2a9efb43b1be8f57009c1d384b66ed8).
   Thanks to sridharin2020 and xet7.
+- [Hide support popup. It will be made editable later](https://github.com/wekan/wekan/commit/0332ef32980b24a0c4e108436eec5b112287c14b).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
