@@ -45,6 +45,11 @@ BlazeComponent.extendComponent({
     return user && user.isAutoWidth(boardId);
   },
 
+  isKeyboardShortcuts() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isKeyboardShortcuts();
+  },
+
   // Only show the star counter if the number of star is greater than 2
   showStarCounter() {
     const currentBoard = Utils.getCurrentBoard();
@@ -81,6 +86,9 @@ BlazeComponent.extendComponent({
         'click .js-auto-width-board'() {
           dragscroll.reset();
           ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
+        },
+        'click .js-keyboard-shortcuts-toggle'() {
+          ReactiveCache.getCurrentUser().toggleKeyboardShortcuts();
         },
         'click .js-open-board-menu': Popup.open('boardMenu'),
         'click .js-change-visibility': Popup.open('boardChangeVisibility'),
