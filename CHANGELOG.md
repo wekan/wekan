@@ -34,6 +34,8 @@ and fixes the following bugs:
   Thanks to NadavTasher.
 - [Revert back to have shortcut "c to archive" back for non-Persian keyboards](https://github.com/wekan/wekan/commit/ba0fdaef72393632ca80b42a3c5d2ee5f5e0c76e).
   Thanks to hatl and xet7.
+- [Hide and disable Keyboard Shortcuts, because they make using Ctrl-C to copy etc impossible](https://github.com/wekan/wekan/commit/5606414f8975fa0f75642d2e3a6b48c7559186f9).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
