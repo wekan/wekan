@@ -48,7 +48,7 @@ db.users.find()
 ```
 Set some user as admin:
 ```
-db.users.update({username:'admin-username-here'},{$set:{isAdmin:true}})
+db.users.updateOne({username:'admin-username-here'},{$set:{isAdmin:true}})
 ```
 Check are there any failed logins with wrong password, that brute force login prevention has denied login:
 ```
