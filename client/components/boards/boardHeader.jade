@@ -27,6 +27,10 @@ template(name="boardHeaderBar")
             title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
             i.fa(class="fa-solid fa-{{#if isAutoWidth}}compress{{else}}expand{{/if}}")
 
+          a.board-header-btn.js-keyboard-shortcuts-toggle(
+            title="{{#if isKeyboardShortcuts}}{{_ 'click-to-disable-keyboard-shortcuts'}}{{else}}{{_ 'click-to-enable-keyboard-shortcuts'}}{{/if}}")
+            i.fa(class="fa-solid fa-{{#if isKeyboardShortcuts}}computer-mouse{{else}}keyboard{{/if}}")
+
           a.board-header-btn(
             class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
             title="{{_ currentBoard.permission}}")
@@ -73,6 +77,10 @@ template(name="boardHeaderBar")
           a.board-header-btn.js-auto-width-board(
             title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
             i.fa(class="fa-solid fa-{{#if isAutoWidth}}compress{{else}}expand{{/if}}")
+
+          a.board-header-btn.js-keyboard-shortcuts-toggle(
+            title="{{#if isKeyboardShortcuts}}{{_ 'click-to-disable-keyboard-shortcuts'}}{{else}}{{_ 'click-to-enable-keyboard-shortcuts'}}{{/if}}")
+            i.fa(class="fa-solid fa-{{#if isKeyboardShortcuts}}computer-mouse{{else}}keyboard{{/if}}")
 
           a.board-header-btn(
             class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
