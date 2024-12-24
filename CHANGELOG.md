@@ -25,6 +25,8 @@ This release adds the following updates:
   Thanks to sridharin2020 and xet7.
 - [Hide support popup. It will be made editable later](https://github.com/wekan/wekan/commit/0332ef32980b24a0c4e108436eec5b112287c14b).
   Thanks to xet7.
+- [Hide Accessibility Settings at Admin Panel. It will be continued and added back later](https://github.com/wekan/wekan/commit/e70c51a1f033c8712771238e408cbf52487f07f5).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
