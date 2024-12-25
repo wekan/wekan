@@ -23,6 +23,8 @@ This release fixes the following bugs:
   Thanks to NadavTasher.
 - [Fixed keyboard shortcuts defaults, icons and texts to be more understandable](https://github.com/wekan/wekan/commit/955a46ca6016e75c0ac1b01e25f96f47c2844559).
   Thanks to xet7.
+- ["Auto List Width" is now at "List ☰  Set Width" popup](https://github.com/wekan/wekan/commit/a862486ec37fcd022619c7e45ad9ca615aa444ed).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
