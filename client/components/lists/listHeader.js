@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import dragscroll from '@wekanteam/dragscroll';
 
 let listsColors;
 Meteor.startup(() => {
@@ -155,7 +156,7 @@ Template.listActionPopup.helpers({
 
   isWatching() {
     return this.findWatcher(Meteor.userId());
-  },
+  }
 });
 
 Template.listActionPopup.events({
@@ -377,9 +378,19 @@ BlazeComponent.extendComponent({
     return ReactiveCache.getCurrentUser().getListConstraint(board, list._id);
   },
 
+  isAutoWidth() {
+    const boardId = Utils.getCurrentBoardId();
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isAutoWidth(boardId);
+  },
+
   events() {
     return [
       {
+        'click .js-auto-width-board'() {
+          dragscroll.reset();
+          ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
+        },
         'click .list-width-apply': this.applyListWidth,
         'click .list-width-error': Popup.open('listWidthError'),
       },

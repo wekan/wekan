@@ -23,10 +23,6 @@ template(name="boardHeaderBar")
               span
                 = currentBoard.stars
 
-          a.board-header-btn.js-auto-width-board(
-            title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
-            i.fa(class="fa-solid fa-{{#if isAutoWidth}}compress{{else}}expand{{/if}}")
-
           a.board-header-btn.js-keyboard-shortcuts-toggle(
             title="{{#if isKeyboardShortcuts}}{{_ 'keyboard-shortcuts-enabled'}}{{else}}{{_ 'keyboard-shortcuts-disabled'}}{{/if}}")
             i.fa(class="fa-solid fa-keyboard")
@@ -74,10 +70,6 @@ template(name="boardHeaderBar")
             if showStarCounter
               span
                 = currentBoard.stars
-
-          a.board-header-btn.js-auto-width-board(
-            title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
-            i.fa(class="fa-solid fa-{{#if isAutoWidth}}compress{{else}}expand{{/if}}")
 
           a.board-header-btn.js-keyboard-shortcuts-toggle(
             title="{{#if isKeyboardShortcuts}}{{_ 'keyboard-shortcuts-enabled'}}{{else}}{{_ 'keyboard-shortcuts-disabled'}}{{/if}}")

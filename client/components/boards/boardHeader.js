@@ -39,12 +39,6 @@ BlazeComponent.extendComponent({
     return user && user.hasStarred(boardId);
   },
 
-  isAutoWidth() {
-    const boardId = Utils.getCurrentBoardId();
-    const user = ReactiveCache.getCurrentUser();
-    return user && user.isAutoWidth(boardId);
-  },
-
   isKeyboardShortcuts() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isKeyboardShortcuts();
@@ -82,10 +76,6 @@ BlazeComponent.extendComponent({
         'click .js-edit-board-title': Popup.open('boardChangeTitle'),
         'click .js-star-board'() {
           ReactiveCache.getCurrentUser().toggleBoardStar(Session.get('currentBoard'));
-        },
-        'click .js-auto-width-board'() {
-          dragscroll.reset();
-          ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
         },
         'click .js-keyboard-shortcuts-toggle'() {
           ReactiveCache.getCurrentUser().toggleKeyboardShortcuts();
