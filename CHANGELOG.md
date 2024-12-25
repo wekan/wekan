@@ -19,6 +19,8 @@ Fixing other platforms In Progress.
 
 This release fixes the following bugs:
 
+- [Restore keyboard shortcuts, enable per-user toggle, fix Ctrl + C bug by checking the text selection range](https://github.com/wekan/wekan/pull/5628).
+  Thanks to NadavTasher.
 - [Fixed keyboard shortcuts defaults, icons and texts to be more understandable](https://github.com/wekan/wekan/commit/955a46ca6016e75c0ac1b01e25f96f47c2844559).
   Thanks to xet7.
 
