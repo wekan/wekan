@@ -104,9 +104,13 @@
 }
 .sidebar .sidebar-shortcuts {
   top: 7px;
-  font-size: 0.8em;
+  font-size: 1em;
   line-height: 1.6em;
   color: #999;
+}
+.sidebar .sidebar-shortcuts .sidebar-btn {
+  margin-left: 3px;
+  margin-right: 20px;
 }
 .board-sidebar {
   display: none;

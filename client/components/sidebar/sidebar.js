@@ -105,6 +105,11 @@ BlazeComponent.extendComponent({
     else return `${TAPi18n.__('sidebar-open')}`;
   },
 
+  isKeyboardShortcuts() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isKeyboardShortcuts();
+  },
+
   events() {
     return [
       {
@@ -125,6 +130,9 @@ BlazeComponent.extendComponent({
         },
         'click .js-shortcuts'() {
           FlowRouter.go('shortcuts');
+        },
+        'click .js-keyboard-shortcuts-toggle'() {
+          ReactiveCache.getCurrentUser().toggleKeyboardShortcuts();
         },
         'click .js-close-sidebar'() {
           Sidebar.toggle()
