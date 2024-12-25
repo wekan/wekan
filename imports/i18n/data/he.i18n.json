@@ -90,6 +90,8 @@
   "set-list-width": "הגדרת רוחבים",
   "set-list-width-value": "הגדרת רוחבים מזעריים ומרביים (פיקסלים)",
   "list-width-error-message": "רשימת הרוחבים חייבים להיות מספרים שלמים מעל 100",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "הגדרת גובה מסלול",
   "set-swimlane-height": "הגדרת גובה מסלול",
   "set-swimlane-height-value": "גובה מסלול (פיקסלים)",

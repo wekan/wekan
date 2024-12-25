@@ -90,6 +90,8 @@
   "set-list-width": "Ezarri zabalerak",
   "set-list-width-value": "Ezarri gutxieneko eta gehieneko zabalerak (pixel)",
   "list-width-error-message": "Zerrenden zabalerak 100 baino handiagoak izan behar dira",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "Errailaren altuera ezarri",
   "set-swimlane-height": "Errailaren altuera ezarri",
   "set-swimlane-height-value": "Errailaren altuera (pixelak)",

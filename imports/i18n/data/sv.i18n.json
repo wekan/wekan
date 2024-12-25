@@ -90,6 +90,8 @@
   "set-list-width": "Ställ in min bredd",
   "set-list-width-value": "Min och max bredd (pixlar)",
   "list-width-error-message": "Listbredder måste vara heltal större än 100",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "Ställ in simbanans höjd",
   "set-swimlane-height": "Ställ in simbanans höjd",
   "set-swimlane-height-value": "Simbanans höjd (pixlar)",

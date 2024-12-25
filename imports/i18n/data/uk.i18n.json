@@ -90,6 +90,8 @@
   "set-list-width": "Set Widths",
   "set-list-width-value": "Set Min & Max Widths (pixels)",
   "list-width-error-message": "List widths must be integers greater than 100",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "Встановити довжину доріжки",
   "set-swimlane-height": "Встановити довжину доріжки",
   "set-swimlane-height-value": "Висота доріжки (у пікселях)",

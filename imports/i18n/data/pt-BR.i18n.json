@@ -90,6 +90,8 @@
   "set-list-width": "Definir Largura",
   "set-list-width-value": "Definir Largura Mínima e Máxima (pixeis)",
   "list-width-error-message": "List widths must be integers greater than 100",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "Definir Altura da Raia",
   "set-swimlane-height": "Definir Altura da Raia",
   "set-swimlane-height-value": "Altura da Raia (pixels)",

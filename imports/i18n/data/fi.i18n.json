@@ -90,6 +90,8 @@
   "set-list-width": "Aseta leveydet",
   "set-list-width-value": "Aseta minimi ja maksimi leveydet (pikseliä)",
   "list-width-error-message": "Listan leveydet täytyy olla kokonaislukuja, suurempia kuin 100",
+  "keyboard-shortcuts-enabled": "Pikanäppäimet käytössä. Klikkaa poistaaksesi käytöstä.",
+  "keyboard-shortcuts-disabled": "Pikanäppäimet poistettu käytöstä. Klikkaa ottaaksesi käyttöön.",
   "setSwimlaneHeightPopup-title": "Aseta uimaradan korkeus",
   "set-swimlane-height": "Aseta uimaradan korkeus",
   "set-swimlane-height-value": "Uimaradan korkeus (pikseliä)",

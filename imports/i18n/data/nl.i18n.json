@@ -90,6 +90,8 @@
   "set-list-width": "Stel Breedte in",
   "set-list-width-value": "Stel Min. & Max. Breedtes in (pixels)",
   "list-width-error-message": "Lijstbreedte moet minimaal 100 zijn",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "Stel Swimlane-hoogte in",
   "set-swimlane-height": "Stel Swimlane-hoogte in",
   "set-swimlane-height-value": "Swimlane-hoogte (pixels)",

@@ -90,6 +90,8 @@
   "set-list-width": "Setze Breite",
   "set-list-width-value": "Setze min & max Breite (Pixels)",
   "list-width-error-message": "Breite der Liste muss eine Ganzzahl größer als 100 sein",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "Stelle die Höhe der Swimlane ein",
   "set-swimlane-height": "Stelle die Höhe der Swimlane ein",
   "set-swimlane-height-value": "Höhe der Swimlane (Pixel)",

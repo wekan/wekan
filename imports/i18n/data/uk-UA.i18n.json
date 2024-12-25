@@ -90,6 +90,8 @@
   "set-list-width": "Встановити ширини",
   "set-list-width-value": "Встановити мін. та макс. ширину списку (у пікселях)",
   "list-width-error-message": "Ширина списку має бути цілими числами, більшими за 100",
+  "keyboard-shortcuts-enabled": "Keyboard shortcuts enabled. Click to disable.",
+  "keyboard-shortcuts-disabled": "Keyboard shortcuts disabled. Click to enable.",
   "setSwimlaneHeightPopup-title": "Встановити довжину доріжки",
   "set-swimlane-height": "Встановити довжину доріжки",
   "set-swimlane-height-value": "Висота доріжки (у пікселях)",
