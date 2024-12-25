@@ -25,6 +25,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - ["Auto List Width" is now at "List ☰  Set Width" popup](https://github.com/wekan/wekan/commit/a862486ec37fcd022619c7e45ad9ca615aa444ed).
   Thanks to xet7.
+- [Keyboard Shortcuts Enable/Disable is now at Right Sidebar, where already was list of Keyboard Shortcuts](https://github.com/wekan/wekan/commit/275ac445d0cd6f817dd2281aacc27ca7d30b17eb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
