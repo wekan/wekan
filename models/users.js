@@ -449,7 +449,7 @@ Users.attachSchema(
        * User-specified state of keyboard shortcut activation.
        */
       type: Boolean,
-      defaultValue: true,
+      defaultValue: false,
     },
     services: {
       /**
