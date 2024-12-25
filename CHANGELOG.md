@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed keyboard shortcuts defaults, icons and texts to be more understandable](https://github.com/wekan/wekan/commit/955a46ca6016e75c0ac1b01e25f96f47c2844559).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.73 2024-12-24 WeKan ® release
 
 This release adds the following updates:
