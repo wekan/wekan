@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Change margins around keyboard shortcuts toggle to make it clearer, remove old toggle from mobile view](https://github.com/wekan/wekan/pull/5634).
   Thanks to NadavTasher.
+- [Fix Cannot save Layout settings](https://github.com/wekan/wekan/commit/407d018067a5398f0c8d50519096b921d744be68).
+  Thanks to tensor5g and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
