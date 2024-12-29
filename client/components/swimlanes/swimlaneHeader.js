@@ -38,7 +38,6 @@ BlazeComponent.extendComponent({
           this.collapsed(!this.collapsed());
         },
         'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
-        'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
         submit: this.editTitle,
       },
     ];
@@ -81,7 +80,7 @@ Template.editSwimlaneTitleForm.helpers({
     // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
     // This can happen, if swimlane does not have name.
     // Yes, this is fixing the symptom (Swimlane title does not have title)
-    // instead of fixing the problem (Add Swimlane title when creating swimlane) 
+    // instead of fixing the problem (Add Swimlane title when creating swimlane)
     // because there could be thousands of swimlanes, adding name Default to all of them
     // would be very slow.
     if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
@@ -115,51 +114,6 @@ Template.swimlaneActionPopup.events({
     return ReactiveCache.getCurrentUser().isCommentOnly();
   },
 });
-
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentSwimlane = this.currentData();
-  },
-
-  events() {
-    return [
-      {
-        submit(event) {
-          event.preventDefault();
-          const currentBoard = Utils.getCurrentBoard();
-          const nextSwimlane = currentBoard.nextSwimlane(this.currentSwimlane);
-          const titleInput = this.find('.swimlane-name-input');
-          const title = titleInput.value.trim();
-          const sortValue = calculateIndexData(
-            this.currentSwimlane,
-            nextSwimlane,
-            1,
-          );
-          const swimlaneType = currentBoard.isTemplatesBoard()
-            ? 'template-swimlane'
-            : 'swimlane';
-
-          if (title) {
-            Swimlanes.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: sortValue.base,
-              type: swimlaneType,
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
-          }
-          // XXX ideally, we should move the popup to the newly
-          // created swimlane so a user can add more than one swimlane
-          // with a minimum of interactions
-          Popup.back();
-        },
-        'click .js-swimlane-template': Popup.open('searchElement'),
-      },
-    ];
-  },
-}).register('swimlaneAddPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {

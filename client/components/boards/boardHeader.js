@@ -2,6 +2,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
 
+const { calculateIndexData } = Utils;
+
 /*
 const DOWNCLS = 'fa-sort-down';
 const UPCLS = 'fa-sort-up';
@@ -68,6 +70,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
         'click .js-edit-board-title': Popup.open('boardChangeTitle'),
         'click .js-star-board'() {
           ReactiveCache.getCurrentUser().toggleBoardStar(Session.get('currentBoard'));
@@ -127,6 +130,41 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('boardHeaderBar');
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        submit(event) {
+          event.preventDefault();
+          const currentBoard = Utils.getCurrentBoard();
+          const titleInput = this.find('.swimlane-name-input');
+          const title = titleInput.value.trim();
+          const swimlaneType = currentBoard.isTemplatesBoard()
+            ? 'template-swimlane'
+            : 'swimlane';
+
+          if (title) {
+            Swimlanes.insert({
+              title,
+              boardId: Session.get('currentBoard'),
+              sort: 0,
+              type: swimlaneType,
+            });
+
+            titleInput.value = '';
+            titleInput.focus();
+          }
+          // XXX ideally, we should move the popup to the newly
+          // created swimlane so a user can add more than one swimlane
+          // with a minimum of interactions
+          Popup.back();
+        },
+        'click .js-swimlane-template': Popup.open('searchElement'),
+      },
+    ];
+  },
+}).register('swimlaneAddPopup');
 
 Template.boardHeaderBar.helpers({
   boardView() {

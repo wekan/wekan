@@ -2181,9 +2181,6 @@ THEME - Modern Dark
   padding: 6px;
   font-size: 16px;
 }
-.board-color-moderndark .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
-  font-size: 16px;
-}
 .board-color-moderndark .swimlane {
   background: #2a2a2a;
   line-height: 18px;
@@ -3393,11 +3390,6 @@ THEME - Clean Light
 
 .board-color-cleandark .swimlane .swimlane-header-wrap {
   background-color: #2E2E39;
-}
-
-.board-color-cleanlight .swimlane .swimlane-header-wrap .swimlane-header-plus-icon,
-.board-color-cleandark .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
-  margin-left: 14px;
 }
 
 .board-color-cleanlight .swimlane .swimlane-header-wrap .list-composer,
