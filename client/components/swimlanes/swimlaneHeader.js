@@ -143,7 +143,7 @@ BlazeComponent.extendComponent({
             Swimlanes.insert({
               title,
               boardId: Session.get('currentBoard'),
-              sort: sortValue.base,
+              sort: sortValue.base || 0,
               type: swimlaneType,
             });
 

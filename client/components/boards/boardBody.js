@@ -248,6 +248,10 @@ BlazeComponent.extendComponent({
     }
   },
 
+  hasSwimlanes() {
+    return Utils.getCurrentBoard().swimlanes().length > 0;
+  },
+
   isViewLists() {
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
@@ -288,6 +292,7 @@ BlazeComponent.extendComponent({
             this._isDragging = false;
           }
         },
+        'click .js-empty-board-add-swimlane': Popup.open('swimlaneAdd'),
       },
     ];
   },
