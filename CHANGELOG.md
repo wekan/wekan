@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Change margins around keyboard shortcuts toggle to make it clearer, remove old toggle from mobile view](https://github.com/wekan/wekan/pull/5634).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.74 2024-12-25 WeKan ® release
 
 This release fixes the following bugs:
