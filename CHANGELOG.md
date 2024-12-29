@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Always handle the escape key when shortcuts are enabled](https://github.com/wekan/wekan/pull/5636).
   Thanks to NadavTasher.
+- [New Swimlane button visible, when there are no swimlanes at all](https://github.com/wekan/wekan/pull/5635).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
