@@ -23,6 +23,10 @@ Mousetrap.stopCallback = (e, element) => {
   if (!ReactiveCache.getCurrentUser().isKeyboardShortcuts())
     return true;
 
+  // Always handle escape
+  if (e.keyCode === 27)
+    return false;
+
   // Make sure there are no selected characters
   if (window.getSelection().type === "Range")
     return true;
