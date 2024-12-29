@@ -24,6 +24,7 @@ template(name="swimlaneFixedHeader")
           | {{isTitleDefault title}}
   .swimlane-header-menu
     unless currentUser.isCommentOnly
+      a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
       a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
       //// TODO: Collapse Swimlane: make button working, etc.
       //unless collapsed
@@ -73,6 +74,19 @@ template(name="swimlaneActionPopup")
           li: a.js-move-swimlane
             i.fa.fa-arrow-up
             | {{_ 'move-swimlane'}}
+
+template(name="swimlaneAddPopup")
+  unless currentUser.isCommentOnly
+    form
+      input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
+        autocomplete="off" autofocus)
+      .edit-controls.clearfix
+        button.primary.confirm(type="submit") {{_ 'add'}}
+        unless currentBoard.isTemplatesBoard
+          unless currentBoard.isTemplateBoard
+            span.quiet
+              | {{_ 'or'}}
+              a.js-swimlane-template {{_ 'template'}}
 
 template(name="setSwimlaneColorPopup")
   form.edit-label

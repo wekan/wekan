@@ -73,6 +73,11 @@
     display: none;
   }
 }
+.swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
+  margin-left: 5px;
+  padding-right: 20px;
+  font-size: 22px;
+}
 .swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
   padding-right: 20px;
   font-size: 22px;
