@@ -383,6 +383,7 @@
   "email-sent": "Email byl odeslán",
   "email-verifyEmail-subject": "Ověř svou emailovou adresu na",
   "email-verifyEmail-text": "Ahoj __user__,\n\nPro ověření emailové adresy klikni na odkaz níže.\n\n__url__\n\nDěkujeme.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Povolit WIP Limit",
   "error-board-doesNotExist": "Toto tablo neexistuje",
   "error-board-notAdmin": "K provedení změny musíš být administrátor tohoto tabla",

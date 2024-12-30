@@ -383,6 +383,7 @@
   "email-sent": "E-mail is verzonden",
   "email-verifyEmail-subject": "Verifieer je e-mailadres op __siteName__",
   "email-verifyEmail-text": "Hallo __user__,\n\nOm je e-mail te verifiëren vragen we je om op de link hieronder te klikken.\n\n__url__\n\nBedankt.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Activeer WIP limiet",
   "error-board-doesNotExist": "Dit bord bestaat niet.",
   "error-board-notAdmin": "Je moet een administrator zijn van dit bord om dat te doen.",

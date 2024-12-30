@@ -383,6 +383,7 @@
   "email-sent": "Emel dihantar",
   "email-verifyEmail-subject": "Sila sahkan emel anda di __siteName__",
   "email-verifyEmail-text": "Salam Sejahtera __user__,\n\nUntuk mengesahkan akaun email anda, hanya perlu klik pautan di bawah.\n\n__url__\n\nTerima kasih.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Hidupkan Had WIP",
   "error-board-doesNotExist": "Papan tidak wujud",
   "error-board-notAdmin": "Anda perlu menjadi Admin Papan untuk tindakan itu",

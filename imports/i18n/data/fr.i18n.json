@@ -383,6 +383,7 @@
   "email-sent": "Courriel envoyé",
   "email-verifyEmail-subject": "Vérifier votre adresse de courriel sur __siteName__",
   "email-verifyEmail-text": "Bonjour __user__,\n\nPour vérifier votre compte courriel, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Activer la limite WIP",
   "error-board-doesNotExist": "Ce tableau n'existe pas",
   "error-board-notAdmin": "Vous devez être administrateur de ce tableau pour faire cela",

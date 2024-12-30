@@ -383,6 +383,7 @@
   "email-sent": "Email terkirim",
   "email-verifyEmail-subject": "Verifikasi surel Anda pada __siteName__",
   "email-verifyEmail-text": "Halo __user__,\n\nUntuk memverifikasi surel Anda, silakan klik tautan berikut.\n\n__url__\n\nTerima kasih.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Enable WIP Limit",
   "error-board-doesNotExist": "Panel ini tidak ada",
   "error-board-notAdmin": "Anda harus admin dari panel ini untuk melakukan itu",

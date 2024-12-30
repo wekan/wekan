@@ -383,6 +383,7 @@
   "email-sent": "Письмо отправлено",
   "email-verifyEmail-subject": "Подтвердите вашу эл.почту перейдя по ссылке __url__",
   "email-verifyEmail-text": "Привет __user__,\n\nДля подтверждения вашей электронной почты перейдите по ссылке ниже.\n\n__url__\n\nСпасибо.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Включить лимит на кол-во задач",
   "error-board-doesNotExist": "Доска не найдена",
   "error-board-notAdmin": "Вы должны обладать правами администратора этой доски, чтобы сделать это",

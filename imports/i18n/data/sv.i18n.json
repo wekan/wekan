@@ -383,6 +383,7 @@
   "email-sent": "E-post skickad",
   "email-verifyEmail-subject": "Verifiera din e-post adress på __siteName__",
   "email-verifyEmail-text": "Hej __user__,\n\nFör att verifiera din konto e-post, klicka på länken nedan.\n\n__url__\n\nTack!",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Aktivera WIP-gräns",
   "error-board-doesNotExist": "Denna tavla finns inte",
   "error-board-notAdmin": "Du måste vara administratör för denna tavla för att göra det",

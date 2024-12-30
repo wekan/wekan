@@ -383,6 +383,7 @@
   "email-sent": "Mail mandat",
   "email-verifyEmail-subject": "Vos cal verificar vòstra adreça corrièl del sit __siteName__",
   "email-verifyEmail-text": "Adieu __user__,\n\nPer verificar vòstra adreça corrièl, vos cal clicar sul ligam :\n\n__url__\n\nMercé.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Activar la WIP limit",
   "error-board-doesNotExist": "Aqueste tablèu existís pas",
   "error-board-notAdmin": "Devètz èsser un administrator del tablèu per far aquò",

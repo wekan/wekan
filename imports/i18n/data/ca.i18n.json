@@ -383,6 +383,7 @@
   "email-sent": "Correu enviat",
   "email-verifyEmail-subject": "Verifiqueu la vostra adreça de correu electrònic a __siteName__",
   "email-verifyEmail-text": "Hola __user__,\n\n per verificar el teu correu, segueix l'enllaç següent.\n\n __url__\n\n Gràcies.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Activa i Límit de Treball en Progrés",
   "error-board-doesNotExist": "Aquest tauler no existeix",
   "error-board-notAdmin": "Necessites ser administrador d'aquest tauler per dur a lloc aquesta acció",

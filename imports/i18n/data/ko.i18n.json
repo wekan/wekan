@@ -383,6 +383,7 @@
   "email-sent": "이메일 전송",
   "email-verifyEmail-subject": "이메일 인증: __siteName__",
   "email-verifyEmail-text": "안녕하세요. __user__님,\n\n당신의 계정과 이메일을 활성하려면 아래 링크를 클릭하십시오.\n\n__url__\n\n감사합니다.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "WIP 제한 활성화",
   "error-board-doesNotExist": "보드가 없습니다.",
   "error-board-notAdmin": "이 작업은 보드의 관리자만 실행할 수 있습니다.",

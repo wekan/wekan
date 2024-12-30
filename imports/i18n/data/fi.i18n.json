@@ -383,6 +383,7 @@
   "email-sent": "Sähköposti lähetetty",
   "email-verifyEmail-subject": "Varmista sähköpostiosoitteesi osoitteessa __url__",
   "email-verifyEmail-text": "Hei __user__,\n\nvahvistaaksesi sähköpostiosoitteesi, klikkaa alla olevaa linkkiä.\n\n__url__\n\nKiitos.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Ota käyttöön WIP-raja",
   "error-board-doesNotExist": "Tätä taulua ei ole olemassa",
   "error-board-notAdmin": "Tehdäksesi tämän sinun täytyy olla tämän taulun ylläpitäjä",

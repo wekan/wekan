@@ -383,6 +383,7 @@
   "email-sent": "E-mail elküldve",
   "email-verifyEmail-subject": "Igazolja vissza az e-mail címét a következő oldalon: __siteName__",
   "email-verifyEmail-text": "Kedves __user__!\n\nAz e-mail fiók visszaigazolásához egyszerűen kattints a lenti hivatkozásra.\n\n__url__\n\nKöszönjük.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "WIP korlát engedélyezése",
   "error-board-doesNotExist": "Ez a tábla nem létezik",
   "error-board-notAdmin": "A tábla adminisztrátorának kell lennie, hogy ezt megtehesse",

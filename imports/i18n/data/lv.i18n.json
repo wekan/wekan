@@ -383,6 +383,7 @@
   "email-sent": "E-pasts nosūtīts",
   "email-verifyEmail-subject": "Apstipriniet savu e-pasta adresi priekš __siteName__",
   "email-verifyEmail-text": "Sveiki, __user__,\n\nLai apstiprinātu savu e-pasta adresi, vienkārši spiediet uz saites zemāk.\n\n__url__\n\nPaldies.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Ieslēgt WIP limitu",
   "error-board-doesNotExist": "Šis dēlis neeksistē",
   "error-board-notAdmin": "Jums jābūt dēļa administratoram, lai veiktu šo darbību",

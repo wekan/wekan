@@ -383,6 +383,7 @@
   "email-sent": "Email inviata",
   "email-verifyEmail-subject": "Verifica il tuo indirizzo email su __siteName__",
   "email-verifyEmail-text": "Ciao __user__,\n\nPer verificare il tuo account email, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Attiva limite Work In Progress",
   "error-board-doesNotExist": "Questa bacheca non esiste",
   "error-board-notAdmin": "Devi essere admin di questa bacheca per poterlo fare",

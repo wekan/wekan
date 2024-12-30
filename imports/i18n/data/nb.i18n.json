@@ -383,6 +383,7 @@
   "email-sent": "E-post sendt",
   "email-verifyEmail-subject": "Verifiser din e-postadresse på __siteName__",
   "email-verifyEmail-text": "Hei __user__,\n\nFor å verifisere e-postsdressen din, klikk på lenken under.\n\n__url__\n\nTakk.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Aktiver WIP-begrensning",
   "error-board-doesNotExist": "Denne tavlen finnes ikke",
   "error-board-notAdmin": "Du må være administrator for denne tavlen for å gjøre dette",

@@ -383,6 +383,7 @@
   "email-sent": "メールを送信しました",
   "email-verifyEmail-subject": "あなたの __siteName__ のメールアドレスを確認する",
   "email-verifyEmail-text": "こんにちは、__user__さん。\n\nメールアドレスを認証するために、以下のリンクをクリックしてください。\n\n__url__\n\nよろしくお願いします。",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "仕掛中制限を有効化",
   "error-board-doesNotExist": "ボードがありません",
   "error-board-notAdmin": "操作にはボードの管理者権限が必要です",

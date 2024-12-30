@@ -383,6 +383,7 @@
   "email-sent": "E-pošta poslana",
   "email-verifyEmail-subject": "Preverite svoje e-poštni naslov na __siteName__",
   "email-verifyEmail-text": "Pozdravljeni __user__,\n\nDa preverite e-poštni naslov za vaš uporabniški račun, kliknite na spodnjo povezavo.\n\n__url__\n\nHvala.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Vklopi omejitev št. kartic",
   "error-board-doesNotExist": "Ta tabla ne obstaja",
   "error-board-notAdmin": "Nimate administrativnih pravic za tablo.",

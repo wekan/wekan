@@ -383,6 +383,7 @@
   "email-sent": "Đã gửi email",
   "email-verifyEmail-subject": "Xác minh địa chỉ email của bạn trên __siteName__",
   "email-verifyEmail-text": "Chào __user__,\n\nĐể xác minh email tài khoản của bạn, chỉ cần nhấp vào liên kết bên dưới.\n\n__url__\n\nCảm ơn.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Bật giới hạn WIP",
   "error-board-doesNotExist": "Bảng này không tồn tại",
   "error-board-notAdmin": "Bạn cần phải là quản trị viên của bảng này để làm điều đó",

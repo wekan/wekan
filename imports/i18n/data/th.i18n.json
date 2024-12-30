@@ -383,6 +383,7 @@
   "email-sent": "ส่งอีเมล์",
   "email-verifyEmail-subject": "ยืนยันที่อยู่อีเม์ของคุณบน __siteName__",
   "email-verifyEmail-text": "สวัสดี __user__,\n\nตรวจสอบบัญชีอีเมล์ของคุณ ง่าย ๆ ตามลิงค์ด้านล่าง \n\n__url__\n\n ขอบคุณค่ะ",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Enable WIP Limit",
   "error-board-doesNotExist": "บอร์ดนี้ไม่มีอยู่แล้ว",
   "error-board-notAdmin": "คุณจะต้องเป็นผู้ดูแลระบบถึงจะทำสิ่งเหล่านี้ได้",

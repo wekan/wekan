@@ -383,6 +383,7 @@
   "email-sent": "E-Mail gesendet",
   "email-verifyEmail-subject": "Bestätigen Sie ihre E-Mail-Adresse auf __siteName__",
   "email-verifyEmail-text": "Hallo __user__,\n\num ihre E-Mail-Adresse zu bestätigen, klicken Sie bitte auf folgenden Link:\n\n__url__\n\nDanke.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "WIP-Limit einschalten",
   "error-board-doesNotExist": "Dieses Board existiert nicht",
   "error-board-notAdmin": "Um das zu tun, müssen Sie Administrator dieses Boards sein",

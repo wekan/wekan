@@ -383,6 +383,7 @@
   "email-sent": "Correo enviado",
   "email-verifyEmail-subject": "Verifica tu dirección de correo en __siteName__",
   "email-verifyEmail-text": "Hola __user__,\n\nPara verificar tu cuenta de correo electrónico, haz clic en el siguiente enlace.\n\n__url__\n\nGracias.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Habilitar el límite del trabajo en proceso",
   "error-board-doesNotExist": "El tablero no existe",
   "error-board-notAdmin": "Es necesario ser administrador de este tablero para hacer eso",

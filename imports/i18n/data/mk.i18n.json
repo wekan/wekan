@@ -383,6 +383,7 @@
   "email-sent": "Имейлът е изпратен",
   "email-verifyEmail-subject": "Verify your email address on __siteName__",
   "email-verifyEmail-text": "Hello __user__,\n\nTo verify your account email, simply click the link below.\n\n__url__\n\nThanks.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Включи WIP лимита",
   "error-board-doesNotExist": "Това табло не съществува",
   "error-board-notAdmin": "За да направите това трябва да сте администратор на това табло",

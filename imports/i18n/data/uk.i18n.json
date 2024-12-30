@@ -383,6 +383,7 @@
   "email-sent": "Email відправлений",
   "email-verifyEmail-subject": "Підтвердіть вашу email адресу на __siteName__",
   "email-verifyEmail-text": "Привіт __user__,\n\nЩоб підтвердити ваш акаунт email, просто натисніть на посилання нижче.\n\n__url__\n\nДякуємо.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Увімкнути ліміт WIP",
   "error-board-doesNotExist": "Ця дошка не існує",
   "error-board-notAdmin": "Вам потрібно бути адміністратором цієї дошки, щоб зробити це",

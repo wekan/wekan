@@ -383,6 +383,7 @@
   "email-sent": "ელ.ფოსტა გაგზავნილია",
   "email-verifyEmail-subject": "შეამოწმეთ ელ.ფოსტის მისამართი __siteName-ზე__",
   "email-verifyEmail-text": "გამარჯობა __user__,\n\nანგარიშის ელ.ფოსტის შესამოწმებლად დააკლიკეთ ქვედა ბმულს.\n\n__url__\n\nმადლობა.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "გავააქტიუროთ WIP ლიმიტი",
   "error-board-doesNotExist": "მსგავსი დაფა არ არსებობს",
   "error-board-notAdmin": "ამის გასაკეთებლად საჭიროა იყოთ დაფის ადმინისტრატორი",

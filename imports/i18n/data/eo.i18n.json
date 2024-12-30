@@ -383,6 +383,7 @@
   "email-sent": "Sendis retpoŝton",
   "email-verifyEmail-subject": "Verify your email address on __siteName__",
   "email-verifyEmail-text": "Hello __user__,\n\nTo verify your account email, simply click the link below.\n\n__url__\n\nThanks.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Enable WIP Limit",
   "error-board-doesNotExist": "This board does not exist",
   "error-board-notAdmin": "You need to be admin of this board to do that",

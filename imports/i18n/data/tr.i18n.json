@@ -383,6 +383,7 @@
   "email-sent": "E-posta gönderildi",
   "email-verifyEmail-subject": "__siteName__ üzerindeki e-posta adresini doğrulama",
   "email-verifyEmail-text": "Merhaba __user__,\n\nHesap e-posta adresini doğrulamak için aşağıdaki linke tıklaman yeterli.\n\n__url__\n\nTeşekkürler.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Devam Eden İş Sınırını Aç",
   "error-board-doesNotExist": "Pano bulunamadı",
   "error-board-notAdmin": "Bu işlemi yapmak için pano yöneticisi olmalısın.",

@@ -20,18 +20,18 @@ export default {
     load: () => import('./data/en_ZA.i18n.json'),
     rtl: "false",
   },
-  "ar_DZ": {
+  "ar-DZ": {
     code: "ar",
-    tag: "ar_DZ",
+    tag: "ar-DZ",
     name: "دزيرية",
-    load: () => import('./data/ar_DZ.i18n.json'),
+    load: () => import('./data/ar-DZ.i18n.json'),
     rtl: "true",
   },
-  "ar_EG": {
+  "ar-EG": {
     code: "ar",
-    tag: "ar_EG",
+    tag: "ar-EG",
     name: "مَصرى",
-    load: () => import('./data/ar_EG.i18n.json'),
+    load: () => import('./data/ar-EG.i18n.json'),
     rtl: "true",
   },
   "ar": {
@@ -48,17 +48,17 @@ export default {
     load: () => import('./data/ary.i18n.json'),
     rtl: "true",
   },
-  "az_AZ": {
+  "az-AZ": {
     code: "az",
-    tag: "az_AZ",
+    tag: "az-AZ",
     name: "Azərbaycan (Azərbaycan)",
-    load: () => import('./data/az_AZ.i18n.json'),
+    load: () => import('./data/az-AZ.i18n.json'),
   },
-  "az_LA": {
+  "az-LA": {
     code: "az",
-    tag: "az_LA",
+    tag: "az-LA",
     name: "Azərbaycan (Latin)",
-    load: () => import('./data/az_LA.i18n.json'),
+    load: () => import('./data/az-LA.i18n.json'),
   },
   "az": {
     code: "az",
@@ -84,9 +84,9 @@ export default {
     name: "català",
     load: () => import('./data/ca.i18n.json'),
   },
-  "ca_ES": {
+  "ca-ES": {
     code: "ca",
-    tag: "ca_ES",
+    tag: "ca-ES",
     name: "català (Espanya)",
     load: () => import('./data/ca_ES.i18n.json'),
   },
@@ -102,17 +102,17 @@ export default {
     name: "čeština",
     load: () => import('./data/cs.i18n.json'),
   },
-  "cs_CZ": {
+  "cs-CZ": {
     code: "cs",
-    tag: "cs_CZ",
+    tag: "cs-CZ",
     name: "čeština (Česká republika)",
-    load: () => import('./data/cs_CZ.i18n.json'),
+    load: () => import('./data/cs-CZ.i18n.json'),
   },
-  "cy_GB": {
+  "cy-GB": {
     code: "cy",
-    tag: "cy_GB",
+    tag: "cy-GB",
     name: "Welsh (UK)",
-    load: () => import('./data/cy_GB.i18n.json'),
+    load: () => import('./data/cy-GB.i18n.json'),
   },
   "cy": {
     code: "cy",
@@ -126,21 +126,21 @@ export default {
     name: "Dansk",
     load: () => import('./data/da.i18n.json'),
   },
-  "de_AT": {
+  "de-AT": {
     code: "de",
-    tag: "de_AT",
+    tag: "de-AT",
     name: "Deutsch (Österreich)",
-    load: () => import('./data/de_AT.i18n.json'),
+    load: () => import('./data/de-AT.i18n.json'),
   },
-  "de_CH": {
+  "de-CH": {
     code: "de",
-    tag: "de_CH",
+    tag: "de-CH",
     name: "Deutsch (Schweiz)",
-    load: () => import('./data/de_CH.i18n.json'),
+    load: () => import('./data/de-CH.i18n.json'),
   },
-  "de_DE": {
+  "de-DE": {
     code: "de",
-    tag: "de_DE",
+    tag: "de-DE",
     name: "Deutsch (Deutschland)",
     load: () => import('./data/de_DE.i18n.json'),
   },
@@ -150,11 +150,11 @@ export default {
     name: "Deutsch",
     load: () => import('./data/de.i18n.json'),
   },
-  "el_GR": {
+  "el-GR": {
     code: "el",
-    tag: "el_GR",
+    tag: "el-GR",
     name: "Ελληνικά (Ελλάδα)",
-    load: () => import('./data/el_GR.i18n.json'),
+    load: () => import('./data/el-GR.i18n.json'),
   },
   "el": {
     code: "el",
@@ -162,41 +162,41 @@ export default {
     name: "Ελληνικά",
     load: () => import('./data/el.i18n.json'),
   },
-  "en_BR": {
+  "en-BR": {
     code: "en",
-    tag: "en_BR",
+    tag: "en-BR",
     name: "English (Brazil)",
-    load: () => import('./data/en_BR.i18n.json'),
+    load: () => import('./data/en-BR.i18n.json'),
   },
-  "en_DE": {
+  "en-DE": {
     code: "en",
-    tag: "en_DE",
+    tag: "en-DE",
     name: "English (Germany)",
-    load: () => import('./data/en_DE.i18n.json'),
+    load: () => import('./data/en-DE.i18n.json'),
   },
-  "en_GB": {
+  "en-GB": {
     code: "en",
-    tag: "en_GB",
+    tag: "en-GB",
     name: "English (UK)",
-    load: () => import('./data/en_GB.i18n.json'),
+    load: () => import('./data/en-GB.i18n.json'),
   },
-  "en_IT": {
+  "en-IT": {
     code: "en",
-    tag: "en_IT",
+    tag: "en-IT",
     name: "English (Italy)",
-    load: () => import('./data/en_IT.i18n.json'),
+    load: () => import('./data/en-IT.i18n.json'),
   },
-  "en_MY": {
+  "en-MY": {
     code: "en",
-    tag: "en_MY",
+    tag: "en-MY",
     name: "English (Malaysia)",
-    load: () => import('./data/en_MY.i18n.json'),
+    load: () => import('./data/en-MY.i18n.json'),
   },
-  "en_YS": {
+  "en-YS": {
     code: "en",
-    tag: "en_YS",
+    tag: "en-YS",
     name: "English (Yeshivish)",
-    load: () => import('./data/en_YS.i18n.json'),
+    load: () => import('./data/en-YS.i18n.json'),
   },
   "en": {
     code: "en",
@@ -210,53 +210,53 @@ export default {
     name: "Esperanto",
     load: () => import('./data/eo.i18n.json'),
   },
-  "ast_ES": {
+  "ast-ES": {
     code: "es",
-    tag: "ast_ES",
+    tag: "ast-ES",
     name: "español de Asturias",
-    load: () => import('./data/ast_ES.i18n.json'),
+    load: () => import('./data/ast-ES.i18n.json'),
   },
-  "es_AR": {
+  "es-AR": {
     code: "es",
-    tag: "es_AR",
+    tag: "es-AR",
     name: "español de Argentina",
-    load: () => import('./data/es_AR.i18n.json'),
+    load: () => import('./data/es-AR.i18n.json'),
   },
-  "es_CL": {
+  "es-CL": {
     code: "es",
-    tag: "es_CL",
+    tag: "es-CL",
     name: "español de Chile",
-    load: () => import('./data/es_CL.i18n.json'),
+    load: () => import('./data/es-CL.i18n.json'),
   },
-  "es_CO": {
+  "es-CO": {
     code: "es",
-    tag: "es_CO",
+    tag: "es-CO",
     name: "español en Colombia",
-    load: () => import('./data/es_CO.i18n.json'),
+    load: () => import('./data/es-CO.i18n.json'),
   },
-  "es_LA": {
+  "es-LA": {
     code: "es",
-    tag: "es_LA",
+    tag: "es-LA",
     name: "español de América Latina",
-    load: () => import('./data/es_LA.i18n.json'),
+    load: () => import('./data/es-LA.i18n.json'),
   },
-  "es_MX": {
+  "es-MX": {
     code: "es",
-    tag: "es_MX",
+    tag: "es-MX",
     name: "español de México",
-    load: () => import('./data/es_MX.i18n.json'),
+    load: () => import('./data/es-MX.i18n.json'),
   },
-  "es_PE": {
+  "es-PE": {
     code: "es",
-    tag: "es_PE",
+    tag: "es-PE",
     name: "español de Perú",
-    load: () => import('./data/es_PE.i18n.json'),
+    load: () => import('./data/es-PE.i18n.json'),
   },
-  "es_PY": {
+  "es-PY": {
     code: "es",
-    tag: "es_PY",
+    tag: "es-PY",
     name: "español de Paraguayo",
-    load: () => import('./data/es_PY.i18n.json'),
+    load: () => import('./data/es-PY.i18n.json'),
   },
   "es": {
     code: "es",
@@ -264,11 +264,11 @@ export default {
     name: "español",
     load: () => import('./data/es.i18n.json'),
   },
-  "et_EE": {
+  "et-EE": {
     code: "et",
-    tag: "et_EE",
+    tag: "et-EE",
     name: "eesti keel (Eesti)",
-    load: () => import('./data/et_EE.i18n.json'),
+    load: () => import('./data/et-EE.i18n.json'),
   },
   "eu": {
     code: "eu",
@@ -276,11 +276,11 @@ export default {
     name: "Euskara",
     load: () => import('./data/eu.i18n.json'),
   },
-  "fa_IR": {
+  "fa-IR": {
     code: "fa",
-    tag: "fa_IR",
+    tag: "fa-IR",
     name: "فارسی/پارسی (ایران\u200e)",
-    load: () => import('./data/fa_IR.i18n.json'),
+    load: () => import('./data/fa-IR.i18n.json'),
     rtl: "true",
   },
   "fa": {
@@ -296,23 +296,23 @@ export default {
     name: "Suomi",
     load: () => import('./data/fi.i18n.json'),
   },
-  "fr_BE": {
+  "fr-BE": {
     code: "fr",
-    tag: "fr_BE",
+    tag: "fr-BE",
     name: "Français (Belgique)",
-    load: () => import('./data/fr_BE.i18n.json'),
+    load: () => import('./data/fr-BE.i18n.json'),
   },
-  "fr_CA": {
+  "fr-CA": {
     code: "fr",
-    tag: "fr_CA",
+    tag: "fr-CA",
     name: "Français (Canada)",
-    load: () => import('./data/fr_CA.i18n.json'),
+    load: () => import('./data/fr-CA.i18n.json'),
   },
-  "fr_CH": {
+  "fr-CH": {
     code: "fr",
-    tag: "fr_CH",
+    tag: "fr-CH",
     name: "Français (Schweiz)",
-    load: () => import('./data/fr_CH.i18n.json'),
+    load: () => import('./data/fr-CH.i18n.json'),
   },
   "fr": {
     code: "fr",
@@ -320,11 +320,11 @@ export default {
     name: "Français",
     load: () => import('./data/fr.i18n.json'),
   },
-  "fy_NL": {
+  "fy-NL": {
     code: "fy",
-    tag: "fy_NL",
+    tag: "fy-NL",
     name: "Westerlauwersk Frysk (Nederlân)",
-    load: () => import('./data/fy_NL.i18n.json'),
+    load: () => import('./data/fy-NL.i18n.json'),
   },
   "fy": {
     code: "fy",
@@ -332,11 +332,11 @@ export default {
     name: "Westerlauwersk Frysk",
     load: () => import('./data/fy.i18n.json'),
   },
-  "gl_ES": {
+  "gl-ES": {
     code: "gl",
-    tag: "gl_ES",
+    tag: "gl-ES",
     name: "Galego (España)",
-    load: () => import('./data/gl_ES.i18n.json'),
+    load: () => import('./data/gl-ES.i18n.json'),
   },
   "gl": {
     code: "gl",
@@ -344,17 +344,17 @@ export default {
     name: "Galego",
     load: () => import('./data/gl.i18n.json'),
   },
-  "gu_IN": {
+  "gu-IN": {
     code: "gu",
-    tag: "gu_IN",
+    tag: "gu-IN",
     name: "ગુજરાતી",
-    load: () => import('./data/gu_IN.i18n.json'),
+    load: () => import('./data/gu-IN.i18n.json'),
   },
-  "he_IL": {
+  "he-IL": {
     code: "he",
-    tag: "he_IL",
+    tag: "he-IL",
     name: "עברית (ישראל)",
-    load: () => import('./data/he_IL.i18n.json'),
+    load: () => import('./data/he-IL.i18n.json'),
     rtl: "true",
   },
   "he": {
@@ -364,11 +364,11 @@ export default {
     load: () => import('./data/he.i18n.json'),
     rtl: "true",
   },
-  "hi_IN": {
+  "hi-IN": {
     code: "hi",
-    tag: "hi_IN",
+    tag: "hi-IN",
     name: "हिंदी (भारत)",
-    load: () => import('./data/hi_IN.i18n.json'),
+    load: () => import('./data/hi-IN.i18n.json'),
   },
   "hi": {
     code: "hi",
@@ -418,17 +418,17 @@ export default {
     name: "日本語",
     load: () => import('./data/ja.i18n.json'),
   },
-  "ja_Hira": {
+  "ja-Hira": {
     code: "ja",
-    tag: "ja_Hira",
+    tag: "ja-Hira",
     name: "平仮名",
-    load: () => import('./data/ja_HI.i18n.json'),
+    load: () => import('./data/ja-HI.i18n.json'),
   },
-  "ja_JP": {
+  "ja-JP": {
     code: "ja",
-    tag: "ja_JP",
+    tag: "ja-JP",
     name: "日本語（日本）",
-    load: () => import('./data/ja_JP.i18n.json'),
+    load: () => import('./data/ja-JP.i18n.json'),
   },
   "ka": {
     code: "ka",
@@ -442,11 +442,11 @@ export default {
     name: "ភាសាខ្មែរ",
     load: () => import('./data/km.i18n.json'),
   },
-  "ko_KR": {
+  "ko-KR": {
     code: "ko",
-    tag: "ko_KR",
+    tag: "ko-KR",
     name: "한국어(한국)",
-    load: () => import('./data/ko_KR.i18n.json'),
+    load: () => import('./data/ko-KR.i18n.json'),
   },
   "ko": {
     code: "ko",
@@ -484,11 +484,11 @@ export default {
     name: "بهاس ملايو",
     load: () => import('./data/ms.i18n.json'),
   },
-  "ms_MY": {
+  "ms-MY": {
     code: "ms",
-    tag: "ms_MY",
+    tag: "ms-MY",
     name: "بهاس ملايو (Malaysia)",
-    load: () => import('./data/ms_MY.i18n.json'),
+    load: () => import('./data/ms-MY.i18n.json'),
   },
   "nb": {
     code: "nb",
@@ -496,11 +496,11 @@ export default {
     name: "Norsk bokmål",
     load: () => import('./data/nb.i18n.json'),
   },
-  "nl_NL": {
+  "nl-NL": {
     code: "nl",
-    tag: "nl_NL",
+    tag: "nl-NL",
     name: "Nederlands (Nederland)",
-    load: () => import('./data/nl_NL.i18n.json'),
+    load: () => import('./data/nl-NL.i18n.json'),
   },
   "nl": {
     code: "nl",
@@ -514,9 +514,9 @@ export default {
     name: "Occitan",
     load: () => import('./data/oc.i18n.json'),
   },
-  "or_IN": {
+  "or-IN": {
     code: "or",
-    tag: "or_IN",
+    tag: "or-IN",
     name: "ଓଡିଆ (ଭାରତ)",
     load: () => import('./data/or_IN.i18n.json'),
   },
@@ -526,11 +526,11 @@ export default {
     name: "ਪੰਜਾਬੀ",
     load: () => import('./data/pa.i18n.json'),
   },
-  "pl_PL": {
+  "pl-PL": {
     code: "pl",
-    tag: "pl_PL",
+    tag: "pl-PL",
     name: "Polski (Polska)",
-    load: () => import('./data/pl_PL.i18n.json'),
+    load: () => import('./data/pl-PL.i18n.json'),
   },
   "pl": {
     code: "pl",
@@ -538,11 +538,11 @@ export default {
     name: "Polski",
     load: () => import('./data/pl.i18n.json'),
   },
-  "pt_BR": {
+  "pt-BR": {
     code: "pt",
-    tag: "pt_BR",
+    tag: "pt-BR",
     name: "Português do Brasil",
-    load: () => import('./data/pt_BR.i18n.json'),
+    load: () => import('./data/pt-BR.i18n.json'),
   },
   "pt": {
     code: "pt",
@@ -550,11 +550,11 @@ export default {
     name: "Português",
     load: () => import('./data/pt.i18n.json'),
   },
-  "pt_PT": {
+  "pt-PT": {
     code: "pt",
-    tag: "pt_PT",
+    tag: "pt-PT",
     name: "Português de Portugal",
-    load: () => import('./data/pt_PT.i18n.json'),
+    load: () => import('./data/pt-PT.i18n.json'),
   },
   "ro": {
     code: "ro",
@@ -562,11 +562,11 @@ export default {
     name: "Română",
     load: () => import('./data/ro.i18n.json'),
   },
-  "ro_RO": {
+  "ro-RO": {
     code: "ro",
-    tag: "ro_RO",
+    tag: "ro-RO",
     name: "Română (România)",
-    load: () => import('./data/ro_RO.i18n.json'),
+    load: () => import('./data/ro-RO.i18n.json'),
   },
   "ru": {
     code: "ru",
@@ -610,11 +610,11 @@ export default {
     name: "தமிழ்",
     load: () => import('./data/ta.i18n.json'),
   },
-  "te_IN": {
+  "te-IN": {
     code: "te",
     tag: "te_IN",
     name: "తెలుగు (భారతదేశం)",
-    load: () => import('./data/te_IN.i18n.json'),
+    load: () => import('./data/te-IN.i18n.json'),
   },
   "th": {
     code: "th",
@@ -646,29 +646,29 @@ export default {
     name: "українська мова",
     load: () => import('./data/uk.i18n.json'),
   },
-  "uk_UA": {
+  "uk-UA": {
     code: "uk",
-    tag: "uk_UA",
+    tag: "uk-UA",
     name: "Українська (Україна)",
-    load: () => import('./data/uk_UA.i18n.json'),
+    load: () => import('./data/uk-UA.i18n.json'),
   },
-  "uz_AR": {
+  "uz-AR": {
     code: "uz",
-    tag: "uz_AR",
+    tag: "uz-AR",
     name: "o'zbek (arab)",
-    load: () => import('./data/uz_AR.i18n.json'),
+    load: () => import('./data/uz-AR.i18n.json'),
   },
-  "uz_LA": {
+  "uz-LA": {
     code: "uz",
-    tag: "uz_LA",
+    tag: "uz-LA",
     name: "o'zbek (lotin)",
-    load: () => import('./data/uz_LA.i18n.json'),
+    load: () => import('./data/uz-LA.i18n.json'),
   },
-  "uz_UZ": {
+  "uz-UZ": {
     code: "uz",
-    tag: "uz_UZ",
+    tag: "uz-UZ",
     name: "o'zbek (O'zbekiston)",
-    load: () => import('./data/uz_UZ.i18n.json'),
+    load: () => import('./data/uz-UZ.i18n.json'),
   },
   "uz": {
     code: "uz",
@@ -676,17 +676,17 @@ export default {
     name: "o'zbek",
     load: () => import('./data/uz.i18n.json'),
   },
-  "ve_CC": {
+  "ve-CC": {
     code: "ve",
-    tag: "ve_CC",
+    tag: "ve-CC",
     name: "vèneto",
-    load: () => import('./data/ve_CC.i18n.json'),
+    load: () => import('./data/ve-CC.i18n.json'),
   },
-  "ve_PP": {
+  "ve-PP": {
     code: "ve",
-    tag: "ve_PP",
+    tag: "ve-PP",
     name: "vepsän kelʹ",
-    load: () => import('./data/ve_PP.i18n.json'),
+    load: () => import('./data/ve-PP.i18n.json'),
   },
   "ve": {
     code: "ve",
@@ -694,11 +694,11 @@ export default {
     name: "Tshivenḓa",
     load: () => import('./data/ve.i18n.json'),
   },
-  "vi_VN": {
+  "vi-VN": {
     code: "vi",
-    tag: "vi_VN",
+    tag: "vi-VN",
     name: "Tiếng Việt (Việt Nam)",
-    load: () => import('./data/vi_VN.i18n.json'),
+    load: () => import('./data/vi-VN.i18n.json'),
   },
   "vi": {
     code: "vi",
@@ -706,11 +706,11 @@ export default {
     name: "Tiếng Việt",
     load: () => import('./data/vi.i18n.json'),
   },
-  "vl_SS": {
+  "vl-SS": {
     code: "vl",
-    tag: "vl_SS",
+    tag: "vl-SS",
     name: "Vlaams",
-    load: () => import('./data/vl_SS.i18n.json'),
+    load: () => import('./data/vl-SS.i18n.json'),
   },
   "vo": {
     code: "vo",
@@ -718,11 +718,11 @@ export default {
     name: "Volapük",
     load: () => import('./data/vo.i18n.json'),
   },
-  "wa_RR": {
+  "wa-RR": {
     code: "wa",
-    tag: "wa_RR",
-    name: "Wáray_Wáray",
-    load: () => import('./data/wa_RR.i18n.json'),
+    tag: "wa-RR",
+    name: "Wáray-Wáray",
+    load: () => import('./data/wa-RR.i18n.json'),
   },
   "wa": {
     code: "wa",
@@ -766,47 +766,47 @@ export default {
     name: "廣東話",
     load: () => import('./data/yue_CN.i18n.json'),
   },
-  "zh_CN": {
+  "zh-CN": {
     code: "zh",
-    tag: "zh_CN",
+    tag: "zh-CN",
     name: "简体中文",
-    load: () => import('./data/zh_CN.i18n.json'),
+    load: () => import('./data/zh-CN.i18n.json'),
   },
-  "zh_GB": {
+  "zh-GB": {
     code: "zh",
-    tag: "zh_GB",
+    tag: "zh-GB",
     name: "简体中文 GB2312",
-    load: () => import('./data/zh_GB.i18n.json'),
+    load: () => import('./data/zh-GB.i18n.json'),
   },
-  "zh_Hans": {
+  "zh-Hans": {
     code: "zh",
-    tag: "zh_Hans",
+    tag: "zh-Hans",
     name: "简化字",
-    load: () => import('./data/zh_Hans.i18n.json'),
+    load: () => import('./data/zh-Hans.i18n.json'),
   },
-  "zh_Hant": {
+  "zh-Hant": {
     code: "zh",
-    tag: "zh_Hant",
+    tag: "zh-Hant",
     name: "正體字",
-    load: () => import('./data/zh_Hant.i18n.json'),
+    load: () => import('./data/zh-Hant.i18n.json'),
   },
-  "zh_HK": {
+  "zh-HK": {
     code: "zh",
-    tag: "zh_HK",
+    tag: "zh-HK",
     name: "繁体中文（香港）",
-    load: () => import('./data/zh_HK.i18n.json'),
+    load: () => import('./data/zh-HK.i18n.json'),
   },
-  "zh_TW": {
+  "zh-TW": {
     code: "zh",
-    tag: "zh_TW",
+    tag: "zh-TW",
     name: "繁體中文（台灣）",
-    load: () => import('./data/zh_TW.i18n.json'),
+    load: () => import('./data/zh-TW.i18n.json'),
   },
-  "zu_ZA": {
+  "zu-ZA": {
     code: "zu",
-    tag: "zu_ZA",
+    tag: "zu-ZA",
     name: "isiZulu (Ningizimu Afrika)",
-    load: () => import('./data/zu_ZA.i18n.json'),
+    load: () => import('./data/zu-ZA.i18n.json'),
   },
   "zu": {
     code: "zu",

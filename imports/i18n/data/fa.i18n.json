@@ -383,6 +383,7 @@
   "email-sent": "نامه الکترونیکی فرستاده شد",
   "email-verifyEmail-subject": "تایید آدرس الکترونیکی شما در __siteName__",
   "email-verifyEmail-text": "سلام __user__\nبه منظور تایید آدرس الکترونیکی حساب خود، آدرس زیر را دنبال نمایید، باتشکر:\n__url__.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Enable WIP Limit",
   "error-board-doesNotExist": "برد مورد نظر وجود ندارد",
   "error-board-notAdmin": "شما جهت انجام آن باید مدیر برد باشید",

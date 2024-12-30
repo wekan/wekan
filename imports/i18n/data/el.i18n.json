@@ -383,6 +383,7 @@
   "email-sent": "Εστάλη Email",
   "email-verifyEmail-subject": "Verify your email address on __siteName__",
   "email-verifyEmail-text": "Χαίρετε __user__,\n\nΓια να επιβεβαιώσετε το email που χρησιμοποιεί ο λογαριασμός σας, απλώς κάνετε κλικ στον παρακάτω σύνδεσμο.\n\n__url__\n\nΕυχαριστούμε.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Enable WIP Limit",
   "error-board-doesNotExist": "Αυτός ο πίνακας δεν υφίσταται",
   "error-board-notAdmin": "Πρέπει να είστε διαχειριστής του πίνακα αυτού για να προβείτε σε αυτό",

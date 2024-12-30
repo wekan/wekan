@@ -383,6 +383,7 @@
   "email-sent": "Email sent",
   "email-verifyEmail-subject": "Verify your email address on __siteName__",
   "email-verifyEmail-text": "नमस्ते __user __, \n\n अपना खाता ईमेल सत्यापित करने के लिए, बस नीचे दिए गए लिंक पर क्लिक करें। \n\n__url __ \n\n धन्यवाद।",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Enable WIP Limit",
   "error-board-doesNotExist": "यह बोर्ड does not exist",
   "error-board-notAdmin": "You need तक be  व्यवस्थापक of  यह बोर्ड तक do that",

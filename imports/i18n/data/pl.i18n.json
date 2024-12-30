@@ -383,6 +383,7 @@
   "email-sent": "Email wysłany",
   "email-verifyEmail-subject": "Zweryfikuj swój adres email na __siteName__",
   "email-verifyEmail-text": "Witaj __user__,\nAby zweryfikować adres email, kliknij w link poniżej.\n__url__\nDzięki.",
+  "enable-vertical-scrollbars": "Enable vertical scrollbars",
   "enable-wip-limit": "Włącz limit kart na liście",
   "error-board-doesNotExist": "Ta tablica nie istnieje",
   "error-board-notAdmin": "Musisz być administratorem tej tablicy żeby to zrobić",
