@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # v7.77 2024-12-30 WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Allow vertical scrollbars to be disabled (new preference)](https://github.com/wekan/wekan/pull/5643).
+  Thanks to NadavTasher.
+
+and fixes the following bugs:
 
 - [Enable keyboard shortcuts by default](https://github.com/wekan/wekan/pull/5639).
   Thanks to NadavTasher.
