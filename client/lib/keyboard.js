@@ -14,24 +14,33 @@ window.addEventListener('keydown', (e) => {
   Mousetrap.trigger(String.fromCharCode(e.which).toLowerCase());
 });
 
-// Store the original stopCallback in a global
-const originalStopCallback = Mousetrap.stopCallback;
-
 // Overwrite the stopCallback to allow for more keyboard shortcut customizations
-Mousetrap.stopCallback = (e, element) => {
+Mousetrap.stopCallback = (event, element) => {
   // Are shortcuts enabled for the user?
   if (!ReactiveCache.getCurrentUser().isKeyboardShortcuts())
     return true;
 
   // Always handle escape
-  if (e.keyCode === 27)
+  if (event.keyCode === 27)
     return false;
 
   // Make sure there are no selected characters
   if (window.getSelection().type === "Range")
     return true;
 
-  return originalStopCallback(e, element);
+  // Decide what the current element is
+  const currentElement = event.target || document.activeElement;
+
+  // If the current element is editable, we don't want to trigger an event
+  if (currentElement.isContentEditable)
+    return true;
+
+  // Make sure we are not in an input element
+  if (currentElement instanceof HTMLInputElement || currentElement instanceof HTMLSelectElement || currentElement instanceof HTMLTextAreaElement)
+    return true;
+
+  // We can trigger events!
+  return false;
 }
 
 function getHoveredCardId() {
