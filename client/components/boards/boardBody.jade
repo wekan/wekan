@@ -21,7 +21,8 @@ template(name="boardBody")
         class="{{#if hasSwimlanes}}dragscroll{{/if}}"
         class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
         class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
-        class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
+        class="{{#if draggingActive.get}}is-dragging-active{{/if}}"
+        class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}")
         if showOverlay.get
           .board-overlay
         if currentBoard.isTemplatesBoard

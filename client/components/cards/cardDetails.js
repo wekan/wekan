@@ -114,6 +114,11 @@ BlazeComponent.extendComponent({
     );
   },
 
+  isVerticalScrollbars() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isVerticalScrollbars();
+  },
+
   /** returns if the list id is the current list id
    * @param listId list id to check
    * @return is the list id the current list id ?

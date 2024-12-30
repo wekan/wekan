@@ -231,6 +231,11 @@ BlazeComponent.extendComponent({
     );
   },
 
+  isVerticalScrollbars() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isVerticalScrollbars();
+  },
+
   cardDetailsPopup(event) {
     if (!Popup.isOpen()) {
       Popup.open("cardDetails")(event);

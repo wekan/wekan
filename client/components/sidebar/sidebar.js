@@ -110,6 +110,11 @@ BlazeComponent.extendComponent({
     return user && user.isKeyboardShortcuts();
   },
 
+  isVerticalScrollbars() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isVerticalScrollbars();
+  },
+
   events() {
     return [
       {
@@ -134,6 +139,9 @@ BlazeComponent.extendComponent({
         'click .js-keyboard-shortcuts-toggle'() {
           ReactiveCache.getCurrentUser().toggleKeyboardShortcuts();
         },
+        'click .js-vertical-scrollbars-toggle'() {
+          ReactiveCache.getCurrentUser().toggleVerticalScrollbars();
+        },
         'click .js-close-sidebar'() {
           Sidebar.toggle()
         },
@@ -154,6 +162,10 @@ BlazeComponent.extendComponent({
     } else {
       return false;
     }
+  },
+  isVerticalScrollbars() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isVerticalScrollbars();
   },
   showActivities() {
     let ret = Utils.getCurrentBoard().showActivities ?? false;

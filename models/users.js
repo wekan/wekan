@@ -451,6 +451,13 @@ Users.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    'profile.verticalScrollbars': {
+      /**
+       * User-specified state of vertical scrollbars visibility.
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
     services: {
       /**
        * services field of the user
@@ -966,6 +973,11 @@ Users.helpers({
     return keyboardShortcuts;
   },
 
+  isVerticalScrollbars() {
+    const { verticalScrollbars = true } = this.profile || {};
+    return verticalScrollbars;
+  },
+
   remove() {
     User.remove({
       _id: this._id,
@@ -1035,6 +1047,14 @@ Users.mutations({
     return {
       $set: {
         'profile.keyboardShortcuts': !keyboardShortcuts,
+      },
+    };
+  },
+  toggleVerticalScrollbars() {
+    const { verticalScrollbars = true } = this.profile || {};
+    return {
+      $set: {
+        'profile.verticalScrollbars': !verticalScrollbars,
       },
     };
   },

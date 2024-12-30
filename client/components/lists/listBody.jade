@@ -1,6 +1,6 @@
 template(name="listBody")
   unless collapsed
-    .list-body
+    .list-body(class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}")
       .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
         if cards.length
           +inlinedForm(autoclose=false position="top")
