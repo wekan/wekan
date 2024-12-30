@@ -962,7 +962,7 @@ Users.helpers({
   },
 
   isKeyboardShortcuts() {
-    const { keyboardShortcuts = false } = this.profile || {};
+    const { keyboardShortcuts = true } = this.profile || {};
     return keyboardShortcuts;
   },
 
@@ -1031,7 +1031,7 @@ Users.mutations({
     };
   },
   toggleKeyboardShortcuts() {
-    const { keyboardShortcuts = false } = this.profile || {};
+    const { keyboardShortcuts = true } = this.profile || {};
     return {
       $set: {
         'profile.keyboardShortcuts': !keyboardShortcuts,
