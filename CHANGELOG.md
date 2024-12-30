@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Enable keyboard shortcuts by default](https://github.com/wekan/wekan/pull/5639).
   Thanks to NadavTasher.
+- [Fix comment backgrounds in cleandark theme](https://github.com/wekan/wekan/pull/5640).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
