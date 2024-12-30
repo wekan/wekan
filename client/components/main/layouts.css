@@ -446,6 +446,9 @@ a:not(.disabled).is-active i.fa {
   padding: 0;
   padding-top: 15px;
 }
+.no-scrollbars {
+  scrollbar-width: none;
+}
 @media screen and (max-width: 800px) {
   #content {
     margin: 1px 0px 0px 0px;

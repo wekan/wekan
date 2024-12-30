@@ -1,5 +1,5 @@
 template(name="sidebar")
-  .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}}")
+  .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}} {{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}")
     //a.sidebar-tongue.js-toggle-sidebar(
     //  class="{{#if isTongueHidden}}is-hidden{{/if}}",
     //  title="{{showTongueTitle}}")
@@ -33,6 +33,11 @@ template(name='homeSidebar')
       span {{_ 'hide-minicard-label-text'}}
       b &nbsp;
       .materialCheckBox(class="{{#if hiddenMinicardLabelText}}is-checked{{/if}}")
+  ul
+    a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
+      span {{_ 'enable-vertical-scrollbars'}}
+      b &nbsp;
+      .materialCheckBox(class="{{#if isVerticalScrollbars}}is-checked{{/if}}")
   hr
   unless currentUser.isNoComments
     h3.activity-title

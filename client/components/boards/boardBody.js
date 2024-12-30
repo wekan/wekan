@@ -270,6 +270,11 @@ BlazeComponent.extendComponent({
     }
   },
 
+  isVerticalScrollbars() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isVerticalScrollbars();
+  },
+
   openNewListForm() {
     if (this.isViewSwimlanes()) {
       // The form had been removed in 416b17062e57f215206e93a85b02ef9eb1ab4902
