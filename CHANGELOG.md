@@ -25,6 +25,8 @@ This release fixes the following bugs:
   Thanks to NadavTasher.
 - [Fix weird add checklist buttons in card details](https://github.com/wekan/wekan/pull/5641).
   Thanks to NadavTasher.
+- [Fix "SPACE" shortcut not working after recent fixes](https://github.com/wekan/wekan/pull/5642).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
