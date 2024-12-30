@@ -4135,11 +4135,6 @@ THEME - Clean Light
   color: #FFFFFF;
 }
 
-.board-color-cleanlight .card-details-left .js-open-inlined-form,
-.board-color-cleandark .card-details-left .js-open-inlined-form {
-  float: right;
-}
-
 .board-color-cleanlight .new-comment .fa,
 .board-color-cleandark .new-comment .fa {
   display: none;

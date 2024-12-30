@@ -45,6 +45,9 @@ textarea.js-edit-checklist-item {
   border-radius: 16px;
   height: 100%;
 }
+.checklist-title {
+  padding: 10px;
+}
 .checklist-title .checkbox {
   float: left;
   width: 30px;
