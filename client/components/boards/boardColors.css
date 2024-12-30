@@ -2993,6 +2993,10 @@ THEME - Clean Dark
   color: rgba(255, 255, 255, 0.85);
 }
 
+.board-color-cleandark .comments .comment .comment-desc .comment-text {
+  background: transparent;
+}
+
 .board-color-cleandark .activity-checklist,
 .board-color-cleandark .activity-comment {
   background: none !important;
