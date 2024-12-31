@@ -23,6 +23,8 @@ This release fixes the following bugs:
   Thanks to NadavTasher.
 - [Fix styling for vertical scrollbars toggle](https://github.com/wekan/wekan/pull/5645).
   Thanks to NadavTasher.
+- [Add additional archiving keyboard shortcut (added -)](https://github.com/wekan/wekan/pull/5646).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
