@@ -3268,6 +3268,11 @@ THEME - Clean Light
   background: none;
 }
 
+.board-color-cleanlight .list .list-header div:has(.list-header-name),
+.board-color-cleandark .list .list-header div:has(.list-header-name) {
+  display: contents;
+}
+
 .board-color-cleanlight .list .list-header-name {
   color: rgba(10, 10, 20, 1);
 }
