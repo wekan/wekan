@@ -383,7 +383,7 @@
   "email-sent": "הודעת הדוא״ל נשלחה",
   "email-verifyEmail-subject": "אימות כתובת הדוא״ל שלך באתר __siteName__",
   "email-verifyEmail-text": "__user__ שלום,\n\nלאימות כתובת הדוא״ל המשויכת לחשבונך, עליך פשוט ללחוץ על הקישור המופיע להלן.\n\n__url__\n\nתודה.",
-  "enable-vertical-scrollbars": "Enable vertical scrollbars",
+  "enable-vertical-scrollbars": "הפעלת פסי גלילה אנכיים",
   "enable-wip-limit": "הפעלת מגבלת „בעבודה”",
   "error-board-doesNotExist": "לוח זה אינו קיים",
   "error-board-notAdmin": "צריכות להיות לך הרשאות ניהול על לוח זה כדי לעשות זאת",

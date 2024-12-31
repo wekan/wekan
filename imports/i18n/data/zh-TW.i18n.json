@@ -383,7 +383,7 @@
   "email-sent": "郵件已寄送",
   "email-verifyEmail-subject": "驗證您在 __siteName__ 的電子郵件",
   "email-verifyEmail-text": "親愛的 __user__,\n\n點選下面的連結，驗證您的電子郵件地址：\n\n__url__\n\n謝謝。",
-  "enable-vertical-scrollbars": "Enable vertical scrollbars",
+  "enable-vertical-scrollbars": "啟用垂直捲軸",
   "enable-wip-limit": "啟用 WIP 限制",
   "error-board-doesNotExist": "該看板不存在",
   "error-board-notAdmin": "需要成為管理員才能執行此操作",

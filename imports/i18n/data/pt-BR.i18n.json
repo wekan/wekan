@@ -383,7 +383,7 @@
   "email-sent": "E-mail enviado",
   "email-verifyEmail-subject": "Verifique seu endereço de e-mail em __siteName__",
   "email-verifyEmail-text": "Olá __user__\nPara verificar sua conta de e-mail, clique no link abaixo.\n__url__\nObrigado.",
-  "enable-vertical-scrollbars": "Enable vertical scrollbars",
+  "enable-vertical-scrollbars": "Habilitar rolagem de tela vertical",
   "enable-wip-limit": "Ativar Limite WIP",
   "error-board-doesNotExist": "Este quadro não existe",
   "error-board-notAdmin": "Você precisa ser administrador desse quadro para fazer isto",
