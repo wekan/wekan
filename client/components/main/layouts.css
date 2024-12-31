@@ -449,6 +449,9 @@ a:not(.disabled).is-active i.fa {
 .no-scrollbars {
   scrollbar-width: none;
 }
+.no-scrollbars::-webkit-scrollbar {
+  display: none !important;
+}
 @media screen and (max-width: 800px) {
   #content {
     margin: 1px 0px 0px 0px;
