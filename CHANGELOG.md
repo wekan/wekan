@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Disable scrollbars on older versions of Chrome and Safari in "no vertical scrollbars" mode](https://github.com/wekan/wekan/pull/5644).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.77 2024-12-30 WeKan ® release
 
 This release adds the following new features:
