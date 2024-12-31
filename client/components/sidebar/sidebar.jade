@@ -28,12 +28,13 @@ template(name='homeSidebar')
   +membersWidget
   hr
   +labelsWidget
+  hr
   ul#cards.label-text-hidden
     a.flex.js-toggle-minicard-label-text(title="{{_ 'hide-minicard-label-text'}}")
       span {{_ 'hide-minicard-label-text'}}
       b &nbsp;
       .materialCheckBox(class="{{#if hiddenMinicardLabelText}}is-checked{{/if}}")
-  ul
+  ul#cards.vertical-scrollbars-toggle
     a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
       span {{_ 'enable-vertical-scrollbars'}}
       b &nbsp;
