@@ -27,6 +27,8 @@ This release fixes the following bugs:
   Thanks to NadavTasher.
 - [Fix assign-self shortcut in shortcut help popup (different from actual shortcut)](https://github.com/wekan/wekan/pull/5647).
   Thanks to NadavTasher.
+- [Fix upper-case keyboard shortcuts & different language shortcuts getting triggered when shortcuts are disabled](https://github.com/wekan/wekan/pull/5648).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
