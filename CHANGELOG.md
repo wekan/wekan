@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Disable scrollbars on older versions of Chrome and Safari in "no vertical scrollbars" mode](https://github.com/wekan/wekan/pull/5644).
   Thanks to NadavTasher.
+- [Fix styling for vertical scrollbars toggle](https://github.com/wekan/wekan/pull/5645).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
