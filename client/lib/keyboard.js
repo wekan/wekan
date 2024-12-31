@@ -219,7 +219,7 @@ Mousetrap.bind('space', evt => {
   }
 });
 
-Mousetrap.bind('c', evt => {
+const archiveCard = evt => {
   const cardId = getSelectedCardId();
   if (!cardId) {
     return;
@@ -237,29 +237,15 @@ Mousetrap.bind('c', evt => {
     // This should do it according to Mousetrap docs, but it doesn't
     evt.preventDefault();
   }
-});
+};
+
+// Archive card has multiple shortcuts
+Mousetrap.bind('c', archiveCard);
+Mousetrap.bind('-', archiveCard);
 
 // Same as above, this time for Persian keyboard.
 // https://github.com/wekan/wekan/pull/5589#issuecomment-2516776519
-Mousetrap.bind('÷', evt => {
-  const cardId = getSelectedCardId();
-  if (!cardId) {
-    return;
-  }
-
-  const currentUserId = Meteor.userId();
-  if (currentUserId === null) {
-    return;
-  }
-
-  if (Utils.canModifyBoard()) {
-    const card = ReactiveCache.getCard(cardId);
-    card.archive();
-    // We should prevent scrolling in card when spacebar is clicked
-    // This should do it according to Mousetrap docs, but it doesn't
-    evt.preventDefault();
-  }
-});
+Mousetrap.bind('÷', archiveCard);
 
 Mousetrap.bind('n', evt => {
   const cardId = getSelectedCardId();
@@ -336,7 +322,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-assign-self',
     },
     {
-      keys: ['c', '÷'],
+      keys: ['c', '÷', '-'],
       action: 'archive-card',
     },
     {
