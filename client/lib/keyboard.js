@@ -332,7 +332,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-add-self',
     },
     {
-      keys: ['n'],
+      keys: ['m'],
       action: 'shortcut-assign-self',
     },
     {
