@@ -11,13 +11,13 @@ window.addEventListener('keydown', (e) => {
   if (String.fromCharCode(e.which).toLowerCase() === e.key) return;
 
   // Trigger the corresponding action
-  Mousetrap.trigger(String.fromCharCode(e.which).toLowerCase());
+  Mousetrap.handleKey(String.fromCharCode(e.which).toLowerCase(), [], {type: "keypress"});
 });
 
 // Overwrite the stopCallback to allow for more keyboard shortcut customizations
 Mousetrap.stopCallback = (event, element) => {
   // Are shortcuts enabled for the user?
-  if (!ReactiveCache.getCurrentUser().isKeyboardShortcuts())
+  if (ReactiveCache.getCurrentUser() && !ReactiveCache.getCurrentUser().isKeyboardShortcuts())
     return true;
 
   // Always handle escape
