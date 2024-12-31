@@ -29,6 +29,8 @@ This release fixes the following bugs:
   Thanks to NadavTasher.
 - [Fix upper-case keyboard shortcuts & different language shortcuts getting triggered when shortcuts are disabled](https://github.com/wekan/wekan/pull/5648).
   Thanks to NadavTasher.
+- [Fix list header too wide in cleanlight and cleandark themes](https://github.com/wekan/wekan/pull/5649).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
