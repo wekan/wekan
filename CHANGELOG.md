@@ -25,6 +25,8 @@ This release fixes the following bugs:
   Thanks to NadavTasher.
 - [Add additional archiving keyboard shortcut (added -)](https://github.com/wekan/wekan/pull/5646).
   Thanks to NadavTasher.
+- [Fix assign-self shortcut in shortcut help popup (different from actual shortcut)](https://github.com/wekan/wekan/pull/5647).
+  Thanks to NadavTasher.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
