@@ -148,6 +148,10 @@ CardCustomField.register('cardCustomField');
     return this.date.get().week().toString();
   }
 
+  showWeekOfYear() {
+    return ReactiveCache.getCurrentUser().isShowWeekOfYear();
+  }
+
   showDate() {
     // this will start working once mquandalle:moment
     // is updated to at least moment.js 2.10.5
