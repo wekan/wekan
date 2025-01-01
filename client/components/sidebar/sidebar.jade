@@ -39,6 +39,11 @@ template(name='homeSidebar')
       span {{_ 'enable-vertical-scrollbars'}}
       b &nbsp;
       .materialCheckBox(class="{{#if isVerticalScrollbars}}is-checked{{/if}}")
+  ul#cards.show-week-of-year-toggle
+    a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
+      span {{_ 'show-week-of-year'}}
+      b &nbsp;
+      .materialCheckBox(class="{{#if isShowWeekOfYear}}is-checked{{/if}}")
   hr
   unless currentUser.isNoComments
     h3.activity-title
