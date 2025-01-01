@@ -188,23 +188,23 @@ Mousetrap.bind(_.range(1, 10).map(x => `ctrl+alt+${x}`), (evt, key) => {
   if (!ReactiveCache.getCurrentUser().isBoardMember())
     return;
 
-  const pressedNumber = parseInt(key.split("+").pop()) - 1;
+  const memberIndex = parseInt(key.split("+").pop()) - 1;
   const currentBoard = Utils.getCurrentBoard();
   const boardMembers = currentBoard.memberUsers();
 
-  if (pressedNumber > boardMembers.length)
+  if (memberIndex >= boardMembers.length)
     return;
 
   if (MultiSelection.isActive()) {
     for (const cardId of MultiSelection.getSelectedCardIds())
-      ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[pressedNumber]._id);
+      ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[memberIndex]._id);
   } else {
     const cardId = getSelectedCardId();
 
     if (!cardId)
       return;
 
-    ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[pressedNumber]._id);
+    ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[memberIndex]._id);
   }
 });
 
