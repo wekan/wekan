@@ -363,7 +363,7 @@ Template.keyboardShortcuts.helpers({
       action: 'remove-labels-multiselect'
     },
     {
-      keys: ['ctrl + shift + number keys 1-9'],
+      keys: ['ctrl + alt + number keys 1-9'],
       action: 'toggle-asignees'
     },
   ],
