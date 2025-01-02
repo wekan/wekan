@@ -1257,6 +1257,7 @@
   "text": "Tekst",
   "translation-text": "Tekst tłumaczenia",
   "show-subtasks-field": "Pokaż pole podzadania",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Zamień na markdown",
   "import-board-zip": "Dodaj plik .zip z tablicą plików JSON, nazwą tablicy i podkatalogami z załącznikami",
   "collapse": "Zwiń",

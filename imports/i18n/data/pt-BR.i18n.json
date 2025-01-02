@@ -1257,6 +1257,7 @@
   "text": "Texto",
   "translation-text": "Texto de tradução",
   "show-subtasks-field": "Mostrar campo subtarefas",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Converter para markdown",
   "import-board-zip": "Adicione o arquivo .zip que contém arquivos JSON do quadro e subdiretórios de nomes do quadro com anexos",
   "collapse": "Expandir",

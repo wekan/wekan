@@ -1257,6 +1257,7 @@
   "text": "Testua",
   "translation-text": "itzulpenaren testua",
   "show-subtasks-field": "azpi-zereginen eremua bezala",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Bihurtu markdown-era",
   "import-board-zip": "Gehitu taula JSON fitxategiak dituen .zip fitxategia eta eranskinak dituzten taularen izenen azpidirektorioak",
   "collapse": "Tolestu",

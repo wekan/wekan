@@ -1257,6 +1257,7 @@
   "text": "Teksti",
   "translation-text": "Käännetty teksti",
   "show-subtasks-field": "Näytä alitehtävät kenttä",
+  "show-week-of-year": "Näytä vuoden viikko numero (ISO 8601)",
   "convert-to-markdown": "Muuta markdowniksi",
   "import-board-zip": "Lisää .zip tiedosto jossa on taulu JSON tiedostot, ja taulu nimi alihakemistot liitteineen",
   "collapse": "Pienennä",

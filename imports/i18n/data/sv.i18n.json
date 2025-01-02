@@ -1257,6 +1257,7 @@
   "text": "Text",
   "translation-text": "Översatt text",
   "show-subtasks-field": "Visa underuppgiftsfält",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Konvertera till markdown",
   "import-board-zip": "Lägga till .zip-filen till tavlans JSON filer, och tavla",
   "collapse": "Fäll ihop",

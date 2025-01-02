@@ -1257,6 +1257,7 @@
   "text": "文本",
   "translation-text": "Translation text",
   "show-subtasks-field": "Show subtasks field",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Convert to markdown",
   "import-board-zip": "Add .zip file that has board JSON files, and board name subdirectories with attachments",
   "collapse": "Collapse",

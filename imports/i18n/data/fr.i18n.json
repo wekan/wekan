@@ -1257,6 +1257,7 @@
   "text": "Texte",
   "translation-text": "Texte traduit",
   "show-subtasks-field": "Afficher le champ des sous-tâches",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Convertir en markdown",
   "import-board-zip": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
   "collapse": "Réduire",

@@ -1257,6 +1257,7 @@
   "text": "Text",
   "translation-text": "Übersetzungstext",
   "show-subtasks-field": "Teilaufgaben Feld anzeigen",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Als Markdown konvertieren",
   "import-board-zip": "Erstelle .zip Datei mit JSON Board Dateien und die Unterverzeichnisse des Boardnamen mit Anhängen",
   "collapse": "Einklappen",

@@ -1257,6 +1257,7 @@
   "text": "Текст",
   "translation-text": "Перевод текста",
   "show-subtasks-field": "Показывать поля подзадач",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "Конвертировать в markdown",
   "import-board-zip": "Добавьте ZIP-файл, содержащий файлы JSON доски, а также названия подкаталогов с вложениями.",
   "collapse": "Свернуть",

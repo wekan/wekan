@@ -1257,6 +1257,7 @@
   "text": "文字",
   "translation-text": "翻譯文字",
   "show-subtasks-field": "顯示子工作項目欄位",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "轉換為 Markdown",
   "import-board-zip": "新增包含看板 JSON 檔案與帶有附件的看板名稱子目錄的 .zip 檔案",
   "collapse": "損毀",

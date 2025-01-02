@@ -1257,6 +1257,7 @@
   "text": "Text",
   "translation-text": "अनुवाद पाठ",
   "show-subtasks-field": "उप-कार्य फ़ील्ड दिखाएँ",
+  "show-week-of-year": "Show week of year (ISO 8601)",
   "convert-to-markdown": "मार्कडाउन में कनवर्ट करें",
   "import-board-zip": ".zip फ़ाइल जोड़ें जिसमें बोर्ड JSON फ़ाइलें हैं, और अनुलग्नकों के साथ बोर्ड नाम उपनिर्देशिकाएँ हैं",
   "collapse": "संक्षिप्त करें",
