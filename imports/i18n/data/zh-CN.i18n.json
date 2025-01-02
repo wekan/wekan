@@ -610,6 +610,7 @@
   "has-spenttime-cards": "耗时卡",
   "time": "时间",
   "title": "标题",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "切换卡片标签1-9，多选添加标签1-9",
   "remove-labels-multiselect": "多选移除标签1-9",
   "tracking": "跟踪",

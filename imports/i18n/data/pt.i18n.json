@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Tem cartões com tempo gasto",
   "time": "Tempo",
   "title": "Título",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Toggle labels 1-9 for card. Multi-Selection adds labels 1-9",
   "remove-labels-multiselect": "Multi-Selection removes labels 1-9",
   "tracking": "A seguir",

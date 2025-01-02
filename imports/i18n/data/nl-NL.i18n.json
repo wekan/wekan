@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Heeft tijd besteed aan kaarten",
   "time": "Tijd",
   "title": "Titel",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Schakel labels 1-9 in/uit voor kaart. Multi-selectie voegt labels 1-9 toe.",
   "remove-labels-multiselect": "Multi-selectie verwijderd labels 1-9",
   "tracking": "Volgen",

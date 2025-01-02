@@ -610,6 +610,7 @@
   "has-spenttime-cards": "A des cartes avec du temps passé",
   "time": "Temps",
   "title": "Titre",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Bascule les étiquettes 1-9 pour les cartes. La sélection multiple ajoute les étiquettes 1-9",
   "remove-labels-multiselect": "La multi-sélection supprime les étiquettes 1-9",
   "tracking": "Suivi",

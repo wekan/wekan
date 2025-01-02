@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Има задатке са мерењем времена",
   "time": "Време",
   "title": "Наслов",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Укључи/искључи натписе од 1 до 9 за задатак. Вишеструк избор додаје натпис од 1 до 9",
   "remove-labels-multiselect": "Вишеструким избором се уклањају натписи од 1 до 9",
   "tracking": "Праћење",

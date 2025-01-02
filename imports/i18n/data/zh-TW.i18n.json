@@ -610,6 +610,7 @@
   "has-spenttime-cards": "耗時卡",
   "time": "時間",
   "title": "標題",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "切換卡片的標籤 1-9。多重選擇新增標籤 1-9",
   "remove-labels-multiselect": "多重選擇移除標籤 1-9",
   "tracking": "訂閱相關通知",

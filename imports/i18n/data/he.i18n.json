@@ -610,6 +610,7 @@
   "has-spenttime-cards": "יש כרטיסי זמן שהושקע",
   "time": "זמן",
   "title": "כותרת",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "החלפת מצב תוויות 1-‎9 לכרטיס. בחירה מרוכזת מוסיפה תוויות 1‏-9",
   "remove-labels-multiselect": "בחירה מרוכזת מסירה תוויות 1-‏9",
   "tracking": "מעקב",

@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Sisältää käytetty aika -kortteja",
   "time": "Aika",
   "title": "Otsikko",
+  "toggle-assignees": "Muokkaa käsittelijöiden 1-9 näkyvyyttä kortilla (Taululle lisäys järjestyksessä).",
   "toggle-labels": "Muokkaa nimilappujen 1-9 näkyvyyttä kortilla. Monivalinta lisää nimilaput 1-9",
   "remove-labels-multiselect": "Monivalinta poistaa nimilaput 1-9",
   "tracking": "Ilmoitukset",

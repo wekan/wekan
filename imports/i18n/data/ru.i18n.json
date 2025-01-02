@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Имеются карточки с учетом затраченного времени",
   "time": "Время",
   "title": "Название",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Включить метки 1-9 для карточки. Множественный выбор добавляет метки 1-9",
   "remove-labels-multiselect": "Множественный выбор удаляет метки 1-9",
   "tracking": "Отслеживание",

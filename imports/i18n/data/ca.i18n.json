@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Té fitxes amb temps dedicats",
   "time": "Hora",
   "title": "Títol",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Canvia les etiquetes 1-9 per a la fitxa. La selecció múltiple afegeix les etiquetes 1-9",
   "remove-labels-multiselect": "La selecció múltiple elimina les etiquetes 1-9",
   "tracking": "En seguiment",

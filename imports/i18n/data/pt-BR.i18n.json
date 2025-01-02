@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Gastou cartões de tempo",
   "time": "Tempo",
   "title": "Título",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Alternar etiquetas 1-9 para cartão. Multi-seleção adiciona etiquetas 1-9",
   "remove-labels-multiselect": "Multi-seleção remove etiquetas 1-9",
   "tracking": "Rastreamento",

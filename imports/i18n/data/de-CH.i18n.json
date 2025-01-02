@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Hat Karten mit aufgewendeten Zeiten",
   "time": "Zeit",
   "title": "Titel",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Label 1-9 zur Karte hinzufügen. Bei Mehrfachauswahl Label 1-9 hinzufügen",
   "remove-labels-multiselect": "Labels 1-9 bei Karten-Mehrfachauswahl entfernen",
   "tracking": "Folgen",

@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Has spent time cards",
   "time": "시간",
   "title": "제목",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "카드에 대해 1-9 라벨로 전환합니다. 복수-선택은 1-9 라벨을 추가합니다",
   "remove-labels-multiselect": "복수-선택은 1-9 라벨을 제거합니다",
   "tracking": "추적",

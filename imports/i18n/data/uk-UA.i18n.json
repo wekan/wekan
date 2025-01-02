@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Має картки з витраченим часом",
   "time": "Час",
   "title": "Назва",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Перемкнути мітки 1-9 для картки. Мультивибір додає мітки 1-9",
   "remove-labels-multiselect": "Мультивибір видаляє мітки 1-9",
   "tracking": "Відстеження",

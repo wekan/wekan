@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Zaman geçirilmiş kartlar",
   "time": "Zaman",
   "title": "Başlık",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Kart için etiketler 1-9 arasında geçiş yapın. Çoklu Seçim, 1-9 arası etiketleri ekler",
   "remove-labels-multiselect": "Çoklu Seçim, 1-9 arasındaki etiketleri kaldırır",
   "tracking": "Takip",

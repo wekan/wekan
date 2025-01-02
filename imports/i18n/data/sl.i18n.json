@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Ima kartice s porabljenim časom",
   "time": "Čas",
   "title": "Naslov",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Toggle labels 1-9 for card. Multi-Selection adds labels 1-9",
   "remove-labels-multiselect": "Multi-Selection removes labels 1-9",
   "tracking": "Sledenje",

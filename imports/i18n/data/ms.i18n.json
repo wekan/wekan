@@ -610,6 +610,7 @@
   "has-spenttime-cards": "Ada kad luang masa",
   "time": "Masa",
   "title": "Tajuk",
+  "toggle-assignees": "Toggle assignees 1-9 for card (By order of addition to board).",
   "toggle-labels": "Togol label 1-9 untuk kad. Pelbagai-pilihan tambah label 1-9",
   "remove-labels-multiselect": "Pelbagai-pilihan buang labem 1-9",
   "tracking": "Jejak",
