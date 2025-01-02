@@ -1257,7 +1257,7 @@
   "text": "テキスト",
   "translation-text": "翻訳テキスト",
   "show-subtasks-field": "サブタスクフィールドを表示",
-  "show-week-of-year": "Show week of year (ISO 8601)",
+  "show-week-of-year": "年内の暦週番号(ISO 8601準拠)",
   "convert-to-markdown": "マークダウンに変換",
   "import-board-zip": "ボードJSONファイルを含む zip ファイルと、添付ファイルを含むボード名サブディレクトリを追加する",
   "collapse": "Collapse",

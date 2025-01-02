@@ -1257,7 +1257,7 @@
   "text": "Tekst",
   "translation-text": "Te vertalen tekst",
   "show-subtasks-field": "Toon subtakenveld",
-  "show-week-of-year": "Show week of year (ISO 8601)",
+  "show-week-of-year": "Toon weeknummers (ISO 8601)",
   "convert-to-markdown": "Converteer naar markdown",
   "import-board-zip": "Voeg .zip bestand toe met bord JSON bestanden, en bordnaam subdirectories met bijlagen.",
   "collapse": "Inklappen",
