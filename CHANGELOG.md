@@ -15,6 +15,17 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Add toggle for week-of-year in date displays (ISO 8601)](https://github.com/wekan/wekan/pull/5652).
+  Thanks to NadavTasher.
+- [Assign members using keyboard shortcut Ctrl+Alt+(1-9)](https://github.com/wekan/wekan/pull/5653).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.78 2024-12-31 WeKan ® release
 
 This release fixes the following bugs:
