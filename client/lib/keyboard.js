@@ -179,6 +179,35 @@ Mousetrap.bind(numArray, (evt, key) => {
   }
 });
 
+Mousetrap.bind(_.range(1, 10).map(x => `ctrl+alt+${x}`), (evt, key) => {
+  // Make sure the current user is defined
+  if (!ReactiveCache.getCurrentUser())
+    return;
+
+  // Make sure the current user is a board member
+  if (!ReactiveCache.getCurrentUser().isBoardMember())
+    return;
+
+  const memberIndex = parseInt(key.split("+").pop()) - 1;
+  const currentBoard = Utils.getCurrentBoard();
+  const boardMembers = currentBoard.memberUsers();
+
+  if (memberIndex >= boardMembers.length)
+    return;
+
+  if (MultiSelection.isActive()) {
+    for (const cardId of MultiSelection.getSelectedCardIds())
+      ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[memberIndex]._id);
+  } else {
+    const cardId = getSelectedCardId();
+
+    if (!cardId)
+      return;
+
+    ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[memberIndex]._id);
+  }
+});
+
 Mousetrap.bind('m', evt => {
   const cardId = getSelectedCardId();
   if (!cardId) {
@@ -332,6 +361,10 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['shift + number keys 1-9'],
       action: 'remove-labels-multiselect'
+    },
+    {
+      keys: ['ctrl + alt + number keys 1-9'],
+      action: 'toggle-asignees'
     },
   ],
 });
