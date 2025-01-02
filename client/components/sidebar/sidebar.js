@@ -142,6 +142,9 @@ BlazeComponent.extendComponent({
         'click .js-vertical-scrollbars-toggle'() {
           ReactiveCache.getCurrentUser().toggleVerticalScrollbars();
         },
+        'click .js-show-week-of-year-toggle'() {
+          ReactiveCache.getCurrentUser().toggleShowWeekOfYear();
+        },
         'click .js-close-sidebar'() {
           Sidebar.toggle()
         },
@@ -166,6 +169,10 @@ BlazeComponent.extendComponent({
   isVerticalScrollbars() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isVerticalScrollbars();
+  },
+  isShowWeekOfYear() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.isShowWeekOfYear();
   },
   showActivities() {
     let ret = Utils.getCurrentBoard().showActivities ?? false;

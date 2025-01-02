@@ -458,6 +458,13 @@ Users.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    'profile.showWeekOfYear': {
+      /**
+       * User-specified state of week-of-year in date displays.
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
     services: {
       /**
        * services field of the user
@@ -978,6 +985,11 @@ Users.helpers({
     return verticalScrollbars;
   },
 
+  isShowWeekOfYear() {
+    const { showWeekOfYear = true } = this.profile || {};
+    return showWeekOfYear;
+  },
+
   remove() {
     User.remove({
       _id: this._id,
@@ -1055,6 +1067,14 @@ Users.mutations({
     return {
       $set: {
         'profile.verticalScrollbars': !verticalScrollbars,
+      },
+    };
+  },
+  toggleShowWeekOfYear() {
+    const { showWeekOfYear = true } = this.profile || {};
+    return {
+      $set: {
+        'profile.showWeekOfYear': !showWeekOfYear,
       },
     };
   },
