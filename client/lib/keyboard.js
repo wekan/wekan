@@ -190,21 +190,23 @@ Mousetrap.bind(_.range(1, 10).map(x => `ctrl+alt+${x}`), (evt, key) => {
 
   const memberIndex = parseInt(key.split("+").pop()) - 1;
   const currentBoard = Utils.getCurrentBoard();
-  const boardMembers = currentBoard.memberUsers();
+  const validBoardMembers = currentBoard.memberUsers().filter(member => member.isBoardMember());
 
-  if (memberIndex >= boardMembers.length)
+  if (memberIndex >= validBoardMembers.length)
     return;
+
+  const memberId = validBoardMembers[memberIndex]._id;
 
   if (MultiSelection.isActive()) {
     for (const cardId of MultiSelection.getSelectedCardIds())
-      Cards.findOne(cardId).toggleAssignee(boardMembers[memberIndex]._id);
+      Cards.findOne(cardId).toggleAssignee(memberId);
   } else {
     const cardId = getSelectedCardId();
 
     if (!cardId)
       return;
 
-    Cards.findOne(cardId).toggleAssignee(boardMembers[memberIndex]._id);
+    Cards.findOne(cardId).toggleAssignee(memberId);
   }
 });
 
