@@ -133,7 +133,7 @@ Mousetrap.bind(numbArray, (evt, key) => {
     const cardIds = MultiSelection.getSelectedCardIds();
     for (const cardId of cardIds)
     {
-      card = ReactiveCache.getCard(cardId);
+      card = Cards.findOne(cardId);
       if(num <= board.labels.length)
       {
         card.removeLabel(labels[num-1]["_id"]);
@@ -157,7 +157,7 @@ Mousetrap.bind(numArray, (evt, key) => {
     const cardIds = MultiSelection.getSelectedCardIds();
     for (const cardId of cardIds)
     {
-      card = ReactiveCache.getCard(cardId);
+      card = Cards.findOne(cardId);
       if(num <= board.labels.length)
       {
         card.addLabel(labels[num-1]["_id"]);
@@ -171,7 +171,7 @@ Mousetrap.bind(numArray, (evt, key) => {
     return;
   }
   if (ReactiveCache.getCurrentUser().isBoardMember()) {
-    const card = ReactiveCache.getCard(cardId);
+    const card = Cards.findOne(cardId);
     if(num <= board.labels.length)
     {
       card.toggleLabel(labels[num-1]["_id"]);
@@ -197,14 +197,14 @@ Mousetrap.bind(_.range(1, 10).map(x => `ctrl+alt+${x}`), (evt, key) => {
 
   if (MultiSelection.isActive()) {
     for (const cardId of MultiSelection.getSelectedCardIds())
-      ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[memberIndex]._id);
+      Cards.findOne(cardId).toggleAssignee(boardMembers[memberIndex]._id);
   } else {
     const cardId = getSelectedCardId();
 
     if (!cardId)
       return;
 
-    ReactiveCache.getCard(cardId).toggleAssignee(boardMembers[memberIndex]._id);
+    Cards.findOne(cardId).toggleAssignee(boardMembers[memberIndex]._id);
   }
 });
 
@@ -220,7 +220,7 @@ Mousetrap.bind('m', evt => {
   }
 
   if (ReactiveCache.getCurrentUser().isBoardMember()) {
-    const card = ReactiveCache.getCard(cardId);
+    const card = Cards.findOne(cardId);
     card.toggleAssignee(currentUserId);
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
@@ -240,7 +240,7 @@ Mousetrap.bind('space', evt => {
   }
 
   if (ReactiveCache.getCurrentUser().isBoardMember()) {
-    const card = ReactiveCache.getCard(cardId);
+    const card = Cards.findOne(cardId);
     card.toggleMember(currentUserId);
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
@@ -260,7 +260,7 @@ const archiveCard = evt => {
   }
 
   if (Utils.canModifyBoard()) {
-    const card = ReactiveCache.getCard(cardId);
+    const card = Cards.findOne(cardId);
     card.archive();
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
@@ -289,7 +289,7 @@ Mousetrap.bind('n', evt => {
 
   if (Utils.canModifyBoard()) {
     // Find the current hovered card
-    const card = ReactiveCache.getCard(cardId);
+    const card = Cards.findOne(cardId);
 
     // Find the button and click it
     $(`#js-list-${card.listId} .list-body .minicards .open-minicard-composer`).click();
