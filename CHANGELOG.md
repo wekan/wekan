@@ -15,6 +15,17 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix card updating issues with ReactiveCache when using keyboard shortcuts](https://github.com/wekan/wekan/pull/5654).
+  Thanks to NadavTasher.
+- [Fix assignee toggling keyboard shortcut to only toggle current board members](https://github.com/wekan/wekan/pull/5655).
+  Thanks to NadavTasher.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.79 2025-01-02 WeKan ® release
 
 This release adds the following new features:
