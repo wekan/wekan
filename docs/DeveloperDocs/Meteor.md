@@ -1,3 +1,7 @@
+## Learning Course: Your First Meteor 3.1 Application
+
+- https://www.youtube.com/watch?v=aFZzBb2oRi8&list=PLKKckIyt2nF863eP16mvVgWKR4JDyJoKy
+
 ## Meteor 3 Example Code
 
 - https://github.com/fredmaiaarantes/simpletasks
