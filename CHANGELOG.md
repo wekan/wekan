@@ -27,6 +27,11 @@ and adds the following updates:
 - [Updated Docker Actions](https://github.com/wekan/wekan/pull/5670).
   Thanks to dependabot.
 
+and fixes the following bugs:
+
+- [Fixed env variable METRICS_ACCEPTED_IP_ADDRESS to be same as at docs](https://github.com/wekan/wekan/commit/0b1e0bd39569175668c195b63dde91bf0e6f1b24).
+  Thanks to salleman33.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.80 2025-01-12 WeKan ® release
