@@ -385,6 +385,9 @@
       #export LDAP_BACKGROUND_SYNC=false
       #
       # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
+      # The format must be as specified in:
+      # https://bunkat.github.io/later/parsers.html#text
+      #export LDAP_BACKGROUND_SYNC_INTERVAL=every 1 hours
       # At which interval does the background task sync in milliseconds.
       # Leave this unset, so it uses default, and does not crash.
       # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722

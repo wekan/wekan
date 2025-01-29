@@ -459,6 +459,9 @@ REM # example : LDAP_BACKGROUND_SYNC=true
 REM SET LDAP_BACKGROUND_SYNC=false
 
 REM # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
+REM # The format must be as specified in:
+REM # https://bunkat.github.io/later/parsers.html#text
+REM SET LDAP_BACKGROUND_SYNC_INTERVAL=every 1 hours
 REM # At which interval does the background task sync in milliseconds.
 REM # Leave this unset, so it uses default, and does not crash.
 REM # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
