@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import Users from '../users';
 
 function acceptedIpAddress(ipAddress) {
-  const trustedIpAddress = process.env.WEKAN_METRICS_ACCEPTED_IP_ADDRESS;
+  const trustedIpAddress = process.env.METRICS_ACCEPTED_IP_ADDRESS;
   return (
     trustedIpAddress !== undefined &&
     trustedIpAddress.split(',').includes(ipAddress)
@@ -48,7 +48,7 @@ Meteor.startup(() => {
       //   const ipAddress = req.socket.remoteAddress
       // }
 
-      // List of trusted ip adress will be found in environment variable "WEKAN_METRICS_ACCEPTED_IP_ADDRESS" (separeted with commas)
+      // List of trusted ip adress will be found in environment variable "METRICS_ACCEPTED_IP_ADDRESS" (separeted with commas)
       if (acceptedIpAddress(ipAddress)) {
         let metricsRes = '';
         let resCount = 0;
