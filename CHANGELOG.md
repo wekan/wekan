@@ -26,11 +26,15 @@ and adds the following updates:
 
 - [Updated Docker Actions](https://github.com/wekan/wekan/pull/5670).
   Thanks to dependabot.
+- [Added Meteor 3.1 learning course to docs](https://github.com/wekan/wekan/commit/0c7e12c5e7f322bdbaaa61100e66153dd0b92e4d).
+  Thanks to producer of learning course.
 
 and fixes the following bugs:
 
 - [Fixed env variable METRICS_ACCEPTED_IP_ADDRESS to be same as at docs](https://github.com/wekan/wekan/commit/0b1e0bd39569175668c195b63dde91bf0e6f1b24).
   Thanks to salleman33.
+- [Fixed misspelling of hours at env variable setting LDAP_BACKGROUND_SYNC_INTERVAL](https://github.com/wekan/wekan/commit/36a307785369337a788499065f64175971878930).
+  Thanks to hubermam.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
