@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Helm Chart: Added secretManaged value for enabling or disabling the creation of secret by Helm](https://github.com/wekan/charts/pull/39).
+  Thanks to salleman33.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.80 2025-01-12 WeKan ® release
 
 This release fixes the following bugs:
