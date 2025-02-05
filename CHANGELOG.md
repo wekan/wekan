@@ -35,6 +35,8 @@ and fixes the following bugs:
   Thanks to salleman33.
 - [Fixed misspelling of hours at env variable setting LDAP_BACKGROUND_SYNC_INTERVAL](https://github.com/wekan/wekan/commit/36a307785369337a788499065f64175971878930).
   Thanks to hubermam.
+- [Helm Chart: Restore pod security context in deployment](https://github.com/wekan/charts/pull/40).
+  Thanks to adalinesimonian.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
