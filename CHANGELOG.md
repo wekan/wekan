@@ -15,7 +15,7 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.81 2025-02-07 WeKan ® release
 
 This release adds the following new features:
 
@@ -28,6 +28,8 @@ and adds the following updates:
   Thanks to dependabot.
 - [Added Meteor 3.1 learning course to docs](https://github.com/wekan/wekan/commit/0c7e12c5e7f322bdbaaa61100e66153dd0b92e4d).
   Thanks to producer of learning course.
+- [Upgraded to MongoDB 6.0.20 at Snap Candidate](https://github.com/wekan/wekan/commit/b571f1c9530b899db75bf28a03c18277a9b77cb8).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
