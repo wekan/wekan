@@ -28,7 +28,7 @@ function accessToken(req) {
     token = req.query.access_token;
   }
   return (
-    token !== undefined && 
+    token !== undefined &&
     valid_token !== undefined &&
     token == valid_token
   );
@@ -74,7 +74,7 @@ Meteor.startup(() => {
       // }
 
       // List of trusted ip adress will be found in environment variable "METRICS_ACCEPTED_IP_ADDRESS" (separeted with commas)
-      if (acceptedIpAddress(ipAddress) || (accessToken(req)) {
+      if (acceptedIpAddress(ipAddress) || (accessToken(req))) {
         let metricsRes = '';
         let resCount = 0;
         //connected users
@@ -195,12 +195,12 @@ Meteor.startup(() => {
 
         metricsRes +=
           '# Top 10 boards with most activities dated 30 days ago\n';
-        //Get top 10 table with most activities in current month       
+        //Get top 10 table with most activities in current month
         const boardTitleWithMostActivities = getBoardTitleWithMostActivities(
           dateWithXdaysAgo,
           xdays,
         );
-        
+
         const boardWithMostActivities = boardTitleWithMostActivities.map(
           (board) => board.lookup[0].title,
         );
@@ -210,7 +210,7 @@ Meteor.startup(() => {
             `wekan_top10BoardsWithMostActivities{n="${title}"} ${
               index + 1
             }` + '\n';
-        });       
+        });
 
         res.writeHead(200); // HTTP status
         res.end(metricsRes);
