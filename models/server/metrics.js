@@ -9,6 +9,31 @@ function acceptedIpAddress(ipAddress) {
   );
 }
 
+function accessToken(req) {
+  const valid_token = process.env.METRICS_ACCESS_TOKEN;
+  let token;
+  if (req.headers && req.headers.authorization) {
+    var parts = req.headers.authorization.split(" ");
+
+    if (parts.length === 2) {
+      var scheme = parts[0];
+      var credentials = parts[1];
+
+      if (/^Bearer$/i.test(scheme)) {
+        token = credentials;
+      }
+    }
+  }
+  if (!token && req.query && req.query.access_token) {
+    token = req.query.access_token;
+  }
+  return (
+    token !== undefined && 
+    valid_token !== undefined &&
+    token == valid_token
+  );
+}
+
 const getBoardTitleWithMostActivities = (dateWithXdaysAgo, nbLimit) => {
   return Promise.await(
     Activities.rawCollection()
@@ -49,7 +74,7 @@ Meteor.startup(() => {
       // }
 
       // List of trusted ip adress will be found in environment variable "METRICS_ACCEPTED_IP_ADDRESS" (separeted with commas)
-      if (acceptedIpAddress(ipAddress)) {
+      if (acceptedIpAddress(ipAddress) || (accessToken(req)) {
         let metricsRes = '';
         let resCount = 0;
         //connected users
