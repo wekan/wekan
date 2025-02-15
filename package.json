@@ -28,7 +28,7 @@
     "ajv": "^6.12.6",
     "bcryptjs": "^2.4.3",
     "bson": "^4.5.2",
-    "dompurify": "^2.5.6",
+    "dompurify": "^3.2.4",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
     "fibers": "^5.0.3",
