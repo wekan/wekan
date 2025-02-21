@@ -15,6 +15,27 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Add possibility to use a token in place of ipaddress to access metrics route](https://github.com/wekan/wekan/pull/5682).
+  Thanks to salleman33.
+
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/pull/5691).
+  Thanks to dependabot.
+- [Updated requirements at docs](https://github.com/wekan/wekan/commit/148b81262d0d143460e881d645fefa6740aae40d).
+  Thanks to mueller-ma.
+
+and fixes the following bugs:
+
+- [Added missing ) character](https://github.com/wekan/wekan/commit/563a508e269be87eb713e2888409525e1ba82001).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.81 2025-02-07 WeKan ® release
 
 This release adds the following new features:
