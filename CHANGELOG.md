@@ -28,6 +28,10 @@ and adds the following updates:
   Thanks to dependabot.
 - [Updated requirements at docs](https://github.com/wekan/wekan/commit/148b81262d0d143460e881d645fefa6740aae40d).
   Thanks to mueller-ma.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/666ee8403388f7d5e1a30cf0e53bc46a70bf1c40).
+  Thanks to developes of dependencies.
+- [Fixed building WeKan. Updated dompurify. Forked Meteor 2.14 version of meteor-node-stubs to update elliptic](https://github.com/wekan/wekan/commit/18d0fa43275cd2955dd6416213e316ca08a62255).
+  Thanks to developers of depedencies and xet7.
 
 and fixes the following bugs:
 
