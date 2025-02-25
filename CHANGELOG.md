@@ -17,6 +17,8 @@ Fixing other platforms In Progress.
 
 # v7.82 2025-02-24 WeKan ® release
 
+v7.82 Docker version is broken: https://github.com/wekan/wekan/issues/5697 . Snap Candidate works.
+
 This release adds the following new features:
 
 - [Add possibility to use a token in place of ipaddress to access metrics route](https://github.com/wekan/wekan/pull/5682).
