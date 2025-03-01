@@ -107,6 +107,14 @@ that by providing one-click installation on various platforms.
 We also welcome sponsors for features and bugfixes.
 By working directly with WeKan ® you get the benefit of active maintenance and new features added by growing WeKan ® developer community.
 
+## Getting Started with Development
+
+The default branch uses [Meteor 2 with Node.js 14](https://wekan.github.io/install/).
+
+To contribute, [create a fork](https://github.com/wekan/wekan/wiki/Emoji#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/wiki/Emoji#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/wiki/Emoji#7-test).
+
+Please refer to the [developer documentation](https://github.com/wekan/wekan/wiki/Developer-Documentation) for more information.
+
 ## Screenshot
 
 [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
