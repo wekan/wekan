@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Adding Development information to readme](https://github.com/wekan/wekan/pull/5702).
+  Thanks to adam-fu.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.82 2025-02-24 WeKan ® release
 
 v7.82 Docker version is broken: https://github.com/wekan/wekan/issues/5697 . Snap Candidate works.
