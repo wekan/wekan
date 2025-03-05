@@ -21,6 +21,9 @@ This release adds the following updates:
 
 - [Adding Development information to readme](https://github.com/wekan/wekan/pull/5702).
   Thanks to adam-fu.
+- Updated GitHub actions.
+  [Part 1](https://github.com/wekan/wekan/pull/5703),
+  [Part 2](https://github.com/wekan/wekan/pull/5704).
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
