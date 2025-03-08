@@ -33,6 +33,8 @@ and fixes the following bugs:
   Thanks to Firas-Git.
 - [Comment out error message of non-existing Custom Field](https://github.com/wekan/wekan/commit/908a5fc60d5d574a36d4bfd496d3a16fd267ae75).
   Thanks to xet7.
+- [Reverted Docker changes of WeKan v7.68 to get WeKan Docker version working](https://github.com/wekan/wekan/commit/e7462ada12ec8edfd08d6c3b3a97a034211d51eb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
