@@ -25,6 +25,11 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/pull/5703),
   [Part 2](https://github.com/wekan/wekan/pull/5704).
 
+and fixes the following bugs:
+
+- [Exception while invoking method 'copyCard' TypeError: Cannot read property 'name' of undefined](https://github.com/wekan/wekan/pull/5711).
+  Thanks to Firas-Git.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.82 2025-02-24 WeKan ® release
