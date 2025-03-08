@@ -535,7 +535,7 @@ Cards.helpers({
 
         // Check if oldCf is undefined or null
         if (!oldCf) {
-            console.error(`Custom field with ID ${cf._id} not found.`);
+            //console.error(`Custom field with ID ${cf._id} not found.`);
             return cf;  // Skip this field if oldCf is not found
         }
 
