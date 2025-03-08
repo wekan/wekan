@@ -2,6 +2,7 @@
 
 - 2024-08 Design discussion here: https://github.com/wekan/wekan/discussions/5507
 - Original WeKan Design:
+  - Uses WeKan style confirm popups `Popup.afterConfirm(` , translations etc. Please look at existing code to keep same style.
   - Kanban, the good parts. Like was done when figuring out best design for Swimlanes https://github.com/wekan/wekan/issues/955
   - Intuitive, easy to figure out, prevent messing up something https://github.com/wekan/wekan/wiki/Monkey-Proof-Software
   - Polished UI/UX
