@@ -531,20 +531,30 @@ Cards.helpers({
   mapCustomFieldsToBoard(boardId) {
     // Map custom fields to new board
     return this.customFields.map(cf => {
-      const oldCf = ReactiveCache.getCustomField(cf._id);
-      const newCf = ReactiveCache.getCustomField({
-        boardIds: boardId,
-        name: oldCf.name,
-        type: oldCf.type,
-      });
-      if (newCf) {
-        cf._id = newCf._id;
-      } else if (!_.contains(oldCf.boardIds, boardId)) {
-        oldCf.addBoard(boardId);
-      }
-      return cf;
+        const oldCf = ReactiveCache.getCustomField(cf._id);
+
+        // Check if oldCf is undefined or null
+        if (!oldCf) {
+            //console.error(`Custom field with ID ${cf._id} not found.`);
+            return cf;  // Skip this field if oldCf is not found
+        }
+
+        const newCf = ReactiveCache.getCustomField({
+            boardIds: boardId,
+            name: oldCf.name,
+            type: oldCf.type,
+        });
+
+        if (newCf) {
+            cf._id = newCf._id;
+        } else if (!_.contains(oldCf.boardIds, boardId)) {
+            oldCf.addBoard(boardId);
+        }
+
+        return cf;
     });
-  },
+},
+
 
   copy(boardId, swimlaneId, listId) {
     const oldId = this._id;

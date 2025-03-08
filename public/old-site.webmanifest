@@ -513,8 +513,10 @@
   "categories": [
     "productivity"
   ],
+  "iarc_rating_id": "70d7c4a4-3e5a-4714-a7dc-fa006613ba96",
   "description": "Open Source kanban with MIT license",
   "dir": "auto",
+  "scope": "https://boards.wekan.team",
   "prefer_related_applications": false,
   "display_override": [
     "standalone"
