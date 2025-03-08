@@ -27,8 +27,12 @@ This release adds the following updates:
 
 and fixes the following bugs:
 
+- [Removed siteurl from manifest to fix browser console error about not matching URL](https://github.com/wekan/wekan/commit/b402676079517e463ed291285f69c04126a00975).
+  Thanks to xet7.
 - [Exception while invoking method 'copyCard' TypeError: Cannot read property 'name' of undefined](https://github.com/wekan/wekan/pull/5711).
   Thanks to Firas-Git.
+- [Comment out error message of non-existing Custom Field](https://github.com/wekan/wekan/commit/908a5fc60d5d574a36d4bfd496d3a16fd267ae75).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
