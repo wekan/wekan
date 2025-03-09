@@ -155,7 +155,10 @@ if (Meteor.isServer) {
     }
     if (activity.memberId) {
       participants = _.union(participants, [activity.memberId]);
-      params.member = activity.member().getName();
+      const member = activity.member();
+      if (member) {
+        params.member = member.getName();
+      }
     }
     if (activity.listId) {
       const list = activity.list();
@@ -255,34 +258,27 @@ if (Meteor.isServer) {
     if (activity.checklistId) {
       const checklist = activity.checklist();
       if (checklist) {
-        if (checklist.title) {
-          params.checklist = checklist.title;
-        }
+        params.checklist = checklist.title;
+        params.checklistId = activity.checklistId;
       }
     }
     if (activity.checklistItemId) {
       const checklistItem = activity.checklistItem();
       if (checklistItem) {
-        if (checklistItem.title) {
-          params.checklistItem = checklistItem.title;
-        }
+        params.checklistItem = checklistItem.text;
+        params.checklistItemId = activity.checklistItemId;
       }
     }
-    if (activity.customFieldId) {
-      const customField = activity.customField();
-      if (customField) {
-        if (customField.name) {
-          params.customField = customField.name;
-        }
-        if (activity.value) {
-          params.customFieldValue = activity.value;
-        }
-      }
+    if (activity.subtaskId) {
+      const subtask = activity.subtasks();
+      params.subtask = subtask.title;
+      params.subtaskId = activity.subtaskId;
     }
+
     // Label activity did not work yet, unable to edit labels when tried this.
     if (activity.labelId) {
       const label = activity.label();
-      if (label) {
+      if (label) {  // Check if label exists
         if (label.name) {
           params.label = label.name;
         } else if (label.color) {
@@ -293,76 +289,14 @@ if (Meteor.isServer) {
         }
       }
     }
-    if (
-      (!activity.timeKey || activity.timeKey === 'dueAt') &&
-      activity.timeValue
-    ) {
-      // due time reminder, if it doesn't have old value, it's a brand new set, need some differentiation
-      title = activity.timeOldValue ? 'act-withDue' : 'act-newDue';
-    }
-    ['timeValue', 'timeOldValue'].forEach(key => {
-      // copy time related keys & values to params
-      const value = activity[key];
-      if (value) params[key] = value;
-    });
-    if (board) {
-      const BIGEVENTS = process.env.BIGEVENTS_PATTERN; // if environment BIGEVENTS_PATTERN is set, any activityType matching it is important
-      if (BIGEVENTS) {
-        try {
-          const atype = activity.activityType;
-          if (new RegExp(BIGEVENTS).exec(atype)) {
-            watchers = _.union(
-              watchers,
-              board.activeMembers().map(member => member.userId),
-            ); // notify all active members for important events
-          }
-        } catch (e) {
-          // passed env var BIGEVENTS_PATTERN is not a valid regex
-        }
-      }
 
-      const watchingUsers = _.pluck(
-        _.where(board.watchers, { level: 'watching' }),
-        'userId',
-      );
-      const trackingUsers = _.pluck(
-        _.where(board.watchers, { level: 'tracking' }),
-        'userId',
-      );
-      watchers = _.union(
-        watchers,
-        watchingUsers,
-        _.intersection(participants, trackingUsers),
-      );
-    }
-    Notifications.getUsers(watchers).forEach(user => {
-      // don't notify a user of their own behavior
-      if (user._id !== userId) {
-        Notifications.notify(user, title, description, params);
-      }
+    Notifications.insert({
+      userId,
+      participants,
+      watchers,
+      title,
+      description,
+      params,
     });
-
-    const integrations = ReactiveCache.getIntegrations({
-      boardId: { $in: [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID] },
-      // type: 'outgoing-webhooks', // all types
-      enabled: true,
-      activities: { $in: [description, 'all'] },
-    });
-    if (integrations.length > 0) {
-      params.watchers = watchers;
-      integrations.forEach(integration => {
-        Meteor.call(
-          'outgoingWebhooks',
-          integration,
-          description,
-          params,
-          () => {
-            return;
-          },
-        );
-      });
-    }
   });
 }
-
-export default Activities;
