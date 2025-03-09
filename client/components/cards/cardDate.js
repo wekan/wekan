@@ -11,7 +11,7 @@ import { DatePicker } from '/client/lib/datepicker';
   }
 
   _storeDate(date) {
-    this.card.setReceived(date);
+    this.card.setReceived(moment(date).format('YYYY-MM-DD HH:mm'));
   }
 
   _deleteDate() {
@@ -37,7 +37,7 @@ import { DatePicker } from '/client/lib/datepicker';
   }
 
   _storeDate(date) {
-    this.card.setStart(date);
+    this.card.setStart(moment(date).format('YYYY-MM-DD HH:mm'));
   }
 
   _deleteDate() {
@@ -60,7 +60,7 @@ import { DatePicker } from '/client/lib/datepicker';
   }
 
   _storeDate(date) {
-    this.card.setDue(date);
+    this.card.setDue(moment(date).format('YYYY-MM-DD HH:mm'));
   }
 
   _deleteDate() {
@@ -83,7 +83,7 @@ import { DatePicker } from '/client/lib/datepicker';
   }
 
   _storeDate(date) {
-    this.card.setEnd(date);
+    this.card.setEnd(moment(date).format('YYYY-MM-DD HH:mm'));
   }
 
   _deleteDate() {
