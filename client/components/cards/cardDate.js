@@ -322,19 +322,19 @@ CardCustomFieldDate.register('cardCustomFieldDate');
 
 (class extends CardStartDate {
   showDate() {
-    return this.date.get().format('L');
+    return this.date.get().format('YYYY-MM-DD HH:mm');
   }
 }.register('minicardStartDate'));
 
 (class extends CardDueDate {
   showDate() {
-    return this.date.get().format('L');
+    return this.date.get().format('YYYY-MM-DD HH:mm');
   }
 }.register('minicardDueDate'));
 
 (class extends CardEndDate {
   showDate() {
-    return this.date.get().format('L');
+    return this.date.get().format('YYYY-MM-DD HH:mm');
   }
 }.register('minicardEndDate'));
 
