@@ -6,6 +6,7 @@ Please read the meteor style guide before making any significant contribution.
 
 # Stories about how Wekan works, and developing Wekan
 
+- [Login code](https://github.com/wekan/wekan/issues/5714)
 - https://www.mongodb.com/docs/drivers/node/v3.7/fundamentals/promises/
 - [Do not use code formatters like Prettier and ESLint](https://github.com/wekan/wekan/pull/4633#issuecomment-1214214591)
 - [How realtime board updates work](https://github.com/wekan/wekan/issues/3788#issuecomment-834649553)
