@@ -366,7 +366,7 @@ Template.keyboardShortcuts.helpers({
     },
     {
       keys: ['ctrl + alt + number keys 1-9'],
-      action: 'toggle-asignees'
+      action: 'toggle-assignees'
     },
   ],
 });
