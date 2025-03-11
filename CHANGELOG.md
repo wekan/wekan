@@ -27,6 +27,11 @@ and adds the following updates:
 - [Added developer docs about Login code](https://github.com/wekan/wekan/commit/c0e4e01deb936653df69b4fd21598ac27cd349a0).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fixed typo at Shortcuts, now became visible translations of assignees visibility 1-9 shortcuts](https://github.com/wekan/wekan/commit/4510ddda1507bc775b9523d3673adba48d7a8385).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.83 2025-03-08 WeKan ® release
