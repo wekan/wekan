@@ -65,6 +65,8 @@ def get_req_body_elems(obj, elems):
     elif obj.type in ('LogicalExpression', 'BinaryExpression', 'AssignmentExpression'):
         get_req_body_elems(obj.left, elems)
         get_req_body_elems(obj.right, elems)
+    elif obj.type == 'ChainExpression':
+        get_req_body_elems(obj.expression, elems)
     elif obj.type in ('ReturnStatement', 'UnaryExpression'):
         if obj.argument is not None:
             get_req_body_elems(obj.argument, elems)
