@@ -31,6 +31,8 @@ and fixes the following bugs:
 
 - [Fixed typo at Shortcuts, now became visible translations of assignees visibility 1-9 shortcuts](https://github.com/wekan/wekan/commit/4510ddda1507bc775b9523d3673adba48d7a8385).
   Thanks to xet7.
+- [Fixed building OpenAPI docs](https://github.com/wekan/wekan/commit/a2911bc9c3bd94ef583388931d2cd354cc8657e3).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
