@@ -26,6 +26,10 @@ and adds the following updates:
 
 - [Added developer docs about Login code](https://github.com/wekan/wekan/commit/c0e4e01deb936653df69b4fd21598ac27cd349a0).
   Thanks to xet7.
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/pull/5718),
+  [Part 2](https://github.com/wekan/wekan/commit/bb6ac70f63b6f3568b7c943417c698615936a956).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
