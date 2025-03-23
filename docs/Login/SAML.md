@@ -47,3 +47,21 @@ Wekan clientside code is at `wekan/client/components/main/layouts.*`
 Wekan serverside code is at:
 - `wekan/server/authentication.js` at bottom
 - `wekan/packages/meteor-accounts-saml/*`
+
+## Gitea
+
+- https://github.com/crewjam/saml
+- https://github.com/go-gitea/gitea/pull/29403
+- https://docs.gitea.com/enterprise/features/saml-auth
+
+## Laravel
+
+- https://github.com/24Slides/laravel-saml2
+
+## ruby-saml/omniauth/RoR: Sign in as anyone: Bypassing SAML SSO authentication with parser differentials
+
+- https://github.blog/security/sign-in-as-anyone-bypassing-saml-sso-authentication-with-parser-differentials/
+- https://news.ycombinator.com/item?id=43349634
+- https://github.com/github/securitylab
+
+
