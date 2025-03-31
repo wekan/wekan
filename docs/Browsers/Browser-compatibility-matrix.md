@@ -19,7 +19,7 @@ Any telemetry at any Firefox based browser can be additionally most locked down 
 Browser | [PWA](PWA) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
 [Mypal](https://github.com/reactosapps/apps/releases/download/0.01/mypal-27.9.4.win32.installer.exe) | No | No | Newest | For 32bit ReactOS/WinXP/Win7/etc [issue](https://github.com/wekan/wekan/issues/3132)
-Firefox | Android Yes | Android Newest | Newest | Win/Mac/Linux/BSD/RasPi. [Haiku](https://discuss.haiku-os.org/t/progress-on-porting-firefox/13493/143) not tested yet - [HN](https://news.ycombinator.com/item?id=41214762).
+Firefox | No | Newest | Newest | iOS/Android/Win/Mac/Linux/BSD/RasPi. At iOS uses Safari engine, elsewhere Firefox engine. [Haiku](https://discuss.haiku-os.org/t/progress-on-porting-firefox/13493/143) not tested yet - [HN](https://news.ycombinator.com/item?id=41214762).
 [Waterfox](https://www.waterfox.net) | No | No | Yes | Win/Mac/Linux, more private than Firefox, no tracking. [Repo](https://github.com/BrowserWorks/Waterfox)
 [Floorp](https://floorp.app) | No | No | Yes | [Win/Mac/Linux](https://github.com/Floorp-Projects/Floorp/releases), more private than Firefox, [Repo](https://github.com/Floorp-Projects/Floorp)
 [Mercury](https://thorium.rocks/mercury) | No | No | Yes | [Win/Linux](https://github.com/Alex313031/Mercury/releases), more private than Firefox, [Repo](https://github.com/Alex313031/Mercury)
@@ -61,7 +61,7 @@ Internet Explorer | No | No | No | No | No
 - Apache 2.0 or MIT license
 - Repo: https://github.com/versotile-org/verso
 
-## Ladybird based, not tested yet:
+## Ladybird based, not yet compatible with WeKan
 
 - BSD-2-Clause license
 - Website: https://ladybird.org
@@ -77,7 +77,7 @@ Benefits:
 
 ## Desktop app with Meteor
 
-https://forums.meteor.com/t/desktop-electron-meteor-app-with-todesktop/60904
+- https://forums.meteor.com/t/desktop-electron-meteor-app-with-todesktop/60904
 
 ## Optional Payments
 
