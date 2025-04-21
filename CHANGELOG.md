@@ -24,6 +24,11 @@ This release adds the following updates:
   [Part2](https://github.com/wekan/wekan/commit/05d1736f5f21e93e83b2e25029c6cab6c5106398).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix board sidebar menu doesn't open in mobile](https://github.com/wekan/wekan/commit/01950cc796697fa201ac9e4376cb204d308e8181).
+  Thanks to mimZD and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.84 2025-03-23 WeKan ® release
