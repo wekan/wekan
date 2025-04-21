@@ -177,7 +177,7 @@
 @media screen and (max-width: 800px) {
   .board-sidebar {
     width: 100%;
-    right: -100%;
+    left: 0;
   }
   .board-sidebar .sidebar-content .hide-btn {
     width: 40px;
