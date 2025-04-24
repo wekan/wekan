@@ -1,8 +1,22 @@
-Admin Panel / People / Click at right side of usename `...` button that is User Settings / Impersonate user.
+## Impersonate a User
 
-You will be switched to logged in as that user.
+To impersonate another user in the Admin Panel:
 
-To switch back to your original user, at your webbrowser click `Reload open webpage` round arrow button.
+1. Go to **Admin Panel** → **People**.
+2. Find the user you want to impersonate.
+3. Click the **`...` (three dots)** menu on the right side of the username.
+4. Select **User Settings** → **Impersonate User**.
 
-This feature was added to Wekan v4.39 at https://github.com/wekan/wekan/pull/3280
+You will now be logged in as that user.
+
+### How to Switch Back
+To return to your original admin account:
+
+- Click the **Reload** (🔄) button in your web browser to refresh the page.
+
+---
+
+📝 **Note:**  
+This feature was added in **Wekan v4.39**  
+See [Issue #3280](https://github.com/wekan/wekan/issues/3280) for more details.
 
