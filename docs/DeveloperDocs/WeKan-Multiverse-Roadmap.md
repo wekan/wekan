@@ -4,15 +4,35 @@
   - Bun Javascript Engine https://bun.sh
   - MongoDB 5.x and newer https://github.com/turnkeylinux/tracker/issues/1724#issuecomment-2351544191
 - Does not work at s390x
-  - V programming language https://github.com/vlang/v/issues/18737
   - Bun Javascript Engine https://github.com/oven-sh/bun/issues/2632
   - Deno Javascript Engine https://github.com/denoland/deno/issues/20212#issuecomment-1756663943
   - Lazarus IDE https://www.lazarus-ide.org
     - FreePascal programming language https://www.freepascal.org
   - TigerBeetle database https://github.com/tigerbeetle/tigerbeetle/issues/2241
-- GUI requires porting to other OS
+
+## What is Cross-Platform
+
+- Works at s390x
+  - Programming languages
+    - Node.js https://nodejs.org https://github.com/wekan/ferretdb/tree/main/node-deno-bun (not Deno or Bun)
+    - C89 https://github.com/xet7/darkesthour
+    - PHP https://github.com/wekan/php
+    - Go  https://github.com/wekan/wekango
+    - Tcl/Tk
+  - Web Frameworks
+    - V veb https://github.com/vlang/v/issues/18737
+    - Gambas https://github.com/wekan/hx/tree/main/prototypes/ui/gambas
+    - Python Py4Web https://py4web.com
+    - Ruby on Rails https://github.com/werot
+    - WeKan Studio  https://github.com/wekan/wekanstudio
+- Works at AmigaOS 3.x/4.x/MorphOS/AROS, Win/Mac/Linux
+  - Web frameworks
+    - FreePascal https://github.com/wekan/wami
+- GUI
   - BBC Basic https://www.bbcbasic.net/wiki/doku.php?id=converting_20programs_20from_20risc_20os_20to_20windows
-  - Tcl/Tk GUI does works at most OS
+  - Godot https://godotengine.org , https://github.com/godotengine/godot
+  - Redot https://www.redotengine.org , https://github.com/Redot-Engine/redot-engine
+  - HaxeUI https://haxeui.org
 
 ## Prototype Strategy
 
@@ -251,7 +271,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
   - Only test webpage. No actual features.
 
 ### Node.js 20, Bun and Deno
-- Repo https://github.com/wekan/wekan-node20
+- Repo https://github.com/wekan/ferretdb/tree/main/node-deno-bun
 - Features:
   - main.js makes database queries to many databases
   - Database drivers:
@@ -282,7 +302,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
 ### FreePascal
 
 - Repo https://github.com/wekan/wami
-  - Some static pages
+  - Some static pages. At upload page, uploading file now works.
 - Previous:
   - Repo https://github.com/wekan/hx/tree/main/prototypes/code/webserver/works/freepascal-router
   - Router and some webpage
@@ -346,3 +366,7 @@ https://github.com/wekan/php/blob/main/page/allboardschar.php
 
 - https://github.com/josephernest/Swap
 - https://news.ycombinator.com/item?id=35991783
+
+### Ruby on Rails
+
+- https://github.com/wekan/weror . Password register and login works, there is workspaces and dragging cards, but no user management etc features yet.
