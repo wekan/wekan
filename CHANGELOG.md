@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Improve impersonate user documentation in docs/Admin/Impersonate-user.md](https://github.com/wekan/wekan/pull/5746).
+  Thanks to nourguidara.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.85 2025-04-21 WeKan ® release
 
 This release adds the following updates:
