@@ -15,7 +15,18 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# v7.88 2025-04-25 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Reverted translation fix that sometimes did not work](https://github.com/wekan/wekan/commit/c825895cebd24355d076741512c9aa16844393d9).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.87 2025-04-25 WeKan ® release
+
+Note: This release does not work, there is bugs. Use newest release.
 
 This release fixes the following bugs:
 
