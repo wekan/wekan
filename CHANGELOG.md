@@ -26,6 +26,8 @@ and fixes the following bugs:
 
 - [Add toggle watch icon on card. Add questions are you sure to duplicate board and archive board](https://github.com/wekan/wekan/pull/5745).
   Thanks to Rayene123.
+- [Fix translations not working](https://github.com/wekan/wekan/pull/5748).
+  Thanks to nourguidara.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
