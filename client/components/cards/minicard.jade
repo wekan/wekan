@@ -225,3 +225,12 @@ template(name="minicardDetailsActionsPopup")
         a.js-link
           i.fa.fa-link
           | {{_ 'link-card'}}
+      li
+      a.js-toggle-watch-card
+        if isWatching
+          i.fa.fa-eye
+          |  {{_ 'unwatch'}}
+        else
+          i.fa.fa-eye-slash
+          |  {{_ 'watch'}}
+

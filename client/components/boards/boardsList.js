@@ -239,34 +239,40 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
         },
         'click .js-clone-board'(evt) {
-          let title = getSlug(ReactiveCache.getBoard(this.currentData()._id).title) || 'cloned-board';
-          Meteor.call(
-            'copyBoard',
-            this.currentData()._id,
-            {
-              sort: ReactiveCache.getBoards({ archived: false }).length,
-              type: 'board',
-              title: ReactiveCache.getBoard(this.currentData()._id).title,
-            },
-            (err, res) => {
-              if (err) {
-                console.error(err);
-              } else {
-                Session.set('fromBoard', null);
-                subManager.subscribe('board', res, false);
-                FlowRouter.go('board', {
-                  id: res,
-                  slug: title,
-                });
-              }
-            },
-          );
-          evt.preventDefault();
+          if (confirm(TAPi18n.__('duplicate-board-confirm')) {
+            let title =
+              getSlug(ReactiveCache.getBoard(this.currentData()._id).title) ||
+              'cloned-board';
+            Meteor.call(
+              'copyBoard',
+              this.currentData()._id,
+              {
+                sort: ReactiveCache.getBoards({ archived: false }).length,
+                type: 'board',
+                title: ReactiveCache.getBoard(this.currentData()._id).title,
+              },
+              (err, res) => {
+                if (err) {
+                  console.error(err);
+                } else {
+                  Session.set('fromBoard', null);
+                  subManager.subscribe('board', res, false);
+                  FlowRouter.go('board', {
+                    id: res,
+                    slug: title,
+                  });
+                }
+              },
+            );
+            evt.preventDefault();
+          }
         },
         'click .js-archive-board'(evt) {
-          const boardId = this.currentData()._id;
-          Meteor.call('archiveBoard', boardId);
-          evt.preventDefault();
+          if (confirm(TAPi18n.__('archive-board-confirm')) {
+            const boardId = this.currentData()._id;
+            Meteor.call('archiveBoard', boardId);
+            evt.preventDefault();
+          }
         },
         'click .js-accept-invite'() {
           const boardId = this.currentData()._id;
