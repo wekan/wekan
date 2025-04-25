@@ -3179,10 +3179,17 @@ THEME - Clean Dark
  margin-top: 8px;
 }
 
+.board-color-cleandark.background-box {
+  background-color:#23232B;
+} /*Fixes contrast issues with background box in theme selection list*/
 /* =============== 
 THEME - Clean Light
 =================*/
 /* Please note Clean Light theme elements also contain references to some cleandark theme elements so if unable to find code you're looking for under CleanDark it might be here. This should probably be cleaned up*/
+.board-color-cleanlight.background-box {
+  background-color:#e0e0e0;
+  color:#010101!important;
+} /*Fixes issues with text colour/background box being similar no contrast */
 
 .board-color-cleanlight {
   background: #E0E0E0;
