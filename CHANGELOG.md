@@ -22,6 +22,11 @@ This release adds the following updates:
 - [Improve impersonate user documentation in docs/Admin/Impersonate-user.md](https://github.com/wekan/wekan/pull/5746).
   Thanks to nourguidara.
 
+and fixes the following bugs:
+
+- [Add toggle watch icon on card. Add questions are you sure to duplicate board and archive board](https://github.com/wekan/wekan/pull/5745).
+  Thanks to Rayene123.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.85 2025-04-21 WeKan ® release
