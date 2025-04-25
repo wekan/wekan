@@ -46,6 +46,10 @@ BlazeComponent.extendComponent({
     }
     return ret;
   },
+  isWatching() {
+    const card = this.currentData();
+    return card.findWatcher(Meteor.userId());
+  },
 
   showMembers() {
     // cache "board" to reduce the mini-mongodb access
@@ -125,6 +129,9 @@ Template.minicard.helpers({
       ? Meteor.connection._lastSessionId
       : null;
   },
+  isWatching() {
+    return this.findWatcher(Meteor.userId());
+  }
 });
 
 BlazeComponent.extendComponent({
@@ -178,4 +185,11 @@ Template.minicardDetailsActionsPopup.events({
     this.archive();
     Utils.goBoardId(this.boardId);
   }),
+  'click .js-toggle-watch-card'() {
+    const currentCard = this;
+    const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
+    Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
+      if (!err && ret) Popup.back();
+    });
+  },
 });
