@@ -28,6 +28,8 @@ and fixes the following bugs:
   Thanks to Rayene123.
 - [Fix translations not working](https://github.com/wekan/wekan/pull/5748).
   Thanks to nourguidara.
+- [Fix contrast issue checkbox at Exodark theme](https://github.com/wekan/wekan/pull/5749).
+  Thanks to walster001.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
