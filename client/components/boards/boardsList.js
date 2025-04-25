@@ -239,7 +239,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
         },
         'click .js-clone-board'(evt) {
-          if (confirm('Are you sure you want to clone this board?')) {
+          if (confirm(TAPi18n.__('duplicate-board-confirm')) {
             let title =
               getSlug(ReactiveCache.getBoard(this.currentData()._id).title) ||
               'cloned-board';
@@ -268,11 +268,10 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-archive-board'(evt) {
-          if (confirm('Are you sure you want to archive this board?'))
-          {
+          if (confirm(TAPi18n.__('archive-board-confirm')) {
             const boardId = this.currentData()._id;
-          Meteor.call('archiveBoard', boardId);
-          evt.preventDefault();
+            Meteor.call('archiveBoard', boardId);
+            evt.preventDefault();
           }
         },
         'click .js-accept-invite'() {
