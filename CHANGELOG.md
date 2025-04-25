@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Fix typos](https://github.com/wekan/wekan/commit/d0ea5bf50067fd76359330986edbad8dd1fbcdcc).
   Thanks to xet7.
+- [Fix more contrasting issues](https://github.com/wekan/wekan/pull/5750).
+  Thanks to walster001.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
