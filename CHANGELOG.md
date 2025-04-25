@@ -15,7 +15,18 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix typos](https://github.com/wekan/wekan/commit/d0ea5bf50067fd76359330986edbad8dd1fbcdcc).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.86 2025-04-25 WeKan ® release
+
+Note: This release does not work, there is typos. Use newest release.
 
 This release adds the following updates:
 
