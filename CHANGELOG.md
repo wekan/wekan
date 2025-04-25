@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Added script to build snap locally and push to snapcraft.io candidate and edge](https://github.com/wekan/wekan/commit/072ced9d0e53dc6c8964e9b37fc7d1036962ca19).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.88 2025-04-25 WeKan ® release
 
 This release fixes the following bugs:
