@@ -251,24 +251,33 @@ BlazeComponent.extendComponent({
       {
         submit(evt) {
           evt.preventDefault();
-          const lastList = this.currentBoard.getLastList();
           const titleInput = this.find('.list-name-input');
           const title = titleInput.value.trim();
-          let sortIndex = 0
-          if (lastList) {
-            const positionInput = this.find('.list-position-input');
-            const position = positionInput.value.trim();
-            const ret = ReactiveCache.getList({ boardId: Utils.getCurrentBoardId(), _id: position, archived: false })
-            sortIndex = parseInt(JSON.stringify(ret['sort']))
-            sortIndex = sortIndex+1
-          } else {
-            sortIndex = Utils.calculateIndexData(lastList, null).base;
-          }
+          const positionInput = this.find('.list-position-input');
+
+          let sortIndex = 0;
 
           if (title) {
+            const currentBoardId = Utils.getCurrentBoardId();
+            const position = positionInput.value.trim();
+
+            const prevList = Lists.findOne({ _id: position, boardId: currentBoardId, archived: false });
+            const nextList = Lists.findOne({
+              boardId: currentBoardId,
+              archived: false,
+              sort: { $gt: prevList?.sort },
+            }, { sort: { sort: 1 } });
+
+            if (prevList) {
+              sortIndex = Utils.calculateIndexData(prevList, nextList).base;
+            } else {
+              const lastList = Lists.findOne({ boardId: currentBoardId }, { sort: { sort: -1 } });
+              sortIndex = lastList ? lastList.sort + 1 : 0;
+            }
+
             Lists.insert({
               title,
-              boardId: Session.get('currentBoard'),
+              boardId: currentBoardId,
               sort: sortIndex,
               type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
               swimlaneId: this.currentBoard.isTemplatesBoard()
@@ -279,7 +288,8 @@ BlazeComponent.extendComponent({
             titleInput.value = '';
             titleInput.focus();
           }
-        },
+        }
+        ,
         'click .js-list-template': Popup.open('searchElement'),
       },
     ];
