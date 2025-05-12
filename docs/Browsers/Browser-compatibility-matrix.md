@@ -58,8 +58,14 @@ Internet Explorer | No | No | No | No | No
 
 ## Servo based, not tested yet
 
-- Apache 2.0 or MIT license
-- Repo: https://github.com/versotile-org/verso
+- Verso
+  - Apache 2.0 or MIT license
+  - Repo: https://github.com/versotile-org/verso
+- Servo
+  - MPL-2.0 license
+  - https://servo.org
+  - Repo: https://github.com/servo/servo
+  - At https://www.youtube.com/watch?v=g9hzWXxUgiU was said, that Gmail works, so maybe WeKan could also work
 
 ## Ladybird based, not yet compatible with WeKan
 
