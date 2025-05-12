@@ -23,6 +23,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated Browser Compatibility Matrix by adding Servo](https://github.com/wekan/wekan/commit/394f2eae69542067fde9e2511ffcef165d170d2d).
   Thanks to xet7.
+- [Updated Caddy docs](https://github.com/wekan/wekan/commit/9aa12b0eb62962bd107fe1aa87cdf5bad5a5905f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
