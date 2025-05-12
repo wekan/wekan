@@ -250,17 +250,18 @@ BlazeComponent.extendComponent({
     return [
       {
         submit(evt) {
-          evt.preventDefault();
-          const titleInput = this.find('.list-name-input');
-          const title = titleInput.value.trim();
-          const positionInput = this.find('.list-position-input');
+        evt.preventDefault();
+        const titleInput = this.find('.list-name-input');
+        const title = titleInput?.value.trim();
+        const positionInput = this.find('.list-position-input');
 
-          let sortIndex = 0;
+        let sortIndex = 0;
 
-          if (title) {
-            const currentBoardId = Utils.getCurrentBoardId();
+        if (title) {
+          const currentBoardId = Utils.getCurrentBoardId();
+
+          if (positionInput) {
             const position = positionInput.value.trim();
-
             const prevList = Lists.findOne({ _id: position, boardId: currentBoardId, archived: false });
             const nextList = Lists.findOne({
               boardId: currentBoardId,
@@ -274,21 +275,26 @@ BlazeComponent.extendComponent({
               const lastList = Lists.findOne({ boardId: currentBoardId }, { sort: { sort: -1 } });
               sortIndex = lastList ? lastList.sort + 1 : 0;
             }
-
-            Lists.insert({
-              title,
-              boardId: currentBoardId,
-              sort: sortIndex,
-              type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
-              swimlaneId: this.currentBoard.isTemplatesBoard()
-                ? this.currentSwimlane._id
-                : '',
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
+          } else {
+            const lastList = Lists.findOne({ boardId: currentBoardId }, { sort: { sort: -1 } });
+            sortIndex = lastList ? lastList.sort + 1 : 0;
           }
+
+          Lists.insert({
+            title,
+            boardId: currentBoardId,
+            sort: sortIndex,
+            type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
+            swimlaneId: this.currentBoard.isTemplatesBoard()
+              ? this.currentSwimlane._id
+              : '',
+          });
+
+          titleInput.value = '';
+          titleInput.focus();
         }
+        }
+
         ,
         'click .js-list-template': Popup.open('searchElement'),
       },
