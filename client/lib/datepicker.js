@@ -113,7 +113,7 @@ export class DatePicker extends BlazeComponent {
           const newTime = moment(time, adjustedTimeFormat(), true);
           const dateValue = Utils.normalizeDigits(evt.target.date.value);
           const newDate = moment(dateValue, 'L', true);
-          const dateString = ${dateValue} ${time};
+          const dateString = `${dateValue} ${time}`;
           const newCompleteDate = moment(
             dateString,
             `L ${adjustedTimeFormat()}`,
