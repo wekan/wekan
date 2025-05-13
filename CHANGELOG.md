@@ -17,6 +17,10 @@ Fixing other platforms In Progress.
 
 # v7.89 2025-05-13 WeKan ® release
 
+Note: Docker image is only at ghcr.io (GitHub) and Docker Hub (wekanteam/wekan).
+Quay.io is at read only mode, they are fixing something, so it's not possible to
+push Docker image yet to quay.io .
+
 This release adds the following new features:
 
 - [Add email notifications language localization feature](https://github.com/wekan/wekan/pull/5769).
