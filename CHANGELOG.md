@@ -15,7 +15,7 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
-# Upcoming WeKan ® release
+# v7.89 2025-05-13 WeKan ® release
 
 This release adds the following new features:
 
@@ -37,6 +37,8 @@ and fixes the following bugs:
 
 - [Fix list insertion order and prevent runtime error in "Add After" feature](https://github.com/wekan/wekan/pull/5767).
   Thanks to valhalla-creator.
+- [Fix: Add CSS vendor prefixes for user-select and text-size-adjust for better browser compatibility](https://github.com/wekan/wekan/pull/5772).
+  Thanks to oussama-madimagh.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
