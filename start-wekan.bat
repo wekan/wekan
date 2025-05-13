@@ -14,7 +14,7 @@ SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
 REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
 REM # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
 REM # If ROOT_URL is not correct, these do not work: translations, uploading attachments.
-SET ROOT_URL=http://192.168.0.21
+SET ROOT_URL=http://localhost
 
 REM # Must change to YOUR-PORT-NUMBER:
 SET PORT=80
