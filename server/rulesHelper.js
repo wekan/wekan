@@ -125,22 +125,31 @@ RulesHelper = {
       const text = action.emailMsg || '';
       const subject = action.emailSubject || '';
       try {
-/*
-        if (process.env.MAIL_SERVICE !== '') {
-          let transporter = nodemailer.createTransport({
-            service: process.env.MAIL_SERVICE,
-            auth: {
-              user: process.env.MAIL_SERVICE_USER,
-              pass: process.env.MAIL_SERVICE_PASSWORD
-            },
-          })
-          let info = transporter.sendMail({
+        // Try to detect the recipient's language preference if it's a Wekan user
+        // Otherwise, use the default language for the rule-triggered emails
+        let recipientUser = null;
+        let recipientLang = TAPi18n.getLanguage() || 'en';
+
+        // Check if recipient is a Wekan user to get their language
+        if (to && to.includes('@')) {
+          recipientUser = ReactiveCache.getUser({ 'emails.address': to.toLowerCase() });
+          if (recipientUser && typeof recipientUser.getLanguage === 'function') {
+            recipientLang = recipientUser.getLanguage();
+          }
+        }
+
+        // Use EmailLocalization if available
+        if (typeof EmailLocalization !== 'undefined') {
+          EmailLocalization.sendEmail({
             to,
             from: Accounts.emailTemplates.from,
             subject,
             text,
-          })
+            language: recipientLang,
+            userId: recipientUser ? recipientUser._id : null
+          });
         } else {
+          // Fallback to standard Email.send
           Email.send({
             to,
             from: Accounts.emailTemplates.from,
@@ -148,13 +157,6 @@ RulesHelper = {
             text,
           });
         }
-*/
-        Email.send({
-          to,
-          from: Accounts.emailTemplates.from,
-          subject,
-          text,
-        });
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e);

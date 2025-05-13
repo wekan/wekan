@@ -275,22 +275,18 @@ if (Meteor.isServer) {
         url: FlowRouter.url('sign-up'),
       };
       const lang = author.getLanguage();
-/*
-      if (process.env.MAIL_SERVICE !== '') {
-        let transporter = nodemailer.createTransport({
-          service: process.env.MAIL_SERVICE,
-          auth: {
-            user: process.env.MAIL_SERVICE_USER,
-            pass: process.env.MAIL_SERVICE_PASSWORD
-          },
-        })
-        let info = transporter.sendMail({
+      // Use EmailLocalization utility to handle email in the proper language
+      if (typeof EmailLocalization !== 'undefined') {
+        EmailLocalization.sendEmail({
           to: icode.email,
           from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-register-subject', params, lang),
-          text: TAPi18n.__('email-invite-register-text', params, lang),
-        })
+          subject: 'email-invite-register-subject',
+          text: 'email-invite-register-text',
+          params: params,
+          language: lang
+        });
       } else {
+        // Fallback if EmailLocalization is not available
         Email.send({
           to: icode.email,
           from: Accounts.emailTemplates.from,
@@ -298,13 +294,6 @@ if (Meteor.isServer) {
           text: TAPi18n.__('email-invite-register-text', params, lang),
         });
       }
-*/
-      Email.send({
-        to: icode.email,
-        from: Accounts.emailTemplates.from,
-        subject: TAPi18n.__('email-invite-register-subject', params, lang),
-        text: TAPi18n.__('email-invite-register-text', params, lang),
-      });
     } catch (e) {
       InvitationCodes.remove(_id);
       throw new Meteor.Error('email-fail', e.message);
