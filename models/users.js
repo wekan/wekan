@@ -1618,62 +1618,51 @@ if (Meteor.isServer) {
           subBoard.addMember(user._id);
           user.addInvite(subBoard._id);
         }
-      }
+      }        try {
+          const fullName =
+            inviter.profile !== undefined &&
+              inviter.profile.fullname !== undefined
+              ? inviter.profile.fullname
+              : '';
+          const userFullName =
+            user.profile !== undefined && user.profile.fullname !== undefined
+              ? user.profile.fullname
+              : '';
+          const params = {
+            user:
+              userFullName != ''
+                ? userFullName + ' (' + user.username + ' )'
+                : user.username,
+            inviter:
+              fullName != ''
+                ? fullName + ' (' + inviter.username + ' )'
+                : inviter.username,
+            board: board.title,
+            url: board.absoluteUrl(),
+          };
+          // Get the recipient user's language preference for the email
+          const lang = user.getLanguage();
 
-      try {
-        const fullName =
-          inviter.profile !== undefined &&
-            inviter.profile.fullname !== undefined
-            ? inviter.profile.fullname
-            : '';
-        const userFullName =
-          user.profile !== undefined && user.profile.fullname !== undefined
-            ? user.profile.fullname
-            : '';
-        const params = {
-          user:
-            userFullName != ''
-              ? userFullName + ' (' + user.username + ' )'
-              : user.username,
-          inviter:
-            fullName != ''
-              ? fullName + ' (' + inviter.username + ' )'
-              : inviter.username,
-          board: board.title,
-          url: board.absoluteUrl(),
-        };
-        const lang = user.getLanguage();
-
-        /*
-        if (process.env.MAIL_SERVICE !== '') {
-          let transporter = nodemailer.createTransport({
-            service: process.env.MAIL_SERVICE,
-            auth: {
-              user: process.env.MAIL_SERVICE_USER,
-              pass: process.env.MAIL_SERVICE_PASSWORD
-            },
-          })
-          let info = transporter.sendMail({
-            to: user.emails[0].address.toLowerCase(),
-            from: Accounts.emailTemplates.from,
-            subject: TAPi18n.__('email-invite-subject', params, lang),
-            text: TAPi18n.__('email-invite-text', params, lang),
-          })
-        } else {
-          Email.send({
-            to: user.emails[0].address.toLowerCase(),
-            from: Accounts.emailTemplates.from,
-            subject: TAPi18n.__('email-invite-subject', params, lang),
-            text: TAPi18n.__('email-invite-text', params, lang),
-          });
-        }
-*/
-        Email.send({
-          to: user.emails[0].address.toLowerCase(),
-          from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-subject', params, lang),
-          text: TAPi18n.__('email-invite-text', params, lang),
-        });
+          // Add code to send invitation with EmailLocalization
+          if (typeof EmailLocalization !== 'undefined') {
+            EmailLocalization.sendEmail({
+              to: user.emails[0].address,
+              from: Accounts.emailTemplates.from,
+              subject: 'email-invite-subject',
+              text: 'email-invite-text',
+              params: params,
+              language: lang,
+              userId: user._id
+            });
+          } else {
+            // Fallback if EmailLocalization is not available
+            Email.send({
+              to: user.emails[0].address,
+              from: Accounts.emailTemplates.from,
+              subject: TAPi18n.__('email-invite-subject', params, lang),
+              text: TAPi18n.__('email-invite-text', params, lang),
+            });
+          }
       } catch (e) {
         throw new Meteor.Error('email-fail', e.message);
       }

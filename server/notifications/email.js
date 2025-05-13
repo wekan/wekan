@@ -2,6 +2,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 //var nodemailer = require('nodemailer');
 
+import EmailLocalization from '../lib/emailLocalization';
+
 // buffer each user's email text in a queue, then flush them in single email
 Meteor.startup(() => {
   Notifications.subscribe('email', (user, title, description, params) => {
@@ -14,6 +16,7 @@ Meteor.startup(() => {
       quoteParams[key] = quoteParams[key] ? `${params[key]}` : '';
     });
 
+    // Get user's preferred language
     const lan = user.getLanguage();
     const subject = TAPi18n.__(title, params, lan); // the original function has a fault, i believe the title should be used according to original author
     const existing = user.getEmailBuffer().length > 0;
@@ -42,35 +45,14 @@ Meteor.startup(() => {
       const html = texts.join('<br/>\n\n');
       user.clearEmailBuffer();
       try {
-/*
-        if (process.env.MAIL_SERVICE !== '') {
-          let transporter = nodemailer.createTransport({
-            service: process.env.MAIL_SERVICE,
-            auth: {
-              user: process.env.MAIL_SERVICE_USER,
-              pass: process.env.MAIL_SERVICE_PASSWORD
-            },
-          })
-          let info = transporter.sendMail({
-            to: user.emails[0].address.toLowerCase(),
-            from: Accounts.emailTemplates.from,
-            subject,
-            html,
-          })
-        } else {
-          Email.send({
-            to: user.emails[0].address.toLowerCase(),
-            from: Accounts.emailTemplates.from,
-            subject,
-            html,
-          });
-        }
-*/
-        Email.send({
+        // Use EmailLocalization utility to ensure the correct language is used
+        EmailLocalization.sendEmail({
           to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
           subject,
           html,
+          language: user.getLanguage(),
+          userId: user._id
         });
       } catch (e) {
         return;
