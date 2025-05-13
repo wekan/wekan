@@ -25,6 +25,13 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated Caddy docs](https://github.com/wekan/wekan/commit/9aa12b0eb62962bd107fe1aa87cdf5bad5a5905f).
   Thanks to xet7.
+- [Upgraded to MongoDB 6.0.23 at Snap Candidate](https://github.com/wekan/wekan/commit/0bd410866196bc2faa76b9c26c12f42617321a03).
+  Thanks to MongoDB developers.
+
+and fixes the following bugs:
+
+- [Fix list insertion order and prevent runtime error in "Add After" feature](https://github.com/wekan/wekan/pull/5767).
+  Thanks to valhalla-creator.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
