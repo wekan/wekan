@@ -484,6 +484,19 @@ Cards.attachSchema(
       type: Boolean,
       optional: true,
     },
+     isRecurring: {
+    type: Boolean,
+    defaultValue: false,
+  },
+  recurrencePattern: {
+    type: String,
+    allowedValues: ['daily', 'weekly', 'monthly'],
+    optional: true,
+  },
+  recurrenceEndDate: {
+    type: Date,
+    optional: true,
+  }
   }),
 );
 
@@ -514,10 +527,19 @@ Cards.helpers({
         targetId_gantt: targetId,
         linkType_gantt : linkType,
         linkId_gantt: linkId
-      }
+      },
+
     });
   },
-
+ setIsRecurring(isRecurring) {
+    return Cards.update({ _id: this._id }, { $set: { isRecurring } });
+  },
+  setRecurrencePattern(recurrencePattern) {
+    return Cards.update({ _id: this._id }, { $set: { recurrencePattern } });
+  },
+  setRecurrenceEndDate(recurrenceEndDate) {
+    return Cards.update({ _id: this._id }, { $set: { recurrenceEndDate } });
+  },
   removeGanttTargetId(sourceId, targetId, linkType, linkId){
     return Cards.update({ _id: sourceId}, {
       $pull: {
