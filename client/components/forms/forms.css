@@ -98,6 +98,7 @@ textarea:disabled {
   border-color: #bfbfbf;
   color: #8c8c8c;
   -webkit-touch-callout: none;
+   -webkit-user-select: none;
   user-select: none;
 }
 select {
@@ -322,6 +323,7 @@ textarea::-moz-placeholder {
   background: linear-gradient(#fff, #f5f5f5);
   border-radius: 3px;
   box-sizing: border-box;
+   -webkit-user-select: none;
   user-select: none;
   border: 1px solid #e3e3e3;
   border-bottom-color: #c2c2c2;
@@ -505,6 +507,7 @@ button.loud-text-button:hover {
 .emphasis-button,
 .quiet-button {
   border-radius: 3px;
+   -webkit-user-select: none;
   user-select: none;
   color: #8c8c8c;
   display: block;
