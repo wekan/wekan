@@ -250,36 +250,43 @@ BlazeComponent.extendComponent({
     return [
       {
         submit(evt) {
-          evt.preventDefault();
-          const lastList = this.currentBoard.getLastList();
-          const titleInput = this.find('.list-name-input');
-          const title = titleInput.value.trim();
-          let sortIndex = 0
-          if (lastList) {
-            const positionInput = this.find('.list-position-input');
-            const position = positionInput.value.trim();
-            const ret = ReactiveCache.getList({ boardId: Utils.getCurrentBoardId(), _id: position, archived: false })
-            sortIndex = parseInt(JSON.stringify(ret['sort']))
-            sortIndex = sortIndex+1
-          } else {
-            sortIndex = Utils.calculateIndexData(lastList, null).base;
-          }
+    evt.preventDefault();
 
-          if (title) {
-            Lists.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: sortIndex,
-              type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
-              swimlaneId: this.currentBoard.isTemplatesBoard()
-                ? this.currentSwimlane._id
-                : '',
-            });
+const titleInput = this.find('.list-name-input');
+const title = titleInput?.value.trim();
 
-            titleInput.value = '';
-            titleInput.focus();
-          }
-        },
+if (!title) return;
+
+let sortIndex = 0;
+const lastList = this.currentBoard.getLastList();
+const boardId = Utils.getCurrentBoardId();
+
+const positionInput = this.find('.list-position-input');
+
+if (positionInput) {
+  const positionId = positionInput.value.trim();
+  const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
+
+  if (selectedList) {
+    sortIndex = selectedList.sort + 1;
+  } else {
+    sortIndex = Utils.calculateIndexData(lastList, null).base;
+  }
+} else {
+  sortIndex = Utils.calculateIndexData(lastList, null).base;
+}
+
+Lists.insert({
+  title,
+  boardId: Session.get('currentBoard'),
+  sort: sortIndex,
+  type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
+  swimlaneId: this.currentBoard.isTemplatesBoard() ? this.currentSwimlane._id : '',
+});
+
+titleInput.value = '';
+titleInput.focus();
+
         'click .js-list-template': Popup.open('searchElement'),
       },
     ];
