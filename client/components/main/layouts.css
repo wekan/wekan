@@ -214,7 +214,7 @@ pre,
 code,
 tt {
   font-family: lucida console, monospace;
-  line-height: 1.25em;
+  line-height: 1.3em;
 }
 blockquote {
   margin: 8px 0 8px 8px;
@@ -438,7 +438,8 @@ a:not(.disabled).is-active i.fa {
 .viewer em {
   font-style: italic;
 }
-.viewer pre {
+.viewer pre,
+.viewer code {
   padding: 10px 12px 7px;
   background: #dedede;
   overflow-y: auto;
