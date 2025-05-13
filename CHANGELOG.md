@@ -21,6 +21,8 @@ This release fixes the following bugs:
 
 - [Fix Due Date Problem in Non-English Numbers](https://github.com/wekan/wekan/pull/5774).
   Thanks to valhalla-creator.
+- [Added missing quotes to Fix Due Date Problem in Non-English Numbers](https://github.com/wekan/wekan/commit/c0a9780f803ed445a93a274d13504a8f245c1885).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -50,6 +52,8 @@ and fixes the following bugs:
 
 - [Fix list insertion order and prevent runtime error in "Add After" feature](https://github.com/wekan/wekan/pull/5767).
   Thanks to valhalla-creator.
+- [Add missing code of fix insertion order of list](https://github.com/wekan/wekan/commit/7d1a1475baefb3fd20da3df835c349a62b425041).
+  Thanks to xet7.
 - [Fix: Add CSS vendor prefixes for user-select and text-size-adjust for better browser compatibility](https://github.com/wekan/wekan/pull/5772).
   Thanks to oussama-madimagh.
 
