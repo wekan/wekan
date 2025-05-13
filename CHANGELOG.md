@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix Due Date Problem in Non-English Numbers](https://github.com/wekan/wekan/pull/5774).
+  Thanks to valhalla-creator.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.89 2025-05-13 WeKan ® release
 
 Note: Docker image is only at ghcr.io (GitHub) and Docker Hub (wekanteam/wekan).
