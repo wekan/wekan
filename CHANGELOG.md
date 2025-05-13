@@ -25,6 +25,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Changed start.bat default ROOT_URL=http://localhost , although it only works for local user](https://github.com/wekan/wekan/commit/e52158b729c8ba39a55fe52e38fd6b134b42548e).
   Thanks to xet7.
+- [Fix Lines in multiline markdown code block to not anymore have darker background](https://github.com/wekan/wekan/commit/b82ba63532b32ec3a0c860a380648cef6739db0f).
+  Thanks to mueller-ma and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
