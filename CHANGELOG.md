@@ -23,6 +23,8 @@ This release fixes the following bugs:
   Thanks to valhalla-creator.
 - [Added missing quotes to Fix Due Date Problem in Non-English Numbers](https://github.com/wekan/wekan/commit/c0a9780f803ed445a93a274d13504a8f245c1885).
   Thanks to xet7.
+- [Changed start.bat default ROOT_URL=http://localhost , although it only works for local user](https://github.com/wekan/wekan/commit/e52158b729c8ba39a55fe52e38fd6b134b42548e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
