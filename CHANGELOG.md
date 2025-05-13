@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Add email notifications language localization feature](https://github.com/wekan/wekan/pull/5769).
+  Thanks to Adamsss001.
+
+and adds the following updates:
 
 - [Added script to build snap locally and push to snapcraft.io candidate and edge](https://github.com/wekan/wekan/commit/072ced9d0e53dc6c8964e9b37fc7d1036962ca19).
   Thanks to xet7.
