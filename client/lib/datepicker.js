@@ -83,7 +83,8 @@ export class DatePicker extends BlazeComponent {
       {
         'keyup .js-date-field'() {
           // parse for localized date format in strict mode
-          const dateMoment = moment(this.find('#date').value, 'L', true);
+         const normalizedValue = Utils.normalizeDigits(this.find('#date').value);
+          const dateMoment = moment(normalizedValue, 'L', true);
           if (dateMoment.isValid()) {
             this.error.set('');
             this.$('.js-datepicker').datepicker('update', dateMoment.toDate());
@@ -91,9 +92,10 @@ export class DatePicker extends BlazeComponent {
         },
         'keyup .js-time-field'() {
           // parse for localized time format in strict mode
+          const normalizedValue = Utils.normalizeDigits(this.find('#time').value);
           const dateMoment = moment(
-            this.find('#time').value,
-            adjustedTimeFormat(),
+           normalizedValue,
+           adjustedTimeFormat(),
             true,
           );
           if (dateMoment.isValid()) {
@@ -104,12 +106,14 @@ export class DatePicker extends BlazeComponent {
           evt.preventDefault();
 
           // if no time was given, init with 12:00
+          const timeValue = Utils.normalizeDigits(evt.target.time.value);
           const time =
-            evt.target.time.value ||
-            moment(new Date().setHours(12, 0, 0)).format('LT');
+           timeValue ||
+           moment(new Date().setHours(12, 0, 0)).format('LT');
           const newTime = moment(time, adjustedTimeFormat(), true);
-          const newDate = moment(evt.target.date.value, 'L', true);
-          const dateString = `${evt.target.date.value} ${time}`;
+          const dateValue = Utils.normalizeDigits(evt.target.date.value);
+          const newDate = moment(dateValue, 'L', true);
+          const dateString = ${dateValue} ${time};
           const newCompleteDate = moment(
             dateString,
             `L ${adjustedTimeFormat()}`,
