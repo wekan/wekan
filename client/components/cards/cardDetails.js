@@ -407,6 +407,28 @@ BlazeComponent.extendComponent({
           }
           this.data().setVote(Meteor.userId(), newState);
         },
+
+
+'change .js-recurring-checkbox'(event) {
+  const isRecurring = event.target.checked;
+  this.data().setIsRecurring(isRecurring);
+ 
+  if (!isRecurring) {
+    this.data().setRecurrencePattern(null);
+    this.data().setRecurrenceEndDate(null);
+  }
+},
+
+'change .js-recurring-pattern'(event) {
+  const recurrencePattern = event.target.value;
+  this.data().setRecurrencePattern(recurrencePattern);
+},
+
+'change .js-recurring-end-date'(event) {
+  const value = event.target.value;
+  const recurrenceEndDate = value ? new Date(value) : null;
+  this.data().setRecurrenceEndDate(recurrenceEndDate);
+},
         'click .js-poker'(e) {
           let newState = null;
           if ($(e.target).hasClass('js-poker-vote-one')) {

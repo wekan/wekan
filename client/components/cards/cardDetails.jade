@@ -137,7 +137,25 @@ template(name="cardDetails")
                 unless currentUser.isWorker
                   a.card-label.add-label.js-end-date
                     i.fa.fa-plus
-
+        // Recurring Card UI
+        if canModifyCard
+          .card-details-item.card-details-item-recurring
+            h3.card-details-item-title
+              i.fa.fa-repeat
+              | Recurrence
+            label
+              input.js-recurring-checkbox(type="checkbox" checked=card.isRecurring)
+              |  Repeat this card
+            if card.isRecurring
+              label
+                | Repeat every
+                select.js-recurring-pattern
+                  option(value="daily" selected=card.recurrencePattern === 'daily') Daily
+                  option(value="weekly" selected=card.recurrencePattern === 'weekly') Weekly
+                  option(value="monthly" selected=card.recurrencePattern === 'monthly') Monthly
+              label
+                | End repeat on
+                input.js-recurring-end-date(type="date" value=card.recurrenceEndDate)
         if currentBoard.hasAnyAllowsUser
           hr
 
