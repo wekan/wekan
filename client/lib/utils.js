@@ -1,6 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-Utils = {
+export const Utils = {
   setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
@@ -15,12 +15,19 @@ Utils = {
   // This helps with date parsing in non-English languages
   normalizeDigits(str) {
     if (!str) return str;
-    const persian = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
-    const arabic  = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
-    for (let i = 0; i < 10; i++) {
-      str = str.replace(persian[i], i).replace(arabic[i], i);
-    }
-    return str;
+    // Convert Persian and Arabic numbers to English
+    const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    const arabicNumbers  = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+    return str.split('')
+      .map(c => {
+        const pIndex = persianNumbers.indexOf(c);
+        const aIndex = arabicNumbers.indexOf(c);
+        if (pIndex >= 0) return pIndex.toString();
+        if (aIndex >= 0) return aIndex.toString();
+        return c;
+      })
+      .join('');
   },
   /** returns the current board id
    * <li> returns the current board id or the board id of the popup card if set
