@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-Utils = {
+// Create Utils as a global object and export it
+export const Utils = {
   setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
@@ -590,6 +591,9 @@ Utils = {
     }
   },
 };
+
+// Make Utils available globally for legacy code
+window.Utils = Utils;
 
 // A simple tracker dependency that we invalidate every time the window is
 // resized. This is used to reactively re-calculate the popup position in case
