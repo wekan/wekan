@@ -3,13 +3,6 @@ import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 
-// Add this helper function at the top level
-const formatDate = (date, format) => {
-  if (!date) return '';
-  const normalizedDate = Utils.normalizeDigits(moment(date).format(format));
-  return normalizedDate;
-};
-
 // editCardReceivedDatePopup
 (class extends DatePicker {
   onCreated() {
@@ -173,10 +166,6 @@ class CardReceivedDate extends CardDate {
       'click .js-edit-date': Popup.open('editCardReceivedDate'),
     });
   }
-
-  showDate() {
-    return formatDate(this.date.get(), 'L');
-  }
 }
 CardReceivedDate.register('cardReceivedDate');
 
@@ -211,10 +200,6 @@ class CardStartDate extends CardDate {
     return super.events().concat({
       'click .js-edit-date': Popup.open('editCardStartDate'),
     });
-  }
-
-  showDate() {
-    return formatDate(this.date.get(), 'L');
   }
 }
 CardStartDate.register('cardStartDate');
@@ -252,10 +237,6 @@ class CardDueDate extends CardDate {
       'click .js-edit-date': Popup.open('editCardDueDate'),
     });
   }
-
-  showDate() {
-    return formatDate(this.date.get(), 'L');
-  }
 }
 CardDueDate.register('cardDueDate');
 
@@ -286,10 +267,6 @@ class CardEndDate extends CardDate {
     return super.events().concat({
       'click .js-edit-date': Popup.open('editCardEndDate'),
     });
-  }
-
-  showDate() {
-    return formatDate(this.date.get(), 'L');
   }
 }
 CardEndDate.register('cardEndDate');
@@ -338,33 +315,36 @@ class CardCustomFieldDate extends CardDate {
 }
 CardCustomFieldDate.register('cardCustomFieldDate');
 
+// Update minicard date formats to use localized formats
 (class extends CardReceivedDate {
   showDate() {
-    return formatDate(this.date.get(), 'L');
+    // Use locale-aware format
+    return this.date.get().format('L');
   }
 }.register('minicardReceivedDate'));
 
 (class extends CardStartDate {
   showDate() {
-    return formatDate(this.date.get(), 'YYYY-MM-DD HH:mm');
+    // Use locale-aware format with time
+    return this.date.get().format('L LT');
   }
 }.register('minicardStartDate'));
 
 (class extends CardDueDate {
   showDate() {
-    return formatDate(this.date.get(), 'YYYY-MM-DD HH:mm');
+    return this.date.get().format('L LT');
   }
 }.register('minicardDueDate'));
 
 (class extends CardEndDate {
   showDate() {
-    return formatDate(this.date.get(), 'YYYY-MM-DD HH:mm');
+    return this.date.get().format('L LT');
   }
 }.register('minicardEndDate'));
 
 (class extends CardCustomFieldDate {
   showDate() {
-    return formatDate(this.date.get(), 'L');
+    return this.date.get().format('L');
   }
 }.register('minicardCustomFieldDate'));
 
@@ -381,7 +361,7 @@ class VoteEndDate extends CardDate {
     return classes;
   }
   showDate() {
-    return formatDate(this.date.get(), 'L LT');
+    return this.date.get().format('L LT');
   }
   showTitle() {
     return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
@@ -408,7 +388,7 @@ class PokerEndDate extends CardDate {
     return classes;
   }
   showDate() {
-    return formatDate(this.date.get(), 'L LT');
+    return this.date.get().format('l LT');
   }
   showTitle() {
     return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
