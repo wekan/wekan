@@ -1,12 +1,15 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import moment from 'moment/min/moment-with-locales';
-import { Utils } from './utils';
 
-// Helper function to replace HH with H for 24 hours format
+// Helper function to replace HH with H for 24 hours format, because H allows also single-digit hours
 function adjustedTimeFormat() {
-  return moment.localeData().longDateFormat('LT');
+  return moment
+    .localeData()
+    .longDateFormat('LT');
 }
+
+//   .replace(/HH/i, 'H');
 
 export class DatePicker extends BlazeComponent {
   template() {
@@ -37,32 +40,26 @@ export class DatePicker extends BlazeComponent {
         language: TAPi18n.getLanguage(),
         weekStart: this.startDayOfWeek(),
         calendarWeeks: true,
-        beforeParse: (value) => Utils.normalizeDigits(value),
       })
       .on(
         'changeDate',
         function(evt) {
-          const normalizedDate = moment(evt.date).format('L');
-          this.find('#date').value = normalizedDate;
+          this.find('#date').value = moment(evt.date).format('L');
           this.error.set('');
-          this._handleTimeInput(evt);
+          const timeInput = this.find('#time');
+          timeInput.focus();
+          if (!timeInput.value && this.defaultTime) {
+            const currentHour = evt.date.getHours();
+            const defaultMoment = moment(
+              currentHour > 0 ? evt.date : this.defaultTime,
+            ); // default to 8:00 am local time
+            timeInput.value = defaultMoment.format('LT');
+          }
         }.bind(this),
       );
 
     if (this.date.get().isValid()) {
       $picker.datepicker('update', this.date.get().toDate());
-    }
-  }
-
-  _handleTimeInput(evt) {
-    const timeInput = this.find('#time');
-    timeInput.focus();
-    if (!timeInput.value && this.defaultTime) {
-      const currentHour = evt.date.getHours();
-      const defaultMoment = moment(
-        currentHour > 0 ? evt.date : this.defaultTime,
-      );
-      timeInput.value = defaultMoment.format('LT');
     }
   }
 
@@ -82,68 +79,67 @@ export class DatePicker extends BlazeComponent {
   }
 
   events() {
-    return [{
-      'keyup .js-date-field'() {
-        const rawValue = this.find('#date').value;
-        const normalizedValue = Utils.normalizeDigits(rawValue);
-        const dateMoment = moment(normalizedValue, 'L', true);
+    return [
+      {
+        'keyup .js-date-field'() {
+          // parse for localized date format in strict mode
+         const normalizedValue = Utils.normalizeDigits(this.find('#date').value);
+          const dateMoment = moment(normalizedValue, 'L', true);
+          if (dateMoment.isValid()) {
+            this.error.set('');
+            this.$('.js-datepicker').datepicker('update', dateMoment.toDate());
+          }
+        },
+        'keyup .js-time-field'() {
+          // parse for localized time format in strict mode
+          const normalizedValue = Utils.normalizeDigits(this.find('#time').value);
+          const dateMoment = moment(
+           normalizedValue,
+           adjustedTimeFormat(),
+            true,
+          );
+          if (dateMoment.isValid()) {
+            this.error.set('');
+          }
+        },
+        'submit .edit-date'(evt) {
+          evt.preventDefault();
 
-        if (dateMoment.isValid()) {
-          this.error.set('');
-          this.$('.js-datepicker').datepicker('update', dateMoment.toDate());
-        }
+          // if no time was given, init with 12:00
+          const timeValue = Utils.normalizeDigits(evt.target.time.value);
+          const time =
+           timeValue ||
+           moment(new Date().setHours(12, 0, 0)).format('LT');
+          const newTime = moment(time, adjustedTimeFormat(), true);
+          const dateValue = Utils.normalizeDigits(evt.target.date.value);
+          const newDate = moment(dateValue, 'L', true);
+          const dateString = `${dateValue} ${time}`;
+          const newCompleteDate = moment(
+            dateString,
+            `L ${adjustedTimeFormat()}`,
+            true,
+          );
+          if (!newTime.isValid()) {
+            this.error.set('invalid-time');
+            evt.target.time.focus();
+          }
+          if (!newDate.isValid()) {
+            this.error.set('invalid-date');
+            evt.target.date.focus();
+          }
+          if (newCompleteDate.isValid()) {
+            this._storeDate(newCompleteDate.toDate());
+            Popup.back();
+          } else if (!this.error) {
+            this.error.set('invalid');
+          }
+        },
+        'click .js-delete-date'(evt) {
+          evt.preventDefault();
+          this._deleteDate();
+          Popup.back();
+        },
       },
-
-      'keyup .js-time-field'() {
-        const rawValue = this.find('#time').value;
-        const normalizedValue = Utils.normalizeDigits(rawValue);
-        const timeMoment = moment(normalizedValue, adjustedTimeFormat(), true);
-
-        if (timeMoment.isValid()) {
-          this.error.set('');
-        }
-      },
-
-      'submit .edit-date'(evt) {
-        evt.preventDefault();
-
-        const dateValue = Utils.normalizeDigits(evt.target.date.value);
-        const timeValue = Utils.normalizeDigits(evt.target.time.value) ||
-                         moment(new Date().setHours(12, 0, 0)).format('LT');
-
-        const dateString = `${dateValue} ${timeValue}`;
-        const format = `L ${adjustedTimeFormat()}`;
-        const newDate = moment(dateString, format, true);
-
-        if (!newDate.isValid()) {
-          this._handleDateTimeError(evt, dateValue, timeValue);
-          return;
-        }
-
-        this._storeDate(newDate.toDate());
-        Popup.back();
-      },
-
-      'click .js-delete-date'(evt) {
-        evt.preventDefault();
-        this._deleteDate();
-        Popup.back();
-      }
-    }];
-  }
-
-  _handleDateTimeError(evt, dateValue, timeValue) {
-    const dateMoment = moment(dateValue, 'L', true);
-    const timeMoment = moment(timeValue, adjustedTimeFormat(), true);
-
-    if (!timeMoment.isValid()) {
-      this.error.set('invalid-time');
-      evt.target.time.focus();
-    } else if (!dateMoment.isValid()) {
-      this.error.set('invalid-date');
-      evt.target.date.focus();
-    } else {
-      this.error.set('invalid');
-    }
+    ];
   }
 }
