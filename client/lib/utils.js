@@ -11,17 +11,6 @@ Utils = {
       currentBoard.setColor(currentBoard["background-color"]);
     }
   },
-  // Normalize non-Western (Persian/Arabic) digits to Western Arabic (0-9)
-  // This helps with date parsing in non-English languages
-  normalizeDigits(str) {
-    if (!str) return str;
-    const persian = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
-    const arabic  = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
-    for (let i = 0; i < 10; i++) {
-      str = str.replace(persian[i], i).replace(arabic[i], i);
-    }
-    return str;
-  },
   /** returns the current board id
    * <li> returns the current board id or the board id of the popup card if set
    */
