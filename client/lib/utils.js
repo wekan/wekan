@@ -1,16 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
 import { FlowRouter } from 'meteor/kadira:flow-router';
+import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { $ } from 'meteor/jquery';
-import { Meteor } from 'meteor/meteor';
+import moment from 'moment/min/moment-with-locales';
 
-// Initialize global Utils first
-if (typeof window.Utils === 'undefined') {
-  window.Utils = {};
-}
+// Initialize Utils globally first
+window.Utils = {};
 
-// Create Utils object
 const Utils = {
   setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
@@ -26,19 +24,12 @@ const Utils = {
   // This helps with date parsing in non-English languages
   normalizeDigits(str) {
     if (!str) return str;
-    // Convert Persian and Arabic numbers to English
-    const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-    const arabicNumbers  = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-
-    return str.split('')
-      .map(c => {
-        const pIndex = persianNumbers.indexOf(c);
-        const aIndex = arabicNumbers.indexOf(c);
-        if (pIndex >= 0) return pIndex.toString();
-        if (aIndex >= 0) return aIndex.toString();
-        return c;
-      })
-      .join('');
+    const persian = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+    const arabic  = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+    for (let i = 0; i < 10; i++) {
+      str = str.replace(persian[i], i).replace(arabic[i], i);
+    }
+    return str;
   },
   /** returns the current board id
    * <li> returns the current board id or the board id of the popup card if set
@@ -607,9 +598,16 @@ const Utils = {
       });
     }
   },
+
+  // Add new method for consistent date formatting
+  formatDate(date, includeTime = false) {
+    if (!date) return '';
+    const momentDate = moment(date);
+    return includeTime ? momentDate.format('L LT') : momentDate.format('L');
+  },
 };
 
-// Update global Utils with all methods
+// Make Utils available globally
 Object.assign(window.Utils, Utils);
 
 // Export for ES modules
