@@ -15,6 +15,22 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated Docker build push action](https://github.com/wekan/wekan/pull/5780).
+  Thanks to dependabot.
+
+and fixes the following bugs:
+
+- Reverted due date fixes.
+  [Part 1](https://github.com/wekan/wekan/commit/1979b1692dcaf6fd909cabfb894635f1e6a66fa8),
+  [Part 2](https://github.com/wekan/wekan/commit/aaa5f9885d37a369606e61a759af37f444ec606d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.90 2025-05-14 WeKan ® release
 
 This release fixes the following bugs:
