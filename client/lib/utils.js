@@ -1,7 +1,15 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
+import { $ } from 'meteor/jquery';
+import moment from 'moment/min/moment-with-locales';
 
-Utils = {
+// Initialize Utils globally first
+window.Utils = {};
+
+const Utils = {
   setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
@@ -598,6 +606,12 @@ Utils = {
     return includeTime ? momentDate.format('L LT') : momentDate.format('L');
   },
 };
+
+// Make Utils available globally
+Object.assign(window.Utils, Utils);
+
+// Export for ES modules
+export { Utils };
 
 // A simple tracker dependency that we invalidate every time the window is
 // resized. This is used to reactively re-calculate the popup position in case
