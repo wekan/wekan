@@ -59,8 +59,8 @@ button {
 html {
   font-size: 100%;
   max-height: 100%;
-  -webkit-user-select: none;
-  user-select: none;
+  -webkit-user-select: text;
+  user-select: text;
 
   -webkit-text-size-adjust: 100%;
 text-size-adjust: 100%;
@@ -192,7 +192,7 @@ strong {
   font-weight: bold;
 }
 p {
-  -webkit-user-select: none;
+  -webkit-user-select: text;
   user-select: text;
  
 
