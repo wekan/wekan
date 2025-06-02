@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Updated Docker build push action](https://github.com/wekan/wekan/pull/5795).
+  Thanks to dependabot.
+
+and fixes the following bugs:
 
 - [Allow selection of card text via webkit/user-select attributes](https://github.com/wekan/wekan/pull/5793).
   Thanks to walster001.
