@@ -15,6 +15,15 @@ Fixing other platforms In Progress.
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Allow selection of card text via webkit/user-select attributes](https://github.com/wekan/wekan/pull/5793).
+  Thanks to walster001.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.91 2025-05-25 WeKan ® release
 
 This release adds the following updates:
