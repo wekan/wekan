@@ -26,6 +26,8 @@ and fixes the following bugs:
 
 - [Allow selection of card text via webkit/user-select attributes](https://github.com/wekan/wekan/pull/5793).
   Thanks to walster001.
+- [Helm Chart: Fix: quote host names](https://github.com/wekan/charts/pull/41).
+  Thanks to Atry.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
