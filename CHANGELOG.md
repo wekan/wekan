@@ -21,6 +21,8 @@ This release adds the following updates:
 
 - [Updated Docker build push action](https://github.com/wekan/wekan/pull/5795).
   Thanks to dependabot.
+- [Updated to MongoDB 6.0.24 at Snap Candidate](https://github.com/wekan/wekan/commit/6905e24199186274f37d8bbdfac313f957fdd54f).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
