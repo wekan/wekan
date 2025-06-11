@@ -31,50 +31,55 @@ paths:
       operationId: login
       summary: Login with REST API
       consumes:
-        - application/x-www-form-urlencoded
         - application/json
       tags:
         - Login
       parameters:
-        - name: username
-          in: formData
+        - name: loginRequest
+          in: body
           required: true
-          description: |
-            Your username
-          type: string
-        - name: password
-          in: formData
-          required: true
-          description: |
-            Your password
-          type: string
-          format: password
+          description: Login credentials
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+                description: Your username
+              password:
+                type: string
+                format: password
+                description: Your password
       responses:
         200:
-          description: |-
-            Successful authentication
+          description: Successful authentication
           schema:
-            items:
-              properties:
-                id:
-                  type: string
-                token:
-                  type: string
-                tokenExpires:
-                  type: string
+            type: object
+            properties:
+              id:
+                type: string
+                description: User ID
+              token:
+                type: string
+                description: Authentication token
+              tokenExpires:
+                type: string
+                description: Token expiration date
         400:
-          description: |
-            Error in authentication
+          description: Error in authentication
           schema:
-            items:
-              properties:
-                error:
-                  type: number
-                reason:
-                  type: string
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error code/type
+              reason:
+                type: string
+                description: Error reason
         default:
-          description: |
-            Error in authentication
+          description: Error in authentication
   /users/register:
     post:
       operationId: register
@@ -83,56 +88,166 @@ paths:
         Notes:
           - You will need to provide the token for any of the authenticated methods.
       consumes:
-        - application/x-www-form-urlencoded
         - application/json
       tags:
         - Login
       parameters:
-        - name: username
-          in: formData
+        - name: registerRequest
+          in: body
           required: true
-          description: |
-            Your username
-          type: string
-        - name: password
-          in: formData
+          description: Registration details
+          schema:
+            type: object
+            required:
+              - username
+              - password
+              - email
+            properties:
+              username:
+                type: string
+                description: Your username
+              password:
+                type: string
+                format: password
+                description: Your password
+              email:
+                type: string
+                description: Your email
+      responses:
+        200:
+          description: Successful registration
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: User ID
+              token:
+                type: string
+                description: Authentication token
+              tokenExpires:
+                type: string
+                description: Token expiration date
+        400:
+          description: Error in registration
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error code/type
+              reason:
+                type: string
+                description: Error reason
+        default:
+          description: Error in registration
+
+  /api/users/{userId}/boards:
+    get:
+      operationId: getUserBoards
+      summary: Get all boards for a user
+      description: |
+        Information about boards of user
+      tags:
+        - Boards
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: userId
+          in: path
           required: true
-          description: |
-            Your password
-          type: string
-          format: password
-        - name: email
-          in: formData
-          required: true
-          description: |
-            Your email
+          description: The ID of the user
           type: string
       responses:
         200:
-          description: |-
-            Successful registration
+          description: List of user boards
           schema:
+            type: array
             items:
+              type: object
               properties:
-                id:
+                _id:
                   type: string
-                token:
+                  description: Board ID
+                title:
                   type: string
-                tokenExpires:
-                  type: string
-        400:
-          description: |
-            Error in registration
-          schema:
-            items:
-              properties:
-                error:
-                  type: number
-                reason:
-                  type: string
+                  description: Board title
+        401:
+          description: Unauthorized
         default:
-          description: |
-            Error in registration
+          description: Error getting user boards
+
+  /api/boards:
+    post:
+      operationId: createBoard
+      summary: Create a new board
+      description: |
+        Create a new board
+      tags:
+        - Boards
+      security:
+        - UserSecurity: []
+      parameters:
+        - name: boardRequest
+          in: body
+          required: true
+          description: Board creation details
+          schema:
+            type: object
+            required:
+              - title
+              - owner
+            properties:
+              title:
+                type: string
+                description: Board title
+              owner:
+                type: string
+                description: User ID of the board owner
+              isAdmin:
+                type: boolean
+                default: true
+                description: Whether the owner is admin
+              isActive:
+                type: boolean
+                default: true
+                description: Whether board is active
+              isNoComments:
+                type: boolean
+                default: false
+                description: Whether comments are disabled
+              isCommentOnly:
+                type: boolean
+                default: false
+                description: Whether only comments are allowed
+              permission:
+                type: string
+                enum: ["private", "public"]
+                default: "private"
+                description: Board permission
+              color:
+                type: string
+                enum: ["belize", "nephritis", "pomegranate", "pumpkin", "wisteria", "midnight"]
+                default: "belize"
+                description: Board color
+      responses:
+        200:
+          description: Board created successfully
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: Board ID
+              defaultSwimlaneId:
+                type: string
+                description: Default swimlane ID
+        400:
+          description: Error creating board
+        401:
+          description: Unauthorized
+        default:
+          description: Error creating board
 
   /api/boards/{board}/attachments/{attachment}/export:
     get:
