@@ -27,6 +27,8 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/7115c292c7066d8d00778fa738bb11c2db467895),
   [Part 2](https://github.com/wekan/wekan/commit/1f10c208744ec45e062db08a179b6e9a3b1bcd2e).
   Thanks to developers of dependencies.
+- [Upgrade to MongoDB 7.0.21](https://github.com/wekan/wekan/commit/d2f17ef1402335e4b3bd9de8864c68f97714febf).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
