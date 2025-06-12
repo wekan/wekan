@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v7.91">Wekan REST API v7.91</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v7.92">Wekan REST API v7.92</a>
             
           </li>
         
@@ -1963,7 +1963,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v7.91</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v7.92</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -1995,18 +1995,18 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 </blockquote>
 <pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
 curl -X POST /users/login \
-  -H <span class="hljs-string">'Content-Type: application/x-www-form-urlencoded'</span> \
+  -H <span class="hljs-string">'Content-Type: application/json'</span> \
   -H <span class="hljs-string">'Accept: */*'</span>
 
 </code></pre>
 <pre class="highlight tab tab-http"><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/users/login</span> HTTP/1.1
 
-<span class="http"><span class="hljs-attribute">Content-Type</span>: application/x-www-form-urlencoded
+<span class="http"><span class="hljs-attribute">Content-Type</span>: application/json
 <span class="hljs-attribute">Accept</span>: */*
 
 <span class="undefined"></span></span></code></pre>
 <pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
-  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/x-www-form-urlencoded'</span>,
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
   <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'*/*'</span>
 
 };
@@ -2028,7 +2028,7 @@ $.ajax({
   "password": "pa$$word"
 }'</span>;
 <span class="hljs-keyword">const</span> headers = {
-  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/x-www-form-urlencoded'</span>,
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
   <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'*/*'</span>
 
 };
@@ -2050,7 +2050,7 @@ fetch(<span class="hljs-string">'/users/login'</span>,
 <span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
 
 headers = {
-  <span class="hljs-string">'Content-Type'</span> =&gt; <span class="hljs-string">'application/x-www-form-urlencoded'</span>,
+  <span class="hljs-string">'Content-Type'</span> =&gt; <span class="hljs-string">'application/json'</span>,
   <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'*/*'</span>
 }
 
@@ -2063,7 +2063,7 @@ p JSON.parse(result)
 </code></pre>
 <pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
 headers = {
-  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/x-www-form-urlencoded'</span>,
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
   <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'*/*'</span>
 }
 
@@ -2099,7 +2099,7 @@ System.out.println(response.toString());
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
     headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
-        <span class="hljs-string">"Content-Type"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/x-www-form-urlencoded"</span>},
+        <span class="hljs-string">"Content-Type"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
         <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"*/*"</span>},
         
     }
@@ -2119,6 +2119,11 @@ System.out.println(response.toString());
 <blockquote>
 <p>Body parameter</p>
 </blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"username"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"pa$$word"</span>
+}
+</code></pre>
 <pre class="highlight tab tab-yaml"><code><span class="hljs-attr">username:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">password:</span> <span class="hljs-string">pa$$word</span>
 
@@ -2139,8 +2144,8 @@ System.out.println(response.toString());
 <td>body</td>
 <td>body</td>
 <td>object</td>
-<td>false</td>
-<td>none</td>
+<td>true</td>
+<td>Login credentials</td>
 </tr>
 <tr>
 <td>» username</td>
@@ -2211,23 +2216,23 @@ System.out.println(response.toString());
 <tr>
 <td>» id</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>none</td>
+<td>User ID</td>
 </tr>
 <tr>
 <td>» token</td>
 <td>string</td>
-<td>false</td>
+<td>true</td>
 <td>none</td>
-<td>none</td>
+<td>Authentication token</td>
 </tr>
 <tr>
 <td>» tokenExpires</td>
-<td>string</td>
-<td>false</td>
+<td>string(date-time)</td>
+<td>true</td>
 <td>none</td>
-<td>none</td>
+<td>Token expiration date</td>
 </tr>
 </tbody>
 </table>
@@ -2245,7 +2250,7 @@ System.out.println(response.toString());
 <tbody>
 <tr>
 <td>» error</td>
-<td>number</td>
+<td>string</td>
 <td>false</td>
 <td>none</td>
 <td>none</td>
