@@ -30,6 +30,8 @@ and fixes the following bugs:
   Thanks to walster001.
 - [Helm Chart: Fix: quote host names](https://github.com/wekan/charts/pull/41).
   Thanks to Atry.
+- [Fix: properly document /users/login API](https://github.com/wekan/wekan/pull/5801).
+  Thanks to Atry.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
