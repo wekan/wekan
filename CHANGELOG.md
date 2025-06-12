@@ -23,7 +23,9 @@ This release adds the following updates:
   Thanks to dependabot.
 - [Updated to MongoDB 6.0.24 at Snap Candidate](https://github.com/wekan/wekan/commit/6905e24199186274f37d8bbdfac313f957fdd54f).
   Thanks to MongoDB developers.
-- [Updated dependencies](https://github.com/wekan/wekan/commit/7115c292c7066d8d00778fa738bb11c2db467895).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/7115c292c7066d8d00778fa738bb11c2db467895),
+  [Part 2](https://github.com/wekan/wekan/commit/1f10c208744ec45e062db08a179b6e9a3b1bcd2e).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
