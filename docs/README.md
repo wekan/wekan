@@ -79,6 +79,7 @@ If you still have questions, check out the [[FAQ]]!
 # Backup
 
 * [Backup and Restore](Backup/Backup.md)
+* [Rclone: Store attachments to cloud storage like S3, MinIO, etc](Backup/Rclone.md)
 
 # <a name="Repair"></a>Repair
 
@@ -95,61 +96,60 @@ If you still have questions, check out the [[FAQ]]!
 
 # <a name="MarkdownSyntax"></a>Markdown Syntax
 
-* [Wekan Markdown](Wekan-Markdown)
-* [Emoji](Emoji)
-* [Mermaid Diagram](Mermaid-Diagram) DOES NOT WORK ANYMORE
-* [Numbered text](Numbered-text)
+* [Wekan Markdown](Features/Wekan-Markdown.md)
+* [Emoji](Features/Emoji.md)
+* [Mermaid Diagram](Features/Mermaid-Diagram.md) DOES NOT WORK ANYMORE
+* [Numbered text](Features/Numbered-text.md)
 
 # <a name="LoginAuth"></a>Login Auth
 
-* [Automatic login](autologin)
-* [Disable Password Login](Disable-Password-Login)
-* [Forgot Password](Forgot-Password)
-* [Admin: Impersonate user](Impersonate-user)
-* [Adding Users](Adding-users)
+* [Automatic login](Login/autologin.md)
+* [Disable Password Login](Login/Disable-Password-Login.md)
+* [Forgot Password](Login/Forgot-Password.md)
+* [Admin: Impersonate user](Login/Impersonate-user.md)
+* [Adding Users](Login/Adding-users.md)
 * [Active users Presence](https://github.com/wekan/wekan/issues/3734)
-* [Accounts Lockout: Brute force login protection](Accounts-Lockout)
-* [LDAP](LDAP)
-* [LDAP AD Simple Auth](LDAP-AD-Simple-Auth)
-* [Keycloak](Keycloak)
-* [Google login](Google-login)
-* [Azure](Azure)
-* [OAuth2](OAuth2), Auth0, GitLab, RocketChat
-* [Oracle OIM on premise using OAuth2](Oracle-OIM)
-* [ADFS 4.0 using OAuth2 and OpenID](ADFS)
-* [Azure AD B2C using OAuth2](B2C)
-* [Nextcloud](Nextcloud)
-* [CAS](CAS) Please test
-* [SAML](SAML) Please test
-* [Zitadel](Zitadel)
+* [Accounts Lockout: Brute force login protection](Login/Accounts-Lockout.md)
+* [LDAP](Login/LDAP.md)
+* [LDAP AD Simple Auth](Login/LDAP-AD-Simple-Auth.md)
+* [Keycloak](Login/Keycloak.md)
+* [Google login](Login/Google-login.md)
+* [Azure](Login/Azure.md)
+* [OAuth2](Login/OAuth2.md), Auth0, GitLab, RocketChat
+* [Oracle OIM on premise using OAuth2](Login/Oracle-OIM.md)
+* [ADFS 4.0 using OAuth2 and OpenID](Login/ADFS.md)
+* [Azure AD B2C using OAuth2](Login/B2C.md)
+* [Nextcloud](Login/Nextcloud.md)
+* [CAS](Login/CAS.md) Please test
+* [SAML](Login/SAML.md) Please test
+* [Zitadel](Login/Zitadel.md)
 
 # <a name="Logs"></a>Metrics, Logs, Stats
 
-* [Metrics](Metrics)
-* [Logs](Logs)
-* [Stats](Features#stats)
+* [Metrics](Features/Metrics)
+* [Logs](Features/Logs.md)
+* [Stats](Features/Features.md#stats)
 
 # <a name="Integrations"></a>Integrations
 
-* [IFTTT](IFTTT)
+* [IFTTT](ImportExport/IFTTT.md)
 * [n8n Wekan docs](https://docs.n8n.io/nodes/n8n-nodes-base.wekan/#example-usage) - [n8n GitHub](https://github.com/n8n-io/n8n)
-* [Integrations](Integrations)
+* [Integrations](ImportExport/Integrations.md)
 * [Gogs](https://github.com/wekan/wekan-gogs)
 
 # <a name="Time"></a>Time
 
-* [Time Tracking](Time-Tracking)
-* [Gantt Chart](Gantt)
-* [Due Date](Due-Date)
-* [Day of week start](Day-of-week-start)
-* [Calendar](Calendar)
+* [Time Tracking](Date/Time-Tracking.md)
+* [Gantt Chart](Features/Gantt.md)
+* [Due Date](Date/Due-Date.md)
+* [Day of week start](Date/Day-of-week-start.md)
+* [Calendar](Calendar.md)
 
 # <a name="Features"></a>Features
 
-* [Multiline](Multiline)
-* [Linked Cards](Linked-Cards)
-* [Drag Drop](https://github.com/wekan/wekan/wiki/Drag-Drop) on Mobile and Desktop
-* [Rclone: Store attachments to cloud storage like S3, MinIO, etc](Rclone)
+* [Multiline](Features/Multiline.md)
+* [Linked Cards](Features/Linked-Cards.md)
+* [Drag Drop](Features/DragDrop/Drag-Drop.md) on Mobile and Desktop
 * [Python based features](Python)
 * [Burndown and Velocity Chart](Burndown-and-Velocity-Chart)
 * [Wait Spinners](Wait-Spinners)
