@@ -150,66 +150,65 @@ If you still have questions, check out the [[FAQ]]!
 * [Multiline](Features/Multiline.md)
 * [Linked Cards](Features/Linked-Cards.md)
 * [Drag Drop](Features/DragDrop/Drag-Drop.md) on Mobile and Desktop
-* [Python based features](Python)
-* [Burndown and Velocity Chart](Burndown-and-Velocity-Chart)
-* [Wait Spinners](Wait-Spinners)
-* [Translations](Translations)
+* [Python based features](Features/Python.md)
+* [Burndown and Velocity Chart](Features/Burndown-and-Velocity-Chart.md)
+* [Wait Spinners](Features/Wait-Spinners.md)
+* [Translations](Translations/Translations.md)
+* [Customize Translations](Customize-Translations.md)
 * [Default Language for All Users](https://github.com/wekan/wekan/issues/3927)
-* [Roadmap](Roadmap)
-* [Features](Features)
-* [Planning Poker](Planning-Poker)
-* [Scaling](Scaling)
-* [Custom Logo](Custom-Logo)
-* [Subtasks](Subtasks) <== Has fix
-* [Templates](Templates)
-* [Cover](Cover)
-* [Archive and Delete](Archive-and-Delete)
-* [Custom Fields](Custom-Fields)
+* [Roadmap](FAQ/Roadmap.md)
+* [Features](Features/Features.md)
+* [Planning Poker](Features/Planning-Poker.md)
+* [Scaling](Webserver/Scaling.md)
+* [Custom Logo](Features/Custom-Logo.md)
+* [Subtasks](Features/Subtasks.md)
+* [Templates](Features/Templates.md)
+* [Cover](Features/Cover.md)
+* [Archive and Delete](Features/Archive-and-Delete.md)
+* [Custom Fields](Features/Custom-Fields.md)
 * [Fix Export board menu not visible on some boards](https://github.com/wekan/wekan/issues/1060)
 * [RAM usage](https://github.com/wekan/wekan/issues/1088#issuecomment-311843230)
-* [Demo](https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap)
-* [Swimlane Documentation](Swimlanes)
-* [Customize Translations](Customize-Translations)
+* [Swimlanes Documentation](Features/Swimlanes.md)
 
 # <a name="Email"></a>Email
 
-* [Email](Troubleshooting-Mail)
+* [Email](Email/Troubleshooting-Mail.md)
 
 # <a name="Settings"></a>Required Settings
 
-* [Requirements](Requirements)
-* [Ports, hostsfile, how Internet works](https://github.com/wekan/wekan/issues/2896)
-* [ROOT_URL Settings](Settings)
+* [Requirements](FAQ/Requirements.md)
+* [Ports, hostsfile, how Internet works](https://gitub.com/wekan/wekan/issues/2896)
+* [ROOT_URL Settings](Webserver/Settings.md)
 
 # <a name="Platforms"></a>Download
 
-* [Download Wekan for various Platforms](Platforms): Supported by xet7, Operating Systems, NAS, Cloud
-* [Helm Chart for Kubernetes](Helm)
+* [Download Wekan for various Platforms](Platforms/FOSS/Platforms.md): Supported by xet7, Operating Systems, NAS, Cloud
+* [Helm Chart for Kubernetes](Platforms/FOSS/Helm.md)
 
 # <a name="Webservers"></a>Webservers
 
-* [Caddy](Caddy-Webserver-Config)
-* [Nginx](Nginx-Webserver-Config)
-* [Apache](Apache)
+* [Caddy](Webserver/Caddy.md)
+* [Nginx](Webserver/Nginx.md)
+* [Apache](Webserver/Apache.md)
 * [OpenLiteSpeed](https://github.com/wekan/wekan/issues/3334#issuecomment-723651328)
-* [Local self signed TLS](Local-self-signed-TLS)
-* [Let's Encrypt and Google Auth](Let's-Encrypt-and-Google-Auth)
+* [Local self signed TLS](Webserver/Local-self-signed-TLS.md)
+* [Let's Encrypt and Google Auth](Webserver/Lets-Encrypt-and-Google-Auth.md)
 * [TLS with Node.js](https://github.com/wekan/wekan/issues/916)
-* [Traefik and self-signed SSL certs](Traefik-and-self-signed-SSL-certs)
+* [Traefik and self-signed SSL certs](Webserver/Traefik-and-self-signed-SSL-certs.md)
 
 # <a name="API"></a>REST API Docs
 
-* [REST API Code](REST-API-Code)
-* [Login](REST-API)
-* [User](REST-API-User)
-* [Role](REST-API-Role)
-* [Boards](REST-API-Boards)
-* [Lists](REST-API-Lists)
-* [Cards](REST-API-Cards)
-* [Checklists](REST-API-Checklists)
-* [Swimlanes](REST-API-Swimlanes)
-* [Custom Fields](REST-API-Custom-Fields)
-* [Integrations](REST-API-Integrations)
+* [REST API Code](API/Code.md)
+* [Login](API/REST-API.md)
+* [User](API/User.md)
+* [Role](API/Role.md)
+* [Boards](API/Boards.md)
+* [Lists](API/Lists.md)
+* [Cards](API/Cards.md)
+* [Checklists](API/Checklists.md)
+* [Swimlanes](API/Swimlanes.md)
+* [Custom Fields](API/Custom-Fields.md)
+* [Integrations](API/Integrations.md)
 
 # <a name="api-issue"></a>REST API issue
 
@@ -217,35 +216,30 @@ If you still have questions, check out the [[FAQ]]!
 
 # <a name="api-client-code"></a>REST API client code
 
-* [Example: New card with Python3 and REST API](New-card-with-Python3-and-REST-API)
+* [Example: New card with Python3 and REST API](API/New-card-with-Python3-and-REST-API.md)
 * [Python client to REST API](https://github.com/wekan/wekan-python-api-client)
 * [Go client to REST API](https://github.com/wekan/wego)
-* [Java](Java)
-* [Wekan Sandstorm cards to CSV using Python](Wekan-Sandstorm-cards-to-CSV-using-Python)
-* [Excel and VBA](Excel-and-VBA)
+* [Wekan Sandstorm cards to CSV using Python](Platforms/FOSS/Sandstorm/Wekan-Sandstorm-cards-to-CSV-using-Python.md)
+* [Excel and VBA](ImportExport/Excel-and-VBA.md)
 
 # <a name="Webhooks"></a>Webhooks
 
 * [Global Webhook](https://github.com/wekan/wekan/pull/2665)
 * [Limiting Webhook data](https://github.com/wekan/wekan/issues/2830)
-* [Receiving Webhooks](Receiving-Webhooks)
-* [Outgoing Webhook to Discord/Slack/RocketChat/Riot](Outgoing-Webhook-to-Discord)
+* [Receiving Webhooks](Webhooks/Receiving-Webhooks)
+* [Java Webhooks](Webhooks/Java.md)
+* [Outgoing Webhook to Discord/Slack/RocketChat/Riot](Webhooks/Outgoing-Webhook-to-Discord.md)
 * [Outgoing Webhook to NodeRed](https://github.com/wekan/wekan/issues/2017)
 * [Outgoing Webhook to PowerShell](https://github.com/wekan/wekan/issues/2518)
-* [Security: Webhook and CA](WebHook-And-CA)
-* [Outgoing Webhooks Data](Webhook-data)
-* [Outgoing Webhooks and Let's Encrypt](WebHook-And-CA)
+* [Outgoing Webhooks, CA and Let's Encrypt](Webhooks/WebHook-And-CA.md)
+* [Outgoing Webhooks Data](Webhooks/Webhook-data.md)
 * Outgoing Webhooks [Original Pull Request](https://github.com/wekan/wekan/pull/1119), [multiple Webhooks](https://github.com/wekan/wekan/pull/1199), [more parameters and response order](https://github.com/wekan/wekan/pull/1263)
-
-# <a name="Case-Studies"></a>Case Studies
-
-* [Implementing GDPR](GDPR)
 
 # <a name="Development"></a>Development
 
 * [Kadira integration](https://github.com/wekan/wekan/issues/2152)
-* [Debugging](Debugging)
-* [Developer Docs for Standalone Wekan](Developer-Documentation)
+* [Debugging](DeveloperDocs/Debugging.md)
+* [Developer Docs for Standalone Wekan](DeveloperDocs/Developer-Documentation.md)
 * [Developer Docs for Sandstorm Wekan](https://github.com/wekan/wekan-maintainer/wiki/Developing-Wekan-for-Sandstorm)
 * [Adding new Snap setting to code](Adding-new-Snap-settings-to-code)
 * [Directory Structure](Directory-Structure)
