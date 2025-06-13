@@ -22,77 +22,76 @@ If you still have questions, check out the [[FAQ]]!
 
 * [Deep Dive Into WeKan](DeveloperDocs/Deep-Dive-Into-WeKan.md)
 * [Meteor WeKan Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
-* [Multiverse WeKan Roadmap](https://github.com/wekan/wekan/wiki/WeKan-Multiverse-Roadmap)
-* [Docs/Manual](https://github.com/wekan/wekan/discussions/4522)
-* [Change Language](Change-Language)
-* [Forgot Password](Forgot-Password)
-* [About](https://github.com/wekan/wekan/wiki)
-* [Test Edge](Test-Edge)
-* [WeKan Design Principles](Design-Principles)
-* [FAQ](FAQ)
-* [IRC FAQ](IRC-FAQ) - answers to questions asked at IRC
-* [Team](Team)
-* [Press](Press)
+* [Multiverse WeKan Roadmap](FAQ/WeKan-Multiverse-Roadmap.md)
+* OLD Docs/Manual: https://github.com/wekan/wekan/discussions/4522
+* [Change Language](Translations/Change-Language.md)
+* [Forgot Password](Login/Forgot-Password.md)
+* [Test Edge](DeveloperDocs/Test-Edge.md)
+* [WeKan Design Principles](DeveloperDocs/Design-Principles.md)
+* [FAQ](FAQ/FAQ.md)
+* [IRC FAQ](FAQ/IRC-FAQ.md) - answers to questions asked at IRC
+* [Team](FAQ/Team.md)
+* [Press](FAQ/Press.md)
 * [Blog](https://blog.wekan.team)
-* [Wekan vs Trello vs Restyaboard](Wekan-vs-Trello-vs-Restyaboard)
+* [Wekan vs Trello vs Restyaboard](ImportExport/trello/Wekan-vs-Trello-vs-Restyaboard.md)
 * [Results of Survey 2020-01](https://blog.wekan.team/2020/06/results-of-wekan-survey-2020-01/)
 
 # <a name="NotWeKan"></a>Fake: Not WeKan kanban
 
-* [Hall of Shame: Fake companies that are NOT WeKan kanban](https://github.com/wekan/wekan/wiki/Hall-of-Shame:-Fake-companies)
-* [Others NOT related to WeKan kanban](NOT-related-to-Wekan)
+* [Hall of Shame: Fake companies that are NOT WeKan kanban](FAQ/Hall-of-Shame.md)
+* [Others NOT related to WeKan kanban](FAQ/NOT-related-to-Wekan.md)
 
 # <a name="Security"></a>Security
 
-* [Allow private boards only: Disable Public Boards](Allow-private-boards-only)
-* [Security Disclosure and details of Security in Wekan](https://github.com/wekan/wekan/blob/main/SECURITY.md)
+* [Allow private boards only: Disable Public Boards](Features/Allow-private-boards-only.md)
+* [Security Disclosure and details of Security in Wekan](../SECURITY.md)
 * [Security issues](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+label%3ASecurity)
-* [Password Hashing](Password-Hashing)
+* [Password Hashing](Login/Password-Hashing.md)
 
 # <a name="Scaling"></a>Scaling
 
-* [Cron: Hourly restart WeKan, because of memory leaks](Cron)
+* [Cron: Hourly restart WeKan, because of memory leaks](Webserver/Cron.md)
 * [Maybe: Add more RAM to Node.js to prevent crash](https://github.com/wekan/wekan/issues/3585)
-* [Clustering AWS etc](AWS)
-* [Scaling](Scaling)
+* [Clustering AWS etc](Platforms/Propietary/Cloud/AWS.md)
+* [Scaling](Webserver/Scaling.md)
 * [Kubernetes](https://github.com/wekan/wekan/tree/main/helm/wekan)
 * [Redis Oplog](https://github.com/cult-of-coders/redis-oplog)
-* [Meteor Scaling](https://galaxy-guide.meteor.com/scaling.html) at [Meteor Cloud](https://www.meteor.com/cloud)
+* [Meteor Scaling](https://galaxy-guide.meteor.com/scaling.html) at [Meteor Cloud](https://meteor.com/cloud)
 * [Scaling at Meteor forums](https://forums.meteor.com/t/meteor-scaling-performance-best-practices/52886/16)
 
 # <a name="Migrating"></a>Migrating
 
-* [From Previous Export, paste big WeKan JSON](https://github.com/wekan/wekan/wiki/From-Previous-Export)
-* [Progress: Import/Export/Sync](Sync)
-* [From CSV/TSV](CSV)
-* [From Trello](Migrating-from-Trello)
-* [From Jira](Jira)
-* [From Asana](Asana)
-* [From Zenkit](ZenKit)
-* [From old Wekan manually](Migrating-from-old-Wekan-manually)
-* [Converting Meteor Stylus to CSS](Converting-Meteor-Stylus-to-CSS)
+* [From Previous Export, paste big WeKan JSON](ImportExport/From-Previous-Export.md)
+* [Progress: Import/Export/Sync](ImportExport/Sync.md)
+* [From CSV/TSV](ImportExport/CSV.md)
+* [From Trello](ImportExport/trello/Migrating-from-Trello.md)
+* [From Jira](ImportExport/Jira.md)
+* [From Asana](ImportExport/Asana.md)
+* [From Zenkit](ImportExport/ZenKit.md)
+* [From old Wekan manually](ImportExport/Migrating-from-old-Wekan-manually.md)
 
 # <a name="Support"></a>Support priorities for new features and bugfixes
 
 1) [Commercial Support](https://wekan.team/commercial-support/)
 2) [Community Support](https://github.com/wekan/wekan/issues)
-3) [Debugging](Debugging)
+3) [Debugging](DeveloperDocs/Debugging.md)
 
 # Backup
 
-* [Backup and Restore](Backup)
+* [Backup and Restore](Backup/Backup.md)
 
 # <a name="Repair"></a>Repair
 
-* [Repair MongoDB](Repair-MongoDB)
-* [Using Meteor MongoDB to repair files](Export-from-Wekan-Sandstorm-grain-.zip-file)
-* [If board does not open and keeps loading](If-board-does-not-open-and-keeps-loading)
-* [Repair Docker](Repair-Docker)
+* [Repair MongoDB](Backup/Repair-MongoDB.md)
+* [Using Meteor MongoDB to repair files](Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
+* [If board does not open and keeps loading](Features/If-board-does-not-open-and-keeps-loading.md)
+* [Repair Docker](Platforms/FOSS/Docker/Repair-Docker.md)
 
 # <a name="Themes"></a> Themes
 
-* [Themes](Custom-CSS-themes)
-* [Dark Mode](Dark-Mode)
+* [Themes](Theme/Custom-CSS-themes.md)
+* [Dark Mode](Theme/Dark-Mode.md)
+* [Converting Meteor Stylus to CSS](Theme/Converting-Meteor-Stylus-to-CSS.md)
 
 # <a name="MarkdownSyntax"></a>Markdown Syntax
 
