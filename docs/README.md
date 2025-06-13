@@ -16,9 +16,7 @@ There are various ways to get started with Wekan:
 
 If you still have questions, check out the [[FAQ]]!
 
-[kanban board]: https://en.wikipedia.org/wiki/Kanban_board
-[mit license]: https://github.com/wekan/wekan/blob/main/LICENSE
-[sandstorm app demo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h# <a name="Wekan"></a>Wekan
+<a name="Wekan"></a>Wekan
 
 # <a name="General"></a>General
 
@@ -277,3 +275,7 @@ If you still have questions, check out the [[FAQ]]!
 * [Swimlanes](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+label%3AFeature%3ACards%3ASwimlanes)
 * [LibreJS](https://github.com/wekan/wekan/issues/1040)
 * [Markdown](https://github.com/wekan/wekan/issues?q=is%3Aissue+is%3Aopen+label%3AFeature%3AMarkdown)
+
+[kanban board]: https://en.wikipedia.org/wiki/Kanban_board
+[mit license]: https://github.com/wekan/wekan/blob/main/LICENSE
+[sandstorm app demo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h# 
