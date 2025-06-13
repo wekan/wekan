@@ -20,7 +20,7 @@ If you still have questions, check out the [[FAQ]]!
 
 # <a name="General"></a>General
 
-* [Deep Dive Into WeKan](Deep-Dive-Into-WeKan)
+* [Deep Dive Into WeKan](DeveloperDocs/Deep-Dive-Into-WeKan.md)
 * [Meteor WeKan Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
 * [Multiverse WeKan Roadmap](https://github.com/wekan/wekan/wiki/WeKan-Multiverse-Roadmap)
 * [Docs/Manual](https://github.com/wekan/wekan/discussions/4522)
