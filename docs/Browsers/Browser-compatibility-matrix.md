@@ -18,13 +18,14 @@ Any telemetry at any Firefox based browser can be additionally most locked down 
 
 Browser | [PWA](PWA) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
+[uWolf](https://open-store.io/app/uwolf.chromiumos-guy) | No | Yes | No | Ubuntu Touch webbrowser based of LibreWolf
+[LibreWolf](https://librewolf.net) | No | No | Yes | [Win/Mac/Linux](https://librewolf.net/installation/), [Repos](https://codeberg.org/librewolf)
 [Mypal](https://github.com/reactosapps/apps/releases/download/0.01/mypal-27.9.4.win32.installer.exe) | No | No | Newest | For 32bit ReactOS/WinXP/Win7/etc [issue](https://github.com/wekan/wekan/issues/3132)
 Firefox | No | Newest | Newest | iOS/Android/Win/Mac/Linux/BSD/RasPi. At iOS uses Safari engine, elsewhere Firefox engine. [Haiku](https://discuss.haiku-os.org/t/progress-on-porting-firefox/13493/143) not tested yet - [HN](https://news.ycombinator.com/item?id=41214762).
 [Waterfox](https://www.waterfox.net) | No | No | Yes | Win/Mac/Linux, more private than Firefox, no tracking. [Repo](https://github.com/BrowserWorks/Waterfox)
 [Floorp](https://floorp.app) | No | No | Yes | [Win/Mac/Linux](https://github.com/Floorp-Projects/Floorp/releases), more private than Firefox, [Repo](https://github.com/Floorp-Projects/Floorp)
 [Mercury](https://thorium.rocks/mercury) | No | No | Yes | [Win/Linux](https://github.com/Alex313031/Mercury/releases), more private than Firefox, [Repo](https://github.com/Alex313031/Mercury)
 [SeaLion](https://github.com/wicknix/SeaLion) | No | No | Yes | [MacOS 10.7-14.1 x32,x64,ppc,ppc64/Linux x64](https://github.com/wicknix/SeaLion/releases), [Repo](https://github.com/wicknix/SeaLion)
-[LibreWolf](https://librewolf.net) | No | No | Yes | [Win/Mac/Linux](https://librewolf.net/installation/), [Repos](https://codeberg.org/librewolf)
 [Zen Browser](https://www.zen-browser.app/) | No | No | Yes | [Win/Mac/Linux](https://www.zen-browser.app/download), [Repos](https://github.com/zen-browser), [Review at YouTube](https://www.youtube.com/watch?v=tKM2N4TQHQY)
 
 ## Chromium based
