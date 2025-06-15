@@ -3492,7 +3492,7 @@ THEME - Clean Light
 
 .board-color-cleandark .card-details-header {
   background: #2E2E39 !important;
-  color: rgba(255, 255, 255, 1);
+  color:#FFF !important;
 }
 
 .board-color-cleanlight .card-details-header .card-details-title,
