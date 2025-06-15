@@ -2811,6 +2811,7 @@ THEME - Clean Dark
 
 .board-color-cleandark .card-details {
   background: #23232B;
+  scrollbar-color: #ffffff #2e2e39;
   border-radius: 20px;
   box-shadow: none;
 }
