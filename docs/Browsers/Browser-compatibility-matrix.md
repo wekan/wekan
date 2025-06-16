@@ -72,7 +72,7 @@ Internet Explorer | No | No | No | No | No
 
 Browser | [PWA](PWA) | Mobile | Desktop | OS
 ------- | ----| ------ | ------- | -------
-[Chawan](https://chawan.net) | No | No | Yes | No | Linux/BSD. [Release 0.2.0](https://chawan.net/news/chawan-0-2-0.html), [HN](https://news.ycombinator.com/item?id=44293260)
+[Chawan](https://chawan.net) | No | No | Yes | Linux/BSD. [Release 0.2.0](https://chawan.net/news/chawan-0-2-0.html), [HN](https://news.ycombinator.com/item?id=44293260)
 
 ## Ladybird based, not yet compatible with WeKan
 
