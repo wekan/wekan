@@ -17,7 +17,23 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- Updated docs.
+  [Part 1](https://github.com/wekan/wekan/commit/31e043c1d7c0d4031054234241f6a1b7479f2134),
+  [Part 2](https://github.com/wekan/wekan/commit/40a52da2d3fd472847b9bfd2696f3f9a72021b52),
+  [Part 3](https://github.com/wekan/wekan/commit/2a415cbd2661bd210fdd18626f1e606f73334bd2),
+  [Part 4](https://github.com/wekan/wekan/commit/d99864ca95a46e5121962c37fd0acd0f6ad16193),
+  [Part 5](https://github.com/wekan/wekan/commit/3a4d20ecb27f02297d0e4e479fcb5d3335ece962),
+  [Part 6](https://github.com/wekan/wekan/commit/31e043c1d7c0d4031054234241f6a1b7479f2134),
+  [Part 7](https://github.com/wekan/wekan/commit/9aa028f32dc7c186d55ada422b73a7e331de2cbb),
+  [Part 8](https://github.com/wekan/wekan/commit/11415cd51781bde20375c6d98fccde17227136fd),
+  [Part 9](https://github.com/wekan/wekan/commit/cc7459b98395f15fd2c97992f74c279a93f8956a),
+  [Part 10](https://github.com/wekan/wekan/commit/4bfc0140bef8504ba24b237a9c5c525a5bf3fb7d),
+  [Part 11](https://github.com/wekan/wekan/commit/f54cbac37008fc99f19fb20930d2fa5ecb535a69),
+  [Part 11](https://github.com/wekan/wekan/commit/ad3306e19e422b9b8ce70a13e862bc107fec1eba).
+
+and fixes the following bugs:
 
 - [CleanDark Theme Fixes](https://github.com/wekan/wekan/pull/5805).
   Thanks to walster001.
@@ -38,6 +54,9 @@ This release adds the following updates:
   Thanks to developers of dependencies.
 - [Upgrade to MongoDB 7.0.21](https://github.com/wekan/wekan/commit/d2f17ef1402335e4b3bd9de8864c68f97714febf).
   Thanks to MongoDB developers.
+- [Snap Candidate back to MongoDB 6.0.24, because 7.0.21 did not work](https://github.com/wekan/wekan/commit/985afafed0eb608fb95d4e54f846836b1fb0e800).
+  Thanks to xet7.
+
 
 and fixes the following bugs:
 
