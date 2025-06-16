@@ -68,6 +68,12 @@ Internet Explorer | No | No | No | No | No
   - Repo: https://github.com/servo/servo
   - At https://www.youtube.com/watch?v=g9hzWXxUgiU was said, that Gmail works, so maybe WeKan could also work
 
+## TUI webbrowsers, not yet supported
+
+Browser | [PWA](PWA) | Mobile | Desktop | OS
+------- | ----| ------ | ------- | -------
+[Chawan](https://chawan.net) | No | No | Yes | No | Linux/BSD. [Release 0.2.0](https://chawan.net/news/chawan-0-2-0.html), [HN](https://news.ycombinator.com/item?id=44293260)
+
 ## Ladybird based, not yet compatible with WeKan
 
 - BSD-2-Clause license
