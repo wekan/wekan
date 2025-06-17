@@ -145,48 +145,7 @@ BlazeComponent.extendComponent({
     });
 
     // End: Copy <pre> code
-
-    const textareaSelector = 'textarea';
-    const mentions = [
-      // User mentions
-      {
-        match: /\B@([\w.-]*)$/,
-        search(term, callback) {
-          const currentBoard = Utils.getCurrentBoard();
-          callback(
-            _.union(
-            currentBoard
-              .activeMembers()
-              .map(member => {
-                const user = ReactiveCache.getUser(member.userId);
-                const username = user.username;
-                const fullName = user.profile && user.profile !== undefined && user.profile.fullname ? user.profile.fullname : "";
-                return username.includes(term) || fullName.includes(term) ? user : null;
-              })
-              .filter(Boolean), [...specialHandles])
-          );
-        },
-        template(user) {
-          if (user.profile && user.profile.fullname) {
-            return (user.profile.fullname + " (" + user.username + ")");
-          }
-          return user.username;
-        },
-        replace(user) {
-          if (user.profile && user.profile.fullname) {
-            return `@${user.username} (${user.profile.fullname}) `;
-          }
-          return `@${user.username} `;
-        },
-        index: 1,
-      },
-    ];
-
-    const enableTextarea = function() {
-      const $textarea = this.$(textareaSelector);
-      autosize($textarea);
-      $textarea.escapeableTextComplete(mentions);
-    };
+	
 /*
     if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true || Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
       const isSmall = Utils.isMiniScreen();
@@ -409,7 +368,6 @@ BlazeComponent.extendComponent({
       enableTextarea();
     }
 */
-    enableTextarea();
   },
   events() {
     return [
