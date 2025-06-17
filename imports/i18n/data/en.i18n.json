@@ -1270,5 +1270,7 @@
   "supportPopup-title": "Support",
   "accessibility-page-enabled": "Accessibility page enabled",
   "accessibility-title": "Accessibility topic",
-  "accessibility-content": "Accessibility content"
+  "accessibility-content": "Accessibility content",
+  "copy-text-to-clipboard": "Copy text to clipboard",
+  "copied": "Copied"
 }
