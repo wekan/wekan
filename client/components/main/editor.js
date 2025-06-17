@@ -8,34 +8,142 @@ const specialHandles = [
 ];
 const specialHandleNames = specialHandles.map(m => m.username);
 
-
 BlazeComponent.extendComponent({
   onRendered() {
     // Start: Copy <pre> code https://github.com/wekan/wekan/issues/5149
     // TODO: Try to make copyPre visible at Card Details after editing or closing editor or Card Details.
     //       - Also this same TODO below at event, if someone gets it working.
-    var copy = function(target) {
+
+    // --- Create reusable big rounded notification toast ---
+    const createOrGetToast = () => {
+      let toast = document.querySelector('.copy-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'copy-toast';
+        toast.textContent = TAPi18n.__('copied'); // Translated 'Copied'
+        document.body.appendChild(toast);
+      }
+      return toast;
+    };
+
+    const showToast = () => {
+      const toast = createOrGetToast();
+      toast.classList.add('visible');
+      setTimeout(() => {
+        toast.classList.remove('visible');
+      }, 1500);
+    };
+
+    var copy = function(text) {
       var textArea = document.createElement('textarea');
-      textArea.setAttribute('style','width:1px;border:0;opacity:0;');
+      textArea.setAttribute('style','width:1px;border:0;opacity:0;position:fixed;top:0;left:0;');
       document.body.appendChild(textArea);
-      textArea.value = target.innerHTML;
+      textArea.value = text;
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
+    };
+
+    var addCopyButtons = function(root = document) {
+      var pres = root.querySelectorAll("pre");
+
+      pres.forEach(function(pre) {
+        // Only add button if there's a code block inside
+        var codeBlock = pre.querySelector('code');
+        if (!codeBlock) return;
+
+        // Assume triple backtick markdown if inside card description or minicard
+        const isMarkdownContext =
+          pre.closest('.viewer') || pre.closest('.minicard-description');
+
+        if (!isMarkdownContext) return;
+
+        // Prevent duplicate buttons
+        if (pre.previousElementSibling && pre.previousElementSibling.classList.contains('fa-copy')) {
+          return;
+        }
+
+        var button = document.createElement("a");
+        button.className = "fa fa-copy btn btn-sm right";
+        // TODO: Translate text 'Copy text to clipboard'
+        button.setAttribute('title', TAPi18n.__('copy-text-to-clipboard'));
+        button.innerHTML = '';
+        pre.parentNode.insertBefore(button, pre);
+
+        button.addEventListener('click', function(e){
+          e.preventDefault();
+          var updatedPre = button.nextElementSibling;
+          if (updatedPre && updatedPre.tagName === 'PRE') {
+            copy(updatedPre.textContent);
+            showToast(); // 👈 Show toast on copy
+          }
+        });
+      });
+
+      // --- Clean up invalid copy buttons on minicards ---
+      const invalidButtons = root.querySelectorAll('.minicard-description .fa-copy');
+      invalidButtons.forEach(button => {
+        const next = button.nextElementSibling;
+        if (!(next && next.tagName === 'PRE' && next.querySelector('code'))) {
+          // Not followed by a valid <pre><code> block
+          button.remove();
+        }
+      });
+    };
+
+    // Initial pass on full document (card details and minicards)
+    addCopyButtons();
+
+    // === Board startup scan for any existing minicards with code ===
+    const boardLists = document.querySelectorAll('.js-list');
+    boardLists.forEach(list => {
+      addCopyButtons(list);
+    });
+
+    // Track card ID so we don’t reapply unnecessarily
+    let lastCardId = null;
+    Tracker.autorun(() => {
+      const currentCardId = Session.get('currentCard');
+      if (currentCardId && currentCardId !== lastCardId) {
+        lastCardId = currentCardId;
+        Meteor.setTimeout(() => {
+          addCopyButtons();
+        }, 100);
+      }
+    });
+
+    // MutationObserver for card details and board (minicards)
+    let debounceTimer;
+    const observer = new MutationObserver((mutationsList) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        mutationsList.forEach(mutation => {
+          mutation.addedNodes.forEach(node => {
+            if (node.nodeType === 1) { // Only element nodes
+              addCopyButtons(node);
+            }
+          });
+        });
+      }, 100);
+    });
+
+    // Observe both card detail panel and board column container
+    const cardDetailsEl = document.querySelector('.card-details');
+    const boardEl = document.querySelector('.js-board');
+
+    if (cardDetailsEl) {
+      observer.observe(cardDetailsEl, { childList: true, subtree: true });
     }
-    var pres = document.querySelectorAll(".viewer > pre");
-    pres.forEach(function(pre){
-      var button = document.createElement("a");
-      button.className = "fa fa-copy btn btn-sm right";
-      // TODO: Translate text 'Copy text to clipboard'
-      button.setAttribute('title','Copy text to clipboard');
-      button.innerHTML = '';
-      pre.parentNode.insertBefore(button, pre);
-      button.addEventListener('click', function(e){
-        e.preventDefault();
-        copy(pre.childNodes[0]);
-      })
-    })
+
+    if (boardEl) {
+      observer.observe(boardEl, { childList: true, subtree: true });
+    }
+
+    // Clean up observer when component is destroyed
+    this.onDestroyed(() => {
+      observer.disconnect();
+    });
+
     // End: Copy <pre> code
 
     const textareaSelector = 'textarea';
