@@ -17,3 +17,23 @@
   top: 20px;
   right: 6px;
 }
+/* Copy Button Notification */
+.copy-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 200px 400px;
+  border-radius: 20px;
+  font-size: 5.5rem;
+  font-weight: bold;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.copy-toast.visible {
+  opacity: 1;
+}
