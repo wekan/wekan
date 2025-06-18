@@ -10,6 +10,7 @@
 - [Backup/Restore Snap/Docker](../Backup/Backup.md)
   - also copy files at `/var/snap/wekan/common/files/` to environment variable `WRITABLE_PATH` files subdirectory
   - If you use WeKan included Caddy v1, also copy `/var/snap/wekan/common/files/Caddyfile`, but recommended is to use [newer webserver like Caddy 2 etc](../Webserver)
+  - About Caddy: Caddy v1 Caddyfile is NOT compatible with Caddy v2 Caddyfile !! It is different syntax.
 - [Automatically updating multi Snap](../Platforms/FOSS/Snap/Many-Snaps-on-LXC.md)
   - at multisnap also copy other snapnames like t `/var/snap/wekan_OTHERSNAPNAME/common/files/` to environment variable `WRITABLE_PATH` files subdirectory
 - [Migrate Sandstorm](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md) that also has [exporting to JSON textfiles](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md#11b-dump-database-to-json-text-files)
