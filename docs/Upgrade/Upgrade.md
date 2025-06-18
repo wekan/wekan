@@ -1,5 +1,6 @@
 ## Upgrade
 
+- There is very active development to upgrade all platforms to newest WeKan. Please try not asking about it every day.
 - If using Snap, please wait for official automatic upgrade from 6.09 to 7.x
 - It is only possible to migrate to same version of WeKan at different platform, like Snap 6.09 to Docker 6.09
   - Because attachments will not be visible, if upgrading from 6.09 to 7.x
