@@ -13,6 +13,13 @@ export default {
     load: () => import('./data/af_ZA.i18n.json'),
     rtl: "false",
   },
+  "en_AU": {
+    code: "en",
+    tag: "en_AU",
+    name: "English (Australia)",
+    load: () => import('./data/en_AU.i18n.json'),
+    rtl: "false",
+  },
   "en_ZA": {
     code: "en",
     tag: "en_ZA",
