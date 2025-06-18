@@ -15,3 +15,8 @@
   - at multisnap also copy other snapnames like t `/var/snap/wekan_OTHERSNAPNAME/common/files/` to environment variable `WRITABLE_PATH` files subdirectory
 - [Migrate Sandstorm](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md) that also has [exporting to JSON textfiles](../Platforms/FOSS/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md#11b-dump-database-to-json-text-files)
 - [Migrate text to SQLite and attachments to separate files](https://github.com/wekan/minio-metadata) that will be later used with future WeKan versions like [WeKan Studio](https://github.com/wekan/wekanstudio) or [wami](https://github.com/wekan/wami)
+- [Trello Attachments Downloader](https://github.com/wekan/trello-attachments-downloader), also save JSON of each board. There will later be import to WeKan.
+- [ImportExport](../ImportExport), some may work, some may need improvements. These will later be features directly at WeKan.
+
+
+
