@@ -115,6 +115,18 @@ if (Meteor.isServer) {
     const params = {
       activityId: activity._id,
     };
+    if (activity.assigneeId) {
+      const assignee = activity.assignee();
+      if (assignee) {
+        if (assignee.getName()) {
+          params.assignee = assignee.getName();
+        }
+        if (assignee.emails) {
+          params.assigneeEmails = assignee.emails;
+        }
+        params.assigneeId = activity.assigneeId;
+      }
+    }
     if (activity.userId) {
       // No need send notification to user of activity
       // participants = _.union(participants, [activity.userId]);
