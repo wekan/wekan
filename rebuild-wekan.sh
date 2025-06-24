@@ -48,7 +48,7 @@ do
 			# Latest fibers for Meteor sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp sudo npm -g install fibers
 			sudo npm -g install @mapbox/node-pre-gyp
 			# Install Meteor, if it's not yet installed
-			sudo npm -g install meteor --unsafe-perm
+			sudo npm -g install meteor@2.14 --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
