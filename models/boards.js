@@ -1760,7 +1760,7 @@ if (Meteor.isServer) {
       ).sort();
     },
     setAllBoardsHideActivities() {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((ReactiveCache.getCurrentUser() || {}).isAdmin) {
         Boards.update(
           {
             showActivities: true
@@ -2001,8 +2001,8 @@ if (Meteor.isServer) {
    *
    * @param {string} userId the ID of the user to retrieve the data
    * @return_type [{_id: string,
-                    title: string}]
-                    */
+   *                title: string}]
+   */
   JsonRoutes.add('GET', '/api/users/:userId/boards', function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
@@ -2236,7 +2236,7 @@ if (Meteor.isServer) {
       });
     }
   });
-  
+
   /**
    * @operation add_board_label
    * @summary Add a label to a board

@@ -13,7 +13,7 @@ the REST API of Wekan and exports it under the OpenAPI 2.0 specification
 
 ### calling the tool
 
-    python3 generate_openapi.py --release v1.65 > ../public/wekan_api.yml
+    python3 generate_openapi.py --release v7.92 > ../public/api/wekan.yml
 
 ## Generating docs
 Now that we have the OpenAPI, it's easy enough to convert the YAML file into some nice Markdown with
