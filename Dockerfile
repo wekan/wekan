@@ -209,7 +209,9 @@ chown --recursive wekan:wekan /home/wekan/.config
 cd /home/wekan
 chown --recursive wekan:wekan /home/wekan
 echo "Starting meteor ${METEOR_RELEASE} installation...   \n"
-gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh
+#gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh
+# Specify Meteor version 2.14 to be compatible: https://github.com/wekan/wekan/pull/5816/files
+gosu wekan:wekan npm -g install meteor@2.14 --unsafe-perm
 mv /root/.meteor /home/wekan/
 chown --recursive wekan:wekan /home/wekan/.meteor
 
