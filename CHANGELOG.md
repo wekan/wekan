@@ -21,6 +21,11 @@ This release adds the following new features:
 
 - [Enhance API documentation and add board-related endpoints](https://github.com/wekan/wekan/pull/5815).
   Thanks to Atry.
+- Snap Candidate: If CPU does not support AVX, use Qemu that supports AVX, so that MongoDB 6 works.
+  [Part 1](https://github.com/wekan/migratemongo/commit/e7ca69584f021c4de16062f7074f177cca7ab25c),
+  [Part 2](https://github.com/wekan/migratemongo/commit/e34efeeced9e293ff6ea12bf36486eab3ce3a3f5),
+  [Part 3](https://github.com/wekan/wekan/commit/59ab6c1cd8ca3d71616201b02de6536b15b2303d).
+  Thanks to xet7.
 
 and adds the following updates:
 
