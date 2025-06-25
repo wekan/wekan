@@ -9,7 +9,12 @@ if [ -z "$LANG" ]; then
 fi
 
 export LC_ALL=C
-export PATH=/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:$PATH
+
+# If CPU does not support AVX, use Qemu that supports AVX. 
+# Migratemongo is at https://github.com/wekan/migratemongo
+# and at directory /snap/${SNAP_NAME}/current/migratemongo/avx
+# is bash scripts like mongod, mongosh check avx support and use Qemu if needed.
+export PATH=/snap/${SNAP_NAME}/current/migratemongo/avx:/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:$PATH
 export LD_LIBRARY_PATH=/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
 if [ -z $1 ]; then
