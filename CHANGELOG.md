@@ -17,7 +17,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Enhance API documentation and add board-related endpoints](https://github.com/wekan/wekan/pull/5815).
+  Thanks to Atry.
+
+and adds the following updates:
 
 - Updated docs.
   [Part 1](https://github.com/wekan/wekan/commit/31e043c1d7c0d4031054234241f6a1b7479f2134),
@@ -40,6 +45,10 @@ and fixes the following bugs:
 
 - [CleanDark Theme Fixes](https://github.com/wekan/wekan/pull/5805).
   Thanks to walster001.
+- Specify meteor version, otherwise the latest meteor version is not compatible with node14.
+  [Part 1](https://github.com/wekan/wekan/pull/5816),
+  [Part 2](https://github.com/wekan/wekan/commit/51e43f1c254abee7ee12e8fdab8c52695e858fa2).
+  Thanks to dassio and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
