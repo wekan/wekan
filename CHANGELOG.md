@@ -26,6 +26,8 @@ This release adds the following new features:
   [Part 2](https://github.com/wekan/migratemongo/commit/e34efeeced9e293ff6ea12bf36486eab3ce3a3f5),
   [Part 3](https://github.com/wekan/wekan/commit/59ab6c1cd8ca3d71616201b02de6536b15b2303d).
   Thanks to xet7.
+- [Added docs about using MongoDB at unsupported CPUs with Qemu](https://github.com/wekan/wekan/commit/f926448bbbbd570ad1e6a1015c755b12c6b229c0).
+  Thanks to xet7.
 
 and adds the following updates:
 
