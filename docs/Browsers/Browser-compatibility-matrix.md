@@ -67,6 +67,9 @@ Internet Explorer | No | No | No | No | No
   - https://servo.org
   - Repo: https://github.com/servo/servo
   - At https://www.youtube.com/watch?v=g9hzWXxUgiU was said, that Gmail works, so maybe WeKan could also work
+  - This month in Servo: color inputs, SVG, embedder JavaScript, and more
+    - https://servo.org/blog/2025/06/18/this-month-in-servo/
+    - https://news.ycombinator.com/item?id=44382451
 
 ## TUI webbrowsers, not yet supported
 
