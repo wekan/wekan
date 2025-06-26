@@ -1,11 +1,11 @@
 name: wekan
 version: '7.92'
-base: core20
+base: core24
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
 
-   Whether you’re maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized. They give you a visual overview of the current state of your project, and make you productive by allowing you to focus on the few items that matter the most.
+   Whether you're maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized. They give you a visual overview of the current state of your project, and make you productive by allowing you to focus on the few items that matter the most.
    Depending on target environment, some configuration settings might need to be adjusted.
    For full list of configuration options call:
    $ wekan.help
@@ -13,8 +13,11 @@ description: |
 confinement: strict
 grade: stable
 
-architectures:
-  - amd64
+# Update platforms format to correct syntax for core24
+platforms:
+  amd64:
+    build-on: amd64
+    build-for: amd64
 
 plugs:
   mongodb-plug:
@@ -65,63 +68,46 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-6.0.24.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.21.tgz
         plugin: dump
         stage-packages:
-            - libssl1.1
+            - libssl3
             - libcurl4
             - libstemmer0d
             - zlib1g
             - libsnappy1v5
-            - libyaml-cpp0.6
+            - libyaml-cpp0.8
             - libpcre3
             - libpcrecpp0v5
-            - libboost-system1.71.0
-            - libboost-iostreams1.71.0
-            - libboost-filesystem1.71.0
-            - libboost-program-options1.71.0
+            - libboost-system1.74.0
+            - libboost-iostreams1.74.0
+            - libboost-filesystem1.74.0
+            - libboost-program-options1.74.0
             - libgoogle-perftools4
-        filesets:
-            mongo:
-                - bin
-                - usr
         stage:
-            - $mongo
+            - bin
+            - usr
         prime:
-            - $mongo
+            - bin
+            - usr
 
     mongosh:
-        source: https://downloads.mongodb.com/compass/mongodb-mongosh_2.1.1_amd64.deb
+        source: https://downloads.mongodb.com/compass/mongosh-2.5.3-linux-x64.tgz
         plugin: dump
 
     mongotools:
-        source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.9.4.tgz
+        source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.12.2.tgz
         plugin: dump
-
-#    mongodb44:
-#        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.18.tgz
-#        plugin: dump
-#        organize:
-#          bin: mongo44bin
-#          usr: mongo44usr
-#        stage:
-#          - -init
 
     wekan:
         source: .
         plugin: npm
         npm-node-version: 14.21.3
-        ## Node.js 14.21.4 from Meteor only exists URL below where it's downloaded and installed.
-        ## It does not exists in that npm-node-version above.
-        #npm-packages:
-        #    - node-gyp
-        #    - node-pre-gyp
-        #    - fibers
+        npm-include-node: true
         build-packages:
             - build-essential
             - ca-certificates
             - apt-utils
-#            - python2
             - python3
             - g++
             - capnproto
@@ -131,7 +117,7 @@ parts:
             - execstack
             - nodejs
             - npm
-#            - p7zip-full
+            - git  # Add git for cloning migratemongo
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -196,14 +182,14 @@ parts:
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-            # Migrate MongoDB 3 to 6
-            wget https://github.com/wekan/migratemongo/archive/refs/heads/main.zip
-            unzip main.zip
-            mv migratemongo-main migratemongo
+
+            # Migrate MongoDB 3 to 6 - clone directly from git instead of downloading zip
+            echo "Cloning migratemongo repository..."
+            git clone https://github.com/wekan/migratemongo.git
+            echo "Copy migratemongo files to install directory..."
             cp -pR migratemongo $SNAPCRAFT_PART_INSTALL/
             rm -rf migratemongo
-            rm main.zip
-            #rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+
             # Delete phantomjs that is in accounts-lockout
             #rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt
             # Delete temporary files
@@ -228,21 +214,49 @@ parts:
         plugin: dump
 
     caddy:
-        plugin: dump
-        ## Caddy v1 is not developed anymore. TODO: Sometime migrate to Caddy v2.
-        ## https://caddy.community/t/caddyfile-v1-adapter/9129
-        ## https://github.com/caddyserver/caddy/tree/v1
-        #source: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
-        #source-type: tar
-        # Using last working binary that was downloaded from above URL to Wekan Snap,
-        # and .txt files from https://github.com/caddyserver/caddy/tree/v1/dist
-        source: https://wekan.github.io/caddy-v1-linux-amd64.7z
-        source-type: 7z
-        organize:
-          caddy: bin/caddy
-          CHANGES.txt: license/CADDY_CHANGES.txt
-          EULA.txt: license/CADDY_EULA.txt
-          LICENSES.txt: license/CADDY_LICENSES.txt
-          README.txt: license/CADDY_README.txt
+        plugin: nil
+        build-packages:
+            - debian-keyring
+            - debian-archive-keyring
+            - apt-transport-https
+            - gnupg
+            - curl
+        override-build: |
+            # Add Caddy repository
+            echo "Installing Caddy 2 from the official repository..."
+            curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /tmp/caddy-stable-archive-keyring.gpg
+            mkdir -p /etc/apt/keyrings
+            cp /tmp/caddy-stable-archive-keyring.gpg /etc/apt/keyrings/
+            echo "deb [signed-by=/etc/apt/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main" > /etc/apt/sources.list.d/caddy-stable.list
+            apt update
+            apt -y install caddy
+
+            # Display installed Caddy version for confirmation
+            echo "Installed Caddy version:"
+            /usr/bin/caddy version
+
+            # Create directory structure in the snap
+            mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+
+            # Copy Caddy binary
+            cp /usr/bin/caddy $SNAPCRAFT_PART_INSTALL/bin/
+            chmod +x $SNAPCRAFT_PART_INSTALL/bin/caddy
+
+            # Create license files manually since they don't exist in the package
+            mkdir -p $SNAPCRAFT_PART_INSTALL/license
+            echo "Caddy is licensed under the Apache License 2.0. See https://github.com/caddyserver/caddy/blob/master/LICENSE" > $SNAPCRAFT_PART_INSTALL/license/CADDY_LICENSE
+
+            # Create a basic default Caddyfile for the snap
+            mkdir -p $SNAPCRAFT_PART_INSTALL/etc
+            cat > $SNAPCRAFT_PART_INSTALL/etc/Caddyfile << 'EOF'
+            # Default Caddyfile for Wekan
+            # This is loaded by caddy-control script if no other config is provided
+
+            :8080 {
+                reverse_proxy localhost:3000
+            }
+            EOF
         stage:
-          - -init
+            - bin/caddy
+            - license/CADDY_LICENSE
+            - etc/Caddyfile

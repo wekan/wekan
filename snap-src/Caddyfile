@@ -1,18 +1,29 @@
-http://:8080
-proxy / localhost:3001 {
-  websocket
-  transparent
+# Caddy 2 configuration for Wekan
+
+:8080 {
+  # Reverse proxy to Wekan
+  reverse_proxy localhost:3001 {
+    # Enable WebSocket support
+    header_up Connection {>Connection}
+    header_up Upgrade {>Upgrade}
+  }
 }
 
-## SSL/TLS example. Firefox Inspect Console does not support http/2, so turning it off
-## so that Firefox would not show wss websocket errors. Chrome console supports http/2.
-#
-#wekan.example.com {
+# SSL/TLS example with HTTP/2 disabled for Firefox WebSocket compatibility
+# Uncomment and customize for your domain
+#{$DOMAIN:wekan.example.com} {
+#  # Enable TLS but use HTTP/1.1 protocol
 #  tls {
-#    alpn http/1.1
+#    protocols tls1.2 tls1.3
 #  }
-#   proxy / localhost:3001 {
-#     websocket
-#     transparent
+#  # Force HTTP/1.1
+#  protocols h1
+#
+#  # Reverse proxy to Wekan
+#  reverse_proxy localhost:3001 {
+#    # Enable WebSocket support
+#    header_up Connection {>Connection}
+#    header_up Upgrade {>Upgrade}
 #  }
+#}
 #}

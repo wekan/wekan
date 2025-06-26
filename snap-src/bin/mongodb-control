@@ -102,18 +102,18 @@ if [ -z "${MONGO_URL}" ]; then
 
     if [ "syslog" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to syslog"
-        mongod --dbpath ${SNAP_COMMON} --syslog --journal ${BIND_OPTIONS} --quiet
+        mongod --dbpath ${SNAP_COMMON} --syslog ${BIND_OPTIONS} --quiet
         exit 0
     fi
 
     if [ "snapcommon" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to $SNAP_COMMON"
-        mongod --dbpath ${SNAP_COMMON} --logpath ${SNAP_COMMON}/mongodb.log --logappend --journal ${BIND_OPTIONS} --quiet
+        mongod --dbpath ${SNAP_COMMON} --logpath ${SNAP_COMMON}/mongodb.log --logappend ${BIND_OPTIONS} --quiet
     fi
 
     if [ "devnull" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to /dev/null"
-        mongod --dbpath ${SNAP_COMMON} --logpath /dev/null --journal ${BIND_OPTIONS} --quiet
+        mongod --dbpath ${SNAP_COMMON} --logpath /dev/null ${BIND_OPTIONS} --quiet
     fi
     #echo "mongodb log destination: ${MONGO_LOG_DESTINATION}" >> "${SNAP_COMMON}/settings.log"
 
@@ -138,17 +138,17 @@ else
 
     if [ "syslog" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to syslog"
-        mongod --dbpath ${SNAP_COMMON} --syslog --journal ${MONGO_URL} --quiet
+        mongod --dbpath ${SNAP_COMMON} --syslog ${MONGO_URL} --quiet
     fi
 
     if [ "snapcommon" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to ${SNAP_COMMON}"
-        mongod --dbpath ${SNAP_COMMON} --logpath ${SNAP_COMMON}/mongodb.log --logappend --journal ${MONGO_URL} --quiet
+        mongod --dbpath ${SNAP_COMMON} --logpath ${SNAP_COMMON}/mongodb.log --logappend ${MONGO_URL} --quiet
     fi
 
     if [ "devnull" == "${MONGO_LOG_DESTINATION}" ]; then
         echo "Sending mongodb logs to /dev/null"
-        mongod --dbpath ${SNAP_COMMON} --logpath /dev/null --journal ${MONGO_URL} --quiet
+        mongod --dbpath ${SNAP_COMMON} --logpath /dev/null ${MONGO_URL} --quiet
     fi
 
     # Disable MongoDB telemetry and free monitoring
