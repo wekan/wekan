@@ -51,6 +51,8 @@ and adds the following updates:
   Thanks to developers of dependencies.
 - [Upgraded Snap Candidate to have base core24, MongoDB 7 and Caddy 2](https://github.com/wekan/wekan/commit/6526d99123b047fe4dfcf8f60a23f65d1261324c).
   Thanks to xet7.
+- [Removed old broken snap files](https://github.com/wekan/wekan/commit/b7409c1d0b574b77f0fa95f7289d815671c1e224).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
