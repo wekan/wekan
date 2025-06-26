@@ -53,6 +53,7 @@
     "qs": "^6.13.0",
     "simpl-schema": "^3.4.6",
     "source-map-support": "^0.5.20",
+    "to-buffer": "^1.2.1",
     "uuid": "^8.3.2"
   }
 }
