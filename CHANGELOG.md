@@ -47,6 +47,8 @@ and adds the following updates:
   [Part 13](https://github.com/wekan/wekan/commit/7841c9e801c737aab07e9bd68f8d84f9e4becc3e),
   [Part 14](https://github.com/wekan/wekan/commit/be1b9595196e2072ec2259de9b81bc3b823722eb),
   [Part 15](https://github.com/wekan/wekan/commit/12e6e469249c9392181df20f51bcc684e2656960).
+- [Updated dependencies](https://github.com/wekan/wekan/commit/e6980be061a6ab54d592cd86f1079a7672a3e081).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
