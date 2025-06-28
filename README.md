@@ -4,7 +4,7 @@
 
 ## Downloads
 
-https://wekan.fi / Install WeKan ® Server
+https://wekan.fi/install/
 
 ## Docker Containers
 
@@ -27,21 +27,19 @@ docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.ym
 - [Open Hub](https://www.openhub.net/p/wekan)
 - [OSS Insight](https://ossinsight.io/analyze/wekan/wekan)
 
-## [Translate WeKan ® at Transifex](https://app.transifex.com/wekan/)
+## Translate WeKan ® at Transifex
 
 Translations to non-English languages are accepted only at [Transifex](https://app.transifex.com/wekan/wekan) using webbrowser.
 New English strings of new features can be added as PRs to master branch file wekan/imports/i18n/data/en.i18n.json .
 
-## [WeKan ® feature requests and bugs](https://github.com/wekan/wekan/issues)
+## WeKan ® feature requests and bugs
 
 Please add most of your questions as GitHub issue: [WeKan ® Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 It's better than at chat where details get lost when chat scrolls up.
 
-## Chat
+## Discussions
 
-[Discussions][discussions] - WeKan Community GitHub Discussions, that are not [Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
-
-[WeKan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
+[IRC](https://github.com/wekan/wekan/blob/main/docs/FAQ/IRC-FAQ.md)
 
 ## Docker: Latest tag has newest release
 
@@ -51,8 +49,8 @@ See bottom of https://github.com/wekan/wekan/issues/3874
 ## FAQ
 
 **NOTE**:
-- Please read the [FAQ](https://github.com/wekan/wekan/wiki/FAQ) first
-- Please don't feed the [trolls](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
+- Please read the [FAQ](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md) first
+- Please don't feed the [trolls](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
 
 ## About WeKan ®
 
@@ -77,9 +75,9 @@ that by providing one-click installation on various platforms.
 
 ## Requirements
 
-- 64bit: Linux [Snap](https://github.com/wekan/wekan-snap/wiki/Install) or [Sandstorm](https://sandstorm.io) /
-  [Mac](https://github.com/wekan/wekan/wiki/Mac) / [Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows).
-  [More Platforms](https://github.com/wekan/wekan/wiki/Platforms), bundle for RasPi3 ARM and other CPUs where Node.js and MongoDB exists.
+- 64bit: Linux [Snap](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Snap/Install.md) or [Sandstorm](https://sandstorm.io) /
+  [Mac](https://github.com/wekan/wekan/wiki/Mac) / [Windows](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md).
+  [More Platforms](https://github.com/wekan/wekan/tree/main/docs/Platforms), bundle for RasPi3 ARM and other CPUs where Node.js and MongoDB exists.
 - 1 GB RAM minimum free for WeKan ®. Production server should have minimum total 4 GB RAM.
   For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/main/docker-compose.yml): 3 frontend servers,
   each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
@@ -89,7 +87,7 @@ that by providing one-click installation on various platforms.
   WeKan ® on Sandstorm is not usually affected by any Standalone WeKan ® (Snap/Docker/Source) security issues.
 - [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
   New features and fixes are added to WeKan ® [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
-- [Backups](https://github.com/wekan/wekan/wiki/Backup) of WeKan ® database once a day miminum.
+- [Backups](https://github.com/wekan/wekan/blob/main/docs/Backup/Backup.md) of WeKan ® database once a day miminum.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bug can cause WeKan ® board to not load at all, requiring manual fixing of database content.
 
@@ -111,13 +109,13 @@ By working directly with WeKan ® you get the benefit of active maintenance and 
 
 The default branch uses [Meteor 2 with Node.js 14](https://wekan.fi/install/).
 
-To contribute, [create a fork](https://github.com/wekan/wekan/wiki/Emoji#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/wiki/Emoji#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/wiki/Emoji#7-test).
+To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
 
-Please refer to the [developer documentation](https://github.com/wekan/wekan/wiki/Developer-Documentation) for more information.
+Please refer to the [developer documentation](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md) for more information.
 
 ## Screenshot
 
-[More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
+[More screenshots at Features page](https://github.com/wekan/wekan/tree/main/docs/Features)
 
 [![Screenshot of WeKan ®][screenshot_wekan]][roadmap_wekan]
 
@@ -126,16 +124,13 @@ Please refer to the [developer documentation](https://github.com/wekan/wekan/wik
 WeKan ® is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
-[platforms]: https://github.com/wekan/wekan/wiki/Platforms
-[dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
+[platforms]: https://github.com/wekan/wekan/tree/main/docs/Platforms
+[dev_docs]: https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md
 [screenshot_wekan]: https://wekan.fi/wekan-dark-mode.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
 [wekan_issues]: https://github.com/wekan/wekan/issues
-[wekan_issues]: https://github.com/wekan/wekan/issues
 [docker_image]: https://hub.docker.com/r/wekanteam/wekan/
-[wekan_wiki]: https://github.com/wekan/wekan/wiki
-[translate_wekan]: https://app.transifex.com/wekan/
+[translate_wekan]: https://app.transifex.com/wekan/wekan/
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
-[discussions]: https://github.com/wekan/wekan/discussions
