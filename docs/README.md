@@ -32,9 +32,9 @@ If you still have questions, check out the [[FAQ]]!
 * [IRC FAQ](FAQ/IRC-FAQ.md) - answers to questions asked at IRC
 * [Team](FAQ/Team.md)
 * [Press](FAQ/Press.md)
-* [Blog](https://blog.wekan.team)
+* [Blog](https://blog.wekan.fi)
 * [Wekan vs Trello vs Restyaboard](ImportExport/trello/Wekan-vs-Trello-vs-Restyaboard.md)
-* [Results of Survey 2020-01](https://blog.wekan.team/2020/06/results-of-wekan-survey-2020-01/)
+* [Results of Survey 2020-01](https://blog.wekan.fi/2020/06/results-of-wekan-survey-2020-01/)
 
 # <a name="NotWeKan"></a>Fake: Not WeKan kanban
 
@@ -72,7 +72,7 @@ If you still have questions, check out the [[FAQ]]!
 
 # <a name="Support"></a>Support priorities for new features and bugfixes
 
-1) [Commercial Support](https://wekan.team/commercial-support/)
+1) [Commercial Support](https://wekan.fi/commercial-support/)
 2) [Community Support](https://github.com/wekan/wekan/issues)
 3) [Debugging](DeveloperDocs/Debugging.md)
 

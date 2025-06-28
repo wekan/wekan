@@ -1,4 +1,4 @@
-https://blog.wekan.team/2019/06/wekan-on-raspi3-and-arm64-server-now-works-and-whats-next-with-cncf/
+https://blog.wekan.fi/2019/06/wekan-on-raspi3-and-arm64-server-now-works-and-whats-next-with-cncf/
 
 https://github.com/cncf/cluster/issues/45
 

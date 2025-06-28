@@ -19,7 +19,7 @@
 - TWIM 058: Building Multi Platform Mobile Apps https://www.youtube.com/watch?v=ZTtXRJTUCIU 
 - https://www.youtube.com/watch?v=ZTtXRJTUCIU
 - https://github.com/jamauro/pwa-kit
-- https://wekan.team/app/
+- https://wekan.fi/app/
 - https://github.com/wekan/wekan/wiki/PWA
 - Over 100 icons for different platforms https://github.com/wekan/wekan/blob/main/public/site.webmanifest
 

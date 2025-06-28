@@ -43,7 +43,7 @@ Only newest Wekan is supported. Please check you are running newest Wekan, becau
 
 ## Production: SaaS, Wekan ready paid services, just start using.
 
-* [Wekan Team](https://wekan.team/commercial-support/) - Snap Gantt Gpl Automatic Updates. Supports Wekan maintenance and development.
+* [Wekan Team](https://wekan.fi/commercial-support/) - Snap Gantt Gpl Automatic Updates. Supports Wekan maintenance and development.
 * [Cloudron](Cloudron) - Standalone Wekan
 * [PikaPods](PikaPods) - Standalone Wekan with managed updates and backups.
 * [Scalingo](Scalingo) - Standalone Wekan

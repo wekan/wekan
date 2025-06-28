@@ -33,7 +33,7 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 - All code https://github.com/wekan/wekan and docs https://github.com/wekan/wekan/wiki Open Source
 - Available for many OS and CPU platforms, listed at download/install section of https://wekan.github.io
 - Translated to 70+ languages at https://app.transifex.com/wekan
-- Has optional affordable Commercial Support for Features/Fixes/Support/Hosting available https://wekan.team/commercial-support/ that funds development of WeKan. Commercial Support provides private support chat with maintainer of WeKan.
+- Has optional affordable Commercial Support for Features/Fixes/Support/Hosting available https://wekan.fi/commercial-support/ that funds development of WeKan. Commercial Support provides private support chat with maintainer of WeKan.
 - Is actively maintained with major features and fixes being added
 - Does not include any enabled telemetry or externally loaded dependencies by default, it does not ping home. Only Snap platform has number of servers per country counted by Canonical that provides Snap store https://snapcraft.io/wekan , not any more specific details.
 - Alternative to Enterprise software that can cost 500k euro per year
@@ -58,11 +58,11 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 
 ## What is Wekan Team?
 
-[Wekan Team](https://wekan.team) is Wekan Commercial Support company run by CEO [xet7](https://github.com/xet7), current maintainer of Wekan. xet7 does respond to feedback at GitHub issues very actively, because Wekan is community driven Open Source project. Because conflicting opinions can not be implemented, sometimes xet7 has to behave like a benevolent dictator. Every Wekan team member is free to choose what to contribute and when. We can not force anybody to implement anything. Wekan development speed increases when new Wekan contributors join and start to send PRs to existing and new issues.
+[Wekan Team](https://wekan.fi) is Wekan Commercial Support company run by CEO [xet7](https://github.com/xet7), current maintainer of Wekan. xet7 does respond to feedback at GitHub issues very actively, because Wekan is community driven Open Source project. Because conflicting opinions can not be implemented, sometimes xet7 has to behave like a benevolent dictator. Every Wekan team member is free to choose what to contribute and when. We can not force anybody to implement anything. Wekan development speed increases when new Wekan contributors join and start to send PRs to existing and new issues.
 
 ## What is Bio of xet7 ?
 
-[Lauri Ojansivu](https://github.com/xet7) is CEO at [WeKan Team](https://wekan.team),
+[Lauri Ojansivu](https://github.com/xet7) is CEO at [WeKan Team](https://wekan.fi),
 Cross-Platform FOSS maintainer,
 Cloud Architect, Full-Stack Developer, SysAdmin and SysOp.
 He has experience of [having added and removed over 4 million lines of code](https://github.com/wekan/wekan/blob/main/releases/count-lines-of-code-per-committer.sh) to
@@ -100,7 +100,7 @@ Trello:
 
 Wekan:
 - All Wekan code is Open Source at https://github.com/wekan/wekan with MIT license, free also for commercial use.
-- You don't need to pay monthly fee for using Wekan. Only if you need Commercial Support https://wekan.team for some bugfix, feature or integration, you can pay for that.
+- You don't need to pay monthly fee for using Wekan. Only if you need Commercial Support https://wekan.fi for some bugfix, feature or integration, you can pay for that.
 - You can download all Wekan code and run in internal network that is not connected to Internet. You can keep all your data to yourself.
 - Snap/Docker/Sandstorm versions runs inside sandbox and does not have any access to elsewhere on server filesystem.
   - Snap version of Wekan is built directly from https://github.com/wekan/wekan repo on Canonical's build service that does security checks etc.
@@ -140,7 +140,7 @@ For [Wekan Platforms](Platforms), it means these choices:
 
 There are alternative ways to have your feature implemented:
 
-a) [Commercial Support](https://wekan.team/commercial-support/)
+a) [Commercial Support](https://wekan.fi/commercial-support/)
 
 b) Pay someone from your company or some other developer to code feature and submit as pull request
 

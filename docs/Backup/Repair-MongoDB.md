@@ -24,7 +24,7 @@ https://github.com/wekan/wekan/issues/5073
 
 At step 12 below is actual repair MongoDB command.
 
-Some customer of [WeKan Commercial Support](https://wekan.team/commercial-support/) ordered restore and repair of WeKan MongoDB database at UCS appliance. This was needed when changing back to previous UCS 4.x major version, when in new major UCS 5.x version Docker containers were all the time crashing and restarting, or something else got broken. Here are commands that were used while repairing.
+Some customer of [WeKan Commercial Support](https://wekan.fi/commercial-support/) ordered restore and repair of WeKan MongoDB database at UCS appliance. This was needed when changing back to previous UCS 4.x major version, when in new major UCS 5.x version Docker containers were all the time crashing and restarting, or something else got broken. Here are commands that were used while repairing.
 
 Similarly, MongoDB may require repair, if:
 - MongoDB does not recover from sudden power failure cleanly

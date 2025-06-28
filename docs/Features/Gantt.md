@@ -14,7 +14,7 @@ At cards, both Start and End dates should be set (not Due date) for the tasks to
 
 # Funding for more features?
 
-You can fund development of more features of Gantt at https://wekan.team/commercial-support, like for example:
+You can fund development of more features of Gantt at https://wekan.fi/commercial-support, like for example:
 - more of day/week/month/year views
 - drag etc
 

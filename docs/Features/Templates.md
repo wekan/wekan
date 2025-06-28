@@ -9,14 +9,14 @@ There is currently:
 - [Per-user templates](https://github.com/wekan/wekan/issues/2209), it works as described below.
 - Card hamburger menu / Copy Checklist Template to Many Cards
 
-At [Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) of xet7, Maintainer of Wekan, these already have [some funding](https://wekan.team/commercial-support/):
+At [Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) of xet7, Maintainer of Wekan, these already have [some funding](https://wekan.fi/commercial-support/):
 - [Collapsible Swimlanes with count](https://github.com/wekan/wekan/issues/2804)
 - [Single fixed list titles static at top of swimlanes view](https://github.com/wekan/wekan/issues/2805).
 - [Main Boards/Organizing Boards/Nested Tabs](https://github.com/wekan/wekan/issues/2796) + [Shared templates](https://github.com/wekan/wekan/issues/2209) + [Top Level Projects](https://github.com/wekan/wekan/issues/641).
 - [Teams/Organization Templates](https://github.com/wekan/wekan/issues/802).
 - [Bug: Board templates aren't created automatically whenever the user was created by REST API or OAuth2](https://github.com/wekan/wekan/issues/2339).
 
-These don't yet have [funding](https://wekan.team/commercial-support/):
+These don't yet have [funding](https://wekan.fi/commercial-support/):
 - [Notification Email templates](https://github.com/wekan/wekan/issues/2148).
 - [Email templates](https://github.com/wekan/wekan/issues/2022).
 - [Import and Export Checklists](https://github.com/wekan/wekan/issues/904).

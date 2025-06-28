@@ -49,7 +49,7 @@ If you mean bug about [only 20 newest comments visible](https://github.com/wekan
 [16:13:27] <Dalisay> if this does not change,  I will
 gather a group of developers to make a reasonable fork
 ```
-A: I don't know why you think fork would be necessary. I welcome all new contributors and co-maintainers, and help them to get up to speed. You can send your pull requests to Wekan https://github.com/wekan/wekan/pulls . I do have also [blog post about it](https://blog.wekan.team/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html). All what I do on Wekan is based of feedback at GitHub issues, chats and emails. Wekan is friendly Community driven Open Source project. I do also provide [Commercial Support](https://wekan.team/commercial-support) for features and fixes.
+A: I don't know why you think fork would be necessary. I welcome all new contributors and co-maintainers, and help them to get up to speed. You can send your pull requests to Wekan https://github.com/wekan/wekan/pulls . I do have also [blog post about it](https://blog.wekan.fi/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html). All what I do on Wekan is based of feedback at GitHub issues, chats and emails. Wekan is friendly Community driven Open Source project. I do also provide [Commercial Support](https://wekan.fi/commercial-support) for features and fixes.
 
 ### Q: CPU usage?
 ```
@@ -146,7 +146,7 @@ A:
 - What is URL to your fork? Please send it to me with email to x@xet7.org . Thanks! Currently there is about 2200 forks of Wekan, it would be hard to find without exact URL.
 - What features and fixes have you implemented to Wekan?
 - [What usually happens when Wekan gets broken](Test-Edge#what-usually-happens-when-wekan-gets-broken).
-- [Benefits of contributing your features to upstream Wekan](https://blog.wekan.team/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html).
+- [Benefits of contributing your features to upstream Wekan](https://blog.wekan.fi/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html).
 - [What was Wekan fork](FAQ#what-was-wekan-fork--wefork).
 
 ***
@@ -459,7 +459,7 @@ it will make win time for users
 ```
 A:
 
-- Fastest: If you want fast answers, get [Commercial Support](https://wekan.team/commercial-support/).
+- Fastest: If you want fast answers, get [Commercial Support](https://wekan.fi/commercial-support/).
 - Medium speed: If you have time to wait, [add new GitHub issue](https://github.com/wekan/wekan/issues).
 - Slow: [Wekan Community Chat with webbroser and mobile Rocket.Chat](https://chat.vanila.io/channel/wekan)
 - Slowest: If you want to chat on IRC, please stay at IRC idling, and ask question again also at some other day. Sometimes there is Internet connectivity issues, if it looks like xet7 is not online. IRC is very nice, some Wekan users prefer it. Answers to IRC questions are added to this wiki page, because most coming to IRC channel leave immediately, and don't wait for answer.

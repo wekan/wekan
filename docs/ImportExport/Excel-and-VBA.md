@@ -72,4 +72,4 @@ Options are:
 a) Some developer could do that work and contribute that code to Wekan as
 new pull request to Wekan devel branch.
 
-b) Use [Commercial Support](https://wekan.team) and pay for the time to get it implemented.
+b) Use [Commercial Support](https://wekan.fi) and pay for the time to get it implemented.
