@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Viewer</title>
+    <style>
+        #jsonInput {
+            width: 45%;
+            height: 300px;
+            margin-bottom: 10px;
+        }
+        #jsonOutput {
+            width: 45%;
+            height: 300px;
+            margin-bottom: 10px;
+        }
+        #updateButton {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+	<script defer src="pretty-json-custom-element.js"></script>
+</head>
+<body>
+    <h1>JSON Viewer</h1>
+    <p><a href="https://github.com/wekan/wekan/issues/4877#issuecomment-2105688702">Source</a></p>
+
+    <textarea id="jsonInput" placeholder="Enter Trello-JSON here: (Ctrl+V)&#10;&#10;In Trello go to ... menu and select 'Print, Export and Share'&#10;Select 'Export as JSON'&#10;Copy the whole text (Ctrl+A, Ctrl+C)"></textarea><br>
+    <button id="updateButton">Convert from Trello to Wekan</button><br>
+    <textarea id="jsonOutput" placeholder="Copy JSON for Wekan from here: (Ctrl+A, Ctrl+C)&#10;&#10;In Wekan go to 'all Boards', 'Add Board', 'Import', 'From Trello'" readonly></textarea>
+
+
+    <script>
+        document.getElementById("updateButton").addEventListener("click", function() {
+            try {
+                var jsonInput = document.getElementById("jsonInput").value;
+
+				// replace colors with replaceAll
+				jsonInput = jsonInput.replaceAll("green_dark", "green");
+				jsonInput = jsonInput.replaceAll("red_dark", "red");
+
+				// alter the json file structure
+                var parsedJson = JSON.parse(jsonInput);
+				
+				// Iterate through the actions array
+				parsedJson.actions.forEach(function(action) {
+					// Check if the type is "addAttachmentToCard"
+					if (action.type === "addAttachmentToCard") {
+						// Store the value of data.attachment
+						action.data.text = "**" + action.memberCreator.fullName + "**";
+						action.data.text += "\nAdded: " + action.data.attachment.name + " " + action.data.attachment.url;
+						action.data.textData = {};
+						action.data.textData.emoji = {};
+						delete action.data.attachment;
+						action.type = "commentCard";
+					} else if (action.type === "deleteAttachmentFromCard") {
+						// Store the value of data.attachment
+						action.data.text = "**" + action.memberCreator.fullName + "**";
+						action.data.text += "\nRemoved: " + action.data.attachment.name;
+						action.data.textData = {};
+						action.data.textData.emoji = {};
+						delete action.data.attachment;
+						action.type = "commentCard";
+					} else if (action.type === "commentCard") {
+						action.data.text = "**" + action.memberCreator.fullName + "**\n" + action.data.text;
+					}
+				});
+
+				// Iterate through the actions array
+				parsedJson.cards.forEach(function(card) {
+					for (var i=0; i<card.badges.attachments; i++) {
+						card.desc += "\nAttachment: " + card.attachments[i].name + " " + card.attachments[i].url;
+					}
+				});
+
+
+                var formattedJson = JSON.stringify(parsedJson, null, 4);
+                document.getElementById("jsonOutput").value = formattedJson;
+            } catch (error) {
+                document.getElementById("jsonOutput").value = "Invalid JSON format!";
+            }
+        });
+    </script>
+</body>
+</html>
