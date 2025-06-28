@@ -2,7 +2,7 @@
 
 ## Description
 
-Lauri Ojansivu (xet7) has [trademark to WeKan](https://www.tmdn.org/tmview/#/tmview/detail/FI50202100052006A), as can be seen from bottom of official WeKan webpage https://wekan.github.io . Official domain is https://wekan.fi .
+Lauri Ojansivu (xet7) has [trademark to WeKan](https://www.tmdn.org/tmview/#/tmview/detail/FI50202100052006A), as can be seen from bottom of official WeKan webpage https://wekan.fi . Official domain is https://wekan.fi .
 
 Lauri Ojansivu, as maintainer of WeKan Open Source kanban, has added and removed about [4 million lines of code](https://github.com/wekan/wekan/graphs/contributors) to WeKan since December 2016. All changes to WeKan are at [ChangeLog](https://github.com/wekan/wekan/graphs/contributors). WeKan is used at [most countries of the world](https://wekan.github.com)
 

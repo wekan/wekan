@@ -1,6 +1,6 @@
 ## Wekan Dark Mode
 
-![dark wekan](https://wekan.github.io/wekan-dark-mode.png)
+![dark wekan](https://wekan.fi/wekan-dark-mode.png)
 
 ## Other Dark Modes
 

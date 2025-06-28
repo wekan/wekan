@@ -9,7 +9,7 @@ ToroDB is compatible with MongoDB 3.0. WeKan 7.x is compatible with MongoDB 6.x.
 # Docker: Wekan to PostgreSQL read-only mirroring
 
 * [Wekan kanban board, made with Meteor.js framework, running on
-  Node.js](https://wekan.github.io) -- [GitHub](https://github.com/wekan/wekan)
+  Node.js](https://wekan.fi) -- [GitHub](https://github.com/wekan/wekan)
 * [MongoDB NoSQL database](https://www.mongodb.com)
 * [ToroDB: MongoDB to PostgreSQL read-only mirroring, programmed with Java](https://www.8kdata.com/products) --
   [GitHub](https://github.com/torodb/stampede) --
@@ -61,4 +61,4 @@ docker-compose up -d
 
 [GitHub issue 787](https://github.com/wekan/wekan/issues/787)
 
-[screenshot]: https://wekan.github.io/ToroDB.png
+[screenshot]: https://wekan.fi/ToroDB.png

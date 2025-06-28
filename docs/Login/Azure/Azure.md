@@ -8,7 +8,7 @@
 
 [About AZURE-NEW-APP-CLIENT-ID and AZURE-NEW-APP-SECRET](https://community.microfocus.com/t5/Identity-Manager-Tips/Creating-the-application-Client-ID-and-Client-Secret-from/ta-p/1776619). The redirect URL is your Wekan root-url+_oauth/oidc like this: https://boards.example.com/_oauth/oidc
 
-<img src="https://wekan.github.io/azure-redirect.png" width="100%" alt="Wekan logo" />
+<img src="https://wekan.fi/azure-redirect.png" width="100%" alt="Wekan logo" />
 
 AZURE_DIRECTORY_ID = TENANT-NAME-FOR-YOUR-ORGANIZATION
 
@@ -23,7 +23,7 @@ sudo snap set wekan oauth2-secret='AZURE-CLIENT-SECRET'
 sudo snap set wekan oauth2-server-url='https://login.microsoftonline.com/AZURE_DIRECTORY_ID'
 ```
 
-<img src="https://wekan.github.io/azure-app-client-secret.png" width="100%" alt="Azure App Client Secret" />
+<img src="https://wekan.fi/azure-app-client-secret.png" width="100%" alt="Azure App Client Secret" />
 
 
 ###

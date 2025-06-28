@@ -37,7 +37,7 @@ Upcoming full themes that will be added by xet7:
 - Corteza, that will be mostly-white theme, although different than example of white theme below
 - Octopus, that will have different colors and some Wekan features hidden
 
-![dark wekan](https://wekan.github.io/wekan-dark-mode.png)
+![dark wekan](https://wekan.fi/wekan-dark-mode.png)
 
 ## Dark theme
 

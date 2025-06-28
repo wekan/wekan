@@ -2,7 +2,7 @@
 
 Note: Webhook to Slack and Rocket.Chat does not require adding anything to URL. Discord requires adding `/slack` to end of URL so that it works.
 
-<img src="https://wekan.github.io/outgoing-webhook-discord.gif" alt="Outgoing Webhook to Discord" />
+<img src="https://wekan.fi/outgoing-webhook-discord.gif" alt="Outgoing Webhook to Discord" />
 
 1. Add Webhook to Discord
 
@@ -34,4 +34,4 @@ Wekan boards have Outgoing Webhooks for board change messages, those can be brid
 https://github.com/vector-im/riot-web/issues/4978
 
 If you have some Riot bot, you can make it call Wekan REST API to make changes to Wekan.
-First [login to API as form data, with admin username and password](REST-API#example-call---as-form-data). Then use that Bearer token [to edit Wekan](https://wekan.github.io/api/).
+First [login to API as form data, with admin username and password](REST-API#example-call---as-form-data). Then use that Bearer token [to edit Wekan](https://wekan.fi/api/).

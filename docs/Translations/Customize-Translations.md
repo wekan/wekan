@@ -23,4 +23,4 @@ where is added new custom fields, that are not default.
 - https://github.com/wekan/wekan/pull/5085
 - https://github.com/wekan/wekan/issues/5065#issuecomment-1668259510
 
-<img src="https://wekan.github.io/custom-translation-string.png" width="100%" alt="Translation Custom String" />
+<img src="https://wekan.fi/custom-translation-string.png" width="100%" alt="Translation Custom String" />

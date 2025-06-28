@@ -3,7 +3,7 @@
 - [OpenPOWER Foundation](https://openpowerfoundation.org)
 - [University of Campinas - Unicamp Minicloud](https://openpower.ic.unicamp.br), that was before available, but now is closed
 
-[xet7](https://github.com/xet7), as maintainer of [Wekan](https://wekan.github.io), got access to ppc64le at
+[xet7](https://github.com/xet7), as maintainer of [Wekan](https://wekan.fi), got access to ppc64le at
 at University of Campinas - Unicamp Minicloud. Unicamp is member of [OpenPOWER Foundation](https://openpowerfoundation.org). At Minicloud OpenStack, xet7 created Ubuntu 20.10 VM, and at 2020-12-22 ported Wekan to ppc64le very similarly like previously for [s390x](s390x).
 
 ## Installing MongoDB on OpenPower Ubuntu 20.04 ppc64le

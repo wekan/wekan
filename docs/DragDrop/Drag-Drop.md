@@ -10,7 +10,7 @@ It depends on role of user what drag drop is allowed https://github.com/wekan/we
 
 3. Use non-drag-handle area to to view other parts of board, by dragging board up/down/left/right, without moving any icons etc.
 
-<img src="https://wekan.github.io/dragdrop/mobile-drag-drop.png" width="40%" alt="Wekan logo" />
+<img src="https://wekan.fi/dragdrop/mobile-drag-drop.png" width="40%" alt="Wekan logo" />
 
 ## 2 or more external screens of desktop or mobile
 

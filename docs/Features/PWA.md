@@ -15,7 +15,7 @@
 
 3. From Edge menu, install site as app, by clicking top right `⋮` and this menu, that can be used to install and manage/remove apps:
 
-<img src="https://wekan.github.io/chromium-edge-install-pwa.png" width="60%" alt="Wekan logo" />
+<img src="https://wekan.fi/chromium-edge-install-pwa.png" width="60%" alt="Wekan logo" />
 
 4. In next popup, give name to app, like `YourCompany Wekan`, and click `Add`
 

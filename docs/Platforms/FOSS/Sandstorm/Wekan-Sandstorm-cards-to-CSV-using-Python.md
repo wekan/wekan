@@ -2,7 +2,7 @@ Code originally by ertanalytics (Eric Thompson / AZero). Script has been used fo
 
 ***
 
-![Wekan Sandstorm cards to CSV using Python screenshot](https://wekan.github.io/sandstorm-api-csv.png)
+![Wekan Sandstorm cards to CSV using Python screenshot](https://wekan.fi/sandstorm-api-csv.png)
 
 ***
 

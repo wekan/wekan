@@ -101,7 +101,7 @@
 
 Supporting many more webbrowsers:
 
-<img src="https://wekan.github.io/manybrowser.png" width="100%" alt="Multiverse WeKan screenshot" />
+<img src="https://wekan.fi/manybrowser.png" width="100%" alt="Multiverse WeKan screenshot" />
 
 ## Talks
 

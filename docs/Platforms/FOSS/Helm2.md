@@ -2,7 +2,7 @@
 
 ## Webpage
 
-https://wekan.github.io/charts/
+https://wekan.fi/charts/
 
 ## ArtifactHub
 

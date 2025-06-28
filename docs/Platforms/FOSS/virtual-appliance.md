@@ -100,15 +100,15 @@ These settings are for example with VirtualBox:
 * Not needed usually: Audio, Serial Ports, USB
 * Network: If you select Bridged Adapter, name is your network you use, like eth0 / exp9s0 for Ethernet, and there's also wlan etc if available:
 
-![BridgedAdapter.png](https://wekan.github.io/BridgedAdapter.png)
+![BridgedAdapter.png](https://wekan.fi/BridgedAdapter.png)
 
 If you select NAT to keep virtual machine using same address as your server:
 
-![NAT.png](https://wekan.github.io/NAT.png)
+![NAT.png](https://wekan.fi/NAT.png)
 
 Then you can also setup port forwarding to Wekan VM port 8080:
 
-![PortForwarding.png](https://wekan.github.io/PortForwarding.png)
+![PortForwarding.png](https://wekan.fi/PortForwarding.png)
 
 2) Start VM
 

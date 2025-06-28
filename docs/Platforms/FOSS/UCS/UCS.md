@@ -1,9 +1,9 @@
-<img src="https://wekan.github.io/hosting/univention.svg" width="30%" alt="Univention logo" />
+<img src="https://wekan.fi/hosting/univention.svg" width="30%" alt="Univention logo" />
 
 ## <a name="ProductionUnivention"></a>Production: [Univention](https://www.univention.com/products/univention-app-center/app-catalog/wekan/) platform, many apps and WeKan ®
 
 - Virtual Appliances Download: [VirtualBox, KVM, VMware, VMware ESX](https://www.univention.com/products/univention-app-center/app-catalog/wekan/)
-- [Video of installing Univention WeKan ® Appliance](https://wekan.github.io/UCS-4.4-with-wekan-10.200.2.25.webm)
+- [Video of installing Univention WeKan ® Appliance](https://wekan.fi/UCS-4.4-with-wekan-10.200.2.25.webm)
 - After installing, you get license key file in email. Go with webbrowser to VM ip address like http://192.x.x.x and upload license. After that also on VM screen console login as root is possible. If you install KDE app from App Center with webbrowser, you get KDE on VM screen.
 - [WeKan ® for Univention Feature Requests and Bug Reports](https://github.com/wekan/univention/issues)
 - [Univention Open Source repos](https://github.com/Univention)

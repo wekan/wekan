@@ -98,9 +98,9 @@ Backup will be is in directory `dump`. More info at https://github.com/wekan/wek
 
 2.2. Backup part 2/2. If there is files at `WRITABLE_PATH` directory mentioned at `start-wekan.bat` of https://github.com/wekan/wekan , also backup those. For example, if there is `WRITABLE_PATH=..`, it means previous directory. So when WeKan is started with `node main.js` in bundle directory, it may create in previous directory (where is bundle) directory `files`, where is subdirectories like `files\attachments`, `files\avatars` or similar. 
 
-2.3. Check required compatible version of Node.js from https://wekan.github.io `Install WeKan ® Server` section and Download that version node.exe for Windows 64bit from https://nodejs.org/dist/
+2.3. Check required compatible version of Node.js from https://wekan.fi `Install WeKan ® Server` section and Download that version node.exe for Windows 64bit from https://nodejs.org/dist/
 
-2.4. Check required compatible version of MongoDB from https://wekan.github.io `Install WeKan ® Server` section and Download that version Windows MongoDB .msi installer from https://www.mongodb.com/try/download/community
+2.4. Check required compatible version of MongoDB from https://wekan.fi `Install WeKan ® Server` section and Download that version Windows MongoDB .msi installer from https://www.mongodb.com/try/download/community
 
 2.5. Remove old Node.js and MongoDB (at Windows, Control Panel / Add Remove Programs).
 

@@ -3,7 +3,7 @@
 Alternatives:
 
 - Snap install like below. Automatic updates. Some time ago there were problems with [Snap on CentOS 7](https://github.com/wekan/wekan-snap/issues/103#issuecomment-571223099), that can result in updating not working properly, but that is a long time ago, and Snap version is currently 2020-04-29 installed at about 400 servers worldwide, according to Snap statistics that show only wordwide and per-country stats, not any more specific info. Please keep [daily backups](https://github.com/wekan/wekan/wiki/Backup).
-- Docker or Bash/SystemD install from https://wekan.github.io
+- Docker or Bash/SystemD install from https://wekan.fi
 
 ***
 

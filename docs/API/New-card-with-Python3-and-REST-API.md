@@ -3,7 +3,7 @@ Wekan provides a python script to ease the call of the REST API from command lin
 # Context
 
 - [API Login to get Bearer token](REST-API#example-call---as-form-data)
-- [API docs and examples for various programming languages](https://wekan.github.io/api/), there is Boards / Export for exporting board with API
+- [API docs and examples for various programming languages](https://wekan.fi/api/), there is Boards / Export for exporting board with API
 - In the right menu, scroll down REST API Docs etc links =====>
 - Wekan-Gogs integration with Node.js https://github.com/wekan/wekan-gogs
 

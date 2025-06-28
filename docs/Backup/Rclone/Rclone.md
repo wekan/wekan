@@ -32,15 +32,15 @@ Instead of filesystem, Rclone mounted cloud filesystem directory can be used, li
 
 Note: In some cases, only buttons `Move all attachments` at top are visible. In some other cases, there is more visible, like moving all attachments of board, etc, maybe when some have been already moved.
 
-<img src="https://wekan.github.io/rclone/wekan-admin-panel.png" width="100%" alt="Wekan Admin Panel file move" />
+<img src="https://wekan.fi/rclone/wekan-admin-panel.png" width="100%" alt="Wekan Admin Panel file move" />
 
 ## Screenshot 2: Files at MinIO after moving all to filesystem
 
-<img src="https://wekan.github.io/rclone/minio1.png" width="100%" alt="MinIO 1" />
+<img src="https://wekan.fi/rclone/minio1.png" width="100%" alt="MinIO 1" />
 
 ## Screenshot 3: Files at MinIO after moving all to filesystem
 
-<img src="https://wekan.github.io/rclone/minio2.png" width="100%" alt="MinIO 2" />
+<img src="https://wekan.fi/rclone/minio2.png" width="100%" alt="MinIO 2" />
 
 ## Rclone config
 

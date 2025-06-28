@@ -6,11 +6,11 @@ Not all from [CHANGELOG](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) 
 
 ### WIP Limits
 
-![Wekan WIP Limits screenshot](https://wekan.github.io/screenshot-wip-limit.png)
+![Wekan WIP Limits screenshot](https://wekan.fi/screenshot-wip-limit.png)
 
 ### Boards: List of all your public and private boards, board shortcuts at top of page
 
-![Wekan boards screenshot](https://wekan.github.io/screenshot-boards.png)
+![Wekan boards screenshot](https://wekan.fi/screenshot-boards.png)
 
 ### Wekan full screen or window on desktop (without browser buttons etc)
 
@@ -22,49 +22,49 @@ Not all from [CHANGELOG](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) 
 
 ### Restore archived board
 
-![Wekan boards screenshot](https://wekan.github.io/screenshot-restore-board.png)
+![Wekan boards screenshot](https://wekan.fi/screenshot-restore-board.png)
 
 ### Star board
 
-![Wekan star board screenshot](https://wekan.github.io/screenshot-star-board.png)
+![Wekan star board screenshot](https://wekan.fi/screenshot-star-board.png)
 
 ### Watch board
 
-![Wekan watch board screenshot](https://wekan.github.io/screenshot-muted-watch.png)
+![Wekan watch board screenshot](https://wekan.fi/screenshot-muted-watch.png)
 
 ### Keyboard shortcuts button at bottom right corner
 
-![Wekan watch board screenshot](https://wekan.github.io/screenshot-keyboard-shortcuts.png)
+![Wekan watch board screenshot](https://wekan.fi/screenshot-keyboard-shortcuts.png)
 
 ### Board menu when clicking 3 lines "hamburger" menu on right
 
-![Wekan board menu screenshot](https://wekan.github.io/screenshot-board-menu.png)
+![Wekan board menu screenshot](https://wekan.fi/screenshot-board-menu.png)
 
 ### Member setting when clicking your username on top right corner
 
-![Wekan member settings screenshot](https://wekan.github.io/screenshot-member-settings.png)
+![Wekan member settings screenshot](https://wekan.fi/screenshot-member-settings.png)
 
 NOTE: Edit Notification duplicate was removed from above menu at https://github.com/wekan/wekan/pull/1948 so Edit Notification is only available at below menu screenshot. 
 
 ### Member settings / Edit Notification
 
-![Wekan edit notification screenshot](https://wekan.github.io/screenshot-member-settings-edit-notification.png)
+![Wekan edit notification screenshot](https://wekan.fi/screenshot-member-settings-edit-notification.png)
 
 ### Member settings / Change settings
 
-![Wekan hide system messages screenshot](https://wekan.github.io/screenshot-member-settings-hide-system-messages.png)
+![Wekan hide system messages screenshot](https://wekan.fi/screenshot-member-settings-hide-system-messages.png)
 
 ### Members: Click member initials or avatar
 
-![Wekan members screenshot](https://wekan.github.io/screenshot-member-filter.png)
+![Wekan members screenshot](https://wekan.fi/screenshot-member-filter.png)
 
 ### Members: Click member initials or avatar => Permissions Admin/Normal/Comment only
 
-![Wekan boards permissions screenshot](https://wekan.github.io/screenshot-member-comment-only.png)
+![Wekan boards permissions screenshot](https://wekan.fi/screenshot-member-comment-only.png)
 
 ### Lists: Add, archive and restore archived, delete list.
 
-![Wekan kanban screenshot](https://wekan.github.io/screenshot-member-settings-archive.png)
+![Wekan kanban screenshot](https://wekan.fi/screenshot-member-settings-archive.png)
 
 ### Cards: Description, Customizable Labels, Checklists, Attachment images and files, Comments. Archive and restore archived card. Delete card.
 
@@ -73,33 +73,33 @@ Tip: Normally you archive a card so you can restore it back. If you want to dele
 ### [Markdown in card description and comments](https://github.com/wekan/wekan/issues/1038)
 ### [International Date Formatting for Due Date according to language](https://github.com/wekan/wekan/issues/838)
 
-![Wekan kanban screenshot](https://wekan.github.io/screenshot.png)
+![Wekan kanban screenshot](https://wekan.fi/screenshot.png)
 
 ### Cards: Drag and drop images to card. Paste images with Ctrl-V.
 
 ### 1) First attachment: Select Card 3 lines "hamburger" menu / Edit Attachments
 
-![Wekan kanban screenshot](https://wekan.github.io/screenshot-drag1.png)
+![Wekan kanban screenshot](https://wekan.fi/screenshot-drag1.png)
 
 ### 2) Select: Clipboard or drag and drop
 
-![Wekan kanban screenshot](https://wekan.github.io/screenshot-drag4.png)
+![Wekan kanban screenshot](https://wekan.fi/screenshot-drag4.png)
 
 ### 3) Drag and drop image, or Ctrl-V.
 
-![Wekan kanban screenshot](https://wekan.github.io/screenshot-drag2.png)
+![Wekan kanban screenshot](https://wekan.fi/screenshot-drag2.png)
 
 ### 4) Second image attachment and others can be added from Add Attachment button near first attachment.
 
-![Wekan kanban screenshot](https://wekan.github.io/screenshot-drag3.png)
+![Wekan kanban screenshot](https://wekan.fi/screenshot-drag3.png)
 
 ### Multi-selection => Checkmark select cards => drag-drop all selected to some list
 
-![Wekan multi-selection screenshot](https://wekan.github.io/screenshot-multi-selection.png)
+![Wekan multi-selection screenshot](https://wekan.fi/screenshot-multi-selection.png)
 
 ### Filtered views
 
-![Wekan multi-selection screenshot](https://wekan.github.io/screenshot-filter.png)
+![Wekan multi-selection screenshot](https://wekan.fi/screenshot-filter.png)
 
 ## Authentication, Admin Panel, SMTP Settings
 
@@ -107,9 +107,9 @@ NOTE: There is user admin as "People" in Admin Panel, but no screenshot here yet
 
 * Source and Docker platforms: [Admin Panel](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease): Self-registration, or change to invite-only and inviting users to boards. SMTP Settings.
 
-![Wekan Admin Panel registration disable screenshot](https://wekan.github.io/screenshot-admin-panel-registration.png)
+![Wekan Admin Panel registration disable screenshot](https://wekan.fi/screenshot-admin-panel-registration.png)
 
-![Wekan Admin Panel email screenshot](https://wekan.github.io/screenshot-admin-panel-email.png)
+![Wekan Admin Panel email screenshot](https://wekan.fi/screenshot-admin-panel-email.png)
 
 * Sandstorm Platform: Admin: LDAP, passwordless email, SAML, GitHub and Google Auth. Add and remove users. SMTP Settings. Wekan, Rocket.Chat, etc apps available with one click install.
 
@@ -150,11 +150,11 @@ Different activities send different webhook data. You can find the details in th
 ### Enabled
 #### 1) Board menu when clicking 3 lines "hamburger" menu on right
 
-![Wekan board menu screenshot](https://wekan.github.io/screenshot-board-menu.png)
+![Wekan board menu screenshot](https://wekan.fi/screenshot-board-menu.png)
 
 #### 2) Outgoing Webhooks
 
-![Wekan Outgoing Webhooks screenshot](https://wekan.github.io/screenshot-outgoing-webhooks.png)
+![Wekan Outgoing Webhooks screenshot](https://wekan.fi/screenshot-outgoing-webhooks.png)
 
 ### Disabled
 
@@ -180,7 +180,7 @@ ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash)
 
 * [Translate Wekan at Transifex](https://app.transifex.com/wekan/)
 
-![Wekan translations screenshot](https://wekan.github.io/screenshot-change-language.png)
+![Wekan translations screenshot](https://wekan.fi/screenshot-change-language.png)
 
 # Already merged, will be at next version
 

@@ -139,6 +139,6 @@ git push
 ```
 Then at GitHub your fork of Wekan, click `Create Pull Request`
 
-Then wait for comments or merge by xet7. You can see when your change is at Wekan new release at website https://wekan.github.io click `Stable ChangeLog`, newest changes at top.
+Then wait for comments or merge by xet7. You can see when your change is at Wekan new release at website https://wekan.fi click `Stable ChangeLog`, newest changes at top.
 
 Thanks for your contributions!

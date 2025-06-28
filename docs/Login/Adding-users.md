@@ -19,7 +19,7 @@ For more options see [Troubleshooting Email](Troubleshooting-Mail)
 
 6) Click on top right your username / Admin Panel. You can change permissions, name, email address and password in Admin Panel.
 
-![Admin Panel](https://wekan.github.io/wekan-admin-panel.png)
+![Admin Panel](https://wekan.fi/wekan-admin-panel.png)
 
 7) For registering other users:
 

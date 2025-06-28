@@ -1,1 +1,1 @@
-WeKan Requiremens are at https://wekan.github.io/install/
+WeKan Requiremens are at https://wekan.fi/install/

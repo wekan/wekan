@@ -1,6 +1,6 @@
-<img src="https://wekan.github.io/wekan-logo.svg" width="20%" alt="Wekan logo" />
+<img src="https://wekan.fi/wekan-logo.svg" width="20%" alt="Wekan logo" />
 
-<img src="https://wekan.github.io/donated/MacStadium-developerlogo.png" width="20%" alt="Powered by MacStadium" />
+<img src="https://wekan.fi/donated/MacStadium-developerlogo.png" width="20%" alt="Powered by MacStadium" />
 
 ## ChangeLog
 - Previously:
@@ -77,8 +77,8 @@ WRITABLE_PATH=.. ROOT_URL=http://192.168.0.100:4000 PORT=4000 WITH_API=true RICH
 2. Download wekan-VERSIONNUMBER.zip from https://releases.wekan.team
 3. Unzip file you downloaded at step 2. There will be directory called `bundle`.
 4. Download [start-wekan.sh script](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.sh) to directory `bundle` and set it as executeable with `chmod +x start-wekan.sh`
-5. Install Node.js version mentioned at https://wekan.github.io Download section
-6. Install MongoDB version mentioned at https://wekan.github.io Download section [with Mac install info](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+5. Install Node.js version mentioned at https://wekan.fi Download section
+6. Install MongoDB version mentioned at https://wekan.fi Download section [with Mac install info](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 7. Edit `start-wekan.sh` so that it has for example:
 ```
 export WRITABLE_PATH=..

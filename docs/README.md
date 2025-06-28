@@ -1,4 +1,4 @@
-<img src="https://wekan.github.io/wekan-logo.svg" width="60%" alt="Wekan logo" />
+<img src="https://wekan.fi/wekan-logo.svg" width="60%" alt="Wekan logo" />
 
 Wekan is an open-source [kanban board][] which allows a card-based task and to-do management.
 
@@ -32,9 +32,9 @@ If you still have questions, check out the [[FAQ]]!
 * [IRC FAQ](FAQ/IRC-FAQ.md) - answers to questions asked at IRC
 * [Team](FAQ/Team.md)
 * [Press](FAQ/Press.md)
-* [Blog](https://blog.wekan.fi)
+* [Blog](https://wekan.fi/blog)
 * [Wekan vs Trello vs Restyaboard](ImportExport/trello/Wekan-vs-Trello-vs-Restyaboard.md)
-* [Results of Survey 2020-01](https://blog.wekan.fi/2020/06/results-of-wekan-survey-2020-01/)
+* [Results of Survey 2020-01](https://wekan.fi/blog/2020/06/results-of-wekan-survey-2020-01/)
 
 # <a name="NotWeKan"></a>Fake: Not WeKan kanban
 

@@ -4,7 +4,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 
 ## Screenshot of Meteor WeKan
 
-<img src="https://wekan.github.io/wekan-dark-mode.png" width="100%" alt="Meteor WeKan screenshot" />
+<img src="https://wekan.fi/wekan-dark-mode.png" width="100%" alt="Meteor WeKan screenshot" />
 
 ## Description of Meteor WeKan
 
@@ -36,8 +36,8 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - CPU: amd64, arm64, s390x, Source Bundle at https://github.com/wekan/wekan/wiki/Raspberry-Pi
 - Windows On-Premise: https://github.com/wekan/wekan/wiki/Offline
 - Mac: Docker, or at https://github.com/wekan/wekan/wiki/Mac
-- Newest at platforms: Source Bundle, Snap Candidate, Docker, Kubernetes https://wekan.github.io
-- Platforms that will be updated to be up-to-date: Snap Stable, Sandstorm, UCS https://wekan.github.io
+- Newest at platforms: Source Bundle, Snap Candidate, Docker, Kubernetes https://wekan.fi
+- Platforms that will be updated to be up-to-date: Snap Stable, Sandstorm, UCS https://wekan.fi
 
 ## Meteor WeKan Features
 
@@ -102,7 +102,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - Default board for users https://github.com/wekan/wekan/pull/5098
 - Brute Force Accounts Lockout https://github.com/wekan/wekan/wiki/Accounts-Lockout
 - Markdown, Emoji, MathML, sanitizing https://github.com/wekan/wekan/blob/main/packages/markdown/src/template-integration.js
-- Many security fixes from Responsible Disclosure https://wekan.github.io/hall-of-fame/
+- Many security fixes from Responsible Disclosure https://wekan.fi/hall-of-fame/
 
 ## Upcoming Features
 
@@ -126,7 +126,7 @@ https://www.youtube.com/watch?v=ke-mbnZM3zE
 - So here is The Deep Dive!
 - Questions for upcoming "This Week in MeteorJS", some already mentioned to be upcoming:
   - How to upgrade dependencies to Meteor 3.0 ? Some answer was to mention Meteor version at package dependency:
-    <img src="https://wekan.github.io/upgrade-meteor3-new.png" width="100%" alt="Meteor 3.0 upgrading dependencies" />
+    <img src="https://wekan.fi/upgrade-meteor3-new.png" width="100%" alt="Meteor 3.0 upgrading dependencies" />
   - But what if adding dependency adds some more error messages? Probably that depends on error message, like here when
     trying to upgrade to Meteor 3.0 alpha 15: https://github.com/wekan/wekan/issues/5142
   - https://forums.meteor.com/t/my-journey-towards-meteor-3-0/60001/23

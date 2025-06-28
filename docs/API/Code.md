@@ -28,6 +28,6 @@ https://github.com/wekan/wekan/blob/main/api.py
 
 ### 4) API Docs
 
-https://wekan.github.io/api/
+https://wekan.fi/api/
 
 Building API Docs: https://github.com/wekan/wekan/blob/main/releases/rebuild-docs.sh

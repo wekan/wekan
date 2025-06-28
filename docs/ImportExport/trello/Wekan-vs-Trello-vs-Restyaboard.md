@@ -189,7 +189,7 @@ Undo from activities | No | No | Yes
 Features | Wekan | Trello | Restyaboard
 ------------ | ------------- | ------------- | -------------
 API explorer | No | No | Yes
-OpenAPI | [Yes](https://github.com/wekan/wekan/tree/main/openapi) [here](https://wekan.github.io/api/) | ? | ?
+OpenAPI | [Yes](https://github.com/wekan/wekan/tree/main/openapi) [here](https://wekan.fi/api/) | ? | ?
 Developer applications | Yes, using REST API | Yes | Yes
 Authorized OAuth applications | No, REST API [login as admin to get Bearer token](REST-API#example-call---as-form-data) | Yes | Yes
 Webhooks | Yes, per board or global at Admin Panel | Yes | Yes

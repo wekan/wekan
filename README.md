@@ -4,7 +4,7 @@
 
 ## Downloads
 
-https://wekan.github.io / Install WeKan ® Server
+https://wekan.fi / Install WeKan ® Server
 
 ## Docker Containers
 
@@ -16,7 +16,7 @@ docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.ym
 
 ## Standards
 
-- [WeKan and Standard for Public Code](https://wekan.github.io/standard-for-public-code/) assessment was made at 2023-11.
+- [WeKan and Standard for Public Code](https://wekan.fi/standard-for-public-code/) assessment was made at 2023-11.
   Currently Wekan meets 8 out of 16 criteria out of the box.
   Some others could be met with small changes.
 
@@ -109,7 +109,7 @@ By working directly with WeKan ® you get the benefit of active maintenance and 
 
 ## Getting Started with Development
 
-The default branch uses [Meteor 2 with Node.js 14](https://wekan.github.io/install/).
+The default branch uses [Meteor 2 with Node.js 14](https://wekan.fi/install/).
 
 To contribute, [create a fork](https://github.com/wekan/wekan/wiki/Emoji#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./rebuild-wekan.sh` (or `./rebuild-wekan.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/wiki/Emoji#3-select-option-1-to-install-dependencies-and-then-enter). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/wiki/Emoji#7-test).
 
@@ -128,7 +128,7 @@ with [Meteor](https://www.meteor.com).
 
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[screenshot_wekan]: https://wekan.github.io/wekan-dark-mode.png
+[screenshot_wekan]: https://wekan.fi/wekan-dark-mode.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
 [wekan_issues]: https://github.com/wekan/wekan/issues

@@ -18,7 +18,7 @@
   - PWA https://github.com/wekan/wekan/wiki/PWA
   - On-Premise:
     - Linux amd64/arm64/s390x
-      - https://wekan.github.io/install/
+      - https://wekan.fi/install/
       - https://github.com/wekan/wekan/wiki/Raspberry-Pi 
     - Windows https://github.com/wekan/wekan/wiki/Offline
     - Mac https://github.com/wekan/wekan/wiki/Mac

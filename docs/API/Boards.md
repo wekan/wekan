@@ -40,7 +40,7 @@ Optional, and defaults:
 - "permission":"private"   <== Set to "public" if you want public Wekan board
 - "color":"belize"        <== Board color: belize, nephritis, pomegranate, pumpkin, wisteria, midnight.
 
-<img src="https://wekan.github.io/board-colors.png" width="40%" alt="Wekan logo" />
+<img src="https://wekan.fi/board-colors.png" width="40%" alt="Wekan logo" />
 
 Example:
 ```

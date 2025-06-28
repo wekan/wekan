@@ -2,10 +2,10 @@
 https://github.com/wekan/wekan/wiki/REST-API#example-call---as-form-data
 
 2) There needs to be Custom Field added to board
-https://wekan.github.io/api/v4.42/#wekan-rest-api-customfields
+https://wekan.fi/api/v4.42/#wekan-rest-api-customfields
 
 3) Custom Field at board and card will have same `_id`
-https://wekan.github.io/api/v4.42/#put_board_list_card
+https://wekan.fi/api/v4.42/#put_board_list_card
 
 4) When writing Custom Field value to card, like text field, content type needs to be "application/json" and the string needs to be an array:
 ```

@@ -31,7 +31,7 @@ It's a very specific niche, with limited amount competitors, with all of this ap
 - Permissive MIT license (if some other changes to GPL, Open Core, has https://sso.tax , is propietary etc, it's not in same niche anymore)
 - Self-hosted (or SaaS)
 - All code https://github.com/wekan/wekan and docs https://github.com/wekan/wekan/wiki Open Source
-- Available for many OS and CPU platforms, listed at download/install section of https://wekan.github.io
+- Available for many OS and CPU platforms, listed at download/install section of https://wekan.fi
 - Translated to 70+ languages at https://app.transifex.com/wekan
 - Has optional affordable Commercial Support for Features/Fixes/Support/Hosting available https://wekan.fi/commercial-support/ that funds development of WeKan. Commercial Support provides private support chat with maintainer of WeKan.
 - Is actively maintained with major features and fixes being added
@@ -67,7 +67,7 @@ Cross-Platform FOSS maintainer,
 Cloud Architect, Full-Stack Developer, SysAdmin and SysOp.
 He has experience of [having added and removed over 4 million lines of code](https://github.com/wekan/wekan/blob/main/releases/count-lines-of-code-per-committer.sh) to
 [Meteor Full-Stack Web Framework](https://www.meteor.com)
-based [WeKan Open Source kanban](https://wekan.github.io),
+based [WeKan Open Source kanban](https://wekan.fi),
 that has been [translated to 70+ languages](https://explore.transifex.com/wekan/wekan/),
 and is currently used at [most countries of the world](https://snapcraft.io/wekan).
 At 2024-06-04, he is currently [4h most active GitHub committer at Finland](https://committers.top/finland).
@@ -78,8 +78,8 @@ He is credited as having built quality control system
 with comparisons of groups and fitness test calculations,
 company infra, migration from On-Premises to Cloud,
 SLA support, IT support, [games](https://github.com/xet7/notegame), database apps, websites,
-[winner of 2th place at EU NGI ONTOCHAIN Hackathon](https://wekan.github.io/donated/ontochain-certificate.png),
-[winner of 20i FOSS Awards](https://wekan.github.io/donated/foss-awards-2022/20i_FOSS_Awards_Winners_Announced_(Press_Release).pdf), and [porting to 30+ CPU/OS](https://github.com/xet7/darkesthour).
+[winner of 2th place at EU NGI ONTOCHAIN Hackathon](https://wekan.fi/donated/ontochain-certificate.png),
+[winner of 20i FOSS Awards](https://wekan.fi/donated/foss-awards-2022/20i_FOSS_Awards_Winners_Announced_(Press_Release).pdf), and [porting to 30+ CPU/OS](https://github.com/xet7/darkesthour).
 
 At MeteorJS Dispatches Video Podcast, he has been
 interviewed [about WeKan](https://www.youtube.com/watch?v=ke-mbnZM3zE&t=1342s),
@@ -109,7 +109,7 @@ Wekan:
 - Wekan does not load any files from Internet, when starting Wekan. For further restrictions, you could on internal server only allow incoming and outgoing traffic from
   on internal server firewall to those computers that need to use Wekan.
 - There is contributors to Wekan from all over the world, that add fixes and features to Wekan.
-- There has been some code reviews done by security researchers https://wekan.github.io/hall-of-fame/ and there has been fixes to Wekan related to that.
+- There has been some code reviews done by security researchers https://wekan.fi/hall-of-fame/ and there has been fixes to Wekan related to that.
 - xet7 tries to be less evil by trying to listen to some user feedback. For example, someone suggested [inner shadow](https://github.com/wekan/wekan/issues/1690), so it was added, but because of feedback from users inner shadow was removed. Same with removing and adding back [SMTP settings in Admin Panel](https://github.com/wekan/wekan/issues/1790). Unfortunately it's not possible to make everyone happy because different people have different opinions, so xet7 tries to select something that makes some sense. Improvement suggestions welcome.
 
 ## When new version of Wekan will be released? When my pull request will be tested, commented or merged?

@@ -4,7 +4,7 @@ BoardAdmin can change role of user at right sidebar / click avatar / select role
 
 # Change Role with API
 
-- https://wekan.github.io/api/
+- https://wekan.fi/api/
 - api.py at https://github.com/wekan/wekan
 - Login to API https://github.com/wekan/wekan/wiki/REST-API#example-call---as-json
 

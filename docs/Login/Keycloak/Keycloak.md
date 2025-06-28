@@ -12,7 +12,7 @@ sudo snap set wekan oauth2-email-map='email'
 
 [Outstanding Bug](https://github.com/wekan/wekan/issues/1874#issuecomment-460802250): Create the first user (admin) with the regular process.  Then the remaining users can use the Register with OIDC process.
 
-Keycloak settings: [realm-export.zip](https://wekan.github.io/keycloak/realm-export.zip)
+Keycloak settings: [realm-export.zip](https://wekan.fi/keycloak/realm-export.zip)
 
 [Keycloak at Docker Hub](https://hub.docker.com/r/jboss/keycloak)
 

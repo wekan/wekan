@@ -6,8 +6,8 @@ WeKan only requires:
 - WeKan bundle .zip file of Javascript etc for that CPU. Only difference per CPU is that fibers package is compiled for that CPU. Those .zip files are built this way, for example:
   - `git clone https://github.com/wekan/wekan && cd wekan && ./releases/release-wekan.sh WEKAN-VERSION-NUMBER` where version like 5.55
   - releases directory has `rebuild-release.sh` that build amd64 bundle, `release-bundle.sh` that uploads amd64 bundle to arm64/s390x/ppc64le servers, and `maintainer-make-bundle-*.sh` scripts for compiling fibers on those arm64/s390x/ppc64le servers. Note: Only xet7 has ssh private keys to build servers, as maintainer of WeKan.
-- Node.js binary, version number is at https://wekan.github.io Download section, like https://nodejs.org/dist/latest-v14.x/
-- MongoDB, version number is at https://wekan.github.io Download section, like 5.x https://www.mongodb.com/try/download/community or Percona MongoDB https://www.percona.com/software/mongodb/feature-comparison Download at https://www.percona.com/downloads/percona-server-mongodb-LATEST/
+- Node.js binary, version number is at https://wekan.fi Download section, like https://nodejs.org/dist/latest-v14.x/
+- MongoDB, version number is at https://wekan.fi Download section, like 5.x https://www.mongodb.com/try/download/community or Percona MongoDB https://www.percona.com/software/mongodb/feature-comparison Download at https://www.percona.com/downloads/percona-server-mongodb-LATEST/
 - some way to start Wekan, like any of:
   - bash script: [start-wekan.sh](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.sh)
   - cmd.exe script: [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/master/start-wekan.bat)
@@ -113,7 +113,7 @@ mongo
 
 ## About Raspberry Pi
 
-[Blogpost](https://blog.wekan.fi/2019/06/wekan-on-raspi3-and-arm64-server-now-works-and-whats-next-with-cncf/index.html) - [Blogpost repost at dev.to](https://dev.to/xet7/wekan-on-raspi3-and-arm64-server-now-works-and-what-s-next-with-cncf-pbk) - [Thanks at CNCF original issue](https://github.com/cncf/cluster/issues/45#issuecomment-507036930) - [Twitter tweet](https://twitter.com/WekanApp/status/1145168007901134848) - [HN](https://news.ycombinator.com/item?id=20318237)
+[Blogpost](https://wekan.fi/blog/2019/06/wekan-on-raspi3-and-arm64-server-now-works-and-whats-next-with-cncf/index.html) - [Blogpost repost at dev.to](https://dev.to/xet7/wekan-on-raspi3-and-arm64-server-now-works-and-what-s-next-with-cncf-pbk) - [Thanks at CNCF original issue](https://github.com/cncf/cluster/issues/45#issuecomment-507036930) - [Twitter tweet](https://twitter.com/WekanApp/status/1145168007901134848) - [HN](https://news.ycombinator.com/item?id=20318237)
 
 ## Please store MongoDB database etc Wekan files to external SSD hardrive (or HDD)
 
@@ -422,7 +422,7 @@ And then start Wekan with:
 
 ## Wekan for RasPi3 arm64 and other CPU architectures
 
-<img src="https://wekan.github.io/wekan-raspi3.png" width="100%" alt="Wekan on RasPi3" />
+<img src="https://wekan.fi/wekan-raspi3.png" width="100%" alt="Wekan on RasPi3" />
 
 Newest Wekan:
 - Ubuntu 19.10 Server arm64 for RasPi3 and RasPi4
@@ -437,11 +437,11 @@ If there is errors in restoring, try:
 ```
 mongorestore --drop --noIndexRestore
 ```
-<img src="https://wekan.github.io/wekan-raspi3-with-all-data.jpg" width="100%" alt="Wekan on RasPi3" />
+<img src="https://wekan.fi/wekan-raspi3-with-all-data.jpg" width="100%" alt="Wekan on RasPi3" />
 
 When using Firefox on network laptop (Core 2 Duo laptop, 8 GB RAM, SSD harddisk) to browse RasPi Wekan server, small boards load at about 3 seconds at first time. When loading, node CPU usage goes to about 100%. MongoDB CPU usage stays low, sometimes goes to 18%. This is because indexes has been added to Wekan MongoDB database. Loading my biggest Wekan board at first time takes 45 seconds, and next time takes about 2 seconds, because data is at browser cache. When Wekan browser tab is closed, node CPU usage drops 4-23%. There is no errors given by Wekan at RasPi3, RasPi3 arm64 behaves similar to x64 server that has 1 GB RAM. 
 
-<img src="https://wekan.github.io/wekan-raspi3-cpu-usage.jpg" width="100%" alt="Wekan on RasPi3" />
+<img src="https://wekan.fi/wekan-raspi3-cpu-usage.jpg" width="100%" alt="Wekan on RasPi3" />
 
 I did also test Wekan arm64 on arm64 bare metal server, same Wekan bundle worked there.
 

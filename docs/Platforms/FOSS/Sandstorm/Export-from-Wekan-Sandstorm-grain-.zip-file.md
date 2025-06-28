@@ -127,7 +127,7 @@ With it connect to localhost:27017
 
 Double click `cfs_gridfs.attachments.files` and right click filename and Download file.
 
-<img src="https://wekan.github.io/nosqlbooster.png" width="100%" alt="Wekan logo" />
+<img src="https://wekan.fi/nosqlbooster.png" width="100%" alt="Wekan logo" />
 
 ## 13) Optional: Restore
 

@@ -6,11 +6,11 @@
 4. Paste multiple lines of text
 5. Click Save
 
-<img src="https://wekan.github.io/multiline/multiline1.png" width="60%" alt="Multiple lines to Checklist" />
+<img src="https://wekan.fi/multiline/multiline1.png" width="60%" alt="Multiple lines to Checklist" />
 
 ## Card ☰ Menu / Copy Checklist Template to Many Cards
 
-<img src="https://wekan.github.io/multiline/multiline2.png" width="60%" alt="Checklist Template to Many Cards 1" />
+<img src="https://wekan.fi/multiline/multiline2.png" width="60%" alt="Checklist Template to Many Cards 1" />
 
 ## Edit titles and descriptions of Many Cards
 ```
@@ -19,5 +19,5 @@
 {"title":"Last card title","description":"Last card description"} ]
 ```
 
-<img src="https://wekan.github.io/multiline/multiline3.png" width="60%" alt="Checklist Template to Many Cards 2" />
+<img src="https://wekan.fi/multiline/multiline3.png" width="60%" alt="Checklist Template to Many Cards 2" />
 

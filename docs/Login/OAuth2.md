@@ -170,7 +170,7 @@ sudo systemctl status snap.wekan.wekan
 
 3) Click `Authorize` . This is asked only first time when logging in to Wekan with Rocket.Chat.
 
-<img src="https://wekan.github.io/oauth2-login.png" width="60%" alt="Wekan login to Rocket.Chat" />
+<img src="https://wekan.fi/oauth2-login.png" width="60%" alt="Wekan login to Rocket.Chat" />
 
 ### 6) Set your Full Name
 
@@ -180,7 +180,7 @@ Currently Full Name is not preserved, so you need to change it.
 
 2) Add info and Save.
 
-<img src="https://wekan.github.io/oauth2-profile-settings.png" width="60%" alt="Wekan login to Rocket.Chat" />
+<img src="https://wekan.fi/oauth2-profile-settings.png" width="60%" alt="Wekan login to Rocket.Chat" />
 
 ### 7) Add more login options to Rocket.Chat
 
@@ -188,7 +188,7 @@ Currently Full Name is not preserved, so you need to change it.
 
 2) There are many options at OAuth menu. Above and below of OAuth are also CAS, LDAP and SAML.
 
-<img src="https://wekan.github.io/oauth-rocketchat-options.png" width="100%" alt="Wekan login to Rocket.Chat" />
+<img src="https://wekan.fi/oauth-rocketchat-options.png" width="100%" alt="Wekan login to Rocket.Chat" />
 
 # Auth0
 

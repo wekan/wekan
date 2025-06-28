@@ -1,6 +1,6 @@
 # Wekan - Open Souce kanban - IRC FAQ
 
-- [Wekan website](https://wekan.github.io)
+- [Wekan website](https://wekan.fi)
 
 ### If you are in a hurry, please don't use IRC
 
@@ -49,7 +49,7 @@ If you mean bug about [only 20 newest comments visible](https://github.com/wekan
 [16:13:27] <Dalisay> if this does not change,  I will
 gather a group of developers to make a reasonable fork
 ```
-A: I don't know why you think fork would be necessary. I welcome all new contributors and co-maintainers, and help them to get up to speed. You can send your pull requests to Wekan https://github.com/wekan/wekan/pulls . I do have also [blog post about it](https://blog.wekan.fi/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html). All what I do on Wekan is based of feedback at GitHub issues, chats and emails. Wekan is friendly Community driven Open Source project. I do also provide [Commercial Support](https://wekan.fi/commercial-support) for features and fixes.
+A: I don't know why you think fork would be necessary. I welcome all new contributors and co-maintainers, and help them to get up to speed. You can send your pull requests to Wekan https://github.com/wekan/wekan/pulls . I do have also [blog post about it](https://wekan.fi/blog/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html). All what I do on Wekan is based of feedback at GitHub issues, chats and emails. Wekan is friendly Community driven Open Source project. I do also provide [Commercial Support](https://wekan.fi/commercial-support) for features and fixes.
 
 ### Q: CPU usage?
 ```
@@ -146,7 +146,7 @@ A:
 - What is URL to your fork? Please send it to me with email to x@xet7.org . Thanks! Currently there is about 2200 forks of Wekan, it would be hard to find without exact URL.
 - What features and fixes have you implemented to Wekan?
 - [What usually happens when Wekan gets broken](Test-Edge#what-usually-happens-when-wekan-gets-broken).
-- [Benefits of contributing your features to upstream Wekan](https://blog.wekan.fi/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html).
+- [Benefits of contributing your features to upstream Wekan](https://wekan.fi/blog/2018/02/benefits-of-contributing-your-features-to-upstream-wekan/index.html).
 - [What was Wekan fork](FAQ#what-was-wekan-fork--wefork).
 
 ***
