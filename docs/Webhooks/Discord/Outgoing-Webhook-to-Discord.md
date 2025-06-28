@@ -2,7 +2,7 @@
 
 Note: Webhook to Slack and Rocket.Chat does not require adding anything to URL. Discord requires adding `/slack` to end of URL so that it works.
 
-<img src="https://wekan.fi/outgoing-webhook-discord.gif" alt="Outgoing Webhook to Discord" />
+<img src="outgoing-webhook-discord.gif" alt="Outgoing Webhook to Discord" />
 
 1. Add Webhook to Discord
 
