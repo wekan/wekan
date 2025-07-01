@@ -1,5 +1,15 @@
 ## Issue
 
+Pull requests are not accepted to https://github.com/wekan/wekan/pulls
+
+Pull requests are accepted to next version of WeKan
+https://github.com/wekan/wami/pulls
+that are done according to design docs of Wami:
+https://github.com/wekan/wami/blob/main/docs/Design/Design.md
+
+There will be automatic upgrades from WeKan to Wami at Snap,
+and info how to upgrade all WeKan platforms to Wami.
+
 UPGRADE OR MIGRATE: https://github.com/wekan/wekan/blob/main/docs/Upgrade/Upgrade.md
 
 Please report these issues elsewhere:
