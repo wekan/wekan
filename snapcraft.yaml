@@ -13,11 +13,19 @@ description: |
 confinement: strict
 grade: stable
 
-# Update platforms format to correct syntax for core24
+# Use platforms instead of architectures for core24 base
 platforms:
   amd64:
-    build-on: amd64
+    build-on: [amd64, arm64]
     build-for: amd64
+
+# Remove architectures section (not compatible with core24)
+# architectures: [amd64]
+
+# The previous format was incorrect:
+# architectures:
+#  - build-on: amd64
+#    run-on: amd64
 
 plugs:
   mongodb-plug:
