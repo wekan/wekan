@@ -51,14 +51,45 @@ do
 			sudo npm -g install meteor@2.14 --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
-		        echo "macOS";
+			echo "macOS"
+			softwareupdate --install-rosetta --agree-to-license
 			brew install npm
+			# Install n for home directory version of Node.js 14.21.4
 			npm -g install n
-			export N_NODE_MIRROR=https://github.com/wekan/node-v14-esm/releases/download
+			directory_name="~/.n"
+			if [ ! -d "$directory_name" ]; then
+			  mkdir "$directory_name"
+			  echo "Directory '$directory_name' created."
+			else
+			  echo "Directory '$directory_name' already exists."
+			fi
+			directory_name="~/.npm"
+			if [ ! -d "$directory_name" ]; then
+				mkdir "$directory_name"
+				echo "Directory '$directory_name' created."
+			else
+				echo "Directory '$directory_name' already exists."
+			fi
+			if awk '/node-v14-esm/{found=1; exit} END{exit !found}' ~/.zshrc; then
+			  echo "The text node-v14-esm alread exists in .zshrc"
+			else
+			  echo "The text node-v14-esm does not exist in .zshrc, adding for install node v14"
+			  echo "export N_NODE_MIRROR=https://github.com/wekan/node-v14-esm/releases/download" >> ~/.zshrc
+			  export N_NODE_MIRROR="https://github.com/wekan/node-v14-esm/releases/download"
+			fi
+                        if awk '/export N_PREFIX/{found=1; exit} END{exit !found}' ~/.zshrc; then
+                          echo "The text export N_PREFIX for local ~/.n directory already exists in .zshrc"
+                        else
+                          # echo "The text export N_PREFIX for local ~/.n directory does not exist in .zshrc, adding."
+                          echo "export N_PREFIX=~/.n" >> ~/.zshrc
+			  export N_PREFIX=~/.n
+			fi
+			npm config set prefix '~/.npm'
 			n 14.21.4
 			npm -g uninstall node-pre-gyp
 			npm -g install @mapbox/node-pre-gyp
-			npm -g install meteor
+			npm -g install meteor@2.14
+			exit;
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
 		        # POSIX compatibility layer and Linux environment emulation for Windows
 		        echo "TODO: Add Cygwin";
