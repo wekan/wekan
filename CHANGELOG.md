@@ -55,6 +55,24 @@ and adds the following updates:
   Thanks to xet7.
 - [Removed old broken snap files](https://github.com/wekan/wekan/commit/b7409c1d0b574b77f0fa95f7289d815671c1e224).
   Thanks to xet7.
+- [Update Browser-compatibility-matrix.md about Servo](https://github.com/wekan/wekan/commit/c256ce69688e47675245bf68f13d3025b2a7d7ab).
+  Thanks to xet7.
+- Update rebuild-wekan.sh install deps for macOS.
+  [Part 1](https://github.com/wekan/wekan/commit/2df73bedeebf6e6da2e4003bd236668e185f6701),
+  [Part 2](https://github.com/wekan/wekan/commit/938fe49b2c0dd523e3402b514b13ba5b605dac2b).
+  Thanks to xet7.
+- wekan.team to wekan.fi.
+  [Part 1](https://github.com/wekan/wekan/commit/790bafbb096a606cdb34a1d942478ae53174ff1c),
+  [Part 2](https://github.com/wekan/wekan/commit/b52d1ca6c47fbeeb3c5f93111809a1863478b833).
+  Thanks to xet7.
+- [Moved images from wekan.github.io to repo wekan/docs](https://github.com/wekan/wekan/commit/c5e5bb613e9d0e8652bce24a1cecb620dd8e7cd4).
+  Thanks to xet7.
+- [wekan.github.io to wekan.fi, and blog.wekan.team to wekan.fi/blog](https://github.com/wekan/wekan/commit/89480b61ce98d5a344108ad7c2ce9b3577fd3d7e).
+  Thanks to xet7.
+- [Fix image link](https://github.com/wekan/wekan/commit/3a8473e6326bff2f17ada1bb48f0c7f38b356721).
+  Thanks to xet7.
+- [Updated links at readme](https://github.com/wekan/wekan/commit/bd796ce64248dc58ff4a192ca58796096dbef019).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -64,6 +82,12 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/pull/5816),
   [Part 2](https://github.com/wekan/wekan/commit/51e43f1c254abee7ee12e8fdab8c52695e858fa2).
   Thanks to dassio and xet7.
+- [Reorganized docs to fix building WeKan](https://github.com/wekan/wekan/commit/6e11aa27f896e41c57980b45b59dc8248259421f).
+  Thanks to xet7.
+- Fixed rebuild-wekan.sh install deps for macOS.
+  [Part 1](https://github.com/wekan/wekan/commit/938fe49b2c0dd523e3402b514b13ba5b605dac2b),
+  [Part 2](https://github.com/wekan/wekan/commit/2df73bedeebf6e6da2e4003bd236668e185f6701).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -2247,7 +2271,7 @@ This release adds the following new features:
 - [Count of attachments on minicard. (Badges renamed to Count of attachments)](https://github.com/wekan/wekan/pull/4940).
   Thanks to helioguardabaxo.
 - [Renamed Badge to Count of attachments on minicard. Changed icons to Cover image on minicard](https://github.com/wekan/wekan/commit/825742359ef0738b110ed0904853c604bdbd1bac).
-  Thanks to xet7. 
+  Thanks to xet7.
 - [Added conditional to show after list field only if board has at least one list. Now after list shows the last list by default](https://github.com/wekan/wekan/pull/4941).
   Thanks to helioguardabaxo.
 - [Changed Add List to be at left. Before it was at right](https://github.com/wekan/wekan/commit/467835192fbcd9d4016674fa2ee406258cc106e7).
