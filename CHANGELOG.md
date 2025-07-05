@@ -28,6 +28,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added docs about using MongoDB at unsupported CPUs with Qemu](https://github.com/wekan/wekan/commit/f926448bbbbd570ad1e6a1015c755b12c6b229c0).
   Thanks to xet7.
+- [Helm Chart: Add podAnnotations support](https://github.com/wekan/charts/pull/42).
+  Thanks to adalinesimonian.
 
 and adds the following updates:
 
