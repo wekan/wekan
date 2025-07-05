@@ -89,6 +89,7 @@ do
 			npm -g uninstall node-pre-gyp
 			npm -g install @mapbox/node-pre-gyp
 			npm -g install meteor@2.14
+			export PATH=~/.meteor:$PATH
 			exit;
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
 		        # POSIX compatibility layer and Linux environment emulation for Windows
