@@ -7,23 +7,26 @@ Wekan allows to create **Boards**, on which **Cards** can be moved around betwee
 ## What is special about Wekan?
 Wekan is distributed under the [MIT License], allowing anyone to easily work with it and modify it. It is perfect for anyone that needs a slick kanban board but doesn't want to use third party services, which are out of user control. Wekan can be hosted on your own server with very little effort, guaranteeing that you have all the time full control over your data and can make sure no one else has access to it and that it won't just vanish from one day to another, that is, if you do backups.
 
-## Getting started
-There are various ways to get started with Wekan:
-
-* you can use the [Sandstorm app demo], 
-* you could [[install|Install-and-Update]] it right away on your own server, or
-* you could look through our [[contributing guidelines|Developer Documentation]]  to get involved in the project.
-
-If you still have questions, check out the [[FAQ]]!
-
 <a name="Wekan"></a>Wekan
+
+# Install
+
+* https://wekan.fi/install/
+
+# SaaS
+
+* https://wekan.fi/saas/
+
+# Support
+
+* Free Public Open Source Support, bugs and feature requests: https://github.com/wekan/wekan/issues/
+* Paid Private Commercial Support, paid features/fixes/support/hosting: https://wekan.fi/commercial-support/
 
 # <a name="General"></a>General
 
-* [Deep Dive Into WeKan](DeveloperDocs/Deep-Dive-Into-WeKan.md)
-* [Meteor WeKan Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
-* [Multiverse WeKan Roadmap](FAQ/WeKan-Multiverse-Roadmap.md)
-* OLD Docs/Manual: https://github.com/wekan/wekan/discussions/4522
+* Current Meteor 2 WeKan Features: [Deep Dive Into WeKan](DeveloperDocs/Deep-Dive-Into-WeKan.md)
+* [WeKan Roadmap kanban board](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
+* Future WeKan prototypes: [Multiverse WeKan Roadmap](FAQ/WeKan-Multiverse-Roadmap.md)
 * [Change Language](Translations/Change-Language.md)
 * [Forgot Password](Login/Forgot-Password.md)
 * [Test Edge](DeveloperDocs/Test-Edge.md)
