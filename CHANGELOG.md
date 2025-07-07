@@ -30,6 +30,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Helm Chart: Add podAnnotations support](https://github.com/wekan/charts/pull/42).
   Thanks to adalinesimonian.
+- [Added release script to switch between using kvm, snapcraft.io/multipass, waydroid and virtualbox](https://github.com/wekan/wekan/commit/dfc658b910f038fa6d6ae2e06c190eb8e6205a78).
+  Thanks to xet7.
 
 and adds the following major updates to links of WeKan websites, blog and docs:
 
