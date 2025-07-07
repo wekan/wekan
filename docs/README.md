@@ -20,6 +20,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 # Support
 
 * Free Public Open Source Support, bugs and feature requests: https://github.com/wekan/wekan/issues
+  * [Debugging](DeveloperDocs/Debugging.md)
 * Paid Private Commercial Support, paid features/fixes/support/hosting: https://wekan.fi/commercial-support/
 
 # <a name="General"></a>General
@@ -72,12 +73,6 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [From Asana](ImportExport/asana/Asana.md)
 * [From Zenkit](ImportExport/ZenKit.md)
 * [From old Wekan manually](ImportExport/Migrating-from-old-Wekan-manually.md)
-
-# <a name="Support"></a>Support priorities for new features and bugfixes
-
-1) [Commercial Support](https://wekan.fi/commercial-support/)
-2) [Community Support](https://github.com/wekan/wekan/issues)
-3) [Debugging](DeveloperDocs/Debugging.md)
 
 # Backup
 
@@ -159,19 +154,18 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Translations](Translations/Translations.md)
 * [Customize Translations](Customize-Translations.md)
 * [Default Language for All Users](https://github.com/wekan/wekan/issues/3927)
-* [Roadmap](FAQ/Roadmap.md)
 * [Features](Features/Features.md)
 * [Planning Poker](Features/Planning-Poker.md)
 * [Scaling](Webserver/Scaling.md)
 * [Custom Logo](Features/Custom-Logo.md)
 * [Subtasks](Features/Subtasks.md)
 * [Templates](Features/Templates.md)
-* [Cover](Features/Cover.md)
+* [Card Cover Image](Features/Cover.md)
 * [Archive and Delete](Features/Archive-and-Delete.md)
 * [Custom Fields](Features/Custom-Fields.md)
 * [Fix Export board menu not visible on some boards](https://github.com/wekan/wekan/issues/1060)
 * [RAM usage](https://github.com/wekan/wekan/issues/1088#issuecomment-311843230)
-* [Swimlanes Documentation](Features/Swimlanes.md)
+* [Swimlanes](Features/Swimlanes.md)
 
 # <a name="Email"></a>Email
 
@@ -182,11 +176,6 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Requirements](FAQ/Requirements.md)
 * [Ports, hostsfile, how Internet works](https://gitub.com/wekan/wekan/issues/2896)
 * [ROOT_URL Settings](Webserver/Settings.md)
-
-# <a name="Platforms"></a>Download
-
-* [Download Wekan for various Platforms](Platforms/FOSS/Platforms.md): Supported by xet7, Operating Systems, NAS, Cloud
-* [Helm Chart for Kubernetes](Platforms/FOSS/Helm.md)
 
 # <a name="Webservers"></a>Webservers
 
@@ -201,6 +190,16 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="API"></a>REST API Docs
 
+* API docs https://wekan.fi/docs/
+* PHP Webhook receiver to WeKan API Python https://github.com/wekan/webhook/blob/main/public/index.php#L46
+* API clients
+  * Python
+    * https://github.com/wekan/wekan/blob/main/api.py
+    * https://github.com/wekan/wekan-python-api-client
+    * https://github.com/wekan/python-wekan
+    * Other Python features https://github.com/wekan/wekan/blob/main/docs/Features/Python.md
+  * Go https://github.com/wekan/wego
+* Other API 
 * [REST API Code](API/Code.md)
 * [Login](API/REST-API.md)
 * [User](API/User.md)
@@ -227,7 +226,10 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="Webhooks"></a>Webhooks
 
+* Per-board events sending at board right sidebar / Board Settings / Webhooks
+  * Check that webhook immediately responds with HTTP 200 OK, otherwise WeKan slows down
 * [Global Webhook](https://github.com/wekan/wekan/pull/2665)
+* PHP Webhook receiver to WeKan API Python https://github.com/wekan/webhook/blob/main/public/index.php#L46
 * [Limiting Webhook data](https://github.com/wekan/wekan/issues/2830)
 * [Receiving Webhooks](Webhooks/Receiving-Webhooks)
 * [Java Webhooks](Webhooks/Java.md)
@@ -243,11 +245,9 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Kadira integration](https://github.com/wekan/wekan/issues/2152)
 * [Debugging](DeveloperDocs/Debugging.md)
 * [Developer Docs for Standalone Wekan](DeveloperDocs/Developer-Documentation.md)
-* [Developer Docs for Sandstorm Wekan](https://github.com/wekan/wekan-maintainer/wiki/Developing-Wekan-for-Sandstorm)
-* [Adding new Snap setting to code](Adding-new-Snap-settings-to-code)
-* [Directory Structure](Directory-Structure)
-* [Building Wekan for Sandstorm](https://github.com/wekan/wekan-maintainer/wiki/Building-Wekan-for-Sandstorm)
-* [Docs - Sandstorm etc](https://github.com/wekan/wekan/labels/Documentation)
+* [Developer Docs for Sandstorm Wekan](https://github.com/wekan/wekan/tree/main/docs/Platforms/FOSS/Sandstorm)
+* [Adding new Snap setting to code](DeveloperDocs/Adding-new-Snap-settings-to-code.md)
+* [Directory Structure](DeveloperDocs/Directory-Structure.md)
 * [Beginner](https://github.com/wekan/wekan/labels/Beginner)
 * [Maintainer FAQ](https://github.com/wekan/wekan-maintainer/wiki/FAQ)
 
