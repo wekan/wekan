@@ -1,3 +1,9 @@
+## TODO
+
+Meteor 3 has migrations of password hashing to some newer hash.
+
+## OLD
+
 While [discussing various alternatives in hashing passwords](https://github.com/meteor/meteor/discussions/11812#discussioncomment-1930533):
 
 From @xet7 at 2022-01-08:
