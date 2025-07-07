@@ -5,8 +5,8 @@ Right to click your username / All Boards / Add Board / Import / From CSV/TSV
 [CSV import was added at PR 3081](https://github.com/wekan/wekan/pull/3081)
 
 Here's a copy of the CSV and TSV to test out the functionality:
-- [board-import.csv](https://wekan.fi/csv/board-import.csv)
-- [board-import.tsv](https://wekan.fi/csv/board-import.tsv)
+- [board-import.csv](board-import.csv)
+- [board-import.tsv](board-import.tsv)
 
 Frontend:
 - [Import CSV code](https://github.com/wekan/wekan/tree/main/client/components/import)
