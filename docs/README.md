@@ -66,7 +66,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 * [From Previous Export, paste big WeKan JSON](ImportExport/From-Previous-Export.md)
 * [Progress: Import/Export/Sync](ImportExport/Sync.md)
-* [From CSV/TSV](ImportExport/CSV.md)
+* [From CSV/TSV](ImportExport/CSV)
 * [From Trello](ImportExport/trello/Migrating-from-Trello.md)
 * [From Jira](ImportExport/Jira.md)
 * [From Asana](ImportExport/Asana.md)
