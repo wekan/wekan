@@ -116,6 +116,8 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/commit/938fe49b2c0dd523e3402b514b13ba5b605dac2b),
   [Part 2](https://github.com/wekan/wekan/commit/2df73bedeebf6e6da2e4003bd236668e185f6701).
   Thanks to xet7.
+- [Fixed release script of building Snap locally at Ubuntu](https://github.com/wekan/wekan/commit/159324858bb2a72761082265558329eee0c0863d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
