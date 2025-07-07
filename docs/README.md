@@ -110,7 +110,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Accounts Lockout: Brute force login protection](Login/Accounts-Lockout.md)
 * [LDAP](Login/LDAP.md)
 * [LDAP AD Simple Auth](Login/LDAP-AD-Simple-Auth.md)
-* [Keycloak](Login/Keycloak.md)
+* [Keycloak](Login/Keycloak/Keycloak.md)
 * [Google login](Login/Google-login.md)
 * [Azure](Login/Azure/Azure.md)
 * [OAuth2](Login/OAuth2.md), Auth0, GitLab, RocketChat
