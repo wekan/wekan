@@ -19,7 +19,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # Support
 
-* Free Public Open Source Support, bugs and feature requests: https://github.com/wekan/wekan/issues/
+* Free Public Open Source Support, bugs and feature requests: https://github.com/wekan/wekan/issues
 * Paid Private Commercial Support, paid features/fixes/support/hosting: https://wekan.fi/commercial-support/
 
 # <a name="General"></a>General
