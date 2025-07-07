@@ -112,7 +112,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [LDAP AD Simple Auth](Login/LDAP-AD-Simple-Auth.md)
 * [Keycloak](Login/Keycloak.md)
 * [Google login](Login/Google-login.md)
-* [Azure](Login/Azure.md)
+* [Azure](Login/Azure/Azure.md)
 * [OAuth2](Login/OAuth2.md), Auth0, GitLab, RocketChat
 * [Oracle OIM on premise using OAuth2](Login/Oracle-OIM.md)
 * [ADFS 4.0 using OAuth2 and OpenID](Login/ADFS.md)
