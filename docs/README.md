@@ -60,7 +60,6 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
   * Issues https://github.com/wekan/charts/issues
   * Pull Requests https://github.com/wekan/charts/pulls
 * [Redis Oplog](https://github.com/cult-of-coders/redis-oplog)
-* [Meteor Scaling](https://galaxy-guide.meteor.com/scaling.html) at [Meteor Cloud](https://meteor.com/cloud)
 * [Scaling at Meteor forums](https://forums.meteor.com/t/meteor-scaling-performance-best-practices/52886/16)
 
 # <a name="Migrating"></a>Migrating
