@@ -10,6 +10,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   sudo systemctl start snapd
   sudo snap install snapcraft --classic
   sudo snap install multipass
+  sudo snap install lxd
+  lxd init --auto
   multipass launch --name ubu
   snapcraft
   exit;
