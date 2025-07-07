@@ -4,7 +4,7 @@ Here are some starting points.
 
 ## 1) Required: Backups
 
-https://github.com/wekan/wekan/wiki/Backup
+[Backup](../Backup/Backup.md)
 
 Do backups to multiple places. And test does restore work, with restore script already made.
 
@@ -38,9 +38,9 @@ Some of the database schema can be different. If you see difference in these fil
 ## 6) Inform Wekan about what is missing
 
 ### a) Add issue
-- [Add issue](https://github.com/wekan/wekan/issues)
+
+- https://github.com/wekan/wekan/issues
 
 ### b) Create pull request
-- [Build from source or build on VirtualBox image](Platforms)
-- [Please try to fix lint error before creating pull request](Developer-Documentation#preventing-travis-ci-lint-errors-before-submitting-pull-requests)
-- [Making Pull Request](https://help.github.com/articles/creating-a-pull-request/)
+
+- [Build from source and create pull request](../DeveloperDocs/Build-and-Create-Pull-Request.md)
