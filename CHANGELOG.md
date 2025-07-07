@@ -38,6 +38,8 @@ and adds the following major updates to links of WeKan websites, blog and docs:
   - Most content have been moved to wekan.fi . For app stores https://wekan.fi/app/ there is still wekan.team used for app.
   - Many wikis and images from wekan.github.io have been moved to wekan repo docs directory
   - Pull requests welcome to fix any broken links at docs directory, and organizing docs/Features and their screenshots to subdirectories of each feature.
+- [Updated issue template about pull requests for fixes to docs](https://github.com/wekan/wekan/commit/e4822d8bc4dd0c200b63983013625d2c3677e9f9).
+  Thanks to xet7.
 - wekan.team to wekan.fi.
   [Part 1](https://github.com/wekan/wekan/commit/790bafbb096a606cdb34a1d942478ae53174ff1c),
   [Part 2](https://github.com/wekan/wekan/commit/b52d1ca6c47fbeeb3c5f93111809a1863478b833).
