@@ -1,8 +1,11 @@
-Importing attachments from Trello:
-- https://github.com/wekan/wekan/tree/main/trello
-- https://github.com/wekan/trello-board-exporter
-- https://github.com/wekan/wekan/issues/4877
-- https://github.com/wekan/trello-backup
+## Importing attachments from Trello
+
+- https://github.com/wekan/trello-attachments-downloader
+- In Progress
+  - Fix import from Trello https://github.com/wekan/wekan/issues/5725
+  - Mass migrate from old WeKan to new WeKan without mapping users
+
+## OLD
 
 If you're already a Trello user, migrating to Wekan is easy:
 
