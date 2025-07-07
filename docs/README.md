@@ -55,7 +55,10 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Maybe: Add more RAM to Node.js to prevent crash](https://github.com/wekan/wekan/issues/3585)
 * [Clustering AWS etc](Platforms/Propietary/Cloud/AWS.md)
 * [Scaling](Webserver/Scaling.md)
-* [Kubernetes](https://github.com/wekan/wekan/tree/main/helm/wekan)
+* Kubernetes
+  * Helm Chart https://artifacthub.io/packages/helm/wekan/wekan
+  * Issues https://github.com/wekan/charts/issues
+  * Pull Requests https://github.com/wekan/charts/pulls
 * [Redis Oplog](https://github.com/cult-of-coders/redis-oplog)
 * [Meteor Scaling](https://galaxy-guide.meteor.com/scaling.html) at [Meteor Cloud](https://meteor.com/cloud)
 * [Scaling at Meteor forums](https://forums.meteor.com/t/meteor-scaling-performance-best-practices/52886/16)
