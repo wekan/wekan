@@ -10,6 +10,6 @@ Some Python etc code in WeKan, that is not yet added directly to WeKan:
 - [2nd API client](https://github.com/wekan/wekan-python-api-client)
 - [Stats](https://github.com/wekan/wekan-stats)
 - [Logstash and ElasticSearch](https://github.com/wekan/wekan-logstash)
-- iCal server in [Python](https://github.com/wekan/wekan-ical-server) and [PHP](https://github.com/wekan/wekan-ical-php)
+- iCal server in [Python](https://github.com/wekan/wekan-ical-server)
 - [Sandstorm CSV related Python code](Wekan-Sandstorm-cards-to-CSV-using-Python)
 - [Trello API test code](https://github.com/wekan/wekan/tree/main/docs/ImportExport/trello)
