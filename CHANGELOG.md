@@ -90,7 +90,8 @@ and adds the following major updates to links of WeKan websites, blog and docs:
   [Part 30: Updated docs](https://github.com/wekan/wekan/commit/d59337ae47876396c2571aa803bd57236abfc328),
   [Part 31: Updated Azure link](https://github.com/wekan/wekan/commit/a5acd0801aa55b49243bdc1c001c226546537cb3),
   [Part 32: Updated Keycloak link](https://github.com/wekan/wekan/commit/e0284f225b6567eb90ac0224fd348cf8e4e87229),
-  [Part 33: Updated image links at Azure docs](https://github.com/wekan/wekan/commit/6d16ec238a00f456494c84e08ea13eb166e42f6e).
+  [Part 33: Updated image links at Azure docs](https://github.com/wekan/wekan/commit/6d16ec238a00f456494c84e08ea13eb166e42f6e),
+  [Part 34: Updated Python docs](https://github.com/wekan/wekan/commit/bb0814bb11bf00e73c3c48c9954792c6ca09e3be).
   Thanks to xet7.
 
 and adds the following updates:
