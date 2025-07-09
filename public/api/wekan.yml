@@ -1666,7 +1666,6 @@ paths:
          adds the label to the board.
       tags:
         - Boards
-        - Boards
       consumes:
         - multipart/form-data
         - application/json
@@ -2261,7 +2260,14 @@ paths:
               _id:
                 type: string
               customFields:
-                type: object
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    value:
+                      type: object
   /api/boards/{board}/lists/{list}/cards_count:
     get:
       operationId: get_list_cards_count

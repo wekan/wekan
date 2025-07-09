@@ -4042,7 +4042,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
   * @param {string} cardId the ID of the card
   * @param {string} customFieldId the ID of the custom field
   * @param {string} value the new custom field value
-  * @return_type {_id: string, customFields: object}
+  * @return_type {_id: string, customFields: [{_id: string, value: object}]}
   */
   JsonRoutes.add(
     'POST',
