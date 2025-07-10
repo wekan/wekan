@@ -119,6 +119,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed release script of building Snap locally at Ubuntu](https://github.com/wekan/wekan/commit/159324858bb2a72761082265558329eee0c0863d).
   Thanks to xet7.
+- [Fix: Correct return type in API documentation for Custom Fields](https://github.com/wekan/wekan/pull/5826).
+  Thanks to Atry.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
