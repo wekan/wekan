@@ -3317,7 +3317,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, card.boardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getCard(paramCardId),
+        data: card,
       });
     },
   );
