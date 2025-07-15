@@ -34,6 +34,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Add a REST API endpoint to retrieve a card by ID](https://github.com/wekan/wekan/pull/5828).
   Thanks to Atry.
+- [Avoid calling ReactiveCache.getCard twice](https://github.com/wekan/wekan/pull/5829).
+  Thanks to Atry.
 
 and adds the following major updates to links of WeKan websites, blog and docs:
 
