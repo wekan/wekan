@@ -3302,6 +3302,27 @@ if (Meteor.isServer) {
   });
 
   /**
+   * @operation get_card_by_id
+   * @summary Get a Card by Card ID
+   *
+   * @param {string} cardId the card ID
+   * @return_type Cards
+   */
+  JsonRoutes.add(
+    'GET',
+    '/api/cards/:cardId',
+    function(req, res) {
+      const paramCardId = req.params.cardId;
+      card = ReactiveCache.getCard(paramCardId)
+      Authentication.checkBoardAccess(req.userId, card.boardId);
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: ReactiveCache.getCard(paramCardId),
+      });
+    },
+  );
+
+  /**
    * @operation get_card
    * @summary Get a Card
    *

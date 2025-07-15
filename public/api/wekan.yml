@@ -2612,6 +2612,29 @@ paths:
                 type: integer
               public:
                 type: integer
+  /api/cards/{card}:
+    get:
+      operationId: get_card_by_id
+      summary: Get a Card by Card ID
+      tags:
+        - Cards
+      parameters:
+        - name: card
+          in: path
+          description: |
+            the card ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            $ref: "#/definitions/Cards"
   /api/users/{user}/boards:
     get:
       operationId: get_boards_from_user
