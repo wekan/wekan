@@ -36,6 +36,8 @@ This release adds the following new features:
   Thanks to Atry.
 - [Avoid calling ReactiveCache.getCard twice](https://github.com/wekan/wekan/pull/5829).
   Thanks to Atry.
+- [Add REST API endpoint to edit a list with various properties](https://github.com/wekan/wekan/pull/5832).
+  Thanks to Atry.
 
 and adds the following major updates to links of WeKan websites, blog and docs:
 
