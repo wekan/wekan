@@ -601,6 +601,161 @@ if (Meteor.isServer) {
   });
 
   /**
+   * @operation edit_list
+   * @summary Edit a List
+   *
+   * @description This updates a list on a board.
+   * You can update the title, color, wipLimit, starred, and collapsed properties.
+   *
+   * @param {string} boardId the board ID
+   * @param {string} listId the ID of the list to update
+   * @param {string} [title] the new title of the list
+   * @param {string} [color] the new color of the list
+   * @param {Object} [wipLimit] the WIP limit configuration
+   * @param {boolean} [starred] whether the list is starred
+   * @param {boolean} [collapsed] whether the list is collapsed
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId', function(
+    req,
+    res,
+  ) {
+    try {
+      const paramBoardId = req.params.boardId;
+      const paramListId = req.params.listId;
+      let updated = false;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      const list = ReactiveCache.getList({
+        _id: paramListId,
+        boardId: paramBoardId,
+        archived: false,
+      });
+
+      if (!list) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+          data: { error: 'List not found' },
+        });
+        return;
+      }
+
+      // Update title if provided
+      if (req.body.title) {
+        const newTitle = req.body.title;
+        Lists.direct.update(
+          {
+            _id: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              title: newTitle,
+            },
+          },
+        );
+        updated = true;
+      }
+
+      // Update color if provided
+      if (req.body.color) {
+        const newColor = req.body.color;
+        Lists.direct.update(
+          {
+            _id: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              color: newColor,
+            },
+          },
+        );
+        updated = true;
+      }
+
+      // Update starred status if provided
+      if (req.body.hasOwnProperty('starred')) {
+        const newStarred = req.body.starred;
+        Lists.direct.update(
+          {
+            _id: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              starred: newStarred,
+            },
+          },
+        );
+        updated = true;
+      }
+
+      // Update collapsed status if provided
+      if (req.body.hasOwnProperty('collapsed')) {
+        const newCollapsed = req.body.collapsed;
+        Lists.direct.update(
+          {
+            _id: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              collapsed: newCollapsed,
+            },
+          },
+        );
+        updated = true;
+      }
+
+      // Update wipLimit if provided
+      if (req.body.wipLimit) {
+        const newWipLimit = req.body.wipLimit;
+        Lists.direct.update(
+          {
+            _id: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              wipLimit: newWipLimit,
+            },
+          },
+        );
+        updated = true;
+      }
+
+      // Check if update is true or false
+      if (!updated) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+          data: {
+            message: 'Error',
+          },
+        });
+        return;
+      }
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: paramListId,
+        },
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  /**
    * @operation delete_list
    * @summary Delete a List
    *
