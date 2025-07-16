@@ -125,6 +125,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix: Correct return type in API documentation for Custom Fields](https://github.com/wekan/wekan/pull/5826).
   Thanks to Atry.
+- [Fixed Snap local build script](https://github.com/wekan/wekan/commit/69ce79a7b9e86b60482d42455701b58ae9926c69).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
