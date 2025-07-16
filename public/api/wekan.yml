@@ -1784,6 +1784,73 @@ paths:
             200 response
           schema:
             $ref: "#/definitions/Lists"
+    put:
+      operationId: edit_list
+      summary: Edit a List
+      description: |
+        This updates a list on a board.
+         You can update the title, color, wipLimit, starred, and collapsed properties.
+      tags:
+        - Lists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: |
+            the new title of the list
+          type: string
+          required: false
+        - name: color
+          in: formData
+          description: |
+            the new color of the list
+          type: string
+          required: false
+        - name: starred
+          in: formData
+          description: |
+            whether the list is starred
+          type: boolean
+          required: false
+        - name: collapsed
+          in: formData
+          description: |
+            whether the list is collapsed
+          type: boolean
+          required: false
+        - name: wipLimit
+          in: formData
+          description: |
+            the WIP limit configuration
+          type: object
+          required: false
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: |
+            the ID of the list to update
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
     delete:
       operationId: delete_list
       summary: Delete a List
