@@ -12,6 +12,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   sudo snap install multipass
   sudo snap install lxd
   lxd init --auto
+  multipass delete ubu
+  multipass purge
   multipass launch --name ubu
   snapcraft
   exit;
