@@ -14,7 +14,7 @@ if [ $# -ne 2 ]
 fi
 
 # 2) Go to website directory
-cd ~/repos/w/wekan.github.io
+cd ~/repos/w/wekan.fi
 
 # 3) Get latest changes to website
 git pull
@@ -39,7 +39,7 @@ cp ~/repos/wekan/public/api/* .
 mv wekan.html index.html
 
 # 10) Go to docs repo
-cd ~/repos/w/wekan.github.io
+cd ~/repos/w/wekan.fi
 
 # 11) Commit all changes to git and push website changes live
 git add --all
