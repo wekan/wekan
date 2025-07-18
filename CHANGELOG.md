@@ -108,6 +108,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Removed old broken not used snap configuration files](https://github.com/wekan/wekan/commit/b7409c1d0b574b77f0fa95f7289d815671c1e224).
   Thanks to xet7.
+- [Updated release website script](https://github.com/wekan/wekan/commit/6c6b66c802e88e8dcc7d9215b9caad4c269861c5).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
