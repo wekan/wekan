@@ -85,9 +85,11 @@ do
 			  export N_PREFIX=~/.n
 			fi
 			npm config set prefix '~/.npm'
+			npm -g install npm@latest
 			n 14.21.4
 			npm -g uninstall node-pre-gyp
 			npm -g install @mapbox/node-pre-gyp
+			npm -g install node-gyp
 			npm -g install meteor@2.14
 			export PATH=~/.meteor:$PATH
 			exit;
@@ -131,7 +133,8 @@ do
 		meteor build .build --directory --platforms=web.browser
 		rm -rf .build/bundle/programs/web.browser.legacy
 		(cd .build/bundle/programs/server && rm -rf node_modules && chmod u+w *.json && meteor npm install --production)
-                (cd .build/bundle/programs/server/node_modules/fibers && node build.js)
+		#(cd .build/bundle/programs/server/node_modules/fibers && node build.js)
+		(cd .build/bundle/programs/server && npm install fibers --save-dev)
 		(cd .build/bundle/programs/server/npm/node_modules/meteor/accounts-password && meteor npm remove bcrypt && meteor npm install bcrypt --production)
 		# Cleanup
 		cd .build/bundle
