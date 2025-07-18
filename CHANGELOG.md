@@ -131,6 +131,8 @@ and fixes the following bugs:
   Thanks to Atry.
 - [Fixed Snap local build script](https://github.com/wekan/wekan/commit/69ce79a7b9e86b60482d42455701b58ae9926c69).
   Thanks to xet7.
+- [Fixed building Docker image. Pushed new Docker image to Docker Hub, Quay and GitHub](https://github.com/wekan/wekan/commit/f894f9ef6d8bad47260d0b648f18c36a5b208517).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
