@@ -215,6 +215,7 @@ if (isSandstorm && Meteor.isServer) {
           if (doc.activityType === 'addComment') {
             const comment = ReactiveCache.getCardComment(doc.commentId);
             caption = { defaultText: comment.text };
+            const currentBoard = Boards.findone(Session.get('currentBoard')); // dynamic board context
             const activeMembers = _.pluck(
               ReactiveCache.getBoard(sandstormBoard._id).activeMembers(),
               'userId',
@@ -223,7 +224,7 @@ if (isSandstorm && Meteor.isServer) {
               const user = Meteor.users.findOne({
                 username: username.slice(1),
               });
-              if (user && activeMembers.indexOf(user._id) !== -1) {
+              if (user && activeMembers.includes(user._id)) {
                 mentionedUser(user._id);
               }
             });
