@@ -15,7 +15,7 @@ Newest WeKan at these platforms:
 
 Fixing other platforms In Progress.
 
-- Newest Node.js is at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
+- Node.js 14.x at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4 and https://nodejs.org/dist/latest-v14.x/
 - MongoDB 6.x and 7.x
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
