@@ -1,17 +1,23 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-Newest WeKan at these amd64 platforms:
+Newest WeKan at these platforms:
 
-- Windows and Linux bundle
-- Snap Candidate
-- Docker
-- Kubernetes
+- Linux bundle zip at https://github.com/wekan/wekan/releases , see https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md
+  - Linux amd64
+  - Linux arm64
+  - Linux s390x
+  - Windows amd64
+  - Mac amd64, works also with Rosetta2 at Apple Silicon
+- https://wekan.fi/install/
+  - Snap Candidate amd64
+  - Docker amd64 
+  - Kubernetes Docker amd64
 
 Fixing other platforms In Progress.
 
 - Install info at Server part of webpage https://wekan.github.io
 - Newest Node.js is at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4
-- MongoDB 6.x
+- MongoDB 6.x and 7.x
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
