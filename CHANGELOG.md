@@ -23,6 +23,23 @@ Fixing other platforms In Progress.
 - Question: Broadcom to discontinue free Bitnami Helm charts. WeKan uses Bitnami MongoDB.
   What to do? Help and PRs welcome at https://github.com/wekan/charts/issues/43 . Thanks!
 
+This release adds the following updates:
+
+- Update CHANGELOG.md platforms info at top.
+  [Part 1](https://github.com/wekan/wekan/commit/0e43a08689c0d47c816ce781e93650f0c37efe28),
+  [Part 2](https://github.com/wekan/wekan/commit/4bc2fd4a7fc166041a5c483aad73bf8079c3ae45),
+  [Part 3](https://github.com/wekan/wekan/commit/62269a99024744c789ac931921c96d5edae9d79e),
+  [Part 4](https://github.com/wekan/wekan/commit/4aad3dafd4530cc7779072fc9a550d8732f32558),
+  [Part 5](https://github.com/wekan/wekan/commit/c2aabbc6db9ffbb73d9f06edb73a15a9f4838df4),
+  [Part 6](https://github.com/wekan/wekan/commit/b0865c8d06a31d07b5b5df719871c298e1cf4ad8),
+  [Part 7](https://github.com/wekan/wekan/commit/30795a46cfb5f37837206a6de653913bfb631595),
+  [Part 8](https://github.com/wekan/wekan/commit/9a91214043d93307074cf33e54d40cb43c14ad62).
+
+and fixes the following bugs:
+
+- [Fixes for building at macOS](https://github.com/wekan/wekan/commit/200545822c5c778521f76525938fe777ed9666f0).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.93 2025-07-18 WeKan ® release
