@@ -3,9 +3,7 @@
 Newest WeKan at these platforms:
 
 - bundle zip at https://github.com/wekan/wekan/releases , see https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md
-  - Linux amd64
-  - Linux arm64
-  - Linux s390x
+  - Linux amd64, arm64, s390x
   - Windows amd64, works also at Windows arm64
   - Mac amd64, works also with Rosetta2 at Apple Silicon
 - https://wekan.fi/install/
