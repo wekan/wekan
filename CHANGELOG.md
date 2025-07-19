@@ -2,7 +2,7 @@
 
 Newest WeKan at these platforms:
 
-- bundle zip at https://github.com/wekan/wekan/releases , see 
+- [bundle zip at releases](https://github.com/wekan/wekan/releases), docs at
   - [Linux amd64, arm64, s390x](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
   - [Windows amd64, works also at Windows arm64](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md)
   - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
