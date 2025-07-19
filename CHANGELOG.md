@@ -2,7 +2,7 @@
 
 Newest WeKan at these platforms:
 
-- Linux bundle zip at https://github.com/wekan/wekan/releases , see https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md
+- bundle zip at https://github.com/wekan/wekan/releases , see https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md
   - Linux amd64
   - Linux arm64
   - Linux s390x
