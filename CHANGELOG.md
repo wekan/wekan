@@ -6,7 +6,7 @@ Newest WeKan at these platforms:
   - Linux amd64
   - Linux arm64
   - Linux s390x
-  - Windows amd64
+  - Windows amd64, works also at Windows arm64
   - Mac amd64, works also with Rosetta2 at Apple Silicon
 - https://wekan.fi/install/
   - Snap Candidate amd64
