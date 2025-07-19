@@ -2,10 +2,10 @@
 
 Newest WeKan at these platforms:
 
-- bundle zip at https://github.com/wekan/wekan/releases , see https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md
-  - Linux amd64, arm64, s390x
-  - Windows amd64, works also at Windows arm64
-  - Mac amd64, works also with Rosetta2 at Apple Silicon
+- bundle zip at https://github.com/wekan/wekan/releases , see 
+  - [Linux amd64, arm64, s390x](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/RaspberryPi/Raspberry-Pi.md)
+  - [Windows amd64, works also at Windows arm64](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md)
+  - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
 - https://wekan.fi/install/
   - Snap Candidate amd64
   - Docker amd64 
