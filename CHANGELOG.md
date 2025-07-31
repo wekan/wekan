@@ -34,6 +34,8 @@ This release adds the following updates:
   [Part 6](https://github.com/wekan/wekan/commit/b0865c8d06a31d07b5b5df719871c298e1cf4ad8),
   [Part 7](https://github.com/wekan/wekan/commit/30795a46cfb5f37837206a6de653913bfb631595),
   [Part 8](https://github.com/wekan/wekan/commit/9a91214043d93307074cf33e54d40cb43c14ad62).
+- [Updated security email address](https://github.com/wekan/wekan/commit/11872545734db82229e873b48f122d826457fec3).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
