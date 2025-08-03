@@ -105,8 +105,8 @@ services:
     command: mongod --logpath /dev/null --oplogSize 128 --quiet
     networks:
       - wekan-tier
-    expose:
-      - 27017
+    ports:
+      - "27017:27017"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-db:/data/db
@@ -140,6 +140,7 @@ services:
     #security_opt:
     #  - seccomp:unconfined
     restart: always
+    user: "0:0"  # Run as root to fix file permissions
     networks:
       - wekan-tier
     #-------------------------------------------------------------------------------------
@@ -182,7 +183,7 @@ services:
       #  - http://example.com
       #  - http://boards.example.com
       #  - http://192.168.1.100    <=== using at local LAN
-      - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
+      - ROOT_URL=http://10.0.0.17  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.
@@ -373,7 +374,7 @@ services:
       #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       #-----------------------------------------------------------------
       # ==== Debug OIDC OAuth2 etc ====
-      #- DEBUG=true
+      - DEBUG=true
       #---------------------------------------------
       # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
       # https://github.com/wekan/wekan/wiki/autologin
