@@ -13,6 +13,4 @@ class TestLogin:
   def test_health_check(self):
     """Test basic health check"""
     response = requests.get(f"{base_url}")
-    # assert response.status_code == 400
-    print("**************",response.status_code)
     assert response.status_code == 200
