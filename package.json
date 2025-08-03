@@ -12,6 +12,10 @@
     "url": "https://github.com/wekan/wekan/issues"
   },
   "homepage": "https://wekan.github.io",
+  "scripts": {
+    "test:python": "python -m pytest tests/ -v -s",
+    "test:auth": "python -m pytest tests/auth/test_login.py -v"
+  },
   "devDependencies": {
     "flatted": "^3.3.1",
     "sinon": "^13.0.2"
