@@ -41,6 +41,10 @@ and fixes the following bugs:
 
 - [Fixes for building at macOS](https://github.com/wekan/wekan/commit/200545822c5c778521f76525938fe777ed9666f0).
   Thanks to xet7.
+- [Improves accessibility by disabling custom Tab handling](https://github.com/wekan/wekan/pull/5853).
+  Thanks to seve12, co-maintainer of WeKan.
+- [Comment out not used Tab code at accessibility related changes](https://github.com/wekan/wekan/commit/0e32f666eb30cc254177119907e6eae3c09ce0ca).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
