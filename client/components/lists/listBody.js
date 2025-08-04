@@ -414,6 +414,7 @@ BlazeComponent.extendComponent({
         // or `Enter` to validation the auto-completion. We also need to stop the
         // event propagation to prevent the card from submitting (on `Enter`) or
         // going on the next column (on `Tab`).
+        /*
         onKeydown(evt, commands) {
           // Prevent custom focus movement on Tab key for accessibility
           // if (evt.keyCode === 9 || evt.keyCode === 13) {
@@ -422,6 +423,7 @@ BlazeComponent.extendComponent({
           //}
           return null;
         },
+        */
       },
     );
   },
