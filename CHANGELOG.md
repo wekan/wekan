@@ -8,7 +8,7 @@ Newest WeKan at these platforms:
   - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
 - https://wekan.fi/install/
   - Snap Candidate amd64
-  - Docker amd64 
+  - Docker amd64
   - Kubernetes Docker amd64
 
 Fixing other platforms In Progress.
@@ -23,7 +23,12 @@ Fixing other platforms In Progress.
 - Question: Broadcom to discontinue free Bitnami Helm charts. WeKan uses Bitnami MongoDB.
   What to do? Help and PRs welcome at https://github.com/wekan/charts/issues/43 . Thanks!
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Feature: Accessibility page at /accessibility. Settings at Admin Panel. When enabled, link at right sidebar](https://github.com/wekan/wekan/commit/d83ce5e6335c175f2f4a384f6090c18c7f860555).
+  Thanks to xet7.
+
+and adds the following updates:
 
 - Update CHANGELOG.md platforms info at top.
   [Part 1](https://github.com/wekan/wekan/commit/0e43a08689c0d47c816ce781e93650f0c37efe28),
