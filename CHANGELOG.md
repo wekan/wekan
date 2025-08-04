@@ -45,6 +45,10 @@ and fixes the following bugs:
   Thanks to seve12, co-maintainer of WeKan.
 - [Comment out not used Tab code at accessibility related changes](https://github.com/wekan/wekan/commit/0e32f666eb30cc254177119907e6eae3c09ce0ca).
   Thanks to xet7.
+- [Fixed link at OpenShift docs](https://github.com/wekan/wekan/commit/b9887fc91758edb31259a8df7770a1d992bc9251).
+  Thanks to xet7.
+- [Added FerretDB/PostgreSQL to changelog](https://github.com/wekan/wekan/commit/c16e99ba1ec7bc25a4e0449ea463ea8f4b02da11).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
