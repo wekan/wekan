@@ -1270,6 +1270,7 @@
   "supportPopup-title": "सहायता",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "अभिगम्यता पृष्ठ सक्षम किया गया",
-  "accessibility-title": "एक्सेसिबिलिटी टॉपिक",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "अभिगम्यता सामग्री"
 }

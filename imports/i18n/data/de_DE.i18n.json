@@ -1270,6 +1270,7 @@
   "supportPopup-title": "Unterstützung",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "Barrierefreie Seite freigeschaltet",
-  "accessibility-title": "Barrierefreier Eintrag",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "Barrierefreier Eintrag"
 }

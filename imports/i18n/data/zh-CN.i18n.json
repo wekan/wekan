@@ -1270,6 +1270,7 @@
   "supportPopup-title": "支持",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "已启用无障碍页面",
-  "accessibility-title": "无障碍主题",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "无障碍内容"
 }

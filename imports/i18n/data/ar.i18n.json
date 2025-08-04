@@ -1270,6 +1270,7 @@
   "supportPopup-title": "دعم",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "تم تمكين صفحة إمكانية الوصول",
-  "accessibility-title": "موضوع إمكانية الوصول",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "محتوى إمكانية الوصول"
 }

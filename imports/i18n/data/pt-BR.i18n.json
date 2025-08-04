@@ -1270,6 +1270,7 @@
   "supportPopup-title": "Suporte",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "Página de acessibilidade habilitada",
-  "accessibility-title": "Tópico de acessibilidade",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "Conteúdo de acessibilidade"
 }

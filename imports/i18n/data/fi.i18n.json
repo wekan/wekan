@@ -1270,6 +1270,7 @@
   "supportPopup-title": "Tuki",
   "accessibility": "Saavutettavuus",
   "accessibility-page-enabled": "Saavutettavuus sivu käytössä",
+  "accessibility-info-not-added-yet": "Saavutettavuus tietoja ei ole lisätty vielä",
   "accessibility-title": "Saavutettavuus otsikko",
   "accessibility-content": "Saavutettavuus sisältö"
 }

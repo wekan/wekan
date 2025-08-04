@@ -1270,6 +1270,7 @@
   "supportPopup-title": "Підтримка",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "Доступность сторінки ввімкнена",
-  "accessibility-title": "Доступность теми",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "Доступность вмісту"
 }

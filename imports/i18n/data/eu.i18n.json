@@ -1270,6 +1270,7 @@
   "supportPopup-title": "Laguntza",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "Irisgarritasun orria gaituta",
-  "accessibility-title": "Irisgarritasun gaia",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "Irisgarritasun edukia"
 }

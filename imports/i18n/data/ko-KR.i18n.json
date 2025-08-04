@@ -1270,6 +1270,7 @@
   "supportPopup-title": "지원",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "접근성 페이지 활성화됨",
-  "accessibility-title": "접근성 주제",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "접근성 내용"
 }

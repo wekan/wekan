@@ -1270,6 +1270,7 @@
   "supportPopup-title": "תמיכה",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "עמוד הנגישות הופעל",
-  "accessibility-title": "נושא נגישות",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "תוכן נגישות"
 }

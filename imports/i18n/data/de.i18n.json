@@ -1270,6 +1270,7 @@
   "supportPopup-title": "Support",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "Bedienungshilfe Seite freigeschaltet",
-  "accessibility-title": "Bedienungshilfe Titel",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "Bedienungshilfe Inhalt"
 }

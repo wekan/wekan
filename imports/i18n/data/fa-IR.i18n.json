@@ -1270,6 +1270,7 @@
   "supportPopup-title": "پشتیبانی",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "Accessibility page enabled",
-  "accessibility-title": "Accessibility topic",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "Accessibility content"
 }

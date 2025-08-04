@@ -1270,6 +1270,7 @@
   "supportPopup-title": "サポート",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "アクセシビリティページが有効",
-  "accessibility-title": "アクセシビリティトピック",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "アクセシビリティコンテンツ"
 }

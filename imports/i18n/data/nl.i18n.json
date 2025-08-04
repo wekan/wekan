@@ -1270,6 +1270,7 @@
   "supportPopup-title": "Ondersteuning",
   "accessibility": "Accessibility",
   "accessibility-page-enabled": "Toegankelijkheidspagina ingeschakeld",
-  "accessibility-title": "Toegankelijkheid onderwerp",
+  "accessibility-info-not-added-yet": "Accessibility info has not been added yet",
+  "accessibility-title": "Accessibility title",
   "accessibility-content": "Toegankelijkheid inhoud"
 }
