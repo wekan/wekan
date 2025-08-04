@@ -125,6 +125,7 @@
   "archive": "Sposta nell'archivio",
   "archive-all": "Sposta tutto nell'archivio",
   "archive-board": "Sposta la bacheca nell'archivio",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Sposta scheda nell'archivio",
   "archive-list": "Sposta lista nell'archivio",
   "archive-swimlane": "Sposta swimlane nell'archivio",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Customize the OIDC button text",
   "default-authentication-method": "Metodo di autenticazione predefinito",
   "duplicate-board": "Duplica bacheca",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "Il numero di organizzazioni è:",
   "team-number": "Il numero di squadre è:",
   "people-number": "Il numero di persone è:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Hide all checklist items",
   "support": "Support",
   "supportPopup-title": "Support",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Accessibility page enabled",
   "accessibility-title": "Accessibility topic",
   "accessibility-content": "Accessibility content"

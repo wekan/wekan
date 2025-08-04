@@ -125,6 +125,7 @@
   "archive": "संग्रह में ले जाएं",
   "archive-all": "सभी को संग्रह में ले जाएं",
   "archive-board": "संग्रह करने के लिए बोर्ड ले जाएँ",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "कार्ड को संग्रह में ले जाएं",
   "archive-list": "सूची को संग्रह में ले जाएं",
   "archive-swimlane": "संग्रह करने के लिए स्विमलेन ले जाएँ",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Customize the OIDC button text",
   "default-authentication-method": "Default Authentication Method",
   "duplicate-board": "Duplicate Board",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "संगठनों की संख्या है: ",
   "team-number": "दल - टीमों की संख्या है: ",
   "people-number": "व्यक्तियों की संख्या है: ",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "सभी चेकलिस्ट आइटम छुपाएं",
   "support": "समर्थन या सहायता",
   "supportPopup-title": "समर्थन या सहायता",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "अभिगम्यता पृष्ठ सक्षम किया गया",
   "accessibility-title": " सुलभता विषय",
   "accessibility-content": "सुलभता सामग्री"

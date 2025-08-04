@@ -125,6 +125,7 @@
   "archive": "Mover para Arquivo morto",
   "archive-all": "Mover Tudo para o Arquivo morto",
   "archive-board": "Mover Quadro para o Arquivo morto",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Mover Cartão para o Arquivo morto",
   "archive-list": "Mover Lista para o Arquivo morto",
   "archive-swimlane": "Mover Raia para Arquivo morto",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Personalizar o texto do botão OIDC",
   "default-authentication-method": "Método de Autenticação Padrão",
   "duplicate-board": "Duplicar Quadro",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "O número de organizações é:",
   "team-number": "O número de times é:",
   "people-number": "O número de pessoas é:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Esconder todos os itens da lista de verificação",
   "support": "Suporte",
   "supportPopup-title": "Suporte",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Página de acessibilidade habilitada",
   "accessibility-title": "Tópico de acessibilidade",
   "accessibility-content": "Conteúdo de acessibilidade"

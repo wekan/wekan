@@ -125,6 +125,7 @@
   "archive": "封存",
   "archive-all": "全部封存",
   "archive-board": "將看板封存",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "將卡片封存",
   "archive-list": "將清單封存",
   "archive-swimlane": "將泳道流程圖封存",
@@ -896,6 +897,7 @@
   "oidc-button-text": "自定義 OIDC 按鈕文字",
   "default-authentication-method": "預設認證方式",
   "duplicate-board": "複製看板",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "組織數為：",
   "team-number": "團隊數為：",
   "people-number": "人數為：",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "隱藏所有待辦清單項目",
   "support": "支援",
   "supportPopup-title": "支援",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "已啟用無障礙頁面",
   "accessibility-title": "無障礙主題",
   "accessibility-content": "無障礙內容"

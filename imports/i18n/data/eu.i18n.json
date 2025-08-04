@@ -125,6 +125,7 @@
   "archive": "Eraman biltegira",
   "archive-all": "Eraman guztiak biltegira",
   "archive-board": "Mugitu arbela biltegira",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Eraman txartela biltegira",
   "archive-list": "Eraman zerrenda biltegira",
   "archive-swimlane": "Eraman erraila biltegira",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Customize the OIDC button text",
   "default-authentication-method": "Default Authentication Method",
   "duplicate-board": "Duplicate Board",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "Erakunde kopurua hau da:",
   "team-number": "Taldeen kopurua hau da:",
   "people-number": "Jendearen kopurua hau da:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Ezkutatu kontrol-zerrendako elementu guztiak",
   "support": "Laguntza",
   "supportPopup-title": "Laguntza",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Irisgarritasun orria gaituta",
   "accessibility-title": "Irisgarritasun gaia",
   "accessibility-content": "Irisgarritasun edukia"

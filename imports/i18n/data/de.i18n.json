@@ -125,6 +125,7 @@
   "archive": "Ins Archiv verschieben",
   "archive-all": "Alles ins Archiv verschieben",
   "archive-board": "Board ins Archiv verschieben",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Karte ins Archiv verschieben",
   "archive-list": "Liste ins Archiv verschieben",
   "archive-swimlane": "Swimlane ins Archiv verschieben",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Benutzerdefinierter Text der OIDC-Schaltfläche",
   "default-authentication-method": "Standardauthentifizierungsverfahren",
   "duplicate-board": "Board duplizieren",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "Die Anzahl der Organisationen ist:",
   "team-number": "Die Anzahl der Teams ist:",
   "people-number": "Die Anzahl der Personen ist:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Verberge alle Checklisteneinträge",
   "support": "Support",
   "supportPopup-title": "Support",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Bedienungshilfe Seite freigeschaltet",
   "accessibility-title": "Bedienungshilfe Titel",
   "accessibility-content": "Bedienungshilfe Inhalt"

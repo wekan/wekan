@@ -125,6 +125,7 @@
   "archive": "Archivar",
   "archive-all": "Archivar todo",
   "archive-board": "Archivar este tablero",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Archivar esta tarjeta",
   "archive-list": "Archivar esta lista",
   "archive-swimlane": "Archivar este carril",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Customize the OIDC button text",
   "default-authentication-method": "Método de autenticación por defecto",
   "duplicate-board": "Duplicar tablero",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "El número de organizaciones es:",
   "team-number": "El número de equipos es:",
   "people-number": "El número de personas es:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Ocultar todos los elementos de la lista de verificación",
   "support": "Soporte",
   "supportPopup-title": "Soporte",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Página de accesibilidad habilitada",
   "accessibility-title": "Temas de accesibilidad",
   "accessibility-content": "Contenido de accesibilidad"

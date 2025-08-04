@@ -125,6 +125,7 @@
   "archive": "Verplaats naar Archief",
   "archive-all": "Verplaats Alles naar Archief",
   "archive-board": "Verplaats Bord naar Archief",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Verplaats Kaart naar Archief",
   "archive-list": "Verplaats Lijst naar Archief",
   "archive-swimlane": "Verplaats Swimlane naar Archief",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Pas de OIDC-button tekst aan.",
   "default-authentication-method": "Standaard Authenticatiemethode",
   "duplicate-board": "Dupliceer Bord",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "The number of organizations is: ",
   "team-number": "The number of teams is: ",
   "people-number": "The number of people is: ",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Hide all checklist items",
   "support": "Support",
   "supportPopup-title": "Support",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Accessibility page enabled",
   "accessibility-title": "Accessibility topic",
   "accessibility-content": "Accessibility content"

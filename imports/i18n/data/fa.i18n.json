@@ -125,6 +125,7 @@
   "archive": "انتقال به آرشیو",
   "archive-all": "انتقال همه به آرشیو",
   "archive-board": "انتقال برد به آرشیو",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "انتقال کارت به آرشیو",
   "archive-list": "انتقال لیست به آرشیو",
   "archive-swimlane": "انتقال مسیر به آرشیو",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Customize the OIDC button text",
   "default-authentication-method": "نوع اعتبارسنجی پیشفرض",
   "duplicate-board": "برد تکراری",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "The number of organizations is: ",
   "team-number": "The number of teams is: ",
   "people-number": "The number of people is: ",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Hide all checklist items",
   "support": "Support",
   "supportPopup-title": "Support",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Accessibility page enabled",
   "accessibility-title": "Accessibility topic",
   "accessibility-content": "Accessibility content"

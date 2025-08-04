@@ -125,6 +125,7 @@
   "archive": "Move to Archive",
   "archive-all": "Move All to Archive",
   "archive-board": "Move Board to Archive",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Move Card to Archive",
   "archive-list": "Move List to Archive",
   "archive-swimlane": "Move Swimlane to Archive",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Customize the OIDC button text",
   "default-authentication-method": "Default Authentication Method",
   "duplicate-board": "Duplicate Board",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "組織数:",
   "team-number": "チーム数: ",
   "people-number": "人数:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "すべてのチェックリスト項目を非表示",
   "support": "サポート",
   "supportPopup-title": "サポート",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "アクセシビリティページが有効",
   "accessibility-title": "アクセシビリティトピック",
   "accessibility-content": "アクセシビリティコンテンツ"

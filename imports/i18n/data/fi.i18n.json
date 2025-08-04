@@ -125,6 +125,7 @@
   "archive": "Siirrä Arkistoon",
   "archive-all": "Siirrä kaikki Arkistoon",
   "archive-board": "Siirrä taulu Arkistoon",
+  "archive-board-confirm": "Oletko varma että haluat arkistoida tämän taulun?",
   "archive-card": "Siirrä kortti Arkistoon",
   "archive-list": "Siirrä lista Arkistoon",
   "archive-swimlane": "Siirrä uimarata Arkistoon",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Muokkaa OIDC kirjautumispainikkeen tekstiä",
   "default-authentication-method": "Oletuskirjautumistapa",
   "duplicate-board": "Tee kaksoiskappale taulusta",
+  "duplicate-board-confirm": "Oletko varma että haluat monistaa tämän taulun?",
   "org-number": "Organisaatioiden määrä on:",
   "team-number": "Tiimien määrä on:",
   "people-number": "Ihmisten määrä on:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Piilota kaikki tarkistuslistan kohdat",
   "support": "Tuki",
   "supportPopup-title": "Tuki",
+  "accessibility": "Saavutettavuus",
   "accessibility-page-enabled": "Saavutettavuus sivu käytössä",
   "accessibility-title": "Saavutettavuus otsikko",
   "accessibility-content": "Saavutettavuus sisältö"

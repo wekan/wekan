@@ -125,6 +125,7 @@
   "archive": "归档",
   "archive-all": "全部归档",
   "archive-board": "将看板归档",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "将卡片归档",
   "archive-list": "将列表归档",
   "archive-swimlane": "将泳道归档",
@@ -896,6 +897,7 @@
   "oidc-button-text": "自定义 OIDC 按钮文本",
   "default-authentication-method": "默认认证方式",
   "duplicate-board": "复制看板",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "组织数量为：",
   "team-number": "团队数量为：",
   "people-number": "人数是：",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "隐藏所有待办清单项目",
   "support": "支持",
   "supportPopup-title": "支持",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "已启用无障碍页面",
   "accessibility-title": "无障碍主题",
   "accessibility-content": "无障碍内容"

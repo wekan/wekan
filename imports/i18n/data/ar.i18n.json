@@ -125,6 +125,7 @@
   "archive": "نقل الى الارشيف",
   "archive-all": "نقل الكل الى الارشيف",
   "archive-board": "نقل اللوح الى الارشيف",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "نقل البطاقة الى الارشيف",
   "archive-list": "نقل القائمة الى الارشيف",
   "archive-swimlane": "نقل خط السباحة الى الارشيف",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Customize the OIDC button text",
   "default-authentication-method": "Default Authentication Method",
   "duplicate-board": "Duplicate Board",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "عدد المنظمات هو:",
   "team-number": "عدد الفرق هو:",
   "people-number": "عدد الأشخاص هو:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "إخفاء جميع عناصر قائمة التحقق",
   "support": "دعم",
   "supportPopup-title": "دعم",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "تم تمكين صفحة إمكانية الوصول",
   "accessibility-title": "موضوع إمكانية الوصول",
   "accessibility-content": "محتوى إمكانية الوصول"

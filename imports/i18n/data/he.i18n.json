@@ -125,6 +125,7 @@
   "archive": "העברה לארכיון",
   "archive-all": "אחסן הכל בארכיון",
   "archive-board": "העברת הלוח לארכיון",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "העברת הכרטיס לארכיון",
   "archive-list": "העברת הרשימה לארכיון",
   "archive-swimlane": "העברת מסלול לארכיון",
@@ -896,6 +897,7 @@
   "oidc-button-text": "עריכת הטקסט על כפתור ה־OIDC",
   "default-authentication-method": "שיטת אימות כבררת מחדל",
   "duplicate-board": "שכפול לוח",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "מספר הארגונים הוא:",
   "team-number": "מספר הצוותים הוא:",
   "people-number": "מספר האנשים הוא:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "הסתרת כל הפריטים ברשימת המטלות",
   "support": "תמיכה",
   "supportPopup-title": "תמיכה",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "עמוד הנגישות הופעל",
   "accessibility-title": "נושא נגישות",
   "accessibility-content": "תוכן נגישות"

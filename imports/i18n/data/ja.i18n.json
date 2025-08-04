@@ -125,6 +125,7 @@
   "archive": "アーカイブする",
   "archive-all": "すべてアーカイブする",
   "archive-board": "ボードをアーカイブする",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "カードをアーカイブする",
   "archive-list": "リストをアーカイブする",
   "archive-swimlane": "スイムレーンをアーカイブする",
@@ -896,6 +897,7 @@
   "oidc-button-text": "OIDC ボタンのテキストをカスタマイズ",
   "default-authentication-method": "デフォルトの認証方式",
   "duplicate-board": "ボードの複製",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "組織数:",
   "team-number": "チーム数: ",
   "people-number": "人数:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "すべてのチェックリスト項目を非表示",
   "support": "サポート",
   "supportPopup-title": "サポート",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "アクセシビリティページが有効",
   "accessibility-title": "アクセシビリティトピック",
   "accessibility-content": "アクセシビリティコンテンツ"

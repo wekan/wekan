@@ -125,6 +125,7 @@
   "archive": "Flytta till Arkiv",
   "archive-all": "Flytta Alla till Arkiv",
   "archive-board": "Flytta Tavla till Arkiv",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Flytta kort till arkiv",
   "archive-list": "Flytta Lista till Arkiv",
   "archive-swimlane": "Flytta simbana till arkiv",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Anpassa OIDC knappens text",
   "default-authentication-method": "Standard autentiseringsmetod",
   "duplicate-board": "Duplicera tavla",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "Antalet organisationer är:",
   "team-number": "Antalet team är:",
   "people-number": "Antalet personer är:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Dölj alla objekt i checklistan",
   "support": "Hjälp",
   "supportPopup-title": "Hjälp",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Tillgänglighetssida aktiverad",
   "accessibility-title": "Tillgänglighetsämne",
   "accessibility-content": "Tillgänglighetsinnehåll"

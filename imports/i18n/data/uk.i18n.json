@@ -125,6 +125,7 @@
   "archive": "Перенести до архіву",
   "archive-all": "Перенести все до архіву",
   "archive-board": "Перенести дошку до архіву",
+  "archive-board-confirm": "Are you sure you want to archive this board?",
   "archive-card": "Перенести картку до архіву",
   "archive-list": "Перенести список до архіву",
   "archive-swimlane": "Перенести доріжку до архіву",
@@ -896,6 +897,7 @@
   "oidc-button-text": "Налаштувати текст кнопки OIDC",
   "default-authentication-method": "Стандартний метод автентифікації",
   "duplicate-board": "Дублювати дошку",
+  "duplicate-board-confirm": "Are you sure you want to duplicate this board?",
   "org-number": "Кількість організацій:",
   "team-number": "Кількість команд:",
   "people-number": "Кількість людей:",
@@ -1266,6 +1268,7 @@
   "hideAllChecklistItems": "Приховати всі пункти чек-листа",
   "support": "Підтримка",
   "supportPopup-title": "Підтримка",
+  "accessibility": "Accessibility",
   "accessibility-page-enabled": "Увімкнено сторінку доступності",
   "accessibility-title": "Тема доступності",
   "accessibility-content": "Доступність контенту"
