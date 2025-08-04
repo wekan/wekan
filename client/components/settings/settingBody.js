@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
+import LockoutSettings from '/models/lockoutSettings';
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -23,6 +24,7 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('announcements');
     Meteor.subscribe('accessibilitySettings');
     Meteor.subscribe('globalwebhooks');
+    Meteor.subscribe('lockoutSettings');
   },
 
   setError(error) {
@@ -342,15 +344,23 @@ BlazeComponent.extendComponent({
       $set: { booleanValue: allowUserDelete },
     });
   },
+
+  // Brute force lockout settings method moved to lockedUsersBody.js
+
   allowEmailChange() {
-    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+    return AccountSettings.findOne('accounts-allowEmailChange')?.booleanValue || false;
   },
+
   allowUserNameChange() {
-    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+    return AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue || false;
   },
+
   allowUserDelete() {
-    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+    return AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false;
   },
+
+  // Lockout settings helper methods moved to lockedUsersBody.js
+
   allBoardsHideActivities() {
     Meteor.call('setAllBoardsHideActivities', (err, ret) => {
       if (!err && ret) {

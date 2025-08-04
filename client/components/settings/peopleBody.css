@@ -89,3 +89,87 @@ table tr:nth-child(even) {
 #deleteAction {
   margin-left: 5% !important;
 }
+
+.divLockedUsersFilter {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+}
+
+.divLockedUsersFilter .flex-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.divLockedUsersFilter .people-filter {
+  margin-bottom: 0;
+  color: #777;
+  line-height: 34px;
+}
+
+.divLockedUsersFilter .user-filter {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 4px 8px;
+  background-color: white;
+}
+
+.unlock-all-btn {
+  margin-left: 15px;
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.unlock-all-btn:hover {
+  background-color: #d35400;
+}
+
+.account-active-status {
+  width: 20px;
+  text-align: center;
+}
+
+.js-toggle-active-status {
+  cursor: pointer;
+}
+
+.unlock-all-success {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 9999;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeOut 3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.account-status {
+  width: 20px;
+  text-align: center;
+}
+
+.text-green {
+  color: #27ae60;
+}
+
+.js-toggle-lock-status {
+  cursor: pointer;
+}
