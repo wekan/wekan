@@ -106,7 +106,7 @@
   top: 7px;
   font-size: 1em;
   line-height: 1.6em;
-  color: #999;
+  color: #000;
 }
 .sidebar .sidebar-shortcuts .sidebar-btn {
   margin-left: 3px;
@@ -145,6 +145,23 @@
   padding: 3px 9px;
   font-size: 24px;
   transition: transform 0.5s;
+}
+.sidebar-accessibility {
+  color: #4d4d4d;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 30px;
+}
+.sidebar-accessibility:hover {
+  background-color: #d9d9d9;
+}
+.sidebar-accessibility span {
+  margin-left: 5px;
 }
 .board-sidebar.is-open .sidebar-tongue {
   left: -28px;

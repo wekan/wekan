@@ -26,6 +26,9 @@ BlazeComponent.extendComponent({
     this._hideCardCounterList = new ReactiveVar(false);
     this._hideBoardMemberList = new ReactiveVar(false);
     Sidebar = this;
+
+    // Subscribe to accessibility settings
+    Meteor.subscribe('accessibilitySettings');
   },
 
   onDestroyed() {
@@ -115,6 +118,11 @@ BlazeComponent.extendComponent({
     return user && user.isVerticalScrollbars();
   },
 
+  isAccessibilityEnabled() {
+    const setting = AccessibilitySettings.findOne({});
+    return setting && setting.enabled;
+  },
+
   events() {
     return [
       {
@@ -144,6 +152,10 @@ BlazeComponent.extendComponent({
         },
         'click .js-show-week-of-year-toggle'() {
           ReactiveCache.getCurrentUser().toggleShowWeekOfYear();
+        },
+        'click .sidebar-accessibility'() {
+          FlowRouter.go('accessibility');
+          Sidebar.toggle();
         },
         'click .js-close-sidebar'() {
           Sidebar.toggle()

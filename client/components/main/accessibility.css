@@ -72,3 +72,28 @@
   border-radius: 5px;
   margin-right: 5px;
 }
+
+/* Accessibility page styles */
+.accessibility-page {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accessibility-page h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #4d4d4d;
+}
+
+.accessibility-page-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.accessibility-page-content p {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}

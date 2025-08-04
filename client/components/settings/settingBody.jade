@@ -190,23 +190,21 @@ template(name='announcementSettings')
 template(name='accessibilitySettings')
   ul#accessibility-setting.setting-detail
     li
+      a(href="/accessibility" style="text-decoration: underline; color: blue;") {{_ 'accessibility'}}
+    li
       a.flex.js-toggle-accessibility
         .materialCheckBox(class="{{#if currentAccessibility.enabled}}is-checked{{/if}}")
 
-        span {{_ 'admin-accessibility-active'}}
-    li
-      .title {{_ 'accessibility-title'}}
-      .form-group
-        input.wekan-form-control#accessibility-title(type="text", placeholder="" value="{{currentSetting.accessibilityTitle}}")
+        span {{_ 'accessibility-page-enabled'}}
     li
       .accessibility-content(class="{{#if currentAccessibility.enabled}}{{else}}hide{{/if}}")
         ul
           li
-            .title {{_ 'admin-accessibility-title'}}
-            textarea#admin-accessibility.wekan-form-control= currentAccessibility.accessibilityTitle
+            .title {{_ 'accessibility-title'}}
+            textarea#admin-accessibility-title.wekan-form-control= currentAccessibility.title
           li
-            .title {{_ 'admin-accessibility-content'}}
-            textarea#admin-accessibility.wekan-form-control= currentAccessibility.accessibilityContent
+            .title {{_ 'accessibility-content'}}
+            textarea#admin-accessibility-content.wekan-form-control= currentAccessibility.body
           li
             button.js-accessibility-save.primary {{_ 'save'}}
 
