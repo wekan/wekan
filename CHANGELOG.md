@@ -27,6 +27,13 @@ This release adds the following new features:
 
 - [Feature: Accessibility page at /accessibility. Settings at Admin Panel. When enabled, link at right sidebar](https://github.com/wekan/wekan/commit/d83ce5e6335c175f2f4a384f6090c18c7f860555).
   Thanks to xet7.
+- [Feature: Added brute force login protection settings to Admin Panel/People/Locked Users](https://github.com/wekan/wekan/commit/ae0d059b6feb38a438ca21aa154c63b410641763).
+  Added filtering of Admin Panel/People/People: All Users/Locked Users Only/Active/Not Active.
+  Added visual indicators: red lock icon for locked users, green check for active users, and red X for inactive users.
+  Added "Unlock All" button to quickly unlock all brute force locked users.
+  Added ability to toggle user active status directly from the People page.
+  Moved lockout settings from environment variables to database so admins can configure the lockout thresholds directly in the UI.
+  Thanks to xet7.
 
 and adds the following updates:
 
