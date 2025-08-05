@@ -2,6 +2,14 @@
 
 # Sandstorm at Debian and Ubuntu
 
+### Sandstorm Radicale: Calendars and Contacts
+
+- 2025-08-05
+  - Exporting Calendar and Contacts from Google Calendar and Google Contacts to Sandstorm Radicale works.
+  - Importing Calendar .ics file back to Google Calendar does not work, because .ics file size is 2.1 MB.
+    Google Calendar has problems importing .ics files bigger than 1 MB, it would need manual splitting to multiple files.
+    Sandstorm Radicale can import .ics file 2.1 MB successfully.
+
 ### Sandstorm CloudFlare DNS settings
 
 Sandstorm works when configured to full domain, with CloudFlare SSL/TLS, with Caddy.
