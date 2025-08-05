@@ -48,6 +48,10 @@ and adds the following updates:
   [Part 8](https://github.com/wekan/wekan/commit/9a91214043d93307074cf33e54d40cb43c14ad62).
 - [Updated security email address](https://github.com/wekan/wekan/commit/11872545734db82229e873b48f122d826457fec3).
   Thanks to xet7.
+- Updated GitHub Docker Actions.
+  [Part 1](https://github.com/wekan/wekan/pull/5855),
+  [Part 2](https://github.com/wekan/wekan/pull/5856).
+  Thanks to Dependabot.
 
 and fixes the following bugs:
 
