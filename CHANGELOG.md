@@ -52,6 +52,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/pull/5855),
   [Part 2](https://github.com/wekan/wekan/pull/5856).
   Thanks to Dependabot.
+- [Added info about Sandstorm Radicale Calendar and Contacts](https://github.com/wekan/wekan/commit/dfdd0b6cbbbb60bf6dba7a61f34dc52e74f98b41).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
