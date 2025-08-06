@@ -39,12 +39,20 @@ template(name="header")
           if currentSetting.customTopLeftCornerLogoImageUrl
             if currentSetting.customTopLeftCornerLogoLinkUrl
               a(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-                img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
+                img(
+                  src="{{currentSetting.customTopLeftCornerLogoImageUrl}}"
+                  alt="{{currentSetting.productName}} logo"
+                  title="{{currentSetting.productName}}"
+                )
             unless currentSetting.customTopLeftCornerLogoLinkUrl
               img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
           unless currentSetting.customTopLeftCornerLogoImageUrl
             div#headerIsSettingDatabaseCallDone
-              img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+              img(
+                src="{{pathFor '/logo-header.png'}}"
+                alt="{{currentSetting.productName}} logo"
+                title="{{currentSetting.productName}}"
+              )
         span.allBoards
           a(href="{{pathFor 'home'}}")
             span.fa.fa-home
@@ -73,7 +81,8 @@ template(name="header")
       //  Hide duplicate create board button,
       //  because it did not show board templates correctly.
       //a#header-new-board-icon.js-create-board
-      //  i.fa.fa-plus(title="Create a new board")
+      button.add-card(aria-label="Add card" title="Add card")
+        i.fa.fa-plus
 
       +notifications
 

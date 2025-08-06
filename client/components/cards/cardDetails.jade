@@ -540,7 +540,7 @@ template(name="cardDetails")
       else if getDescription
         if currentBoard.allowsDescriptionTitle
           hr
-          h3.card-details-item-title {{_ 'description'}}
+          div.card-details-item-title {{_ 'description'}}
         if currentBoard.allowsDescriptionText
           +viewer
             = getDescription

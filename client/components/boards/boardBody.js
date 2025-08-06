@@ -340,12 +340,12 @@ BlazeComponent.extendComponent({
       selectable: true,
       timezone: 'local',
       weekNumbers: true,
-      header: {
-        left: 'title   today prev,next',
-        center:
-          'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,listMonth',
-        right: '',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
       },
+      footerToolbar: false,
       // height: 'parent', nope, doesn't work as the parent might be small
       height: 'auto',
       /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */

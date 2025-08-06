@@ -1,5 +1,5 @@
 template(name="boardHeaderBar")
-  h1.header-board-menu
+  h1.header-board-menu {{currentBoard.title}}
     with currentBoard
       if $eq title 'Templates'
         | {{_ 'templates'}}
@@ -137,8 +137,11 @@ template(name="boardHeaderBar")
           i.fa.fa-check-square-o
           span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
           if MultiSelection.isActive
-            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-              i.fa.fa-times-thin
+            a.board-header-btn-close.js-multiselection-reset(
+            title="{{_ 'deactivate-multi-selection'}}"
+            aria-label="{{_ 'deactivate-multi-selection'}}"
+          )
+            i.fa.fa-times-thin
 
       .separator
       a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
