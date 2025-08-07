@@ -16,6 +16,7 @@ template(name="boardBody")
   if notDisplayThisBoard
    | {{_ 'tableVisibilityMode-allowPrivateOnly'}}
   else
+
     .board-wrapper(class=currentBoard.colorClass)
       .board-canvas.js-swimlanes(
         class="{{#if hasSwimlanes}}dragscroll{{/if}}"

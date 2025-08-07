@@ -473,9 +473,29 @@ BlazeComponent.extendComponent({
             closeModal();
           }
         });
-        document.body.appendChild(modalElement);
+        document.querySelector('.board-wrapper').appendChild(modalElement); // (optional: for better DOM order)
         const openModal = function() {
-          modalElement.style.display = 'flex';
+            modalElement.style.display = 'flex';
+            modalElement.setAttribute('role', 'dialog');
+            modalElement.setAttribute('aria-modal', 'true');
+            // Set ARIA attributes for accessibility
+            modalElement.setAttribute('role', 'dialog');
+            modalElement.setAttribute('aria-modal', 'true');
+            // Move focus to the first input or button in the modal
+            const firstInput = modalElement.querySelector('input, button');
+            if (firstInput) firstInput.focus();
+            // Set aria-labelledby and aria-describedby for accessibility
+            const title = modalElement.querySelector('.modal-title');
+            if (title) {
+              title.id = 'modal-title';
+              modalElement.setAttribute('aria-labelledby', 'modal-title');
+            }
+            const desc = modalElement.querySelector('.modal-body');
+            if (desc) {
+              desc.id = 'modal-desc';
+              modalElement.setAttribute('aria-describedby', 'modal-desc');
+            }
+
         };
         const closeModal = function() {
           modalElement.style.display = 'none';
