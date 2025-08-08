@@ -1,0 +1,41 @@
+name: Selenium UI Tests
+
+on:
+  pull_request:
+    branches:
+     - main
+  workflow_dispatch:
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        repository: omriza5/wekan-selenium
+        token: ${{ secrets.UI_TESTING_GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Install Chrome and ChromeDriver
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Run Selenium tests
+      env:
+        HEADLESS: true
+        WEKAN_URL: http://${{ secrets.WEKAN_URL }}:80
+      run: |
+        pytest tests/ -v
