@@ -117,19 +117,22 @@ table tr:nth-child(even) {
 
 .unlock-all-btn {
   margin-left: 15px;
-  background-color: #e67e22;
-  color: white;
-  border: none;
+  background-color: white;
+  color: #4d4d4d;
+  border: 1px solid rgba(0,0,0,.15);
   border-radius: 2px;
-  padding: 5px 10px;
+  padding: 0 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
+  height: 28px;
+  min-width: 90px;
+  /* box-shadow: 0 1px 6px rgba(0,0,0,.3); */
 }
 
 .unlock-all-btn:hover {
-  background-color: #d35400;
+  background-color: #f2f2f2;
 }
 
 .account-active-status {
@@ -172,4 +175,8 @@ table tr:nth-child(even) {
 
 .js-toggle-lock-status {
   cursor: pointer;
+}
+
+.unlock-all-btn .fa {
+  color: #4d4d4d;
 }
