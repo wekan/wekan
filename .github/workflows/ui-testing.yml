@@ -32,10 +32,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
-        sudo apt-get install -y chromium-chromedriver
-      env:
-        CHROME_BIN: /usr/bin/google-chrome
-        CHROMEDRIVER_BIN: /usr/bin/chromedriver
 
     - name: Run Selenium tests
       env:
