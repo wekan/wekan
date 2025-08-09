@@ -46,7 +46,7 @@ jobs:
 
       - name: Seed DB with test user
         run: |
-          docker exec your_api_container_name python3 seed_users.py
+          docker exec wekan-db python3 seed_users.py
 
       - name: Run pytest
         run: pytest tests_r/ --maxfail=1 --disable-warnings -v
