@@ -288,7 +288,7 @@ BlazeComponent.extendComponent({
       this.setLoading(false);
     }
 
-    DocHead.setTitle(`Settings - ${productName}`);
+    DocHead.setTitle(productName);
   },
 
   sendSMTPTestEmail() {

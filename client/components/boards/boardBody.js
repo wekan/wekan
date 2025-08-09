@@ -340,12 +340,12 @@ BlazeComponent.extendComponent({
       selectable: true,
       timezone: 'local',
       weekNumbers: true,
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+      header: {
+        left: 'title   today prev,next',
+        center:
+          'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,listMonth',
+        right: '',
       },
-      footerToolbar: false,
       // height: 'parent', nope, doesn't work as the parent might be small
       height: 'auto',
       /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */
@@ -473,29 +473,9 @@ BlazeComponent.extendComponent({
             closeModal();
           }
         });
-        document.querySelector('.board-wrapper').appendChild(modalElement); // (optional: for better DOM order)
+        document.body.appendChild(modalElement);
         const openModal = function() {
-            modalElement.style.display = 'flex';
-            modalElement.setAttribute('role', 'dialog');
-            modalElement.setAttribute('aria-modal', 'true');
-            // Set ARIA attributes for accessibility
-            modalElement.setAttribute('role', 'dialog');
-            modalElement.setAttribute('aria-modal', 'true');
-            // Move focus to the first input or button in the modal
-            const firstInput = modalElement.querySelector('input, button');
-            if (firstInput) firstInput.focus();
-            // Set aria-labelledby and aria-describedby for accessibility
-            const title = modalElement.querySelector('.modal-title');
-            if (title) {
-              title.id = 'modal-title';
-              modalElement.setAttribute('aria-labelledby', 'modal-title');
-            }
-            const desc = modalElement.querySelector('.modal-body');
-            if (desc) {
-              desc.id = 'modal-desc';
-              modalElement.setAttribute('aria-describedby', 'modal-desc');
-            }
-
+          modalElement.style.display = 'flex';
         };
         const closeModal = function() {
           modalElement.style.display = 'none';

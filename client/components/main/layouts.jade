@@ -12,8 +12,8 @@ head
   link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
   link(rel="manifest" crossOrigin="use-credentials" href="/site.webmanifest")
   link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5")
-  meta(name="apple-mobile-web-app-title" content="WeKan")
-  meta(name="application-name" content="WeKan")
+  meta(name="apple-mobile-web-app-title" content="Wekan")
+  meta(name="application-name" content="Wekan")
   meta(name="msapplication-TileColor" content="#00aba9")
   meta(name="theme-color" content="#ffffff")
   //link(rel="stylesheet" type="text/css" class="__meteor-css__" href="css/html5-default-theme.css")
@@ -21,11 +21,11 @@ head
 template(name="userFormsLayout")
   section.auth-layout
     if currentSetting.hideLogo
-      h1.at-form-landing-logo WeKan
+      h1.at-form-landing-logo
         br
         br
     unless currentSetting.hideLogo
-      h1.at-form-landing-logo WeKan
+      h1.at-form-landing-logo
       if currentSetting.customLoginLogoImageUrl
         if currentSetting.customLoginLogoLinkUrl
           a(href="{{currentSetting.customLoginLogoLinkUrl}}")
@@ -35,7 +35,7 @@ template(name="userFormsLayout")
           img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
           br
       else
-        img(src="{{pathFor '/WeKan-logo.svg'}}" alt="" width="300" height="auto")
+        img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
         br
   if currentSetting.textBelowCustomLoginLogo
     hr

@@ -23,39 +23,6 @@ table, tbody, td, tfoot, th, thread, tr, tt, ul, var {
 .panel-heading.note-toolbar .note-color-palette div .note-color-btn {
   background: none;
 }
-input::placeholder, textarea::placeholder {
-  color: #555 !important;
-  opacity: 1;
-}
-.error-notification {
-  color: #fff !important; /* White text */
-  background: #d32f2f !important; /* Strong red background */
-}
-.menu-text, .sidebar-text {
-  color: #222 !important; /* Very dark grey or black */
-}
-.notification-link {
-  color: #0056b3 !important; /* Darker blue for better contrast */
-}
-.card-title, .header-title {
-  color: #fff !important; /* White text for dark backgrounds */
-}
-.checklist-item.finished {
-  color: #444 !important; /* Darker grey for better contrast */
-  text-decoration: line-through;
-}
-.button-dark {
-  color: #fff !important;
-}
-.heading {
-  color: #222 !important;
-}
-.menu-text {
-  color: #222 !important;
-}
-.calendar-event, .calendar-card {
-  color: #fff !important;
-}
 a:focus {
   outline: unset;
   outline-offset: unset;
@@ -227,7 +194,7 @@ strong {
 p {
   -webkit-user-select: text;
   user-select: text;
-
+ 
 
 }
 p a {
