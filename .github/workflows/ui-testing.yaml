@@ -6,6 +6,25 @@ on:
     branches:
      - main
 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to test against'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      browser:
+        description: 'Browser to run tests on'
+        required: true
+        default: 'chrome'
+        type: choice
+        options:
+        - chrome
+        - firefox
 
 jobs:
   selenium-tests:
@@ -38,5 +57,6 @@ jobs:
       env:
         HEADLESS: true
         WEKAN_URL: http://52.214.162.101:80
+        BROWSER: ${{ inputs.browser }}
       run: |
         pytest tests/ -v
