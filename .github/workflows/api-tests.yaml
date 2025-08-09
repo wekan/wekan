@@ -1,4 +1,4 @@
-name: API Tests
+name: API Tests (pytest)
 
 on:
   push:
@@ -7,32 +7,36 @@ on:
     branches: [ main ]
 
 jobs:
-  api-tests:
+  test-api:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-          pip install pytest pytest-cov requests
+          python -m pip install --upgrade pip
+          pip install requests pytest
 
-      # - name: Start your API server
-      #   run: |
-      #     # Add your server start command here, for example:
-      #     # nohup python app.py &
-      #     # sleep 10
-
-      - name: Run API tests
+      - name: Wait for API to be ready
         run: |
-          source venv/bin/activate
-          pytest
+          echo "Waiting for API at localhost:80..."
+          for i in {1..10}; do
+            if curl -s http://localhost:80 >/dev/null; then
+              echo "API is up!"
+              exit 0
+            fi
+            echo "Retry $i..."
+            sleep 3
+          done
+          echo "API did not start in time."
+          exit 1
+
+      - name: Run pytest
+        run: pytest tests_r/ --maxfail=1 --disable-warnings -v
