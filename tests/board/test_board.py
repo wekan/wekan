@@ -1,6 +1,5 @@
 import pytest
 import requests
-import json
 
 base_url = "http://10.0.0.17"
 class TestBoard:
