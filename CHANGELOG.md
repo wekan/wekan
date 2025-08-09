@@ -67,6 +67,12 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Added FerretDB/PostgreSQL to changelog](https://github.com/wekan/wekan/commit/c16e99ba1ec7bc25a4e0449ea463ea8f4b02da11).
   Thanks to xet7.
+- [Accessibility](https://github.com/wekan/wekan/pull/5857):
+  Added product name to page titles, settings and global search.
+  More accessible header and layout templates, modal dialogs, DOM structure, color contrast.
+  Thanks to seve12.
+- [Fixed uppercase K of WeKan](https://github.com/wekan/wekan/commit/b137108ae15a9c5685cca5f45cfa9480ec7d3510).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
