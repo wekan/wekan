@@ -1,0 +1,38 @@
+name: API Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pip install pytest pytest-cov requests
+
+      # - name: Start your API server
+      #   run: |
+      #     # Add your server start command here, for example:
+      #     # nohup python app.py &
+      #     # sleep 10
+
+      - name: Run API tests
+        run: |
+          source venv/bin/activate
+          pytest
