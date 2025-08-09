@@ -10,6 +10,8 @@ class TestUserLogin(unittest.TestCase):
             "password": "30fnhk03"
         }
         response = requests.post(url, json=payload)
+        print("Status code:", response.status_code)
+        print("Response JSON:", response.json())
         self.assertEqual(response.status_code, 200)
         self.assertIn("token", response.json())
 

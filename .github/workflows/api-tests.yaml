@@ -29,19 +29,24 @@ jobs:
           docker compose up -d
           sleep 10
 
-      - name: Wait for API to be ready
+      - name: Wait for API /users/login to be ready
         run: |
-          echo "Waiting for API at localhost:80..."
-          for i in {1..10}; do
-            if curl -s http://localhost:80 >/dev/null; then
-              echo "API is up!"
+          echo "Checking /users/login endpoint readiness..."
+          for i in {1..15}; do
+            status_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:80/users/login)
+            if [ "$status_code" = "400" ] || [ "$status_code" = "200" ]; then
+              echo "API /users/login responded with status $status_code"
               exit 0
             fi
-            echo "Retry $i..."
+            echo "Retry $i: API not ready yet, status $status_code"
             sleep 3
           done
-          echo "API did not start in time."
+          echo "API /users/login did not become ready in time."
           exit 1
+
+      - name: Seed DB with test user
+        run: |
+          docker exec your_api_container_name python3 seed_users.py
 
       - name: Run pytest
         run: pytest tests_r/ --maxfail=1 --disable-warnings -v
