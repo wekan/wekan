@@ -226,7 +226,7 @@ FlowRouter.route('/global-search', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
     const currentSetting = ReactiveCache.getCurrentSetting && ReactiveCache.getCurrentSetting();
-    const productName = currentSetting && currentSetting.productName ? currentSetting.productName : 'Wekan';
+    const productName = currentSetting && currentSetting.productName ? currentSetting.productName : 'WeKan';
     DocHead.setTitle(`${TAPi18n.__('globalSearch-title')} - ${productName}`);
     if (FlowRouter.getQueryParam('q')) {
       Session.set(
