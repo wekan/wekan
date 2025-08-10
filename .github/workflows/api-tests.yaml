@@ -33,3 +33,5 @@ jobs:
       with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: RabeeaFaraj/wekan_rabeea
+
+
