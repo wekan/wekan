@@ -18,7 +18,7 @@ docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.ym
 
 - [WeKan and Standard for Public Code](https://wekan.fi/standard-for-public-code/) assessment was made at 2023-11.
   Currently Wekan meets 8 out of 16 criteria out of the box.
-  Some others could be met with small changes.
+  Some others could be met with small changes
 
 ## Code stats
 
@@ -49,6 +49,7 @@ See bottom of https://github.com/wekan/wekan/issues/3874
 ## FAQ
 
 **NOTE**:
+
 - Please read the [FAQ](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md) first
 - Please don't feed the [trolls](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
 
