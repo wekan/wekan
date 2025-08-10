@@ -35,7 +35,7 @@ jobs:
 
     - name: Run Selenium tests
       env:
-        HEADLESS: false
+        HEADLESS: true
         WEKAN_URL: http://${{ secrets.WEKAN_URL }}:80
       run: |
         pytest tests/ -v
