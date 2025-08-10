@@ -24,7 +24,7 @@ jobs:
 
     - name: Run pytest with coverage
       env:
-        WEKAN_URL: http://${{ secrets.HOST }}:80
+        WEKAN_URL: http://${{ secrets.HOST }}:80/users/login
       run: |
         pytest --cov=tests_r --cov-report=xml tests_r/
 
