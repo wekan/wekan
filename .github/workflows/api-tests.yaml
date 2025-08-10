@@ -26,7 +26,7 @@ jobs:
       env:
         WEKAN_URL: http://${{ secrets.HOST }}:80
       run: |
-        pytest --cov=API_Testing --cov-report=xml API_Testing/
+        pytest --cov=tests_r --cov-report=xml tests_r/
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
