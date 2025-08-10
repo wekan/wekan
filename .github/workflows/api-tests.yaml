@@ -1,52 +1,35 @@
-name: API Tests (pytest)
+name: Run Tests
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  test-api:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests pytest
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
 
-      - name: Start API server (Docker)
-        run: |
-          docker compose up -d
-          sleep 10
+    - name: Run pytest with coverage
+      env:
+        WEKAN_URL: http://${{ secrets.HOST }}:80
+      run: |
+        pytest --cov=API_Testing --cov-report=xml API_Testing/
 
-      - name: Wait for API /users/login to be ready
-        run: |
-          echo "Checking /users/login endpoint readiness..."
-          for i in {1..15}; do
-            status_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:80/users/login)
-            if [ "$status_code" = "400" ] || [ "$status_code" = "200" ]; then
-              echo "API /users/login responded with status $status_code"
-              exit 0
-            fi
-            echo "Retry $i: API not ready yet, status $status_code"
-            sleep 3
-          done
-          echo "API /users/login did not become ready in time."
-          exit 1
-
-      - name: Seed DB with test user
-        run: |
-          docker exec wekan-db python3 seed_users.py
-
-      - name: Run pytest
-        run: pytest tests_r/ --maxfail=1 --disable-warnings -v
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: RabeeaFaraj/wekan_rabeea
