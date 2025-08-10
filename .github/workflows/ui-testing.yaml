@@ -56,7 +56,7 @@ jobs:
     - name: Run Selenium tests
       env:
         HEADLESS: true
-        WEKAN_URL: http://54.155.143.131:80
+        WEKAN_URL: http://108.129.252.231
         BROWSER: ${{ inputs.browser }}
       run: |
         pytest tests/ -v
