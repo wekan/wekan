@@ -3,16 +3,22 @@ import unittest
 import requests
 
 #test push
-WEKAN_URL = os.getenv("WEKAN_URL", "http://localhost:80/users/login")
+WEKAN_URL = os.getenv("WEKAN_URL", "http://localhost/users/login")
 
 class TestUserLogin(unittest.TestCase):
 
     def test_user_login_success(self):
 
         payload = {
+            "username": "RabeeaFaraj",
+            "password": "30fnhk03"
+        }
+        payload2 = {
             "username": "rabeeaFaraj",
             "password": "30fnhk03"
         }
+        if WEKAN_URL== "http://localhost/users/login":
+            payload = payload2
         response = requests.post(WEKAN_URL, json=payload)
         print("Status code:", response.status_code)
         print("Response JSON:", response.json())
