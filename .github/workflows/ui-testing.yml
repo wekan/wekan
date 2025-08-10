@@ -30,29 +30,8 @@ jobs:
 
     - name: Install Chrome and ChromeDriver
       run: |
-        sudo apt update
-        sudo apt install -y wget unzip xvfb libxi6 libgbm-dev libnss3 libxshmfence1 libasound2t64
-
-        # Download and install latest stable Google Chrome
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install -y ./google-chrome-stable_current_amd64.deb
-
-        # Get Chrome version number like "139.0.7258.66"
-        CHROME_VERSION=$(google-chrome --version | grep -oP "\d+\.\d+\.\d+\.\d+")
-
-        # Download matching ChromeDriver from official "chrome-for-testing" bucket (preferred)
-        wget -q -O chromedriver.zip "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROME_VERSION}/linux64/chromedriver-linux64.zip"
-
-        # Unzip ChromeDriver, then move binary correctly (handles folder name)
-        unzip chromedriver.zip
-        mv */chromedriver /usr/local/bin/chromedriver
-        sudo chmod +x /usr/local/bin/chromedriver
-
-        # Clean up
-        rm -rf chromedriver.zip google-chrome-stable_current_amd64.deb
-
-        # Create temporary directories for Chrome user data
-        mkdir -p /tmp/chrome-user-data
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
 
     - name: Run Selenium tests
       env:
