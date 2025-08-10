@@ -33,15 +33,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
 
-    - name: Debug WEKAN_URL
-      run: |
-        echo "WEKAN_URL starts with: ${WEKAN_URL:0:10}"
-      env:
-        WEKAN_URL: ${{ secrets.WEKAN_URL }}
-
     - name: Run Selenium tests
       env:
-        HEADLESS: true
-        WEKAN_URL: http://${{ 54.75.122.248 }}:80
+        HEADLESS: false
+        WEKAN_URL: http://${{ secrets.WEKAN_URL }}:80
       run: |
         pytest tests/ -v
