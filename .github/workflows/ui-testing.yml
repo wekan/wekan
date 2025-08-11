@@ -1,4 +1,4 @@
-name: Selenium UI Tests
+name: Run UI Tests
 
 on:
   pull_request:

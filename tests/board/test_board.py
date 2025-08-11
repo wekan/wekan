@@ -1,7 +1,8 @@
 import pytest
 import requests
+import os
 
-base_url = "http://10.0.0.17"
+base_url = os.environ.get("WEKAN_URL", "http://localhost")
 class TestBoard:
 
   @pytest.fixture(scope="class", autouse=True)

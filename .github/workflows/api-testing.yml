@@ -1,25 +1,35 @@
-name: Run Tests with coverage
+name: Run API Tests
 
 on:
   pull_request:
     branches:
       - main
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      # Step 2: Set up Python
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests
-        run: pytest
+      # Step 4: Run API tests
+      - name: Run API tests
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }} # Example: Pass API base URL as a secret
+        run: |
+          pytest --maxfail=5 --disable-warnings -v

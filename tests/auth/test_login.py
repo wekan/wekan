@@ -1,6 +1,7 @@
+import os
 import requests
 
-base_url = "http://10.0.0.17"
+base_url = os.environ.get("WEKAN_URL", "http://localhost")
 
 class TestLogin:
     def test_health_check(self):
