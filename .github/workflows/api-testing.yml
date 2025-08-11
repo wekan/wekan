@@ -4,30 +4,40 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Allows manual triggering of the workflow
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Python
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
-
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Run API tests
+      - name: App Startup with Docker
+        run: |
+          docker compose up -d
+
+      - name: Add test user to MongoDB
+        run: |
+          docker exec wekan-db mongosh wekan --eval '
+            db.users.insertOne({
+              username: "omriza5",
+              password: "123456",
+              email: "omriza5@gmail.com",
+              isAdmin: false
+            })
+          '
+
       - name: Run API tests
         env:
           BASE_URL: ${{ secrets.WEKAN_URL }} # Example: Pass API base URL as a secret
