@@ -30,6 +30,6 @@ jobs:
       # Step 4: Run API tests
       - name: Run API tests
         env:
-          BASE_URL: ${{ secrets.BASE_URL }} # Example: Pass API base URL as a secret
+          BASE_URL: ${{ secrets.WEKAN_URL }} # Example: Pass API base URL as a secret
         run: |
           pytest --maxfail=5 --disable-warnings -v
