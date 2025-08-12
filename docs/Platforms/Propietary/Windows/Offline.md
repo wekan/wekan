@@ -57,7 +57,7 @@ RELATED INFO:
 - Windows 2022 server example https://github.com/wekan/wekan/issues/5084
 - Other settings example https://github.com/wekan/wekan/issues/4932
 
-## SSL/TLS at internal network, that is not connected to Internet, and can not used from Internet
+## SSL/TLS at internal network, that is not connected to Internet, and can not be used from Internet
 
 Configuring Caddy for SSL/TLS on a local LAN without an internet connection requires you to **manually create and manage certificates**, as Caddy's automatic certificate provisioning relies on external services like Let's Encrypt, which need internet access. Here's a breakdown of the process:
 
