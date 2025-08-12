@@ -39,7 +39,8 @@ This release adds the following new features:
   [Part 2](https://github.com/wekan/wekan/commit/ce528b1826255ebf3ac9533dd8ed91bec8bbe8b1),
   [Part 3](https://github.com/wekan/wekan/commit/ee01a07b0ac7c6b06054b3d7bfac8c38161adf19),
   [Part 4](https://github.com/wekan/wekan/commit/cc78e19740ae1bf42f2bbb17f801fe2d4dac135d),
-  [Part 5](https://github.com/wekan/wekan/commit/044793cc4473bebc8eefa64a0df9e9a20115d049).
+  [Part 5](https://github.com/wekan/wekan/commit/044793cc4473bebc8eefa64a0df9e9a20115d049),
+  [Part 6](https://github.com/wekan/wekan/commit/a7bcfc6db7cc78892ed20cdf0d03f84094853687).
   Thanks to xet7.
 
 and adds the following updates:
