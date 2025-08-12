@@ -55,7 +55,7 @@ jobs:
 
     - name: Run Selenium tests
       env:
-        HEADLESS: true
+        CI: "true"
         WEKAN_URL: http://${{ secrets.HOST }}:80
         BROWSER: ${{ inputs.browser }}
       run: |
