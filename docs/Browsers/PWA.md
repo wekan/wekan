@@ -17,7 +17,7 @@
 
 <img src="chromium-edge-install-pwa.png" width="60%" alt="Install PWA at Chromium Edge" />
 
-4. In next popup, give name to app, like `YourCompany Wekan`, and click `Add`
+4. In next popup, give name to app, like `YourCompany WeKan`, and click `Add`
 
 5. Now new app is in your Windows Start menu. 
 
@@ -99,7 +99,7 @@ Related, for creating apps to other appstores: https://github.com/wekan/wekan/wi
 
 6. At Play Console https://play.google.com/console/ there is `App Integrity` button in the sidemenu (highlighted blue in the screenshot) where you find required 2 SHA256 keys for Caddyfile:
 
-![image](https://user-images.githubusercontent.com/8823093/222261921-1afc64bd-6bcf-4ba1-9620-88572162746e.png)
+![image](Play-Console-App-Integrity.png)
 
 7. Caddy uses tabs for indenting. At `/etc/caddy` you can also `caddy format > ca` to format output and forward to new file, and if it works then `mv ca Caddyfile` and validate it `caddy validate` and reload `caddy reload`. Sometimes update caddy with `caddy upgrade` and after that `caddy stop` and `caddy start`.
 

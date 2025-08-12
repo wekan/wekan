@@ -314,7 +314,8 @@ BlazeComponent.extendComponent({
       // Pressing Tab should open the form of the next column, and Maj+Tab go
       // in the reverse order
     } else if (evt.keyCode === 9) {
-      evt.preventDefault();
+      // Prevent custom focus movement on Tab key for accessibility
+      // evt.preventDefault();
       const isReverse = evt.shiftKey;
       const list = $(`#js-list-${this.data().listId}`);
       const listSelector = '.js-list:not(.js-list-composer)';
@@ -413,13 +414,16 @@ BlazeComponent.extendComponent({
         // or `Enter` to validation the auto-completion. We also need to stop the
         // event propagation to prevent the card from submitting (on `Enter`) or
         // going on the next column (on `Tab`).
+        /*
         onKeydown(evt, commands) {
-          if (evt.keyCode === 9 || evt.keyCode === 13) {
-            evt.stopPropagation();
-            return commands.KEY_ENTER;
-          }
+          // Prevent custom focus movement on Tab key for accessibility
+          // if (evt.keyCode === 9 || evt.keyCode === 13) {
+          //  evt.stopPropagation();
+          //  return commands.KEY_ENTER;
+          //}
           return null;
         },
+        */
       },
     );
   },

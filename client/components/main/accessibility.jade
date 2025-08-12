@@ -1,8 +1,18 @@
 template(name="accessibilityHeaderBar")
   if currentUser
     h1
-      | {{_ 'accessibility-title'}}
+      if isAccessibilityEnabled
+        = accessibilityTitle
+      else
+        | {{_ 'accessibility'}}
 
 template(name="accessibility")
   if currentUser
-    | {{_ 'accessibility-content'}}
+    .accessibility-page
+      if isAccessibilityEnabled
+        .accessibility-page-content
+          +viewer
+            | {{accessibilityContent}}
+      else
+        .accessibility-page-content
+          | {{_ 'accessibility-info-not-added-yet'}}

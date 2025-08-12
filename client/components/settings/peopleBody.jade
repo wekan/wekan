@@ -38,12 +38,28 @@ template(name="people")
             button#searchButton
               i.fa.fa-search
               | {{_ 'search'}}
+            .divLockedUsersFilter
+              .flex-container
+                span.people-filter {{_ 'admin-people-filter-show'}}
+                select.user-filter#userFilterSelect
+                  option(value="all") {{_ 'admin-people-filter-all'}}
+                  option(value="locked") {{_ 'admin-people-filter-locked'}}
+                  option(value="active") {{_ 'admin-people-filter-active'}}
+                  option(value="inactive") {{_ 'admin-people-filter-inactive'}}
+              button#unlockAllUsers.unlock-all-btn
+                i.fa.fa-unlock
+                | {{_ 'accounts-lockout-unlock-all'}}
             .ext-box-right
               span {{#unless isMiniScreen}}{{_ 'people-number'}}{{/unless}} #{peopleNumber}
             .divAddOrRemoveTeam#divAddOrRemoveTeam
               button#addOrRemoveTeam
                 i.fa.fa-edit
                 | {{_ 'add'}} / {{_ 'delete'}} {{_ 'teams'}}
+          else if lockedUsersSetting.get
+            span
+              i.fa.fa-lock.text-red
+              unless isMiniScreen
+                | {{_ 'accounts-lockout-locked-users'}}
 
       .content-body
         .side-menu
@@ -60,6 +76,10 @@ template(name="people")
               a.js-people-menu(data-id="people-setting")
                 i.fa.fa-user
                 | {{_ 'people'}}
+            li
+              a.js-locked-users-menu(data-id="locked-users-setting")
+                i.fa.fa-lock.text-red
+                | {{_ 'accounts-lockout-locked-users'}}
         .main-body
           if loading.get
             +spinner
@@ -69,6 +89,8 @@ template(name="people")
             +teamGeneral
           else if peopleSetting.get
             +peopleGeneral
+          else if lockedUsersSetting.get
+            +lockedUsersGeneral
 
 
 template(name="orgGeneral")
@@ -114,6 +136,8 @@ template(name="peopleGeneral")
       tr
         th
           +selectAllUser
+        th {{_ 'accounts-lockout-status'}}
+        th {{_ 'admin-people-active-status'}}
         th {{_ 'username'}}
         th {{_ 'fullname'}}
         th {{_ 'initials'}}
@@ -232,8 +256,20 @@ template(name="peopleRow")
     else
       td
         input.selectUserChkBox(type="checkbox", id="{{userData._id}}")
+    td.account-status
+      if isUserLocked
+        i.fa.fa-lock.text-red.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}")
+      else
+        i.fa.fa-unlock.text-green.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}")
+    td.account-active-status
+      if userData.loginDisabled
+        i.fa.fa-ban.text-red.js-toggle-active-status(data-user-id=userData._id, data-is-active="false", title="{{_ 'admin-people-user-inactive'}}")
+      else
+        i.fa.fa-check-circle.text-green.js-toggle-active-status(data-user-id=userData._id, data-is-active="true", title="{{_ 'admin-people-user-active'}}")
     if userData.loginDisabled
       td.username <s>{{ userData.username }}</s>
+    else if isUserLocked
+      td.username {{ userData.username }}
     else
       td.username {{ userData.username }}
     if userData.loginDisabled
@@ -645,3 +681,32 @@ template(name="settingsUserPopup")
   //   that does now remove member from board, card members and assignees correctly,
   //   but that should be used to remove user from all boards similarly
   // - wekan/models/users.js Delete is not enabled
+
+template(name="lockedUsersGeneral")
+  .locked-users-settings
+    h3 {{_ 'accounts-lockout-settings'}}
+    p {{_ 'accounts-lockout-info'}}
+
+    h4 {{_ 'accounts-lockout-known-users'}}
+    .title {{_ 'accounts-lockout-failures-before'}}
+    .form-group
+      input.wekan-form-control#known-failures-before-lockout(type="number", min="1", max="10", placeholder="3" value="{{knownFailuresBeforeLockout}}")
+    .title {{_ 'accounts-lockout-period'}}
+    .form-group
+      input.wekan-form-control#known-lockout-period(type="number", min="10", max="600", placeholder="60" value="{{knownLockoutPeriod}}")
+    .title {{_ 'accounts-lockout-failure-window'}}
+    .form-group
+      input.wekan-form-control#known-failure-window(type="number", min="1", max="60", placeholder="15" value="{{knownFailureWindow}}")
+
+    h4 {{_ 'accounts-lockout-unknown-users'}}
+    .title {{_ 'accounts-lockout-failures-before'}}
+    .form-group
+      input.wekan-form-control#unknown-failures-before-lockout(type="number", min="1", max="10", placeholder="3" value="{{unknownFailuresBeforeLockout}}")
+    .title {{_ 'accounts-lockout-period'}}
+    .form-group
+      input.wekan-form-control#unknown-lockout-period(type="number", min="10", max="600", placeholder="60" value="{{unknownLockoutPeriod}}")
+    .title {{_ 'accounts-lockout-failure-window'}}
+    .form-group
+      input.wekan-form-control#unknown-failure-window(type="number", min="1", max="60", placeholder="15" value="{{unknownFailureWindow}}")
+
+    button.js-lockout-save.primary {{_ 'save'}}

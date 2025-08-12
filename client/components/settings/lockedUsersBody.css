@@ -1,0 +1,47 @@
+.text-red {
+  color: #e74c3c;
+}
+
+td i.fa-lock.text-red,
+li i.fa-lock.text-red {
+  margin-right: 5px;
+}
+
+.locked-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+.locked-users-table th,
+.locked-users-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.locked-users-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.locked-users-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.loading-indicator {
+  padding: 10px;
+  text-align: center;
+}
+
+.loading-indicator i {
+  margin-right: 5px;
+}
+
+.locked-users-settings {
+  padding: 0 10px;
+}
+
+button.js-unlock-all-users {
+  margin-bottom: 20px;
+}

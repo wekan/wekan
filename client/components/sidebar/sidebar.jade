@@ -12,6 +12,10 @@ template(name="sidebar")
         a.sidebar-btn.js-keyboard-shortcuts-toggle(
           title="{{#if isKeyboardShortcuts}}{{_ 'keyboard-shortcuts-enabled'}}{{else}}{{_ 'keyboard-shortcuts-disabled'}}{{/if}}")
           i.fa(class="fa-solid fa-{{#if isKeyboardShortcuts}}check-square-o{{else}}ban{{/if}}")
+      if isAccessibilityEnabled
+        a.sidebar-accessibility
+          i.fa.fa-universal-access
+          span {{_ 'accessibility'}}
       a.sidebar-xmark.js-close-sidebar &#10005;
     .sidebar-content.js-board-sidebar-content
       //a.hide-btn.js-hide-sidebar

@@ -30,10 +30,10 @@ template(name="setting")
               a.js-setting-menu(data-id="announcement-setting")
                 i.fa.fa-bullhorn
                 | {{_ 'admin-announcement'}}
-            //li
-            //  a.js-setting-menu(data-id="accessibility-setting")
-            //    i.fa.fa-universal-access
-            //    | {{_ 'accessibility'}}
+            li
+              a.js-setting-menu(data-id="accessibility-setting")
+                i.fa.fa-universal-access
+                | {{_ 'accessibility'}}
             li
               a.js-setting-menu(data-id="layout-setting")
                 i.fa.fa-object-group
@@ -171,6 +171,8 @@ template(name='accountSettings')
         label {{_ 'no'}}
       button.js-accounts-save.primary {{_ 'save'}}
 
+    // Brute force lockout settings moved to People/Locked Users section
+
 template(name='announcementSettings')
   ul#announcement-setting.setting-detail
     li
@@ -190,23 +192,21 @@ template(name='announcementSettings')
 template(name='accessibilitySettings')
   ul#accessibility-setting.setting-detail
     li
+      a(href="/accessibility" style="text-decoration: underline; color: blue;") {{_ 'accessibility'}}
+    li
       a.flex.js-toggle-accessibility
         .materialCheckBox(class="{{#if currentAccessibility.enabled}}is-checked{{/if}}")
 
-        span {{_ 'admin-accessibility-active'}}
-    li
-      .title {{_ 'accessibility-title'}}
-      .form-group
-        input.wekan-form-control#accessibility-title(type="text", placeholder="" value="{{currentSetting.accessibilityTitle}}")
+        span {{_ 'accessibility-page-enabled'}}
     li
       .accessibility-content(class="{{#if currentAccessibility.enabled}}{{else}}hide{{/if}}")
         ul
           li
-            .title {{_ 'admin-accessibility-title'}}
-            textarea#admin-accessibility.wekan-form-control= currentAccessibility.accessibilityTitle
+            .title {{_ 'accessibility-title'}}
+            textarea#admin-accessibility-title.wekan-form-control= currentAccessibility.title
           li
-            .title {{_ 'admin-accessibility-content'}}
-            textarea#admin-accessibility.wekan-form-control= currentAccessibility.accessibilityContent
+            .title {{_ 'accessibility-content'}}
+            textarea#admin-accessibility-content.wekan-form-control= currentAccessibility.body
           li
             button.js-accessibility-save.primary {{_ 'save'}}
 

@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
+import LockoutSettings from '/models/lockoutSettings';
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -12,6 +13,7 @@ BlazeComponent.extendComponent({
     this.accountSetting = new ReactiveVar(false);
     this.tableVisibilityModeSetting = new ReactiveVar(false);
     this.announcementSetting = new ReactiveVar(false);
+    this.accessibilitySetting = new ReactiveVar(false);
     this.layoutSetting = new ReactiveVar(false);
     this.webhookSetting = new ReactiveVar(false);
 
@@ -20,7 +22,9 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('accountSettings');
     Meteor.subscribe('tableVisibilityModeSettings');
     Meteor.subscribe('announcements');
+    Meteor.subscribe('accessibilitySettings');
     Meteor.subscribe('globalwebhooks');
+    Meteor.subscribe('lockoutSettings');
   },
 
   setError(error) {
@@ -106,6 +110,7 @@ BlazeComponent.extendComponent({
       this.emailSetting.set('email-setting' === targetID);
       this.accountSetting.set('account-setting' === targetID);
       this.announcementSetting.set('announcement-setting' === targetID);
+      this.accessibilitySetting.set('accessibility-setting' === targetID);
       this.layoutSetting.set('layout-setting' === targetID);
       this.webhookSetting.set('webhook-setting' === targetID);
       this.tableVisibilityModeSetting.set('tableVisibilityMode-setting' === targetID);
@@ -242,7 +247,6 @@ BlazeComponent.extendComponent({
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
-/*
     const accessibilityPageEnabled = $('input[name=accessibilityPageEnabled]:checked').val() === 'true';
     const accessibilityTitle = $('#accessibility-title')
       .val()
@@ -250,7 +254,6 @@ BlazeComponent.extendComponent({
     const accessibilityContent = $('#accessibility-content')
       .val()
       .trim();
-*/
     const spinnerName = $('#spinnerName').val();
 
     try {
@@ -274,13 +277,11 @@ BlazeComponent.extendComponent({
           oidcBtnText,
           mailDomainName,
           legalNotice,
-        },
-      });
-/*
           accessibilityPageEnabled,
           accessibilityTitle,
           accessibilityContent,
-*/
+        },
+      });
     } catch (e) {
       return;
     } finally {
@@ -317,7 +318,6 @@ BlazeComponent.extendComponent({
         'click a.js-toggle-hide-logo': this.toggleHideLogo,
         'click a.js-toggle-hide-card-counter-list': this.toggleHideCardCounterList,
         'click a.js-toggle-hide-board-member-list': this.toggleHideBoardMemberList,
-        'click a.js-toggle-accessibility-page-enabled': this.toggleAccessibilityPageEnabled,
         'click button.js-save-layout': this.saveLayout,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,
@@ -344,15 +344,23 @@ BlazeComponent.extendComponent({
       $set: { booleanValue: allowUserDelete },
     });
   },
+
+  // Brute force lockout settings method moved to lockedUsersBody.js
+
   allowEmailChange() {
-    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+    return AccountSettings.findOne('accounts-allowEmailChange')?.booleanValue || false;
   },
+
   allowUserNameChange() {
-    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+    return AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue || false;
   },
+
   allowUserDelete() {
-    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+    return AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false;
   },
+
+  // Lockout settings helper methods moved to lockedUsersBody.js
+
   allBoardsHideActivities() {
     Meteor.call('setAllBoardsHideActivities', (err, ret) => {
       if (!err && ret) {
@@ -468,6 +476,59 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('announcementSettings');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.loading = new ReactiveVar(false);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  currentAccessibility() {
+    return AccessibilitySettings.findOne();
+  },
+
+  saveAccessibility() {
+    const title = $('#admin-accessibility-title')
+      .val()
+      .trim();
+    const content = $('#admin-accessibility-content')
+      .val()
+      .trim();
+    AccessibilitySettings.update(AccessibilitySettings.findOne()._id, {
+      $set: {
+        title: title,
+        body: content
+      },
+    });
+  },
+
+  toggleAccessibility() {
+    this.setLoading(true);
+    const accessibilitySetting = this.currentAccessibility();
+    const isActive = accessibilitySetting.enabled;
+    AccessibilitySettings.update(accessibilitySetting._id, {
+      $set: { enabled: !isActive },
+    });
+    this.setLoading(false);
+    if (isActive) {
+      $('.accessibility-content').slideUp();
+    } else {
+      $('.accessibility-content').slideDown();
+    }
+  },
+
+  events() {
+    return [
+      {
+        'click a.js-toggle-accessibility': this.toggleAccessibility,
+        'click button.js-accessibility-save': this.saveAccessibility,
+      },
+    ];
+  },
+}).register('accessibilitySettings');
 
 Template.selectAuthenticationMethod.onCreated(function() {
   this.authenticationMethods = new ReactiveVar([]);

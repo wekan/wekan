@@ -8,13 +8,13 @@ Newest WeKan at these platforms:
   - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
 - https://wekan.fi/install/
   - Snap Candidate amd64
-  - Docker amd64 
+  - Docker amd64
   - Kubernetes Docker amd64
 
 Fixing other platforms In Progress.
 
 - Node.js 14.x at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4 and https://nodejs.org/dist/latest-v14.x/
-- MongoDB 6.x and 7.x
+- MongoDB 6.x and 7.x, or FerretDB/PostgreSQL https://blog.ferretdb.io/building-project-management-stack-wekan-ferretdb/
 
 [How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
 
@@ -23,7 +23,19 @@ Fixing other platforms In Progress.
 - Question: Broadcom to discontinue free Bitnami Helm charts. WeKan uses Bitnami MongoDB.
   What to do? Help and PRs welcome at https://github.com/wekan/charts/issues/43 . Thanks!
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Feature: Accessibility page at /accessibility. Settings at Admin Panel. When enabled, link at right sidebar](https://github.com/wekan/wekan/commit/d83ce5e6335c175f2f4a384f6090c18c7f860555).
+  Thanks to xet7.
+- [Feature: Added brute force login protection settings to Admin Panel/People/Locked Users](https://github.com/wekan/wekan/commit/ae0d059b6feb38a438ca21aa154c63b410641763).
+  Added filtering of Admin Panel/People/People: All Users/Locked Users Only/Active/Not Active.
+  Added visual indicators: red lock icon for locked users, green check for active users, and red X for inactive users.
+  Added "Unlock All" button to quickly unlock all brute force locked users.
+  Added ability to toggle user active status directly from the People page.
+  Moved lockout settings from environment variables to database so admins can configure the lockout thresholds directly in the UI.
+  Thanks to xet7.
+
+and adds the following updates:
 
 - Update CHANGELOG.md platforms info at top.
   [Part 1](https://github.com/wekan/wekan/commit/0e43a08689c0d47c816ce781e93650f0c37efe28),
@@ -36,10 +48,30 @@ This release adds the following updates:
   [Part 8](https://github.com/wekan/wekan/commit/9a91214043d93307074cf33e54d40cb43c14ad62).
 - [Updated security email address](https://github.com/wekan/wekan/commit/11872545734db82229e873b48f122d826457fec3).
   Thanks to xet7.
+- Updated GitHub Docker Actions.
+  [Part 1](https://github.com/wekan/wekan/pull/5855),
+  [Part 2](https://github.com/wekan/wekan/pull/5856).
+  Thanks to Dependabot.
+- [Added info about Sandstorm Radicale Calendar and Contacts](https://github.com/wekan/wekan/commit/dfdd0b6cbbbb60bf6dba7a61f34dc52e74f98b41).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Fixes for building at macOS](https://github.com/wekan/wekan/commit/200545822c5c778521f76525938fe777ed9666f0).
+  Thanks to xet7.
+- [Improves accessibility by disabling custom Tab handling](https://github.com/wekan/wekan/pull/5853).
+  Thanks to seve12, co-maintainer of WeKan.
+- [Comment out not used Tab code at accessibility related changes](https://github.com/wekan/wekan/commit/0e32f666eb30cc254177119907e6eae3c09ce0ca).
+  Thanks to xet7.
+- [Fixed link at OpenShift docs](https://github.com/wekan/wekan/commit/b9887fc91758edb31259a8df7770a1d992bc9251).
+  Thanks to xet7.
+- [Added FerretDB/PostgreSQL to changelog](https://github.com/wekan/wekan/commit/c16e99ba1ec7bc25a4e0449ea463ea8f4b02da11).
+  Thanks to xet7.
+- [Accessibility](https://github.com/wekan/wekan/pull/5857):
+  Added product name to page titles, settings and global search.
+  More accessible header and layout templates, modal dialogs, DOM structure, color contrast.
+  Thanks to seve12.
+- [Fixed uppercase K of WeKan](https://github.com/wekan/wekan/commit/b137108ae15a9c5685cca5f45cfa9480ec7d3510).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

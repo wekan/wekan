@@ -408,11 +408,47 @@ http://boards.example.com https://boards.example.com {
 }
 ```
 ## 2) New LXC container
-So when I start new lxc container:
+
+Ubuntu Touch:
+
+1. From OpenStore, install Snapz0r
+
+2. Look what is newest channel for lxd arm64 https://snapcraft.io/lxd and install , for example:
+
 ```
-lxc launch images:ubuntu/20.04 lxccontainername
+sudo su
+
+snap install lxd --channel=5.21/stable
 ```
+
+3. From Ubuntu Touch Terminal, lxd init, etc.
+
+4. Configure Profiles: Adjust the default LXC profile to allow for
+   features like nested containers and privileged access if needed.
+   This can be done with commands like:
+
+```
+sudo lxc profile set default security.nesting true
+```
+
+5. Start new lxc container
+
+```
+# launch-ubu2504.sh
+# lxc launch image-name container-name
+lxc launch ubuntu:25.04 ubu2504
+```
+
+6. Bash shell to inside of container:
+
+```
+# into-ubu2504.sh
+# lxc exec container-name -- /bin/bash
+lxc exec ubu2504 -- /bin/bash
+```
+
 ## 3) Snapd and Wekan
+
 Then I go inside container and install snapd:
 ```
 lxc exec lxccontainername -- /bin/bash
