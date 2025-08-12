@@ -38,4 +38,12 @@ jobs:
         HEADLESS: true
         WEKAN_URL: ${{ secrets.WEKAN_URL }}
       run: |
-        pytest tests/ -v -s
+        pytest tests/ -s -v
+
+    - name: Upload screenshots
+      if: always() # Ensure this runs even if tests fail
+      uses: actions/upload-artifact@v4
+      with:
+        name: ui-test-screenshots
+        path: artifacts/screenshots
+        retention-days: 2  # Store artifacts for 30 days
