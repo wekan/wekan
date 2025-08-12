@@ -66,6 +66,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated MongoDB to 7.0.22 at Snap Candidate](https://github.com/wekan/wekan/commit/ecf31c367503335b7e668a2d83f2cb0f111cf927).
   Thanks to MongoDB developers.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/97b5931a4f717541631dde55f2b834d037e1d82d).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
