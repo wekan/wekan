@@ -57,6 +57,288 @@ RELATED INFO:
 - Windows 2022 server example https://github.com/wekan/wekan/issues/5084
 - Other settings example https://github.com/wekan/wekan/issues/4932
 
+## SSL/TLS at internal network, that is not connected to Internet, and can not used from Internet
+
+Configuring Caddy for SSL/TLS on a local LAN without an internet connection requires you to **manually create and manage certificates**, as Caddy's automatic certificate provisioning relies on external services like Let's Encrypt, which need internet access. Here's a breakdown of the process:
+
+#### Generate Certificates 🔑
+
+First, you'll need to generate a self-signed certificate authority (CA) and then use it to sign a certificate for your local domain. You can use tools like **OpenSSL** or **Caddy's own `cert` command**.
+
+1.  **Create a Root CA:**
+    `openssl genrsa -out rootCA.key 2048`
+    `openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 365 -out rootCA.pem`
+
+2.  **Create a Server Certificate:**
+
+      * Create a configuration file (`server.csr.cnf`) for your server certificate.
+      * `openssl req -new -nodes -newkey rsa:2048 -keyout server.key -out server.csr -config server.csr.cnf`
+      * `openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 365 -sha256 -extfile server.csr.cnf -extensions req_ext`
+
+This process creates `server.crt` and `server.key`—the files Caddy will use.
+
+#### Configure Caddyfile 📜
+
+Next, you need to tell Caddy to use these specific certificates instead of trying to get them automatically. 
+Modify your `Caddyfile` to use the `tls` directive with the paths to your generated files.
+
+Caddyfile:
+```
+wekan.example.com {
+        tls {
+            load C:\wekan\certs\example.com.pem
+            alpn http/1.1
+        }
+        proxy / localhost:2000 {
+          websocket
+          transparent
+        }
+}
+```
+
+  * **`your_local_domain.lan`** is the hostname you'll use to access the site from other computers on your network.
+  * **`tls C:\path\to\server.crt C:\path\to\server.key`** is the key part. It explicitly tells Caddy to use these certificate and key files.
+
+#### Trust the Certificate 🔒
+
+Finally, for browsers and other clients on your network to trust the connection and not show a security warning, you must **install the root CA certificate (`rootCA.pem`) on each client machine**.
+
+1.  On each client, navigate to the certificate management store (e.g., in Windows, search for "Manage computer certificates").
+2.  Import the `rootCA.pem` file into the "Trusted Root Certification Authorities" store.
+
+This tells the client that any certificate signed by this CA (like your `server.crt`) is trustworthy. Without this step, every client will display a **security warning** because the certificate isn't from a publicly trusted authority.
+
+#### Add wekan.example.com to every computer hosts file
+
+As Administrator, edit with Notepad, changing dropdown *.txt to All Files, C:\Windows\System32\drivers\etc\hosts textfile.
+
+To hosts file, add WeKan server local IP address:
+
+```
+192.168.0.200 wekan.example.com
+```
+
+Alternatively, use some nameserver at Windows server to have domain names at local network.
+
+#### Other remaining settings for local network SSL/TLS, not connected to Internet
+
+Look at similar settings below.
+
+## SSL/TLS with Caddy webserver, accessible at Internet
+
+This will start Caddy, like this:
+
+```
+example.com CloudFlare SSL/TLS Origin Certificate HTTP 443
+=> Public IPv4 Cable modem HTTPS port 443
+=> Local IPv4 HTTPS port 443 Caddy
+=> Local IPv4 HTTP port 2000 Node.js main.js WeKan
+=> MongoDB port 27017
+```
+
+From CloudFlare to Caddy, all is SSL/TLS encrypted.
+Caddy proxies all encrypted traffic to Node.js unencrypted HTTP port 2000.
+
+At WeKan server laptop/desktop, locally between these executeable files,
+HTTP traffic is not encrypted:
+
+- Between Caddy and WeKan
+- Between WeKan and MongoDB
+
+But outside of that server, all is SSL/TLS encrypted.
+
+### 1) Check your WeKan server Windows computer local IPv4 address
+
+You can check your IP address on Windows 11 using either the **Settings app** or the **Command Prompt**.
+These methods will show you your **local IP address**, which is the address your device uses to
+communicate within your home or office network.
+
+Your **public IP address**, which is what devices outside your network see, is assigned by your
+internet service provider (ISP) and can be found using an online tool or a simple web search.
+
+#### Method 1: Using the Settings App ⚙️
+
+1.  Open the **Start menu** and click on **Settings** (or press the **Windows key + I**).
+2.  In the left-hand menu, click on **Network & internet**.
+3.  Click on the connection you're currently using, either **Wi-Fi** or **Ethernet**. 
+4.  On the next screen, your IP address (both IPv4 and IPv6) will be listed under the **Properties** section.
+
+#### Method 2: Using the Command Prompt 💻
+
+1.  Click the **Start menu** or the **search icon** on your taskbar, type "**cmd**," and press **Enter**.
+2.  In the Command Prompt window, type `ipconfig` and press **Enter**.
+3.  Look for your active connection (e.g., "Ethernet adapter" or "Wireless LAN adapter Wi-Fi").
+    Your IP address will be listed next to "**IPv4 Address**."
+
+### 2) Finding Your Public IP Address 🌍
+
+a) At Arris Cable Modem, public IP address is at Login / WAN Setup / DHCP / IP Address
+
+b) To find your public IP address, simply open a web browser and search for "**what is my IP**."
+   A search engine like Google will display your public IP address right at the top of the search results.
+
+### 3) If you don't have domain name like example.com
+
+1. Register and login to https://cloudflare.com
+
+2. Buy a domain, like example.com
+
+### 4) Add settings at CloudFlare
+
+1. CloudFlare / Account Home / AI Audit: Block all AI crawlers, so that they do not slow down your websites and WeKan.
+   But if you need Google Search to see your website like example.com, allow Googlebot.
+
+2. CloudFlare / Account Home / example.com / DNS / Records / Add Record
+
+```
+Type: A
+Name: wekan (for wekan.example.com, or kanban for kanban.example.com)
+IPv4 Address: YOUR-PUBLIC-IPv4-ADDRESS (example: 80.123.123.123)
+- Proxy Status: Orange cloud selected (not grey cloud)
+- TTL: Auto
+```
+3. Click Save
+
+4. CloudFlare / Account Home / example.com / Origin Server / Create Cerfificate for example.com
+
+5. At Notepad, copy paste SSL/TLS certs in this order from top to bottom to one textfile `example.com.pem`:
+
+```
+1. Private Cert
+2. Public Cert
+3. Certificate Chain
+```
+
+6. Have for example this directory structure (can also be D: or E: etc)
+
+```
+C:.
+├───wekan directory
+│   ├───files directory
+│   ├───certs directory
+│   │   └───example.com.pem
+│   ├───bundle directory
+│   │   └───main.js
+│   ├───caddy.exe from .zip file
+│   ├───Caddyfile textfile for Caddy 2 config
+│   └───start-wekan.bat textfile
+│ 
+└───Program Files
+```
+
+7. Edit `start-wekan.bat` with Notepad, search and change these settings, change subdomain wekan.example.com
+   and node saving cmd.exe text outout to log.txt for logging:
+
+```
+SET WRITABLE_PATH=..\FILES
+
+SET ROOT_URL=https://wekan.example.com  
+
+SET PORT=2000
+
+node main.js > log.txt 2>&1
+```
+If you have problems with attachments, instead try:
+```
+SET WRITABLE_PATH=..\FILES\
+```
+
+8. Download newest Caddy webserver caddy_VERSION-NUMBER_windows_amd64.zip from
+https://github.com/caddyserver/caddy/releases ,
+extract .zip file, and copy caddy.exe to above directory structure.
+
+- Caddy website https://caddyserver.com
+- Caddy features https://caddyserver.com/features
+- Caddy code https://github.com/caddyserver/caddy
+- Caddy forum https://caddy.community/
+
+9. To Caddyfile, with Notepad add this:
+
+```
+wekan.example.com {
+        tls {
+            load C:\wekan\certs\example.com.pem
+            alpn http/1.1
+        }
+        proxy / localhost:2000 {
+          websocket
+          transparent
+        }
+}
+```
+10. Open `cmd.exe` terminal, write there:
+
+```
+C:
+
+cd \wekan
+
+wekan.bat
+```
+
+11. Open another `cmd.exe` terminal, write there:
+
+```
+C:
+
+cd \wekan
+
+caddy fmt --overwrite Caddyfile
+
+caddy validate
+```
+If there is errors, ask Google Search about that error, edit Caddyfile with Notepad to fix it.
+
+If there is not any errors, start Caddy:
+```
+caddy
+```
+This will start Caddy, like this:
+
+example.com CloudFlare SSL/TLS Origin Certificate HTTP 443
+=> Public IPv4 Cable modem HTTPS port 443
+=> Local IPv4 HTTPS port 443 Caddy
+=> Local IPv4 HTTP port 2000 Node.js main.js WeKan
+=> MongoDB port 27017
+
+From CloudFlare to Caddy, all is SSL/TLS encrypted.
+Caddy proxies all encrypted traffic to Node.js unencrypted HTTP port 2000.
+
+At WeKan server laptop/desktop, locally between these executeable files,
+HTTP traffic is not encrypted:
+- Between Caddy and WeKan
+- Between WeKan and MongoDB
+
+But outside of that server, all is SSL/TLS encrypted.
+
+#### 1) At your Internet router, forward ports HTTP 80 and HTTPS 443 to your server laptop/desktop IP address. Example:
+
+Arris cable modem:
+
+1. Login
+2. Firewall / Virtual Server Port Forwarding
+3. Add HTTP 80 and HTTPS 443:
+
+HTTP 80:
+```
+Description: HTTP
+Inbound Port: 80 to 80
+Format: TCP
+Private IP Address: YOUR-WEKAN-SERVER-LOCAL-IPv4-ADDRESS (example: 192.168.0.200)
+Local Port: 80 to 80
+```
+
+HTTPS 443:
+```
+Description: HTTP
+Inbound Port: 443 to 443
+Format: TCP
+Private IP Address: YOUR-WEKAN-SERVER-LOCAL-IPv4-ADDRESS (example: 192.168.0.200)
+Local Port: 443 to 443
+```
+
+
+
 ## Docker WeKan Offline
 
 
