@@ -37,7 +37,8 @@ This release adds the following new features:
 - Added docs for Windows SSL/TLS.
   [Part 1](https://github.com/wekan/wekan/commit/92c0543614fb92cf8217d8cc24a367296f3ade37),
   [Part 2](https://github.com/wekan/wekan/commit/ce528b1826255ebf3ac9533dd8ed91bec8bbe8b1),
-  [Part 3](https://github.com/wekan/wekan/commit/ee01a07b0ac7c6b06054b3d7bfac8c38161adf19).
+  [Part 3](https://github.com/wekan/wekan/commit/ee01a07b0ac7c6b06054b3d7bfac8c38161adf19),
+  [Part 4](https://github.com/wekan/wekan/commit/cc78e19740ae1bf42f2bbb17f801fe2d4dac135d).
   Thanks to xet7.
 
 and adds the following updates:
