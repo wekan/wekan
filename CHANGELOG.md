@@ -34,6 +34,11 @@ This release adds the following new features:
   Added ability to toggle user active status directly from the People page.
   Moved lockout settings from environment variables to database so admins can configure the lockout thresholds directly in the UI.
   Thanks to xet7.
+- Added docs for Windows SSL/TLS.
+  [Part 1](https://github.com/wekan/wekan/commit/92c0543614fb92cf8217d8cc24a367296f3ade37),
+  [Part 2](https://github.com/wekan/wekan/commit/ce528b1826255ebf3ac9533dd8ed91bec8bbe8b1),
+  [Part 3](https://github.com/wekan/wekan/commit/ee01a07b0ac7c6b06054b3d7bfac8c38161adf19).
+  Thanks to xet7.
 
 and adds the following updates:
 

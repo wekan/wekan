@@ -226,9 +226,11 @@ IPv4 Address: YOUR-PUBLIC-IPv4-ADDRESS (example: 80.123.123.123)
 ```
 3. Click Save
 
-4. CloudFlare / Account Home / example.com / Origin Server / Create Cerfificate for example.com
+4. CloudFlare / Account Home / example.com / SSL/TLS / Overview / SSL/TLS Encryption / Configure / Full (strict)
 
-5. At Notepad, copy paste SSL/TLS certs in this order from top to bottom to one textfile `example.com.pem`:
+5. CloudFlare / Account Home / example.com / Origin Server / Create Cerfificate for example.com
+
+6. At Notepad, copy paste SSL/TLS certs in this order from top to bottom to one textfile `example.com.pem`:
 
 ```
 1. Private Cert
@@ -236,7 +238,7 @@ IPv4 Address: YOUR-PUBLIC-IPv4-ADDRESS (example: 80.123.123.123)
 3. Certificate Chain
 ```
 
-6. Have for example this directory structure (can also be D: or E: etc)
+7. Have for example this directory structure (can also be D: or E: etc)
 
 ```
 C:.
@@ -253,7 +255,7 @@ C:.
 └───Program Files
 ```
 
-6. Edit `start-wekan.bat` with Notepad, search and change these settings, change subdomain wekan.example.com
+8. Edit `start-wekan.bat` with Notepad, search and change these settings, change subdomain wekan.example.com
    and node saving cmd.exe text outout to log.txt for logging:
 
 ```
@@ -270,7 +272,7 @@ If you have problems with attachments, instead try:
 SET WRITABLE_PATH=..\FILES\
 ```
 
-7. Download newest Caddy webserver caddy_VERSION-NUMBER_windows_amd64.zip from
+9. Download newest Caddy webserver caddy_VERSION-NUMBER_windows_amd64.zip from
 https://github.com/caddyserver/caddy/releases ,
 extract .zip file, and copy caddy.exe to above directory structure.
 
@@ -279,7 +281,7 @@ extract .zip file, and copy caddy.exe to above directory structure.
 - Caddy code https://github.com/caddyserver/caddy
 - Caddy forum https://caddy.community/
 
-8. To Caddyfile, with Notepad add this:
+10. To Caddyfile, with Notepad add this:
 
 ```
 wekan.example.com {
@@ -293,7 +295,7 @@ wekan.example.com {
         }
 }
 ```
-9. Open `cmd.exe` terminal, write there:
+11. Open `cmd.exe` terminal, write there:
 
 ```
 C:
@@ -303,7 +305,7 @@ cd \wekan
 wekan.bat
 ```
 
-10. Open another `cmd.exe` terminal, write there this. It will format Caddyfile to have
+12. Open another `cmd.exe` terminal, write there this. It will format Caddyfile to have
     correct text format, and validate is Caddyfile configuration settings correct.
 
 ```
