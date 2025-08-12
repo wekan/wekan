@@ -58,7 +58,9 @@ and adds the following updates:
   Thanks to xet7.
 - Updated GitHub Docker Actions.
   [Part 1](https://github.com/wekan/wekan/pull/5855),
-  [Part 2](https://github.com/wekan/wekan/pull/5856).
+  [Part 2](https://github.com/wekan/wekan/pull/5856),
+  [Part 3](https://github.com/wekan/wekan/pull/5864),
+  [Part 4](https://github.com/wekan/wekan/pull/5865).
   Thanks to Dependabot.
 - [Added info about Sandstorm Radicale Calendar and Contacts](https://github.com/wekan/wekan/commit/dfdd0b6cbbbb60bf6dba7a61f34dc52e74f98b41).
   Thanks to xet7.
