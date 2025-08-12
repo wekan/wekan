@@ -147,7 +147,34 @@ HTTP traffic is not encrypted:
 
 But outside of that server, all is SSL/TLS encrypted.
 
-### 1) Check your WeKan server Windows computer local IPv4 address
+#### 1) At your Internet router, forward ports HTTP 80 and HTTPS 443 to your server laptop/desktop IP address. Example:
+
+Arris cable modem:
+
+1. Login
+2. Firewall / Virtual Server Port Forwarding
+3. Add HTTP 80 and HTTPS 443:
+
+HTTP 80:
+```
+Description: HTTP
+Inbound Port: 80 to 80
+Format: TCP
+Private IP Address: YOUR-WEKAN-SERVER-LOCAL-IPv4-ADDRESS (example: 192.168.0.200)
+Local Port: 80 to 80
+```
+
+HTTPS 443:
+```
+Description: HTTP
+Inbound Port: 443 to 443
+Format: TCP
+Private IP Address: YOUR-WEKAN-SERVER-LOCAL-IPv4-ADDRESS (example: 192.168.0.200)
+Local Port: 443 to 443
+```
+
+
+#### 2) Check your WeKan server Windows computer local IPv4 address
 
 You can check your IP address on Windows 11 using either the **Settings app** or the **Command Prompt**.
 These methods will show you your **local IP address**, which is the address your device uses to
@@ -170,20 +197,20 @@ internet service provider (ISP) and can be found using an online tool or a simpl
 3.  Look for your active connection (e.g., "Ethernet adapter" or "Wireless LAN adapter Wi-Fi").
     Your IP address will be listed next to "**IPv4 Address**."
 
-### 2) Finding Your Public IP Address 🌍
+### 3) Finding Your Public IP Address 🌍
 
 a) At Arris Cable Modem, public IP address is at Login / WAN Setup / DHCP / IP Address
 
 b) To find your public IP address, simply open a web browser and search for "**what is my IP**."
    A search engine like Google will display your public IP address right at the top of the search results.
 
-### 3) If you don't have domain name like example.com
+### 4) If you don't have domain name like example.com
 
 1. Register and login to https://cloudflare.com
 
 2. Buy a domain, like example.com
 
-### 4) Add settings at CloudFlare
+### 5) Add settings at CloudFlare
 
 1. CloudFlare / Account Home / AI Audit: Block all AI crawlers, so that they do not slow down your websites and WeKan.
    But if you need Google Search to see your website like example.com, allow Googlebot.
@@ -226,7 +253,7 @@ C:.
 └───Program Files
 ```
 
-7. Edit `start-wekan.bat` with Notepad, search and change these settings, change subdomain wekan.example.com
+6. Edit `start-wekan.bat` with Notepad, search and change these settings, change subdomain wekan.example.com
    and node saving cmd.exe text outout to log.txt for logging:
 
 ```
@@ -243,7 +270,7 @@ If you have problems with attachments, instead try:
 SET WRITABLE_PATH=..\FILES\
 ```
 
-8. Download newest Caddy webserver caddy_VERSION-NUMBER_windows_amd64.zip from
+7. Download newest Caddy webserver caddy_VERSION-NUMBER_windows_amd64.zip from
 https://github.com/caddyserver/caddy/releases ,
 extract .zip file, and copy caddy.exe to above directory structure.
 
@@ -252,7 +279,7 @@ extract .zip file, and copy caddy.exe to above directory structure.
 - Caddy code https://github.com/caddyserver/caddy
 - Caddy forum https://caddy.community/
 
-9. To Caddyfile, with Notepad add this:
+8. To Caddyfile, with Notepad add this:
 
 ```
 wekan.example.com {
@@ -266,7 +293,7 @@ wekan.example.com {
         }
 }
 ```
-10. Open `cmd.exe` terminal, write there:
+9. Open `cmd.exe` terminal, write there:
 
 ```
 C:
@@ -276,7 +303,7 @@ cd \wekan
 wekan.bat
 ```
 
-11. Open another `cmd.exe` terminal, write there this. It will format Caddyfile to have
+10. Open another `cmd.exe` terminal, write there this. It will format Caddyfile to have
     correct text format, and validate is Caddyfile configuration settings correct.
 
 ```
@@ -311,34 +338,6 @@ HTTP traffic is not encrypted:
 - Between WeKan and MongoDB
 
 But outside of that server, all is SSL/TLS encrypted.
-
-#### 1) At your Internet router, forward ports HTTP 80 and HTTPS 443 to your server laptop/desktop IP address. Example:
-
-Arris cable modem:
-
-1. Login
-2. Firewall / Virtual Server Port Forwarding
-3. Add HTTP 80 and HTTPS 443:
-
-HTTP 80:
-```
-Description: HTTP
-Inbound Port: 80 to 80
-Format: TCP
-Private IP Address: YOUR-WEKAN-SERVER-LOCAL-IPv4-ADDRESS (example: 192.168.0.200)
-Local Port: 80 to 80
-```
-
-HTTPS 443:
-```
-Description: HTTP
-Inbound Port: 443 to 443
-Format: TCP
-Private IP Address: YOUR-WEKAN-SERVER-LOCAL-IPv4-ADDRESS (example: 192.168.0.200)
-Local Port: 443 to 443
-```
-
-
 
 ## Docker WeKan Offline
 
