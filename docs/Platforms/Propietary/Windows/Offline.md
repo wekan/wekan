@@ -276,7 +276,8 @@ cd \wekan
 wekan.bat
 ```
 
-11. Open another `cmd.exe` terminal, write there:
+11. Open another `cmd.exe` terminal, write there this. It will format Caddyfile to have
+    correct text format, and validate is Caddyfile configuration settings correct.
 
 ```
 C:
