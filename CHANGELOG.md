@@ -64,6 +64,8 @@ and adds the following updates:
   Thanks to Dependabot.
 - [Added info about Sandstorm Radicale Calendar and Contacts](https://github.com/wekan/wekan/commit/dfdd0b6cbbbb60bf6dba7a61f34dc52e74f98b41).
   Thanks to xet7.
+- [Updated MongoDB to 7.0.22 at Snap Candidate](https://github.com/wekan/wekan/commit/ecf31c367503335b7e668a2d83f2cb0f111cf927).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
