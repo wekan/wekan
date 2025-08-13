@@ -30,7 +30,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * Future WeKan prototypes: [Multiverse WeKan Roadmap](FAQ/WeKan-Multiverse-Roadmap.md)
 * [Change Language](Translations/Change-Language.md)
 * [Forgot Password](Login/Forgot-Password.md)
-* [WeKan Design Principles](DeveloperDocs/Design-Principles.md)
+* [WeKan Design Principles](Design/Design-Principles.md)
 * [FAQ](FAQ/FAQ.md)
 * [IRC FAQ](FAQ/IRC-FAQ.md) - answers to questions asked at IRC
 * [Team](FAQ/Team.md)
