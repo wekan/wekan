@@ -31,6 +31,10 @@ Existing WeKan ideas, that are not yet implemented in WeKan
 - 2025-01-28 Sync Jira Lists to Trello, copied from [original WeKan Multiverse from 2022-07-14](https://boards.wekan.team/b/JctQEtkayWXTTJyzt/wekan-multiverse)
 - 2021-02 Map Card, copied from [original WeKan feature request from 2017-01-06](https://github.com/wekan/wekan/issues/755).
 
+News
+
+- https://news.ycombinator.com/item?id=44821127
+
 ### Trello features, that are not yet implemented in WeKan
 
 - 2025-05-21 Email Inbox
