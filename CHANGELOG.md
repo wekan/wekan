@@ -68,6 +68,10 @@ and adds the following updates:
   Thanks to MongoDB developers.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/97b5931a4f717541631dde55f2b834d037e1d82d).
   Thanks to developers of dependencies.
+- Reorganized Design Docs.
+  [Part 1](https://github.com/wekan/wekan/commit/f34490fe2820352c8303f0bac47ad7158592e8f0),
+  [Part 2](https://github.com/wekan/wekan/commit/a662283b7de91c0ef63195691e06b5cbc6cdff6c).
+  Thanks to xet7
 
 and fixes the following bugs:
 
