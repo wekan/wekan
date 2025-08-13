@@ -6,7 +6,7 @@
 
 https://wekan.fi/install/
 
-## Docker Containers
+## Docker Containers.
 
 - [GitHub](https://github.com/wekan/wekan/pkgs/container/wekan)
 - [Quay](https://quay.io/repository/wekan/wekan)
