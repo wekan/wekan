@@ -11,11 +11,11 @@ class TestUserLogin(unittest.TestCase):
 
         payload = {
             "username": "RabeeaFaraj",
-            "password": "30fnhk03"
+            "password": "123456789"
         }
         payload2 = {
             "username": "rabeeaFaraj",
-            "password": "30fnhk03"
+            "password": "123456789"
         }
         if WEKAN_URL== "http://localhost/users/login":
             payload = payload2
