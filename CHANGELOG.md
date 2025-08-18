@@ -64,14 +64,16 @@ and adds the following updates:
   Thanks to Dependabot.
 - [Added info about Sandstorm Radicale Calendar and Contacts](https://github.com/wekan/wekan/commit/dfdd0b6cbbbb60bf6dba7a61f34dc52e74f98b41).
   Thanks to xet7.
-- [Updated MongoDB to 7.0.22 at Snap Candidate](https://github.com/wekan/wekan/commit/ecf31c367503335b7e668a2d83f2cb0f111cf927).
-  Thanks to MongoDB developers.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/97b5931a4f717541631dde55f2b834d037e1d82d).
   Thanks to developers of dependencies.
 - Reorganized Design Docs.
   [Part 1](https://github.com/wekan/wekan/commit/f34490fe2820352c8303f0bac47ad7158592e8f0),
   [Part 2](https://github.com/wekan/wekan/commit/a662283b7de91c0ef63195691e06b5cbc6cdff6c).
-  Thanks to xet7
+  Thanks to xet7.
+- [Added related link to design docs](https://github.com/wekan/wekan/commit/a662283b7de91c0ef63195691e06b5cbc6cdff6c).
+  Thanks to xet7.
+- [Upgraded to MongoDB 7.0.23 at Snap Candidate](https://github.com/wekan/wekan/commit/8e01e3c762748269c2e60f9f349dac30f30971d7).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
