@@ -12,4 +12,4 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
-sed -i 's|$1|$2|g' snapcraft.yaml
+sed -i 's|$1|$2|g' snapcraft.yaml docs/Platforms/Propietary/Windows/Offline.md
