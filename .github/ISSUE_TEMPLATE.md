@@ -1,6 +1,6 @@
 ## Issue
 
-UPGRADE OR MIGRATE: https://github.com/wekan/wekan/blob/main/docs/Upgrade/Upgrade.md
+UPGRADE: https://wekan.fi/upgrade/
 
 Pull requests welcome to fix any broken links at docs directory, and organizing docs/Features and their screenshots to subdirectories of each feature.
 
