@@ -21,6 +21,15 @@ Fixing other platforms In Progress.
 - Question: Broadcom to discontinue free Bitnami Helm charts. WeKan uses Bitnami MongoDB.
   What to do? Help and PRs welcome at https://github.com/wekan/charts/issues/43 . Thanks!
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated upgrade link at repo readme](https://github.com/wekan/wekan/commit/b3d3bf159376d56048361a385f0b295667e2319c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.94 2025-08-18 WeKan ® release
 
 This release adds the following new features:
