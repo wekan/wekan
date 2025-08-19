@@ -1,10 +1,34 @@
-# Try FerretDB instead
+# What was ToroDB
 
-https://github.com/wekan/wekan/wiki/PostgreSQL
-
+ToroDB was made with Java. It was about replacing MongoDB with ToroDB/PostgreSQL or ToroDB/MySQL.
 ToroDB is not developed anymore.
 
-ToroDB is compatible with MongoDB 3.0. WeKan 7.x is compatible with MongoDB 6.x.
+# Try FerretDB instead
+
+https://blog.ferretdb.io/building-project-management-stack-wekan-ferretdb/
+
+FerretDB https://www.ferretdb.com , https://github.com/FerretDB/FerretDB is made with Go.
+Why FerretDB is explained at https://docs.ferretdb.io/#why-do-we-need-ferretdb .
+It is about replacing MongoDB with FerretDB/PostgreSQL,
+using Microsoft DocumentDB https://github.com/microsoft/documentdb for  additional compatibility.
+
+There is old FerretDB/SQLite, community can maintain it, it's not developed currently by FerretDB:
+https://github.com/FerretDB/FerretDB/tree/main-v1 .
+
+C89 SQLite has problems with concurrency, corruption etc.
+
+It will help when updated SQLite made with Rust
+will have these issues fixed at https://github.com/tursodatabase/turso .
+Turso originally had fork of C89 SQLite C89 Open Contribution based fork of SQLite
+https://github.com/tursodatabase/libsql , where they added fixes, but they run into some limits,
+so they then moved the Turso Rust SQLite experiment to main tursodatabase GitHub org
+https://github.com/tursodatabase/turso like they say at https://www.youtube.com/watch?v=010OKqc3ObM .
+Turso is using simulator like https://tigerbeetle.com https://github.com/tigerbeetle/tigerbeetle
+to fix concurrency, corruption etc bugs.
+So when they get rewrite done, Rust based SQLite is drop-in replacement for C89 SQLite.
+It has same database syntax, etc. But it also works with high concurrent usage,
+does not corrupt data like C89 SQLite, that is verified with simulator.
+
 
 # Docker: Wekan to PostgreSQL read-only mirroring
 
