@@ -1,4 +1,4 @@
-<img src="https://wekan.fi/hosting/univention.svg" width="30%" alt="Univention logo" />
+<img src="univention.svg" width="30%" alt="Univention logo" />
 
 ## <a name="ProductionUnivention"></a>Production: [Univention](https://www.univention.com/products/univention-app-center/app-catalog/wekan/) platform, many apps and WeKan ®
 
