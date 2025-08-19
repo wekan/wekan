@@ -27,6 +27,8 @@ This release adds the following updates:
 
 - [Updated upgrade link at repo readme](https://github.com/wekan/wekan/commit/b3d3bf159376d56048361a385f0b295667e2319c).
   Thanks to xet7.
+- [Fixed image link at docs](https://github.com/wekan/wekan/commit/ad7e3774c2b29265a8fbefdde7b9b83822af6def).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
