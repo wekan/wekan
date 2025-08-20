@@ -134,3 +134,8 @@ with [Meteor](https://www.meteor.com).
 [translate_wekan]: https://app.transifex.com/wekan/wekan/
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
+
+### Windows: dev tips
+- Set `WRITABLE_PATH` to a writable folder (e.g. `C:\wekan-data`) to avoid attachments errors.
+- For LAN access on Windows: set env `BIND_IP=0.0.0.0` and `ROOT_URL=http://<YOUR-LAN-IP>:4000`, then run:
+  `meteor run --port 4000`
