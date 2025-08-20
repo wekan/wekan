@@ -1,3 +1,8 @@
+## About AVX
+
+If CPU does not have AVX, Snap Candidate Meteor 2 WeKan now uses qemu-user to run MongoDB, using Qemu AVX support.
+This was added at [WeKan v7.93](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#v793-2025-07-18-wekan--release).
+
 ## What is not Cross-Platform
 
 - Requires CPU to support AVX
@@ -99,9 +104,10 @@
 
 ## Screenshot
 
-Supporting many more webbrowsers:
+Supporting many more webbrowsers. This is now part of WeKan Wami: https://github.com/wekan/wami .
+Also mentioned at https://wekan.fi/upgrade/ .
 
-<img src="https://wekan.fi/manybrowser.png" width="100%" alt="Multiverse WeKan screenshot" />
+<img src="manybrowser.png" width="100%" alt="Multiverse WeKan screenshot" />
 
 ## Talks
 
