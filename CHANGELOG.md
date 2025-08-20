@@ -31,6 +31,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [More info about ToroDB, FerretDB, Turso, TigerBeetle, PostgreSQL, SQLite etc](https://github.com/wekan/wekan/commit/701485d76aded5ee4fa17967d94918132a821af6).
   Thanks to xet7.
+- [Added missing image to WeKan Multiverse page](https://github.com/wekan/wekan/commit/946f7045e92e26bbe8d182634844ee5eebf73564).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
