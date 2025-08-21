@@ -33,6 +33,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Added missing image to WeKan Multiverse page](https://github.com/wekan/wekan/commit/946f7045e92e26bbe8d182634844ee5eebf73564).
   Thanks to xet7.
+- [Added more info to Windows Offline docs about WRITABLE_PATH and ATTACHMENTS_STORE_PATH](https://github.com/wekan/wekan/pull/5872).
+  Thanks to sowwos.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
