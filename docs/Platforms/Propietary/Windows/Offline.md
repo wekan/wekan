@@ -465,3 +465,34 @@ sudo snap set wekan port='80'
 
 12. Then at local network Wekan is at:
 http://192.168.0.100
+
+#### Windows notes (tested on Windows 11)
+
+- **Attachments error fix**: if you get  
+  `TypeError: The "path" argument must be of type string. Received undefined`  
+  from `models/attachments.js`, create folders and set writable paths **before** start:
+  - Create: `C:\wekan-data` and `C:\wekan-data\attachments`
+  - PowerShell:
+    ```
+    $env:WRITABLE_PATH="C:\wekan-data"
+    $env:ATTACHMENTS_STORE_PATH="C:\wekan-data\attachments"
+    ```
+  - CMD:
+    ```
+    set WRITABLE_PATH=C:\wekan-data
+    set ATTACHMENTS_STORE_PATH=C:\wekan-data\attachments
+    ```
+
+- **LAN access in dev on Windows**:
+  - PowerShell:
+    ```
+    $env:BIND_IP="0.0.0.0"
+    $env:ROOT_URL="http://<YOUR-LAN-IP>:4000"
+    meteor run --port 4000
+    ```
+  - CMD:
+    ```
+    set BIND_IP=0.0.0.0
+    set ROOT_URL=http://<YOUR-LAN-IP>:4000
+    meteor run --port 4000
+    ```
