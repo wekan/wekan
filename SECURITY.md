@@ -1,11 +1,12 @@
 About money, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Security is very important to us. If you discover any issue regarding security, please disclose
-the information responsibly by sending an email to security@wekan.fi and not by
-creating a GitHub issue. We will respond swiftly to fix verifiable security issues.
+the information responsibly by sending an email from Protonmail to security@wekan.fi
+that is Protomail email address, or by using this PGP key
+[security-at-wekan.fi.asc](security-at-wekan.fi.asc) to security@wekan.fi
+and not by creating a GitHub issue. We will respond swiftly to fix verifiable security issues.
 
-We thank you with a place at our hall of fame page, that is
-at https://wekan.github.io/hall-of-fame
+We thank you with a place at our hall of fame page, that is at https://wekan.fi/hall-of-fame
 
 ## How should reports be formatted?
 
