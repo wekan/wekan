@@ -35,6 +35,8 @@ This release adds the following updates:
   Thanks to xet7.
 - [Added more info to Windows Offline docs about WRITABLE_PATH and ATTACHMENTS_STORE_PATH](https://github.com/wekan/wekan/pull/5872).
   Thanks to sowwos.
+- [Added PGP public key for sending encrypted email](https://github.com/wekan/wekan/commit/dd80b7308bb6c66113c8e6009c442a44a29e477a).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
