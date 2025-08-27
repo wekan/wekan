@@ -1,5 +1,3 @@
-[Gitpod Ready-to-Code](https://gitpod.io/#https://github.com/wekan/wekan)
-
 # WeKan ® - Open Source kanban
 
 ## Downloads
@@ -70,14 +68,11 @@ that by providing one-click installation on various platforms.
 - WeKan ® largest user has 30k users using WeKan ® in their company.
 - WeKan ® has been [translated](https://app.transifex.com/wekan/) to about 105 languages.
 - [Features][features]: WeKan ® has real-time user interface.
-- [Platforms][platforms]: WeKan ® supports many platforms.
+- [Platforms](https://wekan.fi/install/): WeKan ® supports many platforms.
   WeKan ® is critical part of new platforms Wekan is currently being integrated to.
 
 ## Requirements
 
-- 64bit: Linux [Snap](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Snap/Install.md) or [Sandstorm](https://sandstorm.io) /
-  [Mac](https://github.com/wekan/wekan/wiki/Mac) / [Windows](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Windows/Offline.md).
-  [More Platforms](https://github.com/wekan/wekan/tree/main/docs/Platforms), bundle for RasPi3 ARM and other CPUs where Node.js and MongoDB exists.
 - 1 GB RAM minimum free for WeKan ®. Production server should have minimum total 4 GB RAM.
   For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/main/docker-compose.yml): 3 frontend servers,
   each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
@@ -124,7 +119,6 @@ Please refer to the [developer documentation](https://github.com/wekan/wekan/blo
 WeKan ® is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
-[platforms]: https://github.com/wekan/wekan/tree/main/docs/Platforms
 [dev_docs]: https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md
 [screenshot_wekan]: https://wekan.fi/wekan-dark-mode.png
 [features]: https://github.com/wekan/wekan/wiki/Features
