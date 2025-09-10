@@ -341,11 +341,19 @@ BlazeComponent.extendComponent({
       timezone: 'local',
       weekNumbers: true,
       header: {
-        left: 'title   today prev,next',
+          left: 'title   today prev,next',
         center:
           'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,listMonth',
         right: '',
       },
+        buttonText: {
+          prev: TAPi18n.__('calendar-previous-month'),
+          next: TAPi18n.__('calendar-next-month'),
+        },
+        ariaLabel: {
+          prev: TAPi18n.__('calendar-previous-month'),
+          next: TAPi18n.__('calendar-next-month'),
+        },
       // height: 'parent', nope, doesn't work as the parent might be small
       height: 'auto',
       /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */

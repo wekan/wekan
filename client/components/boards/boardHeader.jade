@@ -17,7 +17,7 @@ template(name="boardHeaderBar")
                 i.fa.fa-pencil-square-o
 
           a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-            title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+            title="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}" aria-label="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}")
             i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
             if showStarCounter
               span
