@@ -76,6 +76,27 @@ BlazeComponent.extendComponent({
     }
   },
   onRendered() {
+    // Set the language attribute on the <html> element for accessibility
+    document.documentElement.lang = TAPi18n.getLanguage();
+
+    // Ensure the accessible name for the board view switcher matches the visible label "Swimlanes"
+    // Example: If the switcher has class .js-board-view-swimlanes
+    this.$('.js-board-view-swimlanes').attr('aria-label', 'Swimlanes');
+
+    // Add a highly visible focus indicator for interactive elements
+    if (!document.getElementById('wekan-accessible-focus-style')) {
+      const style = document.createElement('style');
+      style.id = 'wekan-accessible-focus-style';
+      style.innerHTML = `
+        button:focus, [role="button"]:focus, a:focus, input:focus, select:focus, textarea:focus, .dropdown-menu:focus, .js-board-view-swimlanes:focus {
+          outline: 3px solid #005fcc !important;
+          outline-offset: 2px !important;
+          background-color: #e6f0ff !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
     const boardComponent = this;
     const $swimlanesDom = boardComponent.$('.js-swimlanes');
 
@@ -328,6 +349,9 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onRendered() {
+    // Set the language attribute on the <html> element for accessibility
+    document.documentElement.lang = TAPi18n.getLanguage();
+
     this.autorun(function () {
       $('#calendar-view').fullCalendar('refetchEvents');
     });
@@ -484,6 +508,9 @@ BlazeComponent.extendComponent({
         document.body.appendChild(modalElement);
         const openModal = function() {
           modalElement.style.display = 'flex';
+          // Set focus to the input field for better keyboard accessibility
+          const input = modalElement.querySelector('#card-title-input');
+          if (input) input.focus();
         };
         const closeModal = function() {
           modalElement.style.display = 'none';
