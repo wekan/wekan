@@ -247,6 +247,7 @@ BlazeComponent.extendComponent({
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
+    /*
     const accessibilityPageEnabled = $('input[name=accessibilityPageEnabled]:checked').val() === 'true';
     const accessibilityTitle = $('#accessibility-title')
       .val()
@@ -254,6 +255,7 @@ BlazeComponent.extendComponent({
     const accessibilityContent = $('#accessibility-content')
       .val()
       .trim();
+    */
     const spinnerName = $('#spinnerName').val();
 
     try {
