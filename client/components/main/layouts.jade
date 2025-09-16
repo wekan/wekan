@@ -49,6 +49,16 @@ template(name="userFormsLayout")
       if isLoading
         +loader
       else
+        // ARIA live region for error messages
+        div#login-error-message(role="alert" aria-live="assertive" style="color: #d32f2f; margin-bottom: 1em;")
+        // Add autocomplete attribute to login input for WCAG compliance
+        script.
+          document.addEventListener('DOMContentLoaded', function() {
+            var loginInput = document.querySelector('input[type="text"], input[type="email"]');
+            if (loginInput && loginInput.name && (loginInput.name.toLowerCase().includes('user') || loginInput.name.toLowerCase().includes('email'))) {
+              loginInput.setAttribute('autocomplete', 'username email');
+            }
+          });
         +Template.dynamic(template=content)
         if currentSetting.displayAuthenticationMethod
           +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
@@ -60,7 +70,8 @@ template(name="userFormsLayout")
           if getLegalNoticeWithWritTraduction
             div
         div.at-form-lang
-          select.select-lang.js-userform-set-language
+          label(for="userform-set-language-select") {{_ 'choose_language'}}
+          select.select-lang.js-userform-set-language#userform-set-language-select(aria-label="{{_ 'choose_language'}}")
             each languages
               if isCurrentLanguage
                 option(value="{{tag}}" selected="selected") {{name}}

@@ -140,7 +140,12 @@ BlazeComponent.extendComponent({
     document.querySelectorAll('.js-toggle').forEach(function(el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'Toggle');
+      // Short, descriptive label for favorite/star toggle
+      if (el.classList.contains('js-favorite-toggle')) {
+        el.setAttribute('aria-label', TAPi18n.__('favorite-toggle-label'));
+      } else {
+        el.setAttribute('aria-label', 'Toggle');
+      }
     });
     document.querySelectorAll('.js-color-choice').forEach(function(el) {
       el.setAttribute('tabindex', '0');
@@ -615,12 +620,12 @@ BlazeComponent.extendComponent({
         right: '',
       },
         buttonText: {
-          prev: TAPi18n.__('calendar-previous-month'),
-          next: TAPi18n.__('calendar-next-month'),
+          prev: TAPi18n.__('calendar-previous-month-label'), // e.g. "Previous month"
+          next: TAPi18n.__('calendar-next-month-label'), // e.g. "Next month"
         },
         ariaLabel: {
-          prev: TAPi18n.__('calendar-previous-month'),
-          next: TAPi18n.__('calendar-next-month'),
+          prev: TAPi18n.__('calendar-previous-month-label'),
+          next: TAPi18n.__('calendar-next-month-label'),
         },
       // height: 'parent', nope, doesn't work as the parent might be small
       height: 'auto',
