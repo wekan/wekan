@@ -1,6 +1,6 @@
 {
   "editor.tabSize": 2,
-  "editor.rulers": [80],
+  "editor.rulers": [],
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "files.exclude": {
