@@ -16,7 +16,7 @@ class TestBoard:
       response = requests.post(f"{base_url}/users/login", data=login_data)
       print(f"URL:{base_url}/users/login")
       print(f"🔑 Login response status: {response.status_code}, body: {response.text}")
-      print("response_JSON:", response.json())
+    #   print("response_JSON:", response.json())
       if response.status_code == 200:
             json_response = response.json()
             if 'token' in json_response:
