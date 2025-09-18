@@ -1,1 +1,1 @@
-snapcraft push $1
+snapcraft upload $1
