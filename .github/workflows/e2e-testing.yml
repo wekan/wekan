@@ -22,14 +22,16 @@ jobs:
           # Login to DockerHub
           echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-          TAG="${{ github.sha }}-$(date +%Y%m%d-%H%M%S)"
+          # Use short commit SHA (first 7 characters)
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          TAG="${SHORT_SHA}-$(date +%Y%m%d-%H%M%S)"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/wekan:$TAG .
 
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/wekan:$TAG
 
-          # Save the tag for later *steps* (if you need the tag value in another JOB, use artifacts, as seen in class)
+          # Save the tag for later steps
           echo "WEKAN_IMAGE_TAG=$TAG" >> $GITHUB_ENV
 
       - name: Copy docker-compose file to EC2
