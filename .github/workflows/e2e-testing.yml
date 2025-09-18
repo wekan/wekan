@@ -67,3 +67,39 @@ jobs:
 
             sudo docker compose pull
             sudo docker compose up -d
+
+  API-tests:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Add test user to MongoDB
+        run: |
+          docker exec wekan-db mongosh wekan --eval '
+            db.users.insertOne({
+              username: "omriza5",
+              password: "123456",
+              email: "omriza5@gmail.com",
+              isAdmin: false
+            })
+          '
+
+      - name: Run API tests
+        env:
+          BASE_URL: ${{ secrets.WEKAN_URL }} # Example: Pass API base URL as a secret
+        run: |
+          pytest --maxfail=5 --disable-warnings -v
+
