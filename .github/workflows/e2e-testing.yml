@@ -49,19 +49,19 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Stop and remove old containers
-            docker compose down || true
-            docker stop $(docker ps -aq) 2>/dev/null || true
-            docker rm $(docker ps -aq) 2>/dev/null || true
+            sudo docker compose down || true
+            sudo docker stop $(docker ps -aq) 2>/dev/null || true
+            sudo docker rm $(docker ps -aq) 2>/dev/null || true
 
             # Remove all images to free space
-            docker rmi $(docker images -q) 2>/dev/null || true
+            sudo docker rmi $(docker images -q) 2>/dev/null || true
 
             # Clean up dangling volumes and networks
-            docker volume prune -f || true
-            docker network prune -f || true
-            docker system prune -f || true
+            sudo docker volume prune -f || true
+            sudo docker network prune -f || true
+            sudo docker system prune -f || true
 
             echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-            docker compose pull
-            docker compose up -d
+            sudo docker compose pull
+            sudo docker compose up -d
