@@ -94,12 +94,18 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo docker exec wekan-db mongosh wekan --eval '
-              db.users.insertOne({
-                username: "omriza5",
-                password: "123456",
-                email: "omriza5@gmail.com",
-                isAdmin: false
-              })
+              db.users.updateOne(
+                { username: "omriza5" },
+                {
+                  $setOnInsert: {
+                    username: "omriza5",
+                    password: "123456",
+                    email: "omriza5@gmail.com",
+                    isAdmin: false
+                  }
+                },
+                { upsert: true }
+              )
             '
 
       - name: Run API tests
