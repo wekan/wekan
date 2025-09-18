@@ -86,20 +86,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Add test user to MongoDB
-        run: |
-          docker exec wekan-db mongosh wekan --eval '
-            db.users.insertOne({
-              username: "omriza5",
-              password: "123456",
-              email: "omriza5@gmail.com",
-              isAdmin: false
-            })
-          '
+      - name: Add test user to EC2 MongoDB
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker exec wekan-db mongosh wekan --eval '
+              db.users.insertOne({
+                username: "omriza5",
+                password: "123456",
+                email: "omriza5@gmail.com",
+                isAdmin: false
+              })
+            '
 
       - name: Run API tests
         env:
-          BASE_URL: ${{ secrets.WEKAN_URL }} # Example: Pass API base URL as a secret
+          BASE_URL: ${{ secrets.WEKAN_URL }}
         run: |
           pytest --maxfail=5 --disable-warnings -v
 
