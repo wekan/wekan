@@ -28,6 +28,11 @@ This release adds the following updates:
 - [Updated release script for new command of uploading snap package to Snap Store](https://github.com/wekan/wekan/commit/dec9b82da0d700aafd7e2b2063b5d5b07dd383c3).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Added missing mobile drag drop image to docs from wekan.github.io git history](https://github.com/wekan/wekan/commit/5151814e98599c22fff98dc7c42fbf634004ab20).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v7.95 2025-09-18 WeKan ® release
