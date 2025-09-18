@@ -37,6 +37,10 @@ This release adds the following updates:
   Thanks to sowwos.
 - [Added PGP public key for sending encrypted email](https://github.com/wekan/wekan/commit/dd80b7308bb6c66113c8e6009c442a44a29e477a).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/c4161c5ce69a35c76364b13bcc456905f6335162).
+  Thanks to developers of dependencies.
+- [Replace bitnami mongodb Helm chart by groundhog2k one](https://github.com/wekan/charts/pull/44).
+  Thanks to ariep.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
