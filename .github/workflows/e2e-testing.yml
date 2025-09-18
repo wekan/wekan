@@ -1,0 +1,67 @@
+name: Deploy testing environment to EC2
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      wekan_image_tag: ${{ steps.docker_image_build.outputs.tag }}
+
+    steps:
+      - name: Checkout repository(omriza5/wekan)
+        uses: actions/checkout@v4
+
+      - name: Build and push docker image
+        id: docker_image_build
+        run: |
+          # Login to DockerHub
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+          TAG="${{ github.sha }}-$(date +%Y%m%d-%H%M%S)"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/wekan:$TAG .
+
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/wekan:$TAG
+
+          # Save the tag for later *steps* (if you need the tag value in another JOB, use artifacts, as seen in class)
+          echo "WEKAN_IMAGE_TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Copy docker-compose file to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "/home/ubuntu/"
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Stop and remove old containers
+            docker compose down || true
+            docker stop $(docker ps -aq) 2>/dev/null || true
+            docker rm $(docker ps -aq) 2>/dev/null || true
+
+            # Remove all images to free space
+            docker rmi $(docker images -q) 2>/dev/null || true
+
+            # Clean up dangling volumes and networks
+            docker volume prune -f || true
+            docker network prune -f || true
+            docker system prune -f || true
+
+            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+            docker compose pull
+            docker compose up -d
