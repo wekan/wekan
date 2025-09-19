@@ -1,14 +1,14 @@
 # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
 #---------------------------------------------------------------------------------------------------------
 # ==== CREATING USERS AND LOGGING IN TO WEKAN ====
-# https://github.com/wekan/wekan/wiki/Adding-users
+# https://github.com/wekan/wekan/blob/main/docs/Login/Adding-users.md
 #---------------------------------------------------------------------------------------------------------
 # ==== FORGOT PASSWORD ====
-# https://github.com/wekan/wekan/wiki/Forgot-Password
+# https://github.com/wekan/wekan/blob/main/docs/Login/Forgot-Password.md
 #---------------------------------------------------------------------------------------------------------
 # ==== Upgrading Wekan to new version =====
 # NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
-#       see https://github.com/wekan/wekan/wiki/Backup
+#       see https://github.com/wekan/wekan/tree/main/docs/Backup
 # 1) Stop Wekan:
 #      docker compose stop
 # 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
@@ -46,7 +46,7 @@
 #     docker compose stop
 # ----------------------------------------------------------------------------------
 # ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
-# https://github.com/wekan/wekan/wiki/Backup
+# https://github.com/wekan/wekan/tree/main/docs/Backup
 # If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
 # 1) Going inside containers:
 #    a) Wekan app, does not contain data
@@ -183,7 +183,7 @@ services:
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.
       # Admin Panel has test button, but it's not used for settings.
-      #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+      #   see https://github.com/wekan/wekan/blob/main/docs/Email/Troubleshooting-Mail.md
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #       You can encode those characters for example at: https://www.urlencoder.org
@@ -228,7 +228,7 @@ services:
       #- APM_APP_SECRET=
       #---------------------------------------------------------------
       # ==== OPTIONAL: LOGS AND STATS ====
-      # https://github.com/wekan/wekan/wiki/Logs
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Logs.md
       #
       # Daily export of Wekan changes as JSON to Logstash and ElasticSearch / Kibana (ELK)
       # https://github.com/wekan/wekan-logstash
@@ -252,7 +252,7 @@ services:
       #---------------------------------------------------------------
       # ==== WEKAN API AND EXPORT BOARD ====
       # Wekan Export Board works when WITH_API=true.
-      # https://github.com/wekan/wekan/wiki/REST-API
+      # https://github.com/wekan/wekan/blob/main/docs/API/REST-API.md
       # https://github.com/wekan/wekan-gogs
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
@@ -361,7 +361,7 @@ services:
       #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
       # ==== METRICS ALLOWED IP ADDRESSES ====
-      # https://github.com/wekan/wekan/wiki/Metrics
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Metrics.md
       #- METRICS_ALLOWED_IP_ADDRESSES=192.168.0.100,192.168.0.200
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
@@ -372,14 +372,14 @@ services:
       #- DEBUG=true
       #---------------------------------------------
       # ==== AUTOLOGIN WITH OIDC/OAUTH2 ====
-      # https://github.com/wekan/wekan/wiki/autologin
+      # https://github.com/wekan/wekan/blob/main/docs/Login/autologin.md
       #- OIDC_REDIRECTION_ENABLED=true
       #-----------------------------------------------------------------
       # ==== OAUTH2 ORACLE on premise identity manager OIM ====
       #- ORACLE_OIM_ENABLED=true
       #-----------------------------------------------------------------
       # ==== OAUTH2 AZURE ====
-      # https://github.com/wekan/wekan/wiki/Azure
+      # https://github.com/wekan/wekan/blob/main/docs/Login/Azure/Azure.md
       # 1) Register the application with Azure. Make sure you capture
       #    the application ID as well as generate a secret key.
       # 2) Configure the environment variables. This differs slightly
@@ -437,7 +437,7 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
-      # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
+      # https://github.com/wekan/wekan/blob/main/docs/Login/Keycloak/Keycloak.md  <== MAPPING INFO, REQUIRED
       #- OAUTH2_ENABLED=true
       # OAuth2 login style: popup or redirect.
       #- OAUTH2_LOGIN_STYLE=redirect
@@ -454,10 +454,10 @@ services:
       #-----------------------------------------------------------------
       # ==== OAUTH2 DOORKEEPER ====
       # https://github.com/wekan/wekan/issues/1874
-      # https://github.com/wekan/wekan/wiki/OAuth2
+      # https://github.com/wekan/wekan/blob/main/docs/Login/OAuth2.md2
       # Enable the OAuth2 connection
       #- OAUTH2_ENABLED=true
-      # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
+      # OAuth2 docs: https://github.com/wekan/wekan/blob/main/docs/Login/OAuth2.md
       # OAuth2 login style: popup or redirect.
       #- OAUTH2_LOGIN_STYLE=redirect
       # OAuth2 Client ID.
@@ -486,8 +486,8 @@ services:
       #- OAUTH2_EMAIL_MAP=
       #-----------------------------------------------------------------
       # ==== LDAP: UNCOMMENT ALL TO ENABLE LDAP ====
-      # https://github.com/wekan/wekan/wiki/LDAP
-      # For Snap settings see https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
+      # https://github.com/wekan/wekan/blob/main/docs/Login/LDAP.md
+      # For Snap settings see https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/Snap/Supported-settings-keys.md
       # Most settings work both on Snap and Docker below.
       # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
       #
