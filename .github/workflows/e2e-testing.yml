@@ -101,23 +101,96 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create test user via Wekan API
+      - name: Create test user via Database
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.WEKAN_EC2_HOST_IP }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Wait for Wekan to be ready
-            sleep 10
+            # Wait for Wekan to be fully ready
+            echo "⏳ Waiting for Wekan to start..."
+            for i in {1..24}; do
+              if curl -s http://localhost > /dev/null 2>&1; then
+                echo "✅ Wekan is responding!"
+                break
+              fi
+              echo "Waiting... (attempt $i/24)"
+              sleep 5
+            done
 
-            # Create test user via registration API
-            curl -f -H "Content-Type: application/x-www-form-urlencoded" \
-                 -H 'Accept: */*' \
-                 -X POST \
-                 http://localhost/users/register \
-                 -d '{ "username": "omriza5", "password": "123456", "email": "omriza5@gmail.com" }' \
-                 || echo "User registration failed or user already exists"
+            # Create user directly in database with the exact structure from browser
+            echo "👤 Creating test user directly in database..."
+            sudo docker exec wekan-db mongosh wekan --eval '
+              // Remove existing user first
+              db.users.deleteMany({username: "omriza5"});
+
+              // Create user with exact structure from browser
+              const result = db.users.insertOne({
+                _id: "omriza5_" + new Date().getTime(),
+                createdAt: new Date(),
+                services: {
+                  password: {
+                    bcrypt: "$2b$10$v9266B4sMuTCOgPsnIPibuxKoUwELIqPvTn7GQqGvvVibAEsmphsm"
+                  },
+                  email: {
+                    verificationTokens: [
+                      {
+                        token: "token_" + Math.random().toString(36).substring(2),
+                        address: "omriza5@gmail.com",
+                        when: new Date()
+                      }
+                    ]
+                  }
+                },
+                username: "omriza5",
+                emails: [{ address: "omriza5@gmail.com", verified: false }],
+                isAdmin: true,
+                modifiedAt: new Date(),
+                profile: {
+                  boardView: "board-view-swimlanes",
+                  listSortBy: "-modifiedAt",
+                  templatesBoardId: "",
+                  cardTemplatesSwimlaneId: "",
+                  listTemplatesSwimlaneId: "",
+                  boardTemplatesSwimlaneId: "",
+                  listWidths: {},
+                  listConstraints: {},
+                  autoWidthBoards: {},
+                  swimlaneHeights: {},
+                  keyboardShortcuts: false,
+                  verticalScrollbars: true,
+                  showWeekOfYear: true
+                },
+                authenticationMethod: "password",
+                sessionData: {}
+              });
+
+              if (result.acknowledged) {
+                print("✅ User omriza5 created successfully");
+              } else {
+                print("❌ Failed to create user");
+              }
+            ' || echo "❌ Failed to execute MongoDB command"
+
+            # Verify user was created
+            echo "🔍 Verifying user creation..."
+            sudo docker exec wekan-db mongosh wekan --eval 'db.users.findOne({username: "omriza5"}, {username: 1, emails: 1, isAdmin: 1})' || echo "User verification failed"
+
+            # Verify login works
+            echo "🔑 Testing login..."
+            LOGIN_RESPONSE=$(curl -s -w "HTTPSTATUS:%{http_code}" \
+                                -H "Content-type:application/json" \
+                                -X POST http://localhost/users/login \
+                                -d '{"username":"omriza5","password":"123456"}')
+
+            LOGIN_CODE=$(echo $LOGIN_RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+            if [[ "$LOGIN_CODE" == "200" ]]; then
+              echo "✅ Login test successful"
+            else
+              echo "⚠️ Login test failed (Code: $LOGIN_CODE)"
+              echo "Response: $(echo $LOGIN_RESPONSE | sed -e 's/HTTPSTATUS:.*//g')"
+            fi
 
       - name: Run API tests
         env:

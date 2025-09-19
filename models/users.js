@@ -1822,7 +1822,8 @@ if (Meteor.isServer) {
       return user;
     }
 
-    const disableRegistration = false;
+    const disableRegistration =
+      ReactiveCache.getCurrentSetting().disableRegistration;
     // If this is the first Authentication by the ldap and self registration disabled
     if (disableRegistration && options && options.ldap) {
       user.authenticationMethod = 'ldap';
