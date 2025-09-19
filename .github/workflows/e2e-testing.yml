@@ -112,7 +112,7 @@ jobs:
             echo "⏳ Waiting for Wekan to start..."
             for i in {1..24}; do
               if curl -s http://localhost > /dev/null 2>&1; then
-                echo "✅ Wekan is responding!"
+                echo "Wekan is responding!"
                 break
               fi
               echo "Waiting... (attempt $i/24)"
@@ -120,7 +120,7 @@ jobs:
             done
 
             # Create user directly in database with the exact structure from browser
-            echo "👤 Creating test user directly in database..."
+            echo "Creating test user directly in database..."
             sudo docker exec wekan-db mongosh wekan --eval '
               // Remove existing user first
               db.users.deleteMany({username: "omriza5"});
@@ -167,11 +167,11 @@ jobs:
               });
 
               if (result.acknowledged) {
-                print("✅ User omriza5 created successfully");
+                print("User omriza5 created successfully");
               } else {
-                print("❌ Failed to create user");
+                print("Failed to create user");
               }
-            ' || echo "❌ Failed to execute MongoDB command"
+            ' || echo "Failed to execute MongoDB command"
 
             # Verify user was created
             echo "🔍 Verifying user creation..."
@@ -186,9 +186,9 @@ jobs:
 
             LOGIN_CODE=$(echo $LOGIN_RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
             if [[ "$LOGIN_CODE" == "200" ]]; then
-              echo "✅ Login test successful"
+              echo "Login test successful"
             else
-              echo "⚠️ Login test failed (Code: $LOGIN_CODE)"
+              echo "Login test failed (Code: $LOGIN_CODE)"
               echo "Response: $(echo $LOGIN_RESPONSE | sed -e 's/HTTPSTATUS:.*//g')"
             fi
 

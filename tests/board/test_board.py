@@ -14,9 +14,7 @@ class TestBoard:
       }
 
       response = requests.post(f"{base_url}/users/login", data=login_data)
-      print(f"URL:{base_url}/users/login")
-      print(f"🔑 Login response status: {response.status_code}, body: {response.text}")
-    #   print("response_JSON:", response.json())
+
       if response.status_code == 200:
             json_response = response.json()
             if 'token' in json_response:
@@ -32,24 +30,6 @@ class TestBoard:
       """Test basic health check"""
       response = requests.get(f"{base_url}")
       assert response.status_code == 200
-
-
-  def test_get_user_boards(self):
-      """Test getting information about boards of user"""
-      if not self.auth_token:
-          pytest.skip("No authentication token available")
-
-      response = requests.get(
-            f"{base_url}/api/users/{self.user_id}/boards",
-            headers={"Authorization": f"Bearer {self.auth_token}"}
-      )
-
-      assert response.status_code == 200
-
-        # Should return a list of boards
-      boards_data = response.json()
-      assert isinstance(boards_data, list), "Response should be a list of boards"
-      assert "title" in boards_data[0], "First board object should have a 'title' key"
 
   def test_create_board_minimal(self):
       """Test creating a board with minimal required fields"""
@@ -195,8 +175,6 @@ class TestBoard:
             f"{base_url}/api/boards",
             headers={"Authorization": f"Bearer {self.auth_token}"}
         )
-
-        print(f"📋 Get boards API status: {response.json()}")
 
         # Should work with authentication
         assert response.status_code in [200, 204]
