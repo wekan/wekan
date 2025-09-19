@@ -114,7 +114,7 @@ jobs:
             # Create test user via registration API (no admin token needed)
             curl -f -H "Content-type:application/json" \
                  -X POST \
-                 http://localhost/users/register \
+                 http://34.240.7.246/users/register \
                  -d '{ "username": "omriza5", "password": "123456", "email": "omriza5@gmail.com" }' \
                  || echo "User registration failed or user already exists"
 
