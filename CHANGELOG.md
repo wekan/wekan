@@ -32,6 +32,8 @@ and fixes the following bugs:
 
 - [Added missing mobile drag drop image to docs from wekan.github.io git history](https://github.com/wekan/wekan/commit/5151814e98599c22fff98dc7c42fbf634004ab20).
   Thanks to xet7.
+- [Fix links in docker-compose.yml to point to doc in repo](https://github.com/wekan/wekan/pull/5882).
+  Thanks to Skylark13.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
