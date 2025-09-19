@@ -99,27 +99,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Add test user to EC2 MongoDB
+      - name: Create test user via Wekan API
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.WEKAN_EC2_HOST_IP }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo docker exec wekan-db mongosh wekan --eval '
-              db.users.updateOne(
-                { username: "omriza5" },
-                {
-                  $setOnInsert: {
-                    username: "omriza5",
-                    password: "123456",
-                    email: "omriza5@gmail.com",
-                    isAdmin: false
-                  }
-                },
-                { upsert: true }
-              )
-            '
+            # Wait for Wekan to be ready
+            sleep 30
+
+            # Create test user via registration API (no admin token needed)
+            curl -f -H "Content-type:application/json" \
+                 -X POST \
+                 http://localhost/users/register \
+                 -d '{ "username": "omriza5", "password": "123456", "email": "omriza5@gmail.com" }' \
+                 || echo "User registration failed or user already exists"
 
       - name: Run API tests
         env:
