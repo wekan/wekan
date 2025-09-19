@@ -25,6 +25,7 @@ class TestLogin:
 
         assert response.status_code == 200
         json_response = response.json()
+        print("Response JSON:", json_response)
         assert 'token' in json_response
         assert isinstance(json_response['token'], str)
         assert len(json_response['token']) > 0
@@ -43,6 +44,7 @@ class TestLogin:
 
       assert response.status_code in [400, 401, 404]
       json_response = response.json()
+      print("Response JSON:", json_response)
       assert 'error' in json_response
       assert json_response['error'] == 'not-found'
       assert 'reason' in json_response
