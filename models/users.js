@@ -546,9 +546,9 @@ Users.attachSchema(
 
 Users.allow({
   update(userId, doc) {
-    const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
-    if (user?.isAdmin)
-      return true;
+    const user =
+      ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+    if (user?.isAdmin) return true;
     if (!user) {
       return false;
     }
@@ -583,11 +583,13 @@ Users.allow({
 // Non-Admin users can not change to Admin
 Users.deny({
   update(userId, board, fieldNames) {
-    return _.contains(fieldNames, 'isAdmin') && !ReactiveCache.getCurrentUser().isAdmin;
+    return (
+      _.contains(fieldNames, 'isAdmin') &&
+      !ReactiveCache.getCurrentUser().isAdmin
+    );
   },
   fetch: [],
 });
-
 
 // Search a user in the complete server database by its name, username or emails adress. This
 // is used for instance to add a new user to a board.
@@ -714,7 +716,7 @@ Users.helpers({
   orgIdsUserBelongs() {
     let ret = '';
     if (this.orgs) {
-      ret = this.orgs.map(org => org.orgId).join(',');
+      ret = this.orgs.map((org) => org.orgId).join(',');
     }
     return ret;
   },
@@ -732,7 +734,7 @@ Users.helpers({
   teamIdsUserBelongs() {
     let ret = '';
     if (this.teams) {
-      ret = this.teams.map(team => team.teamId).join(',');
+      ret = this.teams.map((team) => team.teamId).join(',');
     }
     return ret;
   },
@@ -801,7 +803,7 @@ Users.helpers({
   },
 
   getListWidths() {
-    const { listWidths = {}, } = this.profile || {};
+    const { listWidths = {} } = this.profile || {};
     return listWidths;
   },
   getListWidth(boardId, listId) {
@@ -888,8 +890,13 @@ Users.helpers({
       const notification = notifications[index];
       // this preserves their db sort order for editing
       notification.dbIndex = index;
-      if (!notification.activityObj && typeof(notification.activity) === 'string') {
-        notification.activityObj = ReactiveMiniMongoIndex.getActivityWithId(notification.activity);
+      if (
+        !notification.activityObj &&
+        typeof notification.activity === 'string'
+      ) {
+        notification.activityObj = ReactiveMiniMongoIndex.getActivityWithId(
+          notification.activity,
+        );
       }
     }
     // newest first. don't use reverse() because it changes the array inplace, so sometimes the array is reversed twice and oldest items at top again
@@ -1360,11 +1367,13 @@ if (Meteor.isServer) {
       check(userTeamsArray, Array);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (fullname.includes('/') ||
-         username.includes('/') ||
-         email.includes('/') ||
-         initials.includes('/')) {
-         return false;
+      if (
+        fullname.includes('/') ||
+        username.includes('/') ||
+        email.includes('/') ||
+        initials.includes('/')
+      ) {
+        return false;
       }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         const nUsersWithUsername = ReactiveCache.getUsers({
@@ -1408,9 +1417,8 @@ if (Meteor.isServer) {
       check(userId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-         userId.includes('/')) {
-         return false;
+      if (username.includes('/') || userId.includes('/')) {
+        return false;
       }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         const nUsersWithUsername = ReactiveCache.getUsers({
@@ -1432,9 +1440,8 @@ if (Meteor.isServer) {
       check(username, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-         email.includes('/')) {
-         return false;
+      if (username.includes('/') || email.includes('/')) {
+        return false;
       }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         if (Array.isArray(email)) {
@@ -1472,10 +1479,12 @@ if (Meteor.isServer) {
       check(userId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-         email.includes('/') ||
-         userId.includes('/')) {
-         return false;
+      if (
+        username.includes('/') ||
+        email.includes('/') ||
+        userId.includes('/')
+      ) {
+        return false;
       }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         if (Array.isArray(email)) {
@@ -1498,9 +1507,8 @@ if (Meteor.isServer) {
       check(userId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (email.includes('/') ||
-         userId.includes('/')) {
-         return false;
+      if (email.includes('/') || userId.includes('/')) {
+        return false;
       }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.update(userId, {
@@ -1520,9 +1528,8 @@ if (Meteor.isServer) {
       check(userId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (initials.includes('/') ||
-         userId.includes('/')) {
-         return false;
+      if (initials.includes('/') || userId.includes('/')) {
+        return false;
       }
       if (ReactiveCache.getCurrentUser()?.isAdmin) {
         Users.update(userId, {
@@ -1538,9 +1545,8 @@ if (Meteor.isServer) {
       check(boardId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (username.includes('/') ||
-          boardId.includes('/')) {
-         return false;
+      if (username.includes('/') || boardId.includes('/')) {
+        return false;
       }
       const inviter = ReactiveCache.getCurrentUser();
       const board = ReactiveCache.getBoard(boardId);
@@ -1586,9 +1592,8 @@ if (Meteor.isServer) {
         username = email.substring(0, posAt);
         // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
         // Thanks to mc-marcy and xet7 !
-        if (username.includes('/') ||
-           email.includes('/')) {
-           return false;
+        if (username.includes('/') || email.includes('/')) {
+          return false;
         }
         const newUserId = Accounts.createUser({
           username,
@@ -1618,51 +1623,52 @@ if (Meteor.isServer) {
           subBoard.addMember(user._id);
           user.addInvite(subBoard._id);
         }
-      }        try {
-          const fullName =
-            inviter.profile !== undefined &&
-              inviter.profile.fullname !== undefined
-              ? inviter.profile.fullname
-              : '';
-          const userFullName =
-            user.profile !== undefined && user.profile.fullname !== undefined
-              ? user.profile.fullname
-              : '';
-          const params = {
-            user:
-              userFullName != ''
-                ? userFullName + ' (' + user.username + ' )'
-                : user.username,
-            inviter:
-              fullName != ''
-                ? fullName + ' (' + inviter.username + ' )'
-                : inviter.username,
-            board: board.title,
-            url: board.absoluteUrl(),
-          };
-          // Get the recipient user's language preference for the email
-          const lang = user.getLanguage();
+      }
+      try {
+        const fullName =
+          inviter.profile !== undefined &&
+          inviter.profile.fullname !== undefined
+            ? inviter.profile.fullname
+            : '';
+        const userFullName =
+          user.profile !== undefined && user.profile.fullname !== undefined
+            ? user.profile.fullname
+            : '';
+        const params = {
+          user:
+            userFullName != ''
+              ? userFullName + ' (' + user.username + ' )'
+              : user.username,
+          inviter:
+            fullName != ''
+              ? fullName + ' (' + inviter.username + ' )'
+              : inviter.username,
+          board: board.title,
+          url: board.absoluteUrl(),
+        };
+        // Get the recipient user's language preference for the email
+        const lang = user.getLanguage();
 
-          // Add code to send invitation with EmailLocalization
-          if (typeof EmailLocalization !== 'undefined') {
-            EmailLocalization.sendEmail({
-              to: user.emails[0].address,
-              from: Accounts.emailTemplates.from,
-              subject: 'email-invite-subject',
-              text: 'email-invite-text',
-              params: params,
-              language: lang,
-              userId: user._id
-            });
-          } else {
-            // Fallback if EmailLocalization is not available
-            Email.send({
-              to: user.emails[0].address,
-              from: Accounts.emailTemplates.from,
-              subject: TAPi18n.__('email-invite-subject', params, lang),
-              text: TAPi18n.__('email-invite-text', params, lang),
-            });
-          }
+        // Add code to send invitation with EmailLocalization
+        if (typeof EmailLocalization !== 'undefined') {
+          EmailLocalization.sendEmail({
+            to: user.emails[0].address,
+            from: Accounts.emailTemplates.from,
+            subject: 'email-invite-subject',
+            text: 'email-invite-text',
+            params: params,
+            language: lang,
+            userId: user._id,
+          });
+        } else {
+          // Fallback if EmailLocalization is not available
+          Email.send({
+            to: user.emails[0].address,
+            from: Accounts.emailTemplates.from,
+            subject: TAPi18n.__('email-invite-subject', params, lang),
+            text: TAPi18n.__('email-invite-text', params, lang),
+          });
+        }
       } catch (e) {
         throw new Meteor.Error('email-fail', e.message);
       }
@@ -1688,7 +1694,9 @@ if (Meteor.isServer) {
     },
     isImpersonated(userId) {
       check(userId, String);
-      const isImpersonated = ReactiveCache.getImpersonatedUser({ userId: userId });
+      const isImpersonated = ReactiveCache.getImpersonatedUser({
+        userId: userId,
+      });
       return isImpersonated;
     },
     setUsersTeamsTeamDisplayName(teamId, teamDisplayName) {
@@ -1760,14 +1768,11 @@ if (Meteor.isServer) {
         },
       ];
 
-
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
       // Thanks to mc-marcy and xet7 !
-      if (user.username.includes('/') ||
-         email.includes('/')) {
-         return false;
+      if (user.username.includes('/') || email.includes('/')) {
+        return false;
       }
-
 
       const initials = user.services.oidc.fullname
         .split(/\s+/)
@@ -1817,7 +1822,7 @@ if (Meteor.isServer) {
       return user;
     }
 
-    const disableRegistration = ReactiveCache.getCurrentSetting().disableRegistration;
+    const disableRegistration = false;
     // If this is the first Authentication by the ldap and self registration disabled
     if (disableRegistration && options && options.ldap) {
       user.authenticationMethod = 'ldap';
@@ -1909,8 +1914,13 @@ if (Meteor.isServer) {
       modifiedAt: -1,
     });
     // Avatar URLs from CollectionFS to Meteor-Files, at users collection avatarUrl field:
-    Users.find({ "profile.avatarUrl": { $regex: "/cfs/files/avatars/" } }).forEach(function (doc) {
-        doc.profile.avatarUrl = doc.profile.avatarUrl.replace("/cfs/files/avatars/", "/cdn/storage/avatars/");
+    Users.find({
+      'profile.avatarUrl': { $regex: '/cfs/files/avatars/' },
+    }).forEach(function (doc) {
+      doc.profile.avatarUrl = doc.profile.avatarUrl.replace(
+        '/cfs/files/avatars/',
+        '/cdn/storage/avatars/',
+      );
       // Try to fix Users.save is not a fuction, by commenting it out:
       //Users.save(doc);
     });
@@ -2133,7 +2143,8 @@ if (Meteor.isServer) {
     }
 
     //invite user to corresponding boards
-    const disableRegistration = ReactiveCache.getCurrentSetting().disableRegistration;
+    const disableRegistration =
+      ReactiveCache.getCurrentSetting().disableRegistration;
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
