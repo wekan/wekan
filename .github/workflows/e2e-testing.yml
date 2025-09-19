@@ -63,18 +63,20 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Stop and remove old containers
-            sudo docker compose down || true
+            # Stop and remove containers with volumes
+            sudo docker compose down -v || true
+
+            # Clean up everything including named volumes
+            sudo docker volume rm $(sudo docker volume ls -q) 2>/dev/null || true
+
             sudo docker stop $(docker ps -aq) 2>/dev/null || true
             sudo docker rm $(docker ps -aq) 2>/dev/null || true
 
             # Remove all images to free space
             sudo docker rmi $(docker images -q) 2>/dev/null || true
 
-            # Clean up dangling volumes and networks
-            sudo docker volume prune -f || true
+            # Clean up networks (volumes already removed above)
             sudo docker network prune -f || true
-            sudo docker system prune -f || true
 
             echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
