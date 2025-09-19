@@ -33,6 +33,8 @@ services:
       - BIGEVENTS_PATTERN=NONE
       - BROWSER_POLICY_ENABLED=true
       - LDAP_BACKGROUND_SYNC_INTERVAL=''
+      - ACCOUNTS_LOCKOUT_UNKNOWN_USERS=false
+      - ACCOUNTS_REGISTRATION_VERIFY_EMAIL=false
     depends_on:
       - wekandb
     volumes:
