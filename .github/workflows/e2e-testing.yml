@@ -101,6 +101,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Generate bcrypt hash and create user
+        run: |
+          # Generate bcrypt hash for "123456" using Python
+          BCRYPT_HASH=$(python3 -c "
+          import bcrypt
+          password = '123456'.encode('utf-8')
+          hash = bcrypt.hashpw(password, bcrypt.gensalt(rounds=10))
+          print(hash.decode('utf-8'))
+          ")
+          echo "Generated hash: ${BCRYPT_HASH:0:20}..."
+          echo "BCRYPT_HASH=$BCRYPT_HASH" >> $GITHUB_ENV
+
       - name: Create test user via Database
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -116,59 +128,51 @@ jobs:
             echo "🔍 Checking container status..."
             sudo docker ps
 
-            # Create test user directly in MongoDB with proper Wekan structure
+            # Create test user with generated hash
             echo "👤 Creating test user: omriza5"
             sudo docker exec wekan-db mongosh wekan --eval '
               // Remove user if exists (for clean testing)
               db.users.deleteMany({username: "omriza5"});
 
-              // Check if user already exists
-              const existingUser = db.users.findOne({username: "omriza5"});
-              if (existingUser) {
-                print("User omriza5 already exists");
+              const userId = "omriza5_" + new Date().getTime();
+              const now = new Date();
+
+              // Use the generated bcrypt hash
+              const result = db.users.insertOne({
+                _id: userId,
+                username: "omriza5",
+                emails: [{ address: "omriza5@gmail.com", verified: false }],
+                services: {
+                  password: {
+                    bcrypt: "${{ env.BCRYPT_HASH }}"
+                  }
+                },
+                profile: {
+                  boardView: "board-view-swimlanes",
+                  listSortBy: "-modifiedAt",
+                  templatesBoardId: "",
+                  cardTemplatesSwimlaneId: "",
+                  listTemplatesSwimlaneId: "",
+                  boardTemplatesSwimlaneId: "",
+                  listWidths: {},
+                  listConstraints: {},
+                  autoWidthBoards: {},
+                  swimlaneHeights: {},
+                  keyboardShortcuts: false,
+                  verticalScrollbars: true,
+                  showWeekOfYear: true
+                },
+                isAdmin: false,
+                authenticationMethod: "password",
+                sessionData: {},
+                createdAt: now,
+                modifiedAt: now
+              });
+
+              if (result.acknowledged) {
+                print("✅ User omriza5 created successfully with ID: " + userId);
               } else {
-                // Generate bcrypt hash for password "123456"
-                const userId = "omriza5_" + new Date().getTime();
-                const now = new Date();
-
-                // Create properly structured user (matches Wekan registration format)
-                const result = db.users.insertOne({
-                  _id: userId,
-                  username: "omriza5",
-                  emails: [{ address: "omriza5@gmail.com", verified: false }],
-                  services: {
-                    password: {
-                      // Correct bcrypt hash for "123456"
-                      bcrypt: "$2b$10$0iGKuuJkS8V5VdI.ynE/QOm7hCUhPZNUlk8PZGmQQg5nE0Aj5gOGm"
-                    }
-                  },
-                  profile: {
-                    boardView: "board-view-swimlanes",
-                    listSortBy: "-modifiedAt",
-                    templatesBoardId: "",
-                    cardTemplatesSwimlaneId: "",
-                    listTemplatesSwimlaneId: "",
-                    boardTemplatesSwimlaneId: "",
-                    listWidths: {},
-                    listConstraints: {},
-                    autoWidthBoards: {},
-                    swimlaneHeights: {},
-                    keyboardShortcuts: false,
-                    verticalScrollbars: true,
-                    showWeekOfYear: true
-                  },
-                  isAdmin: false,
-                  authenticationMethod: "password",
-                  sessionData: {},
-                  createdAt: now,
-                  modifiedAt: now
-                });
-
-                if (result.acknowledged) {
-                  print("✅ User omriza5 created successfully with ID: " + userId);
-                } else {
-                  print("❌ Failed to create user");
-                }
+                print("❌ Failed to create user");
               }
             ' || echo "❌ Failed to execute MongoDB command"
 
