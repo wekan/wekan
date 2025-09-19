@@ -109,12 +109,12 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Wait for Wekan to be ready
-            sleep 30
+            sleep 10
 
             # Create test user via registration API (no admin token needed)
-            curl -f -H "Content-type:application/json" \
+            curl -f -H "Content-Type: application/x-www-form-urlencoded" \
                  -X POST \
-                 http://34.240.7.246/users/register \
+                 http://localhost/users/register \
                  -d '{ "username": "omriza5", "password": "123456", "email": "omriza5@gmail.com" }' \
                  || echo "User registration failed or user already exists"
 
