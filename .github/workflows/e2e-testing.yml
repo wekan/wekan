@@ -109,7 +109,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Wait for Wekan to be fully ready
-            echo "⏳ Waiting for Wekan to start..."
+            echo "Waiting for Wekan to start..."
             for i in {1..24}; do
               if curl -s http://localhost > /dev/null 2>&1; then
                 echo "Wekan is responding!"
@@ -174,11 +174,11 @@ jobs:
             ' || echo "Failed to execute MongoDB command"
 
             # Verify user was created
-            echo "🔍 Verifying user creation..."
+            echo "Verifying user creation..."
             sudo docker exec wekan-db mongosh wekan --eval 'db.users.findOne({username: "omriza5"}, {username: 1, emails: 1, isAdmin: 1})' || echo "User verification failed"
 
             # Verify login works
-            echo "🔑 Testing login..."
+            echo "Testing login..."
             LOGIN_RESPONSE=$(curl -s -w "HTTPSTATUS:%{http_code}" \
                                 -H "Content-type:application/json" \
                                 -X POST http://localhost/users/login \
