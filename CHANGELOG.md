@@ -16,10 +16,7 @@ Fixing other platforms In Progress.
 - Node.js 14.x at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4 and https://nodejs.org/dist/latest-v14.x/
 - MongoDB 6.x and 7.x, or FerretDB/PostgreSQL https://blog.ferretdb.io/building-project-management-stack-wekan-ferretdb/
 
-[How to upgrade WeKan](https://github.com/wekan/wekan/issues/4585)
-
-- Question: Broadcom to discontinue free Bitnami Helm charts. WeKan uses Bitnami MongoDB.
-  What to do? Help and PRs welcome at https://github.com/wekan/charts/issues/43 . Thanks!
+[Upgrade WeKan](https://wekan.fi/upgrade/)
 
 # Upcoming WeKan ® release
 
@@ -27,6 +24,8 @@ This release adds the following updates:
 
 - [Updated release script for new command of uploading snap package to Snap Store](https://github.com/wekan/wekan/commit/dec9b82da0d700aafd7e2b2063b5d5b07dd383c3).
   Thanks to xet7.
+- [Updated to MongoDB 7.0.24 at Snap Candidate](https://github.com/wekan/wekan/commit/3253dd501067c617aec272efec1c4c2bb9861983).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
