@@ -35,6 +35,7 @@ services:
       - LDAP_BACKGROUND_SYNC_INTERVAL=''
       - ACCOUNTS_LOCKOUT_UNKNOWN_USERS=false
       - ACCOUNTS_REGISTRATION_VERIFY_EMAIL=false
+      - DISABLE_REGISTRATION=false
     depends_on:
       - wekandb
     volumes:
