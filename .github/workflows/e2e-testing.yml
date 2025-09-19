@@ -78,7 +78,7 @@ jobs:
             # Clean up networks (volumes already removed above)
             sudo docker network prune -f || true
 
-            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
             sudo docker compose pull
             sudo docker compose up -d
@@ -100,6 +100,56 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      # NEW STEP: Create test user
+      - name: Create test user
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Wait for Wekan to be fully ready
+            echo "⏳ Waiting for Wekan to start..."
+            for i in {1..24}; do
+              if curl -s http://localhost > /dev/null 2>&1; then
+                echo "✅ Wekan is responding!"
+                break
+              fi
+              echo "Waiting... (attempt $i/24)"
+              sleep 5
+            done
+
+            # Enable registration in database
+            echo "🔧 Enabling user registration..."
+            sudo docker exec wekan-db mongosh wekan --eval 'db.settings.update({}, {$set: {"disableRegistration": false}}, {upsert: true})' || echo "Failed to enable registration"
+
+            # Wait for setting to take effect
+            sleep 5
+
+            # Create user via API
+            echo "👤 Creating test user..."
+            RESPONSE=$(curl -s -w "HTTPSTATUS:%{http_code}" \
+                           -X POST http://localhost/users/register \
+                           -H 'Content-Type: application/x-www-form-urlencoded' \
+                           -H 'Accept: */*' \
+                           -d 'username=omriza5&password=123456&email=omriza5@gmail.com')
+
+            # Parse response
+            HTTP_CODE=$(echo $RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+            BODY=$(echo $RESPONSE | sed -e 's/HTTPSTATUS:.*//g')
+
+            # Check result
+            if [[ "$HTTP_CODE" == "200" || "$HTTP_CODE" == "201" ]]; then
+              echo "✅ Test user created successfully"
+            else
+              echo "❌ User creation failed. HTTP Code: $HTTP_CODE"
+              echo "Response: $BODY"
+
+              # Fallback: Check if user exists in database
+              echo "🔍 Checking if user exists in database..."
+              sudo docker exec wekan-db mongosh wekan --eval 'db.users.findOne({username: "omriza5"})' && echo "User found in database" || echo "User not found"
+            fi
 
       - name: Run API tests
         env:
