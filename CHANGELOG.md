@@ -10,6 +10,7 @@ Newest WeKan at these platforms:
   - Snap Candidate amd64
   - Docker amd64
   - Kubernetes Docker amd64
+    - Bitnami MongoDB Docker images do not exist anymore. [MongoDump/MongoRestore to groundhog2k MongoDB images](https://github.com/wekan/charts/issues/45)
 
 Fixing other platforms In Progress.
 
