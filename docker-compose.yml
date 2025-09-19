@@ -14,7 +14,7 @@ services:
       - wekan-db-dump:/dump
 
   wekan:
-    image: ghcr.io/wekan/wekan:latest
+    image: ${WEKAN_IMAGE}
     container_name: wekan-app
     restart: always
     networks:

@@ -34,6 +34,19 @@ jobs:
           # Save the tag for later steps
           echo "WEKAN_IMAGE_TAG=$TAG" >> $GITHUB_ENV
 
+      - name: Create .env file
+        run: |
+          echo "WEKAN_IMAGE=omriza5/wekan:${WEKAN_IMAGE_TAG}" >> .env
+
+      - name: Copy .env file to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: ".env"
+          target: "/home/ubuntu/"
+
       - name: Copy docker-compose file to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
