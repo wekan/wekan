@@ -69,11 +69,11 @@ jobs:
             # Clean up everything including named volumes
             sudo docker volume rm $(sudo docker volume ls -q) 2>/dev/null || true
 
-            sudo docker stop $(docker ps -aq) 2>/dev/null || true
-            sudo docker rm $(docker ps -aq) 2>/dev/null || true
+            sudo docker stop $(sudo docker ps -aq) 2>/dev/null || true
+            sudo docker rm $(sudo docker ps -aq) 2>/dev/null || true
 
             # Remove all images to free space
-            sudo docker rmi $(docker images -q) 2>/dev/null || true
+            sudo docker rmi $(sudo docker images -q) 2>/dev/null || true
 
             # Clean up networks (volumes already removed above)
             sudo docker network prune -f || true
