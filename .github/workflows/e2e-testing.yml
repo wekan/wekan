@@ -78,7 +78,7 @@ jobs:
             # Clean up networks (volumes already removed above)
             sudo docker network prune -f || true
 
-            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
             sudo docker compose pull
             sudo docker compose up -d
@@ -101,20 +101,82 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create test user via Wekan API
+      - name: Create test user via Database
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.WEKAN_EC2_HOST_IP }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Wait for Wekan to be ready
-            sleep 10
+            # Wait for containers to be ready
+            echo "⏳ Waiting for Wekan containers to start..."
+            sleep 30
 
-            # Create test user via registration API
-            curl -H "Content-Type: application/x-www-form-urlencoded" \
-            -X POST http://localhost/users/register \
-            -d "username=omriza5&password=123456&email=omriza5@gmail.com"
+            # Check if containers are running
+            echo "🔍 Checking container status..."
+            sudo docker ps
+
+            # Create test user directly in MongoDB with proper Wekan structure
+            echo "👤 Creating test user: omriza5"
+            sudo docker exec wekan-db mongosh wekan --eval '
+              // Remove user if exists (for clean testing)
+              db.users.deleteMany({username: "omriza5"});
+
+              // Check if user already exists
+              const existingUser = db.users.findOne({username: "omriza5"});
+              if (existingUser) {
+                print("User omriza5 already exists");
+              } else {
+                // Generate bcrypt hash for password "123456"
+                const userId = "omriza5_" + new Date().getTime();
+                const now = new Date();
+
+                // Create properly structured user (matches Wekan registration format)
+                const result = db.users.insertOne({
+                  _id: userId,
+                  username: "omriza5",
+                  emails: [{ address: "omriza5@gmail.com", verified: false }],
+                  services: {
+                    password: {
+                      // Bcrypt hash for "123456"
+                      bcrypt: "$2b$10$5O.3Z4H5M1LrqKKvI6mK9..ZIBGNe8jq7tGZRFf4VsY2QJzO8a0OK"
+                    }
+                  },
+                  profile: {
+                    boardView: "board-view-swimlanes",
+                    listSortBy: "-modifiedAt",
+                    templatesBoardId: "",
+                    cardTemplatesSwimlaneId: "",
+                    listTemplatesSwimlaneId: "",
+                    boardTemplatesSwimlaneId: "",
+                    listWidths: {},
+                    listConstraints: {},
+                    autoWidthBoards: {},
+                    swimlaneHeights: {},
+                    keyboardShortcuts: false,
+                    verticalScrollbars: true,
+                    showWeekOfYear: true
+                  },
+                  isAdmin: false,
+                  authenticationMethod: "password",
+                  sessionData: {},
+                  createdAt: now,
+                  modifiedAt: now
+                });
+
+                if (result.acknowledged) {
+                  print("✅ User omriza5 created successfully with ID: " + userId);
+                } else {
+                  print("❌ Failed to create user");
+                }
+              }
+            ' || echo "❌ Failed to execute MongoDB command"
+
+            # Verify user was created
+            echo "🔍 Verifying user creation..."
+            sudo docker exec wekan-db mongosh wekan --eval 'db.users.findOne({username: "omriza5"}, {username: 1, emails: 1, isAdmin: 1, _id: 1})' || echo "❌ Failed to verify user"
+
+            echo "✅ Test user setup complete!"
 
       - name: Run API tests
         env:
