@@ -58,3 +58,4 @@ pip-delete-this-directory.txt
 .coverage
 htmlcov/
 *.pem
+*.env
