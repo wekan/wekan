@@ -13,4 +13,6 @@ if (( $# != 1 )); then
     exit 0
 fi
 
-find . | grep -v node_modules | grep -v .build | grep -v .meteor | grep -v .git | xargs grep --no-messages $1 | less
+#find . | grep -v node_modules | grep -v .build | grep -v .meteor | grep -v .git | xargs grep --no-messages $1 | less
+#find . -print0 | grep -v node_modules | grep -v .build | grep -v .meteor | grep -v .git | xargs -0 grep --no-messages $1 | less
+find . | grep -v node_modules | grep -v .build | grep -v .meteor | grep -v .git | xargs grep -I --no-messages $1 | less
