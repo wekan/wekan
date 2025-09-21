@@ -34,6 +34,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix links in docker-compose.yml to point to doc in repo](https://github.com/wekan/wekan/pull/5882).
   Thanks to Skylark13.
+- [Fixed find.sh script errors about unmatched single quotes and binary files that are now ignored](https://github.com/wekan/wekan/commit/730bb6d166baa5530cc75b4c94ae46c8077884b0).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
