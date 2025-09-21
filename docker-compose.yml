@@ -8,13 +8,15 @@ services:
       - wekan-tier
     expose:
       - 27017
+    ports:
+      - 27017:27017
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-db:/data/db
       - wekan-db-dump:/dump
 
   wekan:
-    image: ghcr.io/wekan/wekan:latest
+    image: ${WEKAN_IMAGE}
     container_name: wekan-app
     restart: always
     networks:
@@ -33,6 +35,9 @@ services:
       - BIGEVENTS_PATTERN=NONE
       - BROWSER_POLICY_ENABLED=true
       - LDAP_BACKGROUND_SYNC_INTERVAL=''
+      - ACCOUNTS_LOCKOUT_UNKNOWN_USERS=false
+      - ACCOUNTS_REGISTRATION_VERIFY_EMAIL=false
+      - DISABLE_REGISTRATION=false
     depends_on:
       - wekandb
     volumes:

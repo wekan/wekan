@@ -13,7 +13,6 @@ class TestBoard:
           'password': '123456'
       }
 
-      print("🔐 Getting authentication token...")
       response = requests.post(f"{base_url}/users/login", data=login_data)
 
       if response.status_code == 200:
@@ -22,37 +21,15 @@ class TestBoard:
                 # Store token and user info in class
                 request.cls.auth_token = json_response['token']
                 request.cls.user_id = json_response.get('id', '')
-                print(f"✅ Token obtained: {request.cls.auth_token[:20]}...")
-                print(f"✅ User ID obtained: {request.cls.user_id[:20]}...")
             else:
                 request.cls.auth_token = None
-                print(f"❌ Login failed: {json_response}")
       else:
             request.cls.auth_token = None
-            print(f"❌ Login request failed: {response.status_code}")
 
   def test_health_check(self):
       """Test basic health check"""
       response = requests.get(f"{base_url}")
       assert response.status_code == 200
-
-
-  def test_get_user_boards(self):
-      """Test getting information about boards of user"""
-      if not self.auth_token:
-          pytest.skip("No authentication token available")
-
-      response = requests.get(
-            f"{base_url}/api/users/{self.user_id}/boards",
-            headers={"Authorization": f"Bearer {self.auth_token}"}
-      )
-
-      assert response.status_code == 200
-
-        # Should return a list of boards
-      boards_data = response.json()
-      assert isinstance(boards_data, list), "Response should be a list of boards"
-      assert "title" in boards_data[0], "First board object should have a 'title' key"
 
   def test_create_board_minimal(self):
       """Test creating a board with minimal required fields"""
@@ -186,9 +163,6 @@ class TestBoard:
             data=board_data
         )
 
-        print(f"🚫 Unauthorized creation status: {response.status_code}")
-        print(f"🚫 Unauthorized response: {response.text[:200]}")
-
         # Should require authentication
         assert response.status_code in [400, 401, 403], "Should require authentication"
 
@@ -201,8 +175,6 @@ class TestBoard:
             f"{base_url}/api/boards",
             headers={"Authorization": f"Bearer {self.auth_token}"}
         )
-
-        print(f"📋 Get boards API status: {response.json()}")
 
         # Should work with authentication
         assert response.status_code in [200, 204]

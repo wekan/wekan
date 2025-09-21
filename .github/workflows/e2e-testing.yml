@@ -1,0 +1,200 @@
+name: Deploy testing environment to EC2
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      wekan_image_tag: ${{ steps.docker_image_build.outputs.tag }}
+
+    steps:
+      - name: Checkout repository(omriza5/wekan)
+        uses: actions/checkout@v4
+
+      - name: Build and push docker image
+        id: docker_image_build
+        run: |
+          # Login to DockerHub
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+          # Use short commit SHA (first 7 characters)
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          TAG="${SHORT_SHA}-$(date +%Y%m%d-%H%M%S)"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/wekan:$TAG .
+
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/wekan:$TAG
+
+          # Save the tag for later steps
+          echo "WEKAN_IMAGE_TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Create .env file
+        run: |
+          echo "WEKAN_IMAGE=omriza5/wekan:${WEKAN_IMAGE_TAG}" >> .env
+
+      - name: Copy .env file to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: ".env"
+          target: "/home/ubuntu/"
+
+      - name: Copy docker-compose file to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "/home/ubuntu/"
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Stop and remove containers with volumes
+            sudo docker compose down -v || true
+
+            # Clean up everything including named volumes
+            sudo docker volume rm $(sudo docker volume ls -q) 2>/dev/null || true
+
+            sudo docker stop $(sudo docker ps -aq) 2>/dev/null || true
+            sudo docker rm $(sudo docker ps -aq) 2>/dev/null || true
+
+            # Remove all images to free space
+            sudo docker rmi $(sudo docker images -q) 2>/dev/null || true
+
+            # Clean up networks (volumes already removed above)
+            sudo docker network prune -f || true
+
+            echo "${{ secrets.DOCKERHUB_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+            sudo docker compose pull
+            sudo docker compose up -d
+
+  API-tests:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create test user via Database
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.WEKAN_EC2_HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Wait for Wekan to be fully ready
+            echo "Waiting for Wekan to start..."
+            for i in {1..24}; do
+              if curl -s http://localhost > /dev/null 2>&1; then
+                echo "Wekan is responding!"
+                break
+              fi
+              echo "Waiting... (attempt $i/24)"
+              sleep 5
+            done
+
+            # Create user directly in database with the exact structure from browser
+            echo "Creating test user directly in database..."
+            sudo docker exec wekan-db mongosh wekan --eval '
+              // Remove existing user first
+              db.users.deleteMany({username: "omriza5"});
+
+              // Create user with exact structure from browser
+              const result = db.users.insertOne({
+                _id: "omriza5_" + new Date().getTime(),
+                createdAt: new Date(),
+                services: {
+                  password: {
+                    bcrypt: "$2b$10$v9266B4sMuTCOgPsnIPibuxKoUwELIqPvTn7GQqGvvVibAEsmphsm"
+                  },
+                  email: {
+                    verificationTokens: [
+                      {
+                        token: "token_" + Math.random().toString(36).substring(2),
+                        address: "omriza5@gmail.com",
+                        when: new Date()
+                      }
+                    ]
+                  }
+                },
+                username: "omriza5",
+                emails: [{ address: "omriza5@gmail.com", verified: false }],
+                isAdmin: true,
+                modifiedAt: new Date(),
+                profile: {
+                  boardView: "board-view-swimlanes",
+                  listSortBy: "-modifiedAt",
+                  templatesBoardId: "",
+                  cardTemplatesSwimlaneId: "",
+                  listTemplatesSwimlaneId: "",
+                  boardTemplatesSwimlaneId: "",
+                  listWidths: {},
+                  listConstraints: {},
+                  autoWidthBoards: {},
+                  swimlaneHeights: {},
+                  keyboardShortcuts: false,
+                  verticalScrollbars: true,
+                  showWeekOfYear: true
+                },
+                authenticationMethod: "password",
+                sessionData: {}
+              });
+
+              if (result.acknowledged) {
+                print("User omriza5 created successfully");
+              } else {
+                print("Failed to create user");
+              }
+            ' || echo "Failed to execute MongoDB command"
+
+            # Verify user was created
+            echo "Verifying user creation..."
+            sudo docker exec wekan-db mongosh wekan --eval 'db.users.findOne({username: "omriza5"}, {username: 1, emails: 1, isAdmin: 1})' || echo "User verification failed"
+
+            # Verify login works
+            echo "Testing login..."
+            LOGIN_RESPONSE=$(curl -s -w "HTTPSTATUS:%{http_code}" \
+                                -H "Content-type:application/json" \
+                                -X POST http://localhost/users/login \
+                                -d '{"username":"omriza5","password":"123456"}')
+
+            LOGIN_CODE=$(echo $LOGIN_RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+            if [[ "$LOGIN_CODE" == "200" ]]; then
+              echo "Login test successful"
+            else
+              echo "Login test failed (Code: $LOGIN_CODE)"
+              echo "Response: $(echo $LOGIN_RESPONSE | sed -e 's/HTTPSTATUS:.*//g')"
+            fi
+
+      - name: Run API tests
+        env:
+          BASE_URL: ${{ secrets.WEKAN_URL }}
+        run: |
+          pytest --maxfail=5 --disable-warnings -v
+
