@@ -262,3 +262,6 @@ jobs:
             SCREEN_WIDTH: ${{ matrix.resolution.width }}
             SCREEN_HEIGHT: ${{ matrix.resolution.height }}
             WEKAN_URL: ${{ secrets.WEKAN_URL }}
+
+          run: |
+            pytest tests/
