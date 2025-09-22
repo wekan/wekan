@@ -211,9 +211,9 @@ jobs:
           - { name: "mobile", width: 375, height: 667 }
       fail-fast: false # Continue other jobs even if one fails
 
-      name: Test ${{ matrix.browser }} - ${{ matrix.resolution.name }}
+    name: Test ${{ matrix.browser }} - ${{ matrix.resolution.name }}
 
-      steps:
+    steps:
         - name: Checkout code
           uses: actions/checkout@v4
           with:
