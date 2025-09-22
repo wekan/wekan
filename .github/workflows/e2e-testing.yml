@@ -281,7 +281,7 @@ jobs:
 
   allure-report:
     runs-on: ubuntu-latest
-    needs: selenium-matrix-tests
+    needs: Selenium-ui-test
     if: always()
 
     steps:
