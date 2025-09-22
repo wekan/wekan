@@ -198,3 +198,67 @@ jobs:
         run: |
           pytest --maxfail=5 --disable-warnings -v
 
+  Selenium-ui-test:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+        resolution:
+          - { name: "desktop", width: 1920, height: 1080 }
+          - { name: "tablet", width: 1024, height: 768 }
+          - { name: "mobile", width: 375, height: 667 }
+      fail-fast: false # Continue other jobs even if one fails
+
+      name: Test ${{ matrix.browser }} - ${{ matrix.resolution.name }}
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 1
+            respository: omriza5/wekan-selenium
+            token: ${{ secrets.UI_TESTING_GITHUB_TOKEN }}
+
+        - name: Set up Python 3.11
+          uses: actions/setup-python@v4
+          with:
+            python-version: "3.11"
+
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+        - name: Install Chrome and ChromeDriver
+          if: matrix.browser == 'chrome'
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y google-chrome-stable
+
+        - name: Install Firefox and GeckoDriver
+          if: matrix.browser == 'firefox'
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y wget tar
+            # Remove Snap Firefox if installed
+            sudo snap remove firefox || true
+            # Download official Firefox
+            wget -O firefox.tar.xz "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
+            tar xJf firefox.tar.xz
+            sudo mv firefox /opt/firefox
+            sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
+            # Install GeckoDriver
+            wget https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-v0.36.0-linux64.tar.gz
+            tar -xvzf geckodriver-v0.36.0-linux64.tar.gz
+            sudo mv geckodriver /usr/local/bin/
+            sudo chmod +x /usr/local/bin/geckodriver
+
+        - name: Run Selenium tests
+          env:
+            HEADLESS: true
+            BROWSER: ${{ matrix.browser }}
+            SCREEN_WIDTH: ${{ matrix.resolution.width }}
+            SCREEN_HEIGHT: ${{ matrix.resolution.height }}
+            WEKAN_URL: ${{ secrets.WEKAN_URL }}
