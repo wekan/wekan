@@ -254,6 +254,13 @@ jobs:
             sudo mv geckodriver /usr/local/bin/
             sudo chmod +x /usr/local/bin/geckodriver
 
+        - name: Debug environment variables
+          env:
+            WEKAN_URL: ${{ secrets.WEKAN_URL }}
+          run: |
+            echo "WEKAN_URL is set to: $WEKAN_URL"
+            echo "Length of WEKAN_URL: ${#WEKAN_URL}"
+
         - name: Run Selenium tests
           env:
             HEADLESS: true
@@ -273,9 +280,11 @@ jobs:
             os_release=$(lsb_release -r | awk '{print $2}')
             os_version=$(lsb_release -c | awk '{print $2}')
             python_version=$(python --version | awk '{print $2}')
-            Wekan.URL=http://${{ secrets.WEKAN_EC2_HOST_IP }}/
+            Wekan.URL=${{ secrets.WEKAN_URL }}
             Headless.Mode=true
             Wekan.Image=omriza5/wekan:${{ needs.deploy.outputs.wekan_image_tag }}
+            Browser=${{ matrix.browser }}
+            Resolution=${{ matrix.resolution.name }}
             EOF
             pytest --alluredir=allure-results tests/
 
