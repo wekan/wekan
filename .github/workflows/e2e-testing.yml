@@ -260,6 +260,8 @@ jobs:
           run: |
             echo "WEKAN_URL is set to: $WEKAN_URL"
             echo "Length of WEKAN_URL: ${#WEKAN_URL}"
+            curl -s -o /dev/null -w "%{http_code}" "$WEKAN_URL"
+            ping -c 2 "$(echo $WEKAN_URL | sed -E 's#^https?://([^/]+).*#\1#')"
 
         - name: Run Selenium tests
           env:
