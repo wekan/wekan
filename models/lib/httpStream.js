@@ -8,7 +8,8 @@ export const httpStreamOutput = function(readStream, name, http, downloadFlag, c
       http.response.end();
     });
 
-    readStream.on('error', () => {
+    readStream.on('error', (err) => {
+      console.error(`Download stream error for file '${name}':`, err);
       http.response.statusCode = 404;
       http.response.end('not found');
     });
