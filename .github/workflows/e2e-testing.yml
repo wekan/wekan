@@ -254,14 +254,27 @@ jobs:
             sudo mv geckodriver /usr/local/bin/
             sudo chmod +x /usr/local/bin/geckodriver
 
-        - name: Debug environment variables
+        - name: Wait for Wekan to be ready
           env:
             WEKAN_URL: ${{ secrets.WEKAN_URL }}
           run: |
-            echo "WEKAN_URL is set to: $WEKAN_URL"
-            echo "Length of WEKAN_URL: ${#WEKAN_URL}"
-            curl -s -o /dev/null -w "%{http_code}" "$WEKAN_URL"
-            ping -c 2 "$(echo $WEKAN_URL | sed -E 's#^https?://([^/]+).*#\1#')"
+            echo "Waiting for Wekan to be fully ready at $WEKAN_URL..."
+            for i in {1..30}; do
+              if curl -s -f "$WEKAN_URL" > /dev/null 2>&1; then
+                echo "Wekan is responding! (attempt $i)"
+                # Additional check to ensure it's fully loaded
+                sleep 5
+                if curl -s "$WEKAN_URL" | grep -q "Wekan"; then
+                  echo "Wekan is fully ready!"
+                  break
+                fi
+              fi
+              echo "Waiting for Wekan... (attempt $i/30)"
+              sleep 10
+            done
+
+            # Final verification
+            curl -I "$WEKAN_URL" || exit 1
 
         - name: Run Selenium tests
           env:
