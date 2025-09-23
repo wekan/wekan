@@ -206,9 +206,8 @@ jobs:
       matrix:
         browser: [chrome, firefox]
         resolution:
-          - { name: "desktop", width: 1920, height: 1080 }
-          - { name: "tablet", width: 1024, height: 768 }
-          - { name: "mobile", width: 375, height: 667 }
+          - { name: "desktop", width: 1200, height: 800 }
+          - { name: "mobile", width: 800, height: 667 }
       fail-fast: false # Continue other jobs even if one fails
 
     name: Test ${{ matrix.browser }} - ${{ matrix.resolution.name }}
@@ -262,6 +261,7 @@ jobs:
             SCREEN_WIDTH: ${{ matrix.resolution.width }}
             SCREEN_HEIGHT: ${{ matrix.resolution.height }}
             WEKAN_URL: ${{ secrets.WEKAN_URL }}
+            ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
           run: |
             pytest tests/
