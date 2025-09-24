@@ -324,17 +324,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: allure-results-*
-          path: allure-results-downloaded
-          merge-multiple: false
-
-      - name: Merge all results into single directory
-        run: |
-          mkdir -p allure-results
-          for dir in allure-results-downloaded/*/; do
-            if [ -d "$dir" ]; then
-              cp -r "$dir"* allure-results/ 2>/dev/null || true
-            fi
-          done
+          path: allure-results
+          merge-multiple: true
 
       - name: Generate and Deploy Allure Report
         uses: simple-elf/allure-report-action@master
