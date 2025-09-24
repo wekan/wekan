@@ -131,7 +131,7 @@ jobs:
                 createdAt: new Date(),
                 services: {
                   password: {
-                    bcrypt: "$2b$10$v9266B4sMuTCOgPsnIPibuxKoUwELIqPvTn7GQqGvvVibAEsmph"
+                    bcrypt: "$2b$10$v9266B4sMuTCOgPsnIPibuxKoUwELIqPvTn7GQqGvvVibAEsmphsm"
                   },
                   email: {
                     verificationTokens: [
