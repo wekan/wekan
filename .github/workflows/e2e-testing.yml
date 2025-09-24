@@ -286,7 +286,6 @@ jobs:
             ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
           run: |
-            pytest tests/
             if [ -d "allure-results" ]; then rm -rf allure-results; fi
             mkdir -p allure-results
 
@@ -301,6 +300,7 @@ jobs:
             Browser=${{ matrix.browser }}
             Resolution=${{ matrix.resolution.name }}
             EOF
+
             pytest --alluredir=allure-results tests/
 
   allure-report:
