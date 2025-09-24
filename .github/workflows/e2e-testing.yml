@@ -276,10 +276,6 @@ jobs:
             # Final verification
             curl -I "$WEKAN_URL" || exit 1
 
-        - name: Debug test discovery
-          run: |
-            pytest --collect-only tests/
-
         - name: Run Selenium tests
           env:
             HEADLESS: true
@@ -304,12 +300,6 @@ jobs:
             Resolution=${{ matrix.resolution.name }}
             EOF
             pytest --alluredir=allure-results tests/
-
-        - name: List Allure Results
-          run: |
-            echo "Allure results for $ALLURE_SUITE"
-            ls -lh allure-results
-            cat allure-results/environment.properties || true
 
         - name: Upload Allure results as artifact
           uses: actions/upload-artifact@v4
