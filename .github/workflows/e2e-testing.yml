@@ -131,7 +131,7 @@ jobs:
                 createdAt: new Date(),
                 services: {
                   password: {
-                    bcrypt: "$2b$10$v9266B4sMuTCOgPsnIPibuxKoUwELIqPvTn7GQqGvvVibAEsmphsm"
+                    bcrypt: "$2b$10$v9266B4sMuTCOgPsnIPibuxKoUwELIqPvTn7GQqGvvVibAEsmph"
                   },
                   email: {
                     verificationTokens: [
@@ -276,6 +276,10 @@ jobs:
             # Final verification
             curl -I "$WEKAN_URL" || exit 1
 
+        - name: Debug test discovery
+          run: |
+            pytest --collect-only tests/
+
         - name: Run Selenium tests
           env:
             HEADLESS: true
@@ -288,7 +292,6 @@ jobs:
           run: |
             if [ -d "allure-results" ]; then rm -rf allure-results; fi
             mkdir -p allure-results
-
             cat > allure-results/environment.properties << EOF
             os_platform=$(uname -s)
             os_release=$(lsb_release -r | awk '{print $2}')
@@ -300,8 +303,13 @@ jobs:
             Browser=${{ matrix.browser }}
             Resolution=${{ matrix.resolution.name }}
             EOF
-
             pytest --alluredir=allure-results tests/
+
+        - name: List Allure Results
+          run: |
+            echo "Allure results for $ALLURE_SUITE"
+            ls -lh allure-results
+            cat allure-results/environment.properties || true
 
         - name: Upload Allure results as artifact
           uses: actions/upload-artifact@v4
