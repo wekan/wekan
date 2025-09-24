@@ -284,7 +284,7 @@ jobs:
             SCREEN_HEIGHT: ${{ matrix.resolution.height }}
             WEKAN_URL: ${{ secrets.WEKAN_URL }}
             ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-
+            ALLURE_SUITE: "${{ matrix.browser }} - ${{ matrix.resolution.name }}"
           run: |
             if [ -d "allure-results" ]; then rm -rf allure-results; fi
             mkdir -p allure-results
