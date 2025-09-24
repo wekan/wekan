@@ -303,6 +303,14 @@ jobs:
 
             pytest --alluredir=allure-results tests/
 
+        - name: Upload Allure results as artifact
+          uses: actions/upload-artifact@v4
+          if: always() # Upload even if tests fail
+          with:
+            name: allure-results-${{ matrix.browser }}-${{ matrix.resolution.name }}
+            path: allure-results/
+            retention-days: 30
+
   allure-report:
     runs-on: ubuntu-latest
     needs: Selenium-ui-tests
