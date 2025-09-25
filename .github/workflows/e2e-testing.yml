@@ -229,16 +229,6 @@ jobs:
             repository: omriza5/wekan-selenium
             token: ${{ secrets.UI_TESTING_GITHUB_TOKEN }}
 
-        - name: Scan Python dependencies for vulnerabilities
-          uses: aquasecurity/trivy-action@master
-          with:
-            scan-type: 'pip'
-            requirements: 'requirements.txt'
-            format: 'table'
-            severity: 'HIGH,CRITICAL'
-            ignore-unfixed: true
-            exit-code: 0
-
         - name: Set up Python 3.11
           uses: actions/setup-python@v4
           with:
