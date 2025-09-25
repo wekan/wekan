@@ -207,8 +207,39 @@ jobs:
         run: |
           pytest --maxfail=5 --disable-warnings -v
 
-  Selenium-ui-tests:
+  wekan-selenium-security-scan:
     needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          repository: omriza5/wekan-selenium
+          token: ${{ secrets.UI_TESTING_GITHUB_TOKEN }}
+
+      - name: Scan wekan-selenium repo for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: 0
+          dir: '.'
+
+      - name: Scan Python dependencies for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'pip'
+          requirements: 'requirements.txt'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: 0
+
+  Selenium-ui-tests:
+    needs: [deploy, security-scan]
     runs-on: ubuntu-latest
 
     strategy:
@@ -229,14 +260,15 @@ jobs:
             repository: omriza5/wekan-selenium
             token: ${{ secrets.UI_TESTING_GITHUB_TOKEN }}
 
-        - name: Scan wekan-selenium repo for vulnerabilities
+        - name: Scan Python dependencies for vulnerabilities
           uses: aquasecurity/trivy-action@master
           with:
-              scan-type: 'fs'
-              format: 'table'
-              severity: 'HIGH,CRITICAL'
-              ignore-unfixed: true
-              exit-code: 0
+            scan-type: 'pip'
+            requirements: 'requirements.txt'
+            format: 'table'
+            severity: 'HIGH,CRITICAL'
+            ignore-unfixed: true
+            exit-code: 0
 
         - name: Set up Python 3.11
           uses: actions/setup-python@v4
