@@ -208,7 +208,6 @@ jobs:
           pytest --maxfail=5 --disable-warnings -v
 
   wekan-selenium-security-scan:
-    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -239,6 +238,7 @@ jobs:
           exit-code: 0
 
   Selenium-ui-tests:
+    needs: deploy
     runs-on: ubuntu-latest
 
     strategy:
