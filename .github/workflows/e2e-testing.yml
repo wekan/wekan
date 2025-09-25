@@ -239,7 +239,6 @@ jobs:
           exit-code: 0
 
   Selenium-ui-tests:
-    needs: [deploy, security-scan]
     runs-on: ubuntu-latest
 
     strategy:
