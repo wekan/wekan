@@ -34,20 +34,14 @@ jobs:
           # Save the tag for later steps
           echo "WEKAN_IMAGE_TAG=$TAG" >> $GITHUB_ENV
 
-      - name: Install Trivy
-        run: |
-            sudo apt-get update
-            sudo apt-get install -y wget
-            wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.0_Linux-64bit.deb
-            sudo dpkg -i trivy_0.50.0_Linux-64bit.deb
-
       - name: Scan Wekan Docker image for vulnerabilities
-        env:
-            WEKAN_IMAGE_TAG: ${{ env.WEKAN_IMAGE_TAG }}
-            DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        run: |
-            docker pull $DOCKERHUB_USERNAME/wekan:$WEKAN_IMAGE_TAG
-            trivy image $DOCKERHUB_USERNAME/wekan:$WEKAN_IMAGE_TAG || true
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/wekan:${{ env.WEKAN_IMAGE_TAG }}'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: 0
 
       - name: Create .env file
         run: |
