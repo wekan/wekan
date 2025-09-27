@@ -331,7 +331,7 @@ jobs:
           if: always() # Ensure this runs even if tests fail
           uses: actions/upload-artifact@v4
           with:
-            name: ui-test-screenshots
+            name: ui-test-screenshots-${{ matrix.browser }}-${{ matrix.resolution.name }}
             path: artifacts/screenshots
             retention-days: 2  # Store artifacts for 2 days
 
