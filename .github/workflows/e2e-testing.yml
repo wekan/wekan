@@ -327,6 +327,14 @@ jobs:
             path: allure-results/
             retention-days: 30
 
+        - name: Upload screenshots
+          if: always() # Ensure this runs even if tests fail
+          uses: actions/upload-artifact@v4
+          with:
+            name: ui-test-screenshots
+            path: artifacts/screenshots
+            retention-days: 2  # Store artifacts for 2 days
+
   allure-report:
     runs-on: ubuntu-latest
     needs: Selenium-ui-tests
