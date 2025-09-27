@@ -34,10 +34,19 @@ jobs:
           # Save the tag for later steps
           echo "WEKAN_IMAGE_TAG=$TAG" >> $GITHUB_ENV
 
-      - name: Scan Wekan Docker image for vulnerabilities
+      - name: Scan Wekan Docker image for vulnerabilities(Wekan)
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/wekan:${{ env.WEKAN_IMAGE_TAG }}'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: 0
+
+      - name: Scan wekan-selenium Docker image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'omriza5/wekan-selenium:1.0.0'
           format: 'table'
           severity: 'HIGH,CRITICAL'
           ignore-unfixed: true
