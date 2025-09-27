@@ -34,6 +34,24 @@ jobs:
           # Save the tag for later steps
           echo "WEKAN_IMAGE_TAG=$TAG" >> $GITHUB_ENV
 
+      - name: Scan Wekan Docker image for vulnerabilities(Wekan)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/wekan:${{ env.WEKAN_IMAGE_TAG }}'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: 0
+
+      - name: Scan wekan-selenium Docker image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'omriza5/wekan-selenium:1.0.0'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: 0
+
       - name: Create .env file
         run: |
           echo "WEKAN_IMAGE=omriza5/wekan:${WEKAN_IMAGE_TAG}" >> .env
@@ -308,6 +326,14 @@ jobs:
             name: allure-results-${{ matrix.browser }}-${{ matrix.resolution.name }}
             path: allure-results/
             retention-days: 30
+
+        - name: Upload screenshots
+          if: always() # Ensure this runs even if tests fail
+          uses: actions/upload-artifact@v4
+          with:
+            name: ui-test-screenshots-${{ matrix.browser }}-${{ matrix.resolution.name }}
+            path: artifacts/screenshots
+            retention-days: 2  # Store artifacts for 2 days
 
   allure-report:
     runs-on: ubuntu-latest
