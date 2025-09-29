@@ -79,7 +79,6 @@ BlazeComponent.extendComponent({
       autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
-/*
     if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true || Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
       const isSmall = Utils.isMiniScreen();
       const toolbar = isSmall
@@ -117,8 +116,8 @@ BlazeComponent.extendComponent({
         ].join('|');
         const badPatterns = new RegExp(
           `(?:${[
-            `<(${badTags})s*[^>][\\s\\S]*?<\\/\\1>`,
-            `<(${badTags})[^>]*?\\/>`,
+            `<(${badTags})\s*[^>][\s\S]*?<\/\1>`,
+            `<(${badTags})[^>]*?\/>`,
           ].join('|')})`,
           'gi',
         );
@@ -128,9 +127,9 @@ BlazeComponent.extendComponent({
         // remove attributes ' style="..."'
         const badAttributes = new RegExp(
           `(?:${[
-            'on\\S+=([\'"]?).*?\\1',
-            'href=([\'"]?)javascript:.*?\\2',
-            'style=([\'"]?).*?\\3',
+            'on\\S+=([\'\"]?).*?\\1',
+            'href=([\'\"]?)javascript:.*?\\2',
+            'style=([\'\"]?).*?\\3',
             'target=\\S+',
           ].join('|')})`,
           'gi',
@@ -300,7 +299,6 @@ BlazeComponent.extendComponent({
     } else {
       enableTextarea();
     }
-*/
     enableTextarea();
   },
   events() {
