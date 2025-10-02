@@ -36,6 +36,10 @@ and fixes the following bugs:
   Thanks to Skylark13.
 - [Fixed find.sh script errors about unmatched single quotes and binary files that are now ignored](https://github.com/wekan/wekan/commit/730bb6d166baa5530cc75b4c94ae46c8077884b0).
   Thanks to xet7.
+- [Fixed links at docs](https://github.com/wekan/wekan/commit/6f2b89121402df8ecba88295ad09f5c4179ab0ed).
+  Thanks to xet7.
+- [Added missing screenshots from wekan.github.io history to wekan/docs/Features/](https://github.com/wekan/wekan/commit/9a7fa25ca33d4267e193f0f9bb97b09c490e44fe).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
