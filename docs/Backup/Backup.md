@@ -137,11 +137,11 @@ https://nosqlbooster.com/downloads
 
 ### At server where Wekan Snap is installed, MongoDB is running at localhost port 27019
 
-<img src="https://wekan.fi/nosqlbooster-basic-connection.png" width="60%" alt="Wekan logo" />
+<img src="nosqlbooster-basic-connection.png" width="60%" alt="NoSQLBooster basic connection" />
 
 ### You can tunnel via SSH to server, using password auth or private key auth dropdown selection
 
-<img src="https://wekan.fi/nosqlbooster-ssh-tunnel.png" width="60%" alt="Wekan logo" />
+<img src="nosqlbooster-ssh-tunnel.png" width="60%" alt="NoSQLBooster SSH tunnel" />
 
 # Scheduled backups to local or remote server
 
