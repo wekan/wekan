@@ -35,6 +35,7 @@ input[type="file"] {
 }
 input[type="radio"] {
   -webkit-appearance: radio;
+  appearance: radio;
   min-height: inherit;
 }
 input[type="text"],
@@ -96,7 +97,7 @@ input[type="email"]:disabled,
 textarea:disabled {
   background-color: #dcdcdc;
   border-color: #bfbfbf;
-  color: #8c8c8c;
+  color: #222;
   -webkit-touch-callout: none;
    -webkit-user-select: none;
   user-select: none;
@@ -110,7 +111,7 @@ select.inline {
   width: 100%;
 }
 option[disabled] {
-  color: #8c8c8c;
+  color: #222;
 }
 textarea {
   height: 150px;
@@ -255,13 +256,13 @@ label {
   margin-bottom: 4px;
 }
 label.form-error {
-  color: #ba1212;
+  color: #d32f2f;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
 input::-moz-placeholder,
 textarea::-moz-placeholder {
-  color: #8c8c8c;
+  color: #333 !important;
 }
 .edit-controls,
 .add-controls {
@@ -316,6 +317,7 @@ textarea::-moz-placeholder {
   border-left: 2px solid transparent;
   transform: rotate(40deg);
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transform-origin: 100% 100%;
 }
 .button-link {
@@ -376,14 +378,14 @@ textarea::-moz-placeholder {
 .button-link.setting.disabled {
   background: #fff;
   border-color: #e9e9e9;
-  color: #8c8c8c;
+  color: #222;
   cursor: default;
 }
 .button-link.setting.disabled select {
   display: none;
 }
 .button-link.setting.disabled:hover .label {
-  color: #8c8c8c;
+  color: #222;
 }
 .button-link.setting.disabled,
 .button-link.setting.disabled:hover,
@@ -399,7 +401,7 @@ textarea::-moz-placeholder {
   color: #a8a8a8;
 }
 .button-link.setting .label {
-  color: #8c8c8c;
+  color: #222;
   display: block;
   font-size: 12px;
   line-height: 14px;
@@ -509,7 +511,7 @@ button.loud-text-button:hover {
   border-radius: 3px;
    -webkit-user-select: none;
   user-select: none;
-  color: #8c8c8c;
+    color: #222;
   display: block;
   margin: 2px 0;
   padding: 6px 8px;
@@ -574,7 +576,7 @@ button.loud-text-button:hover {
   top: 6px;
 }
 .big-link.none {
-  color: #8c8c8c;
+  color: #222;
   text-decoration: none;
 }
 .big-link.none:hover {
@@ -604,7 +606,7 @@ button.loud-text-button:hover {
 }
 .show-more {
   border-radius: 3px;
-  color: #8c8c8c;
+  color: #222;
   display: block;
   padding: 16px 8px 16px 40px;
   margin: 8px 0;
