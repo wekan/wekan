@@ -57,6 +57,7 @@ AccountsTemplates.addFields([
     displayName: 'username',
     required: true,
     minLength: 2,
+    autocomplete: 'username',
   },
   emailField,
   passwordField,
