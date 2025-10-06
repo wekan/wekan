@@ -107,6 +107,7 @@ BlazeComponent.extendComponent({
         el.removeAttribute('tabindex');
       }
     });
+    /*
     // Add a toggle button for keyboard shortcuts accessibility
     if (!document.getElementById('wekan-shortcuts-toggle')) {
       const toggleContainer = document.createElement('div');
@@ -136,6 +137,7 @@ BlazeComponent.extendComponent({
         window.toggleWekanShortcuts(e.target.checked);
       });
     }
+    */
     // Ensure toggle-buttons, color choices, reactions, renaming, and calendar controls are focusable and have ARIA roles
     document.querySelectorAll('.js-toggle').forEach(function(el) {
       el.setAttribute('tabindex', '0');
