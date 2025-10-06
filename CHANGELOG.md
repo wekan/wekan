@@ -40,6 +40,10 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Added missing screenshots from wekan.github.io history to wekan/docs/Features/](https://github.com/wekan/wekan/commit/9a7fa25ca33d4267e193f0f9bb97b09c490e44fe).
   Thanks to xet7.
+- [Some accessibility, saving, downloading and editor fixes](https://github.com/wekan/wekan/pull/5895).
+  Thanks to seve12.
+- [Hide extra keyboard shortcuts toggle](https://github.com/wekan/wekan/commit/62ad588aa982cd4305a8817cf21f0818234f4354).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
