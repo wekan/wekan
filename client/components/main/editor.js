@@ -116,8 +116,8 @@ BlazeComponent.extendComponent({
         ].join('|');
         const badPatterns = new RegExp(
           `(?:${[
-            `<(${badTags})\s*[^>][\s\S]*?<\/\1>`,
-            `<(${badTags})[^>]*?\/>`,
+            `<(${badTags})\\s*[^>][\\s\\S]*?<\\/\\1>`,
+            `<(${badTags})[^>]*?\\/>`,
           ].join('|')})`,
           'gi',
         );
