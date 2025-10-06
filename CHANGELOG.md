@@ -25,7 +25,7 @@ This release adds the following updates:
 
 - [Updated release script for new command of uploading snap package to Snap Store](https://github.com/wekan/wekan/commit/dec9b82da0d700aafd7e2b2063b5d5b07dd383c3).
   Thanks to xet7.
-- [Updated to MongoDB 7.0.24 at Snap Candidate](https://github.com/wekan/wekan/commit/3253dd501067c617aec272efec1c4c2bb9861983).
+- [Updated to MongoDB 7.0.25 at Snap Candidate](https://github.com/wekan/wekan/commit/dec038e7edce11e2ce59de974aa870d7266af33b).
   Thanks to MongoDB developers.
 
 and fixes the following bugs:
