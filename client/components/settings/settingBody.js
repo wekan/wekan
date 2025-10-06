@@ -192,55 +192,19 @@ BlazeComponent.extendComponent({
     this.setLoading(true);
     $('li').removeClass('has-error');
 
-    const productName = $('#product-name')
-      .val()
-      .trim();
-    const customLoginLogoImageUrl = $('#custom-login-logo-image-url')
-      .val()
-      .trim();
-    const customLoginLogoLinkUrl = $('#custom-login-logo-link-url')
-      .val()
-      .trim();
-    const customHelpLinkUrl = $('#custom-help-link-url')
-      .val()
-      .trim();
-    const textBelowCustomLoginLogo = $('#text-below-custom-login-logo')
-      .val()
-      .trim();
-    const automaticLinkedUrlSchemes = $('#automatic-linked-url-schemes')
-      .val()
-      .trim();
-    const customTopLeftCornerLogoImageUrl = $(
-      '#custom-top-left-corner-logo-image-url',
-    )
-      .val()
-      .trim();
-    const customTopLeftCornerLogoLinkUrl = $(
-      '#custom-top-left-corner-logo-link-url',
-    )
-      .val()
-      .trim();
-    const customTopLeftCornerLogoHeight = $(
-      '#custom-top-left-corner-logo-height',
-    )
-      .val()
-      .trim();
+    const productName = ($('#product-name').val() || '').trim();
+    const customLoginLogoImageUrl = ($('#custom-login-logo-image-url').val() || '').trim();
+    const customLoginLogoLinkUrl = ($('#custom-login-logo-link-url').val() || '').trim();
+    const customHelpLinkUrl = ($('#custom-help-link-url').val() || '').trim();
+    const textBelowCustomLoginLogo = ($('#text-below-custom-login-logo').val() || '').trim();
+    const automaticLinkedUrlSchemes = ($('#automatic-linked-url-schemes').val() || '').trim();
+    const customTopLeftCornerLogoImageUrl = ($('#custom-top-left-corner-logo-image-url').val() || '').trim();
+    const customTopLeftCornerLogoLinkUrl = ($('#custom-top-left-corner-logo-link-url').val() || '').trim();
+    const customTopLeftCornerLogoHeight = ($('#custom-top-left-corner-logo-height').val() || '').trim();
 
-    const oidcBtnText = $(
-      '#oidcBtnTextvalue',
-    )
-      .val()
-      .trim();
-    const mailDomainName = $(
-      '#mailDomainNamevalue',
-    )
-      .val()
-      .trim();
-    const legalNotice = $(
-      '#legalNoticevalue',
-    )
-      .val()
-      .trim();
+    const oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
+    const mailDomainName = ($('#mailDomainNamevalue').val() || '').trim();
+    const legalNotice = ($('#legalNoticevalue').val() || '').trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
     const hideCardCounterListChange = $('input[name=hideCardCounterList]:checked').val() === 'true';
     const hideBoardMemberListChange = $('input[name=hideBoardMemberList]:checked').val() === 'true';
@@ -248,13 +212,9 @@ BlazeComponent.extendComponent({
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
     const accessibilityPageEnabled = $('input[name=accessibilityPageEnabled]:checked').val() === 'true';
-    const accessibilityTitle = $('#accessibility-title')
-      .val()
-      .trim();
-    const accessibilityContent = $('#accessibility-content')
-      .val()
-      .trim();
-    const spinnerName = $('#spinnerName').val();
+    const accessibilityTitle = ($('#accessibility-title').val() || '').trim();
+    const accessibilityContent = ($('#accessibility-content').val() || '').trim();
+    const spinnerName = ($('#spinnerName').val() || '').trim();
 
     try {
       Settings.update(ReactiveCache.getCurrentSetting()._id, {
