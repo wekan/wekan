@@ -1,4 +1,4 @@
-/* =============== 
+/* ===============
 THEME - NEPHRITIS
 =================*/
 
@@ -99,7 +99,7 @@ THEME - NEPHRITIS
 
 /* === END NEPHRITIS THEME === */
 
-/* =============== 
+/* ===============
 THEME - Pomegranate
 =================*/
 
@@ -200,7 +200,7 @@ THEME - Pomegranate
 
 /* === END Pomegranate THEME === */
 
-/* =============== 
+/* ===============
 THEME - Belize
 =================*/
 
@@ -301,7 +301,7 @@ THEME - Belize
 
 /* === END Belize THEME === */
 
-/* =============== 
+/* ===============
 THEME - Wisteria
 =================*/
 
@@ -402,7 +402,7 @@ THEME - Wisteria
 
 /* === END Wisteria THEME === */
 
-/* =============== 
+/* ===============
 THEME - Midnight
 =================*/
 
@@ -503,7 +503,7 @@ THEME - Midnight
 
 /* === END Midnight THEME === */
 
-/* =============== 
+/* ===============
 THEME - Pumpkin
 =================*/
 
@@ -604,7 +604,7 @@ THEME - Pumpkin
 
 /* === END Pumpkin THEME === */
 
-/* =============== 
+/* ===============
 THEME - Moderate Pink
 =================*/
 
@@ -705,7 +705,7 @@ THEME - Moderate Pink
 
 /* === END Moderatepink THEME === */
 
-/* =============== 
+/* ===============
 THEME - Strong Cyan
 =================*/
 
@@ -806,7 +806,7 @@ THEME - Strong Cyan
 
 /* === END Strongcyan THEME === */
 
-/* =============== 
+/* ===============
 THEME - Lime Green
 =================*/
 
@@ -907,7 +907,7 @@ THEME - Lime Green
 
 /* === END Limegreen THEME === */
 
-/* =============== 
+/* ===============
 THEME - Dark
 =================*/
 
@@ -1111,7 +1111,7 @@ THEME - Dark
 
 /* === END Dark THEME === */
 
-/* =============== 
+/* ===============
 THEME - Relax
 =================*/
 
@@ -1241,7 +1241,7 @@ THEME - Relax
 
 /* === END Relax THEME === */
 
-/* =============== 
+/* ===============
 THEME - Corteza
 =================*/
 
@@ -1342,7 +1342,7 @@ THEME - Corteza
 
 /* === END Corteza THEME === */
 
-/* =============== 
+/* ===============
 THEME - Clear Blue
 =================*/
 
@@ -1609,7 +1609,7 @@ THEME - Clear Blue
 
 /* === END Clearblue THEME === */
 
-/* =============== 
+/* ===============
 THEME - Natural
 =================*/
 
@@ -1719,7 +1719,7 @@ THEME - Natural
 
 /* === END Natural THEME === */
 
-/* =============== 
+/* ===============
 THEME - Modern
 =================*/
 
@@ -2006,7 +2006,7 @@ THEME - Modern
 
 /* === END Modern THEME === */
 
-/* =============== 
+/* ===============
 THEME - Modern Dark
 =================*/
 
@@ -2496,7 +2496,7 @@ THEME - Modern Dark
 /* === END ModernDark THEME === */
 
 
-/* =============== 
+/* ===============
 THEME - Exodark
 =================*/
 
@@ -2744,7 +2744,7 @@ THEME - Exodark
 
 /* === END Exodark THEME === */
 
-/* =============== 
+/* ===============
 THEME - Clean Dark
 =================*/
 
@@ -3183,7 +3183,7 @@ THEME - Clean Dark
 .board-color-cleandark.background-box {
   background-color:#23232B;
 } /*Fixes contrast issues with background box in theme selection list*/
-/* =============== 
+/* ===============
 THEME - Clean Light
 =================*/
 /* Please note Clean Light theme elements also contain references to some cleandark theme elements so if unable to find code you're looking for under CleanDark it might be here. This should probably be cleaned up*/
@@ -3322,7 +3322,13 @@ THEME - Clean Light
 
 .board-color-cleanlight .list .list-header .list-header-menu .js-collapse,
 .board-color-cleandark .list .list-header .list-header-menu .js-collapse {
-  display: none;
+  /* Make collapse button visible in Clean Light / Clean Dark themes.
+     Previously this was hidden which caused the missing Collapse button
+     when using these themes. Use inline-block so it lines up with other
+     header controls. */
+  display: inline-block;
+  vertical-align: middle;
+  color: inherit;
 }
 
 .board-color-cleanlight .list-header-add,
