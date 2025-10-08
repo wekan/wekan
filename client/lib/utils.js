@@ -287,22 +287,50 @@ Utils = {
   },
 
   windowResizeDep: new Tracker.Dependency(),
-
   // in fact, what we really care is screen size
   // large mobile device like iPad or android Pad has a big screen, it should also behave like a desktop
   // in a small window (even on desktop), Wekan run in compact mode.
   // we can easily debug with a small window of desktop browser. :-)
   isMiniScreen() {
-    // OLD WINDOW WIDTH DETECTION:
     this.windowResizeDep.depend();
-    return $(window).width() <= 800;
+    // Show mobile view when:
+    // 1. Screen width is 800px or less (matches CSS media queries)
+    // 2. Mobile phones in portrait mode
+    // 3. iPad in very small screens (≤ 600px)
+    const isSmallScreen = window.innerWidth <= 800;
+    const isVerySmallScreen = window.innerWidth <= 600;
+    const isPortrait = window.innerWidth < window.innerHeight || window.matchMedia("(orientation: portrait)").matches;
+    const isMobilePhone = /Mobile|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && !/iPad/i.test(navigator.userAgent);
+    const isIPhone = /iPhone|iPod/i.test(navigator.userAgent);
+    const isIPad = /iPad/i.test(navigator.userAgent);
+    const isUbuntuTouch = /Ubuntu/i.test(navigator.userAgent);
+
+    // For iPhone: always show mobile view regardless of orientation
+    // For other mobile phones: show mobile view in portrait, desktop view in landscape
+    // For iPad: show mobile view only in very small screens (≤ 600px)
+    // For Ubuntu Touch: smartphones behave like mobile phones, tablets like iPad
+    // For desktop: show mobile view when screen width <= 800px
+    if (isIPhone) {
+      return true; // iPhone: always mobile view
+    } else if (isMobilePhone) {
+      return isPortrait; // Other mobile phones: portrait = mobile, landscape = desktop
+    } else if (isIPad) {
+      return isVerySmallScreen; // iPad: only very small screens get mobile view
+    } else if (isUbuntuTouch) {
+      // Ubuntu Touch: smartphones (≤ 600px) behave like mobile phones, tablets (> 600px) like iPad
+      if (isVerySmallScreen) {
+        return isPortrait; // Ubuntu Touch smartphone: portrait = mobile, landscape = desktop
+      } else {
+        return isVerySmallScreen; // Ubuntu Touch tablet: only very small screens get mobile view
+      }
+    } else {
+      return isSmallScreen; // Desktop: based on 800px screen width
+    }
   },
 
   isTouchScreen() {
-
     // NEW TOUCH DEVICE DETECTION:
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
-
     var hasTouchScreen = false;
     if ("maxTouchPoints" in navigator) {
       hasTouchScreen = navigator.maxTouchPoints > 0;
@@ -328,12 +356,19 @@ Utils = {
 
   // returns if desktop drag handles are enabled
   isShowDesktopDragHandles() {
-    //const currentUser = ReactiveCache.getCurrentUser();
-    //if (currentUser) {
-    //  return (currentUser.profile || {}).showDesktopDragHandles;
-    //} else if (window.localStorage.getItem('showDesktopDragHandles')) {
+    if (this.isTouchScreen()) {
+      return true;
+    /*
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
+    //
     if (window.localStorage.getItem('showDesktopDragHandles')) {
       return true;
+    } else {
+      return false;
+    */
     } else {
       return false;
     }
@@ -341,8 +376,9 @@ Utils = {
 
   // returns if mini screen or desktop drag handles
   isTouchScreenOrShowDesktopDragHandles() {
+    return this.isTouchScreen();
     //return this.isTouchScreen() || this.isShowDesktopDragHandles();
-    return this.isShowDesktopDragHandles();
+    //return this.isShowDesktopDragHandles();
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {

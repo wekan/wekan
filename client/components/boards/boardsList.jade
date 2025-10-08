@@ -29,7 +29,7 @@ template(name="boardList")
             input#filterBtn(type="button" value="{{_ 'filter'}}")
             input#resetBtn(type="button" value="{{_ 'filter-clear'}}")
 
-    ul.board-list.clearfix.js-boards
+    ul.board-list.clearfix.js-boards(class="{{#if isMiniScreen}}mobile-view{{/if}}")
       li.js-add-board
         a.board-list-item.label(title="{{_ 'add-board'}}")
           | {{_ 'add-board'}}

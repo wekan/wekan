@@ -1,10 +1,10 @@
 template(name='list')
   .list.js-list(id="js-list-{{_id}}"
                 style="{{#unless collapsed}}min-width:{{listWidth}}px;max-width:{{listConstraint}}px;{{/unless}}"
-                class="{{#if collapsed}}list-collapsed{{/if}} {{#if autoWidth}}list-auto-width{{/if}}")
+                class="{{#if collapsed}}list-collapsed{{/if}} {{#if autoWidth}}list-auto-width{{/if}} {{#if isMiniScreen}}mobile-view{{/if}}")
     +listHeader
     +listBody
 
 template(name='miniList')
-  a.mini-list.js-select-list.js-list(id="js-list-{{_id}}")
+  a.mini-list.js-select-list.js-list(id="js-list-{{_id}}" class="{{#if isMiniScreen}}mobile-view{{/if}}")
     +listHeader

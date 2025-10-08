@@ -214,6 +214,125 @@
 #js-list-width-edit .list-width-error {
   display: none;
 }
+/* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
+.mini-list.mobile-view {
+  flex: 0 0 60px;
+  height: auto;
+  width: 100%;
+  border-left: 0px;
+  border-bottom: 1px solid #ccc;
+}
+.list.mobile-view {
+  display: contents;
+  flex-basis: auto;
+  width: 100%;
+  border-left: 0px;
+}
+.list.mobile-view:first-child {
+  margin-left: 0px;
+}
+.list.mobile-view.ui-sortable-helper {
+  flex: 0 0 60px;
+  height: 60px;
+  width: 100%;
+  border-left: 0px;
+  border-bottom: 1px solid #ccc;
+}
+.list.mobile-view.ui-sortable-helper .list-header.ui-sortable-handle {
+  cursor: grabbing;
+}
+.list.mobile-view.placeholder {
+  flex: 0 0 60px;
+  height: 60px;
+  width: 100%;
+  border-left: 0px;
+  border-bottom: 1px solid #ccc;
+}
+.list.mobile-view .list-body {
+  padding: 15px 19px;
+}
+.list.mobile-view .list-header {
+  /*Updated padding values for mobile devices, this should fix text grouping issue*/
+  padding: 20px 0px 20px 0px;
+  border-bottom: 0px solid #e4e4e4;
+  min-height: 30px;
+  margin-top: 10px;
+  align-items: center;
+  /* Force grid layout for iPhone */
+  display: grid !important;
+  grid-template-columns: 30px 1fr auto auto !important;
+  gap: 10px !important;
+}
+.list.mobile-view .list-header .list-header-left-icon {
+  padding: 7px;
+  padding-right: 27px;
+  margin-top: 1px;
+  top: -7px;
+  left: -7px;
+}
+.list.mobile-view .list-header .list-header-menu-icon {
+  padding: 14px;
+  font-size: 40px !important;
+  text-align: center;
+  /* Force positioning for iPhone */
+  position: absolute !important;
+  right: 60px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10;
+}
+.list.mobile-view .list-header .list-header-handle {
+  padding: 14px;
+  font-size: 48px !important;
+  text-align: center;
+  /* Force positioning for iPhone */
+  position: absolute !important;
+  right: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10;
+}
+.list.mobile-view .list-header .list-header-left-icon {
+  display: grid;
+  grid-row: 1/3;
+  grid-column: 1;
+}
+.list.mobile-view .list-header .list-header-name {
+  grid-row: 1;
+  grid-column: 2;
+  align-self: end;
+  font-size: 20px !important;
+  font-weight: bold;
+  line-height: 1.2;
+  padding-bottom: 2px;
+}
+.list.mobile-view .list-header .cardCount {
+  grid-row: 2;
+  grid-column: 2;
+  align-self: start;
+  font-size: 16px !important;
+  line-height: 1.2;
+}
+.list.mobile-view .list-header .list-header-menu {
+  grid-row: 1/3;
+  grid-column: 3;
+}
+.list.mobile-view .list-header .list-header-menu-icon {
+  grid-row: 1/3;
+  grid-column: 3;
+}
+.list.mobile-view .list-header .list-header-handle {
+  grid-row: 1/3;
+  grid-column: 4;
+}
+.list.mobile-view .list-header .inlined-form {
+  grid-row: 1/3;
+  grid-column: 1/4;
+}
+.list.mobile-view .list-header .edit-controls {
+  align-items: initial;
+}
+
 @media screen and (max-width: 800px) {
   .mini-list {
     flex: 0 0 60px;
@@ -267,24 +386,29 @@
     left: -7px;
   }
   .list-header .list-header-menu-icon {
+    padding: 14px;
+    font-size: 40px;
+    text-align: center;
+    /* iOS Safari fallback positioning */
     position: absolute;
-    padding: 7px;
+    right: 60px;
     top: 50%;
     transform: translateY(-50%);
-    right: 47px;
-    font-size: 20px;
   }
   .list-header .list-header-handle {
+    padding: 14px;
+    font-size: 48px;
+    text-align: center;
+    /* iOS Safari fallback positioning */
     position: absolute;
-    padding: 7px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    right: 10px;
-    font-size: 24px;
   }
   .list-header {
     display: grid;
-    grid-template-columns: 30px 5fr 1fr;
+    grid-template-columns: 30px 1fr auto auto;
+    gap: 10px;
   }
   .list-header .list-header-left-icon {
     display: grid;
@@ -295,15 +419,29 @@
     grid-row: 1;
     grid-column: 2;
     align-self: end;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.2;
+    padding-bottom: 2px;
   }
   .list-header .cardCount {
     grid-row: 2;
     grid-column: 2;
     align-self: start;
+    font-size: 16px;
+    line-height: 1.2;
   }
   .list-header .list-header-menu {
     grid-row: 1/3;
     grid-column: 3;
+  }
+  .list-header .list-header-menu-icon {
+    grid-row: 1/3;
+    grid-column: 3;
+  }
+  .list-header .list-header-handle {
+    grid-row: 1/3;
+    grid-column: 4;
   }
   .list-header .inlined-form {
     grid-row: 1/3;

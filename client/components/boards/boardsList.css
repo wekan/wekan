@@ -192,6 +192,32 @@
   font-size: 25px;
   color: #fff;
 }
+/* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
+.board-list.mobile-view {
+  height: 100%;
+  overflow: scroll;
+}
+.board-list.mobile-view li {
+  width: 50%;
+}
+.board-list.mobile-view .board-list-item {
+  overflow: hidden;
+  height: 8rem;
+}
+.board-list.mobile-view .board-list-item-sub-name {
+  position: relative;
+  top: -100px;
+  left: -100px;
+}
+.board-list.mobile-view .board-handle {
+  position: absolute;
+  padding: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 24px;
+}
+
 @media screen and (max-width: 800px) {
   .board-list {
     height: 100%;
@@ -218,6 +244,19 @@
     font-size: 24px;
   }
 }
+/* Mobile view styles for very small screens - applied when isMiniScreen is true */
+.board-list.mobile-view li {
+  width: 50%;
+}
+.board-list.mobile-view .board-handle {
+  position: absolute;
+  padding: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 24px;
+}
+
 @media screen and (max-width: 360px) {
   li {
     width: 100%;

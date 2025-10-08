@@ -33,6 +33,17 @@
 .board-wrapper .board-canvas.is-dragging-active .minicard-wrapper.is-checked {
   display: none;
 }
+/* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
+.board-wrapper.mobile-view .board-canvas.mobile-view .swimlane {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0 0px 0px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 @media screen and (max-width: 800px) {
   .board-wrapper .board-canvas .swimlane {
     border-bottom: 1px solid #ccc;
