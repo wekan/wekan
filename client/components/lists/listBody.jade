@@ -85,16 +85,19 @@ template(name="linkCardPopup")
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
+    option(value="") {{_ 'custom-field-dropdown-none'}}
     each swimlanes
       option(value="{{_id}}") {{isTitleDefault title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
+    option(value="") {{_ 'custom-field-dropdown-none'}}
     each lists
       option(value="{{_id}}") {{isTitleDefault title}}
 
   label {{_ 'cards'}}:
   select.js-select-cards
+    option(value="") {{_ 'custom-field-dropdown-none'}}
     each cards
       option(value="{{getRealId}}") {{getTitle}}
 

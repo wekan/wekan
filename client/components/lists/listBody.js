@@ -479,8 +479,6 @@ BlazeComponent.extendComponent({
     {
       sort: { sort: 1 },
     });
-    if (swimlanes.length)
-      this.selectedSwimlaneId.set(swimlanes[0]._id);
     return swimlanes;
   },
 
@@ -495,7 +493,6 @@ BlazeComponent.extendComponent({
     {
       sort: { sort: 1 },
     });
-    if (lists.length) this.selectedListId.set(lists[0]._id);
     return lists;
   },
 
@@ -504,19 +501,18 @@ BlazeComponent.extendComponent({
       return [];
     }
     const ownCardsIds = this.board.cards().map(card => card.getRealId());
-    const ret = ReactiveCache.getCards(
-    {
-      boardId: this.selectedBoardId.get(),
-      swimlaneId: this.selectedSwimlaneId.get(),
-      listId: this.selectedListId.get(),
+    const selector = {
       archived: false,
       linkedId: { $nin: ownCardsIds },
       _id: { $nin: ownCardsIds },
       type: { $nin: ['template-card'] },
-    },
-    {
-      sort: { sort: 1 },
-    });
+    };
+    // only add filters when selection is set (non-empty)
+    if (this.selectedBoardId.get()) selector.boardId = this.selectedBoardId.get();
+    if (this.selectedSwimlaneId.get()) selector.swimlaneId = this.selectedSwimlaneId.get();
+    if (this.selectedListId.get()) selector.listId = this.selectedListId.get();
+
+    const ret = ReactiveCache.getCards(selector, { sort: { sort: 1 } });
     return ret;
   },
 
@@ -537,8 +533,12 @@ BlazeComponent.extendComponent({
     return [
       {
         'change .js-select-boards'(evt) {
-          subManager.subscribe('board', $(evt.currentTarget).val(), false);
-          this.selectedBoardId.set($(evt.currentTarget).val());
+          const val = $(evt.currentTarget).val();
+          subManager.subscribe('board', val, false);
+          // Clear swimlane and list selection to allow linking to board only
+          this.selectedSwimlaneId.set('');
+          this.selectedListId.set('');
+          this.selectedBoardId.set(val);
         },
         'change .js-select-swimlanes'(evt) {
           this.selectedSwimlaneId.set($(evt.currentTarget).val());
