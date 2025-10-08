@@ -244,9 +244,9 @@ cd /home/wekan/app
 # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
 #rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy
 #mv /home/wekan/app_build/bundle /build
-wget "https://github.com/wekan/wekan/releases/download/v7.96/wekan-7.96-amd64.zip"
-unzip wekan-7.96-amd64.zip
-rm wekan-7.96-amd64.zip
+wget "https://github.com/wekan/wekan/releases/download/v7.97/wekan-7.97-amd64.zip"
+unzip wekan-7.97-amd64.zip
+rm wekan-7.97-amd64.zip
 mv /home/wekan/app/bundle /build
 
 # Put back the original tar
