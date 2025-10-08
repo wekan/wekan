@@ -1,8 +1,8 @@
 .rules-list {
   overflow: hidden;
   overflow-y: scroll;
-  max-height: 400px;
-  padding-right: 5px;
+  max-height: 50vh;
+  padding-right: 0.7vw;
 }
 .rules-lists-item {
   display: block;
@@ -33,14 +33,14 @@
 .rules-add {
   display: block;
   overflow: auto;
-  margin-top: 15px;
-  margin-bottom: 5px;
+  margin-top: 2vh;
+  margin-bottom: 0.7vh;
 }
 .rules-add input {
   display: inline-block;
   float: right;
   margin: auto;
-  margin-right: 10px;
+  margin-right: 1.3vw;
 }
 .rules-add button {
   display: inline-block;

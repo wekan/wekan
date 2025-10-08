@@ -13,15 +13,15 @@
   font-size: 50%;
   color: #a6a6a6;
   position: absolute;
-  top: 5px;
-  left: 100px;
+  top: 0.7vh;
+  left: 13vw;
 }
 .swimlane-header-menu .swimlane-header-collapse-up {
   font-size: 50%;
   color: #a6a6a6;
   position: absolute;
-  bottom: 5px;
-  left: 100px;
+  bottom: 0.7vh;
+  left: 13vw;
 }
 .swimlane-header-menu .swimlane-header-uncollapse-up {
   font-size: 50%;
@@ -35,10 +35,10 @@
   background-color: rgba(0,0,0,0.2);
   border-color: transparent;
   box-shadow: none;
-  height: 100px;
+  height: 15vh;
 }
 .swimlane.ui-sortable-helper {
-  box-shadow: -2px 2px 8px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5);
+  box-shadow: -0.3vw 0.3vh 1vh rgba(0,0,0,0.3), 0 0 0.1vw rgba(0,0,0,0.5);
   transform: rotate(2deg);
   cursor: grabbing;
 }
