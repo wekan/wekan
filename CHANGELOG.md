@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed Collapse button not there when using clearlight board theme](https://github.com/wekan/wekan/pull/5900).
+  Thanks to seve12.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.96 2025-10-07 WeKan ® release
 
 This release adds the following updates:
