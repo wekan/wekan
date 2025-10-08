@@ -52,8 +52,8 @@ input,
 select,
 textarea,
 button {
-  font: 14px Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  line-height: 18px;
+  font: clamp(12px, 2.5vw, 16px) Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  line-height: 1.3;
   color: #4d4d4d;
 }
 html {
@@ -85,8 +85,8 @@ body {
   margin-top: 30vh;
 }
 #content > .wrapper {
-  margin-top: 10px;
-  padding: 15px;
+  margin-top: 1vh;
+  padding: 2vh 2vw;
 }
 #modal {
   position: absolute;
@@ -99,56 +99,56 @@ body {
   overflow-y: auto;
 }
 #modal .modal-content {
-  width: 500px;
-  min-height: 160px;
-  margin: 42px auto;
-  padding: 12px;
-  border-radius: 4px;
+  width: min(500px, 90vw);
+  min-height: 20vh;
+  margin: 5vh auto;
+  padding: 2vh 2vw;
+  border-radius: 0.5vw;
   background: #dedede;
   z-index: 110;
 }
 #modal .modal-content h2 {
-  margin-bottom: 25px;
+  margin-bottom: 3vh;
 }
 #modal .modal-content .modal-close-btn {
   display: block;
   float: right;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
 }
 #modal .modal-content-wide {
-  width: 800px;
+  width: min(800px, 95vw);
   min-height: 0px;
-  margin: 42px auto;
-  padding: 12px;
-  border-radius: 4px;
+  margin: 5vh auto;
+  padding: 2vh 2vw;
+  border-radius: 0.5vw;
   background: #dedede;
   z-index: 110;
 }
 #modal .modal-content-wide h2 {
-  margin-bottom: 25px;
+  margin-bottom: 3vh;
 }
 #modal .modal-content-wide .modal-close-btn {
   display: block;
   float: right;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
 }
 h1 {
-  font-size: 22px;
+  font-size: clamp(18px, 4vw, 24px);
   line-height: 1.2em;
-  margin: 0 0 10px;
+  margin: 0 0 1vh;
 }
 h2 {
-  font-size: 18px;
+  font-size: clamp(16px, 3.5vw, 20px);
   line-height: 1.2em;
-  margin: 0 0 9px;
+  margin: 0 0 0.8vh;
 }
 h3,
 h4,
 h5,
 h6 {
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 18px);
   line-height: 1.25em;
-  margin: 0 0 6px;
+  margin: 0 0 0.6vh;
 }
 .quiet,
 .quiet a {
@@ -160,14 +160,14 @@ h6 {
 }
 .no-items-message {
   color: #666;
-  margin: 30px 0;
+  margin: 4vh 0;
   text-align: center;
 }
 .warning {
   background: #f0ecdb;
-  border-radius: 3px;
+  border-radius: 0.4vw;
   color: #aa8f09;
-  padding: 6px 8px;
+  padding: 1vh 1.2vw;
 }
 .warning a {
   color: #aa8f09;
@@ -194,7 +194,7 @@ strong {
 p {
   -webkit-user-select: text;
   user-select: text;
- 
+
 
 }
 p a {
@@ -203,12 +203,12 @@ p a {
 }
 table,
 p {
-  margin-bottom: 8px;
+  margin-bottom: 1vh;
 }
 pre {
-  margin: 15px 0;
+  margin: 2vh 0;
   white-space: pre;
-  max-height: 516px;
+  max-height: 60vh;
 }
 pre,
 code,
@@ -217,10 +217,10 @@ tt {
   line-height: 1.3em;
 }
 blockquote {
-  margin: 8px 0 8px 8px;
+  margin: 1vh 0 1vh 1vw;
   border-left: 1px solid #ccc;
   color: #666;
-  padding: 0 0 0 8px;
+  padding: 0 0 0 1vw;
 }
 hr {
   height: 1px;
@@ -229,7 +229,7 @@ hr {
   width: 100%;
   background: #dbdbdb;
   color: #dbdbdb;
-  margin: 15px 0;
+  margin: 2vh 0;
   padding: 0;
 }
 table,
@@ -241,7 +241,7 @@ th {
 }
 td,
 th {
-  padding: 5px;
+  padding: 0.8vh 0.8vw;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
@@ -257,20 +257,20 @@ tbody {
 }
 dl,
 dt {
-  margin-bottom: 8px;
+  margin-bottom: 1vh;
 }
 dd {
-  margin: 0 0 16px 24px;
+  margin: 0 0 2vh 3vw;
 }
 kbd {
-  padding: 1px 3px;
-  margin: 3px;
+  padding: 0.2vh 0.5vw;
+  margin: 0.5vh;
   font-weight: bold;
   background: #fafafa;
-  border-radius: 3px;
+  border-radius: 0.4vw;
   border: 1px solid #e6e6e6;
   color: unset;
-  box-shadow: 0px 2px 3px rgba(0,0,0,0.15);
+  box-shadow: 0px 0.3vh 0.5vh rgba(0,0,0,0.15);
 }
 .clear {
   clear: both;
@@ -310,7 +310,7 @@ kbd {
   padding-bottom: 0;
 }
 .wrapper {
-  width: calc(100% - 20px);
+  width: calc(100% - 2vw);
   margin: 0 auto;
 }
 .relative {
@@ -401,23 +401,23 @@ a:not(.disabled).is-active i.fa {
 }
 .big-message {
   display: block;
-  margin: 75px auto;
+  margin: 10vh auto;
   text-align: center;
-  max-width: 600px;
+  max-width: min(600px, 90vw);
 }
 .big-message h1 {
-  font-size: 26px;
-  margin-bottom: 24px;
+  font-size: clamp(20px, 5vw, 28px);
+  margin-bottom: 3vh;
 }
 .big-message p {
-  font-size: 18px;
-  line-height: 22px;
+  font-size: clamp(16px, 3.5vw, 20px);
+  line-height: 1.3;
 }
 .gutter {
-  margin-left: 38px;
+  margin-left: 5vw;
 }
 .viewer {
-  min-height: 18px;
+  min-height: 2.5vh;
   display: block;
   word-wrap: break-word;
 }
@@ -427,13 +427,13 @@ a:not(.disabled).is-active i.fa {
 }
 .viewer ol {
   list-style-type: decimal;
-  padding-left: 20px;
-  padding-bottom: 10px;
+  padding-left: 3vw;
+  padding-bottom: 1.5vh;
 }
 .viewer ul {
   list-style-type: initial;
-  padding-left: 20px;
-  padding-bottom: 10px;
+  padding-left: 3vw;
+  padding-bottom: 1.5vh;
 }
 .viewer em {
   font-style: italic;

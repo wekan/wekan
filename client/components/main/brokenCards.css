@@ -1,15 +1,15 @@
 .broken-cards-card-wrapper {
   margin-top: 0;
-  margin-bottom: 10px;
-  border-width: 3px !important;
+  margin-bottom: 1.3vh;
+  border-width: 0.4vw !important;
   border-color: #808080 !important;
   border-style: solid;
-  border-radius: 5px;
-  padding: 1.5rem;
+  border-radius: 0.7vw;
+  padding: 2vh 2vw;
   background-color: #fff;
 }
 .broken-cards-wrapper {
-  max-width: 500px;
+  max-width: min(500px, 65vw);
   margin-right: auto;
   margin-left: auto;
 }

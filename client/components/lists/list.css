@@ -9,7 +9,7 @@
   float: left;
 }
 [id^="swimlane-"] .list:first-child {
-  min-width: 20px;
+  min-width: 2.5vw;
 }
 .list.list-auto-width {
   flex: 1;
@@ -33,7 +33,7 @@
   background-color: rgba(0,0,0,0.2);
   border-color: transparent;
   box-shadow: none;
-  height: 100px;
+  height: 15vh;
 }
 .list.list-collapsed {
   flex: none;
@@ -45,24 +45,24 @@
 .list.list-composer .list-name-input,
 .list .list-composer .list-name-input {
   background: #fff;
-  margin: -3px 0 8px;
+  margin: -0.4vh 0 1vh;
 }
 .list-header-add {
   flex: 0 0 auto;
-  padding: 12px;
+  padding: 1.5vh 1.5vw;
   position: relative;
-  min-height: 20px;
+  min-height: 2.5vh;
 }
 .list-header {
   flex: 0 0 auto;
-  padding: 20px 12px 4px;
+  padding: 2.5vh 1.5vw 0.5vh;
   position: relative;
-  min-height: 20px;
+  min-height: 2.5vh;
   background-color: #e4e4e4;
-  border-bottom: 6px solid #e4e4e4;
+  border-bottom: 0.8vh solid #e4e4e4;
 }
 .list-header.list-header-card-count {
-  min-height: 35px;
+  min-height: 4.5vh;
   height: auto;
 }
 .list-header.ui-sortable-handle {
@@ -73,21 +73,21 @@
 }
 .list-header .list-header-name {
   display: inline;
-  font-size: 16px;
-  line-height: 17px;
+  font-size: clamp(14px, 3vw, 18px);
+  line-height: 1.2;
   margin: 0;
   font-weight: bold;
-  min-height: 9px;
-  min-width: 30px;
+  min-height: 1.2vh;
+  min-width: 4vw;
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
 .list-rotated {
-  width: 10px;
-  height: 250px;
-  margin-top: -90px;
-  margin-left: -110px;
+  width: 1.3vw;
+  height: 35vh;
+  margin-top: -12vh;
+  margin-left: -14vw;
   margin-right: 0;
   transform: rotate(90deg);
   position: relative;

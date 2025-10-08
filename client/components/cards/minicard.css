@@ -3,11 +3,11 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 9px;
+  margin-bottom: 1.2vh;
 }
 .minicard-wrapper.placeholder {
   background: #ccc;
-  border-radius: 9px;
+  border-radius: 1.2vw;
 }
 .minicard-wrapper.ui-sortable-helper {
   cursor: grabbing;
@@ -16,28 +16,28 @@
 }
 .minicard-wrapper.ui-sortable-helper .and-n-other {
   width: 100%;
-  height: 16px;
-  padding: 4px;
+  height: 2.5vh;
+  padding: 0.5vh;
   background-color: #f2f2f2;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 0.4vw;
 }
 .minicard-wrapper.ui-sortable-helper .multi-selection-checkbox {
   display: none;
 }
 .minicard-wrapper .multi-selection-checkbox + .minicard {
-  margin-left: 8px;
+  margin-left: 1vw;
 }
 @media only screen {
   .minicard {
-    padding: 6px 8px 2px;
+    padding: 0.8vh 1vw 0.3vh;
     position: relative;
     flex: 1;
     flex-wrap: wrap;
     background-color: #fff;
-    min-height: 20px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    border-radius: 2px;
+    min-height: 2.5vh;
+    box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.15);
+    border-radius: 0.3vw;
     color: #4d4d4d;
     overflow: hidden;
     transition: transform 0.2s, border-radius 0.2s;
@@ -45,14 +45,14 @@
 }
 .minicard-details-menu-with-handle {
   float: right;
-  font-size: 18px;
-  padding-right: 30px;
-  padding-left: 5px;
+  font-size: clamp(14px, 3vw, 18px);
+  padding-right: 4vw;
+  padding-left: 0.7vw;
 }
 .minicard-details-menu {
   float: right;
-  font-size: 18px;
-  padding-left: 5px;
+  font-size: clamp(14px, 3vw, 18px);
+  padding-left: 0.7vw;
 }
 @media print {
   .minicard-details-menu,
@@ -63,7 +63,7 @@
 .minicard.linked-board .linked-icon,
 .minicard.linked-card .linked-icon {
   display: inline-block;
-  margin-right: 11px;
+  margin-right: 1.5vw;
   vertical-align: baseline;
   font-size: 0.9em;
 }
@@ -72,11 +72,11 @@
   color: #937760;
 }
 .is-selected .minicard {
-  transform: translateX(11px);
+  transform: translateX(1.5vw);
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   z-index: 25;
-  box-shadow: -2px 1px 2px rgba(0,0,0,0.2);
+  box-shadow: -0.3vw 0.2vh 0.3vh rgba(0,0,0,0.2);
 }
 .minicard:hover:not(.minicard-composer),
 .is-selected .minicard,
@@ -90,20 +90,20 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 145px;
+  height: 20vh;
   user-select: none;
-  margin: 6px -8px 6px -8px;
-  border-radius: top 2px;
+  margin: 0.8vh -1vw 0.8vh -1vw;
+  border-radius: top 0.3vw;
 }
 .minicard .minicard-labels {
   float: none;
 }
 .minicard .minicard-labels .minicard-label {
-  width: 11px;
-  height: 11px;
-  border-radius: 2px;
-  margin-right: 3px;
-  margin-bottom: 3px;
+  width: 1.5vw;
+  height: 1.5vw;
+  border-radius: 0.3vw;
+  margin-right: 0.4vw;
+  margin-bottom: 0.4vh;
 }
 .minicard .minicard-labels-no-text {
   display: flex;
@@ -119,22 +119,22 @@
   flex-grow: 1;
   display: block;
   word-wrap: break-word;
-  max-width: 100px;
-  margin-right: 4px;
+  max-width: 13vw;
+  margin-right: 0.5vw;
 }
 .minicard .minicard-custom-field-item-fullwidth {
   flex-grow: 1;
   display: block;
   word-wrap: break-word;
   max-width: 100%;
-  margin-right: 4px;
+  margin-right: 0.5vw;
 }
 .minicard .handle {
-  width: 20px;
-  height: 20px;
+  width: 2.5vw;
+  height: 2.5vw;
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 0.7vw;
+  top: 0.7vh;
   display: none;
 }
 @media only screen {
@@ -143,13 +143,13 @@
   }
 }
 .minicard .handle .fa-arrows {
-  font-size: 20px;
+  font-size: clamp(16px, 3vw, 20px);
   color: #ccc;
 }
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
   display: inline-block;
-  margin-right: 5px;
+  margin-right: 0.7vw;
 }
 @media only screen {
   .minicard .minicard-title p:last-child {
@@ -166,11 +166,11 @@
   flex-wrap: wrap;
 }
 .minicard .date {
-  margin-right: 3px;
+  margin-right: 0.4vw;
 }
 .minicard .badges {
   float: left;
-  margin-top: 7px;
+  margin-top: 1vh;
   color: #808080;
 }
 .minicard .badges:empty {
@@ -178,14 +178,14 @@
 }
 .minicard .badges .badge {
   float: left;
-  margin-right: 11px;
-  margin-bottom: 3px;
+  margin-right: 1.5vw;
+  margin-bottom: 0.4vh;
   font-size: 0.9em;
 }
 .minicard .badges .badge.is-finished {
   background: #3cb500;
-  padding: 0px 3px;
-  border-radius: 3px;
+  padding: 0 0.4vw;
+  border-radius: 0.4vw;
   color: #fff;
 }
 .minicard .badges .badge:last-of-type {
@@ -201,41 +201,41 @@
 }
 .minicard .badges .badge .badge-text {
   font-size: 0.9em;
-  padding-left: 2px;
-  line-height: 14px;
+  padding-left: 0.3vw;
+  line-height: 1.2;
 }
 .minicard .badges .badge .check-list-text {
   padding-left: 0px;
-  line-height: 12px;
+  line-height: 1.1;
 }
 .minicard .minicard-members,
 .minicard .minicard-assignees,
 .minicard .minicard-creator {
   float: right;
-  margin-left: 5px;
-  margin-bottom: 4px;
+  margin-left: 0.7vw;
+  margin-bottom: 0.5vh;
 }
 .minicard .minicard-members .member,
 .minicard .minicard-assignees .member,
 .minicard .minicard-creator .member {
   float: right;
   border-radius: 50%;
-  height: 28px;
-  width: 28px;
-  margin-bottom: 4px;
+  height: 3.5vw;
+  width: 3.5vw;
+  margin-bottom: 0.5vh;
 }
 .minicard .minicard-members .assignee,
 .minicard .minicard-assignees .assignee,
 .minicard .minicard-creator .assignee {
   float: right;
   border-radius: 50%;
-  height: 28px;
-  width: 28px;
+  height: 3.5vw;
+  width: 3.5vw;
 }
 .minicard .minicard-members + .badges,
 .minicard .minicard-assignees + .badges,
 .minicard .minicard-creator + .badges {
-  margin-top: 5px;
+  margin-top: 0.7vh;
 }
 .minicard .minicard-assignees {
   border-bottom: 1px solid #f00;
@@ -248,13 +248,13 @@
   display: none;
 }
 .minicard .minicard-description {
-  padding: 6px 0 0 8px;
+  padding: 0.8vh 0 0 1vw;
   color: #000;
   background-color: #eee;
   width: 100%;
-  margin-bottom: 2px;
-  margin-left: -4px;
-  border-radius: 3px;
+  margin-bottom: 0.3vh;
+  margin-left: -0.5vw;
+  border-radius: 0.4vw;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -262,7 +262,7 @@
   -webkit-box-orient: vertical;
 }
 .minicard.minicard-composer {
-  margin-bottom: 10px;
+  margin-bottom: 1.3vh;
 }
 .minicard.minicard-composer textarea.minicard-composer-textarea,
 .minicard.minicard-composer textarea.minicard-composer-textarea:focus {
@@ -273,9 +273,9 @@
   height: auto;
   margin: 0;
   padding: 0;
-  max-height: 162px;
-  min-height: 36px;
-  margin-bottom: 20px;
+  max-height: 22vh;
+  min-height: 5vh;
+  margin-bottom: 2.5vh;
   overflow-y: auto;
 }
 .parent-prefix {

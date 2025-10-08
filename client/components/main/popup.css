@@ -1,16 +1,16 @@
 .pop-over {
   background: #fff;
-  border-radius: 3px;
+  border-radius: 0.4vw;
   border: 1px solid #dbdbdb;
   border-bottom-color: #c2c2c2;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 0.2vh 0.8vh rgba(0,0,0,0.3);
   position: absolute;
-  width: 300px;
+  width: min(300px, 40vw);
   z-index: 99999;
-  margin-top: 5px;
+  margin-top: 0.7vh;
 }
 .pop-over hr {
-  margin: 4px 0px;
+  margin: 0.5vh 0px;
 }
 .pop-over p,
 .pop-over textarea,
@@ -22,27 +22,27 @@
 }
 .pop-over select {
   width: 100%;
-  margin-bottom: 14px;
+  margin-bottom: 1.8vh;
 }
 .pop-over textarea {
-  height: 72px;
+  height: 9vh;
 }
 .pop-over form a span {
-  padding: 0 0.5rem;
+  padding: 0 0.7vw;
 }
 .pop-over .header {
-  height: 36px;
+  height: 4.5vh;
   position: relative;
-  margin-bottom: 8px;
+  margin-bottom: 1vh;
   background: #f7f7f7;
   border-bottom: 1px solid #dcdcdc;
   color: #666;
 }
 .pop-over .header .header-title {
   display: block;
-  line-height: 32px;
-  padding-top: 4px;
-  margin: 0 10px;
+  line-height: 4vh;
+  padding-top: 0.5vh;
+  margin: 0 1.3vw;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -51,18 +51,18 @@
 .pop-over .header .back-btn {
   float: left;
   overflow: hidden;
-  width: 30px;
+  width: 4vw;
   transition: width 0.2s;
 }
 .pop-over .header .back-btn i.fa {
-  margin: 10px;
-  margin-top: 12px;
+  margin: 1.3vw;
+  margin-top: 1.5vh;
 }
 .pop-over .header .back-btn.is-hidden {
   width: 0;
 }
 .pop-over .header .close-btn {
-  padding: 10px 10px 10px 4px;
+  padding: 1.3vh 1.3vw 1.3vh 0.5vw;
   position: absolute;
   top: 0;
   right: 0;
@@ -76,23 +76,23 @@
 }
 .pop-over .content-container {
   width: 5000px;
-  max-height: 550px;
+  max-height: 70vh;
   transition: transform 0.2s;
 }
 .pop-over .content-container .content {
-  width: 280px;
-  padding: 0 10px 10px;
+  width: min(280px, 37vw);
+  padding: 0 1.3vw 1.3vh;
   float: left;
 }
 .pop-over .content-container .content.no-height {
-  height: 20px;
+  height: 2.5vh;
 }
 .pop-over .quiet {
 /*  padding: 6px 6px 4px;*/
 }
 .pop-over.search-over {
   background: #f0f0f0;
-  min-height: 114px;
+  min-height: 14vh;
 }
 .pop-over.search-over .header {
   display: none;
