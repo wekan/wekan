@@ -25,6 +25,8 @@ This release fixes the following bugs:
 
 - [Fixed Collapse button not there when using clearlight board theme](https://github.com/wekan/wekan/pull/5900).
   Thanks to seve12.
+- [Fixed translation of "Change Language" at login page](https://github.com/wekan/wekan/commit/9a31371de0e155d3144769f45a1fa216872935eb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
