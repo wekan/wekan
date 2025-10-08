@@ -192,7 +192,6 @@ BlazeComponent.extendComponent({
         button:focus, [role="button"]:focus, a:focus, input:focus, select:focus, textarea:focus, .dropdown-menu:focus, .js-board-view-swimlanes:focus, .js-add-card:focus {
           outline: 3px solid #005fcc !important;
           outline-offset: 2px !important;
-          background-color: #e6f0ff !important;
         }
         /* Input borders */
         input, textarea, select {
