@@ -71,8 +71,8 @@ template(name="userFormsLayout")
           if getLegalNoticeWithWritTraduction
             div
         div.at-form-lang
-          label(for="userform-set-language-select") {{_ 'choose_language'}}
-          select.select-lang.js-userform-set-language#userform-set-language-select(aria-label="{{_ 'choose_language'}}")
+          label(for="userform-set-language-select") {{_ 'changeLanguagePopup-title'}}
+          select.select-lang.js-userform-set-language#userform-set-language-select(aria-label="{{_ 'changeLanguagePopup-title'}}")
             each languages
               if isCurrentLanguage
                 option(value="{{tag}}" selected="selected") {{name}}
