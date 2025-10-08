@@ -27,6 +27,10 @@ This release fixes the following bugs:
   Thanks to seve12.
 - [Fixed translation of "Change Language" at login page](https://github.com/wekan/wekan/commit/9a31371de0e155d3144769f45a1fa216872935eb).
   Thanks to xet7.
+- [Some mobile fixes](https://github.com/wekan/wekan/commit/3fda90612d88fc5a8f1e17ae5c399745de06aada).
+  Thanks to xet7.
+- [Removed white box that appeared when clicking something](https://github.com/wekan/wekan/commit/3814a218c2dab3ed9e8908c3a2de996ffebf6d9d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
