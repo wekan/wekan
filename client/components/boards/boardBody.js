@@ -76,6 +76,15 @@ BlazeComponent.extendComponent({
     }
   },
   onRendered() {
+    // Initialize user settings (zoom and mobile mode)
+    Utils.initializeUserSettings();
+
+    // Detect iPhone devices and add class for better CSS targeting
+    const isIPhone = /iPhone|iPod/.test(navigator.userAgent);
+    if (isIPhone) {
+      document.body.classList.add('iphone-device');
+    }
+
     // Accessibility: Focus management for popups and menus
     function focusFirstInteractive(container) {
       if (!container) return;

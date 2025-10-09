@@ -99,7 +99,36 @@
   display: flex;
   z-index: 1000;
   padding: 10px 0px;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on mobile */
+  min-height: 28px; /* Allow height to grow */
 }
+#header-quick-access .home-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+#header-quick-access .home-icon a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+#header-quick-access .home-icon a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#header-quick-access .home-icon .fa-home {
+  font-size: 16px;
+  margin-right: 4px;
+}
+
 #header-quick-access .allBoards {
   font-size: 14px;
   padding: 4px 15px;
@@ -196,6 +225,197 @@
   margin: 4px 8px 0 0;
   float: left;
 }
+
+/* Zoom Controls in Header */
+#header-quick-access .zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5vh 1vw;
+  border-radius: 0.5vw;
+  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
+  margin: 0 1vw;
+  float: left;
+}
+
+#header-quick-access .zoom-controls .board-header-btn {
+  padding: 0.5vh 0.8vw !important;
+  border-radius: 0.3vw !important;
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  transition: all 0.2s ease !important;
+  color: #000 !important;
+  height: auto !important;
+  line-height: normal !important;
+  margin: 0 !important;
+  float: none !important;
+  overflow: visible !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3vw !important;
+}
+
+#header-quick-access .zoom-controls .board-header-btn i {
+  color: #000 !important;
+  float: none !important;
+  display: inline !important;
+  line-height: normal !important;
+  margin: 0 !important;
+}
+
+#header-quick-access .zoom-controls .board-header-btn:hover {
+  background: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+}
+
+#header-quick-access .zoom-controls .board-header-btn:hover i {
+  color: #fff !important;
+}
+
+#header-quick-access .zoom-controls .zoom-level {
+  font-weight: bold;
+  color: #333;
+  min-width: 3vw;
+  text-align: center;
+  font-size: clamp(12px, 2vw, 14px);
+  cursor: pointer;
+  padding: 0.3vh 0.5vw;
+  border-radius: 0.3vw;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#header-quick-access .zoom-controls .zoom-level:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+#header-quick-access .zoom-controls .zoom-display {
+  display: inline-block;
+}
+
+    #header-quick-access .zoom-controls .zoom-input {
+      background: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+      border-radius: 0.3vw;
+      padding: 0.3vh 0.5vw;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+      min-width: 3vw;
+      font-size: clamp(12px, 2vw, 14px);
+    }
+
+    /* Make zoom input wider on all mobile screens */
+    @media screen and (max-width: 800px) {
+      #header-quick-access .zoom-controls .zoom-input {
+        min-width: 50px !important; /* Wider on mobile */
+        width: 50px !important; /* Fixed width to show all numbers */
+        font-size: 14px !important; /* Slightly larger text */
+      }
+    }
+
+#header-quick-access .zoom-controls .zoom-input:focus {
+  outline: 2px solid #005fcc;
+  outline-offset: 1px;
+}
+
+/* Mobile Mode Toggle in Header */
+#header-quick-access .mobile-mode-toggle {
+  display: flex;
+  align-items: center;
+  margin: 0 1vw;
+  float: left;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn {
+  padding: 0.5vh 0.8vw !important;
+  border-radius: 0.3vw !important;
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  transition: all 0.2s ease !important;
+  color: #000 !important;
+  height: auto !important;
+  line-height: normal !important;
+  margin: 0 !important;
+  float: none !important;
+  overflow: visible !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  position: relative !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn i {
+  color: #666 !important;
+  float: none !important;
+  display: inline !important;
+  line-height: normal !important;
+  margin: 0 !important;
+  transition: all 0.2s ease !important;
+  font-size: clamp(14px, 2.8vw, 18px) !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn i.active {
+  color: #000 !important;
+  font-weight: bold !important;
+  transform: scale(1.1) !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn:hover {
+  background: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn:hover i {
+  color: #ccc !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn:hover i.active {
+  color: #fff !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active {
+  background: #fff !important;
+  border-color: #000 !important;
+  color: #000 !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.mobile-icon {
+  color: #000 !important;
+  font-weight: bold !important;
+  transform: scale(1.1) !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.desktop-icon {
+  color: #666 !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active {
+  background: #fff !important;
+  border-color: #000 !important;
+  color: #000 !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.mobile-icon {
+  color: #666 !important;
+}
+
+#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon {
+  color: #000 !important;
+  font-weight: bold !important;
+  transform: scale(1.1) !important;
+}
 #header-quick-access #header-user-bar .header-user-bar-name i.fa-chevron-down {
   margin-right: 4px;
 }
@@ -227,6 +447,650 @@
     width: 100%;
     z-index: 30;
   }
+
+  /* Mobile home icon styling */
+  #header-quick-access .home-icon {
+    margin-right: 0.5rem;
+  }
+
+  #header-quick-access .home-icon .fa-home {
+    font-size: 16px;
+    margin-right: 4px;
+  }
+
+  #header-quick-access .home-icon a {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  /* Ensure All Boards text is visible on mobile */
+  #header-quick-access .home-icon.allBoards {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Adjust for very small screens */
+  @media screen and (max-width: 480px) {
+    #header-quick-access .home-icon a {
+      font-size: 11px;
+      padding: 3px 6px;
+    }
+
+    #header-quick-access .home-icon .fa-home {
+      font-size: 14px;
+      margin-right: 3px;
+    }
+  }
+
+  /* Mobile - make all text and icons 2x bigger above #content by default */
+  @media screen and (max-width: 800px),
+         screen and (max-device-width: 800px),
+         screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
+         screen and (max-width: 800px) and (orientation: portrait),
+         screen and (max-width: 800px) and (orientation: landscape) {
+    #header-quick-access {
+      height: auto !important; /* Allow height to grow */
+      min-height: 48px !important; /* Minimum height for mobile */
+      flex-wrap: wrap !important; /* Force wrapping */
+      align-items: flex-start !important; /* Align to top when wrapping */
+      padding: 8px 0px !important; /* Adjust padding for mobile */
+    }
+    #header-quick-access {
+      font-size: 2em !important; /* 2x bigger base font size */
+    }
+
+    #header-quick-access * {
+      font-size: inherit !important; /* Inherit the 2x scaling */
+    }
+
+    #header-quick-access .fa,
+    #header-quick-access .icon {
+      font-size: 2em !important; /* 2x bigger icons */
+    }
+
+    #header-quick-access .home-icon a {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .home-icon .fa-home {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .zoom-controls {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .zoom-controls .zoom-level {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .zoom-controls .zoom-input {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .mobile-mode-toggle .board-header-btn {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .mobile-mode-toggle .board-header-btn i {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    /* Mobile header wrapping and spacing */
+    #header-quick-access .home-icon {
+      flex-shrink: 0 !important;
+      margin-right: 0.5rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #header-quick-access .zoom-controls {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #header-quick-access .mobile-mode-toggle {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #header-quick-access #notifications {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #header-quick-access #header-user-bar {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #header-quick-access ul.header-quick-access-list {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 4px !important;
+      width: auto !important;
+    }
+  }
+
+  /* Mobile All Boards page - make logo row elements 2x bigger */
+  @media screen and (max-width: 800px),
+         screen and (max-device-width: 800px),
+         screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
+         screen and (max-width: 800px) and (orientation: portrait),
+         screen and (max-width: 800px) and (orientation: landscape) {
+    .wrapper ~ #header-quick-access,
+    body:not(.board-view) #header-quick-access {
+      font-size: 2em !important; /* 2x bigger base font size for logo row */
+    }
+
+    /* iPhone 12 Mini specific - 3x bigger for All Boards page */
+    @media screen and (device-width: 375px) and (device-height: 812px), /* iPhone 12 Mini exact */
+           screen and (max-width: 375px) and (max-height: 812px), /* iPhone 12 Mini viewport */
+           screen and (-webkit-min-device-pixel-ratio: 3) and (max-width: 375px) /* iPhone 12 Mini Retina */ {
+      .wrapper ~ #header-quick-access,
+      body:not(.board-view) #header-quick-access {
+        font-size: 3em !important; /* 3x bigger base font size for iPhone 12 Mini All Boards page */
+      }
+    }
+
+    .wrapper ~ #header-quick-access *,
+    body:not(.board-view) #header-quick-access * {
+      font-size: inherit !important; /* Inherit the 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access .fa,
+    .wrapper ~ #header-quick-access .icon,
+    body:not(.board-view) #header-quick-access .fa,
+    body:not(.board-view) #header-quick-access .icon {
+      font-size: 2em !important; /* 2x bigger icons in logo row */
+    }
+
+    .wrapper ~ #header-quick-access .home-icon a,
+    body:not(.board-view) #header-quick-access .home-icon a {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access .home-icon .fa-home,
+    body:not(.board-view) #header-quick-access .home-icon .fa-home {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access .zoom-controls,
+    body:not(.board-view) #header-quick-access .zoom-controls {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
+    body:not(.board-view) #header-quick-access .zoom-controls .zoom-level {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
+    body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access .mobile-mode-toggle .board-header-btn,
+    body:not(.board-view) #header-quick-access .mobile-mode-toggle .board-header-btn {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access .mobile-mode-toggle .board-header-btn i,
+    body:not(.board-view) #header-quick-access .mobile-mode-toggle .board-header-btn i {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access #notifications,
+    body:not(.board-view) #header-quick-access #notifications {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access #notifications .fa,
+    body:not(.board-view) #header-quick-access #notifications .fa {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access #header-user-bar,
+    body:not(.board-view) #header-quick-access #header-user-bar {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    .wrapper ~ #header-quick-access #header-user-bar .fa,
+    body:not(.board-view) #header-quick-access #header-user-bar .fa {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+  }
+
+  /* iPhone 12 Mini specific - make header elements 3x bigger */
+  @media screen and (device-width: 375px) and (device-height: 812px), /* iPhone 12 Mini exact */
+         screen and (max-width: 375px) and (max-height: 812px), /* iPhone 12 Mini viewport */
+         screen and (-webkit-min-device-pixel-ratio: 3) and (max-width: 375px), /* iPhone 12 Mini Retina */
+         screen and (max-width: 375px) and (orientation: portrait), /* iPhone 12 Mini portrait */
+         screen and (max-width: 375px) and (orientation: landscape) /* iPhone 12 Mini landscape */ {
+    #header-quick-access {
+      font-size: 3em !important; /* 3x bigger base font size for iPhone 12 Mini */
+      height: auto !important; /* Allow height to grow */
+      min-height: 84px !important; /* Much taller minimum height for iPhone 12 Mini */
+      flex-wrap: wrap !important; /* Force wrapping */
+      align-items: flex-start !important; /* Align to top when wrapping */
+      padding: 18px 0px !important; /* More padding for iPhone 12 Mini */
+    }
+
+    #header-quick-access * {
+      font-size: inherit !important; /* Inherit the 2x scaling */
+    }
+
+    #header-quick-access .fa,
+    #header-quick-access .icon {
+      font-size: 3em !important; /* 3x bigger icons for iPhone 12 Mini */
+    }
+
+    #header-quick-access .home-icon a {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .home-icon .fa-home {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .zoom-controls {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .zoom-controls .zoom-level {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .zoom-controls .zoom-input {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .mobile-mode-toggle .board-header-btn {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access .mobile-mode-toggle .board-header-btn i {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access #notifications {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access #notifications .fa {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access #header-user-bar {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    #header-quick-access #header-user-bar .fa {
+      font-size: 1em !important; /* Use inherited 2x scaling */
+    }
+
+    /* iPhone 12 Mini header wrapping and spacing */
+    #header-quick-access .home-icon {
+      flex-shrink: 0 !important;
+      margin-right: 0.5rem !important;
+      margin-bottom: 6px !important;
+    }
+
+    #header-quick-access .zoom-controls {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 6px !important;
+    }
+
+    #header-quick-access .mobile-mode-toggle {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 6px !important;
+    }
+
+    #header-quick-access #notifications {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 6px !important;
+    }
+
+    #header-quick-access #header-user-bar {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 6px !important;
+    }
+
+    #header-quick-access ul.header-quick-access-list {
+      flex-shrink: 0 !important;
+      margin: 0 0.5rem !important;
+      margin-bottom: 6px !important;
+      width: auto !important;
+    }
+  }
+
+  /* iPhone 12 Mini and very small screens - make header elements much larger */
+  @media screen and (max-width: 400px) and (max-height: 900px),
+         screen and (max-device-width: 400px) and (max-device-height: 900px),
+         screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 400px),
+         screen and (max-width: 400px) and (orientation: portrait),
+         screen and (max-width: 400px) and (orientation: landscape),
+         screen and (max-width: 430px) and (max-height: 950px), /* iPhone 12 Mini range */
+         screen and (max-width: 450px) and (max-height: 1000px), /* iPhone range */
+         screen and (-webkit-min-device-pixel-ratio: 3) and (max-width: 450px), /* Retina displays */
+         screen and (device-width: 375px) and (device-height: 812px), /* iPhone 12 Mini exact */
+         screen and (device-width: 390px) and (device-height: 844px), /* iPhone 12/13 */
+         screen and (device-width: 428px) and (device-height: 926px) /* iPhone 12 Pro Max */ {
+    #header-quick-access {
+      height: 40px !important; /* Taller header */
+      padding: 12px 0px !important;
+    }
+
+    #header-quick-access .home-icon a {
+      font-size: 16px !important; /* Much larger text */
+      padding: 8px 12px !important;
+    }
+
+    #header-quick-access .home-icon .fa-home {
+      font-size: 20px !important; /* Much larger icon */
+      margin-right: 6px !important;
+    }
+
+    #header-quick-access .home-icon {
+      margin-right: 1rem !important;
+    }
+
+    /* Make zoom controls larger */
+    #header-quick-access .zoom-controls {
+      padding: 0.8vh 1.5vw !important;
+      margin: 0 1.5vw !important;
+    }
+
+    #header-quick-access .zoom-controls .zoom-level {
+      font-size: 16px !important; /* Larger zoom text */
+      padding: 0.5vh 0.8vw !important;
+      min-width: 4vw !important;
+    }
+
+    #header-quick-access .zoom-controls .zoom-input {
+      font-size: 16px !important; /* Larger input text */
+      padding: 0.5vh 0.8vw !important;
+      min-width: 6vw !important; /* Much wider for mobile */
+      width: 60px !important; /* Fixed width to show all numbers */
+    }
+
+    /* Make mobile mode toggle larger */
+    #header-quick-access .mobile-mode-toggle .board-header-btn {
+      padding: 0.8vh 1.2vw !important;
+      font-size: 16px !important;
+    }
+
+    #header-quick-access .mobile-mode-toggle .board-header-btn i {
+      font-size: 18px !important;
+    }
+  }
+
+  /* Fallback for iPhone devices using JavaScript detection */
+  .iphone-device #header-quick-access {
+    font-size: 2em !important; /* 2x bigger base font size */
+    height: auto !important; /* Allow height to grow */
+    min-height: 48px !important; /* Minimum height for mobile */
+    flex-wrap: wrap !important; /* Force wrapping */
+    align-items: flex-start !important; /* Align to top when wrapping */
+    padding: 8px 0px !important; /* Adjust padding for mobile */
+  }
+
+  .iphone-device #header-quick-access * {
+    font-size: inherit !important; /* Inherit the 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .fa,
+  .iphone-device #header-quick-access .icon {
+    font-size: 2em !important; /* 2x bigger icons */
+  }
+
+  .iphone-device #header-quick-access .home-icon a {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .home-icon .fa-home {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .zoom-controls {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .zoom-controls .zoom-level {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .zoom-controls .zoom-input {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .mobile-mode-toggle .board-header-btn {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .mobile-mode-toggle .board-header-btn i {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  /* iPhone device header wrapping and spacing */
+  .iphone-device #header-quick-access .home-icon {
+    flex-shrink: 0 !important;
+    margin-right: 0.5rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .iphone-device #header-quick-access .zoom-controls {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .iphone-device #header-quick-access .mobile-mode-toggle {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .iphone-device #header-quick-access #notifications {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .iphone-device #header-quick-access #header-user-bar {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .iphone-device #header-quick-access ul.header-quick-access-list {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 4px !important;
+    width: auto !important;
+  }
+
+  /* iPhone 12 Mini specific - JavaScript detection fallback */
+  .iphone-device #header-quick-access {
+    font-size: 3em !important; /* 3x bigger base font size for iPhone 12 Mini */
+    height: auto !important; /* Allow height to grow */
+    min-height: 84px !important; /* Much taller minimum height for iPhone 12 Mini */
+    flex-wrap: wrap !important; /* Force wrapping */
+    align-items: flex-start !important; /* Align to top when wrapping */
+    padding: 18px 0px !important; /* More padding for iPhone 12 Mini */
+  }
+
+  .iphone-device #header-quick-access * {
+    font-size: inherit !important; /* Inherit the 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .fa,
+  .iphone-device #header-quick-access .icon {
+    font-size: 3em !important; /* 3x bigger icons for iPhone 12 Mini */
+  }
+
+  .iphone-device #header-quick-access .home-icon a {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .home-icon .fa-home {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .zoom-controls {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .zoom-controls .zoom-level {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .zoom-controls .zoom-input {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .mobile-mode-toggle .board-header-btn {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access .mobile-mode-toggle .board-header-btn i {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access #notifications {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access #notifications .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access #header-user-bar {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device #header-quick-access #header-user-bar .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  /* iPhone 12 Mini header wrapping and spacing - JavaScript fallback */
+  .iphone-device #header-quick-access .home-icon {
+    flex-shrink: 0 !important;
+    margin-right: 0.5rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .iphone-device #header-quick-access .zoom-controls {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .iphone-device #header-quick-access .mobile-mode-toggle {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .iphone-device #header-quick-access #notifications {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .iphone-device #header-quick-access #header-user-bar {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .iphone-device #header-quick-access ul.header-quick-access-list {
+    flex-shrink: 0 !important;
+    margin: 0 0.5rem !important;
+    margin-bottom: 6px !important;
+    width: auto !important;
+  }
+
+  /* iPhone 12 Mini All Boards page - make logo row elements 3x bigger */
+  .iphone-device .wrapper ~ #header-quick-access,
+  .iphone-device body:not(.board-view) #header-quick-access {
+    font-size: 3em !important; /* 3x bigger base font size for logo row */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access *,
+  .iphone-device body:not(.board-view) #header-quick-access * {
+    font-size: inherit !important; /* Inherit the 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .fa,
+  .iphone-device .wrapper ~ #header-quick-access .icon,
+  .iphone-device body:not(.board-view) #header-quick-access .fa,
+  .iphone-device body:not(.board-view) #header-quick-access .icon {
+    font-size: 2em !important; /* 2x bigger icons in logo row */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .home-icon a,
+  .iphone-device body:not(.board-view) #header-quick-access .home-icon a {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .home-icon .fa-home,
+  .iphone-device body:not(.board-view) #header-quick-access .home-icon .fa-home {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .zoom-controls,
+  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-level,
+  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-level {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .zoom-controls .zoom-input,
+  .iphone-device body:not(.board-view) #header-quick-access .zoom-controls .zoom-input {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .mobile-mode-toggle .board-header-btn,
+  .iphone-device body:not(.board-view) #header-quick-access .mobile-mode-toggle .board-header-btn {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access .mobile-mode-toggle .board-header-btn i,
+  .iphone-device body:not(.board-view) #header-quick-access .mobile-mode-toggle .board-header-btn i {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access #notifications,
+  .iphone-device body:not(.board-view) #header-quick-access #notifications {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access #notifications .fa,
+  .iphone-device body:not(.board-view) #header-quick-access #notifications .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access #header-user-bar,
+  .iphone-device body:not(.board-view) #header-quick-access #header-user-bar {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .iphone-device .wrapper ~ #header-quick-access #header-user-bar .fa,
+  .iphone-device body:not(.board-view) #header-quick-access #header-user-bar .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
   #header-quick-access ul {
     width: calc(100% - 60px);
     margin-right: 10px;
@@ -236,12 +1100,6 @@
   }
   #header-quick-access ul li a {
     height: 100%;
-  }
-  #header-quick-access span .fa-home {
-    font-size: 26px;
-    margin-top: -2px;
-    margin-right: 10px;
-    margin-left: 10px;
   }
   #header-quick-access #header-new-board-icon {
     display: none;

@@ -1948,3 +1948,4 @@ Template.changePermissionsPopup.helpers({
     );
   },
 });
+

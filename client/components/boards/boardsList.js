@@ -22,6 +22,9 @@ Template.boardListHeaderBar.events({
   },
 });
 
+Template.boardList.events({
+});
+
 Template.boardListHeaderBar.helpers({
   title() {
     //if (FlowRouter.getRouteName() === 'template-container') {

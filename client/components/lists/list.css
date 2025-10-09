@@ -219,6 +219,7 @@
   flex: 0 0 60px;
   height: auto;
   width: 100%;
+  min-width: 100%;
   border-left: 0px;
   border-bottom: 1px solid #ccc;
 }
@@ -226,6 +227,7 @@
   display: contents;
   flex-basis: auto;
   width: 100%;
+  min-width: 100%;
   border-left: 0px;
 }
 .list.mobile-view:first-child {
@@ -250,6 +252,8 @@
 }
 .list.mobile-view .list-body {
   padding: 15px 19px;
+  width: 100%;
+  min-width: 100%;
 }
 .list.mobile-view .list-header {
   /*Updated padding values for mobile devices, this should fix text grouping issue*/
@@ -258,6 +262,8 @@
   min-height: 30px;
   margin-top: 10px;
   align-items: center;
+  width: 100%;
+  min-width: 100%;
   /* Force grid layout for iPhone */
   display: grid !important;
   grid-template-columns: 30px 1fr auto auto !important;
@@ -338,6 +344,7 @@
     flex: 0 0 60px;
     height: auto;
     width: 100%;
+    min-width: 100%;
     border-left: 0px;
     border-bottom: 1px solid #ccc;
   }
@@ -345,6 +352,7 @@
     display: contents;
     flex-basis: auto;
     width: 100%;
+    min-width: 100%;
     border-left: 0px;
   }
   .list:first-child {
@@ -369,6 +377,8 @@
   }
   .list-body {
     padding: 15px 19px;
+    width: 100%;
+    min-width: 100%;
   }
   .list-header {
 	  /*Updated padding values for mobile devices, this should fix text grouping issue*/
@@ -377,6 +387,8 @@
     min-height: 30px;
     margin-top: 10px;
     align-items: center;
+    width: 100%;
+    min-width: 100%;
   }
   .list-header .list-header-left-icon {
     padding: 7px;
@@ -450,6 +462,132 @@
   .list-header .edit-controls {
     align-items: initial;
   }
+}
+
+/* iPhone 12 Mini specific - fix icon positioning in stacked lists view */
+@media screen and (device-width: 375px) and (device-height: 812px), /* iPhone 12 Mini exact */
+       screen and (max-width: 375px) and (max-height: 812px), /* iPhone 12 Mini viewport */
+       screen and (-webkit-min-device-pixel-ratio: 3) and (max-width: 375px) /* iPhone 12 Mini Retina */ {
+  .list.mobile-view .list-header {
+    /* Force grid layout for iPhone 12 Mini */
+    display: grid !important;
+    grid-template-columns: 30px 1fr auto auto !important;
+    gap: 10px !important;
+    align-items: center !important;
+  }
+
+  .list.mobile-view .list-header .list-header-menu-icon {
+    /* Remove absolute positioning for iPhone 12 Mini */
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    /* Use grid positioning */
+    grid-row: 1/3 !important;
+    grid-column: 3 !important;
+    padding: 14px !important;
+    font-size: 40px !important;
+    text-align: center !important;
+  }
+
+  .list.mobile-view .list-header .list-header-handle {
+    /* Remove absolute positioning for iPhone 12 Mini */
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    /* Use grid positioning */
+    grid-row: 1/3 !important;
+    grid-column: 4 !important;
+    padding: 14px !important;
+    font-size: 48px !important;
+    text-align: center !important;
+  }
+
+  .list.mobile-view .list-header .list-header-name {
+    grid-row: 1 !important;
+    grid-column: 2 !important;
+    align-self: end !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    line-height: 1.2 !important;
+    padding-bottom: 2px !important;
+  }
+
+  .list.mobile-view .list-header .cardCount {
+    grid-row: 2 !important;
+    grid-column: 2 !important;
+    align-self: start !important;
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+
+  .list.mobile-view .list-header .list-header-left-icon {
+    display: grid !important;
+    grid-row: 1/3 !important;
+    grid-column: 1 !important;
+  }
+}
+
+/* iPhone device JavaScript detection fallback - fix icon positioning */
+.iphone-device .list.mobile-view .list-header {
+  /* Force grid layout for iPhone devices */
+  display: grid !important;
+  grid-template-columns: 30px 1fr auto auto !important;
+  gap: 10px !important;
+  align-items: center !important;
+}
+
+.iphone-device .list.mobile-view .list-header .list-header-menu-icon {
+  /* Remove absolute positioning for iPhone devices */
+  position: static !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important;
+  /* Use grid positioning */
+  grid-row: 1/3 !important;
+  grid-column: 3 !important;
+  padding: 14px !important;
+  font-size: 40px !important;
+  text-align: center !important;
+}
+
+.iphone-device .list.mobile-view .list-header .list-header-handle {
+  /* Remove absolute positioning for iPhone devices */
+  position: static !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important;
+  /* Use grid positioning */
+  grid-row: 1/3 !important;
+  grid-column: 4 !important;
+  padding: 14px !important;
+  font-size: 48px !important;
+  text-align: center !important;
+}
+
+.iphone-device .list.mobile-view .list-header .list-header-name {
+  grid-row: 1 !important;
+  grid-column: 2 !important;
+  align-self: end !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+  line-height: 1.2 !important;
+  padding-bottom: 2px !important;
+}
+
+.iphone-device .list.mobile-view .list-header .cardCount {
+  grid-row: 2 !important;
+  grid-column: 2 !important;
+  align-self: start !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+.iphone-device .list.mobile-view .list-header .list-header-left-icon {
+  display: grid !important;
+  grid-row: 1/3 !important;
+  grid-column: 1 !important;
 }
 .link-board-wrapper {
   display: flex;

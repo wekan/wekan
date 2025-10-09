@@ -465,6 +465,22 @@ Users.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    'profile.zoomLevel': {
+      /**
+       * User-specified zoom level for board view (1.0 = 100%, 1.5 = 150%, etc.)
+       */
+      type: Number,
+      defaultValue: 1.0,
+      min: 0.5,
+      max: 3.0,
+    },
+    'profile.mobileMode': {
+      /**
+       * User-specified mobile/desktop mode toggle
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     services: {
       /**
        * services field of the user
@@ -612,6 +628,8 @@ Users.safeFields = {
   'profile.fullname': 1,
   'profile.avatarUrl': 1,
   'profile.initials': 1,
+  'profile.zoomLevel': 1,
+  'profile.mobileMode': 1,
   orgs: 1,
   teams: 1,
   authenticationMethod: 1,
@@ -1277,6 +1295,22 @@ Users.mutations({
       },
     };
   },
+
+  setZoomLevel(level) {
+    return {
+      $set: {
+        'profile.zoomLevel': level,
+      },
+    };
+  },
+
+  setMobileMode(enabled) {
+    return {
+      $set: {
+        'profile.mobileMode': enabled,
+      },
+    };
+  },
 });
 
 Meteor.methods({
@@ -1331,6 +1365,16 @@ Meteor.methods({
     check(height, Number);
     const user = ReactiveCache.getCurrentUser();
     user.setSwimlaneHeight(boardId, swimlaneId, height);
+  },
+  setZoomLevel(level) {
+    check(level, Number);
+    const user = ReactiveCache.getCurrentUser();
+    user.setZoomLevel(level);
+  },
+  setMobileMode(enabled) {
+    check(enabled, Boolean);
+    const user = ReactiveCache.getCurrentUser();
+    user.setMobileMode(enabled);
   },
 });
 

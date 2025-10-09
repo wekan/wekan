@@ -50,6 +50,8 @@
   flex-direction: row;
   flex: 1 0 100%;
   background-color: #ccc;
+  width: 100%;
+  min-width: 100%;
 }
 .swimlane .swimlane-header-wrap .swimlane-header {
   font-size: 14px;

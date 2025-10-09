@@ -6,10 +6,31 @@ template(name="header")
     The first link goes to the boards page.
   if currentUser
     #header-quick-access(class=currentBoard.colorClass)
+      // Home icon - always at left side of logo
+      span.home-icon.allBoards
+        a(href="{{pathFor 'home'}}")
+          span.fa.fa-home
+          | {{_ 'all-boards'}}
+
+      // Logo - always visible in desktop mode
+      unless currentSetting.hideLogo
+        if currentSetting.customTopLeftCornerLogoImageUrl
+          if currentSetting.customTopLeftCornerLogoLinkUrl
+            a(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+              img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
+          unless currentSetting.customTopLeftCornerLogoLinkUrl
+            img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+        unless currentSetting.customTopLeftCornerLogoImageUrl
+          div#headerIsSettingDatabaseCallDone
+            img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+
+        // Zoom controls - always visible
+        .zoom-controls
+          span.zoom-level.js-zoom-level-click(title="{{_ 'click-to-change-zoom'}}")
+            span.zoom-display {{zoomLevel}}%
+            input.zoom-input.js-zoom-input(type="number" value=zoomLevel min="50" max="300" step="10" style="display: none;")
+
       if isMiniScreen
-        span
-          a(href="{{pathFor 'home'}}")
-            span.fa.fa-home
         ul.header-quick-access-list
           if currentList
             each currentBoard.lists
@@ -31,24 +52,6 @@ template(name="header")
         //      i.fa.fa-ban
         #header-new-board-icon
       else
-        //-
-          On sandstorm, the logo shouldn't be clickable, because we only have one
-          page/document on it, and we don't want to see the home page containing
-          the list of all boards.
-        unless currentSetting.hideLogo
-          if currentSetting.customTopLeftCornerLogoImageUrl
-            if currentSetting.customTopLeftCornerLogoLinkUrl
-              a(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-                img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
-            unless currentSetting.customTopLeftCornerLogoLinkUrl
-              img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-          unless currentSetting.customTopLeftCornerLogoImageUrl
-            div#headerIsSettingDatabaseCallDone
-              img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-        span.allBoards
-          a(href="{{pathFor 'home'}}")
-            span.fa.fa-home
-            | {{_ 'all-boards'}}
         ul.header-quick-access-list
           //li
           //  a(href="{{pathFor 'public'}}")
@@ -75,6 +78,10 @@ template(name="header")
       //a#header-new-board-icon.js-create-board
       //  i.fa.fa-plus(title="Create a new board")
 
+      .mobile-mode-toggle
+        a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
+          i.fa.fa-mobile.mobile-icon(class="{{#if mobileMode}}active{{/if}}")
+          i.fa.fa-desktop.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}")
       +notifications
 
       if currentSetting.customHelpLinkUrl

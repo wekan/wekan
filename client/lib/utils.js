@@ -51,6 +51,146 @@ Utils = {
     const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
+
+  // Zoom and mobile mode utilities
+  getZoomLevel() {
+    const user = ReactiveCache.getCurrentUser();
+    if (user && user.profile && user.profile.zoomLevel !== undefined) {
+      return user.profile.zoomLevel;
+    }
+    // For non-logged-in users, check localStorage
+    const stored = localStorage.getItem('wekan-zoom-level');
+    return stored ? parseFloat(stored) : 1.0;
+  },
+
+  setZoomLevel(level) {
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      // Update user profile
+      user.setZoomLevel(level);
+    } else {
+      // Store in localStorage for non-logged-in users
+      localStorage.setItem('wekan-zoom-level', level.toString());
+    }
+    Utils.applyZoomLevel(level);
+
+    // Trigger reactive updates for UI components
+    Session.set('wekan-zoom-level', level);
+  },
+
+  getMobileMode() {
+    const user = ReactiveCache.getCurrentUser();
+    if (user && user.profile && user.profile.mobileMode !== undefined) {
+      return user.profile.mobileMode;
+    }
+    // For non-logged-in users, check localStorage
+    const stored = localStorage.getItem('wekan-mobile-mode');
+    return stored ? stored === 'true' : false;
+  },
+
+  setMobileMode(enabled) {
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      // Update user profile
+      user.setMobileMode(enabled);
+    } else {
+      // Store in localStorage for non-logged-in users
+      localStorage.setItem('wekan-mobile-mode', enabled.toString());
+    }
+    Utils.applyMobileMode(enabled);
+    // Trigger reactive updates for UI components
+    Session.set('wekan-mobile-mode', enabled);
+  },
+
+  applyZoomLevel(level) {
+    const boardWrapper = document.querySelector('.board-wrapper');
+    const body = document.body;
+    const isMobileMode = body.classList.contains('mobile-mode');
+
+    if (boardWrapper) {
+      if (isMobileMode) {
+        // On mobile mode, only apply zoom to text and icons, not the entire layout
+        // Remove any existing transform from board-wrapper
+        boardWrapper.style.transform = '';
+        boardWrapper.style.transformOrigin = '';
+
+        // Apply zoom to text and icon elements instead
+        const textElements = boardWrapper.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, .minicard, .list-header-name, .board-header-btn, .fa, .icon');
+        textElements.forEach(element => {
+          element.style.transform = `scale(${level})`;
+          element.style.transformOrigin = 'center';
+        });
+
+        // Reset board-canvas height
+        const boardCanvas = document.querySelector('.board-canvas');
+        if (boardCanvas) {
+          boardCanvas.style.height = '';
+        }
+      } else {
+        // Desktop mode: apply zoom to entire board-wrapper as before
+        boardWrapper.style.transform = `scale(${level})`;
+        boardWrapper.style.transformOrigin = 'top left';
+
+        // If zoom is 50% or lower, make board wrapper full width like content
+        if (level <= 0.5) {
+          boardWrapper.style.width = '100%';
+          boardWrapper.style.maxWidth = '100%';
+          boardWrapper.style.margin = '0';
+        } else {
+          // Reset to normal width for higher zoom levels
+          boardWrapper.style.width = '';
+          boardWrapper.style.maxWidth = '';
+          boardWrapper.style.margin = '';
+        }
+
+        // Adjust container height to prevent scroll issues
+        const boardCanvas = document.querySelector('.board-canvas');
+        if (boardCanvas) {
+          boardCanvas.style.height = `${100 / level}%`;
+
+          // For high zoom levels (200%+), enable both horizontal and vertical scrolling
+          if (level >= 2.0) {
+            boardCanvas.style.overflowX = 'auto';
+            boardCanvas.style.overflowY = 'auto';
+            // Ensure the content area can scroll both horizontally and vertically
+            const content = document.querySelector('#content');
+            if (content) {
+              content.style.overflowX = 'auto';
+              content.style.overflowY = 'auto';
+            }
+          } else {
+            // Reset overflow for normal zoom levels
+            boardCanvas.style.overflowX = '';
+            boardCanvas.style.overflowY = '';
+            const content = document.querySelector('#content');
+            if (content) {
+              content.style.overflowX = '';
+              content.style.overflowY = '';
+            }
+          }
+        }
+      }
+    }
+  },
+
+  applyMobileMode(enabled) {
+    const body = document.body;
+    if (enabled) {
+      body.classList.add('mobile-mode');
+      body.classList.remove('desktop-mode');
+    } else {
+      body.classList.add('desktop-mode');
+      body.classList.remove('mobile-mode');
+    }
+  },
+
+  initializeUserSettings() {
+    // Apply saved settings on page load
+    const zoomLevel = Utils.getZoomLevel();
+    const mobileMode = Utils.getMobileMode();
+    Utils.applyZoomLevel(zoomLevel);
+    Utils.applyMobileMode(mobileMode);
+  },
   getCurrentList() {
     const listId = this.getCurrentListId();
     let ret = null;
@@ -376,7 +516,8 @@ Utils = {
 
   // returns if mini screen or desktop drag handles
   isTouchScreenOrShowDesktopDragHandles() {
-    return this.isTouchScreen();
+    // Always enable drag handles for mobile screens (touch devices)
+    return this.isTouchScreen() || this.isMiniScreen();
     //return this.isTouchScreen() || this.isShowDesktopDragHandles();
     //return this.isShowDesktopDragHandles();
   },

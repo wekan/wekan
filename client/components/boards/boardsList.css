@@ -1,5 +1,86 @@
 @import url("../../../css/reset.css") print, screen;
 
+/* Board List Header with Zoom Controls */
+.board-list-header {
+  display: flex;
+  justify-content: center;
+  margin: 1vh 0 2vh 0;
+  padding: 1vh 0;
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5vh 1vw;
+  border-radius: 0.5vw;
+  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
+}
+
+.zoom-controls .board-header-btn {
+  padding: 0.5vh 0.8vw !important;
+  border-radius: 0.3vw !important;
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+  color: #000 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3vw !important;
+  height: auto !important;
+  line-height: normal !important;
+  margin: 0 !important;
+  float: none !important;
+  overflow: visible !important;
+}
+
+.zoom-controls .board-header-btn i {
+  color: #000 !important;
+  float: none !important;
+  display: inline !important;
+  line-height: normal !important;
+  margin: 0 !important;
+}
+
+.zoom-controls .board-header-btn:hover {
+  background: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+}
+
+.zoom-controls .board-header-btn:hover i {
+  color: #fff !important;
+}
+
+.zoom-controls .board-header-btn.is-active {
+  background: #0079bf;
+  color: white;
+  border-color: #005a8a;
+}
+
+.zoom-controls .board-header-btn.is-active i {
+  color: white;
+}
+
+.zoom-level {
+  font-weight: bold;
+  color: #333;
+  min-width: 3vw;
+  text-align: center;
+  font-size: clamp(12px, 2vw, 14px);
+  cursor: pointer;
+  padding: 0.3vh 0.5vw;
+  border-radius: 0.3vw;
+  transition: all 0.2s ease;
+}
+
+.zoom-level:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
 .board-list {
   margin: 0 8px;
 }
@@ -194,15 +275,33 @@
 }
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .board-list.mobile-view {
-  height: 100%;
-  overflow: scroll;
+  height: calc(100vh - 120px);
+  overflow-y: scroll !important;
+  overflow-x: hidden;
+  padding: 0 1rem;
+  margin: 0;
+  scrollbar-width: auto !important;
+  scrollbar-color: #888 #f1f1f1;
 }
 .board-list.mobile-view li {
-  width: 50%;
+  width: 100%;
+  float: none;
+  display: block;
+  margin-bottom: 1rem;
+  padding-right: 50px; /* Space for drag handle */
 }
 .board-list.mobile-view .board-list-item {
-  overflow: hidden;
+  overflow: visible;
   height: 8rem;
+  width: 100%;
+  margin: 0;
+  padding-right: 50px; /* Ensure content doesn't overlap with drag handle */
+}
+
+.board-list.mobile-view .board-list-item .details {
+  padding-right: 50px; /* Extra space for drag handle */
+  width: 100%;
+  box-sizing: border-box;
 }
 .board-list.mobile-view .board-list-item-sub-name {
   position: relative;
@@ -216,19 +315,89 @@
   transform: translateY(-50%);
   right: 10px;
   font-size: 24px;
+  color: #fff;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background-color 0.2s ease;
 }
 
-@media screen and (max-width: 800px) {
+.board-list.mobile-view .board-handle:hover {
+  background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
+}
+
+/* Force scrollbar to be visible on mobile view */
+.board-list.mobile-view::-webkit-scrollbar {
+  width: 12px !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.board-list.mobile-view::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+  border-radius: 6px !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.board-list.mobile-view::-webkit-scrollbar-thumb {
+  background: #888 !important;
+  border-radius: 6px !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.board-list.mobile-view::-webkit-scrollbar-thumb:hover {
+  background: #555 !important;
+}
+
+/* Force mobile view to have scrollable content */
+.board-list.mobile-view {
+  min-height: 100vh; /* Force content to be tall enough to scroll */
+}
+
+.board-list.mobile-view::after {
+  content: '';
+  display: block;
+  height: 100px;
+}
+
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 800px),
+       screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
+       screen and (max-width: 800px) and (orientation: portrait),
+       screen and (max-width: 800px) and (orientation: landscape) {
   .board-list {
     height: 100%;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 1rem;
+    margin: 0;
   }
   .board-list li {
-    width: 50%;
+    width: 100%;
+    float: none;
+    display: block;
+    margin-bottom: 1rem;
+    padding-right: 50px; /* Space for drag handle */
   }
   .board-list .board-list-item {
-    overflow: hidden;
+    overflow: visible;
     height: 8rem;
+    width: 100%;
+    margin: 0;
+    padding-right: 50px; /* Ensure content doesn't overlap with drag handle */
+  }
+
+  .board-list .board-list-item .details {
+    padding-right: 50px; /* Extra space for drag handle */
+    width: 100%;
+    box-sizing: border-box;
   }
   .board-list .board-list-item-sub-name {
     position: relative;
@@ -242,32 +411,296 @@
     transform: translateY(-50%);
     right: 10px;
     font-size: 24px;
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.2s ease;
   }
-}
-/* Mobile view styles for very small screens - applied when isMiniScreen is true */
-.board-list.mobile-view li {
-  width: 50%;
-}
-.board-list.mobile-view .board-handle {
-  position: absolute;
-  padding: 7px;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 10px;
-  font-size: 24px;
-}
 
-@media screen and (max-width: 360px) {
-  li {
-    width: 100%;
+  .board-list .board-handle:hover {
+    background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
   }
-  .board-handle {
+}
+/* Very small screens - ensure one board per row */
+@media screen and (max-width: 360px) {
+  .board-list li {
+    width: 100% !important;
+    float: none !important;
+    display: block !important;
+  }
+  .board-list .board-handle {
     position: absolute;
     padding: 7px;
     top: 50%;
     transform: translateY(-50%);
     right: 10px;
     font-size: 24px;
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Mobile - make all text and icons 2x bigger above #content on All Boards page */
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 800px),
+       screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
+       screen and (max-width: 800px) and (orientation: portrait),
+       screen and (max-width: 800px) and (orientation: landscape) {
+  .wrapper {
+    font-size: 2em !important; /* 2x bigger base font size for All Boards page */
+  }
+
+  .wrapper * {
+    font-size: inherit !important; /* Inherit the 2x scaling */
+  }
+
+  .wrapper .fa, .wrapper .icon {
+    font-size: 2em !important; /* 2x bigger icons */
+  }
+
+  .board-list-header {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list-header h1 {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs select {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs input {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-list-item {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-list-item-name {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-list-item-desc {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .minicard-members {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .minicard-lists {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-handle {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+}
+
+/* Fallback for iPhone devices using JavaScript detection - All Boards page */
+.iphone-device .wrapper {
+  font-size: 2em !important; /* 2x bigger base font size for All Boards page */
+}
+
+.iphone-device .wrapper * {
+  font-size: inherit !important; /* Inherit the 2x scaling */
+}
+
+.iphone-device .wrapper .fa, .iphone-device .wrapper .icon {
+  font-size: 2em !important; /* 2x bigger icons */
+}
+
+.iphone-device .board-list-header {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list-header h1 {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs select {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs input {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs .fa {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-list-item {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-list-item-name {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-list-item-desc {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .minicard-members {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .minicard-lists {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .fa {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-handle {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+/* iPhone 12 Mini and very small screens - make everything much larger */
+@media screen and (max-width: 400px) and (max-height: 900px) {
+  .board-list {
+    height: calc(100vh - 120px) !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0.5rem;
+  }
+
+  .board-list li {
+    width: 100% !important;
+    float: none !important;
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .board-list .board-list-item {
+    height: 12rem !important; /* Much taller */
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem !important; /* More padding */
+    font-size: 18px !important; /* Much larger text */
+    line-height: 1.4 !important;
+  }
+
+  .board-list .board-list-item .board-list-item-name {
+    font-size: 20px !important; /* Larger board names */
+    font-weight: bold !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .board-list .board-list-item .board-list-item-desc {
+    font-size: 16px !important; /* Larger descriptions */
+    line-height: 1.3 !important;
+  }
+
+  .board-list .board-list-item .minicard-members {
+    font-size: 14px !important; /* Larger member avatars */
+  }
+
+  .board-list .board-list-item .minicard-lists {
+    font-size: 14px !important; /* Larger list counters */
+  }
+
+  .board-list .board-handle {
+    position: absolute;
+    padding: 10px !important;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px !important;
+    font-size: 28px !important; /* Much larger drag handle */
+    color: #fff;
+    background: rgba(0,0,0,0.4) !important;
+    border-radius: 50%;
+    width: 50px !important; /* Larger handle */
+    height: 50px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.2s ease;
+  }
+
+  .board-list .board-handle:hover {
+    background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
+  }
+
+  /* Force scrollbar to be visible and larger */
+  .board-list::-webkit-scrollbar {
+    width: 16px !important; /* Much wider scrollbar */
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .board-list::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 8px !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .board-list::-webkit-scrollbar-thumb {
+    background: #666 !important; /* Darker for better visibility */
+    border-radius: 8px !important;
+    display: block !important;
+    visibility: visible !important;
+    min-height: 50px !important; /* Minimum thumb size */
+  }
+
+  .board-list::-webkit-scrollbar-thumb:hover {
+    background: #333 !important;
+  }
+
+  /* Ensure scrollbar is always visible */
+  .board-list {
+    scrollbar-gutter: stable;
+    scrollbar-width: auto !important;
+    min-height: 100vh !important;
+  }
+
+  .board-list::after {
+    content: '';
+    display: block;
+    height: 200px !important; /* More space to ensure scrolling */
   }
 }
 .AllBoardTeamsOrgs {
@@ -318,3 +751,78 @@
   padding-right: 6px;
   text-align: center;
 }
+
+/* Fix multiple scrollbars issue on mobile */
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 800px),
+       screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
+       screen and (max-width: 800px) and (orientation: portrait),
+       screen and (max-width: 800px) and (orientation: landscape) {
+  .wrapper {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .board-list {
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+    height: calc(100vh - 120px); /* Ensure there's content to scroll */
+  }
+
+  /* Force scrollbar to always be visible */
+  .board-list::-webkit-scrollbar {
+    width: 12px !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .board-list::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 6px !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .board-list::-webkit-scrollbar-thumb {
+    background: #888 !important;
+    border-radius: 6px !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .board-list::-webkit-scrollbar-thumb:hover {
+    background: #555 !important;
+  }
+
+  /* Ensure scrollbar is always visible */
+  .board-list::-webkit-scrollbar-corner {
+    background: #f1f1f1 !important;
+  }
+
+  /* Force scrollbar to be visible */
+  .board-list {
+    scrollbar-gutter: stable;
+    scrollbar-width: auto !important;
+    min-height: 100vh; /* Force content to be tall enough to scroll */
+  }
+
+  /* Ensure there's always content to scroll */
+  .board-list::after {
+    content: '';
+    display: block;
+    height: 100px;
+  }
+
+  /* Ensure only one scrollbar is visible */
+  body {
+    overflow: hidden;
+  }
+
+  #content {
+    overflow: hidden;
+  }
+}
+
