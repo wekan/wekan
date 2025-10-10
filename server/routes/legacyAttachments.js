@@ -53,7 +53,18 @@ if (Meteor.isServer) {
       // Set appropriate headers
       res.setHeader('Content-Type', attachment.type || 'application/octet-stream');
       res.setHeader('Content-Length', attachment.size || 0);
-      res.setHeader('Content-Disposition', `attachment; filename="${attachment.name}"`);
+
+      // Force attachment disposition for SVG files to prevent XSS attacks
+      const isSvgFile = attachment.name && attachment.name.toLowerCase().endsWith('.svg');
+      const disposition = isSvgFile ? 'attachment' : 'attachment'; // Always use attachment for legacy files
+      res.setHeader('Content-Disposition', `${disposition}; filename="${attachment.name}"`);
+
+      // Add security headers for SVG files
+      if (isSvgFile) {
+        res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'none'; object-src 'none';");
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.setHeader('X-Frame-Options', 'DENY');
+      }
 
       // Get GridFS stream for legacy attachment
       const fileStream = getOldAttachmentStream(attachmentId);

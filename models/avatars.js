@@ -85,6 +85,21 @@ Avatars = new FilesCollection({
     return ret;
   },
   onBeforeUpload(file) {
+    // Block SVG files for avatars to prevent XSS attacks
+    if (file.name && file.name.toLowerCase().endsWith('.svg')) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Blocked SVG file upload for avatar:', file.name);
+      }
+      return 'SVG files are not allowed for avatars due to security reasons. Please use PNG, JPG, or GIF format.';
+    }
+
+    if (file.type === 'image/svg+xml') {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Blocked SVG MIME type upload for avatar:', file.type);
+      }
+      return 'SVG files are not allowed for avatars due to security reasons. Please use PNG, JPG, or GIF format.';
+    }
+
     if (file.size <= avatarsUploadSize && file.type.startsWith('image/')) {
       return true;
     }

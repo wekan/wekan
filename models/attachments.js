@@ -91,6 +91,24 @@ Attachments = new FilesCollection({
     const ret = fileStoreStrategyFactory.storagePath;
     return ret;
   },
+  onBeforeUpload(file) {
+    // Block SVG files for attachments to prevent XSS attacks
+    if (file.name && file.name.toLowerCase().endsWith('.svg')) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Blocked SVG file upload for attachment:', file.name);
+      }
+      return 'SVG files are not allowed for attachments due to security reasons. Please use PNG, JPG, GIF, or other safe formats.';
+    }
+
+    if (file.type === 'image/svg+xml') {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Blocked SVG MIME type upload for attachment:', file.type);
+      }
+      return 'SVG files are not allowed for attachments due to security reasons. Please use PNG, JPG, GIF, or other safe formats.';
+    }
+
+    return true;
+  },
   onAfterUpload(fileObj) {
     // current storage is the filesystem, update object and database
     Object.keys(fileObj.versions).forEach(versionName => {
