@@ -65,6 +65,26 @@ template(name="cardDetails")
       else
         p.warning {{_ 'card-archived'}}
 
+    // Upload progress indicator for drag-and-drop uploads
+    if hasActiveUploads
+      .card-details-upload-progress
+        .upload-progress-header
+          i.fa.fa-upload
+          span {{_ 'uploading-files'}} ({{uploadCount}})
+        each uploads
+          .upload-progress-item(class="{{#if $eq status 'error'}}upload-error{{/if}}")
+            .upload-progress-filename {{file.name}}
+            .upload-progress-bar
+              .upload-progress-fill(style="width: {{progress}}%")
+            if $eq status 'error'
+              .upload-progress-error
+                i.fa.fa-exclamation-triangle
+                span {{_ 'upload-failed'}}
+            else if $eq status 'completed'
+              .upload-progress-success
+                i.fa.fa-check
+                span {{_ 'upload-completed'}}
+
     .card-details-left
 
       .card-details-items

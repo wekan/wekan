@@ -13,6 +13,7 @@ import { ALLOWED_COLORS } from '/config/const';
 import { UserAvatar } from '../users/userAvatar';
 import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlaneList';
 import { handleFileUpload } from './attachments';
+import uploadProgressManager from '/client/lib/uploadProgressManager';
 
 const subManager = new SubsManager();
 const { calculateIndexData } = Utils;
@@ -544,6 +545,16 @@ Template.cardDetails.helpers({
   isPopup() {
     let ret = !!Utils.getPopupCardId();
     return ret;
+  },
+  // Upload progress helpers
+  hasActiveUploads() {
+    return uploadProgressManager.hasActiveUploads(this._id);
+  },
+  uploads() {
+    return uploadProgressManager.getUploadsForCard(this._id);
+  },
+  uploadCount() {
+    return uploadProgressManager.getUploadCountForCard(this._id);
   }
 });
 Template.cardDetailsPopup.onDestroyed(() => {

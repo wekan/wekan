@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { CustomFieldStringTemplate } from '/client/lib/customFields';
 import { handleFileUpload } from './attachments';
+import uploadProgressManager from '/client/lib/uploadProgressManager';
 
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
@@ -185,6 +186,16 @@ Template.minicard.helpers({
   },
   isWatching() {
     return this.findWatcher(Meteor.userId());
+  },
+  // Upload progress helpers
+  hasActiveUploads() {
+    return uploadProgressManager.hasActiveUploads(this._id);
+  },
+  uploads() {
+    return uploadProgressManager.getUploadsForCard(this._id);
+  },
+  uploadCount() {
+    return uploadProgressManager.getUploadCountForCard(this._id);
   }
 });
 

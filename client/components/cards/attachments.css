@@ -106,6 +106,142 @@
   color: white;
   cursor: pointer;
   font-size: 4em;
+}
+
+/* Upload progress indicators for drag-and-drop uploads */
+.minicard-upload-progress,
+.card-details-upload-progress {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 12px;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.upload-progress-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #495057;
+}
+
+.upload-progress-header i {
+  margin-right: 8px;
+  color: #007bff;
+}
+
+.upload-progress-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  padding: 8px;
+  background: white;
+  border-radius: 3px;
+  border: 1px solid #dee2e6;
+}
+
+.upload-progress-item.upload-error {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+
+.upload-progress-filename {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #495057;
+  word-break: break-all;
+}
+
+.upload-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.upload-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.upload-progress-item.upload-error .upload-progress-fill {
+  background: #dc3545;
+}
+
+.upload-progress-error,
+.upload-progress-success {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.upload-progress-error {
+  color: #dc3545;
+}
+
+.upload-progress-success {
+  color: #28a745;
+}
+
+.upload-progress-error i,
+.upload-progress-success i {
+  margin-right: 4px;
+}
+
+/* Minicard specific styles */
+.minicard-upload-progress {
+  margin: 4px 0;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.minicard-upload-progress .upload-progress-item {
+  padding: 6px;
+  margin-bottom: 6px;
+}
+
+.minicard-upload-progress .upload-progress-filename {
+  font-size: 11px;
+}
+
+/* Card details specific styles */
+.card-details-upload-progress {
+  margin: 12px 0;
+  padding: 16px;
+}
+
+.card-details-upload-progress .upload-progress-header {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.card-details-upload-progress .upload-progress-item {
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.card-details-upload-progress .upload-progress-filename {
+  font-size: 14px;
+}
+
+/* Drag over state for minicards */
+.minicard.is-dragging-over {
+  border: 2px dashed #007bff !important;
+  background: rgba(0, 123, 255, 0.1) !important;
+}
+
+/* Drag over state for card details */
+.js-card-details.is-dragging-over {
+  border: 2px dashed #007bff !important;
+  background: rgba(0, 123, 255, 0.05) !important;
+}
   top: 0;
   right: 8px;
   position: absolute;

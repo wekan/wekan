@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ObjectID } from 'bson';
 import DOMPurify from 'dompurify';
+import uploadProgressManager from '/client/lib/uploadProgressManager';
 
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
@@ -333,13 +334,17 @@ export function handleFileUpload(card, files) {
   // Check if board allows attachments
   const board = card.board();
   if (!board || !board.allowsAttachments) {
-    console.warn('Attachments not allowed on this board');
+    if (process.env.DEBUG === 'true') {
+      console.warn('Attachments not allowed on this board');
+    }
     return [];
   }
 
   // Check if user can modify the card
   if (!card.canModifyCard()) {
-    console.warn('User does not have permission to modify this card');
+    if (process.env.DEBUG === 'true') {
+      console.warn('User does not have permission to modify this card');
+    }
     return [];
   }
 
@@ -348,7 +353,9 @@ export function handleFileUpload(card, files) {
   for (const file of files) {
     // Basic file validation
     if (!file || !file.name) {
-      console.warn('Invalid file object');
+      if (process.env.DEBUG === 'true') {
+        console.warn('Invalid file object');
+      }
       continue;
     }
 
@@ -381,24 +388,36 @@ export function handleFileUpload(card, files) {
         false,
       );
 
+      // Add to progress manager for tracking
+      const uploadId = uploadProgressManager.addUpload(card._id, uploader, file);
+
       uploader.on('uploaded', (error, fileRef) => {
         if (!error) {
           if (fileRef.isImage) {
             card.setCover(fileRef._id);
+            if (process.env.DEBUG === 'true') {
+              console.log(`Set cover image for card ${card._id}: ${fileRef.name}`);
+            }
           }
         } else {
-          console.error('Upload error:', error);
+          if (process.env.DEBUG === 'true') {
+            console.error('Upload error:', error);
+          }
         }
       });
 
       uploader.on('error', (error) => {
-        console.error('Upload error:', error);
+        if (process.env.DEBUG === 'true') {
+          console.error('Upload error:', error);
+        }
       });
 
       uploads.push(uploader);
       uploader.start();
     } catch (error) {
-      console.error('Failed to create uploader:', error);
+      if (process.env.DEBUG === 'true') {
+        console.error('Failed to create uploader:', error);
+      }
     }
   }
 
