@@ -52,6 +52,8 @@ and adds the following new features:
   Thanks to xet7.
 - [Make possible for lists to have different names at different swimlanes. Make possible to drag list from one swimlane to another swimlane](https://github.com/wekan/wekan/commit/719ef87efceacfe91461a8eeca7cf74d11f4cc0a).
   Thanks to xet7.
+- [Add support for Docker/Compose Secrets for passwords to Docker/Snap/Bundle platforms](https://github.com/wekan/wekan/commit/107e2ac90043138ea8aa09aadd92f4af355289c0).
+  Thanks to Roemer and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
