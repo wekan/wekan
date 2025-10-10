@@ -173,6 +173,7 @@ Swimlanes.helpers({
           type: list.type,
           archived: false,
           wipLimit: list.wipLimit,
+          swimlaneId: toSwimlaneId, // Set the target swimlane for the copied list
         });
       }
 
@@ -213,7 +214,7 @@ Swimlanes.helpers({
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        swimlaneId: { $in: [this._id, ''] },
+        swimlaneId: this._id, // Only get lists that belong to this specific swimlane
         archived: false,
       },
       { sort: { modifiedAt: -1 } },
@@ -223,7 +224,7 @@ Swimlanes.helpers({
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        swimlaneId: { $in: [this._id, ''] },
+        swimlaneId: this._id, // Only get lists that belong to this specific swimlane
         //archived: false,
       },
       { sort: ['sort'] },

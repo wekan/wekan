@@ -777,13 +777,22 @@ Boards.helpers({
       {
         boardId: this._id,
         archived: false,
+        // Get lists for all swimlanes in this board
+        swimlaneId: { $in: this.swimlanes().map(s => s._id) },
       },
       { sort: sortKey },
     );
   },
 
   draggableLists() {
-    return ReactiveCache.getLists({ boardId: this._id }, { sort: { sort: 1 } });
+    return ReactiveCache.getLists(
+      {
+        boardId: this._id,
+        // Get lists for all swimlanes in this board
+        swimlaneId: { $in: this.swimlanes().map(s => s._id) }
+      },
+      { sort: { sort: 1 } }
+    );
   },
 
   /** returns the last list
@@ -1171,6 +1180,7 @@ Boards.helpers({
       this.subtasksDefaultListId = Lists.insert({
         title: TAPi18n.__('queue'),
         boardId: this._id,
+        swimlaneId: this.getDefaultSwimline()._id, // Set default swimlane for subtasks list
       });
       this.setSubtasksDefaultListId(this.subtasksDefaultListId);
     }
@@ -1189,6 +1199,7 @@ Boards.helpers({
       this.dateSettingsDefaultListId = Lists.insert({
         title: TAPi18n.__('queue'),
         boardId: this._id,
+        swimlaneId: this.getDefaultSwimline()._id, // Set default swimlane for date settings list
       });
       this.setDateSettingsDefaultListId(this.dateSettingsDefaultListId);
     }

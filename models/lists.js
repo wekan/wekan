@@ -50,10 +50,10 @@ Lists.attachSchema(
     },
     swimlaneId: {
       /**
-       * the swimlane associated to this list. Used for templates
+       * the swimlane associated to this list. Required for per-swimlane list titles
        */
       type: String,
-      defaultValue: '',
+      // Remove defaultValue to make it required
     },
     createdAt: {
       /**
@@ -196,7 +196,7 @@ Lists.helpers({
       _id = existingListWithSameName._id;
     } else {
       delete this._id;
-      delete this.swimlaneId;
+      this.swimlaneId = swimlaneId; // Set the target swimlane for the copied list
       _id = Lists.insert(this);
     }
 
@@ -231,6 +231,7 @@ Lists.helpers({
         type: this.type,
         archived: false,
         wipLimit: this.wipLimit,
+        swimlaneId: swimlaneId, // Set the target swimlane for the moved list
       });
     }
 
@@ -585,6 +586,7 @@ if (Meteor.isServer) {
         title: req.body.title,
         boardId: paramBoardId,
         sort: board.lists().length,
+        swimlaneId: req.body.swimlaneId || board.getDefaultSwimline()._id, // Use provided swimlaneId or default
       });
       JsonRoutes.sendResult(res, {
         code: 200,

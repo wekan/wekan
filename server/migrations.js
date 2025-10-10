@@ -1489,3 +1489,64 @@ Migrations.add('remove-user-profile-hideCheckedItems', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('migrate-lists-to-per-swimlane', () => {
+  if (process.env.DEBUG === 'true') {
+    console.log('Starting migration: migrate-lists-to-per-swimlane');
+  }
+
+  try {
+    // Get all boards
+    const boards = Boards.find({}).fetch();
+
+    boards.forEach(board => {
+      if (process.env.DEBUG === 'true') {
+        console.log(`Processing board: ${board.title} (${board._id})`);
+      }
+
+      // Get the default swimlane for this board
+      const defaultSwimlane = board.getDefaultSwimline();
+      if (!defaultSwimlane) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`No default swimlane found for board ${board._id}, skipping`);
+        }
+        return;
+      }
+
+      // Get all lists for this board that don't have a swimlaneId or have empty swimlaneId
+      const listsWithoutSwimlane = Lists.find({
+        boardId: board._id,
+        $or: [
+          { swimlaneId: { $exists: false } },
+          { swimlaneId: '' },
+          { swimlaneId: null }
+        ]
+      }).fetch();
+
+      if (process.env.DEBUG === 'true') {
+        console.log(`Found ${listsWithoutSwimlane.length} lists without swimlaneId in board ${board._id}`);
+      }
+
+      // Update each list to belong to the default swimlane
+      listsWithoutSwimlane.forEach(list => {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Updating list "${list.title}" to belong to swimlane "${defaultSwimlane.title}"`);
+        }
+
+        Lists.direct.update(list._id, {
+          $set: {
+            swimlaneId: defaultSwimlane._id
+          }
+        }, noValidate);
+      });
+    });
+
+    if (process.env.DEBUG === 'true') {
+      console.log('Migration migrate-lists-to-per-swimlane completed successfully');
+    }
+
+  } catch (error) {
+    console.error('Error during migration migrate-lists-to-per-swimlane:', error);
+    throw error;
+  }
+});

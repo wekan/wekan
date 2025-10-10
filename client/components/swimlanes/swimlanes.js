@@ -63,7 +63,7 @@ function initSortable(boardComponent, $listsDom) {
   };
 
   $listsDom.sortable({
-    connectWith: '.board-canvas',
+    connectWith: '.js-swimlane, .js-lists',
     tolerance: 'pointer',
     helper: 'clone',
     items: '.js-list:not(.js-list-composer)',
@@ -82,9 +82,30 @@ function initSortable(boardComponent, $listsDom) {
       const nextListDom = ui.item.next('.js-list').get(0);
       const sortIndex = calculateIndex(prevListDom, nextListDom, 1);
 
-      $listsDom.sortable('cancel');
       const listDomElement = ui.item.get(0);
       const list = Blaze.getData(listDomElement);
+
+      // Detect if the list was dropped in a different swimlane
+      const targetSwimlaneDom = ui.item.closest('.js-swimlane');
+      let targetSwimlaneId = null;
+
+      if (targetSwimlaneDom.length > 0) {
+        // List was dropped in a swimlane
+        targetSwimlaneId = targetSwimlaneDom.attr('id').replace('swimlane-', '');
+      } else {
+        // List was dropped in lists view (not swimlanes view)
+        // In this case, assign to the default swimlane
+        const currentBoard = ReactiveCache.getBoard(Session.get('currentBoard'));
+        if (currentBoard) {
+          const defaultSwimlane = currentBoard.getDefaultSwimline();
+          if (defaultSwimlane) {
+            targetSwimlaneId = defaultSwimlane._id;
+          }
+        }
+      }
+
+      // Get the original swimlane ID of the list
+      const originalSwimlaneId = list.swimlaneId;
 
       /*
             Reverted incomplete change list width,
@@ -95,10 +116,44 @@ function initSortable(boardComponent, $listsDom) {
                   height: list._id.height(),
       */
 
+      // Prepare update object
+      const updateData = {
+        sort: sortIndex.base,
+      };
+
+      // Check if the list was dropped in a different swimlane
+      const isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId;
+
+      // If the list was dropped in a different swimlane, update the swimlaneId
+      if (isDifferentSwimlane) {
+        updateData.swimlaneId = targetSwimlaneId;
+        if (process.env.DEBUG === 'true') {
+          console.log(`Moving list "${list.title}" from swimlane ${originalSwimlaneId} to swimlane ${targetSwimlaneId}`);
+        }
+
+        // Move all cards in the list to the new swimlane
+        const cardsInList = ReactiveCache.getCards({
+          listId: list._id,
+          archived: false
+        });
+
+        cardsInList.forEach(card => {
+          card.move(list.boardId, targetSwimlaneId, list._id);
+        });
+
+        if (process.env.DEBUG === 'true') {
+          console.log(`Moved ${cardsInList.length} cards to swimlane ${targetSwimlaneId}`);
+        }
+
+        // Don't cancel the sortable when moving to a different swimlane
+        // The DOM move should be allowed to complete
+      } else {
+        // If staying in the same swimlane, cancel the sortable to prevent DOM manipulation issues
+        $listsDom.sortable('cancel');
+      }
+
       Lists.update(list._id, {
-        $set: {
-          sort: sortIndex.base,
-        },
+        $set: updateData,
       });
 
       boardComponent.setIsDragging(false);
@@ -109,10 +164,12 @@ function initSortable(boardComponent, $listsDom) {
     if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
       $listsDom.sortable({
         handle: '.js-list-handle',
+        connectWith: '.js-swimlane, .js-lists',
       });
     } else {
       $listsDom.sortable({
         handle: '.js-list-header',
+        connectWith: '.js-swimlane, .js-lists',
       });
     }
 
@@ -281,7 +338,7 @@ BlazeComponent.extendComponent({
               boardId: Session.get('currentBoard'),
               sort: sortIndex,
               type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
-              swimlaneId: this.currentBoard.isTemplatesBoard() ? this.currentSwimlane._id : '',
+              swimlaneId: this.currentSwimlane._id, // Always set swimlaneId for per-swimlane list titles
             });
 
             titleInput.value = '';
