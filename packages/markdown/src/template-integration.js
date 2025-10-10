@@ -1,5 +1,55 @@
 import DOMPurify from 'dompurify';
 
+// Secure DOMPurify configuration to prevent SVG-based DoS attacks
+function getSecureDOMPurifyConfig() {
+  return {
+    // Block dangerous SVG elements that can cause exponential expansion
+    FORBID_TAGS: [
+      'svg', 'defs', 'use', 'g', 'symbol', 'marker', 'pattern', 'mask', 'clipPath',
+      'linearGradient', 'radialGradient', 'stop', 'animate', 'animateTransform',
+      'animateMotion', 'set', 'switch', 'foreignObject', 'script', 'style'
+    ],
+    // Block dangerous SVG attributes
+    FORBID_ATTR: [
+      'xlink:href', 'href', 'onload', 'onerror', 'onclick', 'onmouseover',
+      'onfocus', 'onblur', 'onchange', 'onsubmit', 'onreset', 'onselect',
+      'onunload', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress'
+    ],
+    // Allow only safe image formats
+    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+    // Remove dangerous protocols
+    ALLOW_UNKNOWN_PROTOCOLS: false,
+    // Sanitize URLs to prevent malicious content loading
+    SANITIZE_DOM: true,
+    // Remove dangerous elements completely
+    KEEP_CONTENT: false,
+    // Additional security measures
+    ADD_ATTR: [],
+    // Block data URIs that could contain malicious SVG
+    ALLOW_DATA_ATTR: false,
+    // Custom hook to further sanitize content
+    HOOKS: {
+      uponSanitizeElement: function(node, data) {
+        // Block any remaining SVG elements
+        if (node.tagName && node.tagName.toLowerCase() === 'svg') {
+          return false;
+        }
+        // Block img tags with SVG data URIs
+        if (node.tagName && node.tagName.toLowerCase() === 'img') {
+          const src = node.getAttribute('src');
+          if (src && (src.startsWith('data:image/svg') || src.endsWith('.svg'))) {
+            if (process.env.DEBUG === 'true') {
+              console.warn('Blocked potentially malicious SVG image:', src);
+            }
+            return false;
+          }
+        }
+        return true;
+      }
+    }
+  };
+}
+
 var Markdown = require('markdown-it')({
   html: true,
   linkify: true,
@@ -41,6 +91,125 @@ Markdown.use(emoji);
 var mathjax = require('markdown-it-mathjax3');
 Markdown.use(mathjax);
 
+// Custom plugin to prevent SVG-based DoS attacks
+Markdown.use(function(md) {
+  // Filter out dangerous SVG content in markdown
+  md.core.ruler.push('svg-dos-protection', function(state) {
+    const tokens = state.tokens;
+
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i];
+
+      // Check for image tokens that might contain SVG
+      if (token.type === 'image') {
+        const src = token.attrGet('src');
+        if (src) {
+          // Block SVG data URIs and .svg files
+          if (src.startsWith('data:image/svg') || src.endsWith('.svg')) {
+            if (process.env.DEBUG === 'true') {
+              console.warn('Blocked potentially malicious SVG image in markdown:', src);
+            }
+            // Replace with a warning message
+            token.type = 'paragraph_open';
+            token.tag = 'p';
+            token.nesting = 1;
+            token.attrSet('style', 'color: red; background: #ffe6e6; padding: 8px; border: 1px solid #ff9999;');
+            token.attrSet('title', 'Blocked potentially malicious SVG image');
+
+            // Add warning text token
+            const warningToken = {
+              type: 'text',
+              content: '⚠️ Blocked potentially malicious SVG image for security reasons',
+              level: token.level,
+              markup: '',
+              info: '',
+              meta: null,
+              block: true,
+              hidden: false
+            };
+
+            // Insert warning token after the paragraph open
+            tokens.splice(i + 1, 0, warningToken);
+
+            // Add paragraph close token
+            const closeToken = {
+              type: 'paragraph_close',
+              tag: 'p',
+              nesting: -1,
+              level: token.level,
+              markup: '',
+              info: '',
+              meta: null,
+              block: true,
+              hidden: false
+            };
+            tokens.splice(i + 2, 0, closeToken);
+
+            // Remove the original image token
+            tokens.splice(i, 1);
+            i--; // Adjust index since we removed a token
+          }
+        }
+      }
+
+      // Check for HTML tokens that might contain SVG
+      if (token.type === 'html_block' || token.type === 'html_inline') {
+        const content = token.content;
+        if (content && (
+          content.includes('<svg') ||
+          content.includes('data:image/svg') ||
+          content.includes('xlink:href') ||
+          content.includes('<use') ||
+          content.includes('<defs>')
+        )) {
+          if (process.env.DEBUG === 'true') {
+            console.warn('Blocked potentially malicious SVG content in HTML:', content.substring(0, 100) + '...');
+          }
+          // Replace with warning
+          token.type = 'paragraph_open';
+          token.tag = 'p';
+          token.nesting = 1;
+          token.attrSet('style', 'color: red; background: #ffe6e6; padding: 8px; border: 1px solid #ff9999;');
+          token.attrSet('title', 'Blocked potentially malicious SVG content');
+
+          // Add warning text
+          const warningToken = {
+            type: 'text',
+            content: '⚠️ Blocked potentially malicious SVG content for security reasons',
+            level: token.level,
+            markup: '',
+            info: '',
+            meta: null,
+            block: true,
+            hidden: false
+          };
+
+          // Insert warning token after the paragraph open
+          tokens.splice(i + 1, 0, warningToken);
+
+          // Add paragraph close token
+          const closeToken = {
+            type: 'paragraph_close',
+            tag: 'p',
+            nesting: -1,
+            level: token.level,
+            markup: '',
+            info: '',
+            meta: null,
+            block: true,
+            hidden: false
+          };
+          tokens.splice(i + 2, 0, closeToken);
+
+          // Remove the original HTML token
+          tokens.splice(i, 1);
+          i--; // Adjust index since we removed a token
+        }
+      }
+    }
+  });
+});
+
 // Try to fix Mermaid Diagram error: Maximum call stack size exceeded.
 // Added bigger text size for Diagram.
 // https://github.com/wekan/wekan/issues/4251
@@ -69,12 +238,12 @@ if (Package.ui) {
       // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
       // If markdown link does not have description, do not render markdown, instead show all of markdown source code using preformatted text.
       // Also show html comments.
-      return HTML.Raw('<pre style="background-color: red;" title="Warning! Hidden markdown link description!" aria-label="Warning! Hidden markdown link description!">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;')) + '</pre>');
+      return HTML.Raw('<pre style="background-color: red;" title="Warning! Hidden markdown link description!" aria-label="Warning! Hidden markdown link description!">' + DOMPurify.sanitize(text.replace('<!--', '&lt;!--').replace('-->', '--&gt;'), getSecureDOMPurifyConfig()) + '</pre>');
     } else {
       // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
       // If text does not have hidden markdown link, render all markdown.
       // Also show html comments.
-      return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>'), {ALLOW_UNKNOWN_PROTOCOLS: true}));
+      return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>'), getSecureDOMPurifyConfig()));
     }
   }));
 }

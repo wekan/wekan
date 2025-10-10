@@ -148,6 +148,43 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
+    // Validate image URL to prevent SVG-based DoS attacks
+    validateImageUrl(imageUrl) {
+      check(imageUrl, String);
+
+      if (!imageUrl) {
+        return { valid: false, reason: 'Empty URL' };
+      }
+
+      // Block SVG files and data URIs
+      if (imageUrl.endsWith('.svg') || imageUrl.startsWith('data:image/svg')) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Blocked potentially malicious SVG image URL:', imageUrl);
+        }
+        return { valid: false, reason: 'SVG images are blocked for security reasons' };
+      }
+
+      // Block data URIs that could contain malicious content
+      if (imageUrl.startsWith('data:')) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Blocked data URI image URL:', imageUrl);
+        }
+        return { valid: false, reason: 'Data URIs are blocked for security reasons' };
+      }
+
+      // Validate URL format
+      try {
+        const url = new URL(imageUrl);
+        // Only allow http and https protocols
+        if (!['http:', 'https:'].includes(url.protocol)) {
+          return { valid: false, reason: 'Only HTTP and HTTPS protocols are allowed' };
+        }
+      } catch (e) {
+        return { valid: false, reason: 'Invalid URL format' };
+      }
+
+      return { valid: true };
+    },
     moveAttachmentToStorage(fileObjId, storageDestination) {
       check(fileObjId, String);
       check(storageDestination, String);
