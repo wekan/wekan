@@ -24,9 +24,11 @@ Fixing other platforms In Progress.
 This release adds the following CRITICAL SECURITY FIXES:
 
 - [Security Fix: IDOR CWE-639 that affected WeKan 7.80-7.93](https://github.com/wekan/wekan/commit/b87cff1289d2c98ef84d69e171f112ecedb4d843).
-  Thanks to apitech.fr and xet7.
+  Thanks to Romain Korpas at apitech.fr and xet7.
 - [Security Fix: Computational Resource Abuse in Export endpoints](https://github.com/wekan/wekan/commit/d0f118e7af0b2ede517d6d051226c38fa8e557b6).
   Thanks to Anynymous Security Researcher and xet7.
+- [Security Fix FG-VD-22-078: Prevent SVG Billion Laughs Attack](https://github.com/wekan/wekan/commit/30c1597b658b0ef50fd2efc56786e8b0f08ac72c).
+  Thanks to Nguyen Thanh Nguyen of Fortinet's FortiGuard Labs and xet7.
 
 and adds the following new features:
 
