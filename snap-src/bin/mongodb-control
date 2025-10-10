@@ -9,6 +9,73 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
+# Check if MongoDB migration is needed and handle it
+MIGRATION_STATUS="${SNAP_COMMON}/mongodb-migration-status.json"
+MIGRATION_LOG="${SNAP_COMMON}/mongodb-migration-log.txt"
+REVERT_FILE="${SNAP_COMMON}/revert-mongodb-migration.txt"
+
+# Check if migration is needed
+check_migration_needed() {
+    if [ -f "$MIGRATION_STATUS" ]; then
+        local status=$(jq -r '.status' "$MIGRATION_STATUS" 2>/dev/null || echo "unknown")
+        if [ "$status" = "completed" ]; then
+            return 1
+        elif [ "$status" = "running" ]; then
+            return 0
+        fi
+    fi
+
+    # Check if we have MongoDB 3 data
+    if [ -d "${SNAP_COMMON}/wekan" ] && [ ! -f "${SNAP_COMMON}/mongodb-version-7" ]; then
+        return 0
+    fi
+
+    return 1
+}
+
+# Handle migration
+handle_migration() {
+    echo "MongoDB migration needed, starting migration process..."
+
+    # Start migration web interface in background
+    $SNAP/bin/mongodb-migration-web &
+    local web_pid=$!
+    echo "$web_pid" > "${SNAP_COMMON}/migration-web.pid"
+
+    # Run migration
+    if $SNAP/bin/mongodb-migrate; then
+        echo "MongoDB migration completed successfully"
+        # Kill migration web interface
+        if [ -f "${SNAP_COMMON}/migration-web.pid" ]; then
+            local web_pid=$(cat "${SNAP_COMMON}/migration-web.pid")
+            kill "$web_pid" 2>/dev/null || true
+            rm -f "${SNAP_COMMON}/migration-web.pid"
+        fi
+    else
+        echo "MongoDB migration failed"
+        # Kill migration web interface
+        if [ -f "${SNAP_COMMON}/migration-web.pid" ]; then
+            local web_pid=$(cat "${SNAP_COMMON}/migration-web.pid")
+            kill "$web_pid" 2>/dev/null || true
+            rm -f "${SNAP_COMMON}/migration-web.pid"
+        fi
+        exit 1
+    fi
+}
+
+# Check if revert is requested
+if [ -f "$REVERT_FILE" ]; then
+    echo "Revert requested, stopping MongoDB and reverting migration..."
+    snapctl stop --disable ${SNAP_NAME}.mongodb
+    $SNAP/bin/mongodb-migrate
+    exit $?
+fi
+
+# Check if migration is needed
+if check_migration_needed; then
+    handle_migration
+fi
+
 # make sure we have set minimum env variables for locale
 if [ -z "${LANG}" ]; then
     export LANG=en_US.UTF-8

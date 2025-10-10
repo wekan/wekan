@@ -1,0 +1,141 @@
+#!/bin/bash
+
+# Snap Channel Manager for Wekan
+# Manages snap channels for Wekan-related packages
+
+# Source settings
+source $SNAP/bin/wekan-read-settings
+
+# Wekan-related snap packages
+WEKAN_SNAPS=("wekan" "wekan-gantt-gpl" "wekan-ondra")
+
+# Get current channel for a snap
+get_current_channel() {
+    local snap_name="$1"
+    snap list "$snap_name" 2>/dev/null | awk 'NR==2 {print $4}' || echo "not-installed"
+}
+
+# Check if snap is on stable channel
+is_stable_channel() {
+    local snap_name="$1"
+    local channel=$(get_current_channel "$snap_name")
+    [ "$channel" = "stable" ]
+}
+
+# Switch snap to stable channel
+switch_to_stable() {
+    local snap_name="$1"
+    local current_channel=$(get_current_channel "$snap_name")
+
+    if [ "$current_channel" = "not-installed" ]; then
+        echo "Snap $snap_name is not installed"
+        return 1
+    fi
+
+    if [ "$current_channel" = "stable" ]; then
+        echo "Snap $snap_name is already on stable channel"
+        return 0
+    fi
+
+    echo "Switching $snap_name from $current_channel to stable channel..."
+    if snap refresh "$snap_name" --channel=stable; then
+        echo "Successfully switched $snap_name to stable channel"
+        return 0
+    else
+        echo "Failed to switch $snap_name to stable channel"
+        return 1
+    fi
+}
+
+# Show status of all Wekan snaps
+show_status() {
+    echo "=== Wekan Snap Channel Status ==="
+    echo ""
+
+    local all_stable=true
+
+    for snap_name in "${WEKAN_SNAPS[@]}"; do
+        local channel=$(get_current_channel "$snap_name")
+        local status=""
+
+        if [ "$channel" = "not-installed" ]; then
+            status="[NOT INSTALLED]"
+        elif [ "$channel" = "stable" ]; then
+            status="[STABLE]"
+        else
+            status="[NON-STABLE: $channel]"
+            all_stable=false
+        fi
+
+        printf "%-20s %s\n" "$snap_name:" "$status"
+    done
+
+    echo ""
+    if [ "$all_stable" = true ]; then
+        echo "All Wekan snaps are on stable channel ✓"
+    else
+        echo "Some Wekan snaps are not on stable channel ⚠"
+    fi
+}
+
+# Switch all Wekan snaps to stable
+switch_all_to_stable() {
+    echo "=== Switching All Wekan Snaps to Stable Channel ==="
+    echo ""
+
+    local success_count=0
+    local total_count=0
+
+    for snap_name in "${WEKAN_SNAPS[@]}"; do
+        if [ "$(get_current_channel "$snap_name")" != "not-installed" ]; then
+            total_count=$((total_count + 1))
+            if switch_to_stable "$snap_name"; then
+                success_count=$((success_count + 1))
+            fi
+            echo ""
+        fi
+    done
+
+    echo "=== Summary ==="
+    echo "Successfully switched: $success_count/$total_count snaps"
+
+    if [ "$success_count" -eq "$total_count" ]; then
+        echo "All Wekan snaps are now on stable channel ✓"
+        return 0
+    else
+        echo "Some snaps failed to switch to stable channel ⚠"
+        return 1
+    fi
+}
+
+# Show help
+show_help() {
+    echo "Wekan Snap Channel Manager"
+    echo ""
+    echo "Usage: $0 [command]"
+    echo ""
+    echo "Commands:"
+    echo "  status    - Show current channel status for all Wekan snaps"
+    echo "  switch    - Switch all Wekan snaps to stable channel"
+    echo "  help      - Show this help"
+    echo ""
+    echo "Wekan-related snaps: ${WEKAN_SNAPS[*]}"
+}
+
+# Main execution
+case "${1:-status}" in
+    "status")
+        show_status
+        ;;
+    "switch")
+        switch_all_to_stable
+        ;;
+    "help"|"-h"|"--help")
+        show_help
+        ;;
+    *)
+        echo "Unknown command: $1"
+        show_help
+        exit 1
+        ;;
+esac

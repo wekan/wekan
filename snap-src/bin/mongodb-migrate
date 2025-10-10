@@ -1,0 +1,625 @@
+#!/bin/bash
+
+# MongoDB Migration Script from version 3 to 7
+# This script handles migration with disk space checks, progress tracking, and error handling
+
+set -e
+
+# Source settings
+source $SNAP/bin/wekan-read-settings
+
+# Migration configuration
+MIGRATION_LOG="${SNAP_COMMON}/mongodb-migration-log.txt"
+MIGRATION_STATUS="${SNAP_COMMON}/mongodb-migration-status.json"
+MIGRATION_PROGRESS="${SNAP_COMMON}/mongodb-migration-progress.html"
+REVERT_FILE="${SNAP_COMMON}/revert-mongodb-migration.txt"
+TEMP_DIR="${SNAP_COMMON}/mongodb-migration-temp"
+BACKUP_DIR="${SNAP_COMMON}/mongodb-backup-$(date +%Y%m%d-%H%M%S)"
+
+# MongoDB paths
+MONGO3_BIN="/snap/${SNAP_NAME}/current/bin"
+MONGO7_BIN="/snap/${SNAP_NAME}/current/usr/bin"
+MONGO3_LIB="/snap/${SNAP_NAME}/current/lib"
+MONGO7_LIB="/snap/${SNAP_NAME}/current/lib"
+
+# Set up environment for MongoDB 3 tools
+export LD_LIBRARY_PATH="${MONGO3_LIB}:${MONGO3_LIB}/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
+export PATH="${MONGO3_BIN}:${MONGO7_BIN}:${PATH}"
+
+# Logging functions
+log_message() {
+    local message="$1"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "[$timestamp] $message" | tee -a "$MIGRATION_LOG"
+}
+
+log_error() {
+    local message="$1"
+    log_message "ERROR: $message"
+}
+
+log_success() {
+    local message="$1"
+    log_message "SUCCESS: $message"
+}
+
+# Disk space checking functions
+check_disk_space() {
+    local required_space_gb="$1"
+    local available_space_gb=$(df "$SNAP_COMMON" | awk 'NR==2 {print int($4/1024/1024)}')
+
+    if [ "$available_space_gb" -lt "$required_space_gb" ]; then
+        log_error "Insufficient disk space. Required: ${required_space_gb}GB, Available: ${available_space_gb}GB"
+        return 1
+    fi
+
+    log_message "Disk space check passed. Available: ${available_space_gb}GB, Required: ${required_space_gb}GB"
+    return 0
+}
+
+# Progress tracking functions
+update_progress() {
+    local step="$1"
+    local total_steps="$2"
+    local description="$3"
+    local percentage=$((step * 100 / total_steps))
+
+    # Update JSON status file
+    cat > "$MIGRATION_STATUS" << EOF
+{
+    "step": $step,
+    "total_steps": $total_steps,
+    "percentage": $percentage,
+    "description": "$description",
+    "timestamp": "$(date -Iseconds)",
+    "status": "running"
+}
+EOF
+
+    # Update HTML progress page
+    cat > "$MIGRATION_PROGRESS" << EOF
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MongoDB Migration Progress</title>
+    <meta http-equiv="refresh" content="5">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .progress-bar { width: 100%; background-color: #f0f0f0; border-radius: 5px; }
+        .progress-fill { height: 30px; background-color: #4CAF50; border-radius: 5px; width: ${percentage}%; }
+        .status { margin: 20px 0; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>MongoDB Migration Progress</h1>
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+    <div class="status">
+        <p><strong>Progress:</strong> $step of $total_steps steps ($percentage%)</p>
+        <p><strong>Current Step:</strong> $description</p>
+        <p><strong>Last Updated:</strong> $(date)</p>
+    </div>
+    <p><em>This page will refresh automatically every 5 seconds.</em></p>
+</body>
+</html>
+EOF
+
+    log_message "Progress: $step/$total_steps ($percentage%) - $description"
+}
+
+# Estimate completion time
+estimate_completion_time() {
+    local start_time="$1"
+    local current_step="$2"
+    local total_steps="$3"
+
+    if [ "$current_step" -gt 0 ]; then
+        local elapsed=$(($(date +%s) - start_time))
+        local avg_time_per_step=$((elapsed / current_step))
+        local remaining_steps=$((total_steps - current_step))
+        local estimated_remaining=$((remaining_steps * avg_time_per_step))
+
+        local hours=$((estimated_remaining / 3600))
+        local minutes=$(((estimated_remaining % 3600) / 60))
+        local seconds=$((estimated_remaining % 60))
+
+        echo "${hours}h ${minutes}m ${seconds}s"
+    else
+        echo "Calculating..."
+    fi
+}
+
+# Create backup before migration
+create_backup() {
+    log_message "Creating backup of MongoDB 3 database"
+
+    # Check disk space for backup (estimate 2x current database size)
+    local db_size=$(du -s "${SNAP_COMMON}/wekan" 2>/dev/null | awk '{print $1}' || echo "0")
+    local required_space=$((db_size * 2 / 1024 / 1024 + 1)) # Convert to GB and add 1GB buffer
+
+    if ! check_disk_space "$required_space"; then
+        log_error "Insufficient disk space for backup"
+        return 1
+    fi
+
+    # Create backup directory
+    mkdir -p "$BACKUP_DIR"
+
+    # Copy database files
+    if [ -d "${SNAP_COMMON}/wekan" ]; then
+        cp -r "${SNAP_COMMON}/wekan" "$BACKUP_DIR/"
+        log_success "Database backup created at $BACKUP_DIR"
+        return 0
+    else
+        log_error "No database found to backup"
+        return 1
+    fi
+}
+
+# Check if migration is needed
+check_migration_needed() {
+    if [ -f "$MIGRATION_STATUS" ]; then
+        local status=$(jq -r '.status' "$MIGRATION_STATUS" 2>/dev/null || echo "unknown")
+        if [ "$status" = "completed" ]; then
+            log_message "Migration already completed"
+            return 1
+        elif [ "$status" = "running" ]; then
+            log_message "Migration already in progress"
+            return 0
+        fi
+    fi
+
+    # Check if we have MongoDB 3 data (either in wekan directory or raw database files)
+    if [ -d "${SNAP_COMMON}/wekan" ] && [ ! -f "${SNAP_COMMON}/mongodb-version-7" ]; then
+        log_message "MongoDB 3 data detected in wekan directory"
+        return 0
+    fi
+
+    # Check for MongoDB 3 raw database files
+    if detect_mongodb3_raw_files; then
+        log_message "MongoDB 3 raw database files detected"
+        return 0
+    fi
+
+    log_message "No migration needed"
+    return 1
+}
+
+# Detect MongoDB 3 raw database files
+detect_mongodb3_raw_files() {
+    # Look for MongoDB 3 specific files and directories
+    local mongodb3_indicators=(
+        "${SNAP_COMMON}/local.0"
+        "${SNAP_COMMON}/local.ns"
+        "${SNAP_COMMON}/local.1"
+        "${SNAP_COMMON}/wekan.0"
+        "${SNAP_COMMON}/wekan.ns"
+        "${SNAP_COMMON}/wekan.1"
+        "${SNAP_COMMON}/storage.bson"
+        "${SNAP_COMMON}/_tmp"
+    )
+
+    # Check for MongoDB 3 journal files
+    local journal_files=(
+        "${SNAP_COMMON}/journal"
+        "${SNAP_COMMON}/j._0"
+    )
+
+    # Check for MongoDB 3 lock file
+    if [ -f "${SNAP_COMMON}/mongod.lock" ]; then
+        log_message "MongoDB lock file found, checking for MongoDB 3 data"
+
+        # Check if any MongoDB 3 indicators exist
+        for indicator in "${mongodb3_indicators[@]}"; do
+            if [ -e "$indicator" ]; then
+                log_message "MongoDB 3 indicator found: $indicator"
+                return 0
+            fi
+        done
+
+        # Check for journal files
+        for journal in "${journal_files[@]}"; do
+            if [ -e "$journal" ]; then
+                log_message "MongoDB journal file found: $journal"
+                return 0
+            fi
+        done
+
+        # Check for any .0, .1, .ns files (MongoDB 3 data files)
+        if find "${SNAP_COMMON}" -maxdepth 1 -name "*.0" -o -name "*.1" -o -name "*.ns" | grep -q .; then
+            log_message "MongoDB 3 data files found"
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
+# Migrate raw MongoDB 3 database files
+migrate_raw_database_files() {
+    log_message "Starting raw MongoDB 3 database files migration"
+
+    # Stop any running MongoDB processes
+    log_message "Stopping any running MongoDB processes"
+    pkill -f mongod || true
+    sleep 3
+
+    # Start MongoDB 3 with raw files
+    log_message "Starting MongoDB 3 with raw database files"
+    local mongo3_pid
+    mongod --dbpath "${SNAP_COMMON}" --port "${MONGODB_PORT:-27019}" --quiet &
+    mongo3_pid=$!
+
+    # Wait for MongoDB 3 to start
+    local retry_count=0
+    while [ $retry_count -lt 30 ]; do
+        if mongosh --quiet --eval "db.adminCommand('ping')" "mongodb://localhost:${MONGODB_PORT:-27019}/admin" >/dev/null 2>&1; then
+            log_message "MongoDB 3 started successfully"
+            break
+        fi
+        sleep 1
+        retry_count=$((retry_count + 1))
+    done
+
+    if [ $retry_count -eq 30 ]; then
+        log_error "MongoDB 3 failed to start"
+        kill $mongo3_pid 2>/dev/null || true
+        return 1
+    fi
+
+    # Dump all databases from MongoDB 3
+    log_message "Dumping databases from MongoDB 3"
+    if ! mongodump --port "${MONGODB_PORT:-27019}" --out "$TEMP_DIR"; then
+        log_error "Failed to dump databases from MongoDB 3"
+        kill $mongo3_pid 2>/dev/null || true
+        return 1
+    fi
+
+    # Stop MongoDB 3
+    log_message "Stopping MongoDB 3"
+    kill $mongo3_pid 2>/dev/null || true
+    sleep 3
+
+    # Start MongoDB 7
+    log_message "Starting MongoDB 7"
+    local mongo7_pid
+    mongod --dbpath "${SNAP_COMMON}" --port "${MONGODB_PORT:-27019}" --quiet &
+    mongo7_pid=$!
+
+    # Wait for MongoDB 7 to start
+    retry_count=0
+    while [ $retry_count -lt 30 ]; do
+        if mongosh --quiet --eval "db.adminCommand('ping')" "mongodb://localhost:${MONGODB_PORT:-27019}/admin" >/dev/null 2>&1; then
+            log_message "MongoDB 7 started successfully"
+            break
+        fi
+        sleep 1
+        retry_count=$((retry_count + 1))
+    done
+
+    if [ $retry_count -eq 30 ]; then
+        log_error "MongoDB 7 failed to start"
+        kill $mongo7_pid 2>/dev/null || true
+        return 1
+    fi
+
+    # Restore databases to MongoDB 7
+    log_message "Restoring databases to MongoDB 7"
+    if ! mongorestore --port "${MONGODB_PORT:-27019}" "$TEMP_DIR"; then
+        log_error "Failed to restore databases to MongoDB 7"
+        kill $mongo7_pid 2>/dev/null || true
+        return 1
+    fi
+
+    # Stop MongoDB 7
+    log_message "Stopping MongoDB 7"
+    kill $mongo7_pid 2>/dev/null || true
+    sleep 3
+
+    # Clean up old MongoDB 3 files
+    log_message "Cleaning up old MongoDB 3 files"
+    find "${SNAP_COMMON}" -maxdepth 1 -name "*.0" -o -name "*.1" -o -name "*.ns" -o -name "j._*" -o -name "mongod.lock" | while read -r file; do
+        if [ -f "$file" ]; then
+            rm -f "$file"
+            log_message "Removed old file: $file"
+        fi
+    done
+
+    # Remove journal directory if it exists
+    if [ -d "${SNAP_COMMON}/journal" ]; then
+        rm -rf "${SNAP_COMMON}/journal"
+        log_message "Removed journal directory"
+    fi
+
+    log_success "Raw database files migration completed successfully"
+    return 0
+}
+
+# Snap channel detection and switching functions
+get_current_snap_channel() {
+    local snap_name="$1"
+    snap list "$snap_name" 2>/dev/null | awk 'NR==2 {print $4}' || echo "unknown"
+}
+
+is_wekan_snap() {
+    local snap_name="$1"
+    case "$snap_name" in
+        wekan|wekan-gantt-gpl|wekan-ondra)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+switch_to_stable_channel() {
+    local snap_name="$1"
+    local current_channel=$(get_current_snap_channel "$snap_name")
+
+    if [ "$current_channel" != "stable" ] && [ "$current_channel" != "unknown" ]; then
+        log_message "Switching $snap_name from $current_channel to stable channel"
+
+        if snap refresh "$snap_name" --channel=stable; then
+            log_success "Successfully switched $snap_name to stable channel"
+            return 0
+        else
+            log_error "Failed to switch $snap_name to stable channel"
+            return 1
+        fi
+    else
+        log_message "$snap_name is already on stable channel or not installed"
+        return 0
+    fi
+}
+
+switch_all_wekan_snaps_to_stable() {
+    log_message "Checking for Wekan-related snaps to switch to stable channel"
+
+    local wekan_snaps=("wekan" "wekan-gantt-gpl" "wekan-ondra")
+    local switched_count=0
+    local failed_count=0
+
+    for snap_name in "${wekan_snaps[@]}"; do
+        if snap list "$snap_name" >/dev/null 2>&1; then
+            if switch_to_stable_channel "$snap_name"; then
+                switched_count=$((switched_count + 1))
+            else
+                failed_count=$((failed_count + 1))
+            fi
+        fi
+    done
+
+    log_message "Channel switching completed: $switched_count successful, $failed_count failed"
+
+    if [ "$failed_count" -gt 0 ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+# Get database collections
+get_collections() {
+    local mongo_url="$1"
+    local collections=$(mongosh --quiet --eval "db.getCollectionNames().join('\n')" "$mongo_url" 2>/dev/null | grep -v "^$" || echo "")
+    echo "$collections"
+}
+
+# Migrate a single collection
+migrate_collection() {
+    local collection="$1"
+    local mongo3_url="$2"
+    local mongo7_url="$3"
+    local step="$4"
+    local total_steps="$5"
+
+    log_message "Migrating collection: $collection"
+
+    # Check disk space before each collection (estimate 2x collection size)
+    local collection_size=$(mongosh --quiet --eval "db.$collection.stats().size" "$mongo3_url" 2>/dev/null || echo "0")
+    local required_space=$((collection_size * 2 / 1024 / 1024 / 1024 + 1)) # Convert to GB and add 1GB buffer
+
+    if ! check_disk_space "$required_space"; then
+        log_error "Insufficient disk space for collection $collection"
+        return 1
+    fi
+
+    # Dump collection
+    local dump_file="${TEMP_DIR}/${collection}.bson"
+    log_message "Dumping collection $collection to $dump_file"
+
+    if ! mongodump --db wekan --collection "$collection" --out "$TEMP_DIR" --port "${MONGODB_PORT:-27019}"; then
+        log_error "Failed to dump collection $collection"
+        return 1
+    fi
+
+    # Restore collection
+    log_message "Restoring collection $collection to MongoDB 7"
+    if ! mongorestore --db wekan --collection "$collection" "$dump_file" --port "${MONGODB_PORT:-27019}"; then
+        log_error "Failed to restore collection $collection"
+        return 1
+    fi
+
+    # Update progress
+    update_progress "$step" "$total_steps" "Migrated collection: $collection"
+
+    # Clean up dump file
+    rm -f "$dump_file"
+
+    log_success "Collection $collection migrated successfully"
+    return 0
+}
+
+# Main migration function
+perform_migration() {
+    local start_time=$(date +%s)
+
+    log_message "Starting MongoDB migration from version 3 to 7"
+
+    # Create backup before migration
+    log_message "Creating backup before migration"
+    if ! create_backup; then
+        log_error "Failed to create backup, aborting migration"
+        return 1
+    fi
+
+    # Create temporary directory
+    mkdir -p "$TEMP_DIR"
+
+    # Check if we need to migrate raw database files
+    if detect_mongodb3_raw_files; then
+        log_message "Raw MongoDB 3 database files detected, starting raw file migration"
+        if ! migrate_raw_database_files; then
+            log_error "Failed to migrate raw database files"
+            return 1
+        fi
+    fi
+
+    # Get MongoDB connection details
+    local mongo3_url="mongodb://localhost:${MONGODB_PORT:-27019}/wekan"
+    local mongo7_url="mongodb://localhost:${MONGODB_PORT:-27019}/wekan"
+
+    # Get collections to migrate
+    log_message "Getting list of collections to migrate"
+    local collections=$(get_collections "$mongo3_url")
+
+    if [ -z "$collections" ]; then
+        log_error "No collections found to migrate"
+        return 1
+    fi
+
+    local collection_count=$(echo "$collections" | wc -l)
+    log_message "Found $collection_count collections to migrate"
+
+    # Migrate each collection
+    local current_step=0
+    for collection in $collections; do
+        current_step=$((current_step + 1))
+
+        if ! migrate_collection "$collection" "$mongo3_url" "$mongo7_url" "$current_step" "$collection_count"; then
+            log_error "Migration failed at collection $collection"
+            return 1
+        fi
+
+        # Update completion time estimate
+        local estimated_time=$(estimate_completion_time "$start_time" "$current_step" "$collection_count")
+        log_message "Estimated completion time: $estimated_time"
+    done
+
+    # Mark migration as completed
+    cat > "$MIGRATION_STATUS" << EOF
+{
+    "step": $collection_count,
+    "total_steps": $collection_count,
+    "percentage": 100,
+    "description": "Migration completed successfully",
+    "timestamp": "$(date -Iseconds)",
+    "status": "completed"
+}
+EOF
+
+    # Create MongoDB 7 version marker
+    touch "${SNAP_COMMON}/mongodb-version-7"
+
+    # Clean up temporary files
+    rm -rf "$TEMP_DIR"
+
+    # Switch Wekan snaps to stable channel after successful migration
+    log_message "Switching Wekan snaps to stable channel after successful migration"
+    if switch_all_wekan_snaps_to_stable; then
+        log_success "All Wekan snaps switched to stable channel successfully"
+    else
+        log_error "Some Wekan snaps failed to switch to stable channel"
+        # Don't fail the migration for channel switching issues
+    fi
+
+    log_success "MongoDB migration completed successfully"
+    return 0
+}
+
+# Revert migration
+revert_migration() {
+    log_message "Reverting MongoDB migration"
+
+    if [ ! -f "$REVERT_FILE" ]; then
+        log_error "Revert file not found: $REVERT_FILE"
+        return 1
+    fi
+
+    # Stop MongoDB 7
+    log_message "Stopping MongoDB 7"
+    snapctl stop --disable "${SNAP_NAME}.mongodb"
+
+    # Remove MongoDB 7 version marker
+    rm -f "${SNAP_COMMON}/mongodb-version-7"
+
+    # Find the most recent backup directory
+    local latest_backup=$(ls -td "${SNAP_COMMON}/mongodb-backup-"* 2>/dev/null | head -1)
+
+    if [ -n "$latest_backup" ] && [ -d "$latest_backup" ]; then
+        log_message "Restoring from backup: $latest_backup"
+
+        # Stop any running MongoDB processes
+        pkill -f mongod || true
+        sleep 2
+
+        # Remove current database directory
+        rm -rf "${SNAP_COMMON}/wekan"
+
+        # Restore from backup
+        cp -r "$latest_backup"/* "${SNAP_COMMON}/"
+
+        # Clean up backup directory
+        rm -rf "$latest_backup"
+
+        log_success "Database restored from backup"
+    else
+        log_error "No backup found for revert"
+        return 1
+    fi
+
+    # Remove revert file
+    rm -f "$REVERT_FILE"
+
+    # Clear migration status
+    rm -f "$MIGRATION_STATUS"
+
+    # Start MongoDB 3
+    log_message "Starting MongoDB 3"
+    snapctl start --enable "${SNAP_NAME}.mongodb"
+
+    log_success "Migration reverted successfully"
+    return 0
+}
+
+# Main execution
+main() {
+    log_message "MongoDB Migration Script started"
+
+    # Check if revert is requested
+    if [ -f "$REVERT_FILE" ]; then
+        revert_migration
+        exit $?
+    fi
+
+    # Check if migration is needed
+    if ! check_migration_needed; then
+        exit 0
+    fi
+
+    # Perform migration
+    if perform_migration; then
+        log_success "Migration completed successfully"
+        exit 0
+    else
+        log_error "Migration failed"
+        exit 1
+    fi
+}
+
+# Run main function
+main "$@"

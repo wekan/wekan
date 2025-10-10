@@ -66,6 +66,20 @@ apps:
         command: ./bin/mongodb-restore
         plugs: [network, network-bind]
 
+    mongodb-migration:
+        command: ./bin/mongodb-migrate
+        plugs: [network, network-bind]
+
+    mongodb-migration-web:
+        command: ./bin/mongodb-migration-web
+        plugs: [network, network-bind]
+
+    mongodb-migration-status:
+        command: ./bin/mongodb-migration-status
+
+    snap-channel-manager:
+        command: ./bin/snap-channel-manager
+
 parts:
     mongodb:
         source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.25.tgz
@@ -98,6 +112,30 @@ parts:
     mongotools:
         source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.12.2.tgz
         plugin: dump
+
+    mongodb3:
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-3.6.23.tgz
+        plugin: dump
+        stage-packages:
+            - libssl1.1
+            - libcurl3
+            - libstemmer0d
+            - zlib1g
+            - libsnappy1v5
+            - libyaml-cpp0.5v5
+            - libpcre3
+            - libpcrecpp0v5
+            - libboost-system1.65.1
+            - libboost-iostreams1.65.1
+            - libboost-filesystem1.65.1
+            - libboost-program-options1.65.1
+            - libgoogle-perftools4
+        stage:
+            - bin
+            - usr
+        prime:
+            - bin
+            - usr
 
     wekan:
         source: .
