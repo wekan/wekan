@@ -69,6 +69,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix sizes of drag handles at desktop mode](https://github.com/wekan/wekan/commit/734165f3c78e9ba9643826da62f78844273f18f6).
   Thanks to xet7.
+- [Fixed showing translations always, regardsless of is ROOT_URL set correctly or not](https://github.com/wekan/wekan/commit/1a7bd65e596a4a1030e2686a787186b6d1c61abe).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
