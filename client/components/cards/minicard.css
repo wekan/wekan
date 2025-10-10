@@ -580,3 +580,11 @@
 .text-green {
   color: #008000;
 }
+
+/* Drag and drop file upload visual feedback */
+.minicard.is-dragging-over {
+  border: 2px dashed #0079bf;
+  background-color: #e3f2fd !important;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}

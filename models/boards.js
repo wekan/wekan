@@ -413,7 +413,7 @@ Boards.attachSchema(
        * Does the board allows cover attachment on minicard?
        */
       type: Boolean,
-      defaultValue: false,
+      defaultValue: true,
     },
 
     allowsBadgeAttachmentOnMinicard: {

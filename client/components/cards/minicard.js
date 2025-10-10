@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { CustomFieldStringTemplate } from '/client/lib/customFields'
+import { CustomFieldStringTemplate } from '/client/lib/customFields';
+import { handleFileUpload } from './attachments';
 
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
@@ -107,6 +108,59 @@ BlazeComponent.extendComponent({
         'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
         'click .minicard-labels' : this.cardLabelsPopup,
         'click .js-open-minicard-details-menu': Popup.open('minicardDetailsActions'),
+        // Drag and drop file upload handlers
+        'dragover .minicard'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+        },
+        'dragenter .minicard'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          const card = this.data();
+          const board = card.board();
+          // Only allow drag-and-drop if user can modify card and board allows attachments
+          if (card.canModifyCard() && board && board.allowsAttachments) {
+            // Check if the drag contains files
+            const dataTransfer = event.originalEvent.dataTransfer;
+            if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+              $(event.currentTarget).addClass('is-dragging-over');
+            }
+          }
+        },
+        'dragleave .minicard'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $(event.currentTarget).removeClass('is-dragging-over');
+        },
+        'drop .minicard'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $(event.currentTarget).removeClass('is-dragging-over');
+
+          const card = this.data();
+          const board = card.board();
+
+          // Check permissions
+          if (!card.canModifyCard() || !board || !board.allowsAttachments) {
+            return;
+          }
+
+          // Check if this is a file drop (not a card reorder)
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (!dataTransfer || !dataTransfer.files || dataTransfer.files.length === 0) {
+            return;
+          }
+
+          // Check if the drop contains files (not just text/HTML)
+          if (!dataTransfer.types.includes('Files')) {
+            return;
+          }
+
+          const files = dataTransfer.files;
+          if (files && files.length > 0) {
+            handleFileUpload(card, files);
+          }
+        },
       }
     ];
   },

@@ -596,3 +596,11 @@ input[type="submit"].attachment-add-link-submit {
   overflow: hidden;
   background-color: #cecece;
 }
+
+/* Drag and drop file upload visual feedback */
+.js-card-details.is-dragging-over {
+  border: 2px dashed #0079bf;
+  background-color: #e3f2fd !important;
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}

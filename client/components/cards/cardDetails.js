@@ -12,6 +12,7 @@ import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
 import { UserAvatar } from '../users/userAvatar';
 import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlaneList';
+import { handleFileUpload } from './attachments';
 
 const subManager = new SubsManager();
 const { calculateIndexData } = Utils;
@@ -479,6 +480,59 @@ BlazeComponent.extendComponent({
             } else {
               this.data().setPokerEstimation('');
             }
+          }
+        },
+        // Drag and drop file upload handlers
+        'dragover .js-card-details'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+        },
+        'dragenter .js-card-details'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          const card = this.data();
+          const board = card.board();
+          // Only allow drag-and-drop if user can modify card and board allows attachments
+          if (card.canModifyCard() && board && board.allowsAttachments) {
+            // Check if the drag contains files
+            const dataTransfer = event.originalEvent.dataTransfer;
+            if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+              $(event.currentTarget).addClass('is-dragging-over');
+            }
+          }
+        },
+        'dragleave .js-card-details'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $(event.currentTarget).removeClass('is-dragging-over');
+        },
+        'drop .js-card-details'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $(event.currentTarget).removeClass('is-dragging-over');
+
+          const card = this.data();
+          const board = card.board();
+
+          // Check permissions
+          if (!card.canModifyCard() || !board || !board.allowsAttachments) {
+            return;
+          }
+
+          // Check if this is a file drop (not a checklist item reorder)
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (!dataTransfer || !dataTransfer.files || dataTransfer.files.length === 0) {
+            return;
+          }
+
+          // Check if the drop contains files (not just text/HTML)
+          if (!dataTransfer.types.includes('Files')) {
+            return;
+          }
+
+          const files = dataTransfer.files;
+          if (files && files.length > 0) {
+            handleFileUpload(card, files);
           }
         },
       },
