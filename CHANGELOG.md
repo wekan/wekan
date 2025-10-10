@@ -61,7 +61,8 @@ and adds the following new features:
 - Fix DOMPurify paths.
   [Part 1](https://github.com/wekan/wekan/commit/90899f0928274cbc30ed3d6df0227664efcd2584),
   [Part 2](https://github.com/wekan/wekan/commit/77691244018f3a1e44c28973b40a363bf77f99b2),
-  [Part 3](https://github.com/wekan/wekan/commit/21ba0a96066a495e885fcf186f026cf1c7ddf45d).
+  [Part 3](https://github.com/wekan/wekan/commit/21ba0a96066a495e885fcf186f026cf1c7ddf45d),
+  [Part 4](https://github.com/wekan/wekan/commit/2119c6ab0c2d76c8a9b22fa712b35b38345fc040).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
