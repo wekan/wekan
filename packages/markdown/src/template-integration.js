@@ -1,54 +1,5 @@
 import DOMPurify from 'dompurify';
-
-// Secure DOMPurify configuration to prevent SVG-based DoS attacks
-function getSecureDOMPurifyConfig() {
-  return {
-    // Block dangerous SVG elements that can cause exponential expansion
-    FORBID_TAGS: [
-      'svg', 'defs', 'use', 'g', 'symbol', 'marker', 'pattern', 'mask', 'clipPath',
-      'linearGradient', 'radialGradient', 'stop', 'animate', 'animateTransform',
-      'animateMotion', 'set', 'switch', 'foreignObject', 'script', 'style'
-    ],
-    // Block dangerous SVG attributes
-    FORBID_ATTR: [
-      'xlink:href', 'href', 'onload', 'onerror', 'onclick', 'onmouseover',
-      'onfocus', 'onblur', 'onchange', 'onsubmit', 'onreset', 'onselect',
-      'onunload', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress'
-    ],
-    // Allow only safe image formats
-    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
-    // Remove dangerous protocols
-    ALLOW_UNKNOWN_PROTOCOLS: false,
-    // Sanitize URLs to prevent malicious content loading
-    SANITIZE_DOM: true,
-    // Remove dangerous elements completely
-    KEEP_CONTENT: false,
-    // Additional security measures
-    ADD_ATTR: [],
-    // Block data URIs that could contain malicious SVG
-    ALLOW_DATA_ATTR: false,
-    // Custom hook to further sanitize content
-    HOOKS: {
-      uponSanitizeElement: function(node, data) {
-        // Block any remaining SVG elements
-        if (node.tagName && node.tagName.toLowerCase() === 'svg') {
-          return false;
-        }
-        // Block img tags with SVG data URIs
-        if (node.tagName && node.tagName.toLowerCase() === 'img') {
-          const src = node.getAttribute('src');
-          if (src && (src.startsWith('data:image/svg') || src.endsWith('.svg'))) {
-            if (process.env.DEBUG === 'true') {
-              console.warn('Blocked potentially malicious SVG image:', src);
-            }
-            return false;
-          }
-        }
-        return true;
-      }
-    }
-  };
-}
+import { getSecureDOMPurifyConfig } from '/client/lib/secureDOMPurify';
 
 var Markdown = require('markdown-it')({
   html: true,

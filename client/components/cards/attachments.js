@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ObjectID } from 'bson';
 import DOMPurify from 'dompurify';
+import { sanitizeHTML, sanitizeText } from '/client/lib/secureDOMPurify';
 import uploadProgressManager from '/client/lib/uploadProgressManager';
 
 const filesize = require('filesize');
@@ -269,7 +270,7 @@ Template.attachmentGallery.helpers({
     return ret;
   },
   sanitize(value) {
-    return DOMPurify.sanitize(value);
+    return sanitizeHTML(value);
   },
 });
 
@@ -360,7 +361,7 @@ export function handleFileUpload(card, files) {
     }
 
     const fileId = new ObjectID().toString();
-    let fileName = DOMPurify.sanitize(file.name);
+    let fileName = sanitizeText(file.name);
 
     // If sanitized filename is not same as original filename,
     // it could be XSS that is already fixed with sanitize,
@@ -566,7 +567,7 @@ BlazeComponent.extendComponent({
           const name = this.$('.js-edit-attachment-name')[0]
             .value
             .trim() + this.data().extensionWithDot;
-          if (name === DOMPurify.sanitize(name)) {
+          if (name === sanitizeText(name)) {
             Meteor.call('renameAttachment', this.data()._id, name);
           }
           Popup.back();

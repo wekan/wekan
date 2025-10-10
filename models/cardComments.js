@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import DOMPurify from 'dompurify';
+import { sanitizeText } from '/client/lib/secureDOMPurify';
 
 CardComments = new Mongo.Collection('card_comments');
 
@@ -103,7 +104,7 @@ CardComments.helpers({
   },
 
   toggleReaction(reactionCodepoint) {
-    if (reactionCodepoint !== DOMPurify.sanitize(reactionCodepoint)) {
+    if (reactionCodepoint !== sanitizeText(reactionCodepoint)) {
       return false;
     } else {
 

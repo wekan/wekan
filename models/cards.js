@@ -1756,10 +1756,20 @@ Cards.helpers({
   },
 
   setTitle(title) {
+    // Sanitize title on client side as well
+    let sanitizedTitle = title;
+    if (typeof title === 'string') {
+      const { sanitizeTitle } = require('/server/lib/inputSanitizer');
+      sanitizedTitle = sanitizeTitle(title);
+      if (process.env.DEBUG === 'true' && sanitizedTitle !== title) {
+        console.warn('Client-side sanitized card title:', title, '->', sanitizedTitle);
+      }
+    }
+
     if (this.isLinkedBoard()) {
-      return Boards.update({ _id: this.linkedId }, { $set: { title } });
+      return Boards.update({ _id: this.linkedId }, { $set: { title: sanitizedTitle } });
     } else {
-      return Cards.update({ _id: this.getRealId() }, { $set: { title } });
+      return Cards.update({ _id: this.getRealId() }, { $set: { title: sanitizedTitle } });
     }
   },
 
@@ -3565,7 +3575,13 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       if (req.body.title) {
-        const newTitle = req.body.title;
+        const { sanitizeTitle } = require('/server/lib/inputSanitizer');
+        const newTitle = sanitizeTitle(req.body.title);
+
+        if (process.env.DEBUG === 'true' && newTitle !== req.body.title) {
+          console.warn('Sanitized card title input:', req.body.title, '->', newTitle);
+        }
+
         Cards.direct.update(
           {
             _id: paramCardId,

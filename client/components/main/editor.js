@@ -325,6 +325,7 @@ BlazeComponent.extendComponent({
 }).register('editor');
 
 import DOMPurify from 'dompurify';
+import { sanitizeHTML } from '/client/lib/secureDOMPurify';
 
 // Additional  safeAttrValue function to allow for other specific protocols
 // See https://github.com/leizongmin/js-xss/issues/52#issuecomment-241354114
@@ -371,9 +372,7 @@ Blaze.Template.registerHelper(
     let content = Blaze.toHTML(view.templateContentBlock);
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
-      return HTML.Raw(
-        DOMPurify.sanitize(content, { ALLOW_UNKNOWN_PROTOCOLS: true }),
-      );
+      return HTML.Raw(sanitizeHTML(content));
     const knowedUsers = _.union(currentBoard.members.map(member => {
       const u = ReactiveCache.getUser(member.userId);
       if (u) {
@@ -417,9 +416,7 @@ Blaze.Template.registerHelper(
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
 
-    return HTML.Raw(
-      DOMPurify.sanitize(content, { ALLOW_UNKNOWN_PROTOCOLS: true }),
-    );
+    return HTML.Raw(sanitizeHTML(content));
   }),
 );
 
