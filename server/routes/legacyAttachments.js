@@ -4,7 +4,9 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 
 // Ensure this file is loaded
-console.log('Legacy attachments route loaded');
+if (process.env.DEBUG === 'true') {
+  console.log('Legacy attachments route loaded');
+}
 
 /**
  * Legacy attachment download route for CollectionFS compatibility
