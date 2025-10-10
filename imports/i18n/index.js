@@ -8,7 +8,8 @@ if (Meteor.isClient) {
 
 export { TAPi18n };
 
-(async () => {
+// Initialize translations immediately and synchronously
+Meteor.startup(async () => {
   await TAPi18n.init();
-})();
+});
 

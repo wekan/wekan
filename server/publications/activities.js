@@ -12,9 +12,14 @@ Meteor.publish('activities', (kind, id, limit, showActivities) => {
       return ['board', 'card'].indexOf(x) !== -1;
     }),
   );
-  check(id, String);
+  check(id, Match.Maybe(String));
   check(limit, Number);
   check(showActivities, Boolean);
+
+  // Return empty cursor if id is null or undefined
+  if (!id) {
+    return this.ready();
+  }
 
   // Get linkedBoard
   let linkedElmtId = [id];
