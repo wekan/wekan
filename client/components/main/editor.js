@@ -325,7 +325,7 @@ BlazeComponent.extendComponent({
 }).register('editor');
 
 import DOMPurify from 'dompurify';
-import { sanitizeHTML } from '../lib/secureDOMPurify';
+import { sanitizeHTML } from '/imports/lib/secureDOMPurify';
 
 // Additional  safeAttrValue function to allow for other specific protocols
 // See https://github.com/leizongmin/js-xss/issues/52#issuecomment-241354114

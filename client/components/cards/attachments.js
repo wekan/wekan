@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ObjectID } from 'bson';
 import DOMPurify from 'dompurify';
-import { sanitizeHTML, sanitizeText } from '../../lib/secureDOMPurify';
+import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 
 const filesize = require('filesize');
