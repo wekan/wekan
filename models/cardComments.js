@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import DOMPurify from 'dompurify';
-import { sanitizeText } from '/client/lib/secureDOMPurify';
+import { sanitizeText } from '../client/lib/secureDOMPurify';
 
 CardComments = new Mongo.Collection('card_comments');
 

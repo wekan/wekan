@@ -1,6 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import DOMPurify from 'dompurify';
-import { sanitizeHTML, sanitizeText } from '/client/lib/secureDOMPurify';
+import { sanitizeHTML, sanitizeText } from '../../lib/secureDOMPurify';
 import { TAPi18n } from '/imports/i18n';
 
 const activitiesPerPage = 500;
