@@ -1,7 +1,13 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import DOMPurify from 'dompurify';
-import { sanitizeText } from '../client/lib/secureDOMPurify';
+
+// Server-side text sanitization function
+function sanitizeText(text) {
+  if (typeof text !== 'string') return text;
+  // Strip HTML tags and return only text content
+  return text.replace(/<[^>]*>/g, '');
+}
 
 CardComments = new Mongo.Collection('card_comments');
 
