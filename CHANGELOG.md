@@ -29,6 +29,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Use attachments from old CollectionFS database structure, when not yet migrated to Meteor-Files/ostrio-files, without needing to migrate database structure](https://github.com/wekan/wekan/commit/a8de2f224f61d0e5c7061fefb1cdd4f45f3bb020).
   Thanks to xet7.
+- [Show console.log 'Legacy attachments route loaded' only when environment variable DEBUG=true](https://github.com/wekan/wekan/commit/1c84b19f246ebe6d3cad4f56726013147756d9c3).
+  Thanks to xet7.
 - [Make possible for lists to have different names at different swimlanes. Make possible to drag list from one swimlane to another swimlane](https://github.com/wekan/wekan/commit/719ef87efceacfe91461a8eeca7cf74d11f4cc0a).
   Thanks to xet7.
 
