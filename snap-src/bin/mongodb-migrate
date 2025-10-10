@@ -2,6 +2,9 @@
 
 # MongoDB Migration Script from version 3 to 7
 # This script handles migration with disk space checks, progress tracking, and error handling
+#
+# IMPORTANT: All operations are contained within SNAP_COMMON directory
+# This is the only writable directory in a snap environment
 
 set -e
 
@@ -25,6 +28,34 @@ MONGO7_LIB="/snap/${SNAP_NAME}/current/lib"
 # Set up environment for MongoDB 3 tools
 export LD_LIBRARY_PATH="${MONGO3_LIB}:${MONGO3_LIB}/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
 export PATH="${MONGO3_BIN}:${MONGO7_BIN}:${PATH}"
+
+# Validate that all operations are within SNAP_COMMON
+validate_snap_common_path() {
+    local path="$1"
+    local description="$2"
+
+    if [[ "$path" != "${SNAP_COMMON}"* ]]; then
+        log_error "Path outside SNAP_COMMON detected: $path ($description)"
+        log_error "SNAP_COMMON: $SNAP_COMMON"
+        return 1
+    fi
+    return 0
+}
+
+# Validate all critical paths
+validate_all_paths() {
+    log_message "Validating all paths are within SNAP_COMMON"
+
+    validate_snap_common_path "$MIGRATION_LOG" "Migration log" || return 1
+    validate_snap_common_path "$MIGRATION_STATUS" "Migration status" || return 1
+    validate_snap_common_path "$MIGRATION_PROGRESS" "Migration progress" || return 1
+    validate_snap_common_path "$REVERT_FILE" "Revert file" || return 1
+    validate_snap_common_path "$TEMP_DIR" "Temporary directory" || return 1
+    validate_snap_common_path "$BACKUP_DIR" "Backup directory" || return 1
+
+    log_success "All paths validated within SNAP_COMMON"
+    return 0
+}
 
 # Logging functions
 log_message() {
@@ -242,6 +273,12 @@ detect_mongodb3_raw_files() {
 migrate_raw_database_files() {
     log_message "Starting raw MongoDB 3 database files migration"
 
+    # Validate paths are within SNAP_COMMON
+    if ! validate_snap_common_path "${SNAP_COMMON}" "Database path"; then
+        log_error "Database path validation failed"
+        return 1
+    fi
+
     # Stop any running MongoDB processes
     log_message "Stopping any running MongoDB processes"
     pkill -f mongod || true
@@ -272,7 +309,7 @@ migrate_raw_database_files() {
 
     # Dump all databases from MongoDB 3
     log_message "Dumping databases from MongoDB 3"
-    if ! mongodump --port "${MONGODB_PORT:-27019}" --out "$TEMP_DIR"; then
+    if ! mongodump --port "${MONGODB_PORT:-27019}" --out "$TEMP_DIR" --dbpath "${SNAP_COMMON}"; then
         log_error "Failed to dump databases from MongoDB 3"
         kill $mongo3_pid 2>/dev/null || true
         return 1
@@ -308,7 +345,7 @@ migrate_raw_database_files() {
 
     # Restore databases to MongoDB 7
     log_message "Restoring databases to MongoDB 7"
-    if ! mongorestore --port "${MONGODB_PORT:-27019}" "$TEMP_DIR"; then
+    if ! mongorestore --port "${MONGODB_PORT:-27019}" --dbpath "${SNAP_COMMON}" "$TEMP_DIR"; then
         log_error "Failed to restore databases to MongoDB 7"
         kill $mongo7_pid 2>/dev/null || true
         return 1
@@ -432,14 +469,14 @@ migrate_collection() {
     local dump_file="${TEMP_DIR}/${collection}.bson"
     log_message "Dumping collection $collection to $dump_file"
 
-    if ! mongodump --db wekan --collection "$collection" --out "$TEMP_DIR" --port "${MONGODB_PORT:-27019}"; then
+    if ! mongodump --db wekan --collection "$collection" --out "$TEMP_DIR" --port "${MONGODB_PORT:-27019}" --dbpath "${SNAP_COMMON}"; then
         log_error "Failed to dump collection $collection"
         return 1
     fi
 
     # Restore collection
     log_message "Restoring collection $collection to MongoDB 7"
-    if ! mongorestore --db wekan --collection "$collection" "$dump_file" --port "${MONGODB_PORT:-27019}"; then
+    if ! mongorestore --db wekan --collection "$collection" "$dump_file" --port "${MONGODB_PORT:-27019}" --dbpath "${SNAP_COMMON}"; then
         log_error "Failed to restore collection $collection"
         return 1
     fi
@@ -599,6 +636,12 @@ revert_migration() {
 # Main execution
 main() {
     log_message "MongoDB Migration Script started"
+
+    # Validate all paths are within SNAP_COMMON
+    if ! validate_all_paths; then
+        log_error "Path validation failed - aborting migration"
+        exit 1
+    fi
 
     # Check if revert is requested
     if [ -f "$REVERT_FILE" ]; then
