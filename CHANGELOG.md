@@ -58,6 +58,10 @@ and adds the following new features:
   [Part 1](https://github.com/wekan/wekan/commit/0549bc0b0c7dd4a5db53d645662dd4362ef4d1f3),
   [Part 2](https://github.com/wekan/wekan/commit/f1e1fd359364dbe6366501ac4f6a150d73509f17).
   Thanks to xet7.
+- Fix DOMPurify paths.
+  [Part 1](https://github.com/wekan/wekan/commit/90899f0928274cbc30ed3d6df0227664efcd2584),
+  [Part 2](https://github.com/wekan/wekan/commit/77691244018f3a1e44c28973b40a363bf77f99b2).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
