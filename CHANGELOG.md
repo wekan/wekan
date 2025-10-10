@@ -33,6 +33,8 @@ This release adds the following CRITICAL SECURITY FIXES:
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 - [Security Fix JVN#74210258: Stored XSS](https://github.com/wekan/wekan/commit/e1fa607f87d821accb846f2deef1f388003848d1).
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
+- [Security Fix JVN#86586539: Stored XSS](https://github.com/wekan/wekan/commit/ee79cab7b27f73fab62a00ec49add73fd6f7bcaa).
+  Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 
 and adds the following new features:
 
