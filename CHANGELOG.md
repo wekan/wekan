@@ -35,6 +35,8 @@ This release adds the following CRITICAL SECURITY FIXES:
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 - [Security Fix JVN#86586539: Stored XSS](https://github.com/wekan/wekan/commit/ee79cab7b27f73fab62a00ec49add73fd6f7bcaa).
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
+- [Security Fix usd-2022-0041: CWE-284 Improper Access Control](https://github.com/wekan/wekan/commit/f6591d7820e01075cba93612a5fdbf692fbe49dc).
+  Thanks to Christian Pöschl of usd AG and xet7.
 
 and adds the following new features:
 
