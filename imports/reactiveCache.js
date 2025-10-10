@@ -102,13 +102,23 @@ ReactiveCacheServer = {
     return ret;
   },
   getAttachment(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = Attachments.findOne(idOrFirstObjectSelector, options);
+    // Try new structure first
+    let ret = Attachments.findOne(idOrFirstObjectSelector, options);
+    if (!ret && typeof idOrFirstObjectSelector === 'string') {
+      // Fall back to old structure for single attachment lookup
+      ret = Attachments.getAttachmentWithBackwardCompatibility(idOrFirstObjectSelector);
+    }
     return ret;
   },
   getAttachments(selector = {}, options = {}, getQuery = false) {
+    // Try new structure first
     let ret = Attachments.find(selector, options);
     if (getQuery !== true) {
       ret = ret.fetch();
+      // If no results and we have a cardId selector, try old structure
+      if (ret.length === 0 && selector['meta.cardId']) {
+        ret = Attachments.getAttachmentsWithBackwardCompatibility(selector);
+      }
     }
     return ret;
   },
@@ -517,7 +527,12 @@ ReactiveCacheClient = {
     if (!this.__attachment) {
       this.__attachment = new DataCache(_idOrFirstObjectSelect => {
         const __select = EJSON.parse(_idOrFirstObjectSelect);
-        const _ret = Attachments.findOne(__select.idOrFirstObjectSelector, __select.options);
+        // Try new structure first
+        let _ret = Attachments.findOne(__select.idOrFirstObjectSelector, __select.options);
+        if (!_ret && typeof __select.idOrFirstObjectSelector === 'string') {
+          // Fall back to old structure for single attachment lookup
+          _ret = Attachments.getAttachmentWithBackwardCompatibility(__select.idOrFirstObjectSelector);
+        }
         return _ret;
       });
     }
@@ -529,9 +544,14 @@ ReactiveCacheClient = {
     if (!this.__attachments) {
       this.__attachments = new DataCache(_select => {
         const __select = EJSON.parse(_select);
+        // Try new structure first
         let _ret = Attachments.find(__select.selector, __select.options);
         if (__select.getQuery !== true) {
           _ret = _ret.fetch();
+          // If no results and we have a cardId selector, try old structure
+          if (_ret.length === 0 && __select.selector['meta.cardId']) {
+            _ret = Attachments.getAttachmentsWithBackwardCompatibility(__select.selector);
+          }
         }
         return _ret;
       });

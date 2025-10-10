@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs, AttachmentStoreStrategyS3 } from '/models/lib/attachmentStoreStrategy';
 import FileStoreStrategyFactory, {moveToStorage, rename, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3} from '/models/lib/fileStoreStrategy';
+import { getAttachmentWithBackwardCompatibility, getAttachmentsWithBackwardCompatibility } from './lib/attachmentBackwardCompatibility';
 
 let attachmentUploadExternalProgram;
 let attachmentUploadMimeTypes = [];
@@ -193,6 +194,10 @@ if (Meteor.isServer) {
       fs.mkdirSync(storagePath, { recursive: true });
     }
   });
+
+  // Add backward compatibility methods
+  Attachments.getAttachmentWithBackwardCompatibility = getAttachmentWithBackwardCompatibility;
+  Attachments.getAttachmentsWithBackwardCompatibility = getAttachmentsWithBackwardCompatibility;
 }
 
 export default Attachments;
