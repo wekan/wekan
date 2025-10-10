@@ -138,13 +138,40 @@ if (Meteor.isServer) {
     insert(userId, fileObj) {
       return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
-    update(userId, fileObj) {
+    update(userId, fileObj, fields) {
+      // Only allow updates to specific fields that don't affect security
+      const allowedFields = ['name', 'size', 'type', 'extension', 'extensionWithDot', 'meta', 'versions'];
+      const isAllowedField = fields.every(field => allowedFields.includes(field));
+
+      if (!isAllowedField) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Blocked attempt to update restricted attachment fields:', fields);
+        }
+        return false;
+      }
+
       return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     remove(userId, fileObj) {
-      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
+      // Additional security check: ensure the file belongs to the board the user has access to
+      if (!fileObj || !fileObj.boardId) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Blocked attachment removal: file has no boardId');
+        }
+        return false;
+      }
+
+      const board = ReactiveCache.getBoard(fileObj.boardId);
+      if (!board) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Blocked attachment removal: board not found');
+        }
+        return false;
+      }
+
+      return allowIsBoardMember(userId, board);
     },
-    fetch: ['meta'],
+    fetch: ['meta', 'boardId'],
   });
 
   Meteor.methods({
@@ -196,7 +223,29 @@ if (Meteor.isServer) {
       check(fileObjId, String);
       check(newName, String);
 
+      const currentUserId = Meteor.userId();
+      if (!currentUserId) {
+        throw new Meteor.Error('not-authorized', 'User must be logged in');
+      }
+
       const fileObj = ReactiveCache.getAttachment(fileObjId);
+      if (!fileObj) {
+        throw new Meteor.Error('file-not-found', 'Attachment not found');
+      }
+
+      // Verify the user has permission to modify this attachment
+      const board = ReactiveCache.getBoard(fileObj.boardId);
+      if (!board) {
+        throw new Meteor.Error('board-not-found', 'Board not found');
+      }
+
+      if (!allowIsBoardMember(currentUserId, board)) {
+        if (process.env.DEBUG === 'true') {
+          console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${fileObj.boardId}`);
+        }
+        throw new Meteor.Error('not-authorized', 'You do not have permission to modify this attachment');
+      }
+
       rename(fileObj, newName, fileStoreStrategyFactory);
     },
     validateAttachment(fileObjId) {
