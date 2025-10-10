@@ -54,7 +54,9 @@ and adds the following new features:
   Thanks to xet7.
 - [Add support for Docker/Compose Secrets for passwords to Docker/Snap/Bundle platforms](https://github.com/wekan/wekan/commit/107e2ac90043138ea8aa09aadd92f4af355289c0).
   Thanks to Roemer and xet7.
-- [Add Snap automatic upgrades](https://github.com/wekan/wekan/commit/0549bc0b0c7dd4a5db53d645662dd4362ef4d1f3).
+- Add Snap automatic upgrades.
+  [Part 1](https://github.com/wekan/wekan/commit/0549bc0b0c7dd4a5db53d645662dd4362ef4d1f3),
+  [Part 2](https://github.com/wekan/wekan/commit/f1e1fd359364dbe6366501ac4f6a150d73509f17).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
