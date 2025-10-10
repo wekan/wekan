@@ -86,6 +86,12 @@ Template.userFormsLayout.onRendered(() => {
       validator,
     );
     EscapeActions.executeAll();
+
+    // Add autocomplete attribute to login input for WCAG compliance
+    const loginInput = document.querySelector('input[type="text"], input[type="email"]');
+    if (loginInput && loginInput.name && (loginInput.name.toLowerCase().includes('user') || loginInput.name.toLowerCase().includes('email'))) {
+      loginInput.setAttribute('autocomplete', 'username email');
+    }
   });
 });
 
