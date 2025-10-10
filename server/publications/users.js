@@ -49,6 +49,49 @@ Meteor.publish('user-authenticationMethod', function (match) {
   return ret;
 });
 
+// Secure user search publication for board sharing
+Meteor.publish('user-search', function (searchTerm) {
+  check(searchTerm, String);
+
+  // Only allow logged-in users to search for other users
+  if (!this.userId) {
+    return this.ready();
+  }
+
+  // Create a regex for case-insensitive search
+  const searchRegex = new RegExp(searchTerm, 'i');
+
+  // Search for users by username, fullname, or email
+  const ret = ReactiveCache.getUsers(
+    {
+      $or: [
+        { username: searchRegex },
+        { 'profile.fullname': searchRegex },
+        { 'emails.address': searchRegex }
+      ]
+    },
+    {
+      fields: {
+        _id: 1,
+        username: 1,
+        'profile.fullname': 1,
+        'profile.avatarUrl': 1,
+        'profile.initials': 1,
+        'emails.address': 1,
+        'emails.verified': 1,
+        authenticationMethod: 1,
+        isAdmin: 1,
+        loginDisabled: 1,
+        teams: 1,
+        orgs: 1,
+      },
+    },
+    true,
+  );
+
+  return ret;
+});
+
 // update last connection date and last connection average time (in seconds) for a user
 // function UpdateLastConnectionDateAndLastConnectionAverageTime(lstUsers) {
 //   let lastConnectionAverageTime;

@@ -588,15 +588,37 @@ Users.deny({
 });
 
 
+// Custom MongoDB engine that enforces field restrictions
+class SecureMongoDBEngine extends MongoDBEngine {
+  getSearchCursor(searchObject, options) {
+    // Always enforce field projection to prevent data leakage
+    const secureProjection = {
+      _id: 1,
+      username: 1,
+      'profile.fullname': 1,
+      'profile.avatarUrl': 1,
+    };
+
+    // Override any projection passed in options
+    const secureOptions = {
+      ...options,
+      projection: secureProjection,
+    };
+
+    return super.getSearchCursor(searchObject, secureOptions);
+  }
+}
+
 // Search a user in the complete server database by its name, username or emails adress. This
 // is used for instance to add a new user to a board.
 UserSearchIndex = new Index({
   collection: Users,
   fields: ['username', 'profile.fullname', 'profile.avatarUrl'],
-  allowedFields: ['username', 'profile.fullname', 'profile.avatarUrl'],
-  engine: new MongoDBEngine({
+  allowedFields: ['username', 'profile.fullname', 'profile.avatarUrl', '_id'],
+  engine: new SecureMongoDBEngine({
     fields: function (searchObject, options) {
       return {
+        _id: 1,
         username: 1,
         'profile.fullname': 1,
         'profile.avatarUrl': 1,
@@ -2754,6 +2776,51 @@ if (Meteor.isServer) {
         code: 200,
         data: error,
       });
+    }
+  });
+
+  // Server-side method to sanitize user data for search results
+  Meteor.methods({
+    sanitizeUserForSearch(userData) {
+      check(userData, Object);
+
+      // Only allow safe fields for user search
+      const safeFields = {
+        _id: 1,
+        username: 1,
+        'profile.fullname': 1,
+        'profile.avatarUrl': 1,
+        'profile.initials': 1,
+        'emails.address': 1,
+        'emails.verified': 1,
+        authenticationMethod: 1,
+        isAdmin: 1,
+        loginDisabled: 1,
+        teams: 1,
+        orgs: 1,
+      };
+
+      const sanitized = {};
+      for (const field of Object.keys(safeFields)) {
+        if (userData[field] !== undefined) {
+          sanitized[field] = userData[field];
+        }
+      }
+
+      // Ensure sensitive fields are never included
+      delete sanitized.services;
+      delete sanitized.resume;
+      delete sanitized.email;
+      delete sanitized.createdAt;
+      delete sanitized.modifiedAt;
+      delete sanitized.sessionData;
+      delete sanitized.importUsernames;
+
+      if (process.env.DEBUG === 'true') {
+        console.log('Sanitized user data for search:', Object.keys(sanitized));
+      }
+
+      return sanitized;
     }
   });
 }
