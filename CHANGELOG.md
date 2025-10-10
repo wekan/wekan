@@ -60,7 +60,8 @@ and adds the following new features:
   Thanks to xet7.
 - Fix DOMPurify paths.
   [Part 1](https://github.com/wekan/wekan/commit/90899f0928274cbc30ed3d6df0227664efcd2584),
-  [Part 2](https://github.com/wekan/wekan/commit/77691244018f3a1e44c28973b40a363bf77f99b2).
+  [Part 2](https://github.com/wekan/wekan/commit/77691244018f3a1e44c28973b40a363bf77f99b2),
+  [Part 3](https://github.com/wekan/wekan/commit/21ba0a96066a495e885fcf186f026cf1c7ddf45d).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
