@@ -29,6 +29,8 @@ This release adds the following CRITICAL SECURITY FIXES:
   Thanks to Anynymous Security Researcher and xet7.
 - [Security Fix FG-VD-22-078: Prevent SVG Billion Laughs Attack](https://github.com/wekan/wekan/commit/30c1597b658b0ef50fd2efc56786e8b0f08ac72c).
   Thanks to Nguyen Thanh Nguyen of Fortinet's FortiGuard Labs and xet7.
+- [Security Fix JVN#14269684: Broken access control](https://github.com/wekan/wekan/commit/9720e703fd9432bf0e1bfea2358f8c7ea078f1b1).
+  Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 
 and adds the following new features:
 
