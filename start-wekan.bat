@@ -10,6 +10,9 @@ SET WRITABLE_PATH=..
 
 REM # MongoDB database URL required
 SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
+REM # MONGO_PASSWORD_FILE : MongoDB password file (Docker secrets)
+REM # example : SET MONGO_PASSWORD_FILE=/run/secrets/mongo_password
+REM SET MONGO_PASSWORD_FILE=
 
 REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
 REM # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
@@ -40,6 +43,9 @@ REM #   eu-west-1,eu-central-1,
 REM #   ap-southeast-1,ap-northeast-1,sa-east-1
 REM #
 REM SET S3='{"s3":{"key": "xxx", "secret": "xxx", "bucket": "xxx", "region": "eu-west-1"}}'
+REM # S3_SECRET_FILE : S3 secret file (Docker secrets)
+REM # example : SET S3_SECRET_FILE=/run/secrets/s3_secret
+REM SET S3_SECRET_FILE=
 
 REM # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
 REM SET MAIL_URL=smtps://username:password@email-smtp.eu-west-1.amazonaws.com:587/
@@ -48,6 +54,9 @@ REM # Currently MAIL_SERVICE is not in use.
 REM SET MAIL_SERVICE=Outlook365
 REM SET MAIL_SERVICE_USER=firstname.lastname@hotmail.com
 REM SET MAIL_SERVICE_PASSWORD=SecretPassword
+REM # MAIL_SERVICE_PASSWORD_FILE : Password file for mail service (Docker secrets)
+REM # example : SET MAIL_SERVICE_PASSWORD_FILE=/run/secrets/mail_service_password
+REM SET MAIL_SERVICE_PASSWORD_FILE=
 
 REM # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
 REM SET RESULTS_PER_PAGE=20
@@ -202,6 +211,9 @@ REM ## Application GUID captured during app registration:
 REM SET OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
 REM ## Secret key generated during app registration:
 REM SET OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+REM # OAUTH2_SECRET_FILE : Secret key file for OAuth2 (Docker secrets)
+REM # example : SET OAUTH2_SECRET_FILE=/run/secrets/oauth2_secret
+REM SET OAUTH2_SECRET_FILE=
 REM SET OAUTH2_SERVER_URL=https://login.microsoftonline.com/
 REM SET OAUTH2_AUTH_ENDPOINT=/oauth2/v2.0/authorize
 REM SET OAUTH2_USERINFO_ENDPOINT=https://graph.microsoft.com/oidc/userinfo
@@ -449,6 +461,9 @@ REM SET LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,O
 REM # LDAP_AUTHENTIFICATION_PASSWORD : The password for the search user
 REM # example : AUTHENTIFICATION_PASSWORD=admin
 REM SET LDAP_AUTHENTIFICATION_PASSWORD=
+REM # LDAP_AUTHENTIFICATION_PASSWORD_FILE : The password file for the search user (Docker secrets)
+REM # example : SET LDAP_AUTHENTIFICATION_PASSWORD_FILE=/run/secrets/ldap_auth_password
+REM SET LDAP_AUTHENTIFICATION_PASSWORD_FILE=
 
 REM # LDAP_LOG_ENABLED : Enable logs for the module
 REM # example : LDAP_LOG_ENABLED=true

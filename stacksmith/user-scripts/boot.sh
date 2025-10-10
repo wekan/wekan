@@ -11,6 +11,29 @@ cat >"${CONF}" <<'EOF'
 export MONGO_URL=mongodb://{{DATABASE_USER}}:{{DATABASE_PASSWORD}}@{{DATABASE_HOST}}:{{DATABASE_PORT}}/{{DATABASE_NAME}}
 export ROOT_URL=http://localhost
 export PORT=3000
+
+# Docker Compose Secrets Support
+# If secret files exist, read passwords from them instead of environment variables
+if [ -f "/run/secrets/mongo_password" ]; then
+    export MONGO_PASSWORD=$(cat /run/secrets/mongo_password)
+    export MONGO_URL=mongodb://{{DATABASE_USER}}:${MONGO_PASSWORD}@{{DATABASE_HOST}}:{{DATABASE_PORT}}/{{DATABASE_NAME}}
+fi
+
+if [ -f "/run/secrets/ldap_auth_password" ]; then
+    export LDAP_AUTHENTIFICATION_PASSWORD=$(cat /run/secrets/ldap_auth_password)
+fi
+
+if [ -f "/run/secrets/oauth2_secret" ]; then
+    export OAUTH2_SECRET=$(cat /run/secrets/oauth2_secret)
+fi
+
+if [ -f "/run/secrets/mail_service_password" ]; then
+    export MAIL_SERVICE_PASSWORD=$(cat /run/secrets/mail_service_password)
+fi
+
+if [ -f "/run/secrets/s3_secret" ]; then
+    export S3_SECRET=$(cat /run/secrets/s3_secret)
+fi
 EOF
 
 sed -i -e "s/{{DATABASE_USER}}/${DATABASE_USER}/" "${CONF}"

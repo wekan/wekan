@@ -163,9 +163,12 @@ services:
       #   ap-southeast-1,ap-northeast-1,sa-east-1
       #
       #- S3='{"s3":{"key": "xxx", "secret": "xxx", "bucket": "xxx", "region": "xxx"}}'
+      #- S3_SECRET_FILE=/run/secrets/s3_secret
       #-----------------------------------------------------------------
       # ==== MONGO_URL ====
       - MONGO_URL=mongodb://wekandb:27017/wekan
+      #- MONGO_URL=mongodb://username:password@wekandb:27017/wekan
+      #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
       # Change ROOT_URL to your real Wekan URL, for example:
@@ -194,6 +197,7 @@ services:
       #- MAIL_SERVICE=Outlook365
       #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
       #- MAIL_SERVICE_PASSWORD=SecretPassword
+      #- MAIL_SERVICE_PASSWORD_FILE=/run/secrets/mail_service_password
       #---------------------------------------------------------------
       # https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
       # Add more Node heap, this is done by default at Dockerfile:
@@ -397,6 +401,7 @@ services:
       #- OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
       # Secret key generated during app registration:
       #- OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      #- OAUTH2_SECRET_FILE=/run/secrets/oauth2_secret
       #- OAUTH2_SERVER_URL=https://login.microsoftonline.com/
       #- OAUTH2_AUTH_ENDPOINT=/oauth2/v2.0/authorize
       #- OAUTH2_USERINFO_ENDPOINT=https://graph.microsoft.com/oidc/userinfo
@@ -423,6 +428,7 @@ services:
       #- OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
       # Secret key generated during app registration:
       #- OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      #- OAUTH2_SECRET_FILE=/run/secrets/oauth2_secret
       #- OAUTH2_SERVER_URL=https://your-nextcloud.tld
       #- OAUTH2_AUTH_ENDPOINT=/index.php/apps/oauth2/authorize
       #- OAUTH2_USERINFO_ENDPOINT=/ocs/v2.php/cloud/user?format=json
@@ -447,6 +453,7 @@ services:
       #- OAUTH2_USERINFO_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/userinfo
       #- OAUTH2_TOKEN_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/token
       #- OAUTH2_SECRET=<keycloak client secret>
+      #- OAUTH2_SECRET_FILE=/run/secrets/oauth2_secret
       #- OAUTH2_ID_MAP=sub
       #- OAUTH2_USERNAME_MAP=preferred_username
       #- OAUTH2_EMAIL_MAP=email
@@ -464,6 +471,7 @@ services:
       #- OAUTH2_CLIENT_ID=abcde12345
       # OAuth2 Secret.
       #- OAUTH2_SECRET=54321abcde
+      #- OAUTH2_SECRET_FILE=/run/secrets/oauth2_secret
       # OAuth2 Server URL.
       #- OAUTH2_SERVER_URL=https://chat.example.com
       # OAuth2 Authorization Endpoint.
@@ -570,6 +578,7 @@ services:
       #
       # The password for the search user
       #- LDAP_AUTHENTIFICATION_PASSWORD=pwd
+      #- LDAP_AUTHENTIFICATION_PASSWORD_FILE=/run/secrets/ldap_auth_password
       #
       # Enable logs for the module
       #- LDAP_LOG_ENABLED=true
@@ -725,6 +734,12 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-files:/data:rw
+    secrets:
+      - ldap_auth_password
+      - oauth2_secret
+      - mail_service_password
+      - mongo_password
+      - s3_secret
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -786,3 +801,19 @@ volumes:
 networks:
   wekan-tier:
     driver: bridge
+
+# Docker Compose Secrets
+# Create secret files on the host system before running docker-compose up
+# Example: echo "your_password_here" > ldap_auth_password.txt
+# Then use: docker-compose up -d
+secrets:
+  ldap_auth_password:
+    file: ./secrets/ldap_auth_password.txt
+  oauth2_secret:
+    file: ./secrets/oauth2_secret.txt
+  mail_service_password:
+    file: ./secrets/mail_service_password.txt
+  mongo_password:
+    file: ./secrets/mongo_password.txt
+  s3_secret:
+    file: ./secrets/s3_secret.txt

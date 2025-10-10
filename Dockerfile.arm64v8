@@ -53,7 +53,12 @@ ENV QEMU_ARCHITECTURE=aarch64 \
     WITH_API=true \
     PORT=8080 \
     ROOT_URL=http://localhost \
-    MONGO_URL=mongodb://127.0.0.1:27017/wekan
+    MONGO_URL=mongodb://127.0.0.1:27017/wekan \
+    LDAP_AUTHENTIFICATION_PASSWORD_FILE="" \
+    OAUTH2_SECRET_FILE="" \
+    MAIL_SERVICE_PASSWORD_FILE="" \
+    MONGO_PASSWORD_FILE="" \
+    S3_SECRET_FILE=""
 
 # Copy qemu-static to image
 COPY --from=builder qemu-${QEMU_ARCHITECTURE}-static /usr/bin
