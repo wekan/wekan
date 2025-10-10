@@ -27,6 +27,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Drag any files from file manager to minicard or opened card](https://github.com/wekan/wekan/commit/3e9481c5bd2c02ba501bd0a6ef1d1e6ce82bb1d9).
   Thanks to xet7.
+- [Use attachments from old CollectionFS database structure, when not yet migrated to Meteor-Files/ostrio-files, without needing to migrate database structure](https://github.com/wekan/wekan/commit/a8de2f224f61d0e5c7061fefb1cdd4f45f3bb020).
+  Thanks to xet7.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
 
