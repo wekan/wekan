@@ -25,7 +25,9 @@ This release adds the following new features:
 
 - [Mobile one board per row. Board zoom size percent. Board toggle mobile/desktop mode. In Progress](https://github.com/wekan/wekan/commit/752699d1c2fb8ea9ff0f3ec9ae0b2b776443d826).
   Thanks to xet7.
-- [Drag any files from file manager to minicard or opened card](https://github.com/wekan/wekan/commit/3e9481c5bd2c02ba501bd0a6ef1d1e6ce82bb1d9).
+- [Drag any files from file manager to minicard or opened card.
+  [Part 1](https://github.com/wekan/wekan/commit/3e9481c5bd2c02ba501bd0a6ef1d1e6ce82bb1d9),
+  [Part 2](https://github.com/wekan/wekan/commit/cdd7d69c660d0b6ac06b7b75d4f59985b8a9322a).
   Thanks to xet7.
 - [Use attachments from old CollectionFS database structure, when not yet migrated to Meteor-Files/ostrio-files, without needing to migrate database structure](https://github.com/wekan/wekan/commit/a8de2f224f61d0e5c7061fefb1cdd4f45f3bb020).
   Thanks to xet7.
