@@ -21,7 +21,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release adds the following security fixes:
+
+- [Security Fix: IDOR CWE-639 that affected WeKan 7.80-7.93](https://github.com/wekan/wekan/commit/b87cff1289d2c98ef84d69e171f112ecedb4d843).
+  Thanks to apitech.fr and xet7.
+
+and adds the following new features:
 
 - [Mobile one board per row. Board zoom size percent. Board toggle mobile/desktop mode. In Progress](https://github.com/wekan/wekan/commit/752699d1c2fb8ea9ff0f3ec9ae0b2b776443d826).
   Thanks to xet7.
