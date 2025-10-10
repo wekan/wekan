@@ -285,7 +285,7 @@ BlazeComponent.extendComponent({
     const user = ReactiveCache.getCurrentUser();
     const swimlane = Template.currentData();
     const height = user.getSwimlaneHeight(swimlane.boardId, swimlane._id);
-    return height == -1 ? "auto" : (height + "px");
+    return height == -1 ? "auto" : (height + 5 + "px");
   },
 }).register('swimlane');
 

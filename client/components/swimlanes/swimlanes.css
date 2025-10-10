@@ -52,12 +52,15 @@
   background-color: #ccc;
   width: 100%;
   min-width: 100%;
+  position: relative;
+  overflow: hidden;
+  min-height: 33px;
 }
 .swimlane .swimlane-header-wrap .swimlane-header {
   font-size: 14px;
   padding: 5px 5px;
   font-weight: bold;
-  min-height: 9px;
+  min-height: 33px;
   width: 100%;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -88,9 +91,12 @@
   position: absolute;
   padding: 7px;
   top: 50%;
-  transform: translateY(-50%);
   left: 230px;
-  font-size: 18px;
+  font-size: clamp(16px, 3vw, 20px);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
   position: absolute;

@@ -372,8 +372,8 @@
   transform: translateY(-50%) !important;
   grid-row: auto !important;
   grid-column: auto !important;
-  padding: 14px !important;
-  font-size: 48px !important;
+  padding: 7px !important;
+  font-size: clamp(16px, 3vw, 20px) !important;
 }
 
 .desktop-mode .list-body {
