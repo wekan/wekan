@@ -37,8 +37,34 @@ runOnServer(function() {
     let user = null;
     let impersonateDone = false;
     let adminId = null;
+
+    // First check if board exists and is public to avoid unnecessary authentication
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board) {
+      res.end('Board not found');
+      return;
+    }
+
+    // If board is public, skip expensive authentication operations
+    if (board.isPublic()) {
+      // Public boards don't require authentication - skip hash operations
+      const exporterCardPDF = new ExporterCardPDF(boardId);
+      exporterCardPDF.build(res);
+      return;
+    }
+
+    // Only perform expensive authentication for private boards
     const loginToken = params.query.authToken;
     if (loginToken) {
+      // Validate token length to prevent resource abuse
+      if (loginToken.length > 10000) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Suspiciously long auth token received, rejecting to prevent resource abuse');
+        }
+        res.end('Invalid token');
+        return;
+      }
+
       const hashToken = Accounts._hashLoginToken(loginToken);
       user = ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
