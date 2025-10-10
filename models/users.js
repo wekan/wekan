@@ -571,27 +571,10 @@ Users.allow({
     return doc._id === userId;
   },
   remove(userId, doc) {
-    const adminsNumber = ReactiveCache.getUsers({
-      isAdmin: true,
-    }).length;
-    const isAdmin = ReactiveCache.getUser(
-      {
-        _id: userId,
-      },
-      {
-        fields: {
-          isAdmin: 1,
-        },
-      },
-    );
-
-    // Prevents remove of the only one administrator
-    if (adminsNumber === 1 && isAdmin && userId === doc._id) {
-      return false;
-    }
-
-    // If it's the user or an admin
-    return userId === doc._id || isAdmin;
+    // Disable direct client-side user removal for security
+    // All user removal should go through the secure server method 'removeUser'
+    // This prevents IDOR vulnerabilities and ensures proper authorization checks
+    return false;
   },
   fetch: [],
 });
@@ -1314,6 +1297,50 @@ Users.mutations({
 });
 
 Meteor.methods({
+  // Secure user removal method with proper authorization checks
+  removeUser(targetUserId) {
+    check(targetUserId, String);
+
+    const currentUserId = Meteor.userId();
+    if (!currentUserId) {
+      throw new Meteor.Error('not-authorized', 'User must be logged in');
+    }
+
+    const currentUser = ReactiveCache.getUser(currentUserId);
+    if (!currentUser) {
+      throw new Meteor.Error('not-authorized', 'Current user not found');
+    }
+
+    const targetUser = ReactiveCache.getUser(targetUserId);
+    if (!targetUser) {
+      throw new Meteor.Error('user-not-found', 'Target user not found');
+    }
+
+    // Check if user is trying to delete themselves
+    if (currentUserId === targetUserId) {
+      // User can delete themselves
+      Users.remove(targetUserId);
+      return { success: true, message: 'User deleted successfully' };
+    }
+
+    // Check if current user is admin
+    if (!currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Only administrators can delete other users');
+    }
+
+    // Check if target user is the last admin
+    const adminsNumber = ReactiveCache.getUsers({
+      isAdmin: true,
+    }).length;
+
+    if (adminsNumber === 1 && targetUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Cannot delete the last administrator');
+    }
+
+    // Admin can delete non-admin users
+    Users.remove(targetUserId);
+    return { success: true, message: 'User deleted successfully' };
+  },
   setListSortBy(value) {
     check(value, String);
     ReactiveCache.getCurrentUser().setListSortBy(value);

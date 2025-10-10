@@ -1269,23 +1269,30 @@ Template.settingsUserPopup.events({
   },
   'click #deleteButton'(event) {
     event.preventDefault();
-    Users.remove(this.userId);
-    /*
-    // Delete user is enabled, but you should remove user from all boards
-    // before deleting user, because there is possibility of leaving empty user avatars
-    // to boards. You can remove non-existing user ids manually from database,
-    // if that happens.
-    //. See:
-    // - wekan/client/components/settings/peopleBody.jade deleteButton
-    // - wekan/client/components/settings/peopleBody.js deleteButton
-    // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
-    //   that does now remove member from board, card members and assignees correctly,
-    //   but that should be used to remove user from all boards similarly
-    // - wekan/models/users.js Delete is not enabled
-    //
-    //
-    */
-    Popup.back();
+
+    // Use secure server method instead of direct client-side removal
+    Meteor.call('removeUser', this.userId, (error, result) => {
+      if (error) {
+        if (process.env.DEBUG === 'true') {
+          console.error('Error removing user:', error);
+        }
+        // Show error message to user
+        if (error.error === 'not-authorized') {
+          alert('You are not authorized to delete this user.');
+        } else if (error.error === 'user-not-found') {
+          alert('User not found.');
+        } else if (error.error === 'not-authorized' && error.reason === 'Cannot delete the last administrator') {
+          alert('Cannot delete the last administrator.');
+        } else {
+          alert('Error deleting user: ' + error.reason);
+        }
+      } else {
+        if (process.env.DEBUG === 'true') {
+          console.log('User deleted successfully:', result);
+        }
+        Popup.back();
+      }
+    });
   },
 });
 

@@ -241,8 +241,21 @@ Template.editProfilePopup.events({
   },
   'click #deleteButton': Popup.afterConfirm('userDelete', function() {
     Popup.back();
-    Users.remove(Meteor.userId());
-    AccountsTemplates.logout();
+
+    // Use secure server method for self-deletion
+    Meteor.call('removeUser', Meteor.userId(), (error, result) => {
+      if (error) {
+        if (process.env.DEBUG === 'true') {
+          console.error('Error removing user:', error);
+        }
+        alert('Error deleting account: ' + error.reason);
+      } else {
+        if (process.env.DEBUG === 'true') {
+          console.log('User deleted successfully:', result);
+        }
+        AccountsTemplates.logout();
+      }
+    });
   }),
 });
 
