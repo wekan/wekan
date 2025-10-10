@@ -31,6 +31,8 @@ This release adds the following CRITICAL SECURITY FIXES:
   Thanks to Nguyen Thanh Nguyen of Fortinet's FortiGuard Labs and xet7.
 - [Security Fix JVN#14269684: Broken access control](https://github.com/wekan/wekan/commit/9720e703fd9432bf0e1bfea2358f8c7ea078f1b1).
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
+- [Security Fix JVN#74210258: Stored XSS](https://github.com/wekan/wekan/commit/e1fa607f87d821accb846f2deef1f388003848d1).
+  Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 
 and adds the following new features:
 
