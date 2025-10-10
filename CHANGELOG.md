@@ -21,10 +21,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release adds the following security fixes:
+This release adds the following CRITICAL SECURITY FIXES:
 
 - [Security Fix: IDOR CWE-639 that affected WeKan 7.80-7.93](https://github.com/wekan/wekan/commit/b87cff1289d2c98ef84d69e171f112ecedb4d843).
   Thanks to apitech.fr and xet7.
+- [Security Fix: Computational Resource Abuse in Export endpoints](https://github.com/wekan/wekan/commit/d0f118e7af0b2ede517d6d051226c38fa8e557b6).
+  Thanks to Anynymous Security Researcher and xet7.
 
 and adds the following new features:
 
