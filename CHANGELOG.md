@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# v7.99 2025-10-11 WeKan ® release
+
+This release fixed the following bugs:
+
+- [Improve automatic Snap upgrades](https://github.com/wekan/wekan/commit/aab671398c7ee3d7ea4934c6c9c977ad630fa74f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.98 2025-10-11 WeKan ® release
 
 This release adds the following CRITICAL SECURITY FIXES:
@@ -29,14 +38,14 @@ This release adds the following CRITICAL SECURITY FIXES:
   Thanks to Anynymous Security Researcher and xet7.
 - [Security Fix FG-VD-22-078: Prevent SVG Billion Laughs Attack](https://github.com/wekan/wekan/commit/30c1597b658b0ef50fd2efc56786e8b0f08ac72c).
   Thanks to Nguyen Thanh Nguyen of Fortinet's FortiGuard Labs and xet7.
+- [Security Fix usd-2022-0041: CWE-284 Improper Access Control](https://github.com/wekan/wekan/commit/f6591d7820e01075cba93612a5fdbf692fbe49dc).
+  Thanks to Christian Pöschl of usd AG and xet7.
 - [Security Fix JVN#14269684: Broken access control](https://github.com/wekan/wekan/commit/9720e703fd9432bf0e1bfea2358f8c7ea078f1b1).
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 - [Security Fix JVN#74210258: Stored XSS](https://github.com/wekan/wekan/commit/e1fa607f87d821accb846f2deef1f388003848d1).
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 - [Security Fix JVN#86586539: Stored XSS](https://github.com/wekan/wekan/commit/ee79cab7b27f73fab62a00ec49add73fd6f7bcaa).
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
-- [Security Fix usd-2022-0041: CWE-284 Improper Access Control](https://github.com/wekan/wekan/commit/f6591d7820e01075cba93612a5fdbf692fbe49dc).
-  Thanks to Christian Pöschl of usd AG and xet7.
 - [Security Fix JVN#15385465: CWE-79 XSS, that affected WeKan 7.94](https://github.com/wekan/wekan/commit/81c3dc1d956cd7040655940f6569653d7b98fa9a).
   Thanks to Sho Sugiyama and xet7.
 - Security Fix JVN#80785288: CWE-79 XSS, that affected WeKan 3.94 and v3.95. This was already previously fixed.
