@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { FS } from 'meteor/cfs:base-package';
 
 const storeName = 'attachments';
 const defaultStoreOptions = {

@@ -72,16 +72,6 @@ template(name="minicard")
           span.card-number
             | ##{getCardNumber}
         = getTitle
-if shouldShowListOnMinicard
-  .minicard-list-name
-    i.fa.fa-list
-    | {{ listName }}
-      if $eq 'subtext-with-full-path' currentBoard.presentParentTask
-        .parent-subtext
-          | {{ parentString ' > ' }}
-      if $eq 'subtext-with-parent' currentBoard.presentParentTask
-        .parent-subtext
-          | {{ parentCardName }}
     if labels
       .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
         each labels
@@ -201,6 +191,16 @@ if shouldShowListOnMinicard
         .minicard-description
           +viewer
             | {{ getDescription }}
+    if shouldShowListOnMinicard
+      .minicard-list-name
+        i.fa.fa-list
+        | {{ listName }}
+    if $eq 'subtext-with-full-path' currentBoard.presentParentTask
+      .parent-subtext
+        | {{ parentString ' > ' }}
+    if $eq 'subtext-with-parent' currentBoard.presentParentTask
+      .parent-subtext
+        | {{ parentCardName }}
 
 template(name="editCardSortOrderPopup")
   input.js-edit-card-sort-popup(type='text' autofocus value=sort dir="auto")

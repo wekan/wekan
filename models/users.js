@@ -2,7 +2,7 @@ import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
-import { Index, MongoDBEngine } from 'meteor/easy:search';
+// import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -589,43 +589,57 @@ Users.deny({
 
 
 // Custom MongoDB engine that enforces field restrictions
-class SecureMongoDBEngine extends MongoDBEngine {
-  getSearchCursor(searchObject, options) {
-    // Always enforce field projection to prevent data leakage
-    const secureProjection = {
-      _id: 1,
-      username: 1,
-      'profile.fullname': 1,
-      'profile.avatarUrl': 1,
-    };
+// TODO: Re-enable when easy:search compatibility is fixed
+// class SecureMongoDBEngine extends MongoDBEngine {
+//   getSearchCursor(searchObject, options) {
+//     // Always enforce field projection to prevent data leakage
+//     const secureProjection = {
+//       _id: 1,
+//       username: 1,
+//       'profile.fullname': 1,
+//       'profile.avatarUrl': 1,
+//     };
 
-    // Override any projection passed in options
-    const secureOptions = {
-      ...options,
-      projection: secureProjection,
-    };
+//     // Override any projection passed in options
+//     const secureOptions = {
+//       ...options,
+//       projection: secureProjection,
+//     };
 
-    return super.getSearchCursor(searchObject, secureOptions);
-  }
-}
+//     return super.getSearchCursor(searchObject, secureOptions);
+//   }
+// }
 
 // Search a user in the complete server database by its name, username or emails adress. This
 // is used for instance to add a new user to a board.
-UserSearchIndex = new Index({
-  collection: Users,
-  fields: ['username', 'profile.fullname', 'profile.avatarUrl'],
-  allowedFields: ['username', 'profile.fullname', 'profile.avatarUrl', '_id'],
-  engine: new SecureMongoDBEngine({
-    fields: function (searchObject, options) {
-      return {
+// TODO: Fix easy:search compatibility issue - temporarily disabled
+// UserSearchIndex = new Index({
+//   collection: Users,
+//   fields: ['username', 'profile.fullname', 'profile.avatarUrl'],
+//   engine: new MongoDBEngine(),
+// });
+
+// Temporary fallback - create a simple search index object
+UserSearchIndex = {
+  search: function(query, options) {
+    // Simple fallback search using MongoDB find
+    const searchRegex = new RegExp(query, 'i');
+    return Users.find({
+      $or: [
+        { username: searchRegex },
+        { 'profile.fullname': searchRegex }
+      ]
+    }, {
+      fields: {
         _id: 1,
         username: 1,
         'profile.fullname': 1,
-        'profile.avatarUrl': 1,
-      };
-    },
-  }),
-});
+        'profile.avatarUrl': 1
+      },
+      limit: options?.limit || 20
+    });
+  }
+};
 
 Users.safeFields = {
   _id: 1,
