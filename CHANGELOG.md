@@ -37,6 +37,8 @@ This release adds the following CRITICAL SECURITY FIXES:
   Thanks to Ryoya Koyama of Mitsui Bussan Secure Directions, Inc and xet7.
 - [Security Fix usd-2022-0041: CWE-284 Improper Access Control](https://github.com/wekan/wekan/commit/f6591d7820e01075cba93612a5fdbf692fbe49dc).
   Thanks to Christian Pöschl of usd AG and xet7.
+- [Security Fix JVN#15385465: CWE-79 XSS, that affected WeKan 7.94](https://github.com/wekan/wekan/commit/81c3dc1d956cd7040655940f6569653d7b98fa9a).
+  Thanks to Sho Sugiyama and xet7.
 
 and adds the following new features:
 
