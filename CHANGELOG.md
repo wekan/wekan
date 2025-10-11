@@ -25,7 +25,9 @@ This release adds the following new features:
 
 - [Made possible to start WeKan immediately without running any database migrations](https://github.com/wekan/wekan/commit/3ccdc2e3070978a79bc68941375122504318677d).
   Thanks to xet7.
-- [Add support for MongoDB 3-8, detecting which one is in use](https://github.com/wekan/wekan/commit/74ccfea5703b08b2166593d1bb8e1d981970cec0).
+- [Add support for MongoDB 3-8 client, detecting which one is in use](https://github.com/wekan/wekan/commit/74ccfea5703b08b2166593d1bb8e1d981970cec0).
+  Thanks to xet7.
+- [Add support for Snap MongoDB Server 3-8 support. Part 1](https://github.com/wekan/wekan/commit/b949357e665d97604cbecb04a9211319ac4e13c2).
   Thanks to xet7.
 - [Added attachments API and admin panel attachment management for file storage backends settings. Fixed drag drop upload attachments from file manager to minicard or opened card](https://github.com/wekan/wekan/commit/ae1f80a52cde09689dddb1209708630b4949b7ee).
   Thanks to xet7.
