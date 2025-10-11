@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# Upcoming WeKan ® release
+
+This release adds the following new features:
+
+- [Made possible to start WeKan immediately without running any database migrations](https://github.com/wekan/wekan/commit/3ccdc2e3070978a79bc68941375122504318677d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.00 2025-10-11 WeKan ® release
 
 This release adds the following new features:
