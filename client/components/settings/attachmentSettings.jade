@@ -1,0 +1,200 @@
+template(name="attachmentSettings")
+  .setting-content.attachment-settings-content
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-body
+        .side-menu
+          ul
+            li
+              a.js-attachment-storage-settings(data-id="storage-settings")
+                i.fa.fa-cog
+                | {{_ 'attachment-storage-settings'}}
+            li
+              a.js-attachment-migration(data-id="attachment-migration")
+                i.fa.fa-arrow-right
+                | {{_ 'attachment-migration'}}
+            li
+              a.js-attachment-monitoring(data-id="attachment-monitoring")
+                i.fa.fa-chart-line
+                | {{_ 'attachment-monitoring'}}
+
+        .main-body
+          if loading.get
+            +spinner
+          else if showStorageSettings.get
+            +storageSettings
+          else if showMigration.get
+            +attachmentMigration
+          else if showMonitoring.get
+            +attachmentMonitoring
+
+template(name="storageSettings")
+  .storage-settings
+    h3 {{_ 'attachment-storage-configuration'}}
+    
+    .storage-config-section
+      h4 {{_ 'filesystem-storage'}}
+      .form-group
+        label {{_ 'writable-path'}}
+        input.wekan-form-control#filesystem-path(type="text" value="{{filesystemPath}}" readonly)
+        small.form-text.text-muted {{_ 'filesystem-path-description'}}
+      
+      .form-group
+        label {{_ 'attachments-path'}}
+        input.wekan-form-control#attachments-path(type="text" value="{{attachmentsPath}}" readonly)
+        small.form-text.text-muted {{_ 'attachments-path-description'}}
+      
+      .form-group
+        label {{_ 'avatars-path'}}
+        input.wekan-form-control#avatars-path(type="text" value="{{avatarsPath}}" readonly)
+        small.form-text.text-muted {{_ 'avatars-path-description'}}
+
+    .storage-config-section
+      h4 {{_ 'mongodb-gridfs-storage'}}
+      .form-group
+        label {{_ 'gridfs-enabled'}}
+        input.wekan-form-control#gridfs-enabled(type="checkbox" checked="{{gridfsEnabled}}" disabled)
+        small.form-text.text-muted {{_ 'gridfs-enabled-description'}}
+
+    .storage-config-section
+      h4 {{_ 's3-minio-storage'}}
+      .form-group
+        label {{_ 's3-enabled'}}
+        input.wekan-form-control#s3-enabled(type="checkbox" checked="{{s3Enabled}}" disabled)
+        small.form-text.text-muted {{_ 's3-enabled-description'}}
+      
+      .form-group
+        label {{_ 's3-endpoint'}}
+        input.wekan-form-control#s3-endpoint(type="text" value="{{s3Endpoint}}" readonly)
+        small.form-text.text-muted {{_ 's3-endpoint-description'}}
+      
+      .form-group
+        label {{_ 's3-bucket'}}
+        input.wekan-form-control#s3-bucket(type="text" value="{{s3Bucket}}" readonly)
+        small.form-text.text-muted {{_ 's3-bucket-description'}}
+      
+      .form-group
+        label {{_ 's3-region'}}
+        input.wekan-form-control#s3-region(type="text" value="{{s3Region}}" readonly)
+        small.form-text.text-muted {{_ 's3-region-description'}}
+      
+      .form-group
+        label {{_ 's3-access-key'}}
+        input.wekan-form-control#s3-access-key(type="text" placeholder="{{_ 's3-access-key-placeholder'}}" readonly)
+        small.form-text.text-muted {{_ 's3-access-key-description'}}
+      
+      .form-group
+        label {{_ 's3-secret-key'}}
+        input.wekan-form-control#s3-secret-key(type="password" placeholder="{{_ 's3-secret-key-placeholder'}}")
+        small.form-text.text-muted {{_ 's3-secret-key-description'}}
+      
+      .form-group
+        label {{_ 's3-ssl-enabled'}}
+        input.wekan-form-control#s3-ssl-enabled(type="checkbox" checked="{{s3SslEnabled}}" disabled)
+        small.form-text.text-muted {{_ 's3-ssl-enabled-description'}}
+      
+      .form-group
+        label {{_ 's3-port'}}
+        input.wekan-form-control#s3-port(type="number" value="{{s3Port}}" readonly)
+        small.form-text.text-muted {{_ 's3-port-description'}}
+
+    .storage-actions
+      button.js-test-s3-connection.btn.btn-secondary {{_ 'test-s3-connection'}}
+      button.js-save-s3-settings.btn.btn-primary {{_ 'save-s3-settings'}}
+
+template(name="attachmentMigration")
+  .attachment-migration
+    h3 {{_ 'attachment-migration'}}
+    
+    .migration-controls
+      .form-group
+        label {{_ 'migration-batch-size'}}
+        input.wekan-form-control#migration-batch-size(type="number" value="{{migrationBatchSize}}" min="1" max="100")
+        small.form-text.text-muted {{_ 'migration-batch-size-description'}}
+      
+      .form-group
+        label {{_ 'migration-delay-ms'}}
+        input.wekan-form-control#migration-delay-ms(type="number" value="{{migrationDelayMs}}" min="100" max="10000")
+        small.form-text.text-muted {{_ 'migration-delay-ms-description'}}
+      
+      .form-group
+        label {{_ 'migration-cpu-threshold'}}
+        input.wekan-form-control#migration-cpu-threshold(type="number" value="{{migrationCpuThreshold}}" min="10" max="90")
+        small.form-text.text-muted {{_ 'migration-cpu-threshold-description'}}
+
+    .migration-actions
+      .migration-buttons
+        button.js-migrate-all-to-filesystem.btn.btn-primary {{_ 'migrate-all-to-filesystem'}}
+        button.js-migrate-all-to-gridfs.btn.btn-primary {{_ 'migrate-all-to-gridfs'}}
+        button.js-migrate-all-to-s3.btn.btn-primary {{_ 'migrate-all-to-s3'}}
+      
+      .migration-controls
+        button.js-pause-migration.btn.btn-warning {{_ 'pause-migration'}}
+        button.js-resume-migration.btn.btn-success {{_ 'resume-migration'}}
+        button.js-stop-migration.btn.btn-danger {{_ 'stop-migration'}}
+
+    .migration-progress
+      h4 {{_ 'migration-progress'}}
+      .progress
+        .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100")
+          | {{migrationProgress}}%
+      
+      .migration-stats
+        .stat-item
+          span.label {{_ 'total-attachments'}}:
+          span.value {{totalAttachments}}
+        .stat-item
+          span.label {{_ 'migrated-attachments'}}:
+          span.value {{migratedAttachments}}
+        .stat-item
+          span.label {{_ 'remaining-attachments'}}:
+          span.value {{remainingAttachments}}
+        .stat-item
+          span.label {{_ 'migration-status'}}:
+          span.value {{migrationStatus}}
+
+    .migration-log
+      h4 {{_ 'migration-log'}}
+      .log-container
+        pre#migration-log-content {{migrationLog}}
+
+template(name="attachmentMonitoring")
+  .attachment-monitoring
+    h3 {{_ 'attachment-monitoring'}}
+    
+    .monitoring-stats
+      .stats-grid
+        .stat-card
+          h5 {{_ 'total-attachments'}}
+          .stat-value {{totalAttachments}}
+        .stat-card
+          h5 {{_ 'filesystem-attachments'}}
+          .stat-value {{filesystemAttachments}}
+        .stat-card
+          h5 {{_ 'gridfs-attachments'}}
+          .stat-value {{gridfsAttachments}}
+        .stat-card
+          h5 {{_ 's3-attachments'}}
+          .stat-value {{s3Attachments}}
+        .stat-card
+          h5 {{_ 'total-size'}}
+          .stat-value {{totalSize}}
+        .stat-card
+          h5 {{_ 'filesystem-size'}}
+          .stat-value {{filesystemSize}}
+        .stat-card
+          h5 {{_ 'gridfs-size'}}
+          .stat-value {{gridfsSize}}
+        .stat-card
+          h5 {{_ 's3-size'}}
+          .stat-value {{s3Size}}
+
+    .monitoring-charts
+      h4 {{_ 'storage-distribution'}}
+      .chart-container
+        canvas#storage-distribution-chart
+
+    .monitoring-actions
+      button.js-refresh-monitoring.btn.btn-secondary {{_ 'refresh-monitoring'}}
+      button.js-export-monitoring.btn.btn-primary {{_ 'export-monitoring'}}

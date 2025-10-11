@@ -16,6 +16,7 @@ BlazeComponent.extendComponent({
     this.accessibilitySetting = new ReactiveVar(false);
     this.layoutSetting = new ReactiveVar(false);
     this.webhookSetting = new ReactiveVar(false);
+    this.attachmentSettings = new ReactiveVar(false);
 
     Meteor.subscribe('setting');
     Meteor.subscribe('mailServer');
@@ -113,6 +114,7 @@ BlazeComponent.extendComponent({
       this.accessibilitySetting.set('accessibility-setting' === targetID);
       this.layoutSetting.set('layout-setting' === targetID);
       this.webhookSetting.set('webhook-setting' === targetID);
+      this.attachmentSettings.set('attachment-settings' === targetID);
       this.tableVisibilityModeSetting.set('tableVisibilityMode-setting' === targetID);
     }
   },

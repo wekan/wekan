@@ -42,6 +42,10 @@ template(name="setting")
               a.js-setting-menu(data-id="webhook-setting")
                 i.fa.fa-globe
                 | {{_ 'global-webhook'}}
+            li
+              a.js-setting-menu(data-id="attachment-settings")
+                i.fa.fa-paperclip
+                | {{_ 'attachment-settings'}}
         .main-body
           if loading.get
             +spinner
@@ -62,6 +66,8 @@ template(name="setting")
             +layoutSettings
           else if webhookSetting.get
             +webhookSettings
+          else if attachmentSettings.get
+            +attachmentSettings
 
 template(name="webhookSettings")
   span
