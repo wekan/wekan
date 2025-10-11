@@ -71,6 +71,14 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed showing translations always, regardsless of is ROOT_URL set correctly or not](https://github.com/wekan/wekan/commit/1a7bd65e596a4a1030e2686a787186b6d1c61abe).
   Thanks to xet7.
+- [Snap: Removed double mongo3 that's already at migratemongo](https://github.com/wekan/wekan/commit/2a24918a9c31e541f4d6424b77cfd76a8d9f2b06).
+  Thanks to xet7.
+- [Updated release scripts of snapcraft pack command syntax](https://github.com/wekan/wekan/commit/d88d197de964fd71e61ea6c932521f1e5abe7630).
+  Thanks to xet7.
+- [Try to fix Snap automatic upgrade](https://github.com/wekan/wekan/commit/4ec4e19e637b86b05b11afd076fae09d3698b8de).
+  Thanks to xet7.
+- [Added missing metadata fields to snapcraft.yaml](https://github.com/wekan/wekan/commit/cd948fb5765efdf5a7d792180a25ffa26bab2730).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
