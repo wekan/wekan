@@ -15,7 +15,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   multipass delete ubu
   multipass purge
   multipass launch --name ubu
-  snapcraft
+  snapcraft pack
   exit;
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   echo "macOS"
@@ -26,12 +26,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     multipass launch --name ubu
   fi
   # Build with platform specified for macOS
-  snapcraft --use-lxd --platform=amd64 --build-for=amd64
+  snapcraft pack --use-lxd --platform=amd64 --build-for=amd64
   exit;
 else
   echo "Unknown OS: $OSTYPE"
   echo "Please install snapcraft and multipass manually."
   exit;
 fi
-
-
