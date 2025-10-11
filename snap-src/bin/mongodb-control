@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # MongoDB Control Script
-# IMPORTANT: Migration is only triggered when MIGRATE_MONGODB=true environment variable is set
-# IMPORTANT: No snap settings or channel changes are made during migration
+# Handles MongoDB server startup with automatic version detection and switching
+# Supports MongoDB versions 3-8 with automatic binary selection
 
 # get wekan/mongo settings
 source $SNAP/bin/wekan-read-settings
@@ -13,117 +13,177 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
-# Migration checking and handling - controlled by MIGRATE_MONGODB environment variable
-MIGRATION_STATUS="${SNAP_COMMON}/mongodb-migration-status.json"
-MIGRATION_LOG="${SNAP_COMMON}/mongodb-migration-log.txt"
-REVERT_FILE="${SNAP_COMMON}/revert-mongodb-migration.txt"
+# MongoDB Version Detection and Auto-Switching System
+# Detects MongoDB server version from connection attempts and switches to correct binary
 
-# Check if migration is needed
-check_migration_needed() {
-    if [ -f "$MIGRATION_STATUS" ]; then
-        local status=$(jq -r '.status' "$MIGRATION_STATUS" 2>/dev/null || echo "unknown")
-        if [ "$status" = "completed" ]; then
-            return 1
-        elif [ "$status" = "running" ]; then
-            return 0
-        fi
-    fi
+# MongoDB binary paths for different versions
+# Note: Currently only versions 3 and 7 are available in the snap package
+# Versions 4, 5, 6, 8 would need to be added to the snap package
+MONGO3_BIN="/snap/${SNAP_NAME}/current/migratemongo/bin"
+MONGO7_BIN="/snap/${SNAP_NAME}/current/bin"
+MONGO3_LIB="/snap/${SNAP_NAME}/current/migratemongo/lib"
+MONGO7_LIB="/snap/${SNAP_NAME}/current/usr/lib"
 
-    # Check if we have MongoDB 3 data
-    if [ -d "${SNAP_COMMON}/wekan" ] && [ ! -f "${SNAP_COMMON}/mongodb-version-7" ]; then
-        return 0
-    fi
+# Future paths for additional versions (when added to snap package)
+MONGO4_BIN="/snap/${SNAP_NAME}/current/mongodb4/bin"
+MONGO5_BIN="/snap/${SNAP_NAME}/current/mongodb5/bin"
+MONGO6_BIN="/snap/${SNAP_NAME}/current/mongodb6/bin"
+MONGO8_BIN="/snap/${SNAP_NAME}/current/mongodb8/bin"
 
-    return 1
+# Version detection log
+VERSION_DETECTION_LOG="${SNAP_COMMON}/mongodb-version-detection.log"
+
+# Log version detection events
+log_version_detection() {
+    echo "$(date): $1" >> "$VERSION_DETECTION_LOG"
 }
 
-# Handle migration - only if MIGRATE_MONGODB=true
-handle_migration() {
-    echo "MongoDB migration needed, starting migration process..."
-
-    # Stop Wekan (meteor) process before migration
-    echo "Stopping Wekan (meteor) process for migration..."
-    snapctl stop --disable ${SNAP_NAME}.wekan || true
-    snapctl stop --disable ${SNAP_NAME} || true
+# Detect MongoDB server version by attempting connection
+detect_mongodb_version() {
+    local mongo_url="${MONGO_URL:-mongodb://127.0.0.1:27017/wekan}"
+    local detected_version=""
     
-    # Wait a moment for processes to stop
-    sleep 2
+    log_version_detection "Starting MongoDB version detection for: $mongo_url"
     
-    # Kill any remaining meteor/node processes
-    pkill -f "node.*main.js" || true
-    pkill -f "meteor" || true
-    sleep 1
-
-    # Start migration web interface in background
-    $SNAP/bin/mongodb-migration-web &
-    local web_pid=$!
-    echo "$web_pid" > "${SNAP_COMMON}/migration-web.pid"
-
-    # Run migration
-    if $SNAP/bin/mongodb-migrate; then
-        echo "MongoDB migration completed successfully"
-        # Kill migration web interface
-        if [ -f "${SNAP_COMMON}/migration-web.pid" ]; then
-            local web_pid=$(cat "${SNAP_COMMON}/migration-web.pid")
-            kill "$web_pid" 2>/dev/null || true
-            rm -f "${SNAP_COMMON}/migration-web.pid"
+    # Try to connect with MongoDB 7 first (latest available)
+    log_version_detection "Attempting connection with MongoDB 7 binary"
+    if timeout 10s /snap/${SNAP_NAME}/current/bin/mongosh --quiet --eval "db.runCommand({buildInfo: 1}).version" "$mongo_url" 2>/dev/null | grep -q "7\."; then
+        detected_version="7"
+        log_version_detection "Detected MongoDB 7.x server"
+    elif timeout 10s /snap/${SNAP_NAME}/current/bin/mongosh --quiet --eval "db.runCommand({buildInfo: 1}).version" "$mongo_url" 2>&1 | grep -q "protocol version\|wire protocol"; then
+        # Check for wire protocol errors that indicate older version
+        local error_output=$(timeout 10s /snap/${SNAP_NAME}/current/bin/mongosh --quiet --eval "db.runCommand({buildInfo: 1}).version" "$mongo_url" 2>&1)
+        if echo "$error_output" | grep -q "protocol version 0\|wire protocol version 0"; then
+            detected_version="3"
+            log_version_detection "Detected MongoDB 3.x server (wire protocol 0)"
+        elif echo "$error_output" | grep -q "protocol version 1\|wire protocol version 1"; then
+            detected_version="3"
+            log_version_detection "Detected MongoDB 3.x server (wire protocol 1)"
+        elif echo "$error_output" | grep -q "protocol version 2\|wire protocol version 2"; then
+            detected_version="3"
+            log_version_detection "Detected MongoDB 3.x server (wire protocol 2)"
+        elif echo "$error_output" | grep -q "protocol version 3\|wire protocol version 3"; then
+            detected_version="3"
+            log_version_detection "Detected MongoDB 3.x server (wire protocol 3)"
+        elif echo "$error_output" | grep -q "protocol version 4\|wire protocol version 4"; then
+            detected_version="4"
+            log_version_detection "Detected MongoDB 4.x server (wire protocol 4)"
+        elif echo "$error_output" | grep -q "protocol version 5\|wire protocol version 5"; then
+            detected_version="5"
+            log_version_detection "Detected MongoDB 5.x server (wire protocol 5)"
+        elif echo "$error_output" | grep -q "protocol version 6\|wire protocol version 6"; then
+            detected_version="6"
+            log_version_detection "Detected MongoDB 6.x server (wire protocol 6)"
+        elif echo "$error_output" | grep -q "protocol version 7\|wire protocol version 7"; then
+            detected_version="7"
+            log_version_detection "Detected MongoDB 7.x server (wire protocol 7)"
+        elif echo "$error_output" | grep -q "protocol version 8\|wire protocol version 8"; then
+            detected_version="8"
+            log_version_detection "Detected MongoDB 8.x server (wire protocol 8)"
+        else
+            log_version_detection "Unknown wire protocol error: $error_output"
         fi
-        
-        # Clean up temporary Node.js server file
-        rm -f "${SNAP_COMMON}/migration-web-server.js"
-        
-        echo "Migration completed. Wekan will be restarted automatically."
     else
-        echo "MongoDB migration failed"
-        # Kill migration web interface
-        if [ -f "${SNAP_COMMON}/migration-web.pid" ]; then
-            local web_pid=$(cat "${SNAP_COMMON}/migration-web.pid")
-            kill "$web_pid" 2>/dev/null || true
-            rm -f "${SNAP_COMMON}/migration-web.pid"
-        fi
-        
-        # Clean up temporary Node.js server file
-        rm -f "${SNAP_COMMON}/migration-web-server.js"
-        
-        exit 1
+        log_version_detection "No MongoDB server running or connection failed"
+    fi
+    
+    echo "$detected_version"
+}
+
+# Switch to appropriate MongoDB binary based on detected version
+switch_mongodb_binary() {
+    local version="$1"
+    
+    case "$version" in
+        "3")
+            if [ -f "/snap/${SNAP_NAME}/current/migratemongo/bin/mongod" ]; then
+                log_version_detection "Switching to MongoDB 3.x binary"
+                export PATH="${MONGO3_BIN}:${PATH}"
+                export LD_LIBRARY_PATH="${MONGO3_LIB}:${MONGO3_LIB}/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
+                echo "3" > "${SNAP_COMMON}/mongodb-active-version"
+            else
+                log_version_detection "MongoDB 3.x binary not found, using default MongoDB 7.x"
+                switch_mongodb_binary "7"
+            fi
+            ;;
+        "4")
+            if [ -f "/snap/${SNAP_NAME}/current/mongodb4/bin/mongod" ]; then
+                log_version_detection "Switching to MongoDB 4.x binary"
+                export PATH="${MONGO4_BIN}:${PATH}"
+                echo "4" > "${SNAP_COMMON}/mongodb-active-version"
+            else
+                log_version_detection "MongoDB 4.x binary not found, using default MongoDB 7.x"
+                switch_mongodb_binary "7"
+            fi
+            ;;
+        "5")
+            if [ -f "/snap/${SNAP_NAME}/current/mongodb5/bin/mongod" ]; then
+                log_version_detection "Switching to MongoDB 5.x binary"
+                export PATH="${MONGO5_BIN}:${PATH}"
+                echo "5" > "${SNAP_COMMON}/mongodb-active-version"
+            else
+                log_version_detection "MongoDB 5.x binary not found, using default MongoDB 7.x"
+                switch_mongodb_binary "7"
+            fi
+            ;;
+        "6")
+            if [ -f "/snap/${SNAP_NAME}/current/mongodb6/bin/mongod" ]; then
+                log_version_detection "Switching to MongoDB 6.x binary"
+                export PATH="${MONGO6_BIN}:${PATH}"
+                echo "6" > "${SNAP_COMMON}/mongodb-active-version"
+            else
+                log_version_detection "MongoDB 6.x binary not found, using default MongoDB 7.x"
+                switch_mongodb_binary "7"
+            fi
+            ;;
+        "7"|"")
+            log_version_detection "Using MongoDB 7.x binary (default)"
+            export PATH="${MONGO7_BIN}:${PATH}"
+            export LD_LIBRARY_PATH="${MONGO7_LIB}:${LD_LIBRARY_PATH}"
+            echo "7" > "${SNAP_COMMON}/mongodb-active-version"
+            ;;
+        "8")
+            if [ -f "/snap/${SNAP_NAME}/current/mongodb8/bin/mongod" ]; then
+                log_version_detection "Switching to MongoDB 8.x binary"
+                export PATH="${MONGO8_BIN}:${PATH}"
+                echo "8" > "${SNAP_COMMON}/mongodb-active-version"
+            else
+                log_version_detection "MongoDB 8.x binary not found, using default MongoDB 7.x"
+                switch_mongodb_binary "7"
+            fi
+            ;;
+        *)
+            log_version_detection "Unknown version $version, using default MongoDB 7.x"
+            export PATH="${MONGO7_BIN}:${PATH}"
+            export LD_LIBRARY_PATH="${MONGO7_LIB}:${LD_LIBRARY_PATH}"
+            echo "7" > "${SNAP_COMMON}/mongodb-active-version"
+            ;;
+    esac
+}
+
+# Main version detection and switching logic
+setup_mongodb_version() {
+    # Check if we have a cached version
+    if [ -f "${SNAP_COMMON}/mongodb-active-version" ]; then
+        local cached_version=$(cat "${SNAP_COMMON}/mongodb-active-version")
+        log_version_detection "Using cached MongoDB version: $cached_version"
+        switch_mongodb_binary "$cached_version"
+        return
+    fi
+    
+    # Detect version and switch
+    local detected_version=$(detect_mongodb_version)
+    if [ -n "$detected_version" ]; then
+        switch_mongodb_binary "$detected_version"
+    else
+        # Default to MongoDB 7 if detection fails
+        log_version_detection "Version detection failed, using default MongoDB 7.x"
+        switch_mongodb_binary "7"
     fi
 }
 
-# Check if revert is requested
-if [ -f "$REVERT_FILE" ]; then
-    echo "Revert requested, stopping Wekan and MongoDB, then reverting migration..."
-    
-    # Stop Wekan (meteor) process before revert
-    echo "Stopping Wekan (meteor) process for revert..."
-    snapctl stop --disable ${SNAP_NAME}.wekan || true
-    snapctl stop --disable ${SNAP_NAME} || true
-    
-    # Wait a moment for processes to stop
-    sleep 2
-    
-    # Kill any remaining meteor/node processes
-    pkill -f "node.*main.js" || true
-    pkill -f "meteor" || true
-    sleep 1
-    
-    # Stop MongoDB
-    snapctl stop --disable ${SNAP_NAME}.mongodb
-    
-    # Run migration (which will handle revert)
-    $SNAP/bin/mongodb-migrate
-    exit $?
-fi
-
-# Check if migration is needed - only if MIGRATE_MONGODB=true
-if [ "$MIGRATE_MONGODB" = "true" ]; then
-    if check_migration_needed; then
-        handle_migration
-    else
-        echo "MIGRATE_MONGODB=true but no migration needed"
-    fi
-else
-    echo "MIGRATE_MONGODB not set to 'true' - skipping migration check"
-fi
+# Run version detection and setup
+setup_mongodb_version
 
 # make sure we have set minimum env variables for locale
 if [ -z "${LANG}" ]; then
@@ -143,145 +203,93 @@ if [ -f ${SNAP_COMMON}/settings.log ]; then
     rm ${SNAP_COMMON}/settings.log
 fi
 
-#if test -f "$SNAP_COMMON/01-migrate-mongo3-to-mongo5.txt"; then
-#   touch "$SNAP_COMMON/01-migrate-mongo3-to-mongo5.txt"
-#   # Stop MongoDB
-#   touch "$SNAP_COMMON/02-disable-mongo.txt"
-#   snapctl stop --disable ${SNAP_NAME}.mongodb
-#   touch "$SNAP_COMMON/03-eval-stop-mongo.txt"
-#   mongo wekan --eval "db.getSiblingDB('admin').shutdownServer()" $BIND_OPTIONS
-#   # Start MongoDB 4.4
-#   touch "$SNAP_COMMON/04-start-mongo44.txt"
-#   $SNAP/mongo44bin/mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/02_mongodb_log_while_migrate.txt --logappend --journal $MONGO_URL --quiet
-#   # Wait MongoDB 4.4 to start
-#   touch "$SNAP_COMMON/05-wait-2s-mongo44-start.txt"
-#   sleep 2s
-#   # Dump Old MongoDB 3.x database
-#   touch "$SNAP_COMMON/06-dump-database.txt"
-#   (cd $SNAP_COMMON && mongodump --port ${MONGODB_PORT})
-#   # Stop MongoDB 4.4
-#   touch "$SNAP_COMMON/07-stop-mongo44.txt"
-#   $SNAP/mongo44bin/mongo wekan --eval "db.getSiblingDB('admin').shutdownServer()" $BIND_OPTIONS
-#   # Wait MongoDB 4.4 to stop
-#   touch "$SNAP_COMMON/08-wait-2s-mongo44-stop.txt"
-#   sleep 2s
-#   # Start MongoDB 5
-#   touch "$SNAP_COMMON/09-start-mongo5.txt"
-#   mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/10_mongodb_log_while_migrate.txt --logappend --journal $MONGO_URL --quiet
-#   # Restore database
-#   touch "$SNAP_COMMON/11-mongorestore-to-mongo5.txt"
-#   (cd $SNAP_COMMON && mongorestore --port ${MONGODB_PORT})
-#   # Wait 5s
-#   touch "$SNAP_COMMON/12-wait-5s-after-restore.txt"
-#   sleep 5s
-#   # Shutdown mongodb
-#   touch "$SNAP_COMMON/13-shutdown-mongodb.txt"
-#   mongo wekan --eval "db.getSiblingDB('admin').shutdownServer()" $BIND_OPTIONS
-#   touch "$SNAP_COMMON/14-wait-5s-after-mongo5-shutdown.txt"
-#   sleep 5s
-#   # Enable MongoDB 5
-#   touch "$SNAP_COMMON/15-enable-mongo-5.txt"
-#   snapctl start --enable ${SNAP_NAME}.mongodb
-#fi
-# When starting MongoDB, if logfile exist, delete it, because now uses syslog instead of logfile,
-# because syslog usually already has log rotation.
-# https://github.com/wekan/wekan-snap/issues/92
-#if test -f "$SNAP_COMMON/mongodb.log"; then
-#   rm -f "$SNAP_COMMON/mongodb.log"
-#fi
+# Set MongoDB log destination to snapcommon for log file detection
+export MONGO_LOG_DESTINATION="snapcommon"
 
-# Alternative: When starting MongoDB, and using logfile, truncate log to last 1000 lines of text.
-# 1) If file exists:
-#if test -f "$SNAP_COMMON/mongodb.log"; then
-#    # 2) Copy last 1000 lines to variable loglast1000lines.
-#    loglast1000lines=$(tail -1000 "$SNAP_COMMON/mongodb.log")
-#    # 3) Copy variable to replace original MongoDB log.
-#    echo "$loglast1000lines" > "$SNAP_COMMON/mongodb.log"
-#    # 4) Set variable to be empty.
-#    loglast1000lines=""
-#fi
+# Set MongoDB data directory
+export MONGO_DATA_DIR="${SNAP_COMMON}/wekan"
 
-if [ -z "${MONGO_URL}" ]; then
-
-    # start mongo deamon
-    BIND_OPTIONS=""
-    if [ "nill" != "${MONGODB_BIND_UNIX_SOCKET}" ] && [ "x" != "x${MONGODB_BIND_UNIX_SOCKET}" ]; then
-        BIND_OPTIONS+=" --unixSocketPrefix ${MONGODB_BIND_UNIX_SOCKET}"
-    fi
-    # Newest MongoDB uses --host or --bind_ip
-    if [ "x" != "x${MONGODB_BIND_IP}" ]; then
-        BIND_OPTIONS+=" --bind_ip $MONGODB_BIND_IP"
-    fi
-    if [ "x" != "x${MONGODB_PORT}" ]; then
-        BIND_OPTIONS+=" --port ${MONGODB_PORT}"
-    fi
-
-    if [ "syslog" == "${MONGO_LOG_DESTINATION}" ]; then
-        echo "Sending mongodb logs to syslog"
-        mongod --dbpath ${SNAP_COMMON} --syslog ${BIND_OPTIONS} --quiet
-        exit 0
-    fi
-
-    if [ "snapcommon" == "${MONGO_LOG_DESTINATION}" ]; then
-        echo "Sending mongodb logs to $SNAP_COMMON"
-        mongod --dbpath ${SNAP_COMMON} --logpath ${SNAP_COMMON}/mongodb.log --logappend ${BIND_OPTIONS} --quiet
-    fi
-
-    if [ "devnull" == "${MONGO_LOG_DESTINATION}" ]; then
-        echo "Sending mongodb logs to /dev/null"
-        mongod --dbpath ${SNAP_COMMON} --logpath /dev/null ${BIND_OPTIONS} --quiet
-    fi
-    #echo "mongodb log destination: ${MONGO_LOG_DESTINATION}" >> "${SNAP_COMMON}/settings.log"
-
-    # Disable MongoDB telemetry and free monitoring
-    /snap/${SNAP_NAME}/current/bin/mongosh wekan --eval 'disableTelemetry();' --port ${MONGODB_PORT}
-    /snap/${SNAP_NAME}/current/bin/mongosh wekan --eval 'db.disableFreeMonitoring();' --port ${MONGODB_PORT}
-
-    # Snap: Disable apparmor="DENIED" at syslog
-    # https://github.com/wekan/wekan/issues/4855
-    /snap/${SNAP_NAME}/current/bin/mongosh wekan --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});' --port ${MONGODB_PORT}
-
-    # Drop indexes on database upgrade, when starting MongoDB
-    #mongosh wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
-
-    # Set MongoDB feature compatibility version
-    #mongosh wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' ${BIND_OPTIONS}
-
-    # Delete incomplete uploads so that they would not prevent starting WeKan
-    /snap/${SNAP_NAME}/current/bin/mongosh wekan --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});' --port ${MONGODB_PORT}
-
-else
-
-    if [ "syslog" == "${MONGO_LOG_DESTINATION}" ]; then
-        echo "Sending mongodb logs to syslog"
-        mongod --dbpath ${SNAP_COMMON} --syslog ${MONGO_URL} --quiet
-    fi
-
-    if [ "snapcommon" == "${MONGO_LOG_DESTINATION}" ]; then
-        echo "Sending mongodb logs to ${SNAP_COMMON}"
-        mongod --dbpath ${SNAP_COMMON} --logpath ${SNAP_COMMON}/mongodb.log --logappend ${MONGO_URL} --quiet
-    fi
-
-    if [ "devnull" == "${MONGO_LOG_DESTINATION}" ]; then
-        echo "Sending mongodb logs to /dev/null"
-        mongod --dbpath ${SNAP_COMMON} --logpath /dev/null ${MONGO_URL} --quiet
-    fi
-
-    # Disable MongoDB telemetry and free monitoring
-    /snap/${SNAP_NAME}/current/bin/mongosh ${MONGO_URL} --eval 'disableTelemetry();'
-    /snap/${SNAP_NAME}/current/bin/mongosh ${MONGO_URL} --eval 'db.disableFreeMonitoring();'
-
-    # Snap: Disable apparmor="DENIED" at syslog
-    # https://github.com/wekan/wekan/issues/4855
-    /snap/${SNAP_NAME}/current/bin/mongosh ${MONGO_URL} --eval 'db.adminCommand({ setParameter: 1, diagnosticDataCollectionEnabled: false});'
-
-    # Drop indexes on database upgrade, when starting MongoDB
-    #mongosh wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
-
-    # Set MongoDB feature compatibility version
-    #/snap/${SNAP_NAME}/current/bin/mongosh ${MONGO_URL} --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });'
-
-    # Delete incomplete uploads so that they would not prevent starting WeKan
-    /snap/${SNAP_NAME}/current/bin/mongosh ${MONGO_URL} --eval 'db.getCollection("cfs.attachments.filerecord").find( { "uploadedAt": { "$exists": true }, "copies.attachments" : null,"failures.copies.attachments.doneTrying" : {"$ne" : true}});'
-
+# Create MongoDB data directory if it doesn't exist
+if [ ! -d "$MONGO_DATA_DIR" ]; then
+    mkdir -p "$MONGO_DATA_DIR"
+    chmod 755 "$MONGO_DATA_DIR"
 fi
+
+# Set MongoDB log file path
+export MONGO_LOG_FILE="${SNAP_COMMON}/mongodb.log"
+
+# Start MongoDB with appropriate version
+echo "Starting MongoDB with detected version..."
+log_version_detection "Starting MongoDB server"
+
+# Get the active version
+ACTIVE_VERSION=$(cat "${SNAP_COMMON}/mongodb-active-version" 2>/dev/null || echo "7")
+
+case "$ACTIVE_VERSION" in
+    "3")
+        echo "Starting MongoDB 3.x server..."
+        log_version_detection "Starting MongoDB 3.x server"
+        exec /snap/${SNAP_NAME}/current/migratemongo/bin/mongod \
+            --dbpath="$MONGO_DATA_DIR" \
+            --logpath="$MONGO_LOG_FILE" \
+            --logappend \
+            --bind_ip=127.0.0.1 \
+            --port=27017 \
+            --fork
+        ;;
+    "4")
+        echo "Starting MongoDB 4.x server..."
+        log_version_detection "Starting MongoDB 4.x server"
+        exec /snap/${SNAP_NAME}/current/mongodb4/bin/mongod \
+            --dbpath="$MONGO_DATA_DIR" \
+            --logpath="$MONGO_LOG_FILE" \
+            --logappend \
+            --bind_ip=127.0.0.1 \
+            --port=27017 \
+            --fork
+        ;;
+    "5")
+        echo "Starting MongoDB 5.x server..."
+        log_version_detection "Starting MongoDB 5.x server"
+        exec /snap/${SNAP_NAME}/current/mongodb5/bin/mongod \
+            --dbpath="$MONGO_DATA_DIR" \
+            --logpath="$MONGO_LOG_FILE" \
+            --logappend \
+            --bind_ip=127.0.0.1 \
+            --port=27017 \
+            --fork
+        ;;
+    "6")
+        echo "Starting MongoDB 6.x server..."
+        log_version_detection "Starting MongoDB 6.x server"
+        exec /snap/${SNAP_NAME}/current/mongodb6/bin/mongod \
+            --dbpath="$MONGO_DATA_DIR" \
+            --logpath="$MONGO_LOG_FILE" \
+            --logappend \
+            --bind_ip=127.0.0.1 \
+            --port=27017 \
+            --fork
+        ;;
+    "7"|*)
+        echo "Starting MongoDB 7.x server..."
+        log_version_detection "Starting MongoDB 7.x server"
+        exec /snap/${SNAP_NAME}/current/bin/mongod \
+            --dbpath="$MONGO_DATA_DIR" \
+            --logpath="$MONGO_LOG_FILE" \
+            --logappend \
+            --bind_ip=127.0.0.1 \
+            --port=27017 \
+            --fork
+        ;;
+    "8")
+        echo "Starting MongoDB 8.x server..."
+        log_version_detection "Starting MongoDB 8.x server"
+        exec /snap/${SNAP_NAME}/current/mongodb8/bin/mongod \
+            --dbpath="$MONGO_DATA_DIR" \
+            --logpath="$MONGO_LOG_FILE" \
+            --logappend \
+            --bind_ip=127.0.0.1 \
+            --port=27017 \
+            --fork
+        ;;
+esac

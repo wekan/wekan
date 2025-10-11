@@ -1,0 +1,138 @@
+#!/bin/bash
+
+# MongoDB Version Manager
+# Helps manage MongoDB server binaries for different versions (3-8)
+# This script provides utilities for adding and managing MongoDB server versions
+
+# Source settings
+source $SNAP/bin/wekan-read-settings
+
+# MongoDB version information
+declare -A MONGO_VERSIONS=(
+    ["3"]="3.2.22"
+    ["4"]="4.4.28"
+    ["5"]="5.0.28"
+    ["6"]="6.0.15"
+    ["7"]="7.0.25"
+    ["8"]="8.0.4"
+)
+
+# MongoDB binary paths
+declare -A MONGO_PATHS=(
+    ["3"]="/snap/${SNAP_NAME}/current/migratemongo/bin"
+    ["4"]="/snap/${SNAP_NAME}/current/mongodb4/bin"
+    ["5"]="/snap/${SNAP_NAME}/current/mongodb5/bin"
+    ["6"]="/snap/${SNAP_NAME}/current/mongodb6/bin"
+    ["7"]="/snap/${SNAP_NAME}/current/bin"
+    ["8"]="/snap/${SNAP_NAME}/current/mongodb8/bin"
+)
+
+# Check which MongoDB versions are available
+check_available_versions() {
+    echo "=== Available MongoDB Server Versions ==="
+    for version in "${!MONGO_VERSIONS[@]}"; do
+        local path="${MONGO_PATHS[$version]}"
+        if [ -f "$path/mongod" ]; then
+            echo "✓ MongoDB $version.x (${MONGO_VERSIONS[$version]}) - Available at $path"
+        else
+            echo "✗ MongoDB $version.x (${MONGO_VERSIONS[$version]}) - Not available at $path"
+        fi
+    done
+    echo ""
+}
+
+# Check which MongoDB Node.js drivers are available
+check_available_drivers() {
+    echo "=== Available MongoDB Node.js Drivers ==="
+    if [ -f "/home/wekan/repos/wekan/package.json" ]; then
+        for version in "${!MONGO_VERSIONS[@]}"; do
+            if grep -q "mongodb${version}legacy" "/home/wekan/repos/wekan/package.json"; then
+                echo "✓ MongoDB $version.x Node.js driver - Available (mongodb${version}legacy)"
+            else
+                echo "✗ MongoDB $version.x Node.js driver - Not available"
+            fi
+        done
+    else
+        echo "package.json not found"
+    fi
+    echo ""
+}
+
+# Show current active MongoDB version
+show_active_version() {
+    if [ -f "${SNAP_COMMON}/mongodb-active-version" ]; then
+        local active_version=$(cat "${SNAP_COMMON}/mongodb-active-version")
+        echo "=== Current Active MongoDB Version ==="
+        echo "Active Version: MongoDB $active_version.x"
+        echo "Version File: ${SNAP_COMMON}/mongodb-active-version"
+        echo ""
+    else
+        echo "=== Current Active MongoDB Version ==="
+        echo "No active version file found (will use default MongoDB 7.x)"
+        echo ""
+    fi
+}
+
+# Show version detection log
+show_detection_log() {
+    if [ -f "${SNAP_COMMON}/mongodb-version-detection.log" ]; then
+        echo "=== MongoDB Version Detection Log ==="
+        tail -20 "${SNAP_COMMON}/mongodb-version-detection.log"
+        echo ""
+    else
+        echo "=== MongoDB Version Detection Log ==="
+        echo "No detection log found"
+        echo ""
+    fi
+}
+
+# Force version detection
+force_detection() {
+    echo "=== Forcing MongoDB Version Detection ==="
+    rm -f "${SNAP_COMMON}/mongodb-active-version"
+    echo "Cleared cached version. Next MongoDB restart will detect version automatically."
+    echo ""
+}
+
+# Show help
+show_help() {
+    echo "MongoDB Version Manager"
+    echo ""
+    echo "Usage: $0 [command]"
+    echo ""
+    echo "Commands:"
+    echo "  versions     - Show available MongoDB server versions"
+    echo "  drivers      - Show available MongoDB Node.js drivers"
+    echo "  active       - Show current active MongoDB version"
+    echo "  log          - Show version detection log"
+    echo "  detect       - Force version detection on next restart"
+    echo "  help         - Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  $0 versions    # Check which MongoDB versions are available"
+    echo "  $0 active      # Show which version is currently active"
+    echo "  $0 detect      # Force re-detection on next restart"
+    echo ""
+}
+
+# Main command handling
+case "${1:-help}" in
+    "versions")
+        check_available_versions
+        ;;
+    "drivers")
+        check_available_drivers
+        ;;
+    "active")
+        show_active_version
+        ;;
+    "log")
+        show_detection_log
+        ;;
+    "detect")
+        force_detection
+        ;;
+    "help"|*)
+        show_help
+        ;;
+esac
