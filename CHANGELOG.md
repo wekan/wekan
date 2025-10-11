@@ -28,6 +28,11 @@ This release adds the following new features:
 - [Add support for MongoDB 3-8, detecting which one is in use](https://github.com/wekan/wekan/commit/74ccfea5703b08b2166593d1bb8e1d981970cec0).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fixed attachments migrations at Admin Panel to not use too much CPU while migrating attachments](https://github.com/wekan/wekan/commit/d59683eff1267ff87a6aef9ae36c7aebbe10eaa1).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v8.00 2025-10-11 WeKan ® release
