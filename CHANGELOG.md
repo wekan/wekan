@@ -36,6 +36,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed per-card and per-board settings of showing checkist at minicard](https://github.com/wekan/wekan/commit/fc32a89292e4d314bd3868739f6e01bc2bc17018).
   Thanks to xet7.
+- [Fix count of Orgs Teams People at Admin Panel](https://github.com/wekan/wekan/commit/b77eed221f9e5fc657234a6de3e11c27f4de3d38).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
