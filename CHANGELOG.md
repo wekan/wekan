@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# v8.02 2025-10-11 WeKan ® release
+
+This release adds the following new features:
+
+- [Run database migrations when opening board. Not when upgrading WeKan](https://github.com/wekan/wekan/commit/2b5c56484a4dd559f062ef892fd5248a903b2a10).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.01 2025-10-11 WeKan ® release
 
 This release adds the following new features:
