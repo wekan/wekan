@@ -86,5 +86,15 @@
   "s3-storage": "S3",
   "card-show-lists-on-minicard": "Show Lists on Minicard",
   "show-list-on-minicard": "Show List on Minicard",
-  "hide-list-on-minicard": "Hide List on Minicard"
+  "hide-list-on-minicard": "Hide List on Minicard",
+  "converting-board": "Converting Board",
+  "converting-board-description": "Converting board structure for improved functionality. This may take a few moments.",
+  "estimated-time-remaining": "Estimated time remaining",
+  "conversion-info-text": "This conversion is performed once per board and improves performance. You can continue using the board normally.",
+  "database-migration": "Database Migration",
+  "database-migration-description": "Updating database structure for improved functionality and performance. This process may take several minutes.",
+  "overall-progress": "Overall Progress",
+  "migration-steps": "Migration Steps",
+  "migration-info-text": "Database migrations are performed once and improve system performance. The process continues in the background even if you close your browser.",
+  "migration-warning-text": "Please do not close your browser during migration. The process will continue in the background but may take longer to complete."
 }

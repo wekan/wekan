@@ -1,0 +1,372 @@
+/* Migration Progress Styles */
+.migration-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.migration-overlay.active {
+  display: flex;
+}
+
+.migration-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  max-width: 800px;
+  width: 95%;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideInScale 0.4s ease-out;
+  margin: 20px;
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.migration-header {
+  padding: 24px 32px 20px;
+  border-bottom: 2px solid #e0e0e0;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.migration-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.migration-header h3 i {
+  margin-right: 12px;
+  color: #FFD700;
+}
+
+.migration-header p {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.migration-content {
+  padding: 24px 32px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.migration-overview {
+  margin-bottom: 32px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.overall-progress {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.progress-text {
+  text-align: center;
+  font-weight: 700;
+  color: #667eea;
+  font-size: 18px;
+}
+
+.progress-label {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.current-step {
+  text-align: center;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.current-step i {
+  margin-right: 8px;
+  color: #667eea;
+}
+
+.estimated-time {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  background-color: #fff3cd;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ffeaa7;
+}
+
+.estimated-time i {
+  margin-right: 6px;
+  color: #f39c12;
+}
+
+.migration-steps {
+  margin-bottom: 24px;
+}
+
+.migration-steps h4 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.steps-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.migration-step {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.migration-step:last-child {
+  border-bottom: none;
+}
+
+.migration-step.completed {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+}
+
+.migration-step.current {
+  background-color: #cce7ff;
+  border-left: 4px solid #667eea;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+  }
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.step-icon {
+  margin-right: 12px;
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.step-icon i.fa-check-circle {
+  color: #28a745;
+}
+
+.step-icon i.fa-cog.fa-spin {
+  color: #667eea;
+}
+
+.step-icon i.fa-circle-o {
+  color: #ccc;
+}
+
+.step-info {
+  flex: 1;
+}
+
+.step-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.step-description {
+  color: #666;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.step-progress {
+  text-align: right;
+  min-width: 40px;
+}
+
+.step-progress .progress-text {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.step-progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.step-progress-bar .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.migration-status {
+  text-align: center;
+  color: #333;
+  font-size: 16px;
+  background-color: #e3f2fd;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #bbdefb;
+  margin-bottom: 16px;
+}
+
+.migration-status i {
+  margin-right: 8px;
+  color: #2196f3;
+}
+
+.migration-footer {
+  padding: 16px 32px 24px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+.migration-info {
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.migration-info i {
+  margin-right: 6px;
+  color: #667eea;
+}
+
+.migration-warning {
+  text-align: center;
+  color: #856404;
+  font-size: 12px;
+  line-height: 1.3;
+  background-color: #fff3cd;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ffeaa7;
+}
+
+.migration-warning i {
+  margin-right: 6px;
+  color: #f39c12;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .migration-modal {
+    width: 98%;
+    margin: 10px;
+  }
+  
+  .migration-header,
+  .migration-content,
+  .migration-footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .migration-header h3 {
+    font-size: 20px;
+  }
+  
+  .step-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .step-progress {
+    text-align: left;
+    margin-top: 8px;
+  }
+  
+  .steps-list {
+    max-height: 200px;
+  }
+}

@@ -50,10 +50,11 @@ Lists.attachSchema(
     },
     swimlaneId: {
       /**
-       * the swimlane associated to this list. Required for per-swimlane list titles
+       * the swimlane associated to this list. Optional for backward compatibility
        */
       type: String,
-      // Remove defaultValue to make it required
+      optional: true,
+      defaultValue: '',
     },
     createdAt: {
       /**

@@ -1,0 +1,63 @@
+template(name="migrationProgress")
+  .migration-overlay(class="{{#if isMigrating}}active{{/if}}")
+    .migration-modal
+      .migration-header
+        h3
+          i.fa.fa-database
+          | {{_ 'database-migration'}}
+        p {{_ 'database-migration-description'}}
+      
+      .migration-content
+        .migration-overview
+          .overall-progress
+            .progress-bar
+              .progress-fill(style="width: {{migrationProgress}}%")
+            .progress-text {{migrationProgress}}%
+            .progress-label {{_ 'overall-progress'}}
+          
+          .current-step
+            i.fa.fa-cog.fa-spin
+            | {{migrationCurrentStep}}
+          
+          .estimated-time(style="{{#unless migrationEstimatedTime}}display: none;{{/unless}}")
+            i.fa.fa-clock-o
+            | {{_ 'estimated-time-remaining'}}: {{migrationEstimatedTime}}
+        
+        .migration-steps
+          h4 {{_ 'migration-steps'}}
+          .steps-list
+            each migrationSteps
+              .migration-step(class="{{#if completed}}completed{{/if}}" class="{{#if isCurrentStep}}current{{/if}}")
+                .step-header
+                  .step-icon
+                    if completed
+                      i.fa.fa-check-circle
+                    else if isCurrentStep
+                      i.fa.fa-cog.fa-spin
+                    else
+                      i.fa.fa-circle-o
+                  .step-info
+                    .step-name {{name}}
+                    .step-description {{description}}
+                  .step-progress
+                    if completed
+                      .progress-text 100%
+                    else if isCurrentStep
+                      .progress-text {{progress}}%
+                    else
+                      .progress-text 0%
+                if isCurrentStep
+                  .step-progress-bar
+                    .progress-fill(style="width: {{progress}}%")
+        
+        .migration-status
+          i.fa.fa-info-circle
+          | {{migrationStatus}}
+      
+      .migration-footer
+        .migration-info
+          i.fa.fa-lightbulb-o
+          | {{_ 'migration-info-text'}}
+        .migration-warning
+          i.fa.fa-exclamation-triangle
+          | {{_ 'migration-warning-text'}}

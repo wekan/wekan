@@ -1,5 +1,9 @@
 template(name="board")
-  if isBoardReady.get
+  if isMigrating
+    +migrationProgress
+  else if isConverting
+    +boardConversionProgress
+  else if isBoardReady.get
     if currentBoard
       if onlyShowCurrentCard
         +cardDetails(currentCard)

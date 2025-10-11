@@ -211,20 +211,32 @@ Swimlanes.helpers({
   },
   newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
+    // Include lists without swimlaneId for backward compatibility (they belong to default swimlane)
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        swimlaneId: this._id, // Only get lists that belong to this specific swimlane
+        $or: [
+          { swimlaneId: this._id },
+          { swimlaneId: { $exists: false } },
+          { swimlaneId: '' },
+          { swimlaneId: null }
+        ],
         archived: false,
       },
       { sort: { modifiedAt: -1 } },
     );
   },
   draggableLists() {
+    // Include lists without swimlaneId for backward compatibility (they belong to default swimlane)
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        swimlaneId: this._id, // Only get lists that belong to this specific swimlane
+        $or: [
+          { swimlaneId: this._id },
+          { swimlaneId: { $exists: false } },
+          { swimlaneId: '' },
+          { swimlaneId: null }
+        ],
         //archived: false,
       },
       { sort: ['sort'] },

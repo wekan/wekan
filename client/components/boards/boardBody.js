@@ -1,6 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
+import { boardConverter } from '/imports/lib/boardConverter';
+import { migrationManager } from '/imports/lib/migrationManager';
 
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;
@@ -9,6 +11,8 @@ const swimlaneWhileSortingHeight = 150;
 BlazeComponent.extendComponent({
   onCreated() {
     this.isBoardReady = new ReactiveVar(false);
+    this.isConverting = new ReactiveVar(false);
+    this.isMigrating = new ReactiveVar(false);
 
     // The pattern we use to manually handle data loading is described here:
     // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
@@ -20,10 +24,47 @@ BlazeComponent.extendComponent({
       const handle = subManager.subscribe('board', currentBoardId, false);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
-          this.isBoardReady.set(handle.ready());
+          if (handle.ready()) {
+            // Check if board needs conversion
+            this.checkAndConvertBoard(currentBoardId);
+          } else {
+            this.isBoardReady.set(false);
+          }
         });
       });
     });
+  },
+
+  async checkAndConvertBoard(boardId) {
+    try {
+      // First check if migrations need to be run
+      if (migrationManager.needsMigration()) {
+        this.isMigrating.set(true);
+        await migrationManager.startMigration();
+        this.isMigrating.set(false);
+      }
+
+      // Then check if board needs conversion
+      if (boardConverter.needsConversion(boardId)) {
+        this.isConverting.set(true);
+        const success = await boardConverter.convertBoard(boardId);
+        this.isConverting.set(false);
+        
+        if (success) {
+          this.isBoardReady.set(true);
+        } else {
+          console.error('Board conversion failed');
+          this.isBoardReady.set(true); // Still show board even if conversion failed
+        }
+      } else {
+        this.isBoardReady.set(true);
+      }
+    } catch (error) {
+      console.error('Error during board conversion check:', error);
+      this.isConverting.set(false);
+      this.isMigrating.set(false);
+      this.isBoardReady.set(true); // Show board even if conversion check failed
+    }
   },
 
   onlyShowCurrentCard() {
@@ -32,6 +73,14 @@ BlazeComponent.extendComponent({
 
   goHome() {
     FlowRouter.go('home');
+  },
+
+  isConverting() {
+    return this.isConverting.get();
+  },
+
+  isMigrating() {
+    return this.isMigrating.get();
   },
 }).register('board');
 

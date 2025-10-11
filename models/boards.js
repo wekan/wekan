@@ -785,8 +785,13 @@ Boards.helpers({
       {
         boardId: this._id,
         archived: false,
-        // Get lists for all swimlanes in this board
-        swimlaneId: { $in: this.swimlanes().map(s => s._id) },
+        // Get lists for all swimlanes in this board, plus lists without swimlaneId for backward compatibility
+        $or: [
+          { swimlaneId: { $in: this.swimlanes().map(s => s._id) } },
+          { swimlaneId: { $exists: false } },
+          { swimlaneId: '' },
+          { swimlaneId: null }
+        ],
       },
       { sort: sortKey },
     );
@@ -796,8 +801,13 @@ Boards.helpers({
     return ReactiveCache.getLists(
       {
         boardId: this._id,
-        // Get lists for all swimlanes in this board
-        swimlaneId: { $in: this.swimlanes().map(s => s._id) }
+        // Get lists for all swimlanes in this board, plus lists without swimlaneId for backward compatibility
+        $or: [
+          { swimlaneId: { $in: this.swimlanes().map(s => s._id) } },
+          { swimlaneId: { $exists: false } },
+          { swimlaneId: '' },
+          { swimlaneId: null }
+        ]
       },
       { sort: { sort: 1 } }
     );

@@ -24,3 +24,6 @@ if (errors.length > 0) {
   console.error("\n\n");
   process.exit(1);
 }
+
+// Import migration runner for on-demand migrations
+import './migrationRunner';
