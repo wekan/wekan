@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# v8.00 2025-10-11 WeKan ® release
+
+This release adds the following new features:
+
+- [Snap: Migrate MongoDB from 3 to 7 only when "snap set wekan migrate-mongodb='true'". Not automatically](https://github.com/wekan/wekan/commit/ae01ea576c3073acbc181a5b19008ddaea4700e1).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v7.99 2025-10-11 WeKan ® release
 
 This release fixed the following bugs:
