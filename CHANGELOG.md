@@ -25,6 +25,8 @@ This release adds the following new features:
 
 - [Run database migrations when opening board. Not when upgrading WeKan](https://github.com/wekan/wekan/commit/2b5c56484a4dd559f062ef892fd5248a903b2a10).
   Thanks to xet7.
+- [Added Cron Manager to Admin Panel for long running jobs, like running migrations when opening board, copying or moving boards swimlanes lists cards etc](https://github.com/wekan/wekan/commit/da68b01502afc9d5d9ea1267bee9fc98bb08b611).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
