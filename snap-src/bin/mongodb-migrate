@@ -3,7 +3,9 @@
 # MongoDB Migration Script from version 3 to 7
 # This script handles migration with disk space checks, progress tracking, and error handling
 #
+# IMPORTANT: Migration is only triggered when MIGRATE_MONGODB=true environment variable is set
 # IMPORTANT: All operations are contained within SNAP_COMMON directory
+# IMPORTANT: No snap settings or channel changes are made during migration
 # This is the only writable directory in a snap environment
 
 set -e
@@ -423,17 +425,19 @@ rotate_migration_logs() {
     fi
 }
 
-# Reset MONGO_LOG_DESTINATION to devnull after successful migration
+# Reset MONGO_LOG_DESTINATION to devnull after successful migration - DISABLED
+# Snap settings changes are permanently disabled during migration
 reset_mongo_log_destination() {
-    log_message "Resetting MONGO_LOG_DESTINATION to devnull after successful migration"
+    log_message "MONGO_LOG_DESTINATION reset disabled - snap settings changes not allowed during migration"
     
-    # Use snap set to change the setting back to devnull
-    if snap set wekan mongo-log-destination="devnull" 2>/dev/null; then
-        log_success "MONGO_LOG_DESTINATION reset to devnull successfully"
-    else
-        log_error "Failed to reset MONGO_LOG_DESTINATION to devnull"
-        # Don't fail the migration for this setting issue
-    fi
+    # Snap settings changes permanently disabled during migration
+    # This ensures no snap configuration is modified during the migration process
+    # if snap set wekan mongo-log-destination="devnull" 2>/dev/null; then
+    #     log_success "MONGO_LOG_DESTINATION reset to devnull successfully"
+    # else
+    #     log_error "Failed to reset MONGO_LOG_DESTINATION to devnull"
+    #     # Don't fail the migration for this setting issue
+    # fi
 }
 
 # Migrate raw MongoDB 3 database files
@@ -568,20 +572,25 @@ switch_to_stable_channel() {
     local snap_name="$1"
     local current_channel=$(get_current_snap_channel "$snap_name")
 
-    if [ "$current_channel" != "stable" ] && [ "$current_channel" != "unknown" ]; then
-        log_message "Switching $snap_name from $current_channel to stable channel"
-
-        if snap refresh "$snap_name" --channel=stable; then
-            log_success "Successfully switched $snap_name to stable channel"
-            return 0
-        else
-            log_error "Failed to switch $snap_name to stable channel"
-            return 1
-        fi
-    else
-        log_message "$snap_name is already on stable channel or not installed"
-        return 0
-    fi
+    log_message "Snap channel switching disabled - not changing $snap_name channel (currently: $current_channel)"
+    log_message "Snap channel changes are permanently disabled during migration"
+    return 0
+    
+    # Snap channel switching permanently disabled during migration
+    # This ensures no snap channels are modified during the migration process
+    # if [ "$current_channel" != "stable" ] && [ "$current_channel" != "unknown" ]; then
+    #     log_message "Switching $snap_name from $current_channel to stable channel"
+    #     if snap refresh "$snap_name" --channel=stable; then
+    #         log_success "Successfully switched $snap_name to stable channel"
+    #         return 0
+    #     else
+    #         log_error "Failed to switch $snap_name to stable channel"
+    #         return 1
+    #     fi
+    # else
+    #     log_message "$snap_name is already on stable channel or not installed"
+    #     return 0
+    # fi
 }
 
 switch_all_wekan_snaps_to_stable() {
@@ -786,9 +795,9 @@ revert_migration() {
         return 1
     fi
 
-    # Stop MongoDB 7
-    log_message "Stopping MongoDB 7"
-    snapctl stop --disable "${SNAP_NAME}.mongodb"
+    # Stop MongoDB 7 - DISABLED
+    log_message "MongoDB stopping disabled - not using snapctl stop"
+    # snapctl stop --disable "${SNAP_NAME}.mongodb"
 
     # Remove MongoDB 7 version marker
     rm -f "${SNAP_COMMON}/mongodb-version-7"
@@ -824,9 +833,9 @@ revert_migration() {
     # Clear migration status
     rm -f "$MIGRATION_STATUS"
 
-    # Start MongoDB 3
-    log_message "Starting MongoDB 3"
-    snapctl start --enable "${SNAP_NAME}.mongodb"
+    # Start MongoDB 3 - DISABLED
+    log_message "MongoDB starting disabled - not using snapctl start"
+    # snapctl start --enable "${SNAP_NAME}.mongodb"
 
     log_success "Migration reverted successfully"
     return 0

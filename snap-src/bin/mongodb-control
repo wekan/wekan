@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# MongoDB Control Script
+# IMPORTANT: Migration is only triggered when MIGRATE_MONGODB=true environment variable is set
+# IMPORTANT: No snap settings or channel changes are made during migration
+
 # get wekan/mongo settings
 source $SNAP/bin/wekan-read-settings
 
@@ -9,7 +13,7 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
-# Check if MongoDB migration is needed and handle it
+# Migration checking and handling - controlled by MIGRATE_MONGODB environment variable
 MIGRATION_STATUS="${SNAP_COMMON}/mongodb-migration-status.json"
 MIGRATION_LOG="${SNAP_COMMON}/mongodb-migration-log.txt"
 REVERT_FILE="${SNAP_COMMON}/revert-mongodb-migration.txt"
@@ -33,9 +37,22 @@ check_migration_needed() {
     return 1
 }
 
-# Handle migration
+# Handle migration - only if MIGRATE_MONGODB=true
 handle_migration() {
     echo "MongoDB migration needed, starting migration process..."
+
+    # Stop Wekan (meteor) process before migration
+    echo "Stopping Wekan (meteor) process for migration..."
+    snapctl stop --disable ${SNAP_NAME}.wekan || true
+    snapctl stop --disable ${SNAP_NAME} || true
+    
+    # Wait a moment for processes to stop
+    sleep 2
+    
+    # Kill any remaining meteor/node processes
+    pkill -f "node.*main.js" || true
+    pkill -f "meteor" || true
+    sleep 1
 
     # Start migration web interface in background
     $SNAP/bin/mongodb-migration-web &
@@ -51,6 +68,11 @@ handle_migration() {
             kill "$web_pid" 2>/dev/null || true
             rm -f "${SNAP_COMMON}/migration-web.pid"
         fi
+        
+        # Clean up temporary Node.js server file
+        rm -f "${SNAP_COMMON}/migration-web-server.js"
+        
+        echo "Migration completed. Wekan will be restarted automatically."
     else
         echo "MongoDB migration failed"
         # Kill migration web interface
@@ -59,21 +81,48 @@ handle_migration() {
             kill "$web_pid" 2>/dev/null || true
             rm -f "${SNAP_COMMON}/migration-web.pid"
         fi
+        
+        # Clean up temporary Node.js server file
+        rm -f "${SNAP_COMMON}/migration-web-server.js"
+        
         exit 1
     fi
 }
 
 # Check if revert is requested
 if [ -f "$REVERT_FILE" ]; then
-    echo "Revert requested, stopping MongoDB and reverting migration..."
+    echo "Revert requested, stopping Wekan and MongoDB, then reverting migration..."
+    
+    # Stop Wekan (meteor) process before revert
+    echo "Stopping Wekan (meteor) process for revert..."
+    snapctl stop --disable ${SNAP_NAME}.wekan || true
+    snapctl stop --disable ${SNAP_NAME} || true
+    
+    # Wait a moment for processes to stop
+    sleep 2
+    
+    # Kill any remaining meteor/node processes
+    pkill -f "node.*main.js" || true
+    pkill -f "meteor" || true
+    sleep 1
+    
+    # Stop MongoDB
     snapctl stop --disable ${SNAP_NAME}.mongodb
+    
+    # Run migration (which will handle revert)
     $SNAP/bin/mongodb-migrate
     exit $?
 fi
 
-# Check if migration is needed
-if check_migration_needed; then
-    handle_migration
+# Check if migration is needed - only if MIGRATE_MONGODB=true
+if [ "$MIGRATE_MONGODB" = "true" ]; then
+    if check_migration_needed; then
+        handle_migration
+    else
+        echo "MIGRATE_MONGODB=true but no migration needed"
+    fi
+else
+    echo "MIGRATE_MONGODB not set to 'true' - skipping migration check"
 fi
 
 # make sure we have set minimum env variables for locale

@@ -62,10 +62,10 @@ ${MONGODB_LOG} {
         if [ -f "${SNAP_COMMON}/mongodb.pid" ]; then
             kill -USR1 \$(cat "${SNAP_COMMON}/mongodb.pid") 2>/dev/null || true
         fi
-        # Alternative: restart MongoDB service if PID file doesn't exist
-        if [ ! -f "${SNAP_COMMON}/mongodb.pid" ]; then
-            snap restart ${SNAP_NAME}.mongodb 2>/dev/null || true
-        fi
+        # Alternative: restart MongoDB service if PID file doesn't exist - DISABLED
+        # if [ ! -f "${SNAP_COMMON}/mongodb.pid" ]; then
+        #     snap restart ${SNAP_NAME}.mongodb 2>/dev/null || true
+        # fi
     endscript
 }
 
@@ -85,7 +85,7 @@ ${WEKAN_APP_LOG} {
         fi
         # Alternative: restart Wekan service if PID file doesn't exist
         if [ ! -f "${SNAP_COMMON}/wekan.pid" ]; then
-            snap restart ${SNAP_NAME}.wekan 2>/dev/null || true
+            # snap restart ${SNAP_NAME}.wekan 2>/dev/null || true
         fi
     endscript
 }
@@ -106,7 +106,7 @@ ${WEKAN_ERROR_LOG} {
         fi
         # Alternative: restart Wekan service if PID file doesn't exist
         if [ ! -f "${SNAP_COMMON}/wekan.pid" ]; then
-            snap restart ${SNAP_NAME}.wekan 2>/dev/null || true
+            # snap restart ${SNAP_NAME}.wekan 2>/dev/null || true
         fi
     endscript
 }
@@ -131,8 +131,8 @@ ${SNAP_COMMON}/*.log {
         done
         # Restart services if no PID files found
         if [ ! -f "${SNAP_COMMON}/mongodb.pid" ] && [ ! -f "${SNAP_COMMON}/wekan.pid" ]; then
-            snap restart ${SNAP_NAME}.mongodb 2>/dev/null || true
-            snap restart ${SNAP_NAME}.wekan 2>/dev/null || true
+            # snap restart ${SNAP_NAME}.mongodb 2>/dev/null || true
+            # snap restart ${SNAP_NAME}.wekan 2>/dev/null || true
         fi
     endscript
 }

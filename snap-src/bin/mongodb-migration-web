@@ -1,38 +1,91 @@
 #!/bin/bash
 
 # MongoDB Migration Web Interface
-# Serves migration progress at ROOT_URL/migration-progress
+# Serves migration progress at ROOT_URL/migration-progress using Node.js
 
 # Source settings
 source $SNAP/bin/wekan-read-settings
+
+# Set up Node.js environment like wekan-control
+export NODE_PATH=$SNAP/bin
 
 # Configuration
 MIGRATION_STATUS="${SNAP_COMMON}/mongodb-migration-status.json"
 MIGRATION_LOG="${SNAP_COMMON}/mongodb-migration-log.txt"
 MIGRATION_PROGRESS="${SNAP_COMMON}/mongodb-migration-progress.html"
-PORT="${MIGRATION_WEB_PORT:-8081}"
+# Use same PORT as wekan-control, but add 1 to avoid conflicts
+MIGRATION_PORT=$((PORT + 1))
 
-# Create a simple HTTP server using netcat and bash
-serve_migration_progress() {
-    while true; do
-        {
-            echo "HTTP/1.1 200 OK"
-            echo "Content-Type: text/html; charset=utf-8"
-            echo "Cache-Control: no-cache"
-            echo "Connection: close"
-            echo ""
+# Create Node.js HTTP server script
+create_node_server() {
+    cat > "${SNAP_COMMON}/migration-web-server.js" << 'EOF'
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
-            # Generate HTML page
-            if [ -f "$MIGRATION_STATUS" ]; then
-                local status=$(jq -r '.status' "$MIGRATION_STATUS" 2>/dev/null || echo "unknown")
-                local step=$(jq -r '.step' "$MIGRATION_STATUS" 2>/dev/null || echo "0")
-                local total_steps=$(jq -r '.total_steps' "$MIGRATION_STATUS" 2>/dev/null || echo "0")
-                local percentage=$(jq -r '.percentage' "$MIGRATION_STATUS" 2>/dev/null || echo "0")
-                local description=$(jq -r '.description' "$MIGRATION_STATUS" 2>/dev/null || echo "Unknown")
-                local timestamp=$(jq -r '.timestamp' "$MIGRATION_STATUS" 2>/dev/null || echo "Unknown")
+const PORT = process.env.MIGRATION_PORT || 8081;
+const SNAP_COMMON = process.env.SNAP_COMMON;
+const ROOT_URL = process.env.ROOT_URL || 'http://127.0.0.1';
+const MIGRATION_STATUS = path.join(SNAP_COMMON, 'mongodb-migration-status.json');
+const MIGRATION_LOG = path.join(SNAP_COMMON, 'mongodb-migration-log.txt');
 
-                cat << EOF
-<!DOCTYPE html>
+function readFileSafe(filePath) {
+    try {
+        return fs.readFileSync(filePath, 'utf8');
+    } catch (error) {
+        return null;
+    }
+}
+
+function getMigrationStatus() {
+    const statusContent = readFileSafe(MIGRATION_STATUS);
+    if (!statusContent) {
+        return null;
+    }
+    
+    try {
+        return JSON.parse(statusContent);
+    } catch (error) {
+        return null;
+    }
+}
+
+function getMigrationLog() {
+    const logContent = readFileSafe(MIGRATION_LOG);
+    if (!logContent) {
+        return 'No log available';
+    }
+    
+    const lines = logContent.split('\n');
+    return lines.slice(-20).join('\n');
+}
+
+function generateHTML(status) {
+    if (!status) {
+        return `<!DOCTYPE html>
+<html>
+<head>
+    <title>MongoDB Migration Progress</title>
+    <meta http-equiv="refresh" content="5">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MongoDB Migration</h1>
+        <p>No migration in progress.</p>
+        <p><em>This page will refresh automatically every 5 seconds.</em></p>
+    </div>
+</body>
+</html>`;
+    }
+
+    const { status: statusValue, step, total_steps, percentage, description, timestamp } = status;
+    const logContent = getMigrationLog();
+
+    return `<!DOCTYPE html>
 <html>
 <head>
     <title>MongoDB Migration Progress</title>
@@ -119,50 +172,80 @@ serve_migration_progress() {
         </div>
 
         <div class="status">
-            <p><span class="status-indicator status-${status}"></span><strong>Status:</strong> ${status}</p>
-            <p><strong>Progress:</strong> $step of $total_steps steps</p>
-            <p><strong>Current Step:</strong> $description</p>
-            <p><strong>Last Updated:</strong> $timestamp</p>
+            <p><span class="status-indicator status-${statusValue}"></span><strong>Status:</strong> ${statusValue}</p>
+            <p><strong>Progress:</strong> ${step} of ${total_steps} steps</p>
+            <p><strong>Current Step:</strong> ${description}</p>
+            <p><strong>Last Updated:</strong> ${timestamp}</p>
         </div>
 
         <div class="log-container">
             <h3>Migration Log (Last 20 lines):</h3>
-            <pre>$(tail -20 "$MIGRATION_LOG" 2>/dev/null || echo "No log available")</pre>
+            <pre>${logContent}</pre>
         </div>
 
         <p style="text-align: center; margin-top: 30px; color: #666;">
             <em>This page will refresh automatically every 5 seconds.</em><br>
-            <em>Migration URL: ${ROOT_URL:-http://localhost:8080}/migration-progress</em>
+            <em>Migration URL: ${ROOT_URL}/migration-progress</em>
         </p>
     </div>
 </body>
-</html>
+</html>`;
+}
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/migration-progress' || req.url === '/') {
+        const status = getMigrationStatus();
+        const html = generateHTML(status);
+        
+        res.writeHead(200, {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'no-cache',
+            'Connection': 'close'
+        });
+        res.end(html);
+    } else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not Found');
+    }
+});
+
+server.listen(PORT, () => {
+    console.log(`MongoDB Migration Web Server running on port ${PORT}`);
+});
+
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('Received SIGTERM, shutting down gracefully');
+    server.close(() => {
+        process.exit(0);
+    });
+});
+
+process.on('SIGINT', () => {
+    console.log('Received SIGINT, shutting down gracefully');
+    server.close(() => {
+        process.exit(0);
+    });
+});
 EOF
-            else
-                cat << EOF
-<!DOCTYPE html>
-<html>
-<head>
-    <title>MongoDB Migration Progress</title>
-    <meta http-equiv="refresh" content="5">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        .container { max-width: 800px; margin: 0 auto; text-align: center; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>MongoDB Migration</h1>
-        <p>No migration in progress.</p>
-        <p><em>This page will refresh automatically every 5 seconds.</em></p>
-    </div>
-</body>
-</html>
-EOF
-            fi
-        } | nc -l -p "$PORT" -q 1
-    done
+}
+
+# Start the Node.js web server
+start_node_server() {
+    echo "Starting MongoDB migration web server using Node.js..."
+    echo "Migration server will be available at: ${ROOT_URL}/migration-progress"
+    echo "Migration server port: ${MIGRATION_PORT}"
+    
+    # Create the Node.js server script
+    create_node_server
+    
+    # Export environment variables for the Node.js process
+    export MIGRATION_PORT
+    export ROOT_URL
+    
+    # Start the server using Node.js from SNAP/bin
+    $NODE_PATH/node "${SNAP_COMMON}/migration-web-server.js"
 }
 
 # Start the web server
-serve_migration_progress
+start_node_server

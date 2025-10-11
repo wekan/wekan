@@ -9,7 +9,7 @@ if [ "$CADDY_ENABLED" = "true" ]; then
     # The 'agree' option is no longer needed as Caddy 2 doesn't prompt for EULA
     env LC_ALL=C caddy run --config $SNAP_COMMON/Caddyfile
 else
-    echo "caddy is disabled. Stop service"
-    snapctl stop --disable ${SNAP_NAME}.caddy
+    echo "caddy is disabled. Service stopping disabled"
+    # snapctl stop --disable ${SNAP_NAME}.caddy
     # sleep here, in case snapctl fails to stop service so we do not restart too often
 fi
