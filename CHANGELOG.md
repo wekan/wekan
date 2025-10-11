@@ -34,7 +34,8 @@ and fixes the following bugs:
 
 - [Fixed attachments migrations at Admin Panel to not use too much CPU while migrating attachments](https://github.com/wekan/wekan/commit/d59683eff1267ff87a6aef9ae36c7aebbe10eaa1).
   Thanks to xet7.
-
+- [Fixed per-card and per-board settings of showing checkist at minicard](https://github.com/wekan/wekan/commit/fc32a89292e4d314bd3868739f6e01bc2bc17018).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
