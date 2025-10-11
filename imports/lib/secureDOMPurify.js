@@ -51,14 +51,37 @@ export function getSecureDOMPurifyConfig() {
           return false;
         }
 
-        // Block img tags with SVG data URIs
+        // Block img tags with SVG data URIs that could contain malicious JavaScript
         if (node.tagName && node.tagName.toLowerCase() === 'img') {
           const src = node.getAttribute('src');
-          if (src && (src.startsWith('data:image/svg') || src.endsWith('.svg'))) {
-            if (process.env.DEBUG === 'true') {
-              console.warn('Blocked potentially malicious SVG image:', src);
+          if (src) {
+            // Block all SVG data URIs to prevent XSS via embedded JavaScript
+            if (src.startsWith('data:image/svg') || src.endsWith('.svg')) {
+              if (process.env.DEBUG === 'true') {
+                console.warn('Blocked potentially malicious SVG image:', src);
+              }
+              return false;
             }
-            return false;
+            
+            // Additional check for base64 encoded SVG with script tags
+            if (src.startsWith('data:image/svg+xml;base64,')) {
+              try {
+                const base64Content = src.split(',')[1];
+                const decodedContent = atob(base64Content);
+                if (decodedContent.includes('<script') || decodedContent.includes('javascript:')) {
+                  if (process.env.DEBUG === 'true') {
+                    console.warn('Blocked SVG with embedded JavaScript:', src.substring(0, 100) + '...');
+                  }
+                  return false;
+                }
+              } catch (e) {
+                // If decoding fails, block it as a safety measure
+                if (process.env.DEBUG === 'true') {
+                  console.warn('Blocked malformed SVG data URI:', src);
+                }
+                return false;
+              }
+            }
           }
         }
 

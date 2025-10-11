@@ -103,58 +103,87 @@ Markdown.use(function(md) {
         }
       }
 
-      // Check for HTML tokens that might contain SVG
+      // Check for HTML tokens that might contain SVG or malicious content
       if (token.type === 'html_block' || token.type === 'html_inline') {
         const content = token.content;
-        if (content && (
-          content.includes('<svg') ||
-          content.includes('data:image/svg') ||
-          content.includes('xlink:href') ||
-          content.includes('<use') ||
-          content.includes('<defs>')
-        )) {
-          if (process.env.DEBUG === 'true') {
-            console.warn('Blocked potentially malicious SVG content in HTML:', content.substring(0, 100) + '...');
+        if (content) {
+          // Check for SVG content
+          const hasSVG = content.includes('<svg') ||
+                        content.includes('data:image/svg') ||
+                        content.includes('xlink:href') ||
+                        content.includes('<use') ||
+                        content.includes('<defs>');
+          
+          // Check for malicious img tags with SVG data URIs
+          const hasMaliciousImg = content.includes('<img') && 
+                                 (content.includes('data:image/svg') || 
+                                  content.includes('src="data:image/svg'));
+          
+          // Check for base64 encoded SVG with script tags
+          const hasBase64SVG = content.includes('data:image/svg+xml;base64,');
+          
+          if (hasSVG || hasMaliciousImg || hasBase64SVG) {
+            if (process.env.DEBUG === 'true') {
+              console.warn('Blocked potentially malicious SVG content in HTML:', content.substring(0, 100) + '...');
+            }
+            
+            // Additional check for base64 encoded SVG with script tags
+            if (hasBase64SVG) {
+              try {
+                const base64Match = content.match(/data:image\/svg\+xml;base64,([^"'\s]+)/);
+                if (base64Match) {
+                  const decodedContent = atob(base64Match[1]);
+                  if (decodedContent.includes('<script') || decodedContent.includes('javascript:')) {
+                    if (process.env.DEBUG === 'true') {
+                      console.warn('Blocked SVG with embedded JavaScript in markdown');
+                    }
+                  }
+                }
+              } catch (e) {
+                // If decoding fails, continue with blocking
+              }
+            }
+            
+            // Replace with warning
+            token.type = 'paragraph_open';
+            token.tag = 'p';
+            token.nesting = 1;
+            token.attrSet('style', 'color: red; background: #ffe6e6; padding: 8px; border: 1px solid #ff9999;');
+            token.attrSet('title', 'Blocked potentially malicious SVG content');
+
+            // Add warning text
+            const warningToken = {
+              type: 'text',
+              content: '⚠️ Blocked potentially malicious SVG content for security reasons',
+              level: token.level,
+              markup: '',
+              info: '',
+              meta: null,
+              block: true,
+              hidden: false
+            };
+
+            // Insert warning token after the paragraph open
+            tokens.splice(i + 1, 0, warningToken);
+
+            // Add paragraph close token
+            const closeToken = {
+              type: 'paragraph_close',
+              tag: 'p',
+              nesting: -1,
+              level: token.level,
+              markup: '',
+              info: '',
+              meta: null,
+              block: true,
+              hidden: false
+            };
+            tokens.splice(i + 2, 0, closeToken);
+
+            // Remove the original HTML token
+            tokens.splice(i, 1);
+            i--; // Adjust index since we removed a token
           }
-          // Replace with warning
-          token.type = 'paragraph_open';
-          token.tag = 'p';
-          token.nesting = 1;
-          token.attrSet('style', 'color: red; background: #ffe6e6; padding: 8px; border: 1px solid #ff9999;');
-          token.attrSet('title', 'Blocked potentially malicious SVG content');
-
-          // Add warning text
-          const warningToken = {
-            type: 'text',
-            content: '⚠️ Blocked potentially malicious SVG content for security reasons',
-            level: token.level,
-            markup: '',
-            info: '',
-            meta: null,
-            block: true,
-            hidden: false
-          };
-
-          // Insert warning token after the paragraph open
-          tokens.splice(i + 1, 0, warningToken);
-
-          // Add paragraph close token
-          const closeToken = {
-            type: 'paragraph_close',
-            tag: 'p',
-            nesting: -1,
-            level: token.level,
-            markup: '',
-            info: '',
-            meta: null,
-            block: true,
-            hidden: false
-          };
-          tokens.splice(i + 2, 0, closeToken);
-
-          // Remove the original HTML token
-          tokens.splice(i, 1);
-          i--; // Adjust index since we removed a token
         }
       }
     }
