@@ -657,6 +657,10 @@ Template.cardDetailsActionsPopup.helpers({
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
+
+  showListOnMinicard() {
+    return this.showListOnMinicard;
+  },
 });
 
 Template.cardDetailsActionsPopup.events({
@@ -701,6 +705,12 @@ Template.cardDetailsActionsPopup.events({
     Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
       if (!err && ret) Popup.close();
     });
+  },
+  'click .js-toggle-show-list-on-minicard'() {
+    const currentCard = this;
+    const newValue = !currentCard.showListOnMinicard;
+    Cards.update(currentCard._id, { $set: { showListOnMinicard: newValue } });
+    Popup.close();
   },
 });
 

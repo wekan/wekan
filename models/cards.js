@@ -484,6 +484,14 @@ Cards.attachSchema(
       type: Boolean,
       optional: true,
     },
+    showListOnMinicard: {
+      /**
+       * show list name on minicard?
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
   }),
 );
 

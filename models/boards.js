@@ -512,12 +512,20 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+
     allowsAssignedBy: {
       /**
        * Does the board allows requested by?
        */
       type: Boolean,
       defaultValue: true,
+    },
+    allowsShowListsOnMinicard: {
+      /**
+       * Does the board allow showing list names on all minicards?
+       */
+      type: Boolean,
+      defaultValue: false,
     },
 
     allowsReceivedDate: {
@@ -1464,6 +1472,10 @@ Boards.mutations({
     return { $set: { allowsAssignedBy } };
   },
 
+  setAllowsShowListsOnMinicard(allowsShowListsOnMinicard) {
+    return { $set: { allowsShowListsOnMinicard } };
+  },
+
   setAllowsRequestedBy(allowsRequestedBy) {
     return { $set: { allowsRequestedBy } };
   },
@@ -1475,6 +1487,7 @@ Boards.mutations({
   setAllowsShowLists(allowsShowLists) {
     return { $set: { allowsShowLists } };
   },
+
 
   setAllowsAttachments(allowsAttachments) {
     return { $set: { allowsAttachments } };

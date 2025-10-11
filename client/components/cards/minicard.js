@@ -196,6 +196,17 @@ Template.minicard.helpers({
   },
   uploadCount() {
     return uploadProgressManager.getUploadCountForCard(this._id);
+  },
+  listName() {
+    const list = this.list();
+    return list ? list.title : '';
+  },
+
+  shouldShowListOnMinicard() {
+    // Show list name if either:
+    // 1. Board-wide setting is enabled, OR
+    // 2. This specific card has the setting enabled
+    return this.currentBoard.allowsShowListsOnMinicard || this.showListOnMinicard;
   }
 });
 

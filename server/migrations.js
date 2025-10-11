@@ -1141,6 +1141,7 @@ Migrations.add('add-description-text-allowed-on-minicard', () => {
   );
 });
 
+
 Migrations.add('add-sort-field-to-boards', () => {
   Boards.find().forEach((board, index) => {
     if (!board.hasOwnProperty('sort')) {

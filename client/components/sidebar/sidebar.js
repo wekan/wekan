@@ -996,8 +996,13 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsShowLists;
   },
 
+
   allowsLabels() {
     return this.currentBoard.allowsLabels;
+  },
+
+  allowsShowListsOnMinicard() {
+    return this.currentBoard.allowsShowListsOnMinicard;
   },
 
   allowsChecklists() {
@@ -1282,11 +1287,27 @@ BlazeComponent.extendComponent({
           this.currentBoard.setAllowsLabels(this.currentBoard.allowsLabels);
           $(`.js-field-has-labels ${MCB}`).toggleClass(
             CKCLS,
-            this.currentBoard.allowsAssignee,
+            this.currentBoard.allowsLabels,
           );
           $('.js-field-has-labels').toggleClass(
             CKCLS,
             this.currentBoard.allowsLabels,
+          );
+        },
+        'click .js-field-has-card-show-lists-on-minicard'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsShowListsOnMinicard = !this.currentBoard
+            .allowsShowListsOnMinicard;
+          this.currentBoard.setAllowsShowListsOnMinicard(
+            this.currentBoard.allowsShowListsOnMinicard,
+          );
+          $(`.js-field-has-card-show-lists-on-minicard ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsShowListsOnMinicard,
+          );
+          $('.js-field-has-card-show-lists-on-minicard').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsShowListsOnMinicard,
           );
         },
         'click .js-field-has-description-title'(evt) {

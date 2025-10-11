@@ -285,6 +285,12 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-tags
           | {{_ 'labels'}}
     div.check-div
+      a.flex.js-field-has-card-show-lists-on-minicard(class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
+        span
+          i.fa.fa-list
+          | {{_ 'card-show-lists-on-minicard'}}
+    div.check-div
       a.flex.js-field-has-card-number(class="{{#if allowsCardNumber}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCardNumber}}is-checked{{/if}}")
         span

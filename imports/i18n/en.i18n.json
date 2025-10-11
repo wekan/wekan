@@ -83,5 +83,8 @@
   "monitoring-export-failed": "Failed to export monitoring data",
   "filesystem-storage": "Filesystem",
   "gridfs-storage": "GridFS",
-  "s3-storage": "S3"
+  "s3-storage": "S3",
+  "card-show-lists-on-minicard": "Show Lists on Minicard",
+  "show-list-on-minicard": "Show List on Minicard",
+  "hide-list-on-minicard": "Hide List on Minicard"
 }

@@ -588,3 +588,18 @@
   transform: scale(1.02);
   transition: all 0.2s ease;
 }
+
+/* List name display on minicard */
+.minicard-list-name {
+  font-size: 0.75em;
+  color: #8c8c8c;
+  margin-top: 0.2vh;
+  display: flex;
+  align-items: center;
+  gap: 0.3vw;
+}
+
+.minicard-list-name i.fa {
+  font-size: 0.8em;
+  opacity: 0.7;
+}

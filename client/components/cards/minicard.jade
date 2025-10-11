@@ -72,6 +72,10 @@ template(name="minicard")
           span.card-number
             | ##{getCardNumber}
         = getTitle
+if shouldShowListOnMinicard
+  .minicard-list-name
+    i.fa.fa-list
+    | {{ listName }}
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}
