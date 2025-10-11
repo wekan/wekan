@@ -206,7 +206,7 @@ Migrations.add('use-css-class-for-boards-colors', () => {
 
 Migrations.add('denormalize-star-number-per-board', () => {
   Boards.find().forEach(board => {
-    const nStars = Users.find({ 'profile.starredBoards': board._id }).count();
+    const nStars = Users.find({ 'profile.starredBoards': board._id }).countDocuments();
     Boards.update(board._id, { $set: { stars: nStars } }, noValidate);
   });
 });

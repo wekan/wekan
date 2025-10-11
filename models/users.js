@@ -1836,7 +1836,7 @@ if (Meteor.isServer) {
     },
   });
   Accounts.onCreateUser((options, user) => {
-    const userCount = ReactiveCache.getUsers({}, {}, true).count();
+    const userCount = ReactiveCache.getUsers({}, {}, true).countDocuments();
     user.isAdmin = userCount === 0;
 
     if (user.services.oidc) {

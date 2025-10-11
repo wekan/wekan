@@ -54,6 +54,12 @@
     "simpl-schema": "^3.4.6",
     "source-map-support": "^0.5.20",
     "to-buffer": "^1.2.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "mongodb3legacy": "npm:mongodb@3.7.4",
+    "mongodb4legacy": "npm:mongodb@4.17.2",
+    "mongodb5legacy": "npm:mongodb@5.9.2",
+    "mongodb6legacy": "npm:mongodb@6.3.0",
+    "mongodb7legacy": "npm:mongodb@7.0.1",
+    "mongodb8legacy": "npm:mongodb@6.9.0"
   }
 }

@@ -112,7 +112,7 @@ class AdminReport extends BlazeComponent {
   }
 
   resultsCount() {
-    return this.collection.find().count();
+    return this.collection.find().countDocuments();
   }
 
   fileSize(size) {
