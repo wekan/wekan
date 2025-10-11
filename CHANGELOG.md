@@ -39,6 +39,8 @@ This release adds the following CRITICAL SECURITY FIXES:
   Thanks to Christian Pöschl of usd AG and xet7.
 - [Security Fix JVN#15385465: CWE-79 XSS, that affected WeKan 7.94](https://github.com/wekan/wekan/commit/81c3dc1d956cd7040655940f6569653d7b98fa9a).
   Thanks to Sho Sugiyama and xet7.
+- Security Fix JVN#80785288: CWE-79 XSS, that affected WeKan 3.94 and v3.95. This was already previously fixed.
+  Thanks to xet7.
 
 and adds the following new features:
 
