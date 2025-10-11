@@ -77,6 +77,11 @@ log_success() {
     log_message "SUCCESS: $message"
 }
 
+log_warning() {
+    local message="$1"
+    log_message "WARNING: $message"
+}
+
 # Disk space checking functions
 check_disk_space() {
     local required_space_gb="$1"
@@ -222,6 +227,28 @@ check_migration_needed() {
     return 1
 }
 
+# Display MongoDB log content for debugging
+display_mongodb_log_content() {
+    local mongodb_log="${SNAP_COMMON}/mongodb.log"
+    
+    if [ ! -f "$mongodb_log" ]; then
+        log_message "MongoDB log file not found: $mongodb_log"
+        return 1
+    fi
+    
+    log_message "MongoDB log file content (last 50 lines):"
+    if [ -r "$mongodb_log" ]; then
+        tail -50 "$mongodb_log" | while read -r line; do
+            log_message "LOG: $line"
+        done
+    else
+        log_message "MongoDB log file not readable, trying with sudo"
+        sudo tail -50 "$mongodb_log" 2>/dev/null | while read -r line; do
+            log_message "LOG: $line"
+        done
+    fi
+}
+
 # Detect if MongoDB upgrade is needed by checking log file
 detect_mongodb_upgrade_needed() {
     local mongodb_log="${SNAP_COMMON}/mongodb.log"
@@ -232,20 +259,168 @@ detect_mongodb_upgrade_needed() {
         return 1
     fi
     
-    # Check for the specific error message indicating upgrade is needed
-    if grep -q "This version of MongoDB is too recent to start up on the existing data files. Try MongoDB 4.2 or earlier." "$mongodb_log"; then
-        log_message "MongoDB upgrade needed detected in log file"
+    # Display log content for debugging
+    display_mongodb_log_content
+    
+    # Check file permissions and try to read with appropriate method
+    if [ ! -r "$mongodb_log" ]; then
+        log_message "MongoDB log file not readable, trying with sudo"
+        # Try to read with sudo if not readable
+        if ! sudo grep -q "too recent to start up on the existing data files" "$mongodb_log" 2>/dev/null; then
+            log_message "No MongoDB upgrade needed detected in log file (via sudo)"
+            return 1
+        fi
+    else
+        # Check for various error messages that indicate upgrade is needed
+        # The exact message may vary between MongoDB versions
+        local upgrade_patterns=(
+            "This version of MongoDB is too recent to start up on the existing data files"
+            "too recent to start up on the existing data files"
+            "Try MongoDB 4.2 or earlier"
+            "unsupported format version"
+            "data files are incompatible"
+            "database files are incompatible"
+            "version too new"
+            "version too recent"
+        )
+        
+        local found_upgrade_needed=false
+        for pattern in "${upgrade_patterns[@]}"; do
+            if grep -q "$pattern" "$mongodb_log" 2>/dev/null; then
+                log_message "Found upgrade pattern in log: '$pattern'"
+                found_upgrade_needed=true
+                break
+            fi
+        done
+        
+        if [ "$found_upgrade_needed" = false ]; then
+            log_message "No MongoDB upgrade needed detected in log file"
+            return 1
+        fi
+    fi
+    
+    log_message "MongoDB upgrade needed detected in log file"
+    return 0
+}
+
+# Log rotation function for MongoDB logs
+rotate_mongodb_logs() {
+    local mongodb_log="${SNAP_COMMON}/mongodb.log"
+    local max_size_mb=100
+    local keep_copies=10
+    
+    # Check if log file exists and is large enough to rotate
+    if [ ! -f "$mongodb_log" ]; then
+        log_message "MongoDB log file not found, skipping rotation"
         return 0
     fi
     
-    # Also check for similar error messages that might indicate upgrade issues
-    if grep -q "too recent to start up on the existing data files" "$mongodb_log"; then
-        log_message "MongoDB upgrade needed detected in log file (alternative message)"
+    # Get log file size in MB
+    local log_size_mb=$(du -m "$mongodb_log" | cut -f1)
+    
+    if [ "$log_size_mb" -lt "$max_size_mb" ]; then
+        log_message "MongoDB log size (${log_size_mb}MB) is below rotation threshold (${max_size_mb}MB)"
         return 0
     fi
     
-    log_message "No MongoDB upgrade needed detected in log file"
-    return 1
+    log_message "Rotating MongoDB log file (size: ${log_size_mb}MB)"
+    
+    # Create rotated log file with timestamp
+    local timestamp=$(date +%Y%m%d-%H%M%S)
+    local rotated_log="${mongodb_log}.${timestamp}"
+    
+    # Copy current log to rotated file
+    if cp "$mongodb_log" "$rotated_log"; then
+        log_message "Created rotated log file: $rotated_log"
+        
+        # Truncate original log file
+        if > "$mongodb_log"; then
+            log_message "Truncated original log file"
+        else
+            log_error "Failed to truncate original log file"
+            return 1
+        fi
+        
+        # Compress rotated log file
+        if gzip "$rotated_log"; then
+            log_message "Compressed rotated log file: ${rotated_log}.gz"
+        else
+            log_warning "Failed to compress rotated log file"
+        fi
+        
+        # Clean up old rotated logs (keep only specified number)
+        local old_logs=$(ls -t "${mongodb_log}".* 2>/dev/null | tail -n +$((keep_copies + 1)))
+        if [ -n "$old_logs" ]; then
+            echo "$old_logs" | xargs rm -f
+            log_message "Cleaned up old rotated log files"
+        fi
+        
+        log_success "MongoDB log rotation completed successfully"
+        return 0
+    else
+        log_error "Failed to create rotated log file"
+        return 1
+    fi
+}
+
+# Enhanced log rotation function for migration logs
+rotate_migration_logs() {
+    local migration_log="${SNAP_COMMON}/mongodb-migration-log.txt"
+    local max_size_mb=50
+    local keep_copies=5
+    
+    # Check if migration log file exists and is large enough to rotate
+    if [ ! -f "$migration_log" ]; then
+        log_message "Migration log file not found, skipping rotation"
+        return 0
+    fi
+    
+    # Get log file size in MB
+    local log_size_mb=$(du -m "$migration_log" | cut -f1)
+    
+    if [ "$log_size_mb" -lt "$max_size_mb" ]; then
+        log_message "Migration log size (${log_size_mb}MB) is below rotation threshold (${max_size_mb}MB)"
+        return 0
+    fi
+    
+    log_message "Rotating migration log file (size: ${log_size_mb}MB)"
+    
+    # Create rotated log file with timestamp
+    local timestamp=$(date +%Y%m%d-%H%M%S)
+    local rotated_log="${migration_log}.${timestamp}"
+    
+    # Copy current log to rotated file
+    if cp "$migration_log" "$rotated_log"; then
+        log_message "Created rotated migration log file: $rotated_log"
+        
+        # Truncate original log file
+        if > "$migration_log"; then
+            log_message "Truncated original migration log file"
+        else
+            log_error "Failed to truncate original migration log file"
+            return 1
+        fi
+        
+        # Compress rotated log file
+        if gzip "$rotated_log"; then
+            log_message "Compressed rotated migration log file: ${rotated_log}.gz"
+        else
+            log_warning "Failed to compress rotated migration log file"
+        fi
+        
+        # Clean up old rotated logs (keep only specified number)
+        local old_logs=$(ls -t "${migration_log}".* 2>/dev/null | tail -n +$((keep_copies + 1)))
+        if [ -n "$old_logs" ]; then
+            echo "$old_logs" | xargs rm -f
+            log_message "Cleaned up old rotated migration log files"
+        fi
+        
+        log_success "Migration log rotation completed successfully"
+        return 0
+    else
+        log_error "Failed to create rotated migration log file"
+        return 1
+    fi
 }
 
 # Reset MONGO_LOG_DESTINATION to devnull after successful migration
@@ -493,6 +668,18 @@ perform_migration() {
 
     log_message "Starting MongoDB migration from version 3 to 7"
 
+    # Rotate MongoDB logs before migration if needed
+    log_message "Checking if MongoDB log rotation is needed"
+    if ! rotate_mongodb_logs; then
+        log_warning "MongoDB log rotation failed, continuing with migration"
+    fi
+    
+    # Rotate migration logs before migration if needed
+    log_message "Checking if migration log rotation is needed"
+    if ! rotate_migration_logs; then
+        log_warning "Migration log rotation failed, continuing with migration"
+    fi
+
     # Create backup before migration
     log_message "Creating backup before migration"
     if ! create_backup; then
@@ -571,6 +758,18 @@ EOF
     fi
 
     log_success "MongoDB migration completed successfully"
+    
+    # Rotate MongoDB logs after successful migration
+    log_message "Rotating MongoDB logs after successful migration"
+    if ! rotate_mongodb_logs; then
+        log_warning "MongoDB log rotation after migration failed"
+    fi
+    
+    # Rotate migration logs after successful migration
+    log_message "Rotating migration logs after successful migration"
+    if ! rotate_migration_logs; then
+        log_warning "Migration log rotation after migration failed"
+    fi
     
     # Reset MONGO_LOG_DESTINATION to devnull after successful migration
     reset_mongo_log_destination

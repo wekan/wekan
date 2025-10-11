@@ -1,0 +1,188 @@
+#!/bin/bash
+
+# MongoDB Log Rotation Script for Wekan Snap
+# This script handles log rotation for MongoDB logs in the Wekan snap environment
+
+set -e
+
+# Source settings if available, otherwise use defaults
+if [ -f "$SNAP/bin/wekan-read-settings" ]; then
+    source $SNAP/bin/wekan-read-settings
+else
+    # Default values when wekan-read-settings is not available
+    SNAP_COMMON="/var/snap/wekan/common"
+    SNAP_NAME="wekan"
+fi
+
+# Configuration
+MONGODB_LOG="${SNAP_COMMON}/mongodb.log"
+MAX_SIZE_MB=100
+KEEP_COPIES=10
+COMPRESS_LOGS=true
+
+# Logging functions
+log_message() {
+    local message="$1"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "[$timestamp] $message"
+}
+
+log_error() {
+    local message="$1"
+    log_message "ERROR: $message"
+}
+
+log_success() {
+    local message="$1"
+    log_message "SUCCESS: $message"
+}
+
+log_warning() {
+    local message="$1"
+    log_message "WARNING: $message"
+}
+
+# Check if log file exists and is large enough to rotate
+check_rotation_needed() {
+    if [ ! -f "$MONGODB_LOG" ]; then
+        log_message "MongoDB log file not found: $MONGODB_LOG"
+        return 1
+    fi
+    
+    # Get log file size in MB
+    local log_size_mb=$(du -m "$MONGODB_LOG" | cut -f1)
+    
+    if [ "$log_size_mb" -lt "$MAX_SIZE_MB" ]; then
+        log_message "MongoDB log size (${log_size_mb}MB) is below rotation threshold (${MAX_SIZE_MB}MB)"
+        return 1
+    fi
+    
+    log_message "MongoDB log size (${log_size_mb}MB) exceeds rotation threshold (${MAX_SIZE_MB}MB)"
+    return 0
+}
+
+# Rotate MongoDB log file
+rotate_log() {
+    local mongodb_log="$1"
+    local max_size_mb="$2"
+    local keep_copies="$3"
+    local compress="$4"
+    
+    log_message "Starting MongoDB log rotation"
+    
+    # Create rotated log file with timestamp
+    local timestamp=$(date +%Y%m%d-%H%M%S)
+    local rotated_log="${mongodb_log}.${timestamp}"
+    
+    # Copy current log to rotated file
+    if cp "$mongodb_log" "$rotated_log"; then
+        log_message "Created rotated log file: $rotated_log"
+        
+        # Truncate original log file
+        if > "$mongodb_log"; then
+            log_message "Truncated original log file"
+        else
+            log_error "Failed to truncate original log file"
+            return 1
+        fi
+        
+        # Compress rotated log file if requested
+        if [ "$compress" = "true" ]; then
+            if gzip "$rotated_log"; then
+                log_message "Compressed rotated log file: ${rotated_log}.gz"
+            else
+                log_warning "Failed to compress rotated log file"
+            fi
+        fi
+        
+        # Clean up old rotated logs (keep only specified number)
+        local old_logs=$(ls -t "${mongodb_log}".* 2>/dev/null | tail -n +$((keep_copies + 1)))
+        if [ -n "$old_logs" ]; then
+            echo "$old_logs" | xargs rm -f
+            log_message "Cleaned up old rotated log files"
+        fi
+        
+        log_success "MongoDB log rotation completed successfully"
+        return 0
+    else
+        log_error "Failed to create rotated log file"
+        return 1
+    fi
+}
+
+# Show log file statistics
+show_log_stats() {
+    if [ ! -f "$MONGODB_LOG" ]; then
+        log_message "MongoDB log file not found: $MONGODB_LOG"
+        return 1
+    fi
+    
+    local log_size_mb=$(du -m "$MONGODB_LOG" | cut -f1)
+    local log_lines=$(wc -l < "$MONGODB_LOG" 2>/dev/null || echo "0")
+    local rotated_count=$(ls -1 "${MONGODB_LOG}".* 2>/dev/null | wc -l)
+    
+    log_message "MongoDB Log Statistics:"
+    log_message "  Current log size: ${log_size_mb}MB"
+    log_message "  Current log lines: ${log_lines}"
+    log_message "  Rotated log files: ${rotated_count}"
+    log_message "  Rotation threshold: ${MAX_SIZE_MB}MB"
+    log_message "  Keep copies: ${KEEP_COPIES}"
+}
+
+# Force rotation regardless of size
+force_rotation() {
+    log_message "Force rotating MongoDB log file"
+    
+    if [ ! -f "$MONGODB_LOG" ]; then
+        log_error "MongoDB log file not found: $MONGODB_LOG"
+        return 1
+    fi
+    
+    rotate_log "$MONGODB_LOG" "$MAX_SIZE_MB" "$KEEP_COPIES" "$COMPRESS_LOGS"
+}
+
+# Main function
+main() {
+    local action="${1:-check}"
+    
+    case "$action" in
+        "check")
+            log_message "Checking if MongoDB log rotation is needed"
+            if check_rotation_needed; then
+                log_message "Log rotation is needed"
+                rotate_log "$MONGODB_LOG" "$MAX_SIZE_MB" "$KEEP_COPIES" "$COMPRESS_LOGS"
+            else
+                log_message "Log rotation is not needed"
+            fi
+            ;;
+        "force")
+            force_rotation
+            ;;
+        "stats")
+            show_log_stats
+            ;;
+        "help"|"-h"|"--help")
+            echo "Usage: $0 [check|force|stats|help]"
+            echo ""
+            echo "Commands:"
+            echo "  check  - Check if rotation is needed and rotate if so (default)"
+            echo "  force  - Force rotation regardless of log size"
+            echo "  stats  - Show log file statistics"
+            echo "  help   - Show this help message"
+            echo ""
+            echo "Configuration:"
+            echo "  Log file: $MONGODB_LOG"
+            echo "  Max size: ${MAX_SIZE_MB}MB"
+            echo "  Keep copies: $KEEP_COPIES"
+            echo "  Compress: $COMPRESS_LOGS"
+            ;;
+        *)
+            log_error "Unknown action: $action"
+            echo "Use '$0 help' for usage information"
+            exit 1
+            ;;
+    esac
+}
+
+# Run main function
+main "$@"
