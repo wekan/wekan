@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v8.00">Wekan REST API v8.00</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v8.01">Wekan REST API v8.01</a>
             
           </li>
         
@@ -2053,7 +2053,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v8.00</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v8.01</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -3369,6 +3369,7 @@ System.out.println(response.toString());
   <span class="hljs-attr">"allowsCardSortingByNumber"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsShowLists"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsAssignedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsShowListsOnMinicard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsReceivedDate"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsStartDate"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsEndDate"</span>: <span class="hljs-literal">true</span>,
@@ -9292,7 +9293,8 @@ System.out.println(response.toString());
   ],
   <span class="hljs-attr">"cardNumber"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">"showActivities"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"hideFinishedChecklistIfItemsAreHidden"</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">"hideFinishedChecklistIfItemsAreHidden"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"showListOnMinicard"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
 <h3 id="get_card-responses">Responses</h3>
@@ -10998,7 +11000,8 @@ System.out.println(response.toString());
   ],
   <span class="hljs-attr">"cardNumber"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">"showActivities"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"hideFinishedChecklistIfItemsAreHidden"</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">"hideFinishedChecklistIfItemsAreHidden"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"showListOnMinicard"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
 <h3 id="get_card_by_id-responses">Responses</h3>
@@ -16896,6 +16899,7 @@ UserSecurity
   <span class="hljs-attr">"allowsCardSortingByNumber"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsShowLists"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsAssignedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsShowListsOnMinicard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsReceivedDate"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsStartDate"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"allowsEndDate"</span>: <span class="hljs-literal">true</span>,
@@ -17219,6 +17223,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>Does the board allows requested by?</td>
+</tr>
+<tr>
+<td>allowsShowListsOnMinicard</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allow showing list names on all minicards?</td>
 </tr>
 <tr>
 <td>allowsReceivedDate</td>
@@ -17927,7 +17938,8 @@ UserSecurity
   ],
   <span class="hljs-attr">"cardNumber"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">"showActivities"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"hideFinishedChecklistIfItemsAreHidden"</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">"hideFinishedChecklistIfItemsAreHidden"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"showListOnMinicard"</span>: <span class="hljs-literal">true</span>
 }
 
 </code></pre>
@@ -18208,6 +18220,13 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>hide completed checklist?</td>
+</tr>
+<tr>
+<td>showListOnMinicard</td>
+<td>boolean|null</td>
+<td>false</td>
+<td>none</td>
+<td>show list name on minicard?</td>
 </tr>
 </tbody>
 </table>

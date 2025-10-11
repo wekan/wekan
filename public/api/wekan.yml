@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v8.00
+  version: v8.01
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2948,6 +2948,10 @@ definitions:
         description: |
            Does the board allows requested by?
         type: boolean
+      allowsShowListsOnMinicard:
+        description: |
+           Does the board allow showing list names on all minicards?
+        type: boolean
       allowsReceivedDate:
         description: |
            Does the board allows received date?
@@ -3058,6 +3062,7 @@ definitions:
       - allowsCardSortingByNumber
       - allowsShowLists
       - allowsAssignedBy
+      - allowsShowListsOnMinicard
       - allowsReceivedDate
       - allowsStartDate
       - allowsEndDate
@@ -3442,6 +3447,11 @@ definitions:
       hideFinishedChecklistIfItemsAreHidden:
         description: |
            hide completed checklist?
+        type: boolean
+        x-nullable: true
+      showListOnMinicard:
+        description: |
+           show list name on minicard?
         type: boolean
         x-nullable: true
     required:
