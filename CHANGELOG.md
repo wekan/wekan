@@ -25,6 +25,8 @@ This release adds the following new features:
 
 - [Made possible to start WeKan immediately without running any database migrations](https://github.com/wekan/wekan/commit/3ccdc2e3070978a79bc68941375122504318677d).
   Thanks to xet7.
+- [Add support for MongoDB 3-8, detecting which one is in use](https://github.com/wekan/wekan/commit/74ccfea5703b08b2166593d1bb8e1d981970cec0).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
