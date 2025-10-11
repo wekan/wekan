@@ -40,6 +40,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix count of Orgs Teams People at Admin Panel](https://github.com/wekan/wekan/commit/b77eed221f9e5fc657234a6de3e11c27f4de3d38).
   Thanks to xet7.
+- [Fixed attachments and minicard related bugs that prevented WeKan starting](https://github.com/wekan/wekan/commit/a86ff1e8d03d330a7ea0702cf3677859ed552509).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
