@@ -8,6 +8,7 @@ import path from 'path';
 import { AttachmentStoreStrategyFilesystem, AttachmentStoreStrategyGridFs, AttachmentStoreStrategyS3 } from '/models/lib/attachmentStoreStrategy';
 import FileStoreStrategyFactory, {moveToStorage, rename, STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3} from '/models/lib/fileStoreStrategy';
 import { getAttachmentWithBackwardCompatibility, getAttachmentsWithBackwardCompatibility } from './lib/attachmentBackwardCompatibility';
+import AttachmentStorageSettings from './attachmentStorageSettings';
 
 let attachmentUploadExternalProgram;
 let attachmentUploadMimeTypes = [];
@@ -110,7 +111,18 @@ Attachments = new FilesCollection({
     return true;
   },
   onAfterUpload(fileObj) {
-    // current storage is the filesystem, update object and database
+    // Get default storage backend from settings
+    let defaultStorage = STORAGE_NAME_FILESYSTEM;
+    try {
+      const settings = AttachmentStorageSettings.findOne({});
+      if (settings) {
+        defaultStorage = settings.getDefaultStorage();
+      }
+    } catch (error) {
+      console.warn('Could not get attachment storage settings, using default:', error);
+    }
+
+    // Set initial storage to filesystem (temporary)
     Object.keys(fileObj.versions).forEach(versionName => {
       fileObj.versions[versionName].storage = STORAGE_NAME_FILESYSTEM;
     });
@@ -119,8 +131,13 @@ Attachments = new FilesCollection({
     Attachments.update({ _id: fileObj._id }, { $set: { "versions" : fileObj.versions } });
     Attachments.update({ _id: fileObj.uploadedAtOstrio }, { $set: { "uploadedAtOstrio" : this._now } });
 
-    let storageDestination = fileObj.meta.copyStorage || STORAGE_NAME_GRIDFS;
-    Meteor.defer(() => Meteor.call('validateAttachmentAndMoveToStorage', fileObj._id, storageDestination));
+    // Use selected storage backend or copy storage if specified
+    let storageDestination = fileObj.meta.copyStorage || defaultStorage;
+    
+    // Only migrate if the destination is different from filesystem
+    if (storageDestination !== STORAGE_NAME_FILESYSTEM) {
+      Meteor.defer(() => Meteor.call('validateAttachmentAndMoveToStorage', fileObj._id, storageDestination));
+    }
   },
   interceptDownload(http, fileObj, versionName) {
     const ret = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).interceptDownload(http, this.cacheControl);

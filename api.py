@@ -39,6 +39,12 @@ If *nix:  chmod +x api.py => ./api.py users
     python3 api.py addcustomfieldtoboard AUTHORID BOARDID NAME TYPE SETTINGS SHOWONCARD AUTOMATICALLYONCARD SHOWLABELONMINICARD SHOWSUMATTOPOFLIST # Add Custom Field to Board
     python3 api.py editcustomfield BOARDID LISTID CARDID CUSTOMFIELDID NEWCUSTOMFIELDVALUE # Edit Custom Field
     python3 api.py listattachments BOARDID # List attachments
+    python3 api.py uploadattachment BOARDID SWIMLANEID LISTID CARDID FILEPATH [STORAGE_BACKEND] # Upload attachment to card
+    python3 api.py downloadattachment ATTACHMENTID OUTPUTPATH # Download attachment to local file
+    python3 api.py attachmentinfo ATTACHMENTID # Get attachment information
+    python3 api.py listcardattachments BOARDID SWIMLANEID LISTID CARDID # List attachments for specific card
+    python3 api.py copymoveattachment ATTACHMENTID TARGETBOARDID TARGETSWIMLANEID TARGETLISTID TARGETCARDID [copy|move] # Copy or move attachment
+    python3 api.py deleteattachment ATTACHMENTID # Delete attachment
     python3 api.py cardsbyswimlane SWIMLANEID LISTID # Retrieve cards list on a swimlane
     python3 api.py getcard BOARDID LISTID CARDID # Get card info
     python3 api.py addlabel BOARDID LISTID CARDID LABELID # Add label to a card
@@ -750,3 +756,273 @@ if arguments == 1:
         data2 = body.text.replace('}',"}\n")
         print(data2)
         # ------- LIST OF PUBLIC BOARDS END -----------
+
+# ------- NEW ATTACHMENT API ENDPOINTS START -----------
+
+    if sys.argv[1] == 'uploadattachment':
+        # ------- UPLOAD ATTACHMENT START -----------
+        if arguments < 5:
+            print("Usage: python3 api.py uploadattachment BOARDID SWIMLANEID LISTID CARDID FILEPATH [STORAGE_BACKEND]")
+            print("Storage backends: fs, gridfs, s3")
+            exit(1)
+        
+        boardid = sys.argv[2]
+        swimlaneid = sys.argv[3]
+        listid = sys.argv[4]
+        cardid = sys.argv[5]
+        filepath = sys.argv[6]
+        storage_backend = sys.argv[7] if arguments > 6 else None
+        
+        # Read file and convert to base64
+        try:
+            with open(filepath, 'rb') as f:
+                file_data = f.read()
+                import base64
+                base64_data = base64.b64encode(file_data).decode('utf-8')
+        except FileNotFoundError:
+            print(f"Error: File '{filepath}' not found")
+            exit(1)
+        except Exception as e:
+            print(f"Error reading file: {e}")
+            exit(1)
+        
+        # Get file info
+        import os
+        filename = os.path.basename(filepath)
+        import mimetypes
+        file_type = mimetypes.guess_type(filepath)[0] or 'application/octet-stream'
+        
+        # Prepare request data
+        upload_data = {
+            'boardId': boardid,
+            'swimlaneId': swimlaneid,
+            'listId': listid,
+            'cardId': cardid,
+            'fileData': base64_data,
+            'fileName': filename,
+            'fileType': file_type
+        }
+        
+        if storage_backend:
+            upload_data['storageBackend'] = storage_backend
+        
+        # Make API call
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        upload_url = wekanurl + 'api/attachment/upload'
+        
+        try:
+            response = requests.post(upload_url, headers=headers, json=upload_data)
+            response.raise_for_status()
+            result = response.json()
+            print(f"Upload successful!")
+            print(f"Attachment ID: {result.get('attachmentId')}")
+            print(f"File: {result.get('fileName')}")
+            print(f"Size: {result.get('fileSize')} bytes")
+            print(f"Storage: {result.get('storageBackend')}")
+        except requests.exceptions.RequestException as e:
+            print(f"Upload failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Response: {e.response.text}")
+        # ------- UPLOAD ATTACHMENT END -----------
+
+    if sys.argv[1] == 'downloadattachment':
+        # ------- DOWNLOAD ATTACHMENT START -----------
+        if arguments < 3:
+            print("Usage: python3 api.py downloadattachment ATTACHMENTID OUTPUTPATH")
+            exit(1)
+        
+        attachmentid = sys.argv[2]
+        outputpath = sys.argv[3]
+        
+        # Make API call
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        download_url = wekanurl + f'api/attachment/download/{attachmentid}'
+        
+        try:
+            response = requests.get(download_url, headers=headers)
+            response.raise_for_status()
+            result = response.json()
+            
+            if result.get('success'):
+                # Decode base64 data and save to file
+                import base64
+                file_data = base64.b64decode(result.get('base64Data'))
+                
+                with open(outputpath, 'wb') as f:
+                    f.write(file_data)
+                
+                print(f"Download successful!")
+                print(f"File saved to: {outputpath}")
+                print(f"Original filename: {result.get('fileName')}")
+                print(f"Size: {result.get('fileSize')} bytes")
+                print(f"Storage: {result.get('storageBackend')}")
+            else:
+                print(f"Download failed: {result.get('message', 'Unknown error')}")
+        except requests.exceptions.RequestException as e:
+            print(f"Download failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Response: {e.response.text}")
+        # ------- DOWNLOAD ATTACHMENT END -----------
+
+    if sys.argv[1] == 'attachmentinfo':
+        # ------- ATTACHMENT INFO START -----------
+        if arguments < 2:
+            print("Usage: python3 api.py attachmentinfo ATTACHMENTID")
+            exit(1)
+        
+        attachmentid = sys.argv[2]
+        
+        # Make API call
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        info_url = wekanurl + f'api/attachment/info/{attachmentid}'
+        
+        try:
+            response = requests.get(info_url, headers=headers)
+            response.raise_for_status()
+            result = response.json()
+            
+            if result.get('success'):
+                print("=== ATTACHMENT INFO ===")
+                print(f"Attachment ID: {result.get('attachmentId')}")
+                print(f"File Name: {result.get('fileName')}")
+                print(f"File Size: {result.get('fileSize')} bytes")
+                print(f"File Type: {result.get('fileType')}")
+                print(f"Storage Backend: {result.get('storageBackend')}")
+                print(f"Board ID: {result.get('boardId')}")
+                print(f"Swimlane ID: {result.get('swimlaneId')}")
+                print(f"List ID: {result.get('listId')}")
+                print(f"Card ID: {result.get('cardId')}")
+                print(f"Created At: {result.get('createdAt')}")
+                print(f"Is Image: {result.get('isImage')}")
+                print(f"Versions: {len(result.get('versions', []))}")
+            else:
+                print(f"Failed to get attachment info: {result.get('message', 'Unknown error')}")
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Response: {e.response.text}")
+        # ------- ATTACHMENT INFO END -----------
+
+    if sys.argv[1] == 'listcardattachments':
+        # ------- LIST CARD ATTACHMENTS START -----------
+        if arguments < 5:
+            print("Usage: python3 api.py listcardattachments BOARDID SWIMLANEID LISTID CARDID")
+            exit(1)
+        
+        boardid = sys.argv[2]
+        swimlaneid = sys.argv[3]
+        listid = sys.argv[4]
+        cardid = sys.argv[5]
+        
+        # Make API call
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        list_url = wekanurl + f'api/attachment/list/{boardid}/{swimlaneid}/{listid}/{cardid}'
+        
+        try:
+            response = requests.get(list_url, headers=headers)
+            response.raise_for_status()
+            result = response.json()
+            
+            if result.get('success'):
+                attachments = result.get('attachments', [])
+                print(f"=== CARD ATTACHMENTS ({len(attachments)}) ===")
+                for attachment in attachments:
+                    print(f"ID: {attachment.get('attachmentId')}")
+                    print(f"Name: {attachment.get('fileName')}")
+                    print(f"Size: {attachment.get('fileSize')} bytes")
+                    print(f"Type: {attachment.get('fileType')}")
+                    print(f"Storage: {attachment.get('storageBackend')}")
+                    print(f"Created: {attachment.get('createdAt')}")
+                    print("---")
+            else:
+                print(f"Failed to list attachments: {result.get('message', 'Unknown error')}")
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Response: {e.response.text}")
+        # ------- LIST CARD ATTACHMENTS END -----------
+
+    if sys.argv[1] == 'copymoveattachment':
+        # ------- COPY/MOVE ATTACHMENT START -----------
+        if arguments < 6:
+            print("Usage: python3 api.py copymoveattachment ATTACHMENTID TARGETBOARDID TARGETSWIMLANEID TARGETLISTID TARGETCARDID [copy|move]")
+            exit(1)
+        
+        attachmentid = sys.argv[2]
+        targetboardid = sys.argv[3]
+        targetswimlaneid = sys.argv[4]
+        targetlistid = sys.argv[5]
+        targetcardid = sys.argv[6]
+        operation = sys.argv[7] if arguments > 6 else 'copy'
+        
+        if operation not in ['copy', 'move']:
+            print("Operation must be 'copy' or 'move'")
+            exit(1)
+        
+        # Prepare request data
+        request_data = {
+            'attachmentId': attachmentid,
+            'targetBoardId': targetboardid,
+            'targetSwimlaneId': targetswimlaneid,
+            'targetListId': targetlistid,
+            'targetCardId': targetcardid
+        }
+        
+        # Make API call
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey), 'Content-Type': 'application/json'}
+        api_url = wekanurl + f'api/attachment/{operation}'
+        
+        try:
+            response = requests.post(api_url, headers=headers, json=request_data)
+            response.raise_for_status()
+            result = response.json()
+            
+            if result.get('success'):
+                print(f"{operation.capitalize()} successful!")
+                if operation == 'copy':
+                    print(f"Source Attachment ID: {result.get('sourceAttachmentId')}")
+                    print(f"New Attachment ID: {result.get('newAttachmentId')}")
+                else:
+                    print(f"Attachment ID: {result.get('attachmentId')}")
+                    print(f"Source Board: {result.get('sourceBoardId')}")
+                    print(f"Target Board: {result.get('targetBoardId')}")
+                print(f"File: {result.get('fileName')}")
+                print(f"Size: {result.get('fileSize')} bytes")
+            else:
+                print(f"{operation.capitalize()} failed: {result.get('message', 'Unknown error')}")
+        except requests.exceptions.RequestException as e:
+            print(f"{operation.capitalize()} failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Response: {e.response.text}")
+        # ------- COPY/MOVE ATTACHMENT END -----------
+
+    if sys.argv[1] == 'deleteattachment':
+        # ------- DELETE ATTACHMENT START -----------
+        if arguments < 2:
+            print("Usage: python3 api.py deleteattachment ATTACHMENTID")
+            exit(1)
+        
+        attachmentid = sys.argv[2]
+        
+        # Make API call
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        delete_url = wekanurl + f'api/attachment/delete/{attachmentid}'
+        
+        try:
+            response = requests.delete(delete_url, headers=headers)
+            response.raise_for_status()
+            result = response.json()
+            
+            if result.get('success'):
+                print("Delete successful!")
+                print(f"Attachment ID: {result.get('attachmentId')}")
+                print(f"File: {result.get('fileName')}")
+            else:
+                print(f"Delete failed: {result.get('message', 'Unknown error')}")
+        except requests.exceptions.RequestException as e:
+            print(f"Delete failed: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Response: {e.response.text}")
+        # ------- DELETE ATTACHMENT END -----------
+
+# ------- NEW ATTACHMENT API ENDPOINTS END -----------
