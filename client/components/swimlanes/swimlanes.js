@@ -104,8 +104,8 @@ function initSortable(boardComponent, $listsDom) {
         }
       }
 
-      // Get the original swimlane ID of the list
-      const originalSwimlaneId = list.swimlaneId;
+      // Get the original swimlane ID of the list (handle backward compatibility)
+      const originalSwimlaneId = list.getEffectiveSwimlaneId ? list.getEffectiveSwimlaneId() : (list.swimlaneId || null);
 
       /*
             Reverted incomplete change list width,

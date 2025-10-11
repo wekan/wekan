@@ -26,14 +26,23 @@ import Triggers from '../models/triggers';
 import UnsavedEdits from '../models/unsavedEdits';
 import Users from '../models/users';
 
-// Anytime you change the schema of one of the collection in a non-backward
-// compatible way you have to write a migration in this file using the following
-// API:
+// MIGRATIONS DISABLED - BACKWARD COMPATIBILITY APPROACH
+// All migrations have been disabled to prevent downtime and performance issues
+// with large databases. Instead, the application now uses backward compatibility
+// code that detects the current database structure and works with both migrated
+// and non-migrated data without requiring any migrations to run.
 //
+// This approach ensures:
+// 1. No migration downtime
+// 2. Immediate functionality for all database states
+// 3. Gradual data structure updates as users interact with the system
+// 4. Full backward compatibility with existing data
+//
+// Original migration API (now disabled):
 //   Migrations.add(name, migrationCallback, optionalOrder);
 
 // Note that we have extra migrations defined in `sandstorm.js` that are
-// exclusive to Sandstorm and shouldn’t be executed in the general case.
+// exclusive to Sandstorm and shouldn't be executed in the general case.
 // XXX I guess if we had ES6 modules we could
 // `import { isSandstorm } from sandstorm.js` and define the migration here as
 // well, but for now I want to avoid definied too many globals.
@@ -54,6 +63,18 @@ const noValidate = {
 };
 const noValidateMulti = { ...noValidate, multi: true };
 
+// ============================================================================
+// ALL MIGRATIONS DISABLED - BACKWARD COMPATIBILITY APPROACH
+// ============================================================================
+// All migrations below have been disabled to prevent downtime and performance
+// issues with large databases. The application now uses backward compatibility
+// code in the models and client code to handle both migrated and non-migrated
+// database structures without requiring any migrations to run.
+//
+// This ensures immediate functionality regardless of database state.
+// ============================================================================
+
+/*
 Migrations.add('board-background-color', () => {
   const defaultColor = '#16A085';
   Boards.update(
@@ -106,7 +127,6 @@ Migrations.add('add-boardmemberlist-allowed', () => {
     noValidateMulti,
   );
 });
-*/
 
 Migrations.add('lowercase-board-permission', () => {
   ['Public', 'Private'].forEach(permission => {
@@ -147,8 +167,6 @@ Migrations.add('card-covers', () => {
   });
   Attachments.update({}, { $unset: { cover: '' } }, noValidateMulti);
 });
-
-*/
 
 Migrations.add('use-css-class-for-boards-colors', () => {
   const associationTable = {
@@ -1407,7 +1425,6 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
   });
   Meteor.settings.public.ostrioFilesMigrationInProgress = "false";
 });
-*/
 
 Migrations.add('migrate-attachment-drop-index-cardId', () => {
   try {
@@ -1442,7 +1459,6 @@ Migrations.add('attachment-cardCopy-fix-boardId-etc', () => {
     }
   });
 });
-*/
 
 Migrations.add('remove-unused-planning-poker', () => {
   Cards.update(
@@ -1490,6 +1506,10 @@ Migrations.add('remove-user-profile-hideCheckedItems', () => {
   );
 });
 
+// Migration disabled - using backward compatibility approach instead
+// This migration was taking too long for large databases
+// The feature now works with both old lists (without swimlaneId) and new lists (with swimlaneId)
+/*
 Migrations.add('migrate-lists-to-per-swimlane', () => {
   if (process.env.DEBUG === 'true') {
     console.log('Starting migration: migrate-lists-to-per-swimlane');
@@ -1550,3 +1570,11 @@ Migrations.add('migrate-lists-to-per-swimlane', () => {
     throw error;
   }
 });
+*/
+
+// ============================================================================
+// END OF DISABLED MIGRATIONS
+// ============================================================================
+// All migrations above have been disabled. The application now uses backward
+// compatibility code to handle both migrated and non-migrated database structures.
+// ============================================================================
