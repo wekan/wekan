@@ -28,5 +28,11 @@ if (errors.length > 0) {
 // Import migration runner for on-demand migrations
 import './migrationRunner';
 
+// Import cron job storage for persistent job tracking
+import './cronJobStorage';
+
+// Import board migration detector for automatic board migrations
+import './boardMigrationDetector';
+
 // Import cron migration manager for cron-based migrations
 import './cronMigrationManager';

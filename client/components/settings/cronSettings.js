@@ -25,6 +25,9 @@ Template.cronSettings.onCreated(function() {
   this.boardOperations = new ReactiveVar([]);
   this.operationStats = new ReactiveVar({});
   this.pagination = new ReactiveVar({});
+  this.queueStats = new ReactiveVar({});
+  this.systemResources = new ReactiveVar({});
+  this.boardMigrationStats = new ReactiveVar({});
 
   // Load initial data
   this.loadCronData();
@@ -92,6 +95,18 @@ Template.cronSettings.helpers({
 
   pagination() {
     return Template.instance().pagination.get();
+  },
+
+  queueStats() {
+    return Template.instance().queueStats.get();
+  },
+
+  systemResources() {
+    return Template.instance().systemResources.get();
+  },
+
+  boardMigrationStats() {
+    return Template.instance().boardMigrationStats.get();
   },
 
   formatDateTime(date) {
@@ -365,6 +380,20 @@ Template.cronSettings.events({
     const operationId = $(event.currentTarget).data('operation');
     // Implementation for viewing operation details
     console.log('View details for operation:', operationId);
+  },
+
+  'click .js-force-board-scan'(event) {
+    event.preventDefault();
+    Meteor.call('cron.forceBoardMigrationScan', (error, result) => {
+      if (error) {
+        console.error('Failed to force board scan:', error);
+        alert('Failed to force board scan: ' + error.message);
+      } else {
+        console.log('Board scan started successfully');
+        // Refresh the data
+        Template.instance().loadBoardOperations();
+      }
+    });
   }
 });
 
@@ -422,6 +451,27 @@ Template.cronSettings.prototype.loadBoardOperations = function() {
   Meteor.call('cron.getBoardOperationStats', (error, result) => {
     if (result) {
       instance.operationStats.set(result);
+    }
+  });
+
+  // Load queue stats
+  Meteor.call('cron.getQueueStats', (error, result) => {
+    if (result) {
+      instance.queueStats.set(result);
+    }
+  });
+
+  // Load system resources
+  Meteor.call('cron.getSystemResources', (error, result) => {
+    if (result) {
+      instance.systemResources.set(result);
+    }
+  });
+
+  // Load board migration stats
+  Meteor.call('cron.getBoardMigrationStats', (error, result) => {
+    if (result) {
+      instance.boardMigrationStats.set(result);
     }
   });
 };

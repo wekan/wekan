@@ -107,6 +107,9 @@ template(name="cronBoardOperations")
         button.btn.btn-primary.js-start-test-operation
           i.fa.fa-play
           | {{_ 'start-test-operation'}}
+        button.btn.btn-info.js-force-board-scan
+          i.fa.fa-search
+          | {{_ 'force-board-scan'}}
     
     .board-operations-stats
       .stats-grid
@@ -122,6 +125,33 @@ template(name="cronBoardOperations")
         .stat-item
           .stat-value {{operationStats.error}}
           .stat-label {{_ 'errors'}}
+        .stat-item
+          .stat-value {{queueStats.pending}}
+          .stat-label {{_ 'pending'}}
+        .stat-item
+          .stat-value {{queueStats.maxConcurrent}}
+          .stat-label {{_ 'max-concurrent'}}
+        .stat-item
+          .stat-value {{boardMigrationStats.unmigratedCount}}
+          .stat-label {{_ 'unmigrated-boards'}}
+        .stat-item
+          .stat-value {{boardMigrationStats.isScanning}}
+          .stat-label {{_ 'scanning-status'}}
+    
+    .system-resources
+      .resource-item
+        .resource-label {{_ 'cpu-usage'}}
+        .resource-bar
+          .resource-fill(style="width: {{systemResources.cpuUsage}}%")
+        .resource-value {{systemResources.cpuUsage}}%
+      .resource-item
+        .resource-label {{_ 'memory-usage'}}
+        .resource-bar
+          .resource-fill(style="width: {{systemResources.memoryUsage}}%")
+        .resource-value {{systemResources.memoryUsage}}%
+      .resource-item
+        .resource-label {{_ 'cpu-cores'}}
+        .resource-value {{systemResources.cpuCores}}
     
     .board-operations-search
       .search-box
