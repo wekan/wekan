@@ -624,7 +624,7 @@ class MigrationManager {
   }
 
   /**
-   * Start migration process
+   * Start migration process using cron system
    */
   async startMigration() {
     if (isMigrating.get()) {
@@ -636,17 +636,17 @@ class MigrationManager {
     this.startTime = Date.now();
 
     try {
-      // Start server-side migration
-      Meteor.call('migration.start', (error, result) => {
+      // Start server-side cron migrations
+      Meteor.call('cron.startAllMigrations', (error, result) => {
         if (error) {
-          console.error('Failed to start migration:', error);
+          console.error('Failed to start cron migrations:', error);
           migrationStatus.set(`Migration failed: ${error.message}`);
           isMigrating.set(false);
         }
       });
 
       // Poll for progress updates
-      this.pollMigrationProgress();
+      this.pollCronMigrationProgress();
 
     } catch (error) {
       console.error('Migration failed:', error);
@@ -656,13 +656,13 @@ class MigrationManager {
   }
 
   /**
-   * Poll for migration progress updates
+   * Poll for cron migration progress updates
    */
-  pollMigrationProgress() {
+  pollCronMigrationProgress() {
     const pollInterval = setInterval(() => {
-      Meteor.call('migration.getProgress', (error, result) => {
+      Meteor.call('cron.getMigrationProgress', (error, result) => {
         if (error) {
-          console.error('Failed to get migration progress:', error);
+          console.error('Failed to get cron migration progress:', error);
           clearInterval(pollInterval);
           return;
         }

@@ -12,3 +12,6 @@ import '/imports/components/boardConversionProgress';
 // Import migration manager and progress UI
 import '/imports/lib/migrationManager';
 import '/imports/components/migrationProgress';
+
+// Import cron settings
+import '/imports/components/settings/cronSettings';

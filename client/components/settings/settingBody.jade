@@ -46,6 +46,10 @@ template(name="setting")
               a.js-setting-menu(data-id="attachment-settings")
                 i.fa.fa-paperclip
                 | {{_ 'attachment-settings'}}
+            li
+              a.js-setting-menu(data-id="cron-settings")
+                i.fa.fa-clock-o
+                | {{_ 'cron-settings'}}
         .main-body
           if loading.get
             +spinner
@@ -68,6 +72,8 @@ template(name="setting")
             +webhookSettings
           else if attachmentSettings.get
             +attachmentSettings
+          else if cronSettings.get
+            +cronSettings
 
 template(name="webhookSettings")
   span

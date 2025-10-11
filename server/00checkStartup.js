@@ -27,3 +27,6 @@ if (errors.length > 0) {
 
 // Import migration runner for on-demand migrations
 import './migrationRunner';
+
+// Import cron migration manager for cron-based migrations
+import './cronMigrationManager';

@@ -1,0 +1,271 @@
+template(name="cronSettings")
+  .setting-content.cron-settings-content
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-body
+        .side-menu
+          ul
+            li
+              a.js-cron-migrations(data-id="cron-migrations")
+                i.fa.fa-database
+                | {{_ 'cron-migrations'}}
+            li
+              a.js-cron-board-operations(data-id="cron-board-operations")
+                i.fa.fa-tasks
+                | {{_ 'board-operations'}}
+            li
+              a.js-cron-jobs(data-id="cron-jobs")
+                i.fa.fa-clock-o
+                | {{_ 'cron-jobs'}}
+            li
+              a.js-cron-add(data-id="cron-add")
+                i.fa.fa-plus
+                | {{_ 'add-cron-job'}}
+
+        .main-body
+          if loading.get
+            +spinner
+          else if showMigrations.get
+            +cronMigrations
+          else if showBoardOperations.get
+            +cronBoardOperations
+          else if showJobs.get
+            +cronJobs
+          else if showAddJob.get
+            +cronAddJob
+
+template(name="cronMigrations")
+  .cron-migrations
+    .migration-header
+      h2
+        i.fa.fa-database
+        | {{_ 'database-migrations'}}
+      .migration-controls
+        button.btn.btn-primary.js-start-all-migrations
+          i.fa.fa-play
+          | {{_ 'start-all-migrations'}}
+        button.btn.btn-warning.js-pause-all-migrations
+          i.fa.fa-pause
+          | {{_ 'pause-all-migrations'}}
+        button.btn.btn-danger.js-stop-all-migrations
+          i.fa.fa-stop
+          | {{_ 'stop-all-migrations'}}
+    
+    .migration-progress
+      .progress-overview
+        .progress-bar
+          .progress-fill(style="width: {{migrationProgress}}%")
+        .progress-text {{migrationProgress}}%
+        .progress-label {{_ 'overall-progress'}}
+      
+      .current-step
+        i.fa.fa-cog.fa-spin
+        | {{migrationCurrentStep}}
+      
+      .migration-status
+        i.fa.fa-info-circle
+        | {{migrationStatus}}
+    
+    .migration-steps
+      h3 {{_ 'migration-steps'}}
+      .steps-list
+        each migrationSteps
+          .migration-step(class="{{#if completed}}completed{{/if}}" class="{{#if isCurrentStep}}current{{/if}}")
+            .step-header
+              .step-icon
+                if completed
+                  i.fa.fa-check-circle
+                else if isCurrentStep
+                  i.fa.fa-cog.fa-spin
+                else
+                  i.fa.fa-circle-o
+              .step-info
+                .step-name {{name}}
+                .step-description {{description}}
+              .step-progress
+                if completed
+                  .progress-text 100%
+                else if isCurrentStep
+                  .progress-text {{progress}}%
+                else
+                  .progress-text 0%
+            if isCurrentStep
+              .step-progress-bar
+                .progress-fill(style="width: {{progress}}%")
+
+template(name="cronBoardOperations")
+  .cron-board-operations
+    .board-operations-header
+      h2
+        i.fa.fa-tasks
+        | {{_ 'board-operations'}}
+      .board-operations-controls
+        button.btn.btn-success.js-refresh-board-operations
+          i.fa.fa-refresh
+          | {{_ 'refresh'}}
+        button.btn.btn-primary.js-start-test-operation
+          i.fa.fa-play
+          | {{_ 'start-test-operation'}}
+    
+    .board-operations-stats
+      .stats-grid
+        .stat-item
+          .stat-value {{operationStats.total}}
+          .stat-label {{_ 'total-operations'}}
+        .stat-item
+          .stat-value {{operationStats.running}}
+          .stat-label {{_ 'running'}}
+        .stat-item
+          .stat-value {{operationStats.completed}}
+          .stat-label {{_ 'completed'}}
+        .stat-item
+          .stat-value {{operationStats.error}}
+          .stat-label {{_ 'errors'}}
+    
+    .board-operations-search
+      .search-box
+        input.form-control.js-search-board-operations(type="text" placeholder="{{_ 'search-boards-or-operations'}}")
+        i.fa.fa-search.search-icon
+    
+    .board-operations-list
+      .operations-header
+        h3 {{_ 'board-operations'}} ({{pagination.total}})
+        .pagination-info
+          | {{_ 'showing'}} {{pagination.start}} - {{pagination.end}} {{_ 'of'}} {{pagination.total}}
+      
+      .operations-table
+        table.table.table-striped
+          thead
+            tr
+              th {{_ 'board-id'}}
+              th {{_ 'operation-type'}}
+              th {{_ 'status'}}
+              th {{_ 'progress'}}
+              th {{_ 'start-time'}}
+              th {{_ 'duration'}}
+              th {{_ 'actions'}}
+          tbody
+            each boardOperations
+              tr
+                td
+                  .board-id {{boardId}}
+                td
+                  .operation-type {{operationType}}
+                td
+                  span.status-badge(class="status-{{status}}") {{status}}
+                td
+                  .progress-container
+                    .progress-bar
+                      .progress-fill(style="width: {{progress}}%")
+                    .progress-text {{progress}}%
+                td {{formatDateTime startTime}}
+                td {{formatDuration startTime endTime}}
+                td
+                  .btn-group
+                    if isRunning
+                      button.btn.btn-sm.btn-warning.js-pause-operation(data-operation="{{id}}")
+                        i.fa.fa-pause
+                    else
+                      button.btn.btn-sm.btn-success.js-resume-operation(data-operation="{{id}}")
+                        i.fa.fa-play
+                    button.btn.btn-sm.btn-danger.js-stop-operation(data-operation="{{id}}")
+                      i.fa.fa-stop
+                    button.btn.btn-sm.btn-info.js-view-details(data-operation="{{id}}")
+                      i.fa.fa-info-circle
+      
+      .pagination
+        if pagination.hasPrev
+          button.btn.btn-sm.btn-default.js-prev-page
+            i.fa.fa-chevron-left
+            | {{_ 'previous'}}
+        .page-info
+          | {{_ 'page'}} {{pagination.page}} {{_ 'of'}} {{pagination.totalPages}}
+        if pagination.hasNext
+          button.btn.btn-sm.btn-default.js-next-page
+            | {{_ 'next'}}
+            i.fa.fa-chevron-right
+
+template(name="cronJobs")
+  .cron-jobs
+    .jobs-header
+      h2
+        i.fa.fa-clock-o
+        | {{_ 'cron-jobs'}}
+      .jobs-controls
+        button.btn.btn-success.js-refresh-jobs
+          i.fa.fa-refresh
+          | {{_ 'refresh'}}
+    
+    .jobs-list
+      table.table.table-striped
+        thead
+          tr
+            th {{_ 'job-name'}}
+            th {{_ 'schedule'}}
+            th {{_ 'status'}}
+            th {{_ 'last-run'}}
+            th {{_ 'next-run'}}
+            th {{_ 'actions'}}
+        tbody
+          each cronJobs
+            tr
+              td {{name}}
+              td {{schedule}}
+              td
+                span.status-badge(class="status-{{status}}") {{status}}
+              td {{formatDate lastRun}}
+              td {{formatDate nextRun}}
+              td
+                .btn-group
+                  if isRunning
+                    button.btn.btn-sm.btn-warning.js-pause-job(data-job="{{name}}")
+                      i.fa.fa-pause
+                  else
+                    button.btn.btn-sm.btn-success.js-start-job(data-job="{{name}}")
+                      i.fa.fa-play
+                  button.btn.btn-sm.btn-danger.js-stop-job(data-job="{{name}}")
+                    i.fa.fa-stop
+                  button.btn.btn-sm.btn-danger.js-remove-job(data-job="{{name}}")
+                    i.fa.fa-trash
+
+template(name="cronAddJob")
+  .cron-add-job
+    .add-job-header
+      h2
+        i.fa.fa-plus
+        | {{_ 'add-cron-job'}}
+    
+    .add-job-form
+      form.js-add-cron-job-form
+        .form-group
+          label(for="job-name") {{_ 'job-name'}}
+          input.form-control#job-name(type="text" name="name" required)
+        
+        .form-group
+          label(for="job-description") {{_ 'job-description'}}
+          textarea.form-control#job-description(name="description" rows="3")
+        
+        .form-group
+          label(for="job-schedule") {{_ 'schedule'}}
+          select.form-control#job-schedule(name="schedule")
+            option(value="every 1 minute") {{_ 'every-1-minute'}}
+            option(value="every 5 minutes") {{_ 'every-5-minutes'}}
+            option(value="every 10 minutes") {{_ 'every-10-minutes'}}
+            option(value="every 30 minutes") {{_ 'every-30-minutes'}}
+            option(value="every 1 hour") {{_ 'every-1-hour'}}
+            option(value="every 6 hours") {{_ 'every-6-hours'}}
+            option(value="every 1 day") {{_ 'every-1-day'}}
+            option(value="once") {{_ 'run-once'}}
+        
+        .form-group
+          label(for="job-weight") {{_ 'weight'}}
+          input.form-control#job-weight(type="number" name="weight" value="1" min="1" max="10")
+        
+        .form-actions
+          button.btn.btn-primary(type="submit")
+            i.fa.fa-plus
+            | {{_ 'add-job'}}
+          button.btn.btn-default.js-cancel-add-job
+            i.fa.fa-times
+            | {{_ 'cancel'}}
