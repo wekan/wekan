@@ -1,12 +1,13 @@
 {
-  "editor.tabSize": 2,
-  "editor.rulers": [80],
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "files.exclude": {
-    "**/.git": true,
-    "**/.DS_Store": true,
-    "node_modules": true,
-    ".meteor/local": true
-  }
+  "terminal.integrated.env.linux": {
+    "TERM": "xterm-256color"
+  },
+  "terminal.integrated.env.osx": {
+    "TERM": "xterm-256color"
+  },
+  "terminal.integrated.env.windows": {
+    "TERM": "xterm-256color"
+  },
+  "terminal.integrated.shell.linux": "/bin/bash",
+  "terminal.integrated.shellArgs.linux": ["-l"]
 }

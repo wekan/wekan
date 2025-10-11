@@ -20,14 +20,17 @@ TEMP_DIR="${SNAP_COMMON}/mongodb-migration-temp"
 BACKUP_DIR="${SNAP_COMMON}/mongodb-backup-$(date +%Y%m%d-%H%M%S)"
 
 # MongoDB paths
-MONGO3_BIN="/snap/${SNAP_NAME}/current/bin"
-MONGO7_BIN="/snap/${SNAP_NAME}/current/usr/bin"
-MONGO3_LIB="/snap/${SNAP_NAME}/current/lib"
-MONGO7_LIB="/snap/${SNAP_NAME}/current/lib"
+MONGO3_BIN="/snap/${SNAP_NAME}/current/migratemongo/bin"
+MONGO7_BIN="/snap/${SNAP_NAME}/current/bin"
+MONGO3_LIB="/snap/${SNAP_NAME}/current/migratemongo/lib"
+MONGO7_LIB="/snap/${SNAP_NAME}/current/usr/lib"
 
 # Set up environment for MongoDB 3 tools
 export LD_LIBRARY_PATH="${MONGO3_LIB}:${MONGO3_LIB}/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
 export PATH="${MONGO3_BIN}:${MONGO7_BIN}:${PATH}"
+
+# Set MongoDB log destination to snapcommon for log file detection
+export MONGO_LOG_DESTINATION="snapcommon"
 
 # Validate that all operations are within SNAP_COMMON
 validate_snap_common_path() {
@@ -209,9 +212,9 @@ check_migration_needed() {
         return 0
     fi
 
-    # Check for MongoDB 3 raw database files
-    if detect_mongodb3_raw_files; then
-        log_message "MongoDB 3 raw database files detected"
+    # Check for MongoDB upgrade needed by examining log file
+    if detect_mongodb_upgrade_needed; then
+        log_message "MongoDB upgrade needed detected from log file"
         return 0
     fi
 
@@ -219,54 +222,43 @@ check_migration_needed() {
     return 1
 }
 
-# Detect MongoDB 3 raw database files
-detect_mongodb3_raw_files() {
-    # Look for MongoDB 3 specific files and directories
-    local mongodb3_indicators=(
-        "${SNAP_COMMON}/local.0"
-        "${SNAP_COMMON}/local.ns"
-        "${SNAP_COMMON}/local.1"
-        "${SNAP_COMMON}/wekan.0"
-        "${SNAP_COMMON}/wekan.ns"
-        "${SNAP_COMMON}/wekan.1"
-        "${SNAP_COMMON}/storage.bson"
-        "${SNAP_COMMON}/_tmp"
-    )
-
-    # Check for MongoDB 3 journal files
-    local journal_files=(
-        "${SNAP_COMMON}/journal"
-        "${SNAP_COMMON}/j._0"
-    )
-
-    # Check for MongoDB 3 lock file
-    if [ -f "${SNAP_COMMON}/mongod.lock" ]; then
-        log_message "MongoDB lock file found, checking for MongoDB 3 data"
-
-        # Check if any MongoDB 3 indicators exist
-        for indicator in "${mongodb3_indicators[@]}"; do
-            if [ -e "$indicator" ]; then
-                log_message "MongoDB 3 indicator found: $indicator"
-                return 0
-            fi
-        done
-
-        # Check for journal files
-        for journal in "${journal_files[@]}"; do
-            if [ -e "$journal" ]; then
-                log_message "MongoDB journal file found: $journal"
-                return 0
-            fi
-        done
-
-        # Check for any .0, .1, .ns files (MongoDB 3 data files)
-        if find "${SNAP_COMMON}" -maxdepth 1 -name "*.0" -o -name "*.1" -o -name "*.ns" | grep -q .; then
-            log_message "MongoDB 3 data files found"
-            return 0
-        fi
+# Detect if MongoDB upgrade is needed by checking log file
+detect_mongodb_upgrade_needed() {
+    local mongodb_log="${SNAP_COMMON}/mongodb.log"
+    
+    # Check if MongoDB log file exists
+    if [ ! -f "$mongodb_log" ]; then
+        log_message "MongoDB log file not found: $mongodb_log"
+        return 1
     fi
-
+    
+    # Check for the specific error message indicating upgrade is needed
+    if grep -q "This version of MongoDB is too recent to start up on the existing data files. Try MongoDB 4.2 or earlier." "$mongodb_log"; then
+        log_message "MongoDB upgrade needed detected in log file"
+        return 0
+    fi
+    
+    # Also check for similar error messages that might indicate upgrade issues
+    if grep -q "too recent to start up on the existing data files" "$mongodb_log"; then
+        log_message "MongoDB upgrade needed detected in log file (alternative message)"
+        return 0
+    fi
+    
+    log_message "No MongoDB upgrade needed detected in log file"
     return 1
+}
+
+# Reset MONGO_LOG_DESTINATION to devnull after successful migration
+reset_mongo_log_destination() {
+    log_message "Resetting MONGO_LOG_DESTINATION to devnull after successful migration"
+    
+    # Use snap set to change the setting back to devnull
+    if snap set wekan mongo-log-destination="devnull" 2>/dev/null; then
+        log_success "MONGO_LOG_DESTINATION reset to devnull successfully"
+    else
+        log_error "Failed to reset MONGO_LOG_DESTINATION to devnull"
+        # Don't fail the migration for this setting issue
+    fi
 }
 
 # Migrate raw MongoDB 3 database files
@@ -372,6 +364,10 @@ migrate_raw_database_files() {
     fi
 
     log_success "Raw database files migration completed successfully"
+    
+    # Reset MONGO_LOG_DESTINATION to devnull after successful migration
+    reset_mongo_log_destination
+    
     return 0
 }
 
@@ -508,8 +504,8 @@ perform_migration() {
     mkdir -p "$TEMP_DIR"
 
     # Check if we need to migrate raw database files
-    if detect_mongodb3_raw_files; then
-        log_message "Raw MongoDB 3 database files detected, starting raw file migration"
+    if detect_mongodb_upgrade_needed; then
+        log_message "MongoDB upgrade needed detected, starting raw file migration"
         if ! migrate_raw_database_files; then
             log_error "Failed to migrate raw database files"
             return 1
@@ -575,6 +571,10 @@ EOF
     fi
 
     log_success "MongoDB migration completed successfully"
+    
+    # Reset MONGO_LOG_DESTINATION to devnull after successful migration
+    reset_mongo_log_destination
+    
     return 0
 }
 
