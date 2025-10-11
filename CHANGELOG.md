@@ -27,11 +27,14 @@ This release adds the following new features:
   Thanks to xet7.
 - [Add support for MongoDB 3-8, detecting which one is in use](https://github.com/wekan/wekan/commit/74ccfea5703b08b2166593d1bb8e1d981970cec0).
   Thanks to xet7.
+- [Added attachments API and admin panel attachment management for file storage backends settings. Fixed drag drop upload attachments from file manager to minicard or opened card](https://github.com/wekan/wekan/commit/ae1f80a52cde09689dddb1209708630b4949b7ee).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Fixed attachments migrations at Admin Panel to not use too much CPU while migrating attachments](https://github.com/wekan/wekan/commit/d59683eff1267ff87a6aef9ae36c7aebbe10eaa1).
   Thanks to xet7.
+
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
