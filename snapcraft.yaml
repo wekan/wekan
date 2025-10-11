@@ -13,6 +13,15 @@ description: |
 confinement: strict
 grade: stable
 
+# Metadata fields
+title: Wekan
+contact: https://github.com/wekan/wekan/issues
+license: MIT
+donation: https://wekan.fi/commercial-support/
+issues: https://github.com/wekan/wekan/issues
+source-code: https://github.com/wekan/wekan
+website: https://wekan.fi
+
 # Use platforms instead of architectures for core24 base
 platforms:
   amd64:
