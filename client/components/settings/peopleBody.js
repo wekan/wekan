@@ -203,26 +203,35 @@ BlazeComponent.extendComponent({
     this.loading.set(w);
   },
   orgList() {
+    const limitOrgs = this.page.get() * orgsPerPage;
     const orgs = ReactiveCache.getOrgs(this.findOrgsOptions.get(), {
       sort: { orgDisplayName: 1 },
+      limit: limitOrgs,
       fields: { _id: true },
     });
+    // Count only the items currently loaded to browser, not total from database
     this.numberOrgs.set(orgs.length);
     return orgs;
   },
   teamList() {
+    const limitTeams = this.page.get() * teamsPerPage;
     const teams = ReactiveCache.getTeams(this.findTeamsOptions.get(), {
       sort: { teamDisplayName: 1 },
+      limit: limitTeams,
       fields: { _id: true },
     });
+    // Count only the items currently loaded to browser, not total from database
     this.numberTeams.set(teams.length);
     return teams;
   },
   peopleList() {
+    const limitUsers = this.page.get() * usersPerPage;
     const users = ReactiveCache.getUsers(this.findUsersOptions.get(), {
       sort: { username: 1 },
+      limit: limitUsers,
       fields: { _id: true },
     });
+    // Count only the items currently loaded to browser, not total from database
     this.numberPeople.set(users.length);
     return users;
   },
