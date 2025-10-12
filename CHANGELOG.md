@@ -36,6 +36,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix opening sidebar](https://github.com/wekan/wekan/commit/0fd781e80aaf841c26ce59caffc579b9c391330f).
   Thanks to xet7.
+- [Fix Admin Panel menus "Attachment Settings" and "Cron Settings" and make them translateable](https://github.com/wekan/wekan/commit/033919a2702fa6959b8f8c87f076d3f255ace6ba).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
