@@ -331,6 +331,19 @@ Boards.attachSchema(
       optional: true,
       defaultValue: null,
     },
+    migrationVersion: {
+      /**
+       * The migration version of the board structure.
+       * New boards are created with the latest version and don't need migration.
+       */
+      type: Number,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert && !this.isSet) {
+          return 1; // Latest migration version for new boards
+        }
+      },
+    },
 
     subtasksDefaultListId: {
       /**
@@ -2196,6 +2209,7 @@ if (Meteor.isServer) {
         ],
         permission: req.body.permission || 'private',
         color: req.body.color || 'belize',
+        migrationVersion: 1, // Latest version - no migration needed
       });
       const swimlaneId = Swimlanes.insert({
         title: TAPi18n.__('default'),

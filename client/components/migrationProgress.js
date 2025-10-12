@@ -1,30 +1,38 @@
 import { Template } from 'meteor/templating';
-import { migrationManager } from '/imports/lib/migrationManager';
+import { 
+  migrationManager,
+  isMigrating,
+  migrationProgress,
+  migrationStatus,
+  migrationCurrentStep,
+  migrationEstimatedTime,
+  migrationSteps
+} from '/client/lib/migrationManager';
 
 Template.migrationProgress.helpers({
   isMigrating() {
-    return migrationManager.isMigrating.get();
+    return isMigrating.get();
   },
   
   migrationProgress() {
-    return migrationManager.migrationProgress.get();
+    return migrationProgress.get();
   },
   
   migrationStatus() {
-    return migrationManager.migrationStatus.get();
+    return migrationStatus.get();
   },
   
   migrationCurrentStep() {
-    return migrationManager.migrationCurrentStep.get();
+    return migrationCurrentStep.get();
   },
   
   migrationEstimatedTime() {
-    return migrationManager.migrationEstimatedTime.get();
+    return migrationEstimatedTime.get();
   },
   
   migrationSteps() {
-    const steps = migrationManager.migrationSteps.get();
-    const currentStep = migrationManager.migrationCurrentStep.get();
+    const steps = migrationSteps.get();
+    const currentStep = migrationCurrentStep.get();
     
     return steps.map(step => ({
       ...step,
@@ -36,11 +44,11 @@ Template.migrationProgress.helpers({
 Template.migrationProgress.onCreated(function() {
   // Subscribe to migration state changes
   this.autorun(() => {
-    migrationManager.isMigrating.get();
-    migrationManager.migrationProgress.get();
-    migrationManager.migrationStatus.get();
-    migrationManager.migrationCurrentStep.get();
-    migrationManager.migrationEstimatedTime.get();
-    migrationManager.migrationSteps.get();
+    isMigrating.get();
+    migrationProgress.get();
+    migrationStatus.get();
+    migrationCurrentStep.get();
+    migrationEstimatedTime.get();
+    migrationSteps.get();
   });
 });

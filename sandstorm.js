@@ -359,9 +359,12 @@ if (isSandstorm && Meteor.isServer) {
   // Meteor application. We need to enforce “public” visibility as the sharing
   // is now handled by Sandstorm.
   // See https://github.com/wekan/wekan/issues/346
+  // Migration disabled - using backward compatibility approach
+  /*
   Migrations.add('enforce-public-visibility-for-sandstorm', () => {
     Boards.update('sandstorm', { $set: { permission: 'public' } });
   });
+  */
 
   // Monkey patch to work around the problem described in
   // https://github.com/sandstorm-io/meteor-accounts-sandstorm/pull/31

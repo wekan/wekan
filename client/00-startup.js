@@ -6,12 +6,12 @@ if ('serviceWorker' in navigator) {
 }
 
 // Import board converter for on-demand conversion
-import '/imports/lib/boardConverter';
-import '/imports/components/boardConversionProgress';
+import '/client/lib/boardConverter';
+import '/client/components/boardConversionProgress';
 
 // Import migration manager and progress UI
-import '/imports/lib/migrationManager';
-import '/imports/components/migrationProgress';
+import '/client/lib/migrationManager';
+import '/client/components/migrationProgress';
 
 // Import cron settings
-import '/imports/components/settings/cronSettings';
+import '/client/components/settings/cronSettings';

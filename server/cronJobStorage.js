@@ -36,7 +36,7 @@ class CronJobStorage {
   constructor() {
     this.maxConcurrentJobs = this.getMaxConcurrentJobs();
     this.cpuThreshold = 80; // CPU usage threshold percentage
-    this.memoryThreshold = 90; // Memory usage threshold percentage
+    this.memoryThreshold = 95; // Memory usage threshold percentage (increased for better job processing)
   }
 
   /**
@@ -379,12 +379,12 @@ Meteor.startup(() => {
   // Resume incomplete jobs
   const resumedJobs = cronJobStorage.resumeIncompleteJobs();
   if (resumedJobs.length > 0) {
-    console.log(`Resumed ${resumedJobs.length} incomplete cron jobs:`, resumedJobs);
+    // Resumed incomplete cron jobs
   }
   
   // Cleanup old jobs
   const cleanup = cronJobStorage.cleanupOldJobs();
   if (cleanup.removedQueue > 0 || cleanup.removedStatus > 0 || cleanup.removedSteps > 0) {
-    console.log('Cleaned up old cron jobs:', cleanup);
+    // Cleaned up old cron jobs
   }
 });

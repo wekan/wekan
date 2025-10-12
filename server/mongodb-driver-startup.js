@@ -13,57 +13,40 @@ import { meteorMongoIntegration } from '/models/lib/meteorMongoIntegration';
 
 // Initialize MongoDB driver system on server startup
 Meteor.startup(async function() {
-  console.log('=== MongoDB Driver System Startup ===');
+  // MongoDB Driver System Startup (status available in Admin Panel)
   
   try {
     // Check if MONGO_URL is available
     const mongoUrl = process.env.MONGO_URL;
     if (!mongoUrl) {
-      console.log('MONGO_URL not found, skipping MongoDB driver initialization');
+      // MONGO_URL not found, skipping MongoDB driver initialization
       return;
     }
 
-    console.log('MONGO_URL found, initializing MongoDB driver system...');
-    console.log(`Connection string: ${mongoUrl.replace(/\/\/.*@/, '//***:***@')}`); // Hide credentials
+    // MONGO_URL found, initializing MongoDB driver system
+    // Connection string: (credentials hidden for security)
 
     // Initialize the Meteor integration
     meteorMongoIntegration.initialize(mongoUrl);
 
     // Test the connection
-    console.log('Testing MongoDB connection...');
     const testResult = await meteorMongoIntegration.testConnection();
     
     if (testResult.success) {
-      console.log('✅ MongoDB connection test successful');
-      console.log(`   Driver: ${testResult.driver}`);
-      console.log(`   Version: ${testResult.version}`);
+      // MongoDB connection test successful
+      // Driver and version information available in Admin Panel
     } else {
-      console.log('❌ MongoDB connection test failed');
-      console.log(`   Error: ${testResult.error}`);
-      console.log(`   Driver: ${testResult.driver}`);
-      console.log(`   Version: ${testResult.version}`);
+      // MongoDB connection test failed
+      // Error details available in Admin Panel
     }
 
-    // Log connection statistics
+    // Connection statistics available in Admin Panel
     const stats = meteorMongoIntegration.getStats();
-    console.log('MongoDB Driver System Statistics:');
-    console.log(`   Initialized: ${stats.isInitialized}`);
-    console.log(`   Custom Connection: ${stats.hasCustomConnection}`);
-    console.log(`   Supported Versions: ${mongodbDriverManager.getSupportedVersions().join(', ')}`);
 
-    // Log driver compatibility information
-    console.log('MongoDB Driver Compatibility:');
+    // Driver compatibility information available in Admin Panel
     const supportedVersions = mongodbDriverManager.getSupportedVersions();
-    supportedVersions.forEach(version => {
-      const driverInfo = mongodbDriverManager.getDriverInfo(
-        mongodbDriverManager.getDriverForVersion(version)
-      );
-      if (driverInfo) {
-        console.log(`   MongoDB ${version}: ${driverInfo.driver} v${driverInfo.version}`);
-      }
-    });
 
-    console.log('=== MongoDB Driver System Ready ===');
+    // MongoDB Driver System Ready (status available in Admin Panel)
 
   } catch (error) {
     console.error('Error during MongoDB driver system startup:', error.message);

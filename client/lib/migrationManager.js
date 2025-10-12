@@ -5,7 +5,7 @@
  */
 
 import { ReactiveVar } from 'meteor/reactive-var';
-import { ReactiveCache } from '/imports/lib/reactiveCache';
+import { ReactiveCache } from '/imports/reactiveCache';
 
 // Reactive variables for migration progress
 export const migrationProgress = new ReactiveVar(0);
@@ -600,10 +600,16 @@ class MigrationManager {
   }
 
   /**
-   * Check if any migrations need to be run
+   * Check if any migrations need to be run for a specific board
    */
-  needsMigration() {
-    // Check if any migration step is not completed
+  needsMigration(boardId = null) {
+    if (boardId) {
+      // Check if specific board needs migration based on version
+      const board = ReactiveCache.getBoard(boardId);
+      return !board || !board.migrationVersion || board.migrationVersion < 1;
+    }
+    
+    // Check if any migration step is not completed (global migrations)
     return this.steps.some(step => !step.completed);
   }
 
@@ -621,6 +627,23 @@ class MigrationManager {
     return this.steps.reduce((total, step) => {
       return total + (step.completed ? step.weight : step.progress * step.weight / 100);
     }, 0);
+  }
+
+  /**
+   * Mark a board as migrated
+   */
+  markBoardAsMigrated(boardId) {
+    try {
+      Meteor.call('boardMigration.markAsMigrated', boardId, 'full_board_migration', (error, result) => {
+        if (error) {
+          console.error('Failed to mark board as migrated:', error);
+        } else {
+          console.log('Board marked as migrated:', boardId);
+        }
+      });
+    } catch (error) {
+      console.error('Error marking board as migrated:', error);
+    }
   }
 
   /**
@@ -711,7 +734,7 @@ class MigrationManager {
 
     // In a real implementation, this would call the actual migration
     // For now, we'll simulate the migration
-    console.log(`Running migration: ${step.name}`);
+    // Running migration step
   }
 
   /**

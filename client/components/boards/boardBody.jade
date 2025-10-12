@@ -1,7 +1,8 @@
 template(name="board")
-  if isMigrating
+  
+  if isMigrating.get
     +migrationProgress
-  else if isConverting
+  else if isConverting.get
     +boardConversionProgress
   else if isBoardReady.get
     if currentBoard
@@ -46,7 +47,12 @@ template(name="boardBody")
         else if isViewCalendar
           +calendarView
         else
-          +listsGroup(currentBoard)
+          // Default view - show swimlanes if they exist, otherwise show lists
+          if hasSwimlanes
+            each currentBoard.swimlanes
+              +swimlane(this)
+          else
+            +listsGroup(currentBoard)
       +sidebar
 
 template(name="calendarView")

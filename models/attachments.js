@@ -315,10 +315,10 @@ if (Meteor.isServer) {
       fs.mkdirSync(storagePath, { recursive: true });
     }
   });
-
-  // Add backward compatibility methods
-  Attachments.getAttachmentWithBackwardCompatibility = getAttachmentWithBackwardCompatibility;
-  Attachments.getAttachmentsWithBackwardCompatibility = getAttachmentsWithBackwardCompatibility;
 }
+
+// Add backward compatibility methods - available on both client and server
+Attachments.getAttachmentWithBackwardCompatibility = getAttachmentWithBackwardCompatibility;
+Attachments.getAttachmentsWithBackwardCompatibility = getAttachmentsWithBackwardCompatibility;
 
 export default Attachments;

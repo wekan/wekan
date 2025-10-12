@@ -270,8 +270,4 @@ const mongodbDriverManager = new MongoDBDriverManager();
 // Export for use in other modules
 export { mongodbDriverManager, MongoDBDriverManager };
 
-// Log initialization
-if (Meteor.isServer) {
-  console.log('MongoDB Driver Manager initialized');
-  console.log(`Supported MongoDB versions: ${mongodbDriverManager.getSupportedVersions().join(', ')}`);
-}
+// MongoDB Driver Manager initialized (status available in Admin Panel)

@@ -5,7 +5,9 @@
 
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { check, Match } from 'meteor/check';
 import { cronJobStorage } from './cronJobStorage';
+import Boards from '/models/boards';
 
 // Reactive variables for board migration tracking
 export const unmigratedBoards = new ReactiveVar([]);
@@ -38,7 +40,7 @@ class BoardMigrationDetector {
       this.scanUnmigratedBoards();
     }, this.scanInterval);
 
-    console.log('Board migration detector started');
+    // Board migration detector started
   }
 
   /**
@@ -73,7 +75,7 @@ class BoardMigrationDetector {
     }
 
     // Check if memory usage is reasonable
-    if (resources.memoryUsage > 70) {
+    if (resources.memoryUsage > 85) {
       return false;
     }
 
@@ -117,7 +119,7 @@ class BoardMigrationDetector {
     migrationScanInProgress.set(true);
 
     try {
-      console.log('Scanning for unmigrated boards...');
+      // Scanning for unmigrated boards
       
       // Get all boards from the database
       const boards = this.getAllBoards();
@@ -132,7 +134,7 @@ class BoardMigrationDetector {
       unmigratedBoards.set(unmigrated);
       lastMigrationScan.set(new Date());
 
-      console.log(`Found ${unmigrated.length} unmigrated boards`);
+      // Found unmigrated boards
 
     } catch (error) {
       console.error('Error scanning for unmigrated boards:', error);
@@ -213,10 +215,19 @@ class BoardMigrationDetector {
   /**
    * Start migration for a specific board
    */
-  async startBoardMigration(board) {
+  async startBoardMigration(boardId) {
     try {
-      console.log(`Starting migration for board: ${board.title || board._id}`);
-      
+      const board = Boards.findOne(boardId);
+      if (!board) {
+        throw new Error(`Board ${boardId} not found`);
+      }
+
+      // Check if board already has latest migration version
+      if (board.migrationVersion && board.migrationVersion >= 1) {
+        console.log(`Board ${boardId} already has latest migration version`);
+        return null;
+      }
+
       // Create migration job for this board
       const jobId = `board_migration_${board._id}_${Date.now()}`;
       
@@ -246,7 +257,7 @@ class BoardMigrationDetector {
       return jobId;
 
     } catch (error) {
-      console.error(`Error starting migration for board ${board._id}:`, error);
+      console.error(`Error starting migration for board ${boardId}:`, error);
       throw error;
     }
   }
@@ -271,7 +282,7 @@ class BoardMigrationDetector {
    * Force a full scan of all boards
    */
   async forceScan() {
-    console.log('Forcing full board migration scan...');
+      // Forcing full board migration scan
     await this.scanUnmigratedBoards();
   }
 
@@ -315,7 +326,7 @@ class BoardMigrationDetector {
       const updatedUnmigrated = currentUnmigrated.filter(b => b._id !== boardId);
       unmigratedBoards.set(updatedUnmigrated);
 
-      console.log(`Marked board ${boardId} as migrated for ${migrationType}`);
+      // Marked board as migrated
 
     } catch (error) {
       console.error(`Error marking board ${boardId} as migrated:`, error);
@@ -353,6 +364,8 @@ Meteor.methods({
   },
 
   'boardMigration.getBoardStatus'(boardId) {
+    check(boardId, String);
+    
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -361,10 +374,23 @@ Meteor.methods({
   },
 
   'boardMigration.markAsMigrated'(boardId, migrationType) {
+    check(boardId, String);
+    check(migrationType, String);
+    
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
     
     return boardMigrationDetector.markBoardAsMigrated(boardId, migrationType);
+  },
+
+  'boardMigration.startBoardMigration'(boardId) {
+    check(boardId, String);
+    
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    
+    return boardMigrationDetector.startBoardMigration(boardId);
   }
 });

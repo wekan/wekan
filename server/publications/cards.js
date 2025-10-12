@@ -706,11 +706,11 @@ function findCards(sessionId, query) {
   };
 
   if (cards) {
-    update.$set.totalHits = cards.countDocuments();
+    update.$set.totalHits = cards.count();
     update.$set.lastHit =
-      query.projection.skip + query.projection.limit < cards.countDocuments()
+      query.projection.skip + query.projection.limit < cards.count()
         ? query.projection.skip + query.projection.limit
-        : cards.countDocuments();
+        : cards.count();
     update.$set.cards = cards.map(card => {
       return card._id;
     });

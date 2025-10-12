@@ -30,28 +30,33 @@ Template.cronSettings.onCreated(function() {
   this.boardMigrationStats = new ReactiveVar({});
 
   // Load initial data
-  this.loadCronData();
+  loadCronData(this);
 });
 
 Template.cronSettings.helpers({
   loading() {
-    return Template.instance().loading.get();
+    const instance = Template.instance();
+    return instance && instance.loading ? instance.loading.get() : true;
   },
   
   showMigrations() {
-    return Template.instance().showMigrations.get();
+    const instance = Template.instance();
+    return instance && instance.showMigrations ? instance.showMigrations.get() : true;
   },
   
   showBoardOperations() {
-    return Template.instance().showBoardOperations.get();
+    const instance = Template.instance();
+    return instance && instance.showBoardOperations ? instance.showBoardOperations.get() : false;
   },
   
   showJobs() {
-    return Template.instance().showJobs.get();
+    const instance = Template.instance();
+    return instance && instance.showJobs ? instance.showJobs.get() : false;
   },
   
   showAddJob() {
-    return Template.instance().showAddJob.get();
+    const instance = Template.instance();
+    return instance && instance.showAddJob ? instance.showAddJob.get() : false;
   },
   
   migrationProgress() {
@@ -86,27 +91,33 @@ Template.cronSettings.helpers({
   },
 
   boardOperations() {
-    return Template.instance().boardOperations.get();
+    const instance = Template.instance();
+    return instance && instance.boardOperations ? instance.boardOperations.get() : [];
   },
 
   operationStats() {
-    return Template.instance().operationStats.get();
+    const instance = Template.instance();
+    return instance && instance.operationStats ? instance.operationStats.get() : {};
   },
 
   pagination() {
-    return Template.instance().pagination.get();
+    const instance = Template.instance();
+    return instance && instance.pagination ? instance.pagination.get() : {};
   },
 
   queueStats() {
-    return Template.instance().queueStats.get();
+    const instance = Template.instance();
+    return instance && instance.queueStats ? instance.queueStats.get() : {};
   },
 
   systemResources() {
-    return Template.instance().systemResources.get();
+    const instance = Template.instance();
+    return instance && instance.systemResources ? instance.systemResources.get() : {};
   },
 
   boardMigrationStats() {
-    return Template.instance().boardMigrationStats.get();
+    const instance = Template.instance();
+    return instance && instance.boardMigrationStats ? instance.boardMigrationStats.get() : {};
   },
 
   formatDateTime(date) {
@@ -146,7 +157,7 @@ Template.cronSettings.events({
     instance.showBoardOperations.set(true);
     instance.showJobs.set(false);
     instance.showAddJob.set(false);
-    instance.loadBoardOperations();
+    loadBoardOperations(instance);
   },
   
   'click .js-cron-jobs'(event) {
@@ -156,7 +167,7 @@ Template.cronSettings.events({
     instance.showBoardOperations.set(false);
     instance.showJobs.set(true);
     instance.showAddJob.set(false);
-    instance.loadCronJobs();
+    loadCronJobs(instance);
   },
   
   'click .js-cron-add'(event) {
@@ -174,8 +185,8 @@ Template.cronSettings.events({
         console.error('Failed to start migrations:', error);
         alert('Failed to start migrations: ' + error.message);
       } else {
-        console.log('Migrations started successfully');
-        Template.instance().pollMigrationProgress();
+        // Migrations started successfully
+        pollMigrationProgress(Template.instance());
       }
     });
   },
@@ -204,7 +215,7 @@ Template.cronSettings.events({
   
   'click .js-refresh-jobs'(event) {
     event.preventDefault();
-    Template.instance().loadCronJobs();
+    loadCronJobs(Template.instance());
   },
   
   'click .js-start-job'(event) {
@@ -216,7 +227,7 @@ Template.cronSettings.events({
         alert('Failed to start job: ' + error.message);
       } else {
         console.log('Job started successfully');
-        Template.instance().loadCronJobs();
+        loadCronJobs(Template.instance());
       }
     });
   },
@@ -230,7 +241,7 @@ Template.cronSettings.events({
         alert('Failed to pause job: ' + error.message);
       } else {
         console.log('Job paused successfully');
-        Template.instance().loadCronJobs();
+        loadCronJobs(Template.instance());
       }
     });
   },
@@ -244,7 +255,7 @@ Template.cronSettings.events({
         alert('Failed to stop job: ' + error.message);
       } else {
         console.log('Job stopped successfully');
-        Template.instance().loadCronJobs();
+        loadCronJobs(Template.instance());
       }
     });
   },
@@ -259,7 +270,7 @@ Template.cronSettings.events({
           alert('Failed to remove job: ' + error.message);
         } else {
           console.log('Job removed successfully');
-          Template.instance().loadCronJobs();
+          loadCronJobs(Template.instance());
         }
       });
     }
@@ -286,7 +297,7 @@ Template.cronSettings.events({
         form.reset();
         Template.instance().showJobs.set(true);
         Template.instance().showAddJob.set(false);
-        Template.instance().loadCronJobs();
+        loadCronJobs(Template.instance());
       }
     });
   },
@@ -300,7 +311,7 @@ Template.cronSettings.events({
 
   'click .js-refresh-board-operations'(event) {
     event.preventDefault();
-    Template.instance().loadBoardOperations();
+    loadBoardOperations(Template.instance());
   },
 
   'click .js-start-test-operation'(event) {
@@ -318,7 +329,7 @@ Template.cronSettings.events({
         alert('Failed to start test operation: ' + error.message);
       } else {
         console.log('Test operation started:', result);
-        Template.instance().loadBoardOperations();
+        loadBoardOperations(Template.instance());
       }
     });
   },
@@ -328,7 +339,7 @@ Template.cronSettings.events({
     const instance = Template.instance();
     instance.searchTerm.set(searchTerm);
     instance.currentPage.set(1);
-    instance.loadBoardOperations();
+    loadBoardOperations(instance);
   },
 
   'click .js-prev-page'(event) {
@@ -337,7 +348,7 @@ Template.cronSettings.events({
     const currentPage = instance.currentPage.get();
     if (currentPage > 1) {
       instance.currentPage.set(currentPage - 1);
-      instance.loadBoardOperations();
+      loadBoardOperations(instance);
     }
   },
 
@@ -348,7 +359,7 @@ Template.cronSettings.events({
     const pagination = instance.pagination.get();
     if (currentPage < pagination.totalPages) {
       instance.currentPage.set(currentPage + 1);
-      instance.loadBoardOperations();
+      loadBoardOperations(instance);
     }
   },
 
@@ -389,16 +400,17 @@ Template.cronSettings.events({
         console.error('Failed to force board scan:', error);
         alert('Failed to force board scan: ' + error.message);
       } else {
-        console.log('Board scan started successfully');
+        // Board scan started successfully
         // Refresh the data
-        Template.instance().loadBoardOperations();
+        loadBoardOperations(Template.instance());
       }
     });
   }
 });
 
-Template.cronSettings.prototype.loadCronData = function() {
-  this.loading.set(true);
+// Helper functions for cron settings
+function loadCronData(instance) {
+  instance.loading.set(true);
   
   // Load migration progress
   Meteor.call('cron.getMigrationProgress', (error, result) => {
@@ -412,21 +424,20 @@ Template.cronSettings.prototype.loadCronData = function() {
   });
   
   // Load cron jobs
-  this.loadCronJobs();
+  loadCronJobs(instance);
   
-  this.loading.set(false);
-};
+  instance.loading.set(false);
+}
 
-Template.cronSettings.prototype.loadCronJobs = function() {
+function loadCronJobs(instance) {
   Meteor.call('cron.getJobs', (error, result) => {
     if (result) {
       cronJobs.set(result);
     }
   });
-};
+}
 
-Template.cronSettings.prototype.loadBoardOperations = function() {
-  const instance = this;
+function loadBoardOperations(instance) {
   const page = instance.currentPage.get();
   const limit = instance.pageSize.get();
   const searchTerm = instance.searchTerm.get();
@@ -474,9 +485,9 @@ Template.cronSettings.prototype.loadBoardOperations = function() {
       instance.boardMigrationStats.set(result);
     }
   });
-};
+}
 
-Template.cronSettings.prototype.pollMigrationProgress = function() {
+function pollMigrationProgress(instance) {
   const pollInterval = setInterval(() => {
     Meteor.call('cron.getMigrationProgress', (error, result) => {
       if (result) {
@@ -493,4 +504,4 @@ Template.cronSettings.prototype.pollMigrationProgress = function() {
       }
     });
   }, 1000);
-};
+}

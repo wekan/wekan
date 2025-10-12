@@ -288,7 +288,4 @@ const mongodbConnectionManager = new MongoDBConnectionManager();
 // Export for use in other modules
 export { mongodbConnectionManager, MongoDBConnectionManager };
 
-// Log initialization
-if (Meteor.isServer) {
-  console.log('MongoDB Connection Manager initialized');
-}
+// MongoDB Connection Manager initialized (status available in Admin Panel)

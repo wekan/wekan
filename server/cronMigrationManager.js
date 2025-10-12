@@ -247,8 +247,10 @@ class CronMigrationManager {
     // Start job processor
     this.startJobProcessor();
     
-    // Update cron jobs list
-    this.updateCronJobsList();
+    // Update cron jobs list after a short delay to allow SyncedCron to initialize
+    Meteor.setTimeout(() => {
+      this.updateCronJobsList();
+    }, 1000);
   }
 
   /**
@@ -263,7 +265,7 @@ class CronMigrationManager {
       this.processJobQueue();
     }, 5000); // Check every 5 seconds
 
-    console.log('Cron job processor started with CPU throttling');
+    // Cron job processor started with CPU throttling
   }
 
   /**
@@ -469,7 +471,7 @@ class CronMigrationManager {
     const { boardId, boardTitle, migrationType } = jobData;
     
     try {
-      console.log(`Starting board migration for ${boardTitle || boardId}`);
+      // Starting board migration
       
       // Create migration steps for this board
       const steps = this.createBoardMigrationSteps(boardId, migrationType);
@@ -503,7 +505,7 @@ class CronMigrationManager {
       // Mark board as migrated
       this.markBoardAsMigrated(boardId, migrationType);
       
-      console.log(`Completed board migration for ${boardTitle || boardId}`);
+      // Completed board migration
 
     } catch (error) {
       console.error(`Board migration failed for ${boardId}:`, error);
@@ -633,7 +635,7 @@ class CronMigrationManager {
    */
   async runMigrationStep(step) {
     try {
-      console.log(`Starting migration: ${step.name}`);
+      // Starting migration step
       
       cronMigrationCurrentStep.set(step.name);
       cronMigrationStatus.set(`Running: ${step.description}`);
@@ -654,7 +656,7 @@ class CronMigrationManager {
       step.progress = 100;
       step.status = 'completed';
 
-      console.log(`Completed migration: ${step.name}`);
+      // Completed migration step
       
       // Update progress
       this.updateProgress();
@@ -873,6 +875,13 @@ class CronMigrationManager {
    * Update cron jobs list
    */
   updateCronJobsList() {
+    // Check if SyncedCron is available and has jobs
+    if (!SyncedCron || !SyncedCron.jobs || !Array.isArray(SyncedCron.jobs)) {
+      // SyncedCron not available or no jobs yet
+      cronJobs.set([]);
+      return;
+    }
+
     const jobs = SyncedCron.jobs.map(job => {
       const step = this.migrationSteps.find(s => s.cronName === job.name);
       return {

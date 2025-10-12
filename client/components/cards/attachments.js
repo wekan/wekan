@@ -3,6 +3,7 @@ import { ObjectID } from 'bson';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import uploadProgressManager from '../../lib/uploadProgressManager';
+import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
 
 const filesize = require('filesize');
 const prettyMilliseconds = require('pretty-ms');
@@ -576,3 +577,20 @@ BlazeComponent.extendComponent({
     ]
   }
 }).register('attachmentRenamePopup');
+
+// Template helpers for attachment migration status
+Template.registerHelper('attachmentMigrationStatus', function(attachmentId) {
+  return attachmentMigrationManager.getAttachmentMigrationStatus(attachmentId);
+});
+
+Template.registerHelper('isAttachmentMigrating', function(attachmentId) {
+  return attachmentMigrationManager.isAttachmentBeingMigrated(attachmentId);
+});
+
+Template.registerHelper('attachmentMigrationProgress', function() {
+  return attachmentMigrationManager.attachmentMigrationProgress.get();
+});
+
+Template.registerHelper('attachmentMigrationStatusText', function() {
+  return attachmentMigrationManager.attachmentMigrationStatus.get();
+});

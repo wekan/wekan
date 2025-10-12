@@ -81,11 +81,20 @@ BlazeComponent.extendComponent({
           Modal.open('archivedBoards');
         },
         'click .js-toggle-board-view': Popup.open('boardChangeView'),
-        'click .js-toggle-sidebar'() {
-          Sidebar.toggle();
-        },
+        // Sidebar toggle is handled by the sidebar component itself
+        // 'click .js-toggle-sidebar'() {
+        //   if (Sidebar) {
+        //     Sidebar.toggle();
+        //   } else {
+        //     console.warn('Sidebar not available for toggle');
+        //   }
+        // },
         'click .js-open-filter-view'() {
-          Sidebar.setView('filter');
+          if (Sidebar) {
+            Sidebar.setView('filter');
+          } else {
+            console.warn('Sidebar not available for setView');
+          }
         },
         'click .js-sort-cards': Popup.open('cardsSort'),
         /*
@@ -102,14 +111,22 @@ BlazeComponent.extendComponent({
         */
         'click .js-filter-reset'(event) {
           event.stopPropagation();
-          Sidebar.setView();
+          if (Sidebar) {
+            Sidebar.setView();
+          } else {
+            console.warn('Sidebar not available for setView');
+          }
           Filter.reset();
         },
         'click .js-sort-reset'() {
           Session.set('sortBy', '');
         },
         'click .js-open-search-view'() {
-          Sidebar.setView('search');
+          if (Sidebar) {
+            Sidebar.setView('search');
+          } else {
+            console.warn('Sidebar not available for setView');
+          }
         },
         'click .js-multiselection-activate'() {
           const currentCard = Utils.getCurrentCardId();
@@ -203,6 +220,7 @@ const CreateBoard = BlazeComponent.extendComponent({
             title: title,
             permission: 'private',
             type: 'template-container',
+            migrationVersion: 1, // Latest version - no migration needed
           }),
        );
 
@@ -246,6 +264,7 @@ const CreateBoard = BlazeComponent.extendComponent({
         Boards.insert({
           title,
           permission: visibility,
+          migrationVersion: 1, // Latest version - no migration needed
         }),
       );
 

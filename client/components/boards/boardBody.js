@@ -1,8 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
-import { boardConverter } from '/imports/lib/boardConverter';
-import { migrationManager } from '/imports/lib/migrationManager';
+import { boardConverter } from '/client/lib/boardConverter';
+import { migrationManager } from '/client/lib/migrationManager';
+import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
+import { Swimlanes } from '/models/swimlanes';
+import { Lists } from '/models/lists';
 
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;
@@ -13,6 +16,7 @@ BlazeComponent.extendComponent({
     this.isBoardReady = new ReactiveVar(false);
     this.isConverting = new ReactiveVar(false);
     this.isMigrating = new ReactiveVar(false);
+    this._swimlaneCreated = new Set(); // Track boards where we've created swimlanes
 
     // The pattern we use to manually handle data loading is described here:
     // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
@@ -21,10 +25,14 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       const currentBoardId = Session.get('currentBoard');
       if (!currentBoardId) return;
+      
       const handle = subManager.subscribe('board', currentBoardId, false);
+      
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           if (handle.ready()) {
+            // Ensure default swimlane exists (only once per board)
+            this.ensureDefaultSwimlane(currentBoardId);
             // Check if board needs conversion
             this.checkAndConvertBoard(currentBoardId);
           } else {
@@ -35,17 +43,54 @@ BlazeComponent.extendComponent({
     });
   },
 
+  ensureDefaultSwimlane(boardId) {
+    // Only create swimlane once per board
+    if (this._swimlaneCreated.has(boardId)) {
+      return;
+    }
+
+    try {
+      const board = ReactiveCache.getBoard(boardId);
+      if (!board) return;
+
+      const swimlanes = board.swimlanes();
+      
+      if (swimlanes.length === 0) {
+        const swimlaneId = Swimlanes.insert({
+          title: 'Default',
+          boardId: boardId,
+        });
+        this._swimlaneCreated.add(boardId);
+      } else {
+        this._swimlaneCreated.add(boardId);
+      }
+    } catch (error) {
+      console.error('Error creating default swimlane:', error);
+    }
+  },
+
   async checkAndConvertBoard(boardId) {
     try {
-      // First check if migrations need to be run
-      if (migrationManager.needsMigration()) {
+      const board = ReactiveCache.getBoard(boardId);
+      if (!board) {
+        this.isBoardReady.set(true);
+        return;
+      }
+
+      // Check if board needs migration based on migration version
+      const needsMigration = !board.migrationVersion || board.migrationVersion < 1;
+      
+      if (needsMigration) {
+        // Start background migration for old boards
         this.isMigrating.set(true);
-        await migrationManager.startMigration();
+        await this.startBackgroundMigration(boardId);
         this.isMigrating.set(false);
       }
 
-      // Then check if board needs conversion
-      if (boardConverter.needsConversion(boardId)) {
+      // Check if board needs conversion (for old structure)
+      const needsConversion = boardConverter.needsConversion(boardId);
+      
+      if (needsConversion) {
         this.isConverting.set(true);
         const success = await boardConverter.convertBoard(boardId);
         this.isConverting.set(false);
@@ -53,12 +98,15 @@ BlazeComponent.extendComponent({
         if (success) {
           this.isBoardReady.set(true);
         } else {
-          console.error('Board conversion failed');
+          console.error('Board conversion failed, setting ready to true anyway');
           this.isBoardReady.set(true); // Still show board even if conversion failed
         }
       } else {
         this.isBoardReady.set(true);
       }
+
+      // Start attachment migration in background if needed
+      this.startAttachmentMigrationIfNeeded(boardId);
     } catch (error) {
       console.error('Error during board conversion check:', error);
       this.isConverting.set(false);
@@ -67,8 +115,39 @@ BlazeComponent.extendComponent({
     }
   },
 
+  async startBackgroundMigration(boardId) {
+    try {
+      // Start background migration using the cron system
+      Meteor.call('boardMigration.startBoardMigration', boardId, (error, result) => {
+        if (error) {
+          console.error('Failed to start background migration:', error);
+        } else {
+          console.log('Background migration started for board:', boardId);
+        }
+      });
+    } catch (error) {
+      console.error('Error starting background migration:', error);
+    }
+  },
+
+  async startAttachmentMigrationIfNeeded(boardId) {
+    try {
+      // Check if there are unconverted attachments
+      const unconvertedAttachments = attachmentMigrationManager.getUnconvertedAttachments(boardId);
+      
+      if (unconvertedAttachments.length > 0) {
+        console.log(`Starting attachment migration for ${unconvertedAttachments.length} attachments in board ${boardId}`);
+        await attachmentMigrationManager.startAttachmentMigration(boardId);
+      }
+    } catch (error) {
+      console.error('Error starting attachment migration:', error);
+    }
+  },
+
   onlyShowCurrentCard() {
-    return Utils.isMiniScreen() && Utils.getCurrentCardId(true);
+    const isMiniScreen = Utils.isMiniScreen();
+    const currentCardId = Utils.getCurrentCardId(true);
+    return isMiniScreen && currentCardId;
   },
 
   goHome() {
@@ -81,6 +160,14 @@ BlazeComponent.extendComponent({
 
   isMigrating() {
     return this.isMigrating.get();
+  },
+
+  isBoardReady() {
+    return this.isBoardReady.get();
+  },
+
+  currentBoard() {
+    return Utils.getCurrentBoard();
   },
 }).register('board');
 
@@ -95,33 +182,37 @@ BlazeComponent.extendComponent({
 
     // fix swimlanes sort field if there are null values
     const currentBoardData = Utils.getCurrentBoard();
-    const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
-    if (nullSortSwimlanes.length > 0) {
-      const swimlanes = currentBoardData.swimlanes();
-      let count = 0;
-      swimlanes.forEach(s => {
-        Swimlanes.update(s._id, {
-          $set: {
-            sort: count,
-          },
+    if (currentBoardData && Swimlanes) {
+      const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
+      if (nullSortSwimlanes.length > 0) {
+        const swimlanes = currentBoardData.swimlanes();
+        let count = 0;
+        swimlanes.forEach(s => {
+          Swimlanes.update(s._id, {
+            $set: {
+              sort: count,
+            },
+          });
+          count += 1;
         });
-        count += 1;
-      });
+      }
     }
 
     // fix lists sort field if there are null values
-    const nullSortLists = currentBoardData.nullSortLists();
-    if (nullSortLists.length > 0) {
-      const lists = currentBoardData.lists();
-      let count = 0;
-      lists.forEach(l => {
-        Lists.update(l._id, {
-          $set: {
-            sort: count,
-          },
+    if (currentBoardData && Lists) {
+      const nullSortLists = currentBoardData.nullSortLists();
+      if (nullSortLists.length > 0) {
+        const lists = currentBoardData.lists();
+        let count = 0;
+        lists.forEach(l => {
+          Lists.update(l._id, {
+            $set: {
+              sort: count,
+            },
+          });
+          count += 1;
         });
-        count += 1;
-      });
+      }
     }
   },
   onRendered() {
@@ -461,50 +552,99 @@ BlazeComponent.extendComponent({
   notDisplayThisBoard() {
     let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
     let currentBoard = Utils.getCurrentBoard();
-    if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard.permission == 'public') {
-      return true;
-    }
-
-    return false;
+    return allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard && currentBoard.permission == 'public';
   },
 
   isViewSwimlanes() {
     const currentUser = ReactiveCache.getCurrentUser();
+    let boardView;
+    
     if (currentUser) {
-      return (currentUser.profile || {}).boardView === 'board-view-swimlanes';
+      boardView = (currentUser.profile || {}).boardView;
     } else {
-      return (
-        window.localStorage.getItem('boardView') === 'board-view-swimlanes'
-      );
+      boardView = window.localStorage.getItem('boardView');
     }
-  },
-
-  hasSwimlanes() {
-    return Utils.getCurrentBoard().swimlanes().length > 0;
+    
+    // If no board view is set, default to swimlanes
+    if (!boardView) {
+      boardView = 'board-view-swimlanes';
+    }
+    
+    return boardView === 'board-view-swimlanes';
   },
 
   isViewLists() {
     const currentUser = ReactiveCache.getCurrentUser();
+    let boardView;
+    
     if (currentUser) {
-      return (currentUser.profile || {}).boardView === 'board-view-lists';
+      boardView = (currentUser.profile || {}).boardView;
     } else {
-      return window.localStorage.getItem('boardView') === 'board-view-lists';
+      boardView = window.localStorage.getItem('boardView');
     }
+    
+    return boardView === 'board-view-lists';
   },
 
   isViewCalendar() {
     const currentUser = ReactiveCache.getCurrentUser();
+    let boardView;
+    
     if (currentUser) {
-      return (currentUser.profile || {}).boardView === 'board-view-cal';
+      boardView = (currentUser.profile || {}).boardView;
     } else {
-      return window.localStorage.getItem('boardView') === 'board-view-cal';
+      boardView = window.localStorage.getItem('boardView');
     }
+    
+    return boardView === 'board-view-cal';
   },
+
+  hasSwimlanes() {
+    const currentBoard = Utils.getCurrentBoard();
+    if (!currentBoard) return false;
+    
+    const swimlanes = currentBoard.swimlanes();
+    return swimlanes.length > 0;
+  },
+
 
   isVerticalScrollbars() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isVerticalScrollbars();
   },
+
+  boardView() {
+    return Utils.boardView();
+  },
+
+  debugBoardState() {
+    const currentBoard = Utils.getCurrentBoard();
+    const currentBoardId = Session.get('currentBoard');
+    const isBoardReady = this.isBoardReady.get();
+    const isConverting = this.isConverting.get();
+    const isMigrating = this.isMigrating.get();
+    const boardView = Utils.boardView();
+    
+    console.log('=== BOARD DEBUG STATE ===');
+    console.log('currentBoardId:', currentBoardId);
+    console.log('currentBoard:', !!currentBoard, currentBoard ? currentBoard.title : 'none');
+    console.log('isBoardReady:', isBoardReady);
+    console.log('isConverting:', isConverting);
+    console.log('isMigrating:', isMigrating);
+    console.log('boardView:', boardView);
+    console.log('========================');
+    
+    return {
+      currentBoardId,
+      hasCurrentBoard: !!currentBoard,
+      currentBoardTitle: currentBoard ? currentBoard.title : 'none',
+      isBoardReady,
+      isConverting,
+      isMigrating,
+      boardView
+    };
+  },
+
 
   openNewListForm() {
     if (this.isViewSwimlanes()) {

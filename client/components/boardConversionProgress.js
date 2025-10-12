@@ -1,31 +1,37 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { boardConverter } from '/imports/lib/boardConverter';
+import { 
+  boardConverter,
+  isConverting,
+  conversionProgress,
+  conversionStatus,
+  conversionEstimatedTime
+} from '/client/lib/boardConverter';
 
 Template.boardConversionProgress.helpers({
   isConverting() {
-    return boardConverter.isConverting.get();
+    return isConverting.get();
   },
   
   conversionProgress() {
-    return boardConverter.conversionProgress.get();
+    return conversionProgress.get();
   },
   
   conversionStatus() {
-    return boardConverter.conversionStatus.get();
+    return conversionStatus.get();
   },
   
   conversionEstimatedTime() {
-    return boardConverter.conversionEstimatedTime.get();
+    return conversionEstimatedTime.get();
   }
 });
 
 Template.boardConversionProgress.onCreated(function() {
   // Subscribe to conversion state changes
   this.autorun(() => {
-    boardConverter.isConverting.get();
-    boardConverter.conversionProgress.get();
-    boardConverter.conversionStatus.get();
-    boardConverter.conversionEstimatedTime.get();
+    isConverting.get();
+    conversionProgress.get();
+    conversionStatus.get();
+    conversionEstimatedTime.get();
   });
 });

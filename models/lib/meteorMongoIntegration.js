@@ -50,7 +50,7 @@ class MeteorMongoIntegration {
     this.overrideMongoCollection();
 
     this.isInitialized = true;
-    console.log('Meteor MongoDB Integration initialized successfully');
+    // Meteor MongoDB Integration initialized successfully (status available in Admin Panel)
   }
 
   /**
@@ -296,11 +296,8 @@ export { meteorMongoIntegration, MeteorMongoIntegration };
 
 // Auto-initialize if MONGO_URL is available
 if (Meteor.isServer && process.env.MONGO_URL) {
-  console.log('Auto-initializing Meteor MongoDB Integration with MONGO_URL');
+  // Auto-initializing Meteor MongoDB Integration with MONGO_URL (status available in Admin Panel)
   meteorMongoIntegration.initialize(process.env.MONGO_URL);
 }
 
-// Log initialization
-if (Meteor.isServer) {
-  console.log('Meteor MongoDB Integration module loaded');
-}
+// Meteor MongoDB Integration module loaded (status available in Admin Panel)

@@ -206,7 +206,9 @@ Template.minicard.helpers({
     // Show list name if either:
     // 1. Board-wide setting is enabled, OR
     // 2. This specific card has the setting enabled
-    return this.currentBoard.allowsShowListsOnMinicard || this.showListOnMinicard;
+    const currentBoard = this.currentBoard;
+    if (!currentBoard) return false;
+    return currentBoard.allowsShowListsOnMinicard || this.showListOnMinicard;
   }
 });
 

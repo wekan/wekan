@@ -57,7 +57,7 @@ template(name="attachmentGallery")
 
     each attachments
 
-      .attachment-item
+      .attachment-item(class="{{#if isAttachmentMigrating _id}}migrating{{/if}}")
         .attachment-thumbnail-container.open-preview(data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
           if link
             if(isImage)
@@ -97,6 +97,12 @@ template(name="attachmentGallery")
                       i.fa.fa-trash.icon(title="{{_ 'delete'}}")
                     a.fa.fa-navicon.icon.js-open-attachment-menu(data-attachment-link="{{link}}" title="{{_ 'attachmentActionsPopup-title'}}")
 
+        // Migration spinner overlay
+        if isAttachmentMigrating _id
+          .attachment-migration-overlay
+            .migration-spinner
+              i.fa.fa-cog.fa-spin
+            .migration-text {{_ 'migrating-attachment'}}
 
 template(name="attachmentActionsPopup")
   ul.pop-over-list
