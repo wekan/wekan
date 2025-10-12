@@ -34,6 +34,8 @@ and fixes the following bugs:
 
 - [Fixes to make board showing correctly](https://github.com/wekan/wekan/commit/bd8c565415998c9aaded821988d591105258b378).
   Thanks to xet7.
+- [Fix opening sidebar](https://github.com/wekan/wekan/commit/0fd781e80aaf841c26ce59caffc579b9c391330f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
