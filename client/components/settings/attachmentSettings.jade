@@ -1,13 +1,29 @@
 template(name="attachmentSettings")
   .attachment-settings-content
-    if loading.get
-      +spinner
-    else if showStorageSettings.get
-      +storageSettings
-    else if showMigration.get
-      +attachmentMigration
-    else if showMonitoring.get
-      +attachmentMonitoring
+    .settings-tabs
+      ul.tab-nav
+        li(class="{{#if showStorageSettings.get}}active{{/if}}")
+          a.js-attachment-storage-settings(data-id="storage-settings")
+            i.fa.fa-cog
+            | {{_ 'attachment-storage-settings'}}
+        li(class="{{#if showMigration.get}}active{{/if}}")
+          a.js-attachment-migration(data-id="attachment-migration")
+            i.fa.fa-arrow-right
+            | {{_ 'attachment-migration'}}
+        li(class="{{#if showMonitoring.get}}active{{/if}}")
+          a.js-attachment-monitoring(data-id="attachment-monitoring")
+            i.fa.fa-chart-line
+            | {{_ 'attachment-monitoring'}}
+    
+    .tab-content
+      if loading.get
+        +spinner
+      else if showStorageSettings.get
+        +storageSettings
+      else if showMigration.get
+        +attachmentMigration
+      else if showMonitoring.get
+        +attachmentMonitoring
 
 template(name="storageSettings")
   .storage-settings

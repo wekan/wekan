@@ -8,89 +8,48 @@ template(name="setting")
         span {{_ 'settings'}}
       .content-body
         .side-menu
-          if attachmentSettings.get
-            ul
-              li
-                a.js-back-to-main-settings
-                  i.fa.fa-arrow-left
-                  | {{_ 'back-to-settings'}}
-              li
-                a.js-attachment-storage-settings(data-id="storage-settings")
-                  i.fa.fa-cog
-                  | {{_ 'attachment-storage-settings'}}
-              li
-                a.js-attachment-migration(data-id="attachment-migration")
-                  i.fa.fa-arrow-right
-                  | {{_ 'attachment-migration'}}
-              li
-                a.js-attachment-monitoring(data-id="attachment-monitoring")
-                  i.fa.fa-chart-line
-                  | {{_ 'attachment-monitoring'}}
-          else if cronSettings.get
-            ul
-              li
-                a.js-back-to-main-settings
-                  i.fa.fa-arrow-left
-                  | {{_ 'back-to-settings'}}
-              li
-                a.js-cron-migrations(data-id="cron-migrations")
-                  i.fa.fa-database
-                  | {{_ 'cron-migrations'}}
-              li
-                a.js-cron-board-operations(data-id="cron-board-operations")
-                  i.fa.fa-tasks
-                  | {{_ 'board-operations'}}
-              li
-                a.js-cron-jobs(data-id="cron-jobs")
-                  i.fa.fa-clock-o
-                  | {{_ 'cron-jobs'}}
-              li
-                a.js-cron-add(data-id="cron-add")
-                  i.fa.fa-plus
-                  | {{_ 'add-cron-job'}}
-          else
-            ul
-              li.active
-                a.js-setting-menu(data-id="registration-setting")
-                  i.fa.fa-sign-in
-                  | {{_ 'registration'}}
-              unless isSandstorm
-                li
-                  a.js-setting-menu(data-id="email-setting")
-                    i.fa.fa-envelope
-                    | {{_ 'email'}}
-              li
-                a.js-setting-menu(data-id="account-setting")
-                  i.fa.fa-users
-                  | {{_ 'accounts'}}
-              li
-                a.js-setting-menu(data-id="tableVisibilityMode-setting")
-                  i.fa.fa-eye
-                  | {{_ 'tableVisibilityMode'}}
-              li
-                a.js-setting-menu(data-id="announcement-setting")
-                  i.fa.fa-bullhorn
-                  | {{_ 'admin-announcement'}}
-              li
-                a.js-setting-menu(data-id="accessibility-setting")
-                  i.fa.fa-universal-access
-                  | {{_ 'accessibility'}}
-              li
-                a.js-setting-menu(data-id="layout-setting")
-                  i.fa.fa-object-group
-                  | {{_ 'layout'}}
-              li
-                a.js-setting-menu(data-id="webhook-setting")
-                  i.fa.fa-globe
-                  | {{_ 'global-webhook'}}
-              li
-                a.js-setting-menu(data-id="attachment-settings")
-                  i.fa.fa-paperclip
-                  | {{_ 'attachment-settings'}}
-              li
-                a.js-setting-menu(data-id="cron-settings")
-                  i.fa.fa-clock-o
-                  | {{_ 'cron-settings'}}
+          ul
+            li(class="{{#if generalSetting.get}}active{{/if}}")
+              a.js-setting-menu(data-id="registration-setting")
+                i.fa.fa-sign-in
+                | {{_ 'registration'}}
+            unless isSandstorm
+              li(class="{{#if emailSetting.get}}active{{/if}}")
+                a.js-setting-menu(data-id="email-setting")
+                  i.fa.fa-envelope
+                  | {{_ 'email'}}
+            li(class="{{#if accountSetting.get}}active{{/if}}")
+              a.js-setting-menu(data-id="account-setting")
+                i.fa.fa-users
+                | {{_ 'accounts'}}
+            li(class="{{#if tableVisibilityModeSetting.get}}active{{/if}}")
+              a.js-setting-menu(data-id="tableVisibilityMode-setting")
+                i.fa.fa-eye
+                | {{_ 'tableVisibilityMode'}}
+            li(class="{{#if announcementSetting.get}}active{{/if}}")
+              a.js-setting-menu(data-id="announcement-setting")
+                i.fa.fa-bullhorn
+                | {{_ 'admin-announcement'}}
+            li(class="{{#if accessibilitySetting.get}}active{{/if}}")
+              a.js-setting-menu(data-id="accessibility-setting")
+                i.fa.fa-universal-access
+                | {{_ 'accessibility'}}
+            li(class="{{#if layoutSetting.get}}active{{/if}}")
+              a.js-setting-menu(data-id="layout-setting")
+                i.fa.fa-object-group
+                | {{_ 'layout'}}
+            li(class="{{#if webhookSetting.get}}active{{/if}}")
+              a.js-setting-menu(data-id="webhook-setting")
+                i.fa.fa-globe
+                | {{_ 'global-webhook'}}
+            li(class="{{#if attachmentSettings.get}}active{{/if}}")
+              a.js-setting-menu(data-id="attachment-settings")
+                i.fa.fa-paperclip
+                | {{_ 'attachment-settings'}}
+            li(class="{{#if cronSettings.get}}active{{/if}}")
+              a.js-setting-menu(data-id="cron-settings")
+                i.fa.fa-clock-o
+                | {{_ 'cron-settings'}}
         .main-body
           if loading.get
             +spinner

@@ -15,3 +15,6 @@ import '/client/components/migrationProgress';
 
 // Import cron settings
 import '/client/components/settings/cronSettings';
+
+// Import settings tabs CSS
+import '/client/components/settings/settingsTabs.css';

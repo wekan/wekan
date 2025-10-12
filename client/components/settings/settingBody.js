@@ -102,33 +102,13 @@ BlazeComponent.extendComponent({
     $('#display-authentication-method').toggleClass('is-checked');
   },
 
-  backToMainSettings(event) {
-    event.preventDefault();
-    // Reset all settings to false
-    this.forgotPasswordSetting.set(false);
-    this.generalSetting.set(true); // Set registration as default
-    this.emailSetting.set(false);
-    this.accountSetting.set(false);
-    this.announcementSetting.set(false);
-    this.accessibilitySetting.set(false);
-    this.layoutSetting.set(false);
-    this.webhookSetting.set(false);
-    this.attachmentSettings.set(false);
-    this.cronSettings.set(false);
-    this.tableVisibilityModeSetting.set(false);
-    
-    // Update active menu item
-    $('.side-menu li.active').removeClass('active');
-    $('.side-menu li:first-child').addClass('active');
-  },
-
-  switchAttachmentMenu(event) {
+  switchAttachmentTab(event) {
     event.preventDefault();
     const target = $(event.target);
     const targetID = target.data('id');
     
-    // Update active menu item
-    $('.side-menu li.active').removeClass('active');
+    // Update active tab
+    $('.tab-nav li.active').removeClass('active');
     target.parent().addClass('active');
     
     // Call the attachment settings component method if available
@@ -137,13 +117,13 @@ BlazeComponent.extendComponent({
     }
   },
 
-  switchCronMenu(event) {
+  switchCronTab(event) {
     event.preventDefault();
     const target = $(event.target);
     const targetID = target.data('id');
     
-    // Update active menu item
-    $('.side-menu li.active').removeClass('active');
+    // Update active tab
+    $('.tab-nav li.active').removeClass('active');
     target.parent().addClass('active');
     
     // Call the cron settings template method if available
@@ -355,14 +335,13 @@ BlazeComponent.extendComponent({
         'click button.js-save-layout': this.saveLayout,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,
-        'click a.js-back-to-main-settings': this.backToMainSettings,
-        'click a.js-attachment-storage-settings': this.switchAttachmentMenu,
-        'click a.js-attachment-migration': this.switchAttachmentMenu,
-        'click a.js-attachment-monitoring': this.switchAttachmentMenu,
-        'click a.js-cron-migrations': this.switchCronMenu,
-        'click a.js-cron-board-operations': this.switchCronMenu,
-        'click a.js-cron-jobs': this.switchCronMenu,
-        'click a.js-cron-add': this.switchCronMenu,
+        'click a.js-attachment-storage-settings': this.switchAttachmentTab,
+        'click a.js-attachment-migration': this.switchAttachmentTab,
+        'click a.js-attachment-monitoring': this.switchAttachmentTab,
+        'click a.js-cron-migrations': this.switchCronTab,
+        'click a.js-cron-board-operations': this.switchCronTab,
+        'click a.js-cron-jobs': this.switchCronTab,
+        'click a.js-cron-add': this.switchCronTab,
       },
     ];
   },

@@ -141,6 +141,27 @@ Template.cronSettings.helpers({
   }
 });
 
+Template.cronSettings.switchMenu = function(event, targetID) {
+  const instance = Template.instance();
+  
+  // Reset all tabs
+  instance.showMigrations.set(false);
+  instance.showBoardOperations.set(false);
+  instance.showJobs.set(false);
+  instance.showAddJob.set(false);
+  
+  // Set the selected tab
+  if (targetID === 'cron-migrations') {
+    instance.showMigrations.set(true);
+  } else if (targetID === 'cron-board-operations') {
+    instance.showBoardOperations.set(true);
+  } else if (targetID === 'cron-jobs') {
+    instance.showJobs.set(true);
+  } else if (targetID === 'cron-add') {
+    instance.showAddJob.set(true);
+  }
+};
+
 Template.cronSettings.events({
   'click .js-cron-migrations'(event) {
     event.preventDefault();
