@@ -1,5 +1,21 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+
+// Template helpers for attachmentSettings
+Template.attachmentSettings.helpers({
+  loading() {
+    return attachmentSettings.loading.get();
+  },
+  showStorageSettings() {
+    return attachmentSettings.showStorageSettings.get();
+  },
+  showMigration() {
+    return attachmentSettings.showMigration.get();
+  },
+  showMonitoring() {
+    return attachmentSettings.showMonitoring.get();
+  }
+});
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';

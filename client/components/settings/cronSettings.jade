@@ -2,33 +2,33 @@ template(name="cronSettings")
   .cron-settings-content
     .settings-tabs
       ul.tab-nav
-        li(class="{{#if showMigrations.get}}active{{/if}}")
+        li(class="{{#if showMigrations}}active{{/if}}")
           a.js-cron-migrations(data-id="cron-migrations")
             i.fa.fa-database
             | {{_ 'cron-migrations'}}
-        li(class="{{#if showBoardOperations.get}}active{{/if}}")
+        li(class="{{#if showBoardOperations}}active{{/if}}")
           a.js-cron-board-operations(data-id="cron-board-operations")
             i.fa.fa-tasks
             | {{_ 'board-operations'}}
-        li(class="{{#if showJobs.get}}active{{/if}}")
+        li(class="{{#if showJobs}}active{{/if}}")
           a.js-cron-jobs(data-id="cron-jobs")
             i.fa.fa-clock-o
             | {{_ 'cron-jobs'}}
-        li(class="{{#if showAddJob.get}}active{{/if}}")
+        li(class="{{#if showAddJob}}active{{/if}}")
           a.js-cron-add(data-id="cron-add")
             i.fa.fa-plus
             | {{_ 'add-cron-job'}}
     
     .tab-content
-      if loading.get
+      if loading
         +spinner
-      else if showMigrations.get
+      else if showMigrations
         +cronMigrations
-      else if showBoardOperations.get
+      else if showBoardOperations
         +cronBoardOperations
-      else if showJobs.get
+      else if showJobs
         +cronJobs
-      else if showAddJob.get
+      else if showAddJob
         +cronAddJob
 
 template(name="cronMigrations")

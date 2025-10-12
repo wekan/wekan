@@ -3,6 +3,54 @@ import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import LockoutSettings from '/models/lockoutSettings';
 
+// Template helpers for settingBody
+Template.setting.helpers({
+  generalSetting() {
+    const instance = Template.instance();
+    return instance && instance.generalSetting ? instance.generalSetting.get() : false;
+  },
+  emailSetting() {
+    const instance = Template.instance();
+    return instance && instance.emailSetting ? instance.emailSetting.get() : false;
+  },
+  accountSetting() {
+    const instance = Template.instance();
+    return instance && instance.accountSetting ? instance.accountSetting.get() : false;
+  },
+  tableVisibilityModeSetting() {
+    const instance = Template.instance();
+    return instance && instance.tableVisibilityModeSetting ? instance.tableVisibilityModeSetting.get() : false;
+  },
+  announcementSetting() {
+    const instance = Template.instance();
+    return instance && instance.announcementSetting ? instance.announcementSetting.get() : false;
+  },
+  accessibilitySetting() {
+    const instance = Template.instance();
+    return instance && instance.accessibilitySetting ? instance.accessibilitySetting.get() : false;
+  },
+  layoutSetting() {
+    const instance = Template.instance();
+    return instance && instance.layoutSetting ? instance.layoutSetting.get() : false;
+  },
+  webhookSetting() {
+    const instance = Template.instance();
+    return instance && instance.webhookSetting ? instance.webhookSetting.get() : false;
+  },
+  attachmentSettings() {
+    const instance = Template.instance();
+    return instance && instance.attachmentSettings ? instance.attachmentSettings.get() : false;
+  },
+  cronSettings() {
+    const instance = Template.instance();
+    return instance && instance.cronSettings ? instance.cronSettings.get() : false;
+  },
+  loading() {
+    const instance = Template.instance();
+    return instance && instance.loading ? instance.loading.get() : false;
+  }
+});
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');

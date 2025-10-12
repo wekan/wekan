@@ -98,6 +98,8 @@
   "migration-info-text": "Database migrations are performed once and improve system performance. The process continues in the background even if you close your browser.",
   "migration-warning-text": "Please do not close your browser during migration. The process will continue in the background but may take longer to complete.",
   "cron-settings": "Cron Settings",
+  "attachments": "Attachments",
+  "cron": "Cron",
   "back-to-settings": "Back to Settings",
   "cron-migrations": "Database Migrations",
   "cron-jobs": "Cron Jobs",

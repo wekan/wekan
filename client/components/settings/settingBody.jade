@@ -9,70 +9,70 @@ template(name="setting")
       .content-body
         .side-menu
           ul
-            li(class="{{#if generalSetting.get}}active{{/if}}")
+            li(class="{{#if generalSetting}}active{{/if}}")
               a.js-setting-menu(data-id="registration-setting")
                 i.fa.fa-sign-in
                 | {{_ 'registration'}}
             unless isSandstorm
-              li(class="{{#if emailSetting.get}}active{{/if}}")
+              li(class="{{#if emailSetting}}active{{/if}}")
                 a.js-setting-menu(data-id="email-setting")
                   i.fa.fa-envelope
                   | {{_ 'email'}}
-            li(class="{{#if accountSetting.get}}active{{/if}}")
+            li(class="{{#if accountSetting}}active{{/if}}")
               a.js-setting-menu(data-id="account-setting")
                 i.fa.fa-users
                 | {{_ 'accounts'}}
-            li(class="{{#if tableVisibilityModeSetting.get}}active{{/if}}")
+            li(class="{{#if tableVisibilityModeSetting}}active{{/if}}")
               a.js-setting-menu(data-id="tableVisibilityMode-setting")
                 i.fa.fa-eye
                 | {{_ 'tableVisibilityMode'}}
-            li(class="{{#if announcementSetting.get}}active{{/if}}")
+            li(class="{{#if announcementSetting}}active{{/if}}")
               a.js-setting-menu(data-id="announcement-setting")
                 i.fa.fa-bullhorn
                 | {{_ 'admin-announcement'}}
-            li(class="{{#if accessibilitySetting.get}}active{{/if}}")
+            li(class="{{#if accessibilitySetting}}active{{/if}}")
               a.js-setting-menu(data-id="accessibility-setting")
                 i.fa.fa-universal-access
                 | {{_ 'accessibility'}}
-            li(class="{{#if layoutSetting.get}}active{{/if}}")
+            li(class="{{#if layoutSetting}}active{{/if}}")
               a.js-setting-menu(data-id="layout-setting")
                 i.fa.fa-object-group
                 | {{_ 'layout'}}
-            li(class="{{#if webhookSetting.get}}active{{/if}}")
+            li(class="{{#if webhookSetting}}active{{/if}}")
               a.js-setting-menu(data-id="webhook-setting")
                 i.fa.fa-globe
                 | {{_ 'global-webhook'}}
-            li(class="{{#if attachmentSettings.get}}active{{/if}}")
+            li(class="{{#if attachmentSettings}}active{{/if}}")
               a.js-setting-menu(data-id="attachment-settings")
                 i.fa.fa-paperclip
-                | {{_ 'attachment-settings'}}
-            li(class="{{#if cronSettings.get}}active{{/if}}")
+                | {{_ 'attachments'}}
+            li(class="{{#if cronSettings}}active{{/if}}")
               a.js-setting-menu(data-id="cron-settings")
                 i.fa.fa-clock-o
-                | {{_ 'cron-settings'}}
+                | {{_ 'cron'}}
         .main-body
-          if loading.get
+          if loading
             +spinner
-          else if attachmentSettings.get
+          else if attachmentSettings
             +attachmentSettings
-          else if cronSettings.get
+          else if cronSettings
             +cronSettings
-          else if generalSetting.get
+          else if generalSetting
             +general
-          else if emailSetting.get
+          else if emailSetting
             unless isSandstorm
               +email
-          else if accountSetting.get
+          else if accountSetting
             +accountSettings
-          else if tableVisibilityModeSetting.get
+          else if tableVisibilityModeSetting
             +tableVisibilityModeSettings
-          else if announcementSetting.get
+          else if announcementSetting
             +announcementSettings
-          else if accessibilitySetting.get
+          else if accessibilitySetting
             +accessibilitySettings
-          else if layoutSetting.get
+          else if layoutSetting
             +layoutSettings
-          else if webhookSetting.get
+          else if webhookSetting
             +webhookSettings
 
 template(name="webhookSettings")
