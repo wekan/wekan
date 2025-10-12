@@ -81,14 +81,24 @@ BlazeComponent.extendComponent({
           Modal.open('archivedBoards');
         },
         'click .js-toggle-board-view': Popup.open('boardChangeView'),
-        // Sidebar toggle is handled by the sidebar component itself
-        // 'click .js-toggle-sidebar'() {
-        //   if (Sidebar) {
-        //     Sidebar.toggle();
-        //   } else {
-        //     console.warn('Sidebar not available for toggle');
-        //   }
-        // },
+        'click .js-toggle-sidebar'() {
+          console.log('Hamburger menu clicked');
+          // Use the same approach as keyboard shortcuts
+          if (typeof Sidebar !== 'undefined' && Sidebar && typeof Sidebar.toggle === 'function') {
+            console.log('Using Sidebar.toggle()');
+            Sidebar.toggle();
+          } else {
+            console.warn('Sidebar not available, trying alternative approach');
+            // Try to trigger the sidebar through the global Blaze helper
+            if (typeof Blaze !== 'undefined' && Blaze._globalHelpers && Blaze._globalHelpers.Sidebar) {
+              const sidebar = Blaze._globalHelpers.Sidebar();
+              if (sidebar && typeof sidebar.toggle === 'function') {
+                console.log('Using Blaze helper Sidebar.toggle()');
+                sidebar.toggle();
+              }
+            }
+          }
+        },
         'click .js-open-filter-view'() {
           if (Sidebar) {
             Sidebar.setView('filter');
