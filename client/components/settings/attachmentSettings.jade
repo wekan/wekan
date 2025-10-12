@@ -1,33 +1,13 @@
 template(name="attachmentSettings")
-  .setting-content.attachment-settings-content
-    unless currentUser.isAdmin
-      | {{_ 'error-notAuthorized'}}
-    else
-      .content-body
-        .side-menu
-          ul
-            li
-              a.js-attachment-storage-settings(data-id="storage-settings")
-                i.fa.fa-cog
-                | {{_ 'attachment-storage-settings'}}
-            li
-              a.js-attachment-migration(data-id="attachment-migration")
-                i.fa.fa-arrow-right
-                | {{_ 'attachment-migration'}}
-            li
-              a.js-attachment-monitoring(data-id="attachment-monitoring")
-                i.fa.fa-chart-line
-                | {{_ 'attachment-monitoring'}}
-
-        .main-body
-          if loading.get
-            +spinner
-          else if showStorageSettings.get
-            +storageSettings
-          else if showMigration.get
-            +attachmentMigration
-          else if showMonitoring.get
-            +attachmentMonitoring
+  .attachment-settings-content
+    if loading.get
+      +spinner
+    else if showStorageSettings.get
+      +storageSettings
+    else if showMigration.get
+      +attachmentMigration
+    else if showMonitoring.get
+      +attachmentMonitoring
 
 template(name="storageSettings")
   .storage-settings

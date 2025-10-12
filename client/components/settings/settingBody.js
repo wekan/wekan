@@ -101,6 +101,69 @@ BlazeComponent.extendComponent({
   toggleDisplayAuthenticationMethod() {
     $('#display-authentication-method').toggleClass('is-checked');
   },
+
+  backToMainSettings(event) {
+    event.preventDefault();
+    // Reset all settings to false
+    this.forgotPasswordSetting.set(false);
+    this.generalSetting.set(true); // Set registration as default
+    this.emailSetting.set(false);
+    this.accountSetting.set(false);
+    this.announcementSetting.set(false);
+    this.accessibilitySetting.set(false);
+    this.layoutSetting.set(false);
+    this.webhookSetting.set(false);
+    this.attachmentSettings.set(false);
+    this.cronSettings.set(false);
+    this.tableVisibilityModeSetting.set(false);
+    
+    // Update active menu item
+    $('.side-menu li.active').removeClass('active');
+    $('.side-menu li:first-child').addClass('active');
+  },
+
+  switchAttachmentMenu(event) {
+    event.preventDefault();
+    const target = $(event.target);
+    const targetID = target.data('id');
+    
+    // Update active menu item
+    $('.side-menu li.active').removeClass('active');
+    target.parent().addClass('active');
+    
+    // Call the attachment settings component method if available
+    if (window.attachmentSettings && window.attachmentSettings.switchMenu) {
+      window.attachmentSettings.switchMenu(event, targetID);
+    }
+  },
+
+  switchCronMenu(event) {
+    event.preventDefault();
+    const target = $(event.target);
+    const targetID = target.data('id');
+    
+    // Update active menu item
+    $('.side-menu li.active').removeClass('active');
+    target.parent().addClass('active');
+    
+    // Call the cron settings template method if available
+    const cronTemplate = Template.instance();
+    if (cronTemplate && cronTemplate.switchMenu) {
+      cronTemplate.switchMenu(event, targetID);
+    }
+  },
+
+  initializeAttachmentSubMenu() {
+    // Set default sub-menu state for attachment settings
+    // This will be handled by the attachment settings component
+    console.log('Initializing attachment sub-menu');
+  },
+
+  initializeCronSubMenu() {
+    // Set default sub-menu state for cron settings
+    // This will be handled by the cron settings template
+    console.log('Initializing cron sub-menu');
+  },
   switchMenu(event) {
     const target = $(event.target);
     if (!target.hasClass('active')) {
@@ -117,6 +180,13 @@ BlazeComponent.extendComponent({
       this.webhookSetting.set('webhook-setting' === targetID);
       this.attachmentSettings.set('attachment-settings' === targetID);
       this.cronSettings.set('cron-settings' === targetID);
+      
+      // Initialize sub-menu states
+      if ('attachment-settings' === targetID) {
+        this.initializeAttachmentSubMenu();
+      } else if ('cron-settings' === targetID) {
+        this.initializeCronSubMenu();
+      }
       this.tableVisibilityModeSetting.set('tableVisibilityMode-setting' === targetID);
     }
   },
@@ -285,6 +355,14 @@ BlazeComponent.extendComponent({
         'click button.js-save-layout': this.saveLayout,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,
+        'click a.js-back-to-main-settings': this.backToMainSettings,
+        'click a.js-attachment-storage-settings': this.switchAttachmentMenu,
+        'click a.js-attachment-migration': this.switchAttachmentMenu,
+        'click a.js-attachment-monitoring': this.switchAttachmentMenu,
+        'click a.js-cron-migrations': this.switchCronMenu,
+        'click a.js-cron-board-operations': this.switchCronMenu,
+        'click a.js-cron-jobs': this.switchCronMenu,
+        'click a.js-cron-add': this.switchCronMenu,
       },
     ];
   },

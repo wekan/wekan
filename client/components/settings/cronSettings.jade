@@ -1,39 +1,15 @@
 template(name="cronSettings")
-  .setting-content.cron-settings-content
-    unless currentUser.isAdmin
-      | {{_ 'error-notAuthorized'}}
-    else
-      .content-body
-        .side-menu
-          ul
-            li
-              a.js-cron-migrations(data-id="cron-migrations")
-                i.fa.fa-database
-                | {{_ 'cron-migrations'}}
-            li
-              a.js-cron-board-operations(data-id="cron-board-operations")
-                i.fa.fa-tasks
-                | {{_ 'board-operations'}}
-            li
-              a.js-cron-jobs(data-id="cron-jobs")
-                i.fa.fa-clock-o
-                | {{_ 'cron-jobs'}}
-            li
-              a.js-cron-add(data-id="cron-add")
-                i.fa.fa-plus
-                | {{_ 'add-cron-job'}}
-
-        .main-body
-          if loading.get
-            +spinner
-          else if showMigrations.get
-            +cronMigrations
-          else if showBoardOperations.get
-            +cronBoardOperations
-          else if showJobs.get
-            +cronJobs
-          else if showAddJob.get
-            +cronAddJob
+  .cron-settings-content
+    if loading.get
+      +spinner
+    else if showMigrations.get
+      +cronMigrations
+    else if showBoardOperations.get
+      +cronBoardOperations
+    else if showJobs.get
+      +cronJobs
+    else if showAddJob.get
+      +cronAddJob
 
 template(name="cronMigrations")
   .cron-migrations

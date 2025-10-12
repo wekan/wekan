@@ -59,6 +59,11 @@ BlazeComponent.extendComponent({
     this.showMigration = attachmentSettings.showMigration;
     this.showMonitoring = attachmentSettings.showMonitoring;
     
+    // Set default sub-menu state
+    this.showStorageSettings.set(true);
+    this.showMigration.set(false);
+    this.showMonitoring.set(false);
+    
     // Load initial data
     this.loadStorageConfiguration();
     this.loadMigrationSettings();
