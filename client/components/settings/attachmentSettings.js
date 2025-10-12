@@ -4,15 +4,31 @@ import { TAPi18n } from '/imports/i18n';
 // Template helpers for attachmentSettings
 Template.attachmentSettings.helpers({
   loading() {
+    const instance = Template.instance();
+    if (instance && instance.loading) {
+      return instance.loading.get();
+    }
     return attachmentSettings.loading.get();
   },
   showStorageSettings() {
+    const instance = Template.instance();
+    if (instance && instance.showStorageSettings) {
+      return instance.showStorageSettings.get();
+    }
     return attachmentSettings.showStorageSettings.get();
   },
   showMigration() {
+    const instance = Template.instance();
+    if (instance && instance.showMigration) {
+      return instance.showMigration.get();
+    }
     return attachmentSettings.showMigration.get();
   },
   showMonitoring() {
+    const instance = Template.instance();
+    if (instance && instance.showMonitoring) {
+      return instance.showMonitoring.get();
+    }
     return attachmentSettings.showMonitoring.get();
   }
 });
