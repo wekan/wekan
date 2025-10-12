@@ -40,7 +40,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - Change Admin Panel "Attachment Settings" and "Cron Settings" options to be tabs, not submenu.
   [Part 1](https://github.com/wekan/wekan/commit/ae2aa1f5cd2511e80e12a91426eb91bb968dff98),
-  [Part 2](https://github.com/wekan/wekan/commit/5a6faafa30fefcd5dd0af7cc52b847a54d538065).
+  [Part 2](https://github.com/wekan/wekan/commit/5a6faafa30fefcd5dd0af7cc52b847a54d538065),
+  [Part 3](https://github.com/wekan/wekan/commit/2148aeea42f69fa367bf8c451d7f1c3a63b52880).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
