@@ -285,7 +285,8 @@ class CronMigrationManager {
     const canStart = cronJobStorage.canStartNewJob();
     
     if (!canStart.canStart) {
-      console.log(`Cannot start new job: ${canStart.reason}`);
+      // Suppress "Cannot start new job: Maximum concurrent jobs reached" message
+      // console.log(`Cannot start new job: ${canStart.reason}`);
       return;
     }
 
