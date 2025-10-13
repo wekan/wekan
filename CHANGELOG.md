@@ -45,6 +45,9 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed Error in migrate-lists-to-per-swimlane migration](https://github.com/wekan/wekan/commit/cc99da5357fb1fc00e3b5aece20c57917f88301b).
   Thanks to xet7.
+- Fix Admin Panel Settings menu to show Attachments and Cron options correctly.
+  [Part 1](https://github.com/wekan/wekan/e0013b9b631eb16861b1cfdb25386bf8e9099b4e),
+  [Part 2](https://github.com/wekan/wekan/7bb1e24bda2ed9db0bad0fafcf256680c2c05e8a).
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
