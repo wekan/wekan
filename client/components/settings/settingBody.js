@@ -484,9 +484,6 @@ BlazeComponent.extendComponent({
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
-    const accessibilityPageEnabled = $('input[name=accessibilityPageEnabled]:checked').val() === 'true';
-    const accessibilityTitle = ($('#accessibility-title').val() || '').trim();
-    const accessibilityContent = ($('#accessibility-content').val() || '').trim();
     const spinnerName = ($('#spinnerName').val() || '').trim();
 
     try {
@@ -510,9 +507,6 @@ BlazeComponent.extendComponent({
           oidcBtnText,
           mailDomainName,
           legalNotice,
-          accessibilityPageEnabled,
-          accessibilityTitle,
-          accessibilityContent,
         },
       });
     } catch (e) {
@@ -724,18 +718,27 @@ BlazeComponent.extendComponent({
   },
 
   saveAccessibility() {
+    this.setLoading(true);
     const title = $('#admin-accessibility-title')
       .val()
       .trim();
     const content = $('#admin-accessibility-content')
       .val()
       .trim();
-    AccessibilitySettings.update(AccessibilitySettings.findOne()._id, {
-      $set: {
-        title: title,
-        body: content
-      },
-    });
+    
+    try {
+      AccessibilitySettings.update(AccessibilitySettings.findOne()._id, {
+        $set: {
+          title: title,
+          body: content
+        },
+      });
+    } catch (e) {
+      console.error('Error saving accessibility settings:', e);
+      return;
+    } finally {
+      this.setLoading(false);
+    }
   },
 
   toggleAccessibility() {

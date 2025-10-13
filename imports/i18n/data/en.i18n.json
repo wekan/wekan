@@ -1488,6 +1488,5 @@
   "weight": "Weight",
   "idle": "Idle",
   "complete": "Complete",
-  "add-cron-job": "Add Scheduled Job",
   "cron": "Cron"
 }
