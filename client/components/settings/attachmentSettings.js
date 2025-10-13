@@ -1,37 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
-// Template helpers for attachmentSettings
-Template.attachmentSettings.helpers({
-  loading() {
-    const instance = Template.instance();
-    if (instance && instance.loading) {
-      return instance.loading.get();
-    }
-    return attachmentSettings.loading.get();
-  },
-  showStorageSettings() {
-    const instance = Template.instance();
-    if (instance && instance.showStorageSettings) {
-      return instance.showStorageSettings.get();
-    }
-    return attachmentSettings.showStorageSettings.get();
-  },
-  showMigration() {
-    const instance = Template.instance();
-    if (instance && instance.showMigration) {
-      return instance.showMigration.get();
-    }
-    return attachmentSettings.showMigration.get();
-  },
-  showMonitoring() {
-    const instance = Template.instance();
-    if (instance && instance.showMonitoring) {
-      return instance.showMonitoring.get();
-    }
-    return attachmentSettings.showMonitoring.get();
-  }
-});
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
@@ -100,6 +69,20 @@ BlazeComponent.extendComponent({
     this.loadStorageConfiguration();
     this.loadMigrationSettings();
     this.loadMonitoringData();
+  },
+
+  // Template helpers for this component
+  loading() {
+    return this.loading.get();
+  },
+  showStorageSettings() {
+    return this.showStorageSettings.get();
+  },
+  showMigration() {
+    return this.showMigration.get();
+  },
+  showMonitoring() {
+    return this.showMonitoring.get();
   },
 
   events() {
@@ -496,6 +479,26 @@ BlazeComponent.extendComponent({
     });
   }
 }).register('attachmentMonitoring');
+
+// Template helpers for attachmentSettings
+Template.attachmentSettings.helpers({
+  loading() {
+    const instance = Template.instance();
+    return instance.loading && instance.loading.get();
+  },
+  showStorageSettings() {
+    const instance = Template.instance();
+    return instance.showStorageSettings && instance.showStorageSettings.get();
+  },
+  showMigration() {
+    const instance = Template.instance();
+    return instance.showMigration && instance.showMigration.get();
+  },
+  showMonitoring() {
+    const instance = Template.instance();
+    return instance.showMonitoring && instance.showMonitoring.get();
+  },
+});
 
 // Export the attachment settings for use in other components
 export { attachmentSettings };

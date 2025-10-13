@@ -21,6 +21,10 @@ template(name="boardBody")
   if notDisplayThisBoard
    | {{_ 'tableVisibilityMode-allowPrivateOnly'}}
   else
+    // Debug information (remove in production)
+    if debugBoardState
+      .debug-info(style="position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 9999; font-size: 12px;")
+        | Board: {{currentBoard.title}} | View: {{boardView}} | HasSwimlanes: {{hasSwimlanes}} | Swimlanes: {{currentBoard.swimlanes.length}}
     .board-wrapper(class=currentBoard.colorClass class="{{#if isMiniScreen}}mobile-view{{/if}}")
       .board-canvas.js-swimlanes(
         class="{{#if hasSwimlanes}}dragscroll{{/if}}"
@@ -39,9 +43,8 @@ template(name="boardBody")
             each currentBoard.swimlanes
               +swimlane(this)
           else
-            a.js-empty-board-add-swimlane(title="{{_ 'add-swimlane'}}")
-              h1.big-message.quiet
-                | {{_ 'add-swimlane'}} +
+            // Fallback: If no swimlanes exist, show lists instead of empty message
+            +listsGroup(currentBoard)
         else if isViewLists
           +listsGroup(currentBoard)
         else if isViewCalendar

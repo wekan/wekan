@@ -3,86 +3,6 @@ import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import LockoutSettings from '/models/lockoutSettings';
 
-// Template helpers for settingBody
-Template.setting.helpers({
-  generalSetting() {
-    const instance = Template.instance();
-    if (instance && instance.generalSetting) {
-      return instance.generalSetting.get();
-    }
-    return false;
-  },
-  emailSetting() {
-    const instance = Template.instance();
-    if (instance && instance.emailSetting) {
-      return instance.emailSetting.get();
-    }
-    return false;
-  },
-  accountSetting() {
-    const instance = Template.instance();
-    if (instance && instance.accountSetting) {
-      return instance.accountSetting.get();
-    }
-    return false;
-  },
-  tableVisibilityModeSetting() {
-    const instance = Template.instance();
-    if (instance && instance.tableVisibilityModeSetting) {
-      return instance.tableVisibilityModeSetting.get();
-    }
-    return false;
-  },
-  announcementSetting() {
-    const instance = Template.instance();
-    if (instance && instance.announcementSetting) {
-      return instance.announcementSetting.get();
-    }
-    return false;
-  },
-  accessibilitySetting() {
-    const instance = Template.instance();
-    if (instance && instance.accessibilitySetting) {
-      return instance.accessibilitySetting.get();
-    }
-    return false;
-  },
-  layoutSetting() {
-    const instance = Template.instance();
-    if (instance && instance.layoutSetting) {
-      return instance.layoutSetting.get();
-    }
-    return false;
-  },
-  webhookSetting() {
-    const instance = Template.instance();
-    if (instance && instance.webhookSetting) {
-      return instance.webhookSetting.get();
-    }
-    return false;
-  },
-  attachmentSettings() {
-    const instance = Template.instance();
-    if (instance && instance.attachmentSettings) {
-      return instance.attachmentSettings.get();
-    }
-    return false;
-  },
-  cronSettings() {
-    const instance = Template.instance();
-    if (instance && instance.cronSettings) {
-      return instance.cronSettings.get();
-    }
-    return false;
-  },
-  loading() {
-    const instance = Template.instance();
-    if (instance && instance.loading) {
-      return instance.loading.get();
-    }
-    return false;
-  }
-});
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -109,6 +29,7 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('globalwebhooks');
     Meteor.subscribe('lockoutSettings');
   },
+
 
   setError(error) {
     this.error.set(error);
@@ -665,5 +586,53 @@ Template.selectSpinnerName.helpers({
   },
   isSelected(match) {
     return Template.instance().data.spinnerName === match;
+  },
+});
+
+// Template helpers for the setting template
+Template.setting.helpers({
+  generalSetting() {
+    const instance = Template.instance();
+    return instance.generalSetting && instance.generalSetting.get();
+  },
+  emailSetting() {
+    const instance = Template.instance();
+    return instance.emailSetting && instance.emailSetting.get();
+  },
+  accountSetting() {
+    const instance = Template.instance();
+    return instance.accountSetting && instance.accountSetting.get();
+  },
+  tableVisibilityModeSetting() {
+    const instance = Template.instance();
+    return instance.tableVisibilityModeSetting && instance.tableVisibilityModeSetting.get();
+  },
+  announcementSetting() {
+    const instance = Template.instance();
+    return instance.announcementSetting && instance.announcementSetting.get();
+  },
+  accessibilitySetting() {
+    const instance = Template.instance();
+    return instance.accessibilitySetting && instance.accessibilitySetting.get();
+  },
+  layoutSetting() {
+    const instance = Template.instance();
+    return instance.layoutSetting && instance.layoutSetting.get();
+  },
+  webhookSetting() {
+    const instance = Template.instance();
+    return instance.webhookSetting && instance.webhookSetting.get();
+  },
+  attachmentSettings() {
+    const instance = Template.instance();
+    return instance.attachmentSettings && instance.attachmentSettings.get();
+  },
+  cronSettings() {
+    const instance = Template.instance();
+    return instance.cronSettings && instance.cronSettings.get();
+  },
+  loading() {
+    const instance = Template.instance();
+    return instance.loading && instance.loading.get();
   },
 });

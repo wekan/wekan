@@ -526,3 +526,27 @@ function pollMigrationProgress(instance) {
     });
   }, 1000);
 }
+
+// Template helpers for cronSettings
+Template.cronSettings.helpers({
+  loading() {
+    const instance = Template.instance();
+    return instance.loading && instance.loading.get();
+  },
+  showMigrations() {
+    const instance = Template.instance();
+    return instance.showMigrations && instance.showMigrations.get();
+  },
+  showBoardOperations() {
+    const instance = Template.instance();
+    return instance.showBoardOperations && instance.showBoardOperations.get();
+  },
+  showJobs() {
+    const instance = Template.instance();
+    return instance.showJobs && instance.showJobs.get();
+  },
+  showAddJob() {
+    const instance = Template.instance();
+    return instance.showAddJob && instance.showAddJob.get();
+  },
+});

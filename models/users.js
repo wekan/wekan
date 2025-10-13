@@ -2138,7 +2138,7 @@ if (Meteor.isServer) {
         const future3 = new Future();
         Boards.insert(
           {
-            title: TAPi18n.__('templates'),
+            title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('templates') : 'Templates',
             permission: 'private',
             type: 'template-container',
           },
@@ -2154,7 +2154,7 @@ if (Meteor.isServer) {
             // Insert the card templates swimlane
             Swimlanes.insert(
               {
-                title: TAPi18n.__('card-templates-swimlane'),
+                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('card-templates-swimlane') : 'Card Templates',
                 boardId,
                 sort: 1,
                 type: 'template-container',
@@ -2174,7 +2174,7 @@ if (Meteor.isServer) {
             // Insert the list templates swimlane
             Swimlanes.insert(
               {
-                title: TAPi18n.__('list-templates-swimlane'),
+                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('list-templates-swimlane') : 'List Templates',
                 boardId,
                 sort: 2,
                 type: 'template-container',
@@ -2194,7 +2194,7 @@ if (Meteor.isServer) {
             // Insert the board templates swimlane
             Swimlanes.insert(
               {
-                title: TAPi18n.__('board-templates-swimlane'),
+                title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('board-templates-swimlane') : 'Board Templates',
                 boardId,
                 sort: 3,
                 type: 'template-container',

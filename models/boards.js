@@ -1148,13 +1148,13 @@ Boards.helpers({
         permission: this.permission,
         members: this.members,
         color: this.color,
-        description: TAPi18n.__('default-subtasks-board', {
+        description: TAPi18n && TAPi18n.i18n ? TAPi18n.__('default-subtasks-board', {
           board: this.title,
-        }),
+        }) : `Default subtasks board for ${this.title}`,
       });
 
       Swimlanes.insert({
-        title: TAPi18n.__('default'),
+        title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('default') : 'Default',
         boardId: this.subtasksDefaultBoardId,
       });
       Boards.update(this._id, {
@@ -1181,13 +1181,13 @@ Boards.helpers({
         permission: this.permission,
         members: this.members,
         color: this.color,
-        description: TAPi18n.__('default-dates-board', {
+        description: TAPi18n && TAPi18n.i18n ? TAPi18n.__('default-dates-board', {
           board: this.title,
-        }),
+        }) : `Default dates board for ${this.title}`,
       });
 
       Swimlanes.insert({
-        title: TAPi18n.__('default'),
+        title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('default') : 'Default',
         boardId: this.dateSettingsDefaultBoardId,
       });
       Boards.update(this._id, {
@@ -1209,7 +1209,7 @@ Boards.helpers({
       this.subtasksDefaultListId === undefined
     ) {
       this.subtasksDefaultListId = Lists.insert({
-        title: TAPi18n.__('queue'),
+        title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('queue') : 'Queue',
         boardId: this._id,
         swimlaneId: this.getDefaultSwimline()._id, // Set default swimlane for subtasks list
       });
@@ -1228,7 +1228,7 @@ Boards.helpers({
       this.dateSettingsDefaultListId === undefined
     ) {
       this.dateSettingsDefaultListId = Lists.insert({
-        title: TAPi18n.__('queue'),
+        title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('queue') : 'Queue',
         boardId: this._id,
         swimlaneId: this.getDefaultSwimline()._id, // Set default swimlane for date settings list
       });
@@ -1244,8 +1244,10 @@ Boards.helpers({
   getDefaultSwimline() {
     let result = ReactiveCache.getSwimlane({ boardId: this._id });
     if (result === undefined) {
+      // Use fallback title if i18n is not available (e.g., during migration)
+      const title = TAPi18n && TAPi18n.i18n ? TAPi18n.__('default') : 'Default';
       Swimlanes.insert({
-        title: TAPi18n.__('default'),
+        title: title,
         boardId: this._id,
       });
       result = ReactiveCache.getSwimlane({ boardId: this._id });
@@ -2212,7 +2214,7 @@ if (Meteor.isServer) {
         migrationVersion: 1, // Latest version - no migration needed
       });
       const swimlaneId = Swimlanes.insert({
-        title: TAPi18n.__('default'),
+        title: TAPi18n && TAPi18n.i18n ? TAPi18n.__('default') : 'Default',
         boardId: id,
       });
       JsonRoutes.sendResult(res, {

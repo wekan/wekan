@@ -40,7 +40,7 @@ if (Meteor.isServer) {
     }
   }
 
-  storagePath = path.join(process.env.WRITABLE_PATH, 'attachments');
+  storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'attachments');
 }
 
 export const fileStoreStrategyFactory = new FileStoreStrategyFactory(AttachmentStoreStrategyFilesystem, storagePath, AttachmentStoreStrategyGridFs, attachmentBucket);

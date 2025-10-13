@@ -40,7 +40,7 @@ if (Meteor.isServer) {
   }
 
   avatarsBucket = createBucket('avatars');
-  storagePath = path.join(process.env.WRITABLE_PATH, 'avatars');
+  storagePath = path.join(process.env.WRITABLE_PATH || process.cwd(), 'avatars');
 }
 
 const fileStoreStrategyFactory = new FileStoreStrategyFactory(FileStoreStrategyFilesystem, storagePath, FileStoreStrategyGridFs, avatarsBucket);

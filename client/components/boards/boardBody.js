@@ -238,11 +238,16 @@ BlazeComponent.extendComponent({
       }
     }
 
-    // Observe for new popups/menus and set focus
+    // Observe for new popups/menus and set focus (but exclude swimlane content)
     const popupObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         mutation.addedNodes.forEach(function(node) {
-          if (node.nodeType === 1 && (node.classList.contains('popup') || node.classList.contains('modal') || node.classList.contains('menu'))) {
+          if (node.nodeType === 1 && 
+              (node.classList.contains('popup') || node.classList.contains('modal') || node.classList.contains('menu')) &&
+              !node.closest('.js-swimlanes') && 
+              !node.closest('.swimlane') &&
+              !node.closest('.list') &&
+              !node.closest('.minicard')) {
             setTimeout(function() { focusFirstInteractive(node); }, 10);
           }
         });
@@ -601,10 +606,20 @@ BlazeComponent.extendComponent({
 
   hasSwimlanes() {
     const currentBoard = Utils.getCurrentBoard();
-    if (!currentBoard) return false;
+    if (!currentBoard) {
+      console.log('hasSwimlanes: No current board');
+      return false;
+    }
     
-    const swimlanes = currentBoard.swimlanes();
-    return swimlanes.length > 0;
+    try {
+      const swimlanes = currentBoard.swimlanes();
+      const hasSwimlanes = swimlanes && swimlanes.length > 0;
+      console.log('hasSwimlanes: Board has', swimlanes ? swimlanes.length : 0, 'swimlanes');
+      return hasSwimlanes;
+    } catch (error) {
+      console.error('hasSwimlanes: Error getting swimlanes:', error);
+      return false;
+    }
   },
 
 
@@ -618,6 +633,12 @@ BlazeComponent.extendComponent({
   },
 
   debugBoardState() {
+    // Enable debug mode by setting ?debug=1 in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('debug') === '1';
+  },
+
+  debugBoardStateData() {
     const currentBoard = Utils.getCurrentBoard();
     const currentBoardId = Session.get('currentBoard');
     const isBoardReady = this.isBoardReady.get();
