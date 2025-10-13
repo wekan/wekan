@@ -13,9 +13,21 @@ export const conversionStatus = new ReactiveVar('');
 export const conversionEstimatedTime = new ReactiveVar('');
 export const isConverting = new ReactiveVar(false);
 
+// Global tracking of converted boards (persistent across component reinitializations)
+const globalConvertedBoards = new Set();
+
 class BoardConverter {
   constructor() {
     this.conversionCache = new Map(); // Cache converted board IDs
+  }
+
+  /**
+   * Check if a board has been converted
+   * @param {string} boardId - The board ID
+   * @returns {boolean} - True if board has been converted
+   */
+  isBoardConverted(boardId) {
+    return globalConvertedBoards.has(boardId);
   }
 
   /**
@@ -55,6 +67,12 @@ class BoardConverter {
    * @returns {Promise<boolean>} - True if conversion was successful
    */
   async convertBoard(boardId) {
+    // Check if board has already been converted
+    if (this.isBoardConverted(boardId)) {
+      console.log(`Board ${boardId} has already been converted, skipping`);
+      return true;
+    }
+
     if (this.conversionCache.has(boardId)) {
       return true; // Already converted
     }
@@ -87,7 +105,9 @@ class BoardConverter {
 
       if (listsToConvert.length === 0) {
         this.conversionCache.set(boardId, true);
+        globalConvertedBoards.add(boardId); // Mark board as converted
         isConverting.set(false);
+        console.log(`Board ${boardId} has no lists to convert, marked as converted`);
         return true;
       }
 
@@ -124,9 +144,11 @@ class BoardConverter {
 
       // Mark as converted
       this.conversionCache.set(boardId, true);
+      globalConvertedBoards.add(boardId); // Mark board as converted
       
       conversionStatus.set('Board conversion completed!');
       conversionProgress.set(100);
+      console.log(`Board ${boardId} conversion completed and marked as converted`);
       
       // Clear status after a delay
       setTimeout(() => {
@@ -159,7 +181,7 @@ class BoardConverter {
 
     // Update lists in batch
     updates.forEach(update => {
-      ReactiveCache.getCollection('lists').update(update._id, {
+      Lists.update(update._id, {
         $set: { swimlaneId: update.swimlaneId }
       });
     });

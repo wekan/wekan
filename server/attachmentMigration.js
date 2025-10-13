@@ -5,16 +5,30 @@
 
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
+import Attachments from '/models/attachments';
 
 // Reactive variables for tracking migration progress
 const migrationProgress = new ReactiveVar(0);
 const migrationStatus = new ReactiveVar('');
 const unconvertedAttachments = new ReactiveVar([]);
 
+// Track migrated boards on server side
+const migratedBoards = new Set();
+
 class AttachmentMigrationService {
   constructor() {
     this.migrationCache = new Map();
+  }
+
+  /**
+   * Check if a board has been migrated
+   * @param {string} boardId - The board ID
+   * @returns {boolean} - True if board has been migrated
+   */
+  isBoardMigrated(boardId) {
+    return migratedBoards.has(boardId);
   }
 
   /**
@@ -23,6 +37,12 @@ class AttachmentMigrationService {
    */
   async migrateBoardAttachments(boardId) {
     try {
+      // Check if board has already been migrated
+      if (this.isBoardMigrated(boardId)) {
+        console.log(`Board ${boardId} has already been migrated, skipping`);
+        return { success: true, message: 'Board already migrated' };
+      }
+
       console.log(`Starting attachment migration for board: ${boardId}`);
       
       // Get all attachments for the board
@@ -61,7 +81,12 @@ class AttachmentMigrationService {
       migrationStatus.set('Attachment migration completed');
       migrationProgress.set(100);
 
+      // Mark board as migrated
+      migratedBoards.add(boardId);
       console.log(`Attachment migration completed for board: ${boardId}`);
+      console.log(`Marked board ${boardId} as migrated`);
+
+      return { success: true, message: 'Migration completed' };
 
     } catch (error) {
       console.error(`Error migrating attachments for board ${boardId}:`, error);
@@ -176,15 +201,19 @@ const attachmentMigrationService = new AttachmentMigrationService();
 
 // Meteor methods
 Meteor.methods({
-  'attachmentMigration.migrateBoardAttachments'(boardId) {
+  async 'attachmentMigration.migrateBoardAttachments'(boardId) {
+    check(boardId, String);
+    
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    return attachmentMigrationService.migrateBoardAttachments(boardId);
+    return await attachmentMigrationService.migrateBoardAttachments(boardId);
   },
 
   'attachmentMigration.getProgress'(boardId) {
+    check(boardId, String);
+    
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -193,11 +222,23 @@ Meteor.methods({
   },
 
   'attachmentMigration.getUnconvertedAttachments'(boardId) {
+    check(boardId, String);
+    
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
     return attachmentMigrationService.getUnconvertedAttachments(boardId);
+  },
+
+  'attachmentMigration.isBoardMigrated'(boardId) {
+    check(boardId, String);
+    
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    return attachmentMigrationService.isBoardMigrated(boardId);
   }
 });
 

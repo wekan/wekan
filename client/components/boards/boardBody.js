@@ -5,7 +5,6 @@ import { boardConverter } from '/client/lib/boardConverter';
 import { migrationManager } from '/client/lib/migrationManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
 import { Swimlanes } from '/models/swimlanes';
-import { Lists } from '/models/lists';
 
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;
@@ -88,21 +87,26 @@ BlazeComponent.extendComponent({
       }
 
       // Check if board needs conversion (for old structure)
-      const needsConversion = boardConverter.needsConversion(boardId);
-      
-      if (needsConversion) {
-        this.isConverting.set(true);
-        const success = await boardConverter.convertBoard(boardId);
-        this.isConverting.set(false);
-        
-        if (success) {
-          this.isBoardReady.set(true);
-        } else {
-          console.error('Board conversion failed, setting ready to true anyway');
-          this.isBoardReady.set(true); // Still show board even if conversion failed
-        }
-      } else {
+      if (boardConverter.isBoardConverted(boardId)) {
+        console.log(`Board ${boardId} has already been converted, skipping conversion`);
         this.isBoardReady.set(true);
+      } else {
+        const needsConversion = boardConverter.needsConversion(boardId);
+        
+        if (needsConversion) {
+          this.isConverting.set(true);
+          const success = await boardConverter.convertBoard(boardId);
+          this.isConverting.set(false);
+          
+          if (success) {
+            this.isBoardReady.set(true);
+          } else {
+            console.error('Board conversion failed, setting ready to true anyway');
+            this.isBoardReady.set(true); // Still show board even if conversion failed
+          }
+        } else {
+          this.isBoardReady.set(true);
+        }
       }
 
       // Start attachment migration in background if needed
@@ -132,12 +136,22 @@ BlazeComponent.extendComponent({
 
   async startAttachmentMigrationIfNeeded(boardId) {
     try {
+      // Check if board has already been migrated
+      if (attachmentMigrationManager.isBoardMigrated(boardId)) {
+        console.log(`Board ${boardId} has already been migrated, skipping`);
+        return;
+      }
+
       // Check if there are unconverted attachments
       const unconvertedAttachments = attachmentMigrationManager.getUnconvertedAttachments(boardId);
       
       if (unconvertedAttachments.length > 0) {
         console.log(`Starting attachment migration for ${unconvertedAttachments.length} attachments in board ${boardId}`);
         await attachmentMigrationManager.startAttachmentMigration(boardId);
+      } else {
+        // No attachments to migrate, mark board as migrated
+        // This will be handled by the migration manager itself
+        console.log(`Board ${boardId} has no attachments to migrate`);
       }
     } catch (error) {
       console.error('Error starting attachment migration:', error);

@@ -13,9 +13,13 @@ export const attachmentMigrationStatus = new ReactiveVar('');
 export const isMigratingAttachments = new ReactiveVar(false);
 export const unconvertedAttachments = new ReactiveVar([]);
 
+// Global tracking of migrated boards (persistent across component reinitializations)
+const globalMigratedBoards = new Set();
+
 class AttachmentMigrationManager {
   constructor() {
     this.migrationCache = new Map(); // Cache migrated attachment IDs
+    this.migratedBoards = new Set(); // Track boards that have been migrated
   }
 
   /**
@@ -41,6 +45,33 @@ class AttachmentMigrationManager {
       console.error('Error checking if attachment needs migration:', error);
       return false;
     }
+  }
+
+  /**
+   * Check if a board has been migrated
+   * @param {string} boardId - The board ID
+   * @returns {boolean} - True if board has been migrated
+   */
+  isBoardMigrated(boardId) {
+    return globalMigratedBoards.has(boardId);
+  }
+
+  /**
+   * Check if a board has been migrated (server-side check)
+   * @param {string} boardId - The board ID
+   * @returns {Promise<boolean>} - True if board has been migrated
+   */
+  async isBoardMigratedServer(boardId) {
+    return new Promise((resolve) => {
+      Meteor.call('attachmentMigration.isBoardMigrated', boardId, (error, result) => {
+        if (error) {
+          console.error('Error checking board migration status:', error);
+          resolve(false);
+        } else {
+          resolve(result);
+        }
+      });
+    });
   }
 
   /**
@@ -70,6 +101,20 @@ class AttachmentMigrationManager {
       return; // Already migrating
     }
 
+    // Check if this board has already been migrated (client-side check first)
+    if (globalMigratedBoards.has(boardId)) {
+      console.log(`Board ${boardId} has already been migrated (client-side), skipping`);
+      return;
+    }
+
+    // Double-check with server-side check
+    const serverMigrated = await this.isBoardMigratedServer(boardId);
+    if (serverMigrated) {
+      console.log(`Board ${boardId} has already been migrated (server-side), skipping`);
+      globalMigratedBoards.add(boardId); // Sync client-side tracking
+      return;
+    }
+
     isMigratingAttachments.set(true);
     attachmentMigrationStatus.set('Starting attachment migration...');
     attachmentMigrationProgress.set(0);
@@ -82,6 +127,8 @@ class AttachmentMigrationManager {
         attachmentMigrationStatus.set('All attachments are already migrated');
         attachmentMigrationProgress.set(100);
         isMigratingAttachments.set(false);
+        globalMigratedBoards.add(boardId); // Mark board as migrated
+        console.log(`Board ${boardId} has no attachments to migrate, marked as migrated`);
         return;
       }
 
@@ -89,7 +136,8 @@ class AttachmentMigrationManager {
       Meteor.call('attachmentMigration.migrateBoardAttachments', boardId, (error, result) => {
         if (error) {
           console.error('Failed to start attachment migration:', error);
-          attachmentMigrationStatus.set(`Migration failed: ${error.message}`);
+          const errorMessage = error.message || error.reason || error.toString();
+          attachmentMigrationStatus.set(`Migration failed: ${errorMessage}`);
           isMigratingAttachments.set(false);
         } else {
           console.log('Attachment migration started for board:', boardId);
@@ -128,6 +176,8 @@ class AttachmentMigrationManager {
             clearInterval(pollInterval);
             isMigratingAttachments.set(false);
             this.migrationCache.clear(); // Clear cache to refresh data
+            globalMigratedBoards.add(boardId); // Mark board as migrated
+            console.log(`Board ${boardId} migration completed and marked as migrated`);
           }
         }
       });
