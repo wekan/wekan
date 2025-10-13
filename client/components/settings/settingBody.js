@@ -115,7 +115,7 @@ BlazeComponent.extendComponent({
 
   // Cron settings helpers
   migrationStatus() {
-    return 'idle'; // Placeholder
+    return TAPi18n.__('idle'); // Placeholder
   },
   
   migrationProgress() {

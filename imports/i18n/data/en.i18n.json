@@ -1485,5 +1485,9 @@
   "total-operations": "Total Operations",
   "total-size": "Total Size",
   "unmigrated-boards": "Unmigrated Boards",
-  "weight": "Weight"
+  "weight": "Weight",
+  "idle": "Idle",
+  "complete": "Complete",
+  "add-cron-job": "Add Scheduled Job",
+  "cron": "Cron"
 }

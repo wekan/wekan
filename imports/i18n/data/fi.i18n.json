@@ -1483,5 +1483,9 @@
   "stop-all-migrations": "Pysäytä kaikki siirrot",
   "test-s3-connection": "Testaa S3 yhteys",
   "writable-path": "Kirjoitettava polku",
-  "writable-path-description": "Perushakemistopolku tiedostojen tallennukseen"
+  "writable-path-description": "Perushakemistopolku tiedostojen tallennukseen",
+  "idle": "Tyhjäkäynti",
+  "complete": "Valmis",
+  "add-cron-job": "Lisää ajastettu työ",
+  "cron": "Ajastus"
 }
