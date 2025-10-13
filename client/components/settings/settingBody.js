@@ -34,9 +34,237 @@ BlazeComponent.extendComponent({
   setError(error) {
     this.error.set(error);
   },
+  
+  // Template helpers moved to BlazeComponent - using different names to avoid conflicts
+  isGeneralSetting() {
+    return this.generalSetting && this.generalSetting.get();
+  },
+  isEmailSetting() {
+    return this.emailSetting && this.emailSetting.get();
+  },
+  isAccountSetting() {
+    return this.accountSetting && this.accountSetting.get();
+  },
+  isTableVisibilityModeSetting() {
+    return this.tableVisibilityModeSetting && this.tableVisibilityModeSetting.get();
+  },
+  isAnnouncementSetting() {
+    return this.announcementSetting && this.announcementSetting.get();
+  },
+  isAccessibilitySetting() {
+    return this.accessibilitySetting && this.accessibilitySetting.get();
+  },
+  isLayoutSetting() {
+    return this.layoutSetting && this.layoutSetting.get();
+  },
+  isWebhookSetting() {
+    return this.webhookSetting && this.webhookSetting.get();
+  },
+  isAttachmentSettings() {
+    return this.attachmentSettings && this.attachmentSettings.get();
+  },
+  isCronSettings() {
+    return this.cronSettings && this.cronSettings.get();
+  },
+  isLoading() {
+    return this.loading && this.loading.get();
+  },
+
+  // Attachment settings helpers
+  filesystemPath() {
+    return process.env.WRITABLE_PATH || '/data';
+  },
+  
+  attachmentsPath() {
+    const writablePath = process.env.WRITABLE_PATH || '/data';
+    return `${writablePath}/attachments`;
+  },
+  
+  avatarsPath() {
+    const writablePath = process.env.WRITABLE_PATH || '/data';
+    return `${writablePath}/avatars`;
+  },
+  
+  gridfsEnabled() {
+    return process.env.GRIDFS_ENABLED === 'true';
+  },
+  
+  s3Enabled() {
+    return process.env.S3_ENABLED === 'true';
+  },
+  
+  s3Endpoint() {
+    return process.env.S3_ENDPOINT || '';
+  },
+  
+  s3Bucket() {
+    return process.env.S3_BUCKET || '';
+  },
+  
+  s3Region() {
+    return process.env.S3_REGION || '';
+  },
+  
+  s3SslEnabled() {
+    return process.env.S3_SSL_ENABLED === 'true';
+  },
+  
+  s3Port() {
+    return process.env.S3_PORT || 443;
+  },
+
+  // Cron settings helpers
+  migrationStatus() {
+    return 'idle'; // Placeholder
+  },
+  
+  migrationProgress() {
+    return 0; // Placeholder
+  },
+  
+  cronJobs() {
+    return []; // Placeholder
+  },
 
   setLoading(w) {
     this.loading.set(w);
+  },
+
+  // Event handlers for attachment settings
+  'click button.js-test-s3-connection'(event) {
+    event.preventDefault();
+    const secretKey = $('#s3-secret-key').val();
+    if (!secretKey) {
+      alert(TAPi18n.__('s3-secret-key-required'));
+      return;
+    }
+
+    Meteor.call('testS3Connection', { secretKey }, (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('s3-connection-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('s3-connection-success'));
+      }
+    });
+  },
+
+  'click button.js-save-s3-settings'(event) {
+    event.preventDefault();
+    const secretKey = $('#s3-secret-key').val();
+    if (!secretKey) {
+      alert(TAPi18n.__('s3-secret-key-required'));
+      return;
+    }
+
+    Meteor.call('saveS3Settings', { secretKey }, (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('s3-settings-save-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('s3-settings-saved'));
+        $('#s3-secret-key').val(''); // Clear the password field
+      }
+    });
+  },
+
+  // Event handlers for cron settings
+  'click button.js-start-all-migrations'(event) {
+    event.preventDefault();
+    Meteor.call('startAllMigrations', (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('migration-started'));
+      }
+    });
+  },
+
+  'click button.js-pause-all-migrations'(event) {
+    event.preventDefault();
+    Meteor.call('pauseAllMigrations', (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('migration-pause-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('migration-paused'));
+      }
+    });
+  },
+
+  'click button.js-stop-all-migrations'(event) {
+    event.preventDefault();
+    if (confirm(TAPi18n.__('migration-stop-confirm'))) {
+      Meteor.call('stopAllMigrations', (error, result) => {
+        if (error) {
+          alert(TAPi18n.__('migration-stop-failed') + ': ' + error.reason);
+        } else {
+          alert(TAPi18n.__('migration-stopped'));
+        }
+      });
+    }
+  },
+
+  'click button.js-schedule-board-cleanup'(event) {
+    event.preventDefault();
+    Meteor.call('scheduleBoardCleanup', (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('board-cleanup-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('board-cleanup-scheduled'));
+      }
+    });
+  },
+
+  'click button.js-schedule-board-archive'(event) {
+    event.preventDefault();
+    Meteor.call('scheduleBoardArchive', (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('board-archive-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('board-archive-scheduled'));
+      }
+    });
+  },
+
+  'click button.js-schedule-board-backup'(event) {
+    event.preventDefault();
+    Meteor.call('scheduleBoardBackup', (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('board-backup-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('board-backup-scheduled'));
+      }
+    });
+  },
+
+  'click button.js-pause-job'(event) {
+    event.preventDefault();
+    const jobId = $(event.target).data('job-id');
+    Meteor.call('pauseCronJob', jobId, (error, result) => {
+      if (error) {
+        alert(TAPi18n.__('cron-job-pause-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('cron-job-paused'));
+      }
+    });
+  },
+
+  'click button.js-delete-job'(event) {
+    event.preventDefault();
+    const jobId = $(event.target).data('job-id');
+    if (confirm(TAPi18n.__('cron-job-delete-confirm'))) {
+      Meteor.call('deleteCronJob', jobId, (error, result) => {
+        if (error) {
+          alert(TAPi18n.__('cron-job-delete-failed') + ': ' + error.reason);
+        } else {
+          alert(TAPi18n.__('cron-job-deleted'));
+        }
+      });
+    }
+  },
+
+  'click button.js-add-cron-job'(event) {
+    event.preventDefault();
+    // Placeholder for adding a new cron job (e.g., open a modal)
+    alert(TAPi18n.__('add-cron-job-placeholder'));
   },
 
   checkField(selector) {
@@ -102,37 +330,6 @@ BlazeComponent.extendComponent({
   },
   toggleDisplayAuthenticationMethod() {
     $('#display-authentication-method').toggleClass('is-checked');
-  },
-
-  switchAttachmentTab(event) {
-    event.preventDefault();
-    const target = $(event.target);
-    const targetID = target.data('id');
-    
-    // Update active tab
-    $('.tab-nav li.active').removeClass('active');
-    target.parent().addClass('active');
-    
-    // Call the attachment settings component method if available
-    if (window.attachmentSettings && window.attachmentSettings.switchMenu) {
-      window.attachmentSettings.switchMenu(event, targetID);
-    }
-  },
-
-  switchCronTab(event) {
-    event.preventDefault();
-    const target = $(event.target);
-    const targetID = target.data('id');
-    
-    // Update active tab
-    $('.tab-nav li.active').removeClass('active');
-    target.parent().addClass('active');
-    
-    // Call the cron settings template method if available
-    const cronTemplate = Template.instance();
-    if (cronTemplate && cronTemplate.switchMenu) {
-      cronTemplate.switchMenu(event, targetID);
-    }
   },
 
   initializeAttachmentSubMenu() {
@@ -357,13 +554,6 @@ BlazeComponent.extendComponent({
         'click button.js-save-layout': this.saveLayout,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,
-        'click a.js-attachment-storage-settings': this.switchAttachmentTab,
-        'click a.js-attachment-migration': this.switchAttachmentTab,
-        'click a.js-attachment-monitoring': this.switchAttachmentTab,
-        'click a.js-cron-migrations': this.switchCronTab,
-        'click a.js-cron-board-operations': this.switchCronTab,
-        'click a.js-cron-jobs': this.switchCronTab,
-        'click a.js-cron-add': this.switchCronTab,
       },
     ];
   },
@@ -609,50 +799,3 @@ Template.selectSpinnerName.helpers({
   },
 });
 
-// Template helpers for the setting template
-Template.setting.helpers({
-  generalSetting() {
-    const instance = Template.instance();
-    return instance.generalSetting && instance.generalSetting.get();
-  },
-  emailSetting() {
-    const instance = Template.instance();
-    return instance.emailSetting && instance.emailSetting.get();
-  },
-  accountSetting() {
-    const instance = Template.instance();
-    return instance.accountSetting && instance.accountSetting.get();
-  },
-  tableVisibilityModeSetting() {
-    const instance = Template.instance();
-    return instance.tableVisibilityModeSetting && instance.tableVisibilityModeSetting.get();
-  },
-  announcementSetting() {
-    const instance = Template.instance();
-    return instance.announcementSetting && instance.announcementSetting.get();
-  },
-  accessibilitySetting() {
-    const instance = Template.instance();
-    return instance.accessibilitySetting && instance.accessibilitySetting.get();
-  },
-  layoutSetting() {
-    const instance = Template.instance();
-    return instance.layoutSetting && instance.layoutSetting.get();
-  },
-  webhookSetting() {
-    const instance = Template.instance();
-    return instance.webhookSetting && instance.webhookSetting.get();
-  },
-  attachmentSettings() {
-    const instance = Template.instance();
-    return instance.attachmentSettings && instance.attachmentSettings.get();
-  },
-  cronSettings() {
-    const instance = Template.instance();
-    return instance.cronSettings && instance.cronSettings.get();
-  },
-  loading() {
-    const instance = Template.instance();
-    return instance.loading && instance.loading.get();
-  },
-});

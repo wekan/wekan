@@ -1,35 +1,47 @@
 template(name="cronSettings")
-  .cron-settings-content
-    .settings-tabs
-      ul.tab-nav
-        li(class="{{#if showMigrations}}active{{/if}}")
-          a.js-cron-migrations(data-id="cron-migrations")
-            i.fa.fa-database
-            | {{_ 'cron-migrations'}}
-        li(class="{{#if showBoardOperations}}active{{/if}}")
-          a.js-cron-board-operations(data-id="cron-board-operations")
-            i.fa.fa-tasks
-            | {{_ 'board-operations'}}
-        li(class="{{#if showJobs}}active{{/if}}")
-          a.js-cron-jobs(data-id="cron-jobs")
-            i.fa.fa-clock-o
-            | {{_ 'cron-jobs'}}
-        li(class="{{#if showAddJob}}active{{/if}}")
-          a.js-cron-add(data-id="cron-add")
-            i.fa.fa-plus
-            | {{_ 'add-cron-job'}}
+  ul#cron-setting.setting-detail
+    li
+      h3 {{_ 'cron-migrations'}}
+      .form-group
+        label {{_ 'migration-status'}}
+        .status-indicator
+          span.status-label {{_ 'status'}}:
+          span.status-value {{migrationStatus}}
+        .progress-section
+          .progress
+            .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
+              | {{migrationProgress}}%
+          .progress-text
+            | {{migrationProgress}}% {{_ 'complete'}}
+      
+      .form-group
+        button.js-start-all-migrations.btn.btn-primary {{_ 'start-all-migrations'}}
+        button.js-pause-all-migrations.btn.btn-warning {{_ 'pause-all-migrations'}}
+        button.js-stop-all-migrations.btn.btn-danger {{_ 'stop-all-migrations'}}
     
-    .tab-content
-      if loading
-        +spinner
-      else if showMigrations
-        +cronMigrations
-      else if showBoardOperations
-        +cronBoardOperations
-      else if showJobs
-        +cronJobs
-      else if showAddJob
-        +cronAddJob
+    li
+      h3 {{_ 'board-operations'}}
+      .form-group
+        label {{_ 'scheduled-board-operations'}}
+        button.js-schedule-board-cleanup.btn.btn-primary {{_ 'schedule-board-cleanup'}}
+        button.js-schedule-board-archive.btn.btn-warning {{_ 'schedule-board-archive'}}
+        button.js-schedule-board-backup.btn.btn-info {{_ 'schedule-board-backup'}}
+    
+    li
+      h3 {{_ 'cron-jobs'}}
+      .form-group
+        label {{_ 'active-cron-jobs'}}
+        each cronJobs
+          .job-item
+            .job-info
+              .job-name {{name}}
+              .job-schedule {{schedule}}
+              .job-description {{description}}
+            .job-actions
+              button.js-pause-job.btn.btn-sm.btn-warning(data-job-id="{{_id}}") {{_ 'pause'}}
+              button.js-delete-job.btn.btn-sm.btn-danger(data-job-id="{{_id}}") {{_ 'delete'}}
+        .add-job-section
+          button.js-add-cron-job.btn.btn-success {{_ 'add-cron-job'}}
 
 template(name="cronMigrations")
   .cron-migrations
@@ -51,7 +63,7 @@ template(name="cronMigrations")
     .migration-progress
       .progress-overview
         .progress-bar
-          .progress-fill(style="width: {{migrationProgress}}%")
+          .progress-fill(style="width: {{migrationProgress}}%") 
         .progress-text {{migrationProgress}}%
         .progress-label {{_ 'overall-progress'}}
       
