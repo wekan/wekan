@@ -50,6 +50,8 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/7bb1e24bda2ed9db0bad0fafcf256680c2c05e8a).
 - [Fixed migrations](https://github.com/wekan/wekan/commit/63c314ca185aeda650c01b4a67fcde1067320d22).
   Thanks to xet7.
+- [Removed not needed console log message](https://github.com/wekan/wekan/commit/0a34ee1b6437dcfd65e31d9bbc9f3ccfa5718ba9).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
