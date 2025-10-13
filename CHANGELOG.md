@@ -43,6 +43,8 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/5a6faafa30fefcd5dd0af7cc52b847a54d538065),
   [Part 3](https://github.com/wekan/wekan/commit/2148aeea42f69fa367bf8c451d7f1c3a63b52880).
   Thanks to xet7.
+- [Fixed Error in migrate-lists-to-per-swimlane migration](https://github.com/wekan/wekan/commit/cc99da5357fb1fc00e3b5aece20c57917f88301b).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
