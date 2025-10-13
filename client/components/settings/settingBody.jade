@@ -3,9 +3,49 @@ template(name="setting")
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
     else
-      .content-title
-        i.fa.fa-cog
-        span {{_ 'settings'}}
+      .content-title.ext-box
+        if loading.get
+          +spinner
+        else if generalSetting.get
+          span
+            i.fa.fa-sign-in
+            | {{_ 'registration'}}
+        else if emailSetting.get
+          span
+            i.fa.fa-envelope
+            | {{_ 'email'}}
+        else if accountSetting.get
+          span
+            i.fa.fa-users
+            | {{_ 'accounts'}}
+        else if tableVisibilityModeSetting.get
+          span
+            i.fa.fa-eye
+            | {{_ 'tableVisibilityMode'}}
+        else if announcementSetting.get
+          span
+            i.fa.fa-bullhorn
+            | {{_ 'admin-announcement'}}
+        else if accessibilitySetting.get
+          span
+            i.fa.fa-universal-access
+            | {{_ 'accessibility'}}
+        else if layoutSetting.get
+          span
+            i.fa.fa-object-group
+            | {{_ 'layout'}}
+        else if webhookSetting.get
+          span
+            i.fa.fa-globe
+            | {{_ 'global-webhook'}}
+        else if attachmentSettings.get
+          span
+            i.fa.fa-paperclip
+            | {{_ 'attachments'}}
+        else if cronSettings.get
+          span
+            i.fa.fa-clock-o
+            | {{_ 'cron'}}
       .content-body
         .side-menu
           ul
@@ -51,28 +91,28 @@ template(name="setting")
                 i.fa.fa-clock-o
                 | {{_ 'cron'}}
         .main-body
-          if loading
+          if loading.get
             +spinner
-          else if attachmentSettings
+          else if attachmentSettings.get
             +attachmentSettings
-          else if cronSettings
+          else if cronSettings.get
             +cronSettings
-          else if generalSetting
+          else if generalSetting.get
             +general
-          else if emailSetting
+          else if emailSetting.get
             unless isSandstorm
               +email
-          else if accountSetting
+          else if accountSetting.get
             +accountSettings
-          else if tableVisibilityModeSetting
+          else if tableVisibilityModeSetting.get
             +tableVisibilityModeSettings
-          else if announcementSetting
+          else if announcementSetting.get
             +announcementSettings
-          else if accessibilitySetting
+          else if accessibilitySetting.get
             +accessibilitySettings
-          else if layoutSetting
+          else if layoutSetting.get
             +layoutSettings
-          else if webhookSetting
+          else if webhookSetting.get
             +webhookSettings
 
 template(name="webhookSettings")

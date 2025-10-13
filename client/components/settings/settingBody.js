@@ -8,7 +8,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);
-    this.forgotPasswordSetting = new ReactiveVar(true);
+    this.forgotPasswordSetting = new ReactiveVar(false);
     this.generalSetting = new ReactiveVar(true);
     this.emailSetting = new ReactiveVar(false);
     this.accountSetting = new ReactiveVar(false);
@@ -152,24 +152,44 @@ BlazeComponent.extendComponent({
       $('.side-menu li.active').removeClass('active');
       target.parent().addClass('active');
       const targetID = target.data('id');
-      this.forgotPasswordSetting.set('forgot-password-setting' === targetID);
-      this.generalSetting.set('registration-setting' === targetID);
-      this.emailSetting.set('email-setting' === targetID);
-      this.accountSetting.set('account-setting' === targetID);
-      this.announcementSetting.set('announcement-setting' === targetID);
-      this.accessibilitySetting.set('accessibility-setting' === targetID);
-      this.layoutSetting.set('layout-setting' === targetID);
-      this.webhookSetting.set('webhook-setting' === targetID);
-      this.attachmentSettings.set('attachment-settings' === targetID);
-      this.cronSettings.set('cron-settings' === targetID);
       
-      // Initialize sub-menu states
-      if ('attachment-settings' === targetID) {
+      // Reset all settings to false
+      this.forgotPasswordSetting.set(false);
+      this.generalSetting.set(false);
+      this.emailSetting.set(false);
+      this.accountSetting.set(false);
+      this.tableVisibilityModeSetting.set(false);
+      this.announcementSetting.set(false);
+      this.accessibilitySetting.set(false);
+      this.layoutSetting.set(false);
+      this.webhookSetting.set(false);
+      this.attachmentSettings.set(false);
+      this.cronSettings.set(false);
+      
+      // Set the selected setting to true
+      if (targetID === 'registration-setting') {
+        this.generalSetting.set(true);
+      } else if (targetID === 'email-setting') {
+        this.emailSetting.set(true);
+      } else if (targetID === 'account-setting') {
+        this.accountSetting.set(true);
+      } else if (targetID === 'tableVisibilityMode-setting') {
+        this.tableVisibilityModeSetting.set(true);
+      } else if (targetID === 'announcement-setting') {
+        this.announcementSetting.set(true);
+      } else if (targetID === 'accessibility-setting') {
+        this.accessibilitySetting.set(true);
+      } else if (targetID === 'layout-setting') {
+        this.layoutSetting.set(true);
+      } else if (targetID === 'webhook-setting') {
+        this.webhookSetting.set(true);
+      } else if (targetID === 'attachment-settings') {
+        this.attachmentSettings.set(true);
         this.initializeAttachmentSubMenu();
-      } else if ('cron-settings' === targetID) {
+      } else if (targetID === 'cron-settings') {
+        this.cronSettings.set(true);
         this.initializeCronSubMenu();
       }
-      this.tableVisibilityModeSetting.set('tableVisibilityMode-setting' === targetID);
     }
   },
 
