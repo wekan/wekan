@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# v8.03 2025-10-14 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix Snap MongoDB to not fork at systemd, so it stays running](https://github.com/wekan/wekan/commit/5792a869594b4c79a93db414b95a13d60013193b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.02 2025-10-14 WeKan ® release
 
 This release adds the following new features:
