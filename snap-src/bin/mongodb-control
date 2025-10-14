@@ -5,7 +5,20 @@
 # Supports MongoDB versions 3-8 with automatic binary selection
 
 # get wekan/mongo settings
+echo "Reading snap settings..."
 source $SNAP/bin/wekan-read-settings
+
+# Debug: Show what we got from snap settings
+echo "Snap settings loaded:"
+echo "  MONGODB_BIND_IP: '${MONGODB_BIND_IP}'"
+echo "  MONGODB_PORT: '${MONGODB_PORT}'"
+echo "  MONGODB_BIND_UNIX_SOCKET: '${MONGODB_BIND_UNIX_SOCKET}'"
+
+# Debug: Check snap settings directly
+echo "Direct snap settings check:"
+echo "  mongodb-port: $(snapctl get mongodb-port 2>/dev/null || echo 'not set')"
+echo "  mongodb-bind-ip: $(snapctl get mongodb-bind-ip 2>/dev/null || echo 'not set')"
+echo "  mongodb-bind-unix-socket: $(snapctl get mongodb-bind-unix-socket 2>/dev/null || echo 'not set')"
 
 if [ "true" == "${DISABLE_MONGODB}" ]; then
     echo "mongodb is disabled. Stop service"
@@ -218,6 +231,29 @@ fi
 # Set MongoDB log file path
 export MONGO_LOG_FILE="${SNAP_COMMON}/mongodb.log"
 
+# Build bind options from snap settings
+BIND_OPTIONS=""
+if [ "nill" != "${MONGODB_BIND_UNIX_SOCKET}" ] && [ -n "${MONGODB_BIND_UNIX_SOCKET}" ]; then
+    BIND_OPTIONS+=" --unixSocketPrefix ${MONGODB_BIND_UNIX_SOCKET}"
+fi
+if [ -n "${MONGODB_BIND_IP}" ]; then
+    BIND_OPTIONS+=" --bind_ip ${MONGODB_BIND_IP}"
+else
+    BIND_OPTIONS+=" --bind_ip 127.0.0.1"
+fi
+if [ -n "${MONGODB_PORT}" ]; then
+    BIND_OPTIONS+=" --port ${MONGODB_PORT}"
+else
+    BIND_OPTIONS+=" --port 27019"
+fi
+
+# Debug: Show what settings we're using
+echo "MongoDB settings:"
+echo "  MONGODB_BIND_IP: ${MONGODB_BIND_IP:-127.0.0.1}"
+echo "  MONGODB_PORT: ${MONGODB_PORT:-27017}"
+echo "  MONGODB_BIND_UNIX_SOCKET: ${MONGODB_BIND_UNIX_SOCKET:-not set}"
+echo "  BIND_OPTIONS: ${BIND_OPTIONS}"
+
 # Start MongoDB with appropriate version
 echo "Starting MongoDB with detected version..."
 log_version_detection "Starting MongoDB server"
@@ -232,9 +268,7 @@ case "$ACTIVE_VERSION" in
         exec /snap/${SNAP_NAME}/current/migratemongo/bin/mongod \
             --dbpath="$MONGO_DATA_DIR" \
             --logpath="$MONGO_LOG_FILE" \
-            --logappend \
-            --bind_ip=127.0.0.1 \
-            --port=27017
+            --logappend $BIND_OPTIONS
         ;;
     "4")
         echo "Starting MongoDB 4.x server..."
@@ -242,9 +276,7 @@ case "$ACTIVE_VERSION" in
         exec /snap/${SNAP_NAME}/current/mongodb4/bin/mongod \
             --dbpath="$MONGO_DATA_DIR" \
             --logpath="$MONGO_LOG_FILE" \
-            --logappend \
-            --bind_ip=127.0.0.1 \
-            --port=27017
+            --logappend $BIND_OPTIONS
         ;;
     "5")
         echo "Starting MongoDB 5.x server..."
@@ -252,9 +284,7 @@ case "$ACTIVE_VERSION" in
         exec /snap/${SNAP_NAME}/current/mongodb5/bin/mongod \
             --dbpath="$MONGO_DATA_DIR" \
             --logpath="$MONGO_LOG_FILE" \
-            --logappend \
-            --bind_ip=127.0.0.1 \
-            --port=27017
+            --logappend $BIND_OPTIONS
         ;;
     "6")
         echo "Starting MongoDB 6.x server..."
@@ -262,9 +292,7 @@ case "$ACTIVE_VERSION" in
         exec /snap/${SNAP_NAME}/current/mongodb6/bin/mongod \
             --dbpath="$MONGO_DATA_DIR" \
             --logpath="$MONGO_LOG_FILE" \
-            --logappend \
-            --bind_ip=127.0.0.1 \
-            --port=27017
+            --logappend $BIND_OPTIONS
         ;;
     "7"|*)
         echo "Starting MongoDB 7.x server..."
@@ -272,9 +300,7 @@ case "$ACTIVE_VERSION" in
         exec /snap/${SNAP_NAME}/current/bin/mongod \
             --dbpath="$MONGO_DATA_DIR" \
             --logpath="$MONGO_LOG_FILE" \
-            --logappend \
-            --bind_ip=127.0.0.1 \
-            --port=27017
+            --logappend $BIND_OPTIONS
         ;;
     "8")
         echo "Starting MongoDB 8.x server..."
@@ -282,8 +308,6 @@ case "$ACTIVE_VERSION" in
         exec /snap/${SNAP_NAME}/current/mongodb8/bin/mongod \
             --dbpath="$MONGO_DATA_DIR" \
             --logpath="$MONGO_LOG_FILE" \
-            --logappend \
-            --bind_ip=127.0.0.1 \
-            --port=27017
+            --logappend $BIND_OPTIONS
         ;;
 esac
