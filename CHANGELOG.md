@@ -63,6 +63,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Updated mobile Bookmarks/Starred boards. Part 1. In Progress](https://github.com/wekan/wekan/commit/da98942cce37363d6062695d3c4cf7e2df796cac).
   Thanks to xet7.
+- [Fix drag drop reorder swimlanes](https://github.com/wekan/wekan/commit/a4518bbefc99be74f7ccfdbb9fdf902007ca90f3).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
