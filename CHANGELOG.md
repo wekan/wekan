@@ -29,6 +29,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [If there is no cron jobs running, run migrations for boards that have not been opened yet](https://github.com/wekan/wekan/commit/317138ab7209a41715336ea8251df45f11a6d173).
   Thanks to xet7.
+- [Accessibility improvements](https://github.com/wekan/wekan/commit/67b078b8056ec9851caaf6ef855719de1e6d966d).
+  Thanks to xet7.
 
 and adds the following updates:
 
