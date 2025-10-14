@@ -67,11 +67,16 @@
   text-overflow: ellipsis;
   word-wrap: break-word;
   text-align: center;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu {
   position: absolute;
   padding: 5px 5px;
   font-size: 22px;
+  z-index: 20;
+  pointer-events: auto;
 }
 @media print {
   .swimlane .swimlane-header-wrap .swimlane-header-menu {
@@ -97,6 +102,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: move;
+  z-index: 15;
+  pointer-events: auto;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
   position: absolute;
@@ -105,6 +113,16 @@
   transform: translateY(-50%);
   left: 87vw;
   font-size: 24px;
+  cursor: move;
+  z-index: 15;
+  pointer-events: auto;
+}
+
+/* Safety: ensure wrapper is interactive and above list content */
+.swimlane .swimlane-header-wrap {
+  position: relative;
+  z-index: 9;
+  pointer-events: auto;
 }
 #js-swimlane-height-edit .swimlane-height-error {
   display: none;
