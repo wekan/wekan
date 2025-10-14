@@ -103,14 +103,18 @@ class AttachmentMigrationManager {
 
     // Check if this board has already been migrated (client-side check first)
     if (globalMigratedBoards.has(boardId)) {
-      console.log(`Board ${boardId} has already been migrated (client-side), skipping`);
+      if (process.env.DEBUG === 'true') {
+        console.log(`Board ${boardId} has already been migrated (client-side), skipping`);
+      }
       return;
     }
 
     // Double-check with server-side check
     const serverMigrated = await this.isBoardMigratedServer(boardId);
     if (serverMigrated) {
-      console.log(`Board ${boardId} has already been migrated (server-side), skipping`);
+      if (process.env.DEBUG === 'true') {
+        console.log(`Board ${boardId} has already been migrated (server-side), skipping`);
+      }
       globalMigratedBoards.add(boardId); // Sync client-side tracking
       return;
     }
@@ -128,7 +132,9 @@ class AttachmentMigrationManager {
         attachmentMigrationProgress.set(100);
         isMigratingAttachments.set(false);
         globalMigratedBoards.add(boardId); // Mark board as migrated
-        console.log(`Board ${boardId} has no attachments to migrate, marked as migrated`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has no attachments to migrate, marked as migrated`);
+        }
         return;
       }
 
@@ -140,7 +146,9 @@ class AttachmentMigrationManager {
           attachmentMigrationStatus.set(`Migration failed: ${errorMessage}`);
           isMigratingAttachments.set(false);
         } else {
-          console.log('Attachment migration started for board:', boardId);
+          if (process.env.DEBUG === 'true') {
+            console.log('Attachment migration started for board:', boardId);
+          }
           this.pollAttachmentMigrationProgress(boardId);
         }
       });
@@ -177,7 +185,9 @@ class AttachmentMigrationManager {
             isMigratingAttachments.set(false);
             this.migrationCache.clear(); // Clear cache to refresh data
             globalMigratedBoards.add(boardId); // Mark board as migrated
-            console.log(`Board ${boardId} migration completed and marked as migrated`);
+            if (process.env.DEBUG === 'true') {
+              console.log(`Board ${boardId} migration completed and marked as migrated`);
+            }
           }
         }
       });

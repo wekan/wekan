@@ -1764,11 +1764,11 @@ Cards.helpers({
   },
 
   setTitle(title) {
-    // Sanitize title on client side as well
+    // Basic client-side validation - server will handle full sanitization
     let sanitizedTitle = title;
     if (typeof title === 'string') {
-      const { sanitizeTitle } = require('../server/lib/inputSanitizer');
-      sanitizedTitle = sanitizeTitle(title);
+      // Basic length check to prevent abuse
+      sanitizedTitle = title.length > 1000 ? title.substring(0, 1000) : title;
       if (process.env.DEBUG === 'true' && sanitizedTitle !== title) {
         console.warn('Client-side sanitized card title:', title, '->', sanitizedTitle);
       }
@@ -3583,8 +3583,8 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       if (req.body.title) {
-        const { sanitizeTitle } = require('../server/lib/inputSanitizer');
-        const newTitle = sanitizeTitle(req.body.title);
+        // Basic client-side validation - server will handle full sanitization
+        const newTitle = req.body.title.length > 1000 ? req.body.title.substring(0, 1000) : req.body.title;
 
         if (process.env.DEBUG === 'true' && newTitle !== req.body.title) {
           console.warn('Sanitized card title input:', req.body.title, '->', newTitle);

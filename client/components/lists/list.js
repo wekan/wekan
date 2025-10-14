@@ -24,6 +24,9 @@ BlazeComponent.extendComponent({
   onRendered() {
     const boardComponent = this.parentComponent().parentComponent();
 
+    // Initialize list resize functionality
+    this.initializeListResize();
+
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
 
@@ -211,6 +214,146 @@ BlazeComponent.extendComponent({
     const user = ReactiveCache.getCurrentUser();
     const list = Template.currentData();
     return user.isAutoWidth(list.boardId);
+  },
+
+  initializeListResize() {
+    const list = Template.currentData();
+    const $list = this.$('.js-list');
+    const $resizeHandle = this.$('.js-list-resize-handle');
+    
+    // Only enable resize for non-collapsed, non-auto-width lists
+    if (list.collapsed || this.autoWidth()) {
+      $resizeHandle.hide();
+      return;
+    }
+
+    let isResizing = false;
+    let startX = 0;
+    let startWidth = 0;
+    let minWidth = 100; // Minimum width as defined in the existing code
+    let maxWidth = this.listConstraint() || 1000; // Use constraint as max width
+    let listConstraint = this.listConstraint(); // Store constraint value for use in event handlers
+    const component = this; // Store reference to component for use in event handlers
+
+    const startResize = (e) => {
+      isResizing = true;
+      startX = e.pageX || e.originalEvent.touches[0].pageX;
+      startWidth = $list.outerWidth();
+      
+      // Add visual feedback
+      $list.addClass('list-resizing');
+      $('body').addClass('list-resizing-active');
+      
+      // Prevent text selection during resize
+      $('body').css('user-select', 'none');
+      
+      e.preventDefault();
+    };
+
+    const doResize = (e) => {
+      if (!isResizing) return;
+      
+      const currentX = e.pageX || e.originalEvent.touches[0].pageX;
+      const deltaX = currentX - startX;
+      const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
+      
+      // Apply the new width immediately for real-time feedback using CSS custom properties
+      $list[0].style.setProperty('--list-width', `${newWidth}px`);
+      $list.css({
+        'width': `${newWidth}px`,
+        'min-width': `${newWidth}px`,
+        'max-width': `${newWidth}px`,
+        'flex': 'none',
+        'flex-basis': 'auto',
+        'flex-grow': '0',
+        'flex-shrink': '0'
+      });
+      
+      // Debug: log the width change
+      if (process.env.DEBUG === 'true') {
+        console.log(`Resizing list to ${newWidth}px`);
+      }
+      
+      e.preventDefault();
+    };
+
+    const stopResize = (e) => {
+      if (!isResizing) return;
+      
+      isResizing = false;
+      
+      // Calculate final width
+      const currentX = e.pageX || e.originalEvent.touches[0].pageX;
+      const deltaX = currentX - startX;
+      const finalWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
+      
+      // Ensure the final width is applied using CSS custom properties
+      $list[0].style.setProperty('--list-width', `${finalWidth}px`);
+      $list.css({
+        'width': `${finalWidth}px`,
+        'min-width': `${finalWidth}px`,
+        'max-width': `${finalWidth}px`,
+        'flex': 'none',
+        'flex-basis': 'auto',
+        'flex-grow': '0',
+        'flex-shrink': '0'
+      });
+      
+      // Remove visual feedback but keep the width
+      $list.removeClass('list-resizing');
+      $('body').removeClass('list-resizing-active');
+      $('body').css('user-select', '');
+      
+      // Keep the CSS custom property for persistent width
+      // The CSS custom property will remain on the element to maintain the width
+      
+      // Save the new width using the existing system
+      const boardId = list.boardId;
+      const listId = list._id;
+      
+      // Use the same method as the hamburger menu
+      if (process.env.DEBUG === 'true') {
+        console.log(`Saving list width: ${finalWidth}px for list ${listId}`);
+      }
+      Meteor.call('applyListWidth', boardId, listId, finalWidth, listConstraint, (error, result) => {
+        if (error) {
+          console.error('Error saving list width:', error);
+        } else {
+          if (process.env.DEBUG === 'true') {
+            console.log('List width saved successfully:', result);
+          }
+        }
+      });
+      
+      e.preventDefault();
+    };
+
+    // Mouse events
+    $resizeHandle.on('mousedown', startResize);
+    $(document).on('mousemove', doResize);
+    $(document).on('mouseup', stopResize);
+    
+    // Touch events for mobile
+    $resizeHandle.on('touchstart', startResize);
+    $(document).on('touchmove', doResize);
+    $(document).on('touchend', stopResize);
+    
+    // Reactively update resize handle visibility when auto-width changes
+    component.autorun(() => {
+      if (component.autoWidth()) {
+        $resizeHandle.hide();
+      } else {
+        $resizeHandle.show();
+      }
+    });
+
+    // Clean up on component destruction
+    component.onDestroyed(() => {
+      $(document).off('mousemove', doResize);
+      $(document).off('mouseup', stopResize);
+      $(document).off('touchmove', doResize);
+      $(document).off('touchend', stopResize);
+    });
   },
 }).register('list');
 

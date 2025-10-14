@@ -89,7 +89,9 @@ BlazeComponent.extendComponent({
 
       // Check if board needs conversion (for old structure)
       if (boardConverter.isBoardConverted(boardId)) {
-        console.log(`Board ${boardId} has already been converted, skipping conversion`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has already been converted, skipping conversion`);
+        }
         this.isBoardReady.set(true);
       } else {
         const needsConversion = boardConverter.needsConversion(boardId);
@@ -127,7 +129,9 @@ BlazeComponent.extendComponent({
         if (error) {
           console.error('Failed to start background migration:', error);
         } else {
-          console.log('Background migration started for board:', boardId);
+          if (process.env.DEBUG === 'true') {
+            console.log('Background migration started for board:', boardId);
+          }
         }
       });
     } catch (error) {
@@ -139,7 +143,9 @@ BlazeComponent.extendComponent({
     try {
       // Check if board has already been migrated
       if (attachmentMigrationManager.isBoardMigrated(boardId)) {
-        console.log(`Board ${boardId} has already been migrated, skipping`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has already been migrated, skipping`);
+        }
         return;
       }
 
@@ -147,12 +153,16 @@ BlazeComponent.extendComponent({
       const unconvertedAttachments = attachmentMigrationManager.getUnconvertedAttachments(boardId);
       
       if (unconvertedAttachments.length > 0) {
-        console.log(`Starting attachment migration for ${unconvertedAttachments.length} attachments in board ${boardId}`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Starting attachment migration for ${unconvertedAttachments.length} attachments in board ${boardId}`);
+        }
         await attachmentMigrationManager.startAttachmentMigration(boardId);
       } else {
         // No attachments to migrate, mark board as migrated
         // This will be handled by the migration manager itself
-        console.log(`Board ${boardId} has no attachments to migrate`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has no attachments to migrate`);
+        }
       }
     } catch (error) {
       console.error('Error starting attachment migration:', error);
@@ -622,14 +632,18 @@ BlazeComponent.extendComponent({
   hasSwimlanes() {
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard) {
-      console.log('hasSwimlanes: No current board');
+      if (process.env.DEBUG === 'true') {
+        console.log('hasSwimlanes: No current board');
+      }
       return false;
     }
     
     try {
       const swimlanes = currentBoard.swimlanes();
       const hasSwimlanes = swimlanes && swimlanes.length > 0;
-      console.log('hasSwimlanes: Board has', swimlanes ? swimlanes.length : 0, 'swimlanes');
+      if (process.env.DEBUG === 'true') {
+        console.log('hasSwimlanes: Board has', swimlanes ? swimlanes.length : 0, 'swimlanes');
+      }
       return hasSwimlanes;
     } catch (error) {
       console.error('hasSwimlanes: Error getting swimlanes:', error);
@@ -661,14 +675,16 @@ BlazeComponent.extendComponent({
     const isMigrating = this.isMigrating.get();
     const boardView = Utils.boardView();
     
-    console.log('=== BOARD DEBUG STATE ===');
-    console.log('currentBoardId:', currentBoardId);
-    console.log('currentBoard:', !!currentBoard, currentBoard ? currentBoard.title : 'none');
-    console.log('isBoardReady:', isBoardReady);
-    console.log('isConverting:', isConverting);
-    console.log('isMigrating:', isMigrating);
-    console.log('boardView:', boardView);
-    console.log('========================');
+    if (process.env.DEBUG === 'true') {
+      console.log('=== BOARD DEBUG STATE ===');
+      console.log('currentBoardId:', currentBoardId);
+      console.log('currentBoard:', !!currentBoard, currentBoard ? currentBoard.title : 'none');
+      console.log('isBoardReady:', isBoardReady);
+      console.log('isConverting:', isConverting);
+      console.log('isMigrating:', isMigrating);
+      console.log('boardView:', boardView);
+      console.log('========================');
+    }
     
     return {
       currentBoardId,

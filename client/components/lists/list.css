@@ -8,6 +8,219 @@
   padding: 0;
   float: left;
 }
+
+/* List resize handle */
+.list-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 10;
+  background: transparent;
+  transition: background-color 0.2s ease;
+  border-radius: 2px;
+}
+
+.list-resize-handle:hover {
+  background: rgba(0, 123, 255, 0.4);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.list-resize-handle:active {
+  background: rgba(0, 123, 255, 0.6);
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+}
+
+/* Show resize handle only on hover */
+.list:hover .list-resize-handle {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.list:hover .list-resize-handle:hover {
+  background: rgba(0, 123, 255, 0.4);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Add a subtle indicator line */
+.list-resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.list-resize-handle:hover::before {
+  opacity: 1;
+}
+
+/* Disable resize handle for collapsed lists and mobile view */
+.list.list-collapsed .list-resize-handle,
+.list.mobile-view .list-resize-handle {
+  display: none;
+}
+
+/* Disable resize handle for auto-width lists */
+.list.list-auto-width .list-resize-handle {
+  display: none;
+}
+
+/* Visual feedback during resize */
+.list.list-resizing {
+  transition: none !important;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  /* Ensure the list maintains its new width during resize */
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  /* Override any conflicting layout properties */
+  float: left !important;
+  display: block !important;
+  position: relative !important;
+  /* Force width to be respected */
+  width: var(--list-width, auto) !important;
+  min-width: var(--list-width, auto) !important;
+  max-width: var(--list-width, auto) !important;
+}
+
+body.list-resizing-active {
+  cursor: col-resize !important;
+}
+
+body.list-resizing-active * {
+  cursor: col-resize !important;
+}
+
+/* Ensure swimlane container doesn't interfere with list resizing */
+.swimlane .list.list-resizing {
+  /* Override any swimlane flex properties */
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  /* Ensure width is respected */
+  width: var(--list-width, auto) !important;
+  min-width: var(--list-width, auto) !important;
+  max-width: var(--list-width, auto) !important;
+}
+
+/* More aggressive override for any container that might interfere */
+.js-swimlane .list.list-resizing,
+.dragscroll .list.list-resizing,
+[id^="swimlane-"] .list.list-resizing {
+  /* Force the width to be applied */
+  width: var(--list-width, auto) !important;
+  min-width: var(--list-width, auto) !important;
+  max-width: var(--list-width, auto) !important;
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  float: left !important;
+  display: block !important;
+}
+
+/* Ensure the width persists after resize is complete */
+.js-swimlane .list[style*="--list-width"],
+.dragscroll .list[style*="--list-width"],
+[id^="swimlane-"] .list[style*="--list-width"] {
+  /* Maintain the width after resize */
+  width: var(--list-width, auto) !important;
+  min-width: var(--list-width, auto) !important;
+  max-width: var(--list-width, auto) !important;
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  float: left !important;
+  display: block !important;
+}
+
+/* Ensure consistent header height for all lists */
+.list-header {
+  /* Maintain consistent height and padding for all lists */
+  min-height: 2.5vh !important;
+  height: auto !important;
+  padding: 2.5vh 1.5vw 0.5vh !important;
+  /* Make sure the background covers the full height */
+  background-color: #e4e4e4 !important;
+  border-bottom: 0.8vh solid #e4e4e4 !important;
+  /* Use original display for consistent button positioning */
+  display: block !important;
+  position: relative !important;
+  /* Prevent vertical expansion but allow normal height */
+  overflow: hidden !important;
+}
+
+/* Ensure title text doesn't cause height changes for all lists */
+.list-header .list-header-name {
+  /* Prevent text wrapping to maintain consistent height */
+  white-space: nowrap !important;
+  /* Truncate text with ellipsis if too long */
+  text-overflow: ellipsis !important;
+  /* Ensure proper line height */
+  line-height: 1.2 !important;
+  /* Ensure it doesn't overflow */
+  overflow: hidden !important;
+  /* Add margin to prevent overlap with buttons */
+  margin-right: 120px !important;
+}
+
+/* Position drag handle at top-right corner for ALL lists */
+.list-header .list-header-handle {
+  /* Position at top-right corner, aligned with title text top */
+  position: absolute !important;
+  top: 2.5vh !important;
+  right: 1.5vw !important;
+  /* Ensure it's above other elements */
+  z-index: 15 !important;
+  /* Remove margin since it's absolutely positioned */
+  margin-right: 0 !important;
+  /* Ensure proper display */
+  display: inline-block !important;
+}
+
+/* Ensure buttons maintain original positioning */
+.js-swimlane .list[style*="--list-width"] .list-header .list-header-plus-top,
+.js-swimlane .list[style*="--list-width"] .list-header .js-collapse,
+.js-swimlane .list[style*="--list-width"] .list-header .js-open-list-menu,
+.dragscroll .list[style*="--list-width"] .list-header .list-header-plus-top,
+.dragscroll .list[style*="--list-width"] .list-header .js-collapse,
+.dragscroll .list[style*="--list-width"] .list-header .js-open-list-menu,
+[id^="swimlane-"] .list[style*="--list-width"] .list-header .list-header-plus-top,
+[id^="swimlane-"] .list[style*="--list-width"] .list-header .js-collapse,
+[id^="swimlane-"] .list[style*="--list-width"] .list-header .js-open-list-menu {
+  /* Use original positioning to maintain layout */
+  position: relative !important;
+  /* Maintain original spacing */
+  margin-right: 15px !important;
+  /* Ensure proper display */
+  display: inline-block !important;
+}
+
+/* Ensure watch icon and card count maintain original positioning */
+.js-swimlane .list[style*="--list-width"] .list-header .list-header-watch-icon,
+.dragscroll .list[style*="--list-width"] .list-header .list-header-watch-icon,
+[id^="swimlane-"] .list[style*="--list-width"] .list-header .list-header-watch-icon,
+.js-swimlane .list[style*="--list-width"] .list-header .cardCount,
+.dragscroll .list[style*="--list-width"] .list-header .cardCount,
+[id^="swimlane-"] .list[style*="--list-width"] .list-header .cardCount {
+  /* Use original positioning to maintain layout */
+  position: relative !important;
+  /* Maintain original spacing */
+  margin-right: 15px !important;
+  /* Ensure proper display */
+  display: inline-block !important;
+}
 [id^="swimlane-"] .list:first-child {
   min-width: 2.5vw;
 }

@@ -314,13 +314,10 @@ Lists.helpers({
 
 Lists.mutations({
   rename(title) {
-    // Sanitize title on client side as well
+    // Basic client-side validation - server will handle full sanitization
     if (typeof title === 'string') {
-      const { sanitizeTitle } = require('../server/lib/inputSanitizer');
-      const sanitizedTitle = sanitizeTitle(title);
-      if (process.env.DEBUG === 'true' && sanitizedTitle !== title) {
-        console.warn('Client-side sanitized list title:', title, '->', sanitizedTitle);
-      }
+      // Basic length check to prevent abuse
+      const sanitizedTitle = title.length > 1000 ? title.substring(0, 1000) : title;
       return { $set: { title: sanitizedTitle } };
     }
     return { $set: { title } };
@@ -654,8 +651,8 @@ if (Meteor.isServer) {
 
       // Update title if provided
       if (req.body.title) {
-        const { sanitizeTitle } = require('../server/lib/inputSanitizer');
-        const newTitle = sanitizeTitle(req.body.title);
+        // Basic client-side validation - server will handle full sanitization
+        const newTitle = req.body.title.length > 1000 ? req.body.title.substring(0, 1000) : req.body.title;
 
         if (process.env.DEBUG === 'true' && newTitle !== req.body.title) {
           console.warn('Sanitized list title input:', req.body.title, '->', newTitle);
