@@ -30,6 +30,11 @@ This release adds the following new features:
 - [If there is no cron jobs running, run migrations for boards that have not been opened yet](https://github.com/wekan/wekan/commit/317138ab7209a41715336ea8251df45f11a6d173).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/5bc03b23ea34816d8e1135cbe9ed5f18a2573854).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Fixes to make board showing correctly](https://github.com/wekan/wekan/commit/bd8c565415998c9aaded821988d591105258b378).
