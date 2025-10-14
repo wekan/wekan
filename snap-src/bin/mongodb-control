@@ -234,8 +234,7 @@ case "$ACTIVE_VERSION" in
             --logpath="$MONGO_LOG_FILE" \
             --logappend \
             --bind_ip=127.0.0.1 \
-            --port=27017 \
-            --fork
+            --port=27017
         ;;
     "4")
         echo "Starting MongoDB 4.x server..."
@@ -245,8 +244,7 @@ case "$ACTIVE_VERSION" in
             --logpath="$MONGO_LOG_FILE" \
             --logappend \
             --bind_ip=127.0.0.1 \
-            --port=27017 \
-            --fork
+            --port=27017
         ;;
     "5")
         echo "Starting MongoDB 5.x server..."
@@ -256,8 +254,7 @@ case "$ACTIVE_VERSION" in
             --logpath="$MONGO_LOG_FILE" \
             --logappend \
             --bind_ip=127.0.0.1 \
-            --port=27017 \
-            --fork
+            --port=27017
         ;;
     "6")
         echo "Starting MongoDB 6.x server..."
@@ -267,8 +264,7 @@ case "$ACTIVE_VERSION" in
             --logpath="$MONGO_LOG_FILE" \
             --logappend \
             --bind_ip=127.0.0.1 \
-            --port=27017 \
-            --fork
+            --port=27017
         ;;
     "7"|*)
         echo "Starting MongoDB 7.x server..."
@@ -278,8 +274,7 @@ case "$ACTIVE_VERSION" in
             --logpath="$MONGO_LOG_FILE" \
             --logappend \
             --bind_ip=127.0.0.1 \
-            --port=27017 \
-            --fork
+            --port=27017
         ;;
     "8")
         echo "Starting MongoDB 8.x server..."
@@ -289,7 +284,6 @@ case "$ACTIVE_VERSION" in
             --logpath="$MONGO_LOG_FILE" \
             --logappend \
             --bind_ip=127.0.0.1 \
-            --port=27017 \
-            --fork
+            --port=27017
         ;;
 esac
