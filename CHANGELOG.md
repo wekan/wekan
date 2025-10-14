@@ -31,6 +31,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Accessibility improvements](https://github.com/wekan/wekan/commit/67b078b8056ec9851caaf6ef855719de1e6d966d).
   Thanks to xet7.
+- [Change list width by dragging between lists](https://github.com/wekan/wekan/commit/abad8cc4d5dded0f5e1a80892a3b29aa71404a5c).
+  Thanks to xet7.
 
 and adds the following updates:
 
