@@ -65,6 +65,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix drag drop reorder swimlanes](https://github.com/wekan/wekan/commit/a4518bbefc99be74f7ccfdbb9fdf902007ca90f3).
   Thanks to xet7.
+- [Try to fix swimlane hamburger menu popup positioning. In progress](https://github.com/wekan/wekan/commit/d4f13de1d978b271d05e1d67d40e3c1c14761578).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
