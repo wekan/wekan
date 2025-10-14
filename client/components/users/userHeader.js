@@ -62,6 +62,15 @@ Template.memberMenuPopup.helpers({
 });
 
 Template.memberMenuPopup.events({
+  'click .js-open-bookmarks'(e) {
+    e.preventDefault();
+    if (Utils.isMiniScreen()) {
+      FlowRouter.go('bookmarks');
+      Popup.back();
+    } else {
+      Popup.open('bookmarksPopup')(e);
+    }
+  },
   'click .js-my-cards'() {
     Popup.back();
   },
@@ -78,6 +87,9 @@ Template.memberMenuPopup.events({
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
+  'click .js-notifications-drawer-toggle'() {
+    Session.set('showNotificationsDrawer', !Session.get('showNotificationsDrawer'));
+  },
   'click .js-logout'(event) {
     event.preventDefault();
 

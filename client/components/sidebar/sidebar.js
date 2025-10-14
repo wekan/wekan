@@ -65,8 +65,10 @@ BlazeComponent.extendComponent({
   },
 
   reachNextPeak() {
-    const activitiesComponent = this.childComponents('activities')[0];
-    activitiesComponent.loadNextPage();
+    const activitiesChildren = this.childComponents('activities');
+    if (activitiesChildren && activitiesChildren.length > 0 && activitiesChildren[0] && typeof activitiesChildren[0].loadNextPage === 'function') {
+      activitiesChildren[0].loadNextPage();
+    }
   },
 
   isTongueHidden() {

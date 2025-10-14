@@ -104,6 +104,9 @@ Template.header.events({
     const currentMode = Utils.getMobileMode();
     Utils.setMobileMode(!currentMode);
   },
+  'click .js-open-bookmarks'(evt) {
+    // Already added but ensure single definition -- safe guard
+  },
   'click .js-close-announcement'() {
     $('.announcement').hide();
   },
@@ -122,6 +125,14 @@ Template.header.events({
     } else {
       window.localStorage.setItem('showDesktopDragHandles', 'true');
       location.reload();
+    }
+  },
+  'click .js-open-bookmarks'(evt) {
+    // Desktop: open popup, Mobile: route to page
+    if (Utils.isMiniScreen()) {
+      FlowRouter.go('bookmarks');
+    } else {
+      Popup.open('bookmarksPopup')(evt);
     }
   },
 });

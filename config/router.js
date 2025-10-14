@@ -240,6 +240,25 @@ FlowRouter.route('/global-search', {
   },
 });
 
+// Mobile Bookmarks page
+FlowRouter.route('/bookmarks', {
+  name: 'bookmarks',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'boardListHeaderBar',
+      content: 'bookmarks',
+    });
+  },
+});
+
 FlowRouter.route('/broken-cards', {
   name: 'broken-cards',
   action() {

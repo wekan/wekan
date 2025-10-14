@@ -12,7 +12,7 @@ template(name="header")
           span.fa.fa-home
           | {{_ 'all-boards'}}
 
-      // Logo - always visible in desktop mode
+      // Logo - visible; on mobile constrained by CSS
       unless currentSetting.hideLogo
         if currentSetting.customTopLeftCornerLogoImageUrl
           if currentSetting.customTopLeftCornerLogoLinkUrl
@@ -82,6 +82,12 @@ template(name="header")
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
           i.fa.fa-mobile.mobile-icon(class="{{#if mobileMode}}active{{/if}}")
           i.fa.fa-desktop.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}")
+
+      // Bookmarks button - desktop opens popup, mobile routes to page
+      a.board-header-btn.js-open-bookmarks(title="{{_ 'bookmarks'}}")
+        i.fa.fa-bookmark
+
+      // Notifications
       +notifications
 
       if currentSetting.customHelpLinkUrl

@@ -12,6 +12,11 @@ template(name="headerUserBar")
 
 template(name="memberMenuPopup")
   ul.pop-over-list
+    // Bookmarks at the very top
+    li
+      a.js-open-bookmarks
+        i.fa.fa-bookmark
+        | {{_ 'bookmarks'}}
     with currentUser
       li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
@@ -37,6 +42,15 @@ template(name="memberMenuPopup")
         a.board-header-btn.js-open-archived-board
           i.fa.fa-archive
           span {{_ 'archives'}}
+      li
+        a.js-notifications-drawer-toggle
+          i.fa.fa-bell
+          | {{_ 'notifications'}}
+      if currentSetting.customHelpLinkUrl
+        li
+          a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
+            i.fa.fa-question
+            | {{_ 'help'}}
       unless currentUser.isWorker
         ul.pop-over-list
           li

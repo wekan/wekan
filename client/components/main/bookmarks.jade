@@ -1,0 +1,29 @@
+template(name="bookmarks")
+  .panel
+    h2 {{_ 'bookmarks'}}
+    if currentUser
+      if hasStarredBoards
+        ul
+          each starredBoards
+            li
+              a(href="{{pathFor 'board' id=_id slug=slug}}")= title
+              a.js-toggle-star(title="{{_ 'star-board-short-unstar'}}")
+                i.fa.fa-star
+      else
+        p {{_ 'no-starred-boards'}}
+    else
+      p {{_ 'please-sign-in'}}
+
+// Desktop popup
+template(name="bookmarksPopup")
+  ul.pop-over-list
+    if hasStarredBoards
+      each starredBoards
+        li
+          a(href="{{pathFor 'board' id=_id slug=slug}}")
+            i.fa.fa-star
+            |  #{title}
+          a.js-toggle-star.right(title="{{_ 'star-board-short-unstar'}}")
+            i.fa.fa-star
+    else
+      li {{_ 'no-starred-boards'}}
