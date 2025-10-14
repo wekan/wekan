@@ -1,4 +1,6 @@
-# Extract the OpenAPI specification.
+#!/usr/bin/env bash
+# Build API documentation using Node.js tooling only (Node 14.x compatible).
+set -euo pipefail
 
 # 1) Check that there is only one parameter
 #    of Wekan version number:
@@ -10,26 +12,7 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-# 2) If esprima-python directory does not exist,
-#   install dependencies.
-
-if [ ! -d ~/python/esprima-python ]; then
-  sudo apt-get -y install python3-pip python3-swagger-spec-validator python3-wheel python3-setuptools
-  # Install older version of api2html that works with Node.js 14
-  sudo npm install -g api2html@0.3.0 || sudo npm install -g swagger-ui-watcher
-  (mkdir -p ~/python && cd ~/python && git clone --depth 1 -b master https://github.com/Kronuz/esprima-python)
-  (cd ~/python/esprima-python && git fetch origin pull/20/head:delete_fix && git checkout delete_fix &&  sudo python3 setup.py install --record files.txt)
-  #(cd ~/python/esprima-python && git fetch origin pull/20/head:delete_fix && git checkout delete_fix && sudo pip3 install .)
-  # temporary fix until https://github.com/Kronuz/esprima-python/pull/20 gets merged
-  # a) Generating docs works on Kubuntu 21.10 with this,
-  #    but generating Sandstorm WeKan package does not work
-  #    https://github.com/wekan/wekan/issues/4280
-  #    https://github.com/sandstorm-io/sandstorm/issues/3600
-  #      sudo pip3 install .
-  # b) Generating docs Works on Linux Mint with this,
-  #    and also generating Sandstorm WeKan package works:
-  #      sudo python3 setup.py install --record files.txt
-fi
+# 2) No Python dependencies; use npm/npx exclusively
 
 # 2) Go to Wekan repo directory
 cd ~/repos/wekan
@@ -39,10 +22,43 @@ if [ ! -d public/api ]; then
   mkdir -p public/api
 fi
 
-# 4) Generate docs with api2html or fallback to swagger-ui-watcher
-python3 ./openapi/generate_openapi.py --release v$1 > ./public/api/wekan.yml
-if ! api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; then
-  swagger-ui-watcher ./public/api/wekan.yml -p 8080
+# 4) Locate or generate an OpenAPI spec (YAML or JSON)
+SPEC_YML="./public/api/wekan.yml"
+SPEC_JSON="./public/openapi.json"
+SPEC_ALT_YML="./public/openapi.yml"
+
+if [ -s "$SPEC_YML" ]; then
+  SPEC="$SPEC_YML"
+elif [ -s "$SPEC_JSON" ]; then
+  SPEC="$SPEC_JSON"
+elif [ -s "$SPEC_ALT_YML" ]; then
+  SPEC="$SPEC_ALT_YML"
+else
+  echo "No existing OpenAPI spec found. Generating from models with Node..."
+  mkdir -p ./public/api
+  node ./openapi/generate_openapi.js --release v$1 ./models > "$SPEC_YML"
+  SPEC="$SPEC_YML"
+fi
+chmod 644 "$SPEC" 2>/dev/null || true
+
+# Build static HTML docs (no global installs)
+# 1) Prefer Redocly CLI
+if npx --yes @redocly/cli@latest build-docs "$SPEC" -o ./public/api/wekan.html; then
+  :
+else
+  # 2) Fallback to redoc-cli
+  if npx --yes redoc-cli@latest bundle "$SPEC" -o ./public/api/wekan.html; then
+    :
+  else
+    # 3) Fallback to api2html
+    if npx --yes api2html@0.3.0 -c ./public/logo-header.png -o ./public/api/wekan.html "$SPEC"; then
+      :
+    else
+      echo "All HTML generators failed. You can preview locally with:" >&2
+      echo "  npx --yes @redocly/cli@latest preview-docs $SPEC" >&2
+      exit 1
+    fi
+  fi
 fi
 
 # Copy docs to bundle
