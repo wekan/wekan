@@ -61,6 +61,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Removed not needed console log message](https://github.com/wekan/wekan/commit/0a34ee1b6437dcfd65e31d9bbc9f3ccfa5718ba9).
   Thanks to xet7.
+- [Updated mobile Bookmarks/Starred boards. Part 1. In Progress](https://github.com/wekan/wekan/commit/da98942cce37363d6062695d3c4cf7e2df796cac).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
