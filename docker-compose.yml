@@ -734,12 +734,13 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - wekan-files:/data:rw
-    secrets:
-      - ldap_auth_password
-      - oauth2_secret
-      - mail_service_password
-      - mongo_password
-      - s3_secret
+    # Secrets are optional. Uncomment below and ensure files exist to use them.
+    #secrets:
+    #  - ldap_auth_password
+    #  - oauth2_secret
+    #  - mail_service_password
+    #  - mongo_password
+    #  - s3_secret
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -806,14 +807,15 @@ networks:
 # Create secret files on the host system before running docker-compose up
 # Example: echo "your_password_here" > ldap_auth_password.txt
 # Then use: docker-compose up -d
-secrets:
-  ldap_auth_password:
-    file: ./secrets/ldap_auth_password.txt
-  oauth2_secret:
-    file: ./secrets/oauth2_secret.txt
-  mail_service_password:
-    file: ./secrets/mail_service_password.txt
-  mongo_password:
-    file: ./secrets/mongo_password.txt
-  s3_secret:
-    file: ./secrets/s3_secret.txt
+# Secrets are optional. Uncomment to enable and ensure files exist at provided paths.
+#secrets:
+#  ldap_auth_password:
+#    file: ./secrets/ldap_auth_password.txt
+#  oauth2_secret:
+#    file: ./secrets/oauth2_secret.txt
+#  mail_service_password:
+#    file: ./secrets/mail_service_password.txt
+#  mongo_password:
+#    file: ./secrets/mongo_password.txt
+#  s3_secret:
+#    file: ./secrets/s3_secret.txt
