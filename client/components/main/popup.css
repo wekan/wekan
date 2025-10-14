@@ -5,7 +5,8 @@
   border-bottom-color: #c2c2c2;
   box-shadow: 0 0.2vh 0.8vh rgba(0,0,0,0.3);
   position: absolute;
-  width: min(300px, 40vw);
+  /* Wider default to fit full color palette */
+  width: min(380px, 55vw);
   z-index: 99999;
   margin-top: 0.7vh;
 }
@@ -80,9 +81,34 @@
   transition: transform 0.2s;
 }
 .pop-over .content-container .content {
-  width: min(280px, 37vw);
+  /* Match wider popover, leave padding */
+  width: min(360px, 52vw);
   padding: 0 1.3vw 1.3vh;
   float: left;
+}
+
+/* Utility: remove left gutter inside specific popups */
+.pop-over .content .flush-left {
+  margin-left: -1.3vw;
+  padding-left: 0;
+  width: calc(100% + 1.3vw);
+}
+
+/* Swimlane popups: remove left gutter, align content fully left */
+.pop-over .content form.swimlane-color-popup,
+.pop-over .content .swimlane-height-popup {
+  margin-left: -1.3vw;
+  padding-left: 0;
+  width: calc(100% + 1.3vw);
+}
+
+/* Ensure buttons don’t reserve left space; align to flow */
+.pop-over .content form.swimlane-color-popup .primary.confirm,
+.pop-over .content form.swimlane-color-popup .negate.wide.right,
+.pop-over .content .swimlane-height-popup .primary.confirm,
+.pop-over .content .swimlane-height-popup .negate.wide.right {
+  float: none;
+  margin-left: 0;
 }
 .pop-over .content-container .content.no-height {
   height: 2.5vh;

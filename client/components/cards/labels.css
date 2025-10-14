@@ -38,6 +38,7 @@
 .palette-colors {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start; /* left-align color chips in wider popovers */
 }
 .palette-colors .palette-color {
   flex-grow: 1;
