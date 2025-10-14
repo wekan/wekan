@@ -1,6 +1,4 @@
-.main-body {
-  overflow: scroll;
-}
+/* Scrollbar styles are now handled by settingBody.css for all admin pages */
 table {
   color: #000;
 }

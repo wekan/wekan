@@ -1,11 +1,16 @@
-.main-body {
-  overflow: scroll;
-}
+/* Scrollbar styles are now handled by settingBody.css for all admin pages */
 table {
   color: #000;
+  min-width: 1200px !important;
+  width: max-content !important;
+  table-layout: auto !important;
 }
+
+/* Force People/Organizations/Teams tables to always trigger horizontal scrolling */
 table td,
 table th {
+  white-space: nowrap;
+  min-width: 120px;
   border: 1px solid #d2d0d0;
   text-align: left;
   padding: 8px;

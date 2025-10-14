@@ -59,7 +59,79 @@
   -ms-user-select: text;
   user-select: text;
   max-height: 100%;
-  overflow: auto;
+  overflow-x: scroll !important;
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable;
+  /* Force horizontal scrollbar to always be visible */
+  min-width: 100%;
+  width: 100%;
+}
+
+/* Ensure scrollbars are always visible with proper styling for all admin pages */
+.setting-content .content-body .main-body::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.setting-content .content-body .main-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.setting-content .content-body .main-body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.setting-content .content-body .main-body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.setting-content .content-body .main-body::-webkit-scrollbar-corner {
+  background: #f1f1f1;
+}
+
+/* Ensure tables and content are wide enough to trigger horizontal scrolling */
+.setting-content .content-body .main-body table {
+  min-width: 1200px !important;
+  width: max-content !important;
+  table-layout: auto !important;
+}
+
+/* Force tables to always trigger horizontal scrolling */
+.setting-content .content-body .main-body table td,
+.setting-content .content-body .main-body table th {
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+/* Ensure there's enough content to trigger vertical scrolling */
+.setting-content .content-body .main-body {
+  min-height: calc(100vh - 200px);
+  padding-bottom: 50px;
+}
+
+/* Force horizontal scrollbar to always be visible at bottom */
+.setting-content .content-body .main-body {
+  position: relative;
+}
+
+/* Add invisible content to force horizontal scrolling when needed */
+.setting-content .content-body .main-body::after {
+  content: '';
+  display: block;
+  width: 100vw;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
 }
 .setting-content .content-body .main-body ul li {
   padding: 0.5rem 0.5rem;
