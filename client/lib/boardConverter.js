@@ -6,6 +6,7 @@
 
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
+import Lists from '/models/lists';
 
 // Reactive variables for conversion progress
 export const conversionProgress = new ReactiveVar(0);

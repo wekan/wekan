@@ -5,6 +5,7 @@ import { boardConverter } from '/client/lib/boardConverter';
 import { migrationManager } from '/client/lib/migrationManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
 import { Swimlanes } from '/models/swimlanes';
+import Lists from '/models/lists';
 
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;
