@@ -223,10 +223,9 @@ BlazeComponent.extendComponent({
       }
     }
     if (Filter.hideEmpty.isSelected()) {
-      const swimlaneId = this.parentComponent()
-        .parentComponent()
-        .data()._id;
-      const cards = list.cards(swimlaneId);
+      // Check for cards in all swimlanes, not just the current one
+      // This ensures lists with cards in other swimlanes are still visible
+      const cards = list.cards();
       if (cards.length === 0) {
         return false;
       }
@@ -375,10 +374,9 @@ BlazeComponent.extendComponent({
       }
     }
     if (Filter.hideEmpty.isSelected()) {
-      const swimlaneId = this.parentComponent()
-        .parentComponent()
-        .data()._id;
-      const cards = list.cards(swimlaneId);
+      // Check for cards in all swimlanes, not just the current one
+      // This ensures lists with cards in other swimlanes are still visible
+      const cards = list.cards();
       if (cards.length === 0) {
         return false;
       }
