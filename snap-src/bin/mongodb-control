@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # MongoDB Control Script
-# Handles MongoDB server startup with automatic version detection and switching
-# Supports MongoDB versions 3-8 with automatic binary selection
+# Starts MongoDB 7.x server only
 
 # get wekan/mongo settings
 echo "Reading snap settings..."
@@ -26,189 +25,13 @@ if [ "true" == "${DISABLE_MONGODB}" ]; then
     exit 0
 fi
 
-# MongoDB Version Detection and Auto-Switching System
-# Detects MongoDB server version from connection attempts and switches to correct binary
-
-# MongoDB binary paths for different versions
-# Note: Currently only versions 3 and 7 are available in the snap package
-# Versions 4, 5, 6, 8 would need to be added to the snap package
-MONGO3_BIN="/snap/${SNAP_NAME}/current/migratemongo/bin"
-MONGO7_BIN="/snap/${SNAP_NAME}/current/bin"
-MONGO3_LIB="/snap/${SNAP_NAME}/current/migratemongo/lib"
-MONGO7_LIB="/snap/${SNAP_NAME}/current/usr/lib"
-
-# Future paths for additional versions (when added to snap package)
-MONGO4_BIN="/snap/${SNAP_NAME}/current/mongodb4/bin"
-MONGO5_BIN="/snap/${SNAP_NAME}/current/mongodb5/bin"
-MONGO6_BIN="/snap/${SNAP_NAME}/current/mongodb6/bin"
-MONGO8_BIN="/snap/${SNAP_NAME}/current/mongodb8/bin"
-
-# Version detection log
-VERSION_DETECTION_LOG="${SNAP_COMMON}/mongodb-version-detection.log"
-
-# Log version detection events
-log_version_detection() {
-    echo "$(date): $1" >> "$VERSION_DETECTION_LOG"
-}
-
-# Detect MongoDB server version by attempting connection
-detect_mongodb_version() {
-    local mongo_url="${MONGO_URL:-mongodb://127.0.0.1:27017/wekan}"
-    local detected_version=""
-    
-    log_version_detection "Starting MongoDB version detection for: $mongo_url"
-    
-    # Try to connect with MongoDB 7 first (latest available)
-    log_version_detection "Attempting connection with MongoDB 7 binary"
-    if timeout 10s /snap/${SNAP_NAME}/current/bin/mongosh --quiet --eval "db.runCommand({buildInfo: 1}).version" "$mongo_url" 2>/dev/null | grep -q "7\."; then
-        detected_version="7"
-        log_version_detection "Detected MongoDB 7.x server"
-    elif timeout 10s /snap/${SNAP_NAME}/current/bin/mongosh --quiet --eval "db.runCommand({buildInfo: 1}).version" "$mongo_url" 2>&1 | grep -q "protocol version\|wire protocol"; then
-        # Check for wire protocol errors that indicate older version
-        local error_output=$(timeout 10s /snap/${SNAP_NAME}/current/bin/mongosh --quiet --eval "db.runCommand({buildInfo: 1}).version" "$mongo_url" 2>&1)
-        if echo "$error_output" | grep -q "protocol version 0\|wire protocol version 0"; then
-            detected_version="3"
-            log_version_detection "Detected MongoDB 3.x server (wire protocol 0)"
-        elif echo "$error_output" | grep -q "protocol version 1\|wire protocol version 1"; then
-            detected_version="3"
-            log_version_detection "Detected MongoDB 3.x server (wire protocol 1)"
-        elif echo "$error_output" | grep -q "protocol version 2\|wire protocol version 2"; then
-            detected_version="3"
-            log_version_detection "Detected MongoDB 3.x server (wire protocol 2)"
-        elif echo "$error_output" | grep -q "protocol version 3\|wire protocol version 3"; then
-            detected_version="3"
-            log_version_detection "Detected MongoDB 3.x server (wire protocol 3)"
-        elif echo "$error_output" | grep -q "protocol version 4\|wire protocol version 4"; then
-            detected_version="4"
-            log_version_detection "Detected MongoDB 4.x server (wire protocol 4)"
-        elif echo "$error_output" | grep -q "protocol version 5\|wire protocol version 5"; then
-            detected_version="5"
-            log_version_detection "Detected MongoDB 5.x server (wire protocol 5)"
-        elif echo "$error_output" | grep -q "protocol version 6\|wire protocol version 6"; then
-            detected_version="6"
-            log_version_detection "Detected MongoDB 6.x server (wire protocol 6)"
-        elif echo "$error_output" | grep -q "protocol version 7\|wire protocol version 7"; then
-            detected_version="7"
-            log_version_detection "Detected MongoDB 7.x server (wire protocol 7)"
-        elif echo "$error_output" | grep -q "protocol version 8\|wire protocol version 8"; then
-            detected_version="8"
-            log_version_detection "Detected MongoDB 8.x server (wire protocol 8)"
-        else
-            log_version_detection "Unknown wire protocol error: $error_output"
-        fi
-    else
-        log_version_detection "No MongoDB server running or connection failed"
-    fi
-    
-    echo "$detected_version"
-}
-
-# Switch to appropriate MongoDB binary based on detected version
-switch_mongodb_binary() {
-    local version="$1"
-    
-    case "$version" in
-        "3")
-            if [ -f "/snap/${SNAP_NAME}/current/migratemongo/bin/mongod" ]; then
-                log_version_detection "Switching to MongoDB 3.x binary"
-                export PATH="${MONGO3_BIN}:${PATH}"
-                export LD_LIBRARY_PATH="${MONGO3_LIB}:${MONGO3_LIB}/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
-                echo "3" > "${SNAP_COMMON}/mongodb-active-version"
-            else
-                log_version_detection "MongoDB 3.x binary not found, using default MongoDB 7.x"
-                switch_mongodb_binary "7"
-            fi
-            ;;
-        "4")
-            if [ -f "/snap/${SNAP_NAME}/current/mongodb4/bin/mongod" ]; then
-                log_version_detection "Switching to MongoDB 4.x binary"
-                export PATH="${MONGO4_BIN}:${PATH}"
-                echo "4" > "${SNAP_COMMON}/mongodb-active-version"
-            else
-                log_version_detection "MongoDB 4.x binary not found, using default MongoDB 7.x"
-                switch_mongodb_binary "7"
-            fi
-            ;;
-        "5")
-            if [ -f "/snap/${SNAP_NAME}/current/mongodb5/bin/mongod" ]; then
-                log_version_detection "Switching to MongoDB 5.x binary"
-                export PATH="${MONGO5_BIN}:${PATH}"
-                echo "5" > "${SNAP_COMMON}/mongodb-active-version"
-            else
-                log_version_detection "MongoDB 5.x binary not found, using default MongoDB 7.x"
-                switch_mongodb_binary "7"
-            fi
-            ;;
-        "6")
-            if [ -f "/snap/${SNAP_NAME}/current/mongodb6/bin/mongod" ]; then
-                log_version_detection "Switching to MongoDB 6.x binary"
-                export PATH="${MONGO6_BIN}:${PATH}"
-                echo "6" > "${SNAP_COMMON}/mongodb-active-version"
-            else
-                log_version_detection "MongoDB 6.x binary not found, using default MongoDB 7.x"
-                switch_mongodb_binary "7"
-            fi
-            ;;
-        "7"|"")
-            log_version_detection "Using MongoDB 7.x binary (default)"
-            export PATH="${MONGO7_BIN}:${PATH}"
-            export LD_LIBRARY_PATH="${MONGO7_LIB}:${LD_LIBRARY_PATH}"
-            echo "7" > "${SNAP_COMMON}/mongodb-active-version"
-            ;;
-        "8")
-            if [ -f "/snap/${SNAP_NAME}/current/mongodb8/bin/mongod" ]; then
-                log_version_detection "Switching to MongoDB 8.x binary"
-                export PATH="${MONGO8_BIN}:${PATH}"
-                echo "8" > "${SNAP_COMMON}/mongodb-active-version"
-            else
-                log_version_detection "MongoDB 8.x binary not found, using default MongoDB 7.x"
-                switch_mongodb_binary "7"
-            fi
-            ;;
-        *)
-            log_version_detection "Unknown version $version, using default MongoDB 7.x"
-            export PATH="${MONGO7_BIN}:${PATH}"
-            export LD_LIBRARY_PATH="${MONGO7_LIB}:${LD_LIBRARY_PATH}"
-            echo "7" > "${SNAP_COMMON}/mongodb-active-version"
-            ;;
-    esac
-}
-
-# Main version detection and switching logic
-setup_mongodb_version() {
-    # Check if we have a cached version
-    if [ -f "${SNAP_COMMON}/mongodb-active-version" ]; then
-        local cached_version=$(cat "${SNAP_COMMON}/mongodb-active-version")
-        log_version_detection "Using cached MongoDB version: $cached_version"
-        switch_mongodb_binary "$cached_version"
-        return
-    fi
-    
-    # Detect version and switch
-    local detected_version=$(detect_mongodb_version)
-    if [ -n "$detected_version" ]; then
-        switch_mongodb_binary "$detected_version"
-    else
-        # Default to MongoDB 7 if detection fails
-        log_version_detection "Version detection failed, using default MongoDB 7.x"
-        switch_mongodb_binary "7"
-    fi
-}
-
-# Run version detection and setup
-setup_mongodb_version
-
 # make sure we have set minimum env variables for locale
 if [ -z "${LANG}" ]; then
     export LANG=en_US.UTF-8
 fi
 
 export LC_ALL=C
-# If CPU does not support AVX, use Qemu that supports AVX.
-# Migratemongo is at https://github.com/wekan/migratemongo
-# and at directory /snap/${SNAP_NAME}/current/migratemongo/avx
-# is bash scripts like mongod, mongosh check avx support and use Qemu if needed.
-export PATH=/snap/${SNAP_NAME}/current/migratemongo/avx:/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:${PATH}
+export PATH=/snap/${SNAP_NAME}/current/usr/bin:/snap/${SNAP_NAME}/current/bin:${PATH}
 export LD_LIBRARY_PATH=/snap/${SNAP_NAME}/current/lib:/snap/${SNAP_NAME}/current/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 # If temporary settings log exists, delete it
@@ -254,60 +77,57 @@ echo "  MONGODB_PORT: ${MONGODB_PORT:-27017}"
 echo "  MONGODB_BIND_UNIX_SOCKET: ${MONGODB_BIND_UNIX_SOCKET:-not set}"
 echo "  BIND_OPTIONS: ${BIND_OPTIONS}"
 
-# Start MongoDB with appropriate version
-echo "Starting MongoDB with detected version..."
-log_version_detection "Starting MongoDB server"
+# Check if MongoDB is already running
+check_mongodb_running() {
+    local port="${MONGODB_PORT:-27017}"
+    local bind_ip="${MONGODB_BIND_IP:-127.0.0.1}"
+    
+    # Check if MongoDB is already running on the configured port
+    if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
+        echo "MongoDB is already running on port ${port}"
+        return 0
+    fi
+    
+    # Alternative check using lsof if netstat is not available
+    if command -v lsof >/dev/null 2>&1; then
+        if lsof -i ":${port}" >/dev/null 2>&1; then
+            echo "MongoDB is already running on port ${port} (detected via lsof)"
+            return 0
+        fi
+    fi
+    
+    # Check if there's a PID file and the process is still running
+    if [ -f "${SNAP_COMMON}/mongodb.pid" ]; then
+        local pid=$(cat "${SNAP_COMMON}/mongodb.pid" 2>/dev/null)
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+            echo "MongoDB is already running (PID: $pid)"
+            return 0
+        else
+            # Remove stale PID file
+            rm -f "${SNAP_COMMON}/mongodb.pid"
+        fi
+    fi
+    
+    return 1
+}
 
-# Get the active version
-ACTIVE_VERSION=$(cat "${SNAP_COMMON}/mongodb-active-version" 2>/dev/null || echo "7")
+# Cleanup function to remove PID file on exit
+cleanup() {
+    rm -f "${SNAP_COMMON}/mongodb.pid"
+}
+trap cleanup EXIT
 
-case "$ACTIVE_VERSION" in
-    "3")
-        echo "Starting MongoDB 3.x server..."
-        log_version_detection "Starting MongoDB 3.x server"
-        exec /snap/${SNAP_NAME}/current/migratemongo/bin/mongod \
-            --dbpath="$MONGO_DATA_DIR" \
-            --logpath="$MONGO_LOG_FILE" \
-            --logappend $BIND_OPTIONS
-        ;;
-    "4")
-        echo "Starting MongoDB 4.x server..."
-        log_version_detection "Starting MongoDB 4.x server"
-        exec /snap/${SNAP_NAME}/current/mongodb4/bin/mongod \
-            --dbpath="$MONGO_DATA_DIR" \
-            --logpath="$MONGO_LOG_FILE" \
-            --logappend $BIND_OPTIONS
-        ;;
-    "5")
-        echo "Starting MongoDB 5.x server..."
-        log_version_detection "Starting MongoDB 5.x server"
-        exec /snap/${SNAP_NAME}/current/mongodb5/bin/mongod \
-            --dbpath="$MONGO_DATA_DIR" \
-            --logpath="$MONGO_LOG_FILE" \
-            --logappend $BIND_OPTIONS
-        ;;
-    "6")
-        echo "Starting MongoDB 6.x server..."
-        log_version_detection "Starting MongoDB 6.x server"
-        exec /snap/${SNAP_NAME}/current/mongodb6/bin/mongod \
-            --dbpath="$MONGO_DATA_DIR" \
-            --logpath="$MONGO_LOG_FILE" \
-            --logappend $BIND_OPTIONS
-        ;;
-    "7"|*)
-        echo "Starting MongoDB 7.x server..."
-        log_version_detection "Starting MongoDB 7.x server"
-        exec /snap/${SNAP_NAME}/current/bin/mongod \
-            --dbpath="$MONGO_DATA_DIR" \
-            --logpath="$MONGO_LOG_FILE" \
-            --logappend $BIND_OPTIONS
-        ;;
-    "8")
-        echo "Starting MongoDB 8.x server..."
-        log_version_detection "Starting MongoDB 8.x server"
-        exec /snap/${SNAP_NAME}/current/mongodb8/bin/mongod \
-            --dbpath="$MONGO_DATA_DIR" \
-            --logpath="$MONGO_LOG_FILE" \
-            --logappend $BIND_OPTIONS
-        ;;
-esac
+# Check if MongoDB is already running
+if check_mongodb_running; then
+    echo "MongoDB is already running. Exiting to prevent multiple instances."
+    exit 0
+fi
+
+# Start MongoDB 7.x server
+echo "Starting MongoDB 7.x server..."
+# Create PID file
+echo $$ > "${SNAP_COMMON}/mongodb.pid"
+exec /snap/${SNAP_NAME}/current/bin/mongod \
+    --dbpath="$MONGO_DATA_DIR" \
+    --logpath="$MONGO_LOG_FILE" \
+    --logappend $BIND_OPTIONS

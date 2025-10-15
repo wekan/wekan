@@ -75,19 +75,6 @@ apps:
         command: ./bin/mongodb-restore
         plugs: [network, network-bind]
 
-    mongodb-migration:
-        command: ./bin/mongodb-migrate
-        plugs: [network, network-bind]
-
-    mongodb-migration-web:
-        command: ./bin/mongodb-migration-web
-        plugs: [network, network-bind]
-
-    mongodb-migration-status:
-        command: ./bin/mongodb-migration-status
-
-    snap-channel-manager:
-        command: ./bin/snap-channel-manager
 
 parts:
     mongodb:
@@ -122,29 +109,6 @@ parts:
         source: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2404-x86_64-100.12.2.tgz
         plugin: dump
 
-    #mongodb3:
-    #    source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-3.6.23.tgz
-    #    plugin: dump
-    #    stage-packages:
-    #        - libssl1.1
-    #        - libcurl3
-    #        - libstemmer0d
-    #        - zlib1g
-    #        - libsnappy1v5
-    #        - libyaml-cpp0.5v5
-    #        - libpcre3
-    #        - libpcrecpp0v5
-    #        - libboost-system1.65.1
-    #        - libboost-iostreams1.65.1
-    #        - libboost-filesystem1.65.1
-    #        - libboost-program-options1.65.1
-    #        - libgoogle-perftools4
-    #    stage:
-    #        - bin
-    #        - usr
-    #    prime:
-    #        - bin
-    #        - usr
 
     wekan:
         source: .
@@ -164,7 +128,6 @@ parts:
             - execstack
             - nodejs
             - npm
-            - git  # Add git for cloning migratemongo
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -230,12 +193,6 @@ parts:
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
 
-            # Migrate MongoDB 3 to 6 - clone directly from git instead of downloading zip
-            echo "Cloning migratemongo repository..."
-            git clone https://github.com/wekan/migratemongo.git
-            echo "Copy migratemongo files to install directory..."
-            cp -pR migratemongo $SNAPCRAFT_PART_INSTALL/
-            rm -rf migratemongo
 
             # Delete phantomjs that is in accounts-lockout
             #rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt
