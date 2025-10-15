@@ -719,20 +719,20 @@ a:not(.disabled).is-active i.fa {
   }
   
   .list {
-    margin: 0 20px;
+    margin: 0 8px;
     min-width: 360px;
   }
   
   .board-canvas {
-    padding: 20px;
-    max-width: 2400px;
-    margin: 0 auto;
+    padding: 0;
   }
   
   #header {
-    padding: 20px 32px;
-    max-width: 2400px;
-    margin: 0 auto;
+    padding: 0 8px;
+  }
+  
+  #content > .wrapper {
+    padding: 0;
   }
   
   #modal .modal-content {
@@ -745,8 +745,6 @@ a:not(.disabled).is-active i.fa {
   
   .setting-content .content-body {
     gap: 32px;
-    max-width: 2400px;
-    margin: 0 auto;
   }
   
   .setting-content .content-body .side-menu {
