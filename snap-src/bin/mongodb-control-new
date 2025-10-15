@@ -164,8 +164,7 @@ if [ "$ACTIVE_VERSION" = "3" ]; then
         --logpath="$MONGO_LOG_FILE" \
         --logappend \
         --bind_ip=127.0.0.1 \
-        --port=27017 \
-        --fork
+        --port=27017
 else
     echo "Starting MongoDB 7.x server..."
     log_version_detection "Starting MongoDB 7.x server"
@@ -174,6 +173,5 @@ else
         --logpath="$MONGO_LOG_FILE" \
         --logappend \
         --bind_ip=127.0.0.1 \
-        --port=27017 \
-        --fork
+        --port=27017
 fi
