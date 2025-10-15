@@ -27,6 +27,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix wide screen](https://github.com/wekan/wekan/commit/f08c7702eecf23588f7bc023beefb453edd704c6).
   Thanks to xet7.
+- [Fix popups positioning](https://github.com/wekan/wekan/commit/77eea4d494e5db8e2c0e59732bcea73aa163bc13).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
