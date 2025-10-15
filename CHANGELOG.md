@@ -25,6 +25,8 @@ This release fixes the following bugs:
 
 - [Make sure that all cards are visible](https://github.com/wekan/wekan/commit/6b848b318d62afe9772218febdb09c7426774f60).
   Thanks to xet7.
+- [Fix wide screen](https://github.com/wekan/wekan/commit/f08c7702eecf23588f7bc023beefb453edd704c6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
