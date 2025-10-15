@@ -76,22 +76,22 @@
   overflow: hidden;
 }
 .pop-over .content-container {
-  width: 5000px;
+  width: 100%;
   max-height: 70vh;
   transition: transform 0.2s;
 }
 .pop-over .content-container .content {
   /* Match wider popover, leave padding */
-  width: min(360px, 52vw);
+  width: 100%;
   padding: 0 1.3vw 1.3vh;
-  float: left;
+  box-sizing: border-box;
 }
 
 /* Utility: remove left gutter inside specific popups */
 .pop-over .content .flush-left {
   margin-left: -1.3vw;
   padding-left: 0;
-  width: calc(100% + 1.3vw);
+  width: calc(100% + 2.6vw);
 }
 
 /* Swimlane popups: remove left gutter, align content fully left */
@@ -99,7 +99,7 @@
 .pop-over .content .swimlane-height-popup {
   margin-left: -1.3vw;
   padding-left: 0;
-  width: calc(100% + 1.3vw);
+  width: calc(100% + 2.6vw);
 }
 
 /* Ensure buttons don’t reserve left space; align to flow */
