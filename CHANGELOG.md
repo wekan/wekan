@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Make sure that all cards are visible](https://github.com/wekan/wekan/commit/6b848b318d62afe9772218febdb09c7426774f60).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.03 2025-10-14 WeKan ® release
 
 This release fixes the following bugs:
