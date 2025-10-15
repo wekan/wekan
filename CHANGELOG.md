@@ -31,6 +31,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Remove using fork with MongoDB at Snap](https://github.com/wekan/wekan/commit/690481c138f9629054180310dd172295c7f6d34e).
   Thanks to xet7.
+- [Use only MongoDB 7 at Snap](https://github.com/wekan/wekan/commit/79e83e33ec1dcec4eea81d5fb4a9f7381c176a12).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
