@@ -1,11 +1,11 @@
 .assignee {
-  border-radius: 0.4vw;
+  border-radius: 3px;
   display: block;
   position: relative;
   float: left;
-  height: 4vw;
-  width: 4vw;
-  margin: 0.4vh;
+  height: 30px;
+  width: 30px;
+  margin: .3vh;
   cursor: pointer;
   user-select: none;
   z-index: 1;
@@ -34,11 +34,11 @@
   background-color: #b3b3b3;
   border: 1px solid #fff;
   border-radius: 50%;
-  height: 1vw;
-  width: 1vw;
+  height: 7px;
+  width: 7px;
   position: absolute;
-  right: -0.1vw;
-  bottom: -0.1vw;
+  right: -1px;
+  bottom: -1px;
   border: 1px solid #fff;
   z-index: 15;
 }

@@ -52,8 +52,8 @@ ongoworks:speakingurl
 raix:handlebar-helpers
 http@2.0.0! # force new http package
 
-# Datepicker
-wekan-bootstrap-datepicker
+# Datepicker (disabled - using native HTML inputs)
+# wekan-bootstrap-datepicker
 
 # UI components
 ostrio:i18n

@@ -107,6 +107,137 @@
 .pop-over[data-popup="changeLanguage"] .content-container {
   max-height: inherit; /* Use dynamic height from JavaScript */
 }
+
+/* Date popup sizing for native HTML inputs */
+.pop-over[data-popup="editCardReceivedDatePopup"],
+.pop-over[data-popup="editCardStartDatePopup"],
+.pop-over[data-popup="editCardDueDatePopup"],
+.pop-over[data-popup="editCardEndDatePopup"],
+.pop-over[data-popup*="Date"] {
+  width: min(400px, 90vw) !important; /* Smaller width for native inputs */
+  min-width: 350px !important;
+  max-height: 80vh !important;
+}
+
+.pop-over[data-popup="editCardReceivedDatePopup"] .content-wrapper,
+.pop-over[data-popup="editCardStartDatePopup"] .content-wrapper,
+.pop-over[data-popup="editCardDueDatePopup"] .content-wrapper,
+.pop-over[data-popup="editCardEndDatePopup"] .content-wrapper,
+.pop-over[data-popup*="Date"] .content-wrapper {
+  max-height: 60vh !important;
+  overflow-y: auto !important;
+}
+
+.pop-over[data-popup="editCardReceivedDatePopup"] .content-container,
+.pop-over[data-popup="editCardStartDatePopup"] .content-container,
+.pop-over[data-popup="editCardDueDatePopup"] .content-container,
+.pop-over[data-popup="editCardEndDatePopup"] .content-container,
+.pop-over[data-popup*="Date"] .content-container {
+  max-height: 60vh !important;
+}
+
+/* Native HTML input styling */
+.pop-over[data-popup*="Date"] .datepicker-container {
+  width: 100% !important;
+  padding: 15px !important;
+}
+
+.pop-over[data-popup*="Date"] .datepicker-container .fields {
+  display: flex !important;
+  gap: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.pop-over[data-popup*="Date"] .datepicker-container .fields .left,
+.pop-over[data-popup*="Date"] .datepicker-container .fields .right {
+  flex: 1 !important;
+  width: auto !important;
+}
+
+.pop-over[data-popup*="Date"] .datepicker-container label {
+  display: block !important;
+  margin-bottom: 5px !important;
+  font-weight: bold !important;
+}
+
+.pop-over[data-popup*="Date"] .datepicker-container input[type="date"],
+.pop-over[data-popup*="Date"] .datepicker-container input[type="time"] {
+  width: 100% !important;
+  padding: 8px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+}
+
+.pop-over[data-popup*="Date"] .datepicker-container input[type="date"]:focus,
+.pop-over[data-popup*="Date"] .datepicker-container input[type="time"]:focus {
+  outline: none !important;
+  border-color: #007cba !important;
+  box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2) !important;
+}
+
+/* Ensure date popup buttons stay within popup boundaries */
+.pop-over[data-popup="editCardReceivedDatePopup"] .content,
+.pop-over[data-popup="editCardStartDatePopup"] .content,
+.pop-over[data-popup="editCardDueDatePopup"] .content,
+.pop-over[data-popup="editCardEndDatePopup"] .content,
+.pop-over[data-popup*="Date"] .content {
+  max-height: 60vh !important; /* Leave space for buttons */
+  overflow-y: auto !important;
+  padding-bottom: 100px !important; /* More space for buttons */
+  margin-bottom: 0 !important;
+}
+
+.pop-over[data-popup="editCardReceivedDatePopup"] .datepicker-container,
+.pop-over[data-popup="editCardStartDatePopup"] .datepicker-container,
+.pop-over[data-popup="editCardDueDatePopup"] .datepicker-container,
+.pop-over[data-popup="editCardEndDatePopup"] .datepicker-container,
+.pop-over[data-popup*="Date"] .datepicker-container {
+  max-height: 50vh !important; /* Limit calendar height */
+  overflow-y: auto !important;
+  margin-bottom: 20px !important; /* Space before buttons */
+}
+
+/* Ensure buttons are properly positioned */
+.pop-over[data-popup="editCardReceivedDatePopup"] .edit-date,
+.pop-over[data-popup="editCardStartDatePopup"] .edit-date,
+.pop-over[data-popup="editCardDueDatePopup"] .edit-date,
+.pop-over[data-popup="editCardEndDatePopup"] .edit-date,
+.pop-over[data-popup*="Date"] .edit-date {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.pop-over[data-popup="editCardReceivedDatePopup"] .edit-date .fields,
+.pop-over[data-popup="editCardStartDatePopup"] .edit-date .fields,
+.pop-over[data-popup="editCardDueDatePopup"] .edit-date .fields,
+.pop-over[data-popup="editCardEndDatePopup"] .edit-date .fields,
+.pop-over[data-popup*="Date"] .edit-date .fields {
+  flex-shrink: 0 !important;
+  margin-bottom: 15px !important;
+}
+
+.pop-over[data-popup="editCardReceivedDatePopup"] .edit-date .js-datepicker,
+.pop-over[data-popup="editCardStartDatePopup"] .edit-date .js-datepicker,
+.pop-over[data-popup="editCardDueDatePopup"] .edit-date .js-datepicker,
+.pop-over[data-popup="editCardEndDatePopup"] .edit-date .js-datepicker,
+.pop-over[data-popup*="Date"] .edit-date .js-datepicker {
+  flex: 1 !important;
+  overflow-y: auto !important;
+}
+
+.pop-over[data-popup="editCardReceivedDatePopup"] .edit-date button,
+.pop-over[data-popup="editCardStartDatePopup"] .edit-date button,
+.pop-over[data-popup="editCardDueDatePopup"] .edit-date button,
+.pop-over[data-popup="editCardEndDatePopup"] .edit-date button,
+.pop-over[data-popup*="Date"] .edit-date button {
+  flex-shrink: 0 !important;
+  margin-top: 15px !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
 .pop-over .content-container .content {
   /* Match wider popover, leave padding */
   width: 100%;

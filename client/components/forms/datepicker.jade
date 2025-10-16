@@ -4,11 +4,10 @@ template(name="datepicker")
             .fields
                 .left
                     label(for="date") {{_ 'date'}}
-                    input.js-date-field#date(type="text" name="date" value=showDate placeholder=dateFormat autofocus)
+                    input.js-date-field#date(type="date" name="date" value=showDate autofocus)
                 .right
                     label(for="time") {{_ 'time'}}
-                    input.js-time-field#time(type="text" name="time" value=showTime placeholder=timeFormat)
-            .js-datepicker
+                    input.js-time-field#time(type="time" name="time" value=showTime)
             if error.get
                 .warning {{_ error.get}}
             button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
