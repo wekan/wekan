@@ -29,6 +29,8 @@ This release fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/commit/87ae085e6d0a56a2083eec819cf7d795d3e51e1a),
   [Part 2](https://github.com/wekan/wekan/commit/386aea7c788d6eaf9d486ead4d81453401adf390).
   Thanks to xet7.
+- [Changed wekan-boostrap-datepicker to HTML datepicker](https://github.com/wekan/wekan/commit/79b94824efedaa9e256de931fd26398eb2838d6a).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
