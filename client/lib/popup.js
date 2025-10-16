@@ -209,11 +209,39 @@ window.Popup = new (class {
       if (Utils.isMiniScreen()) return { left: 0, top: 0 };
 
       const offset = $element.offset();
-      const popupWidth = 300 + 15;
-      return {
-        left: Math.min(offset.left, $(window).width() - popupWidth),
-        top: offset.top + $element.outerHeight(),
-      };
+      // Calculate actual popup width based on CSS: min(380px, 55vw)
+      const viewportWidth = $(window).width();
+      const viewportHeight = $(window).height();
+      const popupWidth = Math.min(380, viewportWidth * 0.55) + 15; // Add 15px for margin
+      
+      // Calculate available height for popup
+      const popupTop = offset.top + $element.outerHeight();
+      
+      // For language popup, don't use dynamic height to avoid overlapping board
+      const isLanguagePopup = $element.hasClass('js-change-language');
+      let availableHeight, maxPopupHeight;
+      
+      if (isLanguagePopup) {
+        // For language popup, position content area below right vertical scrollbar
+        const availableHeight = viewportHeight - popupTop - 20; // 20px margin from bottom (near scrollbar)
+        const calculatedHeight = Math.min(availableHeight, viewportHeight * 0.5); // Max 50% of viewport
+        
+        return {
+          left: Math.min(offset.left, viewportWidth - popupWidth),
+          top: popupTop,
+          maxHeight: Math.max(calculatedHeight, 200), // Minimum 200px height
+        };
+      } else {
+        // For other popups, use the dynamic height calculation
+        availableHeight = viewportHeight - popupTop - 20; // 20px margin from bottom
+        maxPopupHeight = Math.min(availableHeight, viewportHeight * 0.8); // Max 80% of viewport
+        
+        return {
+          left: Math.min(offset.left, viewportWidth - popupWidth),
+          top: popupTop,
+          maxHeight: Math.max(maxPopupHeight, 200), // Minimum 200px height
+        };
+      }
     };
   }
 

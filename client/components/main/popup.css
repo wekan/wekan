@@ -73,12 +73,39 @@
 }
 .pop-over .content-wrapper {
   width: 100%;
-  overflow: hidden;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Allow dynamic max-height to override default constraint */
+.pop-over[style*="max-height"] .content-wrapper {
+  max-height: inherit;
 }
 .pop-over .content-container {
   width: 100%;
   max-height: 70vh;
   transition: transform 0.2s;
+}
+
+/* Allow dynamic max-height to override default constraint for content-container */
+.pop-over[style*="max-height"] .content-container {
+  max-height: inherit;
+}
+
+/* Ensure language popup list can scroll properly */
+.pop-over .pop-over-list {
+  max-height: none;
+  overflow: visible;
+}
+
+/* Allow dynamic height for Change Language popup */
+.pop-over[data-popup="changeLanguage"] .content-wrapper {
+  max-height: inherit; /* Use dynamic height from JavaScript */
+}
+
+.pop-over[data-popup="changeLanguage"] .content-container {
+  max-height: inherit; /* Use dynamic height from JavaScript */
 }
 .pop-over .content-container .content {
   /* Match wider popover, leave padding */
