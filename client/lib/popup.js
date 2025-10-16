@@ -46,6 +46,8 @@ window.Popup = new (class {
           return;
         } else {
           $(previousOpenerElement).removeClass('is-active');
+          // Clean up previous popup content to prevent mixing
+          self._cleanupPreviousPopupContent();
         }
       }
 
@@ -58,7 +60,12 @@ window.Popup = new (class {
       if (clickFromPopup(evt) && self._getTopStack()) {
         openerElement = self._getTopStack().openerElement;
       } else {
-        self._stack = [];
+        // For Member Settings sub-popups, always start fresh to avoid content mixing
+        if (popupName.includes('changeLanguage') || popupName.includes('changeAvatar') || 
+            popupName.includes('editProfile') || popupName.includes('changePassword') ||
+            popupName.includes('invitePeople') || popupName.includes('support')) {
+          self._stack = [];
+        }
         openerElement = evt.currentTarget;
       }
       $(openerElement).addClass('is-active');
@@ -169,6 +176,8 @@ window.Popup = new (class {
       $(openerElement).removeClass('is-active');
 
       this._stack = [];
+      // Clean up popup content when closing
+      this._cleanupPreviousPopupContent();
     }
   }
 
@@ -180,6 +189,13 @@ window.Popup = new (class {
   // An utility function that returns the top element of the internal stack
   _getTopStack() {
     return this._stack[this._stack.length - 1];
+  }
+
+  _cleanupPreviousPopupContent() {
+    // Force a re-render to ensure proper cleanup
+    if (this._dep) {
+      this._dep.changed();
+    }
   }
 
   // We automatically calculate the popup offset from the reference element

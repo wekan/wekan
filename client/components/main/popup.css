@@ -158,7 +158,11 @@
   margin-left: 0;
 }
 .pop-over .content-container .content.no-height {
-  height: 2.5vh;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  visibility: hidden;
 }
 .pop-over .quiet {
 /*  padding: 6px 6px 4px;*/
