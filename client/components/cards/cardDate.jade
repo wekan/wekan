@@ -21,3 +21,75 @@ template(name="dateCustomField")
       if showWeekOfYear
         b
           | {{showWeek}}
+
+template(name="minicardReceivedDate")
+  if canModifyCard
+    a.js-edit-date.card-date(title="{{_ 'card-received'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+  else
+    a.card-date(title="{{_ 'card-received'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+
+template(name="minicardStartDate")
+  if canModifyCard
+    a.js-edit-date.card-date(title="{{_ 'card-start'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+  else
+    a.card-date(title="{{_ 'card-start'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+
+template(name="minicardDueDate")
+  if canModifyCard
+    a.js-edit-date.card-date(title="{{_ 'card-due'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+  else
+    a.card-date(title="{{_ 'card-due'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+
+template(name="minicardEndDate")
+  if canModifyCard
+    a.js-edit-date.card-date(title="{{_ 'card-end'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+  else
+    a.card-date(title="{{_ 'card-end'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      time(datetime="{{showISODate}}")
+        | {{showDate}}
+        if showWeekOfYear
+          b
+            | {{showWeek}}
+
+template(name="minicardCustomFieldDate")
+  a(title="{{_ 'date'}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+    time(datetime="{{showISODate}}")
+      | {{showDate}}
+      if showWeekOfYear
+        b
+          | {{showWeek}}

@@ -34,10 +34,10 @@ template(name="attachmentViewer")
   #viewer-overlay.hidden
     #viewer-top-bar
       span#attachment-name
-      a#viewer-close.fa.fa-times-thin
+      a#viewer-close ❌
 
     #viewer-container
-      i.fa.fa-chevron-left.attachment-arrow#prev-attachment
+      | ◀️
       #viewer-content
         img#image-viewer.hidden
         video#video-viewer.hidden(controls="true")
@@ -45,7 +45,7 @@ template(name="attachmentViewer")
         object#pdf-viewer.hidden(type="application/pdf")
           span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
         object#txt-viewer.hidden(type="text/plain")
-      i.fa.fa-chevron-right.attachment-arrow#next-attachment
+      | ▶️
 
 template(name="attachmentGallery")
 
@@ -53,7 +53,7 @@ template(name="attachmentGallery")
 
     if canModifyCard
       a.attachment-item.add-attachment.js-add-attachment
-        i.fa.fa-plus.icon
+        | ➕
 
     each attachments
 
@@ -87,21 +87,22 @@ template(name="attachmentGallery")
               span.file-size ({{fileSize size}})
             .attachment-actions
               a.js-download(href="{{link}}?download=true", download="{{name}}")
-                i.fa.fa-download.icon(title="{{_ 'download'}}")
+                | ⬇️(title="{{_ 'download'}}")
               if currentUser.isBoardMember
                 unless currentUser.isCommentOnly
                   unless currentUser.isWorker
                     a.js-rename
-                      i.fa.fa-pencil-square-o.icon(title="{{_ 'rename'}}")
+                      | ✏️(title="{{_ 'rename'}}")
                     a.js-confirm-delete
-                      i.fa.fa-trash.icon(title="{{_ 'delete'}}")
-                    a.fa.fa-navicon.icon.js-open-attachment-menu(data-attachment-link="{{link}}" title="{{_ 'attachmentActionsPopup-title'}}")
+                      | 🗑️(title="{{_ 'delete'}}")
+                    a.js-open-attachment-menu
+                      | ☰(data-attachment-link="{{link}}" title="{{_ 'attachmentActionsPopup-title'}}")
 
         // Migration spinner overlay
         if isAttachmentMigrating _id
           .attachment-migration-overlay
             .migration-spinner
-              i.fa.fa-cog.fa-spin
+              | ⚙️
             .migration-text {{_ 'migrating-attachment'}}
 
 template(name="attachmentActionsPopup")
@@ -109,8 +110,8 @@ template(name="attachmentActionsPopup")
     li
       if isImage
         a(class="{{#if isCover}}js-remove-cover{{else}}js-add-cover{{/if}}")
-          i.fa.fa-book
-          i.fa.fa-picture-o
+          | 📖
+          | 🖼️
           if isCover
             | {{_ 'remove-cover'}}
           else
@@ -118,7 +119,7 @@ template(name="attachmentActionsPopup")
       if currentUser.isBoardAdmin
         if isImage
           a(class="{{#if isBackgroundImage}}js-remove-background-image{{else}}js-add-background-image{{/if}}")
-            i.fa.fa-picture-o
+            | 🖼️
             if isBackgroundImage
               | {{_ 'remove-background-image'}}
             else
@@ -126,19 +127,19 @@ template(name="attachmentActionsPopup")
 
         if $neq versions.original.storage "fs"
           a.js-move-storage-fs
-            i.fa.fa-arrow-right
+            | ▶️
             | {{_ 'attachment-move-storage-fs'}}
 
         if $neq versions.original.storage "gridfs"
           if versions.original.storage
             a.js-move-storage-gridfs
-              i.fa.fa-arrow-right
+              | ▶️
               | {{_ 'attachment-move-storage-gridfs'}}
 
         if $neq versions.original.storage "s3"
           if versions.original.storage
             a.js-move-storage-s3
-              i.fa.fa-arrow-right
+              | ▶️
               | {{_ 'attachment-move-storage-s3'}}
 
 template(name="attachmentRenamePopup")

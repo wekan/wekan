@@ -9,7 +9,7 @@ template(name="header")
       // Home icon - always at left side of logo
       span.home-icon.allBoards
         a(href="{{pathFor 'home'}}")
-          span.fa.fa-home
+          | 🏠
           | {{_ 'all-boards'}}
 
       // Logo - visible; on mobile constrained by CSS
@@ -80,12 +80,12 @@ template(name="header")
 
       .mobile-mode-toggle
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
-          i.fa.fa-mobile.mobile-icon(class="{{#if mobileMode}}active{{/if}}")
-          i.fa.fa-desktop.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}")
+          | 📱(class="{{#if mobileMode}}active{{/if}}")
+          | 🖥️(class="{{#unless mobileMode}}active{{/unless}}")
 
       // Bookmarks button - desktop opens popup, mobile routes to page
       a.board-header-btn.js-open-bookmarks(title="{{_ 'bookmarks'}}")
-        i.fa.fa-bookmark
+        | 🔖
 
       // Notifications
       +notifications
@@ -93,7 +93,7 @@ template(name="header")
       if currentSetting.customHelpLinkUrl
         #header-help
           a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
-            span.fa.fa-question
+            | ❓
 
       +headerUserBar
 
@@ -112,15 +112,15 @@ template(name="header")
     if hasAnnouncement
       .announcement
         p
-          i.fa.fa-bullhorn
+          | 📢
           +viewer
             | #{announcement}
-          i.fa.fa-times-circle.js-close-announcement
+          | ❌
 
 template(name="offlineWarning")
   .offline-warning
     p
-      i.fa.fa-warning
+      | ⚠️
       | {{_ 'app-is-offline'}}
 
       a.app-try-reconnect {{_ 'app-try-reconnect'}}

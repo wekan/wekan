@@ -15,8 +15,8 @@ template(name="editCardSpentTime")
 
 template(name="timeBadge")
   if canModifyCard
-    a.js-edit-time.card-time(title="{{showTitle}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
-      | {{showTime}}
+    a.js-edit-time.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
+      | ⏱️ {{showTime}}
   else
-    a.card-time(title="{{showTitle}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
-      | {{showTime}}
+    a.card-time(title="{{_ 'time'}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
+      | ⏱️ {{showTime}}

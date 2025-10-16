@@ -15,92 +15,92 @@ template(name="memberMenuPopup")
     // Bookmarks at the very top
     li
       a.js-open-bookmarks
-        i.fa.fa-bookmark
+        | 🔖
         | {{_ 'bookmarks'}}
     with currentUser
       li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
-          i.fa.fa-list
+          | 📋
           | {{_ 'my-cards'}}
       li
         a.js-due-cards(href="{{pathFor 'due-cards'}}")
-          i.fa.fa-calendar
+          | 📅
           | {{_ 'dueCards-title'}}
       li
         a.js-global-search(href="{{pathFor 'global-search'}}")
-          i.fa.fa-search
+          | 🔍
           | {{_ 'globalSearch-title'}}
       li
         a(href="{{pathFor 'home'}}")
-          span.fa.fa-home
+          | 🏠
           | {{_ 'all-boards'}}
       li
         a(href="{{pathFor 'public'}}")
-          span.fa.fa-globe
+          | 🌐
           | {{_ 'public'}}
       li
         a.board-header-btn.js-open-archived-board
-          i.fa.fa-archive
+          | 📦
           span {{_ 'archives'}}
       li
         a.js-notifications-drawer-toggle
-          i.fa.fa-bell
+          | 🔔
           | {{_ 'notifications'}}
       if currentSetting.customHelpLinkUrl
         li
           a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
-            i.fa.fa-question
+            | ❓
             | {{_ 'help'}}
       unless currentUser.isWorker
         ul.pop-over-list
           li
             a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
-              i.fa.fa-clone
+              | 📋
               | {{_ 'templates'}}
       if currentUser.isAdmin
         li
           a.js-go-setting(href="{{pathFor 'setting'}}")
-            i.fa.fa-lock
+            | 🔒
             | {{_ 'admin-panel'}}
       hr
       if isSameDomainNameSettingValue
         li
           a.js-invite-people
-            i.fa.fa-envelope
+            | ✉️
             | {{_ 'invite-people'}}
       if isNotOAuth2AuthenticationMethod
         li
           a.js-edit-profile
-            i.fa.fa-user
+            | 👤
             | {{_ 'edit-profile'}}
       li
         a.js-change-settings
-          i.fa.fa-cog
+          | ⚙️
           | {{_ 'change-settings'}}
       li
         a.js-change-avatar
-          i.fa.fa-picture-o
+          | 🖼️
           | {{_ 'edit-avatar'}}
       unless isSandstorm
         if isNotOAuth2AuthenticationMethod
           li
             a.js-change-password
-              i.fa.fa-key
+              | 🔑
               | {{_ 'changePasswordPopup-title'}}
       li
         a.js-change-language
-          i.fa.fa-flag
+          | 🏁
           | {{_ 'changeLanguagePopup-title'}}
       //li
       //  a.js-support
-      //    i.fa.fa-question-circle
+      //    ❓-circle
       //    | {{_ 'support'}}
   unless isSandstorm
     hr
     ul.pop-over-list
       li
         a.js-logout
-          i.fa.fa-sign-out
+          | 🚪
           | {{_ 'log-out'}}
 
 template(name="invitePeoplePopup")
@@ -190,7 +190,7 @@ template(name="changeSettingsPopup")
           | {{_ 'show-cards-minimum-count'}}
         input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="-1")
         label.bold.clear
-          i.fa.fa-calendar
+          | 📅
           | {{_ 'start-day-of-week'}}
         select#start-day-of-week.inline-input.left
           each day in weekDays startDayOfWeek

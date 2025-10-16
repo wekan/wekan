@@ -168,6 +168,20 @@
 .minicard .date {
   margin-right: 0.4vw;
 }
+
+/* Font Awesome icons in minicard dates */
+.minicard .card-date i.fa {
+  margin-right: 0.3vw;
+  font-size: 0.9em;
+  vertical-align: middle;
+}
+
+/* Font Awesome icons in minicard spent time */
+.minicard .card-time i.fa {
+  margin-right: 0.3vw;
+  font-size: 0.9em;
+  vertical-align: middle;
+}
 .minicard .badges {
   float: left;
   margin-top: 1vh;

@@ -329,30 +329,50 @@ class CardCustomFieldDate extends CardDate {
 CardCustomFieldDate.register('cardCustomFieldDate');
 
 (class extends CardReceivedDate {
+  template() {
+    return 'minicardReceivedDate';
+  }
+  
   showDate() {
     return format(this.date.get(), 'L');
   }
 }.register('minicardReceivedDate'));
 
 (class extends CardStartDate {
+  template() {
+    return 'minicardStartDate';
+  }
+  
   showDate() {
     return format(this.date.get(), 'YYYY-MM-DD HH:mm');
   }
 }.register('minicardStartDate'));
 
 (class extends CardDueDate {
+  template() {
+    return 'minicardDueDate';
+  }
+  
   showDate() {
     return format(this.date.get(), 'YYYY-MM-DD HH:mm');
   }
 }.register('minicardDueDate'));
 
 (class extends CardEndDate {
+  template() {
+    return 'minicardEndDate';
+  }
+  
   showDate() {
     return format(this.date.get(), 'YYYY-MM-DD HH:mm');
   }
 }.register('minicardEndDate'));
 
 (class extends CardCustomFieldDate {
+  template() {
+    return 'minicardCustomFieldDate';
+  }
+  
   showDate() {
     return format(this.date.get(), 'L');
   }

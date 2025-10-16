@@ -12,15 +12,19 @@ template(name="cardDetails")
       else
         unless isMiniScreen
           unless isPopup
-            a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+            a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+              | ❌
             if canModifyCard
               if cardMaximized
-                a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+                a.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+                  | 🔽
               else
-                a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+                a.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+                  | 🔼
           if canModifyCard
-            a.fa.fa-navicon.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-            a.fa.fa-link.card-copy-button.js-copy-link(
+            a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+              | ☰
+            a.card-copy-button.js-copy-link(
               id="cardURL_copy"
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
@@ -29,10 +33,12 @@ template(name="cardDetails")
             span.copied-tooltip {{_ 'copied'}}
         else
           unless isPopup
-            a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+            a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+              | ❌
           if canModifyCard
-            a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
-            a.fa.fa-link.card-copy-mobile-button.js-copy-link(
+            a.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+              | ☰
+            a.card-copy-mobile-button.js-copy-link(
               id="cardURL_copy"
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
@@ -47,7 +53,8 @@ template(name="cardDetails")
                   | ##{getCardNumber}
               = getTitle
             if isWatching
-              i.card-details-watch.fa.fa-eye
+              i.card-details-watch
+                | 👁️
         .card-details-path
           each parentList
             | &nbsp; &gt; &nbsp;
@@ -69,7 +76,7 @@ template(name="cardDetails")
     if hasActiveUploads
       .card-details-upload-progress
         .upload-progress-header
-          i.fa.fa-upload
+          | 📤
           span {{_ 'uploading-files'}} ({{uploadCount}})
         each uploads
           .upload-progress-item(class="{{#if $eq status 'error'}}upload-error{{/if}}")
@@ -78,11 +85,11 @@ template(name="cardDetails")
               .upload-progress-fill(style="width: {{progress}}%")
             if $eq status 'error'
               .upload-progress-error
-                i.fa.fa-exclamation-triangle
+                | ⚠️
                 span {{_ 'upload-failed'}}
             else if $eq status 'completed'
               .upload-progress-success
-                i.fa.fa-check
+                | ✅
                 span {{_ 'upload-completed'}}
 
     .card-details-left
@@ -91,7 +98,7 @@ template(name="cardDetails")
         if currentBoard.allowsLabels
           .card-details-item.card-details-item-labels
             h3.card-details-item-title
-              i.fa.fa-tags
+              | 🏷️
               | {{_ 'labels'}}
             a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
               each labels
@@ -101,7 +108,7 @@ template(name="cardDetails")
             if canModifyCard
               unless currentUser.isWorker
                 a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-                  i.fa.fa-plus
+                  | ➕
 
         if currentBoard.hasAnyAllowsDate
           hr
@@ -109,7 +116,7 @@ template(name="cardDetails")
         if currentBoard.allowsReceivedDate
           .card-details-item.card-details-item-received
             h3.card-details-item-title
-              i.fa.fa-sign-out
+              | 📥
               | {{_ 'card-received'}}
             if getReceived
               +cardReceivedDate
@@ -117,12 +124,12 @@ template(name="cardDetails")
               if canModifyCard
                 unless currentUser.isWorker
                   a.card-label.add-label.js-received-date
-                    i.fa.fa-plus
+                    | ➕
 
         if currentBoard.allowsStartDate
           .card-details-item.card-details-item-start
             h3.card-details-item-title
-              i.fa.fa-hourglass-start
+              | 🚀
               | {{_ 'card-start'}}
             if getStart
               +cardStartDate
@@ -130,12 +137,12 @@ template(name="cardDetails")
               if canModifyCard
                 unless currentUser.isWorker
                   a.card-label.add-label.js-start-date
-                    i.fa.fa-plus
+                    | ➕
 
         if currentBoard.allowsDueDate
           .card-details-item.card-details-item-due
             h3.card-details-item-title
-              i.fa.fa-sign-in
+              | ⏰
               | {{_ 'card-due'}}
             if getDue
               +cardDueDate
@@ -143,12 +150,12 @@ template(name="cardDetails")
               if canModifyCard
                 unless currentUser.isWorker
                   a.card-label.add-label.js-due-date
-                    i.fa.fa-plus
+                    | ➕
 
         if currentBoard.allowsEndDate
           .card-details-item.card-details-item-end
             h3.card-details-item-title
-              i.fa.fa-hourglass-end
+              | 🏁
               | {{_ 'card-end'}}
             if getEnd
               +cardEndDate
@@ -156,7 +163,7 @@ template(name="cardDetails")
               if canModifyCard
                 unless currentUser.isWorker
                   a.card-label.add-label.js-end-date
-                    i.fa.fa-plus
+                    | ➕
 
         if currentBoard.hasAnyAllowsUser
           hr
@@ -164,7 +171,7 @@ template(name="cardDetails")
         if currentBoard.allowsCreator
           .card-details-item.card-details-item-creator
             h3.card-details-item-title
-              i.fa.fa-user
+              | 👤
               | {{_ 'creator'}}
 
             +userAvatar(userId=userId noRemove=true)
@@ -174,7 +181,7 @@ template(name="cardDetails")
         if currentBoard.allowsMembers
           .card-details-item.card-details-item-members
             h3.card-details-item-title
-              i.fa.fa-users
+              | 👤s
               | {{_ 'members'}}
             each userId in getMembers
               +userAvatar(userId=userId cardId=_id)
@@ -182,13 +189,13 @@ template(name="cardDetails")
             if canModifyCard
               unless currentUser.isWorker
                 a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-                  i.fa.fa-plus
+                  | ➕
 
         //if assigneeSelected
         if currentBoard.allowsAssignee
           .card-details-item.card-details-item-assignees
             h3.card-details-item-title
-              i.fa.fa-user
+              | 👤
               | {{_ 'assignee'}}
             each userId in getAssignees
               +userAvatar(userId=userId cardId=_id assignee=true)
@@ -199,7 +206,7 @@ template(name="cardDetails")
             if currentUser.isWorker
               unless assigneeSelected
                 a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-                  i.fa.fa-plus
+                  | ➕
 
         //.card-details-items
         if currentBoard.allowsRequestedBy
@@ -225,7 +232,7 @@ template(name="cardDetails")
         if currentBoard.allowsAssignedBy
           .card-details-item.card-details-item-name
             h3.card-details-item-title
-              i.fa.fa-user-plus
+              | 👤-plus
               | {{_ 'assigned-by'}}
             if canModifyCard
               unless currentUser.isWorker
@@ -350,52 +357,52 @@ template(name="cardDetails")
               .poker-card
                 span.inner.js-poker.js-poker-vote-one(class="{{#if $eq pokerState 'one'}}poker-voted{{/if}}") {{_ 'poker-one'}}
               if $eq pokerState "one"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-two(class="{{#if $eq pokerState 'two'}}poker-voted{{/if}}") {{_ 'poker-two'}}
               if $eq pokerState "two"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-three(class="{{#if $eq pokerState 'three'}}poker-voted{{/if}}") {{_ 'poker-three'}}
               if $eq pokerState "three"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-five(class="{{#if $eq pokerState 'five'}}poker-voted{{/if}}") {{_ 'poker-five'}}
               if $eq pokerState "five"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-eight(class="{{#if $eq pokerState 'eight'}}poker-voted{{/if}}") {{_ 'poker-eight'}}
               if $eq pokerState "eight"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-thirteen(class="{{#if $eq pokerState 'thirteen'}}poker-voted{{/if}}") {{_ 'poker-thirteen'}}
               if $eq pokerState "thirteen"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-twenty(class="{{#if $eq pokerState 'twenty'}}poker-voted{{/if}}") {{_ 'poker-twenty'}}
               if $eq pokerState "twenty"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-forty(class="{{#if $eq pokerState 'forty'}}poker-voted{{/if}}") {{_ 'poker-forty'}}
               if $eq pokerState "forty"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-one-hundred(class="{{#if $eq pokerState 'oneHundred'}}poker-voted{{/if}}") {{_ 'poker-oneHundred'}}
               if $eq pokerState "oneHundred"
-                i.fa.fa-check
+                | ✅
             .poker-deck
               .poker-card
                 span.inner.js-poker.js-poker-vote-unsure(class="{{#if $eq pokerState 'unsure'}}poker-voted{{/if}}") {{_ 'poker-unsure'}}
               if $eq pokerState "unsure"
-                i.fa.fa-check
+                | ✅
 
           if currentUser.isBoardAdmin
             button.card-details-blue.js-poker-finish(class="{{#if $eq voteState false}}poker-voted{{/if}}") {{_ 'poker-finish'}}
@@ -812,7 +819,7 @@ template(name="cardMembersPopup")
             = user.profile.fullname
             | (<span class="username">{{ user.username }}</span>)
           if isCardMember
-            i.fa.fa-check
+            | ✅
 
 template(name="cardAssigneesPopup")
   input.card-assignees-filter(type="text" placeholder="{{_ 'search'}}")
@@ -826,7 +833,7 @@ template(name="cardAssigneesPopup")
               = user.profile.fullname
               | (<span class="username">{{ user.username }}</span>)
             if isCardAssignee
-              i.fa.fa-check
+              | ✅
   if currentUser.isWorker
     ul.pop-over-list.js-card-assignee-list
       li.item(class="{{#if currentUser.isCardAssignee}}active{{/if}}")
@@ -836,7 +843,7 @@ template(name="cardAssigneesPopup")
             = currentUser.profile.fullname
             | (<span class="username">{{ currentUser.username }}</span>)
           if currentUser.isCardAssignee
-            i.fa.fa-check
+            | ✅
 
 template(name="cardAssigneePopup")
   .board-assignee-menu
@@ -902,7 +909,7 @@ template(name="setCardColorPopup")
       unless $eq color 'white'
         span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
           if(isSelected color)
-            i.fa.fa-check
+            | ✅
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
 

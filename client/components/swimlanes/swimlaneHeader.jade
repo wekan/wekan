@@ -24,16 +24,18 @@ template(name="swimlaneFixedHeader")
           | {{isTitleDefault title}}
   .swimlane-header-menu
     unless currentUser.isCommentOnly
-      a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
-      a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+      a.js-open-add-swimlane-menu.swimlane-header-plus-icon
+        | ➕(title="{{_ 'add-swimlane'}}")
+      a.js-open-swimlane-menu
+        | ☰(title="{{_ 'swimlaneActionPopup-title'}}")
       //// TODO: Collapse Swimlane: make button working, etc.
       //unless collapsed
       //  a.js-collapse-swimlane(title="{{_ 'collapse'}}")
       //    i.fa.fa-arrow-down.swimlane-header-collapse-down
-      //    i.fa.fa-arrow-up.swimlane-header-collapse-up
+      //    ⬆️.swimlane-header-collapse-up
       //if collapsed
       //  a.js-collapse-swimlane(title="{{_ 'uncollapse'}}")
-      //    i.fa.fa-arrow-up.swimlane-header-collapse-up
+      //    ⬆️.swimlane-header-collapse-up
       //    i.fa.fa-arrow-down.swimlane-header-collapse-down
       unless isTouchScreen
         if isShowDesktopDragHandles
@@ -46,33 +48,34 @@ template(name="editSwimlaneTitleForm")
     input.list-name-input.full-line(type="text" value="{{isTitleDefault title}}" autofocus)
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
-      a.fa.fa-times-thin.js-close-inlined-form
+      a.js-close-inlined-form
+        | ❌
 
 template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
        if currentUser.isBoardAdmin
          li: a.js-set-swimlane-color
-          i.fa.fa-paint-brush
+          | 🎨
           | {{_ 'select-color'}}
        li: a.js-set-swimlane-height
-        i.fa.fa-arrows-v
+        | ↕️
         |  {{_ 'set-swimlane-height'}}
     if currentUser.isBoardAdmin
       unless this.isTemplateContainer
         hr
         ul.pop-over-list
           li: a.js-close-swimlane
-            i.fa.fa-arrow-right
-            i.fa.fa-archive
+            | ▶️
+            | 📦
             | {{_ 'archive-swimlane'}}
         ul.pop-over-list
           li: a.js-copy-swimlane
-            i.fa.fa-copy
+            | 📋
             | {{_ 'copy-swimlane'}}
         ul.pop-over-list
           li: a.js-move-swimlane
-            i.fa.fa-arrow-up
+            | ⬆️
             | {{_ 'move-swimlane'}}
 
 template(name="swimlaneAddPopup")

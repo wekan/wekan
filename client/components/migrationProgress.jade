@@ -3,7 +3,7 @@ template(name="migrationProgress")
     .migration-modal
       .migration-header
         h3
-          i.fa.fa-database
+          | 🗄️
           | {{_ 'database-migration'}}
         p {{_ 'database-migration-description'}}
       
@@ -16,11 +16,11 @@ template(name="migrationProgress")
             .progress-label {{_ 'overall-progress'}}
           
           .current-step
-            i.fa.fa-cog.fa-spin
+            | ⚙️
             | {{migrationCurrentStep}}
           
           .estimated-time(style="{{#unless migrationEstimatedTime}}display: none;{{/unless}}")
-            i.fa.fa-clock-o
+            | ⏰
             | {{_ 'estimated-time-remaining'}}: {{migrationEstimatedTime}}
         
         .migration-steps
@@ -31,11 +31,11 @@ template(name="migrationProgress")
                 .step-header
                   .step-icon
                     if completed
-                      i.fa.fa-check-circle
+                      | ✅
                     else if isCurrentStep
-                      i.fa.fa-cog.fa-spin
+                      | ⚙️
                     else
-                      i.fa.fa-circle-o
+                      | ⭕
                   .step-info
                     .step-name {{name}}
                     .step-description {{description}}
@@ -51,13 +51,13 @@ template(name="migrationProgress")
                     .progress-fill(style="width: {{progress}}%")
         
         .migration-status
-          i.fa.fa-info-circle
+          | ℹ️
           | {{migrationStatus}}
       
       .migration-footer
         .migration-info
-          i.fa.fa-lightbulb-o
+          | 💡
           | {{_ 'migration-info-text'}}
         .migration-warning
-          i.fa.fa-exclamation-triangle
+          | ⚠️
           | {{_ 'migration-warning-text'}}

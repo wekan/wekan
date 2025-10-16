@@ -6,87 +6,87 @@ template(name="setting")
       .content-title.ext-box
         if isGeneralSetting
           span
-            i.fa.fa-sign-in
+            | 🔑
             | {{_ 'registration'}}
         else if isEmailSetting
           span
-            i.fa.fa-envelope
+            | ✉️
             | {{_ 'email'}}
         else if isAccountSetting
           span
-            i.fa.fa-users
+            | 👥
             | {{_ 'accounts'}}
         else if isTableVisibilityModeSetting
           span
-            i.fa.fa-eye
+            | 👁️
             | {{_ 'tableVisibilityMode'}}
         else if isAnnouncementSetting
           span
-            i.fa.fa-bullhorn
+            | 📢
             | {{_ 'admin-announcement'}}
         else if isAccessibilitySetting
           span
-            i.fa.fa-universal-access
+            | ♿
             | {{_ 'accessibility'}}
         else if isLayoutSetting
           span
-            i.fa.fa-object-group
+            | 🔗
             | {{_ 'layout'}}
         else if isWebhookSetting
           span
-            i.fa.fa-globe
+            | 🌐
             | {{_ 'global-webhook'}}
         else if isAttachmentSettings
           span
-            i.fa.fa-paperclip
+            | 📎
             | {{_ 'attachments'}}
         else if isCronSettings
           span
-            i.fa.fa-clock-o
+            | ⏰
             | {{_ 'cron'}}
       .content-body
         .side-menu
           ul
             li(class="{{#if isGeneralSetting}}active{{/if}}")
               a.js-setting-menu(data-id="registration-setting")
-                i.fa.fa-sign-in
+                | 🔑
                 | {{_ 'registration'}}
             unless isSandstorm
               li(class="{{#if isEmailSetting}}active{{/if}}")
                 a.js-setting-menu(data-id="email-setting")
-                  i.fa.fa-envelope
+                  | ✉️
                   | {{_ 'email'}}
             li(class="{{#if isAccountSetting}}active{{/if}}")
               a.js-setting-menu(data-id="account-setting")
-                i.fa.fa-users
+                | 👥
                 | {{_ 'accounts'}}
             li(class="{{#if isTableVisibilityModeSetting}}active{{/if}}")
               a.js-setting-menu(data-id="tableVisibilityMode-setting")
-                i.fa.fa-eye
+                | 👁️
                 | {{_ 'tableVisibilityMode'}}
             li(class="{{#if isAnnouncementSetting}}active{{/if}}")
               a.js-setting-menu(data-id="announcement-setting")
-                i.fa.fa-bullhorn
+                | 📢
                 | {{_ 'admin-announcement'}}
             li(class="{{#if isAccessibilitySetting}}active{{/if}}")
               a.js-setting-menu(data-id="accessibility-setting")
-                i.fa.fa-universal-access
+                | ♿
                 | {{_ 'accessibility'}}
             li(class="{{#if isLayoutSetting}}active{{/if}}")
               a.js-setting-menu(data-id="layout-setting")
-                i.fa.fa-object-group
+                | 🔗
                 | {{_ 'layout'}}
             li(class="{{#if isWebhookSetting}}active{{/if}}")
               a.js-setting-menu(data-id="webhook-setting")
-                i.fa.fa-globe
+                | 🌐
                 | {{_ 'global-webhook'}}
             li(class="{{#if isAttachmentSettings}}active{{/if}}")
               a.js-setting-menu(data-id="attachment-settings")
-                i.fa.fa-paperclip
+                | 📎
                 | {{_ 'attachments'}}
             li(class="{{#if isCronSettings}}active{{/if}}")
               a.js-setting-menu(data-id="cron-settings")
-                i.fa.fa-clock-o
+                | ⏰
                 | {{_ 'cron'}}
         .main-body
           if isLoading

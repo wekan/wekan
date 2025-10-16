@@ -3,7 +3,7 @@ template(name="boardConversionProgress")
     .board-conversion-modal
       .board-conversion-header
         h3
-          i.fa.fa-cogs
+          | ⚙️
           | {{_ 'converting-board'}}
         p {{_ 'converting-board-description'}}
       
@@ -14,14 +14,14 @@ template(name="boardConversionProgress")
           .progress-text {{conversionProgress}}%
         
         .conversion-status
-          i.fa.fa-spinner.fa-spin
+          | ⚙️
           | {{conversionStatus}}
         
         .conversion-time(style="{{#unless conversionEstimatedTime}}display: none;{{/unless}}")
-          i.fa.fa-clock-o
+          | ⏰
           | {{_ 'estimated-time-remaining'}}: {{conversionEstimatedTime}}
       
       .board-conversion-footer
         .conversion-info
-          i.fa.fa-info-circle
+          | ℹ️
           | {{_ 'conversion-info-text'}}
