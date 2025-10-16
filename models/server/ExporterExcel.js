@@ -1,7 +1,26 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 
 // exporter maybe is broken since Gridfs introduced, add fs and path
 
@@ -379,8 +398,8 @@ class ExporterExcel {
     function addTZhours(jdate) {
       if (!jdate) { return ' '; }
       const curdate = new Date(jdate);
-      const checkCorrectDate = moment(curdate);
-      if (checkCorrectDate.isValid()) {
+      const checkCorrectDate = new Date(curdate);
+      if (isValidDate(checkCorrectDate)) {
         return curdate;
       } else {
         return ' ';

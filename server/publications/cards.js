@@ -1,7 +1,26 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import moment from 'moment/min/moment-with-locales';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 import Boards from '../../models/boards';
 import Lists from '../../models/lists';
 import Swimlanes from '../../models/swimlanes';
@@ -730,9 +749,7 @@ function findCards(sessionId, query) {
     userId,
     modifiedAt: {
       $lt: new Date(
-        moment()
-          .subtract(1, 'day')
-          .format(),
+        subtract(now(), 1, 'day').toISOString(),
       ),
     },
   });

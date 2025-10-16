@@ -1,6 +1,26 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 // exporter maybe is broken since Gridfs introduced, add fs and path
 import { createWorkbook } from './createWorkbook';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 
 class ExporterCardPDF {
   constructor(boardId) {
@@ -353,8 +373,8 @@ class ExporterCardPDF {
         //add data +8 hours
         function addTZhours(jdate) {
           const curdate = new Date(jdate);
-          const checkCorrectDate = moment(curdate);
-          if (checkCorrectDate.isValid()) {
+          const checkCorrectDate = new Date(curdate);
+          if (isValidDate(checkCorrectDate)) {
             return curdate;
           } else {
             return ' ';

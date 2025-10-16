@@ -1,5 +1,24 @@
-import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 import {
   OPERATOR_ASSIGNEE,
   OPERATOR_BOARD,
@@ -421,43 +440,44 @@ export class Query {
                 switch (duration) {
                   case PREDICATE_WEEK:
                     // eslint-disable-next-line no-case-declarations
-                    const week = moment().week();
+                    const week = getISOWeek(now());
                     if (week === 52) {
-                      date = moment(1, 'W');
-                      date.set('year', date.year() + 1);
+                      date = new Date(now().getFullYear() + 1, 0, 1); // January 1st of next year
                     } else {
-                      date = moment(week + 1, 'W');
+                      // Calculate the date for the next week
+                      const currentDate = now();
+                      const daysToAdd = (week + 1) * 7 - (currentDate.getDay() + 6) % 7;
+                      date = add(currentDate, daysToAdd, 'days');
                     }
                     break;
                   case PREDICATE_MONTH:
                     // eslint-disable-next-line no-case-declarations
-                    const month = moment().month();
-                    // .month() is zero indexed
+                    const month = now().getMonth();
+                    // .getMonth() is zero indexed
                     if (month === 11) {
-                      date = moment(1, 'M');
-                      date.set('year', date.year() + 1);
+                      date = new Date(now().getFullYear() + 1, 0, 1); // January 1st of next year
                     } else {
-                      date = moment(month + 2, 'M');
+                      date = new Date(now().getFullYear(), month + 1, 1); // First day of next month
                     }
                     break;
                   case PREDICATE_QUARTER:
                     // eslint-disable-next-line no-case-declarations
-                    const quarter = moment().quarter();
+                    const quarter = Math.floor(now().getMonth() / 3) + 1;
                     if (quarter === 4) {
-                      date = moment(1, 'Q');
-                      date.set('year', date.year() + 1);
+                      date = new Date(now().getFullYear() + 1, 0, 1); // January 1st of next year
                     } else {
-                      date = moment(quarter + 1, 'Q');
+                      const nextQuarterMonth = quarter * 3; // 3, 6, 9 for quarters 2, 3, 4
+                      date = new Date(now().getFullYear(), nextQuarterMonth, 1); // First day of next quarter
                     }
                     break;
                   case PREDICATE_YEAR:
-                    date = moment(moment().year() + 1, 'YYYY');
+                    date = new Date(now().getFullYear() + 1, 0, 1); // January 1st of next year
                     break;
                 }
                 if (date) {
                   value = {
                     operator: '$lt',
-                    value: date.format('YYYY-MM-DD'),
+                    value: formatDate(date),
                   };
                 }
               } else if (
@@ -466,7 +486,7 @@ export class Query {
               ) {
                 value = {
                   operator: '$lt',
-                  value: moment().format('YYYY-MM-DD'),
+                  value: formatDate(now()),
                 };
               } else {
                 this.addError(OPERATOR_DUE, {
@@ -478,16 +498,12 @@ export class Query {
             } else if (operator === OPERATOR_DUE) {
               value = {
                 operator: '$lt',
-                value: moment(moment().format('YYYY-MM-DD'))
-                  .add(days + 1, duration ? duration : 'days')
-                  .format(),
+                value: formatDate(add(add(now(), 1, 'days'), days + 1, duration ? duration : 'days')),
               };
             } else {
               value = {
                 operator: '$gte',
-                value: moment(moment().format('YYYY-MM-DD'))
-                  .subtract(days, duration ? duration : 'days')
-                  .format(),
+                value: formatDate(subtract(now(), days, duration ? duration : 'days')),
               };
             }
           } else if (operator === OPERATOR_SORT) {

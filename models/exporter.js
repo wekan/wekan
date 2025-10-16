@@ -1,7 +1,26 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import moment from 'moment/min/moment-with-locales';
 const Papa = require('papaparse');
 import { TAPi18n } from '/imports/i18n';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 
 //const stringify = require('csv-stringify');
 
@@ -302,15 +321,15 @@ export class Exporter {
         labels = `${labels + label.name}-${label.color} `;
       });
       currentRow.push(labels.trim());
-      currentRow.push(card.startAt ? moment(card.startAt).format() : ' ');
-      currentRow.push(card.dueAt ? moment(card.dueAt).format() : ' ');
-      currentRow.push(card.endAt ? moment(card.endAt).format() : ' ');
+      currentRow.push(card.startAt ? new Date(card.startAt).toISOString() : ' ');
+      currentRow.push(card.dueAt ? new Date(card.dueAt).toISOString() : ' ');
+      currentRow.push(card.endAt ? new Date(card.endAt).toISOString() : ' ');
       currentRow.push(card.isOvertime ? 'true' : 'false');
       currentRow.push(card.spentTime);
-      currentRow.push(card.createdAt ? moment(card.createdAt).format() : ' ');
-      currentRow.push(card.modifiedAt ? moment(card.modifiedAt).format() : ' ');
+      currentRow.push(card.createdAt ? new Date(card.createdAt).toISOString() : ' ');
+      currentRow.push(card.modifiedAt ? new Date(card.modifiedAt).toISOString() : ' ');
       currentRow.push(
-        card.dateLastActivity ? moment(card.dateLastActivity).format() : ' ',
+        card.dateLastActivity ? new Date(card.dateLastActivity).toISOString() : ' ',
       );
       if (card.vote && card.vote.question !== '') {
         let positiveVoters = '';
@@ -343,7 +362,7 @@ export class Exporter {
         if (field.value !== null) {
           if (customFieldMap[field._id].type === 'date') {
             customFieldValuesToPush[customFieldMap[field._id].position] =
-              moment(field.value).format();
+              new Date(field.value).toISOString();
           } else if (customFieldMap[field._id].type === 'dropdown') {
             const dropdownOptions = result.customFields.find(
               ({ _id }) => _id === field._id,

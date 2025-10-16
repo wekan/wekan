@@ -1,5 +1,24 @@
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
-import moment from 'moment/min/moment-with-locales';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 import {
   ALLOWED_COLORS,
   TYPE_CARD,
@@ -1492,8 +1511,8 @@ Cards.helpers({
   expiredVote() {
     let end = this.getVoteEnd();
     if (end) {
-      end = moment(end);
-      return end.isBefore(new Date());
+      end = new Date(end);
+      return isBefore(end, new Date());
     }
     return false;
   },
@@ -1586,8 +1605,8 @@ Cards.helpers({
   expiredPoker() {
     let end = this.getPokerEnd();
     if (end) {
-      end = moment(end);
-      return end.isBefore(new Date());
+      end = new Date(end);
+      return isBefore(end, new Date());
     }
     return false;
   },
@@ -3201,9 +3220,7 @@ if (Meteor.isServer) {
         // change list modifiedAt, when user modified the key values in
         // timingaction array, if it's endAt, put the modifiedAt of list
         // back to one year ago for sorting purpose
-        const modifiedAt = moment()
-          .subtract(1, 'year')
-          .toISOString();
+        const modifiedAt = add(now(), -1, 'year').toISOString();
         const boardId = list.boardId;
         Lists.direct.update(
           {

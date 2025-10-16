@@ -1,12 +1,29 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import moment from 'moment/min/moment-with-locales';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 
-// Helper function to replace HH with H for 24 hours format, because H allows also single-digit hours
+// Helper function to get time format for 24 hours
 function adjustedTimeFormat() {
-  return moment
-    .localeData()
-    .longDateFormat('LT');
+  return 'HH:mm';
 }
 
 //   .replace(/HH/i, 'H');
@@ -19,7 +36,7 @@ export class DatePicker extends BlazeComponent {
   onCreated(defaultTime = '1970-01-01 08:00:00') {
     this.error = new ReactiveVar('');
     this.card = this.data();
-    this.date = new ReactiveVar(moment.invalid());
+    this.date = new ReactiveVar(new Date('invalid'));
     this.defaultTime = defaultTime;
   }
 
@@ -34,35 +51,35 @@ export class DatePicker extends BlazeComponent {
 
   onRendered() {
     // Set initial values for native HTML inputs
-    if (this.date.get().isValid()) {
+    if (isValidDate(this.date.get())) {
       const dateInput = this.find('#date');
       const timeInput = this.find('#time');
       
       if (dateInput) {
-        dateInput.value = this.date.get().format('YYYY-MM-DD');
+        dateInput.value = formatDate(this.date.get());
       }
       if (timeInput && !timeInput.value && this.defaultTime) {
-        const defaultMoment = moment(this.defaultTime);
-        timeInput.value = defaultMoment.format('HH:mm');
-      } else if (timeInput && this.date.get().isValid()) {
-        timeInput.value = this.date.get().format('HH:mm');
+        const defaultDate = new Date(this.defaultTime);
+        timeInput.value = formatTime(defaultDate);
+      } else if (timeInput && isValidDate(this.date.get())) {
+        timeInput.value = formatTime(this.date.get());
       }
     }
   }
 
   showDate() {
-    if (this.date.get().isValid()) return this.date.get().format('YYYY-MM-DD');
+    if (isValidDate(this.date.get())) return formatDate(this.date.get());
     return '';
   }
   showTime() {
-    if (this.date.get().isValid()) return this.date.get().format('HH:mm');
+    if (isValidDate(this.date.get())) return formatTime(this.date.get());
     return '';
   }
   dateFormat() {
-    return moment.localeData().longDateFormat('L');
+    return 'L';
   }
   timeFormat() {
-    return moment.localeData().longDateFormat('LT');
+    return 'LT';
   }
 
   events() {
@@ -72,8 +89,8 @@ export class DatePicker extends BlazeComponent {
           // Native HTML date input validation
           const dateValue = this.find('#date').value;
           if (dateValue) {
-            const dateMoment = moment(dateValue, 'YYYY-MM-DD', true);
-            if (dateMoment.isValid()) {
+            const dateObj = new Date(dateValue);
+            if (isValidDate(dateObj)) {
               this.error.set('');
             } else {
               this.error.set('invalid-date');
@@ -84,8 +101,8 @@ export class DatePicker extends BlazeComponent {
           // Native HTML time input validation
           const timeValue = this.find('#time').value;
           if (timeValue) {
-            const timeMoment = moment(timeValue, 'HH:mm', true);
-            if (timeMoment.isValid()) {
+            const timeObj = new Date(`1970-01-01T${timeValue}`);
+            if (isValidDate(timeObj)) {
               this.error.set('');
             } else {
               this.error.set('invalid-time');
@@ -104,14 +121,14 @@ export class DatePicker extends BlazeComponent {
             return;
           }
 
-          const newCompleteDate = moment(`${dateValue} ${timeValue}`, 'YYYY-MM-DD HH:mm', true);
+          const newCompleteDate = new Date(`${dateValue}T${timeValue}`);
           
-          if (!newCompleteDate.isValid()) {
+          if (!isValidDate(newCompleteDate)) {
             this.error.set('invalid');
             return;
           }
 
-          this._storeDate(newCompleteDate.toDate());
+          this._storeDate(newCompleteDate);
           Popup.back();
         },
         'click .js-delete-date'(evt) {

@@ -1,5 +1,24 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import moment from 'moment/min/moment-with-locales';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 
 // Filtered view manager
 // We define local filter objects for each different type of field (SetFilter,
@@ -30,7 +49,7 @@ class DateFilter {
       this.reset();
       return;
     }
-    this._filter = { $lte: moment().toDate() };
+    this._filter = { $lte: now() };
     this._updateState('past');
   }
 
@@ -72,13 +91,8 @@ class DateFilter {
       return;
     }
 
-    var startDay = moment()
-        .startOf('day')
-        .toDate(),
-      endDay = moment()
-        .endOf('day')
-        .add(offset, 'day')
-        .toDate();
+    var startDay = startOf(now(), 'day'),
+      endDay = endOf(add(now(), offset, 'day'), 'day');
 
     if (offset >= 0) {
       this._filter = { $gte: startDay, $lte: endDay };
@@ -112,33 +126,21 @@ class DateFilter {
     const weekStartDay = currentUser ? currentUser.getStartDayOfWeek() : 1;
 
     if (week === 'this') {
-      // Moments are mutable so they must be cloned before modification
-      var WeekStart = moment()
-        .startOf('day')
-        .startOf('week')
-        .add(weekStartDay, 'days');
-      var WeekEnd = WeekStart
-        .clone()
-        .add(6, 'days')
-        .endOf('day');
+      // Create week start and end dates
+      var WeekStart = startOf(add(startOf(now(), 'week'), weekStartDay, 'days'), 'day');
+      var WeekEnd = endOf(add(WeekStart, 6, 'days'), 'day');
 
       this._updateState('thisweek');
     } else if (week === 'next') {
-      // Moments are mutable so they must be cloned before modification
-      var WeekStart = moment()
-        .startOf('day')
-        .startOf('week')
-        .add(weekStartDay + 7, 'days');
-      var WeekEnd = WeekStart
-        .clone()
-        .add(6, 'days')
-        .endOf('day');
+      // Create next week start and end dates
+      var WeekStart = startOf(add(startOf(now(), 'week'), weekStartDay + 7, 'days'), 'day');
+      var WeekEnd = endOf(add(WeekStart, 6, 'days'), 'day');
 
      this._updateState('nextweek');
     }
 
-    var startDate = WeekStart.toDate();
-    var endDate = WeekEnd.toDate();
+    var startDate = WeekStart;
+    var endDate = WeekEnd;
 
     if (offset >= 0) {
       this._filter = { $gte: startDate, $lte: endDate };

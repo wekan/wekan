@@ -1,7 +1,26 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
 import Checklists from '/models/checklists';
@@ -455,7 +474,7 @@ BlazeComponent.extendComponent({
         'click .js-poker-finish'(e) {
           if ($(e.target).hasClass('js-poker-finish')) {
             e.preventDefault();
-            const now = moment().format('YYYY-MM-DD HH:mm');
+            const now = formatDateTime(new Date());
             this.data().setPokerEnd(now);
           }
         },
@@ -1106,8 +1125,8 @@ BlazeComponent.extendComponent({
 // editVoteEndDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
-    this.data().getVoteEnd() && this.date.set(moment(this.data().getVoteEnd()));
+    super.onCreated(formatDateTime(now()));
+    this.data().getVoteEnd() && this.date.set(new Date(this.data().getVoteEnd()));
   }
   events() {
     return [
@@ -1118,12 +1137,12 @@ BlazeComponent.extendComponent({
           // if no time was given, init with 12:00
           const time =
             evt.target.time.value ||
-            moment(new Date().setHours(12, 0, 0)).format('LT');
+            formatTime(new Date().setHours(12, 0, 0));
 
           const dateString = `${evt.target.date.value} ${time}`;
 
           /*
-          const newDate = moment(dateString, 'L LT', true);
+          const newDate = parseDate(dateString, ['L LT'], true);
           if (newDate.isValid()) {
             // if active vote -  store it
             if (this.currentData().getVoteQuestion()) {
@@ -1137,28 +1156,27 @@ BlazeComponent.extendComponent({
 
           */
 
-          // Try to parse different date formats of all languages.
-          // This code is same for vote and planning poker.
-          const usaDate = moment(dateString, 'L LT', true);
-          const euroAmDate = moment(dateString, 'DD.MM.YYYY LT', true);
-          const euro24hDate = moment(dateString, 'DD.MM.YYYY HH.mm', true);
-          const eurodotDate = moment(dateString, 'DD.MM.YYYY HH:mm', true);
-          const minusDate = moment(dateString, 'YYYY-MM-DD HH:mm', true);
-          const slashDate = moment(dateString, 'DD/MM/YYYY HH.mm', true);
-          const dotDate = moment(dateString, 'DD/MM/YYYY HH:mm', true);
-          const brezhonegDate = moment(dateString, 'DD/MM/YYYY h[e]mm A', true);
-          const hrvatskiDate = moment(dateString, 'DD. MM. YYYY H:mm', true);
-          const latviaDate = moment(dateString, 'YYYY.MM.DD. H:mm', true);
-          const nederlandsDate = moment(dateString, 'DD-MM-YYYY HH:mm', true);
-          // greekDate does not work: el Greek Ελληνικά ,
-          // it has date format DD/MM/YYYY h:mm MM like 20/06/2021 11:15 MM
-          // where MM is maybe some text like AM/PM ?
-          // Also some other languages that have non-ascii characters in dates
-          // do not work.
-          const greekDate = moment(dateString, 'DD/MM/YYYY h:mm A', true);
-          const macedonianDate = moment(dateString, 'D.MM.YYYY H:mm', true);
+          // Try to parse different date formats using native Date parsing
+          const formats = [
+            'YYYY-MM-DD HH:mm',
+            'MM/DD/YYYY HH:mm',
+            'DD.MM.YYYY HH:mm',
+            'DD/MM/YYYY HH:mm',
+            'DD-MM-YYYY HH:mm'
+          ];
+          
+          let parsedDate = null;
+          for (const format of formats) {
+            parsedDate = parseDate(dateString, [format], true);
+            if (parsedDate) break;
+          }
+          
+          // Fallback to native Date parsing
+          if (!parsedDate) {
+            parsedDate = new Date(dateString);
+          }
 
-          if (usaDate.isValid()) {
+          if (isValidDate(parsedDate)) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(usaDate.toDate());
@@ -1337,9 +1355,9 @@ BlazeComponent.extendComponent({
 // editPokerEndDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
+    super.onCreated(formatDateTime(now()));
     this.data().getPokerEnd() &&
-      this.date.set(moment(this.data().getPokerEnd()));
+      this.date.set(new Date(this.data().getPokerEnd()));
   }
 
   /*
@@ -1357,7 +1375,7 @@ BlazeComponent.extendComponent({
     return moment.localeData().longDateFormat('LT');
   }
 
-  const newDate = moment(dateString, dateformat() + ' ' + timeformat(), true);
+  const newDate = parseDate(dateString, [dateformat() + ' ' + timeformat()], true);
   */
 
   events() {
@@ -1369,7 +1387,7 @@ BlazeComponent.extendComponent({
           // if no time was given, init with 12:00
           const time =
             evt.target.time.value ||
-            moment(new Date().setHours(12, 0, 0)).format('LT');
+            formatTime(new Date().setHours(12, 0, 0));
 
           const dateString = `${evt.target.date.value} ${time}`;
 
@@ -1380,7 +1398,7 @@ BlazeComponent.extendComponent({
           Maybe client/components/lib/datepicker.jade could have hidden input field for
           datepicker format that could be used to detect date format?
 
-          const newDate = moment(dateString, dateformat() + ' ' + timeformat(), true);
+          const newDate = parseDate(dateString, [dateformat() + ' ' + timeformat()], true);
 
           if (newDate.isValid()) {
             // if active poker -  store it
@@ -1393,28 +1411,27 @@ BlazeComponent.extendComponent({
             }
           */
 
-          // Try to parse different date formats of all languages.
-          // This code is same for vote and planning poker.
-          const usaDate = moment(dateString, 'L LT', true);
-          const euroAmDate = moment(dateString, 'DD.MM.YYYY LT', true);
-          const euro24hDate = moment(dateString, 'DD.MM.YYYY HH.mm', true);
-          const eurodotDate = moment(dateString, 'DD.MM.YYYY HH:mm', true);
-          const minusDate = moment(dateString, 'YYYY-MM-DD HH:mm', true);
-          const slashDate = moment(dateString, 'DD/MM/YYYY HH.mm', true);
-          const dotDate = moment(dateString, 'DD/MM/YYYY HH:mm', true);
-          const brezhonegDate = moment(dateString, 'DD/MM/YYYY h[e]mm A', true);
-          const hrvatskiDate = moment(dateString, 'DD. MM. YYYY H:mm', true);
-          const latviaDate = moment(dateString, 'YYYY.MM.DD. H:mm', true);
-          const nederlandsDate = moment(dateString, 'DD-MM-YYYY HH:mm', true);
-          // greekDate does not work: el Greek Ελληνικά ,
-          // it has date format DD/MM/YYYY h:mm MM like 20/06/2021 11:15 MM
-          // where MM is maybe some text like AM/PM ?
-          // Also some other languages that have non-ascii characters in dates
-          // do not work.
-          const greekDate = moment(dateString, 'DD/MM/YYYY h:mm A', true);
-          const macedonianDate = moment(dateString, 'D.MM.YYYY H:mm', true);
+          // Try to parse different date formats using native Date parsing
+          const formats = [
+            'YYYY-MM-DD HH:mm',
+            'MM/DD/YYYY HH:mm',
+            'DD.MM.YYYY HH:mm',
+            'DD/MM/YYYY HH:mm',
+            'DD-MM-YYYY HH:mm'
+          ];
+          
+          let parsedDate = null;
+          for (const format of formats) {
+            parsedDate = parseDate(dateString, [format], true);
+            if (parsedDate) break;
+          }
+          
+          // Fallback to native Date parsing
+          if (!parsedDate) {
+            parsedDate = new Date(dateString);
+          }
 
-          if (usaDate.isValid()) {
+          if (isValidDate(parsedDate)) {
             // if active poker -  store it
             if (this.currentData().getPokerQuestion()) {
               this._storeDate(usaDate.toDate());

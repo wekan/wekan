@@ -1,17 +1,36 @@
-import moment from 'moment/min/moment-with-locales';
 import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
+import { 
+  formatDateTime, 
+  formatDate, 
+  formatTime, 
+  getISOWeek, 
+  isValidDate, 
+  isBefore, 
+  isAfter, 
+  isSame, 
+  add, 
+  subtract, 
+  startOf, 
+  endOf, 
+  format, 
+  parseDate, 
+  now, 
+  createDate, 
+  fromNow, 
+  calendar 
+} from '/imports/lib/dateUtils';
 
 // editCardReceivedDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
+    super.onCreated(formatDateTime(now()));
     this.data().getReceived() &&
-      this.date.set(moment(this.data().getReceived()));
+      this.date.set(new Date(this.data().getReceived()));
   }
 
   _storeDate(date) {
-    this.card.setReceived(moment(date).format('YYYY-MM-DD HH:mm'));
+    this.card.setReceived(formatDateTime(date));
   }
 
   _deleteDate() {
@@ -22,8 +41,8 @@ import { DatePicker } from '/client/lib/datepicker';
 // editCardStartDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
-    this.data().getStart() && this.date.set(moment(this.data().getStart()));
+    super.onCreated(formatDateTime(now()));
+    this.data().getStart() && this.date.set(new Date(this.data().getStart()));
   }
 
   onRendered() {
@@ -37,7 +56,7 @@ import { DatePicker } from '/client/lib/datepicker';
   }
 
   _storeDate(date) {
-    this.card.setStart(moment(date).format('YYYY-MM-DD HH:mm'));
+    this.card.setStart(formatDateTime(date));
   }
 
   _deleteDate() {
@@ -49,7 +68,7 @@ import { DatePicker } from '/client/lib/datepicker';
 (class extends DatePicker {
   onCreated() {
     super.onCreated('1970-01-01 17:00:00');
-    this.data().getDue() && this.date.set(moment(this.data().getDue()));
+    this.data().getDue() && this.date.set(new Date(this.data().getDue()));
   }
 
   onRendered() {
@@ -60,7 +79,7 @@ import { DatePicker } from '/client/lib/datepicker';
   }
 
   _storeDate(date) {
-    this.card.setDue(moment(date).format('YYYY-MM-DD HH:mm'));
+    this.card.setDue(formatDateTime(date));
   }
 
   _deleteDate() {
@@ -71,8 +90,8 @@ import { DatePicker } from '/client/lib/datepicker';
 // editCardEndDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
-    this.data().getEnd() && this.date.set(moment(this.data().getEnd()));
+    super.onCreated(formatDateTime(now()));
+    this.data().getEnd() && this.date.set(new Date(this.data().getEnd()));
   }
 
   onRendered() {
@@ -83,7 +102,7 @@ import { DatePicker } from '/client/lib/datepicker';
   }
 
   _storeDate(date) {
-    this.card.setEnd(moment(date).format('YYYY-MM-DD HH:mm'));
+    this.card.setEnd(formatDateTime(date));
   }
 
   _deleteDate() {
@@ -100,14 +119,14 @@ const CardDate = BlazeComponent.extendComponent({
   onCreated() {
     const self = this;
     self.date = ReactiveVar();
-    self.now = ReactiveVar(moment());
+    self.now = ReactiveVar(now());
     window.setInterval(() => {
-      self.now.set(moment());
+      self.now.set(now());
     }, 60000);
   },
 
   showWeek() {
-    return this.date.get().week().toString();
+    return getISOWeek(this.date.get()).toString();
   },
 
   showWeekOfYear() {
@@ -115,12 +134,7 @@ const CardDate = BlazeComponent.extendComponent({
   },
 
   showDate() {
-    // this will start working once mquandalle:moment
-    // is updated to at least moment.js 2.10.5
-    // until then, the date is displayed in the "L" format
-    return this.date.get().calendar(null, {
-      sameElse: 'llll',
-    });
+    return calendar(this.date.get());
   },
 
   showISODate() {
@@ -133,7 +147,7 @@ class CardReceivedDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().getReceived()));
+      self.date.set(new Date(self.data().getReceived()));
     });
   }
 
@@ -173,7 +187,7 @@ class CardStartDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().getStart()));
+      self.date.set(new Date(self.data().getStart()));
     });
   }
 
@@ -208,7 +222,7 @@ class CardDueDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().getDue()));
+      self.date.set(new Date(self.data().getDue()));
     });
   }
 
@@ -244,7 +258,7 @@ class CardEndDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().getEnd()));
+      self.date.set(new Date(self.data().getEnd()));
     });
   }
 
@@ -279,12 +293,12 @@ class CardCustomFieldDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().value));
+      self.date.set(new Date(self.data().value));
     });
   }
 
   showWeek() {
-    return this.date.get().week().toString();
+    return getISOWeek(this.date.get()).toString();
   }
 
   showWeekOfYear() {
@@ -316,31 +330,31 @@ CardCustomFieldDate.register('cardCustomFieldDate');
 
 (class extends CardReceivedDate {
   showDate() {
-    return this.date.get().format('L');
+    return format(this.date.get(), 'L');
   }
 }.register('minicardReceivedDate'));
 
 (class extends CardStartDate {
   showDate() {
-    return this.date.get().format('YYYY-MM-DD HH:mm');
+    return format(this.date.get(), 'YYYY-MM-DD HH:mm');
   }
 }.register('minicardStartDate'));
 
 (class extends CardDueDate {
   showDate() {
-    return this.date.get().format('YYYY-MM-DD HH:mm');
+    return format(this.date.get(), 'YYYY-MM-DD HH:mm');
   }
 }.register('minicardDueDate'));
 
 (class extends CardEndDate {
   showDate() {
-    return this.date.get().format('YYYY-MM-DD HH:mm');
+    return format(this.date.get(), 'YYYY-MM-DD HH:mm');
   }
 }.register('minicardEndDate'));
 
 (class extends CardCustomFieldDate {
   showDate() {
-    return this.date.get().format('L');
+    return format(this.date.get(), 'L');
   }
 }.register('minicardCustomFieldDate'));
 
@@ -349,7 +363,7 @@ class VoteEndDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().getVoteEnd()));
+      self.date.set(new Date(self.data().getVoteEnd()));
     });
   }
   classes() {
@@ -357,10 +371,10 @@ class VoteEndDate extends CardDate {
     return classes;
   }
   showDate() {
-    return this.date.get().format('L LT');
+    return format(this.date.get(), 'L') + ' ' + format(this.date.get(), 'HH:mm');
   }
   showTitle() {
-    return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-end-on')} ${this.date.get().toLocaleString()}`;
   }
 
   events() {
@@ -376,7 +390,7 @@ class PokerEndDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().getPokerEnd()));
+      self.date.set(new Date(self.data().getPokerEnd()));
     });
   }
   classes() {

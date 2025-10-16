@@ -47,7 +47,6 @@
     "markdown-it-mathjax3": "^4.3.2",
     "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "^1.2.24",
-    "moment": "^2.30.1",
     "os": "^0.1.2",
     "papaparse": "^5.5.3",
     "pretty-ms": "^7.0.1",
