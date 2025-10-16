@@ -27,11 +27,19 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix wide screen](https://github.com/wekan/wekan/commit/f08c7702eecf23588f7bc023beefb453edd704c6).
   Thanks to xet7.
-- [Fix popups positioning](https://github.com/wekan/wekan/commit/77eea4d494e5db8e2c0e59732bcea73aa163bc13).
+- Fix popups positioning.
+  [Part 1](https://github.com/wekan/wekan/commit/77eea4d494e5db8e2c0e59732bcea73aa163bc13),
+  [Part 1](https://github.com/wekan/wekan/commit/00ddec75754bbbccc6fb9b3096495b9609246480).
   Thanks to xet7.
 - [Remove using fork with MongoDB at Snap](https://github.com/wekan/wekan/commit/690481c138f9629054180310dd172295c7f6d34e).
   Thanks to xet7.
 - [Use only MongoDB 7 at Snap](https://github.com/wekan/wekan/commit/79e83e33ec1dcec4eea81d5fb4a9f7381c176a12).
+  Thanks to xet7.
+- [Removed extra npm packages](https://github.com/wekan/wekan/commit/dd88483ec7526eee4a97bac5f09e03985be5d923).
+  Thanks to xet7.
+- [Try to fix Broken Hyperlinks in Markdown to HTML conversion](https://github.com/wekan/wekan/commit/bbbd3abf06e45a3fa57c4aa987d87f1873eb11d6).
+  Thanks to xet7.
+- [Disable not working minio and s3 support temporarily](https://github.com/wekan/wekan/commit/4283b5b0e330930fff1fa2bb73c355a4ffb4cda0).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
