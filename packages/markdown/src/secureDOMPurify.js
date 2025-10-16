@@ -14,7 +14,7 @@ export function getSecureDOMPurifyConfig() {
     ],
     // Block dangerous attributes that can cause XSS and CSS injection
     FORBID_ATTR: [
-      'xlink:href', 'href', 'onload', 'onerror', 'onclick', 'onmouseover',
+      'xlink:href', 'onload', 'onerror', 'onclick', 'onmouseover',
       'onfocus', 'onblur', 'onchange', 'onsubmit', 'onreset', 'onselect',
       'onunload', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress',
       'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmousemove',
