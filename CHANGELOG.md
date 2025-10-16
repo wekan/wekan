@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Show original positions of swimlanes, lists and cards](https://github.com/wekan/wekan/commit/2543df94252c2789fb484ae52b9a6ff298252ceb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.04 2025-10-16 WeKan ® release
 
 This release fixes the following bugs:
