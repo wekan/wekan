@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ALLOWED_COLORS } from '/config/const';
+import PositionHistory from './positionHistory';
 
 Lists = new Mongo.Collection('lists');
 
@@ -453,6 +454,14 @@ if (Meteor.isServer) {
       // list is deleted
       title: doc.title,
     });
+
+    // Track original position for new lists
+    Meteor.setTimeout(() => {
+      const list = Lists.findOne(doc._id);
+      if (list) {
+        list.trackOriginalPosition();
+      }
+    }, 100);
   });
 
   Lists.before.remove((userId, doc) => {
@@ -804,5 +813,78 @@ if (Meteor.isServer) {
     }
   });
 }
+
+// Position history tracking methods
+Lists.helpers({
+  /**
+   * Track the original position of this list
+   */
+  trackOriginalPosition() {
+    const existingHistory = PositionHistory.findOne({
+      boardId: this.boardId,
+      entityType: 'list',
+      entityId: this._id,
+    });
+
+    if (!existingHistory) {
+      PositionHistory.insert({
+        boardId: this.boardId,
+        entityType: 'list',
+        entityId: this._id,
+        originalPosition: {
+          sort: this.sort,
+          title: this.title,
+        },
+        originalSwimlaneId: this.swimlaneId || null,
+        originalTitle: this.title,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+  },
+
+  /**
+   * Get the original position history for this list
+   */
+  getOriginalPosition() {
+    return PositionHistory.findOne({
+      boardId: this.boardId,
+      entityType: 'list',
+      entityId: this._id,
+    });
+  },
+
+  /**
+   * Check if this list has moved from its original position
+   */
+  hasMovedFromOriginalPosition() {
+    const history = this.getOriginalPosition();
+    if (!history) return false;
+    
+    const currentSwimlaneId = this.swimlaneId || null;
+    return history.originalPosition.sort !== this.sort ||
+           history.originalSwimlaneId !== currentSwimlaneId;
+  },
+
+  /**
+   * Get a description of the original position
+   */
+  getOriginalPositionDescription() {
+    const history = this.getOriginalPosition();
+    if (!history) return 'No original position data';
+    
+    const swimlaneInfo = history.originalSwimlaneId ? 
+      ` in swimlane ${history.originalSwimlaneId}` : 
+      ' in default swimlane';
+    return `Original position: ${history.originalPosition.sort || 0}${swimlaneInfo}`;
+  },
+
+  /**
+   * Get the effective swimlane ID (for backward compatibility)
+   */
+  getEffectiveSwimlaneId() {
+    return this.swimlaneId || null;
+  },
+});
 
 export default Lists;

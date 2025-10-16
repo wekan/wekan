@@ -1,0 +1,263 @@
+/* Original Positions View Styles */
+.original-positions-view {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+}
+
+.original-positions-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.original-positions-header .btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.original-positions-content {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.original-positions-loading {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.original-positions-loading i {
+  margin-right: 8px;
+}
+
+.original-positions-filters {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.original-positions-filters .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.original-positions-filters .btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.original-positions-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.original-position-item {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.original-position-item:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.original-position-item:last-child {
+  margin-bottom: 0;
+}
+
+.original-position-item-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.original-position-item-header i {
+  color: #6c757d;
+  width: 16px;
+  text-align: center;
+}
+
+.entity-type {
+  background-color: #007bff;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.entity-name {
+  color: #212529;
+  font-weight: 600;
+}
+
+.entity-id {
+  color: #6c757d;
+  font-size: 11px;
+  font-family: monospace;
+}
+
+.original-position-item-details {
+  margin-left: 24px;
+}
+
+.original-position-description {
+  color: #495057;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.original-title {
+  color: #6c757d;
+  font-size: 12px;
+  margin-bottom: 6px;
+  padding: 4px 6px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+}
+
+.original-title strong {
+  color: #495057;
+}
+
+.original-position-date {
+  color: #6c757d;
+  font-size: 11px;
+}
+
+.no-original-positions {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.no-original-positions i {
+  font-size: 24px;
+  margin-bottom: 10px;
+  display: block;
+  color: #adb5bd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .original-positions-view {
+    margin: 5px 0;
+    padding: 10px;
+  }
+  
+  .original-positions-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .original-positions-header .btn {
+    justify-content: center;
+  }
+  
+  .original-positions-filters .btn-group {
+    justify-content: center;
+  }
+  
+  .original-position-item-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .entity-name {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+  }
+  
+  .original-position-item-details {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .original-positions-view {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+  
+  .original-positions-content {
+    background-color: #1a202c;
+    border-color: #4a5568;
+  }
+  
+  .original-position-item {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+  
+  .original-position-item:hover {
+    background-color: #4a5568;
+    border-color: #718096;
+  }
+  
+  .original-position-item-header {
+    color: #e2e8f0;
+  }
+  
+  .original-position-item-header i {
+    color: #a0aec0;
+  }
+  
+  .entity-name {
+    color: #e2e8f0;
+  }
+  
+  .entity-id {
+    color: #a0aec0;
+  }
+  
+  .original-position-description {
+    color: #e2e8f0;
+  }
+  
+  .original-title {
+    background-color: #4a5568;
+    color: #a0aec0;
+  }
+  
+  .original-title strong {
+    color: #e2e8f0;
+  }
+  
+  .original-position-date {
+    color: #a0aec0;
+  }
+  
+  .no-original-positions {
+    color: #a0aec0;
+  }
+  
+  .no-original-positions i {
+    color: #718096;
+  }
+}

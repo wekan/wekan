@@ -8,6 +8,7 @@ import {
 } from '../config/const';
 import Attachments, { fileStoreStrategyFactory } from "./attachments";
 import { copyFile } from './lib/fileStoreStrategy.js';
+import PositionHistory from './positionHistory';
 
 Cards = new Mongo.Collection('cards');
 
@@ -3139,6 +3140,14 @@ if (Meteor.isServer) {
 
   Cards.after.insert((userId, doc) => {
     cardCreation(userId, doc);
+
+    // Track original position for new cards
+    Meteor.setTimeout(() => {
+      const card = Cards.findOne(doc._id);
+      if (card) {
+        card.trackOriginalPosition();
+      }
+    }, 100);
   });
   // New activity for card (un)archivage
   Cards.after.update((userId, doc, fieldNames) => {
@@ -4137,5 +4146,78 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
     },
   );
 }
+
+// Position history tracking methods
+Cards.helpers({
+  /**
+   * Track the original position of this card
+   */
+  trackOriginalPosition() {
+    const existingHistory = PositionHistory.findOne({
+      boardId: this.boardId,
+      entityType: 'card',
+      entityId: this._id,
+    });
+
+    if (!existingHistory) {
+      PositionHistory.insert({
+        boardId: this.boardId,
+        entityType: 'card',
+        entityId: this._id,
+        originalPosition: {
+          sort: this.sort,
+          title: this.title,
+        },
+        originalSwimlaneId: this.swimlaneId || null,
+        originalListId: this.listId || null,
+        originalTitle: this.title,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+  },
+
+  /**
+   * Get the original position history for this card
+   */
+  getOriginalPosition() {
+    return PositionHistory.findOne({
+      boardId: this.boardId,
+      entityType: 'card',
+      entityId: this._id,
+    });
+  },
+
+  /**
+   * Check if this card has moved from its original position
+   */
+  hasMovedFromOriginalPosition() {
+    const history = this.getOriginalPosition();
+    if (!history) return false;
+    
+    const currentSwimlaneId = this.swimlaneId || null;
+    const currentListId = this.listId || null;
+    
+    return history.originalPosition.sort !== this.sort ||
+           history.originalSwimlaneId !== currentSwimlaneId ||
+           history.originalListId !== currentListId;
+  },
+
+  /**
+   * Get a description of the original position
+   */
+  getOriginalPositionDescription() {
+    const history = this.getOriginalPosition();
+    if (!history) return 'No original position data';
+    
+    const swimlaneInfo = history.originalSwimlaneId ? 
+      ` in swimlane ${history.originalSwimlaneId}` : 
+      ' in default swimlane';
+    const listInfo = history.originalListId ? 
+      ` in list ${history.originalListId}` : 
+      '';
+    return `Original position: ${history.originalPosition.sort || 0}${swimlaneInfo}${listInfo}`;
+  },
+});
 
 export default Cards;

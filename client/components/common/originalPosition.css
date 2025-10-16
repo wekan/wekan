@@ -1,0 +1,123 @@
+/* Original Position Component Styles */
+.original-position-info {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.original-position-loading {
+  color: #666;
+  font-style: italic;
+}
+
+.original-position-loading i {
+  margin-right: 5px;
+}
+
+.original-position-details {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 3px;
+  padding: 6px 8px;
+}
+
+.original-position-moved {
+  color: #856404;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 3px;
+  padding: 4px 6px;
+  margin-bottom: 4px;
+}
+
+.original-position-moved i {
+  color: #f39c12;
+  margin-right: 5px;
+}
+
+.original-position-unchanged {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 3px;
+  padding: 4px 6px;
+  margin-bottom: 4px;
+}
+
+.original-position-unchanged i {
+  color: #28a745;
+  margin-right: 5px;
+}
+
+.original-position-text {
+  font-weight: 500;
+}
+
+.original-title {
+  color: #6c757d;
+  font-size: 11px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid #e9ecef;
+}
+
+.original-title strong {
+  color: #495057;
+}
+
+/* Integration with existing Wekan styles */
+.swimlane .original-position-info,
+.list .original-position-info,
+.card .original-position-info {
+  margin: 2px 0;
+  padding: 4px 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .original-position-info {
+    font-size: 11px;
+    padding: 6px;
+  }
+  
+  .original-position-details {
+    padding: 4px 6px;
+  }
+  
+  .original-position-moved,
+  .original-position-unchanged {
+    padding: 3px 5px;
+  }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .original-position-details {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+  
+  .original-position-moved {
+    background-color: #744210;
+    border-color: #b7791f;
+    color: #fbd38d;
+  }
+  
+  .original-position-unchanged {
+    background-color: #22543d;
+    border-color: #38a169;
+    color: #9ae6b4;
+  }
+  
+  .original-title {
+    color: #a0aec0;
+    border-color: #4a5568;
+  }
+  
+  .original-title strong {
+    color: #e2e8f0;
+  }
+}

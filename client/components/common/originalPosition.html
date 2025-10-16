@@ -1,0 +1,29 @@
+<template name="originalPosition">
+  <div class="original-position-info">
+    {{#if isLoading}}
+      <div class="original-position-loading">
+        <i class="fa fa-spinner fa-spin"></i> Loading original position...
+      </div>
+    {{else if showOriginalPosition}}
+      <div class="original-position-details">
+        {{#if hasMovedFromOriginal}}
+          <div class="original-position-moved">
+            <i class="fa fa-info-circle"></i>
+            <span class="original-position-text">{{getOriginalPositionDescription}}</span>
+          </div>
+        {{else}}
+          <div class="original-position-unchanged">
+            <i class="fa fa-check-circle"></i>
+            <span class="original-position-text">In original position</span>
+          </div>
+        {{/if}}
+        
+        {{#if getOriginalTitle}}
+          <div class="original-title">
+            <strong>Original title:</strong> {{getOriginalTitle}}
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</template>

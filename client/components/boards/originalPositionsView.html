@@ -1,0 +1,82 @@
+<template name="originalPositionsView">
+  <div class="original-positions-view">
+    <div class="original-positions-header">
+      <button class="btn btn-sm btn-outline-secondary" onclick="{{toggleOriginalPositions}}">
+        <i class="fa fa-history"></i>
+        {{#if isShowingOriginalPositions}}Hide{{else}}Show{{/if}} Original Positions
+      </button>
+      
+      {{#if isShowingOriginalPositions}}
+        <button class="btn btn-sm btn-outline-primary" onclick="{{refreshHistory}}">
+          <i class="fa fa-refresh"></i> Refresh
+        </button>
+      {{/if}}
+    </div>
+
+    {{#if isShowingOriginalPositions}}
+      <div class="original-positions-content">
+        {{#if isLoading}}
+          <div class="original-positions-loading">
+            <i class="fa fa-spinner fa-spin"></i> Loading original positions...
+          </div>
+        {{else}}
+          <div class="original-positions-filters">
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="button" 
+                      class="btn {{#if isFilterType 'all'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
+                      onclick="{{setFilterType 'all'}}">
+                All
+              </button>
+              <button type="button" 
+                      class="btn {{#if isFilterType 'swimlane'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
+                      onclick="{{setFilterType 'swimlane'}}">
+                <i class="fa fa-bars"></i> Swimlanes
+              </button>
+              <button type="button" 
+                      class="btn {{#if isFilterType 'list'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
+                      onclick="{{setFilterType 'list'}}">
+                <i class="fa fa-columns"></i> Lists
+              </button>
+              <button type="button" 
+                      class="btn {{#if isFilterType 'card'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
+                      onclick="{{setFilterType 'card'}}">
+                <i class="fa fa-sticky-note"></i> Cards
+              </button>
+            </div>
+          </div>
+
+          <div class="original-positions-list">
+            {{#each getFilteredHistory}}
+              <div class="original-position-item">
+                <div class="original-position-item-header">
+                  <i class="fa {{getEntityTypeIcon entityType}}"></i>
+                  <span class="entity-type">{{getEntityTypeLabel entityType}}</span>
+                  <span class="entity-name">{{getEntityDisplayName this}}</span>
+                  <span class="entity-id">({{entityId}})</span>
+                </div>
+                <div class="original-position-item-details">
+                  <div class="original-position-description">
+                    {{getEntityOriginalPositionDescription this}}
+                  </div>
+                  {{#if originalTitle}}
+                    <div class="original-title">
+                      <strong>Original title:</strong> {{originalTitle}}
+                    </div>
+                  {{/if}}
+                  <div class="original-position-date">
+                    <small class="text-muted">Created: {{formatDate createdAt}}</small>
+                  </div>
+                </div>
+              </div>
+            {{else}}
+              <div class="no-original-positions">
+                <i class="fa fa-info-circle"></i>
+                No original position data available for this board.
+              </div>
+            {{/each}}
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</template>

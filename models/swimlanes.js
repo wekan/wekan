@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ALLOWED_COLORS } from '/config/const';
+import PositionHistory from './positionHistory';
 
 Swimlanes = new Mongo.Collection('swimlanes');
 
@@ -366,6 +367,14 @@ if (Meteor.isServer) {
       boardId: doc.boardId,
       swimlaneId: doc._id,
     });
+
+    // Track original position for new swimlanes
+    Meteor.setTimeout(() => {
+      const swimlane = Swimlanes.findOne(doc._id);
+      if (swimlane) {
+        swimlane.trackOriginalPosition();
+      }
+    }, 100);
   });
 
   Swimlanes.before.remove(function(userId, doc) {
@@ -613,5 +622,65 @@ if (Meteor.isServer) {
     },
   );
 }
+
+// Position history tracking methods
+Swimlanes.helpers({
+  /**
+   * Track the original position of this swimlane
+   */
+  trackOriginalPosition() {
+    const existingHistory = PositionHistory.findOne({
+      boardId: this.boardId,
+      entityType: 'swimlane',
+      entityId: this._id,
+    });
+
+    if (!existingHistory) {
+      PositionHistory.insert({
+        boardId: this.boardId,
+        entityType: 'swimlane',
+        entityId: this._id,
+        originalPosition: {
+          sort: this.sort,
+          title: this.title,
+        },
+        originalTitle: this.title,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+  },
+
+  /**
+   * Get the original position history for this swimlane
+   */
+  getOriginalPosition() {
+    return PositionHistory.findOne({
+      boardId: this.boardId,
+      entityType: 'swimlane',
+      entityId: this._id,
+    });
+  },
+
+  /**
+   * Check if this swimlane has moved from its original position
+   */
+  hasMovedFromOriginalPosition() {
+    const history = this.getOriginalPosition();
+    if (!history) return false;
+    
+    return history.originalPosition.sort !== this.sort;
+  },
+
+  /**
+   * Get a description of the original position
+   */
+  getOriginalPositionDescription() {
+    const history = this.getOriginalPosition();
+    if (!history) return 'No original position data';
+    
+    return `Original position: ${history.originalPosition.sort || 0}`;
+  },
+});
 
 export default Swimlanes;
