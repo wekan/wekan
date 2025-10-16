@@ -25,7 +25,7 @@ This release fixes the following bugs:
 
 - [Show original positions of swimlanes, lists and cards](https://github.com/wekan/wekan/commit/2543df94252c2789fb484ae52b9a6ff298252ceb).
   Thanks to xet7.
-- [Fix Edit avatar UI issue](https://github.com/wekan/wekan/commit/87ae085e6d0a56a2083eec819cf7d795d3e51e1a).
+- [Fix popups issues at Edit Avatar, Archive card confirm, etc](https://github.com/wekan/wekan/commit/87ae085e6d0a56a2083eec819cf7d795d3e51e1a).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
