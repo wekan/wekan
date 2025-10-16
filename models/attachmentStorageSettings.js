@@ -1,7 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
+import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreStrategy';
+// DISABLED: S3 storage removed due to Node.js compatibility
+// import { STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 
 // Attachment Storage Settings Collection
 AttachmentStorageSettings = new Mongo.Collection('attachmentStorageSettings');
@@ -12,7 +14,7 @@ AttachmentStorageSettings.attachSchema(
     // Default storage backend for new uploads
     defaultStorage: {
       type: String,
-      allowedValues: [STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3],
+      allowedValues: [STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS],
       defaultValue: STORAGE_NAME_FILESYSTEM,
       label: 'Default Storage Backend'
     },
@@ -54,6 +56,8 @@ AttachmentStorageSettings.attachSchema(
       label: 'GridFS Storage Enabled'
     },
     
+    // DISABLED: S3 storage configuration removed due to Node.js compatibility
+    /*
     'storageConfig.s3': {
       type: Object,
       optional: true,
@@ -95,6 +99,7 @@ AttachmentStorageSettings.attachSchema(
       defaultValue: 443,
       label: 'S3 Port'
     },
+    */
     
     // Upload settings
     uploadSettings: {
@@ -212,8 +217,9 @@ AttachmentStorageSettings.helpers({
         return this.storageConfig.filesystem?.enabled !== false;
       case STORAGE_NAME_GRIDFS:
         return this.storageConfig.gridfs?.enabled !== false;
-      case STORAGE_NAME_S3:
-        return this.storageConfig.s3?.enabled === true;
+      // DISABLED: S3 storage removed due to Node.js compatibility
+      // case STORAGE_NAME_S3:
+      //   return this.storageConfig.s3?.enabled === true;
       default:
         return false;
     }
@@ -228,8 +234,9 @@ AttachmentStorageSettings.helpers({
         return this.storageConfig.filesystem;
       case STORAGE_NAME_GRIDFS:
         return this.storageConfig.gridfs;
-      case STORAGE_NAME_S3:
-        return this.storageConfig.s3;
+      // DISABLED: S3 storage removed due to Node.js compatibility
+      // case STORAGE_NAME_S3:
+      //   return this.storageConfig.s3;
       default:
         return null;
     }
@@ -274,9 +281,10 @@ if (Meteor.isServer) {
             gridfs: {
               enabled: true
             },
-            s3: {
-              enabled: false
-            }
+            // DISABLED: S3 storage removed due to Node.js compatibility
+            // s3: {
+            //   enabled: false
+            // }
           },
           uploadSettings: {
             maxFileSize: process.env.ATTACHMENTS_UPLOAD_MAX_SIZE ? parseInt(process.env.ATTACHMENTS_UPLOAD_MAX_SIZE) : 0,
@@ -347,7 +355,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
 
-      if (![STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3].includes(storageName)) {
+      if (![STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS].includes(storageName)) {
         throw new Meteor.Error('invalid-storage', 'Invalid storage backend');
       }
 

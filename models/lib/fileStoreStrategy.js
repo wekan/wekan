@@ -4,7 +4,8 @@ import { createObjectId } from './grid/createObjectId';
 import { httpStreamOutput } from './httpStream.js';
 //import {} from './s3/Server-side-file-store.js';
 import { ObjectID } from 'bson';
-var Minio = require('minio');
+// DISABLED: Minio support removed due to Node.js compatibility issues
+// var Minio = require('minio');
 
 export const STORAGE_NAME_FILESYSTEM = "fs";
 export const STORAGE_NAME_GRIDFS     = "gridfs";
@@ -18,16 +19,17 @@ export default class FileStoreStrategyFactory {
    * @param storagePath file storage path
    * @param classFileStoreStrategyGridFs use this strategy for GridFS storage
    * @param gridFsBucket use this GridFS Bucket as GridFS Storage
-   * @param classFileStoreStrategyS3 use this strategy for S3 storage
-   * @param s3Bucket use this S3 Bucket as S3 Storage
+   * @param classFileStoreStrategyS3 DISABLED: S3 storage strategy removed due to Node.js compatibility
+   * @param s3Bucket DISABLED: S3 bucket removed due to Node.js compatibility
    */
   constructor(classFileStoreStrategyFilesystem, storagePath, classFileStoreStrategyGridFs, gridFsBucket, classFileStoreStrategyS3, s3Bucket) {
     this.classFileStoreStrategyFilesystem = classFileStoreStrategyFilesystem;
     this.storagePath = storagePath;
     this.classFileStoreStrategyGridFs = classFileStoreStrategyGridFs;
     this.gridFsBucket = gridFsBucket;
-    this.classFileStoreStrategyS3 = classFileStoreStrategyS3;
-    this.s3Bucket = s3Bucket;
+    // DISABLED: S3 storage strategy removed due to Node.js compatibility
+    // this.classFileStoreStrategyS3 = classFileStoreStrategyS3;
+    // this.s3Bucket = s3Bucket;
   }
 
   /** returns the right FileStoreStrategy
@@ -43,7 +45,8 @@ export default class FileStoreStrategyFactory {
           // uploaded by import, so it's in GridFS (MongoDB)
           storage = STORAGE_NAME_GRIDFS;
         } else if (fileObj && fileObj.versions && fileObj.versions[version] && fileObj.versions[version].meta && fileObj.versions[version].meta.pipePath) {
-          storage = STORAGE_NAME_S3;
+          // DISABLED: S3 storage removed due to Node.js compatibility - fallback to filesystem
+          storage = STORAGE_NAME_FILESYSTEM;
         } else {
           // newly uploaded, so it's at the filesystem
           storage = STORAGE_NAME_FILESYSTEM;
@@ -51,14 +54,16 @@ export default class FileStoreStrategyFactory {
       }
     }
     let ret;
-    if ([STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS, STORAGE_NAME_S3].includes(storage)) {
+    if ([STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS].includes(storage)) {
       if (storage == STORAGE_NAME_FILESYSTEM) {
         ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
-      } else if (storage == STORAGE_NAME_S3) {
-        ret = new this.classFileStoreStrategyS3(this.s3Bucket, fileObj, versionName);
       } else if (storage == STORAGE_NAME_GRIDFS) {
         ret = new this.classFileStoreStrategyGridFs(this.gridFsBucket, fileObj, versionName);
       }
+    } else if (storage == STORAGE_NAME_S3) {
+      // DISABLED: S3 storage removed due to Node.js compatibility - fallback to filesystem
+      console.warn('S3 storage is disabled due to Node.js compatibility issues, falling back to filesystem storage');
+      ret = new this.classFileStoreStrategyFilesystem(fileObj, versionName);
     }
     return ret;
   }
@@ -323,334 +328,56 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
 }
 
 
-/** Strategy to store attachments at S3 */
+/** DISABLED: Strategy to store attachments at S3 - Minio support removed due to Node.js compatibility */
 export class FileStoreStrategyS3 extends FileStoreStrategy {
-
-
-  /** constructor
-   * @param s3Bucket use this S3 Bucket
-   * @param fileObj the current file object
-   * @param versionName the current version
-   */
   constructor(s3Bucket, fileObj, versionName) {
     super(fileObj, versionName);
     this.s3Bucket = s3Bucket;
   }
 
-  /** after successfull upload */
   onAfterUpload() {
-    if (process.env.S3) {
-      Meteor.settings.s3 = JSON.parse(process.env.S3).s3;
-    }
-
-    const s3Conf = Meteor.settings.s3 || {};
-    const bound  = Meteor.bindEnvironment((callback) => {
-      return callback();
-    });
-
-    /* https://github.com/veliovgroup/Meteor-Files/blob/master/docs/aws-s3-integration.md */
-    /* Check settings existence in `Meteor.settings` */
-    /* This is the best practice for app security */
-
-    /*
-    if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region && s3Conf.sslEnabled) {
-      // Create a new S3 object
-      const s3 = new S3({
-        secretAccessKey: s3Conf.secret,
-        accessKeyId: s3Conf.key,
-        region: s3Conf.region,
-        sslEnabled: s3Conf.sslEnabled, // optional
-        httpOptions: {
-          timeout: 6000,
-          agent: false
-        }
-      });
-    }
-    */
-
-    if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.endPoint && s3Conf.port && s3Conf.sslEnabled) {
-      // Create a new S3 object
-      var s3Client = new Minio.Client({
-        endPoint: s3Conf.endPoint,
-        port: s3Conf.port,
-        useSSL: s3Conf.sslEnabled,
-        accessKey: s3Conf.key,
-        secretKey: s3Conf.secret
-        //region: s3Conf.region,
-        // sslEnabled: true, // optional
-        //httpOptions: {
-        //  timeout: 6000,
-        //  agent: false
-        //
-      });
-
-      // Declare the Meteor file collection on the Server
-      const UserFiles = new FilesCollection({
-        debug: false, // Change to `true` for debugging
-        storagePath: storagePath,
-        collectionName: 'userFiles',
-        // Disallow Client to execute remove, use the Meteor.method
-        allowClientCode: false,
-
-        // Start moving files to AWS:S3
-        // after fully received by the Meteor server
-        onAfterUpload(fileRef) {
-          // Run through each of the uploaded file
-          _.each(fileRef.versions, (vRef, version) => {
-            // We use Random.id() instead of real file's _id
-            // to secure files from reverse engineering on the AWS client
-            const filePath = 'files/' + (Random.id()) + '-' + version + '.' + fileRef.extension;
-
-            // Create the AWS:S3 object.
-            // Feel free to change the storage class from, see the documentation,
-            // `STANDARD_IA` is the best deal for low access files.
-            // Key is the file name we are creating on AWS:S3, so it will be like files/XXXXXXXXXXXXXXXXX-original.XXXX
-            // Body is the file stream we are sending to AWS
-
-            const fileObj = this.fileObj;
-            const versionName = this.versionName;
-            const metadata = { ...fileObj.meta, versionName, fileId: fileObj._id };
-
-            s3Client.putObject({
-              // ServerSideEncryption: 'AES256', // Optional
-              //StorageClass: 'STANDARD',
-              Bucket: s3Conf.bucket,
-              Key: filePath,
-              Body: fs.createReadStream(vRef.path),
-              metadata,
-              ContentType: vRef.type,
-            }, (error) => {
-              bound(() => {
-                if (error) {
-                  console.error(error);
-                } else {
-                  // Update FilesCollection with link to the file at AWS
-                  const upd = { $set: {} };
-                  upd['$set']['versions.' + version + '.meta.pipePath'] = filePath;
-
-                  this.collection.update({
-                    _id: fileRef._id
-                  }, upd, (updError) => {
-                    if (updError) {
-                      console.error(updError);
-                    } else {
-                      // Unlink original files from FS after successful upload to AWS:S3
-                      this.unlink(this.collection.findOne(fileRef._id), version);
-                    }
-                  });
-                }
-              });
-            });
-          });
-        },
-      });
-    }
+    console.warn('S3 storage is disabled due to Node.js compatibility issues');
   }
 
-  // Intercept access to the file
-  // And redirect request to AWS:S3
   interceptDownload(http, fileRef, version) {
-    let path;
-
-    if (fileRef && fileRef.versions && fileRef.versions[version] && fileRef.versions[version].meta && fileRef.versions[version].meta.pipePath) {
-      path = fileRef.versions[version].meta.pipePath;
-    }
-
-    if (path) {
-      // If file is successfully moved to AWS:S3
-      // We will pipe request to AWS:S3
-      // So, original link will stay always secure
-
-      // To force ?play and ?download parameters
-      // and to keep original file name, content-type,
-      // content-disposition, chunked "streaming" and cache-control
-      // we're using low-level .serve() method
-      const opts = {
-        Bucket: s3Conf.bucket,
-        Key: path
-      };
-
-      if (http.request.headers.range) {
-        const vRef  = fileRef.versions[version];
-        let range   = _.clone(http.request.headers.range);
-        const array = range.split(/bytes=([0-9]*)-([0-9]*)/);
-        const start = parseInt(array[1]);
-        let end     = parseInt(array[2]);
-        if (isNaN(end)) {
-          // Request data from AWS:S3 by small chunks
-          end       = (start + this.chunkSize) - 1;
-          if (end >= vRef.size) {
-            end     = vRef.size - 1;
-          }
-        }
-        opts.Range   = `bytes=${start}-${end}`;
-        http.request.headers.range = `bytes=${start}-${end}`;
-      }
-
-      const fileColl = this;
-      s3Client.getObject(opts, function (error) {
-        if (error) {
-          console.error(error);
-          if (!http.response.finished) {
-            http.response.end();
-          }
-        } else {
-          if (http.request.headers.range && this.httpResponse.headers['content-range']) {
-            // Set proper range header in according to what is returned from AWS:S3
-            http.request.headers.range = this.httpResponse.headers['content-range'].split('/')[0].replace('bytes ', 'bytes=');
-          }
-
-          const dataStream = new stream.PassThrough();
-          fileColl.serve(http, fileRef, fileRef.versions[version], version, dataStream);
-          dataStream.end(this.data.Body);
-        }
-      });
-      return true;
-    }
-    // While file is not yet uploaded to AWS:S3
-    // It will be served file from FS
-    return false;
+    console.warn('S3 storage is disabled due to Node.js compatibility issues');
+    http.response.writeHead(503, { 'Content-Type': 'text/plain' });
+    http.response.end('S3 storage is disabled');
   }
 
-
-  /** after file remove */
-  onAfterRemove() {
-
-    if (process.env.S3) {
-      Meteor.settings.s3 = JSON.parse(process.env.S3).s3;
-    }
-
-    const s3Conf = Meteor.settings.s3 || {};
-    const bound  = Meteor.bindEnvironment((callback) => {
-      return callback();
-    });
-
-    if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.endPoint && s3Conf.port && s3Conf.sslEnabled) {
-      // Create a new S3 object
-      var s3Client = new Minio.Client({
-        endPoint: s3Conf.endPoint,
-        port: s3Conf.port,
-        useSSL: s3Conf.sslEnabled,
-        accessKey: s3Conf.key,
-        secretKey: s3Conf.secret
-      });
-    }
-
-    this.unlink();
-    super.onAfterRemove();
-    // Intercept FilesCollection's remove method to remove file from AWS:S3
-    const _origRemove = UserFiles.remove;
-    UserFiles.remove = function (selector, callback) {
-      const cursor = this.collection.find(selector);
-      cursor.forEach((fileRef) => {
-        _.each(fileRef.versions, (vRef) => {
-          if (vRef && vRef.meta && vRef.meta.pipePath) {
-            // Remove the object from AWS:S3 first, then we will call the original FilesCollection remove
-            s3Client.deleteObject({
-              Bucket: s3Conf.bucket,
-              Key: vRef.meta.pipePath,
-            }, (error) => {
-              bound(() => {
-                if (error) {
-                  console.error(error);
-                }
-              });
-            });
-          }
-        });
-      });
-    // Remove original file from database
-    _origRemove.call(this, selector, callback);
-  };
-}
-
-  /** returns a read stream
-   * @return the read stream
-   */
   getReadStream() {
-    const s3Id = this.getS3ObjectId();
-    let ret;
-    if (s3Id) {
-      ret = this.s3Bucket.openDownloadStream(s3Id);
-    }
-    return ret;
+    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
   }
 
-  /** returns a write stream
-   * @param filePath if set, use this path
-   * @return the write stream
-   */
   getWriteStream(filePath) {
-    const fileObj = this.fileObj;
-    const versionName = this.versionName;
-    const metadata = { ...fileObj.meta, versionName, fileId: fileObj._id };
-    const ret = this.s3Bucket.openUploadStream(this.fileObj.name, {
-      contentType: fileObj.type || 'binary/octet-stream',
-      metadata,
-    });
-    return ret;
+    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
   }
 
-  /** writing finished
-   * @param finishedData the data of the write stream finish event
-   */
-  writeStreamFinished(finishedData) {
-    const s3FileIdName = this.getS3FileIdName();
-    Attachments.update({ _id: this.fileObj._id }, { $set: { [s3FileIdName]: finishedData._id.toHexString(), } });
+  getPath() {
+    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
   }
 
-  /** remove the file */
-  unlink() {
-    const s3Id = this.gets3ObjectId();
-    if (s3Id) {
-      this.s3Bucket.delete(s3Id, err => {
-        if (err) {
-          console.error("error on S3 bucket.delete: ", err);
-        }
-      });
-    }
-
-    const s3FileIdName = this.getS3FileIdName();
-    Attachments.update({ _id: this.fileObj._id }, { $unset: { [s3FileIdName]: 1 } });
+  getNewPath(storagePath) {
+    throw new Error('S3 storage is disabled due to Node.js compatibility issues');
   }
 
-  /** return the storage name
-   * @return the storage name
-   */
   getStorageName() {
     return STORAGE_NAME_S3;
   }
 
-  /** returns the GridFS Object-Id
-   * @return the GridFS Object-Id
-   */
-  getS3ObjectId() {
-    let ret;
-    const s3FileId = this.s3FileId();
-    if (s3FileId) {
-      ret = createObjectId({ s3FileId });
-    }
-    return ret;
+  writeStreamFinished(finishedData) {
+    console.warn('S3 storage is disabled due to Node.js compatibility issues');
   }
 
-  /** returns the S3 Object-Id
-   * @return the S3 Object-Id
-   */
-  getS3FileId() {
-    const ret = (this.fileObj.versions[this.versionName].meta || {})
-      .s3FileId;
-    return ret;
+  unlink() {
+    console.warn('S3 storage is disabled due to Node.js compatibility issues');
   }
 
-  /** returns the property name of s3FileId
-   * @return the property name of s3FileId
-   */
   getS3FileIdName() {
     const ret = `versions.${this.versionName}.meta.s3FileId`;
     return ret;
   }
-};
-
+}
 
 
 /** move the fileObj to another storage
