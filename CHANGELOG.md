@@ -31,6 +31,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Changed wekan-boostrap-datepicker to HTML datepicker](https://github.com/wekan/wekan/commit/79b94824efedaa9e256de931fd26398eb2838d6a).
   Thanks to xet7.
+- [Replaced moment.js with Javascript date](https://github.com/wekan/wekan/commit/cb6afe67a7363af89663ba17392dc5f90a15f703).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
