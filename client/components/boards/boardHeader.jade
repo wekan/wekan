@@ -14,41 +14,41 @@ template(name="boardHeaderBar")
           with currentBoard
             if currentUser.isBoardAdmin
               a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
-                i.fa.fa-pencil-square-o
+                | ✏️
 
-          a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-            title="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}" aria-label="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}")
-            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-            if showStarCounter
-              span
-                = currentBoard.stars
+            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
+              title="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}" aria-label="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}")
+              | {{#if isStarred}}⭐{{else}}☆{{/if}}
+              if showStarCounter
+                span
+                  = currentBoard.stars
 
-          a.board-header-btn(
-            class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
-            title="{{_ currentBoard.permission}}")
-            i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-            span {{_ currentBoard.permission}}
+            a.board-header-btn(
+              class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+              title="{{_ currentBoard.permission}}")
+              | {{#if currentBoard.isPublic}}🌐{{else}}🔒{{/if}}
+              span {{_ currentBoard.permission}}
 
-          a.board-header-btn.js-watch-board(
-            title="{{_ watchLevel }}")
-            if $eq watchLevel "watching"
-              i.fa.fa-eye
-            if $eq watchLevel "tracking"
-              i.fa.fa-bell
-            if $eq watchLevel "muted"
-              i.fa.fa-bell-slash
-            span {{_ watchLevel}}
-          a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
-            i.fa.fa-sort
-            span {{#if isSortActive }}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
+            a.board-header-btn.js-watch-board(
+              title="{{_ watchLevel }}")
+              if $eq watchLevel "watching"
+                | 👁️
+              if $eq watchLevel "tracking"
+                | 🔔
+              if $eq watchLevel "muted"
+                | 🔕
+              span {{_ watchLevel}}
+            a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
+              | {{sortCardsIcon}}
+              span {{#if isSortActive }}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
             if isSortActive
               a.board-header-btn-close.js-sort-reset(title="{{_ 'remove-sort'}}")
-                i.fa.fa-times-thin
+                | ❌
 
         else
           a.board-header-btn.js-log-in(
             title="{{_ 'log-in'}}")
-            i.fa.fa-sign-in
+            | 🚪
             span {{_ 'log-in'}}
 
   .board-header-btns.center
@@ -59,40 +59,40 @@ template(name="boardHeaderBar")
         if currentUser
           with currentBoard
             a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
-              i.fa.fa-pencil-square-o
+              | ✏️
 
-          a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-            title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
+              title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+              | {{#if isStarred}}⭐{{else}}☆{{/if}}
 
-          a.board-header-btn(
-            class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
-            title="{{_ currentBoard.permission}}")
-            i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+            a.board-header-btn(
+              class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+              title="{{_ currentBoard.permission}}")
+              | {{#if currentBoard.isPublic}}🌐{{else}}🔒{{/if}}
 
-          a.board-header-btn.js-watch-board(
-            title="{{_ watchLevel }}")
-            if $eq watchLevel "watching"
-              i.fa.fa-eye
-            if $eq watchLevel "tracking"
-              i.fa.fa-bell
-            if $eq watchLevel "muted"
-              i.fa.fa-bell-slash
-          a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
-            i.fa.fa-sort
+            a.board-header-btn.js-watch-board(
+              title="{{_ watchLevel }}")
+              if $eq watchLevel "watching"
+                | 👁️
+              if $eq watchLevel "tracking"
+                | 🔔
+              if $eq watchLevel "muted"
+                | 🔕
+            a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
+              | {{sortCardsIcon}}
             if isSortActive
               a.board-header-btn-close.js-sort-reset(title="{{_ 'remove-sort'}}")
-                i.fa.fa-times-thin
+                | ❌
 
         else
           a.board-header-btn.js-log-in(
             title="{{_ 'log-in'}}")
-            i.fa.fa-sign-in
+            | 🚪
 
       if isSandstorm
         if currentUser
           a.board-header-btn.js-open-archived-board
-            i.fa.fa-archive
+            | 📦
 
       //if showSort
       //  a.board-header-btn.js-open-sort-view(title="{{_ 'sort-desc'}}")
@@ -102,56 +102,56 @@ template(name="boardHeaderBar")
       a.board-header-btn.js-open-filter-view(
           title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}"
           class="{{#if Filter.isActive}}emphasis{{/if}}")
-        i.fa.fa-filter
+        | 🔽
         if Filter.isActive
           a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
-            i.fa.fa-times-thin
+            | ❌
 
       a.board-header-btn.js-open-search-view(title="{{_ 'search'}}")
-        i.fa.fa-search
+        | 🔍
 
       unless currentBoard.isTemplatesBoard
         a.board-header-btn.js-toggle-board-view(
           title="{{_ 'board-view'}}")
-          i.fa.fa-caret-down
+          | ▼
           if $eq boardView 'board-view-swimlanes'
-            i.fa.fa-th-large
+            | 🏊
           if $eq boardView 'board-view-lists'
-            i.fa.fa-trello
+            | 📋
           if $eq boardView 'board-view-cal'
-            i.fa.fa-calendar
+            | 📅
 
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
             title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
             class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
-          i.fa.fa-check-square-o
-          if MultiSelection.isActive
-            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-              i.fa.fa-times-thin
+          | ☑️
+        if MultiSelection.isActive
+          a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+            | ❌
 
       .separator
       a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
-        i.fa.fa-navicon
+        | ☰
 
 template(name="boardVisibilityList")
   ul.pop-over-list
     li
       with "private"
         a.js-select-visibility
-          i.fa.fa-lock.colorful
+          | 🔒
           | {{_ 'private'}}
           if visibilityCheck
-            i.fa.fa-check
+            | ✅
           span.sub-name {{_ 'private-desc'}}
     if notAllowPrivateVisibilityOnly
       li
         with "public"
           a.js-select-visibility
-            i.fa.fa-globe.colorful
+            | 🌐
             | {{_ 'public'}}
             if visibilityCheck
-              i.fa.fa-check
+              | ✅
             span.sub-name {{_ 'public-desc'}}
 
 template(name="boardChangeVisibilityPopup")
@@ -162,26 +162,26 @@ template(name="boardChangeWatchPopup")
     li
       with "watching"
         a.js-select-watch
-          i.fa.fa-eye.colorful
+          | 👁️
           | {{_ 'watching'}}
           if watchCheck
-            i.fa.fa-check
+            | ✅
           span.sub-name {{_ 'watching-info'}}
     li
       with "tracking"
         a.js-select-watch
-          i.fa.fa-bell.colorful
+          | 🔔
           | {{_ 'tracking'}}
           if watchCheck
-            i.fa.fa-check
+            | ✅
           span.sub-name {{_ 'tracking-info'}}
     li
       with "muted"
         a.js-select-watch
-          i.fa.fa-bell-slash.colorful
+          | 🔕
           | {{_ 'muted'}}
           if watchCheck
-            i.fa.fa-check
+            | ✅
           span.sub-name {{_ 'muted-info'}}
 
 template(name="boardChangeViewPopup")
@@ -189,24 +189,24 @@ template(name="boardChangeViewPopup")
     li
       with "board-view-swimlanes"
         a.js-open-swimlanes-view
-          i.fa.fa-th-large.colorful
+          | 🏊
           | {{_ 'board-view-swimlanes'}}
           if $eq Utils.boardView "board-view-swimlanes"
-            i.fa.fa-check
+            | ✅
     li
       with "board-view-lists"
         a.js-open-lists-view
-          i.fa.fa-trello.colorful
+          | 📋
           | {{_ 'board-view-lists'}}
           if $eq Utils.boardView "board-view-lists"
-            i.fa.fa-check
+            | ✅
     li
       with "board-view-cal"
         a.js-open-cal-view
-          i.fa.fa-calendar.colorful
+          | 📅
           | {{_ 'board-view-cal'}}
           if $eq Utils.boardView "board-view-cal"
-            i.fa.fa-check
+            | ✅
 
 template(name="createBoard")
   form
@@ -218,11 +218,11 @@ template(name="createBoard")
     else
       p.quiet
         if $eq visibility.get 'public'
-          span.fa.fa-globe.colorful
+          span 🌐
           = " "
           | {{{_ 'board-public-info'}}}
         else
-          span.fa.fa-lock.colorful
+          span 🔒
           = " "
           | {{{_ 'board-private-info'}}}
         a.js-change-visibility {{_ 'change'}}.
@@ -246,10 +246,10 @@ template(name="createBoard")
 //     li
 //      a.js-sort-by(name="{{value.name}}")
 //        if $eq sortby value.name
-//           i(class="fa {{Direction}}")
+//           | {{#if $eq Direction "fa-arrow-up"}}⬆️{{else}}⬇️{{/if}}
 //        | {{_ value.label }}{{_ value.shortLabel}}
 //        if $eq sortby value.name
-//           i(class="fa fa-check")
+//           | ✅
 
 template(name="boardChangeTitlePopup")
   form
@@ -269,14 +269,22 @@ template(name="boardCreateRulePopup")
 template(name="cardsSortPopup")
   ul.pop-over-list
     li
-      a.js-sort-due {{_ 'due-date'}}
+      a.js-sort-due
+        | 📅
+        | {{_ 'due-date'}}
       hr
     li
-      a.js-sort-title {{_ 'title-alphabetically'}}
+      a.js-sort-title
+        | 🔤
+        | {{_ 'title-alphabetically'}}
       hr
     li
-      a.js-sort-created-desc {{_ 'created-at-newest-first'}}
+      a.js-sort-created-desc
+        | ⬇️
+        | {{_ 'created-at-newest-first'}}
       hr
     li
-      a.js-sort-created-asc {{_ 'created-at-oldest-first'}}
+      a.js-sort-created-asc
+        | ⬆️
+        | {{_ 'created-at-oldest-first'}}
 

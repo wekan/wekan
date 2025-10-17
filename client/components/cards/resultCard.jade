@@ -13,7 +13,7 @@ template(name="resultCard")
             .broken-cards-null
               | NULL
         if getBoard.archived
-          i.fa.fa-archive
+          | 📦
       li.result-card-context.result-card-context-separator
         = ' '
         | {{_ 'context-separator'}}
@@ -27,7 +27,7 @@ template(name="resultCard")
             .broken-cards-null
               | NULL
         if getSwimlane.archived
-          i.fa.fa-archive
+          | 📦
       li.result-card-context.result-card-context-separator
         = ' '
         | {{_ 'context-separator'}}
@@ -41,4 +41,4 @@ template(name="resultCard")
             .broken-cards-null
               | NULL
         if getList.archived
-          i.fa.fa-archive
+          | 📦

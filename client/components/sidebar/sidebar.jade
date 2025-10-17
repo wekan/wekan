@@ -187,14 +187,14 @@ template(name="boardInfoOnMyBoardsPopup")
         a.flex.js-field-has-cardcounterlist(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
           .materialCheckBox(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
           span
-            i.fa.fa-sign-out
+            | 🚪
             | {{_ 'show-card-counter-per-list'}}
     unless currentSetting.hideBoardMemberList
       div.check-div
         a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
           .materialCheckBox(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
           span
-            i.fa.fa-hourglass-start
+            | ⏳
             | {{_ 'show-board_members-avatar'}}
 
 template(name="boardCardSettingsPopup")
@@ -204,149 +204,149 @@ template(name="boardCardSettingsPopup")
       a.flex.js-field-has-receiveddate(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
         span
-          i.fa.fa-sign-out
+          | 🚪
           | {{_ 'card-received'}}
     div.check-div
       a.flex.js-field-has-startdate(class="{{#if allowsStartDate}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsStartDate}}is-checked{{/if}}")
         span
-          i.fa.fa-hourglass-start
+          | ⏳
           | {{_ 'card-start'}}
     div.check-div
       a.flex.js-field-has-duedate(class="{{#if allowsDueDate}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsDueDate}}is-checked{{/if}}")
         span
-          i.fa.fa-sign-in
+          | 🚪
           | {{_ 'card-due'}}
     div.check-div
       a.flex.js-field-has-enddate(class="{{#if allowsEndDate}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsEndDate}}is-checked{{/if}}")
         span
-          i.fa.fa-hourglass-end
+          | ⏰
           | {{_ 'card-end'}}
     div.check-div
       a.flex.js-field-has-members(class="{{#if allowsMembers}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsMembers}}is-checked{{/if}}")
         span
-          i.fa.fa-users
+          | 👥
           | {{_ 'members'}}
     div.check-div
       a.flex.js-field-has-creator(class="{{#if allowsCreator}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCreator}}is-checked{{/if}}")
         span
-          i.fa.fa-user
+          | 👤
           | {{_ 'creator'}}
     div.check-div
       a.flex.js-field-has-creator-on-minicard(class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
         span
-          i.fa.fa-user
+          | 👤
           | {{_ 'creator-on-minicard'}}
     div.check-div
       a.flex.js-field-has-assignee(class="{{#if allowsAssignee}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsAssignee}}is-checked{{/if}}")
         span
-          i.fa.fa-user
+          | 👤
           | {{_ 'assignee'}}
     div.check-div
       a.flex.js-field-has-assigned-by(class="{{#if allowsAssignedBy}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsAssignedBy}}is-checked{{/if}}")
         span
-          i.fa.fa-shopping-cart
+          | 🛒
           | {{_ 'assigned-by'}}
     div.check-div
       a.flex.js-field-has-requested-by(class="{{#if allowsRequestedBy}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsRequestedBy}}is-checked{{/if}}")
         span
-          i.fa.fa-user-plus
+          | 👤➕
           | {{_ 'requested-by'}}
     div.check-div
       a.flex.js-field-has-card-sorting-by-number(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
         span
-          i.fa.fa-sort
+          | 🔢
           | {{_ 'card-sorting-by-number'}}
     div.check-div
       a.flex.js-field-has-card-sorting-by-number-on-minicard(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
         span
-          i.fa.fa-sort
+          | 🔢
           | {{_ 'card-sorting-by-number-on-minicard'}}
     div.check-div
       a.flex.js-field-has-card-show-lists(class="{{#if allowsShowLists}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsShowLists}}is-checked{{/if}}")
         span
-          i.fa.fa-list
+          | 📋
           | {{_ 'card-show-lists'}}
     div.check-div
       a.flex.js-field-has-labels(class="{{#if allowsLabels}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsLabels}}is-checked{{/if}}")
         span
-          i.fa.fa-tags
+          | 🏷️
           | {{_ 'labels'}}
     div.check-div
       a.flex.js-field-has-card-show-lists-on-minicard(class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
         span
-          i.fa.fa-list
+          | 📋
           | {{_ 'card-show-lists-on-minicard'}}
     div.check-div
       a.flex.js-field-has-card-number(class="{{#if allowsCardNumber}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCardNumber}}is-checked{{/if}}")
         span
-          i.fa.fa-hashtag
+          | #️⃣
           | {{_ 'card'}}
           | {{_ 'number'}}
     div.check-div
       a.flex.js-field-has-description-title(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
         span
-          i.fa.fa-align-left
+          | 📝
           | {{_ 'description'}}
           | {{_ 'title'}}
     div.check-div
       a.flex.js-field-has-description-text(class="{{#if allowsDescriptionText}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsDescriptionText}}is-checked{{/if}}")
         span
-          i.fa.fa-align-left
+          | 📝
           | {{_ 'description'}}
           | {{_ 'custom-field-text'}}
     div.check-div
       a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
         span
-          i.fa.fa-align-left
+          | 📝
           | {{_ 'description-on-minicard'}}
     div.check-div
       a.flex.js-field-has-checklists(class="{{#if allowsChecklists}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsChecklists}}is-checked{{/if}}")
         span
-          i.fa.fa-check
+          | ✅
           | {{_ 'checklists'}}
     div.check-div
       a.flex.js-field-has-subtasks(class="{{#if allowsSubtasks}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsSubtasks}}is-checked{{/if}}")
         span
-          i.fa.fa-sitemap
+          | 🌐
           | {{_ 'subtasks'}}
     div.check-div
       a.flex.js-field-has-attachments(class="{{#if allowsAttachments}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsAttachments}}is-checked{{/if}}")
         span
-          i.fa.fa-paperclip
+          | 📎
           | {{_ 'attachments'}}
     div.check-div
       a.flex.js-field-has-badge-attachment-on-minicard(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
         span
-          i.fa.fa-paperclip
+          | 📎
           | {{_ 'badge-attachment-on-minicard'}}
     div.check-div
       a.flex.js-field-has-cover-attachment-on-minicard(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
         span
-          i.fa.fa-book
-          i.fa.fa-picture-o
+          | 📖
+          | 🖼️
           | {{_ 'cover-attachment-on-minicard'}}
     //div.check-div
     //  a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")

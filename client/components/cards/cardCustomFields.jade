@@ -6,10 +6,10 @@ template(name="cardCustomFieldsPopup")
                     span.full-name
                       = name
                     if hasCustomField
-                      i.fa.fa-check
+                      | ✅
     hr
     a.quiet-button.full.js-settings
-        i.fa.fa-cog
+        | ⚙️
         span {{_ 'settings'}}
 
 template(name="cardCustomField")
@@ -22,7 +22,7 @@ template(name="cardCustomField-text")
                 = value
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.fa.fa-times-thin.js-close-inlined-form
+                a.js-close-inlined-form
         else
             a.js-open-inlined-form
                 if value
@@ -41,7 +41,7 @@ template(name="cardCustomField-number")
             input(type="number" value=data.value)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.fa.fa-times-thin.js-close-inlined-form
+                a.js-close-inlined-form
         else
             a.js-open-inlined-form
                 if value
@@ -66,7 +66,7 @@ template(name="cardCustomField-currency")
             input(type="text" value=data.value autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.fa.fa-times-thin.js-close-inlined-form
+                a.js-close-inlined-form
         else
             a.js-open-inlined-form
                 if value
@@ -113,7 +113,7 @@ template(name="cardCustomField-dropdown")
                             = name
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.fa.fa-times-thin.js-close-inlined-form
+                a.js-close-inlined-form
         else
             a.js-open-inlined-form
                 if value
@@ -134,7 +134,7 @@ template(name="cardCustomField-stringtemplate")
             input.js-card-customfield-stringtemplate-item.last(type="text" value="" placeholder="{{_ 'custom-field-stringtemplate-item-placeholder'}}" autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.fa.fa-times-thin.js-close-inlined-form
+                a.js-close-inlined-form
         else
             a.js-open-inlined-form
                 if value

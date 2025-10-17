@@ -5,19 +5,19 @@
 
 template(name="filterSidebar")
   h3
-    i.fa.fa-trello
+    | 📋
     | {{_ 'list-filter-label'}}
   ul.sidebar-list
     form.js-list-filter
       input(type="text")
   hr
   h3
-    i.fa.fa-list-alt
+    | 📋
     | {{_ 'filter-card-title-label'}}
   input.js-field-card-filter(type="text")
   hr
   h3
-    i.fa.fa-tags
+    | 🏷️
     | {{_ 'filter-labels-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
@@ -25,7 +25,7 @@ template(name="filterSidebar")
             span.sidebar-list-item-description
               | {{_ 'filter-no-label'}}
             if Filter.labelIds.isSelected undefined
-              i.fa.fa-check
+              | ✅
     each currentBoard.labels
       li
         a.name.js-toggle-label-filter
@@ -39,7 +39,7 @@ template(name="filterSidebar")
             i.fa.fa-check
   hr
   h3
-    i.fa.fa-users
+    | 👥
     | {{_ 'filter-member-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
@@ -47,7 +47,7 @@ template(name="filterSidebar")
             span.sidebar-list-item-description
               | {{_ 'filter-no-member'}}
             if Filter.members.isSelected undefined
-              i.fa.fa-check
+              | ✅
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
@@ -57,10 +57,10 @@ template(name="filterSidebar")
               = profile.fullname
               | (<span class="username">{{ username }}</span>)
             if Filter.members.isSelected _id
-              i.fa.fa-check
+              | ✅
   hr
   h3
-    i.fa.fa-user
+    | 👤
     | {{_ 'filter-assignee-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.assignees.isSelected undefined}}active{{/if}}")
@@ -78,11 +78,11 @@ template(name="filterSidebar")
               = profile.fullname
               | (<span class="username">{{ username }}</span>)
             if Filter.assignees.isSelected _id
-              i.fa.fa-check
+              | ✅
 
   hr
   h3
-    i.fa.fa-list-alt
+    | 📅
     | {{_ 'filter-dates-label' }}
   ul.sidebar-list
     li(class="{{#if Filter.dueAt.isSelected 'noDate'}}active{{/if}}")
@@ -123,7 +123,7 @@ template(name="filterSidebar")
           i.fa.fa-check
   hr
   h3
-    i.fa.fa-list-alt
+    | 📋
     | {{_ 'filter-custom-fields-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")
@@ -131,7 +131,7 @@ template(name="filterSidebar")
             span.sidebar-list-item-description
               | {{_ 'filter-no-custom-fields'}}
             if Filter.customFields.isSelected undefined
-              i.fa.fa-check
+              | ✅
     each currentBoard.customFields
       li(class="{{#if Filter.customFields.isSelected _id}}active{{/if}}")
         a.name.js-toggle-custom-fields-filter
@@ -163,15 +163,15 @@ template(name="filterSidebar")
   if Filter.isActive
     hr
     a.sidebar-btn.js-clear-all
-      i.fa.fa-filter
+      | 🔍
       span {{_ 'filter-clear'}}
     a.sidebar-btn.js-filter-to-selection
-      i.fa.fa-check-square-o
+      | ☑️
       span {{_ 'filter-to-selection'}}
 
 template(name="multiselectionSidebar")
   h3
-    i.fa.fa-tags
+    | 🏷️
     | {{_ 'multi-selection-label'}}
   ul.sidebar-list
     each currentBoard.labels
@@ -184,12 +184,12 @@ template(name="multiselectionSidebar")
             else
               span.quiet {{_ "label-default" (_ (concat "color-" color))}}
           if allSelectedElementHave 'label' _id
-            i.fa.fa-check
+            | ✅
           else if someSelectedElementHave 'label' _id
-            i.fa.fa-ellipsis-h
+            | ⋯
   hr
   h3
-    i.fa.fa-users
+    | 👥
     | {{_ 'multi-selection-member'}}
   ul.sidebar-list
     each currentBoard.activeMembers
@@ -201,16 +201,16 @@ template(name="multiselectionSidebar")
               = profile.fullname
               | (<span class="username">{{ username }}</span>)
             if allSelectedElementHave 'member' _id
-              i.fa.fa-check
+              | ✅
             else if someSelectedElementHave 'member' _id
-              i.fa.fa-ellipsis-h
+              | ⋯
   if currentUser.isBoardAdmin
     hr
     a.sidebar-btn.js-move-selection
-      i.fa.fa-share
+      | 📤
       span {{_ 'move-selection'}}
     a.sidebar-btn.js-archive-selection
-      i.fa.fa-archive
+      | 📦
       span {{_ 'archive-selection'}}
 
 template(name="disambiguateMultiLabelPopup")

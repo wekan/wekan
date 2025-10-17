@@ -39,9 +39,11 @@ template(name="swimlaneFixedHeader")
       //    i.fa.fa-arrow-down.swimlane-header-collapse-down
       unless isTouchScreen
         if isShowDesktopDragHandles
-          a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
+          a.swimlane-header-handle.handle.js-swimlane-header-handle
+            | ↕️
       if isTouchScreen
-        a.swimlane-header-miniscreen-handle.handle.fa.fa-arrows.js-swimlane-header-handle
+        a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
+          | ↕️
 
 template(name="editSwimlaneTitleForm")
   .list-composer

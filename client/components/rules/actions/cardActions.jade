@@ -16,7 +16,7 @@ template(name="cardActions")
       div.trigger-text
         | {{_'r-to-current-datetime'}}
     div.trigger-button.js-set-date-action.js-goto-rules
-      i.fa.fa-plus
+      | ➕
 
   div.trigger-item
     div.trigger-content
@@ -30,7 +30,7 @@ template(name="cardActions")
           option(value="endAt") {{_'r-df-end-at'}}
           option(value="receivedAt") {{_'r-df-received-at'}}
     div.trigger-button.js-remove-datevalue-action.js-goto-rules
-      i.fa.fa-plus
+      | ➕
 
   div.trigger-item
     div.trigger-content
@@ -46,7 +46,7 @@ template(name="cardActions")
             option(value="#{_id}")
               = name
     div.trigger-button.js-add-label-action.js-goto-rules
-      i.fa.fa-plus
+      | ➕
 
   div.trigger-item
     div.trigger-content
@@ -59,14 +59,14 @@ template(name="cardActions")
       div.trigger-dropdown
         input(id="member-name",type=text,placeholder="{{_'r-name'}}")
     div.trigger-button.js-add-member-action.js-goto-rules
-      i.fa.fa-plus
+      | ➕
 
   div.trigger-item
     div.trigger-content
       div.trigger-text
         | {{_'r-remove-all'}}
     div.trigger-button.js-add-removeall-action.js-goto-rules
-      i.fa.fa-plus
+      | ➕
 
   div.trigger-item
     div.trigger-content
@@ -77,12 +77,12 @@ template(name="cardActions")
           class="card-details-{{cardColorButton}}")
           | {{_ cardColorButtonText }}
     div.trigger-button.js-set-color-action.js-goto-rules
-      i.fa.fa-plus
+      | ➕
 
 template(name="setCardActionsColorPopup")
   form.edit-label
     .palette-colors: each colors
       span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
         if(isSelected color)
-          i.fa.fa-check
+          | ✅
     button.primary.confirm.js-submit {{_ 'save'}}

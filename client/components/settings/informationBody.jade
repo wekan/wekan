@@ -5,14 +5,14 @@ template(name='information')
     else
       .content-title
         span
-          i.fa.fa-info-circle
+          | ℹ️
           | {{_ 'info'}}
       .content-body
         .side-menu
           ul
             li.active
               a.js-setting-menu(data-id="information-display")
-                i.fa.fa-info-circle
+                | ℹ️
                 | {{_ 'info'}}
         .main-body
           +statistics

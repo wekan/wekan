@@ -9,12 +9,12 @@ template(name="translation")
             +spinner
           else if translationSetting.get
             span
-              i.fa.fa-font
+              | 🔤
               unless isMiniScreen
                 | {{_ 'translation'}}
             input#searchTranslationInput(placeholder="{{_ 'search'}}")
             button#searchTranslationButton
-              i.fa.fa-search
+              | 🔍
               | {{_ 'search'}}
             .ext-box-right
               span {{#unless isMiniScreen}}{{_ 'translation-number'}}{{/unless}} #{translationNumber}
@@ -24,7 +24,7 @@ template(name="translation")
           ul
             li.active
               a.js-translation-menu(data-id="translation-setting")
-                i.fa.fa-font
+                | 🔤
                 | {{_ 'translation'}}
         .main-body
           if loading.get
@@ -47,7 +47,7 @@ template(name="translationGeneral")
 
 template(name="newTranslationRow")
   a.new-translation
-    i.fa.fa-plus-square
+    | ➕
     | {{_ 'new'}}
 
 template(name="translationRow")
@@ -57,10 +57,10 @@ template(name="translationRow")
     td {{translationData.translationText}}
     td
       a.edit-translation
-        i.fa.fa-edit
+        | ✏️
         | {{_ 'edit'}}
       a.more-settings-translation
-        i.fa.fa-ellipsis-h
+        | ⋯
 
 template(name="editTranslationPopup")
   form

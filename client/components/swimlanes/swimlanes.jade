@@ -60,7 +60,8 @@ template(name="addListForm")
                   option(value="{{_id}}" selected=currentBoard.getLastList.title) {{title}}
             .edit-controls.clearfix
               button.primary.confirm(type="submit") {{_ 'save'}}
-              .fa.fa-times-thin.js-close-inlined-form
+              .js-close-inlined-form
+                | ❌
               unless currentBoard.isTemplatesBoard
                 unless currentBoard.isTemplateBoard
                   span.quiet

@@ -164,6 +164,23 @@ Template.boardHeaderBar.helpers({
   isSortActive() {
     return Session.get('sortBy') ? true : false;
   },
+  sortCardsIcon() {
+    const sortBy = Session.get('sortBy');
+    if (!sortBy) {
+      return '🃏'; // Card icon when nothing is selected
+    }
+    
+    // Determine which sort option is active based on sortBy object
+    if (sortBy.dueAt) {
+      return '📅'; // Due date icon
+    } else if (sortBy.title) {
+      return '🔤'; // Alphabet icon
+    } else if (sortBy.createdAt) {
+      return sortBy.createdAt === 1 ? '⬆️' : '⬇️'; // Up/down arrow based on direction
+    }
+    
+    return '🃏'; // Default card icon
+  },
 });
 
 Template.boardChangeViewPopup.events({

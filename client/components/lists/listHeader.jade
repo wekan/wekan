@@ -7,7 +7,8 @@ template(name="listHeader")
     else
       if isMiniScreen
         if currentList
-          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
+          a.list-header-left-icon.js-unselect-list
+            | ◀️
       else
         if collapsed
           if showCardsCountForList cards.length
@@ -78,62 +79,63 @@ template(name="editListTitleForm")
     input.list-name-input.full-line(type="text" value=title autofocus)
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
-      a.fa.fa-times-thin.js-close-inlined-form
+      a.js-close-inlined-form
+        | ❌
 
 template(name="listActionPopup")
   ul.pop-over-list
     li
       a.js-add-card.list-header-plus-bottom
-        i.fa.fa-plus
-        i.fa.fa-arrow-down
+        | ➕
+        | ⬇️
         | {{_ 'add-card-to-bottom-of-list'}}
   hr
   ul.pop-over-list
     li
       a.js-set-list-width
-        i.fa.fa-arrows-h
+        | ↔️
         |  {{_ 'set-list-width'}}
   ul.pop-over-list
     li
       a.js-toggle-watch-list
         if isWatching
-          i.fa.fa-eye
+          | 👁️
           |  {{_ 'unwatch'}}
         else
-          i.fa.fa-eye-slash
+          | 🙈
           |  {{_ 'watch'}}
   unless currentUser.isCommentOnly
     unless currentUser.isWorker
       ul.pop-over-list
         li
           a.js-set-color-list
-            i.fa.fa-paint-brush
+            | 🎨
             | {{_ 'set-color-list'}}
     ul.pop-over-list
       if cards.length
         li
           a.js-select-cards
-            i.fa.fa-check-square
+            | ☑️
             | {{_ 'list-select-cards'}}
     if currentUser.isBoardAdmin
       ul.pop-over-list
         li
           a.js-set-wip-limit
-            i.fa.fa-ban
+            | 🚫
             | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
     unless currentUser.isWorker
       hr
       ul.pop-over-list
         li
           a.js-close-list
-            i.fa.fa-arrow-right
-            i.fa.fa-archive
+            | ➡️
+            | 📦
             | {{_ 'archive-list'}}
     hr
     ul.pop-over-list
       li
         a.js-more
-          i.fa.fa-link
+          | 🔗
           | {{_ 'listMorePopup-title'}}
 
 template(name="boardLists")
@@ -150,7 +152,7 @@ template(name="listMorePopup")
     span.clearfix
       span {{_ 'link-list'}}
       = ' '
-      i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+      | {{#if board.isPublic}}🌐{{else}}🔒{{/if}}
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
@@ -170,7 +172,7 @@ template(name="setWipLimitPopup")
     ul.pop-over-list
       li: a.js-enable-wip-limit {{_ 'enable-wip-limit'}}
         if isWipLimitEnabled
-          i.fa.fa-check
+          | ✅
     if isWipLimitEnabled
       p
         input.wip-limit-value(type="number" value="{{ wipLimitValue }}" min="1" max="99")
@@ -198,7 +200,7 @@ template(name="setListWidthPopup")
         br
         a.js-auto-width-board(
           title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
-          i.fa(class="fa-solid fa-{{#if isAutoWidth}}compress{{else}}expand{{/if}}")
+          | {{#if isAutoWidth}}🗜️{{else}}📏{{/if}}
           span {{_ 'auto-list-width'}}
 
 template(name="listWidthErrorPopup")
@@ -212,6 +214,6 @@ template(name="setListColorPopup")
       // note: we use the swimlane palette to have more than just the border
       span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
         if(isSelected color)
-          i.fa.fa-check
+          | ✅
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}

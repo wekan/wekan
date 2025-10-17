@@ -4,7 +4,8 @@ template(name="customFieldsSidebar")
             li
                 div.minicard-wrapper.js-minicard
                     div.minicard
-                        a.fa.fa-pencil.js-edit-custom-field.minicard-edit-button
+                        a.js-edit-custom-field.minicard-edit-button
+                          | ✏️
                         div.minicard-title
                           +viewer
                             =name
@@ -13,7 +14,7 @@ template(name="customFieldsSidebar")
     if currentUser.isBoardMember
         hr
         a.sidebar-btn.js-open-create-custom-field
-            i.fa.fa-plus
+            | ➕
             span {{_ 'createCustomField'}}
 
 template(name="createCustomFieldPopup")

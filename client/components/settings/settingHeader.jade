@@ -5,31 +5,31 @@ template(name="settingHeaderBar")
   .setting-header-btns.left
     if currentUser
       a.setting-header-btn.settings(href="{{pathFor 'setting'}}")
-        i.fa(class="fa-cog")
+        | ⚙️
         span {{_ 'settings'}}
 
       a.setting-header-btn.people(href="{{pathFor 'people'}}")
-        i.fa(class="fa-users")
+        | 👥
         span {{_ 'people'}}
 
       a.setting-header-btn.informations(href="{{pathFor 'admin-reports'}}")
-        i.fa(class="fa-list")
+        | 📋
         span {{_ 'reports'}}
 
       a.setting-header-btn.informations(href="{{pathFor 'attachments'}}")
-        i.fa(class="fa-paperclip")
+        | 📎
         span {{_ 'attachments'}}
 
       a.setting-header-btn.informations(href="{{pathFor 'translation'}}")
-        i.fa(class="fa-font")
+        | 🔤
         span {{_ 'translation'}}
 
       a.setting-header-btn.informations(href="{{pathFor 'information'}}")
-        i.fa(class="fa-info-circle")
+        | ℹ️
         span {{_ 'info'}}
 
     else
       a.setting-header-btn.js-log-in(
         title="{{_ 'log-in'}}")
-        i.fa.fa-sign-in
+        | 🚪
         span {{_ 'log-in'}}

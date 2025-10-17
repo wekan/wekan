@@ -6,7 +6,7 @@ template(name="formLabel")
   .palette-colors: each labels
     span.card-label.palette-color.js-palette-color(class="card-label-{{color}}")
       if(isSelected color)
-        i.fa.fa-check
+        | ✅
 
 template(name="createLabelPopup")
   form.create-label
@@ -28,7 +28,8 @@ template(name="cardLabelsPopup")
   ul.edit-labels-pop-over
     each board.labels
       li.js-card-label-item
-        a.card-label-edit-button.fa.fa-pencil.js-edit-label
+        a.card-label-edit-button.js-edit-label
+          | ✏️
         if isTouchScreenOrShowDesktopDragHandles
           span.fa.label-handle(class="fa-arrows" title="{{_ 'dragLabel'}}")
         span.card-label.card-label-selectable.js-select-label.card-label-wrapper(class="card-label-{{color}}"
@@ -36,5 +37,5 @@ template(name="cardLabelsPopup")
             +viewer
               = name
             if(isLabelSelected ../_id)
-              i.card-label-selectable-icon.fa.fa-check
+              | ✅
   a.quiet-button.full.js-add-label {{_ 'label-create'}}

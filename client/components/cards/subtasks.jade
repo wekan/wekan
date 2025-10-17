@@ -1,6 +1,6 @@
 template(name="subtasks")
   h3.card-details-item-title
-    i.fa.fa-sitemap
+    | 🌐
     | {{_ 'subtasks'}}
   if currentUser.isBoardAdmin
     if toggleDeleteDialog.get
@@ -16,7 +16,7 @@ template(name="subtasks")
       +addSubtaskItemForm
     else
       a.js-open-inlined-form(title="{{_ 'add-subtask'}}")
-        i.fa.fa-plus
+        | ➕
 
 template(name="subtaskDetail")
   .js-subtasks.subtask
@@ -26,7 +26,7 @@ template(name="subtaskDetail")
       .subtask-title
         span
         if canModifyCard
-          a.fa.fa-navicon.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
+          a.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
             +viewer
@@ -40,7 +40,7 @@ template(name="addSubtaskItemForm")
   textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-subtask-item-form(type="submit") {{_ 'save'}}
-    a.fa.fa-times-thin.js-close-inlined-form
+    a.js-close-inlined-form
 
 template(name="editSubtaskItemForm")
   textarea.js-edit-subtask-item(rows='1' autofocus dir="auto")
@@ -50,7 +50,7 @@ template(name="editSubtaskItemForm")
       = subtask.title
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-subtask-item-form(type="submit") {{_ 'save'}}
-    a.fa.fa-times-thin.js-close-inlined-form
+    a.js-close-inlined-form
     span(title=createdAt) {{ moment createdAt }}
     if canModifyCard
       if currentUser.isBoardAdmin
@@ -68,7 +68,7 @@ template(name="subtasksItems")
         +addSubtaskItemForm
       else
         a.add-subtask-item.js-open-inlined-form
-          i.fa.fa-plus
+          | ➕
           | {{_ 'add-subtask-item'}}...
 
 template(name='subtaskItemDetail')
@@ -92,10 +92,10 @@ template(name="subtaskActionsPopup")
   ul.pop-over-list
     li
       a.js-view-subtask(title="{{ subtask.title }}")
-        i.fa.fa-eye
+        | 👁️
         | {{_ "view-it"}}
       if currentUser.isBoardAdmin
         a.js-delete-subtask.delete-subtask
-          i.fa.fa-trash
+          | 🗑️
           | {{_ "delete"}} ...
 

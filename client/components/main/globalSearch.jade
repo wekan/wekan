@@ -1,20 +1,21 @@
 template(name="globalSearchHeaderBar")
   if currentUser
     h1
-      i.fa.fa-search
+      | 🔍
       | {{_ 'globalSearch-title'}}
 
 template(name="globalSearchModalTitle")
   if currentUser
     h2
-      i.fa.fa-keyboard-o
+      | ⌨️
       | {{_ 'globalSearch-title'}}
 
 template(name="resultsPaged")
   if resultsHeading.get
     h1
       = resultsHeading.get
-      a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
+      a(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
+        | 🔗
   each card in results.get
     +resultCard(card)
   table.global-search-footer
@@ -41,7 +42,8 @@ template(name="globalSearch")
           value="{{ query.get }}"
           autofocus dir="auto"
         )
-        a.js-new-search.fa.fa-eraser
+        a.js-new-search
+          | 🧹
       if debug.get.show
         h1 Debug
         if debug.get.showSelector

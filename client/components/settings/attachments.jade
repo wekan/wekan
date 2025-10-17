@@ -8,7 +8,7 @@ template(name="attachments")
           ul
             li
               a.js-move-attachments(data-id="move-attachments")
-                i.fa.fa-arrow-right
+                | ➡️
                 | {{_ 'attachment-move'}}
 
         .main-body
@@ -80,17 +80,17 @@ template(name="moveAttachment")
       td
         if $neq version.storageName "fs"
           button.js-move-storage-fs
-            i.fa.fa-arrow-right
+            | ➡️
             | {{_ 'attachment-move-storage-fs'}}
 
         if $neq version.storageName "gridfs"
           if version.storageName
             button.js-move-storage-gridfs
-              i.fa.fa-arrow-right
+              | ➡️
               | {{_ 'attachment-move-storage-gridfs'}}
 
         if $neq version.storageName "s3"
           if version.storageName
             button.js-move-storage-s3
-              i.fa.fa-arrow-right
+              | ➡️
               | {{_ 'attachment-move-storage-s3'}}
