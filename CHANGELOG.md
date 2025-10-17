@@ -37,6 +37,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Resize height of swimlane by dragging. Font Awesome to Unicode icons](https://github.com/wekan/wekan/commit/09631d6b0c1b8e3bbc3bf45d4bb65449b46f1288).
   Thanks to xet7.
+- [Removed not needed visible text from mobile desktop switch button](https://github.com/wekan/wekan/commit/62ede481966107405460f6d5b90f292c98bae254).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
