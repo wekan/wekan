@@ -80,8 +80,8 @@ template(name="header")
 
       .mobile-mode-toggle
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
-          | 📱(class="{{#if mobileMode}}active{{/if}}")
-          | 🖥️(class="{{#unless mobileMode}}active{{/unless}}")
+          i.mobile-icon(class="{{#if mobileMode}}active{{/if}}") 📱
+          i.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}") 🖥️
 
       // Bookmarks button - desktop opens popup, mobile routes to page
       a.board-header-btn.js-open-bookmarks(title="{{_ 'bookmarks'}}")
