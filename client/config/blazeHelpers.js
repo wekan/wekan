@@ -65,8 +65,8 @@ Blaze.registerHelper('isTouchScreenOrShowDesktopDragHandles', () =>
 
 Blaze.registerHelper('moment', (...args) => {
   args.pop(); // hash
-  const [date, format] = args;
-  return format(new Date(date), format ?? 'LLLL');
+  const [date, formatStr] = args;
+  return format(new Date(date), formatStr ?? 'LLLL');
 });
 
 Blaze.registerHelper('canModifyCard', () =>

@@ -8,6 +8,7 @@
   flex-direction: row;
   overflow: auto;
   max-height: 100%;
+  position: relative;
 }
 .swimlane-header-menu .swimlane-header-collapse-down {
   font-size: 50%;
@@ -233,4 +234,107 @@
 .swimlane-indigo {
   background: #4b0082 !important;
   color: #fff !important;
+}
+
+/* Swimlane resize handle */
+.swimlane-resize-handle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: transparent;
+  cursor: row-resize;
+  z-index: 20;
+  border-top: 2px solid transparent;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+  /* Ensure the handle is clickable */
+  pointer-events: auto;
+}
+
+/* Show resize handle only on hover */
+.swimlane:hover .swimlane-resize-handle {
+  background: rgba(0, 0, 0, 0.1);
+  border-top-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle resize indicator line at the bottom of swimlane on hover */
+.swimlane:hover .swimlane-resize-handle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(0, 123, 255, 0.3);
+  z-index: 21;
+  transition: all 0.2s ease;
+  border-radius: 1px;
+}
+
+/* Make the indicator line more prominent when hovering over the resize handle */
+.swimlane-resize-handle:hover::after {
+  background: rgba(0, 123, 255, 0.6) !important;
+  height: 3px !important;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+.swimlane-resize-handle:hover {
+  background: rgba(0, 123, 255, 0.4) !important;
+  border-top-color: #0079bf !important;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.swimlane-resize-handle:active {
+  background: rgba(0, 123, 255, 0.6) !important;
+  border-top-color: #0079bf !important;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+}
+
+/* Add a subtle indicator line */
+.swimlane-resize-handle::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 2px;
+  background: rgba(0, 123, 255, 0.6);
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.swimlane-resize-handle:hover::before {
+  opacity: 1;
+}
+
+/* Visual feedback during resize */
+.swimlane.swimlane-resizing {
+  transition: none !important;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  /* Ensure the swimlane maintains its new height during resize */
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  /* Override any conflicting layout properties */
+  display: flex !important;
+  position: relative !important;
+  /* Force height to be respected */
+  height: var(--swimlane-height, auto) !important;
+  min-height: var(--swimlane-height, auto) !important;
+  max-height: var(--swimlane-height, auto) !important;
+  /* Ensure the height is applied immediately */
+  overflow: visible !important;
+}
+
+body.swimlane-resizing-active {
+  cursor: row-resize !important;
+}
+
+body.swimlane-resizing-active * {
+  cursor: row-resize !important;
 }

@@ -21,6 +21,8 @@
   background: transparent;
   transition: background-color 0.2s ease;
   border-radius: 2px;
+  /* Ensure the handle is clickable */
+  pointer-events: auto;
 }
 
 .list-resize-handle:hover {
@@ -90,6 +92,8 @@
   width: var(--list-width, auto) !important;
   min-width: var(--list-width, auto) !important;
   max-width: var(--list-width, auto) !important;
+  /* Ensure the width is applied immediately */
+  overflow: visible !important;
 }
 
 body.list-resizing-active {
@@ -250,7 +254,70 @@ body.list-resizing-active * {
 }
 .list.list-collapsed {
   flex: none;
+  min-width: 60px;
+  max-width: 80px;
+  width: 60px;
+  min-height: 60vh;
+  height: 60vh;
+  overflow: visible;
+  position: relative;
 }
+.list.list-collapsed .list-header {
+  padding: 1vh 1.5vw 0.5vh;
+  min-height: 2.5vh !important;
+  height: auto !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: visible !important;
+  width: 100%;
+  max-width: 60px;
+  margin: 0 auto;
+}
+.list.list-collapsed .list-header .js-collapse {
+  margin: 0 auto 20px auto;
+  z-index: 10;
+  padding: 8px 12px;
+  font-size: 12px;
+  white-space: nowrap;
+  display: block;
+  width: fit-content;
+}
+.list.list-collapsed .list-header .list-rotated {
+  width: auto !important;
+  height: auto !important;
+  margin: 20px 0 0 0 !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.list.list-collapsed .list-header .list-rotated h2.list-header-name {
+  text-align: left;
+  overflow: visible;
+  white-space: nowrap;
+  display: block !important;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ddd;
+  padding: 8px 4px;
+  border-radius: 4px;
+  margin: 0 auto;
+  width: 25vh;
+  height: 60vh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
+  z-index: 10;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
 .list.list-composer .open-list-composer,
 .list .list-composer .open-list-composer {
   color: #8c8c8c;
@@ -334,11 +401,152 @@ body.list-resizing-active * {
   color: #a6a6a6;
   margin-right: 15px;
 }
-.list-header .list-header-uncollapse-left {
+.list-header .js-collapse {
   color: #a6a6a6;
+  margin-right: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  font-size: 14px;
 }
-.list-header .list-header-uncollapse-right {
-  color: #a6a6a6;
+.list-header .js-collapse:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+.list.list-collapsed .list-header .js-collapse {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Responsive adjustments for collapsed lists */
+@media (min-width: 768px) {
+  .list.list-collapsed {
+    min-width: 60px;
+    max-width: 80px;
+    width: 60px;
+    min-height: 60vh;
+    height: 60vh;
+  }
+  .list.list-collapsed .list-header {
+    max-width: 60px;
+    margin: 0 auto;
+    min-height: 2.5vh !important;
+    height: auto !important;
+  }
+  .list.list-collapsed .list-header .list-rotated {
+    width: auto !important;
+    height: auto !important;
+    margin: 20px 0 0 0 !important;
+    position: relative !important;
+  }
+  .list.list-collapsed .list-header .list-rotated h2.list-header-name {
+    width: 15vh;
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.2;
+    padding: 8px 4px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
+    text-align: left;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    color: #333;
+    z-index: 10;
+  }
+  .list.list-collapsed .list-header .js-collapse {
+    margin: 0 auto 20px auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .list.list-collapsed {
+    min-height: 60vh;
+    height: 60vh;
+  }
+  .list.list-collapsed .list-header {
+    min-height: 2.5vh !important;
+    height: auto !important;
+  }
+  .list.list-collapsed .list-header .list-rotated {
+    width: auto !important;
+    height: auto !important;
+    margin: 20px 0 0 0 !important;
+    position: relative !important;
+  }
+  .list.list-collapsed .list-header .list-rotated h2.list-header-name {
+    width: 15vh;
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.2;
+    padding: 8px 4px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
+    text-align: left;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    color: #333;
+    z-index: 10;
+  }
+  .list.list-collapsed .list-header .js-collapse {
+    margin: 0 auto 20px auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .list.list-collapsed {
+    min-height: 60vh;
+    height: 60vh;
+  }
+  .list.list-collapsed .list-header {
+    min-height: 2.5vh !important;
+    height: auto !important;
+  }
+  .list.list-collapsed .list-header .list-rotated {
+    width: auto !important;
+    height: auto !important;
+    margin: 20px 0 0 0 !important;
+    position: relative !important;
+  }
+  .list.list-collapsed .list-header .list-rotated h2.list-header-name {
+    width: 15vh;
+    font-size: 12px;
+    height: 30px;
+    line-height: 1.2;
+    padding: 8px 4px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
+    text-align: left;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    color: #333;
+    z-index: 10;
+  }
+  .list.list-collapsed .list-header .js-collapse {
+    margin: 0 auto 20px auto;
+  }
 }
 .list-header .list-header-collapse {
   color: #a6a6a6;

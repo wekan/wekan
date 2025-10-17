@@ -247,10 +247,21 @@ BlazeComponent.extendComponent({
             Utils.isTouchScreenOrShowDesktopDragHandles()
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
-          );
+          ).concat([
+            '.js-list-resize-handle',
+            '.js-swimlane-resize-handle'
+          ]);
 
+          const isResizeHandle = $(evt.target).closest('.js-list-resize-handle, .js-swimlane-resize-handle').length > 0;
+          const isInNoDragArea = $(evt.target).closest(noDragInside.join(',')).length > 0;
+          
+          if (isResizeHandle) {
+            console.log('Board drag prevented - resize handle clicked');
+            return;
+          }
+          
           if (
-            $(evt.target).closest(noDragInside.join(',')).length === 0 &&
+            !isInNoDragArea &&
             this.$('.swimlane').prop('clientHeight') > evt.offsetY
           ) {
             this._isDragging = true;
@@ -283,8 +294,149 @@ BlazeComponent.extendComponent({
   swimlaneHeight() {
     const user = ReactiveCache.getCurrentUser();
     const swimlane = Template.currentData();
-    const height = user.getSwimlaneHeight(swimlane.boardId, swimlane._id);
+    const height = user.getSwimlaneHeightFromStorage(swimlane.boardId, swimlane._id);
     return height == -1 ? "auto" : (height + 5 + "px");
+  },
+
+  onRendered() {
+    // Initialize swimlane resize functionality immediately
+    this.initializeSwimlaneResize();
+  },
+
+  initializeSwimlaneResize() {
+    // Check if we're still in a valid template context
+    if (!Template.currentData()) {
+      console.warn('No current template data available for swimlane resize initialization');
+      return;
+    }
+    
+    const swimlane = Template.currentData();
+    const $swimlane = $(`#swimlane-${swimlane._id}`);
+    const $resizeHandle = $swimlane.find('.js-swimlane-resize-handle');
+    
+    // Check if elements exist
+    if (!$swimlane.length || !$resizeHandle.length) {
+      console.warn('Swimlane or resize handle not found, retrying in 100ms');
+      Meteor.setTimeout(() => {
+        if (!this.isDestroyed) {
+          this.initializeSwimlaneResize();
+        }
+      }, 100);
+      return;
+    }
+    
+    
+    if ($resizeHandle.length === 0) {
+      return;
+    }
+
+    let isResizing = false;
+    let startY = 0;
+    let startHeight = 0;
+    const minHeight = 100;
+    const maxHeight = 2000;
+
+    const startResize = (e) => {
+      isResizing = true;
+      startY = e.pageY || e.originalEvent.touches[0].pageY;
+      startHeight = parseInt($swimlane.css('height')) || 300;
+      
+      
+      $swimlane.addClass('swimlane-resizing');
+      $('body').addClass('swimlane-resizing-active');
+      $('body').css('user-select', 'none');
+      
+      
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const doResize = (e) => {
+      if (!isResizing) {
+        return;
+      }
+      
+      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+      const deltaY = currentY - startY;
+      const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
+      
+      
+      // Apply the new height immediately for real-time feedback
+      $swimlane[0].style.setProperty('--swimlane-height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('min-height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('max-height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('flex', 'none');
+      $swimlane[0].style.setProperty('flex-basis', 'auto');
+      $swimlane[0].style.setProperty('flex-grow', '0');
+      $swimlane[0].style.setProperty('flex-shrink', '0');
+      
+      
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const stopResize = (e) => {
+      if (!isResizing) return;
+      
+      isResizing = false;
+      
+      // Calculate final height
+      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+      const deltaY = currentY - startY;
+      const finalHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
+      
+      // Ensure the final height is applied
+      $swimlane[0].style.setProperty('--swimlane-height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('min-height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('max-height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('flex', 'none');
+      $swimlane[0].style.setProperty('flex-basis', 'auto');
+      $swimlane[0].style.setProperty('flex-grow', '0');
+      $swimlane[0].style.setProperty('flex-shrink', '0');
+      
+      // Remove visual feedback but keep the height
+      $swimlane.removeClass('swimlane-resizing');
+      $('body').removeClass('swimlane-resizing-active');
+      $('body').css('user-select', '');
+      
+      // Save the new height using the existing system
+      const boardId = swimlane.boardId;
+      const swimlaneId = swimlane._id;
+      
+      if (process.env.DEBUG === 'true') {
+      }
+      
+      // Use the new storage method that handles both logged-in and non-logged-in users
+      Meteor.call('applySwimlaneHeightToStorage', boardId, swimlaneId, finalHeight, (error, result) => {
+        if (error) {
+          console.error('Error saving swimlane height:', error);
+        } else {
+          if (process.env.DEBUG === 'true') {
+          }
+        }
+      });
+      
+      e.preventDefault();
+    };
+
+    // Mouse events
+    $resizeHandle.on('mousedown', startResize);
+    $(document).on('mousemove', doResize);
+    $(document).on('mouseup', stopResize);
+    
+    // Touch events for mobile
+    $resizeHandle.on('touchstart', startResize, { passive: false });
+    $(document).on('touchmove', doResize, { passive: false });
+    $(document).on('touchend', stopResize, { passive: false });
+    
+    
+    // Prevent dragscroll interference
+    $resizeHandle.on('mousedown', (e) => {
+      e.stopPropagation();
+    });
+    
   },
 }).register('swimlane');
 

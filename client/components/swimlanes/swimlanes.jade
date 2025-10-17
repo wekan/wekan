@@ -4,6 +4,7 @@ template(name="swimlane")
   unless collapseSwimlane
     .swimlane.js-lists.js-swimlane.dragscroll(id="swimlane-{{_id}}"
                                    style="height:{{swimlaneHeight}};")
+      .swimlane-resize-handle.js-swimlane-resize-handle.nodragscroll
       if isMiniScreen
         if currentListIsInThisSwimlane _id
           +list(currentList)
@@ -67,7 +68,7 @@ template(name="addListForm")
                     a.js-list-template {{_ 'template'}}
           else
             a.open-list-composer.js-open-inlined-form(title="{{_ 'add-list'}}")
-              i.fa.fa-plus
+              | ➕
 
 template(name="moveSwimlanePopup")
   unless currentUser.isWorker

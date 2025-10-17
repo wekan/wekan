@@ -24,10 +24,10 @@ template(name="swimlaneFixedHeader")
           | {{isTitleDefault title}}
   .swimlane-header-menu
     unless currentUser.isCommentOnly
-      a.js-open-add-swimlane-menu.swimlane-header-plus-icon
-        | ➕(title="{{_ 'add-swimlane'}}")
-      a.js-open-swimlane-menu
-        | ☰(title="{{_ 'swimlaneActionPopup-title'}}")
+      a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
+        | ➕
+      a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+        | ☰
       //// TODO: Collapse Swimlane: make button working, etc.
       //unless collapsed
       //  a.js-collapse-swimlane(title="{{_ 'collapse'}}")
@@ -99,7 +99,7 @@ template(name="setSwimlaneColorPopup")
         each colors
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
-              i.fa.fa-check
+              | ✅
     // Buttons aligned left too
     .flush-left
       button.primary.confirm.js-submit(style="margin-left:0") {{_ 'save'}}

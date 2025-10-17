@@ -7,14 +7,14 @@ template(name="sidebar")
     .sidebar-actions
       .sidebar-shortcuts
         a.sidebar-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
-          i.fa.fa-keyboard-o
+          | ⌨️
           span {{_ 'keyboard-shortcuts' }}
         a.sidebar-btn.js-keyboard-shortcuts-toggle(
           title="{{#if isKeyboardShortcuts}}{{_ 'keyboard-shortcuts-enabled'}}{{else}}{{_ 'keyboard-shortcuts-disabled'}}{{/if}}")
-          i.fa(class="fa-solid fa-{{#if isKeyboardShortcuts}}check-square-o{{else}}ban{{/if}}")
+          | {{#if isKeyboardShortcuts}}✅{{else}}🚫{{/if}}
       if isAccessibilityEnabled
         a.sidebar-accessibility
-          i.fa.fa-universal-access
+          | ♿
           span {{_ 'accessibility'}}
       a.sidebar-xmark.js-close-sidebar &#10005;
     .sidebar-content.js-board-sidebar-content
@@ -22,7 +22,7 @@ template(name="sidebar")
       //  i.fa.fa-navicon
       unless isDefaultView
         h2
-          a.fa.fa-chevron-left.js-back-home
+          a.js-back-home | ⬅️
           = getViewTitle
       if isOpen
         +Template.dynamic(template=getViewTemplate)
@@ -51,7 +51,7 @@ template(name='homeSidebar')
   hr
   unless currentUser.isNoComments
     h3.activity-title
-      i.fa.fa-comments-o
+      | 💬
       | {{_ 'activities'}}
 
       .material-toggle-switch(title="{{_ 'show-activities'}}")
@@ -67,11 +67,11 @@ template(name="membersWidget")
     unless currentUser.isWorker
       h3
         a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
-          i.board-header-btn-icon.fa.fa-cog
+          | ⚙️
           | {{_ 'boardMenuPopup-title'}}
   hr
   h3
-    i.fa.fa-users
+    | 👥
     | {{_ 'members'}}
   +basicTabs(tabs=tabs)
       +tabContent(slug="people")
@@ -83,15 +83,15 @@ template(name="membersWidget")
           if isSandstorm
             if currentUser.isBoardMember
               a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
-                i.fa.fa-plus
+                | ➕
           else if currentUser.isBoardAdmin
             a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
-              i.fa.fa-plus
+              | ➕
           .clearfix
           if isInvited
             hr
             p
-              i.fa.fa-exclamation-circle
+              | ⚠️
               | {{_ 'just-invited'}}
             button.js-member-invite-accept.primary {{_ 'accept'}}
             button.js-member-invite-decline {{_ 'decline'}}
@@ -127,7 +127,7 @@ template(name="boardOrgGeneral")
         th
           if currentUser.isBoardAdmin
             a.member.orgOrTeamMember.add-member.js-manage-board-addOrg(title="{{_ 'add-members'}}")
-              i.addTeamFaPlus.fa.fa-plus
+              | ➕
             .divaddfaplusminus
               | {{_ 'add'}}
       each org in currentBoard.activeOrgs
@@ -148,7 +148,7 @@ template(name="boardTeamGeneral")
         th
           if currentUser.isBoardAdmin
             a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
-              i.addTeamFaPlus.fa.fa-plus
+              | ➕
             .divaddfaplusminus
               | {{_ 'add'}}
       each currentBoard.activeTeams
@@ -161,7 +161,7 @@ template(name="boardChangeColorPopup")
         span.background-box(class="board-color-{{this}}")
           span {{this}}
           if isSelected
-            i.fa.fa-check
+            | ✅
 
 template(name="boardChangeBackgroundImagePopup")
   form
@@ -423,7 +423,7 @@ template(name="chooseBoardSource")
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
   button.js-confirm.negate.full(type="submit")
-    i.fa.fa-archive
+    | 📦
     | {{_ 'archive'}}
 
 template(name="outgoingWebhooksPopup")
@@ -459,25 +459,25 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       li
         a.js-open-rules-view(title="{{_ 'rules'}}")
-          i.fa.fa-magic
+          | ✨
           | {{_ 'rules'}}
     if currentUser.isBoardAdmin
       li
         a.js-custom-fields
-          i.fa.fa-list-alt
+          | 📝
           | {{_ 'custom-fields'}}
     li
       a.js-open-archives
-        i.fa.fa-archive
+        | 📦
         | {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li
         a.js-change-board-color
-          i.fa.fa-paint-brush
+          | 🎨
           | {{_ 'board-change-color'}}
       li
         a.js-change-background-image
-          i.fa.fa-picture-o
+          | 🖼️
           | {{_ 'board-change-background-image'}}
     //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     //if currentUser.isBoardAdmin
@@ -492,20 +492,20 @@ template(name="boardMenuPopup")
     if withApi
       li
         a.js-export-board
-          i.fa.fa-share-alt
+          | 📤
           | {{_ 'export-board'}}
     if currentUser.isBoardAdmin
       li
         a.js-outgoing-webhooks
-          i.fa.fa-globe
+          | 🌐
           | {{_ 'outgoing-webhooks'}}
       li
         a.js-card-settings
-          i.fa.fa-id-card-o
+          | 🃏
           | {{_ 'card-settings'}}
       li
         a.js-subtask-settings
-          i.fa.fa-sitemap
+          | 🌐
           | {{_ 'subtask-settings'}}
   unless currentBoard.isTemplatesBoard
     if currentUser.isBoardAdmin
@@ -513,41 +513,40 @@ template(name="boardMenuPopup")
       ul.pop-over-list
         li
           a.js-archive-board
-            i.fa.fa-arrow-right
-            i.fa.fa-archive
+            | ➡️📦
             | {{_ 'archive-board'}}
 
 template(name="exportBoard")
   ul.pop-over-list
     li
       a.download-json-link(href="{{exportUrl}}", download="{{exportJsonFilename}}")
-        i.fa.fa-share-alt
+        | 📤
         | {{_ 'export-board-json'}}
     li
       a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
-        i.fa.fa-share-alt
+        | 📤
         | {{_ 'export-board-excel'}}
     li
       a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
-        i.fa.fa-share-alt
+        | 📤
         | {{_ 'export-board-csv'}} ,
     li
       a(href="{{exportScsvUrl}}", download="{{exportCsvFilename}}")
-        i.fa.fa-share-alt
+        | 📤
         | {{_ 'export-board-csv'}} ;
     li
       a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
-        i.fa.fa-share-alt
+        | 📤
         | {{_ 'export-board-tsv'}}
     li
       a.html-export-board
-        i.fa.fa-archive
+        | 📦
         | {{_ 'export-board-html'}}
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels
     h3
-      i.fa.fa-tags
+      | 🏷️
       | {{_ 'labels'}}
     .board-widget-content
       each currentBoard.labels
@@ -558,7 +557,7 @@ template(name="labelsWidget")
                 = name
       if currentUser.isBoardAdmin
         a.card-label.add-label.js-add-label(title="{{_ 'label-create'}}")
-          i.fa.fa-plus
+          | ➕
 
 template(name="memberPopup")
   .board-member-menu
@@ -570,7 +569,7 @@ template(name="memberPopup")
         p.quiet @#{user.username}
         if isInvited
           p
-            i.fa.fa-exclamation-circle
+            | ⚠️
             | {{_ 'not-accepted-yet'}}
 
     ul.pop-over-list
@@ -665,31 +664,31 @@ template(name="changePermissionsPopup")
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}")
         | {{_ 'admin'}}
         if isAdmin
-          i.fa.fa-check
+          | ✅
         span.sub-name {{_ 'admin-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
         | {{_ 'normal'}}
         if isNormal
-          i.fa.fa-check
+          | ✅
         span.sub-name {{_ 'normal-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-no-comments{{/if}}")
         | {{_ 'no-comments'}}
         if isNoComments
-          i.fa.fa-check
+          | ✅
         span.sub-name {{_ 'no-comments-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-comment-only{{/if}}")
         | {{_ 'comment-only'}}
         if isCommentOnly
-          i.fa.fa-check
+          | ✅
         span.sub-name {{_ 'comment-only-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-worker{{/if}}")
         | {{_ 'worker'}}
         if isWorker
-          i.fa.fa-check
+          | ✅
         span.sub-name {{_ 'worker-desc'}}
   if isLastAdmin
     hr

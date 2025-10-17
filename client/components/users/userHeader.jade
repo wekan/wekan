@@ -173,7 +173,7 @@ template(name="changeLanguagePopup")
         a.js-set-language
           = name
           if isCurrentLanguage
-            i.fa.fa-check
+            | ✅
 
 template(name="changeSettingsPopup")
   ul.pop-over-list
@@ -186,7 +186,7 @@ template(name="changeSettingsPopup")
     unless currentUser.isWorker
       li
         label.bold.clear
-          i.fa.fa-sort-numeric-asc
+          | 🔢
           | {{_ 'show-cards-minimum-count'}}
         input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="-1")
         label.bold.clear

@@ -24,7 +24,7 @@ BlazeComponent.extendComponent({
   onRendered() {
     const boardComponent = this.parentComponent().parentComponent();
 
-    // Initialize list resize functionality
+    // Initialize list resize functionality immediately
     this.initializeListResize();
 
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
@@ -201,13 +201,15 @@ BlazeComponent.extendComponent({
   listWidth() {
     const user = ReactiveCache.getCurrentUser();
     const list = Template.currentData();
-    return user.getListWidth(list.boardId, list._id);
+    if (!user || !list) return 270; // Return default width if user or list is not available
+    return user.getListWidthFromStorage(list.boardId, list._id);
   },
 
   listConstraint() {
     const user = ReactiveCache.getCurrentUser();
     const list = Template.currentData();
-    return user.getListConstraint(list.boardId, list._id);
+    if (!user || !list) return 550; // Return default constraint if user or list is not available
+    return user.getListConstraintFromStorage(list.boardId, list._id);
   },
 
   autoWidth() {
@@ -217,12 +219,31 @@ BlazeComponent.extendComponent({
   },
 
   initializeListResize() {
+    // Check if we're still in a valid template context
+    if (!Template.currentData()) {
+      console.warn('No current template data available for list resize initialization');
+      return;
+    }
+    
     const list = Template.currentData();
     const $list = this.$('.js-list');
     const $resizeHandle = this.$('.js-list-resize-handle');
     
+    // Check if elements exist
+    if (!$list.length || !$resizeHandle.length) {
+      console.warn('List or resize handle not found, retrying in 100ms');
+      Meteor.setTimeout(() => {
+        if (!this.isDestroyed) {
+          this.initializeListResize();
+        }
+      }, 100);
+      return;
+    }
+    
+    
     // Only enable resize for non-collapsed, non-auto-width lists
-    if (list.collapsed || this.autoWidth()) {
+    const isAutoWidth = this.autoWidth();
+    if (list.collapsed || isAutoWidth) {
       $resizeHandle.hide();
       return;
     }
@@ -240,41 +261,41 @@ BlazeComponent.extendComponent({
       startX = e.pageX || e.originalEvent.touches[0].pageX;
       startWidth = $list.outerWidth();
       
+      
       // Add visual feedback
       $list.addClass('list-resizing');
       $('body').addClass('list-resizing-active');
+      
       
       // Prevent text selection during resize
       $('body').css('user-select', 'none');
       
       e.preventDefault();
+      e.stopPropagation();
     };
 
     const doResize = (e) => {
-      if (!isResizing) return;
+      if (!isResizing) {
+        return;
+      }
       
       const currentX = e.pageX || e.originalEvent.touches[0].pageX;
       const deltaX = currentX - startX;
       const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
       
-      // Apply the new width immediately for real-time feedback using CSS custom properties
+      // Apply the new width immediately for real-time feedback
       $list[0].style.setProperty('--list-width', `${newWidth}px`);
-      $list.css({
-        'width': `${newWidth}px`,
-        'min-width': `${newWidth}px`,
-        'max-width': `${newWidth}px`,
-        'flex': 'none',
-        'flex-basis': 'auto',
-        'flex-grow': '0',
-        'flex-shrink': '0'
-      });
+      $list[0].style.setProperty('width', `${newWidth}px`);
+      $list[0].style.setProperty('min-width', `${newWidth}px`);
+      $list[0].style.setProperty('max-width', `${newWidth}px`);
+      $list[0].style.setProperty('flex', 'none');
+      $list[0].style.setProperty('flex-basis', 'auto');
+      $list[0].style.setProperty('flex-grow', '0');
+      $list[0].style.setProperty('flex-shrink', '0');
       
-      // Debug: log the width change
-      if (process.env.DEBUG === 'true') {
-        console.log(`Resizing list to ${newWidth}px`);
-      }
       
       e.preventDefault();
+      e.stopPropagation();
     };
 
     const stopResize = (e) => {
@@ -287,17 +308,15 @@ BlazeComponent.extendComponent({
       const deltaX = currentX - startX;
       const finalWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
       
-      // Ensure the final width is applied using CSS custom properties
+      // Ensure the final width is applied
       $list[0].style.setProperty('--list-width', `${finalWidth}px`);
-      $list.css({
-        'width': `${finalWidth}px`,
-        'min-width': `${finalWidth}px`,
-        'max-width': `${finalWidth}px`,
-        'flex': 'none',
-        'flex-basis': 'auto',
-        'flex-grow': '0',
-        'flex-shrink': '0'
-      });
+      $list[0].style.setProperty('width', `${finalWidth}px`);
+      $list[0].style.setProperty('min-width', `${finalWidth}px`);
+      $list[0].style.setProperty('max-width', `${finalWidth}px`);
+      $list[0].style.setProperty('flex', 'none');
+      $list[0].style.setProperty('flex-basis', 'auto');
+      $list[0].style.setProperty('flex-grow', '0');
+      $list[0].style.setProperty('flex-shrink', '0');
       
       // Remove visual feedback but keep the width
       $list.removeClass('list-resizing');
@@ -311,16 +330,14 @@ BlazeComponent.extendComponent({
       const boardId = list.boardId;
       const listId = list._id;
       
-      // Use the same method as the hamburger menu
+      // Use the new storage method that handles both logged-in and non-logged-in users
       if (process.env.DEBUG === 'true') {
-        console.log(`Saving list width: ${finalWidth}px for list ${listId}`);
       }
-      Meteor.call('applyListWidth', boardId, listId, finalWidth, listConstraint, (error, result) => {
+      Meteor.call('applyListWidthToStorage', boardId, listId, finalWidth, listConstraint, (error, result) => {
         if (error) {
           console.error('Error saving list width:', error);
         } else {
           if (process.env.DEBUG === 'true') {
-            console.log('List width saved successfully:', result);
           }
         }
       });
@@ -334,9 +351,16 @@ BlazeComponent.extendComponent({
     $(document).on('mouseup', stopResize);
     
     // Touch events for mobile
-    $resizeHandle.on('touchstart', startResize);
-    $(document).on('touchmove', doResize);
-    $(document).on('touchend', stopResize);
+    $resizeHandle.on('touchstart', startResize, { passive: false });
+    $(document).on('touchmove', doResize, { passive: false });
+    $(document).on('touchend', stopResize, { passive: false });
+    
+    
+    // Prevent dragscroll interference
+    $resizeHandle.on('mousedown', (e) => {
+      e.stopPropagation();
+    });
+    
     
     // Reactively update resize handle visibility when auto-width changes
     component.autorun(() => {

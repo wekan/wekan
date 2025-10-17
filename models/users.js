@@ -875,6 +875,52 @@ Users.helpers({
     }
   },
 
+  getSwimlaneHeightFromStorage(boardId, swimlaneId) {
+    // For logged-in users, get from profile
+    if (this._id) {
+      return this.getSwimlaneHeight(boardId, swimlaneId);
+    }
+    
+    // For non-logged-in users, get from localStorage
+    try {
+      const stored = localStorage.getItem('wekan-swimlane-heights');
+      if (stored) {
+        const heights = JSON.parse(stored);
+        if (heights[boardId] && heights[boardId][swimlaneId]) {
+          return heights[boardId][swimlaneId];
+        }
+      }
+    } catch (e) {
+      console.warn('Error reading swimlane heights from localStorage:', e);
+    }
+    
+    return -1;
+  },
+
+  setSwimlaneHeightToStorage(boardId, swimlaneId, height) {
+    // For logged-in users, save to profile
+    if (this._id) {
+      return this.setSwimlaneHeight(boardId, swimlaneId, height);
+    }
+    
+    // For non-logged-in users, save to localStorage
+    try {
+      const stored = localStorage.getItem('wekan-swimlane-heights');
+      let heights = stored ? JSON.parse(stored) : {};
+      
+      if (!heights[boardId]) {
+        heights[boardId] = {};
+      }
+      heights[boardId][swimlaneId] = height;
+      
+      localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
+      return true;
+    } catch (e) {
+      console.warn('Error saving swimlane height to localStorage:', e);
+      return false;
+    }
+  },
+
   /** returns all confirmed move and copy dialog field values
    * <li> the board, swimlane and list id is stored for each board
    */
@@ -1031,6 +1077,144 @@ Users.helpers({
     User.remove({
       _id: this._id,
     });
+  },
+
+  getListWidthFromStorage(boardId, listId) {
+    // For logged-in users, get from profile
+    if (this._id) {
+      return this.getListWidth(boardId, listId);
+    }
+    
+    // For non-logged-in users, get from localStorage
+    try {
+      const stored = localStorage.getItem('wekan-list-widths');
+      if (stored) {
+        const widths = JSON.parse(stored);
+        if (widths[boardId] && widths[boardId][listId]) {
+          return widths[boardId][listId];
+        }
+      }
+    } catch (e) {
+      console.warn('Error reading list widths from localStorage:', e);
+    }
+    
+    return 270; // Return default width instead of -1
+  },
+
+  setListWidthToStorage(boardId, listId, width) {
+    // For logged-in users, save to profile
+    if (this._id) {
+      return this.setListWidth(boardId, listId, width);
+    }
+    
+    // For non-logged-in users, save to localStorage
+    try {
+      const stored = localStorage.getItem('wekan-list-widths');
+      let widths = stored ? JSON.parse(stored) : {};
+      
+      if (!widths[boardId]) {
+        widths[boardId] = {};
+      }
+      widths[boardId][listId] = width;
+      
+      localStorage.setItem('wekan-list-widths', JSON.stringify(widths));
+      return true;
+    } catch (e) {
+      console.warn('Error saving list width to localStorage:', e);
+      return false;
+    }
+  },
+
+  getListConstraintFromStorage(boardId, listId) {
+    // For logged-in users, get from profile
+    if (this._id) {
+      return this.getListConstraint(boardId, listId);
+    }
+    
+    // For non-logged-in users, get from localStorage
+    try {
+      const stored = localStorage.getItem('wekan-list-constraints');
+      if (stored) {
+        const constraints = JSON.parse(stored);
+        if (constraints[boardId] && constraints[boardId][listId]) {
+          return constraints[boardId][listId];
+        }
+      }
+    } catch (e) {
+      console.warn('Error reading list constraints from localStorage:', e);
+    }
+    
+    return 550; // Return default constraint instead of -1
+  },
+
+  setListConstraintToStorage(boardId, listId, constraint) {
+    // For logged-in users, save to profile
+    if (this._id) {
+      return this.setListConstraint(boardId, listId, constraint);
+    }
+    
+    // For non-logged-in users, save to localStorage
+    try {
+      const stored = localStorage.getItem('wekan-list-constraints');
+      let constraints = stored ? JSON.parse(stored) : {};
+      
+      if (!constraints[boardId]) {
+        constraints[boardId] = {};
+      }
+      constraints[boardId][listId] = constraint;
+      
+      localStorage.setItem('wekan-list-constraints', JSON.stringify(constraints));
+      return true;
+    } catch (e) {
+      console.warn('Error saving list constraint to localStorage:', e);
+      return false;
+    }
+  },
+
+  getSwimlaneHeightFromStorage(boardId, swimlaneId) {
+    // For logged-in users, get from profile
+    if (this._id) {
+      return this.getSwimlaneHeight(boardId, swimlaneId);
+    }
+    
+    // For non-logged-in users, get from localStorage
+    try {
+      const stored = localStorage.getItem('wekan-swimlane-heights');
+      if (stored) {
+        const heights = JSON.parse(stored);
+        if (heights[boardId] && heights[boardId][swimlaneId]) {
+          return heights[boardId][swimlaneId];
+        }
+      }
+    } catch (e) {
+      console.warn('Error reading swimlane heights from localStorage:', e);
+    }
+    
+    return -1; // Return -1 if not found
+  },
+
+  setSwimlaneHeightToStorage(boardId, swimlaneId, height) {
+    // For logged-in users, save to profile
+    if (this._id) {
+      return this.setSwimlaneHeight(boardId, swimlaneId, height);
+    }
+    
+    // For non-logged-in users, save to localStorage
+    try {
+      const stored = localStorage.getItem('wekan-swimlane-heights');
+      let heights = stored ? JSON.parse(stored) : {};
+      
+      if (!heights[boardId]) {
+        heights[boardId] = {};
+      }
+      heights[boardId][swimlaneId] = height;
+      
+      localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
+      return true;
+    } catch (e) {
+      console.warn('Error saving swimlane height to localStorage:', e);
+      return false;
+    }
   },
 });
 
@@ -1428,6 +1612,24 @@ Meteor.methods({
     check(height, Number);
     const user = ReactiveCache.getCurrentUser();
     user.setSwimlaneHeight(boardId, swimlaneId, height);
+  },
+
+  applySwimlaneHeightToStorage(boardId, swimlaneId, height) {
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(height, Number);
+    const user = ReactiveCache.getCurrentUser();
+    user.setSwimlaneHeightToStorage(boardId, swimlaneId, height);
+  },
+
+  applyListWidthToStorage(boardId, listId, width, constraint) {
+    check(boardId, String);
+    check(listId, String);
+    check(width, Number);
+    check(constraint, Number);
+    const user = ReactiveCache.getCurrentUser();
+    user.setListWidthToStorage(boardId, listId, width);
+    user.setListConstraintToStorage(boardId, listId, constraint);
   },
   setZoomLevel(level) {
     check(level, Number);

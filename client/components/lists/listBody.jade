@@ -32,7 +32,7 @@ template(name="listBody")
             +addCardForm(listId=_id position="bottom")
           else
             a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
-              i.fa.fa-plus
+              | ➕
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-list(
@@ -54,7 +54,7 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    a.fa.fa-times-thin.js-close-inlined-form
+    a.js-close-inlined-form | ❌
   .add-controls.clearfix
     unless currentBoard.isTemplatesBoard
       unless currentBoard.isTemplateBoard
