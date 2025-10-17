@@ -33,6 +33,10 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Replaced moment.js with Javascript date](https://github.com/wekan/wekan/commit/cb6afe67a7363af89663ba17392dc5f90a15f703).
   Thanks to xet7.
+- [Convert Font Awesome to Unicode Icons. Part 1. In Progress](https://github.com/wekan/wekan/commit/2947238a021b6952b56e828d49a8c0094520d89a).
+  Thanks to xet7.
+- [Resize height of swimlane by dragging. Font Awesome to Unicode icons](https://github.com/wekan/wekan/commit/09631d6b0c1b8e3bbc3bf45d4bb65449b46f1288).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
