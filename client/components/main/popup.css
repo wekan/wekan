@@ -73,7 +73,7 @@
 }
 .pop-over .content-wrapper {
   width: 100%;
-  max-height: 70vh;
+  max-height: calc(70vh + 20px);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -84,7 +84,7 @@
 }
 .pop-over .content-container {
   width: 100%;
-  max-height: 70vh;
+  max-height: calc(70vh + 20px);
   transition: transform 0.2s;
 }
 
@@ -99,6 +99,22 @@
   overflow: visible;
 }
 
+/* Specific styling for language popup list */
+.pop-over[data-popup="changeLanguage"] .pop-over-list {
+  max-height: none;
+  overflow: visible;
+  height: auto;
+  flex: 1;
+}
+
+/* Ensure content div in language popup contains all items */
+.pop-over[data-popup="changeLanguage"] .content {
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Allow dynamic height for Change Language popup */
 .pop-over[data-popup="changeLanguage"] .content-wrapper {
   max-height: inherit; /* Use dynamic height from JavaScript */
@@ -106,6 +122,32 @@
 
 .pop-over[data-popup="changeLanguage"] .content-container {
   max-height: inherit; /* Use dynamic height from JavaScript */
+}
+
+/* Make language popup extend to bottom of browser window */
+.pop-over[data-popup="changeLanguage"] {
+  height: calc(100vh - 30px);
+  min-height: 300px;
+  /* Adjust positioning to move popup 30px higher */
+  transform: translateY(-30px);
+}
+
+.pop-over[data-popup="changeLanguage"] .content-wrapper {
+  height: calc(100% - 50px); /* Subtract header height more precisely */
+  min-height: 250px;
+  overflow-y: auto;
+  max-height: none; /* Remove any max-height constraints */
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-over[data-popup="changeLanguage"] .content-container {
+  height: auto; /* Let content determine height */
+  min-height: 250px;
+  max-height: none; /* Remove any max-height constraints */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Date popup sizing for native HTML inputs */
