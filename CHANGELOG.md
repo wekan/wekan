@@ -39,6 +39,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Removed not needed visible text from mobile desktop switch button](https://github.com/wekan/wekan/commit/62ede481966107405460f6d5b90f292c98bae254).
   Thanks to xet7.
+- [Font Awesome to Unicode icons. Part 3](https://github.com/wekan/wekan/commit/3af94c2a9059a399b9f9946c387caff892ace2f9).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
