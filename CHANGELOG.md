@@ -27,6 +27,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix starred, archive and clone icons](https://github.com/wekan/wekan/pull/5953).
   Thanks to helioguardabaxo.
+- [Fix Due dates to be color coded and have unicode icons](https://github.com/wekan/wekan/commit/d965faa3174dc81636106e6f81435b2750b0625f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
