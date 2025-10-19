@@ -48,6 +48,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix syntax error at migrations](https://github.com/wekan/wekan/commit/eb6b42c4c9f99894fd93e62c9b3fceda3429c96c).
   Thanks to xet7.
+- [Fix opened card attachments button text to be at tooltip, not at opened card](https://github.com/wekan/wekan/commit/1e53125499ef563ca3c65f786ac3525e5f50274c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
