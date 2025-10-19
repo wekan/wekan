@@ -25,7 +25,7 @@ This release adds the following new features:
 
 - [At Public Board, drag resize list width and swimlane height. For logged in users, fix adding labels](https://github.com/wekan/wekan/commit/351433524708e9a7ccb4795d9ca31a78904943ea).
   Thanks to xet7.
-- [Legacy Lists button at one board view to restore missing lists/cards](https://github.com/wekan/wekan/commit/951d2e49379d5588f2aa11960e8945ab770c78d2).
+- [When opening board, migrate from Shared Lists to Per-Swimlane Lists](https://github.com/wekan/wekan/commit/1e6252de7f26f3af14a99fb63b5dac27ba0576f3).
   Thanks to xet7.
 
 and fixes the following bugs:
