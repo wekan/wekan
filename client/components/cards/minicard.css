@@ -99,8 +99,8 @@
   float: none;
 }
 .minicard .minicard-labels .minicard-label {
-  width: 1.5vw;
-  height: 1.5vw;
+  width: clamp(12px, 1.5vw, 16px);
+  height: clamp(12px, 1.5vw, 16px);
   border-radius: 0.3vw;
   margin-right: 0.4vw;
   margin-bottom: 0.4vh;
@@ -130,8 +130,8 @@
   margin-right: 0.5vw;
 }
 .minicard .handle {
-  width: 2.5vw;
-  height: 2.5vw;
+  width: clamp(20px, 2.5vw, 28px);
+  height: clamp(20px, 2.5vw, 28px);
   position: absolute;
   right: 0.7vw;
   top: 0.7vh;
@@ -294,8 +294,8 @@
 .minicard .minicard-creator .member {
   float: right;
   border-radius: 50%;
-  height: 3.5vw;
-  width: 3.5vw;
+  height: clamp(24px, 3.5vw, 32px);
+  width: clamp(24px, 3.5vw, 32px);
   margin-bottom: 0.5vh;
 }
 .minicard .minicard-members .assignee,
@@ -303,8 +303,8 @@
 .minicard .minicard-creator .assignee {
   float: right;
   border-radius: 50%;
-  height: 3.5vw;
-  width: 3.5vw;
+  height: clamp(24px, 3.5vw, 32px);
+  width: clamp(24px, 3.5vw, 32px);
 }
 .minicard .minicard-members + .badges,
 .minicard .minicard-assignees + .badges,
