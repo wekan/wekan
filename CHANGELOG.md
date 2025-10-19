@@ -36,6 +36,8 @@ This release fixes the following bugs:
 - Fix drag drop lists.
   [Part 1](https://github.com/wekan/wekan/commit/324f3f7794aace800022a24deb5fd5fb36ebd384).
   Thanks to xet7.
+- [Removed extra pipe characters](https://github.com/wekan/wekan/commit/caa6e615ff3c3681bf2b470a625eb39c6009b825).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
