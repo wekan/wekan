@@ -108,9 +108,10 @@ template(name="boardList")
                         each list in boardLists _id
                           .item
                             | {{ list }}
-                  i.fa.js-star-board(
-                    class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
+                  a.js-star-board(
+                    class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
                     title="{{_ 'star-board-title'}}")
+                    | {{#if isStarred}}⭐{{else}}☆{{/if}}
                   p.board-list-item-desc
                     +viewer
                       = description
@@ -124,26 +125,32 @@ template(name="boardList")
                         title="{{_ 'drag-board'}}")
                   else
                     if isSandstorm
-                      i.fa.js-clone-board(
-                          class="fa-clone"
-                          title="{{_ 'duplicate-board'}}")
-                      i.fa.js-archive-board(
-                          class="fa-archive"
-                          title="{{_ 'archive-board'}}")
+                      a.js-clone-board(
+                        class="fa-clone"
+                        title="{{_ 'duplicate-board'}}")
+                        | 📋
+                      a.js-archive-board(
+                        class="fa-archive"
+                        title="{{_ 'archive-board'}}")
+                        | 📦
                     else if isAdministrable
-                      i.fa.js-clone-board(
-                          class="fa-clone"
-                          title="{{_ 'duplicate-board'}}")
-                      i.fa.js-archive-board(
-                          class="fa-archive"
-                          title="{{_ 'archive-board'}}")
+                      a.js-clone-board(
+                        class="fa-clone"
+                        title="{{_ 'duplicate-board'}}")
+                        | 📋
+                      a.js-archive-board(
+                        class="fa-archive"
+                        title="{{_ 'archive-board'}}")
+                        | 📦
                     else if currentUser.isAdmin
-                      i.fa.js-clone-board(
-                          class="fa-clone"
-                          title="{{_ 'duplicate-board'}}")
-                      i.fa.js-archive-board(
-                          class="fa-archive"
-                          title="{{_ 'archive-board'}}")
+                      a.js-clone-board(
+                        class="fa-clone"
+                        title="{{_ 'duplicate-board'}}")
+                        | 📋
+                      a.js-archive-board(
+                        class="fa-archive"
+                        title="{{_ 'archive-board'}}")
+                        | 📦
 
 template(name="boardListHeaderBar")
   h1 {{_ title }}
