@@ -1308,6 +1308,41 @@ class CronMigrationManager {
     return stats;
   }
 
+  /**
+   * Clear all cron jobs and restart migration system
+   */
+  clearAllCronJobs() {
+    try {
+      // Stop all existing cron jobs
+      if (SyncedCron && SyncedCron.jobs) {
+        SyncedCron.jobs.forEach(job => {
+          try {
+            SyncedCron.remove(job.name);
+          } catch (error) {
+            console.warn(`Failed to remove cron job ${job.name}:`, error.message);
+          }
+        });
+      }
+
+      // Clear job storage
+      cronJobStorage.clearAllJobs();
+
+      // Reset migration steps
+      this.migrationSteps = this.initializeMigrationSteps();
+      this.currentStepIndex = 0;
+      this.isRunning = false;
+
+      // Restart the migration system
+      this.initialize();
+
+      console.log('All cron jobs cleared and migration system restarted');
+      return { success: true, message: 'All cron jobs cleared and migration system restarted' };
+    } catch (error) {
+      console.error('Error clearing cron jobs:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
 }
 
 // Export singleton instance
@@ -1444,6 +1479,14 @@ Meteor.methods({
     }
     
     return cronJobStorage.getSystemResources();
+  },
+
+  'cron.clearAllJobs'() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    
+    return cronMigrationManager.clearAllCronJobs();
   },
 
   'cron.pauseJob'(jobId) {

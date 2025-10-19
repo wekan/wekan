@@ -369,6 +369,24 @@ class CronJobStorage {
       completedSteps: jobSteps.filter(step => step.status === 'completed').length
     };
   }
+
+  /**
+   * Clear all jobs from storage
+   */
+  clearAllJobs() {
+    try {
+      // Clear all collections
+      CronJobStatus.remove({});
+      CronJobSteps.remove({});
+      CronJobQueue.remove({});
+      
+      console.log('All cron job data cleared from storage');
+      return { success: true, message: 'All cron job data cleared' };
+    } catch (error) {
+      console.error('Error clearing cron job storage:', error);
+      return { success: false, error: error.message };
+    }
+  }
 }
 
 // Export singleton instance
