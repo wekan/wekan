@@ -496,30 +496,14 @@ Utils = {
 
   // returns if desktop drag handles are enabled
   isShowDesktopDragHandles() {
-    if (this.isTouchScreen()) {
-      return true;
-    /*
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
-    //
-    if (window.localStorage.getItem('showDesktopDragHandles')) {
-      return true;
-    } else {
-      return false;
-    */
-    } else {
-      return false;
-    }
+    // Always show drag handles on all displays
+    return true;
   },
 
   // returns if mini screen or desktop drag handles
   isTouchScreenOrShowDesktopDragHandles() {
-    // Always enable drag handles for mobile screens (touch devices)
-    return this.isTouchScreen() || this.isMiniScreen();
-    //return this.isTouchScreen() || this.isShowDesktopDragHandles();
-    //return this.isShowDesktopDragHandles();
+    // Always enable drag handles for all displays
+    return true;
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {

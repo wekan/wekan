@@ -2509,14 +2509,14 @@ var GlobalEmitter = /** @class */ (function () {
         // http://stackoverflow.com/a/32954565/96342
         window.addEventListener('scroll', this.handleScrollProxy = function (ev) {
             _this.handleScroll($.Event(ev));
-        }, true // useCapture
+        }, { passive: true, capture: true } // useCapture with passive for better performance
         );
     };
     GlobalEmitter.prototype.unbind = function () {
         this.stopListeningTo($(document));
         window.removeEventListener('touchmove', this.handleTouchMoveProxy, { passive: false } // use same options as addEventListener
         );
-        window.removeEventListener('scroll', this.handleScrollProxy, true // useCapture
+        window.removeEventListener('scroll', this.handleScrollProxy, { passive: true, capture: true } // use same options as addEventListener
         );
     };
     // Touch Handlers

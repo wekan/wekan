@@ -70,9 +70,9 @@ template(name="listHeader")
                   | ⬅️
                   | ➡️
                 a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") | ☰
-            if currentUser.isBoardAdmin
-              if isTouchScreenOrShowDesktopDragHandles
-                a.list-header-handle.handle.js-list-handle | ↔️
+            if currentUser.isBoardMember
+              unless currentUser.isCommentOnly
+                a.list-header-handle.handle.js-list-handle | ↕️
 
 template(name="editListTitleForm")
   .list-composer

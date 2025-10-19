@@ -4,12 +4,9 @@ template(name="minicard")
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
     if canModifyCard
-      if isTouchScreenOrShowDesktopDragHandles
-        a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}") | ☰
-        .handle
-          | ↔️
-      else
-        a.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}") | ☰
+      a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}") | ☰
+      .handle
+        | ↕️
     .dates
       if getReceived
         .date

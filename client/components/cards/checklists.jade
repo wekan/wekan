@@ -125,8 +125,7 @@ template(name='checklistItemDetail')
     if canModifyCard
       .check-box-container
         .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
-      if isTouchScreenOrShowDesktopDragHandles
-        span.fa.checklistitem-handle(class="fa-arrows" title="{{_ 'dragChecklistItem'}}")
+      span.fa.checklistitem-handle(class="fa-arrows" title="{{_ 'dragChecklistItem'}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title

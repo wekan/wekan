@@ -191,6 +191,11 @@ body.list-resizing-active * {
   margin-right: 0 !important;
   /* Ensure proper display */
   display: inline-block !important;
+  /* Ensure it's clickable and shows proper cursor */
+  cursor: move !important;
+  pointer-events: auto !important;
+  /* Add some padding for better clickability */
+  padding: 4px !important;
 }
 
 /* Ensure buttons maintain original positioning */

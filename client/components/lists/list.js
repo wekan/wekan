@@ -150,26 +150,13 @@ BlazeComponent.extendComponent({
     });
 
     this.autorun(() => {
-      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-        $cards.sortable({
-          handle: '.handle',
-        });
-      } else {
-        $cards.sortable({
-          handle: '.minicard',
-          // Prevent sortable from interfering with file drag and drop
-          start: function(event, ui) {
-            // Check if this is a file drag operation
-            const dataTransfer = event.originalEvent?.dataTransfer;
-            if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
-              // Cancel sortable for file drags
-              return false;
-            }
-          },
-        });
-      }
-
       if ($cards.data('uiSortable') || $cards.data('sortable')) {
+        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
+          $cards.sortable('option', 'handle', '.handle');
+        } else {
+          $cards.sortable('option', 'handle', '.minicard');
+        }
+
         $cards.sortable(
           'option',
           'disabled',

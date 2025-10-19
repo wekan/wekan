@@ -550,22 +550,20 @@ BlazeComponent.extendComponent({
       // Always reset dragscroll on view switch
       dragscroll.reset();
 
-      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-        $swimlanesDom.sortable({
-          handle: '.js-swimlane-header-handle',
-        });
-      } else {
-        $swimlanesDom.sortable({
-          handle: '.swimlane-header',
-        });
-      }
+      if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
+        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
+          $swimlanesDom.sortable('option', 'handle', '.js-swimlane-header-handle');
+        } else {
+          $swimlanesDom.sortable('option', 'handle', '.swimlane-header');
+        }
 
-      // Disable drag-dropping if the current user is not a board member
-      $swimlanesDom.sortable(
-        'option',
-        'disabled',
-        !ReactiveCache.getCurrentUser()?.isBoardAdmin(),
-      );
+        // Disable drag-dropping if the current user is not a board member
+        $swimlanesDom.sortable(
+          'option',
+          'disabled',
+          !ReactiveCache.getCurrentUser()?.isBoardAdmin(),
+        );
+      }
     });
 
     // If there is no data in the board (ie, no lists) we autofocus the list
