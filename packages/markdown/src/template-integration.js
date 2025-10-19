@@ -214,7 +214,7 @@ if (Package.ui) {
     if (self.templateContentBlock) {
       text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
     }
-    if (text.includes("[]") !== false) {
+    if (text.includes("[]")) {
       // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
       // If markdown link does not have description, do not render markdown, instead show all of markdown source code using preformatted text.
       // Also show html comments.
@@ -223,7 +223,9 @@ if (Package.ui) {
       // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
       // If text does not have hidden markdown link, render all markdown.
       // Also show html comments.
-      return HTML.Raw(DOMPurify.sanitize(Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>'), getSecureDOMPurifyConfig()));
+      const renderedMarkdown = Markdown.render(text).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
+      const sanitized = DOMPurify.sanitize(renderedMarkdown, getSecureDOMPurifyConfig());
+      return HTML.Raw(sanitized);
     }
   }));
 }
