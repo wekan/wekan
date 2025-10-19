@@ -25,6 +25,8 @@ This release fixes the following bugs:
 
 - [Fix add and drag drop attachments to minicards and card](https://github.com/wekan/wekan/commit/b06daff4c7e63453643459f7d8798fde97e3200c (HEAD -> main)
   Thanks to xet7.
+- [Fix starred, archive and clone icons](https://github.com/wekan/wekan/pull/5953).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
