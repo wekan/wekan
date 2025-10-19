@@ -447,19 +447,18 @@ class CronMigrationManager {
     const { name, duration } = stepData;
     
     // Simulate step execution with progress updates for other migrations
-      const progressSteps = 10;
-      for (let i = 0; i <= progressSteps; i++) {
-        const progress = Math.round((i / progressSteps) * 100);
-        
-        // Update step progress
-        cronJobStorage.saveJobStep(jobId, stepIndex, {
-          progress,
-          currentAction: `Executing: ${name} (${progress}%)`
-        });
-        
-        // Simulate work
-        await new Promise(resolve => setTimeout(resolve, duration / progressSteps));
-      }
+    const progressSteps = 10;
+    for (let i = 0; i <= progressSteps; i++) {
+      const progress = Math.round((i / progressSteps) * 100);
+      
+      // Update step progress
+      cronJobStorage.saveJobStep(jobId, stepIndex, {
+        progress,
+        currentAction: `Executing: ${name} (${progress}%)`
+      });
+      
+      // Simulate work
+      await new Promise(resolve => setTimeout(resolve, duration / progressSteps));
     }
   }
 
