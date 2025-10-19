@@ -48,12 +48,7 @@ import {
 
   onRendered() {
     super.onRendered();
-    if (moment.isDate(this.card.getReceived())) {
-      this.$('.js-datepicker').datepicker(
-        'setStartDate',
-        this.card.getReceived(),
-      );
-    }
+    // DatePicker base class handles initialization with native HTML inputs
   }
 
   _storeDate(date) {
@@ -74,9 +69,7 @@ import {
 
   onRendered() {
     super.onRendered();
-    if (moment.isDate(this.card.getStart())) {
-      this.$('.js-datepicker').datepicker('setStartDate', this.card.getStart());
-    }
+    // DatePicker base class handles initialization with native HTML inputs
   }
 
   _storeDate(date) {
@@ -97,9 +90,7 @@ import {
 
   onRendered() {
     super.onRendered();
-    if (moment.isDate(this.card.getStart())) {
-      this.$('.js-datepicker').datepicker('setStartDate', this.card.getStart());
-    }
+    // DatePicker base class handles initialization with native HTML inputs
   }
 
   _storeDate(date) {

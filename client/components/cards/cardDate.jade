@@ -93,3 +93,39 @@ template(name="minicardCustomFieldDate")
       if showWeekOfYear
         b
           | {{showWeek}}
+
+template(name="editCardReceivedDatePopup")
+  form.edit-card-received-date
+    .datepicker
+    .clear-date
+      a.js-clear-date {{_ 'clear'}}
+    .datepicker-actions
+      button.primary.wide.left(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right {{_ 'delete'}}
+
+template(name="editCardStartDatePopup")
+  form.edit-card-start-date
+    .datepicker
+    .clear-date
+      a.js-clear-date {{_ 'clear'}}
+    .datepicker-actions
+      button.primary.wide.left(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right {{_ 'delete'}}
+
+template(name="editCardDueDatePopup")
+  form.edit-card-due-date
+    .datepicker
+    .clear-date
+      a.js-clear-date {{_ 'clear'}}
+    .datepicker-actions
+      button.primary.wide.left(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right {{_ 'delete'}}
+
+template(name="editCardEndDatePopup")
+  form.edit-card-end-date
+    .datepicker
+    .clear-date
+      a.js-clear-date {{_ 'clear'}}
+    .datepicker-actions
+      button.primary.wide.left(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right {{_ 'delete'}}

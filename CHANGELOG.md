@@ -52,6 +52,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Broken Hyperlinks in Markdown to HTML conversion](https://github.com/wekan/wekan/commit/973a49526fdf22c143468d3d9db64269b1defa7d).
   Thanks to xet7.
+- [Fix migrations](https://github.com/wekan/wekan/commit/0acbf30b0346f49c0ee8f5161fb00b4eca8e1a0c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
