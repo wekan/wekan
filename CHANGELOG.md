@@ -27,6 +27,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [When opening board, migrate from Shared Lists to Per-Swimlane Lists](https://github.com/wekan/wekan/commit/1e6252de7f26f3af14a99fb63b5dac27ba0576f3).
   Thanks to xet7.
+- [Added Date Format setting to Opened Card](https://github.com/wekan/wekan/commit/2dd3916f7ee3df10bd88643cf2c796cb166b3044).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
