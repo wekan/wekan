@@ -130,11 +130,6 @@ template(name="boardHeaderBar")
           a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
             | ❌
 
-      if currentUser.isBoardAdmin
-        a.board-header-btn.js-restore-legacy-lists(title="{{_ 'restore-legacy-lists'}}")
-          | 🔄
-          | {{_ 'legacy-lists'}}
-
       .separator
       a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
         | ☰

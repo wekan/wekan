@@ -112,6 +112,9 @@ BlazeComponent.extendComponent({
         }
       }
 
+      // Convert shared lists to per-swimlane lists if needed
+      await this.convertSharedListsToPerSwimlane(boardId);
+
       // Start attachment migration in background if needed
       this.startAttachmentMigrationIfNeeded(boardId);
     } catch (error) {
@@ -136,6 +139,100 @@ BlazeComponent.extendComponent({
       });
     } catch (error) {
       console.error('Error starting background migration:', error);
+    }
+  },
+
+  async convertSharedListsToPerSwimlane(boardId) {
+    try {
+      const board = ReactiveCache.getBoard(boardId);
+      if (!board) return;
+
+      // Check if board has already been processed for shared lists conversion
+      if (board.hasSharedListsConverted) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has already been processed for shared lists conversion`);
+        }
+        return;
+      }
+
+      // Get all lists for this board
+      const allLists = board.lists();
+      const swimlanes = board.swimlanes();
+      
+      if (swimlanes.length === 0) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has no swimlanes, skipping shared lists conversion`);
+        }
+        return;
+      }
+
+      // Find shared lists (lists with empty swimlaneId or null swimlaneId)
+      const sharedLists = allLists.filter(list => !list.swimlaneId || list.swimlaneId === '');
+      
+      if (sharedLists.length === 0) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has no shared lists to convert`);
+        }
+        // Mark as processed even if no shared lists
+        Meteor.call('boards.update', boardId, { $set: { hasSharedListsConverted: true } });
+        return;
+      }
+
+      if (process.env.DEBUG === 'true') {
+        console.log(`Converting ${sharedLists.length} shared lists to per-swimlane lists for board ${boardId}`);
+      }
+
+      // Convert each shared list to per-swimlane lists
+      for (const sharedList of sharedLists) {
+        // Create a copy of the list for each swimlane
+        for (const swimlane of swimlanes) {
+          // Check if this list already exists in this swimlane
+          const existingList = Lists.findOne({
+            boardId: boardId,
+            swimlaneId: swimlane._id,
+            title: sharedList.title
+          });
+
+          if (!existingList) {
+            // Create a new list in this swimlane
+            const newListData = {
+              title: sharedList.title,
+              boardId: boardId,
+              swimlaneId: swimlane._id,
+              sort: sharedList.sort || 0,
+              archived: sharedList.archived || false,
+              createdAt: new Date(),
+              modifiedAt: new Date()
+            };
+
+            // Copy other properties if they exist
+            if (sharedList.color) newListData.color = sharedList.color;
+            if (sharedList.wipLimit) newListData.wipLimit = sharedList.wipLimit;
+            if (sharedList.wipLimitEnabled) newListData.wipLimitEnabled = sharedList.wipLimitEnabled;
+            if (sharedList.wipLimitSoft) newListData.wipLimitSoft = sharedList.wipLimitSoft;
+
+            Lists.insert(newListData);
+          }
+        }
+
+        // Archive or remove the original shared list
+        Lists.update(sharedList._id, {
+          $set: {
+            archived: true,
+            modifiedAt: new Date()
+          }
+        });
+      }
+
+      // Mark board as processed
+      Meteor.call('boards.update', boardId, { $set: { hasSharedListsConverted: true } });
+
+      if (process.env.DEBUG === 'true') {
+        console.log(`Successfully converted ${sharedLists.length} shared lists to per-swimlane lists for board ${boardId}`);
+      }
+
+    } catch (error) {
+      console.error('Error converting shared lists to per-swimlane:', error);
     }
   },
 

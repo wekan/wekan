@@ -778,9 +778,10 @@ Boards.helpers({
     return this.permission === 'public';
   },
 
-  hasLegacyLists() {
-    return this.hasLegacyLists === true;
+  hasSharedListsConverted() {
+    return this.hasSharedListsConverted === true;
   },
+
 
   cards() {
     const ret = ReactiveCache.getCards(

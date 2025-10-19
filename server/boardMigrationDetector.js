@@ -337,13 +337,13 @@ class BoardMigrationDetector {
 // Export singleton instance
 export const boardMigrationDetector = new BoardMigrationDetector();
 
-// Start the detector on server startup
-Meteor.startup(() => {
-  // Wait a bit for the system to initialize
-  Meteor.setTimeout(() => {
-    boardMigrationDetector.start();
-  }, 10000); // Start after 10 seconds
-});
+// Note: Automatic migration detector is disabled - migrations only run when opening boards
+// Meteor.startup(() => {
+//   // Wait a bit for the system to initialize
+//   Meteor.setTimeout(() => {
+//     boardMigrationDetector.start();
+//   }, 10000); // Start after 10 seconds
+// });
 
 // Meteor methods for client access
 Meteor.methods({
