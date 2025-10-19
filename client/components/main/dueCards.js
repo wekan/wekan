@@ -15,7 +15,7 @@ BlazeComponent.extendComponent({
   dueCardsView() {
     // eslint-disable-next-line no-console
     // console.log('sort:', Utils.dueCardsView());
-    return Utils.dueCardsView();
+    return Utils && Utils.dueCardsView ? Utils.dueCardsView() : 'me';
   },
 
   events() {
@@ -38,12 +38,16 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-due-cards-view-me'() {
-          Utils.setDueCardsView('me');
+          if (Utils && Utils.setDueCardsView) {
+            Utils.setDueCardsView('me');
+          }
           Popup.back();
         },
 
         'click .js-due-cards-view-all'() {
-          Utils.setDueCardsView('all');
+          if (Utils && Utils.setDueCardsView) {
+            Utils.setDueCardsView('all');
+          }
           Popup.back();
         },
       },
@@ -54,7 +58,38 @@ BlazeComponent.extendComponent({
 class DueCardsComponent extends CardSearchPagedComponent {
   onCreated() {
     super.onCreated();
-
+    
+    // Add a small delay to ensure ReactiveCache is ready
+    this.searchRetryCount = 0;
+    this.maxRetries = 3;
+    
+    // Use a timeout to ensure the search runs after the component is fully initialized
+    Meteor.setTimeout(() => {
+      this.performSearch();
+    }, 100);
+  }
+  
+  performSearch() {
+    if (process.env.DEBUG === 'true') {
+      console.log('Performing due cards search, attempt:', this.searchRetryCount + 1);
+    }
+    
+    // Check if user is authenticated
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (!currentUser) {
+      if (process.env.DEBUG === 'true') {
+        console.log('User not authenticated, waiting...');
+      }
+      Meteor.setTimeout(() => {
+        this.performSearch();
+      }, 1000);
+      return;
+    }
+    
+    if (process.env.DEBUG === 'true') {
+      console.log('User authenticated:', currentUser.username);
+    }
+    
     const queryParams = new QueryParams();
     queryParams.addPredicate(OPERATOR_HAS, {
       field: PREDICATE_DUE_AT,
@@ -66,17 +101,31 @@ class DueCardsComponent extends CardSearchPagedComponent {
       order: ORDER_ASCENDING,
     });
 
-    if (Utils.dueCardsView() !== 'all') {
-      queryParams.addPredicate(OPERATOR_USER, ReactiveCache.getCurrentUser().username);
-    }
+    // Note: User filtering is handled server-side based on board membership
+    // The OPERATOR_USER filter is too restrictive as it only shows cards where
+    // the user is assigned or a member of the card, not the board
+    // if (Utils && Utils.dueCardsView && Utils.dueCardsView() !== 'all') {
+    //   const currentUser = ReactiveCache.getCurrentUser();
+    //   if (currentUser && currentUser.username) {
+    //     queryParams.addPredicate(OPERATOR_USER, currentUser.username);
+    //   }
+    // }
 
+    // Debug: Log the query parameters
+    if (process.env.DEBUG === 'true') {
+      console.log('Due cards query params:', queryParams.params);
+      console.log('Due cards query text:', queryParams.text);
+      console.log('Due cards has predicates:', queryParams.getPredicates('has'));
+      console.log('Due cards sort predicates:', queryParams.getPredicates('sort'));
+    }
+    
     this.runGlobalSearch(queryParams);
   }
 
   dueCardsView() {
     // eslint-disable-next-line no-console
     //console.log('sort:', Utils.dueCardsView());
-    return Utils.dueCardsView();
+    return Utils && Utils.dueCardsView ? Utils.dueCardsView() : 'me';
   }
 
   sortByBoard() {
