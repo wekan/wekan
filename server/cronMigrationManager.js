@@ -232,6 +232,17 @@ class CronMigrationManager {
         cronName: 'migration_lists_per_swimlane',
         schedule: 'every 1 minute',
         status: 'stopped'
+      },
+      {
+        id: 'restore-legacy-lists',
+        name: 'Restore Legacy Lists',
+        description: 'Restore legacy lists to their original shared state across all swimlanes',
+        weight: 3,
+        completed: false,
+        progress: 0,
+        cronName: 'migration_restore_legacy_lists',
+        schedule: 'every 1 minute',
+        status: 'stopped'
       }
     ];
   }
@@ -357,9 +368,16 @@ class CronMigrationManager {
    * Execute a migration job
    */
   async executeMigrationJob(jobId, jobData) {
-    const { stepId } = jobData;
-    const step = this.migrationSteps.find(s => s.id === stepId);
+    if (!jobData) {
+      throw new Error('Job data is required for migration execution');
+    }
     
+    const { stepId } = jobData;
+    if (!stepId) {
+      throw new Error('Step ID is required in job data');
+    }
+    
+    const step = this.migrationSteps.find(s => s.id === stepId);
     if (!step) {
       throw new Error(`Migration step ${stepId} not found`);
     }
@@ -378,7 +396,7 @@ class CronMigrationManager {
       });
 
       // Execute step
-      await this.executeMigrationStep(jobId, i, stepData);
+      await this.executeMigrationStep(jobId, i, stepData, stepId);
 
       // Mark step as completed
       cronJobStorage.saveJobStep(jobId, i, {
@@ -423,6 +441,14 @@ class CronMigrationManager {
           { name: 'Cleanup old data', duration: 1000 }
         );
         break;
+      case 'restore-legacy-lists':
+        steps.push(
+          { name: 'Identify legacy lists', duration: 1000 },
+          { name: 'Restore lists to shared state', duration: 2000 },
+          { name: 'Update board settings', duration: 500 },
+          { name: 'Verify restoration', duration: 500 }
+        );
+        break;
       default:
         steps.push(
           { name: `Execute ${step.name}`, duration: 2000 },
@@ -436,22 +462,116 @@ class CronMigrationManager {
   /**
    * Execute a migration step
    */
-  async executeMigrationStep(jobId, stepIndex, stepData) {
+  async executeMigrationStep(jobId, stepIndex, stepData, stepId) {
     const { name, duration } = stepData;
     
-    // Simulate step execution with progress updates
-    const progressSteps = 10;
-    for (let i = 0; i <= progressSteps; i++) {
-      const progress = Math.round((i / progressSteps) * 100);
+    if (stepId === 'restore-legacy-lists') {
+      await this.executeRestoreLegacyListsMigration(jobId, stepIndex, stepData);
+    } else {
+      // Simulate step execution with progress updates for other migrations
+      const progressSteps = 10;
+      for (let i = 0; i <= progressSteps; i++) {
+        const progress = Math.round((i / progressSteps) * 100);
+        
+        // Update step progress
+        cronJobStorage.saveJobStep(jobId, stepIndex, {
+          progress,
+          currentAction: `Executing: ${name} (${progress}%)`
+        });
+        
+        // Simulate work
+        await new Promise(resolve => setTimeout(resolve, duration / progressSteps));
+      }
+    }
+  }
+
+  /**
+   * Execute the restore legacy lists migration
+   */
+  async executeRestoreLegacyListsMigration(jobId, stepIndex, stepData) {
+    const { name } = stepData;
+    
+    try {
+      // Import collections directly for server-side access
+      const { default: Boards } = await import('/models/boards');
+      const { default: Lists } = await import('/models/lists');
       
-      // Update step progress
+      // Step 1: Identify legacy lists
       cronJobStorage.saveJobStep(jobId, stepIndex, {
-        progress,
-        currentAction: `Executing: ${name} (${progress}%)`
+        progress: 25,
+        currentAction: 'Identifying legacy lists...'
       });
       
-      // Simulate work
-      await new Promise(resolve => setTimeout(resolve, duration / progressSteps));
+      const boards = Boards.find({}).fetch();
+      const migrationDate = new Date('2025-10-10T21:14:44.000Z'); // Date of commit 719ef87efceacfe91461a8eeca7cf74d11f4cc0a
+      let totalLegacyLists = 0;
+      
+      for (const board of boards) {
+        const allLists = Lists.find({ boardId: board._id }).fetch();
+        const legacyLists = allLists.filter(list => {
+          const listDate = list.createdAt || new Date(0);
+          return listDate < migrationDate && list.swimlaneId && list.swimlaneId !== '';
+        });
+        totalLegacyLists += legacyLists.length;
+      }
+      
+      // Step 2: Restore lists to shared state
+      cronJobStorage.saveJobStep(jobId, stepIndex, {
+        progress: 50,
+        currentAction: 'Restoring lists to shared state...'
+      });
+      
+      let restoredCount = 0;
+      
+      for (const board of boards) {
+        const allLists = Lists.find({ boardId: board._id }).fetch();
+        const legacyLists = allLists.filter(list => {
+          const listDate = list.createdAt || new Date(0);
+          return listDate < migrationDate && list.swimlaneId && list.swimlaneId !== '';
+        });
+        
+        // Restore legacy lists to shared state (empty swimlaneId)
+        for (const list of legacyLists) {
+          Lists.direct.update(list._id, {
+            $set: {
+              swimlaneId: ''
+            }
+          });
+          restoredCount++;
+        }
+        
+        // Mark the board as having legacy lists
+        if (legacyLists.length > 0) {
+          Boards.direct.update(board._id, {
+            $set: {
+              hasLegacyLists: true
+            }
+          });
+        }
+      }
+      
+      // Step 3: Update board settings
+      cronJobStorage.saveJobStep(jobId, stepIndex, {
+        progress: 75,
+        currentAction: 'Updating board settings...'
+      });
+      
+      // Step 4: Verify restoration
+      cronJobStorage.saveJobStep(jobId, stepIndex, {
+        progress: 100,
+        currentAction: `Verification complete. Restored ${restoredCount} legacy lists.`
+      });
+      
+      console.log(`Successfully restored ${restoredCount} legacy lists across ${boards.length} boards`);
+      
+    } catch (error) {
+      console.error('Error during restore legacy lists migration:', error);
+      cronJobStorage.saveJobStep(jobId, stepIndex, {
+        progress: 0,
+        currentAction: `Error: ${error.message}`,
+        status: 'error'
+      });
+      throw error;
     }
   }
 
@@ -1299,6 +1419,54 @@ class CronMigrationManager {
     
     return stats;
   }
+
+  /**
+   * Trigger restore legacy lists migration
+   */
+  async triggerRestoreLegacyListsMigration() {
+    try {
+      // Find the restore legacy lists step
+      const step = this.migrationSteps.find(s => s.id === 'restore-legacy-lists');
+      if (!step) {
+        throw new Error('Restore legacy lists migration step not found');
+      }
+
+      // Create a job for this migration
+      const jobId = `restore_legacy_lists_${Date.now()}`;
+      cronJobStorage.addToQueue(jobId, 'migration', step.weight, {
+        stepId: step.id,
+        stepName: step.name,
+        stepDescription: step.description
+      });
+
+      // Save initial job status
+      cronJobStorage.saveJobStatus(jobId, {
+        jobType: 'migration',
+        status: 'pending',
+        progress: 0,
+        stepId: step.id,
+        stepName: step.name
+      });
+
+      // Execute the migration immediately
+      const jobData = {
+        stepId: step.id,
+        stepName: step.name,
+        stepDescription: step.description
+      };
+      await this.executeMigrationJob(jobId, jobData);
+
+      return {
+        success: true,
+        jobId: jobId,
+        message: 'Restore legacy lists migration triggered successfully'
+      };
+
+    } catch (error) {
+      console.error('Error triggering restore legacy lists migration:', error);
+      throw new Meteor.Error('migration-trigger-failed', `Failed to trigger migration: ${error.message}`);
+    }
+  }
 }
 
 // Export singleton instance
@@ -1496,5 +1664,19 @@ Meteor.methods({
     // Import the board migration detector
     const { boardMigrationDetector } = require('./boardMigrationDetector');
     return boardMigrationDetector.forceScan();
+  },
+
+  'cron.triggerRestoreLegacyLists'() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    // Check if user is admin (optional - you can remove this if you want any user to trigger it)
+    const user = ReactiveCache.getCurrentUser();
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Only administrators can trigger this migration');
+    }
+
+    return cronMigrationManager.triggerRestoreLegacyListsMigration();
   }
 });

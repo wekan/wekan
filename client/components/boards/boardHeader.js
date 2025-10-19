@@ -152,8 +152,31 @@ BlazeComponent.extendComponent({
         'click .js-log-in'() {
           FlowRouter.go('atSignIn');
         },
+        'click .js-restore-legacy-lists'() {
+          this.restoreLegacyLists();
+        },
       },
     ];
+  },
+
+  restoreLegacyLists() {
+    // Show confirmation dialog
+    if (confirm('Are you sure you want to restore legacy lists to their original shared state? This will make them appear in all swimlanes.')) {
+      // Call cron method to restore legacy lists
+      Meteor.call('cron.triggerRestoreLegacyLists', (error, result) => {
+        if (error) {
+          console.error('Error restoring legacy lists:', error);
+          alert(`Error: ${error.message}`);
+        } else {
+          console.log('Successfully triggered restore legacy lists migration:', result);
+          alert(`Migration triggered successfully. Job ID: ${result.jobId}`);
+          // Refresh the board to show the restored lists
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      });
+    }
   },
 }).register('boardHeaderBar');
 

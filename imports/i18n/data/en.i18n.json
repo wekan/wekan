@@ -1488,5 +1488,10 @@
   "weight": "Weight",
   "idle": "Idle",
   "complete": "Complete",
-  "cron": "Cron"
+  "cron": "Cron",
+  "legacy-lists": "Legacy Lists",
+  "restore-legacy-lists": "Restore Legacy Lists",
+  "legacy-lists-restore": "Legacy Lists Restore",
+  "legacy-lists-restore-description": "Restore legacy lists to their original shared state across all swimlanes",
+  "restoring-legacy-lists": "Restoring legacy lists"
 }
