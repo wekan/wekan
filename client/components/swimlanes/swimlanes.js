@@ -2,6 +2,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import dragscroll from '@wekanteam/dragscroll';
 const { calculateIndex } = Utils;
 
+
+
 function currentListIsInThisSwimlane(swimlaneId) {
   const currentList = Utils.getCurrentList();
   return (
@@ -52,11 +54,9 @@ function initSortable(boardComponent, $listsDom) {
   
   // Check if sortable is already initialized
   if ($listsDom.data('uiSortable') || $listsDom.data('sortable')) {
-    console.log('initSortable: Sortable already initialized, skipping');
-    return;
+    $listsDom.sortable('destroy');
   }
   
-  console.log('initSortable: Initializing sortable for', $listsDom.length, 'elements');
   
   // We want to animate the card details window closing. We rely on CSS
   // transition for the actual animation.
@@ -77,31 +77,27 @@ function initSortable(boardComponent, $listsDom) {
     },
   };
 
-  console.log('Initializing list sortable with', $listsDom.length, 'elements');
-  console.log('Connected elements:', $('.js-swimlane, .js-lists').length);
-  console.log('Available swimlanes:', $('.js-swimlane').map(function() { return $(this).attr('id'); }).get());
   
   // Add click debugging for drag handles
   $listsDom.on('mousedown', '.js-list-handle', function(e) {
-    console.log('List drag handle clicked!', e.target);
     e.stopPropagation();
   });
   
   $listsDom.on('mousedown', '.js-list-header', function(e) {
-    console.log('List header clicked!', e.target);
+  });
+  
+  // Add debugging for any mousedown on lists
+  $listsDom.on('mousedown', '.js-list', function(e) {
   });
   
   // Add debugging for sortable events
   $listsDom.on('sortstart', function(e, ui) {
-    console.log('Sortable start event fired!', ui.item);
   });
   
   $listsDom.on('sortbeforestop', function(e, ui) {
-    console.log('Sortable beforeStop event fired!', ui.item);
   });
   
   $listsDom.on('sortstop', function(e, ui) {
-    console.log('Sortable stop event fired!', ui.item);
   });
   
   try {
@@ -120,7 +116,6 @@ function initSortable(boardComponent, $listsDom) {
       forcePlaceholderSize: true,
       cursor: 'move',
     start(evt, ui) {
-      console.log('List drag started');
       ui.helper.css('z-index', 1000);
       ui.placeholder.height(ui.helper.height());
       ui.placeholder.width(ui.helper.width());
@@ -131,8 +126,10 @@ function initSortable(boardComponent, $listsDom) {
       ui.item.addClass('ui-sortable-helper');
       
       // Disable dragscroll during list dragging to prevent interference
-      console.log('Disabling dragscroll for list dragging');
-      dragscroll.reset();
+      try {
+        dragscroll.reset();
+      } catch (e) {
+      }
       
       // Also disable dragscroll on all swimlanes during list dragging
       $('.js-swimlane').each(function() {
@@ -144,7 +141,6 @@ function initSortable(boardComponent, $listsDom) {
       ui.item.removeClass('ui-sortable-helper');
     },
     stop(evt, ui) {
-      console.log('List drag stopped');
       // To attribute the new index number, we need to get the DOM element
       // of the previous and the following card -- if any.
       const prevListDom = ui.item.prev('.js-list').get(0);
@@ -174,13 +170,11 @@ function initSortable(boardComponent, $listsDom) {
       const targetSwimlaneDom = ui.item.closest('.js-swimlane');
       let targetSwimlaneId = null;
 
-      console.log('Target swimlane DOM:', targetSwimlaneDom.length, targetSwimlaneDom.attr('id'));
 
       if (targetSwimlaneDom.length > 0) {
         // List was dropped in a swimlane
         try {
           targetSwimlaneId = targetSwimlaneDom.attr('id').replace('swimlane-', '');
-          console.log('List dropped in swimlane:', targetSwimlaneId);
         } catch (error) {
           console.error('Error getting target swimlane ID:', error);
           return;
@@ -193,7 +187,6 @@ function initSortable(boardComponent, $listsDom) {
           const defaultSwimlane = currentBoard.getDefaultSwimline();
           if (defaultSwimlane) {
             targetSwimlaneId = defaultSwimlane._id;
-            console.log('List dropped in lists view, using default swimlane:', targetSwimlaneId);
           }
         }
       }
@@ -217,18 +210,10 @@ function initSortable(boardComponent, $listsDom) {
 
       // Check if the list was dropped in a different swimlane
       const isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId;
-      console.log('Cross-swimlane check:', {
-        originalSwimlaneId,
-        targetSwimlaneId,
-        isDifferentSwimlane
-      });
 
       // If the list was dropped in a different swimlane, update the swimlaneId
       if (isDifferentSwimlane) {
         updateData.swimlaneId = targetSwimlaneId;
-        if (process.env.DEBUG === 'true') {
-          console.log(`Moving list "${list.title}" from swimlane ${originalSwimlaneId} to swimlane ${targetSwimlaneId}`);
-        }
 
         // Move all cards in the list to the new swimlane
         const cardsInList = ReactiveCache.getCards({
@@ -240,9 +225,6 @@ function initSortable(boardComponent, $listsDom) {
           card.move(list.boardId, targetSwimlaneId, list._id);
         });
 
-        if (process.env.DEBUG === 'true') {
-          console.log(`Moved ${cardsInList.length} cards to swimlane ${targetSwimlaneId}`);
-        }
 
         // Don't cancel the sortable when moving to a different swimlane
         // The DOM move should be allowed to complete
@@ -255,7 +237,6 @@ function initSortable(boardComponent, $listsDom) {
         Lists.update(list._id, {
           $set: updateData,
         });
-        console.log('List updated successfully:', list._id, updateData);
       } catch (error) {
         console.error('Error updating list:', error);
         return;
@@ -264,8 +245,10 @@ function initSortable(boardComponent, $listsDom) {
       boardComponent.setIsDragging(false);
       
       // Re-enable dragscroll after list dragging is complete
-      console.log('Re-enabling dragscroll after list dragging');
-      dragscroll.reset();
+      try {
+        dragscroll.reset();
+      } catch (e) {
+      }
       
       // Re-enable dragscroll on all swimlanes
       $('.js-swimlane').each(function() {
@@ -278,38 +261,14 @@ function initSortable(boardComponent, $listsDom) {
     return;
   }
   
-  console.log('List sortable initialization completed successfully');
-  console.log('Sortable data after init:', $listsDom.data('uiSortable') || $listsDom.data('sortable'));
+  
+  // Check if drag handles exist
+  const dragHandles = $listsDom.find('.js-list-handle');
+  
+  // Check if lists exist
+  const lists = $listsDom.find('.js-list');
 
-  boardComponent.autorun(() => {
-    const $listDom = $listsDom;
-    console.log('Autorun running, checking sortable status...');
-    console.log('Has uiSortable:', $listDom.data('uiSortable'));
-    console.log('Has sortable:', $listDom.data('sortable'));
-    if ($listDom.data('uiSortable') || $listDom.data('sortable')) {
-      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-        $listsDom.sortable('option', 'handle', '.js-list-handle');
-        console.log('List sortable: Using .js-list-handle as handle');
-        console.log('Found drag handles:', $listsDom.find('.js-list-handle').length);
-      } else {
-        $listsDom.sortable('option', 'handle', '.js-list-header');
-        console.log('List sortable: Using .js-list-header as handle');
-        console.log('Found list headers:', $listsDom.find('.js-list-header').length);
-      }
-      
-      const currentUser = ReactiveCache.getCurrentUser();
-      const canModify = Utils.canModifyBoard();
-      const isDisabled = !canModify;
-      $listsDom.sortable('option', 'disabled', isDisabled);
-      console.log('List sortable disabled:', isDisabled);
-      console.log('Can modify board:', canModify);
-      console.log('Current user:', currentUser ? currentUser.username : 'null');
-      console.log('Is board member:', currentUser ? currentUser.isBoardMember() : 'null');
-      console.log('Is comment only:', currentUser ? currentUser.isCommentOnly() : 'null');
-    } else {
-      console.log('List sortable not initialized yet');
-    }
-  });
+  // Skip the complex autorun and options for now
 }
 
 BlazeComponent.extendComponent({
@@ -317,15 +276,54 @@ BlazeComponent.extendComponent({
     const boardComponent = this.parentComponent();
     const $listsDom = this.$('.js-lists');
     
-    console.log('Swimlane onRendered - DOM elements found:', $listsDom.length);
-    console.log('Swimlane onRendered - DOM element:', $listsDom[0]);
 
     if (!Utils.getCurrentCardId()) {
       boardComponent.scrollLeft();
     }
 
-    console.log('Calling initSortable...');
-    initSortable(boardComponent, $listsDom);
+    // Try a simpler approach - initialize sortable directly like cards do
+    
+    // Wait for DOM to be ready
+    setTimeout(() => {
+      const $lists = this.$('.js-list');
+      
+      const $parent = $lists.parent();
+      
+      if ($lists.length > 0) {
+        
+        // Check for drag handles
+        const $handles = $parent.find('.js-list-handle');
+        
+        // Test if drag handles are clickable
+        $handles.on('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+        
+        $parent.sortable({
+          connectWith: '.js-swimlane, .js-lists',
+          tolerance: 'pointer',
+          appendTo: '.board-canvas',
+          helper: 'clone',
+          items: '.js-list:not(.js-list-composer)',
+          placeholder: 'list placeholder',
+          distance: 7,
+          handle: '.js-list-handle',
+          disabled: !Utils.canModifyBoard(),
+          start(evt, ui) {
+            ui.helper.css('z-index', 1000);
+            ui.placeholder.height(ui.helper.height());
+            ui.placeholder.width(ui.helper.width());
+            EscapeActions.executeUpTo('popup-close');
+            boardComponent.setIsDragging(true);
+          },
+          stop(evt, ui) {
+            boardComponent.setIsDragging(false);
+          }
+        });
+      } else {
+      }
+    }, 100);
   },
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
@@ -388,7 +386,6 @@ BlazeComponent.extendComponent({
           const isInNoDragArea = $(evt.target).closest(noDragInside.join(',')).length > 0;
           
           if (isResizeHandle) {
-            console.log('Board drag prevented - resize handle clicked');
             return;
           }
           
@@ -572,6 +569,7 @@ BlazeComponent.extendComponent({
   },
 }).register('swimlane');
 
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Utils.getCurrentBoard();
@@ -641,6 +639,108 @@ Template.swimlane.helpers({
   },
 });
 
+// Initialize sortable on DOM elements
+setTimeout(() => {
+  const $swimlaneElements = $('.swimlane');
+  const $listsGroupElements = $('.list-group');
+  
+  // Initialize sortable on ALL swimlane elements (even empty ones)
+  $swimlaneElements.each(function(index) {
+    const $swimlane = $(this);
+    const $lists = $swimlane.find('.js-list');
+    
+    // Only initialize on swimlanes that have the .js-lists class (the container for lists)
+    if ($swimlane.hasClass('js-lists')) {
+      $swimlane.sortable({
+        connectWith: '.js-swimlane, .js-lists',
+        tolerance: 'pointer',
+        appendTo: '.board-canvas',
+        helper: 'clone',
+        items: '.js-list:not(.js-list-composer)',
+        placeholder: 'list placeholder',
+        distance: 7,
+        handle: '.js-list-handle',
+        disabled: !Utils.canModifyBoard(),
+        start(evt, ui) {
+          ui.helper.css('z-index', 1000);
+          ui.placeholder.height(ui.helper.height());
+          ui.placeholder.width(ui.helper.width());
+          EscapeActions.executeUpTo('popup-close');
+          // Try to get board component
+          try {
+            const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
+            if (boardComponent && boardComponent.setIsDragging) {
+              boardComponent.setIsDragging(true);
+            }
+          } catch (e) {
+            // Silent fail
+          }
+        },
+        stop(evt, ui) {
+          // Try to get board component
+          try {
+            const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
+            if (boardComponent && boardComponent.setIsDragging) {
+              boardComponent.setIsDragging(false);
+            }
+          } catch (e) {
+            // Silent fail
+          }
+        }
+      });
+    }
+  });
+  
+  // Initialize sortable on ALL listsGroup elements (even empty ones)
+  $listsGroupElements.each(function(index) {
+    const $listsGroup = $(this);
+    const $lists = $listsGroup.find('.js-list');
+    
+    // Only initialize on listsGroup elements that have the .js-lists class
+    if ($listsGroup.hasClass('js-lists')) {
+      $listsGroup.sortable({
+        connectWith: '.js-swimlane, .js-lists',
+        tolerance: 'pointer',
+        appendTo: '.board-canvas',
+        helper: 'clone',
+        items: '.js-list:not(.js-list-composer)',
+        placeholder: 'list placeholder',
+        distance: 7,
+        handle: '.js-list-handle',
+        disabled: !Utils.canModifyBoard(),
+        start(evt, ui) {
+          ui.helper.css('z-index', 1000);
+          ui.placeholder.height(ui.helper.height());
+          ui.placeholder.width(ui.helper.width());
+          EscapeActions.executeUpTo('popup-close');
+          // Try to get board component
+          try {
+            const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
+            if (boardComponent && boardComponent.setIsDragging) {
+              boardComponent.setIsDragging(true);
+            }
+          } catch (e) {
+            // Silent fail
+          }
+        },
+        stop(evt, ui) {
+          // Try to get board component
+          try {
+            const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
+            if (boardComponent && boardComponent.setIsDragging) {
+              boardComponent.setIsDragging(false);
+            }
+          } catch (e) {
+            // Silent fail
+          }
+        }
+      });
+    }
+  });
+}, 1000);
+
+
+
 BlazeComponent.extendComponent({
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
@@ -671,17 +771,57 @@ BlazeComponent.extendComponent({
     const boardComponent = this.parentComponent();
     const $listsDom = this.$('.js-lists');
     
-    console.log('ListsGroup onRendered - DOM elements found:', $listsDom.length);
-    console.log('ListsGroup onRendered - DOM element:', $listsDom[0]);
 
     if (!Utils.getCurrentCardId()) {
       boardComponent.scrollLeft();
     }
 
-    console.log('ListsGroup calling initSortable...');
-    initSortable(boardComponent, $listsDom);
+    // Try a simpler approach for listsGroup too
+    
+    // Wait for DOM to be ready
+    setTimeout(() => {
+      const $lists = this.$('.js-list');
+      
+      const $parent = $lists.parent();
+      
+      if ($lists.length > 0) {
+        
+        // Check for drag handles
+        const $handles = $parent.find('.js-list-handle');
+        
+        // Test if drag handles are clickable
+        $handles.on('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+        
+        $parent.sortable({
+          connectWith: '.js-swimlane, .js-lists',
+          tolerance: 'pointer',
+          appendTo: '.board-canvas',
+          helper: 'clone',
+          items: '.js-list:not(.js-list-composer)',
+          placeholder: 'list placeholder',
+          distance: 7,
+          handle: '.js-list-handle',
+          disabled: !Utils.canModifyBoard(),
+          start(evt, ui) {
+            ui.helper.css('z-index', 1000);
+            ui.placeholder.height(ui.helper.height());
+            ui.placeholder.width(ui.helper.width());
+            EscapeActions.executeUpTo('popup-close');
+            boardComponent.setIsDragging(true);
+          },
+          stop(evt, ui) {
+            boardComponent.setIsDragging(false);
+          }
+        });
+      } else {
+      }
+    }, 100);
   },
 }).register('listsGroup');
+
 
 class MoveSwimlaneComponent extends BlazeComponent {
   serverMethod = 'moveSwimlane';
