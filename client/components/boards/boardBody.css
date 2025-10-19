@@ -496,3 +496,10 @@
   font-size: 25px;
   cursor: pointer;
 }
+
+/* Global file drag over state for board canvas */
+.board-canvas.file-drag-over {
+  background-color: rgba(0, 123, 255, 0.05) !important;
+  border: 2px dashed #007bff !important;
+  transition: all 0.2s ease;
+}

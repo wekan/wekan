@@ -343,7 +343,7 @@ export function handleFileUpload(card, files) {
   }
 
   // Check if user can modify the card
-  if (!card.canModifyCard()) {
+  if (!Utils.canModifyCard()) {
     if (process.env.DEBUG === 'true') {
       console.warn('User does not have permission to modify this card');
     }

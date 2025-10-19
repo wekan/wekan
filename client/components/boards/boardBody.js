@@ -721,6 +721,31 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-empty-board-add-swimlane': Popup.open('swimlaneAdd'),
+        // Global drag and drop file upload handlers for better visual feedback
+        'dragover .board-canvas'(event) {
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+            event.preventDefault();
+            // Add visual indicator that files can be dropped
+            $('.board-canvas').addClass('file-drag-over');
+          }
+        },
+        'dragleave .board-canvas'(event) {
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+            // Only remove class if we're leaving the board canvas entirely
+            if (!event.currentTarget.contains(event.relatedTarget)) {
+              $('.board-canvas').removeClass('file-drag-over');
+            }
+          }
+        },
+        'drop .board-canvas'(event) {
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+            event.preventDefault();
+            $('.board-canvas').removeClass('file-drag-over');
+          }
+        },
       },
     ];
   },

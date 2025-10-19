@@ -157,6 +157,15 @@ BlazeComponent.extendComponent({
       } else {
         $cards.sortable({
           handle: '.minicard',
+          // Prevent sortable from interfering with file drag and drop
+          start: function(event, ui) {
+            // Check if this is a file drag operation
+            const dataTransfer = event.originalEvent?.dataTransfer;
+            if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+              // Cancel sortable for file drags
+              return false;
+            }
+          },
         });
       }
 

@@ -111,55 +111,58 @@ BlazeComponent.extendComponent({
         'click .js-open-minicard-details-menu': Popup.open('minicardDetailsActions'),
         // Drag and drop file upload handlers
         'dragover .minicard'(event) {
-          event.preventDefault();
-          event.stopPropagation();
+          // Only prevent default for file drags to avoid interfering with sortable
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
         },
         'dragenter .minicard'(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          const card = this.data();
-          const board = card.board();
-          // Only allow drag-and-drop if user can modify card and board allows attachments
-          if (card.canModifyCard() && board && board.allowsAttachments) {
-            // Check if the drag contains files
-            const dataTransfer = event.originalEvent.dataTransfer;
-            if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+            event.preventDefault();
+            event.stopPropagation();
+            const card = this.data();
+            const board = card.board();
+            // Only allow drag-and-drop if user can modify card and board allows attachments
+            if (Utils.canModifyCard() && board && board.allowsAttachments) {
               $(event.currentTarget).addClass('is-dragging-over');
             }
           }
         },
         'dragleave .minicard'(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          $(event.currentTarget).removeClass('is-dragging-over');
+          const dataTransfer = event.originalEvent.dataTransfer;
+          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+            event.preventDefault();
+            event.stopPropagation();
+            $(event.currentTarget).removeClass('is-dragging-over');
+          }
         },
         'drop .minicard'(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          $(event.currentTarget).removeClass('is-dragging-over');
-
-          const card = this.data();
-          const board = card.board();
-
-          // Check permissions
-          if (!card.canModifyCard() || !board || !board.allowsAttachments) {
-            return;
-          }
-
-          // Check if this is a file drop (not a card reorder)
           const dataTransfer = event.originalEvent.dataTransfer;
-          if (!dataTransfer || !dataTransfer.files || dataTransfer.files.length === 0) {
-            return;
-          }
+          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+            event.preventDefault();
+            event.stopPropagation();
+            $(event.currentTarget).removeClass('is-dragging-over');
 
-          // Check if the drop contains files (not just text/HTML)
-          if (!dataTransfer.types.includes('Files')) {
-            return;
-          }
+            const card = this.data();
+            const board = card.board();
 
-          const files = dataTransfer.files;
-          if (files && files.length > 0) {
-            handleFileUpload(card, files);
+            // Check permissions
+            if (!Utils.canModifyCard() || !board || !board.allowsAttachments) {
+              return;
+            }
+
+            // Check if this is a file drop (not a card reorder)
+            if (!dataTransfer.files || dataTransfer.files.length === 0) {
+              return;
+            }
+
+            const files = dataTransfer.files;
+            if (files && files.length > 0) {
+              handleFileUpload(card, files);
+            }
           }
         },
       }
