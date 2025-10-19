@@ -54,6 +54,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix migrations](https://github.com/wekan/wekan/commit/0acbf30b0346f49c0ee8f5161fb00b4eca8e1a0c).
   Thanks to xet7.
+- [Fix card popup to use HTML date, not anymore JQuery date](https://github.com/wekan/wekan/commit/2d44881619d78e8ef4c5060d17e9035f5babd778).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
