@@ -50,6 +50,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix opened card attachments button text to be at tooltip, not at opened card](https://github.com/wekan/wekan/commit/1e53125499ef563ca3c65f786ac3525e5f50274c).
   Thanks to xet7.
+- [Fix Broken Hyperlinks in Markdown to HTML conversion](https://github.com/wekan/wekan/commit/973a49526fdf22c143468d3d9db64269b1defa7d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
