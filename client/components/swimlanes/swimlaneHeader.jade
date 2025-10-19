@@ -23,26 +23,27 @@ template(name="swimlaneFixedHeader")
         +viewer
           | {{isTitleDefault title}}
   .swimlane-header-menu
-    unless currentUser.isCommentOnly
-      a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
-        | ➕
-      a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
-        | ☰
-      //// TODO: Collapse Swimlane: make button working, etc.
-      //unless collapsed
-      //  a.js-collapse-swimlane(title="{{_ 'collapse'}}")
-      //    i.fa.fa-arrow-down.swimlane-header-collapse-down
-      //    ⬆️.swimlane-header-collapse-up
-      //if collapsed
-      //  a.js-collapse-swimlane(title="{{_ 'uncollapse'}}")
-      //    ⬆️.swimlane-header-collapse-up
-      //    i.fa.fa-arrow-down.swimlane-header-collapse-down
-      unless isTouchScreen
-        a.swimlane-header-handle.handle.js-swimlane-header-handle
-          | ↕️
-      if isTouchScreen
-        a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
-          | ↕️
+    if currentUser
+      unless currentUser.isCommentOnly
+        a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
+          | ➕
+        a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+          | ☰
+        //// TODO: Collapse Swimlane: make button working, etc.
+        //unless collapsed
+        //  a.js-collapse-swimlane(title="{{_ 'collapse'}}")
+        //    i.fa.fa-arrow-down.swimlane-header-collapse-down
+        //    ⬆️.swimlane-header-collapse-up
+        //if collapsed
+        //  a.js-collapse-swimlane(title="{{_ 'uncollapse'}}")
+        //    ⬆️.swimlane-header-collapse-up
+        //    i.fa.fa-arrow-down.swimlane-header-collapse-down
+        unless isTouchScreen
+          a.swimlane-header-handle.handle.js-swimlane-header-handle
+            | ↕️
+        if isTouchScreen
+          a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
+            | ↕️
 
 template(name="editSwimlaneTitleForm")
   .list-composer
@@ -53,44 +54,46 @@ template(name="editSwimlaneTitleForm")
         | ❌
 
 template(name="swimlaneActionPopup")
-  unless currentUser.isCommentOnly
-    ul.pop-over-list
-       if currentUser.isBoardAdmin
-         li: a.js-set-swimlane-color
-          | 🎨
-          | {{_ 'select-color'}}
-       li: a.js-set-swimlane-height
-        | ↕️
-        |  {{_ 'set-swimlane-height'}}
-    if currentUser.isBoardAdmin
-      unless this.isTemplateContainer
-        hr
-        ul.pop-over-list
-          li: a.js-close-swimlane
-            | ▶️
-            | 📦
-            | {{_ 'archive-swimlane'}}
-        ul.pop-over-list
-          li: a.js-copy-swimlane
-            | 📋
-            | {{_ 'copy-swimlane'}}
-        ul.pop-over-list
-          li: a.js-move-swimlane
-            | ⬆️
-            | {{_ 'move-swimlane'}}
+  if currentUser
+    unless currentUser.isCommentOnly
+      ul.pop-over-list
+         if currentUser.isBoardAdmin
+           li: a.js-set-swimlane-color
+             | 🎨
+             | {{_ 'select-color'}}
+         li: a.js-set-swimlane-height
+           | ↕️
+           |  {{_ 'set-swimlane-height'}}
+      if currentUser.isBoardAdmin
+        unless this.isTemplateContainer
+          hr
+          ul.pop-over-list
+            li: a.js-close-swimlane
+              | ▶️
+              | 📦
+              | {{_ 'archive-swimlane'}}
+          ul.pop-over-list
+            li: a.js-copy-swimlane
+              | 📋
+              | {{_ 'copy-swimlane'}}
+          ul.pop-over-list
+            li: a.js-move-swimlane
+              | ⬆️
+              | {{_ 'move-swimlane'}}
 
 template(name="swimlaneAddPopup")
-  unless currentUser.isCommentOnly
-    form
-      input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
-        autocomplete="off" autofocus)
-      .edit-controls.clearfix
-        button.primary.confirm(type="submit") {{_ 'add'}}
-        unless currentBoard.isTemplatesBoard
-          unless currentBoard.isTemplateBoard
-            span.quiet
-              | {{_ 'or'}}
-              a.js-swimlane-template {{_ 'template'}}
+  if currentUser
+    unless currentUser.isCommentOnly
+      form
+        input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
+          autocomplete="off" autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'add'}}
+          unless currentBoard.isTemplatesBoard
+            unless currentBoard.isTemplateBoard
+              span.quiet
+                | {{_ 'or'}}
+                a.js-swimlane-template {{_ 'template'}}
 
 template(name="setSwimlaneColorPopup")
   form.edit-label.swimlane-color-popup

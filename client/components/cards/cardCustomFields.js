@@ -168,7 +168,12 @@ CardCustomField.register('cardCustomField');
   }
 
   showWeekOfYear() {
-    return ReactiveCache.getCurrentUser().isShowWeekOfYear();
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) {
+      // For non-logged-in users, week of year is not shown
+      return false;
+    }
+    return user.isShowWeekOfYear();
   }
 
   showDate() {

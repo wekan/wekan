@@ -203,6 +203,8 @@ BlazeComponent.extendComponent({
   },
 }).register('homeSidebar');
 
+
+
 Template.boardInfoOnMyBoardsPopup.helpers({
   hideCardCounterList() {
     return Utils.isMiniScreen() && Session.get('currentBoard');

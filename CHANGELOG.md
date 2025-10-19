@@ -34,7 +34,8 @@ This release fixes the following bugs:
 - [Fix unable to see My Due Cards](https://github.com/wekan/wekan/commit/66b444e2b0c9b2ed5f98cd1ff0cd9222b2d0c624).
   Thanks to xet7.
 - Fix drag drop lists.
-  [Part 1](https://github.com/wekan/wekan/commit/324f3f7794aace800022a24deb5fd5fb36ebd384).
+  [Part 1](https://github.com/wekan/wekan/commit/324f3f7794aace800022a24deb5fd5fb36ebd384),
+  [Part 2](https://github.com/wekan/wekan/commit/ff516ec696ef499f11b04b30053eeb9d3f96d8d1).
   Thanks to xet7.
 - [Removed extra pipe characters](https://github.com/wekan/wekan/commit/caa6e615ff3c3681bf2b470a625eb39c6009b825).
   Thanks to xet7.

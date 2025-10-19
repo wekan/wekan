@@ -197,20 +197,60 @@ BlazeComponent.extendComponent({
   listWidth() {
     const user = ReactiveCache.getCurrentUser();
     const list = Template.currentData();
-    if (!user || !list) return 270; // Return default width if user or list is not available
-    return user.getListWidthFromStorage(list.boardId, list._id);
+    if (!list) return 270; // Return default width if list is not available
+    
+    if (user) {
+      // For logged-in users, get from user profile
+      return user.getListWidthFromStorage(list.boardId, list._id);
+    } else {
+      // For non-logged-in users, get from localStorage
+      try {
+        const stored = localStorage.getItem('wekan-list-widths');
+        if (stored) {
+          const widths = JSON.parse(stored);
+          if (widths[list.boardId] && widths[list.boardId][list._id]) {
+            return widths[list.boardId][list._id];
+          }
+        }
+      } catch (e) {
+        console.warn('Error reading list width from localStorage:', e);
+      }
+      return 270; // Return default width if not found
+    }
   },
 
   listConstraint() {
     const user = ReactiveCache.getCurrentUser();
     const list = Template.currentData();
-    if (!user || !list) return 550; // Return default constraint if user or list is not available
-    return user.getListConstraintFromStorage(list.boardId, list._id);
+    if (!list) return 550; // Return default constraint if list is not available
+    
+    if (user) {
+      // For logged-in users, get from user profile
+      return user.getListConstraintFromStorage(list.boardId, list._id);
+    } else {
+      // For non-logged-in users, get from localStorage
+      try {
+        const stored = localStorage.getItem('wekan-list-constraints');
+        if (stored) {
+          const constraints = JSON.parse(stored);
+          if (constraints[list.boardId] && constraints[list.boardId][list._id]) {
+            return constraints[list.boardId][list._id];
+          }
+        }
+      } catch (e) {
+        console.warn('Error reading list constraint from localStorage:', e);
+      }
+      return 550; // Return default constraint if not found
+    }
   },
 
   autoWidth() {
     const user = ReactiveCache.getCurrentUser();
     const list = Template.currentData();
+    if (!user) {
+      // For non-logged-in users, auto-width is disabled
+      return false;
+    }
     return user.isAutoWidth(list.boardId);
   },
 
@@ -329,14 +369,49 @@ BlazeComponent.extendComponent({
       // Use the new storage method that handles both logged-in and non-logged-in users
       if (process.env.DEBUG === 'true') {
       }
-      Meteor.call('applyListWidthToStorage', boardId, listId, finalWidth, listConstraint, (error, result) => {
-        if (error) {
-          console.error('Error saving list width:', error);
-        } else {
+      
+      const currentUser = ReactiveCache.getCurrentUser();
+      if (currentUser) {
+        // For logged-in users, use server method
+        Meteor.call('applyListWidthToStorage', boardId, listId, finalWidth, listConstraint, (error, result) => {
+          if (error) {
+            console.error('Error saving list width:', error);
+          } else {
+            if (process.env.DEBUG === 'true') {
+            }
+          }
+        });
+      } else {
+        // For non-logged-in users, save to localStorage directly
+        try {
+          // Save list width
+          const storedWidths = localStorage.getItem('wekan-list-widths');
+          let widths = storedWidths ? JSON.parse(storedWidths) : {};
+          
+          if (!widths[boardId]) {
+            widths[boardId] = {};
+          }
+          widths[boardId][listId] = finalWidth;
+          
+          localStorage.setItem('wekan-list-widths', JSON.stringify(widths));
+          
+          // Save list constraint
+          const storedConstraints = localStorage.getItem('wekan-list-constraints');
+          let constraints = storedConstraints ? JSON.parse(storedConstraints) : {};
+          
+          if (!constraints[boardId]) {
+            constraints[boardId] = {};
+          }
+          constraints[boardId][listId] = listConstraint;
+          
+          localStorage.setItem('wekan-list-constraints', JSON.stringify(constraints));
+          
           if (process.env.DEBUG === 'true') {
           }
+        } catch (e) {
+          console.warn('Error saving list width/constraint to localStorage:', e);
         }
-      });
+      }
       
       e.preventDefault();
     };

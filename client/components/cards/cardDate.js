@@ -131,7 +131,12 @@ const CardDate = BlazeComponent.extendComponent({
   },
 
   showWeekOfYear() {
-    return ReactiveCache.getCurrentUser().isShowWeekOfYear();
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) {
+      // For non-logged-in users, week of year is not shown
+      return false;
+    }
+    return user.isShowWeekOfYear();
   },
 
   showDate() {
@@ -301,7 +306,12 @@ class CardCustomFieldDate extends CardDate {
   }
 
   showWeekOfYear() {
-    return ReactiveCache.getCurrentUser().isShowWeekOfYear();
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) {
+      // For non-logged-in users, week of year is not shown
+      return false;
+    }
+    return user.isShowWeekOfYear();
   }
 
   showDate() {

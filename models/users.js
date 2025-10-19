@@ -1619,7 +1619,10 @@ Meteor.methods({
     check(swimlaneId, String);
     check(height, Number);
     const user = ReactiveCache.getCurrentUser();
-    user.setSwimlaneHeightToStorage(boardId, swimlaneId, height);
+    if (user) {
+      user.setSwimlaneHeightToStorage(boardId, swimlaneId, height);
+    }
+    // For non-logged-in users, the client-side code will handle localStorage
   },
 
   applyListWidthToStorage(boardId, listId, width, constraint) {
@@ -1628,8 +1631,11 @@ Meteor.methods({
     check(width, Number);
     check(constraint, Number);
     const user = ReactiveCache.getCurrentUser();
-    user.setListWidthToStorage(boardId, listId, width);
-    user.setListConstraintToStorage(boardId, listId, constraint);
+    if (user) {
+      user.setListWidthToStorage(boardId, listId, width);
+      user.setListConstraintToStorage(boardId, listId, constraint);
+    }
+    // For non-logged-in users, the client-side code will handle localStorage
   },
   setZoomLevel(level) {
     check(level, Number);

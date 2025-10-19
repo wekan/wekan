@@ -125,8 +125,19 @@ Template.createLabelPopup.events({
       .$('#labelName')
       .val()
       .trim();
-    const color = Blaze.getData(templateInstance.find('.fa-check')).color;
-    board.addLabel(name, color);
+    
+    // Find the selected color by looking for the palette color that contains the checkmark
+    let selectedColor = null;
+    templateInstance.$('.js-palette-color').each(function() {
+      if ($(this).text().includes('✅')) {
+        selectedColor = Blaze.getData(this).color;
+        return false; // break out of loop
+      }
+    });
+    
+    if (selectedColor) {
+      board.addLabel(name, selectedColor);
+    }
     Popup.back();
   },
 });
@@ -144,8 +155,19 @@ Template.editLabelPopup.events({
       .$('#labelName')
       .val()
       .trim();
-    const color = Blaze.getData(templateInstance.find('.fa-check')).color;
-    board.editLabel(this._id, name, color);
+    
+    // Find the selected color by looking for the palette color that contains the checkmark
+    let selectedColor = null;
+    templateInstance.$('.js-palette-color').each(function() {
+      if ($(this).text().includes('✅')) {
+        selectedColor = Blaze.getData(this).color;
+        return false; // break out of loop
+      }
+    });
+    
+    if (selectedColor) {
+      board.editLabel(this._id, name, selectedColor);
+    }
     Popup.back();
   },
 });

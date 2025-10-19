@@ -28,7 +28,6 @@ template(name="sidebar")
         +Template.dynamic(template=getViewTemplate)
 
 template(name='homeSidebar')
-  hr
   +membersWidget
   hr
   +labelsWidget
@@ -38,11 +37,12 @@ template(name='homeSidebar')
       span {{_ 'hide-minicard-label-text'}}
       b &nbsp;
       .materialCheckBox(class="{{#if hiddenMinicardLabelText}}is-checked{{/if}}")
-  ul#cards.vertical-scrollbars-toggle
-    a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
-      span {{_ 'enable-vertical-scrollbars'}}
-      b &nbsp;
-      .materialCheckBox(class="{{#if isVerticalScrollbars}}is-checked{{/if}}")
+  if currentUser
+    ul#cards.vertical-scrollbars-toggle
+      a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
+        span {{_ 'enable-vertical-scrollbars'}}
+        b &nbsp;
+        .materialCheckBox(class="{{#if isVerticalScrollbars}}is-checked{{/if}}")
   ul#cards.show-week-of-year-toggle
     a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
       span {{_ 'show-week-of-year'}}

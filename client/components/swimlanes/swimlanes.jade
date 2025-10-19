@@ -72,21 +72,23 @@ template(name="addListForm")
               | ➕
 
 template(name="moveSwimlanePopup")
-  unless currentUser.isWorker
-    label {{_ 'boards'}}:
-    select.js-select-boards(autofocus)
-      each toBoard in toBoards
-        option(value="{{toBoard._id}}") {{toBoard.title}}
+  if currentUser
+    unless currentUser.isWorker
+      label {{_ 'boards'}}:
+      select.js-select-boards(autofocus)
+        each toBoard in toBoards
+          option(value="{{toBoard._id}}") {{toBoard.title}}
 
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+      .edit-controls.clearfix
+        button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="copySwimlanePopup")
-  unless currentUser.isWorker
-    label {{_ 'boards'}}:
-    select.js-select-boards(autofocus)
-      each toBoard in toBoards
-        option(value="{{toBoard._id}}" selected="{{#if $eq toBoard.title board.title}}1{{/if}}") {{toBoard.title}}
+  if currentUser
+    unless currentUser.isWorker
+      label {{_ 'boards'}}:
+      select.js-select-boards(autofocus)
+        each toBoard in toBoards
+          option(value="{{toBoard._id}}" selected="{{#if $eq toBoard.title board.title}}1{{/if}}") {{toBoard.title}}
 
-  .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+      .edit-controls.clearfix
+        button.primary.confirm.js-done {{_ 'done'}}

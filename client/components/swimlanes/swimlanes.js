@@ -423,7 +423,31 @@ BlazeComponent.extendComponent({
   swimlaneHeight() {
     const user = ReactiveCache.getCurrentUser();
     const swimlane = Template.currentData();
-    const height = user.getSwimlaneHeightFromStorage(swimlane.boardId, swimlane._id);
+    
+    let height;
+    if (user) {
+      // For logged-in users, get from user profile
+      height = user.getSwimlaneHeightFromStorage(swimlane.boardId, swimlane._id);
+    } else {
+      // For non-logged-in users, get from localStorage
+      try {
+        const stored = localStorage.getItem('wekan-swimlane-heights');
+        if (stored) {
+          const heights = JSON.parse(stored);
+          if (heights[swimlane.boardId] && heights[swimlane.boardId][swimlane._id]) {
+            height = heights[swimlane.boardId][swimlane._id];
+          } else {
+            height = -1;
+          }
+        } else {
+          height = -1;
+        }
+      } catch (e) {
+        console.warn('Error reading swimlane height from localStorage:', e);
+        height = -1;
+      }
+    }
+    
     return height == -1 ? "auto" : (height + 5 + "px");
   },
 
@@ -537,15 +561,36 @@ BlazeComponent.extendComponent({
       if (process.env.DEBUG === 'true') {
       }
       
-      // Use the new storage method that handles both logged-in and non-logged-in users
-      Meteor.call('applySwimlaneHeightToStorage', boardId, swimlaneId, finalHeight, (error, result) => {
-        if (error) {
-          console.error('Error saving swimlane height:', error);
-        } else {
+      const currentUser = ReactiveCache.getCurrentUser();
+      if (currentUser) {
+        // For logged-in users, use server method
+        Meteor.call('applySwimlaneHeightToStorage', boardId, swimlaneId, finalHeight, (error, result) => {
+          if (error) {
+            console.error('Error saving swimlane height:', error);
+          } else {
+            if (process.env.DEBUG === 'true') {
+            }
+          }
+        });
+      } else {
+        // For non-logged-in users, save to localStorage directly
+        try {
+          const stored = localStorage.getItem('wekan-swimlane-heights');
+          let heights = stored ? JSON.parse(stored) : {};
+          
+          if (!heights[boardId]) {
+            heights[boardId] = {};
+          }
+          heights[boardId][swimlaneId] = finalHeight;
+          
+          localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
+          
           if (process.env.DEBUG === 'true') {
           }
+        } catch (e) {
+          console.warn('Error saving swimlane height to localStorage:', e);
         }
-      });
+      }
       
       e.preventDefault();
     };
