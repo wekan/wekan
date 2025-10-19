@@ -86,17 +86,17 @@ template(name="attachmentGallery")
                 = name
               span.file-size ({{fileSize size}})
             .attachment-actions
-              a.js-download(href="{{link}}?download=true", download="{{name}}")
-                | ⬇️(title="{{_ 'download'}}")
+              a.js-download(href="{{link}}?download=true", download="{{name}}", title="{{_ 'download'}}")
+                | ⬇️
               if currentUser.isBoardMember
                 unless currentUser.isCommentOnly
                   unless currentUser.isWorker
-                    a.js-rename
-                      | ✏️(title="{{_ 'rename'}}")
-                    a.js-confirm-delete
-                      | 🗑️(title="{{_ 'delete'}}")
-                    a.js-open-attachment-menu
-                      | ☰(data-attachment-link="{{link}}" title="{{_ 'attachmentActionsPopup-title'}}")
+                    a.js-rename(title="{{_ 'rename'}}")
+                      | ✏️
+                    a.js-confirm-delete(title="{{_ 'delete'}}")
+                      | 🗑️
+                    a.js-open-attachment-menu(data-attachment-link="{{link}}", title="{{_ 'attachmentActionsPopup-title'}}")
+                      | ☰
 
         // Migration spinner overlay
         if isAttachmentMigrating _id
