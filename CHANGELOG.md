@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix add and drag drop attachments to minicards and card](https://github.com/wekan/wekan/commit/b06daff4c7e63453643459f7d8798fde97e3200c (HEAD -> main)
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.05 2025-10-17 WeKan ® release
 
 This release fixes the following bugs:
