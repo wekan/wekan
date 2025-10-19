@@ -23,11 +23,13 @@ Fixing other platforms In Progress.
 
 This release fixes the following bugs:
 
-- [Fix add and drag drop attachments to minicards and card](https://github.com/wekan/wekan/commit/b06daff4c7e63453643459f7d8798fde97e3200c (HEAD -> main)
+- [Fix add and drag drop attachments to minicards and card](https://github.com/wekan/wekan/commit/b06daff4c7e63453643459f7d8798fde97e3200c).
   Thanks to xet7.
 - [Fix starred, archive and clone icons](https://github.com/wekan/wekan/pull/5953).
   Thanks to helioguardabaxo.
-- [Fix Due dates to be color coded and have unicode icons](https://github.com/wekan/wekan/commit/d965faa3174dc81636106e6f81435b2750b0625f).
+- Fix Due dates to be color coded and have unicode icons.
+  [Part 1](https://github.com/wekan/wekan/commit/d965faa3174dc81636106e6f81435b2750b0625f),
+  [Part 2](https://github.com/wekan/wekan/commit/101048339bdd1e45f876aeb1aa5ec32ceda28139).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
