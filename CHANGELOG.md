@@ -60,6 +60,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Bug: Scale of Minicard icons is linked to horizontal screensize](https://github.com/wekan/wekan/commit/b6b0c5fe6d7dbd37926c662f96f2e3653cabd867).
   Thanks to xet7.
+- [Fix Bug Member settings drops to the second line and overlaps when many boards are starred as favourites](https://github.com/wekan/wekan/commit/46d46e313cbb8d9c3e4a976ec27b5141c266050f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
