@@ -45,39 +45,42 @@
 
 /* Date type specific colors */
 .card-date.received-date {
-  background-color: #0079bf; /* Blue for received */
+  background-color: #dbdbdb; /* Light grey for received */
 }
 
 .card-date.received-date:hover,
 .card-date.received-date.is-active {
-  background-color: #005a8b;
+  background-color: #b3b3b3;
 }
 
 .card-date.start-date {
-  background-color: #3cb500; /* Green for start */
+  background-color: #90ee90; /* Light green for start */
+  color: #000; /* Black text for start */
 }
 
 .card-date.start-date:hover,
 .card-date.start-date.is-active {
-  background-color: #2d8f00;
+  background-color: #7dd87d;
 }
 
 .card-date.due-date {
-  background-color: #ff9f19; /* Orange for due */
+  background-color: #ffd700; /* Yellow for due */
+  color: #000; /* Black text for due */
 }
 
 .card-date.due-date:hover,
 .card-date.due-date.is-active {
-  background-color: #e68a00;
+  background-color: #e6c200;
 }
 
 .card-date.end-date {
-  background-color: #a632db; /* Purple for end */
+  background-color: #ffb3b3; /* Light red for end */
+  color: #000; /* Black text for end */
 }
 
 .card-date.end-date:hover,
 .card-date.end-date.is-active {
-  background-color: #8a2bb8;
+  background-color: #ff9999;
 }
 .card-date.end-date time::before {
   content: "🏁"; /* Finish flag - represents end/completion */

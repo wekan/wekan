@@ -200,30 +200,33 @@
 }
 
 .minicard .card-date.start-date {
-  background-color: #3cb500; /* Green for start */
+  background-color: #90ee90; /* Light green for start */
+  color: #000; /* Black text for start */
 }
 
 .minicard .card-date.start-date:hover,
 .minicard .card-date.start-date.is-active {
-  background-color: #2d8f00;
+  background-color: #7dd87d;
 }
 
 .minicard .card-date.due-date {
-  background-color: #ff9f19; /* Orange for due */
+  background-color: #ffd700; /* Yellow for due */
+  color: #000; /* Black text for due */
 }
 
 .minicard .card-date.due-date:hover,
 .minicard .card-date.due-date.is-active {
-  background-color: #e68a00;
+  background-color: #e6c200;
 }
 
 .minicard .card-date.end-date {
-  background-color: #a632db; /* Purple for end */
+  background-color: #ffb3b3; /* Light red for end */
+  color: #000; /* Black text for end */
 }
 
 .minicard .card-date.end-date:hover,
 .minicard .card-date.end-date.is-active {
-  background-color: #8a2bb8;
+  background-color: #ff9999;
 }
 
 /* Font Awesome icons in minicard dates */
