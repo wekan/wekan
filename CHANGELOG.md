@@ -21,7 +21,12 @@ Fixing other platforms In Progress.
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [At Public Board, drag resize list width and swimlane height. For logged in users, fix adding labels](https://github.com/wekan/wekan/commit/351433524708e9a7ccb4795d9ca31a78904943ea).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix add and drag drop attachments to minicards and card](https://github.com/wekan/wekan/commit/b06daff4c7e63453643459f7d8798fde97e3200c).
   Thanks to xet7.
