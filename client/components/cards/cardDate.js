@@ -3,6 +3,7 @@ import { DatePicker } from '/client/lib/datepicker';
 import { 
   formatDateTime, 
   formatDate, 
+  formatDateByUserPreference,
   formatTime, 
   getISOWeek, 
   isValidDate, 
@@ -131,7 +132,9 @@ const CardDate = BlazeComponent.extendComponent({
   },
 
   showDate() {
-    return calendar(this.date.get());
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   },
 
   showISODate() {
@@ -166,7 +169,10 @@ class CardReceivedDate extends CardDate {
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-received-on')} ${format(this.date.get(), 'LLLL')}`;
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    const formattedDate = formatDateByUserPreference(this.date.get(), dateFormat, true);
+    return `${TAPi18n.__('card-received-on')} ${formattedDate}`;
   }
 
   events() {
@@ -201,7 +207,10 @@ class CardStartDate extends CardDate {
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-start-on')} ${format(this.date.get(), 'LLLL')}`;
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    const formattedDate = formatDateByUserPreference(this.date.get(), dateFormat, true);
+    return `${TAPi18n.__('card-start-on')} ${formattedDate}`;
   }
 
   events() {
@@ -237,7 +246,10 @@ class CardDueDate extends CardDate {
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-due-on')} ${format(this.date.get(), 'LLLL')}`;
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    const formattedDate = formatDateByUserPreference(this.date.get(), dateFormat, true);
+    return `${TAPi18n.__('card-due-on')} ${formattedDate}`;
   }
 
   events() {
@@ -315,7 +327,10 @@ class CardCustomFieldDate extends CardDate {
   }
 
   showTitle() {
-    return `${format(this.date.get(), 'LLLL')}`;
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    const formattedDate = formatDateByUserPreference(this.date.get(), dateFormat, true);
+    return `${formattedDate}`;
   }
 
   classes() {
@@ -334,7 +349,9 @@ CardCustomFieldDate.register('cardCustomFieldDate');
   }
   
   showDate() {
-    return format(this.date.get(), 'L');
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
 }.register('minicardReceivedDate'));
 
@@ -344,7 +361,9 @@ CardCustomFieldDate.register('cardCustomFieldDate');
   }
   
   showDate() {
-    return format(this.date.get(), 'YYYY-MM-DD HH:mm');
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
 }.register('minicardStartDate'));
 
@@ -354,7 +373,9 @@ CardCustomFieldDate.register('cardCustomFieldDate');
   }
   
   showDate() {
-    return format(this.date.get(), 'YYYY-MM-DD HH:mm');
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
 }.register('minicardDueDate'));
 
@@ -364,7 +385,9 @@ CardCustomFieldDate.register('cardCustomFieldDate');
   }
   
   showDate() {
-    return format(this.date.get(), 'YYYY-MM-DD HH:mm');
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
 }.register('minicardEndDate'));
 
@@ -374,7 +397,9 @@ CardCustomFieldDate.register('cardCustomFieldDate');
   }
   
   showDate() {
-    return format(this.date.get(), 'L');
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
 }.register('minicardCustomFieldDate'));
 
@@ -391,7 +416,9 @@ class VoteEndDate extends CardDate {
     return classes;
   }
   showDate() {
-    return format(this.date.get(), 'L') + ' ' + format(this.date.get(), 'HH:mm');
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
   showTitle() {
     return `${TAPi18n.__('card-end-on')} ${this.date.get().toLocaleString()}`;
@@ -418,7 +445,9 @@ class PokerEndDate extends CardDate {
     return classes;
   }
   showDate() {
-    return format(this.date.get(), 'l LT');
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
   showTitle() {
     return `${TAPi18n.__('card-end-on')} ${format(this.date.get(), 'LLLL')}`;

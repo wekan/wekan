@@ -1,8 +1,10 @@
 import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
+import { ReactiveCache } from '/imports/reactiveCache';
 import { 
   formatDateTime, 
   formatDate, 
+  formatDateByUserPreference,
   formatTime, 
   getISOWeek, 
   isValidDate, 
@@ -177,7 +179,9 @@ CardCustomField.register('cardCustomField');
   }
 
   showDate() {
-    return calendar(this.date.get());
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    return formatDateByUserPreference(this.date.get(), dateFormat, true);
   }
 
   showISODate() {

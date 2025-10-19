@@ -306,6 +306,10 @@ BlazeComponent.extendComponent({
           const $tooltip = this.$('.card-details-header .copied-tooltip');
           Utils.showCopied(promise, $tooltip);
         },
+        'change .js-date-format-selector'(event) {
+          const dateFormat = event.target.value;
+          Meteor.call('changeDateFormat', dateFormat);
+        },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
           event.preventDefault();
@@ -567,6 +571,11 @@ Template.cardDetails.helpers({
   isPopup() {
     let ret = !!Utils.getPopupCardId();
     return ret;
+  },
+  isDateFormat(format) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (!currentUser) return format === 'YYYY-MM-DD';
+    return currentUser.getDateFormat() === format;
   },
   // Upload progress helpers
   hasActiveUploads() {

@@ -465,6 +465,15 @@ Users.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    'profile.dateFormat': {
+      /**
+       * User-specified date format for displaying dates (includes time HH:MM).
+       */
+      type: String,
+      optional: true,
+      allowedValues: ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'],
+      defaultValue: 'YYYY-MM-DD',
+    },
     'profile.zoomLevel': {
       /**
        * User-specified zoom level for board view (1.0 = 100%, 1.5 = 150%, etc.)
@@ -1049,6 +1058,11 @@ Users.helpers({
     return profile.startDayOfWeek;
   },
 
+  getDateFormat() {
+    const profile = this.profile || {};
+    return profile.dateFormat || 'YYYY-MM-DD';
+  },
+
   getTemplatesBoardId() {
     return (this.profile || {}).templatesBoardId;
   },
@@ -1452,6 +1466,14 @@ Users.mutations({
     };
   },
 
+  setDateFormat(dateFormat) {
+    return {
+      $set: {
+        'profile.dateFormat': dateFormat,
+      },
+    };
+  },
+
   setBoardView(view) {
     return {
       $set: {
@@ -1596,6 +1618,10 @@ Meteor.methods({
   changeStartDayOfWeek(startDay) {
     check(startDay, Number);
     ReactiveCache.getCurrentUser().setStartDayOfWeek(startDay);
+  },
+  changeDateFormat(dateFormat) {
+    check(dateFormat, String);
+    ReactiveCache.getCurrentUser().setDateFormat(dateFormat);
   },
   applyListWidth(boardId, listId, width, constraint) {
     check(boardId, String);

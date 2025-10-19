@@ -113,6 +113,16 @@ template(name="cardDetails")
         if currentBoard.hasAnyAllowsDate
           hr
 
+          .card-details-item.card-details-item-date-format
+            h3.card-details-item-title
+              | 📅
+              | {{_ 'date-format'}}
+            .card-details-item-content
+              select.js-date-format-selector
+                option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
+                option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
+                option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
+
         if currentBoard.allowsReceivedDate
           .card-details-item.card-details-item-received
             h3.card-details-item-title

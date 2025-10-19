@@ -37,6 +37,44 @@ export function formatDate(date) {
 }
 
 /**
+ * Format a date according to user's preferred format
+ * @param {Date|string} date - Date to format
+ * @param {string} format - Format string (YYYY-MM-DD, DD-MM-YYYY, MM-DD-YYYY)
+ * @param {boolean} includeTime - Whether to include time (HH:MM)
+ * @returns {string} Formatted date string
+ */
+export function formatDateByUserPreference(date, format = 'YYYY-MM-DD', includeTime = true) {
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return '';
+  
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  
+  let dateString;
+  switch (format) {
+    case 'DD-MM-YYYY':
+      dateString = `${day}-${month}-${year}`;
+      break;
+    case 'MM-DD-YYYY':
+      dateString = `${month}-${day}-${year}`;
+      break;
+    case 'YYYY-MM-DD':
+    default:
+      dateString = `${year}-${month}-${day}`;
+      break;
+  }
+  
+  if (includeTime) {
+    return `${dateString} ${hours}:${minutes}`;
+  }
+  
+  return dateString;
+}
+
+/**
  * Format a time to HH:mm format
  * @param {Date|string} date - Date to format
  * @returns {string} Formatted time string

@@ -1,3 +1,31 @@
+/* Date Format Selector */
+.card-details-item-date-format {
+  margin-bottom: 10px;
+}
+
+.card-details-item-date-format .card-details-item-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.card-details-item-date-format .js-date-format-selector {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.card-details-item-date-format .js-date-format-selector:focus {
+  outline: none;
+  border-color: #007cba;
+  box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+}
+
 .assignee {
   border-radius: 3px;
   display: block;
