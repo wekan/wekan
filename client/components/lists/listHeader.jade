@@ -65,14 +65,14 @@ template(name="listHeader")
               //if isBoardAdmin
               //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
               if canSeeAddCard
-                a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") | ➕
+                a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
                 a.js-collapse(title="{{_ 'collapse'}}")
                   | ⬅️
                   | ➡️
-                a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") | ☰
+                a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
             if currentUser.isBoardMember
               unless currentUser.isCommentOnly
-                a.list-header-handle.handle.js-list-handle | ↕️
+                a.list-header-handle.handle.js-list-handle ↕️
 
 template(name="editListTitleForm")
   .list-composer
