@@ -58,6 +58,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix card popup to use HTML date, not anymore JQuery date](https://github.com/wekan/wekan/commit/2d44881619d78e8ef4c5060d17e9035f5babd778).
   Thanks to xet7.
+- [Fix Bug: Scale of Minicard icons is linked to horizontal screensize](https://github.com/wekan/wekan/commit/b6b0c5fe6d7dbd37926c662f96f2e3653cabd867).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
