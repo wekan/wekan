@@ -304,6 +304,10 @@ export function format(date, format = 'L') {
       return d.toLocaleString();
     case 'llll':
       return d.toLocaleString();
+    case 'LLLL':
+      return d.toLocaleString();
+    case 'l LT':
+      return `${month}/${day}/${year} ${hours}:${minutes}`;
     case 'YYYY-MM-DD':
       return `${year}-${month}-${day}`;
     case 'YYYY-MM-DD HH:mm':
@@ -489,4 +493,41 @@ export function calendar(date, now = new Date()) {
   if (diffDays < -1 && diffDays > -7) return `${Math.abs(diffDays)} days ago`;
   
   return format(d, 'L');
+}
+
+/**
+ * Calculate the difference between two dates in the specified unit
+ * @param {Date|string} date1 - First date
+ * @param {Date|string} date2 - Second date  
+ * @param {string} unit - Unit of measurement ('millisecond', 'second', 'minute', 'hour', 'day', 'week', 'month', 'year')
+ * @returns {number} Difference in the specified unit
+ */
+export function diff(date1, date2, unit = 'millisecond') {
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+  
+  if (isNaN(d1.getTime()) || isNaN(d2.getTime())) return 0;
+  
+  const diffMs = d1.getTime() - d2.getTime();
+  
+  switch (unit) {
+    case 'millisecond':
+      return diffMs;
+    case 'second':
+      return Math.floor(diffMs / 1000);
+    case 'minute':
+      return Math.floor(diffMs / (1000 * 60));
+    case 'hour':
+      return Math.floor(diffMs / (1000 * 60 * 60));
+    case 'day':
+      return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    case 'week':
+      return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7));
+    case 'month':
+      return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 30));
+    case 'year':
+      return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365));
+    default:
+      return diffMs;
+  }
 }

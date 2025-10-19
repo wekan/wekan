@@ -18,7 +18,8 @@ import {
   now, 
   createDate, 
   fromNow, 
-  calendar 
+  calendar,
+  diff
 } from '/imports/lib/dateUtils';
 
 // editCardReceivedDatePopup
@@ -169,9 +170,7 @@ class CardReceivedDate extends CardDate {
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-received-on')} ${this.date
-      .get()
-      .format('LLLL')}`;
+    return `${TAPi18n.__('card-received-on')} ${format(this.date.get(), 'LLLL')}`;
   }
 
   events() {
@@ -198,15 +197,15 @@ class CardStartDate extends CardDate {
     const theDate = this.date.get();
     const now = this.now.get();
     // if dueAt or endAt exist & are > startAt, startAt doesn't need to be flagged
-    if ((endAt && theDate.isAfter(endAt)) || (dueAt && theDate.isAfter(dueAt)))
+    if ((endAt && isAfter(theDate, endAt)) || (dueAt && isAfter(theDate, dueAt)))
       classes += 'long-overdue';
-    else if (theDate.isAfter(now)) classes += '';
+    else if (isAfter(theDate, now)) classes += '';
     else classes += 'current';
     return classes;
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-start-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-start-on')} ${format(this.date.get(), 'LLLL')}`;
   }
 
   events() {
@@ -232,17 +231,17 @@ class CardDueDate extends CardDate {
     const theDate = this.date.get();
     const now = this.now.get();
     // if the due date is after the end date, green - done early
-    if (endAt && theDate.isAfter(endAt)) classes += 'current';
+    if (endAt && isAfter(theDate, endAt)) classes += 'current';
     // if there is an end date, don't need to flag the due date
     else if (endAt) classes += '';
-    else if (now.diff(theDate, 'days') >= 2) classes += 'long-overdue';
-    else if (now.diff(theDate, 'minute') >= 0) classes += 'due';
-    else if (now.diff(theDate, 'days') >= -1) classes += 'almost-due';
+    else if (diff(now, theDate, 'days') >= 2) classes += 'long-overdue';
+    else if (diff(now, theDate, 'minute') >= 0) classes += 'due';
+    else if (diff(now, theDate, 'days') >= -1) classes += 'almost-due';
     return classes;
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-due-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-due-on')} ${format(this.date.get(), 'LLLL')}`;
   }
 
   events() {
@@ -267,13 +266,13 @@ class CardEndDate extends CardDate {
     const dueAt = this.data().getDue();
     const theDate = this.date.get();
     if (!dueAt) classes += '';
-    else if (theDate.isBefore(dueAt)) classes += 'current';
-    else if (theDate.isAfter(dueAt)) classes += 'due';
+    else if (isBefore(theDate, dueAt)) classes += 'current';
+    else if (isAfter(theDate, dueAt)) classes += 'due';
     return classes;
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-end-on')} ${format(this.date.get(), 'LLLL')}`;
   }
 
   events() {
@@ -315,7 +314,7 @@ class CardCustomFieldDate extends CardDate {
   }
 
   showTitle() {
-    return `${this.date.get().format('LLLL')}`;
+    return `${format(this.date.get(), 'LLLL')}`;
   }
 
   classes() {
@@ -418,10 +417,10 @@ class PokerEndDate extends CardDate {
     return classes;
   }
   showDate() {
-    return this.date.get().format('l LT');
+    return format(this.date.get(), 'l LT');
   }
   showTitle() {
-    return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-end-on')} ${format(this.date.get(), 'LLLL')}`;
   }
 
   events() {

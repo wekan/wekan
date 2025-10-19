@@ -94,7 +94,7 @@
 
 /* Generic date badge and custom field date */
 .card-date:not(.received-date):not(.start-date):not(.due-date):not(.end-date) time::before {
-  content: "📅"; /* Calendar - represents generic date */
+  /*content: "📅"; // Calendar - represents generic date */
 }
 .card-date time::before {
   font-size: inherit;

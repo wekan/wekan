@@ -169,6 +169,63 @@
   margin-right: 0.4vw;
 }
 
+/* Unicode icons for minicard dates - matching cardDate.css */
+.minicard .card-date.end-date time::before {
+  content: "🏁"; /* Finish flag - represents end/completion */
+}
+.minicard .card-date.due-date time::before {
+  content: "⏰"; /* Alarm clock - represents due/deadline */
+}
+.minicard .card-date.start-date time::before {
+  content: "🚀"; /* Rocket - represents start/launch */
+}
+.minicard .card-date.received-date time::before {
+  content: "📥"; /* Inbox tray - represents received/incoming */
+}
+
+.minicard .card-date time::before {
+  font-size: inherit;
+  margin-right: 0.3em;
+  display: inline-block;
+}
+
+/* Date type specific colors for minicards - matching cardDate.css */
+.minicard .card-date.received-date {
+  background-color: #dbdbdb; /* Grey for received - same as base card-date */
+}
+
+.minicard .card-date.received-date:hover,
+.minicard .card-date.received-date.is-active {
+  background-color: #b3b3b3;
+}
+
+.minicard .card-date.start-date {
+  background-color: #3cb500; /* Green for start */
+}
+
+.minicard .card-date.start-date:hover,
+.minicard .card-date.start-date.is-active {
+  background-color: #2d8f00;
+}
+
+.minicard .card-date.due-date {
+  background-color: #ff9f19; /* Orange for due */
+}
+
+.minicard .card-date.due-date:hover,
+.minicard .card-date.due-date.is-active {
+  background-color: #e68a00;
+}
+
+.minicard .card-date.end-date {
+  background-color: #a632db; /* Purple for end */
+}
+
+.minicard .card-date.end-date:hover,
+.minicard .card-date.end-date.is-active {
+  background-color: #8a2bb8;
+}
+
 /* Font Awesome icons in minicard dates */
 .minicard .card-date i.fa {
   margin-right: 0.3vw;

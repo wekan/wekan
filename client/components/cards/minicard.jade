@@ -12,11 +12,8 @@ template(name="minicard")
         a.minicard-details-menu.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}") | ☰
     .dates
       if getReceived
-        unless getStart
-          unless getDue
-            unless getEnd
-              .date
-                +minicardReceivedDate
+        .date
+          +minicardReceivedDate
       if getStart
         .date
           +minicardStartDate
