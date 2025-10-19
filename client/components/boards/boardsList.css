@@ -361,6 +361,18 @@
   min-height: 100vh; /* Force content to be tall enough to scroll */
 }
 
+/* Hide archive and clone board buttons in mobile view */
+.board-list.mobile-view .js-archive-board,
+.board-list.mobile-view .js-clone-board {
+  display: none !important;
+}
+
+/* Change board drag handle to up-down arrow in mobile view */
+.board-list.mobile-view .board-handle.fa-arrows::before {
+  content: "↕️" !important;
+  font-family: inherit !important;
+}
+
 .board-list.mobile-view::after {
   content: '';
   display: block;
@@ -823,6 +835,18 @@
 
   #content {
     overflow: hidden;
+  }
+
+  /* Hide archive and clone board buttons in mobile view */
+  .board-list .js-archive-board,
+  .board-list .js-clone-board {
+    display: none !important;
+  }
+
+  /* Change board drag handle to up-down arrow in mobile view */
+  .board-list .board-handle.fa-arrows::before {
+    content: "↕️" !important;
+    font-family: inherit !important;
   }
 }
 
