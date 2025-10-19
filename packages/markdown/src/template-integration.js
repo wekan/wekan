@@ -36,11 +36,21 @@ for(var i=0; i<urlschemes.length;i++){
   Markdown.linkify.add(urlschemes[i]+":",'http:');
 }
 
-var emoji = require('markdown-it-emoji');
-Markdown.use(emoji);
+// Try to load emoji support, but don't fail if it's not available
+try {
+  var emoji = require('markdown-it-emoji');
+  Markdown.use(emoji);
+} catch (e) {
+  console.warn('markdown-it-emoji not available, emoji rendering disabled:', e.message);
+}
 
-var mathjax = require('markdown-it-mathjax3');
-Markdown.use(mathjax);
+// Try to load mathjax3, but don't fail if it's not available
+try {
+  var mathjax = require('markdown-it-mathjax3');
+  Markdown.use(mathjax);
+} catch (e) {
+  console.warn('markdown-it-mathjax3 not available, math rendering disabled:', e.message);
+}
 
 // Custom plugin to prevent SVG-based DoS attacks
 Markdown.use(function(md) {

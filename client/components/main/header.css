@@ -100,8 +100,9 @@
   z-index: 1000;
   padding: 10px 0px;
   align-items: center;
-  flex-wrap: wrap; /* Allow wrapping on mobile */
-  min-height: 28px; /* Allow height to grow */
+  flex-wrap: nowrap; /* Prevent wrapping to keep single row */
+  min-height: 28px;
+  overflow: hidden; /* Prevent content from overflowing */
 }
 #header-quick-access .home-icon {
   display: flex;
@@ -167,13 +168,39 @@
   white-space: nowrap;
   padding: 10px;
   margin: -10px;
+  flex: 1; /* Take up available space */
+  min-width: 0; /* Allow shrinking below content size */
+  display: flex; /* Use flexbox for better control */
+  align-items: center;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent; /* Firefox */
+}
+
+/* Webkit scrollbar styling for better UX */
+#header-quick-access ul.header-quick-access-list::-webkit-scrollbar {
+  height: 4px;
+}
+
+#header-quick-access ul.header-quick-access-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#header-quick-access ul.header-quick-access-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+#header-quick-access ul.header-quick-access-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 #header-quick-access ul.header-quick-access-list li {
-  display: inline;
+  display: inline-block; /* Keep inline-block for proper spacing */
   width: auto;
   color: #d9d9d9;
   padding: 12px 0px;
   margin: -10px 0px;
+  flex-shrink: 0; /* Prevent items from shrinking */
+  white-space: nowrap; /* Prevent text wrapping within items */
 }
 #header-quick-access ul.header-quick-access-list li a {
   padding: 12px 10px;
@@ -447,6 +474,8 @@
     transition: background-color 0.4s;
     width: 100%;
     z-index: 30;
+    flex-wrap: nowrap !important; /* Force single row on mobile */
+    overflow: hidden; /* Prevent content overflow */
   }
 
   /* Mobile home icon styling */
@@ -490,11 +519,12 @@
          screen and (max-width: 800px) and (orientation: portrait),
          screen and (max-width: 800px) and (orientation: landscape) {
     #header-quick-access {
-      height: auto !important; /* Allow height to grow */
+      height: 48px !important; /* Fixed height for mobile */
       min-height: 48px !important; /* Minimum height for mobile */
-      flex-wrap: wrap !important; /* Force wrapping */
-      align-items: flex-start !important; /* Align to top when wrapping */
+      flex-wrap: nowrap !important; /* Force single row */
+      align-items: center !important; /* Center align items */
       padding: 8px 0px !important; /* Adjust padding for mobile */
+      overflow: hidden !important; /* Prevent content overflow */
     }
     #header-quick-access {
       font-size: 2em !important; /* 2x bigger base font size */

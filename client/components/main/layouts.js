@@ -92,6 +92,18 @@ Template.userFormsLayout.onRendered(() => {
     if (loginInput && loginInput.name && (loginInput.name.toLowerCase().includes('user') || loginInput.name.toLowerCase().includes('email'))) {
       loginInput.setAttribute('autocomplete', 'username email');
     }
+
+    // Add autocomplete attributes to password fields for WCAG compliance
+    const passwordInputs = document.querySelectorAll('input[type="password"]');
+    passwordInputs.forEach(input => {
+      if (input.name && input.name.includes('password')) {
+        if (input.name.includes('password_again') || input.name.includes('new_password')) {
+          input.setAttribute('autocomplete', 'new-password');
+        } else {
+          input.setAttribute('autocomplete', 'current-password');
+        }
+      }
+    });
   });
 });
 

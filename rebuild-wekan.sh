@@ -1,7 +1,6 @@
 #!/bin/bash
 
-
-echo "Recommended for development: Debian 12 amd64, directly to SSD disk or dual boot, not VM. Works fast."
+echo "Recommended for development: Newest Debian or Ubuntu amd64 based distro, directly to SSD disk or dual boot, not VM. Works fast."
 echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally install en_US.UTF-8"
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."

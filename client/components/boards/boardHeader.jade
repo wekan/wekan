@@ -237,6 +237,35 @@ template(name="createBoard")
       | /
       a.js-board-template {{_ 'template'}}
 
+template(name="createBoardPopup")
+  form
+    label
+      | {{_ 'title'}}
+      input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
+    if visibilityMenuIsOpen.get
+      +boardVisibilityList
+    else
+      p.quiet
+        if $eq visibility.get 'public'
+          span 🌐
+          = " "
+          | {{{_ 'board-public-info'}}}
+        else
+          span 🔒
+          = " "
+          | {{{_ 'board-private-info'}}}
+        a.js-change-visibility {{_ 'change'}}.
+    a.flex.js-toggle-add-template-container
+      .materialCheckBox#add-template-container
+      span {{_ 'add-template-container'}}
+    input.primary.wide(type="submit" value="{{_ 'create'}}")
+    span.quiet
+      | {{_ 'or'}}
+      a.js-import-board {{_ 'import'}}
+    span.quiet
+      | /
+      a.js-board-template {{_ 'template'}}
+
 //template(name="listsortPopup")
 //  h2
 //   | {{_ 'list-sort-by'}}
