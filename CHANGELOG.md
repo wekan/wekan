@@ -46,6 +46,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Removed extra pipe characters](https://github.com/wekan/wekan/commit/caa6e615ff3c3681bf2b470a625eb39c6009b825).
   Thanks to xet7.
+- [Fix syntax error at migrations](https://github.com/wekan/wekan/commit/eb6b42c4c9f99894fd93e62c9b3fceda3429c96c).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
