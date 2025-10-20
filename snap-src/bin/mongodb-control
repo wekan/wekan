@@ -51,59 +51,6 @@ if [ ! -d "$MONGO_DATA_DIR" ]; then
     chmod 755 "$MONGO_DATA_DIR"
 fi
 
-# Handle migration from SNAP_COMMON/wekan back to SNAP_COMMON
-# This ensures data is preserved when switching from per-swimlane lists back to shared lists
-if [ ! -d "${SNAP_COMMON}/mongodb-migration-completed" ]; then
-    echo "Checking for MongoDB data migration from SNAP_COMMON/wekan to SNAP_COMMON..."
-    
-    # Check if SNAP_COMMON/wekan exists and has MongoDB data
-    if [ -d "${SNAP_COMMON}/wekan" ] && [ "$(ls -A ${SNAP_COMMON}/wekan 2>/dev/null)" ]; then
-        echo "Found MongoDB data in SNAP_COMMON/wekan, migrating to SNAP_COMMON..."
-        
-        # Create backup directory for existing SNAP_COMMON data
-        if [ "$(ls -A ${SNAP_COMMON} 2>/dev/null)" ]; then
-            echo "Backing up existing SNAP_COMMON data to SNAP_COMMON/old-mongodb-move..."
-            mkdir -p "${SNAP_COMMON}/old-mongodb-move"
-            # Move all files except Caddyfile
-            for file in "${SNAP_COMMON}"/*; do
-                if [ -f "$file" ] && [ "$(basename "$file")" != "Caddyfile" ]; then
-                    mv "$file" "${SNAP_COMMON}/old-mongodb-move/"
-                fi
-            done
-            # Move specific MongoDB directories
-            if [ -d "${SNAP_COMMON}/journal" ]; then
-                echo "Moving SNAP_COMMON/journal to old-mongodb-move..."
-                mv "${SNAP_COMMON}/journal" "${SNAP_COMMON}/old-mongodb-move/"
-            fi
-            if [ -d "${SNAP_COMMON}/diagnostic.data" ]; then
-                echo "Moving SNAP_COMMON/diagnostic.data to old-mongodb-move..."
-                mv "${SNAP_COMMON}/diagnostic.data" "${SNAP_COMMON}/old-mongodb-move/"
-            fi
-        fi
-        
-        # Move MongoDB data files from SNAP_COMMON/wekan to SNAP_COMMON
-        echo "Moving MongoDB data from SNAP_COMMON/wekan to SNAP_COMMON..."
-        mv "${SNAP_COMMON}/wekan"/* "${SNAP_COMMON}/" 2>/dev/null || true
-        
-        # Rename SNAP_COMMON/wekan to SNAP_COMMON/old-wekan
-        echo "Renaming SNAP_COMMON/wekan to SNAP_COMMON/old-wekan..."
-        mv "${SNAP_COMMON}/wekan" "${SNAP_COMMON}/old-wekan"
-        
-        # Set proper permissions
-        chmod 755 "${SNAP_COMMON}"
-        chmod 755 "${SNAP_COMMON}/old-wekan" 2>/dev/null || true
-        chmod 755 "${SNAP_COMMON}/old-mongodb-move" 2>/dev/null || true
-        
-        echo "MongoDB data migration completed successfully"
-    else
-        echo "No MongoDB data found in SNAP_COMMON/wekan, skipping migration"
-    fi
-    
-    # Mark migration as completed
-    touch "${SNAP_COMMON}/mongodb-migration-completed"
-    echo "MongoDB migration marker created"
-fi
-
 # Set MongoDB log file path
 export MONGO_LOG_FILE="${SNAP_COMMON}/mongodb.log"
 
