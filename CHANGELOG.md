@@ -27,6 +27,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [When opening board, add missing lists](https://github.com/wekan/wekan/commit/80777b46638ed15b8194105751499ada4b066d19).
   Thanks to xet7.
+- [If Snap Candidate MongoDB raw database files were at SNAP_COMMON/wekan, migrate them back to SNAP_COMMON](https://github.com/wekan/wekan/commit/f2019b1059c8d6f4cd9a46c3db7e004c4928cebb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
