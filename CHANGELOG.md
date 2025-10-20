@@ -19,7 +19,7 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
-# Upcoming WeKan ® release
+# v8.07 2025-10-20 WeKan ® release
 
 This release fixes the following bugs:
 
