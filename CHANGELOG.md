@@ -19,6 +19,9 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
+Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
+
 # Upcoming WeKan ® release
 
 This release fixes the following bugs:
