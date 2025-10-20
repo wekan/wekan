@@ -115,6 +115,9 @@ BlazeComponent.extendComponent({
       // Convert shared lists to per-swimlane lists if needed
       await this.convertSharedListsToPerSwimlane(boardId);
 
+      // Fix missing lists migration (for cards with wrong listId references)
+      await this.fixMissingLists(boardId);
+
       // Start attachment migration in background if needed
       this.startAttachmentMigrationIfNeeded(boardId);
     } catch (error) {
@@ -233,6 +236,61 @@ BlazeComponent.extendComponent({
 
     } catch (error) {
       console.error('Error converting shared lists to per-swimlane:', error);
+    }
+  },
+
+  async fixMissingLists(boardId) {
+    try {
+      const board = ReactiveCache.getBoard(boardId);
+      if (!board) return;
+
+      // Check if board has already been processed for missing lists fix
+      if (board.fixMissingListsCompleted) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has already been processed for missing lists fix`);
+        }
+        return;
+      }
+
+      // Check if migration is needed
+      const needsMigration = await new Promise((resolve, reject) => {
+        Meteor.call('fixMissingListsMigration.needsMigration', boardId, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      if (!needsMigration) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} does not need missing lists fix`);
+        }
+        return;
+      }
+
+      if (process.env.DEBUG === 'true') {
+        console.log(`Starting fix missing lists migration for board ${boardId}`);
+      }
+
+      // Execute the migration
+      const result = await new Promise((resolve, reject) => {
+        Meteor.call('fixMissingListsMigration.execute', boardId, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      if (result && result.success) {
+        console.log(`Successfully fixed missing lists for board ${boardId}: created ${result.createdLists} lists, updated ${result.updatedCards} cards`);
+      }
+
+    } catch (error) {
+      console.error('Error fixing missing lists:', error);
     }
   },
 

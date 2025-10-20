@@ -211,33 +211,20 @@ Swimlanes.helpers({
     return this.draggableLists();
   },
   newestLists() {
-    // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
-    // Include lists without swimlaneId for backward compatibility (they belong to default swimlane)
+    // Revert to shared lists across swimlanes: filter by board only
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        $or: [
-          { swimlaneId: this._id },
-          { swimlaneId: { $exists: false } },
-          { swimlaneId: '' },
-          { swimlaneId: null }
-        ],
         archived: false,
       },
       { sort: { modifiedAt: -1 } },
     );
   },
   draggableLists() {
-    // Include lists without swimlaneId for backward compatibility (they belong to default swimlane)
+    // Revert to shared lists across swimlanes: filter by board only
     return ReactiveCache.getLists(
       {
         boardId: this.boardId,
-        $or: [
-          { swimlaneId: this._id },
-          { swimlaneId: { $exists: false } },
-          { swimlaneId: '' },
-          { swimlaneId: null }
-        ],
         //archived: false,
       },
       { sort: ['sort'] },
@@ -245,7 +232,8 @@ Swimlanes.helpers({
   },
 
   myLists() {
-    return ReactiveCache.getLists({ swimlaneId: this._id });
+    // Revert to shared lists: provide lists by board for this swimlane's board
+    return ReactiveCache.getLists({ boardId: this.boardId });
   },
 
   allCards() {

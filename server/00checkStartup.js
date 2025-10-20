@@ -40,6 +40,9 @@ if (errors.length > 0) {
 // Import cron job storage for persistent job tracking
 import './cronJobStorage';
 
+// Import migrations
+import './migrations/fixMissingListsMigration';
+
 // Note: Automatic migrations are disabled - migrations only run when opening boards
 // import './boardMigrationDetector';
 // import './cronMigrationManager';
