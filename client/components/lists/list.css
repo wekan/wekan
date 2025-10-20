@@ -765,7 +765,8 @@ body.list-resizing-active * {
   align-items: initial;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .mini-list {
     flex: 0 0 60px;
     height: auto;

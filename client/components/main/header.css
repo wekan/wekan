@@ -342,7 +342,8 @@
     }
 
     /* Make zoom input wider on all mobile screens */
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
       #header-quick-access .zoom-controls .zoom-input {
         min-width: 50px !important; /* Wider on mobile */
         width: 50px !important; /* Fixed width to show all numbers */
@@ -452,7 +453,8 @@
   margin: 6px 5px 0;
   width: 12px;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   #header #header-main-bar {
     height: 40px;
   }

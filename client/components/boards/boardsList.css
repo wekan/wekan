@@ -383,7 +383,8 @@
        screen and (max-device-width: 800px),
        screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
        screen and (max-width: 800px) and (orientation: portrait),
-       screen and (max-width: 800px) and (orientation: landscape) {
+       screen and (max-width: 800px) and (orientation: landscape),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .board-list {
     height: 100%;
     overflow-y: auto;
@@ -469,7 +470,8 @@
        screen and (max-device-width: 800px),
        screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
        screen and (max-width: 800px) and (orientation: portrait),
-       screen and (max-width: 800px) and (orientation: landscape) {
+       screen and (max-width: 800px) and (orientation: landscape),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .wrapper {
     font-size: 2em !important; /* 2x bigger base font size for All Boards page */
   }
@@ -769,7 +771,8 @@
        screen and (max-device-width: 800px),
        screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
        screen and (max-width: 800px) and (orientation: portrait),
-       screen and (max-width: 800px) and (orientation: landscape) {
+       screen and (max-width: 800px) and (orientation: landscape),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .wrapper {
     overflow: hidden;
     height: 100vh;

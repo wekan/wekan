@@ -433,10 +433,14 @@ Utils = {
   // we can easily debug with a small window of desktop browser. :-)
   isMiniScreen() {
     this.windowResizeDep.depend();
+    // Also depend on mobile mode changes to make this reactive
+    Session.get('wekan-mobile-mode');
+    
     // Show mobile view when:
     // 1. Screen width is 800px or less (matches CSS media queries)
     // 2. Mobile phones in portrait mode
     // 3. iPad in very small screens (≤ 600px)
+    // 4. All iPhone models by default (including largest models), but respect user preference
     const isSmallScreen = window.innerWidth <= 800;
     const isVerySmallScreen = window.innerWidth <= 600;
     const isPortrait = window.innerWidth < window.innerHeight || window.matchMedia("(orientation: portrait)").matches;
@@ -445,13 +449,19 @@ Utils = {
     const isIPad = /iPad/i.test(navigator.userAgent);
     const isUbuntuTouch = /Ubuntu/i.test(navigator.userAgent);
 
-    // For iPhone: always show mobile view regardless of orientation
-    // For other mobile phones: show mobile view in portrait, desktop view in landscape
-    // For iPad: show mobile view only in very small screens (≤ 600px)
-    // For Ubuntu Touch: smartphones behave like mobile phones, tablets like iPad
-    // For desktop: show mobile view when screen width <= 800px
+    // Check if user has explicitly set mobile mode preference
+    const userMobileMode = this.getMobileMode();
+    
+    // For iPhone: default to mobile view, but respect user's mobile mode toggle preference
+    // This ensures all iPhone models (including iPhone 15 Pro Max, 14 Pro Max, etc.) start with mobile view
+    // but users can still switch to desktop mode if they prefer
     if (isIPhone) {
-      return true; // iPhone: always mobile view
+      // If user has explicitly set a preference, respect it
+      if (userMobileMode !== null && userMobileMode !== undefined) {
+        return userMobileMode;
+      }
+      // Otherwise, default to mobile view for iPhones
+      return true;
     } else if (isMobilePhone) {
       return isPortrait; // Other mobile phones: portrait = mobile, landscape = desktop
     } else if (isIPad) {

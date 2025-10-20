@@ -470,8 +470,10 @@ a:not(.disabled).is-active i.fa {
    MOBILE & TABLET RESPONSIVE IMPROVEMENTS
    ======================================== */
 
-/* Mobile devices (up to 800px) */
-@media screen and (max-width: 800px) {
+/* Mobile devices (up to 800px) and all iPhone models */
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
   #content {
     margin: 1px 0px 0px 0px;
     height: calc(100% - 0px);

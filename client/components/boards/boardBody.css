@@ -294,7 +294,8 @@
   min-width: 100%;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .board-wrapper {
     width: 100% !important;
     min-width: 100% !important;
