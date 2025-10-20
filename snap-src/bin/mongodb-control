@@ -43,7 +43,7 @@ fi
 export MONGO_LOG_DESTINATION="snapcommon"
 
 # Set MongoDB data directory
-export MONGO_DATA_DIR="${SNAP_COMMON}/wekan"
+export MONGO_DATA_DIR="${SNAP_COMMON}"
 
 # Create MongoDB data directory if it doesn't exist
 if [ ! -d "$MONGO_DATA_DIR" ]; then
