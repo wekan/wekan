@@ -62,6 +62,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Bug Member settings drops to the second line and overlaps when many boards are starred as favourites](https://github.com/wekan/wekan/commit/46d46e313cbb8d9c3e4a976ec27b5141c266050f).
   Thanks to xet7.
+- [Some mobile view fixes](https://github.com/wekan/wekan/commit/c4af4d03acc02f3e54e91f2a65bce2f88742b1a6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
