@@ -64,6 +64,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Some mobile view fixes](https://github.com/wekan/wekan/commit/c4af4d03acc02f3e54e91f2a65bce2f88742b1a6).
   Thanks to xet7.
+- [Have all iPhone use mobile view by default, while still having possibility to use mobile/desktop switch button for desktop mode](https://github.com/wekan/wekan/commit/5df4efd7ba06e618e454f068df05885306283bb1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
