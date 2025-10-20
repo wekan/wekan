@@ -19,6 +19,15 @@ Fixing other platforms In Progress.
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix Snap Candidate WeKan 8.00-8.06 commit ae01ea5 database directory from /var/snap/wekan/common/wekan back to 8.07 /var/snap/wekan/common](https://github.com/wekan/wekan/commit/98f141d62f3b6d4371d024c72eae6688d0f4e516).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.06 2025-10-20 WeKan ® release
 
 This release adds the following new features:
