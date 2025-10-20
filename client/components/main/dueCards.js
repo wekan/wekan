@@ -94,12 +94,23 @@ class DueCardsComponent extends CardSearchPagedComponent {
     }
 
     cards.sort((a, b) => {
-      const x = a.dueAt === null ? new Date('2100-12-31') : a.dueAt;
-      const y = b.dueAt === null ? new Date('2100-12-31') : b.dueAt;
+      // Normalize dueAt values to timestamps so comparisons are stable.
+      // Accept Date objects, ISO strings, or missing values.
+      const future = new Date('2100-12-31').getTime();
+      const toTime = v => {
+        if (v === null || v === undefined || v === '') return future;
+        if (v instanceof Date) return v.getTime();
+        // try to parse string/number into Date
+        const t = new Date(v);
+        if (!isNaN(t.getTime())) return t.getTime();
+        return future;
+      };
+
+      const x = toTime(a.dueAt);
+      const y = toTime(b.dueAt);
 
       if (x > y) return 1;
-      else if (x < y) return -1;
-
+      if (x < y) return -1;
       return 0;
     });
 
