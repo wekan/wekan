@@ -28,6 +28,8 @@ This release fixes the following bugs:
 
 - [Fix Admin Panel / People editing and layout](https://github.com/wekan/wekan/commit/7a585a3dfb080af51f88669ea5928f715779cee4).
   Thanks to xet7.
+- [Fix upgrade to 8.08 duplicates lists](https://github.com/wekan/wekan/commit/c3a405222782a4a91eb8725faaa8309f0926dcc4).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
