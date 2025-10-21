@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix Regression - due date taking a while to load all cards v8.06](https://github.com/wekan/wekan/commit/347fa9e5cd89d064ebb8ab544e20a41f52206db6).
   Thanks to xet7.
+- [Fix duplicated lists](https://github.com/wekan/wekan/commit/b6e7b258e0e8caecafc553dceb5771985992a0f9).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
