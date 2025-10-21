@@ -28,6 +28,8 @@ This release fixes the following bugs:
 
 - [Fix due dates to use colors: red = overdue, amber = due soon, no shade = not due yet](https://github.com/wekan/wekan/commit/1aa0d849775fbd0dfc83fa8e4cdca84d22a15042).
   Thanks to xet7.
+- [Fix My Due Cards to be sorted by due date, oldest first](https://github.com/wekan/wekan/commit/a540b12895520f398bce10bd244f733d221975d4).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
