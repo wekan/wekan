@@ -56,10 +56,15 @@ BlazeComponent.extendComponent({
       const swimlanes = board.swimlanes();
       
       if (swimlanes.length === 0) {
-        const swimlaneId = Swimlanes.insert({
-          title: 'Default',
-          boardId: boardId,
-        });
+        // Check if any swimlane exists in the database to avoid race conditions
+        const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId });
+        if (existingSwimlanes.length === 0) {
+          const swimlaneId = Swimlanes.insert({
+            title: 'Default',
+            boardId: boardId,
+          });
+          console.log(`Created default swimlane ${swimlaneId} for board ${boardId}`);
+        }
         this._swimlaneCreated.add(boardId);
       } else {
         this._swimlaneCreated.add(boardId);
@@ -197,28 +202,41 @@ BlazeComponent.extendComponent({
           });
 
           if (!existingList) {
-            // Create a new list in this swimlane
-            const newListData = {
-              title: sharedList.title,
+            // Double-check to avoid race conditions
+            const doubleCheckList = ReactiveCache.getList({
               boardId: boardId,
               swimlaneId: swimlane._id,
-              sort: sharedList.sort || 0,
-              archived: sharedList.archived || false, // Preserve archived state from original list
-              createdAt: new Date(),
-              modifiedAt: new Date()
-            };
+              title: sharedList.title
+            });
 
-            // Copy other properties if they exist
-            if (sharedList.color) newListData.color = sharedList.color;
-            if (sharedList.wipLimit) newListData.wipLimit = sharedList.wipLimit;
-            if (sharedList.wipLimitEnabled) newListData.wipLimitEnabled = sharedList.wipLimitEnabled;
-            if (sharedList.wipLimitSoft) newListData.wipLimitSoft = sharedList.wipLimitSoft;
+            if (!doubleCheckList) {
+              // Create a new list in this swimlane
+              const newListData = {
+                title: sharedList.title,
+                boardId: boardId,
+                swimlaneId: swimlane._id,
+                sort: sharedList.sort || 0,
+                archived: sharedList.archived || false, // Preserve archived state from original list
+                createdAt: new Date(),
+                modifiedAt: new Date()
+              };
 
-            Lists.insert(newListData);
-            
-            if (process.env.DEBUG === 'true') {
-              const archivedStatus = sharedList.archived ? ' (archived)' : ' (active)';
-              console.log(`Created list "${sharedList.title}"${archivedStatus} for swimlane ${swimlane.title || swimlane._id}`);
+              // Copy other properties if they exist
+              if (sharedList.color) newListData.color = sharedList.color;
+              if (sharedList.wipLimit) newListData.wipLimit = sharedList.wipLimit;
+              if (sharedList.wipLimitEnabled) newListData.wipLimitEnabled = sharedList.wipLimitEnabled;
+              if (sharedList.wipLimitSoft) newListData.wipLimitSoft = sharedList.wipLimitSoft;
+
+              Lists.insert(newListData);
+              
+              if (process.env.DEBUG === 'true') {
+                const archivedStatus = sharedList.archived ? ' (archived)' : ' (active)';
+                console.log(`Created list "${sharedList.title}"${archivedStatus} for swimlane ${swimlane.title || swimlane._id}`);
+              }
+            } else {
+              if (process.env.DEBUG === 'true') {
+                console.log(`List "${sharedList.title}" already exists in swimlane ${swimlane.title || swimlane._id} (double-check), skipping`);
+              }
             }
           } else {
             if (process.env.DEBUG === 'true') {

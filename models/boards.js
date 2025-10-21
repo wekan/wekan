@@ -1235,13 +1235,20 @@ Boards.helpers({
   getDefaultSwimline() {
     let result = ReactiveCache.getSwimlane({ boardId: this._id });
     if (result === undefined) {
-      // Use fallback title if i18n is not available (e.g., during migration)
-      const title = TAPi18n && TAPi18n.i18n ? TAPi18n.__('default') : 'Default';
-      Swimlanes.insert({
-        title: title,
-        boardId: this._id,
-      });
-      result = ReactiveCache.getSwimlane({ boardId: this._id });
+      // Check if any swimlane exists for this board to avoid duplicates
+      const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId: this._id });
+      if (existingSwimlanes.length > 0) {
+        // Use the first existing swimlane
+        result = existingSwimlanes[0];
+      } else {
+        // Use fallback title if i18n is not available (e.g., during migration)
+        const title = TAPi18n && TAPi18n.i18n ? TAPi18n.__('default') : 'Default';
+        Swimlanes.insert({
+          title: title,
+          boardId: this._id,
+        });
+        result = ReactiveCache.getSwimlane({ boardId: this._id });
+      }
     }
     return result;
   },
