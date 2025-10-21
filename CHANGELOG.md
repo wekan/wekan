@@ -36,7 +36,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - Fix duplicated lists.
   [Part 1](https://github.com/wekan/wekan/commit/b6e7b258e0e8caecafc553dceb5771985992a0f9),
-  [Part 2](https://github.com/wekan/wekan/commit/b7ca2310b2cdec7db204229b2d5b9f95b6da8c7d).
+  [Part 2](https://github.com/wekan/wekan/commit/b7ca2310b2cdec7db204229b2d5b9f95b6da8c7d),
+  [Part 3](https://github.com/wekan/wekan/commit/58df525b4915a99d0f603cc2536fd1fad1d20b29).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
