@@ -32,7 +32,8 @@ template(name="dueCards")
               span.global-search-error-messages
                 = msg
         else
-          +resultsPaged(this)
+          each card in dueCardsList
+            +resultCard(card)
 
 template(name="dueCardsViewChangePopup")
   if currentUser

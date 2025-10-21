@@ -31,6 +31,13 @@ Template.dueCards.helpers({
   userId() {
     return Meteor.userId();
   },
+  dueCardsList() {
+    const component = BlazeComponent.getComponentForElement(this);
+    if (component && component.dueCardsList) {
+      return component.dueCardsList();
+    }
+    return [];
+  },
 });
 
 BlazeComponent.extendComponent({
@@ -142,18 +149,26 @@ class DueCardsComponent extends CardSearchPagedComponent {
       });
     }
 
+    // Sort by due date: oldest first (ascending order)
     cards.sort((a, b) => {
-      const x = a.dueAt === null ? new Date('2100-12-31') : a.dueAt;
-      const y = b.dueAt === null ? new Date('2100-12-31') : b.dueAt;
+      // Handle null/undefined due dates by putting them at the end
+      const aDueAt = a.dueAt ? new Date(a.dueAt) : new Date('2100-12-31');
+      const bDueAt = b.dueAt ? new Date(b.dueAt) : new Date('2100-12-31');
 
-      if (x > y) return 1;
-      else if (x < y) return -1;
+      // Debug logging
+      if (process.env.DEBUG === 'true') {
+        console.log(`Comparing cards: "${a.title}" (${a.dueAt}) vs "${b.title}" (${b.dueAt})`);
+        console.log(`Parsed dates: ${aDueAt.toISOString()} vs ${bDueAt.toISOString()}`);
+        console.log(`Time difference: ${aDueAt.getTime() - bDueAt.getTime()}`);
+      }
 
-      return 0;
+      // Compare dates: if a is earlier than b, return negative (a comes first)
+      // if a is later than b, return positive (b comes first)
+      return aDueAt.getTime() - bDueAt.getTime();
     });
 
     // eslint-disable-next-line no-console
-    console.log('cards:', cards);
+    console.log('cards sorted by due date (oldest first):', cards);
     return cards;
   }
 }
