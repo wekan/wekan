@@ -2058,6 +2058,29 @@ Cards.mutations({
     Cards.update(this._id, {
       $set: mutatedFields,
     });
+    // Update attachments metadata so access permissions follow the card
+    // Only do this on server to avoid permission issues and to keep DB updates atomic
+    if (Meteor.isServer) {
+      try {
+        const updateMeta = {};
+        if (mutatedFields.boardId !== undefined) updateMeta['meta.boardId'] = mutatedFields.boardId;
+        if (mutatedFields.listId !== undefined) updateMeta['meta.listId'] = mutatedFields.listId;
+        if (mutatedFields.swimlaneId !== undefined) updateMeta['meta.swimlaneId'] = mutatedFields.swimlaneId;
+
+        if (Object.keys(updateMeta).length > 0) {
+          // Attachments is a FilesCollection; underlying Mongo collection is accessible via .collection
+          Attachments.collection.update(
+            { 'meta.cardId': this._id },
+            { $set: updateMeta },
+            { multi: true },
+          );
+        }
+      } catch (err) {
+        // don't block the move if attachment update fails, but log for debugging
+        // eslint-disable-next-line no-console
+        console.error('Failed to update attachments metadata after moving card', this._id, err);
+      }
+    }
   },
 
   addLabel(labelId) {
