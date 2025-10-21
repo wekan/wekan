@@ -18,6 +18,9 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
+import Boards from '/models/boards';
+import Lists from '/models/lists';
+import Cards from '/models/cards';
 
 class FixMissingListsMigration {
   constructor() {
@@ -158,7 +161,7 @@ class FixMissingListsMigration {
             if (originalList.collapsed) newListData.collapsed = originalList.collapsed;
 
             // Insert the new list
-            const newListId = ReactiveCache.getCollection('lists').insert(newListData);
+            const newListId = Lists.insert(newListData);
             targetList = { _id: newListId, ...newListData };
             createdLists++;
             
@@ -167,7 +170,7 @@ class FixMissingListsMigration {
 
           // Update all cards in this group to use the correct listId
           for (const card of cardsInList) {
-            ReactiveCache.getCollection('cards').update(card._id, {
+            Cards.update(card._id, {
               $set: {
                 listId: targetList._id,
                 modifiedAt: new Date()
@@ -179,7 +182,7 @@ class FixMissingListsMigration {
       }
 
       // Mark board as processed
-      ReactiveCache.getCollection('boards').update(boardId, {
+      Boards.update(boardId, {
         $set: {
           fixMissingListsCompleted: true,
           fixMissingListsCompletedAt: new Date()
