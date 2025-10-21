@@ -246,55 +246,28 @@ class CardDueDate extends CardDate {
     const theDate = this.date.get();
     const now = this.now.get();
     
-    // Debug logging for due date classes
-    if (process.env.DEBUG === 'true') {
-      console.log(`CardDueDate classes() - Card: "${this.data().title}", Due: ${theDate}, Now: ${now}, End: ${endAt}`);
-    }
-    
     // If there's an end date and it's before the due date, task is completed early
     if (endAt && isBefore(endAt, theDate)) {
       classes += 'completed-early';
-      if (process.env.DEBUG === 'true') {
-        console.log(`  -> completed-early (end date ${endAt} is before due date ${theDate})`);
-      }
     }
     // If there's an end date, don't show due date status since task is completed
     else if (endAt) {
       classes += 'completed';
-      if (process.env.DEBUG === 'true') {
-        console.log(`  -> completed (has end date ${endAt})`);
-      }
     }
     // Due date logic based on current time
     else {
       const daysDiff = diff(theDate, now, 'days');
-      if (process.env.DEBUG === 'true') {
-        console.log(`  -> daysDiff: ${daysDiff} (due: ${theDate}, now: ${now})`);
-      }
       
       if (daysDiff < 0) {
         // Due date is in the past - overdue
         classes += 'overdue';
-        if (process.env.DEBUG === 'true') {
-          console.log(`  -> overdue (${Math.abs(daysDiff)} days past due)`);
-        }
       } else if (daysDiff <= 1) {
         // Due today or tomorrow - due soon
         classes += 'due-soon';
-        if (process.env.DEBUG === 'true') {
-          console.log(`  -> due-soon (due in ${daysDiff} days)`);
-        }
       } else {
         // Due date is more than 1 day away - not due yet
         classes += 'not-due';
-        if (process.env.DEBUG === 'true') {
-          console.log(`  -> not-due (due in ${daysDiff} days)`);
-        }
       }
-    }
-    
-    if (process.env.DEBUG === 'true') {
-      console.log(`  -> Final classes: "${classes}"`);
     }
     
     return classes;

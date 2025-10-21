@@ -121,26 +121,69 @@ Meteor.publish('myCards', function(sessionId) {
   return ret;
 });
 
-// Meteor.publish('dueCards', function(sessionId, allUsers = false) {
-//   check(sessionId, String);
-//   check(allUsers, Boolean);
-//
-//   // eslint-disable-next-line no-console
-//   // console.log('all users:', allUsers);
-//
-//   const queryParams = {
-//     has: [{ field: 'dueAt', exists: true }],
-//     limit: 25,
-//     skip: 0,
-//     sort: { name: 'dueAt', order: 'des' },
-//   };
-//
-//   if (!allUsers) {
-//     queryParams.users = [ReactiveCache.getCurrentUser().username];
-//   }
-//
-//   return buildQuery(sessionId, queryParams);
-// });
+// Optimized due cards publication for better performance
+Meteor.publish('dueCards', function(allUsers = false) {
+  check(allUsers, Boolean);
+  
+  const userId = this.userId;
+  if (!userId) {
+    return this.ready();
+  }
+
+  if (process.env.DEBUG === 'true') {
+    console.log('dueCards publication called for user:', userId, 'allUsers:', allUsers);
+  }
+
+  // Get user's board memberships for efficient filtering
+  const userBoards = ReactiveCache.getBoards({
+    members: userId
+  }).map(board => board._id);
+
+  if (userBoards.length === 0) {
+    return this.ready();
+  }
+
+  // Build optimized selector
+  const selector = {
+    type: 'cardType-card',
+    archived: false,
+    dueAt: { $exists: true, $nin: [null, ''] },
+    boardId: { $in: userBoards }
+  };
+
+  // Add user filtering if not showing all users
+  if (!allUsers) {
+    selector.$or = [
+      { members: userId },
+      { assignees: userId },
+      { userId: userId }
+    ];
+  }
+
+  const options = {
+    sort: { dueAt: 1 }, // Sort by due date ascending (oldest first)
+    limit: 100, // Limit results for performance
+    fields: {
+      title: 1,
+      dueAt: 1,
+      boardId: 1,
+      listId: 1,
+      swimlaneId: 1,
+      members: 1,
+      assignees: 1,
+      userId: 1,
+      archived: 1,
+      type: 1
+    }
+  };
+
+  if (process.env.DEBUG === 'true') {
+    console.log('dueCards selector:', JSON.stringify(selector, null, 2));
+    console.log('dueCards options:', JSON.stringify(options, null, 2));
+  }
+
+  return Cards.find(selector, options);
+});
 
 Meteor.publish('globalSearch', function(sessionId, params, text) {
   check(sessionId, String);

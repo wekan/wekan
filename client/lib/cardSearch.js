@@ -179,11 +179,16 @@ export class CardSearchPagedComponent extends BlazeComponent {
         console.log('getResults - no sessionData or no cards array, trying direct card search');
       }
       // Fallback: try to get cards directly from the client-side collection
+      // Use a more efficient query with limit and sort
       const selector = {
         type: 'cardType-card',
         dueAt: { $exists: true, $nin: [null, ''] }
       };
-      const allCards = Cards.find(selector).fetch();
+      const options = {
+        sort: { dueAt: 1 }, // Sort by due date ascending (oldest first)
+        limit: 100 // Limit to 100 cards for performance
+      };
+      const allCards = Cards.find(selector, options).fetch();
       if (process.env.DEBUG === 'true') {
         console.log('getResults - direct card search found:', allCards ? allCards.length : 0, 'cards');
       }
@@ -191,9 +196,6 @@ export class CardSearchPagedComponent extends BlazeComponent {
       if (allCards && allCards.length > 0) {
         allCards.forEach(card => {
           if (card && card._id) {
-            if (process.env.DEBUG === 'true') {
-              console.log('getResults - direct card:', card._id, card.title);
-            }
             cards.push(card);
           }
         });
