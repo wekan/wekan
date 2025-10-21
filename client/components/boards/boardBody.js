@@ -63,7 +63,9 @@ BlazeComponent.extendComponent({
             title: 'Default',
             boardId: boardId,
           });
-          console.log(`Created default swimlane ${swimlaneId} for board ${boardId}`);
+          if (process.env.DEBUG === 'true') {
+            console.log(`Created default swimlane ${swimlaneId} for board ${boardId}`);
+          }
         }
         this._swimlaneCreated.add(boardId);
       } else {
@@ -122,6 +124,9 @@ BlazeComponent.extendComponent({
 
       // Fix missing lists migration (for cards with wrong listId references)
       await this.fixMissingLists(boardId);
+
+      // Fix duplicate lists created by WeKan 8.10
+      await this.fixDuplicateLists(boardId);
 
       // Start attachment migration in background if needed
       this.startAttachmentMigrationIfNeeded(boardId);
@@ -312,11 +317,62 @@ BlazeComponent.extendComponent({
       });
 
       if (result && result.success) {
-        console.log(`Successfully fixed missing lists for board ${boardId}: created ${result.createdLists} lists, updated ${result.updatedCards} cards`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Successfully fixed missing lists for board ${boardId}: created ${result.createdLists} lists, updated ${result.updatedCards} cards`);
+        }
       }
 
     } catch (error) {
       console.error('Error fixing missing lists:', error);
+    }
+  },
+
+  async fixDuplicateLists(boardId) {
+    try {
+      const board = ReactiveCache.getBoard(boardId);
+      if (!board) return;
+
+      // Check if board has already been processed for duplicate lists fix
+      if (board.fixDuplicateListsCompleted) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Board ${boardId} has already been processed for duplicate lists fix`);
+        }
+        return;
+      }
+
+      if (process.env.DEBUG === 'true') {
+        console.log(`Starting duplicate lists fix for board ${boardId}`);
+      }
+
+      // Execute the duplicate lists fix
+      const result = await new Promise((resolve, reject) => {
+        Meteor.call('fixDuplicateLists.fixBoard', boardId, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      if (result && result.fixed > 0) {
+        if (process.env.DEBUG === 'true') {
+          console.log(`Successfully fixed ${result.fixed} duplicate lists for board ${boardId}: ${result.fixedSwimlanes} swimlanes, ${result.fixedLists} lists`);
+        }
+        
+        // Mark board as processed
+        Meteor.call('boards.update', boardId, { $set: { fixDuplicateListsCompleted: true } });
+      } else if (process.env.DEBUG === 'true') {
+        console.log(`No duplicate lists found for board ${boardId}`);
+        // Still mark as processed to avoid repeated checks
+        Meteor.call('boards.update', boardId, { $set: { fixDuplicateListsCompleted: true } });
+      } else {
+        // Still mark as processed to avoid repeated checks
+        Meteor.call('boards.update', boardId, { $set: { fixDuplicateListsCompleted: true } });
+      }
+
+    } catch (error) {
+      console.error('Error fixing duplicate lists:', error);
     }
   },
 
@@ -1201,9 +1257,13 @@ BlazeComponent.extendComponent({
             const firstSwimlane = currentBoard.swimlanes()[0];
             Meteor.call('createCardWithDueDate', currentBoard._id, firstList._id, myTitle, startDate.toDate(), firstSwimlane._id, function(error, result) {
               if (error) {
-                console.log(error);
+                if (process.env.DEBUG === 'true') {
+                  console.log(error);
+                }
               } else {
-                console.log("Card Created", result);
+                if (process.env.DEBUG === 'true') {
+                  console.log("Card Created", result);
+                }
               }
             });
             closeModal();

@@ -15,7 +15,9 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    console.log('Starting duplicate lists fix for all boards...');
+    if (process.env.DEBUG === 'true') {
+      console.log('Starting duplicate lists fix for all boards...');
+    }
     
     const allBoards = Boards.find({}).fetch();
     let totalFixed = 0;
@@ -27,7 +29,7 @@ Meteor.methods({
         totalFixed += result.fixed;
         totalBoardsProcessed++;
         
-        if (result.fixed > 0) {
+        if (result.fixed > 0 && process.env.DEBUG === 'true') {
           console.log(`Fixed ${result.fixed} duplicate lists in board "${board.title}" (${board._id})`);
         }
       } catch (error) {
@@ -35,7 +37,9 @@ Meteor.methods({
       }
     }
 
-    console.log(`Duplicate lists fix completed. Processed ${totalBoardsProcessed} boards, fixed ${totalFixed} duplicate lists.`);
+    if (process.env.DEBUG === 'true') {
+      console.log(`Duplicate lists fix completed. Processed ${totalBoardsProcessed} boards, fixed ${totalFixed} duplicate lists.`);
+    }
     
     return {
       message: `Fixed ${totalFixed} duplicate lists across ${totalBoardsProcessed} boards`,
@@ -55,7 +59,9 @@ Meteor.methods({
   },
 
   fixDuplicateListsForBoard(boardId) {
-    console.log(`Fixing duplicate lists for board ${boardId}...`);
+    if (process.env.DEBUG === 'true') {
+      console.log(`Fixing duplicate lists for board ${boardId}...`);
+    }
     
     // First, fix duplicate swimlanes
     const swimlaneResult = this.fixDuplicateSwimlanes(boardId);
@@ -94,7 +100,9 @@ Meteor.methods({
         const keepSwimlane = group[0];
         const removeSwimlanes = group.slice(1);
 
-        console.log(`Found ${group.length} duplicate swimlanes with title "${title}", keeping oldest (${keepSwimlane._id})`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Found ${group.length} duplicate swimlanes with title "${title}", keeping oldest (${keepSwimlane._id})`);
+        }
 
         // Move all lists from duplicate swimlanes to the kept swimlane
         removeSwimlanes.forEach(swimlane => {
@@ -116,11 +124,15 @@ Meteor.methods({
               );
               // Remove duplicate list
               Lists.remove(list._id);
-              console.log(`Moved cards from duplicate list "${list.title}" to existing list in kept swimlane`);
+              if (process.env.DEBUG === 'true') {
+                console.log(`Moved cards from duplicate list "${list.title}" to existing list in kept swimlane`);
+              }
             } else {
               // Move list to kept swimlane
               Lists.update(list._id, { $set: { swimlaneId: keepSwimlane._id } });
-              console.log(`Moved list "${list.title}" to kept swimlane`);
+              if (process.env.DEBUG === 'true') {
+                console.log(`Moved list "${list.title}" to kept swimlane`);
+              }
             }
           });
 
@@ -157,7 +169,9 @@ Meteor.methods({
         const keepList = group[0];
         const removeLists = group.slice(1);
 
-        console.log(`Found ${group.length} duplicate lists with title "${keepList.title}" in swimlane ${keepList.swimlaneId}, keeping oldest (${keepList._id})`);
+        if (process.env.DEBUG === 'true') {
+          console.log(`Found ${group.length} duplicate lists with title "${keepList.title}" in swimlane ${keepList.swimlaneId}, keeping oldest (${keepList._id})`);
+        }
 
         // Move all cards from duplicate lists to the kept list
         removeLists.forEach(list => {
@@ -170,7 +184,9 @@ Meteor.methods({
           // Remove duplicate list
           Lists.remove(list._id);
           fixed++;
-          console.log(`Moved cards from duplicate list "${list.title}" to kept list`);
+          if (process.env.DEBUG === 'true') {
+            console.log(`Moved cards from duplicate list "${list.title}" to kept list`);
+          }
         });
       }
     });

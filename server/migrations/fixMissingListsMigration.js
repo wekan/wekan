@@ -55,7 +55,9 @@ class FixMissingListsMigration {
       for (const card of cards) {
         const expectedSwimlaneId = listSwimlaneMap.get(card.listId);
         if (expectedSwimlaneId && expectedSwimlaneId !== card.swimlaneId) {
-          console.log(`Found mismatched card: ${card._id}, listId: ${card.listId}, card swimlaneId: ${card.swimlaneId}, list swimlaneId: ${expectedSwimlaneId}`);
+          if (process.env.DEBUG === 'true') {
+            console.log(`Found mismatched card: ${card._id}, listId: ${card.listId}, card swimlaneId: ${card.swimlaneId}, list swimlaneId: ${expectedSwimlaneId}`);
+          }
           return true;
         }
       }
@@ -72,7 +74,9 @@ class FixMissingListsMigration {
    */
   async executeMigration(boardId) {
     try {
-      console.log(`Starting fix missing lists migration for board ${boardId}`);
+      if (process.env.DEBUG === 'true') {
+        console.log(`Starting fix missing lists migration for board ${boardId}`);
+      }
       
       const board = ReactiveCache.getBoard(boardId);
       if (!board) {
@@ -165,7 +169,9 @@ class FixMissingListsMigration {
             targetList = { _id: newListId, ...newListData };
             createdLists++;
             
-            console.log(`Created new list "${originalList.title}" for swimlane ${swimlaneId}`);
+            if (process.env.DEBUG === 'true') {
+              console.log(`Created new list "${originalList.title}" for swimlane ${swimlaneId}`);
+            }
           }
 
           // Update all cards in this group to use the correct listId
@@ -189,7 +195,9 @@ class FixMissingListsMigration {
         }
       });
 
-      console.log(`Fix missing lists migration completed for board ${boardId}: created ${createdLists} lists, updated ${updatedCards} cards`);
+      if (process.env.DEBUG === 'true') {
+        console.log(`Fix missing lists migration completed for board ${boardId}: created ${createdLists} lists, updated ${updatedCards} cards`);
+      }
       
       return {
         success: true,
