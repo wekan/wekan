@@ -218,6 +218,22 @@ window.Popup = new (class {
       const viewportHeight = $(window).height();
       const popupWidth = Math.min(380, viewportWidth * 0.55) + 15; // Add 15px for margin
       
+      // Check if this is an admin panel edit popup
+      const isAdminEditPopup = $element.hasClass('edit-user') || 
+                              $element.hasClass('edit-org') || 
+                              $element.hasClass('edit-team');
+      
+      if (isAdminEditPopup) {
+        // Center the popup horizontally and use full height
+        const centeredLeft = (viewportWidth - popupWidth) / 2;
+        
+        return {
+          left: Math.max(10, centeredLeft), // Ensure popup doesn't go off screen
+          top: 10, // Start from top with small margin
+          maxHeight: viewportHeight - 20, // Use full height minus small margins
+        };
+      }
+      
       // Calculate available height for popup
       const popupTop = offset.top + $element.outerHeight();
       

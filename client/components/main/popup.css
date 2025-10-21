@@ -93,6 +93,29 @@
   max-height: inherit;
 }
 
+/* Admin edit popups: use full height */
+.pop-over[data-popup="editUser"],
+.pop-over[data-popup="editOrg"],
+.pop-over[data-popup="editTeam"] {
+  height: calc(100vh - 20px) !important;
+  max-height: calc(100vh - 20px) !important;
+}
+
+.pop-over[data-popup="editUser"] .content-wrapper,
+.pop-over[data-popup="editOrg"] .content-wrapper,
+.pop-over[data-popup="editTeam"] .content-wrapper {
+  max-height: calc(100vh - 80px) !important; /* Subtract header height */
+  height: calc(100vh - 80px) !important;
+  overflow-y: auto !important;
+}
+
+.pop-over[data-popup="editUser"] .content-container,
+.pop-over[data-popup="editOrg"] .content-container,
+.pop-over[data-popup="editTeam"] .content-container {
+  max-height: calc(100vh - 80px) !important; /* Subtract header height */
+  height: calc(100vh - 80px) !important;
+}
+
 /* Ensure language popup list can scroll properly */
 .pop-over .pop-over-list {
   max-height: none;

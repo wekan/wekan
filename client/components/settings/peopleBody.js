@@ -172,6 +172,10 @@ BlazeComponent.extendComponent({
         // Show only inactive users (loginDisabled is true)
         query['loginDisabled'] = true;
         break;
+      case 'admin':
+        // Show only admin users (isAdmin is true)
+        query['isAdmin'] = true;
+        break;
       case 'all':
       default:
         // Show all users, no additional filter

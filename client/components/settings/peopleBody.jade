@@ -46,6 +46,7 @@ template(name="people")
                   option(value="locked") {{_ 'admin-people-filter-locked'}}
                   option(value="active") {{_ 'admin-people-filter-active'}}
                   option(value="inactive") {{_ 'admin-people-filter-inactive'}}
+                  option(value="admin") Admin
               button#unlockAllUsers.unlock-all-btn
                 | 🔓
                 | {{_ 'accounts-lockout-unlock-all'}}
@@ -57,7 +58,7 @@ template(name="people")
                 | {{_ 'add'}} / {{_ 'delete'}} {{_ 'teams'}}
           else if lockedUsersSetting.get
             span
-              | 🔒.text-red
+              span.text-red 🔒
               unless isMiniScreen
                 | {{_ 'accounts-lockout-locked-users'}}
 
@@ -78,7 +79,7 @@ template(name="people")
                 | {{_ 'people'}}
             li
               a.js-locked-users-menu(data-id="locked-users-setting")
-                | 🔒.text-red
+                span.text-red 🔒
                 | {{_ 'accounts-lockout-locked-users'}}
         .main-body
           if loading.get
@@ -100,7 +101,6 @@ template(name="orgGeneral")
         th {{_ 'displayName'}}
         th {{_ 'description'}}
         th {{_ 'shortName'}}
-        th {{_ 'autoAddUsersWithDomainName'}}
         th {{_ 'website'}}
         th {{_ 'createdAt'}}
         th {{_ 'active'}}
@@ -140,16 +140,9 @@ template(name="peopleGeneral")
         th {{_ 'admin-people-active-status'}}
         th {{_ 'username'}}
         th {{_ 'fullname'}}
-        th {{_ 'initials'}}
         th {{_ 'admin'}}
         th {{_ 'email'}}
-        th {{_ 'verified'}}
         th {{_ 'createdAt'}}
-        th {{_ 'active'}}
-        th {{_ 'authentication-method'}}
-        th {{_ 'import-usernames'}}
-        th {{_ 'organizations'}}
-        th {{_ 'teams'}}
         th
           +newUserRow
     tbody
@@ -190,10 +183,6 @@ template(name="orgRow")
       td {{ orgData.orgShortName }}
     else
       td <s>{{ orgData.orgShortName }}</s>
-    if orgData.orgIsActive
-      td {{ orgData.orgAutoAddUsersWithDomainName }}
-    else
-      td <s>{{ orgData.orgAutoAddUsersWithDomainName }}</s>
     if orgData.orgIsActive
       td {{ orgData.orgWebsite }}
     else
@@ -258,14 +247,14 @@ template(name="peopleRow")
         input.selectUserChkBox(type="checkbox", id="{{userData._id}}")
     td.account-status
       if isUserLocked
-        | 🔒.text-red.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}")
+        span.text-red.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}") 🔒
       else
-        | 🔓.text-green.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}")
+        span.text-green.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}") 🔓
     td.account-active-status
       if userData.loginDisabled
-        | 🚫.text-red.js-toggle-active-status(data-user-id=userData._id, data-is-active="false", title="{{_ 'admin-people-user-inactive'}}")
+        span.text-red.js-toggle-active-status(data-user-id=userData._id, data-is-active="false", title="{{_ 'admin-people-user-inactive'}}") 🚫
       else
-        | ✅.text-green.js-toggle-active-status(data-user-id=userData._id, data-is-active="true", title="{{_ 'admin-people-user-active'}}")
+        span.text-green.js-toggle-active-status(data-user-id=userData._id, data-is-active="true", title="{{_ 'admin-people-user-active'}}") ✅
     if userData.loginDisabled
       td.username <s>{{ userData.username }}</s>
     else if isUserLocked
@@ -276,10 +265,6 @@ template(name="peopleRow")
       td <s>{{ userData.profile.fullname }}</s>
     else
       td {{ userData.profile.fullname }}
-    if userData.loginDisabled
-      td <s>{{ userData.profile.initials }}</s>
-    else
-      td {{ userData.profile.initials }}
     if userData.loginDisabled
       td
         if userData.isAdmin
@@ -297,42 +282,9 @@ template(name="peopleRow")
     else
       td {{ userData.emails.[0].address }}
     if userData.loginDisabled
-      td
-        if userData.emails.[0].verified
-          | <s>{{_ 'yes'}}</s>
-        else
-          | <s>{{_ 'no'}}</s>
-    else
-      td
-        if userData.emails.[0].verified
-          | {{_ 'yes'}}
-        else
-          | {{_ 'no'}}
-    if userData.loginDisabled
       td <s>{{ moment userData.createdAt 'LLL' }}</s>
     else
       td {{ moment userData.createdAt 'LLL' }}
-    td
-      if userData.loginDisabled
-        | {{_ 'no'}}
-      else
-        | {{_ 'yes'}}
-    if userData.loginDisabled
-      td <s>{{_ userData.authenticationMethod }}</s>
-    else
-      td {{_ userData.authenticationMethod }}
-    if userData.loginDisabled
-      td <s>{{ userData.importUsernamesString }}</s>
-    else
-      td {{ userData.importUsernamesString }}
-    if userData.loginDisabled
-      td <s>{{ userData.orgsUserBelongs }}</s>
-    else
-      td {{ userData.orgsUserBelongs }}
-    if userData.loginDisabled
-      td <s>{{ userData.teamsUserBelongs }}</s>
-    else
-      td {{ userData.teamsUserBelongs }}
     td
       a.edit-user
         | ✏️
@@ -448,8 +400,8 @@ template(name="editUserPopup")
             option(value="{{value}}") {{_ value}}
     label
       | {{_ 'organizations'}}
-      | ➕#addUserOrg
-      | ➖#removeUserOrg
+      span#addUserOrg ➕
+      span#removeUserOrg ➖
       select.js-orgs#jsOrgs
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
@@ -458,8 +410,8 @@ template(name="editUserPopup")
       input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="hidden" value=user.orgIdsUserBelongs)
     label
       | {{_ 'teams'}}
-      | ➕#addUserTeam
-      | ➖#removeUserTeam
+      span#addUserTeam ➕
+      span#removeUserTeam ➖
       select.js-teams#jsTeams
         option(value="-1") {{_ 'teams'}} :
         each value in teamsDatas
@@ -591,8 +543,8 @@ template(name="newUserPopup")
             option(value="{{value}}") {{_ value}}
     label
       | {{_ 'organizations'}}
-      | ➕#addUserOrgNewUser
-      | ➖#removeUserOrgNewUser
+      span#addUserOrgNewUser ➕
+      span#removeUserOrgNewUser ➖
       select.js-orgsNewUser#jsOrgsNewUser
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
@@ -601,8 +553,8 @@ template(name="newUserPopup")
       input#jsUserOrgIdsInPutNewUser.js-userOrgIdsNewUser.hide(type="text" value=user.orgIdsUserBelongs)
     label
       | {{_ 'teams'}}
-      | ➕#addUserTeamNewUser
-      | ➖#removeUserTeamNewUser
+      span#addUserTeamNewUser ➕
+      span#removeUserTeamNewUser ➖
       select.js-teamsNewUser#jsTeamsNewUser
         option(value="-1") {{_ 'teams'}} :
         each value in teamsDatas

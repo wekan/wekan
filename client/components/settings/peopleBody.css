@@ -71,6 +71,13 @@ table tr:nth-child(even) {
   left: 0 !important;
   display: block !important;
 }
+
+/* Make checkbox column fit content */
+table th:first-child,
+table td:first-child {
+  width: auto;
+  min-width: auto;
+}
 #divAddOrRemoveTeam {
   background: #008000;
   display: none;
@@ -141,7 +148,7 @@ table tr:nth-child(even) {
 }
 
 .account-active-status {
-  width: 20px;
+  width: auto;
   text-align: center;
 }
 
@@ -170,7 +177,7 @@ table tr:nth-child(even) {
 }
 
 .account-status {
-  width: 20px;
+  width: auto;
   text-align: center;
 }
 
