@@ -203,7 +203,7 @@ BlazeComponent.extendComponent({
               boardId: boardId,
               swimlaneId: swimlane._id,
               sort: sharedList.sort || 0,
-              archived: sharedList.archived || false,
+              archived: sharedList.archived || false, // Preserve archived state from original list
               createdAt: new Date(),
               modifiedAt: new Date()
             };
@@ -215,16 +215,24 @@ BlazeComponent.extendComponent({
             if (sharedList.wipLimitSoft) newListData.wipLimitSoft = sharedList.wipLimitSoft;
 
             Lists.insert(newListData);
+            
+            if (process.env.DEBUG === 'true') {
+              const archivedStatus = sharedList.archived ? ' (archived)' : ' (active)';
+              console.log(`Created list "${sharedList.title}"${archivedStatus} for swimlane ${swimlane.title || swimlane._id}`);
+            }
+          } else {
+            if (process.env.DEBUG === 'true') {
+              console.log(`List "${sharedList.title}" already exists in swimlane ${swimlane.title || swimlane._id}, skipping`);
+            }
           }
         }
 
-        // Archive or remove the original shared list
-        Lists.update(sharedList._id, {
-          $set: {
-            archived: true,
-            modifiedAt: new Date()
-          }
-        });
+        // Remove the original shared list completely
+        Lists.remove(sharedList._id);
+        
+        if (process.env.DEBUG === 'true') {
+          console.log(`Removed shared list "${sharedList.title}"`);
+        }
       }
 
       // Mark board as processed
