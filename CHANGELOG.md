@@ -30,6 +30,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix My Due Cards to be sorted by due date, oldest first](https://github.com/wekan/wekan/commit/a540b12895520f398bce10bd244f733d221975d4).
   Thanks to xet7.
+- [Verify that due background colors are correct also at My Due Cards](https://github.com/wekan/wekan/commit/665c9b5e522e73115a1515ced066037110db84e1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
