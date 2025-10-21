@@ -229,6 +229,74 @@
   background-color: #ff9999;
 }
 
+/* Date status colors for minicards - matching cardDate.css */
+.minicard .card-date.overdue {
+  background-color: #ff4444 !important; /* Red for overdue */
+  color: #fff !important;
+}
+.minicard .card-date.overdue:hover,
+.minicard .card-date.overdue.is-active {
+  background-color: #cc3333 !important;
+}
+
+.minicard .card-date.due-soon {
+  background-color: #ffaa00 !important; /* Amber for due soon */
+  color: #000 !important;
+}
+.minicard .card-date.due-soon:hover,
+.minicard .card-date.due-soon.is-active {
+  background-color: #e69900 !important;
+}
+
+.minicard .card-date.not-due {
+  /* No special background - uses default date type colors */
+}
+
+.minicard .card-date.current {
+  background-color: #5ba639 !important; /* Green for current/active */
+  color: #fff !important;
+}
+.minicard .card-date.current:hover,
+.minicard .card-date.current.is-active {
+  background-color: #46802c !important;
+}
+
+.minicard .card-date.completed {
+  background-color: #90ee90 !important; /* Light green for completed */
+  color: #000 !important;
+}
+.minicard .card-date.completed:hover,
+.minicard .card-date.completed.is-active {
+  background-color: #7dd87d !important;
+}
+
+.minicard .card-date.completed-early {
+  background-color: #4caf50 !important; /* Green for completed early */
+  color: #fff !important;
+}
+.minicard .card-date.completed-early:hover,
+.minicard .card-date.completed-early.is-active {
+  background-color: #45a049 !important;
+}
+
+.minicard .card-date.completed-late {
+  background-color: #ff9800 !important; /* Orange for completed late */
+  color: #fff !important;
+}
+.minicard .card-date.completed-late:hover,
+.minicard .card-date.completed-late.is-active {
+  background-color: #f57c00 !important;
+}
+
+.minicard .card-date.completed-on-time {
+  background-color: #2196f3 !important; /* Blue for completed on time */
+  color: #fff !important;
+}
+.minicard .card-date.completed-on-time:hover,
+.minicard .card-date.completed-on-time.is-active {
+  background-color: #1976d2 !important;
+}
+
 /* Font Awesome icons in minicard dates */
 .minicard .card-date i.fa {
   margin-right: 0.3vw;

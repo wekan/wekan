@@ -157,14 +157,18 @@ class CardReceivedDate extends CardDate {
     const endAt = this.data().getEnd();
     const startAt = this.data().getStart();
     const theDate = this.date.get();
-    // if dueAt, endAt and startAt exist & are > receivedAt, receivedAt doesn't need to be flagged
+    const now = this.now.get();
+    
+    // Received date logic: if received date is after start, due, or end dates, it's overdue
     if (
       (startAt && isAfter(theDate, startAt)) ||
       (endAt && isAfter(theDate, endAt)) ||
       (dueAt && isAfter(theDate, dueAt))
-    )
-      classes += 'long-overdue';
-    else classes += 'current';
+    ) {
+      classes += 'overdue';
+    } else {
+      classes += 'not-due';
+    }
     return classes;
   }
 
@@ -193,16 +197,22 @@ class CardStartDate extends CardDate {
   }
 
   classes() {
-    let classes = 'start-date' + ' ';
+    let classes = 'start-date ';
     const dueAt = this.data().getDue();
     const endAt = this.data().getEnd();
     const theDate = this.date.get();
     const now = this.now.get();
-    // if dueAt or endAt exist & are > startAt, startAt doesn't need to be flagged
-    if ((endAt && isAfter(theDate, endAt)) || (dueAt && isAfter(theDate, dueAt)))
-      classes += 'long-overdue';
-    else if (isAfter(theDate, now)) classes += '';
-    else classes += 'current';
+    
+    // Start date logic: if start date is after due or end dates, it's overdue
+    if ((endAt && isAfter(theDate, endAt)) || (dueAt && isAfter(theDate, dueAt))) {
+      classes += 'overdue';
+    } else if (isAfter(theDate, now)) {
+      // Start date is in the future - not due yet
+      classes += 'not-due';
+    } else {
+      // Start date is today or in the past - current/active
+      classes += 'current';
+    }
     return classes;
   }
 
@@ -231,17 +241,33 @@ class CardDueDate extends CardDate {
   }
 
   classes() {
-    let classes = 'due-date' + ' ';
+    let classes = 'due-date ';
     const endAt = this.data().getEnd();
     const theDate = this.date.get();
     const now = this.now.get();
-    // if the due date is after the end date, green - done early
-    if (endAt && isAfter(theDate, endAt)) classes += 'current';
-    // if there is an end date, don't need to flag the due date
-    else if (endAt) classes += '';
-    else if (diff(now, theDate, 'days') >= 2) classes += 'long-overdue';
-    else if (diff(now, theDate, 'minute') >= 0) classes += 'due';
-    else if (diff(now, theDate, 'days') >= -1) classes += 'almost-due';
+    
+    // If there's an end date and it's before the due date, task is completed early
+    if (endAt && isBefore(endAt, theDate)) {
+      classes += 'completed-early';
+    }
+    // If there's an end date, don't show due date status since task is completed
+    else if (endAt) {
+      classes += 'completed';
+    }
+    // Due date logic based on current time
+    else {
+      const daysDiff = diff(theDate, now, 'days');
+      if (daysDiff < 0) {
+        // Due date is in the past - overdue
+        classes += 'overdue';
+      } else if (daysDiff <= 1) {
+        // Due today or tomorrow - due soon
+        classes += 'due-soon';
+      } else {
+        // Due date is more than 1 day away - not due yet
+        classes += 'not-due';
+      }
+    }
     return classes;
   }
 
@@ -270,12 +296,23 @@ class CardEndDate extends CardDate {
   }
 
   classes() {
-    let classes = 'end-date' + ' ';
+    let classes = 'end-date ';
     const dueAt = this.data().getDue();
     const theDate = this.date.get();
-    if (!dueAt) classes += '';
-    else if (isBefore(theDate, dueAt)) classes += 'current';
-    else if (isAfter(theDate, dueAt)) classes += 'due';
+    
+    if (!dueAt) {
+      // No due date set - just show as completed
+      classes += 'completed';
+    } else if (isBefore(theDate, dueAt)) {
+      // End date is before due date - completed early
+      classes += 'completed-early';
+    } else if (isAfter(theDate, dueAt)) {
+      // End date is after due date - completed late
+      classes += 'completed-late';
+    } else {
+      // End date equals due date - completed on time
+      classes += 'completed-on-time';
+    }
     return classes;
   }
 
