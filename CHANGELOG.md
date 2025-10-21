@@ -32,6 +32,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Verify that due background colors are correct also at My Due Cards](https://github.com/wekan/wekan/commit/665c9b5e522e73115a1515ced066037110db84e1).
   Thanks to xet7.
+- [Fix Regression - due date taking a while to load all cards v8.06](https://github.com/wekan/wekan/commit/347fa9e5cd89d064ebb8ab544e20a41f52206db6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
