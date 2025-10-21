@@ -647,6 +647,23 @@ class MigrationManager {
   }
 
   /**
+   * Fix boards that are stuck in migration loop
+   */
+  fixStuckBoards() {
+    try {
+      Meteor.call('boardMigration.fixStuckBoards', (error, result) => {
+        if (error) {
+          console.error('Failed to fix stuck boards:', error);
+        } else {
+          console.log('Fix stuck boards result:', result);
+        }
+      });
+    } catch (error) {
+      console.error('Error fixing stuck boards:', error);
+    }
+  }
+
+  /**
    * Start migration process using cron system
    */
   async startMigration() {

@@ -314,10 +314,11 @@ class BoardMigrationDetector {
    */
   markBoardAsMigrated(boardId, migrationType) {
     try {
-      // Update migration markers
+      // Update migration markers and version
       const updateQuery = {};
       updateQuery[`migrationMarkers.${migrationType}Migrated`] = true;
       updateQuery['migrationMarkers.lastMigration'] = new Date();
+      updateQuery['migrationVersion'] = 1;  // Set migration version to prevent re-migration
 
       Boards.update(boardId, { $set: updateQuery });
 
@@ -392,5 +393,42 @@ Meteor.methods({
     }
     
     return boardMigrationDetector.startBoardMigration(boardId);
+  },
+
+  'boardMigration.fixStuckBoards'() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    
+    // Find boards that have migration markers but no migrationVersion
+    const stuckBoards = Boards.find({
+      'migrationMarkers.fullMigrationCompleted': true,
+      $or: [
+        { migrationVersion: { $exists: false } },
+        { migrationVersion: { $lt: 1 } }
+      ]
+    }).fetch();
+    
+    let fixedCount = 0;
+    stuckBoards.forEach(board => {
+      try {
+        Boards.update(board._id, { 
+          $set: { 
+            migrationVersion: 1,
+            'migrationMarkers.lastMigration': new Date()
+          } 
+        });
+        fixedCount++;
+        console.log(`Fixed stuck board: ${board._id} (${board.title})`);
+      } catch (error) {
+        console.error(`Error fixing board ${board._id}:`, error);
+      }
+    });
+    
+    return {
+      message: `Fixed ${fixedCount} stuck boards`,
+      fixedCount,
+      totalStuck: stuckBoards.length
+    };
   }
 });

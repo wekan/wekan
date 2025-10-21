@@ -607,11 +607,12 @@ class CronMigrationManager {
    */
   markBoardAsMigrated(boardId, migrationType) {
     try {
-      // Update board with migration markers
+      // Update board with migration markers and version
       const updateQuery = {
         'migrationMarkers.fullMigrationCompleted': true,
         'migrationMarkers.lastMigration': new Date(),
-        'migrationMarkers.migrationType': migrationType
+        'migrationMarkers.migrationType': migrationType,
+        'migrationVersion': 1  // Set migration version to prevent re-migration
       };
 
       // Update the board document
