@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { BlazeComponent } from 'meteor/peerlibrary:blaze-components';
+import { TAPi18n } from '/imports/i18n';
 
 // const subManager = new SubsManager();
 
@@ -24,28 +25,45 @@ Template.dueCards.helpers({
     return Meteor.userId();
   },
   dueCardsList() {
-    const component = BlazeComponent.getComponentForElement(this);
+    const component = BlazeComponent.getComponentForElement(this.firstNode);
     if (component && component.dueCardsList) {
       return component.dueCardsList();
     }
     return [];
   },
   hasResults() {
-    const component = BlazeComponent.getComponentForElement(this);
-    if (component && component.dueCardsList) {
-      const cards = component.dueCardsList();
-      return cards && cards.length > 0;
+    const component = BlazeComponent.getComponentForElement(this.firstNode);
+    if (component && component.hasResults) {
+      return component.hasResults.get();
     }
     return false;
   },
   searching() {
-    return false; // No longer using search, so always false
+    const component = BlazeComponent.getComponentForElement(this.firstNode);
+    if (component && component.isLoading) {
+      return component.isLoading.get();
+    }
+    return true; // Show loading by default
   },
   hasQueryErrors() {
     return false; // No longer using search, so always false
   },
   errorMessages() {
     return []; // No longer using search, so always empty
+  },
+  cardsCount() {
+    const component = BlazeComponent.getComponentForElement(this.firstNode);
+    if (component && component.cardsCount) {
+      return component.cardsCount();
+    }
+    return 0;
+  },
+  resultsText() {
+    const component = BlazeComponent.getComponentForElement(this.firstNode);
+    if (component && component.resultsText) {
+      return component.resultsText();
+    }
+    return '';
   },
 });
 
@@ -78,6 +96,9 @@ class DueCardsComponent extends BlazeComponent {
     this._cachedCards = null;
     this._cachedTimestamp = null;
     this.subscriptionHandle = null;
+    this.isLoading = new ReactiveVar(true);
+    this.hasResults = new ReactiveVar(false);
+    this.searching = new ReactiveVar(false);
     
     // Subscribe to the optimized due cards publication
     this.autorun(() => {
@@ -86,6 +107,24 @@ class DueCardsComponent extends BlazeComponent {
         this.subscriptionHandle.stop();
       }
       this.subscriptionHandle = Meteor.subscribe('dueCards', allUsers);
+      
+      // Update loading state based on subscription
+      this.autorun(() => {
+        if (this.subscriptionHandle && this.subscriptionHandle.ready()) {
+          if (process.env.DEBUG === 'true') {
+            console.log('dueCards: subscription ready, loading data...');
+          }
+          this.isLoading.set(false);
+          const cards = this.dueCardsList();
+          this.hasResults.set(cards && cards.length > 0);
+        } else {
+          if (process.env.DEBUG === 'true') {
+            console.log('dueCards: subscription not ready, showing loading...');
+          }
+          this.isLoading.set(true);
+          this.hasResults.set(false);
+        }
+      });
     });
   }
 
@@ -106,9 +145,45 @@ class DueCardsComponent extends BlazeComponent {
     return this.dueCardsView() === 'board';
   }
 
+  hasResults() {
+    return this.hasResults.get();
+  }
+
+  cardsCount() {
+    const cards = this.dueCardsList();
+    return cards ? cards.length : 0;
+  }
+
+  resultsText() {
+    const count = this.cardsCount();
+    if (count === 1) {
+      return TAPi18n.__('one-card-found');
+    } else {
+      // Get the translated text and manually replace %s with the count
+      const baseText = TAPi18n.__('n-cards-found');
+      const result = baseText.replace('%s', count);
+      
+      if (process.env.DEBUG === 'true') {
+        console.log('dueCards: base text:', baseText, 'count:', count, 'result:', result);
+      }
+      return result;
+    }
+  }
+
   dueCardsList() {
+    // Check if subscription is ready
+    if (!this.subscriptionHandle || !this.subscriptionHandle.ready()) {
+      if (process.env.DEBUG === 'true') {
+        console.log('dueCards client: subscription not ready');
+      }
+      return [];
+    }
+
     // Use cached results if available to avoid expensive re-sorting
     if (this._cachedCards && this._cachedTimestamp && (Date.now() - this._cachedTimestamp < 5000)) {
+      if (process.env.DEBUG === 'true') {
+        console.log('dueCards client: using cached results,', this._cachedCards.length, 'cards');
+      }
       return this._cachedCards;
     }
 
@@ -119,22 +194,55 @@ class DueCardsComponent extends BlazeComponent {
       dueAt: { $exists: true, $nin: [null, ''] }
     });
 
+    if (process.env.DEBUG === 'true') {
+      console.log('dueCards client: found', cards.length, 'cards with due dates');
+      console.log('dueCards client: cards details:', cards.map(c => ({ 
+        id: c._id, 
+        title: c.title, 
+        dueAt: c.dueAt, 
+        boardId: c.boardId,
+        members: c.members,
+        assignees: c.assignees,
+        userId: c.userId
+      })));
+    }
+
     // Filter cards based on user view preference
     const allUsers = this.dueCardsView() === 'all';
     const currentUser = ReactiveCache.getCurrentUser();
     let filteredCards = cards;
 
+    if (process.env.DEBUG === 'true') {
+      console.log('dueCards client: current user:', currentUser ? currentUser._id : 'none');
+      console.log('dueCards client: showing all users:', allUsers);
+    }
+
     if (!allUsers && currentUser) {
       filteredCards = cards.filter(card => {
-        return card.members && card.members.includes(currentUser._id) ||
-               card.assignees && card.assignees.includes(currentUser._id) ||
-               card.userId === currentUser._id;
+        const isMember = card.members && card.members.includes(currentUser._id);
+        const isAssignee = card.assignees && card.assignees.includes(currentUser._id);
+        const isAuthor = card.userId === currentUser._id;
+        const matches = isMember || isAssignee || isAuthor;
+        
+        if (process.env.DEBUG === 'true' && matches) {
+          console.log('dueCards client: card matches user:', card.title, { isMember, isAssignee, isAuthor });
+        }
+        
+        return matches;
       });
+    }
+
+    if (process.env.DEBUG === 'true') {
+      console.log('dueCards client: filtered to', filteredCards.length, 'cards');
     }
 
     // Cache the results for 5 seconds to avoid re-filtering on every render
     this._cachedCards = filteredCards;
     this._cachedTimestamp = Date.now();
+
+    // Update reactive variables
+    this.hasResults.set(filteredCards && filteredCards.length > 0);
+    this.isLoading.set(false);
 
     return filteredCards;
   }

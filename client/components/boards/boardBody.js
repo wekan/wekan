@@ -187,7 +187,7 @@ BlazeComponent.extendComponent({
           console.log(`Board ${boardId} has no shared lists to convert`);
         }
         // Mark as processed even if no shared lists
-        Meteor.call('boards.update', boardId, { $set: { hasSharedListsConverted: true } });
+        Boards.update(boardId, { $set: { hasSharedListsConverted: true } });
         return;
       }
 
@@ -259,7 +259,7 @@ BlazeComponent.extendComponent({
       }
 
       // Mark board as processed
-      Meteor.call('boards.update', boardId, { $set: { hasSharedListsConverted: true } });
+      Boards.update(boardId, { $set: { hasSharedListsConverted: true } });
 
       if (process.env.DEBUG === 'true') {
         console.log(`Successfully converted ${sharedLists.length} shared lists to per-swimlane lists for board ${boardId}`);
@@ -361,14 +361,14 @@ BlazeComponent.extendComponent({
         }
         
         // Mark board as processed
-        Meteor.call('boards.update', boardId, { $set: { fixDuplicateListsCompleted: true } });
+        Boards.update(boardId, { $set: { fixDuplicateListsCompleted: true } });
       } else if (process.env.DEBUG === 'true') {
         console.log(`No duplicate lists found for board ${boardId}`);
         // Still mark as processed to avoid repeated checks
-        Meteor.call('boards.update', boardId, { $set: { fixDuplicateListsCompleted: true } });
+        Boards.update(boardId, { $set: { fixDuplicateListsCompleted: true } });
       } else {
         // Still mark as processed to avoid repeated checks
-        Meteor.call('boards.update', boardId, { $set: { fixDuplicateListsCompleted: true } });
+        Boards.update(boardId, { $set: { fixDuplicateListsCompleted: true } });
       }
 
     } catch (error) {

@@ -25,7 +25,7 @@ Meteor.methods({
 
     for (const board of allBoards) {
       try {
-        const result = this.fixDuplicateListsForBoard(board._id);
+        const result = fixDuplicateListsForBoard(board._id);
         totalFixed += result.fixed;
         totalBoardsProcessed++;
         
@@ -55,19 +55,21 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    return this.fixDuplicateListsForBoard(boardId);
-  },
+    return fixDuplicateListsForBoard(boardId);
+  }
+});
 
-  fixDuplicateListsForBoard(boardId) {
+// Helper functions defined outside of Meteor.methods
+function fixDuplicateListsForBoard(boardId) {
     if (process.env.DEBUG === 'true') {
       console.log(`Fixing duplicate lists for board ${boardId}...`);
     }
     
     // First, fix duplicate swimlanes
-    const swimlaneResult = this.fixDuplicateSwimlanes(boardId);
+    const swimlaneResult = fixDuplicateSwimlanes(boardId);
     
     // Then, fix duplicate lists
-    const listResult = this.fixDuplicateLists(boardId);
+    const listResult = fixDuplicateLists(boardId);
     
     return {
       boardId,
@@ -75,9 +77,10 @@ Meteor.methods({
       fixedLists: listResult.fixed,
       fixed: swimlaneResult.fixed + listResult.fixed
     };
-  },
+}
 
-  fixDuplicateSwimlanes(boardId) {
+// Helper functions defined outside of Meteor.methods
+function fixDuplicateSwimlanes(boardId) {
     const swimlanes = Swimlanes.find({ boardId }).fetch();
     const swimlaneGroups = {};
     let fixed = 0;
@@ -144,9 +147,9 @@ Meteor.methods({
     });
 
     return { fixed };
-  },
+}
 
-  fixDuplicateLists(boardId) {
+function fixDuplicateLists(boardId) {
     const lists = Lists.find({ boardId }).fetch();
     const listGroups = {};
     let fixed = 0;
@@ -192,8 +195,9 @@ Meteor.methods({
     });
 
     return { fixed };
-  },
+}
 
+Meteor.methods({
   'fixDuplicateLists.getReport'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');

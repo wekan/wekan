@@ -32,8 +32,16 @@ template(name="dueCards")
               span.global-search-error-messages
                 = msg
         else
+          .due-cards-results-header
+            h1
+              = resultsText
           each card in dueCardsList
             +resultCard(card)
+    else
+      .global-search-results-list-wrapper
+        .no-results
+          h3 {{_ 'dueCards-noResults-title'}}
+          p {{_ 'dueCards-noResults-description'}}
 
 template(name="dueCardsViewChangePopup")
   if currentUser

@@ -136,10 +136,29 @@ Meteor.publish('dueCards', function(allUsers = false) {
 
   // Get user's board memberships for efficient filtering
   const userBoards = ReactiveCache.getBoards({
-    members: userId
+    $or: [
+      { permission: 'public' },
+      { members: { $elemMatch: { userId, isActive: true } } }
+    ]
   }).map(board => board._id);
 
+  if (process.env.DEBUG === 'true') {
+    console.log('dueCards userBoards:', userBoards);
+    console.log('dueCards userBoards count:', userBoards.length);
+    
+    // Also check if there are any cards with due dates in the system at all
+    const allCardsWithDueDates = Cards.find({
+      type: 'cardType-card',
+      archived: false,
+      dueAt: { $exists: true, $nin: [null, ''] }
+    }).count();
+    console.log('dueCards: total cards with due dates in system:', allCardsWithDueDates);
+  }
+
   if (userBoards.length === 0) {
+    if (process.env.DEBUG === 'true') {
+      console.log('dueCards: No boards found for user, returning ready');
+    }
     return this.ready();
   }
 
@@ -182,7 +201,23 @@ Meteor.publish('dueCards', function(allUsers = false) {
     console.log('dueCards options:', JSON.stringify(options, null, 2));
   }
 
-  return Cards.find(selector, options);
+  const result = Cards.find(selector, options);
+  
+  if (process.env.DEBUG === 'true') {
+    const count = result.count();
+    console.log('dueCards publication: returning', count, 'cards');
+    if (count > 0) {
+      const sampleCards = result.fetch().slice(0, 3);
+      console.log('dueCards publication: sample cards:', sampleCards.map(c => ({
+        id: c._id,
+        title: c.title,
+        dueAt: c.dueAt,
+        boardId: c.boardId
+      })));
+    }
+  }
+
+  return result;
 });
 
 Meteor.publish('globalSearch', function(sessionId, params, text) {
