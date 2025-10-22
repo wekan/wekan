@@ -311,6 +311,73 @@ BlazeComponent.extendComponent({
   },
 }).register('importMapMembersAddPopup');
 
+// Global reactive variables for import member popup
+const importMemberPopupState = {
+  searching: new ReactiveVar(false),
+  searchResults: new ReactiveVar([]),
+  noResults: new ReactiveVar(false),
+  searchTimeout: null
+};
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    // Use global state
+    this.searching = importMemberPopupState.searching;
+    this.searchResults = importMemberPopupState.searchResults;
+    this.noResults = importMemberPopupState.noResults;
+    this.searchTimeout = importMemberPopupState.searchTimeout;
+  },
+
+  onRendered() {
+    this.find('.js-search-member-input').focus();
+  },
+
+  performSearch(query) {
+    if (!query || query.length < 2) {
+      this.searchResults.set([]);
+      this.noResults.set(false);
+      return;
+    }
+
+    this.searching.set(true);
+    this.noResults.set(false);
+
+    const results = UserSearchIndex.search(query, { limit: 20 }).fetch();
+    this.searchResults.set(results);
+    this.searching.set(false);
+    
+    if (results.length === 0) {
+      this.noResults.set(true);
+    }
+  },
+
+  events() {
+    return [
+      {
+        'keyup .js-search-member-input'(event) {
+          const query = event.target.value.trim();
+          
+          if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+          }
+          
+          this.searchTimeout = setTimeout(() => {
+            this.performSearch(query);
+          }, 300);
+        },
+      },
+    ];
+  },
+}).register('importMapMembersAddPopupSearch');
+
 Template.importMapMembersAddPopup.helpers({
-  searchIndex: () => UserSearchIndex,
+  searchResults() {
+    return importMemberPopupState.searchResults.get();
+  },
+  searching() {
+    return importMemberPopupState.searching;
+  },
+  noResults() {
+    return importMemberPopupState.noResults;
+  }
 })

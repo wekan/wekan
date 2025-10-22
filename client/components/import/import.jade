@@ -56,17 +56,17 @@ template(name="importMapMembersAddPopup")
     p
       | {{_ 'import-user-select'}}
     .js-map-member
-      +EasySearch.Input(index=searchIndex)
+      input.js-search-member-input(type="text" placeholder="{{_ 'search-users'}}")
     ul.pop-over-list
-      +EasySearch.Each(index=searchIndex)
+      each searchResults
         li.item.js-member-item
-          a.name.js-select-import(title="{{profile.fullname}} ({{username}})" data-id="{{__originalId}}")
-            +userAvatar(userId=__originalId)
+          a.name.js-select-import(title="{{profile.fullname}} ({{username}})" data-id="{{_id}}")
+            +userAvatar(userId=_id)
             span.full-name
               = profile.fullname
               | (<span class="username">{{username}}</span>)
-      +EasySearch.IfSearching(index=searchIndex)
+      if searching.get
         +spinner
-      +EasySearch.IfNoResults(index=searchIndex)
+      if noResults.get
         .manage-member-section
           p.quiet {{_ 'no-results'}}

@@ -1492,19 +1492,28 @@ BlazeComponent.extendComponent({
   },
 }).register('boardCardSettingsPopup');
 
+// Use Session variables instead of global ReactiveVars
+Session.setDefault('addMemberPopup.searchResults', []);
+Session.setDefault('addMemberPopup.searching', false);
+Session.setDefault('addMemberPopup.noResults', false);
+Session.setDefault('addMemberPopup.loading', false);
+Session.setDefault('addMemberPopup.error', '');
+
+console.log('addMemberPopup Session variables initialized');
+
 BlazeComponent.extendComponent({
   onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
+    // Use Session variables
+    this.searchTimeout = null;
   },
 
   onRendered() {
-    this.find('.js-search-member input').focus();
+    this.find('.js-search-member-input').focus();
     this.setLoading(false);
   },
 
   isBoardMember() {
-    const userId = this.currentData().__originalId;
+    const userId = this.currentData()._id;
     const user = ReactiveCache.getUser(userId);
     return user && user.isBoardMember();
   },
@@ -1514,15 +1523,35 @@ BlazeComponent.extendComponent({
   },
 
   setError(error) {
-    this.error.set(error);
+    Session.set('addMemberPopup.error', error);
   },
 
   setLoading(w) {
-    this.loading.set(w);
+    Session.set('addMemberPopup.loading', w);
   },
 
   isLoading() {
-    return this.loading.get();
+    return Session.get('addMemberPopup.loading');
+  },
+
+  performSearch(query) {
+    if (!query || query.length < 2) {
+      Session.set('addMemberPopup.searchResults', []);
+      Session.set('addMemberPopup.noResults', false);
+      return;
+    }
+
+    Session.set('addMemberPopup.searching', true);
+    Session.set('addMemberPopup.noResults', false);
+
+    // Use the fallback search
+    const results = UserSearchIndex.search(query, { limit: 20 }).fetch();
+    Session.set('addMemberPopup.searchResults', results);
+    Session.set('addMemberPopup.searching', false);
+    
+    if (results.length === 0) {
+      Session.set('addMemberPopup.noResults', true);
+    }
   },
 
   inviteUser(idNameEmail) {
@@ -1540,18 +1569,30 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'keyup input'() {
+        'keyup .js-search-member-input'(event) {
           this.setError('');
+          const query = event.target.value.trim();
+          this.searchQuery.set(query);
+          
+          // Clear previous timeout
+          if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+          }
+          
+          // Debounce search
+          this.searchTimeout = setTimeout(() => {
+            this.performSearch(query);
+          }, 300);
         },
         'click .js-select-member'() {
-          const userId = this.currentData().__originalId;
+          const userId = this.currentData()._id;
           const currentBoard = Utils.getCurrentBoard();
           if (!currentBoard.hasMember(userId)) {
             this.inviteUser(userId);
           }
         },
         'click .js-email-invite'() {
-          const idNameEmail = $('.js-search-member input').val();
+          const idNameEmail = $('.js-search-member-input').val();
           if (idNameEmail.indexOf('@') < 0 || this.isValidEmail(idNameEmail)) {
             this.inviteUser(idNameEmail);
           } else this.setError('email-invalid');
@@ -1562,7 +1603,35 @@ BlazeComponent.extendComponent({
 }).register('addMemberPopup');
 
 Template.addMemberPopup.helpers({
-  searchIndex: () => UserSearchIndex,
+  searchResults() {
+    const results = Session.get('addMemberPopup.searchResults');
+    console.log('searchResults helper called, returning:', results);
+    return results;
+  },
+  searching() {
+    return Session.get('addMemberPopup.searching');
+  },
+  noResults() {
+    return Session.get('addMemberPopup.noResults');
+  },
+  loading() {
+    return Session.get('addMemberPopup.loading');
+  },
+  error() {
+    return Session.get('addMemberPopup.error');
+  },
+  isBoardMember() {
+    const userId = this._id;
+    const user = ReactiveCache.getUser(userId);
+    return user && user.isBoardMember();
+  }
+})
+
+Template.addMemberPopupTest.helpers({
+  searchResults() {
+    console.log('addMemberPopupTest searchResults helper called');
+    return Session.get('addMemberPopup.searchResults') || [];
+  }
 })
 
 BlazeComponent.extendComponent({
