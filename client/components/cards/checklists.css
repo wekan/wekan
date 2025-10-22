@@ -72,6 +72,10 @@ textarea.js-edit-checklist-item {
   padding-top: 3px;
   float: left;
 }
+.checklist-title span.fa.checklist-handle.fa-arrows::before {
+  content: "↕️" !important;
+  font-family: inherit !important;
+}
 #card-details-overlay {
   top: 0;
   bottom: -600px;
@@ -147,6 +151,10 @@ textarea.js-edit-checklist-item {
 .checklist-item span.fa.checklistitem-handle {
   padding-top: 2px;
   padding-right: 10px;
+}
+.checklist-item span.fa.checklistitem-handle.fa-arrows::before {
+  content: "↕️" !important;
+  font-family: inherit !important;
 }
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {
