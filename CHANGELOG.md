@@ -28,6 +28,8 @@ This release fixes the following bugs:
 
 - [Fix Regression - unable to view cards by due date v8.11](https://github.com/wekan/wekan/commit/ae11e80bde79d9ad412d185f20e5a7f802685260).
   Thanks to xet7.
+- [Fix Regression - unable to rearrange tasks within a checklist - v8.11](https://github.com/wekan/wekan/commit/544b24ceb1687e5b568d8c7b74403a5a2e3f6bc6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
