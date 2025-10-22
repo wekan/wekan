@@ -141,7 +141,7 @@ template(name="minicard")
       if canModifyCard
         if comments.length
           .badge(title="{{_ 'card-comments-title' comments.length }}")
-            span.badge-icon.badge-comment.badge-text | 💬
+            span.badge-icon.badge-comment.badge-text 💬
               = ' '
               = comments.length
             //span.badge-comment.badge-text
@@ -149,36 +149,36 @@ template(name="minicard")
       if getDescription
         unless currentBoard.allowsDescriptionTextOnMinicard
           .badge.badge-state-image-only(title=getDescription)
-            span.badge-icon | 📝
+            span.badge-icon 📝
       if getVoteQuestion
         .badge.badge-state-image-only(title=getVoteQuestion)
-          span.badge-icon(class="{{#if voteState}}text-green{{/if}}") | 👍
+          span.badge-icon(class="{{#if voteState}}text-green{{/if}}") 👍
           span.badge-text {{ voteCountPositive }}
-          span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}") | 👎
+          span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}") 👎
           span.badge-text {{ voteCountNegative }}
       if getPokerQuestion
         .badge.badge-state-image-only(title=getPokerQuestion)
-          span.badge-icon(class="{{#if pokerState}}text-green{{/if}}") | ✅
+          span.badge-icon(class="{{#if pokerState}}text-green{{/if}}") ✅
           if expiredPoker
             span.badge-text {{ getPokerEstimation }}
       if attachments.length
         if currentBoard.allowsBadgeAttachmentOnMinicard
           .badge
-            span.badge-icon | 📎
+            span.badge-icon 📎
             span.badge-text= attachments.length
       if checklists.length
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
-          span.badge-icon | ☑️
+          span.badge-icon ☑️
           span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
       if allSubtasks.count
         .badge
-          span.badge-icon | 🌐
+          span.badge-icon 🌐
           span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
           //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
       if currentBoard.allowsCardSortingByNumber
         if currentBoard.allowsCardSortingByNumberOnMinicard
           .badge
-            span.badge-icon | 🔢
+            span.badge-icon 🔢
             span.badge-text.check-list-sort {{ sort }}
     if currentBoard.allowsDescriptionTextOnMinicard
       if getDescription
