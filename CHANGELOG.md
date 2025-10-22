@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Removed not needed | at left side of minicard badges](https://github.com/wekan/wekan/commit/a0c30c35ed57113df041ef1020d3e9e5449f35e4).
   Thanks to xet7.
+- [Fix opened card Date Format to be used at dates popups](https://github.com/wekan/wekan/commit/7ca81285b14d1ec60d6e7e9c191d1194950f18c8).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
