@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Muokkaa ilmoituksia",
   "editProfilePopup-title": "Muokkaa profiilia",
   "email": "Sähköposti",
+  "email-address": "Sähköpostiosoite",
   "email-enrollAccount-subject": "Sinulle on luotu tili palveluun __siteName__",
   "email-enrollAccount-text": "Hei __user__,\n\nKlikkaa alla olevaa linkkiä aloittaaksesi palvelun käytön.\n\n__url__\n\nKiitos.",
   "email-fail": "Sähköpostin lähettäminen epäonnistui",

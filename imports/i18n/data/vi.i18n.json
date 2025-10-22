@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Sửa Thông báo",
   "editProfilePopup-title": "Sửa Hồ sơ",
   "email": "Email",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Một tài khoản được tạo cho bạn trên __siteName__",
   "email-enrollAccount-text": "Chào __user__,\n\nĐể bắt đầu sử dụng dịch vụ, chỉ cần nhấp vào liên kết bên dưới.\n\n__url__\n\nCảm ơn.",
   "email-fail": "Gửi email không thành công",

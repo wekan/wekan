@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "更改通知",
   "editProfilePopup-title": "編輯個人資料",
   "email": "電子郵件",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "您在 __siteName__ 的帳號已經建立",
   "email-enrollAccount-text": "親愛的 __user__,\n\n點選下面的連結，即刻開始使用這項服務。\n\n__url__\n\n謝謝。",
   "email-fail": "郵件寄送失敗",

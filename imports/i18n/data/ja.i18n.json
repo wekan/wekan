@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "通知の変更",
   "editProfilePopup-title": "プロフィールの編集",
   "email": "メールアドレス",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "__siteName__であなたのアカウントが作成されました",
   "email-enrollAccount-text": "こんにちは、__user__さん。\n\nサービスを開始するには、以下をクリックしてください。\n\n__url__\n\nよろしくお願いします。",
   "email-fail": "メールの送信に失敗しました",

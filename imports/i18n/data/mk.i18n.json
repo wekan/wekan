@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Промени известията",
   "editProfilePopup-title": "Промяна на профила",
   "email": "Имейл",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Ваш профил беше създаден на __siteName__",
   "email-enrollAccount-text": "Hello __user__,\n\nTo start using the service, simply click the link below.\n\n__url__\n\nThanks.",
   "email-fail": "Неуспешно изпращане на имейла",

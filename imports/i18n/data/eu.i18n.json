@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Editatu jakinarazpena",
   "editProfilePopup-title": "Editatu profila",
   "email": "e-posta",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Kontu bat sortu zaizu __siteName__ gunean",
   "email-enrollAccount-text": "Kaixo __user__,\n\nZerbitzua erabiltzen hasteko, egin klik beheko loturan.\n\n__url__\n\nEskerrik asko.",
   "email-fail": "E-posta bidalketak huts egin du",

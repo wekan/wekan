@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Επεξεργασία Ειδοποίησης",
   "editProfilePopup-title": "Επεξεργασία Προφίλ",
   "email": "Email",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Ένας λογαριασμός δημιουργήθηκε για εσάς στο __siteName__",
   "email-enrollAccount-text": "Χαίρετε __user__,\n\nΓια να ξεκινήσετε να χρησιμοποιείτε αυτή την υπηρεσία, απλώς κάνετε κλικ στον παρακάτω σύνδεσμο.\n\n__url__\n\nΕυχαριστούμε.",
   "email-fail": "Η αποστολή του email απέτυχε",

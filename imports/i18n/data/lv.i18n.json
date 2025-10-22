@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Labot ziņojumu",
   "editProfilePopup-title": "Labot profilu",
   "email": "E-pasts",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Izveidots profils iekš __siteName__",
   "email-enrollAccount-text": "Sveiki, __user__,\n\nLai sāktu izmantot servisu, vienkārši spied saiti zemāk.\n\n__url__\n\nPaldies.",
   "email-fail": "E-pasta sūtīšana neizdevās",

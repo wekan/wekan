@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Редактировать уведомления",
   "editProfilePopup-title": "Редактировать профиль",
   "email": "Эл.почта",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Аккаунт создан для вас здесь __url__",
   "email-enrollAccount-text": "Привет __user__,\n\nДля того, чтобы начать использовать сервис, просто нажми на ссылку ниже.\n\n__url__\n\nСпасибо.",
   "email-fail": "Отправка письма на EMail не удалась",

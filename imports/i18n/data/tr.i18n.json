@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Bildirimi değiştir",
   "editProfilePopup-title": "Profili Düzenle",
   "email": "E-posta",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Hesabınız __siteName__ üzerinde oluşturuldu",
   "email-enrollAccount-text": "Merhaba __user__,\n\nBu servisi kullanmaya başlamak için aşağıdaki linke tıklamalısın:\n\n__url__\n\nTeşekkürler.",
   "email-fail": "E-posta gönderimi başarısız",

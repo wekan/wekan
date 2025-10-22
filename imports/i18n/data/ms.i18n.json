@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Ubah Makluman",
   "editProfilePopup-title": "Ubah Profil",
   "email": "Emel",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Satu akaun telah dicipta untuk anda pada __siteName__",
   "email-enrollAccount-text": "Salam Sejahtera __user__\nUntuk mula menggunakan servis, cuma perlu klik pautan di bawah\n\n__url__\n\nTerima kasih.",
   "email-fail": "Gagal menghantar emel",

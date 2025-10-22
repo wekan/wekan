@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Wijzig notificatie",
   "editProfilePopup-title": "Wijzig profiel",
   "email": "E-mail",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Er is een account voor je aangemaakt op __siteName__",
   "email-enrollAccount-text": "Hallo __user__,\n\nOm gebruik te maken van de online dienst, kan je op de volgende link klikken.\n\n__url__\n\nBedankt.",
   "email-fail": "E-mail verzenden is mislukt",

@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Modifica notifiche",
   "editProfilePopup-title": "Modifica profilo",
   "email": "Email",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Creato un account per te su __siteName__",
   "email-enrollAccount-text": "Ciao __user__,\n\nPer iniziare ad utilizzare il servizio, clicca sul link seguente:\n\n__url__\n\nGrazie.",
   "email-fail": "Invio email fallito",

@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Értesítés szerkesztése",
   "editProfilePopup-title": "Edit Profile",
   "email": "E-mail",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Létrejött a profilja a következő oldalon: __siteName__",
   "email-enrollAccount-text": "Kedves __user__!\n\nA szolgáltatás használatának megkezdéséhez egyszerűen kattintson a lenti hivatkozásra.\n\n__url__\n\nKöszönjük.",
   "email-fail": "Az e-mail küldése nem sikerült",

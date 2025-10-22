@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Измени обавештење",
   "editProfilePopup-title": "Лични подаци",
   "email": "Е-пошта",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "За Вас је направљен један налог на __siteName__",
   "email-enrollAccount-text": "Здраво __user__,\n\nДа би почели да користите услугу, једноставно притисните на везу која је испод.\n\n__url__\n\nХвала.",
   "email-fail": "Неуспело слање е-поште",

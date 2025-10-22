@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "שינוי דיווח",
   "editProfilePopup-title": "עריכת פרופיל",
   "email": "דוא״ל",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "נוצר עבורך חשבון באתר __siteName__",
   "email-enrollAccount-text": "__user__ שלום,\n\nכדי להתחיל להשתמש בשירות, יש ללחוץ על הקישור המופיע להלן.\n\n__url__\n\nתודה.",
   "email-fail": "שליחת ההודעה בדוא״ל נכשלה",

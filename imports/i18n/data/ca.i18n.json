@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Edita la notificació",
   "editProfilePopup-title": "Edita el teu Perfil",
   "email": "Correu electrònic",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Un compte creat per a tu a __siteName__",
   "email-enrollAccount-text": "Hola __user__,\n\nPer començar a utilitzar el servei, segueix l'enllaç següent.\n\n__url__\n\nGràcies.",
   "email-fail": "Error enviant el correu",

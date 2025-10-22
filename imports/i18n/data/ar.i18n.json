@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "تصحيح الإشعار",
   "editProfilePopup-title": "تعديل الملف الشخصي",
   "email": "البريد الإلكتروني",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "An account created for you on __siteName__",
   "email-enrollAccount-text": "Hello __user__,\n\nTo start using the service, simply click the link below.\n\n__url__\n\nThanks.",
   "email-fail": "Sending email failed",

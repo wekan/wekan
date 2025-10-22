@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "แก้ไขการแจ้งเตือน",
   "editProfilePopup-title": "แก้ไขโปรไฟล์",
   "email": "อีเมล์",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "บัญชีคุณถูกสร้างใน __siteName__",
   "email-enrollAccount-text": "สวัสดี __user__,\n\nเริ่มใช้บริการง่าย ๆ , ด้วยการคลิกลิงค์ด้านล่าง.\n\n__url__\n\n ขอบคุณค่ะ",
   "email-fail": "การส่งอีเมล์ล้มเหลว",

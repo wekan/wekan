@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "اصلاح اعلان",
   "editProfilePopup-title": "ویرایش پروفایل",
   "email": "پست الکترونیک",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "یک حساب کاربری برای شما در __siteName__ ایجاد شد",
   "email-enrollAccount-text": "سلام __user__ \nبرای شروع به استفاده از این سرویس برروی آدرس زیر کلیک کنید.\n__url__\nبا تشکر.",
   "email-fail": "عدم موفقیت در فرستادن رایانامه",

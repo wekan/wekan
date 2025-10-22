@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Redigér notifikation",
   "editProfilePopup-title": "Redigér profil",
   "email": "E-mail",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Der er oprettet konto til dig på __siteName__",
   "email-enrollAccount-text": "Hej __user__,\n\nFor at begynde at benytte tjenesten, så klik linket nedenfor.\n\n__url__\n\nTak.",
   "email-fail": "Afsendelse af e-mail mislykkedes",

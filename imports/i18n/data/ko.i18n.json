@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "알림 수정",
   "editProfilePopup-title": "프로필 변경",
   "email": "이메일",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "__siteName__에 계정 생성이 완료되었습니다.",
   "email-enrollAccount-text": "안녕하세요. __user__님,\n\n시작하려면 아래링크를 클릭해 주세요.\n\n__url__\n\n감사합니다.",
   "email-fail": "이메일 전송 실패",

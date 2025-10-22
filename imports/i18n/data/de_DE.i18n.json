@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Benachrichtigung ändern",
   "editProfilePopup-title": "Profil ändern",
   "email": "E-Mail",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Ihr Benutzerkonto auf __siteName__ wurde erstellt",
   "email-enrollAccount-text": "Hallo __user__,\n\num den Dienst nutzen zu können, klicken Sie bitte auf folgenden Link:\n\n__url__\n\nDanke.",
   "email-fail": "Senden der E-Mail fehlgeschlagen",

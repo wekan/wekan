@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Modificar la notificacion",
   "editProfilePopup-title": "Modificar lo perfil",
   "email": "Corrièl",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Vòstre compte es ara activat pel sit __siteName__",
   "email-enrollAccount-text": "Adieu __user__,\n\nPer comença d'utilizar lo servici, vos cal clicar sul ligam.\n\n__url__\n\nMercé.",
   "email-fail": "Pas possible de mandar lo corrièl",

@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Změnit notifikace",
   "editProfilePopup-title": "Upravit profil",
   "email": "Email",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Byl vytvořen účet na __siteName__",
   "email-enrollAccount-text": "Ahoj __user__,\n\nMůžeš začít používat službu kliknutím na odkaz níže.\n\n__url__\n\nDěkujeme.",
   "email-fail": "Odeslání emailu selhalo",

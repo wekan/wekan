@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Teavituse muutmine",
   "editProfilePopup-title": "Profiilide muutmine",
   "email": "E-post",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Teie jaoks loodud konto __siteName__",
   "email-enrollAccount-text": "Tere __user__,\n\nTeenuse kasutamise alustamiseks klõpsake lihtsalt alloleval lingil.\n\n__url__\n\nTänan teid.",
   "email-fail": "E-posti saatmine ebaõnnestus",

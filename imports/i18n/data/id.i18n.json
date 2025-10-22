@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Sunting Pemberitahuan",
   "editProfilePopup-title": "Sunting Profil",
   "email": "Email",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Sebuah akun dibuat untuk Anda pada __siteName__",
   "email-enrollAccount-text": "Halo __user__,\n\nUntuk mulai menggunakan, silakan klik tautan berikut.\n\n__url__\n\nTerima kasih.",
   "email-fail": "Surel gagal terkirim",

@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "შეტყობინებების შესწორება",
   "editProfilePopup-title": "პროფილის შესწორება",
   "email": "ელ.ფოსტა",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "An account created for you on __siteName__",
   "email-enrollAccount-text": "მოგესალმებით __user__,\n\nამ სერვისის გამოსაყენებლად დააკლიკეთ ქვედა ბმულს.\n\n__url__\n\nმადლობა.",
   "email-fail": "ელ.ფოსტის გაგზავნა ვერ მოხერხდა",

@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Editar las notificaciones",
   "editProfilePopup-title": "Editar el perfil",
   "email": "Correo electrónico",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Cuenta creada en __siteName__",
   "email-enrollAccount-text": "Hola __user__,\n\nPara empezar a utilizar el servicio, simplemente haga clic en el siguiente enlace.\n\n__url__\n\nGracias.",
   "email-fail": "Error al enviar el correo",

@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Endre Varsel",
   "editProfilePopup-title": "Endre profil",
   "email": "E-post",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "En brukerkonto er opprettet for deg på __siteName__",
   "email-enrollAccount-text": "Hei __user__,\n\nFor å ta i bruk tjenesten, klikk på linken under.\n\n__url__\n\nTakk.",
   "email-fail": "Sending av epost feilet",

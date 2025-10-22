@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "Redigera notis",
   "editProfilePopup-title": "Redigera profil",
   "email": "E-post",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "Ett konto skapat för dig på __siteName__",
   "email-enrollAccount-text": "Hej __user__,\n\nFör att börja använda tjänsten, klicka på länken nedan.\n\n__url__\n\nTack!",
   "email-fail": "Sändning av e-post misslyckades",

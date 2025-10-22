@@ -385,6 +385,7 @@
   "editNotificationPopup-title": "编辑通知",
   "editProfilePopup-title": "编辑资料",
   "email": "邮箱",
+  "email-address": "Email Address",
   "email-enrollAccount-subject": "已为您在 __siteName__ 创建帐号",
   "email-enrollAccount-text": "尊敬的 __user__,\n\n点击下面的链接，即刻开始使用这项服务。\n\n__url__\n\n谢谢。",
   "email-fail": "邮件发送失败",
