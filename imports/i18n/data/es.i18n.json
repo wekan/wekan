@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Yo",
   "dueCardsViewChange-choice-all": "Todos los usuarios",
   "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Tarjetas Rotas",
   "board-title-not-found": "Tablero '%s' no encontrado.",
   "swimlane-title-not-found": "Carril '%s' no encontrado.",

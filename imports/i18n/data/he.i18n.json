@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "אני",
   "dueCardsViewChange-choice-all": "כל המשתמשים",
   "dueCardsViewChange-choice-all-description": "מציג את כל הכרטיסים שלא הושלמו ושיש להם *תוקף* מלוחות שלמשתמש יש הרשאה לגשת אליהם.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "כרטיסים פגומים",
   "board-title-not-found": "הלוח ‚%s’ לא נמצא.",
   "swimlane-title-not-found": "המסלול ‚%s’ לא נמצא.",

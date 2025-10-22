@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "jo",
   "dueCardsViewChange-choice-all": "Tots els usuaris",
   "dueCardsViewChange-choice-all-description": "Mostra totes les fitxes incompletes amb una *data de venciment* de taulers per als quals l'usuari té permís.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Fitxes Trencades",
   "board-title-not-found": "No s'ha trobat el tauler '%s'.",
   "swimlane-title-not-found": "No s'ha trobat el carril '%s'.",

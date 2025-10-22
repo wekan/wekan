@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Jag",
   "dueCardsViewChange-choice-all": "Alla användare",
   "dueCardsViewChange-choice-all-description": "Visar alla oklara kort med *förfallo* datum från tavlor som användaren har tillgång till.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Trasiga kort",
   "board-title-not-found": "Tavla '%s' hittades inte.",
   "swimlane-title-not-found": "Simbana '%s' hittades inte.",

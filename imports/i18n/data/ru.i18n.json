@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Мне",
   "dueCardsViewChange-choice-all": "Все пользователи",
   "dueCardsViewChange-choice-all-description": "Показать все незавершенные карточки с установленным сроком с досок для которых у пользователя есть разрешения.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Просроченные карточки",
   "board-title-not-found": "Доска '%s' не найдена.",
   "swimlane-title-not-found": "Дорожка '%s' не найдена.",

@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "我",
   "dueCardsViewChange-choice-all": "全部使用者",
   "dueCardsViewChange-choice-all-description": "顯示看板內所有已設定到期日，且使用者有權限的未完成卡片",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "損毀卡片",
   "board-title-not-found": "看板%s不存在",
   "swimlane-title-not-found": "泳道流程圖%s不存在",

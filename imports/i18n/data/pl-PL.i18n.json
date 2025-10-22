@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Moje",
   "dueCardsViewChange-choice-all": "Wszystkich użytkowników",
   "dueCardsViewChange-choice-all-description": "Wyświetla wszystkie nieukończone karty z ustawioną datą wykonania ze wszystkich tablic, do których użytkownik ma dostęp.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Karty wadliwe",
   "board-title-not-found": "Nie znaleziono tablicy '%s'.",
   "swimlane-title-not-found": "Nie znaleziono ścieżki '%s'.",

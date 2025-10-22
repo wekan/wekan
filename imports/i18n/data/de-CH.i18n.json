@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Ich",
   "dueCardsViewChange-choice-all": "alle Benutzer",
   "dueCardsViewChange-choice-all-description": "Zeigt alle unvollständigen Karten mit einem *Fälligkeits*-Datum auf Boards, für die der Benutzer Berechtigungen hat.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Fehlerhafte Karten",
   "board-title-not-found": "Board „%s“ nicht gefunden.",
   "swimlane-title-not-found": "Swimlane „%s“ nicht gefunden.",

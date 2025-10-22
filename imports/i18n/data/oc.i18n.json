@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Me",
   "dueCardsViewChange-choice-all": "All Users",
   "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Broken Cards",
   "board-title-not-found": "Board '%s' not found.",
   "swimlane-title-not-found": "Swimlane '%s' not found.",

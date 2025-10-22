@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Meg",
   "dueCardsViewChange-choice-all": "Alle Brukere",
   "dueCardsViewChange-choice-all-description": "Viser alle kort som ikke er ferdigstilt, med \"Forfallsdato\" fra tavler som brukeren har rettigheter til.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Brutte Kort",
   "board-title-not-found": "Tavle '%s' ikke funnet.",
   "swimlane-title-not-found": "Svømmebane '%s' ikke funnet.",

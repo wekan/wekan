@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Tôi",
   "dueCardsViewChange-choice-all": "Tất cả người dùng",
   "dueCardsViewChange-choice-all-description": "Hiển thị tất cả các thẻ chưa hoàn thành có ngày *Đến hạn* từ bảng mà người dùng có quyền.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Thẻ bị hỏng",
   "board-title-not-found": "Không tìm thấy bảng '%s'",
   "swimlane-title-not-found": "Không tìm thấy làn ngang '%s'",

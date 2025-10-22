@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Moje",
   "dueCardsViewChange-choice-all": "Všechny",
   "dueCardsViewChange-choice-all-description": "Zobrazí všechny nedokončené karty s *Termínem dokončení* z každého tabla, ke kterému má uživatel oprávnění.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Rozbité karty",
   "board-title-not-found": "Tablo '%s' nenalezeno.",
   "swimlane-title-not-found": "Swimlane '%s' nenalezena.",

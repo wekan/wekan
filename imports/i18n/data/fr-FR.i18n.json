@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Moi",
   "dueCardsViewChange-choice-all": "Tous les utilisateurs",
   "dueCardsViewChange-choice-all-description": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Cartes en erreur",
   "board-title-not-found": "Tableau '%s' non trouvé.",
   "swimlane-title-not-found": "Couloir '%s' non trouvé.",

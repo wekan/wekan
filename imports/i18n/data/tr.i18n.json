@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Ben mi",
   "dueCardsViewChange-choice-all": "Tüm Kullanıcılar",
   "dueCardsViewChange-choice-all-description": "Kullanıcının iznine sahip olduğu panolardan *Son* tarihi olan tüm eksik kartları gösterir.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Kırık Kartlar",
   "board-title-not-found": "'%s' Pano bulunmadı.",
   "swimlane-title-not-found": "Yüzme kulvarı '%s'bulunamadı.",

@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Mina",
   "dueCardsViewChange-choice-all": "Kõik kasutajad",
   "dueCardsViewChange-choice-all-description": "Näitab kõik lõpetamata kaardid, millel on *Tähtaeg* ja mille jaoks kasutajal on luba.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Purunenud kaardid",
   "board-title-not-found": "Lauda '%s' ei leitud.",
   "swimlane-title-not-found": "Swimlane '%s' ei leitud.",

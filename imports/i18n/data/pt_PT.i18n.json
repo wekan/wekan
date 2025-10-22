@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Eu",
   "dueCardsViewChange-choice-all": "Todos os Utilizadores",
   "dueCardsViewChange-choice-all-description": "Mostra todos os cartões incompletos com data *Limite* de quadros onde o utilizador tem permissões.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Cartões Defeituosos",
   "board-title-not-found": "Quadro '%s' não encontrado.",
   "swimlane-title-not-found": "Pista '%s' não encontrada.",

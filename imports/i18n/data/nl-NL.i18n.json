@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Mij",
   "dueCardsViewChange-choice-all": "Alle gebruikers",
   "dueCardsViewChange-choice-all-description": "Toon incomplete kaarten met een *achterstallige* datum van borden waarvoor de gebruiker toegang heeft.",
+  "dueCards-noResults-title": "No Due Cards Found",
+  "dueCards-noResults-description": "You don't have any cards with due dates at the moment.",
   "broken-cards": "Defecte kaarten",
   "board-title-not-found": "Bord '%s' niet gevonden.",
   "swimlane-title-not-found": "Swimlane '%s' niet gevonden.",

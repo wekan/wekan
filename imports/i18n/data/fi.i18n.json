@@ -1015,6 +1015,8 @@
   "dueCardsViewChange-choice-me": "Minä",
   "dueCardsViewChange-choice-all": "Kaikki käyttäjät",
   "dueCardsViewChange-choice-all-description": "Näyttää kaikki keskeneräiset kortit joilla on *eräpäivä* tauluilta joihin käyttäjällä on oikeudet.",
+  "dueCards-noResults-title": "Erääntyviä kortteja ei löytynyt",
+  "dueCards-noResults-description": "Sinulla ei ole tällä hetkellä yhtään erääntyvää korttia.",
   "broken-cards": "Rikkinäiset kortit",
   "board-title-not-found": "Taulua '%s' ei löytynyt.",
   "swimlane-title-not-found": "Uimarataa '%s' ei löytynyt.",
