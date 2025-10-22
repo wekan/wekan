@@ -32,6 +32,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix unable to add members to board](https://github.com/wekan/wekan/commit/c6d46006837a29fb311e444f94fa65f236e23bc7).
   Thanks to xet7.
+- [Removed not needed | at left side of minicard badges](https://github.com/wekan/wekan/commit/a0c30c35ed57113df041ef1020d3e9e5449f35e4).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
