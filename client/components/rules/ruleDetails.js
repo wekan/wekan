@@ -5,6 +5,11 @@ BlazeComponent.extendComponent({
     this.subscribe('allRules');
     this.subscribe('allTriggers');
     this.subscribe('allActions');
+    // Ensure boards are available on the client so board selects in the
+    // Rules UI (move/link actions) can list other boards the user has access to.
+    // Without this subscription the select may be empty and users can't choose
+    // destination boards for rule actions.
+    this.subscribe('boards');
   },
 
   trigger() {

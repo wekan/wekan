@@ -24,6 +24,7 @@ template(name="boardActions")
         | {{_'r-the-board'}}
       div.trigger-dropdown
         select(id="board-id")
+          option(value="" disabled selected if=not boards.length) {{loadingBoardsLabel}}
           each boards
             if $eq _id currentBoard._id
               option(value="{{_id}}" selected) {{_ 'current'}}
@@ -84,12 +85,13 @@ template(name="boardActions")
       div.trigger-text
         | {{_'r-the-board'}}
       div.trigger-dropdown
-        select(id="board-id-link")
-          each boards
-            if $eq _id currentBoard._id
-              option(value="{{_id}}" selected) {{_ 'current'}}
-            else
-              option(value="{{_id}}") {{title}}
+          select(id="board-id-link")
+            option(value="" disabled selected if=not boards.length) {{loadingBoardsLabel}}
+            each boards
+              if $eq _id currentBoard._id
+                option(value="{{_id}}" selected) {{_ 'current'}}
+              else
+                option(value="{{_id}}") {{title}}
       div.trigger-text
         | {{_'r-in-list'}}
       div.trigger-dropdown
