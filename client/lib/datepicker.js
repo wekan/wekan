@@ -3,6 +3,7 @@ import { TAPi18n } from '/imports/i18n';
 import { 
   formatDateTime, 
   formatDate, 
+  formatDateByUserPreference,
   formatTime, 
   getISOWeek, 
   isValidDate, 
@@ -50,25 +51,35 @@ export class DatePicker extends BlazeComponent {
   }
 
   onRendered() {
-    // Set initial values for native HTML inputs
+    // Set initial values for text and time inputs
     if (isValidDate(this.date.get())) {
       const dateInput = this.find('#date');
       const timeInput = this.find('#time');
       
       if (dateInput) {
-        dateInput.value = formatDate(this.date.get());
+        // Use user's preferred format for text input
+        const currentUser = ReactiveCache.getCurrentUser();
+        const userFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+        dateInput.value = formatDateByUserPreference(this.date.get(), userFormat, false);
       }
-      if (timeInput && !timeInput.value && this.defaultTime) {
-        const defaultDate = new Date(this.defaultTime);
-        timeInput.value = formatTime(defaultDate);
-      } else if (timeInput && isValidDate(this.date.get())) {
-        timeInput.value = formatTime(this.date.get());
+      if (timeInput) {
+        if (!timeInput.value && this.defaultTime) {
+          const defaultDate = new Date(this.defaultTime);
+          timeInput.value = formatTime(defaultDate);
+        } else if (isValidDate(this.date.get())) {
+          timeInput.value = formatTime(this.date.get());
+        }
       }
     }
   }
 
   showDate() {
-    if (isValidDate(this.date.get())) return formatDate(this.date.get());
+    if (isValidDate(this.date.get())) {
+      // Use user's preferred format for display, but HTML date input needs YYYY-MM-DD
+      const currentUser = ReactiveCache.getCurrentUser();
+      const userFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+      return formatDateByUserPreference(this.date.get(), userFormat, false);
+    }
     return '';
   }
   showTime() {
@@ -76,7 +87,18 @@ export class DatePicker extends BlazeComponent {
     return '';
   }
   dateFormat() {
-    return 'L';
+    const currentUser = ReactiveCache.getCurrentUser();
+    const userFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+    // Convert format to localized placeholder
+    switch (userFormat) {
+      case 'DD-MM-YYYY':
+        return TAPi18n.__('date-format-dd-mm-yyyy') || 'PP-KK-VVVV';
+      case 'MM-DD-YYYY':
+        return TAPi18n.__('date-format-mm-dd-yyyy') || 'KK-PP-VVVV';
+      case 'YYYY-MM-DD':
+      default:
+        return TAPi18n.__('date-format-yyyy-mm-dd') || 'VVVV-KK-PP';
+    }
   }
   timeFormat() {
     return 'LT';
@@ -86,11 +108,35 @@ export class DatePicker extends BlazeComponent {
     return [
       {
         'change .js-date-field'() {
-          // Native HTML date input validation
-          const dateValue = this.find('#date').value;
+          // Text input date validation
+          const dateInput = this.find('#date');
+          if (!dateInput) return;
+          
+          const dateValue = dateInput.value;
           if (dateValue) {
-            const dateObj = new Date(dateValue);
-            if (isValidDate(dateObj)) {
+            // Try to parse different date formats
+            const formats = [
+              'YYYY-MM-DD',
+              'DD-MM-YYYY', 
+              'MM-DD-YYYY',
+              'DD/MM/YYYY',
+              'MM/DD/YYYY',
+              'DD.MM.YYYY',
+              'MM.DD.YYYY'
+            ];
+            
+            let parsedDate = null;
+            for (const format of formats) {
+              parsedDate = parseDate(dateValue, [format], true);
+              if (parsedDate) break;
+            }
+            
+            // Fallback to native Date parsing
+            if (!parsedDate) {
+              parsedDate = new Date(dateValue);
+            }
+
+            if (isValidDate(parsedDate)) {
               this.error.set('');
             } else {
               this.error.set('invalid-date');
@@ -99,7 +145,10 @@ export class DatePicker extends BlazeComponent {
         },
         'change .js-time-field'() {
           // Native HTML time input validation
-          const timeValue = this.find('#time').value;
+          const timeInput = this.find('#time');
+          if (!timeInput) return;
+          
+          const timeValue = timeInput.value;
           if (timeValue) {
             const timeObj = new Date(`1970-01-01T${timeValue}`);
             if (isValidDate(timeObj)) {
@@ -121,14 +170,44 @@ export class DatePicker extends BlazeComponent {
             return;
           }
 
-          const newCompleteDate = new Date(`${dateValue}T${timeValue}`);
+          // Try to parse different date formats
+          const formats = [
+            'YYYY-MM-DD',
+            'DD-MM-YYYY', 
+            'MM-DD-YYYY',
+            'DD/MM/YYYY',
+            'MM/DD/YYYY',
+            'DD.MM.YYYY',
+            'MM.DD.YYYY'
+          ];
           
-          if (!isValidDate(newCompleteDate)) {
+          let parsedDate = null;
+          for (const format of formats) {
+            parsedDate = parseDate(dateValue, [format], true);
+            if (parsedDate) break;
+          }
+          
+          // Fallback to native Date parsing
+          if (!parsedDate) {
+            parsedDate = new Date(dateValue);
+          }
+
+          if (!isValidDate(parsedDate)) {
             this.error.set('invalid');
             return;
           }
 
-          this._storeDate(newCompleteDate);
+          // Combine with time
+          const timeObj = new Date(`1970-01-01T${timeValue}`);
+          if (!isValidDate(timeObj)) {
+            this.error.set('invalid-time');
+            return;
+          }
+
+          // Set the time on the parsed date
+          parsedDate.setHours(timeObj.getHours(), timeObj.getMinutes(), 0, 0);
+
+          this._storeDate(parsedDate);
           Popup.back();
         },
         'click .js-delete-date'(evt) {
