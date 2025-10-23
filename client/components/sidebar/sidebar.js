@@ -275,6 +275,45 @@ Template.boardMenuPopup.events({
   'click .js-change-background-image': Popup.open('boardChangeBackgroundImage'),
   'click .js-board-info-on-my-boards': Popup.open('boardInfoOnMyBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-delete-duplicate-lists': Popup.afterConfirm('deleteDuplicateLists', function() {
+    const currentBoard = Utils.getCurrentBoard();
+    if (!currentBoard) return;
+    
+    // Get all lists in the current board
+    const allLists = ReactiveCache.getLists({ boardId: currentBoard._id, archived: false });
+    
+    // Group lists by title to find duplicates
+    const listsByTitle = {};
+    allLists.forEach(list => {
+      if (!listsByTitle[list.title]) {
+        listsByTitle[list.title] = [];
+      }
+      listsByTitle[list.title].push(list);
+    });
+    
+    // Find and delete duplicate lists that have no cards
+    let deletedCount = 0;
+    Object.keys(listsByTitle).forEach(title => {
+      const listsWithSameTitle = listsByTitle[title];
+      if (listsWithSameTitle.length > 1) {
+        // Keep the first list, delete the rest if they have no cards
+        for (let i = 1; i < listsWithSameTitle.length; i++) {
+          const list = listsWithSameTitle[i];
+          const cardsInList = ReactiveCache.getCards({ listId: list._id, archived: false });
+          
+          if (cardsInList.length === 0) {
+            Lists.remove(list._id);
+            deletedCount++;
+          }
+        }
+      }
+    });
+    
+    // Show notification
+    if (deletedCount > 0) {
+      // You could add a toast notification here if available
+    }
+  }),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Utils.getCurrentBoard();
     currentBoard.archive();

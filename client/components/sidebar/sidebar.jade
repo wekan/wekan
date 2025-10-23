@@ -537,6 +537,12 @@ template(name="archiveBoardPopup")
     | 📦
     | {{_ 'archive'}}
 
+template(name="deleteDuplicateListsPopup")
+  p {{_ 'delete-duplicate-lists-confirm'}}
+  button.js-confirm.negate.full(type="submit")
+    | 🗑️
+    | {{_ 'delete'}}
+
 template(name="outgoingWebhooksPopup")
   each integrations
     form.integration-form
@@ -621,6 +627,10 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
+        li
+          a.js-delete-duplicate-lists
+            | 🗑️
+            | {{_ 'delete-duplicate-lists'}}
         li
           a.js-archive-board
             | ➡️📦
