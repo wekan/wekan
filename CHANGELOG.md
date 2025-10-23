@@ -36,6 +36,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix opened card Date Format to be used at dates popups](https://github.com/wekan/wekan/commit/7ca81285b14d1ec60d6e7e9c191d1194950f18c8).
   Thanks to xet7.
+- [Fix UI issues of Right Sidebar / Subtasks Settings and Card Settings](https://github.com/wekan/wekan/commit/45537ede870eca59ad72cd7ad013a12f60032df4).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
