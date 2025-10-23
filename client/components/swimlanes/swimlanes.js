@@ -722,6 +722,96 @@ setTimeout(() => {
           }
         },
         stop(evt, ui) {
+          // To attribute the new index number, we need to get the DOM element
+          // of the previous and the following list -- if any.
+          const prevListDom = ui.item.prev('.js-list').get(0);
+          const nextListDom = ui.item.next('.js-list').get(0);
+          const sortIndex = calculateIndex(prevListDom, nextListDom, 1);
+
+          const listDomElement = ui.item.get(0);
+          if (!listDomElement) {
+            console.error('List DOM element not found during drag stop');
+            return;
+          }
+          
+          let list;
+          try {
+            list = Blaze.getData(listDomElement);
+          } catch (error) {
+            console.error('Error getting list data:', error);
+            return;
+          }
+          
+          if (!list) {
+            console.error('List data not found for element:', listDomElement);
+            return;
+          }
+
+          // Detect if the list was dropped in a different swimlane
+          const targetSwimlaneDom = ui.item.closest('.js-swimlane');
+          let targetSwimlaneId = null;
+
+          if (targetSwimlaneDom.length > 0) {
+            // List was dropped in a swimlane
+            try {
+              targetSwimlaneId = targetSwimlaneDom.attr('id').replace('swimlane-', '');
+            } catch (error) {
+              console.error('Error getting target swimlane ID:', error);
+              return;
+            }
+          } else {
+            // List was dropped in lists view (not swimlanes view)
+            // In this case, assign to the default swimlane
+            const currentBoard = ReactiveCache.getBoard(Session.get('currentBoard'));
+            if (currentBoard) {
+              const defaultSwimlane = currentBoard.getDefaultSwimline();
+              if (defaultSwimlane) {
+                targetSwimlaneId = defaultSwimlane._id;
+              }
+            }
+          }
+
+          // Get the original swimlane ID of the list (handle backward compatibility)
+          const originalSwimlaneId = list.getEffectiveSwimlaneId ? list.getEffectiveSwimlaneId() : (list.swimlaneId || null);
+
+          // Prepare update object
+          const updateData = {
+            sort: sortIndex.base,
+          };
+
+          // Check if the list was dropped in a different swimlane
+          const isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId;
+
+          // If the list was dropped in a different swimlane, update the swimlaneId
+          if (isDifferentSwimlane) {
+            updateData.swimlaneId = targetSwimlaneId;
+
+            // Move all cards in the list to the new swimlane
+            const cardsInList = ReactiveCache.getCards({
+              listId: list._id,
+              archived: false
+            });
+
+            cardsInList.forEach(card => {
+              card.move(list.boardId, targetSwimlaneId, list._id);
+            });
+
+            // Don't cancel the sortable when moving to a different swimlane
+            // The DOM move should be allowed to complete
+          } else {
+            // If staying in the same swimlane, cancel the sortable to prevent DOM manipulation issues
+            $swimlane.sortable('cancel');
+          }
+
+          try {
+            Lists.update(list._id, {
+              $set: updateData,
+            });
+          } catch (error) {
+            console.error('Error updating list:', error);
+            return;
+          }
+
           // Try to get board component
           try {
             const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
@@ -731,6 +821,18 @@ setTimeout(() => {
           } catch (e) {
             // Silent fail
           }
+          
+          // Re-enable dragscroll after list dragging is complete
+          try {
+            dragscroll.reset();
+          } catch (e) {
+            // Silent fail
+          }
+          
+          // Re-enable dragscroll on all swimlanes
+          $('.js-swimlane').each(function() {
+            $(this).addClass('dragscroll');
+          });
         }
       });
     }
@@ -769,6 +871,96 @@ setTimeout(() => {
           }
         },
         stop(evt, ui) {
+          // To attribute the new index number, we need to get the DOM element
+          // of the previous and the following list -- if any.
+          const prevListDom = ui.item.prev('.js-list').get(0);
+          const nextListDom = ui.item.next('.js-list').get(0);
+          const sortIndex = calculateIndex(prevListDom, nextListDom, 1);
+
+          const listDomElement = ui.item.get(0);
+          if (!listDomElement) {
+            console.error('List DOM element not found during drag stop');
+            return;
+          }
+          
+          let list;
+          try {
+            list = Blaze.getData(listDomElement);
+          } catch (error) {
+            console.error('Error getting list data:', error);
+            return;
+          }
+          
+          if (!list) {
+            console.error('List data not found for element:', listDomElement);
+            return;
+          }
+
+          // Detect if the list was dropped in a different swimlane
+          const targetSwimlaneDom = ui.item.closest('.js-swimlane');
+          let targetSwimlaneId = null;
+
+          if (targetSwimlaneDom.length > 0) {
+            // List was dropped in a swimlane
+            try {
+              targetSwimlaneId = targetSwimlaneDom.attr('id').replace('swimlane-', '');
+            } catch (error) {
+              console.error('Error getting target swimlane ID:', error);
+              return;
+            }
+          } else {
+            // List was dropped in lists view (not swimlanes view)
+            // In this case, assign to the default swimlane
+            const currentBoard = ReactiveCache.getBoard(Session.get('currentBoard'));
+            if (currentBoard) {
+              const defaultSwimlane = currentBoard.getDefaultSwimline();
+              if (defaultSwimlane) {
+                targetSwimlaneId = defaultSwimlane._id;
+              }
+            }
+          }
+
+          // Get the original swimlane ID of the list (handle backward compatibility)
+          const originalSwimlaneId = list.getEffectiveSwimlaneId ? list.getEffectiveSwimlaneId() : (list.swimlaneId || null);
+
+          // Prepare update object
+          const updateData = {
+            sort: sortIndex.base,
+          };
+
+          // Check if the list was dropped in a different swimlane
+          const isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId;
+
+          // If the list was dropped in a different swimlane, update the swimlaneId
+          if (isDifferentSwimlane) {
+            updateData.swimlaneId = targetSwimlaneId;
+
+            // Move all cards in the list to the new swimlane
+            const cardsInList = ReactiveCache.getCards({
+              listId: list._id,
+              archived: false
+            });
+
+            cardsInList.forEach(card => {
+              card.move(list.boardId, targetSwimlaneId, list._id);
+            });
+
+            // Don't cancel the sortable when moving to a different swimlane
+            // The DOM move should be allowed to complete
+          } else {
+            // If staying in the same swimlane, cancel the sortable to prevent DOM manipulation issues
+            $listsGroup.sortable('cancel');
+          }
+
+          try {
+            Lists.update(list._id, {
+              $set: updateData,
+            });
+          } catch (error) {
+            console.error('Error updating list:', error);
+            return;
+          }
+
           // Try to get board component
           try {
             const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
@@ -778,6 +970,18 @@ setTimeout(() => {
           } catch (e) {
             // Silent fail
           }
+          
+          // Re-enable dragscroll after list dragging is complete
+          try {
+            dragscroll.reset();
+          } catch (e) {
+            // Silent fail
+          }
+          
+          // Re-enable dragscroll on all swimlanes
+          $('.js-swimlane').each(function() {
+            $(this).addClass('dragscroll');
+          });
         }
       });
     }
