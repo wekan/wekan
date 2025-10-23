@@ -17,7 +17,7 @@ OLD_VERSION_NO_DOTS=$(echo "$1" | tr -d '.')
 NEW_VERSION_NO_DOTS=$(echo "$2" | tr -d '.')
 
 # Update all files except sandstorm-pkgdef.capnp with regular version format
-sed -i "s|$1|$2|g" package.json package-lock.json snapcraft.yaml docs/Platforms/Propietary/Windows/Offline.md Dockerfile Stackerfile.yml
+sed -i "s|$1|$2|g" sandstorm-pkgdef.capnp package.json package-lock.json snapcraft.yaml docs/Platforms/Propietary/Windows/Offline.md Dockerfile Stackerfile.yml
 
 # Update sandstorm-pkgdef.capnp with version format without dots
 sed -i "s|$OLD_VERSION_NO_DOTS|$NEW_VERSION_NO_DOTS|g" sandstorm-pkgdef.capnp
