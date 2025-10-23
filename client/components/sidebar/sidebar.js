@@ -195,7 +195,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click #toggleShowActivitiesBoard'() {
+        'click .js-toggle-show-activities'() {
           Utils.getCurrentBoard().toggleShowActivities();
         },
       },
@@ -822,7 +822,11 @@ BlazeComponent.extendComponent({
   },
 
   allowsSubtasks() {
-    return this.currentBoard.allowsSubtasks;
+    // Get the current board reactively using board ID from Session
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    const result = currentBoard ? currentBoard.allowsSubtasks : false;
+    return result;
   },
 
   allowsReceivedDate() {
@@ -874,7 +878,11 @@ BlazeComponent.extendComponent({
   },
 
   presentParentTask() {
-    let result = this.currentBoard.presentParentTask;
+    // Get the current board reactively using board ID from Session
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    
+    let result = currentBoard ? currentBoard.presentParentTask : null;
     if (result === null || result === undefined) {
       result = 'no-parent';
     }
@@ -886,19 +894,11 @@ BlazeComponent.extendComponent({
       {
         'click .js-field-has-subtasks'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
-          this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
-          $(`.js-field-has-subtasks ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsSubtasks,
-          );
-          $('.js-field-has-subtasks').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsSubtasks,
-          );
+          const newValue = !this.currentBoard.allowsSubtasks;
+          Boards.update(this.currentBoard._id, { $set: { allowsSubtasks: newValue } });
           $('.js-field-deposit-board').prop(
             'disabled',
-            !this.currentBoard.allowsSubtasks,
+            !newValue,
           );
         },
         'change .js-field-deposit-board'(evt) {
@@ -914,28 +914,13 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
         },
         'click .js-field-show-parent-in-minicard'(evt) {
-          const value =
-            evt.target.id ||
-            $(evt.target).parent()[0].id ||
-            $(evt.target)
-              .parent()[0]
-              .parent()[0].id;
-          const options = [
-            'prefix-with-full-path',
-            'prefix-with-parent',
-            'subtext-with-full-path',
-            'subtext-with-parent',
-            'no-parent',
-          ];
-          options.forEach(function(element) {
-            if (element !== value) {
-              $(`#${element} ${MCB}`).toggleClass(CKCLS, false);
-              $(`#${element}`).toggleClass(CKCLS, false);
-            }
-          });
-          $(`#${value} ${MCB}`).toggleClass(CKCLS, true);
-          $(`#${value}`).toggleClass(CKCLS, true);
-          this.currentBoard.setPresentParentTask(value);
+          // Get the ID from the anchor element, not the span
+          const anchorElement = $(evt.target).closest('.js-field-show-parent-in-minicard')[0];
+          const value = anchorElement ? anchorElement.id : null;
+          
+          if (value) {
+            Boards.update(this.currentBoard._id, { $set: { presentParentTask: value } });
+          }
           evt.preventDefault();
         },
       },
@@ -949,115 +934,168 @@ BlazeComponent.extendComponent({
   },
 
   allowsReceivedDate() {
-    return this.currentBoard.allowsReceivedDate;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsReceivedDate : false;
   },
 
   allowsStartDate() {
-    return this.currentBoard.allowsStartDate;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsStartDate : false;
   },
 
   allowsDueDate() {
-    return this.currentBoard.allowsDueDate;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDueDate : false;
   },
 
   allowsEndDate() {
-    return this.currentBoard.allowsEndDate;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsEndDate : false;
   },
 
   allowsSubtasks() {
-    return this.currentBoard.allowsSubtasks;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsSubtasks : false;
   },
 
   allowsCreator() {
-    return this.currentBoard.allowsCreator ?? false;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (currentBoard.allowsCreator ?? false) : false;
   },
 
   allowsCreatorOnMinicard() {
-    return this.currentBoard.allowsCreatorOnMinicard ?? false;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (currentBoard.allowsCreatorOnMinicard ?? false) : false;
   },
 
   allowsMembers() {
-    return this.currentBoard.allowsMembers;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsMembers : false;
   },
 
   allowsAssignee() {
-    return this.currentBoard.allowsAssignee;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignee : false;
   },
 
   allowsAssignedBy() {
-    return this.currentBoard.allowsAssignedBy;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignedBy : false;
   },
 
   allowsRequestedBy() {
-    return this.currentBoard.allowsRequestedBy;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsRequestedBy : false;
   },
 
   allowsCardSortingByNumber() {
-    return this.currentBoard.allowsCardSortingByNumber;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardSortingByNumber : false;
   },
 
   allowsShowLists() {
-    return this.currentBoard.allowsShowLists;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsShowLists : false;
   },
 
-
   allowsLabels() {
-    return this.currentBoard.allowsLabels;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsLabels : false;
   },
 
   allowsShowListsOnMinicard() {
-    return this.currentBoard.allowsShowListsOnMinicard;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsShowListsOnMinicard : false;
   },
 
   allowsChecklists() {
-    return this.currentBoard.allowsChecklists;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsChecklists : false;
   },
 
   allowsAttachments() {
-    return this.currentBoard.allowsAttachments;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAttachments : false;
   },
 
   allowsComments() {
-    return this.currentBoard.allowsComments;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsComments : false;
   },
 
   allowsCardNumber() {
-    return this.currentBoard.allowsCardNumber;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardNumber : false;
   },
 
   allowsDescriptionTitle() {
-    return this.currentBoard.allowsDescriptionTitle;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTitle : false;
   },
 
   allowsDescriptionText() {
-    return this.currentBoard.allowsDescriptionText;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionText : false;
   },
 
   isBoardSelected() {
-    return this.currentBoard.dateSettingsDefaultBoardID;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.dateSettingsDefaultBoardID : false;
   },
 
   isNullBoardSelected() {
-    return (
-      this.currentBoard.dateSettingsDefaultBoardId === null ||
-      this.currentBoard.dateSettingsDefaultBoardId === undefined
-    );
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (
+      currentBoard.dateSettingsDefaultBoardId === null ||
+      currentBoard.dateSettingsDefaultBoardId === undefined
+    ) : true;
   },
 
   allowsDescriptionTextOnMinicard() {
-    return this.currentBoard.allowsDescriptionTextOnMinicard;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTextOnMinicard : false;
   },
 
   allowsCoverAttachmentOnMinicard() {
-    return this.currentBoard.allowsCoverAttachmentOnMinicard;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCoverAttachmentOnMinicard : false;
   },
 
   allowsBadgeAttachmentOnMinicard() {
-    return this.currentBoard.allowsBadgeAttachmentOnMinicard;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsBadgeAttachmentOnMinicard : false;
   },
 
   allowsCardSortingByNumberOnMinicard() {
-    return this.currentBoard.allowsCardSortingByNumberOnMinicard;
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardSortingByNumberOnMinicard : false;
   },
 
   boards() {
@@ -1100,203 +1138,73 @@ BlazeComponent.extendComponent({
       {
         'click .js-field-has-receiveddate'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsReceivedDate = !this.currentBoard
-            .allowsReceivedDate;
-          this.currentBoard.setAllowsReceivedDate(
-            this.currentBoard.allowsReceivedDate,
-          );
-          $(`.js-field-has-receiveddate ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsReceivedDate,
-          );
-          $('.js-field-has-receiveddate').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsReceivedDate,
-          );
+          const newValue = !this.currentBoard.allowsReceivedDate;
+          Boards.update(this.currentBoard._id, { $set: { allowsReceivedDate: newValue } });
         },
         'click .js-field-has-startdate'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsStartDate = !this.currentBoard
-            .allowsStartDate;
-          this.currentBoard.setAllowsStartDate(
-            this.currentBoard.allowsStartDate,
-          );
-          $(`.js-field-has-startdate ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsStartDate,
-          );
-          $('.js-field-has-startdate').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsStartDate,
-          );
+          const newValue = !this.currentBoard.allowsStartDate;
+          Boards.update(this.currentBoard._id, { $set: { allowsStartDate: newValue } });
         },
         'click .js-field-has-enddate'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsEndDate = !this.currentBoard.allowsEndDate;
-          this.currentBoard.setAllowsEndDate(this.currentBoard.allowsEndDate);
-          $(`.js-field-has-enddate ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsEndDate,
-          );
-          $('.js-field-has-enddate').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsEndDate,
-          );
+          const newValue = !this.currentBoard.allowsEndDate;
+          Boards.update(this.currentBoard._id, { $set: { allowsEndDate: newValue } });
         },
         'click .js-field-has-duedate'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsDueDate = !this.currentBoard.allowsDueDate;
-          this.currentBoard.setAllowsDueDate(this.currentBoard.allowsDueDate);
-          $(`.js-field-has-duedate ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDueDate,
-          );
-          $('.js-field-has-duedate').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsDueDate,
-          );
+          const newValue = !this.currentBoard.allowsDueDate;
+          Boards.update(this.currentBoard._id, { $set: { allowsDueDate: newValue } });
         },
         'click .js-field-has-subtasks'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
-          this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
-          $(`.js-field-has-subtasks ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsSubtasks,
-          );
-          $('.js-field-has-subtasks').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsSubtasks,
-          );
+          const newValue = !this.currentBoard.allowsSubtasks;
+          Boards.update(this.currentBoard._id, { $set: { allowsSubtasks: newValue } });
         },
         'click .js-field-has-creator'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsCreator = !this.currentBoard.allowsCreator;
-          this.currentBoard.setAllowsCreator(this.currentBoard.allowsCreator);
-          $(`.js-field-has-creator ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCreator,
-          );
-          $('.js-field-has-creator').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCreator,
-          );
+          const newValue = !this.currentBoard.allowsCreator;
+          Boards.update(this.currentBoard._id, { $set: { allowsCreator: newValue } });
         },
         'click .js-field-has-creator-on-minicard'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsCreatorOnMinicard = !this.currentBoard.allowsCreatorOnMinicard;
-          this.currentBoard.setAllowsCreatorOnMinicard(this.currentBoard.allowsCreatorOnMinicard);
-          $(`.js-field-has-creator-on-minicard ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCreatorOnMinicard,
-          );
-          $('.js-field-has-creator-on-minicard').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCreatorOnMinicard,
-          );
+          const newValue = !this.currentBoard.allowsCreatorOnMinicard;
+          Boards.update(this.currentBoard._id, { $set: { allowsCreatorOnMinicard: newValue } });
         },
         'click .js-field-has-members'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsMembers = !this.currentBoard.allowsMembers;
-          this.currentBoard.setAllowsMembers(this.currentBoard.allowsMembers);
-          $(`.js-field-has-members ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsMembers,
-          );
-          $('.js-field-has-members').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsMembers,
-          );
+          const newValue = !this.currentBoard.allowsMembers;
+          Boards.update(this.currentBoard._id, { $set: { allowsMembers: newValue } });
         },
         'click .js-field-has-assignee'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsAssignee = !this.currentBoard.allowsAssignee;
-          this.currentBoard.setAllowsAssignee(this.currentBoard.allowsAssignee);
-          $(`.js-field-has-assignee ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsAssignee,
-          );
-          $('.js-field-has-assignee').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsAssignee,
-          );
+          const newValue = !this.currentBoard.allowsAssignee;
+          Boards.update(this.currentBoard._id, { $set: { allowsAssignee: newValue } });
         },
         'click .js-field-has-assigned-by'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsAssignedBy = !this.currentBoard
-            .allowsAssignedBy;
-          this.currentBoard.setAllowsAssignedBy(
-            this.currentBoard.allowsAssignedBy,
-          );
-          $(`.js-field-has-assigned-by ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsAssignedBy,
-          );
-          $('.js-field-has-assigned-by').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsAssignedBy,
-          );
+          const newValue = !this.currentBoard.allowsAssignedBy;
+          Boards.update(this.currentBoard._id, { $set: { allowsAssignedBy: newValue } });
         },
         'click .js-field-has-requested-by'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsRequestedBy = !this.currentBoard
-            .allowsRequestedBy;
-          this.currentBoard.setAllowsRequestedBy(
-            this.currentBoard.allowsRequestedBy,
-          );
-          $(`.js-field-has-requested-by ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsRequestedBy,
-          );
-          $('.js-field-has-requested-by').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsRequestedBy,
-          );
+          const newValue = !this.currentBoard.allowsRequestedBy;
+          Boards.update(this.currentBoard._id, { $set: { allowsRequestedBy: newValue } });
         },
         'click .js-field-has-card-sorting-by-number'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsCardSortingByNumber = !this.currentBoard
-            .allowsCardSortingByNumber;
-          this.currentBoard.setAllowsCardSortingByNumber(
-            this.currentBoard.allowsCardSortingByNumber,
-          );
-          $(`.js-field-has-card-sorting-by-number ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardSortingByNumber,
-          );
-          $('.js-field-has-card-sorting-by-number').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsCardSortingByNumber,
-          );
+          const newValue = !this.currentBoard.allowsCardSortingByNumber;
+          Boards.update(this.currentBoard._id, { $set: { allowsCardSortingByNumber: newValue } });
         },
         'click .js-field-has-card-show-lists'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsShowLists = !this.currentBoard
-            .allowsShowLists;
-          this.currentBoard.setAllowsShowLists(
-            this.currentBoard.allowsShowLists,
-          );
-          $(`.js-field-has-card-show-lists ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsShowLists,
-          );
-          $('.js-field-has-card-show-lists').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsShowLists,
-          );
+          const newValue = !this.currentBoard.allowsShowLists;
+          Boards.update(this.currentBoard._id, { $set: { allowsShowLists: newValue } });
         },
         'click .js-field-has-labels'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsLabels = !this.currentBoard.allowsLabels;
-          this.currentBoard.setAllowsLabels(this.currentBoard.allowsLabels);
-          $(`.js-field-has-labels ${MCB}`).toggleClass(
-            CKCLS,
-            this.currentBoard.allowsLabels,
-          );
-          $('.js-field-has-labels').toggleClass(
-            CKCLS,
-            this.currentBoard.allowsLabels,
-          );
+          const newValue = !this.currentBoard.allowsLabels;
+          Boards.update(this.currentBoard._id, { $set: { allowsLabels: newValue } });
         },
         'click .js-field-has-card-show-lists-on-minicard'(evt) {
           evt.preventDefault();
@@ -1499,7 +1407,6 @@ Session.setDefault('addMemberPopup.noResults', false);
 Session.setDefault('addMemberPopup.loading', false);
 Session.setDefault('addMemberPopup.error', '');
 
-console.log('addMemberPopup Session variables initialized');
 
 BlazeComponent.extendComponent({
   onCreated() {

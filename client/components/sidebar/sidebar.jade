@@ -34,32 +34,26 @@ template(name='homeSidebar')
   hr
   ul#cards.label-text-hidden
     a.flex.js-toggle-minicard-label-text(title="{{_ 'hide-minicard-label-text'}}")
+      span {{#if hiddenMinicardLabelText}}✅{{else}}⬜{{/if}}
       span {{_ 'hide-minicard-label-text'}}
-      b &nbsp;
-      .materialCheckBox(class="{{#if hiddenMinicardLabelText}}is-checked{{/if}}")
   if currentUser
     ul#cards.vertical-scrollbars-toggle
       a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
+        span {{#if isVerticalScrollbars}}✅{{else}}⬜{{/if}}
         span {{_ 'enable-vertical-scrollbars'}}
-        b &nbsp;
-        .materialCheckBox(class="{{#if isVerticalScrollbars}}is-checked{{/if}}")
   ul#cards.show-week-of-year-toggle
     a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
+      span {{#if isShowWeekOfYear}}✅{{else}}⬜{{/if}}
       span {{_ 'show-week-of-year'}}
-      b &nbsp;
-      .materialCheckBox(class="{{#if isShowWeekOfYear}}is-checked{{/if}}")
   hr
   unless currentUser.isNoComments
     h3.activity-title
       | 💬
       | {{_ 'activities'}}
 
-      .material-toggle-switch(title="{{_ 'show-activities'}}")
-        if showActivities
-          input.toggle-switch(type="checkbox" id="toggleShowActivitiesBoard" checked="checked")
-        else
-          input.toggle-switch(type="checkbox" id="toggleShowActivitiesBoard")
-        label.toggle-label(for="toggleShowActivitiesBoard")
+      a.flex.js-toggle-show-activities(title="{{_ 'show-activities'}}")
+        span {{#if showActivities}}✅{{else}}⬜{{/if}}
+        span {{_ 'show-activities'}}
     +activities(mode="board")
 
 template(name="membersWidget")
@@ -185,165 +179,282 @@ template(name="boardInfoOnMyBoardsPopup")
     unless currentSetting.hideCardCounterList
       div.check-div
         a.flex.js-field-has-cardcounterlist(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
-          .materialCheckBox(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
+          span {{#if allowsCardCounterList}}✅{{else}}⬜{{/if}}
           span
             | 🚪
             | {{_ 'show-card-counter-per-list'}}
     unless currentSetting.hideBoardMemberList
       div.check-div
         a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
-          .materialCheckBox(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
+          span {{#if allowsBoardMemberList}}✅{{else}}⬜{{/if}}
           span
             | ⏳
             | {{_ 'show-board_members-avatar'}}
 
 template(name="boardCardSettingsPopup")
   form.board-card-settings
-    h3 {{_ 'show-on-card'}}, {{_ 'show-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-receiveddate(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+    .card-settings-grid
+      .card-settings-column
+        h4 {{_ 'show-on-card'}}
+      .card-settings-column
+        h4 {{_ 'show-on-minicard'}}
+      .card-settings-column
+        h4 {{_ 'description'}}
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-receiveddate(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+          span {{#if allowsReceivedDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-receiveddate(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+          span {{#if allowsReceivedDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 🚪
           | {{_ 'card-received'}}
-    div.check-div
-      a.flex.js-field-has-startdate(class="{{#if allowsStartDate}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsStartDate}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-startdate(title="{{_ 'card-start'}}" class="{{#if allowsStartDate}}is-checked{{/if}}")
+          span {{#if allowsStartDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-startdate(title="{{_ 'card-start'}}" class="{{#if allowsStartDate}}is-checked{{/if}}")
+          span {{#if allowsStartDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | ⏳
           | {{_ 'card-start'}}
-    div.check-div
-      a.flex.js-field-has-duedate(class="{{#if allowsDueDate}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsDueDate}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-duedate(title="{{_ 'card-due'}}" class="{{#if allowsDueDate}}is-checked{{/if}}")
+          span {{#if allowsDueDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-duedate(title="{{_ 'card-due'}}" class="{{#if allowsDueDate}}is-checked{{/if}}")
+          span {{#if allowsDueDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 🚪
           | {{_ 'card-due'}}
-    div.check-div
-      a.flex.js-field-has-enddate(class="{{#if allowsEndDate}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsEndDate}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-enddate(title="{{_ 'card-end'}}" class="{{#if allowsEndDate}}is-checked{{/if}}")
+          span {{#if allowsEndDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-enddate(title="{{_ 'card-end'}}" class="{{#if allowsEndDate}}is-checked{{/if}}")
+          span {{#if allowsEndDate}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | ⏰
           | {{_ 'card-end'}}
-    div.check-div
-      a.flex.js-field-has-members(class="{{#if allowsMembers}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsMembers}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-members(title="{{_ 'members'}}" class="{{#if allowsMembers}}is-checked{{/if}}")
+          span {{#if allowsMembers}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-members(title="{{_ 'members'}}" class="{{#if allowsMembers}}is-checked{{/if}}")
+          span {{#if allowsMembers}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 👥
           | {{_ 'members'}}
-    div.check-div
-      a.flex.js-field-has-creator(class="{{#if allowsCreator}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCreator}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-creator(title="{{_ 'creator'}}" class="{{#if allowsCreator}}is-checked{{/if}}")
+          span {{#if allowsCreator}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        span
+      .card-settings-column
         span
           | 👤
           | {{_ 'creator'}}
-    div.check-div
-      a.flex.js-field-has-creator-on-minicard(class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        span
+      .card-settings-column
+        a.flex.js-field-has-creator-on-minicard(title="{{_ 'creator-on-minicard'}}" class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
+          span {{#if allowsCreatorOnMinicard}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 👤
           | {{_ 'creator-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-assignee(class="{{#if allowsAssignee}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsAssignee}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-assignee(title="{{_ 'assignee'}}" class="{{#if allowsAssignee}}is-checked{{/if}}")
+          span {{#if allowsAssignee}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-assignee(title="{{_ 'assignee'}}" class="{{#if allowsAssignee}}is-checked{{/if}}")
+          span {{#if allowsAssignee}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 👤
           | {{_ 'assignee'}}
-    div.check-div
-      a.flex.js-field-has-assigned-by(class="{{#if allowsAssignedBy}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsAssignedBy}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-assigned-by(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedBy}}is-checked{{/if}}")
+          span {{#if allowsAssignedBy}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-assigned-by(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedBy}}is-checked{{/if}}")
+          span {{#if allowsAssignedBy}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 🛒
           | {{_ 'assigned-by'}}
-    div.check-div
-      a.flex.js-field-has-requested-by(class="{{#if allowsRequestedBy}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsRequestedBy}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-requested-by(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedBy}}is-checked{{/if}}")
+          span {{#if allowsRequestedBy}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-requested-by(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedBy}}is-checked{{/if}}")
+          span {{#if allowsRequestedBy}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 👤➕
           | {{_ 'requested-by'}}
-    div.check-div
-      a.flex.js-field-has-card-sorting-by-number(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-card-sorting-by-number(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
+          span {{#if allowsCardSortingByNumber}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        span
+      .card-settings-column
         span
           | 🔢
           | {{_ 'card-sorting-by-number'}}
-    div.check-div
-      a.flex.js-field-has-card-sorting-by-number-on-minicard(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        span
+      .card-settings-column
+        a.flex.js-field-has-card-sorting-by-number-on-minicard(title="{{_ 'card-sorting-by-number-on-minicard'}}" class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+          span {{#if allowsCardSortingByNumberOnMinicard}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 🔢
           | {{_ 'card-sorting-by-number-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-card-show-lists(class="{{#if allowsShowLists}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsShowLists}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-card-show-lists(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowLists}}is-checked{{/if}}")
+          span {{#if allowsShowLists}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        span
+      .card-settings-column
         span
           | 📋
           | {{_ 'card-show-lists'}}
-    div.check-div
-      a.flex.js-field-has-labels(class="{{#if allowsLabels}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsLabels}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-labels(title="{{_ 'labels'}}" class="{{#if allowsLabels}}is-checked{{/if}}")
+          span {{#if allowsLabels}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-labels(title="{{_ 'labels'}}" class="{{#if allowsLabels}}is-checked{{/if}}")
+          span {{#if allowsLabels}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 🏷️
           | {{_ 'labels'}}
-    div.check-div
-      a.flex.js-field-has-card-show-lists-on-minicard(class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        span
+      .card-settings-column
+        a.flex.js-field-has-card-show-lists-on-minicard(title="{{_ 'card-show-lists-on-minicard'}}" class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
+          span {{#if allowsShowListsOnMinicard}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 📋
           | {{_ 'card-show-lists-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-card-number(class="{{#if allowsCardNumber}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCardNumber}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")
+          span {{#if allowsCardNumber}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")
+          span {{#if allowsCardNumber}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | #️⃣
           | {{_ 'card'}}
           | {{_ 'number'}}
-    div.check-div
-      a.flex.js-field-has-description-title(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-description-title(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
+          span {{#if allowsDescriptionTitle}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-description-title(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
+          span {{#if allowsDescriptionTitle}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 📝
           | {{_ 'description'}}
           | {{_ 'title'}}
-    div.check-div
-      a.flex.js-field-has-description-text(class="{{#if allowsDescriptionText}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsDescriptionText}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-description-text(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionText}}is-checked{{/if}}")
+          span {{#if allowsDescriptionText}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-description-text(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionText}}is-checked{{/if}}")
+          span {{#if allowsDescriptionText}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 📝
           | {{_ 'description'}}
           | {{_ 'custom-field-text'}}
-    div.check-div
-      a.flex.js-field-has-description-text-on-minicard(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        span
+      .card-settings-column
+        a.flex.js-field-has-description-text-on-minicard(title="{{_ 'description-on-minicard'}}" class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+          span {{#if allowsDescriptionTextOnMinicard}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 📝
           | {{_ 'description-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-checklists(class="{{#if allowsChecklists}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsChecklists}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-checklists(title="{{_ 'checklists'}}" class="{{#if allowsChecklists}}is-checked{{/if}}")
+          span {{#if allowsChecklists}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-checklists(title="{{_ 'checklists'}}" class="{{#if allowsChecklists}}is-checked{{/if}}")
+          span {{#if allowsChecklists}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | ✅
           | {{_ 'checklists'}}
-    div.check-div
-      a.flex.js-field-has-subtasks(class="{{#if allowsSubtasks}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-subtasks(title="{{_ 'subtasks'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
+          span {{#if allowsSubtasks}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-subtasks(title="{{_ 'subtasks'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
+          span {{#if allowsSubtasks}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 🌐
           | {{_ 'subtasks'}}
-    div.check-div
-      a.flex.js-field-has-attachments(class="{{#if allowsAttachments}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsAttachments}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-attachments(title="{{_ 'attachments'}}" class="{{#if allowsAttachments}}is-checked{{/if}}")
+          span {{#if allowsAttachments}}✅{{else}}⬜{{/if}}
+      .card-settings-column
+        a.flex.js-field-has-attachments(title="{{_ 'attachments'}}" class="{{#if allowsAttachments}}is-checked{{/if}}")
+          span {{#if allowsAttachments}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 📎
           | {{_ 'attachments'}}
-    div.check-div
-      a.flex.js-field-has-badge-attachment-on-minicard(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        span
+      .card-settings-column
+        a.flex.js-field-has-badge-attachment-on-minicard(title="{{_ 'badge-attachment-on-minicard'}}" class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
+          span {{#if allowsBadgeAttachmentOnMinicard}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 📎
           | {{_ 'badge-attachment-on-minicard'}}
-    div.check-div
-      a.flex.js-field-has-cover-attachment-on-minicard(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+    .card-settings-row
+      .card-settings-column
+        span
+      .card-settings-column
+        a.flex.js-field-has-cover-attachment-on-minicard(title="{{_ 'cover-attachment-on-minicard'}}" class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+          span {{#if allowsCoverAttachmentOnMinicard}}✅{{else}}⬜{{/if}}
+      .card-settings-column
         span
           | 📖
           | 🖼️
@@ -364,27 +475,27 @@ template(name="boardCardSettingsPopup")
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
     h3 {{_ 'show-parent-in-minicard'}}
-      a#prefix-with-full-path.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'prefix-with-full-path'}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if $eq presentParentTask 'prefix-with-full-path'}}is-checked{{/if}}")
+      a#prefix-with-full-path.flex.js-field-show-parent-in-minicard(title="{{_ 'prefix-with-full-path'}}" class="{{#if $eq presentParentTask 'prefix-with-full-path'}}is-checked{{/if}}")
+        span {{#if $eq presentParentTask 'prefix-with-full-path'}}✅{{else}}⬜{{/if}}
         span {{_ 'prefix-with-full-path'}}
-      a#prefix-with-parent.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'prefix-with-parent'}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if $eq presentParentTask 'prefix-with-parent'}}is-checked{{/if}}")
+      a#prefix-with-parent.flex.js-field-show-parent-in-minicard(title="{{_ 'prefix-with-parent'}}" class="{{#if $eq presentParentTask 'prefix-with-parent'}}is-checked{{/if}}")
+        span {{#if $eq presentParentTask 'prefix-with-parent'}}✅{{else}}⬜{{/if}}
         span {{_ 'prefix-with-parent'}}
-      a#subtext-with-full-path.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'subtext-with-full-path'}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if $eq presentParentTask 'subtext-with-full-path'}}is-checked{{/if}}")
+      a#subtext-with-full-path.flex.js-field-show-parent-in-minicard(title="{{_ 'subtext-with-full-path'}}" class="{{#if $eq presentParentTask 'subtext-with-full-path'}}is-checked{{/if}}")
+        span {{#if $eq presentParentTask 'subtext-with-full-path'}}✅{{else}}⬜{{/if}}
         span {{_ 'subtext-with-full-path'}}
-      a#subtext-with-parent.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'subtext-with-parent'}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if $eq presentParentTask 'subtext-with-parent'}}is-checked{{/if}}")
+      a#subtext-with-parent.flex.js-field-show-parent-in-minicard(title="{{_ 'subtext-with-parent'}}" class="{{#if $eq presentParentTask 'subtext-with-parent'}}is-checked{{/if}}")
+        span {{#if $eq presentParentTask 'subtext-with-parent'}}✅{{else}}⬜{{/if}}
         span {{_ 'subtext-with-parent'}}
-      a#no-parent.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'no-parent'}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if $eq presentParentTask 'no-parent'}}is-checked{{/if}}")
+      a#no-parent.flex.js-field-show-parent-in-minicard(title="{{_ 'no-parent'}}" class="{{#if $eq presentParentTask 'no-parent'}}is-checked{{/if}}")
+        span {{#if $eq presentParentTask 'no-parent'}}✅{{else}}⬜{{/if}}
         span {{_ 'no-parent'}}
     div
       hr
 
     div.check-div
-      a.flex.js-field-has-subtasks(class="{{#if allowsSubtasks}}is-checked{{/if}}")
-        .materialCheckBox(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+      a.flex.js-field-has-subtasks(title="{{_ 'show-subtasks-field'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
+        span {{#if allowsSubtasks}}✅{{else}}⬜{{/if}}
         span {{_ 'show-subtasks-field'}}
 
     label
@@ -430,9 +541,8 @@ template(name="outgoingWebhooksPopup")
   each integrations
     form.integration-form
       a.flex
+        span {{#unless enabled}}✅{{else}}⬜{{/unless}}
         span {{_ 'disable-webhook'}}
-        b &nbsp;
-        .materialCheckBox(class="{{#unless enabled}}is-checked{{/unless}}")
       input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" value=title)
       input.js-outgoing-webhooks-url(type="text" name="url" value=url)
       input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" value=token name="token")

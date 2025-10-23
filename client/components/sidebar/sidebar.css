@@ -48,6 +48,59 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Use checklist-style green checkboxes for all sidebar checkboxes */
+.sidebar .materialCheckBox.is-checked,
+.boardCardSettingsPopup .materialCheckBox.is-checked,
+.boardSubtaskSettingsPopup .materialCheckBox.is-checked {
+  top: -4px !important;
+  left: -3px !important;
+  width: 7px !important;
+  height: 15px !important;
+  margin-right: 6px !important;
+  border-top: 2px solid transparent !important;
+  border-left: 2px solid transparent !important;
+  border-bottom: 2px solid #3cb500 !important;
+  border-right: 2px solid #3cb500 !important;
+  transform: rotate(40deg) !important;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  transform-origin: 100% 100% !important;
+}
+
+/* Card Settings 3-column grid layout */
+.card-settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card-settings-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 10px;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.card-settings-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-settings-column:last-child {
+  justify-content: flex-start;
+}
+
+.card-settings-column h4 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
 .sidebar .sidebar-content ul.sidebar-list li > a {
   display: flex;
   height: 30px;
