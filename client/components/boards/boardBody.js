@@ -17,6 +17,8 @@ BlazeComponent.extendComponent({
     this.isConverting = new ReactiveVar(false);
     this.isMigrating = new ReactiveVar(false);
     this._swimlaneCreated = new Set(); // Track boards where we've created swimlanes
+    this._boardProcessed = false; // Track if board has been processed
+    this._lastProcessedBoardId = null; // Track last processed board ID
 
     // The pattern we use to manually handle data loading is described here:
     // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
@@ -28,19 +30,31 @@ BlazeComponent.extendComponent({
       
       const handle = subManager.subscribe('board', currentBoardId, false);
       
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (handle.ready()) {
+      // Use a separate autorun for subscription ready state to avoid reactive loops
+      this.subscriptionReadyAutorun = Tracker.autorun(() => {
+        if (handle.ready()) {
+          // Only run conversion/migration logic once per board
+          if (!this._boardProcessed || this._lastProcessedBoardId !== currentBoardId) {
+            this._boardProcessed = true;
+            this._lastProcessedBoardId = currentBoardId;
+            
             // Ensure default swimlane exists (only once per board)
             this.ensureDefaultSwimlane(currentBoardId);
             // Check if board needs conversion
             this.checkAndConvertBoard(currentBoardId);
-          } else {
-            this.isBoardReady.set(false);
           }
-        });
+        } else {
+          this.isBoardReady.set(false);
+        }
       });
     });
+  },
+
+  onDestroyed() {
+    // Clean up the subscription ready autorun to prevent memory leaks
+    if (this.subscriptionReadyAutorun) {
+      this.subscriptionReadyAutorun.stop();
+    }
   },
 
   ensureDefaultSwimlane(boardId) {
@@ -441,39 +455,50 @@ BlazeComponent.extendComponent({
     this._isDragging = false;
     // Used to set the overlay
     this.mouseHasEnterCardDetails = false;
+    this._sortFieldsFixed = new Set(); // Track which boards have had sort fields fixed
 
     // fix swimlanes sort field if there are null values
     const currentBoardData = Utils.getCurrentBoard();
     if (currentBoardData && Swimlanes) {
-      const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
-      if (nullSortSwimlanes.length > 0) {
-        const swimlanes = currentBoardData.swimlanes();
-        let count = 0;
-        swimlanes.forEach(s => {
-          Swimlanes.update(s._id, {
-            $set: {
-              sort: count,
-            },
+      const boardId = currentBoardData._id;
+      // Only fix sort fields once per board to prevent reactive loops
+      if (!this._sortFieldsFixed.has(`swimlanes-${boardId}`)) {
+        const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
+        if (nullSortSwimlanes.length > 0) {
+          const swimlanes = currentBoardData.swimlanes();
+          let count = 0;
+          swimlanes.forEach(s => {
+            Swimlanes.update(s._id, {
+              $set: {
+                sort: count,
+              },
+            });
+            count += 1;
           });
-          count += 1;
-        });
+        }
+        this._sortFieldsFixed.add(`swimlanes-${boardId}`);
       }
     }
 
     // fix lists sort field if there are null values
     if (currentBoardData && Lists) {
-      const nullSortLists = currentBoardData.nullSortLists();
-      if (nullSortLists.length > 0) {
-        const lists = currentBoardData.lists();
-        let count = 0;
-        lists.forEach(l => {
-          Lists.update(l._id, {
-            $set: {
-              sort: count,
-            },
+      const boardId = currentBoardData._id;
+      // Only fix sort fields once per board to prevent reactive loops
+      if (!this._sortFieldsFixed.has(`lists-${boardId}`)) {
+        const nullSortLists = currentBoardData.nullSortLists();
+        if (nullSortLists.length > 0) {
+          const lists = currentBoardData.lists();
+          let count = 0;
+          lists.forEach(l => {
+            Lists.update(l._id, {
+              $set: {
+                sort: count,
+              },
+            });
+            count += 1;
           });
-          count += 1;
-        });
+        }
+        this._sortFieldsFixed.add(`lists-${boardId}`);
       }
     }
   },
