@@ -730,7 +730,6 @@ setTimeout(() => {
 
           const listDomElement = ui.item.get(0);
           if (!listDomElement) {
-            console.error('List DOM element not found during drag stop');
             return;
           }
           
@@ -738,12 +737,10 @@ setTimeout(() => {
           try {
             list = Blaze.getData(listDomElement);
           } catch (error) {
-            console.error('Error getting list data:', error);
             return;
           }
           
           if (!list) {
-            console.error('List data not found for element:', listDomElement);
             return;
           }
 
@@ -756,7 +753,6 @@ setTimeout(() => {
             try {
               targetSwimlaneId = targetSwimlaneDom.attr('id').replace('swimlane-', '');
             } catch (error) {
-              console.error('Error getting target swimlane ID:', error);
               return;
             }
           } else {
@@ -808,7 +804,6 @@ setTimeout(() => {
               $set: updateData,
             });
           } catch (error) {
-            console.error('Error updating list:', error);
             return;
           }
 
@@ -879,7 +874,6 @@ setTimeout(() => {
 
           const listDomElement = ui.item.get(0);
           if (!listDomElement) {
-            console.error('List DOM element not found during drag stop');
             return;
           }
           
@@ -887,12 +881,10 @@ setTimeout(() => {
           try {
             list = Blaze.getData(listDomElement);
           } catch (error) {
-            console.error('Error getting list data:', error);
             return;
           }
           
           if (!list) {
-            console.error('List data not found for element:', listDomElement);
             return;
           }
 
@@ -905,7 +897,6 @@ setTimeout(() => {
             try {
               targetSwimlaneId = targetSwimlaneDom.attr('id').replace('swimlane-', '');
             } catch (error) {
-              console.error('Error getting target swimlane ID:', error);
               return;
             }
           } else {
@@ -957,7 +948,6 @@ setTimeout(() => {
               $set: updateData,
             });
           } catch (error) {
-            console.error('Error updating list:', error);
             return;
           }
 
