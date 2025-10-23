@@ -22,6 +22,15 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# v8.14 2025-10-23 WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fix board reloading page every second](https://github.com/wekan/wekan/commit/b4b598f542d0cefc5f2d5d6c7286f0a312cf6a55).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.12 2025-10-23 WeKan ® release
 
 This release fixes the following bugs:
