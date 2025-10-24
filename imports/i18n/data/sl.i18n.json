@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Vsi seznami, kartice, oznake in dejavnosti bodo izbrisani in vsebine table ne boste mogli obnoviti. Razveljavitve ni.",
   "boardDeletePopup-title": "Izbriši tablo?",
   "delete-board": "Izbriši tablo",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Podopravila za tablo",
   "default": "Privzeto",
   "defaultdefault": "Privzeto",

@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Se suprimiran totes les llistes, fitxes, etiquetes i activitats i no podreu recuperar el contingut del tauler. No hi ha cap desfer.",
   "boardDeletePopup-title": "Vols suprimir el tauler?",
   "delete-board": "Suprimeix el tauler",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Subtasques per al tauler __board__",
   "default": "Per defecte",
   "defaultdefault": "Per defecte",

@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "すべてのリスト、カード、ラベル、アクティビティは削除され、ボードの内容を元に戻すことができません。",
   "boardDeletePopup-title": "ボードを削除しますか？",
   "delete-board": "ボードを削除",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "__board__ ボードのサブタスク",
   "default": "デフォルト",
   "defaultdefault": "デフォルト",

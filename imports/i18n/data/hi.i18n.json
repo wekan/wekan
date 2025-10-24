@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "All lists, कार्ड,नामपत्र , और activities हो जाएगा deleted और you won't be able तक recover the बोर्ड contents. There is no undo.",
   "boardDeletePopup-title": "मिटाएँ बोर्ड?",
   "delete-board": "मिटाएँ बोर्ड",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Subtasks for __board__ बोर्ड",
   "default": "Default",
   "defaultdefault": "Default",

@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Tutte le liste, schede, etichette e azioni saranno rimosse e non sarai più in grado di recuperare il contenuto della bacheca. L'azione non è annullabile.",
   "boardDeletePopup-title": "Eliminare la bacheca?",
   "delete-board": "Elimina bacheca",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Sottocompiti per la bacheca __board__",
   "default": "Predefinito",
   "defaultdefault": "Predefinito",

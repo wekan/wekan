@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Tất cả danh sách, thẻ, nhãn và hoạt động sẽ bị xóa và bạn sẽ không thể khôi phục nội dung bảng. Không thể hoàn tác.",
   "boardDeletePopup-title": "Xoá Bảng?",
   "delete-board": "Xoá Bảng",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Nhiệm vụ phụ cho __board__ bảng",
   "default": "Mặc định",
   "defaultdefault": "Mặc định",

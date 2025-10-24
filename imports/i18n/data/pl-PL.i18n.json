@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Wszystkie listy, etykiety oraz aktywności zostaną usunięte i nie będziesz w stanie przywrócić zawartości tablicy. Tego nie da się cofnąć.",
   "boardDeletePopup-title": "Usunąć tablicę?",
   "delete-board": "Usuń tablicę",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Podzadania dla tablicy __board__",
   "default": "Domyślny",
   "defaultdefault": "Domyślny",

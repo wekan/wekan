@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Усі списки, картки, мітки та діяльність будуть видалені, і ви не зможете відновити вміст дошки. Немає відкату.",
   "boardDeletePopup-title": "Видалити дошку?",
   "delete-board": "Видалити дошку",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Підзадачі для дошки __board__",
   "default": "За замовчуванням",
   "defaultdefault": "За замовчуванням",

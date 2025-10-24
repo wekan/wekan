@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Alle lister, kort, etiketter og aktiviteter vil blive slettet og du får ikke mulighed for at genskabe tavlens indhold. Dette kan ikke fortrydes.",
   "boardDeletePopup-title": "Slet tavle?",
   "delete-board": "Slet tavle",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Delopgaver for tavlen __board__",
   "default": "Standard",
   "defaultdefault": "Standard",

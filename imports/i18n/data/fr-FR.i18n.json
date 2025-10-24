@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
   "boardDeletePopup-title": "Supprimer le tableau ?",
   "delete-board": "Supprimer le tableau",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Sous-tâches du tableau __board__",
   "default": "Défaut",
   "defaultdefault": "Défaut",

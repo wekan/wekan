@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "All lists, cards, labels, and activities will be deleted and you won't be able to recover the board contents. There is no undo.",
   "boardDeletePopup-title": "Изтриване на Таблото?",
   "delete-board": "Изтрий таблото",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Подзадачи за табло __board__",
   "default": "по подразбиране",
   "defaultdefault": "по подразбиране",

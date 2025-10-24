@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Visi saraksti, kartiņas, birkas un darbības tiks dzēstas un dēli nevarēs atgūt. Darbība nav atsaucama.",
   "boardDeletePopup-title": "Dzēst dēli?",
   "delete-board": "Dzēst dēli",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Apakšuzdevumi priekš __board__ dēļa",
   "default": "Noklusēts",
   "defaultdefault": "Noklusēts",

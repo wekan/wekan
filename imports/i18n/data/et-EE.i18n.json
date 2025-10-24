@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Kõik nimekirjad, kaardid, sildid ja tegevused kustutatakse ja te ei saa tahvli sisu taastada. Tühistamist ei ole võimalik teha.",
   "boardDeletePopup-title": "Kustuta juhatus?",
   "delete-board": "Kustuta juhatus",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Juhatuse __board__ alamülesanded",
   "default": "Vaikimisi",
   "defaultdefault": "Vaikimisi",

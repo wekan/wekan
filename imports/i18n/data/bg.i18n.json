@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Всички списъци, карти, имена и действия ще бъдат изтрити и няма да можете да възстановите съдържанието на дъската. Няма връщане назад.",
   "boardDeletePopup-title": "Изтриване на Таблото?",
   "delete-board": "Изтрий таблото",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Подзадачи за табло __board__",
   "default": "по подразбиране",
   "defaultdefault": "по подразбиране",

@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Minden Lista, Kártya, Címke és Esemény véglegesen törlésre kerül és nincs rá mód, hogy visszanyerd a Tábla tartalmát. Nincs visszavonási lehetőség sem.",
   "boardDeletePopup-title": "TÖRLÖD a Táblát?",
   "delete-board": "Tábla törlése",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Rész-feladatok ehhez a Táblához: __board__",
   "default": "Alapértelmezett",
   "defaultdefault": "Alapértelmezett",

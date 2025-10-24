@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "تمام لیست ها، کارت ها، لیبل ها و فعالیت ها حذف خواهند شد و شما نمی توانید محتوای برد را بازیابی کنید. هیچ واکنشی وجود ندارد",
   "boardDeletePopup-title": "حذف برد؟",
   "delete-board": "حذف برد",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "زیروظایفِ برد __board__",
   "default": "پیش‌فرض",
   "defaultdefault": "پیش‌فرض",

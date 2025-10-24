@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Zerrenda, txartel eta aktibitate guztiak ezabatuko dira eta ezingo dituzu berreskuratu arbelaren edukiak. Atzera bueltarik ez du.",
   "boardDeletePopup-title": "Delete Board?",
   "delete-board": "Delete Board",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Subtasks for __board__ board",
   "default": "Lehenetsia",
   "defaultdefault": "Lehenetsia",

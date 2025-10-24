@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Todas as listas, cartões, etiquetas e atividades serão apagadas e não poderá recuperar o conteúdo do quadro. Não é reversível.",
   "boardDeletePopup-title": "Apagar Quadro?",
   "delete-board": "Apagar Quadro",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "Sub-tarefas para o quadro __board__",
   "default": "Omissão",
   "defaultdefault": "Omissão",

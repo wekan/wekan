@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Tüm listeler, kartlar, etiketler ve etkinlikler silinecek ve pano içeriğini kurtaramayacaksınız. Geri dönüş yok.",
   "boardDeletePopup-title": "Panoyu Sil?",
   "delete-board": "Panoyu Sil",
+  "delete-duplicate-lists": "Delete Duplicate Lists",
+  "delete-duplicate-lists-confirm": "Are you sure? This will delete all duplicate lists that have the same name and contain no cards.",
   "default-subtasks-board": "__board__ panosu için alt görevler",
   "default": "Varsayılan",
   "defaultdefault": "Varsayılan",

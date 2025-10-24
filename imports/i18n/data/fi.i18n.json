@@ -755,6 +755,8 @@
   "delete-board-confirm-popup": "Kaikki listat, kortit, nimilaput ja toimet poistetaan ja et pysty palauttamaan taulun sisältöä. Tätä ei voi peruuttaa.",
   "boardDeletePopup-title": "Poista taulu?",
   "delete-board": "Poista taulu",
+  "delete-duplicate-lists": "Poista ylimääräiset lista kopiot",
+  "delete-duplicate-lists-confirm": "Oletko varma? Tämä poistaa kaikki ylimääräiset lista kopiot, joilla on sama nimi ja jotka eivät sisällä kortteja.",
   "default-subtasks-board": "Alitehtävät taululle __board__",
   "default": "Oletus",
   "defaultdefault": "Oletus",
