@@ -31,6 +31,11 @@ This release adds the following new features:
 - [Disabled migrations that happen when opening board. Defaulting to per-swimlane lists and drag drop list to same or different swimlane](https://github.com/wekan/wekan/commit/034dc08269520ca31c780cce64e0150969e9228e).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix changing swimlane color to not reload webpage](https://github.com/wekan/wekan/commit/ecf2418347cae4329deb292b534f68eb099d3f90).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v8.15 2025-10-23 WeKan ® release
