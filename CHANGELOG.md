@@ -28,6 +28,8 @@ This release adds the following new features:
 
 - [List menu / More / Delete duplicate lists that do not have any cards](https://github.com/wekan/wekan/commit/91b846e2cdee9154b045d11b4b4c1a7ae1d79016).
   Thanks to xet7.
+- [Disabled migrations that happen when opening board. Defaulting to per-swimlane lists and drag drop list to same or different swimlane](https://github.com/wekan/wekan/commit/034dc08269520ca31c780cce64e0150969e9228e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
