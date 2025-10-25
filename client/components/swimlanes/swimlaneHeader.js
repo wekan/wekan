@@ -178,6 +178,11 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'submit form'(event) {
+          event.preventDefault();
+          this.currentSwimlane.setColor(this.currentColor.get());
+          Popup.back();
+        },
         'click .js-palette-color'() {
           this.currentColor.set(this.currentData().color);
         },
