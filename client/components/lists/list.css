@@ -379,9 +379,6 @@ body.list-resizing-active * {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.list-header .list-rotated {
-
-}
 .list-header .list-header-watch-icon {
   padding-left: 10px;
   color: #a6a6a6;

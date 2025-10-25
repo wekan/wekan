@@ -99,51 +99,60 @@ BlazeComponent.extendComponent({
       }
 
       // Check if board needs migration based on migration version
-      const needsMigration = !board.migrationVersion || board.migrationVersion < 1;
+      // DISABLED: Migration check and execution
+      // const needsMigration = !board.migrationVersion || board.migrationVersion < 1;
       
-      if (needsMigration) {
-        // Start background migration for old boards
-        this.isMigrating.set(true);
-        await this.startBackgroundMigration(boardId);
-        this.isMigrating.set(false);
-      }
+      // if (needsMigration) {
+      //   // Start background migration for old boards
+      //   this.isMigrating.set(true);
+      //   await this.startBackgroundMigration(boardId);
+      //   this.isMigrating.set(false);
+      // }
 
       // Check if board needs conversion (for old structure)
-      if (boardConverter.isBoardConverted(boardId)) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has already been converted, skipping conversion`);
-        }
-        this.isBoardReady.set(true);
-      } else {
-        const needsConversion = boardConverter.needsConversion(boardId);
-        
-        if (needsConversion) {
-          this.isConverting.set(true);
-          const success = await boardConverter.convertBoard(boardId);
-          this.isConverting.set(false);
-          
-          if (success) {
-            this.isBoardReady.set(true);
-          } else {
-            console.error('Board conversion failed, setting ready to true anyway');
-            this.isBoardReady.set(true); // Still show board even if conversion failed
-          }
-        } else {
-          this.isBoardReady.set(true);
-        }
-      }
+      // DISABLED: Board conversion logic
+      // if (boardConverter.isBoardConverted(boardId)) {
+      //   if (process.env.DEBUG === 'true') {
+      //     console.log(`Board ${boardId} has already been converted, skipping conversion`);
+      //   }
+      //   this.isBoardReady.set(true);
+      // } else {
+      //   const needsConversion = boardConverter.needsConversion(boardId);
+      //   
+      //   if (needsConversion) {
+      //     this.isConverting.set(true);
+      //     const success = await boardConverter.convertBoard(boardId);
+      //     this.isConverting.set(false);
+      //     
+      //     if (success) {
+      //       this.isBoardReady.set(true);
+      //     } else {
+      //       console.error('Board conversion failed, setting ready to true anyway');
+      //       this.isBoardReady.set(true); // Still show board even if conversion failed
+      //     }
+      //   } else {
+      //     this.isBoardReady.set(true);
+      //   }
+      // }
+      
+      // Set board ready immediately since conversions are disabled
+      this.isBoardReady.set(true);
 
       // Convert shared lists to per-swimlane lists if needed
-      await this.convertSharedListsToPerSwimlane(boardId);
+      // DISABLED: Shared lists conversion
+      // await this.convertSharedListsToPerSwimlane(boardId);
 
       // Fix missing lists migration (for cards with wrong listId references)
-      await this.fixMissingLists(boardId);
+      // DISABLED: Missing lists fix
+      // await this.fixMissingLists(boardId);
 
       // Fix duplicate lists created by WeKan 8.10
-      await this.fixDuplicateLists(boardId);
+      // DISABLED: Duplicate lists fix
+      // await this.fixDuplicateLists(boardId);
 
       // Start attachment migration in background if needed
-      this.startAttachmentMigrationIfNeeded(boardId);
+      // DISABLED: Attachment migration
+      // this.startAttachmentMigrationIfNeeded(boardId);
     } catch (error) {
       console.error('Error during board conversion check:', error);
       this.isConverting.set(false);

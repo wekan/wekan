@@ -228,10 +228,8 @@ function initSortable(boardComponent, $listsDom) {
 
         // Don't cancel the sortable when moving to a different swimlane
         // The DOM move should be allowed to complete
-      } else {
-        // If staying in the same swimlane, cancel the sortable to prevent DOM manipulation issues
-        $listsDom.sortable('cancel');
       }
+      // Allow reordering within the same swimlane by not canceling the sortable
 
       try {
         Lists.update(list._id, {
@@ -682,6 +680,11 @@ Template.swimlane.helpers({
   canSeeAddList() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
+  
+  lists() {
+    // Return per-swimlane lists for this swimlane
+    return this.myLists();
+  }
 });
 
 // Initialize sortable on DOM elements
@@ -794,10 +797,8 @@ setTimeout(() => {
 
             // Don't cancel the sortable when moving to a different swimlane
             // The DOM move should be allowed to complete
-          } else {
-            // If staying in the same swimlane, cancel the sortable to prevent DOM manipulation issues
-            $swimlane.sortable('cancel');
           }
+          // Allow reordering within the same swimlane by not canceling the sortable
 
           try {
             Lists.update(list._id, {
@@ -938,10 +939,8 @@ setTimeout(() => {
 
             // Don't cancel the sortable when moving to a different swimlane
             // The DOM move should be allowed to complete
-          } else {
-            // If staying in the same swimlane, cancel the sortable to prevent DOM manipulation issues
-            $listsGroup.sortable('cancel');
           }
+          // Allow reordering within the same swimlane by not canceling the sortable
 
           try {
             Lists.update(list._id, {

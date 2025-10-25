@@ -232,8 +232,12 @@ Swimlanes.helpers({
   },
 
   myLists() {
-    // Revert to shared lists: provide lists by board for this swimlane's board
-    return ReactiveCache.getLists({ boardId: this.boardId });
+    // Return per-swimlane lists: provide lists specific to this swimlane
+    return ReactiveCache.getLists({ 
+      boardId: this.boardId,
+      swimlaneId: this._id,
+      archived: false
+    });
   },
 
   allCards() {
