@@ -13,6 +13,7 @@ import FileStoreStrategyFactory, {moveToStorage, rename, STORAGE_NAME_FILESYSTEM
 // import { STORAGE_NAME_S3 } from '/models/lib/fileStoreStrategy';
 import { getAttachmentWithBackwardCompatibility, getAttachmentsWithBackwardCompatibility } from './lib/attachmentBackwardCompatibility';
 import AttachmentStorageSettings from './attachmentStorageSettings';
+import { generateUniversalAttachmentUrl, cleanFileUrl } from '/models/lib/universalUrlGenerator';
 
 let attachmentUploadExternalProgram;
 let attachmentUploadMimeTypes = [];
@@ -324,5 +325,16 @@ if (Meteor.isServer) {
 // Add backward compatibility methods - available on both client and server
 Attachments.getAttachmentWithBackwardCompatibility = getAttachmentWithBackwardCompatibility;
 Attachments.getAttachmentsWithBackwardCompatibility = getAttachmentsWithBackwardCompatibility;
+
+// Override the link method to use universal URLs
+if (Meteor.isClient) {
+  // Add custom link method to attachment documents
+  Attachments.collection.helpers({
+    link(version = 'original') {
+      // Use universal URL generator for consistent, URL-agnostic URLs
+      return generateUniversalAttachmentUrl(this._id, version);
+    }
+  });
+}
 
 export default Attachments;

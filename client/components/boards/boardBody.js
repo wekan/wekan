@@ -4,6 +4,7 @@ import dragscroll from '@wekanteam/dragscroll';
 import { boardConverter } from '/client/lib/boardConverter';
 import { migrationManager } from '/client/lib/migrationManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
+import { migrationProgressManager } from '/client/components/migrationProgress';
 import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
 
@@ -98,66 +99,161 @@ BlazeComponent.extendComponent({
         return;
       }
 
-      // Check if board needs migration based on migration version
-      // DISABLED: Migration check and execution
-      // const needsMigration = !board.migrationVersion || board.migrationVersion < 1;
+      // Check if board needs comprehensive migration
+      const needsMigration = await this.checkComprehensiveMigration(boardId);
       
-      // if (needsMigration) {
-      //   // Start background migration for old boards
-      //   this.isMigrating.set(true);
-      //   await this.startBackgroundMigration(boardId);
-      //   this.isMigrating.set(false);
-      // }
+      if (needsMigration) {
+        // Start comprehensive migration
+        this.isMigrating.set(true);
+        const success = await this.executeComprehensiveMigration(boardId);
+        this.isMigrating.set(false);
+        
+        if (success) {
+          this.isBoardReady.set(true);
+        } else {
+          console.error('Comprehensive migration failed, setting ready to true anyway');
+          this.isBoardReady.set(true); // Still show board even if migration failed
+        }
+      } else {
+        this.isBoardReady.set(true);
+      }
 
-      // Check if board needs conversion (for old structure)
-      // DISABLED: Board conversion logic
-      // if (boardConverter.isBoardConverted(boardId)) {
-      //   if (process.env.DEBUG === 'true') {
-      //     console.log(`Board ${boardId} has already been converted, skipping conversion`);
-      //   }
-      //   this.isBoardReady.set(true);
-      // } else {
-      //   const needsConversion = boardConverter.needsConversion(boardId);
-      //   
-      //   if (needsConversion) {
-      //     this.isConverting.set(true);
-      //     const success = await boardConverter.convertBoard(boardId);
-      //     this.isConverting.set(false);
-      //     
-      //     if (success) {
-      //       this.isBoardReady.set(true);
-      //     } else {
-      //       console.error('Board conversion failed, setting ready to true anyway');
-      //       this.isBoardReady.set(true); // Still show board even if conversion failed
-      //     }
-      //   } else {
-      //     this.isBoardReady.set(true);
-      //   }
-      // }
-      
-      // Set board ready immediately since conversions are disabled
-      this.isBoardReady.set(true);
-
-      // Convert shared lists to per-swimlane lists if needed
-      // DISABLED: Shared lists conversion
-      // await this.convertSharedListsToPerSwimlane(boardId);
-
-      // Fix missing lists migration (for cards with wrong listId references)
-      // DISABLED: Missing lists fix
-      // await this.fixMissingLists(boardId);
-
-      // Fix duplicate lists created by WeKan 8.10
-      // DISABLED: Duplicate lists fix
-      // await this.fixDuplicateLists(boardId);
-
-      // Start attachment migration in background if needed
-      // DISABLED: Attachment migration
-      // this.startAttachmentMigrationIfNeeded(boardId);
     } catch (error) {
       console.error('Error during board conversion check:', error);
       this.isConverting.set(false);
       this.isMigrating.set(false);
       this.isBoardReady.set(true); // Show board even if conversion check failed
+    }
+  },
+
+  /**
+   * Check if board needs comprehensive migration
+   */
+  async checkComprehensiveMigration(boardId) {
+    try {
+      return new Promise((resolve, reject) => {
+        Meteor.call('comprehensiveBoardMigration.needsMigration', boardId, (error, result) => {
+          if (error) {
+            console.error('Error checking comprehensive migration:', error);
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Error checking comprehensive migration:', error);
+      return false;
+    }
+  },
+
+  /**
+   * Execute comprehensive migration for a board
+   */
+  async executeComprehensiveMigration(boardId) {
+    try {
+      // Start progress tracking
+      migrationProgressManager.startMigration();
+      
+      // Simulate progress updates since we can't easily pass callbacks through Meteor methods
+      const progressSteps = [
+        { step: 'analyze_board_structure', name: 'Analyze Board Structure', duration: 1000 },
+        { step: 'fix_orphaned_cards', name: 'Fix Orphaned Cards', duration: 2000 },
+        { step: 'convert_shared_lists', name: 'Convert Shared Lists', duration: 3000 },
+        { step: 'ensure_per_swimlane_lists', name: 'Ensure Per-Swimlane Lists', duration: 1500 },
+        { step: 'cleanup_empty_lists', name: 'Cleanup Empty Lists', duration: 1000 },
+        { step: 'validate_migration', name: 'Validate Migration', duration: 1000 },
+        { step: 'fix_avatar_urls', name: 'Fix Avatar URLs', duration: 1000 },
+        { step: 'fix_attachment_urls', name: 'Fix Attachment URLs', duration: 1000 }
+      ];
+
+      // Start the actual migration
+      const migrationPromise = new Promise((resolve, reject) => {
+        Meteor.call('comprehensiveBoardMigration.execute', boardId, (error, result) => {
+          if (error) {
+            console.error('Error executing comprehensive migration:', error);
+            migrationProgressManager.failMigration(error);
+            reject(error);
+          } else {
+            if (process.env.DEBUG === 'true') {
+              console.log('Comprehensive migration completed for board:', boardId, result);
+            }
+            resolve(result.success);
+          }
+        });
+      });
+
+      // Simulate progress updates
+      const progressPromise = this.simulateMigrationProgress(progressSteps);
+
+      // Wait for both to complete
+      const [migrationResult] = await Promise.all([migrationPromise, progressPromise]);
+      
+      migrationProgressManager.completeMigration();
+      return migrationResult;
+
+    } catch (error) {
+      console.error('Error executing comprehensive migration:', error);
+      migrationProgressManager.failMigration(error);
+      return false;
+    }
+  },
+
+  /**
+   * Simulate migration progress updates
+   */
+  async simulateMigrationProgress(progressSteps) {
+    const totalSteps = progressSteps.length;
+    
+    for (let i = 0; i < progressSteps.length; i++) {
+      const step = progressSteps[i];
+      const stepProgress = Math.round(((i + 1) / totalSteps) * 100);
+      
+      // Update progress for this step
+      migrationProgressManager.updateProgress({
+        overallProgress: stepProgress,
+        currentStep: i + 1,
+        totalSteps,
+        stepName: step.step,
+        stepProgress: 0,
+        stepStatus: `Starting ${step.name}...`,
+        stepDetails: null,
+        boardId: Session.get('currentBoard')
+      });
+
+      // Simulate step progress
+      const stepDuration = step.duration;
+      const updateInterval = 100; // Update every 100ms
+      const totalUpdates = stepDuration / updateInterval;
+      
+      for (let j = 0; j < totalUpdates; j++) {
+        const stepStepProgress = Math.round(((j + 1) / totalUpdates) * 100);
+        
+        migrationProgressManager.updateProgress({
+          overallProgress: stepProgress,
+          currentStep: i + 1,
+          totalSteps,
+          stepName: step.step,
+          stepProgress: stepStepProgress,
+          stepStatus: `Processing ${step.name}...`,
+          stepDetails: { progress: `${stepStepProgress}%` },
+          boardId: Session.get('currentBoard')
+        });
+
+        await new Promise(resolve => setTimeout(resolve, updateInterval));
+      }
+
+      // Complete the step
+      migrationProgressManager.updateProgress({
+        overallProgress: stepProgress,
+        currentStep: i + 1,
+        totalSteps,
+        stepName: step.step,
+        stepProgress: 100,
+        stepStatus: `${step.name} completed`,
+        stepDetails: { status: 'completed' },
+        boardId: Session.get('currentBoard')
+      });
     }
   },
 

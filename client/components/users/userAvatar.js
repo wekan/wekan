@@ -179,7 +179,7 @@ BlazeComponent.extendComponent({
   isSelected() {
     const userProfile = ReactiveCache.getCurrentUser().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
-    const currentAvatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
+    const currentAvatarUrl = this.currentData().link();
     return avatarUrl === currentAvatarUrl;
   },
 
@@ -220,7 +220,7 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-select-avatar'() {
-          const avatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
+          const avatarUrl = this.currentData().link();
           this.setAvatar(avatarUrl);
         },
         'click .js-select-initials'() {

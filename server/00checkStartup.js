@@ -42,6 +42,12 @@ import './cronJobStorage';
 
 // Import migrations
 import './migrations/fixMissingListsMigration';
+import './migrations/fixAvatarUrls';
+import './migrations/fixAllFileUrls';
+import './migrations/comprehensiveBoardMigration';
+
+// Import file serving routes
+import './routes/universalFileServer';
 
 // Note: Automatic migrations are disabled - migrations only run when opening boards
 // import './boardMigrationDetector';

@@ -1,63 +1,43 @@
 template(name="migrationProgress")
-  .migration-overlay(class="{{#if isMigrating}}active{{/if}}")
-    .migration-modal
-      .migration-header
-        h3
-          | 🗄️
-          | {{_ 'database-migration'}}
-        p {{_ 'database-migration-description'}}
-      
-      .migration-content
-        .migration-overview
-          .overall-progress
-            .progress-bar
-              .progress-fill(style="width: {{migrationProgress}}%")
-            .progress-text {{migrationProgress}}%
-            .progress-label {{_ 'overall-progress'}}
-          
-          .current-step
-            | ⚙️
-            | {{migrationCurrentStep}}
-          
-          .estimated-time(style="{{#unless migrationEstimatedTime}}display: none;{{/unless}}")
-            | ⏰
-            | {{_ 'estimated-time-remaining'}}: {{migrationEstimatedTime}}
+  if isMigrating
+    .migration-progress-overlay
+      .migration-progress-modal
+        .migration-progress-header
+          h3.migration-progress-title
+            | 🔄 Board Migration in Progress
+          .migration-progress-close.js-close-migration-progress
+            | ❌
         
-        .migration-steps
-          h4 {{_ 'migration-steps'}}
-          .steps-list
-            each migrationSteps
-              .migration-step(class="{{#if completed}}completed{{/if}}" class="{{#if isCurrentStep}}current{{/if}}")
-                .step-header
-                  .step-icon
-                    if completed
-                      | ✅
-                    else if isCurrentStep
-                      | ⚙️
-                    else
-                      | ⭕
-                  .step-info
-                    .step-name {{name}}
-                    .step-description {{description}}
-                  .step-progress
-                    if completed
-                      .progress-text 100%
-                    else if isCurrentStep
-                      .progress-text {{progress}}%
-                    else
-                      .progress-text 0%
-                if isCurrentStep
-                  .step-progress-bar
-                    .progress-fill(style="width: {{progress}}%")
+        .migration-progress-content
+          .migration-progress-overall
+            .migration-progress-overall-label
+              | Overall Progress: {{currentStep}} of {{totalSteps}} steps
+            .migration-progress-overall-bar
+              .migration-progress-overall-fill(style="{{progressBarStyle}}")
+            .migration-progress-overall-percentage
+              | {{overallProgress}}%
+          
+          .migration-progress-current-step
+            .migration-progress-step-label
+              | Current Step: {{stepNameFormatted}}
+            .migration-progress-step-bar
+              .migration-progress-step-fill(style="{{stepProgressBarStyle}}")
+            .migration-progress-step-percentage
+              | {{stepProgress}}%
+          
+          .migration-progress-status
+            .migration-progress-status-label
+              | Status:
+            .migration-progress-status-text
+              | {{stepStatus}}
+          
+          if stepDetailsFormatted
+            .migration-progress-details
+              .migration-progress-details-label
+                | Details:
+              .migration-progress-details-text
+                | {{stepDetailsFormatted}}
         
-        .migration-status
-          | ℹ️
-          | {{migrationStatus}}
-      
-      .migration-footer
-        .migration-info
-          | 💡
-          | {{_ 'migration-info-text'}}
-        .migration-warning
-          | ⚠️
-          | {{_ 'migration-warning-text'}}
+        .migration-progress-footer
+          .migration-progress-note
+            | Please wait while we migrate your board to the latest structure...

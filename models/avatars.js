@@ -8,6 +8,7 @@ import { TAPi18n } from '/imports/i18n';
 import fs from 'fs';
 import path from 'path';
 import FileStoreStrategyFactory, { FileStoreStrategyFilesystem, FileStoreStrategyGridFs, STORAGE_NAME_FILESYSTEM } from '/models/lib/fileStoreStrategy';
+import { generateUniversalAvatarUrl, cleanFileUrl } from '/models/lib/universalUrlGenerator';
 
 const filesize = require('filesize');
 
@@ -116,7 +117,9 @@ Avatars = new FilesCollection({
     const isValid = Promise.await(isFileValid(fileObj, avatarsUploadMimeTypes, avatarsUploadSize, avatarsUploadExternalProgram));
 
     if (isValid) {
-      ReactiveCache.getUser(fileObj.userId).setAvatarUrl(`${formatFleURL(fileObj)}?auth=false&brokenIsFine=true`);
+      // Set avatar URL using universal URL generator (URL-agnostic)
+      const universalUrl = generateUniversalAvatarUrl(fileObj._id);
+      ReactiveCache.getUser(fileObj.userId).setAvatarUrl(universalUrl);
     } else {
       Avatars.remove(fileObj._id);
     }
@@ -160,6 +163,17 @@ if (Meteor.isServer) {
     if (!fs.existsSync(storagePath)) {
       console.log("create storagePath because it doesn't exist: " + storagePath);
       fs.mkdirSync(storagePath, { recursive: true });
+    }
+  });
+}
+
+// Override the link method to use universal URLs
+if (Meteor.isClient) {
+  // Add custom link method to avatar documents
+  Avatars.collection.helpers({
+    link(version = 'original') {
+      // Use universal URL generator for consistent, URL-agnostic URLs
+      return generateUniversalAvatarUrl(this._id, version);
     }
   });
 }

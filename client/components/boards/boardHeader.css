@@ -505,73 +505,73 @@
   flex-wrap: nowrap !important;
   align-items: stretch !important;
   justify-content: flex-start !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: 100vw !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
 }
 
-.mobile-mode .swimlane {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
-  margin: 0 0 2rem 0 !important;
-  padding: 0 !important;
-  float: none !important;
-  clear: both !important;
-}
+  .mobile-mode .swimlane {
+    display: block !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    margin: 0 0 2rem 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    clear: both !important;
+  }
 
-.mobile-mode .swimlane .swimlane-header {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
-  margin: 0 0 1rem 0 !important;
-  padding: 1rem !important;
-  font-size: clamp(18px, 2.5vw, 32px) !important;
-  font-weight: bold !important;
-  border-bottom: 2px solid #ccc !important;
-}
+  .mobile-mode .swimlane .swimlane-header {
+    display: block !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    margin: 0 0 1rem 0 !important;
+    padding: 1rem !important;
+    font-size: clamp(18px, 2.5vw, 32px) !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #ccc !important;
+  }
 
-.mobile-mode .swimlane .lists {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  flex-direction: column !important;
-  flex-wrap: nowrap !important;
-  align-items: stretch !important;
-  justify-content: flex-start !important;
-}
+  .mobile-mode .swimlane .lists {
+    display: block !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
 
-.mobile-mode .list {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
-  margin: 0 0 2rem 0 !important;
-  padding: 0 !important;
-  float: none !important;
-  clear: both !important;
-  border-left: none !important;
-  border-right: none !important;
-  border-top: none !important;
-  border-bottom: 2px solid #ccc !important;
-  flex: none !important;
-  flex-basis: auto !important;
-  flex-grow: 0 !important;
-  flex-shrink: 0 !important;
-  position: static !important;
-  left: auto !important;
-  right: auto !important;
-  top: auto !important;
-  bottom: auto !important;
-  transform: none !important;
-}
+  .mobile-mode .list {
+    display: block !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    margin: 0 0 2rem 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    clear: both !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 2px solid #ccc !important;
+    flex: none !important;
+    flex-basis: auto !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
 
 .mobile-mode .list:first-child {
   margin-left: 0 !important;
@@ -667,9 +667,9 @@
     flex-wrap: nowrap !important;
     align-items: stretch !important;
     justify-content: flex-start !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 100% !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }

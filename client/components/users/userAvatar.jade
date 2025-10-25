@@ -87,7 +87,7 @@ template(name="changeAvatarPopup")
     each uploadedAvatars
       li: a.js-select-avatar
         .member
-          img.avatar.avatar-image(src="{{link}}?auth=false&brokenIsFine=true")
+          img.avatar.avatar-image(src="{{link}}")
         | {{_ 'uploaded-avatar'}}
         if isSelected
           | ✅

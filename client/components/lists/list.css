@@ -641,17 +641,22 @@ body.list-resizing-active * {
 .mini-list.mobile-view {
   flex: 0 0 60px;
   height: auto;
-  width: 100%;
-  min-width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  min-width: 100vw;
   border-left: 0px !important;
   border-bottom: 1px solid #ccc;
+  display: block !important;
 }
 .list.mobile-view {
-  display: contents;
+  display: block !important;
   flex-basis: auto;
-  width: 100%;
-  min-width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  min-width: 100vw;
   border-left: 0px !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .list.mobile-view:first-child {
   margin-left: 0px;
@@ -659,9 +664,11 @@ body.list-resizing-active * {
 .list.mobile-view.ui-sortable-helper {
   flex: 0 0 60px;
   height: 60px;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   border-left: 0px !important;
   border-bottom: 1px solid #ccc;
+  display: block !important;
 }
 .list.mobile-view.ui-sortable-helper .list-header.ui-sortable-handle {
   cursor: grabbing;
@@ -669,14 +676,17 @@ body.list-resizing-active * {
 .list.mobile-view.placeholder {
   flex: 0 0 60px;
   height: 60px;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   border-left: 0px !important;
   border-bottom: 1px solid #ccc;
+  display: block !important;
 }
 .list.mobile-view .list-body {
   padding: 15px 19px;
-  width: 100%;
-  min-width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  min-width: 100vw;
 }
 .list.mobile-view .list-header {
   /*Updated padding values for mobile devices, this should fix text grouping issue*/
@@ -685,8 +695,9 @@ body.list-resizing-active * {
   min-height: 30px;
   margin-top: 10px;
   align-items: center;
-  width: 100%;
-  min-width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  min-width: 100vw;
   /* Force grid layout for iPhone */
   display: grid !important;
   grid-template-columns: 30px 1fr auto auto !important;
@@ -767,17 +778,22 @@ body.list-resizing-active * {
   .mini-list {
     flex: 0 0 60px;
     height: auto;
-    width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
     border-left: 0px !important;
     border-bottom: 1px solid #ccc;
+    display: block !important;
   }
   .list {
-    display: contents;
+    display: block !important;
     flex-basis: auto;
-    width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
     border-left: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .list:first-child {
     margin-left: 0px;
@@ -785,9 +801,11 @@ body.list-resizing-active * {
   .list.ui-sortable-helper {
     flex: 0 0 60px;
     height: 60px;
-    width: 100%;
+    width: 100vw;
+    max-width: 100vw;
     border-left: 0px !important;
     border-bottom: 1px solid #ccc;
+    display: block !important;
   }
   .list.ui-sortable-helper .list-header.ui-sortable-handle {
     cursor: grabbing;
@@ -795,14 +813,17 @@ body.list-resizing-active * {
   .list.placeholder {
     flex: 0 0 60px;
     height: 60px;
-    width: 100%;
+    width: 100vw;
+    max-width: 100vw;
     border-left: 0px !important;
     border-bottom: 1px solid #ccc;
+    display: block !important;
   }
   .list-body {
     padding: 15px 19px;
-    width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
   }
   .list-header {
 	  /*Updated padding values for mobile devices, this should fix text grouping issue*/
@@ -811,8 +832,9 @@ body.list-resizing-active * {
     min-height: 30px;
     margin-top: 10px;
     align-items: center;
-    width: 100%;
-    min-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
   }
   .list-header .list-header-left-icon {
     padding: 7px;
