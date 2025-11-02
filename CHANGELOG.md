@@ -22,7 +22,7 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v8.16 2025-11-02 WeKan ® release
 
 This release fixes SpaceBleed that is the following CRITICAL SECURITY ISSUES:
 
