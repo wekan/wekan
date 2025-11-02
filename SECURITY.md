@@ -192,6 +192,22 @@ Meteor.startup(() => {
 - Attempts to update forbidden fields from the client are denied.
 - Admin operations like managing org/team membership or toggling flags must use server methods that check permissions.
 
+## Voting: integrity and authorization
+
+- Client updates to card `vote` fields are blocked to prevent forged votes and inconsistent policy enforcement.
+- Voting is performed via a server method that enforces:
+  - Authentication and board membership, or an explicit per-card flag allowing non-members to vote.
+  - Only the caller's own userId is added/removed from `vote.positive`/`vote.negative`.
+- This prevents members from fabricating other users' votes and ensures non-members cannot vote unless explicitly allowed.
+
+## Planning Poker: integrity and authorization
+
+- Client updates to card `poker` fields are blocked. All poker actions go through server methods that enforce:
+  - Authentication and board membership for configuration and results.
+  - For casting a poker vote, either board membership or an explicit per-card flag allowing non-members to participate.
+  - Only the caller's own userId is added/removed from the selected estimation bucket (e.g., one, two, five, etc.).
+- Methods cover setting/unsetting poker question/end, casting votes, replaying, and setting final estimation.
+
 ## Brute force login protection
 
 - https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d

@@ -515,18 +515,29 @@ Cards.attachSchema(
   }),
 );
 
+// Centralized update policy for Cards
+// Security: deny any direct client updates to 'vote' fields; require membership otherwise
+canUpdateCard = function(userId, doc, fields) {
+  if (!userId) return false;
+  const fieldNames = fields || [];
+  // Block direct updates to voting fields; voting must go through Meteor method 'cards.vote'
+  if (_.some(fieldNames, f => typeof f === 'string' && (f === 'vote' || f.indexOf('vote.') === 0))) {
+    return false;
+  }
+  // Block direct updates to poker fields; poker must go through Meteor methods
+  if (_.some(fieldNames, f => typeof f === 'string' && (f === 'poker' || f.indexOf('poker.') === 0))) {
+    return false;
+  }
+  return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
+};
+
 Cards.allow({
   insert(userId, doc) {
     return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
   },
 
   update(userId, doc, fields) {
-    // Allow board members or logged in users if only vote get's changed
-    return (
-      allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId)) ||
-      (_.isEqual(fields, ['vote', 'modifiedAt', 'dateLastActivity']) &&
-        !!userId)
-    );
+    return canUpdateCard(userId, doc, fields);
   },
   remove(userId, doc) {
     return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
@@ -3105,6 +3116,273 @@ const addCronJob = _.debounce(
 
 if (Meteor.isServer) {
   Meteor.methods({
+    // Secure poker voting: only the caller's userId is modified
+    'cards.pokerVote'(cardId, state) {
+      check(cardId, String);
+      if (state !== undefined && state !== null) check(state, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!board) throw new Meteor.Error('not-found');
+
+      const isMember = allowIsBoardMember(this.userId, board);
+      const allowNBM = !!(card.poker && card.poker.allowNonBoardMembers);
+      if (!(isMember || allowNBM /* && board.permission === 'public' */)) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      let mod = card.setPoker(this.userId, state);
+      if (!mod || typeof mod !== 'object') mod = {};
+      mod.$set = Object.assign({}, mod.$set, { modifiedAt: new Date(), dateLastActivity: new Date() });
+      return Cards.update({ _id: cardId }, mod);
+    },
+
+    // Configure planning poker on a card (members only)
+    'cards.setPokerQuestion'(cardId, question, allowNonBoardMembers) {
+      check(cardId, String);
+      check(question, Boolean);
+      check(allowNonBoardMembers, Boolean);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $set: {
+          poker: {
+            question,
+            allowNonBoardMembers,
+            one: [], two: [], three: [], five: [], eight: [], thirteen: [], twenty: [], forty: [], oneHundred: [], unsure: [],
+          },
+          modifiedAt: new Date(),
+          dateLastActivity: new Date(),
+        },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.setPokerEnd'(cardId, end) {
+      check(cardId, String);
+      check(end, Date);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $set: { 'poker.end': end, modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.unsetPokerEnd'(cardId) {
+      check(cardId, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $unset: { 'poker.end': '' },
+        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.unsetPoker'(cardId) {
+      check(cardId, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $unset: { poker: '' },
+        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.setPokerEstimation'(cardId, estimation) {
+      check(cardId, String);
+      check(estimation, Number);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $set: { 'poker.estimation': estimation, modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.unsetPokerEstimation'(cardId) {
+      check(cardId, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $unset: { 'poker.estimation': '' },
+        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.replayPoker'(cardId) {
+      check(cardId, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      // Reset all poker votes arrays
+      const modifier = {
+        $set: {
+          'poker.one': [], 'poker.two': [], 'poker.three': [], 'poker.five': [], 'poker.eight': [], 'poker.thirteen': [], 'poker.twenty': [], 'poker.forty': [], 'poker.oneHundred': [], 'poker.unsure': [],
+          modifiedAt: new Date(),
+          dateLastActivity: new Date(),
+        },
+        $unset: { 'poker.end': '' },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+    // Configure voting on a card (members only)
+    'cards.setVoteQuestion'(cardId, question, publicVote, allowNonBoardMembers) {
+      check(cardId, String);
+      check(question, String);
+      check(publicVote, Boolean);
+      check(allowNonBoardMembers, Boolean);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $set: {
+          vote: {
+            question,
+            public: publicVote,
+            allowNonBoardMembers,
+            positive: [],
+            negative: [],
+          },
+          modifiedAt: new Date(),
+          dateLastActivity: new Date(),
+        },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.setVoteEnd'(cardId, end) {
+      check(cardId, String);
+      check(end, Date);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $set: { 'vote.end': end, modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.unsetVoteEnd'(cardId) {
+      check(cardId, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $unset: { 'vote.end': '' },
+        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+
+    'cards.unsetVote'(cardId) {
+      check(cardId, String);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+
+      const modifier = {
+        $unset: { vote: '' },
+        $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+      };
+      return Cards.update({ _id: cardId }, modifier);
+    },
+    // Secure voting: only the caller can set/unset their vote; non-members can vote only when allowed
+    'cards.vote'(cardId, forIt) {
+      check(cardId, String);
+      // forIt may be true (upvote), false (downvote), or null/undefined (clear)
+      if (forIt !== undefined && forIt !== null) check(forIt, Boolean);
+      if (!this.userId) throw new Meteor.Error('not-authorized');
+
+      const card = ReactiveCache.getCard(cardId) || Cards.findOne(cardId);
+      if (!card) throw new Meteor.Error('not-found');
+      const board = ReactiveCache.getBoard(card.boardId) || Boards.findOne(card.boardId);
+      if (!board) throw new Meteor.Error('not-found');
+
+      const isMember = allowIsBoardMember(this.userId, board);
+      const allowNBM = !!(card.vote && card.vote.allowNonBoardMembers);
+      if (!(isMember || allowNBM /* && board.permission === 'public' */)) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      // Only modify the caller's own userId in vote arrays
+      let modifier;
+      if (forIt === true) {
+        modifier = {
+          $pull: { 'vote.negative': this.userId },
+          $addToSet: { 'vote.positive': this.userId },
+          $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+        };
+      } else if (forIt === false) {
+        modifier = {
+          $pull: { 'vote.positive': this.userId },
+          $addToSet: { 'vote.negative': this.userId },
+          $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+        };
+      } else {
+        // Clear vote
+        modifier = {
+          $pull: { 'vote.positive': this.userId, 'vote.negative': this.userId },
+          $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+        };
+      }
+
+      return Cards.update({ _id: cardId }, modifier);
+    },
     /** copies a card
      * <li> this method is needed on the server because attachments can only be copied on the server (access to file system)
      * @param card id to copy
