@@ -24,7 +24,14 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Fix SECURITY ISSUE 1: File Attachments enables stored XSS (High)](https://github.com/wekan/wekan/commit/e9a727301d7b4f1689a703503df668c0f4f4cab8).
+  Thanks to Siam Thanat Hack (STH).
+- [Fix SECURITY ISSUE 2: Access to boards of any Orgs/Teams, and avatar permissions](https://github.com/wekan/wekan/commit/f26d58201855e861bab1cd1fda4d62c664efdb81).
+  Thanks to Siam Thanat Hack (STH).
+
+and adds the following new features:
 
 - [List menu / More / Delete duplicate lists that do not have any cards](https://github.com/wekan/wekan/commit/91b846e2cdee9154b045d11b4b4c1a7ae1d79016).
   Thanks to xet7.
