@@ -130,11 +130,11 @@ parts:
             - npm
         stage-packages:
             - libfontconfig1
-        override-build: |
+                override-build: |
                         set -euo pipefail
                         echo "Cleaning environment first"
             #rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
-            rm -rf .build
+                        rm -rf .build
                         # Helper: resilient downloader (tries curl, then wget) with retries/backoff
                         download() {
                             url="$1"; out="$2"; attempts="${3:-5}"; sleepsec=5
@@ -248,7 +248,7 @@ parts:
             - apt-transport-https
             - gnupg
             - curl
-        override-build: |
+                override-build: |
                         set -euo pipefail
                         # Resilient install of Caddy: try APT with retries, fallback to static binary
                         echo "Installing Caddy 2..."
