@@ -208,6 +208,21 @@ Meteor.startup(() => {
   - Only the caller's own userId is added/removed from the selected estimation bucket (e.g., one, two, five, etc.).
 - Methods cover setting/unsetting poker question/end, casting votes, replaying, and setting final estimation.
 
+## Attachment API: authentication and DoS prevention
+
+- The attachment API (`/api/attachment/*`) requires proper authentication using `X-User-Id` and `X-Auth-Token` headers.
+- Authentication validates tokens by hashing with `Accounts._hashLoginToken` and matching against stored login tokens, preventing identity spoofing.
+- Request handlers implement:
+  - 30-second timeout to prevent hanging connections.
+  - Request body size limits (50MB for uploads, 10MB for metadata operations).
+  - Proper error handling and guaranteed response completion.
+  - Request error event handlers to clean up failed connections.
+- This prevents:
+  - DoS attacks via concurrent unauthenticated or malformed requests.
+  - Identity spoofing by using arbitrary bearer tokens or user IDs.
+  - Resource exhaustion from hanging connections or excessive payloads.
+- Access control: all attachment operations verify board membership before allowing access.
+
 ## Brute force login protection
 
 - https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d
