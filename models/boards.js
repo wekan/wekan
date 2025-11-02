@@ -1711,9 +1711,10 @@ if (Meteor.isServer) {
   // All logged in users are allowed to reorder boards by dragging at All Boards page and Public Boards page.
   Boards.allow({
     update(userId, board, fieldNames) {
-      return _.contains(fieldNames, 'sort');
+      return canUpdateBoardSort(userId, board, fieldNames);
     },
-    fetch: [],
+    // Need members to verify membership in policy
+    fetch: ['members'],
   });
 
   // The number of users that have starred this board is managed by trusted code

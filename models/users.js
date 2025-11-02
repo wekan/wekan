@@ -809,17 +809,13 @@ Users.helpers({
     return ret;
   },
   boards() {
-    return Boards.userBoards(this._id, null, {}, { sort: { sort: 1 } });
+    // Fetch unsorted; sorting is per-user via profile.boardSortIndex
+    return Boards.userBoards(this._id, null, {}, {});
   },
 
   starredBoards() {
     const { starredBoards = [] } = this.profile || {};
-    return Boards.userBoards(
-      this._id,
-      false,
-      { _id: { $in: starredBoards } },
-      { sort: { sort: 1 } },
-    );
+    return Boards.userBoards(this._id, false, { _id: { $in: starredBoards } }, {});
   },
 
   hasStarred(boardId) {
@@ -834,12 +830,7 @@ Users.helpers({
 
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
-    return Boards.userBoards(
-      this._id,
-      false,
-      { _id: { $in: invitedBoards } },
-      { sort: { sort: 1 } },
-    );
+    return Boards.userBoards(this._id, false, { _id: { $in: invitedBoards } }, {});
   },
 
   isInvitedTo(boardId) {
@@ -857,6 +848,32 @@ Users.helpers({
       ret[1] = RegExp.$1 ? -1 : 1;
     }
     return ret;
+  },
+  /**
+   * Get per-user board sort index for a board, or null when not set
+   */
+  getBoardSortIndex(boardId) {
+    const mapping = (this.profile && this.profile.boardSortIndex) || {};
+    const v = mapping[boardId];
+    return typeof v === 'number' ? v : null;
+  },
+  /**
+   * Sort an array of boards by per-user mapping; fallback to title asc
+   */
+  sortBoardsForUser(boardsArr) {
+    const mapping = (this.profile && this.profile.boardSortIndex) || {};
+    const arr = (boardsArr || []).slice();
+    arr.sort((a, b) => {
+      const ia = typeof mapping[a._id] === 'number' ? mapping[a._id] : Number.POSITIVE_INFINITY;
+      const ib = typeof mapping[b._id] === 'number' ? mapping[b._id] : Number.POSITIVE_INFINITY;
+      if (ia !== ib) return ia - ib;
+      const ta = (a.title || '').toLowerCase();
+      const tb = (b.title || '').toLowerCase();
+      if (ta < tb) return -1;
+      if (ta > tb) return 1;
+      return 0;
+    });
+    return arr;
   },
   hasSortBy() {
     // if use doesn't have dragHandle, then we can let user to choose sort list by different order
@@ -1303,6 +1320,19 @@ Users.mutations({
     return {
       [queryKind]: {
         'profile.starredBoards': boardId,
+      },
+    };
+  },
+  /**
+   * Set per-user board sort index for a board
+   * Stored at profile.boardSortIndex[boardId] = sortIndex (Number)
+   */
+  setBoardSortIndex(boardId, sortIndex) {
+    const mapping = (this.profile && this.profile.boardSortIndex) || {};
+    mapping[boardId] = sortIndex;
+    return {
+      $set: {
+        'profile.boardSortIndex': mapping,
       },
     };
   },

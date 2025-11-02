@@ -74,10 +74,9 @@ BlazeComponent.extendComponent({
       },
       stop(evt, ui) {
         // To attribute the new index number, we need to get the DOM element
-        // of the previous and the following card -- if any.
         const prevBoardDom = ui.item.prev('.js-board').get(0);
-        const nextBoardBom = ui.item.next('.js-board').get(0);
-        const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardBom, 1);
+        const nextBoardDom = ui.item.next('.js-board').get(0);
+        const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardDom, 1);
 
         const boardDomElement = ui.item.get(0);
         const board = Blaze.getData(boardDomElement);
@@ -89,7 +88,10 @@ BlazeComponent.extendComponent({
         // DOM in its initial state. The card move is then handled reactively by
         // Blaze with the below query.
         $boards.sortable('cancel');
-        board.move(sortIndex.base);
+        const currentUser = ReactiveCache.getCurrentUser();
+        if (currentUser && typeof currentUser.setBoardSortIndex === 'function') {
+          currentUser.setBoardSortIndex(board._id, sortIndex.base);
+        }
       },
     });
 
@@ -184,10 +186,13 @@ BlazeComponent.extendComponent({
       };
     }
 
-    const ret = ReactiveCache.getBoards(query, {
-      sort: { sort: 1 /* boards default sorting */ },
-    });
-    return ret;
+    const boards = ReactiveCache.getBoards(query, {});
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
+      return currentUser.sortBoardsForUser(boards);
+    }
+    // Fallback: deterministic title sort when no user mapping is available (e.g., public page)
+    return boards.slice().sort((a, b) => (a.title || '').localeCompare(b.title || ''));
   },
   boardLists(boardId) {
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
