@@ -5,6 +5,19 @@ echo "Then run this script"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	echo "Linux"
+  #
+  # a) For VirtualBox, 
+  # at /etc/modprobe.d/blacklist.conf blacklist these: (or kvm_amd)
+  #   blacklist kvm_intel
+  #   blacklist kvm
+  #
+  # b) For kvm, snapcraft.io/multipass and waydroid,
+  # at /etc/modprobe.d/blacklist.conf do not blacklist these:
+  # # blacklist kvm_intel
+  # # blacklist kvm
+  #
+  # If firewall is enabled, building snap does not work
+  sudo ufw disable
   sudo apt-get -y install snapd
   sudo systemctl enable snapd
   sudo systemctl start snapd
@@ -16,6 +29,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   multipass purge
   multipass launch --name ubu
   snapcraft pack
+  sudo ufw enable
   exit;
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   echo "macOS"
