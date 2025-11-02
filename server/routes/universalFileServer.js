@@ -7,8 +7,10 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { Accounts } from 'meteor/accounts-base';
 import Attachments, { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments';
 import Avatars, { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars';
+import '/models/boards';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import fs from 'fs';
 import path from 'path';
@@ -163,6 +165,154 @@ if (Meteor.isServer) {
   }
 
   /**
+   * Determine if an avatar request is authorized
+   * Rules:
+   *  - If a boardId query is provided and that board is public -> allow
+   *  - Else if requester is authenticated (valid token) -> allow
+   *  - Else if avatar's owner belongs to at least one public board -> allow
+   *  - Otherwise -> deny
+   */
+  function isAuthorizedForAvatar(req, avatar) {
+    try {
+      if (!avatar) return false;
+
+      // 1) Check explicit board context via query
+      const q = parseQuery(req);
+      const boardId = q.boardId || q.board || q.b;
+      if (boardId) {
+        const board = ReactiveCache.getBoard(boardId);
+        if (board && board.isPublic && board.isPublic()) return true;
+
+        // If private board is specified, require membership of requester
+        const token = extractLoginToken(req);
+        const user = token ? getUserFromToken(token) : null;
+        if (user && board && board.hasMember && board.hasMember(user._id)) return true;
+        return false;
+      }
+
+      // 2) Authenticated request without explicit board context
+      const token = extractLoginToken(req);
+      const user = token ? getUserFromToken(token) : null;
+      if (user) return true;
+
+      // 3) Allow if avatar owner is on any public board (so avatars are public only when on public boards)
+      // Use a lightweight query against Boards
+      const found = Boards && Boards.findOne({ permission: 'public', 'members.userId': avatar.userId }, { fields: { _id: 1 } });
+      return !!found;
+    } catch (e) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Avatar authorization check failed:', e);
+      }
+      return false;
+    }
+  }
+
+  /**
+   * Parse cookies from request headers into an object map
+   */
+  function parseCookies(req) {
+    const header = req.headers && req.headers.cookie;
+    const out = {};
+    if (!header) return out;
+    const parts = header.split(';');
+    for (const part of parts) {
+      const idx = part.indexOf('=');
+      if (idx === -1) continue;
+      const k = decodeURIComponent(part.slice(0, idx).trim());
+      const v = decodeURIComponent(part.slice(idx + 1).trim());
+      out[k] = v;
+    }
+    return out;
+  }
+
+  /**
+   * Get query parameters as a simple object
+   */
+  function parseQuery(req) {
+    const out = {};
+    const q = (req.url || '').split('?')[1] || '';
+    if (!q) return out;
+    const pairs = q.split('&');
+    for (const p of pairs) {
+      if (!p) continue;
+      const [rawK, rawV] = p.split('=');
+      const k = decodeURIComponent((rawK || '').trim());
+      const v = decodeURIComponent((rawV || '').trim());
+      if (k) out[k] = v;
+    }
+    return out;
+  }
+
+  /**
+   * Extract a login token from Authorization header, query param, or cookie
+   * Supported sources (priority order):
+   * - Authorization: Bearer <token>
+   * - X-Auth-Token header
+   * - authToken query parameter
+   * - meteor_login_token or wekan_login_token cookie
+   */
+  function extractLoginToken(req) {
+    // Authorization: Bearer <token>
+    const authz = req.headers && (req.headers.authorization || req.headers.Authorization);
+    if (authz && typeof authz === 'string') {
+      const m = authz.match(/^Bearer\s+(.+)$/i);
+      if (m && m[1]) return m[1].trim();
+    }
+
+    // X-Auth-Token
+    const xAuth = req.headers && (req.headers['x-auth-token'] || req.headers['X-Auth-Token']);
+    if (xAuth && typeof xAuth === 'string') return xAuth.trim();
+
+    // Query parameter
+    const q = parseQuery(req);
+    if (q.authToken && typeof q.authToken === 'string') return q.authToken.trim();
+
+    // Cookies
+    const cookies = parseCookies(req);
+    if (cookies.meteor_login_token) return cookies.meteor_login_token.trim();
+    if (cookies.wekan_login_token) return cookies.wekan_login_token.trim();
+
+    return null;
+  }
+
+  /**
+   * Resolve a user from a raw login token string
+   */
+  function getUserFromToken(rawToken) {
+    try {
+      if (!rawToken || typeof rawToken !== 'string' || rawToken.length < 10) return null;
+      const hashed = Accounts._hashLoginToken(rawToken);
+      return Meteor.users.findOne({ 'services.resume.loginTokens.hashedToken': hashed }, { fields: { _id: 1 } });
+    } catch (e) {
+      // In case accounts-base is not available or any error occurs
+      if (process.env.DEBUG === 'true') {
+        console.warn('Token resolution error:', e);
+      }
+      return null;
+    }
+  }
+
+  /**
+   * Authorization helper for board-bound files
+   * - Public boards: allow
+   * - Private boards: require valid user who is a member
+   */
+  function isAuthorizedForBoard(req, board) {
+    try {
+      if (!board) return false;
+      if (board.isPublic && board.isPublic()) return true;
+      const token = extractLoginToken(req);
+      const user = token ? getUserFromToken(token) : null;
+      return !!(user && board.hasMember && board.hasMember(user._id));
+    } catch (e) {
+      if (process.env.DEBUG === 'true') {
+        console.warn('Authorization check failed:', e);
+      }
+      return false;
+    }
+  }
+
+  /**
    * Helper function to stream file with error handling
    */
   function streamFile(res, readStream, fileObj) {
@@ -205,8 +355,8 @@ if (Meteor.isServer) {
         return;
       }
 
-      // Get attachment from database
-      const attachment = ReactiveCache.getAttachment(fileId);
+      // Get attachment from database with backward compatibility
+      const attachment = getAttachmentWithBackwardCompatibility(fileId);
       if (!attachment) {
         res.writeHead(404);
         res.end('Attachment not found');
@@ -221,24 +371,28 @@ if (Meteor.isServer) {
         return;
       }
 
-      // TODO: Implement proper authentication via cookies/headers
-      // Meteor.userId() returns undefined in WebApp.connectHandlers middleware
-      // For now, allow access - ostrio:files protected() method provides fallback auth
-      // const userId = null; // Need to extract from req.headers.cookie
-      // if (!board.isPublic() && (!userId || !board.hasMember(userId))) {
-      //   res.writeHead(403);
-      //   res.end('Access denied');
-      //   return;
-      // }
+      // Enforce cookie/header/query-based auth for private boards
+      if (!isAuthorizedForBoard(req, board)) {
+        res.writeHead(403);
+        res.end('Access denied');
+        return;
+      }
 
       // Handle conditional requests
       if (handleConditionalRequest(req, res, attachment)) {
         return;
       }
 
-      // Get file strategy and stream
-  const strategy = attachmentStoreFactory.getFileStrategy(attachment, 'original');
-      const readStream = strategy.getReadStream();
+      // Choose proper streaming based on source
+      let readStream;
+      if (attachment?.meta?.source === 'legacy') {
+        // Legacy CollectionFS GridFS stream
+        readStream = getOldAttachmentStream(fileId);
+      } else {
+        // New Meteor-Files storage
+        const strategy = attachmentStoreFactory.getFileStrategy(attachment, 'original');
+        readStream = strategy.getReadStream();
+      }
 
       if (!readStream) {
         res.writeHead(404);
@@ -296,9 +450,12 @@ if (Meteor.isServer) {
         return;
       }
 
-      // TODO: Implement proper authentication for avatars
-      // Meteor.userId() returns undefined in WebApp.connectHandlers middleware
-      // For now, allow avatar viewing - they're typically public anyway
+      // Enforce visibility: avatars are public only in the context of public boards
+      if (!isAuthorizedForAvatar(req, avatar)) {
+        res.writeHead(403);
+        res.end('Access denied');
+        return;
+      }
 
       // Handle conditional requests
       if (handleConditionalRequest(req, res, avatar)) {
@@ -366,9 +523,12 @@ if (Meteor.isServer) {
         return;
       }
 
-      // TODO: Implement proper authentication via cookies/headers
-      // Meteor.userId() returns undefined in WebApp.connectHandlers middleware
-      // For now, allow access for compatibility
+      // Enforce cookie/header/query-based auth for private boards
+      if (!isAuthorizedForBoard(req, board)) {
+        res.writeHead(403);
+        res.end('Access denied');
+        return;
+      }
 
       // Handle conditional requests
       if (handleConditionalRequest(req, res, attachment)) {
@@ -435,9 +595,12 @@ if (Meteor.isServer) {
         return;
       }
 
-      // TODO: Implement proper authentication for legacy avatars
-      // Meteor.userId() returns undefined in WebApp.connectHandlers middleware
-      // For now, allow avatar viewing for compatibility
+      // Enforce visibility for legacy avatars as well
+      if (!isAuthorizedForAvatar(req, avatar)) {
+        res.writeHead(403);
+        res.end('Access denied');
+        return;
+      }
 
       // Handle conditional requests
       if (handleConditionalRequest(req, res, avatar)) {

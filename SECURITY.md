@@ -182,6 +182,16 @@ Meteor.startup(() => {
 - This means attachments are downloaded instead of rendered inline by default. This mitigates HTML/JS/SVG based stored XSS vectors.
 - Avatars and inline images remain supported but SVG uploads are blocked and never rendered inline.
 
+## Users: Client update restrictions
+
+- Client-side updates to user documents are limited to safe fields only:
+  - `username`
+  - `profile.*`
+- Sensitive fields are blocked from any client updates and can only be modified by server methods with authorization:
+  - `orgs`, `teams`, `roles`, `isAdmin`, `createdThroughApi`, `loginDisabled`, `authenticationMethod`, `services.*`, `emails.*`, `sessionData.*`
+- Attempts to update forbidden fields from the client are denied.
+- Admin operations like managing org/team membership or toggling flags must use server methods that check permissions.
+
 ## Brute force login protection
 
 - https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d

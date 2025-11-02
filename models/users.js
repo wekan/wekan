@@ -569,15 +569,41 @@ Users.attachSchema(
   }),
 );
 
+// Security helpers for user updates
+export const USER_UPDATE_ALLOWED_EXACT = ['username'];
+export const USER_UPDATE_ALLOWED_PREFIXES = ['profile.'];
+export const USER_UPDATE_FORBIDDEN_PREFIXES = [
+  'services',
+  'emails',
+  'roles',
+  'isAdmin',
+  'createdThroughApi',
+  'orgs',
+  'teams',
+  'loginDisabled',
+  'authenticationMethod',
+  'sessionData',
+];
+
+export function isUserUpdateAllowed(fields) {
+  return fields.every((f) =>
+    USER_UPDATE_ALLOWED_EXACT.includes(f) || USER_UPDATE_ALLOWED_PREFIXES.some((p) => f.startsWith(p))
+  );
+}
+
+export function hasForbiddenUserUpdateField(fields) {
+  return fields.some((f) => USER_UPDATE_FORBIDDEN_PREFIXES.some((p) => f === p || f.startsWith(p + '.')));
+}
+
 Users.allow({
-  update(userId, doc) {
-    const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
-    if (user?.isAdmin)
-      return true;
-    if (!user) {
-      return false;
-    }
-    return doc._id === userId;
+  update(userId, doc, fields /*, modifier */) {
+    // Only the owner can update, and only for allowed fields
+    if (!userId || doc._id !== userId) return false;
+    if (!Array.isArray(fields) || fields.length === 0) return false;
+    // Disallow if any forbidden field present
+    if (hasForbiddenUserUpdateField(fields)) return false;
+    // Allow only username and profile.*
+    return isUserUpdateAllowed(fields);
   },
   remove(userId, doc) {
     // Disable direct client-side user removal for security
@@ -588,10 +614,10 @@ Users.allow({
   fetch: [],
 });
 
-// Non-Admin users can not change to Admin
+// Deny any attempts to touch forbidden fields from client updates
 Users.deny({
-  update(userId, board, fieldNames) {
-    return _.contains(fieldNames, 'isAdmin') && !ReactiveCache.getCurrentUser().isAdmin;
+  update(userId, doc, fields /*, modifier */) {
+    return hasForbiddenUserUpdateField(fields);
   },
   fetch: [],
 });

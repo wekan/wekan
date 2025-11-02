@@ -15,6 +15,21 @@ Template.userAvatar.helpers({
     });
   },
 
+  avatarUrl() {
+    const user = ReactiveCache.getUser(this.userId, { fields: { profile: 1 } });
+    const base = (user && user.profile && user.profile.avatarUrl) || '';
+    if (!base) return '';
+    // Append current boardId when available so public viewers can access avatars on public boards
+    try {
+      const boardId = Utils.getCurrentBoardId && Utils.getCurrentBoardId();
+      if (boardId) {
+        const sep = base.includes('?') ? '&' : '?';
+        return `${base}${sep}boardId=${encodeURIComponent(boardId)}`;
+      }
+    } catch (_) {}
+    return base;
+  },
+
   memberType() {
     const user = ReactiveCache.getUser(this.userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
