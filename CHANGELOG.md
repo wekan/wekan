@@ -24,13 +24,17 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # Upcoming WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES:
+This release fixes SpaceBleed that is the following CRITICAL SECURITY ISSUES:
 
 - [Fix SECURITY ISSUE 1: File Attachments enables stored XSS (High)](https://github.com/wekan/wekan/commit/e9a727301d7b4f1689a703503df668c0f4f4cab8).
   Thanks to Siam Thanat Hack (STH) and xet7.
 - [Fix SECURITY ISSUE 2: Access to boards of any Orgs/Teams, and avatar permissions](https://github.com/wekan/wekan/commit/f26d58201855e861bab1cd1fda4d62c664efdb81).
   Thanks to Siam Thanat Hack (STH) and xet7.
-- [ Fix SECURITY ISSUE 3: Unauthenticated (or any) user can update board sort](https://github.com/wekan/wekan/commit/ea310d7508b344512e5de0dfbc9bdfd38145c5c5).
+- [Fix SECURITY ISSUE 3: Unauthenticated (or any) user can update board sort](https://github.com/wekan/wekan/commit/ea310d7508b344512e5de0dfbc9bdfd38145c5c5).
+  Thanks to Siam Thanat Hack (STH) and xet7.
+- [Fix SECURITY ISSUE 4: Members can forge others’ votes (Low). Bonus: Similar fixes to planning poker too done by xet7](https://github.com/wekan/wekan/commit/0a1a075f3153e71d9a858576f1c68d2925230d9c).
+  Thanks to Siam Thanat Hack (STH) and xet7.
+- [Fix SECURITY ISSUE 5: Attachment API uses bearer value as userId and DoS (Low)](https://github.com/wekan/wekan/commit/ccd90343394f433b287733ad0a33c08e0a71f53c).
   Thanks to Siam Thanat Hack (STH) and xet7.
 
 and adds the following new features:
