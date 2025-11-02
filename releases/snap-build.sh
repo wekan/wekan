@@ -9,24 +9,13 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   sudo systemctl enable snapd
   sudo systemctl start snapd
   sudo snap install snapcraft --classic
-  #  sudo snap install multipass
+  sudo snap install multipass
   sudo snap install lxd
   lxd init --auto
-  #  multipass delete ubu
-  #  multipass purge
-  #  multipass launch --name ubu
-  #  snapcraft pack
-  # Install and initialize LXD (if not already)
-  sudo snap install lxd --channel=5.21/stable
-  sudo usermod -aG lxd "$USER"
-  newgrp lxd
-  lxd init --minimal
-
-  # Build with LXD backend and verbose logs
-  snapcraft --use-lxd --verbose
-  # If you hit a stale state, clean and retry:
-  #snapcraft clean
-  #snapcraft --use-lxd --verbose
+  multipass delete ubu
+  multipass purge
+  multipass launch --name ubu
+  snapcraft pack
   exit;
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   echo "macOS"
