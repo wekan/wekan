@@ -283,8 +283,52 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * @return the read stream
    */
   getReadStream() {
-    const ret = fs.createReadStream(this.fileObj.versions[this.versionName].path)
-    return ret;
+    const v = this.fileObj.versions[this.versionName] || {};
+    const originalPath = v.path || '';
+    const normalized = (originalPath || '').replace(/\\/g, '/');
+    const isAvatar = normalized.includes('/avatars/') || (this.fileObj.collectionName === 'avatars');
+    const baseDir = isAvatar ? 'avatars' : 'attachments';
+    const storageRoot = path.join(process.env.WRITABLE_PATH || process.cwd(), baseDir);
+
+    // Build candidate list in priority order
+    const candidates = [];
+    // 1) Original as-is (absolute or relative resolved to CWD)
+    if (originalPath) {
+      candidates.push(originalPath);
+      if (!path.isAbsolute(originalPath)) {
+        candidates.push(path.resolve(process.cwd(), originalPath));
+      }
+    }
+    // 2) Same basename in storageRoot
+    const baseName = path.basename(normalized || this.fileObj._id || '');
+    if (baseName) {
+      candidates.push(path.join(storageRoot, baseName));
+    }
+    // 3) Only ObjectID (no extension) in storageRoot
+    if (this.fileObj && this.fileObj._id) {
+      candidates.push(path.join(storageRoot, String(this.fileObj._id)));
+    }
+    // 4) New strategy naming pattern: <id>-<version>-<name>
+    if (this.fileObj && this.fileObj._id && this.fileObj.name) {
+      candidates.push(path.join(storageRoot, `${this.fileObj._id}-${this.versionName}-${this.fileObj.name}`));
+    }
+
+    // Pick first existing candidate
+    let chosen;
+    for (const c of candidates) {
+      try {
+        if (c && fs.existsSync(c)) {
+          chosen = c;
+          break;
+        }
+      } catch (_) {}
+    }
+
+    if (!chosen) {
+      // No existing candidate found
+      return undefined;
+    }
+    return fs.createReadStream(chosen);
   }
 
   /** returns a write stream

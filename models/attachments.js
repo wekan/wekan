@@ -328,11 +328,35 @@ Attachments.getAttachmentsWithBackwardCompatibility = getAttachmentsWithBackward
 
 // Override the link method to use universal URLs
 if (Meteor.isClient) {
-  // Add custom link method to attachment documents
+  // Override the original FilesCollection link method to use universal URLs
+  // This must override the ostrio:files method to avoid "Match error: Expected plain object"
+  const originalLink = Attachments.link;
+  Attachments.link = function(versionName) {
+    // Accept both direct calls and collection.helpers style calls
+    const fileRef = this._id ? this : (versionName && versionName._id ? versionName : this);
+    const version = (typeof versionName === 'string') ? versionName : 'original';
+    
+    if (fileRef && fileRef._id) {
+      const url = generateUniversalAttachmentUrl(fileRef._id, version);
+      if (process.env.DEBUG === 'true') {
+        console.log('Attachment link generated:', url, 'for ID:', fileRef._id);
+      }
+      return url;
+    }
+    // Fallback to original if somehow we don't have an ID
+    return originalLink ? originalLink.call(this, versionName) : '';
+  };
+  
+  // Also add as collection helper for document instances
   Attachments.collection.helpers({
-    link(version = 'original') {
-      // Use universal URL generator for consistent, URL-agnostic URLs
-      return generateUniversalAttachmentUrl(this._id, version);
+    link(version) {
+      // Handle both no-argument and string argument cases
+      const ver = (typeof version === 'string') ? version : 'original';
+      const url = generateUniversalAttachmentUrl(this._id, ver);
+      if (process.env.DEBUG === 'true') {
+        console.log('Attachment link (helper) generated:', url, 'for ID:', this._id);
+      }
+      return url;
     }
   });
 }

@@ -172,6 +172,16 @@ Meteor.startup(() => {
 - https://github.com/wekan/wekan/blob/main/client/components/cards/attachments.js#L303-L312
 - https://wekan.github.io/hall-of-fame/filebleed/
 
+### Attachments: Forced download to prevent stored XSS
+
+- To prevent browser-side execution of uploaded content under the app origin, all attachment downloads are served with safe headers:
+  - `Content-Type: application/octet-stream`
+  - `Content-Disposition: attachment`
+  - `X-Content-Type-Options: nosniff`
+  - A restrictive `Content-Security-Policy` with `sandbox`
+- This means attachments are downloaded instead of rendered inline by default. This mitigates HTML/JS/SVG based stored XSS vectors.
+- Avatars and inline images remain supported but SVG uploads are blocked and never rendered inline.
+
 ## Brute force login protection
 
 - https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d
