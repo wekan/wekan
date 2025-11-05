@@ -84,10 +84,6 @@ BlazeComponent.extendComponent({
     return this.migrationStatuses.get().fixMissingLists === true;
   },
 
-  deleteEmptyListsNeeded() {
-    return this.migrationStatuses.get().deleteEmptyLists === true;
-  },
-
   deleteDuplicateEmptyListsNeeded() {
     return this.migrationStatuses.get().deleteDuplicateEmptyLists === true;
   },
@@ -177,11 +173,6 @@ BlazeComponent.extendComponent({
         methodArgs = [boardId];
         break;
       
-      case 'deleteEmptyLists':
-        methodName = 'deleteEmptyLists.execute';
-        methodArgs = [boardId];
-        break;
-      
       case 'deleteDuplicateEmptyLists':
         methodName = 'deleteDuplicateEmptyLists.execute';
         methodArgs = [boardId];
@@ -223,10 +214,6 @@ BlazeComponent.extendComponent({
           { step: 'create_missing_lists', name: 'Create Missing Lists', duration: 900 },
           { step: 'update_cards', name: 'Update Cards', duration: 900 },
           { step: 'finalize', name: 'Finalize', duration: 400 },
-        ],
-        deleteEmptyLists: [
-          { step: 'convert_shared_lists', name: 'Convert Shared Lists', duration: 700 },
-          { step: 'delete_empty_lists', name: 'Delete Empty Lists', duration: 800 },
         ],
         deleteDuplicateEmptyLists: [
           { step: 'convert_shared_lists', name: 'Convert Shared Lists', duration: 700 },
@@ -324,10 +311,6 @@ BlazeComponent.extendComponent({
         }),
         'click .js-run-migration[data-migration="fixMissingLists"]': Popup.afterConfirm('runFixMissingListsMigration', function() {
           self.runMigration('fixMissingLists');
-          Popup.back();
-        }),
-        'click .js-run-migration[data-migration="deleteEmptyLists"]': Popup.afterConfirm('runDeleteEmptyListsMigration', function() {
-          self.runMigration('deleteEmptyLists');
           Popup.back();
         }),
         'click .js-run-migration[data-migration="deleteDuplicateEmptyLists"]': Popup.afterConfirm('runDeleteDuplicateEmptyListsMigration', function() {

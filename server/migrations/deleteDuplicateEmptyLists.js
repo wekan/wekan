@@ -59,7 +59,7 @@ class DeleteDuplicateEmptyListsMigration {
 
       return false;
     } catch (error) {
-      console.error('Error checking if deleteEmptyLists migration is needed:', error);
+  console.error('Error checking if deleteDuplicateEmptyLists migration is needed:', error);
       return false;
     }
   }
@@ -92,7 +92,7 @@ class DeleteDuplicateEmptyListsMigration {
         results
       };
     } catch (error) {
-      console.error('Error executing deleteEmptyLists migration:', error);
+  console.error('Error executing deleteDuplicateEmptyLists migration:', error);
       return {
         success: false,
         error: error.message
@@ -319,16 +319,6 @@ const deleteDuplicateEmptyListsMigration = new DeleteDuplicateEmptyListsMigratio
 
 // Register Meteor methods
 Meteor.methods({
-  'deleteEmptyLists.needsMigration'(boardId) {
-    check(boardId, String);
-    
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in');
-    }
-
-    return deleteDuplicateEmptyListsMigration.needsMigration(boardId);
-  },
-
   'deleteDuplicateEmptyLists.needsMigration'(boardId) {
     check(boardId, String);
     
@@ -337,36 +327,6 @@ Meteor.methods({
     }
 
     return deleteDuplicateEmptyListsMigration.needsMigration(boardId);
-  },
-
-  'deleteEmptyLists.execute'(boardId) {
-    check(boardId, String);
-    
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in');
-    }
-
-    // Check if user is board admin
-    const board = ReactiveCache.getBoard(boardId);
-    if (!board) {
-      throw new Meteor.Error('board-not-found', 'Board not found');
-    }
-
-    const user = ReactiveCache.getUser(this.userId);
-    if (!user) {
-      throw new Meteor.Error('user-not-found', 'User not found');
-    }
-
-    // Only board admins can run migrations
-    const isBoardAdmin = board.members && board.members.some(
-      member => member.userId === this.userId && member.isAdmin
-    );
-
-    if (!isBoardAdmin && !user.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
-    }
-
-    return deleteDuplicateEmptyListsMigration.executeMigration(boardId);
   },
 
   'deleteDuplicateEmptyLists.execute'(boardId) {
@@ -397,16 +357,6 @@ Meteor.methods({
     }
 
     return deleteDuplicateEmptyListsMigration.executeMigration(boardId);
-  },
-
-  'deleteEmptyLists.getStatus'(boardId) {
-    check(boardId, String);
-    
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized', 'You must be logged in');
-    }
-
-    return deleteDuplicateEmptyListsMigration.getStatus(boardId);
   },
 
   'deleteDuplicateEmptyLists.getStatus'(boardId) {
