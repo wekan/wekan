@@ -28,6 +28,8 @@ This release fixes the following bugs:
 
 - [Fix 8.16: Switching Board View fails with 403 error](https://github.com/wekan/wekan/commit/550d87ac6cb3ec946600616485afdbd242983ab4).
   Thanks to xet7.
+- [Moved migrations from opening board to right sidebar / Migrations](https://github.com/wekan/wekan/commit/1b25d1d5720d4f486a10d2acce37e315cf9b6057).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
