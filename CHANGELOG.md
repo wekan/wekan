@@ -34,6 +34,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Remove old translations and code not in use anymore](https://github.com/wekan/wekan/commit/ba49d4d140bc0d4cfb5a96db9ab077bc85db58f1).
   Thanks to xet7.
+- [Fixed sidebar migrations to be per-board, not global. Clarified translations](https://github.com/wekan/wekan/commit/e4638d5fbcbe004ac393462331805cac3ba25097).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
