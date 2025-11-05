@@ -57,17 +57,17 @@ BlazeComponent.extendComponent({
       }
     });
 
-    // Check fix avatar URLs migration (global)
-      Meteor.call('fixAvatarUrls.needsMigration', (err, res) => {
+    // Check fix avatar URLs migration (board-specific)
+    Meteor.call('fixAvatarUrls.needsMigration', boardId, (err, res) => {
       if (!err) {
         const statuses = this.migrationStatuses.get();
-          statuses.fixAvatarUrls = res;
+        statuses.fixAvatarUrls = res;
         this.migrationStatuses.set(statuses);
       }
     });
 
-    // Check fix all file URLs migration (global)
-    Meteor.call('fixAllFileUrls.needsMigration', (err, res) => {
+    // Check fix all file URLs migration (board-specific)
+    Meteor.call('fixAllFileUrls.needsMigration', boardId, (err, res) => {
       if (!err) {
         const statuses = this.migrationStatuses.get();
         statuses.fixAllFileUrls = res;
@@ -190,10 +190,12 @@ BlazeComponent.extendComponent({
       
       case 'fixAvatarUrls':
         methodName = 'fixAvatarUrls.execute';
+        methodArgs = [boardId];
         break;
       
       case 'fixAllFileUrls':
         methodName = 'fixAllFileUrls.execute';
+        methodArgs = [boardId];
         break;
     }
     
@@ -231,12 +233,12 @@ BlazeComponent.extendComponent({
           { step: 'fix_missing_ids', name: 'Fix Missing IDs', duration: 600 },
         ],
         fixAvatarUrls: [
-          { step: 'scan_users', name: 'Scan Users', duration: 500 },
-          { step: 'fix_urls', name: 'Fix Avatar URLs', duration: 900 },
+          { step: 'scan_users', name: 'Checking board member avatars', duration: 500 },
+          { step: 'fix_urls', name: 'Fixing avatar URLs', duration: 900 },
         ],
         fixAllFileUrls: [
-          { step: 'scan_files', name: 'Scan Files', duration: 600 },
-          { step: 'fix_urls', name: 'Fix File URLs', duration: 1000 },
+          { step: 'scan_files', name: 'Checking board file attachments', duration: 600 },
+          { step: 'fix_urls', name: 'Fixing file URLs', duration: 1000 },
         ],
       };
 
