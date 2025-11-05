@@ -191,7 +191,7 @@ template(name="cardDetails")
         if currentBoard.allowsMembers
           .card-details-item.card-details-item-members
             h3.card-details-item-title
-              | 👤s
+              | &#x1F465;
               | {{_ 'members'}}
             each userId in getMembers
               +userAvatar(userId=userId cardId=_id)
@@ -242,7 +242,7 @@ template(name="cardDetails")
         if currentBoard.allowsAssignedBy
           .card-details-item.card-details-item-name
             h3.card-details-item-title
-              | 👤-plus
+              | ✍️
               | {{_ 'assigned-by'}}
             if canModifyCard
               unless currentUser.isWorker
