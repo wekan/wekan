@@ -43,6 +43,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix star board](https://github.com/wekan/wekan/commit/8711b476be30496b96b845529b5717bb6e685c27).
   Thanks to xet7.
+- [Fix Card emoji issues](https://github.com/wekan/wekan/commit/e5e711c938edcca23c974c3eec97296898bcf24e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
