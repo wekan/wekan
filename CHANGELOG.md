@@ -24,7 +24,12 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following new feature:
+
+- [Feature: Workspaces, at All Boards page](https://github.com/wekan/wekan/commit/0afbdc95b49537e06b4f9cf98f51a669ef249384).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix 8.16: Switching Board View fails with 403 error](https://github.com/wekan/wekan/commit/550d87ac6cb3ec946600616485afdbd242983ab4).
   Thanks to xet7.
