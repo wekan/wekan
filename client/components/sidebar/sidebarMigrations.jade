@@ -28,6 +28,36 @@ template(name='migrationsSidebar')
               else
                 span.badge.badge-success {{_ 'migration-complete'}}
         
+        .migration-item
+          a.js-run-migration(data-migration="deleteDuplicateEmptyLists")
+            .migration-name
+              | {{_ 'delete-duplicate-empty-lists-migration'}}
+            .migration-status
+              if deleteDuplicateEmptyListsNeeded
+                span.badge.badge-warning {{_ 'migration-needed'}}
+              else
+                span.badge.badge-success {{_ 'migration-complete'}}
+        
+        .migration-item
+          a.js-run-migration(data-migration="restoreLostCards")
+            .migration-name
+              | {{_ 'restore-lost-cards-migration'}}
+            .migration-status
+              if restoreLostCardsNeeded
+                span.badge.badge-warning {{_ 'migration-needed'}}
+              else
+                span.badge.badge-success {{_ 'migration-complete'}}
+        
+        .migration-item
+          a.js-run-migration(data-migration="restoreAllArchived")
+            .migration-name
+              | {{_ 'restore-all-archived-migration'}}
+            .migration-status
+              if restoreAllArchivedNeeded
+                span.badge.badge-warning {{_ 'migration-needed'}}
+              else
+                span.badge.badge-success {{_ 'migration-complete'}}
+        
         hr
         h4 {{_ 'global-migrations'}}
         .migration-item
@@ -58,6 +88,18 @@ template(name='runComprehensiveMigrationPopup')
 
 template(name='runFixMissingListsMigrationPopup')
   p {{_ 'run-fix-missing-lists-migration-confirm'}}
+  button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}
+
+template(name='runDeleteDuplicateEmptyListsMigrationPopup')
+  p {{_ 'run-delete-duplicate-empty-lists-migration-confirm'}}
+  button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}
+
+template(name='runRestoreLostCardsMigrationPopup')
+  p {{_ 'run-restore-lost-cards-migration-confirm'}}
+  button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}
+
+template(name='runRestoreAllArchivedMigrationPopup')
+  p {{_ 'run-restore-all-archived-migration-confirm'}}
   button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}
 
 template(name='runFixAvatarUrlsMigrationPopup')

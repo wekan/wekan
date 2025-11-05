@@ -34,7 +34,6 @@ class ComprehensiveBoardMigration {
       'fix_orphaned_cards',
       'convert_shared_lists',
       'ensure_per_swimlane_lists',
-      'cleanup_empty_lists',
       'validate_migration'
     ];
   }
@@ -169,7 +168,6 @@ class ComprehensiveBoardMigration {
         totalCardsProcessed: 0,
         totalListsProcessed: 0,
         totalListsCreated: 0,
-        totalListsRemoved: 0,
         errors: []
       };
 
@@ -239,15 +237,7 @@ class ComprehensiveBoardMigration {
         listsProcessed: results.steps.ensurePerSwimlane.listsProcessed
       });
 
-      // Step 5: Cleanup empty lists
-      updateProgress('cleanup_empty_lists', 0, 'Cleaning up empty lists...');
-      results.steps.cleanupEmpty = await this.cleanupEmptyLists(boardId);
-      results.totalListsRemoved += results.steps.cleanupEmpty.listsRemoved || 0;
-      updateProgress('cleanup_empty_lists', 100, 'Empty lists cleaned up', {
-        listsRemoved: results.steps.cleanupEmpty.listsRemoved
-      });
-
-      // Step 6: Validate migration
+      // Step 5: Validate migration
       updateProgress('validate_migration', 0, 'Validating migration...');
       results.steps.validate = await this.validateMigration(boardId);
       updateProgress('validate_migration', 100, 'Migration validated', {
@@ -256,7 +246,7 @@ class ComprehensiveBoardMigration {
         totalLists: results.steps.validate.totalLists
       });
 
-      // Step 7: Fix avatar URLs
+      // Step 6: Fix avatar URLs
       updateProgress('fix_avatar_urls', 0, 'Fixing avatar URLs...');
       results.steps.fixAvatarUrls = await this.fixAvatarUrls(boardId);
       updateProgress('fix_avatar_urls', 100, 'Avatar URLs fixed', {

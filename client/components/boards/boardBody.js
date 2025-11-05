@@ -146,7 +146,6 @@ BlazeComponent.extendComponent({
         { step: 'fix_orphaned_cards', name: 'Fix Orphaned Cards', duration: 2000 },
         { step: 'convert_shared_lists', name: 'Convert Shared Lists', duration: 3000 },
         { step: 'ensure_per_swimlane_lists', name: 'Ensure Per-Swimlane Lists', duration: 1500 },
-        { step: 'cleanup_empty_lists', name: 'Cleanup Empty Lists', duration: 1000 },
         { step: 'validate_migration', name: 'Validate Migration', duration: 1000 },
         { step: 'fix_avatar_urls', name: 'Fix Avatar URLs', duration: 1000 },
         { step: 'fix_attachment_urls', name: 'Fix Attachment URLs', duration: 1000 }
