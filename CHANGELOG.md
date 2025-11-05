@@ -32,6 +32,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix 8.16 Lists with no items are deleted every time when board is opened. Moved migrations to right sidebar](https://github.com/wekan/wekan/commit/7713e613b431e44dc13cee72e7a1e5f031473fa6).
   Thanks to xet7.
+- [Remove old translations and code not in use anymore](https://github.com/wekan/wekan/commit/ba49d4d140bc0d4cfb5a96db9ab077bc85db58f1).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
