@@ -95,3 +95,7 @@ template(name="createCustomFieldPopup")
 template(name="deleteCustomFieldPopup")
     p {{_ "custom-field-delete-pop"}}
     button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+// Reuse the create form for editing to satisfy popup template lookup
+template(name="editCustomFieldPopup")
+    +Template.dynamic(template="createCustomFieldPopup")
