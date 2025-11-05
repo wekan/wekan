@@ -1,4 +1,5 @@
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
+import { Random } from 'meteor/random';
 import { SyncedCron } from 'meteor/percolate:synced-cron';
 import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
@@ -199,6 +200,29 @@ Users.attachSchema(
        */
       type: String,
       optional: true,
+    },
+    'profile.boardWorkspacesTree': {
+      /**
+       * Per-user spaces tree for All Boards page
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.boardWorkspacesTree.$': {
+      /**
+       * Space node: { id: String, name: String, children: Array<node> }
+       */
+      type: Object,
+      blackbox: true,
+      optional: true,
+    },
+    'profile.boardWorkspaceAssignments': {
+      /**
+       * Per-user map of boardId -> spaceId
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
     },
     'profile.invitedBoards': {
       /**
@@ -1667,6 +1691,73 @@ Meteor.methods({
   toggleDesktopDragHandles() {
     const user = ReactiveCache.getCurrentUser();
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
+  },
+  // Spaces: create a new space under parentId (or root when null)
+  createWorkspace({ parentId = null, name }) {
+    check(name, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    const user = Users.findOne(this.userId) || {};
+    const tree = (user.profile && user.profile.boardWorkspacesTree) ? EJSON.clone(user.profile.boardWorkspacesTree) : [];
+
+    const newNode = { id: Random.id(), name, children: [] };
+
+    if (!parentId) {
+      tree.push(newNode);
+    } else {
+      const insertInto = (nodes) => {
+        for (let n of nodes) {
+          if (n.id === parentId) {
+            n.children = n.children || [];
+            n.children.push(newNode);
+            return true;
+          }
+          if (n.children && n.children.length) {
+            if (insertInto(n.children)) return true;
+          }
+        }
+        return false;
+      };
+      insertInto(tree);
+    }
+
+    Users.update(this.userId, { $set: { 'profile.boardWorkspacesTree': tree } });
+    return newNode;
+  },
+  // Spaces: set entire tree (used for drag-drop reordering)
+  setWorkspacesTree(newTree) {
+    check(newTree, Array);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    Users.update(this.userId, { $set: { 'profile.boardWorkspacesTree': newTree } });
+    return true;
+  },
+  // Assign a board to a space
+  assignBoardToWorkspace(boardId, spaceId) {
+    check(boardId, String);
+    check(spaceId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    
+    const user = Users.findOne(this.userId);
+    const assignments = user.profile?.boardWorkspaceAssignments || {};
+    assignments[boardId] = spaceId;
+    
+    Users.update(this.userId, {
+      $set: { 'profile.boardWorkspaceAssignments': assignments }
+    });
+    return true;
+  },
+  // Remove a board assignment (moves it back to Remaining)
+  unassignBoardFromWorkspace(boardId) {
+    check(boardId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    
+    const user = Users.findOne(this.userId);
+    const assignments = user.profile?.boardWorkspaceAssignments || {};
+    delete assignments[boardId];
+    
+    Users.update(this.userId, {
+      $set: { 'profile.boardWorkspaceAssignments': assignments }
+    });
+    return true;
   },
   toggleHideCheckedItems() {
     const user = ReactiveCache.getCurrentUser();

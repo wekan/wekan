@@ -14,6 +14,9 @@ Template.boardList.helpers({
        return Utils.isMiniScreen() && Session.get('currentBoard'); */
     return true;
   },
+  BoardMultiSelection() {
+    return BoardMultiSelection;
+  },
 })
 
 Template.boardListHeaderBar.events({
@@ -45,6 +48,9 @@ BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
     Meteor.subscribe('tableVisibilityModeSettings');
+    this.selectedMenu = new ReactiveVar('starred');
+    this.selectedWorkspaceIdVar = new ReactiveVar(null);
+    this.workspacesTreeVar = new ReactiveVar([]);
     let currUser = ReactiveCache.getCurrentUser();
     let userLanguage;
     if (currUser && currUser.profile) {
@@ -53,9 +59,72 @@ BlazeComponent.extendComponent({
     if (userLanguage) {
       TAPi18n.setLanguage(userLanguage);
     }
+    // Load workspaces tree reactively
+    this.autorun(() => {
+      const u = ReactiveCache.getCurrentUser();
+      const tree = (u && u.profile && u.profile.boardWorkspacesTree) || [];
+      this.workspacesTreeVar.set(tree);
+    });
+  },
+
+  reorderWorkspaces(draggedSpaceId, targetSpaceId) {
+    const tree = this.workspacesTreeVar.get();
+    
+    // Helper to remove a space from tree
+    const removeSpace = (nodes, id) => {
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].id === id) {
+          const removed = nodes.splice(i, 1)[0];
+          return { tree: nodes, removed };
+        }
+        if (nodes[i].children) {
+          const result = removeSpace(nodes[i].children, id);
+          if (result.removed) {
+            return { tree: nodes, removed: result.removed };
+          }
+        }
+      }
+      return { tree: nodes, removed: null };
+    };
+    
+    // Helper to insert a space after target
+    const insertAfter = (nodes, targetId, spaceToInsert) => {
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].id === targetId) {
+          nodes.splice(i + 1, 0, spaceToInsert);
+          return true;
+        }
+        if (nodes[i].children) {
+          if (insertAfter(nodes[i].children, targetId, spaceToInsert)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+    
+    // Clone the tree
+    const newTree = EJSON.clone(tree);
+    
+    // Remove the dragged space
+    const { tree: treeAfterRemoval, removed } = removeSpace(newTree, draggedSpaceId);
+    
+    if (removed) {
+      // Insert after target
+      insertAfter(treeAfterRemoval, targetSpaceId, removed);
+      
+      // Save the new tree
+      Meteor.call('setWorkspacesTree', treeAfterRemoval, (err) => {
+        if (err) console.error(err);
+      });
+    }
   },
 
   onRendered() {
+    // jQuery sortable is disabled in favor of HTML5 drag-and-drop for space management
+    // The old sortable code has been removed to prevent conflicts
+    
+    /* OLD SORTABLE CODE - DISABLED
     const itemsSelector = '.js-board:not(.placeholder)';
 
     const $boards = this.$('.js-boards');
@@ -73,20 +142,12 @@ BlazeComponent.extendComponent({
         EscapeActions.executeUpTo('popup-close');
       },
       stop(evt, ui) {
-        // To attribute the new index number, we need to get the DOM element
         const prevBoardDom = ui.item.prev('.js-board').get(0);
         const nextBoardDom = ui.item.next('.js-board').get(0);
         const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardDom, 1);
 
         const boardDomElement = ui.item.get(0);
         const board = Blaze.getData(boardDomElement);
-        // Normally the jquery-ui sortable library moves the dragged DOM element
-        // to its new position, which disrupts Blaze reactive updates mechanism
-        // (especially when we move the last card of a list, or when multiple
-        // users move some cards at the same time). To prevent these UX glitches
-        // we ask sortable to gracefully cancel the move, and to put back the
-        // DOM in its initial state. The card move is then handled reactively by
-        // Blaze with the below query.
         $boards.sortable('cancel');
         const currentUser = ReactiveCache.getCurrentUser();
         if (currentUser && typeof currentUser.setBoardSortIndex === 'function') {
@@ -95,7 +156,6 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
       if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $boards.sortable({
@@ -103,6 +163,7 @@ BlazeComponent.extendComponent({
         });
       }
     });
+    */
   },
   userHasTeams() {
     if (ReactiveCache.getCurrentUser()?.teams?.length > 0)
@@ -133,6 +194,41 @@ BlazeComponent.extendComponent({
   userHasOrgsOrTeams() {
     const ret = this.userHasOrgs() || this.userHasTeams();
     return ret;
+  },
+  currentMenuPath() {
+    const sel = this.selectedMenu.get();
+    const currentUser = ReactiveCache.getCurrentUser();
+    
+    // Helper to find space by id in tree
+    const findSpaceById = (nodes, targetId, path = []) => {
+      for (const node of nodes) {
+        if (node.id === targetId) {
+          return [...path, node];
+        }
+        if (node.children && node.children.length > 0) {
+          const result = findSpaceById(node.children, targetId, [...path, node]);
+          if (result) return result;
+        }
+      }
+      return null;
+    };
+    
+    if (sel === 'starred') {
+      return { icon: '⭐', text: TAPi18n.__('allboards.starred') };
+    } else if (sel === 'templates') {
+      return { icon: '📋', text: TAPi18n.__('allboards.templates') };
+    } else if (sel === 'remaining') {
+      return { icon: '📂', text: TAPi18n.__('allboards.remaining') };
+    } else {
+      // sel is a workspaceId, build path
+      const tree = this.workspacesTreeVar.get();
+      const spacePath = findSpaceById(tree, sel);
+      if (spacePath && spacePath.length > 0) {
+        const pathText = spacePath.map(s => s.name).join(' / ');
+        return { icon: '🗂️', text: `${TAPi18n.__('allboards.workspaces')} / ${pathText}` };
+      }
+      return { icon: '🗂️', text: TAPi18n.__('allboards.workspaces') };
+    }
   },
   boards() {
     let query = {
@@ -188,11 +284,29 @@ BlazeComponent.extendComponent({
 
     const boards = ReactiveCache.getBoards(query, {});
     const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
-      return currentUser.sortBoardsForUser(boards);
+    let list = boards;
+    // Apply left menu filtering
+    const sel = this.selectedMenu.get();
+    const assignments = (currentUser && currentUser.profile && currentUser.profile.boardWorkspaceAssignments) || {};
+    if (sel === 'starred') {
+      list = list.filter(b => currentUser && currentUser.hasStarred(b._id));
+    } else if (sel === 'templates') {
+      list = list.filter(b => b.type === 'template-container');
+    } else if (sel === 'remaining') {
+      list = list.filter(b => 
+        !assignments[b._id] && 
+        b.type !== 'template-container' && 
+        !(currentUser && currentUser.hasStarred(b._id))
+      );
+    } else {
+      // assume sel is a workspaceId
+      list = list.filter(b => assignments[b._id] === sel);
     }
-    // Fallback: deterministic title sort when no user mapping is available (e.g., public page)
-    return boards.slice().sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+    if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
+      return currentUser.sortBoardsForUser(list);
+    }
+    return list.slice().sort((a, b) => (a.title || '').localeCompare(b.title || ''));
   },
   boardLists(boardId) {
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
@@ -240,13 +354,65 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-add-board': Popup.open('createBoard'),
+        'click .js-select-menu'(evt) {
+          const type = evt.currentTarget.getAttribute('data-type');
+          this.selectedWorkspaceIdVar.set(null);
+          this.selectedMenu.set(type);
+        },
+        'click .js-select-workspace'(evt) {
+          const id = evt.currentTarget.getAttribute('data-id');
+          this.selectedWorkspaceIdVar.set(id);
+          this.selectedMenu.set(id);
+        },
+        'click .js-add-workspace'(evt) {
+          evt.preventDefault();
+          const name = prompt(TAPi18n.__('allboards.add-workspace-prompt') || 'New Space name');
+          if (name && name.trim()) {
+            Meteor.call('createWorkspace', { parentId: null, name: name.trim() }, (err, res) => {
+              if (err) console.error(err);
+            });
+          }
+        },
+        'click .js-add-board'(evt) {
+          // Store the currently selected workspace/menu for board creation
+          const selectedWorkspaceId = this.selectedWorkspaceIdVar.get();
+          const selectedMenu = this.selectedMenu.get();
+          
+          if (selectedWorkspaceId) {
+            Session.set('createBoardInWorkspace', selectedWorkspaceId);
+          } else {
+            Session.set('createBoardInWorkspace', null);
+          }
+          
+            // Open different popup based on context
+            if (selectedMenu === 'templates') {
+              Popup.open('createTemplateContainer')(evt);
+            } else {
+              Popup.open('createBoard')(evt);
+          }
+        },
         'click .js-star-board'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
           const boardId = this.currentData()._id;
           if (boardId) {
             Meteor.call('toggleBoardStar', boardId);
           }
-          evt.preventDefault();
+        },
+        // HTML5 DnD from boards to spaces
+        'dragstart .js-board'(evt) {
+          const boardId = this.currentData()._id;
+          
+          // Support multi-drag
+          if (BoardMultiSelection.isActive() && BoardMultiSelection.isSelected(boardId)) {
+            const selectedIds = BoardMultiSelection.getSelectedBoardIds();
+            try { 
+              evt.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(selectedIds));
+              evt.originalEvent.dataTransfer.setData('application/x-board-multi', 'true');
+            } catch (e) {}
+          } else {
+            try { evt.originalEvent.dataTransfer.setData('text/plain', boardId); } catch (e) {}
+          }
         },
         'click .js-clone-board'(evt) {
           if (confirm(TAPi18n.__('duplicate-board-confirm'))) {
@@ -296,6 +462,58 @@ BlazeComponent.extendComponent({
               FlowRouter.go('home');
             }
           });
+        },
+        'click .js-multiselection-activate'(evt) {
+          evt.preventDefault();
+          if (BoardMultiSelection.isActive()) {
+            BoardMultiSelection.disable();
+          } else {
+            BoardMultiSelection.activate();
+          }
+        },
+        'click .js-multiselection-reset'(evt) {
+          evt.preventDefault();
+          BoardMultiSelection.disable();
+        },
+        'click .js-toggle-board-multi-selection'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          const boardId = this.currentData()._id;
+          BoardMultiSelection.toogle(boardId);
+        },
+        'click .js-archive-selected-boards'(evt) {
+          evt.preventDefault();
+          const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
+          if (selectedBoards.length > 0 && confirm(TAPi18n.__('archive-board-confirm'))) {
+            selectedBoards.forEach(boardId => {
+              Meteor.call('archiveBoard', boardId);
+            });
+            BoardMultiSelection.reset();
+          }
+        },
+        'click .js-duplicate-selected-boards'(evt) {
+          evt.preventDefault();
+          const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
+          if (selectedBoards.length > 0 && confirm(TAPi18n.__('duplicate-board-confirm'))) {
+            selectedBoards.forEach(boardId => {
+              const board = ReactiveCache.getBoard(boardId);
+              if (board) {
+                Meteor.call(
+                  'copyBoard',
+                  boardId,
+                  {
+                    sort: ReactiveCache.getBoards({ archived: false }).length,
+                    type: 'board',
+                    title: board.title,
+                  },
+                  (err, res) => {
+                    if (err) console.error(err);
+                  }
+                );
+              }
+            });
+            BoardMultiSelection.reset();
+          }
         },
         'click #resetBtn'(event) {
           let allBoards = document.getElementsByClassName("js-board");
@@ -363,7 +581,259 @@ BlazeComponent.extendComponent({
             }
           }
         },
+        'click .js-edit-workspace'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          const workspaceId = evt.currentTarget.getAttribute('data-id');
+          
+          // Find the space in the tree
+          const findSpace = (nodes, id) => {
+            for (const node of nodes) {
+              if (node.id === id) return node;
+              if (node.children) {
+                const found = findSpace(node.children, id);
+                if (found) return found;
+              }
+            }
+            return null;
+          };
+          
+          const tree = this.workspacesTreeVar.get();
+          const space = findSpace(tree, workspaceId);
+          
+          if (space) {
+            const newName = prompt(TAPi18n.__('allboards.edit-workspace-name') || 'Space name:', space.name);
+            const newIcon = prompt(TAPi18n.__('allboards.edit-workspace-icon') || 'Space icon (markdown):', space.icon || '📁');
+            
+            if (newName !== null && newName.trim()) {
+              // Update space in tree
+              const updateSpaceInTree = (nodes, id, updates) => {
+                return nodes.map(node => {
+                  if (node.id === id) {
+                    return { ...node, ...updates };
+                  }
+                  if (node.children) {
+                    return { ...node, children: updateSpaceInTree(node.children, id, updates) };
+                  }
+                  return node;
+                });
+              };
+              
+              const updatedTree = updateSpaceInTree(tree, workspaceId, { 
+                name: newName.trim(), 
+                icon: newIcon || '📁' 
+              });
+              
+              Meteor.call('setWorkspacesTree', updatedTree, (err) => {
+                if (err) console.error(err);
+              });
+            }
+          }
+        },
+        'click .js-add-subworkspace'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          const parentId = evt.currentTarget.getAttribute('data-id');
+          const name = prompt(TAPi18n.__('allboards.add-subworkspace-prompt') || 'Subspace name:');
+          
+          if (name && name.trim()) {
+            Meteor.call('createWorkspace', { parentId, name: name.trim() }, (err) => {
+              if (err) console.error(err);
+            });
+          }
+        },
+        'dragstart .workspace-node'(evt) {
+          const workspaceId = evt.currentTarget.getAttribute('data-workspace-id');
+          evt.originalEvent.dataTransfer.effectAllowed = 'move';
+          evt.originalEvent.dataTransfer.setData('application/x-workspace-id', workspaceId);
+          
+          // Create a better drag image
+          const dragImage = evt.currentTarget.cloneNode(true);
+          dragImage.style.position = 'absolute';
+          dragImage.style.top = '-9999px';
+          dragImage.style.opacity = '0.8';
+          document.body.appendChild(dragImage);
+          evt.originalEvent.dataTransfer.setDragImage(dragImage, 0, 0);
+          setTimeout(() => document.body.removeChild(dragImage), 0);
+          
+          evt.currentTarget.classList.add('dragging');
+        },
+        'dragend .workspace-node'(evt) {
+          evt.currentTarget.classList.remove('dragging');
+          document.querySelectorAll('.workspace-node').forEach(el => {
+            el.classList.remove('drag-over');
+          });
+        },
+        'dragover .workspace-node'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          
+          const draggingEl = document.querySelector('.workspace-node.dragging');
+          const targetEl = evt.currentTarget;
+          
+          // Allow dropping boards on any space
+          // Or allow dropping spaces on other spaces (but not on itself or descendants)
+          if (!draggingEl || (targetEl !== draggingEl && !draggingEl.contains(targetEl))) {
+            evt.originalEvent.dataTransfer.dropEffect = 'move';
+            targetEl.classList.add('drag-over');
+          }
+        },
+        'dragleave .workspace-node'(evt) {
+          evt.currentTarget.classList.remove('drag-over');
+        },
+        'drop .workspace-node'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          
+          const targetEl = evt.currentTarget;
+          targetEl.classList.remove('drag-over');
+          
+          // Check what's being dropped - board or workspace
+          const draggedWorkspaceId = evt.originalEvent.dataTransfer.getData('application/x-workspace-id');
+          const isMultiBoard = evt.originalEvent.dataTransfer.getData('application/x-board-multi');
+          const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
+          
+          if (draggedWorkspaceId && !boardData) {
+            // This is a workspace reorder operation
+            const targetWorkspaceId = targetEl.getAttribute('data-workspace-id');
+            
+            if (draggedWorkspaceId !== targetWorkspaceId) {
+              this.reorderWorkspaces(draggedWorkspaceId, targetWorkspaceId);
+            }
+          } else if (boardData) {
+            // This is a board assignment operation
+            // Get the workspace ID directly from the dropped workspace-node's data-workspace-id attribute
+            const workspaceId = targetEl.getAttribute('data-workspace-id');
+            
+            if (workspaceId) {
+              if (isMultiBoard) {
+                // Multi-board drag
+                try {
+                  const boardIds = JSON.parse(boardData);
+                  boardIds.forEach(boardId => {
+                    Meteor.call('assignBoardToWorkspace', boardId, workspaceId);
+                  });
+                } catch (e) {
+                  // Error parsing multi-board data
+                }
+              } else {
+                // Single board drag
+                Meteor.call('assignBoardToWorkspace', boardData, workspaceId);
+              }
+            }
+          }
+        },
+        'dragover .js-select-menu'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          
+          const menuType = evt.currentTarget.getAttribute('data-type');
+          // Only allow drop on "remaining" menu to unassign boards from spaces
+          if (menuType === 'remaining') {
+            evt.originalEvent.dataTransfer.dropEffect = 'move';
+            evt.currentTarget.classList.add('drag-over');
+          }
+        },
+        'dragleave .js-select-menu'(evt) {
+          evt.currentTarget.classList.remove('drag-over');
+        },
+        'drop .js-select-menu'(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          
+          const menuType = evt.currentTarget.getAttribute('data-type');
+          evt.currentTarget.classList.remove('drag-over');
+          
+          // Only handle drops on "remaining" menu
+          if (menuType !== 'remaining') return;
+          
+          const isMultiBoard = evt.originalEvent.dataTransfer.getData('application/x-board-multi');
+          const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
+          
+          if (boardData) {
+            if (isMultiBoard) {
+              // Multi-board drag - unassign all from workspaces
+              try {
+                const boardIds = JSON.parse(boardData);
+                boardIds.forEach(boardId => {
+                  Meteor.call('unassignBoardFromWorkspace', boardId);
+                });
+              } catch (e) {
+                // Error parsing multi-board data
+              }
+            } else {
+              // Single board drag - unassign from workspace
+              Meteor.call('unassignBoardFromWorkspace', boardData);
+            }
+          }
+        },
       },
     ];
+  },
+  // Helpers for templates
+  workspacesTree() {
+    return this.workspacesTreeVar.get();
+  },
+  selectedWorkspaceId() {
+    return this.selectedWorkspaceIdVar.get();
+  },
+  isSelectedMenu(type) {
+    return this.selectedMenu.get() === type;
+  },
+  isSpaceSelected(id) {
+    return this.selectedWorkspaceIdVar.get() === id;
+  },
+  menuItemCount(type) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const assignments = (currentUser && currentUser.profile && currentUser.profile.boardWorkspaceAssignments) || {};
+    
+    // Get all boards for counting
+    let query = {
+      $and: [
+        { archived: false },
+        { type: { $in: ['board', 'template-container'] } },
+        { $or: [{ 'members.userId': Meteor.userId() }] },
+        { title: { $not: { $regex: /^\^.*\^$/ } } }
+      ]
+    };
+    const allBoards = ReactiveCache.getBoards(query, {});
+    
+    if (type === 'starred') {
+      return allBoards.filter(b => currentUser && currentUser.hasStarred(b._id)).length;
+    } else if (type === 'templates') {
+      return allBoards.filter(b => b.type === 'template-container').length;
+    } else if (type === 'remaining') {
+      return allBoards.filter(b => 
+        !assignments[b._id] && 
+        b.type !== 'template-container' && 
+        !(currentUser && currentUser.hasStarred(b._id))
+      ).length;
+    }
+    return 0;
+  },
+  workspaceCount(workspaceId) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const assignments = (currentUser && currentUser.profile && currentUser.profile.boardWorkspaceAssignments) || {};
+    
+    // Get all boards for counting
+    let query = {
+      $and: [
+        { archived: false },
+        { type: { $in: ['board', 'template-container'] } },
+        { $or: [{ 'members.userId': Meteor.userId() }] },
+        { title: { $not: { $regex: /^\^.*\^$/ } } }
+      ]
+    };
+    const allBoards = ReactiveCache.getBoards(query, {});
+    
+    // Count boards directly assigned to this space (not including children)
+    return allBoards.filter(b => assignments[b._id] === workspaceId).length;
+  },
+  canModifyBoards() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser && !currentUser.isCommentOnly();
+  },
+  hasBoardsSelected() {
+    return BoardMultiSelection.count() > 0;
   },
 }).register('boardList');

@@ -8,6 +8,273 @@
   padding: 1vh 0;
 }
 
+/* Two-column layout for All Boards */
+.boards-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+}
+
+.boards-left-menu {
+  border-right: 1px solid #e0e0e0;
+  padding-right: 12px;
+}
+
+.boards-left-menu ul.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+.boards-left-menu .menu-item {
+  margin: 4px 0;
+}
+.boards-left-menu .menu-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.boards-left-menu .menu-item .menu-label {
+  flex: 1;
+}
+.boards-left-menu .menu-item .menu-count {
+  background: #ddd;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.boards-left-menu .menu-item.active a,
+.boards-left-menu .menu-item a:hover {
+  background: #f0f0f0;
+}
+.boards-left-menu .menu-item.active .menu-count {
+  background: #bbb;
+}
+
+/* Drag-over state for menu items (for dropping boards on Remaining) */
+.boards-left-menu .menu-item a.drag-over {
+  background: #d0e8ff;
+  border: 2px dashed #2196F3;
+}
+
+.workspaces-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 12px;
+}
+.workspaces-header .js-add-space {
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.workspace-tree {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.workspace-node {
+  margin: 2px 0;
+  position: relative;
+}
+
+.workspace-node-content {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.workspace-node.dragging > .workspace-node-content {
+  opacity: 0.5;
+  background: #e0e0e0;
+}
+
+.workspace-node.drag-over > .workspace-node-content {
+  background: #d0e8ff;
+  border: 2px dashed #2196F3;
+}
+
+.workspace-drag-handle {
+  cursor: grab;
+  color: #999;
+  font-size: 14px;
+  padding: 0 4px;
+  user-select: none;
+}
+
+.workspace-drag-handle:active {
+  cursor: grabbing;
+}
+
+.workspace-node .js-select-space {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+  text-decoration: none;
+}
+
+.workspace-node .workspace-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.workspace-node .workspace-name {
+  flex: 1;
+}
+
+.workspace-node .workspace-count {
+  background: #ddd;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.workspace-node .js-edit-space,
+.workspace-node .js-add-subspace {
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.workspace-node .js-edit-space:hover,
+.workspace-node .js-add-subspace:hover {
+  opacity: 1;
+  background: #e0e0e0;
+}
+
+.workspace-node.active > .workspace-node-content .js-select-space,
+.workspace-node > .workspace-node-content:hover .js-select-space {
+  background: #f0f0f0;
+}
+
+.workspace-node.active .workspace-count {
+  background: #bbb;
+}
+
+.boards-right-grid {
+  min-height: 200px;
+}
+
+.boards-path-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.boards-path-header .path-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.boards-path-header .multiselection-hint {
+  background: #FFF3CD;
+  color: #856404;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: normal;
+  border: 1px solid #FFE69C;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.boards-path-header .path-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.boards-path-header .path-icon {
+  font-size: 18px;
+}
+
+.boards-path-header .path-text {
+  color: #333;
+}
+
+.boards-path-header .board-header-btn {
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.boards-path-header .board-header-btn:hover {
+  background: #f0f0f0;
+  border-color: #bbb;
+}
+
+.boards-path-header .board-header-btn.emphasis {
+  background: #2196F3;
+  color: #fff;
+  border-color: #2196F3;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.5);
+  transform: scale(1.05);
+}
+
+.boards-path-header .board-header-btn.emphasis:hover {
+  background: #1976D2;
+  box-shadow: 0 3px 12px rgba(33, 150, 243, 0.7);
+}
+
+.boards-path-header .board-header-btn-close {
+  padding: 4px 10px;
+  background: #f44336;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px; /* Extra space between MultiSelection toggle and Remove Filter */
+}
+
+.boards-path-header .board-header-btn-close:hover {
+  background: #d32f2f;
+}
+
 .zoom-controls {
   display: flex;
   align-items: center;
@@ -109,19 +376,25 @@
 }
 .board-list .board-list-item {
   overflow: hidden;
-  background-color: #999;
+  background-color: inherit; /* Inherit board color from parent li.js-board */
   color: #f6f6f6;
   min-height: 100px;
   font-size: 16px;
   line-height: 22px;
-  border-radius: 3px;
+  border-radius: 0; /* No border-radius - parent .js-board has it */
   display: block;
   font-weight: 700;
-  padding: 8px;
-  margin: 8px;
+  padding: 36px 8px 32px 8px; /* Top padding for drag handle, bottom for checkbox */
+  margin: 0; /* No margin - moved to parent .js-board */
   position: relative;
   text-decoration: none;
   word-wrap: break-word;
+}
+
+.board-list .board-list-item > .js-open-board {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 .board-list .board-list-item.template-container {
   border: 4px solid #fff;
@@ -150,9 +423,16 @@
 .board-list .js-add-board .label {
   font-weight: normal;
   line-height: 56px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #999; /* Darker background for better text contrast */
+  border-radius: 3px;
+  padding: 36px 8px 32px 8px;
 }
-.board-list .js-add-board :hover {
-  background-color: #939393;
+.board-list .js-add-board .label:hover {
+  background-color: #808080; /* Even darker on hover */
 }
 .board-list .is-star-active,
 .board-list .is-not-star-active {
@@ -238,6 +518,95 @@
 .board-list li:hover a .is-not-star-active {
   opacity: 1;
 }
+
+/* Board drag handle - always visible and positioned at top */
+.board-list .board-handle {
+  position: absolute;
+  padding: 4px 6px;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+  cursor: grab;
+  opacity: 1;
+  user-select: none;
+}
+
+.board-list .board-handle:active {
+  cursor: grabbing;
+}
+
+.board-list .board-handle:hover {
+  background: rgba(255, 255, 0, 0.8) !important;
+  color: #000;
+}
+
+/* Multiselection checkbox on board items */
+.board-list .board-list-item .multi-selection-checkbox {
+  position: absolute !important;
+  bottom: 4px !important;
+  left: 4px !important;
+  top: auto !important;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #fff;
+  background: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  transform: none !important;
+  margin: 0 !important;
+}
+
+.board-list .board-list-item .multi-selection-checkbox:hover {
+  background: rgba(0,0,0,0.7);
+  transform: scale(1.15) !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+}
+
+.board-list .board-list-item .multi-selection-checkbox.is-checked {
+  background: #2196F3;
+  border-color: #2196F3;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.6);
+  width: 24px !important;
+  height: 24px !important;
+  top: auto !important;
+  left: 4px !important;
+  transform: none !important;
+  border-radius: 4px !important;
+}
+
+.board-list .board-list-item .multi-selection-checkbox.is-checked::after {
+  content: '✓';
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.board-list.is-multiselection-active .js-board.is-checked {
+  outline: 4px solid #2196F3;
+  outline-offset: -4px;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+}
+
+/* Visual hint when multiselection is active */
+.board-list.is-multiselection-active .board-list-item {
+  border: 2px dashed rgba(33, 150, 243, 0.3);
+}
+
 .board-backgrounds-list .board-background-select {
   box-sizing: border-box;
   display: block;
@@ -739,9 +1108,62 @@
 #resetBtn {
   display: inline;
 }
+
+#resetBtn.filter-reset-btn {
+  background: #f44336;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+#resetBtn.filter-reset-btn:hover {
+  background: #d32f2f;
+}
+
+#resetBtn.filter-reset-btn .reset-icon {
+  font-size: 14px;
+}
+
 .js-board {
   display: block;
+  background-color: #999; /* Default gray background if no color class is applied */
+  border-radius: 3px; /* Rounded corners for board items */
+  overflow: hidden; /* Ensure children respect rounded corners */
+  margin: 8px; /* Space between board items */
 }
+
+/* Reset background for add-board button */
+.js-add-board {
+  background-color: transparent !important;
+  margin: 8px !important; /* Keep margin for add-board */
+}
+
+/* Apply board colors to li.js-board parent instead of just the link */
+.board-list .board-color-nephritis { background-color: #27ae60; }
+.board-list .board-color-pomegranate { background-color: #c0392b; }
+.board-list .board-color-belize { background-color: #2980b9; }
+.board-list .board-color-wisteria { background-color: #8e44ad; }
+.board-list .board-color-midnight { background-color: #2c3e50; }
+.board-list .board-color-pumpkin { background-color: #e67e22; }
+.board-list .board-color-moderatepink { background-color: #cd5a91; }
+.board-list .board-color-strongcyan { background-color: #00aecc; }
+.board-list .board-color-limegreen { background-color: #4bbf6b; }
+.board-list .board-color-dark { background-color: #2c3e51; }
+.board-list .board-color-relax { background-color: #27ae61; }
+.board-list .board-color-corteza { background-color: #568ba2; }
+.board-list .board-color-clearblue { background-color: #3498db; }
+.board-list .board-color-natural { background-color: #596557; }
+.board-list .board-color-modern { background-color: #2a80b8; }
+.board-list .board-color-moderndark { background-color: #2a2a2a; }
+.board-list .board-color-exodark { background-color: #222; }
+
 .minicard-members {
   padding: 6px 0 6px 8px;
   width: 100%;

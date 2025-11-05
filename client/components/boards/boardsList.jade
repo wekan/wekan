@@ -2,151 +2,160 @@ template(name="boardList")
   .wrapper
     .board-list-header
 
-    ul.AllBoardTeamsOrgs
-      li.AllBoardTeams
-        if userHasTeams
-          select.js-AllBoardTeams#jsAllBoardTeams("multiple")
-            option(value="-1") {{_ 'teams'}} :
-            each teamsDatas
-              option(value="{{teamId}}") {{_ teamDisplayName}}
+    .boards-layout
+      // Left menu
+      .boards-left-menu
+        ul.menu
+          li(class="menu-item {{#if isSelectedMenu 'starred'}}active{{/if}}")
+            a.js-select-menu(data-type="starred")
+              span.menu-label ⭐ {{_ 'allboards.starred'}}
+              span.menu-count {{menuItemCount 'starred'}}
+          li(class="menu-item {{#if isSelectedMenu 'templates'}}active{{/if}}")
+            a.js-select-menu(data-type="templates")
+              span.menu-label 📋 {{_ 'allboards.templates'}}
+              span.menu-count {{menuItemCount 'templates'}}
+          li(class="menu-item {{#if isSelectedMenu 'remaining'}}active{{/if}}")
+            a.js-select-menu(data-type="remaining")
+              span.menu-label 📂 {{_ 'allboards.remaining'}}
+              span.menu-count {{menuItemCount 'remaining'}}
+        .workspaces-header
+          span 🗂️ {{_ 'allboards.workspaces'}}
+          a.js-add-workspace(title="{{_ 'allboards.add-workspace'}}") +
+        // Workspaces tree
+        +workspaceTree(nodes=workspacesTree selectedWorkspaceId=selectedWorkspaceId)
 
-      li.AllBoardOrgs
-        if userHasOrgs
-          select.js-AllBoardOrgs#jsAllBoardOrgs("multiple")
-            option(value="-1") {{_ 'organizations'}} :
-            each orgsDatas
-              option(value="{{orgId}}") {{orgDisplayName}}
+        // Existing filter by orgs/teams (kept)
+        ul.AllBoardTeamsOrgs
+          li.AllBoardTeams
+            if userHasTeams
+              select.js-AllBoardTeams#jsAllBoardTeams("multiple")
+                option(value="-1") {{_ 'teams'}} :
+                each teamsDatas
+                  option(value="{{teamId}}") {{_ teamDisplayName}}
 
-      //li.AllBoardTemplates
-      //  if userHasTemplates
-      //  select.js-AllBoardTemplates#jsAllBoardTemplates("multiple")
-      //    option(value="-1") {{_ 'templates'}} :
-      //    each templatesDatas
-      //      option(value="{{templateId}}") {{_ templateDisplayName}}
+          li.AllBoardOrgs
+            if userHasOrgs
+              select.js-AllBoardOrgs#jsAllBoardOrgs("multiple")
+                option(value="-1") {{_ 'organizations'}} :
+                each orgsDatas
+                  option(value="{{orgId}}") {{orgDisplayName}}
 
-      li.AllBoardBtns
-        div.AllBoardButtonsContainer
-          if userHasOrgsOrTeams
-            i.fa.fa-filter
-            input#filterBtn(type="button" value="{{_ 'filter'}}")
-            input#resetBtn(type="button" value="{{_ 'filter-clear'}}")
+          li.AllBoardBtns
+            div.AllBoardButtonsContainer
+              if userHasOrgsOrTeams
+                span 🔍
+                input#filterBtn(type="button" value="{{_ 'filter'}}")
+                button#resetBtn.filter-reset-btn
+                  span.reset-icon ❌
+                  span {{_ 'filter-clear'}}
 
-    ul.board-list.clearfix.js-boards(class="{{#if isMiniScreen}}mobile-view{{/if}}")
-      li.js-add-board
-        a.board-list-item.label(title="{{_ 'add-board'}}")
-          | {{_ 'add-board'}}
-      each boards
-        li(class="{{_id}}" class="{{#if isStarred}}starred{{/if}}" class=colorClass).js-board
-          if isInvited
-            .board-list-item
-              span.details
-                span.board-list-item-name= title
-                i.fa.js-star-board(
-                  class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
-                  title="{{_ 'star-board-title'}}")
-                p.board-list-item-desc {{_ 'just-invited'}}
-                button.js-accept-invite.primary {{_ 'accept'}}
-                button.js-decline-invite {{_ 'decline'}}
-          else
-            if $eq type "template-container"
-              a.js-open-board.template-container.board-list-item(href="{{pathFor 'board' id=_id slug=slug}}")
-                span.details
-                  span.board-list-item-name(title="{{_ 'template-container'}}")
-                    +viewer
-                      = title
-                  i.fa.js-star-board(
-                    class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
-                    title="{{_ 'star-board-title'}}")
-                  p.board-list-item-desc
-                    +viewer
-                      = description
-                  if hasSpentTimeCards
-                    i.fa.js-has-spenttime-cards(
-                      class="fa-circle{{#if hasOvertimeCards}} has-overtime-card-active{{else}} no-overtime-card-active{{/if}}"
-                      title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                  i.fa.board-handle(
-                      class="fa-arrows"
-                      title="{{_ 'drag-board'}}")
-                    if isSandstorm
-                      i.fa.js-clone-board(
-                          class="fa-clone"
-                          title="{{_ 'duplicate-board'}}")
-                      i.fa.js-archive-board(
-                          class="fa-archive"
-                          title="{{_ 'archive-board'}}")
-                    else if isAdministrable
-                      i.fa.js-clone-board(
-                          class="fa-clone"
-                          title="{{_ 'duplicate-board'}}")
-                      i.fa.js-archive-board(
-                          class="fa-archive"
-                          title="{{_ 'archive-board'}}")
-                    else if currentUser.isAdmin
-                      i.fa.js-clone-board(
-                          class="fa-clone"
-                          title="{{_ 'duplicate-board'}}")
-                      i.fa.js-archive-board(
-                          class="fa-archive"
-                          title="{{_ 'archive-board'}}")
+      // Right boards grid
+      .boards-right-grid
+        .boards-path-header
+          .path-left
+            span.path-icon {{currentMenuPath.icon}}
+            span.path-text {{currentMenuPath.text}}
+            if BoardMultiSelection.isActive
+              span.multiselection-hint 📌 {{_ 'multi-selection-active'}}
+          .path-right
+            if canModifyBoards
+              if hasBoardsSelected
+                button.js-archive-selected-boards.board-header-btn
+                  span 📦
+                  span {{_ 'archive-board'}}
+                button.js-duplicate-selected-boards.board-header-btn
+                  span 📋
+                  span {{_ 'duplicate-board'}}
+              a.board-header-btn.js-multiselection-activate(
+                title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
+                class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
+                | ☑️
+              if BoardMultiSelection.isActive
+                a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+                  | ✖
+        ul.board-list.clearfix.js-boards(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
+          li.js-add-board
+            if isSelectedMenu 'templates'
+              a.board-list-item.label(title="{{_ 'add-template-container'}}")
+                | ➕ {{_ 'add-template-container'}}
             else
-              a.js-open-board.board-list-item(href="{{pathFor 'board' id=_id slug=slug}}")
-                span.details
-                  span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
-                    +viewer
-                      = title
-                  unless currentSetting.hideBoardMemberList
-                    if allowsBoardMemberList
-                      .minicard-members
-                        each member in boardMembers _id
-                          a.name
-                            +userAvatar(userId=member noRemove=true)
-                  unless currentSetting.hideCardCounterList
-                    if allowsCardCounterList
-                      .minicard-lists.flex.flex-wrap
-                        each list in boardLists _id
-                          .item
-                            | {{ list }}
-                  a.js-star-board(
-                    class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
-                    title="{{_ 'star-board-title'}}")
-                    | {{#if isStarred}}⭐{{else}}☆{{/if}}
-                  p.board-list-item-desc
-                    +viewer
-                      = description
-                  if hasSpentTimeCards
-                    i.fa.js-has-spenttime-cards(
-                      class="fa-circle{{#if hasOvertimeCards}} has-overtime-card-active{{else}} no-overtime-card-active{{/if}}"
-                      title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                  i.fa.board-handle(
-                      class="fa-arrows"
-                      title="{{_ 'drag-board'}}")
-                    if isSandstorm
-                      a.js-clone-board(
-                        class="fa-clone"
-                        title="{{_ 'duplicate-board'}}")
-                        | 📋
-                      a.js-archive-board(
-                        class="fa-archive"
-                        title="{{_ 'archive-board'}}")
-                        | 📦
-                    else if isAdministrable
-                      a.js-clone-board(
-                        class="fa-clone"
-                        title="{{_ 'duplicate-board'}}")
-                        | 📋
-                      a.js-archive-board(
-                        class="fa-archive"
-                        title="{{_ 'archive-board'}}")
-                        | 📦
-                    else if currentUser.isAdmin
-                      a.js-clone-board(
-                        class="fa-clone"
-                        title="{{_ 'duplicate-board'}}")
-                        | 📋
-                      a.js-archive-board(
-                        class="fa-archive"
-                        title="{{_ 'archive-board'}}")
-                        | 📦
+              a.board-list-item.label(title="{{_ 'add-board'}}")
+                | ➕ {{_ 'add-board'}}
+          each boards
+            li.js-board(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
+              if isInvited
+                .board-list-item
+                  if BoardMultiSelection.isActive
+                    .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
+                      class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                  span.details
+                    span.board-list-item-name= title
+                    span.js-star-board(
+                      class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
+                      title="{{_ 'star-board-title'}}")
+                      | {{#if isStarred}}⭐{{else}}☆{{/if}}
+                    p.board-list-item-desc {{_ 'just-invited'}}
+                    button.js-accept-invite.primary {{_ 'accept'}}
+                    button.js-decline-invite {{_ 'decline'}}
+              else
+                if $eq type "template-container"
+                  .template-container.board-list-item
+                    if BoardMultiSelection.isActive
+                      .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
+                        class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                    span.board-handle(title="{{_ 'drag-board'}}") ↕️
+                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+                      span.details
+                        span.board-list-item-name(title="{{_ 'template-container'}}")
+                          +viewer
+                            = title
+                        p.board-list-item-desc
+                          +viewer
+                            = description
+                        if hasSpentTimeCards
+                          span.js-has-spenttime-cards(
+                            class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
+                            title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
+                            | ⏱️
+                    span.js-star-board(
+                      class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
+                      title="{{_ 'star-board-title'}}")
+                      | {{#if isStarred}}⭐{{else}}☆{{/if}}
+                else
+                  .board-list-item
+                    if BoardMultiSelection.isActive
+                      .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
+                        class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                    span.board-handle(title="{{_ 'drag-board'}}") ↕️
+                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+                      span.details
+                        span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
+                          +viewer
+                            = title
+                        unless currentSetting.hideBoardMemberList
+                          if allowsBoardMemberList
+                            .minicard-members
+                              each member in boardMembers _id
+                                a.name
+                                  +userAvatar(userId=member noRemove=true)
+                        unless currentSetting.hideCardCounterList
+                          if allowsCardCounterList
+                            .minicard-lists.flex.flex-wrap
+                              each list in boardLists _id
+                                .item
+                                  | {{ list }}
+                        p.board-list-item-desc
+                          +viewer
+                            = description
+                        if hasSpentTimeCards
+                          span.js-has-spenttime-cards(
+                            class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
+                            title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
+                            | ⏱️
+                    a.js-star-board(
+                      class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
+                      title="{{_ 'star-board-title'}}")
+                      | {{#if isStarred}}⭐{{else}}☆{{/if}}
 
 template(name="boardListHeaderBar")
   h1 {{_ title }}
@@ -157,3 +166,25 @@ template(name="boardListHeaderBar")
   //  a.board-header-btn(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
   //    i.fa.fa-clone
   //    span {{_ 'templates'}}
+
+// Recursive template for workspaces tree
+template(name="workspaceTree")
+  if nodes
+    ul.workspace-tree.js-workspace-tree
+      each nodes
+        li.workspace-node(class="{{#if $eq id selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}" draggable="true")
+          .workspace-node-content
+            span.workspace-drag-handle ↕️
+            a.js-select-workspace(data-id="{{id}}")
+              span.workspace-icon
+                if icon
+                  +viewer
+                    = icon
+                else
+                  | 📁
+              span.workspace-name= name
+            a.js-edit-workspace(data-id="{{id}}" title="{{_ 'allboards.edit-workspace'}}") ✏️
+            span.workspace-count {{workspaceCount id}}
+            a.js-add-subworkspace(data-id="{{id}}" title="{{_ 'allboards.add-subworkspace'}}") +
+          if children
+            +workspaceTree(nodes=children selectedWorkspaceId=selectedWorkspaceId)

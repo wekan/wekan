@@ -294,6 +294,15 @@ const CreateBoard = BlazeComponent.extendComponent({
         },
       );
 
+      // Assign to space if one was selected
+      const spaceId = Session.get('createBoardInWorkspace');
+      if (spaceId) {
+        Meteor.call('assignBoardToWorkspace', this.boardId.get(), spaceId, (err) => {
+          if (err) console.error('Error assigning board to space:', err);
+        });
+        Session.set('createBoardInWorkspace', null); // Clear after use
+      }
+
       Utils.goBoardId(this.boardId.get());
 
     } else {
@@ -311,6 +320,15 @@ const CreateBoard = BlazeComponent.extendComponent({
         title: 'Default',
         boardId: this.boardId.get(),
       });
+
+      // Assign to space if one was selected
+      const spaceId = Session.get('createBoardInWorkspace');
+      if (spaceId) {
+        Meteor.call('assignBoardToWorkspace', this.boardId.get(), spaceId, (err) => {
+          if (err) console.error('Error assigning board to space:', err);
+        });
+        Session.set('createBoardInWorkspace', null); // Clear after use
+      }
 
       Utils.goBoardId(this.boardId.get());
     }
@@ -332,6 +350,13 @@ const CreateBoard = BlazeComponent.extendComponent({
     ];
   },
 }).register('createBoardPopup');
+
+(class CreateTemplateContainerPopup extends CreateBoard {
+  onRendered() {
+    // Always pre-check the template container checkbox for this popup
+    $('#add-template-container').addClass('is-checked');
+  }
+}).register('createTemplateContainerPopup');
 
 (class HeaderBarCreateBoard extends CreateBoard {
   onSubmit(event) {
