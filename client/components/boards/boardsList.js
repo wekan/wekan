@@ -243,7 +243,9 @@ BlazeComponent.extendComponent({
         'click .js-add-board': Popup.open('createBoard'),
         'click .js-star-board'(evt) {
           const boardId = this.currentData()._id;
-          ReactiveCache.getCurrentUser().toggleBoardStar(boardId);
+          if (boardId) {
+            Meteor.call('toggleBoardStar', boardId);
+          }
           evt.preventDefault();
         },
         'click .js-clone-board'(evt) {

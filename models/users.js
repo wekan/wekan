@@ -1643,6 +1643,27 @@ Meteor.methods({
     check(value, String);
     ReactiveCache.getCurrentUser().setListSortBy(value);
   },
+  toggleBoardStar(boardId) {
+    check(boardId, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const user = Users.findOne(this.userId);
+    if (!user) {
+      throw new Meteor.Error('user-not-found', 'User not found');
+    }
+    
+    // Check if board is already starred
+    const starredBoards = (user.profile && user.profile.starredBoards) || [];
+    const isStarred = starredBoards.includes(boardId);
+    
+    // Build update object
+    const updateObject = isStarred 
+      ? { $pull: { 'profile.starredBoards': boardId } }
+      : { $addToSet: { 'profile.starredBoards': boardId } };
+    
+    Users.update(this.userId, updateObject);
+  },
   toggleDesktopDragHandles() {
     const user = ReactiveCache.getCurrentUser();
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());

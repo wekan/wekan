@@ -16,13 +16,6 @@ template(name="boardHeaderBar")
               a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
                 | ✏️
 
-            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-              title="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}" aria-label="{{#if isStarred}}{{_ 'star-board-short-unstar'}}{{else}}{{_ 'star-board-short-star'}}{{/if}}")
-              | {{#if isStarred}}⭐{{else}}☆{{/if}}
-              if showStarCounter
-                span
-                  = currentBoard.stars
-
             a.board-header-btn(
               class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
               title="{{_ currentBoard.permission}}")
@@ -38,6 +31,13 @@ template(name="boardHeaderBar")
               if $eq watchLevel "muted"
                 | 🔕
               span {{_ watchLevel}}
+            a.board-header-btn.js-star-board(title="{{_ 'star-board'}}")
+              if isStarred
+                | ⭐
+              else
+                | ☆
+              if showStarCounter
+                span.board-star-counter {{currentBoard.stars}}
             a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
               | {{sortCardsIcon}}
               span {{#if isSortActive }}{{_ 'sort-is-on'}}{{else}}{{_ 'sort-cards'}}{{/if}}
@@ -61,10 +61,6 @@ template(name="boardHeaderBar")
             a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}" title="{{_ 'edit'}}" value=title)
               | ✏️
 
-            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-              title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-              | {{#if isStarred}}⭐{{else}}☆{{/if}}
-
             a.board-header-btn(
               class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
               title="{{_ currentBoard.permission}}")
@@ -78,6 +74,11 @@ template(name="boardHeaderBar")
                 | 🔔
               if $eq watchLevel "muted"
                 | 🔕
+            a.board-header-btn.js-star-board(title="{{_ 'star-board'}}")
+              if isStarred
+                | ⭐
+              else
+                | ☆
             a.board-header-btn(title="{{_ 'sort-cards'}}" class="{{#if isSortActive }}emphasis{{else}} js-sort-cards {{/if}}")
               | {{sortCardsIcon}}
             if isSortActive

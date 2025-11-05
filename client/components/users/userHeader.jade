@@ -12,11 +12,6 @@ template(name="headerUserBar")
 
 template(name="memberMenuPopup")
   ul.pop-over-list
-    // Bookmarks at the very top
-    li
-      a.js-open-bookmarks
-        | 🔖
-        | {{_ 'bookmarks'}}
     with currentUser
       li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
@@ -32,6 +27,11 @@ template(name="memberMenuPopup")
           | {{_ 'globalSearch-title'}}
       li
         a(href="{{pathFor 'home'}}")
+          | ⭐
+          | {{_ 'my-bookmarks'}}
+      li
+        a(href="{{pathFor 'home'}}")
+          | 🏠
           | 🏠
           | {{_ 'all-boards'}}
       li

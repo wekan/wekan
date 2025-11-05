@@ -72,7 +72,10 @@ BlazeComponent.extendComponent({
       {
         'click .js-edit-board-title': Popup.open('boardChangeTitle'),
         'click .js-star-board'() {
-          ReactiveCache.getCurrentUser().toggleBoardStar(Session.get('currentBoard'));
+          const boardId = Session.get('currentBoard');
+          if (boardId) {
+            Meteor.call('toggleBoardStar', boardId);
+          }
         },
         'click .js-open-board-menu': Popup.open('boardMenu'),
         'click .js-change-visibility': Popup.open('boardChangeVisibility'),
