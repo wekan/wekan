@@ -588,6 +588,10 @@ template(name="boardMenuPopup")
         | {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li
+        a.js-open-migrations
+          | 🔧
+          | {{_ 'migrations'}}
+      li
         a.js-change-board-color
           | 🎨
           | {{_ 'board-change-color'}}

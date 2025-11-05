@@ -1,0 +1,69 @@
+template(name='migrationsSidebar')
+  if currentUser.isBoardAdmin
+    .sidebar-migrations
+      h3
+        | 🔧
+        | {{_ 'migrations'}}
+      p.quiet {{_ 'migrations-description'}}
+      
+      .migrations-list
+        h4 {{_ 'board-migrations'}}
+        .migration-item
+          a.js-run-migration(data-migration="comprehensive")
+            .migration-name
+              | {{_ 'comprehensive-board-migration'}}
+            .migration-status
+              if comprehensiveMigrationNeeded
+                span.badge.badge-warning {{_ 'migration-needed'}}
+              else
+                span.badge.badge-success {{_ 'migration-complete'}}
+        
+        .migration-item
+          a.js-run-migration(data-migration="fixMissingLists")
+            .migration-name
+              | {{_ 'fix-missing-lists-migration'}}
+            .migration-status
+              if fixMissingListsNeeded
+                span.badge.badge-warning {{_ 'migration-needed'}}
+              else
+                span.badge.badge-success {{_ 'migration-complete'}}
+        
+        hr
+        h4 {{_ 'global-migrations'}}
+        .migration-item
+          a.js-run-migration(data-migration="fixAvatarUrls")
+            .migration-name
+              | {{_ 'fix-avatar-urls-migration'}}
+            .migration-status
+              if fixAvatarUrlsNeeded
+                span.badge.badge-warning {{_ 'migration-needed'}}
+              else
+                span.badge.badge-success {{_ 'migration-complete'}}
+        
+        .migration-item
+          a.js-run-migration(data-migration="fixAllFileUrls")
+            .migration-name
+              | {{_ 'fix-all-file-urls-migration'}}
+            .migration-status
+              if fixAllFileUrlsNeeded
+                span.badge.badge-warning {{_ 'migration-needed'}}
+              else
+                span.badge.badge-success {{_ 'migration-complete'}}
+  else
+    p.quiet {{_ 'migrations-admin-only'}}
+
+template(name='runComprehensiveMigrationPopup')
+  p {{_ 'run-comprehensive-migration-confirm'}}
+  button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}
+
+template(name='runFixMissingListsMigrationPopup')
+  p {{_ 'run-fix-missing-lists-migration-confirm'}}
+  button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}
+
+template(name='runFixAvatarUrlsMigrationPopup')
+  p {{_ 'run-fix-avatar-urls-migration-confirm'}}
+  button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}
+
+template(name='runFixAllFileUrlsMigrationPopup')
+  p {{_ 'run-fix-all-file-urls-migration-confirm'}}
+  button.js-confirm.primary.full(type="submit") {{_ 'run-migration'}}

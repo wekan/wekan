@@ -13,6 +13,7 @@ const viewTitles = {
   multiselection: 'multi-selection',
   customFields: 'custom-fields',
   archives: 'archives',
+  migrations: 'migrations',
 };
 
 BlazeComponent.extendComponent({
@@ -269,6 +270,10 @@ Template.boardMenuPopup.events({
   },
   'click .js-open-archives'() {
     Sidebar.setView('archives');
+    Popup.back();
+  },
+  'click .js-open-migrations'() {
+    Sidebar.setView('migrations');
     Popup.back();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),

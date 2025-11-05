@@ -30,15 +30,11 @@ class FixAllFileUrlsMigration {
       }
     }
 
-    // Check for problematic attachment URLs in cards
-    const cards = ReactiveCache.getCards({});
-    for (const card of cards) {
-      if (card.attachments) {
-        for (const attachment of card.attachments) {
-          if (attachment.url && this.hasProblematicUrl(attachment.url)) {
-            return true;
-          }
-        }
+    // Check for problematic attachment URLs
+    const attachments = ReactiveCache.getAttachments({});
+    for (const attachment of attachments) {
+      if (attachment.url && this.hasProblematicUrl(attachment.url)) {
+        return true;
       }
     }
 
@@ -206,51 +202,40 @@ class FixAllFileUrlsMigration {
   }
 
   /**
-   * Fix attachment URLs in card references
+   * Fix attachment URLs in the Attachments collection
    */
   async fixCardAttachmentUrls() {
-    const cards = ReactiveCache.getCards({});
-    let cardsFixed = 0;
+    const attachments = ReactiveCache.getAttachments({});
+    let attachmentsFixed = 0;
 
-    for (const card of cards) {
-      if (card.attachments) {
-        let needsUpdate = false;
-        const updatedAttachments = card.attachments.map(attachment => {
-          if (attachment.url && this.hasProblematicUrl(attachment.url)) {
-            try {
-              const fileId = attachment._id || extractFileIdFromUrl(attachment.url, 'attachment');
-              const cleanUrl = fileId ? generateUniversalAttachmentUrl(fileId) : cleanFileUrl(attachment.url, 'attachment');
-              
-              if (cleanUrl && cleanUrl !== attachment.url) {
-                needsUpdate = true;
-                return { ...attachment, url: cleanUrl };
+    for (const attachment of attachments) {
+      if (attachment.url && this.hasProblematicUrl(attachment.url)) {
+        try {
+          const fileId = attachment._id || extractFileIdFromUrl(attachment.url, 'attachment');
+          const cleanUrl = fileId ? generateUniversalAttachmentUrl(fileId) : cleanFileUrl(attachment.url, 'attachment');
+          
+          if (cleanUrl && cleanUrl !== attachment.url) {
+            // Update attachment with fixed URL
+            Attachments.update(attachment._id, {
+              $set: {
+                url: cleanUrl,
+                modifiedAt: new Date()
               }
-            } catch (error) {
-              console.error(`Error fixing card attachment URL:`, error);
+            });
+            
+            attachmentsFixed++;
+            
+            if (process.env.DEBUG === 'true') {
+              console.log(`Fixed attachment URL ${attachment._id}`);
             }
           }
-          return attachment;
-        });
-
-        if (needsUpdate) {
-          // Update card with fixed attachment URLs
-          Cards.update(card._id, {
-            $set: {
-              attachments: updatedAttachments,
-              modifiedAt: new Date()
-            }
-          });
-          
-          cardsFixed++;
-          
-          if (process.env.DEBUG === 'true') {
-            console.log(`Fixed attachment URLs in card ${card._id}`);
-          }
+        } catch (error) {
+          console.error(`Error fixing attachment URL:`, error);
         }
       }
     }
 
-    return cardsFixed;
+    return attachmentsFixed;
   }
 }
 

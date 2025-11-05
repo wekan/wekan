@@ -99,24 +99,9 @@ BlazeComponent.extendComponent({
         return;
       }
 
-      // Check if board needs comprehensive migration
-      const needsMigration = await this.checkComprehensiveMigration(boardId);
-      
-      if (needsMigration) {
-        // Start comprehensive migration
-        this.isMigrating.set(true);
-        const success = await this.executeComprehensiveMigration(boardId);
-        this.isMigrating.set(false);
-        
-        if (success) {
-          this.isBoardReady.set(true);
-        } else {
-          console.error('Comprehensive migration failed, setting ready to true anyway');
-          this.isBoardReady.set(true); // Still show board even if migration failed
-        }
-      } else {
-        this.isBoardReady.set(true);
-      }
+      // Automatic migration disabled - migrations must be run manually from sidebar
+      // Board admins can run migrations from the sidebar Migrations menu
+      this.isBoardReady.set(true);
 
     } catch (error) {
       console.error('Error during board conversion check:', error);
