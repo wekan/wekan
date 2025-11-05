@@ -231,9 +231,21 @@ Utils = {
     window.location.reload();
   },
   setBoardView(view) {
-    currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = ReactiveCache.getCurrentUser();
+    
     if (currentUser) {
-      ReactiveCache.getCurrentUser().setBoardView(view);
+      // Update localStorage first
+      window.localStorage.setItem('boardView', view);
+      
+      // Update user profile via Meteor method
+      Meteor.call('setBoardView', view, (error) => {
+        if (error) {
+          console.error('[setBoardView] Update failed:', error);
+        } else {
+          // Reload to apply the view change
+          Utils.reload();
+        }
+      });
     } else if (view === 'board-view-swimlanes') {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();

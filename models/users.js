@@ -1729,6 +1729,14 @@ Meteor.methods({
     const user = ReactiveCache.getCurrentUser();
     user.setMobileMode(enabled);
   },
+  setBoardView(view) {
+    check(view, String);
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    user.setBoardView(view);
+  },
 });
 
 if (Meteor.isServer) {
