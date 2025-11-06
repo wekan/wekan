@@ -293,13 +293,15 @@ BlazeComponent.extendComponent({
     } else if (sel === 'templates') {
       list = list.filter(b => b.type === 'template-container');
     } else if (sel === 'remaining') {
+      // Show boards not in any workspace AND not templates
+      // Keep starred boards visible in Remaining too
       list = list.filter(b => 
         !assignments[b._id] && 
-        b.type !== 'template-container' && 
-        !(currentUser && currentUser.hasStarred(b._id))
+        b.type !== 'template-container'
       );
     } else {
       // assume sel is a workspaceId
+      // Keep starred boards visible in their workspace too
       list = list.filter(b => assignments[b._id] === sel);
     }
 
@@ -803,10 +805,11 @@ BlazeComponent.extendComponent({
     } else if (type === 'templates') {
       return allBoards.filter(b => b.type === 'template-container').length;
     } else if (type === 'remaining') {
+      // Count boards not in any workspace AND not templates
+      // Include starred boards (they appear in both Starred and Remaining)
       return allBoards.filter(b => 
         !assignments[b._id] && 
-        b.type !== 'template-container' && 
-        !(currentUser && currentUser.hasStarred(b._id))
+        b.type !== 'template-container'
       ).length;
     }
     return 0;

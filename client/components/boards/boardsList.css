@@ -373,6 +373,12 @@
 .board-list li.starred .is-star-active,
 .board-list li.starred .is-not-star-active {
   opacity: 1;
+  color: #ffd700;
+}
+/* Show star icon on hover even for non-starred boards */
+.board-list li:hover .is-star-active,
+.board-list li:hover .is-not-star-active {
+  opacity: 1;
 }
 .board-list .board-list-item {
   overflow: hidden;
@@ -436,7 +442,7 @@
 }
 .board-list .is-star-active,
 .board-list .is-not-star-active {
-  bottom: 0;
+  top: 0;
   font-size: 14px;
   height: 18px;
   line-height: 18px;
@@ -444,7 +450,6 @@
   padding: 9px 9px;
   position: absolute;
   right: 0;
-  top: 0;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
 }
