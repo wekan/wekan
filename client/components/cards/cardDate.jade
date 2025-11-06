@@ -97,6 +97,12 @@ template(name="minicardCustomFieldDate")
 template(name="editCardReceivedDatePopup")
   form.edit-card-received-date
     .datepicker
+      // Date input field (existing)
+      // Insert calendar selector right after date input
+      .calendar-selector
+        label(for="calendar-received") 🗓️
+        input#calendar-received.js-calendar-date(type="date")
+      // Time input field (if present)
     .clear-date
       a.js-clear-date {{_ 'clear'}}
     .datepicker-actions
@@ -106,6 +112,11 @@ template(name="editCardReceivedDatePopup")
 template(name="editCardStartDatePopup")
   form.edit-card-start-date
     .datepicker
+      // Date input field (existing)
+      .calendar-selector
+        label(for="calendar-start") 🗓️
+        input#calendar-start.js-calendar-date(type="date")
+      // Time input field (if present)
     .clear-date
       a.js-clear-date {{_ 'clear'}}
     .datepicker-actions
@@ -115,6 +126,11 @@ template(name="editCardStartDatePopup")
 template(name="editCardDueDatePopup")
   form.edit-card-due-date
     .datepicker
+      // Date input field (existing)
+      .calendar-selector
+        label(for="calendar-due") 🗓️
+        input#calendar-due.js-calendar-date(type="date")
+      // Time input field (if present)
     .clear-date
       a.js-clear-date {{_ 'clear'}}
     .datepicker-actions
@@ -124,6 +140,11 @@ template(name="editCardDueDatePopup")
 template(name="editCardEndDatePopup")
   form.edit-card-end-date
     .datepicker
+      // Date input field (existing)
+      .calendar-selector
+        label(for="calendar-end") 🗓️
+        input#calendar-end.js-calendar-date(type="date")
+      // Time input field (if present)
     .clear-date
       a.js-clear-date {{_ 'clear'}}
     .datepicker-actions

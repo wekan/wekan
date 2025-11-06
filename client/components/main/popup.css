@@ -293,6 +293,8 @@
   overflow-y: auto !important;
 }
 
+
+
 .pop-over[data-popup="editCardReceivedDatePopup"] .edit-date button,
 .pop-over[data-popup="editCardStartDatePopup"] .edit-date button,
 .pop-over[data-popup="editCardDueDatePopup"] .edit-date button,
@@ -386,9 +388,6 @@
   padding: 0;
   margin: 0;
   visibility: hidden;
-}
-.pop-over .quiet {
-/*  padding: 6px 6px 4px;*/
 }
 .pop-over.search-over {
   background: #f0f0f0;

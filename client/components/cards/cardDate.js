@@ -50,6 +50,17 @@ import {
   onRendered() {
     super.onRendered();
     // DatePicker base class handles initialization with native HTML inputs
+      const self = this;
+      this.$('.js-calendar-date').on('change', function(evt) {
+        const currentUser = ReactiveCache.getCurrentUser && ReactiveCache.getCurrentUser();
+        const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
+        const value = evt.target.value;
+        if (value) {
+          // Format date according to user preference
+          const formatted = formatDateByUserPreference(new Date(value), dateFormat, true);
+          self._storeDate(new Date(value));
+        }
+      });
   }
 
   _storeDate(date) {
