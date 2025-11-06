@@ -49,6 +49,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Regression - calendar popup to set due date has gone](https://github.com/wekan/wekan/commit/581733d605b7e0494e72229c45947cff134f6dd6).
   Thanks to xet7.
+- [Remove not working Bookmark menu option](https://github.com/wekan/wekan/commit/c829c073cf822e48b7cd84bbfb79d42867412517).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
