@@ -83,10 +83,6 @@ template(name="header")
           i.mobile-icon(class="{{#if mobileMode}}active{{/if}}") 📱
           i.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}") 🖥️
 
-      // Bookmarks button - desktop opens popup, mobile routes to page
-      a.board-header-btn.js-open-bookmarks(title="{{_ 'bookmarks'}}")
-        | 🔖
-
       // Notifications
       +notifications
 
