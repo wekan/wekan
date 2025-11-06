@@ -47,6 +47,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Try to fix Edit Custom Fields button not working. Removed duplicate option from Boards Settings](https://github.com/wekan/wekan/commit/20af0a2ef55b11e7205845859ee92a929616ce91).
   Thanks to xet7.
+- [Fix Regression - calendar popup to set due date has gone](https://github.com/wekan/wekan/commit/581733d605b7e0494e72229c45947cff134f6dd6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
