@@ -55,7 +55,8 @@ template(name="listHeader")
               a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
         else
           a.list-header-menu-icon.js-select-list ▶️
-          a.list-header-handle.handle.js-list-handle ↕️
+          unless currentUser.isWorker
+            a.list-header-handle.handle.js-list-handle ↕️
       else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon | 👁️
@@ -72,7 +73,8 @@ template(name="listHeader")
                 a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
             if currentUser.isBoardMember
               unless currentUser.isCommentOnly
-                a.list-header-handle.handle.js-list-handle ↕️
+                unless currentUser.isWorker
+                  a.list-header-handle.handle.js-list-handle ↕️
 
 template(name="editListTitleForm")
   .list-composer

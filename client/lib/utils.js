@@ -214,6 +214,15 @@ Utils = {
     );
     return ret;
   },
+  canMoveCard() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const ret = (
+      currentUser &&
+      currentUser.isBoardMember() &&
+      !currentUser.isCommentOnly()
+    );
+    return ret;
+  },
   canModifyBoard() {
     const currentUser = ReactiveCache.getCurrentUser();
     const ret = (

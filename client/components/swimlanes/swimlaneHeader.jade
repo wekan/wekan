@@ -25,25 +25,26 @@ template(name="swimlaneFixedHeader")
   .swimlane-header-menu
     if currentUser
       unless currentUser.isCommentOnly
-        a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
-          | ➕
-        a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
-          | ☰
-        //// TODO: Collapse Swimlane: make button working, etc.
-        //unless collapsed
-        //  a.js-collapse-swimlane(title="{{_ 'collapse'}}")
-        //    i.fa.fa-arrow-down.swimlane-header-collapse-down
-        //    ⬆️.swimlane-header-collapse-up
-        //if collapsed
-        //  a.js-collapse-swimlane(title="{{_ 'uncollapse'}}")
-        //    ⬆️.swimlane-header-collapse-up
-        //    i.fa.fa-arrow-down.swimlane-header-collapse-down
-        unless isTouchScreen
-          a.swimlane-header-handle.handle.js-swimlane-header-handle
-            | ↕️
-        if isTouchScreen
-          a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
-            | ↕️
+        unless currentUser.isWorker
+          a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
+            | ➕
+          a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+            | ☰
+          //// TODO: Collapse Swimlane: make button working, etc.
+          //unless collapsed
+          //  a.js-collapse-swimlane(title="{{_ 'collapse'}}")
+          //    i.fa.fa-arrow-down.swimlane-header-collapse-down
+          //    ⬆️.swimlane-header-collapse-up
+          //if collapsed
+          //  a.js-collapse-swimlane(title="{{_ 'uncollapse'}}")
+          //    ⬆️.swimlane-header-collapse-up
+          //    i.fa.fa-arrow-down.swimlane-header-collapse-down
+          unless isTouchScreen
+            a.swimlane-header-handle.handle.js-swimlane-header-handle
+              | ↕️
+          if isTouchScreen
+            a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
+              | ↕️
 
 template(name="editSwimlaneTitleForm")
   .list-composer

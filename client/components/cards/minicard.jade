@@ -5,6 +5,7 @@ template(name="minicard")
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}")
     if canModifyCard
       a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}") ☰
+    if canMoveCard
       .handle
         | ↕️
     .dates

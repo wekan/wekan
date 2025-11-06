@@ -73,6 +73,10 @@ Blaze.registerHelper('canModifyCard', () =>
   Utils.canModifyCard(),
 );
 
+Blaze.registerHelper('canMoveCard', () =>
+  Utils.canMoveCard(),
+);
+
 Blaze.registerHelper('canModifyBoard', () =>
   Utils.canModifyBoard(),
 );
