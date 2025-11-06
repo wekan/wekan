@@ -53,6 +53,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Workspaces at All Boards to have correct count of remaining etc, while starred also at Starred/Favorites](https://github.com/wekan/wekan/commit/6244657ca53a54646ec01e702851a51d89bd0d55).
   Thanks to xet7.
+- [Fix Worker Permissions does not allow for cards to be moved. - v8.15. Removed buttons Worker should not use](https://github.com/wekan/wekan/commit/18003900c2d497c129793d1653d4d9872a2f19da).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
