@@ -22,7 +22,7 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v8.17 2025-11-06 WeKan ® release
 
 This release adds the following new feature:
 
