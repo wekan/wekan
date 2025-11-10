@@ -4,7 +4,7 @@ import DOMPurify from 'dompurify';
 export function getSecureDOMPurifyConfig() {
   return {
     // Allow common markdown elements including anchor tags
-    ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span'],
+    ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span', 's'],
     // Allow safe attributes including href for anchor tags
     ALLOWED_ATTR: ['href', 'title', 'alt', 'src', 'width', 'height', 'target', 'rel'],
     // Allow safe protocols for links
@@ -44,7 +44,7 @@ export function getSecureDOMPurifyConfig() {
               }
               return false;
             }
-            
+
             // Additional check for base64 encoded SVG with script tags
             if (src.startsWith('data:image/svg+xml;base64,')) {
               try {
