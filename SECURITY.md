@@ -1,12 +1,20 @@
-About money, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
-Security is very important to us. If you discover any issue regarding security, please disclose
-the information responsibly by sending an email from Protonmail to security@wekan.fi
-that is Protomail email address, or by using this PGP key
-[security-at-wekan.fi.asc](security-at-wekan.fi.asc) to security@wekan.fi
-and not by creating a GitHub issue. We will respond swiftly to fix verifiable security issues.
+## Responsible Security Disclosure
 
-We thank you with a place at our hall of fame page, that is at https://wekan.fi/hall-of-fame
+- To send email, use [ProtonMail](https://proton.me) email address or use PGP key [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
+- Send info about security issue ONLY to security@wekan.fi (that is Protomail email address). NOT TO ANYWHERE ELSE. NO CC, NO BCC.
+- Wait for new WeKan release that fixes security issue
+- If you approve, we thank you by adding you to Hall of Fame: https://wekan.fi/hall-of-fame/
+
+## Bonus Points
+
+- If you include code for fixing security issue
+
+## Losing Points
+
+- If you ask about [bounty](CONTRIBUTING.md). There is no bounty. WeKan is NOT Big Tech. WeKan is FLOSS.
+- If you forget to include vulnerability details.
+- If you send info about security issue to somewhere else than security@wekan.fi
 
 ## How should reports be formatted?
 
@@ -26,7 +34,7 @@ CWSS (optional): %cwss
 
 Anyone who reports a unique security issue in scope and does not disclose it to
 a third party before we have patched and updated may be upon their approval
-added to the Wekan Hall of Fame.
+added to the WeKan Hall of Fame https://wekan.fi/hall-of-fame/
 
 ## Which domains are in scope?
 
@@ -63,11 +71,6 @@ and by by companies that have 30k users.
 - If you are thinking about TLS MITM, look at https://github.com/caddyserver/caddy/issues/2530
 - Let's Encrypt TLS requires publicly accessible webserver, that Let's Encrypt TLS validation servers check.
 - If firewall limits to only allowed IP addresses, you may need non-Let's Encrypt TLS cert.
-- For On Premise:
-  - https://caddyserver.com/docs/automatic-https#local-https
-  - https://github.com/wekan/wekan/wiki/Caddy-Webserver-Config
-  - https://github.com/wekan/wekan/wiki/Azure
-  - https://github.com/wekan/wekan/wiki/Traefik-and-self-signed-SSL-certs
 
 ## XSS
 
@@ -269,9 +272,4 @@ Typical already known or "no impact" bugs such as:
 - Email spoofing, SPF, DMARC & DKIM. Wekan does not include email server.
 
 Wekan is Open Source with MIT license, and free to use also for commercial use.
-We welcome all fixes to improve security by email to security@wekan.team
-
-## Bonus Points
-
-If your Responsible Security Disclosure includes code for fixing security issue,
-you get bonus points, as seen on [Hall of Fame](https://wekan.github.io/hall-of-fame).
+We welcome all fixes to improve security by email to security@wekan.fi
