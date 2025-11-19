@@ -305,7 +305,7 @@ BlazeComponent.extendComponent({
       {
         'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
           Popup.back(2);
-          const checklist = this.checklist;
+          const checklist = this.data().checklist;
           if (checklist && checklist._id) {
             Checklists.remove(checklist._id);
           }
