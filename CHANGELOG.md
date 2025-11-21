@@ -22,6 +22,24 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Update GitHub docker/metadata-action from 5.8.0 to 5.9.0](https://github.com/wekan/wekan/pull/6012).
+  Thanks to dependabot.
+- [Updated security.md](https://github.com/wekan/wekan/commit/7ff1649d8909917cae590c68def6eecac0442f91).
+  Thanks to xet7.
+- [Updated build script for Linux arm64 bundle](https://github.com/wekan/wekan/commit/3db1305e58168f7417023ccd8d54995026844b18).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix Broken Strikethroughs in Markdown to HTML conversion](https://github.com/wekan/wekan/pull/6009).
+  Thanks to brlin-tw.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.17 2025-11-06 WeKan ® release
 
 This release adds the following new feature:
