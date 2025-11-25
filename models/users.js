@@ -173,6 +173,13 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.GreyIcons': {
+      /**
+       * per-user preference to render unicode icons in grey
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.cardMaximized': {
       /**
        * has user clicked maximize card?
@@ -708,6 +715,7 @@ Users.safeFields = {
   'profile.initials': 1,
   'profile.zoomLevel': 1,
   'profile.mobileMode': 1,
+  'profile.GreyIcons': 1,
   orgs: 1,
   teams: 1,
   authenticationMethod: 1,
@@ -1059,6 +1067,11 @@ Users.helpers({
   hasShowDesktopDragHandles() {
     const profile = this.profile || {};
     return profile.showDesktopDragHandles || false;
+  },
+
+  hasGreyIcons() {
+    const profile = this.profile || {};
+    return profile.GreyIcons || false;
   },
 
   hasCustomFieldsGrid() {
@@ -1485,6 +1498,13 @@ Users.mutations({
       },
     };
   },
+  toggleGreyIcons(value = false) {
+    return {
+      $set: {
+        'profile.GreyIcons': !value,
+      },
+    };
+  },
 
   addNotification(activityId) {
     return {
@@ -1687,6 +1707,23 @@ Meteor.methods({
       : { $addToSet: { 'profile.starredBoards': boardId } };
     
     Users.update(this.userId, updateObject);
+  },
+  toggleGreyIcons(value) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    if (value !== undefined) check(value, Boolean);
+
+    const user = Users.findOne(this.userId);
+    if (!user) {
+      throw new Meteor.Error('user-not-found', 'User not found');
+    }
+
+    const current = (user.profile && user.profile.GreyIcons) || false;
+    const newValue = value !== undefined ? value : !current;
+
+    Users.update(this.userId, { $set: { 'profile.GreyIcons': newValue } });
+    return newValue;
   },
   toggleDesktopDragHandles() {
     const user = ReactiveCache.getCurrentUser();

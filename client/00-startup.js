@@ -62,3 +62,12 @@ Meteor.startup(() => {
     }
   });
 });
+
+// Subscribe to per-user small publications
+Meteor.startup(() => {
+  Tracker.autorun(() => {
+    if (Meteor.userId()) {
+      Meteor.subscribe('userGreyIcons');
+    }
+  });
+});

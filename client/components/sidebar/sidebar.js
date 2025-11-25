@@ -394,6 +394,7 @@ Template.memberPopup.events({
       FlowRouter.go('home');
     });
   }),
+  
 });
 
 Template.removeMemberPopup.helpers({

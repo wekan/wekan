@@ -14,6 +14,13 @@ template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
       li
+        a.js-toggle-grey-icons(href="#")
+          | 🎨
+          | {{_ 'grey-icons'}}
+          if currentUser.profile
+            if currentUser.profile.GreyIcons
+              span(key="grey-icons-checkmark") ✅
+      li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
           | 📋
           | {{_ 'my-cards'}}
@@ -27,7 +34,6 @@ template(name="memberMenuPopup")
           | {{_ 'globalSearch-title'}}
       li
         a(href="{{pathFor 'home'}}")
-          | 🏠
           | 🏠
           | {{_ 'all-boards'}}
       li
