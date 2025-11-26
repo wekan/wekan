@@ -4449,7 +4449,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
   * @param {string} boardId the board ID of the card
   * @param {string} listId the list ID of the card
   * @param {string} cardId the ID of the card
-  * @return_type {_id: string, archived: bool, archivedAt: Date}
+  * @return_type {_id: string, archived: boolean, archivedAt: Date}
   */
   JsonRoutes.add(
     'POST',
