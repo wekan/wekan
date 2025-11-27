@@ -4473,8 +4473,8 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
         code: 200,
         data: {
           _id: paramCardId,
-        archived: true,
-        archivedAt: new Date(),
+          archived: true,
+          archivedAt: new Date(),
         },
       });
     },
