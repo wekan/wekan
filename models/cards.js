@@ -4468,12 +4468,13 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       if (!card) {
         throw new Meteor.Error(404, 'Card not found');
       }
-      const archive_res = card.archive();
+      card.archive();
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
           _id: paramCardId,
-          ...archive_res.$set,
+        archived: true,
+        archivedAt: new Date(),
         },
       });
     },
