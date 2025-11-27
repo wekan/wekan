@@ -4512,7 +4512,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
         code: 200,
         data: {
           _id: paramCardId,
-        archived: false,
+          archived: false,
         },
       });
     },
