@@ -4481,10 +4481,10 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
   );
 
   /**
-  * @operation restore_card
-  * @summary Restore a card from the archive
+  * @operation unarchive_card
+  * @summary Unarchive card
   *
-  * @description Restore a card from the archive
+  * @description Unarchive card
   * @param {string} boardId the board ID of the card
   * @param {string} listId the list ID of the card
   * @param {string} cardId the ID of the card
@@ -4492,7 +4492,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
   */
   JsonRoutes.add(
     'POST',
-    '/api/boards/:boardId/lists/:listId/cards/:cardId/restore',
+    '/api/boards/:boardId/lists/:listId/cards/:cardId/unarchive',
     function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;

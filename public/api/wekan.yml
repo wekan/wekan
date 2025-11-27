@@ -2705,12 +2705,12 @@ paths:
                       type: string
                     value:
                       type: object
-  /api/boards/{board}/lists/{list}/cards/{card}/restore:
+  /api/boards/{board}/lists/{list}/cards/{card}/unarchive:
     post:
-      operationId: restore_card
-      summary: Restore a card from the archive
+      operationId: unarchive_card
+      summary: Unarchive card
       description: |
-        Restore a card from the archive
+        Unarchive card
       tags:
         - Cards
       consumes:
