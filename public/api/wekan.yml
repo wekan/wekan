@@ -2705,6 +2705,51 @@ paths:
                       type: string
                     value:
                       type: object
+  /api/boards/{board}/lists/{list}/cards/{card}/restore:
+    post:
+      operationId: restore_card
+      summary: Restore a card from the archive
+      description: |
+        Restore a card from the archive
+      tags:
+        - Cards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID of the card
+          type: string
+          required: true
+        - name: list
+          in: path
+          description: |
+            the list ID of the card
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the ID of the card
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              archived:
+                type: boolean
   /api/boards/{board}/lists/{list}/cards_count:
     get:
       operationId: get_list_cards_count
