@@ -660,6 +660,8 @@
   "custom-login-logo-image-url": "Custom Login Logo Image URL",
   "custom-login-logo-link-url": "Custom Login Logo Link URL",
   "custom-help-link-url": "Custom Help Link URL",
+  "custom-css-url": "Custom external CSS URL",
+  "custom-css": "Custom CSS overrides",
   "text-below-custom-login-logo": "Text below Custom Login Logo",
   "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "Username",

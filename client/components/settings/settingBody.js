@@ -469,6 +469,8 @@ BlazeComponent.extendComponent({
     const customLoginLogoImageUrl = ($('#custom-login-logo-image-url').val() || '').trim();
     const customLoginLogoLinkUrl = ($('#custom-login-logo-link-url').val() || '').trim();
     const customHelpLinkUrl = ($('#custom-help-link-url').val() || '').trim();
+    const customCssUrl = ($('#custom-css-url').val() || '').trim();
+    const customCss = ($('#custom-css').val() || '').trim();
     const textBelowCustomLoginLogo = ($('#text-below-custom-login-logo').val() || '').trim();
     const automaticLinkedUrlSchemes = ($('#automatic-linked-url-schemes').val() || '').trim();
     const customTopLeftCornerLogoImageUrl = ($('#custom-top-left-corner-logo-image-url').val() || '').trim();
@@ -496,6 +498,8 @@ BlazeComponent.extendComponent({
           customLoginLogoImageUrl,
           customLoginLogoLinkUrl,
           customHelpLinkUrl,
+          customCssUrl,
+          customCss,
           textBelowCustomLoginLogo,
           customTopLeftCornerLogoImageUrl,
           customTopLeftCornerLogoLinkUrl,
@@ -801,4 +805,3 @@ Template.selectSpinnerName.helpers({
     return Template.instance().data.spinnerName === match;
   },
 });
-

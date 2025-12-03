@@ -85,6 +85,14 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    customCssUrl: {
+      type: String,
+      optional: true,
+    },
+    customCss: {
+      type: String,
+      optional: true,
+    },
     textBelowCustomLoginLogo: {
       type: String,
       optional: true,
@@ -202,6 +210,8 @@ if (Meteor.isServer) {
         modifiedAt: now,
         displayAuthenticationMethod: true,
         defaultAuthenticationMethod: 'password',
+        customCssUrl: '',
+        customCss: '',
       };
       Settings.insert(defaultSetting);
     }

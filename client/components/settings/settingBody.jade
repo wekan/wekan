@@ -424,6 +424,14 @@ template(name='layoutSettings')
       .form-group
         input.wekan-form-control#custom-help-link-url(type="text", placeholder="" value="{{currentSetting.customHelpLinkUrl}}")
     li.layout-form
+      .title {{_ 'custom-css-url'}}
+      .form-group
+        input.wekan-form-control#custom-css-url(type="text", placeholder="" value="{{currentSetting.customCssUrl}}")
+    li.layout-form
+      .title {{_ 'custom-css'}}
+      .form-group
+        textarea#custom-css.wekan-form-control(rows='5')= currentSetting.customCss
+    li.layout-form
       .title {{_ 'text-below-custom-login-logo'}}
       .form-group
         textarea#text-below-custom-login-logo.wekan-form-control= currentSetting.textBelowCustomLoginLogo
