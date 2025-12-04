@@ -4440,6 +4440,83 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       });
     },
   );
+
+  /**
+  * @operation archive_card
+  * @summary Archive a card
+  *
+  * @description Archive a card
+  * @param {string} boardId the board ID of the card
+  * @param {string} listId the list ID of the card
+  * @param {string} cardId the ID of the card
+  * @return_type {_id: string, archived: boolean, archivedAt: Date}
+  */
+  JsonRoutes.add(
+    'POST',
+    '/api/boards/:boardId/lists/:listId/cards/:cardId/archive',
+    function(req, res) {
+      const paramBoardId = req.params.boardId;
+      const paramCardId = req.params.cardId;
+      const paramListId = req.params.listId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      const card = ReactiveCache.getCard({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false,
+      });
+      if (!card) {
+        throw new Meteor.Error(404, 'Card not found');
+      }
+      card.archive();
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: paramCardId,
+          archived: true,
+          archivedAt: new Date(),
+        },
+      });
+    },
+  );
+
+  /**
+  * @operation unarchive_card
+  * @summary Unarchive card
+  *
+  * @description Unarchive card
+  * @param {string} boardId the board ID of the card
+  * @param {string} listId the list ID of the card
+  * @param {string} cardId the ID of the card
+  * @return_type {_id: string, archived: boolean}
+  */
+  JsonRoutes.add(
+    'POST',
+    '/api/boards/:boardId/lists/:listId/cards/:cardId/unarchive',
+    function(req, res) {
+      const paramBoardId = req.params.boardId;
+      const paramCardId = req.params.cardId;
+      const paramListId = req.params.listId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      const card = ReactiveCache.getCard({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: true,
+      });
+      if (!card) {
+        throw new Meteor.Error(404, 'Card not found');
+      }
+      card.restore();
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: paramCardId,
+          archived: false,
+        },
+      });
+    },
+  );
 }
 
 // Position history tracking methods
