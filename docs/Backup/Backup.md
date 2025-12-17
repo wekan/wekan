@@ -134,6 +134,24 @@ sudo systemctl stop snap.wekan.caddy
 7. When you open board, if cards or attachments are not visible, click right sidebar / Board Settings / Migrations.
 From there, run most migrations, but not migration about `Restore all from archive`, because it would unarchive cards etc from archive.
 
+# If upgrade did not work, going back to WeKan Snap Stable 6.09
+
+This is only if you have old 6.09 common directory at /root/common .
+
+```
+sudo su
+mkdir /root/common-newest
+snap stop wekan
+mv /var/snap/wekan/common/* /root/common-newest/
+snap start wekan
+snap refresh wekan --channel=latest/stable --amend
+snap stop wekan
+rm -rf /var/snap/wekan/common/*
+mv /root/common/* /var/snap/wekan/common/
+snap start wekan
+./snap-settings.sh
+```
+
 # Upgrade Snap manually immediately (usually it updates automatically)
 
 ```bash
