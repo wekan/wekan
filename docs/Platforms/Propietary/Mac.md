@@ -52,7 +52,7 @@ Meteor includes Node.js and MongoDB version, when developing. But if not develop
 ```
 softwareupdate --install-rosetta --agree-to-license
 ```
-Also, install Homebrew, and Homebrew GUI that is very useful:
+Install Homebrew from https://brew.sh, and Homebrew GUI that is very useful:
 ```
 brew install applite
 ```
