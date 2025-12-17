@@ -54,7 +54,8 @@ softwareupdate --install-rosetta --agree-to-license
 ```
 Install Homebrew from https://brew.sh, and Homebrew GUI that is very useful:
 ```
-brew install applite
+brew install --cask applite
+open -a Applite
 ```
 2) Clone Wekan:
 ```
