@@ -81,11 +81,53 @@ mongorestore --drop --port 27019
 sudo snap start wekan.wekan
 ./snap-settings.sh
 ```
+
 # Upgrade WeKan Snap Stable 6.x to newest WeKan Snap Candidate
 
 1. Check that you have enough disk space: `df -h` . Also check size of your data: `sudo du -sh /var/snap/wekan/common` .
-2. Backup Snap with mongodump, see docs above
-3. ...
+2. [Backup Snap](#backup-wekan-snap-to-directory-dump)
+3. Move WeKan database common directory content elsewhere:
+```
+sudo su
+snap stop wekan
+ir /root/common &&
+mv /var/snap/wekan/common/* /root/common/
+```
+4. Change Snap Stable to Snap Candidate:
+```
+sudo snap refresh wekan --channel=latest/candidate --amend
+```
+5. [Restore Snap](#restore-wekan-snap)
+6. Copy back files directory, if it is there: `sudo cp -pR /root/common/files /var/snap/wekan/common/`
+7. If you use [Caddy](https://github.com/wekan/wekan/blob/main/docs/Webserver/Caddy.md), that is included in WeKan, edit /var/snap/wekan/Caddyfile to new syntax:
+```
+wekan.yourcompany.com {
+        tls {
+                load /etc/caddy/certs
+                alpn http/1.1
+        }
+        reverse_proxy 127.0.0.1:2000
+```
+This is if you have WeKan Node.js running at port 2000, for example with these settings:
+```
+sudo snap set wekan root-url='https://wekan.yourcompany.com'
+sudo snap set wekan port='2000'
+sudo snap set wekan caddy-enabled='true'
+sudo snap enable wekan
+sudo snap start wekan
+```
+You can check is caddy, wekan and mongodb running with:
+```
+sudo snap services
+```
+If you need to disable WeKan included Caddy, because you have system-wide installed Caddy or other webserver:
+```
+sudo snap stop wekan.caddy
+sudo systemctl disable snap.wekan.caddy
+sudo systemctl stop snap.wekan.caddy
+```
+7. When you open board, if cards are not visible, click right sidebar / Board Settings / Migrations.
+From there, run most migrations, but not migration about `Restore all from archive`.
 
 # Upgrade Snap manually immediately (usually it updates automatically)
 
