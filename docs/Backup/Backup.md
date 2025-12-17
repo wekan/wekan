@@ -43,8 +43,8 @@ docker compose stop
 docker rm wekan-app
 docker compose up -d
 ```
-When you open board, if cards are not visible, click right sidebar / Board Settings / Migrations.
-From there, run most migrations, but not migration about `Restore all from archive`.
+When you open board, if cards or attachments are not visible, click right sidebar / Board Settings / Migrations.
+From there, run most migrations, but not migration about `Restore all from archive`, because it would unarchive cards etc from archive.
 
 # Backup Wekan Snap to directory dump
 ```bash
@@ -126,8 +126,8 @@ sudo snap stop wekan.caddy
 sudo systemctl disable snap.wekan.caddy
 sudo systemctl stop snap.wekan.caddy
 ```
-7. When you open board, if cards are not visible, click right sidebar / Board Settings / Migrations.
-From there, run most migrations, but not migration about `Restore all from archive`.
+7. When you open board, if cards or attachments are not visible, click right sidebar / Board Settings / Migrations.
+From there, run most migrations, but not migration about `Restore all from archive`, because it would unarchive cards etc from archive.
 
 # Upgrade Snap manually immediately (usually it updates automatically)
 
