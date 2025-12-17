@@ -45,7 +45,8 @@ docker rm wekan-app
 docker compose up -d
 ```
 2. If you are migrating from Snap to Docker, if there is files at `/var/snap/wekan/common/files` , copy that directory to be at
-   docker-compose.yml setting path, for example `export WRITABLE_PATH=/data` , copy files directory to be at `/data/files` .
+   docker-compose.yml setting path, for example `export WRITABLE_PATH=/data` , copy files directory to be at `/data/files`
+   with same user:group directory permissions that directory data has.
 
 3. When you open board, if cards or attachments are not visible, click right sidebar / Board Settings / Migrations.
    From there, run most migrations, but not migration about `Restore all from archive`, because it would unarchive cards etc from archive.
