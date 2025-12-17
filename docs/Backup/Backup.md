@@ -112,6 +112,7 @@ wekan.yourcompany.com {
                 alpn http/1.1
         }
         reverse_proxy 127.0.0.1:2000
+}
 ```
 This is if you have WeKan Node.js running at port 2000, for example with these settings:
 ```
