@@ -36,22 +36,12 @@ docker start wekan-app
 ```
 # Upgrade Docker Wekan version
 
-## Newest info
+Check that you use newest [docker-compose.yml](https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose.yml) that has for example: `image: ghcr.io/wekan/wekan:latest` . If you have old docker-compose.yml, copy it's settings like ROOT_URL to newest docker-compose.yml.
 
-https://github.com/wekan/wekan/discussions/5367
-
-## Old info
-
-Note: Do not run `docker-compose down` without verifying your docker-compose file, it does not delete the data by default but caution is advised. Refer to https://docs.docker.com/compose/reference/down/.
 ```bash
-docker-compose stop
+docker compose stop
 docker rm wekan-app
-```
-a) For example, if you in docker-compose.yml use `image: wekanteam/wekan` or `image: quay.io/wekan/wekan` for latest development version
-
-b) Or in docker-compose.yml change version tag, or use version tag like `image: wekanteam/wekan:v5.50` or `image: quay.io/wekan/wekan:v5.50`
-```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 # Backup Wekan Snap to directory dump
