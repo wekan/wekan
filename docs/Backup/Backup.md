@@ -14,7 +14,7 @@ Note: Do not run `docker-compose down` without verifying your docker-compose fil
 
 This presumes your Wekan Docker is currently running with:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 Backup to directory dump:
 ```bash
@@ -79,6 +79,7 @@ mongorestore --drop --port 27019
 sudo snap start wekan.wekan
 ./snap-settings.sh
 ```
+
 # Upgrade Snap manually immediately (usually it updates automatically)
 
 ```bash
