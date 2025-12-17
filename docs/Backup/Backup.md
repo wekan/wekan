@@ -43,6 +43,8 @@ docker compose stop
 docker rm wekan-app
 docker compose up -d
 ```
+When you open board, if cards are not visible, click right sidebar / Board Settings / Migrations.
+From there, run most migrations, but not migration about `Restore all from archive`.
 
 # Backup Wekan Snap to directory dump
 ```bash
@@ -79,6 +81,11 @@ mongorestore --drop --port 27019
 sudo snap start wekan.wekan
 ./snap-settings.sh
 ```
+# Upgrade WeKan Snap Stable 6.x to newest WeKan Snap Candidate
+
+1. Check that you have enough disk space: `df -h` . Also check size of your data: `sudo du -sh /var/snap/wekan/common` .
+2. Backup Snap with mongodump, see docs above
+3. ...
 
 # Upgrade Snap manually immediately (usually it updates automatically)
 
