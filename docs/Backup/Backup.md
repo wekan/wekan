@@ -93,7 +93,7 @@ sudo snap start wekan.wekan
 ```
 sudo su
 snap stop wekan
-ir /root/common &&
+mkdir /root/common
 mv /var/snap/wekan/common/* /root/common/
 ```
 4. Change Snap Stable to Snap Candidate:
