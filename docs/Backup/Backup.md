@@ -1,8 +1,8 @@
 [Sandstorm](Sandstorm) - [Sandstorm Backup](Export-from-Wekan-Sandstorm-grain-.zip-file)
 
-# Upcoming
+# Related
 
-[Transferring to Minio and SQLite](https://github.com/wekan/minio-metadata)
+[Transferring attachments from MongoDB to filesystem, and text from MongoDB to SQLite](https://github.com/wekan/minio-metadata)
 
 # Backup Docker
 
