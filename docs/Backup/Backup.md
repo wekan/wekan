@@ -36,14 +36,16 @@ docker start wekan-app
 ```
 # Upgrade Docker Wekan version
 
-1. Check that you use newest [docker-compose.yml](https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose.yml) that has for example: `image: ghcr.io/wekan/wekan:latest` . If you have old docker-compose.yml, copy it's settings like ROOT_URL to newest docker-compose.yml.
+1. Check that you use newest [docker-compose.yml](https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose.yml)
+   that has for example: `image: ghcr.io/wekan/wekan:latest` . If you have old docker-compose.yml, copy it's settings like ROOT_URL to newest docker-compose.yml.
 
 ```bash
 docker compose stop
 docker rm wekan-app
 docker compose up -d
 ```
-2. If you are migrating from Snap to Docker, if there is files at `/var/snap/wekan/common/files , copy that directory to be at docker-compose.ymIf you are migrating from Snap to Docker, if there is files at `/var/sn`WRITABLE_PATH=/data` , copy files directory to be /data/files .
+2. If you are migrating from Snap to Docker, if there is files at `/var/snap/wekan/common/files` , copy that directory to be at
+   docker-compose.yml setting path, for example `export WRITABLE_PATH=/data` , copy files directory to be at `/data/files` .
 
 3. When you open board, if cards or attachments are not visible, click right sidebar / Board Settings / Migrations.
    From there, run most migrations, but not migration about `Restore all from archive`, because it would unarchive cards etc from archive.
