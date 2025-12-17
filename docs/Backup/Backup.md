@@ -8,7 +8,7 @@
 
 [Also see: Upgrading Synology with Wekan quay images](https://github.com/wekan/wekan/issues/3874#issuecomment-867526249)
 
-Note: Do not run `docker-compose down` without verifying your docker-compose file, it does not delete the data by default but caution is advised. Refer to https://docs.docker.com/compose/reference/down/.
+Note: Do not run `docker compose down` because it could delete data. https://docs.docker.com/compose/reference/down/
 
 [docker-compose.yml](https://raw.githubusercontent.com/wekan/wekan/master/docker-compose.yml)
 
@@ -36,15 +36,18 @@ docker start wekan-app
 ```
 # Upgrade Docker Wekan version
 
-Check that you use newest [docker-compose.yml](https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose.yml) that has for example: `image: ghcr.io/wekan/wekan:latest` . If you have old docker-compose.yml, copy it's settings like ROOT_URL to newest docker-compose.yml.
+1. Check that you use newest [docker-compose.yml](https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose.yml) that has for example: `image: ghcr.io/wekan/wekan:latest` . If you have old docker-compose.yml, copy it's settings like ROOT_URL to newest docker-compose.yml.
 
 ```bash
 docker compose stop
 docker rm wekan-app
 docker compose up -d
 ```
-When you open board, if cards or attachments are not visible, click right sidebar / Board Settings / Migrations.
-From there, run most migrations, but not migration about `Restore all from archive`, because it would unarchive cards etc from archive.
+2. If you are migrating from Snap to Docker, if there is files at /var/snap/wekan/common/files , copy that directory to be at docker-compose.yml
+   environment variable WRITABLE_PATH/files . For example, if there is `WRITABLE_PATH=/data` , copy files directory to be /data/files .
+
+3. When you open board, if cards or attachments are not visible, click right sidebar / Board Settings / Migrations.
+   From there, run most migrations, but not migration about `Restore all from archive`, because it would unarchive cards etc from archive.
 
 # Backup Wekan Snap to directory dump
 ```bash
