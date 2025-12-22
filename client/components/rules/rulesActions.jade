@@ -1,9 +1,7 @@
 template(name="rulesActions")
   h2
     | ✨
-    | {{_ 'r-rule' }} "
-    = ruleName.get()
-    | " - {{_ 'r-add-action'}}
+    | {{_ 'r-rule' }} "{{ruleNameStr}}" - {{_ 'r-add-action'}}
   .triggers-content
     .triggers-body
       .triggers-side-menu
@@ -17,13 +15,13 @@ template(name="rulesActions")
           li.js-set-mail-actions
             | @
       .triggers-main-body
-        if ($eq currentActions.get 'board')
+        if $eq currentActions.get 'board'
           +boardActions(ruleName=data.ruleName triggerVar=data.triggerVar)
-        else if ($eq currentActions.get 'card')
+        else if $eq currentActions.get 'card'
           +cardActions(ruleName=data.ruleName triggerVar=data.triggerVar)
-        else if ($eq currentActions.get 'checklist')
+        else if $eq currentActions.get 'checklist'
           +checklistActions(ruleName=data.ruleName triggerVar=data.triggerVar)
-        else if ($eq currentActions.get 'mail')
+        else if $eq currentActions.get 'mail'
           +mailActions(ruleName=data.ruleName triggerVar=data.triggerVar)
   div.rules-back
         button.js-goback

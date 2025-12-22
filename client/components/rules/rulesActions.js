@@ -5,6 +5,15 @@ BlazeComponent.extendComponent({
     this.currentActions = new ReactiveVar('board');
   },
 
+  ruleNameStr() {
+    const rn = this.data() && this.data().ruleName;
+    try {
+      return rn && typeof rn.get === 'function' ? rn.get() : '';
+    } catch (_) {
+      return '';
+    }
+  },
+
   setBoardActions() {
     this.currentActions.set('board');
     $('.js-set-card-actions').removeClass('active');

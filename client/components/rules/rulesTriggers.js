@@ -7,6 +7,15 @@ BlazeComponent.extendComponent({
     this.showChecklistTrigger = new ReactiveVar(false);
   },
 
+  ruleNameStr() {
+    const rn = this.data() && this.data().ruleName;
+    try {
+      return rn && typeof rn.get === 'function' ? rn.get() : '';
+    } catch (_) {
+      return '';
+    }
+  },
+
   setBoardTriggers() {
     this.showBoardTrigger.set(true);
     this.showCardTrigger.set(false);
