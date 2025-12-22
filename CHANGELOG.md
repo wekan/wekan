@@ -30,6 +30,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Number of cards per list and sum of custom number field in list head](https://github.com/wekan/wekan/commit/e569c2957ecc2b5fbf65ddcf0793b97c3ed5da81).
   Thanks to xet7.
+- [New Board Permissions: NormalAssignedOnly, CommentAssignedOnly, ReadOnly, ReadAssignedOnly](https://github.com/wekan/wekan/commit/c1168d181b3ff34f5ee7794a5740281c4ab5e253).
+  Thanks to xet7.
 
 and adds the following updates:
 
