@@ -28,6 +28,8 @@ This release adds the following new features:
 
 - [Gantt chart view to one board view menu Swimlanes/Lists/Calendar/Gantt](https://github.com/wekan/wekan/commit/f34e4c0e363e386dbcce8e6ee8933b2d50491c58).
   Thanks to xet7.
+- [Number of cards per list and sum of custom number field in list head](https://github.com/wekan/wekan/commit/e569c2957ecc2b5fbf65ddcf0793b97c3ed5da81).
+  Thanks to xet7.
 
 and adds the following updates:
 
