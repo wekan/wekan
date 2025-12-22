@@ -8,7 +8,7 @@ template(name='notificationsDrawer')
       h5 {{_ 'notifications'}}
         if($gt unreadNotifications 0)
           |(#{unreadNotifications})
-      a.fa.fa-times-thin.close
+      a.close ❌
     ul.notifications
       each transformedProfile.notifications
         +notification(activityData=activityObj index=dbIndex read=read)
@@ -16,5 +16,5 @@ template(name='notificationsDrawer')
       a.all-read {{_ 'mark-all-as-read'}}
     if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
       a.remove-read
-        i.fa.fa-trash
+        | 🗑️
         | {{_ 'remove-all-read'}}

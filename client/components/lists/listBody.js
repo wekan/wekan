@@ -16,11 +16,50 @@ BlazeComponent.extendComponent({
   },
 
   customFieldsSum() {
-    const ret = ReactiveCache.getCustomFields({
-      boardIds: { $in: [Session.get('currentBoard')] },
+    const list = Template.currentData();
+    if (!list) return [];
+    const boardId = Session.get('currentBoard');
+    const fields = ReactiveCache.getCustomFields({
+      boardIds: { $in: [boardId] },
       showSumAtTopOfList: true,
     });
-    return ret;
+
+    if (!fields || !fields.length) return [];
+
+    const cards = ReactiveCache.getCards({
+      listId: list._id,
+      archived: false,
+    });
+
+    const result = fields.map(field => {
+      let sum = 0;
+      if (cards && cards.length) {
+        cards.forEach(card => {
+          const cfs = (card.customFields || []);
+          const cf = cfs.find(f => f && f._id === field._id);
+          if (!cf || cf.value === null || cf.value === undefined) return;
+          let v = cf.value;
+          if (typeof v === 'string') {
+            // try to parse string numbers, accept comma decimal
+            const parsed = parseFloat(v.replace(',', '.'));
+            if (isNaN(parsed)) return;
+            v = parsed;
+          }
+          if (typeof v === 'number' && isFinite(v)) {
+            sum += v;
+          }
+        });
+      }
+      return {
+        _id: field._id,
+        name: field.name,
+        type: field.type,
+        settings: field.settings || {},
+        value: sum,
+      };
+    });
+
+    return result;
   },
 
   openForm(options) {
@@ -253,6 +292,22 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('listBody');
+
+// Helpers for listBody template context
+Template.listBody.helpers({
+  formattedCurrencyCustomFieldValue(val) {
+    // `this` is the custom field sum object from customFieldsSum each-iteration
+    const field = this || {};
+    const code = (field.settings && field.settings.currencyCode) || 'USD';
+    try {
+      const n = typeof val === 'number' ? val : parseFloat(val);
+      if (!isFinite(n)) return val;
+      return new Intl.NumberFormat(undefined, { style: 'currency', currency: code }).format(n);
+    } catch (e) {
+      return `${code} ${val}`;
+    }
+  },
+});
 
 function toggleValueInReactiveArray(reactiveValue, value) {
   const array = reactiveValue.get();

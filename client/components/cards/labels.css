@@ -223,9 +223,13 @@
 .card-label-edit-button:hover {
   background: #dbdbdb;
 }
-ul.edit-labels-pop-over span.fa.label-handle {
+ul.edit-labels-pop-over span.label-handle {
   padding-right: 10px;
+  display: inline-block;
+  width: 1.2em;
+  text-align: center;
+  color: #999;
 }
-ul.edit-labels-pop-over span.fa.label-handle + .card-label {
+ul.edit-labels-pop-over span.label-handle + .card-label {
   max-width: 180px;
 }

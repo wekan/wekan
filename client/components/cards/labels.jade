@@ -31,7 +31,7 @@ template(name="cardLabelsPopup")
         a.card-label-edit-button.js-edit-label
           | ✏️
         if isTouchScreenOrShowDesktopDragHandles
-          span.fa.label-handle(class="fa-arrows" title="{{_ 'dragLabel'}}")
+          span.label-handle(title="{{_ 'dragLabel'}}") ↕️
         span.card-label.card-label-selectable.js-select-label.card-label-wrapper(class="card-label-{{color}}"
           class="{{# if isLabelSelected ../_id }}active{{/if}}")
             +viewer

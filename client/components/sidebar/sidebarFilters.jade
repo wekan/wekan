@@ -36,7 +36,7 @@ template(name="filterSidebar")
             else
               span.quiet {{_ "label-default" (_ (concat "color-" color))}}
           if Filter.labelIds.isSelected _id
-            i.fa.fa-check
+            | ✅
   hr
   h3
     | 👥
@@ -68,7 +68,7 @@ template(name="filterSidebar")
         span.sidebar-list-item-description
           | {{_ 'filter-no-assignee'}}
         if Filter.assignees.isSelected undefined
-          i.fa.fa-check
+          | ✅
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.assignees.isSelected _id}}active{{/if}}")
@@ -90,37 +90,37 @@ template(name="filterSidebar")
         span.sidebar-list-item-description
           | {{_ 'filter-no-due-date' }}
         if Filter.dueAt.isSelected 'noDate'
-          i.fa.fa-check
+          | ✅
     li(class="{{#if Filter.dueAt.isSelected 'past'}}active{{/if}}")
       a.name.js-toggle-overdue-filter
         span.sidebar-list-item-description
           | {{_ 'filter-overdue' }}
         if Filter.dueAt.isSelected 'past'
-          i.fa.fa-check
+          | ✅
     li(class="{{#if Filter.dueAt.isSelected 'today'}}active{{/if}}")
       a.name.js-toggle-due-today-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-today' }}
         if Filter.dueAt.isSelected 'today'
-          i.fa.fa-check
+          | ✅
     li(class="{{#if Filter.dueAt.isSelected 'tomorrow'}}active{{/if}}")
       a.name.js-toggle-due-tomorrow-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-tomorrow' }}
         if Filter.dueAt.isSelected 'tomorrow'
-          i.fa.fa-check
+          | ✅
     li(class="{{#if Filter.dueAt.isSelected 'thisweek'}}active{{/if}}")
       a.name.js-toggle-due-this-week-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-this-week' }}
         if Filter.dueAt.isSelected 'thisweek'
-          i.fa.fa-check
+          | ✅
     li(class="{{#if Filter.dueAt.isSelected 'nextweek'}}active{{/if}}")
       a.name.js-toggle-due-next-week-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-next-week' }}
         if Filter.dueAt.isSelected 'nextweek'
-          i.fa.fa-check
+          | ✅
   hr
   h3
     | 📋
@@ -138,7 +138,7 @@ template(name="filterSidebar")
           span.sidebar-list-item-description
             | {{ name }}
           if Filter.customFields.isSelected _id
-            i.fa.fa-check
+            | ✅
   hr
   h3
     | {{_ 'other-filters-label'}}
@@ -148,14 +148,14 @@ template(name="filterSidebar")
         span.sidebar-list-item-description
           | {{_ 'filter-show-archive'}}
         if Filter.archive.isSelected _id
-          i.fa.fa-check
+          | ✅
   ul.sidebar-list
     li(class="{{#if Filter.hideEmpty.isSelected _id}}active{{/if}}")
       a.name.js-toggle-hideEmpty-filter
         span.sidebar-list-item-description
           | {{_ 'filter-hide-empty'}}
         if Filter.hideEmpty.isSelected _id
-          i.fa.fa-check
+          | ✅
   hr
   h3 {{_ 'advanced-filter-label'}}
   input.js-field-advanced-filter(type="text")

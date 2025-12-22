@@ -2,19 +2,17 @@
   <div class="original-position-info">
     {{#if isLoading}}
       <div class="original-position-loading">
-        <i class="fa fa-spinner fa-spin"></i> Loading original position...
+        ⏳ Loading original position...
       </div>
     {{else if showOriginalPosition}}
       <div class="original-position-details">
         {{#if hasMovedFromOriginal}}
           <div class="original-position-moved">
-            <i class="fa fa-info-circle"></i>
-            <span class="original-position-text">{{getOriginalPositionDescription}}</span>
+            <span class="original-position-text">ℹ️ {{getOriginalPositionDescription}}</span>
           </div>
         {{else}}
           <div class="original-position-unchanged">
-            <i class="fa fa-check-circle"></i>
-            <span class="original-position-text">In original position</span>
+            <span class="original-position-text">✅ In original position</span>
           </div>
         {{/if}}
         

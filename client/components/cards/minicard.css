@@ -142,9 +142,12 @@
     display: block;
   }
 }
-.minicard .handle .fa-arrows {
+.minicard .handle .drag-handle {
   font-size: clamp(16px, 3vw, 20px);
   color: #ccc;
+  display: inline-block;
+  width: 1.4em;
+  text-align: center;
 }
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
@@ -297,19 +300,6 @@
   background-color: #1976d2 !important;
 }
 
-/* Font Awesome icons in minicard dates */
-.minicard .card-date i.fa {
-  margin-right: 0.3vw;
-  font-size: 0.9em;
-  vertical-align: middle;
-}
-
-/* Font Awesome icons in minicard spent time */
-.minicard .card-time i.fa {
-  margin-right: 0.3vw;
-  font-size: 0.9em;
-  vertical-align: middle;
-}
 .minicard .badges {
   float: left;
   margin-top: 1vh;
@@ -739,9 +729,4 @@
   display: flex;
   align-items: center;
   gap: 0.3vw;
-}
-
-.minicard-list-name i.fa {
-  font-size: 0.8em;
-  opacity: 0.7;
 }

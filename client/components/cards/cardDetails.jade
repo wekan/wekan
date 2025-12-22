@@ -26,10 +26,10 @@ template(name="cardDetails")
               | ☰
             a.card-copy-button.js-copy-link(
               id="cardURL_copy"
-              class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
               href="{{ originRelativeUrl }}"
             )
+              | 🔗
             span.copied-tooltip {{_ 'copied'}}
         else
           unless isPopup
@@ -40,10 +40,10 @@ template(name="cardDetails")
               | ☰
             a.card-copy-mobile-button.js-copy-link(
               id="cardURL_copy"
-              class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
               href="{{ originRelativeUrl }}"
             )
+              | 🔗
             span.copied-tooltip {{_ 'copied'}}
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
@@ -304,7 +304,7 @@ template(name="cardDetails")
               hr
             .card-details-item.card-details-item-customfield
               h3.card-details-item-title
-                | 📋-alt
+                | 📋
                 = definition.name
               +cardCustomField
 
@@ -678,7 +678,7 @@ template(name="cardDetailsActionsPopup")
           | 👁️
           |  {{_ 'unwatch'}}
         else
-          | 👁️-slash
+          | 👁️
           |  {{_ 'watch'}}
   hr
   if canModifyCard
@@ -698,7 +698,7 @@ template(name="cardDetailsActionsPopup")
         if currentUser.isBoardAdmin
           li
             a.js-custom-fields
-              | 📋-alt
+              | 📋
               | {{_ 'card-edit-custom-fields'}}
         //li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
         //li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
@@ -718,7 +718,7 @@ template(name="cardDetailsActionsPopup")
               | 👁️
               | {{_ 'hide-list-on-minicard'}}
             else
-              | 👁️-slash
+              | 👁️
               | {{_ 'show-list-on-minicard'}}
   hr
   ul.pop-over-list

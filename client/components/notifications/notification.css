@@ -20,10 +20,10 @@
   height: 3vw;
 }
 #notifications-drawer .notification .read-status .activity-type {
-  margin: 2vh 0 0;
-  width: 2.2vw;
-  height: 2.2vw;
-  font-size: clamp(14px, 2.5vw, 17px);
+  margin: 8px 0 0;
+  width: 1.2em;
+  height: 1.2em;
+  font-size: clamp(14px, 2vw, 17px);
   display: block;
   color: #bbb;
 }

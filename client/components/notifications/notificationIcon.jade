@@ -1,8 +1,8 @@
 template(name='notificationIcon')
   if($in activityType 'deleteAttachment' 'addAttachment')
-    i.fa.fa-paperclip.activity-type(title="attachment")
+    span.activity-type(title="attachment") 📎
   else if($in activityType 'createBoard' 'importBoard')
-    i.fa.fa-chalkboard.activity-type(title="board")
+    span.activity-type(title="board") 🗂️
 
   else if($in activityType 'createCard' 'importCard' 'moveCard')
     +cardNotificationIcon
@@ -19,17 +19,17 @@ template(name='notificationIcon')
     //- DRY and consistant
 
   else if($in activityType 'checkedItem' 'uncheckedItem' 'addChecklistItem' 'removedChecklistItem')
-    i.fa.fa-check-square.activity-type(title="checklist item")
+    span.activity-type(title="checklist item") ☑️
   else if($in activityType 'addComment')
-    i.fa.fa-comment-o.activity-type(title="comment")
+    span.activity-type(title="comment") 💬
   else if($in activityType 'createCustomField' 'setCustomField' 'unsetCustomField')
-    i.fa.fa-code.activity-type(title="custom field")
+    span.activity-type(title="custom field") 🧩
   else if($in activityType 'addedLabel' 'removedLabel')
-    i.fa.fa-tag.activity-type(title="label")
+    span.activity-type(title="label") 🏷️
   else if($in activityType 'a-startAt' 'a-receivedAt')
-    i.fa.fa-clock-o.activity-type(title="date")
+    span.activity-type(title="date") ⏰
   else if($in activityType 'a-dueAt' 'a-endAt')
-    i.fa.fa-clock-o.activity-type(title="date")
+    span.activity-type(title="date") ⏰
 
   else if($in activityType 'createList' 'removeList' 'archivedList')
     +listNotificationIcon
@@ -41,17 +41,17 @@ template(name='notificationIcon')
     //- elswhere in the app we use fa-trello to indicate lists...
     //- i personally like fa-columns a bit better
   else if($in activityType 'unjoinMember' 'addBoardMember' 'joinMember' 'removeBoardMember')
-    i.fa.fa-user.activity-type(title="member")
+    span.activity-type(title="member") 👤
   else if($in activityType 'createSwimlane' 'archivedSwimlane')
-    i.fa.fa-th-large.activity-type(title="swimlane")
+    span.activity-type(title="swimlane") 🧭
   else
-    i.fa.fa-bug.activity-type(title="can't find icon for #{activityType}")
+    span.activity-type(title="can't find icon for #{activityType}") 🐞
 
 template(name='cardNotificationIcon')
-  i.fa.fa-clone.activity-type(title="card")
+  span.activity-type(title="card") 🗒️
 
 template(name='checklistNotificationIcon')
-  i.fa.fa-list.activity-type(title="checklist")
+  span.activity-type(title="checklist") 📝
 
 template(name='listNotificationIcon')
-  i.fa.fa-columns.activity-type(title="list")
+  span.activity-type(title="list") 📋

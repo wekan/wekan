@@ -3,8 +3,8 @@
   display: block;
   position: relative;
   float: left;
-  height: 30px;
-  width: 30px;
+  height: clamp(24px, 3.5vw, 36px);
+  width: clamp(24px, 3.5vw, 36px);
   margin: .3vh;
   cursor: pointer;
   user-select: none;
@@ -111,7 +111,7 @@
   padding-top: 0;
 }
 .mini-profile-info .member {
-  width: 50px;
-  height: 50px;
+  width: clamp(40px, 5vw, 60px);
+  height: clamp(40px, 5vw, 60px);
   margin-right: 10px;
 }

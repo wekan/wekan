@@ -368,6 +368,18 @@ body.list-resizing-active * {
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
+/* Sum badge shown before list title */
+.list-header .list-sum-badge {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #8c8c8c;
+  font-weight: bold;
+  font-size: 12px;
+  vertical-align: middle;
+}
 .list-rotated {
   width: 1.3vw;
   height: 35vh;
@@ -750,6 +762,9 @@ body.list-resizing-active * {
   grid-row: 2;
   grid-column: 2;
   align-self: start;
+  text-align: left;
+  padding-left: 0;
+  margin-left: 0;
   font-size: 16px !important;
   line-height: 1.2;
 }
@@ -964,6 +979,9 @@ body.list-resizing-active * {
     grid-row: 2 !important;
     grid-column: 2 !important;
     align-self: start !important;
+    text-align: left !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
     font-size: 16px !important;
     line-height: 1.2 !important;
   }

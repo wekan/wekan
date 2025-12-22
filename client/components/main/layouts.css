@@ -527,7 +527,7 @@ a:not(.disabled).is-active i.fa {
   
   /* Board canvas */
   .board-canvas {
-    padding: 8px;
+    padding: 0 8px 8px 0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -675,7 +675,7 @@ a:not(.disabled).is-active i.fa {
   }
   
   .board-canvas {
-    padding: 12px;
+    padding: 0 12px 12px 0;
   }
   
   #header {
@@ -756,7 +756,7 @@ a:not(.disabled).is-active i.fa {
 .inline-input {
   height: 37px;
   margin: 8px 10px 0 0;
-  width: 50px;
+  width: 100px;
 }
 .select-authentication {
   width: 100%;

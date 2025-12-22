@@ -142,7 +142,48 @@ BlazeComponent.extendComponent({
 Template.listHeader.helpers({
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
-  }
+  },
+  numberFieldsSum() {
+    const list = Template.currentData();
+    if (!list) return 0;
+    const boardId = Session.get('currentBoard');
+    const fields = ReactiveCache.getCustomFields({
+      boardIds: { $in: [boardId] },
+      showSumAtTopOfList: true,
+      type: 'number',
+    });
+    if (!fields || !fields.length) return 0;
+    const cards = ReactiveCache.getCards({ listId: list._id, archived: false });
+    let total = 0;
+    if (cards && cards.length) {
+      cards.forEach(card => {
+        const cfs = (card.customFields || []);
+        fields.forEach(field => {
+          const cf = cfs.find(f => f && f._id === field._id);
+          if (!cf || cf.value === null || cf.value === undefined) return;
+          let v = cf.value;
+          if (typeof v === 'string') {
+            const parsed = parseFloat(v.replace(',', '.'));
+            if (isNaN(parsed)) return;
+            v = parsed;
+          }
+          if (typeof v === 'number' && isFinite(v)) {
+            total += v;
+          }
+        });
+      });
+    }
+    return total;
+  },
+  hasNumberFieldsSum() {
+    const boardId = Session.get('currentBoard');
+    const fields = ReactiveCache.getCustomFields({
+      boardIds: { $in: [boardId] },
+      showSumAtTopOfList: true,
+      type: 'number',
+    });
+    return !!(fields && fields.length);
+  },
 });
 
 Template.listActionPopup.helpers({

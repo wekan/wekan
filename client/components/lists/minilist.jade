@@ -3,6 +3,6 @@ template(name="minilist")
     class="minicard-{{colorClass}}")
     .minicard-title
       .handle
-        .fa.fa-arrows
+        span.drag-handle(title="{{_ 'dragList'}}") ↕️
       +viewer
         = title

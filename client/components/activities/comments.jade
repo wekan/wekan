@@ -25,7 +25,7 @@ template(name="comment")
           = text
         .edit-controls
           button.primary(type="submit") {{_ 'edit'}}
-          .fa.fa-times-thin.js-close-inlined-form
+          a.js-close-inlined-form(title="{{_ 'close' }}") ❌
       else
         .comment-text
           +viewer
@@ -55,8 +55,8 @@ template(name="commentReactions")
         span.reaction-count #{reaction.userIds.length}
     if (currentUser.isBoardMember)
       a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
-        i.fa.fa-smile-o
-        i.fa.fa-plus
+        span(title="{{_ 'reaction' }}") 😀
+        span(title="{{_ 'add' }}") ➕
 
 template(name="addReactionPopup")
   .reactions-popup

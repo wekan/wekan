@@ -43,7 +43,7 @@ template(name="checklistDetail")
         if canModifyCard
           h4.title.js-open-inlined-form.is-editable
             if isTouchScreenOrShowDesktopDragHandles
-              span.fa.checklist-handle(class="fa-arrows" title="{{_ 'dragChecklist'}}")
+              span.checklist-handle(title="{{_ 'dragChecklist'}}") ↕️
             +viewer
               = checklist.title
         else
@@ -127,7 +127,7 @@ template(name='checklistItemDetail')
     if canModifyCard
       .check-box-container
         .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
-      span.fa.checklistitem-handle(class="fa-arrows" title="{{_ 'dragChecklistItem'}}")
+      span.checklistitem-handle(title="{{_ 'dragChecklistItem'}}") ↕️
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title

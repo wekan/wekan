@@ -1,6 +1,6 @@
 template(name="archivedBoards")
   h2
-    i.fa.fa-archive
+    span(title="{{_ 'archived-boards'}}") 📦
     | {{_ 'archived-boards'}}
 
   ul.archived-lists
@@ -8,10 +8,10 @@ template(name="archivedBoards")
       li.archived-lists-item
         div.board-header-btns
           button.board-header-btn.js-delete-board
-            i.fa.fa-trash-o
+            | 🗑️
             | {{_ 'delete-board'}}
           button.board-header-btn.js-restore-board
-            i.fa.fa-undo
+            | ↩️
             | {{_ 'restore-board'}}
           = title
         span {{ moment archivedAt 'LLL' }}

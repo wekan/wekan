@@ -26,6 +26,9 @@ template(name="listHeader")
            |/#{wipLimit.value})
         if showCardsCountForList cards.length
           span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
+          if hasNumberFieldsSum
+            | &nbsp;
+            span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
         if collapsed
           a.js-collapse(title="{{_ 'uncollapse'}}")
@@ -44,6 +47,9 @@ template(name="listHeader")
         unless collapsed
           if showCardsCountForList cards.length
             span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
+            if hasNumberFieldsSum
+              | &nbsp;
+              span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       if isMiniScreen
         if currentList
           if isWatching

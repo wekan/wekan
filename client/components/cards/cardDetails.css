@@ -31,8 +31,8 @@
   display: block;
   position: relative;
   float: left;
-  height: 30px;
-  width: 30px;
+  height: clamp(24px, 3.5vw, 36px);
+  width: clamp(24px, 3.5vw, 36px);
   margin: .3vh;
   cursor: pointer;
   user-select: none;

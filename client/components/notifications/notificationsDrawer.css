@@ -55,9 +55,6 @@ section#notifications-drawer .remove-read {
 section#notifications-drawer .remove-read:hover {
   color: #eb4646 !important;
 }
-section#notifications-drawer .remove-read:hover i.fa {
-  color: inherit;
-}
 section#notifications-drawer ul.notifications {
   display: block;
   padding: 0px 16px 0px 16px;

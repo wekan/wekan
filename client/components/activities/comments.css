@@ -108,15 +108,12 @@
   text-decoration: none;
   height: 24px;
 }
-.comments .comment .comment-desc .reactions .open-comment-reaction-popup i.fa.fa-smile-o {
-  font-size: 17px;
+.comments .comment .comment-desc .reactions .open-comment-reaction-popup span {
+  display: inline-block;
+  font-size: clamp(14px, 2vw, 18px);
   font-weight: 500;
-  margin-left: 2px;
-}
-.comments .comment .comment-desc .reactions .open-comment-reaction-popup i.fa.fa-plus {
-  font-size: 8px;
-  margin-top: -7px;
-  margin-left: 1px;
+  line-height: 1;
+  margin-left: 4px;
 }
 .comments .comment .comment-desc .reactions .reaction {
   cursor: pointer;
