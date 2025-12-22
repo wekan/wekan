@@ -34,6 +34,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [More translations. Added support page to Admin Panel / Settings / Layout](https://github.com/wekan/wekan/commit/a7400dca4503961267cc5fd6a1c8efaa78668f77).
   Thanks to xet7.
+- [Right top User Settings / Grey Icons. Also fixed Change Language popup](https://github.com/wekan/wekan/commit/300b653ea3416892faf2d08f5e0be3752e2041d6).
+  Thanks to xet7.
 
 and adds the following updates:
 
