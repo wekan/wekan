@@ -66,6 +66,12 @@ and fixes the following bugs:
   Thanks to brlin-tw.
 - [Updated Mac docs for Applite](https://github.com/wekan/wekan/commit/400eb81206f346a973d871a8aaa55d4ac5d48753).
   Thanks to xet7.
+- [Fix checklist delete action (issue #6020), link-card popup defaults, and stabilize due-cards ordering](https://github.com/wekan/wekan/pull/5967).
+  Thanks to seve12.
+- [Improve rules UI board dropdowns/loading, rule header titles, and ensure card move updates attachment metadata](https://github.com/wekan/wekan/pull/5967).
+  Thanks to seve12.
+- [Improve imports: normalize id → _id, add default swimlane fallback, and add regression test](https://github.com/wekan/wekan/pull/5967).
+  Thanks to seve12.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

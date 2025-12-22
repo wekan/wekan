@@ -232,6 +232,24 @@ class DueCardsComponent extends BlazeComponent {
       });
     }
 
+    // Normalize dueAt to timestamps for stable client-side ordering
+    const future = new Date('2100-12-31').getTime();
+    const toTime = v => {
+      if (v === null || v === undefined || v === '') return future;
+      if (v instanceof Date) return v.getTime();
+      const t = new Date(v);
+      if (!isNaN(t.getTime())) return t.getTime();
+      return future;
+    };
+
+    filteredCards.sort((a, b) => {
+      const x = toTime(a.dueAt);
+      const y = toTime(b.dueAt);
+      if (x > y) return 1;
+      if (x < y) return -1;
+      return 0;
+    });
+
     if (process.env.DEBUG === 'true') {
       console.log('dueCards client: filtered to', filteredCards.length, 'cards');
     }

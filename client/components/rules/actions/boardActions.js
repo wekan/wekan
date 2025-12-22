@@ -1,7 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 
 BlazeComponent.extendComponent({
-  onCreated() {},
+  onCreated() {
+    // Ensure boards are available for action dropdowns
+    this.subscribe('boards');
+  },
 
   boards() {
     const ret = ReactiveCache.getBoards(
@@ -17,6 +21,16 @@ BlazeComponent.extendComponent({
       },
     );
     return ret;
+  },
+
+  loadingBoardsLabel() {
+    try {
+      const txt = TAPi18n.__('loading-boards');
+      if (txt && !txt.startsWith("key '")) return txt;
+    } catch (e) {
+      // ignore translation lookup errors
+    }
+    return 'Loading boards...';
   },
 
   events() {

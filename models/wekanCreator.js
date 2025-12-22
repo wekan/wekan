@@ -76,6 +76,33 @@ export class WekanCreator {
 
     // maps a wekanCardId to an array of wekanAttachments
     this.attachments = {};
+
+    // default swimlane id created during import if necessary
+    this._defaultSwimlaneId = null;
+
+    // Normalize possible exported id fields: some exports may use `id` instead of `_id`.
+    // Ensure every item we rely on has an `_id` so mappings work consistently.
+    const normalizeIds = arr => {
+      if (!arr) return;
+      arr.forEach(item => {
+        if (item && item.id && !item._id) {
+          item._id = item.id;
+        }
+      });
+    };
+
+    normalizeIds(data.lists);
+    normalizeIds(data.cards);
+    normalizeIds(data.swimlanes);
+    normalizeIds(data.checklists);
+    normalizeIds(data.checklistItems);
+    normalizeIds(data.triggers);
+    normalizeIds(data.actions);
+    normalizeIds(data.labels);
+    normalizeIds(data.customFields);
+    normalizeIds(data.comments);
+    normalizeIds(data.activities);
+    normalizeIds(data.rules);
   }
 
   /**
@@ -348,7 +375,7 @@ export class WekanCreator {
         dateLastActivity: this._now(),
         description: card.description,
         listId: this.lists[card.listId],
-        swimlaneId: this.swimlanes[card.swimlaneId],
+        swimlaneId: this.swimlanes[card.swimlaneId] || this._defaultSwimlaneId,
         sort: card.sort,
         title: card.title,
         // we attribute the card to its creator if available
@@ -588,6 +615,25 @@ export class WekanCreator {
   }
 
   createSwimlanes(wekanSwimlanes, boardId) {
+    // If no swimlanes provided, create a default so cards still render
+    if (!wekanSwimlanes || wekanSwimlanes.length === 0) {
+      const swimlaneToCreate = {
+        archived: false,
+        boardId,
+        createdAt: this._now(),
+        title: 'Default',
+        sort: 0,
+      };
+      const created = Swimlanes.direct.insert(swimlaneToCreate);
+      Swimlanes.direct.update(created, {
+        $set: {
+          updatedAt: this._now(),
+        },
+      });
+      this._defaultSwimlaneId = created;
+      return;
+    }
+
     wekanSwimlanes.forEach((swimlane, swimlaneIndex) => {
       const swimlaneToCreate = {
         archived: swimlane.archived,
@@ -611,6 +657,9 @@ export class WekanCreator {
         },
       });
       this.swimlanes[swimlane._id] = swimlaneId;
+      if (!this._defaultSwimlaneId) {
+        this._defaultSwimlaneId = swimlaneId;
+      }
     });
   }
 

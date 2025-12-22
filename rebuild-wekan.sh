@@ -12,7 +12,7 @@ function pause(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:4000" "Run Meteor for dev on http://localhost:4000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:4000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
+options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:4000" "Run Meteor for dev on http://localhost:4000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" "Run Meteor for dev on http://localhost:4000 with bundle visualizer" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Run tests" "Save Meteor dependency chain to ../meteor-deps.txt" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -239,6 +239,12 @@ do
                 #---------------------------------------------------------------------
                 break
                 ;;
+
+		"Run tests")
+								echo "Running tests (import regression)."
+								node tests/wekanCreator.import.test.js
+								break
+								;;
 
     "Quit")
 		break

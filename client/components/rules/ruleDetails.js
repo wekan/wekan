@@ -5,6 +5,7 @@ BlazeComponent.extendComponent({
     this.subscribe('allRules');
     this.subscribe('allTriggers');
     this.subscribe('allActions');
+    this.subscribe('boards');
   },
 
   trigger() {

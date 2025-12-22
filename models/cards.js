@@ -2107,6 +2107,28 @@ Cards.mutations({
     Cards.update(this._id, {
       $set: mutatedFields,
     });
+
+    // Ensure attachments follow the card to its new board/list/swimlane
+    if (Meteor.isServer) {
+      const updateMeta = {};
+      if (mutatedFields.boardId !== undefined) updateMeta['meta.boardId'] = mutatedFields.boardId;
+      if (mutatedFields.listId !== undefined) updateMeta['meta.listId'] = mutatedFields.listId;
+      if (mutatedFields.swimlaneId !== undefined) updateMeta['meta.swimlaneId'] = mutatedFields.swimlaneId;
+
+      if (Object.keys(updateMeta).length > 0) {
+        try {
+          Attachments.collection.update(
+            { 'meta.cardId': this._id },
+            { $set: updateMeta },
+            { multi: true },
+          );
+        } catch (err) {
+          // Do not block the move if attachment update fails
+          // eslint-disable-next-line no-console
+          console.error('Failed to update attachments metadata after moving card', this._id, err);
+        }
+      }
+    }
   },
 
   addLabel(labelId) {

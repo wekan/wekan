@@ -1,7 +1,9 @@
 template(name="rulesActions")
   h2
     | ✨
-    | {{_ 'r-rule' }} "#{data.ruleName.get}" - {{_ 'r-add-action'}}
+    | {{_ 'r-rule' }} "
+    = ruleName.get()
+    | " - {{_ 'r-add-action'}}
   .triggers-content
     .triggers-body
       .triggers-side-menu
