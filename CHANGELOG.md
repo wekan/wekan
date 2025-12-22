@@ -24,7 +24,12 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Gantt chart view to one board view menu Swimlanes/Lists/Calendar/Gantt](https://github.com/wekan/wekan/commit/f34e4c0e363e386dbcce8e6ee8933b2d50491c58).
+  Thanks to xet7.
+
+and adds the following updates:
 
 - [Update GitHub docker/metadata-action from 5.8.0 to 5.9.0](https://github.com/wekan/wekan/pull/6012).
   Thanks to dependabot.
@@ -32,11 +37,29 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated build script for Linux arm64 bundle](https://github.com/wekan/wekan/commit/3db1305e58168f7417023ccd8d54995026844b18).
   Thanks to xet7.
+- Update Backup docs about migrating to newest WeKan.
+  [Part 1](https://github.com/wekan/wekan/commit/e669b1b9c72278c8debbc9de74d3fa02224a66d8),
+  [Part 1](https://github.com/wekan/wekan/commit/19fa12bb26a0444acffd49f24123ed993c425f6a),
+  [Part 1](https://github.com/wekan/wekan/commit/4e346c0ab7fbfb39544063cbd0e095307b26648f),
+  [Part 1](https://github.com/wekan/wekan/commit/59fc756a0bda8e11b9d86961daa35bb755110a68),
+  [Part 1](https://github.com/wekan/wekan/commit/30541260f0f979662889bc40b4db461af1583a07),
+  [Part 1](https://github.com/wekan/wekan/commit/784c5c6b0c83397ab4344d1a0fa231f33ff26564),
+  [Part 1](https://github.com/wekan/wekan/commit/5686c92e05452a5d91c10ed436fae71103ecfb1f),
+  [Part 1](https://github.com/wekan/wekan/commit/b7ff370561153bbfbb07426f9bd8b4d2977b1d0c),
+  [Part 1](https://github.com/wekan/wekan/commit/fe4b36b85d4ac8efddb2c7148bc5d2413cd643e1),
+  [Part 1](https://github.com/wekan/wekan/commit/9ebdc82d46d86029df12adaafba95c0ecfc9d2c2),
+  [Part 1](https://github.com/wekan/wekan/commit/3ef0a3e685657eba1cc07314ac8d195f89dbef74),
+  [Part 1](https://github.com/wekan/wekan/commit/2cbf64da33aff2d0b77ee91e7e9ac360cd1edb99),
+  [Part 1](https://github.com/wekan/wekan/commit/3c578403404084ae10e4349b5570b0d50ecd8eb4),
+  [Part 1](https://github.com/wekan/wekan/commit/451e9f78705dbbac2ed6ce123fd5440a871b6dcc),
+  [Part 1](https://github.com/wekan/wekan/commit/e07e461e482f54c8ddaebc63373c93dc4aa0d956).
 
 and fixes the following bugs:
 
 - [Fix Broken Strikethroughs in Markdown to HTML conversion](https://github.com/wekan/wekan/pull/6009).
   Thanks to brlin-tw.
+- [Updated Mac docs for Applite](https://github.com/wekan/wekan/commit/400eb81206f346a973d871a8aaa55d4ac5d48753).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
