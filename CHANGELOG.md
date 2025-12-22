@@ -32,6 +32,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [New Board Permissions: NormalAssignedOnly, CommentAssignedOnly, ReadOnly, ReadAssignedOnly](https://github.com/wekan/wekan/commit/c1168d181b3ff34f5ee7794a5740281c4ab5e253).
   Thanks to xet7.
+- [More translations. Added support page to Admin Panel / Settings / Layout](https://github.com/wekan/wekan/commit/a7400dca4503961267cc5fd6a1c8efaa78668f77).
+  Thanks to xet7.
 
 and adds the following updates:
 
