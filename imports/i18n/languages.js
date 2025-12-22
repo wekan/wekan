@@ -449,6 +449,12 @@ export default {
     name: "ភាសាខ្មែរ",
     load: () => import('./data/km.i18n.json'),
   },
+  "km-KH": {
+    code: "km",
+    tag: "km_KH",
+    name: "ខ្មែរ (កម្ពុជា)",
+    load: () => import('./data/km-KH.i18n.json'),
+  },  
   "ko-KR": {
     code: "ko",
     tag: "ko-KR",
@@ -580,6 +586,12 @@ export default {
     tag: "ru",
     name: "Русский",
     load: () => import('./data/ru.i18n.json'),
+  },
+  "ru-RU": {
+    code: "ru",
+    tag: "ru_RU",
+    name: "Русский язык (Россия)",
+    load: () => import('./data/ru-RU.i18n.json'),
   },
   "sk": {
     code: "sk",

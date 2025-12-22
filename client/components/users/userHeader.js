@@ -31,6 +31,10 @@ Template.memberMenuPopup.helpers({
       return false;
     }
   },
+  isSupportPageEnabled() {
+    const setting = ReactiveCache.getCurrentSetting();
+    return setting && setting.supportPageEnabled;
+  },
   isSameDomainNameSettingValue(){
     const currSett = ReactiveCache.getCurrentSetting();
     if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){

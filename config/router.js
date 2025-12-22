@@ -79,6 +79,53 @@ FlowRouter.route('/accessibility', {
   },
 });
 
+FlowRouter.route('/support', {
+  name: 'support',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeAll();
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'supportHeaderBar',
+      content: 'support',
+    });
+  },
+});
+
+FlowRouter.route('/public', {
+  name: 'public',
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeAll();
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'supportHeaderBar',
+      content: 'support',
+    });
+  },
+});
+
 FlowRouter.route('/b/:id/:slug', {
   name: 'board',
   action(params) {

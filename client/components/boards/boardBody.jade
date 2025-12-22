@@ -24,7 +24,7 @@ template(name="boardBody")
     // Debug information (remove in production)
     if debugBoardState
       .debug-info(style="position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 9999; font-size: 12px;")
-        | Board: {{currentBoard.title}} | View: {{boardView}} | HasSwimlanes: {{hasSwimlanes}} | Swimlanes: {{currentBoard.swimlanes.length}}
+        | {{_ 'board'}}: {{currentBoard.title}} | {{_ 'view'}}: {{boardView}} | {{_ 'has-swimlanes'}}: {{hasSwimlanes}} | {{_ 'swimlanes'}}: {{currentBoard.swimlanes.length}}
     .board-wrapper(class=currentBoard.colorClass class="{{#if isMiniScreen}}mobile-view{{/if}}")
       .board-canvas.js-swimlanes(
         class="{{#if hasSwimlanes}}dragscroll{{/if}}"

@@ -518,6 +518,45 @@ BlazeComponent.extendComponent({
     DocHead.setTitle(productName);
   },
 
+  toggleSupportPage() {
+    this.setLoading(true);
+    const supportPageEnabled = !$('.js-toggle-support .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-support .materialCheckBox').toggleClass('is-checked');
+    $('.support-content').toggleClass('hide');
+    Settings.update(Settings.findOne()._id, {
+      $set: { supportPageEnabled },
+    });
+    this.setLoading(false);
+  },
+
+  toggleSupportPublic() {
+    this.setLoading(true);
+    const supportPagePublic = !$('.js-toggle-support-public .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-support-public .materialCheckBox').toggleClass('is-checked');
+    Settings.update(Settings.findOne()._id, {
+      $set: { supportPagePublic },
+    });
+    this.setLoading(false);
+  },
+
+  saveSupportSettings() {
+    this.setLoading(true);
+    const supportTitle = ($('#support-title').val() || '').trim();
+    const supportPageText = ($('#support-page-text').val() || '').trim();
+    try {
+      Settings.update(Settings.findOne()._id, {
+        $set: {
+          supportTitle,
+          supportPageText,
+        },
+      });
+    } catch (e) {
+      return;
+    } finally {
+      this.setLoading(false);
+    }
+  },
+
   sendSMTPTestEmail() {
     Meteor.call('sendSMTPTestEmail', (err, ret) => {
       if (!err && ret) {
@@ -546,6 +585,9 @@ BlazeComponent.extendComponent({
         'click a.js-toggle-hide-card-counter-list': this.toggleHideCardCounterList,
         'click a.js-toggle-hide-board-member-list': this.toggleHideBoardMemberList,
         'click button.js-save-layout': this.saveLayout,
+        'click a.js-toggle-support': this.toggleSupportPage,
+        'click a.js-toggle-support-public': this.toggleSupportPublic,
+        'click button.js-support-save': this.saveSupportSettings,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,
       },

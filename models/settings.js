@@ -130,6 +130,28 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    supportPopupText: {
+      type: String,
+      optional: true,
+    },
+    supportPageEnabled: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    supportPagePublic: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    supportTitle: {
+      type: String,
+      optional: true,
+    },
+    supportPageText: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,

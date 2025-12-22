@@ -87,10 +87,11 @@ template(name="memberMenuPopup")
         a.js-change-language
           | 🏁
           | {{_ 'changeLanguagePopup-title'}}
-      //li
-      //  a.js-support
-      //    ❓-circle
-      //    | {{_ 'support'}}
+      if isSupportPageEnabled
+        li
+          a(href="{{pathFor 'support'}}")
+            | ❓
+            | {{_ 'support'}}
   unless isSandstorm
     hr
     ul.pop-over-list
@@ -157,7 +158,8 @@ template(name="editProfilePopup")
 template(name="supportPopup")
   ul.pop-over-list
     li
-      | Support popup text will be editable later.
+      +viewer
+        = currentSetting.supportPopupText
 
 template(name="changePasswordPopup")
   +atForm(state='changePwd')

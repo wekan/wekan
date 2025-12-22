@@ -105,7 +105,7 @@ template(name="boardTriggers")
 template(name="boardCardTitlePopup")
     form
       label
-        | Card Title Filter
+        | {{_ 'boardCardTitlePopup-title'}}
         input.js-card-filter-name(type="text" value=title autofocus)
       input.js-card-filter-button.primary.wide(type="submit" value="{{_ 'set-filter'}}")
 

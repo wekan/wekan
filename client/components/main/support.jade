@@ -1,0 +1,29 @@
+template(name="supportHeaderBar")
+  h1
+    if isSupportEnabled
+      = supportTitle
+    else
+      | {{_ 'support'}}
+
+template(name="support")
+  .support-page
+    if isSupportPublic
+      if isSupportEnabled
+        .support-page-content
+          +viewer
+            | {{supportContent}}
+      else
+        .support-page-content
+          | {{_ 'support-info-not-added-yet'}}
+    else
+      if currentUser
+        if isSupportEnabled
+          .support-page-content
+            +viewer
+              | {{supportContent}}
+        else
+          .support-page-content
+            | {{_ 'support-info-not-added-yet'}}
+      else
+        .support-page-content
+          | {{_ 'support-info-only-for-logged-in-users'}}

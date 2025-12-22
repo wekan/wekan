@@ -4,14 +4,14 @@ template(name="migrationProgress")
       .migration-progress-modal
         .migration-progress-header
           h3.migration-progress-title
-            | 🔄 Board Migration in Progress
+            | 🔄 {{_ 'migration-progress-title'}}
           .migration-progress-close.js-close-migration-progress
             | ❌
         
         .migration-progress-content
           .migration-progress-overall
             .migration-progress-overall-label
-              | Overall Progress: {{currentStep}} of {{totalSteps}} steps
+              | {{_ 'migration-progress-overall'}}: {{currentStep}} {{_ 'of'}} {{totalSteps}} {{_ 'steps'}}
             .migration-progress-overall-bar
               .migration-progress-overall-fill(style="{{progressBarStyle}}")
             .migration-progress-overall-percentage
@@ -19,7 +19,7 @@ template(name="migrationProgress")
           
           .migration-progress-current-step
             .migration-progress-step-label
-              | Current Step: {{stepNameFormatted}}
+              | {{_ 'migration-progress-current-step'}}: {{stepNameFormatted}}
             .migration-progress-step-bar
               .migration-progress-step-fill(style="{{stepProgressBarStyle}}")
             .migration-progress-step-percentage
@@ -27,17 +27,17 @@ template(name="migrationProgress")
           
           .migration-progress-status
             .migration-progress-status-label
-              | Status:
+              | {{_ 'migration-progress-status'}}:
             .migration-progress-status-text
               | {{stepStatus}}
           
           if stepDetailsFormatted
             .migration-progress-details
               .migration-progress-details-label
-                | Details:
+                | {{_ 'migration-progress-details'}}:
               .migration-progress-details-text
                 | {{stepDetailsFormatted}}
         
         .migration-progress-footer
           .migration-progress-note
-            | Please wait while we migrate your board to the latest structure...
+            | {{_ 'migration-progress-note'}}

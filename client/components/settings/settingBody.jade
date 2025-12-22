@@ -375,6 +375,29 @@ template(name='layoutSettings')
   ul#layout-setting.setting-detail
     li
       button.js-all-boards-hide-activities.primary {{_ 'hide-activities-of-all-boards'}}
+    li
+      a(href="/support" style="text-decoration: underline; color: blue;") {{_ 'support'}}
+    li
+      a.flex.js-toggle-support
+        .materialCheckBox(class="{{#if currentSetting.supportPageEnabled}}is-checked{{/if}}")
+
+        span {{_ 'support-page-enabled'}}
+    li
+      .support-content(class="{{#if currentSetting.supportPageEnabled}}{{else}}hide{{/if}}")
+        ul
+          li
+            a.flex.js-toggle-support-public
+              .materialCheckBox(class="{{#if currentSetting.supportPagePublic}}is-checked{{/if}}")
+
+              span {{_ 'public'}}
+          li
+            .title {{_ 'support-title'}}
+            textarea#support-title.wekan-form-control= currentSetting.supportTitle
+          li
+            .title {{_ 'support-content'}}
+            textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
+          li
+            button.js-support-save.primary {{_ 'save'}}
     li.layout-form
       .title {{_ 'oidc-button-text'}}
       .form-group

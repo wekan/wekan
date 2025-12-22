@@ -11,7 +11,7 @@ template(name="resultCard")
               = getBoard.title
           else
             .broken-cards-null
-              | NULL
+              | {{_ 'no-name'}}
         if getBoard.archived
           | 📦
       li.result-card-context.result-card-context-separator
@@ -25,7 +25,7 @@ template(name="resultCard")
               = getSwimlane.title
           else
             .broken-cards-null
-              | NULL
+              | {{_ 'no-name'}}
         if getSwimlane.archived
           | 📦
       li.result-card-context.result-card-context-separator
@@ -39,6 +39,6 @@ template(name="resultCard")
               = getList.title
           else
             .broken-cards-null
-              | NULL
+              | {{_ 'no-name'}}
         if getList.archived
           | 📦
