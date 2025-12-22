@@ -810,6 +810,12 @@ template(name="changePermissionsPopup")
           | ✅
         span.sub-name {{_ 'normal-desc'}}
     li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal-assigned-only{{/if}}")
+        | {{_ 'normal-assigned-only'}}
+        if isNormalAssignedOnly
+          | ✅
+        span.sub-name {{_ 'normal-assigned-only-desc'}}
+    li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-no-comments{{/if}}")
         | {{_ 'no-comments'}}
         if isNoComments
@@ -821,6 +827,24 @@ template(name="changePermissionsPopup")
         if isCommentOnly
           | ✅
         span.sub-name {{_ 'comment-only-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-comment-assigned-only{{/if}}")
+        | {{_ 'comment-assigned-only'}}
+        if isCommentAssignedOnly
+          | ✅
+        span.sub-name {{_ 'comment-assigned-only-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-read-only{{/if}}")
+        | {{_ 'read-only'}}
+        if isReadOnly
+          | ✅
+        span.sub-name {{_ 'read-only-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-read-assigned-only{{/if}}")
+        | {{_ 'read-assigned-only'}}
+        if isReadAssignedOnly
+          | ✅
+        span.sub-name {{_ 'read-assigned-only-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-worker{{/if}}")
         | {{_ 'worker'}}

@@ -239,8 +239,20 @@ Template.memberPopup.helpers({
       const commentOnly = currentBoard.hasCommentOnly(this.userId);
       const noComments = currentBoard.hasNoComments(this.userId);
       const worker = currentBoard.hasWorker(this.userId);
-      if (commentOnly) {
+      const normalAssignedOnly = currentBoard.hasNormalAssignedOnly(this.userId);
+      const commentAssignedOnly = currentBoard.hasCommentAssignedOnly(this.userId);
+      const readOnly = currentBoard.hasReadOnly(this.userId);
+      const readAssignedOnly = currentBoard.hasReadAssignedOnly(this.userId);
+      if (readAssignedOnly) {
+        return TAPi18n.__('read-assigned-only');
+      } else if (readOnly) {
+        return TAPi18n.__('read-only');
+      } else if (commentAssignedOnly) {
+        return TAPi18n.__('comment-assigned-only');
+      } else if (commentOnly) {
         return TAPi18n.__('comment-only');
+      } else if (normalAssignedOnly) {
+        return TAPi18n.__('normal-assigned-only');
       } else if (noComments) {
         return TAPi18n.__('no-comments');
       } else if (worker) {
@@ -1925,7 +1937,7 @@ Template.removeBoardTeamPopup.helpers({
 });
 
 Template.changePermissionsPopup.events({
-  'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only, click .js-set-worker'(
+  'click .js-set-admin, click .js-set-normal, click .js-set-normal-assigned-only, click .js-set-no-comments, click .js-set-comment-only, click .js-set-comment-assigned-only, click .js-set-read-only, click .js-set-read-assigned-only, click .js-set-worker'(
     event,
   ) {
     const currentBoard = Utils.getCurrentBoard();
@@ -1934,6 +1946,14 @@ Template.changePermissionsPopup.events({
     const isCommentOnly = $(event.currentTarget).hasClass(
       'js-set-comment-only',
     );
+    const isNormalAssignedOnly = $(event.currentTarget).hasClass(
+      'js-set-normal-assigned-only',
+    );
+    const isCommentAssignedOnly = $(event.currentTarget).hasClass(
+      'js-set-comment-assigned-only',
+    );
+    const isReadOnly = $(event.currentTarget).hasClass('js-set-read-only');
+    const isReadAssignedOnly = $(event.currentTarget).hasClass('js-set-read-assigned-only');
     const isNoComments = $(event.currentTarget).hasClass('js-set-no-comments');
     const isWorker = $(event.currentTarget).hasClass('js-set-worker');
     currentBoard.setMemberPermission(
@@ -1942,6 +1962,10 @@ Template.changePermissionsPopup.events({
       isNoComments,
       isCommentOnly,
       isWorker,
+      isNormalAssignedOnly,
+      isCommentAssignedOnly,
+      isReadOnly,
+      isReadAssignedOnly,
     );
     Popup.back(1);
   },
@@ -1959,7 +1983,19 @@ Template.changePermissionsPopup.helpers({
       !currentBoard.hasAdmin(this.userId) &&
       !currentBoard.hasNoComments(this.userId) &&
       !currentBoard.hasCommentOnly(this.userId) &&
+      !currentBoard.hasNormalAssignedOnly(this.userId) &&
+      !currentBoard.hasCommentAssignedOnly(this.userId) &&
+      !currentBoard.hasReadOnly(this.userId) &&
+      !currentBoard.hasReadAssignedOnly(this.userId) &&
       !currentBoard.hasWorker(this.userId)
+    );
+  },
+
+  isNormalAssignedOnly() {
+    const currentBoard = Utils.getCurrentBoard();
+    return (
+      !currentBoard.hasAdmin(this.userId) &&
+      currentBoard.hasNormalAssignedOnly(this.userId)
     );
   },
 
@@ -1976,6 +2012,30 @@ Template.changePermissionsPopup.helpers({
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasCommentOnly(this.userId)
+    );
+  },
+
+  isCommentAssignedOnly() {
+    const currentBoard = Utils.getCurrentBoard();
+    return (
+      !currentBoard.hasAdmin(this.userId) &&
+      currentBoard.hasCommentAssignedOnly(this.userId)
+    );
+  },
+
+  isReadOnly() {
+    const currentBoard = Utils.getCurrentBoard();
+    return (
+      !currentBoard.hasAdmin(this.userId) &&
+      currentBoard.hasReadOnly(this.userId)
+    );
+  },
+
+  isReadAssignedOnly() {
+    const currentBoard = Utils.getCurrentBoard();
+    return (
+      !currentBoard.hasAdmin(this.userId) &&
+      currentBoard.hasReadAssignedOnly(this.userId)
     );
   },
 

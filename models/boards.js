@@ -225,6 +225,34 @@ Boards.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'members.$.isNormalAssignedOnly': {
+      /**
+       * Is the member only allowed to see assigned cards (Normal permission)
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'members.$.isCommentAssignedOnly': {
+      /**
+       * Is the member only allowed to comment on assigned cards
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'members.$.isReadOnly': {
+      /**
+       * Is the member only allowed to read the board (no comments, no editing)
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'members.$.isReadAssignedOnly': {
+      /**
+       * Is the member only allowed to read assigned cards (no comments, no editing)
+       */
+      type: Boolean,
+      optional: true,
+    },
     permission: {
       /**
        * visibility of the board
@@ -979,6 +1007,44 @@ Boards.helpers({
     });
   },
 
+  hasNormalAssignedOnly(memberId) {
+    return !!_.findWhere(this.members, {
+      userId: memberId,
+      isActive: true,
+      isAdmin: false,
+      isNormalAssignedOnly: true,
+      isCommentAssignedOnly: false,
+    });
+  },
+
+  hasCommentAssignedOnly(memberId) {
+    return !!_.findWhere(this.members, {
+      userId: memberId,
+      isActive: true,
+      isAdmin: false,
+      isNormalAssignedOnly: false,
+      isCommentAssignedOnly: true,
+    });
+  },
+
+  hasReadOnly(memberId) {
+    return !!_.findWhere(this.members, {
+      userId: memberId,
+      isActive: true,
+      isAdmin: false,
+      isReadOnly: true,
+    });
+  },
+
+  hasReadAssignedOnly(memberId) {
+    return !!_.findWhere(this.members, {
+      userId: memberId,
+      isActive: true,
+      isAdmin: false,
+      isReadAssignedOnly: true,
+    });
+  },
+
   hasAnyAllowsDate() {
     const ret = this.allowsReceivedDate || this.allowsStartDate || this.allowsDueDate || this.allowsEndDate;
     return ret;
@@ -1416,6 +1482,10 @@ Boards.mutations({
           isNoComments: false,
           isCommentOnly: false,
           isWorker: false,
+          isNormalAssignedOnly: false,
+          isCommentAssignedOnly: false,
+          isReadOnly: false,
+          isReadAssignedOnly: false,
         },
       },
     };
@@ -1449,6 +1519,10 @@ Boards.mutations({
     isNoComments,
     isCommentOnly,
     isWorker,
+    isNormalAssignedOnly = false,
+    isCommentAssignedOnly = false,
+    isReadOnly = false,
+    isReadAssignedOnly = false,
     currentUserId = Meteor.userId(),
   ) {
     const memberIndex = this.memberIndex(memberId);
@@ -1463,6 +1537,10 @@ Boards.mutations({
         [`members.${memberIndex}.isNoComments`]: isNoComments,
         [`members.${memberIndex}.isCommentOnly`]: isCommentOnly,
         [`members.${memberIndex}.isWorker`]: isWorker,
+        [`members.${memberIndex}.isNormalAssignedOnly`]: isNormalAssignedOnly,
+        [`members.${memberIndex}.isCommentAssignedOnly`]: isCommentAssignedOnly,
+        [`members.${memberIndex}.isReadOnly`]: isReadOnly,
+        [`members.${memberIndex}.isReadAssignedOnly`]: isReadAssignedOnly,
       },
     };
   },
@@ -2372,6 +2450,10 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
    * @param {boolean} isNoComments NoComments capability
    * @param {boolean} isCommentOnly CommentsOnly capability
    * @param {boolean} isWorker Worker capability
+   * @param {boolean} isNormalAssignedOnly NormalAssignedOnly capability
+   * @param {boolean} isCommentAssignedOnly CommentAssignedOnly capability
+   * @param {boolean} isReadOnly ReadOnly capability
+   * @param {boolean} isReadAssignedOnly ReadAssignedOnly capability
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/members/:memberId', function(
     req,
@@ -2381,7 +2463,7 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
       Authentication.checkUserId(req.userId);
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
-      const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
+      const { isAdmin, isNoComments, isCommentOnly, isWorker, isNormalAssignedOnly, isCommentAssignedOnly, isReadOnly, isReadAssignedOnly } = req.body;
       const board = ReactiveCache.getBoard(boardId);
       function isTrue(data) {
         try {
@@ -2396,6 +2478,10 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
         isTrue(isNoComments),
         isTrue(isCommentOnly),
         isTrue(isWorker),
+        isTrue(isNormalAssignedOnly),
+        isTrue(isCommentAssignedOnly),
+        isTrue(isReadOnly),
+        isTrue(isReadAssignedOnly),
         req.userId,
       );
 

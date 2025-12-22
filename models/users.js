@@ -2947,6 +2947,10 @@ if (Meteor.isServer) {
    * @param {boolean} isNoComments disable comments
    * @param {boolean} isCommentOnly only enable comments
    * @param {boolean} isWorker is the user a board worker
+   * @param {boolean} isNormalAssignedOnly only see assigned cards (Normal permission)
+   * @param {boolean} isCommentAssignedOnly only comment on assigned cards
+   * @param {boolean} isReadOnly read-only access (no comments or editing)
+   * @param {boolean} isReadAssignedOnly read-only assigned cards only
    * @return_type {_id: string,
    *               title: string}
    */
@@ -2959,7 +2963,7 @@ if (Meteor.isServer) {
         const userId = req.params.userId;
         const boardId = req.params.boardId;
         const action = req.body.action;
-        const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
+        const { isAdmin, isNoComments, isCommentOnly, isWorker, isNormalAssignedOnly, isCommentAssignedOnly, isReadOnly, isReadAssignedOnly } = req.body;
         let data = ReactiveCache.getUser(userId);
         if (data !== undefined) {
           if (action === 'add') {
@@ -2978,6 +2982,10 @@ if (Meteor.isServer) {
                   isTrue(isNoComments),
                   isTrue(isCommentOnly),
                   isTrue(isWorker),
+                  isTrue(isNormalAssignedOnly),
+                  isTrue(isCommentAssignedOnly),
+                  isTrue(isReadOnly),
+                  isTrue(isReadAssignedOnly),
                   userId,
                 );
               }
