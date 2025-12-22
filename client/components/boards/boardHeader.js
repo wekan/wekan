@@ -208,6 +208,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-cal');
     Popup.back();
   },
+  'click .js-open-gantt-view'() {
+    Utils.setBoardView('board-view-gantt');
+    Popup.back();
+  },
 });
 
 const CreateBoard = BlazeComponent.extendComponent({

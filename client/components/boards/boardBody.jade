@@ -49,6 +49,8 @@ template(name="boardBody")
           +listsGroup(currentBoard)
         else if isViewCalendar
           +calendarView
+        else if isViewGantt
+          +ganttView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes
@@ -64,3 +66,10 @@ template(name="calendarView")
       if currentCard
         +cardDetails(currentCard)
       +fullcalendar(calendarOptions)
+template(name="ganttView")
+  if isViewGantt
+    .gantt-view.swimlane
+      if currentCard
+        +cardDetails(currentCard)
+      .gantt-container
+        #gantt-chart

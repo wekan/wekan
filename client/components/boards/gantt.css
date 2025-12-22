@@ -1,0 +1,178 @@
+/* Gantt View Styles */
+
+.gantt-view {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  background-color: #fff;
+}
+
+.gantt-view.swimlane {
+  background-color: #fff;
+  padding: 10px;
+}
+
+.gantt-container {
+  overflow-x: auto;
+  overflow-y: visible;
+  background-color: #fff;
+  display: block;
+  width: 100%;
+}
+
+.gantt-container table,
+.gantt-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 800px;
+  border: 2px solid #666;
+  font-family: sans-serif;
+  font-size: 13px;
+  background-color: #fff;
+}
+
+.gantt-container thead {
+  background-color: #e8e8e8;
+  border-bottom: 2px solid #666;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.gantt-container thead th,
+.gantt-container thead tr > td:first-child {
+  border-right: 2px solid #666;
+  padding: 4px; /* half of 8px */
+  width: 100px; /* half of 200px */
+  text-align: left;
+  font-weight: bold;
+  background-color: #e8e8e8;
+  min-width: 100px; /* half of 200px */
+}
+
+.gantt-container thead td {
+  border-right: 1px solid #999;
+  padding: 2px 1px; /* half */
+  text-align: center;
+  background-color: #f5f5f5;
+  font-size: 11px;
+  min-width: 15px; /* half of 30px */
+  font-weight: bold;
+  height: auto;
+  line-height: 1.2;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.gantt-container tbody tr {
+  border-bottom: 1px solid #999;
+  height: 32px;
+}
+
+.gantt-container tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.gantt-container tbody tr:hover td {
+  background-color: #f9f9f9 !important;
+}
+
+.gantt-container tbody td {
+  border-right: 1px solid #ccc;
+  padding: 1px; /* half */
+  text-align: center;
+  min-width: 15px; /* half of 30px */
+  height: 32px;
+  vertical-align: middle;
+  line-height: 28px;
+  background-color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.gantt-container tbody td:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.gantt-container tbody td:first-child {
+  border-right: 2px solid #666;
+  padding: 4px; /* half of 8px */
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #fafafa !important;
+  text-align: left;
+  width: 100px; /* half of 200px */
+  min-width: 100px; /* half of 200px */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: auto;
+  line-height: normal;
+}
+
+.gantt-container tbody td:first-child:hover {
+  background-color: #f0f0f0 !important;
+  text-decoration: underline;
+}
+
+.js-gantt-task-cell {
+  cursor: pointer;
+}
+
+.js-gantt-date-icon {
+  cursor: pointer;
+}
+
+.gantt-container .ganttview-weekend {
+  background-color: #efefef;
+}
+
+.gantt-container .ganttview-today {
+  background-color: #fcf8e3;
+  border-right: 2px solid #ffb347;
+}
+
+/* Task bar styling - VERY VISIBLE */
+.gantt-container tbody td.ganttview-block {
+  background-color: #4CAF50 !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  padding: 2px !important;
+  border-radius: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gantt-container table {
+    font-size: 11px;
+  }
+
+  .gantt-container thead td {
+    min-width: 20px;
+    padding: 2px;
+  }
+
+  .gantt-container tbody td {
+    min-width: 20px;
+    padding: 1px;
+    height: 20px;
+  }
+
+  .gantt-container tbody td:first-child {
+    width: 100px;
+    font-size: 12px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .gantt-container {
+    overflow: visible;
+  }
+
+  .gantt-container table {
+    page-break-inside: avoid;
+  }
+}

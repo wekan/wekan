@@ -212,6 +212,11 @@ window.Popup = new (class {
 
       if (Utils.isMiniScreen()) return { left: 0, top: 0 };
 
+      // If the opener element is missing (e.g., programmatic open), fallback to viewport origin
+      if (!$element || $element.length === 0) {
+        return { left: 10, top: 10, maxHeight: $(window).height() - 20 };
+      }
+
       const offset = $element.offset();
       // Calculate actual popup width based on CSS: min(380px, 55vw)
       const viewportWidth = $(window).width();

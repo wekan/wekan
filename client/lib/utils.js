@@ -264,6 +264,9 @@ Utils = {
     } else if (view === 'board-view-cal') {
       window.localStorage.setItem('boardView', 'board-view-cal'); //true
       Utils.reload();
+    } else if (view === 'board-view-gantt') {
+      window.localStorage.setItem('boardView', 'board-view-gantt'); //true
+      Utils.reload();
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();
@@ -289,6 +292,8 @@ Utils = {
       return 'board-view-lists';
     } else if (window.localStorage.getItem('boardView') === 'board-view-cal') {
       return 'board-view-cal';
+    } else if (window.localStorage.getItem('boardView') === 'board-view-gantt') {
+      return 'board-view-gantt';
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();

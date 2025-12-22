@@ -297,7 +297,23 @@ BlazeComponent.extendComponent({
       {
         ...events,
         'click .js-close-card-details'() {
-          Utils.goBoardId(this.data().boardId);
+          // Get board ID from either the card data or current board in session
+          const card = this.currentData() || this.data();
+          const boardId = (card && card.boardId) || Utils.getCurrentBoard()._id;
+          
+          if (boardId) {
+            // Clear the current card session to close the card
+            Session.set('currentCard', null);
+            
+            // Navigate back to board without card
+            const board = ReactiveCache.getBoard(boardId);
+            if (board) {
+              FlowRouter.go('board', {
+                id: board._id,
+                slug: board.slug,
+              });
+            }
+          }
         },
         'click .js-copy-link'(event) {
           event.preventDefault();

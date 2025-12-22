@@ -121,6 +121,8 @@ template(name="boardHeaderBar")
             | 📋
           if $eq boardView 'board-view-cal'
             | 📅
+          if $eq boardView 'board-view-gantt'
+            | 📊
 
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
@@ -207,6 +209,13 @@ template(name="boardChangeViewPopup")
           | 📅
           | {{_ 'board-view-cal'}}
           if $eq Utils.boardView "board-view-cal"
+            | ✅
+    li
+      with "board-view-gantt"
+        a.js-open-gantt-view
+          | 📊
+          | {{_ 'board-view-gantt'}}
+          if $eq Utils.boardView "board-view-gantt"
             | ✅
 
 template(name="createBoard")
