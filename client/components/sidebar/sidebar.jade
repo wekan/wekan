@@ -155,7 +155,7 @@ template(name="boardChangeColorPopup")
         span.background-box(class="board-color-{{this}}")
           span {{this}}
           if isSelected
-            | ✅
+            span.checkmark-no-grey ✅
 
 template(name="boardChangeBackgroundImagePopup")
   form
@@ -575,7 +575,8 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       li
         a.js-open-rules-view(title="{{_ 'rules'}}")
-          | ✨
+          span.emoji-icon
+            | ✨
           | {{_ 'rules'}}
     if currentUser.isBoardAdmin
       li
@@ -637,7 +638,8 @@ template(name="boardMenuPopup")
         //     | {{_ 'delete-duplicate-lists'}}
         li
           a.js-archive-board
-            | ➡️📦
+            span.emoji-icon
+              | ➡️📦
             | {{_ 'archive-board'}}
 
 template(name="exportBoard")

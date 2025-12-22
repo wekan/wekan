@@ -1,6 +1,33 @@
 .unicode-icon {
   filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
   opacity: 0.8;
   display: inline-block;
   line-height: 1;
+}
+
+/* Greyscale for explicitly-marked emoji when feature is enabled */
+body.grey-icons-enabled .emoji-icon {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: 0.85;
+  display: inline-block;
+}
+
+/* When grey icons are enabled, also grey common UI badges and toggles */
+body.grey-icons-enabled .card-date,
+body.grey-icons-enabled .mobile-icon,
+body.grey-icons-enabled .desktop-icon {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: 0.85;
+}
+
+/* Grey card minibadges (icons + text + backgrounds) */
+body.grey-icons-enabled .minicard .badges .badge,
+body.grey-icons-enabled .minicard .badges .badge .badge-icon,
+body.grey-icons-enabled .minicard .badges .badge .badge-text {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: 0.9;
 }

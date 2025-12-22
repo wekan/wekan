@@ -8,18 +8,26 @@ template(name="boardList")
         ul.menu
           li(class="menu-item {{#if isSelectedMenu 'starred'}}active{{/if}}")
             a.js-select-menu(data-type="starred")
-              span.menu-label ⭐ {{_ 'allboards.starred'}}
+              span.menu-label
+                span.emoji-icon ⭐
+                |  {{_ 'allboards.starred'}}
               span.menu-count {{menuItemCount 'starred'}}
           li(class="menu-item {{#if isSelectedMenu 'templates'}}active{{/if}}")
             a.js-select-menu(data-type="templates")
-              span.menu-label 📋 {{_ 'allboards.templates'}}
+              span.menu-label
+                span.emoji-icon 📋
+                |  {{_ 'allboards.templates'}}
               span.menu-count {{menuItemCount 'templates'}}
           li(class="menu-item {{#if isSelectedMenu 'remaining'}}active{{/if}}")
             a.js-select-menu(data-type="remaining")
-              span.menu-label 📂 {{_ 'allboards.remaining'}}
+              span.menu-label
+                span.emoji-icon 📂
+                |  {{_ 'allboards.remaining'}}
               span.menu-count {{menuItemCount 'remaining'}}
         .workspaces-header
-          span 🗂️ {{_ 'allboards.workspaces'}}
+          span
+            span.emoji-icon 🗂️
+            |  {{_ 'allboards.workspaces'}}
           a.js-add-workspace(title="{{_ 'allboards.add-workspace'}}") +
         // Workspaces tree
         +workspaceTree(nodes=workspacesTree selectedWorkspaceId=selectedWorkspaceId)
@@ -43,44 +51,49 @@ template(name="boardList")
           li.AllBoardBtns
             div.AllBoardButtonsContainer
               if userHasOrgsOrTeams
-                span 🔍
+                span.emoji-icon 🔍
                 input#filterBtn(type="button" value="{{_ 'filter'}}")
                 button#resetBtn.filter-reset-btn
-                  span.reset-icon ❌
+                  span.reset-icon
+                    span.emoji-icon ❌
                   span {{_ 'filter-clear'}}
 
       // Right boards grid
       .boards-right-grid
         .boards-path-header
           .path-left
-            span.path-icon {{currentMenuPath.icon}}
+            span.path-icon.emoji-icon {{currentMenuPath.icon}}
             span.path-text {{currentMenuPath.text}}
             if BoardMultiSelection.isActive
-              span.multiselection-hint 📌 {{_ 'multi-selection-active'}}
+              span.multiselection-hint
+                span.emoji-icon 📌
+                |  {{_ 'multi-selection-active'}}
           .path-right
             if canModifyBoards
               if hasBoardsSelected
                 button.js-archive-selected-boards.board-header-btn
-                  span 📦
+                  span.emoji-icon 📦
                   span {{_ 'archive-board'}}
                 button.js-duplicate-selected-boards.board-header-btn
-                  span 📋
+                  span.emoji-icon 📋
                   span {{_ 'duplicate-board'}}
               a.board-header-btn.js-multiselection-activate(
                 title="{{#if BoardMultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
                 class="{{#if BoardMultiSelection.isActive}}emphasis{{/if}}")
-                | ☑️
+                span.emoji-icon ☑️
               if BoardMultiSelection.isActive
                 a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-                  | ✖
+                  span.emoji-icon ✖
         ul.board-list.clearfix.js-boards(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if BoardMultiSelection.isActive}}is-multiselection-active{{/if}}")
           li.js-add-board
             if isSelectedMenu 'templates'
               a.board-list-item.label(title="{{_ 'add-template-container'}}")
-                | ➕ {{_ 'add-template-container'}}
+                span.emoji-icon ➕
+                |  {{_ 'add-template-container'}}
             else
               a.board-list-item.label(title="{{_ 'add-board'}}")
-                | ➕ {{_ 'add-board'}}
+                span.emoji-icon ➕
+                |  {{_ 'add-board'}}
           each boards
             li.js-board(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
               if isInvited
@@ -93,7 +106,8 @@ template(name="boardList")
                     span.js-star-board(
                       class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
                       title="{{_ 'star-board-title'}}")
-                      | {{#if isStarred}}⭐{{else}}☆{{/if}}
+                      span.emoji-icon
+                        | {{#if isStarred}}⭐{{else}}☆{{/if}}
                     p.board-list-item-desc {{_ 'just-invited'}}
                     button.js-accept-invite.primary {{_ 'accept'}}
                     button.js-decline-invite {{_ 'decline'}}
@@ -103,7 +117,9 @@ template(name="boardList")
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{_ 'drag-board'}}") ↕️
+                    span.board-handle(title="{{_ 'drag-board'}}")
+                      span.emoji-icon ↕️
+                    
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
                         span.board-list-item-name(title="{{_ 'template-container'}}")
@@ -116,17 +132,20 @@ template(name="boardList")
                           span.js-has-spenttime-cards(
                             class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
                             title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                            | ⏱️
+                            span.emoji-icon ⏱️
                     span.js-star-board(
                       class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
                       title="{{_ 'star-board-title'}}")
-                      | {{#if isStarred}}⭐{{else}}☆{{/if}}
+                      span.emoji-icon
+                        | {{#if isStarred}}⭐{{else}}☆{{/if}}
                 else
                   .board-list-item
                     if BoardMultiSelection.isActive
                       .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
                         class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
-                    span.board-handle(title="{{_ 'drag-board'}}") ↕️
+                    span.board-handle(title="{{_ 'drag-board'}}")
+                      span.emoji-icon ↕️
+                    
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
                         span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
@@ -151,11 +170,12 @@ template(name="boardList")
                           span.js-has-spenttime-cards(
                             class="{{#if hasOvertimeCards}}has-overtime-card-active{{else}}no-overtime-card-active{{/if}}"
                             title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                            | ⏱️
+                            span.emoji-icon ⏱️
                     a.js-star-board(
                       class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
                       title="{{_ 'star-board-title'}}")
-                      | {{#if isStarred}}⭐{{else}}☆{{/if}}
+                      span.emoji-icon
+                        | {{#if isStarred}}⭐{{else}}☆{{/if}}
 
 template(name="boardListHeaderBar")
   h1 {{_ title }}
@@ -174,16 +194,19 @@ template(name="workspaceTree")
       each nodes
         li.workspace-node(class="{{#if $eq id selectedWorkspaceId}}active{{/if}}" data-workspace-id="{{id}}" draggable="true")
           .workspace-node-content
-            span.workspace-drag-handle ↕️
+            span.workspace-drag-handle
+              span.emoji-icon ↕️
+            
             a.js-select-workspace(data-id="{{id}}")
               span.workspace-icon
                 if icon
                   +viewer
                     = icon
                 else
-                  | 📁
+                  span.emoji-icon 📁
               span.workspace-name= name
-            a.js-edit-workspace(data-id="{{id}}" title="{{_ 'allboards.edit-workspace'}}") ✏️
+            a.js-edit-workspace(data-id="{{id}}" title="{{_ 'allboards.edit-workspace'}}")
+              span.emoji-icon ✏️
             span.workspace-count {{workspaceCount id}}
             a.js-add-subworkspace(data-id="{{id}}" title="{{_ 'allboards.add-subworkspace'}}") +
           if children

@@ -647,6 +647,13 @@
   font-size: 25px;
   color: #fff;
 }
+
+/* Prevent Grey Icons from affecting checkmarks in background color list */
+body.grey-icons-enabled .checkmark-no-grey {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .board-list.mobile-view {
   height: calc(100vh - 120px);

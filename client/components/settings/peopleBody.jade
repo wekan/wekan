@@ -48,7 +48,7 @@ template(name="people")
                   option(value="inactive") {{_ 'admin-people-filter-inactive'}}
                   option(value="admin") Admin
               button#unlockAllUsers.unlock-all-btn
-                | 🔓
+                span.emoji-icon 🔓
                 | {{_ 'accounts-lockout-unlock-all'}}
             .ext-box-right
               span {{#unless isMiniScreen}}{{_ 'people-number'}}{{/unless}} #{peopleNumber}
@@ -58,7 +58,7 @@ template(name="people")
                 | {{_ 'add'}} / {{_ 'delete'}} {{_ 'teams'}}
           else if lockedUsersSetting.get
             span
-              span.text-red 🔒
+              span.emoji-icon.text-red 🔒
               unless isMiniScreen
                 | {{_ 'accounts-lockout-locked-users'}}
 
@@ -79,7 +79,7 @@ template(name="people")
                 | {{_ 'people'}}
             li
               a.js-locked-users-menu(data-id="locked-users-setting")
-                span.text-red 🔒
+                span.emoji-icon.text-red 🔒
                 | {{_ 'accounts-lockout-locked-users'}}
         .main-body
           if loading.get
@@ -247,9 +247,9 @@ template(name="peopleRow")
         input.selectUserChkBox(type="checkbox", id="{{userData._id}}")
     td.account-status
       if isUserLocked
-        span.text-red.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}") 🔒
+        span.text-red.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}") 🔒
       else
-        span.text-green.js-toggle-lock-status(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}") 🔓
+        span.text-green.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}") 🔓
     td.account-active-status
       if userData.loginDisabled
         span.text-red.js-toggle-active-status(data-user-id=userData._id, data-is-active="false", title="{{_ 'admin-people-user-inactive'}}") 🚫

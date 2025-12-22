@@ -232,20 +232,18 @@ BlazeComponent.extendComponent({
   },
   boards() {
     let query = {
-      // { type: 'board' },
-      // { type: { $in: ['board','template-container'] } },
       $and: [
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
-        { $or: [] },
         { title: { $not: { $regex: /^\^.*\^$/ } } }
       ]
     };
+    const membershipOrs = [];
 
     let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
 
     if (FlowRouter.getRouteName() === 'home') {
-      query.$and[2].$or.push({ 'members.userId': Meteor.userId() });
+      membershipOrs.push({ 'members.userId': Meteor.userId() });
 
       if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue) {
         query.$and.push({ 'permission': 'private' });
@@ -260,7 +258,7 @@ BlazeComponent.extendComponent({
         // }
 
         //query.$and[2].$or.push({'orgs': {$elemMatch : {orgId: orgsIds[0]}}});
-        query.$and[2].$or.push({ 'orgs.orgId': { $in: orgsIds } });
+        membershipOrs.push({ 'orgs.orgId': { $in: orgsIds } });
       }
 
       let teamIdsUserBelongs = currUser?.teamIdsUserBelongs() || '';
@@ -270,8 +268,11 @@ BlazeComponent.extendComponent({
         //   query.$or[2].$or.push({'teams.teamId': teamsIds[i]});
         // }
         //query.$and[2].$or.push({'teams': { $elemMatch : {teamId: teamsIds[0]}}});
-        query.$and[2].$or.push({ 'teams.teamId': { $in: teamsIds } });
+        membershipOrs.push({ 'teams.teamId': { $in: teamsIds } });
       }
+    if (membershipOrs.length) {
+      query.$and.splice(2, 0, { $or: membershipOrs });
+    }
     }
     else if (allowPrivateVisibilityOnly !== undefined && !allowPrivateVisibilityOnly.booleanValue) {
       query = {
@@ -545,15 +546,18 @@ BlazeComponent.extendComponent({
             const query = {
               $and: [
                 { archived: false },
-                { type: 'board' },
-                { $or: [] }
+                { type: 'board' }
               ]
             };
+            const ors = [];
             if (selectedTeamsValues.length > 0) {
-              query.$and[2].$or.push({ 'teams.teamId': { $in: selectedTeamsValues } });
+              ors.push({ 'teams.teamId': { $in: selectedTeamsValues } });
             }
             if (selectedOrgsValues.length > 0) {
-              query.$and[2].$or.push({ 'orgs.orgId': { $in: selectedOrgsValues } });
+              ors.push({ 'orgs.orgId': { $in: selectedOrgsValues } });
+            }
+            if (ors.length) {
+              query.$and.push({ $or: ors });
             }
 
             let filteredBoards = ReactiveCache.getBoards(query, {});

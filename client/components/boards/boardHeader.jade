@@ -109,7 +109,7 @@ template(name="boardHeaderBar")
             | ❌
 
       a.board-header-btn.js-open-search-view(title="{{_ 'search'}}")
-        | 🔍
+        span.emoji-icon 🔍
 
       unless currentBoard.isTemplatesBoard
         a.board-header-btn.js-toggle-board-view(

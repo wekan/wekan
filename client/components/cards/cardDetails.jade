@@ -29,7 +29,7 @@ template(name="cardDetails")
               title="{{_ 'copy-card-link-to-clipboard'}}"
               href="{{ originRelativeUrl }}"
             )
-              | 🔗
+              span.emoji-icon 🔗
             span.copied-tooltip {{_ 'copied'}}
         else
           unless isPopup
@@ -43,7 +43,7 @@ template(name="cardDetails")
               title="{{_ 'copy-card-link-to-clipboard'}}"
               href="{{ originRelativeUrl }}"
             )
-              | 🔗
+              span.emoji-icon 🔗
             span.copied-tooltip {{_ 'copied'}}
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
@@ -767,7 +767,7 @@ template(name="cardDetailsActionsPopup")
     ul.pop-over-list
       li
         a.js-more
-          | 🔗
+          span.emoji-icon 🔗
           | {{_ 'cardMorePopup-title'}}
 
 template(name="exportCardPopup")

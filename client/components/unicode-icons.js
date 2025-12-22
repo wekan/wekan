@@ -1,10 +1,12 @@
 Meteor.startup(() => {
   const greyscaleIcons = [
     '🔼', '❌', '🏷️', '📅', '📥', '🚀', '👤', '👥', '✍️', '📋', '✏️', '🌐', '📎', '📝', '📋', '📜', '🏠', '🔒', '🔕', '🃏',
-    '⏰', '🛒', '🔢', '✅', '❌', '👁️', '👍', '📋', '🕐', '🎨',
+    '⏰', '🛒', '🔢', '✅', '❌', '👁️', '👍', '👎', '📋', '🕐', '🎨',
     '📤', '⬆️', '⬇️', '➡️', '📦',
     '⬅️', '↕️', '🔽', '🔍', '▼', '🏊',
-    '🔔', '⚙️', '🖼️', '🔑', '🚪', '◀️', '⌨️', '👥', '🏷️', '✅', '🚫'
+    '🔔', '⚙️', '🖼️', '🔑', '🚪', '◀️', '⌨️', '👥', '🏷️', '✅', '🚫', '☑️', '💬',
+    // Mobile/Desktop toggle + calendar
+    '📱', '🖥️', '🗓️'
   ];
 
   const EXCLUDE_SELECTOR = '.header-user-bar-avatar, .avatar-initials, script, style';
@@ -34,43 +36,40 @@ Meteor.startup(() => {
     parent.replaceChild(span, textNode);
   }
 
-  function processNode(root) {
+  function wrapSubtree(root) {
     try {
       if (!root) return;
-      if (root.nodeType === Node.TEXT_NODE) {
-        wrapTextNodeOnce(root.parentNode, root);
-        return;
+      // Walk only within this subtree for text nodes
+      const walker = document.createTreeWalker(
+        root.nodeType === Node.ELEMENT_NODE ? root : root.parentNode || document.body,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode: (node) => {
+            if (!node || !node.nodeValue) return NodeFilter.FILTER_REJECT;
+            const parent = node.parentNode;
+            if (!parent || isExcluded(parent)) return NodeFilter.FILTER_REJECT;
+            if (parent.closest && parent.closest('.unicode-icon')) return NodeFilter.FILTER_REJECT;
+            const txt = node.nodeValue.trim();
+            if (!txt || txt.length > 3) return NodeFilter.FILTER_REJECT;
+            return greyscaleIcons.includes(txt) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+          },
+        },
+        false,
+      );
+      const toWrap = [];
+      while (walker.nextNode()) {
+        toWrap.push(walker.currentNode);
       }
-      if (root.nodeType !== Node.ELEMENT_NODE) return;
-      if (isExcluded(root)) return;
-      // Fast path: only check direct text children first
-      const children = Array.from(root.childNodes);
-      for (const child of children) {
-        if (child.nodeType === Node.TEXT_NODE) {
-          wrapTextNodeOnce(root, child);
-        }
-      }
-      // If element is small, also scan one level deeper to catch common structures
-      if (children.length <= 20) {
-        for (const child of children) {
-          if (child.nodeType === Node.ELEMENT_NODE && !isExcluded(child)) {
-            for (const gchild of Array.from(child.childNodes)) {
-              if (gchild.nodeType === Node.TEXT_NODE) wrapTextNodeOnce(child, gchild);
-            }
-          }
-        }
+      for (const textNode of toWrap) {
+        wrapTextNodeOnce(textNode.parentNode, textNode);
       }
     } catch (_) {}
   }
 
   function processInitial() {
     // Process only frequently used UI containers to avoid full-page walks
-    const roots = [
-      document.body,
-      document.querySelector('#header-user-bar'),
-      ...Array.from(document.querySelectorAll('.pop-over, .pop-over-list, .board-header, .card-details, .sidebar-content')),
-    ].filter(Boolean);
-    roots.forEach(processNode);
+    const roots = [document.body].filter(Boolean);
+    roots.forEach(wrapSubtree);
   }
 
   function startObserver() {
@@ -80,8 +79,8 @@ Meteor.startup(() => {
       for (const m of mutations) {
         if (m.type !== 'childList') continue;
         m.addedNodes && m.addedNodes.forEach((n) => {
-          // Avoid scanning huge subtrees repeatedly by limiting depth
-          processNode(n);
+          // Process only within the newly added subtree
+          wrapSubtree(n);
         });
       }
     });
@@ -98,6 +97,7 @@ Meteor.startup(() => {
   function enableGrey() {
     if (enabled) return;
     enabled = true;
+    try { document.body.classList.add('grey-icons-enabled'); } catch (_) {}
     Meteor.defer(processInitial);
     startObserver();
   }
@@ -106,6 +106,7 @@ Meteor.startup(() => {
     if (!enabled) return;
     enabled = false;
     stopObserver();
+    try { document.body.classList.remove('grey-icons-enabled'); } catch (_) {}
     // unwrap existing
     document.querySelectorAll('span.unicode-icon').forEach((span) => {
       const txt = document.createTextNode(span.textContent || '');

@@ -94,24 +94,24 @@
 }
 
 /* Admin edit popups: use full height */
-.pop-over[data-popup="editUser"],
-.pop-over[data-popup="editOrg"],
-.pop-over[data-popup="editTeam"] {
+.pop-over[data-popup="editUserPopup"],
+.pop-over[data-popup="editOrgPopup"],
+.pop-over[data-popup="editTeamPopup"] {
   height: calc(100vh - 20px) !important;
   max-height: calc(100vh - 20px) !important;
 }
 
-.pop-over[data-popup="editUser"] .content-wrapper,
-.pop-over[data-popup="editOrg"] .content-wrapper,
-.pop-over[data-popup="editTeam"] .content-wrapper {
+.pop-over[data-popup="editUserPopup"] .content-wrapper,
+.pop-over[data-popup="editOrgPopup"] .content-wrapper,
+.pop-over[data-popup="editTeamPopup"] .content-wrapper {
   max-height: calc(100vh - 80px) !important; /* Subtract header height */
   height: calc(100vh - 80px) !important;
   overflow-y: auto !important;
 }
 
-.pop-over[data-popup="editUser"] .content-container,
-.pop-over[data-popup="editOrg"] .content-container,
-.pop-over[data-popup="editTeam"] .content-container {
+.pop-over[data-popup="editUserPopup"] .content-container,
+.pop-over[data-popup="editOrgPopup"] .content-container,
+.pop-over[data-popup="editTeamPopup"] .content-container {
   max-height: calc(100vh - 80px) !important; /* Subtract header height */
   height: calc(100vh - 80px) !important;
 }
@@ -123,7 +123,7 @@
 }
 
 /* Specific styling for language popup list */
-.pop-over[data-popup="changeLanguage"] .pop-over-list {
+.pop-over[data-popup="changeLanguagePopup"] .pop-over-list {
   max-height: none;
   overflow: visible;
   height: auto;
@@ -131,46 +131,69 @@
 }
 
 /* Ensure content div in language popup contains all items */
-.pop-over[data-popup="changeLanguage"] .content {
+.pop-over[data-popup="changeLanguagePopup"] .content {
   height: auto;
-  min-height: 100%;
+  /* Remove forced min-height to avoid top gap */
   display: flex;
   flex-direction: column;
 }
 
-/* Allow dynamic height for Change Language popup */
-.pop-over[data-popup="changeLanguage"] .content-wrapper {
-  max-height: inherit; /* Use dynamic height from JavaScript */
-}
-
-.pop-over[data-popup="changeLanguage"] .content-container {
-  max-height: inherit; /* Use dynamic height from JavaScript */
+/* Ensure hidden stack pages truly take no space */
+.pop-over[data-popup="changeLanguagePopup"] .content.no-height {
+  min-height: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  visibility: hidden !important;
 }
 
 /* Make language popup extend to bottom of browser window */
-.pop-over[data-popup="changeLanguage"] {
-  height: calc(100vh - 30px);
-  min-height: 300px;
-  /* Adjust positioning to move popup 30px higher */
-  transform: translateY(-30px);
+.pop-over[data-popup="changeLanguagePopup"] {
+  position: fixed !important;
+  bottom: 0 !important;
+  top: auto !important;
+  left: auto !important;
+  right: 20px !important;
+  width: auto !important;
+  max-width: 450px !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  min-height: 300px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
 }
 
-.pop-over[data-popup="changeLanguage"] .content-wrapper {
-  height: calc(100% - 50px); /* Subtract header height more precisely */
-  min-height: 250px;
-  overflow-y: auto;
-  max-height: none; /* Remove any max-height constraints */
-  display: flex;
-  flex-direction: column;
+/* Allow dynamic height for Change Language popup */
+.pop-over[data-popup="changeLanguagePopup"] .header {
+  flex-shrink: 0 !important;
+  height: auto !important;
 }
 
-.pop-over[data-popup="changeLanguage"] .content-container {
-  height: auto; /* Let content determine height */
-  min-height: 250px;
-  max-height: none; /* Remove any max-height constraints */
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.pop-over[data-popup="changeLanguagePopup"] .content-wrapper {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: auto !important;
+  width: 100% !important;
+}
+
+.pop-over[data-popup="changeLanguagePopup"] .content-container {
+  height: auto !important;
+  max-height: none !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+
+.pop-over[data-popup="changeLanguagePopup"] .content {
+  height: auto !important;
+  max-height: none !important;
+  padding-bottom: 50px !important;
+  width: 100% !important;
 }
 
 /* Date popup sizing for native HTML inputs */

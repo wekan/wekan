@@ -175,7 +175,7 @@ template(name="changeLanguagePopup")
     each languages
       li(class="{{# if isCurrentLanguage}}active{{/if}}")
         a.js-set-language
-          | {{languageFlag}}
+          span.emoji-icon {{languageFlag}}
           | {{name}}
           if isCurrentLanguage
             | ✅

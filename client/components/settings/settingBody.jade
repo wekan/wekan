@@ -6,87 +6,87 @@ template(name="setting")
       .content-title.ext-box
         if isGeneralSetting
           span
-            | 🔑
+            span.emoji-icon 🔑
             | {{_ 'registration'}}
         else if isEmailSetting
           span
-            | ✉️
+            span.emoji-icon ✉️
             | {{_ 'email'}}
         else if isAccountSetting
           span
-            | 👥
+            span.emoji-icon 👥
             | {{_ 'accounts'}}
         else if isTableVisibilityModeSetting
           span
-            | 👁️
+            span.emoji-icon 👁️
             | {{_ 'tableVisibilityMode'}}
         else if isAnnouncementSetting
           span
-            | 📢
+            span.emoji-icon 📢
             | {{_ 'admin-announcement'}}
         else if isAccessibilitySetting
           span
-            | ♿
+            span.emoji-icon ♿
             | {{_ 'accessibility'}}
         else if isLayoutSetting
           span
-            | 🔗
+            span.emoji-icon 🔗
             | {{_ 'layout'}}
         else if isWebhookSetting
           span
-            | 🌐
+            span.emoji-icon 🌐
             | {{_ 'global-webhook'}}
         else if isAttachmentSettings
           span
-            | 📎
+            span.emoji-iconpan.emoji-icon 📎
             | {{_ 'attachments'}}
         else if isCronSettings
           span
-            | ⏰
+            span.emoji-icon ⏰
             | {{_ 'cron'}}
       .content-body
         .side-menu
           ul
             li(class="{{#if isGeneralSetting}}active{{/if}}")
               a.js-setting-menu(data-id="registration-setting")
-                | 🔑
+                span.emoji-icon 🔑
                 | {{_ 'registration'}}
             unless isSandstorm
               li(class="{{#if isEmailSetting}}active{{/if}}")
                 a.js-setting-menu(data-id="email-setting")
-                  | ✉️
+                  span.emoji-icon ✉️
                   | {{_ 'email'}}
             li(class="{{#if isAccountSetting}}active{{/if}}")
               a.js-setting-menu(data-id="account-setting")
-                | 👥
+                span.emoji-icon 👥
                 | {{_ 'accounts'}}
             li(class="{{#if isTableVisibilityModeSetting}}active{{/if}}")
               a.js-setting-menu(data-id="tableVisibilityMode-setting")
-                | 👁️
+                span.emoji-icon 👁️
                 | {{_ 'tableVisibilityMode'}}
             li(class="{{#if isAnnouncementSetting}}active{{/if}}")
               a.js-setting-menu(data-id="announcement-setting")
-                | 📢
+                span.emoji-icon 📢
                 | {{_ 'admin-announcement'}}
             li(class="{{#if isAccessibilitySetting}}active{{/if}}")
               a.js-setting-menu(data-id="accessibility-setting")
-                | ♿
+                span.emoji-icon ♿
                 | {{_ 'accessibility'}}
             li(class="{{#if isLayoutSetting}}active{{/if}}")
               a.js-setting-menu(data-id="layout-setting")
-                | 🔗
+                span.emoji-icon 🔗
                 | {{_ 'layout'}}
             li(class="{{#if isWebhookSetting}}active{{/if}}")
               a.js-setting-menu(data-id="webhook-setting")
-                | 🌐
+                span.emoji-icon 🌐
                 | {{_ 'global-webhook'}}
             li(class="{{#if isAttachmentSettings}}active{{/if}}")
               a.js-setting-menu(data-id="attachment-settings")
-                | 📎
+                span.emoji-icon 📎
                 | {{_ 'attachments'}}
             li(class="{{#if isCronSettings}}active{{/if}}")
               a.js-setting-menu(data-id="cron-settings")
-                | ⏰
+                span.emoji-icon ⏰
                 | {{_ 'cron'}}
         .main-body
           if isLoading
