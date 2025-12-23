@@ -158,8 +158,24 @@ Lists.attachSchema(
       type: String,
       defaultValue: 'list',
     },
+    width: {
+      /**
+       * The width of the list in pixels (100-1000).
+       * Default width is 272 pixels.
+       */
+      type: Number,
+      optional: true,
+      defaultValue: 272,
+      custom() {
+        const w = this.value;
+        if (w < 100 || w > 1000) {
+          return 'widthOutOfRange';
+        }
+      },
+    },
     // NOTE: collapsed state is per-user only, stored in user profile.collapsedLists
     // and localStorage for non-logged-in users
+    // NOTE: width is per-board (shared with all users), stored in lists.width
   }),
 );
 
@@ -438,98 +454,159 @@ Meteor.methods({
         {
           fields: { title: 1 },
         },
-      )
-        .map(list => {
-          return list.title;
-        }),
+      ).map(list => list.title),
     ).sort();
+  },
+
+  updateListSort(listId, boardId, updateData) {
+    check(listId, String);
+    check(boardId, String);
+    check(updateData, Object);
+
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('board-not-found', 'Board not found');
+    }
+
+    if (Meteor.isServer) {
+      if (typeof allowIsBoardMember === 'function') {
+        if (!allowIsBoardMember(this.userId, board)) {
+          throw new Meteor.Error('permission-denied', 'User does not have permission to modify this board');
+        }
+      }
+    }
+
+    const list = ReactiveCache.getList(listId);
+    if (!list) {
+      throw new Meteor.Error('list-not-found', 'List not found');
+    }
+
+    const validUpdateFields = ['sort', 'swimlaneId'];
+    Object.keys(updateData).forEach(field => {
+      if (!validUpdateFields.includes(field)) {
+        throw new Meteor.Error('invalid-field', `Field ${field} is not allowed`);
+      }
+    });
+
+    if (updateData.swimlaneId) {
+      const swimlane = ReactiveCache.getSwimlane(updateData.swimlaneId);
+      if (!swimlane || swimlane.boardId !== boardId) {
+        throw new Meteor.Error('invalid-swimlane', 'Invalid swimlane for this board');
+      }
+    }
+
+    Lists.update(
+      { _id: listId, boardId },
+      {
+        $set: {
+          ...updateData,
+          modifiedAt: new Date(),
+        },
+      },
+    );
+
+    return {
+      success: true,
+      listId,
+      updatedFields: Object.keys(updateData),
+      timestamp: new Date().toISOString(),
+    };
   },
 });
 
-Lists.hookOptions.after.update = { fetchPrevious: false };
-
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Lists._collection.createIndex({ modifiedAt: -1 });
-    Lists._collection.createIndex({ boardId: 1 });
-    Lists._collection.createIndex({ archivedAt: -1 });
+    Lists._collection.rawCollection().createIndex({ modifiedAt: -1 });
+    Lists._collection.rawCollection().createIndex({ boardId: 1 });
+    Lists._collection.rawCollection().createIndex({ archivedAt: -1 });
+  });
+}
+
+Lists.after.insert((userId, doc) => {
+  Activities.insert({
+    userId,
+    type: 'list',
+    activityType: 'createList',
+    boardId: doc.boardId,
+    listId: doc._id,
+    // this preserves the name so that the activity can be useful after the
+    // list is deleted
+    title: doc.title,
   });
 
-  Lists.after.insert((userId, doc) => {
+  // Track original position for new lists
+  Meteor.setTimeout(() => {
+    const list = Lists.findOne(doc._id);
+    if (list) {
+      list.trackOriginalPosition();
+    }
+  }, 100);
+});
+
+Lists.before.remove((userId, doc) => {
+  const cards = ReactiveCache.getCards({ listId: doc._id });
+  if (cards) {
+    cards.forEach(card => {
+      Cards.remove(card._id);
+    });
+  }
+  Activities.insert({
+    userId,
+    type: 'list',
+    activityType: 'removeList',
+    boardId: doc.boardId,
+    listId: doc._id,
+    title: doc.title,
+  });
+});
+
+// Ensure we don't fetch previous doc in after.update hook
+Lists.hookOptions.after.update = { fetchPrevious: false };
+
+Lists.after.update((userId, doc, fieldNames) => {
+  if (fieldNames.includes('title')) {
     Activities.insert({
       userId,
       type: 'list',
-      activityType: 'createList',
-      boardId: doc.boardId,
+      activityType: 'changedListTitle',
       listId: doc._id,
+      boardId: doc.boardId,
       // this preserves the name so that the activity can be useful after the
       // list is deleted
       title: doc.title,
     });
-
-    // Track original position for new lists
-    Meteor.setTimeout(() => {
-      const list = Lists.findOne(doc._id);
-      if (list) {
-        list.trackOriginalPosition();
-      }
-    }, 100);
-  });
-
-  Lists.before.remove((userId, doc) => {
-    const cards = ReactiveCache.getCards({ listId: doc._id });
-    if (cards) {
-      cards.forEach(card => {
-        Cards.remove(card._id);
-      });
-    }
+  } else if (doc.archived) {
     Activities.insert({
       userId,
       type: 'list',
-      activityType: 'removeList',
-      boardId: doc.boardId,
+      activityType: 'archivedList',
       listId: doc._id,
+      boardId: doc.boardId,
+      // this preserves the name so that the activity can be useful after the
+      // list is deleted
       title: doc.title,
     });
-  });
+  } else if (fieldNames.includes('archived')) {
+    Activities.insert({
+      userId,
+      type: 'list',
+      activityType: 'restoredList',
+      listId: doc._id,
+      boardId: doc.boardId,
+      // this preserves the name so that the activity can be useful after the
+      // list is deleted
+      title: doc.title,
+    });
+  }
 
-  Lists.after.update((userId, doc, fieldNames) => {
-    if (fieldNames.includes('title')) {
-      Activities.insert({
-        userId,
-        type: 'list',
-        activityType: 'changedListTitle',
-        listId: doc._id,
-        boardId: doc.boardId,
-        // this preserves the name so that the activity can be useful after the
-        // list is deleted
-        title: doc.title,
-      });
-    } else if (doc.archived)  {
-      Activities.insert({
-        userId,
-        type: 'list',
-        activityType: 'archivedList',
-        listId: doc._id,
-        boardId: doc.boardId,
-        // this preserves the name so that the activity can be useful after the
-        // list is deleted
-        title: doc.title,
-      });
-    } else if (fieldNames.includes('archived'))  {
-      Activities.insert({
-        userId,
-        type: 'list',
-        activityType: 'restoredList',
-        listId: doc._id,
-        boardId: doc.boardId,
-        // this preserves the name so that the activity can be useful after the
-        // list is deleted
-        title: doc.title,
-      });
-    }
-  });
-}
+  // When sort or swimlaneId change, trigger a pub/sub refresh marker
+  if (fieldNames.includes('sort') || fieldNames.includes('swimlaneId')) {
+    Lists.direct.update(
+      { _id: doc._id },
+      { $set: { _updatedAt: new Date() } },
+    );
+  }
+});
 
 //LISTS REST API
 if (Meteor.isServer) {

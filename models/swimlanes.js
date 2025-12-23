@@ -108,8 +108,25 @@ Swimlanes.attachSchema(
       type: String,
       defaultValue: 'swimlane',
     },
+    height: {
+      /**
+       * The height of the swimlane in pixels.
+       * -1 = auto-height (default)
+       * 50-2000 = fixed height in pixels
+       */
+      type: Number,
+      optional: true,
+      defaultValue: -1,
+      custom() {
+        const h = this.value;
+        if (h !== -1 && (h < 50 || h > 2000)) {
+          return 'heightOutOfRange';
+        }
+      },
+    },
     // NOTE: collapsed state is per-user only, stored in user profile.collapsedSwimlanes
     // and localStorage for non-logged-in users
+    // NOTE: height is per-board (shared with all users), stored in swimlanes.height
   }),
 );
 
@@ -228,11 +245,14 @@ Swimlanes.helpers({
 
   myLists() {
     // Return per-swimlane lists: provide lists specific to this swimlane
-    return ReactiveCache.getLists({ 
-      boardId: this.boardId,
-      swimlaneId: this._id,
-      archived: false
-    });
+    return ReactiveCache.getLists(
+      { 
+        boardId: this.boardId,
+        swimlaneId: this._id,
+        archived: false
+      },
+      { sort: ['sort'] },
+    );
   },
 
   allCards() {

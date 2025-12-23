@@ -67,6 +67,27 @@ Meteor.publishRelations('boards', function() {
           true,
         )
       );
+
+            // Publish list order changes immediately
+            // Include swimlaneId and modifiedAt for proper sync
+            this.cursor(
+              ReactiveCache.getLists(
+                { boardId, archived: false },
+                { fields:
+                  {
+                    _id: 1,
+                    title: 1,
+                    boardId: 1,
+                    swimlaneId: 1,
+                    archived: 1,
+                    sort: 1,
+                    modifiedAt: 1,
+                    _updatedAt: 1,  // Hidden field to trigger updates
+                  }
+                },
+                true,
+              )
+            );
       this.cursor(
         ReactiveCache.getCards(
           { boardId, archived: false },

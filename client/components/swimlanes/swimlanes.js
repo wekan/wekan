@@ -57,6 +57,49 @@ function initSortable(boardComponent, $listsDom) {
     $listsDom.sortable('destroy');
   }
   
+
+    // Sync localStorage list order with database on initialization
+    const syncListOrderFromStorage = function(boardId) {
+      if (Meteor.userId()) {
+        // Logged-in users: don't use localStorage, trust server
+        return;
+      }
+
+      try {
+        const listOrderKey = `wekan-list-order-${boardId}`;
+        const storageData = localStorage.getItem(listOrderKey);
+      
+        if (!storageData) return;
+      
+        const listOrder = JSON.parse(storageData);
+        if (!listOrder.lists || listOrder.lists.length === 0) return;
+      
+        // Compare each list's order in localStorage with database
+        listOrder.lists.forEach(storedList => {
+          const dbList = Lists.findOne(storedList.id);
+          if (dbList) {
+            // Check if localStorage has newer data (compare timestamps)
+            const storageTime = new Date(storedList.updatedAt).getTime();
+            const dbTime = new Date(dbList.modifiedAt).getTime();
+          
+            // If storage is newer OR db is missing the field, use storage value
+            if (storageTime > dbTime || dbList.sort !== storedList.sort) {
+              console.debug(`Restoring list ${storedList.id} sort from localStorage (storage: ${storageTime}, db: ${dbTime})`);
+            
+              // Update local minimongo first
+              Lists.update(storedList.id, {
+                $set: {
+                  sort: storedList.sort,
+                  swimlaneId: storedList.swimlaneId,
+                },
+              });
+            }
+          }
+        });
+      } catch (e) {
+        console.warn('Failed to sync list order from localStorage:', e);
+      }
+    };
   
   // We want to animate the card details window closing. We rely on CSS
   // transition for the actual animation.
@@ -231,14 +274,56 @@ function initSortable(boardComponent, $listsDom) {
       }
       // Allow reordering within the same swimlane by not canceling the sortable
 
-      try {
-        Lists.update(list._id, {
-          $set: updateData,
-        });
-      } catch (error) {
-        console.error('Error updating list:', error);
-        return;
-      }
+       // IMMEDIATELY update local collection for UI responsiveness
+       try {
+         Lists.update(list._id, {
+           $set: updateData,
+         });
+       } catch (error) {
+         console.error('Error updating list locally:', error);
+       }
+
+       // Save to localStorage for non-logged-in users (backup)
+       if (!Meteor.userId()) {
+         try {
+           const boardId = list.boardId;
+           const listId = list._id;
+           const listOrderKey = `wekan-list-order-${boardId}`;
+           
+           let listOrder = JSON.parse(localStorage.getItem(listOrderKey) || '{}');
+           if (!listOrder.lists) listOrder.lists = [];
+           
+           // Find and update the list order entry
+           const listIndex = listOrder.lists.findIndex(l => l.id === listId);
+           if (listIndex >= 0) {
+             listOrder.lists[listIndex].sort = sortIndex.base;
+             listOrder.lists[listIndex].swimlaneId = updateData.swimlaneId;
+             listOrder.lists[listIndex].updatedAt = new Date().toISOString();
+           } else {
+             listOrder.lists.push({
+               id: listId,
+               sort: sortIndex.base,
+               swimlaneId: updateData.swimlaneId,
+               updatedAt: new Date().toISOString()
+             });
+           }
+           
+           localStorage.setItem(listOrderKey, JSON.stringify(listOrder));
+         } catch (e) {
+           console.warn('Failed to save list order to localStorage:', e);
+         }
+       }
+
+       // Call server method to ensure persistence (with callback for error handling)
+       Meteor.call('updateListSort', list._id, list.boardId, updateData, function(error, result) {
+         if (error) {
+           console.error('Server update list sort failed:', error);
+           // Revert the local update if server fails (will be refreshed by pubsub)
+           Meteor.subscribe('board', list.boardId, false);
+         } else {
+           console.debug('List sort successfully saved to server');
+         }
+       });
 
       boardComponent.setIsDragging(false);
       
@@ -273,6 +358,14 @@ BlazeComponent.extendComponent({
   onRendered() {
     const boardComponent = this.parentComponent();
     const $listsDom = this.$('.js-lists');
+        // Sync list order from localStorage on board load
+        const boardId = Session.get('currentBoard');
+        if (boardId) {
+          // Small delay to allow pubsub to settle
+          Meteor.setTimeout(() => {
+            syncListOrderFromStorage(boardId);
+          }, 500);
+        }
     
 
     if (!Utils.getCurrentCardId()) {
@@ -827,6 +920,42 @@ setTimeout(() => {
             return;
           }
 
+          // Save to localStorage for non-logged-in users (backup)
+          if (!Meteor.userId()) {
+            try {
+              const boardId = list.boardId;
+              const listId = list._id;
+              const listOrderKey = `wekan-list-order-${boardId}`;
+
+              let listOrder = JSON.parse(localStorage.getItem(listOrderKey) || '{}');
+              if (!listOrder.lists) listOrder.lists = [];
+
+              const listIndex = listOrder.lists.findIndex(l => l.id === listId);
+              if (listIndex >= 0) {
+                listOrder.lists[listIndex].sort = sortIndex.base;
+                listOrder.lists[listIndex].swimlaneId = updateData.swimlaneId;
+                listOrder.lists[listIndex].updatedAt = new Date().toISOString();
+              } else {
+                listOrder.lists.push({
+                  id: listId,
+                  sort: sortIndex.base,
+                  swimlaneId: updateData.swimlaneId,
+                  updatedAt: new Date().toISOString()
+                });
+              }
+
+              localStorage.setItem(listOrderKey, JSON.stringify(listOrder));
+            } catch (e) {
+            }
+          }
+
+          // Persist to server
+          Meteor.call('updateListSort', list._id, list.boardId, updateData, function(error) {
+            if (error) {
+              Meteor.subscribe('board', list.boardId, false);
+            }
+          });
+
           // Try to get board component
           try {
             const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
@@ -975,6 +1104,42 @@ setTimeout(() => {
           } catch (error) {
             return;
           }
+
+          // Save to localStorage for non-logged-in users (backup)
+          if (!Meteor.userId()) {
+            try {
+              const boardId = list.boardId;
+              const listId = list._id;
+              const listOrderKey = `wekan-list-order-${boardId}`;
+
+              let listOrder = JSON.parse(localStorage.getItem(listOrderKey) || '{}');
+              if (!listOrder.lists) listOrder.lists = [];
+
+              const listIndex = listOrder.lists.findIndex(l => l.id === listId);
+              if (listIndex >= 0) {
+                listOrder.lists[listIndex].sort = sortIndex.base;
+                listOrder.lists[listIndex].swimlaneId = updateData.swimlaneId;
+                listOrder.lists[listIndex].updatedAt = new Date().toISOString();
+              } else {
+                listOrder.lists.push({
+                  id: listId,
+                  sort: sortIndex.base,
+                  swimlaneId: updateData.swimlaneId,
+                  updatedAt: new Date().toISOString()
+                });
+              }
+
+              localStorage.setItem(listOrderKey, JSON.stringify(listOrder));
+            } catch (e) {
+            }
+          }
+
+          // Persist to server
+          Meteor.call('updateListSort', list._id, list.boardId, updateData, function(error) {
+            if (error) {
+              Meteor.subscribe('board', list.boardId, false);
+            }
+          });
 
           // Try to get board component
           try {
