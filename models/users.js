@@ -1291,20 +1291,23 @@ Users.helpers({
       return this.getListWidth(boardId, listId);
     }
     
-    // For non-logged-in users, get from localStorage
-    try {
-      const stored = localStorage.getItem('wekan-list-widths');
-      if (stored) {
-        const widths = JSON.parse(stored);
+    // For non-logged-in users, get from validated localStorage
+    if (typeof localStorage !== 'undefined' && typeof getValidatedLocalStorageData === 'function') {
+      try {
+        const widths = getValidatedLocalStorageData('wekan-list-widths', validators.listWidths);
         if (widths[boardId] && widths[boardId][listId]) {
-          return widths[boardId][listId];
+          const width = widths[boardId][listId];
+          // Validate it's a valid number
+          if (validators.isValidNumber(width, 100, 1000)) {
+            return width;
+          }
         }
+      } catch (e) {
+        console.warn('Error reading list widths from localStorage:', e);
       }
-    } catch (e) {
-      console.warn('Error reading list widths from localStorage:', e);
     }
     
-    return 270; // Return default width instead of -1
+    return 270; // Return default width
   },
 
   setListWidthToStorage(boardId, listId, width) {
@@ -1313,22 +1316,29 @@ Users.helpers({
       return this.setListWidth(boardId, listId, width);
     }
     
-    // For non-logged-in users, save to localStorage
-    try {
-      const stored = localStorage.getItem('wekan-list-widths');
-      let widths = stored ? JSON.parse(stored) : {};
-      
-      if (!widths[boardId]) {
-        widths[boardId] = {};
-      }
-      widths[boardId][listId] = width;
-      
-      localStorage.setItem('wekan-list-widths', JSON.stringify(widths));
-      return true;
-    } catch (e) {
-      console.warn('Error saving list width to localStorage:', e);
+    // Validate width before storing
+    if (!validators.isValidNumber(width, 100, 1000)) {
+      console.warn('Invalid list width:', width);
       return false;
     }
+    
+    // For non-logged-in users, save to validated localStorage
+    if (typeof localStorage !== 'undefined' && typeof setValidatedLocalStorageData === 'function') {
+      try {
+        const widths = getValidatedLocalStorageData('wekan-list-widths', validators.listWidths);
+        
+        if (!widths[boardId]) {
+          widths[boardId] = {};
+        }
+        widths[boardId][listId] = width;
+        
+        return setValidatedLocalStorageData('wekan-list-widths', widths, validators.listWidths);
+      } catch (e) {
+        console.warn('Error saving list width to localStorage:', e);
+        return false;
+      }
+    }
+    return false;
   },
 
   getListConstraintFromStorage(boardId, listId) {

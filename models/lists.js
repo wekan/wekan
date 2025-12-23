@@ -158,13 +158,8 @@ Lists.attachSchema(
       type: String,
       defaultValue: 'list',
     },
-    collapsed: {
-      /**
-       * is the list collapsed
-       */
-      type: Boolean,
-      defaultValue: false,
-    },
+    // NOTE: collapsed state is per-user only, stored in user profile.collapsedLists
+    // and localStorage for non-logged-in users
   }),
 );
 
@@ -735,23 +730,8 @@ if (Meteor.isServer) {
         updated = true;
       }
 
-      // Update collapsed status if provided
-      if (req.body.hasOwnProperty('collapsed')) {
-        const newCollapsed = req.body.collapsed;
-        Lists.direct.update(
-          {
-            _id: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              collapsed: newCollapsed,
-            },
-          },
-        );
-        updated = true;
-      }
+      // NOTE: collapsed state removed from board-level
+      // It's per-user only - use user profile methods instead
 
       // Update wipLimit if provided
       if (req.body.wipLimit) {

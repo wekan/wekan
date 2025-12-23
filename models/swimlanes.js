@@ -108,13 +108,8 @@ Swimlanes.attachSchema(
       type: String,
       defaultValue: 'swimlane',
     },
-    collapsed: {
-      /**
-       * is the swimlane collapsed
-       */
-      type: Boolean,
-      defaultValue: false,
-    },
+    // NOTE: collapsed state is per-user only, stored in user profile.collapsedSwimlanes
+    // and localStorage for non-logged-in users
   }),
 );
 
@@ -306,9 +301,8 @@ Swimlanes.mutations({
     return { $set: { title } };
   },
 
-  collapse(enable = true) {
-    return { $set: { collapsed: !!enable } };
-  },
+  // NOTE: collapse() removed - collapsed state is per-user only
+  // Use user.setCollapsedSwimlane(boardId, swimlaneId, collapsed) instead
 
   archive() {
     if (this.isTemplateSwimlane()) {

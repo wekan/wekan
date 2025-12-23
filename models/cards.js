@@ -2061,6 +2061,14 @@ Cards.mutations({
   },
 
   move(boardId, swimlaneId, listId, sort = null) {
+    // Capture previous state for history tracking
+    const previousState = {
+      boardId: this.boardId,
+      swimlaneId: this.swimlaneId,
+      listId: this.listId,
+      sort: this.sort,
+    };
+
     const mutatedFields = {
       boardId,
       swimlaneId,
@@ -2107,6 +2115,28 @@ Cards.mutations({
     Cards.update(this._id, {
       $set: mutatedFields,
     });
+
+    // Track position change in user history (server-side only)
+    if (Meteor.isServer && Meteor.userId() && typeof UserPositionHistory !== 'undefined') {
+      try {
+        UserPositionHistory.trackChange({
+          userId: Meteor.userId(),
+          boardId: this.boardId,
+          entityType: 'card',
+          entityId: this._id,
+          actionType: 'move',
+          previousState,
+          newState: {
+            boardId,
+            swimlaneId,
+            listId,
+            sort: sort !== null ? sort : this.sort,
+          },
+        });
+      } catch (e) {
+        console.warn('Failed to track card move in history:', e);
+      }
+    }
 
     // Ensure attachments follow the card to its new board/list/swimlane
     if (Meteor.isServer) {
