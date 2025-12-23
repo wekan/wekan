@@ -9,6 +9,9 @@
  * This is similar to the existing rescue migration but specifically for swimlaneId validation
  */
 
+// Helper collection to track migrations - must be defined first
+const Migrations = new Mongo.Collection('migrations');
+
 Meteor.startup(() => {
   // Only run on server
   if (!Meteor.isServer) return;
@@ -251,9 +254,6 @@ Meteor.startup(() => {
     console.log(`- Fixed ${listResults.fixedCount} lists without swimlaneId`);
     console.log(`- Rescued ${rescueResults.rescuedCount} orphaned cards`);
 
-    // Add validation hooks
-    addSwimlaneIdValidationHooks();
-
     // Record migration completion
     Migrations.upsert(
       { name: MIGRATION_NAME },
@@ -275,9 +275,12 @@ Meteor.startup(() => {
   } catch (error) {
     console.error(`Migration ${MIGRATION_NAME} failed:`, error);
   }
-});
 
-// Helper collection to track migrations
-if (typeof Migrations === 'undefined') {
-  Migrations = new Mongo.Collection('migrations');
-}
+  // Add validation hooks (outside try-catch to ensure they run even if migration failed)
+  try {
+    addSwimlaneIdValidationHooks();
+    console.log('SwimlaneId validation hooks installed');
+  } catch (error) {
+    console.error('Failed to install swimlaneId validation hooks:', error);
+  }
+});

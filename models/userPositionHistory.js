@@ -265,17 +265,19 @@ UserPositionHistory.helpers({
         break;
       }
       case 'checklistItem': {
-        const item = ChecklistItems.findOne(this.entityId);
-        if (item) {
-          const sort = this.previousSort !== undefined ? this.previousSort : item.sort;
-          const checklistId = this.previousState?.checklistId || item.checklistId;
-          
-          ChecklistItems.update(item._id, {
-            $set: {
-              sort,
-              checklistId,
-            },
-          });
+        if (typeof ChecklistItems !== 'undefined') {
+          const item = ChecklistItems.findOne(this.entityId);
+          if (item) {
+            const sort = this.previousSort !== undefined ? this.previousSort : item.sort;
+            const checklistId = this.previousState?.checklistId || item.checklistId;
+            
+            ChecklistItems.update(item._id, {
+              $set: {
+                sort,
+                checklistId,
+              },
+            });
+          }
         }
         break;
       }
@@ -494,5 +496,3 @@ Meteor.methods({
     return { undoneCount, totalChanges: changesToUndo.length };
   },
 });
-
-export default UserPositionHistory;
