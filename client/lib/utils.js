@@ -79,13 +79,21 @@ Utils = {
   },
 
   getMobileMode() {
+    // Check localStorage first - user's explicit preference takes priority
+    const stored = localStorage.getItem('wekan-mobile-mode');
+    if (stored !== null) {
+      return stored === 'true';
+    }
+    
+    // Then check user profile
     const user = ReactiveCache.getCurrentUser();
     if (user && user.profile && user.profile.mobileMode !== undefined) {
       return user.profile.mobileMode;
     }
-    // For non-logged-in users, check localStorage
-    const stored = localStorage.getItem('wekan-mobile-mode');
-    return stored ? stored === 'true' : false;
+    
+    // Default to mobile mode for iPhone/iPod
+    const isIPhone = /iPhone|iPod/i.test(navigator.userAgent);
+    return isIPhone;
   },
 
   setMobileMode(enabled) {
@@ -93,13 +101,41 @@ Utils = {
     if (user) {
       // Update user profile
       user.setMobileMode(enabled);
-    } else {
-      // Store in localStorage for non-logged-in users
-      localStorage.setItem('wekan-mobile-mode', enabled.toString());
     }
+    // Always store in localStorage for persistence across sessions
+    localStorage.setItem('wekan-mobile-mode', enabled.toString());
     Utils.applyMobileMode(enabled);
     // Trigger reactive updates for UI components
     Session.set('wekan-mobile-mode', enabled);
+    // Re-apply zoom level to ensure proper rendering
+    const zoomLevel = Utils.getZoomLevel();
+    Utils.applyZoomLevel(zoomLevel);
+  },
+
+  getCardZoom() {
+    const user = ReactiveCache.getCurrentUser();
+    if (user && user.profile && user.profile.cardZoom !== undefined) {
+      return user.profile.cardZoom;
+    }
+    const stored = localStorage.getItem('wekan-card-zoom');
+    return stored ? parseFloat(stored) : 1.0;
+  },
+
+  setCardZoom(level) {
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      user.setCardZoom(level);
+    }
+    localStorage.setItem('wekan-card-zoom', level.toString());
+    Utils.applyCardZoom(level);
+    Session.set('wekan-card-zoom', level);
+  },
+
+  applyCardZoom(level) {
+    const cardDetails = document.querySelector('.card-details');
+    if (cardDetails) {
+      cardDetails.style.fontSize = `${level}em`;
+    }
   },
 
   applyZoomLevel(level) {
@@ -298,6 +334,85 @@ Utils = {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();
       return 'board-view-swimlanes';
+    }
+  },
+
+  getListCollapseState(list) {
+    if (!list) return false;
+    const key = `collapsedList-${list._id}`;
+    const sessionVal = Session.get(key);
+    if (typeof sessionVal === 'boolean') {
+      return sessionVal;
+    }
+
+    const user = ReactiveCache.getCurrentUser();
+    let stored = null;
+    if (user && user.getCollapsedListFromStorage) {
+      stored = user.getCollapsedListFromStorage(list.boardId, list._id);
+    } else if (Users.getPublicCollapsedList) {
+      stored = Users.getPublicCollapsedList(list.boardId, list._id);
+    }
+
+    if (typeof stored === 'boolean') {
+      Session.setDefault(key, stored);
+      return stored;
+    }
+
+    const fallback = typeof list.collapsed === 'boolean' ? list.collapsed : false;
+    Session.setDefault(key, fallback);
+    return fallback;
+  },
+
+  setListCollapseState(list, collapsed) {
+    if (!list) return;
+    const key = `collapsedList-${list._id}`;
+    Session.set(key, !!collapsed);
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      Meteor.call('setListCollapsedState', list.boardId, list._id, !!collapsed);
+    } else if (Users.setPublicCollapsedList) {
+      Users.setPublicCollapsedList(list.boardId, list._id, !!collapsed);
+    }
+  },
+
+  getSwimlaneCollapseState(swimlane) {
+    if (!swimlane) return false;
+    const key = `collapsedSwimlane-${swimlane._id}`;
+    const sessionVal = Session.get(key);
+    if (typeof sessionVal === 'boolean') {
+      return sessionVal;
+    }
+
+    const user = ReactiveCache.getCurrentUser();
+    let stored = null;
+    if (user && user.getCollapsedSwimlaneFromStorage) {
+      stored = user.getCollapsedSwimlaneFromStorage(
+        swimlane.boardId,
+        swimlane._id,
+      );
+    } else if (Users.getPublicCollapsedSwimlane) {
+      stored = Users.getPublicCollapsedSwimlane(swimlane.boardId, swimlane._id);
+    }
+
+    if (typeof stored === 'boolean') {
+      Session.setDefault(key, stored);
+      return stored;
+    }
+
+    const fallback = typeof swimlane.collapsed === 'boolean' ? swimlane.collapsed : false;
+    Session.setDefault(key, fallback);
+    return fallback;
+  },
+
+  setSwimlaneCollapseState(swimlane, collapsed) {
+    if (!swimlane) return;
+    const key = `collapsedSwimlane-${swimlane._id}`;
+    Session.set(key, !!collapsed);
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      Meteor.call('setSwimlaneCollapsedState', swimlane.boardId, swimlane._id, !!collapsed);
+    } else if (Users.setPublicCollapsedSwimlane) {
+      Users.setPublicCollapsedSwimlane(swimlane.boardId, swimlane._id, !!collapsed);
     }
   },
 

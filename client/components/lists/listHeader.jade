@@ -30,20 +30,22 @@ template(name="listHeader")
             | &nbsp;
             span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
-        if collapsed
-          a.js-collapse(title="{{_ 'uncollapse'}}")
-            | ⬅️
-            | ➡️
-        div(class="{{#if collapsed}}list-rotated{{/if}}")
-          h2.list-header-name(
-            title="{{ moment modifiedAt 'LLL' }}"
-            class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
-            +viewer
-              = title
-            if wipLimit.enabled
-             |&nbsp;(
-             span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
-             |/#{wipLimit.value})
+        div.list-header-collapse-container
+          a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
+            if collapsed
+              | ▶
+            else
+              | 🔽
+          div(class="{{#if collapsed}}list-rotated{{/if}}")
+            h2.list-header-name(
+              title="{{ moment modifiedAt 'LLL' }}"
+              class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
+              +viewer
+                = title
+              if wipLimit.enabled
+               |&nbsp;(
+               span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
+               |/#{wipLimit.value})
         unless collapsed
           if showCardsCountForList cards.length
             span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
@@ -64,6 +66,10 @@ template(name="listHeader")
           unless currentUser.isWorker
             a.list-header-handle.handle.js-list-handle ↕️
       else if currentUser.isBoardMember
+        if currentUser.isBoardMember
+          unless currentUser.isCommentOnly
+            unless currentUser.isWorker
+              a.list-header-handle.handle.js-list-handle ↕️
         if isWatching
           i.list-header-watch-icon | 👁️
         unless collapsed
@@ -73,14 +79,8 @@ template(name="listHeader")
               //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
               if canSeeAddCard
                 a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
-                a.js-collapse(title="{{_ 'collapse'}}")
-                  | ⬅️
-                  | ➡️
+
                 a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
-            if currentUser.isBoardMember
-              unless currentUser.isCommentOnly
-                unless currentUser.isWorker
-                  a.list-header-handle.handle.js-list-handle ↕️
 
 template(name="editListTitleForm")
   .list-composer

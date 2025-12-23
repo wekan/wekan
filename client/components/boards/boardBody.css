@@ -231,6 +231,30 @@
       font-size: 1em !important; /* Keep original icon size */
     }
 
+/* Mobile iPhone: scale card details text and icons to 2x */
+body.mobile-mode.iphone-device .card-details {
+  font-size: 2em !important;
+}
+body.mobile-mode.iphone-device .card-details .fa,
+body.mobile-mode.iphone-device .card-details .icon,
+body.mobile-mode.iphone-device .card-details i,
+body.mobile-mode.iphone-device .card-details .emoji-icon,
+body.mobile-mode.iphone-device .card-details a,
+body.mobile-mode.iphone-device .card-details p,
+body.mobile-mode.iphone-device .card-details span,
+body.mobile-mode.iphone-device .card-details div,
+body.mobile-mode.iphone-device .card-details button,
+body.mobile-mode.iphone-device .card-details input,
+body.mobile-mode.iphone-device .card-details select,
+body.mobile-mode.iphone-device .card-details textarea {
+  font-size: inherit !important;
+}
+/* Section titles slightly larger than content but not as big as card title */
+body.mobile-mode.iphone-device .card-details .card-details-item-title {
+  font-size: 1.1em !important;
+  font-weight: bold;
+}
+
 /* Ensure scrollbars are positioned correctly */
 #content[style*="overflow-x: auto"]::-webkit-scrollbar:vertical {
   width: 12px;
@@ -262,6 +286,35 @@
   opacity: 0.33;
   animation: fadeIn 0.2s;
   z-index: 16;
+}
+
+/* Fix for mobile Safari: ensure overlay stays behind card details */
+@media screen and (max-width: 800px) {
+  .board-wrapper .board-canvas .board-overlay {
+    z-index: 17 !important;
+  }
+  
+  /* In desktop mode on small screens, still keep overlay behind card */
+  body.desktop-mode .board-wrapper .board-canvas .board-overlay {
+    z-index: 17 !important;
+  }
+}
+
+/* In mobile mode, lower the overlay z-index to stay behind card details */
+body.mobile-mode .board-wrapper .board-canvas .board-overlay {
+  z-index: 17 !important;
+}
+
+/* iPhone in desktop mode: remove overlay to avoid blocking card */
+body.desktop-mode.iphone-device .board-wrapper .board-canvas .board-overlay {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Desktop mode: hide overlay to allow multiple cards and board interaction */
+body.desktop-mode .board-wrapper .board-canvas .board-overlay {
+  display: none !important;
+  pointer-events: none !important;
 }
 .board-wrapper .board-canvas.is-dragging-active .open-minicard-composer,
 .board-wrapper .board-canvas.is-dragging-active .minicard-wrapper.is-checked {

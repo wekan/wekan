@@ -246,6 +246,21 @@ Swimlanes.helpers({
   },
 
   isCollapsed() {
+    if (Meteor.isClient) {
+      const user = ReactiveCache.getCurrentUser();
+      if (user && user.getCollapsedSwimlaneFromStorage) {
+        const stored = user.getCollapsedSwimlaneFromStorage(this.boardId, this._id);
+        if (typeof stored === 'boolean') {
+          return stored;
+        }
+      }
+      if (!user && Users.getPublicCollapsedSwimlane) {
+        const stored = Users.getPublicCollapsedSwimlane(this.boardId, this._id);
+        if (typeof stored === 'boolean') {
+          return stored;
+        }
+      }
+    }
     return this.collapsed === true;
   },
 

@@ -63,7 +63,11 @@ BlazeComponent.extendComponent({
       const boardBody = this.parentComponent().parentComponent();
       //in Miniview parent is Board, not BoardBody.
       if (boardBody !== null) {
-        boardBody.showOverlay.set(true);
+        // Only show overlay in mobile mode, not in desktop mode
+        const isMobile = Utils.getMobileMode();
+        if (isMobile) {
+          boardBody.showOverlay.set(true);
+        }
         boardBody.mouseHasEnterCardDetails = false;
       }
     }
@@ -91,6 +95,18 @@ BlazeComponent.extendComponent({
 
   cardMaximized() {
     return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
+  },
+
+  cardCollapsed() {
+    const user = ReactiveCache.getCurrentUser();
+    if (user && user.profile) {
+      return !!user.profile.cardCollapsed;
+    }
+    if (Users.getPublicCardCollapsed) {
+      const stored = Users.getPublicCardCollapsed();
+      if (typeof stored === 'boolean') return stored;
+    }
+    return false;
   },
 
   presentParentTask() {
@@ -296,13 +312,88 @@ BlazeComponent.extendComponent({
     return [
       {
         ...events,
+        'click .js-card-collapse-toggle'() {
+          const user = ReactiveCache.getCurrentUser();
+          const currentState = user && user.profile ? !!user.profile.cardCollapsed : !!Users.getPublicCardCollapsed();
+          if (user) {
+            Meteor.call('setCardCollapsed', !currentState);
+          } else if (Users.setPublicCardCollapsed) {
+            Users.setPublicCardCollapsed(!currentState);
+          }
+        },
+        'click .js-card-bring-to-front'(event) {
+          event.preventDefault();
+          const $card = $(event.target).closest('.card-details');
+          // Find the highest z-index among all cards
+          let maxZ = 100;
+          $('.card-details').each(function() {
+            const z = parseInt($(this).css('z-index')) || 100;
+            if (z > maxZ) maxZ = z;
+          });
+          // Set this card's z-index to be higher
+          $card.css('z-index', maxZ + 1);
+        },
+        'click .js-card-send-to-back'(event) {
+          event.preventDefault();
+          const $card = $(event.target).closest('.card-details');
+          // Find the lowest z-index among all cards
+          let minZ = 100;
+          $('.card-details').each(function() {
+            const z = parseInt($(this).css('z-index')) || 100;
+            if (z < minZ) minZ = z;
+          });
+          // Set this card's z-index to be lower
+          $card.css('z-index', minZ - 1);
+        },
+        'mousedown .js-card-drag-handle'(event) {
+          event.preventDefault();
+          const $card = $(event.target).closest('.card-details');
+          const startX = event.clientX;
+          const startY = event.clientY;
+          const startLeft = $card.offset().left;
+          const startTop = $card.offset().top;
+          
+          const onMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            $card.css({
+              left: startLeft + deltaX + 'px',
+              top: startTop + deltaY + 'px'
+            });
+          };
+          
+          const onMouseUp = () => {
+            $(document).off('mousemove', onMouseMove);
+            $(document).off('mouseup', onMouseUp);
+          };
+          
+          $(document).on('mousemove', onMouseMove);
+          $(document).on('mouseup', onMouseUp);
+        },
         'click .js-close-card-details'() {
           // Get board ID from either the card data or current board in session
           const card = this.currentData() || this.data();
           const boardId = (card && card.boardId) || Utils.getCurrentBoard()._id;
+          const cardId = card && card._id;
           
           if (boardId) {
-            // Clear the current card session to close the card
+            // In desktop mode, remove from openCards array
+            const isMobile = Utils.getMobileMode();
+            if (!isMobile && cardId) {
+              const openCards = Session.get('openCards') || [];
+              const filtered = openCards.filter(id => id !== cardId);
+              Session.set('openCards', filtered);
+              
+              // If this was the current card, clear it
+              if (Session.get('currentCard') === cardId) {
+                Session.set('currentCard', null);
+              }
+              
+              // Don't navigate away in desktop mode - just close the card
+              return;
+            }
+            
+            // Mobile mode: Clear the current card session to close the card
             Session.set('currentCard', null);
             
             // Navigate back to board without card
@@ -327,6 +418,34 @@ BlazeComponent.extendComponent({
           Meteor.call('changeDateFormat', dateFormat);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
+        // Mobile: switch to desktop popup view (maximize)
+        'click .js-mobile-switch-to-desktop'(event) {
+          event.preventDefault();
+          // Switch global mode to desktop so the card appears as desktop popup
+          Utils.setMobileMode(false);
+        },
+        'click .js-card-zoom-in'(event) {
+          event.preventDefault();
+          const current = Utils.getCardZoom();
+          const newZoom = Math.min(3.0, current + 0.1);
+          Utils.setCardZoom(newZoom);
+        },
+        'click .js-card-zoom-out'(event) {
+          event.preventDefault();
+          const current = Utils.getCardZoom();
+          const newZoom = Math.max(0.5, current - 0.1);
+          Utils.setCardZoom(newZoom);
+        },
+        'click .js-card-mobile-desktop-toggle'(event) {
+          event.preventDefault();
+          const currentMode = Utils.getMobileMode();
+          Utils.setMobileMode(!currentMode);
+        },
+        'click .js-card-mobile-desktop-toggle'(event) {
+          event.preventDefault();
+          const currentMode = Utils.getMobileMode();
+          Utils.setMobileMode(!currentMode);
+        },
         'submit .js-card-description'(event) {
           event.preventDefault();
           const description = this.currentComponent().getValue();

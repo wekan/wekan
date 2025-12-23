@@ -81,6 +81,27 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  /* iOS Safari fixes */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile mode specific fixes for iOS Safari */
+body.mobile-mode {
+  overflow-x: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  /* Prevent iOS Safari bounce scroll */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure content area is scrollable in mobile mode */
+body.mobile-mode #content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  height: calc(100vh - 48px);
 }
 #content {
   position: relative;
@@ -897,6 +918,40 @@ a:not(.disabled).is-active i.fa {
 @keyframes flexGrowIn {
   from {
     height: 100%;
+  }
+}
+
+/* iOS Safari Mobile Mode Fixes */
+@media screen and (max-width: 800px) {
+  /* Prevent scrolling issues on iOS Safari when card popup is open */
+  body.mobile-mode {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  /* Fix z-index stacking for mobile Safari */
+  body.mobile-mode .board-wrapper {
+    z-index: 1;
+  }
+  
+  body.mobile-mode .board-wrapper .board-canvas .board-overlay {
+    z-index: 17 !important;
+  }
+  
+  body.mobile-mode .card-details {
+    z-index: 100 !important;
+  }
+  
+  body.mobile-mode .pop-over {
+    z-index: 999;
+  }
+  
+  /* Ensure smooth scrolling on iOS */
+  body.mobile-mode .card-details,
+  body.mobile-mode .pop-over .content-wrapper {
+    -webkit-overflow-scrolling: touch;
   }
 }
 @-moz-keyframes lds-roller {

@@ -315,10 +315,17 @@ textarea::-moz-placeholder {
   margin-right: 6px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
+  border-bottom: 2px solid #3cb500;
+  border-right: 2px solid #3cb500;
   transform: rotate(40deg);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform-origin: 100% 100%;
+}
+/* Grey checkmarks when grey icons setting is enabled */
+body.grey-icons-enabled .materialCheckBox.is-checked {
+  border-bottom: 2px solid #7a7a7a;
+  border-right: 2px solid #7a7a7a;
 }
 .button-link {
   background: #fff;

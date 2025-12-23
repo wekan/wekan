@@ -130,6 +130,29 @@
   pointer-events: auto;
 }
 
+/* Swimlane collapse button styling - matches list collapse button */
+.swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator {
+  color: #a6a6a6;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  min-width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 0;
+  flex-shrink: 0;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator:hover {
+  background-color: transparent;
+  color: #333;
+}
+
 #js-swimlane-height-edit .swimlane-height-error {
   display: none;
 }

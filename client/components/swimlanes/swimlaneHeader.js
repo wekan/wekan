@@ -20,13 +20,14 @@ BlazeComponent.extendComponent({
   },
   collapsed(check = undefined) {
     const swimlane = Template.currentData();
-    const status = swimlane.isCollapsed();
+    const status = Utils.getSwimlaneCollapseState(swimlane);
     if (check === undefined) {
       // just check
       return status;
     } else {
-      swimlane.collapse(!status);
-      return !status;
+      const next = typeof check === 'boolean' ? check : !status;
+      Utils.setSwimlaneCollapseState(swimlane, next);
+      return next;
     }
   },
 
@@ -48,6 +49,10 @@ BlazeComponent.extendComponent({
 Template.swimlaneFixedHeader.helpers({
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
+  collapseSwimlane() {
+    const swimlane = Template.currentData();
+    return Utils.getSwimlaneCollapseState(swimlane);
   },
   isTitleDefault(title) {
     // https://github.com/wekan/wekan/issues/4763

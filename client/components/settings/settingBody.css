@@ -137,8 +137,13 @@
   padding: 0.5rem 0.5rem;
 }
 .setting-content .content-body .main-body ul li a .is-checked {
-  border-bottom: 2px solid #2980b9;
-  border-right: 2px solid #2980b9;
+  border-bottom: 2px solid #3cb500;
+  border-right: 2px solid #3cb500;
+}
+/* Grey checkmarks when grey icons setting is enabled */
+body.grey-icons-enabled .setting-content .content-body .main-body ul li a .is-checked {
+  border-bottom: 2px solid #7a7a7a;
+  border-right: 2px solid #7a7a7a;
 }
 .setting-content .content-body .main-body ul li a span {
   padding: 0 0.5rem;

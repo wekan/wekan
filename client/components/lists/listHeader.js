@@ -34,13 +34,14 @@ BlazeComponent.extendComponent({
   },
   collapsed(check = undefined) {
     const list = Template.currentData();
-    const status = list.isCollapsed();
+    const status = Utils.getListCollapseState(list);
     if (check === undefined) {
       // just check
       return status;
     } else {
-      list.collapse(!status);
-      return !status;
+      const next = typeof check === 'boolean' ? check : !status;
+      Utils.setListCollapseState(list, next);
+      return next;
     }
   },
   editTitle(event) {

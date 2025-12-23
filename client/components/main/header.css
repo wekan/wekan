@@ -339,15 +339,20 @@
       width: 100%;
       min-width: 3vw;
       font-size: clamp(12px, 2vw, 14px);
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      appearance: none;
+      flex: 0 0 auto;
     }
 
     /* Make zoom input wider on all mobile screens */
     @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
       #header-quick-access .zoom-controls .zoom-input {
-        min-width: 50px !important; /* Wider on mobile */
-        width: 50px !important; /* Fixed width to show all numbers */
-        font-size: 14px !important; /* Slightly larger text */
+        min-width: 80px !important; /* Wider on mobile to show 3 digits */
+        width: 80px !important; /* Fixed width to show 100 fully */
+        font-size: 16px !important; /* Slightly larger text */
+        flex: 0 0 80px !important; /* Prevent shrinking in flex */
       }
     }
 
@@ -850,8 +855,9 @@
     #header-quick-access .zoom-controls .zoom-input {
       font-size: 16px !important; /* Larger input text */
       padding: 0.5vh 0.8vw !important;
-      min-width: 6vw !important; /* Much wider for mobile */
-      width: 60px !important; /* Fixed width to show all numbers */
+      min-width: 80px !important; /* Wider to fit 100 */
+      width: 80px !important; /* Fixed width to show 100 fully */
+      flex: 0 0 80px !important; /* Prevent shrinking in flex */
     }
 
     /* Make mobile mode toggle larger */

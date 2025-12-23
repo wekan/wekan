@@ -282,13 +282,19 @@ body.list-resizing-active * {
   margin: 0 auto;
 }
 .list.list-collapsed .list-header .js-collapse {
-  margin: 0 auto 20px auto;
+  margin: 0 auto 0 auto;
   z-index: 10;
   padding: 8px 12px;
   font-size: 12px;
   white-space: nowrap;
   display: block;
   width: fit-content;
+}
+.list.list-collapsed .list-header .list-header-handle {
+  position: absolute !important;
+  top: 30px !important;
+  right: 1.5vw !important;
+  z-index: 15 !important;
 }
 .list.list-collapsed .list-header .list-rotated {
   width: auto !important;
@@ -297,7 +303,6 @@ body.list-resizing-active * {
   position: relative !important;
   overflow: visible !important;
 }
-
 .list.list-collapsed .list-header .list-rotated h2.list-header-name {
   text-align: left;
   overflow: visible;
@@ -308,15 +313,15 @@ body.list-resizing-active * {
   color: #333;
   background-color: rgba(255, 255, 255, 0.95);
   border: 1px solid #ddd;
-  padding: 8px 4px;
+  padding: 0;
   border-radius: 4px;
-  margin: 0 auto;
-  width: 25vh;
-  height: 60vh;
+  margin: 0;
+  width: 100vh;
+  height: 30px;
   position: absolute;
-  left: 50%;
+  left: 40px;
   top: 50%;
-  transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
+  transform: translateY(calc(-50% + 20px)) rotate(0deg);
   z-index: 10;
   visibility: visible !important;
   opacity: 1 !important;
@@ -415,21 +420,41 @@ body.list-resizing-active * {
   color: #a6a6a6;
   margin-right: 15px;
 }
+/* List header collapse button styling */
+.list-header .list-header-collapse-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
 .list-header .js-collapse {
   color: #a6a6a6;
-  margin-right: 15px;
   display: inline-block;
   vertical-align: middle;
   padding: 5px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f5f5f5;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 1;
+  min-width: 30px;
+  text-align: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  margin: 0;
 }
 .list-header .js-collapse:hover {
-  background-color: #e0e0e0;
+  background-color: transparent;
   color: #333;
+}
+
+.list-header .list-header-collapse-container > div {
+  flex: 1;
+  min-width: 0;
 }
 .list.list-collapsed .list-header .js-collapse {
   display: inline-block !important;
@@ -459,17 +484,18 @@ body.list-resizing-active * {
     position: relative !important;
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: 15vh;
+    width: 100vh;
     font-size: 12px;
     height: 30px;
     line-height: 1.2;
-    padding: 8px 4px;
-    margin: 0 auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
     position: absolute;
-    left: 50%;
+    left: 40px;
     top: 50%;
-    transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
-    text-align: left;
+    transform: translateY(calc(-50% + 120px)) rotate(0deg);
+    text-align: center;
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
@@ -499,17 +525,18 @@ body.list-resizing-active * {
     position: relative !important;
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: 15vh;
+    width: 100vh;
     font-size: 12px;
     height: 30px;
     line-height: 1.2;
-    padding: 8px 4px;
-    margin: 0 auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
     position: absolute;
-    left: 50%;
+    left: 40px;
     top: 50%;
-    transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
-    text-align: left;
+    transform: translateY(calc(-50% + 120px)) rotate(0deg);
+    text-align: center;
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
@@ -539,16 +566,17 @@ body.list-resizing-active * {
     position: relative !important;
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: 15vh;
+    width: 100vh;
     font-size: 12px;
     height: 30px;
     line-height: 1.2;
-    padding: 8px 4px;
-    margin: 0 auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
     position: absolute;
-    left: 50%;
+    left: 40px;
     top: 50%;
-    transform: translate(calc(-50% + 50px), -50%) rotate(0deg);
+    transform: translateY(calc(-50% + 40px)) rotate(0deg);
     text-align: left;
     visibility: visible !important;
     opacity: 1 !important;
@@ -1052,6 +1080,23 @@ body.list-resizing-active * {
   display: grid !important;
   grid-row: 1/3 !important;
   grid-column: 1 !important;
+}
+
+/* Allow long list titles to expand on desktop (non-mobile, non-collapsed) */
+.list:not(.mobile-view):not(.list-collapsed) .list-header {
+  overflow: visible !important;
+}
+
+.list:not(.mobile-view):not(.list-collapsed) .list-header .list-header-name {
+  /* Permit wrapping and full visibility */
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  display: inline-block !important;
+  /* Reserve space for right-side controls (menu, handle, count) */
+  max-width: calc(100% - 120px) !important;
+  /* Break long words to avoid overflow */
+  word-break: break-word !important;
 }
 .link-board-wrapper {
   display: flex;

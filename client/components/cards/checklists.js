@@ -65,7 +65,7 @@ BlazeComponent.extendComponent({
         $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
         if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
           $(self.itemsDom).sortable({
-            handle: 'span.fa.checklistitem-handle',
+            handle: 'span.checklistitem-handle',
           });
         }
       }
@@ -360,6 +360,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-checklist-item .check-box-unicode': this.toggleItem,
         'click .js-checklist-item .check-box-container': this.toggleItem,
       },
     ];

@@ -165,6 +165,16 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Session.set('currentCard', params.cardId);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
+    
+    // In desktop mode, add to openCards array to support multiple cards
+    const isMobile = Utils.getMobileMode();
+    if (!isMobile) {
+      const openCards = Session.get('openCards') || [];
+      if (!openCards.includes(params.cardId)) {
+        openCards.push(params.cardId);
+        Session.set('openCards', openCards);
+      }
+    }
 
     Utils.manageCustomUI();
     Utils.manageMatomo();

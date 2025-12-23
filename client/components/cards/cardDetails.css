@@ -118,6 +118,65 @@
   transition: flex-basis 0.1s;
   box-sizing: border-box;
 }
+
+/* Desktop mode: position card below board header */
+body.desktop-mode .card-details:not(.card-details-popup) {
+  position: fixed;
+  width: auto;
+  max-width: 800px;
+  flex-basis: auto;
+  border-radius: 8px;
+  z-index: 100;
+}
+
+/* Default position for first card or when dragged */
+body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"]):not([style*="top"]) {
+  top: 50px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+}
+
+/* Stagger positions for multiple cards using nth-of-type */
+body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(1) {
+  top: 50px;
+  left: 20px;
+}
+body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(2) {
+  top: 80px;
+  left: 50px;
+}
+body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(3) {
+  top: 110px;
+  left: 80px;
+}
+body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(4) {
+  top: 140px;
+  left: 110px;
+}
+body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(5) {
+  top: 170px;
+  left: 140px;
+}
+
+/* For expanded cards, set dimensions */
+body.desktop-mode .card-details:not(.card-details-popup):not(.card-details-collapsed) {
+  right: 20px;
+  bottom: 20px;
+}
+
+/* Collapsed card state - hide content and set height to title row only */
+.card-details.card-details-collapsed .card-details-canvas > *:not(.card-details-header) {
+  display: none;
+}
+.card-details.card-details-collapsed {
+  height: auto !important;
+  bottom: auto !important;
+  overflow: visible;
+}
+body.desktop-mode .card-details.card-details-collapsed {
+  bottom: auto !important;
+}
 .card-details .mCustomScrollBox {
   padding-left: 0;
 }
@@ -139,6 +198,49 @@
   display: inline-block;
   margin-right: 5px;
 }
+
+/* Collapse toggle triangle */
+.card-details .card-details-header .card-collapse-toggle {
+  float: left;
+  font-size: 20px;
+  padding: 7px 10px;
+  margin-left: -10px;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
+  color: #000;
+}
+
+/* Bring to front / Send to back buttons */
+.card-details .card-details-header .card-bring-to-front,
+.card-details .card-details-header .card-send-to-back {
+  float: right;
+  font-size: 18px;
+  padding: 7px 8px;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
+  color: #333;
+}
+
+.card-details .card-details-header .card-bring-to-front:hover,
+.card-details .card-details-header .card-send-to-back:hover {
+  color: #000;
+  background: rgba(0,0,0,0.05);
+  border-radius: 3px;
+}
+
+/* Drag handle */
+.card-details .card-details-header .card-drag-handle {
+  font-size: 20px;
+  padding: 8px 10px;
+  margin-right: 10px;
+  cursor: move;
+  user-select: none;
+  display: inline-block;
+  float: right;
+}
+
 .card-details .card-details-header .close-card-details,
 .card-details .card-details-header .maximize-card-details,
 .card-details .card-details-header .minimize-card-details,
@@ -156,11 +258,16 @@
   font-size: 24px;
   padding: 5px 10px 5px 10px;
   margin-right: -8px;
+  cursor: pointer;
+  user-select: none;
 }
-.card-details .card-details-header .close-card-details-mobile-web {
+.card-details .card-details-header .close-card-details-mobile-web,
+.card-details .card-details-header .card-mobile-desktop-toggle {
   font-size: 24px;
   padding: 5px;
-  margin-right: 40px;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
 }
 .card-details .card-details-header .card-copy-button {
   font-size: 17px;
@@ -180,6 +287,36 @@
   font-size: 17px;
   padding: 10px;
   margin-right: 30px;
+}
+.card-details .card-details-header .card-mobile-desktop-toggle,
+.card-details .card-details-header .card-zoom-in,
+.card-details .card-details-header .card-zoom-out {
+  font-size: 24px;
+  padding: 5px 10px 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
+  float: right;
+}
+
+/* Unify all card text to match title size */
+.card-details {
+  font-size: 1em;
+}
+.card-details p,
+.card-details span,
+.card-details div,
+.card-details a,
+.card-details label,
+.card-details input,
+.card-details textarea,
+.card-details select,
+.card-details button,
+.card-details .card-details-item-title,
+.card-details .card-label,
+.card-details .viewer {
+  font-size: inherit;
+  line-height: 1.4;
 }
 .card-details .card-details-header .card-details-watch {
   font-size: 17px;
@@ -284,6 +421,19 @@
     position: fixed;
     resize: both;
   }
+  
+  /* Override for mobile mode even on larger screens */
+  body.mobile-mode .card-details {
+    width: 100vw !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    resize: none !important;
+  }
+  
   .card-details-maximized {
     padding: 0;
     flex-shrink: 0;
@@ -335,19 +485,53 @@ input[type="submit"].attachment-add-link-submit {
 }
 @media screen and (max-width: 800px) {
   .card-details {
-    width: calc(100% - 1px);
-    padding: 0px 20px 0px 20px;
-    margin: 0px;
+    width: 100% !important;
+    padding: 0px 0px 0px 0px !important;
+    margin: 0px !important;
     transition: none;
-    overflow-y: revert;
-    overflow-x: revert;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* iOS Safari specific fixes */
+    -webkit-overflow-scrolling: touch;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 100 !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  /* Ensure card details are above everything on mobile */
+  body.mobile-mode .card-details {
+    z-index: 100 !important;
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
   }
   .card-details .card-details-canvas {
     width: 100%;
     padding-left: 0px;
+    padding: 0 15px;
   }
   .card-details .card-details-header .close-card-details {
     margin-right: 0px;
+    display: block !important;
+  }
+  .card-details .card-details-header .close-card-details-mobile-web {
+    display: block !important;
+    margin-right: 5px !important;
+  }
+  .card-details .card-details-header .card-mobile-desktop-toggle {
+    display: block !important;
+    margin-right: 5px !important;
+  }
+  .card-details .card-details-header .card-mobile-desktop-toggle {
+    display: block !important;
+    margin-right: 5px !important;
   }
   .card-details .card-details-header .card-details-menu {
     margin-right: 40px;
@@ -373,6 +557,62 @@ input[type="submit"].attachment-add-link-submit {
   .pop-over > .content-wrapper > .popup-container-depth-0 .card-details-header {
     margin: 0;
   }
+  /* iPhone mobile: enlarge header buttons and increase spacing */
+  body.mobile-mode.iphone-device .card-details .card-details-header {
+    padding-right: 16px;
+  }
+  body.mobile-mode.iphone-device .card-details .card-details-header .close-card-details,
+  body.mobile-mode.iphone-device .card-details .card-details-header .maximize-card-details,
+  body.mobile-mode.iphone-device .card-details .card-details-header .minimize-card-details,
+  body.mobile-mode.iphone-device .card-details .card-details-header .card-details-menu-mobile-web,
+  body.mobile-mode.iphone-device .card-details .card-details-header .card-copy-mobile-button,
+  body.mobile-mode.iphone-device .card-details .card-details-header .card-mobile-desktop-toggle,
+  body.mobile-mode.iphone-device .card-details .card-details-header .card-zoom-in,
+  body.mobile-mode.iphone-device .card-details .card-details-header .card-zoom-out {
+    font-size: 2em !important; /* 2x bigger */
+    padding: 0.3em !important;
+    margin-right: 0.75em !important; /* 2x space compared to default */
+    margin-left: 0 !important;
+  }
+  /* Avoid clipping of the close button on the right edge */
+  body.mobile-mode.iphone-device .card-details .card-details-header .close-card-details {
+    margin-right: 0.75em !important;
+  }
+  /* Enlarge the header title too */
+  body.mobile-mode.iphone-device .card-details .card-details-header .card-details-title {
+    font-size: 1.2em !important;
+    font-weight: bold;
+  }
+}
+
+/* Mobile mode styles - apply when body has mobile-mode class regardless of screen size */
+body.mobile-mode .card-details {
+  width: 100vw !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 100 !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.mobile-mode .card-details .card-details-canvas {
+  width: 100% !important;
+  padding: 0 15px !important;
+}
+
+body.mobile-mode .card-details .card-details-header .close-card-details,
+body.mobile-mode .card-details .card-details-header .close-card-details-mobile-web {
+  display: block !important;
 }
 .card-details-white {
   background: #fff !important;

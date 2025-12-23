@@ -538,12 +538,17 @@
   position: absolute;
   top: 6px;
   right: 12px;
+  color: #3cb500;
 }
 .pop-over-list .pop-over-list.checkable li.active a {
   padding-right: 28px;
 }
 .pop-over-list .pop-over-list.checkable li.active a .fa-check {
   display: block;
+}
+/* Grey check icons when grey icons setting is enabled */
+body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
+  color: #7a7a7a;
 }
 .pop-over.miniprofile .header {
   border-bottom-color: transparent;
@@ -590,6 +595,10 @@
     overflow: hidden;
     margin-top: 0px;
     border: 0px solid #dbdbdb;
+    /* Ensure popups appear above card details on mobile */
+    z-index: 999999 !important;
+    /* iOS Safari scrolling fix */
+    -webkit-overflow-scrolling: touch;
   }
   .pop-over .header {
     color: #fff;
@@ -673,4 +682,24 @@
   .pop-over .popup-container-depth-6 {
     transform: none !important;
   }
+}
+
+/* Force full-screen popups in mobile mode regardless of screen width */
+body.mobile-mode .pop-over {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+}
+body.mobile-mode .pop-over .content-wrapper {
+  width: 100% !important;
+  height: calc(100vh - 48px) !important;
+  max-height: calc(100vh - 48px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }

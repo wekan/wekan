@@ -58,6 +58,10 @@ template(name="boardBody")
               +swimlane(this)
           else
             +listsGroup(currentBoard)
+      //- Render multiple open cards in desktop mode
+      unless isMiniScreen
+        each openCards
+          +cardDetails(this cardIndex=@index)
       +sidebar
 
 template(name="calendarView")

@@ -11,6 +11,83 @@ const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 Users = Meteor.users;
 
+// Public-board collapse persistence helpers (cookie-based for non-logged-in users)
+if (Meteor.isClient) {
+  const readCookieMap = name => {
+    try {
+      const stored = typeof document !== 'undefined' ? document.cookie : '';
+      const cookies = stored.split(';').map(c => c.trim());
+      let json = '{}';
+      for (const c of cookies) {
+        if (c.startsWith(name + '=')) {
+          json = decodeURIComponent(c.substring(name.length + 1));
+          break;
+        }
+      }
+      return JSON.parse(json || '{}');
+    } catch (e) {
+      console.warn('Error parsing collapse cookie', name, e);
+      return {};
+    }
+  };
+
+  const writeCookieMap = (name, data) => {
+    try {
+      const serialized = encodeURIComponent(JSON.stringify(data || {}));
+      const maxAge = 60 * 60 * 24 * 365; // 1 year
+      document.cookie = `${name}=${serialized}; path=/; max-age=${maxAge}`;
+    } catch (e) {
+      console.warn('Error writing collapse cookie', name, e);
+    }
+  };
+
+  Users.getPublicCollapsedList = (boardId, listId) => {
+    if (!boardId || !listId) return null;
+    const data = readCookieMap('wekan-collapsed-lists');
+    if (data[boardId] && typeof data[boardId][listId] === 'boolean') {
+      return data[boardId][listId];
+    }
+    return null;
+  };
+
+  Users.setPublicCollapsedList = (boardId, listId, collapsed) => {
+    if (!boardId || !listId) return false;
+    const data = readCookieMap('wekan-collapsed-lists');
+    if (!data[boardId]) data[boardId] = {};
+    data[boardId][listId] = !!collapsed;
+    writeCookieMap('wekan-collapsed-lists', data);
+    return true;
+  };
+
+  Users.getPublicCollapsedSwimlane = (boardId, swimlaneId) => {
+    if (!boardId || !swimlaneId) return null;
+    const data = readCookieMap('wekan-collapsed-swimlanes');
+    if (data[boardId] && typeof data[boardId][swimlaneId] === 'boolean') {
+      return data[boardId][swimlaneId];
+    }
+    return null;
+  };
+
+  Users.setPublicCollapsedSwimlane = (boardId, swimlaneId, collapsed) => {
+    if (!boardId || !swimlaneId) return false;
+    const data = readCookieMap('wekan-collapsed-swimlanes');
+    if (!data[boardId]) data[boardId] = {};
+    data[boardId][swimlaneId] = !!collapsed;
+    writeCookieMap('wekan-collapsed-swimlanes', data);
+    return true;
+  };
+
+  Users.getPublicCardCollapsed = () => {
+    const data = readCookieMap('wekan-card-collapsed');
+    return typeof data.state === 'boolean' ? data.state : null;
+  };
+
+  Users.setPublicCardCollapsed = collapsed => {
+    writeCookieMap('wekan-card-collapsed', { state: !!collapsed });
+    return true;
+  };
+}
+
 const allowedSortValues = [
   '-modifiedAt',
   'modifiedAt',
@@ -183,6 +260,13 @@ Users.attachSchema(
     'profile.cardMaximized': {
       /**
        * has user clicked maximize card?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.cardCollapsed': {
+      /**
+       * has user collapsed the card details?
        */
       type: Boolean,
       optional: true,
@@ -476,6 +560,24 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.collapsedLists': {
+      /**
+       * Per-user collapsed state for lists.
+       * profile[boardId][listId] = true|false
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
+    'profile.collapsedSwimlanes': {
+      /**
+       * Per-user collapsed state for swimlanes.
+       * profile[boardId][swimlaneId] = true|false
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.keyboardShortcuts': {
       /**
        * User-specified state of keyboard shortcut activation.
@@ -521,6 +623,15 @@ Users.attachSchema(
        */
       type: Boolean,
       defaultValue: false,
+    },
+    'profile.cardZoom': {
+      /**
+       * User-specified zoom level for card details (1.0 = 100%, 1.5 = 150%, etc.)
+       */
+      type: Number,
+      defaultValue: 1.0,
+      min: 0.5,
+      max: 3.0,
     },
     services: {
       /**
@@ -602,7 +713,7 @@ Users.attachSchema(
 );
 
 // Security helpers for user updates
-export const USER_UPDATE_ALLOWED_EXACT = ['username'];
+export const USER_UPDATE_ALLOWED_EXACT = ['username', 'profile'];
 export const USER_UPDATE_ALLOWED_PREFIXES = ['profile.'];
 export const USER_UPDATE_FORBIDDEN_PREFIXES = [
   'services',
@@ -1311,6 +1422,135 @@ Users.helpers({
       return false;
     }
   },
+  // Per-user collapsed state helpers for lists/swimlanes
+  getCollapsedList(boardId, listId) {
+    const { collapsedLists = {} } = this.profile || {};
+    if (collapsedLists[boardId] && typeof collapsedLists[boardId][listId] === 'boolean') {
+      return collapsedLists[boardId][listId];
+    }
+    return null;
+  },
+  getCollapsedSwimlane(boardId, swimlaneId) {
+    const { collapsedSwimlanes = {} } = this.profile || {};
+    if (collapsedSwimlanes[boardId] && typeof collapsedSwimlanes[boardId][swimlaneId] === 'boolean') {
+      return collapsedSwimlanes[boardId][swimlaneId];
+    }
+    return null;
+  },
+  setCollapsedListToStorage(boardId, listId, collapsed) {
+    // Logged-in users: save to profile
+    if (this._id) {
+      return this.setCollapsedList(boardId, listId, collapsed);
+    }
+    // Public users: save to cookie
+    try {
+      const name = 'wekan-collapsed-lists';
+      const stored = (typeof document !== 'undefined') ? document.cookie : '';
+      const cookies = stored.split(';').map(c => c.trim());
+      let json = '{}';
+      for (const c of cookies) {
+        if (c.startsWith(name + '=')) {
+          json = decodeURIComponent(c.substring(name.length + 1));
+          break;
+        }
+      }
+      let data = {};
+      try { data = JSON.parse(json || '{}'); } catch (e) { data = {}; }
+      if (!data[boardId]) data[boardId] = {};
+      data[boardId][listId] = !!collapsed;
+      const serialized = encodeURIComponent(JSON.stringify(data));
+      const maxAge = 60 * 60 * 24 * 365; // 1 year
+      document.cookie = `${name}=${serialized}; path=/; max-age=${maxAge}`;
+      return true;
+    } catch (e) {
+      console.warn('Error saving collapsed list to cookie:', e);
+      return false;
+    }
+  },
+  getCollapsedListFromStorage(boardId, listId) {
+    // Logged-in users: read from profile
+    if (this._id) {
+      const v = this.getCollapsedList(boardId, listId);
+      return v;
+    }
+    // Public users: read from cookie
+    try {
+      const name = 'wekan-collapsed-lists';
+      const stored = (typeof document !== 'undefined') ? document.cookie : '';
+      const cookies = stored.split(';').map(c => c.trim());
+      let json = '{}';
+      for (const c of cookies) {
+        if (c.startsWith(name + '=')) {
+          json = decodeURIComponent(c.substring(name.length + 1));
+          break;
+        }
+      }
+      const data = JSON.parse(json || '{}');
+      if (data[boardId] && typeof data[boardId][listId] === 'boolean') {
+        return data[boardId][listId];
+      }
+    } catch (e) {
+      console.warn('Error reading collapsed list from cookie:', e);
+    }
+    return null;
+  },
+  setCollapsedSwimlaneToStorage(boardId, swimlaneId, collapsed) {
+    // Logged-in users: save to profile
+    if (this._id) {
+      return this.setCollapsedSwimlane(boardId, swimlaneId, collapsed);
+    }
+    // Public users: save to cookie
+    try {
+      const name = 'wekan-collapsed-swimlanes';
+      const stored = (typeof document !== 'undefined') ? document.cookie : '';
+      const cookies = stored.split(';').map(c => c.trim());
+      let json = '{}';
+      for (const c of cookies) {
+        if (c.startsWith(name + '=')) {
+          json = decodeURIComponent(c.substring(name.length + 1));
+          break;
+        }
+      }
+      let data = {};
+      try { data = JSON.parse(json || '{}'); } catch (e) { data = {}; }
+      if (!data[boardId]) data[boardId] = {};
+      data[boardId][swimlaneId] = !!collapsed;
+      const serialized = encodeURIComponent(JSON.stringify(data));
+      const maxAge = 60 * 60 * 24 * 365; // 1 year
+      document.cookie = `${name}=${serialized}; path=/; max-age=${maxAge}`;
+      return true;
+    } catch (e) {
+      console.warn('Error saving collapsed swimlane to cookie:', e);
+      return false;
+    }
+  },
+  getCollapsedSwimlaneFromStorage(boardId, swimlaneId) {
+    // Logged-in users: read from profile
+    if (this._id) {
+      const v = this.getCollapsedSwimlane(boardId, swimlaneId);
+      return v;
+    }
+    // Public users: read from cookie
+    try {
+      const name = 'wekan-collapsed-swimlanes';
+      const stored = (typeof document !== 'undefined') ? document.cookie : '';
+      const cookies = stored.split(';').map(c => c.trim());
+      let json = '{}';
+      for (const c of cookies) {
+        if (c.startsWith(name + '=')) {
+          json = decodeURIComponent(c.substring(name.length + 1));
+          break;
+        }
+      }
+      const data = JSON.parse(json || '{}');
+      if (data[boardId] && typeof data[boardId][swimlaneId] === 'boolean') {
+        return data[boardId][swimlaneId];
+      }
+    } catch (e) {
+      console.warn('Error reading collapsed swimlane from cookie:', e);
+    }
+    return null;
+  },
 });
 
 Users.mutations({
@@ -1485,6 +1725,14 @@ Users.mutations({
     };
   },
 
+  toggleCardCollapsed(value = false) {
+    return {
+      $set: {
+        'profile.cardCollapsed': !value,
+      },
+    };
+  },
+
   toggleLabelText(value = false) {
     return {
       $set: {
@@ -1621,6 +1869,26 @@ Users.mutations({
       },
     };
   },
+  setCollapsedList(boardId, listId, collapsed) {
+    const current = (this.profile && this.profile.collapsedLists) || {};
+    if (!current[boardId]) current[boardId] = {};
+    current[boardId][listId] = !!collapsed;
+    return {
+      $set: {
+        'profile.collapsedLists': current,
+      },
+    };
+  },
+  setCollapsedSwimlane(boardId, swimlaneId, collapsed) {
+    const current = (this.profile && this.profile.collapsedSwimlanes) || {};
+    if (!current[boardId]) current[boardId] = {};
+    current[boardId][swimlaneId] = !!collapsed;
+    return {
+      $set: {
+        'profile.collapsedSwimlanes': current,
+      },
+    };
+  },
 
   setZoomLevel(level) {
     return {
@@ -1634,6 +1902,14 @@ Users.mutations({
     return {
       $set: {
         'profile.mobileMode': enabled,
+      },
+    };
+  },
+
+  setCardZoom(level) {
+    return {
+      $set: {
+        'profile.cardZoom': level,
       },
     };
   },
@@ -1809,6 +2085,11 @@ Meteor.methods({
     const user = ReactiveCache.getCurrentUser();
     user.toggleCardMaximized(user.hasCardMaximized());
   },
+  setCardCollapsed(value) {
+    check(value, Boolean);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+    Users.update(this.userId, { $set: { 'profile.cardCollapsed': value } });
+  },
   toggleMinicardLabelText() {
     const user = ReactiveCache.getCurrentUser();
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
@@ -1838,12 +2119,53 @@ Meteor.methods({
     user.setListWidth(boardId, listId, width);
     user.setListConstraint(boardId, listId, constraint);
   },
+  setListCollapsedState(boardId, listId, collapsed) {
+    check(boardId, String);
+    check(listId, String);
+    check(collapsed, Boolean);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const user = Users.findOne(this.userId);
+    if (!user) {
+      throw new Meteor.Error('user-not-found', 'User not found');
+    }
+    const current = (user.profile && user.profile.collapsedLists) || {};
+    if (!current[boardId]) current[boardId] = {};
+    current[boardId][listId] = !!collapsed;
+    Users.update(this.userId, {
+      $set: {
+        'profile.collapsedLists': current,
+      },
+    });
+  },
   applySwimlaneHeight(boardId, swimlaneId, height) {
     check(boardId, String);
     check(swimlaneId, String);
     check(height, Number);
     const user = ReactiveCache.getCurrentUser();
     user.setSwimlaneHeight(boardId, swimlaneId, height);
+  },
+
+  setSwimlaneCollapsedState(boardId, swimlaneId, collapsed) {
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(collapsed, Boolean);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const user = Users.findOne(this.userId);
+    if (!user) {
+      throw new Meteor.Error('user-not-found', 'User not found');
+    }
+    const current = (user.profile && user.profile.collapsedSwimlanes) || {};
+    if (!current[boardId]) current[boardId] = {};
+    current[boardId][swimlaneId] = !!collapsed;
+    Users.update(this.userId, {
+      $set: {
+        'profile.collapsedSwimlanes': current,
+      },
+    });
   },
 
   applySwimlaneHeightToStorage(boardId, swimlaneId, height) {

@@ -68,6 +68,14 @@
   transform-origin: 100% 100% !important;
 }
 
+/* Grey checkmarks when grey icons setting is enabled */
+body.grey-icons-enabled .sidebar .materialCheckBox.is-checked,
+body.grey-icons-enabled .boardCardSettingsPopup .materialCheckBox.is-checked,
+body.grey-icons-enabled .boardSubtaskSettingsPopup .materialCheckBox.is-checked {
+  border-bottom: 2px solid #7a7a7a !important;
+  border-right: 2px solid #7a7a7a !important;
+}
+
 /* Card Settings 3-column grid layout */
 .card-settings-grid {
   display: grid;
@@ -130,6 +138,11 @@
 }
 .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-check {
   margin: 0 4px;
+  color: #3cb500;
+}
+/* Grey check icons when grey icons setting is enabled */
+body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-check {
+  color: #7a7a7a;
 }
 .sidebar .sidebar-content ul.sidebar-list li .minicard {
   padding: 6px 8px 4px;

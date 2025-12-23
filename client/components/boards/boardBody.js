@@ -516,6 +516,16 @@ BlazeComponent.extendComponent({
     return isMiniScreen && currentCardId;
   },
 
+  openCards() {
+    // In desktop mode, return array of all open cards
+    const isMobile = Utils.getMobileMode();
+    if (!isMobile) {
+      const openCardIds = Session.get('openCards') || [];
+      return openCardIds.map(id => ReactiveCache.getCard(id)).filter(card => card);
+    }
+    return [];
+  },
+
   goHome() {
     FlowRouter.go('home');
   },
@@ -1642,6 +1652,15 @@ BlazeComponent.extendComponent({
 
         // Open card the same way as clicking a minicard - set currentCard session
         // This shows the full card details overlay, not a popup
+        // In desktop mode, add to openCards array to support multiple cards
+        const isMobile = Utils.getMobileMode();
+        if (!isMobile) {
+          const openCards = Session.get('openCards') || [];
+          if (!openCards.includes(cardId)) {
+            openCards.push(cardId);
+            Session.set('openCards', openCards);
+          }
+        }
         Session.set('currentCard', cardId);
       });
     });

@@ -583,9 +583,9 @@
 }
 
 .board-list .board-list-item .multi-selection-checkbox.is-checked {
-  background: #2196F3;
-  border-color: #2196F3;
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.6);
+  background: #3cb500;
+  border-color: #3cb500;
+  box-shadow: 0 2px 8px rgba(60, 181, 0, 0.6);
   width: 24px !important;
   height: 24px !important;
   top: auto !important;
@@ -601,10 +601,22 @@
   font-weight: bold;
 }
 
+/* Grey checkboxes when grey icons setting is enabled */
+body.grey-icons-enabled .board-list .board-list-item .multi-selection-checkbox.is-checked {
+  background: #7a7a7a;
+  border-color: #7a7a7a;
+  box-shadow: 0 2px 8px rgba(122, 122, 122, 0.6);
+}
+
+body.grey-icons-enabled .board-list.is-multiselection-active .js-board.is-checked {
+  outline: 4px solid #7a7a7a;
+  box-shadow: 0 4px 12px rgba(122, 122, 122, 0.4);
+}
+
 .board-list.is-multiselection-active .js-board.is-checked {
-  outline: 4px solid #2196F3;
+  outline: 4px solid #3cb500;
   outline-offset: -4px;
-  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+  box-shadow: 0 4px 12px rgba(60, 181, 0, 0.4);
 }
 
 /* Visual hint when multiselection is active */
@@ -645,7 +657,11 @@
 }
 .board-backgrounds-list .board-background-select .background-box i.fa-check {
   font-size: 25px;
-  color: #fff;
+  color: #3cb500;
+}
+/* Grey check icons when grey icons setting is enabled */
+body.grey-icons-enabled .board-backgrounds-list .board-background-select .background-box i.fa-check {
+  color: #7a7a7a;
 }
 
 /* Prevent Grey Icons from affecting checkmarks in background color list */

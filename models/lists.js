@@ -297,6 +297,23 @@ Lists.helpers({
   },
 
   isCollapsed() {
+    if (Meteor.isClient) {
+      const user = ReactiveCache.getCurrentUser();
+      // Logged-in users: prefer profile/cookie-backed state
+      if (user && user.getCollapsedListFromStorage) {
+        const stored = user.getCollapsedListFromStorage(this.boardId, this._id);
+        if (typeof stored === 'boolean') {
+          return stored;
+        }
+      }
+      // Public users: fallback to cookie if available
+      if (!user && Users.getPublicCollapsedList) {
+        const stored = Users.getPublicCollapsedList(this.boardId, this._id);
+        if (typeof stored === 'boolean') {
+          return stored;
+        }
+      }
+    }
     return this.collapsed === true;
   },
 

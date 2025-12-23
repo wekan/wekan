@@ -104,7 +104,19 @@ BlazeComponent.extendComponent({
 }).register('subtasks');
 
 BlazeComponent.extendComponent({
-  // ...
+  toggleItem() {
+    const item = this.currentData().item;
+    if (item && item._id) {
+      item.toggleItem();
+    }
+  },
+  events() {
+    return [
+      {
+        'click .js-subtasks-item .check-box-unicode': this.toggleItem,
+      },
+    ];
+  },
 }).register('subtaskItemDetail');
 
 BlazeComponent.extendComponent({

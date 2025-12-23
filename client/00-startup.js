@@ -70,4 +70,12 @@ Meteor.startup(() => {
       Meteor.subscribe('userGreyIcons');
     }
   });
+  
+  // Initialize mobile mode on startup for iOS devices
+  // This ensures mobile mode is applied correctly on page load
+  Tracker.afterFlush(() => {
+    if (typeof Utils !== 'undefined' && Utils.initializeUserSettings) {
+      Utils.initializeUserSettings();
+    }
+  });
 });

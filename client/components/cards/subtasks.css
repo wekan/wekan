@@ -87,6 +87,15 @@ textarea.js-edit-subtask-item {
   top: 0;
   bottom: -600px;
   right: 0;
+  z-index: 15;
+}
+
+/* Fix for mobile Safari: ensure this doesn't block card interaction */
+@media screen and (max-width: 800px) {
+  #card-details-overlay {
+    z-index: 15;
+    pointer-events: none;
+  }
 }
 .subtasks {
   background: #f7f7f7;
@@ -126,6 +135,25 @@ textarea.js-edit-subtask-item {
 .subtasks-item .check-box.is-checked {
   border-bottom: 2px solid #3cb500;
   border-right: 2px solid #3cb500;
+}
+/* Unicode checkbox icons styling */
+.subtasks-item .check-box-unicode {
+  font-size: 1.3em;
+  margin-right: 8px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+/* Grey checkmarks when grey icons setting is enabled */
+body.grey-icons-enabled .subtasks-item .check-box.is-checked {
+  border-bottom: 2px solid #7a7a7a;
+  border-right: 2px solid #7a7a7a;
+}
+body.grey-icons-enabled .subtasks-item .check-box-unicode {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: 0.85;
 }
 .subtasks-item .item-title {
   flex: 1;

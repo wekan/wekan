@@ -283,6 +283,9 @@ BlazeComponent.extendComponent({
     
     // Wait for DOM to be ready
     setTimeout(() => {
+      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
+        ? '.js-list-handle'
+        : '.js-list-header';
       const $lists = this.$('.js-list');
       
       const $parent = $lists.parent();
@@ -306,7 +309,7 @@ BlazeComponent.extendComponent({
           items: '.js-list:not(.js-list-composer)',
           placeholder: 'list placeholder',
           distance: 7,
-          handle: '.js-list-handle',
+          handle: handleSelector,
           disabled: !Utils.canModifyBoard(),
           start(evt, ui) {
             ui.helper.css('z-index', 1000);
@@ -317,6 +320,15 @@ BlazeComponent.extendComponent({
           },
           stop(evt, ui) {
             boardComponent.setIsDragging(false);
+          }
+        });
+        // Reactively update handle when user toggles desktop drag handles
+        this.autorun(() => {
+          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
+            ? '.js-list-handle'
+            : '.js-list-header';
+          if ($parent.data('uiSortable') || $parent.data('sortable')) {
+            try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
           }
         });
       } else {
@@ -684,6 +696,10 @@ Template.swimlane.helpers({
   lists() {
     // Return per-swimlane lists for this swimlane
     return this.myLists();
+  },
+
+  collapseSwimlane() {
+    return Utils.getSwimlaneCollapseState(this);
   }
 });
 
@@ -691,6 +707,9 @@ Template.swimlane.helpers({
 setTimeout(() => {
   const $swimlaneElements = $('.swimlane');
   const $listsGroupElements = $('.list-group');
+  const computeHandle = () => (
+    Utils.isTouchScreenOrShowDesktopDragHandles() ? '.js-list-handle' : '.js-list-header'
+  );
   
   // Initialize sortable on ALL swimlane elements (even empty ones)
   $swimlaneElements.each(function(index) {
@@ -707,7 +726,7 @@ setTimeout(() => {
         items: '.js-list:not(.js-list-composer)',
         placeholder: 'list placeholder',
         distance: 7,
-        handle: '.js-list-handle',
+        handle: computeHandle(),
         disabled: !Utils.canModifyBoard(),
         start(evt, ui) {
           ui.helper.css('z-index', 1000);
@@ -831,6 +850,13 @@ setTimeout(() => {
           });
         }
       });
+      // Reactively adjust handle when setting changes
+      Tracker.autorun(() => {
+        const newHandle = computeHandle();
+        if ($swimlane.data('uiSortable') || $swimlane.data('sortable')) {
+          try { $swimlane.sortable('option', 'handle', newHandle); } catch (e) {}
+        }
+      });
     }
   });
   
@@ -849,7 +875,7 @@ setTimeout(() => {
         items: '.js-list:not(.js-list-composer)',
         placeholder: 'list placeholder',
         distance: 7,
-        handle: '.js-list-handle',
+        handle: computeHandle(),
         disabled: !Utils.canModifyBoard(),
         start(evt, ui) {
           ui.helper.css('z-index', 1000);
@@ -971,6 +997,13 @@ setTimeout(() => {
           $('.js-swimlane').each(function() {
             $(this).addClass('dragscroll');
           });
+        }
+      });
+      // Reactively adjust handle when setting changes
+      Tracker.autorun(() => {
+        const newHandle = computeHandle();
+        if ($listsGroup.data('uiSortable') || $listsGroup.data('sortable')) {
+          try { $listsGroup.sortable('option', 'handle', newHandle); } catch (e) {}
         }
       });
     }
@@ -1018,6 +1051,9 @@ BlazeComponent.extendComponent({
     
     // Wait for DOM to be ready
     setTimeout(() => {
+      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
+        ? '.js-list-handle'
+        : '.js-list-header';
       const $lists = this.$('.js-list');
       
       const $parent = $lists.parent();
@@ -1041,7 +1077,7 @@ BlazeComponent.extendComponent({
           items: '.js-list:not(.js-list-composer)',
           placeholder: 'list placeholder',
           distance: 7,
-          handle: '.js-list-handle',
+          handle: handleSelector,
           disabled: !Utils.canModifyBoard(),
           start(evt, ui) {
             ui.helper.css('z-index', 1000);
@@ -1052,6 +1088,15 @@ BlazeComponent.extendComponent({
           },
           stop(evt, ui) {
             boardComponent.setIsDragging(false);
+          }
+        });
+        // Reactively update handle when user toggles desktop drag handles
+        this.autorun(() => {
+          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
+            ? '.js-list-handle'
+            : '.js-list-header';
+          if ($parent.data('uiSortable') || $parent.data('sortable')) {
+            try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
           }
         });
       } else {

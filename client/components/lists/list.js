@@ -279,7 +279,8 @@ BlazeComponent.extendComponent({
     
     // Only enable resize for non-collapsed, non-auto-width lists
     const isAutoWidth = this.autoWidth();
-    if (list.collapsed || isAutoWidth) {
+    const isCollapsed = Utils.getListCollapseState(list);
+    if (isCollapsed || isAutoWidth) {
       $resizeHandle.hide();
       return;
     }
@@ -433,9 +434,10 @@ BlazeComponent.extendComponent({
     });
     
     
-    // Reactively update resize handle visibility when auto-width changes
+    // Reactively update resize handle visibility when auto-width or collapse changes
     component.autorun(() => {
-      if (component.autoWidth()) {
+      const collapsed = Utils.getListCollapseState(list);
+      if (component.autoWidth() || collapsed) {
         $resizeHandle.hide();
       } else {
         $resizeHandle.show();
@@ -451,6 +453,12 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('list');
+
+Template.list.helpers({
+  collapsed() {
+    return Utils.getListCollapseState(this);
+  },
+});
 
 Template.miniList.events({
   'click .js-select-list'() {

@@ -112,6 +112,7 @@ CardCustomField.register('cardCustomField');
   events() {
     return [
       {
+        'click .js-checklist-item .check-box-unicode': this.toggleItem,
         'click .js-checklist-item .check-box-container': this.toggleItem,
       },
     ];

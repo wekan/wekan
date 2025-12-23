@@ -5,16 +5,25 @@ template(name="cardDetails")
 
   +attachmentViewer
 
-  section.card-details.js-card-details.nodragscroll(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}' class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}'): .card-details-canvas
+  section.card-details.js-card-details.nodragscroll(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}' class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}' class='{{#if cardCollapsed}}card-details-collapsed{{/if}}'): .card-details-canvas
     .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
       else
         unless isMiniScreen
           unless isPopup
+            span.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
+              if cardCollapsed
+                | ▶
+              else
+                | 🔽
             a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
               | ❌
             if canModifyCard
+              a.card-bring-to-front.js-card-bring-to-front(title="Bring to front")
+                | ⏫
+              a.card-send-to-back.js-card-send-to-back(title="Send to back")
+                | ⏬
               if cardMaximized
                 a.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
                   | 🔽
@@ -30,12 +39,28 @@ template(name="cardDetails")
               href="{{ originRelativeUrl }}"
             )
               span.emoji-icon 🔗
+            span.card-drag-handle.js-card-drag-handle(title="Drag card")
+              | ↕️
             span.copied-tooltip {{_ 'copied'}}
         else
-          unless isPopup
-            a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
-              | ❌
+          a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+            | ❌
+          a.card-zoom-out.js-card-zoom-out(title="{{_ 'zoom-out'}}")
+            | 🔍➖
+          a.card-zoom-in.js-card-zoom-in(title="{{_ 'zoom-in'}}")
+            | 🔍➕
+          a.card-mobile-desktop-toggle.js-card-mobile-desktop-toggle(title="{{_ 'mobile-desktop-toggle'}}")
+            if mobileMode
+              | 🖥️
+            else
+              | 📱
           if canModifyCard
+            if cardMaximized
+              a.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+                | 🔽
+            else
+              a.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+                | 🔼
             a.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
               | ☰
             a.card-copy-mobile-button.js-copy-link(

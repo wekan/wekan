@@ -26,6 +26,11 @@ template(name="swimlaneFixedHeader")
     if currentUser
       unless currentUser.isCommentOnly
         unless currentUser.isWorker
+          a.swimlane-collapse-indicator.js-collapse-swimlane.swimlane-header-collapse(title="{{_ 'collapse'}}")
+            if collapseSwimlane
+              | ▶
+            else
+              | 🔽
           a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
             | ➕
           unless isTouchScreen
