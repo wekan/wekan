@@ -36,6 +36,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Right top User Settings / Grey Icons. Also fixed Change Language popup](https://github.com/wekan/wekan/commit/300b653ea3416892faf2d08f5e0be3752e2041d6).
   Thanks to xet7.
+- [Collapse Swimlane, List, Opened Card. Opened Card window X and Y position can be moved freely from drag handle. Fix some dragging not possible. Fix iPhone Safari](https://github.com/wekan/wekan/commit/58f4884ad603e4f8c68a8819dfb1440234da70b6).
+  Thanks to xet7.
 
 and adds the following updates:
 
