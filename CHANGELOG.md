@@ -38,6 +38,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Collapse Swimlane, List, Opened Card. Opened Card window X and Y position can be moved freely from drag handle. Fix some dragging not possible. Fix iPhone Safari](https://github.com/wekan/wekan/commit/58f4884ad603e4f8c68a8819dfb1440234da70b6).
   Thanks to xet7.
+- [Per-User and Board-level data save fixes. Per-User is collapse, width, height. Per-Board is Swimlanes, Lists, Cards etc](https://github.com/wekan/wekan/commit/414b8dbf41ecf368d54aeceb6a78ccd0aa58f6a6).
+  Thanks to xet7.
 
 and adds the following updates:
 
