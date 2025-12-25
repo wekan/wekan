@@ -815,15 +815,12 @@ export default {
     name: "繁体中文（香港）",
     load: () => import('./data/zh-HK.i18n.json'),
   },
-
   "zh-SG": {
     code: "zh",
     tag: "zh-SG",
     name: "中文 (新加坡)",
     load: () => import('./data/zh_SG.i18n.json'),
   },
-
-
   "zh-TW": {
     code: "zh",
     tag: "zh-TW",
