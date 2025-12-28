@@ -24,7 +24,12 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release adds the following CRITICAL SECURITY FIXES:
+
+- [Upgraded MongoDB to 7.0.28 to fix mongobleed at Snap Candidate](https://github.com/wekan/wekan/commit/e210c9973be55a4fa4e7dd15aefc24e06dbc3e7f).
+  Thanks to developers of MongoDB.
+
+and adds the following new features:
 
 - [Gantt chart view to one board view menu Swimlanes/Lists/Calendar/Gantt](https://github.com/wekan/wekan/commit/f34e4c0e363e386dbcce8e6ee8933b2d50491c58).
   Thanks to xet7.
