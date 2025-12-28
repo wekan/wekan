@@ -22,6 +22,15 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Re-add JS closing class to unicode close announcement symbol](https://github.com/wekan/wekan/pull/6050).
+  Thanks to Chostakovitch.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.18 2025-12-28 WeKan ® release
 
 This release adds the following CRITICAL SECURITY FIXES:
