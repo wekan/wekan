@@ -111,7 +111,9 @@ template(name="header")
           | 📢
           +viewer
             | #{announcement}
-          | ❌
+          a
+            .js-close-announcement
+              | ❌
 
 template(name="offlineWarning")
   .offline-warning
