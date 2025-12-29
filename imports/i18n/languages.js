@@ -88,13 +88,13 @@ export default {
   "ca": {
     code: "ca",
     tag: "ca",
-    name: "català",
+    name: "Català",
     load: () => import('./data/ca.i18n.json'),
   },
   "ca-ES": {
     code: "ca",
     tag: "ca-ES",
-    name: "català (Espanya)",
+    name: "Català (Espanya)",
     load: () => import('./data/ca_ES.i18n.json'),
   },
   "cmn": {
@@ -220,61 +220,61 @@ export default {
   "ast-ES": {
     code: "es",
     tag: "ast-ES",
-    name: "español de Asturias",
+    name: "Español de Asturias",
     load: () => import('./data/ast-ES.i18n.json'),
   },
   "es-AR": {
     code: "es",
     tag: "es-AR",
-    name: "español de Argentina",
+    name: "Español de Argentina",
     load: () => import('./data/es-AR.i18n.json'),
   },
   "es-CL": {
     code: "es",
     tag: "es-CL",
-    name: "español de Chile",
+    name: "Español de Chile",
     load: () => import('./data/es-CL.i18n.json'),
   },
   "es-CO": {
     code: "es",
     tag: "es-CO",
-    name: "español en Colombia",
+    name: "Español en Colombia",
     load: () => import('./data/es-CO.i18n.json'),
   },
   "es-LA": {
     code: "es",
     tag: "es-LA",
-    name: "español de América Latina",
+    name: "Español de América Latina",
     load: () => import('./data/es-LA.i18n.json'),
   },
   "es-MX": {
     code: "es",
     tag: "es-MX",
-    name: "español de México",
+    name: "Español de México",
     load: () => import('./data/es-MX.i18n.json'),
   },
   "es-PE": {
     code: "es",
     tag: "es-PE",
-    name: "español de Perú",
+    name: "Español de Perú",
     load: () => import('./data/es-PE.i18n.json'),
   },
   "es-PY": {
     code: "es",
     tag: "es-PY",
-    name: "español de Paraguayo",
+    name: "Español de Paraguayo",
     load: () => import('./data/es-PY.i18n.json'),
   },
   "es": {
     code: "es",
     tag: "es",
-    name: "español",
+    name: "Español",
     load: () => import('./data/es.i18n.json'),
   },
   "et-EE": {
     code: "et",
     tag: "et-EE",
-    name: "eesti keel (Eesti)",
+    name: "Eesti keel (Eesti)",
     load: () => import('./data/et-EE.i18n.json'),
   },
   "eu": {
@@ -476,7 +476,7 @@ export default {
   "lv": {
     code: "lv",
     tag: "lv",
-    name: "latviešu valoda",
+    name: "Latviešu valoda",
     load: () => import('./data/lv.i18n.json'),
   },
   "mk": {
@@ -602,8 +602,14 @@ export default {
   "sl": {
     code: "sl",
     tag: "sl",
-    name: "slovenščina",
+    name: "Slovenščina",
     load: () => import('./data/sl.i18n.json'),
+  },
+  "sl_SI": {
+    code: "sl",
+    tag: "sl_SI",
+    name: "Slovenščina (slovenija)",
+    load: () => import('./data/sl_SI.i18n.json'),
   },
   "sr": {
     code: "sr",
@@ -644,7 +650,7 @@ export default {
   "tlh": {
     code: "tlh",
     tag: "tlh",
-    name: "tlhIngan Hol",
+    name: "TlhIngan Hol",
     load: () => import('./data/tlh.i18n.json'),
   },
   "tr": {
@@ -674,37 +680,37 @@ export default {
   "uz-AR": {
     code: "uz",
     tag: "uz-AR",
-    name: "o'zbek (arab)",
+    name: "O'zbek (arab)",
     load: () => import('./data/uz-AR.i18n.json'),
   },
   "uz-LA": {
     code: "uz",
     tag: "uz-LA",
-    name: "o'zbek (lotin)",
+    name: "O'zbek (lotin)",
     load: () => import('./data/uz-LA.i18n.json'),
   },
   "uz-UZ": {
     code: "uz",
     tag: "uz-UZ",
-    name: "o'zbek (O'zbekiston)",
+    name: "O'zbek (O'zbekiston)",
     load: () => import('./data/uz-UZ.i18n.json'),
   },
   "uz": {
     code: "uz",
     tag: "uz",
-    name: "o'zbek",
+    name: "O'zbek",
     load: () => import('./data/uz.i18n.json'),
   },
   "ve-CC": {
     code: "ve",
     tag: "ve-CC",
-    name: "vèneto",
+    name: "Vèneto",
     load: () => import('./data/ve-CC.i18n.json'),
   },
   "ve-PP": {
     code: "ve",
     tag: "ve-PP",
-    name: "vepsän kelʹ",
+    name: "Vepsän kelʹ",
     load: () => import('./data/ve-PP.i18n.json'),
   },
   "ve": {
@@ -746,7 +752,7 @@ export default {
   "wa": {
     code: "wa",
     tag: "wa",
-    name: "walon",
+    name: "Walon",
     load: () => import('./data/wa.i18n.json'),
   },
   "wo": {
@@ -758,7 +764,7 @@ export default {
   "xh": {
     code: "xh",
     tag: "xh",
-    name: "isiXhosa",
+    name: "IsiXhosa",
     load: () => import('./data/xh.i18n.json'),
   },
   "yi": {
@@ -830,13 +836,13 @@ export default {
   "zu-ZA": {
     code: "zu",
     tag: "zu-ZA",
-    name: "isiZulu (Ningizimu Afrika)",
+    name: "IsiZulu (Ningizimu Afrika)",
     load: () => import('./data/zu-ZA.i18n.json'),
   },
   "zu": {
     code: "zu",
     tag: "zu",
-    name: "isiZulu",
+    name: "IsiZulu",
     load: () => import('./data/zu.i18n.json'),
   }
 };
