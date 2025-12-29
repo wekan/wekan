@@ -436,8 +436,36 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId',
     function(req, res) {
       const paramBoardId = req.params.boardId;
+      const paramCardId = req.params.cardId;
       const paramChecklistId = req.params.checklistId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      // Verify the card belongs to the board
+      const card = ReactiveCache.getCard({
+        _id: paramCardId,
+        boardId: paramBoardId,
+      });
+      if (!card) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+          data: { error: 'Card not found or does not belong to the specified board' },
+        });
+        return;
+      }
+
+      // Verify the checklist exists and belongs to the card
+      const checklist = ReactiveCache.getChecklist({
+        _id: paramChecklistId,
+        cardId: paramCardId,
+      });
+      if (!checklist) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+          data: { error: 'Checklist not found or does not belong to the specified card' },
+        });
+        return;
+      }
+
       Checklists.remove({ _id: paramChecklistId });
       JsonRoutes.sendResult(res, {
         code: 200,
