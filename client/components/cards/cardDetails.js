@@ -31,6 +31,7 @@ import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
 import { UserAvatar } from '../users/userAvatar';
 import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlaneList';
+import { DialogWithBoardSwimlaneListCard } from '/client/lib/dialogWithBoardSwimlaneListCard';
 import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 
@@ -973,26 +974,42 @@ Template.editCardAssignerForm.events({
 });
 
 /** Move Card Dialog */
-(class extends DialogWithBoardSwimlaneList {
+(class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(boardId, swimlaneId, listId, options) {
+  setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
-    const minOrder = card.getMinSort(listId, swimlaneId);
-    card.move(boardId, swimlaneId, listId, minOrder - 1);
+    let sortIndex = 0;
+    
+    if (cardId) {
+      const targetCard = ReactiveCache.getCard(cardId);
+      if (targetCard) {
+        const position = this.$('input[name="position"]:checked').val();
+        if (position === 'above') {
+          sortIndex = targetCard.sort - 0.5;
+        } else {
+          sortIndex = targetCard.sort + 0.5;
+        }
+      }
+    } else {
+      // If no card selected, move to end
+      sortIndex = card.getMaxSort(options.listId, options.swimlaneId) + 1;
+    }
+    
+    card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
   }
 }).register('moveCardPopup');
 
 /** Copy Card Dialog */
-(class extends DialogWithBoardSwimlaneList {
+(class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(boardId, swimlaneId, listId, options) {
+  setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
@@ -1001,8 +1018,30 @@ Template.editCardAssignerForm.events({
     const title = textarea.val().trim();
 
     if (title) {
-      // insert new card to the top of new list
-      const newCardId = Meteor.call('copyCard', card._id, boardId, swimlaneId, listId, true, {title: title});
+      const newCardId = Meteor.call('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, true, {title: title});
+
+      // Position the copied card
+      if (newCardId) {
+        const newCard = ReactiveCache.getCard(newCardId);
+        let sortIndex = 0;
+        
+        if (cardId) {
+          const targetCard = ReactiveCache.getCard(cardId);
+          if (targetCard) {
+            const position = this.$('input[name="position"]:checked').val();
+            if (position === 'above') {
+              sortIndex = targetCard.sort - 0.5;
+            } else {
+              sortIndex = targetCard.sort + 0.5;
+            }
+          }
+        } else {
+          // If no card selected, copy to end
+          sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+        }
+        
+        newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+      }
 
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -1014,12 +1053,12 @@ Template.editCardAssignerForm.events({
 }).register('copyCardPopup');
 
 /** Convert Checklist-Item to card dialog */
-(class extends DialogWithBoardSwimlaneList {
+(class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(boardId, swimlaneId, listId, options) {
+  setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
@@ -1029,14 +1068,29 @@ Template.editCardAssignerForm.events({
     if (title) {
       const _id = Cards.insert({
         title: title,
-        listId: listId,
-        boardId: boardId,
-        swimlaneId: swimlaneId,
+        listId: options.listId,
+        boardId: options.boardId,
+        swimlaneId: options.swimlaneId,
         sort: 0,
       });
-      const card = ReactiveCache.getCard(_id);
-      const minOrder = card.getMinSort();
-      card.move(card.boardId, card.swimlaneId, card.listId, minOrder - 1);
+      const newCard = ReactiveCache.getCard(_id);
+      
+      let sortIndex = 0;
+      if (cardId) {
+        const targetCard = ReactiveCache.getCard(cardId);
+        if (targetCard) {
+          const position = this.$('input[name="position"]:checked').val();
+          if (position === 'above') {
+            sortIndex = targetCard.sort - 0.5;
+          } else {
+            sortIndex = targetCard.sort + 0.5;
+          }
+        }
+      } else {
+        sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+      }
+      
+      newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
 
       Filter.addException(_id);
     }
@@ -1044,12 +1098,12 @@ Template.editCardAssignerForm.events({
 }).register('convertChecklistItemToCardPopup');
 
 /** Copy many cards dialog */
-(class extends DialogWithBoardSwimlaneList {
+(class extends DialogWithBoardSwimlaneListCard {
   getDialogOptions() {
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(boardId, swimlaneId, listId, options) {
+  setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
@@ -1059,7 +1113,29 @@ Template.editCardAssignerForm.events({
     if (title) {
       const titleList = JSON.parse(title);
       for (const obj of titleList) {
-        const newCardId = Meteor.call('copyCard', card._id, boardId, swimlaneId, listId, false, {title: obj.title, description: obj.description});
+        const newCardId = Meteor.call('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, false, {title: obj.title, description: obj.description});
+
+        // Position the copied card
+        if (newCardId) {
+          const newCard = ReactiveCache.getCard(newCardId);
+          let sortIndex = 0;
+          
+          if (cardId) {
+            const targetCard = ReactiveCache.getCard(cardId);
+            if (targetCard) {
+              const position = this.$('input[name="position"]:checked').val();
+              if (position === 'above') {
+                sortIndex = targetCard.sort - 0.5;
+              } else {
+                sortIndex = targetCard.sort + 0.5;
+              }
+            }
+          } else {
+            sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+          }
+          
+          newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+        }
 
         // In case the filter is active we need to add the newly inserted card in
         // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -1108,6 +1184,51 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('setCardColorPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentColor = new ReactiveVar(null);
+  },
+
+  colors() {
+    return ALLOWED_COLORS.map((color) => ({ color, name: '' }));
+  },
+
+  isSelected(color) {
+    return this.currentColor.get() === color;
+  },
+
+  events() {
+    return [
+      {
+        'click .js-palette-color'(event) {
+          // Extract color from class name like "card-details-red"
+          const classes = $(event.currentTarget).attr('class').split(' ');
+          const colorClass = classes.find(cls => cls.startsWith('card-details-'));
+          const color = colorClass ? colorClass.replace('card-details-', '') : null;
+          this.currentColor.set(color);
+        },
+        'click .js-submit'(event) {
+          event.preventDefault();
+          const color = this.currentColor.get();
+          // Use MultiSelection to get selected cards and set color on each
+          ReactiveCache.getCards(MultiSelection.getMongoSelector()).forEach(card => {
+            card.setColor(color);
+          });
+          Popup.back();
+        },
+        'click .js-remove-color'(event) {
+          event.preventDefault();
+          // Use MultiSelection to get selected cards and remove color from each
+          ReactiveCache.getCards(MultiSelection.getMongoSelector()).forEach(card => {
+            card.setColor(null);
+          });
+          Popup.back();
+        },
+      },
+    ];
+  },
+}).register('setSelectionColorPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {

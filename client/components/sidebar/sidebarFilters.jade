@@ -206,6 +206,12 @@ template(name="multiselectionSidebar")
               | ⋯
   if currentUser.isBoardAdmin
     hr
+    a.sidebar-btn.js-selection-color
+      | 🎨
+      span {{_ 'selection-color'}}
+    a.sidebar-btn.js-copy-selection
+      | 📋
+      span {{_ 'copy-selection'}}
     a.sidebar-btn.js-move-selection
       | 📤
       span {{_ 'move-selection'}}
@@ -224,4 +230,76 @@ template(name="disambiguateMultiMemberPopup")
   button.wide.js-assign-member {{_ 'assign-member'}}
 
 template(name="moveSelectionPopup")
-  +boardLists
+  h3 {{_ 'moveSelectionPopup-title'}}
+  label {{_ 'boards'}}:
+  select.js-select-boards
+    each boards
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above-move" style="display: inline")
+    label(for="position-above-move") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below-move" style="display: inline")
+    label(for="position-below-move") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="copySelectionPopup")
+  h3 {{_ 'copySelectionPopup-title'}}
+  label {{_ 'boards'}}:
+  select.js-select-boards
+    each boards
+      option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above-copy" style="display: inline")
+    label(for="position-above-copy") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below-copy" style="display: inline")
+    label(for="position-below-copy") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="setSelectionColorPopup")
+  h3 {{_ 'setSelectionColorPopup-title'}}
+  form.edit-label
+    .palette-colors: each colors
+      unless $eq color 'white'
+        span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
+          if(isSelected color)
+            | ✅
+    button.primary.confirm.js-submit {{_ 'save'}}
+    button.js-remove-color.negate.wide.right {{_ 'unset-color'}}

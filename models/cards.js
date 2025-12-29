@@ -2018,8 +2018,8 @@ Cards.mutations({
     };
   },
 
-  moveToEndOfList({ listId } = {}) {
-    let swimlaneId = this.swimlaneId;
+  moveToEndOfList({ listId, swimlaneId } = {}) {
+    swimlaneId = swimlaneId || this.swimlaneId;
     const boardId = this.boardId;
     let sortIndex = 0;
 
@@ -2030,7 +2030,7 @@ Cards.mutations({
       swimlaneId = board.getDefaultSwimline()._id;
     }
     // Move the minicard to the end of the target list
-    let parentElementDom = $(`#swimlane-${this.swimlaneId}`).get(0);
+    let parentElementDom = $(`#swimlane-${swimlaneId}`).get(0);
     if (!parentElementDom) parentElementDom = $(':root');
 
     const lastCardDom = $(parentElementDom)

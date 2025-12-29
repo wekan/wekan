@@ -162,6 +162,9 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
   border-radius: 3px;
   background: #e6e6e6;
 }
+.sidebar .sidebar-content .sidebar-btn * {
+  color: #fff;
+}
 .sidebar .sidebar-content .sidebar-btn:hover * {
   color: #fff;
 }

@@ -162,6 +162,8 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-move-selection': Popup.open('moveSelection'),
+        'click .js-copy-selection': Popup.open('copySelection'),
+        'click .js-selection-color': Popup.open('setSelectionColor'),
         'click .js-archive-selection'() {
           mutateSelectedCards('archive');
           EscapeActions.executeUpTo('multiselection');
@@ -202,10 +204,267 @@ Template.disambiguateMultiMemberPopup.events({
   },
 });
 
+Template.moveSelectionPopup.onCreated(function() {
+  this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+  this.selectedSwimlaneId = new ReactiveVar('');
+  this.selectedListId = new ReactiveVar('');
+  this.selectedCardId = new ReactiveVar('');
+  this.position = new ReactiveVar('above');
+
+  this.getBoardData = function(boardId) {
+    const self = this;
+    Meteor.subscribe('board', boardId, false, {
+      onReady() {
+        const sameBoardId = self.selectedBoardId.get() === boardId;
+        self.selectedBoardId.set(boardId);
+
+        if (!sameBoardId) {
+          self.setFirstSwimlaneId();
+          self.setFirstListId();
+        }
+      },
+    });
+  };
+
+  this.setFirstSwimlaneId = function() {
+    try {
+      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
+      const swimlaneId = board.swimlanes()[0]._id;
+      this.selectedSwimlaneId.set(swimlaneId);
+    } catch (e) {}
+  };
+
+  this.setFirstListId = function() {
+    try {
+      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
+      const listId = board.lists()[0]._id;
+      this.selectedListId.set(listId);
+    } catch (e) {}
+  };
+
+  this.getBoardData(Session.get('currentBoard'));
+  this.setFirstSwimlaneId();
+  this.setFirstListId();
+});
+
+Template.moveSelectionPopup.helpers({
+  boards() {
+    return ReactiveCache.getBoards(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+        _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
+      },
+      {
+        sort: { sort: 1 },
+      },
+    );
+  },
+  swimlanes() {
+    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
+    return board ? board.swimlanes() : [];
+  },
+  lists() {
+    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
+    return board ? board.lists() : [];
+  },
+  cards() {
+    const instance = Template.instance();
+    const list = ReactiveCache.getList(instance.selectedListId.get());
+    if (!list) return [];
+    return list.cards(instance.selectedSwimlaneId.get()).sort((a, b) => a.sort - b.sort);
+  },
+  isDialogOptionBoardId(boardId) {
+    return Template.instance().selectedBoardId.get() === boardId;
+  },
+  isDialogOptionSwimlaneId(swimlaneId) {
+    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
+  },
+  isDialogOptionListId(listId) {
+    return Template.instance().selectedListId.get() === listId;
+  },
+});
+
 Template.moveSelectionPopup.events({
-  'click .js-select-list'() {
-    // Move the minicard to the end of the target list
-    mutateSelectedCards('moveToEndOfList', { listId: this._id });
+  'change .js-select-boards'(event) {
+    const boardId = $(event.currentTarget).val();
+    Template.instance().getBoardData(boardId);
+  },
+  'change .js-select-swimlanes'(event) {
+    Template.instance().selectedSwimlaneId.set($(event.currentTarget).val());
+  },
+  'change .js-select-lists'(event) {
+    Template.instance().selectedListId.set($(event.currentTarget).val());
+  },
+  'change .js-select-cards'(event) {
+    Template.instance().selectedCardId.set($(event.currentTarget).val());
+  },
+  'change input[name="position"]'(event) {
+    Template.instance().position.set($(event.currentTarget).val());
+  },
+  'click .js-done'() {
+    const instance = Template.instance();
+    const boardId = instance.selectedBoardId.get();
+    const swimlaneId = instance.selectedSwimlaneId.get();
+    const listId = instance.selectedListId.get();
+    const cardId = instance.selectedCardId.get();
+    const position = instance.position.get();
+
+    // Calculate sortIndex
+    let sortIndex = 0;
+    if (cardId) {
+      const targetCard = ReactiveCache.getCard(cardId);
+      if (targetCard) {
+        if (position === 'above') {
+          sortIndex = targetCard.sort - 0.5;
+        } else {
+          sortIndex = targetCard.sort + 0.5;
+        }
+      }
+    } else {
+      // If no card selected, move to end
+      const board = ReactiveCache.getBoard(boardId);
+      const cards = board.cards({ swimlaneId, listId }).sort('sort');
+      if (cards.length > 0) {
+        sortIndex = cards[cards.length - 1].sort + 1;
+      }
+    }
+
+    mutateSelectedCards('move', boardId, swimlaneId, listId, sortIndex);
+    EscapeActions.executeUpTo('multiselection');
+  },
+});
+
+Template.copySelectionPopup.onCreated(function() {
+  this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+  this.selectedSwimlaneId = new ReactiveVar('');
+  this.selectedListId = new ReactiveVar('');
+  this.selectedCardId = new ReactiveVar('');
+  this.position = new ReactiveVar('above');
+
+  this.getBoardData = function(boardId) {
+    const self = this;
+    Meteor.subscribe('board', boardId, false, {
+      onReady() {
+        const sameBoardId = self.selectedBoardId.get() === boardId;
+        self.selectedBoardId.set(boardId);
+
+        if (!sameBoardId) {
+          self.setFirstSwimlaneId();
+          self.setFirstListId();
+        }
+      },
+    });
+  };
+
+  this.setFirstSwimlaneId = function() {
+    try {
+      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
+      const swimlaneId = board.swimlanes()[0]._id;
+      this.selectedSwimlaneId.set(swimlaneId);
+    } catch (e) {}
+  };
+
+  this.setFirstListId = function() {
+    try {
+      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
+      const listId = board.lists()[0]._id;
+      this.selectedListId.set(listId);
+    } catch (e) {}
+  };
+
+  this.getBoardData(Session.get('currentBoard'));
+  this.setFirstSwimlaneId();
+  this.setFirstListId();
+});
+
+Template.copySelectionPopup.helpers({
+  boards() {
+    return ReactiveCache.getBoards(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+        _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
+      },
+      {
+        sort: { sort: 1 },
+      },
+    );
+  },
+  swimlanes() {
+    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
+    return board ? board.swimlanes() : [];
+  },
+  lists() {
+    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
+    return board ? board.lists() : [];
+  },
+  cards() {
+    const instance = Template.instance();
+    const list = ReactiveCache.getList(instance.selectedListId.get());
+    if (!list) return [];
+    return list.cards(instance.selectedSwimlaneId.get()).sort((a, b) => a.sort - b.sort);
+  },
+  isDialogOptionBoardId(boardId) {
+    return Template.instance().selectedBoardId.get() === boardId;
+  },
+  isDialogOptionSwimlaneId(swimlaneId) {
+    return Template.instance().selectedSwimlaneId.get() === swimlaneId;
+  },
+  isDialogOptionListId(listId) {
+    return Template.instance().selectedListId.get() === listId;
+  },
+});
+
+Template.copySelectionPopup.events({
+  'change .js-select-boards'(event) {
+    const boardId = $(event.currentTarget).val();
+    Template.instance().getBoardData(boardId);
+  },
+  'change .js-select-swimlanes'(event) {
+    Template.instance().selectedSwimlaneId.set($(event.currentTarget).val());
+  },
+  'change .js-select-lists'(event) {
+    Template.instance().selectedListId.set($(event.currentTarget).val());
+  },
+  'change .js-select-cards'(event) {
+    Template.instance().selectedCardId.set($(event.currentTarget).val());
+  },
+  'change input[name="position"]'(event) {
+    Template.instance().position.set($(event.currentTarget).val());
+  },
+  'click .js-done'() {
+    const instance = Template.instance();
+    const boardId = instance.selectedBoardId.get();
+    const swimlaneId = instance.selectedSwimlaneId.get();
+    const listId = instance.selectedListId.get();
+    const cardId = instance.selectedCardId.get();
+    const position = instance.position.get();
+
+    mutateSelectedCards((card) => {
+      const newCard = card.copy(boardId, swimlaneId, listId);
+      if (newCard) {
+        let sortIndex = 0;
+        if (cardId) {
+          const targetCard = ReactiveCache.getCard(cardId);
+          if (targetCard) {
+            if (position === 'above') {
+              sortIndex = targetCard.sort - 0.5;
+            } else {
+              sortIndex = targetCard.sort + 0.5;
+            }
+          }
+        } else {
+          // To end
+          const board = ReactiveCache.getBoard(boardId);
+          const cards = board.cards({ swimlaneId, listId }).sort('sort');
+          if (cards.length > 0) {
+            sortIndex = cards[cards.length - 1].sort + 1;
+          }
+        }
+        newCard.setSort(sortIndex);
+      }
+    });
     EscapeActions.executeUpTo('multiselection');
   },
 });

@@ -45,7 +45,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
           const swimlaneId = swimlaneSelect.options[swimlaneSelect.selectedIndex].value;
 
           const cardSelect = this.$('.js-select-cards')[0];
-          const cardId = cardSelect.options[cardSelect.selectedIndex].value;
+          const cardId = cardSelect.options.length > 0 ? cardSelect.options[cardSelect.selectedIndex].value : null;
 
           const options = {
             'boardId' : boardId,
