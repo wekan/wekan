@@ -4292,6 +4292,37 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
         );
       }
       if (newBoardId && newSwimlaneId && newListId) {
+        // Validate destination board access
+        Authentication.checkBoardAccess(req.userId, newBoardId);
+
+        // Validate that the destination list exists and belongs to the destination board
+        const destList = ReactiveCache.getList({
+          _id: newListId,
+          boardId: newBoardId,
+          archived: false,
+        });
+        if (!destList) {
+          JsonRoutes.sendResult(res, {
+            code: 404,
+            data: { error: 'Destination list not found or does not belong to destination board' },
+          });
+          return;
+        }
+
+        // Validate that the destination swimlane exists and belongs to the destination board
+        const destSwimlane = ReactiveCache.getSwimlane({
+          _id: newSwimlaneId,
+          boardId: newBoardId,
+          archived: false,
+        });
+        if (!destSwimlane) {
+          JsonRoutes.sendResult(res, {
+            code: 404,
+            data: { error: 'Destination swimlane not found or does not belong to destination board' },
+          });
+          return;
+        }
+
         // Move the card to the new board, swimlane, and list
         Cards.direct.update(
           {
