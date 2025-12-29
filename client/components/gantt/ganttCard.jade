@@ -1,7 +1,2 @@
 template(name="ganttCard")
-  .gantt-card-wrapper
-    .gantt-card-header
-      h3 {{_ 'card-details'}}
-      button.js-close-gantt-card.close-button ×
-    .gantt-card-content
-      +cardDetails(selectedCard)
+  +cardDetails(selectedCard)

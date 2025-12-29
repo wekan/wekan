@@ -5,7 +5,7 @@ template(name="ganttView")
   .gantt-view
     h2 {{_ 'board-view-gantt'}}
     if hasSelectedCard
-      +ganttCard
+      +ganttCard(selectedCard)
     each weeks
       table.gantt-table
         thead

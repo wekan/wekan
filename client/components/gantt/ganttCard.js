@@ -6,23 +6,23 @@ BlazeComponent.extendComponent({
   },
 
   selectedCard() {
-    // Get the selected card from the parent ganttView template
-    const parentView = this.view.parentView;
-    if (parentView && parentView.templateInstance) {
-      const cardId = parentView.templateInstance().selectedCardId.get();
-      return cardId ? ReactiveCache.getCard(cardId) : null;
-    }
-    return null;
+    // The selected card is now passed as a parameter to the component
+    return this.currentData();
   },
 
   events() {
     return [
       {
-        'click .js-close-gantt-card'(event) {
-          // Find the parent ganttView template and clear the selected card
-          const parentView = this.view.parentView;
-          if (parentView && parentView.templateInstance) {
-            parentView.templateInstance().selectedCardId.set(null);
+        'click .js-close-card-details'(event) {
+          event.preventDefault();
+          // Find the ganttView template instance and clear selectedCardId
+          let view = Blaze.currentView;
+          while (view) {
+            if (view.templateInstance && view.templateInstance().selectedCardId) {
+              view.templateInstance().selectedCardId.set(null);
+              break;
+            }
+            view = view.parentView;
           }
         },
       },
