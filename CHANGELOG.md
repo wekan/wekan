@@ -28,6 +28,8 @@ This release fixes the following bugs:
 
 - [Re-add JS closing class to unicode close announcement symbol](https://github.com/wekan/wekan/pull/6050).
   Thanks to Chostakovitch.
+- [Cannot re-arrange lists within swimlanes](https://github.com/wekan/wekan/pull/6052).
+  Thanks to Chostakovitch.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
