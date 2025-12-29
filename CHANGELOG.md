@@ -24,7 +24,12 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Helm Chart: Updated MongoDB to 7.0.28 at artifacthub.io](https://github.com/wekan/charts/commit/5e6d344e0b976ce683116b66a1fb8417590115aa).
+  Thanks to xet7 and titver968.
+
+and fixes the following bugs:
 
 - [Re-add JS closing class to unicode close announcement symbol](https://github.com/wekan/wekan/pull/6050).
   Thanks to Chostakovitch.
