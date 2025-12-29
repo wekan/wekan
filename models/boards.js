@@ -9,6 +9,7 @@ import {
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
 import Users from "./users";
+import TableVisibilityModeSettings from "./tableVisibilityModeSettings";
 
 // const escapeForRegex = require('escape-string-regexp');
 
@@ -1780,7 +1781,18 @@ Boards.labelColors = () => {
 
 if (Meteor.isServer) {
   Boards.allow({
-    insert: Meteor.userId,
+    insert(userId, doc) {
+      // Check if user is logged in
+      if (!userId) return false;
+
+      // If allowPrivateOnly is enabled, only allow private boards
+      const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
+      if (allowPrivateOnly && doc.permission === 'public') {
+        return false;
+      }
+
+      return true;
+    },
     update: allowIsBoardAdmin,
     remove: allowIsBoardAdmin,
     fetch: ['members'],
@@ -1828,6 +1840,21 @@ if (Meteor.isServer) {
       );
     },
     fetch: ['members'],
+  });
+
+  // Deny changing permission to public if allowPrivateOnly is enabled
+  Boards.deny({
+    update(userId, doc, fieldNames, modifier) {
+      if (!_.contains(fieldNames, 'permission')) return false;
+
+      const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
+      if (allowPrivateOnly && modifier.$set && modifier.$set.permission === 'public') {
+        return true;
+      }
+
+      return false;
+    },
+    fetch: [],
   });
 
   Meteor.methods({
@@ -2274,6 +2301,8 @@ if (Meteor.isServer) {
   JsonRoutes.add('POST', '/api/boards', function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
+      const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
+      const permission = allowPrivateOnly ? 'private' : (req.body.permission || 'private');
       const id = Boards.insert({
         title: req.body.title,
         members: [
@@ -2286,7 +2315,7 @@ if (Meteor.isServer) {
             isWorker: req.body.isWorker || false,
           },
         ],
-        permission: req.body.permission || 'private',
+        permission,
         color: req.body.color || 'belize',
         migrationVersion: 1, // Latest version - no migration needed
       });
