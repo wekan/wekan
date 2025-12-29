@@ -13,7 +13,7 @@ allowIsAnyBoardMember = function(userId, boards) {
 };
 
 allowIsBoardMemberCommentOnly = function(userId, board) {
-  return board && board.hasMember(userId) && !board.hasCommentOnly(userId);
+  return board && board.hasMember(userId) && !board.hasReadOnly(userId) && !board.hasReadAssignedOnly(userId) && !board.hasNoComments(userId);
 };
 
 allowIsBoardMemberNoComments = function(userId, board) {

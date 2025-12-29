@@ -545,7 +545,7 @@ if (Meteor.isServer) {
   JsonRoutes.add('POST', '/api/boards/:boardId/swimlanes', function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
       const board = ReactiveCache.getBoard(paramBoardId);
       const id = Swimlanes.insert({
@@ -581,7 +581,7 @@ if (Meteor.isServer) {
     try {
       const paramBoardId = req.params.boardId;
       const paramSwimlaneId = req.params.swimlaneId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
       const board = ReactiveCache.getBoard(paramBoardId);
       const swimlane = ReactiveCache.getSwimlane({
         _id: paramSwimlaneId,
@@ -626,7 +626,7 @@ if (Meteor.isServer) {
       try {
         const paramBoardId = req.params.boardId;
         const paramSwimlaneId = req.params.swimlaneId;
-        Authentication.checkBoardAccess(req.userId, paramBoardId);
+        Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
         Swimlanes.remove({ _id: paramSwimlaneId, boardId: paramBoardId });
         JsonRoutes.sendResult(res, {
           code: 200,

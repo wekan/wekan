@@ -685,7 +685,7 @@ if (Meteor.isServer) {
   JsonRoutes.add('POST', '/api/boards/:boardId/lists', function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
       const board = ReactiveCache.getBoard(paramBoardId);
       const id = Lists.insert({
         title: req.body.title,
@@ -731,7 +731,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       let updated = false;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
       const list = ReactiveCache.getList({
         _id: paramListId,
@@ -871,7 +871,7 @@ if (Meteor.isServer) {
     try {
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
       Lists.remove({ _id: paramListId, boardId: paramBoardId });
       JsonRoutes.sendResult(res, {
         code: 200,

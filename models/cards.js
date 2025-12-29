@@ -3936,7 +3936,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const newSwimlaneId = req.body.newSwimlaneId;
       const newListId = req.body.newListId;
       let updated = false;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
       if (req.body.title) {
         // Basic client-side validation - server will handle full sanitization
@@ -4292,8 +4292,8 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
         );
       }
       if (newBoardId && newSwimlaneId && newListId) {
-        // Validate destination board access
-        Authentication.checkBoardAccess(req.userId, newBoardId);
+        // Validate destination board write access
+        Authentication.checkBoardWriteAccess(req.userId, newBoardId);
 
         // Validate that the destination list exists and belongs to the destination board
         const destList = ReactiveCache.getList({
@@ -4409,7 +4409,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
       const card = ReactiveCache.getCard(paramCardId);
       Cards.direct.remove({
@@ -4485,7 +4485,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramListId = req.params.listId;
       const paramCustomFieldId = req.params.customFieldId;
       const paramCustomFieldValue = req.body.value;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
       const card = ReactiveCache.getCard({
         _id: paramCardId,
         listId: paramListId,
@@ -4541,7 +4541,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
       const card = ReactiveCache.getCard({
         _id: paramCardId,
         listId: paramListId,
@@ -4580,7 +4580,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
-      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
       const card = ReactiveCache.getCard({
         _id: paramCardId,
         listId: paramListId,
