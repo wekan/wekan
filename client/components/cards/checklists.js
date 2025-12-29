@@ -275,8 +275,8 @@ BlazeComponent.extendComponent({
 Template.checklists.helpers({
   checklists() {
     const card = ReactiveCache.getCard(this.cardId);
-    const ret = card.checklists();
-    return ret;
+    if (!card || typeof card.checklists !== 'function') return [];
+    return card.checklists();
   },
 });
 

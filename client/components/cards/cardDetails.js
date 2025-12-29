@@ -85,6 +85,7 @@ BlazeComponent.extendComponent({
 
   isWatching() {
     const card = this.currentData();
+    if (!card || typeof card.findWatcher !== 'function') return false;
     return card.findWatcher(Meteor.userId());
   },
 
@@ -161,8 +162,9 @@ BlazeComponent.extendComponent({
    * @return is the list id the current list id ?
    */
   isCurrentListId(listId) {
-    const ret = this.data().listId == listId;
-    return ret;
+    const data = this.data();
+    if (!data || typeof data.listId === 'undefined') return false;
+    return data.listId == listId;
   },
 
   onRendered() {
@@ -375,7 +377,7 @@ BlazeComponent.extendComponent({
           const card = this.currentData() || this.data();
           const boardId = (card && card.boardId) || Utils.getCurrentBoard()._id;
           const cardId = card && card._id;
-          
+
           if (boardId) {
             // In desktop mode, remove from openCards array
             const isMobile = Utils.getMobileMode();
@@ -383,19 +385,18 @@ BlazeComponent.extendComponent({
               const openCards = Session.get('openCards') || [];
               const filtered = openCards.filter(id => id !== cardId);
               Session.set('openCards', filtered);
-              
+
               // If this was the current card, clear it
               if (Session.get('currentCard') === cardId) {
                 Session.set('currentCard', null);
               }
-              
               // Don't navigate away in desktop mode - just close the card
               return;
             }
-            
+
             // Mobile mode: Clear the current card session to close the card
             Session.set('currentCard', null);
-            
+
             // Navigate back to board without card
             const board = ReactiveCache.getBoard(boardId);
             if (board) {
@@ -818,6 +819,7 @@ Template.editCardSortOrderForm.onRendered(function () {
 
 Template.cardDetailsActionsPopup.helpers({
   isWatching() {
+    if (!this || typeof this.findWatcher !== 'function') return false;
     return this.findWatcher(Meteor.userId());
   },
 

@@ -1,0 +1,27 @@
+//- Gantt Chart View Template
+template(name="ganttView")
+  link(rel="stylesheet" href="/client/components/gantt/gantt.css")
+  link(rel="stylesheet" href="/client/components/gantt/ganttCard.css")
+  .gantt-view
+    h2 {{_ 'board-view-gantt'}}
+    if hasSelectedCard
+      +ganttCard
+    each weeks
+      table.gantt-table
+        thead
+          tr
+            th {{_ 'task'}} {{_ 'predicate-week'}} {{week}}
+            each weekDays this
+              th
+                | {{formattedDate .}} {{weekdayLabel .}}
+        tbody
+          each cardsInWeek this
+            tr(data-card-id="{{cardId .}}")
+              td.js-gantt-task-cell
+                a.js-gantt-card-title(href="#")
+                  +viewer
+                    | {{cardTitle .}}
+              each weekDays ..
+                td(class="{{cellClasses .. .}}" data-card-id="{{cardId ..}}" data-date-type="{{cellContentClass .. .}}")
+                  | {{cellContent .. .}}
+

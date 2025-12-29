@@ -1,3 +1,28 @@
+/* Gantt chart cell background colors for Received, Start, Due, End (matching cardDetails) */
+.ganttview-received {
+  background-color: #dbdbdb !important;
+  color: #000 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+.ganttview-start {
+  background-color: #90ee90 !important;
+  color: #000 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+.ganttview-due {
+  background-color: #ffd700 !important;
+  color: #000 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+.ganttview-end {
+  background-color: #ffb3b3 !important;
+  color: #000 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
 /* Gantt View Styles */
 
 .gantt-view {

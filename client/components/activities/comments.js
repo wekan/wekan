@@ -57,8 +57,9 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   getComments() {
-    const ret = this.data().comments();
-    return ret;
+    const data = this.data();
+    if (!data || typeof data.comments !== 'function') return [];
+    return data.comments();
   },
 }).register("comments");
 

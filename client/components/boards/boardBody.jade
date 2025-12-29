@@ -70,10 +70,3 @@ template(name="calendarView")
       if currentCard
         +cardDetails(currentCard)
       +fullcalendar(calendarOptions)
-template(name="ganttView")
-  if isViewGantt
-    .gantt-view.swimlane
-      if currentCard
-        +cardDetails(currentCard)
-      .gantt-container
-        #gantt-chart
