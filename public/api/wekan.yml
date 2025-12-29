@@ -1115,12 +1115,6 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
-        - name: authorId
-          in: formData
-          description: |
-            the user who 'posted' the comment
-          type: string
-          required: true
         - name: comment
           in: formData
           description: the comment value
