@@ -22,9 +22,37 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v8.19 2025-12-29 WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Security Fix 1: IDOR in setCreateTranslation. Non-admin could change Custom Translation](https://github.com/wekan/wekan/commit/f244a43771f6ebf40218b83b9f46dba6b940d7de).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 2: Private-only board setting can be bypassed](https://github.com/wekan/wekan/commit/7ed76c180ede46ab1dac6b8ad27e9128a272c2c8).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 3: Card comment author spoofing (IDOR) via API](https://github.com/wekan/wekan/commit/67cb47173c1a152d9eaf5469740992b2dacdf62d).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 4: Cross-board card move without destination authorization](https://github.com/wekan/wekan/commit/198509e7600981400353aec6259247b3c04e043e).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 5: Read-only roles can still update cards](https://github.com/wekan/wekan/commit/181f837d8cbae96bdf9dcbd31beaa3653c2c0285).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 6: Checklist delete IDOR: checklist not verified against board/card](https://github.com/wekan/wekan/commit/08a6f084eba09487743a7c807fb4a9000fcfa9ac).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 7: Checklist create IDOR: cardId not verified against boardId](https://github.com/wekan/wekan/commit/5cd875813fdec5a3c40a0358b30a347967c85c14).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 8: Attachments publication leaks metadata without auth](https://github.com/wekan/wekan/commit/6dfa3beb2b6ab23438d0f4395b84bf0749eb4820).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 9: Attachment upload not scoped to card/board relationship](https://github.com/wekan/wekan/commit/1d16955b6d4f0a0282e89c2c1b0415c7597019b8).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+- [Security Fix 10: LDAP filter injection in LDAP auth](https://github.com/wekan/wekan/commit/0b0e16c3eae28bbf453d33a81a9c58ce7db6d5bb).
+  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+
+and adds the following new features:
+
+- [Opened card Checklist menu: Hide finished tasks. Show Checklist at Minicard](https://github.com/wekan/wekan/commit/fbfde81bc8208b718c070a6eeba4b2e2d2ce83ba).
+  Thanks to C0rn3j and xet7.
+
+and adds the following updates:
 
 - [Helm Chart: Updated MongoDB to 7.0.28 at artifacthub.io](https://github.com/wekan/charts/commit/5e6d344e0b976ce683116b66a1fb8417590115aa).
   Thanks to xet7 and titver968.
@@ -39,6 +67,14 @@ and fixes the following bugs:
   [Part 1](https://github.com/wekan/wekan/commit/2d3bef9033134c3b62cf22179bbee4b6fea81444),
   [Part 2](https://github.com/wekan/wekan/commit/3af3c9a89d8a4020b6f1ccada7da2ccbec1a8562).
   Thanks to xet7.
+- [Fix find.sh work with spaces, for example: ./find.sh "Some text"](https://github.com/wekan/wekan/commit/db4b04d8377523440fd2c36c1633ee74d7b05146).
+  Thanks to xet7.
+- [Fix copy move card at board and MultiSelect to have numbered target of board, card above or below. Added MultiSelect change color](https://github.com/wekan/wekan/commit/74f1dfde72b9448645552ae28ba8d989d3e823d8).
+  Thanks to mimZD and xet7.
+- [Fix move card last selection is gone](https://github.com/wekan/wekan/commit/2d87ba18b31ab5d8dc91dce01199cf7b313bd560).
+  Thanks to mimZD and xet7.
+- [Fix Unable to delete Checklist. Added confirm delete to Checklist and Chekclist Item](https://github.com/wekan/wekan/commit/cf62807ad5d056ce9b8045c55f7cf6c29044967b).
+  Thanks to C0rn3j and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
