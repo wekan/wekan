@@ -45,62 +45,60 @@ function currentCardIsInThisList(listId, swimlaneId) {
   //          without using currentuser above, because currentuser is null.
 }
 
+function syncListOrderFromStorage(boardId) {
+  if (Meteor.userId()) {
+    // Logged-in users: don't use localStorage, trust server
+    return;
+  }
+
+  try {
+    const listOrderKey = `wekan-list-order-${boardId}`;
+    const storageData = localStorage.getItem(listOrderKey);
+
+    if (!storageData) return;
+
+    const listOrder = JSON.parse(storageData);
+    if (!listOrder.lists || listOrder.lists.length === 0) return;
+
+    // Compare each list's order in localStorage with database
+    listOrder.lists.forEach(storedList => {
+      const dbList = Lists.findOne(storedList.id);
+      if (dbList) {
+        // Check if localStorage has newer data (compare timestamps)
+        const storageTime = new Date(storedList.updatedAt).getTime();
+        const dbTime = new Date(dbList.modifiedAt).getTime();
+
+        // If storage is newer OR db is missing the field, use storage value
+        if (storageTime > dbTime || dbList.sort !== storedList.sort) {
+          console.debug(`Restoring list ${storedList.id} sort from localStorage (storage: ${storageTime}, db: ${dbTime})`);
+
+          // Update local minimongo first
+          Lists.update(storedList.id, {
+            $set: {
+              sort: storedList.sort,
+              swimlaneId: storedList.swimlaneId,
+            },
+          });
+        }
+      }
+    });
+  } catch (e) {
+    console.warn('Failed to sync list order from localStorage:', e);
+  }
+};
+
 function initSortable(boardComponent, $listsDom) {
   // Safety check: ensure we have valid DOM elements
   if (!$listsDom || $listsDom.length === 0) {
     console.error('initSortable: No valid DOM elements provided');
     return;
   }
-  
+
   // Check if sortable is already initialized
   if ($listsDom.data('uiSortable') || $listsDom.data('sortable')) {
     $listsDom.sortable('destroy');
   }
-  
 
-    // Sync localStorage list order with database on initialization
-    const syncListOrderFromStorage = function(boardId) {
-      if (Meteor.userId()) {
-        // Logged-in users: don't use localStorage, trust server
-        return;
-      }
-
-      try {
-        const listOrderKey = `wekan-list-order-${boardId}`;
-        const storageData = localStorage.getItem(listOrderKey);
-      
-        if (!storageData) return;
-      
-        const listOrder = JSON.parse(storageData);
-        if (!listOrder.lists || listOrder.lists.length === 0) return;
-      
-        // Compare each list's order in localStorage with database
-        listOrder.lists.forEach(storedList => {
-          const dbList = Lists.findOne(storedList.id);
-          if (dbList) {
-            // Check if localStorage has newer data (compare timestamps)
-            const storageTime = new Date(storedList.updatedAt).getTime();
-            const dbTime = new Date(dbList.modifiedAt).getTime();
-          
-            // If storage is newer OR db is missing the field, use storage value
-            if (storageTime > dbTime || dbList.sort !== storedList.sort) {
-              console.debug(`Restoring list ${storedList.id} sort from localStorage (storage: ${storageTime}, db: ${dbTime})`);
-            
-              // Update local minimongo first
-              Lists.update(storedList.id, {
-                $set: {
-                  sort: storedList.sort,
-                  swimlaneId: storedList.swimlaneId,
-                },
-              });
-            }
-          }
-        });
-      } catch (e) {
-        console.warn('Failed to sync list order from localStorage:', e);
-      }
-    };
-  
   // We want to animate the card details window closing. We rely on CSS
   // transition for the actual animation.
   $listsDom._uihooks = {
@@ -373,6 +371,7 @@ BlazeComponent.extendComponent({
     }
 
     // Try a simpler approach - initialize sortable directly like cards do
+    this.initializeSwimlaneResize();
     
     // Wait for DOM to be ready
     setTimeout(() => {
@@ -550,14 +549,10 @@ BlazeComponent.extendComponent({
         height = -1;
       }
     }
-    
+
     return height == -1 ? "auto" : (height + 5 + "px");
   },
 
-  onRendered() {
-    // Initialize swimlane resize functionality immediately
-    this.initializeSwimlaneResize();
-  },
 
   initializeSwimlaneResize() {
     // Check if we're still in a valid template context
