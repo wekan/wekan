@@ -481,7 +481,7 @@ Meteor.methods({
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const validUpdateFields = ['sort', 'swimlaneId'];
+    const validUpdateFields = ['sort', 'swimlaneId', 'updatedAt', 'modifiedAt'];
     Object.keys(updateData).forEach(field => {
       if (!validUpdateFields.includes(field)) {
         throw new Meteor.Error('invalid-field', `Field ${field} is not allowed`);
@@ -934,7 +934,7 @@ Lists.helpers({
   hasMovedFromOriginalPosition() {
     const history = this.getOriginalPosition();
     if (!history) return false;
-    
+
     const currentSwimlaneId = this.swimlaneId || null;
     return history.originalPosition.sort !== this.sort ||
            history.originalSwimlaneId !== currentSwimlaneId;
@@ -946,9 +946,9 @@ Lists.helpers({
   getOriginalPositionDescription() {
     const history = this.getOriginalPosition();
     if (!history) return 'No original position data';
-    
-    const swimlaneInfo = history.originalSwimlaneId ? 
-      ` in swimlane ${history.originalSwimlaneId}` : 
+
+    const swimlaneInfo = history.originalSwimlaneId ?
+      ` in swimlane ${history.originalSwimlaneId}` :
       ' in default swimlane';
     return `Original position: ${history.originalPosition.sort || 0}${swimlaneInfo}`;
   },
