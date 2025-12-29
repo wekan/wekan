@@ -9,19 +9,10 @@ template(name="checklists")
         else
           a.add-checklist-top.js-open-inlined-form(title="{{_ 'add-checklist'}}")
             | ➕
-    if currentUser.isBoardMember
-      .material-toggle-switch(title="{{_ 'hide-finished-checklist'}}")
-        //span.toggle-switch-title
-        if card.hideFinishedChecklistIfItemsAreHidden
-          input.toggle-switch(type="checkbox" id="toggleHideFinishedChecklist" checked="checked")
-        else
-          input.toggle-switch(type="checkbox" id="toggleHideFinishedChecklist")
-        label.toggle-label(for="toggleHideFinishedChecklist")
 
   .card-checklist-items
     each checklist in checklists
-      if checklist.showChecklist card.hideFinishedChecklistIfItemsAreHidden
-        +checklistDetail(checklist = checklist card = card)
+      +checklistDetail(checklist = checklist card = card)
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
@@ -38,7 +29,7 @@ template(name="checklistDetail")
       .checklist-title
         span
         if canModifyCard
-          a.checklist-details-menu.js-open-checklist-details-menu(title="{{_ 'checklistActionsPopup-title'}}")
+          a.checklist-details-menu.js-open-checklist-details-menu(title="{{_ 'checklistActionsPopup-title'}}") ☰
 
         if canModifyCard
           h4.title.js-open-inlined-form.is-editable
@@ -173,34 +164,62 @@ template(name="checklistActionsPopup")
           else
             input.toggle-switch(type="checkbox" id="toggleHideAllChecklistItems_{{checklist._id}}")
           label.toggle-label(for="toggleHideAllChecklistItems_{{checklist._id}}")
+      a.js-toggle-show-checklist-at-minicard
+        | 📋
+        | {{_ "showChecklistAtMinicard"}} ...
+        .material-toggle-switch(title="{{_ 'showChecklistAtMinicard'}}")
+          if checklist.showChecklistAtMinicard
+            input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicard_{{checklist._id}}" checked="checked")
+          else
+            input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicard_{{checklist._id}}")
+          label.toggle-label(for="toggleShowChecklistAtMinicard_{{checklist._id}}")
 
 template(name="copyChecklistPopup")
-  +copyAndMoveChecklist
-
-template(name="moveChecklistPopup")
-  +copyAndMoveChecklist
-
-template(name="copyAndMoveChecklist")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
       each boards
-        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{title}}
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
     each swimlanes
-      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   label {{_ 'lists'}}:
   select.js-select-lists
     each lists
-      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
-  label {{_ 'cards'}}:
+  label {{_ 'card'}}:
   select.js-select-cards
     each cards
-      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
+
+template(name="moveChecklistPopup")
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'card'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}

@@ -77,6 +77,13 @@ Checklists.attachSchema(
       type: Boolean,
       optional: true,
     },
+    showChecklistAtMinicard: {
+      /**
+       * show this checklist on minicard?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
   }),
 );
 
@@ -189,26 +196,9 @@ Checklists.mutations({
    * @param newCardId move the checklist to this cardId
    */
   move(newCardId) {
-    // update every activity
-    ReactiveCache.getActivities(
-      {checklistId: this._id}
-    ).forEach(activity => {
-      Activities.update(activity._id, {
-        $set: {
-          cardId: newCardId,
-        },
-      });
-    });
-    // update every checklist-item
-    ReactiveCache.getChecklistItems(
-      {checklistId: this._id}
-    ).forEach(checklistItem => {
-      ChecklistItems.update(checklistItem._id, {
-        $set: {
-          cardId: newCardId,
-        },
-      });
-    });
+    // Note: Activities and ChecklistItems updates are now handled server-side
+    // in the moveChecklist Meteor method to avoid client-side permission issues
+    
     // update the checklist itself
     return {
       $set: {
@@ -230,9 +220,69 @@ Checklists.mutations({
       }
     };
   },
+  toggleShowChecklistAtMinicard() {
+    return {
+      $set: {
+        showChecklistAtMinicard: !this.showChecklistAtMinicard,
+      }
+    };
+  },
 });
 
 if (Meteor.isServer) {
+  Meteor.methods({
+    moveChecklist(checklistId, newCardId) {
+      check(checklistId, String);
+      check(newCardId, String);
+
+      const checklist = ReactiveCache.getChecklist(checklistId);
+      if (!checklist) {
+        throw new Meteor.Error('checklist-not-found', 'Checklist not found');
+      }
+
+      const newCard = ReactiveCache.getCard(newCardId);
+      if (!newCard) {
+        throw new Meteor.Error('card-not-found', 'Target card not found');
+      }
+
+      // Check permissions on both source and target cards
+      const sourceCard = ReactiveCache.getCard(checklist.cardId);
+      if (!allowIsBoardMemberByCard(this.userId, sourceCard)) {
+        throw new Meteor.Error('not-authorized', 'Not authorized to move checklist from source card');
+      }
+      if (!allowIsBoardMemberByCard(this.userId, newCard)) {
+        throw new Meteor.Error('not-authorized', 'Not authorized to move checklist to target card');
+      }
+
+      // Update activities
+      ReactiveCache.getActivities({ checklistId }).forEach(activity => {
+        Activities.update(activity._id, {
+          $set: {
+            cardId: newCardId,
+          },
+        });
+      });
+
+      // Update checklist items
+      ReactiveCache.getChecklistItems({ checklistId }).forEach(checklistItem => {
+        ChecklistItems.update(checklistItem._id, {
+          $set: {
+            cardId: newCardId,
+          },
+        });
+      });
+
+      // Update the checklist itself
+      Checklists.update(checklistId, {
+        $set: {
+          cardId: newCardId,
+        },
+      });
+
+      return checklistId;
+    },
+  });
+
   Meteor.startup(() => {
     Checklists._collection.createIndex({ modifiedAt: -1 });
     Checklists._collection.createIndex({ cardId: 1, createdAt: 1 });

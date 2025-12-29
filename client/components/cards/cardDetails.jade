@@ -20,10 +20,6 @@ template(name="cardDetails")
             a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
               | ❌
             if canModifyCard
-              a.card-bring-to-front.js-card-bring-to-front(title="Bring to front")
-                | ⏫
-              a.card-send-to-back.js-card-send-to-back(title="Send to back")
-                | ⏬
               if cardMaximized
                 a.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
                   | 🔽

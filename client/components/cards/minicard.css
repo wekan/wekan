@@ -730,3 +730,81 @@
   align-items: center;
   gap: 0.3vw;
 }
+
+/* Checklist display on minicard */
+.minicard-checklist {
+  width: 100%;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  padding: 0.3vh 0.5vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.3vw;
+  border: 1px solid #e0e0e0;
+}
+
+.minicard-checklist .checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3vh;
+}
+
+.minicard-checklist .checklist-title {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #4d4d4d;
+  flex: 1;
+}
+
+.minicard-checklist .checklist-menu {
+  font-size: 1.2em;
+  color: #666;
+  cursor: pointer;
+  padding: 0 0.3vw;
+  border-radius: 0.2vw;
+  transition: background-color 0.2s;
+}
+
+.minicard-checklist .checklist-menu:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.minicard-checklist .checklist-item {
+  font-size: 0.75em;
+  color: #666;
+  margin-bottom: 0.2vh;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.3vw;
+  line-height: 1.2;
+  cursor: pointer;
+  padding: 0.2vh 0;
+  border-radius: 0.2vw;
+  transition: background-color 0.2s;
+}
+
+.minicard-checklist .checklist-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.minicard-checklist .checklist-item.is-checked {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.minicard-checklist .checklist-item .check-box-unicode {
+  flex-shrink: 0;
+  font-size: 0.8em;
+  margin-top: 0.1vh;
+  transition: transform 0.2s;
+}
+
+.minicard-checklist .checklist-item:hover .check-box-unicode {
+  transform: scale(1.1);
+}
+
+.minicard-checklist .checklist-item .item-title {
+  flex: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

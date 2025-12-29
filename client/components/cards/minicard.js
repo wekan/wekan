@@ -91,6 +91,13 @@ BlazeComponent.extendComponent({
     }
   },
 
+  toggleChecklistItem() {
+    const item = this.currentData();
+    if (item && item._id) {
+      item.toggleItem();
+    }
+  },
+
   events() {
     return [
       {
@@ -108,7 +115,7 @@ BlazeComponent.extendComponent({
         },
         'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
         'click .minicard-labels' : this.cardLabelsPopup,
-        'click .js-open-minicard-details-menu': Popup.open('minicardDetailsActions'),
+        'click .js-open-minicard-details-menu': Popup.open('cardDetailsActions'),
         // Drag and drop file upload handlers
         'dragover .minicard'(event) {
           // Only prevent default for file drags to avoid interfering with sortable
@@ -170,6 +177,43 @@ BlazeComponent.extendComponent({
   },
 }).register('minicard');
 
+BlazeComponent.extendComponent({
+  template() {
+    return 'minicardChecklist';
+  },
+
+  events() {
+    return [
+      {
+        'click .js-open-checklist-menu'(event) {
+          const data = this.currentData();
+          const checklist = data.checklist || data;
+          const card = data.card || this.data();
+          const context = { currentData: () => ({ checklist, card }) };
+          Popup.open('checklistActions').call(context, event);
+        },
+      },
+    ];
+  },
+
+  visibleItems() {
+    const checklist = this.currentData().checklist || this.currentData();
+    const items = checklist.items();
+    
+    return items.filter(item => {
+      // Hide finished items if hideCheckedChecklistItems is true
+      if (item.isFinished && checklist.hideCheckedChecklistItems) {
+        return false;
+      }
+      // Hide all items if hideAllChecklistItems is true
+      if (checklist.hideAllChecklistItems) {
+        return false;
+      }
+      return true;
+    });
+  },
+}).register('minicardChecklist');
+
 Template.minicard.helpers({
   hiddenMinicardLabelText() {
     const currentUser = ReactiveCache.getCurrentUser();
@@ -209,9 +253,29 @@ Template.minicard.helpers({
     // Show list name if either:
     // 1. Board-wide setting is enabled, OR
     // 2. This specific card has the setting enabled
-    const currentBoard = this.currentBoard;
+    const currentBoard = this.board();
     if (!currentBoard) return false;
     return currentBoard.allowsShowListsOnMinicard || this.showListOnMinicard;
+  },
+
+  shouldShowChecklistAtMinicard() {
+    // Return checklists that should be shown on minicard
+    const currentBoard = this.board();
+    if (!currentBoard) return [];
+
+    const checklists = this.checklists();
+    const visibleChecklists = [];
+
+    checklists.forEach(checklist => {
+      // Show checklist if either:
+      // 1. Board-wide setting is enabled, OR
+      // 2. This specific checklist has the setting enabled
+      if (currentBoard.allowsChecklistAtMinicard || checklist.showChecklistAtMinicard) {
+        visibleChecklists.push(checklist);
+      }
+    });
+
+    return visibleChecklists;
   }
 });
 
@@ -242,7 +306,7 @@ BlazeComponent.extendComponent({
   }
 }).register('editCardSortOrderPopup');
 
-Template.minicardDetailsActionsPopup.events({
+Template.cardDetailsActionsPopup.events({
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),

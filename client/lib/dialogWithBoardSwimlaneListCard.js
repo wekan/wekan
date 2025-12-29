@@ -29,6 +29,16 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
     }
   }
 
+  /** returns all available cards of the current list */
+  cards() {
+    const list = ReactiveCache.getList({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()});
+    if (list) {
+      return list.cards();
+    } else {
+      return [];
+    }
+  }
+
   /** returns if the card id was the last confirmed one
    * @param cardId check this card id
    * @return if the card id was the last confirmed one

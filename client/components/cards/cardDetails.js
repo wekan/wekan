@@ -324,30 +324,6 @@ BlazeComponent.extendComponent({
             Users.setPublicCardCollapsed(!currentState);
           }
         },
-        'click .js-card-bring-to-front'(event) {
-          event.preventDefault();
-          const $card = $(event.target).closest('.card-details');
-          // Find the highest z-index among all cards
-          let maxZ = 100;
-          $('.card-details').each(function() {
-            const z = parseInt($(this).css('z-index')) || 100;
-            if (z > maxZ) maxZ = z;
-          });
-          // Set this card's z-index to be higher
-          $card.css('z-index', maxZ + 1);
-        },
-        'click .js-card-send-to-back'(event) {
-          event.preventDefault();
-          const $card = $(event.target).closest('.card-details');
-          // Find the lowest z-index among all cards
-          let minZ = 100;
-          $('.card-details').each(function() {
-            const z = parseInt($(this).css('z-index')) || 100;
-            if (z < minZ) minZ = z;
-          });
-          // Set this card's z-index to be lower
-          $card.css('z-index', minZ - 1);
-        },
         'mousedown .js-card-drag-handle'(event) {
           event.preventDefault();
           const $card = $(event.target).closest('.card-details');

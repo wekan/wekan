@@ -167,10 +167,6 @@ template(name="minicard")
           .badge
             span.badge-icon 📎
             span.badge-text= attachments.length
-      if checklists.length
-        .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
-          span.badge-icon ☑️
-          span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
       if allSubtasks.count
         .badge
           span.badge-icon 🌐
@@ -181,6 +177,9 @@ template(name="minicard")
           .badge
             span.badge-icon 🔢
             span.badge-text.check-list-sort {{ sort }}
+    if shouldShowChecklistAtMinicard
+      each shouldShowChecklistAtMinicard
+        +minicardChecklist(checklist=. card=..)
     if currentBoard.allowsDescriptionTextOnMinicard
       if getDescription
         .minicard-description
@@ -202,55 +201,12 @@ template(name="editCardSortOrderPopup")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-sort-popup(type="submit") {{_ 'save'}}
 
-template(name="minicardDetailsActionsPopup")
-  ul.pop-over-list
-    if canModifyCard
-      li
-        a.js-move-card
-          | ➡️
-          | {{_ 'moveCardPopup-title'}}
-      li
-        a.js-copy-card
-          | 📋
-          | {{_ 'copyCardPopup-title'}}
-      hr
-      li
-        a.js-archive
-          | ➡️
-          | 📦
-          | {{_ 'archive-card'}}
-      hr
-      li
-        a.js-move-card-to-top
-          | ⬆️
-          | {{_ 'moveCardToTop-title'}}
-      li
-        a.js-move-card-to-bottom
-          | ⬇️
-          | {{_ 'moveCardToBottom-title'}}
-      hr
-      li
-        a.js-add-labels
-          | 🏷️
-          | {{_ 'card-edit-labels'}}
-      li
-        a.js-due-date
-          | 📥
-          | {{_ 'editCardDueDatePopup-title'}}
-      li
-        a.js-set-card-color
-          | 🎨
-          | {{_ 'setCardColorPopup-title'}}
-      li
-        a.js-link
-          | 🔗
-          | {{_ 'link-card'}}
-      li
-      a.js-toggle-watch-card
-        if isWatching
-          | 👁️
-          |  {{_ 'unwatch'}}
-        else
-          | 👁️
-          |  {{_ 'watch'}}
+template(name="minicardChecklist")
+  .minicard-checklist
+    .checklist-header
+      .checklist-title= checklist.title
+      if canModifyCard
+        a.checklist-menu.js-open-checklist-menu(title="{{_ 'checklistActionsPopup-title'}}") ☰
+    each visibleItems
+      +checklistItemDetail(item = . checklist = checklist card = card)
 

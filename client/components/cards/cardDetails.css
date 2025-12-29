@@ -211,25 +211,6 @@ body.desktop-mode .card-details.card-details-collapsed {
   color: #000;
 }
 
-/* Bring to front / Send to back buttons */
-.card-details .card-details-header .card-bring-to-front,
-.card-details .card-details-header .card-send-to-back {
-  float: right;
-  font-size: 18px;
-  padding: 7px 8px;
-  margin-right: 5px;
-  cursor: pointer;
-  user-select: none;
-  color: #333;
-}
-
-.card-details .card-details-header .card-bring-to-front:hover,
-.card-details .card-details-header .card-send-to-back:hover {
-  color: #000;
-  background: rgba(0,0,0,0.05);
-  border-radius: 3px;
-}
-
 /* Drag handle */
 .card-details .card-details-header .card-drag-handle {
   font-size: 20px;

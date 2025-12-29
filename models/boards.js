@@ -570,6 +570,14 @@ Boards.attachSchema(
       defaultValue: false,
     },
 
+    allowsChecklistAtMinicard: {
+      /**
+       * Does the board allow showing checklists on all minicards?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsReceivedDate: {
       /**
        * Does the board allows received date?
@@ -1576,6 +1584,10 @@ Boards.mutations({
 
   setAllowsShowListsOnMinicard(allowsShowListsOnMinicard) {
     return { $set: { allowsShowListsOnMinicard } };
+  },
+
+  setAllowsChecklistAtMinicard(allowsChecklistAtMinicard) {
+    return { $set: { allowsChecklistAtMinicard } };
   },
 
   setAllowsRequestedBy(allowsRequestedBy) {

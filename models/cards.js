@@ -497,16 +497,17 @@ Cards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
-    hideFinishedChecklistIfItemsAreHidden: {
-      /**
-       * hide completed checklist?
-       */
-      type: Boolean,
-      optional: true,
-    },
     showListOnMinicard: {
       /**
        * show list name on minicard?
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    showChecklistAtMinicard: {
+      /**
+       * show checklist on minicard?
        */
       type: Boolean,
       optional: true,
@@ -2297,10 +2298,10 @@ Cards.mutations({
     };
   },
 
-  toggleHideFinishedChecklist() {
+  toggleShowChecklistAtMinicard() {
     return {
       $set: {
-        hideFinishedChecklistIfItemsAreHidden: !this.hideFinishedChecklistIfItemsAreHidden,
+        showChecklistAtMinicard: !this.showChecklistAtMinicard,
       }
     };
   },

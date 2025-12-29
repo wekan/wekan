@@ -230,10 +230,6 @@ BlazeComponent.extendComponent({
         'focus .js-add-checklist-item': this.focusChecklistItem,
         // add and delete checklist / checklist-item
         'click .js-open-inlined-form': this.closeAllInlinedForms,
-        'click #toggleHideFinishedChecklist'(event) {
-          event.preventDefault();
-          this.data().card.toggleHideFinishedChecklist();
-        },
         keydown: this.pressKey,
       },
     ];
@@ -335,6 +331,12 @@ BlazeComponent.extendComponent({
           this.data().checklist.toggleHideAllChecklistItems();
           Popup.back();
         },
+        'click .js-toggle-show-checklist-at-minicard'(event) {
+          event.preventDefault();
+          const checklist = this.data().checklist;
+          checklist.toggleShowChecklistAtMinicard();
+          Popup.back();
+        },
       }
     ]
   }
@@ -388,7 +390,12 @@ BlazeComponent.extendComponent({
   }
   setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveChecklistDialogOption(this.currentBoardId, options);
-    this.data().checklist.move(cardId);
+    const checklist = this.data().checklist;
+    Meteor.call('moveChecklist', checklist._id, cardId, (error) => {
+      if (error) {
+        console.error('Error moving checklist:', error);
+      }
+    });
   }
 }).register('moveChecklistPopup');
 
