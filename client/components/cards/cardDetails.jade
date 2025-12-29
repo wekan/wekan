@@ -843,7 +843,7 @@ template(name="copyAndMoveCard")
   label {{_ 'cards'}}:
   select.js-select-cards
     each cards
-      option(value="{{_id}}") {{add @index 1}}. {{title}}
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
 
   div
     input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
