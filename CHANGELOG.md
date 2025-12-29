@@ -35,6 +35,10 @@ and fixes the following bugs:
   Thanks to Chostakovitch.
 - [Cannot re-arrange lists within swimlanes](https://github.com/wekan/wekan/pull/6052).
   Thanks to Chostakovitch.
+- Converted Gantt from js to Jade, and made card title to render markdown at Gantt view.
+  [Part 1](https://github.com/wekan/wekan/commit/2d3bef9033134c3b62cf22179bbee4b6fea81444),
+  [Part 2](https://github.com/wekan/wekan/commit/3af3c9a89d8a4020b6f1ccada7da2ccbec1a8562).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
