@@ -208,7 +208,9 @@ export default class LDAP {
       }
     }
 
-    const usernameFilter = this.options.User_Search_Field.split(',').map((item) => `(${item}=${username})`);
+    // Escape the username to prevent LDAP injection
+    const escapedUsername = escapedToHex(username);
+    const usernameFilter = this.options.User_Search_Field.split(',').map((item) => `(${item}=${escapedUsername})`);
 
     if (usernameFilter.length === 0) {
       Log.error('LDAP_LDAP_User_Search_Field not defined');
@@ -234,11 +236,13 @@ export default class LDAP {
     /* if SimpleAuth is configured, the BaseDN is not needed */
     if (!this.options.BaseDN && !this.options.AD_Simple_Auth) throw new Error('BaseDN is not provided');
 
+    // Escape the username to prevent LDAP injection in DN construction
+    const escapedUsername = escapedToHex(username);
     var userDn = "";
     if (this.options.AD_Simple_Auth === true || this.options.AD_Simple_Auth === 'true') {
-      userDn = `${username}@${this.options.Default_Domain}`;
+      userDn = `${escapedUsername}@${this.options.Default_Domain}`;
     } else {
-      userDn = `${this.options.User_Authentication_Field}=${username},${this.options.BaseDN}`;
+      userDn = `${this.options.User_Authentication_Field}=${escapedUsername},${this.options.BaseDN}`;
     }
 
     Log.info(`Binding with User ${userDn}`);
@@ -381,8 +385,10 @@ export default class LDAP {
 
     filter.push(')');
 
+    // Escape the username to prevent LDAP injection
+    const escapedUsername = escapedToHex(username);
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, username).replace("\\", "\\\\"),
+      filter: filter.join('').replace(/#{username}/g, escapedUsername).replace("\\", "\\\\"),
       scope : 'sub',
     };
 
@@ -429,8 +435,10 @@ export default class LDAP {
     }
     filter.push(')');
 
+    // Escape the username to prevent LDAP injection
+    const escapedUsername = escapedToHex(username);
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, username).replace("\\", "\\\\"),
+      filter: filter.join('').replace(/#{username}/g, escapedUsername).replace("\\", "\\\\"),
       scope : 'sub',
     };
 
