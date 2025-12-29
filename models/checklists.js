@@ -290,6 +290,20 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      // Verify the card belongs to the board
+      const card = ReactiveCache.getCard({
+        _id: paramCardId,
+        boardId: paramBoardId,
+      });
+      if (!card) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+          data: { error: 'Card not found or does not belong to the specified board' },
+        });
+        return;
+      }
+
       const checklists = ReactiveCache.getChecklists({ cardId: paramCardId }).map(function(
         doc,
       ) {
@@ -335,6 +349,20 @@ if (Meteor.isServer) {
       const paramChecklistId = req.params.checklistId;
       const paramCardId = req.params.cardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      // Verify the card belongs to the board
+      const card = ReactiveCache.getCard({
+        _id: paramCardId,
+        boardId: paramBoardId,
+      });
+      if (!card) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+          data: { error: 'Card not found or does not belong to the specified board' },
+        });
+        return;
+      }
+
       const checklist = ReactiveCache.getChecklist({
         _id: paramChecklistId,
         cardId: paramCardId,
@@ -384,6 +412,20 @@ if (Meteor.isServer) {
       const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
       Authentication.checkAdminOrCondition(req.userId, addPermission);
       const paramCardId = req.params.cardId;
+
+      // Verify the card belongs to the board
+      const card = ReactiveCache.getCard({
+        _id: paramCardId,
+        boardId: paramBoardId,
+      });
+      if (!card) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+          data: { error: 'Card not found or does not belong to the specified board' },
+        });
+        return;
+      }
+
       const id = Checklists.insert({
         title: req.body.title,
         cardId: paramCardId,
