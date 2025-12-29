@@ -345,6 +345,7 @@
   "confirm-checklist-delete-popup": "Are you sure you want to delete the checklist?",
   "subtaskDeletePopup-title": "Delete Subtask?",
   "checklistDeletePopup-title": "Delete Checklist?",
+  "checklistItemDeletePopup-title": "Delete Checklist Item?",
   "copy-card-link-to-clipboard": "Copy card link to clipboard",
   "copy-text-to-clipboard": "Copy text to clipboard",
   "linkCardPopup-title": "Link Card",

@@ -157,14 +157,6 @@ BlazeComponent.extendComponent({
     textarea.focus();
   },
 
-  deleteItem() {
-    const checklist = this.currentData().checklist;
-    const item = this.currentData().item;
-    if (checklist && item && item._id) {
-      ChecklistItems.remove(item._id);
-    }
-  },
-
   editChecklist(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-edit-checklist-item');
@@ -216,7 +208,25 @@ BlazeComponent.extendComponent({
         'submit .js-add-checklist-item': this.addChecklistItem,
         'submit .js-edit-checklist-item': this.editChecklistItem,
         'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
-        'click .js-delete-checklist-item': this.deleteItem,
+        'click .js-delete-checklist-item'(event) {
+          const item = this.currentData().item;
+          const confirmFunc = Popup.afterConfirm('checklistItemDelete', function () {
+            if (item && item._id) {
+              ChecklistItems.remove(item._id);
+            }
+          });
+          confirmFunc.call(this, event);
+        },
+        'click .js-delete-checklist'(event) {
+          const checklist = this.currentData().checklist;
+          const confirmFunc = Popup.afterConfirm('checklistDelete', function () {
+            Popup.back(2);
+            if (checklist && checklist._id) {
+              Checklists.remove(checklist._id);
+            }
+          });
+          confirmFunc.call(this, event);
+        },
         'focus .js-add-checklist-item': this.focusChecklistItem,
         // add and delete checklist / checklist-item
         'click .js-open-inlined-form': this.closeAllInlinedForms,
@@ -303,13 +313,16 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
-          Popup.back(2);
+        'click .js-delete-checklist'(event) {
           const checklist = this.data().checklist;
-          if (checklist && checklist._id) {
-            Checklists.remove(checklist._id);
-          }
-        }),
+          const confirmFunc = Popup.afterConfirm('checklistDelete', function () {
+            Popup.back(2);
+            if (checklist && checklist._id) {
+              Checklists.remove(checklist._id);
+            }
+          });
+          confirmFunc.call(this, event);
+        },
         'click .js-move-checklist': Popup.open('moveChecklist'),
         'click .js-copy-checklist': Popup.open('copyChecklist'),
         'click .js-hide-checked-checklist-items'(event) {

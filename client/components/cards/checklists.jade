@@ -62,6 +62,10 @@ template(name="checklistDeletePopup")
   p {{_ 'confirm-checklist-delete-popup'}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
+template(name="checklistItemDeletePopup")
+  p {{_ 'confirm-checklist-delete-popup'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
 template(name="addChecklistItemForm")
   a(title="{{_ 'copy-text-to-clipboard'}}")
   span.copied-tooltip {{_ 'copied'}}
@@ -95,10 +99,13 @@ template(name="editChecklistItemForm")
       | ❌
     span(title=createdAt) {{ moment createdAt }}
     if canModifyCard
-      a.js-delete-checklist-item {{_ "delete"}}...
-      a.js-convert-checklist-item-to-card
-        | 📋
-        | {{_ 'convertChecklistItemToCardPopup-title'}}
+      if $eq type 'item'
+        a.js-delete-checklist-item {{_ "delete"}}...
+        a.js-convert-checklist-item-to-card
+          | 📋
+          | {{_ 'convertChecklistItemToCardPopup-title'}}
+      else
+        a.js-delete-checklist {{_ "delete"}}...
 
 template(name="checklistItems")
   if checklist.items.length
