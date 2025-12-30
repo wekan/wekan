@@ -24,28 +24,28 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # v8.19 2025-12-29 WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES:
+This release fixes the following CRITICAL SECURITY ISSUES of [Megableed](https://wekan.fi/hall-of-fame/megableed/):
 
 - [Security Fix 1: IDOR in setCreateTranslation. Non-admin could change Custom Translation](https://github.com/wekan/wekan/commit/f244a43771f6ebf40218b83b9f46dba6b940d7de).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 2: Private-only board setting can be bypassed](https://github.com/wekan/wekan/commit/7ed76c180ede46ab1dac6b8ad27e9128a272c2c8).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 3: Card comment author spoofing (IDOR) via API](https://github.com/wekan/wekan/commit/67cb47173c1a152d9eaf5469740992b2dacdf62d).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 4: Cross-board card move without destination authorization](https://github.com/wekan/wekan/commit/198509e7600981400353aec6259247b3c04e043e).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 5: Read-only roles can still update cards](https://github.com/wekan/wekan/commit/181f837d8cbae96bdf9dcbd31beaa3653c2c0285).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 6: Checklist delete IDOR: checklist not verified against board/card](https://github.com/wekan/wekan/commit/08a6f084eba09487743a7c807fb4a9000fcfa9ac).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 7: Checklist create IDOR: cardId not verified against boardId](https://github.com/wekan/wekan/commit/5cd875813fdec5a3c40a0358b30a347967c85c14).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 8: Attachments publication leaks metadata without auth](https://github.com/wekan/wekan/commit/6dfa3beb2b6ab23438d0f4395b84bf0749eb4820).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 9: Attachment upload not scoped to card/board relationship](https://github.com/wekan/wekan/commit/1d16955b6d4f0a0282e89c2c1b0415c7597019b8).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 10: LDAP filter injection in LDAP auth](https://github.com/wekan/wekan/commit/0b0e16c3eae28bbf453d33a81a9c58ce7db6d5bb).
-  Thanks to Joshua Rogers of joshua.hu of Twitter MegaManSec and xet7.
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 
 and adds the following new features:
 
@@ -182,7 +182,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.16 2025-11-02 WeKan ® release
 
-This release fixes SpaceBleed that is the following CRITICAL SECURITY ISSUES:
+This release fixes the following CRITICAL SECURITY ISSUES of [Spacebleed](https://wekan.fi/hall-of-fame/spacebleed/):
 
 - [Fix SECURITY ISSUE 1: File Attachments enables stored XSS (High)](https://github.com/wekan/wekan/commit/e9a727301d7b4f1689a703503df668c0f4f4cab8).
   Thanks to Siam Thanat Hack (STH) and xet7.
