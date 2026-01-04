@@ -80,7 +80,7 @@ if (Meteor.isServer) {
       if (isDangerous) {
         // SECURITY: Force download for dangerous types to prevent XSS
         res.setHeader('Content-Type', 'application/octet-stream');
-        res.setHeader('Content-Disposition', `attachment; filename="${fileObj.name}"`);
+        res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(fileObj.name)));
         res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
         res.setHeader('X-Frame-Options', 'DENY');
       } else if (isSafeInline) {
@@ -88,13 +88,13 @@ if (Meteor.isServer) {
         // If the file is a PDF by extension but type is wrong/missing, correct it
         const finalType = (isPdfByExt && typeLower !== 'application/pdf') ? 'application/pdf' : (typeLower || 'application/octet-stream');
         res.setHeader('Content-Type', finalType);
-        res.setHeader('Content-Disposition', `inline; filename="${fileObj.name}"`);
+        res.setHeader('Content-Disposition', buildContentDispositionHeader('inline', sanitizeFilenameForHeader(fileObj.name)));
         // Restrictive CSP for safe types - allow media/img/object for viewer embeds, no scripts
         res.setHeader('Content-Security-Policy', "default-src 'none'; object-src 'self'; media-src 'self'; img-src 'self'; style-src 'unsafe-inline';");
       } else {
         // Unknown types: force download as fallback
         res.setHeader('Content-Type', 'application/octet-stream');
-        res.setHeader('Content-Disposition', `attachment; filename="${fileObj.name}"`);
+        res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(fileObj.name)));
         res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
       }
     } else {
@@ -102,13 +102,13 @@ if (Meteor.isServer) {
       if (isSvg || isDangerous) {
         // Serve potentially dangerous avatar types as downloads instead
         res.setHeader('Content-Type', 'application/octet-stream');
-        res.setHeader('Content-Disposition', `attachment; filename="${fileObj.name}"`);
+        res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(fileObj.name)));
         res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
         res.setHeader('X-Frame-Options', 'DENY');
       } else {
         // For typical image avatars, use provided type if present, otherwise fall back to a safe generic image type
         res.setHeader('Content-Type', typeLower || 'image/jpeg');
-        res.setHeader('Content-Disposition', `inline; filename="${fileObj.name}"`);
+        res.setHeader('Content-Disposition', buildContentDispositionHeader('inline', sanitizeFilenameForHeader(fileObj.name)));
       }
     }
   }
@@ -313,6 +313,54 @@ if (Meteor.isServer) {
   }
 
   /**
+   * Helper function to properly encode a filename for the Content-Disposition header.
+   * Removes invalid characters (control chars, newlines, etc.) that would break HTTP headers.
+   * For non-ASCII filenames, uses RFC 5987 encoding to preserve the original filename.
+   * This prevents ERR_INVALID_CHAR errors when filenames contain control characters.
+   *
+   * Example:
+   * - ASCII filename: sanitizeFilenameForHeader('test.txt') => 'test.txt'
+   * - Non-ASCII: sanitizeFilenameForHeader('現有檔案.odt') => 'file.odt'; filename*=UTF-8''%E7%8F%BE%E6%9C%89%E6%AA%94%E6%A1%88.odt
+   * - Control chars: sanitizeFilenameForHeader('test\nfile.txt') => 'testfile.txt'
+   */
+  function sanitizeFilenameForHeader(filename) {
+    if (!filename || typeof filename !== 'string') {
+      return 'download';
+    }
+
+    // First, remove any control characters (0x00-0x1F, 0x7F) that would break HTTP headers
+    // This includes newlines, carriage returns, tabs, and other control chars
+    let sanitized = filename.replace(/[\x00-\x1F\x7F]/g, '');
+
+    // If the filename is all ASCII printable characters (0x20-0x7E), use it directly
+    if (/^[\x20-\x7E]*$/.test(sanitized)) {
+      // Escape any quotes and backslashes in the filename
+      sanitized = sanitized.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      return sanitized;
+    }
+
+    // For non-ASCII filenames, provide a fallback and RFC 5987 encoded version
+    const fallback = sanitized.replace(/[^\x20-\x7E]/g, '_').slice(0, 100) || 'download';
+    const encoded = encodeURIComponent(sanitized);
+    
+    // Return special marker format that will be handled by buildContentDispositionHeader
+    // Format: "fallback|RFC5987:encoded"
+    return `${fallback}|RFC5987:${encoded}`;
+  }
+
+  /**
+   * Helper function to build a complete Content-Disposition header value with RFC 5987 support
+   * Handles the special format returned by sanitizeFilenameForHeader for non-ASCII filenames
+   */
+  function buildContentDispositionHeader(disposition, sanitizedFilename) {
+    if (sanitizedFilename.includes('|RFC5987:')) {
+      const [fallback, encoded] = sanitizedFilename.split('|RFC5987:');
+      return `${disposition}; filename="${fallback}"; filename*=UTF-8''${encoded}`;
+    }
+    return `${disposition}; filename="${sanitizedFilename}"`;
+  }
+
+  /**
    * Helper function to stream file with error handling
    */
   function streamFile(res, readStream, fileObj) {
@@ -408,7 +456,7 @@ if (Meteor.isServer) {
         if (attachment.size) res.setHeader('Content-Length', attachment.size);
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.setHeader('Content-Type', 'application/octet-stream');
-        res.setHeader('Content-Disposition', `attachment; filename="${attachment.name}"`);
+        res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(attachment.name)));
         res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
       } else {
         setFileHeaders(res, attachment, true);
@@ -545,7 +593,7 @@ if (Meteor.isServer) {
           if (attachment.size) res.setHeader('Content-Length', attachment.size);
           res.setHeader('X-Content-Type-Options', 'nosniff');
           res.setHeader('Content-Type', 'application/octet-stream');
-          res.setHeader('Content-Disposition', `attachment; filename="${attachment.name}"`);
+          res.setHeader('Content-Disposition', buildContentDispositionHeader('attachment', sanitizeFilenameForHeader(attachment.name)));
           res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox;");
         } else {
           setFileHeaders(res, attachment, true);
