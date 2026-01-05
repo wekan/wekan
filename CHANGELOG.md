@@ -24,7 +24,38 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
+
+- [Security Fix 1: There was not enough permission checks. Moved migrations to Admin Panel/Settings/Cron](https://github.com/wekan/wekan/commit/cbb1cd78de3e40264a5e047ace0ce27f8635b4e6).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 2: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 3: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 4: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 5: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 6: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 7: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 8: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 9: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 10: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 11: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 12: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 13: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+- [Security Fix 14: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+
+and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/pull/6059).
   Thanks to dependabot.
