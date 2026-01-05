@@ -3,9 +3,6 @@ import '../gantt/gantt.js';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
 import { boardConverter } from '/client/lib/boardConverter';
-import { migrationManager } from '/client/lib/migrationManager';
-import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
-import { migrationProgressManager } from '/client/components/migrationProgress';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
@@ -18,7 +15,6 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.isBoardReady = new ReactiveVar(false);
     this.isConverting = new ReactiveVar(false);
-    this.isMigrating = new ReactiveVar(false);
     this._swimlaneCreated = new Set(); // Track boards where we've created swimlanes
     this._boardProcessed = false; // Track if board has been processed
     this._lastProcessedBoardId = null; // Track last processed board ID
@@ -36,7 +32,6 @@ BlazeComponent.extendComponent({
       // Use a separate autorun for subscription ready state to avoid reactive loops
       this.subscriptionReadyAutorun = Tracker.autorun(() => {
         if (handle.ready()) {
-          // Only run conversion/migration logic once per board
           if (!this._boardProcessed || this._lastProcessedBoardId !== currentBoardId) {
             this._boardProcessed = true;
             this._lastProcessedBoardId = currentBoardId;
@@ -101,413 +96,12 @@ BlazeComponent.extendComponent({
         return;
       }
 
-      // Automatic migration disabled - migrations must be run manually from sidebar
-      // Board admins can run migrations from the sidebar Migrations menu
       this.isBoardReady.set(true);
 
     } catch (error) {
       console.error('Error during board conversion check:', error);
       this.isConverting.set(false);
-      this.isMigrating.set(false);
       this.isBoardReady.set(true); // Show board even if conversion check failed
-    }
-  },
-
-  /**
-   * Check if board needs comprehensive migration
-   */
-  async checkComprehensiveMigration(boardId) {
-    try {
-      return new Promise((resolve, reject) => {
-        Meteor.call('comprehensiveBoardMigration.needsMigration', boardId, (error, result) => {
-          if (error) {
-            console.error('Error checking comprehensive migration:', error);
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        });
-      });
-    } catch (error) {
-      console.error('Error checking comprehensive migration:', error);
-      return false;
-    }
-  },
-
-  /**
-   * Execute comprehensive migration for a board
-   */
-  async executeComprehensiveMigration(boardId) {
-    try {
-      // Start progress tracking
-      migrationProgressManager.startMigration();
-      
-      // Simulate progress updates since we can't easily pass callbacks through Meteor methods
-      const progressSteps = [
-        { step: 'analyze_board_structure', name: 'Analyze Board Structure', duration: 1000 },
-        { step: 'fix_orphaned_cards', name: 'Fix Orphaned Cards', duration: 2000 },
-        { step: 'convert_shared_lists', name: 'Convert Shared Lists', duration: 3000 },
-        { step: 'ensure_per_swimlane_lists', name: 'Ensure Per-Swimlane Lists', duration: 1500 },
-        { step: 'validate_migration', name: 'Validate Migration', duration: 1000 },
-        { step: 'fix_avatar_urls', name: 'Fix Avatar URLs', duration: 1000 },
-        { step: 'fix_attachment_urls', name: 'Fix Attachment URLs', duration: 1000 }
-      ];
-
-      // Start the actual migration
-      const migrationPromise = new Promise((resolve, reject) => {
-        Meteor.call('comprehensiveBoardMigration.execute', boardId, (error, result) => {
-          if (error) {
-            console.error('Error executing comprehensive migration:', error);
-            migrationProgressManager.failMigration(error);
-            reject(error);
-          } else {
-            if (process.env.DEBUG === 'true') {
-              console.log('Comprehensive migration completed for board:', boardId, result);
-            }
-            resolve(result.success);
-          }
-        });
-      });
-
-      // Simulate progress updates
-      const progressPromise = this.simulateMigrationProgress(progressSteps);
-
-      // Wait for both to complete
-      const [migrationResult] = await Promise.all([migrationPromise, progressPromise]);
-      
-      migrationProgressManager.completeMigration();
-      return migrationResult;
-
-    } catch (error) {
-      console.error('Error executing comprehensive migration:', error);
-      migrationProgressManager.failMigration(error);
-      return false;
-    }
-  },
-
-  /**
-   * Simulate migration progress updates
-   */
-  async simulateMigrationProgress(progressSteps) {
-    const totalSteps = progressSteps.length;
-    
-    for (let i = 0; i < progressSteps.length; i++) {
-      const step = progressSteps[i];
-      const stepProgress = Math.round(((i + 1) / totalSteps) * 100);
-      
-      // Update progress for this step
-      migrationProgressManager.updateProgress({
-        overallProgress: stepProgress,
-        currentStep: i + 1,
-        totalSteps,
-        stepName: step.step,
-        stepProgress: 0,
-        stepStatus: `Starting ${step.name}...`,
-        stepDetails: null,
-        boardId: Session.get('currentBoard')
-      });
-
-      // Simulate step progress
-      const stepDuration = step.duration;
-      const updateInterval = 100; // Update every 100ms
-      const totalUpdates = stepDuration / updateInterval;
-      
-      for (let j = 0; j < totalUpdates; j++) {
-        const stepStepProgress = Math.round(((j + 1) / totalUpdates) * 100);
-        
-        migrationProgressManager.updateProgress({
-          overallProgress: stepProgress,
-          currentStep: i + 1,
-          totalSteps,
-          stepName: step.step,
-          stepProgress: stepStepProgress,
-          stepStatus: `Processing ${step.name}...`,
-          stepDetails: { progress: `${stepStepProgress}%` },
-          boardId: Session.get('currentBoard')
-        });
-
-        await new Promise(resolve => setTimeout(resolve, updateInterval));
-      }
-
-      // Complete the step
-      migrationProgressManager.updateProgress({
-        overallProgress: stepProgress,
-        currentStep: i + 1,
-        totalSteps,
-        stepName: step.step,
-        stepProgress: 100,
-        stepStatus: `${step.name} completed`,
-        stepDetails: { status: 'completed' },
-        boardId: Session.get('currentBoard')
-      });
-    }
-  },
-
-  async startBackgroundMigration(boardId) {
-    try {
-      // Start background migration using the cron system
-      Meteor.call('boardMigration.startBoardMigration', boardId, (error, result) => {
-        if (error) {
-          console.error('Failed to start background migration:', error);
-        } else {
-          if (process.env.DEBUG === 'true') {
-            console.log('Background migration started for board:', boardId);
-          }
-        }
-      });
-    } catch (error) {
-      console.error('Error starting background migration:', error);
-    }
-  },
-
-  async convertSharedListsToPerSwimlane(boardId) {
-    try {
-      const board = ReactiveCache.getBoard(boardId);
-      if (!board) return;
-
-      // Check if board has already been processed for shared lists conversion
-      if (board.hasSharedListsConverted) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has already been processed for shared lists conversion`);
-        }
-        return;
-      }
-
-      // Get all lists for this board
-      const allLists = board.lists();
-      const swimlanes = board.swimlanes();
-      
-      if (swimlanes.length === 0) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has no swimlanes, skipping shared lists conversion`);
-        }
-        return;
-      }
-
-      // Find shared lists (lists with empty swimlaneId or null swimlaneId)
-      const sharedLists = allLists.filter(list => !list.swimlaneId || list.swimlaneId === '');
-      
-      if (sharedLists.length === 0) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has no shared lists to convert`);
-        }
-        // Mark as processed even if no shared lists
-        Boards.update(boardId, { $set: { hasSharedListsConverted: true } });
-        return;
-      }
-
-      if (process.env.DEBUG === 'true') {
-        console.log(`Converting ${sharedLists.length} shared lists to per-swimlane lists for board ${boardId}`);
-      }
-
-      // Convert each shared list to per-swimlane lists
-      for (const sharedList of sharedLists) {
-        // Create a copy of the list for each swimlane
-        for (const swimlane of swimlanes) {
-          // Check if this list already exists in this swimlane
-          const existingList = Lists.findOne({
-            boardId: boardId,
-            swimlaneId: swimlane._id,
-            title: sharedList.title
-          });
-
-          if (!existingList) {
-            // Double-check to avoid race conditions
-            const doubleCheckList = ReactiveCache.getList({
-              boardId: boardId,
-              swimlaneId: swimlane._id,
-              title: sharedList.title
-            });
-
-            if (!doubleCheckList) {
-              // Create a new list in this swimlane
-              const newListData = {
-                title: sharedList.title,
-                boardId: boardId,
-                swimlaneId: swimlane._id,
-                sort: sharedList.sort || 0,
-                archived: sharedList.archived || false, // Preserve archived state from original list
-                createdAt: new Date(),
-                modifiedAt: new Date()
-              };
-
-              // Copy other properties if they exist
-              if (sharedList.color) newListData.color = sharedList.color;
-              if (sharedList.wipLimit) newListData.wipLimit = sharedList.wipLimit;
-              if (sharedList.wipLimitEnabled) newListData.wipLimitEnabled = sharedList.wipLimitEnabled;
-              if (sharedList.wipLimitSoft) newListData.wipLimitSoft = sharedList.wipLimitSoft;
-
-              Lists.insert(newListData);
-              
-              if (process.env.DEBUG === 'true') {
-                const archivedStatus = sharedList.archived ? ' (archived)' : ' (active)';
-                console.log(`Created list "${sharedList.title}"${archivedStatus} for swimlane ${swimlane.title || swimlane._id}`);
-              }
-            } else {
-              if (process.env.DEBUG === 'true') {
-                console.log(`List "${sharedList.title}" already exists in swimlane ${swimlane.title || swimlane._id} (double-check), skipping`);
-              }
-            }
-          } else {
-            if (process.env.DEBUG === 'true') {
-              console.log(`List "${sharedList.title}" already exists in swimlane ${swimlane.title || swimlane._id}, skipping`);
-            }
-          }
-        }
-
-        // Remove the original shared list completely
-        Lists.remove(sharedList._id);
-        
-        if (process.env.DEBUG === 'true') {
-          console.log(`Removed shared list "${sharedList.title}"`);
-        }
-      }
-
-      // Mark board as processed
-      Boards.update(boardId, { $set: { hasSharedListsConverted: true } });
-
-      if (process.env.DEBUG === 'true') {
-        console.log(`Successfully converted ${sharedLists.length} shared lists to per-swimlane lists for board ${boardId}`);
-      }
-
-    } catch (error) {
-      console.error('Error converting shared lists to per-swimlane:', error);
-    }
-  },
-
-  async fixMissingLists(boardId) {
-    try {
-      const board = ReactiveCache.getBoard(boardId);
-      if (!board) return;
-
-      // Check if board has already been processed for missing lists fix
-      if (board.fixMissingListsCompleted) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has already been processed for missing lists fix`);
-        }
-        return;
-      }
-
-      // Check if migration is needed
-      const needsMigration = await new Promise((resolve, reject) => {
-        Meteor.call('fixMissingListsMigration.needsMigration', boardId, (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        });
-      });
-
-      if (!needsMigration) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} does not need missing lists fix`);
-        }
-        return;
-      }
-
-      if (process.env.DEBUG === 'true') {
-        console.log(`Starting fix missing lists migration for board ${boardId}`);
-      }
-
-      // Execute the migration
-      const result = await new Promise((resolve, reject) => {
-        Meteor.call('fixMissingListsMigration.execute', boardId, (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        });
-      });
-
-      if (result && result.success) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Successfully fixed missing lists for board ${boardId}: created ${result.createdLists} lists, updated ${result.updatedCards} cards`);
-        }
-      }
-
-    } catch (error) {
-      console.error('Error fixing missing lists:', error);
-    }
-  },
-
-  async fixDuplicateLists(boardId) {
-    try {
-      const board = ReactiveCache.getBoard(boardId);
-      if (!board) return;
-
-      // Check if board has already been processed for duplicate lists fix
-      if (board.fixDuplicateListsCompleted) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has already been processed for duplicate lists fix`);
-        }
-        return;
-      }
-
-      if (process.env.DEBUG === 'true') {
-        console.log(`Starting duplicate lists fix for board ${boardId}`);
-      }
-
-      // Execute the duplicate lists fix
-      const result = await new Promise((resolve, reject) => {
-        Meteor.call('fixDuplicateLists.fixBoard', boardId, (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        });
-      });
-
-      if (result && result.fixed > 0) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Successfully fixed ${result.fixed} duplicate lists for board ${boardId}: ${result.fixedSwimlanes} swimlanes, ${result.fixedLists} lists`);
-        }
-        
-        // Mark board as processed
-        Boards.update(boardId, { $set: { fixDuplicateListsCompleted: true } });
-      } else if (process.env.DEBUG === 'true') {
-        console.log(`No duplicate lists found for board ${boardId}`);
-        // Still mark as processed to avoid repeated checks
-        Boards.update(boardId, { $set: { fixDuplicateListsCompleted: true } });
-      } else {
-        // Still mark as processed to avoid repeated checks
-        Boards.update(boardId, { $set: { fixDuplicateListsCompleted: true } });
-      }
-
-    } catch (error) {
-      console.error('Error fixing duplicate lists:', error);
-    }
-  },
-
-  async startAttachmentMigrationIfNeeded(boardId) {
-    try {
-      // Check if board has already been migrated
-      if (attachmentMigrationManager.isBoardMigrated(boardId)) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has already been migrated, skipping`);
-        }
-        return;
-      }
-
-      // Check if there are unconverted attachments
-      const unconvertedAttachments = attachmentMigrationManager.getUnconvertedAttachments(boardId);
-      
-      if (unconvertedAttachments.length > 0) {
-        if (process.env.DEBUG === 'true') {
-          console.log(`Starting attachment migration for ${unconvertedAttachments.length} attachments in board ${boardId}`);
-        }
-        await attachmentMigrationManager.startAttachmentMigration(boardId);
-      } else {
-        // No attachments to migrate, mark board as migrated
-        // This will be handled by the migration manager itself
-        if (process.env.DEBUG === 'true') {
-          console.log(`Board ${boardId} has no attachments to migrate`);
-        }
-      }
-    } catch (error) {
-      console.error('Error starting attachment migration:', error);
     }
   },
 
@@ -533,10 +127,6 @@ BlazeComponent.extendComponent({
 
   isConverting() {
     return this.isConverting.get();
-  },
-
-  isMigrating() {
-    return this.isMigrating.get();
   },
 
   isBoardReady() {
@@ -1046,7 +636,6 @@ BlazeComponent.extendComponent({
     const currentBoardId = Session.get('currentBoard');
     const isBoardReady = this.isBoardReady.get();
     const isConverting = this.isConverting.get();
-    const isMigrating = this.isMigrating.get();
     const boardView = Utils.boardView();
     
     if (process.env.DEBUG === 'true') {
@@ -1055,7 +644,6 @@ BlazeComponent.extendComponent({
       console.log('currentBoard:', !!currentBoard, currentBoard ? currentBoard.title : 'none');
       console.log('isBoardReady:', isBoardReady);
       console.log('isConverting:', isConverting);
-      console.log('isMigrating:', isMigrating);
       console.log('boardView:', boardView);
       console.log('========================');
     }
@@ -1066,7 +654,6 @@ BlazeComponent.extendComponent({
       currentBoardTitle: currentBoard ? currentBoard.title : 'none',
       isBoardReady,
       isConverting,
-      isMigrating,
       boardView
     };
   },

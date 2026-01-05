@@ -10,8 +10,8 @@ import '/client/lib/boardConverter';
 import '/client/components/boardConversionProgress';
 
 // Import migration manager and progress UI
-import '/client/lib/migrationManager';
-import '/client/components/migrationProgress';
+import '/client/lib/attachmentMigrationManager';
+import '/client/components/settings/migrationProgress';
 
 // Import cron settings
 import '/client/components/settings/cronSettings';

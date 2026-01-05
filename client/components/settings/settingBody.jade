@@ -170,7 +170,10 @@ template(name="setting")
                   label {{_ 'migration-status'}}
                   .status-indicator
                     span.status-label {{_ 'status'}}:
-                    span.status-value {{migrationStatus}}
+                    span.status-value {{#if isMigrating}}{{migrationStatus}}{{else}}{{_ 'idle'}}{{/if}}
+                    .current-step(class="{{#unless migrationCurrentStep}}hide{{/unless}}")
+                      span.step-label {{_ 'current-step'}}:
+                      span.step-value {{migrationCurrentStep}}
                   .progress-section
                     .progress
                       .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
@@ -179,9 +182,13 @@ template(name="setting")
                       | {{migrationProgress}}% {{_ 'complete'}}
                 
                 .form-group
-                  button.js-start-all-migrations.btn.btn-primary {{_ 'start-all-migrations'}}
-                  button.js-pause-all-migrations.btn.btn-warning {{_ 'pause-all-migrations'}}
-                  button.js-stop-all-migrations.btn.btn-danger {{_ 'stop-all-migrations'}}
+                  button.js-start-all-migrations.btn.btn-primary {{#if isMigrating}}disabled{{/if}} {{_ 'start-all-migrations'}}
+                  button.js-pause-all-migrations.btn.btn-warning {{#unless isMigrating}}disabled{{/unless}} {{_ 'pause-all-migrations'}}
+                  button.js-stop-all-migrations.btn.btn-danger {{#unless isMigrating}}disabled{{/unless}} {{_ 'stop-all-migrations'}}
+              
+              li
+                h3 {{_ 'migration-steps'}}
+                p Migration steps section temporarily removed
               
               li
                 h3 {{_ 'board-operations'}}
@@ -200,7 +207,7 @@ template(name="setting")
                       .job-info
                         .job-name {{name}}
                         .job-schedule {{schedule}}
-                        .job-description {{description}}
+                        .job-status {{status}}
                       .job-actions
                         button.js-pause-job.btn.btn-sm.btn-warning(data-job-id="{{_id}}") {{_ 'pause'}}
                         button.js-delete-job.btn.btn-sm.btn-danger(data-job-id="{{_id}}") {{_ 'delete'}}
@@ -274,7 +281,7 @@ template(name='email')
     //  li.smtp-form
     //    .title {{_ 'smtp-username'}}
     //    .form-group
-    //      input.wekan-form-control#mail-server-u"accounts-allowUserNameChange": "Allow Username Change",sername(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
+    //      input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
     //  li.smtp-form
     //    .title {{_ 'smtp-password'}}
     //    .form-group

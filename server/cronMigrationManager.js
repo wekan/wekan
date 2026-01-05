@@ -1357,66 +1357,119 @@ Meteor.startup(() => {
 // Meteor methods for client-server communication
 Meteor.methods({
   'cron.startAllMigrations'() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.startAllMigrations();
   },
   
   'cron.startJob'(cronName) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.startCronJob(cronName);
   },
   
   'cron.stopJob'(cronName) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.stopCronJob(cronName);
   },
   
   'cron.pauseJob'(cronName) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.pauseCronJob(cronName);
   },
   
   'cron.resumeJob'(cronName) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.resumeCronJob(cronName);
   },
   
   'cron.removeJob'(cronName) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.removeCronJob(cronName);
   },
   
   'cron.addJob'(jobData) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.addCronJob(jobData);
   },
   
   'cron.getJobs'() {
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    
     return cronMigrationManager.getAllCronJobs();
   },
   
   'cron.getMigrationProgress'() {
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    
     return {
       progress: cronMigrationProgress.get(),
       status: cronMigrationStatus.get(),
@@ -1427,72 +1480,153 @@ Meteor.methods({
   },
 
   'cron.startBoardOperation'(boardId, operationType, operationData) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    
+    // Check if user is global admin OR board admin
+    const user = ReactiveCache.getUser(userId);
+    const board = ReactiveCache.getBoard(boardId);
+    
+    if (!user) {
+      throw new Meteor.Error('not-authorized', 'User not found');
+    }
+    
+    if (!board) {
+      throw new Meteor.Error('not-found', 'Board not found');
+    }
+    
+    // Check global admin or board admin
+    const isGlobalAdmin = user.isAdmin;
+    const isBoardAdmin = board.members && board.members.some(member => 
+      member.userId === userId && member.isAdmin
+    );
+    
+    if (!isGlobalAdmin && !isBoardAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required for this board');
     }
     
     return cronMigrationManager.startBoardOperation(boardId, operationType, operationData);
   },
 
   'cron.getBoardOperations'(boardId) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    
+    // Check if user is global admin OR board admin
+    const user = ReactiveCache.getUser(userId);
+    const board = ReactiveCache.getBoard(boardId);
+    
+    if (!user) {
+      throw new Meteor.Error('not-authorized', 'User not found');
+    }
+    
+    if (!board) {
+      throw new Meteor.Error('not-found', 'Board not found');
+    }
+    
+    // Check global admin or board admin
+    const isGlobalAdmin = user.isAdmin;
+    const isBoardAdmin = board.members && board.members.some(member => 
+      member.userId === userId && member.isAdmin
+    );
+    
+    if (!isGlobalAdmin && !isBoardAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required for this board');
     }
     
     return cronMigrationManager.getBoardOperations(boardId);
   },
 
   'cron.getAllBoardOperations'(page, limit, searchTerm) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.getAllBoardOperations(page, limit, searchTerm);
   },
 
   'cron.getBoardOperationStats'() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.getBoardOperationStats();
   },
 
   'cron.getJobDetails'(jobId) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronJobStorage.getJobDetails(jobId);
   },
 
   'cron.getQueueStats'() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronJobStorage.getQueueStats();
   },
 
   'cron.getSystemResources'() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronJobStorage.getSystemResources();
   },
 
   'cron.clearAllJobs'() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronMigrationManager.clearAllCronJobs();
   },
 
   'cron.pauseJob'(jobId) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     cronJobStorage.updateQueueStatus(jobId, 'paused');
@@ -1501,8 +1635,13 @@ Meteor.methods({
   },
 
   'cron.resumeJob'(jobId) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     cronJobStorage.updateQueueStatus(jobId, 'pending');
@@ -1511,8 +1650,13 @@ Meteor.methods({
   },
 
   'cron.stopJob'(jobId) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     cronJobStorage.updateQueueStatus(jobId, 'stopped');
@@ -1524,16 +1668,76 @@ Meteor.methods({
   },
 
   'cron.cleanupOldJobs'(daysOld) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     return cronJobStorage.cleanupOldJobs(daysOld);
   },
 
+  'cron.pauseAllMigrations'() {
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    
+    // Pause all running jobs in the queue
+    const runningJobs = cronJobStorage.getIncompleteJobs().filter(job => job.status === 'running');
+    runningJobs.forEach(job => {
+      cronJobStorage.updateQueueStatus(job.jobId, 'paused');
+      cronJobStorage.saveJobStatus(job.jobId, { status: 'paused' });
+    });
+    
+    cronMigrationStatus.set('All migrations paused');
+    return { success: true, message: 'All migrations paused' };
+  },
+
+  'cron.stopAllMigrations'() {
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+    
+    // Stop all running and pending jobs
+    const incompleteJobs = cronJobStorage.getIncompleteJobs();
+    incompleteJobs.forEach(job => {
+      cronJobStorage.updateQueueStatus(job.jobId, 'stopped', { stoppedAt: new Date() });
+      cronJobStorage.saveJobStatus(job.jobId, { 
+        status: 'stopped',
+        stoppedAt: new Date()
+      });
+    });
+    
+    // Reset migration state
+    cronIsMigrating.set(false);
+    cronMigrationStatus.set('All migrations stopped');
+    cronMigrationProgress.set(0);
+    cronMigrationCurrentStep.set('');
+    
+    return { success: true, message: 'All migrations stopped' };
+  },
+
   'cron.getBoardMigrationStats'() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     // Import the board migration detector
@@ -1542,8 +1746,13 @@ Meteor.methods({
   },
 
   'cron.forceBoardMigrationScan'() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
+    const userId = this.userId;
+    if (!userId) {
+      throw new Meteor.Error('not-authorized', 'Must be logged in');
+    }
+    const user = ReactiveCache.getUser(userId);
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
     }
     
     // Import the board migration detector

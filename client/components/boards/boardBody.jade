@@ -1,8 +1,6 @@
 template(name="board")
   
-  if isMigrating.get
-    +migrationProgress
-  else if isConverting.get
+  if isConverting.get
     +boardConversionProgress
   else if isBoardReady.get
     if currentBoard
