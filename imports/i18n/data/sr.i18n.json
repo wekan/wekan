@@ -1570,6 +1570,7 @@
   "operation-type": "Врста радње",
   "overall-progress": "Измерени напредак",
   "page": "Страна",
+  "pause": "Pause",
   "pause-migration": "Направи предах",
   "previous": "Претходна",
   "refresh": "Освежи",
@@ -1599,5 +1600,6 @@
   "weight": "Оптерећење",
   "idle": "Стање мировања",
   "complete": "Посао је успешно обављен",
-  "cron": "Периодични послови"
+  "cron": "Периодични послови",
+  "current-step": "Current Step"
 }

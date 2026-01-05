@@ -1570,6 +1570,7 @@
   "operation-type": "Toiminnon tyyppi",
   "overall-progress": "Kokonaisedistyminen",
   "page": "Sivu",
+  "pause": "Tauko",
   "pause-migration": "Keskeytä siirto",
   "previous": "Edellinen",
   "refresh": "Päivitä",
@@ -1599,5 +1600,6 @@
   "weight": "Paino",
   "idle": "Tyhjäkäynti",
   "complete": "Valmis",
-  "cron": "Ajastus"
+  "cron": "Ajastus",
+  "current-step": "Nykyinen vaihe"
 }

@@ -1570,6 +1570,7 @@
   "operation-type": "Type d'opération",
   "overall-progress": "Overall Progress",
   "page": "Page",
+  "pause": "Pause",
   "pause-migration": "Pause Migration",
   "previous": "Précédent",
   "refresh": "Refresh",
@@ -1599,5 +1600,6 @@
   "weight": "Poids",
   "idle": "Inactif",
   "complete": "Terminé",
-  "cron": "Planification"
+  "cron": "Planification",
+  "current-step": "Étape courante"
 }

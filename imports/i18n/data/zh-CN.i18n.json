@@ -1570,6 +1570,7 @@
   "operation-type": "Operation Type",
   "overall-progress": "Overall Progress",
   "page": "Page",
+  "pause": "Pause",
   "pause-migration": "Pause Migration",
   "previous": "Previous",
   "refresh": "Refresh",
@@ -1599,5 +1600,6 @@
   "weight": "权重",
   "idle": "空闲",
   "complete": "完成",
-  "cron": "定时任务"
+  "cron": "定时任务",
+  "current-step": "Current Step"
 }

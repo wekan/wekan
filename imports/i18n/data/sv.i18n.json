@@ -1570,6 +1570,7 @@
   "operation-type": "Operationstyp",
   "overall-progress": "Övergripande förlopp",
   "page": "Sida",
+  "pause": "Pause",
   "pause-migration": "Pausa migrering",
   "previous": "Föregående",
   "refresh": "Uppdatera",
@@ -1599,5 +1600,6 @@
   "weight": "Vikt",
   "idle": "Inaktiv",
   "complete": "Avslutad",
-  "cron": "Cron"
+  "cron": "Cron",
+  "current-step": "Nuvarande steg"
 }

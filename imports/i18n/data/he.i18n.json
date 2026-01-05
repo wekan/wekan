@@ -1570,6 +1570,7 @@
   "operation-type": "סוג הפעולה",
   "overall-progress": "סך כל ההתקדמות",
   "page": "עמוד",
+  "pause": "Pause",
   "pause-migration": "השהיית הסבה",
   "previous": "הקודם",
   "refresh": "ריענון",
@@ -1599,5 +1600,6 @@
   "weight": "משקל",
   "idle": "בהמתנה",
   "complete": "הושלם",
-  "cron": "מתזמן"
+  "cron": "מתזמן",
+  "current-step": "Current Step"
 }

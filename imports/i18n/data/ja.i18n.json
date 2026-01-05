@@ -1570,6 +1570,7 @@
   "operation-type": "Operation Type",
   "overall-progress": "Overall Progress",
   "page": "Page",
+  "pause": "Pause",
   "pause-migration": "Pause Migration",
   "previous": "Previous",
   "refresh": "Refresh",
@@ -1599,5 +1600,6 @@
   "weight": "重み",
   "idle": "アイドル",
   "complete": "完了",
-  "cron": "スケジュール"
+  "cron": "スケジュール",
+  "current-step": "Current Step"
 }

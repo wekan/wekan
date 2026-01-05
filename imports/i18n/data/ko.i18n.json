@@ -1570,6 +1570,7 @@
   "operation-type": "Operation Type",
   "overall-progress": "Overall Progress",
   "page": "Page",
+  "pause": "Pause",
   "pause-migration": "Pause Migration",
   "previous": "Previous",
   "refresh": "Refresh",
@@ -1599,5 +1600,6 @@
   "weight": "가중치",
   "idle": "유휴",
   "complete": "완료",
-  "cron": "스케줄러"
+  "cron": "스케줄러",
+  "current-step": "Current Step"
 }

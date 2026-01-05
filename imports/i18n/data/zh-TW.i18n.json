@@ -1570,6 +1570,7 @@
   "operation-type": "操作類型",
   "overall-progress": "整體進度",
   "page": "頁面",
+  "pause": "Pause",
   "pause-migration": "暫停遷移",
   "previous": "前一個",
   "refresh": "重新整理",
@@ -1599,5 +1600,6 @@
   "weight": "權重",
   "idle": "閒置",
   "complete": "完成",
-  "cron": "Cron"
+  "cron": "Cron",
+  "current-step": "目前步驟"
 }

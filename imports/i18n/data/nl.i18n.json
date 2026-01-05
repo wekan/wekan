@@ -1570,6 +1570,7 @@
   "operation-type": "Actie Type",
   "overall-progress": "Algehele Voortgang",
   "page": "Pagina",
+  "pause": "Pause",
   "pause-migration": "Pauzeer Migratie",
   "previous": "Vorige",
   "refresh": "Bijwerken",
@@ -1599,5 +1600,6 @@
   "weight": "Gewicht",
   "idle": "Inactief",
   "complete": "Voltooid",
-  "cron": "Planning"
+  "cron": "Planning",
+  "current-step": "Huidige Stap"
 }
