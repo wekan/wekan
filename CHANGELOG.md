@@ -22,6 +22,22 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/pull/6059).
+  Thanks to dependabot.
+- [Updated dependencies and published as @wekanteam npm packages to npmjs.com](https://github.com/wekan/wekan/commit/a9a89b501a91ffcdbdd611a05029d9483c59e4db).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix attachment download error with non-ASCII filenames](https://github.com/wekan/wekan/pull/6056).
+  Thanks to brlin-tw.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.19 2025-12-29 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [Megableed](https://wekan.fi/hall-of-fame/megableed/):
