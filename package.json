@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/wekan/wekan/issues"
   },
-  "homepage": "https://wekan.github.io",
+  "homepage": "https://wekan.fi",
   "devDependencies": {
     "flatted": "^3.3.1",
     "sinon": "^13.0.2"
@@ -22,10 +22,10 @@
     "@meteorjs/reify": "^0.25.4",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
     "@wekanteam/dragscroll": "https://github.com/wekan/dragscroll.git",
-    "@wekanteam/exceljs": "git+https://github.com/wekan/exceljs.git",
-    "@wekanteam/html-to-markdown": "^1.0.2",
-    "@wekanteam/meteor-globals": "^1.1.4",
-    "@wekanteam/meteor-reactive-cache": "^1.0.6",
+    "@wekanteam/exceljs": "https://github.com/wekan/exceljs.git",
+    "@wekanteam/html-to-markdown": "https://github.com/wekan/html-to-markdown.git",
+    "@wekanteam/meteor-globals": "https://github.com/wekan/meteor-globals.git",
+    "@wekanteam/meteor-reactive-cache": "https://github.com/wekan/meteor-reactive-cache.git",
     "ajv": "^6.12.6",
     "bcryptjs": "^2.4.3",
     "bson": "^4.7.2",
@@ -46,7 +46,7 @@
     "markdown-it-emoji": "^2.0.0",
     "markdown-it-mathjax3": "^4.3.2",
     "meteor-accounts-t9n": "^2.6.0",
-    "meteor-node-stubs": "^1.2.24",
+    "meteor-node-stubs": "https://github.com/wekan/meteor-node-stubs.git",
     "os": "^0.1.2",
     "papaparse": "^5.5.3",
     "pretty-ms": "^7.0.1",
