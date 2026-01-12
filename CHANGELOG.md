@@ -61,6 +61,8 @@ and adds the following updates:
   Thanks to dependabot.
 - [Updated dependencies and published as @wekanteam npm packages to npmjs.com](https://github.com/wekan/wekan/commit/a9a89b501a91ffcdbdd611a05029d9483c59e4db).
   Thanks to xet7.
+- [Added FerretDB2/PostgreSQL Docs](https://github.com/wekan/wekan/commit/9fb1aeb8272b011c3d0b6b2c26ff7cb498c7b37f).
+  Thanks to juri_ at WeKan Libera.Chat IRC and xet7.
 
 and fixes the following bugs:
 
