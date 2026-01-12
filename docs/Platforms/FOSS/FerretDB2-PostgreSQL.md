@@ -30,6 +30,9 @@ Edit `/etc/postgresql/17/main/postgresql.conf`, there set
 ```
 shared_preload_libraries = 'pg_cron, pg_documentdb, pg_documentdb_core'
 ```
+edit `/etc/postgresql/17/main/pg_hba.conf` ,
+replace **scram-sha-256` with trust on the host lines for `127.0.0.1/32` and `::1/128`
+
 Restart PostgreSQL:
 ```
 sudo service postgresql restart
@@ -47,7 +50,7 @@ Install:
 ```
 sudo apt -y install /tmp/ferretdb-amd64-linux.deb
 ```
-Edit your `/etc/systemd/system/ferritdb.service` file,
+Edit your `/etc/systemd/system/ferretdb.service` file,
 add your username/password pair to the following line:
 ```
 Environment="FERRETDB_POSTGRESQL_URL=postgres://ferret:DB_PASSWORD_GOES_HERE@127.0.0.1:5432/postgres"
@@ -77,7 +80,7 @@ GRANT documentdb_admin_role to ferret;
 ```
 ## Launching WeKan
 ```
-export PATH=$PATH:/home/demo/.meteor
+export PATH=$HOME/.meteor
 cd ~/wekan
 
 MONGO_URL=mongodb://ferret:DB_PASSWORD_GOES_HERE@127.0.0.1:27017/wekan \
