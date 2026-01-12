@@ -65,6 +65,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/9fb1aeb8272b011c3d0b6b2c26ff7cb498c7b37f),
   [Part 2](https://github.com/wekan/wekan/commit/f198421f10dd3be9d58f64a242d12ea1ef45fee3).
   Thanks to juri_ at WeKan Libera.Chat IRC and xet7.
+- [Added s390x firewall Docs](https://github.com/wekan/wekan/commit/ec7c0e6dc3641f43b1a110d285f6ef15c146584a).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
