@@ -1,5 +1,5 @@
 name: 🐛 Bug Report
-description: Report a bug to help improve Wekan
+description: Report a bug to help improve WeKan
 labels: ["bug"]
 body:
   - type: markdown
