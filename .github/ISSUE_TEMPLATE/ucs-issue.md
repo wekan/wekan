@@ -1,0 +1,23 @@
+name: 🗳️ Univention (UCS) Issue
+description: Problems specifically related to the Wekan app on Univention Corporate Server
+labels: ["UCS"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🛑 Is this a UCS-specific issue?
+        
+        If your issue is related to the **Univention Corporate Server (UCS) integration**, packaging, or installation via the Univention App Center, it should be reported in the dedicated Univention repository.
+        
+        ### ➡️ [Report UCS Issues Here](https://github.com/wekan/univention/issues)
+        
+        ---
+        **Why?**
+        Reporting there ensures that the maintainers specifically focused on the UCS environment see your request. 
+        
+        If you are certain this is a **core Wekan bug** that affects all platforms (Docker, Snap, etc.), please go back and use the standard [Bug Report](https://github.com/wekan/wekan/issues/new?template=bug-report.yml) template.
+  - type: textarea
+    id: ucs-details
+    attributes:
+      label: Brief Description (Optional)
+      description: If you still wish to post here, please provide a brief summary of why this is a core Wekan issue and not a UCS-specific integration bug.
