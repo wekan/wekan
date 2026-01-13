@@ -107,7 +107,9 @@
   font-size: 22px;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-handle {
+  position: absolute;
   top: calc(50% + 2px);
+  right: 60px;
   padding: 2px;
   font-size: clamp(16px, 3vw, 20px);
   transform: translateY(-50%);
