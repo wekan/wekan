@@ -187,7 +187,7 @@ BlazeComponent.extendComponent({
   },
 
   uploadedAvatars() {
-    const ret = ReactiveCache.getAvatars({ userId: Meteor.userId() }, {}, true).each();
+    const ret = ReactiveCache.getAvatars({ userId: Meteor.userId() }, {}, true);
     return ret;
   },
 
@@ -205,7 +205,11 @@ BlazeComponent.extendComponent({
   },
 
   setAvatar(avatarUrl) {
-    ReactiveCache.getCurrentUser().setAvatarUrl(avatarUrl);
+    Meteor.call('setAvatarUrl', avatarUrl, (err) => {
+      if (err) {
+        this.setError(err.reason || 'Error setting avatar');
+      }
+    });
   },
 
   setError(error) {
@@ -234,43 +238,29 @@ BlazeComponent.extendComponent({
             uploader.start();
           }
         },
-        'click .js-select-avatar'() {
-          const avatarUrl = this.currentData().link();
-          this.setAvatar(avatarUrl);
+        'click .js-select-avatar'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          const data = Blaze.getData(event.currentTarget);
+          if (data && typeof data.link === 'function') {
+            const avatarUrl = data.link();
+            this.setAvatar(avatarUrl);
+          }
         },
-        'click .js-select-initials'() {
+        'click .js-select-initials'(event) {
+          event.preventDefault();
+          event.stopPropagation();
           this.setAvatar('');
         },
-        'click .js-delete-avatar'(event) {
-          Avatars.remove(this.currentData()._id);
+        'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', function(event) {
+          Avatars.remove(this._id);
+          Popup.back();
           event.stopPropagation();
-        },
+        }),
       },
     ];
   },
 }).register('changeAvatarPopup');
-
-Template.cardMembersPopup.helpers({
-  isCardMember() {
-    const card = Template.parentData();
-    const cardMembers = card.getMembers();
-
-    return _.contains(cardMembers, this.userId);
-  },
-
-  user() {
-    return ReactiveCache.getUser(this.userId);
-  },
-});
-
-Template.cardMembersPopup.events({
-  'click .js-select-member'(event) {
-    const card = Utils.getCurrentCard();
-    const memberId = this.userId;
-    card.toggleMember(memberId);
-    event.preventDefault();
-  },
-});
 
 Template.cardMemberPopup.helpers({
   user() {

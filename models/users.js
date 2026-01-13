@@ -1970,9 +1970,69 @@ Meteor.methods({
     Users.remove(targetUserId);
     return { success: true, message: 'User deleted successfully' };
   },
+  editUser(targetUserId, updateData) {
+    check(targetUserId, String);
+    check(updateData, Object);
+
+    const currentUserId = Meteor.userId();
+    if (!currentUserId) {
+      throw new Meteor.Error('not-authorized', 'User must be logged in');
+    }
+
+    const currentUser = ReactiveCache.getUser(currentUserId);
+    if (!currentUser) {
+      throw new Meteor.Error('not-authorized', 'Current user not found');
+    }
+
+    // Check if current user is admin
+    if (!currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Only administrators can edit other users');
+    }
+
+    const targetUser = ReactiveCache.getUser(targetUserId);
+    if (!targetUser) {
+      throw new Meteor.Error('user-not-found', 'Target user not found');
+    }
+
+    // Only allow updating specific fields
+    const updateObject = {};
+    if (updateData.fullname !== undefined) {
+      updateObject['profile.fullname'] = updateData.fullname;
+    }
+    if (updateData.initials !== undefined) {
+      updateObject['profile.initials'] = updateData.initials;
+    }
+    if (updateData.isAdmin !== undefined) {
+      updateObject.isAdmin = updateData.isAdmin;
+    }
+    if (updateData.loginDisabled !== undefined) {
+      updateObject.loginDisabled = updateData.loginDisabled;
+    }
+    if (updateData.authenticationMethod !== undefined) {
+      updateObject.authenticationMethod = updateData.authenticationMethod;
+    }
+    if (updateData.importUsernames !== undefined) {
+      updateObject.importUsernames = updateData.importUsernames;
+    }
+    if (updateData.teams !== undefined) {
+      updateObject.teams = updateData.teams;
+    }
+    if (updateData.orgs !== undefined) {
+      updateObject.orgs = updateData.orgs;
+    }
+
+    Users.update(targetUserId, { $set: updateObject });
+  },
   setListSortBy(value) {
     check(value, String);
     ReactiveCache.getCurrentUser().setListSortBy(value);
+  },
+  setAvatarUrl(avatarUrl) {
+    check(avatarUrl, String);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    Users.update(this.userId, { $set: { 'profile.avatarUrl': avatarUrl } });
   },
   toggleBoardStar(boardId) {
     check(boardId, String);

@@ -23,6 +23,9 @@
   background-color: #dbdbdb;
   color: #444;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .member .avatar.avatar-image {
   object-fit: cover;

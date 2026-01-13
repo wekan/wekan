@@ -4,27 +4,27 @@ template(name="settingHeaderBar")
 
   .setting-header-btns.left
     if currentUser
-      a.setting-header-btn.settings(href="{{pathFor 'setting'}}")
+      a.setting-header-btn.settings(class=isSettingsActive href="{{pathFor 'setting'}}")
         span.emoji-icon ⚙️
         span {{_ 'settings'}}
 
-      a.setting-header-btn.people(href="{{pathFor 'people'}}")
+      a.setting-header-btn.people(class=isPeopleActive href="{{pathFor 'people'}}")
         span.emoji-icon 👥
         span {{_ 'people'}}
 
-      a.setting-header-btn.informations(href="{{pathFor 'admin-reports'}}")
+      a.setting-header-btn.informations(class=isAdminReportsActive href="{{pathFor 'admin-reports'}}")
         span.emoji-icon 📋
         span {{_ 'reports'}}
 
-      a.setting-header-btn.informations(href="{{pathFor 'attachments'}}")
+      a.setting-header-btn.informations(class=isAttachmentsActive href="{{pathFor 'attachments'}}")
         span.emoji-icon 📎
         span {{_ 'attachments'}}
 
-      a.setting-header-btn.informations(href="{{pathFor 'translation'}}")
+      a.setting-header-btn.informations(class=isTranslationActive href="{{pathFor 'translation'}}")
         span.emoji-icon 🔤
         span {{_ 'translation'}}
 
-      a.setting-header-btn.informations(href="{{pathFor 'information'}}")
+      a.setting-header-btn.informations(class=isInformationActive href="{{pathFor 'information'}}")
         span.emoji-icon ℹ️
         span {{_ 'info'}}
 
