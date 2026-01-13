@@ -78,11 +78,25 @@
 #header #header-main-bar .board-header-btn .board-header-btn-close i.fa {
   margin: 0 6px;
 }
+#header #header-main-bar .board-header-btn .board-header-btn-icon {
+  float: left;
+  display: block;
+  line-height: 28px;
+  color: #27ae60;
+  margin: 0 10px;
+  cursor: pointer;
+}
 #header #header-main-bar .board-header-btn.is-active,
 #header #header-main-bar h1.is-clickable.is-active,
 #header #header-main-bar .board-header-btn:hover:not(.is-disabled),
 #header #header-main-bar h1.is-clickable:hover:not(.is-disabled) {
   background: rgba(0,0,0,0.15);
+}
+#header #header-main-bar .board-header-btn.js-multiselection-active {
+  background: #1a5080;
+}
+#header #header-main-bar .board-header-btn.js-multiselection-active:hover {
+  background: #0f3a5f;
 }
 #header #header-main-bar .separator {
   margin: 2px 4px;

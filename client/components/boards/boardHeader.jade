@@ -102,14 +102,16 @@ template(name="boardHeaderBar")
 
       a.board-header-btn.js-open-filter-view(
           title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}"
-          class="{{#if Filter.isActive}}emphasis{{/if}}")
-        | 🔽
+          class="{{#if Filter.isActive}}js-filter-active{{/if}}")
+        | 🎛️
+        span {{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}
         if Filter.isActive
           a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
             | ❌
 
       a.board-header-btn.js-open-search-view(title="{{_ 'search'}}")
-        span.emoji-icon 🔍
+        | 🔍
+        span {{_ 'search'}}
 
       unless currentBoard.isTemplatesBoard
         a.board-header-btn.js-toggle-board-view(
@@ -123,15 +125,27 @@ template(name="boardHeaderBar")
             | 📅
           if $eq boardView 'board-view-gantt'
             | 📊
-
+          span
+            if $eq boardView 'board-view-swimlanes'
+              | {{_ 'board-view-swimlanes'}}
+            if $eq boardView 'board-view-lists'
+              | {{_ 'board-view-lists'}}
+            if $eq boardView 'board-view-cal'
+              | {{_ 'board-view-cal'}}
+            if $eq boardView 'board-view-gantt'
+              | {{_ 'board-view-gantt'}}
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
             title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
-            class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
-          | ☑️
-        if MultiSelection.isActive
-          a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-            | ❌
+            class="{{#if MultiSelection.isActive}}js-multiselection-active{{/if}}")
+          if MultiSelection.isActive
+            | 🗂️
+          else
+            | 🗂️
+          span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+          if MultiSelection.isActive
+            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-off'}}")
+              | ❌
 
       .separator
       a.board-header-btn.js-toggle-sidebar(title="{{_ 'sidebar-open'}} {{_ 'or'}} {{_ 'sidebar-close'}}")
