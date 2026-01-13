@@ -74,12 +74,12 @@ Activities.before.insert((userId, doc) => {
   doc.modifiedAt = doc.createdAt;
 });
 
-Activities.after.insert((userId, doc) => {
-  const activity = Activities._transform(doc);
-  RulesHelper.executeRules(activity);
-});
-
 if (Meteor.isServer) {
+  Activities.after.insert((userId, doc) => {
+    const activity = Activities._transform(doc);
+    RulesHelper.executeRules(activity);
+  });
+
   // For efficiency create indexes on the date of creation, and on the date of
   // creation in conjunction with the card or board id, as corresponding views
   // are largely used in the App. See #524.
