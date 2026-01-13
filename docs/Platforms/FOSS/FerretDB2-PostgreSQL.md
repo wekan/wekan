@@ -1,6 +1,10 @@
 # Install WeKan, FerretDB 2, PostgreSQL
 
+- https://blog.ferretdb.io/building-project-management-stack-wekan-ferretdb/
+
 ## WeKan
+
+- Alternatively, use wekan-app Docker container from https://raw.githubusercontent.com/wekan/wekan/refs/heads/main/docker-compose.yml
 
 ```
 git clone --branch main --depth 1 https://github.com/wekan/wekan.git
