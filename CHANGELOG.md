@@ -71,7 +71,8 @@ and adds the following updates:
   Thanks to xet7.
 - Updated GitHub issue templates.
   [Part 1](https://github.com/wekan/wekan/commit/bd37b88e4d508c1f2712184a27dbbfd9df0e4c4e),
-  [Part 2](https://github.com/wekan/wekan/commit/cf6e6914989a7bf1d79f8b753a0a576c54ad7580).
+  [Part 2](https://github.com/wekan/wekan/commit/cf6e6914989a7bf1d79f8b753a0a576c54ad7580),
+  [Part 3](https://github.com/wekan/wekan/commit/4a658dc02a770f8219669dc10bfe1077c760744f).
   Thanks to xet7.
 
 and fixes the following bugs:
