@@ -83,6 +83,8 @@ and fixes the following bugs:
   Thanks to TDSCDMA and xet7.
 - [Removed extra list borders](https://github.com/wekan/wekan/commit/a4f8faa48e3fb6c617cf9c5a398bc7f85b8bae92).
   Thanks to TDSCDMA and xet7.
+- [Add back button texts to Filter, Search, Board View and MultiSelection](https://github.com/wekan/wekan/commit/dac7e17500de97febc7ad8f84cd1bf5edab27c52).
+  Thanks to audiocrush and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
