@@ -1425,7 +1425,7 @@ THEME - Clear Blue
 }
 .board-color-clearblue .list {
   background: rgba(255,255,255,0.35);
-  margin: 10px;
+  margin: 10px 0;
   border: 0;
   border-radius: 14px;
 }
@@ -2588,7 +2588,7 @@ THEME - Exodark
   background: #222;
 }
 .board-color-exodark .list {
-  margin: 10px;
+  margin: 10px 0;
   color: #fff;
   border-radius: 15px;
   background-color: #1c1c1c;
