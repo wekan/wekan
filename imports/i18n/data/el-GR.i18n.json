@@ -281,6 +281,8 @@
   "change-permissions": "Αλλαγή δικαιωμάτων",
   "change-settings": "Αλλαγή Ρυθμίσεων",
   "changeAvatarPopup-title": "Αλλαγή Avatar",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Αλλαγή Γλώσσας",
   "changePasswordPopup-title": "Αλλαγή Κωδικού",
   "changePermissionsPopup-title": "Αλλαγή Δικαιωμάτων",

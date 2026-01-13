@@ -281,6 +281,8 @@
   "change-permissions": "Wijzig permissies",
   "change-settings": "Wijzig instellingen",
   "changeAvatarPopup-title": "Wijzig avatar",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Wijzig taal",
   "changePasswordPopup-title": "Wijzig wachtwoord",
   "changePermissionsPopup-title": "Wijzig permissies",

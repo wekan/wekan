@@ -281,6 +281,8 @@
   "change-permissions": "Tukar Kebenaran",
   "change-settings": "Tukar Tetapan",
   "changeAvatarPopup-title": "Tukar Avatar",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Tukar Bahasa",
   "changePasswordPopup-title": "Tukar Kata Laluan",
   "changePermissionsPopup-title": "Tukar Kebenaran",

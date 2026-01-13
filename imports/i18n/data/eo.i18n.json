@@ -281,6 +281,8 @@
   "change-permissions": "Change permissions",
   "change-settings": "Ŝanĝi agordojn",
   "changeAvatarPopup-title": "Change Avatar",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Ŝanĝi lingvon",
   "changePasswordPopup-title": "Ŝangi pasvorton",
   "changePermissionsPopup-title": "Change Permissions",

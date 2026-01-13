@@ -281,6 +281,8 @@
   "change-permissions": "권한 변경",
   "change-settings": "설정 변경",
   "changeAvatarPopup-title": "아바타 변경",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "언어 변경",
   "changePasswordPopup-title": "암호 변경",
   "changePermissionsPopup-title": "권한 변경",

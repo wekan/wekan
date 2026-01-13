@@ -281,6 +281,8 @@
   "change-permissions": "Cambiar las permissions",
   "change-settings": "Cambiar los paramètres",
   "changeAvatarPopup-title": "Cambiar la fòto",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Cambiar la lenga",
   "changePasswordPopup-title": "Cambiar lo mot de Santa-Clara",
   "changePermissionsPopup-title": "Cambiar las permissions",

@@ -281,6 +281,8 @@
   "change-permissions": "İzinleri değiştir",
   "change-settings": "Ayarları değiştir",
   "changeAvatarPopup-title": "Avatar Değiştir",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Dil Değiştir",
   "changePasswordPopup-title": "Parola Değiştir",
   "changePermissionsPopup-title": "Yetkileri Değiştirme",

@@ -281,6 +281,8 @@
   "change-permissions": "Промени правата",
   "change-settings": "Промяна на настройките",
   "changeAvatarPopup-title": "Промени аватара",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Промени езика",
   "changePasswordPopup-title": "Промени паролата",
   "changePermissionsPopup-title": "Промени правата",

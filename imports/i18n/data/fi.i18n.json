@@ -281,6 +281,8 @@
   "change-permissions": "Muokkaa oikeuksia",
   "change-settings": "Muokkaa asetuksia",
   "changeAvatarPopup-title": "Muokkaa profiilikuvaa",
+  "delete-avatar-confirm": "Haluatko varmasti poistaa tämän profiilikuvan?",
+  "deleteAvatarPopup-title": "Poista profiilikuva?",
   "changeLanguagePopup-title": "Vaihda kieltä",
   "changePasswordPopup-title": "Vaihda salasana",
   "changePermissionsPopup-title": "Muokkaa oikeuksia",

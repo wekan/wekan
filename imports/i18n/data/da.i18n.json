@@ -281,6 +281,8 @@
   "change-permissions": "Tilpas tilladelser",
   "change-settings": "Tilpas indstillinger",
   "changeAvatarPopup-title": "Tilpas avatar",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Skift sprog",
   "changePasswordPopup-title": "Skift kodeord",
   "changePermissionsPopup-title": "Tilpas tilladelser",

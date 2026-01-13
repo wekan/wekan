@@ -281,6 +281,8 @@
   "change-permissions": "Spremeni dovoljenja",
   "change-settings": "Spremeni nastavitve",
   "changeAvatarPopup-title": "Spremeni avatar",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "Spremeni jezik",
   "changePasswordPopup-title": "Spremeni geslo",
   "changePermissionsPopup-title": "Spremeni dovoljenja",

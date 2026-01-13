@@ -281,6 +281,8 @@
   "change-permissions": "تعديل الصلاحيات",
   "change-settings": "تغيير الاعدادات",
   "changeAvatarPopup-title": "تعديل الصورة الشخصية",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "تغيير اللغة",
   "changePasswordPopup-title": "تغيير كلمة المرور",
   "changePermissionsPopup-title": "تعديل الصلاحيات",

@@ -281,6 +281,8 @@
   "change-permissions": "პარამეტრების შეცვლა",
   "change-settings": "პარამეტრების შეცვლა",
   "changeAvatarPopup-title": "სურათის შეცვლა",
+  "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
+  "deleteAvatarPopup-title": "Delete Avatar?",
   "changeLanguagePopup-title": "ენის შეცვლა",
   "changePasswordPopup-title": "პაროლის შეცვლა",
   "changePermissionsPopup-title": "უფლებების შეცვლა",
