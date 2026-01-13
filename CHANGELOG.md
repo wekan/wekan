@@ -74,6 +74,10 @@ and adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/cf6e6914989a7bf1d79f8b753a0a576c54ad7580),
   [Part 3](https://github.com/wekan/wekan/commit/4a658dc02a770f8219669dc10bfe1077c760744f).
   Thanks to xet7.
+- [Migrate kadira:flow-router to ostrio:flow-router-extra](https://github.com/wekan/wekan/pull/6067), related to Meteor 3 upgrades.
+  Thanks to harryadel.
+- [Some fixes to make WeKan working after Meteor 3 related router upgrades](https://github.com/wekan/wekan/commit/984a2dcec18fd20ebd1a5add8380d4c13d8303ba).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
