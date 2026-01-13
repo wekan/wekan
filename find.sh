@@ -15,4 +15,4 @@ fi
 
 #find . | grep -v node_modules | grep -v .build | grep -v .meteor | grep -v .git | xargs grep --no-messages $1 | less
 #find . -print0 | grep -v node_modules | grep -v .build | grep -v .meteor | grep -v .git | xargs -0 grep --no-messages $1 | less
-find . -type f -not -path '*/node_modules/*' -not -path '*/.build/*' -not -path '*/.meteor/*' -not -path '*/.git/*' -exec grep -I --no-messages "$1" {} + | less
+find . -type f -not -path '*/node_modules/*' -not -path '*/.build/*' -not -path '*/.meteor/*' -not -path '*/.git/*' -not -path '*/imports/i18n/data/*' -exec grep -I --no-messages "$1" {} + | less
