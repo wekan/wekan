@@ -839,16 +839,7 @@ Template.editUserPopup.events({
         ? user.emails[0].address.toLowerCase()
         : false);
 
-    Users.update(this.userId, {
-      $set: {
-        'profile.fullname': fullname,
-        isAdmin: isAdmin === 'true',
-        loginDisabled: isActive === 'true',
-        authenticationMethod: authentication,
-        importUsernames: Users.parseImportUsernames(importUsernames),
-      },
-    });
-
+    // Build user teams list
     let userTeamsList = userTeams.split(",");
     let userTeamsIdsList = userTeamsIds.split(",");
     let userTms = [];
@@ -861,12 +852,7 @@ Template.editUserPopup.events({
       }
     }
 
-    Users.update(this.userId, {
-      $set:{
-        teams: userTms
-      }
-    });
-
+    // Build user orgs list
     let userOrgsList = userOrgs.split(",");
     let userOrgsIdsList = userOrgsIds.split(",");
     let userOrganizations = [];
@@ -879,9 +865,20 @@ Template.editUserPopup.events({
       }
     }
 
-    Users.update(this.userId, {
-      $set:{
-        orgs: userOrganizations
+    // Update user via Meteor method (for admin to edit other users)
+    const updateData = {
+      fullname: fullname,
+      isAdmin: isAdmin === 'true',
+      loginDisabled: isActive === 'true',
+      authenticationMethod: authentication,
+      importUsernames: Users.parseImportUsernames(importUsernames),
+      teams: userTms,
+      orgs: userOrganizations,
+    };
+
+    Meteor.call('editUser', this.userId, updateData, (error) => {
+      if (error) {
+        console.error('Error updating user:', error);
       }
     });
 
