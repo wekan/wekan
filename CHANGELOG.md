@@ -79,6 +79,8 @@ and fixes the following bugs:
 
 - [Fix attachment download error with non-ASCII filenames](https://github.com/wekan/wekan/pull/6056).
   Thanks to brlin-tw.
+- [Swimlane drag button position improvements](https://github.com/wekan/wekan/commit/376a30f8a9c5cc6b5341fda7336244ee1b9983fd).
+  Thanks to TDSCDMA and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
