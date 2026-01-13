@@ -87,6 +87,8 @@ and fixes the following bugs:
   Thanks to audiocrush and xet7.
 - [Removed extra pipe character from UI](https://github.com/wekan/wekan/commit/66e79d2df7ecf5526dbae360cf93352657db7fcf).
   Thanks to xet7.
+- [Changed find.sh to not search from translations, because I'm trying to find code, not translations](https://github.com/wekan/wekan/commit/58ae2b6c6848235132308611fe3083533e120f72).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
