@@ -1,4 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 let previousPath;
 FlowRouter.triggers.exit([
@@ -505,11 +506,11 @@ FlowRouter.route('/translation', {
   },
 });
 
-FlowRouter.notFound = {
+FlowRouter.route('*', {
   action() {
     this.render('defaultLayout', { content: 'notFound' });
   },
-};
+});
 
 // We maintain a list of redirections to ensure that we don't break old URLs
 // when we change our routing scheme.

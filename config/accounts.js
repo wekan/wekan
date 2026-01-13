@@ -1,4 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 const passwordField = AccountsTemplates.removeField('password');
 passwordField.autocomplete = 'current-password';

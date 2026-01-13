@@ -2018,6 +2018,7 @@ Meteor.methods({
   },
   // Spaces: create a new space under parentId (or root when null)
   createWorkspace({ parentId = null, name }) {
+    check(parentId, Match.OneOf(String, null));
     check(name, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
     const user = Users.findOne(this.userId) || {};

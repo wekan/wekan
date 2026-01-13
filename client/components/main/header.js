@@ -1,10 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Meteor.subscribe('user-admin');
 Meteor.subscribe('boards');
 Meteor.subscribe('setting');
 Meteor.subscribe('announcements');
-Template.header.onCreated(function(){
+Template.header.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
@@ -13,10 +14,21 @@ Template.header.onCreated(function(){
     onReady() {
       templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
       let currSetting = templateInstance.currentSetting.curValue;
-      if(currSetting && currSetting !== undefined && currSetting.customLoginLogoImageUrl !== undefined && document.getElementById("headerIsSettingDatabaseCallDone") != null)
-        document.getElementById("headerIsSettingDatabaseCallDone").style.display = 'none';
-      else if(document.getElementById("headerIsSettingDatabaseCallDone") != null)
-        document.getElementById("headerIsSettingDatabaseCallDone").style.display = 'block';
+      if (
+        currSetting &&
+        currSetting !== undefined &&
+        currSetting.customLoginLogoImageUrl !== undefined &&
+        document.getElementById('headerIsSettingDatabaseCallDone') != null
+      )
+        document.getElementById(
+          'headerIsSettingDatabaseCallDone',
+        ).style.display = 'none';
+      else if (
+        document.getElementById('headerIsSettingDatabaseCallDone') != null
+      )
+        document.getElementById(
+          'headerIsSettingDatabaseCallDone',
+        ).style.display = 'block';
       return this.stop();
     },
   });
@@ -74,10 +86,15 @@ Template.header.events({
   },
 
   'keypress .js-zoom-input'(evt) {
-    if (evt.which === 13) { // Enter key
+    if (evt.which === 13) {
+      // Enter key
       const newZoomPercent = parseInt(evt.target.value);
 
-      if (!isNaN(newZoomPercent) && newZoomPercent >= 50 && newZoomPercent <= 300) {
+      if (
+        !isNaN(newZoomPercent) &&
+        newZoomPercent >= 50 &&
+        newZoomPercent <= 300
+      ) {
         const newZoom = newZoomPercent / 100;
         Utils.setZoomLevel(newZoom);
 

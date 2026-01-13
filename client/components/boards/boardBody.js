@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import '../gantt/gantt.js';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
 import { boardConverter } from '/client/lib/boardConverter';
