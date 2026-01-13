@@ -22,7 +22,7 @@ template(name="sidebar")
       //  i.fa.fa-navicon
       unless isDefaultView
         h2
-          a.js-back-home | ⬅️
+          a.js-back-home ⬅️
           = getViewTitle
       if isOpen
         +Template.dynamic(template=getViewTemplate)
