@@ -1,3 +1,5 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
 // Add click handler to ganttView for card titles
 Template.ganttView.events({
   'click .js-gantt-card-title'(event, template) {

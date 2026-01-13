@@ -74,12 +74,12 @@ Activities.before.insert((userId, doc) => {
   doc.modifiedAt = doc.createdAt;
 });
 
-Activities.after.insert((userId, doc) => {
-  const activity = Activities._transform(doc);
-  RulesHelper.executeRules(activity);
-});
-
 if (Meteor.isServer) {
+  Activities.after.insert((userId, doc) => {
+    const activity = Activities._transform(doc);
+    RulesHelper.executeRules(activity);
+  });
+
   // For efficiency create indexes on the date of creation, and on the date of
   // creation in conjunction with the card or board id, as corresponding views
   // are largely used in the App. See #524.
@@ -202,7 +202,7 @@ if (Meteor.isServer) {
       params.comment = comment.text;
       if (board) {
         const comment = params.comment;
-        const knownUsers = board.members.map(member => {
+        const knownUsers = board.members.map((member) => {
           const u = ReactiveCache.getUser(member.userId);
           if (u) {
             member.username = u.username;
@@ -223,7 +223,7 @@ if (Meteor.isServer) {
 
           if (activity.boardId && username === 'board_members') {
             // mentions all board members
-            const knownUids = knownUsers.map(u => u.userId);
+            const knownUids = knownUsers.map((u) => u.userId);
             watchers = _.union(watchers, [...knownUids]);
             title = 'act-atUserComment';
           } else if (activity.cardId && username === 'card_members') {
@@ -243,7 +243,6 @@ if (Meteor.isServer) {
             title = 'act-atUserComment';
             watchers = _.union(watchers, [uid]);
           }
-
         }
       }
       params.commentId = comment._id;
@@ -300,7 +299,7 @@ if (Meteor.isServer) {
       // due time reminder, if it doesn't have old value, it's a brand new set, need some differentiation
       title = activity.timeOldValue ? 'act-withDue' : 'act-newDue';
     }
-    ['timeValue', 'timeOldValue'].forEach(key => {
+    ['timeValue', 'timeOldValue'].forEach((key) => {
       // copy time related keys & values to params
       const value = activity[key];
       if (value) params[key] = value;
@@ -313,7 +312,7 @@ if (Meteor.isServer) {
           if (new RegExp(BIGEVENTS).exec(atype)) {
             watchers = _.union(
               watchers,
-              board.activeMembers().map(member => member.userId),
+              board.activeMembers().map((member) => member.userId),
             ); // notify all active members for important events
           }
         } catch (e) {
@@ -335,7 +334,7 @@ if (Meteor.isServer) {
         _.intersection(participants, trackingUsers),
       );
     }
-    Notifications.getUsers(watchers).forEach(user => {
+    Notifications.getUsers(watchers).forEach((user) => {
       // don't notify a user of their own behavior
       if (user._id !== userId) {
         Notifications.notify(user, title, description, params);
@@ -350,7 +349,7 @@ if (Meteor.isServer) {
     });
     if (integrations.length > 0) {
       params.watchers = watchers;
-      integrations.forEach(integration => {
+      integrations.forEach((integration) => {
         Meteor.call(
           'outgoingWebhooks',
           integration,

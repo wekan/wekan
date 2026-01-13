@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { CustomFields } from './customFields';
 import { 
   formatDateTime, 
   formatDate, 

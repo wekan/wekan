@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import Lists from '../../../models/lists';
 import { TAPi18n } from '/imports/i18n';
 import dragscroll from '@wekanteam/dragscroll';
 

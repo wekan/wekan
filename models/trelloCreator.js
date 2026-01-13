@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { CustomFields } from './customFields';
 import { 
   formatDateTime, 
   formatDate, 

@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 const subManager = new SubsManager();
 
@@ -17,7 +18,7 @@ Template.boardList.helpers({
   BoardMultiSelection() {
     return BoardMultiSelection;
   },
-})
+});
 
 Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
@@ -25,8 +26,7 @@ Template.boardListHeaderBar.events({
   },
 });
 
-Template.boardList.events({
-});
+Template.boardList.events({});
 
 Template.boardListHeaderBar.helpers({
   title() {
@@ -54,7 +54,7 @@ BlazeComponent.extendComponent({
     let currUser = ReactiveCache.getCurrentUser();
     let userLanguage;
     if (currUser && currUser.profile) {
-      userLanguage = currUser.profile.language
+      userLanguage = currUser.profile.language;
     }
     if (userLanguage) {
       TAPi18n.setLanguage(userLanguage);
@@ -69,7 +69,7 @@ BlazeComponent.extendComponent({
 
   reorderWorkspaces(draggedSpaceId, targetSpaceId) {
     const tree = this.workspacesTreeVar.get();
-    
+
     // Helper to remove a space from tree
     const removeSpace = (nodes, id) => {
       for (let i = 0; i < nodes.length; i++) {
@@ -86,7 +86,7 @@ BlazeComponent.extendComponent({
       }
       return { tree: nodes, removed: null };
     };
-    
+
     // Helper to insert a space after target
     const insertAfter = (nodes, targetId, spaceToInsert) => {
       for (let i = 0; i < nodes.length; i++) {
@@ -102,17 +102,20 @@ BlazeComponent.extendComponent({
       }
       return false;
     };
-    
+
     // Clone the tree
     const newTree = EJSON.clone(tree);
-    
+
     // Remove the dragged space
-    const { tree: treeAfterRemoval, removed } = removeSpace(newTree, draggedSpaceId);
-    
+    const { tree: treeAfterRemoval, removed } = removeSpace(
+      newTree,
+      draggedSpaceId,
+    );
+
     if (removed) {
       // Insert after target
       insertAfter(treeAfterRemoval, targetSpaceId, removed);
-      
+
       // Save the new tree
       Meteor.call('setWorkspacesTree', treeAfterRemoval, (err) => {
         if (err) console.error(err);
@@ -123,7 +126,6 @@ BlazeComponent.extendComponent({
   onRendered() {
     // jQuery sortable is disabled in favor of HTML5 drag-and-drop for space management
     // The old sortable code has been removed to prevent conflicts
-    
     /* OLD SORTABLE CODE - DISABLED
     const itemsSelector = '.js-board:not(.placeholder)';
 
@@ -166,30 +168,28 @@ BlazeComponent.extendComponent({
     */
   },
   userHasTeams() {
-    if (ReactiveCache.getCurrentUser()?.teams?.length > 0)
-      return true;
-    else
-      return false;
+    if (ReactiveCache.getCurrentUser()?.teams?.length > 0) return true;
+    else return false;
   },
   teamsDatas() {
-    const teams = ReactiveCache.getCurrentUser()?.teams
+    const teams = ReactiveCache.getCurrentUser()?.teams;
     if (teams)
-      return teams.sort((a, b) => a.teamDisplayName.localeCompare(b.teamDisplayName));
-    else
-      return [];
+      return teams.sort((a, b) =>
+        a.teamDisplayName.localeCompare(b.teamDisplayName),
+      );
+    else return [];
   },
   userHasOrgs() {
-    if (ReactiveCache.getCurrentUser()?.orgs?.length > 0)
-      return true;
-    else
-      return false;
+    if (ReactiveCache.getCurrentUser()?.orgs?.length > 0) return true;
+    else return false;
   },
   orgsDatas() {
     const orgs = ReactiveCache.getCurrentUser()?.orgs;
     if (orgs)
-      return orgs.sort((a, b) => a.orgDisplayName.localeCompare(b.orgDisplayName));
-    else
-      return [];
+      return orgs.sort((a, b) =>
+        a.orgDisplayName.localeCompare(b.orgDisplayName),
+      );
+    else return [];
   },
   userHasOrgsOrTeams() {
     const ret = this.userHasOrgs() || this.userHasTeams();
@@ -198,7 +198,7 @@ BlazeComponent.extendComponent({
   currentMenuPath() {
     const sel = this.selectedMenu.get();
     const currentUser = ReactiveCache.getCurrentUser();
-    
+
     // Helper to find space by id in tree
     const findSpaceById = (nodes, targetId, path = []) => {
       for (const node of nodes) {
@@ -206,13 +206,16 @@ BlazeComponent.extendComponent({
           return [...path, node];
         }
         if (node.children && node.children.length > 0) {
-          const result = findSpaceById(node.children, targetId, [...path, node]);
+          const result = findSpaceById(node.children, targetId, [
+            ...path,
+            node,
+          ]);
           if (result) return result;
         }
       }
       return null;
     };
-    
+
     if (sel === 'starred') {
       return { icon: '⭐', text: TAPi18n.__('allboards.starred') };
     } else if (sel === 'templates') {
@@ -224,8 +227,11 @@ BlazeComponent.extendComponent({
       const tree = this.workspacesTreeVar.get();
       const spacePath = findSpaceById(tree, sel);
       if (spacePath && spacePath.length > 0) {
-        const pathText = spacePath.map(s => s.name).join(' / ');
-        return { icon: '🗂️', text: `${TAPi18n.__('allboards.workspaces')} / ${pathText}` };
+        const pathText = spacePath.map((s) => s.name).join(' / ');
+        return {
+          icon: '🗂️',
+          text: `${TAPi18n.__('allboards.workspaces') || 'Workspaces'} / ${pathText}`,
+        };
       }
       return { icon: '🗂️', text: TAPi18n.__('allboards.workspaces') };
     }
@@ -235,18 +241,23 @@ BlazeComponent.extendComponent({
       $and: [
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
-        { title: { $not: { $regex: /^\^.*\^$/ } } }
-      ]
+        { title: { $not: { $regex: /^\^.*\^$/ } } },
+      ],
     };
     const membershipOrs = [];
 
-    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
+    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne(
+      'tableVisibilityMode-allowPrivateOnly',
+    );
 
     if (FlowRouter.getRouteName() === 'home') {
       membershipOrs.push({ 'members.userId': Meteor.userId() });
 
-      if (allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue) {
-        query.$and.push({ 'permission': 'private' });
+      if (
+        allowPrivateVisibilityOnly !== undefined &&
+        allowPrivateVisibilityOnly.booleanValue
+      ) {
+        query.$and.push({ permission: 'private' });
       }
       const currUser = ReactiveCache.getCurrentUser();
 
@@ -270,11 +281,13 @@ BlazeComponent.extendComponent({
         //query.$and[2].$or.push({'teams': { $elemMatch : {teamId: teamsIds[0]}}});
         membershipOrs.push({ 'teams.teamId': { $in: teamsIds } });
       }
-    if (membershipOrs.length) {
-      query.$and.splice(2, 0, { $or: membershipOrs });
-    }
-    }
-    else if (allowPrivateVisibilityOnly !== undefined && !allowPrivateVisibilityOnly.booleanValue) {
+      if (membershipOrs.length) {
+        query.$and.splice(2, 0, { $or: membershipOrs });
+      }
+    } else if (
+      allowPrivateVisibilityOnly !== undefined &&
+      !allowPrivateVisibilityOnly.booleanValue
+    ) {
       query = {
         archived: false,
         //type: { $in: ['board','template-container'] },
@@ -288,28 +301,33 @@ BlazeComponent.extendComponent({
     let list = boards;
     // Apply left menu filtering
     const sel = this.selectedMenu.get();
-    const assignments = (currentUser && currentUser.profile && currentUser.profile.boardWorkspaceAssignments) || {};
+    const assignments =
+      (currentUser &&
+        currentUser.profile &&
+        currentUser.profile.boardWorkspaceAssignments) ||
+      {};
     if (sel === 'starred') {
-      list = list.filter(b => currentUser && currentUser.hasStarred(b._id));
+      list = list.filter((b) => currentUser && currentUser.hasStarred(b._id));
     } else if (sel === 'templates') {
-      list = list.filter(b => b.type === 'template-container');
+      list = list.filter((b) => b.type === 'template-container');
     } else if (sel === 'remaining') {
       // Show boards not in any workspace AND not templates
       // Keep starred boards visible in Remaining too
-      list = list.filter(b => 
-        !assignments[b._id] && 
-        b.type !== 'template-container'
+      list = list.filter(
+        (b) => !assignments[b._id] && b.type !== 'template-container',
       );
     } else {
       // assume sel is a workspaceId
       // Keep starred boards visible in their workspace too
-      list = list.filter(b => assignments[b._id] === sel);
+      list = list.filter((b) => assignments[b._id] === sel);
     }
 
     if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
       return currentUser.sortBoardsForUser(list);
     }
-    return list.slice().sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    return list
+      .slice()
+      .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
   },
   boardLists(boardId) {
     /* Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
@@ -369,29 +387,35 @@ BlazeComponent.extendComponent({
         },
         'click .js-add-workspace'(evt) {
           evt.preventDefault();
-          const name = prompt(TAPi18n.__('allboards.add-workspace-prompt') || 'New Space name');
+          const name = prompt(
+            TAPi18n.__('allboards.add-workspace-prompt') || 'New Space name',
+          );
           if (name && name.trim()) {
-            Meteor.call('createWorkspace', { parentId: null, name: name.trim() }, (err, res) => {
-              if (err) console.error(err);
-            });
+            Meteor.call(
+              'createWorkspace',
+              { parentId: null, name: name.trim() },
+              (err, res) => {
+                if (err) console.error(err);
+              },
+            );
           }
         },
         'click .js-add-board'(evt) {
           // Store the currently selected workspace/menu for board creation
           const selectedWorkspaceId = this.selectedWorkspaceIdVar.get();
           const selectedMenu = this.selectedMenu.get();
-          
+
           if (selectedWorkspaceId) {
             Session.set('createBoardInWorkspace', selectedWorkspaceId);
           } else {
             Session.set('createBoardInWorkspace', null);
           }
-          
-            // Open different popup based on context
-            if (selectedMenu === 'templates') {
-              Popup.open('createTemplateContainer')(evt);
-            } else {
-              Popup.open('createBoard')(evt);
+
+          // Open different popup based on context
+          if (selectedMenu === 'templates') {
+            Popup.open('createTemplateContainer')(evt);
+          } else {
+            Popup.open('createBoard')(evt);
           }
         },
         'click .js-star-board'(evt) {
@@ -405,16 +429,27 @@ BlazeComponent.extendComponent({
         // HTML5 DnD from boards to spaces
         'dragstart .js-board'(evt) {
           const boardId = this.currentData()._id;
-          
+
           // Support multi-drag
-          if (BoardMultiSelection.isActive() && BoardMultiSelection.isSelected(boardId)) {
+          if (
+            BoardMultiSelection.isActive() &&
+            BoardMultiSelection.isSelected(boardId)
+          ) {
             const selectedIds = BoardMultiSelection.getSelectedBoardIds();
-            try { 
-              evt.originalEvent.dataTransfer.setData('text/plain', JSON.stringify(selectedIds));
-              evt.originalEvent.dataTransfer.setData('application/x-board-multi', 'true');
+            try {
+              evt.originalEvent.dataTransfer.setData(
+                'text/plain',
+                JSON.stringify(selectedIds),
+              );
+              evt.originalEvent.dataTransfer.setData(
+                'application/x-board-multi',
+                'true',
+              );
             } catch (e) {}
           } else {
-            try { evt.originalEvent.dataTransfer.setData('text/plain', boardId); } catch (e) {}
+            try {
+              evt.originalEvent.dataTransfer.setData('text/plain', boardId);
+            } catch (e) {}
           }
         },
         'click .js-clone-board'(evt) {
@@ -487,8 +522,11 @@ BlazeComponent.extendComponent({
         'click .js-archive-selected-boards'(evt) {
           evt.preventDefault();
           const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
-          if (selectedBoards.length > 0 && confirm(TAPi18n.__('archive-board-confirm'))) {
-            selectedBoards.forEach(boardId => {
+          if (
+            selectedBoards.length > 0 &&
+            confirm(TAPi18n.__('archive-board-confirm'))
+          ) {
+            selectedBoards.forEach((boardId) => {
               Meteor.call('archiveBoard', boardId);
             });
             BoardMultiSelection.reset();
@@ -497,8 +535,11 @@ BlazeComponent.extendComponent({
         'click .js-duplicate-selected-boards'(evt) {
           evt.preventDefault();
           const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
-          if (selectedBoards.length > 0 && confirm(TAPi18n.__('duplicate-board-confirm'))) {
-            selectedBoards.forEach(boardId => {
+          if (
+            selectedBoards.length > 0 &&
+            confirm(TAPi18n.__('duplicate-board-confirm'))
+          ) {
+            selectedBoards.forEach((boardId) => {
               const board = ReactiveCache.getBoard(boardId);
               if (board) {
                 Meteor.call(
@@ -511,7 +552,7 @@ BlazeComponent.extendComponent({
                   },
                   (err, res) => {
                     if (err) console.error(err);
-                  }
+                  },
                 );
               }
             });
@@ -519,35 +560,42 @@ BlazeComponent.extendComponent({
           }
         },
         'click #resetBtn'(event) {
-          let allBoards = document.getElementsByClassName("js-board");
+          let allBoards = document.getElementsByClassName('js-board');
           let currBoard;
           for (let i = 0; i < allBoards.length; i++) {
             currBoard = allBoards[i];
-            currBoard.style.display = "block";
+            currBoard.style.display = 'block';
           }
         },
         'click #filterBtn'(event) {
           event.preventDefault();
-          let selectedTeams = document.querySelectorAll('#jsAllBoardTeams option:checked');
-          let selectedTeamsValues = Array.from(selectedTeams).map(function (elt) { return elt.value });
-          let index = selectedTeamsValues.indexOf("-1");
+          let selectedTeams = document.querySelectorAll(
+            '#jsAllBoardTeams option:checked',
+          );
+          let selectedTeamsValues = Array.from(selectedTeams).map(
+            function (elt) {
+              return elt.value;
+            },
+          );
+          let index = selectedTeamsValues.indexOf('-1');
           if (index > -1) {
             selectedTeamsValues.splice(index, 1);
           }
 
-          let selectedOrgs = document.querySelectorAll('#jsAllBoardOrgs option:checked');
-          let selectedOrgsValues = Array.from(selectedOrgs).map(function (elt) { return elt.value });
-          index = selectedOrgsValues.indexOf("-1");
+          let selectedOrgs = document.querySelectorAll(
+            '#jsAllBoardOrgs option:checked',
+          );
+          let selectedOrgsValues = Array.from(selectedOrgs).map(function (elt) {
+            return elt.value;
+          });
+          index = selectedOrgsValues.indexOf('-1');
           if (index > -1) {
             selectedOrgsValues.splice(index, 1);
           }
 
           if (selectedTeamsValues.length > 0 || selectedOrgsValues.length > 0) {
             const query = {
-              $and: [
-                { archived: false },
-                { type: 'board' }
-              ]
+              $and: [{ archived: false }, { type: 'board' }],
             };
             const ors = [];
             if (selectedTeamsValues.length > 0) {
@@ -561,7 +609,7 @@ BlazeComponent.extendComponent({
             }
 
             let filteredBoards = ReactiveCache.getBoards(query, {});
-            let allBoards = document.getElementsByClassName("js-board");
+            let allBoards = document.getElementsByClassName('js-board');
             let currBoard;
             if (filteredBoards.length > 0) {
               let currBoardId;
@@ -573,16 +621,13 @@ BlazeComponent.extendComponent({
                   return board._id == currBoardId;
                 });
 
-                if (found !== undefined)
-                  currBoard.style.display = "block";
-                else
-                  currBoard.style.display = "none";
+                if (found !== undefined) currBoard.style.display = 'block';
+                else currBoard.style.display = 'none';
               }
-            }
-            else {
+            } else {
               for (let i = 0; i < allBoards.length; i++) {
                 currBoard = allBoards[i];
-                currBoard.style.display = "none";
+                currBoard.style.display = 'none';
               }
             }
           }
@@ -591,7 +636,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           evt.stopPropagation();
           const workspaceId = evt.currentTarget.getAttribute('data-id');
-          
+
           // Find the space in the tree
           const findSpace = (nodes, id) => {
             for (const node of nodes) {
@@ -603,33 +648,43 @@ BlazeComponent.extendComponent({
             }
             return null;
           };
-          
+
           const tree = this.workspacesTreeVar.get();
           const space = findSpace(tree, workspaceId);
-          
+
           if (space) {
-            const newName = prompt(TAPi18n.__('allboards.edit-workspace-name') || 'Space name:', space.name);
-            const newIcon = prompt(TAPi18n.__('allboards.edit-workspace-icon') || 'Space icon (markdown):', space.icon || '📁');
-            
+            const newName = prompt(
+              TAPi18n.__('allboards.edit-workspace-name') || 'Space name:',
+              space.name,
+            );
+            const newIcon = prompt(
+              TAPi18n.__('allboards.edit-workspace-icon') ||
+                'Space icon (markdown):',
+              space.icon || '📁',
+            );
+
             if (newName !== null && newName.trim()) {
               // Update space in tree
               const updateSpaceInTree = (nodes, id, updates) => {
-                return nodes.map(node => {
+                return nodes.map((node) => {
                   if (node.id === id) {
                     return { ...node, ...updates };
                   }
                   if (node.children) {
-                    return { ...node, children: updateSpaceInTree(node.children, id, updates) };
+                    return {
+                      ...node,
+                      children: updateSpaceInTree(node.children, id, updates),
+                    };
                   }
                   return node;
                 });
               };
-              
-              const updatedTree = updateSpaceInTree(tree, workspaceId, { 
-                name: newName.trim(), 
-                icon: newIcon || '📁' 
+
+              const updatedTree = updateSpaceInTree(tree, workspaceId, {
+                name: newName.trim(),
+                icon: newIcon || '📁',
               });
-              
+
               Meteor.call('setWorkspacesTree', updatedTree, (err) => {
                 if (err) console.error(err);
               });
@@ -640,19 +695,29 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           evt.stopPropagation();
           const parentId = evt.currentTarget.getAttribute('data-id');
-          const name = prompt(TAPi18n.__('allboards.add-subworkspace-prompt') || 'Subspace name:');
-          
+          const name = prompt(
+            TAPi18n.__('allboards.add-subworkspace-prompt') || 'Subspace name:',
+          );
+
           if (name && name.trim()) {
-            Meteor.call('createWorkspace', { parentId, name: name.trim() }, (err) => {
-              if (err) console.error(err);
-            });
+            Meteor.call(
+              'createWorkspace',
+              { parentId, name: name.trim() },
+              (err) => {
+                if (err) console.error(err);
+              },
+            );
           }
         },
         'dragstart .workspace-node'(evt) {
-          const workspaceId = evt.currentTarget.getAttribute('data-workspace-id');
+          const workspaceId =
+            evt.currentTarget.getAttribute('data-workspace-id');
           evt.originalEvent.dataTransfer.effectAllowed = 'move';
-          evt.originalEvent.dataTransfer.setData('application/x-workspace-id', workspaceId);
-          
+          evt.originalEvent.dataTransfer.setData(
+            'application/x-workspace-id',
+            workspaceId,
+          );
+
           // Create a better drag image
           const dragImage = evt.currentTarget.cloneNode(true);
           dragImage.style.position = 'absolute';
@@ -661,25 +726,28 @@ BlazeComponent.extendComponent({
           document.body.appendChild(dragImage);
           evt.originalEvent.dataTransfer.setDragImage(dragImage, 0, 0);
           setTimeout(() => document.body.removeChild(dragImage), 0);
-          
+
           evt.currentTarget.classList.add('dragging');
         },
         'dragend .workspace-node'(evt) {
           evt.currentTarget.classList.remove('dragging');
-          document.querySelectorAll('.workspace-node').forEach(el => {
+          document.querySelectorAll('.workspace-node').forEach((el) => {
             el.classList.remove('drag-over');
           });
         },
         'dragover .workspace-node'(evt) {
           evt.preventDefault();
           evt.stopPropagation();
-          
+
           const draggingEl = document.querySelector('.workspace-node.dragging');
           const targetEl = evt.currentTarget;
-          
+
           // Allow dropping boards on any space
           // Or allow dropping spaces on other spaces (but not on itself or descendants)
-          if (!draggingEl || (targetEl !== draggingEl && !draggingEl.contains(targetEl))) {
+          if (
+            !draggingEl ||
+            (targetEl !== draggingEl && !draggingEl.contains(targetEl))
+          ) {
             evt.originalEvent.dataTransfer.dropEffect = 'move';
             targetEl.classList.add('drag-over');
           }
@@ -690,19 +758,25 @@ BlazeComponent.extendComponent({
         'drop .workspace-node'(evt) {
           evt.preventDefault();
           evt.stopPropagation();
-          
+
           const targetEl = evt.currentTarget;
           targetEl.classList.remove('drag-over');
-          
+
           // Check what's being dropped - board or workspace
-          const draggedWorkspaceId = evt.originalEvent.dataTransfer.getData('application/x-workspace-id');
-          const isMultiBoard = evt.originalEvent.dataTransfer.getData('application/x-board-multi');
-          const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
-          
+          const draggedWorkspaceId = evt.originalEvent.dataTransfer.getData(
+            'application/x-workspace-id',
+          );
+          const isMultiBoard = evt.originalEvent.dataTransfer.getData(
+            'application/x-board-multi',
+          );
+          const boardData =
+            evt.originalEvent.dataTransfer.getData('text/plain');
+
           if (draggedWorkspaceId && !boardData) {
             // This is a workspace reorder operation
-            const targetWorkspaceId = targetEl.getAttribute('data-workspace-id');
-            
+            const targetWorkspaceId =
+              targetEl.getAttribute('data-workspace-id');
+
             if (draggedWorkspaceId !== targetWorkspaceId) {
               this.reorderWorkspaces(draggedWorkspaceId, targetWorkspaceId);
             }
@@ -710,13 +784,13 @@ BlazeComponent.extendComponent({
             // This is a board assignment operation
             // Get the workspace ID directly from the dropped workspace-node's data-workspace-id attribute
             const workspaceId = targetEl.getAttribute('data-workspace-id');
-            
+
             if (workspaceId) {
               if (isMultiBoard) {
                 // Multi-board drag
                 try {
                   const boardIds = JSON.parse(boardData);
-                  boardIds.forEach(boardId => {
+                  boardIds.forEach((boardId) => {
                     Meteor.call('assignBoardToWorkspace', boardId, workspaceId);
                   });
                 } catch (e) {
@@ -732,7 +806,7 @@ BlazeComponent.extendComponent({
         'dragover .js-select-menu'(evt) {
           evt.preventDefault();
           evt.stopPropagation();
-          
+
           const menuType = evt.currentTarget.getAttribute('data-type');
           // Only allow drop on "remaining" menu to unassign boards from spaces
           if (menuType === 'remaining') {
@@ -746,22 +820,25 @@ BlazeComponent.extendComponent({
         'drop .js-select-menu'(evt) {
           evt.preventDefault();
           evt.stopPropagation();
-          
+
           const menuType = evt.currentTarget.getAttribute('data-type');
           evt.currentTarget.classList.remove('drag-over');
-          
+
           // Only handle drops on "remaining" menu
           if (menuType !== 'remaining') return;
-          
-          const isMultiBoard = evt.originalEvent.dataTransfer.getData('application/x-board-multi');
-          const boardData = evt.originalEvent.dataTransfer.getData('text/plain');
-          
+
+          const isMultiBoard = evt.originalEvent.dataTransfer.getData(
+            'application/x-board-multi',
+          );
+          const boardData =
+            evt.originalEvent.dataTransfer.getData('text/plain');
+
           if (boardData) {
             if (isMultiBoard) {
               // Multi-board drag - unassign all from workspaces
               try {
                 const boardIds = JSON.parse(boardData);
-                boardIds.forEach(boardId => {
+                boardIds.forEach((boardId) => {
                   Meteor.call('unassignBoardFromWorkspace', boardId);
                 });
               } catch (e) {
@@ -791,50 +868,59 @@ BlazeComponent.extendComponent({
   },
   menuItemCount(type) {
     const currentUser = ReactiveCache.getCurrentUser();
-    const assignments = (currentUser && currentUser.profile && currentUser.profile.boardWorkspaceAssignments) || {};
-    
+    const assignments =
+      (currentUser &&
+        currentUser.profile &&
+        currentUser.profile.boardWorkspaceAssignments) ||
+      {};
+
     // Get all boards for counting
     let query = {
       $and: [
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
         { $or: [{ 'members.userId': Meteor.userId() }] },
-        { title: { $not: { $regex: /^\^.*\^$/ } } }
-      ]
+        { title: { $not: { $regex: /^\^.*\^$/ } } },
+      ],
     };
     const allBoards = ReactiveCache.getBoards(query, {});
-    
+
     if (type === 'starred') {
-      return allBoards.filter(b => currentUser && currentUser.hasStarred(b._id)).length;
+      return allBoards.filter(
+        (b) => currentUser && currentUser.hasStarred(b._id),
+      ).length;
     } else if (type === 'templates') {
-      return allBoards.filter(b => b.type === 'template-container').length;
+      return allBoards.filter((b) => b.type === 'template-container').length;
     } else if (type === 'remaining') {
       // Count boards not in any workspace AND not templates
       // Include starred boards (they appear in both Starred and Remaining)
-      return allBoards.filter(b => 
-        !assignments[b._id] && 
-        b.type !== 'template-container'
+      return allBoards.filter(
+        (b) => !assignments[b._id] && b.type !== 'template-container',
       ).length;
     }
     return 0;
   },
   workspaceCount(workspaceId) {
     const currentUser = ReactiveCache.getCurrentUser();
-    const assignments = (currentUser && currentUser.profile && currentUser.profile.boardWorkspaceAssignments) || {};
-    
+    const assignments =
+      (currentUser &&
+        currentUser.profile &&
+        currentUser.profile.boardWorkspaceAssignments) ||
+      {};
+
     // Get all boards for counting
     let query = {
       $and: [
         { archived: false },
         { type: { $in: ['board', 'template-container'] } },
         { $or: [{ 'members.userId': Meteor.userId() }] },
-        { title: { $not: { $regex: /^\^.*\^$/ } } }
-      ]
+        { title: { $not: { $regex: /^\^.*\^$/ } } },
+      ],
     };
     const allBoards = ReactiveCache.getBoards(query, {});
-    
+
     // Count boards directly assigned to this space (not including children)
-    return allBoards.filter(b => assignments[b._id] === workspaceId).length;
+    return allBoards.filter((b) => assignments[b._id] === workspaceId).length;
   },
   canModifyBoards() {
     const currentUser = ReactiveCache.getCurrentUser();
