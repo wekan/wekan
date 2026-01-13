@@ -14,8 +14,8 @@ Newest WeKan at these platforms:
 
 Fixing other platforms In Progress.
 
-- Node.js 14.x at https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4 and https://nodejs.org/dist/latest-v14.x/
-- MongoDB 6.x and 7.x, or FerretDB/PostgreSQL https://blog.ferretdb.io/building-project-management-stack-wekan-ferretdb/
+- [Node.js 14.21.4](https://github.com/wekan/node-v14-esm/releases/tag/v14.21.4) or  [Node.js 14.21.3](https://nodejs.org/dist/latest-v14.x/)
+- MongoDB 6.x and 7.x, or [FerretDB2/PostgreSQL](https://github.com/wekan/wekan/blob/main/docs/Platforms/FOSS/FerretDB2-PostgreSQL.md)
 
 [Upgrade WeKan](https://wekan.fi/upgrade/)
 
