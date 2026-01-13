@@ -85,6 +85,8 @@ and fixes the following bugs:
   Thanks to TDSCDMA and xet7.
 - [Add back button texts to Filter, Search, Board View and MultiSelection](https://github.com/wekan/wekan/commit/dac7e17500de97febc7ad8f84cd1bf5edab27c52).
   Thanks to audiocrush and xet7.
+- [Removed extra pipe character from UI](https://github.com/wekan/wekan/commit/66e79d2df7ecf5526dbae360cf93352657db7fcf).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
