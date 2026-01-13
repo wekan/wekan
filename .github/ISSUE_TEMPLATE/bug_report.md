@@ -1,0 +1,69 @@
+name: 🐛 Bug Report
+description: Report a bug to help improve Wekan
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please ensure you are using the [latest version of WeKan](https://wekan.fi/install) and [Upgrade](https://wekan.fi/upgrade) before submitting.
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is. Mention versions of WeKan, Node.js, database name and version, frontend webserver version like Caddy etc.
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform / Installation Method
+      options:
+        - Snap Stable
+        - Snap Candidate
+        - Docker
+        - Sandstorm
+        - Source (Meteor)
+        - Windows
+        - Mac
+        - Other
+    validations:
+      required: true
+  - type: dropdown 
+    id: CPU
+    attributes:    
+      label: CPU
+      options:
+        - amd64
+        - arm64
+        - s390x
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we recreate this issue?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: | 
+        - Please paste any relevant anonymized server logs or browser console errors here.
+        - Snap: sudo snap logs wekan.wekan
+        - Docker: sudo docker logs wekan-app
+        - If logs are very long, attach them in .zip file
+      render: shell
+  - type: textarea
+    id: context
+    attributes: 
+      label: Additional Context
+      description: Add any other context, anonymized screenshots or GIF video about the bug, and screenshot mockups about how it should work.
+
