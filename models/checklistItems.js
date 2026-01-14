@@ -70,13 +70,16 @@ ChecklistItems.attachSchema(
 
 ChecklistItems.allow({
   insert(userId, doc) {
-    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
+    // ReadOnly users cannot create checklist items
+    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   update(userId, doc) {
-    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
+    // ReadOnly users cannot edit checklist items
+    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
+    // ReadOnly users cannot delete checklist items
+    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });

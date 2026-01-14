@@ -46,7 +46,7 @@ template(name='homeSidebar')
       span {{#if isShowWeekOfYear}}✅{{else}}⬜{{/if}}
       span {{_ 'show-week-of-year'}}
   hr
-  unless currentUser.isNoComments
+  if currentUser.isBoardAdmin
     h3.activity-title
       | 💬
       | {{_ 'activities'}}

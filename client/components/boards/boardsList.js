@@ -196,7 +196,11 @@ BlazeComponent.extendComponent({
     return ret;
   },
   currentMenuPath() {
-    const sel = this.selectedMenu.get();
+    const selectedMenuVar = this.selectedMenu;
+    if (!selectedMenuVar) {
+      return { icon: '🗂️', text: TAPi18n.__('allboards.workspaces') };
+    }
+    const sel = selectedMenuVar.get();
     const currentUser = ReactiveCache.getCurrentUser();
 
     // Helper to find space by id in tree

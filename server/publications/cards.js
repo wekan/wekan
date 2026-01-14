@@ -75,6 +75,24 @@ import Team from "../../models/team";
 
 Meteor.publish('card', cardId => {
   check(cardId, String);
+  
+  const userId = Meteor.userId();
+  const card = ReactiveCache.getCard({ _id: cardId });
+  
+  // If user has assigned-only permissions, check if they're assigned to this card
+  if (userId && card && card.boardId) {
+    const board = ReactiveCache.getBoard({ _id: card.boardId });
+    if (board && board.members) {
+      const member = _.findWhere(board.members, { userId: userId, isActive: true });
+      if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+        // User with assigned-only permissions can only view cards assigned to them
+        if (!card.assignees || !card.assignees.includes(userId)) {
+          return []; // Don't publish if user is not assigned
+        }
+      }
+    }
+  }
+  
   const ret = ReactiveCache.getCards(
     { _id: cardId },
     {},
@@ -88,6 +106,24 @@ Meteor.publish('card', cardId => {
  */
 Meteor.publishRelations('popupCardData', function(cardId) {
   check(cardId, String);
+  
+  const userId = this.userId;
+  const card = ReactiveCache.getCard({ _id: cardId });
+  
+  // If user has assigned-only permissions, check if they're assigned to this card
+  if (userId && card && card.boardId) {
+    const board = ReactiveCache.getBoard({ _id: card.boardId });
+    if (board && board.members) {
+      const member = _.findWhere(board.members, { userId: userId, isActive: true });
+      if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+        // User with assigned-only permissions can only view cards assigned to them
+        if (!card.assignees || !card.assignees.includes(userId)) {
+          return this.ready(); // Don't publish if user is not assigned
+        }
+      }
+    }
+  }
+  
   this.cursor(
     ReactiveCache.getCards(
       { _id: cardId },

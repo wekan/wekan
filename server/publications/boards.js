@@ -296,14 +296,23 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       const linkedBoardCards = this.join(Cards);
       linkedBoardCards.selector = _ids => ({ boardId: _ids });
 
+      // Build card selector based on user's permissions
+      const cardSelector = {
+        boardId: { $in: [boardId, board.subtasksDefaultBoardId] },
+        archived: isArchived,
+      };
+
+      // Check if current user has assigned-only permissions
+      if (thisUserId && board.members) {
+        const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+        if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+          // User with assigned-only permissions should only see cards assigned to them
+          cardSelector.assignees = { $in: [thisUserId] };
+        }
+      }
+
       this.cursor(
-        ReactiveCache.getCards({
-            boardId: { $in: [boardId, board.subtasksDefaultBoardId] },
-            archived: isArchived,
-          },
-          {},
-          true,
-        ),
+        ReactiveCache.getCards(cardSelector, {}, true),
         function(cardId, card) {
           if (card.type === 'cardType-linkedCard') {
             const impCardId = card.linkedId;

@@ -271,6 +271,13 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.showActivities': {
+      /**
+       * does the user want to show activities in card details?
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.customFieldsGrid': {
       /**
        * has user at card Custom Fields have Grid (false) or one per row (true) layout?
@@ -875,6 +882,16 @@ if (Meteor.isClient) {
       return board && board.hasCommentOnly(this._id);
     },
 
+    isReadOnly() {
+      const board = Utils.getCurrentBoard();
+      return board && board.hasReadOnly(this._id);
+    },
+
+    isReadAssignedOnly() {
+      const board = Utils.getCurrentBoard();
+      return board && board.hasReadAssignedOnly(this._id);
+    },
+
     isNotWorker() {
       const board = Utils.getCurrentBoard();
       return board && board.hasMember(this._id) && !board.hasWorker(this._id);
@@ -1204,6 +1221,11 @@ Users.helpers({
   hasCardMaximized() {
     const profile = this.profile || {};
     return profile.cardMaximized || false;
+  },
+
+  hasShowActivities() {
+    const profile = this.profile || {};
+    return profile.showActivities || false;
   },
 
   hasHiddenMinicardLabelText() {
@@ -1749,6 +1771,14 @@ Users.mutations({
     return {
       $set: {
         'profile.cardCollapsed': !value,
+      },
+    };
+  },
+
+  toggleShowActivities(value = false) {
+    return {
+      $set: {
+        'profile.showActivities': !value,
       },
     };
   },

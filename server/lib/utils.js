@@ -20,6 +20,17 @@ allowIsBoardMemberNoComments = function(userId, board) {
   return board && board.hasMember(userId) && !board.hasNoComments(userId);
 };
 
+// Check if user has write access to board (can create/edit cards and lists)
+allowIsBoardMemberWithWriteAccess = function(userId, board) {
+  return board && board.members && board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
+};
+
+// Check if user has write access via a card's board
+allowIsBoardMemberWithWriteAccessByCard = function(userId, card) {
+  const board = card && card.board && card.board();
+  return allowIsBoardMemberWithWriteAccess(userId, board);
+};
+
 allowIsBoardMemberByCard = function(userId, card) {
   const board = card.board();
   return board && board.hasMember(userId);

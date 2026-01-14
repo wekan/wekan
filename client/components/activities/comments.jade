@@ -54,9 +54,11 @@ template(name="commentReactions")
         span.reaction-codepoint !{reaction.reactionCodepoint}
         span.reaction-count #{reaction.userIds.length}
     if (currentUser.isBoardMember)
-      a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
-        span(title="{{_ 'reaction' }}") 😀
-        span(title="{{_ 'add' }}") ➕
+      unless currentUser.isReadOnly
+        unless currentUser.isReadAssignedOnly
+          a.open-comment-reaction-popup(title="{{_ 'addReactionPopup-title'}}")
+            span(title="{{_ 'reaction' }}") 😀
+            span(title="{{_ 'add' }}") ➕
 
 template(name="addReactionPopup")
   .reactions-popup

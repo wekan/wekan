@@ -58,9 +58,11 @@ template(name="listHeader")
             i.list-header-watch-icon | 👁️
           div.list-header-menu
             unless currentUser.isCommentOnly
-              if canSeeAddCard
-                a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
-              a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
+              unless currentUser.isReadOnly
+                unless currentUser.isReadAssignedOnly
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
+                  a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
         else
           a.list-header-menu-icon.js-select-list ▶️
           unless currentUser.isWorker
@@ -72,13 +74,15 @@ template(name="listHeader")
         unless collapsed
           div.list-header-menu
             unless currentUser.isCommentOnly
-              //if isBoardAdmin
-              //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
-              if isTouchScreenOrShowDesktopDragHandles
-                a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}") ↕️
-              if canSeeAddCard
-                a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
-              a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
+              unless currentUser.isReadOnly
+                unless currentUser.isReadAssignedOnly
+                  //if isBoardAdmin
+                  //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
+                  if isTouchScreenOrShowDesktopDragHandles
+                    a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}") ↕️
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
+                  a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
 
 template(name="editListTitleForm")
   .list-composer
@@ -89,18 +93,20 @@ template(name="editListTitleForm")
         | ❌
 
 template(name="listActionPopup")
-  ul.pop-over-list
-    li
-      a.js-add-card.list-header-plus-bottom
-        | ➕
-        | ⬇️
-        | {{_ 'add-card-to-bottom-of-list'}}
-  hr
-  ul.pop-over-list
-    li
-      a.js-set-list-width
-        | ↔️
-        |  {{_ 'set-list-width'}}
+  unless currentUser.isReadOnly
+    unless currentUser.isReadAssignedOnly
+      ul.pop-over-list
+        li
+          a.js-add-card.list-header-plus-bottom
+            | ➕
+            | ⬇️
+            | {{_ 'add-card-to-bottom-of-list'}}
+      hr
+      ul.pop-over-list
+        li
+          a.js-set-list-width
+            | ↔️
+            |  {{_ 'set-list-width'}}
   ul.pop-over-list
     li
       a.js-toggle-watch-list
@@ -111,38 +117,40 @@ template(name="listActionPopup")
           | 🙈
           |  {{_ 'watch'}}
   unless currentUser.isCommentOnly
-    unless currentUser.isWorker
-      ul.pop-over-list
-        li
-          a.js-set-color-list
-            | 🎨
-            | {{_ 'set-color-list'}}
-    ul.pop-over-list
-      if cards.length
-        li
-          a.js-select-cards
-            | ☑️
-            | {{_ 'list-select-cards'}}
-    if currentUser.isBoardAdmin
-      ul.pop-over-list
-        li
-          a.js-set-wip-limit
-            | 🚫
-            | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
-    unless currentUser.isWorker
-      hr
-      ul.pop-over-list
-        li
-          a.js-close-list
-            | ➡️
-            | 📦
-            | {{_ 'archive-list'}}
-    hr
-    ul.pop-over-list
-      li
-        a.js-more
-          | 🔗
-          | {{_ 'listMorePopup-title'}}
+    unless currentUser.isReadOnly
+      unless currentUser.isReadAssignedOnly
+        unless currentUser.isWorker
+          ul.pop-over-list
+            li
+              a.js-set-color-list
+                | 🎨
+                | {{_ 'set-color-list'}}
+        ul.pop-over-list
+          if cards.length
+            li
+              a.js-select-cards
+                | ☑️
+                | {{_ 'list-select-cards'}}
+        if currentUser.isBoardAdmin
+          ul.pop-over-list
+            li
+              a.js-set-wip-limit
+                | 🚫
+                | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+        unless currentUser.isWorker
+          hr
+          ul.pop-over-list
+            li
+              a.js-close-list
+                | ➡️
+                | 📦
+                | {{_ 'archive-list'}}
+        hr
+        ul.pop-over-list
+          li
+            a.js-more
+              | 🔗
+              | {{_ 'listMorePopup-title'}}
 
 template(name="boardLists")
   ul.pop-over-list

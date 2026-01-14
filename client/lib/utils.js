@@ -247,7 +247,9 @@ Utils = {
       currentUser &&
       currentUser.isBoardMember() &&
       !currentUser.isCommentOnly() &&
-      !currentUser.isWorker()
+      !currentUser.isWorker() &&
+      !currentUser.isReadOnly() &&
+      !currentUser.isReadAssignedOnly()
     );
     return ret;
   },
@@ -256,7 +258,9 @@ Utils = {
     const ret = (
       currentUser &&
       currentUser.isBoardMember() &&
-      !currentUser.isCommentOnly()
+      !currentUser.isCommentOnly() &&
+      !currentUser.isReadOnly() &&
+      !currentUser.isReadAssignedOnly()
     );
     return ret;
   },
@@ -265,7 +269,9 @@ Utils = {
     const ret = (
       currentUser &&
       currentUser.isBoardMember() &&
-      !currentUser.isCommentOnly()
+      !currentUser.isCommentOnly() &&
+      !currentUser.isReadOnly() &&
+      !currentUser.isReadAssignedOnly()
     );
     return ret;
   },

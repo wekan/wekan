@@ -209,6 +209,12 @@ BlazeComponent.extendComponent({
       evt.stopImmediatePropagation();
       evt.preventDefault();
       Utils.goBoardId(Session.get('currentBoard'));
+    } else {
+      // Allow normal href navigation, but if it's the same card URL,
+      // we'll handle it by directly setting the session
+      evt.preventDefault();
+      const card = this.currentData();
+      Session.set('currentCard', card._id);
     }
   },
 

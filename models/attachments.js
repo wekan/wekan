@@ -176,7 +176,8 @@ Attachments = new FilesCollection({
 if (Meteor.isServer) {
   Attachments.allow({
     insert(userId, fileObj) {
-      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
+      // ReadOnly users cannot upload attachments
+      return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     update(userId, fileObj, fields) {
       // Only allow updates to specific fields that don't affect security
@@ -190,7 +191,8 @@ if (Meteor.isServer) {
         return false;
       }
 
-      return allowIsBoardMember(userId, ReactiveCache.getBoard(fileObj.boardId));
+      // ReadOnly users cannot update attachments
+      return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     remove(userId, fileObj) {
       // Additional security check: ensure the file belongs to the board the user has access to
@@ -209,7 +211,8 @@ if (Meteor.isServer) {
         return false;
       }
 
-      return allowIsBoardMember(userId, board);
+      // ReadOnly users cannot delete attachments
+      return allowIsBoardMemberWithWriteAccess(userId, board);
     },
     fetch: ['meta', 'boardId'],
   });

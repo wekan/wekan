@@ -132,13 +132,16 @@ Swimlanes.attachSchema(
 
 Swimlanes.allow({
   insert(userId, doc) {
-    return allowIsBoardMemberCommentOnly(userId, ReactiveCache.getBoard(doc.boardId));
+    // ReadOnly and CommentOnly users cannot create swimlanes
+    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardMemberCommentOnly(userId, ReactiveCache.getBoard(doc.boardId));
+    // ReadOnly and CommentOnly users cannot edit swimlanes
+    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMemberCommentOnly(userId, ReactiveCache.getBoard(doc.boardId));
+    // ReadOnly and CommentOnly users cannot delete swimlanes
+    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
   },
   fetch: ['boardId'],
 });

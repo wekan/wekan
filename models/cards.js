@@ -518,7 +518,7 @@ Cards.attachSchema(
 );
 
 // Centralized update policy for Cards
-// Security: deny any direct client updates to 'vote' fields; require membership otherwise
+// Security: deny any direct client updates to 'vote' fields; require write access otherwise
 canUpdateCard = function(userId, doc, fields) {
   if (!userId) return false;
   const fieldNames = fields || [];
@@ -530,19 +530,22 @@ canUpdateCard = function(userId, doc, fields) {
   if (_.some(fieldNames, f => typeof f === 'string' && (f === 'poker' || f.indexOf('poker.') === 0))) {
     return false;
   }
-  return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
+  // ReadOnly users cannot edit cards
+  return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
 };
 
 Cards.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
+    // ReadOnly users cannot create cards
+    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
   },
 
   update(userId, doc, fields) {
     return canUpdateCard(userId, doc, fields);
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
+    // ReadOnly users cannot delete cards
+    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
   },
   fetch: ['boardId'],
 });

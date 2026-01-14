@@ -127,36 +127,7 @@ FlowRouter.route('/public', {
   },
 });
 
-FlowRouter.route('/b/:id/:slug', {
-  name: 'board',
-  action(params) {
-    const currentBoard = params.id;
-    const previousBoard = Session.get('currentBoard');
-    Session.set('currentBoard', currentBoard);
-    Session.set('currentCard', null);
-    Session.set('popupCardId', null);
-    Session.set('popupCardBoardId', null);
-
-    // If we close a card, we'll execute again this route action but we don't
-    // want to excape every current actions (filters, etc.)
-    if (previousBoard !== currentBoard) {
-      Filter.reset();
-      Session.set('sortBy', '');
-      EscapeActions.executeAll();
-    } else {
-      EscapeActions.executeUpTo('popup-close');
-    }
-
-    Utils.manageCustomUI();
-    Utils.manageMatomo();
-
-    this.render('defaultLayout', {
-      headerBar: 'boardHeaderBar',
-      content: 'board',
-    });
-  },
-});
-
+// Card route MUST be registered BEFORE board route so it matches first
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action(params) {
@@ -175,6 +146,48 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
         openCards.push(params.cardId);
         Session.set('openCards', openCards);
       }
+    }
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      headerBar: 'boardHeaderBar',
+      content: 'board',
+    });
+  },
+});
+
+FlowRouter.route('/b/:id/:slug', {
+  name: 'board',
+  action(params) {
+    const pathSegments = FlowRouter.current().path.split('/').filter(s => s);
+    
+    // If we have 4+ segments (b, boardId, slug, cardId), this is a card view
+    if (pathSegments.length >= 4) {
+      return;
+    }
+    
+    // If slug contains "/" it means a cardId was matched by this greedy pattern
+    if (params.slug && params.slug.includes('/')) {
+      return;
+    }
+    
+    const currentBoard = params.id;
+    const previousBoard = Session.get('currentBoard');
+    Session.set('currentBoard', currentBoard);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+
+    // If we close a card, we'll execute again this route action but we don't
+    // want to excape every current actions (filters, etc.)
+    if (previousBoard !== currentBoard) {
+      Filter.reset();
+      Session.set('sortBy', '');
+      EscapeActions.executeAll();
+    } else {
+      EscapeActions.executeUpTo('popup-close');
     }
 
     Utils.manageCustomUI();

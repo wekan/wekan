@@ -170,13 +170,16 @@ Checklists.helpers({
 
 Checklists.allow({
   insert(userId, doc) {
-    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
+    // ReadOnly users cannot create checklists
+    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   update(userId, doc) {
-    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
+    // ReadOnly users cannot edit checklists
+    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMemberByCard(userId, ReactiveCache.getCard(doc.cardId));
+    // ReadOnly users cannot delete checklists
+    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });

@@ -21,6 +21,28 @@ Meteor.publish('activities', function(kind, id, limit, showActivities) {
     return this.ready();
   }
 
+  // Check user permissions - only BoardAdmin can view activities
+  if (this.userId) {
+    const user = ReactiveCache.getUser(this.userId);
+    const board = ReactiveCache.getBoard(id);
+    
+    if (user && board) {
+      // Find user membership in board
+      const membership = board.members.find(m => m.userId === this.userId);
+      
+      // Only BoardAdmin can view activities
+      if (!membership || !membership.isAdmin) {
+        return this.ready();
+      }
+    } else {
+      // If board or user not found, deny
+      return this.ready();
+    }
+  } else {
+    // If not logged in, deny
+    return this.ready();
+  }
+
   // Get linkedBoard
   let linkedElmtId = [id];
   if (kind == 'board') {

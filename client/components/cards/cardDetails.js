@@ -100,6 +100,11 @@ BlazeComponent.extendComponent({
     return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
   },
 
+  showActivities() {
+    const user = ReactiveCache.getCurrentUser();
+    return user && user.hasShowActivities();
+  },
+
   cardCollapsed() {
     const user = ReactiveCache.getCurrentUser();
     if (user && user.profile) {
@@ -350,6 +355,37 @@ BlazeComponent.extendComponent({
           $(document).on('mousemove', onMouseMove);
           $(document).on('mouseup', onMouseUp);
         },
+        'mousedown .js-card-title-drag-handle'(event) {
+          // Allow dragging from title for ReadOnly users
+          // Don't interfere with text selection
+          if (event.target.tagName === 'A' || $(event.target).closest('a').length > 0) {
+            return; // Don't drag if clicking on links
+          }
+          
+          event.preventDefault();
+          const $card = $(event.target).closest('.card-details');
+          const startX = event.clientX;
+          const startY = event.clientY;
+          const startLeft = $card.offset().left;
+          const startTop = $card.offset().top;
+          
+          const onMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            $card.css({
+              left: startLeft + deltaX + 'px',
+              top: startTop + deltaY + 'px'
+            });
+          };
+          
+          const onMouseUp = () => {
+            $(document).off('mousemove', onMouseMove);
+            $(document).off('mouseup', onMouseUp);
+          };
+          
+          $(document).on('mousemove', onMouseMove);
+          $(document).on('mouseup', onMouseUp);
+        },
         'click .js-close-card-details'() {
           // Get board ID from either the card data or current board in session
           const card = this.currentData() || this.data();
@@ -516,9 +552,6 @@ BlazeComponent.extendComponent({
         'mouseup .js-card-details'() {
           Session.set('cardDetailsIsDragging', false);
           Session.set('cardDetailsIsMouseDown', false);
-        },
-        'click #toggleShowActivitiesCard'() {
-          this.data().toggleShowActivities();
         },
         'click #toggleHideCheckedChecklistItems'() {
           this.data().toggleHideCheckedChecklistItems();
