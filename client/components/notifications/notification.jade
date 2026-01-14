@@ -5,6 +5,8 @@ template(name='notification')
       +notificationIcon(activityData)
     .details
       +activity(activity=activityData mode='none')
+      .notification-date
+        small.quiet {{activityDate}}
     if read
       .remove
         a(title="{{_ 'delete'}}") 🗑️

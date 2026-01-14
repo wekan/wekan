@@ -23,11 +23,65 @@ section#notifications-drawer .header {
   border-bottom: 1px solid #dbdbdb;
   z-index: 2;
 }
-section#notifications-drawer .header .toggle-read {
+section#notifications-drawer .header .notification-menu-toggle {
   position: absolute;
   left: 16px;
-  top: calc(50% - 8px);
+  top: calc(50% - 12px);
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  line-height: 24px;
+}
+section#notifications-drawer .header .notification-menu-toggle:hover {
   color: #2980b9;
+}
+section#notifications-drawer .header .notification-menu {
+  position: absolute;
+  left: 16px;
+  top: 44px;
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  min-width: 220px;
+  z-index: 100;
+  display: none;
+}
+section#notifications-drawer .header .notification-menu.is-open {
+  display: block;
+}
+section#notifications-drawer .header .notification-menu .menu-section {
+  padding: 4px 0;
+}
+section#notifications-drawer .header .notification-menu .menu-divider {
+  border-top: 1px solid #dbdbdb;
+  margin: 4px 0;
+}
+section#notifications-drawer .header .notification-menu .menu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #333;
+  white-space: nowrap;
+}
+section#notifications-drawer .header .notification-menu .menu-item:hover {
+  background-color: #f5f5f5;
+}
+section#notifications-drawer .header .notification-menu .menu-item.selected {
+  background-color: #e8f4f8;
+}
+section#notifications-drawer .header .notification-menu .menu-item .check-icon {
+  width: 20px;
+  min-width: 20px;
+  margin-right: 8px;
+  text-align: center;
+  color: #2980b9;
+  font-weight: bold;
+}
+section#notifications-drawer .header .notification-menu .menu-item .menu-icon {
+  margin-right: 8px;
+  font-size: 16px;
 }
 section#notifications-drawer .header h5 {
   text-align: center;
@@ -42,19 +96,7 @@ section#notifications-drawer .header .close {
   line-height: 24px;
   opacity: 1;
 }
-section#notifications-drawer .all-read,
-section#notifications-drawer .remove-read {
-  color: #2980b9;
-  background-color: #fafafa;
-  margin: 8px 16px 12px;
-  display: inline-block;
-}
-section#notifications-drawer .remove-read {
-  float: right;
-}
-section#notifications-drawer .remove-read:hover {
-  color: #eb4646 !important;
-}
+
 section#notifications-drawer ul.notifications {
   display: block;
   padding: 0px 16px 0px 16px;

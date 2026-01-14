@@ -199,4 +199,5 @@ template(name="activity")
       else if(currentData.timeValue)
         | {{_ activity.activityType currentData.timeValue}}
 
-      div(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}
+      if($neq mode 'none')
+        div(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}

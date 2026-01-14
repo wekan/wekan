@@ -1,20 +1,42 @@
 template(name='notificationsDrawer')
   section#notifications-drawer(class="{{#if $.Session.get 'showReadNotifications'}}show-read{{/if}}")
     .header
-      if $.Session.get 'showReadNotifications'
-        a.toggle-read {{_ 'filter-by-unread'}}
-      else
-        a.toggle-read {{_ 'view-all'}}
+      a.notification-menu-toggle ☰
+      .notification-menu(class="{{#if $.Session.get 'showNotificationMenu'}}is-open{{/if}}")
+        .menu-section
+          a.menu-item(class="{{#unless $.Session.get 'showReadNotifications'}}selected{{/unless}}")
+            span.check-icon {{#unless $.Session.get 'showReadNotifications'}}✓{{/unless}}
+            span.menu-icon 📭
+            span {{_ 'filter-by-unread'}}
+          a.menu-item(class="{{#if $.Session.get 'showReadNotifications'}}selected{{/if}}")
+            span.check-icon {{#if $.Session.get 'showReadNotifications'}}✓{{/if}}
+            span.menu-icon 📋
+            span {{_ 'view-all'}}
+        .menu-divider
+        .menu-section
+          if($gt unreadNotifications 0)
+            a.menu-item.mark-all-read
+              span.check-icon
+              span.menu-icon ✅
+              span {{_ 'mark-all-as-read'}}
+          if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
+            a.menu-item.mark-all-unread
+              span.check-icon
+              span.menu-icon 📬
+              span {{_ 'mark-all-as-unread'}}
+          if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
+            a.menu-item.delete-read
+              span.check-icon
+              span.menu-icon 🗑️
+              span {{_ 'remove-all-read'}}
+          a.menu-item.delete-all
+            span.check-icon
+            span.menu-icon 🗑️
+            span {{_ 'delete-all-notifications'}}
       h5 {{_ 'notifications'}}
         if($gt unreadNotifications 0)
           |(#{unreadNotifications})
       a.close ❌
     ul.notifications
-      each transformedProfile.notifications
+      each notifications
         +notification(activityData=activityObj index=dbIndex read=read)
-    if($gt unreadNotifications 0)
-      a.all-read {{_ 'mark-all-as-read'}}
-    if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
-      a.remove-read
-        | 🗑️
-        | {{_ 'remove-all-read'}}

@@ -32,6 +32,9 @@ $.fn.escapeableTextComplete = function(strategies, options, ...otherArgs) {
     'textComplete:show'() {
       dropdownMenuIsOpened = true;
     },
+    'textComplete:select'() {
+      EscapeActions.preventNextClick();
+    },
     'textComplete:hide'() {
       Tracker.afterFlush(() => {
         // XXX Hack. We unfortunately need to set a setTimeout here to make the

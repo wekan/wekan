@@ -713,7 +713,7 @@ Users.attachSchema(
 );
 
 // Security helpers for user updates
-export const USER_UPDATE_ALLOWED_EXACT = ['username', 'profile'];
+export const USER_UPDATE_ALLOWED_EXACT = ['username', 'profile', 'modifiedAt'];
 export const USER_UPDATE_ALLOWED_PREFIXES = ['profile.'];
 export const USER_UPDATE_FORBIDDEN_PREFIXES = [
   'services',
@@ -729,24 +729,33 @@ export const USER_UPDATE_FORBIDDEN_PREFIXES = [
 ];
 
 export function isUserUpdateAllowed(fields) {
-  return fields.every((f) =>
+  const result = fields.every((f) =>
     USER_UPDATE_ALLOWED_EXACT.includes(f) || USER_UPDATE_ALLOWED_PREFIXES.some((p) => f.startsWith(p))
   );
+  return result;
 }
 
 export function hasForbiddenUserUpdateField(fields) {
-  return fields.some((f) => USER_UPDATE_FORBIDDEN_PREFIXES.some((p) => f === p || f.startsWith(p + '.')));
+  const result = fields.some((f) => USER_UPDATE_FORBIDDEN_PREFIXES.some((p) => f === p || f.startsWith(p + '.')));
+  return result;
 }
 
 Users.allow({
   update(userId, doc, fields /*, modifier */) {
     // Only the owner can update, and only for allowed fields
-    if (!userId || doc._id !== userId) return false;
-    if (!Array.isArray(fields) || fields.length === 0) return false;
+    if (!userId || doc._id !== userId) {
+      return false;
+    }
+    if (!Array.isArray(fields) || fields.length === 0) {
+      return false;
+    }
     // Disallow if any forbidden field present
-    if (hasForbiddenUserUpdateField(fields)) return false;
+    if (hasForbiddenUserUpdateField(fields)) {
+      return false;
+    }
     // Allow only username and profile.*
-    return isUserUpdateAllowed(fields);
+    const allowed = isUserUpdateAllowed(fields);
+    return allowed;
   },
   remove(userId, doc) {
     // Disable direct client-side user removal for security
@@ -760,7 +769,8 @@ Users.allow({
 // Deny any attempts to touch forbidden fields from client updates
 Users.deny({
   update(userId, doc, fields /*, modifier */) {
-    return hasForbiddenUserUpdateField(fields);
+    const denied = hasForbiddenUserUpdateField(fields);
+    return denied;
   },
   fetch: [],
 });
@@ -1770,6 +1780,7 @@ Users.mutations({
       $addToSet: {
         'profile.notifications': {
           activity: activityId,
+          read: null,
         },
       },
     };

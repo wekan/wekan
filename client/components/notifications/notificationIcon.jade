@@ -21,7 +21,7 @@ template(name='notificationIcon')
   else if($in activityType 'checkedItem' 'uncheckedItem' 'addChecklistItem' 'removedChecklistItem')
     span.activity-type(title="checklist item") ☑️
   else if($in activityType 'addComment')
-    span.activity-type(title="comment") 💬
+    span.activity-type.hidden(title="comment")
   else if($in activityType 'createCustomField' 'setCustomField' 'unsetCustomField')
     span.activity-type(title="custom field") 🧩
   else if($in activityType 'addedLabel' 'removedLabel')

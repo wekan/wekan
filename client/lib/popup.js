@@ -299,7 +299,7 @@ escapeActions.forEach(actionName => {
     () => Popup[actionName](),
     () => Popup.isOpen(),
     {
-      noClickEscapeOn: '.js-pop-over,.js-open-card-title-popup,.js-open-inlined-form',
+      noClickEscapeOn: '.js-pop-over,.js-open-card-title-popup,.js-open-inlined-form,.textcomplete-dropdown',
       enabledOnClick: actionName === 'close',
     },
   );

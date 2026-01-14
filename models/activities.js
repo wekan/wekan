@@ -212,14 +212,13 @@ if (Meteor.isServer) {
         });
         const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.-]+))/gi; // including space in username
         let currentMention;
+
         while ((currentMention = mentionRegex.exec(comment)) !== null) {
           /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
           const [ignored, quoteduser, simple] = currentMention;
           const username = quoteduser || simple;
-          if (username === params.user) {
-            // ignore commenter mention himself?
-            continue;
-          }
+          // Removed the check that prevented self-mentions from creating notifications
+          // Users can now mention themselves in comments to create notifications
 
           if (activity.boardId && username === 'board_members') {
             // mentions all board members
@@ -335,8 +334,9 @@ if (Meteor.isServer) {
       );
     }
     Notifications.getUsers(watchers).forEach((user) => {
-      // don't notify a user of their own behavior
-      if (user._id !== userId) {
+      // Don't notify a user of their own behavior, EXCEPT for self-mentions
+      const isSelfMention = (user._id === userId && title === 'act-atUserComment');
+      if (user._id !== userId || isSelfMention) {
         Notifications.notify(user, title, description, params);
       }
     });

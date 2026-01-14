@@ -12,8 +12,8 @@
   display: none;
 }
 #notifications-drawer .notification .read-status {
-  width: 4vw;
-  padding: 0 1.3vw 0 0;
+  width: 2vw;
+  padding: 0 0.5vw 0 0;
 }
 #notifications-drawer .notification .read-status input {
   width: 3vw;
@@ -26,6 +26,9 @@
   font-size: clamp(14px, 2vw, 17px);
   display: block;
   color: #bbb;
+}
+#notifications-drawer .notification .read-status .activity-type.hidden {
+  display: none;
 }
 #notifications-drawer .notification .details .activity a.member {
   margin: 0px 0px 0px 0px;
@@ -52,6 +55,13 @@
   font-size: 0.8em;
   color: #999;
   font-style: italic;
+}
+#notifications-drawer .notification .details .notification-date {
+  margin-top: 4px;
+}
+#notifications-drawer .notification .details .notification-date small {
+  font-size: 0.85em;
+  color: #999;
 }
 #notifications-drawer .notification .remove a:hover {
   color: #eb4646 !important;
