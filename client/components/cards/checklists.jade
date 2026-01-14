@@ -124,7 +124,8 @@ template(name='checklistItemDetail')
     role="checkbox" aria-checked="{{#if item.isFinished }}true{{else}}false{{/if}}" tabindex="0")
     if canModifyCard
       span.check-box-unicode {{#if item.isFinished }}✅{{else}}⬜{{/if}}
-      span.checklistitem-handle(title="{{_ 'dragChecklistItem'}}") ↕️
+      if isTouchScreenOrShowDesktopDragHandles
+        span.checklistitem-handle(title="{{_ 'dragChecklistItem'}}") ↕️
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title

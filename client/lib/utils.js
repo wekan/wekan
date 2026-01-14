@@ -648,14 +648,18 @@ Utils = {
 
   // returns if desktop drag handles are enabled
   isShowDesktopDragHandles() {
-    // Always show drag handles on all displays
-    return true;
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      return currentUser.hasShowDesktopDragHandles();
+    } else {
+      // For non-logged-in users, check localStorage
+      return window.localStorage.getItem('showDesktopDragHandles') === 'true';
+    }
   },
 
   // returns if mini screen or desktop drag handles
   isTouchScreenOrShowDesktopDragHandles() {
-    // Always enable drag handles for all displays
-    return true;
+    return Utils.isTouchScreen() || Utils.isShowDesktopDragHandles();
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {

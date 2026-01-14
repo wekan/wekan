@@ -132,11 +132,10 @@ Template.header.events({
     Session.set('currentCard', null);
   },
   'click .js-toggle-desktop-drag-handles'() {
-    //currentUser = Meteor.user();
-    //if (currentUser) {
-    //  Meteor.call('toggleDesktopDragHandles');
-    //} else if (window.localStorage.getItem('showDesktopDragHandles')) {
-    if (window.localStorage.getItem('showDesktopDragHandles')) {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      Meteor.call('toggleDesktopDragHandles');
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       window.localStorage.removeItem('showDesktopDragHandles');
       location.reload();
     } else {

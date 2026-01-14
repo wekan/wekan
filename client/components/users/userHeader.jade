@@ -182,12 +182,12 @@ template(name="changeLanguagePopup")
 
 template(name="changeSettingsPopup")
   ul.pop-over-list
-    //li
-    //  a.js-toggle-desktop-drag-handles
-    //    i.fa.fa-arrows
-    //    | {{_ 'show-desktop-drag-handles'}}
-    //    if isShowDesktopDragHandles
-    //      i.fa.fa-check
+    li
+      a.js-toggle-desktop-drag-handles
+        | ↕️
+        | {{_ 'show-desktop-drag-handles'}}
+        if isShowDesktopDragHandles
+          | ✅
     unless currentUser.isWorker
       li
         label.bold.clear

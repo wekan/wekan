@@ -179,56 +179,42 @@ body.list-resizing-active * {
   margin-right: 120px !important;
 }
 
-/* Position drag handle at top-right corner for ALL lists */
-.list-header .list-header-handle {
-  /* Position at top-right corner, aligned with title text top */
+/* Position elements from right to left: hamburger, add card, drag handle */
+.list-header .js-open-list-menu {
   position: absolute !important;
   top: 2.5vh !important;
   right: 1.5vw !important;
-  /* Ensure it's above other elements */
   z-index: 15 !important;
-  /* Remove margin since it's absolutely positioned */
-  margin-right: 0 !important;
-  /* Ensure proper display */
   display: inline-block !important;
-  /* Ensure it's clickable and shows proper cursor */
-  cursor: move !important;
-  pointer-events: auto !important;
-  /* Add some padding for better clickability */
   padding: 4px !important;
 }
 
-/* Ensure buttons maintain original positioning */
-.js-swimlane .list[style*="--list-width"] .list-header .list-header-plus-top,
-.js-swimlane .list[style*="--list-width"] .list-header .js-collapse,
-.js-swimlane .list[style*="--list-width"] .list-header .js-open-list-menu,
-.dragscroll .list[style*="--list-width"] .list-header .list-header-plus-top,
-.dragscroll .list[style*="--list-width"] .list-header .js-collapse,
-.dragscroll .list[style*="--list-width"] .list-header .js-open-list-menu,
-[id^="swimlane-"] .list[style*="--list-width"] .list-header .list-header-plus-top,
-[id^="swimlane-"] .list[style*="--list-width"] .list-header .js-collapse,
-[id^="swimlane-"] .list[style*="--list-width"] .list-header .js-open-list-menu {
-  /* Use original positioning to maintain layout */
-  position: relative !important;
-  /* Maintain original spacing */
-  margin-right: 15px !important;
-  /* Ensure proper display */
+.list-header .list-header-plus-top {
+  position: absolute !important;
+  top: 2.5vh !important;
+  right: 3.25vw !important;
+  z-index: 15 !important;
   display: inline-block !important;
+  padding: 4px !important;
 }
 
-/* Ensure watch icon and card count maintain original positioning */
-.js-swimlane .list[style*="--list-width"] .list-header .list-header-watch-icon,
-.dragscroll .list[style*="--list-width"] .list-header .list-header-watch-icon,
-[id^="swimlane-"] .list[style*="--list-width"] .list-header .list-header-watch-icon,
-.js-swimlane .list[style*="--list-width"] .list-header .cardCount,
-.dragscroll .list[style*="--list-width"] .list-header .cardCount,
-[id^="swimlane-"] .list[style*="--list-width"] .list-header .cardCount {
-  /* Use original positioning to maintain layout */
-  position: relative !important;
-  /* Maintain original spacing */
-  margin-right: 15px !important;
-  /* Ensure proper display */
+.list-header .list-header-handle-desktop {
+  position: absolute !important;
+  top: 2.5vh !important;
+  right: 6.5vw !important;
+  z-index: 15 !important;
   display: inline-block !important;
+  cursor: move !important;
+  pointer-events: auto !important;
+  padding: 4px !important;
+}
+
+/* Anchor header action buttons within header during resize */
+.list .list-header { position: relative; z-index: 5; }
+.list .list-header .js-open-list-menu,
+.list .list-header .list-header-plus-top,
+.list .list-header .list-header-handle-desktop {
+  position: absolute !important;
 }
 [id^="swimlane-"] .list:first-child {
   min-width: 2.5vw;

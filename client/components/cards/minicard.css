@@ -44,10 +44,12 @@
   }
 }
 .minicard-details-menu-with-handle {
-  float: right;
+  position: absolute;
+  right: 0.7vw;
+  top: 0.7vh;
   font-size: clamp(14px, 3vw, 18px);
-  padding-right: 4vw;
-  padding-left: 0.7vw;
+  padding: 0;
+  z-index: 10;
 }
 .minicard-details-menu {
   float: right;
@@ -133,9 +135,10 @@
   width: clamp(20px, 2.5vw, 28px);
   height: clamp(20px, 2.5vw, 28px);
   position: absolute;
-  right: 0.7vw;
+  right: 3vw;
   top: 0.7vh;
   display: none;
+  z-index: 10;
 }
 @media only screen {
   .minicard .handle {
