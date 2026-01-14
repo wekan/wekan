@@ -102,6 +102,9 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix mentions and notifications drawer](https://github.com/wekan/wekan/commit/20b5e2ab8fd37303cda8305d87d757c1cb9bdd12).
   Thanks to xet7.
+- Fix New Board Permissions: NormalAssignedOnly, CommentAssignedOnly, ReadOnly, ReadAssignedOnly.
+  [Part 1](https://github.com/wekan/wekan/commit/eabb6a239d20530f538d22f94d9cfbebeb847493).
+  Thanks to nazim-oss and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
