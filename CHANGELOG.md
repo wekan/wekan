@@ -55,6 +55,11 @@ This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https:/
 - [Security Fix 14: ](https://github.com/wekan/wekan/commit/).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 
+and adds the following features:
+
+- [Added back feature: Toggle Drag Handles. Improved positions of Add List etc buttons](https://github.com/wekan/wekan/commit/5cb712bee4cf46c6fe13d7dacf4b62298152b894).
+  Thanks to xet7.
+
 and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/pull/6059).
