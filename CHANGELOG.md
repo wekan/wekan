@@ -100,6 +100,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed Change Avatar. Improved Admin Panel: People columns order, selected tab background color. Fixed can not edit existing user at Admin Panel/People/People](https://github.com/wekan/wekan/commit/07186e12a93c56555feb3b7332d43a918abe7f20).
   Thanks to xet7.
+- [Fix mentions and notifications drawer](https://github.com/wekan/wekan/commit/20b5e2ab8fd37303cda8305d87d757c1cb9bdd12).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
