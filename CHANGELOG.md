@@ -93,7 +93,7 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Changed find.sh to not search from translations, because I'm trying to find code, not translations](https://github.com/wekan/wekan/commit/58ae2b6c6848235132308611fe3083533e120f72).
   Thanks to xet7.
-- [Fixed Change Avatar. Improved Admin Panel: People columns order, selected tab background color](https://github.com/wekan/wekan/commit/07186e12a93c56555feb3b7332d43a918abe7f20).
+- [Fixed Change Avatar. Improved Admin Panel: People columns order, selected tab background color. Fixed can not edit existing user at Admin Panel/People/People](https://github.com/wekan/wekan/commit/07186e12a93c56555feb3b7332d43a918abe7f20).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
