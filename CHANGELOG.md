@@ -59,6 +59,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated Windows Bundle build .bat script](https://github.com/wekan/wekan/commit/f0118d52e984628b0e06e36d7b7f90166d18fbf7).
   Thanks to xet7.
+- [Updated Linux arm64 bundle build script](https://github.com/wekan/wekan/commit/e2ec50730ff7fd4eb805071bb17fe0c105514f83).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
