@@ -26,8 +26,6 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
 
-- [Security Fix 1: There was not enough permission checks. Moved migrations to Admin Panel/Settings/Cron](https://github.com/wekan/wekan/commit/cbb1cd78de3e40264a5e047ace0ce27f8635b4e6).
-  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 2: ](https://github.com/wekan/wekan/commit/).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 3: ](https://github.com/wekan/wekan/commit/).
@@ -53,6 +51,13 @@ This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https:/
 - [Security Fix 13: ](https://github.com/wekan/wekan/commit/).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 - [Security Fix 14: ](https://github.com/wekan/wekan/commit/).
+  Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
+
+# v8.20 2026-01-16 WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
+
+- [Security Fix 1: There was not enough permission checks. Moved migrations to Admin Panel/Settings/Cron](https://github.com/wekan/wekan/commit/cbb1cd78de3e40264a5e047ace0ce27f8635b4e6).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 
 and adds the following features:
