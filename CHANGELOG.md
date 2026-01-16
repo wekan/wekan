@@ -53,6 +53,13 @@ This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https:/
 - [Security Fix 14: ](https://github.com/wekan/wekan/commit/).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 
+and adds the following updates:
+
+- [Updated Docker build command](https://github.com/wekan/wekan/commit/b88b27689af8c5abf23dd7891780581a2d92001d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.20 2026-01-16 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
