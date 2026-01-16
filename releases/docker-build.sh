@@ -7,4 +7,4 @@
 # After building, you see created Docker image ID, that is then
 # used with releases/docker-push-...sh scripts.
 
-docker build .
+docker build -t wekan .
