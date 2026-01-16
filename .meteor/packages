@@ -19,7 +19,6 @@ aldeed:collection2
 cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
-easy:search
 mongo@1.16.8
 mquandalle:collection-mutations
 
@@ -73,7 +72,6 @@ konecty:mongo-counter
 percolate:synced-cron
 ostrio:cookies
 ostrio:files@2.3.0
-pascoual:pdfkit
 lmieulet:meteor-coverage
 meteortesting:mocha@2.0.3
 aldeed:simple-schema
