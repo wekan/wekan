@@ -12,7 +12,7 @@ CALL DEL /F /S /Q bundle
 
 ECHO 2) Downloading new WeKan.zip
 DEL wekan-%1-amd64.zip
-wget https://github.com/wekan/wekan/releases/download/v%1/wekan-%1-amd64.zip
+wget --no-check-certificate https://github.com/wekan/wekan/releases/download/v%1/wekan-%1-amd64.zip
 
 ECHO 3) Unarchiving new WeKan
 CALL 7z x wekan-%1-amd64.zip
