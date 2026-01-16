@@ -61,6 +61,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated Linux arm64 bundle build script](https://github.com/wekan/wekan/commit/e2ec50730ff7fd4eb805071bb17fe0c105514f83).
   Thanks to xet7.
+- [Updated Linux s390x bundle build script](https://github.com/wekan/wekan/commit/980510d71ad428325645dd53297f4ce20bd12983).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
