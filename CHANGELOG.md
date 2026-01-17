@@ -63,6 +63,10 @@ and adds the following updates:
   Thanks to xet7.
 - [Updated Linux s390x bundle build script](https://github.com/wekan/wekan/commit/980510d71ad428325645dd53297f4ce20bd12983).
   Thanks to xet7.
+- [Bump tar and @mapbox/node-pre-gyp](https://github.com/wekan/wekan/pull/6071).
+  Thanks to dependabot.
+- [Upgrade to Meteor 2.16](https://github.com/wekan/wekan/pull/6072).
+  Thanks to harryadel.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
