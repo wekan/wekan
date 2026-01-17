@@ -53,6 +53,11 @@ This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https:/
 - [Security Fix 14: ](https://github.com/wekan/wekan/commit/).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 
+and adds the following new features:
+
+- [Show password at Login and Register pages](https://github.com/wekan/wekan/commit/d30192f7f925a055e6f31723c47ad32b628ff2c0).
+  Thanks to xet7.
+
 and adds the following updates:
 
 - [Updated Docker build command](https://github.com/wekan/wekan/commit/b88b27689af8c5abf23dd7891780581a2d92001d).
