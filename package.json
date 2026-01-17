@@ -14,7 +14,7 @@
   "homepage": "https://wekan.fi",
   "devDependencies": {
     "flatted": "^3.3.1",
-    "sinon": "^13.0.2"
+    "sinon": "^21.0.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",
