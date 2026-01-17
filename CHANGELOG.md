@@ -67,6 +67,8 @@ and adds the following updates:
   Thanks to dependabot.
 - [Upgrade to Meteor 2.16](https://github.com/wekan/wekan/pull/6072).
   Thanks to harryadel.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/95da8966fe3bebc7c5ef2c1fc555de5fa239f8ca).
+  Thanks to developers of dependencies.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
