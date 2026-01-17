@@ -3,6 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 const passwordField = AccountsTemplates.removeField('password');
 passwordField.autocomplete = 'current-password';
+passwordField.template = 'passwordInput';
 const emailField = AccountsTemplates.removeField('email');
 let disableRegistration = false;
 let disableForgotPassword = false;
@@ -70,6 +71,7 @@ AccountsTemplates.addFields([
     required: true,
     minLength: 6,
     autocomplete: 'new-password',
+    template: 'passwordInput',
   },
   {
     _id: 'invitationcode',
