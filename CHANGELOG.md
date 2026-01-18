@@ -75,6 +75,11 @@ and adds the following updates:
 - [Updated dependencies](https://github.com/wekan/wekan/commit/95da8966fe3bebc7c5ef2c1fc555de5fa239f8ca).
   Thanks to developers of dependencies.
 
+and fixes the following bugs:
+
+- [Fixed "Copy card link to clipboard" icon often not working](https://github.com/wekan/wekan/commit/d337afd5d3e8ca719adcde13d2b24d983e0f9926).
+  Thanks to brlin-tw and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v8.20 2026-01-16 WeKan ® release
