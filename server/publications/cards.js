@@ -79,16 +79,22 @@ Meteor.publish('card', cardId => {
   const userId = Meteor.userId();
   const card = ReactiveCache.getCard({ _id: cardId });
   
+  if (!card || !card.boardId) {
+    return [];
+  }
+  
+  const board = ReactiveCache.getBoard({ _id: card.boardId });
+  if (!board || !board.isVisibleBy(userId)) {
+    return [];
+  }
+  
   // If user has assigned-only permissions, check if they're assigned to this card
-  if (userId && card && card.boardId) {
-    const board = ReactiveCache.getBoard({ _id: card.boardId });
-    if (board && board.members) {
-      const member = _.findWhere(board.members, { userId: userId, isActive: true });
-      if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-        // User with assigned-only permissions can only view cards assigned to them
-        if (!card.assignees || !card.assignees.includes(userId)) {
-          return []; // Don't publish if user is not assigned
-        }
+  if (userId && board.members) {
+    const member = _.findWhere(board.members, { userId: userId, isActive: true });
+    if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+      // User with assigned-only permissions can only view cards assigned to them
+      if (!card.assignees || !card.assignees.includes(userId)) {
+        return []; // Don't publish if user is not assigned
       }
     }
   }
@@ -110,16 +116,22 @@ Meteor.publishRelations('popupCardData', function(cardId) {
   const userId = this.userId;
   const card = ReactiveCache.getCard({ _id: cardId });
   
+  if (!card || !card.boardId) {
+    return this.ready();
+  }
+  
+  const board = ReactiveCache.getBoard({ _id: card.boardId });
+  if (!board || !board.isVisibleBy(userId)) {
+    return this.ready();
+  }
+  
   // If user has assigned-only permissions, check if they're assigned to this card
-  if (userId && card && card.boardId) {
-    const board = ReactiveCache.getBoard({ _id: card.boardId });
-    if (board && board.members) {
-      const member = _.findWhere(board.members, { userId: userId, isActive: true });
-      if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-        // User with assigned-only permissions can only view cards assigned to them
-        if (!card.assignees || !card.assignees.includes(userId)) {
-          return this.ready(); // Don't publish if user is not assigned
-        }
+  if (userId && board.members) {
+    const member = _.findWhere(board.members, { userId: userId, isActive: true });
+    if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+      // User with assigned-only permissions can only view cards assigned to them
+      if (!card.assignees || !card.assignees.includes(userId)) {
+        return this.ready(); // Don't publish if user is not assigned
       }
     }
   }
