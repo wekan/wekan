@@ -645,6 +645,11 @@ class CronMigrationManager {
    */
   async runMigrationStep(step) {
     try {
+      // Check if already completed
+      if (step.completed) {
+        return; // Skip if already completed
+      }
+
       // Starting migration step
       
       cronMigrationCurrentStep.set(step.name);
@@ -665,6 +670,9 @@ class CronMigrationManager {
       step.completed = true;
       step.progress = 100;
       step.status = 'completed';
+
+      // Remove the cron job to prevent re-running every minute
+      SyncedCron.remove(step.cronName);
 
       // Completed migration step
       
@@ -692,6 +700,15 @@ class CronMigrationManager {
     this.startTime = Date.now();
 
     try {
+      // Remove cron jobs to prevent conflicts with job queue
+      this.migrationSteps.forEach(step => {
+        try {
+          SyncedCron.remove(step.cronName);
+        } catch (error) {
+          // Ignore errors if cron job doesn't exist
+        }
+      });
+
       // Add all migration steps to the job queue
       for (let i = 0; i < this.migrationSteps.length; i++) {
         const step = this.migrationSteps[i];
