@@ -4,6 +4,7 @@ import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Cards from '/models/cards';
+import ReactiveCache from '/imports/reactiveCache';
 
 /**
  * Fix duplicate lists and swimlanes created by WeKan 8.10
@@ -13,6 +14,10 @@ Meteor.methods({
   'fixDuplicateLists.fixAllBoards'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
+    }
+
+    if (!ReactiveCache.getUser(this.userId).isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin required');
     }
 
     if (process.env.DEBUG === 'true') {
@@ -52,6 +57,11 @@ Meteor.methods({
     check(boardId, String);
     
     if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -201,6 +211,10 @@ Meteor.methods({
   'fixDuplicateLists.getReport'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
+    }
+
+    if (!ReactiveCache.getUser(this.userId).isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin required');
     }
 
     const allBoards = Boards.find({}).fetch();
