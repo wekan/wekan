@@ -423,7 +423,8 @@ BlazeComponent.extendComponent({
         },
         'click .js-copy-link'(event) {
           event.preventDefault();
-          const promise = Utils.copyTextToClipboard(event.target.href);
+          const url = this.data().absoluteUrl();
+          const promise = Utils.copyTextToClipboard(url);
 
           const $tooltip = this.$('.card-details-header .copied-tooltip');
           Utils.showCopied(promise, $tooltip);

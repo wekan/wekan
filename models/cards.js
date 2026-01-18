@@ -1019,17 +1019,19 @@ Cards.helpers({
 
   absoluteUrl() {
     const board = this.board();
+    if (!board) return undefined;
     return FlowRouter.url('card', {
       boardId: board._id,
-      slug: board.slug,
+      slug: board.slug || 'board',
       cardId: this._id,
     });
   },
   originRelativeUrl() {
     const board = this.board();
+    if (!board) return undefined;
     return FlowRouter.path('card', {
       boardId: board._id,
-      slug: board.slug,
+      slug: board.slug || 'board',
       cardId: this._id,
     });
   },

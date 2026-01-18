@@ -1067,10 +1067,10 @@ Boards.helpers({
   },
 
   absoluteUrl() {
-    return FlowRouter.url('board', { id: this._id, slug: this.slug });
+    return FlowRouter.url('board', { id: this._id, slug: this.slug || 'board' });
   },
   originRelativeUrl() {
-    return FlowRouter.path('board', { id: this._id, slug: this.slug });
+    return FlowRouter.path('board', { id: this._id, slug: this.slug || 'board' });
   },
 
   colorClass() {
