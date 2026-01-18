@@ -271,17 +271,26 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
     function(req, res) {
       const paramBoardId = req.params.boardId;
+      const paramCardId = req.params.cardId;
+      const paramChecklistId = req.params.checklistId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
-      if (checklistItem) {
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: checklistItem,
-        });
+      if (checklistItem && checklistItem.cardId === paramCardId && checklistItem.checklistId === paramChecklistId) {
+        const card = ReactiveCache.getCard(checklistItem.cardId);
+        if (card && card.boardId === paramBoardId) {
+          JsonRoutes.sendResult(res, {
+            code: 200,
+            data: checklistItem,
+          });
+        } else {
+          JsonRoutes.sendResult(res, {
+            code: 404,
+          });
+        }
       } else {
         JsonRoutes.sendResult(res, {
-          code: 500,
+          code: 404,
         });
       }
     },
@@ -311,19 +320,26 @@ if (Meteor.isServer) {
         cardId: paramCardId,
       });
       if (checklist) {
-        const id = ChecklistItems.insert({
-          cardId: paramCardId,
-          checklistId: paramChecklistId,
-          title: req.body.title,
-          isFinished: false,
-          sort: 0,
-        });
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: {
-            _id: id,
-          },
-        });
+        const card = ReactiveCache.getCard(paramCardId);
+        if (card && card.boardId === paramBoardId) {
+          const id = ChecklistItems.insert({
+            cardId: paramCardId,
+            checklistId: paramChecklistId,
+            title: req.body.title,
+            isFinished: false,
+            sort: 0,
+          });
+          JsonRoutes.sendResult(res, {
+            code: 200,
+            data: {
+              _id: id,
+            },
+          });
+        } else {
+          JsonRoutes.sendResult(res, {
+            code: 404,
+          });
+        }
       } else {
         JsonRoutes.sendResult(res, {
           code: 404,
@@ -350,8 +366,25 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
     function(req, res) {
       const paramBoardId = req.params.boardId;
+      const paramCardId = req.params.cardId;
+      const paramChecklistId = req.params.checklistId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
+      if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+        });
+        return;
+      }
+      const card = ReactiveCache.getCard(checklistItem.cardId);
+      if (!card || card.boardId !== paramBoardId) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+        });
+        return;
+      }
 
       function isTrue(data) {
         try {
@@ -401,8 +434,26 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
     function(req, res) {
       const paramBoardId = req.params.boardId;
+      const paramCardId = req.params.cardId;
+      const paramChecklistId = req.params.checklistId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
+      if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+        });
+        return;
+      }
+      const card = ReactiveCache.getCard(checklistItem.cardId);
+      if (!card || card.boardId !== paramBoardId) {
+        JsonRoutes.sendResult(res, {
+          code: 404,
+        });
+        return;
+      }
+
       ChecklistItems.direct.remove({ _id: paramItemId });
       JsonRoutes.sendResult(res, {
         code: 200,
