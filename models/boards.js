@@ -1964,6 +1964,23 @@ if (Meteor.isServer) {
     setBoardOrgs(boardOrgsArray, currBoardId){
       check(boardOrgsArray, Array);
       check(currBoardId, String);
+      const userId = Meteor.userId();
+      if (!userId) {
+        throw new Meteor.Error('not-authorized', 'You must be logged in to perform this action.');
+      }
+      const board = ReactiveCache.getBoard(currBoardId);
+      if (!board) {
+        throw new Meteor.Error('board-not-found', 'Board not found.');
+      }
+      if (!allowIsBoardAdmin(userId, board)) {
+        throw new Meteor.Error('not-authorized', 'You must be a board admin to perform this action.');
+      }
+      // Validate boardOrgsArray
+      for (const org of boardOrgsArray) {
+        check(org.orgId, String);
+        check(org.orgDisplayName, String);
+        check(org.isActive, Boolean);
+      }
       Boards.update(currBoardId, {
         $set: {
           orgs: boardOrgsArray,
@@ -1974,6 +1991,36 @@ if (Meteor.isServer) {
       check(boardTeamsArray, Array);
       check(membersArray, Array);
       check(currBoardId, String);
+      const userId = Meteor.userId();
+      if (!userId) {
+        throw new Meteor.Error('not-authorized', 'You must be logged in to perform this action.');
+      }
+      const board = ReactiveCache.getBoard(currBoardId);
+      if (!board) {
+        throw new Meteor.Error('board-not-found', 'Board not found.');
+      }
+      if (!allowIsBoardAdmin(userId, board)) {
+        throw new Meteor.Error('not-authorized', 'You must be a board admin to perform this action.');
+      }
+      // Validate boardTeamsArray
+      for (const team of boardTeamsArray) {
+        check(team.teamId, String);
+        check(team.teamDisplayName, String);
+        check(team.isActive, Boolean);
+      }
+      // Validate membersArray
+      for (const member of membersArray) {
+        check(member.userId, String);
+        check(member.isAdmin, Boolean);
+        check(member.isActive, Boolean);
+        if (member.isNoComments !== undefined) check(member.isNoComments, Boolean);
+        if (member.isCommentOnly !== undefined) check(member.isCommentOnly, Boolean);
+        if (member.isWorker !== undefined) check(member.isWorker, Boolean);
+        if (member.isNormalAssignedOnly !== undefined) check(member.isNormalAssignedOnly, Boolean);
+        if (member.isCommentAssignedOnly !== undefined) check(member.isCommentAssignedOnly, Boolean);
+        if (member.isReadOnly !== undefined) check(member.isReadOnly, Boolean);
+        if (member.isReadAssignedOnly !== undefined) check(member.isReadAssignedOnly, Boolean);
+      }
       Boards.update(currBoardId, {
         $set: {
           members: membersArray,
