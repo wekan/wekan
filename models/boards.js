@@ -2433,8 +2433,8 @@ if (Meteor.isServer) {
   */
   JsonRoutes.add('PUT', '/api/boards/:boardId/title', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
       const boardId = req.params.boardId;
+      Authentication.checkBoardWriteAccess(req.userId, boardId);
       const title = req.body.title;
 
       Boards.direct.update({ _id: boardId }, { $set: { title } });
