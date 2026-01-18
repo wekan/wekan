@@ -207,6 +207,19 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
+    
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('board-not-found');
+    }
+    
+    const user = ReactiveCache.getUser(this.userId);
+    const isBoardAdmin = board.hasAdmin(this.userId);
+    const isInstanceAdmin = user && user.isAdmin;
+    
+    if (!isBoardAdmin && !isInstanceAdmin) {
+      throw new Meteor.Error('not-authorized', 'You must be a board admin or instance admin to perform this action.');
+    }
 
     return await attachmentMigrationService.migrateBoardAttachments(boardId);
   },
@@ -216,6 +229,11 @@ Meteor.methods({
     
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
+    }
+    
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
 
     return attachmentMigrationService.getMigrationProgress(boardId);
@@ -227,6 +245,11 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
+    
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
+    }
 
     return attachmentMigrationService.getUnconvertedAttachments(boardId);
   },
@@ -236,6 +259,11 @@ Meteor.methods({
     
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
+    }
+    
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
 
     return attachmentMigrationService.isBoardMigrated(boardId);
