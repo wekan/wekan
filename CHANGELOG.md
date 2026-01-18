@@ -22,35 +22,35 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+# v8.21 2026-01-18 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
 
-- [Security Fix 2: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 2: OrgsTeamsBleed](https://github.com/wekan/wekan/commit/cabfeed9a68e21c469bf206d8655941444b9912c).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 3: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 3: ChecklistRESTBleed](https://github.com/wekan/wekan/commit/251d49eea94834cf351bb395808f4a56fb4dbb44).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 4: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 4: MigrationsBleed2](https://github.com/wekan/wekan/commit/cc35dafef57ef6e44a514a523f9a8d891e74ad8f).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 5: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 5: PositionHistoryBleed](https://github.com/wekan/wekan/commit/55576ec17722db094835470b386162c9a662fb60).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 6: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 6: SyncLDAPBleed](https://github.com/wekan/wekan/commit/146905a459106b5d00b4f09453a6554255e6965a).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 7: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 7: AttachmentMigrationBleed](https://github.com/wekan/wekan/commit/053bf1dfb76ef230db162c64a6ed50ebedf67eee).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 8: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 8: MoveStorageBleed](https://github.com/wekan/wekan/commit/c413a7e860bc4d93fe2adcf82516228570bf382d).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 9: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 9: ListWIPBleed](https://github.com/wekan/wekan/commit/8c0b4f79d8582932528ec2fdf2a4487c86770fb9).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 10: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 10: BoardTitleRESTBleed](https://github.com/wekan/wekan/commit/545566f5663545d16174e0f2399f231aa693ab6e).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 11: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 11: CardPubSubBleed](https://github.com/wekan/wekan/commit/0f5a9c38778ca550cbab6c5093470e1e90cb837f).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 12: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 12: FixDuplicateBleed](https://github.com/wekan/wekan/commit/4ce181d17249778094f73d21515f7f863f554743).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 13: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 13: LinkedBoardActivitiesBleed](https://github.com/wekan/wekan/commit/91a936e07d2976d4246dfe834281c3aaa87f9503).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
-- [Security Fix 14: ](https://github.com/wekan/wekan/commit/).
+- [Security Fix 14: RulesBleed](https://github.com/wekan/wekan/commit/a787bcddf33ca28afb13ff5ea9a4cb92dceac005).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 
 and adds the following new features:
@@ -79,6 +79,8 @@ and fixes the following bugs:
 
 - [Fixed "Copy card link to clipboard" icon often not working](https://github.com/wekan/wekan/commit/d337afd5d3e8ca719adcde13d2b24d983e0f9926).
   Thanks to brlin-tw and xet7.
+- [Fix DB migration from 8.19 to 8.20 is in a loop](https://github.com/wekan/wekan/commit/2fa490d83da858b193ca6a363e1599c5bbe55640).
+  Thanks to MaccabeeY and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -86,7 +88,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
 
-- [Security Fix 1: There was not enough permission checks. Moved migrations to Admin Panel/Settings/Cron](https://github.com/wekan/wekan/commit/cbb1cd78de3e40264a5e047ace0ce27f8635b4e6).
+- [Security Fix 1: MigrationsBleed](https://github.com/wekan/wekan/commit/cbb1cd78de3e40264a5e047ace0ce27f8635b4e6).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
 
 and adds the following features:
