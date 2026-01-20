@@ -4,7 +4,7 @@ const os = require('os');
 // Configure SyncedCron to suppress console logging
 // This must be done before any SyncedCron operations
 if (Meteor.isServer) {
-  const { SyncedCron } = require('meteor/percolate:synced-cron');
+  const { SyncedCron } = require('meteor/quave:synced-cron');
   SyncedCron.config({
     log: false, // Disable console logging
     collectionName: 'cronJobs', // Use custom collection name

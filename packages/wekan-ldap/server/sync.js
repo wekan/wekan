@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import SyncedCron from 'meteor/percolate:synced-cron';
+import { SyncedCron } from 'meteor/quave:synced-cron';
 import LDAP from './ldap';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 
@@ -440,7 +440,7 @@ function sync() {
 const jobName = 'LDAP_Sync';
 
 const addCronJob = _.debounce(Meteor.bindEnvironment(function addCronJobDebounced() {
-  let sc=SyncedCron.SyncedCron; //Why ?? something must be wrong in the import
+  let sc = SyncedCron;
   if (LDAP.settings_get('LDAP_BACKGROUND_SYNC') !== true) {
     log_info('Disabling LDAP Background Sync');
     if (sc.nextScheduledAtDate(jobName)) {

@@ -20,7 +20,7 @@ Package.onUse(function(api) {
 
 	api.use('accounts-base', 'server');
 	api.use('accounts-password', 'server');
-	api.use('percolate:synced-cron', 'server');
+	api.use('quave:synced-cron', 'server');
 	api.addFiles('client/loginHelper.js', 'client');
 
 	api.mainModule('server/index.js', 'server');
