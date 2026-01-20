@@ -29,6 +29,11 @@ This release adds the following updates:
 - [Migrate from percolate:synced-cron to quave:synced-cron](https://github.com/wekan/wekan/pull/6080).
   Thanks to harryadel.
 
+and fixes the following bugs:
+
+- [Fixed newly created "Default" swimlane are displayed as "key 'default (LOCALE)' returned an object instead of string"](https://github.com/wekan/wekan/commit/ce55f0d8f432922ca4c0e3d28b1fb0e826d8008f).
+  Thanks to brlin-tw and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v8.22 2026-01-20 WeKan ® release
