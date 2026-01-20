@@ -4,7 +4,7 @@
  */
 
 import { Meteor } from 'meteor/meteor';
-import { SyncedCron } from 'meteor/percolate:synced-cron';
+import { SyncedCron } from 'meteor/quave:synced-cron';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { cronJobStorage } from './cronJobStorage';
 
@@ -28,6 +28,7 @@ class CronMigrationManager {
     this.isRunning = false;
     this.jobProcessor = null;
     this.processingInterval = null;
+    this.pausedJobs = new Map(); // Store paused job configs for per-job pause/resume
   }
 
   /**
@@ -797,7 +798,7 @@ class CronMigrationManager {
    */
   async startCronJob(cronName) {
     // Change schedule to run once
-    const job = SyncedCron.jobs.find(j => j.name === cronName);
+    const job = SyncedCron._entries?.[cronName];
     if (job) {
       job.schedule = 'once';
       SyncedCron.start();
@@ -832,9 +833,20 @@ class CronMigrationManager {
 
   /**
    * Pause a specific cron job
+   * Note: quave:synced-cron only has global pause(), so we implement per-job pause
+   * by storing the job config and removing it, then re-adding on resume.
    */
   pauseCronJob(cronName) {
-    SyncedCron.pause(cronName);
+    const entry = SyncedCron._entries?.[cronName];
+    if (entry) {
+      // Store the job config before removing
+      this.pausedJobs.set(cronName, {
+        name: entry.name,
+        schedule: entry.schedule,
+        job: entry.job
+      });
+      SyncedCron.remove(cronName);
+    }
     const step = this.migrationSteps.find(s => s.cronName === cronName);
     if (step) {
       step.status = 'paused';
@@ -844,9 +856,15 @@ class CronMigrationManager {
 
   /**
    * Resume a specific cron job
+   * Note: quave:synced-cron doesn't have resume(), so we re-add the stored job config.
    */
   resumeCronJob(cronName) {
-    SyncedCron.resume(cronName);
+    const pausedJob = this.pausedJobs.get(cronName);
+    if (pausedJob) {
+      SyncedCron.add(pausedJob);
+      this.pausedJobs.delete(cronName);
+      SyncedCron.start();
+    }
     const step = this.migrationSteps.find(s => s.cronName === cronName);
     if (step) {
       step.status = 'running';
@@ -902,14 +920,15 @@ class CronMigrationManager {
    * Update cron jobs list
    */
   updateCronJobsList() {
-    // Check if SyncedCron is available and has jobs
-    if (!SyncedCron || !SyncedCron.jobs || !Array.isArray(SyncedCron.jobs)) {
+    // Check if SyncedCron is available and has entries
+    const entries = SyncedCron?._entries;
+    if (!entries || typeof entries !== 'object') {
       // SyncedCron not available or no jobs yet
       cronJobs.set([]);
       return;
     }
 
-    const jobs = SyncedCron.jobs.map(job => {
+    const jobs = Object.values(entries).map(job => {
       const step = this.migrationSteps.find(s => s.cronName === job.name);
       return {
         name: job.name,
@@ -1332,8 +1351,8 @@ class CronMigrationManager {
   clearAllCronJobs() {
     try {
       // Stop all existing cron jobs
-      if (SyncedCron && SyncedCron.jobs) {
-        SyncedCron.jobs.forEach(job => {
+      if (SyncedCron?._entries) {
+        Object.values(SyncedCron._entries).forEach(job => {
           try {
             SyncedCron.remove(job.name);
           } catch (error) {

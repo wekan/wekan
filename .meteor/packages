@@ -69,7 +69,7 @@ meteorhacks:subs-manager
 meteorhacks:aggregate@1.3.0
 wekan-markdown
 konecty:mongo-counter
-percolate:synced-cron
+quave:synced-cron
 ostrio:cookies
 ostrio:files@2.3.0
 lmieulet:meteor-coverage
