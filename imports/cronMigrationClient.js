@@ -7,6 +7,8 @@ export const cronMigrationCurrentStep = new ReactiveVar('');
 export const cronMigrationSteps = new ReactiveVar([]);
 export const cronIsMigrating = new ReactiveVar(false);
 export const cronJobs = new ReactiveVar([]);
+export const cronMigrationCurrentStepNum = new ReactiveVar(0);
+export const cronMigrationTotalSteps = new ReactiveVar(0);
 
 function fetchProgress() {
   Meteor.call('cron.getMigrationProgress', (err, res) => {
@@ -17,6 +19,8 @@ function fetchProgress() {
     cronMigrationCurrentStep.set(res.currentStep || '');
     cronMigrationSteps.set(res.steps || []);
     cronIsMigrating.set(res.isMigrating || false);
+    cronMigrationCurrentStepNum.set(res.currentStepNum || 0);
+    cronMigrationTotalSteps.set(res.totalSteps || 0);
   });
 }
 

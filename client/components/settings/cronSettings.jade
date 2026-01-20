@@ -3,21 +3,52 @@ template(name="cronSettings")
     li
       h3 {{_ 'cron-migrations'}}
       .form-group
-        label {{_ 'migration-status'}}
-        .status-indicator
-          span.status-label {{_ 'status'}}:
-          span.status-value {{migrationStatus}}
-        .progress-section
-          .progress
-            .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
-              | {{migrationProgress}}%
-          .progress-text
-            | {{migrationProgress}}% {{_ 'complete'}}
+        label {{_ 'select-migration'}}
+        select.js-migration-select.wekan-form-control
+          option(value="0") 0 - {{_ 'all-migrations'}}
+          each migrationStepsWithIndex
+            option(value="{{index}}") {{index}} - {{name}}
       
       .form-group
-        button.js-start-all-migrations.btn.btn-primary {{_ 'start-all-migrations'}}
-        button.js-pause-all-migrations.btn.btn-warning {{_ 'pause-all-migrations'}}
-        button.js-stop-all-migrations.btn.btn-danger {{_ 'stop-all-migrations'}}
+        label {{_ 'migration-status'}}
+        .status-indicator
+          span.status-value {{migrationStatus}}
+        if isMigrating
+          .progress-section
+            .step-counter
+              | Step {{migrationCurrentStepNum}}/{{migrationTotalSteps}}
+            .progress
+              .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
+                | {{migrationProgress}}%
+            .progress-text
+              | {{migrationProgress}}% {{_ 'complete'}}
+      
+      .form-group
+        button.js-start-migration.btn.btn-primary(disabled="{{#if isMigrating}}disabled{{/if}}") {{_ 'start'}}
+        button.js-pause-migration.btn.btn-warning(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'pause'}}
+        button.js-stop-migration.btn.btn-danger(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'stop'}}
+      
+      .form-group.migration-errors-section
+        h4 {{_ 'cron-migration-errors'}}
+        if hasErrors
+          .error-actions
+            button.js-clear-all-errors.btn.btn-sm.btn-warning {{_ 'cron-clear-errors'}}
+          .errors-list
+            each migrationErrors
+              .error-item(class="error-{{severity}}")
+                .error-header
+                  span.error-severity(class="severity-{{severity}}") {{severity}}
+                  span.error-time {{formatDateTime createdAt}}
+                  if stepId
+                    span.error-step {{stepId}}
+                .error-message {{errorMessage}}
+                if context
+                  .error-context
+                    each contextValue context
+                      span.context-item {{this}}
+        else
+          .no-errors
+            | {{_ 'cron-no-errors'}}
     
     li
       h3 {{_ 'board-operations'}}

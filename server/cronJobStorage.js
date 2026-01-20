@@ -10,6 +10,7 @@ import { Mongo } from 'meteor/mongo';
 export const CronJobStatus = new Mongo.Collection('cronJobStatus');
 export const CronJobSteps = new Mongo.Collection('cronJobSteps');
 export const CronJobQueue = new Mongo.Collection('cronJobQueue');
+export const CronJobErrors = new Mongo.Collection('cronJobErrors');
 
 // Indexes for performance
 if (Meteor.isServer) {
@@ -29,6 +30,12 @@ if (Meteor.isServer) {
     CronJobQueue._collection.createIndex({ priority: 1, createdAt: 1 });
     CronJobQueue._collection.createIndex({ status: 1 });
     CronJobQueue._collection.createIndex({ jobType: 1 });
+    
+    // Index for job errors queries
+    CronJobErrors._collection.createIndex({ jobId: 1, createdAt: -1 });
+    CronJobErrors._collection.createIndex({ stepId: 1 });
+    CronJobErrors._collection.createIndex({ severity: 1 });
+    CronJobErrors._collection.createIndex({ createdAt: -1 });
   });
 }
 
@@ -144,6 +151,59 @@ class CronJobStorage {
       jobId,
       status: { $in: ['pending', 'running'] }
     }, { sort: { stepIndex: 1 } }).fetch();
+  }
+
+  /**
+   * Save job error to persistent storage
+   */
+  saveJobError(jobId, errorData) {
+    const now = new Date();
+    const { stepId, stepIndex, error, severity = 'error', context = {} } = errorData;
+    
+    CronJobErrors.insert({
+      jobId,
+      stepId,
+      stepIndex,
+      errorMessage: typeof error === 'string' ? error : error.message || 'Unknown error',
+      errorStack: error.stack || null,
+      severity,
+      context,
+      createdAt: now
+    });
+  }
+
+  /**
+   * Get job errors from persistent storage
+   */
+  getJobErrors(jobId, options = {}) {
+    const { limit = 100, severity = null } = options;
+    
+    const query = { jobId };
+    if (severity) {
+      query.severity = severity;
+    }
+    
+    return CronJobErrors.find(query, { 
+      sort: { createdAt: -1 },
+      limit 
+    }).fetch();
+  }
+
+  /**
+   * Get all recent errors across all jobs
+   */
+  getAllRecentErrors(limit = 50) {
+    return CronJobErrors.find({}, { 
+      sort: { createdAt: -1 },
+      limit 
+    }).fetch();
+  }
+
+  /**
+   * Clear errors for a specific job
+   */
+  clearJobErrors(jobId) {
+    return CronJobErrors.remove({ jobId });
   }
 
   /**
@@ -379,6 +439,7 @@ class CronJobStorage {
       CronJobStatus.remove({});
       CronJobSteps.remove({});
       CronJobQueue.remove({});
+      CronJobErrors.remove({});
       
       console.log('All cron job data cleared from storage');
       return { success: true, message: 'All cron job data cleared' };

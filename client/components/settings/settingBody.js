@@ -8,7 +8,9 @@ import {
   cronMigrationCurrentStep, 
   cronMigrationSteps, 
   cronIsMigrating, 
-  cronJobs 
+  cronJobs,
+  cronMigrationCurrentStepNum,
+  cronMigrationTotalSteps
 } from '/imports/cronMigrationClient';
 
 
@@ -27,6 +29,7 @@ BlazeComponent.extendComponent({
     this.webhookSetting = new ReactiveVar(false);
     this.attachmentSettings = new ReactiveVar(false);
     this.cronSettings = new ReactiveVar(false);
+    this.migrationErrorsList = new ReactiveVar([]);
 
     Meteor.subscribe('setting');
     Meteor.subscribe('mailServer');
@@ -36,6 +39,23 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('accessibilitySettings');
     Meteor.subscribe('globalwebhooks');
     Meteor.subscribe('lockoutSettings');
+    
+    // Poll for migration errors
+    this.errorPollInterval = Meteor.setInterval(() => {
+      if (this.cronSettings.get()) {
+        Meteor.call('cron.getAllMigrationErrors', 50, (error, result) => {
+          if (!error && result) {
+            this.migrationErrorsList.set(result);
+          }
+        });
+      }
+    }, 5000); // Poll every 5 seconds
+  },
+
+  onDestroyed() {
+    if (this.errorPollInterval) {
+      Meteor.clearInterval(this.errorPollInterval);
+    }
   },
 
 
@@ -142,8 +162,38 @@ BlazeComponent.extendComponent({
     return cronMigrationSteps.get() || [];
   },
   
+  migrationStepsWithIndex() {
+    const steps = cronMigrationSteps.get() || [];
+    return steps.map((step, idx) => ({
+      ...step,
+      index: idx + 1
+    }));
+  },
+  
   cronJobs() {
     return cronJobs.get() || [];
+  },
+
+  migrationCurrentStepNum() {
+    return cronMigrationCurrentStepNum.get() || 0;
+  },
+
+  migrationTotalSteps() {
+    return cronMigrationTotalSteps.get() || 0;
+  },
+
+  migrationErrors() {
+    return this.migrationErrorsList ? this.migrationErrorsList.get() : [];
+  },
+
+  hasErrors() {
+    const errors = this.migrationErrors();
+    return errors && errors.length > 0;
+  },
+
+  formatDateTime(date) {
+    if (!date) return '';
+    return moment(date).format('YYYY-MM-DD HH:mm:ss');
   },
 
   setLoading(w) {
@@ -187,20 +237,35 @@ BlazeComponent.extendComponent({
   },
 
   // Event handlers for cron settings
-  'click button.js-start-all-migrations'(event) {
+  'click button.js-start-migration'(event) {
     event.preventDefault();
     this.setLoading(true);
-    Meteor.call('cron.startAllMigrations', (error, result) => {
-      this.setLoading(false);
-      if (error) {
-        alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
-      } else {
-        alert(TAPi18n.__('migration-started'));
-      }
-    });
+    const selectedIndex = parseInt($('.js-migration-select').val() || '0', 10);
+    
+    if (selectedIndex === 0) {
+      // Run all migrations
+      Meteor.call('cron.startAllMigrations', (error, result) => {
+        this.setLoading(false);
+        if (error) {
+          alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
+        } else {
+          alert(TAPi18n.__('migration-started'));
+        }
+      });
+    } else {
+      // Run specific migration
+      Meteor.call('cron.startSpecificMigration', selectedIndex - 1, (error, result) => {
+        this.setLoading(false);
+        if (error) {
+          alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
+        } else {
+          alert(TAPi18n.__('migration-started'));
+        }
+      });
+    }
   },
 
-  'click button.js-pause-all-migrations'(event) {
+  'click button.js-pause-migration'(event) {
     event.preventDefault();
     this.setLoading(true);
     Meteor.call('cron.pauseAllMigrations', (error, result) => {
@@ -213,7 +278,7 @@ BlazeComponent.extendComponent({
     });
   },
 
-  'click button.js-stop-all-migrations'(event) {
+  'click button.js-stop-migration'(event) {
     event.preventDefault();
     if (confirm(TAPi18n.__('migration-stop-confirm'))) {
       this.setLoading(true);

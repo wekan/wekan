@@ -12,6 +12,9 @@
 // Helper collection to track migrations - must be defined first
 const Migrations = new Mongo.Collection('migrations');
 
+// DISABLED: This migration now runs from Admin Panel / Cron / Run All Migrations
+// Instead of running automatically on startup
+/*
 Meteor.startup(() => {
   // Only run on server
   if (!Meteor.isServer) return;
@@ -26,11 +29,16 @@ Meteor.startup(() => {
   }
 
   console.log(`Running migration: ${MIGRATION_NAME} v${MIGRATION_VERSION}`);
+*/
 
-  /**
-   * Get or create a "Rescued Data" swimlane for a board
-   */
-  function getOrCreateRescuedSwimlane(boardId) {
+// Export migration functions for use by cron migration manager
+export const MIGRATION_NAME = 'ensure-valid-swimlane-ids';
+export const MIGRATION_VERSION = 1;
+
+/**
+ * Get or create a "Rescued Data" swimlane for a board
+ */
+function getOrCreateRescuedSwimlane(boardId) {
     const board = Boards.findOne(boardId);
     if (!board) return null;
 
@@ -243,6 +251,72 @@ Meteor.startup(() => {
     });
   }
 
+  // Exported function to run the migration from cron
+  export function runEnsureValidSwimlaneIdsMigration() {
+    const existingMigration = Migrations.findOne({ name: MIGRATION_NAME });
+    if (existingMigration && existingMigration.version >= MIGRATION_VERSION) {
+      console.log(`Migration ${MIGRATION_NAME} already completed`);
+      return { alreadyCompleted: true, ...existingMigration.results };
+    }
+
+    console.log(`Running migration: ${MIGRATION_NAME} v${MIGRATION_VERSION}`);
+
+    try {
+      // Run all fix operations
+      const cardResults = fixCardsWithoutSwimlaneId();
+      const listResults = fixListsWithoutSwimlaneId();
+      const rescueResults = rescueOrphanedCards();
+
+      console.log('Migration results:');
+      console.log(`- Fixed ${cardResults.fixedCount} cards without swimlaneId`);
+      console.log(`- Fixed ${listResults.fixedCount} lists without swimlaneId`);
+      console.log(`- Rescued ${rescueResults.rescuedCount} orphaned cards`);
+
+      // Record migration completion
+      Migrations.upsert(
+        { name: MIGRATION_NAME },
+        {
+          $set: {
+            name: MIGRATION_NAME,
+            version: MIGRATION_VERSION,
+            completedAt: new Date(),
+            results: {
+              cardsFixed: cardResults.fixedCount,
+              listsFixed: listResults.fixedCount,
+              cardsRescued: rescueResults.rescuedCount,
+            },
+          },
+        }
+      );
+
+      console.log(`Migration ${MIGRATION_NAME} completed successfully`);
+      
+      return {
+        success: true,
+        cardsFixed: cardResults.fixedCount,
+        listsFixed: listResults.fixedCount,
+        cardsRescued: rescueResults.rescuedCount,
+      };
+    } catch (error) {
+      console.error(`Migration ${MIGRATION_NAME} failed:`, error);
+      throw error;
+    }
+  }
+
+// Install validation hooks on startup (always run these for data integrity)
+Meteor.startup(() => {
+  if (!Meteor.isServer) return;
+  
+  try {
+    addSwimlaneIdValidationHooks();
+    console.log('SwimlaneId validation hooks installed');
+  } catch (error) {
+    console.error('Failed to install swimlaneId validation hooks:', error);
+  }
+});
+
+/*
+  // OLD AUTO-RUN CODE - DISABLED
   try {
     // Run all fix operations
     const cardResults = fixCardsWithoutSwimlaneId();
@@ -284,3 +358,4 @@ Meteor.startup(() => {
     console.error('Failed to install swimlaneId validation hooks:', error);
   }
 });
+*/

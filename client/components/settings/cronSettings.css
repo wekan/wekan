@@ -862,3 +862,43 @@
     max-width: 100%;
   }
 }
+
+/* Progress bar styles for #cron-setting section */
+#cron-setting .progress-section {
+  margin-top: 15px;
+}
+
+#cron-setting .step-counter {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+#cron-setting .progress {
+  height: 30px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: visible;
+  margin-bottom: 5px;
+  max-width: calc(100% - 40px);
+}
+
+#cron-setting .progress-bar {
+  height: 30px;
+  line-height: 30px;
+  background-color: #28a745;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+#cron-setting .progress-text {
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+  max-width: calc(100% - 40px);
+}

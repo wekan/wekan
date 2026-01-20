@@ -170,25 +170,22 @@ template(name="setting")
                   label {{_ 'migration-status'}}
                   .status-indicator
                     span.status-label {{_ 'status'}}:
-                    span.status-value {{#if isMigrating}}{{migrationStatus}}{{else}}{{_ 'idle'}}{{/if}}
-                    .current-step(class="{{#unless migrationCurrentStep}}hide{{/unless}}")
-                      span.step-label {{_ 'current-step'}}:
-                      span.step-value {{migrationCurrentStep}}
-                  .progress-section
-                    .progress
-                      .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
-                        | {{migrationProgress}}%
-                    .progress-text
-                      | {{migrationProgress}}% {{_ 'complete'}}
+                    span.status-value
+                      if isMigrating
+                        i.fa.fa-spinner.fa-spin(style="margin-right: 8px;")
+                      | {{#if isMigrating}}{{migrationStatus}}{{else}}{{_ 'idle'}}{{/if}}
+                  if isMigrating
+                    .progress-section
+                      .progress
+                        .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
+                          | {{migrationProgress}}%
+                      .progress-text
+                        | {{migrationProgress}}% {{_ 'complete'}}
                 
                 .form-group
-                  button.js-start-all-migrations.btn.btn-primary {{#if isMigrating}}disabled{{/if}} {{_ 'start-all-migrations'}}
-                  button.js-pause-all-migrations.btn.btn-warning {{#unless isMigrating}}disabled{{/unless}} {{_ 'pause-all-migrations'}}
-                  button.js-stop-all-migrations.btn.btn-danger {{#unless isMigrating}}disabled{{/unless}} {{_ 'stop-all-migrations'}}
-              
-              li
-                h3 {{_ 'migration-steps'}}
-                p Migration steps section temporarily removed
+                  button.js-start-all-migrations.btn.btn-primary(disabled="{{#if isMigrating}}disabled{{/if}}") {{_ 'start-all-migrations'}}
+                  button.js-pause-all-migrations.btn.btn-warning(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'pause-all-migrations'}}
+                  button.js-stop-all-migrations.btn.btn-danger(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'stop-all-migrations'}}
               
               li
                 h3 {{_ 'board-operations'}}
