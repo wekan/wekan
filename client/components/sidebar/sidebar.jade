@@ -754,7 +754,6 @@ template(name="removeBoardTeamPopup")
 template(name="addMemberPopup")
   .js-search-member
     input.js-search-member-input(type="text" placeholder="{{_ 'email-address'}}")
-
   if loading.get
     +spinner
   else if error.get
@@ -762,21 +761,12 @@ template(name="addMemberPopup")
   else
     ul.pop-over-list
       each searchResults
-        li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
+        li.item.js-member-item
           a.name.js-select-member(title="{{profile.fullname}} ({{username}})")
             +userAvatar(userId=_id)
             span.full-name
               = profile.fullname
               | (<span class="username">{{username}}</span>)
-            if isBoardMember
-              .quiet ({{_ 'joined'}})
-
-      if searching.get
-        +spinner
-
-      if noResults.get
-        .manage-member-section
-          p.quiet {{_ 'no-results'}}
     button.js-email-invite.primary.full {{_ 'email-invite'}}
 
 
@@ -832,6 +822,12 @@ template(name="changePermissionsPopup")
           | ✅
         span.sub-name {{_ 'comment-assigned-only-desc'}}
     li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-worker{{/if}}")
+        | {{_ 'worker'}}
+        if isWorker
+          | ✅
+        span.sub-name {{_ 'worker-desc'}}
+    li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-read-only{{/if}}")
         | {{_ 'read-only'}}
         if isReadOnly
@@ -843,12 +839,6 @@ template(name="changePermissionsPopup")
         if isReadAssignedOnly
           | ✅
         span.sub-name {{_ 'read-assigned-only-desc'}}
-    li
-      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-worker{{/if}}")
-        | {{_ 'worker'}}
-        if isWorker
-          | ✅
-        span.sub-name {{_ 'worker-desc'}}
   if isLastAdmin
     hr
     p.quiet.bottom {{_ 'last-admin-desc'}}

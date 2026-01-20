@@ -1,9 +1,12 @@
 template(name="userAvatar")
-  a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}}" title="{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}")
-    if userData.profile.avatarUrl
-      img.avatar.avatar-image(src="{{avatarUrl}}")
+  a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}}" title="{{#if userData}}{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}{{/if}}")
+    if userData
+      if userData.profile.avatarUrl
+        img.avatar.avatar-image(src="{{avatarUrl}}")
+      else
+        +userAvatarInitials(userId=userData._id)
     else
-      +userAvatarInitials(userId=userData._id)
+      +userAvatarInitials(userId=this.userId)
 
     if showStatus
       span.member-presence-status(class=presenceStatusClassName)

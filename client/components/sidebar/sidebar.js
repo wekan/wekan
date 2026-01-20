@@ -1474,8 +1474,9 @@ BlazeComponent.extendComponent({
 
   isBoardMember() {
     const userId = this.currentData()._id;
-    const user = ReactiveCache.getUser(userId);
-    return user && user.isBoardMember();
+    const boardId = Session.get('currentBoard');
+    const board = ReactiveCache.getBoard(boardId);
+    return board && board.hasMember(userId);
   },
 
   isValidEmail(email) {
@@ -1504,14 +1505,20 @@ BlazeComponent.extendComponent({
     Session.set('addMemberPopup.searching', true);
     Session.set('addMemberPopup.noResults', false);
 
-    // Use the fallback search
-    const results = UserSearchIndex.search(query, { limit: 20 }).fetch();
-    Session.set('addMemberPopup.searchResults', results);
-    Session.set('addMemberPopup.searching', false);
-    
-    if (results.length === 0) {
-      Session.set('addMemberPopup.noResults', true);
-    }
+    const boardId = Session.get('currentBoard');
+    Meteor.call('searchUsers', query, boardId, (error, results) => {
+      Session.set('addMemberPopup.searching', false);
+      if (error) {
+        console.error('Search error:', error);
+        Session.set('addMemberPopup.searchResults', []);
+        Session.set('addMemberPopup.noResults', true);
+      } else {
+        Session.set('addMemberPopup.searchResults', results);
+        if (results.length === 0) {
+          Session.set('addMemberPopup.noResults', true);
+        }
+      }
+    });
   },
 
   inviteUser(idNameEmail) {
@@ -1520,9 +1527,11 @@ BlazeComponent.extendComponent({
     const self = this;
     Meteor.call('inviteUserToBoard', idNameEmail, boardId, (err, ret) => {
       self.setLoading(false);
-      if (err) self.setError(err.error);
-      else if (ret.email) self.setError('email-sent');
-      else Popup.back();
+      if (err) {
+        self.setError(err.error);
+      } else {
+        Popup.back();
+      }
     });
   },
 
@@ -1530,9 +1539,8 @@ BlazeComponent.extendComponent({
     return [
       {
         'keyup .js-search-member-input'(event) {
-          this.setError('');
+          Session.set('addMemberPopup.error', '');
           const query = event.target.value.trim();
-          this.searchQuery.set(query);
           
           // Clear previous timeout
           if (this.searchTimeout) {
@@ -1546,16 +1554,13 @@ BlazeComponent.extendComponent({
         },
         'click .js-select-member'() {
           const userId = this.currentData()._id;
-          const currentBoard = Utils.getCurrentBoard();
-          if (!currentBoard.hasMember(userId)) {
-            this.inviteUser(userId);
-          }
+          this.inviteUser(userId);
         },
         'click .js-email-invite'() {
           const idNameEmail = $('.js-search-member-input').val();
           if (idNameEmail.indexOf('@') < 0 || this.isValidEmail(idNameEmail)) {
             this.inviteUser(idNameEmail);
-          } else this.setError('email-invalid');
+          } else Session.set('addMemberPopup.error', 'email-invalid');
         },
       },
     ];
@@ -1565,7 +1570,6 @@ BlazeComponent.extendComponent({
 Template.addMemberPopup.helpers({
   searchResults() {
     const results = Session.get('addMemberPopup.searchResults');
-    console.log('searchResults helper called, returning:', results);
     return results;
   },
   searching() {
@@ -1582,14 +1586,14 @@ Template.addMemberPopup.helpers({
   },
   isBoardMember() {
     const userId = this._id;
-    const user = ReactiveCache.getUser(userId);
-    return user && user.isBoardMember();
+    const boardId = Session.get('currentBoard');
+    const board = ReactiveCache.getBoard(boardId);
+    return board && board.hasMember(userId);
   }
 })
 
 Template.addMemberPopupTest.helpers({
   searchResults() {
-    console.log('addMemberPopupTest searchResults helper called');
     return Session.get('addMemberPopup.searchResults') || [];
   }
 })
@@ -1675,8 +1679,15 @@ BlazeComponent.extendComponent({
 
     this.page = new ReactiveVar(1);
     this.autorun(() => {
-      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
-      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+    });
+
+    this.findUsersOptions = new ReactiveVar({});
+    this.userPage = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitUsers = this.userPage.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
     });
   },
 

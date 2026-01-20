@@ -2533,14 +2533,9 @@ if (Meteor.isServer) {
       }
       const inviter = ReactiveCache.getCurrentUser();
       const board = ReactiveCache.getBoard(boardId);
-      const allowInvite =
-        inviter &&
-        board &&
-        board.members &&
-        _.contains(_.pluck(board.members, 'userId'), inviter._id) &&
-        _.where(board.members, {
-          userId: inviter._id,
-        })[0].isActive;
+      const member = _.find(board.members, function(member) { return member.userId === inviter._id; });
+      if (!member) throw new Meteor.Error('error-board-notAMember');
+      const allowInvite = member.isActive;
       // GitHub issue 2060
       //_.where(board.members, { userId: inviter._id })[0].isAdmin;
       if (!allowInvite) throw new Meteor.Error('error-board-notAMember');
@@ -2596,16 +2591,26 @@ if (Meteor.isServer) {
         user = ReactiveCache.getUser(newUserId);
       }
 
-      board.addMember(user._id);
-      user.addInvite(boardId);
+      const memberIndex = board.members.findIndex(m => m.userId === user._id);
+      if (memberIndex >= 0) {
+        Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true, modifiedAt: new Date() } });
+      } else {
+        Boards.update(boardId, { $push: { members: { userId: user._id, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } }, $set: { modifiedAt: new Date() } });
+      }
+      Users.update(user._id, { $push: { 'profile.invitedBoards': boardId } });
 
       //Check if there is a subtasks board
       if (board.subtasksDefaultBoardId) {
         const subBoard = ReactiveCache.getBoard(board.subtasksDefaultBoardId);
         //If there is, also add user to that board
         if (subBoard) {
-          subBoard.addMember(user._id);
-          user.addInvite(subBoard._id);
+          const subMemberIndex = subBoard.members.findIndex(m => m.userId === user._id);
+          if (subMemberIndex >= 0) {
+            Boards.update(board.subtasksDefaultBoardId, { $set: { [`members.${subMemberIndex}.isActive`]: true, modifiedAt: new Date() } });
+          } else {
+            Boards.update(board.subtasksDefaultBoardId, { $push: { members: { userId: user._id, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } }, $set: { modifiedAt: new Date() } });
+          }
+          Users.update(user._id, { $push: { 'profile.invitedBoards': subBoard._id } });
         }
       }        try {
           const fullName =
@@ -3144,7 +3149,12 @@ if (Meteor.isServer) {
       } else {
         invitationCode.boardsToBeInvited.forEach((boardId) => {
           const board = ReactiveCache.getBoard(boardId);
-          board.addMember(doc._id);
+          const memberIndex = board.members.findIndex(m => m.userId === doc._id);
+          if (memberIndex >= 0) {
+            Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
+          } else {
+            Boards.update(boardId, { $push: { members: { userId: doc._id, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } } });
+          }
         });
         if (!doc.profile) {
           doc.profile = {};
@@ -3441,24 +3451,33 @@ if (Meteor.isServer) {
             data = ReactiveCache.getBoards({
               _id: boardId,
             }).map(function (board) {
-              if (!board.hasMember(userId)) {
-                board.addMember(userId);
+              const hasMember = board.members.some(m => m.userId === userId && m.isActive);
+              if (!hasMember) {
+                const memberIndex = board.members.findIndex(m => m.userId === userId);
+                if (memberIndex >= 0) {
+                  Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
+                } else {
+                  Boards.update(boardId, { $push: { members: { userId: userId, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } } });
+                }
 
                 function isTrue(data) {
                   return data.toLowerCase() === 'true';
                 }
-                board.setMemberPermission(
-                  userId,
-                  isTrue(isAdmin),
-                  isTrue(isNoComments),
-                  isTrue(isCommentOnly),
-                  isTrue(isWorker),
-                  isTrue(isNormalAssignedOnly),
-                  isTrue(isCommentAssignedOnly),
-                  isTrue(isReadOnly),
-                  isTrue(isReadAssignedOnly),
-                  userId,
-                );
+                const memberIndex2 = board.members.findIndex(m => m.userId === userId);
+                if (memberIndex2 >= 0) {
+                  Boards.update(boardId, {
+                    $set: {
+                      [`members.${memberIndex2}.isAdmin`]: isTrue(isAdmin),
+                      [`members.${memberIndex2}.isNoComments`]: isTrue(isNoComments),
+                      [`members.${memberIndex2}.isCommentOnly`]: isTrue(isCommentOnly),
+                      [`members.${memberIndex2}.isWorker`]: isTrue(isWorker),
+                      [`members.${memberIndex2}.isNormalAssignedOnly`]: isTrue(isNormalAssignedOnly),
+                      [`members.${memberIndex2}.isCommentAssignedOnly`]: isTrue(isCommentAssignedOnly),
+                      [`members.${memberIndex2}.isReadOnly`]: isTrue(isReadOnly),
+                      [`members.${memberIndex2}.isReadAssignedOnly`]: isTrue(isReadAssignedOnly),
+                    }
+                  });
+                }
               }
               return {
                 _id: board._id,
@@ -3506,8 +3525,19 @@ if (Meteor.isServer) {
             data = ReactiveCache.getBoards({
               _id: boardId,
             }).map(function (board) {
-              if (board.hasMember(userId)) {
-                board.removeMember(userId);
+              const hasMember = board.members.some(m => m.userId === userId && m.isActive);
+              if (hasMember) {
+                const memberIndex = board.members.findIndex(m => m.userId === userId);
+                if (memberIndex >= 0) {
+                  const member = board.members[memberIndex];
+                  const activeAdmins = board.members.filter(m => m.isActive && m.isAdmin);
+                  const allowRemove = !member.isAdmin || activeAdmins.length > 1;
+                  if (!allowRemove) {
+                    Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
+                  } else {
+                    Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: false, [`members.${memberIndex}.isAdmin`]: false } });
+                  }
+                }
               }
               return {
                 _id: board._id,
@@ -3684,47 +3714,92 @@ if (Meteor.isServer) {
   });
 
   // Server-side method to sanitize user data for search results
+  const sanitizeUserForSearch = (userData) => {
+    // Only allow safe fields for user search
+    const safeFields = {
+      _id: 1,
+      username: 1,
+      'profile.fullname': 1,
+      'profile.avatarUrl': 1,
+      'profile.initials': 1,
+      'emails.address': 1,
+      'emails.verified': 1,
+      authenticationMethod: 1,
+      isAdmin: 1,
+      loginDisabled: 1,
+      teams: 1,
+      orgs: 1,
+    };
+
+    const sanitized = {};
+    for (const field of Object.keys(safeFields)) {
+      if (userData[field] !== undefined) {
+        sanitized[field] = userData[field];
+      }
+    }
+
+    // Ensure sensitive fields are never included
+    delete sanitized.services;
+    delete sanitized.resume;
+    delete sanitized.email;
+    delete sanitized.createdAt;
+    delete sanitized.modifiedAt;
+    delete sanitized.sessionData;
+    delete sanitized.importUsernames;
+
+    if (process.env.DEBUG === 'true') {
+      console.log('Sanitized user data for search:', Object.keys(sanitized));
+    }
+
+    return sanitized;
+  };
+
   Meteor.methods({
     sanitizeUserForSearch(userData) {
       check(userData, Object);
+      return sanitizeUserForSearch(userData);
+    },
+    searchUsers(query, boardId) {
+      check(query, String);
+      check(boardId, String);
 
-      // Only allow safe fields for user search
-      const safeFields = {
-        _id: 1,
-        username: 1,
-        'profile.fullname': 1,
-        'profile.avatarUrl': 1,
-        'profile.initials': 1,
-        'emails.address': 1,
-        'emails.verified': 1,
-        authenticationMethod: 1,
-        isAdmin: 1,
-        loginDisabled: 1,
-        teams: 1,
-        orgs: 1,
-      };
-
-      const sanitized = {};
-      for (const field of Object.keys(safeFields)) {
-        if (userData[field] !== undefined) {
-          sanitized[field] = userData[field];
-        }
+      if (!this.userId) {
+        throw new Meteor.Error('not-logged-in', 'User must be logged in');
       }
 
-      // Ensure sensitive fields are never included
-      delete sanitized.services;
-      delete sanitized.resume;
-      delete sanitized.email;
-      delete sanitized.createdAt;
-      delete sanitized.modifiedAt;
-      delete sanitized.sessionData;
-      delete sanitized.importUsernames;
+      const currentUser = ReactiveCache.getCurrentUser();
+      const board = ReactiveCache.getBoard(boardId);
 
-      if (process.env.DEBUG === 'true') {
-        console.log('Sanitized user data for search:', Object.keys(sanitized));
+      // Check if current user is a member of the board
+      const member = _.find(board.members, function(member) { return member.userId === currentUser._id; });
+      if (!member || !member.isActive) {
+        throw new Meteor.Error('not-authorized', 'User is not a member of this board');
       }
 
-      return sanitized;
+      if (query.length < 2) {
+        return [];
+      }
+
+      const searchRegex = new RegExp(query, 'i');
+      const users = ReactiveCache.getUsers({
+        $or: [
+          { username: searchRegex },
+          { 'profile.fullname': searchRegex },
+          { 'emails.address': searchRegex }
+        ]
+      }, {
+        fields: {
+          _id: 1,
+          username: 1,
+          'profile.fullname': 1,
+          'profile.avatarUrl': 1,
+          'profile.initials': 1,
+          'emails.address': 1
+        },
+        limit: 5
+      });
+
+      return users.map(user => sanitizeUserForSearch(user));
     }
   });
 }

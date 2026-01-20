@@ -23,12 +23,15 @@ Notifications = {
     const users = [];
     watchers.forEach(userId => {
       const user = ReactiveCache.getUser(userId);
-      if (user) users.push(user);
+      if (user && user._id) users.push(user);
     });
     return users;
   },
 
   notify: (user, title, description, params) => {
+    // Skip if user is invalid
+    if (!user || !user._id) return;
+    
     for (const k in notifyServices) {
       const notifyImpl = notifyServices[k];
       if (notifyImpl && typeof notifyImpl === 'function')

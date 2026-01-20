@@ -909,10 +909,11 @@ template(name="cardMembersPopup")
     each members
       li.item(class="{{#if isCardMember}}active{{/if}}")
         a.name.js-select-member(href="#")
-          +userAvatar(userId=user._id)
+          +userAvatar(userId=userId)
           span.full-name
-            = user.profile.fullname
-            | (<span class="username">{{ user.username }}</span>)
+            = userData.profile.fullname
+            if userData.username
+              | (#{userData.username})
           if isCardMember
             | ✅
 
@@ -923,10 +924,11 @@ template(name="cardAssigneesPopup")
       each members
         li.item(class="{{#if isCardAssignee}}active{{/if}}")
           a.name.js-select-assignee(href="#")
-            +userAvatar(userId=user._id)
+            +userAvatar(userId=userId)
             span.full-name
-              = user.profile.fullname
-              | (<span class="username">{{ user.username }}</span>)
+              = userData.profile.fullname
+              if userData.username
+                | (#{userData.username})
             if isCardAssignee
               | ✅
   if currentUser.isWorker
@@ -936,7 +938,8 @@ template(name="cardAssigneesPopup")
           +userAvatar(userId=currentUser._id)
           span.full-name
             = currentUser.profile.fullname
-            | (<span class="username">{{ currentUser.username }}</span>)
+            if currentUser.username
+              | (#{currentUser.username})
           if currentUser.isCardAssignee
             | ✅
 

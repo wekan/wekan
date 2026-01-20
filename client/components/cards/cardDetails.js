@@ -928,6 +928,12 @@ Template.cardMembersPopup.onCreated(function () {
 });
 
 Template.cardMembersPopup.events({
+  'click .js-select-member'(event) {
+    const card = Utils.getCurrentCard();
+    const memberId = this.userId;
+    card.toggleMember(memberId);
+    event.preventDefault();
+  },
   'keyup .card-members-filter'(event) {
     const members = filterMembers(event.target.value);
     Template.instance().members.set(members);
@@ -935,8 +941,23 @@ Template.cardMembersPopup.events({
 });
 
 Template.cardMembersPopup.helpers({
+  isCardMember() {
+    const card = Template.parentData();
+    const cardMembers = card.getMembers();
+
+    return _.contains(cardMembers, this.userId);
+  },
+
   members() {
-    return _.sortBy(Template.instance().members.get(),'fullname');
+    const members = Template.instance().members.get();
+    const uniqueMembers = _.uniq(members, 'userId');
+    return _.sortBy(uniqueMembers, member => {
+      const user = ReactiveCache.getUser(member.userId);
+      return user ? user.profile.fullname : '';
+    });
+  },
+  userData() {
+    return ReactiveCache.getUser(this.userId);
   },
 });
 
@@ -1910,10 +1931,15 @@ Template.cardAssigneesPopup.helpers({
   },
 
   members() {
-    return _.sortBy(Template.instance().members.get(),'fullname');
+    const members = Template.instance().members.get();
+    const uniqueMembers = _.uniq(members, 'userId');
+    return _.sortBy(uniqueMembers, member => {
+      const user = ReactiveCache.getUser(member.userId);
+      return user ? user.profile.fullname : '';
+    });
   },
 
-  user() {
+  userData() {
     return ReactiveCache.getUser(this.userId);
   },
 });

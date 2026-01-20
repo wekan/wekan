@@ -200,6 +200,7 @@ if (Meteor.isServer) {
     if (activity.commentId) {
       const comment = activity.comment();
       params.comment = comment.text;
+      let hasMentions = false; // Track if comment has @mentions
       if (board) {
         const comment = params.comment;
         const knownUsers = board.members.map((member) => {
@@ -210,7 +211,9 @@ if (Meteor.isServer) {
           }
           return member;
         });
-        const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.-]+))/gi; // including space in username
+        // Match @mentions including usernames with @ symbols (like email addresses)
+        // Pattern matches: @username, @user@example.com, @"quoted username"
+        const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.@-]+))/gi;
         let currentMention;
 
         while ((currentMention = mentionRegex.exec(comment)) !== null) {
@@ -222,14 +225,59 @@ if (Meteor.isServer) {
 
           if (activity.boardId && username === 'board_members') {
             // mentions all board members
-            const knownUids = knownUsers.map((u) => u.userId);
-            watchers = _.union(watchers, [...knownUids]);
+            const validUserIds = knownUsers
+              .map((u) => u.userId)
+              .filter((userId) => {
+                const user = ReactiveCache.getUser(userId);
+                return user && user._id;
+              });
+            watchers = _.union(watchers, validUserIds);
             title = 'act-atUserComment';
+            hasMentions = true;
+          } else if (activity.boardId && username === 'board_assignees') {
+            // mentions all assignees of all cards on the board
+            const allCards = ReactiveCache.getCards({ boardId: activity.boardId });
+            const assigneeIds = [];
+            allCards.forEach((card) => {
+              if (card.assignees && card.assignees.length > 0) {
+                card.assignees.forEach((assigneeId) => {
+                  // Only add if the user exists and is a board member
+                  const user = ReactiveCache.getUser(assigneeId);
+                  if (user && _.findWhere(knownUsers, { userId: assigneeId })) {
+                    assigneeIds.push(assigneeId);
+                  }
+                });
+              }
+            });
+            watchers = _.union(watchers, assigneeIds);
+            title = 'act-atUserComment';
+            hasMentions = true;
           } else if (activity.cardId && username === 'card_members') {
             // mentions all card members if assigned
             const card = activity.card();
-            watchers = _.union(watchers, [...card.members]);
+            if (card && card.members && card.members.length > 0) {
+              // Filter to only valid users who are board members
+              const validMembers = card.members.filter((memberId) => {
+                const user = ReactiveCache.getUser(memberId);
+                return user && user._id && _.findWhere(knownUsers, { userId: memberId });
+              });
+              watchers = _.union(watchers, validMembers);
+            }
             title = 'act-atUserComment';
+            hasMentions = true;
+          } else if (activity.cardId && username === 'card_assignees') {
+            // mentions all assignees of the current card
+            const card = activity.card();
+            if (card && card.assignees && card.assignees.length > 0) {
+              // Filter to only valid users who are board members
+              const validAssignees = card.assignees.filter((assigneeId) => {
+                const user = ReactiveCache.getUser(assigneeId);
+                return user && user._id && _.findWhere(knownUsers, { userId: assigneeId });
+              });
+              watchers = _.union(watchers, validAssignees);
+            }
+            title = 'act-atUserComment';
+            hasMentions = true;
           } else {
             const atUser = _.findWhere(knownUsers, { username });
             if (!atUser) {
@@ -241,10 +289,12 @@ if (Meteor.isServer) {
             params.atEmails = atUser.emails;
             title = 'act-atUserComment';
             watchers = _.union(watchers, [uid]);
+            hasMentions = true;
           }
         }
       }
       params.commentId = comment._id;
+      params.hasMentions = hasMentions; // Store for later use
     }
     if (activity.attachmentId) {
       params.attachment = activity.attachmentName;
@@ -327,13 +377,20 @@ if (Meteor.isServer) {
         _.where(board.watchers, { level: 'tracking' }),
         'userId',
       );
-      watchers = _.union(
-        watchers,
-        watchingUsers,
-        _.intersection(participants, trackingUsers),
-      );
+      // Only add board watchers if there were no @mentions in the comment
+      // When users are explicitly @mentioned, only notify those users
+      if (!params.hasMentions) {
+        watchers = _.union(
+          watchers,
+          watchingUsers,
+          _.intersection(participants, trackingUsers),
+        );
+      }
     }
     Notifications.getUsers(watchers).forEach((user) => {
+      // Skip if user is undefined or doesn't have an _id (e.g., deleted user or invalid ID)
+      if (!user || !user._id) return;
+      
       // Don't notify a user of their own behavior, EXCEPT for self-mentions
       const isSelfMention = (user._id === userId && title === 'act-atUserComment');
       if (user._id !== userId || isSelfMention) {

@@ -1,3 +1,5 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
 Template.settingHeaderBar.helpers({
   isSettingsActive() {
     return FlowRouter.getRouteName() === 'setting' ? 'active' : '';

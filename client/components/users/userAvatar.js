@@ -7,12 +7,13 @@ import Team from '/models/team';
 
 Template.userAvatar.helpers({
   userData() {
-    return ReactiveCache.getUser(this.userId, {
+    const user = ReactiveCache.getUser(this.userId, {
       fields: {
         profile: 1,
         username: 1,
       },
     });
+    return user;
   },
 
   avatarUrl() {
@@ -32,7 +33,21 @@ Template.userAvatar.helpers({
 
   memberType() {
     const user = ReactiveCache.getUser(this.userId);
-    return user && user.isBoardAdmin() ? 'admin' : 'normal';
+    if (!user) return '';
+    
+    const board = Utils.getCurrentBoard();
+    if (!board) return '';
+    
+    // Return role in priority order: Admin, Normal, NormalAssignedOnly, NoComments, CommentOnly, CommentAssignedOnly, Worker, ReadOnly, ReadAssignedOnly
+    if (user.isBoardAdmin()) return 'admin';
+    if (board.hasReadAssignedOnly(user._id)) return 'read-assigned-only';
+    if (board.hasReadOnly(user._id)) return 'read-only';
+    if (board.hasWorker(user._id)) return 'worker';
+    if (board.hasCommentAssignedOnly(user._id)) return 'comment-assigned-only';
+    if (board.hasCommentOnly(user._id)) return 'comment-only';
+    if (board.hasNoComments(user._id)) return 'no-comments';
+    if (board.hasNormalAssignedOnly(user._id)) return 'normal-assigned-only';
+    return 'normal';
   },
 
 /*

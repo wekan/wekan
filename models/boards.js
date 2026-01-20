@@ -932,8 +932,41 @@ Boards.helpers({
   },
 
   activeMembers(){
-    const members = _.where(this.members, { isActive: true });
-    return _.sortBy(members, 'username');
+    // Depend on the users collection for reactivity when users are loaded
+    const memberUserIds = _.pluck(this.members, 'userId');
+    const dummy = Meteor.users.find({ _id: { $in: memberUserIds } }).count();
+    const members = _.filter(this.members, m => m.isActive === true);
+    // Group by userId to handle duplicates
+    const grouped = _.groupBy(members, 'userId');
+    const uniqueMembers = _.values(grouped).map(group => {
+      // Prefer admin member if exists, otherwise take the first
+      const selected = _.find(group, m => m.isAdmin) || group[0];
+      return selected;
+    });
+    // Filter out members where user is not loaded
+    const filteredMembers = uniqueMembers.filter(member => {
+      const user = ReactiveCache.getUser(member.userId);
+      return user !== undefined;
+    });
+    
+    // Sort by role priority first (admin, normal, normal-assigned, no-comments, comment-only, comment-assigned, worker, read-only, read-assigned), then by fullname
+    return _.sortBy(filteredMembers, member => {
+      const user = ReactiveCache.getUser(member.userId);
+      let rolePriority = 8; // Default for normal
+      
+      if (member.isAdmin) rolePriority = 0;
+      else if (member.isReadAssignedOnly) rolePriority = 8;
+      else if (member.isReadOnly) rolePriority = 7;
+      else if (member.isWorker) rolePriority = 6;
+      else if (member.isCommentAssignedOnly) rolePriority = 5;
+      else if (member.isCommentOnly) rolePriority = 4;
+      else if (member.isNoComments) rolePriority = 3;
+      else if (member.isNormalAssignedOnly) rolePriority = 2;
+      else rolePriority = 1; // Normal
+      
+      const fullname = user ? user.profile.fullname : '';
+      return rolePriority + '-' + fullname;
+    });
   },
 
   activeOrgs() {
@@ -1899,6 +1932,17 @@ if (Meteor.isServer) {
         $pull: {
           'profile.invitedBoards': boardId,
         },
+      });
+
+      // Ensure the user is active on the board
+      Boards.update({
+        _id: boardId,
+        'members.userId': Meteor.userId()
+      }, {
+        $set: {
+          'members.$.isActive': true,
+          modifiedAt: new Date()
+        }
       });
     },
     myLabelNames() {
