@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 
 export class DialogWithBoardSwimlaneList extends BlazeComponent {
   /** returns the card dialog options
@@ -132,6 +133,33 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
     const board = ReactiveCache.getBoard(this.selectedBoardId.get());
     const ret = board.lists();
     return ret;
+  }
+
+  /** Fix swimlane title translation issue for "Default" swimlane
+   * @param title the swimlane title
+   * @return the properly translated title
+   */
+  isTitleDefault(title) {
+    // https://github.com/wekan/wekan/issues/4763
+    // https://github.com/wekan/wekan/issues/4742
+    // Translation text for "default" does not work, it returns an object.
+    // When that happens, try use translation "defaultdefault" that has same content of default, or return text "Default".
+    // This can happen, if swimlane does not have name.
+    // Yes, this is fixing the symptom (Swimlane title does not have title)
+    // instead of fixing the problem (Add Swimlane title when creating swimlane)
+    // because there could be thousands of swimlanes, adding name Default to all of them
+    // would be very slow.
+    if (title.startsWith("key 'default") && title.endsWith('returned an object instead of string.')) {
+      if (`${TAPi18n.__('defaultdefault')}`.startsWith("key 'default") && `${TAPi18n.__('defaultdefault')}`.endsWith('returned an object instead of string.')) {
+        return 'Default';
+      } else  {
+        return `${TAPi18n.__('defaultdefault')}`;
+      }
+    } else if (title === 'Default') {
+      return `${TAPi18n.__('defaultdefault')}`;
+    } else  {
+      return title;
+    }
   }
 
   /** get the board data from the server
