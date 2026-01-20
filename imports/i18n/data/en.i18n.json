@@ -1601,7 +1601,6 @@
   "operation-type": "Operation Type",
   "overall-progress": "Overall Progress",
   "page": "Page",
-  "pause": "Pause",
   "pause-migration": "Pause Migration",
   "previous": "Previous",
   "refresh": "Refresh",
@@ -1629,8 +1628,6 @@
   "total-size": "Total Size",
   "unmigrated-boards": "Unmigrated Boards",
   "weight": "Weight",
-  "idle": "Idle",
-  "complete": "Complete",
   "cron": "Cron",
   "current-step": "Current Step"
 }
