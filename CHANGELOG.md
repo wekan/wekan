@@ -33,6 +33,8 @@ and fixes the following bugs:
 
 - [Fixed newly created "Default" swimlane are displayed as "key 'default (LOCALE)' returned an object instead of string"](https://github.com/wekan/wekan/commit/ce55f0d8f432922ca4c0e3d28b1fb0e826d8008f).
   Thanks to brlin-tw and xet7.
+- [Fix DB migration from 8.19 to 8.21 stuck forever](https://github.com/wekan/wekan/commit/a31a615da6911a2db22d4db86875b31fc951ae96).
+  Thanks to MaccabeeY and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
