@@ -28,6 +28,14 @@ This release adds the following updates:
 
 - [Migrate from percolate:synced-cron to quave:synced-cron](https://github.com/wekan/wekan/pull/6080).
   Thanks to harryadel.
+- [Replace mousetrap](https://github.com/wekan/wekan/pull/6082).
+  Thanks to harryadel.
+- [Remove kadira:dochead](https://github.com/wekan/wekan/pull/6083).
+  Thanks to harryadel.
+- [Replace cottz:publish-relations with reywood:publish-composite](https://github.com/wekan/wekan/pull/6084).
+  Thanks to harryadel.
+- [Bump tar from 7.5.3 to 7.5.6](https://github.com/wekan/wekan/pull/6085).
+  Thanks to dependabot.
 
 and fixes the following bugs:
 
