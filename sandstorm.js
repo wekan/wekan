@@ -479,7 +479,7 @@ if (isSandstorm && Meteor.isClient) {
   ]);
 
   Tracker.autorun(() => {
-    updateSandstormMetaData({ setTitle: DocHead.getTitle() });
+    updateSandstormMetaData({ setTitle: document.title });
   });
 
   // Runtime redirection from the home page to the unique board -- since the
