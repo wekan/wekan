@@ -1,4 +1,6 @@
-// Pressing `Escape` should close the last opened “element” and only the last
+const hotkeys = require('hotkeys-js').default;
+
+// Pressing `Escape` should close the last opened "element" and only the last
 // one. Components can register themselves using a label a condition, and an
 // action. This is used by Popup or inlinedForm for instance. When we press
 // escape we execute the action which have a valid condition and his the highest
@@ -119,9 +121,9 @@ EscapeActions = {
   },
 };
 
-// Pressing escape to execute one escape action. We use `bindGloabal` vecause
-// the shortcut sould work on textarea and inputs as well.
-Mousetrap.bindGlobal('esc', () => {
+// Pressing escape to execute one escape action. ESC is allowed globally
+// in the hotkeys filter (keyboard.js) so it works in textarea and inputs.
+hotkeys('escape', () => {
   EscapeActions.executeLowest();
   Sidebar.hide();
 });

@@ -55,9 +55,6 @@ http@2.0.0! # force new http package
 # UI components
 ostrio:i18n
 reactive-var@1.0.12
-mousetrap:mousetrap
-mquandalle:jquery-textcomplete
-mquandalle:mousetrap-bindglobal
 templates:tabs
 meteor-autosize
 shell-server@0.5.0

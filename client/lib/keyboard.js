@@ -1,9 +1,42 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+const hotkeys = require('hotkeys-js').default;
 
 // XXX There is no reason to define these shortcuts globally, they should be
 // attached to a template (most of them will go in the `board` template).
 
+// Configure hotkeys filter (replaces Mousetrap.stopCallback)
+// CRITICAL: Return values are INVERTED from Mousetrap's stopCallback
+// hotkeys filter: true = ALLOW shortcut, false = STOP shortcut
+hotkeys.filter = (event) => {
+  // Are shortcuts enabled for the user?
+  if (ReactiveCache.getCurrentUser() && !ReactiveCache.getCurrentUser().isKeyboardShortcuts())
+    return false;
+
+  // Always handle escape
+  if (event.keyCode === 27)
+    return true;
+
+  // Make sure there are no selected characters
+  if (window.getSelection().type === "Range")
+    return false;
+
+  // Decide what the current element is
+  const currentElement = event.target || document.activeElement;
+
+  // If the current element is editable, we don't want to trigger an event
+  if (currentElement.isContentEditable)
+    return false;
+
+  // Make sure we are not in an input element
+  if (currentElement instanceof HTMLInputElement || currentElement instanceof HTMLSelectElement || currentElement instanceof HTMLTextAreaElement)
+    return false;
+
+  // We can trigger events!
+  return true;
+};
+
+// Handle non-Latin keyboards
 window.addEventListener('keydown', (e) => {
   // Only handle event if coming from body
   if (e.target !== document.body) return;
@@ -11,38 +44,18 @@ window.addEventListener('keydown', (e) => {
   // Only handle event if it's in another language
   if (String.fromCharCode(e.which).toLowerCase() === e.key) return;
 
-  // Trigger the corresponding action
-  Mousetrap.handleKey(String.fromCharCode(e.which).toLowerCase(), [], {type: "keypress"});
+  // Trigger the corresponding action by dispatching a new event with the ASCII key
+  const key = String.fromCharCode(e.which).toLowerCase();
+  // Create a synthetic event for hotkeys to handle
+  const syntheticEvent = new KeyboardEvent('keydown', {
+    key: key,
+    keyCode: e.which,
+    which: e.which,
+    bubbles: true,
+    cancelable: true,
+  });
+  document.dispatchEvent(syntheticEvent);
 });
-
-// Overwrite the stopCallback to allow for more keyboard shortcut customizations
-Mousetrap.stopCallback = (event, element) => {
-  // Are shortcuts enabled for the user?
-  if (ReactiveCache.getCurrentUser() && !ReactiveCache.getCurrentUser().isKeyboardShortcuts())
-    return true;
-
-  // Always handle escape
-  if (event.keyCode === 27)
-    return false;
-
-  // Make sure there are no selected characters
-  if (window.getSelection().type === "Range")
-    return true;
-
-  // Decide what the current element is
-  const currentElement = event.target || document.activeElement;
-
-  // If the current element is editable, we don't want to trigger an event
-  if (currentElement.isContentEditable)
-    return true;
-
-  // Make sure we are not in an input element
-  if (currentElement instanceof HTMLInputElement || currentElement instanceof HTMLSelectElement || currentElement instanceof HTMLTextAreaElement)
-    return true;
-
-  // We can trigger events!
-  return false;
-}
 
 function getHoveredCardId() {
   const card = $('.js-minicard:hover').get(0);
@@ -54,11 +67,13 @@ function getSelectedCardId() {
   return Session.get('currentCard') || Session.get('selectedCard') || getHoveredCardId();
 }
 
-Mousetrap.bind('?', () => {
+hotkeys('?', (event) => {
+  event.preventDefault();
   FlowRouter.go('shortcuts');
 });
 
-Mousetrap.bind('w', () => {
+hotkeys('w', (event) => {
+  event.preventDefault();
   if (Sidebar.isOpen() && Sidebar.getView() === 'home') {
     Sidebar.toggle();
   } else {
@@ -66,7 +81,8 @@ Mousetrap.bind('w', () => {
   }
 });
 
-Mousetrap.bind('q', () => {
+hotkeys('q', (event) => {
+  event.preventDefault();
   const currentBoardId = Session.get('currentBoard');
   const currentUserId = Meteor.userId();
   if (currentBoardId && currentUserId) {
@@ -74,7 +90,8 @@ Mousetrap.bind('q', () => {
   }
 });
 
-Mousetrap.bind('a', () => {
+hotkeys('a', (event) => {
+  event.preventDefault();
   const currentBoardId = Session.get('currentBoard');
   const currentUserId = Meteor.userId();
   if (currentBoardId && currentUserId) {
@@ -82,13 +99,15 @@ Mousetrap.bind('a', () => {
   }
 });
 
-Mousetrap.bind('x', () => {
+hotkeys('x', (event) => {
+  event.preventDefault();
   if (Filter.isActive()) {
     Filter.reset();
   }
 });
 
-Mousetrap.bind('f', () => {
+hotkeys('f', (event) => {
+  event.preventDefault();
   if (Sidebar.isOpen() && Sidebar.getView() === 'filter') {
     Sidebar.toggle();
   } else {
@@ -96,7 +115,8 @@ Mousetrap.bind('f', () => {
   }
 });
 
-Mousetrap.bind('/', () => {
+hotkeys('/', (event) => {
+  event.preventDefault();
   if (Sidebar.isOpen() && Sidebar.getView() === 'search') {
     Sidebar.toggle();
   } else {
@@ -104,12 +124,13 @@ Mousetrap.bind('/', () => {
   }
 });
 
-Mousetrap.bind(['down', 'up'], (evt, key) => {
+hotkeys('down,up', (event, handler) => {
+  event.preventDefault();
   if (!Utils.getCurrentCardId()) {
     return;
   }
 
-  const nextFunc = key === 'down' ? 'next' : 'prev';
+  const nextFunc = handler.key === 'down' ? 'next' : 'prev';
   const nextCard = $('.js-minicard.is-selected')
     [nextFunc]('.js-minicard')
     .get(0);
@@ -119,49 +140,47 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
   }
 });
 
-numbArray = _.range(1,10).map(x => 'shift+'+String(x))
-Mousetrap.bind(numbArray, (evt, key) => {
-  num = parseInt(key.substr(6, key.length));
+// Shift + number keys to remove labels in multiselect
+const shiftNums = _.range(1, 10).map(x => `shift+${x}`).join(',');
+hotkeys(shiftNums, (event, handler) => {
+  event.preventDefault();
+  const num = parseInt(handler.key.split('+')[1]);
   const currentUserId = Meteor.userId();
   if (currentUserId === null) {
     return;
   }
   const currentBoardId = Session.get('currentBoard');
-  board = ReactiveCache.getBoard(currentBoardId);
-  labels = board.labels;
-  if(MultiSelection.isActive())
-  {
+  const board = ReactiveCache.getBoard(currentBoardId);
+  const labels = board.labels;
+  if (MultiSelection.isActive()) {
     const cardIds = MultiSelection.getSelectedCardIds();
-    for (const cardId of cardIds)
-    {
-      card = Cards.findOne(cardId);
-      if(num <= board.labels.length)
-      {
-        card.removeLabel(labels[num-1]["_id"]);
+    for (const cardId of cardIds) {
+      const card = Cards.findOne(cardId);
+      if (num <= board.labels.length) {
+        card.removeLabel(labels[num - 1]["_id"]);
       }
     }
   }
 });
 
-numArray = _.range(1,10).map(x => String(x))
-Mousetrap.bind(numArray, (evt, key) => {
-  num = parseInt(key);
+// Number keys to toggle labels
+const nums = _.range(1, 10).join(',');
+hotkeys(nums, (event, handler) => {
+  event.preventDefault();
+  const num = parseInt(handler.key);
   const currentUserId = Meteor.userId();
   const currentBoardId = Session.get('currentBoard');
   if (currentUserId === null) {
     return;
   }
-  board = ReactiveCache.getBoard(currentBoardId);
-  labels = board.labels;
-  if(MultiSelection.isActive() && ReactiveCache.getCurrentUser().isBoardMember())
-  {
+  const board = ReactiveCache.getBoard(currentBoardId);
+  const labels = board.labels;
+  if (MultiSelection.isActive() && ReactiveCache.getCurrentUser().isBoardMember()) {
     const cardIds = MultiSelection.getSelectedCardIds();
-    for (const cardId of cardIds)
-    {
-      card = Cards.findOne(cardId);
-      if(num <= board.labels.length)
-      {
-        card.addLabel(labels[num-1]["_id"]);
+    for (const cardId of cardIds) {
+      const card = Cards.findOne(cardId);
+      if (num <= board.labels.length) {
+        card.addLabel(labels[num - 1]["_id"]);
       }
     }
     return;
@@ -173,14 +192,16 @@ Mousetrap.bind(numArray, (evt, key) => {
   }
   if (ReactiveCache.getCurrentUser().isBoardMember()) {
     const card = Cards.findOne(cardId);
-    if(num <= board.labels.length)
-    {
-      card.toggleLabel(labels[num-1]["_id"]);
+    if (num <= board.labels.length) {
+      card.toggleLabel(labels[num - 1]["_id"]);
     }
   }
 });
 
-Mousetrap.bind(_.range(1, 10).map(x => `ctrl+alt+${x}`), (evt, key) => {
+// Ctrl+Alt + number keys to toggle assignees
+const ctrlAltNums = _.range(1, 10).map(x => `ctrl+alt+${x}`).join(',');
+hotkeys(ctrlAltNums, (event, handler) => {
+  event.preventDefault();
   // Make sure the current user is defined
   if (!ReactiveCache.getCurrentUser())
     return;
@@ -189,7 +210,7 @@ Mousetrap.bind(_.range(1, 10).map(x => `ctrl+alt+${x}`), (evt, key) => {
   if (!ReactiveCache.getCurrentUser().isBoardMember())
     return;
 
-  const memberIndex = parseInt(key.split("+").pop()) - 1;
+  const memberIndex = parseInt(handler.key.split("+").pop()) - 1;
   const currentBoard = Utils.getCurrentBoard();
   const validBoardMembers = currentBoard.memberUsers().filter(member => member.isBoardMember());
 
@@ -211,7 +232,8 @@ Mousetrap.bind(_.range(1, 10).map(x => `ctrl+alt+${x}`), (evt, key) => {
   }
 });
 
-Mousetrap.bind('m', evt => {
+hotkeys('m', (event) => {
+  event.preventDefault();
   const cardId = getSelectedCardId();
   if (!cardId) {
     return;
@@ -225,13 +247,11 @@ Mousetrap.bind('m', evt => {
   if (ReactiveCache.getCurrentUser().isBoardMember()) {
     const card = Cards.findOne(cardId);
     card.toggleAssignee(currentUserId);
-    // We should prevent scrolling in card when spacebar is clicked
-    // This should do it according to Mousetrap docs, but it doesn't
-    evt.preventDefault();
   }
 });
 
-Mousetrap.bind('space', evt => {
+hotkeys('space', (event) => {
+  event.preventDefault();
   const cardId = getSelectedCardId();
   if (!cardId) {
     return;
@@ -245,13 +265,11 @@ Mousetrap.bind('space', evt => {
   if (ReactiveCache.getCurrentUser().isBoardMember()) {
     const card = Cards.findOne(cardId);
     card.toggleMember(currentUserId);
-    // We should prevent scrolling in card when spacebar is clicked
-    // This should do it according to Mousetrap docs, but it doesn't
-    evt.preventDefault();
   }
 });
 
-const archiveCard = evt => {
+const archiveCard = (event) => {
+  event.preventDefault();
   const cardId = getSelectedCardId();
   if (!cardId) {
     return;
@@ -265,21 +283,19 @@ const archiveCard = evt => {
   if (Utils.canModifyBoard()) {
     const card = Cards.findOne(cardId);
     card.archive();
-    // We should prevent scrolling in card when spacebar is clicked
-    // This should do it according to Mousetrap docs, but it doesn't
-    evt.preventDefault();
   }
 };
 
 // Archive card has multiple shortcuts
-Mousetrap.bind('c', archiveCard);
-Mousetrap.bind('-', archiveCard);
+hotkeys('c', archiveCard);
+hotkeys('-', archiveCard);
 
 // Same as above, this time for Persian keyboard.
 // https://github.com/wekan/wekan/pull/5589#issuecomment-2516776519
-Mousetrap.bind('÷', archiveCard);
+hotkeys('\xf7', archiveCard);
 
-Mousetrap.bind('n', evt => {
+hotkeys('n', (event) => {
+  event.preventDefault();
   const cardId = getSelectedCardId();
   if (!cardId) {
     return;
@@ -296,10 +312,6 @@ Mousetrap.bind('n', evt => {
 
     // Find the button and click it
     $(`#js-list-${card.listId} .list-body .minicards .open-minicard-composer`).click();
-
-    // We should prevent scrolling in card when spacebar is clicked
-    // This should do it according to Mousetrap docs, but it doesn't
-    evt.preventDefault();
   }
 });
 
@@ -354,7 +366,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-assign-self',
     },
     {
-      keys: ['c', '÷', '-'],
+      keys: ['c', '\xf7', '-'],
       action: 'archive-card',
     },
     {
