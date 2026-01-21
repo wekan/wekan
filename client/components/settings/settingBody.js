@@ -595,7 +595,7 @@ BlazeComponent.extendComponent({
       this.setLoading(false);
     }
 
-    DocHead.setTitle(productName);
+    document.title = productName;
   },
 
   toggleSupportPage() {

@@ -758,9 +758,9 @@ Utils = {
   setCustomUI(data) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
-      DocHead.setTitle(`${currentBoard.title} - ${data.productName}`);
+      document.title = `${currentBoard.title} - ${data.productName}`;
     } else {
-      DocHead.setTitle(`${data.productName}`);
+      document.title = `${data.productName}`;
     }
   },
 

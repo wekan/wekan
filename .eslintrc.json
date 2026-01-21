@@ -99,7 +99,6 @@
     "BlazeComponent": false,
     
     "CollectionHooks": false,
-    "DocHead": false,
     "ESSearchResults": false,
     "FastRender": false,
     "FlowRouter": false,

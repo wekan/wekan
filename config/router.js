@@ -296,7 +296,7 @@ FlowRouter.route('/global-search', {
 
     Utils.manageCustomUI();
     Utils.manageMatomo();
-    DocHead.setTitle(TAPi18n.__('globalSearch-title'));
+    document.title = TAPi18n.__('globalSearch-title');
 
     if (FlowRouter.getQueryParam('q')) {
       Session.set(
