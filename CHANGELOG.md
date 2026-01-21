@@ -36,6 +36,8 @@ This release adds the following updates:
   Thanks to harryadel.
 - [Bump tar from 7.5.3 to 7.5.6](https://github.com/wekan/wekan/pull/6085).
   Thanks to dependabot.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/04bfa0e6ba278a9d6544a678d1fba3ea71841062).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
