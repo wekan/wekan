@@ -3,6 +3,7 @@ import { trelloGetMembersToMap } from './trelloMembersMapper';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { wekanGetMembersToMap } from './wekanMembersMapper';
 import { csvGetMembersToMap } from './csvMembersMapper';
+import getSlug from 'limax';
 
 const Papa = require('papaparse');
 
