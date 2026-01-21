@@ -46,7 +46,7 @@
     "jquery-ui": "^1.13.3",
     "jszip": "^3.7.1",
     "ldapjs": "^2.3.3",
-    "limax": "^4.2.2",
+    "limax": "4.1.0",
     "markdown-it": "^12.3.2",
     "markdown-it-emoji": "^2.0.0",
     "markdown-it-mathjax3": "^4.3.2",
