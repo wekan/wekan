@@ -226,7 +226,7 @@ Lists.helpers({
     });
   },
 
-  move(boardId, swimlaneId) {
+  async move(boardId, swimlaneId) {
     const boardList = ReactiveCache.getList({
       boardId,
       title: this.title,
@@ -235,9 +235,9 @@ Lists.helpers({
     let listId;
     if (boardList) {
       listId = boardList._id;
-      this.cards().forEach(card => {
-        card.move(boardId, this._id, boardList._id);
-      });
+      for (const card of this.cards()) {
+        await card.move(boardId, this._id, boardList._id);
+      }
     } else {
       console.log('list.title:', this.title);
       console.log('boardList:', boardList);
@@ -251,9 +251,9 @@ Lists.helpers({
       });
     }
 
-    this.cards(swimlaneId).forEach(card => {
-      card.move(boardId, swimlaneId, listId);
-    });
+    for (const card of this.cards(swimlaneId)) {
+      await card.move(boardId, swimlaneId, listId);
+    }
   },
 
   cards(swimlaneId) {
@@ -342,61 +342,55 @@ Lists.helpers({
   remove() {
     Lists.remove({ _id: this._id });
   },
-});
 
-Lists.mutations({
-  rename(title) {
+  async rename(title) {
     // Basic client-side validation - server will handle full sanitization
     if (typeof title === 'string') {
       // Basic length check to prevent abuse
       const sanitizedTitle = title.length > 1000 ? title.substring(0, 1000) : title;
-      return { $set: { title: sanitizedTitle } };
+      return await Lists.updateAsync(this._id, { $set: { title: sanitizedTitle } });
     }
-    return { $set: { title } };
+    return await Lists.updateAsync(this._id, { $set: { title } });
   },
-  star(enable = true) {
-    return { $set: { starred: !!enable } };
+  async star(enable = true) {
+    return await Lists.updateAsync(this._id, { $set: { starred: !!enable } });
   },
-  collapse(enable = true) {
-    return { $set: { collapsed: !!enable } };
+  async collapse(enable = true) {
+    return await Lists.updateAsync(this._id, { $set: { collapsed: !!enable } });
   },
 
-  archive() {
+  async archive() {
     if (this.isTemplateList()) {
-      this.cards().forEach(card => {
-        return card.archive();
-      });
+      for (const card of this.cards()) {
+        await card.archive();
+      }
     }
-    return { $set: { archived: true, archivedAt: new Date() } };
+    return await Lists.updateAsync(this._id, { $set: { archived: true, archivedAt: new Date() } });
   },
 
-  restore() {
+  async restore() {
     if (this.isTemplateList()) {
-      this.allCards().forEach(card => {
-        return card.restore();
-      });
+      for (const card of this.allCards()) {
+        await card.restore();
+      }
     }
-    return { $set: { archived: false } };
+    return await Lists.updateAsync(this._id, { $set: { archived: false } });
   },
 
-  toggleSoftLimit(toggle) {
-    return { $set: { 'wipLimit.soft': toggle } };
+  async toggleSoftLimit(toggle) {
+    return await Lists.updateAsync(this._id, { $set: { 'wipLimit.soft': toggle } });
   },
 
-  toggleWipLimit(toggle) {
-    return { $set: { 'wipLimit.enabled': toggle } };
+  async toggleWipLimit(toggle) {
+    return await Lists.updateAsync(this._id, { $set: { 'wipLimit.enabled': toggle } });
   },
 
-  setWipLimit(limit) {
-    return { $set: { 'wipLimit.value': limit } };
+  async setWipLimit(limit) {
+    return await Lists.updateAsync(this._id, { $set: { 'wipLimit.value': limit } });
   },
 
-  setColor(newColor) {
-    return {
-      $set: {
-        color: newColor,
-      },
-    };
+  async setColor(newColor) {
+    return await Lists.updateAsync(this._id, { $set: { color: newColor } });
   },
 });
 
@@ -422,49 +416,49 @@ Lists.archivedListIds = () => {
 };
 
 Meteor.methods({
-  applyWipLimit(listId, limit) {
+  async applyWipLimit(listId, limit) {
     check(listId, String);
     check(limit, Number);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
+
     const board = ReactiveCache.getBoard(list.boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
-    
+
     if (limit === 0) {
       limit = 1;
     }
-    list.setWipLimit(limit);
+    await list.setWipLimit(limit);
   },
 
-  enableWipLimit(listId) {
+  async enableWipLimit(listId) {
     check(listId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
+
     const board = ReactiveCache.getBoard(list.boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
-    
+
     if (list.getWipLimit('value') === 0) {
-      list.setWipLimit(1);
+      await list.setWipLimit(1);
     }
     list.toggleWipLimit(!list.getWipLimit('enabled'));
   },

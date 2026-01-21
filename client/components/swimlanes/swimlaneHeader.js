@@ -8,14 +8,14 @@ Meteor.startup(() => {
 });
 
 BlazeComponent.extendComponent({
-  editTitle(event) {
+  async editTitle(event) {
     event.preventDefault();
     const newTitle = this.childComponents('inlinedForm')[0]
       .getValue()
       .trim();
     const swimlane = this.currentData();
     if (newTitle) {
-      swimlane.rename(newTitle.trim());
+      await swimlane.rename(newTitle.trim());
     }
   },
   collapsed(check = undefined) {
@@ -106,9 +106,9 @@ Template.editSwimlaneTitleForm.helpers({
 Template.swimlaneActionPopup.events({
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-set-swimlane-height': Popup.open('setSwimlaneHeight'),
-  'click .js-close-swimlane'(event) {
+  async 'click .js-close-swimlane'(event) {
     event.preventDefault();
-    this.archive();
+    await this.archive();
     Popup.back();
   },
   'click .js-move-swimlane': Popup.open('moveSwimlane'),
@@ -183,20 +183,20 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'submit form'(event) {
+        async 'submit form'(event) {
           event.preventDefault();
-          this.currentSwimlane.setColor(this.currentColor.get());
+          await this.currentSwimlane.setColor(this.currentColor.get());
           Popup.back();
         },
         'click .js-palette-color'() {
           this.currentColor.set(this.currentData().color);
         },
-        'click .js-submit'() {
-          this.currentSwimlane.setColor(this.currentColor.get());
+        async 'click .js-submit'() {
+          await this.currentSwimlane.setColor(this.currentColor.get());
           Popup.back();
         },
-        'click .js-remove-color'() {
-          this.currentSwimlane.setColor(null);
+        async 'click .js-remove-color'() {
+          await this.currentSwimlane.setColor(null);
           Popup.back();
         },
       },

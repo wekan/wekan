@@ -319,7 +319,7 @@ Meteor.methods({
 });
 
 Meteor.methods({
-  'boardRoutineOnLogin': function(info, oidcUserId)
+  'boardRoutineOnLogin': async function(info, oidcUserId)
   {
     check(info, Object);
     check(oidcUserId, String);
@@ -333,8 +333,8 @@ Meteor.methods({
     const memberIndex = _.pluck(board?.members, 'userId').indexOf(userId);
     if(!board || !userId || memberIndex > -1) return
 
-    board.addMember(userId)
-    board.setMemberPermission(
+    await board.addMember(userId)
+    await board.setMemberPermission(
       userId,
       defaultBoardParams.contains("isAdmin"),
       defaultBoardParams.contains("isNoComments"),

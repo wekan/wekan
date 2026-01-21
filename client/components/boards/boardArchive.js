@@ -23,7 +23,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-restore-board'() {
+        async 'click .js-restore-board'() {
           // TODO : Make isSandstorm variable global
           const isSandstorm =
             Meteor.settings &&
@@ -31,10 +31,10 @@ BlazeComponent.extendComponent({
             Meteor.settings.public.sandstorm;
           if (isSandstorm && Utils.getCurrentBoardId()) {
             const currentBoard = Utils.getCurrentBoard();
-            currentBoard.archive();
+            await currentBoard.archive();
           }
           const board = this.currentData();
-          board.restore();
+          await board.restore();
           Utils.goBoardId(board._id);
         },
         'click .js-delete-board': Popup.afterConfirm('boardDelete', function() {

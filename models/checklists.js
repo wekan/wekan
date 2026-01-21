@@ -150,21 +150,48 @@ Checklists.helpers({
     }
     return ret;
   },
-  checkAllItems() {
+  async checkAllItems() {
     const checkItems = ReactiveCache.getChecklistItems({ checklistId: this._id });
-    checkItems.forEach(function(item) {
-      item.check();
-    });
+    for (const item of checkItems) {
+      await item.check();
+    }
   },
-  uncheckAllItems() {
+  async uncheckAllItems() {
     const checkItems = ReactiveCache.getChecklistItems({ checklistId: this._id });
-    checkItems.forEach(function(item) {
-      item.uncheck();
-    });
+    for (const item of checkItems) {
+      await item.uncheck();
+    }
   },
   itemIndex(itemId) {
     const items = ReactiveCache.getChecklist({ _id: this._id }).items;
     return _.pluck(items, '_id').indexOf(itemId);
+  },
+
+  async setTitle(title) {
+    return await Checklists.updateAsync(this._id, { $set: { title } });
+  },
+  /** move the checklist to another card
+   * @param newCardId move the checklist to this cardId
+   */
+  async move(newCardId) {
+    // Note: Activities and ChecklistItems updates are now handled server-side
+    // in the moveChecklist Meteor method to avoid client-side permission issues
+    return await Checklists.updateAsync(this._id, { $set: { cardId: newCardId } });
+  },
+  async toggleHideCheckedChecklistItems() {
+    return await Checklists.updateAsync(this._id, {
+      $set: { hideCheckedChecklistItems: !this.hideCheckedChecklistItems },
+    });
+  },
+  async toggleHideAllChecklistItems() {
+    return await Checklists.updateAsync(this._id, {
+      $set: { hideAllChecklistItems: !this.hideAllChecklistItems },
+    });
+  },
+  async toggleShowChecklistAtMinicard() {
+    return await Checklists.updateAsync(this._id, {
+      $set: { showChecklistAtMinicard: !this.showChecklistAtMinicard },
+    });
   },
 });
 
@@ -191,46 +218,6 @@ Checklists.before.insert((userId, doc) => {
   }
 });
 
-Checklists.mutations({
-  setTitle(title) {
-    return { $set: { title } };
-  },
-  /** move the checklist to another card
-   * @param newCardId move the checklist to this cardId
-   */
-  move(newCardId) {
-    // Note: Activities and ChecklistItems updates are now handled server-side
-    // in the moveChecklist Meteor method to avoid client-side permission issues
-    
-    // update the checklist itself
-    return {
-      $set: {
-        cardId: newCardId,
-      },
-    };
-  },
-  toggleHideCheckedChecklistItems() {
-    return {
-      $set: {
-        hideCheckedChecklistItems: !this.hideCheckedChecklistItems,
-      }
-    };
-  },
-  toggleHideAllChecklistItems() {
-    return {
-      $set: {
-        hideAllChecklistItems: !this.hideAllChecklistItems,
-      }
-    };
-  },
-  toggleShowChecklistAtMinicard() {
-    return {
-      $set: {
-        showChecklistAtMinicard: !this.showChecklistAtMinicard,
-      }
-    };
-  },
-});
 
 if (Meteor.isServer) {
   Meteor.methods({

@@ -572,15 +572,17 @@ Cards.helpers({
     });
   },
 
-  mapCustomFieldsToBoard(boardId) {
+  async mapCustomFieldsToBoard(boardId) {
     // Map custom fields to new board
-    return this.customFields.map(cf => {
+    const result = [];
+    for (const cf of this.customFields) {
         const oldCf = ReactiveCache.getCustomField(cf._id);
 
         // Check if oldCf is undefined or null
         if (!oldCf) {
             //console.error(`Custom field with ID ${cf._id} not found.`);
-            return cf;  // Skip this field if oldCf is not found
+            result.push(cf);  // Skip this field if oldCf is not found
+            continue;
         }
 
         const newCf = ReactiveCache.getCustomField({
@@ -592,11 +594,12 @@ Cards.helpers({
         if (newCf) {
             cf._id = newCf._id;
         } else if (!_.contains(oldCf.boardIds, boardId)) {
-            oldCf.addBoard(boardId);
+            await oldCf.addBoard(boardId);
         }
 
-        return cf;
-    });
+        result.push(cf);
+    }
+    return result;
 },
 
 
@@ -1203,11 +1206,11 @@ Cards.helpers({
     }
   },
 
-  assignMember(memberId) {
+  async assignMember(memberId) {
     let ret;
     if (this.isLinkedBoard()) {
       const board = ReactiveCache.getBoard(this.linkedId);
-      ret = board.addMember(memberId);
+      ret = await board.addMember(memberId);
     } else {
       ret = Cards.update(
         { _id: this.getRealId() },
@@ -1234,7 +1237,7 @@ Cards.helpers({
     }
   },
 
-  unassignMember(memberId) {
+  async unassignMember(memberId) {
     if (this.isLinkedCard()) {
       return Cards.update(
         { _id: this.linkedId },
@@ -1242,7 +1245,7 @@ Cards.helpers({
       );
     } else if (this.isLinkedBoard()) {
       const board = ReactiveCache.getBoard(this.linkedId);
-      return board.removeMember(memberId);
+      return await board.removeMember(memberId);
     } else {
       return Cards.update({ _id: this._id }, { $pull: { members: memberId } });
     }
@@ -1991,52 +1994,41 @@ Cards.helpers({
     }
     return pokerWinnersListMap[0].pokerCard;
   },
-});
 
-Cards.mutations({
-  applyToChildren(funct) {
-    ReactiveCache.getCards({
-      parentId: this._id,
-    }).forEach(card => {
-      funct(card);
+  async applyToChildren(funct) {
+    const cards = ReactiveCache.getCards({ parentId: this._id });
+    for (const card of cards) {
+      await funct(card);
+    }
+  },
+
+  async archive() {
+    await this.applyToChildren(async card => {
+      await card.archive();
+    });
+    return await Cards.updateAsync(this._id, {
+      $set: { archived: true, archivedAt: new Date() },
     });
   },
 
-  archive() {
-    this.applyToChildren(card => {
-      return card.archive();
+  async restore() {
+    await this.applyToChildren(async card => {
+      await card.restore();
     });
-    return {
-      $set: {
-        archived: true,
-        archivedAt: new Date(),
-      },
-    };
+    return await Cards.updateAsync(this._id, {
+      $set: { archived: false },
+    });
   },
 
-  restore() {
-    this.applyToChildren(card => {
-      return card.restore();
-    });
-    return {
-      $set: {
-        archived: false,
-      },
-    };
-  },
-
-  moveToEndOfList({ listId, swimlaneId } = {}) {
+  async moveToEndOfList({ listId, swimlaneId } = {}) {
     swimlaneId = swimlaneId || this.swimlaneId;
     const boardId = this.boardId;
     let sortIndex = 0;
 
-    // This should never happen, but there was a bug that was fixed in commit
-    // ea0239538a68e225c867411a4f3e0d27c158383.
     if (!swimlaneId) {
       const board = ReactiveCache.getBoard(boardId);
       swimlaneId = board.getDefaultSwimline()._id;
     }
-    // Move the minicard to the end of the target list
     let parentElementDom = $(`#swimlane-${swimlaneId}`).get(0);
     if (!parentElementDom) parentElementDom = $(':root');
 
@@ -2045,7 +2037,7 @@ Cards.mutations({
       .get(0);
     if (lastCardDom) sortIndex = Utils.calculateIndex(lastCardDom, null).base;
 
-    return this.moveOptionalArgs({
+    return await this.moveOptionalArgs({
       boardId,
       swimlaneId,
       listId,
@@ -2053,22 +2045,19 @@ Cards.mutations({
     });
   },
 
-  moveOptionalArgs({ boardId, swimlaneId, listId, sort } = {}) {
+  async moveOptionalArgs({ boardId, swimlaneId, listId, sort } = {}) {
     boardId = boardId || this.boardId;
     swimlaneId = swimlaneId || this.swimlaneId;
-    // This should never happen, but there was a bug that was fixed in commit
-    // ea0239538a68e225c867411a4f3e0d27c158383.
     if (!swimlaneId) {
       const board = ReactiveCache.getBoard(boardId);
       swimlaneId = board.getDefaultSwimline()._id;
     }
     listId = listId || this.listId;
     if (sort === undefined || sort === null) sort = this.sort;
-    return this.move(boardId, swimlaneId, listId, sort);
+    return await this.move(boardId, swimlaneId, listId, sort);
   },
 
-  move(boardId, swimlaneId, listId, sort = null) {
-    // Capture previous state for history tracking
+  async move(boardId, swimlaneId, listId, sort = null) {
     const previousState = {
       boardId: this.boardId,
       swimlaneId: this.swimlaneId,
@@ -2076,20 +2065,13 @@ Cards.mutations({
       sort: this.sort,
     };
 
-    const mutatedFields = {
-      boardId,
-      swimlaneId,
-      listId,
-    };
+    const mutatedFields = { boardId, swimlaneId, listId };
 
     if (sort !== null) {
       mutatedFields.sort = sort;
     }
 
-    // we must only copy the labels and custom fields if the target board
-    // differs from the source board
     if (this.boardId !== boardId) {
-      // Get label names
       const oldBoard = ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = oldBoard.labels;
       const oldCardLabels = _.pluck(
@@ -2108,7 +2090,6 @@ Cards.mutations({
         '_id',
       );
 
-      // assign the new card number from the target board
       const newCardNumber = newBoard.getNextCardNumber();
 
       Object.assign(mutatedFields, {
@@ -2119,11 +2100,8 @@ Cards.mutations({
       mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);
     }
 
-    Cards.update(this._id, {
-      $set: mutatedFields,
-    });
+    await Cards.updateAsync(this._id, { $set: mutatedFields });
 
-    // Track position change in user history (server-side only)
     if (Meteor.isServer && Meteor.userId() && typeof UserPositionHistory !== 'undefined') {
       try {
         UserPositionHistory.trackChange({
@@ -2145,7 +2123,6 @@ Cards.mutations({
       }
     }
 
-    // Ensure attachments follow the card to its new board/list/swimlane
     if (Meteor.isServer) {
       const updateMeta = {};
       if (mutatedFields.boardId !== undefined) updateMeta['meta.boardId'] = mutatedFields.boardId;
@@ -2154,293 +2131,159 @@ Cards.mutations({
 
       if (Object.keys(updateMeta).length > 0) {
         try {
-          Attachments.collection.update(
+          await Attachments.collection.updateAsync(
             { 'meta.cardId': this._id },
             { $set: updateMeta },
             { multi: true },
           );
         } catch (err) {
-          // Do not block the move if attachment update fails
-          // eslint-disable-next-line no-console
           console.error('Failed to update attachments metadata after moving card', this._id, err);
         }
       }
     }
   },
 
-  addLabel(labelId) {
+  async addLabel(labelId) {
     this.labelIds.push(labelId);
-    return {
-      $addToSet: {
-        labelIds: labelId,
-      },
-    };
+    return await Cards.updateAsync(this._id, { $addToSet: { labelIds: labelId } });
   },
 
-  removeLabel(labelId) {
+  async removeLabel(labelId) {
     this.labelIds = _.without(this.labelIds, labelId);
-    return {
-      $pull: {
-        labelIds: labelId,
-      },
-    };
+    return await Cards.updateAsync(this._id, { $pull: { labelIds: labelId } });
   },
 
-  toggleLabel(labelId) {
+  async toggleLabel(labelId) {
     if (this.labelIds && this.labelIds.indexOf(labelId) > -1) {
-      return this.removeLabel(labelId);
+      return await this.removeLabel(labelId);
     } else {
-      return this.addLabel(labelId);
+      return await this.addLabel(labelId);
     }
   },
 
-  setColor(newColor) {
+  async setColor(newColor) {
     if (newColor === 'white') {
       newColor = null;
     }
-    return {
-      $set: {
-        color: newColor,
-      },
-    };
+    return await Cards.updateAsync(this._id, { $set: { color: newColor } });
   },
 
-  assignMember(memberId) {
-    return {
-      $addToSet: {
-        members: memberId,
-      },
-    };
+  async assignMember(memberId) {
+    return await Cards.updateAsync(this._id, { $addToSet: { members: memberId } });
   },
 
-  assignAssignee(assigneeId) {
-    // If there is not any assignee, allow one assignee, not more.
-    /*
-    if (this.getAssignees().length === 0) {
-      return {
-        $addToSet: {
-          assignees: assigneeId,
-        },
-      };
-    */
-    // Allow more that one assignee:
-    // https://github.com/wekan/wekan/issues/3302
-    return {
-      $addToSet: {
-        assignees: assigneeId,
-      },
-    };
-    //} else {
-    //  return false,
-    //}
+  async assignAssignee(assigneeId) {
+    return await Cards.updateAsync(this._id, { $addToSet: { assignees: assigneeId } });
   },
 
-  unassignMember(memberId) {
-    return {
-      $pull: {
-        members: memberId,
-      },
-    };
+  async unassignMember(memberId) {
+    return await Cards.updateAsync(this._id, { $pull: { members: memberId } });
   },
 
-  unassignAssignee(assigneeId) {
-    return {
-      $pull: {
-        assignees: assigneeId,
-      },
-    };
+  async unassignAssignee(assigneeId) {
+    return await Cards.updateAsync(this._id, { $pull: { assignees: assigneeId } });
   },
 
-  toggleMember(memberId) {
+  async toggleMember(memberId) {
     if (this.members && this.members.indexOf(memberId) > -1) {
-      return this.unassignMember(memberId);
+      return await this.unassignMember(memberId);
     } else {
-      return this.assignMember(memberId);
+      return await this.assignMember(memberId);
     }
   },
 
-  toggleAssignee(assigneeId) {
+  async toggleAssignee(assigneeId) {
     if (this.assignees && this.assignees.indexOf(assigneeId) > -1) {
-      return this.unassignAssignee(assigneeId);
+      return await this.unassignAssignee(assigneeId);
     } else {
-      return this.assignAssignee(assigneeId);
+      return await this.assignAssignee(assigneeId);
     }
   },
 
-  assignCustomField(customFieldId) {
-    return {
-      $addToSet: {
-        customFields: {
-          _id: customFieldId,
-          value: null,
-        },
-      },
-    };
+  async assignCustomField(customFieldId) {
+    return await Cards.updateAsync(this._id, {
+      $addToSet: { customFields: { _id: customFieldId, value: null } },
+    });
   },
 
-  unassignCustomField(customFieldId) {
-    return {
-      $pull: {
-        customFields: {
-          _id: customFieldId,
-        },
-      },
-    };
+  async unassignCustomField(customFieldId) {
+    return await Cards.updateAsync(this._id, {
+      $pull: { customFields: { _id: customFieldId } },
+    });
   },
 
-  toggleCustomField(customFieldId) {
+  async toggleCustomField(customFieldId) {
     if (this.customFields && this.customFieldIndex(customFieldId) > -1) {
-      return this.unassignCustomField(customFieldId);
+      return await this.unassignCustomField(customFieldId);
     } else {
-      return this.assignCustomField(customFieldId);
+      return await this.assignCustomField(customFieldId);
     }
   },
 
-  toggleShowActivities() {
-    return {
-      $set: {
-        showActivities: !this.showActivities,
-      }
-    };
+  async toggleShowActivities() {
+    return await Cards.updateAsync(this._id, {
+      $set: { showActivities: !this.showActivities },
+    });
   },
 
-  toggleShowChecklistAtMinicard() {
-    return {
-      $set: {
-        showChecklistAtMinicard: !this.showChecklistAtMinicard,
-      }
-    };
+  async toggleShowChecklistAtMinicard() {
+    return await Cards.updateAsync(this._id, {
+      $set: { showChecklistAtMinicard: !this.showChecklistAtMinicard },
+    });
   },
 
-  setCustomField(customFieldId, value) {
-    // todo
+  async setCustomField(customFieldId, value) {
     const index = this.customFieldIndex(customFieldId);
     if (index > -1) {
-      const update = {
-        $set: {},
-      };
+      const update = { $set: {} };
       update.$set[`customFields.${index}.value`] = value;
-      return update;
+      return await Cards.updateAsync(this._id, update);
     }
-    // TODO
-    // Ignatz 18.05.2018: Return null to silence ESLint. No Idea if that is correct
     return null;
   },
 
-  setCover(coverId) {
-    return {
-      $set: {
-        coverId,
-      },
-    };
+  async setCover(coverId) {
+    return await Cards.updateAsync(this._id, { $set: { coverId } });
   },
 
-  unsetCover() {
-    return {
-      $unset: {
-        coverId: '',
-      },
-    };
+  async unsetCover() {
+    return await Cards.updateAsync(this._id, { $unset: { coverId: '' } });
   },
 
-  //setReceived(receivedAt) {
-  //  return {
-  //    $set: {
-  //      receivedAt,
-  //    },
-  //  };
-  //},
-
-  unsetReceived() {
-    return {
-      $unset: {
-        receivedAt: '',
-      },
-    };
+  async unsetReceived() {
+    return await Cards.updateAsync(this._id, { $unset: { receivedAt: '' } });
   },
 
-  //setStart(startAt) {
-  //  return {
-  //    $set: {
-  //      startAt,
-  //    },
-  //  };
-  //},
-
-  unsetStart() {
-    return {
-      $unset: {
-        startAt: '',
-      },
-    };
+  async unsetStart() {
+    return await Cards.updateAsync(this._id, { $unset: { startAt: '' } });
   },
 
-  //setDue(dueAt) {
-  //  return {
-  //    $set: {
-  //      dueAt,
-  //    },
-  //  };
-  //},
-
-  unsetDue() {
-    return {
-      $unset: {
-        dueAt: '',
-      },
-    };
+  async unsetDue() {
+    return await Cards.updateAsync(this._id, { $unset: { dueAt: '' } });
   },
 
-  //setEnd(endAt) {
-  //  return {
-  //    $set: {
-  //      endAt,
-  //    },
-  //  };
-  //},
-
-  unsetEnd() {
-    return {
-      $unset: {
-        endAt: '',
-      },
-    };
+  async unsetEnd() {
+    return await Cards.updateAsync(this._id, { $unset: { endAt: '' } });
   },
 
-  setOvertime(isOvertime) {
-    return {
-      $set: {
-        isOvertime,
-      },
-    };
+  async setOvertime(isOvertime) {
+    return await Cards.updateAsync(this._id, { $set: { isOvertime } });
   },
 
-  setSpentTime(spentTime) {
-    return {
-      $set: {
-        spentTime,
-      },
-    };
+  async setSpentTime(spentTime) {
+    return await Cards.updateAsync(this._id, { $set: { spentTime } });
   },
 
-  unsetSpentTime() {
-    return {
-      $unset: {
-        spentTime: '',
-        isOvertime: false,
-      },
-    };
+  async unsetSpentTime() {
+    return await Cards.updateAsync(this._id, { $unset: { spentTime: '', isOvertime: false } });
   },
 
-  setParentId(parentId) {
-    return {
-      $set: {
-        parentId,
-      },
-    };
+  async setParentId(parentId) {
+    return await Cards.updateAsync(this._id, { $set: { parentId } });
   },
-  setVoteQuestion(question, publicVote, allowNonBoardMembers) {
-    return {
+
+  async setVoteQuestion(question, publicVote, allowNonBoardMembers) {
+    return await Cards.updateAsync(this._id, {
       $set: {
         vote: {
           question,
@@ -2450,61 +2293,42 @@ Cards.mutations({
           negative: [],
         },
       },
-    };
+    });
   },
-  unsetVote() {
-    return {
-      $unset: {
-        vote: '',
-      },
-    };
+
+  async unsetVote() {
+    return await Cards.updateAsync(this._id, { $unset: { vote: '' } });
   },
-  setVoteEnd(end) {
-    return {
-      $set: { 'vote.end': end },
-    };
+
+  async setVoteEnd(end) {
+    return await Cards.updateAsync(this._id, { $set: { 'vote.end': end } });
   },
-  unsetVoteEnd() {
-    return {
-      $unset: { 'vote.end': '' },
-    };
+
+  async unsetVoteEnd() {
+    return await Cards.updateAsync(this._id, { $unset: { 'vote.end': '' } });
   },
-  setVote(userId, forIt) {
+
+  async setVote(userId, forIt) {
     switch (forIt) {
       case true:
-        // vote for it
-        return {
-          $pull: {
-            'vote.negative': userId,
-          },
-          $addToSet: {
-            'vote.positive': userId,
-          },
-        };
+        return await Cards.updateAsync(this._id, {
+          $pull: { 'vote.negative': userId },
+          $addToSet: { 'vote.positive': userId },
+        });
       case false:
-        // vote against
-        return {
-          $pull: {
-            'vote.positive': userId,
-          },
-          $addToSet: {
-            'vote.negative': userId,
-          },
-        };
-
+        return await Cards.updateAsync(this._id, {
+          $pull: { 'vote.positive': userId },
+          $addToSet: { 'vote.negative': userId },
+        });
       default:
-        // Remove votes
-        return {
-          $pull: {
-            'vote.positive': userId,
-            'vote.negative': userId,
-          },
-        };
+        return await Cards.updateAsync(this._id, {
+          $pull: { 'vote.positive': userId, 'vote.negative': userId },
+        });
     }
   },
 
-  setPokerQuestion(question, allowNonBoardMembers) {
-    return {
+  async setPokerQuestion(question, allowNonBoardMembers) {
+    return await Cards.updateAsync(this._id, {
       $set: {
         poker: {
           question,
@@ -2521,246 +2345,47 @@ Cards.mutations({
           unsure: [],
         },
       },
-    };
+    });
   },
-  setPokerEstimation(estimation) {
-    return {
-      $set: { 'poker.estimation': estimation },
-    };
+
+  async setPokerEstimation(estimation) {
+    return await Cards.updateAsync(this._id, { $set: { 'poker.estimation': estimation } });
   },
-  unsetPokerEstimation() {
-    return {
-      $unset: { 'poker.estimation': '' },
-    };
+
+  async unsetPokerEstimation() {
+    return await Cards.updateAsync(this._id, { $unset: { 'poker.estimation': '' } });
   },
-  unsetPoker() {
-    return {
-      $unset: {
-        poker: '',
-      },
-    };
+
+  async unsetPoker() {
+    return await Cards.updateAsync(this._id, { $unset: { poker: '' } });
   },
-  setPokerEnd(end) {
-    return {
-      $set: { 'poker.end': end },
-    };
+
+  async setPokerEnd(end) {
+    return await Cards.updateAsync(this._id, { $set: { 'poker.end': end } });
   },
-  unsetPokerEnd() {
-    return {
-      $unset: { 'poker.end': '' },
-    };
+
+  async unsetPokerEnd() {
+    return await Cards.updateAsync(this._id, { $unset: { 'poker.end': '' } });
   },
-  setPoker(userId, state) {
-    switch (state) {
-      case 'one':
-        // poker one
-        return {
-          $pull: {
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.one': userId,
-          },
-        };
-      case 'two':
-        // poker two
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.two': userId,
-          },
-        };
 
-      case 'three':
-        // poker three
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.three': userId,
-          },
-        };
+  async setPoker(userId, state) {
+    const pokerFields = ['one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty', 'oneHundred', 'unsure'];
+    const pullFields = {};
+    pokerFields.forEach(f => { pullFields[`poker.${f}`] = userId; });
 
-      case 'five':
-        // poker five
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.five': userId,
-          },
-        };
-
-      case 'eight':
-        // poker eight
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.eight': userId,
-          },
-        };
-
-      case 'thirteen':
-        // poker thirteen
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.thirteen': userId,
-          },
-        };
-
-      case 'twenty':
-        // poker twenty
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.twenty': userId,
-          },
-        };
-
-      case 'forty':
-        // poker forty
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.forty': userId,
-          },
-        };
-
-      case 'oneHundred':
-        // poker one hundred
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.unsure': userId,
-          },
-          $addToSet: {
-            'poker.oneHundred': userId,
-          },
-        };
-
-      case 'unsure':
-        // poker unsure
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-          },
-          $addToSet: {
-            'poker.unsure': userId,
-          },
-        };
-
-      default:
-        // Remove pokers
-        return {
-          $pull: {
-            'poker.one': userId,
-            'poker.two': userId,
-            'poker.three': userId,
-            'poker.five': userId,
-            'poker.eight': userId,
-            'poker.thirteen': userId,
-            'poker.twenty': userId,
-            'poker.forty': userId,
-            'poker.oneHundred': userId,
-            'poker.unsure': userId,
-          },
-        };
+    if (pokerFields.includes(state)) {
+      delete pullFields[`poker.${state}`];
+      return await Cards.updateAsync(this._id, {
+        $pull: pullFields,
+        $addToSet: { [`poker.${state}`]: userId },
+      });
+    } else {
+      return await Cards.updateAsync(this._id, { $pull: pullFields });
     }
   },
-  replayPoker() {
-    return {
+
+  async replayPoker() {
+    return await Cards.updateAsync(this._id, {
       $set: {
         'poker.one': [],
         'poker.two': [],
@@ -2773,7 +2398,7 @@ Cards.mutations({
         'poker.oneHundred': [],
         'poker.unsure': [],
       },
-    };
+    });
   },
 });
 
@@ -4544,7 +4169,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/lists/:listId/cards/:cardId/archive',
-    function(req, res) {
+    async function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
@@ -4558,7 +4183,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       if (!card) {
         throw new Meteor.Error(404, 'Card not found');
       }
-      card.archive();
+      await card.archive();
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
@@ -4583,7 +4208,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/lists/:listId/cards/:cardId/unarchive',
-    function(req, res) {
+    async function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
@@ -4597,7 +4222,7 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards_count', function(
       if (!card) {
         throw new Meteor.Error(404, 'Card not found');
       }
-      card.restore();
+      await card.restore();
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
