@@ -16,7 +16,7 @@ es5-shim@4.8.0
 
 # Collections
 aldeed:collection2
-cottz:publish-relations
+reywood:publish-composite
 dburles:collection-helpers
 idmontie:migrations
 mongo@1.16.8

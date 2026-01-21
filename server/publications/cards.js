@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { publishComposite } from 'meteor/reywood:publish-composite';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
 import { 
@@ -110,45 +111,49 @@ Meteor.publish('card', cardId => {
 /** publish all data which is necessary to display card details as popup
  * @returns array of cursors
  */
-Meteor.publishRelations('popupCardData', function(cardId) {
+publishComposite('popupCardData', function(cardId) {
   check(cardId, String);
-  
+
   const userId = this.userId;
   const card = ReactiveCache.getCard({ _id: cardId });
-  
+
   if (!card || !card.boardId) {
-    return this.ready();
+    return [];
   }
-  
+
   const board = ReactiveCache.getBoard({ _id: card.boardId });
   if (!board || !board.isVisibleBy(userId)) {
-    return this.ready();
+    return [];
   }
-  
+
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
     const member = _.findWhere(board.members, { userId: userId, isActive: true });
     if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
       // User with assigned-only permissions can only view cards assigned to them
       if (!card.assignees || !card.assignees.includes(userId)) {
-        return this.ready(); // Don't publish if user is not assigned
+        return []; // Don't publish if user is not assigned
       }
     }
   }
-  
-  this.cursor(
-    ReactiveCache.getCards(
-      { _id: cardId },
-      {},
-      true,
-    ),
-    function(cardId, card) {
-      this.cursor(ReactiveCache.getBoards({_id: card.boardId}, {}, true));
-      this.cursor(ReactiveCache.getLists({boardId: card.boardId}, {}, true));
+
+  return {
+    find() {
+      return ReactiveCache.getCards({ _id: cardId }, {}, true);
     },
-  );
-  const ret = this.ready()
-  return ret;
+    children: [
+      {
+        find(card) {
+          return ReactiveCache.getBoards({ _id: card.boardId }, {}, true);
+        }
+      },
+      {
+        find(card) {
+          return ReactiveCache.getLists({ boardId: card.boardId }, {}, true);
+        }
+      }
+    ]
+  };
 });
 
 Meteor.publish('myCards', function(sessionId) {
