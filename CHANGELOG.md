@@ -26,7 +26,9 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 This release adds the following updates:
 
-- [Secure Sandbox for VSCode at Debian 13 amd64](https://github.com/wekan/wekan/commit/639ac9549f88069d8569de777c533ab4c9438088).
+- Secure Sandbox for VSCode at Debian 13 amd64.
+  [Part 1](https://github.com/wekan/wekan/commit/639ac9549f88069d8569de777c533ab4c9438088),
+  [Part 1](https://github.com/wekan/wekan/commit/cc8b771eb448199fa23a87955cf9fa1a504ba8d2).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
