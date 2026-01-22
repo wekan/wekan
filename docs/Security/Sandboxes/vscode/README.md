@@ -1,5 +1,7 @@
 # Secure Sandbox: VSCode at Debian 13 amd64
 
+Related files at this repo `.vscode` at [this commit](https://github.com/wekan/wekan/commit/639ac9549f88069d8569de777c533ab4c9438088).
+
 ## 1) Install Debian
 
 Install Debian with username `wekan`, so that WeKan repo here, only directory where VSCode will have access:
