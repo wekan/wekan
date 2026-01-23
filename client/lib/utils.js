@@ -2,14 +2,14 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 Utils = {
-  setBackgroundImage(url) {
+  async setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard.backgroundImageURL !== undefined) {
       $(".board-wrapper").css({"background":"url(" + currentBoard.backgroundImageURL + ")","background-size":"cover"});
       $(".swimlane,.swimlane .list,.swimlane .list .list-body,.swimlane .list:first-child .list-body").css({"background-color":"transparent"});
       $(".minicard").css({"opacity": "0.9"});
     } else if (currentBoard["background-color"]) {
-      currentBoard.setColor(currentBoard["background-color"]);
+      await currentBoard.setColor(currentBoard["background-color"]);
     }
   },
   /** returns the current board id

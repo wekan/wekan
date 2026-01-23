@@ -1431,93 +1431,80 @@ Boards.helpers({
   isTemplatesBoard() {
     return this.type === 'template-container';
   },
-});
 
-Boards.mutations({
-  archive() {
-    return { $set: { archived: true, archivedAt: new Date() } };
+  async archive() {
+    return await Boards.updateAsync(this._id, { $set: { archived: true, archivedAt: new Date() } });
   },
 
-  restore() {
-    return { $set: { archived: false } };
+  async restore() {
+    return await Boards.updateAsync(this._id, { $set: { archived: false } });
   },
 
-  rename(title) {
-    return { $set: { title } };
+  async rename(title) {
+    return await Boards.updateAsync(this._id, { $set: { title } });
   },
 
-  setDescription(description) {
-    return { $set: { description } };
+  async setDescription(description) {
+    return await Boards.updateAsync(this._id, { $set: { description } });
   },
 
-  setColor(color) {
-    return { $set: { color } };
+  async setColor(color) {
+    return await Boards.updateAsync(this._id, { $set: { color } });
   },
 
-  setBackgroundImageURL(backgroundImageURL) {
+  async setBackgroundImageURL(backgroundImageURL) {
     const currentUser = ReactiveCache.getCurrentUser();
-    if(currentUser.isBoardAdmin()) {
-      return { $set: { backgroundImageURL } };
-    } else if (currentUser.isAdmin()) {
-      return { $set: { backgroundImageURL } };
-    } else {
-      return false;
+    if (currentUser.isBoardAdmin() || currentUser.isAdmin()) {
+      return await Boards.updateAsync(this._id, { $set: { backgroundImageURL } });
     }
+    return false;
   },
 
-  setVisibility(visibility) {
-    return { $set: { permission: visibility } };
+  async setVisibility(visibility) {
+    return await Boards.updateAsync(this._id, { $set: { permission: visibility } });
   },
 
-  addLabel(name, color) {
-    // If label with the same name and color already exists we don't want to
-    // create another one because they would be indistinguishable in the UI
-    // (they would still have different `_id` but that is not exposed to the
-    // user).
+  async addLabel(name, color) {
     if (!this.getLabel(name, color)) {
       const _id = Random.id(6);
-      return { $push: { labels: { _id, name, color } } };
+      return await Boards.updateAsync(this._id, { $push: { labels: { _id, name, color } } });
     }
-    return {};
+    return null;
   },
 
-  editLabel(labelId, name, color) {
+  async editLabel(labelId, name, color) {
     if (!this.getLabel(name, color)) {
       const labelIndex = this.labelIndex(labelId);
-      return {
+      return await Boards.updateAsync(this._id, {
         $set: {
           [`labels.${labelIndex}.name`]: name,
           [`labels.${labelIndex}.color`]: color,
         },
-      };
+      });
     }
-    return {};
+    return null;
   },
 
-  removeLabel(labelId) {
-    return { $pull: { labels: { _id: labelId } } };
+  async removeLabel(labelId) {
+    return await Boards.updateAsync(this._id, { $pull: { labels: { _id: labelId } } });
   },
 
-  changeOwnership(fromId, toId) {
+  async changeOwnership(fromId, toId) {
     const memberIndex = this.memberIndex(fromId);
-    return {
-      $set: {
-        [`members.${memberIndex}.userId`]: toId,
-      },
-    };
+    return await Boards.updateAsync(this._id, {
+      $set: { [`members.${memberIndex}.userId`]: toId },
+    });
   },
 
-  addMember(memberId) {
+  async addMember(memberId) {
     const memberIndex = this.memberIndex(memberId);
     if (memberIndex >= 0) {
-      return {
-        $set: {
-          [`members.${memberIndex}.isActive`]: true,
-        },
-      };
+      return await Boards.updateAsync(this._id, {
+        $set: { [`members.${memberIndex}.isActive`]: true },
+      });
     }
 
-    return {
+    return await Boards.updateAsync(this._id, {
       $push: {
         members: {
           userId: memberId,
@@ -1532,32 +1519,28 @@ Boards.mutations({
           isReadAssignedOnly: false,
         },
       },
-    };
+    });
   },
 
-  removeMember(memberId) {
+  async removeMember(memberId) {
     const memberIndex = this.memberIndex(memberId);
-
-    // we do not allow the only one admin to be removed
     const allowRemove =
       !this.members[memberIndex].isAdmin || this.activeAdmins().length > 1;
     if (!allowRemove) {
-      return {
-        $set: {
-          [`members.${memberIndex}.isActive`]: true,
-        },
-      };
+      return await Boards.updateAsync(this._id, {
+        $set: { [`members.${memberIndex}.isActive`]: true },
+      });
     }
 
-    return {
+    return await Boards.updateAsync(this._id, {
       $set: {
         [`members.${memberIndex}.isActive`]: false,
         [`members.${memberIndex}.isAdmin`]: false,
       },
-    };
+    });
   },
 
-  setMemberPermission(
+  async setMemberPermission(
     memberId,
     isAdmin,
     isNoComments,
@@ -1570,12 +1553,11 @@ Boards.mutations({
     currentUserId = Meteor.userId(),
   ) {
     const memberIndex = this.memberIndex(memberId);
-    // do not allow change permission of self
     if (memberId === currentUserId) {
       isAdmin = this.members[memberIndex].isAdmin;
     }
 
-    return {
+    return await Boards.updateAsync(this._id, {
       $set: {
         [`members.${memberIndex}.isAdmin`]: isAdmin,
         [`members.${memberIndex}.isNoComments`]: isNoComments,
@@ -1586,144 +1568,143 @@ Boards.mutations({
         [`members.${memberIndex}.isReadOnly`]: isReadOnly,
         [`members.${memberIndex}.isReadAssignedOnly`]: isReadAssignedOnly,
       },
-    };
+    });
   },
 
-  setAllowsSubtasks(allowsSubtasks) {
-    return { $set: { allowsSubtasks } };
+  async setAllowsSubtasks(allowsSubtasks) {
+    return await Boards.updateAsync(this._id, { $set: { allowsSubtasks } });
   },
 
-  setAllowsCreator(allowsCreator) {
-    return { $set: { allowsCreator } };
+  async setAllowsCreator(allowsCreator) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCreator } });
   },
 
-  setAllowsCreatorOnMinicard(allowsCreatorOnMinicard) {
-    return { $set: { allowsCreatorOnMinicard } };
+  async setAllowsCreatorOnMinicard(allowsCreatorOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCreatorOnMinicard } });
   },
 
-  setAllowsMembers(allowsMembers) {
-    return { $set: { allowsMembers } };
+  async setAllowsMembers(allowsMembers) {
+    return await Boards.updateAsync(this._id, { $set: { allowsMembers } });
   },
 
-  setAllowsChecklists(allowsChecklists) {
-    return { $set: { allowsChecklists } };
+  async setAllowsChecklists(allowsChecklists) {
+    return await Boards.updateAsync(this._id, { $set: { allowsChecklists } });
   },
 
-  setAllowsAssignee(allowsAssignee) {
-    return { $set: { allowsAssignee } };
+  async setAllowsAssignee(allowsAssignee) {
+    return await Boards.updateAsync(this._id, { $set: { allowsAssignee } });
   },
 
-  setAllowsAssignedBy(allowsAssignedBy) {
-    return { $set: { allowsAssignedBy } };
+  async setAllowsAssignedBy(allowsAssignedBy) {
+    return await Boards.updateAsync(this._id, { $set: { allowsAssignedBy } });
   },
 
-  setAllowsShowListsOnMinicard(allowsShowListsOnMinicard) {
-    return { $set: { allowsShowListsOnMinicard } };
+  async setAllowsShowListsOnMinicard(allowsShowListsOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsShowListsOnMinicard } });
   },
 
-  setAllowsChecklistAtMinicard(allowsChecklistAtMinicard) {
-    return { $set: { allowsChecklistAtMinicard } };
+  async setAllowsChecklistAtMinicard(allowsChecklistAtMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsChecklistAtMinicard } });
   },
 
-  setAllowsRequestedBy(allowsRequestedBy) {
-    return { $set: { allowsRequestedBy } };
+  async setAllowsRequestedBy(allowsRequestedBy) {
+    return await Boards.updateAsync(this._id, { $set: { allowsRequestedBy } });
   },
 
-  setAllowsCardSortingByNumber(allowsCardSortingByNumber) {
-    return { $set: { allowsCardSortingByNumber } };
+  async setAllowsCardSortingByNumber(allowsCardSortingByNumber) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCardSortingByNumber } });
   },
 
-  setAllowsShowLists(allowsShowLists) {
-    return { $set: { allowsShowLists } };
+  async setAllowsShowLists(allowsShowLists) {
+    return await Boards.updateAsync(this._id, { $set: { allowsShowLists } });
   },
 
-
-  setAllowsAttachments(allowsAttachments) {
-    return { $set: { allowsAttachments } };
+  async setAllowsAttachments(allowsAttachments) {
+    return await Boards.updateAsync(this._id, { $set: { allowsAttachments } });
   },
 
-  setAllowsLabels(allowsLabels) {
-    return { $set: { allowsLabels } };
+  async setAllowsLabels(allowsLabels) {
+    return await Boards.updateAsync(this._id, { $set: { allowsLabels } });
   },
 
-  setAllowsComments(allowsComments) {
-    return { $set: { allowsComments } };
+  async setAllowsComments(allowsComments) {
+    return await Boards.updateAsync(this._id, { $set: { allowsComments } });
   },
 
-  setAllowsDescriptionTitle(allowsDescriptionTitle) {
-    return { $set: { allowsDescriptionTitle } };
+  async setAllowsDescriptionTitle(allowsDescriptionTitle) {
+    return await Boards.updateAsync(this._id, { $set: { allowsDescriptionTitle } });
   },
 
-  setAllowsCardNumber(allowsCardNumber) {
-    return { $set: { allowsCardNumber } };
+  async setAllowsCardNumber(allowsCardNumber) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCardNumber } });
   },
 
-  setAllowsDescriptionText(allowsDescriptionText) {
-    return { $set: { allowsDescriptionText } };
+  async setAllowsDescriptionText(allowsDescriptionText) {
+    return await Boards.updateAsync(this._id, { $set: { allowsDescriptionText } });
   },
 
-  setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
-    return { $set: { allowsDescriptionTextOnMinicard } };
+  async setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsDescriptionTextOnMinicard } });
   },
 
-  setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
-    return { $set: { allowsCoverAttachmentOnMinicard } };
+  async setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCoverAttachmentOnMinicard } });
   },
 
-  setallowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
-    return { $set: { allowsBadgeAttachmentOnMinicard } };
+  async setallowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsBadgeAttachmentOnMinicard } });
   },
 
-  setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
-    return { $set: { allowsCardSortingByNumberOnMinicard } };
+  async setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCardSortingByNumberOnMinicard } });
   },
 
-  setAllowsActivities(allowsActivities) {
-    return { $set: { allowsActivities } };
+  async setAllowsActivities(allowsActivities) {
+    return await Boards.updateAsync(this._id, { $set: { allowsActivities } });
   },
 
-  setAllowsReceivedDate(allowsReceivedDate) {
-    return { $set: { allowsReceivedDate } };
+  async setAllowsReceivedDate(allowsReceivedDate) {
+    return await Boards.updateAsync(this._id, { $set: { allowsReceivedDate } });
   },
 
-  setAllowsCardCounterList(allowsCardCounterList) {
-    return { $set: { allowsCardCounterList } };
+  async setAllowsCardCounterList(allowsCardCounterList) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCardCounterList } });
   },
 
-  setAllowsBoardMemberList(allowsBoardMemberList) {
-    return { $set: { allowsBoardMemberList } };
+  async setAllowsBoardMemberList(allowsBoardMemberList) {
+    return await Boards.updateAsync(this._id, { $set: { allowsBoardMemberList } });
   },
 
-  setAllowsStartDate(allowsStartDate) {
-    return { $set: { allowsStartDate } };
+  async setAllowsStartDate(allowsStartDate) {
+    return await Boards.updateAsync(this._id, { $set: { allowsStartDate } });
   },
 
-  setAllowsEndDate(allowsEndDate) {
-    return { $set: { allowsEndDate } };
+  async setAllowsEndDate(allowsEndDate) {
+    return await Boards.updateAsync(this._id, { $set: { allowsEndDate } });
   },
 
-  setAllowsDueDate(allowsDueDate) {
-    return { $set: { allowsDueDate } };
+  async setAllowsDueDate(allowsDueDate) {
+    return await Boards.updateAsync(this._id, { $set: { allowsDueDate } });
   },
 
-  setSubtasksDefaultBoardId(subtasksDefaultBoardId) {
-    return { $set: { subtasksDefaultBoardId } };
+  async setSubtasksDefaultBoardId(subtasksDefaultBoardId) {
+    return await Boards.updateAsync(this._id, { $set: { subtasksDefaultBoardId } });
   },
 
-  setSubtasksDefaultListId(subtasksDefaultListId) {
-    return { $set: { subtasksDefaultListId } };
+  async setSubtasksDefaultListId(subtasksDefaultListId) {
+    return await Boards.updateAsync(this._id, { $set: { subtasksDefaultListId } });
   },
 
-  setPresentParentTask(presentParentTask) {
-    return { $set: { presentParentTask } };
+  async setPresentParentTask(presentParentTask) {
+    return await Boards.updateAsync(this._id, { $set: { presentParentTask } });
   },
 
-  move(sortIndex) {
-    return { $set: { sort: sortIndex } };
+  async move(sortIndex) {
+    return await Boards.updateAsync(this._id, { $set: { sort: sortIndex } });
   },
 
-  toggleShowActivities() {
-    return { $set: { showActivities: !this.showActivities } };
+  async toggleShowActivities() {
+    return await Boards.updateAsync(this._id, { $set: { showActivities: !this.showActivities } });
   },
 });
 
@@ -1909,14 +1890,14 @@ if (Meteor.isServer) {
       check(boardId, String);
       return ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
     },
-    quitBoard(boardId) {
+    async quitBoard(boardId) {
       check(boardId, String);
       const board = ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
         if (index >= 0) {
-          board.removeMember(userId);
+          await board.removeMember(userId);
           return true;
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
@@ -1993,14 +1974,14 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    archiveBoard(boardId) {
+    async archiveBoard(boardId) {
       check(boardId, String);
       const board = ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
         if (index >= 0) {
-          board.archive();
+          await board.archive();
           return true;
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
@@ -2159,7 +2140,7 @@ if (Meteor.isServer) {
     }
     if (modifier.$set) {
       const boardId = doc._id;
-      foreachRemovedMember(doc, modifier.$set, memberId => {
+      foreachRemovedMember(doc, modifier.$set, async memberId => {
         Cards.update(
           { boardId },
           {
@@ -2182,7 +2163,7 @@ if (Meteor.isServer) {
         );
 
         const board = Boards._transform(doc);
-        board.setWatcher(memberId, false);
+        await board.setWatcher(memberId, false);
 
         // Remove board from users starred list
         if (!board.isPublic()) {
@@ -2589,7 +2570,7 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
    * @param {boolean} isReadOnly ReadOnly capability
    * @param {boolean} isReadAssignedOnly ReadAssignedOnly capability
    */
-  JsonRoutes.add('POST', '/api/boards/:boardId/members/:memberId', function(
+  JsonRoutes.add('POST', '/api/boards/:boardId/members/:memberId', async function(
     req,
     res,
   ) {
@@ -2606,7 +2587,7 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
           return data;
         }
       }
-      const query = board.setMemberPermission(
+      const query = await board.setMemberPermission(
         memberId,
         isTrue(isAdmin),
         isTrue(isNoComments),

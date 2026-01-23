@@ -50,13 +50,10 @@ Rules.attachSchema(
   }),
 );
 
-Rules.mutations({
-  rename(description) {
-    return { $set: { description } };
-  },
-});
-
 Rules.helpers({
+  async rename(description) {
+    return await Rules.updateAsync(this._id, { $set: { description } });
+  },
   getAction() {
     return ReactiveCache.getAction(this.actionId);
   },

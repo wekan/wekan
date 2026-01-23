@@ -20,7 +20,6 @@ reywood:publish-composite
 dburles:collection-helpers
 idmontie:migrations
 mongo@1.16.8
-mquandalle:collection-mutations
 
 # Account system
 accounts-password@2.4.0

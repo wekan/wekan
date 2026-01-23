@@ -1593,376 +1593,206 @@ Users.helpers({
     }
     return null;
   },
-});
 
-Users.mutations({
-  /** set the confirmed board id/swimlane id/list id of a board
-   * @param boardId the current board id
-   * @param options an object with the confirmed field values
-   */
-  setMoveAndCopyDialogOption(boardId, options) {
+  async setMoveAndCopyDialogOption(boardId, options) {
     let currentOptions = this.getMoveAndCopyDialogOptions();
     currentOptions[boardId] = options;
-    return {
-      $set: {
-        'profile.moveAndCopyDialog': currentOptions,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.moveAndCopyDialog': currentOptions } });
   },
-  /** set the confirmed board id/swimlane id/list id/card id of a board (move checklist)
-   * @param boardId the current board id
-   * @param options an object with the confirmed field values
-   */
-  setMoveChecklistDialogOption(boardId, options) {
+
+  async setMoveChecklistDialogOption(boardId, options) {
     let currentOptions = this.getMoveChecklistDialogOptions();
     currentOptions[boardId] = options;
-    return {
-      $set: {
-        'profile.moveChecklistDialog': currentOptions,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.moveChecklistDialog': currentOptions } });
   },
-  /** set the confirmed board id/swimlane id/list id/card id of a board (copy checklist)
-   * @param boardId the current board id
-   * @param options an object with the confirmed field values
-   */
-  setCopyChecklistDialogOption(boardId, options) {
+
+  async setCopyChecklistDialogOption(boardId, options) {
     let currentOptions = this.getCopyChecklistDialogOptions();
     currentOptions[boardId] = options;
-    return {
-      $set: {
-        'profile.copyChecklistDialog': currentOptions,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.copyChecklistDialog': currentOptions } });
   },
-  toggleBoardStar(boardId) {
+
+  async toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
-    return {
-      [queryKind]: {
-        'profile.starredBoards': boardId,
-      },
-    };
+    return await Users.updateAsync(this._id, { [queryKind]: { 'profile.starredBoards': boardId } });
   },
-  /**
-   * Set per-user board sort index for a board
-   * Stored at profile.boardSortIndex[boardId] = sortIndex (Number)
-   */
-  setBoardSortIndex(boardId, sortIndex) {
+
+  async setBoardSortIndex(boardId, sortIndex) {
     const mapping = (this.profile && this.profile.boardSortIndex) || {};
     mapping[boardId] = sortIndex;
-    return {
-      $set: {
-        'profile.boardSortIndex': mapping,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.boardSortIndex': mapping } });
   },
-  toggleAutoWidth(boardId) {
+
+  async toggleAutoWidth(boardId) {
     const { autoWidthBoards = {} } = this.profile || {};
     autoWidthBoards[boardId] = !autoWidthBoards[boardId];
-    return {
-      $set: {
-        'profile.autoWidthBoards': autoWidthBoards,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.autoWidthBoards': autoWidthBoards } });
   },
-  toggleKeyboardShortcuts() {
+
+  async toggleKeyboardShortcuts() {
     const { keyboardShortcuts = true } = this.profile || {};
-    return {
-      $set: {
-        'profile.keyboardShortcuts': !keyboardShortcuts,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.keyboardShortcuts': !keyboardShortcuts } });
   },
-  toggleVerticalScrollbars() {
+
+  async toggleVerticalScrollbars() {
     const { verticalScrollbars = true } = this.profile || {};
-    return {
-      $set: {
-        'profile.verticalScrollbars': !verticalScrollbars,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.verticalScrollbars': !verticalScrollbars } });
   },
-  toggleShowWeekOfYear() {
+
+  async toggleShowWeekOfYear() {
     const { showWeekOfYear = true } = this.profile || {};
-    return {
-      $set: {
-        'profile.showWeekOfYear': !showWeekOfYear,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.showWeekOfYear': !showWeekOfYear } });
   },
 
-  addInvite(boardId) {
-    return {
-      $addToSet: {
-        'profile.invitedBoards': boardId,
-      },
-    };
+  async addInvite(boardId) {
+    return await Users.updateAsync(this._id, { $addToSet: { 'profile.invitedBoards': boardId } });
   },
 
-  removeInvite(boardId) {
-    return {
-      $pull: {
-        'profile.invitedBoards': boardId,
-      },
-    };
+  async removeInvite(boardId) {
+    return await Users.updateAsync(this._id, { $pull: { 'profile.invitedBoards': boardId } });
   },
 
-  addTag(tag) {
-    return {
-      $addToSet: {
-        'profile.tags': tag,
-      },
-    };
+  async addTag(tag) {
+    return await Users.updateAsync(this._id, { $addToSet: { 'profile.tags': tag } });
   },
 
-  removeTag(tag) {
-    return {
-      $pull: {
-        'profile.tags': tag,
-      },
-    };
+  async removeTag(tag) {
+    return await Users.updateAsync(this._id, { $pull: { 'profile.tags': tag } });
   },
 
-  toggleTag(tag) {
-    if (this.hasTag(tag)) this.removeTag(tag);
-    else this.addTag(tag);
+  async toggleTag(tag) {
+    if (this.hasTag(tag)) {
+      return await this.removeTag(tag);
+    } else {
+      return await this.addTag(tag);
+    }
   },
 
-  setListSortBy(value) {
-    return {
-      $set: {
-        'profile.listSortBy': value,
-      },
-    };
+  async setListSortBy(value) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.listSortBy': value } });
   },
 
-  setName(value) {
-    return {
-      $set: {
-        'profile.fullname': value,
-      },
-    };
+  async setName(value) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.fullname': value } });
   },
 
-  toggleDesktopHandles(value = false) {
-    return {
-      $set: {
-        'profile.showDesktopDragHandles': !value,
-      },
-    };
+  async toggleDesktopHandles(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.showDesktopDragHandles': !value } });
   },
 
-  toggleFieldsGrid(value = false) {
-    return {
-      $set: {
-        'profile.customFieldsGrid': !value,
-      },
-    };
+  async toggleFieldsGrid(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.customFieldsGrid': !value } });
   },
 
-  toggleCardMaximized(value = false) {
-    return {
-      $set: {
-        'profile.cardMaximized': !value,
-      },
-    };
+  async toggleCardMaximized(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.cardMaximized': !value } });
   },
 
-  toggleCardCollapsed(value = false) {
-    return {
-      $set: {
-        'profile.cardCollapsed': !value,
-      },
-    };
+  async toggleCardCollapsed(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.cardCollapsed': !value } });
   },
 
-  toggleShowActivities(value = false) {
-    return {
-      $set: {
-        'profile.showActivities': !value,
-      },
-    };
+  async toggleShowActivities(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.showActivities': !value } });
   },
 
-  toggleLabelText(value = false) {
-    return {
-      $set: {
-        'profile.hiddenMinicardLabelText': !value,
-      },
-    };
-  },
-  toggleRescueCardDescription(value = false) {
-    return {
-      $set: {
-        'profile.rescueCardDescription': !value,
-      },
-    };
-  },
-  toggleGreyIcons(value = false) {
-    return {
-      $set: {
-        'profile.GreyIcons': !value,
-      },
-    };
+  async toggleLabelText(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.hiddenMinicardLabelText': !value } });
   },
 
-  addNotification(activityId) {
-    return {
-      $addToSet: {
-        'profile.notifications': {
-          activity: activityId,
-          read: null,
-        },
-      },
-    };
+  async toggleRescueCardDescription(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.rescueCardDescription': !value } });
   },
 
-  removeNotification(activityId) {
-    return {
-      $pull: {
-        'profile.notifications': {
-          activity: activityId,
-        },
-      },
-    };
+  async toggleGreyIcons(value = false) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.GreyIcons': !value } });
   },
 
-  addEmailBuffer(text) {
-    return {
-      $addToSet: {
-        'profile.emailBuffer': text,
-      },
-    };
+  async addNotification(activityId) {
+    return await Users.updateAsync(this._id, {
+      $addToSet: { 'profile.notifications': { activity: activityId, read: null } },
+    });
   },
 
-  clearEmailBuffer() {
-    return {
-      $set: {
-        'profile.emailBuffer': [],
-      },
-    };
+  async removeNotification(activityId) {
+    return await Users.updateAsync(this._id, {
+      $pull: { 'profile.notifications': { activity: activityId } },
+    });
   },
 
-  setAvatarUrl(avatarUrl) {
-    return {
-      $set: {
-        'profile.avatarUrl': avatarUrl,
-      },
-    };
+  async addEmailBuffer(text) {
+    return await Users.updateAsync(this._id, { $addToSet: { 'profile.emailBuffer': text } });
   },
 
-  setShowCardsCountAt(limit) {
-    return {
-      $set: {
-        'profile.showCardsCountAt': limit,
-      },
-    };
+  async clearEmailBuffer() {
+    return await Users.updateAsync(this._id, { $set: { 'profile.emailBuffer': [] } });
   },
 
-  setStartDayOfWeek(startDay) {
-    return {
-      $set: {
-        'profile.startDayOfWeek': startDay,
-      },
-    };
+  async setAvatarUrl(avatarUrl) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.avatarUrl': avatarUrl } });
   },
 
-  setDateFormat(dateFormat) {
-    return {
-      $set: {
-        'profile.dateFormat': dateFormat,
-      },
-    };
+  async setShowCardsCountAt(limit) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.showCardsCountAt': limit } });
   },
 
-  setBoardView(view) {
-    return {
-      $set: {
-        'profile.boardView': view,
-      },
-    };
+  async setStartDayOfWeek(startDay) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.startDayOfWeek': startDay } });
   },
 
-  setListWidth(boardId, listId, width) {
+  async setDateFormat(dateFormat) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.dateFormat': dateFormat } });
+  },
+
+  async setBoardView(view) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.boardView': view } });
+  },
+
+  async setListWidth(boardId, listId, width) {
     let currentWidths = this.getListWidths();
-    if (!currentWidths[boardId]) {
-      currentWidths[boardId] = {};
-    }
+    if (!currentWidths[boardId]) currentWidths[boardId] = {};
     currentWidths[boardId][listId] = width;
-    return {
-      $set: {
-        'profile.listWidths': currentWidths,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.listWidths': currentWidths } });
   },
 
-  setListConstraint(boardId, listId, constraint) {
+  async setListConstraint(boardId, listId, constraint) {
     let currentConstraints = this.getListConstraints();
-    if (!currentConstraints[boardId]) {
-      currentConstraints[boardId] = {};
-    }
+    if (!currentConstraints[boardId]) currentConstraints[boardId] = {};
     currentConstraints[boardId][listId] = constraint;
-    return {
-      $set: {
-        'profile.listConstraints': currentConstraints,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.listConstraints': currentConstraints } });
   },
 
-  setSwimlaneHeight(boardId, swimlaneId, height) {
+  async setSwimlaneHeight(boardId, swimlaneId, height) {
     let currentHeights = this.getSwimlaneHeights();
-    if (!currentHeights[boardId]) {
-      currentHeights[boardId] = {};
-    }
+    if (!currentHeights[boardId]) currentHeights[boardId] = {};
     currentHeights[boardId][swimlaneId] = height;
-    return {
-      $set: {
-        'profile.swimlaneHeights': currentHeights,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.swimlaneHeights': currentHeights } });
   },
-  setCollapsedList(boardId, listId, collapsed) {
+
+  async setCollapsedList(boardId, listId, collapsed) {
     const current = (this.profile && this.profile.collapsedLists) || {};
     if (!current[boardId]) current[boardId] = {};
     current[boardId][listId] = !!collapsed;
-    return {
-      $set: {
-        'profile.collapsedLists': current,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.collapsedLists': current } });
   },
-  setCollapsedSwimlane(boardId, swimlaneId, collapsed) {
+
+  async setCollapsedSwimlane(boardId, swimlaneId, collapsed) {
     const current = (this.profile && this.profile.collapsedSwimlanes) || {};
     if (!current[boardId]) current[boardId] = {};
     current[boardId][swimlaneId] = !!collapsed;
-    return {
-      $set: {
-        'profile.collapsedSwimlanes': current,
-      },
-    };
+    return await Users.updateAsync(this._id, { $set: { 'profile.collapsedSwimlanes': current } });
   },
 
-  setZoomLevel(level) {
-    return {
-      $set: {
-        'profile.zoomLevel': level,
-      },
-    };
+  async setZoomLevel(level) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.zoomLevel': level } });
   },
 
-  setMobileMode(enabled) {
-    return {
-      $set: {
-        'profile.mobileMode': enabled,
-      },
-    };
+  async setMobileMode(enabled) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.mobileMode': enabled } });
   },
 
-  setCardZoom(level) {
-    return {
-      $set: {
-        'profile.cardZoom': level,
-      },
-    };
+  async setCardZoom(level) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.cardZoom': level } });
   },
 });
 
@@ -3340,7 +3170,7 @@ if (Meteor.isServer) {
    * @return_type {_id: string,
    *               title: string}
    */
-  JsonRoutes.add('PUT', '/api/users/:userId', function (req, res) {
+  JsonRoutes.add('PUT', '/api/users/:userId', async function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
@@ -3350,7 +3180,7 @@ if (Meteor.isServer) {
       });
       if (data !== undefined) {
         if (action === 'takeOwnership') {
-          data = ReactiveCache.getBoards(
+          const boards = ReactiveCache.getBoards(
             {
               'members.userId': id,
               'members.isAdmin': true,
@@ -3360,16 +3190,18 @@ if (Meteor.isServer) {
                 sort: 1 /* boards default sorting */,
               },
             },
-          ).map(function (board) {
+          );
+          data = [];
+          for (const board of boards) {
             if (board.hasMember(req.userId)) {
-              board.removeMember(req.userId);
+              await board.removeMember(req.userId);
             }
             board.changeOwnership(id, req.userId);
-            return {
+            data.push({
               _id: board._id,
               title: board.title,
-            };
-          });
+            });
+          }
         } else {
           if (action === 'disableLogin' && id !== req.userId) {
             Users.update(

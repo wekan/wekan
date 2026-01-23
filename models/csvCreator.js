@@ -382,14 +382,14 @@ export class CsvCreator {
     }
   }
 
-  create(board, currentBoardId) {
+  async create(board, currentBoardId) {
     const isSandstorm =
       Meteor.settings &&
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
       const currentBoard = ReactiveCache.getBoard(currentBoardId);
-      currentBoard.archive();
+      await currentBoard.archive();
     }
     this.mapHeadertoCardFieldIndex(board[0]);
     const boardId = this.createBoard(board);

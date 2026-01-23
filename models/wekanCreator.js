@@ -970,7 +970,7 @@ export class WekanCreator {
     // }
   }
 
-  create(board, currentBoardId) {
+  async create(board, currentBoardId) {
     // TODO : Make isSandstorm variable global
     const isSandstorm =
       Meteor.settings &&
@@ -978,7 +978,7 @@ export class WekanCreator {
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
       const currentBoard = ReactiveCache.getBoard(currentBoardId);
-      currentBoard.archive();
+      await currentBoard.archive();
     }
     this.parseActivities(board);
     const boardId = this.createBoardAndLabels(board);

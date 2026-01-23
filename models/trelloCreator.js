@@ -767,7 +767,7 @@ export class TrelloCreator {
     }
   }
 
-  create(board, currentBoardId) {
+  async create(board, currentBoardId) {
     // TODO : Make isSandstorm variable global
     const isSandstorm =
       Meteor.settings &&
@@ -775,7 +775,7 @@ export class TrelloCreator {
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
       const currentBoard = ReactiveCache.getBoard(currentBoardId);
-      currentBoard.archive();
+      await currentBoard.archive();
     }
     this.parseActions(board.actions);
     const boardId = this.createBoardAndLabels(board);

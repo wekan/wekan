@@ -18,7 +18,7 @@ ENV BUILD_DEPS="apt-utils gnupg gosu wget bzip2 g++ curl libarchive-tools build-
 ENV \
     DEBUG=false \
     NODE_VERSION=v14.21.4 \
-    METEOR_RELEASE=METEOR@2.14 \
+    METEOR_RELEASE=METEOR@2.16 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=6.14.17 \
@@ -222,8 +222,8 @@ cd /home/wekan
 chown --recursive wekan:wekan /home/wekan
 echo "Starting meteor ${METEOR_RELEASE} installation...   \n"
 #gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh
-# Specify Meteor version 2.14 to be compatible: https://github.com/wekan/wekan/pull/5816/files
-#gosu wekan:wekan npm -g install meteor@2.14 --unsafe-perm
+# Specify Meteor version 2.16 to be compatible: https://github.com/wekan/wekan/pull/5816/files
+#gosu wekan:wekan npm -g install meteor@2.16 --unsafe-perm
 #mv /root/.meteor /home/wekan/
 #chown --recursive wekan:wekan /home/wekan/.meteor
 

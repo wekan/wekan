@@ -17,10 +17,10 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'submit .js-card-description'(event) {
+        async 'submit .js-card-description'(event) {
           event.preventDefault();
           const description = this.currentComponent().getValue();
-          this.data().setDescription(description);
+          await this.data().setDescription(description);
         },
         // Pressing Ctrl+Enter should submit the form
         'keydown form textarea'(evt) {
