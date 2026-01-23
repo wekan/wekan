@@ -12,6 +12,7 @@ import {
 import Users from "./users";
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import TableVisibilityModeSettings from "./tableVisibilityModeSettings";
+import getSlug from 'limax';
 
 // const escapeForRegex = require('escape-string-regexp');
 

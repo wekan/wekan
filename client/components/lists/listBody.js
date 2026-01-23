@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Spinner } from '/client/lib/spinner';
+import getSlug from 'limax';
 
 const subManager = new SubsManager();
 const InfiniteScrollIter = 10;
