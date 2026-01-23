@@ -10,7 +10,7 @@ const UPCLS = 'fa-sort-up';
 const sortCardsBy = new ReactiveVar('');
 
 Template.boardChangeTitlePopup.events({
-  submit(event, templateInstance) {
+  async submit(event, templateInstance) {
     const newTitle = templateInstance
       .$('.js-board-name')
       .val()
@@ -20,8 +20,8 @@ Template.boardChangeTitlePopup.events({
       .val()
       .trim();
     if (newTitle) {
-      this.rename(newTitle);
-      this.setDescription(newDesc);
+      await this.rename(newTitle);
+      await this.setDescription(newDesc);
       Popup.back();
     }
     event.preventDefault();
@@ -364,10 +364,10 @@ const CreateBoard = BlazeComponent.extendComponent({
 }).register('createTemplateContainerPopup');
 
 (class HeaderBarCreateBoard extends CreateBoard {
-  onSubmit(event) {
+  async onSubmit(event) {
     super.onSubmit(event);
     // Immediately star boards crated with the headerbar popup.
-    ReactiveCache.getCurrentUser().toggleBoardStar(this.boardId.get());
+    await ReactiveCache.getCurrentUser().toggleBoardStar(this.boardId.get());
   }
 }.register('headerBarCreateBoardPopup'));
 

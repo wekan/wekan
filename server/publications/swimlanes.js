@@ -17,7 +17,7 @@ Meteor.methods({
     return ret;
   },
 
-  moveSwimlane(swimlaneId, toBoardId) {
+  async moveSwimlane(swimlaneId, toBoardId) {
     check(swimlaneId, String);
     check(toBoardId, String);
 
@@ -26,7 +26,7 @@ Meteor.methods({
 
     let ret = false;
     if (swimlane && toBoard) {
-      swimlane.move(toBoardId);
+      await swimlane.move(toBoardId);
 
       ret = true;
     }

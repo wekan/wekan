@@ -22,6 +22,23 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- Secure Sandbox for VSCode at Debian 13 amd64.
+  [Part 1](https://github.com/wekan/wekan/commit/639ac9549f88069d8569de777c533ab4c9438088),
+  [Part 1](https://github.com/wekan/wekan/commit/cc8b771eb448199fa23a87955cf9fa1a504ba8d2).
+  Thanks to xet7.
+- [Updated build scripts and docs to Meteor 2.16](https://github.com/wekan/wekan/commit/1d374db0f3ed35a0463b5f89ca2d01078e245d11).
+  Thanks to xet7.
+- [Replace mquandalle:collection-mutations with collection helpers](https://github.com/wekan/wekan/pull/6086).
+  Thanks to harryadel.
+- [Replace ongoworks:speakingurl with limax](https://github.com/wekan/wekan/pull/6087).
+  Thanks to harryadel.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.23 2026-01-21 WeKan ® release
 
 This release adds the following updates:

@@ -327,9 +327,9 @@ Template.boardMenuPopup.events({
       // You could add a toast notification here if available
     }
   }),
-  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', async function() {
     const currentBoard = Utils.getCurrentBoard();
-    currentBoard.archive();
+    await currentBoard.archive();
     // XXX We should have some kind of notification on top of the page to
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
@@ -382,7 +382,7 @@ Template.memberPopup.events({
     Popup.back();
   },
   'click .js-change-role': Popup.open('changePermissions'),
-  'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
+  'click .js-remove-member': Popup.afterConfirm('removeMember', async function() {
     // This works from removing member from board, card members and assignees.
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
@@ -392,7 +392,7 @@ Template.memberPopup.events({
     ReactiveCache.getCards({ boardId, assignees: memberId }).forEach(card => {
       card.unassignAssignee(memberId);
     });
-    ReactiveCache.getBoard(boardId).removeMember(memberId);
+    await ReactiveCache.getBoard(boardId).removeMember(memberId);
     Popup.back();
   }),
   'click .js-leave-member': Popup.afterConfirm('leaveBoard', () => {
@@ -774,10 +774,10 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-select-background'(evt) {
+        async 'click .js-select-background'(evt) {
           const currentBoard = Utils.getCurrentBoard();
           const newColor = this.currentData().toString();
-          currentBoard.setColor(newColor);
+          await currentBoard.setColor(newColor);
           evt.preventDefault();
         },
       },
@@ -789,10 +789,10 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        submit(event) {
+        async submit(event) {
           const currentBoard = Utils.getCurrentBoard();
           const backgroundImageURL = this.find('.js-board-background-image-url').value.trim();
-          currentBoard.setBackgroundImageURL(backgroundImageURL);
+          await currentBoard.setBackgroundImageURL(backgroundImageURL);
           Utils.setBackgroundImage();
           Popup.back();
           event.preventDefault();
@@ -1945,7 +1945,7 @@ Template.removeBoardTeamPopup.helpers({
 });
 
 Template.changePermissionsPopup.events({
-  'click .js-set-admin, click .js-set-normal, click .js-set-normal-assigned-only, click .js-set-no-comments, click .js-set-comment-only, click .js-set-comment-assigned-only, click .js-set-read-only, click .js-set-read-assigned-only, click .js-set-worker'(
+  async 'click .js-set-admin, click .js-set-normal, click .js-set-normal-assigned-only, click .js-set-no-comments, click .js-set-comment-only, click .js-set-comment-assigned-only, click .js-set-read-only, click .js-set-read-assigned-only, click .js-set-worker'(
     event,
   ) {
     const currentBoard = Utils.getCurrentBoard();
@@ -1964,7 +1964,7 @@ Template.changePermissionsPopup.events({
     const isReadAssignedOnly = $(event.currentTarget).hasClass('js-set-read-assigned-only');
     const isNoComments = $(event.currentTarget).hasClass('js-set-no-comments');
     const isWorker = $(event.currentTarget).hasClass('js-set-worker');
-    currentBoard.setMemberPermission(
+    await currentBoard.setMemberPermission(
       memberId,
       isAdmin,
       isNoComments,

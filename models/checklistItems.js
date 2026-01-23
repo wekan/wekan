@@ -90,29 +90,24 @@ ChecklistItems.before.insert((userId, doc) => {
   }
 });
 
-// Mutations
-ChecklistItems.mutations({
-  setTitle(title) {
-    return { $set: { title } };
+ChecklistItems.helpers({
+  async setTitle(title) {
+    return await ChecklistItems.updateAsync(this._id, { $set: { title } });
   },
-  check() {
-    return { $set: { isFinished: true } };
+  async check() {
+    return await ChecklistItems.updateAsync(this._id, { $set: { isFinished: true } });
   },
-  uncheck() {
-    return { $set: { isFinished: false } };
+  async uncheck() {
+    return await ChecklistItems.updateAsync(this._id, { $set: { isFinished: false } });
   },
-  toggleItem() {
-    return { $set: { isFinished: !this.isFinished } };
+  async toggleItem() {
+    return await ChecklistItems.updateAsync(this._id, { $set: { isFinished: !this.isFinished } });
   },
-  move(checklistId, sortIndex) {
+  async move(checklistId, sortIndex) {
     const cardId = ReactiveCache.getChecklist(checklistId).cardId;
-    const mutatedFields = {
-      cardId,
-      checklistId,
-      sort: sortIndex,
-    };
-
-    return { $set: mutatedFields };
+    return await ChecklistItems.updateAsync(this._id, {
+      $set: { cardId, checklistId, sort: sortIndex },
+    });
   },
 });
 

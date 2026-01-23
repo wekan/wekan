@@ -152,17 +152,14 @@ CustomFields.addToAllCards = cf => {
   );
 };
 
-CustomFields.mutations({
-  addBoard(boardId) {
+CustomFields.helpers({
+  async addBoard(boardId) {
     if (boardId) {
-      return {
-        $push: {
-          boardIds: boardId,
-        },
-      };
-    } else {
-      return null;
+      return await CustomFields.updateAsync(this._id, {
+        $push: { boardIds: boardId },
+      });
     }
+    return null;
   },
 });
 

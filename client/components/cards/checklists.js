@@ -157,21 +157,21 @@ BlazeComponent.extendComponent({
     textarea.focus();
   },
 
-  editChecklist(event) {
+  async editChecklist(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-edit-checklist-item');
     const title = textarea.value.trim();
     const checklist = this.currentData().checklist;
-    checklist.setTitle(title);
+    await checklist.setTitle(title);
   },
 
-  editChecklistItem(event) {
+  async editChecklistItem(event) {
     event.preventDefault();
 
     const textarea = this.find('textarea.js-edit-checklist-item');
     const title = textarea.value.trim();
     const item = this.currentData().item;
-    item.setTitle(title);
+    await item.setTitle(title);
   },
 
   pressKey(event) {
@@ -321,20 +321,20 @@ BlazeComponent.extendComponent({
         },
         'click .js-move-checklist': Popup.open('moveChecklist'),
         'click .js-copy-checklist': Popup.open('copyChecklist'),
-        'click .js-hide-checked-checklist-items'(event) {
+        async 'click .js-hide-checked-checklist-items'(event) {
           event.preventDefault();
-          this.data().checklist.toggleHideCheckedChecklistItems();
+          await this.data().checklist.toggleHideCheckedChecklistItems();
           Popup.back();
         },
-        'click .js-hide-all-checklist-items'(event) {
+        async 'click .js-hide-all-checklist-items'(event) {
           event.preventDefault();
-          this.data().checklist.toggleHideAllChecklistItems();
+          await this.data().checklist.toggleHideAllChecklistItems();
           Popup.back();
         },
-        'click .js-toggle-show-checklist-at-minicard'(event) {
+        async 'click .js-toggle-show-checklist-at-minicard'(event) {
           event.preventDefault();
           const checklist = this.data().checklist;
-          checklist.toggleShowChecklistAtMinicard();
+          await checklist.toggleShowChecklistAtMinicard();
           Popup.back();
         },
       }
@@ -365,11 +365,11 @@ Template.checklistItemDetail.helpers({
 });
 
 BlazeComponent.extendComponent({
-  toggleItem() {
+  async toggleItem() {
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
     if (checklist && item && item._id) {
-      item.toggleItem();
+      await item.toggleItem();
     }
   },
   events() {

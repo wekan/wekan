@@ -91,10 +91,10 @@ BlazeComponent.extendComponent({
     }
   },
 
-  toggleChecklistItem() {
+  async toggleChecklistItem() {
     const item = this.currentData();
     if (item && item._id) {
-      item.toggleItem();
+      await item.toggleItem();
     }
   },
 
@@ -319,15 +319,15 @@ Template.cardDetailsActionsPopup.events({
     this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
     Popup.back();
   },
-  'click .js-move-card-to-bottom'(event) {
+  async 'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
     const maxOrder = this.getMaxSort();
-    this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
+    await this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
     Popup.back();
   },
-  'click .js-archive': Popup.afterConfirm('cardArchive', function () {
+  'click .js-archive': Popup.afterConfirm('cardArchive', async function () {
     Popup.close();
-    this.archive();
+    await this.archive();
     Utils.goBoardId(this.boardId);
   }),
   'click .js-toggle-watch-card'() {

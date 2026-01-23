@@ -81,76 +81,76 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-restore-card'() {
+        async 'click .js-restore-card'() {
           const card = this.currentData();
           if (card.canBeRestored()) {
-            card.restore();
+            await card.restore();
           }
         },
-        'click .js-restore-all-cards'() {
-          this.archivedCards().forEach(card => {
+        async 'click .js-restore-all-cards'() {
+          for (const card of this.archivedCards()) {
             if (card.canBeRestored()) {
-              card.restore();
+              await card.restore();
             }
-          });
+          }
         },
 
-        'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
+        'click .js-delete-card': Popup.afterConfirm('cardDelete', async function() {
           const cardId = this._id;
-          Cards.remove(cardId);
+          await Cards.removeAsync(cardId);
           Popup.back();
         }),
-        'click .js-delete-all-cards': Popup.afterConfirm('cardDelete', () => {
-          this.archivedCards().forEach(card => {
-            Cards.remove(card._id);
-          });
+        'click .js-delete-all-cards': Popup.afterConfirm('cardDelete', async () => {
+          for (const card of this.archivedCards()) {
+            await Cards.removeAsync(card._id);
+          }
           Popup.back();
         }),
 
-        'click .js-restore-list'() {
+        async 'click .js-restore-list'() {
           const list = this.currentData();
-          list.restore();
+          await list.restore();
         },
-        'click .js-restore-all-lists'() {
-          this.archivedLists().forEach(list => {
-            list.restore();
-          });
+        async 'click .js-restore-all-lists'() {
+          for (const list of this.archivedLists()) {
+            await list.restore();
+          }
         },
 
-        'click .js-delete-list': Popup.afterConfirm('listDelete', function() {
-          this.remove();
+        'click .js-delete-list': Popup.afterConfirm('listDelete', async function() {
+          await this.remove();
           Popup.back();
         }),
-        'click .js-delete-all-lists': Popup.afterConfirm('listDelete', () => {
-          this.archivedLists().forEach(list => {
-            list.remove();
-          });
+        'click .js-delete-all-lists': Popup.afterConfirm('listDelete', async () => {
+          for (const list of this.archivedLists()) {
+            await list.remove();
+          }
           Popup.back();
         }),
 
-        'click .js-restore-swimlane'() {
+        async 'click .js-restore-swimlane'() {
           const swimlane = this.currentData();
-          swimlane.restore();
+          await swimlane.restore();
         },
-        'click .js-restore-all-swimlanes'() {
-          this.archivedSwimlanes().forEach(swimlane => {
-            swimlane.restore();
-          });
+        async 'click .js-restore-all-swimlanes'() {
+          for (const swimlane of this.archivedSwimlanes()) {
+            await swimlane.restore();
+          }
         },
 
         'click .js-delete-swimlane': Popup.afterConfirm(
           'swimlaneDelete',
-          function() {
-            this.remove();
+          async function() {
+            await this.remove();
             Popup.back();
           },
         ),
         'click .js-delete-all-swimlanes': Popup.afterConfirm(
           'swimlaneDelete',
-          () => {
-            this.archivedSwimlanes().forEach(swimlane => {
-              swimlane.remove();
-            });
+          async () => {
+            for (const swimlane of this.archivedSwimlanes()) {
+              await swimlane.remove();
+            }
             Popup.back();
           },
         ),

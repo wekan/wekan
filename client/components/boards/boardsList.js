@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import getSlug from 'limax';
 
 const subManager = new SubsManager();
 
@@ -143,7 +144,7 @@ BlazeComponent.extendComponent({
         ui.placeholder.height(ui.helper.height());
         EscapeActions.executeUpTo('popup-close');
       },
-      stop(evt, ui) {
+      async stop(evt, ui) {
         const prevBoardDom = ui.item.prev('.js-board').get(0);
         const nextBoardDom = ui.item.next('.js-board').get(0);
         const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardDom, 1);
@@ -153,7 +154,7 @@ BlazeComponent.extendComponent({
         $boards.sortable('cancel');
         const currentUser = ReactiveCache.getCurrentUser();
         if (currentUser && typeof currentUser.setBoardSortIndex === 'function') {
-          currentUser.setBoardSortIndex(board._id, sortIndex.base);
+          await currentUser.setBoardSortIndex(board._id, sortIndex.base);
         }
       },
     });

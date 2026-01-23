@@ -47,7 +47,7 @@ do
 			# Latest fibers for Meteor sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp sudo npm -g install fibers
 			sudo npm -g install @mapbox/node-pre-gyp
 			# Install Meteor, if it's not yet installed
-			sudo npm -g install meteor@2.14 --unsafe-perm
+			sudo npm -g install meteor@2.16 --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
@@ -89,7 +89,7 @@ do
 			npm -g uninstall node-pre-gyp
 			npm -g install @mapbox/node-pre-gyp
 			npm -g install node-gyp
-			npm -g install meteor@2.14
+			npm -g install meteor@2.16
 			export PATH=~/.meteor:$PATH
 			exit;
 		elif [[ "$OSTYPE" == "cygwin" ]]; then

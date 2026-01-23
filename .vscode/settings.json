@@ -9,5 +9,8 @@
     "TERM": "xterm-256color"
   },
   "terminal.integrated.shell.linux": "/bin/bash",
-  "terminal.integrated.shellArgs.linux": ["-l"]
+  "terminal.integrated.shellArgs.linux": [
+    "-l"
+  ],
+  "files.simpleDialog.enable": true
 }

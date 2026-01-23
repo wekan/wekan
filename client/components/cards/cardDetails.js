@@ -462,18 +462,18 @@ BlazeComponent.extendComponent({
           const currentMode = Utils.getMobileMode();
           Utils.setMobileMode(!currentMode);
         },
-        'submit .js-card-description'(event) {
+        async 'submit .js-card-description'(event) {
           event.preventDefault();
           const description = this.currentComponent().getValue();
-          this.data().setDescription(description);
+          await this.data().setDescription(description);
         },
-        'submit .js-card-details-title'(event) {
+        async 'submit .js-card-details-title'(event) {
           event.preventDefault();
           const title = this.currentComponent().getValue().trim();
           if (title) {
-            this.data().setTitle(title);
+            await this.data().setTitle(title);
           } else {
-            this.data().setTitle('');
+            await this.data().setTitle('');
           }
         },
         'submit .js-card-details-assigner'(event) {
@@ -500,23 +500,23 @@ BlazeComponent.extendComponent({
             this.find('button[type=submit]').click();
           }
         },
-        'submit .js-card-details-sort'(event) {
+        async 'submit .js-card-details-sort'(event) {
           event.preventDefault();
           const sort = parseFloat(this.currentComponent()
             .getValue()
             .trim());
           if (!Number.isNaN(sort)) {
             let card = this.data();
-            card.move(card.boardId, card.swimlaneId, card.listId, sort);
+            await card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
         },
-        'change .js-select-card-details-lists'(event) {
+        async 'change .js-select-card-details-lists'(event) {
           let card = this.data();
           const listSelect = this.$('.js-select-card-details-lists')[0];
           const listId = listSelect.options[listSelect.selectedIndex].value;
 
           const minOrder = card.getMinSort(listId, card.swimlaneId);
-          card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
+          await card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
         },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);
@@ -554,8 +554,8 @@ BlazeComponent.extendComponent({
           Session.set('cardDetailsIsDragging', false);
           Session.set('cardDetailsIsMouseDown', false);
         },
-        'click #toggleHideCheckedChecklistItems'() {
-          this.data().toggleHideCheckedChecklistItems();
+        async 'click #toggleHideCheckedChecklistItems'() {
+          await this.data().toggleHideCheckedChecklistItems();
         },
         'click #toggleCustomFieldsGridButton'() {
           Meteor.call('toggleCustomFieldsGrid');
@@ -862,21 +862,21 @@ Template.cardDetailsActionsPopup.events({
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-copy-checklist-cards': Popup.open('copyManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
-  'click .js-move-card-to-top'(event) {
+  async 'click .js-move-card-to-top'(event) {
     event.preventDefault();
     const minOrder = this.getMinSort();
-    this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
+    await this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
     Popup.back();
   },
-  'click .js-move-card-to-bottom'(event) {
+  async 'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
     const maxOrder = this.getMaxSort();
-    this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
+    await this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
     Popup.back();
   },
-  'click .js-archive': Popup.afterConfirm('cardArchive', function () {
+  'click .js-archive': Popup.afterConfirm('cardArchive', async function () {
     Popup.close();
-    this.archive();
+    await this.archive();
     Utils.goBoardId(this.boardId);
   }),
   'click .js-more': Popup.open('cardMore'),
@@ -1011,11 +1011,11 @@ Template.editCardAssignerForm.events({
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
     let sortIndex = 0;
-    
+
     if (cardId) {
       const targetCard = ReactiveCache.getCard(cardId);
       if (targetCard) {
@@ -1030,8 +1030,8 @@ Template.editCardAssignerForm.events({
       // If no card selected, move to end
       sortIndex = card.getMaxSort(options.listId, options.swimlaneId) + 1;
     }
-    
-    card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+
+    await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
   }
 }).register('moveCardPopup');
 
@@ -1041,7 +1041,7 @@ Template.editCardAssignerForm.events({
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
@@ -1056,7 +1056,7 @@ Template.editCardAssignerForm.events({
       if (newCardId) {
         const newCard = ReactiveCache.getCard(newCardId);
         let sortIndex = 0;
-        
+
         if (cardId) {
           const targetCard = ReactiveCache.getCard(cardId);
           if (targetCard) {
@@ -1071,8 +1071,8 @@ Template.editCardAssignerForm.events({
           // If no card selected, copy to end
           sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
         }
-        
-        newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+
+        await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
       }
 
       // In case the filter is active we need to add the newly inserted card in
@@ -1090,7 +1090,7 @@ Template.editCardAssignerForm.events({
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
@@ -1106,7 +1106,7 @@ Template.editCardAssignerForm.events({
         sort: 0,
       });
       const newCard = ReactiveCache.getCard(_id);
-      
+
       let sortIndex = 0;
       if (cardId) {
         const targetCard = ReactiveCache.getCard(cardId);
@@ -1121,8 +1121,8 @@ Template.editCardAssignerForm.events({
       } else {
         sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
       }
-      
-      newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+
+      await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
 
       Filter.addException(_id);
     }
@@ -1135,7 +1135,7 @@ Template.editCardAssignerForm.events({
     const ret = ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
 
@@ -1151,7 +1151,7 @@ Template.editCardAssignerForm.events({
         if (newCardId) {
           const newCard = ReactiveCache.getCard(newCardId);
           let sortIndex = 0;
-          
+
           if (cardId) {
             const targetCard = ReactiveCache.getCard(cardId);
             if (targetCard) {
@@ -1165,8 +1165,8 @@ Template.editCardAssignerForm.events({
           } else {
             sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
           }
-          
-          newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+
+          await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
         }
 
         // In case the filter is active we need to add the newly inserted card in
@@ -1202,14 +1202,14 @@ BlazeComponent.extendComponent({
         'click .js-palette-color'() {
           this.currentColor.set(this.currentData().color);
         },
-        'click .js-submit'(event) {
+        async 'click .js-submit'(event) {
           event.preventDefault();
-          this.currentCard.setColor(this.currentColor.get());
+          await this.currentCard.setColor(this.currentColor.get());
           Popup.back();
         },
-        'click .js-remove-color'(event) {
+        async 'click .js-remove-color'(event) {
           event.preventDefault();
-          this.currentCard.setColor(null);
+          await this.currentCard.setColor(null);
           Popup.back();
         },
       },
@@ -1240,21 +1240,21 @@ BlazeComponent.extendComponent({
           const color = colorClass ? colorClass.replace('card-details-', '') : null;
           this.currentColor.set(color);
         },
-        'click .js-submit'(event) {
+        async 'click .js-submit'(event) {
           event.preventDefault();
           const color = this.currentColor.get();
           // Use MultiSelection to get selected cards and set color on each
-          ReactiveCache.getCards(MultiSelection.getMongoSelector()).forEach(card => {
-            card.setColor(color);
-          });
+          for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
+            await card.setColor(color);
+          }
           Popup.back();
         },
-        'click .js-remove-color'(event) {
+        async 'click .js-remove-color'(event) {
           event.preventDefault();
           // Use MultiSelection to get selected cards and remove color from each
-          ReactiveCache.getCards(MultiSelection.getMongoSelector()).forEach(card => {
-            card.setColor(null);
-          });
+          for (const card of ReactiveCache.getCards(MultiSelection.getMongoSelector())) {
+            await card.setColor(null);
+          }
           Popup.back();
         },
       },
@@ -1866,7 +1866,7 @@ BlazeComponent.extendComponent({
 // Close the card details pane by pressing escape
 EscapeActions.register(
   'detailsPane',
-  () => {
+  async () => {
     // if card description diverges from database due to editing
     // ask user whether changes should be applied
     if (ReactiveCache.getCurrentUser()) {
@@ -1874,7 +1874,7 @@ EscapeActions.register(
         currentDescription = document.getElementsByClassName("editor js-new-description-input").item(0)
         if (currentDescription?.value && !(currentDescription.value === Utils.getCurrentCard().getDescription())) {
           if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {
-            Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
+            await Utils.getCurrentCard().setDescription(document.getElementsByClassName("editor js-new-description-input").item(0).value);
             // Save it!
             console.log(document.getElementsByClassName("editor js-new-description-input").item(0).value);
             console.log("current description", Utils.getCurrentCard().getDescription());

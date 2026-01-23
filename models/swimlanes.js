@@ -171,8 +171,8 @@ Swimlanes.helpers({
     });
   },
 
-  move(toBoardId) {
-    this.lists().forEach(list => {
+  async move(toBoardId) {
+    for (const list of this.lists()) {
       const toList = ReactiveCache.getList({
         boardId: toBoardId,
         title: list.title,
@@ -183,25 +183,26 @@ Swimlanes.helpers({
       if (toList) {
         toListId = toList._id;
       } else {
-        toListId = Lists.insert({
+        toListId = await Lists.insertAsync({
           title: list.title,
           boardId: toBoardId,
           type: list.type,
           archived: false,
           wipLimit: list.wipLimit,
-          swimlaneId: toSwimlaneId, // Set the target swimlane for the copied list
+          swimlaneId: this._id,
         });
       }
 
-      ReactiveCache.getCards({
+      const cards = ReactiveCache.getCards({
         listId: list._id,
         swimlaneId: this._id,
-      }).forEach(card => {
-        card.move(toBoardId, this._id, toListId);
       });
-    });
+      for (const card of cards) {
+        await card.move(toBoardId, this._id, toListId);
+      }
+    }
 
-    Swimlanes.update(this._id, {
+    await Swimlanes.updateAsync(this._id, {
       $set: {
         boardId: toBoardId,
       },
@@ -314,43 +315,37 @@ Swimlanes.helpers({
     return (user.profile || {}).boardTemplatesSwimlaneId === this._id;
   },
 
-  remove() {
-    Swimlanes.remove({ _id: this._id });
+  async remove() {
+    return await Swimlanes.removeAsync({ _id: this._id });
   },
-});
 
-Swimlanes.mutations({
-  rename(title) {
-    return { $set: { title } };
+  async rename(title) {
+    return await Swimlanes.updateAsync(this._id, { $set: { title } });
   },
 
   // NOTE: collapse() removed - collapsed state is per-user only
   // Use user.setCollapsedSwimlane(boardId, swimlaneId, collapsed) instead
 
-  archive() {
+  async archive() {
     if (this.isTemplateSwimlane()) {
-      this.myLists().forEach(list => {
-        return list.archive();
-      });
+      for (const list of this.myLists()) {
+        await list.archive();
+      }
     }
-    return { $set: { archived: true, archivedAt: new Date() } };
+    return await Swimlanes.updateAsync(this._id, { $set: { archived: true, archivedAt: new Date() } });
   },
 
-  restore() {
+  async restore() {
     if (this.isTemplateSwimlane()) {
-      this.myLists().forEach(list => {
-        return list.restore();
-      });
+      for (const list of this.myLists()) {
+        await list.restore();
+      }
     }
-    return { $set: { archived: false } };
+    return await Swimlanes.updateAsync(this._id, { $set: { archived: false } });
   },
 
-  setColor(newColor) {
-    return {
-      $set: {
-        color: newColor,
-      },
-    };
+  async setColor(newColor) {
+    return await Swimlanes.updateAsync(this._id, { $set: { color: newColor } });
   },
 });
 

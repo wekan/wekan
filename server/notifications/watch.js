@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
 Meteor.methods({
-  watch(watchableType, id, level) {
+  async watch(watchableType, id, level) {
     check(watchableType, String);
     check(id, String);
     check(level, Match.OneOf(String, null));
@@ -29,7 +29,7 @@ Meteor.methods({
     if (board.permission === 'private' && !board.hasMember(userId))
       throw new Meteor.Error('error-board-notAMember');
 
-    watchableObj.setWatcher(userId, level);
+    await watchableObj.setWatcher(userId, level);
     return true;
   },
 });

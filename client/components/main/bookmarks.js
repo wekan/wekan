@@ -15,12 +15,12 @@ Template.bookmarks.helpers({
 });
 
 Template.bookmarks.events({
-  'click .js-toggle-star'(e) {
+  async 'click .js-toggle-star'(e) {
     e.preventDefault();
     const boardId = this._id;
     const user = ReactiveCache.getCurrentUser();
     if (user && boardId) {
-      user.toggleBoardStar(boardId);
+      await user.toggleBoardStar(boardId);
     }
   },
 });
@@ -42,12 +42,12 @@ Template.bookmarksPopup.helpers({
 });
 
 Template.bookmarksPopup.events({
-  'click .js-toggle-star'(e) {
+  async 'click .js-toggle-star'(e) {
     e.preventDefault();
     const boardId = this._id;
     const user = ReactiveCache.getCurrentUser();
     if (user && boardId) {
-      user.toggleBoardStar(boardId);
+      await user.toggleBoardStar(boardId);
     }
   },
 });

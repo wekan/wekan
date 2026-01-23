@@ -268,7 +268,7 @@ hotkeys('space', (event) => {
   }
 });
 
-const archiveCard = (event) => {
+const archiveCard = async (event) => {
   event.preventDefault();
   const cardId = getSelectedCardId();
   if (!cardId) {
@@ -282,7 +282,7 @@ const archiveCard = (event) => {
 
   if (Utils.canModifyBoard()) {
     const card = Cards.findOne(cardId);
-    card.archive();
+    await card.archive();
   }
 };
 
