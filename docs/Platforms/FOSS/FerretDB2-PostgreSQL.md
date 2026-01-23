@@ -16,7 +16,7 @@ sudo npm install -g n
 export N_NODE_MIRROR=https://github.com/wekan/node-v14-esm/releases/download
 sudo -E n 14.21.4
 sudo npm -g install @mapbox/node-pre-gyp
-sudo npm -g install meteor@2.14 --unsafe-perm
+sudo npm -g install meteor@2.16 --unsafe-perm
 export PATH=$PATH:$HOME/.meteor
 meteor npm install production
 meteor build .build --directory --platforms=web.browser
