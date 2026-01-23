@@ -2895,11 +2895,11 @@ const addCronJob = _.debounce(
 
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
-  Meteor.startup(() => {
-    allowedSortValues.forEach((value) => {
-      Lists._collection.createIndex(value);
-    });
-    Users._collection.createIndex({
+  Meteor.startup(async () => {
+    for (const value of allowedSortValues) {
+      await Lists._collection.createIndexAsync(value);
+    }
+    await Users._collection.createIndexAsync({
       modifiedAt: -1,
     });
     // Avatar URLs from CollectionFS to Meteor-Files, at users collection avatarUrl field:

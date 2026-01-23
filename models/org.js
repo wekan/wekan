@@ -292,9 +292,9 @@ if (Meteor.isServer) {
 
 if (Meteor.isServer) {
   // Index for Organization name.
-  Meteor.startup(() => {
-    // Org._collection.createIndex({ name: -1 });
-    Org._collection.createIndex({ orgDisplayName: 1 });
+  Meteor.startup(async () => {
+    // Org._collection.createIndexAsync({ name: -1 });
+    await Org._collection.createIndexAsync({ orgDisplayName: 1 });
   });
 }
 

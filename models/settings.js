@@ -202,8 +202,8 @@ Settings.allow({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Settings._collection.createIndex({ modifiedAt: -1 });
+  Meteor.startup(async () => {
+    await Settings._collection.createIndexAsync({ modifiedAt: -1 });
     const setting = ReactiveCache.getCurrentSetting();
     if (!setting) {
       const now = new Date();

@@ -14,28 +14,28 @@ export const CronJobErrors = new Mongo.Collection('cronJobErrors');
 
 // Indexes for performance
 if (Meteor.isServer) {
-  Meteor.startup(() => {
+  Meteor.startup(async () => {
     // Index for job status queries
-    CronJobStatus._collection.createIndex({ jobId: 1 });
-    CronJobStatus._collection.createIndex({ status: 1 });
-    CronJobStatus._collection.createIndex({ createdAt: 1 });
-    CronJobStatus._collection.createIndex({ updatedAt: 1 });
-    
+    await CronJobStatus._collection.createIndexAsync({ jobId: 1 });
+    await CronJobStatus._collection.createIndexAsync({ status: 1 });
+    await CronJobStatus._collection.createIndexAsync({ createdAt: 1 });
+    await CronJobStatus._collection.createIndexAsync({ updatedAt: 1 });
+
     // Index for job steps queries
-    CronJobSteps._collection.createIndex({ jobId: 1 });
-    CronJobSteps._collection.createIndex({ stepIndex: 1 });
-    CronJobSteps._collection.createIndex({ status: 1 });
-    
+    await CronJobSteps._collection.createIndexAsync({ jobId: 1 });
+    await CronJobSteps._collection.createIndexAsync({ stepIndex: 1 });
+    await CronJobSteps._collection.createIndexAsync({ status: 1 });
+
     // Index for job queue queries
-    CronJobQueue._collection.createIndex({ priority: 1, createdAt: 1 });
-    CronJobQueue._collection.createIndex({ status: 1 });
-    CronJobQueue._collection.createIndex({ jobType: 1 });
-    
+    await CronJobQueue._collection.createIndexAsync({ priority: 1, createdAt: 1 });
+    await CronJobQueue._collection.createIndexAsync({ status: 1 });
+    await CronJobQueue._collection.createIndexAsync({ jobType: 1 });
+
     // Index for job errors queries
-    CronJobErrors._collection.createIndex({ jobId: 1, createdAt: -1 });
-    CronJobErrors._collection.createIndex({ stepId: 1 });
-    CronJobErrors._collection.createIndex({ severity: 1 });
-    CronJobErrors._collection.createIndex({ createdAt: -1 });
+    await CronJobErrors._collection.createIndexAsync({ jobId: 1, createdAt: -1 });
+    await CronJobErrors._collection.createIndexAsync({ stepId: 1 });
+    await CronJobErrors._collection.createIndexAsync({ severity: 1 });
+    await CronJobErrors._collection.createIndexAsync({ createdAt: -1 });
   });
 }
 

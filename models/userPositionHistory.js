@@ -286,12 +286,12 @@ UserPositionHistory.helpers({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    UserPositionHistory._collection.createIndex({ userId: 1, boardId: 1, createdAt: -1 });
-    UserPositionHistory._collection.createIndex({ userId: 1, entityType: 1, entityId: 1 });
-    UserPositionHistory._collection.createIndex({ userId: 1, isCheckpoint: 1 });
-    UserPositionHistory._collection.createIndex({ batchId: 1 });
-    UserPositionHistory._collection.createIndex({ createdAt: 1 }); // For cleanup of old entries
+  Meteor.startup(async () => {
+    await UserPositionHistory._collection.createIndexAsync({ userId: 1, boardId: 1, createdAt: -1 });
+    await UserPositionHistory._collection.createIndexAsync({ userId: 1, entityType: 1, entityId: 1 });
+    await UserPositionHistory._collection.createIndexAsync({ userId: 1, isCheckpoint: 1 });
+    await UserPositionHistory._collection.createIndexAsync({ batchId: 1 });
+    await UserPositionHistory._collection.createIndexAsync({ createdAt: 1 }); // For cleanup of old entries
   });
 
   /**

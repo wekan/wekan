@@ -32,8 +32,8 @@ Actions.helpers({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Actions._collection.createIndex({ modifiedAt: -1 });
+  Meteor.startup(async () => {
+    await Actions._collection.createIndexAsync({ modifiedAt: -1 });
   });
 }
 

@@ -217,10 +217,10 @@ function publishChekListUncompleted(userId, doc) {
 
 // Activities
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    ChecklistItems._collection.createIndex({ modifiedAt: -1 });
-    ChecklistItems._collection.createIndex({ checklistId: 1 });
-    ChecklistItems._collection.createIndex({ cardId: 1 });
+  Meteor.startup(async () => {
+    await ChecklistItems._collection.createIndexAsync({ modifiedAt: -1 });
+    await ChecklistItems._collection.createIndexAsync({ checklistId: 1 });
+    await ChecklistItems._collection.createIndexAsync({ cardId: 1 });
   });
 
   ChecklistItems.after.update((userId, doc, fieldNames) => {

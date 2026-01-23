@@ -122,9 +122,9 @@ Integrations.allow({
 
 //INTEGRATIONS REST API
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Integrations._collection.createIndex({ modifiedAt: -1 });
-    Integrations._collection.createIndex({ boardId: 1 });
+  Meteor.startup(async () => {
+    await Integrations._collection.createIndexAsync({ modifiedAt: -1 });
+    await Integrations._collection.createIndexAsync({ boardId: 1 });
   });
 
   /**

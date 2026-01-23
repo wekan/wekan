@@ -286,9 +286,9 @@ if (Meteor.isServer) {
     },
   });
 
-  Meteor.startup(() => {
-    Checklists._collection.createIndex({ modifiedAt: -1 });
-    Checklists._collection.createIndex({ cardId: 1, createdAt: 1 });
+  Meteor.startup(async () => {
+    await Checklists._collection.createIndexAsync({ modifiedAt: -1 });
+    await Checklists._collection.createIndexAsync({ cardId: 1, createdAt: 1 });
   });
 
   Checklists.after.insert((userId, doc) => {

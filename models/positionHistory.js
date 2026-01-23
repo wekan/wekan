@@ -160,10 +160,10 @@ PositionHistory.helpers({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    PositionHistory._collection.createIndex({ boardId: 1, entityType: 1, entityId: 1 });
-    PositionHistory._collection.createIndex({ boardId: 1, entityType: 1 });
-    PositionHistory._collection.createIndex({ createdAt: -1 });
+  Meteor.startup(async () => {
+    await PositionHistory._collection.createIndexAsync({ boardId: 1, entityType: 1, entityId: 1 });
+    await PositionHistory._collection.createIndexAsync({ boardId: 1, entityType: 1 });
+    await PositionHistory._collection.createIndexAsync({ createdAt: -1 });
   });
 }
 

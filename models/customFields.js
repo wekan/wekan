@@ -232,9 +232,9 @@ function customFieldEdit(userId, doc) {
 }
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    CustomFields._collection.createIndex({ modifiedAt: -1 });
-    CustomFields._collection.createIndex({ boardIds: 1 });
+  Meteor.startup(async () => {
+    await CustomFields._collection.createIndexAsync({ modifiedAt: -1 });
+    await CustomFields._collection.createIndexAsync({ boardIds: 1 });
   });
 
   CustomFields.after.insert((userId, doc) => {
