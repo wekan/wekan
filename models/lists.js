@@ -339,8 +339,8 @@ Lists.helpers({
     const card = ReactiveCache.getCard({ listId: this._id });
     return card && card.originRelativeUrl();
   },
-  remove() {
-    Lists.remove({ _id: this._id });
+  async remove() {
+    return await Lists.removeAsync({ _id: this._id });
   },
 
   async rename(title) {

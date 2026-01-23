@@ -183,13 +183,13 @@ Swimlanes.helpers({
       if (toList) {
         toListId = toList._id;
       } else {
-        toListId = Lists.insert({
+        toListId = await Lists.insertAsync({
           title: list.title,
           boardId: toBoardId,
           type: list.type,
           archived: false,
           wipLimit: list.wipLimit,
-          swimlaneId: toSwimlaneId, // Set the target swimlane for the copied list
+          swimlaneId: this._id,
         });
       }
 
@@ -202,7 +202,7 @@ Swimlanes.helpers({
       }
     }
 
-    Swimlanes.update(this._id, {
+    await Swimlanes.updateAsync(this._id, {
       $set: {
         boardId: toBoardId,
       },
@@ -315,8 +315,8 @@ Swimlanes.helpers({
     return (user.profile || {}).boardTemplatesSwimlaneId === this._id;
   },
 
-  remove() {
-    Swimlanes.remove({ _id: this._id });
+  async remove() {
+    return await Swimlanes.removeAsync({ _id: this._id });
   },
 
   async rename(title) {

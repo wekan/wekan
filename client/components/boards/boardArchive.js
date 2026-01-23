@@ -37,7 +37,7 @@ BlazeComponent.extendComponent({
           await board.restore();
           Utils.goBoardId(board._id);
         },
-        'click .js-delete-board': Popup.afterConfirm('boardDelete', function() {
+        'click .js-delete-board': Popup.afterConfirm('boardDelete', async function() {
           Popup.back();
           const isSandstorm =
             Meteor.settings &&
@@ -45,9 +45,9 @@ BlazeComponent.extendComponent({
             Meteor.settings.public.sandstorm;
           if (isSandstorm && Utils.getCurrentBoardId()) {
             const currentBoard = Utils.getCurrentBoard();
-            Boards.remove(currentBoard._id);
+            await Boards.removeAsync(currentBoard._id);
           }
-          Boards.remove(this._id);
+          await Boards.removeAsync(this._id);
           FlowRouter.go('home');
         }),
       },
