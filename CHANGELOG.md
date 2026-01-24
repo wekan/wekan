@@ -38,7 +38,8 @@ This release adds the following updates:
 - Docker and Snap for Linux amd64/arm64/s390x.
   [Part 1](https://github.com/wekan/wekan/commit/38711f0a29bf37d1e0a3fd9c8a9bcfb2442934b3),
   [Part 2](https://github.com/wekan/wekan/commit/e72019fa55ef6142767fd83e928bf2a0a966f9e6),
-  [Part 3](https://github.com/wekan/wekan/commit/b2c7c7f55b5136bc91251cd57125316ec622d4a3).
+  [Part 3](https://github.com/wekan/wekan/commit/b2c7c7f55b5136bc91251cd57125316ec622d4a3),
+  [Part 4](https://github.com/wekan/wekan/commit/98e5adfba80ee935b2a1293851d88812ad707b78).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
