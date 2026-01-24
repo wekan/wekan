@@ -18,7 +18,6 @@ es5-shim@4.8.0
 aldeed:collection2
 reywood:publish-composite
 dburles:collection-helpers
-idmontie:migrations
 mongo@1.16.8
 
 # Account system
