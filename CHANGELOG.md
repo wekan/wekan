@@ -36,6 +36,10 @@ This release adds the following updates:
   Thanks to harryadel.
 - [Replace ongoworks:speakingurl with limax](https://github.com/wekan/wekan/pull/6087).
   Thanks to harryadel.
+- [Remove mquandalle:autofocus](https://github.com/wekan/wekan/pull/6088).
+  Thanks to harryadel.
+- [Migrate createIndex to createIndexAsync](https://github.com/wekan/wekan/pull/6093).
+  Thanks to harryadel.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
