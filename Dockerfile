@@ -4,6 +4,8 @@ LABEL org.opencontainers.image.ref.name="ubuntu"
 LABEL org.opencontainers.image.version="24.04"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
+# TARGETARCH is automatically provided by Docker Buildx
+ARG TARGETARCH
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 unzip"
@@ -16,7 +18,6 @@ ENV \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=6.14.17 \
     FIBERS_VERSION=4.0.1 \
-    ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
     WITH_API=true \
     RESULTS_PER_PAGE="" \
@@ -159,39 +160,45 @@ ENV \
 RUN <<EOR
 set -o xtrace
 
-# Create wekan user
+# Create Wekan user
 useradd --user-group --system --home-dir /home/wekan wekan
 
-# Update Ubuntu and install dependencies
+# OS Updates
 apt-get update --assume-yes
 apt-get upgrade --assume-yes
 apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
-# Workaround for Meteor tar issues
-cp $(which tar) $(which tar)~
-ln -sf $(which bsdtar) $(which tar)
+# Multi-arch mapping logic
+case "${TARGETARCH}" in
+    "amd64")  NODE_ARCH="x64"  WEKAN_ARCH="amd64" ;;
+    "arm64")  NODE_ARCH="arm64" WEKAN_ARCH="arm64" ;;
+    "s390x")  NODE_ARCH="s390x" WEKAN_ARCH="s390x" ;;
+    *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;;
+esac
 
-# Install Node.js v14.21.4 (Required for Meteor 2.16)
+# Node.js Installation
 cd /tmp
-wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz"
+wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz"
 wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
-grep "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz" "SHASUMS256.txt" | shasum -a 256 -c -
-rm -f "SHASUMS256.txt"
-
-tar xzf "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-rm "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz"
+grep "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt | shasum -a 256 -c -
+tar xzf "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
+rm -f "node-${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz" SHASUMS256.txt
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
 
-# Install NPM and set permissions
+# NPM configuration
 npm install -g npm@${NPM_VERSION} --production
 chown --recursive wekan:wekan /home/wekan/
 
-# Download and prepare
+# Temporary Tar swap for Meteor bundle
+cp $(which tar) $(which tar)~
+ln -sf $(which bsdtar) $(which tar)
+
+# WeKan Bundle Installation
 mkdir -p /home/wekan/app
 cd /home/wekan/app
-wget "https://github.com/wekan/wekan/releases/download/v8.24/wekan-8.24-amd64.zip"
-unzip wekan-8.24-amd64.zip
-rm wekan-8.24-amd64.zip
+wget "https://github.com/wekan/wekan/releases/download/v8.24/wekan-8.24-${WEKAN_ARCH}.zip"
+unzip "wekan-8.24-${WEKAN_ARCH}.zip"
+rm "wekan-8.24-${WEKAN_ARCH}.zip"
 mv /home/wekan/app/bundle /build
 
 # Restore original tar
@@ -215,5 +222,4 @@ EXPOSE $PORT
 STOPSIGNAL SIGKILL
 WORKDIR /build
 
-# Start Wekan
 CMD ["bash", "-c", "ulimit -s 65500; exec node main.js"]
