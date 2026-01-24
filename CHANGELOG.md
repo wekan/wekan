@@ -33,6 +33,8 @@ This release adds the following updates:
   [Part 2](https://github.com/wekan/wekan/commit/0ede9d6d93a688f24fc36c0c456e184a0aa6af8c),
   [Part 3](https://github.com/wekan/wekan/commit/bf5d50e8a9fce327a16b069932fa3e13c6d81978).
   Thanks to xet7.
+- [Updated Dockerfile](https://github.com/wekan/wekan/commit/d298ab7486d489d353fc410232a9dcdd68501c72).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
