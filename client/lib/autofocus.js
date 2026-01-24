@@ -3,7 +3,7 @@
 import { Template } from 'meteor/templating';
 import { Tracker } from 'meteor/tracker';
 
-Template.onRendered(function() {
+Template.body.onRendered(function() {
   Tracker.afterFlush(() => {
     const el = this.find('[autofocus]');
     if (el && typeof el.focus === 'function') {
