@@ -4,16 +4,9 @@ LABEL org.opencontainers.image.ref.name="ubuntu"
 LABEL org.opencontainers.image.version="24.04"
 LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 
-# 2022-04-25:
-# - gyp does not yet work with Ubuntu 22.04 ubuntu:rolling,
-#   so changing to 21.10. https://github.com/wekan/wekan/issues/4488
-
-# 2021-09-18:
-# - Above Ubuntu base image copied from Docker Hub ubuntu:hirsute-20210825
-#   to Quay to avoid Docker Hub rate limits.
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV BUILD_DEPS="apt-utils gnupg gosu wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 unzip"
+ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 unzip"
 
 ENV \
     DEBUG=false \
@@ -163,134 +156,64 @@ ENV \
     MONGO_PASSWORD_FILE="" \
     S3_SECRET_FILE=""
 
-#   NODE_OPTIONS="--max_old_space_size=4096"
-
-#---------------------------------------------
-# == at docker-compose.yml: AUTOLOGIN WITH OIDC/OAUTH2 ====
-# https://github.com/wekan/wekan/wiki/autologin
-#- OIDC_REDIRECTION_ENABLED=true
-#---------------------------------------------------------------------
-
-# Copy the app to the image
-#COPY ${SRC_PATH} /home/wekan/app
-
-# Install OS
 RUN <<EOR
 set -o xtrace
 
-# Add non-root user wekan
+# Create wekan user
 useradd --user-group --system --home-dir /home/wekan wekan
-# OS dependencies
+
+# Update Ubuntu and install dependencies
 apt-get update --assume-yes
+apt-get upgrade --assume-yes
 apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
-# Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
-# https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
+# Workaround for Meteor tar issues
 cp $(which tar) $(which tar)~
 ln -sf $(which bsdtar) $(which tar)
 
-# Install NodeJS
+# Install Node.js v14.21.4 (Required for Meteor 2.16)
 cd /tmp
-
-# Download nodejs
-#wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz"
-wget "https://github.com/wekan/node-v14-esm/releases/download/v14.21.4/node-v14.21.4-linux-x64.tar.gz"
-#wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
-wget "https://github.com/wekan/node-v14-esm/releases/download/v14.21.4/SHASUMS256.txt"
-
-# Verify nodejs authenticity
-#grep "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz" "SHASUMS256.txt" | shasum -a 256 -c -
-grep "node-v14.21.4-linux-x64.tar.gz" "SHASUMS256.txt" | shasum -a 256 -c -
+wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz"
+wget "https://github.com/wekan/node-v14-esm/releases/download/${NODE_VERSION}/SHASUMS256.txt"
+grep "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz" "SHASUMS256.txt" | shasum -a 256 -c -
 rm -f "SHASUMS256.txt"
 
-# Install Node
-#tar xzf "node-$NODE_VERSION-$ARCHITECTURE.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-tar xzf "node-v14.21.4-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
-#rm "node-$NODE_VERSION-$ARCHITECTURE.tar.gz" "SHASUMS256.txt"
-rm "node-v14.21.4-linux-x64.tar.gz" "SHASUMS256.txt"
+tar xzf "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz" -C /usr/local --strip-components=1 --no-same-owner
+rm "node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz"
 ln -s "/usr/local/bin/node" "/usr/local/bin/nodejs"
-#mkdir -p "/opt/nodejs/lib/node_modules/fibers/.node-gyp" "/root/.node-gyp/${NODE_VERSION} /home/wekan/.config"
-#mkdir -p "/opt/nodejs/lib/node_modules/fibers/.node-gyp" "/root/.node-gyp/v14.21.4 /home/wekan/.config"
 
-# Install node dependencies
-#npm install -g npm@${NPM_VERSION} --production
-npm install -g npm@$6.14.17 --production
-chown --recursive wekan:wekan /home/wekan/.config
+# Install NPM and set permissions
+npm install -g npm@${NPM_VERSION} --production
+chown --recursive wekan:wekan /home/wekan/
 
-# Install Meteor
-cd /home/wekan
-chown --recursive wekan:wekan /home/wekan
-echo "Starting meteor ${METEOR_RELEASE} installation...   \n"
-#gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh
-# Specify Meteor version 2.16 to be compatible: https://github.com/wekan/wekan/pull/5816/files
-#gosu wekan:wekan npm -g install meteor@2.16 --unsafe-perm
-#mv /root/.meteor /home/wekan/
-#chown --recursive wekan:wekan /home/wekan/.meteor
-
-#sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js
-#cd /home/wekan/.meteor
-#gosu wekan:wekan /home/wekan/.meteor/meteor -- help
-
-# Build app (Production)
-#cd /home/wekan/app
+# Download and prepare
 mkdir -p /home/wekan/app
 cd /home/wekan/app
-#mkdir -p /home/wekan/.npm
-#chown --recursive wekan:wekan /home/wekan/.npm
-#chmod u+w *.json
-#gosu wekan:wekan meteor npm install --production
-#gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build
-#cd /home/wekan/app_build/bundle/programs/server/
-#chmod u+w *.json
-#gosu wekan:wekan meteor npm install --production
-#cd node_modules/fibers
-#node build.js
-#cd ../..
-# Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
-#rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy
-#mv /home/wekan/app_build/bundle /build
 wget "https://github.com/wekan/wekan/releases/download/v8.24/wekan-8.24-amd64.zip"
 unzip wekan-8.24-amd64.zip
 rm wekan-8.24-amd64.zip
 mv /home/wekan/app/bundle /build
 
-# Put back the original tar
+# Restore original tar
 mv $(which tar)~ $(which tar)
 
 # Cleanup
 apt-get remove --purge --assume-yes ${BUILD_DEPS}
-#npm uninstall -g api2html
 apt-get autoremove --assume-yes
 apt-get clean --assume-yes
 rm -Rf /tmp/*
 rm -Rf /var/lib/apt/lists/*
-rm -Rf /var/cache/apt
-rm -Rf /var/lib/apt/lists
-rm -Rf /home/wekan/app_build
 rm -Rf /home/wekan/app
-rm -Rf /home/wekan/.meteor
 
-mkdir /data
-chown wekan --recursive /data
+mkdir -p /data
+chown wekan:wekan --recursive /data
 EOR
 
 USER wekan
-
 ENV PORT=8080
 EXPOSE $PORT
-
 STOPSIGNAL SIGKILL
-WORKDIR /home/wekan/app
+WORKDIR /build
 
-#---------------------------------------------------------------------
-# https://github.com/wekan/wekan/issues/3585#issuecomment-1021522132
-# Add more Node heap:
-#   NODE_OPTIONS="--max_old_space_size=4096"
-# Add more stack:
-#   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
-#---------------------------------------------------------------------
-#
-# CMD ["node", "/build/main.js"]
-# CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 /build/main.js"]
-# CMD ["bash", "-c", "ulimit -s 65500; exec node --stack-size=65500 --max-old-space-size=8192 /build/main.js"]
-CMD ["bash", "-c", "ulimit -s 65500; exec node /build/main.js"]
+# Start Wekan
+CMD ["bash", "-c", "ulimit -s 65500; exec node main.js"]
