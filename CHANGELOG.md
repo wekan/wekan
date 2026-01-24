@@ -28,7 +28,9 @@ This release adds the following updates:
 
 - [Updated code counts](https://github.com/wekan/wekan/commit/2f25f47d0ba4c7f543264cd7fe2ed117ab0ec9ee).
   Thanks to xet7.
-- [Updated FerretDB 2 / PostgreSQL docs location](https://github.com/wekan/wekan/commit/710d522e069b7521b6c2ec4f93f1491a897cf2b4).
+- Updated FerretDB 2 / PostgreSQL docs location.
+  [Part 1](https://github.com/wekan/wekan/commit/710d522e069b7521b6c2ec4f93f1491a897cf2b4),
+  [Part 2](https://github.com/wekan/wekan/commit/0ede9d6d93a688f24fc36c0c456e184a0aa6af8c).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
