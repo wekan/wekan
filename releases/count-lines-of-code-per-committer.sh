@@ -11,8 +11,8 @@ if [ $# -ne 1 ]
   then
     echo "Syntax to count lines of code per committer, by email address:"
     echo "  ./releases/count-lines-of-code-per-committer.sh x@xet7.org"
-    echo "Example result at 2024-03-08:"
-    echo "  added lines: 4594802, removed lines: 4416066, total lines: 178736, added:deleted ratio:1.04047"
+    echo "Example result at 2026-01-24:"
+    echo "  added lines: 4842862, removed lines: 4550521, total lines: 292341, added:deleted ratio:1.06424"
     exit 1
 fi
 
