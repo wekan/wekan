@@ -35,9 +35,10 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated Dockerfile](https://github.com/wekan/wekan/commit/d298ab7486d489d353fc410232a9dcdd68501c72).
   Thanks to xet7.
-- Docker image for Linux amd64/arm64/s390x.
+- Docker and Snap for Linux amd64/arm64/s390x.
   [Part 1](https://github.com/wekan/wekan/commit/38711f0a29bf37d1e0a3fd9c8a9bcfb2442934b3),
-  [Part 2](https://github.com/wekan/wekan/commit/e72019fa55ef6142767fd83e928bf2a0a966f9e6).
+  [Part 2](https://github.com/wekan/wekan/commit/e72019fa55ef6142767fd83e928bf2a0a966f9e6),
+  [Part 3](https://github.com/wekan/wekan/commit/b2c7c7f55b5136bc91251cd57125316ec622d4a3).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
