@@ -30,7 +30,8 @@ This release adds the following updates:
   Thanks to xet7.
 - Updated FerretDB 2 / PostgreSQL docs location.
   [Part 1](https://github.com/wekan/wekan/commit/710d522e069b7521b6c2ec4f93f1491a897cf2b4),
-  [Part 2](https://github.com/wekan/wekan/commit/0ede9d6d93a688f24fc36c0c456e184a0aa6af8c).
+  [Part 2](https://github.com/wekan/wekan/commit/0ede9d6d93a688f24fc36c0c456e184a0aa6af8c),
+  [Part 3](https://github.com/wekan/wekan/commit/bf5d50e8a9fce327a16b069932fa3e13c6d81978).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
