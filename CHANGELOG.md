@@ -36,13 +36,13 @@ This release adds the following updates:
   Thanks to harryadel.
 - [Replace ongoworks:speakingurl with limax](https://github.com/wekan/wekan/pull/6087).
   Thanks to harryadel.
-- [Remove mquandalle:autofocus](https://github.com/wekan/wekan/pull/6088).
-  Thanks to harryadel.
 - [Migrate createIndex to createIndexAsync](https://github.com/wekan/wekan/pull/6093).
   Thanks to harryadel.
 - [Remove idmontie:migrations](https://github.com/wekan/wekan/pull/6095).
   Thanks to harryadel.
-- [List on body for global onRendered](https://github.com/wekan/wekan/pull/6096).
+- Remove mquandalle:autofocus.
+  [Part 1](https://github.com/wekan/wekan/pull/6088),
+  [Part 2](https://github.com/wekan/wekan/pull/6096).
   Thanks to harryadel.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
