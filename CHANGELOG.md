@@ -8,7 +8,7 @@ Newest WeKan at these platforms:
   - [Mac amd64, works also with Rosetta2 at Apple Silicon](https://github.com/wekan/wekan/blob/main/docs/Platforms/Propietary/Mac.md)
 - https://wekan.fi/install/
   - Snap Candidate amd64
-  - Docker amd64
+  - Docker amd64/arm64/s390x
   - Kubernetes Docker amd64
     - Bitnami MongoDB Docker images do not exist anymore. [MongoDump/MongoRestore to groundhog2k MongoDB images](https://github.com/wekan/charts/issues/45)
 
