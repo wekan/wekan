@@ -40,6 +40,10 @@ This release adds the following updates:
   Thanks to harryadel.
 - [Migrate createIndex to createIndexAsync](https://github.com/wekan/wekan/pull/6093).
   Thanks to harryadel.
+- [Remove idmontie:migrations](https://github.com/wekan/wekan/pull/6095).
+  Thanks to harryadel.
+- [List on body for global onRendered](https://github.com/wekan/wekan/pull/6096).
+  Thanks to harryadel.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
