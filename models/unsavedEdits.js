@@ -55,9 +55,9 @@ if (Meteor.isServer) {
   function isAuthor(userId, doc, fieldNames = []) {
     return userId === doc.userId && fieldNames.indexOf('userId') === -1;
   }
-  Meteor.startup(() => {
-    UnsavedEditCollection._collection.createIndex({ modifiedAt: -1 });
-    UnsavedEditCollection._collection.createIndex({ userId: 1 });
+  Meteor.startup(async () => {
+    await UnsavedEditCollection._collection.createIndexAsync({ modifiedAt: -1 });
+    await UnsavedEditCollection._collection.createIndexAsync({ userId: 1 });
   });
   UnsavedEditCollection.allow({
     insert: isAuthor,

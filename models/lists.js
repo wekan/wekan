@@ -555,10 +555,10 @@ Meteor.methods({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Lists._collection.rawCollection().createIndex({ modifiedAt: -1 });
-    Lists._collection.rawCollection().createIndex({ boardId: 1 });
-    Lists._collection.rawCollection().createIndex({ archivedAt: -1 });
+  Meteor.startup(async () => {
+    await Lists._collection.rawCollection().createIndex({ modifiedAt: -1 });
+    await Lists._collection.rawCollection().createIndex({ boardId: 1 });
+    await Lists._collection.rawCollection().createIndex({ archivedAt: -1 });
   });
 }
 

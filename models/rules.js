@@ -84,8 +84,8 @@ Rules.allow({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Rules._collection.createIndex({ modifiedAt: -1 });
+  Meteor.startup(async () => {
+    await Rules._collection.createIndexAsync({ modifiedAt: -1 });
   });
 }
 

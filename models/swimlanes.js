@@ -373,9 +373,9 @@ Swimlanes.archivedSwimlaneIds = () => {
 Swimlanes.hookOptions.after.update = { fetchPrevious: false };
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Swimlanes._collection.createIndex({ modifiedAt: -1 });
-    Swimlanes._collection.createIndex({ boardId: 1 });
+  Meteor.startup(async () => {
+    await Swimlanes._collection.createIndexAsync({ modifiedAt: -1 });
+    await Swimlanes._collection.createIndexAsync({ boardId: 1 });
   });
 
   Swimlanes.after.insert((userId, doc) => {

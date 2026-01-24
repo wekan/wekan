@@ -192,9 +192,9 @@ CardComments.textSearch = (userId, textArray) => {
 if (Meteor.isServer) {
   // Comments are often fetched within a card, so we create an index to make these
   // queries more efficient.
-  Meteor.startup(() => {
-    CardComments._collection.createIndex({ modifiedAt: -1 });
-    CardComments._collection.createIndex({ cardId: 1, createdAt: -1 });
+  Meteor.startup(async () => {
+    await CardComments._collection.createIndexAsync({ modifiedAt: -1 });
+    await CardComments._collection.createIndexAsync({ cardId: 1, createdAt: -1 });
   });
 
   CardComments.after.insert((userId, doc) => {

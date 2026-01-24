@@ -83,20 +83,20 @@ if (Meteor.isServer) {
   // For efficiency create indexes on the date of creation, and on the date of
   // creation in conjunction with the card or board id, as corresponding views
   // are largely used in the App. See #524.
-  Meteor.startup(() => {
-    Activities._collection.createIndex({ createdAt: -1 });
-    Activities._collection.createIndex({ modifiedAt: -1 });
-    Activities._collection.createIndex({ cardId: 1, createdAt: -1 });
-    Activities._collection.createIndex({ boardId: 1, createdAt: -1 });
-    Activities._collection.createIndex(
+  Meteor.startup(async () => {
+    await Activities._collection.createIndexAsync({ createdAt: -1 });
+    await Activities._collection.createIndexAsync({ modifiedAt: -1 });
+    await Activities._collection.createIndexAsync({ cardId: 1, createdAt: -1 });
+    await Activities._collection.createIndexAsync({ boardId: 1, createdAt: -1 });
+    await Activities._collection.createIndexAsync(
       { commentId: 1 },
       { partialFilterExpression: { commentId: { $exists: true } } },
     );
-    Activities._collection.createIndex(
+    await Activities._collection.createIndexAsync(
       { attachmentId: 1 },
       { partialFilterExpression: { attachmentId: { $exists: true } } },
     );
-    Activities._collection.createIndex(
+    await Activities._collection.createIndexAsync(
       { customFieldId: 1 },
       { partialFilterExpression: { customFieldId: { $exists: true } } },
     );

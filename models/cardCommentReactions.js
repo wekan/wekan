@@ -64,7 +64,7 @@ CardCommentReactions.allow({
 
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    CardCommentReactions._collection.createIndex({ cardCommentId: 1 }, { unique: true });
+  Meteor.startup(async () => {
+    await CardCommentReactions._collection.createIndexAsync({ cardCommentId: 1 }, { unique: true });
   });
 }

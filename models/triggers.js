@@ -64,8 +64,8 @@ Triggers.helpers({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Triggers._collection.createIndex({ modifiedAt: -1 });
+  Meteor.startup(async () => {
+    await Triggers._collection.createIndexAsync({ modifiedAt: -1 });
   });
 }
 

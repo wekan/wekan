@@ -55,8 +55,8 @@ LockoutSettings.allow({
 });
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    LockoutSettings._collection.createIndex({ modifiedAt: -1 });
+  Meteor.startup(async () => {
+    await LockoutSettings._collection.createIndexAsync({ modifiedAt: -1 });
 
     // Known users settings
     LockoutSettings.upsert(

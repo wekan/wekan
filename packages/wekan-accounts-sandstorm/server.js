@@ -53,7 +53,9 @@ if (__meteor_runtime_config__.SANDSTORM) {
   // Maps tokens to currently-waiting login method calls.
 
   if (Package["accounts-base"]) {
-    Meteor.users.createIndex("services.sandstorm.id", {unique: 1, sparse: 1});
+    Meteor.startup(async () => {
+      await Meteor.users.createIndexAsync("services.sandstorm.id", {unique: 1, sparse: 1});
+    });
   }
 
   Meteor.onConnection(function (connection) {
