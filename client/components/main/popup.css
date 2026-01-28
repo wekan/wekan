@@ -116,10 +116,31 @@
   height: calc(100vh - 80px) !important;
 }
 
-/* Ensure language popup list can scroll properly */
+/* Popover lists should not escape the popup clipping/scroll area */
 .pop-over .pop-over-list {
   max-height: none;
-  overflow: visible;
+  overflow: hidden;
+}
+
+
+.pop-over[data-popup="memberMenuPopup"] {
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 20px);
+}
+
+.pop-over[data-popup="memberMenuPopup"] .content-wrapper {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: calc(100vh - 80px) !important; /* header + margins */
+}
+
+.pop-over[data-popup="memberMenuPopup"] .content-container {
+  max-height: none !important;
+  height: auto !important;
 }
 
 /* Specific styling for language popup list */
