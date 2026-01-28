@@ -4,9 +4,10 @@ template(name="migrationProgress")
       .migration-progress-modal
         .migration-progress-header
           h3.migration-progress-title
-            | 🔄 {{_ 'migration-progress-title'}}
+            i.fa.fa-recycle
+            | {{_ 'migration-progress-title'}}
           .migration-progress-close.js-close-migration-progress
-            | ❌
+            i.fa.fa-times-thin
         
         .migration-progress-content
           .migration-progress-overall

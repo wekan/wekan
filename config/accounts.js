@@ -5,6 +5,8 @@ const passwordField = AccountsTemplates.removeField('password');
 passwordField.autocomplete = 'current-password';
 passwordField.template = 'passwordInput';
 const emailField = AccountsTemplates.removeField('email');
+
+// Don't add current_password to global fields - it should only be used for change password
 let disableRegistration = false;
 let disableForgotPassword = false;
 let passwordLoginEnabled = false;
@@ -40,16 +42,16 @@ Meteor.call('getOauthDashboardUrl', (_, result) => {
 Meteor.call('isDisableRegistration', (_, result) => {
   if (result) {
     disableRegistration = true;
-    //console.log('disableRegistration');
-    //console.log(result);
+    // Reconfigure to apply the new setting
+    AccountsTemplates.configure({
+      forbidClientAccountCreation: true,
+    });
   }
 });
 
 Meteor.call('isDisableForgotPassword', (_, result) => {
   if (result) {
     disableForgotPassword = true;
-    //console.log('disableForgotPassword');
-    //console.log(result);
   }
 });
 
@@ -91,6 +93,30 @@ AccountsTemplates.configure({
   sendVerificationEmail: true,
   showForgotPasswordLink: !disableForgotPassword,
   forbidClientAccountCreation: disableRegistration,
+  onSubmitHook(error, state) {
+    if (error) {
+      // Display error to user
+      const errorDiv = document.getElementById('login-error-message');
+      if (errorDiv) {
+        let errorMessage = error.reason || error.message || 'Registration failed. Please try again.';
+        // If there are validation details, show them
+        if (error.details && typeof error.details === 'object') {
+          const detailMessages = [];
+          for (let field in error.details) {
+            const errorMsg = error.details[field];
+            if (errorMsg) {
+              const message = Array.isArray(errorMsg) ? errorMsg.join(', ') : errorMsg;
+              detailMessages.push(`${field}: ${message}`);
+            }
+          }
+          if (detailMessages.length > 0) {
+            errorMessage += '<br>' + detailMessages.join('<br>');
+          }
+        }
+        errorDiv.innerHTML = errorMessage;
+      }
+    }
+  },
   onLogoutHook() {
     // here comeslogic for redirect
     if(oidcRedirectionEnabled)

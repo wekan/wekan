@@ -47,22 +47,6 @@ import {
     this.data().getStart() && this.date.set(new Date(this.data().getStart()));
   }
 
-  onRendered() {
-    super.onRendered();
-    // DatePicker base class handles initialization with native HTML inputs
-      const self = this;
-      this.$('.js-calendar-date').on('change', function(evt) {
-        const currentUser = ReactiveCache.getCurrentUser && ReactiveCache.getCurrentUser();
-        const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
-        const value = evt.target.value;
-        if (value) {
-          // Format date according to user preference
-          const formatted = formatDateByUserPreference(new Date(value), dateFormat, true);
-          self._storeDate(new Date(value));
-        }
-      });
-  }
-
   _storeDate(date) {
     this.card.setStart(formatDateTime(date));
   }
@@ -79,11 +63,6 @@ import {
     this.data().getDue() && this.date.set(new Date(this.data().getDue()));
   }
 
-  onRendered() {
-    super.onRendered();
-    // DatePicker base class handles initialization with native HTML inputs
-  }
-
   _storeDate(date) {
     this.card.setDue(formatDateTime(date));
   }
@@ -98,11 +77,6 @@ import {
   onCreated() {
     super.onCreated(formatDateTime(now()));
     this.data().getEnd() && this.date.set(new Date(this.data().getEnd()));
-  }
-
-  onRendered() {
-    super.onRendered();
-    // DatePicker base class handles initialization with native HTML inputs
   }
 
   _storeDate(date) {

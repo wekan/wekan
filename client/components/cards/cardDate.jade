@@ -95,58 +95,61 @@ template(name="minicardCustomFieldDate")
           | {{showWeek}}
 
 template(name="editCardReceivedDatePopup")
-  form.edit-card-received-date
-    .datepicker
-      // Date input field (existing)
-      // Insert calendar selector right after date input
-      .calendar-selector
-        label(for="calendar-received") 🗓️
-        input#calendar-received.js-calendar-date(type="date")
-      // Time input field (if present)
-    .clear-date
-      a.js-clear-date {{_ 'clear'}}
-    .datepicker-actions
-      button.primary.wide.left(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right {{_ 'delete'}}
+  .datepicker-container
+    form.edit-date
+      .fields
+        .left
+          label(for="date") {{_ 'date'}}
+          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
+        .right
+          label(for="time") {{_ 'time'}}
+          input.js-time-field#time(type="time" name="time" value=showTime)
+      if error.get
+        .warning {{_ error.get}}
+      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
 
 template(name="editCardStartDatePopup")
-  form.edit-card-start-date
-    .datepicker
-      // Date input field (existing)
-      .calendar-selector
-        label(for="calendar-start") 🗓️
-        input#calendar-start.js-calendar-date(type="date")
-      // Time input field (if present)
-    .clear-date
-      a.js-clear-date {{_ 'clear'}}
-    .datepicker-actions
-      button.primary.wide.left(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right {{_ 'delete'}}
+  .datepicker-container
+    form.edit-date
+      .fields
+        .left
+          label(for="date") {{_ 'date'}}
+          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
+        .right
+          label(for="time") {{_ 'time'}}
+          input.js-time-field#time(type="time" name="time" value=showTime)
+      if error.get
+        .warning {{_ error.get}}
+      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
 
 template(name="editCardDueDatePopup")
-  form.edit-card-due-date
-    .datepicker
-      // Date input field (existing)
-      .calendar-selector
-        label(for="calendar-due") 🗓️
-        input#calendar-due.js-calendar-date(type="date")
-      // Time input field (if present)
-    .clear-date
-      a.js-clear-date {{_ 'clear'}}
-    .datepicker-actions
-      button.primary.wide.left(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right {{_ 'delete'}}
+  .datepicker-container
+    form.edit-date
+      .fields
+        .left
+          label(for="date") {{_ 'date'}}
+          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
+        .right
+          label(for="time") {{_ 'time'}}
+          input.js-time-field#time(type="time" name="time" value=showTime)
+      if error.get
+        .warning {{_ error.get}}
+      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
 
 template(name="editCardEndDatePopup")
-  form.edit-card-end-date
-    .datepicker
-      // Date input field (existing)
-      .calendar-selector
-        label(for="calendar-end") 🗓️
-        input#calendar-end.js-calendar-date(type="date")
-      // Time input field (if present)
-    .clear-date
-      a.js-clear-date {{_ 'clear'}}
-    .datepicker-actions
-      button.primary.wide.left(type="submit") {{_ 'save'}}
-      button.js-delete-date.negate.wide.right {{_ 'delete'}}
+  .datepicker-container
+    form.edit-date
+      .fields
+        .left
+          label(for="date") {{_ 'date'}}
+          input.js-date-field#date(type="date" name="date" value=showDate autofocus)
+        .right
+          label(for="time") {{_ 'time'}}
+          input.js-time-field#time(type="time" name="time" value=showTime)
+      if error.get
+        .warning {{_ error.get}}
+      button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
+      button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}

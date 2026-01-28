@@ -24,6 +24,26 @@ InlinedForm = BlazeComponent.extendComponent({
     this.isOpen = new ReactiveVar(false);
   },
 
+  onRendered() {
+    // Autofocus when form becomes open
+    this.autorun(() => {
+      if (this.isOpen.get()) {
+        Tracker.afterFlush(() => {
+          const input = this.find('textarea,input[type=text]');
+          if (input && typeof input.focus === 'function') {
+            setTimeout(() => {
+              input.focus();
+              // Select content if it exists (useful for editing)
+              if (input.value && input.select) {
+                input.select();
+              }
+            }, 50);
+          }
+        });
+      }
+    });
+  },
+
   onDestroyed() {
     currentlyOpenedForm.set(null);
   },

@@ -8,7 +8,7 @@ template(name="listHeader")
       if isMiniScreen
         if currentList
           a.list-header-left-icon.js-unselect-list
-            | ◀️
+            i.fa.fa-caret-left
       else
         if collapsed
           if showCardsCountForList cards.length
@@ -30,22 +30,21 @@ template(name="listHeader")
             | &nbsp;
             span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
-        div.list-header-collapse-container
-          a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
-            if collapsed
-              | ▶
-            else
-              | 🔽
-          div(class="{{#if collapsed}}list-rotated{{/if}}")
-            h2.list-header-name(
-              title="{{ moment modifiedAt 'LLL' }}"
-              class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
-              +viewer
-                = title
-              if wipLimit.enabled
-               |&nbsp;(
-               span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
-               |/#{wipLimit.value})
+        a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
+          if collapsed
+            i.fa.fa-caret-right
+          else
+            i.fa.fa-caret-down
+        div(class="{{#if collapsed}}list-rotated{{/if}}")
+          h2.list-header-name(
+            title="{{ moment modifiedAt 'LLL' }}"
+            class="{{#unless collapsed}}{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}{{/unless}}")
+            +viewer
+              = title
+            if wipLimit.enabled
+             |&nbsp;(
+             span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
+             |/#{wipLimit.value})
         unless collapsed
           if showCardsCountForList cards.length
             span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
@@ -55,22 +54,29 @@ template(name="listHeader")
       if isMiniScreen
         if currentList
           if isWatching
-            i.list-header-watch-icon | 👁️
+            i.list-header-watch-icon i.fa.fa-eye
           div.list-header-menu
             unless currentUser.isCommentOnly
               unless currentUser.isReadOnly
                 unless currentUser.isReadAssignedOnly
-                  if canSeeAddCard
-                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
-                  a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
+                  a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
+                    i.fa.fa-bars
         else
-          a.list-header-menu-icon.js-select-list ▶️
+          a.list-header-menu-icon.js-select-list
+            i.fa.fa-caret-right
           unless currentUser.isWorker
             if isTouchScreenOrShowDesktopDragHandles
-              a.list-header-handle.handle.js-list-handle ↕️
+              a.list-header-handle.handle.js-list-handle
+                i.fa.fa-arrows
       else if currentUser.isBoardMember
         if isWatching
-          i.list-header-watch-icon | 👁️
+          i.list-header-watch-icon i.fa.fa-eye
+        unless currentUser.isCommentOnly
+          unless currentUser.isReadOnly
+            unless currentUser.isReadAssignedOnly
+              if isTouchScreenOrShowDesktopDragHandles
+                a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
+                  i.fa.fa-arrows
         unless collapsed
           div.list-header-menu
             unless currentUser.isCommentOnly
@@ -78,11 +84,8 @@ template(name="listHeader")
                 unless currentUser.isReadAssignedOnly
                   //if isBoardAdmin
                   //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
-                  if isTouchScreenOrShowDesktopDragHandles
-                    a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}") ↕️
-                  if canSeeAddCard
-                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}") ➕
-                  a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}") ☰
+                  a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
+                    i.fa.fa-bars
 
 template(name="editListTitleForm")
   .list-composer
@@ -90,31 +93,42 @@ template(name="editListTitleForm")
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.js-close-inlined-form
-        | ❌
+        i.fa.fa-times-thin
 
 template(name="listActionPopup")
   unless currentUser.isReadOnly
     unless currentUser.isReadAssignedOnly
       ul.pop-over-list
         li
+          a.js-add-card.list-header-plus-top
+            i.fa.fa-plus
+            i.fa.fa-arrow-up
+            | {{_ 'add-card-to-top-of-list'}}
+        li
           a.js-add-card.list-header-plus-bottom
-            | ➕
-            | ⬇️
+            i.fa.fa-plus
+            i.fa.fa-arrow-down
             | {{_ 'add-card-to-bottom-of-list'}}
       hr
       ul.pop-over-list
         li
+          a.js-add-list
+            i.fa.fa-plus
+            | {{_ 'add-list'}}
+      hr
+      ul.pop-over-list
+        li
           a.js-set-list-width
-            | ↔️
+            i.fa.fa-arrows-h
             |  {{_ 'set-list-width'}}
   ul.pop-over-list
     li
       a.js-toggle-watch-list
         if isWatching
-          | 👁️
+          i.fa.fa-eye
           |  {{_ 'unwatch'}}
         else
-          | 🙈
+          i.fa.fa-eye-slash
           |  {{_ 'watch'}}
   unless currentUser.isCommentOnly
     unless currentUser.isReadOnly
@@ -123,33 +137,33 @@ template(name="listActionPopup")
           ul.pop-over-list
             li
               a.js-set-color-list
-                | 🎨
+                i.fa.fa-paint-brush
                 | {{_ 'set-color-list'}}
         ul.pop-over-list
           if cards.length
             li
               a.js-select-cards
-                | ☑️
+                i.fa.fa-select-square
                 | {{_ 'list-select-cards'}}
         if currentUser.isBoardAdmin
           ul.pop-over-list
             li
               a.js-set-wip-limit
-                | 🚫
+                i.fa.fa-ban
                 | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
         unless currentUser.isWorker
           hr
           ul.pop-over-list
             li
               a.js-close-list
-                | ➡️
-                | 📦
+                i.fa.fa-arrow-right
+                i.fa.fa-archive
                 | {{_ 'archive-list'}}
         hr
         ul.pop-over-list
           li
             a.js-more
-              | 🔗
+              i.fa.fa-link
               | {{_ 'listMorePopup-title'}}
 
 template(name="boardLists")
@@ -166,7 +180,7 @@ template(name="listMorePopup")
     span.clearfix
       span {{_ 'link-list'}}
       = ' '
-      | {{#if board.isPublic}}🌐{{else}}🔒{{/if}}
+      i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
@@ -186,7 +200,7 @@ template(name="setWipLimitPopup")
     ul.pop-over-list
       li: a.js-enable-wip-limit {{_ 'enable-wip-limit'}}
         if isWipLimitEnabled
-          | ✅
+          i.fa.fa-check
     if isWipLimitEnabled
       p
         input.wip-limit-value(type="number" value="{{ wipLimitValue }}" min="1" max="99")
@@ -228,6 +242,29 @@ template(name="setListColorPopup")
       // note: we use the swimlane palette to have more than just the border
       span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
         if(isSelected color)
-          | ✅
+          i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+template(name="addListPopup")
+  form.js-add-list-form
+    input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}" autocomplete="off" autofocus)
+    if currentSwimlaneData
+      if swimlaneLists.length
+        label {{_ 'add-after-list'}}
+        select.list-position-input.full-line
+          each swimlaneLists
+            option(value="{{_id}}" selected="{{$eq _id currentListIdValue}}") {{increment @index}} {{title}}
+    else
+      if currentBoard.lists.length
+        label {{_ 'add-after-list'}}
+        select.list-position-input.full-line
+          each currentBoard.lists
+            option(value="{{_id}}" selected="{{$eq _id currentListIdValue}}") {{increment @index}} {{title}}
+    .edit-controls.clearfix
+      button.primary.confirm.js-submit-add-list(type="submit") {{_ 'save'}}
+      unless currentBoard.isTemplatesBoard
+        unless currentBoard.isTemplateBoard
+          span.quiet
+            | {{_ 'or'}}
+            a.js-list-template {{_ 'template'}}

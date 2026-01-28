@@ -85,6 +85,70 @@ Template.userFormsLayout.onRendered(() => {
       validator,
     );
     EscapeActions.executeAll();
+    
+    // Set up MutationObserver for OIDC button instead of deprecated DOMSubtreeModified
+    const oidcButton = document.getElementById('at-oidc');
+    if (oidcButton) {
+      const observer = new MutationObserver((mutations) => {
+        if (alreadyCheck <= 2) {
+          let currSetting = ReactiveCache.getCurrentSetting();
+          let oidcBtnElt = $('#at-oidc');
+          if (
+            currSetting &&
+            currSetting !== undefined &&
+            currSetting.oidcBtnText !== undefined &&
+            oidcBtnElt != null &&
+            oidcBtnElt != undefined
+          ) {
+            let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+            if (alreadyCheck == 1) {
+              alreadyCheck++;
+              oidcBtnElt.html('');
+            } else {
+              alreadyCheck++;
+              oidcBtnElt.html(htmlvalue);
+            }
+          }
+        } else {
+          alreadyCheck = 1;
+        }
+      });
+      observer.observe(oidcButton, { childList: true, subtree: true });
+    }
+    
+    // Set up MutationObserver for .at-form instead of deprecated DOMSubtreeModified
+    const atForm = document.querySelector('.at-form');
+    if (atForm) {
+      const formObserver = new MutationObserver((mutations) => {
+        if (alreadyCheck <= 2 && !isCheckDone) {
+          if (document.getElementById('at-oidc') != null) {
+            let currSetting = ReactiveCache.getCurrentSetting();
+            let oidcBtnElt = $('#at-oidc');
+            if (
+              currSetting &&
+              currSetting !== undefined &&
+              currSetting.oidcBtnText !== undefined &&
+              oidcBtnElt != null &&
+              oidcBtnElt != undefined
+            ) {
+              let htmlvalue =
+                "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
+              if (alreadyCheck == 1) {
+                alreadyCheck++;
+                oidcBtnElt.html('');
+              } else {
+                alreadyCheck++;
+                isCheckDone = true;
+                oidcBtnElt.html(htmlvalue);
+              }
+            }
+          }
+        } else {
+          alreadyCheck = 1;
+        }
+      });
+      formObserver.observe(atForm, { childList: true, subtree: true });
+    }
 
     // Add autocomplete attribute to login input for WCAG compliance
     const loginInput = document.querySelector(
@@ -152,7 +216,7 @@ Template.userFormsLayout.helpers({
 
   languages() {
     return TAPi18n.getSupportedLanguages()
-      .map(({ tag, name }) => ({ tag: tag, name }))
+      .map(({ tag, name, rtl }) => ({ tag, name, rtl }))
       .sort((a, b) => {
         if (a.name === b.name) {
           return 0;
@@ -182,61 +246,6 @@ Template.userFormsLayout.events({
       });
     }
     isCheckDone = false;
-  },
-  'click #at-signUp'(event, templateInstance) {
-    isCheckDone = false;
-  },
-  'DOMSubtreeModified #at-oidc'(event) {
-    if (alreadyCheck <= 2) {
-      let currSetting = ReactiveCache.getCurrentSetting();
-      let oidcBtnElt = $('#at-oidc');
-      if (
-        currSetting &&
-        currSetting !== undefined &&
-        currSetting.oidcBtnText !== undefined &&
-        oidcBtnElt != null &&
-        oidcBtnElt != undefined
-      ) {
-        let htmlvalue = "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
-        if (alreadyCheck == 1) {
-          alreadyCheck++;
-          oidcBtnElt.html('');
-        } else {
-          alreadyCheck++;
-          oidcBtnElt.html(htmlvalue);
-        }
-      }
-    } else {
-      alreadyCheck = 1;
-    }
-  },
-  'DOMSubtreeModified .at-form'(event) {
-    if (alreadyCheck <= 2 && !isCheckDone) {
-      if (document.getElementById('at-oidc') != null) {
-        let currSetting = ReactiveCache.getCurrentSetting();
-        let oidcBtnElt = $('#at-oidc');
-        if (
-          currSetting &&
-          currSetting !== undefined &&
-          currSetting.oidcBtnText !== undefined &&
-          oidcBtnElt != null &&
-          oidcBtnElt != undefined
-        ) {
-          let htmlvalue =
-            "<i class='fa fa-oidc'></i>" + currSetting.oidcBtnText;
-          if (alreadyCheck == 1) {
-            alreadyCheck++;
-            oidcBtnElt.html('');
-          } else {
-            alreadyCheck++;
-            isCheckDone = true;
-            oidcBtnElt.html(htmlvalue);
-          }
-        }
-      }
-    } else {
-      alreadyCheck = 1;
-    }
   },
 });
 

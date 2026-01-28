@@ -295,7 +295,7 @@ Template.changePasswordPopup.onRendered(function() {
 Template.changeLanguagePopup.helpers({
   languages() {
     return TAPi18n.getSupportedLanguages()
-      .map(({ tag, name }) => ({ tag: tag, name }))
+      .map(({ tag, name, rtl }) => ({ tag, name, rtl }))
       .sort((a, b) => {
         if (a.name === b.name) {
           return 0;

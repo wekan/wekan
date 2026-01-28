@@ -55,6 +55,12 @@
   flex-direction: row;
   align-items: center;
 }
+.attachment-actions a {
+  margin-left: 16px;
+}
+.attachment-actions a:first-child {
+  margin-left: 0;
+}
 .add-attachment {
   display: flex;
   align-items: center;
@@ -106,6 +112,9 @@
   color: white;
   cursor: pointer;
   font-size: 4em;
+  position: absolute;
+  right: 50px;
+  top: 16px;
 }
 
 /* Upload progress indicators for drag-and-drop uploads */
@@ -242,16 +251,26 @@
   border: 2px dashed #007bff !important;
   background: rgba(0, 123, 255, 0.05) !important;
 }
-  top: 0;
-  right: 8px;
-  position: absolute;
-}
 .attachment-arrow {
   font-size: 4em;
   color: white;
   cursor: pointer;
   align-self: center;
   margin: 0 20px;
+}
+#prev-attachment {
+  font-size: 4em;
+  color: white;
+  cursor: pointer;
+  align-self: center;
+  margin-left: 70px;
+}
+#next-attachment {
+  font-size: 4em;
+  color: white;
+  cursor: pointer;
+  align-self: center;
+  margin-right: 70px;
 }
 #viewer-content {
   display: flex;
@@ -265,6 +284,13 @@
     20px 20px; /* Checkerboard background for transparent images */
   max-width: 100%;
   max-height: 100%;
+}
+#video-viewer {
+  max-width: 100%;
+  max-height: 100%;
+}
+#audio-viewer {
+  max-width: 100%;
 }
 #pdf-viewer {
   width: 40vw;
@@ -300,9 +326,19 @@
   }
   #prev-attachment {
     left: 0;
+    position: absolute;
+    bottom: 2.2em;
+    font-size: 1.6em;
+    padding: 16px;
+    margin-left: 0;
   }
   #next-attachment {
     right: 0;
+    position: absolute;
+    bottom: 2.2em;
+    font-size: 1.6em;
+    padding: 16px;
+    margin-right: 0;
   }
   #pdf-viewer {
     width: 100%;

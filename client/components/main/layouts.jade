@@ -69,9 +69,15 @@ template(name="userFormsLayout")
           select.select-lang.js-userform-set-language#userform-set-language-select(aria-label="{{_ 'changeLanguagePopup-title'}}")
             each languages
               if isCurrentLanguage
-                option(value="{{tag}}" selected="selected") {{name}}
+                if rtl
+                  option(value="{{tag}}" selected="selected") {{name}} (RTL)
+                else
+                  option(value="{{tag}}" selected="selected") {{name}}
               else
-                option(value="{{tag}}") {{name}}
+                if rtl
+                  option(value="{{tag}}") {{name}} (RTL)
+                else
+                  option(value="{{tag}}") {{name}}
 
 template(name="defaultLayout")
   +header
@@ -86,13 +92,13 @@ template(name="defaultLayout")
       if (Modal.isWide)
         .modal-content-wide.modal-container
           a.modal-close-btn.js-close-modal
-            | ❌
+            i.fa.fa-times-thin
           +Template.dynamic(template=Modal.getHeaderName)
           +Template.dynamic(template=Modal.getTemplateName)
       else
         .modal-content.modal-container
           a.modal-close-btn.js-close-modal
-            | ❌
+            i.fa.fa-times-thin
           +Template.dynamic(template=Modal.getHeaderName)
           +Template.dynamic(template=Modal.getTemplateName)
 
@@ -103,8 +109,7 @@ template(name="message")
   .big-message.quiet(class=color)
     h1 {{_ label}}
     unless currentUser
-      with(pathFor route='atSignIn')
-        p {{{_ 'page-maybe-private' this}}}
+      p {{{_ 'page-maybe-private' '/sign-in'}}}
 
 template(name="loader")
   h1.loadingText {{_ 'loading'}}

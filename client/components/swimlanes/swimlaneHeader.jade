@@ -30,20 +30,18 @@ template(name="swimlaneFixedHeader")
             unless currentUser.isWorker
               a.swimlane-collapse-indicator.js-collapse-swimlane.swimlane-header-collapse(title="{{_ 'collapse'}}")
                 if collapseSwimlane
-                  | ▶
+                  i.fa.fa-caret-right
                 else
-                  | 🔽
-              a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
-                | ➕
+                  i.fa.fa-caret-down
+              a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+                i.fa.fa-bars
               if isTouchScreenOrShowDesktopDragHandles
                 unless isTouchScreen
                   a.swimlane-header-handle.handle.js-swimlane-header-handle
-                    | ↕️
+                    i.fa.fa-arrows
                 if isTouchScreen
                   a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
-                    | ↕️
-              a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
-                | ☰
+                    i.fa.fa-arrows
 
 template(name="editSwimlaneTitleForm")
   .list-composer
@@ -51,7 +49,7 @@ template(name="editSwimlaneTitleForm")
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.js-close-inlined-form
-        | ❌
+        i.fa.fa-times-thin
 
 template(name="swimlaneActionPopup")
   if currentUser
@@ -59,28 +57,37 @@ template(name="swimlaneActionPopup")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           ul.pop-over-list
+             li: a.js-add-swimlane
+               i.fa.fa-plus
+               span  {{_ 'add-swimlane'}}
+          hr
+          ul.pop-over-list
+             li: a.js-add-list-from-swimlane
+               i.fa.fa-plus
+               span  {{_ 'add-list'}}
+          hr
+          ul.pop-over-list
              if currentUser.isBoardAdmin
                li: a.js-set-swimlane-color
-                 | 🎨
+                 i.fa.fa-paint-brush
                  | {{_ 'select-color'}}
              li: a.js-set-swimlane-height
-               | ↕️
+               i.fa.fa-arrows
                |  {{_ 'set-swimlane-height'}}
           if currentUser.isBoardAdmin
             unless this.isTemplateContainer
               hr
               ul.pop-over-list
                 li: a.js-close-swimlane
-                  | ▶️
-                  | 📦
+                  i.fa.fa-archive
                   | {{_ 'archive-swimlane'}}
               ul.pop-over-list
                 li: a.js-copy-swimlane
-                  | 📋
+                  i.fa.fa-clipboard
                   | {{_ 'copy-swimlane'}}
               ul.pop-over-list
                 li: a.js-move-swimlane
-                  | ⬆️
+                  i.fa.fa-arrow-up
                   | {{_ 'move-swimlane'}}
 
 template(name="swimlaneAddPopup")
@@ -107,8 +114,7 @@ template(name="setSwimlaneColorPopup")
         each colors
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
-              | ✅
-    // Buttons aligned left too
+              i.fa.fa-check    // Buttons aligned left too
     .flush-left
       button.primary.confirm.js-submit(style="margin-left:0") {{_ 'save'}}
       button.js-remove-color.negate.wide.right(style="margin-left:8px") {{_ 'unset-color'}}

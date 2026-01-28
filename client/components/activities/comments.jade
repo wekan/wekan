@@ -25,7 +25,8 @@ template(name="comment")
           = text
         .edit-controls
           button.primary(type="submit") {{_ 'edit'}}
-          a.js-close-inlined-form(title="{{_ 'close' }}") ❌
+          a.js-close-inlined-form(title="{{_ 'close' }}")
+            i.fa.fa-times-thin
       else
         .comment-text
           +viewer

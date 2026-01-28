@@ -22,9 +22,16 @@ Fixing other platforms In Progress.
 WeKan 8.00-8.06 had wrong raw database directory setting /var/snap/wekan/common/wekan and some cards were not visible.
 Those are fixed at WeKan 8.07 where database directory is back to /var/snap/wekan/common and all cards are visible.
 
-# Upcoming WeKan ® release
+WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
-This release adds the following updates:
+# v8.25 2026-01-28 WeKan ® release
+
+This release fixes the following CRITICAL SECURITY ISSUES of [Floppybleed](https://wekan.fi/hall-of-fame/floppybleed/):
+
+- [Fix Filebleed of Floppybleed](https://github.com/wekan/wekan/commit/a419d831a408f251c798f5410375b20afd98c04b).
+  Thanks to Luke Hebenstreit Twitter lheben_ and xet7.
+
+and adds the following updates:
 
 - [Updated code counts](https://github.com/wekan/wekan/commit/2f25f47d0ba4c7f543264cd7fe2ed117ab0ec9ee).
   Thanks to xet7.
@@ -35,12 +42,24 @@ This release adds the following updates:
   Thanks to xet7.
 - [Updated Dockerfile](https://github.com/wekan/wekan/commit/d298ab7486d489d353fc410232a9dcdd68501c72).
   Thanks to xet7.
-- Docker and Snap for Linux amd64/arm64/s390x.
+- Docker for Linux amd64/arm64/s390x.
   [Part 1](https://github.com/wekan/wekan/commit/38711f0a29bf37d1e0a3fd9c8a9bcfb2442934b3),
   [Part 2](https://github.com/wekan/wekan/commit/e72019fa55ef6142767fd83e928bf2a0a966f9e6),
   [Part 3](https://github.com/wekan/wekan/commit/b2c7c7f55b5136bc91251cd57125316ec622d4a3),
   [Part 4](https://github.com/wekan/wekan/commit/98e5adfba80ee935b2a1293851d88812ad707b78),
-  [Part 5](https://github.com/wekan/wekan/commit/60846a44959d46262672c6a3048bd76d829c03bf).
+  [Part 5](https://github.com/wekan/wekan/commit/60846a44959d46262672c6a3048bd76d829c03bf),
+  [Part 6](https://github.com/wekan/wekan/commit/7ff174cf660f43dfbb471b29d75820f527771bbd).
+  Thanks to xet7.
+- [Most Unicode Icons back to Font Awesome 4.7 for better accessibility. Less always visible buttons, More at ☰ Mnu](https://github.com/wekan/wekan/commit/7ad04f45353e1628881fec310caedf7625a34d4d).
+  Thanks to xet7.
+- [Updated to MongoDB 7.0.29 at Snap Candidate](https://github.com/wekan/wekan/commit/ac70fe28488c09364133a65fbc80f5a819a1e4bf).
+  Thanks to developers of MongoDB.
+- [Updated to MongoDB 7.0.29 at Helm Charts](https://github.com/wekan/charts/commit/8169739260b6f104c4d011dac5a4bf5485db8b45).
+  Thanks to developers of MongoDB.
+
+and fixes the following bugs:
+
+- [Fix autofocus](https://github.com/wekan/wekan/commit/440f553de0baf460acc891ee5864f84bb982104a).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

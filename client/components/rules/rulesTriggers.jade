@@ -1,18 +1,17 @@
 template(name="rulesTriggers")
   h2
-    | ✨
+    i.fa.fa-magic
     | {{_ 'r-rule' }} "{{ruleNameStr}}" - {{_ 'r-add-trigger'}}
   .triggers-content
     .triggers-body
       .triggers-side-menu
         ul
           li.active.js-set-board-triggers
-            | 📊
+            i.fa.fa-bar-chart
           li.js-set-card-triggers
-            | 📝
+            i.fa.fa-file-text-o
           li.js-set-checklist-triggers
-            | ✅
-      .triggers-main-body
+            i.fa.fa-check      .triggers-main-body
         if showBoardTrigger.get
           +boardTriggers
         else if showCardTrigger.get
@@ -21,5 +20,5 @@ template(name="rulesTriggers")
           +checklistTriggers
   div.rules-back
         button.js-goback
-          | ◀️
+          i.fa.fa-arrow-left
           | {{_ 'back'}}

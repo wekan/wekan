@@ -276,20 +276,21 @@ BlazeComponent.extendComponent({
       return;
     }
     
-    
-    // Only enable resize for non-collapsed, non-auto-width lists
-    const isAutoWidth = this.autoWidth();
-    const isCollapsed = Utils.getListCollapseState(list);
-    if (isCollapsed || isAutoWidth) {
-      $resizeHandle.hide();
-      return;
-    }
+    // Reactively show/hide resize handle based on collapse and auto-width state
+    this.autorun(() => {
+      const isAutoWidth = this.autoWidth();
+      const isCollapsed = Utils.getListCollapseState(list);
+      if (isCollapsed || isAutoWidth) {
+        $resizeHandle.hide();
+      } else {
+        $resizeHandle.show();
+      }
+    });
 
     let isResizing = false;
     let startX = 0;
     let startWidth = 0;
     let minWidth = 100; // Minimum width as defined in the existing code
-    let maxWidth = this.listConstraint() || 1000; // Use constraint as max width
     let listConstraint = this.listConstraint(); // Store constraint value for use in event handlers
     const component = this; // Store reference to component for use in event handlers
 
@@ -318,7 +319,7 @@ BlazeComponent.extendComponent({
       
       const currentX = e.pageX || e.originalEvent.touches[0].pageX;
       const deltaX = currentX - startX;
-      const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
+      const newWidth = Math.max(minWidth, startWidth + deltaX);
       
       // Apply the new width immediately for real-time feedback
       $list[0].style.setProperty('--list-width', `${newWidth}px`);
@@ -343,7 +344,7 @@ BlazeComponent.extendComponent({
       // Calculate final width
       const currentX = e.pageX || e.originalEvent.touches[0].pageX;
       const deltaX = currentX - startX;
-      const finalWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
+      const finalWidth = Math.max(minWidth, startWidth + deltaX);
       
       // Ensure the final width is applied
       $list[0].style.setProperty('--list-width', `${finalWidth}px`);
@@ -466,3 +467,16 @@ Template.miniList.events({
     Session.set('currentList', listId);
   },
 });
+
+// Enable drag-reorder for collapsed lists from .js-collapsed-list-drag area
+    this.$('.js-collapsed-list-drag').draggable({
+      axis: 'x',
+      helper: 'clone',
+      revert: 'invalid',
+      start(evt, ui) {
+        boardComponent.setIsDragging(true);
+      },
+      stop(evt, ui) {
+        boardComponent.setIsDragging(false);
+      }
+    });

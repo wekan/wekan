@@ -339,9 +339,9 @@ BlazeComponent.extendComponent({
         .js-add-card[tabindex] {
           outline: none;
         }
-        /* Hamburger menu */
-        .fa-bars, .icon-hamburger {
-          color: #222 !important;
+        /* Sidebar hamburger menu button in header */
+        .js-toggle-sidebar .fa-bars {
+          color: #fff !important;
         }
         /* Grey icons in card detail header */
         .card-detail-header .fa, .card-detail-header .icon {

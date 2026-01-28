@@ -6,10 +6,10 @@ template(name="cardCustomFieldsPopup")
                     span.full-name
                       = name
                     if hasCustomField
-                      | ✅
+                      i.fa.fa-check
     hr
     a.quiet-button.full.js-settings
-        | ⚙️
+        i.fa.fa-cog
         span {{_ 'settings'}}
 
 template(name="cardCustomField")
@@ -55,9 +55,11 @@ template(name="cardCustomField-number")
 template(name="cardCustomField-checkbox")
   .js-checklist-item.checklist-item(class="{{#if data.value }}is-checked{{/if}}")
     if canModifyCard
-      span.check-box-unicode {{#if data.value }}✅{{else}}⬜{{/if}}
+      span.check-box-unicode
+        i.fa(class="{{#if data.value}}fa-check-square{{else}}fa-square-o{{/if}}")
     else
-      span.check-box-unicode {{#if data.value }}✅{{else}}⬜{{/if}}
+      span.check-box-unicode
+        i.fa(class="{{#if data.value}}fa-check-square{{else}}fa-square-o{{/if}}")
 
 template(name="cardCustomField-currency")
     if canModifyCard

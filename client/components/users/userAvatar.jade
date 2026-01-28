@@ -16,7 +16,7 @@ template(name="userAvatar")
       if showEdit
         if $eq currentUser._id userData._id
           a.edit-avatar.js-change-avatar
-            | ✏️
+            i.fa.fa-pencil-square-o
 
 template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
@@ -92,8 +92,7 @@ template(name="changeAvatarPopup")
         .member
           img.avatar.avatar-image(src="{{link}}")
         if isSelected
-          | ✅
-        p.sub-name
+          i.fa.fa-check        p.sub-name
           a.js-delete-avatar {{_ 'delete'}}
           |  -
           = name
@@ -102,8 +101,7 @@ template(name="changeAvatarPopup")
         +userAvatarInitials(userId=currentUser._id)
       | {{_ 'initials' }}
       if noAvatarUrl
-        | ✅
-      p.sub-name {{_ 'default-avatar'}}
+        i.fa.fa-check      p.sub-name {{_ 'default-avatar'}}
   input.hide.js-upload-avatar-input(accept="image/*;capture=camera" type="file")
   if Meteor.settings.public.avatarsUploadMaxSize
     | {{_ 'max-avatar-filesize'}} {{Meteor.settings.public.avatarsUploadMaxSize}}
@@ -113,7 +111,7 @@ template(name="changeAvatarPopup")
     br
   | {{_ 'invalid-file'}}
   button.full.js-upload-avatar
-    | 📤
+    i.fa.fa-upload
     | {{_ 'upload-avatar' }}
 
 template(name="deleteAvatarPopup")
