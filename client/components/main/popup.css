@@ -93,6 +93,25 @@
   max-height: inherit;
 }
 
+/* Fix overflow in the Member Settings (member menu) popup:
+   the popup itself gets a max-height inline style, but the header consumes space.
+   Make the header overlay the scrollable area so the list can't spill out. */
+.pop-over[data-popup="memberMenuPopup"] {
+  overflow: hidden;
+}
+.pop-over[data-popup="memberMenuPopup"] > .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 0;
+  z-index: 1;
+}
+.pop-over[data-popup="memberMenuPopup"] > .content-wrapper {
+  padding-top: calc(4.5vh + 1vh);
+  box-sizing: border-box;
+}
+
 /* Admin edit popups: use full height */
 .pop-over[data-popup="editUserPopup"],
 .pop-over[data-popup="editOrgPopup"],
