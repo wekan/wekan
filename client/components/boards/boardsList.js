@@ -197,48 +197,66 @@ BlazeComponent.extendComponent({
     return ret;
   },
   currentMenuPath() {
-    const selectedMenuVar = this.selectedMenu;
-    if (!selectedMenuVar) {
-      return { icon: '🗂️', text: TAPi18n.__('allboards.workspaces') };
-    }
-    const sel = selectedMenuVar.get();
-    const currentUser = ReactiveCache.getCurrentUser();
-
-    // Helper to find space by id in tree
-    const findSpaceById = (nodes, targetId, path = []) => {
-      for (const node of nodes) {
-        if (node.id === targetId) {
-          return [...path, node];
-        }
-        if (node.children && node.children.length > 0) {
-          const result = findSpaceById(node.children, targetId, [
-            ...path,
-            node,
-          ]);
-          if (result) return result;
-        }
+    try {
+      const selectedMenuVar = this.selectedMenu;
+      if (!selectedMenuVar || typeof selectedMenuVar.get !== 'function') {
+        return { icon: '🗂️', text: 'Workspaces' };
       }
-      return null;
-    };
+      const sel = selectedMenuVar.get();
+      const currentUser = ReactiveCache.getCurrentUser();
 
-    if (sel === 'starred') {
-      return { icon: '⭐', text: TAPi18n.__('allboards.starred') };
-    } else if (sel === 'templates') {
-      return { icon: '📋', text: TAPi18n.__('allboards.templates') };
-    } else if (sel === 'remaining') {
-      return { icon: '📂', text: TAPi18n.__('allboards.remaining') };
-    } else {
-      // sel is a workspaceId, build path
-      const tree = this.workspacesTreeVar.get();
-      const spacePath = findSpaceById(tree, sel);
-      if (spacePath && spacePath.length > 0) {
-        const pathText = spacePath.map((s) => s.name).join(' / ');
-        return {
-          icon: '🗂️',
-          text: `${TAPi18n.__('allboards.workspaces') || 'Workspaces'} / ${pathText}`,
-        };
+      // Helper function to safely get translation or fallback
+      const safeTranslate = (key, fallback) => {
+        try {
+          return TAPi18n.__(key) || fallback;
+        } catch (e) {
+          return fallback;
+        }
+      };
+
+      // Helper to find space by id in tree
+      const findSpaceById = (nodes, targetId, path = []) => {
+        if (!nodes || !Array.isArray(nodes)) return null;
+        for (const node of nodes) {
+          if (node.id === targetId) {
+            return [...path, node];
+          }
+          if (node.children && node.children.length > 0) {
+            const result = findSpaceById(node.children, targetId, [
+              ...path,
+              node,
+            ]);
+            if (result) return result;
+          }
+        }
+        return null;
+      };
+
+      if (sel === 'starred') {
+        return { icon: '⭐', text: safeTranslate('allboards.starred', 'Starred') };
+      } else if (sel === 'templates') {
+        return { icon: '📋', text: safeTranslate('allboards.templates', 'Templates') };
+      } else if (sel === 'remaining') {
+        return { icon: '📂', text: safeTranslate('allboards.remaining', 'Remaining') };
+      } else {
+        // sel is a workspaceId, build path
+        if (!this.workspacesTreeVar || typeof this.workspacesTreeVar.get !== 'function') {
+          return { icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
+        }
+        const tree = this.workspacesTreeVar.get();
+        const spacePath = findSpaceById(tree, sel);
+        if (spacePath && spacePath.length > 0) {
+          const pathText = spacePath.map((s) => s.name).join(' / ');
+          return {
+            icon: '🗂️',
+            text: `${safeTranslate('allboards.workspaces', 'Workspaces')} / ${pathText}`,
+          };
+        }
+        return { icon: '🗂️', text: safeTranslate('allboards.workspaces', 'Workspaces') };
       }
-      return { icon: '🗂️', text: TAPi18n.__('allboards.workspaces') };
+    } catch (error) {
+      console.error('Error in currentMenuPath:', error);
+      return { icon: '🗂️', text: 'Workspaces' };
     }
   },
   boards() {

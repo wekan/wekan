@@ -2,7 +2,7 @@ import Boards from '/models/boards';
 import Actions from '/models/actions';
 import Triggers from '/models/triggers';
 import Rules from '/models/rules';
-import ReactiveCache from '/imports/reactiveCache';
+import { ReactiveCache } from '/imports/reactiveCache';
 
 Meteor.publish('rules', function(ruleId) {
   check(ruleId, String);

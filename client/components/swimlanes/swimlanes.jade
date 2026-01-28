@@ -9,15 +9,9 @@ template(name="swimlane")
         if currentListIsInThisSwimlane _id
           +list(currentList)
         unless currentList
-          if currentUser.isBoardMember
-            unless currentUser.isCommentOnly
-              +addListForm
           each lists
             +miniList(this)
       else
-        if currentUser.isBoardMember
-          unless currentUser.isCommentOnly
-            +addListForm
         each lists
           if visible this
             +list(this)
@@ -30,15 +24,9 @@ template(name="listsGroup")
       if currentList
         +list(currentList)
       else
-        if currentUser.isBoardMember
-          unless currentUser.isCommentOnly
-            +addListForm
         each lists
           +miniList(this)
     else
-      if currentUser.isBoardMember
-        unless currentUser.isCommentOnly
-          +addListForm
       each lists
         if visible this
           +list(this)
@@ -63,7 +51,7 @@ template(name="addListForm")
             .edit-controls.clearfix
               button.primary.confirm(type="submit") {{_ 'save'}}
               .js-close-inlined-form
-                | ❌
+                i.fa.fa-times-thin
               unless currentBoard.isTemplatesBoard
                 unless currentBoard.isTemplateBoard
                   span.quiet
@@ -71,7 +59,7 @@ template(name="addListForm")
                     a.js-list-template {{_ 'template'}}
           else
             a.open-list-composer.js-open-inlined-form(title="{{_ 'add-list'}}")
-              | ➕
+              i.fa.fa-plus
 
 template(name="moveSwimlanePopup")
   if currentUser

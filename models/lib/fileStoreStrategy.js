@@ -11,6 +11,68 @@ export const STORAGE_NAME_FILESYSTEM = "fs";
 export const STORAGE_NAME_GRIDFS     = "gridfs";
 export const STORAGE_NAME_S3         = "s3";
 
+/**
+ * Sanitize filename to prevent path traversal attacks
+ * @param {string} filename - User-provided filename
+ * @return {string} Sanitized filename safe for filesystem operations
+ */
+function sanitizeFilename(filename) {
+  if (!filename || typeof filename !== 'string') {
+    return 'unnamed';
+  }
+
+  // Use path.basename to strip any directory components
+  let safe = path.basename(filename);
+
+  // Remove null bytes
+  safe = safe.replace(/\0/g, '');
+
+  // Remove any remaining path traversal sequences
+  safe = safe.replace(/\.\.[\\/\\]/g, '');
+  safe = safe.replace(/^\.\.$/, '');
+
+  // Trim whitespace
+  safe = safe.trim();
+
+  // If empty after sanitization, use default
+  if (!safe || safe === '.' || safe === '..') {
+    return 'unnamed';
+  }
+
+  return safe;
+}
+
+/**
+ * Sanitize filename to prevent path traversal attacks
+ * @param {string} filename - User-provided filename
+ * @return {string} Sanitized filename safe for filesystem operations
+ */
+function sanitizeFilename(filename) {
+  if (!filename || typeof filename !== 'string') {
+    return 'unnamed';
+  }
+
+  // Use path.basename to strip any directory components
+  let safe = path.basename(filename);
+
+  // Remove null bytes
+  safe = safe.replace(/\0/g, '');
+
+  // Remove any remaining path traversal sequences
+  safe = safe.replace(/\.\.[\/\\]/g, '');
+  safe = safe.replace(/^\.\.$/g, '');
+
+  // Trim whitespace
+  safe = safe.trim();
+
+  // If empty after sanitization, use default
+  if (!safe || safe === '.' || safe === '..') {
+    return 'unnamed';
+  }
+
+  return safe;
+}
+
 /** Factory for FileStoreStrategy */
 export default class FileStoreStrategyFactory {
 
@@ -123,7 +185,9 @@ class FileStoreStrategy {
     if (!_.isString(name)) {
       name = this.fileObj.name;
     }
-    const ret = path.join(storagePath, this.fileObj._id + "-" + this.versionName + "-" + name);
+    // Sanitize filename to prevent path traversal attacks
+    const safeName = sanitizeFilename(name);
+    const ret = path.join(storagePath, this.fileObj._id + "-" + this.versionName + "-" + safeName);
     return ret;
   }
 
@@ -292,6 +356,42 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
 
     // Build candidate list in priority order
     const candidates = [];
+
+    // 0) Try to find project root and resolve from there
+    let projectRoot = null;
+    if (originalPath) {
+      // Find project root by looking for .meteor directory
+      let current = process.cwd();
+      let maxLevels = 10; // Safety limit
+
+      while (maxLevels-- > 0) {
+        const meteorPath = path.join(current, '.meteor');
+        const packagePath = path.join(current, 'package.json');
+
+        if (fs.existsSync(meteorPath) || fs.existsSync(packagePath)) {
+          projectRoot = current;
+          break;
+        }
+
+        const parent = path.dirname(current);
+        if (parent === current) break; // Reached filesystem root
+        current = parent;
+      }
+
+      if (projectRoot) {
+        // Try resolving originalPath from project root
+        const fromProjectRoot = path.resolve(projectRoot, originalPath);
+        candidates.push(fromProjectRoot);
+
+        // Also try direct path: projectRoot/attachments/filename
+        const baseName = path.basename(normalized || this.fileObj._id || '');
+        if (baseName) {
+          const directPath = path.join(projectRoot, baseDir, baseName);
+          candidates.push(directPath);
+        }
+      }
+    }
+
     // 1) Original as-is (absolute or relative resolved to CWD)
     if (originalPath) {
       candidates.push(originalPath);
@@ -308,20 +408,24 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     if (this.fileObj && this.fileObj._id) {
       candidates.push(path.join(storageRoot, String(this.fileObj._id)));
     }
-    // 4) New strategy naming pattern: <id>-<version>-<name>
-    if (this.fileObj && this.fileObj._id && this.fileObj.name) {
-      candidates.push(path.join(storageRoot, `${this.fileObj._id}-${this.versionName}-${this.fileObj.name}`));
+    // 3) Old naming: {id}-{version}-{originalName}
+    if (this.fileObj.name) {
+      const safeName = sanitizeFilename(this.fileObj.name);
+      candidates.push(path.join(storageRoot, `${this.fileObj._id}-${this.versionName}-${safeName}`));
     }
 
     // Pick first existing candidate
     let chosen;
     for (const c of candidates) {
       try {
-        if (c && fs.existsSync(c)) {
+        const exists = c && fs.existsSync(c);
+        if (exists) {
           chosen = c;
           break;
         }
-      } catch (_) {}
+      } catch (err) {
+        // Continue to next candidate
+      }
     }
 
     if (!chosen) {
@@ -430,6 +534,16 @@ export class FileStoreStrategyS3 extends FileStoreStrategy {
  * @param fileStoreStrategyFactory get FileStoreStrategy from this factory
  */
 export const moveToStorage = function(fileObj, storageDestination, fileStoreStrategyFactory) {
+  // SECURITY: Sanitize filename to prevent path traversal attacks
+  // This ensures any malicious names already in the database are cleaned up
+  const safeName = sanitizeFilename(fileObj.name);
+  if (safeName !== fileObj.name) {
+    // Update the database with the sanitized name
+    Attachments.update({ _id: fileObj._id }, { $set: { name: safeName } });
+    // Update the local object for use in this function
+    fileObj.name = safeName;
+  }
+
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const strategyWrite = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName, storageDestination);
@@ -473,7 +587,8 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
     const readStream = strategyRead.getReadStream();
     const strategyWrite = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName, STORAGE_NAME_FILESYSTEM);
 
-    const tempPath = path.join(fileStoreStrategyFactory.storagePath, Random.id() + "-" + versionName + "-" + fileObj.name);
+    const safeName = sanitizeFilename(fileObj.name);
+    const tempPath = path.join(fileStoreStrategyFactory.storagePath, Random.id() + "-" + versionName + "-" + safeName);
     const writeStream = strategyWrite.getWriteStream(tempPath);
 
     writeStream.on('error', error => {
@@ -522,13 +637,16 @@ export const copyFile = function(fileObj, newCardId, fileStoreStrategyFactory) {
 };
 
 export const rename = function(fileObj, newName, fileStoreStrategyFactory) {
+  // Sanitize the new name to prevent path traversal
+  const safeName = sanitizeFilename(newName);
+
   Object.keys(fileObj.versions).forEach(versionName => {
     const strategy = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
-    const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, newName);
+    const newFilePath = strategy.getNewPath(fileStoreStrategyFactory.storagePath, safeName);
     strategy.rename(newFilePath);
 
     Attachments.update({ _id: fileObj._id }, { $set: {
-      "name": newName,
+      "name": safeName,
       [`versions.${versionName}.path`]: newFilePath,
     } });
   });

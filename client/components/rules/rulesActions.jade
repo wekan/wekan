@@ -1,18 +1,17 @@
 template(name="rulesActions")
   h2
-    | ✨
+    i.fa.fa-magic
     | {{_ 'r-rule' }} "{{ruleNameStr}}" - {{_ 'r-add-action'}}
   .triggers-content
     .triggers-body
       .triggers-side-menu
         ul
           li.active.js-set-board-actions
-            | 📊
+            i.fa.fa-bar-chart
           li.js-set-card-actions
-            | 📝
+            i.fa.fa-file-text-o
           li.js-set-checklist-actions
-            | ✅
-          li.js-set-mail-actions
+            i.fa.fa-check          li.js-set-mail-actions
             | @
       .triggers-main-body
         if $eq currentActions.get 'board'
@@ -25,5 +24,5 @@ template(name="rulesActions")
           +mailActions(ruleName=data.ruleName triggerVar=data.triggerVar)
   div.rules-back
         button.js-goback
-          | ◀️
+          i.fa.fa-arrow-left
           | {{_ 'back'}}

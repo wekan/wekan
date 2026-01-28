@@ -39,7 +39,6 @@ BlazeComponent.extendComponent({
           this.collapsed(!this.collapsed());
         },
         'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
-        'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
         submit: this.editTitle,
       },
     ];
@@ -104,6 +103,8 @@ Template.editSwimlaneTitleForm.helpers({
 });
 
 Template.swimlaneActionPopup.events({
+  'click .js-add-swimlane': Popup.open('swimlaneAdd'),
+  'click .js-add-list-from-swimlane': Popup.open('addList'),
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-set-swimlane-height': Popup.open('setSwimlaneHeight'),
   async 'click .js-close-swimlane'(event) {

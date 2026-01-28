@@ -37,14 +37,14 @@
 .password-toggle-btn {
   position: absolute;
   right: 5px; /* Adjusted for larger button */
-  top: calc(50% - 6px); /* Moved up by 6px total */
+  top: calc(50% - 26px); /* Moved up by 20px + 6px = 26px total */
   transform: translateY(-50%);
   background: #f8f8f8 !important;
   border: 1px solid #ddd !important;
   border-radius: 3px !important;
   color: #000 !important; /* Black color for the icon */
   cursor: pointer;
-  padding: 8px 12px; /* 2x bigger padding */
+  padding: 8px 6px 8px 12px; /* 2x bigger padding, 6px less on right */
   font-size: 16px; /* 2x bigger font size */
   width: auto !important;
   height: auto !important;
@@ -55,6 +55,10 @@
   z-index: 10;
   min-width: 40px; /* 2x bigger minimum width */
   min-height: 32px; /* 2x bigger minimum height */
+}
+/* Adjust position for login and register pages */
+.auth-layout .password-toggle-btn {
+  top: calc(50% - 11px); /* Move 15px down for login/register */
 }
 .password-toggle-btn .eye-text {
   color: #000 !important;

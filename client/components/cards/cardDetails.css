@@ -192,6 +192,8 @@ body.desktop-mode .card-details.card-details-collapsed {
   position: sticky;
   top: 0px;
   z-index: 500;
+  display: flow-root;
+  min-height: 40px;
 }
 .card-details .card-details-header .card-number {
   color: #b3b3b3;
@@ -209,6 +211,8 @@ body.desktop-mode .card-details.card-details-collapsed {
   cursor: pointer;
   user-select: none;
   color: #000;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 
 /* Drag handle */
@@ -220,6 +224,8 @@ body.desktop-mode .card-details.card-details-collapsed {
   user-select: none;
   display: inline-block;
   float: right;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 
 .card-details .card-details-header .close-card-details,
@@ -241,6 +247,8 @@ body.desktop-mode .card-details.card-details-collapsed {
   margin-right: -8px;
   cursor: pointer;
   user-select: none;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 .card-details .card-details-header .close-card-details-mobile-web,
 .card-details .card-details-header .card-mobile-desktop-toggle {
@@ -263,6 +271,8 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .card-details-menu {
   font-size: 17px;
   padding: 10px;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 .card-details .card-details-header .card-details-menu-mobile-web {
   font-size: 17px;
@@ -309,6 +319,9 @@ body.desktop-mode .card-details.card-details-collapsed {
   font-size: 1.33em;
   margin: 7px 0 0;
   padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.3;
 }
 .card-details .card-details-header .linked-card-location {
   font-style: italic;

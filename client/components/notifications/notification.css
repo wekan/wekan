@@ -25,7 +25,7 @@
   height: 1.2em;
   font-size: clamp(14px, 2vw, 17px);
   display: block;
-  color: #bbb;
+  color: #000;
 }
 #notifications-drawer .notification .read-status .activity-type.hidden {
   display: none;

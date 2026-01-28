@@ -7,14 +7,14 @@ template(name="sidebar")
     .sidebar-actions
       .sidebar-shortcuts
         a.sidebar-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
-          | ⌨️
+          i.fa.fa-keyboard-o
           span {{_ 'keyboard-shortcuts' }}
         a.sidebar-btn.js-keyboard-shortcuts-toggle(
           title="{{#if isKeyboardShortcuts}}{{_ 'keyboard-shortcuts-enabled'}}{{else}}{{_ 'keyboard-shortcuts-disabled'}}{{/if}}")
-          | {{#if isKeyboardShortcuts}}✅{{else}}🚫{{/if}}
+          i.fa(class="{{#if isKeyboardShortcuts}}fa-check{{else}}fa-ban{{/if}}")
       if isAccessibilityEnabled
         a.sidebar-accessibility
-          | ♿
+          i.fa.fa-universal-access
           span {{_ 'accessibility'}}
       a.sidebar-xmark.js-close-sidebar &#10005;
     .sidebar-content.js-board-sidebar-content
@@ -22,7 +22,7 @@ template(name="sidebar")
       //  i.fa.fa-navicon
       unless isDefaultView
         h2
-          a.js-back-home ⬅️
+          a.fa.fa-arrow-left.js-back-home
           = getViewTitle
       if isOpen
         +Template.dynamic(template=getViewTemplate)
@@ -34,25 +34,25 @@ template(name='homeSidebar')
   hr
   ul#cards.label-text-hidden
     a.flex.js-toggle-minicard-label-text(title="{{_ 'hide-minicard-label-text'}}")
-      span {{#if hiddenMinicardLabelText}}✅{{else}}⬜{{/if}}
+      i.fa(class="{{#if hiddenMinicardLabelText}}fa-check{{else}}fa-square-o{{/if}}")
       span {{_ 'hide-minicard-label-text'}}
   if currentUser
     ul#cards.vertical-scrollbars-toggle
       a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
-        span {{#if isVerticalScrollbars}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if isVerticalScrollbars}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'enable-vertical-scrollbars'}}
   ul#cards.show-week-of-year-toggle
     a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
-      span {{#if isShowWeekOfYear}}✅{{else}}⬜{{/if}}
+      i.fa(class="{{#if isShowWeekOfYear}}fa-check{{else}}fa-square-o{{/if}}")
       span {{_ 'show-week-of-year'}}
   hr
   if currentUser.isBoardAdmin
     h3.activity-title
-      | 💬
+      i.fa.fa-comment-o
       | {{_ 'activities'}}
 
       a.flex.js-toggle-show-activities(title="{{_ 'show-activities'}}")
-        span {{#if showActivities}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if showActivities}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'show-activities'}}
     +activities(mode="board")
 
@@ -61,11 +61,11 @@ template(name="membersWidget")
     unless currentUser.isWorker
       h3
         a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
-          | ⚙️
+          i.fa.fa-cog
           | {{_ 'boardMenuPopup-title'}}
   hr
   h3
-    | 👥
+    i.fa.fa-users
     | {{_ 'members'}}
   +basicTabs(tabs=tabs)
       +tabContent(slug="people")
@@ -77,15 +77,15 @@ template(name="membersWidget")
           if isSandstorm
             if currentUser.isBoardMember
               a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
-                | ➕
+                i.fa.fa-plus
           else if currentUser.isBoardAdmin
             a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
-              | ➕
+              i.fa.fa-plus
           .clearfix
           if isInvited
             hr
             p
-              | ⚠️
+              i.fa.fa-exclamation-triangle
               | {{_ 'just-invited'}}
             button.js-member-invite-accept.primary {{_ 'accept'}}
             button.js-member-invite-decline {{_ 'decline'}}
@@ -121,7 +121,7 @@ template(name="boardOrgGeneral")
         th
           if currentUser.isBoardAdmin
             a.member.orgOrTeamMember.add-member.js-manage-board-addOrg(title="{{_ 'add-members'}}")
-              | ➕
+              i.fa.fa-plus
             .divaddfaplusminus
               | {{_ 'add'}}
       each org in currentBoard.activeOrgs
@@ -142,7 +142,7 @@ template(name="boardTeamGeneral")
         th
           if currentUser.isBoardAdmin
             a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
-              | ➕
+              i.fa.fa-plus
             .divaddfaplusminus
               | {{_ 'add'}}
       each currentBoard.activeTeams
@@ -155,7 +155,7 @@ template(name="boardChangeColorPopup")
         span.background-box(class="board-color-{{this}}")
           span {{this}}
           if isSelected
-            span.checkmark-no-grey ✅
+            i.fa.fa-check
 
 template(name="boardChangeBackgroundImagePopup")
   form
@@ -179,16 +179,16 @@ template(name="boardInfoOnMyBoardsPopup")
     unless currentSetting.hideCardCounterList
       div.check-div
         a.flex.js-field-has-cardcounterlist(class="{{#if allowsCardCounterList}}is-checked{{/if}}")
-          span {{#if allowsCardCounterList}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCardCounterList}}fa-check{{else}}fa-square-o{{/if}}")
           span
-            | 🚪
+            i.fa.fa-sign-in
             | {{_ 'show-card-counter-per-list'}}
     unless currentSetting.hideBoardMemberList
       div.check-div
         a.flex.js-field-has-boardmemberlist(class="{{#if allowsBoardMemberList}}is-checked{{/if}}")
-          span {{#if allowsBoardMemberList}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsBoardMemberList}}fa-check{{else}}fa-square-o{{/if}}")
           span
-            | ⏳
+            i.fa.fa-hourglass
             | {{_ 'show-board_members-avatar'}}
 
 template(name="boardCardSettingsPopup")
@@ -203,169 +203,170 @@ template(name="boardCardSettingsPopup")
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-receiveddate(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDate}}is-checked{{/if}}")
-          span {{#if allowsReceivedDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsReceivedDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-receiveddate(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDate}}is-checked{{/if}}")
-          span {{#if allowsReceivedDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsReceivedDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 🚪
+          i.fa.fa-sign-in
           | {{_ 'card-received'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-startdate(title="{{_ 'card-start'}}" class="{{#if allowsStartDate}}is-checked{{/if}}")
-          span {{#if allowsStartDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsStartDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-startdate(title="{{_ 'card-start'}}" class="{{#if allowsStartDate}}is-checked{{/if}}")
-          span {{#if allowsStartDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsStartDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | ⏳
+          i.fa.fa-hourglass
           | {{_ 'card-start'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-duedate(title="{{_ 'card-due'}}" class="{{#if allowsDueDate}}is-checked{{/if}}")
-          span {{#if allowsDueDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsDueDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-duedate(title="{{_ 'card-due'}}" class="{{#if allowsDueDate}}is-checked{{/if}}")
-          span {{#if allowsDueDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsDueDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 🚪
+          i.fa.fa-sign-in
           | {{_ 'card-due'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-enddate(title="{{_ 'card-end'}}" class="{{#if allowsEndDate}}is-checked{{/if}}")
-          span {{#if allowsEndDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsEndDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-enddate(title="{{_ 'card-end'}}" class="{{#if allowsEndDate}}is-checked{{/if}}")
-          span {{#if allowsEndDate}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsEndDate}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | ⏰
+          i.fa.fa-clock-o
           | {{_ 'card-end'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-members(title="{{_ 'members'}}" class="{{#if allowsMembers}}is-checked{{/if}}")
-          span {{#if allowsMembers}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsMembers}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-members(title="{{_ 'members'}}" class="{{#if allowsMembers}}is-checked{{/if}}")
-          span {{#if allowsMembers}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsMembers}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 👥
+          i.fa.fa-users
           | {{_ 'members'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-creator(title="{{_ 'creator'}}" class="{{#if allowsCreator}}is-checked{{/if}}")
-          span {{#if allowsCreator}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCreator}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
       .card-settings-column
         span
-          | 👤
+          i.fa.fa-user
           | {{_ 'creator'}}
     .card-settings-row
       .card-settings-column
         span
       .card-settings-column
         a.flex.js-field-has-creator-on-minicard(title="{{_ 'creator-on-minicard'}}" class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
-          span {{#if allowsCreatorOnMinicard}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCreatorOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 👤
+          i.fa.fa-user
           | {{_ 'creator-on-minicard'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-assignee(title="{{_ 'assignee'}}" class="{{#if allowsAssignee}}is-checked{{/if}}")
-          span {{#if allowsAssignee}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsAssignee}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-assignee(title="{{_ 'assignee'}}" class="{{#if allowsAssignee}}is-checked{{/if}}")
-          span {{#if allowsAssignee}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsAssignee}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 👤
+          i.fa.fa-user
           | {{_ 'assignee'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-assigned-by(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedBy}}is-checked{{/if}}")
-          span {{#if allowsAssignedBy}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsAssignedBy}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-assigned-by(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedBy}}is-checked{{/if}}")
-          span {{#if allowsAssignedBy}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsAssignedBy}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 🛒
+          i.fa.fa-shopping-cart
           | {{_ 'assigned-by'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-requested-by(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedBy}}is-checked{{/if}}")
-          span {{#if allowsRequestedBy}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsRequestedBy}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-requested-by(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedBy}}is-checked{{/if}}")
-          span {{#if allowsRequestedBy}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsRequestedBy}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 👤➕
+          i.fa.fa-user
+          | ➕
           | {{_ 'requested-by'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-card-sorting-by-number(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
-          span {{#if allowsCardSortingByNumber}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCardSortingByNumber}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
       .card-settings-column
         span
-          | 🔢
+          i.fa.fa-sort-numeric-asc
           | {{_ 'card-sorting-by-number'}}
     .card-settings-row
       .card-settings-column
         span
       .card-settings-column
         a.flex.js-field-has-card-sorting-by-number-on-minicard(title="{{_ 'card-sorting-by-number-on-minicard'}}" class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
-          span {{#if allowsCardSortingByNumberOnMinicard}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCardSortingByNumberOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 🔢
+          i.fa.fa-sort-numeric-asc
           | {{_ 'card-sorting-by-number-on-minicard'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-card-show-lists(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowLists}}is-checked{{/if}}")
-          span {{#if allowsShowLists}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsShowLists}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
       .card-settings-column
         span
-          | 📋
+          i.fa.fa-list
           | {{_ 'card-show-lists'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-labels(title="{{_ 'labels'}}" class="{{#if allowsLabels}}is-checked{{/if}}")
-          span {{#if allowsLabels}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsLabels}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-labels(title="{{_ 'labels'}}" class="{{#if allowsLabels}}is-checked{{/if}}")
-          span {{#if allowsLabels}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsLabels}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 🏷️
+          i.fa.fa-tag
           | {{_ 'labels'}}
     .card-settings-row
       .card-settings-column
         span
       .card-settings-column
         a.flex.js-field-has-card-show-lists-on-minicard(title="{{_ 'card-show-lists-on-minicard'}}" class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
-          span {{#if allowsShowListsOnMinicard}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsShowListsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 📋
+          i.fa.fa-list
           | {{_ 'card-show-lists-on-minicard'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")
-          span {{#if allowsCardNumber}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCardNumber}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")
-          span {{#if allowsCardNumber}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCardNumber}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
           | #️⃣
@@ -374,25 +375,25 @@ template(name="boardCardSettingsPopup")
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-description-title(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
-          span {{#if allowsDescriptionTitle}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsDescriptionTitle}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-description-title(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
-          span {{#if allowsDescriptionTitle}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsDescriptionTitle}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 📝
+          i.fa.fa-file-text-o
           | {{_ 'description'}}
           | {{_ 'title'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-description-text(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionText}}is-checked{{/if}}")
-          span {{#if allowsDescriptionText}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsDescriptionText}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-description-text(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionText}}is-checked{{/if}}")
-          span {{#if allowsDescriptionText}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsDescriptionText}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 📝
+          i.fa.fa-file-text-o
           | {{_ 'description'}}
           | {{_ 'custom-field-text'}}
     .card-settings-row
@@ -400,64 +401,63 @@ template(name="boardCardSettingsPopup")
         span
       .card-settings-column
         a.flex.js-field-has-description-text-on-minicard(title="{{_ 'description-on-minicard'}}" class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-          span {{#if allowsDescriptionTextOnMinicard}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsDescriptionTextOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 📝
+          i.fa.fa-file-text-o
           | {{_ 'description-on-minicard'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-checklists(title="{{_ 'checklists'}}" class="{{#if allowsChecklists}}is-checked{{/if}}")
-          span {{#if allowsChecklists}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsChecklists}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-checklists(title="{{_ 'checklists'}}" class="{{#if allowsChecklists}}is-checked{{/if}}")
-          span {{#if allowsChecklists}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsChecklists}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | ✅
+          i.fa.fa-check
           | {{_ 'checklists'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-subtasks(title="{{_ 'subtasks'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
-          span {{#if allowsSubtasks}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsSubtasks}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-subtasks(title="{{_ 'subtasks'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
-          span {{#if allowsSubtasks}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsSubtasks}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 🌐
+          i.fa.fa-globe
           | {{_ 'subtasks'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-attachments(title="{{_ 'attachments'}}" class="{{#if allowsAttachments}}is-checked{{/if}}")
-          span {{#if allowsAttachments}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsAttachments}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         a.flex.js-field-has-attachments(title="{{_ 'attachments'}}" class="{{#if allowsAttachments}}is-checked{{/if}}")
-          span {{#if allowsAttachments}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsAttachments}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 📎
+          i.fa.fa-paperclip
           | {{_ 'attachments'}}
     .card-settings-row
       .card-settings-column
         span
       .card-settings-column
         a.flex.js-field-has-badge-attachment-on-minicard(title="{{_ 'badge-attachment-on-minicard'}}" class="{{#if allowsBadgeAttachmentOnMinicard}}is-checked{{/if}}")
-          span {{#if allowsBadgeAttachmentOnMinicard}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsBadgeAttachmentOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 📎
+          i.fa.fa-paperclip
           | {{_ 'badge-attachment-on-minicard'}}
     .card-settings-row
       .card-settings-column
         span
       .card-settings-column
         a.flex.js-field-has-cover-attachment-on-minicard(title="{{_ 'cover-attachment-on-minicard'}}" class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
-          span {{#if allowsCoverAttachmentOnMinicard}}✅{{else}}⬜{{/if}}
+          i.fa(class="{{#if allowsCoverAttachmentOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          | 📖
-          | 🖼️
+          i.fa.fa-picture-o
           | {{_ 'cover-attachment-on-minicard'}}
     //div.check-div
     //  a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
@@ -476,26 +476,26 @@ template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
     h3 {{_ 'show-parent-in-minicard'}}
       a#prefix-with-full-path.flex.js-field-show-parent-in-minicard(title="{{_ 'prefix-with-full-path'}}" class="{{#if $eq presentParentTask 'prefix-with-full-path'}}is-checked{{/if}}")
-        span {{#if $eq presentParentTask 'prefix-with-full-path'}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if $eq presentParentTask 'prefix-with-full-path'}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'prefix-with-full-path'}}
       a#prefix-with-parent.flex.js-field-show-parent-in-minicard(title="{{_ 'prefix-with-parent'}}" class="{{#if $eq presentParentTask 'prefix-with-parent'}}is-checked{{/if}}")
-        span {{#if $eq presentParentTask 'prefix-with-parent'}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if $eq presentParentTask 'prefix-with-parent'}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'prefix-with-parent'}}
       a#subtext-with-full-path.flex.js-field-show-parent-in-minicard(title="{{_ 'subtext-with-full-path'}}" class="{{#if $eq presentParentTask 'subtext-with-full-path'}}is-checked{{/if}}")
-        span {{#if $eq presentParentTask 'subtext-with-full-path'}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if $eq presentParentTask 'subtext-with-full-path'}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'subtext-with-full-path'}}
       a#subtext-with-parent.flex.js-field-show-parent-in-minicard(title="{{_ 'subtext-with-parent'}}" class="{{#if $eq presentParentTask 'subtext-with-parent'}}is-checked{{/if}}")
-        span {{#if $eq presentParentTask 'subtext-with-parent'}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if $eq presentParentTask 'subtext-with-parent'}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'subtext-with-parent'}}
       a#no-parent.flex.js-field-show-parent-in-minicard(title="{{_ 'no-parent'}}" class="{{#if $eq presentParentTask 'no-parent'}}is-checked{{/if}}")
-        span {{#if $eq presentParentTask 'no-parent'}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if $eq presentParentTask 'no-parent'}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'no-parent'}}
     div
       hr
 
     div.check-div
       a.flex.js-field-has-subtasks(title="{{_ 'show-subtasks-field'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
-        span {{#if allowsSubtasks}}✅{{else}}⬜{{/if}}
+        i.fa(class="{{#if allowsSubtasks}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'show-subtasks-field'}}
 
     label
@@ -534,20 +534,20 @@ template(name="chooseBoardSource")
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
   button.js-confirm.negate.full(type="submit")
-    | 📦
+    i.fa.fa-archive
     | {{_ 'archive'}}
 
 template(name="deleteDuplicateListsPopup")
   p {{_ 'delete-duplicate-lists-confirm'}}
   button.js-confirm.negate.full(type="submit")
-    | 🗑️
+    i.fa.fa-trash
     | {{_ 'delete'}}
 
 template(name="outgoingWebhooksPopup")
   each integrations
     form.integration-form
       a.flex
-        span {{#unless enabled}}✅{{else}}⬜{{/unless}}
+        i.fa(class="{{#unless enabled}}fa-check{{else}}fa-square-o{{/unless}}")
         span {{_ 'disable-webhook'}}
       input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" value=title)
       input.js-outgoing-webhooks-url(type="text" name="url" value=url)
@@ -575,26 +575,25 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       li
         a.js-open-rules-view(title="{{_ 'rules'}}")
-          span.emoji-icon
-            | ✨
+          i.fa.fa-magic
           | {{_ 'rules'}}
     if currentUser.isBoardAdmin
       li
         a.js-custom-fields
-          | 📝
+          i.fa.fa-file-text-o
           | {{_ 'custom-fields'}}
     li
       a.js-open-archives
-        | 📦
+        i.fa.fa-archive
         | {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li
         a.js-change-board-color
-          | 🎨
+          i.fa.fa-paint-brush
           | {{_ 'board-change-color'}}
       li
         a.js-change-background-image
-          | 🖼️
+          i.fa.fa-picture-o
           | {{_ 'board-change-background-image'}}
     //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     //if currentUser.isBoardAdmin
@@ -609,20 +608,20 @@ template(name="boardMenuPopup")
     if withApi
       li
         a.js-export-board
-          | 📤
+          i.fa.fa-upload
           | {{_ 'export-board'}}
     if currentUser.isBoardAdmin
       li
         a.js-outgoing-webhooks
-          | 🌐
+          i.fa.fa-globe
           | {{_ 'outgoing-webhooks'}}
       li
         a.js-card-settings
-          | 🃏
+          i.fa.fa-id-card
           | {{_ 'card-settings'}}
       li
         a.js-subtask-settings
-          | 🌐
+          i.fa.fa-globe
           | {{_ 'subtask-settings'}}
   unless currentBoard.isTemplatesBoard
     if currentUser.isBoardAdmin
@@ -634,41 +633,40 @@ template(name="boardMenuPopup")
         //     | {{_ 'delete-duplicate-lists'}}
         li
           a.js-archive-board
-            span.emoji-icon
-              | ➡️📦
+            i.fa.fa-archive
             | {{_ 'archive-board'}}
 
 template(name="exportBoard")
   ul.pop-over-list
     li
       a.download-json-link(href="{{exportUrl}}", download="{{exportJsonFilename}}")
-        | 📤
+        i.fa.fa-upload
         | {{_ 'export-board-json'}}
     li
       a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
-        | 📤
+        i.fa.fa-upload
         | {{_ 'export-board-excel'}}
     li
       a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
-        | 📤
+        i.fa.fa-upload
         | {{_ 'export-board-csv'}} ,
     li
       a(href="{{exportScsvUrl}}", download="{{exportCsvFilename}}")
-        | 📤
+        i.fa.fa-upload
         | {{_ 'export-board-csv'}} ;
     li
       a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
-        | 📤
+        i.fa.fa-upload
         | {{_ 'export-board-tsv'}}
     li
       a.html-export-board
-        | 📦
+        i.fa.fa-archive
         | {{_ 'export-board-html'}}
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels
     h3
-      | 🏷️
+      i.fa.fa-tag
       | {{_ 'labels'}}
     .board-widget-content
       each currentBoard.labels
@@ -679,7 +677,7 @@ template(name="labelsWidget")
                 = name
       if currentUser.isBoardAdmin
         a.card-label.add-label.js-add-label(title="{{_ 'label-create'}}")
-          | ➕
+          i.fa.fa-plus
 
 template(name="memberPopup")
   .board-member-menu
@@ -691,7 +689,7 @@ template(name="memberPopup")
         p.quiet @#{user.username}
         if isInvited
           p
-            | ⚠️
+            i.fa.fa-exclamation-triangle
             | {{_ 'not-accepted-yet'}}
 
     ul.pop-over-list
@@ -789,55 +787,55 @@ template(name="changePermissionsPopup")
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}")
         | {{_ 'admin'}}
         if isAdmin
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'admin-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
         | {{_ 'normal'}}
         if isNormal
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'normal-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal-assigned-only{{/if}}")
         | {{_ 'normal-assigned-only'}}
         if isNormalAssignedOnly
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'normal-assigned-only-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-no-comments{{/if}}")
         | {{_ 'no-comments'}}
         if isNoComments
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'no-comments-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-comment-only{{/if}}")
         | {{_ 'comment-only'}}
         if isCommentOnly
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'comment-only-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-comment-assigned-only{{/if}}")
         | {{_ 'comment-assigned-only'}}
         if isCommentAssignedOnly
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'comment-assigned-only-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-worker{{/if}}")
         | {{_ 'worker'}}
         if isWorker
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'worker-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-read-only{{/if}}")
         | {{_ 'read-only'}}
         if isReadOnly
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'read-only-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-read-assigned-only{{/if}}")
         | {{_ 'read-assigned-only'}}
         if isReadAssignedOnly
-          | ✅
+          i.fa.fa-check
         span.sub-name {{_ 'read-assigned-only-desc'}}
   if isLastAdmin
     hr

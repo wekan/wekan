@@ -15,10 +15,14 @@ Template.passwordInput.onRendered(function() {
     // Ensure the input starts as password type for password fields
     input.type = 'password';
     
-    // Initially hide the slash line since password starts hidden
-    const slashLine = template.find('.eye-slash-line');
-    if (slashLine) {
-      slashLine.style.display = 'none';
+    // Initially show eye icon (password is hidden) and hide eye-slash icon
+    const eyeIcon = template.find('.eye-icon');
+    const eyeSlashIcon = template.find('.eye-slash-icon');
+    if (eyeIcon) {
+      eyeIcon.style.display = 'inline-block';
+    }
+    if (eyeSlashIcon) {
+      eyeSlashIcon.style.display = 'none';
     }
   }
 });
@@ -27,19 +31,26 @@ Template.passwordInput.events({
   'click .password-toggle-btn'(event, template) {
     event.preventDefault();
     const input = template.find('input.password-field');
-    const slashLine = template.find('.eye-slash-line');
+    const eyeIcon = template.find('.eye-icon');
+    const eyeSlashIcon = template.find('.eye-slash-icon');
     
     if (input.type === 'password') {
       input.type = 'text';
-      // Show the slash line when password is visible
-      if (slashLine) {
-        slashLine.style.display = 'block';
+      // Show eye-slash icon when password is visible
+      if (eyeIcon) {
+        eyeIcon.style.display = 'none';
+      }
+      if (eyeSlashIcon) {
+        eyeSlashIcon.style.display = 'inline-block';
       }
     } else {
       input.type = 'password';
-      // Hide the slash line when password is hidden
-      if (slashLine) {
-        slashLine.style.display = 'none';
+      // Show eye icon when password is hidden
+      if (eyeIcon) {
+        eyeIcon.style.display = 'inline-block';
+      }
+      if (eyeSlashIcon) {
+        eyeSlashIcon.style.display = 'none';
       }
     }
   },

@@ -37,22 +37,15 @@ textarea.js-edit-checklist-item {
 .checklist-progress-bar-container .checklist-progress-bar {
   width: 80%;
   height: 10px;
-  background-color: #d6ebff !important;
+  background-color: #e0e0e0;
   border-radius: 16px;
 }
 .checklist-progress-bar-container .checklist-progress-bar .checklist-progress {
-  color: #fff !important;
-  background-color: #3cb500 !important;
+  color: #fff;
+  background-color: #666;
   padding: 0.01em 16px;
   border-radius: 16px;
   height: 100%;
-}
-/* Grey progress bar when grey icons setting is enabled */
-body.grey-icons-enabled .checklist-progress-bar-container .checklist-progress-bar {
-  background-color: #d9d9d9;
-}
-body.grey-icons-enabled .checklist-progress-bar-container .checklist-progress-bar .checklist-progress {
-  background-color: #7a7a7a !important;
 }
 .checklist-title {
   padding: 10px;
@@ -76,14 +69,10 @@ body.grey-icons-enabled .checklist-progress-bar-container .checklist-progress-ba
 .checklist-title .checklist-stat.is-finished {
   color: #3cb500;
 }
-.checklist-title span.checklist-handle {
+.checklist-title span.fa.checklist-handle {
   padding-right: 20px;
   padding-top: 3px;
   float: left;
-  display: inline-block;
-  width: 1.2em;
-  text-align: center;
-  color: #999;
 }
 #card-details-overlay {
   top: 0;
@@ -114,25 +103,6 @@ body.grey-icons-enabled .checklist-progress-bar-container .checklist-progress-ba
   height: auto;
   overflow: hidden;
 }
-
-/* iPhone mobile: larger checklist titles and more spacing between items */
-body.mobile-mode.iphone-device .checklist-title .title {
-  font-size: 1.3em !important;
-  font-weight: bold;
-}
-
-body.mobile-mode.iphone-device .checklist-item {
-  margin-top: 12px !important;
-  margin-bottom: 8px !important;
-  padding: 8px 4px !important;
-  min-height: 44px; /* iOS recommended touch target size */
-}
-
-body.mobile-mode.iphone-device .checklist-item span.checklistitem-handle {
-  font-size: 1.5em !important;
-  padding-right: 15px !important;
-  width: 1.5em !important;
-}
 .checklist-item.is-checked.invisible {
   opacity: 0;
   height: 0;
@@ -162,27 +132,6 @@ body.mobile-mode.iphone-device .checklist-item span.checklistitem-handle {
   border-bottom: 2px solid #3cb500;
   border-right: 2px solid #3cb500;
 }
-/* Unicode checkbox icons styling */
-.checklist-item .check-box-unicode,
-.cardCustomField-checkbox .check-box-unicode {
-  font-size: 1.3em;
-  margin-right: 8px;
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-}
-/* Grey checkmarks when grey icons setting is enabled */
-body.grey-icons-enabled .checklist-item .check-box.is-checked {
-  border-bottom: 2px solid #7a7a7a;
-  border-right: 2px solid #7a7a7a;
-}
-body.grey-icons-enabled .checklist-item .check-box-unicode,
-body.grey-icons-enabled .cardCustomField-checkbox .check-box-unicode {
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
-  opacity: 0.85;
-}
 .checklist-item .item-title {
   flex: 1;
 }
@@ -197,14 +146,9 @@ body.grey-icons-enabled .cardCustomField-checkbox .check-box-unicode {
   word-wrap: break-word;
   max-width: 420px;
 }
-.checklist-item span.checklistitem-handle {
+.checklist-item span.fa.checklistitem-handle {
   padding-top: 2px;
   padding-right: 10px;
-  display: inline-block;
-  width: 1.2em;
-  text-align: center;
-  color: #999;
-  cursor: pointer;
 }
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {

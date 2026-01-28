@@ -3,23 +3,23 @@ template(name="myCardsHeaderBar")
     h1
       //a.back-btn(href="{{pathFor 'home'}}")
       //  i.fa.fa-chevron-left
-      | 📋
+      i.fa.fa-list
       | {{_ 'my-cards'}}
 
     .board-header-btns.left
       a.board-header-btn.js-my-cards-view-change(title="{{_ 'myCardsViewChange-title'}}")
-        | ▼
+        i.fa.fa-caret-down
         if $eq myCardsView 'boards'
-          | 📋
+          i.fa.fa-list
           | {{_ 'myCardsViewChange-choice-boards'}}
         if $eq myCardsView 'table'
-          | 📊
+          i.fa.fa-bar-chart
           | {{_ 'myCardsViewChange-choice-table'}}
 
 template(name="myCardsModalTitle")
   if currentUser
     h2
-      | ⌨️
+      i.fa.fa-keyboard-o
       | {{_ 'my-cards'}}
 
 template(name="myCards")
@@ -102,15 +102,15 @@ template(name="myCardsViewChangePopup")
       li
         with "myCardsViewChange-choice-boards"
           a.js-my-cards-view-boards
-            | 📋
+            i.fa.fa-list
             | {{_ 'myCardsViewChange-choice-boards'}}
             if $eq Utils.myCardsView "boards"
-              | ✅
+              i.fa.fa-check
       hr
       li
         with "myCardsViewChange-choice-table"
           a.js-my-cards-view-table
-            | 📊
+            i.fa.fa-bar-chart
             | {{_ 'myCardsViewChange-choice-table'}}
             if $eq Utils.myCardsView "table"
-              | ✅
+              i.fa.fa-check

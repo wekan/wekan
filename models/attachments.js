@@ -98,6 +98,27 @@ Attachments = new FilesCollection({
     return ret;
   },
   onBeforeUpload(file) {
+    // SECURITY: Sanitize filename to prevent path traversal attacks
+    // Import sanitizeFilename from fileStoreStrategy - but since we can't import here,
+    // we'll implement a minimal inline version to be safe
+    if (file.name && typeof file.name === 'string') {
+      // Use path.basename to strip directory components and prevent path traversal
+      let safeName = path.basename(file.name);
+      // Remove null bytes
+      safeName = safeName.replace(/\0/g, '');
+      // Remove path traversal sequences
+      safeName = safeName.replace(/\.\.[\\/\\]/g, '');
+      safeName = safeName.replace(/^\.\.$/g, '');
+      safeName = safeName.trim();
+
+      // If sanitization changed the name, update it
+      if (safeName && safeName !== '.' && safeName !== '..' && safeName !== file.name) {
+        file.name = safeName;
+      } else if (!safeName || safeName === '.' || safeName === '..') {
+        file.name = 'unnamed';
+      }
+    }
+
     // Block SVG files for attachments to prevent XSS attacks
     if (file.name && file.name.toLowerCase().endsWith('.svg')) {
       if (process.env.DEBUG === 'true') {
@@ -138,7 +159,7 @@ Attachments = new FilesCollection({
 
     // Use selected storage backend or copy storage if specified
     let storageDestination = fileObj.meta.copyStorage || defaultStorage;
-    
+
     // Only migrate if the destination is different from filesystem
     if (storageDestination !== STORAGE_NAME_FILESYSTEM) {
       Meteor.defer(() => Meteor.call('validateAttachmentAndMoveToStorage', fileObj._id, storageDestination));
@@ -180,9 +201,26 @@ if (Meteor.isServer) {
       return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(fileObj.boardId));
     },
     update(userId, fileObj, fields) {
-      // Only allow updates to specific fields that don't affect security
+      // SECURITY: The 'name' field is sanitized in onBeforeUpload and server-side methods,
+      // but we block direct client-side $set operations on 'versions.*.path' to prevent
+      // path traversal attacks via storage migration exploits.
+
+      // Block direct updates to version paths (the attack vector)
+      const hasPathUpdate = fields.some(field => field.includes('versions') && field.includes('path'));
+      if (hasPathUpdate) {
+        if (process.env.DEBUG === 'true') {
+          console.warn('Blocked attempt to update attachment version paths:', fields);
+        }
+        return false;
+      }
+
+      // Allow normal updates for file upload/management
       const allowedFields = ['name', 'size', 'type', 'extension', 'extensionWithDot', 'meta', 'versions'];
-      const isAllowedField = fields.every(field => allowedFields.includes(field));
+      const isAllowedField = fields.every(field => {
+        // Allow field itself or nested properties like 'versions.original'
+        const baseField = field.split('.')[0];
+        return allowedFields.includes(baseField);
+      });
 
       if (!isAllowedField) {
         if (process.env.DEBUG === 'true') {
@@ -390,7 +428,7 @@ if (Meteor.isClient) {
     // Accept both direct calls and collection.helpers style calls
     const fileRef = this._id ? this : (versionName && versionName._id ? versionName : this);
     const version = (typeof versionName === 'string') ? versionName : 'original';
-    
+
     if (fileRef && fileRef._id) {
       const url = generateUniversalAttachmentUrl(fileRef._id, version);
       if (process.env.DEBUG === 'true') {
@@ -401,7 +439,7 @@ if (Meteor.isClient) {
     // Fallback to original if somehow we don't have an ID
     return originalLink ? originalLink.call(this, versionName) : '';
   };
-  
+
   // Also add as collection helper for document instances
   Attachments.collection.helpers({
     link(version) {

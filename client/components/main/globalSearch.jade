@@ -1,13 +1,13 @@
 template(name="globalSearchHeaderBar")
   if currentUser
     h1
-      | 🔍
+      i.fa.fa-search
       | {{_ 'globalSearch-title'}}
 
 template(name="globalSearchModalTitle")
   if currentUser
     h2
-      | ⌨️
+      i.fa.fa-keyboard-o
       | {{_ 'globalSearch-title'}}
 
 template(name="resultsPaged")
