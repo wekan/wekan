@@ -5,19 +5,19 @@
 
 template(name="filterSidebar")
   h3
-    | 📋
+    i.fa.fa-list
     | {{_ 'list-filter-label'}}
   ul.sidebar-list
     form.js-list-filter
       input(type="text")
   hr
   h3
-    | 📋
+    i.fa.fa-list
     | {{_ 'filter-card-title-label'}}
   input.js-field-card-filter(type="text")
   hr
   h3
-    | 🏷️
+    i.fa.fa-tag
     | {{_ 'filter-labels-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
@@ -25,7 +25,7 @@ template(name="filterSidebar")
             span.sidebar-list-item-description
               | {{_ 'filter-no-label'}}
             if Filter.labelIds.isSelected undefined
-              | ✅
+              i.fa.fa-check
     each currentBoard.labels
       li
         a.name.js-toggle-label-filter
@@ -36,10 +36,10 @@ template(name="filterSidebar")
             else
               span.quiet {{_ "label-default" (_ (concat "color-" color))}}
           if Filter.labelIds.isSelected _id
-            | ✅
+            i.fa.fa-check
   hr
   h3
-    | 👥
+    i.fa.fa-users
     | {{_ 'filter-member-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
@@ -47,7 +47,7 @@ template(name="filterSidebar")
             span.sidebar-list-item-description
               | {{_ 'filter-no-member'}}
             if Filter.members.isSelected undefined
-              | ✅
+              i.fa.fa-check
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
@@ -57,10 +57,9 @@ template(name="filterSidebar")
               = profile.fullname
               | (<span class="username">{{ username }}</span>)
             if Filter.members.isSelected _id
-              | ✅
-  hr
+              i.fa.fa-check  hr
   h3
-    | 👤
+    i.fa.fa-user
     | {{_ 'filter-assignee-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.assignees.isSelected undefined}}active{{/if}}")
@@ -68,7 +67,7 @@ template(name="filterSidebar")
         span.sidebar-list-item-description
           | {{_ 'filter-no-assignee'}}
         if Filter.assignees.isSelected undefined
-          | ✅
+          i.fa.fa-check
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.assignees.isSelected _id}}active{{/if}}")
@@ -78,11 +77,10 @@ template(name="filterSidebar")
               = profile.fullname
               | (<span class="username">{{ username }}</span>)
             if Filter.assignees.isSelected _id
-              | ✅
-
+              i.fa.fa-check
   hr
   h3
-    | 📅
+    i.fa.fa-calendar
     | {{_ 'filter-dates-label' }}
   ul.sidebar-list
     li(class="{{#if Filter.dueAt.isSelected 'noDate'}}active{{/if}}")
@@ -90,40 +88,40 @@ template(name="filterSidebar")
         span.sidebar-list-item-description
           | {{_ 'filter-no-due-date' }}
         if Filter.dueAt.isSelected 'noDate'
-          | ✅
+          i.fa.fa-check
     li(class="{{#if Filter.dueAt.isSelected 'past'}}active{{/if}}")
       a.name.js-toggle-overdue-filter
         span.sidebar-list-item-description
           | {{_ 'filter-overdue' }}
         if Filter.dueAt.isSelected 'past'
-          | ✅
+          i.fa.fa-check
     li(class="{{#if Filter.dueAt.isSelected 'today'}}active{{/if}}")
       a.name.js-toggle-due-today-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-today' }}
         if Filter.dueAt.isSelected 'today'
-          | ✅
+          i.fa.fa-check
     li(class="{{#if Filter.dueAt.isSelected 'tomorrow'}}active{{/if}}")
       a.name.js-toggle-due-tomorrow-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-tomorrow' }}
         if Filter.dueAt.isSelected 'tomorrow'
-          | ✅
+          i.fa.fa-check
     li(class="{{#if Filter.dueAt.isSelected 'thisweek'}}active{{/if}}")
       a.name.js-toggle-due-this-week-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-this-week' }}
         if Filter.dueAt.isSelected 'thisweek'
-          | ✅
+          i.fa.fa-check
     li(class="{{#if Filter.dueAt.isSelected 'nextweek'}}active{{/if}}")
       a.name.js-toggle-due-next-week-filter
         span.sidebar-list-item-description
           | {{_ 'filter-due-next-week' }}
         if Filter.dueAt.isSelected 'nextweek'
-          | ✅
+          i.fa.fa-check
   hr
   h3
-    | 📋
+    i.fa.fa-list
     | {{_ 'filter-custom-fields-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")
@@ -131,14 +129,14 @@ template(name="filterSidebar")
             span.sidebar-list-item-description
               | {{_ 'filter-no-custom-fields'}}
             if Filter.customFields.isSelected undefined
-              | ✅
+              i.fa.fa-check
     each currentBoard.customFields
       li(class="{{#if Filter.customFields.isSelected _id}}active{{/if}}")
         a.name.js-toggle-custom-fields-filter
           span.sidebar-list-item-description
             | {{ name }}
           if Filter.customFields.isSelected _id
-            | ✅
+            i.fa.fa-check
   hr
   h3
     | {{_ 'other-filters-label'}}
@@ -148,14 +146,14 @@ template(name="filterSidebar")
         span.sidebar-list-item-description
           | {{_ 'filter-show-archive'}}
         if Filter.archive.isSelected _id
-          | ✅
+          i.fa.fa-check
   ul.sidebar-list
     li(class="{{#if Filter.hideEmpty.isSelected _id}}active{{/if}}")
       a.name.js-toggle-hideEmpty-filter
         span.sidebar-list-item-description
           | {{_ 'filter-hide-empty'}}
         if Filter.hideEmpty.isSelected _id
-          | ✅
+          i.fa.fa-check
   hr
   h3 {{_ 'advanced-filter-label'}}
   input.js-field-advanced-filter(type="text")
@@ -163,15 +161,15 @@ template(name="filterSidebar")
   if Filter.isActive
     hr
     a.sidebar-btn.js-clear-all
-      | 🔍
+      i.fa.fa-search
       span {{_ 'filter-clear'}}
     a.sidebar-btn.js-filter-to-selection
-      | ☑️
+      i.fa.fa-check
       span {{_ 'filter-to-selection'}}
 
 template(name="multiselectionSidebar")
   h3
-    | 🏷️
+    i.fa.fa-tag
     | {{_ 'multi-selection-label'}}
   ul.sidebar-list
     each currentBoard.labels
@@ -184,12 +182,12 @@ template(name="multiselectionSidebar")
             else
               span.quiet {{_ "label-default" (_ (concat "color-" color))}}
           if allSelectedElementHave 'label' _id
-            | ✅
+            i.fa.fa-check
           else if someSelectedElementHave 'label' _id
             | ⋯
   hr
   h3
-    | 👥
+    i.fa.fa-users
     | {{_ 'multi-selection-member'}}
   ul.sidebar-list
     each currentBoard.activeMembers
@@ -201,22 +199,22 @@ template(name="multiselectionSidebar")
               = profile.fullname
               | (<span class="username">{{ username }}</span>)
             if allSelectedElementHave 'member' _id
-              | ✅
+              i.fa.fa-check
             else if someSelectedElementHave 'member' _id
               | ⋯
   if currentUser.isBoardAdmin
     hr
     a.sidebar-btn.js-selection-color
-      | 🎨
+      i.fa.fa-paint-brush
       span {{_ 'selection-color'}}
     a.sidebar-btn.js-copy-selection
-      | 📋
+      i.fa.fa-clipboard
       span {{_ 'copy-selection'}}
     a.sidebar-btn.js-move-selection
-      | 📤
+      i.fa.fa-upload
       span {{_ 'move-selection'}}
     a.sidebar-btn.js-archive-selection
-      | 📦
+      i.fa.fa-archive
       span {{_ 'archive-selection'}}
 
 template(name="disambiguateMultiLabelPopup")
@@ -300,6 +298,6 @@ template(name="setSelectionColorPopup")
       unless $eq color 'white'
         span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
           if(isSelected color)
-            | ✅
+            i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}

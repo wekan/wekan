@@ -4,7 +4,7 @@ template(name="boardTriggers")
       div.trigger-text 
         | {{_'r-when-a-card'}}
       div.trigger-inline-button.js-open-card-title-popup 
-        | 🔍
+        i.fa.fa-search
       div.trigger-text 
         | {{_'r-is'}}
       div.trigger-text 
@@ -18,39 +18,39 @@ template(name="boardTriggers")
       div.trigger-dropdown
         input(id="create-swimlane-name",type=text,placeholder="{{_'r-swimlane-name'}}") 
       div.trigger-button.trigger-button-person.js-show-user-field
-        | 👤
+        i.fa.fa-user
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
     div.trigger-button.js-add-create-trigger.js-goto-action
-      | ➕
+      i.fa.fa-plus
 
   div.trigger-item#trigger-three
     div.trigger-content
       div.trigger-text 
         | {{_'r-when-a-card'}}
       div.trigger-inline-button.js-open-card-title-popup 
-        | 🔍
+        i.fa.fa-search
       div.trigger-text 
         | {{_'r-is-moved'}}
       div.trigger-button.trigger-button-person.js-show-user-field
-        | 👤
+        i.fa.fa-user
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
     div.trigger-button.js-add-gen-moved-trigger.js-goto-action
-      | ➕
+      i.fa.fa-plus
 
   div.trigger-item#trigger-four
     div.trigger-content
       div.trigger-text 
         | {{_'r-when-a-card'}}
       div.trigger-inline-button.js-open-card-title-popup 
-        | 🔍
+        i.fa.fa-search
       div.trigger-text 
         | {{_'r-is'}}
       div.trigger-dropdown
@@ -66,21 +66,21 @@ template(name="boardTriggers")
       div.trigger-dropdown
         input(id="create-swimlane-name-2",type=text,placeholder="{{_'r-swimlane-name'}}") 
       div.trigger-button.trigger-button-person.js-show-user-field
-        | 👤
+        i.fa.fa-user
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
     div.trigger-button.js-add-moved-trigger.js-goto-action
-      | ➕
+      i.fa.fa-plus
 
   div.trigger-item#trigger-five
     div.trigger-content
       div.trigger-text 
         | {{_'r-when-a-card'}}
       div.trigger-inline-button.js-open-card-title-popup 
-        | 🔍
+        i.fa.fa-search
       div.trigger-text 
         | {{_'r-is'}}
       div.trigger-dropdown
@@ -88,14 +88,14 @@ template(name="boardTriggers")
           option(value="archived") {{_'r-archived'}}
           option(value="unarchived") {{_'r-unarchived'}}
       div.trigger-button.trigger-button-person.js-show-user-field
-        | 👤
+        i.fa.fa-user
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
     div.trigger-button.js-add-arch-trigger.js-goto-action
-      | ➕
+      i.fa.fa-plus
 
   div.trigger-item
       div.trigger-content

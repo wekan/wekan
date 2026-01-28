@@ -6,87 +6,107 @@ template(name="setting")
       .content-title.ext-box
         if isGeneralSetting
           span
-            span.emoji-icon 🔑
+            span.emoji-icon
+            i.fa.fa-key
             | {{_ 'registration'}}
         else if isEmailSetting
           span
-            span.emoji-icon ✉️
+            span.emoji-icon
+            i.fa.fa-envelope
             | {{_ 'email'}}
         else if isAccountSetting
           span
-            span.emoji-icon 👥
+            span.emoji-icon
+            i.fa.fa-users
             | {{_ 'accounts'}}
         else if isTableVisibilityModeSetting
           span
-            span.emoji-icon 👁️
+            span.emoji-icon
+            i.fa.fa-eye
             | {{_ 'tableVisibilityMode'}}
         else if isAnnouncementSetting
           span
-            span.emoji-icon 📢
+            span.emoji-icon
+            i.fa.fa-bullhorn
             | {{_ 'admin-announcement'}}
         else if isAccessibilitySetting
           span
-            span.emoji-icon ♿
+            span.emoji-icon
+            i.fa.fa-universal-access
             | {{_ 'accessibility'}}
         else if isLayoutSetting
           span
-            span.emoji-icon 🔗
+            span.emoji-icon
+            i.fa.fa-link
             | {{_ 'layout'}}
         else if isWebhookSetting
           span
-            span.emoji-icon 🌐
+            span.emoji-icon
+            i.fa.fa-globe
             | {{_ 'global-webhook'}}
         else if isAttachmentSettings
           span
-            span.emoji-iconpan.emoji-icon 📎
+            span.emoji-icon
+            i.fa.fa-paperclip
             | {{_ 'attachments'}}
         else if isCronSettings
           span
-            span.emoji-icon ⏰
+            span.emoji-icon
+            i.fa.fa-clock
             | {{_ 'cron'}}
       .content-body
         .side-menu
           ul
             li(class="{{#if isGeneralSetting}}active{{/if}}")
               a.js-setting-menu(data-id="registration-setting")
-                span.emoji-icon 🔑
+                span.emoji-icon
+                i.fa.fa-key
                 | {{_ 'registration'}}
             unless isSandstorm
               li(class="{{#if isEmailSetting}}active{{/if}}")
                 a.js-setting-menu(data-id="email-setting")
-                  span.emoji-icon ✉️
+                  span.emoji-icon
+                  i.fa.fa-envelope
                   | {{_ 'email'}}
             li(class="{{#if isAccountSetting}}active{{/if}}")
               a.js-setting-menu(data-id="account-setting")
-                span.emoji-icon 👥
+                span.emoji-icon
+                i.fa.fa-users
                 | {{_ 'accounts'}}
             li(class="{{#if isTableVisibilityModeSetting}}active{{/if}}")
               a.js-setting-menu(data-id="tableVisibilityMode-setting")
-                span.emoji-icon 👁️
+                span.emoji-icon
+                i.fa.fa-eye
                 | {{_ 'tableVisibilityMode'}}
             li(class="{{#if isAnnouncementSetting}}active{{/if}}")
               a.js-setting-menu(data-id="announcement-setting")
-                span.emoji-icon 📢
+                span.emoji-icon
+                i.fa.fa-bullhorn
                 | {{_ 'admin-announcement'}}
             li(class="{{#if isAccessibilitySetting}}active{{/if}}")
               a.js-setting-menu(data-id="accessibility-setting")
-                span.emoji-icon ♿
+                span.emoji-icon
+                i.fa.fa-universal-access
                 | {{_ 'accessibility'}}
             li(class="{{#if isLayoutSetting}}active{{/if}}")
               a.js-setting-menu(data-id="layout-setting")
-                span.emoji-icon 🔗
+                span.emoji-icon
+                i.fa.fa-link
                 | {{_ 'layout'}}
             li(class="{{#if isWebhookSetting}}active{{/if}}")
               a.js-setting-menu(data-id="webhook-setting")
-                span.emoji-icon 🌐
+                span.emoji-icon
+                i.fa.fa-globe
                 | {{_ 'global-webhook'}}
             li(class="{{#if isAttachmentSettings}}active{{/if}}")
               a.js-setting-menu(data-id="attachment-settings")
-                span.emoji-icon 📎
+                span.emoji-icon
+                i.fa.fa-paperclip
                 | {{_ 'attachments'}}
             li(class="{{#if isCronSettings}}active{{/if}}")
               a.js-setting-menu(data-id="cron-settings")
-                span.emoji-icon ⏰
+                span.emoji-icon
+                i.fa.fa-clock
                 | {{_ 'cron'}}
         .main-body
           if isLoading

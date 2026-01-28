@@ -6,9 +6,10 @@ template(name="minicard")
     if canMoveCard
       if isTouchScreenOrShowDesktopDragHandles
         .handle
-          | ↕️
+          i.fa.fa-arrows
     if canModifyCard
-      a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}") ☰
+      a.minicard-details-menu-with-handle.js-open-minicard-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+        i.fa.fa-bars
     .dates
       if getReceived
         .date
@@ -32,7 +33,7 @@ template(name="minicard")
     if hasActiveUploads
       .minicard-upload-progress
         .upload-progress-header
-          | 📤
+          i.fa.fa-upload
           span {{_ 'uploading-files'}} ({{uploadCount}})
         each uploads
           .upload-progress-item(class="{{#if $eq status 'error'}}upload-error{{/if}}")
@@ -41,12 +42,11 @@ template(name="minicard")
               .upload-progress-fill(style="width: {{progress}}%")
             if $eq status 'error'
               .upload-progress-error
-                | ⚠️
+                i.fa.fa-warning
                 span {{_ 'upload-failed'}}
             else if $eq status 'completed'
               .upload-progress-success
-                | ✅
-                span {{_ 'upload-completed'}}
+                i.fa.fa-check                span {{_ 'upload-completed'}}
 
     .minicard-title
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
@@ -57,12 +57,15 @@ template(name="minicard")
           | {{ parentCardName }}
       if isLinkedBoard
         a.js-linked-link
-          span.linked-icon | 📁
+          span.linked-icon
+            i.fa.fa-folder
       else if isLinkedCard
         a.js-linked-link
-          span.linked-icon | 🃏
+          span.linked-icon
+            i.fa.fa-id-card
       if getArchived
-        span.linked-icon.linked-archived | 📦
+        span.linked-icon.linked-archived
+          i.fa.fa-archive
       +viewer
         if currentBoard.allowsCardNumber
           span.card-number
@@ -143,7 +146,8 @@ template(name="minicard")
       if canModifyCard
         if comments.length
           .badge(title="{{_ 'card-comments-title' comments.length }}")
-            span.badge-icon.badge-comment.badge-text 💬
+            span.badge-icon.badge-comment.badge-text
+              i.fa.fa-comment-o
               = ' '
               = comments.length
             //span.badge-comment.badge-text
@@ -151,32 +155,39 @@ template(name="minicard")
       if getDescription
         unless currentBoard.allowsDescriptionTextOnMinicard
           .badge.badge-state-image-only(title=getDescription)
-            span.badge-icon 📝
+            span.badge-icon
+              i.fa.fa-file-text-o
       if getVoteQuestion
         .badge.badge-state-image-only(title=getVoteQuestion)
-          span.badge-icon(class="{{#if voteState}}text-green{{/if}}") 👍
+          span.badge-icon(class="{{#if voteState}}text-green{{/if}}")
+            i.fa.fa-thumbs-up
           span.badge-text {{ voteCountPositive }}
-          span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}") 👎
+          span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}")
+            i.fa.fa-thumbs-down
           span.badge-text {{ voteCountNegative }}
       if getPokerQuestion
         .badge.badge-state-image-only(title=getPokerQuestion)
-          span.badge-icon(class="{{#if pokerState}}text-green{{/if}}") ✅
+          span.badge-icon(class="{{#if pokerState}}text-green{{/if}}")
+            i.fa.fa-check-square
           if expiredPoker
             span.badge-text {{ getPokerEstimation }}
       if attachments.length
         if currentBoard.allowsBadgeAttachmentOnMinicard
           .badge
-            span.badge-icon 📎
+            span.badge-icon
+              i.fa.fa-paperclip
             span.badge-text= attachments.length
       if allSubtasks.count
         .badge
-          span.badge-icon 🌐
+          span.badge-icon
+            i.fa.fa-globe
           span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
           //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
       if currentBoard.allowsCardSortingByNumber
         if currentBoard.allowsCardSortingByNumberOnMinicard
           .badge
-            span.badge-icon 🔢
+            span.badge-icon
+              i.fa.fa-sort-numeric-asc
             span.badge-text.check-list-sort {{ sort }}
     if shouldShowChecklistAtMinicard
       each shouldShowChecklistAtMinicard
@@ -188,7 +199,7 @@ template(name="minicard")
             | {{ getDescription }}
     if shouldShowListOnMinicard
       .minicard-list-name
-        | 📋
+        i.fa.fa-list
         | {{ listName }}
     if $eq 'subtext-with-full-path' currentBoard.presentParentTask
       .parent-subtext
@@ -207,7 +218,8 @@ template(name="minicardChecklist")
     .checklist-header
       .checklist-title= checklist.title
       if canModifyCard
-        a.checklist-menu.js-open-checklist-menu(title="{{_ 'checklistActionsPopup-title'}}") ☰
+        a.checklist-menu.js-open-checklist-menu(title="{{_ 'checklistActionsPopup-title'}}")
+          i.fa.fa-bars
     each visibleItems
       +checklistItemDetail(item = . checklist = checklist card = card)
 

@@ -82,3 +82,5 @@ Blaze.registerHelper('canModifyBoard', () =>
 );
 
 Blaze.registerHelper('add', (a, b) => a + b);
+
+Blaze.registerHelper('increment', (n) => (n || 0) + 1);

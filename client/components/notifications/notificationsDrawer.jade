@@ -1,42 +1,54 @@
 template(name='notificationsDrawer')
   section#notifications-drawer(class="{{#if $.Session.get 'showReadNotifications'}}show-read{{/if}}")
     .header
-      a.notification-menu-toggle ☰
+      a.notification-menu-toggle
+        i.fa.fa-bars
       .notification-menu(class="{{#if $.Session.get 'showNotificationMenu'}}is-open{{/if}}")
         .menu-section
           a.menu-item(class="{{#unless $.Session.get 'showReadNotifications'}}selected{{/unless}}")
-            span.check-icon {{#unless $.Session.get 'showReadNotifications'}}✓{{/unless}}
-            span.menu-icon 📭
+            span.check-icon
+              if $not $.Session.get 'showReadNotifications'
+                i.fa.fa-check
+            span.menu-icon
+              i.fa.fa-envelope-open
             span {{_ 'filter-by-unread'}}
           a.menu-item(class="{{#if $.Session.get 'showReadNotifications'}}selected{{/if}}")
-            span.check-icon {{#if $.Session.get 'showReadNotifications'}}✓{{/if}}
-            span.menu-icon 📋
+            span.check-icon
+              if $.Session.get 'showReadNotifications'
+                i.fa.fa-check
+            span.menu-icon
+              i.fa.fa-copy
             span {{_ 'view-all'}}
         .menu-divider
         .menu-section
           if($gt unreadNotifications 0)
             a.menu-item.mark-all-read
               span.check-icon
-              span.menu-icon ✅
+              span.menu-icon
+                i.fa.fa-check
               span {{_ 'mark-all-as-read'}}
           if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
             a.menu-item.mark-all-unread
               span.check-icon
-              span.menu-icon 📬
+              span.menu-icon
+                i.fa.fa-envelope-open
               span {{_ 'mark-all-as-unread'}}
           if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
             a.menu-item.delete-read
               span.check-icon
-              span.menu-icon 🗑️
+              span.menu-icon
+                i.fa.fa-trash
               span {{_ 'remove-all-read'}}
           a.menu-item.delete-all
             span.check-icon
-            span.menu-icon 🗑️
+            span.menu-icon
+              i.fa.fa-trash
             span {{_ 'delete-all-notifications'}}
       h5 {{_ 'notifications'}}
         if($gt unreadNotifications 0)
           |(#{unreadNotifications})
-      a.close ❌
+      a.close
+        i.fa.fa-times-thin
     ul.notifications
       each notifications
         +notification(activityData=activityObj index=dbIndex read=read)

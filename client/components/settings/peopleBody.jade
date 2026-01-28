@@ -9,34 +9,34 @@ template(name="people")
             +spinner
           else if orgSetting.get
             span
-              | 🌐
+              i.fa.fa-globe
               unless isMiniScreen
                 | {{_ 'organizations'}}
             input#searchOrgInput(placeholder="{{_ 'search'}}")
             button#searchOrgButton
-              | 🔍
+              i.fa.fa-search
               | {{_ 'search'}}
             .ext-box-right
               span {{#unless isMiniScreen}}{{_ 'org-number'}}{{/unless}} #{orgNumber}
           else if teamSetting.get
             span
-              | 👥
+              i.fa.fa-users
               unless isMiniScreen
                 | {{_ 'teams'}}
             input#searchTeamInput(placeholder="{{_ 'search'}}")
             button#searchTeamButton
-              | 🔍
+              i.fa.fa-search
               | {{_ 'search'}}
             .ext-box-right
               span {{#unless isMiniScreen}}{{_ 'team-number'}}{{/unless}} #{teamNumber}
           else if peopleSetting.get
             span
-              | 👤
+              i.fa.fa-user
               unless isMiniScreen
                 | {{_ 'people'}}
             input#searchInput(placeholder="{{_ 'search'}}")
             button#searchButton
-              | 🔍
+              i.fa.fa-search
               | {{_ 'search'}}
             .divLockedUsersFilter
               .flex-container
@@ -48,17 +48,19 @@ template(name="people")
                   option(value="inactive") {{_ 'admin-people-filter-inactive'}}
                   option(value="admin") Admin
               button#unlockAllUsers.unlock-all-btn
-                span.emoji-icon 🔓
+                span.emoji-icon
+                i.fa.fa-unlock
                 | {{_ 'accounts-lockout-unlock-all'}}
             .ext-box-right
               span {{#unless isMiniScreen}}{{_ 'people-number'}}{{/unless}} #{peopleNumber}
             .divAddOrRemoveTeam#divAddOrRemoveTeam
               button#addOrRemoveTeam
-                | ✏️
+                i.fa.fa-pencil-square-o
                 | {{_ 'add'}} / {{_ 'delete'}} {{_ 'teams'}}
           else if lockedUsersSetting.get
             span
-              span.emoji-icon.text-red 🔒
+              span.emoji-icon.text-red
+                i.fa.fa-lock
               unless isMiniScreen
                 | {{_ 'accounts-lockout-locked-users'}}
 
@@ -67,19 +69,20 @@ template(name="people")
           ul
             li.active
               a.js-org-menu(data-id="org-setting")
-                | 🌐
+                i.fa.fa-globe
                 | {{_ 'organizations'}}
             li
               a.js-team-menu(data-id="team-setting")
-                | 👥
+                i.fa.fa-users
                 | {{_ 'teams'}}
             li
               a.js-people-menu(data-id="people-setting")
-                | 👤
+                i.fa.fa-user
                 | {{_ 'people'}}
             li
               a.js-locked-users-menu(data-id="locked-users-setting")
-                span.emoji-icon.text-red 🔒
+                span.emoji-icon.text-red
+                  i.fa.fa-lock
                 | {{_ 'accounts-lockout-locked-users'}}
         .main-body
           if loading.get
@@ -155,17 +158,17 @@ template(name="selectAllUser")
 
 template(name="newOrgRow")
   a.new-org
-    | ➕
+    i.fa.fa-plus
     | {{_ 'new'}}
 
 template(name="newTeamRow")
   a.new-team
-    | ➕
+    i.fa.fa-plus
     | {{_ 'new'}}
 
 template(name="newUserRow")
   a.new-user
-    | ➕
+    i.fa.fa-plus
     | {{_ 'new'}}
 
 template(name="orgRow")
@@ -197,7 +200,7 @@ template(name="orgRow")
         | {{_ 'no'}}
     td
       a.edit-org
-        | ✏️
+        i.fa.fa-pencil-square-o
         | {{_ 'edit'}}
       a.more-settings-org
         | ⋯
@@ -231,7 +234,7 @@ template(name="teamRow")
         | {{_ 'no'}}
     td
       a.edit-team
-        | ✏️
+        i.fa.fa-pencil-square-o
         | {{_ 'edit'}}
       a.more-settings-team
         | ⋯
@@ -240,7 +243,7 @@ template(name="peopleRow")
   tr
     td
       a.edit-user
-        | ✏️
+        i.fa.fa-pencil-square-o
         | {{_ 'edit'}}
       a.more-settings-user
         | ⋯
@@ -268,14 +271,18 @@ template(name="peopleRow")
           | {{_ 'no'}}
     td.account-active-status
       if userData.loginDisabled
-        span.text-red.js-toggle-active-status(data-user-id=userData._id, data-is-active="false", title="{{_ 'admin-people-user-inactive'}}") 🚫
+        span.text-red.js-toggle-active-status(data-user-id=userData._id, data-is-active="false", title="{{_ 'admin-people-user-inactive'}}")
+          i.fa.fa-ban
       else
-        span.text-green.js-toggle-active-status(data-user-id=userData._id, data-is-active="true", title="{{_ 'admin-people-user-active'}}") ✅
+        span.text-green.js-toggle-active-status(data-user-id=userData._id, data-is-active="true", title="{{_ 'admin-people-user-active'}}")
+          i.fa.fa-check
     td.account-status
       if isUserLocked
-        span.text-red.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}") 🔒
+        span.text-red.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}")
+          i.fa.fa-lock
       else
-        span.text-green.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}") 🔓
+        span.text-green.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}")
+          i.fa.fa-unlock
     if userData.loginDisabled
       td <s>{{ moment userData.createdAt 'LLL' }}</s>
     else
@@ -395,8 +402,10 @@ template(name="editUserPopup")
             option(value="{{value}}") {{_ value}}
     label
       | {{_ 'organizations'}}
-      span#addUserOrg ➕
-      span#removeUserOrg ➖
+      span#addUserOrg
+        i.fa.fa-plus
+      span#removeUserOrg
+        i.fa.fa-minus
       select.js-orgs#jsOrgs
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
@@ -405,8 +414,10 @@ template(name="editUserPopup")
       input#jsUserOrgIdsInPut.js-userOrgIds.hide(type="hidden" value=user.orgIdsUserBelongs)
     label
       | {{_ 'teams'}}
-      span#addUserTeam ➕
-      span#removeUserTeam ➖
+      span#addUserTeam
+        i.fa.fa-plus
+      span#removeUserTeam
+        i.fa.fa-minus
       select.js-teams#jsTeams
         option(value="-1") {{_ 'teams'}} :
         each value in teamsDatas
@@ -538,8 +549,10 @@ template(name="newUserPopup")
             option(value="{{value}}") {{_ value}}
     label
       | {{_ 'organizations'}}
-      span#addUserOrgNewUser ➕
-      span#removeUserOrgNewUser ➖
+      span#addUserOrgNewUser
+        i.fa.fa-plus
+      span#removeUserOrgNewUser
+        i.fa.fa-minus
       select.js-orgsNewUser#jsOrgsNewUser
         option(value="-1") {{_ 'organizations'}} :
         each value in orgsDatas
@@ -548,8 +561,10 @@ template(name="newUserPopup")
       input#jsUserOrgIdsInPutNewUser.js-userOrgIdsNewUser.hide(type="text" value=user.orgIdsUserBelongs)
     label
       | {{_ 'teams'}}
-      span#addUserTeamNewUser ➕
-      span#removeUserTeamNewUser ➖
+      span#addUserTeamNewUser
+        i.fa.fa-plus
+      span#removeUserTeamNewUser
+        i.fa.fa-minus
       select.js-teamsNewUser#jsTeamsNewUser
         option(value="-1") {{_ 'teams'}} :
         each value in teamsDatas
@@ -583,7 +598,7 @@ template(name="settingsOrgPopup")
   // to impersonate organization?
   //  li
   //    a.impersonate-org
-  //      | 👤
+  //      i.fa.fa-user
   //      | {{_ 'impersonate-org'}}
   //
   //
@@ -606,7 +621,7 @@ template(name="settingsUserPopup")
   ul.pop-over-list
     li
       a.impersonate-user
-        | 👤
+        i.fa.fa-user
         | {{_ 'impersonate-user'}}
     br
     hr

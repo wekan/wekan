@@ -10,6 +10,9 @@
   max-height: 100%;
   position: relative;
 }
+.swimlane.js-lists.js-swimlane {
+  min-height: 150px;
+}
 .swimlane-header-menu .swimlane-header-collapse-down {
   font-size: 50%;
   color: #a6a6a6;
@@ -73,6 +76,10 @@
   position: relative;
   z-index: 10;
   pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu {
   position: absolute;
@@ -89,7 +96,10 @@
   top: calc(50% + 6px);
   padding: 5px;
   display: inline-block;
-  margin-left: 74px;
+  margin-left: 30px;
+  color: #a6a6a6;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 @media print {
   .swimlane .swimlane-header-wrap .swimlane-header-menu {
@@ -100,6 +110,7 @@
   top: calc(50% + 6px);
   padding: 5px;
   font-size: 22px;
+  color: #a6a6a6;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
   top: calc(50% + 6px);
@@ -107,29 +118,29 @@
   font-size: 22px;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-handle {
-  position: absolute;
+  position: relative;
   top: calc(50% + 2px);
-  right: 60px;
-  padding: 2px;
+  padding: 2px 5px;
   font-size: clamp(16px, 3vw, 20px);
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 30px;
   cursor: move;
-  z-index: 15;
   pointer-events: auto;
+  color: #a6a6a6;
+  line-height: 1.2;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
-  position: absolute;
-  padding: 2px;
+  position: relative;
+  padding: 2px 5px;
   top: calc(50% + 2px);
-  transform: translateY(-50%);
-  right: 60px;
   font-size: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 30px;
   cursor: move;
-  z-index: 15;
   pointer-events: auto;
+  color: #a6a6a6;
 }
 
 /* Swimlane collapse button styling - matches list collapse button */
@@ -137,14 +148,13 @@
   color: #a6a6a6;
   display: inline-block;
   vertical-align: middle;
-  padding: 5px 8px;
+  padding: 5px;
   border: none;
   border-radius: 0;
   background-color: transparent;
   cursor: pointer;
   font-size: 18px;
-  line-height: 1;
-  min-width: 30px;
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
   margin: 0;
@@ -152,6 +162,19 @@
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator:hover {
   background-color: transparent;
+  color: #333;
+}
+
+.swimlane .swimlane-header-wrap .swimlane-header-menu .js-open-swimlane-menu:hover {
+  color: #333;
+}
+
+.swimlane .swimlane-header-wrap .swimlane-header-plus-icon:hover {
+  color: #333;
+}
+
+.swimlane .swimlane-header-wrap .swimlane-header-handle:hover,
+.swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle:hover {
   color: #333;
 }
 

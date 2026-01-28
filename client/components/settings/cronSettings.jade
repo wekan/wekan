@@ -82,13 +82,13 @@ template(name="cronMigrations")
         | {{_ 'database-migrations'}}
       .migration-controls
         button.btn.btn-primary.js-start-all-migrations
-          | ▶️
+          i.fa.fa-play
           | {{_ 'start-all-migrations'}}
         button.btn.btn-warning.js-pause-all-migrations
-          | ⏸️
+          i.fa.fa-pause
           | {{_ 'pause-all-migrations'}}
         button.btn.btn-danger.js-stop-all-migrations
-          | ⏹️
+          i.fa.fa-stop
           | {{_ 'stop-all-migrations'}}
     
     .migration-progress
@@ -99,11 +99,11 @@ template(name="cronMigrations")
         .progress-label {{_ 'overall-progress'}}
       
       .current-step
-        | ⚙️
+        i.fa.fa-cog
         | {{migrationCurrentStep}}
       
       .migration-status
-        | ℹ️
+        i.fa.fa-info-circle
         | {{migrationStatus}}
     
     .migration-steps
@@ -114,11 +114,11 @@ template(name="cronMigrations")
             .step-header
               .step-icon
                 if completed
-                  | ✅
+                  i.fa.fa-check
                 else if isCurrentStep
-                  | ⚙️
+                  i.fa.fa-cog
                 else
-                  | ⭕
+                  i.fa.fa-circle-o
               .step-info
                 .step-name {{name}}
                 .step-description {{description}}
@@ -137,17 +137,17 @@ template(name="cronBoardOperations")
   .cron-board-operations
     .board-operations-header
       h2
-        | 📋
+        i.fa.fa-list
         | {{_ 'board-operations'}}
       .board-operations-controls
         button.btn.btn-success.js-refresh-board-operations
-          | 🔄
+          i.fa.fa-recycle
           | {{_ 'refresh'}}
         button.btn.btn-primary.js-start-test-operation
-          | ▶️
+          i.fa.fa-play
           | {{_ 'start-test-operation'}}
         button.btn.btn-info.js-force-board-scan
-          | 🔍
+          i.fa.fa-search
           | {{_ 'force-board-scan'}}
     
     .board-operations-stats
@@ -195,7 +195,7 @@ template(name="cronBoardOperations")
     .board-operations-search
       .search-box
         input.form-control.js-search-board-operations(type="text" placeholder="{{_ 'search-boards-or-operations'}}")
-        | 🔍.search-icon
+        i.fa.fa-search.search-icon
     
     .board-operations-list
       .operations-header
@@ -234,36 +234,36 @@ template(name="cronBoardOperations")
                   .btn-group
                     if isRunning
                       button.btn.btn-sm.btn-warning.js-pause-operation(data-operation="{{id}}")
-                        | ⏸️
+                        i.fa.fa-pause
                     else
                       button.btn.btn-sm.btn-success.js-resume-operation(data-operation="{{id}}")
-                        | ▶️
+                        i.fa.fa-play
                     button.btn.btn-sm.btn-danger.js-stop-operation(data-operation="{{id}}")
-                      | ⏹️
+                      i.fa.fa-stop
                     button.btn.btn-sm.btn-info.js-view-details(data-operation="{{id}}")
-                      | ℹ️
+                      i.fa.fa-info-circle
       
       .pagination
         if pagination.hasPrev
           button.btn.btn-sm.btn-default.js-prev-page
-            | ◀️
+            i.fa.fa-caret-left
             | {{_ 'previous'}}
         .page-info
           | {{_ 'page'}} {{pagination.page}} {{_ 'of'}} {{pagination.totalPages}}
         if pagination.hasNext
           button.btn.btn-sm.btn-default.js-next-page
             | {{_ 'next'}}
-            | ▶️
+            i.fa.fa-caret-right
 
 template(name="cronJobs")
   .cron-jobs
     .jobs-header
       h2
-        | ⏰
+        i.fa.fa-clock-o
         | {{_ 'cron-jobs'}}
       .jobs-controls
         button.btn.btn-success.js-refresh-jobs
-          | 🔄
+          i.fa.fa-refresh
           | {{_ 'refresh'}}
     
     .jobs-list
@@ -289,20 +289,20 @@ template(name="cronJobs")
                 .btn-group
                   if isRunning
                     button.btn.btn-sm.btn-warning.js-pause-job(data-job="{{name}}")
-                      | ⏸️
+                      i.fa.fa-pause
                   else
                     button.btn.btn-sm.btn-success.js-start-job(data-job="{{name}}")
-                      | ▶️
+                      i.fa.fa-caret-right
                   button.btn.btn-sm.btn-danger.js-stop-job(data-job="{{name}}")
-                    | ⏹️
+                    i.fa.fa-stop
                   button.btn.btn-sm.btn-danger.js-remove-job(data-job="{{name}}")
-                    | 🗑️
+                    i.fa.fa-trash
 
 template(name="cronAddJob")
   .cron-add-job
     .add-job-header
       h2
-        | ➕
+        i.fa.fa-plus
         | {{_ 'add-cron-job'}}
     
     .add-job-form
@@ -333,8 +333,8 @@ template(name="cronAddJob")
         
         .form-actions
           button.btn.btn-primary(type="submit")
-            | ➕
+            i.fa.fa-plus
             | {{_ 'add-job'}}
           button.btn.btn-default.js-cancel-add-job
-            | ❌
+            i.fa.fa-times-thin
             | {{_ 'cancel'}}

@@ -436,9 +436,16 @@
   background-color: #999; /* Darker background for better text contrast */
   border-radius: 3px;
   padding: 36px 8px 32px 8px;
+  color: #fff; /* White text */
+}
+.board-list .js-add-board .label i {
+  color: #fff; /* White icon */
 }
 .board-list .js-add-board .label:hover {
   background-color: #808080; /* Even darker on hover */
+}
+.board-list .js-add-board .label:hover i {
+  color: #fff; /* Keep icon white on hover */
 }
 .board-list .is-star-active,
 .board-list .is-not-star-active {

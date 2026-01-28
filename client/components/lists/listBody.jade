@@ -2,9 +2,8 @@ template(name="listBody")
   unless collapsed
     .list-body(class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}")
       .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
-        if cards.length
-          +inlinedForm(autoclose=false position="top")
-            +addCardForm(listId=_id position="top")
+        +inlinedForm(autoclose=false position="top")
+          +addCardForm(listId=_id position="top")
         ul.sidebar-list
           each customFieldsSum
             li
@@ -26,13 +25,8 @@ template(name="listBody")
             +minicard(this)
         if (showSpinner (idOrNull ../../_id))
           +spinnerList
-
-        if canSeeAddCard
-          +inlinedForm(autoclose=false position="bottom")
-            +addCardForm(listId=_id position="bottom")
-          else
-            a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
-              | ➕
+        +inlinedForm(autoclose=false position="bottom")
+          +addCardForm(listId=_id position="bottom")
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-list(
@@ -54,7 +48,8 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    a.js-close-inlined-form | ❌
+    a.js-close-inlined-form
+      i.fa.fa-times-thin
   .add-controls.clearfix
     unless currentBoard.isTemplatesBoard
       unless currentBoard.isTemplateBoard

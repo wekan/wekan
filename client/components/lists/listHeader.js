@@ -123,15 +123,6 @@ BlazeComponent.extendComponent({
           this.collapsed(!this.collapsed());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
-        'click .js-add-card.list-header-plus-top'(event) {
-          const listDom = $(event.target).parents(
-            `#js-list-${this.currentData()._id}`,
-          )[0];
-          const listComponent = BlazeComponent.getComponentForElement(listDom);
-          listComponent.openForm({
-            position: 'top',
-          });
-        },
         'click .js-unselect-list'() {
           Session.set('currentList', null);
         },
@@ -204,14 +195,27 @@ Template.listActionPopup.helpers({
 
 Template.listActionPopup.events({
   'click .js-list-subscribe'() {},
+  'click .js-add-card.list-header-plus-top'(event) {
+    const listDom = $(`#js-list-${this._id}`)[0];
+    const listComponent = BlazeComponent.getComponentForElement(listDom);
+    if (listComponent) {
+      listComponent.openForm({
+        position: 'top',
+      });
+    }
+    Popup.back();
+  },
   'click .js-add-card.list-header-plus-bottom'(event) {
     const listDom = $(`#js-list-${this._id}`)[0];
     const listComponent = BlazeComponent.getComponentForElement(listDom);
-    listComponent.openForm({
-      position: 'bottom',
-    });
+    if (listComponent) {
+      listComponent.openForm({
+        position: 'bottom',
+      });
+    }
     Popup.back();
   },
+  'click .js-add-list': Popup.open('addList'),
   'click .js-set-list-width': Popup.open('setListWidth'),
   'click .js-set-color-list': Popup.open('setListColor'),
   'click .js-select-cards'() {
@@ -440,3 +444,105 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('setListWidthPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Utils.getCurrentBoard();
+    this.currentSwimlaneId = new ReactiveVar(null);
+    this.currentListId = new ReactiveVar(null);
+    
+    // Get the swimlane context from opener
+    const openerData = Popup.getOpenerComponent()?.data();
+    
+    // If opened from swimlane menu, openerData is the swimlane
+    if (openerData?.type === 'swimlane' || openerData?.type === 'template-swimlane') {
+      this.currentSwimlane = openerData;
+      this.currentSwimlaneId.set(openerData._id);
+    } else if (openerData?._id) {
+      // If opened from list menu, get swimlane from the list
+      const list = ReactiveCache.getList({ _id: openerData._id });
+      this.currentSwimlane = list?.swimlaneId ? ReactiveCache.getSwimlane({ _id: list.swimlaneId }) : null;
+      this.currentSwimlaneId.set(this.currentSwimlane?._id || null);
+      this.currentListId.set(openerData._id);
+    }
+  },
+
+  currentSwimlaneData() {
+    const swimlaneId = this.currentSwimlaneId.get();
+    return swimlaneId ? ReactiveCache.getSwimlane({ _id: swimlaneId }) : null;
+  },
+
+  currentListIdValue() {
+    return this.currentListId.get();
+  },
+
+  swimlaneLists() {
+    const swimlaneId = this.currentSwimlaneId.get();
+    if (swimlaneId) {
+      return ReactiveCache.getLists({ swimlaneId, archived: false }).sort((a, b) => a.sort - b.sort);
+    }
+    return this.currentBoard.lists;
+  },
+
+  events() {
+    return [
+      {
+        'submit .js-add-list-form'(evt) {
+          evt.preventDefault();
+
+          const titleInput = this.find('.list-name-input');
+          const title = titleInput?.value.trim();
+
+          if (!title) return;
+
+          let sortIndex = 0;
+          const boardId = Utils.getCurrentBoardId();
+          const swimlaneId = this.currentSwimlane?._id;
+
+          const positionInput = this.find('.list-position-input');
+
+          if (positionInput && positionInput.value) {
+            const positionId = positionInput.value.trim();
+            const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
+
+            if (selectedList) {
+              sortIndex = selectedList.sort + 1;
+            } else {
+              // No specific position, add at end of swimlane
+              if (swimlaneId) {
+                const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
+                const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
+                sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
+              } else {
+                const lastList = this.currentBoard.getLastList();
+                sortIndex = Utils.calculateIndexData(lastList, null).base;
+              }
+            }
+          } else {
+            // No position input, add at end of swimlane
+            if (swimlaneId) {
+              const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
+              const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
+              sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
+            } else {
+              const lastList = this.currentBoard.getLastList();
+              sortIndex = Utils.calculateIndexData(lastList, null).base;
+            }
+          }
+
+          Lists.insert({
+            title,
+            boardId: Session.get('currentBoard'),
+            sort: sortIndex,
+            type: 'list',
+            swimlaneId: swimlaneId,
+          });
+
+          Popup.back();
+        },
+        'click .js-list-template': Popup.open('searchElement'),
+      },
+    ];
+  },
+}).register('addListPopup');
+

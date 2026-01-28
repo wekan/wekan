@@ -1,6 +1,6 @@
 template(name="subtasks")
   h3.card-details-item-title
-    | 🌐
+    i.fa.fa-globe
     | {{_ 'subtasks'}}
   if currentUser.isBoardAdmin
     if toggleDeleteDialog.get
@@ -16,7 +16,7 @@ template(name="subtasks")
       +addSubtaskItemForm
     else
       a.js-open-inlined-form(title="{{_ 'add-subtask'}}")
-        | ➕
+        i.fa.fa-plus
 
 template(name="subtaskDetail")
   .js-subtasks.subtask
@@ -68,18 +68,20 @@ template(name="subtasksItems")
         +addSubtaskItemForm
       else
         a.add-subtask-item.js-open-inlined-form
-          | ➕
+          i.fa.fa-plus
           | {{_ 'add-subtask-item'}}...
 
 template(name='subtaskItemDetail')
   .js-subtasks-item.subtasks-item
     if canModifyCard
-      span.check-box-unicode {{#if item.isFinished }}✅{{else}}⬜{{/if}}
+      span.check-box-unicode
+        i.fa(class="{{#if item.isFinished}}fa-check-square{{else}}fa-square-o{{/if}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
     else
-      span.check-box-unicode {{#if item.isFinished }}✅{{else}}⬜{{/if}}
+      span.check-box-unicode
+        i.fa(class="{{#if item.isFinished}}fa-check-square{{else}}fa-square-o{{/if}}")
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
@@ -92,10 +94,10 @@ template(name="subtaskActionsPopup")
   ul.pop-over-list
     li
       a.js-view-subtask(title="{{ subtask.title }}")
-        | 👁️
+        i.fa.fa-eye
         | {{_ "view-it"}}
       if currentUser.isBoardAdmin
         a.js-delete-subtask.delete-subtask
-          | 🗑️
+          i.fa.fa-trash
           | {{_ "delete"}} ...
 
