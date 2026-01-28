@@ -1,4 +1,3 @@
-import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
 
@@ -18,7 +17,10 @@ const OldAttachmentsFileRecord = new Mongo.Collection('cfs.attachments.filerecor
  */
 export function isNewAttachmentStructure(attachmentId) {
   if (Meteor.isServer) {
-    return !!ReactiveCache.getAttachment(attachmentId);
+    // Access global Attachments variable to avoid circular dependency
+    if (typeof Attachments !== 'undefined' && Attachments.collection) {
+      return !!Attachments.collection.findOne({ _id: attachmentId });
+    }
   }
   return false;
 }
@@ -174,13 +176,19 @@ function isPDFFile(mimeType) {
  * @returns {Object|null} - Attachment data or null if not found
  */
 export function getAttachmentWithBackwardCompatibility(attachmentId) {
-  // First try new structure
-  if (isNewAttachmentStructure(attachmentId)) {
-    return ReactiveCache.getAttachment(attachmentId);
+  // First try new structure - access global to avoid circular dependency
+  if (Meteor.isServer) {
+    if (typeof Attachments !== 'undefined' && Attachments.collection) {
+      const newAttachment = Attachments.collection.findOne({ _id: attachmentId });
+      if (newAttachment) {
+        return newAttachment;
+      }
+    }
   }
 
   // Fall back to old structure
-  return getOldAttachmentData(attachmentId);
+  const oldAttachment = getOldAttachmentData(attachmentId);
+  return oldAttachment;
 }
 
 /**
@@ -189,7 +197,15 @@ export function getAttachmentWithBackwardCompatibility(attachmentId) {
  * @returns {Array} - Array of attachments
  */
 export function getAttachmentsWithBackwardCompatibility(query) {
-  const newAttachments = ReactiveCache.getAttachments(query);
+  let newAttachments = [];
+
+  // Get new attachments - access global to avoid circular dependency
+  if (Meteor.isServer) {
+    if (typeof Attachments !== 'undefined' && Attachments.collection) {
+      newAttachments = Attachments.collection.find(query).fetch();
+    }
+  }
+
   const oldAttachments = [];
 
   if (Meteor.isServer) {

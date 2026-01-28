@@ -12,12 +12,17 @@ FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
+    // Redirect to sign-in immediately if user is not logged in
+    if (!Meteor.userId()) {
+      FlowRouter.go('atSignIn');
+      return;
+    }
+
     Session.set('currentBoard', null);
     Session.set('currentList', null);
     Session.set('currentCard', null);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
-
     Filter.reset();
     Session.set('sortBy', '');
     EscapeActions.executeAll();
@@ -137,7 +142,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Session.set('currentCard', params.cardId);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
-    
+
     // In desktop mode, add to openCards array to support multiple cards
     const isMobile = Utils.getMobileMode();
     if (!isMobile) {
@@ -162,17 +167,15 @@ FlowRouter.route('/b/:id/:slug', {
   name: 'board',
   action(params) {
     const pathSegments = FlowRouter.current().path.split('/').filter(s => s);
-    
+
     // If we have 4+ segments (b, boardId, slug, cardId), this is a card view
     if (pathSegments.length >= 4) {
       return;
     }
-    
     // If slug contains "/" it means a cardId was matched by this greedy pattern
     if (params.slug && params.slug.includes('/')) {
       return;
     }
-    
     const currentBoard = params.id;
     const previousBoard = Session.get('currentBoard');
     Session.set('currentBoard', currentBoard);

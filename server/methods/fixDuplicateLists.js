@@ -4,7 +4,7 @@ import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Cards from '/models/cards';
-import ReactiveCache from '/imports/reactiveCache';
+import { ReactiveCache } from '/imports/reactiveCache';
 
 /**
  * Fix duplicate lists and swimlanes created by WeKan 8.10
