@@ -54,17 +54,17 @@ template(name="memberMenuPopup")
             | ❓
             | {{_ 'help'}}
       unless currentUser.isWorker
-        ul.pop-over-list
-          li
-            a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
-              | 📋
-              | {{_ 'templates'}}
+        li
+          a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
+            | 📋
+            | {{_ 'templates'}}
       if currentUser.isAdmin
         li
           a.js-go-setting(href="{{pathFor 'setting'}}")
             | 🔒
             | {{_ 'admin-panel'}}
-      hr
+      li
+        hr
       if isSameDomainNameSettingValue
         li
           a.js-invite-people

@@ -116,10 +116,38 @@
   height: calc(100vh - 80px) !important;
 }
 
-/* Ensure language popup list can scroll properly */
-.pop-over .pop-over-list {
+/* NOTE:
+ * Avoid setting popover lists to overflow: visible globally.
+ * It breaks scrolling/clipping in popups like Member Settings.
+ */
+
+/* Member settings dropdown: clip list to rounded popup */
+.pop-over[data-popup="memberMenuPopup"] {
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 20px);
+}
+
+/* Member settings: make the popup body the scroller */
+.pop-over[data-popup="memberMenuPopup"] .content-wrapper {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: calc(100vh - 80px) !important; /* header + margins */
+}
+
+
+.pop-over[data-popup="memberMenuPopup"] .content-container {
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* Keep lists normal inside Member Settings; wrapper handles scrolling */
+.pop-over[data-popup="memberMenuPopup"] .pop-over-list {
   max-height: none;
-  overflow: visible;
+  overflow: hidden;
 }
 
 /* Specific styling for language popup list */
