@@ -40,7 +40,7 @@ export const TAPi18n = {
     return Object.values(languages).some(({ tag }) => tag === language);
   },
   getSupportedLanguages() {
-    return Object.values(languages).map(({ name, code, tag }) => ({ name, code, tag }));
+    return Object.values(languages).map(({ name, code, tag, rtl }) => ({ name, code, tag, rtl }));
   },
   getLanguage() {
     return this.current.get();
