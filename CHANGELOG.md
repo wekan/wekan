@@ -24,6 +24,15 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Reduce visual overflow in Member Settings menu by extending container height](https://github.com/wekan/wekan/pull/6104).
+  Thanks to AymenHassini19.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.25 2026-01-28 WeKan ® release
 
 This release fixes the following CRITICAL SECURITY ISSUES of [Floppybleed](https://wekan.fi/hall-of-fame/floppybleed/):
