@@ -1,6 +1,5 @@
 "use strict";
 
-const Fiber = Npm.require('fibers');
 const https = Npm.require('https');
 const url = Npm.require('url');
 const xmlParser = Npm.require('xml2js');
@@ -120,20 +119,16 @@ let _userData = {};
 //RoutePolicy.declare('/_cas/', 'network');
 
 // Listen to incoming OAuth http requests
-WebApp.connectHandlers.use((req, res, next) => {
-  // Need to create a Fiber since we're using synchronous http calls and nothing
-  // else is wrapping this in a fiber automatically
-
-  Fiber(() => {
-    middleware(req, res, next);
-  }).run();
-});
+WebApp.connectHandlers.use(Meteor.bindEnvironment((req, res, next) => {
+  middleware(req, res, next);
+}));
 
 const middleware = (req, res, next) => {
   // Make sure to catch any exceptions because otherwise we'd crash
   // the runner
+  let redirectUrl;
   try {
-    urlParsed = url.parse(req.url, true);
+    const urlParsed = url.parse(req.url, true);
 
     // Getting the ticket (if it's defined in GET-params)
     // If no ticket, then request will continue down the default
@@ -150,7 +145,7 @@ const middleware = (req, res, next) => {
     }
 
     const serviceUrl = Meteor.absoluteUrl(urlParsed.href.replace(/^\//g, '')).replace(/([&?])ticket=[^&]+[&]?/g, '$1').replace(/[?&]+$/g, '');
-    const redirectUrl = serviceUrl;//.replace(/([&?])casToken=[^&]+[&]?/g, '$1').replace(/[?&]+$/g, '');
+    redirectUrl = serviceUrl;//.replace(/([&?])casToken=[^&]+[&]?/g, '$1').replace(/[?&]+$/g, '');
 
     // get auth token
     const credentialToken = query.casToken;
@@ -206,7 +201,7 @@ const casValidate = (req, ticket, token, service, callback) => {
  * Register a server-side login handle.
  * It is call after Accounts.callLoginMethod() is call from client.
  */
- Accounts.registerLoginHandler((options) => {
+ Accounts.registerLoginHandler(async (options) => {
   if (!options.cas)
     return undefined;
 
@@ -252,13 +247,13 @@ const casValidate = (req, ticket, token, service, callback) => {
   if (attrs.debug) {
     console.log(`CAS response : ${JSON.stringify(result)}`);
   }
-  let user = Meteor.users.findOne({ 'username': options.username });
+  let user = await Meteor.users.findOneAsync({ 'username': options.username });
   if (! user) {
     if (attrs.debug) {
       console.log(`Creating user account ${JSON.stringify(options)}`);
     }
     const userId = Accounts.insertUserDoc({}, options);
-    user = Meteor.users.findOne(userId);
+    user = await Meteor.users.findOneAsync(userId);
   }
   if (attrs.debug) {
     console.log(`Using user account ${JSON.stringify(user)}`);
