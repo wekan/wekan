@@ -30,7 +30,7 @@ Package.onUse(function(api) {
   api.use('random', ['client', 'server']);
   api.use('accounts-base', ['client', 'server'], {weak: true});
   api.use('webapp', 'server');
-  api.use('http', 'client');
+  api.use('fetch', 'client');
   api.use('tracker', 'client');
   api.use('reactive-var', 'client');
   api.use('check', 'server');
