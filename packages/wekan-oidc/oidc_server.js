@@ -1,13 +1,13 @@
 import {addGroupsWithAttributes, addEmail, changeFullname, changeUsername} from './loginHandler';
 import { fetch, Headers } from 'meteor/fetch';
 import https from 'https';
+import fs from 'fs';
 
 Oidc = {};
 httpCa = false;
 
 if (process.env.OAUTH2_CA_CERT !== undefined) {
     try {
-        const fs = Npm.require('fs');
         if (fs.existsSync(process.env.OAUTH2_CA_CERT)) {
           httpCa = fs.readFileSync(process.env.OAUTH2_CA_CERT);
         }
