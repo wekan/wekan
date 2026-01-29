@@ -2,7 +2,7 @@ import {importNewUsers} from './sync';
 import LDAP from './ldap';
 
 Meteor.methods({
-  ldap_sync_now() {
+  async ldap_sync_now() {
     const user = Meteor.user();
     if (!user) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user', { method: 'ldap_sync_users' });
@@ -18,7 +18,7 @@ Meteor.methods({
 
     this.unblock();
 
-    importNewUsers();
+    await importNewUsers();
 
     return {
       message: 'Sync_in_progress',

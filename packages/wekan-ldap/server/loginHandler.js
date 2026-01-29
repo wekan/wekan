@@ -25,7 +25,7 @@ function fallbackDefaultAccountSystem(bind, username, password) {
   return Accounts._runLoginHandlers(bind, loginRequest);
 }
 
-Accounts.registerLoginHandler('ldap', function(loginRequest) {
+Accounts.registerLoginHandler('ldap', async function(loginRequest) {
   if (!loginRequest.ldap || !loginRequest.ldapOptions) {
     return undefined;
   }
@@ -42,27 +42,27 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
 
   try {
 
-      ldap.connectSync();
+      await ldap.connect();
 
      if (!!LDAP.settings_get('LDAP_USER_AUTHENTICATION')) {
-        ldap.bindUserIfNecessary(loginRequest.username, loginRequest.ldapPass);
-       ldapUser = ldap.searchUsersSync(loginRequest.username)[0];
+        await ldap.bindUserIfNecessary(loginRequest.username, loginRequest.ldapPass);
+       ldapUser = (await ldap.searchUsers(loginRequest.username))[0];
        } else {
 
-       const users = ldap.searchUsersSync(loginRequest.username);
+       const users = await ldap.searchUsers(loginRequest.username);
 
        if (users.length !== 1) {
          log_info('Search returned', users.length, 'record(s) for', loginRequest.username);
          throw new Error('User not Found');
        }
 
-      if (ldap.isUserInGroup(loginRequest.username, users[0])) {
+      if (await ldap.isUserInGroup(loginRequest.username, users[0])) {
         ldapUser = users[0];
       } else {
         throw new Error('User not in a valid group');
       }
 
-      if (ldap.authSync(users[0].dn, loginRequest.ldapPass) !== true) {
+      if (await ldap.auth(users[0].dn, loginRequest.ldapPass) !== true) {
         ldapUser = null;
         log_info('Wrong password for', loginRequest.username)
       }
@@ -96,7 +96,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
     log_info('Querying user');
     log_debug('userQuery', userQuery);
 
-    user = Meteor.users.findOne(userQuery);
+    user = await Meteor.users.findOneAsync(userQuery);
    }
 
   // Attempt to find user by username
@@ -137,7 +137,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
 
     log_debug('userQuery', userQuery);
 
-    user = Meteor.users.findOne(userQuery);
+    user = await Meteor.users.findOneAsync(userQuery);
   }
 
   // Attempt to find user by e-mail address only
@@ -159,7 +159,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
 
     log_debug('userQuery', userQuery);
 
-    user = Meteor.users.findOne(userQuery);
+    user = await Meteor.users.findOneAsync(userQuery);
 
   }
 
@@ -182,15 +182,15 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
     if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
       log_debug('Updating admin status');
       const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
-      const groups = ldap.getUserGroups(username, ldapUser).filter((value) => targetGroups.includes(value));
+      const groups = (await ldap.getUserGroups(username, ldapUser)).filter((value) => targetGroups.includes(value));
 
       user.isAdmin = groups.length > 0;
-      Meteor.users.update({_id: user._id}, {$set: {isAdmin: user.isAdmin}});
+      await Meteor.users.updateAsync({_id: user._id}, {$set: {isAdmin: user.isAdmin}});
     }
 
     if( LDAP.settings_get('LDAP_SYNC_GROUP_ROLES') === true ) {
       log_debug('Updating Groups/Roles');
-      const groups = ldap.getUserGroups(username, ldapUser);
+      const groups = await ldap.getUserGroups(username, ldapUser);
 
       if( groups.length > 0 ) {
         Roles.setUserRoles(user._id, groups );
@@ -198,9 +198,9 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
       }
     }
 
-    Meteor.users.update(user._id, update_data );
+    await Meteor.users.updateAsync(user._id, update_data );
 
-    syncUserData(user, ldapUser);
+    await syncUserData(user, ldapUser);
 
     if (LDAP.settings_get('LDAP_LOGIN_FALLBACK') === true) {
       Accounts.setPassword(user._id, loginRequest.ldapPass, {logout: false});
@@ -224,19 +224,19 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
     loginRequest.ldapPass = undefined;
   }
 
-  const result = addLdapUser(ldapUser, username, loginRequest.ldapPass);
+  const result = await addLdapUser(ldapUser, username, loginRequest.ldapPass);
 
   if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
     log_debug('Updating admin status');
     const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
-    const groups = ldap.getUserGroups(username, ldapUser).filter((value) => targetGroups.includes(value));
+    const groups = (await ldap.getUserGroups(username, ldapUser)).filter((value) => targetGroups.includes(value));
 
     result.isAdmin = groups.length > 0;
-    Meteor.users.update({_id: result.userId}, {$set: {isAdmin: result.isAdmin}});
+    await Meteor.users.updateAsync({_id: result.userId}, {$set: {isAdmin: result.isAdmin}});
   }
 
   if( LDAP.settings_get('LDAP_SYNC_GROUP_ROLES') === true ) {
-    const groups = ldap.getUserGroups(username, ldapUser);
+    const groups = await ldap.getUserGroups(username, ldapUser);
     if( groups.length > 0 ) {
       Roles.setUserRoles(result.userId, groups );
       log_info(`Set roles to:${  groups.join(',')}`);
