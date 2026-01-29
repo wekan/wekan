@@ -59,7 +59,7 @@ and adds the following updates:
   [Part 5](https://github.com/wekan/wekan/commit/60846a44959d46262672c6a3048bd76d829c03bf),
   [Part 6](https://github.com/wekan/wekan/commit/7ff174cf660f43dfbb471b29d75820f527771bbd).
   Thanks to xet7.
-- [Most Unicode Icons back to Font Awesome 4.7 for better accessibility. Less always visible buttons, More at ☰ Mnu](https://github.com/wekan/wekan/commit/7ad04f45353e1628881fec310caedf7625a34d4d).
+- [Most Unicode Icons back to Font Awesome 4.7 for better accessibility. Less always visible buttons, More at ☰ enu](https://github.com/wekan/wekan/commit/7ad04f45353e1628881fec310caedf7625a34d4d).
   Thanks to xet7.
 - [Updated to MongoDB 7.0.29 at Snap Candidate](https://github.com/wekan/wekan/commit/ac70fe28488c09364133a65fbc80f5a819a1e4bf).
   Thanks to developers of MongoDB.
