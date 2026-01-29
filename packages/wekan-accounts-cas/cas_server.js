@@ -1,8 +1,8 @@
 "use strict";
 
-const https = Npm.require('https');
-const url = Npm.require('url');
-const xmlParser = Npm.require('xml2js');
+import https from 'https';
+import url from 'url';
+import xml2js from 'xml2js';
 
 // Library
 class CAS {
@@ -60,7 +60,7 @@ class CAS {
           console.log(error);
           callback(undefined, false);
         } else {
-          xmlParser.parseString(response, (err, result) => {
+          xml2js.parseString(response, (err, result) => {
             if (err) {
               console.log('Bad response format.');
               callback({message: 'Bad response format. XML could not parse it'});
