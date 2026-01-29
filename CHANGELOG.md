@@ -26,7 +26,12 @@ WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Added Docs: Spreadsheet vs Kanban](https://github.com/wekan/wekan/commit/a0a8d0186cbc7fefe38f72244723bcff292ae2f4).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Reduce visual overflow in Member Settings menu by extending container height](https://github.com/wekan/wekan/pull/6104).
   Thanks to AymenHassini19.
