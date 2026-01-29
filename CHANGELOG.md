@@ -28,7 +28,9 @@ WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use
 
 This release adds the following updates:
 
-- [Added Docs: Spreadsheet vs Kanban](https://github.com/wekan/wekan/commit/a0a8d0186cbc7fefe38f72244723bcff292ae2f4).
+- Added Docs: Spreadsheet vs Kanban
+  [Part 1](https://github.com/wekan/wekan/commit/a0a8d0186cbc7fefe38f72244723bcff292ae2f4),
+  [Part 2](https://github.com/wekan/wekan/commit/37d0daee590ab48cbfa1672e4bc5efd95d341211).
   Thanks to xet7.
 
 and fixes the following bugs:
