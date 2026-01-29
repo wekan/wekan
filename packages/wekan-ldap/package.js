@@ -12,7 +12,6 @@ Package.describe({
 
 
 Package.onUse(function(api) {
-	api.use('yasaricli:slugify');
 	api.use('ecmascript');
 	api.use('underscore');
 	api.use('sha');
@@ -24,4 +23,9 @@ Package.onUse(function(api) {
 	api.addFiles('client/loginHelper.js', 'client');
 
 	api.mainModule('server/index.js', 'server');
+});
+
+Npm.depends({
+	'ldapjs': '2.3.3',
+	'limax': '4.1.0'
 });

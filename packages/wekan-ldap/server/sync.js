@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import { SyncedCron } from 'meteor/quave:synced-cron';
+import limax from 'limax';
 import LDAP from './ldap';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 
@@ -20,7 +21,7 @@ export function slug(text) {
   if (LDAP.settings_get('LDAP_UTF8_NAMES_SLUGIFY') !== true) {
     return text;
   }
-  text = slugify(text, '.');
+  text = limax(text, { separator: '.' });
   return text.replace(/[^0-9a-z-_.]/g, '');
 }
 
@@ -307,7 +308,7 @@ export async function addLdapUser(ldapUser, username, password) {
   try {
     // This creates the account with password service
     userObject.ldap = true;
-    userObject._id = Accounts.createUser(userObject);
+    userObject._id = await Accounts.createUserAsync(userObject);
 
     // Add the services.ldap identifiers
     await Meteor.users.updateAsync({ _id:  userObject._id }, {

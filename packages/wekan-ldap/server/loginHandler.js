@@ -203,7 +203,7 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
     await syncUserData(user, ldapUser);
 
     if (LDAP.settings_get('LDAP_LOGIN_FALLBACK') === true) {
-      Accounts.setPassword(user._id, loginRequest.ldapPass, {logout: false});
+      await Accounts.setPasswordAsync(user._id, loginRequest.ldapPass, {logout: false});
     }
 
     return {

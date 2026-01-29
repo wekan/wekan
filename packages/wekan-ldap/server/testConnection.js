@@ -12,7 +12,7 @@ Meteor.methods({
     //	throw new Meteor.Error('error-not-authorized', 'Not authorized', { method: 'ldap_test_connection' });
     //}
 
-    if (LDAP.settings_get(LDAP_ENABLE) !== true) {
+    if (LDAP.settings_get('LDAP_ENABLE') !== true) {
       throw new Meteor.Error('LDAP_disabled');
     }
 
