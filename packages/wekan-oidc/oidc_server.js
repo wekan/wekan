@@ -295,24 +295,24 @@ var getTokenContent = function (token) {
   return content;
 }
 Meteor.methods({
-  'groupRoutineOnLogin': function(info, userId)
+  'groupRoutineOnLogin': async function(info, userId)
   {
     check(info, Object);
     check(userId, String);
     var propagateOidcData = process.env.PROPAGATE_OIDC_DATA || false;
     if (propagateOidcData) {
       users= Meteor.users;
-      user = users.findOne({'services.oidc.id':  userId});
+      user = await users.findOneAsync({'services.oidc.id':  userId});
 
       if(user) {
         //updates/creates Groups and user admin privileges accordingly if not undefined
         if (info.groups) {
-          addGroupsWithAttributes(user, info.groups);
+          await addGroupsWithAttributes(user, info.groups);
         }
 
-        if(info.email) addEmail(user, info.email);
-        if(info.fullname) changeFullname(user, info.fullname);
-        if(info.username) changeUsername(user, info.username);
+        if(info.email) await addEmail(user, info.email);
+        if(info.fullname) await changeFullname(user, info.fullname);
+        if(info.username) await changeUsername(user, info.username);
       }
     }
   }
@@ -328,8 +328,9 @@ Meteor.methods({
     const defaultBoardId = defaultBoardParams.shift()
     if (!defaultBoardId) return
 
-    const board = Boards.findOne(defaultBoardId)
-    const userId = Users.findOne({ 'services.oidc.id': oidcUserId })?._id
+    const board = await Boards.findOneAsync(defaultBoardId)
+    const user = await Users.findOneAsync({ 'services.oidc.id': oidcUserId })
+    const userId = user?._id
     const memberIndex = _.pluck(board?.members, 'userId').indexOf(userId);
     if(!board || !userId || memberIndex > -1) return
 
