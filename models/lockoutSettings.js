@@ -59,7 +59,7 @@ if (Meteor.isServer) {
     await LockoutSettings._collection.createIndexAsync({ modifiedAt: -1 });
 
     // Known users settings
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'known-failuresBeforeLockout' },
       {
         $setOnInsert: {
@@ -71,7 +71,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'known-lockoutPeriod' },
       {
         $setOnInsert: {
@@ -83,7 +83,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'known-failureWindow' },
       {
         $setOnInsert: {
@@ -99,7 +99,7 @@ if (Meteor.isServer) {
     const typoVar = process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE;
     const correctVar = process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BEFORE;
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'unknown-failuresBeforeLockout' },
       {
         $setOnInsert: {
@@ -111,7 +111,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'unknown-lockoutPeriod' },
       {
         $setOnInsert: {
@@ -123,7 +123,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'unknown-failureWindow' },
       {
         $setOnInsert: {
