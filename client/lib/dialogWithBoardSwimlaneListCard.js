@@ -2,6 +2,11 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlaneList';
 
 export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList {
+  constructor() {
+    super();
+    this.selectedCardId = new ReactiveVar('');
+  }
+
   getDefaultOption(boardId) {
     const ret = {
       'boardId' : "",
