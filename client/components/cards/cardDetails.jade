@@ -1,5 +1,9 @@
+
 template(name="cardDetailsPopup")
-  +cardDetails(popupCard)
+  //- just a proxy so the caller code is almost the same
+  //- when using popups or inlined element;
+  with popupArgs
+    +popup(this)
 
 template(name="cardDetails")
 

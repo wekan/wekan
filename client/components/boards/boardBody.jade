@@ -1,13 +1,9 @@
 template(name="board")
-  
   if isConverting.get
     +boardConversionProgress
   else if isBoardReady.get
     if currentBoard
-      if onlyShowCurrentCard
-        +cardDetails(currentCard)
-      else
-        +boardBody
+      +boardBody
     else
       //-- XXX We need a better error message in case the board has been archived
       +message(label="board-not-found")
@@ -19,7 +15,7 @@ template(name="boardBody")
   if notDisplayThisBoard
    | {{_ 'tableVisibilityMode-allowPrivateOnly'}}
   else
-    // Debug information (remove in production)
+    //- Debug information (remove in production)
     if debugBoardState
       .debug-info(style="position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 9999; font-size: 12px;")
         | {{_ 'board'}}: {{currentBoard.title}} | {{_ 'view'}}: {{boardView}} | {{_ 'has-swimlanes'}}: {{hasSwimlanes}} | {{_ 'swimlanes'}}: {{currentBoard.swimlanes.length}}
@@ -56,10 +52,6 @@ template(name="boardBody")
               +swimlane(this)
           else
             +listsGroup(currentBoard)
-      //- Render multiple open cards in desktop mode
-      unless isMiniScreen
-        each openCards
-          +cardDetails(this cardIndex=@index)
       +sidebar
 
 template(name="calendarView")

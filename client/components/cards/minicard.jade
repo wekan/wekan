@@ -1,4 +1,6 @@
 template(name="minicard")
+  if isSelected
+    +cardDetailsPopup(this)
   .minicard.nodragscroll(
     class="{{#if isLinkedCard}}linked-card{{/if}}"
     class="{{#if isLinkedBoard}}linked-board{{/if}}"

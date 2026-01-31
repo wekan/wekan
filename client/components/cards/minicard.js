@@ -80,6 +80,10 @@ BlazeComponent.extendComponent({
     }
     return ret;
   },
+  isSelected() {
+    const card = this.currentData();
+    return Session.get('currentCard') === card._id;
+  },
 
   /** opens the card label popup only if clicked onto a label
    * <li> this is necessary to have the data context of the minicard.
@@ -87,6 +91,8 @@ BlazeComponent.extendComponent({
    */
   cardLabelsPopup(event) {
     if (this.find('.js-card-label:hover')) {
+      event.preventDefault();
+      event.stopPropagation();
       Popup.open("cardLabels")(event, {dataContextIfCurrentDataIsUndefined: this.currentData()});
     }
   },

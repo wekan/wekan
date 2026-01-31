@@ -62,18 +62,6 @@ BlazeComponent.extendComponent({
     this.currentBoard = Utils.getCurrentBoard();
     this.isLoaded = new ReactiveVar(false);
 
-    if (this.parentComponent() && this.parentComponent().parentComponent()) {
-      const boardBody = this.parentComponent().parentComponent();
-      //in Miniview parent is Board, not BoardBody.
-      if (boardBody !== null) {
-        // Only show overlay in mobile mode, not in desktop mode
-        const isMobile = Utils.getMobileMode();
-        if (isMobile) {
-          boardBody.showOverlay.set(true);
-        }
-        boardBody.mouseHasEnterCardDetails = false;
-      }
-    }
     this.calculateNextPeak();
 
     Meteor.subscribe('unsaved-edits');
@@ -84,6 +72,18 @@ BlazeComponent.extendComponent({
     //   const limitUsers = this.page.get() * Number.MAX_SAFE_INTEGER;
     //   this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {});
     // });
+  },
+
+  onRendered() {
+    const boardOverlay = document.getElementsByClassName('board-overlay')?.[0];
+    this.boardBody = BlazeComponent.getComponentForElement(boardOverlay);
+    if (this.boardBody) {
+      this.boardBody.mouseHasEnterCardDetails = false;
+    }
+    const isMobile = Utils.getMobileMode();
+    if (isMobile && Session.get('currentCard')) {
+      //this.boardBody?.showOverlay.set(true);
+    }
   },
 
   isWatching() {
@@ -302,11 +302,7 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
-    if (this.parentComponent() === null) return;
-    const parentComponent = this.parentComponent().parentComponent();
-    //on mobile view parent is Board, not board body.
-    if (parentComponent === null) return;
-    parentComponent.showOverlay.set(false);
+    this.boardBody?.showOverlay.set(false);
   },
 
   events() {
@@ -497,12 +493,10 @@ BlazeComponent.extendComponent({
         'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
         'click .js-custom-fields': Popup.open('cardCustomFields'),
         'mouseenter .js-card-details'() {
-          if (this.parentComponent() === null) return;
-          const parentComponent = this.parentComponent().parentComponent();
-          //on mobile view parent is Board, not BoardBody.
-          if (parentComponent === null) return;
-          parentComponent.showOverlay.set(true);
-          parentComponent.mouseHasEnterCardDetails = true;
+          if (this.boardBody) {
+            this.boardBody.showOverlay.set(true);
+            this.boardBody.mouseHasEnterCardDetails = true;
+          }
         },
         'mousedown .js-card-details'() {
           Session.set('cardDetailsIsDragging', false);
@@ -699,16 +693,6 @@ Template.cardDetails.helpers({
   uploadCount() {
     return uploadProgressManager.getUploadCountForCard(this._id);
   }
-});
-Template.cardDetailsPopup.onDestroyed(() => {
-  Session.delete('popupCardId');
-  Session.delete('popupCardBoardId');
-});
-Template.cardDetailsPopup.helpers({
-  popupCard() {
-    const ret = Utils.getPopupCard();
-    return ret;
-  },
 });
 
 BlazeComponent.extendComponent({
@@ -1947,4 +1931,16 @@ Template.cardAssigneePopup.events({
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
+});
+
+Template.cardDetailsPopup.helpers({
+  popupArgs() {
+    return {
+      name: "cardDetails",
+      showHeader: false,
+      closeDOMs: ["click .js-close-card-details"],
+      followDOM: ".card-details",
+      closeVar: "currentCard"
+    }
+  },
 });
