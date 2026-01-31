@@ -41,6 +41,8 @@ and fixes the following bugs:
   Thanks to AymenHassini19.
 - [Fix Card copy menu is not displayed](https://github.com/wekan/wekan/commit/0b891464b907b272e075d8aafd3ce29e704739cf).
   Thanks to xet7.
+- [Fix Bug: Rules view translation not is not shown correctly](https://github.com/wekan/wekan/commit/f73eab23f997efe5347aa1f06515bf355cfe7ed5).
+  Thanks to cactus7as and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
