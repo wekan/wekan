@@ -64,5 +64,5 @@ template(name="commentReactions")
 template(name="addReactionPopup")
   .reactions-popup
     each codepoint in codepoints
-      span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}
-
+      unless (hasUserReacted codepoint)
+        span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}

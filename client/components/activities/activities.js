@@ -306,6 +306,11 @@ Template.addReactionPopup.helpers({
       '&#128522;',
       '&#129300;',
       '&#128532;'];
+  },
+  hasUserReacted(codepoint) {
+    const commentId = Template.instance().data.commentId;
+    const cardComment = ReactiveCache.getCardComment(commentId);
+    return cardComment.hasUserReacted(codepoint);
   }
 })
 

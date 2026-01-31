@@ -1,12 +1,12 @@
 .new-comment {
   position: relative;
-  margin: 0 0 20px 38px;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  gap: 1ch;
 }
 .new-comment .member {
   opacity: 0.7;
-  position: absolute;
-  top: 1px;
-  left: -38px;
 }
 .new-comment.is-open .member {
   opacity: 1;
@@ -14,34 +14,45 @@
 .new-comment.is-open .helper {
   display: inline-block;
 }
-.new-comment.is-open textarea {
-  min-height: 100px;
-  color: #4d4d4d;
-  cursor: auto;
-  overflow: hidden;
-  word-wrap: break-word;
+
+.new-comment, .comment {
+  .is-open textarea {
+    min-height: 100px;
+    color: #4d4d4d;
+    cursor: auto;
+    overflow: hidden;
+    overflow-wrap: break-word;
+  }
+  textarea {
+    grid-area: editor;
+    background-color: #fff;
+    border: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.23);
+    min-height: 3lh;
+    &:hover, &.is-open {
+      cursor: auto;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.33);
+      border: 0;
+      cursor: pointer;
+    }
+  }
 }
+
 .new-comment .too-long {
   margin-top: 8px;
 }
-.new-comment textarea {
-  background-color: #fff;
-  border: 0;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.23);
-  height: 36px;
-  margin: 4px 4px 6px 0;
-  padding: 9px 11px;
-  width: 100%;
-}
-.new-comment textarea:hover,
-.new-comment textarea:is-open {
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.33);
-  border: 0;
-  cursor: pointer;
-}
-.new-comment textarea:is-open {
-  cursor: auto;
+
+.js-new-comment-form, .js-edit-comment {
+  display: grid !important;
+  grid-template-areas:
+    "editor editor editor editor"
+    "main-controls main-controls link-controls editor-controls";
+  grid-auto-columns: 1fr;
+  grid-auto-rows: min-content;
+  align-items: center;
+  flex: 1;
+  gap: 0.3lh;
 }
 .comment-item {
   background-color: #fff;
@@ -65,28 +76,29 @@
 }
 .comments {
   clear: both;
+  display: flex;
+  flex-direction: column;
+  gap: 1lh;
 }
 .comments .comment {
-  margin: 0.5px 0;
-  padding: 6px 0;
   display: flex;
+  gap: 1ch;
 }
-.comments .comment .member {
-  width: 32px;
-  height: 32px;
-}
+
 .comments .comment .comment-member {
   font-weight: 700;
 }
 .comments .comment .comment-desc {
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   overflow: hidden;
   flex: 1;
   align-self: center;
   margin: 0;
-  margin-left: 3px;
   overflow: hidden;
   word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3lh;
 }
 .comments .comment .comment-desc .comment-text {
   display: block;
@@ -101,6 +113,7 @@
   display: flex;
   margin-top: 5px;
   gap: 5px;
+  align-items: center;
 }
 .comments .comment .comment-desc .reactions .open-comment-reaction-popup {
   display: flex;
@@ -110,7 +123,6 @@
 }
 .comments .comment .comment-desc .reactions .open-comment-reaction-popup span {
   display: inline-block;
-  font-size: clamp(14px, 2vw, 18px);
   font-weight: 500;
   line-height: 1;
   margin-left: 4px;
@@ -127,9 +139,6 @@
 }
 .comments .comment .comment-desc .reactions .reaction:hover {
   background-color: #b0c4de;
-}
-.comments .comment .comment-desc .reactions .reaction .reaction-count {
-  font-size: 12px;
 }
 .comments .comment .comment-desc .comment-meta {
   font-size: 0.8em;
