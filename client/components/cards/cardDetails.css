@@ -28,43 +28,15 @@
   box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
 }
 
-.assignee {
-  display: block;
-  position: relative;
-  float: left;
-  height: clamp(24px, 3.5vw, 36px);
-  width: clamp(24px, 3.5vw, 36px);
-  margin: 0.3vh;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1;
-  text-decoration: none;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);
-}
-.assignee .avatar {
-  overflow: hidden;
-  border-radius: 50%;
-}
-.assignee .avatar.avatar-assignee-initials {
-  height: 70%;
-  width: 70%;
-  padding: 15%;
-  background-color: #dbdbdb;
-  color: #444;
-  position: absolute;
-  text-align: center;
+.card-details-path {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+  flex-direction: column-reverse;
+  align-items: end;
+  margin-right: 1ch;
 }
-.assignee .avatar.avatar-image {
-  object-fit: cover;
-  object-position: center;
-  height: 100%;
-  width: 100%;
-  display: block;
+
+.assignee {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
 }
 .assignee .assignee-presence-status {
   background-color: #b3b3b3;
@@ -425,7 +397,7 @@ body.desktop-mode .card-details.card-details-collapsed {
     position: fixed;
     resize: both;
   }
-  
+
   /* Override for mobile mode even on larger screens */
   body.mobile-mode .card-details {
     width: 100vw !important;
@@ -437,7 +409,7 @@ body.desktop-mode .card-details.card-details-collapsed {
     max-height: 100vh !important;
     resize: none !important;
   }
-  
+
   .card-details-maximized {
     padding: 0;
     flex-shrink: 0;
@@ -507,7 +479,7 @@ input[type="submit"].attachment-add-link-submit {
     border-radius: 0 !important;
     box-shadow: none !important;
   }
-  
+
   /* Ensure card details are above everything on mobile */
   body.mobile-mode .card-details {
     z-index: 100 !important;

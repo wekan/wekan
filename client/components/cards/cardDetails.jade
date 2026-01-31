@@ -194,46 +194,48 @@ template(name="cardDetails")
 
         if currentBoard.hasAnyAllowsUser
           hr
+          .card-details-user-container
+            if currentBoard.allowsCreator
+              .card-details-item.card-details-item-creator
+                h3.card-details-item-title
+                  i.fa.fa-user
+                  | {{_ 'creator'}}
 
-        if currentBoard.allowsCreator
-          .card-details-item.card-details-item-creator
-            h3.card-details-item-title
-              i.fa.fa-user
-              | {{_ 'creator'}}
+                +userAvatar(userId=userId noRemove=true)
+                | {{! XXX Hack to hide syntaxic coloration /// }}
 
-            +userAvatar(userId=userId noRemove=true)
-            | {{! XXX Hack to hide syntaxic coloration /// }}
+            //.card-details-items
+            if currentBoard.allowsMembers
+              .card-details-item.card-details-item-members
+                h3.card-details-item-title
+                  i.fa.fa-users
+                  | {{_ 'members'}}
+                .card-details-avatar-container
+                  each userId in getMembers
+                    +userAvatar(userId=userId cardId=_id)
+                    | {{! XXX Hack to hide syntaxic coloration /// }}
+                  if canModifyCard
+                    unless currentUser.isWorker
+                      a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+                        i.fa.fa-plus
 
-        //.card-details-items
-        if currentBoard.allowsMembers
-          .card-details-item.card-details-item-members
-            h3.card-details-item-title
-              i.fa.fa-users
-              | {{_ 'members'}}
-            each userId in getMembers
-              +userAvatar(userId=userId cardId=_id)
-              | {{! XXX Hack to hide syntaxic coloration /// }}
-            if canModifyCard
-              unless currentUser.isWorker
-                a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-                  i.fa.fa-plus
-
-        //if assigneeSelected
-        if currentBoard.allowsAssignee
-          .card-details-item.card-details-item-assignees
-            h3.card-details-item-title
-              i.fa.fa-user
-              | {{_ 'assignee'}}
-            each userId in getAssignees
-              +userAvatar(userId=userId cardId=_id assignee=true)
-              | {{! XXX Hack to hide syntaxic coloration /// }}
-            if canModifyCard
-              a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-                i.fa.fa-plus
-            if currentUser.isWorker
-              unless assigneeSelected
-                a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-                  i.fa.fa-plus
+            //if assigneeSelected
+            if currentBoard.allowsAssignee
+              .card-details-item.card-details-item-assignees
+                h3.card-details-item-title
+                  i.fa.fa-user
+                  | {{_ 'assignee'}}
+                .card-details-avatar-container
+                  each userId in getAssignees
+                    +userAvatar(userId=userId cardId=_id assignee=true)
+                    | {{! XXX Hack to hide syntaxic coloration /// }}
+                  if canModifyCard
+                    a.member.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                      i.fa.fa-plus
+                  if currentUser.isWorker
+                    unless assigneeSelected
+                      a.member.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                        i.fa.fa-plus
 
         //.card-details-items
         if currentBoard.allowsRequestedBy

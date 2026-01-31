@@ -982,46 +982,7 @@ body.grey-icons-enabled .checkmark-no-grey {
     width: 100% !important;
     margin: 0 !important;
     padding: 1rem !important; /* More padding */
-    font-size: 18px !important; /* Much larger text */
     line-height: 1.4 !important;
-  }
-
-  .board-list .board-list-item .board-list-item-name {
-    font-size: 20px !important; /* Larger board names */
-    font-weight: bold !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  .board-list .board-list-item .board-list-item-desc {
-    font-size: 16px !important; /* Larger descriptions */
-    line-height: 1.3 !important;
-  }
-
-  .board-list .board-list-item .minicard-members {
-    font-size: 14px !important; /* Larger member avatars */
-  }
-
-  .board-list .board-list-item .minicard-lists {
-    font-size: 14px !important; /* Larger list counters */
-  }
-
-  .board-list .board-handle {
-    position: absolute;
-    padding: 10px !important;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 15px !important;
-    font-size: 28px !important; /* Much larger drag handle */
-    color: #fff;
-    background: rgba(0,0,0,0.4) !important;
-    border-radius: 50%;
-    width: 50px !important; /* Larger handle */
-    height: 50px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: background-color 0.2s ease;
   }
 
   .board-list .board-handle:hover {

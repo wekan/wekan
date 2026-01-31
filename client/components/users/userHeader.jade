@@ -5,10 +5,11 @@ template(name="headerUserBar")
         +userAvatar(userId=currentUser._id)
       unless isMiniScreen
         unless isSandstorm
-          if currentUser.profile.fullname
-            = currentUser.profile.fullname
-          else
-            = currentUser.username
+          .avatar-user-fullname
+            if currentUser.profile.fullname
+              = currentUser.profile.fullname
+            else
+              = currentUser.username
 
 template(name="memberMenuPopup")
   ul.pop-over-list

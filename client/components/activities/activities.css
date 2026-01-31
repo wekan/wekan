@@ -23,6 +23,9 @@
 .activities {
   clear: both;
 }
+.activity {
+  display: flex;
+}
 .activities .activity {
   margin: 0.1vh 0;
   padding: 0.8vh 0;
