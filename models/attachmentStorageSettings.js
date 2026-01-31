@@ -257,18 +257,18 @@ AttachmentStorageSettings.helpers({
 if (Meteor.isServer) {
   // Get or create default settings
   Meteor.methods({
-    'getAttachmentStorageSettings'() {
+    async 'getAttachmentStorageSettings'() {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
-      const user = ReactiveCache.getUser(this.userId);
+      const user = await ReactiveCache.getUser(this.userId);
       if (!user || !user.isAdmin) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
 
       let settings = AttachmentStorageSettings.findOne({});
-      
+
       if (!settings) {
         // Create default settings
         settings = {
@@ -299,20 +299,20 @@ if (Meteor.isServer) {
           createdBy: this.userId,
           updatedBy: this.userId
         };
-        
+
         AttachmentStorageSettings.insert(settings);
         settings = AttachmentStorageSettings.findOne({});
       }
-      
+
       return settings;
     },
     
-    'updateAttachmentStorageSettings'(settings) {
+    async 'updateAttachmentStorageSettings'(settings) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
-      const user = ReactiveCache.getUser(this.userId);
+      const user = await ReactiveCache.getUser(this.userId);
       if (!user || !user.isAdmin) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
@@ -320,7 +320,7 @@ if (Meteor.isServer) {
       // Validate settings
       const schema = AttachmentStorageSettings.simpleSchema();
       schema.validate(settings);
-      
+
       // Update settings
       const result = AttachmentStorageSettings.upsert(
         {},
@@ -332,7 +332,7 @@ if (Meteor.isServer) {
           }
         }
       );
-      
+
       return result;
     },
     
@@ -345,12 +345,12 @@ if (Meteor.isServer) {
       return settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
     },
     
-    'setDefaultAttachmentStorage'(storageName) {
+    async 'setDefaultAttachmentStorage'(storageName) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
-      const user = ReactiveCache.getUser(this.userId);
+      const user = await ReactiveCache.getUser(this.userId);
       if (!user || !user.isAdmin) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
@@ -369,18 +369,18 @@ if (Meteor.isServer) {
           }
         }
       );
-      
+
       return result;
     }
   });
 
   // Publication for settings
-  Meteor.publish('attachmentStorageSettings', function() {
+  Meteor.publish('attachmentStorageSettings', async function() {
     if (!this.userId) {
       return this.ready();
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user || !user.isAdmin) {
       return this.ready();
     }

@@ -54,32 +54,32 @@ Rules.helpers({
   async rename(description) {
     return await Rules.updateAsync(this._id, { $set: { description } });
   },
-  getAction() {
-    return ReactiveCache.getAction(this.actionId);
+  async getAction() {
+    return await ReactiveCache.getAction(this.actionId);
   },
-  getTrigger() {
-    return ReactiveCache.getTrigger(this.triggerId);
+  async getTrigger() {
+    return await ReactiveCache.getTrigger(this.triggerId);
   },
-  board() {
-    return ReactiveCache.getBoard(this.boardId);
+  async board() {
+    return await ReactiveCache.getBoard(this.boardId);
   },
-  trigger() {
-    return ReactiveCache.getTrigger(this.triggerId);
+  async trigger() {
+    return await ReactiveCache.getTrigger(this.triggerId);
   },
-  action() {
-    return ReactiveCache.getAction(this.actionId);
+  async action() {
+    return await ReactiveCache.getAction(this.actionId);
   },
 });
 
 Rules.allow({
-  insert(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+  async insert(userId, doc) {
+    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
   },
-  update(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+  async update(userId, doc) {
+    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
   },
-  remove(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+  async remove(userId, doc) {
+    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
   },
 });
 

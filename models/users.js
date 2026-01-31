@@ -902,10 +902,10 @@ if (Meteor.isClient) {
       return board && board.hasWorker(this._id);
     },
 
-    isBoardAdmin(boardId) {
+    async isBoardAdmin(boardId) {
       let board;
       if (boardId) {
-        board = ReactiveCache.getBoard(boardId);
+        board = await ReactiveCache.getBoard(boardId);
       } else {
         board = Utils.getCurrentBoard();
       }
@@ -1798,7 +1798,7 @@ Users.helpers({
 
 Meteor.methods({
   // Secure user removal method with proper authorization checks
-  removeUser(targetUserId) {
+  async removeUser(targetUserId) {
     check(targetUserId, String);
 
     const currentUserId = Meteor.userId();
@@ -1806,12 +1806,12 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'User must be logged in');
     }
 
-    const currentUser = ReactiveCache.getUser(currentUserId);
+    const currentUser = await ReactiveCache.getUser(currentUserId);
     if (!currentUser) {
       throw new Meteor.Error('not-authorized', 'Current user not found');
     }
 
-    const targetUser = ReactiveCache.getUser(targetUserId);
+    const targetUser = await ReactiveCache.getUser(targetUserId);
     if (!targetUser) {
       throw new Meteor.Error('user-not-found', 'Target user not found');
     }
@@ -1829,9 +1829,9 @@ Meteor.methods({
     }
 
     // Check if target user is the last admin
-    const adminsNumber = ReactiveCache.getUsers({
+    const adminsNumber = (await ReactiveCache.getUsers({
       isAdmin: true,
-    }).length;
+    })).length;
 
     if (adminsNumber === 1 && targetUser.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Cannot delete the last administrator');
@@ -1841,7 +1841,7 @@ Meteor.methods({
     Users.remove(targetUserId);
     return { success: true, message: 'User deleted successfully' };
   },
-  editUser(targetUserId, updateData) {
+  async editUser(targetUserId, updateData) {
     check(targetUserId, String);
     check(updateData, Object);
 
@@ -1850,7 +1850,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'User must be logged in');
     }
 
-    const currentUser = ReactiveCache.getUser(currentUserId);
+    const currentUser = await ReactiveCache.getUser(currentUserId);
     if (!currentUser) {
       throw new Meteor.Error('not-authorized', 'Current user not found');
     }
@@ -1860,7 +1860,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Only administrators can edit other users');
     }
 
-    const targetUser = ReactiveCache.getUser(targetUserId);
+    const targetUser = await ReactiveCache.getUser(targetUserId);
     if (!targetUser) {
       throw new Meteor.Error('user-not-found', 'Target user not found');
     }
@@ -1894,9 +1894,9 @@ Meteor.methods({
 
     Users.update(targetUserId, { $set: updateObject });
   },
-  setListSortBy(value) {
+  async setListSortBy(value) {
     check(value, String);
-    ReactiveCache.getCurrentUser().setListSortBy(value);
+    (await ReactiveCache.getCurrentUser()).setListSortBy(value);
   },
   setAvatarUrl(avatarUrl) {
     check(avatarUrl, String);
@@ -1943,8 +1943,8 @@ Meteor.methods({
     Users.update(this.userId, { $set: { 'profile.GreyIcons': newValue } });
     return newValue;
   },
-  toggleDesktopDragHandles() {
-    const user = ReactiveCache.getCurrentUser();
+  async toggleDesktopDragHandles() {
+    const user = await ReactiveCache.getCurrentUser();
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
   },
   // Spaces: create a new space under parentId (or root when null)
@@ -2015,16 +2015,16 @@ Meteor.methods({
     });
     return true;
   },
-  toggleHideCheckedItems() {
-    const user = ReactiveCache.getCurrentUser();
+  async toggleHideCheckedItems() {
+    const user = await ReactiveCache.getCurrentUser();
     user.toggleHideCheckedItems();
   },
-  toggleCustomFieldsGrid() {
-    const user = ReactiveCache.getCurrentUser();
+  async toggleCustomFieldsGrid() {
+    const user = await ReactiveCache.getCurrentUser();
     user.toggleFieldsGrid(user.hasCustomFieldsGrid());
   },
-  toggleCardMaximized() {
-    const user = ReactiveCache.getCurrentUser();
+  async toggleCardMaximized() {
+    const user = await ReactiveCache.getCurrentUser();
     user.toggleCardMaximized(user.hasCardMaximized());
   },
   setCardCollapsed(value) {
@@ -2032,32 +2032,32 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-logged-in');
     Users.update(this.userId, { $set: { 'profile.cardCollapsed': value } });
   },
-  toggleMinicardLabelText() {
-    const user = ReactiveCache.getCurrentUser();
+  async toggleMinicardLabelText() {
+    const user = await ReactiveCache.getCurrentUser();
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
   },
-  toggleRescueCardDescription() {
-    const user = ReactiveCache.getCurrentUser();
+  async toggleRescueCardDescription() {
+    const user = await ReactiveCache.getCurrentUser();
     user.toggleRescueCardDescription(user.hasRescuedCardDescription());
   },
-  changeLimitToShowCardsCount(limit) {
+  async changeLimitToShowCardsCount(limit) {
     check(limit, Number);
-    ReactiveCache.getCurrentUser().setShowCardsCountAt(limit);
+    (await ReactiveCache.getCurrentUser()).setShowCardsCountAt(limit);
   },
-  changeStartDayOfWeek(startDay) {
+  async changeStartDayOfWeek(startDay) {
     check(startDay, Number);
-    ReactiveCache.getCurrentUser().setStartDayOfWeek(startDay);
+    (await ReactiveCache.getCurrentUser()).setStartDayOfWeek(startDay);
   },
-  changeDateFormat(dateFormat) {
+  async changeDateFormat(dateFormat) {
     check(dateFormat, String);
-    ReactiveCache.getCurrentUser().setDateFormat(dateFormat);
+    (await ReactiveCache.getCurrentUser()).setDateFormat(dateFormat);
   },
-  applyListWidth(boardId, listId, width, constraint) {
+  async applyListWidth(boardId, listId, width, constraint) {
     check(boardId, String);
     check(listId, String);
     check(width, Number);
     check(constraint, Number);
-    const user = ReactiveCache.getCurrentUser();
+    const user = await ReactiveCache.getCurrentUser();
     user.setListWidth(boardId, listId, width);
     user.setListConstraint(boardId, listId, constraint);
   },
@@ -2081,11 +2081,11 @@ Meteor.methods({
       },
     });
   },
-  applySwimlaneHeight(boardId, swimlaneId, height) {
+  async applySwimlaneHeight(boardId, swimlaneId, height) {
     check(boardId, String);
     check(swimlaneId, String);
     check(height, Number);
-    const user = ReactiveCache.getCurrentUser();
+    const user = await ReactiveCache.getCurrentUser();
     user.setSwimlaneHeight(boardId, swimlaneId, height);
   },
 
@@ -2110,42 +2110,42 @@ Meteor.methods({
     });
   },
 
-  applySwimlaneHeightToStorage(boardId, swimlaneId, height) {
+  async applySwimlaneHeightToStorage(boardId, swimlaneId, height) {
     check(boardId, String);
     check(swimlaneId, String);
     check(height, Number);
-    const user = ReactiveCache.getCurrentUser();
+    const user = await ReactiveCache.getCurrentUser();
     if (user) {
       user.setSwimlaneHeightToStorage(boardId, swimlaneId, height);
     }
     // For non-logged-in users, the client-side code will handle localStorage
   },
 
-  applyListWidthToStorage(boardId, listId, width, constraint) {
+  async applyListWidthToStorage(boardId, listId, width, constraint) {
     check(boardId, String);
     check(listId, String);
     check(width, Number);
     check(constraint, Number);
-    const user = ReactiveCache.getCurrentUser();
+    const user = await ReactiveCache.getCurrentUser();
     if (user) {
       user.setListWidthToStorage(boardId, listId, width);
       user.setListConstraintToStorage(boardId, listId, constraint);
     }
     // For non-logged-in users, the client-side code will handle localStorage
   },
-  setZoomLevel(level) {
+  async setZoomLevel(level) {
     check(level, Number);
-    const user = ReactiveCache.getCurrentUser();
+    const user = await ReactiveCache.getCurrentUser();
     user.setZoomLevel(level);
   },
-  setMobileMode(enabled) {
+  async setMobileMode(enabled) {
     check(enabled, Boolean);
-    const user = ReactiveCache.getCurrentUser();
+    const user = await ReactiveCache.getCurrentUser();
     user.setMobileMode(enabled);
   },
-  setBoardView(view) {
+  async setBoardView(view) {
     check(view, String);
-    const user = ReactiveCache.getCurrentUser();
+    const user = await ReactiveCache.getCurrentUser();
     if (!user) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
@@ -2155,7 +2155,7 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.methods({
-    setCreateUser(
+    async setCreateUser(
       fullname,
       username,
       initials,
@@ -2185,13 +2185,13 @@ if (Meteor.isServer) {
          initials.includes('/')) {
          return false;
       }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        const nUsersWithUsername = ReactiveCache.getUsers({
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+        const nUsersWithUsername = (await ReactiveCache.getUsers({
           username,
-        }).length;
-        const nUsersWithEmail = ReactiveCache.getUsers({
+        })).length;
+        const nUsersWithEmail = (await ReactiveCache.getUsers({
           email,
-        }).length;
+        })).length;
         if (nUsersWithUsername > 0) {
           throw new Meteor.Error('username-already-taken');
         } else if (nUsersWithEmail > 0) {
@@ -2206,8 +2206,8 @@ if (Meteor.isServer) {
             from: 'admin',
           });
           const user =
-            ReactiveCache.getUser(username) ||
-            ReactiveCache.getUser({ username });
+            await ReactiveCache.getUser(username) ||
+            await ReactiveCache.getUser({ username });
           if (user) {
             Users.update(user._id, {
               $set: {
@@ -2222,7 +2222,7 @@ if (Meteor.isServer) {
         }
       }
     },
-    setUsername(username, userId) {
+    async setUsername(username, userId) {
       check(username, String);
       check(userId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
@@ -2231,10 +2231,10 @@ if (Meteor.isServer) {
          userId.includes('/')) {
          return false;
       }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        const nUsersWithUsername = ReactiveCache.getUsers({
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+        const nUsersWithUsername = (await ReactiveCache.getUsers({
           username,
-        }).length;
+        })).length;
         if (nUsersWithUsername > 0) {
           throw new Meteor.Error('username-already-taken');
         } else {
@@ -2246,7 +2246,7 @@ if (Meteor.isServer) {
         }
       }
     },
-    setEmail(email, userId) {
+    async setEmail(email, userId) {
       check(email, String);
       check(username, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
@@ -2255,11 +2255,11 @@ if (Meteor.isServer) {
          email.includes('/')) {
          return false;
       }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
         }
-        const existingUser = ReactiveCache.getUser(
+        const existingUser = await ReactiveCache.getUser(
           {
             'emails.address': email,
           },
@@ -2285,7 +2285,7 @@ if (Meteor.isServer) {
         }
       }
     },
-    setUsernameAndEmail(username, email, userId) {
+    async setUsernameAndEmail(username, email, userId) {
       check(username, String);
       check(email, String);
       check(userId, String);
@@ -2296,22 +2296,22 @@ if (Meteor.isServer) {
          userId.includes('/')) {
          return false;
       }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
         }
-        Meteor.call('setUsername', username, userId);
-        Meteor.call('setEmail', email, userId);
+        await Meteor.callAsync('setUsername', username, userId);
+        await Meteor.callAsync('setEmail', email, userId);
       }
     },
-    setPassword(newPassword, userId) {
+    async setPassword(newPassword, userId) {
       check(userId, String);
       check(newPassword, String);
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         Accounts.setPassword(userId, newPassword);
       }
     },
-    setEmailVerified(email, verified, userId) {
+    async setEmailVerified(email, verified, userId) {
       check(email, String);
       check(verified, Boolean);
       check(userId, String);
@@ -2321,7 +2321,7 @@ if (Meteor.isServer) {
          userId.includes('/')) {
          return false;
       }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         Users.update(userId, {
           $set: {
             emails: [
@@ -2334,7 +2334,7 @@ if (Meteor.isServer) {
         });
       }
     },
-    setInitials(initials, userId) {
+    async setInitials(initials, userId) {
       check(initials, String);
       check(userId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
@@ -2343,7 +2343,7 @@ if (Meteor.isServer) {
          userId.includes('/')) {
          return false;
       }
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         Users.update(userId, {
           $set: {
             'profile.initials': initials,
@@ -2352,7 +2352,7 @@ if (Meteor.isServer) {
       }
     },
     // we accept userId, username, email
-    inviteUserToBoard(username, boardId) {
+    async inviteUserToBoard(username, boardId) {
       check(username, String);
       check(boardId, String);
       // Prevent Hyperlink Injection https://github.com/wekan/wekan/issues/5176
@@ -2361,8 +2361,8 @@ if (Meteor.isServer) {
           boardId.includes('/')) {
          return false;
       }
-      const inviter = ReactiveCache.getCurrentUser();
-      const board = ReactiveCache.getBoard(boardId);
+      const inviter = await ReactiveCache.getCurrentUser();
+      const board = await ReactiveCache.getBoard(boardId);
       const member = _.find(board.members, function(member) { return member.userId === inviter._id; });
       if (!member) throw new Meteor.Error('error-board-notAMember');
       const allowInvite = member.isActive;
@@ -2375,7 +2375,7 @@ if (Meteor.isServer) {
       const posAt = username.indexOf('@');
       let user = null;
       if (posAt >= 0) {
-        user = ReactiveCache.getUser({
+        user = await ReactiveCache.getUser({
           emails: {
             $elemMatch: {
               address: username,
@@ -2384,15 +2384,15 @@ if (Meteor.isServer) {
         });
       } else {
         user =
-          ReactiveCache.getUser(username) ||
-          ReactiveCache.getUser({ username });
+          await ReactiveCache.getUser(username) ||
+          await ReactiveCache.getUser({ username });
       }
       if (user) {
         if (user._id === inviter._id)
           throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-        if (ReactiveCache.getCurrentSetting().disableRegistration) {
+        if ((await ReactiveCache.getCurrentSetting()).disableRegistration) {
           throw new Meteor.Error('error-user-notCreated');
         }
         // Set in lowercase email before creating account
@@ -2418,7 +2418,7 @@ if (Meteor.isServer) {
           });
         }
         Accounts.sendEnrollmentEmail(newUserId);
-        user = ReactiveCache.getUser(newUserId);
+        user = await ReactiveCache.getUser(newUserId);
       }
 
       const memberIndex = board.members.findIndex(m => m.userId === user._id);
@@ -2431,7 +2431,7 @@ if (Meteor.isServer) {
 
       //Check if there is a subtasks board
       if (board.subtasksDefaultBoardId) {
-        const subBoard = ReactiveCache.getBoard(board.subtasksDefaultBoardId);
+        const subBoard = await ReactiveCache.getBoard(board.subtasksDefaultBoardId);
         //If there is, also add user to that board
         if (subBoard) {
           const subMemberIndex = subBoard.members.findIndex(m => m.userId === user._id);
@@ -2495,35 +2495,35 @@ if (Meteor.isServer) {
         email: user.emails[0].address,
       };
     },
-    impersonate(userId) {
+    async impersonate(userId) {
       check(userId, String);
 
-      if (!ReactiveCache.getUser(userId))
+      if (!(await ReactiveCache.getUser(userId)))
         throw new Meteor.Error(404, 'User not found');
-      if (!ReactiveCache.getCurrentUser().isAdmin)
+      if (!(await ReactiveCache.getCurrentUser()).isAdmin)
         throw new Meteor.Error(403, 'Permission denied');
 
       ImpersonatedUsers.insert({
-        adminId: ReactiveCache.getCurrentUser()._id,
+        adminId: (await ReactiveCache.getCurrentUser())._id,
         userId: userId,
         reason: 'clickedImpersonate',
       });
       this.setUserId(userId);
     },
-    isImpersonated(userId) {
+    async isImpersonated(userId) {
       check(userId, String);
-      const isImpersonated = ReactiveCache.getImpersonatedUser({ userId: userId });
+      const isImpersonated = await ReactiveCache.getImpersonatedUser({ userId: userId });
       return isImpersonated;
     },
-    setUsersTeamsTeamDisplayName(teamId, teamDisplayName) {
+    async setUsersTeamsTeamDisplayName(teamId, teamDisplayName) {
       check(teamId, String);
       check(teamDisplayName, String);
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        ReactiveCache.getUsers({
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+        for (const user of await ReactiveCache.getUsers({
           teams: {
             $elemMatch: { teamId: teamId },
           },
-        }).forEach((user) => {
+        })) {
           Users.update(
             {
               _id: user._id,
@@ -2537,18 +2537,18 @@ if (Meteor.isServer) {
               },
             },
           );
-        });
+        }
       }
     },
-    setUsersOrgsOrgDisplayName(orgId, orgDisplayName) {
+    async setUsersOrgsOrgDisplayName(orgId, orgDisplayName) {
       check(orgId, String);
       check(orgDisplayName, String);
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
-        ReactiveCache.getUsers({
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+        for (const user of await ReactiveCache.getUsers({
           orgs: {
             $elemMatch: { orgId: orgId },
           },
-        }).forEach((user) => {
+        })) {
           Users.update(
             {
               _id: user._id,
@@ -2562,12 +2562,12 @@ if (Meteor.isServer) {
               },
             },
           );
-        });
+        }
       }
     },
   });
-  Accounts.onCreateUser((options, user) => {
-    const userCount = ReactiveCache.getUsers({}, {}, true).count();
+  Accounts.onCreateUser(async (options, user) => {
+    const userCount = (await ReactiveCache.getUsers({}, {}, true)).count();
     user.isAdmin = userCount === 0;
 
     if (user.services.oidc) {
@@ -2607,7 +2607,7 @@ if (Meteor.isServer) {
       user.authenticationMethod = 'oauth2';
 
       // see if any existing user has this email address or username, otherwise create new
-      const existingUser = ReactiveCache.getUser({
+      const existingUser = await ReactiveCache.getUser({
         $or: [
           {
             'emails.address': email,
@@ -2641,7 +2641,7 @@ if (Meteor.isServer) {
       return user;
     }
 
-    const disableRegistration = ReactiveCache.getCurrentSetting().disableRegistration;
+    const disableRegistration = (await ReactiveCache.getCurrentSetting()).disableRegistration;
     // If this is the first Authentication by the ldap and self registration disabled
     if (disableRegistration && options && options.ldap) {
       user.authenticationMethod = 'ldap';
@@ -2659,7 +2659,7 @@ if (Meteor.isServer) {
         'The invitation code is required',
       );
     }
-    const invitationCode = ReactiveCache.getInvitationCode({
+    const invitationCode = await ReactiveCache.getInvitationCode({
       code: options.profile.invitationcode,
       email: options.email,
       valid: true,
@@ -2702,8 +2702,8 @@ const addCronJob = _.debounce(
     SyncedCron.add({
       name: 'notification_cleanup',
       schedule: (parser) => parser.text('every 1 days'),
-      job: () => {
-        for (const user of ReactiveCache.getUsers()) {
+      job: async () => {
+        for (const user of await ReactiveCache.getUsers()) {
           if (!user.profile || !user.profile.notifications) continue;
           for (const notification of user.profile.notifications) {
             if (notification.read) {
@@ -2938,9 +2938,9 @@ if (Meteor.isServer) {
     });
   }
 
-  Users.after.insert((userId, doc) => {
+  Users.after.insert(async (userId, doc) => {
     // HACK
-    doc = ReactiveCache.getUser(doc._id);
+    doc = await ReactiveCache.getUser(doc._id);
     if (doc.createdThroughApi) {
       // The admin user should be able to create a user despite disabling registration because
       // it is two different things (registration and creation).
@@ -2957,19 +2957,19 @@ if (Meteor.isServer) {
     }
 
     //invite user to corresponding boards
-    const disableRegistration = ReactiveCache.getCurrentSetting().disableRegistration;
+    const disableRegistration = (await ReactiveCache.getCurrentSetting()).disableRegistration;
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
       let invitationCode = null;
       if (doc.authenticationMethod.toLowerCase() == 'oauth2') {
         // OIDC authentication mode
-        invitationCode = ReactiveCache.getInvitationCode({
+        invitationCode = await ReactiveCache.getInvitationCode({
           email: doc.emails[0].address.toLowerCase(),
           valid: true,
         });
       } else {
-        invitationCode = ReactiveCache.getInvitationCode({
+        invitationCode = await ReactiveCache.getInvitationCode({
           code: doc.profile.icode,
           valid: true,
         });
@@ -2977,15 +2977,15 @@ if (Meteor.isServer) {
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');
       } else {
-        invitationCode.boardsToBeInvited.forEach((boardId) => {
-          const board = ReactiveCache.getBoard(boardId);
+        for (const boardId of invitationCode.boardsToBeInvited) {
+          const board = await ReactiveCache.getBoard(boardId);
           const memberIndex = board.members.findIndex(m => m.userId === doc._id);
           if (memberIndex >= 0) {
             Boards.update(boardId, { $set: { [`members.${memberIndex}.isActive`]: true } });
           } else {
             Boards.update(boardId, { $push: { members: { userId: doc._id, isAdmin: false, isActive: true, isNoComments: false, isCommentOnly: false, isWorker: false, isNormalAssignedOnly: false, isCommentAssignedOnly: false, isReadOnly: false, isReadAssignedOnly: false } } });
           }
-        });
+        }
         if (!doc.profile) {
           doc.profile = {};
         }
@@ -3026,16 +3026,16 @@ if (Meteor.isServer) {
    * @summary returns the current user
    * @return_type Users
    */
-  JsonRoutes.add('GET', '/api/user', function (req, res) {
+  JsonRoutes.add('GET', '/api/user', async function (req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
-      const data = ReactiveCache.getUser({
+      const data = await ReactiveCache.getUser({
         _id: req.userId,
       });
       delete data.services;
 
       // get all boards where the user is member of
-      let boards = ReactiveCache.getBoards(
+      let boards = await ReactiveCache.getBoards(
         {
           type: 'board',
           'members.userId': req.userId,
@@ -3106,22 +3106,22 @@ if (Meteor.isServer) {
    * @param {string} userId the user ID or username
    * @return_type Users
    */
-  JsonRoutes.add('GET', '/api/users/:userId', function (req, res) {
+  JsonRoutes.add('GET', '/api/users/:userId', async function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       let id = req.params.userId;
-      let user = ReactiveCache.getUser({
+      let user = await ReactiveCache.getUser({
         _id: id,
       });
       if (!user) {
-        user = ReactiveCache.getUser({
+        user = await ReactiveCache.getUser({
           username: id,
         });
         id = user._id;
       }
 
       // get all boards where the user is member of
-      let boards = ReactiveCache.getBoards(
+      let boards = await ReactiveCache.getBoards(
         {
           type: 'board',
           'members.userId': id,
@@ -3175,12 +3175,12 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
       const action = req.body.action;
-      let data = ReactiveCache.getUser({
+      let data = await ReactiveCache.getUser({
         _id: id,
       });
       if (data !== undefined) {
         if (action === 'takeOwnership') {
-          const boards = ReactiveCache.getBoards(
+          const boards = await ReactiveCache.getBoards(
             {
               'members.userId': id,
               'members.isAdmin': true,
@@ -3227,7 +3227,7 @@ if (Meteor.isServer) {
               },
             );
           }
-          data = ReactiveCache.getUser(id);
+          data = await ReactiveCache.getUser(id);
         }
       }
       JsonRoutes.sendResult(res, {
@@ -3270,19 +3270,19 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/members/:userId/add',
-    function (req, res) {
+    async function (req, res) {
       try {
         Authentication.checkUserId(req.userId);
         const userId = req.params.userId;
         const boardId = req.params.boardId;
         const action = req.body.action;
         const { isAdmin, isNoComments, isCommentOnly, isWorker, isNormalAssignedOnly, isCommentAssignedOnly, isReadOnly, isReadAssignedOnly } = req.body;
-        let data = ReactiveCache.getUser(userId);
+        let data = await ReactiveCache.getUser(userId);
         if (data !== undefined) {
           if (action === 'add') {
-            data = ReactiveCache.getBoards({
+            data = (await ReactiveCache.getBoards({
               _id: boardId,
-            }).map(function (board) {
+            })).map(function (board) {
               const hasMember = board.members.some(m => m.userId === userId && m.isActive);
               if (!hasMember) {
                 const memberIndex = board.members.findIndex(m => m.userId === userId);
@@ -3345,18 +3345,18 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/members/:userId/remove',
-    function (req, res) {
+    async function (req, res) {
       try {
         Authentication.checkUserId(req.userId);
         const userId = req.params.userId;
         const boardId = req.params.boardId;
         const action = req.body.action;
-        let data = ReactiveCache.getUser(userId);
+        let data = await ReactiveCache.getUser(userId);
         if (data !== undefined) {
           if (action === 'remove') {
-            data = ReactiveCache.getBoards({
+            data = (await ReactiveCache.getBoards({
               _id: boardId,
-            }).map(function (board) {
+            })).map(function (board) {
               const hasMember = board.members.some(m => m.userId === userId && m.isActive);
               if (hasMember) {
                 const memberIndex = board.members.findIndex(m => m.userId === userId);
@@ -3591,7 +3591,7 @@ if (Meteor.isServer) {
       check(userData, Object);
       return sanitizeUserForSearch(userData);
     },
-    searchUsers(query, boardId) {
+    async searchUsers(query, boardId) {
       check(query, String);
       check(boardId, String);
 
@@ -3599,8 +3599,8 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-logged-in', 'User must be logged in');
       }
 
-      const currentUser = ReactiveCache.getCurrentUser();
-      const board = ReactiveCache.getBoard(boardId);
+      const currentUser = await ReactiveCache.getCurrentUser();
+      const board = await ReactiveCache.getBoard(boardId);
 
       // Check if current user is a member of the board
       const member = _.find(board.members, function(member) { return member.userId === currentUser._id; });
@@ -3613,7 +3613,7 @@ if (Meteor.isServer) {
       }
 
       const searchRegex = new RegExp(query, 'i');
-      const users = ReactiveCache.getUsers({
+      const users = await ReactiveCache.getUsers({
         $or: [
           { username: searchRegex },
           { 'profile.fullname': searchRegex },

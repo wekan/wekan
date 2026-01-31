@@ -26,10 +26,10 @@ class DeleteDuplicateEmptyListsMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     try {
-      const lists = ReactiveCache.getLists({ boardId });
-      const cards = ReactiveCache.getCards({ boardId });
+      const lists = await ReactiveCache.getLists({ boardId });
+      const cards = await ReactiveCache.getCards({ boardId });
 
       // Check if there are any empty lists that have a duplicate with the same title containing cards
       for (const list of lists) {
@@ -104,9 +104,9 @@ class DeleteDuplicateEmptyListsMigration {
    * Convert shared lists (lists without swimlaneId) to per-swimlane lists
    */
   async convertSharedListsToPerSwimlane(boardId) {
-    const lists = ReactiveCache.getLists({ boardId });
-    const swimlanes = ReactiveCache.getSwimlanes({ boardId, archived: false });
-    const cards = ReactiveCache.getCards({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
+    const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false });
+    const cards = await ReactiveCache.getCards({ boardId });
     
     let listsConverted = 0;
 
@@ -206,8 +206,8 @@ class DeleteDuplicateEmptyListsMigration {
    * 3. Have a duplicate list with the same title on the same board that contains cards
    */
   async deleteEmptyPerSwimlaneLists(boardId) {
-    const lists = ReactiveCache.getLists({ boardId });
-    const cards = ReactiveCache.getCards({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
     
     let listsDeleted = 0;
 
@@ -268,8 +268,8 @@ class DeleteDuplicateEmptyListsMigration {
    * Get detailed status of empty lists
    */
   async getStatus(boardId) {
-    const lists = ReactiveCache.getLists({ boardId });
-    const cards = ReactiveCache.getCards({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
 
     const sharedLists = [];
     const emptyPerSwimlaneLists = [];
@@ -319,30 +319,30 @@ const deleteDuplicateEmptyListsMigration = new DeleteDuplicateEmptyListsMigratio
 
 // Register Meteor methods
 Meteor.methods({
-  'deleteDuplicateEmptyLists.needsMigration'(boardId) {
+  async 'deleteDuplicateEmptyLists.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
-    return deleteDuplicateEmptyListsMigration.needsMigration(boardId);
+    return await deleteDuplicateEmptyListsMigration.needsMigration(boardId);
   },
 
-  'deleteDuplicateEmptyLists.execute'(boardId) {
+  async 'deleteDuplicateEmptyLists.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
     // Check if user is board admin
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user) {
       throw new Meteor.Error('user-not-found', 'User not found');
     }
@@ -356,17 +356,17 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
     }
 
-    return deleteDuplicateEmptyListsMigration.executeMigration(boardId);
+    return await deleteDuplicateEmptyListsMigration.executeMigration(boardId);
   },
 
-  'deleteDuplicateEmptyLists.getStatus'(boardId) {
+  async 'deleteDuplicateEmptyLists.getStatus'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
-    return deleteDuplicateEmptyListsMigration.getStatus(boardId);
+    return await deleteDuplicateEmptyListsMigration.getStatus(boardId);
   }
 });
 

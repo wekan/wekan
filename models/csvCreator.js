@@ -247,7 +247,7 @@ export class CsvCreator {
     this.swimlane = swimlaneId;
   }
 
-  createLists(csvData, boardId) {
+  async createLists(csvData, boardId) {
     let numOfCreatedLists = 0;
     for (let i = 1; i < csvData.length; i++) {
       const listToCreate = {
@@ -256,7 +256,7 @@ export class CsvCreator {
         createdAt: this._now(),
       };
       if (csvData[i][this.fieldIndex.stage]) {
-        const existingList = ReactiveCache.getLists({
+        const existingList = await ReactiveCache.getLists({
           title: csvData[i][this.fieldIndex.stage],
           boardId,
         });
@@ -279,7 +279,7 @@ export class CsvCreator {
     }
   }
 
-  createCards(csvData, boardId) {
+  async createCards(csvData, boardId) {
     for (let i = 1; i < csvData.length; i++) {
       const cardToCreate = {
         archived: false,
@@ -321,7 +321,7 @@ export class CsvCreator {
       }
       // add the labels
       if (csvData[i][this.fieldIndex.labels]) {
-        const board = ReactiveCache.getBoard(boardId);
+        const board = await ReactiveCache.getBoard(boardId);
         for (const importedLabel of csvData[i][this.fieldIndex.labels].split(
           ' ',
         )) {
@@ -388,15 +388,15 @@ export class CsvCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = ReactiveCache.getBoard(currentBoardId);
+      const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
     this.mapHeadertoCardFieldIndex(board[0]);
     const boardId = this.createBoard(board);
-    this.createLists(board, boardId);
+    await this.createLists(board, boardId);
     this.createSwimlanes(boardId);
     this.createCustomFields(boardId);
-    this.createCards(board, boardId);
+    await this.createCards(board, boardId);
     return boardId;
   }
 }

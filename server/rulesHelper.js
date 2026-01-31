@@ -10,14 +10,14 @@ RulesHelper = {
       }
     }
   },
-  findMatchingRules(activity) {
+  async findMatchingRules(activity) {
     const activityType = activity.activityType;
     if (TriggersDef[activityType] === undefined) {
       return [];
     }
     const matchingFields = TriggersDef[activityType].matchingFields;
-    const matchingMap = this.buildMatchingFieldsMap(activity, matchingFields);
-    const matchingTriggers = ReactiveCache.getTriggers(matchingMap);
+    const matchingMap = await this.buildMatchingFieldsMap(activity, matchingFields);
+    const matchingTriggers = await ReactiveCache.getTriggers(matchingMap);
     const matchingRules = [];
     matchingTriggers.forEach(function(trigger) {
       const rule = trigger.getRule();
@@ -29,20 +29,20 @@ RulesHelper = {
     });
     return matchingRules;
   },
-  buildMatchingFieldsMap(activity, matchingFields) {
+  async buildMatchingFieldsMap(activity, matchingFields) {
     const matchingMap = { activityType: activity.activityType };
-    matchingFields.forEach(field => {
+    for (const field of matchingFields) {
       // Creating a matching map with the actual field of the activity
       // and with the wildcard (for example: trigger when a card is added
       // in any [*] board
       let value = activity[field];
       if (field === 'oldListName') {
-        const oldList = ReactiveCache.getList(activity.oldListId);
+        const oldList = await ReactiveCache.getList(activity.oldListId);
         if (oldList) {
           value = oldList.title;
         }
       } else if (field === 'oldSwimlaneName') {
-        const oldSwimlane = ReactiveCache.getSwimlane(activity.oldSwimlaneId);
+        const oldSwimlane = await ReactiveCache.getSwimlane(activity.oldSwimlaneId);
         if (oldSwimlane) {
           value = oldSwimlane.title;
         }
@@ -54,11 +54,11 @@ RulesHelper = {
       matchingMap[field] = {
         $in: matchesList,
       };
-    });
+    }
     return matchingMap;
   },
   async performAction(activity, action) {
-    const card = ReactiveCache.getCard(activity.cardId);
+    const card = await ReactiveCache.getCard(activity.cardId);
     const boardId = activity.boardId;
     if (
       action.actionType === 'moveCardToTop' ||
@@ -69,10 +69,10 @@ RulesHelper = {
       if (action.listName === '*') {
         list = card.list();
         if (boardId !== action.boardId) {
-          list = ReactiveCache.getList({ title: list.title, boardId: action.boardId });
+          list = await ReactiveCache.getList({ title: list.title, boardId: action.boardId });
         }
       } else {
-        list = ReactiveCache.getList({
+        list = await ReactiveCache.getList({
           title: action.listName,
           boardId: action.boardId,
         });
@@ -86,24 +86,24 @@ RulesHelper = {
       let swimlane;
       let swimlaneId;
       if (action.swimlaneName === '*') {
-        swimlane = ReactiveCache.getSwimlane(card.swimlaneId);
+        swimlane = await ReactiveCache.getSwimlane(card.swimlaneId);
         if (boardId !== action.boardId) {
-          swimlane = ReactiveCache.getSwimlane({
+          swimlane = await ReactiveCache.getSwimlane({
             title: swimlane.title,
             boardId: action.boardId,
           });
         }
       } else {
-        swimlane = ReactiveCache.getSwimlane({
+        swimlane = await ReactiveCache.getSwimlane({
           title: action.swimlaneName,
           boardId: action.boardId,
         });
       }
       if (swimlane === undefined) {
-        swimlaneId = ReactiveCache.getSwimlane({
+        swimlaneId = (await ReactiveCache.getSwimlane({
           title: 'Default',
           boardId: action.boardId,
-        })._id;
+        }))._id;
       } else {
         swimlaneId = swimlane._id;
       }
@@ -132,7 +132,7 @@ RulesHelper = {
 
         // Check if recipient is a Wekan user to get their language
         if (to && to.includes('@')) {
-          recipientUser = ReactiveCache.getUser({ 'emails.address': to.toLowerCase() });
+          recipientUser = await ReactiveCache.getUser({ 'emails.address': to.toLowerCase() });
           if (recipientUser && typeof recipientUser.getLanguage === 'function') {
             recipientLang = recipientUser.getLanguage();
           }
@@ -262,7 +262,7 @@ RulesHelper = {
       card.removeLabel(action.labelId);
     }
     if (action.actionType === 'addMember') {
-      const memberId = ReactiveCache.getUser({ username: action.username })._id;
+      const memberId = (await ReactiveCache.getUser({ username: action.username }))._id;
       card.assignMember(memberId);
     }
     if (action.actionType === 'removeMember') {
@@ -272,41 +272,41 @@ RulesHelper = {
           card.unassignMember(members[i]);
         }
       } else {
-        const memberId = ReactiveCache.getUser({ username: action.username })._id;
+        const memberId = (await ReactiveCache.getUser({ username: action.username }))._id;
         card.unassignMember(memberId);
       }
     }
     if (action.actionType === 'checkAll') {
-      const checkList = ReactiveCache.getChecklist({
+      const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
       await checkList.checkAllItems();
     }
     if (action.actionType === 'uncheckAll') {
-      const checkList = ReactiveCache.getChecklist({
+      const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
       await checkList.uncheckAllItems();
     }
     if (action.actionType === 'checkItem') {
-      const checkList = ReactiveCache.getChecklist({
+      const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
-      const checkItem = ReactiveCache.getChecklistItem({
+      const checkItem = await ReactiveCache.getChecklistItem({
         title: action.checkItemName,
         checkListId: checkList._id,
       });
       await checkItem.check();
     }
     if (action.actionType === 'uncheckItem') {
-      const checkList = ReactiveCache.getChecklist({
+      const checkList = await ReactiveCache.getChecklist({
         title: action.checklistName,
         cardId: card._id,
       });
-      const checkItem = ReactiveCache.getChecklistItem({
+      const checkItem = await ReactiveCache.getChecklistItem({
         title: action.checkItemName,
         checkListId: checkList._id,
       });
@@ -340,7 +340,7 @@ RulesHelper = {
         sort: 0,
       });
       const itemsArray = action.checklistItems.split(',');
-      const checkList = ReactiveCache.getChecklist(checkListId);
+      const checkList = await ReactiveCache.getChecklist(checkListId);
       for (let i = 0; i < itemsArray.length; i++) {
         ChecklistItems.insert({
           title: itemsArray[i],
@@ -351,10 +351,10 @@ RulesHelper = {
       }
     }
     if (action.actionType === 'createCard') {
-      const list = ReactiveCache.getList({ title: action.listName, boardId });
+      const list = await ReactiveCache.getList({ title: action.listName, boardId });
       let listId = '';
       let swimlaneId = '';
-      const swimlane = ReactiveCache.getSwimlane({
+      const swimlane = await ReactiveCache.getSwimlane({
         title: action.swimlaneName,
         boardId,
       });
@@ -364,7 +364,7 @@ RulesHelper = {
         listId = list._id;
       }
       if (swimlane === undefined) {
-        swimlaneId = ReactiveCache.getSwimlane({ title: 'Default', boardId })._id;
+        swimlaneId = (await ReactiveCache.getSwimlane({ title: 'Default', boardId }))._id;
       } else {
         swimlaneId = swimlane._id;
       }
@@ -377,11 +377,11 @@ RulesHelper = {
       });
     }
     if (action.actionType === 'linkCard') {
-      const list = ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
-      const card = ReactiveCache.getCard(activity.cardId);
+      const list = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
+      const card = await ReactiveCache.getCard(activity.cardId);
       let listId = '';
       let swimlaneId = '';
-      const swimlane = ReactiveCache.getSwimlane({
+      const swimlane = await ReactiveCache.getSwimlane({
         title: action.swimlaneName,
         boardId: action.boardId,
       });
@@ -391,7 +391,7 @@ RulesHelper = {
         listId = list._id;
       }
       if (swimlane === undefined) {
-        swimlaneId = ReactiveCache.getSwimlane({ title: 'Default', boardId: action.boardId })._id;
+        swimlaneId = (await ReactiveCache.getSwimlane({ title: 'Default', boardId: action.boardId }))._id;
       } else {
         swimlaneId = swimlane._id;
       }

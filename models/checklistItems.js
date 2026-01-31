@@ -69,17 +69,17 @@ ChecklistItems.attachSchema(
 );
 
 ChecklistItems.allow({
-  insert(userId, doc) {
+  async insert(userId, doc) {
     // ReadOnly users cannot create checklist items
-    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
   },
-  update(userId, doc) {
+  async update(userId, doc) {
     // ReadOnly users cannot edit checklist items
-    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
   },
-  remove(userId, doc) {
+  async remove(userId, doc) {
     // ReadOnly users cannot delete checklist items
-    return allowIsBoardMemberWithWriteAccessByCard(userId, ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });
@@ -104,7 +104,8 @@ ChecklistItems.helpers({
     return await ChecklistItems.updateAsync(this._id, { $set: { isFinished: !this.isFinished } });
   },
   async move(checklistId, sortIndex) {
-    const cardId = ReactiveCache.getChecklist(checklistId).cardId;
+    const checklist = await ReactiveCache.getChecklist(checklistId);
+    const cardId = checklist.cardId;
     return await ChecklistItems.updateAsync(this._id, {
       $set: { cardId, checklistId, sort: sortIndex },
     });
@@ -112,8 +113,8 @@ ChecklistItems.helpers({
 });
 
 // Activities helper
-function itemCreation(userId, doc) {
-  const card = ReactiveCache.getCard(doc.cardId);
+async function itemCreation(userId, doc) {
+  const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   Activities.insert({
     userId,
@@ -134,8 +135,8 @@ function itemRemover(userId, doc) {
   });
 }
 
-function publishCheckActivity(userId, doc) {
-  const card = ReactiveCache.getCard(doc.cardId);
+async function publishCheckActivity(userId, doc) {
+  const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   let activityType;
   if (doc.isFinished) {
@@ -157,11 +158,11 @@ function publishCheckActivity(userId, doc) {
   Activities.insert(act);
 }
 
-function publishChekListCompleted(userId, doc) {
-  const card = ReactiveCache.getCard(doc.cardId);
+async function publishChekListCompleted(userId, doc) {
+  const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
-  const checkList = ReactiveCache.getChecklist(checklistId);
+  const checkList = await ReactiveCache.getChecklist(checklistId);
   if (checkList.isFinished()) {
     const act = {
       userId,
@@ -177,11 +178,11 @@ function publishChekListCompleted(userId, doc) {
   }
 }
 
-function publishChekListUncompleted(userId, doc) {
-  const card = ReactiveCache.getCard(doc.cardId);
+async function publishChekListUncompleted(userId, doc) {
+  const card = await ReactiveCache.getCard(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
-  const checkList = ReactiveCache.getChecklist(checklistId);
+  const checkList = await ReactiveCache.getChecklist(checklistId);
   // BUGS in IFTTT Rules: https://github.com/wekan/wekan/issues/1972
   //       Currently in checklist all are set as uncompleted/not checked,
   //       IFTTT Rule does not move card to other list.
@@ -218,22 +219,22 @@ if (Meteor.isServer) {
     await ChecklistItems._collection.createIndexAsync({ cardId: 1 });
   });
 
-  ChecklistItems.after.update((userId, doc, fieldNames) => {
-    publishCheckActivity(userId, doc);
-    publishChekListCompleted(userId, doc, fieldNames);
+  ChecklistItems.after.update(async (userId, doc, fieldNames) => {
+    await publishCheckActivity(userId, doc);
+    await publishChekListCompleted(userId, doc, fieldNames);
   });
 
-  ChecklistItems.before.update((userId, doc, fieldNames) => {
-    publishChekListUncompleted(userId, doc, fieldNames);
+  ChecklistItems.before.update(async (userId, doc, fieldNames) => {
+    await publishChekListUncompleted(userId, doc, fieldNames);
   });
 
-  ChecklistItems.after.insert((userId, doc) => {
-    itemCreation(userId, doc);
+  ChecklistItems.after.insert(async (userId, doc) => {
+    await itemCreation(userId, doc);
   });
 
-  ChecklistItems.before.remove((userId, doc) => {
+  ChecklistItems.before.remove(async (userId, doc) => {
     itemRemover(userId, doc);
-    const card = ReactiveCache.getCard(doc.cardId);
+    const card = await ReactiveCache.getCard(doc.cardId);
     const boardId = card.boardId;
     Activities.insert({
       userId,
@@ -264,15 +265,15 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'GET',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
-    function(req, res) {
+    async function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramChecklistId = req.params.checklistId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
+      const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
       if (checklistItem && checklistItem.cardId === paramCardId && checklistItem.checklistId === paramChecklistId) {
-        const card = ReactiveCache.getCard(checklistItem.cardId);
+        const card = await ReactiveCache.getCard(checklistItem.cardId);
         if (card && card.boardId === paramBoardId) {
           JsonRoutes.sendResult(res, {
             code: 200,
@@ -305,17 +306,17 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items',
-    function(req, res) {
+    async function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramChecklistId = req.params.checklistId;
       const paramCardId = req.params.cardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const checklist = ReactiveCache.getChecklist({
+      const checklist = await ReactiveCache.getChecklist({
         _id: paramChecklistId,
         cardId: paramCardId,
       });
       if (checklist) {
-        const card = ReactiveCache.getCard(paramCardId);
+        const card = await ReactiveCache.getCard(paramCardId);
         if (card && card.boardId === paramBoardId) {
           const id = ChecklistItems.insert({
             cardId: paramCardId,
@@ -359,21 +360,21 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'PUT',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
-    function(req, res) {
+    async function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramChecklistId = req.params.checklistId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
+      const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
       if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {
         JsonRoutes.sendResult(res, {
           code: 404,
         });
         return;
       }
-      const card = ReactiveCache.getCard(checklistItem.cardId);
+      const card = await ReactiveCache.getCard(checklistItem.cardId);
       if (!card || card.boardId !== paramBoardId) {
         JsonRoutes.sendResult(res, {
           code: 404,
@@ -427,21 +428,21 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'DELETE',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId/items/:itemId',
-    function(req, res) {
+    async function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       const paramChecklistId = req.params.checklistId;
       const paramItemId = req.params.itemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      const checklistItem = ReactiveCache.getChecklistItem(paramItemId);
+      const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
       if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {
         JsonRoutes.sendResult(res, {
           code: 404,
         });
         return;
       }
-      const card = ReactiveCache.getCard(checklistItem.cardId);
+      const card = await ReactiveCache.getCard(checklistItem.cardId);
       if (!card || card.boardId !== paramBoardId) {
         JsonRoutes.sendResult(res, {
           code: 404,

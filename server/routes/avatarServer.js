@@ -13,14 +13,14 @@ import path from 'path';
 
 if (Meteor.isServer) {
   // Handle avatar file downloads
-  WebApp.connectHandlers.use('/cdn/storage/avatars/([^/]+)', (req, res, next) => {
+  WebApp.connectHandlers.use('/cdn/storage/avatars/([^/]+)', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const fileName = req.params[0];
-      
+
       if (!fileName) {
         res.writeHead(400);
         res.end('Invalid avatar file name');
@@ -29,7 +29,7 @@ if (Meteor.isServer) {
 
       // Extract file ID from filename (format: fileId-original-filename)
       const fileId = fileName.split('-original-')[0];
-      
+
       if (!fileId) {
         res.writeHead(400);
         res.end('Invalid avatar file format');
@@ -37,7 +37,7 @@ if (Meteor.isServer) {
       }
 
       // Get avatar file from database
-      const avatar = ReactiveCache.getAvatar(fileId);
+      const avatar = await ReactiveCache.getAvatar(fileId);
       if (!avatar) {
         res.writeHead(404);
         res.end('Avatar not found');

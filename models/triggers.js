@@ -14,14 +14,14 @@ Triggers.before.update((userId, doc, fieldNames, modifier) => {
 });
 
 Triggers.allow({
-  insert(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+  async insert(userId, doc) {
+    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
   },
-  update(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+  async update(userId, doc) {
+    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
   },
-  remove(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+  async remove(userId, doc) {
+    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
   },
 });
 
@@ -36,20 +36,20 @@ Triggers.helpers({
     return this.desc;
   },
 
-  getRule() {
-    return ReactiveCache.getRule({ triggerId: this._id });
+  async getRule() {
+    return await ReactiveCache.getRule({ triggerId: this._id });
   },
 
-  fromList() {
-    return ReactiveCache.getList(this.fromId);
+  async fromList() {
+    return await ReactiveCache.getList(this.fromId);
   },
 
-  toList() {
-    return ReactiveCache.getList(this.toId);
+  async toList() {
+    return await ReactiveCache.getList(this.toId);
   },
 
-  findList(title) {
-    return ReactiveCache.getList({
+  async findList(title) {
+    return await ReactiveCache.getList({
       title,
     });
   },

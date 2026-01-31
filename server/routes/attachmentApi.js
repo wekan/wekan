@@ -48,7 +48,7 @@ if (Meteor.isServer) {
   }
 
   // Upload attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/upload', (req, res, next) => {
+  WebApp.connectHandlers.use('/api/attachment/upload', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -75,11 +75,11 @@ if (Meteor.isServer) {
         }
       });
 
-      req.on('end', () => {
+      req.on('end', async () => {
         if (bodyComplete) return; // Already processed
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend } = data;
@@ -90,12 +90,12 @@ if (Meteor.isServer) {
           }
 
           // Check if user has permission to modify the card
-          const card = ReactiveCache.getCard(cardId);
+          const card = await ReactiveCache.getCard(cardId);
           if (!card) {
             return sendErrorResponse(res, 404, 'Card not found');
           }
 
-          const board = ReactiveCache.getBoard(boardId);
+          const board = await ReactiveCache.getBoard(boardId);
           if (!board) {
             return sendErrorResponse(res, 404, 'Board not found');
           }
@@ -207,7 +207,7 @@ if (Meteor.isServer) {
   });
 
   // Download attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/download/([^/]+)', (req, res, next) => {
+  WebApp.connectHandlers.use('/api/attachment/download/([^/]+)', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -217,13 +217,13 @@ if (Meteor.isServer) {
       const attachmentId = req.params[0];
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         return sendErrorResponse(res, 404, 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this attachment');
       }
@@ -267,7 +267,7 @@ if (Meteor.isServer) {
   });
 
   // List attachments endpoint
-  WebApp.connectHandlers.use('/api/attachment/list/([^/]+)/([^/]+)/([^/]+)/([^/]+)', (req, res, next) => {
+  WebApp.connectHandlers.use('/api/attachment/list/([^/]+)/([^/]+)/([^/]+)/([^/]+)', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -280,14 +280,14 @@ if (Meteor.isServer) {
       const cardId = req.params[3];
 
       // Check permissions
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this board');
       }
 
       // If cardId is provided, verify it belongs to the board
       if (cardId && cardId !== 'null') {
-        const card = ReactiveCache.getCard(cardId);
+        const card = await ReactiveCache.getCard(cardId);
         if (!card || card.boardId !== boardId) {
           return sendErrorResponse(res, 404, 'Card not found or does not belong to the specified board');
         }
@@ -307,7 +307,7 @@ if (Meteor.isServer) {
         query['meta.cardId'] = cardId;
       }
 
-      const attachments = ReactiveCache.getAttachments(query);
+      const attachments = await ReactiveCache.getAttachments(query);
       
       const attachmentList = attachments.map(attachment => {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
@@ -337,7 +337,7 @@ if (Meteor.isServer) {
   });
 
   // Copy attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/copy', (req, res, next) => {
+  WebApp.connectHandlers.use('/api/attachment/copy', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -350,10 +350,10 @@ if (Meteor.isServer) {
 
     try {
       const userId = authenticateApiRequest(req);
-      
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         if (body.length > 10 * 1024 * 1024) { // 10MB limit for metadata
@@ -362,35 +362,35 @@ if (Meteor.isServer) {
         }
       });
 
-      req.on('end', () => {
+      req.on('end', async () => {
         if (bodyComplete) return;
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId } = data;
 
           // Get source attachment
-          const sourceAttachment = ReactiveCache.getAttachment(attachmentId);
+          const sourceAttachment = await ReactiveCache.getAttachment(attachmentId);
           if (!sourceAttachment) {
             return sendErrorResponse(res, 404, 'Source attachment not found');
           }
 
           // Check source permissions
-          const sourceBoard = ReactiveCache.getBoard(sourceAttachment.meta.boardId);
+          const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
           if (!sourceBoard || !sourceBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
           // Check target permissions
-          const targetBoard = ReactiveCache.getBoard(targetBoardId);
+          const targetBoard = await ReactiveCache.getBoard(targetBoardId);
           if (!targetBoard || !targetBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
           // Verify that the target card belongs to the target board
-          const targetCard = ReactiveCache.getCard(targetCardId);
+          const targetCard = await ReactiveCache.getCard(targetCardId);
           if (!targetCard) {
             return sendErrorResponse(res, 404, 'Target card not found');
           }
@@ -493,7 +493,7 @@ if (Meteor.isServer) {
   });
 
   // Move attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/move', (req, res, next) => {
+  WebApp.connectHandlers.use('/api/attachment/move', async (req, res, next) => {
     if (req.method !== 'POST') {
       return next();
     }
@@ -506,10 +506,10 @@ if (Meteor.isServer) {
 
     try {
       const userId = authenticateApiRequest(req);
-      
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         if (body.length > 10 * 1024 * 1024) {
@@ -518,35 +518,35 @@ if (Meteor.isServer) {
         }
       });
 
-      req.on('end', () => {
+      req.on('end', async () => {
         if (bodyComplete) return;
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId } = data;
 
           // Get source attachment
-          const sourceAttachment = ReactiveCache.getAttachment(attachmentId);
+          const sourceAttachment = await ReactiveCache.getAttachment(attachmentId);
           if (!sourceAttachment) {
             return sendErrorResponse(res, 404, 'Source attachment not found');
           }
 
           // Check source permissions
-          const sourceBoard = ReactiveCache.getBoard(sourceAttachment.meta.boardId);
+          const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
           if (!sourceBoard || !sourceBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to access the source attachment');
           }
 
           // Check target permissions
-          const targetBoard = ReactiveCache.getBoard(targetBoardId);
+          const targetBoard = await ReactiveCache.getBoard(targetBoardId);
           if (!targetBoard || !targetBoard.isBoardMember(userId)) {
             return sendErrorResponse(res, 403, 'You do not have permission to modify the target card');
           }
 
           // Verify that the target card belongs to the target board
-          const targetCard = ReactiveCache.getCard(targetCardId);
+          const targetCard = await ReactiveCache.getCard(targetCardId);
           if (!targetCard) {
             return sendErrorResponse(res, 404, 'Target card not found');
           }
@@ -610,7 +610,7 @@ if (Meteor.isServer) {
   });
 
   // Delete attachment endpoint
-  WebApp.connectHandlers.use('/api/attachment/delete/([^/]+)', (req, res, next) => {
+  WebApp.connectHandlers.use('/api/attachment/delete/([^/]+)', async (req, res, next) => {
     if (req.method !== 'DELETE') {
       return next();
     }
@@ -620,13 +620,13 @@ if (Meteor.isServer) {
       const attachmentId = req.params[0];
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         return sendErrorResponse(res, 404, 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
       }
@@ -646,7 +646,7 @@ if (Meteor.isServer) {
   });
 
   // Get attachment info endpoint
-  WebApp.connectHandlers.use('/api/attachment/info/([^/]+)', (req, res, next) => {
+  WebApp.connectHandlers.use('/api/attachment/info/([^/]+)', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -656,13 +656,13 @@ if (Meteor.isServer) {
       const attachmentId = req.params[0];
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         return sendErrorResponse(res, 404, 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(userId)) {
         return sendErrorResponse(res, 403, 'You do not have permission to access this attachment');
       }

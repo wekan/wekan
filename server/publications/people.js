@@ -1,14 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-Meteor.publish('people', function(query, limit) {
+Meteor.publish('people', async function(query, limit) {
   check(query, Match.OneOf(Object, null));
   check(limit, Number);
 
   let ret = [];
-  const user = ReactiveCache.getCurrentUser();
+  const user = await ReactiveCache.getCurrentUser();
 
   if (user && user.isAdmin) {
-    ret = ReactiveCache.getUsers(query, {
+    ret = await ReactiveCache.getUsers(query, {
       limit,
       sort: { createdAt: -1 },
       fields: {

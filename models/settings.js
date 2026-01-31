@@ -195,8 +195,8 @@ Settings.helpers({
   },
 });
 Settings.allow({
-  update(userId) {
-    const user = ReactiveCache.getUser(userId);
+  async update(userId) {
+    const user = await ReactiveCache.getUser(userId);
     return user && user.isAdmin;
   },
 });
@@ -204,7 +204,7 @@ Settings.allow({
 if (Meteor.isServer) {
   Meteor.startup(async () => {
     await Settings._collection.createIndexAsync({ modifiedAt: -1 });
-    const setting = ReactiveCache.getCurrentSetting();
+    const setting = await ReactiveCache.getCurrentSetting();
     if (!setting) {
       const now = new Date();
       const domain = process.env.ROOT_URL.match(
@@ -230,7 +230,7 @@ if (Meteor.isServer) {
     }
     if (isSandstorm) {
       // At Sandstorm, Admin Panel has SMTP settings
-      const newSetting = ReactiveCache.getCurrentSetting();
+      const newSetting = await ReactiveCache.getCurrentSetting();
       if (!process.env.MAIL_URL && newSetting.mailUrl())
         process.env.MAIL_URL = newSetting.mailUrl();
       Accounts.emailTemplates.from = process.env.MAIL_FROM
@@ -284,15 +284,16 @@ if (Meteor.isServer) {
     return config;
   }
 
-  function sendInvitationEmail(_id) {
-    const icode = ReactiveCache.getInvitationCode(_id);
-    const author = ReactiveCache.getCurrentUser();
+  async function sendInvitationEmail(_id) {
+    const icode = await ReactiveCache.getInvitationCode(_id);
+    const author = await ReactiveCache.getCurrentUser();
     try {
-      const fullName = ReactiveCache.getUser(icode.authorId)?.profile?.fullname || "";
+      const authorUser = await ReactiveCache.getUser(icode.authorId);
+      const fullName = authorUser?.profile?.fullname || "";
 
       const params = {
         email: icode.email,
-        inviter: fullName != "" ? fullName + " (" + ReactiveCache.getUser(icode.authorId).username + " )" : ReactiveCache.getUser(icode.authorId).username,
+        inviter: fullName != "" ? fullName + " (" + authorUser.username + " )" : authorUser.username,
         user: icode.email.split('@')[0],
         icode: icode.code,
         url: FlowRouter.url('sign-up'),
@@ -323,8 +324,8 @@ if (Meteor.isServer) {
     }
   }
 
-  function isNonAdminAllowedToSendMail(currentUser){
-    const currSett = ReactiveCache.getCurrentSetting();
+  async function isNonAdminAllowedToSendMail(currentUser){
+    const currSett = await ReactiveCache.getCurrentSetting();
     let isAllowed = false;
     if(currSett && currSett != undefined && currSett.disableRegistration && currSett.mailDomainName !== undefined && currSett.mailDomainName != ""){
       for(let i = 0; i < currentUser.emails.length; i++) {
@@ -361,20 +362,20 @@ if (Meteor.isServer) {
   }
 
   Meteor.methods({
-    sendInvitation(emails, boards) {
+    async sendInvitation(emails, boards) {
       let rc = 0;
       check(emails, [String]);
       check(boards, [String]);
 
-      const user = ReactiveCache.getCurrentUser();
-      if (!user.isAdmin && !isNonAdminAllowedToSendMail(user)) {
+      const user = await ReactiveCache.getCurrentUser();
+      if (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user))) {
         rc = -1;
         throw new Meteor.Error('not-allowed');
       }
-      emails.forEach(email => {
+      for (const email of emails) {
         if (email && SimpleSchema.RegEx.Email.test(email)) {
           // Checks if the email is already link to an account.
-          const userExist = ReactiveCache.getUser({ email });
+          const userExist = await ReactiveCache.getUser({ email });
           if (userExist) {
             rc = -1;
             throw new Meteor.Error(
@@ -383,12 +384,12 @@ if (Meteor.isServer) {
             );
           }
           // Checks if the email is already link to an invitation.
-          const invitation = ReactiveCache.getInvitationCode({ email });
+          const invitation = await ReactiveCache.getInvitationCode({ email });
           if (invitation) {
             InvitationCodes.update(invitation, {
               $set: { boardsToBeInvited: boards },
             });
-            sendInvitationEmail(invitation._id);
+            await sendInvitationEmail(invitation._id);
           } else {
             const code = getRandomNum(100000, 999999);
             InvitationCodes.insert(
@@ -399,9 +400,9 @@ if (Meteor.isServer) {
                 createdAt: new Date(),
                 authorId: Meteor.userId(),
               },
-              function(err, _id) {
+              async function(err, _id) {
                 if (!err && _id) {
-                  sendInvitationEmail(_id);
+                  await sendInvitationEmail(_id);
                 } else {
                   rc = -1;
                   throw new Meteor.Error(
@@ -413,15 +414,15 @@ if (Meteor.isServer) {
             );
           }
         }
-      });
+      }
       return rc;
     },
 
-    sendSMTPTestEmail() {
+    async sendSMTPTestEmail() {
       if (!Meteor.userId()) {
         throw new Meteor.Error('invalid-user');
       }
-      const user = ReactiveCache.getCurrentUser();
+      const user = await ReactiveCache.getCurrentUser();
       if (!user.emails || !user.emails[0] || !user.emails[0].address) {
         throw new Meteor.Error('email-invalid');
       }
@@ -471,8 +472,8 @@ if (Meteor.isServer) {
       };
     },
 
-    getCustomUI() {
-      const setting = ReactiveCache.getCurrentSetting();
+    async getCustomUI() {
+      const setting = await ReactiveCache.getCurrentSetting();
       if (!setting.productName) {
         return {
           productName: '',
@@ -484,8 +485,8 @@ if (Meteor.isServer) {
       }
     },
 
-    isDisableRegistration() {
-      const setting = ReactiveCache.getCurrentSetting();
+    async isDisableRegistration() {
+      const setting = await ReactiveCache.getCurrentSetting();
       if (setting.disableRegistration === true) {
         return true;
       } else {
@@ -493,8 +494,8 @@ if (Meteor.isServer) {
       }
     },
 
-   isDisableForgotPassword() {
-      const setting = ReactiveCache.getCurrentSetting();
+   async isDisableForgotPassword() {
+      const setting = await ReactiveCache.getCurrentSetting();
       if (setting.disableForgotPassword === true) {
         return true;
       } else {

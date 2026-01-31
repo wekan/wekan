@@ -13,294 +13,294 @@ Meteor.methods({
   /**
    * Track original position for a swimlane
    */
-  'positionHistory.trackSwimlane'(swimlaneId) {
+  async 'positionHistory.trackSwimlane'(swimlaneId) {
     check(swimlaneId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const swimlane = Swimlanes.findOne(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
-    
-    const board = ReactiveCache.getBoard(swimlane.boardId);
+
+    const board = await ReactiveCache.getBoard(swimlane.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return swimlane.trackOriginalPosition();
   },
 
   /**
    * Track original position for a list
    */
-  'positionHistory.trackList'(listId) {
+  async 'positionHistory.trackList'(listId) {
     check(listId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = Lists.findOne(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
-    const board = ReactiveCache.getBoard(list.boardId);
+
+    const board = await ReactiveCache.getBoard(list.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return list.trackOriginalPosition();
   },
 
   /**
    * Track original position for a card
    */
-  'positionHistory.trackCard'(cardId) {
+  async 'positionHistory.trackCard'(cardId) {
     check(cardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const card = Cards.findOne(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
-    
-    const board = ReactiveCache.getBoard(card.boardId);
+
+    const board = await ReactiveCache.getBoard(card.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return card.trackOriginalPosition();
   },
 
   /**
    * Get original position for a swimlane
    */
-  'positionHistory.getSwimlaneOriginalPosition'(swimlaneId) {
+  async 'positionHistory.getSwimlaneOriginalPosition'(swimlaneId) {
     check(swimlaneId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const swimlane = Swimlanes.findOne(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
-    
-    const board = ReactiveCache.getBoard(swimlane.boardId);
+
+    const board = await ReactiveCache.getBoard(swimlane.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return swimlane.getOriginalPosition();
   },
 
   /**
    * Get original position for a list
    */
-  'positionHistory.getListOriginalPosition'(listId) {
+  async 'positionHistory.getListOriginalPosition'(listId) {
     check(listId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = Lists.findOne(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
-    const board = ReactiveCache.getBoard(list.boardId);
+
+    const board = await ReactiveCache.getBoard(list.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return list.getOriginalPosition();
   },
 
   /**
    * Get original position for a card
    */
-  'positionHistory.getCardOriginalPosition'(cardId) {
+  async 'positionHistory.getCardOriginalPosition'(cardId) {
     check(cardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const card = Cards.findOne(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
-    
-    const board = ReactiveCache.getBoard(card.boardId);
+
+    const board = await ReactiveCache.getBoard(card.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return card.getOriginalPosition();
   },
 
   /**
    * Check if a swimlane has moved from its original position
    */
-  'positionHistory.hasSwimlaneMoved'(swimlaneId) {
+  async 'positionHistory.hasSwimlaneMoved'(swimlaneId) {
     check(swimlaneId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const swimlane = Swimlanes.findOne(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
-    
-    const board = ReactiveCache.getBoard(swimlane.boardId);
+
+    const board = await ReactiveCache.getBoard(swimlane.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return swimlane.hasMovedFromOriginalPosition();
   },
 
   /**
    * Check if a list has moved from its original position
    */
-  'positionHistory.hasListMoved'(listId) {
+  async 'positionHistory.hasListMoved'(listId) {
     check(listId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = Lists.findOne(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
-    const board = ReactiveCache.getBoard(list.boardId);
+
+    const board = await ReactiveCache.getBoard(list.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return list.hasMovedFromOriginalPosition();
   },
 
   /**
    * Check if a card has moved from its original position
    */
-  'positionHistory.hasCardMoved'(cardId) {
+  async 'positionHistory.hasCardMoved'(cardId) {
     check(cardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const card = Cards.findOne(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
-    
-    const board = ReactiveCache.getBoard(card.boardId);
+
+    const board = await ReactiveCache.getBoard(card.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return card.hasMovedFromOriginalPosition();
   },
 
   /**
    * Get original position description for a swimlane
    */
-  'positionHistory.getSwimlaneDescription'(swimlaneId) {
+  async 'positionHistory.getSwimlaneDescription'(swimlaneId) {
     check(swimlaneId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const swimlane = Swimlanes.findOne(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
-    
-    const board = ReactiveCache.getBoard(swimlane.boardId);
+
+    const board = await ReactiveCache.getBoard(swimlane.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return swimlane.getOriginalPositionDescription();
   },
 
   /**
    * Get original position description for a list
    */
-  'positionHistory.getListDescription'(listId) {
+  async 'positionHistory.getListDescription'(listId) {
     check(listId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = Lists.findOne(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
-    const board = ReactiveCache.getBoard(list.boardId);
+
+    const board = await ReactiveCache.getBoard(list.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return list.getOriginalPositionDescription();
   },
 
   /**
    * Get original position description for a card
    */
-  'positionHistory.getCardDescription'(cardId) {
+  async 'positionHistory.getCardDescription'(cardId) {
     check(cardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const card = Cards.findOne(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
-    
-    const board = ReactiveCache.getBoard(card.boardId);
+
+    const board = await ReactiveCache.getBoard(card.boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return card.getOriginalPositionDescription();
   },
 
   /**
    * Get all position history for a board
    */
-  'positionHistory.getBoardHistory'(boardId) {
+  async 'positionHistory.getBoardHistory'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
-    const board = ReactiveCache.getBoard(boardId);
+
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     return PositionHistory.find({
       boardId: boardId,
     }, {
@@ -311,23 +311,23 @@ Meteor.methods({
   /**
    * Get position history by entity type for a board
    */
-  'positionHistory.getBoardHistoryByType'(boardId, entityType) {
+  async 'positionHistory.getBoardHistoryByType'(boardId, entityType) {
     check(boardId, String);
     check(entityType, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
-    const board = ReactiveCache.getBoard(boardId);
+
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    
+
     if (!['swimlane', 'list', 'card'].includes(entityType)) {
       throw new Meteor.Error('invalid-entity-type', 'Entity type must be swimlane, list, or card');
     }
-    
+
     return PositionHistory.find({
       boardId: boardId,
       entityType: entityType,

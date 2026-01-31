@@ -22,17 +22,17 @@ class FixAllFileUrlsMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     // Get all users who are members of this board
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.members) {
       return false;
     }
-    
+
     const memberIds = board.members.map(m => m.userId);
-    
+
     // Check for problematic avatar URLs for board members
-    const users = ReactiveCache.getUsers({ _id: { $in: memberIds } });
+    const users = await ReactiveCache.getUsers({ _id: { $in: memberIds } });
     for (const user of users) {
       if (user.profile && user.profile.avatarUrl) {
         const avatarUrl = user.profile.avatarUrl;
@@ -43,9 +43,9 @@ class FixAllFileUrlsMigration {
     }
 
     // Check for problematic attachment URLs on this board
-    const cards = ReactiveCache.getCards({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
     const cardIds = cards.map(c => c._id);
-    const attachments = ReactiveCache.getAttachments({ cardId: { $in: cardIds } });
+    const attachments = await ReactiveCache.getAttachments({ cardId: { $in: cardIds } });
     
     for (const attachment of attachments) {
       if (attachment.url && this.hasProblematicUrl(attachment.url)) {
@@ -133,13 +133,13 @@ class FixAllFileUrlsMigration {
    * Fix avatar URLs in user profiles for board members
    */
   async fixAvatarUrls(boardId) {
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.members) {
       return 0;
     }
-    
+
     const memberIds = board.members.map(m => m.userId);
-    const users = ReactiveCache.getUsers({ _id: { $in: memberIds } });
+    const users = await ReactiveCache.getUsers({ _id: { $in: memberIds } });
     let avatarsFixed = 0;
 
     for (const user of users) {
@@ -189,9 +189,9 @@ class FixAllFileUrlsMigration {
    * Fix attachment URLs in attachment records for this board
    */
   async fixAttachmentUrls(boardId) {
-    const cards = ReactiveCache.getCards({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
     const cardIds = cards.map(c => c._id);
-    const attachments = ReactiveCache.getAttachments({ cardId: { $in: cardIds } });
+    const attachments = await ReactiveCache.getAttachments({ cardId: { $in: cardIds } });
     let attachmentsFixed = 0;
 
     for (const attachment of attachments) {
@@ -229,9 +229,9 @@ class FixAllFileUrlsMigration {
    * Fix attachment URLs in the Attachments collection for this board
    */
   async fixCardAttachmentUrls(boardId) {
-    const cards = ReactiveCache.getCards({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
     const cardIds = cards.map(c => c._id);
-    const attachments = ReactiveCache.getAttachments({ cardId: { $in: cardIds } });
+    const attachments = await ReactiveCache.getAttachments({ cardId: { $in: cardIds } });
     let attachmentsFixed = 0;
 
     for (const attachment of attachments) {
@@ -270,20 +270,20 @@ export const fixAllFileUrlsMigration = new FixAllFileUrlsMigration();
 
 // Meteor methods
 Meteor.methods({
-  'fixAllFileUrls.execute'(boardId) {
+  async 'fixAllFileUrls.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
     // Check if user is board admin
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user) {
       throw new Meteor.Error('user-not-found', 'User not found');
     }
@@ -296,17 +296,17 @@ Meteor.methods({
     if (!isBoardAdmin && !user.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
     }
-    
-    return fixAllFileUrlsMigration.execute(boardId);
+
+    return await fixAllFileUrlsMigration.execute(boardId);
   },
 
-  'fixAllFileUrls.needsMigration'(boardId) {
+  async 'fixAllFileUrls.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
-    
-    return fixAllFileUrlsMigration.needsMigration(boardId);
+
+    return await fixAllFileUrlsMigration.needsMigration(boardId);
   }
 });

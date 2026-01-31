@@ -78,8 +78,8 @@ Team.attachSchema(
 
 if (Meteor.isServer) {
   Team.allow({
-    insert(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+    async insert(userId, doc) {
+      const user = await ReactiveCache.getUser(userId) || await ReactiveCache.getCurrentUser();
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -87,8 +87,8 @@ if (Meteor.isServer) {
       }
       return doc._id === userId;
     },
-    update(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+    async update(userId, doc) {
+      const user = await ReactiveCache.getUser(userId) || await ReactiveCache.getCurrentUser();
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -96,8 +96,8 @@ if (Meteor.isServer) {
       }
       return doc._id === userId;
     },
-    remove(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+    async remove(userId, doc) {
+      const user = await ReactiveCache.getUser(userId) || await ReactiveCache.getCurrentUser();
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -109,21 +109,21 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    setCreateTeam(
+    async setCreateTeam(
       teamDisplayName,
       teamDesc,
       teamShortName,
       teamWebsite,
       teamIsActive,
     ) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(teamDisplayName, String);
         check(teamDesc, String);
         check(teamShortName, String);
         check(teamWebsite, String);
         check(teamIsActive, Boolean);
 
-        const nTeamNames = ReactiveCache.getTeams({ teamShortName }).length;
+        const nTeamNames = (await ReactiveCache.getTeams({ teamShortName })).length;
         if (nTeamNames > 0) {
           throw new Meteor.Error('teamname-already-taken');
         } else {
@@ -137,7 +137,7 @@ if (Meteor.isServer) {
         }
       }
     },
-    setCreateTeamFromOidc(
+    async setCreateTeamFromOidc(
       teamDisplayName,
       teamDesc,
       teamShortName,
@@ -149,7 +149,7 @@ if (Meteor.isServer) {
       check(teamShortName, String);
       check(teamWebsite, String);
       check(teamIsActive, Boolean);
-      const nTeamNames = ReactiveCache.getTeams({ teamShortName }).length;
+      const nTeamNames = (await ReactiveCache.getTeams({ teamShortName })).length;
       if (nTeamNames > 0) {
         throw new Meteor.Error('teamname-already-taken');
       } else {
@@ -162,19 +162,19 @@ if (Meteor.isServer) {
         });
       }
     },
-    setTeamDisplayName(team, teamDisplayName) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setTeamDisplayName(team, teamDisplayName) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(team, Object);
         check(teamDisplayName, String);
         Team.update(team, {
           $set: { teamDisplayName: teamDisplayName },
         });
-        Meteor.call('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
+        await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
       }
     },
 
-    setTeamDesc(team, teamDesc) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setTeamDesc(team, teamDesc) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(team, Object);
         check(teamDesc, String);
         Team.update(team, {
@@ -183,8 +183,8 @@ if (Meteor.isServer) {
       }
     },
 
-    setTeamShortName(team, teamShortName) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setTeamShortName(team, teamShortName) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(team, Object);
         check(teamShortName, String);
         Team.update(team, {
@@ -193,8 +193,8 @@ if (Meteor.isServer) {
       }
     },
 
-    setTeamIsActive(team, teamIsActive) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setTeamIsActive(team, teamIsActive) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(team, Object);
         check(teamIsActive, Boolean);
         Team.update(team, {
@@ -202,7 +202,7 @@ if (Meteor.isServer) {
         });
       }
     },
-    setTeamAllFieldsFromOidc(
+    async setTeamAllFieldsFromOidc(
       team,
       teamDisplayName,
       teamDesc,
@@ -225,9 +225,9 @@ if (Meteor.isServer) {
             teamIsActive: teamIsActive,
           },
         });
-        Meteor.call('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
+        await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
       },
-    setTeamAllFields(
+    async setTeamAllFields(
       team,
       teamDisplayName,
       teamDesc,
@@ -235,7 +235,7 @@ if (Meteor.isServer) {
       teamWebsite,
       teamIsActive,
     ) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(team, Object);
         check(teamDisplayName, String);
         check(teamDesc, String);
@@ -251,7 +251,7 @@ if (Meteor.isServer) {
             teamIsActive: teamIsActive,
           },
         });
-        Meteor.call('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
+        await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
       }
     },
   });

@@ -30,14 +30,14 @@ runOnServer(function() {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  Picker.route('/api/boards/:boardId/exportExcel', function (params, req, res) {
+  Picker.route('/api/boards/:boardId/exportExcel', async function (params, req, res) {
     const boardId = params.boardId;
     let user = null;
     let impersonateDone = false;
     let adminId = null;
 
     // First check if board exists and is public to avoid unnecessary authentication
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       res.end('Board not found');
       return;
@@ -64,14 +64,14 @@ runOnServer(function() {
       }
 
       const hashToken = Accounts._hashLoginToken(loginToken);
-      user = ReactiveCache.getUser({
+      user = await ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
       adminId = user._id.toString();
-      impersonateDone = ReactiveCache.getImpersonatedUser({ adminId: adminId });
+      impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
-      user = ReactiveCache.getUser({
+      user = await ReactiveCache.getUser({
         _id: req.userId,
         isAdmin: true,
       });

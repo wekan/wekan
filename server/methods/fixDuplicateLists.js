@@ -11,12 +11,12 @@ import { ReactiveCache } from '/imports/reactiveCache';
  * This method identifies and removes duplicate lists while preserving cards
  */
 Meteor.methods({
-  'fixDuplicateLists.fixAllBoards'() {
+  async 'fixDuplicateLists.fixAllBoards'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    if (!ReactiveCache.getUser(this.userId).isAdmin) {
+    if (!(await ReactiveCache.getUser(this.userId)).isAdmin) {
       throw new Meteor.Error('not-authorized', 'Admin required');
     }
 
@@ -53,14 +53,14 @@ Meteor.methods({
     };
   },
 
-  'fixDuplicateLists.fixBoard'(boardId) {
+  async 'fixDuplicateLists.fixBoard'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized');
     }
@@ -208,12 +208,12 @@ function fixDuplicateLists(boardId) {
 }
 
 Meteor.methods({
-  'fixDuplicateLists.getReport'() {
+  async 'fixDuplicateLists.getReport'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    if (!ReactiveCache.getUser(this.userId).isAdmin) {
+    if (!(await ReactiveCache.getUser(this.userId)).isAdmin) {
       throw new Meteor.Error('not-authorized', 'Admin required');
     }
 

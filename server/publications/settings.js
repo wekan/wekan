@@ -1,8 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-Meteor.publish('globalwebhooks', () => {
+Meteor.publish('globalwebhooks', async () => {
   const boardId = Integrations.Const.GLOBAL_WEBHOOK_ID;
-  const ret = ReactiveCache.getIntegrations(
+  const ret = await ReactiveCache.getIntegrations(
     {
       boardId,
     },
@@ -47,8 +47,8 @@ Meteor.publish('setting', () => {
   return ret;
 });
 
-Meteor.publish('mailServer', function() {
-  const user = ReactiveCache.getCurrentUser();
+Meteor.publish('mailServer', async function() {
+  const user = await ReactiveCache.getCurrentUser();
 
   let ret = []
   if (user && user.isAdmin) {

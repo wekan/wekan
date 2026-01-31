@@ -31,9 +31,9 @@ class FixMissingListsMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     try {
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) return false;
 
       // Check if board has already been processed
@@ -42,8 +42,8 @@ class FixMissingListsMigration {
       }
 
       // Check if there are cards with mismatched listId/swimlaneId
-      const cards = ReactiveCache.getCards({ boardId });
-      const lists = ReactiveCache.getLists({ boardId });
+      const cards = await ReactiveCache.getCards({ boardId });
+      const lists = await ReactiveCache.getLists({ boardId });
       
       // Create a map of listId -> swimlaneId for existing lists
       const listSwimlaneMap = new Map();
@@ -77,15 +77,15 @@ class FixMissingListsMigration {
       if (process.env.DEBUG === 'true') {
         console.log(`Starting fix missing lists migration for board ${boardId}`);
       }
-      
-      const board = ReactiveCache.getBoard(boardId);
+
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Error(`Board ${boardId} not found`);
       }
 
-      const cards = ReactiveCache.getCards({ boardId });
-      const lists = ReactiveCache.getLists({ boardId });
-      const swimlanes = ReactiveCache.getSwimlanes({ boardId });
+      const cards = await ReactiveCache.getCards({ boardId });
+      const lists = await ReactiveCache.getLists({ boardId });
+      const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
 
       // Create maps for efficient lookup
       const listSwimlaneMap = new Map();
@@ -214,21 +214,21 @@ class FixMissingListsMigration {
   /**
    * Get migration status for a board
    */
-  getMigrationStatus(boardId) {
+  async getMigrationStatus(boardId) {
     try {
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         return { status: 'board_not_found' };
       }
 
       if (board.fixMissingListsCompleted) {
-        return { 
+        return {
           status: 'completed',
           completedAt: board.fixMissingListsCompletedAt
         };
       }
 
-      const needsMigration = this.needsMigration(boardId);
+      const needsMigration = await this.needsMigration(boardId);
       return {
         status: needsMigration ? 'needed' : 'not_needed'
       };
@@ -245,33 +245,33 @@ export const fixMissingListsMigration = new FixMissingListsMigration();
 
 // Meteor methods
 Meteor.methods({
-  'fixMissingListsMigration.check'(boardId) {
+  async 'fixMissingListsMigration.check'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return fixMissingListsMigration.getMigrationStatus(boardId);
+
+    return await fixMissingListsMigration.getMigrationStatus(boardId);
   },
 
-  'fixMissingListsMigration.execute'(boardId) {
+  async 'fixMissingListsMigration.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return fixMissingListsMigration.executeMigration(boardId);
+
+    return await fixMissingListsMigration.executeMigration(boardId);
   },
 
-  'fixMissingListsMigration.needsMigration'(boardId) {
+  async 'fixMissingListsMigration.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return fixMissingListsMigration.needsMigration(boardId);
+
+    return await fixMissingListsMigration.needsMigration(boardId);
   }
 });

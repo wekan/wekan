@@ -19,12 +19,12 @@ Notifications = {
       delete notifyServices[serviceName];
   },
 
-  getUsers: watchers => {
+  getUsers: async watchers => {
     const users = [];
-    watchers.forEach(userId => {
-      const user = ReactiveCache.getUser(userId);
+    for (const userId of watchers) {
+      const user = await ReactiveCache.getUser(userId);
       if (user && user._id) users.push(user);
-    });
+    }
     return users;
   },
 

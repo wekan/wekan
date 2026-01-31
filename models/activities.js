@@ -13,54 +13,54 @@ import { ReactiveCache } from '/imports/reactiveCache';
 Activities = new Mongo.Collection('activities');
 
 Activities.helpers({
-  board() {
-    return ReactiveCache.getBoard(this.boardId);
+  async board() {
+    return await ReactiveCache.getBoard(this.boardId);
   },
-  oldBoard() {
-    return ReactiveCache.getBoard(this.oldBoardId);
+  async oldBoard() {
+    return await ReactiveCache.getBoard(this.oldBoardId);
   },
-  user() {
-    return ReactiveCache.getUser(this.userId);
+  async user() {
+    return await ReactiveCache.getUser(this.userId);
   },
-  member() {
-    return ReactiveCache.getUser(this.memberId);
+  async member() {
+    return await ReactiveCache.getUser(this.memberId);
   },
-  list() {
-    return ReactiveCache.getList(this.listId);
+  async list() {
+    return await ReactiveCache.getList(this.listId);
   },
-  swimlane() {
-    return ReactiveCache.getSwimlane(this.swimlaneId);
+  async swimlane() {
+    return await ReactiveCache.getSwimlane(this.swimlaneId);
   },
-  oldSwimlane() {
-    return ReactiveCache.getSwimlane(this.oldSwimlaneId);
+  async oldSwimlane() {
+    return await ReactiveCache.getSwimlane(this.oldSwimlaneId);
   },
-  oldList() {
-    return ReactiveCache.getList(this.oldListId);
+  async oldList() {
+    return await ReactiveCache.getList(this.oldListId);
   },
-  card() {
-    return ReactiveCache.getCard(this.cardId);
+  async card() {
+    return await ReactiveCache.getCard(this.cardId);
   },
-  comment() {
-    return ReactiveCache.getCardComment(this.commentId);
+  async comment() {
+    return await ReactiveCache.getCardComment(this.commentId);
   },
-  attachment() {
-    return ReactiveCache.getAttachment(this.attachmentId);
+  async attachment() {
+    return await ReactiveCache.getAttachment(this.attachmentId);
   },
-  checklist() {
-    return ReactiveCache.getChecklist(this.checklistId);
+  async checklist() {
+    return await ReactiveCache.getChecklist(this.checklistId);
   },
-  checklistItem() {
-    return ReactiveCache.getChecklistItem(this.checklistItemId);
+  async checklistItem() {
+    return await ReactiveCache.getChecklistItem(this.checklistItemId);
   },
-  subtasks() {
-    return ReactiveCache.getCard(this.subtaskId);
+  async subtasks() {
+    return await ReactiveCache.getCard(this.subtaskId);
   },
-  customField() {
-    return ReactiveCache.getCustomField(this.customFieldId);
+  async customField() {
+    return await ReactiveCache.getCustomField(this.customFieldId);
   },
-  label() {
+  async label() {
     // Label activity did not work yet, unable to edit labels when tried this.
-    return ReactiveCache.getCard(this.labelId);
+    return await ReactiveCache.getCard(this.labelId);
   },
 });
 
@@ -105,12 +105,12 @@ if (Meteor.isServer) {
     //Activities._collection.dropIndex({ labelId: 1 }, { partialFilterExpression: { labelId: { $exists: true } } });
   });
 
-  Activities.after.insert((userId, doc) => {
+  Activities.after.insert(async (userId, doc) => {
     const activity = Activities._transform(doc);
     let participants = [];
     let watchers = [];
     let title = 'act-activity-notify';
-    const board = ReactiveCache.getBoard(activity.boardId);
+    const board = await ReactiveCache.getBoard(activity.boardId);
     const description = `act-${activity.activityType}`;
     const params = {
       activityId: activity._id,
@@ -203,14 +203,16 @@ if (Meteor.isServer) {
       let hasMentions = false; // Track if comment has @mentions
       if (board) {
         const comment = params.comment;
-        const knownUsers = board.members.map((member) => {
-          const u = ReactiveCache.getUser(member.userId);
+        // Build knownUsers with async user lookups
+        const knownUsers = [];
+        for (const member of board.members) {
+          const u = await ReactiveCache.getUser(member.userId);
           if (u) {
             member.username = u.username;
             member.emails = u.emails;
           }
-          return member;
-        });
+          knownUsers.push(member);
+        }
         // Match @mentions including usernames with @ symbols (like email addresses)
         // Pattern matches: @username, @user@example.com, @"quoted username"
         const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.@-]+))/gi;
@@ -225,30 +227,31 @@ if (Meteor.isServer) {
 
           if (activity.boardId && username === 'board_members') {
             // mentions all board members
-            const validUserIds = knownUsers
-              .map((u) => u.userId)
-              .filter((userId) => {
-                const user = ReactiveCache.getUser(userId);
-                return user && user._id;
-              });
+            const validUserIds = [];
+            for (const u of knownUsers) {
+              const user = await ReactiveCache.getUser(u.userId);
+              if (user && user._id) {
+                validUserIds.push(u.userId);
+              }
+            }
             watchers = _.union(watchers, validUserIds);
             title = 'act-atUserComment';
             hasMentions = true;
           } else if (activity.boardId && username === 'board_assignees') {
             // mentions all assignees of all cards on the board
-            const allCards = ReactiveCache.getCards({ boardId: activity.boardId });
+            const allCards = await ReactiveCache.getCards({ boardId: activity.boardId });
             const assigneeIds = [];
-            allCards.forEach((card) => {
+            for (const card of allCards) {
               if (card.assignees && card.assignees.length > 0) {
-                card.assignees.forEach((assigneeId) => {
+                for (const assigneeId of card.assignees) {
                   // Only add if the user exists and is a board member
-                  const user = ReactiveCache.getUser(assigneeId);
+                  const user = await ReactiveCache.getUser(assigneeId);
                   if (user && _.findWhere(knownUsers, { userId: assigneeId })) {
                     assigneeIds.push(assigneeId);
                   }
-                });
+                }
               }
-            });
+            }
             watchers = _.union(watchers, assigneeIds);
             title = 'act-atUserComment';
             hasMentions = true;
@@ -257,10 +260,13 @@ if (Meteor.isServer) {
             const card = activity.card();
             if (card && card.members && card.members.length > 0) {
               // Filter to only valid users who are board members
-              const validMembers = card.members.filter((memberId) => {
-                const user = ReactiveCache.getUser(memberId);
-                return user && user._id && _.findWhere(knownUsers, { userId: memberId });
-              });
+              const validMembers = [];
+              for (const memberId of card.members) {
+                const user = await ReactiveCache.getUser(memberId);
+                if (user && user._id && _.findWhere(knownUsers, { userId: memberId })) {
+                  validMembers.push(memberId);
+                }
+              }
               watchers = _.union(watchers, validMembers);
             }
             title = 'act-atUserComment';
@@ -270,10 +276,13 @@ if (Meteor.isServer) {
             const card = activity.card();
             if (card && card.assignees && card.assignees.length > 0) {
               // Filter to only valid users who are board members
-              const validAssignees = card.assignees.filter((assigneeId) => {
-                const user = ReactiveCache.getUser(assigneeId);
-                return user && user._id && _.findWhere(knownUsers, { userId: assigneeId });
-              });
+              const validAssignees = [];
+              for (const assigneeId of card.assignees) {
+                const user = await ReactiveCache.getUser(assigneeId);
+                if (user && user._id && _.findWhere(knownUsers, { userId: assigneeId })) {
+                  validAssignees.push(assigneeId);
+                }
+              }
               watchers = _.union(watchers, validAssignees);
             }
             title = 'act-atUserComment';
@@ -390,7 +399,7 @@ if (Meteor.isServer) {
     Notifications.getUsers(watchers).forEach((user) => {
       // Skip if user is undefined or doesn't have an _id (e.g., deleted user or invalid ID)
       if (!user || !user._id) return;
-      
+
       // Don't notify a user of their own behavior, EXCEPT for self-mentions
       const isSelfMention = (user._id === userId && title === 'act-atUserComment');
       if (user._id !== userId || isSelfMention) {
@@ -398,7 +407,7 @@ if (Meteor.isServer) {
       }
     });
 
-    const integrations = ReactiveCache.getIntegrations({
+    const integrations = await ReactiveCache.getIntegrations({
       boardId: { $in: [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID] },
       // type: 'outgoing-webhooks', // all types
       enabled: true,

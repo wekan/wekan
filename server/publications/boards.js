@@ -18,8 +18,8 @@ publishComposite('boards', function() {
   }
 
   return {
-    find() {
-      return ReactiveCache.getBoards(
+    async find() {
+      return await ReactiveCache.getBoards(
         {
           archived: false,
           _id: { $in: Boards.userBoardIds(userId, false) },
@@ -32,10 +32,10 @@ publishComposite('boards', function() {
     },
     children: [
       {
-        find(board) {
+        async find(board) {
           // Publish lists with extended fields for proper sync
           // Including swimlaneId, modifiedAt, and _updatedAt for list order changes
-          return ReactiveCache.getLists(
+          return await ReactiveCache.getLists(
             { boardId: board._id, archived: false },
             {
               fields: {
@@ -54,8 +54,8 @@ publishComposite('boards', function() {
         }
       },
       {
-        find(board) {
-          return ReactiveCache.getCards(
+        async find(board) {
+          return await ReactiveCache.getCards(
             { boardId: board._id, archived: false },
             {
               fields: {
@@ -74,13 +74,13 @@ publishComposite('boards', function() {
   };
 });
 
-Meteor.publish('boardsReport', function() {
+Meteor.publish('boardsReport', async function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
   if (!Match.test(userId, String) || !userId) return [];
 
-  const boards = ReactiveCache.getBoards(
+  const boards = await ReactiveCache.getBoards(
     {
       _id: { $in: Boards.userBoardIds(userId, null) },
     },
@@ -129,18 +129,18 @@ Meteor.publish('boardsReport', function() {
 
   const ret = [
     boards,
-    ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
-    ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, true),
-    ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
+    await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, true),
+    await ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, true),
+    await ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, true),
   ]
   return ret;
 });
 
-Meteor.publish('archivedBoards', function() {
+Meteor.publish('archivedBoards', async function() {
   const userId = this.userId;
   if (!Match.test(userId, String)) return [];
 
-  const ret = ReactiveCache.getBoards(
+  const ret = await ReactiveCache.getBoards(
     {
       _id: { $in: Boards.userBoardIds(userId, true)},
       archived: true,
@@ -170,14 +170,14 @@ Meteor.publish('archivedBoards', function() {
 
 // If isArchived = false, this will only return board elements which are not archived.
 // If isArchived = true, this will only return board elements which are archived.
-publishComposite('board', function(boardId, isArchived) {
+publishComposite('board', async function(boardId, isArchived) {
   check(boardId, String);
   check(isArchived, Boolean);
 
   const thisUserId = this.userId;
   const $or = [{ permission: 'public' }];
 
-  let currUser = (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : ReactiveCache.getUser(thisUserId);
+  let currUser = (!Match.test(thisUserId, String) || !thisUserId) ? 'undefined' : await ReactiveCache.getUser(thisUserId);
   let orgIdsUserBelongs = currUser !== 'undefined' && currUser.teams !== 'undefined' ? currUser.orgIdsUserBelongs() : '';
   let teamIdsUserBelongs = currUser !== 'undefined' && currUser.teams !== 'undefined' ? currUser.teamIdsUserBelongs() : '';
   let orgsIds = [];
@@ -197,8 +197,8 @@ publishComposite('board', function(boardId, isArchived) {
   }
 
   return {
-    find() {
-      return ReactiveCache.getBoards(
+    async find() {
+      return await ReactiveCache.getBoards(
         {
           _id: boardId,
           archived: false,
@@ -212,32 +212,32 @@ publishComposite('board', function(boardId, isArchived) {
     children: [
       // Lists
       {
-        find(board) {
-          return ReactiveCache.getLists({ boardId: board._id, archived: isArchived }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getLists({ boardId: board._id, archived: isArchived }, {}, true);
         }
       },
       // Swimlanes
       {
-        find(board) {
-          return ReactiveCache.getSwimlanes({ boardId: board._id, archived: isArchived }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getSwimlanes({ boardId: board._id, archived: isArchived }, {}, true);
         }
       },
       // Integrations
       {
-        find(board) {
-          return ReactiveCache.getIntegrations({ boardId: board._id }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getIntegrations({ boardId: board._id }, {}, true);
         }
       },
       // CardCommentReactions at board level
       {
-        find(board) {
-          return ReactiveCache.getCardCommentReactions({ boardId: board._id }, {}, true);
+        async find(board) {
+          return await ReactiveCache.getCardCommentReactions({ boardId: board._id }, {}, true);
         }
       },
       // CustomFields
       {
-        find(board) {
-          return ReactiveCache.getCustomFields(
+        async find(board) {
+          return await ReactiveCache.getCustomFields(
             { boardIds: { $in: [board._id] } },
             { sort: { name: 1 } },
             true,
@@ -246,7 +246,7 @@ publishComposite('board', function(boardId, isArchived) {
       },
       // Cards and their related data
       {
-        find(board) {
+        async find(board) {
           const cardSelector = {
             boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
             archived: isArchived,
@@ -261,7 +261,7 @@ publishComposite('board', function(boardId, isArchived) {
             }
           }
 
-          return ReactiveCache.getCards(cardSelector, {}, true);
+          return await ReactiveCache.getCards(cardSelector, {}, true);
         },
         children: [
           // CardComments for each card
@@ -366,7 +366,7 @@ publishComposite('board', function(boardId, isArchived) {
       },
       // Board members/Users
       {
-        find(board) {
+        async find(board) {
           if (board.members) {
             // Board members. This publication also includes former board members that
             // aren't members anymore but may have some activities attached to them in
@@ -376,7 +376,7 @@ publishComposite('board', function(boardId, isArchived) {
             // We omit the current user because the client should already have that data,
             // and sending it triggers a subtle bug:
             // https://github.com/wefork/wekan/issues/15
-            return ReactiveCache.getUsers(
+            return await ReactiveCache.getUsers(
               {
                 _id: { $in: _.without(memberIds, thisUserId) },
               },
@@ -399,12 +399,12 @@ publishComposite('board', function(boardId, isArchived) {
 });
 
 Meteor.methods({
-  copyBoard(boardId, properties) {
+  async copyBoard(boardId, properties) {
     check(boardId, String);
     check(properties, Object);
 
     let ret = null;
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (board) {
       for (const key in properties) {
         board[key] = properties[key];

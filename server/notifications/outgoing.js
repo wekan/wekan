@@ -70,20 +70,20 @@ if (Meteor.isServer) {
     'label',
     'attachmentId',
   ];
-  const responseFunc = data => {
+  const responseFunc = async data => {
     const paramCommentId = data.commentId;
     const paramCardId = data.cardId;
     const paramBoardId = data.boardId;
     const newComment = data.comment;
     if (paramCardId && paramBoardId && newComment) {
       // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
-      const comment = ReactiveCache.getCardComment({
+      const comment = await ReactiveCache.getCardComment({
         _id: paramCommentId,
         cardId: paramCardId,
         boardId: paramBoardId,
       });
-      const board = ReactiveCache.getBoard(paramBoardId);
-      const card = ReactiveCache.getCard(paramCardId);
+      const board = await ReactiveCache.getBoard(paramBoardId);
+      const card = await ReactiveCache.getCard(paramCardId);
       if (board && card) {
         if (comment) {
           Lock.set(comment._id, newComment);
@@ -108,8 +108,8 @@ if (Meteor.isServer) {
     }
   };
   Meteor.methods({
-    outgoingWebhooks(integration, description, params) {
-      if (ReactiveCache.getCurrentUser()) {
+    async outgoingWebhooks(integration, description, params) {
+      if (await ReactiveCache.getCurrentUser()) {
         check(integration, Object);
         check(description, String);
         check(params, Object);
@@ -137,7 +137,7 @@ if (Meteor.isServer) {
         });
 
         const userId = params.userId ? params.userId : integrations[0].userId;
-        const user = ReactiveCache.getUser(userId);
+        const user = await ReactiveCache.getUser(userId);
         const descriptionText = TAPi18n.__(
           description,
           quoteParams,
@@ -171,7 +171,7 @@ if (Meteor.isServer) {
           data: is2way ? { description, ...clonedParams } : value,
         };
 
-        if (!ReactiveCache.getIntegration({ url: integration.url })) return;
+        if (!(await ReactiveCache.getIntegration({ url: integration.url }))) return;
 
         const url = integration.url;
 
@@ -198,7 +198,7 @@ if (Meteor.isServer) {
             const data = response.data; // only an JSON encoded response will be actioned
             if (data) {
               try {
-                responseFunc(data);
+                await responseFunc(data);
               } catch (e) {
                 throw new Meteor.Error('error-process-data');
               }

@@ -17,13 +17,13 @@ EmailLocalization = {
    * @param {String} options.language - Language code to use (if not provided, will try to detect)
    * @param {String} options.userId - User ID to determine language (if not provided with language)
    */
-  sendEmail(options) {
+  async sendEmail(options) {
     // Determine the language to use
     let lang = options.language;
 
     // If no language is specified but we have a userId, try to get the user's language
     if (!lang && options.userId) {
-      const user = ReactiveCache.getUser(options.userId);
+      const user = await ReactiveCache.getUser(options.userId);
       if (user) {
         lang = user.getLanguage();
       }

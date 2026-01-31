@@ -119,13 +119,13 @@ class AttachmentMigrationService {
   async migrateAttachment(attachment) {
     try {
       // Get the card to find board and list information
-      const card = ReactiveCache.getCard(attachment.cardId);
+      const card = await ReactiveCache.getCard(attachment.cardId);
       if (!card) {
         console.warn(`Card not found for attachment ${attachment._id}`);
         return;
       }
 
-      const list = ReactiveCache.getList(card.listId);
+      const list = await ReactiveCache.getList(card.listId);
       if (!list) {
         console.warn(`List not found for attachment ${attachment._id}`);
         return;
@@ -203,17 +203,17 @@ const attachmentMigrationService = new AttachmentMigrationService();
 Meteor.methods({
   async 'attachmentMigration.migrateBoardAttachments'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    const board = ReactiveCache.getBoard(boardId);
+
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found');
     }
-    
-    const user = ReactiveCache.getUser(this.userId);
+
+    const user = await ReactiveCache.getUser(this.userId);
     const isBoardAdmin = board.hasAdmin(this.userId);
     const isInstanceAdmin = user && user.isAdmin;
     
@@ -224,14 +224,14 @@ Meteor.methods({
     return await attachmentMigrationService.migrateBoardAttachments(boardId);
   },
 
-  'attachmentMigration.getProgress'(boardId) {
+  async 'attachmentMigration.getProgress'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    const board = ReactiveCache.getBoard(boardId);
+
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
@@ -239,14 +239,14 @@ Meteor.methods({
     return attachmentMigrationService.getMigrationProgress(boardId);
   },
 
-  'attachmentMigration.getUnconvertedAttachments'(boardId) {
+  async 'attachmentMigration.getUnconvertedAttachments'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    const board = ReactiveCache.getBoard(boardId);
+
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
@@ -254,14 +254,14 @@ Meteor.methods({
     return attachmentMigrationService.getUnconvertedAttachments(boardId);
   },
 
-  'attachmentMigration.isBoardMigrated'(boardId) {
+  async 'attachmentMigration.isBoardMigrated'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    const board = ReactiveCache.getBoard(boardId);
+
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }

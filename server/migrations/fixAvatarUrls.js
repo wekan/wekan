@@ -19,15 +19,15 @@ class FixAvatarUrlsMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     // Get all users who are members of this board
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.members) {
       return false;
     }
-    
+
     const memberIds = board.members.map(m => m.userId);
-    const users = ReactiveCache.getUsers({ _id: { $in: memberIds } });
+    const users = await ReactiveCache.getUsers({ _id: { $in: memberIds } });
     
     for (const user of users) {
       if (user.profile && user.profile.avatarUrl) {
@@ -46,16 +46,16 @@ class FixAvatarUrlsMigration {
    */
   async execute(boardId) {
     // Get all users who are members of this board
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.members) {
       return {
         success: false,
         error: 'Board not found or has no members'
       };
     }
-    
+
     const memberIds = board.members.map(m => m.userId);
-    const users = ReactiveCache.getUsers({ _id: { $in: memberIds } });
+    const users = await ReactiveCache.getUsers({ _id: { $in: memberIds } });
     let avatarsFixed = 0;
 
     console.log(`Starting avatar URL fix migration for board ${boardId}...`);
@@ -131,20 +131,20 @@ export const fixAvatarUrlsMigration = new FixAvatarUrlsMigration();
 
 // Meteor method
 Meteor.methods({
-  'fixAvatarUrls.execute'(boardId) {
+  async 'fixAvatarUrls.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
     // Check if user is board admin
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user) {
       throw new Meteor.Error('user-not-found', 'User not found');
     }
@@ -157,17 +157,17 @@ Meteor.methods({
     if (!isBoardAdmin && !user.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
     }
-    
-    return fixAvatarUrlsMigration.execute(boardId);
+
+    return await fixAvatarUrlsMigration.execute(boardId);
   },
 
-  'fixAvatarUrls.needsMigration'(boardId) {
+  async 'fixAvatarUrls.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
-    
-    return fixAvatarUrlsMigration.needsMigration(boardId);
+
+    return await fixAvatarUrlsMigration.needsMigration(boardId);
   }
 });

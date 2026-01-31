@@ -775,7 +775,7 @@ export class TrelloCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = ReactiveCache.getBoard(currentBoardId);
+      const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
     this.parseActions(board.actions);

@@ -703,12 +703,12 @@ Boards.attachSchema(
 );
 
 Boards.helpers({
-  copy() {
+  async copy() {
     const oldId = this._id;
     const oldWatchers = this.watchers ? this.watchers.slice() : [];
     delete this._id;
     delete this.slug;
-    this.title = this.copyTitle();
+    this.title = await this.copyTitle();
     const _id = Boards.insert(this);
 
     // Temporary remove watchers to disable notifications
@@ -719,23 +719,26 @@ Boards.helpers({
     });
 
     // Copy all swimlanes in board
-    ReactiveCache.getSwimlanes({
+    const swimlanes = await ReactiveCache.getSwimlanes({
       boardId: oldId,
       archived: false,
-    }).forEach(swimlane => {
+    });
+    for (const swimlane of swimlanes) {
       swimlane.type = 'swimlane';
       swimlane.copy(_id);
-    });
+    }
 
     // copy custom field definitions
     const cfMap = {};
-    ReactiveCache.getCustomFields({ boardIds: oldId }).forEach(cf => {
+    const customFields = await ReactiveCache.getCustomFields({ boardIds: oldId });
+    for (const cf of customFields) {
       const id = cf._id;
       delete cf._id;
       cf.boardIds = [_id];
       cfMap[id] = CustomFields.insert(cf);
-    });
-    ReactiveCache.getCards({ boardId: _id }).forEach(card => {
+    }
+    const cards = await ReactiveCache.getCards({ boardId: _id });
+    for (const card of cards) {
       Cards.update(card._id, {
         $set: {
           customFields: card.customFields.map(cf => {
@@ -744,30 +747,33 @@ Boards.helpers({
           }),
         },
       });
-    });
+    }
 
     // copy rules, actions, and triggers
     const actionsMap = {};
-    ReactiveCache.getActions({ boardId: oldId }).forEach(action => {
+    const actions = await ReactiveCache.getActions({ boardId: oldId });
+    for (const action of actions) {
       const id = action._id;
       delete action._id;
       action.boardId = _id;
       actionsMap[id] = Actions.insert(action);
-    });
+    }
     const triggersMap = {};
-    ReactiveCache.getTriggers({ boardId: oldId }).forEach(trigger => {
+    const triggers = await ReactiveCache.getTriggers({ boardId: oldId });
+    for (const trigger of triggers) {
       const id = trigger._id;
       delete trigger._id;
       trigger.boardId = _id;
       triggersMap[id] = Triggers.insert(trigger);
-    });
-    ReactiveCache.getRules({ boardId: oldId }).forEach(rule => {
+    }
+    const rules = await ReactiveCache.getRules({ boardId: oldId });
+    for (const rule of rules) {
       delete rule._id;
       rule.boardId = _id;
       rule.actionId = actionsMap[rule.actionId];
       rule.triggerId = triggersMap[rule.triggerId];
       Rules.insert(rule);
-    });
+    }
 
     // Re-set Watchers to reenable notification
     Boards.update(_id, {
@@ -781,8 +787,8 @@ Boards.helpers({
    *
    * @returns {string|null}
    */
-  copyTitle() {
-    return Boards.uniqueTitle(this.title);
+  async copyTitle() {
+    return await Boards.uniqueTitle(this.title);
   },
 
   /**
@@ -823,8 +829,8 @@ Boards.helpers({
   },
 
 
-  cards() {
-    const ret = ReactiveCache.getCards(
+  async cards() {
+    const ret = await ReactiveCache.getCards(
       { boardId: this._id, archived: false },
       { sort: { title: 1 } },
     );
@@ -835,11 +841,12 @@ Boards.helpers({
     return this.draggableLists();
   },
 
-  newestLists() {
+  async newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
-    const value = ReactiveCache.getCurrentUser()._getListSortBy();
+    const user = await ReactiveCache.getCurrentUser();
+    const value = user._getListSortBy();
     const sortKey = { starred: -1, [value[0]]: value[1] }; // [["starred",-1],value];
-    return ReactiveCache.getLists(
+    return await ReactiveCache.getLists(
       {
         boardId: this._id,
         archived: false,
@@ -848,8 +855,8 @@ Boards.helpers({
     );
   },
 
-  draggableLists() {
-    return ReactiveCache.getLists(
+  async draggableLists() {
+    return await ReactiveCache.getLists(
       {
         boardId: this._id,
       },
@@ -860,28 +867,28 @@ Boards.helpers({
   /** returns the last list
    * @returns Document the last list
    */
-  getLastList() {
-    const ret = ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
+  async getLastList() {
+    const ret = await ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
     return ret;
   },
 
-  nullSortLists() {
-    return ReactiveCache.getLists({
+  async nullSortLists() {
+    return await ReactiveCache.getLists({
       boardId: this._id,
       archived: false,
       sort: { $eq: null },
     });
   },
 
-  swimlanes() {
-    return ReactiveCache.getSwimlanes(
+  async swimlanes() {
+    return await ReactiveCache.getSwimlanes(
       { boardId: this._id, archived: false },
       { sort: { sort: 1 } },
     );
   },
 
-  nextSwimlane(swimlane) {
-    return ReactiveCache.getSwimlane(
+  async nextSwimlane(swimlane) {
+    return await ReactiveCache.getSwimlane(
       {
         boardId: this._id,
         archived: false,
@@ -894,16 +901,16 @@ Boards.helpers({
     );
   },
 
-  nullSortSwimlanes() {
-    return ReactiveCache.getSwimlanes({
+  async nullSortSwimlanes() {
+    return await ReactiveCache.getSwimlanes({
       boardId: this._id,
       archived: false,
       sort: { $eq: null },
     });
   },
 
-  hasOvertimeCards() {
-    const card = ReactiveCache.getCard({
+  async hasOvertimeCards() {
+    const card = await ReactiveCache.getCard({
       isOvertime: true,
       boardId: this._id,
       archived: false,
@@ -911,8 +918,8 @@ Boards.helpers({
     return card !== undefined;
   },
 
-  hasSpentTimeCards() {
-    const card = ReactiveCache.getCard({
+  async hasSpentTimeCards() {
+    const card = await ReactiveCache.getCard({
       spentTime: { $gt: 0 },
       boardId: this._id,
       archived: false,
@@ -920,19 +927,20 @@ Boards.helpers({
     return card !== undefined;
   },
 
-  activities() {
+  async activities() {
     let linkedBoardId = [this._id];
-    ReactiveCache.getCards({
+    const cards = await ReactiveCache.getCards({
       "type": "cardType-linkedBoard",
-      "boardId": this._id}
-      ).forEach(card => {
-        linkedBoardId.push(card.linkedId);
+      "boardId": this._id
     });
-    const ret = ReactiveCache.getActivities({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
+    for (const card of cards) {
+      linkedBoardId.push(card.linkedId);
+    }
+    const ret = await ReactiveCache.getActivities({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
     return ret;
   },
 
-  activeMembers(){
+  async activeMembers(){
     // Depend on the users collection for reactivity when users are loaded
     const memberUserIds = _.pluck(this.members, 'userId');
     const dummy = Meteor.users.find({ _id: { $in: memberUserIds } }).count();
@@ -945,16 +953,21 @@ Boards.helpers({
       return selected;
     });
     // Filter out members where user is not loaded
-    const filteredMembers = uniqueMembers.filter(member => {
-      const user = ReactiveCache.getUser(member.userId);
-      return user !== undefined;
-    });
-    
+    const filteredMembers = [];
+    for (const member of uniqueMembers) {
+      const user = await ReactiveCache.getUser(member.userId);
+      if (user !== undefined) {
+        filteredMembers.push(member);
+      }
+    }
+
     // Sort by role priority first (admin, normal, normal-assigned, no-comments, comment-only, comment-assigned, worker, read-only, read-assigned), then by fullname
-    return _.sortBy(filteredMembers, member => {
-      const user = ReactiveCache.getUser(member.userId);
+    // Build sort keys with async user lookup
+    const membersWithSortKey = [];
+    for (const member of filteredMembers) {
+      const user = await ReactiveCache.getUser(member.userId);
       let rolePriority = 8; // Default for normal
-      
+
       if (member.isAdmin) rolePriority = 0;
       else if (member.isReadAssignedOnly) rolePriority = 8;
       else if (member.isReadOnly) rolePriority = 7;
@@ -964,10 +977,11 @@ Boards.helpers({
       else if (member.isNoComments) rolePriority = 3;
       else if (member.isNormalAssignedOnly) rolePriority = 2;
       else rolePriority = 1; // Normal
-      
+
       const fullname = user ? user.profile.fullname : '';
-      return rolePriority + '-' + fullname;
-    });
+      membersWithSortKey.push({ member, sortKey: rolePriority + '-' + fullname });
+    }
+    return _.sortBy(membersWithSortKey, 'sortKey').map(item => item.member);
   },
 
   activeOrgs() {
@@ -990,8 +1004,8 @@ Boards.helpers({
     return _.where(this.members, { isActive: true, isAdmin: true });
   },
 
-  memberUsers() {
-    return ReactiveCache.getUsers({ _id: { $in: _.pluck(this.members, 'userId') } });
+  async memberUsers() {
+    return await ReactiveCache.getUsers({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
   getLabel(name, color) {
@@ -1111,8 +1125,8 @@ Boards.helpers({
     return `board-color-${this.color}`;
   },
 
-  customFields() {
-    const ret = ReactiveCache.getCustomFields(
+  async customFields() {
+    const ret = await ReactiveCache.getCustomFields(
       { boardIds: { $in: [this._id] } },
       { sort: { name: 1 } },
     );
@@ -1141,7 +1155,7 @@ Boards.helpers({
     }
   },
 
-  searchBoards(term) {
+  async searchBoards(term) {
     check(term, Match.OneOf(String, null, undefined));
 
     const query = { boardId: this._id };
@@ -1156,11 +1170,11 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    const ret = ReactiveCache.getCards(query, projection);
+    const ret = await ReactiveCache.getCards(query, projection);
     return ret;
   },
 
-  searchSwimlanes(term) {
+  async searchSwimlanes(term) {
     check(term, Match.OneOf(String, null, undefined));
 
     const query = { boardId: this._id };
@@ -1178,10 +1192,10 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    return ReactiveCache.getSwimlanes(query, projection);
+    return await ReactiveCache.getSwimlanes(query, projection);
   },
 
-  searchLists(term) {
+  async searchLists(term) {
     let ret = null;
     if (term) {
       check(term, Match.OneOf(String));
@@ -1203,12 +1217,12 @@ Boards.helpers({
         query.$or = [{ title: regex }, { description: regex }];
       }
 
-      ret = ReactiveCache.getLists(query, projection);
+      ret = await ReactiveCache.getLists(query, projection);
     }
     return ret;
   },
 
-  searchCards(term, excludeLinked) {
+  async searchCards(term, excludeLinked) {
     let ret = null;
     if (term) {
       check(term, Match.OneOf(String));
@@ -1234,7 +1248,7 @@ Boards.helpers({
         { description: regex },
         { customFields: { $elemMatch: { value: regex } } },
       ];
-      ret = ReactiveCache.getCards(query, projection);
+      ret = await ReactiveCache.getCards(query, projection);
     }
     return ret;
   },
@@ -1268,8 +1282,8 @@ Boards.helpers({
     return this.subtasksDefaultBoardId;
   },
 
-  getDefaultSubtasksBoard() {
-    return ReactiveCache.getBoard(this.getDefaultSubtasksBoardId());
+  async getDefaultSubtasksBoard() {
+    return await ReactiveCache.getBoard(this.getDefaultSubtasksBoardId());
   },
 
   //Date Settings option such as received date, start date and so on.
@@ -1301,8 +1315,8 @@ Boards.helpers({
     return this.dateSettingsDefaultBoardId;
   },
 
-  getDefaultDateSettingsBoard() {
-    return ReactiveCache.getBoard(this.getDefaultDateSettingsBoardId());
+  async getDefaultDateSettingsBoard() {
+    return await ReactiveCache.getBoard(this.getDefaultDateSettingsBoardId());
   },
 
   getDefaultSubtasksListId() {
@@ -1320,8 +1334,8 @@ Boards.helpers({
     return this.subtasksDefaultListId;
   },
 
-  getDefaultSubtasksList() {
-    return ReactiveCache.getList(this.getDefaultSubtasksListId());
+  async getDefaultSubtasksList() {
+    return await ReactiveCache.getList(this.getDefaultSubtasksListId());
   },
 
   getDefaultDateSettingsListId() {
@@ -1339,15 +1353,15 @@ Boards.helpers({
     return this.dateSettingsDefaultListId;
   },
 
-  getDefaultDateSettingsList() {
-    return ReactiveCache.getList(this.getDefaultDateSettingsListId());
+  async getDefaultDateSettingsList() {
+    return await ReactiveCache.getList(this.getDefaultDateSettingsListId());
   },
 
-  getDefaultSwimline() {
-    let result = ReactiveCache.getSwimlane({ boardId: this._id });
+  async getDefaultSwimline() {
+    let result = await ReactiveCache.getSwimlane({ boardId: this._id });
     if (result === undefined) {
       // Check if any swimlane exists for this board to avoid duplicates
-      const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId: this._id });
+      const existingSwimlanes = await ReactiveCache.getSwimlanes({ boardId: this._id });
       if (existingSwimlanes.length > 0) {
         // Use the first existing swimlane
         result = existingSwimlanes[0];
@@ -1358,14 +1372,14 @@ Boards.helpers({
           title: title,
           boardId: this._id,
         });
-        result = ReactiveCache.getSwimlane({ boardId: this._id });
+        result = await ReactiveCache.getSwimlane({ boardId: this._id });
       }
     }
     return result;
   },
 
-  getNextCardNumber() {
-    const boardCards = ReactiveCache.getCard(
+  async getNextCardNumber() {
+    const boardCards = await ReactiveCache.getCard(
       {
         boardId: this._id
       },
@@ -1384,16 +1398,16 @@ Boards.helpers({
     return maxCardNr + 1;
   },
 
-  cardsDueInBetween(start, end) {
-    const ret = ReactiveCache.getCards({
+  async cardsDueInBetween(start, end) {
+    const ret = await ReactiveCache.getCards({
       boardId: this._id,
       dueAt: { $gte: start, $lte: end },
     });
     return ret;
   },
 
-  cardsInInterval(start, end) {
-    const ret = ReactiveCache.getCards({
+  async cardsInInterval(start, end) {
+    const ret = await ReactiveCache.getCards({
       boardId: this._id,
       $or: [
         {
@@ -1454,7 +1468,7 @@ Boards.helpers({
   },
 
   async setBackgroundImageURL(backgroundImageURL) {
-    const currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = await ReactiveCache.getCurrentUser();
     if (currentUser.isBoardAdmin() || currentUser.isAdmin()) {
       return await Boards.updateAsync(this._id, { $set: { backgroundImageURL } });
     }
@@ -1717,32 +1731,31 @@ function boardRemover(userId, doc) {
   );
 }
 
-Boards.uniqueTitle = title => {
+Boards.uniqueTitle = async title => {
   const m = title.match(
     new RegExp('^(?<title>.*?)\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)'),
   );
   const base = escapeForRegex(m.groups.title);
   const baseTitle = m.groups.title;
-  boards = ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
+  const boards = await ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
   if (boards.length > 0) {
     let num = 0;
-    ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
-      board => {
-        const m = board.title.match(
-          new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
-        );
-        if (m) {
-          const n = parseInt(m.groups.num, 10);
-          num = num < n ? n : num;
-        }
-      },
-    );
+    const numberedBoards = await ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) });
+    for (const board of numberedBoards) {
+      const m = board.title.match(
+        new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
+      );
+      if (m) {
+        const n = parseInt(m.groups.num, 10);
+        num = num < n ? n : num;
+      }
+    }
     return `${baseTitle} [${num + 1}]`;
   }
   return title;
 };
 
-Boards.userSearch = (
+Boards.userSearch = async (
   userId,
   selector = {},
   projection = {},
@@ -1756,17 +1769,17 @@ Boards.userSearch = (
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
   }
-  const ret = ReactiveCache.getBoards(selector, projection);
+  const ret = await ReactiveCache.getBoards(selector, projection);
   return ret;
 };
 
-Boards.userBoards = (
+Boards.userBoards = async (
   userId,
   archived = false,
   selector = {},
   projection = {},
 ) => {
-  const user = ReactiveCache.getUser(userId);
+  const user = await ReactiveCache.getUser(userId);
   if (!user) {
     return [];
   }
@@ -1785,13 +1798,14 @@ Boards.userBoards = (
     { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
   ];
 
-  return ReactiveCache.getBoards(selector, projection);
+  return await ReactiveCache.getBoards(selector, projection);
 };
 
-Boards.userBoardIds = (userId, archived = false, selector = {}) => {
-  return Boards.userBoards(userId, archived, selector, {
+Boards.userBoardIds = async (userId, archived = false, selector = {}) => {
+  const boards = await Boards.userBoards(userId, archived, selector, {
     fields: { _id: 1 },
-  }).map(board => {
+  });
+  return boards.map(board => {
     return board._id;
   });
 };
@@ -1810,7 +1824,7 @@ Boards.labelColors = () => {
 
 if (Meteor.isServer) {
   Boards.allow({
-    insert(userId, doc) {
+    async insert(userId, doc) {
       // Check if user is logged in
       if (!userId) return false;
 
@@ -1829,7 +1843,7 @@ if (Meteor.isServer) {
 
   // All logged in users are allowed to reorder boards by dragging at All Boards page and Public Boards page.
   Boards.allow({
-    update(userId, board, fieldNames) {
+    async update(userId, board, fieldNames) {
       return canUpdateBoardSort(userId, board, fieldNames);
     },
     // Need members to verify membership in policy
@@ -1839,7 +1853,7 @@ if (Meteor.isServer) {
   // The number of users that have starred this board is managed by trusted code
   // and the user is not allowed to update it
   Boards.deny({
-    update(userId, board, fieldNames) {
+    async update(userId, board, fieldNames) {
       return _.contains(fieldNames, 'stars');
     },
     fetch: [],
@@ -1847,7 +1861,7 @@ if (Meteor.isServer) {
 
   // We can't remove a member if it is the last administrator
   Boards.deny({
-    update(userId, doc, fieldNames, modifier) {
+    async update(userId, doc, fieldNames, modifier) {
       if (!_.contains(fieldNames, 'members')) return false;
 
       // We only care in case of a $pull operation, ie remove a member
@@ -1873,7 +1887,7 @@ if (Meteor.isServer) {
 
   // Deny changing permission to public if allowPrivateOnly is enabled
   Boards.deny({
-    update(userId, doc, fieldNames, modifier) {
+    async update(userId, doc, fieldNames, modifier) {
       if (!_.contains(fieldNames, 'permission')) return false;
 
       const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
@@ -1887,13 +1901,13 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    getBackgroundImageURL(boardId) {
+    async getBackgroundImageURL(boardId) {
       check(boardId, String);
-      return ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
+      return await ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
     },
     async quitBoard(boardId) {
       check(boardId, String);
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
@@ -1903,9 +1917,9 @@ if (Meteor.isServer) {
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
-    acceptInvite(boardId) {
+    async acceptInvite(boardId) {
       check(boardId, String);
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Meteor.Error('error-board-doesNotExist');
       }
@@ -1927,9 +1941,10 @@ if (Meteor.isServer) {
         }
       });
     },
-    myLabelNames() {
+    async myLabelNames() {
       let names = [];
-      Boards.userBoards(Meteor.userId()).forEach(board => {
+      const boards = await Boards.userBoards(Meteor.userId());
+      for (const board of boards) {
         // Only return labels when they exist.
         if (board.labels !== undefined) {
           names = names.concat(
@@ -1939,21 +1954,21 @@ if (Meteor.isServer) {
                 return label.name;
               }),
           );
-        } else {
-          return [];
         }
-      });
+      }
       return _.uniq(names).sort();
     },
-    myBoardNames() {
+    async myBoardNames() {
+      const boards = await Boards.userBoards(Meteor.userId());
       return _.uniq(
-        Boards.userBoards(Meteor.userId()).map(board => {
+        boards.map(board => {
           return board.title;
         }),
       ).sort();
     },
-    setAllBoardsHideActivities() {
-      if ((ReactiveCache.getCurrentUser() || {}).isAdmin) {
+    async setAllBoardsHideActivities() {
+      const currentUser = await ReactiveCache.getCurrentUser();
+      if ((currentUser || {}).isAdmin) {
         Boards.update(
           {
             showActivities: true
@@ -1977,7 +1992,7 @@ if (Meteor.isServer) {
   Meteor.methods({
     async archiveBoard(boardId) {
       check(boardId, String);
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
@@ -1987,14 +2002,14 @@ if (Meteor.isServer) {
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
-    setBoardOrgs(boardOrgsArray, currBoardId){
+    async setBoardOrgs(boardOrgsArray, currBoardId){
       check(boardOrgsArray, Array);
       check(currBoardId, String);
       const userId = Meteor.userId();
       if (!userId) {
         throw new Meteor.Error('not-authorized', 'You must be logged in to perform this action.');
       }
-      const board = ReactiveCache.getBoard(currBoardId);
+      const board = await ReactiveCache.getBoard(currBoardId);
       if (!board) {
         throw new Meteor.Error('board-not-found', 'Board not found.');
       }
@@ -2013,7 +2028,7 @@ if (Meteor.isServer) {
         },
       });
     },
-    setBoardTeams(boardTeamsArray, membersArray, currBoardId){
+    async setBoardTeams(boardTeamsArray, membersArray, currBoardId){
       check(boardTeamsArray, Array);
       check(membersArray, Array);
       check(currBoardId, String);
@@ -2021,7 +2036,7 @@ if (Meteor.isServer) {
       if (!userId) {
         throw new Meteor.Error('not-authorized', 'You must be logged in to perform this action.');
       }
-      const board = ReactiveCache.getBoard(currBoardId);
+      const board = await ReactiveCache.getBoard(currBoardId);
       if (!board) {
         throw new Meteor.Error('board-not-found', 'Board not found.');
       }
@@ -2058,8 +2073,8 @@ if (Meteor.isServer) {
 }
 
 // Insert new board at last position in sort order.
-Boards.before.insert((userId, doc) => {
-  const lastBoard = ReactiveCache.getBoard(
+Boards.before.insert(async (userId, doc) => {
+  const lastBoard = await ReactiveCache.getBoard(
     { sort: { $exists: true } },
     { sort: { sort: -1 } },
   );
@@ -2243,7 +2258,7 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
    *                title: string}]
    */
-  JsonRoutes.add('GET', '/api/users/:userId/boards', function(req, res) {
+  JsonRoutes.add('GET', '/api/users/:userId/boards', async function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
       const paramUserId = req.params.userId;
@@ -2254,7 +2269,7 @@ if (Meteor.isServer) {
         req.userId === paramUserId,
       );
 
-      const data = ReactiveCache.getBoards(
+      const boards = await ReactiveCache.getBoards(
         {
           archived: false,
           'members.userId': paramUserId,
@@ -2262,7 +2277,8 @@ if (Meteor.isServer) {
         {
           sort: { sort: 1 /* boards default sorting */ },
         },
-      ).map(function(board) {
+      );
+      const data = boards.map(function(board) {
         return {
           _id: board._id,
           title: board.title,
@@ -2285,17 +2301,18 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
                     title: string}]
                     */
-  JsonRoutes.add('GET', '/api/boards', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards', async function(req, res) {
     try {
       Authentication.checkUserId(req.userId);
+      const boards = await ReactiveCache.getBoards(
+        { permission: 'public' },
+        {
+          sort: { sort: 1 /* boards default sorting */ },
+        },
+      );
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getBoards(
-          { permission: 'public' },
-          {
-            sort: { sort: 1 /* boards default sorting */ },
-          },
-        ).map(function(doc) {
+        data: boards.map(function(doc) {
           return {
             _id: doc._id,
             title: doc.title,
@@ -2316,14 +2333,16 @@ if (Meteor.isServer) {
    *
    * @return_type {private: integer, public: integer}
    */
-  JsonRoutes.add('GET', '/api/boards_count', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards_count', async function(req, res) {
     try {
       Authentication.checkUserId(req.userId);
+      const privateBoards = await ReactiveCache.getBoards({ permission: 'private' });
+      const publicBoards = await ReactiveCache.getBoards({ permission: 'public' });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
-          private: ReactiveCache.getBoards({ permission: 'private' }).length,
-          public: ReactiveCache.getBoards({ permission: 'public' }).length,
+          private: privateBoards.length,
+          public: publicBoards.length,
         },
       });
     } catch (error) {
@@ -2341,14 +2360,15 @@ if (Meteor.isServer) {
    * @param {string} boardId the ID of the board to retrieve the data
    * @return_type Boards
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
+      const board = await ReactiveCache.getBoard(paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getBoard(paramBoardId),
+        data: board,
       });
     } catch (error) {
       JsonRoutes.sendResult(res, {
@@ -2493,12 +2513,12 @@ if (Meteor.isServer) {
    *
    * @return_type string
    */
-  JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
+  JsonRoutes.add('PUT', '/api/boards/:boardId/labels', async function(req, res) {
     const id = req.params.boardId;
     Authentication.checkBoardWriteAccess(req.userId, id);
     try {
       if (req.body.hasOwnProperty('label')) {
-        const board = ReactiveCache.getBoard(id);
+        const board = await ReactiveCache.getBoard(id);
         const color = req.body.label.color;
         const name = req.body.label.name;
         const labelId = Random.id(6);
@@ -2536,14 +2556,14 @@ if (Meteor.isServer) {
    *
    * @return_type string
    */
-JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
+JsonRoutes.add('POST', '/api/boards/:boardId/copy', async function(req, res) {
   const id = req.params.boardId;
-  const board = ReactiveCache.getBoard(id);
+  const board = await ReactiveCache.getBoard(id);
   const adminAccess = board.members.some(e => e.userId === req.userId && e.isAdmin);
   Authentication.checkAdminOrCondition(req.userId, adminAccess);
   try {
-    board['title'] = req.body.title || Boards.uniqueTitle(board.title);
-    ret = board.copy();
+    board['title'] = req.body.title || await Boards.uniqueTitle(board.title);
+    ret = await board.copy();
     JsonRoutes.sendResult(res, {
       code: 200,
       data: ret,
@@ -2580,7 +2600,7 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
       const { isAdmin, isNoComments, isCommentOnly, isWorker, isNormalAssignedOnly, isCommentAssignedOnly, isReadOnly, isReadAssignedOnly } = req.body;
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       function isTrue(data) {
         try {
           return data.toLowerCase() === 'true';
@@ -2630,13 +2650,14 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
    *                cardId: string
    * }]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/attachments', async function(req, res) {
     const paramBoardId = req.params.boardId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const attachments = await ReactiveCache
+      .getAttachments({'meta.boardId': paramBoardId }, {}, true);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: ReactiveCache
-        .getAttachments({'meta.boardId': paramBoardId }, {}, true)
+      data: attachments
         .each()
         .map(function(attachment) {
           return {

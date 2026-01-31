@@ -41,9 +41,9 @@ class ComprehensiveBoardMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     try {
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) return false;
 
       // Check if board has already been processed
@@ -52,7 +52,7 @@ class ComprehensiveBoardMigration {
       }
 
       // Check for various issues that need migration
-      const issues = this.detectMigrationIssues(boardId);
+      const issues = await this.detectMigrationIssues(boardId);
       return issues.length > 0;
 
     } catch (error) {
@@ -64,13 +64,13 @@ class ComprehensiveBoardMigration {
   /**
    * Detect all migration issues in a board
    */
-  detectMigrationIssues(boardId) {
+  async detectMigrationIssues(boardId) {
     const issues = [];
-    
+
     try {
-      const cards = ReactiveCache.getCards({ boardId });
-      const lists = ReactiveCache.getLists({ boardId });
-      const swimlanes = ReactiveCache.getSwimlanes({ boardId });
+      const cards = await ReactiveCache.getCards({ boardId });
+      const lists = await ReactiveCache.getLists({ boardId });
+      const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
 
       // Issue 1: Cards with missing swimlaneId
       const cardsWithoutSwimlane = cards.filter(card => !card.swimlaneId);
@@ -157,7 +157,7 @@ class ComprehensiveBoardMigration {
         console.log(`Starting comprehensive board migration for board ${boardId}`);
       }
 
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Error(`Board ${boardId} not found`);
       }
@@ -288,7 +288,7 @@ class ComprehensiveBoardMigration {
    * Step 1: Analyze board structure
    */
   async analyzeBoardStructure(boardId) {
-    const issues = this.detectMigrationIssues(boardId);
+    const issues = await this.detectMigrationIssues(boardId);
     return {
       issues,
       issueCount: issues.length,
@@ -300,9 +300,9 @@ class ComprehensiveBoardMigration {
    * Step 2: Fix orphaned cards (cards with missing swimlaneId or listId)
    */
   async fixOrphanedCards(boardId, progressCallback = null) {
-    const cards = ReactiveCache.getCards({ boardId });
-    const swimlanes = ReactiveCache.getSwimlanes({ boardId });
-    const lists = ReactiveCache.getLists({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
+    const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
 
     let cardsFixed = 0;
     const defaultSwimlane = swimlanes.find(s => s.title === 'Default') || swimlanes[0];
@@ -370,9 +370,9 @@ class ComprehensiveBoardMigration {
    * Step 3: Convert shared lists to per-swimlane lists
    */
   async convertSharedListsToPerSwimlane(boardId, progressCallback = null) {
-    const cards = ReactiveCache.getCards({ boardId });
-    const lists = ReactiveCache.getLists({ boardId });
-    const swimlanes = ReactiveCache.getSwimlanes({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
+    const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
 
     let listsProcessed = 0;
     let listsCreated = 0;
@@ -475,8 +475,8 @@ class ComprehensiveBoardMigration {
    * Step 4: Ensure all lists are per-swimlane
    */
   async ensurePerSwimlaneLists(boardId) {
-    const lists = ReactiveCache.getLists({ boardId });
-    const swimlanes = ReactiveCache.getSwimlanes({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
+    const swimlanes = await ReactiveCache.getSwimlanes({ boardId });
     const defaultSwimlane = swimlanes.find(s => s.title === 'Default') || swimlanes[0];
 
     let listsProcessed = 0;
@@ -501,8 +501,8 @@ class ComprehensiveBoardMigration {
    * Step 5: Cleanup empty lists (lists with no cards)
    */
   async cleanupEmptyLists(boardId) {
-    const lists = ReactiveCache.getLists({ boardId });
-    const cards = ReactiveCache.getCards({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
+    const cards = await ReactiveCache.getCards({ boardId });
 
     let listsRemoved = 0;
 
@@ -527,9 +527,9 @@ class ComprehensiveBoardMigration {
    * Step 6: Validate migration
    */
   async validateMigration(boardId) {
-    const issues = this.detectMigrationIssues(boardId);
-    const cards = ReactiveCache.getCards({ boardId });
-    const lists = ReactiveCache.getLists({ boardId });
+    const issues = await this.detectMigrationIssues(boardId);
+    const cards = await ReactiveCache.getCards({ boardId });
+    const lists = await ReactiveCache.getLists({ boardId });
 
     // Check that all cards have valid swimlaneId and listId
     const validCards = cards.filter(card => card.swimlaneId && card.listId);
@@ -555,7 +555,7 @@ class ComprehensiveBoardMigration {
    * Step 7: Fix avatar URLs (remove problematic auth parameters and fix URL formats)
    */
   async fixAvatarUrls() {
-    const users = ReactiveCache.getUsers({});
+    const users = await ReactiveCache.getUsers({});
     let avatarsFixed = 0;
 
     for (const user of users) {
@@ -610,7 +610,7 @@ class ComprehensiveBoardMigration {
    * Step 8: Fix attachment URLs (remove problematic auth parameters and fix URL formats)
    */
   async fixAttachmentUrls() {
-    const attachments = ReactiveCache.getAttachments({});
+    const attachments = await ReactiveCache.getAttachments({});
     let attachmentsFixed = 0;
 
     for (const attachment of attachments) {
@@ -669,24 +669,24 @@ class ComprehensiveBoardMigration {
   /**
    * Get migration status for a board
    */
-  getMigrationStatus(boardId) {
+  async getMigrationStatus(boardId) {
     try {
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         return { status: 'board_not_found' };
       }
 
       if (board.comprehensiveMigrationCompleted) {
-        return { 
+        return {
           status: 'completed',
           completedAt: board.comprehensiveMigrationCompletedAt,
           results: board.comprehensiveMigrationResults
         };
       }
 
-      const needsMigration = this.needsMigration(boardId);
-      const issues = this.detectMigrationIssues(boardId);
-      
+      const needsMigration = await this.needsMigration(boardId);
+      const issues = await this.detectMigrationIssues(boardId);
+
       return {
         status: needsMigration ? 'needed' : 'not_needed',
         issues,
@@ -705,82 +705,82 @@ export const comprehensiveBoardMigration = new ComprehensiveBoardMigration();
 
 // Meteor methods
 Meteor.methods({
-  'comprehensiveBoardMigration.check'(boardId) {
+  async 'comprehensiveBoardMigration.check'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return comprehensiveBoardMigration.getMigrationStatus(boardId);
+
+    return await comprehensiveBoardMigration.getMigrationStatus(boardId);
   },
 
-  'comprehensiveBoardMigration.execute'(boardId) {
+  async 'comprehensiveBoardMigration.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    const user = ReactiveCache.getUser(this.userId);
-    const board = ReactiveCache.getBoard(boardId);
+
+    const user = await ReactiveCache.getUser(this.userId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found');
     }
-    
+
     const isBoardAdmin = board.hasAdmin(this.userId);
     const isInstanceAdmin = user && user.isAdmin;
-    
+
     if (!isBoardAdmin && !isInstanceAdmin) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin or instance admin to perform this action.');
     }
-    
-    return comprehensiveBoardMigration.executeMigration(boardId);
+
+    return await comprehensiveBoardMigration.executeMigration(boardId);
   },
 
-  'comprehensiveBoardMigration.needsMigration'(boardId) {
+  async 'comprehensiveBoardMigration.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return comprehensiveBoardMigration.needsMigration(boardId);
+
+    return await comprehensiveBoardMigration.needsMigration(boardId);
   },
 
-  'comprehensiveBoardMigration.detectIssues'(boardId) {
+  async 'comprehensiveBoardMigration.detectIssues'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    return comprehensiveBoardMigration.detectMigrationIssues(boardId);
+
+    return await comprehensiveBoardMigration.detectMigrationIssues(boardId);
   },
 
-  'comprehensiveBoardMigration.fixAvatarUrls'() {
+  async 'comprehensiveBoardMigration.fixAvatarUrls'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    const user = ReactiveCache.getUser(this.userId);
+
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Only instance admins can perform this action.');
     }
-    
-    return comprehensiveBoardMigration.fixAvatarUrls();
+
+    return await comprehensiveBoardMigration.fixAvatarUrls();
   },
 
-  'comprehensiveBoardMigration.fixAttachmentUrls'() {
+  async 'comprehensiveBoardMigration.fixAttachmentUrls'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
-    const user = ReactiveCache.getUser(this.userId);
+
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Only instance admins can perform this action.');
     }
-    
-    return comprehensiveBoardMigration.fixAttachmentUrls();
+
+    return await comprehensiveBoardMigration.fixAttachmentUrls();
   }
 });

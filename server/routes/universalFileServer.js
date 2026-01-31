@@ -172,7 +172,7 @@ if (Meteor.isServer) {
    *  - Else if avatar's owner belongs to at least one public board -> allow
    *  - Otherwise -> deny
    */
-  function isAuthorizedForAvatar(req, avatar) {
+  async function isAuthorizedForAvatar(req, avatar) {
     try {
       if (!avatar) return false;
 
@@ -180,7 +180,7 @@ if (Meteor.isServer) {
       const q = parseQuery(req);
       const boardId = q.boardId || q.board || q.b;
       if (boardId) {
-        const board = ReactiveCache.getBoard(boardId);
+        const board = await ReactiveCache.getBoard(boardId);
         if (board && board.isPublic && board.isPublic()) return true;
 
         // If private board is specified, require membership of requester
@@ -297,7 +297,7 @@ if (Meteor.isServer) {
    * - Public boards: allow
    * - Private boards: require valid user who is a member
    */
-  function isAuthorizedForBoard(req, board) {
+  async function isAuthorizedForBoard(req, board) {
     try {
       if (!board) return false;
       if (board.isPublic && board.isPublic()) return true;
@@ -389,14 +389,14 @@ if (Meteor.isServer) {
    * Serve attachments from new Meteor-Files structure
    * Route: /cdn/storage/attachments/{fileId} or /cdn/storage/attachments/{fileId}/original/{filename}
    */
-  WebApp.connectHandlers.use('/cdn/storage/attachments', (req, res, next) => {
+  WebApp.connectHandlers.use('/cdn/storage/attachments', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const fileId = extractFirstIdFromUrl(req, '/cdn/storage/attachments');
-      
+
       if (!fileId) {
         res.writeHead(400);
         res.end('Invalid attachment file ID');
@@ -412,7 +412,7 @@ if (Meteor.isServer) {
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board) {
         res.writeHead(404);
         res.end('Board not found');
@@ -420,7 +420,7 @@ if (Meteor.isServer) {
       }
 
       // Enforce cookie/header/query-based auth for private boards
-      if (!isAuthorizedForBoard(req, board)) {
+      if (!(await isAuthorizedForBoard(req, board))) {
         res.writeHead(403);
         res.end('Access denied');
         return;
@@ -476,14 +476,14 @@ if (Meteor.isServer) {
    * Serve avatars from new Meteor-Files structure
    * Route: /cdn/storage/avatars/{fileId} or /cdn/storage/avatars/{fileId}/original/{filename}
    */
-  WebApp.connectHandlers.use('/cdn/storage/avatars', (req, res, next) => {
+  WebApp.connectHandlers.use('/cdn/storage/avatars', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const fileId = extractFirstIdFromUrl(req, '/cdn/storage/avatars');
-      
+
       if (!fileId) {
         res.writeHead(400);
         res.end('Invalid avatar file ID');
@@ -491,7 +491,7 @@ if (Meteor.isServer) {
       }
 
       // Get avatar from database
-      const avatar = ReactiveCache.getAvatar(fileId);
+      const avatar = await ReactiveCache.getAvatar(fileId);
       if (!avatar) {
         res.writeHead(404);
         res.end('Avatar not found');
@@ -499,7 +499,7 @@ if (Meteor.isServer) {
       }
 
       // Enforce visibility: avatars are public only in the context of public boards
-      if (!isAuthorizedForAvatar(req, avatar)) {
+      if (!(await isAuthorizedForAvatar(req, avatar))) {
         res.writeHead(403);
         res.end('Access denied');
         return;
@@ -541,14 +541,14 @@ if (Meteor.isServer) {
    * Serve legacy attachments from CollectionFS structure
    * Route: /cfs/files/attachments/{attachmentId}
    */
-  WebApp.connectHandlers.use('/cfs/files/attachments', (req, res, next) => {
+  WebApp.connectHandlers.use('/cfs/files/attachments', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const attachmentId = extractFirstIdFromUrl(req, '/cfs/files/attachments');
-      
+
       if (!attachmentId) {
         res.writeHead(400);
         res.end('Invalid attachment ID');
@@ -564,7 +564,7 @@ if (Meteor.isServer) {
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board) {
         res.writeHead(404);
         res.end('Board not found');
@@ -572,7 +572,7 @@ if (Meteor.isServer) {
       }
 
       // Enforce cookie/header/query-based auth for private boards
-      if (!isAuthorizedForBoard(req, board)) {
+      if (!(await isAuthorizedForBoard(req, board))) {
         res.writeHead(403);
         res.end('Access denied');
         return;
@@ -617,14 +617,14 @@ if (Meteor.isServer) {
    * Serve legacy avatars from CollectionFS structure
    * Route: /cfs/files/avatars/{avatarId}
    */
-  WebApp.connectHandlers.use('/cfs/files/avatars', (req, res, next) => {
+  WebApp.connectHandlers.use('/cfs/files/avatars', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     try {
       const avatarId = extractFirstIdFromUrl(req, '/cfs/files/avatars');
-      
+
       if (!avatarId) {
         res.writeHead(400);
         res.end('Invalid avatar ID');
@@ -632,8 +632,8 @@ if (Meteor.isServer) {
       }
 
       // Try to get avatar from database (new structure first)
-      let avatar = ReactiveCache.getAvatar(avatarId);
-      
+      let avatar = await ReactiveCache.getAvatar(avatarId);
+
       // If not found in new structure, try to handle legacy format
       if (!avatar) {
         // For legacy avatars, we might need to handle different ID formats
@@ -644,7 +644,7 @@ if (Meteor.isServer) {
       }
 
       // Enforce visibility for legacy avatars as well
-      if (!isAuthorizedForAvatar(req, avatar)) {
+      if (!(await isAuthorizedForAvatar(req, avatar))) {
         res.writeHead(403);
         res.end('Access denied');
         return;

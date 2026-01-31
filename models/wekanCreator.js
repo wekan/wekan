@@ -244,14 +244,14 @@ export class WekanCreator {
     ]);
   }
 
-  getMembersToMap(data) {
+  async getMembersToMap(data) {
     // we will work on the list itself (an ordered array of objects) when a
     // mapping is done, we add a 'wekan' field to the object representing the
     // imported member
     const membersToMap = data.members;
     const users = data.users;
     // auto-map based on username
-    membersToMap.forEach(importedMember => {
+    for (const importedMember of membersToMap) {
       importedMember.id = importedMember.userId;
       delete importedMember.userId;
       const user = users.filter(user => {
@@ -261,11 +261,11 @@ export class WekanCreator {
         importedMember.fullName = user.profile.fullname;
       }
       importedMember.username = user.username;
-      const wekanUser = ReactiveCache.getUser({ username: importedMember.username });
+      const wekanUser = await ReactiveCache.getUser({ username: importedMember.username });
       if (wekanUser) {
         importedMember.wekanId = wekanUser._id;
       }
-    });
+    }
     return membersToMap;
   }
 
@@ -665,8 +665,8 @@ export class WekanCreator {
     });
   }
 
-  createSubtasks(wekanCards) {
-    wekanCards.forEach(card => {
+  async createSubtasks(wekanCards) {
+    for (const card of wekanCards) {
       // get new id of card (in created / new board)
       const cardIdInNewBoard = this.cards[card._id];
 
@@ -683,7 +683,7 @@ export class WekanCreator {
         : card.parentId;
 
       //if the parent card exists, proceed
-      if (ReactiveCache.getCard(parentIdInNewBoard)) {
+      if (await ReactiveCache.getCard(parentIdInNewBoard)) {
         //set parent id of the card in the new board to the new id of the parent
         Cards.direct.update(cardIdInNewBoard, {
           $set: {
@@ -691,7 +691,7 @@ export class WekanCreator {
           },
         });
       }
-    });
+    }
   }
 
   createChecklists(wekanChecklists) {
@@ -978,7 +978,7 @@ export class WekanCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = ReactiveCache.getBoard(currentBoardId);
+      const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
     this.parseActivities(board);
@@ -987,7 +987,7 @@ export class WekanCreator {
     this.createSwimlanes(board.swimlanes, boardId);
     this.createCustomFields(board.customFields, boardId);
     this.createCards(board.cards, boardId);
-    this.createSubtasks(board.cards);
+    await this.createSubtasks(board.cards);
     this.createChecklists(board.checklists);
     this.createChecklistItems(board.checklistItems);
     this.importActivities(board.activities, boardId);

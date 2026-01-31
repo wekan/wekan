@@ -58,7 +58,7 @@ function buildContentDispositionHeader(disposition, sanitizedFilename) {
 
 if (Meteor.isServer) {
   // Handle legacy attachment downloads
-  WebApp.connectHandlers.use('/cfs/files/attachments', (req, res, next) => {
+  WebApp.connectHandlers.use('/cfs/files/attachments', async (req, res, next) => {
     const attachmentId = req.url.split('/').pop();
 
     if (!attachmentId) {
@@ -78,7 +78,7 @@ if (Meteor.isServer) {
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board) {
         res.writeHead(404);
         res.end('Board not found');

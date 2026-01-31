@@ -48,8 +48,8 @@ LockoutSettings.attachSchema(
 );
 
 LockoutSettings.allow({
-  update(userId) {
-    const user = ReactiveCache.getUser(userId);
+  async update(userId) {
+    const user = await ReactiveCache.getUser(userId);
     return user && user.isAdmin;
   },
 });
