@@ -35,6 +35,7 @@ import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlane
 import { DialogWithBoardSwimlaneListCard } from '/client/lib/dialogWithBoardSwimlaneListCard';
 import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
+import PopupComponent from '../main/popup';
 
 const subManager = new SubsManager();
 const { calculateIndexData } = Utils;
@@ -318,6 +319,8 @@ BlazeComponent.extendComponent({
       },
     };
 
+    // Card is always dragged without handle by clicking title
+    const handleSelector = '.js-card-title';
     return [
       {
         ...events,
@@ -332,59 +335,47 @@ BlazeComponent.extendComponent({
         },
         'mousedown .js-card-drag-handle'(event) {
           event.preventDefault();
-          const $card = $(event.target).closest('.card-details');
-          const startX = event.clientX;
-          const startY = event.clientY;
-          const startLeft = $card.offset().left;
-          const startTop = $card.offset().top;
+          PopupComponent.toFront(event);
+        },
+        'click .js-card-send-to-back'(event) {
+          event.preventDefault();
+          PopupComponent.toBack(event);
+        },
+        // a bit tricky but helpful to me
+        // see https://stackoverflow.com/a/67722507
+        [`pointerdown ${handleSelector}`]: (event) => {
 
-          const onMouseMove = (e) => {
+          const onPointerMove = (e) => {
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
             $card.css({
-              left: startLeft + deltaX + 'px',
-              top: startTop + deltaY + 'px'
+              left: this.startLeft + deltaX + 'px',
+              top: this.startTop + deltaY + 'px'
             });
           };
 
-          const onMouseUp = () => {
-            $(document).off('mousemove', onMouseMove);
-            $(document).off('mouseup', onMouseUp);
+          const onPointerUp = (event) => {
+            event.stopPropagation();
+            $(document).off('pointermove', onPointerMove);
+            $(document).off('pointerup', onPointerUp);
           };
 
-          $(document).on('mousemove', onMouseMove);
-          $(document).on('mouseup', onMouseUp);
-        },
-        'mousedown .js-card-title-drag-handle'(event) {
-          // Allow dragging from title for ReadOnly users
-          // Don't interfere with text selection
-          if (event.target.tagName === 'A' || $(event.target).closest('a').length > 0) {
-            return; // Don't drag if clicking on links
+          // avoid triggering something on e.g. right click
+          if (Utils.shouldIgnorePointer(event)) {
+            onPointerUp(event);
+            return;
           }
 
           event.preventDefault();
+          event.stopPropagation();
           const $card = $(event.target).closest('.card-details');
           const startX = event.clientX;
           const startY = event.clientY;
-          const startLeft = $card.offset().left;
-          const startTop = $card.offset().top;
+          this.startLeft = $card.offset().left;
+          this.startTop = $card.offset().top;
 
-          const onMouseMove = (e) => {
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-            $card.css({
-              left: startLeft + deltaX + 'px',
-              top: startTop + deltaY + 'px'
-            });
-          };
-
-          const onMouseUp = () => {
-            $(document).off('mousemove', onMouseMove);
-            $(document).off('mouseup', onMouseUp);
-          };
-
-          $(document).on('mousemove', onMouseMove);
-          $(document).on('mouseup', onMouseUp);
+          $(document).on('pointermove', onPointerMove);
+          $(document).on('pointerup', onPointerUp);
         },
         'click .js-close-card-details'() {
           // Get board ID from either the card data or current board in session

@@ -503,10 +503,10 @@ BlazeComponent.extendComponent({
     subManager.subscribe('board', this.boardId, false);
     this.board = ReactiveCache.getBoard(this.boardId);
     // List where to insert card
-    this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
+    this.list = $(PopupComponent.stack[0].openerElement).closest('.js-list');
     this.listId = Blaze.getData(this.list[0])._id;
     // Swimlane where to insert card
-    const swimlane = $(Popup._getTopStack().openerElement).closest(
+    const swimlane = $(PopupComponent.stack[0].openerElement).closest(
       '.js-swimlane',
     );
     this.swimlaneId = '';
@@ -703,16 +703,16 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    this.isCardTemplateSearch = $(Popup._getTopStack().openerElement).hasClass(
+    this.isCardTemplateSearch = $(PopupComponent.stack[0].openerElement).hasClass(
       'js-card-template',
     );
-    this.isListTemplateSearch = $(Popup._getTopStack().openerElement).hasClass(
+    this.isListTemplateSearch = $(PopupComponent.stack[0].openerElement).hasClass(
       'js-list-template',
     );
     this.isSwimlaneTemplateSearch = $(
-      Popup._getTopStack().openerElement,
+      PopupComponent.stack[0].openerElement,
     ).hasClass('js-open-add-swimlane-menu');
-    this.isBoardTemplateSearch = $(Popup._getTopStack().openerElement).hasClass(
+    this.isBoardTemplateSearch = $(PopupComponent.stack[0].openerElement).hasClass(
       'js-add-board',
     );
     this.isTemplateSearch =
@@ -739,12 +739,12 @@ BlazeComponent.extendComponent({
     // Subscribe to this board
     subManager.subscribe('board', this.boardId, false);
     this.selectedBoardId = new ReactiveVar(this.boardId);
-    this.list = $(Popup._getTopStack().openerElement).closest('.js-list');
 
     if (!this.isBoardTemplateSearch) {
+      this.list = $(PopupComponent.stack[0].openerElement).closest('.js-list');
       this.swimlaneId = '';
       // Swimlane where to insert card
-      const swimlane = $(Popup._getTopStack().openerElement).parents(
+      const swimlane = $(PopupComponent.stack[0].openerElement).parents(
         '.js-swimlane',
       );
       if (Utils.boardView() === 'board-view-swimlanes')

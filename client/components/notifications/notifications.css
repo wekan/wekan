@@ -12,6 +12,7 @@
   border: 0;
   padding: 0;
 }
+
 #notifications .notifications-drawer-toggle.alert {
   background-color: #eb4646;
 }
