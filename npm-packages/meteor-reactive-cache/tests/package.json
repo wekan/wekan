@@ -1,0 +1,39 @@
+{
+  "name": "tests",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb-base",
+      "plugin:meteor/recommended"
+    ],
+    "plugins": [
+      "meteor"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+      "meteor/audit-argument-checks": 0,
+      "import/no-extraneous-dependencies": 0,
+      "import/extensions": 0,
+      "import/no-unresolved": 0,
+      "no-underscore-dangle": 0
+    }
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.5",
+    "meteor-node-stubs": "0.4.1",
+    "meteor-reactive-cache": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "5.9.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-meteor": "5.1.0",
+    "lodash.isequal": "^4.5.0",
+    "mocha": "^5.2.0",
+    "nightmare": "3.0.1"
+  }
+}
