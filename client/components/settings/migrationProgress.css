@@ -46,13 +46,13 @@
 
 .migration-progress-title {
   margin: 0;
-  font-size: 18px;
+
   font-weight: 600;
 }
 
 .migration-progress-close {
   cursor: pointer;
-  font-size: 16px;
+
   opacity: 0.8;
   transition: opacity 0.2s ease;
 }
@@ -73,7 +73,7 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
-  font-size: 14px;
+
 }
 
 .migration-progress-overall-bar {
@@ -110,7 +110,7 @@
 
 .migration-progress-overall-percentage {
   text-align: right;
-  font-size: 12px;
+
   color: #666;
   font-weight: 600;
 }
@@ -123,7 +123,7 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
-  font-size: 14px;
+
 }
 
 .migration-progress-step-bar {
@@ -143,7 +143,7 @@
 
 .migration-progress-step-percentage {
   text-align: right;
-  font-size: 12px;
+
   color: #666;
   font-weight: 600;
 }
@@ -160,12 +160,12 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 5px;
-  font-size: 13px;
+
 }
 
 .migration-progress-status-text {
   color: #555;
-  font-size: 14px;
+
   line-height: 1.4;
 }
 
@@ -181,12 +181,12 @@
   font-weight: 600;
   color: #1976d2;
   margin-bottom: 5px;
-  font-size: 13px;
+
 }
 
 .migration-progress-details-text {
   color: #1565c0;
-  font-size: 13px;
+
   line-height: 1.4;
 }
 
@@ -199,7 +199,7 @@
 .migration-progress-note {
   text-align: center;
   color: #666;
-  font-size: 13px;
+
   font-style: italic;
 }
 
@@ -209,17 +209,17 @@
     width: 95%;
     margin: 20px;
   }
-  
+
   .migration-progress-content {
     padding: 20px;
   }
-  
+
   .migration-progress-header {
     padding: 15px;
   }
-  
+
   .migration-progress-title {
-    font-size: 16px;
+
   }
 }
 
@@ -229,40 +229,40 @@
     background: #2d3748;
     color: #e2e8f0;
   }
-  
+
   .migration-progress-overall-label,
   .migration-progress-step-label,
   .migration-progress-status-label {
     color: #e2e8f0;
   }
-  
+
   .migration-progress-status {
     background: #4a5568;
     border-left-color: #63b3ed;
   }
-  
+
   .migration-progress-status-text {
     color: #cbd5e0;
   }
-  
+
   .migration-progress-details {
     background: #2b6cb0;
     border-left-color: #4299e1;
   }
-  
+
   .migration-progress-details-label {
     color: #bee3f8;
   }
-  
+
   .migration-progress-details-text {
     color: #90cdf4;
   }
-  
+
   .migration-progress-footer {
     background: #4a5568;
     border-top-color: #718096;
   }
-  
+
   .migration-progress-note {
     color: #a0aec0;
   }

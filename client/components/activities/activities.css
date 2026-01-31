@@ -1,16 +1,21 @@
 .activity-title {
-  margin: 0 0.7vw 1vh;
   display: flex;
+  flex-direction: column;
+  gap: 0.5lh;
   justify-content: space-between;
+}
+.reactions-popup {
+  display: flex;
+  gap: 1ch;
+  margin: 0.5lh 0.5ch;
 }
 .reactions-popup .add-comment-reaction {
   display: inline-block;
   cursor: pointer;
   border-radius: 0.7vw;
-  font-size: clamp(18px, 4vw, 22px);
   text-align: center;
   line-height: 1.3;
-  width: 5vw;
+  font-size: 1.2em;
 }
 .reactions-popup .add-comment-reaction:hover {
   background-color: #b0c4de;
@@ -22,16 +27,13 @@
   margin: 0.1vh 0;
   padding: 0.8vh 0;
   display: flex;
-}
-.activities .activity .member {
-  width: 4vw;
-  height: 4vw;
+  font-size: 0.8em;
 }
 .activities .activity .activity-member {
   font-weight: 700;
 }
 .activities .activity .activity-desc {
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   overflow: hidden;
   flex: 1;
   align-self: center;

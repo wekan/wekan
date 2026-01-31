@@ -1,6 +1,6 @@
 .global-search-board-wrapper {
   border-radius: 8px;
-  min-width: 400px;
+  min-width: min(100%, 400px);
   border-width: 8px;
   border-color: #808080;
   border-style: solid;
@@ -67,8 +67,6 @@
   color: #8b0000;
 }
 .global-search-page {
-  width: 40%;
-  min-width: 400px;
   margin-right: auto;
   margin-left: auto;
   line-height: 150%;

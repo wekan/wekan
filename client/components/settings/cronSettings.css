@@ -19,7 +19,7 @@
 .migration-header h2 {
   margin: 0;
   color: #333;
-  font-size: 24px;
+
   font-weight: 600;
 }
 
@@ -35,7 +35,7 @@
 
 .migration-controls .btn {
   padding: 8px 16px;
-  font-size: 14px;
+
   border-radius: 4px;
   border: none;
   cursor: pointer;
@@ -128,20 +128,20 @@
   text-align: center;
   font-weight: 700;
   color: #667eea;
-  font-size: 18px;
+
 }
 
 .progress-label {
   text-align: center;
   color: #666;
-  font-size: 14px;
+
   margin-top: 4px;
 }
 
 .current-step {
   text-align: center;
   color: #333;
-  font-size: 16px;
+
   font-weight: 500;
   margin-bottom: 16px;
 }
@@ -154,7 +154,7 @@
 .migration-status {
   text-align: center;
   color: #333;
-  font-size: 16px;
+
   background-color: #e3f2fd;
   padding: 12px 16px;
   border-radius: 6px;
@@ -173,7 +173,7 @@
 .migration-steps h3 {
   margin: 0 0 20px 0;
   color: #333;
-  font-size: 20px;
+
   font-weight: 600;
 }
 
@@ -210,7 +210,7 @@
     box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+    box-shadow: 0 0 0 0.5rem rgba(102, 126, 234, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
@@ -225,7 +225,7 @@
 
 .step-icon {
   margin-right: 12px;
-  font-size: 18px;
+
   width: 24px;
   text-align: center;
 }
@@ -249,13 +249,13 @@
 .step-name {
   font-weight: 600;
   color: #333;
-  font-size: 14px;
+
   margin-bottom: 2px;
 }
 
 .step-description {
   color: #666;
-  font-size: 12px;
+
   line-height: 1.3;
 }
 
@@ -265,7 +265,7 @@
 }
 
 .step-progress .progress-text {
-  font-size: 12px;
+
   font-weight: 600;
 }
 
@@ -302,7 +302,7 @@
 .jobs-header h2 {
   margin: 0;
   color: #333;
-  font-size: 24px;
+
   font-weight: 600;
 }
 
@@ -313,7 +313,7 @@
 
 .jobs-controls .btn {
   padding: 8px 16px;
-  font-size: 14px;
+
   border-radius: 4px;
   border: none;
   cursor: pointer;
@@ -356,18 +356,18 @@
 .table th {
   font-weight: 600;
   color: #333;
-  font-size: 14px;
+
 }
 
 .table td {
-  font-size: 14px;
+
   color: #666;
 }
 
 .status-badge {
   padding: 4px 8px;
   border-radius: 4px;
-  font-size: 12px;
+
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -404,7 +404,7 @@
 
 .btn-group .btn {
   padding: 4px 8px;
-  font-size: 12px;
+
   border-radius: 3px;
   border: none;
   cursor: pointer;
@@ -452,7 +452,7 @@
 .add-job-header h2 {
   margin: 0;
   color: #333;
-  font-size: 24px;
+
   font-weight: 600;
 }
 
@@ -474,7 +474,7 @@
   margin-bottom: 8px;
   font-weight: 600;
   color: #333;
-  font-size: 14px;
+
 }
 
 .form-control {
@@ -482,7 +482,7 @@
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 14px;
+
   transition: border-color 0.3s ease;
 }
 
@@ -504,7 +504,7 @@
 
 .form-actions .btn {
   padding: 10px 20px;
-  font-size: 14px;
+
   border-radius: 4px;
   border: none;
   cursor: pointer;
@@ -546,7 +546,7 @@
 .board-operations-header h2 {
   margin: 0;
   color: #333;
-  font-size: 24px;
+
   font-weight: 600;
 }
 
@@ -562,7 +562,7 @@
 
 .board-operations-controls .btn {
   padding: 8px 16px;
-  font-size: 14px;
+
   border-radius: 4px;
   border: none;
   cursor: pointer;
@@ -606,14 +606,14 @@
 }
 
 .stat-value {
-  font-size: 32px;
+
   font-weight: 700;
   color: #667eea;
   margin-bottom: 4px;
 }
 
 .stat-label {
-  font-size: 14px;
+
   color: #666;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -641,7 +641,7 @@
   min-width: 120px;
   font-weight: 600;
   color: #333;
-  font-size: 14px;
+
 }
 
 .resource-bar {
@@ -674,7 +674,7 @@
   text-align: right;
   font-weight: 600;
   color: #333;
-  font-size: 14px;
+
 }
 
 .board-operations-search {
@@ -683,7 +683,7 @@
 
 .search-box {
   position: relative;
-  max-width: 400px;
+  max-width: 50vw;
 }
 
 .search-box .form-control {
@@ -696,7 +696,7 @@
   top: 50%;
   transform: translateY(-50%);
   color: #999;
-  font-size: 16px;
+
 }
 
 .board-operations-list {
@@ -718,13 +718,13 @@
 .operations-header h3 {
   margin: 0;
   color: #333;
-  font-size: 18px;
+
   font-weight: 600;
 }
 
 .pagination-info {
   color: #666;
-  font-size: 14px;
+
 }
 
 .operations-table {
@@ -751,7 +751,7 @@
 
 .board-id {
   font-family: monospace;
-  font-size: 12px;
+
   color: #666;
   background: #f8f9fa;
   padding: 4px 8px;
@@ -788,7 +788,7 @@
 }
 
 .progress-container .progress-text {
-  font-size: 12px;
+
   font-weight: 600;
   color: #667eea;
   min-width: 35px;
@@ -806,7 +806,7 @@
 
 .pagination .btn {
   padding: 6px 12px;
-  font-size: 12px;
+
   border-radius: 4px;
   border: 1px solid #ddd;
   background: white;
@@ -827,7 +827,7 @@
 
 .page-info {
   color: #666;
-  font-size: 14px;
+
 }
 
 /* Responsive design */
@@ -838,26 +838,26 @@
     align-items: flex-start;
     gap: 15px;
   }
-  
+
   .migration-controls,
   .jobs-controls {
     width: 100%;
     justify-content: center;
   }
-  
+
   .table {
-    font-size: 12px;
+
   }
-  
+
   .table th,
   .table td {
     padding: 8px 12px;
   }
-  
+
   .btn-group {
     flex-direction: column;
   }
-  
+
   .add-job-form {
     max-width: 100%;
   }

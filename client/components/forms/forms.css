@@ -7,9 +7,7 @@ button {
   border: 1px solid #ccc;
   border-radius: 0.4vw;
   display: block;
-  margin-bottom: 1.5vh;
-  min-height: 4.5vh;
-  padding: 1vh 1vw;
+  padding: 0.3lh 0.8ch;
 }
 select.full,
 textarea.full,
@@ -42,7 +40,6 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
   transition: background 85ms ease-in, border-color 85ms ease-in;
-  width: min(250px, 30vw);
 }
 input[type="text"].inline-input,
 input[type="password"].inline-input,
@@ -53,7 +50,6 @@ input[type="email"].inline-input {
   padding: 0.3vh;
   min-height: 0;
   height: 2.5vh;
-  width: min(200px, 25vw);
 }
 input[type="text"].full-line,
 input[type="password"].full-line,
@@ -241,9 +237,9 @@ input[type="hidden"] {
 }
 .radio-div,
 .check-div {
-  display: block;
-  margin: 0 0 0.5vh 2.5vw;
-  min-height: 2.5vh;
+  display: flex;
+  align-items: center;
+  gap: 0.2lh;
   position: relative;
 }
 .radio-div input,
@@ -260,9 +256,10 @@ input[type="hidden"] {
   font-weight: 400;
 }
 label {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   font-weight: 700;
-  margin-bottom: 0.5vh;
 }
 label.form-error {
   color: #d32f2f;
@@ -274,7 +271,8 @@ textarea::-moz-placeholder {
   color: #333 !important;
 }
 .edit-controls,
-.add-controls {
+.add-controls,
+.links-controls {
   display: flex;
   align-items: center;
   margin-top: 0px;
@@ -289,9 +287,7 @@ textarea::-moz-placeholder {
 .add-controls button[type=submit],
 .edit-controls input[type=button],
 .add-controls input[type=button] {
-  float: left;
-  height: 4.5vh;
-  margin-bottom: 0px;
+  margin: 0;
 }
 .edit-controls .fa-times-thin,
 .add-controls .fa-times-thin {
@@ -317,19 +313,25 @@ textarea::-moz-placeholder {
   cursor: pointer;
 }
 .materialCheckBox.is-checked {
-  top: -4px;
-  left: -3px;
-  width: 7px;
-  height: 15px;
-  margin-right: 6px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
   border-bottom: 2px solid #3cb500;
   border-right: 2px solid #3cb500;
-  transform: rotate(40deg);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transform-origin: 100% 100%;
+}
+
+form .form-buttons {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+  justify-content: stretch;
+  gap: 0.5ch;
+  &>button {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
 }
 /* Grey checkmarks when grey icons setting is enabled */
 body.grey-icons-enabled .materialCheckBox.is-checked {
@@ -362,7 +364,7 @@ body.grey-icons-enabled .materialCheckBox.is-checked {
   border-radius: 3px;
   color: #fff;
   display: none;
-  font-size: 12px;
+
   font-weight: 700;
   height: 17px;
   line-height: 17px;
@@ -419,7 +421,7 @@ body.grey-icons-enabled .materialCheckBox.is-checked {
 .button-link.setting .label {
   color: #222;
   display: block;
-  font-size: 12px;
+
   line-height: 14px;
   margin-bottom: 0;
 }
@@ -428,7 +430,7 @@ body.grey-icons-enabled .materialCheckBox.is-checked {
 }
 .button-link.setting .value {
   display: block;
-  font-size: 18px;
+
   line-height: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -572,7 +574,7 @@ button.loud-text-button:hover {
   padding: 11px;
   position: relative;
   text-decoration: none;
-  font-size: 16px;
+
   line-height: 20px;
 }
 .big-link .text {
@@ -615,7 +617,7 @@ button.loud-text-button:hover {
   width: 40px;
 }
 .big-link.avatar-changer .member .member-initials {
-  font-size: 16px;
+
   height: 40px;
   line-height: 40px;
   max-height: 40px;
@@ -655,7 +657,7 @@ button.loud-text-button:hover {
   left: 0;
   width: 100%;
   z-index: 2;
-  font-size: 23px;
+
 }
 .uploader .realfile input[type="file"] {
   cursor: pointer;
@@ -666,7 +668,7 @@ button.loud-text-button:hover {
   padding: 0;
   width: 100%;
   z-index: 2;
-  font-size: 23px;
+
 }
 .uploader:hover .fakefile {
   background: #318ec4;
@@ -705,13 +707,13 @@ button.loud-text-button:hover {
   color: #fff;
 }
 .material-toggle-switch {
-  display: flex;
+  padding: 0.2rlh 1ch;
+  align-self: center;
 }
 .toggle-label {
+  height: 0.6rlh;
+  width: 1.3rlh;
   position: relative;
-  display: block;
-  height: 20px;
-  width: 44px;
   background-color: #a6a6a6;
   border-radius: 100px;
   cursor: pointer;
@@ -719,11 +721,13 @@ button.loud-text-button:hover {
 }
 .toggle-label:after {
   position: absolute;
-  left: -2px;
-  top: -3px;
-  display: block;
-  width: 26px;
-  height: 26px;
+  /* ensure vertical centering */
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: -0.2rlh;
+  width: .8rlh;
+  height: .8rlh;
   border-radius: 100px;
   background-color: #fff;
   box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
@@ -737,7 +741,7 @@ button.loud-text-button:hover {
   background-color: #6fbeb5;
 }
 .toggle-switch:checked ~ .toggle-label:after {
-  left: 20px;
+  left: 1.5ch;
   background-color: #179588;
 }
 .toggle-switch:checked:disabled ~ .toggle-label {
