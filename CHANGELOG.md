@@ -32,11 +32,15 @@ This release adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/a0a8d0186cbc7fefe38f72244723bcff292ae2f4),
   [Part 2](https://github.com/wekan/wekan/commit/37d0daee590ab48cbfa1672e4bc5efd95d341211).
   Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/03439d1bccf82511870eed7301b621b1d495941b).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
 - [Reduce visual overflow in Member Settings menu by extending container height](https://github.com/wekan/wekan/pull/6104).
   Thanks to AymenHassini19.
+- [Fix Card copy menu is not displayed](https://github.com/wekan/wekan/commit/0b891464b907b272e075d8aafd3ce29e704739cf).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
