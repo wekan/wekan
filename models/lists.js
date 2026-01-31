@@ -196,7 +196,7 @@ Lists.allow({
 });
 
 Lists.helpers({
-  copy(boardId, swimlaneId) {
+  async copy(boardId, swimlaneId) {
     const oldId = this._id;
     const oldSwimlaneId = this.swimlaneId || null;
     this.boardId = boardId;
@@ -217,13 +217,16 @@ Lists.helpers({
     }
 
     // Copy all cards in list
-    ReactiveCache.getCards({
+    const cards = ReactiveCache.getCards({
       swimlaneId: oldSwimlaneId,
       listId: oldId,
       archived: false,
-    }).forEach(card => {
-      card.copy(boardId, swimlaneId, _id);
     });
+    for (const card of cards) {
+      await card.copy(boardId, swimlaneId, _id);
+    }
+
+    return _id;
   },
 
   async move(boardId, swimlaneId) {

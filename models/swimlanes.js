@@ -147,7 +147,7 @@ Swimlanes.allow({
 });
 
 Swimlanes.helpers({
-  copy(boardId) {
+  async copy(boardId) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     this.boardId = boardId;
@@ -163,12 +163,15 @@ Swimlanes.helpers({
     }
 
     // Copy all lists in swimlane
-    ReactiveCache.getLists(query).forEach(list => {
+    const lists = ReactiveCache.getLists(query);
+    for (const list of lists) {
       list.type = 'list';
       list.swimlaneId = oldId;
       list.boardId = boardId;
-      list.copy(boardId, _id);
-    });
+      await list.copy(boardId, _id);
+    }
+
+    return _id;
   },
 
   async move(toBoardId) {

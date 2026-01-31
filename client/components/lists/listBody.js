@@ -817,7 +817,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           this.term.set(evt.target.searchTerm.value);
         },
-        'click .js-minicard'(evt) {
+        async 'click .js-minicard'(evt) {
           // 0. Common
           const title = $('.js-element-title')
             .val()
@@ -835,7 +835,7 @@ BlazeComponent.extendComponent({
             if (this.isTemplateSearch) {
               element.type = 'cardType-card';
               element.linkedId = '';
-              _id = element.copy(this.boardId, this.swimlaneId, this.listId);
+              _id = await element.copy(this.boardId, this.swimlaneId, this.listId);
               // 1.B Linked card
             } else {
               _id = element.link(this.boardId, this.swimlaneId, this.listId);
@@ -847,13 +847,13 @@ BlazeComponent.extendComponent({
               .lists()
               .length;
             element.type = 'list';
-            _id = element.copy(this.boardId, this.swimlaneId);
+            _id = await element.copy(this.boardId, this.swimlaneId);
           } else if (this.isSwimlaneTemplateSearch) {
             element.sort = ReactiveCache.getBoard(this.boardId)
               .swimlanes()
               .length;
             element.type = 'swimlane';
-            _id = element.copy(this.boardId);
+            _id = await element.copy(this.boardId);
           } else if (this.isBoardTemplateSearch) {
             Meteor.call(
               'copyBoard',
