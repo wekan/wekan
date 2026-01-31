@@ -24,6 +24,15 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Updated MongoDB to 7.0.29 at Windows install docs](https://github.com/wekan/wekan/commit/b55e1bbd409f76bd0388d19d4d0a8420cee8df96).
+  Thanks to MongoDB developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.26 2026-01-31 WeKan ® release
 
 This release adds the following updates:
