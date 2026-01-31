@@ -73,19 +73,40 @@ export default class LDAP {
     }
   }
 
-  connectSync(...args) {
-     if (!this._connectSync) {
-      this._connectSync = Meteor.wrapAsync(this.connectAsync, this);
-    }
-    return this._connectSync(...args);
+  async connect() {
+    return new Promise((resolve, reject) => {
+      this.connectAsync((error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      });
+    });
   }
 
-  searchAllSync(...args) {
+  async searchAll(BaseDN, options) {
+    return new Promise((resolve, reject) => {
+      this.searchAllAsync(BaseDN, options, (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
 
-    if (!this._searchAllSync) {
-      this._searchAllSync = Meteor.wrapAsync(this.searchAllAsync, this);
-    }
-    return this._searchAllSync(...args);
+  async bind(dn, password) {
+    return new Promise((resolve, reject) => {
+      this.client.bind(dn, password, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
   }
 
   connectAsync(callback) {
@@ -131,8 +152,6 @@ export default class LDAP {
     Log.debug(`connectionOptions ${JSON.stringify(connectionOptions)}`);
 
     this.client = ldapjs.createClient(connectionOptions);
-
-    this.bindSync = Meteor.wrapAsync(this.client.bind, this.client);
 
     this.client.on('error', (error) => {
       Log.error(`connection ${error}`);
@@ -223,7 +242,7 @@ export default class LDAP {
     return `(&${filter.join('')})`;
   }
 
-  bindUserIfNecessary(username, password) {
+  async bindUserIfNecessary(username, password) {
 
     if (this.domainBinded === true) {
       return;
@@ -247,11 +266,11 @@ export default class LDAP {
 
     Log.info(`Binding with User ${userDn}`);
 
-    this.bindSync(userDn, password);
+    await this.bind(userDn, password);
     this.domainBinded = true;
   }
 
-  bindIfNecessary() {
+  async bindIfNecessary() {
     if (this.domainBinded === true) {
       return;
     }
@@ -262,12 +281,12 @@ export default class LDAP {
 
     Log.info(`Binding UserDN ${this.options.Authentication_UserDN}`);
 
-    this.bindSync(this.options.Authentication_UserDN, this.options.Authentication_Password);
+    await this.bind(this.options.Authentication_UserDN, this.options.Authentication_Password);
     this.domainBinded = true;
   }
 
-  searchUsersSync(username, page) {
-    this.bindIfNecessary();
+  async searchUsers(username, page) {
+    await this.bindIfNecessary();
     const searchOptions = {
       filter   : this.getUserFilter(username),
       scope    : this.options.User_Search_Scope || 'sub',
@@ -291,11 +310,11 @@ export default class LDAP {
       return this.searchAllPaged(this.options.BaseDN, searchOptions, page);
     }
 
-    return this.searchAllSync(this.options.BaseDN, searchOptions);
+    return await this.searchAll(this.options.BaseDN, searchOptions);
   }
 
-  getUserByIdSync(id, attribute) {
-    this.bindIfNecessary();
+  async getUserById(id, attribute) {
+    await this.bindIfNecessary();
 
     const Unique_Identifier_Field = this.constructor.settings_get('LDAP_UNIQUE_IDENTIFIER_FIELD').split(',');
 
@@ -327,7 +346,7 @@ export default class LDAP {
     Log.debug(`search filter ${searchOptions.filter.toString()}`);
     Log.debug(`BaseDN ${this.options.BaseDN}`);
 
-    const result = this.searchAllSync(this.options.BaseDN, searchOptions);
+    const result = await this.searchAll(this.options.BaseDN, searchOptions);
 
     if (!Array.isArray(result) || result.length === 0) {
       return;
@@ -340,8 +359,8 @@ export default class LDAP {
     return result[0];
   }
 
-  getUserByUsernameSync(username) {
-    this.bindIfNecessary();
+  async getUserByUsername(username) {
+    await this.bindIfNecessary();
 
     const searchOptions = {
       filter: this.getUserFilter(username),
@@ -352,7 +371,7 @@ export default class LDAP {
     Log.debug(`searchOptions ${searchOptions}`);
     Log.debug(`BaseDN ${this.options.BaseDN}`);
 
-    const result = this.searchAllSync(this.options.BaseDN, searchOptions);
+    const result = await this.searchAll(this.options.BaseDN, searchOptions);
 
     if (!Array.isArray(result) || result.length === 0) {
       return;
@@ -365,7 +384,7 @@ export default class LDAP {
     return result[0];
   }
 
-  getUserGroups(username, ldapUser) {
+  async getUserGroups(username, ldapUser) {
     if (!this.options.group_filter_enabled) {
       return true;
     }
@@ -394,7 +413,7 @@ export default class LDAP {
 
     Log.debug(`Group list filter LDAP: ${searchOptions.filter}`);
 
-    const result = this.searchAllSync(this.options.BaseDN, searchOptions);
+    const result = await this.searchAll(this.options.BaseDN, searchOptions);
 
     if (!Array.isArray(result) || result.length === 0) {
       return [];
@@ -410,12 +429,12 @@ export default class LDAP {
 
   }
 
-  isUserInGroup(username, ldapUser) {
+  async isUserInGroup(username, ldapUser) {
     if (!this.options.group_filter_enabled) {
       return true;
     }
 
-    const grps = this.getUserGroups(username, ldapUser);
+    const grps = await this.getUserGroups(username, ldapUser);
 
     const filter = ['(&'];
 
@@ -444,7 +463,7 @@ export default class LDAP {
 
     Log.debug(`Group filter LDAP: ${searchOptions.filter}`);
 
-    const result = this.searchAllSync(this.options.BaseDN, searchOptions);
+    const result = await this.searchAll(this.options.BaseDN, searchOptions);
 
     if (!Array.isArray(result) || result.length === 0) {
       return false;
@@ -580,14 +599,14 @@ export default class LDAP {
     });
   }
 
-  authSync(dn, password) {
+  async auth(dn, password) {
     Log.info(`Authenticating ${dn}`);
 
     try {
       if (password === '') {
         throw new Error('Password is not provided');
       }
-      this.bindSync(dn, password);
+      await this.bind(dn, password);
       Log.info(`Authenticated ${dn}`);
       return true;
     } catch (error) {
