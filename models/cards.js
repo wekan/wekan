@@ -573,6 +573,10 @@ Cards.helpers({
   },
 
   async mapCustomFieldsToBoard(boardId) {
+    // Guard against undefined/null customFields
+    if (!this.customFields || !Array.isArray(this.customFields)) {
+      return [];
+    }
     // Map custom fields to new board
     const result = [];
     for (const cf of this.customFields) {
@@ -603,7 +607,7 @@ Cards.helpers({
 },
 
 
-  copy(boardId, swimlaneId, listId) {
+  async copy(boardId, swimlaneId, listId) {
     const oldId = this._id;
     const oldCard = ReactiveCache.getCard(oldId);
 
@@ -633,7 +637,7 @@ Cards.helpers({
       delete this.labelIds;
       this.labelIds = newCardLabels;
 
-      this.customFields = this.mapCustomFieldsToBoard(newBoard._id);
+      this.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
     }
 
     delete this._id;
@@ -2097,7 +2101,7 @@ Cards.helpers({
         cardNumber: newCardNumber
       });
 
-      mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);
+      mutatedFields.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
     }
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });
@@ -3077,7 +3081,7 @@ if (Meteor.isServer) {
      * @param mergeCardValues this values into the copied card
      * @return the new card id
      */
-    copyCard(cardId, boardId, swimlaneId, listId, insertAtTop, mergeCardValues) {
+    async copyCard(cardId, boardId, swimlaneId, listId, insertAtTop, mergeCardValues) {
       check(cardId, String);
       check(boardId, String);
       check(swimlaneId, String);
@@ -3096,7 +3100,7 @@ if (Meteor.isServer) {
         card.sort = sort + 1;
       }
 
-      const ret = card.copy(boardId, swimlaneId, listId);
+      const ret = await card.copy(boardId, swimlaneId, listId);
       return ret;
     },
   });
