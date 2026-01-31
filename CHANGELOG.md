@@ -24,11 +24,13 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
-# Upcoming WeKan ® release
+# v8.26 2026-01-31 WeKan ® release
 
 This release adds the following updates:
 
-- Added Docs: Spreadsheet vs Kanban
+- [Migrate wekan-accounts-lockout to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6113).
+  Thanks to harryadel.
+- Added Docs: Spreadsheet vs Kanban.
   [Part 1](https://github.com/wekan/wekan/commit/a0a8d0186cbc7fefe38f72244723bcff292ae2f4),
   [Part 2](https://github.com/wekan/wekan/commit/37d0daee590ab48cbfa1672e4bc5efd95d341211).
   Thanks to xet7.
