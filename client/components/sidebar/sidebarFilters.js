@@ -105,10 +105,15 @@ BlazeComponent.extendComponent({
   },
 }).register('filterSidebar');
 
-function mutateSelectedCards(mutationName, ...args) {
-  ReactiveCache.getCards(MultiSelection.getMongoSelector(), {sort: ['sort']}).forEach(card => {
-    card[mutationName](...args);
-  });
+async function mutateSelectedCards(mutationNameOrCallback, ...args) {
+  const cards = ReactiveCache.getCards(MultiSelection.getMongoSelector(), {sort: ['sort']});
+  for (const card of cards) {
+    if (typeof mutationNameOrCallback === 'function') {
+      await mutationNameOrCallback(card);
+    } else {
+      await card[mutationNameOrCallback](...args);
+    }
+  }
 }
 
 BlazeComponent.extendComponent({
@@ -441,28 +446,31 @@ Template.copySelectionPopup.events({
     const cardId = instance.selectedCardId.get();
     const position = instance.position.get();
 
-    mutateSelectedCards((card) => {
-      const newCard = card.copy(boardId, swimlaneId, listId);
-      if (newCard) {
-        let sortIndex = 0;
-        if (cardId) {
-          const targetCard = ReactiveCache.getCard(cardId);
-          if (targetCard) {
-            if (position === 'above') {
-              sortIndex = targetCard.sort - 0.5;
-            } else {
-              sortIndex = targetCard.sort + 0.5;
+    mutateSelectedCards(async (card) => {
+      const newCardId = await card.copy(boardId, swimlaneId, listId);
+      if (newCardId) {
+        const newCard = ReactiveCache.getCard(newCardId);
+        if (newCard) {
+          let sortIndex = 0;
+          if (cardId) {
+            const targetCard = ReactiveCache.getCard(cardId);
+            if (targetCard) {
+              if (position === 'above') {
+                sortIndex = targetCard.sort - 0.5;
+              } else {
+                sortIndex = targetCard.sort + 0.5;
+              }
+            }
+          } else {
+            // To end
+            const board = ReactiveCache.getBoard(boardId);
+            const cards = board.cards({ swimlaneId, listId }).sort('sort');
+            if (cards.length > 0) {
+              sortIndex = cards[cards.length - 1].sort + 1;
             }
           }
-        } else {
-          // To end
-          const board = ReactiveCache.getBoard(boardId);
-          const cards = board.cards({ swimlaneId, listId }).sort('sort');
-          if (cards.length > 0) {
-            sortIndex = cards[cards.length - 1].sort + 1;
-          }
+          newCard.setSort(sortIndex);
         }
-        newCard.setSort(sortIndex);
       }
     });
     EscapeActions.executeUpTo('multiselection');

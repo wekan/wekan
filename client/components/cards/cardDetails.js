@@ -1050,7 +1050,7 @@ Template.editCardAssignerForm.events({
     const title = textarea.val().trim();
 
     if (title) {
-      const newCardId = Meteor.call('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, true, {title: title});
+      const newCardId = await Meteor.callAsync('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, true, {title: title});
 
       // Position the copied card
       if (newCardId) {
@@ -1145,7 +1145,7 @@ Template.editCardAssignerForm.events({
     if (title) {
       const titleList = JSON.parse(title);
       for (const obj of titleList) {
-        const newCardId = Meteor.call('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, false, {title: obj.title, description: obj.description});
+        const newCardId = await Meteor.callAsync('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, false, {title: obj.title, description: obj.description});
 
         // Position the copied card
         if (newCardId) {
