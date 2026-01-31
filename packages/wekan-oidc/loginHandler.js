@@ -57,7 +57,7 @@ module.exports = {
 //  isAdmin: [true, false] -> admin group becomes admin in wekan
 //  isOrganization: [true, false] -> creates org and adds to user
 //  displayName: "string"
-addGroupsWithAttributes: function (user, groups){
+addGroupsWithAttributes: async function (user, groups){
   teamArray=[];
   orgArray=[];
   isAdmin = [];
@@ -76,7 +76,7 @@ addGroupsWithAttributes: function (user, groups){
     isAdmin.push(group.isAdmin || false);
     if (isOrg)
     {
-      org = Org.findOne({"orgDisplayName": group.displayName});
+      org = await Org.findOneAsync({"orgDisplayName": group.displayName});
       if(org)
       {
         if(contains(orgs, org, "org"))
@@ -89,7 +89,7 @@ addGroupsWithAttributes: function (user, groups){
       else if(forceCreate)
       {
         createObject(initAttributes, "Org");
-        org = Org.findOne({'orgDisplayName': group.displayName});
+        org = await Org.findOneAsync({'orgDisplayName': group.displayName});
       }
       else
       {
@@ -102,7 +102,7 @@ addGroupsWithAttributes: function (user, groups){
     else
     {
       //start team routine
-      team = Team.findOne({"teamDisplayName": group.displayName});
+      team = await Team.findOneAsync({"teamDisplayName": group.displayName});
       if (team)
       {
         if(contains(teams, team, "team"))
@@ -115,7 +115,7 @@ addGroupsWithAttributes: function (user, groups){
       else if(forceCreate)
       {
         createObject(initAttributes, "Team");
-        team = Team.findOne({'teamDisplayName': group.displayName});
+        team = await Team.findOneAsync({'teamDisplayName': group.displayName});
       }
       else
       {
@@ -129,28 +129,28 @@ addGroupsWithAttributes: function (user, groups){
   // hence user will get admin privileges in wekan
   // E.g. Admin rights will be withdrawn if no group in oidc provider has isAdmin set to true
 
-  users.update({ _id: user._id }, { $set:  {isAdmin: isAdmin.some(i => (i === true))}});
+  await users.updateAsync({ _id: user._id }, { $set:  {isAdmin: isAdmin.some(i => (i === true))}});
   teams = {'teams': {'$each': teamArray}};
   orgs = {'orgs': {'$each': orgArray}};
-  users.update({ _id: user._id }, { $push:  teams});
-  users.update({ _id: user._id }, { $push:  orgs});
+  await users.updateAsync({ _id: user._id }, { $push:  teams});
+  await users.updateAsync({ _id: user._id }, { $push:  orgs});
   // remove temporary oidc data from user collection
-  users.update({ _id: user._id }, { $unset:  {"services.oidc.groups": []}});
+  await users.updateAsync({ _id: user._id }, { $unset:  {"services.oidc.groups": []}});
 
   return;
 },
 
-changeUsername: function(user, name)
+changeUsername: async function(user, name)
 {
   username = {'username': name};
-  if (user.username != username) users.update({ _id: user._id }, { $set:  username});
+  if (user.username != username) await users.updateAsync({ _id: user._id }, { $set:  username});
 },
-changeFullname: function(user, name)
+changeFullname: async function(user, name)
 {
   username = {'profile.fullname': name};
-  if (user.username != username) users.update({ _id: user._id }, { $set:  username});
+  if (user.username != username) await users.updateAsync({ _id: user._id }, { $set:  username});
 },
-addEmail: function(user, email)
+addEmail: async function(user, email)
 {
   user_email = user.emails || [];
   var contained = false;
@@ -173,7 +173,7 @@ addEmail: function(user, email)
   {
     user_email.unshift({'address': email, 'verified': true});
     user_email = {'emails': user_email};
-    users.update({ _id: user._id }, { $set:  user_email});
+    await users.updateAsync({ _id: user._id }, { $set:  user_email});
   }
 }
 }
