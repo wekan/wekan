@@ -7,7 +7,7 @@ import { DialogWithBoardSwimlaneListCard } from '/client/lib/dialogWithBoardSwim
 const subManager = new SubsManager();
 const { calculateIndexData, capitalize } = Utils;
 
-function initSorting(items) {
+function initSorting(items, handleSelector) {
   items.sortable({
     tolerance: 'pointer',
     helper: 'clone',
@@ -16,6 +16,7 @@ function initSorting(items) {
     appendTo: 'parent',
     distance: 7,
     placeholder: 'checklist-item placeholder',
+    handle: handleSelector,
     scroll: true,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
@@ -48,8 +49,9 @@ function initSorting(items) {
 BlazeComponent.extendComponent({
   onRendered() {
     const self = this;
+    this.handleSelector = Utils.isMiniScreen() ? 'span.fa.checklistitem-handle' : '.item-title';
     self.itemsDom = this.$('.js-checklist-items');
-    initSorting(self.itemsDom);
+    initSorting(self.itemsDom, this.handleSelector);
     self.itemsDom.mousedown(function (evt) {
       evt.stopPropagation();
     });
@@ -63,11 +65,9 @@ BlazeComponent.extendComponent({
       const $itemsDom = $(self.itemsDom);
       if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
         $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
-        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-          $(self.itemsDom).sortable({
-            handle: 'span.fa.checklistitem-handle',
-          });
-        }
+        $(self.itemsDom).sortable({
+          handle: this.handleSelector,
+        });
       }
     });
   },

@@ -112,6 +112,9 @@ textarea.js-edit-checklist-item {
   opacity: 1;
   transition: height 0ms 400ms, opacity 400ms 0ms;
   overflow: hidden;
+  align-items: center;
+  min-height: 1.5lh;
+  padding: 0 1ch;
 }
 .checklist-item.is-checked.invisible {
   opacity: 0;
@@ -126,9 +129,6 @@ textarea.js-edit-checklist-item {
 }
 .checklist-item:hover {
   background-color: #ebebeb;
-}
-.checklist-item .check-box-container {
-  padding-right: 10px;
 }
 .checklist-item .check-box {
   margin: 0.1em 0 0 0;
@@ -149,8 +149,7 @@ textarea.js-edit-checklist-item {
   text-decoration: line-through;
 }
 .checklist-item .item-title .viewer p {
-  margin-bottom: 2px;
-  display: block;
+  display: flex;
   overflow-wrap: break-word;
   max-width: 420px;
 }
