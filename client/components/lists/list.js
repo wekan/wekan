@@ -14,6 +14,7 @@ BlazeComponent.extendComponent({
 
   onCreated() {
     this.newCardFormIsVisible = new ReactiveVar(true);
+    this.collapse = new ReactiveVar(Utils.getListCollapseState(this.data()));
   },
 
   // The jquery UI sortable library is the best solution I've found so far. I
@@ -28,31 +29,27 @@ BlazeComponent.extendComponent({
     this.resizeHandle = this.find('.js-list-resize-handle');
     this.initializeListResize();
 
-    // We want to re-run this function any time a card is added.
-    this.autorun(() => {
-      const currentBoardId = Tracker.nonreactive(() => {
-        return Session.get('currentBoard');
-      });
-      Tracker.afterFlush(() => {
-        $cards.find(itemsSelector).droppable({
-          hoverClass: 'draggable-hover-card',
-          accept: '.js-member,.js-label',
-          drop(event, ui) {
-            const cardId = Blaze.getData(this)._id;
-            const card = ReactiveCache.getCard(cardId);
+    const ensureCollapseState = (collapsed) => {
+      if (this.collapse.get() === collapsed) return;
+      if (this.autoWidth() || collapsed) {
+        $(this.resizeHandle).hide();
+      } else {
+        $(this.resizeHandle).show();
+      }
+      this.collapse.set(collapsed);
+      this.initializeListResize();
+    }
 
-            if (ui.draggable.hasClass('js-member')) {
-              const memberId = Blaze.getData(ui.draggable.get(0)).userId;
-              card.assignMember(memberId);
-            } else {
-              const labelId = Blaze.getData(ui.draggable.get(0))._id;
-              card.addLabel(labelId);
-            }
-          },
-        });
-      });
+    // Reactively update collapse appearance and resize handle visibility when auto-width or collapse changes
+    this.autorun(() => {
+      ensureCollapseState(Utils.getListCollapseState(this.data()));
     });
   },
+
+  collapsed() {
+    return this.collapse.get();
+  },
+
 
   listWidth() {
     const user = ReactiveCache.getCurrentUser();
@@ -314,12 +311,6 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('list');
-
-Template.list.helpers({
-  collapsed() {
-    return Utils.getListCollapseState(this);
-  },
-});
 
 Template.miniList.events({
   'click .js-select-list'() {
