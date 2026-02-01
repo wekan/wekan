@@ -4,12 +4,20 @@ template(name="subtasks")
     | {{_ 'subtasks'}}
   if currentUser.isBoardAdmin
     if toggleDeleteDialog.get
-      .board-overlay#card-details-overlay
       +subtaskDeleteDialog(subtask = subtaskToDelete)
 
-  .card-subtasks-items
-    each subtask in currentCard.subtasks
-      +subtaskDetail(subtask = subtask)
+  if currentCard.subtasks
+    .card-subtasks-items
+      each subtask in currentCard.subtasks
+        .subtask-container
+          +subtaskDetail(subtask = subtask)
+          if canModifyCard
+            a.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
+              | ☰
+            if currentUser.isBoardAdmin
+              a.js-delete-subtask-item
+                | ❌
+
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-subtask" cardId = cardId)
@@ -24,9 +32,6 @@ template(name="subtaskDetail")
       +editSubtaskItemForm(subtask = subtask)
     else
       .subtask-title
-        span
-        if canModifyCard
-          a.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
             +viewer
@@ -37,13 +42,13 @@ template(name="subtaskDetail")
                 = subtask.title
 
 template(name="addSubtaskItemForm")
-  textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
+  textarea.js-add-subtask-item(rows='1' dir="auto")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-subtask-item-form(type="submit") {{_ 'save'}}
     a.js-close-inlined-form
 
 template(name="editSubtaskItemForm")
-  textarea.js-edit-subtask-item(rows='1' autofocus dir="auto")
+  textarea.js-edit-subtask-item(rows='1' dir="auto")
     if $eq type 'item'
       = item.title
     else
@@ -52,9 +57,6 @@ template(name="editSubtaskItemForm")
     button.primary.confirm.js-submit-edit-subtask-item-form(type="submit") {{_ 'save'}}
     a.js-close-inlined-form
     span(title=createdAt) {{ moment createdAt }}
-    if canModifyCard
-      if currentUser.isBoardAdmin
-        a.js-delete-subtask-item {{_ "delete"}}...
 
 template(name="subtasksItems")
   .subtasks-items.js-subtasks-items
@@ -100,4 +102,3 @@ template(name="subtaskActionsPopup")
         a.js-delete-subtask.delete-subtask
           i.fa.fa-trash
           | {{_ "delete"}} ...
-
