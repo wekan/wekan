@@ -4,3 +4,15 @@
     justify-content: end;
   }
 }
+.editor-controls {
+  display: flex;
+  justify-content: end;
+  grid-area: editor-controls;
+  align-items: center;
+  align-self: start;
+  gap: 1ch;
+}
+
+.editor {
+  grid-area: editor;
+}

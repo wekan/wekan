@@ -90,7 +90,6 @@ BlazeComponent.extendComponent({
 
     const enableTextarea = function() {
       const $textarea = this.$(textareaSelector);
-      autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
     if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true || Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {

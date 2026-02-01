@@ -1,12 +1,12 @@
 template(name="editor")
-  a.fa.fa-brands.fa-markdown(title="{{_ 'convert-to-markdown'}}")
-  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
-  span.copied-tooltip.copied-tooltip-hidden {{_ 'copied'}}
+  .editor-controls
+    a.fa.fa-brands.fa-markdown(title="{{_ 'convert-to-markdown'}}")
+    a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
+    span.copied-tooltip.copied-tooltip-hidden {{_ 'copied'}}
   textarea.editor(
     dir="auto"
     class="{{class}}"
     id=id
-    autofocus=autofocus
     placeholder="{{_ 'comment-placeholder'}}")
     +Template.contentBlock
 
