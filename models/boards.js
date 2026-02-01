@@ -861,8 +861,14 @@ Boards.helpers({
    * @returns Document the last list
    */
   getLastList() {
-    const ret = ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
-    return ret;
+    req = { boardId: this._id };
+    if (this.swimlane && this.swimlane._id != this._id) {
+      req.swimlaneId = this.swimlane._id;
+    }
+    return ReactiveCache.getList(
+      req,
+      { sort: { sort: 'desc' }
+    });
   },
 
   nullSortLists() {

@@ -722,7 +722,8 @@ BlazeComponent.extendComponent({
     }
     const lists = ReactiveCache.getLists(
     {
-      boardId: this.selectedBoardId.get()
+      boardId: this.selectedBoardId.get(),
+      swimlaneId: this.selectedSwimlaneId?.get?.()
     },
     {
       sort: { sort: 1 },
