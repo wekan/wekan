@@ -3,14 +3,166 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Spinner } from '/client/lib/spinner';
 import getSlug from 'limax';
+import { itemsSelector } from './list';
 
 const subManager = new SubsManager();
 const InfiniteScrollIter = 10;
+
+
+function sortableCards(boardComponent, $cards) {
+  return {
+    connectWith: '.js-minicards:not(.js-list-full)',
+    tolerance: 'pointer',
+    appendTo: '.board-canvas',
+    helper(evt, item) {
+      const helper = item.clone();
+      const cardHeight = item.height();
+      const cardWidth = item.width();
+      helper[0].setAttribute('style', `height: ${cardHeight}px !important; width: ${cardWidth}px !important;`);
+
+      if (MultiSelection.isActive()) {
+        const andNOthers = $cards.find('.js-minicard.is-checked').length - 1;
+        if (andNOthers > 0) {
+          helper.append(
+            $(
+              Blaze.toHTML(
+                HTML.DIV(
+                  { class: 'and-n-other' },
+                  TAPi18n.__('and-n-other-card', { count: andNOthers }),
+                ),
+              ),
+            ),
+          );
+        }
+      }
+      return helper;
+    },
+    distance: 7,
+    items: itemsSelector,
+    placeholder: 'minicard-wrapper placeholder',
+    /* cursor must be tied to smaller objects, position approximately from the button
+    (can be computed if visually confusing) */
+    cursorAt: { right: 20, top: 30 },
+    start(evt, ui) {
+      const cardHeight = ui.helper.height();
+      ui.placeholder[0].setAttribute('style', `height: ${cardHeight}px !important;`);
+      EscapeActions.executeUpTo('popup-close');
+      boardComponent.setIsDragging(true);
+    },
+    stop(evt, ui) {
+      // To attribute the new index number, we need to get the DOM element
+      // of the previous and the following card -- if any.
+      const prevCardDom = ui.item.prev('.js-minicard').get(0);
+      const nextCardDom = ui.item.next('.js-minicard').get(0);
+      const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
+      const sortIndex = Utils.calculateIndex(prevCardDom, nextCardDom, nCards);
+      const listId = Blaze.getData(ui.item.parents('.list-body').get(0))._id;
+      const currentBoard = Utils.getCurrentBoard();
+      const defaultSwimlaneId = currentBoard.getDefaultSwimline()._id;
+      let targetSwimlaneId = null;
+
+      // only set a new swimelane ID if the swimlanes view is active
+      if (
+        Utils.boardView() === 'board-view-swimlanes' ||
+        currentBoard.isTemplatesBoard()
+      )
+        targetSwimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))
+          ._id;
+
+      // Normally the jquery-ui sortable library moves the dragged DOM element
+      // to its new position, which disrupts Blaze reactive updates mechanism
+      // (especially when we move the last card of a list, or when multiple
+      // users move some cards at the same time). To prevent these UX glitches
+      // we ask sortable to gracefully cancel the move, and to put back the
+      // DOM in its initial state. The card move is then handled reactively by
+      // Blaze with the below query.
+      $cards.sortable('cancel');
+
+      if (MultiSelection.isActive()) {
+        ReactiveCache.getCards(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
+          const newSwimlaneId = targetSwimlaneId
+            ? targetSwimlaneId
+            : card.swimlaneId || defaultSwimlaneId;
+          card.move(
+            currentBoard._id,
+            newSwimlaneId,
+            listId,
+            sortIndex.base + i * sortIndex.increment,
+          );
+        });
+      } else {
+        const cardDomElement = ui.item.get(0);
+        const card = Blaze.getData(cardDomElement);
+        const newSwimlaneId = targetSwimlaneId
+          ? targetSwimlaneId
+          : card.swimlaneId || defaultSwimlaneId;
+        card.move(currentBoard._id, newSwimlaneId, listId, sortIndex.base);
+      }
+      boardComponent.setIsDragging(false);
+    },
+    sort(event, ui) {
+      Utils.scrollIfNeeded(event);
+    },
+  };
+};
 
 BlazeComponent.extendComponent({
   onCreated() {
     // for infinite scrolling
     this.cardlimit = new ReactiveVar(InfiniteScrollIter);
+  },
+
+  onRendered() {
+    // Prefer handling drag/sort in listBody rather than list as
+    // it is shared between mobile and desktop view
+    const boardComponent = BlazeComponent.getComponentForElement(document.getElementsByClassName('board-canvas')[0]);
+    const $cards = this.$('.js-minicards');
+    $cards.sortable(sortableCards(boardComponent, $cards));
+
+    this.autorun(() => {
+      if ($cards.data('uiSortable') || $cards.data('sortable')) {
+        // Use handle button on mobile, classic move otherwise
+        if (Utils.isMiniScreen()) {
+          $cards.sortable('option', 'handle', '.handle');
+        } else {
+          $cards.sortable('option', 'handle', '.minicard');
+        }
+
+        $cards.sortable(
+          'option',
+          'disabled',
+          // Disable drag-dropping when user is not member
+          !Utils.canModifyBoard(),
+          // Not disable drag-dropping while in multi-selection mode
+          // MultiSelection.isActive() || !Utils.canModifyBoard(),
+        );
+      }
+    });
+
+    // We want to re-run this function any time a card is added.
+    this.autorun(() => {
+      const currentBoardId = Tracker.nonreactive(() => {
+        return Session.get('currentBoard');
+      });
+      Tracker.afterFlush(() => {
+        $cards.find(itemsSelector).droppable({
+          hoverClass: 'draggable-hover-card',
+          accept: '.js-member,.js-label',
+          drop(event, ui) {
+            const cardId = Blaze.getData(this)._id;
+            const card = ReactiveCache.getCard(cardId);
+
+            if (ui.draggable.hasClass('js-member')) {
+              const memberId = Blaze.getData(ui.draggable.get(0)).userId;
+              card.assignMember(memberId);
+            } else {
+              const labelId = Blaze.getData(ui.draggable.get(0))._id;
+              card.addLabel(labelId);
+            }
+          },
+        });
+      });
+    });
   },
 
   mixins() {
