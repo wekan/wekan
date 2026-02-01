@@ -261,32 +261,32 @@ BlazeComponent.extendComponent({
       $handles.on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-  });
+      });
 
-  $parent.sortable({
-      connectWith: '.js-swimlane, .js-lists',
-      tolerance: 'pointer',
-      appendTo: '.board-canvas',
-      helper: 'clone',
-      items: '.js-list',
-      placeholder: 'list placeholder',
-      distance: 7,
+      $parent.sortable({
+        connectWith: '.js-swimlane, .js-lists',
+        tolerance: 'pointer',
+        appendTo: '.board-canvas',
+        helper: 'clone',
+        items: '.js-list',
+        placeholder: 'list placeholder',
+        distance: 7,
         handle: handleSelector,
         disabled: !Utils.canModifyBoard(),
-      start(evt, ui) {
-        ui.helper.css('z-index', 1000);
-width = ui.helper.width();
+        start(evt, ui) {
+          ui.helper.css('z-index', 1000);
+          width = ui.helper.width();
           height = ui.helper.height();
-        ui.placeholder.height(height);
-        ui.placeholder.width(width);
-ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
-        EscapeActions.executeUpTo('popup-close');
-        boardComponent.setIsDragging(true);
-      },
-      stop(evt, ui) {
-boardComponent.setIsDragging(false);
-        saveSorting(ui);
-      },
+          ui.placeholder.height(height);
+          ui.placeholder.width(width);
+          ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
+          EscapeActions.executeUpTo('popup-close');
+          boardComponent.setIsDragging(true);
+        },
+        stop(evt, ui) {
+          boardComponent.setIsDragging(false);
+          saveSorting(ui);
+        },
         sort(event, ui) {
           Utils.scrollIfNeeded(event);
         },
@@ -304,7 +304,7 @@ boardComponent.setIsDragging(false);
           Meteor.setTimeout(() => {
             syncListOrderFromStorage(boardId);
           }, 500);
-            }
+        }
 
     // Try a simpler approach - initialize sortable directly like cards do
     this.initializeSwimlaneResize();
@@ -313,12 +313,12 @@ boardComponent.setIsDragging(false);
     setTimeout(this.initializeSortableLists, 100);
 
     // React to uncollapse (data is always reactive)
-        this.autorun(() => {
-                    if (!this.currentData().isCollapsed()) {
-            this.initializeSortableLists();
-          }
-        });
-        },
+    this.autorun(() => {
+      if (!this.currentData().isCollapsed()) {
+        this.initializeSortableLists();
+      }
+    });
+  },
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
 
@@ -415,6 +415,11 @@ boardComponent.setIsDragging(false);
   },
 
   swimlaneHeight() {
+    // Using previous size with so much collasped/vertical logic will probably
+    // be worst that letting layout takes needed space given the opened list each time
+    if (Utils.isMiniScreen()) {
+      return;
+    }
     const user = ReactiveCache.getCurrentUser();
     const swimlane = Template.currentData();
 
@@ -455,7 +460,7 @@ boardComponent.setIsDragging(false);
 
     const swimlane = Template.currentData();
     const $swimlane = $(`#swimlane-${swimlane._id}`);
-    const $resizeHandle = $swimlane.find('.js-swimlane-resize-handle');
+    const $resizeHandle = $swimlane.siblings('.js-swimlane-resize-handle');
 
     // Check if elements exist
     if (!$swimlane.length || !$resizeHandle.length) {
@@ -473,76 +478,190 @@ boardComponent.setIsDragging(false);
       return;
     }
 
+    const isTouchScreen = Utils.isTouchScreen();
     let isResizing = false;
-    let startY = 0;
-    let startHeight = 0;
-    const minHeight = 100;
-    const maxHeight = 2000;
+    const minHeight = Utils.isMiniScreen() ? 200 : 50;
+    const absoluteMaxHeight = 2000;
+    let computingHeight;
+    let frame;
+
+    let fullHeight, maxHeight;
+    let pageY, screenY, deltaY;
+
+    // how to do cleaner?
+    const flexContainer = document.getElementsByClassName('swim-flex')[0];
+    // only for cosmetic
+    let maxHeightWithTolerance;
+    const tolerance = 30;
+    let previousLimit = false;
+
+    $swimlane[0].style.setProperty('--swimlane-min-height', `${minHeight}px`);
+    // avoid jump effect and ensure height stays consistent
+    // ⚠️ here, I propose to ignore saved height if it is not filled by content.
+    // having large portions of blank lists makes the layout strange and hard to
+    // navigate; also, the height changes a lot between different views, so it
+    // feels ok to use the size as a hint, not as an absolute (as a user also)
+    const unconstraignedHeight = $swimlane[0].getBoundingClientRect().height;
+    const userHeight = parseFloat(this.swimlaneHeight(), 10);
+    const preferredHeight = Math.min(userHeight, absoluteMaxHeight, unconstraignedHeight);
+    $swimlane[0].style.setProperty('--swimlane-height', `${preferredHeight}px`);
 
     const startResize = (e) => {
-      isResizing = true;
-      startY = e.pageY || e.originalEvent.touches[0].pageY;
-      startHeight = parseInt($swimlane.css('height')) || 300;
+      // gain access to modern attributes e.g. isPrimary
+      e = e.originalEvent;
 
-
-      $swimlane.addClass('swimlane-resizing');
-      $('body').addClass('swimlane-resizing-active');
-      $('body').css('user-select', 'none');
-
-
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
-    const doResize = (e) => {
-      if (!isResizing) {
+      if (isResizing || !(e.isPrimary && (e.pointerType !== 'mouse' || e.button === 0))) {
         return;
       }
 
-      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
-      const deltaY = currentY - startY;
-      const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
+      waitHeight(e, startResizeKnowingHeight);
+    };
 
+    // unsure about this one; this is a way to compute what would be a "fit-content" height,
+    // so that user cannot drag the swimlane too far. to do so, we clone the swimlane add
+    // add it to the body, taking care of catching the frame just before it would be rendered.
+    // it is well supported by browsers and adds extra-computation only once, when start dragging,
+    // but still it feels odd.
+    // the reason we cannot use initial, computed height is because it could have changed because
+    // on new cards, thus constraining dragging too much. it is simple for list, add "real" unconstrained
+    // width do not update on adding cards.
+    const waitHeight = (e, callback) => {
+      const computeSwimlaneHeight = (_) => {
+        if (!computingHeight) {
+          computingHeight = $swimlane[0].cloneNode(true);
+          computingHeight.id = "clonedSwimlane";
+          $(computingHeight).attr('style', 'height: auto !important; position: absolute');
+          frame = requestAnimationFrame(computeSwimlaneHeight);
+          document.body.appendChild(computingHeight);
+          return;
+        }
+        catchBeforeRender = document.getElementById('clonedSwimlane');
+        if (catchBeforeRender) {
+          fullHeight = catchBeforeRender.offsetHeight;
+          if (fullHeight > 0) {
+            cancelAnimationFrame(frame);
+            document.body.removeChild(computingHeight);
+            computingHeight = undefined;
+            frame = undefined;
+            callback(e, fullHeight);
+            return;
+          }
+        }
+        frame = requestAnimationFrame(computeSwimlaneHeight);
+      }
+      computeSwimlaneHeight();
+    }
 
-      // Apply the new height immediately for real-time feedback
-      $swimlane[0].style.setProperty('--swimlane-height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('min-height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('max-height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('flex', 'none');
-      $swimlane[0].style.setProperty('flex-basis', 'auto');
-      $swimlane[0].style.setProperty('flex-grow', '0');
-      $swimlane[0].style.setProperty('flex-shrink', '0');
+    const startResizeKnowingHeight = (e, height) => {
+      document.addEventListener('pointermove', doResize);
+      // e.g. debugger can cancel event without pointerup being fired
+      // document.addEventListener('pointercancel', stopResize);
+      document.addEventListener('pointerup', stopResize);
+      // unavailable on e.g. Safari but mostly for smoothness
+      document.addEventListener('wheel', doResize);
 
+      // --swimlane-height can be either a stored size or "auto"; get actual computed size
+      currentHeight = $swimlane[0].offsetHeight;
+      $swimlane.addClass('swimlane-resizing');
+      $('body').addClass('swimlane-resizing-active');
 
-      e.preventDefault();
-      e.stopPropagation();
+      // not being able to resize can be frustrating, give a little more room
+      maxHeight = Math.max(height, absoluteMaxHeight);
+      maxHeightWithTolerance = maxHeight + tolerance;
+
+      $swimlane[0].style.setProperty('--swimlane-max-height', `${maxHeightWithTolerance}px`);
+
+      pageY = e.pageY;
+
+      isResizing = true;
+      previousLimit = false;
+      deltaY = null;
+    }
+
+    const doResize = (e) => {
+      if (!isResizing || !(e.isPrimary || e instanceof WheelEvent)) {
+        return;
+      }
+      const { y: handleY, height: handleHeight } = $resizeHandle[0].getBoundingClientRect();
+      const containerHeight = flexContainer.offsetHeight;
+      const isBlocked = $swimlane[0].classList.contains('cannot-resize');
+
+      // deltaY of WheelEvent is unreliable, do with a simple actual delta with handle and pointer
+      deltaY = e.clientY - handleY;
+
+      const candidateHeight = currentHeight + deltaY;
+      const oldHeight = currentHeight;
+      let stepHeight = Math.max(minHeight, Math.min(maxHeightWithTolerance, candidateHeight));
+
+      const reachingMax = (maxHeightWithTolerance - stepHeight - 20) <= 0;
+      const reachingMin = (stepHeight - 20 - minHeight) <= 0;
+      if (!previousLimit && (reachingMax && deltaY > 0 || reachingMin && deltaY < 0)) {
+        $swimlane[0].classList.add('cannot-resize');
+        previousLimit = true;
+        if (reachingMax) {
+          stepHeight = maxHeightWithTolerance;
+        } else {
+          stepHeight = minHeight;
+        }
+      } else if (previousLimit && !reachingMax && !reachingMin) {
+        // we want to re-init only below handle if min-size, above if max-size,
+        // so computed values are accurate
+        if ((deltaY > 0 && pageY >= handleY + handleHeight)
+          || (deltaY < 0 && pageY <= handleY)) {
+          $swimlane[0].classList.remove('cannot-resize');
+          // considered as a new move, changing direction is certain
+          previousLimit = false;
+        }
+      }
+
+      if (!isBlocked) {
+        // Ensure container grows and shrinks with swimlanes, so you guess a sense of scrolling something
+        if (e.pageY > (containerHeight - window.innerHeight)) {
+          document.body.style.height = `${containerHeight + window.innerHeight / 4}px`;
+        }
+        // helps to scroll at the beginning/end of the page
+        let gapToLeave = window.innerHeight / 10;
+        const factor = isTouchScreen ? 6 : 7;
+        if (e.clientY > factor * gapToLeave) {
+          //correct but too laggy
+          window.scrollBy({ top: gapToLeave, behavior: "smooth" });
+        }
+        // special case where scrolling down while
+        // swimlane is stuck; feels weird
+        else if (e.clientY < (10 - factor) * gapToLeave) {
+          window.scrollBy({ top: -gapToLeave , behavior: "smooth"});
+        }
+      }
+
+      if (oldHeight !== stepHeight && !isBlocked) {
+        // Apply the new height immediately for real-time feedback
+        $swimlane[0].style.setProperty('--swimlane-height', `${stepHeight}px`);
+        currentHeight = stepHeight;
+      }
     };
 
     const stopResize = (e) => {
-      if (!isResizing) return;
+      if(!isResizing) {
+        return;
+      }
+      if (previousLimit) {
+        $swimlane[0].classList.remove('cannot-resize');
+      }
+
+      // hopefully be gentler on cpu
+      document.removeEventListener('pointermove', doResize);
+      document.removeEventListener('pointercancel', stopResize);
+      document.removeEventListener('pointerup', stopResize);
+      document.removeEventListener('wheel', doResize);
 
       isResizing = false;
 
-      // Calculate final height
-      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
-      const deltaY = currentY - startY;
-      const finalHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
-
-      // Ensure the final height is applied
+      let finalHeight = Math.min(parseInt($swimlane[0].style.getPropertyValue('--swimlane-height'), 10), maxHeight);
       $swimlane[0].style.setProperty('--swimlane-height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('min-height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('max-height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('flex', 'none');
-      $swimlane[0].style.setProperty('flex-basis', 'auto');
-      $swimlane[0].style.setProperty('flex-grow', '0');
-      $swimlane[0].style.setProperty('flex-shrink', '0');
 
       // Remove visual feedback but keep the height
       $swimlane.removeClass('swimlane-resizing');
       $('body').removeClass('swimlane-resizing-active');
-      $('body').css('user-select', '');
 
       // Save the new height using the existing system
       const boardId = swimlane.boardId;
@@ -581,28 +700,13 @@ boardComponent.setIsDragging(false);
           console.warn('Error saving swimlane height to localStorage:', e);
         }
       }
-
-      e.preventDefault();
     };
-
-    // Mouse events
-    $resizeHandle.on('mousedown', startResize);
-    $(document).on('mousemove', doResize);
-    $(document).on('mouseup', stopResize);
-
-    // Touch events for mobile
-    $resizeHandle.on('touchstart', startResize, { passive: false });
-    $(document).on('touchmove', doResize, { passive: false });
-    $(document).on('touchend', stopResize, { passive: false });
-
-
-    // Prevent dragscroll interference
-    $resizeHandle.on('mousedown', (e) => {
-      e.stopPropagation();
-    });
-
+    // handle both pointer and touch
+    $resizeHandle.on("pointerdown", startResize);
   },
 }).register('swimlane');
+
+
 
 
 BlazeComponent.extendComponent({
@@ -612,7 +716,7 @@ BlazeComponent.extendComponent({
       this.currentBoard.isTemplatesBoard() &&
       this.currentData().isListTemplatesSwimlane();
     this.currentSwimlane = this.currentData();
-// so that lists can be filtered from Board methods
+    // so that lists can be filtered from Board methods
     this.currentBoard.swimlane = this.currentSwimlane;
   },
 
@@ -730,11 +834,11 @@ setTimeout(() => {
             // Silent fail
           }
         },
-sort(event, ui) {
+        sort(event, ui) {
           Utils.scrollIfNeeded(event);
         },
         stop(evt, ui) {
-                    // Detect if the list was dropped in a different swimlane
+          // Detect if the list was dropped in a different swimlane
           const targetSwimlaneDom = ui.item.closest('.js-swimlane');
           let targetSwimlaneId = null;
 
@@ -859,6 +963,7 @@ BlazeComponent.extendComponent({
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
   },
+
   visible(list) {
     if (list.archived) {
       // Show archived list only when filter archive is on
@@ -923,17 +1028,17 @@ BlazeComponent.extendComponent({
           disabled: !Utils.canModifyBoard(),
           start(evt, ui) {
             ui.helper.css('z-index', 1000);
-width = ui.helper.width();
+            width = ui.helper.width();
             height = ui.helper.height();
             ui.placeholder.height(height);
             ui.placeholder.width(width);
-ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
+            ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
             EscapeActions.executeUpTo('popup-close');
             boardComponent.setIsDragging(true);
           },
           stop(evt, ui) {
             boardComponent.setIsDragging(false);
-          saveSorting(ui);
+            saveSorting(ui);
           },
           sort(event, ui) {
             Utils.scrollIfNeeded(event);

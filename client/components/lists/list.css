@@ -15,6 +15,15 @@
   flex-grow: 0;
   flex-shrink: 0;
   z-index: 0;
+  /* So that sortable area is the tallest possible
+  ⚠️ This will make swimlane resizes less fluid, because height
+  is re-applied in realtime, rather than the list being hidden
+  by swimlane. Maybe there is another way.*/
+  height: var(--swimlane-height, 100%);
+}
+
+.list.mobile-view {
+  max-height: 100%;
 }
 
 /* List resize handle */

@@ -2094,7 +2094,7 @@ Meteor.methods({
     check(height, Number);
     const user = ReactiveCache.getCurrentUser();
     if (user) {
-      user.setSwimlaneHeightToStorage(boardId, swimlaneId, height);
+      user.setSwimlaneHeightToStorage(boardId, swimlaneId, parseInt(height));
     }
     // For non-logged-in users, the client-side code will handle localStorage
   },
