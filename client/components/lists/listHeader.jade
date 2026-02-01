@@ -29,7 +29,7 @@ template(name="listHeader")
               | &nbsp;
               span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
-        div.list-header-collapse-container
+        div.list-header-name-container
           a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
             if collapsed
               i.fa.fa-caret-right
@@ -74,7 +74,7 @@ template(name="listHeader")
         unless currentUser.isCommentOnly
           unless currentUser.isReadOnly
             unless currentUser.isReadAssignedOnly
-              if isTouchScreenOrShowDesktopDragHandles
+              if isMiniScreen
                 a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
                   i.fa.fa-arrows
       unless isMiniScreen

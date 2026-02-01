@@ -2,6 +2,12 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import dragscroll from '@wekanteam/dragscroll';
 const { calculateIndex } = Utils;
 
+function getBoardComponent() {
+  // as list can be rendered from multiple inner elements, feels like a reliable
+  // way to get the components having rendered the board
+  return BlazeComponent.getComponentForElement(document.getElementsByClassName('board-canvas')[0]);
+}
+
 function saveSorting(ui) {
   // To attribute the new index number, we need to get the DOM element
   // of the previous and the following list -- if any.
@@ -152,6 +158,12 @@ function currentListIsInThisSwimlane(swimlaneId) {
   );
 }
 
+function currentList(listId, swimlaneId) {
+  const list = Utils.getCurrentList();
+  return list && list._id == listId && (list.swimlaneId === swimlaneId || list.swimlaneId === '');
+}
+
+
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Utils.getCurrentCard();
   //const currentUser = ReactiveCache.getCurrentUser();
@@ -227,122 +239,63 @@ function syncListOrderFromStorage(boardId) {
   }
 };
 
-function initSortable(boardComponent, $listsDom) {
-  // Safety check: ensure we have valid DOM elements
-  if (!$listsDom || $listsDom.length === 0) {
-    console.error('initSortable: No valid DOM elements provided');
-    return;
-  }
 
-  // Check if sortable is already initialized
-  if ($listsDom.data('uiSortable') || $listsDom.data('sortable')) {
-    $listsDom.sortable('destroy');
-  }
+BlazeComponent.extendComponent({
 
-  // We want to animate the card details window closing. We rely on CSS
-  // transition for the actual animation.
-  $listsDom._uihooks = {
-    removeElement(node) {
-      const removeNode = _.once(() => {
-        node.parentNode.removeChild(node);
-      });
-      if ($(node).hasClass('js-card-details')) {
-        $(node).css({
-          flexBasis: 0,
-          padding: 0,
-        });
-        $listsDom.one(CSSEvents.transitionend, removeNode);
-      } else {
-        removeNode();
-      }
-    },
-  };
+  initializeSortableLists() {
+    let boardComponent = getBoardComponent();
 
+    // needs to be run again on uncollapsed
+    const handleSelector = Utils.isMiniScreen()
+      ? '.js-list-handle'
+      : '.list-header-name-container';
+    const $lists = this.$('.js-list');
+    const $parent = $lists.parent();
 
-  // Add click debugging for drag handles
-  $listsDom.on('mousedown', '.js-list-handle', function(e) {
-    e.stopPropagation();
+    if ($lists.length > 0) {
+
+      // Check for drag handles
+      const $handles = $parent.find(handleSelector);
+
+      // Test if drag handles are clickable
+      $handles.on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
   });
 
-  $listsDom.on('mousedown', '.js-list-header', function(e) {
-  });
-
-  // Add debugging for any mousedown on lists
-  $listsDom.on('mousedown', '.js-list', function(e) {
-  });
-
-  // Add debugging for sortable events
-  $listsDom.on('sortstart', function(e, ui) {
-  });
-
-  $listsDom.on('sortbeforestop', function(e, ui) {
-  });
-
-  $listsDom.on('sortstop', function(e, ui) {
-  });
-
-  try {
-    $listsDom.sortable({
+  $parent.sortable({
       connectWith: '.js-swimlane, .js-lists',
       tolerance: 'pointer',
       appendTo: '.board-canvas',
-      helper(evt, item) {
-        const helper = item.clone();
-        helper.css('z-index', 1000);
-        return helper;
-      },
-      items: '.js-list:not(.js-list-composer)',
+      helper: 'clone',
+      items: '.js-list',
       placeholder: 'list placeholder',
-      distance: 3,
-      forcePlaceholderSize: true,
-      cursor: 'move',
+      distance: 7,
+        handle: handleSelector,
+        disabled: !Utils.canModifyBoard(),
       start(evt, ui) {
         ui.helper.css('z-index', 1000);
-        ui.placeholder.height(ui.helper.height());
-        ui.placeholder.width(ui.helper.width());
+width = ui.helper.width();
+          height = ui.helper.height();
+        ui.placeholder.height(height);
+        ui.placeholder.width(width);
+ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
         EscapeActions.executeUpTo('popup-close');
         boardComponent.setIsDragging(true);
-
-        // Add visual feedback for list being dragged
-        ui.item.addClass('ui-sortable-helper');
-
-        // Disable dragscroll during list dragging to prevent interference
-        try {
-          dragscroll.reset();
-        } catch (e) {
-        }
-
-        // Also disable dragscroll on all swimlanes during list dragging
-        $('.js-swimlane').each(function() {
-          $(this).removeClass('dragscroll');
-        });
-      },
-      beforeStop(evt, ui) {
-        // Clean up visual feedback
-        ui.item.removeClass('ui-sortable-helper');
       },
       stop(evt, ui) {
+boardComponent.setIsDragging(false);
         saveSorting(ui);
-      }
-    });
-  } catch (error) {
-    console.error('Error initializing list sortable:', error);
-    return;
-  }
+      },
+        sort(event, ui) {
+          Utils.scrollIfNeeded(event);
+        },
+      });
+    }
+  },
 
-
-  // Check if drag handles exist
-  const dragHandles = $listsDom.find('.js-list-handle');
-
-  // Check if lists exist
-  const lists = $listsDom.find('.js-list');
-
-  // Skip the complex autorun and options for now
-}
-
-BlazeComponent.extendComponent({
   onRendered() {
-    const boardComponent = this.parentComponent();
+    // can be rendered from either swimlane or board; check with DOM class heuristic,
     const $listsDom = this.$('.js-lists');
         // Sync list order from localStorage on board load
         const boardId = Session.get('currentBoard');
@@ -351,71 +304,21 @@ BlazeComponent.extendComponent({
           Meteor.setTimeout(() => {
             syncListOrderFromStorage(boardId);
           }, 500);
-        }
-
-
-    if (!Utils.getCurrentCardId()) {
-      boardComponent.scrollLeft();
-    }
+            }
 
     // Try a simpler approach - initialize sortable directly like cards do
     this.initializeSwimlaneResize();
 
     // Wait for DOM to be ready
-    setTimeout(() => {
-      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
-        ? '.js-list-handle'
-        : '.js-list-header';
-      const $lists = this.$('.js-list');
+    setTimeout(this.initializeSortableLists, 100);
 
-      const $parent = $lists.parent();
-
-      if ($lists.length > 0) {
-
-        // Check for drag handles
-        const $handles = $parent.find('.js-list-handle');
-
-        // Test if drag handles are clickable
-        $handles.on('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        });
-
-        $parent.sortable({
-          connectWith: '.js-swimlane, .js-lists',
-          tolerance: 'pointer',
-          appendTo: '.board-canvas',
-          helper: 'clone',
-          items: '.js-list:not(.js-list-composer)',
-          placeholder: 'list placeholder',
-          distance: 7,
-          handle: handleSelector,
-          disabled: !Utils.canModifyBoard(),
-          start(evt, ui) {
-            ui.helper.css('z-index', 1000);
-            ui.placeholder.height(ui.helper.height());
-            ui.placeholder.width(ui.helper.width());
-            EscapeActions.executeUpTo('popup-close');
-            boardComponent.setIsDragging(true);
-          },
-          stop(evt, ui) {
-            boardComponent.setIsDragging(false);
-            saveSorting(ui);
-          }
-        });
-        // Reactively update handle when user toggles desktop drag handles
+    // React to uncollapse (data is always reactive)
         this.autorun(() => {
-          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
-            ? '.js-list-handle'
-            : '.js-list-header';
-          if ($parent.data('uiSortable') || $parent.data('sortable')) {
-            try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
+                    if (!this.currentData().isCollapsed()) {
+            this.initializeSortableLists();
           }
         });
-      } else {
-      }
-    }, 100);
-  },
+        },
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
 
@@ -465,7 +368,7 @@ BlazeComponent.extendComponent({
           // his mouse.
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isTouchScreenOrShowDesktopDragHandles()
+            Utils.isMiniScreen()
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           ).concat([
@@ -477,7 +380,7 @@ BlazeComponent.extendComponent({
           const isInNoDragArea = $(evt.target).closest(noDragInside.join(',')).length > 0;
 
           if (isResizeHandle) {
-            return;
+            //return;
           }
 
           if (
@@ -765,6 +668,13 @@ BlazeComponent.extendComponent({
   },
 }).register('addListForm');
 
+
+Template.addListForm.helpers({
+  lists() {
+    return this.myLists();
+  }
+});
+
 Template.swimlane.helpers({
   canSeeAddList() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
@@ -777,16 +687,14 @@ Template.swimlane.helpers({
 
   collapseSwimlane() {
     return Utils.getSwimlaneCollapseState(this);
-  }
+  },
 });
 
 
 // Initialize sortable on DOM elements
 setTimeout(() => {
   const $listsGroupElements = $('.list-group');
-  const computeHandle = () => (
-    Utils.isTouchScreenOrShowDesktopDragHandles() ? '.js-list-handle' : '.js-list-header'
-  );
+  const computeHandle = () => Utils.isMiniScreen() ? '.js-list-handle' : '.list-header-name-container';
 
   // Initialize sortable on ALL listsGroup elements (even empty ones)
   $listsGroupElements.each(function(index) {
@@ -800,7 +708,7 @@ setTimeout(() => {
         tolerance: 'pointer',
         appendTo: '.board-canvas',
         helper: 'clone',
-        items: '.js-list:not(.js-list-composer)',
+        items: '.js-list',
         placeholder: 'list placeholder',
         distance: 7,
         handle: computeHandle(),
@@ -820,30 +728,11 @@ setTimeout(() => {
             // Silent fail
           }
         },
+sort(event, ui) {
+          Utils.scrollIfNeeded(event);
+        },
         stop(evt, ui) {
-          // To attribute the new index number, we need to get the DOM element
-          // of the previous and the following list -- if any.
-          const prevListDom = ui.item.prev('.js-list').get(0);
-          const nextListDom = ui.item.next('.js-list').get(0);
-          const sortIndex = calculateIndex(prevListDom, nextListDom, 1);
-
-          const listDomElement = ui.item.get(0);
-          if (!listDomElement) {
-            return;
-          }
-
-          let list;
-          try {
-            list = Blaze.getData(listDomElement);
-          } catch (error) {
-            return;
-          }
-
-          if (!list) {
-            return;
-          }
-
-          // Detect if the list was dropped in a different swimlane
+                    // Detect if the list was dropped in a different swimlane
           const targetSwimlaneDom = ui.item.closest('.js-swimlane');
           let targetSwimlaneId = null;
 
@@ -949,18 +838,6 @@ setTimeout(() => {
           } catch (e) {
             // Silent fail
           }
-
-          // Re-enable dragscroll after list dragging is complete
-          try {
-            dragscroll.reset();
-          } catch (e) {
-            // Silent fail
-          }
-
-          // Re-enable dragscroll on all swimlanes
-          $('.js-swimlane').each(function() {
-            $(this).addClass('dragscroll');
-          });
         }
       });
       // Reactively adjust handle when setting changes
@@ -1003,7 +880,7 @@ BlazeComponent.extendComponent({
     return true;
   },
   onRendered() {
-    const boardComponent = this.parentComponent();
+    let boardComponent = getBoardComponent();
     const $listsDom = this.$('.js-lists');
 
 
@@ -1015,25 +892,24 @@ BlazeComponent.extendComponent({
 
     // Wait for DOM to be ready
     setTimeout(() => {
-      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
+      const handleSelector = Utils.isMiniScreen()
         ? '.js-list-handle'
-        : '.js-list-header';
+        : '.list-header-name-container';
       const $lists = this.$('.js-list');
-
-      const $parent = $lists.parent();
+      const parent = $lists.parent();
 
       if ($lists.length > 0) {
 
         // Check for drag handles
-        const $handles = $parent.find('.js-list-handle');
+        const handles = $(parent).find(handleSelector);
 
         // Test if drag handles are clickable
-        $handles.on('click', function(e) {
+        handles.on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
         });
 
-        $parent.sortable({
+        parent.sortable({
           connectWith: '.js-swimlane, .js-lists',
           tolerance: 'pointer',
           appendTo: '.board-canvas',
@@ -1045,18 +921,25 @@ BlazeComponent.extendComponent({
           disabled: !Utils.canModifyBoard(),
           start(evt, ui) {
             ui.helper.css('z-index', 1000);
-            ui.placeholder.height(ui.helper.height());
-            ui.placeholder.width(ui.helper.width());
+width = ui.helper.width();
+            height = ui.helper.height();
+            ui.placeholder.height(height);
+            ui.placeholder.width(width);
+ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
             EscapeActions.executeUpTo('popup-close');
             boardComponent.setIsDragging(true);
           },
           stop(evt, ui) {
             boardComponent.setIsDragging(false);
-          }
+          saveSorting(ui);
+          },
+          sort(event, ui) {
+            Utils.scrollIfNeeded(event);
+          },
         });
         // Reactively update handle when user toggles desktop drag handles
         this.autorun(() => {
-          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
+          const newHandle = Utils.isMiniScreen()
             ? '.js-list-handle'
             : '.js-list-header';
           if ($parent.data('uiSortable') || $parent.data('sortable')) {

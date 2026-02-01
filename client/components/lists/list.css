@@ -105,7 +105,7 @@ body.list-resizing-active * {
 
 .list-header-add {
   display: flex;
-  flex: 1;
+  justify-content: center;
 }
 .list-header:not(.open-list-composer) {
   overflow: hidden !important;
@@ -122,7 +122,7 @@ body.list-resizing-active * {
     /* by default, grid fill row before columns */
     grid-auto-flow: column;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     flex: 1;    /* so we can see the ellipsis */
     max-width: 90%;
     gap: 0.5ch;
@@ -131,11 +131,10 @@ body.list-resizing-active * {
   }
   .list-header-menu {
     width: max-content;
-    display: flex;
     align-items: center;
     gap: .5rlh;
   }
-  &:not(:has(.list-rotated)) {
+  &:not(:has(.list-rotated), :is(.list-header-name-container)) {
     .list-header-name-container {
       display: flex;
       flex-wrap: wrap;
@@ -701,24 +700,4 @@ body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.list.list-collapsed .list-header .js-collapse {
-  position: relative !important;
-  left: -10px !important;
-  color: #333;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  width: auto;
-  height: auto;
-  min-width: 0;
-  min-height: 0;
-  display: block !important;
-  align-items: initial;
-  justify-content: initial;
-  font-size: 16px !important;
-  box-shadow: none;
-  margin: 5px auto;
-  z-index: 10;
 }
