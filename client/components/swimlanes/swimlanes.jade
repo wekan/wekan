@@ -40,27 +40,27 @@ template(name="addListForm")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
-        .list-header-add
-          +inlinedForm(autoclose=false)
-            input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
-              autocomplete="off" autofocus)
-            if lists
-              | {{_ 'add-after-list'}}
-              select.list-position-input.full-line
-                each lists
-                  option(value="{{_id}}" selected=currentBoard.getLastList.title) {{title}}
-            .edit-controls.clearfix
-              button.primary.confirm(type="submit") {{_ 'save'}}
-              a.js-close-inlined-form
-                i.fa.fa-times-thin
-              unless currentBoard.isTemplatesBoard
-                unless currentBoard.isTemplateBoard
-                  span.quiet
-                    | {{_ 'or'}}
-                    a.js-list-template {{_ 'template'}}
-          else
-            a.open-list-composer.list-header.js-open-inlined-form(title="{{_ 'add-list'}}")
-              i.fa.fa-plus
+            .list-header-add
+              +inlinedForm(autoclose=false)
+                input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+                  autocomplete="off" autofocus)
+                if lists
+                  | {{_ 'add-after-list'}}
+                  select.list-position-input.full-line
+                    each lists
+                      option(value="{{_id}}" selected=currentBoard.getLastList.title) {{title}}
+                .edit-controls.clearfix
+                  button.primary.confirm(type="submit") {{_ 'save'}}
+                  a.js-close-inlined-form
+                    i.fa.fa-times-thin
+                  unless currentBoard.isTemplatesBoard
+                    unless currentBoard.isTemplateBoard
+                      span.quiet
+                        | {{_ 'or'}}
+                        a.js-list-template {{_ 'template'}}
+              else
+                a.open-list-composer.list-header.js-open-inlined-form(title="{{_ 'add-list'}}")
+                  i.fa.fa-plus
 
 template(name="moveSwimlanePopup")
   if currentUser

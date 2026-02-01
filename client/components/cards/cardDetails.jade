@@ -163,7 +163,7 @@ template(name="cardDetails")
                   if canModifyCard
                     unless currentUser.isWorker
                       a.card-add-label.js-end-date
-                        | ➕
+                        i.fa.fa-plus
             if currentBoard.hasAnyAllowsDate
               .card-details-item.card-details-item-date-format
                 h3.card-details-item-title
@@ -543,7 +543,7 @@ template(name="cardDetails")
               button.card-details-red.js-poker-replay(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'poker-replay'}}
             div.estimation-add
               button.js-poker-estimation
-                i.fa.fa-plus| ➕
+                i.fa.fa-plus
                 | {{_ 'set-estimation'}}
               input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
 

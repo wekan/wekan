@@ -40,31 +40,28 @@ body.mobile-mode .swimlane {
   cursor: grabbing;
 }
 .swimlane .swimlane-header-wrap {
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  flex: 1 0 100%;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  height: max-content;
+  padding: 0.5lh 1ch;
   background-color: #ccc;
-  width: 100%;
-  min-width: 100%;
-  position: relative;
-  overflow: visible;
-  min-height: 33px;
-  padding: 0;
-  margin: 0;
+
+  position: sticky;
+  left: 0;
+  p {
+    margin: 0;
+  }
 }
 
 .swimlane .swimlane-header-wrap .swimlane-header {
-  font-size: 14px;
-  padding: 0;
   font-weight: bold;
-  min-height: 33px;
-  width: 100%;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  word-wrap: break-word;
-  text-align: center;
-  position: relative;
+  overflow-wrap: break-word;
   z-index: 10;
   pointer-events: auto;
   display: flex;
@@ -72,87 +69,30 @@ body.mobile-mode .swimlane {
   justify-content: center;
   line-height: 1.2;
 }
-.swimlane .swimlane-header-wrap .swimlane-header-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0;
-  margin: 0;
-  font-size: 22px;
-  line-height: 1;
-  z-index: 20;
-  pointer-events: auto;
-}
-.swimlane .swimlane-header-wrap .swimlane-header-menu .js-open-swimlane-menu {
-  top: calc(50% + 6px);
-  padding: 5px;
-  display: inline-block;
-  margin-left: 30px;
-  color: #a6a6a6;
-  vertical-align: middle;
-  line-height: 1.2;
+
+.swimlane {
+  .swimlane-header-menu-right, .swimlane-header-menu-left {
+    display: inline-flex;
+    align-content: center;
+    gap: 2ch;
+  }
+  /* can't resize beyond that point, but resizing screen causes
+  overflow, which is great because lists would shrink too much otherwise */
+  max-width: 100vw;
 }
 
 @media print {
-  .swimlane .swimlane-header-wrap .swimlane-header-menu {
+  .swimlane .swimlane-header-wrap .swimlane-header-menu-right {
     display: none;
   }
 }
-.swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
-  top: calc(50% + 6px);
-  padding: 5px;
-  font-size: 22px;
-  color: #a6a6a6;
-}
-.swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
-  top: calc(50% + 6px);
-  padding: 5px;
-  font-size: 22px;
-}
-.swimlane .swimlane-header-wrap .swimlane-header-handle {
-  position: relative;
-  top: calc(50% + 2px);
-  padding: 2px 5px;
-  font-size: clamp(16px, 3vw, 20px);
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 30px;
-  cursor: move;
-  pointer-events: auto;
-  color: #a6a6a6;
-  line-height: 1.2;
-}
-.swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
-  position: relative;
-  padding: 2px 5px;
-  top: calc(50% + 2px);
-  font-size: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 30px;
-  cursor: move;
-  pointer-events: auto;
-  color: #a6a6a6;
-}
 
-/* Swimlane collapse button styling - matches list collapse button */
-.swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator {
+.swimlane .swimlane-header-wrap .swimlane-header-handle {
+  cursor: move;
+  pointer-events: auto;
   color: #a6a6a6;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 5px;
-  border: none;
-  border-radius: 0;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 1.2;
-  text-align: center;
-  text-decoration: none;
-  margin: 0;
-  flex-shrink: 0;
 }
-.swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator:hover {
+.swimlane .swimlane-header-wrap .swimlane-header-menu-right .swimlane-collapse-indicator:hover {
   background-color: transparent;
   color: #333;
 }

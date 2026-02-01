@@ -223,9 +223,10 @@ body.list-resizing-active * {
 
 .list.list-composer {
   display: flex;
-  min-width: max-content;
   justify-content: center;
-  padding: 0.5lh 1ch;
+  min-width: 4ch;
+  font-size: 1.3em;
+  padding: 0.5lh 0;
 }
 .list.list-auto-width {
   flex: 1;
@@ -276,6 +277,7 @@ body.list-resizing-active * {
   background: #fff;
   display: flex;
   flex: 1;
+  max-height: 2lh;
 }
 .list-rotated {
   flex: 1;
