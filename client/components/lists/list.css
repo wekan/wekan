@@ -36,6 +36,12 @@
   display: flex;
   flex: 1;
   justify-content: center;
+  align-items: stretch;
+  min-height: 2lh;
+  > {
+    display: flex;
+    align-items: center;
+  }
 }
 
 /* Show resize handle only on hover */
@@ -395,9 +401,10 @@ body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
 .list-body .open-minicard-composer {
   display: flex;
   flex: 1;
-  padding: 0.2lh 0;
   border-radius: 4px;
   justify-content: center;
+  align-items: center;
+  font-size: 1.4em;
 }
 .list-body .open-minicard-composer:hover {
   background: #fafafa;

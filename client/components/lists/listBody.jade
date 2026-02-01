@@ -27,8 +27,14 @@ template(name="listBody")
         if (showSpinner (idOrNull ../../_id))
           +spinnerList
 
-        +inlinedForm(autoclose=false position="bottom")
-          +addCardForm(listId=_id position="bottom")
+        if canSeeAddCard
+          a.minicard-wrapper.minicard-add-form
+            +inlinedForm(autoclose=false position="bottom")
+              +addCardForm(listId=_id position="bottom")
+            else
+              .add-card-wrapper
+                a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
+                  i.fa.fa-plus
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-list(

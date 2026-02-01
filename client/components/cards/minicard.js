@@ -24,7 +24,7 @@ BlazeComponent.extendComponent({
     if (!body) {return}
     let emptyChildren;
     do  {
-      emptyChildren = body.find('*').filter((_, e) => !e.classList.includes('fa') && $(e).html().trim().length === 0).remove();
+      emptyChildren = body.find('*').filter((_, e) => !e.classList.contains('fa') && $(e).html().trim().length === 0).remove();
     } while (emptyChildren.length > 0)
     if (body.html().trim().length === 0) {
       body.parent().find('hr:has(+ .minicard-body)').remove();

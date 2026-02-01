@@ -386,7 +386,7 @@ class PopupDetachedComponent extends BlazeComponent {
 class PopupComponent extends BlazeComponent {
   static stack = [];
   // good enough as long as few occurences of such cases
-  static multipleWhitelist = ["cardDetails"];
+  static multipleBlacklist = ["cardDetails"];
 
   // to provide compatibility with Popup.open().
   static open(args) {
@@ -477,9 +477,11 @@ class PopupComponent extends BlazeComponent {
     // - followDOM is an element whose dimensions and position will serve as reference; works only with inline styles (otherwise we probably would need IntersectionObserver-like stuff, async etc)
     //   it is useful when the content can be redimensionned/moved by code or user; we still manage events, resizes etc
     //   but allow inner elements or handles to do it (and we adapt).
-    // do not render a template multiple times
+
+
+    // do not render a template multiple times if on the blacklist
     const existing = PopupComponent.stack.find((e) => (e.name == this.name));
-    if (existing && !PopupComponent.multipleWhitelist.indexOf(this.name)) {
+    if (existing && PopupComponent.multipleBlacklist.indexOf(this.name)) {
       // ⚠️ is there a default better than another? I feel that closing existing
       // popup is not bad in general because having the same button for open and close
       // is common

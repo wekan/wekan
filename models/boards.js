@@ -857,6 +857,10 @@ Boards.helpers({
     );
   },
 
+  listsInSwimlane(swimlaneId) {
+    return this.lists().filter(e => e.swimlaneId === swimlaneId);
+  },
+
   /** returns the last list
    * @returns Document the last list
    */
@@ -1150,10 +1154,7 @@ Boards.helpers({
   searchBoards(term) {
     check(term, Match.OneOf(String, null, undefined));
 
-    const query = { boardId: this._id };
-    query.type = 'cardType-linkedBoard';
-    query.archived = false;
-
+    const query = { type: 'template-container', archived: false };
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
@@ -1162,7 +1163,7 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    const ret = ReactiveCache.getCards(query, projection);
+    const ret = ReactiveCache.getBoards(query, projection);
     return ret;
   },
 
@@ -1781,7 +1782,7 @@ Boards.userBoards = (
     selector.archived = archived;
   }
   if (!selector.type) {
-    selector.type = 'board';
+    selector.type = { $in: ['board', 'template-container'] };
   }
 
   selector.$or = [

@@ -27,7 +27,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
    */
   setOption(boardId) {
     super.setOption(boardId);
-    
+
     // Also set cardId if available
     if (this.cardOption && this.cardOption.cardId) {
       this.selectedCardId.set(this.cardOption.cardId);
@@ -69,7 +69,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
 
           // reset list id
           self.setFirstListId();
-          
+
           // reset card id
           self.selectedCardId.set('');
         }

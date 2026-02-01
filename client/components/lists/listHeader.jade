@@ -51,6 +51,12 @@ template(name="listHeader")
             if hasNumberFieldsSum
               | &nbsp;
               span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
+        div.list-header-menu
+          unless currentUser.isCommentOnly
+            unless currentUser.isReadOnly
+              unless currentUser.isReadAssignedOnly
+                a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
+                  i.fa.fa-bars
       if isMiniScreen
         if currentList
           if isWatching

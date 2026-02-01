@@ -612,6 +612,8 @@ BlazeComponent.extendComponent({
       this.currentBoard.isTemplatesBoard() &&
       this.currentData().isListTemplatesSwimlane();
     this.currentSwimlane = this.currentData();
+// so that lists can be filtered from Board methods
+    this.currentBoard.swimlane = this.currentSwimlane;
   },
 
   // Proxy

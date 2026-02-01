@@ -236,7 +236,7 @@ BlazeComponent.extendComponent({
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
     const position = this.currentData().position;
-    const title = textarea.val().trim();
+    const title = $(textarea).val().trim();
 
     let sortIndex;
     if (position === 'top') {
@@ -895,11 +895,7 @@ BlazeComponent.extendComponent({
     } else {
       this.board = Utils.getCurrentBoard();
     }
-    if (!this.board) {
-      Popup.back();
-      return;
-    }
-    this.boardId = this.board._id;
+    this.boardId = this.board?._id;
     // Subscribe to this board
     subManager.subscribe('board', this.boardId, false);
     this.selectedBoardId = new ReactiveVar(this.boardId);
