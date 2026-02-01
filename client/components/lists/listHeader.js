@@ -110,7 +110,11 @@ BlazeComponent.extendComponent({
       return TAPi18n.__('cards-count');
     }
   },
-
+  currentList() {
+    const currentList = Utils.getCurrentList();
+    const list = Template.currentData();
+    return currentList && currentList._id == list._id;
+  },
   events() {
     return [
       {

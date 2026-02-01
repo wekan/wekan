@@ -13,37 +13,41 @@
 .list-resize-handle {
   position: absolute;
   top: 0;
-  right: -3px;
-  width: 6px;
-  height: 100%;
+  right: 0;
+  width: max(0.7ch, 0.3lh);
   cursor: col-resize;
-  z-index: 10;
-  background: transparent;
-  transition: background-color 0.2s ease;
-  border-radius: 2px;
+  z-index: 0;
   /* Ensure the handle is clickable */
   pointer-events: auto;
+  height: 100%;
+  transition: all 0.2s ease-out;
+  box-sizing: border-box;
 }
 
-.list-resize-handle:hover {
-  background: rgba(0, 123, 255, 0.4);
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
-}
-
-.list-resize-handle:active {
-  background: rgba(0, 123, 255, 0.6);
-  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+.add-card-wrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
 /* Show resize handle only on hover */
-.list:hover .list-resize-handle {
-  background: rgba(0, 0, 0, 0.1);
+.list:hover .list-resize-handle, .list.list-resizing .list-resize-handle {
+  background: rgba(0, 123, 255, 0.2);
+  border-left: 1px solid rgba(0, 123, 255, 0.5);
 }
 
-.list:hover .list-resize-handle:hover {
-  background: rgba(0, 123, 255, 0.4);
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+
+.list:not(.cannot-resize) {
+  &:hover + .list-resize-handle, + .list-resize-handle:hover {
+    border-left: 1px solid rgba(0, 123, 255, 0.5);
+    background: rgba(0, 123, 255, 0.2);
+    border-radius: 0;
+  }
+  .list-resize-handle:hover, &.list-resizing .list-resize-handle {
+    background: rgba(0, 123, 255, 0.3);
+  }
 }
+
 
 /* Add a subtle indicator line */
 .list-resize-handle::before {
@@ -57,10 +61,11 @@
   background: rgba(0, 0, 0, 0.2);
   border-radius: 1px;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease-out;
+
 }
 
-.list-resize-handle:hover::before {
+.list-resize-handle:hover::before, .list.list-resizing + .list-resize-handle:hover::before {
   opacity: 1;
 }
 
@@ -75,162 +80,133 @@
   display: none;
 }
 
-/* Visual feedback during resize */
-.list.list-resizing {
-  transition: none !important;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
-  /* Ensure the list maintains its new width during resize */
-  flex: none !important;
-  flex-basis: auto !important;
-  flex-grow: 0 !important;
-  flex-shrink: 0 !important;
-  /* Override any conflicting layout properties */
-  float: left !important;
-  display: block !important;
-  position: relative !important;
-  /* Force width to be respected */
-  width: var(--list-width, auto) !important;
-  min-width: var(--list-width, auto) !important;
-  max-width: var(--list-width, auto) !important;
-  /* Ensure the width is applied immediately */
-  overflow: visible !important;
+.list.list-resizing.cannot-resize .list-resize-handle {
+  background: rgba(227, 64, 83, 0.5) !important;
+  border-left: 1px solid rgba(155, 32, 46, 0.5);
 }
 
 body.list-resizing-active {
   cursor: col-resize !important;
+  user-select: none !important;
 }
 
 body.list-resizing-active * {
   cursor: col-resize !important;
+  user-select: none !important;
 }
 
-/* Ensure swimlane container doesn't interfere with list resizing */
-.swimlane .list.list-resizing {
-  /* Override any swimlane flex properties */
-  flex: none !important;
-  flex-basis: auto !important;
-  flex-grow: 0 !important;
-  flex-shrink: 0 !important;
-  /* Ensure width is respected */
-  width: var(--list-width, auto) !important;
-  min-width: var(--list-width, auto) !important;
-  max-width: var(--list-width, auto) !important;
+.list-header-add {
+  display: flex;
+  flex: 1;
+}
+.list-header:not(.open-list-composer) {
+  overflow: hidden !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5lh;
+  row-gap: 0.5lh;
+  flex-shrink: 0;
+  background-color: #e4e4e4;
+  padding: 0.5lh;
+  .list-header-name-container {
+    display: grid;
+    /* by default, grid fill row before columns */
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: start;
+    flex: 1;    /* so we can see the ellipsis */
+    max-width: 90%;
+    gap: 0.5ch;
+    flex-shrink: 0;
+    cursor: grab;
+  }
+  .list-header-menu {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: .5rlh;
+  }
+  &:not(:has(.list-rotated)) {
+    .list-header-name-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1ch;
+      align-items: center;
+    }
+  }
+  &:has(.list-rotated) {
+    .list-header-name-container {
+      /* this time we switch to a vertical layout, justified "top" */
+      grid-auto-flow: row;
+      align-items: start;
+      align-content: start;
+      justify-items: center;
+      flex: 0;
+      gap: 0.3lh;
+    }
+  }
+  .viewer p {
+    /* cf https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Properties/text-overflow  */
+    white-space: nowrap;
+    overflow: scroll;
+    text-overflow: ellipsis;
+  }
 }
 
-/* More aggressive override for any container that might interfere */
-.js-swimlane .list.list-resizing,
-.dragscroll .list.list-resizing,
-[id^="swimlane-"] .list.list-resizing {
-  /* Force the width to be applied */
-  width: var(--list-width, auto) !important;
-  min-width: var(--list-width, auto) !important;
-  max-width: var(--list-width, auto) !important;
-  flex: none !important;
-  flex-basis: auto !important;
-  flex-grow: 0 !important;
-  flex-shrink: 0 !important;
-  float: left !important;
-  display: block !important;
-}
-
-/* Ensure the width persists after resize is complete */
-.js-swimlane .list[style*="--list-width"],
-.dragscroll .list[style*="--list-width"],
-[id^="swimlane-"] .list[style*="--list-width"] {
-  /* Maintain the width after resize */
-  width: var(--list-width, auto) !important;
-  min-width: var(--list-width, auto) !important;
-  max-width: var(--list-width, auto) !important;
-  flex: none !important;
-  flex-basis: auto !important;
-  flex-grow: 0 !important;
-  flex-shrink: 0 !important;
-  float: left !important;
-  display: block !important;
-}
-
-/* Ensure consistent header height for all lists */
-.list-header {
-  /* Maintain consistent height and padding for all lists */
-  min-height: 2.5vh !important;
-  height: auto !important;
-  padding: 2.5vh 1.5vw 0.5vh !important;
-  /* Make sure the background covers the full height */
-  background-color: #e4e4e4 !important;
-  border-bottom: 0.8vh solid #e4e4e4 !important;
-  /* Use original display for consistent button positioning */
-  display: block !important;
-  position: relative !important;
-  /* Allow overflow for text wrapping and forms */
-  overflow: visible !important;
-}
-
-/* Clearfix for floated buttons */
-.list-header::after {
-  content: "";
-  display: table;
-  clear: both;
+.mini-list {
+  .list-header {
+    padding: 0.5lh 2ch;
+  }
+  .list-header-name-container {
+    /* on mobile, put card count below list name for a nice alignement effect */
+    grid-auto-flow: row;
+    gap: 0;
+  }
 }
 
 /* Ensure title text doesn't cause height changes for all lists */
 .list-header .list-header-name {
-  /* Allow text wrapping to flow below buttons */
-  white-space: normal !important;
-  /* Ensure proper line height */
-  line-height: 1.2 !important;
-  /* Ensure it doesn't overflow horizontally */
-  overflow-wrap: break-word !important;
-  word-wrap: break-word !important;
-  /* Full width since buttons are now absolutely positioned above */
-  width: 100% !important;
+  font-weight: bold;
+  /* Ensure it doesn't overflow */
+  overflow: hidden !important;
 }
 
-/* Position elements at top aligned with collapse button */
-.list-header .js-open-list-menu {
-  position: absolute !important;
-  top: 5px !important;
-  right: 10px !important;
-  z-index: 15 !important;
-  display: inline-block !important;
-  padding: 4px !important;
+.list-header .list-header-name p {
+  margin: 0;
 }
 
-.list-header .list-header-plus-top {
-  position: absolute !important;
-  top: 5px !important;
-  right: 10px !important;
-  z-index: 15 !important;
-  display: inline-block !important;
-  padding: 4px !important;
+.list-header .list-header-wrap {
+  display: flex;
 }
 
-.list-header .list-header-handle-desktop {
-  position: absolute !important;
-  top: 5px !important;
-  right: 40px !important;
-  z-index: 15 !important;
-  display: inline-block !important;
+/* Position drag handle at top-right corner for ALL lists */
+.list-header .list-header-handle {
+  /* Ensure it's above other elements */
+  z-index: 10 !important;
+  /* Ensure it's clickable and shows proper cursor */
   cursor: move !important;
   pointer-events: auto !important;
-  padding: 4px !important;
 }
 
-/* Anchor header action buttons within header during resize */
-.list .list-header { position: relative; z-index: 5; }
-.list .list-header .js-open-list-menu,
-.list .list-header .list-header-plus-top,
-.list .list-header .list-header-handle-desktop {
-  position: absolute !important;
+.list:not:has(.list-header-add) {
+  /* so that absolute handle is positionned relative to the list */
+  position: relative;
+  &:last-child {
+    /* hackisk compensation of the handle "gap" effect; to be done better */
+    border-right: 1px solid #bbb;
+  }
+  height: 100%;
 }
-[id^="swimlane-"] .list:first-child {
-  min-width: 2.5vw;
+
+.list.list-composer {
+  display: flex;
+  min-width: max-content;
+  justify-content: center;
+  padding: 0.5lh 1ch;
 }
 .list.list-auto-width {
   flex: 1;
-}
-.list:first-child {
-  border-left: none;
-  flex: none;
 }
 .card-details + .list {
   border-left: none;
@@ -250,183 +226,51 @@ body.list-resizing-active * {
   height: 15vh;
 }
 .list.list-collapsed {
-  flex: none;
-  min-width: 30px;
-  max-width: 30px;
-  width: 30px;
-  min-height: 60vh;
-  height: 60vh;
-  overflow: visible;
-  position: relative;
+  overflow: hidden !important;
+  /* strict sizing when collapsed because no resizing
+  and constant, vertical layout */
+  min-width: fit-content !important;
+  width: fit-content !important;
+  max-width: fit-content !important;
 }
+
 .list.list-collapsed .list-header {
-  padding: 5px 0;
-  min-height: 100% !important;
-  height: 100% !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
+  flex-direction: column !important;
   overflow: visible !important;
-  width: 30px;
-  max-width: 30px;
-  margin: 0;
-}
-.list.list-collapsed .list-header .js-collapse {
-  position: relative !important;
-  left: -10px !important;
-  margin: 5px auto;
-  z-index: 10;
-  padding: 5px;
-  font-size: 16px;
-  white-space: nowrap;
-  display: block;
-  width: auto;
-  left: auto !important;
-  top: auto !important;
-}
-.list.list-collapsed .list-header .list-header-handle {
-  position: static !important;
-  margin: 5px auto;
-  z-index: 10;
-  padding: 5px;
-  display: block;
-  width: auto;
-  top: auto !important;
-  right: auto !important;
-}
-
-.list.list-collapsed .list-header .list-header-handle-desktop {
-  position: static !important;
-  margin: 5px auto;
-  z-index: 10;
-  padding: 5px;
-  display: block;
-  width: auto;
-  top: auto !important;
-  right: auto !important;
-}
-.list.list-collapsed .list-header .list-rotated {
-  width: auto !important;
-  height: auto !important;
-  margin: 20px 0 0 0 !important;
-  position: relative !important;
-  overflow: visible !important;
-  transform: rotate(90deg);
-  transform-origin: center center;
+  gap: 0.2lh !important;
+  justify-content: flex-start !important;
+  min-width: 5ch;
+  /* spans the whole swimlane */
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.list.list-collapsed .list-header .list-rotated h2.list-header-name {
-  text-align: center;
-  overflow: visible;
-  white-space: nowrap;
-  display: block !important;
-  font-size: 12px;
-  line-height: 1.2;
-  color: #333;
-  padding: 4px 8px;
-  margin: 0;
-  width: auto;
-  height: auto;
-  position: static;
-  left: auto;
-  top: auto;
-  transform: none;
-  z-index: 10;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto;
-}
-
-.list.list-composer,
-.list-composer {
-  display: none;
-}
-
-/* Show list-composer when inside an active inlined form */
-form.inlined-form .list-composer {
-  display: block;
 }
 
 .list.list-composer .open-list-composer,
 .list .list-composer .open-list-composer {
   color: #8c8c8c;
+  min-width: max-content;
 }
 .list.list-composer .list-name-input,
 .list .list-composer .list-name-input {
   background: #fff;
-  margin: -0.4vh 0 1vh;
-}
-.list-header-add {
-  flex: 0 0 auto;
-  padding: 1.5vh 1.5vw;
-  position: relative;
-  min-height: 2.5vh;
-}
-.list-header {
-  flex: 0 0 auto;
-  padding: 2.5vh 1.5vw 0.5vh;
-  position: relative;
-  min-height: 2.5vh;
-  background-color: #e4e4e4;
-  border-bottom: 0.8vh solid #e4e4e4;
-}
-.list-header.list-header-card-count {
-  min-height: 4.5vh;
-  height: auto;
-}
-.list-header.ui-sortable-handle {
-  cursor: grab;
-}
-.list-header .list-header-left-icon {
-  display: none;
-}
-.list-header .list-header-name {
-  display: block;
-  font-size: clamp(14px, 3vw, 18px);
-  line-height: 1.2;
-  margin: 0;
-  font-weight: bold;
-  min-height: 1.2vh;
-  min-width: 4vw;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  vertical-align: top;
-  width: 100%;
-}
-/* Sum badge shown before list title */
-.list-header .list-sum-badge {
-  display: inline-block;
-  margin-right: 8px;
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-  color: #8c8c8c;
-  font-weight: bold;
-  font-size: 12px;
-  vertical-align: middle;
+  display: flex;
+  flex: 1;
 }
 .list-rotated {
-  width: 1.3vw;
-  height: 35vh;
-  margin-top: -12vh;
-  margin-left: -14vw;
-  margin-right: 0;
-  transform: rotate(90deg);
-  position: relative;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  flex: 1;
+  writing-mode: vertical-rl;
 }
+
+body.mobile-mode .list-collapsed:nth-child(2n-1) > .list-header{
+  background-color: #f1f1f1;
+}
+
+body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
+  background-color: #f7f7f7;
+}
+
 .list-header .list-header-watch-icon {
   padding-left: 10px;
   color: #a6a6a6;
-}
-.list-header .list-header-menu {
-  float: right;
 }
 @media print {
   .list-header .list-header-menu,
@@ -436,7 +280,6 @@ form.inlined-form .list-composer {
 }
 .list-header .list-header-plus-top {
   color: #a6a6a6;
-  margin-right: 15px;
   vertical-align: middle;
   line-height: 1.2;
 }
@@ -447,39 +290,25 @@ form.inlined-form .list-composer {
   color: #a6a6a6;
   margin-right: 15px;
 }
-/* List header collapse button styling - positioned at top left */
+.list-header .list-header-name-container p {
+  margin: 0;
+}
+
 .list-header .js-collapse {
   position: absolute !important;
   top: 5px !important;
   left: 10px !important;
   color: #a6a6a6;
-  display: inline-block;
-  vertical-align: top;
-  padding: 5px 8px;
   border: none;
   border-radius: 0;
   background-color: transparent;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 1.2;
-  min-width: 30px;
-  text-align: center;
   text-decoration: none;
-  margin: 0;
-  z-index: 15;
 }
 .list-header .js-collapse:hover {
   background-color: transparent;
   color: #333;
 }
 
-/* Title text container - full width below buttons */
-.list-header > div {
-  padding-top: 25px;
-  width: 100%;
-  display: block;
-  clear: both;
-}
 .list.list-collapsed .list-header .js-collapse {
   display: inline-block !important;
   visibility: visible !important;
@@ -492,214 +321,81 @@ form.inlined-form .list-composer {
   display: none !important;
 }
 
-/* Responsive adjustments for collapsed lists */
-@media (min-width: 768px) {
-  .list.list-collapsed {
-    min-width: 30px;
-    max-width: 30px;
-    width: 30px;
-    min-height: 60vh;
-    height: 60vh;
-  }
-  .list.list-collapsed .list-header {
-    width: 30px;
-    max-width: 30px;
-    margin: 0;
-    min-height: 100% !important;
-    height: 100% !important;
-  }
-  .list.list-collapsed .list-header .list-rotated {
-    width: auto !important;
-    height: auto !important;
-    margin: 20px 0 0 0 !important;
-    position: relative !important;
-    transform: rotate(90deg);
-    flex: 1;
-  }
-  .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: auto;
-    font-size: 12px;
-    height: auto;
-    line-height: 1.2;
-    padding: 4px 8px;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    left: auto;
-    top: auto;
-    transform: none;
-    text-align: center;
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: block !important;
-    background-color: transparent;
-    border: none;
-    color: #333;
-    z-index: 10;
-  }
-  .list.list-collapsed .list-header .js-collapse {
-    margin: 5px auto;
-  }
-}
-
-@media (min-width: 1024px) {
-  .list.list-collapsed {
-    min-width: 30px;
-    max-width: 30px;
-    width: 30px;
-    min-height: 60vh;
-    height: 60vh;
-  }
-  .list.list-collapsed .list-header {
-    width: 30px;
-    max-width: 30px;
-    min-height: 100% !important;
-    height: 100% !important;
-  }
-  .list.list-collapsed .list-header .list-rotated {
-    width: auto !important;
-    height: auto !important;
-    margin: 20px 0 0 0 !important;
-    position: relative !important;
-    transform: rotate(90deg);
-    flex: 1;
-  }
-  .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: auto;
-    font-size: 12px;
-    height: auto;
-    line-height: 1.2;
-    padding: 4px 8px;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    left: auto;
-    top: auto;
-    transform: none;
-    text-align: center;
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: block !important;
-    background-color: transparent;
-    border: none;
-    color: #333;
-    z-index: 10;
-  }
-  .list.list-collapsed .list-header .js-collapse {
-    margin: 5px auto;
-  }
-}
-
-@media (min-width: 1200px) {
-  .list.list-collapsed {
-    min-width: 30px;
-    max-width: 30px;
-    width: 30px;
-    min-height: 60vh;
-    height: 60vh;
-  }
-  .list.list-collapsed .list-header {
-    width: 30px;
-    max-width: 30px;
-    min-height: 100% !important;
-    height: 100% !important;
-  }
-  .list.list-collapsed .list-header .list-rotated {
-    width: auto !important;
-    height: auto !important;
-    margin: 20px 0 0 0 !important;
-    position: relative !important;
-    transform: rotate(90deg);
-    flex: 1;
-  }
-  .list.list-collapsed .list-header .list-rotated h2.list-header-name {
-    width: auto;
-    font-size: 12px;
-    height: auto;
-    line-height: 1.2;
-    padding: 4px 8px;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    left: auto;
-    top: auto;
-    transform: none;
-    text-align: center;
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: block !important;
-    background-color: transparent;
-    border: none;
-    color: #333;
-    z-index: 10;
-  }
-  .list.list-collapsed .list-header .js-collapse {
-    margin: 5px auto;
-  }
-}
-.list-header .list-header-collapse {
-  color: #a6a6a6;
-  margin-right: 15px;
-}
 .list-header .highlight {
   color: #ce1414;
 }
 .list-header .cardCount {
   color: #8c8c8c;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 0.7em;
+  font-weight: normal;
+  text-wrap: nowrap;
 }
-.list-header .list-header-plus-top,
+.list-header,
 .js-open-list-menu,
 .list-header-menu a {
   color: #4d4d4d;
-  padding-left: 4px;
-}
-.js-open-list-menu {
-  font-size: 18px;
   vertical-align: middle;
   line-height: 1.2;
 }
 .list-body {
-  flex: 1 1 auto;
+  /* do not set flex to avoid bad visual effects when resizing swimlanes */
   flex-direction: column;
   display: flex;
   overflow-y: auto;
-  padding: 5px 11px;
+  padding: 0.4lh 1ch;
+  flex: 1;
 }
+.mobile-view  {
+  .list-body {
+    flex: 1 0;
+    overflow-y: scroll;
+  }
+  &.list:not:has(.list-header-add) {
+    min-height: 50;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+    justify-content: start;
+  }
+}
+
 .list-body .minicards {
   flex-grow: 1;
   flex-shrink: 0;
+  gap: 0.5lh;
+  display: flex;
+  flex-direction: column;
   /** get card drag/drop working for empty swimlanes */
-  min-height: 32px;
+  min-height: 10vh;
 }
 .list-body .minicards form {
-  margin-bottom: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
 }
 .list-body .minicards .add-controls button {
-  min-height: 50px;
+  min-height: 1lh;
 }
-.list-body .open-minicard-composer {
-  border-radius: 2px;
-  color: #8c8c8c;
-  display: block;
-  padding: 7px 10px;
-  position: relative;
-  text-decoration: none;
-  animation: fadeIn 0.3s;
-}
+
 @media print {
   .list-body .open-minicard-composer {
     display: none;
   }
 }
-.list-body .open-minicard-composer i.fa {
-  margin-right: 7px;
+
+.list-body .open-minicard-composer {
+  display: flex;
+  flex: 1;
+  padding: 0.2lh 0;
+  border-radius: 4px;
+  justify-content: center;
 }
 .list-body .open-minicard-composer:hover {
   background: #fafafa;
   color: #222;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 #js-wip-limit-edit {
   padding-top: 2%;
@@ -726,280 +422,9 @@ form.inlined-form .list-composer {
 #js-list-width-edit .list-width-error {
   display: none;
 }
-/* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
-.mini-list.mobile-view {
-  flex: 0 0 60px;
-  height: auto;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
-  border-left: 0px !important;
-  border-bottom: 1px solid #ccc;
-  display: block !important;
-}
-.list.mobile-view {
-  display: block !important;
-  flex-basis: auto;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
-  border-left: 0px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.list.mobile-view:first-child {
-  margin-left: 0px;
-}
-.list.mobile-view.ui-sortable-helper {
-  flex: 0 0 60px;
-  height: 60px;
-  width: 100vw;
-  max-width: 100vw;
-  border-left: 0px !important;
-  border-bottom: 1px solid #ccc;
-  display: block !important;
-}
-.list.mobile-view.ui-sortable-helper .list-header.ui-sortable-handle {
-  cursor: grabbing;
-}
-.list.mobile-view.placeholder {
-  flex: 0 0 60px;
-  height: 60px;
-  width: 100vw;
-  max-width: 100vw;
-  border-left: 0px !important;
-  border-bottom: 1px solid #ccc;
-  display: block !important;
-}
-.list.mobile-view .list-body {
-  padding: 15px 19px;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
-}
-.list.mobile-view .list-header {
-  /*Updated padding values for mobile devices, this should fix text grouping issue*/
-  padding: 20px 0px 20px 0px;
-  border-bottom: 0px solid #e4e4e4;
-  min-height: 30px;
-  margin-top: 10px;
-  align-items: center;
-  width: 100vw;
-  max-width: 100vw;
-  min-width: 100vw;
-  /* Force grid layout for iPhone */
-  display: grid !important;
-  grid-template-columns: 30px 1fr auto auto !important;
-  gap: 10px !important;
-}
-.list.mobile-view .list-header .list-header-left-icon {
-  padding: 7px;
-  padding-right: 27px;
-  margin-top: 1px;
-  top: -7px;
-  left: -7px;
-}
-.list.mobile-view .list-header .list-header-menu-icon {
-  padding: 14px;
-  font-size: 40px !important;
-  text-align: center;
-  /* Force positioning for iPhone */
-  position: absolute !important;
-  right: 60px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  z-index: 10;
-}
-.list.mobile-view .list-header .list-header-handle {
-  padding: 14px;
-  font-size: 48px !important;
-  text-align: center;
-  /* Force positioning for iPhone */
-  position: absolute !important;
-  right: 10px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  z-index: 10;
-}
-.list.mobile-view .list-header .list-header-left-icon {
-  display: grid;
-  grid-row: 1/3;
-  grid-column: 1;
-}
-.list.mobile-view .list-header .list-header-name {
-  grid-row: 1;
-  grid-column: 2;
-  align-self: end;
-  font-size: 20px !important;
-  font-weight: bold;
-  line-height: 1.2;
-  padding-bottom: 2px;
-}
-.list.mobile-view .list-header .cardCount {
-  grid-row: 2;
-  grid-column: 2;
-  align-self: start;
-  text-align: left;
-  padding-left: 0;
-  margin-left: 0;
-  font-size: 16px !important;
-  line-height: 1.2;
-}
-.list.mobile-view .list-header .list-header-menu {
-  grid-row: 1/3;
-  grid-column: 3;
-}
-.list.mobile-view .list-header .list-header-menu-icon {
-  grid-row: 1/3;
-  grid-column: 3;
-}
-.list.mobile-view .list-header .list-header-handle {
-  grid-row: 1/3;
-  grid-column: 4;
-}
-.list.mobile-view .list-header .inlined-form {
-  grid-row: 1/3;
-  grid-column: 1/4;
-}
-.list.mobile-view .list-header .edit-controls {
-  align-items: initial;
-}
-
-@media screen and (max-width: 800px),
-       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  .mini-list {
-    flex: 0 0 60px;
-    height: auto;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
-    border-left: 0px !important;
-    border-bottom: 1px solid #ccc;
-    display: block !important;
-  }
-  .list {
-    display: block !important;
-    flex-basis: auto;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
-    border-left: 0px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .list:first-child {
-    margin-left: 0px;
-  }
-  .list.ui-sortable-helper {
-    flex: 0 0 60px;
-    height: 60px;
-    width: 100vw;
-    max-width: 100vw;
-    border-left: 0px !important;
-    border-bottom: 1px solid #ccc;
-    display: block !important;
-  }
-  .list.ui-sortable-helper .list-header.ui-sortable-handle {
-    cursor: grabbing;
-  }
-  .list.placeholder {
-    flex: 0 0 60px;
-    height: 60px;
-    width: 100vw;
-    max-width: 100vw;
-    border-left: 0px !important;
-    border-bottom: 1px solid #ccc;
-    display: block !important;
-  }
-  .list-body {
-    padding: 15px 19px;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
-  }
-  .list-header {
-	  /*Updated padding values for mobile devices, this should fix text grouping issue*/
-    padding: 20px 0px 20px 0px;
-    border-bottom: 0px solid #e4e4e4;
-    min-height: 30px;
-    margin-top: 10px;
-    align-items: center;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
-  }
-  .list-header .list-header-left-icon {
-    padding: 7px;
-    padding-right: 27px;
-    margin-top: 1px;
-    top: -7px;
-    left: -7px;
-  }
-  .list-header .list-header-menu-icon {
-    padding: 14px;
-    font-size: 40px;
-    text-align: center;
-    /* iOS Safari fallback positioning */
-    position: absolute;
-    right: 60px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .list-header .list-header-handle {
-    padding: 14px;
-    font-size: 48px;
-    text-align: center;
-    /* iOS Safari fallback positioning */
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .list-header {
-    display: grid;
-    grid-template-columns: 30px 1fr auto auto;
-    gap: 10px;
-  }
-  .list-header .list-header-left-icon {
-    display: grid;
-    grid-row: 1/3;
-    grid-column: 1;
-  }
-  .list-header .list-header-name {
-    grid-row: 1;
-    grid-column: 2;
-    align-self: end;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1.2;
-    padding-bottom: 2px;
-  }
-  .list-header .cardCount {
-    grid-row: 2;
-    grid-column: 2;
-    align-self: start;
-    font-size: 16px;
-    line-height: 1.2;
-  }
-  .list-header .list-header-menu {
-    grid-row: 1/3;
-    grid-column: 3;
-  }
-  .list-header .list-header-menu-icon {
-    grid-row: 1/3;
-    grid-column: 3;
-  }
-  .list-header .list-header-handle {
-    grid-row: 1/3;
-    grid-column: 4;
-  }
-  .list-header .inlined-form {
-    grid-row: 1/3;
-    grid-column: 1/4;
-  }
-  .list-header .edit-controls {
-    align-items: initial;
-  }
+.js-select-cards {
+  max-width: 30ch;
+  text-overflow: ellipsis;
 }
 
 /* iPhone 12 Mini specific - fix icon positioning in stacked lists view */
@@ -1024,7 +449,7 @@ form.inlined-form .list-composer {
     grid-row: 1/3 !important;
     grid-column: 3 !important;
     padding: 14px !important;
-    font-size: 40px !important;
+
     text-align: center !important;
   }
 
@@ -1038,7 +463,7 @@ form.inlined-form .list-composer {
     grid-row: 1/3 !important;
     grid-column: 4 !important;
     padding: 14px !important;
-    font-size: 48px !important;
+
     text-align: center !important;
   }
 
@@ -1046,7 +471,7 @@ form.inlined-form .list-composer {
     grid-row: 1 !important;
     grid-column: 2 !important;
     align-self: end !important;
-    font-size: 20px !important;
+
     font-weight: bold !important;
     line-height: 1.2 !important;
     padding-bottom: 2px !important;
@@ -1059,14 +484,8 @@ form.inlined-form .list-composer {
     text-align: left !important;
     padding-left: 0 !important;
     margin-left: 0 !important;
-    font-size: 16px !important;
-    line-height: 1.2 !important;
-  }
 
-  .list.mobile-view .list-header .list-header-left-icon {
-    display: grid !important;
-    grid-row: 1/3 !important;
-    grid-column: 1 !important;
+    line-height: 1.2 !important;
   }
 }
 
@@ -1089,7 +508,7 @@ form.inlined-form .list-composer {
   grid-row: 1/3 !important;
   grid-column: 3 !important;
   padding: 14px !important;
-  font-size: 40px !important;
+
   text-align: center !important;
 }
 
@@ -1103,7 +522,7 @@ form.inlined-form .list-composer {
   grid-row: 1/3 !important;
   grid-column: 4 !important;
   padding: 14px !important;
-  font-size: 48px !important;
+
   text-align: center !important;
 }
 
@@ -1111,7 +530,7 @@ form.inlined-form .list-composer {
   grid-row: 1 !important;
   grid-column: 2 !important;
   align-self: end !important;
-  font-size: 20px !important;
+
   font-weight: bold !important;
   line-height: 1.2 !important;
   padding-bottom: 2px !important;
@@ -1121,7 +540,7 @@ form.inlined-form .list-composer {
   grid-row: 2 !important;
   grid-column: 2 !important;
   align-self: start !important;
-  font-size: 16px !important;
+
   line-height: 1.2 !important;
 }
 
@@ -1131,28 +550,42 @@ form.inlined-form .list-composer {
   grid-column: 1 !important;
 }
 
-/* Allow long list titles to expand on desktop (non-mobile, non-collapsed) */
-.list:not(.mobile-view):not(.list-collapsed) .list-header {
-  overflow: visible !important;
-}
-
 .list:not(.mobile-view):not(.list-collapsed) .list-header .list-header-name {
   /* Permit wrapping and full visibility */
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  display: block !important;
-  /* Full width since buttons are absolutely positioned */
-  width: 100% !important;
+
   /* Break long words to avoid overflow */
-  word-break: break-word !important;
+  white-space: nowrap;
+    overflow: scroll;
+  overflow-wrap: break-word !important;
+  text-overflow: clip;
 }
 .link-board-wrapper {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  padding: 0.3lh 1ch;
+  >form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex: 1;
+  }
 }
-.link-board-wrapper .js-link-board {
-  margin-left: 15px;
+
+.link-board-dropdown {
+  display: grid;
+  grid-template-columns: 10ch auto;
+  gap: 0 1ch;
+  margin: 0.3lh 0;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+
+  + .edit-controls {
+    flex: 1;
+    justify-content: stretch;
+    >input {
+      flex: 1;
+    }
+  }
 }
 .search-card-results {
   max-height: 250px;

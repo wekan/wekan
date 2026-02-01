@@ -1,3 +1,16 @@
+select, button, input {
+  font-size: 1rem !important;
+}
+
+form {
+  /* 🛑 remove me if it causes a significant issue.
+  this can be overidden and otherwise allow forms to
+  scale with their parent. */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 select,
 textarea,
 input:not([type=file]),
@@ -105,14 +118,12 @@ option[disabled] {
   color: #222;
 }
 textarea {
-  height: 20vh;
+  min-height: 3lh;
   transition: background 85ms ease-in, border-color 85ms ease-in;
   resize: vertical;
-  width: 100%;
-}
-textarea.editor {
-  resize: none;
-  padding-bottom: 3vh;
+  width: auto;
+  /* so auto-zoom is not that bad on mobile */
+  font-size: 0.8em;
 }
 .button {
   border-radius: 3px;
@@ -270,8 +281,27 @@ textarea::-moz-placeholder {
 .links-controls {
   display: flex;
   align-items: center;
-  margin-top: 0px;
-  margin-bottom: 1.5vh;
+  gap: 1ch;
+  button {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.edit-controls {
+  grid-area: main-controls;
+}
+
+.add-controls {
+  grid-area: main-controls;
+}
+
+.links-controls {
+  grid-area: links-controls
+}
+
+.links-controls span.quiet {
+  margin: auto;
 }
 @media print {
   .add-controls {
@@ -297,6 +327,18 @@ textarea::-moz-placeholder {
   display: none;
 }
 .materialCheckBox {
+  position: relative;
+  width: 0.5lh;
+  height: 0.5lh;
+  z-index: 0;
+  border: 2px solid #5a5a5a;
+  border-radius: 1px;
+  transition: 0.2s;
+  margin: 0;
+  margin-left: 0px;
+  cursor: pointer;
+}
+.materialCheckBox:is(.active) {
   position: relative;
   width: 13px;
   height: 13px;
