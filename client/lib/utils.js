@@ -24,7 +24,7 @@ Utils = {
     }
     return ret;
   },
-  getCurrentCardId(ignorePopupCard) {
+  getCurrentCardId(ignorePopupCard = false) {
     let ret = Session.get('currentCard');
     if (!ret && !ignorePopupCard) {
       ret = Utils.getPopupCardId();
@@ -47,7 +47,7 @@ Utils = {
     const ret = ReactiveCache.getBoard(boardId);
     return ret;
   },
-  getCurrentCard(ignorePopupCard) {
+  getCurrentCard(ignorePopupCard = false) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
     const ret = ReactiveCache.getCard(cardId);
     return ret;
@@ -736,8 +736,8 @@ Utils = {
   showCopied(promise, $tooltip) {
     if (promise) {
       promise.then(() => {
-        $tooltip.show(100);
-        setTimeout(() => $tooltip.hide(100), 1000);
+        $tooltip.removeClass("copied-tooltip-hidden").addClass("copied-tooltip-visible");
+        setTimeout(() => $tooltip.removeClass("copied-tooltip-visible").addClass("copied-tooltip-hidden"), 1000);
       }, (err) => {
         console.error("error: ", err);
       });
@@ -792,6 +792,176 @@ Utils = {
     }
     return !(event.isPrimary && (event.pointerType !== 'mouse' || event.button === 0));
   },
+  allowsReceivedDate() {
+      const boardId = Session.get('currentBoard');
+      const currentBoard = ReactiveCache.getBoard(boardId);
+      return currentBoard ? currentBoard.allowsReceivedDate : false;
+    },
+
+  allowsStartDate() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsStartDate : false;
+  },
+
+  allowsDueDate() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDueDate : false;
+  },
+
+  allowsEndDate() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsEndDate : false;
+  },
+
+  allowsSubtasks() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsSubtasks : false;
+  },
+
+  allowsCreator() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (currentBoard.allowsCreator ?? false) : false;
+  },
+
+  allowsCreatorOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (currentBoard.allowsCreatorOnMinicard ?? false) : false;
+  },
+
+  allowsMembers() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsMembers : false;
+  },
+
+  allowsAssignee() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignee : false;
+  },
+
+  allowsAssignedBy() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignedBy : false;
+  },
+
+  allowsRequestedBy() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsRequestedBy : false;
+  },
+
+  allowsCardSortingByNumber() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardSortingByNumber : false;
+  },
+
+  allowsShowLists() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsShowLists : false;
+  },
+
+  allowsLabels() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsLabels : false;
+  },
+
+  allowsShowListsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsShowListsOnMinicard : false;
+  },
+
+  allowsChecklists() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsChecklists : false;
+  },
+
+  allowsAttachments() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAttachments : false;
+  },
+
+  allowsComments() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsComments : false;
+  },
+
+  allowsCardNumber() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardNumber : false;
+  },
+
+  allowsDescriptionTitle() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTitle : false;
+  },
+
+  allowsDescriptionText() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionText : false;
+  },
+
+  isBoardSelected() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.dateSettingsDefaultBoardID : false;
+  },
+
+  isNullBoardSelected() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (
+      currentBoard.dateSettingsDefaultBoardId === null ||
+      currentBoard.dateSettingsDefaultBoardId === undefined
+    ) : true;
+  },
+
+  allowsDescriptionTextOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTextOnMinicard : false;
+  },
+
+  allowsActivities() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsActivities : false;
+  },
+
+  allowsCoverAttachmentOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCoverAttachmentOnMinicard : false;
+  },
+
+  allowsBadgeAttachmentOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsBadgeAttachmentOnMinicard : false;
+  },
+
+  allowsCardSortingByNumberOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardSortingByNumberOnMinicard : false;
+  },
 };
 
 
@@ -804,4 +974,11 @@ $(window).on('resize', () => {
   // Simple, generic switch based exclusively on the new detection algorithm
   // Hope it will centralize decision and reduce edge cases
   Utils.setMobileMode(Utils.isMiniScreen());
+});
+
+$(() => {
+  const settingsHelpers = ["allowsReceivedDate", "allowsStartDate", "allowsDueDate", "allowsEndDate", "allowsSubtasks", "allowsCreator", "allowsCreatorOnMinicard", "allowsMembers", "allowsAssignee", "allowsAssignedBy", "allowsRequestedBy", "allowsCardSortingByNumber", "allowsShowLists", "allowsLabels", "allowsShowListsOnMinicard", "allowsChecklists", "allowsAttachments", "allowsComments", "allowsCardNumber", "allowsDescriptionTitle", "allowsDescriptionText", "allowsDescriptionTextOnMinicard", "allowsActivities", "allowsCoverAttachmentOnMinicard", "allowsBadgeAttachmentOnMinicard", "allowsCardSortingByNumberOnMinicard"]
+  for (f of settingsHelpers) {
+    Template.registerHelper(f, Utils[f]);
+  }
 });
