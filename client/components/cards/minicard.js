@@ -13,6 +13,24 @@ BlazeComponent.extendComponent({
     return 'minicard';
   },
 
+  onRendered() {
+    // cannot be done with CSS because newlines
+    // rendered by the JADE engine count as non empty
+    // and some "empty" divs are nested
+    // this is not very robust and could probably be
+    // done with a helper, but it could be in fact worse
+    // because we would need to to if (allowsX() && X() && ...)
+    const body = $(this.find('.minicard-body'));
+    if (!body) {return}
+    let emptyChildren;
+    do  {
+      emptyChildren = body.find('*').filter((_, e) => $(e).html().trim().length === 0).remove();
+    } while (emptyChildren.length > 0)
+    if (body.html().trim().length === 0) {
+      body.parent().find('hr:has(+ .minicard-body)').remove();
+    }
+  },
+
   formattedCurrencyCustomFieldValue(definition) {
     const customField = this.data()
       .customFieldsWD()
