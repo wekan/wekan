@@ -1,18 +1,37 @@
-#notifications {
-  position: relative;
-}
-#notifications .notifications-drawer-toggle {
-  display: block;
-  line-height: 28px;
-  color: #f2f2f2;
-  margin: 0 10px;
-  width: 28px;
-  height: 28px;
-  text-align: center;
-  border: 0;
-  padding: 0;
+.notifications-container {
+    /* absolute to render close to emoji and render on top,
+    "naturally" on top because no parent stacking context */
+    position: absolute;
+    right: 0;
+    top: 1.5lh;
+    background-color: #fafafa;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    color: #000;
+    z-index: 1;
 }
 
 #notifications .notifications-drawer-toggle.alert {
   background-color: #eb4646;
+}
+
+#notifications {
+  /* to position popup */
+  position: relative;
+  overflow: visible;
+}
+
+#notifications-drawer {
+  position: relative;
+  min-height: min-content;
+  height: fit-content;
+  max-height: 100vh;
+  z-index: 300;
+  width: max-content;
+}
+
+body.mobile-mode {
+  #notifications-drawer .header {
+    flex-direction: column;
+  }
 }
