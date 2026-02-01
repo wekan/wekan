@@ -547,6 +547,17 @@ BlazeComponent.extendComponent({
         'click .js-link': Popup.open('linkCard'),
         'click .js-search': Popup.open('searchElement'),
         'click .js-card-template': Popup.open('searchElement'),
+        submit: this.addCard,
+        'click .minicard-label': (event) => {
+          const clickedData = BlazeComponent.getComponentForElement(event.target).currentData?.()
+          this.labels.set(this.labels.get().filter(e => e !== clickedData?._id));
+        },
+        'click .member': (event) => {
+          const clickedData = BlazeComponent.getComponentForElement(event.target).currentData?.()
+          this.members.set(this.members.get().filter(e => e !== clickedData?.userId));
+          e.preventDefault();
+          e.stopPropagation();
+        },
       },
     ];
   },
@@ -567,7 +578,9 @@ BlazeComponent.extendComponent({
             callback(
               $.map(currentBoard.activeMembers(), member => {
                 const user = ReactiveCache.getUser(member.userId);
-                return user.username.indexOf(term) === 0 ? user : null;
+                return user.username.indexOf(term) === 0 &&
+                  // don't show already selected members
+                  !editor.members.get().find((e) => e === member.userId) ? user : null;
               }),
             );
           },
@@ -591,8 +604,12 @@ BlazeComponent.extendComponent({
             const currentBoard = Utils.getCurrentBoard();
             callback(
               $.map(currentBoard.labels, label => {
-                if (label.name == undefined) {
-                  label.name = "";
+                if (
+                  label.name == undefined  ||
+                  // don't show already selected labels
+                  editor.getLabels().find((e) => e._id === label._id)
+                ) {
+                  return null;
                 }
                 if (
                   label.name.indexOf(term) > -1 ||
