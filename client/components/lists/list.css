@@ -1,12 +1,20 @@
-.list {
+.list:not(.mobile-view, .list-composer) {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-self: start;
   position: relative;
   background: #dedede;
   border-left: 1px solid #ccc;
   padding: 0;
-  float: left;
+  /* so we get the computed minimal width, if no setting exist */
+  width: var(--list-width, min-content) !important;
+  min-width: var(--list-min-width, 200) !important;
+  max-width: var(--list-max-width, auto) !important;
+  /* Both needs to be set to 0 so that resize works; but implies overflowing without size constraints */
+  flex-grow: 0;
+  flex-shrink: 0;
+  z-index: 0;
 }
 
 /* List resize handle */
