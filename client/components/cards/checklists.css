@@ -134,8 +134,8 @@ textarea.js-edit-checklist-item {
   margin: 0.1em 0 0 0;
 }
 .checklist-item .check-box.is-checked {
-  border-bottom: 2px solid #3cb500;
-  border-right: 2px solid #3cb500;
+  border-bottom: 0.2ch solid #3cb500;
+  border-right: 0.2ch solid #3cb500;
 }
 .checklist-item .item-title {
   display: flex;

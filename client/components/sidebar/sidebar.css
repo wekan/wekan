@@ -61,7 +61,7 @@
   margin-right: 6px !important;
   border-top: 2px solid transparent !important;
   border-left: 2px solid transparent !important;
-  border-bottom: 2px solid #3cb500 !important;
+  border-bottom: 0.2ch solid #3cb500 !important;
   border-right: 2px solid #3cb500 !important;
   transform: rotate(40deg) !important;
   -webkit-backface-visibility: hidden !important;

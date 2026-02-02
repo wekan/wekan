@@ -127,36 +127,36 @@ BlazeComponent.extendComponent({
 
     // #FIXME OLD SORTABLE CODE - WILL BE DISABLED
     //
-    const itemsSelector = '.js-board';
+    // const itemsSelector = '.js-board';
 
-    const $boards = this.$('.js-boards');
-    $boards.sortable({
-      connectWith: '.js-boards',
-      tolerance: 'pointer',
-      appendTo: '.board-list',
-      helper: 'clone',
-      distance: 7,
-      items: itemsSelector,
-      placeholder: 'board-wrapper placeholder',
-      start(evt, ui) {
-        ui.helper.css('z-index', 1000);
-        ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup-close');
-      },
-      async stop(evt, ui) {
-        const prevBoardDom = ui.item.prev('.js-board').get(0);
-        const nextBoardDom = ui.item.next('.js-board').get(0);
-        const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardDom, 1);
+    // const $boards = this.$('.js-boards');
+    // $boards.sortable({
+    //   connectWith: '.js-boards',
+    //   tolerance: 'pointer',
+    //   appendTo: '.board-list',
+    //   helper: 'clone',
+    //   distance: 7,
+    //   items: itemsSelector,
+    //   placeholder: 'board-wrapper placeholder',
+    //   start(evt, ui) {
+    //     ui.helper.css('z-index', 1000);
+    //     ui.placeholder.height(ui.helper.height());
+    //     EscapeActions.executeUpTo('popup-close');
+    //   },
+    //   async stop(evt, ui) {
+    //     const prevBoardDom = ui.item.prev('.js-board').get(0);
+    //     const nextBoardDom = ui.item.next('.js-board').get(0);
+    //     const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardDom, 1);
 
-        const boardDomElement = ui.item.get(0);
-        const board = Blaze.getData(boardDomElement);
-        $boards.sortable('cancel');
-        const currentUser = ReactiveCache.getCurrentUser();
-        if (currentUser && typeof currentUser.setBoardSortIndex === 'function') {
-          await currentUser.setBoardSortIndex(board._id, sortIndex.base);
-        }
-      },
-    });
+    //     const boardDomElement = ui.item.get(0);
+    //     const board = Blaze.getData(boardDomElement);
+    //     $boards.sortable('cancel');
+    //     const currentUser = ReactiveCache.getCurrentUser();
+    //     if (currentUser && typeof currentUser.setBoardSortIndex === 'function') {
+    //       await currentUser.setBoardSortIndex(board._id, sortIndex.base);
+    //     }
+    //   },
+    // });
   },
   userHasTeams() {
     if (ReactiveCache.getCurrentUser()?.teams?.length > 0) return true;

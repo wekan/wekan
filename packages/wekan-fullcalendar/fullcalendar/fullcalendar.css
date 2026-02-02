@@ -467,7 +467,7 @@ temporary rendered events).
 /* resizer (touch devices) */
 .fc-h-event.fc-selected .fc-resizer {
   /* 8x8 little dot */
-  border-radius: 4px;
+  border-radius: 0.4ch;
   border-width: 1px;
   width: 6px;
   height: 6px;

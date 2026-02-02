@@ -278,6 +278,7 @@ textarea::-moz-placeholder {
   button {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 }
 
@@ -306,11 +307,6 @@ textarea::-moz-placeholder {
 .edit-controls input[type=button],
 .add-controls input[type=button] {
   margin: 0;
-}
-.edit-controls .fa-times-thin,
-.add-controls .fa-times-thin {
-  font-size: clamp(20px, 4vw, 26px);
-  margin: 0.5vh 1.5vw;
 }
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
@@ -343,12 +339,20 @@ textarea::-moz-placeholder {
   cursor: pointer;
 }
 .materialCheckBox.is-checked {
+  top: 0.3lh;
+  left: 0.25lh;
+  width: 0.25lh;
+  height: 0.5lh;
+  margin-right: 0.6lh;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-bottom: 2px solid #3cb500;
-  border-right: 2px solid #3cb500;
+  border-bottom: 0.2ch solid #3cb500;
+  border-right: 0.2ch solid #3cb500;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  transform: rotate(50deg);
+  backface-visibility: hidden;
+  transform-origin: 0.5lh 0;
 }
 
 form .form-buttons {

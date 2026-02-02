@@ -5,17 +5,8 @@
   justify-items: center;
   padding: 2lh 0;
   margin: auto;
-  grid-template-columns: minmax(30vw, 600px);
+  grid-template-columns: minmax(auto, 70vw);
   grid-template-rows: 20vh max-content auto;
-  min-width: fit-content;
-}
-
-body.mobile-mode .auth-container {
-  grid-template-columns: auto;
-  margin: 10vw;
-}
-
-body.mobile-mode:has(.auth-container) {
   min-width: fit-content;
 }
 

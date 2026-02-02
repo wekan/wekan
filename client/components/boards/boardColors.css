@@ -14,7 +14,7 @@ THEME - NEPHRITIS
 }
 
 .board-color-nephritis .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -22,7 +22,7 @@ THEME - NEPHRITIS
 .board-color-nephritis input[type=submit].primary,
 .board-color-nephritis .sidebar .sidebar-content .sidebar-btn {
   background-color: #1f8b4d;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-nephritis.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -133,7 +133,7 @@ THEME - Pomegranate
 }
 
 .board-color-pomegranate .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -141,7 +141,7 @@ THEME - Pomegranate
 .board-color-pomegranate input[type=submit].primary,
 .board-color-pomegranate .sidebar .sidebar-content .sidebar-btn {
   background-color: #9a2e22;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-pomegranate.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -252,7 +252,7 @@ THEME - Belize
 }
 
 .board-color-belize .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -260,7 +260,7 @@ THEME - Belize
 .board-color-belize input[type=submit].primary,
 .board-color-belize .sidebar .sidebar-content .sidebar-btn {
   background-color: #216694;
-  border-radius: 7px;
+  border-radius: 0.6ch;
   color: #eee;
 }
 
@@ -370,7 +370,7 @@ THEME - Wisteria
 }
 
 .board-color-wisteria .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -378,7 +378,7 @@ THEME - Wisteria
 .board-color-wisteria input[type=submit].primary,
 .board-color-wisteria .sidebar .sidebar-content .sidebar-btn {
   background-color: #72368a;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-wisteria.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -489,7 +489,7 @@ THEME - Midnight
 }
 
 .board-color-midnight .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -497,7 +497,7 @@ THEME - Midnight
 .board-color-midnight input[type=submit].primary,
 .board-color-midnight .sidebar .sidebar-content .sidebar-btn {
   background-color: #233240;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-midnight.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -608,7 +608,7 @@ THEME - Pumpkin
 }
 
 .board-color-pumpkin .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -616,7 +616,7 @@ THEME - Pumpkin
 .board-color-pumpkin input[type=submit].primary,
 .board-color-pumpkin .sidebar .sidebar-content .sidebar-btn {
   background-color: #be6415;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-pumpkin.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -727,7 +727,7 @@ THEME - Moderate Pink
 }
 
 .board-color-moderatepink .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -735,7 +735,7 @@ THEME - Moderate Pink
 .board-color-moderatepink input[type=submit].primary,
 .board-color-moderatepink .sidebar .sidebar-content .sidebar-btn {
   background-color: #b53773;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-moderatepink.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -846,7 +846,7 @@ THEME - Strong Cyan
 }
 
 .board-color-strongcyan .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -854,7 +854,7 @@ THEME - Strong Cyan
 .board-color-strongcyan input[type=submit].primary,
 .board-color-strongcyan .sidebar .sidebar-content .sidebar-btn {
   background-color: #008ba3;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-strongcyan.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -965,7 +965,7 @@ THEME - Lime Green
 }
 
 .board-color-limegreen .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -973,7 +973,7 @@ THEME - Lime Green
 .board-color-limegreen input[type=submit].primary,
 .board-color-limegreen .sidebar .sidebar-content .sidebar-btn {
   background-color: #389d54;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-limegreen.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -1084,7 +1084,7 @@ THEME - Dark
 }
 
 .board-color-dark .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
   background-color: rgb(255 255 255 / 90%);
 }
@@ -1093,7 +1093,7 @@ THEME - Dark
 .board-color-dark input[type=submit].primary,
 .board-color-dark .sidebar .sidebar-content .sidebar-btn {
   background-color: #233241;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-dark.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -1261,7 +1261,7 @@ THEME - Dark
 .board-color-dark .open-minicard-composer:hover {
   background-color: rgba(255, 255, 255, 0.8) !important;
   color: #000;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-dark .minicard:hover .badge,
@@ -1327,7 +1327,7 @@ THEME - Relax
 }
 
 .board-color-relax .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -1335,7 +1335,7 @@ THEME - Relax
 .board-color-relax input[type=submit].primary,
 .board-color-relax .sidebar .sidebar-content .sidebar-btn {
   background-color: #1f8b4e;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 
 .board-color-relax.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -1434,7 +1434,7 @@ THEME - Relax
 .board-color-relax .minicard .badges .badge .badge-icon.badge-comment,
 .board-color-relax .minicard .badges .badge .badge-text.badge-comment {
   display: block;
-  border-radius: 4px;
+  border-radius: 0.4ch;
   color: #f00;
   background-color: #fff;
   font-weight: bold;
@@ -1477,7 +1477,7 @@ THEME - Corteza
   }
 
   .board-color-corteza .minicard {
-    border-radius: 7px;
+    border-radius: 0.6ch;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
   }
 
@@ -1485,7 +1485,7 @@ THEME - Corteza
   .board-color-corteza input[type=submit].primary,
   .board-color-corteza .sidebar .sidebar-content .sidebar-btn {
     background-color: #456f82;
-    border-radius: 7px;
+    border-radius: 0.6ch;
   }
 
   .board-color-corteza.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -1672,7 +1672,7 @@ THEME - Clear Blue
   border-left: none;
 }
 .board-color-clearblue .list.list-composer .open-list-composer {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   color: rgba(0,0,0,0.3);
   display: block;
 }
@@ -1694,7 +1694,7 @@ THEME - Clear Blue
 }
 }
 .board-color-clearblue .minicard {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
   color: #222;
 }
@@ -1703,7 +1703,7 @@ THEME - Clear Blue
   box-shadow: 0 0 7px 0 rgba(0,0,0,0.5);
 }
 .board-color-clearblue .list-body .open-minicard-composer {
-  border-radius: 7px;
+  border-radius: 0.6ch;
   color: rgba(0,0,0,0.3);
 }
 .board-color-clearblue .list-body .open-minicard-composer:hover {
@@ -1715,7 +1715,7 @@ THEME - Clear Blue
   box-shadow: none;
   background-color: rgba(255,255,255,0.5);
   color: rgba(0,0,0,0.55);
-  border-radius: 7px;
+  border-radius: 0.6ch;
   border: 0;
 }
 .board-color-clearblue button[type="submit"].primary:hover,
@@ -1723,7 +1723,7 @@ THEME - Clear Blue
   background-color: rgba(255,255,255,0.7);
   color: rgba(0,0,0,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 .board-color-clearblue .quiet,
 .board-color-clearblue .quiet a {
@@ -1742,13 +1742,13 @@ THEME - Clear Blue
 .board-color-clearblue a:not(.disabled):hover.fa,
 .board-color-clearblue a:not(.disabled):hover i.fa {
   color: rgba(0,0,0,0.6);
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 .board-color-clearblue input[type="email"],
 .board-color-clearblue input[type="password"],
 .board-color-clearblue input[type="text"] {
   border: 0;
-  border-radius: 7px;
+  border-radius: 0.6ch;
 }
 .board-color-clearblue .sidebar-shadow {
   box-shadow: none;
@@ -1841,7 +1841,7 @@ THEME - Natural
   }
 
   .board-color-natural .minicard {
-    border-radius: 7px;
+    border-radius: 0.6ch;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
   }
 
@@ -1849,7 +1849,7 @@ THEME - Natural
   .board-color-natural input[type=submit].primary,
   .board-color-natural .sidebar .sidebar-content .sidebar-btn {
     background-color: #475146;
-    border-radius: 7px;
+    border-radius: 0.6ch;
   }
 
   .board-color-natural.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -1973,7 +1973,7 @@ THEME - Modern
   }
 
   .board-color-modern .minicard {
-    border-radius: 7px;
+    border-radius: 0.6ch;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
   }
 
@@ -1988,7 +1988,7 @@ THEME - Modern
 
     button,
     input {
-      border-radius: 7px;
+      border-radius: 0.6ch;
     }
   }
 
@@ -2259,7 +2259,7 @@ THEME - Modern Dark
   }
 
   .board-color-moderndark .minicard {
-    border-radius: 7px;
+    border-radius: 0.6ch;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
   }
 
@@ -2267,7 +2267,7 @@ THEME - Modern Dark
   .board-color-moderndark input[type=submit].primary,
   .board-color-moderndark .sidebar .sidebar-content .sidebar-btn {
     background-color: #222;
-    border-radius: 7px;
+    border-radius: 0.6ch;
   }
 
   .board-color-moderndark.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -2351,7 +2351,7 @@ THEME - Modern Dark
   .board-color-moderndark button[type=submit].primary,
   .board-color-moderndark .board-color-modern input[type=submit].primary {
     background-color: #777;
-    border-radius: 7px;
+    border-radius: 0.6ch;
   }
 
   .board-color-moderndark .toggle-switch:checked~.toggle-label {
@@ -2367,7 +2367,7 @@ THEME - Modern Dark
   .board-color-moderndark input:not([type=file]),
   .board-color-moderndark select,
   .board-color-moderndark textarea {
-    border-radius: 7px;
+    border-radius: 0.6ch;
   }
 
   .board-color-moderndark#header {
@@ -2521,7 +2521,7 @@ THEME - Modern Dark
   .board-color-moderndark .list-body a.open-minicard-composer:hover i,
   .board-color-moderndark .list .list-composer .open-list-composer:hover i {
     color: #fff;
-    border-radius: 7px;
+    border-radius: 0.6ch;
   }
 
 
@@ -2732,7 +2732,7 @@ THEME - Exodark
   }
 
   .board-color-exodark .minicard {
-    border-radius: 7px;
+    border-radius: 0.6ch;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.15);
   }
 
@@ -2740,7 +2740,7 @@ THEME - Exodark
   .board-color-exodark input[type=submit].primary,
   .board-color-exodark .sidebar .sidebar-content .sidebar-btn {
     background-color: #1b1b1b;
-    border-radius: 7px;
+    border-radius: 0.6ch;
   }
 
   .board-color-exodark.pop-over .pop-over-list li a:not(.disabled):hover,
@@ -3091,7 +3091,7 @@ THEME - Clean Dark
 
   .board-color-cleandark .add-assignee:hover {
     background: #444455;
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleandark .add-checklist-top {
@@ -3119,7 +3119,7 @@ THEME - Clean Dark
     background: #009B64;
     width: min-content;
     color: #FFFFFF;
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleandark .card-details hr {
@@ -3154,7 +3154,7 @@ THEME - Clean Dark
 
   .board-color-cleandark .add-member:hover {
     background: #444455;
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleandark .add-member:hover i {
@@ -3167,7 +3167,7 @@ THEME - Clean Dark
 
   .board-color-cleandark .add-label:hover {
     background: #444455;
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleandark .add-label:hover i {
@@ -3325,7 +3325,7 @@ THEME - Clean Dark
   }
 
   .board-color-cleandark .card-details .check-box.materialCheckBox {
-    border-radius: 4px;
+    border-radius: 0.4ch;
     border: none;
     background: #393947;
   }
@@ -3348,7 +3348,7 @@ THEME - Clean Dark
   }
 
   .board-color-cleandark #cards .materialCheckBox {
-    border-radius: 4px;
+    border-radius: 0.4ch;
     border: none;
     background: #393947;
   }
@@ -3449,7 +3449,7 @@ THEME - Clean Light
   .board-color-cleanlight#header ul li:hover,
   .board-color-cleanlight#header-quick-access ul li:hover {
     background: rgba(190, 190, 190, 1) !important;
-    border-radius: 8px;
+    border-radius: 0.8ch;
     color: rgba(10, 10, 20, 0.5) !important;
   }
 
@@ -3558,14 +3558,14 @@ THEME - Clean Light
   .board-color-cleanlight .list-header-add:hover {
     background: rgba(227, 227, 230, 1);
     color: rgba(10, 10, 20, 1);
-    border-radius: 8px;
+    border-radius: 0.8ch;
     cursor: pointer;
   }
 
   .board-color-cleandark .list-header-add:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #FFFFFF;
-    border-radius: 8px;
+    border-radius: 0.8ch;
     cursor: pointer;
   }
 
@@ -3715,7 +3715,7 @@ THEME - Clean Light
 
   .board-color-cleanlight .add-assignee:hover {
     background: rgba(227, 227, 230, 1);
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleanlight .add-assignee:hover i {
@@ -3743,7 +3743,7 @@ THEME - Clean Light
     background: #009B64;
     width: min-content;
     color: #FFFFFF;
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleanlight .card-details hr {
@@ -3796,7 +3796,7 @@ THEME - Clean Light
 
   .board-color-cleanlight .add-member:hover {
     background: rgba(227, 227, 230, 1);
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleanlight .add-member:hover i {
@@ -3809,7 +3809,7 @@ THEME - Clean Light
 
   .board-color-cleanlight .add-label:hover {
     background: rgba(227, 227, 230, 1);
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleanlight .add-label:hover i {
@@ -3818,7 +3818,7 @@ THEME - Clean Light
 
   .board-color-cleanlight.pop-over .content kbd {
     background: rgba(180, 180, 180, 1);
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleanlight .full-name {
@@ -3994,7 +3994,7 @@ THEME - Clean Light
   }
 
   .board-color-cleanlight .card-details .check-box.materialCheckBox {
-    border-radius: 4px;
+    border-radius: 0.4ch;
     border: none;
     background: rgba(234, 234, 237, 1);
   }
@@ -4021,7 +4021,7 @@ THEME - Clean Light
   }
 
   .board-color-cleanlight #cards .materialCheckBox {
-    border-radius: 4px;
+    border-radius: 0.4ch;
     border: none;
     background: rgba(234, 234, 237, 1);
   }
@@ -4139,7 +4139,7 @@ THEME - Clean Light
   .board-color-cleandark .minicard .due-date,
   .board-color-cleanlight .card-details .card-date,
   .board-color-cleandark .card-details .card-date {
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleanlight .minicard .end-date,
@@ -4174,7 +4174,7 @@ THEME - Clean Light
   .board-color-cleanlight .card-details .current,
   .board-color-cleandark .card-details .current {
     background: #009B64;
-    border-radius: 8px;
+    border-radius: 0.8ch;
     color: rgba(255, 255, 255, 1) !important;
   }
 
@@ -4195,7 +4195,7 @@ THEME - Clean Light
   .board-color-cleanlight .card-details .due,
   .board-color-cleandark .card-details .due {
     background: #CC003A;
-    border-radius: 8px;
+    border-radius: 0.8ch;
     color: rgba(255, 255, 255, 1) !important;
   }
 
@@ -4233,7 +4233,7 @@ THEME - Clean Light
   .board-color-cleanlight .minicard .badges .badge.is-finished,
   .board-color-cleandark .minicard .badges .badge.is-finished {
     background: #009B64 !important;
-    border-radius: 8px;
+    border-radius: 0.8ch;
   }
 
   .board-color-cleanlight .minicard .badges .badge.is-finished .badge-icon {

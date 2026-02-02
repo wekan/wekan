@@ -118,6 +118,15 @@ body.list-resizing-active * {
   user-select: none !important;
 }
 
+
+body.mobile-mode {
+  .list-header:not(.open-list-composer) {
+    .list-header-name-container {
+      justify-content: start;
+    }
+  }
+}
+
 .list-header-add {
   display: flex;
   justify-content: center;
@@ -224,8 +233,7 @@ body.list-resizing-active * {
   display: flex;
   justify-content: center;
   min-width: 4ch;
-  font-size: 1.3em;
-  padding: 0.5lh 0;
+  padding-top: 0.5lh;
 }
 .list.list-auto-width {
   flex: 1;
@@ -422,7 +430,7 @@ body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
 .list-body .open-minicard-composer {
   display: flex;
   flex: 1;
-  border-radius: 4px;
+  border-radius: 0.4ch;
   justify-content: center;
   align-items: center;
   font-size: 1.4em;

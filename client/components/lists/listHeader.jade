@@ -8,7 +8,7 @@ template(name="listHeader")
       if isMiniScreen
         if currentList
           a.list-header-left-icon.js-unselect-list
-            i.fa.fa-caret-right
+            i.fa.fa-caret-left
         else
           //- start by this on mobile to have cohesion with other views
           a.list-header-menu-icon.js-select-list
@@ -30,11 +30,12 @@ template(name="listHeader")
               span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
         div.list-header-name-container
-          a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
-            if collapsed
-              i.fa.fa-caret-right
-            else
-              i.fa.fa-caret-down
+          unless isMiniScreen
+            a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
+              if collapsed
+                i.fa.fa-caret-right
+              else
+                i.fa.fa-caret-down
           div(class="{{#if collapsed}}list-rotated{{/if}}").list-header-wrap
             h2.list-header-name(
               title="{{ moment modifiedAt 'LLL' }}"
@@ -68,8 +69,6 @@ template(name="listHeader")
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
         else
-          a.list-header-menu-icon.js-select-list
-            i.fa.fa-caret-right
           unless currentUser.isWorker
             if isMiniScreen
               a.list-header-handle.handle.js-list-handle

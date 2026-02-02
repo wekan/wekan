@@ -7,6 +7,7 @@
 .reactions-popup {
   display: flex;
   gap: 1ch;
+  flex-wrap: wrap;
   margin: 0.5lh 0.5ch;
 }
 .reactions-popup .add-comment-reaction {

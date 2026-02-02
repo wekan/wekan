@@ -119,6 +119,10 @@ class PopupDetachedComponent extends BlazeComponent {
     return this.popupDims;
   }
 
+  isFullscreen() {
+    return this.fullscreen;
+  }
+
   maximize() {
     this.fullscreen = true;
     this.dims(this.computePopupDims());

@@ -1,5 +1,5 @@
 .global-search-board-wrapper {
-  border-radius: 8px;
+  border-radius: 0.8ch;
   min-width: min(100%, 400px);
   border-width: 8px;
   border-color: #808080;

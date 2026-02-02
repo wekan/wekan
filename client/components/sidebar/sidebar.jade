@@ -60,7 +60,7 @@ template(name="membersWidget")
   unless currentUser.isCommentOnly
     unless currentUser.isWorker
       h3
-        a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
+        a.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
           i.fa.fa-cog
           | {{_ 'boardMenuPopup-title'}}
   hr
@@ -635,6 +635,10 @@ template(name="boardMenuPopup")
           a.js-archive-board
             i.fa.fa-archive
             | {{_ 'archive-board'}}
+  //- this popup is the only one to not open
+  //- with correct size; related to issue linked above ?
+  //- artificially add a bit a space
+  div.invisible-line
 
 template(name="exportBoard")
   ul.pop-over-list

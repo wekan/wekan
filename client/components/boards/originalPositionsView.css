@@ -23,7 +23,7 @@
 .original-positions-content {
   background-color: white;
   border: 1px solid #dee2e6;
-  border-radius: 4px;
+  border-radius: 0.4ch;
   padding: 15px;
 }
 
@@ -65,7 +65,7 @@
 .original-position-item {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
-  border-radius: 4px;
+  border-radius: 0.4ch;
   margin-bottom: 10px;
   padding: 12px;
   transition: all 0.2s ease;

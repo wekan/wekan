@@ -36,7 +36,7 @@
 .migration-controls .btn {
   padding: 8px 16px;
 
-  border-radius: 4px;
+  border-radius: 0.4ch;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -72,7 +72,7 @@
 .migration-progress {
   background: #f8f9fa;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   margin-bottom: 30px;
   border-left: 4px solid #667eea;
 }
@@ -181,7 +181,7 @@
   max-height: 400px;
   overflow-y: auto;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 0.8ch;
 }
 
 .migration-step {
@@ -314,7 +314,7 @@
 .jobs-controls .btn {
   padding: 8px 16px;
 
-  border-radius: 4px;
+  border-radius: 0.4ch;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -337,7 +337,7 @@
   width: 100%;
   border-collapse: collapse;
   background: white;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -366,7 +366,7 @@
 
 .status-badge {
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 0.4ch;
 
   font-weight: 600;
   text-transform: uppercase;
@@ -481,7 +481,7 @@
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 0.4ch;
 
   transition: border-color 0.3s ease;
 }
@@ -505,7 +505,7 @@
 .form-actions .btn {
   padding: 10px 20px;
 
-  border-radius: 4px;
+  border-radius: 0.4ch;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -563,7 +563,7 @@
 .board-operations-controls .btn {
   padding: 8px 16px;
 
-  border-radius: 4px;
+  border-radius: 0.4ch;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -590,7 +590,7 @@
 .board-operations-stats {
   background: #f8f9fa;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   margin-bottom: 30px;
   border-left: 4px solid #667eea;
 }
@@ -622,7 +622,7 @@
 .system-resources {
   background: #f8f9fa;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   margin-bottom: 30px;
   border-left: 4px solid #28a745;
 }
@@ -701,7 +701,7 @@
 
 .board-operations-list {
   background: white;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -755,7 +755,7 @@
   color: #666;
   background: #f8f9fa;
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 0.4ch;
   display: inline-block;
 }
 
@@ -776,14 +776,14 @@
   flex: 1;
   height: 8px;
   background-color: #e0e0e0;
-  border-radius: 4px;
+  border-radius: 0.4ch;
   overflow: hidden;
 }
 
 .progress-container .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #667eea, #764ba2);
-  border-radius: 4px;
+  border-radius: 0.4ch;
   transition: width 0.3s ease;
 }
 
@@ -807,7 +807,7 @@
 .pagination .btn {
   padding: 6px 12px;
 
-  border-radius: 4px;
+  border-radius: 0.4ch;
   border: 1px solid #ddd;
   background: white;
   color: #333;
@@ -878,7 +878,7 @@
 #cron-setting .progress {
   height: 30px;
   background-color: #e9ecef;
-  border-radius: 4px;
+  border-radius: 0.4ch;
   overflow: visible;
   margin-bottom: 5px;
   max-width: calc(100% - 40px);
@@ -893,7 +893,7 @@
   font-size: 14px;
   text-align: center;
   transition: width 0.3s ease;
-  border-radius: 4px;
+  border-radius: 0.4ch;
 }
 
 #cron-setting .progress-text {

@@ -9,10 +9,9 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  /* it is the responsability of inner content to set their own max
-  dimensions */
   resize: both;
   pointer-events: all;
+  max-height: 100vh;
 
   .content-wrapper {
     width: auto;
@@ -29,8 +28,6 @@
     flex-direction: column;
     width: auto;
     height: auto;
-    /* A default for "old" popups; could use a variable in the future ?*/
-    gap: 0.3lh;
   }
 }
 
@@ -54,7 +51,7 @@
   justify-content: space-between;
   gap: 1ch;
   align-items: center;
-  padding: 0.5rlh 0.8rlh;
+  padding: 0 1ch;
   background: #f7f7f7;
   border-bottom: 1px solid #dcdcdc;
   color: #666;
@@ -90,6 +87,7 @@
 
 .pop-over:has(.header) .content {
   padding: 1vmin;
+  overflow-y: auto;
 }
 
 .popup-placeholder {

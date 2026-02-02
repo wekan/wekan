@@ -397,6 +397,10 @@ kbd {
 .invisible {
   visibility: hidden;
 }
+.invisible-line {
+  height: 1.3lh;
+  visibility: hidden;
+}
 .wrapword {
   overflow-wrap: break-word;
 }
@@ -488,7 +492,7 @@ a:not(.disabled).is-active i.fa {
   fitting the available space and cutting after N lines, whatever
   is the text's length */
   min-width: 0;
-  &:not(:has(p)), p, time {
+  &:not(:has(time)), p {
     margin: 0;
     padding: 0;
     text-overflow: ellipsis;
@@ -496,7 +500,7 @@ a:not(.disabled).is-active i.fa {
 
     /* See https: //css-tricks.com/line-clampin/,
     it is widely supported and waiting standardization https: //caniuse.com/?search=-webkit-line-clamp */
-    display: -webkit-box;
+    display: -webkit-box !important;
     /* 0 has no effect; ensures will not interfere unless asked */
     -webkit-line-clamp: var(--overflow-lines, 0);
     -webkit-box-orient: vertical;

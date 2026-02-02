@@ -15,7 +15,7 @@
 
 .migration-progress-modal {
   background: white;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   max-width: 500px;
   width: 90%;
@@ -128,7 +128,7 @@
 
 .migration-progress-step-bar {
   background: #e9ecef;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   height: 8px;
   overflow: hidden;
   margin-bottom: 5px;
@@ -137,7 +137,7 @@
 .migration-progress-step-fill {
   background: linear-gradient(90deg, #007bff, #0056b3);
   height: 100%;
-  border-radius: 8px;
+  border-radius: 0.8ch;
   transition: width 0.3s ease;
 }
 
@@ -285,7 +285,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  border-radius: 4px;
+  border-radius: 0.4ch;
 }
 
 .migration-spinner {

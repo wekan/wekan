@@ -163,7 +163,7 @@
     display: flex;
     text-decoration: none;
     color: #fff;
-    border-radius: 4px;
+    border-radius: 0.4ch;
     transition: background-color 0.2s ease;
     gap: 0.3ch;
   }

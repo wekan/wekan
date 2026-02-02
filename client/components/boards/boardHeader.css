@@ -86,16 +86,21 @@ body.mobile-mode {
   header-board-menu h1 {
     font-size: 2em;
   }
-  & .board-header-btns-right {
+  .board-header-btn {
+    /* avoid wrapping if possible, at the cost of little icons */
+    font-size: 0.5em;
+    /* no much choice because the way FA icons are inserted */
+    padding-top: 0.1lh;
+    min-height: 0.8lh;
+  }
+  .board-header-btns-right {
     display: flex;
     align-self: end;
     flex: 1;
     gap: 1ch;
-    justify-content: space-around;
-    align-items: stretch;
-    & a {
-      font-size: 0.8em;
-    }
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 .board-header-btns-left {
