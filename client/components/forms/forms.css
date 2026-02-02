@@ -139,7 +139,10 @@ button {
   display: inline-block;
   font-weight: 700;
   line-height: 1.3;
-  padding: 1vh 2.5vw;
+  /* in flex layouts, padding often disturbs computations. rather rarely have
+  two lines, so setting relative-unit min-height works better */
+  min-height: 2lh;
+  padding: 0 2ch;
   text-align: center;
   color: #fff;
 }
