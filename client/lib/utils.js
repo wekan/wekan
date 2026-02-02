@@ -743,6 +743,55 @@ Utils = {
       });
     }
   },
+  coalesceSearch(root, queries, fallbackSel) {
+    // a little helper to chain jQuery lookups
+    // use with arg like [{func: "closest", sels: [".whatever"...]}...]
+    root = $(root);
+    for ({func, sels} of queries) {
+      for (sel of sels) {
+        res = root[func](sel);
+        if (res.length) {
+          return res;
+        }
+      }
+    }
+    return $(fallbackSel);
+  },
+
+  scrollIfNeeded(event) {
+    // helper used when dragging either cards or lists
+    const xFactor = 5;
+    const yFactor = Utils.isMiniScreen() ? 5 : 10;
+    const limitX = window.innerWidth / xFactor;
+    const limitY = window.innerHeight / yFactor;
+    const componentScrollX = this.coalesceSearch(event.target, [{
+        func: "closest",
+        sels: [".swimlane-container", ".swimlane.js-lists", ".board-canvas"]
+      }
+    ], ".board-canvas");
+    let scrollX = 0;
+    let scrollY = 0;
+    if (event.clientX < limitX) {
+      scrollX = -limitX;
+    } else if (event.clientX > (xFactor - 1) * limitX) {
+      scrollX = limitX;
+    }
+    if (event.clientY < limitY) {
+      scrollY = -limitY;
+    } else if (event.clientY > (yFactor - 1) * limitY) {
+      scrollY = limitY;
+    }
+    window.scrollBy({ top: scrollY, behavior: "smooth" });
+    componentScrollX[0].scrollBy({ left: scrollX, behavior: "smooth" });
+  },
+
+  shouldIgnorePointer(event) {
+    // handle jQuery and native events
+    if (event.originalEvent) {
+      event = event.originalEvent;
+    }
+    return !(event.isPrimary && (event.pointerType !== 'mouse' || event.button === 0));
+  },
 };
 
 
