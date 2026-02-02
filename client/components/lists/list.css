@@ -204,8 +204,7 @@ body.list-resizing-active * {
 
 /* Position drag handle at top-right corner for ALL lists */
 .list-header .list-header-handle {
-  /* Ensure it's above other elements */
-  z-index: 10 !important;
+  align-self: end;
   /* Ensure it's clickable and shows proper cursor */
   cursor: move !important;
   pointer-events: auto !important;
@@ -350,7 +349,7 @@ body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
 }
 .list-header .cardCount {
   color: #8c8c8c;
-  font-size: 0.7em;
+  font-size: 0.9em;
   font-weight: normal;
   text-wrap: nowrap;
 }
@@ -381,9 +380,6 @@ body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
   }
 }
 .mobile-view {
-  .list-header, .list-body {
-    font-size: 0.8em;
-  }
   .list-body {
     flex: 1 0;
     overflow-y: scroll;

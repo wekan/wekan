@@ -29,6 +29,8 @@
     flex-direction: column;
     width: auto;
     height: auto;
+    /* A default for "old" popups; could use a variable in the future ?*/
+    gap: 0.3lh;
   }
 }
 
@@ -42,7 +44,7 @@
 .pop-over input[type="password"],
 .pop-over input[type="file"] {
   display: flex;
-  flex: 1;
+  flex-shrink: 0;
 }
 .pop-over .sub-name {
   max-width: clamp(30vw, 500px, 80%);
@@ -210,7 +212,7 @@ body.mobile-mode  {
   padding-left: 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 1.2lh;
+  grid-auto-rows: 1.5lh;
 }
 
 /* Color palette items: ensure proper positioning */
@@ -352,4 +354,8 @@ body.mobile-mode  {
 /* Grey check icons when grey icons setting is enabled */
 body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
   color: #7a7a7a;
+}
+
+.pop-over .content > form {
+  padding: 0 1ch;
 }

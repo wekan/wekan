@@ -16,12 +16,14 @@ Later it could be useful to use a CSS superset */
   &:has(body.desktop-mode) {
     font-size: clamp(1rem, 1.68rem + -0.57vw, 1.4rem);
     --quick-header-scale: clamp(0.8rem, 0.6rem + 0.4vw, 1.2rem);
+    --list-item-size: 1.2em;
   }
 
   &:has(body.mobile-mode) {
-    font-size: clamp(1.818rem, 2.4vw + 1.4rem, 2.273rem);
+    font-size: clamp(2.5rem, 3vw + 1.7rem, 3.5rem);
     --quick-header-scale: 1.3em;
     --header-scale: clamp(1rem, -0.5vw + 1.25rem, 1.125rem);
+    --list-item-size: 1.6em;
   }
 }
 
@@ -273,7 +275,7 @@ blockquote {
   padding: 0 0 0 1vw;
 }
 hr {
-  height: 1px;
+  height: 0.2ch;
   border: 0;
   border: none;
   width: 100%;
@@ -472,7 +474,8 @@ a:not(.disabled).is-active i.fa {
 .viewer {
   min-height: 2.5vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: center;
   /* a tentative to get layout less dependant of content,
   especially for small elements e.g. labels: the goal is that
@@ -485,7 +488,7 @@ a:not(.disabled).is-active i.fa {
   fitting the available space and cutting after N lines, whatever
   is the text's length */
   min-width: 0;
-  &, p, time {
+  &:not(:has(p)), p, time {
     margin: 0;
     padding: 0;
     text-overflow: ellipsis;
@@ -494,8 +497,10 @@ a:not(.disabled).is-active i.fa {
     /* See https: //css-tricks.com/line-clampin/,
     it is widely supported and waiting standardization https: //caniuse.com/?search=-webkit-line-clamp */
     display: -webkit-box;
-    -webkit-line-clamp: var(--overflow-lines, 1);
+    /* 0 has no effect; ensures will not interfere unless asked */
+    -webkit-line-clamp: var(--overflow-lines, 0);
     -webkit-box-orient: vertical;
+    -webkit-align-items: center;
     /* grid properties apply */
     align-content: center;
     word-break: break-word;
@@ -796,9 +801,6 @@ a:not(.disabled).is-active i.fa {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-}
-.auth-layout .auth-dialog {
-  margin: 0 !important;
 }
 .loadingText {
   text-align: center;

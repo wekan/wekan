@@ -61,6 +61,13 @@ body {
     }
   }
 }
+
+/* Make some space on intermediate layouts */
+@media screen and (max-width: 1200px) {
+  .board-header-btns-right span {
+    display: none !important;
+  }
+}
 .header-board-menu, .board-header-btns {
   display: flex;
   align-self: center;

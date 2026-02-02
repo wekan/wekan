@@ -44,15 +44,15 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
     let currentOptions = this.getDialogOptions();
     if (currentOptions && boardId && currentOptions[boardId]) {
       this.cardOption = currentOptions[boardId];
-}
-      if (this.cardOption.boardId &&
-          this.cardOption.swimlaneId &&
-          this.cardOption.listId
-      )       {
-        this.selectedBoardId.set(this.cardOption.boardId)
-        this.selectedSwimlaneId.set(this.cardOption.swimlaneId);
-        this.selectedListId.set(this.cardOption.listId);
-          }
+    }
+    if (this.cardOption.boardId &&
+      this.cardOption.swimlaneId &&
+      this.cardOption.listId
+    ) {
+      this.selectedBoardId.set(this.cardOption.boardId)
+      this.selectedSwimlaneId.set(this.cardOption.swimlaneId);
+      this.selectedListId.set(this.cardOption.listId);
+    }
     this.getBoardData(this.selectedBoardId.get());
     if (this.selectedSwimlaneId.get() || ReactiveCache.getSwimlane({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstSwimlaneId();
@@ -218,4 +218,3 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
     ];
   }
 }
-

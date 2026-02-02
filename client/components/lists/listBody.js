@@ -234,7 +234,8 @@ BlazeComponent.extendComponent({
     evt.preventDefault();
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
-    const textarea = $(evt.currentTarget).find('textarea');
+    // more robust to start from the form
+    const textarea = $(evt.currentTarget).closest('.inlined-form').find('textarea');
     const position = this.currentData().position;
     const title = $(textarea).val().trim();
 
@@ -320,7 +321,6 @@ BlazeComponent.extendComponent({
 
       // We keep the form opened, empty it, and scroll to it.
       textarea.val('').focus();
-      autosize.update(textarea);
       if (position === 'bottom') {
         this.scrollToBottom();
       }
@@ -565,8 +565,6 @@ BlazeComponent.extendComponent({
   onRendered() {
     const editor = this;
     const $textarea = this.$('textarea');
-
-    autosize($textarea);
 
     $textarea.escapeableTextComplete(
       [
@@ -943,11 +941,7 @@ BlazeComponent.extendComponent({
     } else if (this.isSwimlaneTemplateSearch) {
       return board.searchSwimlanes(this.term.get());
     } else if (this.isBoardTemplateSearch) {
-      const boards = board.searchBoards(this.term.get());
-      boards.forEach(board => {
-        subManager.subscribe('board', board.linkedId, false);
-      });
-      return boards;
+      return board.searchBoards(this.term.get());
     } else {
       return [];
     }

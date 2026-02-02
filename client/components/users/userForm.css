@@ -2,15 +2,24 @@
   display: grid;
   gap: 1lh;
   align-content: stretch;
-  justify-content: center;
+  justify-items: center;
   padding: 2lh 0;
   margin: auto;
   grid-template-columns: minmax(30vw, 600px);
   grid-template-rows: 20vh max-content auto;
+  min-width: fit-content;
 }
 
-auth-logo {
-  grid-area: logo;
+body.mobile-mode .auth-container {
+  grid-template-columns: auto;
+  margin: 10vw;
+}
+
+body.mobile-mode:has(.auth-container) {
+  min-width: fit-content;
+}
+
+.auth-logo {
   flex: 1;
 }
 
@@ -29,10 +38,13 @@ auth-logo {
 
 .auth-layout {
   &.at-form-landing-logo, &.auth-logo {
-      display: flex;
-      justify-content: stretch;
-
+    display: flex;
+    justify-content: stretch;
   }
+}
+
+.auth-dialog {
+  min-width: max-content;
 }
 
 .auth-layout .auth-dialog {

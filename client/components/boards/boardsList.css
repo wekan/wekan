@@ -119,8 +119,10 @@ body.mobile-mode .boards-layout {
 .workspace-node-content {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px;
+  gap: 2ch;
+  justify-content: end;
+  flex: 1;
+  padding: 0.3lh 1ch 0 2ch;
   border-radius: 4px;
   transition: background-color 0.2s;
 }
@@ -383,6 +385,7 @@ body.mobile-mode .boards-layout {
   }
   .board-list-item {
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
     gap: 1ch;
@@ -402,6 +405,7 @@ body.mobile-mode .boards-layout {
   display: flex;
   flex-direction: column;
   align-self: center;
+  font-size: var(--list-item-size);
 }
 
 .board-list .board-list-item .board-card-footer {
@@ -436,7 +440,7 @@ body.mobile-mode .boards-layout {
   font-weight: normal;
   display: flex;
   align-items: center;
-  justif-content: center;
+  font-size: var(--list-item-size);
   font-weight: bold;
   justify-content: center;
   background-color: #999; /* Darker background for better text contrast */
@@ -700,95 +704,7 @@ body.grey-icons-enabled .checkmark-no-grey {
   font-family: inherit !important;
 }
 
-@media screen and (max-width: 800px),
-       screen and (max-device-width: 800px),
-       screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
-       screen and (max-width: 800px) and (orientation: portrait),
-       screen and (max-width: 800px) and (orientation: landscape),
-       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  .board-list {
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin: 0;
-  }
 
-  .board-list .board-list-item-sub-name {
-    position: relative;
-    top: -100px;
-    left: -100px;
-  }
-
-  .board-list .board-handle:hover {
-    background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
-  }
-}
-/* Very small screens - ensure one board per row */
-@media screen and (max-width: 360px) {
-  .board-list li {
-    float: none !important;
-    display: block !important;
-  }
-}
-
-/* iPhone 12 Mini and very small screens - make everything much larger */
-@media screen and (max-width: 400px) and (max-height: 900px) {
-  .board-list {
-    height: calc(100vh - 120px) !important;
-    overflow-y: scroll !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    padding: 0 0.5rem;
-  }
-
-  .board-list li {
-    float: none !important;
-    display: block !important;
-    margin-bottom: 1.5rem !important;
-  }
-
-  .board-list .board-list-item {
-    height: 12rem !important; /* Much taller */
-    margin: 0 !important;
-    padding: 1rem !important; /* More padding */
-    line-height: 1.4 !important;
-  }
-
-  .board-list .board-handle:hover {
-    background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
-  }
-
-  /* Force scrollbar to be visible and larger */
-  .board-list::-webkit-scrollbar {
-    width: 16px !important; /* Much wider scrollbar */
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  .board-list::-webkit-scrollbar-track {
-    background: #f1f1f1 !important;
-    border-radius: 8px !important;
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  .board-list::-webkit-scrollbar-thumb {
-    background: #666 !important; /* Darker for better visibility */
-    border-radius: 8px !important;
-    display: block !important;
-    visibility: visible !important;
-    min-height: 50px !important; /* Minimum thumb size */
-  }
-
-  .board-list::-webkit-scrollbar-thumb:hover {
-    background: #333 !important;
-  }
-
-  /* Ensure scrollbar is always visible */
-  .board-list {
-    scrollbar-gutter: stable;
-    scrollbar-width: auto !important;
-  }
-}
 .AllBoardTeamsOrgs {
   list-style-type: none;
   overflow: hidden;

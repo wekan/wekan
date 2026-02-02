@@ -3016,7 +3016,7 @@ if (Meteor.isServer) {
       // get all boards where the user is member of
       let boards = ReactiveCache.getBoards(
         {
-          type: 'board',
+          type: {$in: ['board', 'template-container']},
           'members.userId': req.userId,
         },
         {

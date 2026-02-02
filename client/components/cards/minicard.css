@@ -1,7 +1,7 @@
 .minicard-body {
   display: flex;
   flex-direction: column;
-  padding: 0 1ch 0.1lh 1ch;
+  padding: 0 1ch 0.2lh 1ch;
   gap: 0.2lh;
 }
 

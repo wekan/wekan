@@ -56,7 +56,7 @@ template(name="minicard")
         if isMiniScreen
           if canMoveCard
             .handle
-              | ↕️
+              i.fa.fa-arrows
     hr
     .minicard-body
       if cover
@@ -198,8 +198,7 @@ template(name="minicard")
               .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
                 span.badge-icon
                   i.fa.fa-check
-                span.badge-text.check-list-text
-                {{checklistFinishedCount}}/{{checklistItemCount}}
+                span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
           if allSubtasks.count
             if allowsSubtasks
               .badge

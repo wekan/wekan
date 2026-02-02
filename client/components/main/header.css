@@ -52,8 +52,8 @@
   margin: 0 10px;
 }
 #header #header-main-bar .board-header-btn i.fa + span {
-  display: inline-block;
-  margin-top: 1px;
+  display: flex;
+  align-items: center;
   margin-right: 10px;
 }
 #header #header-main-bar .board-header-btn .board-header-btn-close {

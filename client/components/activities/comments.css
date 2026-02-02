@@ -101,7 +101,7 @@
   gap: 0.3lh;
 }
 .comments .comment .comment-desc .comment-text {
-  display: block;
+  display: flex;
   border-radius: 3px;
   background: #fff;
   text-decoration: none;
