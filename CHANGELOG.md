@@ -24,6 +24,15 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Fixed text truncation at quick-access board link bar](https://github.com/wekan/wekan/pull/6121).
+  Thanks to KhaoulaMaleh.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.27 2026-01-31 WeKan ® release
 
 This release adds the following updates:
