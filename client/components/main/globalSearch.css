@@ -89,6 +89,13 @@
   font-family: Courier;
   font-style: italic;
 }
+
+.lists-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1ch 0.3lh;
+
+}
 code {
   color: #000;
   background-color: #d3d3d3;
