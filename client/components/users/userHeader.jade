@@ -16,96 +16,115 @@ template(name="memberMenuPopup")
     with currentUser
       li
         a.js-toggle-grey-icons(href="#")
-          i.fa.fa-paint-brush
-          | {{_ 'grey-icons'}}
+          span
+            i.fa.fa-paint-brush
+            | {{_ 'grey-icons'}}
           if currentUser.profile
             if currentUser.profile.GreyIcons
               i.fa.fa-check
       li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
-          i.fa.fa-list
-          | {{_ 'my-cards'}}
+          span
+            i.fa.fa-list
+            | {{_ 'my-cards'}}
       li
         a.js-due-cards(href="{{pathFor 'due-cards'}}")
-          i.fa.fa-calendar
-          | {{_ 'dueCards-title'}}
+          span
+            i.fa.fa-calendar
+            | {{_ 'dueCards-title'}}
       li
         a.js-global-search(href="{{pathFor 'global-search'}}")
-          i.fa.fa-search
-          | {{_ 'globalSearch-title'}}
+          span
+            i.fa.fa-search
+            | {{_ 'globalSearch-title'}}
       li
         a(href="{{pathFor 'home'}}")
-          i.fa.fa-home
-          | {{_ 'all-boards'}}
+          span
+            i.fa.fa-home
+            | {{_ 'all-boards'}}
       li
         a(href="{{pathFor 'public'}}")
-          i.fa.fa-globe
-          | {{_ 'public'}}
+          span
+            i.fa.fa-globe
+            | {{_ 'public'}}
       li
         a.board-header-btn.js-open-archived-board
-          i.fa.fa-archive
-          span {{_ 'archives'}}
+          span
+            i.fa.fa-archive
+            | {{_ 'archives'}}
       li
         a.js-notifications-drawer-toggle
-          i.fa.fa-bell
-          | {{_ 'notifications'}}
+          span
+            i.fa.fa-bell
+            | {{_ 'notifications'}}
       if currentSetting.customHelpLinkUrl
         li
           a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
-            i.fa.fa-question-circle
-            | {{_ 'help'}}
+            span
+              i.fa.fa-question-circle
+              | {{_ 'help'}}
       unless currentUser.isWorker
         ul.pop-over-list
           li
             a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
-              i.fa.fa-list
-              | {{_ 'templates'}}
+              span
+                i.fa.fa-list
+                | {{_ 'templates'}}
       if currentUser.isAdmin
         li
           a.js-go-setting(href="{{pathFor 'setting'}}")
-            i.fa.fa-lock
-            | {{_ 'admin-panel'}}
+            span
+              i.fa.fa-lock
+              | {{_ 'admin-panel'}}
       hr
       if isSameDomainNameSettingValue
         li
           a.js-invite-people
-            i.fa.fa-envelope
-            | {{_ 'invite-people'}}
+            span
+              i.fa.fa-envelope
+              | {{_ 'invite-people'}}
       if isNotOAuth2AuthenticationMethod
         li
           a.js-edit-profile
-            i.fa.fa-user
-            | {{_ 'edit-profile'}}
+            span
+              i.fa.fa-user
+              | {{_ 'edit-profile'}}
       li
         a.js-change-settings
-          i.fa.fa-cog
-          | {{_ 'change-settings'}}
+          span
+            i.fa.fa-cog
+            | {{_ 'change-settings'}}
       li
         a.js-change-avatar
-          i.fa.fa-picture-o
-          | {{_ 'edit-avatar'}}
+          span
+            i.fa.fa-picture-o
+            | {{_ 'edit-avatar'}}
       unless isSandstorm
         if isNotOAuth2AuthenticationMethod
           li
             a.js-change-password
-              i.fa.fa-key
-              | {{_ 'changePasswordPopup-title'}}
+              span
+                i.fa.fa-key
+                | {{_ 'changePasswordPopup-title'}}
       li
         a.js-change-language
-          i.fa.fa-flag
-          | {{_ 'changeLanguagePopup-title'}}
+          span
+            i.fa.fa-flag
+            | {{_ 'changeLanguagePopup-title'}}
       if isSupportPageEnabled
         li
           a(href="{{pathFor 'support'}}")
-            i.fa.fa-question-circle
-            | {{_ 'support'}}
+            span
+              i.fa.fa-question-circle
+              | {{_ 'support'}}
   unless isSandstorm
-    hr
     ul.pop-over-list
+      hr
       li
         a.js-logout
-          i.fa.fa-sign-out
-          | {{_ 'log-out'}}
+          span
+            i.fa.fa-sign-out
+            | {{_ 'log-out'}}
 
 template(name="invitePeoplePopup")
   ul#registration-setting.setting-detail
@@ -135,7 +154,7 @@ template(name="editProfilePopup")
   form
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=profile.fullname autofocus)
+      input.js-profile-fullname(type="text" value=profile.fullname )
     label
       | {{_ 'username'}}
       span.error.hide.username-taken
