@@ -195,13 +195,6 @@
   "boards": "Borden",
   "board-view": "Bord overzicht",
   "desktop-mode": "Desktop Modus",
-  "mobile-mode": "Telefoon Modus",
-  "mobile-desktop-toggle": "Schakel tussen Telefoon en Desktop Modus",
-  "zoom-in": "Zoom In",
-  "zoom-out": "Zoom Uit",
-  "click-to-change-zoom": "Klik om zoom niveau te wijzigen",
-  "zoom-level": "Zoom Niveau",
-  "enter-zoom-level": "Voer zoom niveau in (50-300%)",
   "board-view-cal": "Kalender",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Inklappen",
@@ -385,7 +378,7 @@
   "date": "Datum",
   "date-format": "Datumformaat",
   "date-format-yyyy-mm-dd": "JJJJ-MM-DD",
-  "date-format-dd-mm-yyyy": "DD-MM-JJJJ", 
+  "date-format-dd-mm-yyyy": "DD-MM-JJJJ",
   "date-format-mm-dd-yyyy": "MM-DD-JJJJ",
   "decline": "Weigeren",
   "default-avatar": "Standaard avatar",
@@ -1507,7 +1500,7 @@
   "run-fix-avatar-urls-migration-confirm": "Dit werkt alle avatar URL's van de bord-leden bij naar de juiste opslagmethode. Doorgaan?",
   "run-fix-all-file-urls-migration-confirm": "dit werkt alle bestandsbijlagen URL's bij naar de juiste opslagmethode. Doorgaan?",
   "restore-lost-cards-nothing-to-restore": "Geen verloren swinmlanes, lijsten of kaarten om te herstellen",
-  
+
   "migration-progress-title": "Bord Migratie in Uitvoering",
   "migration-progress-overall": "Algehele Voortgang",
   "migration-progress-current-step": "Huidige Stap",
@@ -1517,7 +1510,7 @@
   "steps": "stappen",
   "view": "Toon",
   "has-swimlanes": "Heeft Swimlanes",
-  
+
   "step-analyze-board-structure": "Bordstructuur Analyseren",
   "step-fix-orphaned-cards": "Repareer Verweesde Kaarten",
   "step-convert-shared-lists": "Converteer Gedeelde Lijsten",

@@ -195,13 +195,6 @@
   "boards": "看板",
   "board-view": "看板檢視",
   "desktop-mode": "桌面模式",
-  "mobile-mode": "行動裝置模式",
-  "mobile-desktop-toggle": "在行動裝置與桌面模式間切換",
-  "zoom-in": "放大",
-  "zoom-out": "縮小",
-  "click-to-change-zoom": "點選以變更縮放層級",
-  "zoom-level": "縮放層級",
-  "enter-zoom-level": "輸入縮放層級 (50-300%)：",
   "board-view-cal": "日曆",
   "board-view-swimlanes": "泳道",
   "board-view-collapse": "折疊",
@@ -385,7 +378,7 @@
   "date": "日期",
   "date-format": "日期格式",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
-  "date-format-dd-mm-yyyy": "DD-MM-YYYY", 
+  "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",
   "decline": "拒絕",
   "default-avatar": "預設大頭照",
@@ -1507,7 +1500,7 @@
   "run-fix-avatar-urls-migration-confirm": "這將會更新看板成員的大頭照 URL 以使用正確的儲存空間後端。要繼續嗎？",
   "run-fix-all-file-urls-migration-confirm": "這將會更新此看板上的所有檔案附件 URL 以使用正確的儲存空間後端。要繼續嗎？",
   "restore-lost-cards-nothing-to-restore": "沒有需要還原的遺失泳道、清單或卡片",
-  
+
   "migration-progress-title": "正在進行看板遷移",
   "migration-progress-overall": "整體進度",
   "migration-progress-current-step": "目前步驟",
@@ -1517,7 +1510,7 @@
   "steps": "步進",
   "view": "檢視",
   "has-swimlanes": "有泳道",
-  
+
   "step-analyze-board-structure": "分析看板結構",
   "step-fix-orphaned-cards": "修復孤立卡片",
   "step-convert-shared-lists": "轉換共享清單",

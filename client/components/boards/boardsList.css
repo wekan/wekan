@@ -1,7 +1,7 @@
 @import url("../../../css/reset.css") print, screen;
 
-/* Board List Header with Zoom Controls */
-.board-list-header {
+/* Board List Header */
+.board-list-header:not(:empty) {
   display: flex;
   justify-content: center;
   margin: 1vh 0 2vh 0;
@@ -275,77 +275,20 @@
   background: #d32f2f;
 }
 
-.zoom-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5vw;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 0.5vh 1vw;
-  border-radius: 0.5vw;
-  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
+.board-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+  grid-auto-rows: 5lh;
+  gap: 0.5lh 0.5lh;
+  align-items: start;
 }
 
-.zoom-controls .board-header-btn {
-  padding: 0.5vh 0.8vw !important;
-  border-radius: 0.3vw !important;
-  background: #fff !important;
-  border: 1px solid #000 !important;
-  transition: all 0.2s ease !important;
-  text-decoration: none !important;
-  color: #000 !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.3vw !important;
-  height: auto !important;
-  line-height: normal !important;
-  margin: 0 !important;
-  float: none !important;
-  overflow: visible !important;
+.board-list .details {
+  height: fit-content;
 }
 
-.zoom-controls .board-header-btn i {
-  color: #000 !important;
-  float: none !important;
-  display: inline !important;
-  line-height: normal !important;
-  margin: 0 !important;
-}
-
-.zoom-controls .board-header-btn:hover {
-  background: #000 !important;
-  border-color: #000 !important;
-  color: #fff !important;
-}
-
-.zoom-controls .board-header-btn:hover i {
-  color: #fff !important;
-}
-
-.zoom-controls .board-header-btn.is-active {
-  background: #0079bf;
-  color: white;
-  border-color: #005a8a;
-}
-
-.zoom-controls .board-header-btn.is-active i {
-  color: white;
-}
-
-.zoom-level {
-  font-weight: bold;
-  color: #333;
-  min-width: 3vw;
-  text-align: center;
-  font-size: clamp(12px, 2vw, 14px);
-  cursor: pointer;
-  padding: 0.3vh 0.5vw;
-  border-radius: 0.3vw;
-  transition: all 0.2s ease;
-}
-
-.zoom-level:hover {
-  background: #f0f0f0;
-  color: #000;
+.board-list .board-list-item-name .viewer {
+  min-height: 0;
 }
 
 .board-list {

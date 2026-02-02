@@ -57,14 +57,6 @@ Template.header.helpers({
     return announcements && announcements.body;
   },
 
-  zoomLevel() {
-    const sessionZoom = Session.get('wekan-zoom-level');
-    if (sessionZoom !== undefined) {
-      return Math.round(sessionZoom * 100);
-    }
-    return Math.round(Utils.getZoomLevel() * 100);
-  },
-
   mobileMode() {
     const sessionMode = Session.get('wekan-mobile-mode');
     if (sessionMode !== undefined) {
@@ -76,51 +68,6 @@ Template.header.helpers({
 
 Template.header.events({
   'click .js-create-board': Popup.open('headerBarCreateBoard'),
-  'click .js-zoom-level-click'(evt) {
-    const $zoomDisplay = $(evt.currentTarget).find('.zoom-display');
-    const $zoomInput = $(evt.currentTarget).find('.zoom-input');
-
-    // Hide display, show input
-    $zoomDisplay.hide();
-    $zoomInput.show().focus().select();
-  },
-
-  'keypress .js-zoom-input'(evt) {
-    if (evt.which === 13) {
-      // Enter key
-      const newZoomPercent = parseInt(evt.target.value);
-
-      if (
-        !isNaN(newZoomPercent) &&
-        newZoomPercent >= 50 &&
-        newZoomPercent <= 300
-      ) {
-        const newZoom = newZoomPercent / 100;
-        Utils.setZoomLevel(newZoom);
-
-        // Hide input, show display
-        const $zoomDisplay = $(evt.target).siblings('.zoom-display');
-        const $zoomInput = $(evt.target);
-        $zoomInput.hide();
-        $zoomDisplay.show();
-      } else {
-        alert('Please enter a zoom level between 50% and 300%');
-        evt.target.focus().select();
-      }
-    }
-  },
-
-  'blur .js-zoom-input'(evt) {
-    // When input loses focus, hide it and show display
-    const $zoomDisplay = $(evt.target).siblings('.zoom-display');
-    const $zoomInput = $(evt.target);
-    $zoomInput.hide();
-    $zoomDisplay.show();
-  },
-  'click .js-mobile-mode-toggle'() {
-    const currentMode = Utils.getMobileMode();
-    Utils.setMobileMode(!currentMode);
-  },
   'click .js-open-bookmarks'(evt) {
     // Already added but ensure single definition -- safe guard
   },

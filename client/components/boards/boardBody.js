@@ -195,7 +195,7 @@ BlazeComponent.extendComponent({
     }
   },
   onRendered() {
-    // Initialize user settings (zoom and mobile mode)
+    // Initialize user settings (mobile mode)
     Utils.initializeUserSettings();
 
     // Detect iPhone devices and add class for better CSS targeting

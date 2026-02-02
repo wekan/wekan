@@ -195,13 +195,6 @@
   "boards": "Tavlor",
   "board-view": "Tavelvy",
   "desktop-mode": " Skrivbordsläge",
-  "mobile-mode": " Mobilläge",
-  "mobile-desktop-toggle": " Växla mellan mobilläge och skrivbordsläge",
-  "zoom-in": "Zooma in",
-  "zoom-out": "Zooma ut",
-  "click-to-change-zoom": " Klicka för att ändra zoomnivå",
-  "zoom-level": " Zoomnivå",
-  "enter-zoom-level": " Ange zoomnivå (50-300%):",
   "board-view-cal": "Kalender",
   "board-view-swimlanes": "Simbanor",
   "board-view-collapse": "Fäll ihop",
@@ -385,7 +378,7 @@
   "date": "Datum",
   "date-format": "Datumformat",
   "date-format-yyyy-mm-dd": "ÅÅÅÅ-MM-DD",
-  "date-format-dd-mm-yyyy": "DD-MM-ÅÅÅÅ", 
+  "date-format-dd-mm-yyyy": "DD-MM-ÅÅÅÅ",
   "date-format-mm-dd-yyyy": "MM-DD-ÅÅÅÅ",
   "decline": "Neka",
   "default-avatar": "Standard avatar",
@@ -1507,7 +1500,7 @@
   "run-fix-avatar-urls-migration-confirm": "Detta kommer att uppdatera avatar-URL:er för tavlans medlemmar till att använda rätt lagrings-backend. Fortsätt?",
   "run-fix-all-file-urls-migration-confirm": "Detta kommer att uppdatera alla URL:er för filbilagor på denna tavla till att använda rätt lagrings-backend. Fortsätt?",
   "restore-lost-cards-nothing-to-restore": "Inga förlorade simbanor, listor eller kort att återställa",
-  
+
   "migration-progress-title": "Tavlans migrering pågår",
   "migration-progress-overall": "Övergripande förlopp",
   "migration-progress-current-step": "Nuvarande steg",
@@ -1517,7 +1510,7 @@
   "steps": "steg",
   "view": "Visa",
   "has-swimlanes": "Has Swimlanes",
-  
+
   "step-analyze-board-structure": "Analysera tavlans struktur",
   "step-fix-orphaned-cards": "Fixa övergivna kort",
   "step-convert-shared-lists": "Konvertera delade listor",

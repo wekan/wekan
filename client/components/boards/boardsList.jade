@@ -106,7 +106,7 @@ template(name="boardList")
               a.board-list-item.label(title="{{_ 'add-board'}}")
                 span.emoji-icon
                   i.fa.fa-plus
-                | &nbsp;{{_ 'add-board'}}
+                | {{_ 'add-board'}}
           each boards
             li.js-board(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
               if isInvited
@@ -133,7 +133,7 @@ template(name="boardList")
                     span.board-handle(title="{{_ 'drag-board'}}")
                       span.emoji-icon
                         i.fa.fa-arrows
-                    
+
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
                         span.board-list-item-name(title="{{_ 'template-container'}}")
@@ -161,7 +161,7 @@ template(name="boardList")
                     span.board-handle(title="{{_ 'drag-board'}}")
                       span.emoji-icon
                         i.fa.fa-arrows
-                    
+
                     a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
                       span.details
                         span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
@@ -214,7 +214,7 @@ template(name="workspaceTree")
             span.workspace-drag-handle
               span.emoji-icon
                 i.fa.fa-arrows
-            
+
             a.js-select-workspace(data-id="{{id}}")
               span.workspace-icon
                 if icon

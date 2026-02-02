@@ -197,11 +197,6 @@
   "desktop-mode": "Приказ прилагођен за екран рачунара",
   "mobile-mode": "Приказ прилагођен за екран мобилног уређаја",
   "mobile-desktop-toggle": "Замени приказ прилагођен за рачунар/мобилни",
-  "zoom-in": "Приближи",
-  "zoom-out": "Одаљи",
-  "click-to-change-zoom": "Лупа",
-  "zoom-level": "Ниво",
-  "enter-zoom-level": "Задајте ниво (50-300%):",
   "board-view-cal": "Календар",
   "board-view-swimlanes": "Врсте поступака",
   "board-view-collapse": "Скупи",
@@ -385,7 +380,7 @@
   "date": "Датум",
   "date-format": "Запис",
   "date-format-yyyy-mm-dd": "година-месец-дан",
-  "date-format-dd-mm-yyyy": "дан-месец-година", 
+  "date-format-dd-mm-yyyy": "дан-месец-година",
   "date-format-mm-dd-yyyy": "месец-дан-година",
   "decline": "Одбијам",
   "default-avatar": "иницијали уместо слике",
@@ -1507,7 +1502,7 @@
   "run-fix-avatar-urls-migration-confirm": "Овим се исправља веза до складишта са сликама сарадника из ових списа. Да ли сте сагласни?",
   "run-fix-all-file-urls-migration-confirm": "Овим ће бити исправљене све везе у списима да упућују на стварно складиште предметне грађе. Да ли сте сагласни?",
   "restore-lost-cards-nothing-to-restore": "Нема нити загубљених поступака нити предмета за опоравак",
-  
+
   "migration-progress-title": "Board Migration in Progress",
   "migration-progress-overall": "Укупни напредак",
   "migration-progress-current-step": "Current Step",
@@ -1517,7 +1512,6 @@
   "steps": "кораци",
   "view": "Поглед",
   "has-swimlanes": "има више поступака",
-  
   "step-analyze-board-structure": "Изучавам везе у списима",
   "step-fix-orphaned-cards": "Поправљам одбачене предмете",
   "step-convert-shared-lists": "Претварам дељене делове поступка",

@@ -195,13 +195,6 @@
   "boards": "Table",
   "board-view": "Pogled table",
   "desktop-mode": "Desktop Mode",
-  "mobile-mode": "Mobile Mode",
-  "mobile-desktop-toggle": "Toggle between Mobile and Desktop Mode",
-  "zoom-in": "Zoom In",
-  "zoom-out": "Zoom Out",
-  "click-to-change-zoom": "Click to change zoom level",
-  "zoom-level": "Zoom Level",
-  "enter-zoom-level": "Enter zoom level (50-300%):",
   "board-view-cal": "Koledar",
   "board-view-swimlanes": "Plavalne steze",
   "board-view-collapse": "Skrči",
@@ -385,7 +378,7 @@
   "date": "Datum",
   "date-format": "Date Format",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
-  "date-format-dd-mm-yyyy": "DD-MM-YYYY", 
+  "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",
   "decline": "Zavrni",
   "default-avatar": "Privzeti avatar",
@@ -1507,7 +1500,7 @@
   "run-fix-avatar-urls-migration-confirm": "This will update avatar URLs for board members to use the correct storage backend. Continue?",
   "run-fix-all-file-urls-migration-confirm": "This will update all file attachment URLs on this board to use the correct storage backend. Continue?",
   "restore-lost-cards-nothing-to-restore": "No lost swimlanes, lists, or cards to restore",
-  
+
   "migration-progress-title": "Board Migration in Progress",
   "migration-progress-overall": "Overall Progress",
   "migration-progress-current-step": "Current Step",
@@ -1517,7 +1510,7 @@
   "steps": "steps",
   "view": "View",
   "has-swimlanes": "Has Swimlanes",
-  
+
   "step-analyze-board-structure": "Analyze Board Structure",
   "step-fix-orphaned-cards": "Fix Orphaned Cards",
   "step-convert-shared-lists": "Convert Shared Lists",

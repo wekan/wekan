@@ -195,13 +195,6 @@
   "boards": "Quadros",
   "board-view": "Visão de quadro",
   "desktop-mode": "Modo Desktop",
-  "mobile-mode": "Modo Celular",
-  "mobile-desktop-toggle": "Alternar entre modo Celular e Desktop",
-  "zoom-in": "Aumentar Zoom",
-  "zoom-out": "Diminuir Zoom",
-  "click-to-change-zoom": "Clique para mudar nível de zoom",
-  "zoom-level": "Nível de Zoom",
-  "enter-zoom-level": "Definir nível de zoom (50-300%):",
   "board-view-cal": "Calendário",
   "board-view-swimlanes": "Raias",
   "board-view-collapse": "Expandir",
@@ -385,7 +378,7 @@
   "date": "Data",
   "date-format": "Formato da Data",
   "date-format-yyyy-mm-dd": "AAAA-MM-DD",
-  "date-format-dd-mm-yyyy": "DD-MM-AAAA", 
+  "date-format-dd-mm-yyyy": "DD-MM-AAAA",
   "date-format-mm-dd-yyyy": "MM-DD-AAAA",
   "decline": "Rejeitar",
   "default-avatar": "Avatar padrão",
@@ -1507,7 +1500,7 @@
   "run-fix-avatar-urls-migration-confirm": "Isso atualizará as URLs dos avatares dos membros do quadro para usar o backend de armazenamento correto. Continuar?",
   "run-fix-all-file-urls-migration-confirm": "Isso atualizará todas URLs de arquivos de anexos neste quadro para usar o servidor de armazenamento correto. Continuar?",
   "restore-lost-cards-nothing-to-restore": "Sem raias, listas ou cartões perdidos para restaurar.",
-  
+
   "migration-progress-title": "Migração do Quadro em Andamento",
   "migration-progress-overall": "Progresso Geral",
   "migration-progress-current-step": "Etapa Atual",
@@ -1517,7 +1510,7 @@
   "steps": "etapas",
   "view": "Visão",
   "has-swimlanes": "Possui Raias",
-  
+
   "step-analyze-board-structure": "Analisar a Estrutura do Quadro",
   "step-fix-orphaned-cards": "Corrigir Cartões Órfãos",
   "step-convert-shared-lists": "Converter Listas Compartilhadas",

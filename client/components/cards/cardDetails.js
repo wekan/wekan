@@ -2,25 +2,25 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { DatePicker } from '/client/lib/datepicker';
-import { 
-  formatDateTime, 
-  formatDate, 
-  formatTime, 
-  getISOWeek, 
-  isValidDate, 
-  isBefore, 
-  isAfter, 
-  isSame, 
-  add, 
-  subtract, 
-  startOf, 
-  endOf, 
-  format, 
-  parseDate, 
-  now, 
-  createDate, 
-  fromNow, 
-  calendar 
+import {
+  formatDateTime,
+  formatDate,
+  formatTime,
+  getISOWeek,
+  isValidDate,
+  isBefore,
+  isAfter,
+  isSame,
+  add,
+  subtract,
+  startOf,
+  endOf,
+  format,
+  parseDate,
+  now,
+  createDate,
+  fromNow,
+  calendar
 } from '/imports/lib/dateUtils';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -337,7 +337,7 @@ BlazeComponent.extendComponent({
           const startY = event.clientY;
           const startLeft = $card.offset().left;
           const startTop = $card.offset().top;
-          
+
           const onMouseMove = (e) => {
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
@@ -346,12 +346,12 @@ BlazeComponent.extendComponent({
               top: startTop + deltaY + 'px'
             });
           };
-          
+
           const onMouseUp = () => {
             $(document).off('mousemove', onMouseMove);
             $(document).off('mouseup', onMouseUp);
           };
-          
+
           $(document).on('mousemove', onMouseMove);
           $(document).on('mouseup', onMouseUp);
         },
@@ -361,14 +361,14 @@ BlazeComponent.extendComponent({
           if (event.target.tagName === 'A' || $(event.target).closest('a').length > 0) {
             return; // Don't drag if clicking on links
           }
-          
+
           event.preventDefault();
           const $card = $(event.target).closest('.card-details');
           const startX = event.clientX;
           const startY = event.clientY;
           const startLeft = $card.offset().left;
           const startTop = $card.offset().top;
-          
+
           const onMouseMove = (e) => {
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
@@ -377,12 +377,12 @@ BlazeComponent.extendComponent({
               top: startTop + deltaY + 'px'
             });
           };
-          
+
           const onMouseUp = () => {
             $(document).off('mousemove', onMouseMove);
             $(document).off('mouseup', onMouseUp);
           };
-          
+
           $(document).on('mousemove', onMouseMove);
           $(document).on('mouseup', onMouseUp);
         },
@@ -434,34 +434,6 @@ BlazeComponent.extendComponent({
           Meteor.call('changeDateFormat', dateFormat);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
-        // Mobile: switch to desktop popup view (maximize)
-        'click .js-mobile-switch-to-desktop'(event) {
-          event.preventDefault();
-          // Switch global mode to desktop so the card appears as desktop popup
-          Utils.setMobileMode(false);
-        },
-        'click .js-card-zoom-in'(event) {
-          event.preventDefault();
-          const current = Utils.getCardZoom();
-          const newZoom = Math.min(3.0, current + 0.1);
-          Utils.setCardZoom(newZoom);
-        },
-        'click .js-card-zoom-out'(event) {
-          event.preventDefault();
-          const current = Utils.getCardZoom();
-          const newZoom = Math.max(0.5, current - 0.1);
-          Utils.setCardZoom(newZoom);
-        },
-        'click .js-card-mobile-desktop-toggle'(event) {
-          event.preventDefault();
-          const currentMode = Utils.getMobileMode();
-          Utils.setMobileMode(!currentMode);
-        },
-        'click .js-card-mobile-desktop-toggle'(event) {
-          event.preventDefault();
-          const currentMode = Utils.getMobileMode();
-          Utils.setMobileMode(!currentMode);
-        },
         async 'submit .js-card-description'(event) {
           event.preventDefault();
           const description = this.currentComponent().getValue();
@@ -1469,13 +1441,13 @@ BlazeComponent.extendComponent({
             'DD/MM/YYYY HH:mm',
             'DD-MM-YYYY HH:mm'
           ];
-          
+
           let parsedDate = null;
           for (const format of formats) {
             parsedDate = parseDate(dateString, [format], true);
             if (parsedDate) break;
           }
-          
+
           // Fallback to native Date parsing
           if (!parsedDate) {
             parsedDate = new Date(dateString);
@@ -1721,13 +1693,13 @@ BlazeComponent.extendComponent({
             'DD/MM/YYYY HH:mm',
             'DD-MM-YYYY HH:mm'
           ];
-          
+
           let parsedDate = null;
           for (const format of formats) {
             parsedDate = parseDate(dateString, [format], true);
             if (parsedDate) break;
           }
-          
+
           // Fallback to native Date parsing
           if (!parsedDate) {
             parsedDate = new Date(dateString);
