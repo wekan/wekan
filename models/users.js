@@ -2014,6 +2014,10 @@ Meteor.methods({
     const user = ReactiveCache.getCurrentUser();
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
   },
+  toggleShowWeekOfYear() {
+    const user = ReactiveCache.getCurrentUser();
+    user.toggleShowWeekOfYear(user.isShowWeekOfYear());
+  },
   toggleRescueCardDescription() {
     const user = ReactiveCache.getCurrentUser();
     user.toggleRescueCardDescription(user.hasRescuedCardDescription());
