@@ -720,6 +720,11 @@ a:not(.disabled).is-active i.fa {
   .setting-content .content-body .side-menu {
     width: 250px;
   }
+  
+  /* Responsive handling for quick-access description on tablets */
+  #header-quick-access ul.header-quick-access-list li.current.empty {
+    max-width: 300px;
+  }
 }
 
 /* Large displays and digital signage (1920px+) */
