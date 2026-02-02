@@ -369,7 +369,21 @@ body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
   padding: 0.4lh 1ch;
   flex: 1;
 }
-.mobile-view  {
+.minilists {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5lh;
+}
+.minilist-wrapper > .minicard {
+  padding: 0.3lh 1ch;
+  .handle {
+    display: none;
+  }
+}
+.mobile-view {
+  .list-header, .list-body {
+    font-size: 0.8em;
+  }
   .list-body {
     flex: 1 0;
     overflow-y: scroll;
