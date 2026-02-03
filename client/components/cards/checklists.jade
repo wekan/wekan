@@ -44,8 +44,8 @@ template(name="checklistDetail")
           h4.title.js-open-inlined-form.is-editable
             if isTouchScreenOrShowDesktopDragHandles
               span.fa.checklist-handle(class="fa-arrows" title="{{_ 'dragChecklist'}}")
-            +viewer
-              = checklist.title
+              +viewer
+                = checklist.title
         else
           h4.title
             +viewer
@@ -64,7 +64,7 @@ template(name="checklistDeletePopup")
 
 template(name="addChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
-  span.copied-tooltip {{_ 'copied'}}
+  span.copied-tooltip.copied-tooltip-hidden {{_ 'copied'}}
   textarea.js-add-checklist-item(rows='1' autofocus)
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-checklist-item-form(type="submit") {{_ 'save'}}
@@ -82,7 +82,7 @@ template(name="addChecklistItemForm")
 
 template(name="editChecklistItemForm")
   a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
-  span.copied-tooltip {{_ 'copied'}}
+  span.copied-tooltip.copied-tooltip-hidden {{_ 'copied'}}
   textarea.js-edit-checklist-item(rows='1' autofocus dir="auto")
     if $eq type 'item'
       = item.title

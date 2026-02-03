@@ -96,7 +96,6 @@ BlazeComponent.extendComponent({
     return ReactiveCache.getCurrentUser().hasCustomFieldsGrid();
   },
 
-
   cardMaximized() {
     return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
   },
@@ -210,11 +209,11 @@ BlazeComponent.extendComponent({
     }
 
     const $checklistsDom = this.$('.card-checklist-items');
-
+    const sortableSelector = Utils.isMiniScreen() ? '.checklist-handle' : '.checklist-title';
     $checklistsDom.sortable({
       tolerance: 'pointer',
       helper: 'clone',
-      handle: '.checklist-title',
+      handle: sortableSelector,
       items: '.js-checklist',
       placeholder: 'checklist placeholder',
       distance: 7,
@@ -283,6 +282,8 @@ BlazeComponent.extendComponent({
       return ReactiveCache.getCurrentUser()?.isBoardMember();
     }
 
+
+
     // Disable sorting if the current user is not a board member
     this.autorun(() => {
       const disabled = !userIsMember();
@@ -290,10 +291,7 @@ BlazeComponent.extendComponent({
         $checklistsDom.data('uiSortable') ||
         $checklistsDom.data('sortable')
       ) {
-        $checklistsDom.sortable('option', 'disabled', disabled);
-        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-          $checklistsDom.sortable({ handle: '.checklist-handle' });
-        }
+        $checklistsDom.sortable('option', 'handle', sortableSelector);
       }
       if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
         $subtasksDom.sortable('option', 'disabled', disabled);
@@ -379,26 +377,21 @@ BlazeComponent.extendComponent({
           const boardId = (card && card.boardId) || Utils.getCurrentBoard()._id;
           const cardId = card && card._id;
 
-          if (boardId) {
-            // In desktop mode, remove from openCards array
-            const isMobile = Utils.getMobileMode();
-            if (!isMobile && cardId) {
-              const openCards = Session.get('openCards') || [];
-              const filtered = openCards.filter(id => id !== cardId);
-              Session.set('openCards', filtered);
-
-              // If this was the current card, clear it
-              if (Session.get('currentCard') === cardId) {
-                Session.set('currentCard', null);
-              }
-              // Don't navigate away in desktop mode - just close the card
-              return;
+          if (boardId && cardId) {
+            const openCards = Session.get('openCards') || [];
+            const filtered = openCards.filter(id => id !== cardId);
+            // If this was the current card, clear it
+            if (openCards.length === filtered.length) {
+              Session.set('currentCard', null);
             }
+            else {
+              Session.set('currentCard', filtered[0]);
+            }
+            Session.set('openCards', filtered);
 
-            // Mobile mode: Clear the current card session to close the card
-            Session.set('currentCard', null);
-
-            // Navigate back to board without card
+            // Navigate back to board without card: must be done at the time of writing
+            // otherwise the route for the card is disabled until another
+            // card is opened
             const board = ReactiveCache.getBoard(boardId);
             if (board) {
               FlowRouter.go('board', {
@@ -519,11 +512,9 @@ BlazeComponent.extendComponent({
         },
         'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
-          autosize($('.card-details'));
         },
         'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
-          autosize($('.card-details'));
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
@@ -831,7 +822,7 @@ Template.cardDetailsActionsPopup.events({
     const currentCard = this;
     const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
-      if (!err && ret) Popup.close();
+      if (!(err === true) && ret) Popup.close();
     });
   },
   'click .js-toggle-show-list-on-minicard'() {
@@ -843,9 +834,6 @@ Template.cardDetailsActionsPopup.events({
 });
 
 BlazeComponent.extendComponent({
-  onRendered() {
-    autosize(this.$('textarea.js-edit-card-title'));
-  },
   events() {
     return [
       {
@@ -926,10 +914,6 @@ const filterMembers = (filterTerm) => {
   return members;
 }
 
-Template.editCardRequesterForm.onRendered(function () {
-  autosize(this.$('.js-edit-card-requester'));
-});
-
 Template.editCardRequesterForm.events({
   'keydown .js-edit-card-requester'(event) {
     // If enter key was pressed, submit the data
@@ -937,10 +921,6 @@ Template.editCardRequesterForm.events({
       $('.js-submit-edit-card-requester-form').click();
     }
   },
-});
-
-Template.editCardAssignerForm.onRendered(function () {
-  autosize(this.$('.js-edit-card-assigner'));
 });
 
 Template.editCardAssignerForm.events({
@@ -1851,9 +1831,6 @@ EscapeActions.register(
   },
   () => {
     return !Session.equals('currentCard', null);
-  },
-  {
-    noClickEscapeOn: '.js-card-details,.board-sidebar,#header',
   },
 );
 

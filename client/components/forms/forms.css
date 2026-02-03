@@ -98,11 +98,6 @@ textarea:disabled {
    -webkit-user-select: none;
   user-select: none;
 }
-select {
-  max-height: 40vh;
-  width: min(256px, 32vw);
-  margin-bottom: 1vh;
-}
 select.inline {
   width: 100%;
 }

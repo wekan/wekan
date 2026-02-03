@@ -328,7 +328,7 @@
 .minicard .badges {
   display: flex;
   align-items: center;
-  gap: 0.3lh;
+  gap: 1.5ch;
   color: #808080;
   /* this avoid padding-ish at the bottom of the card */
   font-size: 0.8rem;
@@ -346,10 +346,6 @@
 .minicard .badges .badge .badge-icon,
 .minicard .badges .badge .badge-text {
   vertical-align: middle;
-}
-.minicard .badges .badge .badge-icon.badge-comment,
-.minicard .badges .badge .badge-text.badge-comment {
-  margin-bottom: 0.1rem;
 }
 .minicard .minicard-members .member,
 .minicard .minicard-assignees .member,
@@ -382,10 +378,10 @@
 .minicard .minicard-description {
   color: #000;
   background-color: #eee;
-  padding: 0.5ch;
+  padding: 0.5lh 1ch;
   --overflow-lines: 2;
   .viewer {
-    font-size: 0.8em;
+    font-size: 0.9em;
     ul {
       padding-bottom: 0;
     }
@@ -769,9 +765,10 @@
 .minicard-list-name {
   font-size: inherit;
   color: #8c8c8c;
-  margin-top: 0.2vh;
   display: flex;
   padding: 0 0.5ch;
+  display: flex;
+  gap: 0.5ch;
 }
 
 .minicard-checklist .checklist-title {

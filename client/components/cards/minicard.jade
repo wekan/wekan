@@ -164,8 +164,8 @@ template(name="minicard")
                 .badge(title="{{_ 'card-comments-title' comments.length }}")
                   span.badge-icon.badge-comment.badge-text
                     i.fa.fa-comment-o
-                    = ' '
-                    = comments.length
+                      = ' '
+                      = comments.length
                   //span.badge-comment.badge-text
                   //|  {{_ 'comment'}}
           if getDescription
@@ -198,7 +198,8 @@ template(name="minicard")
               .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
                 span.badge-icon
                   i.fa.fa-check
-                span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
+                span.badge-text.check-list-text
+                {{checklistFinishedCount}}/{{checklistItemCount}}
           if allSubtasks.count
             if allowsSubtasks
               .badge

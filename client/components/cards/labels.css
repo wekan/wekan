@@ -4,17 +4,17 @@
   color: #fff;
   display: inline-block;
   font-weight: 700;
-  font-size: 13px;
-  margin-right: 4px;
-  margin-bottom: 5px;
-  padding: 3px 8px;
-  max-width: 210px;
-  min-width: 8px;
-  word-wrap: break-word;
-  min-height: 18px;
-  vertical-align: middle;
-  white-space: initial;
-  overflow: initial;
+  font-size: 0.9em;
+  display: flex;
+  /* prefer not using padding/margin but let outer grids
+  position/size labels (see e.g. minicards), otherwise we get
+  inconsistencies */
+  align-self: stretch;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 0.5ch;
+  height: 1.5lh;
 }
 .card-label:hover {
   color: #fff;
