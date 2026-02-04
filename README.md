@@ -71,6 +71,10 @@ that by providing one-click installation on various platforms.
 - [Platforms](https://wekan.fi/install/): WeKan ® supports many platforms.
   WeKan ® is critical part of new platforms Wekan is currently being integrated to.
 
+  ### What is Kanban?
+
+Kanban is a visual workflow management method used to organize tasks and projects efficiently. It uses a board with columns representing different stages of work (like “To Do”, “In Progress”, and “Done”), and cards that move across these columns as tasks progress. This approach helps teams and individuals visualize their workflow, limit work in progress, identify bottlenecks, and improve overall productivity. :contentReference[oaicite:0]{index=0}
+
 ## Requirements
 
 - 1 GB RAM minimum free for WeKan ®. Production server should have minimum total 4 GB RAM.
