@@ -2001,9 +2001,11 @@ Meteor.methods({
     const user = ReactiveCache.getCurrentUser();
     user.toggleFieldsGrid(user.hasCustomFieldsGrid());
   },
-  toggleCardMaximized() {
+  /* #FIXME not sure about what I'm doing here, but this methods call an async method AFAIU.
+  not making it wait to it creates flickering and multiple renderings on client side. */
+  async toggleCardMaximized() {
     const user = ReactiveCache.getCurrentUser();
-    user.toggleCardMaximized(user.hasCardMaximized());
+    await user.toggleCardMaximized(user.hasCardMaximized());
   },
   setCardCollapsed(value) {
     check(value, Boolean);

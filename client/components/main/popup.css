@@ -13,12 +13,12 @@
   dimensions */
   resize: both;
   pointer-events: all;
-  max-height: calc(100vh - 2 * var(--popup-margin));
-  margin: var(--popup-margin);
 
   .content-wrapper {
     width: auto;
     height: auto;
+    position: relative;
+    overflow: hidden;
   }
 
   .content-wrapper >* {
@@ -46,12 +46,6 @@
 }
 .pop-over .sub-name {
   max-width: clamp(30vw, 500px, 80%);
-}
-.pop-over textarea {
-  min-height: 2lh;
-}
-.pop-over form a span {
-  padding: 0 0.7vw;
 }
 .pop-over .header {
   display: flex;

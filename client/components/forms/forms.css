@@ -20,7 +20,7 @@ button {
   border: 1px solid #ccc;
   border-radius: 0.4vw;
   display: block;
-  padding: 0.3lh 0.8ch;
+  padding: 0.3lh 1ch;
 }
 select.full,
 textarea.full,
@@ -118,12 +118,11 @@ option[disabled] {
   color: #222;
 }
 textarea {
-  min-height: 3lh;
   transition: background 85ms ease-in, border-color 85ms ease-in;
   resize: vertical;
   width: auto;
-  /* so auto-zoom is not that bad on mobile */
-  font-size: 0.8em;
+  font-size: 0.9em;
+  min-height: 3lh;
 }
 .button {
   border-radius: 3px;

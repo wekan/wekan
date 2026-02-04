@@ -61,6 +61,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Utils.getCurrentBoard();
     this.isLoaded = new ReactiveVar(false);
+    this.dep = new Tracker.Dependency();
 
     this.calculateNextPeak();
 
@@ -97,6 +98,7 @@ BlazeComponent.extendComponent({
   },
 
   cardMaximized() {
+    this.dep.depend();
     return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
   },
 
@@ -175,6 +177,11 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
+    // #FIXME hackish; if accepted tweak static funcs
+    if (this.cardMaximized()) {
+      PopupComponent.maximize({target: this.firstNode()});
+    }
+
     if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
       // Send Webhook but not create Activities records ---
       const card = this.currentData();
@@ -313,8 +320,6 @@ BlazeComponent.extendComponent({
       },
     };
 
-    // Card is always dragged without handle by clicking title
-    const handleSelector = '.js-card-title';
     return [
       {
         ...events,
@@ -334,42 +339,6 @@ BlazeComponent.extendComponent({
         'click .js-card-send-to-back'(event) {
           event.preventDefault();
           PopupComponent.toBack(event);
-        },
-        // a bit tricky but helpful to me
-        // see https://stackoverflow.com/a/67722507
-        [`pointerdown ${handleSelector}`]: (event) => {
-
-          const onPointerMove = (e) => {
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-            $card.css({
-              left: this.startLeft + deltaX + 'px',
-              top: this.startTop + deltaY + 'px'
-            });
-          };
-
-          const onPointerUp = (event) => {
-            event.stopPropagation();
-            $(document).off('pointermove', onPointerMove);
-            $(document).off('pointerup', onPointerUp);
-          };
-
-          // avoid triggering something on e.g. right click
-          if (Utils.shouldIgnorePointer(event)) {
-            onPointerUp(event);
-            return;
-          }
-
-          event.preventDefault();
-          event.stopPropagation();
-          const $card = $(event.target).closest('.card-details');
-          const startX = event.clientX;
-          const startY = event.clientY;
-          this.startLeft = $card.offset().left;
-          this.startTop = $card.offset().top;
-
-          $(document).on('pointermove', onPointerMove);
-          $(document).on('pointerup', onPointerUp);
         },
         'click .js-close-card-details'() {
           // Get board ID from either the card data or current board in session
@@ -510,10 +479,12 @@ BlazeComponent.extendComponent({
         'click #toggleCustomFieldsGridButton'() {
           Meteor.call('toggleCustomFieldsGrid');
         },
-        'click .js-maximize-card-details'() {
+        'click .js-maximize-card-details'(e) {
+          PopupComponent.maximize(e);
           Meteor.call('toggleCardMaximized');
         },
-        'click .js-minimize-card-details'() {
+        'click .js-minimize-card-details'(e) {
+          PopupComponent.minimize(e);
           Meteor.call('toggleCardMaximized');
         },
         'click .js-vote'(e) {
@@ -1917,6 +1888,7 @@ Template.cardDetailsPopup.helpers({
       showHeader: false,
       closeDOMs: ["click .js-close-card-details"],
       followDOM: ".card-details",
+      handleDOM: ".js-card-title",
       closeVar: "currentCard"
     }
   },

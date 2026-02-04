@@ -66,22 +66,40 @@ class PopupDetachedComponent extends BlazeComponent {
 
 
     if (this.followDOM) {
-      // we cannot use the event map because it only accepts known events;
-      // but neither resize nor moving can be easily tracked; luckily, MutationObserver API
-      // can track inline style, which is probably the way of doing of of underlying element.
-      // ---
-      // try child DOM element and if not found, fallback to any displayed element
       this.innerElement = this.find(this.followDOM) ?? document.querySelector(this.followDOM);
-      this.follow();
     }
 
+    this.follow();
     this.toFront();
 
     // there is a reactive variable for window resize in Utils, but the interface is too slow
     // with all reactive stuff, use events when possible and when not really bypassing logic
     $(window).on('resize', () => {
+      // #FIXME there is a bug when window grows; popup outer container
+      // will grow beyond the size of content and it's not easy to fix for me (and I feel tired of this popup)
       this.dims(this.computePopupDims());
     });
+  }
+
+  margin() {
+    if(this.fullscreen) {return 0}
+    return this.popupMargin;
+  }
+
+  ensureDimsLimit(dims) {
+    // boilerplate to make sure that popup visually fits
+    let { left, top, width, height } = dims;
+    let overflowBottom = top + height + 2 * this.margin() - window.innerHeight;
+    let overflowRight = left + width + 2 * this.margin() - window.innerWidth;
+    if (overflowRight > 0) {
+      width = Math.max(20 * this.margin(), Math.min(width - overflowRight, window.innerWidth - 2 * this.margin()));
+    }
+    if (overflowBottom > 0) {
+      height = Math.max(10 * this.margin(), Math.min(height - overflowBottom, window.innerHeight - 2 * this.margin()));
+    }
+    left = Math.max(left, this.margin());
+    top = Math.max(top, this.margin());
+    return { left, top, width, height }
   }
 
   dims(newDims) {
@@ -89,81 +107,73 @@ class PopupDetachedComponent extends BlazeComponent {
       this.popupDims = {};
     }
     if (newDims) {
-      // boilerplate to make sure that popup visually fits
-      let { left, top, width, height } = newDims;
-      let overflowBottom = top + height + 2 * this.popupMargin - window.innerHeight;
-      let overflowRight = left + width + 2 * this.popupMargin - window.innerWidth;
-      if (overflowRight > 0) {
-        width = Math.max(window.innerWidth / 10, Math.min(width - overflowRight, window.innerWidth - 2 * this.popupMargin));
-      }
-      if (overflowBottom > 0) {
-        height = Math.max(window.innerHeight / 10, Math.min(height - overflowBottom, window.innerHeight - 2 * this.popupMargin));
-      }
-      left = Math.max(left, this.popupMargin);
-      top = Math.max(top, this.popupMargin);
-      newDims = { left, top, width, height };
+      newDims = this.ensureDimsLimit(newDims);
       for (const e of Object.keys(newDims)) {
-          $(this.popup).css(e, `${parseFloat(newDims[e])}px`);
+        let value = parseFloat(newDims[e]);
+          if (!isNaN(value)) {
+            $(this.popup).css(e, `${value}px`);
+            this.popupDims[e] = value;
+          }
         }
-        Object.assign(this.popupDims, newDims);
       }
     return this.popupDims;
   }
 
-  sizeAfterExternalChange(params) {
-    let payload = {};
-    let asis = {};
-    for (const e of ["left", "top", "height", "width"]) {
-      let p = params[e];
-      if (!p) continue;
-      if (typeof(p) === "string") {p = parseFloat(p)}
-      if (isNaN(p)) {asis[e] = p}
-      else {payload[e] = p}
-    }
-    $(this.popup).css(asis);
-    if (Object.keys(payload).length === 0) return;
-
-    let { left, top, width, height } = payload;
-
+  maximize() {
+    this.fullscreen = true;
+    this.dims(this.computePopupDims());
     if (this.innerElement) {
-      const innerStyle = window.getComputedStyle(this.innerElement);
-      const innerWidth = parseFloat(innerStyle.width)
-      const innerHeight = parseFloat(innerStyle.height)
-      if (innerWidth && (innerWidth < width || !this.mouseDown)) {
-        width = innerWidth;
-      }
-      if (innerHeight && (innerHeight < height || !this.mouseDown)) {
-        height = innerHeight;
-      }
+      $(this.innerElement).css('width', '');
+      $(this.innerElement).css('height', '')
     }
+  }
 
-    if (left && top) {
-      return {left, top, height, width};
-    }
-    return {height, width};
+  minimize() {
+    this.fullscreen = false;
+    this.dims(this.computePopupDims());
   }
 
   follow() {
-    // It took me a while to find this idea and I had soooo much lines of code before
-    // for a mediocre result; here the thing is that anytime popup changes
-    // dimension, both sizes (virtually) go to auto, but there's only one round trip because
-    // the inner only one element is being actively moved/redim (CSS resize, handle, collapse...).
-    // So the passive element will grow or shrink with either its parent or child, without complicated computations and without preventing manual resizing then.
-    // 💡 A nice thing to add would be avoiding reset the size when dragging after having resized;
-    // but this is not so simple and would at least need to differentiate events (e.g. by keeping
-    // track on previous individual properties and taking care of infinite loops))
-    let deltaX;
-    let deltaY;
-    const followChild = new MutationObserver(() => {
-      const style = window.getComputedStyle(this.innerElement);
-      const left = parseFloat(style.left);
-      const top = parseFloat(style.top);
-      if (!deltaX || isNaN(deltaX)) {deltaX = this.dims().left - left}
-      if (!deltaY || isNaN(deltaY)) {deltaY = this.dims().top - top}
-      this.dims(this.sizeAfterExternalChange({width: this.popup.scrollWidth, height: this.popup.scrollHeight, left: parseFloat(left) + deltaX, top: parseFloat(top) + deltaY}));
-    })
+    const adaptChild = new ResizeObserver((_) => {
+      if (this.fullscreen) {return}
+      const width = this.innerElement?.scrollWidth || this.popup.scrollWidth;
+      const height = this.innerElement?.scrollHeight || this.popup.scrollHeight;
+      // we don't want to run this during something that we have caused, eg. dragging
+      if (!this.mouseDown) {
+        // extra-"future-proof" stuff: if somebody adds a margin to the popup, it would trigger a loop
+        if (Math.abs(this.dims().width - width) < 20 && Math.abs(this.dims().height - height) < 20) { return }
 
-    followChild.observe(this.innerElement, { attributes: true, attributeFilter: ['style', 'class'] });
+        // if inner shrinks, follow
+        if (width < this.dims().width || height < this.dims().height) {
+          this.dims({ width, height });
+        }
+        // otherwise it may be complicated to find a generic situation, but we have the
+        // classic positionning procedure which works, so use it and ignore positionning
+        else {
+          const newDims = this.computePopupDims();
+          // a bit twisted/ad-hoc for card details, in the edge case where they are opened when collapsed then uncollapsed,
+          // not sure to understand why the sizing works differently that starting uncollapsed then doing the same sequence
+          this.dims(this.ensureDimsLimit({
+            top: this.dims().top,
+            left: this.dims().left,
+            width: Math.max(newDims.width, width),
+            height: Math.max(newDims.height, height)
+          }));
+        }
+      }
+      else {
+        const { width, height } = this.popup.getBoundingClientRect();
+        // only case when we bypass .dims(), to avoid loop
+        this.popupDims.width = width;
+        this.popupDims.height = height;
+      }
+    });
+
+    if (this.innerElement) {
+      adaptChild.observe(this.innerElement);
+    } else {
+      adaptChild.observe(this.popup);
+    }
   }
 
   currentZ(z = undefined) {
@@ -198,9 +208,6 @@ class PopupDetachedComponent extends BlazeComponent {
       'click .js-confirm'() {
         this.data().afterConfirm?.call(this);
       },
-      'dragend .pop-over'() {
-        this.dims(this.computePopupDims());
-      },
       // bad heuristic but only for best-effort UI
       'pointerdown .pop-over'() {
         this.mouseDown = true;
@@ -210,37 +217,43 @@ class PopupDetachedComponent extends BlazeComponent {
       }
     };
 
+    const movePopup = (event) => {
+      event.preventDefault();
+      $(event.target).addClass('is-active');
+      const deltaHandleX = this.dims().left - event.clientX;
+      const deltaHandleY = this.dims().top - event.clientY;
+
+      const onPointerMove = (e) => {
+        this.dims(this.ensureDimsLimit({ left: e.clientX + deltaHandleX, top: e.clientY + deltaHandleY, width: this.dims().width, height: this.dims().height }));
+
+        if (this.popup.scrollY) {
+          this.popup.scrollTo(0, 0);
+        }
+      };
+
+      const onPointerUp = (event) => {
+        $(document).off('pointermove', onPointerMove);
+        $(document).off('pointerup', onPointerUp);
+        $(event.target).removeClass('is-active');
+      };
+
+      if (Utils.shouldIgnorePointer(event)) {
+        onPointerUp(event);
+        return;
+      }
+
+      $(document).on('pointermove', onPointerMove);
+      $(document).on('pointerup', onPointerUp);
+    };
+
     // We do not manage dragging without our own header
+    const handleDOM = this.data().handleDOM;
     if (this.data().showHeader) {
       const handleSelector = Utils.isMiniScreen() ? '.js-popup-drag-handle' : '.header-title';
-      miscEvents[`pointerdown ${handleSelector}`] = (event) => {
-        event.preventDefault();
-        $(event.target).addClass('is-active');
-        const deltaHandleX = this.dims().left - event.clientX;
-        const deltaHandleY = this.dims().top - event.clientY;
-
-        const onPointerMove = (e) => {
-          this.dims(this.sizeAfterExternalChange({ left: e.clientX + deltaHandleX, top: e.clientY + deltaHandleY }));
-
-          if (this.popup.scrollY) {
-            this.popup.scrollTo(0, 0);
-          }
-        };
-
-        const onPointerUp = (event) => {
-          $(document).off('pointermove', onPointerMove);
-          $(document).off('pointerup', onPointerUp);
-          $(event.target).removeClass('is-active');
-        };
-
-        if (Utils.shouldIgnorePointer(event)) {
-          onPointerUp(event);
-          return;
-        }
-
-        $(document).on('pointermove', onPointerMove);
-        $(document).on('pointerup', onPointerUp);
-      };
+      miscEvents[`pointerdown ${handleSelector}`] = (e) => movePopup(e);
+    }
+    if (handleDOM) {
+      miscEvents[`pointerdown ${handleDOM}`] = (e) => movePopup(e);
     }
     return super.events().concat(closeEvents).concat(miscEvents);
   }
@@ -311,7 +324,7 @@ class PopupDetachedComponent extends BlazeComponent {
     let candidatePos = openerRef - elementLength * factor;
     const deltaMax = candidatePos + elementLength - maxLength;
     if (candidatePos < 0 || deltaMax > 0) {
-      if (deltaMax <= 2 * this.popupMargin) {
+      if (deltaMax <= 2 * this.margin()) {
         // if this is just a matter of margin, try again
         // useful for (literal) corner cases
         biases = [bias].concat(biases);
@@ -342,12 +355,11 @@ class PopupDetachedComponent extends BlazeComponent {
     let popupHeight = window.innerHeight * this.initialHeightRatio;
     let popupWidth = window.innerWidth * this.initialWidthRatio;
 
-    if (Utils.isMiniScreen() && popupWidth >= 4 * window.innerWidth / 5 && popupHeight >= 4 * window.innerHeight / 5) {
+    if (this.fullscreen || Utils.isMiniScreen() && popupWidth >= 4 * window.innerWidth / 5 && popupHeight >= 4 * window.innerHeight / 5) {
       // Go fullscreen!
       popupWidth = window.innerWidth;
       // Avoid address bar, let a bit of margin to scroll
       popupHeight = 4 * window.innerHeight / 5;
-      this.popupMargin = 0;
       return ({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -356,8 +368,8 @@ class PopupDetachedComponent extends BlazeComponent {
       });
     } else {
       // Current viewport dimensions
-      let maxHeight = window.innerHeight - this.popupMargin * 2;
-      let maxWidth = window.innerWidth - this.popupMargin * 2;
+      let maxHeight = window.innerHeight - this.margin() * 2;
+      let maxWidth = window.innerWidth - this.margin() * 2;
       let biasX, biasY;
       if (Utils.isMiniScreen()) {
         // On mobile I found that being able to close a popup really close from where it has been clicked
@@ -418,12 +430,30 @@ class PopupComponent extends BlazeComponent {
   }
 
   static toFront(event) {
-    PopupComponent.findParentPopup(event.target).toFront();
+    const popup = PopupComponent.findParentPopup(event.target)
+    popup?.toFront();
+    return popup;
   }
 
   static toBack(event) {
-    PopupComponent.findParentPopup(event.target).toBack();
+    const popup = PopupComponent.findParentPopup(event.target);
+    popup?.toBack();
+    return popup;
   }
+
+  static maximize(event) {
+    const popup = PopupComponent.findParentPopup(event.target);
+    popup?.toFront();
+    popup?.maximize();
+    return popup;
+  }
+
+  static minimize(event) {
+    const popup = PopupComponent.findParentPopup(event.target);
+    popup?.minimize();
+    return popup;
+  }
+
 
   getOpenerElement(view) {
     // Look for the first parent view whose first DOM element is not virtually us
@@ -465,20 +495,6 @@ class PopupComponent extends BlazeComponent {
   }
 
   onCreated() {
-    // All of this, except name, is optional. The rest is provided "just in case", for convenience (hopefully)
-    //
-    // - name is the name of a template to render inside the popup (to the detriment of its size) or the contrary
-    // - showHeader can be turned off if the inner content always have a header with buttons and so on
-    // - title is shown when header is shown
-    // - miscOptions is for compatibility
-    // - closeVar is an optional string representing a Session variable: if set, the popup reactively closes when the variable changes and set the variable to null on close
-    // - closeDOMs can be used alternatively; it is an array of "<event> <selector>" to listen that closes the popup.
-    //   if header is shown, closing the popup is already managed. selector is relative to the inner template (same as its event map)
-    // - followDOM is an element whose dimensions and position will serve as reference; works only with inline styles (otherwise we probably would need IntersectionObserver-like stuff, async etc)
-    //   it is useful when the content can be redimensionned/moved by code or user; we still manage events, resizes etc
-    //   but allow inner elements or handles to do it (and we adapt).
-
-
     // do not render a template multiple times if on the blacklist
     const existing = PopupComponent.stack.find((e) => (e.name == this.name));
     if (existing && PopupComponent.multipleBlacklist.indexOf(this.name)) {
@@ -491,6 +507,19 @@ class PopupComponent extends BlazeComponent {
       return;
     }
 
+    // All of this, except name, is optional. The rest is provided "just in case", for convenience (hopefully)
+    //
+    // - name is the name of a template to render inside the popup (to the detriment of its size) or the contrary
+    // - showHeader can be turned off if the inner content always have a header with buttons and so on
+    // - title is shown when header is shown
+    // - miscOptions is for compatibility
+    // - closeVar is an optional string representing a Session variable: if set, the popup reactively closes when the variable changes and set the variable to null on close
+    // - closeDOMs can be used alternatively; it is an array of "<event> <selector>" to listen that closes the popup.
+    //   if header is shown, closing the popup is already managed. selector is relative to the inner template (same as its event map)
+    // - followDOM is an element whose dimension will serve as reference so that popup can react to inner changes; works only with inline styles (otherwise we probably would need IntersectionObserver-like stuff, async etc)
+    // - handleDOM is an element who can be clicked to move popup
+    //   it is useful when the content can be redimensionned/moved by code or user; we still manage events, resizes etc
+    //   but allow inner elements or handles to do it (and we adapt).
     const data = this.data();
     this.popupArgs = {
       name: data.name,
@@ -499,6 +528,7 @@ class PopupComponent extends BlazeComponent {
       openerElement: data.openerElement,
       closeDOMs: data.closeDOMs,
       followDOM: data.followDOM,
+      handleDOM: data.handleDOM,
       forceData: data.miscOptions?.dataContextIfCurrentDataIsUndefined,
       afterConfirm: data.miscOptions?.afterConfirm,
     }
@@ -653,4 +683,3 @@ PopupComponent.register("popup");
 PopupDetachedComponent.register('popupDetached');
 
 export default PopupComponent;
-window.PopupComponent = PopupComponent;

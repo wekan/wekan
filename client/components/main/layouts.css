@@ -326,7 +326,7 @@ kbd {
   clear: both;
 }
 .hide {
-  display: none;
+  display: none !important;
 }
 .show {
   display: block;

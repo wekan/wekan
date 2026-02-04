@@ -25,7 +25,6 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: end;
-  margin-right: 1ch;
 }
 
 .card-details h3 {
@@ -46,22 +45,39 @@
   padding: 2ch;
   align-items: stretch;
   gap: 0.5lh;
+  /* for popups */
+  overflow-y: auto;
+
+  &.is-maximized {
+    display: grid;
+    /* divide available space; 3/4 for main content, 1/4 for activity feed */
+    /* better use a grid, otherwise flexbox will not expand left pane if fullscreen
+    > max-content, but some users may want to expend elements anyways */
+    grid-template-columns: 3fr 1fr;
+    .card-details-left {
+      border-right: solid 2px #dbdbdb;
+      padding-right: 2ch;
+    }
+  }
 }
 
-.card-header {
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
+.card-header-content {
+  display: grid;
+  grid-template-columns: min-content minmax(auto, 50vw) 1fr;
+  justify-content: start;
   align-items: center;
-  gap: 0.5lh;
+  padding: 0 1ch;
+  min-height: 2lh;
+  gap: 2ch;
+  flex: 1 1 50vw;
+  .card-icons-left {
+    display: flex;
+    gap: 1ch;
+  }
 }
 
-.card-header-left {
-  flex: 1;
-  margin-left: 0.5lh;
+.card-header-middle {
   display: flex;
-  gap: 0.5lh;
-  align-items: center;
   justify-content: center;
   box-shadow: 0 0 0 2px #bfbfbf inset;
 }
@@ -109,10 +125,11 @@
 
 .card-header-controls-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.5lh;
   flex-direction: column;
   align-items: center;
+  justify-items: end;
 }
 .copied-tooltip {
   position: absolute;
@@ -147,10 +164,11 @@
   transition: flex-basis 0.1s, box-shadow 0.15s;
   box-sizing: border-box;
   &:not(.collapsed) {
-    min-height: 10lh;
+    min-height: 20lh;
+    /* at this point, popup can still be resized but stops
+    to shrink content, so the later stays visible */
+    min-width: 30vw;
   }
-  /* more like a minimal initial width */
-  min-width: 50vw;
 }
 
 .edit-vote-question {
@@ -165,6 +183,7 @@
 }
 .card-details .card-details-canvas {
   display: grid;
+  padding: 0.5lh 1ch;
   background: #ededed;
   border-bottom: 1px solid #dbdbdb;
   flex: 1;
@@ -180,13 +199,6 @@
 }
 .card-details .mCustomScrollBox {
   padding-left: 0;
-}
-.card-details .card-details-header {
-  display: flex;
-  background: #ededed;
-  border-bottom: 1px solid #dbdbdb;
-  flex: 1;
-  padding: 1ch 0;
 }
 .card-details .card-details-header .card-number {
   color: #b3b3b3;
@@ -246,6 +258,7 @@
       display: flex;
       max-width: 20ch;
       justify-content: center;
+      align-items: center;
     }
   }
   .js-submit-edit-card-title-form {
@@ -312,16 +325,17 @@ body:not(.mobile-mode) {
 .card-add-label, .card-details .js-date-format-selector {
   padding: 0.2lh 0.5ch;
 }
-.card-details-left {
+.card-details-main {
   display: flex;
-  flex-direction: column;
   gap: 0.3lh;
+  flex-direction: column;
   hr {
     margin: 0;
   }
   &>div {
     display: flex;
     gap: 0.2lh;
+    flex: 1;
   }
   &>div:empty {
     /* to avoid gaps */

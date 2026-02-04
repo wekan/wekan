@@ -216,7 +216,7 @@ template(name="wipLimitErrorPopup")
   .wip-limit-invalid
     p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
     p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
-    button.full.js-back-view(type="submit") {{_ 'cancel'}}
+    button.negate.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListWidthPopup")
   #js-list-width-edit
@@ -235,7 +235,7 @@ template(name="setListWidthPopup")
 template(name="listWidthErrorPopup")
   .list-width-invalid
     p {{_ 'list-width-error-message'}} '&gt;=100'
-    button.full.js-back-view(type="submit") {{_ 'cancel'}}
+    button.negate.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")
   form.edit-label
