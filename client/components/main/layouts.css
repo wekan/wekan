@@ -492,7 +492,7 @@ a:not(.disabled).is-active i.fa {
   fitting the available space and cutting after N lines, whatever
   is the text's length */
   min-width: 0;
-  &:not(:has(time)), p {
+  p, ul {
     margin: 0;
     padding: 0;
     text-overflow: ellipsis;
@@ -634,59 +634,59 @@ a:not(.disabled).is-active i.fa {
   #content > .wrapper {
     padding: 12px;
   }
-  
+
   .wrapper {
     padding: 12px;
   }
-  
+
   .panel-default {
     width: 90vw;
     max-width: 90vw;
   }
-  
+
   /* Touch-friendly but more compact */
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 48px;
     min-width: 48px;
     padding: 10px 14px;
   }
-  
+
   .minicard {
     min-height: 40px;
     padding: 10px;
   }
-  
+
   .list {
     margin: 0 12px;
     min-width: 300px;
   }
-  
+
   .board-canvas {
     padding: 0 12px 12px 0;
   }
-  
+
   #header {
     padding: 12px 16px;
   }
-  
+
   #modal .modal-content {
     width: 80vw;
     max-width: 600px;
   }
-  
+
   #modal .modal-content-wide {
     width: 90vw;
     max-width: 800px;
   }
-  
+
   .setting-content .content-body {
     gap: 20px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 250px;
   }
-  
+
   /* Responsive handling for quick-access description on tablets */
   #header-quick-access ul.header-quick-access-list li.current.empty {
     max-width: 300px;
@@ -698,55 +698,55 @@ a:not(.disabled).is-active i.fa {
   #content > .wrapper {
     padding: 12px;
   }
-  
+
   .wrapper {
     padding: 12px;
   }
-  
+
   .panel-default {
     width: 90vw;
     max-width: 90vw;
   }
-  
+
   /* Touch-friendly but more compact */
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 48px;
     min-width: 48px;
     padding: 10px 14px;
   }
-  
+
   .minicard {
     min-height: 40px;
     padding: 10px;
   }
-  
+
   .list {
     margin: 0 12px;
     min-width: 300px;
   }
-  
+
   .board-canvas {
     padding: 0 12px 12px 0;
   }
-  
+
   #header {
     padding: 12px 16px;
   }
-  
+
   #modal .modal-content {
     width: 80vw;
     max-width: 600px;
   }
-  
+
   #modal .modal-content-wide {
     width: 90vw;
     max-width: 800px;
   }
-  
+
   .setting-content .content-body {
     gap: 20px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 250px;
   }
