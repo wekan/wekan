@@ -1012,6 +1012,9 @@ Template.editCardAssignerForm.events({
     return ret;
   }
   async setDone(cardId, options) {
+    // Capture DOM values immediately before any async operations
+    const position = this.$('input[name="position"]:checked').val();
+
     ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
     const card = this.data();
     let sortIndex = 0;
@@ -1019,7 +1022,6 @@ Template.editCardAssignerForm.events({
     if (cardId) {
       const targetCard = ReactiveCache.getCard(cardId);
       if (targetCard) {
-        const position = this.$('input[name="position"]:checked').val();
         if (position === 'above') {
           sortIndex = targetCard.sort - 0.5;
         } else {
@@ -1042,37 +1044,40 @@ Template.editCardAssignerForm.events({
     return ret;
   }
   async setDone(cardId, options) {
-    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
-    const card = this.data();
-
-    // const textarea = $('#copy-card-title');
+    // Capture DOM values immediately before any async operations
     const textarea = this.$('#copy-card-title');
     const title = textarea.val().trim();
+    const position = this.$('input[name="position"]:checked').val();
+
+    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    const card = this.data();
 
     if (title) {
       const newCardId = await Meteor.callAsync('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, true, {title: title});
 
-      // Position the copied card
+      // Position the copied card (newCard may be null for cross-board copies
+      // if the client hasn't received the publication update yet)
       if (newCardId) {
         const newCard = ReactiveCache.getCard(newCardId);
-        let sortIndex = 0;
+        if (newCard) {
+          let sortIndex = 0;
 
-        if (cardId) {
-          const targetCard = ReactiveCache.getCard(cardId);
-          if (targetCard) {
-            const position = this.$('input[name="position"]:checked').val();
-            if (position === 'above') {
-              sortIndex = targetCard.sort - 0.5;
-            } else {
-              sortIndex = targetCard.sort + 0.5;
+          if (cardId) {
+            const targetCard = ReactiveCache.getCard(cardId);
+            if (targetCard) {
+              if (position === 'above') {
+                sortIndex = targetCard.sort - 0.5;
+              } else {
+                sortIndex = targetCard.sort + 0.5;
+              }
             }
+          } else {
+            // If no card selected, copy to end
+            sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
           }
-        } else {
-          // If no card selected, copy to end
-          sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
-        }
 
-        await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+          await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+        }
       }
 
       // In case the filter is active we need to add the newly inserted card in
@@ -1091,11 +1096,13 @@ Template.editCardAssignerForm.events({
     return ret;
   }
   async setDone(cardId, options) {
-    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
-    const card = this.data();
-
+    // Capture DOM values immediately before any async operations
     const textarea = this.$('#copy-card-title');
     const title = textarea.val().trim();
+    const position = this.$('input[name="position"]:checked').val();
+
+    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    const card = this.data();
 
     if (title) {
       const _id = Cards.insert({
@@ -1111,7 +1118,6 @@ Template.editCardAssignerForm.events({
       if (cardId) {
         const targetCard = ReactiveCache.getCard(cardId);
         if (targetCard) {
-          const position = this.$('input[name="position"]:checked').val();
           if (position === 'above') {
             sortIndex = targetCard.sort - 0.5;
           } else {
@@ -1136,11 +1142,13 @@ Template.editCardAssignerForm.events({
     return ret;
   }
   async setDone(cardId, options) {
-    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
-    const card = this.data();
-
+    // Capture DOM values immediately before any async operations
     const textarea = this.$('#copy-card-title');
     const title = textarea.val().trim();
+    const position = this.$('input[name="position"]:checked').val();
+
+    ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
+    const card = this.data();
 
     if (title) {
       const titleList = JSON.parse(title);
@@ -1155,7 +1163,6 @@ Template.editCardAssignerForm.events({
           if (cardId) {
             const targetCard = ReactiveCache.getCard(cardId);
             if (targetCard) {
-              const position = this.$('input[name="position"]:checked').val();
               if (position === 'above') {
                 sortIndex = targetCard.sort - 0.5;
               } else {

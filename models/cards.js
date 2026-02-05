@@ -611,6 +611,15 @@ Cards.helpers({
     const oldId = this._id;
     const oldCard = ReactiveCache.getCard(oldId);
 
+    // Work on a shallow copy to avoid mutating the source card in ReactiveCache
+    const cardData = { ...this };
+    delete cardData._id;
+
+    // Normalize customFields to ensure it's always an array
+    if (!Array.isArray(cardData.customFields)) {
+      cardData.customFields = [];
+    }
+
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
     if (this.boardId !== boardId) {
@@ -633,19 +642,16 @@ Cards.helpers({
         }),
         '_id',
       );
-      // now set the new label ids
-      delete this.labelIds;
-      this.labelIds = newCardLabels;
+      cardData.labelIds = newCardLabels;
 
-      this.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+      cardData.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
     }
 
-    delete this._id;
-    this.boardId = boardId;
-    this.cardNumber = ReactiveCache.getBoard(boardId).getNextCardNumber();
-    this.swimlaneId = swimlaneId;
-    this.listId = listId;
-    const _id = Cards.insert(this);
+    cardData.boardId = boardId;
+    cardData.cardNumber = ReactiveCache.getBoard(boardId).getNextCardNumber();
+    cardData.swimlaneId = swimlaneId;
+    cardData.listId = listId;
+    const _id = Cards.insert(cardData);
 
     // Copy attachments
     oldCard.attachments()
@@ -669,8 +675,6 @@ Cards.helpers({
     ReactiveCache.getCardComments({ cardId: oldId }).forEach(cmt => {
       cmt.copy(_id);
     });
-    // restore the id, otherwise new copies will fail
-    this._id = oldId;
 
     return _id;
   },
@@ -2102,6 +2106,11 @@ Cards.helpers({
       });
 
       mutatedFields.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+
+      // Ensure customFields is always an array (guards against legacy {} data)
+      if (!Array.isArray(mutatedFields.customFields)) {
+        mutatedFields.customFields = [];
+      }
     }
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });

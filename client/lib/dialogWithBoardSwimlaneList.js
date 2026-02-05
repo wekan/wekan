@@ -186,7 +186,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   events() {
     return [
       {
-        'click .js-done'() {
+        async 'click .js-done'() {
           const boardSelect = this.$('.js-select-boards')[0];
           const boardId = boardSelect.options[boardSelect.selectedIndex].value;
 
@@ -201,7 +201,11 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
             'swimlaneId' : swimlaneId,
             'listId' : listId,
           }
-          this.setDone(boardId, swimlaneId, listId, options);
+          try {
+            await this.setDone(boardId, swimlaneId, listId, options);
+          } catch (e) {
+            console.error('Error in list dialog operation:', e);
+          }
           Popup.back(2);
         },
         'change .js-select-boards'(event) {

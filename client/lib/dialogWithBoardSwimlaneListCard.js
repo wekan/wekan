@@ -80,7 +80,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
   events() {
     return [
       {
-        'click .js-done'() {
+        async 'click .js-done'() {
           const boardSelect = this.$('.js-select-boards')[0];
           const boardId = boardSelect.options[boardSelect.selectedIndex].value;
 
@@ -99,7 +99,11 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
             'listId' : listId,
             'cardId': cardId,
           }
-          this.setDone(cardId, options);
+          try {
+            await this.setDone(cardId, options);
+          } catch (e) {
+            console.error('Error in card dialog operation:', e);
+          }
           Popup.back(2);
         },
         'change .js-select-boards'(event) {
