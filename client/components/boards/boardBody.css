@@ -1,13 +1,25 @@
+.swim-flex {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  padding-bottom: 40vw;
+}
+
 .board-wrapper {
   display: flex;
   flex: 1;
   overflow: auto;
 }
+
 .board-wrapper .board-canvas {
   transition: margin 0.1s;
   overflow-y: auto;
-  width: 100%;
-  min-width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  /* don't stretch vertically if not needed (e.g collapsed) */
+  align-self: start;
+  flex: 1;
 }
 
 /* Ensure horizontal scrollbar is visible for high zoom levels */
@@ -67,148 +79,12 @@
   position: relative;
 }
 
-#content[style*="overflow-x: auto"]::-webkit-scrollbar {
-  height: 12px;
-  width: 12px;
+
+/* Force vertical scrollbar to always be visible */
+#content[style*="overflow-y: auto"] {
+  overflow-y: scroll !important;
 }
 
-    /* Force vertical scrollbar to always be visible */
-    #content[style*="overflow-y: auto"] {
-      overflow-y: scroll !important;
-    }
-
-    /* Mobile - make all text 2x bigger inside #content by default (icons stay same size) */
-    @media screen and (max-width: 800px),
-           screen and (max-device-width: 800px),
-           screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
-           screen and (max-width: 800px) and (orientation: portrait),
-           screen and (max-width: 800px) and (orientation: landscape) {
-      #content {
-        font-size: 2em !important; /* 2x bigger base font size for content area */
-      }
-
-      /* Make all text elements 2x bigger */
-      #content h1, #content h2, #content h3, #content h4, #content h5, #content h6,
-      #content p, #content span, #content div, #content a, #content button,
-      #content .minicard, #content .list-header-name, #content .board-header-btn,
-      #content .card-title, #content .card-details, #content .card-description,
-      #content .swimlane-header, #content .list-title, #content .card-text,
-      #content .member, #content .member-name, #content .member-initials,
-      #content .checklist-item, #content .checklist-title, #content .comment,
-      #content .activity, #content .activity-text, #content .activity-time,
-      #content .board-title, #content .board-description, #content .list-name,
-      #content .card-text, #content .card-title, #content .card-description,
-      #content .swimlane-title, #content .swimlane-description,
-      #content .board-header-title, #content .board-header-description,
-      #content .card-detail-title, #content .card-detail-description,
-      #content .list-header-title, #content .list-header-description,
-      #content .swimlane-header-title, #content .swimlane-header-description,
-      #content .minicard-title, #content .minicard-description,
-      #content .card-comment, #content .card-comment-text,
-      #content .checklist-item-text, #content .checklist-item-title,
-      #content .activity-item, #content .activity-item-text,
-      #content .board-member, #content .board-member-name,
-      #content .team-member, #content .team-member-name,
-      #content .org-member, #content .org-member-name,
-      #content .template-member, #content .template-member-name,
-      #content .user-name, #content .user-email, #content .user-role,
-      #content .setting-title, #content .setting-description,
-      #content .popup-title, #content .popup-description,
-      #content .modal-title, #content .modal-description,
-      #content .notification-title, #content .notification-text,
-      #content .announcement-title, #content .announcement-text,
-      #content .offline-warning-title, #content .offline-warning-text,
-      #content .error-title, #content .error-text,
-      #content .success-title, #content .success-text,
-      #content .info-title, #content .info-text,
-      #content .warning-title, #content .warning-text {
-        font-size: 1em !important; /* Use inherited 2x scaling */
-      }
-
-      /* Keep icons the same size (don't scale them) */
-      #content .fa, #content .icon, #content i {
-        font-size: 1em !important; /* Keep original icon size */
-      }
-
-      /* Reset specific icon sizes to prevent double scaling */
-      #content .fa-home, #content .fa-bars, #content .fa-search,
-      #content .fa-bell, #content .fa-user, #content .fa-cog,
-      #content .fa-plus, #content .fa-minus, #content .fa-edit,
-      #content .fa-trash, #content .fa-save, #content .fa-cancel,
-      #content .fa-arrow-left, #content .fa-arrow-right,
-      #content .fa-arrow-up, #content .fa-arrow-down,
-      #content .fa-check, #content .fa-times, #content .fa-close,
-      #content .fa-star, #content .fa-heart, #content .fa-thumbs-up,
-      #content .fa-thumbs-down, #content .fa-comment, #content .fa-reply,
-      #content .fa-share, #content .fa-download, #content .fa-upload,
-      #content .fa-copy, #content .fa-paste, #content .fa-cut,
-      #content .fa-undo, #content .fa-redo, #content .fa-refresh,
-      #content .fa-sync, #content .fa-spinner, #content .fa-loading,
-      #content .fa-info, #content .fa-question, #content .fa-exclamation,
-      #content .fa-warning, #content .fa-error, #content .fa-success,
-      #content .fa-check-circle, #content .fa-times-circle,
-      #content .fa-exclamation-circle, #content .fa-question-circle,
-      #content .fa-info-circle, #content .fa-warning-circle,
-      #content .fa-error-circle, #content .fa-success-circle {
-        font-size: 1em !important; /* Keep original icon size */
-      }
-    }
-
-    /* Fallback for iPhone devices using JavaScript detection */
-    .iphone-device #content {
-      font-size: 2em !important; /* 2x bigger base font size for content area */
-    }
-
-    .iphone-device #content h1, .iphone-device #content h2, .iphone-device #content h3, .iphone-device #content h4, .iphone-device #content h5, .iphone-device #content h6,
-    .iphone-device #content p, .iphone-device #content span, .iphone-device #content div, .iphone-device #content a, .iphone-device #content button,
-    .iphone-device #content .minicard, .iphone-device #content .list-header-name, .iphone-device #content .board-header-btn,
-    .iphone-device #content .card-title, .iphone-device #content .card-details, .iphone-device #content .card-description,
-    .iphone-device #content .swimlane-header, .iphone-device #content .list-title, .iphone-device #content .card-text,
-    .iphone-device #content .member, .iphone-device #content .member-name, .iphone-device #content .member-initials,
-    .iphone-device #content .checklist-item, .iphone-device #content .checklist-title, .iphone-device #content .comment,
-    .iphone-device #content .activity, .iphone-device #content .activity-text, .iphone-device #content .activity-time,
-    .iphone-device #content .board-title, .iphone-device #content .board-description, .iphone-device #content .list-name,
-    .iphone-device #content .card-text, .iphone-device #content .card-title, .iphone-device #content .card-description,
-    .iphone-device #content .swimlane-title, .iphone-device #content .swimlane-description,
-    .iphone-device #content .board-header-title, .iphone-device #content .board-header-description,
-    .iphone-device #content .card-detail-title, .iphone-device #content .card-detail-description,
-    .iphone-device #content .list-header-title, .iphone-device #content .list-header-description,
-    .iphone-device #content .swimlane-header-title, .iphone-device #content .swimlane-header-description,
-    .iphone-device #content .minicard-title, .iphone-device #content .minicard-description,
-    .iphone-device #content .card-comment, .iphone-device #content .card-comment-text,
-    .iphone-device #content .checklist-item-text, .iphone-device #content .checklist-item-title,
-    .iphone-device #content .activity-item, .iphone-device #content .activity-item-text,
-    .iphone-device #content .board-member, .iphone-device #content .board-member-name,
-    .iphone-device #content .team-member, .iphone-device #content .team-member-name,
-    .iphone-device #content .org-member, .iphone-device #content .org-member-name,
-    .iphone-device #content .template-member, .iphone-device #content .template-member-name,
-    .iphone-device #content .user-name, .iphone-device #content .user-email, .iphone-device #content .user-role,
-    .iphone-device #content .setting-title, .iphone-device #content .setting-description,
-    .iphone-device #content .popup-title, .iphone-device #content .popup-description,
-    .iphone-device #content .modal-title, .iphone-device #content .modal-description,
-    .iphone-device #content .notification-title, .iphone-device #content .notification-text,
-    .iphone-device #content .announcement-title, .iphone-device #content .announcement-text,
-    .iphone-device #content .offline-warning-title, .iphone-device #content .offline-warning-text,
-    .iphone-device #content .error-title, .iphone-device #content .error-text,
-    .iphone-device #content .success-title, .iphone-device #content .success-text,
-    .iphone-device #content .info-title, .iphone-device #content .info-text,
-    .iphone-device #content .warning-title, .iphone-device #content .warning-text {
-      font-size: 1em !important; /* Use inherited 2x scaling */
-    }
-
-    /* Keep icons the same size for iPhone devices */
-    .iphone-device #content .fa, .iphone-device #content .icon, .iphone-device #content i {
-      font-size: 1em !important; /* Keep original icon size */
-    }
-
-/* Ensure scrollbars are positioned correctly */
-#content[style*="overflow-x: auto"]::-webkit-scrollbar:vertical {
-  width: 12px;
-}
-
-#content[style*="overflow-x: auto"]::-webkit-scrollbar:horizontal {
-  height: 12px;
-}
 
 /* Force both scrollbars to always be visible for high zoom levels */
 #content[style*="overflow-x: auto"][style*="overflow-y: auto"] {
@@ -220,23 +96,31 @@
 #content[style*="overflow-y: auto"] {
   scrollbar-gutter: stable;
 }
-.board-wrapper .board-canvas .board-overlay {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  top: -100px;
-  right: -400px;
-  background: #000;
-  opacity: 0.33;
-  animation: fadeIn 0.2s;
-  z-index: 16;
+
+/* iPhone in desktop mode: remove overlay to avoid blocking card */
+body.desktop-mode.iphone-device .board-wrapper .board-canvas .board-overlay {
+  display: none !important;
+  pointer-events: none !important;
 }
 
+/* Desktop mode: hide overlay to allow multiple cards and board interaction */
+body.desktop-mode .board-wrapper .board-canvas .board-overlay {
+  display: none !important;
+  pointer-events: none !important;
+}
 .board-wrapper .board-canvas.is-dragging-active .open-minicard-composer,
 .board-wrapper .board-canvas.is-dragging-active .minicard-wrapper.is-checked {
   display: none;
+}
+
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+
+.board-wrapper .board-canvas .swimlane {
+    /* this effectively prevents board
+    to shrink */
+    min-width: 100vw;
+  }
 }
 .calendar-event-green {
   background: #3cb500 !important;
@@ -394,7 +278,6 @@
   justify-content: center;
   align-items: center;
   margin: 0;
-  font-size: 18px;
 }
 .modal-footer {
   display: flex;
@@ -407,10 +290,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 25px;
   cursor: pointer;
 }
 

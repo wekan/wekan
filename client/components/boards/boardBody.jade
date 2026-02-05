@@ -13,32 +13,32 @@ template(name="board")
 
 template(name="boardBody")
   if notDisplayThisBoard
-   | {{_ 'tableVisibilityMode-allowPrivateOnly'}}
+    | {{_ 'tableVisibilityMode-allowPrivateOnly'}}
   else
     //- Debug information (remove in production)
     if debugBoardState
+      //- Debug information (remove in production)
       .debug-info(style="position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.8); color: white; padding: 10px; z-index: 9999; font-size: 12px;")
         | {{_ 'board'}}: {{currentBoard.title}} | {{_ 'view'}}: {{boardView}} | {{_ 'has-swimlanes'}}: {{hasSwimlanes}} | {{_ 'swimlanes'}}: {{currentBoard.swimlanes.length}}
     .board-wrapper(class=currentBoard.colorClass class="{{#if isMiniScreen}}mobile-view{{/if}}")
       .board-canvas.js-swimlanes(
         class="{{#if hasSwimlanes}}dragscroll{{/if}}"
-        class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
         class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
         class="{{#if draggingActive.get}}is-dragging-active{{/if}}"
         class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}"
         class="{{#if isMiniScreen}}mobile-view{{/if}}")
-        if showOverlay.get
-          .board-overlay
         if currentBoard.isTemplatesBoard
-          each currentBoard.swimlanes
-            +swimlane(this)
-        else if isViewSwimlanes
-          if hasSwimlanes
+          .swim-flex
             each currentBoard.swimlanes
               +swimlane(this)
-          else
-            // Fallback: If no swimlanes exist, show lists instead of empty message
-            +listsGroup(currentBoard)
+        else if isViewSwimlanes
+          .swim-flex
+            if hasSwimlanes
+              each currentBoard.swimlanes
+                +swimlane(this)
+            else
+              // Fallback: If no swimlanes exist, show lists instead of empty message
+              +listsGroup(currentBoard)
         else if isViewLists
           +listsGroup(currentBoard)
         else if isViewCalendar
