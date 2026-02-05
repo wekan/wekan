@@ -39,6 +39,8 @@ and fixes the following bugs:
   Thanks to AymenHassini19.
 - [Fixed Jade syntax at header](https://github.com/wekan/wekan/commit/c31758960f5372e88f47e8d081404294751284c8).
   Thanks to xet7.
+- [Await async setDone before closing popup in copy/move dialogs](https://github.com/wekan/wekan/pull/6126).
+  Thanks to harryadel.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
