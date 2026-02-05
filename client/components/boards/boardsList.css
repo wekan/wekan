@@ -11,8 +11,11 @@
 /* Two-column layout for All Boards */
 .boards-layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 16px;
+  gap: 1ch;
+  /* menu takes the space it needs, boards has the rest */
+  grid-template-columns: auto 1fr;
+  justify-content: stretch;
+  align-items: stretch;
 }
 
 .boards-left-menu {
@@ -1252,4 +1255,3 @@ body.grey-icons-enabled .checkmark-no-grey {
     font-family: inherit !important;
   }
 }
-
