@@ -44,9 +44,8 @@
   }
 }
 .minicard-details-menu-with-handle {
-  position: absolute;
-  right: 0.7vw;
-  top: 0.7vh;
+  float: right;
+  padding-left: 0.7vw;
   font-size: clamp(14px, 3vw, 18px);
   padding: 0;
   z-index: 1;
@@ -137,8 +136,8 @@
   width: clamp(20px, 2.5vw, 28px);
   height: clamp(20px, 2.5vw, 28px);
   position: absolute;
-  right: 3vw;
-  top: 0.7vh;
+  right: 0vw;
+  top: 6vh;
   display: none;
   z-index: 1;
 }
@@ -155,7 +154,7 @@
   text-align: center;
 }
 .minicard .minicard-title {
-  margin-right: 6vw;
+  margin-right: 1.5vw;
 }
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
