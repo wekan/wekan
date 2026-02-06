@@ -30,6 +30,8 @@ This release fixes the following bugs:
 
 - [Fix List widths](https://github.com/wekan/wekan/pull/6129).
   Thanks to KhaoulaMaleh.
+- [Fix extra space at RTL need margin](https://github.com/wekan/wekan/commit/4456bc13609b2d0e944ee71a82df200060a601b2).
+  Thanks to mimZD and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
