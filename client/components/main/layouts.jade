@@ -33,9 +33,11 @@ template(name="userFormsLayout")
             a(href="{{currentSetting.customLoginLogoLinkUrl}}")
               img(src="{{currentSetting.customLoginLogoImageUrl}}")
           unless currentSetting.customLoginLogoLinkUrl
-            img(src="{{currentSetting.customLoginLogoImageUrl}}")
+            a
+              img(src="{{currentSetting.customLoginLogoImageUrl}}")
         else
-          img(src="{{pathFor '/wekan-logo.svg'}}" alt="")
+          a
+            img(src="{{pathFor '/wekan-logo.svg'}}" alt="")
           br
     section.auth-custom-text
       if currentSetting.textBelowCustomLoginLogo

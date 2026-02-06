@@ -111,14 +111,8 @@ body {
   line-height: 1.4;
 }
 
-
-/* Mobile mode specific fixes for iOS Safari */
 body.mobile-mode {
   width: 100%;
-  overflow-x: hidden;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: start;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -797,14 +791,6 @@ a:not(.disabled).is-active i.fa {
   flex: 1 0 auto;
   align-self: center;
   margin: 0 0.2lh;
-}
-.textBelowCustomLoginLogo,
-.auth-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
 }
 .loadingText {
   text-align: center;

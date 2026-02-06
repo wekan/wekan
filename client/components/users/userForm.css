@@ -1,42 +1,43 @@
 .auth-container {
   display: grid;
-  gap: 1lh;
   align-content: stretch;
-  justify-items: center;
+  align-items: stretch;
+  justify-items: stretch;
+  justify-content: center;
   padding: 2lh 0;
-  margin: auto;
-  grid-template-columns: minmax(auto, 70vw);
-  grid-template-rows: 20vh max-content auto;
-  min-width: fit-content;
+  /* i.e. center horizontally */
+  margin-inline: auto;;
+  /* parent container has relative positionning */
+  grid-template-columns: 100%;
+  grid-template-rows: minmax(20vh, 300px) min-content 1fr;
+  position: relative;
+}
+
+body.mobile-mode:has(.auth-container) {
+  .auth-container {
+    grid-template-columns: 90vw;
+    min-height: 100%;
+  }
+
+  .auth-layout, .at-form-landing-logo, .auth-logo, .auth-custom-text {
+    max-width: 90%;
+  }
 }
 
 .auth-logo {
-  flex: 1;
-}
-
-.auth-logo a {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  flex: 1;
-
-  img {
-    aspect-ratio: 1/1;
-    display: inline;
-    flex: 1;
-  }
-}
-
-.auth-layout {
-  &.at-form-landing-logo, &.auth-logo {
+  &, &>a:not(img), > img {
     display: flex;
-    justify-content: stretch;
+    flex: 1;
+    justify-content: center;
   }
 }
 
-.auth-dialog {
-  min-width: max-content;
+.auth-container {
+  flex: 1;
+  min-width: max(30vw, 600px);
+  position: relative;
 }
+
 
 .auth-layout .auth-dialog {
   background: #fff;
@@ -45,9 +46,7 @@
   border-bottom-color: #c2c2c2;
   box-shadow: 0 0.2vh 0.8vh rgba(0,0,0,0.3);
   padding: 0 2ch 0.5lh 2ch;
-  align-self: stretch;
   white-space: wrap;
-
   /* try to override properties of non-flex forms
   without referring too much to classes and ids, as forms
   are dynamic */
@@ -64,7 +63,7 @@
   }
 
   *:not(div) {
-    width: auto;
+    width: 100%;
     margin: 0;
   }
 }
@@ -75,10 +74,15 @@
 
 .password-input-container {
   display: grid;
-  grid-template-columns: auto max-content;
-  grid-auto-flow: column;
+  align-self: stretch;
+  grid-template-columns: 1fr 6ch;
 }
 
+body.mobile-mode {
+  .password-input-container {
+    grid-auto-flow: row;
+  }
+}
 .auth-layout .auth-dialog .at-form button {
   background: #216694;
   color: #fff;

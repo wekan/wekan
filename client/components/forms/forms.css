@@ -130,7 +130,7 @@ button {
   line-height: 1.3;
   /* in flex layouts, padding often disturbs computations. rather rarely have
   two lines, so setting relative-unit min-height works better */
-  min-height: 1.5lh;
+  min-height: 1.8lh;
   margin: 0.3lh 0;
   padding: 0 2ch;
   text-align: center;

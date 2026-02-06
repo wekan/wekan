@@ -67,7 +67,7 @@ Utils = {
     const isMobilePhone = /iPhone|iPad|Mobile|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && !/iPad/i.test(navigator.userAgent);
     const isTouch = this.isTouchScreen();
 
-    return (isTouch || width < 800);
+    return (isTouch || isMobilePhone || width < 800);
   },
 
   isTouchScreen() {
@@ -102,6 +102,7 @@ Utils = {
 
   setMobileMode(enabled) {
     Session.set('wekan-mobile-mode', enabled);
+    Utils.applyMobileMode(enabled);
   },
 
   getCardZoom() {
