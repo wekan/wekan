@@ -1342,7 +1342,6 @@ BlazeComponent.extendComponent({
         'keyup .js-search-member-input'(event) {
           Session.set('addMemberPopup.error', '');
           const query = event.target.value.trim();
-          this.searchQuery.set(query);
 
           // Clear previous timeout
           if (this.searchTimeout) {

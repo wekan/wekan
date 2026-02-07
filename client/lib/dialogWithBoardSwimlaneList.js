@@ -54,10 +54,10 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
       this.selectedListId.set(this.cardOption.listId);
     }
     this.getBoardData(this.selectedBoardId.get());
-    if (this.selectedSwimlaneId.get() || ReactiveCache.getSwimlane({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
+    if (!this.selectedSwimlaneId.get() || !ReactiveCache.getSwimlane({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstSwimlaneId();
     }
-    if (this.selectedListId.get() || ReactiveCache.getList({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
+    if (!this.selectedListId.get() || !ReactiveCache.getList({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()})) {
       this.setFirstListId();
     }
   }
