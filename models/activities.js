@@ -203,14 +203,16 @@ if (Meteor.isServer) {
       let hasMentions = false; // Track if comment has @mentions
       if (board) {
         const comment = params.comment;
-        const knownUsers = board.members.map((member) => {
-          const u = ReactiveCache.getUser(member.userId);
-          if (u) {
-            member.username = u.username;
-            member.emails = u.emails;
-          }
-          return member;
-        });
+        const knownUsers = board.members
+          .filter((member) => member.isActive)
+          .map((member) => {
+            const u = ReactiveCache.getUser(member.userId);
+            if (u) {
+              member.username = u.username;
+              member.emails = u.emails;
+            }
+            return member;
+          });
         // Match @mentions including usernames with @ symbols (like email addresses)
         // Pattern matches: @username, @user@example.com, @"quoted username"
         const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.@-]+))/gi;

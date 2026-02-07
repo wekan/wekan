@@ -387,13 +387,15 @@ Blaze.Template.registerHelper(
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
       return HTML.Raw(sanitizeHTML(content));
-    const knowedUsers = _.union(currentBoard.members.map(member => {
-      const u = ReactiveCache.getUser(member.userId);
-      if (u) {
-        member.username = u.username;
-      }
-      return member;
-    }), [...specialHandles]);
+    const knowedUsers = _.union(currentBoard.members
+      .filter(member => member.isActive)
+      .map(member => {
+        const u = ReactiveCache.getUser(member.userId);
+        if (u) {
+          member.username = u.username;
+        }
+        return member;
+      }), [...specialHandles]);
     const mentionRegex = /\B@([\w.-]*)/gi;
 
     let currentMention;
