@@ -106,8 +106,21 @@ CardComments.helpers({
   },
 
   reactions() {
-    const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
+    const reaction = this.reaction();
     return !!cardCommentReactions ? cardCommentReactions.reactions : [];
+  },
+
+  reaction() {
+    return cardCommentReactions = ReactiveCache.getCardCommentReaction({ cardCommentId: this._id });
+  },
+
+  userReactions(userId) {
+    const reactions = this.reactions();
+    return reactions?.filter(r => r.userIds.includes(userId));
+  },
+
+  hasUserReacted(codepoint) {
+    return this.userReactions(Meteor.userId()).find(e => e.reactionCodepoint === codepoint);
   },
 
   toggleReaction(reactionCodepoint) {
@@ -115,31 +128,31 @@ CardComments.helpers({
       return false;
     } else {
 
-      const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
-      const reactions = !!cardCommentReactions ? cardCommentReactions.reactions : [];
       const userId = Meteor.userId();
-      const reaction = reactions.find(r => r.reactionCodepoint === reactionCodepoint);
+      const reactionDoc = this.reaction();
+      const reactions = this.reactions();
+      const reactionTog = reactions.find(r => r.reactionCodepoint === reactionCodepoint);
 
       // If no reaction is set for the codepoint, add this
-      if (!reaction) {
+      if (!reactionTog) {
         reactions.push({ reactionCodepoint, userIds: [userId] });
       } else {
 
         // toggle user reaction upon previous reaction state
-        const userHasReacted = reaction.userIds.includes(userId);
+        const userHasReacted = reactionTog.userIds.includes(userId);
         if (userHasReacted) {
-          reaction.userIds.splice(reaction.userIds.indexOf(userId), 1);
-          if (reaction.userIds.length === 0) {
-            reactions.splice(reactions.indexOf(reaction), 1);
+          reactionTog.userIds.splice(reactionTog.userIds.indexOf(userId), 1);
+          if (reactionTog.userIds.length === 0) {
+            reactions.splice(reactions.indexOf(reactionTog), 1);
           }
         } else {
-          reaction.userIds.push(userId);
+          reactionTog.userIds.push(userId);
         }
       }
 
       // If no reaction doc exists yet create otherwise update reaction set
-      if (!!cardCommentReactions) {
-        return CardCommentReactions.update({ _id: cardCommentReactions._id }, { $set: { reactions } });
+      if (!!reactionDoc) {
+        return CardCommentReactions.update({ _id: reactionDoc._id }, { $set: { reactions } });
       } else {
         return CardCommentReactions.insert({
           boardId: this.boardId,

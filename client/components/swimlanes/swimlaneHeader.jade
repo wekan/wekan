@@ -9,41 +9,37 @@ template(name="swimlaneHeader")
         +swimlaneFixedHeader(this)
 
 template(name="swimlaneFixedHeader")
-  .swimlane-header(
-    class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-      if $eq title 'Card Templates'
-        | {{_ 'card-templates-swimlane'}}
-      else if $eq title 'List Templates'
-        | {{_ 'list-templates-swimlane'}}
-      else if $eq title 'Board Templates'
-        | {{_ 'board-templates-swimlane'}}
-      else if $eq title 'Default'
-        | {{_ 'defaultdefault'}}
-      else
-        +viewer
-          | {{isTitleDefault title}}
-  .swimlane-header-menu
+  .swimlane-header-menu-left
     if currentUser
       unless currentUser.isCommentOnly
-        unless currentUser.isReadOnly
-          unless currentUser.isReadAssignedOnly
-            unless currentUser.isWorker
-              a.swimlane-collapse-indicator.js-collapse-swimlane.swimlane-header-collapse(title="{{_ 'collapse'}}")
-                if collapseSwimlane
-                  i.fa.fa-caret-right
-                else
-                  i.fa.fa-caret-down
-              a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
-                i.fa.fa-bars
-              a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
-                i.fa.fa-plus
-              if isTouchScreenOrShowDesktopDragHandles
-                unless isTouchScreen
-                  a.swimlane-header-handle.handle.js-swimlane-header-handle
-                    i.fa.fa-arrows
-                if isTouchScreen
-                  a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
-                    i.fa.fa-arrows
+        unless currentUser.isWorker
+          a.swimlane-collapse-indicator.js-collapse-swimlane.swimlane-header-collapse(title="{{_ 'collapse'}}")
+            if collapseSwimlane
+              i.fa.fa-caret-right
+            else
+              i.fa.fa-caret-down
+  .swimlane-header(
+      class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+        if $eq title 'Card Templates'
+          | {{_ 'card-templates-swimlane'}}
+        else if $eq title 'List Templates'
+          | {{_ 'list-templates-swimlane'}}
+        else if $eq title 'Board Templates'
+          | {{_ 'board-templates-swimlane'}}
+        else if $eq title 'Default'
+          | {{_ 'defaultdefault'}}
+        else
+          +viewer
+            | {{isTitleDefault title}}
+  .swimlane-header-menu-right
+    if currentUser
+      unless currentUser.isCommentOnly
+        unless currentUser.isWorker
+          a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
+            i.fa.fa-bars
+          if isMiniScreen
+            a.swimlane-header-miniscreen-handle.handle.js-swimlane-header-handle
+              i.fa.fa-arrows
 
 template(name="editSwimlaneTitleForm")
   .list-composer
@@ -59,23 +55,23 @@ template(name="swimlaneActionPopup")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           ul.pop-over-list
-             li: a.js-add-swimlane
-               i.fa.fa-plus
-               span  {{_ 'add-swimlane'}}
+            li: a.js-add-swimlane
+              i.fa.fa-plus
+              span  {{_ 'add-swimlane'}}
           hr
           ul.pop-over-list
-             li: a.js-add-list-from-swimlane
-               i.fa.fa-plus
-               span  {{_ 'add-list'}}
+            li: a.js-add-list-from-swimlane
+              i.fa.fa-plus
+              span  {{_ 'add-list'}}
           hr
           ul.pop-over-list
-             if currentUser.isBoardAdmin
-               li: a.js-set-swimlane-color
-                 i.fa.fa-paint-brush
-                 | {{_ 'select-color'}}
-             li: a.js-set-swimlane-height
-               i.fa.fa-arrows
-               |  {{_ 'set-swimlane-height'}}
+           if currentUser.isBoardAdmin
+             li: a.js-set-swimlane-color
+               i.fa.fa-paint-brush
+               | {{_ 'select-color'}}
+           li: a.js-set-swimlane-height
+             i.fa.fa-arrows
+             |  {{_ 'set-swimlane-height'}}
           if currentUser.isBoardAdmin
             unless this.isTemplateContainer
               hr
@@ -117,8 +113,7 @@ template(name="setSwimlaneColorPopup")
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
               i.fa.fa-check
-    // Buttons aligned left too
-    .flush-left
+    .form-buttons
       button.primary.confirm.js-submit(style="margin-left:0") {{_ 'save'}}
       button.js-remove-color.negate.wide.right(style="margin-left:8px") {{_ 'unset-color'}}
 

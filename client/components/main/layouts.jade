@@ -23,61 +23,56 @@ template(name="main")
       //link(rel="stylesheet" type="text/css" class="__meteor-css__" href="css/html5-default-theme.css")
 
 template(name="userFormsLayout")
-  section.auth-layout
-    if currentSetting.hideLogo
-      h1.at-form-landing-logo
-        br
-        br
-    unless currentSetting.hideLogo
-      h1.at-form-landing-logo
-      if currentSetting.customLoginLogoImageUrl
-        if currentSetting.customLoginLogoLinkUrl
-          a(href="{{currentSetting.customLoginLogoLinkUrl}}")
-            img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
+  .auth-container
+    section.auth-layout.auth-logo
+      if currentSetting.hideLogo
+        h1.at-form-landing-logo
+      unless currentSetting.hideLogo
+        if currentSetting.customLoginLogoImageUrl
+          if currentSetting.customLoginLogoLinkUrl
+            a(href="{{currentSetting.customLoginLogoLinkUrl}}")
+              img(src="{{currentSetting.customLoginLogoImageUrl}}")
+          unless currentSetting.customLoginLogoLinkUrl
+            a
+              img(src="{{currentSetting.customLoginLogoImageUrl}}")
+        else
+          a
+            img(src="{{pathFor '/wekan-logo.svg'}}" alt="")
           br
-        unless currentSetting.customLoginLogoLinkUrl
-          img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
-          br
-      else
-        img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
-        br
-  if currentSetting.textBelowCustomLoginLogo
-    hr
-    section.textBelowCustomLoginLogo
-      +viewer
-        | {{currentSetting.textBelowCustomLoginLogo}}
-    hr
-  section.auth-layout
-    section.auth-dialog
-      if isLoading
-        +loader
-      else
-        // ARIA live region for error messages
-        div#login-error-message(role="alert" aria-live="assertive" style="color: #d32f2f; margin-bottom: 1em;")
-        +Template.dynamic(template=content)
-        if currentSetting.displayAuthenticationMethod
-          +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
-        if isLegalNoticeLinkExist
-          div#legalNoticeDiv
-            span#legalNoticeSpan {{_ 'acceptance_of_our_legalNotice'}}
-            a#legalNoticeAtLink.at-link(href="{{currentSetting.legalNotice}}", target="_blank", rel="noopener noreferrer")
-              | {{_ 'legalNotice'}}
-          if getLegalNoticeWithWritTraduction
-            div
-        div.at-form-lang
-          label(for="userform-set-language-select") {{_ 'changeLanguagePopup-title'}}
-          select.select-lang.js-userform-set-language#userform-set-language-select(aria-label="{{_ 'changeLanguagePopup-title'}}")
-            each languages
-              if isCurrentLanguage
-                if rtl
-                  option(value="{{tag}}" selected="selected") {{name}} (RTL)
+    section.auth-custom-text
+      if currentSetting.textBelowCustomLoginLogo
+        section.textBelowCustomLoginLogo
+          +viewer
+            | {{currentSetting.textBelowCustomLoginLogo}}
+    section.auth-layout.auth-form
+      section.auth-dialog
+        if isLoading
+          +loader
+        else
+          // ARIA live region for error messages
+          div#login-error-message(role="alert" aria-live="assertive" style="color: #d32f2f;")
+          +Template.dynamic(template=content)
+          if currentSetting.displayAuthenticationMethod
+            +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+          if isLegalNoticeLinkExist
+            div#legalNoticeDiv
+              span#legalNoticeSpan {{_ 'acceptance_of_our_legalNotice'}}
+              a#legalNoticeAtLink.at-link(href="{{currentSetting.legalNotice}}", target="_blank", rel="noopener noreferrer")
+                | {{_ 'legalNotice'}}
+          div.at-form-lang
+            label(for="userform-set-language-select") {{_ 'changeLanguagePopup-title'}}
+            select.select-lang.js-userform-set-language#userform-set-language-select(aria-label="{{_ 'changeLanguagePopup-title'}}")
+              each languages
+                if isCurrentLanguage
+                  if rtl
+                    option(value="{{tag}}" selected="selected") {{name}} (RTL)
+                  else
+                    option(value="{{tag}}" selected="selected") {{name}}
                 else
-                  option(value="{{tag}}" selected="selected") {{name}}
-              else
-                if rtl
-                  option(value="{{tag}}") {{name}} (RTL)
-                else
-                  option(value="{{tag}}") {{name}}
+                  if rtl
+                    option(value="{{tag}}") {{name}} (RTL)
+                  else
+                    option(value="{{tag}}") {{name}}
 
 template(name="defaultLayout")
   +header

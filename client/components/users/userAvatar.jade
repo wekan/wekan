@@ -19,8 +19,8 @@ template(name="userAvatar")
             i.fa.fa-pencil-square-o
 
 template(name="userAvatarInitials")
-  svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
-    text(x="50%" y="11" text-anchor="middle" dominant-baseline="middle" font-size="16")= initials
+  .avatar-initials
+    = initials
 
 template(name="orgAvatar")
   a.member.orgOrTeamMember(class="js-member" title="{{orgData.orgDisplayName}}")

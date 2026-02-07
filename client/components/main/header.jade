@@ -5,100 +5,81 @@ template(name="header")
     Reddit "subreddit" bar.
     The first link goes to the boards page.
   if currentUser
-    #header-quick-access(class=currentBoard.colorClass)
+    #header-quick-access(class="currentBoard.colorClass {{#if isMiniScreen}}mobile-view{{/if}}")
       // Home icon - always at left side of logo
-      span.home-icon.allBoards
-        a(href="{{pathFor 'home'}}")
-          i.fa.fa-home
-          | {{_ 'all-boards'}}
+      #header-quick-access-left
+        span.home-icon.allBoards
+          a(href="{{pathFor 'home'}}")
+            span.emoji-icon
+              i.fa.fa-home
+            span
+              | {{_ 'all-boards'}}
 
-      // Logo - visible; on mobile constrained by CSS
-      unless currentSetting.hideLogo
-        if currentSetting.customTopLeftCornerLogoImageUrl
-          if currentSetting.customTopLeftCornerLogoLinkUrl
-            a(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-              img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
-          unless currentSetting.customTopLeftCornerLogoLinkUrl
-            img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-        unless currentSetting.customTopLeftCornerLogoImageUrl
-          div#headerIsSettingDatabaseCallDone
-            img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-
-        // Zoom controls - always visible
-        .zoom-controls
-          span.zoom-level.js-zoom-level-click(title="{{_ 'click-to-change-zoom'}}")
-            span.zoom-display {{zoomLevel}}%
-            input.zoom-input.js-zoom-input(type="number" value=zoomLevel min="50" max="300" step="10" style="display: none;")
-
-      // Drag handles toggle - between zoom and mobile mode toggle
-      a.board-header-btn.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}")
-        i.fa.fa-arrows
-        if isShowDesktopDragHandles
-          i.fa.fa-check
-        unless isShowDesktopDragHandles
-          i.fa.fa-ban
-
-      if isMiniScreen
-        ul.header-quick-access-list
-          if currentList
-            each currentBoard.lists
-              li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
-                a.js-select-list
-                  +viewer
-                    = title
-          else
+        if isMiniScreen
+          ul.header-quick-access-list
+            if currentList
+              each currentBoard.lists
+                li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
+                  a.js-select-list.
+                    +viewer
+                      = title
+            else
+              each currentUser.starredBoards
+                li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+                  a(href="{{pathFor 'board' id=_id slug=slug}}")
+                    +viewer
+                      = title
+        else
+          ul.header-quick-access-list
+            //li
+            //  a(href="{{pathFor 'public'}}")
+            //    span.fa.fa-globe
+            //    | {{_ 'public'}}
             each currentUser.starredBoards
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
                 a(href="{{pathFor 'board' id=_id slug=slug}}")
                   +viewer
                     = title
+            else
+              li.current.empty(title="{{_ 'quick-access-description'}}")
+              | {{_ 'quick-access-description'}}
+          #header-new-board-icon
+        // Next line is used only for spacing at header,
+        // there is no visible clickable icon.
         #header-new-board-icon
-      else
-        ul.header-quick-access-list
-          //li
-          //  a(href="{{pathFor 'public'}}")
-          //    span.fa.fa-globe
-          //    | {{_ 'public'}}
-          each currentUser.starredBoards
-            li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
-              a(href="{{pathFor 'board' id=_id slug=slug}}")
-                +viewer
-                  = title
+        //  Hide duplicate create board button,
+        //  because it did not show board templates correctly.
+        //a#header-new-board-icon.js-create-board
+        //  i.fa.fa-plus(title="Create a new board")
+      // Logo - visible; on mobile constrained by CSS
+      unless currentSetting.hideLogo
+        .logo-container
+          if currentSetting.customTopLeftCornerLogoImageUrl
+            if currentSetting.customTopLeftCornerLogoLinkUrl
+              a.logo(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+                +logo
+            else
+              +logo
           else
-            li.current.empty(title="{{_ 'quick-access-description'}}")
-            | {{_ 'quick-access-description'}}
-        #header-new-board-icon
-      // Next line is used only for spacing at header,
-      // there is no visible clickable icon.
-      #header-new-board-icon
-      //  Hide duplicate create board button,
-      //  because it did not show board templates correctly.
-      //a#header-new-board-icon.js-create-board
-      //  i.fa.fa-plus(title="Create a new board")
+            div#headerIsSettingDatabaseCallDone.logo
+              img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
 
-      .mobile-mode-toggle
-        a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
-          i.mobile-icon(class="{{#if mobileMode}}active{{/if}}")
-            i.fa.fa-mobile
-          i.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}")
-            i.fa.fa-desktop
-
-      // Notifications
-      +notifications
-
-      if currentSetting.customHelpLinkUrl
-        #header-help
-          a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
-            i.fa.fa-question-circle
-
-      +headerUserBar
+      #header-quick-access-right
+        if currentSetting.customHelpLinkUrl
+          #header-help
+            a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
+              i.fa.fa-question-circle
+        #header-quick-access-icons
+          +headerUserBar
+          // Notifications
+          +notifications
 
   #header(class=currentBoard.colorClass)
     //-
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.
       If the user is not connected we display "sign in" and "log in" buttons.
-    #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
+    #header-main-bar(class="{{#if isMiniScreen}}mobile-view{{/if}} {{#if wrappedHeader}}wrapper{{/if}}")
       +Template.dynamic(template=headerBar)
 
   if appIsOffline
@@ -122,3 +103,7 @@ template(name="offlineWarning")
       | {{_ 'app-is-offline'}}
 
       a.app-try-reconnect {{_ 'app-try-reconnect'}}
+
+//- a little helper to avoid duplication
+template(name="logo")
+  img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" style="{{#if currentSetting.customTopLeftCornerLogoHeight}}min-height: #{currentSetting.customTopLeftCornerLogoHeight};{{/if}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")

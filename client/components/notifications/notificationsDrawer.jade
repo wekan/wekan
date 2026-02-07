@@ -3,6 +3,7 @@ template(name='notificationsDrawer')
     .header
       a.notification-menu-toggle
         i.fa.fa-bars
+      //- #FIXME could be replaced by a popup to help placement ?
       .notification-menu(class="{{#if $.Session.get 'showNotificationMenu'}}is-open{{/if}}")
         .menu-section
           a.menu-item(class="{{#unless $.Session.get 'showReadNotifications'}}selected{{/unless}}")
@@ -44,9 +45,10 @@ template(name='notificationsDrawer')
             span.menu-icon
               i.fa.fa-trash
             span {{_ 'delete-all-notifications'}}
-      h5 {{_ 'notifications'}}
-        if($gt unreadNotifications 0)
-          |(#{unreadNotifications})
+      if($gt unreadNotifications 0)
+        |(#{unreadNotifications}) {{_ 'notifications'}}
+      else
+        |0 {{_ 'notifications'}}
       a.close
         i.fa.fa-times-thin
     ul.notifications

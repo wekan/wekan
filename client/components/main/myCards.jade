@@ -39,15 +39,16 @@ template(name="myCards")
                 .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
                   +viewer
                     = swimlane.title
-                each list in swimlane.myLists
-                  .my-cards-list-wrapper
-                    .my-cards-list-title(class=list.colorClass)
-                      +viewer
-                        = list.title
-                    each card in list.myCards
-                      .my-cards-card-wrapper
-                        a.minicard-wrapper(href=card.originRelativeUrl)
-                          +minicard(card)
+                .my-cards-swimlane-body
+                  each list in swimlane.myLists
+                    .my-cards-list-wrapper
+                      .my-cards-list-title(class=list.colorClass)
+                        +viewer
+                          = list.title
+                      each card in list.myCards
+                        .my-cards-card-wrapper
+                          a.minicard-wrapper(href=card.originRelativeUrl)
+                            +minicard(card)
       if $eq myCardsView 'table'
         .wrapper
           table.my-cards-board-table

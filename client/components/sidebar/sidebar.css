@@ -13,7 +13,7 @@
   position: absolute;
   right: 0px;
   top: 0px;
-  font-size: 25px;
+
   padding: 10px;
 }
 .sidebar-xmark:hover {
@@ -27,7 +27,21 @@
   padding: 10px 10px 0px 10px;
 }
 .sidebar .sidebar-content {
-  padding: 0 12px;
+  padding: 0 1ch;
+  >ul {
+    display: flex;
+  }
+  .fa:not(.fa-plus) {
+    padding-right: 0.5ch;
+    align-self: center;
+  }
+  *:has(>.fa-plus) {
+    /* as long as container as a min height,
+    we can accomodate it while staying symetric */
+    aspect-ratio: 1/1;
+    height: var(--label-height);
+    min-width: 0;
+  }
 }
 .sidebar .sidebar-content .hide-btn {
   display: none;
@@ -38,15 +52,13 @@
   margin-bottom: 10px;
   font-weight: bold;
 }
-.sidebar .sidebar-content h3 i.fa {
-  margin-right: 3px;
-}
 .sidebar .sidebar-content hr {
   margin: 13px 0;
 }
 .sidebar .sidebar-content ul.sidebar-list {
   display: flex;
   flex-direction: column;
+  gap: 0.1lh;
 }
 
 /* Use checklist-style green checkboxes for all sidebar checkboxes */
@@ -60,7 +72,7 @@
   margin-right: 6px !important;
   border-top: 2px solid transparent !important;
   border-left: 2px solid transparent !important;
-  border-bottom: 2px solid #3cb500 !important;
+  border-bottom: 0.2ch solid #3cb500 !important;
   border-right: 2px solid #3cb500 !important;
   transform: rotate(40deg) !important;
   -webkit-backface-visibility: hidden !important;
@@ -105,16 +117,17 @@ body.grey-icons-enabled .boardSubtaskSettingsPopup .materialCheckBox.is-checked 
 
 .card-settings-column h4 {
   margin: 0;
-  font-size: 12px;
+
   font-weight: bold;
   text-align: center;
 }
 .sidebar .sidebar-content ul.sidebar-list li > a {
   display: flex;
-  height: 30px;
   margin: 0;
   padding: 4px;
   border-radius: 3px;
+  max-height: 2lh;
+  overflow: hidden;
   align-items: center;
 }
 .sidebar .sidebar-content ul.sidebar-list li > a:hover,
@@ -132,10 +145,6 @@ body.grey-icons-enabled .boardSubtaskSettingsPopup .materialCheckBox.is-checked 
   padding: 8px;
   border-radius: 3px;
 }
-.sidebar .sidebar-content ul.sidebar-list li > a .sidebar-list-item-description {
-  flex: 1;
-  overflow: ellipsis;
-}
 .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-check {
   margin: 0 4px;
   color: #3cb500;
@@ -143,9 +152,6 @@ body.grey-icons-enabled .boardSubtaskSettingsPopup .materialCheckBox.is-checked 
 /* Grey check icons when grey icons setting is enabled */
 body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-check {
   color: #7a7a7a;
-}
-.sidebar .sidebar-content ul.sidebar-list li .minicard {
-  padding: 6px 8px 4px;
 }
 .sidebar .sidebar-content ul.sidebar-list li .minicard .minicard-edit-button {
   float: right;
@@ -183,12 +189,27 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
 }
 .board-sidebar {
   display: none;
-  width: 30vw;
-  z-index: 100;
+  width: fit-content;
+  height: fit-content;
+  max-width: min(50ch, 50vw);
+  max-height: 100vh;
+  overflow: auto;
+  z-index: 10;
   transition: top 0.1s, right 0.1s, width 0.1s;
+}
+
+body.mobile-mode .board-sidebar {
+  max-width: 100vw;
 }
 .board-sidebar.is-open {
   display: block;
+}
+.board-widget-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2lh;
+  min-height: 1.5lh;
+  align-items: stretch;
 }
 .board-widget h4 {
   margin: 5px 0;
@@ -212,7 +233,7 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
 }
 .sidebar-tongue i.fa {
   padding: 3px 9px;
-  font-size: 24px;
+
   transition: transform 0.5s;
 }
 .sidebar-accessibility {
@@ -283,7 +304,7 @@ body.grey-icons-enabled .sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-
   }
   .board-sidebar .sidebar-content .hide-btn i.fa {
     padding: 8px 16px;
-    font-size: 24px;
+
     font-weight: bold;
   }
   .sidebar-tongue {

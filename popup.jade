@@ -1,0 +1,21 @@
+template(name="popup")
+  span(class=popupPlaceholderClass)
+
+template(name="popupDetached")
+  .pop-over.js-pop-over(
+    class="{{#unless title}}miniprofile{{/unless}}"
+    class=currentBoard.colorClass
+    class="{{#unless title}}no-title{{/unless}}"
+    class="{{#unless isRendered}}invisible{{/unless}}"
+    data-popup=name)
+    if showHeader
+      .header
+        span.header-title= title
+        .header-controls
+          if isMiniScreen
+            span.popup-drag-handle.js-popup-drag-handle(title="Drag popup")
+              i.fa.fa-arrows
+          a.close-btn.js-close-detached-popup
+            i.fa.fa-times-thin
+    .content-wrapper
+      .content

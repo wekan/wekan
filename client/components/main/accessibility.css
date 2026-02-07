@@ -1,6 +1,6 @@
 .my-cards-board-wrapper {
   border-radius: 0 0 0.5vw 0.5vw;
-  min-width: min(400px, 52vw);
+  min-width: min(100%, 400px, 52vw);
   margin-bottom: 2.5vh;
   margin-right: auto;
   margin-left: auto;
@@ -32,13 +32,6 @@
   font-size: clamp(1rem, 2.5vw, 1.3rem);
   text-align: center;
   margin-bottom: 0.9vh;
-}
-.my-cards-list-wrapper {
-  margin: 1.3vh 1.3vw;
-  border-radius: 0.7vw;
-  display: inline-grid;
-  min-width: min(250px, 32vw);
-  max-width: min(350px, 45vw);
 }
 .my-cards-card-wrapper {
   margin-top: 0;
@@ -81,7 +74,7 @@
 }
 
 .accessibility-page h2 {
-  font-size: 24px;
+
   margin-bottom: 20px;
   color: #4d4d4d;
 }

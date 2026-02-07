@@ -197,11 +197,6 @@
   "desktop-mode": "Työpöytätila",
   "mobile-mode": "Mobiilitila",
   "mobile-desktop-toggle": "Vaihda mobiili- ja työpöytätilan välillä",
-  "zoom-in": "Lähennä",
-  "zoom-out": "Loitonna",
-  "click-to-change-zoom": "Napsauta muuttaaksesi zoomaustasoa",
-  "zoom-level": "Zoomaus taso",
-  "enter-zoom-level": "Kirjoita zoomaus taso (50-300%):",
   "board-view-cal": "Kalenteri",
   "board-view-swimlanes": "Uimaradat",
   "board-view-collapse": "Pienennä",
@@ -385,7 +380,7 @@
   "date": "Päivämäärä",
   "date-format": "Päivämäärämuoto",
   "date-format-yyyy-mm-dd": "VVVV-KK-PP",
-  "date-format-dd-mm-yyyy": "PP-KK-VVVV", 
+  "date-format-dd-mm-yyyy": "PP-KK-VVVV",
   "date-format-mm-dd-yyyy": "KK-PP-VVVV",
   "decline": "Kieltäydy",
   "default-avatar": "Oletusprofiilikuva",
@@ -1507,7 +1502,7 @@
   "run-fix-avatar-urls-migration-confirm": "Tämä päivittää taulun jäsenten avatar-URL-osoitteet käyttämään oikeaa tallennustilaa. Jatketaanko?",
   "run-fix-all-file-urls-migration-confirm": "Tämä päivittää kaikkien tällä taululla olevien tiedostoliitteiden URL-osoitteet käyttämään oikeaa tallennuspalvelinta. Jatketaanko?",
   "restore-lost-cards-nothing-to-restore": "Ei kadonneita uintikaistoja, listoja tai kortteja palautettavaksi",
-  
+
   "migration-progress-title": "Taulu siirto meneillään",
   "migration-progress-overall": "Kokonaisedistyminen",
   "migration-progress-current-step": "Nykyinen vaihe",
@@ -1517,7 +1512,7 @@
   "steps": "askelta",
   "view": "Näkymä",
   "has-swimlanes": "Sisältää uimaratoja",
-  
+
   "step-analyze-board-structure": "Analysoi taulun rakennetta",
   "step-fix-orphaned-cards": "Korjaa orvot kortit",
   "step-convert-shared-lists": "Muunna jaetut listat",

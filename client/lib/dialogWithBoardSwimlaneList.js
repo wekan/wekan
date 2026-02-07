@@ -20,9 +20,9 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
    */
   getDefaultOption(boardId) {
     const ret = {
-      'boardId' : "",
-      'swimlaneId' : "",
-      'listId' : "",
+      'boardId' : this.data().boardId,
+      'swimlaneId' : this.data().swimlaneId,
+      'listId' : this.data().listId,
     }
     return ret;
   }
@@ -44,15 +44,14 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
     let currentOptions = this.getDialogOptions();
     if (currentOptions && boardId && currentOptions[boardId]) {
       this.cardOption = currentOptions[boardId];
-      if (this.cardOption.boardId &&
-          this.cardOption.swimlaneId &&
-          this.cardOption.listId
-      )
-      {
-        this.selectedBoardId.set(this.cardOption.boardId)
-        this.selectedSwimlaneId.set(this.cardOption.swimlaneId);
-        this.selectedListId.set(this.cardOption.listId);
-      }
+    }
+    if (this.cardOption.boardId &&
+      this.cardOption.swimlaneId &&
+      this.cardOption.listId
+    ) {
+      this.selectedBoardId.set(this.cardOption.boardId)
+      this.selectedSwimlaneId.set(this.cardOption.swimlaneId);
+      this.selectedListId.set(this.cardOption.listId);
     }
     this.getBoardData(this.selectedBoardId.get());
     if (!this.selectedSwimlaneId.get() || !ReactiveCache.getSwimlane({_id: this.selectedSwimlaneId.get(), boardId: this.selectedBoardId.get()})) {
@@ -74,7 +73,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   setFirstListId() {
     try {
       const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const listId = board.lists()[0]._id;
+      const listId = board.listsInSwimlane(this.selectedSwimlaneId.get())[0]._id;
       this.selectedListId.set(listId);
     } catch (e) {}
   }
@@ -131,7 +130,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   /** returns all available lists of the current board */
   lists() {
     const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-    const ret = board.lists();
+    const ret = board.listsInSwimlane(this.selectedSwimlaneId.get());
     return ret;
   }
 
@@ -219,4 +218,3 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
     ];
   }
 }
-

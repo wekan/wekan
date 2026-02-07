@@ -857,12 +857,22 @@ Boards.helpers({
     );
   },
 
+  listsInSwimlane(swimlaneId) {
+    return this.lists().filter(e => e.swimlaneId === swimlaneId);
+  },
+
   /** returns the last list
    * @returns Document the last list
    */
   getLastList() {
-    const ret = ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
-    return ret;
+    req = { boardId: this._id };
+    if (this.swimlane && this.swimlane._id != this._id) {
+      req.swimlaneId = this.swimlane._id;
+    }
+    return ReactiveCache.getList(
+      req,
+      { sort: { sort: 'desc' }
+    });
   },
 
   nullSortLists() {
@@ -949,12 +959,12 @@ Boards.helpers({
       const user = ReactiveCache.getUser(member.userId);
       return user !== undefined;
     });
-    
+
     // Sort by role priority first (admin, normal, normal-assigned, no-comments, comment-only, comment-assigned, worker, read-only, read-assigned), then by fullname
     return _.sortBy(filteredMembers, member => {
       const user = ReactiveCache.getUser(member.userId);
       let rolePriority = 8; // Default for normal
-      
+
       if (member.isAdmin) rolePriority = 0;
       else if (member.isReadAssignedOnly) rolePriority = 8;
       else if (member.isReadOnly) rolePriority = 7;
@@ -964,7 +974,7 @@ Boards.helpers({
       else if (member.isNoComments) rolePriority = 3;
       else if (member.isNormalAssignedOnly) rolePriority = 2;
       else rolePriority = 1; // Normal
-      
+
       const fullname = user ? user.profile.fullname : '';
       return rolePriority + '-' + fullname;
     });
@@ -1144,10 +1154,7 @@ Boards.helpers({
   searchBoards(term) {
     check(term, Match.OneOf(String, null, undefined));
 
-    const query = { boardId: this._id };
-    query.type = 'cardType-linkedBoard';
-    query.archived = false;
-
+    const query = { type: 'template-container', archived: false };
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
@@ -1156,7 +1163,7 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    const ret = ReactiveCache.getCards(query, projection);
+    const ret = ReactiveCache.getBoards(query, projection);
     return ret;
   },
 
@@ -1644,19 +1651,19 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { allowsDescriptionText } });
   },
 
-  async setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
+  async setAllowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsDescriptionTextOnMinicard } });
   },
 
-  async setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
+  async setAllowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsCoverAttachmentOnMinicard } });
   },
 
-  async setallowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
+  async setAllowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsBadgeAttachmentOnMinicard } });
   },
 
-  async setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
+  async setAllowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsCardSortingByNumberOnMinicard } });
   },
 
@@ -1775,7 +1782,7 @@ Boards.userBoards = (
     selector.archived = archived;
   }
   if (!selector.type) {
-    selector.type = 'board';
+    selector.type = { $in: ['board', 'template-container'] };
   }
 
   selector.$or = [

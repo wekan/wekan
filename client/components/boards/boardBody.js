@@ -27,16 +27,16 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       const currentBoardId = Session.get('currentBoard');
       if (!currentBoardId) return;
-      
+
       const handle = subManager.subscribe('board', currentBoardId, false);
-      
+
       // Use a separate autorun for subscription ready state to avoid reactive loops
       this.subscriptionReadyAutorun = Tracker.autorun(() => {
         if (handle.ready()) {
           if (!this._boardProcessed || this._lastProcessedBoardId !== currentBoardId) {
             this._boardProcessed = true;
             this._lastProcessedBoardId = currentBoardId;
-            
+
             // Ensure default swimlane exists (only once per board)
             this.ensureDefaultSwimlane(currentBoardId);
             // Check if board needs conversion
@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
       if (!board) return;
 
       const swimlanes = board.swimlanes();
-      
+
       if (swimlanes.length === 0) {
         // Check if any swimlane exists in the database to avoid race conditions
         const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId });
@@ -105,7 +105,6 @@ BlazeComponent.extendComponent({
       this.isBoardReady.set(true); // Show board even if conversion check failed
     }
   },
-
   onlyShowCurrentCard() {
     const isMiniScreen = Utils.isMiniScreen();
     const currentCardId = Utils.getCurrentCardId(true);
@@ -114,7 +113,7 @@ BlazeComponent.extendComponent({
 
   openCards() {
     // In desktop mode, return array of all open cards
-    const isMobile = Utils.getMobileMode();
+    const isMobile = Utils.isMiniScreen();
     if (!isMobile) {
       const openCardIds = Session.get('openCards') || [];
       return openCardIds.map(id => ReactiveCache.getCard(id)).filter(card => card);
@@ -123,7 +122,7 @@ BlazeComponent.extendComponent({
   },
 
   goHome() {
-    FlowRouter.go('home');
+    FlowRouter.go('home')
   },
 
   isConverting() {
@@ -195,7 +194,7 @@ BlazeComponent.extendComponent({
     }
   },
   onRendered() {
-    // Initialize user settings (zoom and mobile mode)
+    // Initialize user settings (mobile mode)
     Utils.initializeUserSettings();
 
     // Detect iPhone devices and add class for better CSS targeting
@@ -221,9 +220,9 @@ BlazeComponent.extendComponent({
     const popupObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         mutation.addedNodes.forEach(function(node) {
-          if (node.nodeType === 1 && 
+          if (node.nodeType === 1 &&
               (node.classList.contains('popup') || node.classList.contains('modal') || node.classList.contains('menu')) &&
-              !node.closest('.js-swimlanes') && 
+              !node.closest('.js-swimlanes') &&
               !node.closest('.swimlane') &&
               !node.closest('.list') &&
               !node.closest('.minicard')) {
@@ -391,23 +390,24 @@ BlazeComponent.extendComponent({
       helper(evt, item) {
         const helper = $(`<div class="swimlane"
                                style="flex-direction: column;
-                                      height: ${swimlaneWhileSortingHeight}px;
-                                      width: $(boardComponent.width)px;
-                                      overflow: hidden;"/>`);
+                                      max-height: 30vh;
+                                      width: 100vw;
+                                      overflow: hidden; z-index: 100;"/>`);
         helper.append(item.clone());
         // Also grab the list of lists of cards
         const list = item.next();
         helper.append(list.clone());
         return helper;
       },
-      items: '.swimlane:not(.placeholder)',
+      items: '.swimlane-container',
       placeholder: 'swimlane placeholder',
       distance: 7,
       start(evt, ui) {
         const listDom = ui.placeholder.next('.js-swimlane');
         const parentOffset = ui.item.parent().offset();
 
-        ui.placeholder.height(ui.helper.height());
+        height = ui.helper.height();
+        ui.placeholder[0].setAttribute('style', `height: ${height}px !important;`);
         EscapeActions.executeUpTo('popup-close');
         listDom.addClass('moving-swimlane');
         boardComponent.setIsDragging(true);
@@ -415,40 +415,19 @@ BlazeComponent.extendComponent({
         ui.placeholder.insertAfter(ui.placeholder.next());
         boardComponent.origPlaceholderIndex = ui.placeholder.index();
 
-        // resize all swimlanes + headers to be a total of 150 px per row
-        // this could be achieved by setIsDragging(true) but we want immediate
-        // result
-        ui.item
-          .siblings('.js-swimlane')
-          .css('height', `${swimlaneWhileSortingHeight - 26}px`);
-
-        // set the new scroll height after the resize and insertion of
-        // the placeholder. We want the element under the cursor to stay
-        // at the same place on the screen
-        ui.item.parent().get(0).scrollTop =
-          ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
       },
       beforeStop(evt, ui) {
-        const parentOffset = ui.item.parent().offset();
         const siblings = ui.item.siblings('.js-swimlane');
         siblings.css('height', '');
 
-        // compute the new scroll height after the resize and removal of
-        // the placeholder
-        const scrollTop =
-          ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
-
         // then reset the original view of the swimlane
         siblings.removeClass('moving-swimlane');
-
-        // and apply the computed scrollheight
-        ui.item.parent().get(0).scrollTop = scrollTop;
       },
       stop(evt, ui) {
         // To attribute the new index number, we need to get the DOM element
         // of the previous and the following card -- if any.
-        const prevSwimlaneDom = ui.item.prevAll('.js-swimlane').get(0);
-        const nextSwimlaneDom = ui.item.nextAll('.js-swimlane').get(0);
+        const prevSwimlaneDom = ui.item.prevAll('.swimlane-container').get(0);
+        const nextSwimlaneDom = ui.item.nextAll('.swimlane-container').get(0);
         const sortIndex = calculateIndex(prevSwimlaneDom, nextSwimlaneDom, 1);
 
         $swimlanesDom.sortable('cancel');
@@ -464,39 +443,7 @@ BlazeComponent.extendComponent({
         boardComponent.setIsDragging(false);
       },
       sort(evt, ui) {
-        // get the mouse position in the sortable
-        const parentOffset = ui.item.parent().offset();
-        const cursorY =
-          evt.pageY - parentOffset.top + ui.item.parent().scrollTop();
-
-        // compute the intended index of the placeholder (we need to skip the
-        // slots between the headers and the list of cards)
-        const newplaceholderIndex = Math.floor(
-          cursorY / swimlaneWhileSortingHeight,
-        );
-        let destPlaceholderIndex = (newplaceholderIndex + 1) * 2;
-
-        // if we are scrolling far away from the bottom of the list
-        if (destPlaceholderIndex >= ui.item.parent().get(0).childElementCount) {
-          destPlaceholderIndex = ui.item.parent().get(0).childElementCount - 1;
-        }
-
-        // update the placeholder position in the DOM tree
-        if (destPlaceholderIndex !== ui.placeholder.index()) {
-          if (destPlaceholderIndex < boardComponent.origPlaceholderIndex) {
-            ui.placeholder.insertBefore(
-              ui.placeholder
-                .siblings()
-                .slice(destPlaceholderIndex - 2, destPlaceholderIndex - 1),
-            );
-          } else {
-            ui.placeholder.insertAfter(
-              ui.placeholder
-                .siblings()
-                .slice(destPlaceholderIndex - 1, destPlaceholderIndex),
-            );
-          }
-        }
+        Utils.scrollIfNeeded(evt);
       },
     });
 
@@ -505,10 +452,10 @@ BlazeComponent.extendComponent({
       dragscroll.reset();
 
       if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
-        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
+        if (Utils.isMiniScreen()) {
           $swimlanesDom.sortable('option', 'handle', '.js-swimlane-header-handle');
         } else {
-          $swimlanesDom.sortable('option', 'handle', '.swimlane-header');
+          $swimlanesDom.sortable('option', 'handle', '.swimlane-header-wrap');
         }
 
         // Disable drag-dropping if the current user is not a board member
@@ -540,57 +487,57 @@ BlazeComponent.extendComponent({
   isViewSwimlanes() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     // If no board view is set, default to swimlanes
     if (!boardView) {
       boardView = 'board-view-swimlanes';
     }
-    
+
     return boardView === 'board-view-swimlanes';
   },
 
   isViewLists() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     return boardView === 'board-view-lists';
   },
 
   isViewCalendar() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     return boardView === 'board-view-cal';
   },
 
   isViewGantt() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     return boardView === 'board-view-gantt';
   },
 
@@ -602,7 +549,7 @@ BlazeComponent.extendComponent({
       }
       return false;
     }
-    
+
     try {
       const swimlanes = currentBoard.swimlanes();
       const hasSwimlanes = swimlanes && swimlanes.length > 0;
@@ -638,7 +585,7 @@ BlazeComponent.extendComponent({
     const isBoardReady = this.isBoardReady.get();
     const isConverting = this.isConverting.get();
     const boardView = Utils.boardView();
-    
+
     if (process.env.DEBUG === 'true') {
       console.log('=== BOARD DEBUG STATE ===');
       console.log('currentBoardId:', currentBoardId);
@@ -648,7 +595,7 @@ BlazeComponent.extendComponent({
       console.log('boardView:', boardView);
       console.log('========================');
     }
-    
+
     return {
       currentBoardId,
       hasCurrentBoard: !!currentBoard,
@@ -1025,4 +972,3 @@ BlazeComponent.extendComponent({
  * Gantt View Component
  * Displays cards as a Gantt chart with start/due dates
  */
-
