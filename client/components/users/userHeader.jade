@@ -5,126 +5,106 @@ template(name="headerUserBar")
         +userAvatar(userId=currentUser._id)
       unless isMiniScreen
         unless isSandstorm
-          .avatar-user-fullname
-            if currentUser.profile.fullname
-              = currentUser.profile.fullname
-            else
-              = currentUser.username
+          if currentUser.profile.fullname
+            = currentUser.profile.fullname
+          else
+            = currentUser.username
 
 template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
       li
         a.js-toggle-grey-icons(href="#")
-          span
-            i.fa.fa-paint-brush
-            | {{_ 'grey-icons'}}
+          i.fa.fa-paint-brush
+          | {{_ 'grey-icons'}}
           if currentUser.profile
             if currentUser.profile.GreyIcons
               i.fa.fa-check
       li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
-          span
-            i.fa.fa-list
-            | {{_ 'my-cards'}}
+          i.fa.fa-list
+          | {{_ 'my-cards'}}
       li
         a.js-due-cards(href="{{pathFor 'due-cards'}}")
-          span
-            i.fa.fa-calendar
-            | {{_ 'dueCards-title'}}
+          i.fa.fa-calendar
+          | {{_ 'dueCards-title'}}
       li
         a.js-global-search(href="{{pathFor 'global-search'}}")
-          span
-            i.fa.fa-search
-            | {{_ 'globalSearch-title'}}
+          i.fa.fa-search
+          | {{_ 'globalSearch-title'}}
       li
         a(href="{{pathFor 'home'}}")
-          span
-            i.fa.fa-home
-            | {{_ 'all-boards'}}
+          i.fa.fa-home
+          | {{_ 'all-boards'}}
       li
         a(href="{{pathFor 'public'}}")
-          span
-            i.fa.fa-globe
-            | {{_ 'public'}}
+          i.fa.fa-globe
+          | {{_ 'public'}}
       li
-        a.js-open-archived-board
-          span
-            i.fa.fa-archive
-            | {{_ 'archives'}}
+        a.board-header-btn.js-open-archived-board
+          i.fa.fa-archive
+          span {{_ 'archives'}}
       li
         a.js-notifications-drawer-toggle
-          span
-            i.fa.fa-bell
-            | {{_ 'notifications'}}
+          i.fa.fa-bell
+          | {{_ 'notifications'}}
       if currentSetting.customHelpLinkUrl
         li
           a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
-            span
-              i.fa.fa-question-circle
-              | {{_ 'help'}}
+            i.fa.fa-question-circle
+            | {{_ 'help'}}
       unless currentUser.isWorker
         ul.pop-over-list
           li
             a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
-              span
-                i.fa.fa-list
-                | {{_ 'templates'}}
+              i.fa.fa-list
+              | {{_ 'templates'}}
       if currentUser.isAdmin
         li
           a.js-go-setting(href="{{pathFor 'setting'}}")
-            span
-              i.fa.fa-lock
-              | {{_ 'admin-panel'}}
+            i.fa.fa-lock
+            | {{_ 'admin-panel'}}
       hr
       if isSameDomainNameSettingValue
         li
           a.js-invite-people
-            span
-              i.fa.fa-envelope
-              | {{_ 'invite-people'}}
+            i.fa.fa-envelope
+            | {{_ 'invite-people'}}
       if isNotOAuth2AuthenticationMethod
         li
           a.js-edit-profile
-            span
-              i.fa.fa-user
-              | {{_ 'edit-profile'}}
+            i.fa.fa-user
+            | {{_ 'edit-profile'}}
       li
         a.js-change-settings
-          span
-            i.fa.fa-cog
-            | {{_ 'change-settings'}}
+          i.fa.fa-cog
+          | {{_ 'change-settings'}}
       li
         a.js-change-avatar
-          span
-            i.fa.fa-picture-o
-            | {{_ 'edit-avatar'}}
+          i.fa.fa-picture-o
+          | {{_ 'edit-avatar'}}
       unless isSandstorm
         if isNotOAuth2AuthenticationMethod
           li
             a.js-change-password
-              span
-                i.fa.fa-key
-                | {{_ 'changePasswordPopup-title'}}
+              i.fa.fa-key
+              | {{_ 'changePasswordPopup-title'}}
       li
         a.js-change-language
-          span
-            i.fa.fa-flag
-            | {{_ 'changeLanguagePopup-title'}}
+          i.fa.fa-flag
+          | {{_ 'changeLanguagePopup-title'}}
       if isSupportPageEnabled
         li
           a(href="{{pathFor 'support'}}")
-            span
-              i.fa.fa-question-circle
-              | {{_ 'support'}}
+            i.fa.fa-question-circle
+            | {{_ 'support'}}
   unless isSandstorm
+    hr
     ul.pop-over-list
-      hr
       li
         a.js-logout
-          span
-            i.fa.fa-sign-out
-            | {{_ 'log-out'}}
+          i.fa.fa-sign-out
+          | {{_ 'log-out'}}
 
 template(name="invitePeoplePopup")
   ul#registration-setting.setting-detail
@@ -154,7 +134,7 @@ template(name="editProfilePopup")
   form
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=profile.fullname )
+      input.js-profile-fullname(type="text" value=profile.fullname autofocus)
     label
       | {{_ 'username'}}
       span.error.hide.username-taken

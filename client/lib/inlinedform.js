@@ -77,28 +77,8 @@ InlinedForm = BlazeComponent.extendComponent({
     return [
       {
         'click .js-close-inlined-form': this.close,
-        'pointerdown .js-open-inlined-form'(e) {
-          if (Utils.shouldIgnorePointer(e)) {
-            return;
-          }
-          // to measure the click duration
-          $(e.target).data("clickStart", new Date());
-        },
-        'pointerup .js-open-inlined-form'(e) {
-          if(Utils.shouldIgnorePointer(e)) {
-            return;
-          }
-          const start = $(e.target).data("clickStart",);
-          if (!start) {
-            return;
-          }
-          const end = new Date();
-          // 500ms feels reasonable for a simple click
-          if (end - start < 500) {
-            this.open(e);
-          }
-          $(e.target).data("clickStart", null);
-        },
+        'click .js-open-inlined-form': this.open,
+
         // Pressing Ctrl+Enter should submit the form
         'keydown form textarea'(evt) {
           if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {

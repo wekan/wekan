@@ -90,6 +90,7 @@ BlazeComponent.extendComponent({
 
     const enableTextarea = function() {
       const $textarea = this.$(textareaSelector);
+      autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
     if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true || Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
@@ -411,14 +412,14 @@ Blaze.Template.registerHelper(
       if (knowedUser.userId === Meteor.userId()) {
         linkClass += ' me';
       }
-      
+
       // For special group mentions, display translated text
       let displayText = knowedUser.username;
       if (specialHandleNames.includes(knowedUser.username)) {
         displayText = TAPi18n.__(knowedUser.username);
         linkClass = 'atMention'; // Remove js-open-member for special handles
       }
-      
+
       // This @user mention link generation did open same Wekan
       // window in new tab, so now A is changed to U so it's
       // underlined and there is no link popup. This way also

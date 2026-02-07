@@ -14,8 +14,15 @@ BlazeComponent.extendComponent({
       onReady() {
         Session.set('popupCardId', cardId);
         Session.set('popupCardBoardId', boardId);
+        this_.cardDetailsPopup(evt);
       },
     });
+  },
+
+  cardDetailsPopup(event) {
+    if (!Popup.isOpen()) {
+      Popup.open("cardDetails")(event);
+    }
   },
 
   events() {

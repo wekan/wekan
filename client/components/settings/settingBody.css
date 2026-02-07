@@ -9,32 +9,19 @@
   display: flex;
   height: 100%;
 }
-
-.setting-detail {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: stretch;
-  align-items: stretch;
-
-}
 .setting-content {
   color: #727479;
   background: #dedede;
-  overflow-y: scroll;
-}
-
-.setting-content .wekan-form-control:not([type="radio"]) {
-  display: flex;
   width: 100%;
+  height: 100%;
+  position: absolute;
 }
-
 .setting-content .content-title {
-  font-size: 1.3em;
-  padding: 0.5lh 1ch;
+  font-size: clamp(16px, 3.5vw, 22px);
 }
 .setting-content .content-body {
   display: flex;
+  padding-top: 2vh;
   height: 100%;
   gap: 1.3vw;
 }
@@ -42,15 +29,8 @@
   background-color: #f7f7f7;
   border: 1px solid #f0f0f0;
   border-radius: 0.5vw;
-  min-width: fit-content;
+  width: min(250px, 32vw);
   box-shadow: inset -0.2vh -0.2vh 0.4vh rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  padding-right: 2ch;
-  overflow-y: scroll;
-  min-height: 20vh;
-  flex-grow: 1;
-
 }
 .setting-content .content-body .side-menu ul li {
   margin: 0.2vh 0.3vw;
@@ -67,10 +47,12 @@
   padding: 1.3vh 0 1.3vh 1.3vw;
   width: 95%;
 }
+.setting-content .content-body .side-menu ul li a span {
+  font-size: 13px;
+}
 .setting-content .content-body .side-menu ul li a i {
   margin-right: 20px;
 }
-
 .setting-content .content-body .main-body {
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -80,9 +62,9 @@
   overflow-x: scroll !important;
   overflow-y: scroll !important;
   scrollbar-gutter: stable;
-  flex-grow: 5;
-  padding-right: 2ch;
-  padding-bottom: 1lh;
+  /* Force horizontal scrollbar to always be visible */
+  min-width: 100%;
+  width: 100%;
 }
 
 /* Ensure scrollbars are always visible with proper styling for all admin pages */
@@ -135,6 +117,24 @@
   padding-bottom: 50px;
 }
 
+/* Admin panel buttons should use theme darker color */
+.setting-content .content-body .main-body .setting-detail button.btn {
+  background: #005377;
+  color: #fff;
+  border: none;
+}
+
+.setting-content .content-body .main-body .setting-detail button.btn:hover,
+.setting-content .content-body .main-body .setting-detail button.btn:focus {
+  background: #004766;
+  color: #fff;
+}
+
+.setting-content .content-body .main-body .setting-detail button.btn:active {
+  background: #01628c;
+  color: #fff;
+}
+
 /* Force horizontal scrollbar to always be visible at bottom */
 .setting-content .content-body .main-body {
   position: relative;
@@ -144,6 +144,7 @@
 .setting-content .content-body .main-body::after {
   content: '';
   display: block;
+  width: 100vw;
   height: 1px;
   position: absolute;
   bottom: 0;
@@ -154,7 +155,7 @@
   padding: 0.5rem 0.5rem;
 }
 .setting-content .content-body .main-body ul li a .is-checked {
-  border-bottom: 0.2ch solid #3cb500;
+  border-bottom: 2px solid #3cb500;
   border-right: 2px solid #3cb500;
 }
 /* Grey checkmarks when grey icons setting is enabled */

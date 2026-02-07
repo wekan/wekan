@@ -615,6 +615,15 @@ Users.attachSchema(
       allowedValues: ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'],
       defaultValue: 'YYYY-MM-DD',
     },
+    'profile.zoomLevel': {
+      /**
+       * User-specified zoom level for board view (1.0 = 100%, 1.5 = 150%, etc.)
+       */
+      type: Number,
+      defaultValue: 1.0,
+      min: 0.5,
+      max: 3.0,
+    },
     'profile.mobileMode': {
       /**
        * User-specified mobile/desktop mode toggle
@@ -833,6 +842,7 @@ Users.safeFields = {
   'profile.fullname': 1,
   'profile.avatarUrl': 1,
   'profile.initials': 1,
+  'profile.zoomLevel': 1,
   'profile.mobileMode': 1,
   'profile.GreyIcons': 1,
   orgs: 1,
@@ -1772,6 +1782,18 @@ Users.helpers({
     current[boardId][swimlaneId] = !!collapsed;
     return await Users.updateAsync(this._id, { $set: { 'profile.collapsedSwimlanes': current } });
   },
+
+  async setZoomLevel(level) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.zoomLevel': level } });
+  },
+
+  async setMobileMode(enabled) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.mobileMode': enabled } });
+  },
+
+  async setCardZoom(level) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.cardZoom': level } });
+  },
 });
 
 Meteor.methods({
@@ -1970,7 +1992,7 @@ Meteor.methods({
     check(spaceId, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
 
-    const user = Users.findOne(this.userId);
+    const user = Users.findOne(this.userId, { fields: { 'profile.boardWorkspaceAssignments': 1 } });
     const assignments = user.profile?.boardWorkspaceAssignments || {};
     assignments[boardId] = spaceId;
 
@@ -1984,7 +2006,7 @@ Meteor.methods({
     check(boardId, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
 
-    const user = Users.findOne(this.userId);
+    const user = Users.findOne(this.userId, { fields: { 'profile.boardWorkspaceAssignments': 1 } });
     const assignments = user.profile?.boardWorkspaceAssignments || {};
     delete assignments[boardId];
 
@@ -2001,11 +2023,9 @@ Meteor.methods({
     const user = ReactiveCache.getCurrentUser();
     user.toggleFieldsGrid(user.hasCustomFieldsGrid());
   },
-  /* #FIXME not sure about what I'm doing here, but this methods call an async method AFAIU.
-  not making it wait to it creates flickering and multiple renderings on client side. */
-  async toggleCardMaximized() {
+  toggleCardMaximized() {
     const user = ReactiveCache.getCurrentUser();
-    await user.toggleCardMaximized(user.hasCardMaximized());
+    user.toggleCardMaximized(user.hasCardMaximized());
   },
   setCardCollapsed(value) {
     check(value, Boolean);
@@ -2015,10 +2035,6 @@ Meteor.methods({
   toggleMinicardLabelText() {
     const user = ReactiveCache.getCurrentUser();
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
-  },
-  toggleShowWeekOfYear() {
-    const user = ReactiveCache.getCurrentUser();
-    user.toggleShowWeekOfYear(user.isShowWeekOfYear());
   },
   toggleRescueCardDescription() {
     const user = ReactiveCache.getCurrentUser();
@@ -2100,7 +2116,7 @@ Meteor.methods({
     check(height, Number);
     const user = ReactiveCache.getCurrentUser();
     if (user) {
-      user.setSwimlaneHeightToStorage(boardId, swimlaneId, parseInt(height));
+      user.setSwimlaneHeightToStorage(boardId, swimlaneId, height);
     }
     // For non-logged-in users, the client-side code will handle localStorage
   },
@@ -2116,6 +2132,11 @@ Meteor.methods({
       user.setListConstraintToStorage(boardId, listId, constraint);
     }
     // For non-logged-in users, the client-side code will handle localStorage
+  },
+  setZoomLevel(level) {
+    check(level, Number);
+    const user = ReactiveCache.getCurrentUser();
+    user.setZoomLevel(level);
   },
   setMobileMode(enabled) {
     check(enabled, Boolean);
@@ -3016,7 +3037,7 @@ if (Meteor.isServer) {
       // get all boards where the user is member of
       let boards = ReactiveCache.getBoards(
         {
-          type: {$in: ['board', 'template-container']},
+          type: 'board',
           'members.userId': req.userId,
         },
         {
@@ -3060,7 +3081,9 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Meteor.users.find({}).map(function (doc) {
+        data: Meteor.users.find({}, {
+          fields: { _id: 1, username: 1 }
+        }).map(function (doc) {
           return {
             _id: doc._id,
             username: doc.username,
@@ -3102,7 +3125,7 @@ if (Meteor.isServer) {
       // get all boards where the user is member of
       let boards = ReactiveCache.getBoards(
         {
-          type: { $in: ['board', 'template-container'] },
+          type: 'board',
           'members.userId': id,
         },
         {

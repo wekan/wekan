@@ -9,68 +9,66 @@ template(name="listHeader")
         if currentList
           a.list-header-left-icon.js-unselect-list
             i.fa.fa-caret-left
-        else
-          //- start by this on mobile to have cohesion with other views
-          a.list-header-menu-icon.js-select-list
+      else
+        if collapsed
+          if showCardsCountForList cards.length
+            br
+            span.cardCount {{cardsCount}}
+      if isMiniScreen
+        h2.list-header-name(
+          title="{{ moment modifiedAt 'LLL' }}"
+          class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
+          +viewer
+            = title
+          if wipLimit.enabled
+           |&nbsp;(
+           span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
+           |/#{wipLimit.value})
+        if showCardsCountForList cards.length
+          span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
+          if hasNumberFieldsSum
+            | &nbsp;
+            span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
+      else
+        a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
+          if collapsed
             i.fa.fa-caret-right
-        .list-header-name-container
+          else
+            i.fa.fa-caret-down
+        div(class="{{#if collapsed}}list-rotated{{/if}}")
           h2.list-header-name(
             title="{{ moment modifiedAt 'LLL' }}"
-            class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
+            class="{{#unless collapsed}}{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}{{/unless}}")
             +viewer
               = title
             if wipLimit.enabled
-              |&nbsp;(
-              span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
-              |/#{wipLimit.value})
-          if showCardsCountForList cards.length
-            span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
-            if hasNumberFieldsSum
-              | &nbsp;
-              span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
-      else
-        div.list-header-name-container
-          unless isMiniScreen
-            a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
-              if collapsed
-                i.fa.fa-caret-right
-              else
-                i.fa.fa-caret-down
-          div(class="{{#if collapsed}}list-rotated{{/if}}").list-header-wrap
-            h2.list-header-name(
-              title="{{ moment modifiedAt 'LLL' }}"
-              class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
-              +viewer
-                = title
-              if wipLimit.enabled
-               |&nbsp;(
-               span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
-               |/#{wipLimit.value})
+             |&nbsp;(
+             span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.length}}
+             |/#{wipLimit.value})
         unless collapsed
           if showCardsCountForList cards.length
             span.cardCount {{cardsCount}} {{cardsCountForListIsOne cards.length}}
             if hasNumberFieldsSum
               | &nbsp;
               span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
-        div.list-header-menu
-          unless currentUser.isCommentOnly
-            unless currentUser.isReadOnly
-              unless currentUser.isReadAssignedOnly
-                a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
-                  i.fa.fa-bars
       if isMiniScreen
         if currentList
           if isWatching
-            i.list-header-watch-icon.i.fa.fa-eye
+            i.list-header-watch-icon i.fa.fa-eye
           div.list-header-menu
             unless currentUser.isCommentOnly
               unless currentUser.isReadOnly
                 unless currentUser.isReadAssignedOnly
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                      i.fa.fa-plus
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
         else
+          a.list-header-menu-icon.js-select-list
+            i.fa.fa-caret-right
           unless currentUser.isWorker
-            if isMiniScreen
+            if isTouchScreenOrShowDesktopDragHandles
               a.list-header-handle.handle.js-list-handle
                 i.fa.fa-arrows
       else if currentUser.isBoardMember
@@ -79,13 +77,25 @@ template(name="listHeader")
         unless currentUser.isCommentOnly
           unless currentUser.isReadOnly
             unless currentUser.isReadAssignedOnly
-              if isMiniScreen
+              if isTouchScreenOrShowDesktopDragHandles
                 a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
                   i.fa.fa-arrows
-      unless isMiniScreen
-        if collapsed
-          if showCardsCountForList cards.length
-            span.cardCount {{cardsCount}}
+        unless collapsed
+          div.list-header-menu
+            unless currentUser.isCommentOnly
+              unless currentUser.isReadOnly
+                unless currentUser.isReadAssignedOnly
+                  //if isBoardAdmin
+                  //
+                    a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
+                  if isTouchScreenOrShowDesktopDragHandles
+                    a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
+                      i.fa.fa-arrows
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                      i.fa.fa-plus
+                  a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
+                    i.fa.fa-bars
 
 template(name="editListTitleForm")
   .list-composer
@@ -185,8 +195,10 @@ template(name="listMorePopup")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
     //unless currentUser.isWorker
-    //  if currentUser.isBoardAdmin
-    //    a.js-delete {{_ 'delete'}}
+    //
+      if currentUser.isBoardAdmin
+    //
+        a.js-delete {{_ 'delete'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}
@@ -215,14 +227,14 @@ template(name="wipLimitErrorPopup")
   .wip-limit-invalid
     p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
     p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
-    button.negate.js-back-view(type="submit") {{_ 'cancel'}}
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListWidthPopup")
   #js-list-width-edit
     label {{_ 'set-list-width-value'}}
       p
-        input.list-width-value(type="number" value="{{ listWidthValue }}" min="100")
-        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="100")
+        input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
+        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="270")
         input.list-width-apply(type="submit" value="{{_ 'apply'}}")
         input.list-width-error
         br
@@ -233,8 +245,8 @@ template(name="setListWidthPopup")
 
 template(name="listWidthErrorPopup")
   .list-width-invalid
-    p {{_ 'list-width-error-message'}} '&gt;=100'
-    button.negate.js-back-view(type="submit") {{_ 'cancel'}}
+    p {{_ 'list-width-error-message'}} '&gt;=270'
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")
   form.edit-label

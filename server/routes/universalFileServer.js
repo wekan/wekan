@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     const nameLower = (fileObj.name || '').toLowerCase();
     const typeLower = (fileObj.type || '').toLowerCase();
     const isPdfByExt = nameLower.endsWith('.pdf');
-    
+
     // Define dangerous types that must never be served inline
     const dangerousTypes = new Set([
       'text/html',
@@ -37,7 +37,7 @@ if (Meteor.isServer) {
       'application/javascript',
       'text/javascript'
     ]);
-    
+
     // Define safe types that can be served inline for viewing
     const safeInlineTypes = new Set([
       'application/pdf',
@@ -59,7 +59,7 @@ if (Meteor.isServer) {
       'text/plain',
       'application/json'
     ]);
-    
+
     const isSvg = nameLower.endsWith('.svg') || typeLower === 'image/svg+xml';
   const isDangerous = dangerousTypes.has(typeLower) || isSvg;
   // Consider PDF safe inline by extension if type is missing/mis-set
@@ -342,7 +342,7 @@ if (Meteor.isServer) {
     // For non-ASCII filenames, provide a fallback and RFC 5987 encoded version
     const fallback = sanitized.replace(/[^\x20-\x7E]/g, '_').slice(0, 100) || 'download';
     const encoded = encodeURIComponent(sanitized);
-    
+
     // Return special marker format that will be handled by buildContentDispositionHeader
     // Format: "fallback|RFC5987:encoded"
     return `${fallback}|RFC5987:${encoded}`;
@@ -396,7 +396,7 @@ if (Meteor.isServer) {
 
     try {
       const fileId = extractFirstIdFromUrl(req, '/cdn/storage/attachments');
-      
+
       if (!fileId) {
         res.writeHead(400);
         res.end('Invalid attachment file ID');
@@ -483,7 +483,7 @@ if (Meteor.isServer) {
 
     try {
       const fileId = extractFirstIdFromUrl(req, '/cdn/storage/avatars');
-      
+
       if (!fileId) {
         res.writeHead(400);
         res.end('Invalid avatar file ID');
@@ -548,7 +548,7 @@ if (Meteor.isServer) {
 
     try {
       const attachmentId = extractFirstIdFromUrl(req, '/cfs/files/attachments');
-      
+
       if (!attachmentId) {
         res.writeHead(400);
         res.end('Invalid attachment ID');
@@ -624,7 +624,7 @@ if (Meteor.isServer) {
 
     try {
       const avatarId = extractFirstIdFromUrl(req, '/cfs/files/avatars');
-      
+
       if (!avatarId) {
         res.writeHead(400);
         res.end('Invalid avatar ID');
@@ -633,7 +633,7 @@ if (Meteor.isServer) {
 
       // Try to get avatar from database (new structure first)
       let avatar = ReactiveCache.getAvatar(avatarId);
-      
+
       // If not found in new structure, try to handle legacy format
       if (!avatar) {
         // For legacy avatars, we might need to handle different ID formats

@@ -4,7 +4,7 @@
 textarea.js-add-checklist-item,
 textarea.js-edit-checklist-item {
   overflow: hidden;
-  overflow-wrap: break-word;
+  word-wrap: break-word;
   resize: none;
   height: 34px;
 }
@@ -13,7 +13,7 @@ textarea.js-edit-checklist-item {
 .js-convert-checklist-item-to-card {
   color: #8c8c8c;
   text-decoration: underline;
-  overflow-wrap: break-word;
+  word-wrap: break-word;
   float: right;
   padding-top: 6px;
 }
@@ -25,7 +25,6 @@ textarea.js-edit-checklist-item {
 .checklists-title {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 .checklist-progress-bar-container {
   display: flex;
@@ -36,7 +35,7 @@ textarea.js-edit-checklist-item {
   margin-right: 10px;
 }
 .checklist-progress-bar-container .checklist-progress-bar {
-  flex: 1;
+  width: 80%;
   height: 10px;
   background-color: #e0e0e0;
   border-radius: 16px;
@@ -48,29 +47,19 @@ textarea.js-edit-checklist-item {
   border-radius: 16px;
   height: 100%;
 }
-
-.checklist-controls {
-  display: flex;
-  gap: 0.25lh;
-}
-
 .checklist-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding: 10px;
 }
-
 .checklist-title .checkbox {
   float: left;
   width: 30px;
   height: 30px;
-
+  font-size: 18px;
   line-height: 30px;
 }
-.checklist-title p, .title {
-  font-size: 1em;
-  line-height: 1;
-  margin: 0;
+.checklist-title .title {
+  font-size: 18px;
+  line-height: 25px;
 }
 .checklist-title .checklist-stat {
   margin: 0 0.5em;
@@ -90,31 +79,29 @@ textarea.js-edit-checklist-item {
   bottom: -600px;
   right: 0;
 }
-
 .checklist {
-  padding: 0.5lh;
-  margin: 0.5lh 0;
-  background-color: #f7f7f7;
+  background: #f7f7f7;
 }
-
-
 .checklist.placeholder {
   background: #ccc;
   border-radius: 2px;
 }
 .checklist.ui-sortable-helper {
   box-shadow: -2px 2px 8px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5);
+  transform: rotate(4deg);
   cursor: grabbing;
 }
 .checklist-item {
+  margin: 0 0 0 0.1em;
+  line-height: 18px;
+  font-size: 1.1em;
+  margin-top: 3px;
   display: flex;
-  gap: 0.25lh;
+  background: #f7f7f7;
   opacity: 1;
   transition: height 0ms 400ms, opacity 400ms 0ms;
+  height: auto;
   overflow: hidden;
-  align-items: center;
-  min-height: 1.5lh;
-  padding: 0 1ch;
 }
 .checklist-item.is-checked.invisible {
   opacity: 0;
@@ -127,21 +114,26 @@ textarea.js-edit-checklist-item {
   background: #ccc;
   border-radius: 2px;
 }
+.checklist-item.ui-sortable-helper {
+  box-shadow: -2px 2px 8px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5);
+  transform: rotate(4deg);
+  cursor: grabbing;
+}
 .checklist-item:hover {
   background-color: #ebebeb;
+}
+.checklist-item .check-box-container {
+  padding-right: 10px;
 }
 .checklist-item .check-box {
   margin: 0.1em 0 0 0;
 }
 .checklist-item .check-box.is-checked {
-  border-bottom: 0.2ch solid #3cb500;
-  border-right: 0.2ch solid #3cb500;
+  border-bottom: 2px solid #3cb500;
+  border-right: 2px solid #3cb500;
 }
 .checklist-item .item-title {
-  display: flex;
-  justify-content: start;
   flex: 1;
-  cursor: grab;
 }
 .checklist-item .item-title.is-checked {
   color: #8c8c8c;
@@ -149,18 +141,27 @@ textarea.js-edit-checklist-item {
   text-decoration: line-through;
 }
 .checklist-item .item-title .viewer p {
-  display: flex;
-  overflow-wrap: break-word;
+  margin-bottom: 2px;
+  display: block;
+  word-wrap: break-word;
   max-width: 420px;
+}
+.checklist-item span.fa.checklistitem-handle {
+  padding-top: 2px;
+  padding-right: 10px;
 }
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {
   margin: 0 0 0.5em 1.33em;
   padding: 12px 0 0 0;
 }
+.add-checklist-item {
+  margin: 0.2em 0 0.5em 1.33em;
+}
 .add-checklist-item.js-open-inlined-form,
 .add-checklist.js-open-inlined-form {
-  display: inline-block;
+  display: block;
+  width: 50%;
 }
 .add-checklist-item.js-open-inlined-form:hover,
 .add-checklist.js-open-inlined-form:hover {
@@ -168,13 +169,25 @@ textarea.js-edit-checklist-item {
   color: #222;
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
-
+.add-checklist-top {
+  /* more space to checklists title */
+  padding-left: 20px;
+  /* + is easier clickable */
+  padding-right: 20px;
+}
 .add-checklist-top.js-open-inlined-form:hover {
   background: #dbdbdb;
   color: #222;
   box-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
-
+.card-details-item-title {
+  /* max width for adding checklist at top */
+  width: 100%;
+}
+.checklist-details-menu {
+  float: right;
+  padding: 6px 10px 6px 10px;
+}
 .edit-controls label.toggle-label {
   margin-left: 2px;
 }

@@ -2,12 +2,6 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import dragscroll from '@wekanteam/dragscroll';
 const { calculateIndex } = Utils;
 
-function getBoardComponent() {
-  // as list can be rendered from multiple inner elements, feels like a reliable
-  // way to get the components having rendered the board
-  return BlazeComponent.getComponentForElement(document.getElementsByClassName('board-canvas')[0]);
-}
-
 function saveSorting(ui) {
   // To attribute the new index number, we need to get the DOM element
   // of the previous and the following list -- if any.
@@ -84,13 +78,7 @@ function saveSorting(ui) {
   }
   // Allow reordering within the same swimlane by not canceling the sortable
 
-  try {
-    Lists.update(list._id, {
-      $set: updateData,
-    });
-  } catch (error) {
-    return;
-  }
+  // Do not update the restricted collection on the client; rely on the server method below.
 
   // Save to localStorage for non-logged-in users (backup)
   if (!Meteor.userId()) {
@@ -157,12 +145,6 @@ function currentListIsInThisSwimlane(swimlaneId) {
     (currentList.swimlaneId === swimlaneId || currentList.swimlaneId === '')
   );
 }
-
-function currentList(listId, swimlaneId) {
-  const list = Utils.getCurrentList();
-  return list && list._id == listId && (list.swimlaneId === swimlaneId || list.swimlaneId === '');
-}
-
 
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Utils.getCurrentCard();
@@ -239,63 +221,122 @@ function syncListOrderFromStorage(boardId) {
   }
 };
 
+function initSortable(boardComponent, $listsDom) {
+  // Safety check: ensure we have valid DOM elements
+  if (!$listsDom || $listsDom.length === 0) {
+    console.error('initSortable: No valid DOM elements provided');
+    return;
+  }
+
+  // Check if sortable is already initialized
+  if ($listsDom.data('uiSortable') || $listsDom.data('sortable')) {
+    $listsDom.sortable('destroy');
+  }
+
+  // We want to animate the card details window closing. We rely on CSS
+  // transition for the actual animation.
+  $listsDom._uihooks = {
+    removeElement(node) {
+      const removeNode = _.once(() => {
+        node.parentNode.removeChild(node);
+      });
+      if ($(node).hasClass('js-card-details')) {
+        $(node).css({
+          flexBasis: 0,
+          padding: 0,
+        });
+        $listsDom.one(CSSEvents.transitionend, removeNode);
+      } else {
+        removeNode();
+      }
+    },
+  };
+
+
+  // Add click debugging for drag handles
+  $listsDom.on('mousedown', '.js-list-handle', function(e) {
+    e.stopPropagation();
+  });
+
+  $listsDom.on('mousedown', '.js-list-header', function(e) {
+  });
+
+  // Add debugging for any mousedown on lists
+  $listsDom.on('mousedown', '.js-list', function(e) {
+  });
+
+  // Add debugging for sortable events
+  $listsDom.on('sortstart', function(e, ui) {
+  });
+
+  $listsDom.on('sortbeforestop', function(e, ui) {
+  });
+
+  $listsDom.on('sortstop', function(e, ui) {
+  });
+
+  try {
+    $listsDom.sortable({
+      connectWith: '.js-swimlane, .js-lists',
+      tolerance: 'pointer',
+      appendTo: '.board-canvas',
+      helper(evt, item) {
+        const helper = item.clone();
+        helper.css('z-index', 1000);
+        return helper;
+      },
+      items: '.js-list:not(.js-list-composer)',
+      placeholder: 'list placeholder',
+      distance: 3,
+      forcePlaceholderSize: true,
+      cursor: 'move',
+      start(evt, ui) {
+        ui.helper.css('z-index', 1000);
+        ui.placeholder.height(ui.helper.height());
+        ui.placeholder.width(ui.helper.width());
+        EscapeActions.executeUpTo('popup-close');
+        boardComponent.setIsDragging(true);
+
+        // Add visual feedback for list being dragged
+        ui.item.addClass('ui-sortable-helper');
+
+        // Disable dragscroll during list dragging to prevent interference
+        try {
+          dragscroll.reset();
+        } catch (e) {
+        }
+
+        // Also disable dragscroll on all swimlanes during list dragging
+        $('.js-swimlane').each(function() {
+          $(this).removeClass('dragscroll');
+        });
+      },
+      beforeStop(evt, ui) {
+        // Clean up visual feedback
+        ui.item.removeClass('ui-sortable-helper');
+      },
+      stop(evt, ui) {
+        saveSorting(ui);
+      }
+    });
+  } catch (error) {
+    console.error('Error initializing list sortable:', error);
+    return;
+  }
+
+
+  // Check if drag handles exist
+  const dragHandles = $listsDom.find('.js-list-handle');
+
+  // Check if lists exist
+  const lists = $listsDom.find('.js-list');
+
+  // Skip the complex autorun and options for now
+}
 
 BlazeComponent.extendComponent({
-
-  initializeSortableLists() {
-    let boardComponent = getBoardComponent();
-
-    // needs to be run again on uncollapsed
-    const handleSelector = Utils.isMiniScreen()
-      ? '.js-list-handle'
-      : '.list-header-name-container';
-    const $lists = this.$('.js-list');
-    const $parent = $lists.parent();
-
-    if ($lists.length > 0) {
-
-      // Check for drag handles
-      const $handles = $parent.find(handleSelector);
-
-      // Test if drag handles are clickable
-      $handles.on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      });
-
-      $parent.sortable({
-        connectWith: '.js-swimlane, .js-lists',
-        tolerance: 'pointer',
-        appendTo: '.board-canvas',
-        helper: 'clone',
-        items: '.js-list',
-        placeholder: 'list placeholder',
-        distance: 7,
-        handle: handleSelector,
-        disabled: !Utils.canModifyBoard(),
-        start(evt, ui) {
-          ui.helper.css('z-index', 1000);
-          width = ui.helper.width();
-          height = ui.helper.height();
-          ui.placeholder.height(height);
-          ui.placeholder.width(width);
-          ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
-          EscapeActions.executeUpTo('popup-close');
-          boardComponent.setIsDragging(true);
-        },
-        stop(evt, ui) {
-          boardComponent.setIsDragging(false);
-          saveSorting(ui);
-        },
-        sort(event, ui) {
-          Utils.scrollIfNeeded(event);
-        },
-      });
-    }
-  },
-
   onRendered() {
-    // can be rendered from either swimlane or board; check with DOM class heuristic,
+    const boardComponent = this.parentComponent();
     const $listsDom = this.$('.js-lists');
         // Sync list order from localStorage on board load
         const boardId = Session.get('currentBoard');
@@ -306,18 +347,66 @@ BlazeComponent.extendComponent({
           }, 500);
         }
 
+
+    if (!Utils.getCurrentCardId()) {
+      boardComponent.scrollLeft();
+    }
+
     // Try a simpler approach - initialize sortable directly like cards do
     this.initializeSwimlaneResize();
 
     // Wait for DOM to be ready
-    setTimeout(this.initializeSortableLists, 100);
+    setTimeout(() => {
+      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
+        ? '.js-list-handle'
+        : '.js-list-header';
+      const $parent = this.$('.js-lists');
 
-    // React to uncollapse (data is always reactive)
-    this.autorun(() => {
-      if (!this.currentData().isCollapsed()) {
-        this.initializeSortableLists();
+      if ($parent.length > 0) {
+
+        // Check for drag handles
+        const $handles = $parent.find('.js-list-handle');
+
+        // Test if drag handles are clickable
+        $handles.on('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+
+        $parent.sortable({
+          connectWith: '.js-swimlane, .js-lists',
+          tolerance: 'pointer',
+          appendTo: '.board-canvas',
+          helper: 'clone',
+          items: '.js-list:not(.js-list-composer)',
+          placeholder: 'list placeholder',
+          distance: 7,
+          handle: handleSelector,
+          disabled: !Utils.canModifyBoard(),
+          dropOnEmpty: true,
+          start(evt, ui) {
+            ui.helper.css('z-index', 1000);
+            ui.placeholder.height(ui.helper.height());
+            ui.placeholder.width(ui.helper.width());
+            EscapeActions.executeUpTo('popup-close');
+            boardComponent.setIsDragging(true);
+          },
+          stop(evt, ui) {
+            boardComponent.setIsDragging(false);
+            saveSorting(ui);
+          }
+        });
+        // Reactively update handle when user toggles desktop drag handles
+        this.autorun(() => {
+          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
+            ? '.js-list-handle'
+            : '.js-list-header';
+          if ($parent.data('uiSortable') || $parent.data('sortable')) {
+            try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
+          }
+        });
       }
-    });
+    }, 100);
   },
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
@@ -368,7 +457,7 @@ BlazeComponent.extendComponent({
           // his mouse.
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isMiniScreen()
+            Utils.isTouchScreenOrShowDesktopDragHandles()
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           ).concat([
@@ -380,7 +469,7 @@ BlazeComponent.extendComponent({
           const isInNoDragArea = $(evt.target).closest(noDragInside.join(',')).length > 0;
 
           if (isResizeHandle) {
-            //return;
+            return;
           }
 
           if (
@@ -415,11 +504,6 @@ BlazeComponent.extendComponent({
   },
 
   swimlaneHeight() {
-    // Using previous size with so much collasped/vertical logic will probably
-    // be worst that letting layout takes needed space given the opened list each time
-    if (Utils.isMiniScreen()) {
-      return;
-    }
     const user = ReactiveCache.getCurrentUser();
     const swimlane = Template.currentData();
 
@@ -460,7 +544,7 @@ BlazeComponent.extendComponent({
 
     const swimlane = Template.currentData();
     const $swimlane = $(`#swimlane-${swimlane._id}`);
-    const $resizeHandle = $swimlane.siblings('.js-swimlane-resize-handle');
+    const $resizeHandle = $swimlane.find('.js-swimlane-resize-handle');
 
     // Check if elements exist
     if (!$swimlane.length || !$resizeHandle.length) {
@@ -478,190 +562,76 @@ BlazeComponent.extendComponent({
       return;
     }
 
-    const isTouchScreen = Utils.isTouchScreen();
     let isResizing = false;
-    const minHeight = Utils.isMiniScreen() ? 200 : 50;
-    const absoluteMaxHeight = 2000;
-    let computingHeight;
-    let frame;
-
-    let fullHeight, maxHeight;
-    let pageY, screenY, deltaY;
-
-    // how to do cleaner?
-    const flexContainer = document.getElementsByClassName('swim-flex')[0];
-    // only for cosmetic
-    let maxHeightWithTolerance;
-    const tolerance = 30;
-    let previousLimit = false;
-
-    $swimlane[0].style.setProperty('--swimlane-min-height', `${minHeight}px`);
-    // avoid jump effect and ensure height stays consistent
-    // ⚠️ here, I propose to ignore saved height if it is not filled by content.
-    // having large portions of blank lists makes the layout strange and hard to
-    // navigate; also, the height changes a lot between different views, so it
-    // feels ok to use the size as a hint, not as an absolute (as a user also)
-    const unconstraignedHeight = $swimlane[0].getBoundingClientRect().height;
-    const userHeight = parseFloat(this.swimlaneHeight(), 10);
-    const preferredHeight = Math.min(userHeight, absoluteMaxHeight, unconstraignedHeight);
-    $swimlane[0].style.setProperty('--swimlane-height', `${preferredHeight}px`);
+    let startY = 0;
+    let startHeight = 0;
+    const minHeight = 100;
+    const maxHeight = 2000;
 
     const startResize = (e) => {
-      // gain access to modern attributes e.g. isPrimary
-      e = e.originalEvent;
+      isResizing = true;
+      startY = e.pageY || e.originalEvent.touches[0].pageY;
+      startHeight = parseInt($swimlane.css('height')) || 300;
 
-      if (isResizing || !(e.isPrimary && (e.pointerType !== 'mouse' || e.button === 0))) {
-        return;
-      }
 
-      waitHeight(e, startResizeKnowingHeight);
-    };
-
-    // unsure about this one; this is a way to compute what would be a "fit-content" height,
-    // so that user cannot drag the swimlane too far. to do so, we clone the swimlane add
-    // add it to the body, taking care of catching the frame just before it would be rendered.
-    // it is well supported by browsers and adds extra-computation only once, when start dragging,
-    // but still it feels odd.
-    // the reason we cannot use initial, computed height is because it could have changed because
-    // on new cards, thus constraining dragging too much. it is simple for list, add "real" unconstrained
-    // width do not update on adding cards.
-    const waitHeight = (e, callback) => {
-      const computeSwimlaneHeight = (_) => {
-        if (!computingHeight) {
-          computingHeight = $swimlane[0].cloneNode(true);
-          computingHeight.id = "clonedSwimlane";
-          $(computingHeight).attr('style', 'height: auto !important; position: absolute');
-          frame = requestAnimationFrame(computeSwimlaneHeight);
-          document.body.appendChild(computingHeight);
-          return;
-        }
-        catchBeforeRender = document.getElementById('clonedSwimlane');
-        if (catchBeforeRender) {
-          fullHeight = catchBeforeRender.offsetHeight;
-          if (fullHeight > 0) {
-            cancelAnimationFrame(frame);
-            document.body.removeChild(computingHeight);
-            computingHeight = undefined;
-            frame = undefined;
-            callback(e, fullHeight);
-            return;
-          }
-        }
-        frame = requestAnimationFrame(computeSwimlaneHeight);
-      }
-      computeSwimlaneHeight();
-    }
-
-    const startResizeKnowingHeight = (e, height) => {
-      document.addEventListener('pointermove', doResize);
-      // e.g. debugger can cancel event without pointerup being fired
-      // document.addEventListener('pointercancel', stopResize);
-      document.addEventListener('pointerup', stopResize);
-      // unavailable on e.g. Safari but mostly for smoothness
-      document.addEventListener('wheel', doResize);
-
-      // --swimlane-height can be either a stored size or "auto"; get actual computed size
-      currentHeight = $swimlane[0].offsetHeight;
       $swimlane.addClass('swimlane-resizing');
       $('body').addClass('swimlane-resizing-active');
+      $('body').css('user-select', 'none');
 
-      // not being able to resize can be frustrating, give a little more room
-      maxHeight = Math.max(height, absoluteMaxHeight);
-      maxHeightWithTolerance = maxHeight + tolerance;
 
-      $swimlane[0].style.setProperty('--swimlane-max-height', `${maxHeightWithTolerance}px`);
-
-      pageY = e.pageY;
-
-      isResizing = true;
-      previousLimit = false;
-      deltaY = null;
-    }
+      e.preventDefault();
+      e.stopPropagation();
+    };
 
     const doResize = (e) => {
-      if (!isResizing || !(e.isPrimary || e instanceof WheelEvent)) {
+      if (!isResizing) {
         return;
       }
-      const { y: handleY, height: handleHeight } = $resizeHandle[0].getBoundingClientRect();
-      const containerHeight = flexContainer.offsetHeight;
-      const isBlocked = $swimlane[0].classList.contains('cannot-resize');
 
-      // deltaY of WheelEvent is unreliable, do with a simple actual delta with handle and pointer
-      deltaY = e.clientY - handleY;
+      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+      const deltaY = currentY - startY;
+      const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
 
-      const candidateHeight = currentHeight + deltaY;
-      const oldHeight = currentHeight;
-      let stepHeight = Math.max(minHeight, Math.min(maxHeightWithTolerance, candidateHeight));
 
-      const reachingMax = (maxHeightWithTolerance - stepHeight - 20) <= 0;
-      const reachingMin = (stepHeight - 20 - minHeight) <= 0;
-      if (!previousLimit && (reachingMax && deltaY > 0 || reachingMin && deltaY < 0)) {
-        $swimlane[0].classList.add('cannot-resize');
-        previousLimit = true;
-        if (reachingMax) {
-          stepHeight = maxHeightWithTolerance;
-        } else {
-          stepHeight = minHeight;
-        }
-      } else if (previousLimit && !reachingMax && !reachingMin) {
-        // we want to re-init only below handle if min-size, above if max-size,
-        // so computed values are accurate
-        if ((deltaY > 0 && pageY >= handleY + handleHeight)
-          || (deltaY < 0 && pageY <= handleY)) {
-          $swimlane[0].classList.remove('cannot-resize');
-          // considered as a new move, changing direction is certain
-          previousLimit = false;
-        }
-      }
+      // Apply the new height immediately for real-time feedback
+      $swimlane[0].style.setProperty('--swimlane-height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('min-height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('max-height', `${newHeight}px`);
+      $swimlane[0].style.setProperty('flex', 'none');
+      $swimlane[0].style.setProperty('flex-basis', 'auto');
+      $swimlane[0].style.setProperty('flex-grow', '0');
+      $swimlane[0].style.setProperty('flex-shrink', '0');
 
-      if (!isBlocked) {
-        // Ensure container grows and shrinks with swimlanes, so you guess a sense of scrolling something
-        if (e.pageY > (containerHeight - window.innerHeight)) {
-          document.body.style.height = `${containerHeight + window.innerHeight / 4}px`;
-        }
-        // helps to scroll at the beginning/end of the page
-        let gapToLeave = window.innerHeight / 10;
-        const factor = isTouchScreen ? 6 : 7;
-        if (e.clientY > factor * gapToLeave) {
-          //correct but too laggy
-          window.scrollBy({ top: gapToLeave, behavior: "smooth" });
-        }
-        // special case where scrolling down while
-        // swimlane is stuck; feels weird
-        else if (e.clientY < (10 - factor) * gapToLeave) {
-          window.scrollBy({ top: -gapToLeave , behavior: "smooth"});
-        }
-      }
 
-      if (oldHeight !== stepHeight && !isBlocked) {
-        // Apply the new height immediately for real-time feedback
-        $swimlane[0].style.setProperty('--swimlane-height', `${stepHeight}px`);
-        currentHeight = stepHeight;
-      }
+      e.preventDefault();
+      e.stopPropagation();
     };
 
     const stopResize = (e) => {
-      if(!isResizing) {
-        return;
-      }
-      if (previousLimit) {
-        $swimlane[0].classList.remove('cannot-resize');
-      }
-
-      // hopefully be gentler on cpu
-      document.removeEventListener('pointermove', doResize);
-      document.removeEventListener('pointercancel', stopResize);
-      document.removeEventListener('pointerup', stopResize);
-      document.removeEventListener('wheel', doResize);
+      if (!isResizing) return;
 
       isResizing = false;
 
-      let finalHeight = Math.min(parseInt($swimlane[0].style.getPropertyValue('--swimlane-height'), 10), maxHeight);
+      // Calculate final height
+      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+      const deltaY = currentY - startY;
+      const finalHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
+
+      // Ensure the final height is applied
       $swimlane[0].style.setProperty('--swimlane-height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('min-height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('max-height', `${finalHeight}px`);
+      $swimlane[0].style.setProperty('flex', 'none');
+      $swimlane[0].style.setProperty('flex-basis', 'auto');
+      $swimlane[0].style.setProperty('flex-grow', '0');
+      $swimlane[0].style.setProperty('flex-shrink', '0');
 
       // Remove visual feedback but keep the height
       $swimlane.removeClass('swimlane-resizing');
       $('body').removeClass('swimlane-resizing-active');
+      $('body').css('user-select', '');
 
       // Save the new height using the existing system
       const boardId = swimlane.boardId;
@@ -700,13 +670,28 @@ BlazeComponent.extendComponent({
           console.warn('Error saving swimlane height to localStorage:', e);
         }
       }
+
+      e.preventDefault();
     };
-    // handle both pointer and touch
-    $resizeHandle.on("pointerdown", startResize);
+
+    // Mouse events
+    $resizeHandle.on('mousedown', startResize);
+    $(document).on('mousemove', doResize);
+    $(document).on('mouseup', stopResize);
+
+    // Touch events for mobile
+    $resizeHandle.on('touchstart', startResize, { passive: false });
+    $(document).on('touchmove', doResize, { passive: false });
+    $(document).on('touchend', stopResize, { passive: false });
+
+
+    // Prevent dragscroll interference
+    $resizeHandle.on('mousedown', (e) => {
+      e.stopPropagation();
+    });
+
   },
 }).register('swimlane');
-
-
 
 
 BlazeComponent.extendComponent({
@@ -716,8 +701,6 @@ BlazeComponent.extendComponent({
       this.currentBoard.isTemplatesBoard() &&
       this.currentData().isListTemplatesSwimlane();
     this.currentSwimlane = this.currentData();
-    // so that lists can be filtered from Board methods
-    this.currentBoard.swimlane = this.currentSwimlane;
   },
 
   // Proxy
@@ -739,6 +722,7 @@ BlazeComponent.extendComponent({
             let sortIndex = 0;
             const lastList = this.currentBoard.getLastList();
             const boardId = Utils.getCurrentBoardId();
+            let swimlaneId = this.currentSwimlane._id;
 
             const positionInput = this.find('.list-position-input');
 
@@ -748,6 +732,9 @@ BlazeComponent.extendComponent({
 
               if (selectedList) {
                 sortIndex = selectedList.sort + 1;
+                // Use the swimlane ID from the selected list to ensure the new list
+                // is added to the same swimlane as the selected list
+                swimlaneId = selectedList.swimlaneId;
               } else {
                 sortIndex = Utils.calculateIndexData(lastList, null).base;
               }
@@ -760,7 +747,7 @@ BlazeComponent.extendComponent({
               boardId: Session.get('currentBoard'),
               sort: sortIndex,
               type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
-              swimlaneId: this.currentSwimlane._id, // Always set swimlaneId for per-swimlane list titles
+              swimlaneId: swimlaneId, // Always set swimlaneId for per-swimlane list titles
             });
 
             titleInput.value = '';
@@ -774,13 +761,6 @@ BlazeComponent.extendComponent({
   },
 }).register('addListForm');
 
-
-Template.addListForm.helpers({
-  lists() {
-    return this.myLists();
-  }
-});
-
 Template.swimlane.helpers({
   canSeeAddList() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
@@ -793,14 +773,16 @@ Template.swimlane.helpers({
 
   collapseSwimlane() {
     return Utils.getSwimlaneCollapseState(this);
-  },
+  }
 });
 
 
 // Initialize sortable on DOM elements
 setTimeout(() => {
   const $listsGroupElements = $('.list-group');
-  const computeHandle = () => Utils.isMiniScreen() ? '.js-list-handle' : '.list-header-name-container';
+  const computeHandle = () => (
+    Utils.isTouchScreenOrShowDesktopDragHandles() ? '.js-list-handle' : '.js-list-header'
+  );
 
   // Initialize sortable on ALL listsGroup elements (even empty ones)
   $listsGroupElements.each(function(index) {
@@ -814,11 +796,12 @@ setTimeout(() => {
         tolerance: 'pointer',
         appendTo: '.board-canvas',
         helper: 'clone',
-        items: '.js-list',
+        items: '.js-list:not(.js-list-composer)',
         placeholder: 'list placeholder',
         distance: 7,
         handle: computeHandle(),
         disabled: !Utils.canModifyBoard(),
+        dropOnEmpty: true,
         start(evt, ui) {
           ui.helper.css('z-index', 1000);
           ui.placeholder.height(ui.helper.height());
@@ -834,10 +817,29 @@ setTimeout(() => {
             // Silent fail
           }
         },
-        sort(event, ui) {
-          Utils.scrollIfNeeded(event);
-        },
         stop(evt, ui) {
+          // To attribute the new index number, we need to get the DOM element
+          // of the previous and the following list -- if any.
+          const prevListDom = ui.item.prev('.js-list').get(0);
+          const nextListDom = ui.item.next('.js-list').get(0);
+          const sortIndex = calculateIndex(prevListDom, nextListDom, 1);
+
+          const listDomElement = ui.item.get(0);
+          if (!listDomElement) {
+            return;
+          }
+
+          let list;
+          try {
+            list = Blaze.getData(listDomElement);
+          } catch (error) {
+            return;
+          }
+
+          if (!list) {
+            return;
+          }
+
           // Detect if the list was dropped in a different swimlane
           const targetSwimlaneDom = ui.item.closest('.js-swimlane');
           let targetSwimlaneId = null;
@@ -891,13 +893,7 @@ setTimeout(() => {
           }
           // Allow reordering within the same swimlane by not canceling the sortable
 
-          try {
-            Lists.update(list._id, {
-              $set: updateData,
-            });
-          } catch (error) {
-            return;
-          }
+          // Do not update the restricted collection on the client; rely on the server method below.
 
           // Save to localStorage for non-logged-in users (backup)
           if (!Meteor.userId()) {
@@ -944,6 +940,18 @@ setTimeout(() => {
           } catch (e) {
             // Silent fail
           }
+
+          // Re-enable dragscroll after list dragging is complete
+          try {
+            dragscroll.reset();
+          } catch (e) {
+            // Silent fail
+          }
+
+          // Re-enable dragscroll on all swimlanes
+          $('.js-swimlane').each(function() {
+            $(this).addClass('dragscroll');
+          });
         }
       });
       // Reactively adjust handle when setting changes
@@ -963,7 +971,6 @@ BlazeComponent.extendComponent({
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
   },
-
   visible(list) {
     if (list.archived) {
       // Show archived list only when filter archive is on
@@ -987,7 +994,7 @@ BlazeComponent.extendComponent({
     return true;
   },
   onRendered() {
-    let boardComponent = getBoardComponent();
+    const boardComponent = this.parentComponent();
     const $listsDom = this.$('.js-lists');
 
 
@@ -999,24 +1006,26 @@ BlazeComponent.extendComponent({
 
     // Wait for DOM to be ready
     setTimeout(() => {
-      const handleSelector = Utils.isMiniScreen()
+      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
         ? '.js-list-handle'
-        : '.list-header-name-container';
+        : '.js-list-header';
       const $lists = this.$('.js-list');
-      const parent = $lists.parent();
 
-      if ($lists.length > 0) {
+      const $parent = $lists.parent();
+
+      // Initialize sortable even if there are no lists (to allow dropping into empty swimlanes)
+      if ($parent.hasClass('js-lists')) {
 
         // Check for drag handles
-        const handles = $(parent).find(handleSelector);
+        const $handles = $parent.find('.js-list-handle');
 
         // Test if drag handles are clickable
-        handles.on('click', function(e) {
+        $handles.on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
         });
 
-        parent.sortable({
+        $parent.sortable({
           connectWith: '.js-swimlane, .js-lists',
           tolerance: 'pointer',
           appendTo: '.board-canvas',
@@ -1026,34 +1035,27 @@ BlazeComponent.extendComponent({
           distance: 7,
           handle: handleSelector,
           disabled: !Utils.canModifyBoard(),
+          dropOnEmpty: true,
           start(evt, ui) {
             ui.helper.css('z-index', 1000);
-            width = ui.helper.width();
-            height = ui.helper.height();
-            ui.placeholder.height(height);
-            ui.placeholder.width(width);
-            ui.placeholder[0].setAttribute('style', `width: ${width}px !important; height: ${height}px !important;`);
+            ui.placeholder.height(ui.helper.height());
+            ui.placeholder.width(ui.helper.width());
             EscapeActions.executeUpTo('popup-close');
             boardComponent.setIsDragging(true);
           },
           stop(evt, ui) {
             boardComponent.setIsDragging(false);
-            saveSorting(ui);
-          },
-          sort(event, ui) {
-            Utils.scrollIfNeeded(event);
-          },
+          }
         });
         // Reactively update handle when user toggles desktop drag handles
         this.autorun(() => {
-          const newHandle = Utils.isMiniScreen()
+          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
             ? '.js-list-handle'
             : '.js-list-header';
           if ($parent.data('uiSortable') || $parent.data('sortable')) {
             try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
           }
         });
-      } else {
       }
     }, 100);
   },

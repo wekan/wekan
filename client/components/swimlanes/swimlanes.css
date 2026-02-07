@@ -1,29 +1,39 @@
-.swimlane.js-lists{
+[class=swimlane] {
+  position: sticky;
+  left: 0;
+}
+.swimlane {
   background: #dedede;
   display: flex;
-  overflow: auto;
   flex-direction: row;
-  box-sizing: border-box;
-  height: var(--swimlane-height, auto);
-  min-height: var(--swimlane-min-height, 200px);
+  overflow: auto;
+  max-height: 100%;
+  position: relative;
 }
-
-body.mobile-mode .swimlane {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  .swimlane-header {
-    font-size: var(--header-scale);
-  }
+.swimlane.js-lists.js-swimlane {
+  min-height: 150px;
 }
-
-.swimlane-container {
-  background-color: #ccc;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  /* default to the same as lists to avoid contrast with the handle */
-  background: #dedede;
+.swimlane-header-menu .swimlane-header-collapse-down {
+  font-size: 50%;
+  color: #a6a6a6;
+  position: absolute;
+  top: 0.7vh;
+  left: 13vw;
+}
+.swimlane-header-menu .swimlane-header-collapse-up {
+  font-size: 50%;
+  color: #a6a6a6;
+  position: absolute;
+  bottom: 0.7vh;
+  left: 13vw;
+}
+.swimlane-header-menu .swimlane-header-uncollapse-up {
+  font-size: 50%;
+  color: #a6a6a6;
+}
+.swimlane-header-menu .swimlane-header-uncollapse-down {
+  font-size: 50%;
+  color: #a6a6a6;
 }
 .swimlane.placeholder {
   background-color: rgba(0,0,0,0.2);
@@ -40,28 +50,30 @@ body.mobile-mode .swimlane {
   cursor: grabbing;
 }
 .swimlane .swimlane-header-wrap {
-  overflow: hidden;
   display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  height: max-content;
-  padding: 0.5lh 1ch;
+  flex-direction: row;
+  flex: 1 0 100%;
   background-color: #ccc;
-
-  position: sticky;
-  left: 0;
-  p {
-    margin: 0;
-  }
+  width: 100%;
+  min-width: 100%;
+  position: relative;
+  overflow: visible;
+  min-height: 33px;
+  padding: 0;
+  margin: 0;
 }
-
 .swimlane .swimlane-header-wrap .swimlane-header {
+  font-size: 14px;
+  padding: 0;
   font-weight: bold;
+  min-height: 33px;
+  width: 100%;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-align: center;
+  position: relative;
   z-index: 10;
   pointer-events: auto;
   display: flex;
@@ -69,30 +81,87 @@ body.mobile-mode .swimlane {
   justify-content: center;
   line-height: 1.2;
 }
-
-.swimlane {
-  .swimlane-header-menu-right, .swimlane-header-menu-left {
-    display: inline-flex;
-    align-content: center;
-    gap: 2ch;
-  }
-  /* can't resize beyond that point, but resizing screen causes
-  overflow, which is great because lists would shrink too much otherwise */
-  max-width: 100vw;
+.swimlane .swimlane-header-wrap .swimlane-header-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 22px;
+  line-height: 1;
+  z-index: 20;
+  pointer-events: auto;
 }
-
+.swimlane .swimlane-header-wrap .swimlane-header-menu .js-open-swimlane-menu {
+  top: calc(50% + 6px);
+  padding: 5px;
+  display: inline-block;
+  margin-left: 30px;
+  color: #a6a6a6;
+  vertical-align: middle;
+  line-height: 1.2;
+}
 @media print {
-  .swimlane .swimlane-header-wrap .swimlane-header-menu-right {
+  .swimlane .swimlane-header-wrap .swimlane-header-menu {
     display: none;
   }
 }
-
+.swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
+  top: calc(50% + 6px);
+  padding: 5px;
+  margin-left: 20px;
+  font-size: 22px;
+  color: #a6a6a6;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
+  top: calc(50% + 6px);
+  padding-left: 5px;
+  font-size: 22px;
+}
 .swimlane .swimlane-header-wrap .swimlane-header-handle {
+  position: relative;
+  top: calc(50% + 2px);
+  padding: 2px 5px;
+  font-size: clamp(16px, 3vw, 20px);
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 30px;
+  cursor: move;
+  pointer-events: auto;
+  color: #a6a6a6;
+  line-height: 1.2;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
+  position: relative;
+  padding: 2px 5px;
+  top: calc(50% + 2px);
+  font-size: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 30px;
   cursor: move;
   pointer-events: auto;
   color: #a6a6a6;
 }
-.swimlane .swimlane-header-wrap .swimlane-header-menu-right .swimlane-collapse-indicator:hover {
+
+/* Swimlane collapse button styling - matches list collapse button */
+.swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator {
+  color: #a6a6a6;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  margin: 0;
+  flex-shrink: 0;
+}
+.swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator:hover {
   background-color: transparent;
   color: #333;
 }
@@ -221,75 +290,105 @@ body.mobile-mode .swimlane {
   color: #fff !important;
 }
 
-body.mobile-mode {
-  .swimlane-resize-handle {
-    height: 2ch;
-    :active {
-      background: rgba(0, 123, 255, 0.4) !important;
-    }
-  }
-}
-body.mobile-mode {
-  .swimlane-resize-handle {
-    height: 1lh;
-  }
-}
 /* Swimlane resize handle */
 .swimlane-resize-handle {
-  height: max(0.7ch, 0.3lh);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: transparent;
   cursor: row-resize;
+  z-index: 20;
   border-top: 2px solid transparent;
   transition: all 0.2s ease;
   border-radius: 2px;
   /* Ensure the handle is clickable */
   pointer-events: auto;
-  /* Prevent scrolling behaviour on click */
-  touch-action: none;
+}
+
+/* Show resize handle only on hover */
+.swimlane:hover .swimlane-resize-handle {
   background: rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  border-top-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle resize indicator line at the bottom of swimlane on hover */
+.swimlane:hover .swimlane-resize-handle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(0, 123, 255, 0.3);
+  z-index: 21;
+  transition: all 0.2s ease;
+  border-radius: 1px;
+}
+
+/* Make the indicator line more prominent when hovering over the resize handle */
+.swimlane-resize-handle:hover::after {
+  background: rgba(0, 123, 255, 0.6) !important;
+  height: 3px !important;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+.swimlane-resize-handle:hover {
+  background: rgba(0, 123, 255, 0.4) !important;
+  border-top-color: #0079bf !important;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.swimlane-resize-handle:active {
+  background: rgba(0, 123, 255, 0.6) !important;
+  border-top-color: #0079bf !important;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
 }
 
 /* Add a subtle indicator line */
 .swimlane-resize-handle::before {
   content: '';
   position: absolute;
-  left: 50vw;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 20px;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  height: 2px;
+  background: rgba(0, 123, 255, 0.6);
+  border-radius: 1px;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
-.swimlane.swimlane-resizing + .swimlane-resize-handle:hover::before, .swimlane-resize-handle:hover::before {
-  opacity:1;
+.swimlane-resize-handle:hover::before {
+  opacity: 1;
 }
 
-.swimlane:not(.cannot-resize) {
-  /* Add a subtle resize indicator line at the bottom of swimlane on hover */
-  &:hover + .swimlane-resize-handle, + .swimlane-resize-handle:hover {
-    border-top: 1px solid rgba(0, 123, 255, 0.5);
-    background: rgba(0, 123, 255, 0.2);
-    border-radius: 0;
-  }
-}
-
-.swimlane.swimlane-resizing + .swimlane-resize-handle {
-  background: rgba(0, 123, 255, 0.4) !important;
-}
-
-.swimlane.cannot-resize + .swimlane-resize-handle {
-  background: rgba(227, 64, 83, 0.5) !important;
-  border-radius: 0;
+/* Visual feedback during resize */
+.swimlane.swimlane-resizing {
+  transition: none !important;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  /* Ensure the swimlane maintains its new height during resize */
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  /* Override any conflicting layout properties */
+  display: flex !important;
+  position: relative !important;
+  /* Force height to be respected */
+  height: var(--swimlane-height, auto) !important;
+  min-height: var(--swimlane-height, auto) !important;
+  max-height: var(--swimlane-height, auto) !important;
+  /* Ensure the height is applied immediately */
+  overflow: visible !important;
 }
 
 body.swimlane-resizing-active {
   cursor: row-resize !important;
-  user-select: none !important;
 }
 
 body.swimlane-resizing-active * {
   cursor: row-resize !important;
-  user-select: none !important;
 }

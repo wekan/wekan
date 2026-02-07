@@ -1,5 +1,6 @@
 .card-date {
   display: block;
+  border-radius: 4px;
   padding: 1px 3px;
   background-color: #dbdbdb;
 }
@@ -105,10 +106,6 @@
   background-color: #e6c200;
 }
 
-.date a:has(time) {
-  text-decoration: none;
-}
-
 .card-date.end-date {
   background-color: #ffb3b3; /* Light red for end */
   color: #000; /* Black text for end */
@@ -142,6 +139,6 @@
 }
 .customfield-date {
   display: block;
-  border-radius: 0.4ch;
+  border-radius: 4px;
   padding: 1px 3px;
 }

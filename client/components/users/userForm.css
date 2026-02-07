@@ -1,106 +1,109 @@
-.auth-container {
-  display: grid;
-  align-content: stretch;
-  align-items: stretch;
-  justify-items: stretch;
-  justify-content: center;
-  padding: 2lh 0;
-  /* i.e. center horizontally */
-  margin-inline: auto;;
-  /* parent container has relative positionning */
-  grid-template-columns: 100%;
-  grid-template-rows: minmax(20vh, 300px) min-content 1fr;
-  position: relative;
+.auth-layout .at-form-landing-logo {
+  width: min(249px, 32vw);
+  margin: auto;
+  margin-top: 6vh;
+  margin-bottom: 2.5vh;
 }
-
-body.mobile-mode:has(.auth-container) {
-  .auth-container {
-    grid-template-columns: 90vw;
-    min-height: 100%;
-  }
-}
-
-.auth-logo {
-  &, &>a:not(img), > img {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-  }
-}
-
-.auth-container {
-  flex: 1;
-  max-width: max(30vw, 600px);
-  gap: 1lh;
-  margin-bottom: 1lh;
-  max-height: 80vh;
-  position: relative;
-}
-
-
 .auth-layout .auth-dialog {
+  width: min(275px, 36vw);
+  padding: 3vh 3vw;
+  margin: auto;
+  margin-bottom: 2.5vh;
   background: #fff;
-  font-size: 1.1em;
   border-radius: 0.4vw;
   border: 1px solid #dbdbdb;
   border-bottom-color: #c2c2c2;
   box-shadow: 0 0.2vh 0.8vh rgba(0,0,0,0.3);
-  padding: 0 2ch 0.5lh 2ch;
-  white-space: wrap;
-  /* try to override properties of non-flex forms
-  without referring too much to classes and ids, as forms
-  are dynamic */
-  &, div:not(#legalNoticeDiv, .lds-roller, .password-input-container, :empty), form {
-    display: flex;
-    flex-direction: column;
-    gap: 1lh;
-    >:not(.at-input) {
-      gap: 0.4lh;
-    }
-    .at-input {
-      gap: 0;
-    }
-  }
-
-  *:not(div) {
-    width: 100%;
-    margin: 0;
-  }
 }
-
 .auth-layout .auth-dialog .at-form .at-link {
   color: #17683a;
 }
-
-.password-input-container {
-  display: grid;
-  align-self: stretch;
-  grid-template-columns: 1fr 6ch;
+.auth-layout .auth-dialog .at-form label {
+  margin-bottom: 0.4vh;
 }
-
-body.mobile-mode {
-  .auth-layout {
-    max-height: unset;
-  }
-  .password-input-container {
-    grid-auto-flow: row;
-  }
+.auth-layout .auth-dialog .at-form input {
+  width: 100%;
+}
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password-input-container input {
+  flex: 1;
+  padding-right: 55px; /* More room for the bigger button */
+  box-sizing: border-box;
+}
+.password-toggle-btn {
+  position: absolute;
+  right: 5px; /* Adjusted for larger button */
+  top: calc(50% - 26px); /* Moved up by 20px + 6px = 26px total */
+  transform: translateY(-50%);
+  background: #f8f8f8 !important;
+  border: 1px solid #ddd !important;
+  border-radius: 3px !important;
+  color: #000 !important; /* Black color for the icon */
+  cursor: pointer;
+  padding: 8px 6px 8px 12px; /* 2x bigger padding, 6px less on right */
+  font-size: 16px; /* 2x bigger font size */
+  width: auto !important;
+  height: auto !important;
+  line-height: 1;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  min-width: 40px; /* 2x bigger minimum width */
+  min-height: 32px; /* 2x bigger minimum height */
+}
+/* Adjust position for login and register pages */
+.auth-layout .password-toggle-btn {
+  top: calc(50% - 11px); /* Move 15px down for login/register */
+}
+.password-toggle-btn .eye-text {
+  color: #000 !important;
+  font-size: 16px !important;
+  line-height: 1;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: 0.8;
+}
+.eye-slash-line {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  stroke: #000;
+  stroke-width: 2;
+  fill: none;
+}
+.password-toggle-btn:hover .eye-text {
+  color: #000 !important;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: 0.8;
 }
 .auth-layout .auth-dialog .at-form button {
+  width: 100%;
   background: #216694;
   color: #fff;
-  min-height: 2lh;
 }
 .auth-layout .auth-dialog .at-form .at-title {
+  background: #f7f7f7;
+  margin: -3vh -3vw;
+  padding: 2vh 3vw 0.7vh;
+  margin-bottom: 2.5vh;
   border-bottom: 1px solid #dcdcdc;
   color: #4d4d4d;
   font-weight: bold;
-  text-align: center;
 }
 .auth-layout .auth-dialog .at-form .at-signup-link,
 .auth-layout .auth-dialog .at-form .at-signin-link,
 .auth-layout .auth-dialog .at-form .at-forgotPwd {
   font-size: 0.9em;
+  margin-top: 2vh;
   color: #4d4d4d;
 }
 .auth-layout .auth-dialog .at-form .at-signup-link .at-signUp,
@@ -110,4 +113,43 @@ body.mobile-mode {
 .auth-layout .auth-dialog .at-form .at-signin-link .at-signIn,
 .auth-layout .auth-dialog .at-form .at-forgotPwd .at-signIn {
   font-weight: bold;
+}
+.auth-layout .auth-dialog .at-form-lang {
+  margin-top: 0px;
+}
+.auth-layout .auth-dialog .at-form-lang .select-lang {
+  width: 100%;
+  margin-top: 10px;
+}
+@media screen and (max-width: 800px) {
+  .auth-layout {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+  .auth-layout .at-form-landing-logo {
+    width: 125px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .auth-layout .at-form-landing-logo img {
+    width: 125px;
+  }
+  .auth-layout .auth-dialog {
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    padding: 25px;
+    min-height: 380px;
+    margin: 0px;
+    margin-bottom: 0px;
+    border: 0px;
+  }
+  .auth-layout .auth-dialog .at-form .at-title h3 {
+    width: calc(100% - 125px);
+    overflow-x: hidden;
+  }
 }

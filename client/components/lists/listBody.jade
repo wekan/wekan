@@ -4,18 +4,17 @@ template(name="listBody")
       .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
-        if customFieldSum.lenght
-          ul.sidebar-list
-            each customFieldsSum
-              li
+        ul.sidebar-list
+          each customFieldsSum
+            li
+              +viewer
+                = name
+              if $eq customFieldsSum.type "number"
                 +viewer
-                  = name
-                if $eq customFieldsSum.type "number"
-                  +viewer
-                    = value
-                if $eq customFieldsSum.type "currency"
-                  +viewer
-                    = formattedCurrencyCustomFieldValue(value)
+                  = value
+              if $eq customFieldsSum.type "currency"
+                +viewer
+                  = formattedCurrencyCustomFieldValue(value)
         each (cardsWithLimit (idOrNull ../../_id))
           a.minicard-wrapper.js-minicard(href=originRelativeUrl
             class="{{#if cardIsSelected}}is-selected{{/if}}"
@@ -26,15 +25,15 @@ template(name="listBody")
             +minicard(this)
         if (showSpinner (idOrNull ../../_id))
           +spinnerList
-
         if canSeeAddCard
-          a.minicard-wrapper.minicard-add-form
-            +inlinedForm(autoclose=false position="bottom")
-              +addCardForm(listId=_id position="bottom")
-            else
-              .add-card-wrapper
-                a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
-                  i.fa.fa-plus
+          +inlinedForm(autoclose=false position="bottom")
+            +addCardForm(listId=_id position="bottom")
+          else
+            a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
+              i.fa.fa-plus
+              | {{_ 'add-card'}}
+        +inlinedForm(autoclose=false position="bottom")
+          +addCardForm(listId=_id position="bottom")
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-list(
@@ -44,30 +43,33 @@ template(name="spinnerList")
 
 template(name="addCardForm")
   .minicard.minicard-composer.js-composer
+    if getLabels
+      .minicard-labels
+        each getLabels
+          .minicard-label(class="card-label-{{color}}" title="{{name}}")
     textarea.minicard-composer-textarea.js-card-title(autofocus dir="auto")
-    .minicard-bottom
-      .minicard-composer-icons
-        if getLabels
-          each getLabels
-            .minicard-label(class="card-label-{{color}}" title="{{name}}")
-        if members.get
-          each members.get
-            +userAvatar(userId=this)
-      .add-controls.clearfix
-        a.js-close-inlined-form
-          i.fa.fa-times-thin
+    if members.get
+      .minicard-members.js-minicard-composer-members
+        each members.get
+          +userAvatar(userId=this)
 
-        button.primary.confirm(type="submit") {{_ 'add'}}
-
-  .links-controls.clearfix
+  .add-controls.clearfix
+    button.primary.confirm(type="submit") {{_ 'add'}}
+    a.js-close-inlined-form
+      i.fa.fa-times-thin
+  .add-controls.clearfix
     unless currentBoard.isTemplatesBoard
       unless currentBoard.isTemplateBoard
         span.quiet
           | {{_ 'or'}}
           a.js-link {{_ 'link'}}
         span.quiet
+          | &nbsp;
+          | /
           a.js-search {{_ 'search'}}
         span.quiet
+          | &nbsp;
+          | /
           a.js-card-template {{_ 'template'}}
 
 template(name="autocompleteLabelLine")
@@ -75,73 +77,70 @@ template(name="autocompleteLabelLine")
   span(class="{{#if hasNoName}}quiet{{/if}}")= labelName
 
 template(name="linkCardPopup")
+  label {{_ 'boards'}}:
   .link-board-wrapper
-    .link-board-dropdown
-      label {{_ 'boards'}}:
+    select.js-select-boards
+      option(value="")
+      each boards
+        option(value="{{_id}}") {{isTitleDefault title}}
+    input.primary.confirm.js-link-board(type="button" value="{{_ 'link'}}")
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    option(value="") {{_ 'custom-field-dropdown-none'}}
+    each swimlanes
+      option(value="{{_id}}") {{isTitleDefault title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    option(value="") {{_ 'custom-field-dropdown-none'}}
+    each lists
+      option(value="{{_id}}") {{isTitleDefault title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    option(value="") {{_ 'custom-field-dropdown-none'}}
+    each cards
+      option(value="{{getRealId}}") {{getTitle}}
+
+  .edit-controls.clearfix
+    input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
+
+template(name="searchElementPopup")
+  form
+    label
+      | {{_ 'title'}}
+      input.js-element-title(type="text" placeholder="{{_ 'title'}}" autofocus required dir="auto")
+  unless isTemplateSearch
+    label {{_ 'boards'}}:
+    .link-board-wrapper
       select.js-select-boards
         option(value="")
         each boards
-          option(value="{{_id}}") {{isTitleDefault title}}
-      input.primary.confirm.js-link-board(type="button" value="{{_ 'link'}}")
-
-    .link-board-dropdown
-      label {{_ 'swimlanes'}}:
-      select.js-select-swimlanes
-        option(value="") {{_ 'custom-field-dropdown-none'}}
-        each swimlanes
-          option(value="{{_id}}") {{isTitleDefault title}}
-    .link-board-dropdown
-      label {{_ 'lists'}}:
-      select.js-select-lists
-        option(value="") {{_ 'custom-field-dropdown-none'}}
-        each lists
-          option(value="{{_id}}") {{isTitleDefault title}}
-
-    .link-board-dropdown
-      label {{_ 'cards'}}:
-      select.js-select-cards
-        option(value="") {{_ 'custom-field-dropdown-none'}}
-        each cards
-          option(value="{{getRealId}}") {{getTitle}}
-
-    .edit-controls.clearfix
-      input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
-
-template(name="searchElementPopup")
-  .link-board-wrapper
-    form
-      label
-        | {{_ 'title'}}
-        input.js-element-title(type="text" placeholder="{{_ 'title'}}" autofocus required dir="auto")
-    unless isTemplateSearch
-      label {{_ 'boards'}}:
-        select.js-select-boards
-          option(value="")
-          each (boards)
-            option(value="{{_id}}") {{title}}
-    form.js-search-term-form
-      label
-        | {{_ 'template'}}
-      input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
-    .list-body.search-card-results
-      .minicards.clearfix.js-minicards
-        if isBoardTemplateSearch
-          each (results)
-            a.minicard-wrapper.js-minicard
-              +miniboard(this)
-        if isListTemplateSearch
-          each (results)
-            a.minicard-wrapper.js-minicard
-              +minilist(this)
-        if isSwimlaneTemplateSearch
-          each (results)
-            a.minicard-wrapper.js-minicard
-              +miniswimlane(this)
-        if isCardTemplateSearch
-          each (results)
-            a.minicard-wrapper.js-minicard
-              +minicard(this)
-        unless isTemplateSearch
-          each (results)
-            a.minicard-wrapper.js-minicard
-              +minicard(this)
+          option(value="{{_id}}") {{title}}
+  form.js-search-term-form
+    label
+      | {{_ 'template'}}
+    input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
+  .list-body.search-card-results
+    .minicards.clearfix.js-minicards
+      if isBoardTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +miniboard(this)
+      if isListTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +minilist(this)
+      if isSwimlaneTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +miniswimlane(this)
+      if isCardTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +minicard(this)
+      unless isTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +minicard(this)

@@ -1,5 +1,6 @@
 const closedValue = null;
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
 window.Modal = new (class {
   constructor() {
     this._currentModal = new ReactiveVar(closedValue);

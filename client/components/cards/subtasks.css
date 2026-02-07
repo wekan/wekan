@@ -4,14 +4,19 @@
 textarea.js-add-subtask-item,
 textarea.js-edit-subtask-item {
   overflow: hidden;
-  overflow-wrap: break-word;
+  word-wrap: break-word;
   resize: none;
+  height: 34px;
 }
 .delete-text,
 .subtask-title .js-delete-subtask,
 .subtask-title .js-view-subtask,
 .js-delete-subtask-item {
   color: #8c8c8c;
+  text-decoration: underline;
+  word-wrap: break-word;
+  float: right;
+  padding-top: 6px;
 }
 .delete-text:hover,
 .subtask-title .js-delete-subtask:hover,
@@ -23,11 +28,11 @@ textarea.js-edit-subtask-item {
   float: left;
   width: 30px;
   height: 30px;
-
+  font-size: 18px;
   line-height: 30px;
 }
 .subtask-title .title {
-
+  font-size: 18px;
   line-height: 25px;
 }
 .subtask-title .subtasks-stat {
@@ -128,7 +133,7 @@ textarea.js-edit-subtask-item {
   margin: 0.1em 0 0 0;
 }
 .subtasks-item .check-box.is-checked {
-  border-bottom: 0.2ch solid #3cb500;
+  border-bottom: 2px solid #3cb500;
   border-right: 2px solid #3cb500;
 }
 /* Unicode checkbox icons styling */
@@ -160,4 +165,16 @@ body.grey-icons-enabled .subtasks-item .check-box-unicode {
 }
 .subtasks-item .item-title .viewer p {
   margin-bottom: 2px;
+}
+.js-delete-subtask-item {
+  margin: 0 0 0.5em 1.33em;
+  padding: 12px 0 0 0;
+}
+.add-subtask-item {
+  margin: 0.2em 0 0.5em 1.33em;
+  display: inline-block;
+}
+.subtask-details-menu {
+  float: right;
+  padding: 6px 10px 6px 10px;
 }

@@ -1,7 +1,6 @@
 template(name='notifications')
   #notifications.board-header-btns.right
-    .notifications-container
-      if $.Session.get 'showNotificationsDrawer'
-        +notificationsDrawer(unreadNotifications=unreadNotifications)
     a.notifications-drawer-toggle(class="{{#if $gt unreadNotifications 0}}alert{{/if}}" title="{{_ 'notifications'}}")
       i.fa.fa-bell
+    if $.Session.get 'showNotificationsDrawer'
+      +notificationsDrawer(unreadNotifications=unreadNotifications)

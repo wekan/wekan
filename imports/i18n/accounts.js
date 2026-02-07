@@ -5,6 +5,10 @@ import { TAPi18n } from './tap';
 
 T9n.setTracker({ Tracker });
 
+const loginForbiddenTranslation = {
+  'error.accounts.Login forbidden': 'Login forbidden',
+};
+
 T9n.map('ar', require('meteor-accounts-t9n/build/ar').ar);
 T9n.map('ca', require('meteor-accounts-t9n/build/ca').ca);
 T9n.map('cs', require('meteor-accounts-t9n/build/cs').cs);
@@ -47,15 +51,21 @@ T9n.map('zh-CN', require('meteor-accounts-t9n/build/zh_CN').zh_CN);
 T9n.map('zh-HK', require('meteor-accounts-t9n/build/zh_HK').zh_HK);
 T9n.map('zh-TW', require('meteor-accounts-t9n/build/zh_TW').zh_TW);
 
+// Ensure we always have a readable message for the login-forbidden error
+T9n.map('en', loginForbiddenTranslation);
+
 // Reactively adjust useraccounts:core translations
 Tracker.autorun(() => {
   const language = TAPi18n.getLanguage();
   try {
     T9n.setLanguage(language);
+    T9n.map(language, loginForbiddenTranslation);
   } catch (err) {
     // Try to extract & set the language part only (e.g. "en" instead of "en-UK")
     try {
-      T9n.setLanguage(language.split('-')[0]);
+      const baseLanguage = language.split('-')[0];
+      T9n.setLanguage(baseLanguage);
+      T9n.map(baseLanguage, loginForbiddenTranslation);
     } catch (err) {
       console.error(err);
     }

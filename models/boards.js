@@ -857,22 +857,12 @@ Boards.helpers({
     );
   },
 
-  listsInSwimlane(swimlaneId) {
-    return this.lists().filter(e => e.swimlaneId === swimlaneId);
-  },
-
   /** returns the last list
    * @returns Document the last list
    */
   getLastList() {
-    req = { boardId: this._id };
-    if (this.swimlane && this.swimlane._id != this._id) {
-      req.swimlaneId = this.swimlane._id;
-    }
-    return ReactiveCache.getList(
-      req,
-      { sort: { sort: 'desc' }
-    });
+    const ret = ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
+    return ret;
   },
 
   nullSortLists() {
@@ -945,7 +935,8 @@ Boards.helpers({
   activeMembers(){
     // Depend on the users collection for reactivity when users are loaded
     const memberUserIds = _.pluck(this.members, 'userId');
-    const dummy = Meteor.users.find({ _id: { $in: memberUserIds } }).count();
+    // Use findOne with limit for reactivity trigger instead of count() which loads all users
+    const dummy = Meteor.users.findOne({ _id: { $in: memberUserIds } }, { fields: { _id: 1 }, limit: 1 });
     const members = _.filter(this.members, m => m.isActive === true);
     // Group by userId to handle duplicates
     const grouped = _.groupBy(members, 'userId');
@@ -1154,7 +1145,10 @@ Boards.helpers({
   searchBoards(term) {
     check(term, Match.OneOf(String, null, undefined));
 
-    const query = { type: 'template-container', archived: false };
+    const query = { boardId: this._id };
+    query.type = 'cardType-linkedBoard';
+    query.archived = false;
+
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
@@ -1163,7 +1157,7 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    const ret = ReactiveCache.getBoards(query, projection);
+    const ret = ReactiveCache.getCards(query, projection);
     return ret;
   },
 
@@ -1651,19 +1645,19 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { allowsDescriptionText } });
   },
 
-  async setAllowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
+  async setallowsDescriptionTextOnMinicard(allowsDescriptionTextOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsDescriptionTextOnMinicard } });
   },
 
-  async setAllowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
+  async setallowsCoverAttachmentOnMinicard(allowsCoverAttachmentOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsCoverAttachmentOnMinicard } });
   },
 
-  async setAllowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
+  async setallowsBadgeAttachmentOnMinicard(allowsBadgeAttachmentOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsBadgeAttachmentOnMinicard } });
   },
 
-  async setAllowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
+  async setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsCardSortingByNumberOnMinicard } });
   },
 
@@ -1782,7 +1776,7 @@ Boards.userBoards = (
     selector.archived = archived;
   }
   if (!selector.type) {
-    selector.type = { $in: ['board', 'template-container'] };
+    selector.type = 'board';
   }
 
   selector.$or = [

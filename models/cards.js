@@ -2682,21 +2682,16 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
 }
 
 function cardCreation(userId, doc) {
-  // For any reason some special cards also have
-  // special data, e.g. linked cards who have list/swimlane ID
-  // being their own ID
-  const list = ReactiveCache.getList(doc.listId);
-  const swim = ReactiveCache.getSwimlane(doc.listId);
   Activities.insert({
     userId,
     activityType: 'createCard',
     boardId: doc.boardId,
-    listName: list?.title,
-    listId: list ? doc.listId : undefined,
+    listName: ReactiveCache.getList(doc.listId).title,
+    listId: doc.listId,
     cardId: doc._id,
     cardTitle: doc.title,
-    swimlaneName: swim?.title,
-    swimlaneId: swim ? doc.swimlaneId : undefined,
+    swimlaneName: ReactiveCache.getSwimlane(doc.swimlaneId).title,
+    swimlaneId: doc.swimlaneId,
   });
 }
 

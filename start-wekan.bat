@@ -14,6 +14,16 @@ REM # MONGO_PASSWORD_FILE : MongoDB password file (Docker secrets)
 REM # example : SET MONGO_PASSWORD_FILE=/run/secrets/mongo_password
 REM SET MONGO_PASSWORD_FILE=
 
+REM # MONGO_OPLOG_URL: MongoDB oplog connection (highly recommended for pub/sub performance)
+REM # Required for Meteor reactive subscriptions to work efficiently
+REM # Must point to a MongoDB replica set (local oplog or remote)
+REM # For local MongoDB with replicaSet named 'rs0', use:
+REM #   SET MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+REM # For production with credentials and remote MongoDB:
+REM #   SET MONGO_OPLOG_URL=mongodb://<user>:<password>@<host>:<port>/local?authSource=admin&replicaSet=rsWekan
+REM # Without this, Meteor falls back to polling which increases CPU usage and latency
+REM SET MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=rs0
+
 REM # If port is 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS , like http://192.168.0.100
 REM # If port is not 80, must change ROOT_URL to: http://YOUR-WEKAN-SERVER-IPv4-ADDRESS:YOUR-PORT-NUMBER , like http://192.168.0.100:2000
 REM # If ROOT_URL is not correct, these do not work: translations, uploading attachments.

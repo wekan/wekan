@@ -1,32 +1,10 @@
-.minicard-body {
-  display: flex;
-  flex-direction: column;
-  padding: 0 1ch 0.2lh 1ch;
-  gap: 0.2lh;
-}
-
 .minicard-wrapper {
   cursor: pointer;
   position: relative;
   display: flex;
   align-items: center;
-  height: min-content;
+  margin-bottom: 1.2vh;
 }
-.minicard-header {
-  display: flex;
-  align-items: center;
-  padding: 0 1ch;
-  gap: 1ch;
-}
-
-.minicard > hr {
-  margin: 0;
-}
-
-.minicard-add-form {
-  width: auto;
-}
-
 .minicard-wrapper.placeholder {
   background: #ccc;
   border-radius: 1.2vw;
@@ -50,25 +28,32 @@
 .minicard-wrapper .multi-selection-checkbox + .minicard {
   margin-left: 1vw;
 }
-.minicard {
-  display: grid;
-  grid-auto-flow: row;
-  grid-template-rows: min-content 1fr auto auto;
-  gap: 0.4lh;
-  background-color: #fff;
-  box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.15);
-  border-radius: 0.3vw;
-  color: #4d4d4d;
-  overflow: hidden;
-  transition: transform 0.2s, border-radius 0.2s;
-  flex: 1;
+@media only screen {
+  .minicard {
+    padding: 0.8vh 1vw 0.3vh;
+    position: relative;
+    flex: 1;
+    flex-wrap: wrap;
+    background-color: #fff;
+    min-height: 2.5vh;
+    box-shadow: 0 0.2vh 0.3vh rgba(0,0,0,0.15);
+    border-radius: 0.3vw;
+    color: #4d4d4d;
+    overflow: hidden;
+    transition: transform 0.2s, border-radius 0.2s;
+  }
 }
-
-.minicard-actions-right {
-  justify-content: end;
-  display: flex;
-  align-items: end;
-  gap: .5lh;
+.minicard-details-menu-with-handle {
+  float: right;
+  padding-left: 0.7vw;
+  font-size: clamp(14px, 3vw, 18px);
+  padding: 0;
+  z-index: 1;
+}
+.minicard-details-menu {
+  float: right;
+  font-size: clamp(14px, 3vw, 18px);
+  padding-left: 0.7vw;
 }
 @media print {
   .minicard-details-menu,
@@ -91,6 +76,7 @@
   transform: translateX(1.5vw);
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
+  z-index: 25;
   box-shadow: -0.3vw 0.2vh 0.3vh rgba(0,0,0,0.2);
 }
 .minicard:hover:not(.minicard-composer),
@@ -110,30 +96,20 @@
   margin: 0.8vh -1vw 0.8vh -1vw;
   border-radius: top 0.3vw;
 }
-.minicard {
-  .minicard-labels, .dates {
-    display: grid;
-    grid-auto-rows: min-content;
-    justify-content: stretch;
-    font-size: 0.8em;
-    grid-auto-rows: minmax(1.3lh, auto);
-  }
-  .minicard-labels {
-    grid-template-columns: repeat(auto-fill, minmax(12ch, auto));
-    gap: 0.2lh 0.5ch;
-  }
-  .minicard-labels-no-text {
-    grid-template-columns: repeat(auto-fill, 4ch);
-    grid-template-rows: 4ch;
-    font-size: 0.4em;
-    .minicard-label {
-      border-radius: 1ch;
-    }
-  }
-  .dates {
-    height: min-content;
-    grid-template-columns: repeat(auto-fit, minmax(15ch, auto));
-  }
+.minicard .minicard-labels {
+  float: none;
+  margin-right: 6vw;
+}
+.minicard .minicard-labels .minicard-label {
+  width: clamp(12px, 1.5vw, 16px);
+  height: clamp(12px, 1.5vw, 16px);
+  border-radius: 0.3vw;
+  margin-right: 0.4vw;
+  margin-bottom: 0.4vh;
+}
+.minicard .minicard-labels-no-text {
+  display: flex;
+  flex-wrap: wrap;
 }
 .minicard .minicard-custom-fields {
   display: block;
@@ -145,22 +121,26 @@
 .minicard .minicard-custom-field-item {
   flex-grow: 1;
   display: block;
-  overflow-wrap: break-word;
+  word-wrap: break-word;
   max-width: 13vw;
   margin-right: 0.5vw;
 }
 .minicard .minicard-custom-field-item-fullwidth {
   flex-grow: 1;
   display: block;
-  overflow-wrap: break-word;
+  word-wrap: break-word;
   max-width: 100%;
   margin-right: 0.5vw;
 }
 .minicard .handle {
+  width: clamp(20px, 2.5vw, 28px);
+  height: clamp(20px, 2.5vw, 28px);
+  position: absolute;
+  right: 0vw;
+  top: 4vh;
   display: none;
   z-index: 1;
 }
-
 @media only screen {
   .minicard .handle {
     display: block;
@@ -174,34 +154,58 @@
   text-align: center;
 }
 .minicard .minicard-title {
-  display: flex;
-  max-width: 100%;
-  flex: 1;
-  cursor: grab;
-  .viewer {
-    --overflow-lines: 2;
-  }
-
+  margin-right: 1.5vw;
 }
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
   display: inline-block;
   margin-right: 0.7vw;
 }
-.minicard .date {
-  display: flex;
-  &>a {
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    align-items: center;
-    text-align: center;
-    align-self: stretch;
+@media only screen {
+  .minicard .minicard-title p:last-child {
+    margin-bottom: 0;
+  }
+  .minicard .minicard-title .viewer {
+    display: block;
+    word-wrap: break-word;
   }
 }
+.minicard .dates {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 5;
+  margin-right: 6vw;
+  clear: both;
+}
+.minicard .date {
+  margin-right: 0.4vw;
+}
+
+/* Unicode icons for minicard dates - matching cardDate.css */
+.minicard .card-date.end-date time::before {
+  content: "🏁"; /* Finish flag - represents end/completion */
+}
+.minicard .card-date.due-date time::before {
+  content: "⏰"; /* Alarm clock - represents due/deadline */
+}
+.minicard .card-date.start-date time::before {
+  content: "🚀"; /* Rocket - represents start/launch */
+}
+.minicard .card-date.received-date time::before {
+  content: "📥"; /* Inbox tray - represents received/incoming */
+}
+
+.minicard .card-date time::before {
+  font-size: inherit;
+  margin-right: 0.3em;
+  display: inline-block;
+}
+
 /* Date type specific colors for minicards - matching cardDate.css */
 .minicard .card-date.received-date {
-  background-color: #d3d3d3; /* Grey for received - a bit darker than base card-date */
+  background-color: #dbdbdb; /* Grey for received - same as base card-date */
 }
 
 .minicard .card-date.received-date:hover,
@@ -307,134 +311,102 @@
   background-color: #1976d2 !important;
 }
 
-.minicard .minicard-badges-and-creator {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: end;
-  gap: 0 0.5ch;;
-}
-
-.minicard-people-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-auto-rows: auto;
-}
-
-.minicard-people-wrapper {
-  display: flex;
-  justify-content: end;
-  gap: 0.1lh;
-}
 .minicard .badges {
-  display: flex;
-  align-items: center;
-  gap: 1.5ch;
+  float: left;
+  margin-top: 1vh;
   color: #808080;
-  /* this avoid padding-ish at the bottom of the card */
-  font-size: 0.8rem;
 }
-
+.minicard .badges:empty {
+  display: none;
+}
+.minicard .badges .badge {
+  float: left;
+  margin-right: 1.5vw;
+  margin-bottom: 0.4vh;
+  font-size: 0.9em;
+}
 .minicard .badges .badge.is-finished {
   background: #3cb500;
-  padding: 0.3lh 0.8ch;
+  padding: 0 0.4vw;
   border-radius: 0.4vw;
-  &, .fa {
-    color: #fff;
-  }
+  color: #fff;
 }
 .minicard .badges .badge:last-of-type {
   margin-right: 0;
 }
+.minicard .badges .badge .badge-icon,
+.minicard .badges .badge .badge-text {
+  vertical-align: middle;
+}
+.minicard .badges .badge .badge-icon.badge-comment,
+.minicard .badges .badge .badge-text.badge-comment {
+  margin-bottom: 0.1rem;
+}
+.minicard .badges .badge .badge-text {
+  font-size: 0.9em;
+  padding-left: 0.3vw;
+  line-height: 1.2;
+}
+.minicard .badges .badge .check-list-text {
+  padding-left: 0px;
+  line-height: 1.1;
+}
+.minicard .minicard-members,
+.minicard .minicard-assignees,
+.minicard .minicard-creator {
+  float: right;
+  margin-left: 0.7vw;
+  margin-bottom: 0.5vh;
+}
 .minicard .minicard-members .member,
 .minicard .minicard-assignees .member,
 .minicard .minicard-creator .member {
-  display: flex;
+  float: right;
   border-radius: 50%;
-  font-size: 0.8em;
-  margin-bottom: 0.2lh;
+  height: clamp(24px, 3.5vw, 32px);
+  width: clamp(24px, 3.5vw, 32px);
+  margin-bottom: 0.5vh;
 }
-
-.minicard .minicard-assignees .member {
-  border: 2px solid rgb(180, 87, 87);
+.minicard .minicard-members .assignee,
+.minicard .minicard-assignees .assignee,
+.minicard .minicard-creator .assignee {
+  float: right;
+  border-radius: 50%;
+  height: clamp(24px, 3.5vw, 32px);
+  width: clamp(24px, 3.5vw, 32px);
 }
-
-.minicard .minicard-creator .member {
-  border: 2px solid #7fd67f;
-}
-
-.minicard .minicard-members .member {
-  border: 2px solid #5a5ac6;
+.minicard .minicard-members + .badges,
+.minicard .minicard-assignees + .badges,
+.minicard .minicard-creator + .badges {
+  margin-top: 0.7vh;
 }
 .minicard .minicard-assignees {
-  display: flex;
+  border-bottom: 1px solid #f00;
 }
-
+.minicard .minicard-creator {
+  border-bottom: 1px solid #008000;
+}
 .minicard .minicard-members:empty,
 .minicard .minicard-assignees:empty {
   display: none;
 }
 .minicard .minicard-description {
+  padding: 0.8vh 0 0 1vw;
   color: #000;
   background-color: #eee;
-  padding: 0.5lh 1ch;
-  --overflow-lines: 2;
-  .viewer {
-    font-size: 0.9em;
-    ul {
-      padding-bottom: 0;
-    }
-  }
+  width: 100%;
+  margin-bottom: 0.3vh;
+  margin-left: -0.5vw;
+  border-radius: 0.4vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
-
-.minicard .minicard-description p {
-  margin: 0;
-}
-
-.minicard-composer {
-  display: flex;
-  flex-direction: column;
-
-  .minicard-composer-icons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2lh;
-  }
-
-  .minicard-bottom {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    gap: 1ch;
-
-    .minicard-composer-icons {
-      display: flex;
-      flex: 1;
-      flex-wrap: wrap;
-      flex-direction: row-reverse;
-    }
-
-    .add-controls {
-      display: flex;
-      align-self: start;
-    }
-
-    textarea {
-      display: flex;
-      flex: 1;
-    }
-  }
-}
-
 .minicard.minicard-composer {
-  flex-wrap: wrap;
-  flex: 1;
-  align-self: stretch;
-  gap: 0.3lh;
-  padding: 0.5lh 1ch;
-  position: relative;
+  margin-bottom: 1.3vh;
 }
-
 .minicard.minicard-composer textarea.minicard-composer-textarea,
 .minicard.minicard-composer textarea.minicard-composer-textarea:focus {
   resize: none;
@@ -443,11 +415,11 @@
   box-shadow: none;
   height: auto;
   margin: 0;
-  padding: 1ch;
-  min-height: 5lh;
+  padding: 0;
+  max-height: 22vh;
+  min-height: 5vh;
+  margin-bottom: 2.5vh;
   overflow-y: auto;
-  flex: 1;
-  width: 100%;
 }
 .parent-prefix {
   color: #b3b3b3;
@@ -762,12 +734,30 @@
 
 /* List name display on minicard */
 .minicard-list-name {
-  font-size: inherit;
+  font-size: 0.75em;
   color: #8c8c8c;
+  margin-top: 0.2vh;
   display: flex;
-  padding: 0 0.5ch;
+  align-items: center;
+  gap: 0.3vw;
+}
+
+/* Checklist display on minicard */
+.minicard-checklist {
+  width: 100%;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  padding: 0.3vh 0.5vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.3vw;
+  border: 1px solid #e0e0e0;
+}
+
+.minicard-checklist .checklist-header {
   display: flex;
-  gap: 0.5ch;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3vh;
 }
 
 .minicard-checklist .checklist-title {

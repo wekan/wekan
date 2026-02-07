@@ -39,6 +39,9 @@ table tr:nth-child(even) {
 .ext-box button {
   min-width: 90px;
 }
+.content-wrapper {
+  margin-top: 10px;
+}
 .buttonsContainer {
   display: flex;
 }
@@ -161,7 +164,7 @@ table td:first-child {
   background-color: #27ae60;
   color: white;
   padding: 10px 20px;
-  border-radius: 0.4ch;
+  border-radius: 4px;
   z-index: 9999;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   animation: fadeOut 3s ease-in forwards;

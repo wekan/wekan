@@ -1,11 +1,11 @@
 /**
  * Migration: Ensure all entities have valid swimlaneId
- * 
+ *
  * This migration ensures that:
  * 1. All cards have a valid swimlaneId
  * 2. All lists have a valid swimlaneId (if applicable)
  * 3. Orphaned entities (without valid swimlaneId) are moved to a "Rescued Data" swimlane
- * 
+ *
  * This is similar to the existing rescue migration but specifically for swimlaneId validation
  */
 
@@ -60,7 +60,7 @@ function getOrCreateRescuedSwimlane(boardId) {
       });
 
       rescuedSwimlane = Swimlanes.findOne(swimlaneId);
-      
+
       Activities.insert({
         userId: 'migration',
         type: 'swimlane',
@@ -164,7 +164,7 @@ function getOrCreateRescuedSwimlane(boardId) {
     let rescuedCount = 0;
 
     const allCards = Cards.find({}).fetch();
-    
+
     allCards.forEach(card => {
       if (!card.swimlaneId) return; // Handled by fixCardsWithoutSwimlaneId
 
@@ -173,7 +173,7 @@ function getOrCreateRescuedSwimlane(boardId) {
       if (!swimlane) {
         // Orphaned card - swimlane doesn't exist
         const rescuedSwimlane = getOrCreateRescuedSwimlane(card.boardId);
-        
+
         if (rescuedSwimlane) {
           Cards.update(card._id, {
             $set: { swimlaneId: rescuedSwimlane._id },
@@ -290,7 +290,7 @@ function getOrCreateRescuedSwimlane(boardId) {
       );
 
       console.log(`Migration ${MIGRATION_NAME} completed successfully`);
-      
+
       return {
         success: true,
         cardsFixed: cardResults.fixedCount,
@@ -306,7 +306,7 @@ function getOrCreateRescuedSwimlane(boardId) {
 // Install validation hooks on startup (always run these for data integrity)
 Meteor.startup(() => {
   if (!Meteor.isServer) return;
-  
+
   try {
     addSwimlaneIdValidationHooks();
     console.log('SwimlaneId validation hooks installed');

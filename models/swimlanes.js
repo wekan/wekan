@@ -253,7 +253,7 @@ Swimlanes.helpers({
   myLists() {
     // Return per-swimlane lists: provide lists specific to this swimlane
     return ReactiveCache.getLists(
-      { 
+      {
         boardId: this.boardId,
         swimlaneId: this._id,
         archived: false
@@ -690,7 +690,7 @@ Swimlanes.helpers({
   hasMovedFromOriginalPosition() {
     const history = this.getOriginalPosition();
     if (!history) return false;
-    
+
     return history.originalPosition.sort !== this.sort;
   },
 
@@ -700,7 +700,7 @@ Swimlanes.helpers({
   getOriginalPositionDescription() {
     const history = this.getOriginalPosition();
     if (!history) return 'No original position data';
-    
+
     return `Original position: ${history.originalPosition.sort || 0}`;
   },
 });

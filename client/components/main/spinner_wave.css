@@ -3,7 +3,7 @@
   height: 50px;
   margin: auto;
   text-align: center;
-
+  font-size: 10px;
 }
 .sk-spinner-wave div {
   background-color: #333;

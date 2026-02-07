@@ -18,8 +18,7 @@
   font-weight: bold;
 }
 .result-card-context-list {
-  display: flex;
-  gap: 0.2ch;
+  margin-bottom: 0.7rem;
 }
 .result-card-block-wrapper {
   display: inline-block;

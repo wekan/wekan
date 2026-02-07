@@ -7,7 +7,7 @@ import { DialogWithBoardSwimlaneListCard } from '/client/lib/dialogWithBoardSwim
 const subManager = new SubsManager();
 const { calculateIndexData, capitalize } = Utils;
 
-function initSorting(items, handleSelector) {
+function initSorting(items) {
   items.sortable({
     tolerance: 'pointer',
     helper: 'clone',
@@ -16,7 +16,6 @@ function initSorting(items, handleSelector) {
     appendTo: 'parent',
     distance: 7,
     placeholder: 'checklist-item placeholder',
-    handle: handleSelector,
     scroll: true,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
@@ -49,9 +48,8 @@ function initSorting(items, handleSelector) {
 BlazeComponent.extendComponent({
   onRendered() {
     const self = this;
-    this.handleSelector = Utils.isMiniScreen() ? 'span.fa.checklistitem-handle' : '.item-title';
     self.itemsDom = this.$('.js-checklist-items');
-    initSorting(self.itemsDom, this.handleSelector);
+    initSorting(self.itemsDom);
     self.itemsDom.mousedown(function (evt) {
       evt.stopPropagation();
     });
@@ -65,9 +63,11 @@ BlazeComponent.extendComponent({
       const $itemsDom = $(self.itemsDom);
       if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
         $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
-        $(self.itemsDom).sortable({
-          handle: this.handleSelector,
-        });
+        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
+          $(self.itemsDom).sortable({
+            handle: 'span.fa.checklistitem-handle',
+          });
+        }
       }
     });
   },
@@ -372,9 +372,9 @@ BlazeComponent.extendComponent({
     const ret = ReactiveCache.getCurrentUser().getMoveChecklistDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveChecklistDialogOption(this.currentBoardId, options);
-    this.data().checklist.move(cardId);
+    await this.data().checklist.move(cardId);
   }
 }).register('moveChecklistPopup');
 
@@ -384,8 +384,8 @@ BlazeComponent.extendComponent({
     const ret = ReactiveCache.getCurrentUser().getCopyChecklistDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setCopyChecklistDialogOption(this.currentBoardId, options);
-    this.data().checklist.copy(cardId);
+    await this.data().checklist.copy(cardId);
   }
 }).register('copyChecklistPopup');

@@ -15,7 +15,7 @@
 
 .migration-progress-modal {
   background: white;
-  border-radius: 0.8ch;
+  border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   max-width: 500px;
   width: 90%;
@@ -46,13 +46,13 @@
 
 .migration-progress-title {
   margin: 0;
-
+  font-size: 18px;
   font-weight: 600;
 }
 
 .migration-progress-close {
   cursor: pointer;
-
+  font-size: 16px;
   opacity: 0.8;
   transition: opacity 0.2s ease;
 }
@@ -73,7 +73,7 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
-
+  font-size: 14px;
 }
 
 .migration-progress-overall-bar {
@@ -110,7 +110,7 @@
 
 .migration-progress-overall-percentage {
   text-align: right;
-
+  font-size: 12px;
   color: #666;
   font-weight: 600;
 }
@@ -123,12 +123,12 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
-
+  font-size: 14px;
 }
 
 .migration-progress-step-bar {
   background: #e9ecef;
-  border-radius: 0.8ch;
+  border-radius: 8px;
   height: 8px;
   overflow: hidden;
   margin-bottom: 5px;
@@ -137,13 +137,13 @@
 .migration-progress-step-fill {
   background: linear-gradient(90deg, #007bff, #0056b3);
   height: 100%;
-  border-radius: 0.8ch;
+  border-radius: 8px;
   transition: width 0.3s ease;
 }
 
 .migration-progress-step-percentage {
   text-align: right;
-
+  font-size: 12px;
   color: #666;
   font-weight: 600;
 }
@@ -160,12 +160,12 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 5px;
-
+  font-size: 13px;
 }
 
 .migration-progress-status-text {
   color: #555;
-
+  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -181,12 +181,12 @@
   font-weight: 600;
   color: #1976d2;
   margin-bottom: 5px;
-
+  font-size: 13px;
 }
 
 .migration-progress-details-text {
   color: #1565c0;
-
+  font-size: 13px;
   line-height: 1.4;
 }
 
@@ -199,7 +199,7 @@
 .migration-progress-note {
   text-align: center;
   color: #666;
-
+  font-size: 13px;
   font-style: italic;
 }
 
@@ -219,7 +219,7 @@
   }
 
   .migration-progress-title {
-
+    font-size: 16px;
   }
 }
 
@@ -285,7 +285,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  border-radius: 0.4ch;
+  border-radius: 4px;
 }
 
 .migration-spinner {

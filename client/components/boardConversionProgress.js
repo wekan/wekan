@@ -1,6 +1,6 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { 
+import {
   boardConverter,
   isConverting,
   conversionProgress,
@@ -12,15 +12,15 @@ Template.boardConversionProgress.helpers({
   isConverting() {
     return isConverting.get();
   },
-  
+
   conversionProgress() {
     return conversionProgress.get();
   },
-  
+
   conversionStatus() {
     return conversionStatus.get();
   },
-  
+
   conversionEstimatedTime() {
     return conversionEstimatedTime.get();
   }

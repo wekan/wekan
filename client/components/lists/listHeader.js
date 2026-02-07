@@ -9,15 +9,6 @@ Meteor.startup(() => {
 });
 
 BlazeComponent.extendComponent({
-  onRendered() {
-    /* #FIXME I have no idea why this exact same
-    event won't fire when in event maps */
-    $(this.find('.js-collapse')).on('click', (e) => {
-      e.preventDefault();
-      this.collapsed(!this.collapsed());
-    });
-  },
-
   canSeeAddCard() {
     const list = Template.currentData();
     return (
@@ -43,7 +34,7 @@ BlazeComponent.extendComponent({
     }
   },
   collapsed(check = undefined) {
-    const list = this.data();
+    const list = Template.currentData();
     const status = Utils.getListCollapseState(list);
     if (check === undefined) {
       // just check
@@ -119,17 +110,17 @@ BlazeComponent.extendComponent({
       return TAPi18n.__('cards-count');
     }
   },
-  currentList() {
-    const currentList = Utils.getCurrentList();
-    const list = Template.currentData();
-    return currentList && currentList._id == list._id;
-  },
+
   events() {
     return [
       {
         'click .js-list-star'(event) {
           event.preventDefault();
           this.starred(!this.starred());
+        },
+        'click .js-collapse'(event) {
+          event.preventDefault();
+          this.collapsed(!this.collapsed());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
         'click .js-add-card.list-header-plus-top'(event) {
@@ -515,7 +506,7 @@ BlazeComponent.extendComponent({
 
           let sortIndex = 0;
           const boardId = Utils.getCurrentBoardId();
-          const swimlaneId = this.currentSwimlane?._id;
+          let swimlaneId = this.currentSwimlane?._id;
 
           const positionInput = this.find('.list-position-input');
 
@@ -525,6 +516,9 @@ BlazeComponent.extendComponent({
 
             if (selectedList) {
               sortIndex = selectedList.sort + 1;
+              // Use the swimlane ID from the selected list to ensure the new list
+              // is added to the same swimlane as the selected list
+              swimlaneId = selectedList.swimlaneId;
             } else {
               // No specific position, add at end of swimlane
               if (swimlaneId) {
@@ -563,3 +557,4 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('addListPopup');
+

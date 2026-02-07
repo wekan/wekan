@@ -4,7 +4,7 @@
   margin-left: 20px;
   padding-right: 10px;
   height: 28px;
-
+  font-size: 13px;
   float: left;
   overflow: hidden;
   line-height: 28px;
@@ -25,13 +25,4 @@
   display: inline-block;
   margin-top: 1px;
   margin-right: 10px;
-}
-
-
-.setting-header-btns {
-  display: flex;
-  align-items: center;
-  gap: 1ch;
-  padding: 0 1ch;
-  flex-wrap: wrap;
 }

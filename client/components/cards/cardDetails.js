@@ -35,7 +35,6 @@ import { DialogWithBoardSwimlaneList } from '/client/lib/dialogWithBoardSwimlane
 import { DialogWithBoardSwimlaneListCard } from '/client/lib/dialogWithBoardSwimlaneListCard';
 import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
-import PopupComponent from '../main/popup';
 
 const subManager = new SubsManager();
 const { calculateIndexData } = Utils;
@@ -61,8 +60,19 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Utils.getCurrentBoard();
     this.isLoaded = new ReactiveVar(false);
-    this.dep = new Tracker.Dependency();
 
+    if (this.parentComponent() && this.parentComponent().parentComponent()) {
+      const boardBody = this.parentComponent().parentComponent();
+      //in Miniview parent is Board, not BoardBody.
+      if (boardBody !== null) {
+        // Only show overlay in mobile mode, not in desktop mode
+        const isMobile = Utils.getMobileMode();
+        if (isMobile) {
+          boardBody.showOverlay.set(true);
+        }
+        boardBody.mouseHasEnterCardDetails = false;
+      }
+    }
     this.calculateNextPeak();
 
     Meteor.subscribe('unsaved-edits');
@@ -75,18 +85,6 @@ BlazeComponent.extendComponent({
     // });
   },
 
-  onRendered() {
-    const boardOverlay = document.getElementsByClassName('board-overlay')?.[0];
-    this.boardBody = BlazeComponent.getComponentForElement(boardOverlay);
-    if (this.boardBody) {
-      this.boardBody.mouseHasEnterCardDetails = false;
-    }
-    const isMobile = Utils.getMobileMode();
-    if (isMobile && Session.get('currentCard')) {
-      //this.boardBody?.showOverlay.set(true);
-    }
-  },
-
   isWatching() {
     const card = this.currentData();
     if (!card || typeof card.findWatcher !== 'function') return false;
@@ -97,8 +95,8 @@ BlazeComponent.extendComponent({
     return ReactiveCache.getCurrentUser().hasCustomFieldsGrid();
   },
 
+
   cardMaximized() {
-    this.dep.depend();
     return !Utils.getPopupCardId() && ReactiveCache.getCurrentUser().hasCardMaximized();
   },
 
@@ -177,11 +175,6 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    // #FIXME hackish; if accepted tweak static funcs
-    if (this.cardMaximized()) {
-      PopupComponent.maximize({target: this.firstNode()});
-    }
-
     if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
       // Send Webhook but not create Activities records ---
       const card = this.currentData();
@@ -216,11 +209,11 @@ BlazeComponent.extendComponent({
     }
 
     const $checklistsDom = this.$('.card-checklist-items');
-    const sortableSelector = Utils.isMiniScreen() ? '.checklist-handle' : '.checklist-title';
+
     $checklistsDom.sortable({
       tolerance: 'pointer',
       helper: 'clone',
-      handle: sortableSelector,
+      handle: '.checklist-title',
       items: '.js-checklist',
       placeholder: 'checklist placeholder',
       distance: 7,
@@ -289,8 +282,6 @@ BlazeComponent.extendComponent({
       return ReactiveCache.getCurrentUser()?.isBoardMember();
     }
 
-
-
     // Disable sorting if the current user is not a board member
     this.autorun(() => {
       const disabled = !userIsMember();
@@ -298,7 +289,10 @@ BlazeComponent.extendComponent({
         $checklistsDom.data('uiSortable') ||
         $checklistsDom.data('sortable')
       ) {
-        $checklistsDom.sortable('option', 'handle', sortableSelector);
+        $checklistsDom.sortable('option', 'disabled', disabled);
+        if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
+          $checklistsDom.sortable({ handle: '.checklist-handle' });
+        }
       }
       if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
         $subtasksDom.sortable('option', 'disabled', disabled);
@@ -307,7 +301,11 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
-    this.boardBody?.showOverlay.set(false);
+    if (this.parentComponent() === null) return;
+    const parentComponent = this.parentComponent().parentComponent();
+    //on mobile view parent is Board, not board body.
+    if (parentComponent === null) return;
+    parentComponent.showOverlay.set(false);
   },
 
   events() {
@@ -334,11 +332,59 @@ BlazeComponent.extendComponent({
         },
         'mousedown .js-card-drag-handle'(event) {
           event.preventDefault();
-          PopupComponent.toFront(event);
+          const $card = $(event.target).closest('.card-details');
+          const startX = event.clientX;
+          const startY = event.clientY;
+          const startLeft = $card.offset().left;
+          const startTop = $card.offset().top;
+
+          const onMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            $card.css({
+              left: startLeft + deltaX + 'px',
+              top: startTop + deltaY + 'px'
+            });
+          };
+
+          const onMouseUp = () => {
+            $(document).off('mousemove', onMouseMove);
+            $(document).off('mouseup', onMouseUp);
+          };
+
+          $(document).on('mousemove', onMouseMove);
+          $(document).on('mouseup', onMouseUp);
         },
-        'click .js-card-send-to-back'(event) {
+        'mousedown .js-card-title-drag-handle'(event) {
+          // Allow dragging from title for ReadOnly users
+          // Don't interfere with text selection
+          if (event.target.tagName === 'A' || $(event.target).closest('a').length > 0) {
+            return; // Don't drag if clicking on links
+          }
+
           event.preventDefault();
-          PopupComponent.toBack(event);
+          const $card = $(event.target).closest('.card-details');
+          const startX = event.clientX;
+          const startY = event.clientY;
+          const startLeft = $card.offset().left;
+          const startTop = $card.offset().top;
+
+          const onMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            $card.css({
+              left: startLeft + deltaX + 'px',
+              top: startTop + deltaY + 'px'
+            });
+          };
+
+          const onMouseUp = () => {
+            $(document).off('mousemove', onMouseMove);
+            $(document).off('mouseup', onMouseUp);
+          };
+
+          $(document).on('mousemove', onMouseMove);
+          $(document).on('mouseup', onMouseUp);
         },
         'click .js-close-card-details'() {
           // Get board ID from either the card data or current board in session
@@ -346,21 +392,26 @@ BlazeComponent.extendComponent({
           const boardId = (card && card.boardId) || Utils.getCurrentBoard()._id;
           const cardId = card && card._id;
 
-          if (boardId && cardId) {
-            const openCards = Session.get('openCards') || [];
-            const filtered = openCards.filter(id => id !== cardId);
-            // If this was the current card, clear it
-            if (openCards.length === filtered.length) {
-              Session.set('currentCard', null);
-            }
-            else {
-              Session.set('currentCard', filtered[0]);
-            }
-            Session.set('openCards', filtered);
+          if (boardId) {
+            // In desktop mode, remove from openCards array
+            const isMobile = Utils.getMobileMode();
+            if (!isMobile && cardId) {
+              const openCards = Session.get('openCards') || [];
+              const filtered = openCards.filter(id => id !== cardId);
+              Session.set('openCards', filtered);
 
-            // Navigate back to board without card: must be done at the time of writing
-            // otherwise the route for the card is disabled until another
-            // card is opened
+              // If this was the current card, clear it
+              if (Session.get('currentCard') === cardId) {
+                Session.set('currentCard', null);
+              }
+              // Don't navigate away in desktop mode - just close the card
+              return;
+            }
+
+            // Mobile mode: Clear the current card session to close the card
+            Session.set('currentCard', null);
+
+            // Navigate back to board without card
             const board = ReactiveCache.getBoard(boardId);
             if (board) {
               FlowRouter.go('board', {
@@ -383,6 +434,34 @@ BlazeComponent.extendComponent({
           Meteor.call('changeDateFormat', dateFormat);
         },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
+        // Mobile: switch to desktop popup view (maximize)
+        'click .js-mobile-switch-to-desktop'(event) {
+          event.preventDefault();
+          // Switch global mode to desktop so the card appears as desktop popup
+          Utils.setMobileMode(false);
+        },
+        'click .js-card-zoom-in'(event) {
+          event.preventDefault();
+          const current = Utils.getCardZoom();
+          const newZoom = Math.min(3.0, current + 0.1);
+          Utils.setCardZoom(newZoom);
+        },
+        'click .js-card-zoom-out'(event) {
+          event.preventDefault();
+          const current = Utils.getCardZoom();
+          const newZoom = Math.max(0.5, current - 0.1);
+          Utils.setCardZoom(newZoom);
+        },
+        'click .js-card-mobile-desktop-toggle'(event) {
+          event.preventDefault();
+          const currentMode = Utils.getMobileMode();
+          Utils.setMobileMode(!currentMode);
+        },
+        'click .js-card-mobile-desktop-toggle'(event) {
+          event.preventDefault();
+          const currentMode = Utils.getMobileMode();
+          Utils.setMobileMode(!currentMode);
+        },
         async 'submit .js-card-description'(event) {
           event.preventDefault();
           const description = this.currentComponent().getValue();
@@ -446,7 +525,7 @@ BlazeComponent.extendComponent({
         'click .js-add-members': Popup.open('cardMembers'),
         'click .js-assignee': Popup.open('cardAssignee'),
         'click .js-add-assignees': Popup.open('cardAssignees'),
-        'click .js-add-labels'(event) {Popup.open('cardLabels')(event, { dataContextIfCurrentDataIsUndefined: this.currentData() })},
+        'click .js-add-labels': Popup.open('cardLabels'),
         'click .js-received-date': Popup.open('editCardReceivedDate'),
         'click .js-start-date': Popup.open('editCardStartDate'),
         'click .js-due-date': Popup.open('editCardDueDate'),
@@ -455,10 +534,12 @@ BlazeComponent.extendComponent({
         'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
         'click .js-custom-fields': Popup.open('cardCustomFields'),
         'mouseenter .js-card-details'() {
-          if (this.boardBody) {
-            this.boardBody.showOverlay.set(true);
-            this.boardBody.mouseHasEnterCardDetails = true;
-          }
+          if (this.parentComponent() === null) return;
+          const parentComponent = this.parentComponent().parentComponent();
+          //on mobile view parent is Board, not BoardBody.
+          if (parentComponent === null) return;
+          parentComponent.showOverlay.set(true);
+          parentComponent.mouseHasEnterCardDetails = true;
         },
         'mousedown .js-card-details'() {
           Session.set('cardDetailsIsDragging', false);
@@ -479,13 +560,13 @@ BlazeComponent.extendComponent({
         'click #toggleCustomFieldsGridButton'() {
           Meteor.call('toggleCustomFieldsGrid');
         },
-        'click .js-maximize-card-details'(e) {
-          PopupComponent.maximize(e);
+        'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
+          autosize($('.card-details'));
         },
-        'click .js-minimize-card-details'(e) {
-          PopupComponent.minimize(e);
+        'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
+          autosize($('.card-details'));
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');
@@ -656,6 +737,16 @@ Template.cardDetails.helpers({
     return uploadProgressManager.getUploadCountForCard(this._id);
   }
 });
+Template.cardDetailsPopup.onDestroyed(() => {
+  Session.delete('popupCardId');
+  Session.delete('popupCardBoardId');
+});
+Template.cardDetailsPopup.helpers({
+  popupCard() {
+    const ret = Utils.getPopupCard();
+    return ret;
+  },
+});
 
 BlazeComponent.extendComponent({
   template() {
@@ -792,7 +883,9 @@ Template.cardDetailsActionsPopup.events({
   'click .js-toggle-watch-card'() {
     const currentCard = this;
     const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
-    Meteor.call('watch', 'card', currentCard._id, level)
+    Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
+      if (!err && ret) Popup.close();
+    });
   },
   'click .js-toggle-show-list-on-minicard'() {
     const currentCard = this;
@@ -803,6 +896,9 @@ Template.cardDetailsActionsPopup.events({
 });
 
 BlazeComponent.extendComponent({
+  onRendered() {
+    autosize(this.$('textarea.js-edit-card-title'));
+  },
   events() {
     return [
       {
@@ -883,6 +979,10 @@ const filterMembers = (filterTerm) => {
   return members;
 }
 
+Template.editCardRequesterForm.onRendered(function () {
+  autosize(this.$('.js-edit-card-requester'));
+});
+
 Template.editCardRequesterForm.events({
   'keydown .js-edit-card-requester'(event) {
     // If enter key was pressed, submit the data
@@ -890,6 +990,10 @@ Template.editCardRequesterForm.events({
       $('.js-submit-edit-card-requester-form').click();
     }
   },
+});
+
+Template.editCardAssignerForm.onRendered(function () {
+  autosize(this.$('.js-edit-card-assigner'));
 });
 
 Template.editCardAssignerForm.events({
@@ -1801,6 +1905,9 @@ EscapeActions.register(
   () => {
     return !Session.equals('currentCard', null);
   },
+  {
+    noClickEscapeOn: '.js-card-details,.board-sidebar,#header',
+  },
 );
 
 Template.cardAssigneesPopup.onCreated(function () {
@@ -1877,17 +1984,4 @@ Template.cardAssigneePopup.events({
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
-});
-
-Template.cardDetailsPopup.helpers({
-  popupArgs() {
-    return {
-      name: "cardDetails",
-      showHeader: false,
-      closeDOMs: ["click .js-close-card-details"],
-      followDOM: ".card-details",
-      handleDOM: ".card-header-middle",
-      closeVar: "currentCard"
-    }
-  },
 });

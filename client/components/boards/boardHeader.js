@@ -33,6 +33,9 @@ BlazeComponent.extendComponent({
     const currentBoard = Utils.getCurrentBoard();
     return currentBoard && currentBoard.getWatchLevel(Meteor.userId());
   },
+
+
+
   isStarred() {
     const boardId = Session.get('currentBoard');
     const user = ReactiveCache.getCurrentUser();

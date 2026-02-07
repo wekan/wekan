@@ -62,10 +62,10 @@ if (Meteor.isServer) {
 
     try {
       const userId = authenticateApiRequest(req);
-      
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         // Prevent excessive payload
@@ -79,7 +79,7 @@ if (Meteor.isServer) {
         if (bodyComplete) return; // Already processed
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend } = data;
@@ -192,7 +192,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -245,7 +245,7 @@ if (Meteor.isServer) {
       readStream.on('end', () => {
         const fileBuffer = Buffer.concat(chunks);
         const base64Data = fileBuffer.toString('base64');
-        
+
         sendJsonResponse(res, 200, {
           success: true,
           attachmentId: attachmentId,
@@ -308,7 +308,7 @@ if (Meteor.isServer) {
       }
 
       const attachments = ReactiveCache.getAttachments(query);
-      
+
       const attachmentList = attachments.map(attachment => {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
         return {
@@ -350,10 +350,10 @@ if (Meteor.isServer) {
 
     try {
       const userId = authenticateApiRequest(req);
-      
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         if (body.length > 10 * 1024 * 1024) { // 10MB limit for metadata
@@ -366,7 +366,7 @@ if (Meteor.isServer) {
         if (bodyComplete) return;
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId } = data;
@@ -478,7 +478,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -506,10 +506,10 @@ if (Meteor.isServer) {
 
     try {
       const userId = authenticateApiRequest(req);
-      
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         if (body.length > 10 * 1024 * 1024) {
@@ -522,7 +522,7 @@ if (Meteor.isServer) {
         if (bodyComplete) return;
         bodyComplete = true;
         clearTimeout(timeout);
-        
+
         try {
           const data = JSON.parse(body);
           const { attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId } = data;
@@ -595,7 +595,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -668,7 +668,7 @@ if (Meteor.isServer) {
       }
 
       const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
-      
+
       sendJsonResponse(res, 200, {
         success: true,
         attachmentId: attachment._id,

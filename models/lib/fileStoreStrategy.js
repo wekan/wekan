@@ -103,10 +103,10 @@ export default class FileStoreStrategyFactory {
     if (!storage) {
       storage = fileObj.versions[versionName].storage;
       if (!storage) {
-        if (fileObj.meta.source == "import" || Object.hasOwnProperty(fileObj.versions[versionName].meta, 'gridFsFileId')) {
+        if (fileObj.meta.source == "import" || fileObj.versions[versionName].meta.gridFsFileId) {
           // uploaded by import, so it's in GridFS (MongoDB)
           storage = STORAGE_NAME_GRIDFS;
-        } else if (fileObj && fileObj.versions && fileObj.versions[versionName] && fileObj.versions[versionName].meta && Object.hasOwnProperty(fileObj.versions[versionName].meta, 'pipePath')) {
+        } else if (fileObj && fileObj.versions && fileObj.versions[version] && fileObj.versions[version].meta && fileObj.versions[version].meta.pipePath) {
           // DISABLED: S3 storage removed due to Node.js compatibility - fallback to filesystem
           storage = STORAGE_NAME_FILESYSTEM;
         } else {

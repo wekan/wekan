@@ -468,21 +468,21 @@ Meteor.methods({
 
   enableSoftLimit(listId) {
     check(listId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
+
     const board = ReactiveCache.getBoard(list.boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
-    
+
     list.toggleSoftLimit(!list.getWipLimit('soft'));
   },
 

@@ -1,7 +1,7 @@
 @import url("../../../css/reset.css") print, screen;
 
-/* Board List Header */
-.board-list-header:not(:empty) {
+/* Board List Header with Zoom Controls */
+.board-list-header {
   display: flex;
   justify-content: center;
   margin: 1vh 0 2vh 0;
@@ -11,57 +11,42 @@
 /* Two-column layout for All Boards */
 .boards-layout {
   display: grid;
-  gap: 1ch;
-  /* menu takes the space it needs, boards has the rest */
-  grid-template-columns: minmax(max-content, 250px) 1fr;
-  justify-content: stretch;
-  align-items: stretch;
-}
-
-body:not(.mobile-mode) .boards-layout {
-  padding: 1vmax;
-}
-
-body.mobile-mode .boards-layout {
-  grid-auto-flow: row;
-  grid-template-rows: 1fr auto;
-  grid-template-columns: minmax(auto, 100vw);
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
 }
 
 .boards-left-menu {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
   border-right: 1px solid #e0e0e0;
-  overflow: visible;
-  align-self: stretch;
-  min-width: max-content;
-  flex: 1;
+  padding-right: 12px;
 }
 
+.boards-left-menu ul.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+.boards-left-menu .menu-item {
+  margin: 4px 0;
+}
 .boards-left-menu .menu-item a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0.4ch;
+  padding: 8px 10px;
+  border-radius: 4px;
   cursor: pointer;
 }
 .boards-left-menu .menu-item .menu-label {
   flex: 1;
-  padding: 0.3lh;
 }
 .boards-left-menu .menu-item .menu-count {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: #ddd;
-  margin-right: 0.4ch;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  padding: 0.2em;
-  font-size: 0.8em;
-  min-width: 3ch;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
   font-weight: bold;
+  margin-left: 8px;
 }
 .boards-left-menu .menu-item.active a,
 .boards-left-menu .menu-item a:hover {
@@ -77,29 +62,19 @@ body.mobile-mode .boards-layout {
   border: 2px dashed #2196F3;
 }
 
-.boards-right-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1vmax;
-  /* hackish way to make the item grow only when wrapping, i.e. with no
-  other competing item on the cross axis */
-  flex: 10 1 0;
-}
-
 .workspaces-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: bold;
-  padding: 0.3lh 0.8ch;
-  gap: 0.3lh;
+  margin-top: 12px;
 }
 .workspaces-header .js-add-space {
   text-decoration: none;
   font-weight: bold;
   border: 1px solid #ccc;
   padding: 2px 8px;
-  border-radius: 0.4ch;
+  border-radius: 4px;
 }
 
 .workspace-tree {
@@ -115,11 +90,9 @@ body.mobile-mode .boards-layout {
 .workspace-node-content {
   display: flex;
   align-items: center;
-  gap: 2ch;
-  justify-content: end;
-  flex: 1;
-  padding: 0.3lh 1ch 0 2ch;
-  border-radius: 0.4ch;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 4px;
   transition: background-color 0.2s;
 }
 
@@ -136,6 +109,7 @@ body.mobile-mode .boards-layout {
 .workspace-drag-handle {
   cursor: grab;
   color: #999;
+  font-size: 14px;
   padding: 0 4px;
   user-select: none;
 }
@@ -149,13 +123,14 @@ body.mobile-mode .boards-layout {
   align-items: center;
   gap: 6px;
   padding: 4px 8px;
-  border-radius: 0.4ch;
+  border-radius: 4px;
   cursor: pointer;
   flex: 1;
   text-decoration: none;
 }
 
 .workspace-node .workspace-icon {
+  font-size: 16px;
   line-height: 1;
 }
 
@@ -167,6 +142,7 @@ body.mobile-mode .boards-layout {
   background: #ddd;
   padding: 2px 6px;
   border-radius: 10px;
+  font-size: 11px;
   font-weight: bold;
   min-width: 20px;
   text-align: center;
@@ -178,6 +154,7 @@ body.mobile-mode .boards-layout {
   border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
+  font-size: 14px;
   opacity: 0.6;
   transition: opacity 0.2s;
 }
@@ -197,89 +174,71 @@ body.mobile-mode .boards-layout {
   background: #bbb;
 }
 
-.boards-left-menu .menu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3lh;
-  padding-bottom: 0.3lh;
+.boards-right-grid {
+  min-height: 200px;
 }
+
 .boards-path-header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
   background: #f5f5f5;
   border-radius: 6px;
+  font-size: 16px;
   font-weight: 500;
-  min-height: 2lh;
-  justify-content: center;
-
-  .path-left {
-    display: flex;
-    align-items: center;
-    gap: 1ch;
-    flex: 1;
-  }
-  .path-top {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    gap: 1ch;
-  }
-  .path-bottom {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 1ch;
-    padding: 0 0.5ch;
-  }
 }
 
-.multiselection-hint {
+.boards-path-header .path-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.boards-path-header .multiselection-hint {
   background: #FFF3CD;
   color: #856404;
-  border-radius: 0.4ch;
-  padding: 0.2lh 0.5ch;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 13px;
   font-weight: normal;
   border: 1px solid #FFE69C;
   animation: pulse 2s ease-in-out infinite;
-  display: flex;
-  flex: 1;
-  font-size: 0.8em;
-  >span {
-    flex: 1;
-    align-self: center;
-  }
 }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  50% { opacity: 0.7; }
 }
 
 .boards-path-header .path-right {
   display: flex;
   align-items: center;
-  gap: 0.5lh;
-
-}
-
-.boards-path-header .path-right button {
-  margin: 0;
+  gap: 8px;
 }
 
 .boards-path-header .path-icon {
-  }
+  font-size: 18px;
+}
 
 .boards-path-header .path-text {
   color: #333;
 }
 
 .boards-path-header .board-header-btn {
-  min-width: 4ch;
-  min-height: 4ch;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
   display: flex;
-  justify-content: center;
-  align-self: center;
   align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  transition: all 0.2s;
 }
 
 .boards-path-header .board-header-btn:hover {
@@ -287,22 +246,13 @@ body.mobile-mode .boards-layout {
   border-color: #bbb;
 }
 
-.boards-path-header .board-header-btn.js-multiselection-activate {
-  &.emphasis {
-    background: #2196F3;
-    color: #fff;
-    border-color: #2196F3;
-    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.5);
-  }
+.boards-path-header .board-header-btn.emphasis {
+  background: #2196F3;
+  color: #fff;
+  border-color: #2196F3;
   font-weight: bold;
-  align-self: stretch;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex: 1;
-  min-width: 4ch;
-  font-size: 1em;
-  border-radius: 0.6ch;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.5);
+  transform: scale(1.05);
 }
 
 .boards-path-header .board-header-btn.emphasis:hover {
@@ -311,42 +261,101 @@ body.mobile-mode .boards-layout {
 }
 
 .boards-path-header .board-header-btn-close {
-  align-self: stretch;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex: 1;
-  border-radius: 0.6ch;
-  min-width: 4ch;
+  padding: 4px 10px;
   background: #f44336;
   color: #000;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 16px;
+  margin-left: 10px; /* Extra space between MultiSelection toggle and Remove Filter */
 }
 
 .boards-path-header .board-header-btn-close:hover {
   background: #d32f2f;
 }
 
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5vh 1vw;
+  border-radius: 0.5vw;
+  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
+}
+
+.zoom-controls .board-header-btn {
+  padding: 0.5vh 0.8vw !important;
+  border-radius: 0.3vw !important;
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+  color: #000 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3vw !important;
+  height: auto !important;
+  line-height: normal !important;
+  margin: 0 !important;
+  float: none !important;
+  overflow: visible !important;
+}
+
+.zoom-controls .board-header-btn i {
+  color: #000 !important;
+  float: none !important;
+  display: inline !important;
+  line-height: normal !important;
+  margin: 0 !important;
+}
+
+.zoom-controls .board-header-btn:hover {
+  background: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+}
+
+.zoom-controls .board-header-btn:hover i {
+  color: #fff !important;
+}
+
+.zoom-controls .board-header-btn.is-active {
+  background: #0079bf;
+  color: white;
+  border-color: #005a8a;
+}
+
+.zoom-controls .board-header-btn.is-active i {
+  color: white;
+}
+
+.zoom-level {
+  font-weight: bold;
+  color: #333;
+  min-width: 3vw;
+  text-align: center;
+  font-size: clamp(12px, 2vw, 14px);
+  cursor: pointer;
+  padding: 0.3vh 0.5vw;
+  border-radius: 0.3vw;
+  transition: all 0.2s ease;
+}
+
+.zoom-level:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
 .board-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
-  grid-auto-rows: 7lh;
-  gap: 0.5lh 0.5lh;
-  align-items: start;
+  margin: 0 8px;
 }
-
-.board-list .details {
-  height: fit-content;
-}
-
-.board-list .board-list-item-name .viewer {
-  min-height: 0;
-}
-
-.board-list .board-list-item-name p {
-  margin: 0;
+.board-list li {
+  float: left;
+  width: 20%;
+  box-sizing: border-box;
+  position: relative;
 }
 .board-list li.placeholder:after {
   content: '';
@@ -371,65 +380,30 @@ body.mobile-mode .boards-layout {
 .board-list li:hover .is-not-star-active {
   opacity: 1;
 }
-.board-list {
-  .js-board, .js-add-board {
-    display: flex;
-    overflow: hidden;
-    background-color: inherit;
-    min-height: 4lh !important;
-    min-width: min-content;
-    height: 100%;
-    /* Inherit board color from parent li.js-board */
-    color: #f6f6f6;
-    border-radius: 0.5ch;
-    /* No border-radius - parent .js-board has it */
-    font-weight: 700;
-    position: relative;
-    text-decoration: none;
-    overflow-wrap: break-word;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: stretch;
-    >a {
-      display: flex;
-      align-items: center;
-      justify-content: stretch;
-      flex: 1;
-    }
-  }
-  .board-list-item {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    gap: 1ch;
-    flex: 1;
-    padding: 0 1ch;
-  }
-}
-
-.board-list .board-list-item .board-card-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.3lh;
-}
-
 .board-list .board-list-item {
-  font-size: var(--list-item-size);
-}
-
-.board-list .board-list-item .board-card-footer {
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  padding: 0.1ch 0.1lh;
+  overflow: hidden;
+  background-color: inherit; /* Inherit board color from parent li.js-board */
+  color: #f6f6f6;
+  min-height: 100px;
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 0; /* No border-radius - parent .js-board has it */
+  display: block;
+  font-weight: 700;
+  padding: 36px 8px 32px 8px; /* Top padding for drag handle, bottom for checkbox */
+  margin: 0; /* No margin - moved to parent .js-board */
+  position: relative;
+  text-decoration: none;
+  word-wrap: break-word;
 }
 
 .board-list .board-list-item > .js-open-board {
   text-decoration: none;
   color: inherit;
   display: block;
+}
+.board-list .board-list-item.template-container {
+  border: 4px solid #fff;
 }
 .board-list .board-list-item.tile {
   background-size: auto;
@@ -438,23 +412,30 @@ body.mobile-mode .boards-layout {
 .board-list .board-list-item-sub-name {
   color: rgba(255,255,255,0.5);
   display: block;
+  font-size: 14px;
   font-weight: 400;
   line-height: 22px;
 }
 .board-list .board-list-item-desc {
   color: #fff;
   display: block;
+  font-size: 14px;
   font-weight: 400;
   line-height: 18px;
 }
+.board-list .js-add-board {
+  text-align: center;
+}
 .board-list .js-add-board .label {
   font-weight: normal;
+  line-height: 56px;
+  min-height: 100px;
   display: flex;
   align-items: center;
-  font-size: var(--list-item-size);
-  font-weight: bold;
   justify-content: center;
   background-color: #999; /* Darker background for better text contrast */
+  border-radius: 3px;
+  padding: 36px 8px 32px 8px;
   color: #fff; /* White text */
 }
 .board-list .js-add-board .label i {
@@ -468,12 +449,23 @@ body.mobile-mode .boards-layout {
 }
 .board-list .is-star-active,
 .board-list .is-not-star-active {
+  top: 0;
+  font-size: 14px;
+  height: 18px;
+  line-height: 18px;
   opacity: 0;
+  padding: 9px 9px;
+  position: absolute;
+  right: 0;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
 }
 .board-list .fa-circle {
   bottom: 0;
+  font-size: 10px;
+  height: 10px;
+  line-height: 10px;
+  padding: 9px 9px;
   position: absolute;
   right: 0;
   transition-duration: 0.15s;
@@ -489,13 +481,26 @@ body.mobile-mode .boards-layout {
   color: #fff;
 }
 .board-list .fa-clone {
+  position: absolute;
+  bottom: 0;
+  font-size: 14px;
+  height: 18px;
   line-height: 18px;
+  opacity: 0;
+  right: 0;
+  padding: 9px 9px;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
 }
 .board-list .fa-archive {
   position: absolute;
+  bottom: 0;
+  font-size: 14px;
+  height: 18px;
+  line-height: 18px;
   opacity: 0;
+  left: 0;
+  padding: 9px 9px;
   transition-duration: 0.15s;
   transition-property: color, font-size, background;
 }
@@ -516,6 +521,7 @@ body.mobile-mode .boards-layout {
 .board-list li:hover a .fa-clone:hover,
 .board-list li:hover a .fa-archive:hover,
 .board-list li:hover a .is-not-star-active:hover {
+  font-size: 18px;
   opacity: 1;
 }
 .board-list li:hover a .is-star-active,
@@ -527,9 +533,15 @@ body.mobile-mode .boards-layout {
 
 /* Board drag handle - always visible and positioned at top */
 .board-list .board-handle {
+  position: absolute;
+  padding: 4px 6px;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
   color: #fff;
   background: rgba(0,0,0,0.4);
-  border-radius: 0.4ch;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -549,74 +561,52 @@ body.mobile-mode .boards-layout {
   color: #000;
 }
 
-/* used to animate checkbox when added
-without messing with the event/activation system */
-@keyframes revealCheckBox {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Multiselection checkbox on board items */
+.board-list .board-list-item .multi-selection-checkbox {
+  position: absolute !important;
+  bottom: 4px !important;
+  left: 4px !important;
+  top: auto !important;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #fff;
+  background: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  transform: none !important;
+  margin: 0 !important;
 }
 
-.board-list .board-list-item .multi-selection-checkbox{
-  display: flex;
-  align-self: center;
-  width: 2ch;
-  height: 2ch;
+.board-list .board-list-item .multi-selection-checkbox:hover {
+  background: rgba(0,0,0,0.7);
+  transform: scale(1.15) !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.5);
 }
 
 .board-list .board-list-item .multi-selection-checkbox.is-checked {
   background: #3cb500;
   border-color: #3cb500;
   box-shadow: 0 2px 8px rgba(60, 181, 0, 0.6);
-  width: 2ch !important;
-  height: 2ch !important;
+  width: 24px !important;
+  height: 24px !important;
   top: auto !important;
+  left: 4px !important;
   transform: none !important;
-  border-radius: 0.4ch !important;
+  border-radius: 4px !important;
 }
 
 .board-list .board-list-item .multi-selection-checkbox.is-checked::after {
   content: '✓';
   color: #fff;
+  font-size: 16px;
   font-weight: bold;
-  position: absolute;
-  left: 0.4ch;
-  top: -0.2ch;
 }
-
-/* Multiselection checkbox on board items */
-.board-list .board-list-item .multi-selection-checkbox:where(.active) {
-  border: none;
-  box-shadow: 0 0 0 3px #fff;
-  /* get back margin from box-shadow */
-  background: rgba(0,0,0,0.5);
-  outline-color: transparent;
-  border-radius: 0.4ch;
-  cursor: pointer;
-  z-index: 11;
-  align-items: center;
-  justify-content: center;
-  animation: 0.2s ease-out 0s 1 revealCheckBox;
-
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.7);
-    transform: scale(1.15) !important;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
-  }
-
-  &.is-checked {
-    background: #3cb500;
-    border-color: #3cb500;
-    box-shadow: 0 3px 6px #3cb500;
-
-    &::after {content: '✅';
-      color: #fff;
-      font-size: 1em;
-      font-weight: bold;
-    }
-  }
-}
-
 
 /* Grey checkboxes when grey icons setting is enabled */
 body.grey-icons-enabled .board-list .board-list-item .multi-selection-checkbox.is-checked {
@@ -632,41 +622,48 @@ body.grey-icons-enabled .board-list.is-multiselection-active .js-board.is-checke
 
 .board-list.is-multiselection-active .js-board.is-checked {
   outline: 4px solid #3cb500;
-  outline-offset: -2px;
+  outline-offset: -4px;
   box-shadow: 0 4px 12px rgba(60, 181, 0, 0.4);
 }
 
 /* Visual hint when multiselection is active */
 .board-list.is-multiselection-active .board-list-item {
-  outline: 2px dashed rgba(33, 150, 243, 0.3);
-}
-
-.board-backgrounds-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 3lh;
-  justify-items: stretch;
-  gap: 1ch;
+  border: 2px dashed rgba(33, 150, 243, 0.3);
 }
 
 .board-backgrounds-list .board-background-select {
   box-sizing: border-box;
-  display: flex;
+  display: block;
+  float: left;
+  width: 50%;
+  padding-top: 12px;
   position: relative;
   z-index: 1;
 }
+.board-backgrounds-list .board-background-select:nth-child(-n + 2) {
+  padding-top: 0;
+}
+.board-backgrounds-list .board-background-select:nth-child(2n) {
+  padding-left: 6px;
+}
+.board-backgrounds-list .board-background-select:nth-child(2n+1) {
+  padding-right: 6px;
+}
 .board-backgrounds-list .board-background-select .background-box {
   color: #fff;
+  border-radius: 3px;
+  background-size: cover;
+  display: block;
+  height: 74px;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
   display: flex;
-  border-radius: 0.4ch;
-  flex: 1;
   align-items: center;
   justify-content: center;
-  gap: 1ch;
-  font-size: 1.1em;
-  cursor: pointer;
 }
 .board-backgrounds-list .board-background-select .background-box i.fa-check {
+  font-size: 25px;
   color: #3cb500;
 }
 /* Grey check icons when grey icons setting is enabled */
@@ -682,20 +679,56 @@ body.grey-icons-enabled .checkmark-no-grey {
 
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .board-list.mobile-view {
+  height: calc(100vh - 120px);
   overflow-y: scroll !important;
   overflow-x: hidden;
+  padding: 0 1rem;
   margin: 0;
   scrollbar-width: auto !important;
   scrollbar-color: #888 #f1f1f1;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  margin: 0 0.5ch;
-  gap: 0.3lh;
+}
+.board-list.mobile-view li {
+  width: 100%;
+  float: none;
+  display: block;
+  margin-bottom: 1rem;
+  padding-right: 50px; /* Space for drag handle */
+}
+.board-list.mobile-view .board-list-item {
+  overflow: visible;
+  height: 8rem;
+  width: 100%;
+  margin: 0;
+  padding-right: 50px; /* Ensure content doesn't overlap with drag handle */
 }
 
+.board-list.mobile-view .board-list-item .details {
+  padding-right: 50px; /* Extra space for drag handle */
+  width: 100%;
+  box-sizing: border-box;
+}
 .board-list.mobile-view .board-list-item-sub-name {
-  position: relative;;
+  position: relative;
+  top: -100px;
+  left: -100px;
+}
+.board-list.mobile-view .board-handle {
+  position: absolute;
+  padding: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 24px;
+  color: #fff;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background-color 0.2s ease;
 }
 
 .board-list.mobile-view .board-handle:hover {
@@ -727,6 +760,11 @@ body.grey-icons-enabled .checkmark-no-grey {
   background: #555 !important;
 }
 
+/* Force mobile view to have scrollable content */
+.board-list.mobile-view {
+  min-height: 100vh; /* Force content to be tall enough to scroll */
+}
+
 /* Hide archive and clone board buttons in mobile view */
 .board-list.mobile-view .js-archive-board,
 .board-list.mobile-view .js-clone-board {
@@ -739,10 +777,367 @@ body.grey-icons-enabled .checkmark-no-grey {
   font-family: inherit !important;
 }
 
+.board-list.mobile-view::after {
+  content: '';
+  display: block;
+  height: 100px;
+}
 
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 800px),
+       screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
+       screen and (max-width: 800px) and (orientation: portrait),
+       screen and (max-width: 800px) and (orientation: landscape),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  .board-list {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 1rem;
+    margin: 0;
+  }
+  .board-list li {
+    width: 100%;
+    float: none;
+    display: block;
+    margin-bottom: 1rem;
+    padding-right: 50px; /* Space for drag handle */
+  }
+  .board-list .board-list-item {
+    overflow: visible;
+    height: 8rem;
+    width: 100%;
+    margin: 0;
+    padding-right: 50px; /* Ensure content doesn't overlap with drag handle */
+  }
+
+  .board-list .board-list-item .details {
+    padding-right: 50px; /* Extra space for drag handle */
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .board-list .board-list-item-sub-name {
+    position: relative;
+    top: -100px;
+    left: -100px;
+  }
+  .board-list .board-handle {
+    position: absolute;
+    padding: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    font-size: 24px;
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.2s ease;
+  }
+
+  .board-list .board-handle:hover {
+    background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
+  }
+}
+/* Very small screens - ensure one board per row */
+@media screen and (max-width: 360px) {
+  .board-list li {
+    width: 100% !important;
+    float: none !important;
+    display: block !important;
+  }
+  .board-list .board-handle {
+    position: absolute;
+    padding: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    font-size: 24px;
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Mobile - make all text and icons 2x bigger above #content on All Boards page */
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 800px),
+       screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 800px),
+       screen and (max-width: 800px) and (orientation: portrait),
+       screen and (max-width: 800px) and (orientation: landscape),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  .wrapper {
+    font-size: 2em !important; /* 2x bigger base font size for All Boards page */
+  }
+
+  .wrapper * {
+    font-size: inherit !important; /* Inherit the 2x scaling */
+  }
+
+  .wrapper .fa, .wrapper .icon {
+    font-size: 2em !important; /* 2x bigger icons */
+  }
+
+  .board-list-header {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list-header h1 {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs select {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs input {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .AllBoardTeamsOrgs .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-list-item {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-list-item-name {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-list-item-desc {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .minicard-members {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .minicard-lists {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .fa {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+
+  .board-list .board-handle {
+    font-size: 1em !important; /* Use inherited 2x scaling */
+  }
+}
+
+/* Fallback for iPhone devices using JavaScript detection - All Boards page */
+.iphone-device .wrapper {
+  font-size: 2em !important; /* 2x bigger base font size for All Boards page */
+}
+
+.iphone-device .wrapper * {
+  font-size: inherit !important; /* Inherit the 2x scaling */
+}
+
+.iphone-device .wrapper .fa, .iphone-device .wrapper .icon {
+  font-size: 2em !important; /* 2x bigger icons */
+}
+
+.iphone-device .board-list-header {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list-header h1 {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs select {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs input {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .AllBoardTeamsOrgs .fa {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-list-item {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-list-item-name {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-list-item-desc {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .minicard-members {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .minicard-lists {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .fa {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+.iphone-device .board-list .board-handle {
+  font-size: 1em !important; /* Use inherited 2x scaling */
+}
+
+/* iPhone 12 Mini and very small screens - make everything much larger */
+@media screen and (max-width: 400px) and (max-height: 900px) {
+  .board-list {
+    height: calc(100vh - 120px) !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0.5rem;
+  }
+
+  .board-list li {
+    width: 100% !important;
+    float: none !important;
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .board-list .board-list-item {
+    height: 12rem !important; /* Much taller */
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem !important; /* More padding */
+    font-size: 18px !important; /* Much larger text */
+    line-height: 1.4 !important;
+  }
+
+  .board-list .board-list-item .board-list-item-name {
+    font-size: 20px !important; /* Larger board names */
+    font-weight: bold !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .board-list .board-list-item .board-list-item-desc {
+    font-size: 16px !important; /* Larger descriptions */
+    line-height: 1.3 !important;
+  }
+
+  .board-list .board-list-item .minicard-members {
+    font-size: 14px !important; /* Larger member avatars */
+  }
+
+  .board-list .board-list-item .minicard-lists {
+    font-size: 14px !important; /* Larger list counters */
+  }
+
+  .board-list .board-handle {
+    position: absolute;
+    padding: 10px !important;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px !important;
+    font-size: 28px !important; /* Much larger drag handle */
+    color: #fff;
+    background: rgba(0,0,0,0.4) !important;
+    border-radius: 50%;
+    width: 50px !important; /* Larger handle */
+    height: 50px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.2s ease;
+  }
+
+  .board-list .board-handle:hover {
+    background: rgba(255, 255, 0, 0.8) !important; /* Yellow hover */
+  }
+
+  /* Force scrollbar to be visible and larger */
+  .board-list::-webkit-scrollbar {
+    width: 16px !important; /* Much wider scrollbar */
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .board-list::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 8px !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .board-list::-webkit-scrollbar-thumb {
+    background: #666 !important; /* Darker for better visibility */
+    border-radius: 8px !important;
+    display: block !important;
+    visibility: visible !important;
+    min-height: 50px !important; /* Minimum thumb size */
+  }
+
+  .board-list::-webkit-scrollbar-thumb:hover {
+    background: #333 !important;
+  }
+
+  /* Ensure scrollbar is always visible */
+  .board-list {
+    scrollbar-gutter: stable;
+    scrollbar-width: auto !important;
+    min-height: 100vh !important;
+  }
+
+  .board-list::after {
+    content: '';
+    display: block;
+    height: 200px !important; /* More space to ensure scrolling */
+  }
+}
 .AllBoardTeamsOrgs {
   list-style-type: none;
   overflow: hidden;
+}
+.AllBoardTeams,
+.AllBoardOrgs,
+.AllBoardBtns {
+  float: left;
+}
+.js-AllBoardOrgs {
+  margin-left: 16px;
+}
+.AllBoardTeams {
+  margin-left: 16px;
+}
+.AllBoardButtonsContainer {
+  margin: 16px;
 }
 #filterBtn,
 #resetBtn {
@@ -753,8 +1148,10 @@ body.grey-icons-enabled .checkmark-no-grey {
   background: #f44336;
   color: #000;
   border: none;
-  border-radius: 0.4ch;
+  border-radius: 4px;
+  padding: 6px 12px;
   cursor: pointer;
+  font-size: 14px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -766,17 +1163,21 @@ body.grey-icons-enabled .checkmark-no-grey {
 }
 
 #resetBtn.filter-reset-btn .reset-icon {
-  }
+  font-size: 14px;
+}
 
 .js-board {
+  display: block;
   background-color: #999; /* Default gray background if no color class is applied */
   border-radius: 3px; /* Rounded corners for board items */
   overflow: hidden; /* Ensure children respect rounded corners */
+  margin: 8px; /* Space between board items */
 }
 
 /* Reset background for add-board button */
 .js-add-board {
   background-color: transparent !important;
+  margin: 8px !important; /* Keep margin for add-board */
 }
 
 /* Apply board colors to li.js-board parent instead of just the link */
@@ -799,10 +1200,13 @@ body.grey-icons-enabled .checkmark-no-grey {
 .board-list .board-color-exodark { background-color: #222; }
 
 .minicard-members {
-  display: flex;
-  justify-content: stretch;
+  padding: 6px 0 6px 8px;
+  width: 100%;
+  margin-bottom: 2px;
+  margin-left: -4px;
+  display: inline-block;
 }
-.minicard-lists:has(*) {
+.minicard-lists {
   margin: 0 auto;
   max-width: 95%;
   height: 100%;
@@ -828,6 +1232,7 @@ body.grey-icons-enabled .checkmark-no-grey {
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .wrapper {
     overflow: hidden;
+    height: 100vh;
   }
 
   .board-list {
@@ -836,6 +1241,7 @@ body.grey-icons-enabled .checkmark-no-grey {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1;
+    height: calc(100vh - 120px); /* Ensure there's content to scroll */
   }
 
   /* Force scrollbar to always be visible */
@@ -872,6 +1278,14 @@ body.grey-icons-enabled .checkmark-no-grey {
   .board-list {
     scrollbar-gutter: stable;
     scrollbar-width: auto !important;
+    min-height: 100vh; /* Force content to be tall enough to scroll */
+  }
+
+  /* Ensure there's always content to scroll */
+  .board-list::after {
+    content: '';
+    display: block;
+    height: 100px;
   }
 
   /* Ensure only one scrollbar is visible */
@@ -881,8 +1295,6 @@ body.grey-icons-enabled .checkmark-no-grey {
 
   #content {
     overflow: hidden;
-    display: flex;
-    flex: 1;
   }
 
   /* Hide archive and clone board buttons in mobile view */
@@ -897,3 +1309,4 @@ body.grey-icons-enabled .checkmark-no-grey {
     font-family: inherit !important;
   }
 }
+
