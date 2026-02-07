@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import { SyncedCron } from 'meteor/quave:synced-cron';
+import limax from 'limax';
 import LDAP from './ldap';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 
@@ -20,7 +21,7 @@ export function slug(text) {
   if (LDAP.settings_get('LDAP_UTF8_NAMES_SLUGIFY') !== true) {
     return text;
   }
-  text = slugify(text, '.');
+  text = limax(text, { separator: '.' });
   return text.replace(/[^0-9a-z-_.]/g, '');
 }
 
@@ -230,7 +231,7 @@ export function getDataToSyncUserData(ldapUser, user) {
 }
 
 
-export function syncUserData(user, ldapUser) {
+export async function syncUserData(user, ldapUser) {
   log_info('Syncing user data');
   log_debug('user', {'email': user.email, '_id': user._id});
   // log_debug('ldapUser', ldapUser.object);
@@ -239,7 +240,7 @@ export function syncUserData(user, ldapUser) {
     const username = slug(getLdapUsername(ldapUser));
     if (user && user._id && username !== user.username) {
       log_info('Syncing user username', user.username, '->', username);
-      Meteor.users.findOne({ _id: user._id }, { $set: { username }});
+      await Meteor.users.findOneAsync({ _id: user._id }, { $set: { username }});
     }
   }
 
@@ -248,7 +249,7 @@ export function syncUserData(user, ldapUser) {
     log_debug('fullname=',fullname);
     if (user && user._id && fullname !== '') {
       log_info('Syncing user fullname:', fullname);
-      Meteor.users.update({ _id:  user._id }, { $set: { 'profile.fullname' : fullname, }});
+      await Meteor.users.updateAsync({ _id:  user._id }, { $set: { 'profile.fullname' : fullname, }});
     }
   }
 
@@ -258,7 +259,7 @@ export function syncUserData(user, ldapUser) {
 
     if (user && user._id && email !== '') {
       log_info('Syncing user email:', email);
-      Meteor.users.update({
+      await Meteor.users.updateAsync({
         _id: user._id
       }, {
         $set: {
@@ -270,7 +271,7 @@ export function syncUserData(user, ldapUser) {
 
 }
 
-export function addLdapUser(ldapUser, username, password) {
+export async function addLdapUser(ldapUser, username, password) {
   const uniqueId = getLdapUserUniqueID(ldapUser);
 
   const userObject = {
@@ -307,10 +308,10 @@ export function addLdapUser(ldapUser, username, password) {
   try {
     // This creates the account with password service
     userObject.ldap = true;
-    userObject._id = Accounts.createUser(userObject);
+    userObject._id = await Accounts.createUserAsync(userObject);
 
     // Add the services.ldap identifiers
-    Meteor.users.update({ _id:  userObject._id }, {
+    await Meteor.users.updateAsync({ _id:  userObject._id }, {
 		    $set: {
 		        'services.ldap': { id: uniqueId.value },
 		        'emails.0.verified': true,
@@ -321,14 +322,14 @@ export function addLdapUser(ldapUser, username, password) {
     return error;
   }
 
-  syncUserData(userObject, ldapUser);
+  await syncUserData(userObject, ldapUser);
 
   return {
     userId: userObject._id,
   };
 }
 
-export function importNewUsers(ldap) {
+export async function importNewUsers(ldap) {
   if (LDAP.settings_get('LDAP_ENABLE') !== true) {
     log_error('Can\'t run LDAP Import, LDAP is disabled');
     return;
@@ -336,16 +337,16 @@ export function importNewUsers(ldap) {
 
   if (!ldap) {
     ldap = new LDAP();
-    ldap.connectSync();
+    await ldap.connect();
   }
 
   let count = 0;
-  ldap.searchUsersSync('*', Meteor.bindEnvironment((error, ldapUsers, {next, end} = {}) => {
+  ldap.searchUsers('*', Meteor.bindEnvironment(async (error, ldapUsers, {next, end} = {}) => {
     if (error) {
       throw error;
     }
 
-    ldapUsers.forEach((ldapUser) => {
+    for (const ldapUser of ldapUsers) {
       count++;
 
       const uniqueId = getLdapUserUniqueID(ldapUser);
@@ -362,7 +363,7 @@ export function importNewUsers(ldap) {
       }
 
       // Add user if it was not added before
-      let user = Meteor.users.findOne(userQuery);
+      let user = await Meteor.users.findOneAsync(userQuery);
 
       if (!user && username && LDAP.settings_get('LDAP_MERGE_EXISTING_USERS') === true) {
         const userQuery = {
@@ -371,20 +372,20 @@ export function importNewUsers(ldap) {
 
         log_debug('userQuery merge', userQuery);
 
-        user = Meteor.users.findOne(userQuery);
+        user = await Meteor.users.findOneAsync(userQuery);
         if (user) {
-          syncUserData(user, ldapUser);
+          await syncUserData(user, ldapUser);
         }
       }
 
       if (!user) {
-        addLdapUser(ldapUser, username);
+        await addLdapUser(ldapUser, username);
       }
 
       if (count % 100 === 0) {
         log_info('Import running. Users imported until now:', count);
       }
-    });
+    }
 
     if (end) {
       log_info('Import finished. Users imported:', count);
@@ -394,7 +395,7 @@ export function importNewUsers(ldap) {
   }));
 }
 
-function sync() {
+async function sync() {
   if (LDAP.settings_get('LDAP_ENABLE') !== true) {
     return;
   }
@@ -402,7 +403,7 @@ function sync() {
   const ldap = new LDAP();
 
   try {
-    ldap.connectSync();
+    await ldap.connect();
 
     let users;
     if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED') === true) {
@@ -410,25 +411,25 @@ function sync() {
     }
 
     if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS') === true) {
-      importNewUsers(ldap);
+      await importNewUsers(ldap);
     }
 
     if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED') === true) {
-      users.forEach(function(user) {
+      for await (const user of users) {
         let ldapUser;
 
         if (user.services && user.services.ldap && user.services.ldap.id) {
-          ldapUser = ldap.getUserByIdSync(user.services.ldap.id, user.services.ldap.idAttribute);
+          ldapUser = await ldap.getUserById(user.services.ldap.id, user.services.ldap.idAttribute);
         } else {
-          ldapUser = ldap.getUserByUsernameSync(user.username);
+          ldapUser = await ldap.getUserByUsername(user.username);
         }
 
         if (ldapUser) {
-          syncUserData(user, ldapUser);
+          await syncUserData(user, ldapUser);
         } else {
           log_info('Can\'t sync user', user.username);
         }
-      });
+      }
     }
   } catch (error) {
     log_error(error);
@@ -459,8 +460,8 @@ const addCronJob = _.debounce(Meteor.bindEnvironment(function addCronJobDebounce
     else {
        return parser.recur().on(0).minute();
     }},
-    job: function() {
-      sync();
+    job: async function() {
+      await sync();
     },
   });
   sc.start();
