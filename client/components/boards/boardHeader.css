@@ -94,13 +94,13 @@ body.mobile-mode {
     min-height: 0.8lh;
   }
   .board-header-btns-right {
-    display: flex;
-    align-self: end;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, 1fr);
     flex: 1;
     gap: 1ch;
     justify-content: start;
     align-items: center;
-    flex-wrap: wrap;
   }
 }
 .board-header-btns-left {

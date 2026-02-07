@@ -17,7 +17,7 @@
     width: auto;
     height: auto;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
   }
 
   .content-wrapper >* {
@@ -93,6 +93,7 @@
 .pop-over {
   .content-wrapper, .header {
     display: flex;
+    align-items: center;
   }
 }
 
@@ -129,6 +130,7 @@
 body.mobile-mode  {
   .popup-drag-handle, .close-btn {
     font-size: 1.4em;
+    align-self: center;
   }
   .pop-over:has(.pop-over-list) {
     min-width: 70vw;
@@ -311,6 +313,10 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
   gap: 0.2lh;
   display: flex;
   max-width: clamp(20vw, 400px, 50vw);
+}
+
+body.mobile-mode .pop-over .content>form {
+  max-width: 100%;
 }
 
 .pop-over .board-subtask-settings {

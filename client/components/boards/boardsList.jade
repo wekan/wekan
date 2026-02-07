@@ -117,12 +117,13 @@ template(name="boardList")
                       class="{{#if BoardMultiSelection.isActive }}active{{/if}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
               else
                 if $eq type "template-container"
-                  .template-container.board-list-item
-                    if BoardMultiSelection.isActive
-                      .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
-                        class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                  a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+                    .template-container.board-list-item
+                      if BoardMultiSelection.isActive
+                        .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
+                          class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
 
-                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+
                       span.details
                         span.board-list-item-name(title="{{_ 'template-container'}}")
                           +viewer
@@ -143,12 +144,13 @@ template(name="boardList")
                       span.emoji-icon
                         i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
                 else
-                  .board-list-item
-                    if BoardMultiSelection.isActive
-                      .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
-                        class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
+                  a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+                    .board-list-item
+                      if BoardMultiSelection.isActive
+                        .materialCheckBox.multi-selection-checkbox.js-toggle-board-multi-selection(
+                          class="{{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}")
 
-                    a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
+
                       span.details
                         span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
                           +viewer
@@ -174,11 +176,11 @@ template(name="boardList")
                             title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
                             span.emoji-icon
                               i.fa.fa-clock-o
-                    a.js-star-board(
-                      class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
-                      title="{{_ 'star-board-title'}}")
-                      span.emoji-icon
-                        i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+                      a.js-star-board(
+                        class="{{#if isStarred}}is-star-active{{else}}is-not-star-active{{/if}}"
+                        title="{{_ 'star-board-title'}}")
+                        span.emoji-icon
+                          i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
 
 template(name="boardListHeaderBar")
   h1 {{_ title }}

@@ -324,7 +324,7 @@ textarea::-moz-placeholder {
   width: 0.5lh;
   height: 0.5lh;
   z-index: 0;
-  border: 2px solid #5a5a5a;
+  border: 0.2ch solid #5a5a5a;
   border-radius: 1px;
   transition: 0.2s;
   margin: 0;
@@ -348,10 +348,10 @@ textarea::-moz-placeholder {
   width: 0.25lh;
   height: 0.5lh;
   margin-right: 0.6lh;
-  border-top: 2px solid transparent;
-  border-left: 2px solid transparent;
-  border-bottom: 0.2ch solid #3cb500;
-  border-right: 0.2ch solid #3cb500;
+  border-top: 0 solid transparent;
+  border-left: 0 solid transparent;
+  border-bottom: 0.3ch solid #3cb500;
+  border-right: 0.3ch solid #3cb500;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: rotate(50deg);

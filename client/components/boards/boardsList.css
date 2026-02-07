@@ -25,7 +25,7 @@ body:not(.mobile-mode) .boards-layout {
 body.mobile-mode .boards-layout {
   grid-auto-flow: row;
   grid-template-rows: 1fr auto;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(auto, 100vw);
 }
 
 .boards-left-menu {
@@ -376,7 +376,7 @@ body.mobile-mode .boards-layout {
     display: flex;
     overflow: hidden;
     background-color: inherit;
-    min-height: 3lh !important;
+    min-height: 4lh !important;
     min-width: min-content;
     height: 100%;
     /* Inherit board color from parent li.js-board */
@@ -389,6 +389,13 @@ body.mobile-mode .boards-layout {
     overflow-wrap: break-word;
     box-sizing: border-box;
     justify-content: center;
+    align-items: stretch;
+    >a {
+      display: flex;
+      align-items: center;
+      justify-content: stretch;
+      flex: 1;
+    }
   }
   .board-list-item {
     display: flex;
@@ -680,7 +687,11 @@ body.grey-icons-enabled .checkmark-no-grey {
   margin: 0;
   scrollbar-width: auto !important;
   scrollbar-color: #888 #f1f1f1;
-  margin: 0.5lh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0 0.5ch;
+  gap: 0.3lh;
 }
 
 .board-list.mobile-view .board-list-item-sub-name {
