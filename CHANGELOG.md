@@ -40,6 +40,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix Notifications from not allowed Boards](https://github.com/wekan/wekan/commit/0a92e896f8d2cf0677891857d163ada336a45c61).
   Thanks to FK-PATZ3 and xet7.
+- [Fix move and copy popup duplicate view](https://github.com/wekan/wekan/commit/631c250f403172937b76ddd37bab54bc9b6dbb78).
+  Thanks to mimZD and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
