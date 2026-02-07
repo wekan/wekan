@@ -115,7 +115,11 @@ BlazeComponent.extendComponent({
         },
         'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
         'click .minicard-labels' : this.cardLabelsPopup,
-        'click .js-open-minicard-details-menu': Popup.open('cardDetailsActions'),
+        'click .js-open-minicard-details-menu'(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          Popup.open('cardDetailsActions').call(this, event);
+        },
         // Drag and drop file upload handlers
         'dragover .minicard'(event) {
           // Only prevent default for file drags to avoid interfering with sortable
@@ -306,35 +310,3 @@ BlazeComponent.extendComponent({
   }
 }).register('editCardSortOrderPopup');
 
-Template.cardDetailsActionsPopup.events({
-  'click .js-due-date': Popup.open('editCardDueDate'),
-  'click .js-move-card': Popup.open('moveCard'),
-  'click .js-copy-card': Popup.open('copyCard'),
-  'click .js-set-card-color': Popup.open('setCardColor'),
-  'click .js-add-labels': Popup.open('cardLabels'),
-  'click .js-link': Popup.open('linkCard'),
-  'click .js-move-card-to-top'(event) {
-    event.preventDefault();
-    const minOrder = this.getMinSort();
-    this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
-    Popup.back();
-  },
-  async 'click .js-move-card-to-bottom'(event) {
-    event.preventDefault();
-    const maxOrder = this.getMaxSort();
-    await this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
-    Popup.back();
-  },
-  'click .js-archive': Popup.afterConfirm('cardArchive', async function () {
-    Popup.close();
-    await this.archive();
-    Utils.goBoardId(this.boardId);
-  }),
-  'click .js-toggle-watch-card'() {
-    const currentCard = this;
-    const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
-    Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
-      if (!err && ret) Popup.back();
-    });
-  },
-});

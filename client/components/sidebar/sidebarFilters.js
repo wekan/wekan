@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 
 const subManager = new SubsManager();
 
@@ -288,6 +289,25 @@ Template.moveSelectionPopup.helpers({
   isDialogOptionListId(listId) {
     return Template.instance().selectedListId.get() === listId;
   },
+  isTitleDefault(title) {
+    if (
+      title.startsWith("key 'default") &&
+      title.endsWith('returned an object instead of string.')
+    ) {
+      const translated = `${TAPi18n.__('defaultdefault')}`;
+      if (
+        translated.startsWith("key 'default") &&
+        translated.endsWith('returned an object instead of string.')
+      ) {
+        return 'Default';
+      }
+      return translated;
+    }
+    if (title === 'Default') {
+      return `${TAPi18n.__('defaultdefault')}`;
+    }
+    return title;
+  },
 });
 
 Template.moveSelectionPopup.events({
@@ -329,7 +349,7 @@ Template.moveSelectionPopup.events({
     } else {
       // If no card selected, move to end
       const board = ReactiveCache.getBoard(boardId);
-      const cards = board.cards({ swimlaneId, listId }).sort('sort');
+      const cards = board.cards({ swimlaneId, listId }).sort((a, b) => a.sort - b.sort);
       if (cards.length > 0) {
         sortIndex = cards[cards.length - 1].sort + 1;
       }
@@ -419,6 +439,25 @@ Template.copySelectionPopup.helpers({
   isDialogOptionListId(listId) {
     return Template.instance().selectedListId.get() === listId;
   },
+  isTitleDefault(title) {
+    if (
+      title.startsWith("key 'default") &&
+      title.endsWith('returned an object instead of string.')
+    ) {
+      const translated = `${TAPi18n.__('defaultdefault')}`;
+      if (
+        translated.startsWith("key 'default") &&
+        translated.endsWith('returned an object instead of string.')
+      ) {
+        return 'Default';
+      }
+      return translated;
+    }
+    if (title === 'Default') {
+      return `${TAPi18n.__('defaultdefault')}`;
+    }
+    return title;
+  },
 });
 
 Template.copySelectionPopup.events({
@@ -447,31 +486,40 @@ Template.copySelectionPopup.events({
     const position = instance.position.get();
 
     mutateSelectedCards(async (card) => {
-      const newCardId = await card.copy(boardId, swimlaneId, listId);
-      if (newCardId) {
-        const newCard = ReactiveCache.getCard(newCardId);
-        if (newCard) {
-          let sortIndex = 0;
-          if (cardId) {
-            const targetCard = ReactiveCache.getCard(cardId);
-            if (targetCard) {
-              if (position === 'above') {
-                sortIndex = targetCard.sort - 0.5;
-              } else {
-                sortIndex = targetCard.sort + 0.5;
-              }
-            }
+      const newCardId = await Meteor.callAsync(
+        'copyCard',
+        card._id,
+        boardId,
+        swimlaneId,
+        listId,
+        true,
+        { title: card.title },
+      );
+      if (!newCardId) return;
+
+      const newCard = ReactiveCache.getCard(newCardId);
+      if (!newCard) return;
+
+      let sortIndex = 0;
+      if (cardId) {
+        const targetCard = ReactiveCache.getCard(cardId);
+        if (targetCard) {
+          if (position === 'above') {
+            sortIndex = targetCard.sort - 0.5;
           } else {
-            // To end
-            const board = ReactiveCache.getBoard(boardId);
-            const cards = board.cards({ swimlaneId, listId }).sort('sort');
-            if (cards.length > 0) {
-              sortIndex = cards[cards.length - 1].sort + 1;
-            }
+            sortIndex = targetCard.sort + 0.5;
           }
-          newCard.setSort(sortIndex);
+        }
+      } else {
+        // To end
+        const board = ReactiveCache.getBoard(boardId);
+        const cards = board.cards({ swimlaneId, listId }).sort((a, b) => a.sort - b.sort);
+        if (cards.length > 0) {
+          sortIndex = cards[cards.length - 1].sort + 1;
         }
       }
+
+      await newCard.move(boardId, swimlaneId, listId, sortIndex);
     });
     EscapeActions.executeUpTo('multiselection');
   },
