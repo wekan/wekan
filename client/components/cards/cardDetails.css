@@ -55,7 +55,8 @@
 
 .card-header-content {
   display: grid;
-  grid-auto-columns: fit-content;
+  margin: 0 1ch;
+  grid-auto-columns: auto 1fr auto;
   grid-auto-flow: column;
   justify-content: stretch;
   align-items: center;
@@ -82,7 +83,7 @@ body.mobile-mode {
   align-items: center;
   background: #dfdfdf;
   border-radius: 1ch;
-  padding-inline: 3ch;
+  padding-inline: 1ch;
   justify-self: stretch;
   cursor: grab !important;
 }
@@ -199,7 +200,7 @@ body.mobile-mode {
   align-content: center;
 }
 /* Collapsed card state - hide content and set height to title row only */
-.card-details.card-details-collapsed .card-details-canvas > *:not(.card-details-header) {
+.card-details.card-details.collapsed .card-details-canvas > *:not(.card-details-header) {
   display: none !important;
 }
 .card-details .mCustomScrollBox {
