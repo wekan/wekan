@@ -39,6 +39,7 @@ BlazeComponent.extendComponent({
           this.collapsed(!this.collapsed());
         },
         'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
+        'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
         submit: this.editTitle,
       },
     ];

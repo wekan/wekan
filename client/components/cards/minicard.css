@@ -137,7 +137,7 @@
   height: clamp(20px, 2.5vw, 28px);
   position: absolute;
   right: 0vw;
-  top: 6vh;
+  top: 4vh;
   display: none;
   z-index: 1;
 }

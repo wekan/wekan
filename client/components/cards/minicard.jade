@@ -46,7 +46,8 @@ template(name="minicard")
                 span {{_ 'upload-failed'}}
             else if $eq status 'completed'
               .upload-progress-success
-                i.fa.fa-check                span {{_ 'upload-completed'}}
+                i.fa.fa-check
+                span {{_ 'upload-completed'}}
 
     .minicard-title
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask

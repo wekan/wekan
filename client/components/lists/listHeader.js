@@ -123,6 +123,15 @@ BlazeComponent.extendComponent({
           this.collapsed(!this.collapsed());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
+        'click .js-add-card.list-header-plus-top'(event) {
+          const listDom = $(event.target).parents(
+            `#js-list-${this.currentData()._id}`,
+          )[0];
+          const listComponent = BlazeComponent.getComponentForElement(listDom);
+          listComponent.openForm({
+            position: 'top',
+          });
+        },
         'click .js-unselect-list'() {
           Session.set('currentList', null);
         },

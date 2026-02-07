@@ -925,7 +925,8 @@ template(name="cardAssigneesPopup")
               if userData.username
                 | (#{userData.username})
             if isCardAssignee
-              i.fa.fa-check  if currentUser.isWorker
+              i.fa.fa-check
+  if currentUser.isWorker
     ul.pop-over-list.js-card-assignee-list
       li.item(class="{{#if currentUser.isCardAssignee}}active{{/if}}")
         a.name.js-select-assignee(href="#")

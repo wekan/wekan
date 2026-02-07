@@ -157,7 +157,7 @@ BlazeComponent.extendComponent({
     textarea.focus();
   },
 
-  deleteItem() {
+  async deleteItem() {
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
     if (checklist && item && item._id) {
