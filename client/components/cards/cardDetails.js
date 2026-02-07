@@ -1030,7 +1030,8 @@ Template.editCardAssignerForm.events({
       }
     } else {
       // If no card selected, move to end
-      sortIndex = card.getMaxSort(options.listId, options.swimlaneId) + 1;
+      const maxSort = card.getMaxSort(options.listId, options.swimlaneId);
+      sortIndex = maxSort !== null ? maxSort + 1 : 0;
     }
 
     await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
@@ -1073,7 +1074,8 @@ Template.editCardAssignerForm.events({
             }
           } else {
             // If no card selected, copy to end
-            sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+            const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+            sortIndex = maxSort !== null ? maxSort + 1 : 0;
           }
 
           await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
@@ -1125,7 +1127,8 @@ Template.editCardAssignerForm.events({
           }
         }
       } else {
-        sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+        const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+        sortIndex = maxSort !== null ? maxSort + 1 : 0;
       }
 
       await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
@@ -1170,7 +1173,8 @@ Template.editCardAssignerForm.events({
               }
             }
           } else {
-            sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+            const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+            sortIndex = maxSort !== null ? maxSort + 1 : 0;
           }
 
           await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
