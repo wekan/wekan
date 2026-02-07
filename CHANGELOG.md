@@ -32,6 +32,8 @@ This release fixes the following bugs:
   Thanks to KhaoulaMaleh.
 - [Fix extra space at RTL need margin](https://github.com/wekan/wekan/commit/4456bc13609b2d0e944ee71a82df200060a601b2).
   Thanks to mimZD and xet7.
+- [Fix No Add Card + etc](https://github.com/wekan/wekan/commit/55710835fe8879775b73c8bc921bac5febf552a2).
+  Thanks to mimZD and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
