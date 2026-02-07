@@ -24,7 +24,7 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
-# Upcoming WeKan ® release
+# v8.30 2026-02-08 WeKan ® release
 
 This release reverts the following new features and adds the following fixes:
 
