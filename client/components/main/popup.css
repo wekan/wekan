@@ -309,6 +309,8 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
 .pop-over .content > form {
   padding: 0 1ch;
   gap: 0.2lh;
+  display: flex;
+  max-width: clamp(20vw, 400px, 50vw);
 }
 
 .pop-over .board-subtask-settings {

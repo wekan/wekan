@@ -83,7 +83,6 @@ class PopupDetachedComponent extends BlazeComponent {
   }
 
   margin() {
-    if(this.fullscreen) {return 0}
     return this.popupMargin;
   }
 
@@ -513,7 +512,7 @@ class PopupComponent extends BlazeComponent {
       // ⚠️ is there a default better than another? I feel that closing existing
       // popup is not bad in general because having the same button for open and close
       // is common
-      if (multipleBlacklist.includes(existing.name)) {
+      if (PopupComponent.multipleBlacklist.includes(existing.name)) {
         existing.destroy();
       }
       // but is could also be re-rendering, eg

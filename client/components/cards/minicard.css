@@ -125,7 +125,7 @@
   .minicard-labels-no-text {
     grid-template-columns: repeat(auto-fill, 4ch);
     grid-template-rows: 4ch;
-
+    font-size: 0.4em;
     .minicard-label {
       border-radius: 1ch;
     }
