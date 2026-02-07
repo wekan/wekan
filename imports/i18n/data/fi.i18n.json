@@ -195,8 +195,6 @@
   "boards": "Taulut",
   "board-view": "Taulunäkymä",
   "desktop-mode": "Työpöytätila",
-  "mobile-mode": "Mobiilitila",
-  "mobile-desktop-toggle": "Vaihda mobiili- ja työpöytätilan välillä",
   "board-view-cal": "Kalenteri",
   "board-view-swimlanes": "Uimaradat",
   "board-view-collapse": "Pienennä",

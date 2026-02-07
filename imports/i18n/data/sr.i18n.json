@@ -195,8 +195,6 @@
   "boards": "Списи",
   "board-view": "Поглед на списе",
   "desktop-mode": "Приказ прилагођен за екран рачунара",
-  "mobile-mode": "Приказ прилагођен за екран мобилног уређаја",
-  "mobile-desktop-toggle": "Замени приказ прилагођен за рачунар/мобилни",
   "board-view-cal": "Календар",
   "board-view-swimlanes": "Врсте поступака",
   "board-view-collapse": "Скупи",
@@ -1512,6 +1510,7 @@
   "steps": "кораци",
   "view": "Поглед",
   "has-swimlanes": "има више поступака",
+
   "step-analyze-board-structure": "Изучавам везе у списима",
   "step-fix-orphaned-cards": "Поправљам одбачене предмете",
   "step-convert-shared-lists": "Претварам дељене делове поступка",
