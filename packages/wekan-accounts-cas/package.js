@@ -1,6 +1,6 @@
 Package.describe({
   summary: "CAS support for accounts",
-  version: "0.1.0",
+  version: "0.2.0",
   name: "wekan-accounts-cas",
   git: "https://github.com/wekan/meteor-accounts-cas"
 });
