@@ -520,7 +520,6 @@ BlazeComponent.extendComponent({
             BoardMultiSelection.disable();
           } else {
             BoardMultiSelection.activate();
-            Popup.open('multiselectionHint', { showHeader: false })(evt);
           }
         },
         'click .js-multiselection-reset'(evt) {

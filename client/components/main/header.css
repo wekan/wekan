@@ -101,7 +101,7 @@
   display: grid;
   grid-template-areas:
     "logo left right";
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 10fr auto;
   justify-content: space-between;
 
   gap: 2ch;
@@ -113,6 +113,7 @@
     overflow-x: auto;
     align-items: center;
     justify-content: start;
+    gap: 10ch;
   }
   .header-quick-access-list {
     display: flex;
@@ -143,6 +144,7 @@
     a, img {
       display: flex;
       align-self: stretch;
+      width: auto;
     }
   }
   #header-quick-access-right {
@@ -160,24 +162,26 @@
 
   #header-quick-access-left {
     grid-area: left;
-    display: flex;
+    display: grid;
     text-decoration: none;
     color: #fff;
     border-radius: 0.4ch;
     transition: background-color 0.2s ease;
-    gap: 0.3ch;
+    gap: 2ch;
+    grid-auto-flow: column;
+
   }
 }
 
 body.mobile-mode {
   #header-quick-access {
     row-gap: 0.5lh;
-    column-gap: 3ch;
     grid-template-areas:
       "logo icons"
       "board board";
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     justify-content: center;
+    align-items: center;
 
     #header-quick-access-left {
       grid-area: board;
@@ -195,7 +199,7 @@ body.mobile-mode {
 
   .logo-container {
     img {
-      max-height: 3lh;
+      max-height: max(1lh, 5vmax, 3ch);
     }
   }
 }
@@ -244,8 +248,6 @@ body.mobile-mode {
   transition: opacity 0.2s;
   overflow: hidden;
   white-space: nowrap;
-  padding: 10px;
-  margin: -10px;
   flex: 1; /* Take up available space */
   min-width: 0; /* Allow shrinking below content size */
   display: flex; /* Use flexbox for better control */
@@ -354,5 +356,8 @@ body.mobile-mode {
   padding: 0;
 }
 #headerIsSettingDatabaseCallDone {
-  display: none;
+  display: flex;
+  visibility: hidden;
+  flex: 1;
+  align-items: center;
 }

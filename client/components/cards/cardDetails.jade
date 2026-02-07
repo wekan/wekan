@@ -564,18 +564,19 @@ template(name="cardDetails")
                   a.js-close-inlined-form
               else
                 if currentBoard.allowsDescriptionText
-                  a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
-                    i.fa.fa-pencil-square-o
-                  a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
-                    if getDescription
-                      +viewer
-                        = getDescription
-                  if (hasUnsavedValue 'cardDescription' _id)
-                    p.quiet
-                      | {{_ 'unsaved-description'}}
-                      a.js-open-inlined-form {{_ 'view-it'}}
-                      = ' - '
-                      a.js-close-inlined-form {{_ 'discard'}}
+                  .edit-card-details-description
+                    a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
+                      i.fa.fa-pencil-square-o
+                    a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
+                      if getDescription
+                        +viewer
+                          = getDescription
+                    if (hasUnsavedValue 'cardDescription' _id)
+                      p.quiet
+                        | {{_ 'unsaved-description'}}
+                        a.js-open-inlined-form {{_ 'view-it'}}
+                        = ' - '
+                        a.js-close-inlined-form {{_ 'discard'}}
         else if getDescription
           if currentBoard.allowsDescriptionTitle
             hr

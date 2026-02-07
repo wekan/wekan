@@ -20,7 +20,6 @@
     min-height: 100px;
     color: #4d4d4d;
     cursor: auto;
-    overflow: hidden;
     overflow-wrap: break-word;
   }
   textarea {
@@ -79,6 +78,7 @@
   display: flex;
   flex-direction: column;
   gap: 1lh;
+  padding-top: 1lh;
 }
 .comments .comment {
   display: flex;
@@ -90,12 +90,9 @@
 }
 .comments .comment .comment-desc {
   overflow-wrap: break-word;
-  overflow: hidden;
   flex: 1;
   align-self: center;
   margin: 0;
-  overflow: hidden;
-  word-break: break-word;
   display: flex;
   flex-direction: column;
   gap: 0.3lh;
@@ -143,4 +140,11 @@
 .comments .comment .comment-desc .comment-meta {
   font-size: 0.8em;
   color: #999;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: 1ch;
+  align-items: center;
+  /* #FIXME maybe put date outside of comment body ?*/
+  margin-inline-start: -10vw;
 }

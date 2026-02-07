@@ -2,7 +2,7 @@
   form {
     display: flex;
     gap: 0.3lh;
-    padding: 0.3lh 0;
+    padding: 0.3lh 1ch;
   }
   .fields {
     display: flex;

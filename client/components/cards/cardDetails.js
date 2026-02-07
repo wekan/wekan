@@ -792,9 +792,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-toggle-watch-card'() {
     const currentCard = this;
     const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
-    Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
-      if (!(err === true) && ret) Popup.close();
-    });
+    Meteor.call('watch', 'card', currentCard._id, level)
   },
   'click .js-toggle-show-list-on-minicard'() {
     const currentCard = this;
@@ -1888,7 +1886,7 @@ Template.cardDetailsPopup.helpers({
       showHeader: false,
       closeDOMs: ["click .js-close-card-details"],
       followDOM: ".card-details",
-      handleDOM: ".js-card-title",
+      handleDOM: ".card-header-middle",
       closeVar: "currentCard"
     }
   },

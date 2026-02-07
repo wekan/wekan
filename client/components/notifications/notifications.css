@@ -28,6 +28,9 @@
   max-height: 100vh;
   z-index: 300;
   width: max-content;
+  .fa {
+    color: #bcbcbc !important;
+  }
 }
 
 body.mobile-mode {

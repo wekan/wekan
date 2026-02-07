@@ -13,7 +13,8 @@
   align-items: center;
   text-align: center;
   padding: 0 0.5ch;
-  height: 1.5lh;
+  height: var(--label-height);
+  min-width: 8ch;
 }
 .card-label:hover {
   color: #fff;

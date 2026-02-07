@@ -338,14 +338,12 @@
   background: #3cb500;
   padding: 0.3lh 0.8ch;
   border-radius: 0.4vw;
-  color: #fff;
+  &, .fa {
+    color: #fff;
+  }
 }
 .minicard .badges .badge:last-of-type {
   margin-right: 0;
-}
-.minicard .badges .badge .badge-icon,
-.minicard .badges .badge .badge-text {
-  vertical-align: middle;
 }
 .minicard .minicard-members .member,
 .minicard .minicard-assignees .member,
@@ -434,6 +432,7 @@
   align-self: stretch;
   gap: 0.3lh;
   padding: 0.5lh 1ch;
+  position: relative;
 }
 
 .minicard.minicard-composer textarea.minicard-composer-textarea,
@@ -445,10 +444,10 @@
   height: auto;
   margin: 0;
   padding: 1ch;
-  max-height: 22vh;
-  min-height: 5vh;
+  min-height: 5lh;
   overflow-y: auto;
   flex: 1;
+  width: 100%;
 }
 .parent-prefix {
   color: #b3b3b3;

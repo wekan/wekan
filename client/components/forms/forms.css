@@ -21,6 +21,7 @@ button {
   border-radius: 0.4vw;
   display: block;
   padding: 0.3lh 1ch;
+  max-width: clamp(30vw, 100%, 800px);
 }
 select.full,
 textarea.full,
@@ -131,10 +132,13 @@ button {
   /* in flex layouts, padding often disturbs computations. rather rarely have
   two lines, so setting relative-unit min-height works better */
   min-height: 1.8lh;
-  margin: 0.3lh 0;
   padding: 0 2ch;
   text-align: center;
   color: #fff;
+  z-index: 1;
+  :not(.password-toggle-btn) {
+    margin-top: 0.1lh;
+  }
 }
 input[type="submit"] .wide,
 button .wide {

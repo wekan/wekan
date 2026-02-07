@@ -130,6 +130,9 @@ body.mobile-mode {
 .list-header-add {
   display: flex;
   justify-content: center;
+  >.inlined-form {
+    padding: 1ch;
+  }
 }
 .list-header:not(.open-list-composer) {
   overflow: hidden !important;
@@ -417,10 +420,6 @@ body.mobile-mode .list-collapsed:nth-child(2n-2) > .list-header {
   align-items: center;
   flex: 1;
 }
-.list-body .minicards .add-controls button {
-  min-height: 1lh;
-}
-
 @media print {
   .list-body .open-minicard-composer {
     display: none;

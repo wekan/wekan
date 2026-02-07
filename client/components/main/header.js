@@ -22,13 +22,13 @@ Template.header.onCreated(function () {
       )
         document.getElementById(
           'headerIsSettingDatabaseCallDone',
-        ).style.display = 'none';
+        ).style.visibility = 'hidden';
       else if (
         document.getElementById('headerIsSettingDatabaseCallDone') != null
       )
         document.getElementById(
           'headerIsSettingDatabaseCallDone',
-        ).style.display = 'block';
+        ).style.visibility = 'visible';
       return this.stop();
     },
   });

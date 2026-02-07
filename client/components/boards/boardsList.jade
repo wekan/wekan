@@ -215,17 +215,11 @@ template(name="headerMultiSelection")
   if BoardMultiSelection.isActive
     if canModifyBoards
       if hasBoardsSelected
-        button.js-archive-selected-boards.board-header-btn
+        button.negate.js-archive-selected-boards.board-header-btn
           span.emoji-icon
             i.fa.fa-archive
           span {{_ 'archive-board'}}
-        button.js-duplicate-selected-boards.board-header-btn
+        button.negate.js-duplicate-selected-boards.board-header-btn
           span.emoji-icon
             i.fa.fa-clipboard
           span {{_ 'duplicate-board'}}
-
-template(name="multiselectionHintPopup")
-  span.multiselection-hint
-    span.emoji-icon
-      i.fa.fa-thumb-tack
-    |  {{_ 'multi-selection-active'}}

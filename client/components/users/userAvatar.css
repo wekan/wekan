@@ -5,7 +5,7 @@
   border-radius: 50%;
   padding: 0.2em;
   font-size: 0.9em;
-  min-width: 3ch;
+  height: var(--label-height);
   align-items: center;
   justify-content: center;
   align-self: flex-start;
@@ -31,10 +31,10 @@
   background-color: #b3b3b3;
   border: 1px solid #fff;
   border-radius: 50%;
-  height: 7px;
-  width: 7px;
+  height: 1.2ch;
+  width: 1.2ch;
   position: absolute;
-  transform: translate(1.5ch, 1.5ch);
+  transform: translate(1.6ch, 1.6ch);
   border: 1px solid #fff;
   z-index: 15;
 }
@@ -53,18 +53,6 @@
 .member .member-presence-status.pending {
   background: #e44242;
   border-color: #f1dada;
-}
-.member .edit-avatar {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
 }
 .member .edit-avatar:hover {
   opacity: 0.6;
@@ -105,9 +93,4 @@
 }
 .mini-profile-info .info p {
   padding-top: 0;
-}
-.mini-profile-info .member {
-  width: clamp(40px, 5vw, 60px);
-  height: clamp(40px, 5vw, 60px);
-  margin-right: 10px;
 }

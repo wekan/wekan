@@ -48,8 +48,9 @@ template(name='homeSidebar')
   hr
   if currentUser.isBoardAdmin
     h3.activity-title
-      i.fa.fa-comment-o
-      | {{_ 'activities'}}
+      span
+        i.fa.fa-comment-o
+        span {{_ 'activities'}}
 
       a.flex.js-toggle-show-activities(title="{{_ 'show-activities'}}")
         i.fa(class="{{#if showActivities}}fa-check{{else}}fa-square-o{{/if}}")

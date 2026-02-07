@@ -31,17 +31,27 @@
   }
 }
 
-.pop-over hr {
-  margin: 0.5vh 0px;
-}
-.pop-over p,
-.pop-over textarea,
-.pop-over input[type="text"],
-.pop-over input[type="email"],
-.pop-over input[type="password"],
-.pop-over input[type="file"] {
+.pop-over a:has(.fa-plus)+ :not(*) {
+  min-height: 1.5lh;
+  aspect-ratio: 1/1;
   display: flex;
-  flex-shrink: 0;
+  justify-content: center;
+  margin-top: 0.2lh;
+}
+.pop-over hr {
+  margin: 0.3lh 0;
+  /* below everything in the same stacking context when
+  after, child or explicit z-index */
+  z-index: 0;
+}
+.pop-over  {
+  /* feels like it's too ad-hod */
+  input, a:not(.js-board-template, .member, .edit-avatar) {
+    display: inline-flex;
+    align-items: center;
+    gap: 1ch;
+    min-height: 1.5lh;
+  }
 }
 .pop-over .sub-name {
   max-width: clamp(30vw, 500px, 80%);
@@ -55,6 +65,7 @@
   background: #f7f7f7;
   border-bottom: 1px solid #dcdcdc;
   color: #666;
+  min-height: 2lh;
 }
 .pop-over .header .header-title {
   display: flex;
@@ -86,7 +97,8 @@
 }
 
 .pop-over:has(.header) .content {
-  padding: 1vmin;
+  /* inner content has full width available,
+  so it is also responsive for margins, sizes, etc */
   overflow-y: auto;
 }
 
@@ -108,48 +120,6 @@
 /* Allow dynamic max-height to override default constraint for content-container */
 .pop-over[style*="max-height"] .content-container {
   max-height: inherit;
-}
-
-/* Fix overflow in the Member Settings (member menu) popup:
-   the popup itself gets a max-height inline style, but the header consumes space.
-   Make the header overlay the scrollable area so the list can't spill out. */
-.pop-over[data-popup="memberMenuPopup"] {
-  overflow: hidden;
-}
-.pop-over[data-popup="memberMenuPopup"] > .header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin-bottom: 0;
-  z-index: 1;
-}
-.pop-over[data-popup="memberMenuPopup"] > .content-wrapper {
-  padding-top: calc(4.5vh + 1vh);
-  box-sizing: border-box;
-}
-
-/* Admin edit popups: use full height */
-.pop-over[data-popup="editUserPopup"],
-.pop-over[data-popup="editOrgPopup"],
-.pop-over[data-popup="editTeamPopup"] {
-  height: calc(100vh - 20px) !important;
-  max-height: calc(100vh - 20px) !important;
-}
-
-.pop-over[data-popup="editUserPopup"] .content-wrapper,
-.pop-over[data-popup="editOrgPopup"] .content-wrapper,
-.pop-over[data-popup="editTeamPopup"] .content-wrapper {
-  max-height: calc(100vh - 80px) !important; /* Subtract header height */
-  height: calc(100vh - 80px) !important;
-  overflow-y: auto !important;
-}
-
-.pop-over[data-popup="editUserPopup"] .content-container,
-.pop-over[data-popup="editOrgPopup"] .content-container,
-.pop-over[data-popup="editTeamPopup"] .content-container {
-  max-height: calc(100vh - 80px) !important; /* Subtract header height */
-  height: calc(100vh - 80px) !important;
 }
 
 .pop-over .popup-drag-handle {
@@ -174,13 +144,13 @@ body.mobile-mode  {
   flex-direction: column;
   flex: 1;
   font-size: 1.1rem;
-  padding: 0.1lh 0.3ch;
+  padding: 0 1ch;
   >li>a {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: fit-content;
     justify-content: start;
-    padding: 0.2lh 0;
+    padding: 0 0.5ch;
     column-gap: 1ch;
     .sub-name {
       text-align: end;
@@ -210,14 +180,13 @@ body.mobile-mode  {
   padding-left: 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 1.5lh;
 }
 
 /* Color palette items: ensure proper positioning */
 .pop-over .content .palette-colors .palette-color {
-  margin-left: 0;
-  margin-right: 2px;
-  margin-bottom: 2px;
+  margin: 0;
+  border-radius: 0;
+  outline: 0.1ch solid black;
 }
 .pop-over.search-over {
   background: #f0f0f0;
@@ -244,24 +213,6 @@ body.mobile-mode  {
 .pop-over .sk-spinner {
   margin: 40px auto;
 }
-.pop-over .popup-container-depth-1 {
-  transform: translateX(-300px);
-}
-.pop-over .popup-container-depth-2 {
-  transform: translateX(-600px);
-}
-.pop-over .popup-container-depth-3 {
-  transform: translateX(-900px);
-}
-.pop-over .popup-container-depth-4 {
-  transform: translateX(-1200px);
-}
-.pop-over .popup-container-depth-5 {
-  transform: translateX(-1500px);
-}
-.pop-over .popup-container-depth-6 {
-  transform: translateX(-1800px);
-}
 .select-members-list,
 .select-avatars-list {
   margin-bottom: 8px;
@@ -275,6 +226,7 @@ body.mobile-mode  {
   cursor: pointer;
   display: block;
   font-weight: 700;
+  padding-inline: 2vmin 10vmin;
   position: relative;
   margin: 0;
   text-decoration: none;
@@ -356,4 +308,12 @@ body.grey-icons-enabled .pop-over-list .pop-over-list.checkable .fa-check {
 
 .pop-over .content > form {
   padding: 0 1ch;
+  gap: 0.2lh;
+}
+
+.pop-over .board-subtask-settings {
+  >h3 {
+    display: flex;
+    flex-direction: column;
+  }
 }

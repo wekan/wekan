@@ -72,6 +72,7 @@ class PopupDetachedComponent extends BlazeComponent {
     this.follow();
     this.toFront();
 
+    // #FIXME the idea of keeping the initial ratio on resize is quite bad. remove that part.
     // there is a reactive variable for window resize in Utils, but the interface is too slow
     // with all reactive stuff, use events when possible and when not really bypassing logic
     $(window).on('resize', () => {
@@ -499,13 +500,22 @@ class PopupComponent extends BlazeComponent {
   }
 
   onCreated() {
-    // do not render a template multiple times if on the blacklist
-    const existing = PopupComponent.stack.find((e) => (e.name == this.name));
-    if (existing && PopupComponent.multipleBlacklist.indexOf(this.name)) {
+  // #FIXME prevent secondary popups to open
+    // Special "magic number" case: never render, for any reason, the same card
+    // const maybeID = this.parentComponent?.()?.data?.()?._id;
+    // if (maybeID && PopupComponent.stack.find(e => e.parentComponent().data?.()?._id === maybeID)) {
+    //   this.destroy();
+    //   return;
+    // }
+    // do not render a template multiple times
+    const existing = PopupComponent.stack.find((e) => (e.name == this.data().name));
+    if (existing && PopupComponent.multipleBlacklist.indexOf(this.data().name)) {
       // ⚠️ is there a default better than another? I feel that closing existing
       // popup is not bad in general because having the same button for open and close
       // is common
-      existing.destroy();
+      if (multipleBlacklist.includes(existing.name)) {
+        existing.destroy();
+      }
       // but is could also be re-rendering, eg
       // existing.render();
       return;
@@ -597,6 +607,7 @@ class PopupComponent extends BlazeComponent {
   }
 
   onRendered() {
+    if (this.detached) {return}
     // Use plain Blaze stuff to be able to render all templates, but use components when available/relevant
     this.currentView = Blaze.currentView || Blaze.getView(this.component().firstNode());
 
@@ -635,13 +646,10 @@ class PopupComponent extends BlazeComponent {
   }
 
   destroy() {
+    this.detached = true;
     if (!PopupComponent.stack.includes(this)) {
       // Avoid loop destroy
       return;
-    }
-    const closeVar = this.data().closeVar;
-    if (closeVar) {
-      Session.set(closeVar, null);
     }
     // Maybe overkill but may help to avoid leaking memory
     // as programmatic rendering is less usual

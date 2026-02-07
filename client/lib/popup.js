@@ -55,6 +55,10 @@ window.Popup = new (class {
     this.back();
   }
 
+  closeAll() {
+    this.back(PopupComponent.stack.length)
+  }
+
 
   getOpenerComponent(n=4) {
     const { openerElement } = Template.parentData(n);

@@ -9,6 +9,7 @@ Later it could be useful to use a CSS superset */
 
 :root {
   scroll-behavior: smooth;
+  --label-height: 1.7lh;
   --header-scale: clamp(1rem, 1.333rem + -0.333vw, 1.3rem)
   --popup-margin: 2vmax;
 

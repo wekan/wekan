@@ -51,28 +51,28 @@ template(name="header")
         //  because it did not show board templates correctly.
         //a#header-new-board-icon.js-create-board
         //  i.fa.fa-plus(title="Create a new board")
-        // Logo - visible; on mobile constrained by CSS
-        unless currentSetting.hideLogo
-          .logo-container
-            if currentSetting.customTopLeftCornerLogoImageUrl
-              if currentSetting.customTopLeftCornerLogoLinkUrl
-                a.logo(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-                  +logo
-              else
+      // Logo - visible; on mobile constrained by CSS
+      unless currentSetting.hideLogo
+        .logo-container
+          if currentSetting.customTopLeftCornerLogoImageUrl
+            if currentSetting.customTopLeftCornerLogoLinkUrl
+              a.logo(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
                 +logo
-            unless currentSetting.customTopLeftCornerLogoImageUrl
-              div#headerIsSettingDatabaseCallDone.logo
-                img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+            else
+              +logo
+          else
+            div#headerIsSettingDatabaseCallDone.logo
+              img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
 
-        #header-quick-access-right
-          if currentSetting.customHelpLinkUrl
-            #header-help
-              a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
-                i.fa.fa-question-circle
-          #header-quick-access-icons
-            +headerUserBar
-            // Notifications
-            +notifications
+      #header-quick-access-right
+        if currentSetting.customHelpLinkUrl
+          #header-help
+            a(href="{{currentSetting.customHelpLinkUrl}}", title="{{_ 'help'}}", target="_blank", rel="noopener noreferrer")
+              i.fa.fa-question-circle
+        #header-quick-access-icons
+          +headerUserBar
+          // Notifications
+          +notifications
 
   #header(class=currentBoard.colorClass)
     //-

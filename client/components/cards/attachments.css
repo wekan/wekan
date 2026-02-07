@@ -16,6 +16,7 @@
   grid-template-rows: repeat(auto-fit, minmax(1.5lh, auto));
   justify-content: stretch;
   gap: 2ch;
+  padding: 2ch;
   border-radius: 0.6ch;
 }
 
@@ -51,7 +52,8 @@
 .attachment-details {
   display: flex;
   flex: 1;
-  justify-content: space-between;
+  gap: 0.5ch;
+  align-items: center;
 }
 .attachment-actions {
   display: flex;
@@ -59,15 +61,21 @@
   align-items: center;
   gap: 1.5ch;
 }
+
+body.mobile-mode .attachment-actions {
+  flex-direction: column;
+  gap: 0;
+}
+
 .add-attachment {
+  border: 1px dashed #555;
+  border-radius: .5ch;
+  cursor: pointer;
+  aspect-ratio: 1/1;
+  height: 1.5lh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #555;
-  cursor: pointer;
-  margin: 0.5lh 0;
-  border-radius: 0.6ch;
-  padding: 0.3lh 1ch;
 }
 .icon {
   font-size: 1.5em;

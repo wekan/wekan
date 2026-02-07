@@ -27,7 +27,21 @@
   padding: 10px 10px 0px 10px;
 }
 .sidebar .sidebar-content {
-  padding: 0 12px;
+  padding: 0 1ch;
+  >ul {
+    display: flex;
+  }
+  .fa:not(.fa-plus) {
+    padding-right: 0.5ch;
+    align-self: center;
+  }
+  *:has(>.fa-plus) {
+    /* as long as container as a min height,
+    we can accomodate it while staying symetric */
+    aspect-ratio: 1/1;
+    height: var(--label-height);
+    min-width: 0;
+  }
 }
 .sidebar .sidebar-content .hide-btn {
   display: none;
@@ -37,9 +51,6 @@
   font-size: 1em;
   margin-bottom: 10px;
   font-weight: bold;
-}
-.sidebar .sidebar-content h3 i.fa {
-  margin-right: 3px;
 }
 .sidebar .sidebar-content hr {
   margin: 13px 0;
@@ -197,6 +208,8 @@ body.mobile-mode .board-sidebar {
   display: flex;
   flex-wrap: wrap;
   gap: 0.2lh;
+  min-height: 1.5lh;
+  align-items: stretch;
 }
 .board-widget h4 {
   margin: 5px 0;

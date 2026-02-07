@@ -275,7 +275,7 @@ Template.commentReactions.events({
       cardComment.toggleReaction(codepoint);
     }
   },
-  'click .open-comment-reaction-popup': Popup.open('addReaction'),
+  'click .open-comment-reaction-popup': Popup.open('addReaction', {showHeader: false})
 })
 
 Template.addReactionPopup.events({

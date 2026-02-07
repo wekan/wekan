@@ -13,7 +13,7 @@
   display: grid;
   gap: 1ch;
   /* menu takes the space it needs, boards has the rest */
-  grid-template-columns: auto 1fr;
+  grid-template-columns: minmax(max-content, 250px) 1fr;
   justify-content: stretch;
   align-items: stretch;
 }
@@ -331,8 +331,8 @@ body.mobile-mode .boards-layout {
 
 .board-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
-  grid-auto-rows: 5lh;
+  grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+  grid-auto-rows: 7lh;
   gap: 0.5lh 0.5lh;
   align-items: start;
 }

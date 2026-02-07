@@ -1,6 +1,5 @@
 .activity-title {
   display: flex;
-  flex-direction: column;
   gap: 0.5lh;
   justify-content: space-between;
 }
@@ -9,6 +8,7 @@
   gap: 1ch;
   flex-wrap: wrap;
   margin: 0.5lh 0.5ch;
+  max-width: 80vw;
 }
 .reactions-popup .add-comment-reaction {
   display: inline-block;
