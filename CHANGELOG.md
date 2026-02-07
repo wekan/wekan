@@ -26,10 +26,12 @@ WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use
 
 # Upcoming WeKan ® release
 
-This release reverts the following new features:
+This release reverts the following new features and adds the following fixes:
 
-- [Reverted New UI Design of WeKan v8.29 and added more fixes](
-  Tha
+- [Reverted New UI Design of WeKan v8.29 and added more fixes and performance improvements](https://github.com/wekan/wekan/commit/1b8b8d2eef5b56654026597ae445f3f20ad886b2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v8.29 2026-02-07 WeKan ® release
 
