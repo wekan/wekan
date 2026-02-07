@@ -34,6 +34,10 @@ This release fixes the following bugs:
   Thanks to mimZD and xet7.
 - [Fix No Add Card + etc](https://github.com/wekan/wekan/commit/55710835fe8879775b73c8bc921bac5febf552a2).
   Thanks to mimZD and xet7.
+- [Removed extra file](https://github.com/wekan/wekan/commit/0987154a7fea89b0416f48d9bffd5fa7fba9908a).
+  Thanks to xet7.
+- [Added missing linefeeds](https://github.com/wekan/wekan/commit/0ae9865fcbad42966988225393fa66bca49cf14e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
