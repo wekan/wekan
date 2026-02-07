@@ -137,7 +137,7 @@ window.Popup = new (class {
 
   /// The public reactive state of the popup.
   isOpen() {
-    this._dep.changed();
+    this._dep.depend();
     return Boolean(this.current);
   }
 
@@ -176,8 +176,12 @@ window.Popup = new (class {
       Blaze.remove(this.current);
       this.current = null;
 
-      const openerElement = this._getTopStack().openerElement;
-      $(openerElement).removeClass('is-active');
+      // Remove 'is-active' class from all opener elements in the stack
+      this._stack.forEach(stackItem => {
+        if (stackItem && stackItem.openerElement) {
+          $(stackItem.openerElement).removeClass('is-active');
+        }
+      });
 
       this._stack = [];
       // Clean up popup content when closing

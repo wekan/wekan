@@ -221,8 +221,8 @@ template(name="setListWidthPopup")
   #js-list-width-edit
     label {{_ 'set-list-width-value'}}
       p
-        input.list-width-value(type="number" value="{{ listWidthValue }}" min="100")
-        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="100")
+        input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
+        input.list-constraint-value(type="number" value="{{ listConstraintValue }}" min="270")
         input.list-width-apply(type="submit" value="{{_ 'apply'}}")
         input.list-width-error
         br
@@ -233,7 +233,7 @@ template(name="setListWidthPopup")
 
 template(name="listWidthErrorPopup")
   .list-width-invalid
-    p {{_ 'list-width-error-message'}} '&gt;=100'
+    p {{_ 'list-width-error-message'}} '&gt;=270'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")
