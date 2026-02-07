@@ -196,9 +196,9 @@ ln -sf $(which bsdtar) $(which tar)
 # WeKan Bundle Installation
 mkdir -p /home/wekan/app
 cd /home/wekan/app
-wget "https://github.com/wekan/wekan/releases/download/v8.28/wekan-8.28-${WEKAN_ARCH}.zip"
-unzip "wekan-8.28-${WEKAN_ARCH}.zip"
-rm "wekan-8.28-${WEKAN_ARCH}.zip"
+wget "https://github.com/wekan/wekan/releases/download/v8.29/wekan-8.29-${WEKAN_ARCH}.zip"
+unzip "wekan-8.29-${WEKAN_ARCH}.zip"
+rm "wekan-8.29-${WEKAN_ARCH}.zip"
 mv /home/wekan/app/bundle /build
 
 # Restore original tar
