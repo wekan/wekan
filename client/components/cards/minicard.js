@@ -13,6 +13,24 @@ BlazeComponent.extendComponent({
     return 'minicard';
   },
 
+  onRendered() {
+    // cannot be done with CSS because newlines
+    // rendered by the JADE engine count as non empty
+    // and some "empty" divs are nested
+    // this is not very robust and could probably be
+    // done with a helper, but it could be in fact worse
+    // because we would need to to if (allowsX() && X() && ...)
+    const body = $(this.find('.minicard-body'));
+    if (!body) {return}
+    let emptyChildren;
+    do  {
+      emptyChildren = body.find('*').filter((_, e) => !e.classList.contains('fa') && $(e).html().trim().length === 0).remove();
+    } while (emptyChildren.length > 0)
+    if (body.html().trim().length === 0) {
+      body.parent().find('hr:has(+ .minicard-body)').remove();
+    }
+  },
+
   formattedCurrencyCustomFieldValue(definition) {
     const customField = this.data()
       .customFieldsWD()
@@ -39,46 +57,14 @@ BlazeComponent.extendComponent({
     return ret;
   },
 
-  showCreatorOnMinicard() {
-    // cache "board" to reduce the mini-mongodb access
-    const board = this.data().board();
-    let ret = false;
-    if (board) {
-      ret = board.allowsCreatorOnMinicard ?? false;
-    }
-    return ret;
-  },
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
   },
 
-  showMembers() {
-    // cache "board" to reduce the mini-mongodb access
-    const board = this.data().board();
-    let ret = false;
-    if (board) {
-      ret =
-        board.allowsMembers === null ||
-        board.allowsMembers === undefined ||
-        board.allowsMembers
-      ;
-    }
-    return ret;
-  },
-
-  showAssignee() {
-    // cache "board" to reduce the mini-mongodb access
-    const board = this.data().board();
-    let ret = false;
-    if (board) {
-      ret =
-        board.allowsAssignee === null ||
-        board.allowsAssignee === undefined ||
-        board.allowsAssignee
-      ;
-    }
-    return ret;
+  isSelected() {
+    const card = this.currentData();
+    return Session.get('currentCard') === card._id;
   },
 
   /** opens the card label popup only if clicked onto a label
@@ -87,6 +73,8 @@ BlazeComponent.extendComponent({
    */
   cardLabelsPopup(event) {
     if (this.find('.js-card-label:hover')) {
+      event.preventDefault();
+      event.stopPropagation();
       Popup.open("cardLabels")(event, {dataContextIfCurrentDataIsUndefined: this.currentData()});
     }
   },
@@ -203,7 +191,7 @@ BlazeComponent.extendComponent({
   visibleItems() {
     const checklist = this.currentData().checklist || this.currentData();
     const items = checklist.items();
-    
+
     return items.filter(item => {
       // Hide finished items if hideCheckedChecklistItems is true
       if (item.isFinished && checklist.hideCheckedChecklistItems) {
@@ -254,33 +242,8 @@ Template.minicard.helpers({
   },
 
   shouldShowListOnMinicard() {
-    // Show list name if either:
-    // 1. Board-wide setting is enabled, OR
-    // 2. This specific card has the setting enabled
-    const currentBoard = this.board();
-    if (!currentBoard) return false;
-    return currentBoard.allowsShowListsOnMinicard || this.showListOnMinicard;
+    return Utils.allowsShowLists();
   },
-
-  shouldShowChecklistAtMinicard() {
-    // Return checklists that should be shown on minicard
-    const currentBoard = this.board();
-    if (!currentBoard) return [];
-
-    const checklists = this.checklists();
-    const visibleChecklists = [];
-
-    checklists.forEach(checklist => {
-      // Show checklist if either:
-      // 1. Board-wide setting is enabled, OR
-      // 2. This specific checklist has the setting enabled
-      if (currentBoard.allowsChecklistAtMinicard || checklist.showChecklistAtMinicard) {
-        visibleChecklists.push(checklist);
-      }
-    });
-
-    return visibleChecklists;
-  }
 });
 
 BlazeComponent.extendComponent({

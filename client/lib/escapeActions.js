@@ -128,10 +128,24 @@ hotkeys('escape', () => {
   Sidebar.hide();
 });
 
+let currentMouseDown;
+
+// Avoid the common issue of dragging an element a bit fast and releasing
+// out of the element; in that case e.g. popup closes, which is not pleasant.
+// Only execute actions if mousedown and mouseup are on the same element (the
+// initial issue is that a long drag is still a click event)
+$(document).on('pointerdown', evt => {
+  currentMouseDown = evt.target;
+});
 // On a left click on the document, we try to exectute one escape action (eg,
 // close the popup). We don't execute any action if the user has clicked on a
 // link or a button.
-$(document).on('click', evt => {
+$(document).on('pointerup', evt => {
+  const currentMouseUp = evt.target;
+  if (currentMouseDown !== currentMouseUp) {
+    // console.debug(`not executing escape actions on ${currentMouseUp} because click started on ${currentMouseDown}`);
+    return;
+  }
   if (
     evt.button === 0 &&
     $(evt.target).closest('a,button,.is-editable').length === 0

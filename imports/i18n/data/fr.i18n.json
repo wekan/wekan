@@ -195,13 +195,6 @@
   "boards": "Tableaux",
   "board-view": "Vue du tableau",
   "desktop-mode": "Mode bureau",
-  "mobile-mode": "Mode mobile",
-  "mobile-desktop-toggle": "Basculer entre le mode mobile et le mode bureau",
-  "zoom-in": "Agrandir",
-  "zoom-out": "Réduire",
-  "click-to-change-zoom": "Cliquer pour changer le niveau d'agrandissement",
-  "zoom-level": "Niveau d'agrandissement",
-  "enter-zoom-level": "Entrer le niveau d'agrandissement (50-300%) :",
   "board-view-cal": "Calendrier",
   "board-view-swimlanes": "Couloirs",
   "board-view-collapse": "Réduire",
@@ -385,7 +378,7 @@
   "date": "Date",
   "date-format": "Format de la date",
   "date-format-yyyy-mm-dd": "AAAA-MM-JJ",
-  "date-format-dd-mm-yyyy": "JJ-MM-AAAA", 
+  "date-format-dd-mm-yyyy": "JJ-MM-AAAA",
   "date-format-mm-dd-yyyy": "MM-JJ-AAAA",
   "decline": "Refuser",
   "default-avatar": "Avatar par défaut",
@@ -1507,7 +1500,7 @@
   "run-fix-avatar-urls-migration-confirm": "This will update avatar URLs for board members to use the correct storage backend. Continue?",
   "run-fix-all-file-urls-migration-confirm": "This will update all file attachment URLs on this board to use the correct storage backend. Continue?",
   "restore-lost-cards-nothing-to-restore": "No lost swimlanes, lists, or cards to restore",
-  
+
   "migration-progress-title": "Migration du tableau en cours",
   "migration-progress-overall": "Overall Progress",
   "migration-progress-current-step": "Étape courante",
@@ -1517,7 +1510,7 @@
   "steps": "steps",
   "view": "View",
   "has-swimlanes": "Has Swimlanes",
-  
+
   "step-analyze-board-structure": "Analyze Board Structure",
   "step-fix-orphaned-cards": "Corriger les cartes orphelines",
   "step-convert-shared-lists": "Convert Shared Lists",

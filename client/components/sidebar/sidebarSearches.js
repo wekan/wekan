@@ -14,11 +14,8 @@ BlazeComponent.extendComponent({
   },
 
   clickOnMiniCard(evt) {
-    if (Utils.isMiniScreen()) {
-      evt.preventDefault();
-      Session.set('popupCardId', this.currentData()._id);
-      this.cardDetailsPopup(evt);
-    }
+    evt.preventDefault();
+    Session.set('popupCardId', this.currentData()._id);
   },
 
   cardDetailsPopup(event) {

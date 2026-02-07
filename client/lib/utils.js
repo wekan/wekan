@@ -24,7 +24,7 @@ Utils = {
     }
     return ret;
   },
-  getCurrentCardId(ignorePopupCard) {
+  getCurrentCardId(ignorePopupCard = false) {
     let ret = Session.get('currentCard');
     if (!ret && !ignorePopupCard) {
       ret = Utils.getPopupCardId();
@@ -47,70 +47,62 @@ Utils = {
     const ret = ReactiveCache.getBoard(boardId);
     return ret;
   },
-  getCurrentCard(ignorePopupCard) {
+  getCurrentCard(ignorePopupCard = false) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
     const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
 
-  // Zoom and mobile mode utilities
-  getZoomLevel() {
-    const user = ReactiveCache.getCurrentUser();
-    if (user && user.profile && user.profile.zoomLevel !== undefined) {
-      return user.profile.zoomLevel;
-    }
-    // For non-logged-in users, check localStorage
-    const stored = localStorage.getItem('wekan-zoom-level');
-    return stored ? parseFloat(stored) : 1.0;
+  // in fact, what we really care is screen size
+  // large mobile device like iPad or android Pad has a big screen, it should also behave like a desktop
+  // in a small window (even on desktop), Wekan run in compact mode.
+  // we can easily debug with a small window of desktop browser. :-)
+  isMiniScreen() {
+    this.windowResizeDep.depend();
+    // Also depend on mobile mode changes to make this reactive
+
+    // innerWidth can be over screen width in some case; rely on physical pixels
+    // we get what we want, i.e real width, no need for orientation
+    const width = Math.min(window.innerWidth, window.screen.width);
+    const isMobilePhone = /iPhone|iPad|Mobile|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && !/iPad/i.test(navigator.userAgent);
+    const isTouch = this.isTouchScreen();
+
+    return (isTouch || isMobilePhone || width < 800);
   },
 
-  setZoomLevel(level) {
-    const user = ReactiveCache.getCurrentUser();
-    if (user) {
-      // Update user profile
-      user.setZoomLevel(level);
+  isTouchScreen() {
+    // NEW TOUCH DEVICE DETECTION:
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
+    var hasTouchScreen = false;
+    if ("maxTouchPoints" in navigator) {
+      hasTouchScreen = navigator.maxTouchPoints > 0;
+    } else if ("msMaxTouchPoints" in navigator) {
+      hasTouchScreen = navigator.msMaxTouchPoints > 0;
     } else {
-      // Store in localStorage for non-logged-in users
-      localStorage.setItem('wekan-zoom-level', level.toString());
+      var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
+      if (mQ && mQ.media === "(pointer:coarse)") {
+        hasTouchScreen = !!mQ.matches;
+      } else if ('orientation' in window) {
+        hasTouchScreen = true; // deprecated, but good fallback
+      } else {
+        // Only as a last resort, fall back to user agent sniffing
+        var UA = navigator.userAgent;
+        hasTouchScreen = (
+          /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+          /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+        );
+      }
     }
-    Utils.applyZoomLevel(level);
-
-    // Trigger reactive updates for UI components
-    Session.set('wekan-zoom-level', level);
+    return hasTouchScreen;
   },
 
   getMobileMode() {
-    // Check localStorage first - user's explicit preference takes priority
-    const stored = localStorage.getItem('wekan-mobile-mode');
-    if (stored !== null) {
-      return stored === 'true';
-    }
-    
-    // Then check user profile
-    const user = ReactiveCache.getCurrentUser();
-    if (user && user.profile && user.profile.mobileMode !== undefined) {
-      return user.profile.mobileMode;
-    }
-    
-    // Default to mobile mode for iPhone/iPod
-    const isIPhone = /iPhone|iPod/i.test(navigator.userAgent);
-    return isIPhone;
+    return this.isMiniScreen();
   },
 
   setMobileMode(enabled) {
-    const user = ReactiveCache.getCurrentUser();
-    if (user) {
-      // Update user profile
-      user.setMobileMode(enabled);
-    }
-    // Always store in localStorage for persistence across sessions
-    localStorage.setItem('wekan-mobile-mode', enabled.toString());
-    Utils.applyMobileMode(enabled);
-    // Trigger reactive updates for UI components
     Session.set('wekan-mobile-mode', enabled);
-    // Re-apply zoom level to ensure proper rendering
-    const zoomLevel = Utils.getZoomLevel();
-    Utils.applyZoomLevel(zoomLevel);
+    Utils.applyMobileMode(enabled);
   },
 
   getCardZoom() {
@@ -139,77 +131,6 @@ Utils = {
     }
   },
 
-  applyZoomLevel(level) {
-    const boardWrapper = document.querySelector('.board-wrapper');
-    const body = document.body;
-    const isMobileMode = body.classList.contains('mobile-mode');
-
-    if (boardWrapper) {
-      if (isMobileMode) {
-        // On mobile mode, only apply zoom to text and icons, not the entire layout
-        // Remove any existing transform from board-wrapper
-        boardWrapper.style.transform = '';
-        boardWrapper.style.transformOrigin = '';
-
-        // Apply zoom to text and icon elements instead
-        const textElements = boardWrapper.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, .minicard, .list-header-name, .board-header-btn, .fa, .icon');
-        textElements.forEach(element => {
-          element.style.transform = `scale(${level})`;
-          element.style.transformOrigin = 'center';
-        });
-
-        // Reset board-canvas height
-        const boardCanvas = document.querySelector('.board-canvas');
-        if (boardCanvas) {
-          boardCanvas.style.height = '';
-        }
-      } else {
-        // Desktop mode: apply zoom to entire board-wrapper as before
-        boardWrapper.style.transform = `scale(${level})`;
-        boardWrapper.style.transformOrigin = 'top left';
-
-        // If zoom is 50% or lower, make board wrapper full width like content
-        if (level <= 0.5) {
-          boardWrapper.style.width = '100%';
-          boardWrapper.style.maxWidth = '100%';
-          boardWrapper.style.margin = '0';
-        } else {
-          // Reset to normal width for higher zoom levels
-          boardWrapper.style.width = '';
-          boardWrapper.style.maxWidth = '';
-          boardWrapper.style.margin = '';
-        }
-
-        // Adjust container height to prevent scroll issues
-        const boardCanvas = document.querySelector('.board-canvas');
-        if (boardCanvas) {
-          boardCanvas.style.height = `${100 / level}%`;
-
-          // For high zoom levels (200%+), enable both horizontal and vertical scrolling
-          if (level >= 2.0) {
-            boardCanvas.style.overflowX = 'auto';
-            boardCanvas.style.overflowY = 'auto';
-            // Ensure the content area can scroll both horizontally and vertically
-            const content = document.querySelector('#content');
-            if (content) {
-              content.style.overflowX = 'auto';
-              content.style.overflowY = 'auto';
-            }
-          } else {
-            // Reset overflow for normal zoom levels
-            boardCanvas.style.overflowX = '';
-            boardCanvas.style.overflowY = '';
-            const content = document.querySelector('#content');
-            if (content) {
-              content.style.overflowX = '';
-              content.style.overflowY = '';
-            }
-          }
-        }
-      }
-    }
-  },
-
   applyMobileMode(enabled) {
     const body = document.body;
     if (enabled) {
@@ -223,9 +144,7 @@ Utils = {
 
   initializeUserSettings() {
     // Apply saved settings on page load
-    const zoomLevel = Utils.getZoomLevel();
     const mobileMode = Utils.getMobileMode();
-    Utils.applyZoomLevel(zoomLevel);
     Utils.applyMobileMode(mobileMode);
   },
   getCurrentList() {
@@ -284,11 +203,11 @@ Utils = {
   },
   setBoardView(view) {
     const currentUser = ReactiveCache.getCurrentUser();
-    
+
     if (currentUser) {
       // Update localStorage first
       window.localStorage.setItem('boardView', view);
-      
+
       // Update user profile via Meteor method
       Meteor.call('setBoardView', view, (error) => {
         if (error) {
@@ -575,82 +494,6 @@ Utils = {
   },
 
   windowResizeDep: new Tracker.Dependency(),
-  // in fact, what we really care is screen size
-  // large mobile device like iPad or android Pad has a big screen, it should also behave like a desktop
-  // in a small window (even on desktop), Wekan run in compact mode.
-  // we can easily debug with a small window of desktop browser. :-)
-  isMiniScreen() {
-    this.windowResizeDep.depend();
-    // Also depend on mobile mode changes to make this reactive
-    Session.get('wekan-mobile-mode');
-    
-    // Show mobile view when:
-    // 1. Screen width is 800px or less (matches CSS media queries)
-    // 2. Mobile phones in portrait mode
-    // 3. iPad in very small screens (≤ 600px)
-    // 4. All iPhone models by default (including largest models), but respect user preference
-    const isSmallScreen = window.innerWidth <= 800;
-    const isVerySmallScreen = window.innerWidth <= 600;
-    const isPortrait = window.innerWidth < window.innerHeight || window.matchMedia("(orientation: portrait)").matches;
-    const isMobilePhone = /Mobile|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && !/iPad/i.test(navigator.userAgent);
-    const isIPhone = /iPhone|iPod/i.test(navigator.userAgent);
-    const isIPad = /iPad/i.test(navigator.userAgent);
-    const isUbuntuTouch = /Ubuntu/i.test(navigator.userAgent);
-
-    // Check if user has explicitly set mobile mode preference
-    const userMobileMode = this.getMobileMode();
-    
-    // For iPhone: default to mobile view, but respect user's mobile mode toggle preference
-    // This ensures all iPhone models (including iPhone 15 Pro Max, 14 Pro Max, etc.) start with mobile view
-    // but users can still switch to desktop mode if they prefer
-    if (isIPhone) {
-      // If user has explicitly set a preference, respect it
-      if (userMobileMode !== null && userMobileMode !== undefined) {
-        return userMobileMode;
-      }
-      // Otherwise, default to mobile view for iPhones
-      return true;
-    } else if (isMobilePhone) {
-      return isPortrait; // Other mobile phones: portrait = mobile, landscape = desktop
-    } else if (isIPad) {
-      return isVerySmallScreen; // iPad: only very small screens get mobile view
-    } else if (isUbuntuTouch) {
-      // Ubuntu Touch: smartphones (≤ 600px) behave like mobile phones, tablets (> 600px) like iPad
-      if (isVerySmallScreen) {
-        return isPortrait; // Ubuntu Touch smartphone: portrait = mobile, landscape = desktop
-      } else {
-        return isVerySmallScreen; // Ubuntu Touch tablet: only very small screens get mobile view
-      }
-    } else {
-      return isSmallScreen; // Desktop: based on 800px screen width
-    }
-  },
-
-  isTouchScreen() {
-    // NEW TOUCH DEVICE DETECTION:
-    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
-    var hasTouchScreen = false;
-    if ("maxTouchPoints" in navigator) {
-      hasTouchScreen = navigator.maxTouchPoints > 0;
-    } else if ("msMaxTouchPoints" in navigator) {
-      hasTouchScreen = navigator.msMaxTouchPoints > 0;
-    } else {
-      var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
-      if (mQ && mQ.media === "(pointer:coarse)") {
-        hasTouchScreen = !!mQ.matches;
-      } else if ('orientation' in window) {
-        hasTouchScreen = true; // deprecated, but good fallback
-      } else {
-        // Only as a last resort, fall back to user agent sniffing
-        var UA = navigator.userAgent;
-        hasTouchScreen = (
-          /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
-          /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
-        );
-      }
-    }
-    return hasTouchScreen;
-  },
 
   // returns if desktop drag handles are enabled
   isShowDesktopDragHandles() {
@@ -894,17 +737,249 @@ Utils = {
   showCopied(promise, $tooltip) {
     if (promise) {
       promise.then(() => {
-        $tooltip.show(100);
-        setTimeout(() => $tooltip.hide(100), 1000);
+        $tooltip.removeClass("copied-tooltip-hidden").addClass("copied-tooltip-visible");
+        setTimeout(() => $tooltip.removeClass("copied-tooltip-visible").addClass("copied-tooltip-hidden"), 1000);
       }, (err) => {
         console.error("error: ", err);
       });
     }
   },
+  coalesceSearch(root, queries, fallbackSel) {
+    // a little helper to chain jQuery lookups
+    // use with arg like [{func: "closest", sels: [".whatever"...]}...]
+    root = $(root);
+    for ({func, sels} of queries) {
+      for (sel of sels) {
+        res = root[func](sel);
+        if (res.length) {
+          return res;
+        }
+      }
+    }
+    return $(fallbackSel);
+  },
+
+  scrollIfNeeded(event) {
+    // helper used when dragging either cards or lists
+    const xFactor = 5;
+    const yFactor = Utils.isMiniScreen() ? 5 : 10;
+    const limitX = window.innerWidth / xFactor;
+    const limitY = window.innerHeight / yFactor;
+    const componentScrollX = this.coalesceSearch(event.target, [{
+        func: "closest",
+        sels: [".swimlane-container", ".swimlane.js-lists", ".board-canvas"]
+      }
+    ], ".board-canvas");
+    let scrollX = 0;
+    let scrollY = 0;
+    if (event.clientX < limitX) {
+      scrollX = -limitX;
+    } else if (event.clientX > (xFactor - 1) * limitX) {
+      scrollX = limitX;
+    }
+    if (event.clientY < limitY) {
+      scrollY = -limitY;
+    } else if (event.clientY > (yFactor - 1) * limitY) {
+      scrollY = limitY;
+    }
+    window.scrollBy({ top: scrollY, behavior: "smooth" });
+    componentScrollX[0].scrollBy({ left: scrollX, behavior: "smooth" });
+  },
+
+  shouldIgnorePointer(event) {
+    // handle jQuery and native events
+    if (event.originalEvent) {
+      event = event.originalEvent;
+    }
+    return !(event.isPrimary && (event.pointerType !== 'mouse' || event.button === 0));
+  },
+  allowsReceivedDate() {
+      const boardId = Session.get('currentBoard');
+      const currentBoard = ReactiveCache.getBoard(boardId);
+      return currentBoard ? currentBoard.allowsReceivedDate : false;
+    },
+
+  allowsStartDate() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsStartDate : false;
+  },
+
+  allowsDueDate() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDueDate : false;
+  },
+
+  allowsEndDate() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsEndDate : false;
+  },
+
+  allowsSubtasks() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsSubtasks : false;
+  },
+
+  allowsCreator() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (currentBoard.allowsCreator ?? false) : false;
+  },
+
+  allowsCreatorOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (currentBoard.allowsCreatorOnMinicard ?? false) : false;
+  },
+
+  allowsMembers() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsMembers : false;
+  },
+
+  allowsAssignee() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignee : false;
+  },
+
+  allowsAssignedBy() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAssignedBy : false;
+  },
+
+  allowsRequestedBy() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsRequestedBy : false;
+  },
+
+  allowsCardSortingByNumber() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardSortingByNumber : false;
+  },
+
+  allowsShowLists() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsShowLists : false;
+  },
+
+  allowsLabels() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsLabels : false;
+  },
+
+  allowsShowListsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsShowListsOnMinicard : false;
+  },
+
+  allowsChecklists() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsChecklists : false;
+  },
+
+  allowsAttachments() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsAttachments : false;
+  },
+
+  allowsComments() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsComments : false;
+  },
+
+  allowsCardNumber() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardNumber : false;
+  },
+
+  allowsDescriptionTitle() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTitle : false;
+  },
+
+  allowsDescriptionText() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionText : false;
+  },
+
+  isBoardSelected() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.dateSettingsDefaultBoardID : false;
+  },
+
+  isNullBoardSelected() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? (
+      currentBoard.dateSettingsDefaultBoardId === null ||
+      currentBoard.dateSettingsDefaultBoardId === undefined
+    ) : true;
+  },
+
+  allowsDescriptionTextOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsDescriptionTextOnMinicard : false;
+  },
+
+  allowsActivities() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsActivities : false;
+  },
+
+  allowsCoverAttachmentOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCoverAttachmentOnMinicard : false;
+  },
+
+  allowsBadgeAttachmentOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsBadgeAttachmentOnMinicard : false;
+  },
+
+  allowsCardSortingByNumberOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCardSortingByNumberOnMinicard : false;
+  },
 };
 
-// A simple tracker dependency that we invalidate every time the window is
-// resized. This is used to reactively re-calculate the popup position in case
-// of a window resize. This is the equivalent of a "Signal" in some other
-// programming environments (eg, elm).
-$(window).on('resize', () => Utils.windowResizeDep.changed());
+
+$(window).on('resize', () => {
+  // A simple tracker dependency that we invalidate every time the window is
+  // resized. This is used to reactively re-calculate the popup position in case
+  // of a window resize. This is the equivalent of a "Signal" in some other
+  // programming environments (eg, elm).
+  Utils.windowResizeDep.changed();
+  // Simple, generic switch based exclusively on the new detection algorithm
+  // Hope it will centralize decision and reduce edge cases
+  Utils.setMobileMode(Utils.isMiniScreen());
+});
+
+$(() => {
+  const settingsHelpers = ["allowsReceivedDate", "allowsStartDate", "allowsDueDate", "allowsEndDate", "allowsSubtasks", "allowsCreator", "allowsCreatorOnMinicard", "allowsMembers", "allowsAssignee", "allowsAssignedBy", "allowsRequestedBy", "allowsCardSortingByNumber", "allowsShowLists", "allowsLabels", "allowsShowListsOnMinicard", "allowsChecklists", "allowsAttachments", "allowsComments", "allowsCardNumber", "allowsDescriptionTitle", "allowsDescriptionText", "allowsDescriptionTextOnMinicard", "allowsActivities", "allowsCoverAttachmentOnMinicard", "allowsBadgeAttachmentOnMinicard", "allowsCardSortingByNumberOnMinicard"]
+  for (f of settingsHelpers) {
+    Template.registerHelper(f, Utils[f]);
+  }
+});

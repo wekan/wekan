@@ -9,6 +9,15 @@ Meteor.startup(() => {
 });
 
 BlazeComponent.extendComponent({
+  onRendered() {
+    /* #FIXME I have no idea why this exact same
+    event won't fire when in event maps */
+    $(this.find('.js-collapse')).on('click', (e) => {
+      e.preventDefault();
+      this.collapsed(!this.collapsed());
+    });
+  },
+
   canSeeAddCard() {
     const list = Template.currentData();
     return (
@@ -34,7 +43,7 @@ BlazeComponent.extendComponent({
     }
   },
   collapsed(check = undefined) {
-    const list = Template.currentData();
+    const list = this.data();
     const status = Utils.getListCollapseState(list);
     if (check === undefined) {
       // just check
@@ -110,17 +119,17 @@ BlazeComponent.extendComponent({
       return TAPi18n.__('cards-count');
     }
   },
-
+  currentList() {
+    const currentList = Utils.getCurrentList();
+    const list = Template.currentData();
+    return currentList && currentList._id == list._id;
+  },
   events() {
     return [
       {
         'click .js-list-star'(event) {
           event.preventDefault();
           this.starred(!this.starred());
-        },
-        'click .js-collapse'(event) {
-          event.preventDefault();
-          this.collapsed(!this.collapsed());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
         'click .js-add-card.list-header-plus-top'(event) {
@@ -459,10 +468,10 @@ BlazeComponent.extendComponent({
     this.currentBoard = Utils.getCurrentBoard();
     this.currentSwimlaneId = new ReactiveVar(null);
     this.currentListId = new ReactiveVar(null);
-    
+
     // Get the swimlane context from opener
     const openerData = Popup.getOpenerComponent()?.data();
-    
+
     // If opened from swimlane menu, openerData is the swimlane
     if (openerData?.type === 'swimlane' || openerData?.type === 'template-swimlane') {
       this.currentSwimlane = openerData;
@@ -554,4 +563,3 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('addListPopup');
-

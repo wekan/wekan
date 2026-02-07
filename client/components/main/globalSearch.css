@@ -1,6 +1,6 @@
 .global-search-board-wrapper {
-  border-radius: 8px;
-  min-width: 400px;
+  border-radius: 0.8ch;
+  min-width: min(100%, 400px);
   border-width: 8px;
   border-color: #808080;
   border-style: solid;
@@ -67,8 +67,6 @@
   color: #8b0000;
 }
 .global-search-page {
-  width: 40%;
-  min-width: 400px;
   margin-right: auto;
   margin-left: auto;
   line-height: 150%;
@@ -90,6 +88,13 @@
 .global-search-value {
   font-family: Courier;
   font-style: italic;
+}
+
+.lists-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1ch 0.3lh;
+
 }
 code {
   color: #000;

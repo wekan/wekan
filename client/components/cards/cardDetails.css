@@ -1,25 +1,18 @@
-/* Date Format Selector */
-.card-details-item-date-format {
-  margin-bottom: 12px;
-}
-
 .card-details-item-date-format .card-details-item-title {
-  font-size: 15px;
   font-weight: bold;
-  margin-bottom: 6px;
   color: #333;
   letter-spacing: 0.03em;
 }
 
 .card-details-item-date-format .js-date-format-selector {
-  width: 100%;
-  padding: 9px 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #fff;
-  font-size: 15px;
-  cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex: 1;
 }
 
 .card-details-item-date-format .js-date-format-selector:focus {
@@ -28,44 +21,80 @@
   box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
 }
 
-.assignee {
-  display: block;
-  position: relative;
-  float: left;
-  height: clamp(24px, 3.5vw, 36px);
-  width: clamp(24px, 3.5vw, 36px);
-  margin: 0.3vh;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1;
-  text-decoration: none;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);
+.card-details h3 {
+  font-size: 1.1em;
 }
-.assignee .avatar {
-  overflow: hidden;
-  border-radius: 50%;
-}
-.assignee .avatar.avatar-assignee-initials {
-  height: 70%;
-  width: 70%;
-  padding: 15%;
-  background-color: #dbdbdb;
-  color: #444;
-  position: absolute;
-  text-align: center;
+
+.card-checklists {
   display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2ch;
+  align-items: stretch;
+  gap: 0.5lh;
+  /* for popups */
+  overflow-y: auto;
+
+  &.is-maximized {
+    display: grid;
+    /* divide available space; 3/4 for main content, 1/4 for activity feed */
+    /* better use a grid, otherwise flexbox will not expand left pane if fullscreen
+    > max-content, but some users may want to expend elements anyways */
+    grid-template-columns: 3fr 1fr;
+    .card-details-left {
+      border-right: solid 2px #dbdbdb;
+      padding-right: 2ch;
+    }
+  }
+}
+
+.card-header-content {
+  display: grid;
+  margin: 0 1ch;
+  grid-auto-columns: auto 1fr auto;
+  grid-auto-flow: column;
+  justify-content: stretch;
   align-items: center;
+  min-height: 2lh;
+  gap: 1ch;
+}
+
+body.mobile-mode {
+  .card-header-content {
+    padding-inline: 0.5ch;
+  }
+  .card-header-middle {
+    padding-inline: 0;
+    background: unset;
+    font-size: 1.1em;
+  }
+}
+
+.card-header-middle {
+  display: flex;
+  min-height: 1.5lh;
+  font-size: 1.3em;
   justify-content: center;
-  font-weight: bold;
+  align-items: center;
+  background: #dfdfdf;
+  border-radius: 1ch;
+  padding-inline: 1ch;
+  justify-self: stretch;
+  cursor: grab !important;
 }
-.assignee .avatar.avatar-image {
-  object-fit: cover;
-  object-position: center;
-  height: 100%;
-  width: 100%;
-  display: block;
+.assignee.add-assignee:hover,
+.assignee.add-assignee.is-active {
+  box-shadow: 0 0 0 2px #666 inset;
 }
+.assignee {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+}
+
 .assignee .assignee-presence-status {
   background-color: #b3b3b3;
   border: 1px solid #fff;
@@ -77,6 +106,7 @@
   bottom: -1px;
   z-index: 15;
 }
+
 .assignee .assignee-presence-status.active {
   background: #64c464;
   border-color: #daf1da;
@@ -96,164 +126,153 @@
 .assignee.add-assignee {
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 0 2px #bfbfbf inset;
   transition: box-shadow 0.12s;
 }
-.assignee.add-assignee:hover,
-.assignee.add-assignee.is-active {
-  box-shadow: 0 0 0 2px #666 inset;
+
+.card-header-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 2ch);
+  gap: 0.5ch;
+  grid-auto-flow: column;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
 }
 .copied-tooltip {
-  display: none;
-  padding: 0 1.3vw;
+  position: absolute;
   background-color: rgba(0,0,0,0.875);
   color: #fff;
   border-radius: 0.7vw;
   font-size: 0.98em;
 }
 
+.copied-tooltip-visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.1s linear;
+}
+
+.copied-tooltip-hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.1s, opacity 0.1s linear;
+}
 .card-details {
   padding: 0;
-  flex-shrink: 0;
-  flex-basis: min(600px, 80vw);
-  will-change: flex-basis;
+  display: flex;
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   background: #f7f7f7;
   border-radius: 0 0 0.4vw 0.4vw;
-  z-index: 30;
+  z-index: 100;
   animation: flexGrowIn 0.1s;
   box-shadow: 0 0 0.9vh 0 #b3b3b3;
   transition: flex-basis 0.1s, box-shadow 0.15s;
   box-sizing: border-box;
+  &:not(.collapsed) {
+    min-height: 20lh;
+    /* at this point, popup can still be resized but stops
+    to shrink content, so the later stays visible */
+    min-width: 30vw;
+  }
 }
 
-/* Desktop mode: position card below board header */
-body.desktop-mode .card-details:not(.card-details-popup) {
-  position: fixed;
-  width: auto;
-  max-width: 800px;
-  flex-basis: auto;
-  border-radius: 8px;
-  z-index: 100;
+.edit-vote-question {
+  display: flex;
+  flex-direction: column;
+  & > .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2lh;
+    margin: 0.2lh 0;
+  }
 }
-
-/* Default position for first card or when dragged */
-body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"]):not([style*="top"]) {
-  top: 50px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
+.card-details .card-details-canvas {
+  display: grid;
+  background: #ededed;
+  border-bottom: 1px solid #dbdbdb;
+  flex: 1;
+  grid-template-rows: auto auto;
+  grid-auto-flow: row;
+  grid-template-columns: auto;
+  align-items: stretch;
+  align-content: center;
 }
-
-/* Stagger positions for multiple cards using nth-of-type */
-body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(1) {
-  top: 50px;
-  left: 20px;
-}
-body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(2) {
-  top: 80px;
-  left: 50px;
-}
-body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(3) {
-  top: 110px;
-  left: 80px;
-}
-body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(4) {
-  top: 140px;
-  left: 110px;
-}
-body.desktop-mode .card-details:not(.card-details-popup):nth-of-type(5) {
-  top: 170px;
-  left: 140px;
-}
-
-/* For expanded cards, set dimensions */
-body.desktop-mode .card-details:not(.card-details-popup):not(.card-details-collapsed) {
-  right: 20px;
-  bottom: 20px;
-}
-
 /* Collapsed card state - hide content and set height to title row only */
-.card-details.card-details-collapsed .card-details-canvas > *:not(.card-details-header) {
+.card-details.card-details.collapsed .card-details-canvas > *:not(.card-details-header) {
   display: none !important;
-}
-.card-details.card-details-collapsed {
-  height: auto !important;
-  bottom: auto !important;
-  overflow: visible;
-}
-body.desktop-mode .card-details.card-details-collapsed {
-  bottom: auto !important;
 }
 .card-details .mCustomScrollBox {
   padding-left: 0;
 }
-.card-details .card-details-canvas {
-  width: auto;
-  padding: 0 2.5vw;
-}
-.card-details .card-details-header {
-  margin: 0 -20px 5px;
-  padding: 8px 20px;
-  background: #ededed;
-  border-bottom: 1px solid #dbdbdb;
-  position: sticky;
-  top: 0px;
-  z-index: 500;
-  display: flow-root;
-  min-height: 44px;
-}
 .card-details .card-details-header .card-number {
   color: #b3b3b3;
   display: inline-block;
-  margin-right: 6px;
 }
 
 /* Collapse toggle triangle */
 .card-details .card-details-header .card-collapse-toggle {
-  float: left;
-  font-size: 20px;
-  padding: 7px 10px;
-  margin-left: -10px;
-  margin-right: 5px;
   cursor: pointer;
   user-select: none;
   color: #000;
-  vertical-align: middle;
-  line-height: 1.2;
+}
+
+/* Bring to front / Send to back buttons */
+/* #FIXME see .jade */
+/* .card-details .card-details-header .card-bring-to-front,
+.card-details .card-details-header .card-send-to-back {
+  float: right;
+  font-size: 18px;
+  padding: 7px 8px;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
+  color: #333;
+} */
+
+.card-details .card-details-header .card-bring-to-front:hover,
+.card-details .card-details-header .card-send-to-back:hover {
+  color: #000;
+  background: rgba(0,0,0,0.05);
+  border-radius: 3px;
 }
 
 .card-details .card-details-header .card-drag-handle {
-  font-size: 20px;
-  padding: 8px 10px;
-  margin-right: 10px;
   cursor: move;
   user-select: none;
-  display: inline-block;
-  float: right;
-  vertical-align: middle;
-  line-height: 1.2;
+}
+
+.card-details .js-card-details-title {
+  /* override inlined forms defauts: take all width available
+  and just what's needed to edit card title */
+  width: 100%;
+  display: flex;
+  .js-edit-card-title {
+    height: fit-content;
+    margin: 0;
+  }
+  .edit-controls {
+    flex: 1;
+    align-items: center;
+    button {
+      margin: 0;
+      display: flex;
+      max-width: 20ch;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .js-submit-edit-card-title-form {
+    margin: 0.3lh 0;
+    flex: 1;
+    display: flex;
+  }
 }
 
 .card-details .card-details-header .close-card-details,
 .card-details .card-details-header .maximize-card-details,
-.card-details .card-details-header .minimize-card-details,
-.card-details .card-details-header .card-details-menu,
-.card-details .card-details-header .card-copy-button,
-.card-details .card-details-header .card-copy-mobile-button,
-.card-details .card-details-header .close-card-details-mobile-web,
-.card-details .card-details-header .card-details-menu-mobile-web,
-.card-details .card-details-header .copied-tooltip {
-  float: right;
-}
-.card-details .card-details-header .close-card-details,
-.card-details .card-details-header .maximize-card-details,
 .card-details .card-details-header .minimize-card-details {
-  font-size: 24px;
-  padding: 5px 10px 5px 10px;
-  margin-right: -8px;
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
@@ -262,78 +281,155 @@ body.desktop-mode .card-details.card-details-collapsed {
 }
 .card-details .card-details-header .close-card-details-mobile-web,
 .card-details .card-details-header .card-mobile-desktop-toggle {
-  font-size: 24px;
-  padding: 5px;
-  margin-right: 5px;
   cursor: pointer;
   user-select: none;
 }
-.card-details .card-details-header .card-copy-button {
-  font-size: 17px;
-  padding: 10px;
-  margin-right: 10px;
-}
-.card-details .card-details-header .card-copy-mobile-button {
-  font-size: 17px;
-  padding: 10px;
-  margin-right: 10px;
-}
-.card-details .card-details-header .card-details-menu {
-  font-size: 17px;
-  padding: 10px;
-  vertical-align: middle;
-  line-height: 1.2;
-}
-.card-details .card-details-header .card-details-menu-mobile-web {
-  font-size: 17px;
-  padding: 10px;
-  margin-right: 30px;
-}
-.card-details .card-details-header .card-mobile-desktop-toggle,
-.card-details .card-details-header .card-zoom-in,
-.card-details .card-details-header .card-zoom-out {
-  font-size: 24px;
-  padding: 5px 10px 5px 10px;
-  margin-right: 5px;
+.card-details .card-details-header .card-mobile-desktop-toggle {
   cursor: pointer;
   user-select: none;
   float: right;
+}
+
+body:not(.mobile-mode) {
+
+  .card-details-date-container,
+  .card-details-user-container,
+  .card-details-misc-container,
+  card-details-description {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1ch;
+  }
 }
 
 /* Unify all card text to match title size */
 .card-details {
   font-size: 1em;
 }
-.card-details p,
-.card-details span,
-.card-details div,
-.card-details a,
-.card-details label,
-.card-details input,
-.card-details textarea,
-.card-details select,
-.card-details button,
-.card-details .card-details-item-title,
-.card-details .card-label,
-.card-details .viewer {
-  font-size: inherit;
-  line-height: 1.5;
+
+.card-details .card-details-header .card-details-watch {
+  color: #a6a6a6;
+}
+
+.card-details .card-details-header {
+  & .card-details-title {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.33em;
+    margin: 0;
+    --overflow-lines: 3;
+    & p {
+      margin: 0;
+    }
+  }
+}
+
+
+.card-add-label, .card-details .js-date-format-selector {
+  padding: 0.2lh 0.5ch;
+}
+.card-details-main {
+  display: flex;
+  gap: 0.3lh;
+  flex-direction: column;
+  hr {
+    margin: 0;
+  }
+  &>div {
+    display: flex;
+    gap: 0.2lh;
+    flex: 1;
+  }
+  &>div:empty {
+    /* to avoid gaps */
+    display: none;
+  }
+  .card-details-misc-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3lh;
+  }
+  .card-details-date-container, .card-details-user-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1ch;
+    align-items: end;
+    h3 {
+      + *:not(:has(.member), :is(:hover)) {
+        background-color: #f7f7f7;
+      }
+      + *:not(:is(form)) {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        font-size: 0.8em;
+
+        &:not(.member, :has(.member)) {
+          border-radius: 5px;
+          justify-content: start;
+          height: 1.8lh;
+          padding: 0.3lh 1ch;
+        }
+
+        &:has(select) {
+          padding-inline: 0 !important;
+          >select {
+            align-self: stretch;
+          }
+        }
+
+        time {
+          color: black;
+        }
+        +form {
+          height: 3lh;
+          overflow: visible;
+          margin: 0.5lh 0;
+
+          > {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .card-details-items {
+    gap: 0.5lh;
+  }
+  .card-details-comments {
+    flex-direction: column;
+    gap: 0.5lh;
+  }
+}
+
+.card-details-description {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card-details-comments {
+  flex-direction: column;
+  gap: 0.5lh;
 }
 .card-details .card-details-header .card-details-watch {
-  font-size: 17px;
-  padding-left: 7px;
   color: #a6a6a6;
 }
 .card-details .card-details-header .card-details-title {
   font-weight: bold;
   font-size: 1.35em;
-  margin: 7px 0 0;
   padding: 0;
   display: inline-block;
   vertical-align: middle;
   line-height: 1.3;
   letter-spacing: 0.01em;
 }
+
+body.mobile-mode {
+  .card-details .card-details-header .card-details-title {
+    --overflow-lines: 2;
+    font-size: 0.8em;
+  }
+}
+
 .card-details .card-details-header .linked-card-location {
   font-style: italic;
   font-size: 1em;
@@ -342,283 +438,70 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-header .linked-card-location p {
   margin-bottom: 0;
 }
-.card-details .card-details-header form.inlined-form {
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-.card-details .card-details-header form.inlined-form .copied-tooltip {
-  padding: 0 10px;
-}
-.card-details .card-details-header .card-details-list {
-  font-size: 0.9em;
-  margin-bottom: 3px;
-}
-.card-details .card-details-header .card-details-list a.card-details-list-title {
-  font-weight: bold;
-}
-.card-details .card-details-header .card-details-list a.card-details-list-title.is-editable {
-  display: inline-block;
-  background: #e6e6e6;
-  border-radius: 3px;
-  padding: 0 5px;
-}
-.card-details .card-details-header .copied-tooltip {
-  margin-right: 10px;
-  padding: 10px;
-}
 .card-details .card-description i.fa.fa-pencil-square-o {
   float: right;
 }
 .card-details .card-description textarea {
-  min-height: 100px;
   resize: vertical;
+  min-height: 2lh;
 }
-.card-details .card-details-items {
+.card-details {
+  .card-details-items, .card-details-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3lh;
+  }
+  .card-details-item {
+    justify-content: end;
+    align-self: stretch;
+  }
+  .card-details-avatar-container {
+    display: flex;
+    justify-content: start;
+    gap: 0.5ch;
+  }
+}
+.card-details-item-labels-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12ch, auto));
+  grid-auto-rows: 1.5lh;
+  align-items: stretch;
+  justify-content: start;
+  gap: 1ch;
+}
+
+.card-details .subtask-container {
   display: flex;
-  flex-wrap: wrap;
-  margin: 15px 0;
-  gap: 0.5em;
-}
-.card-details .card-details-items .card-details-item {
-  margin-right: 0.5em;
-  flex-grow: 1;
-}
-.card-details .card-details-items .card-details-item:last-child {
-  margin-right: 0;
-}
-.card-details .card-details-items .card-details-item.card-details-item-labels {
-  display: block;
-  word-wrap: break-word;
-  max-width: 95%;
-}
-.card-details .card-details-items .card-details-item.card-details-item-members,
-.card-details .card-details-items .card-details-item.card-details-item-assignees,
-.card-details .card-details-items .card-details-item.card-details-item-customfield,
-.card-details .card-details-items .card-details-item.card-details-item-name {
-  display: block;
-  word-wrap: break-word;
-  max-width: 36%;
-}
-.card-details .card-details-items .card-details-item.card-details-item-creator,
-.card-details .card-details-items .card-details-item.card-details-item-received,
-.card-details .card-details-items .card-details-item.card-details-item-start,
-.card-details .card-details-items .card-details-item.card-details-item-due,
-.card-details .card-details-items .card-details-item.card-details-item-end {
-  display: block;
-  word-wrap: break-word;
-  max-width: 28%;
-}
-.card-details .card-details-items .card-details-item.custom-fields {
-  padding-left: 10px;
+  flex: 1;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1ch;
+  h2 {
+    margin: 0;
+  }
+  .subtask {
+    min-height: 1.5lh;
+  }
 }
 .card-details .card-details-item-title {
-  font-size: 16px;
   font-weight: bold;
   color: #4d4d4d;
+  display: flex;
+  align-items: center;
+  gap: 0.8ch;
+}
+
+.card-details .edit-card-details-description {
+  display: flex;
+  align-items: center;
+  gap: .5ch;
 }
 .card-details .activities {
   padding-top: 10px;
 }
-@media screen and (min-width: 801px) {
-  .card-details {
-    top: 97px;
-    left: calc(50% - (600px / 2));
-    width: 600px;
-    bottom: 0;
-    position: fixed;
-    resize: both;
-  }
-  
-  /* Override for mobile mode even on larger screens */
-  body.mobile-mode .card-details {
-    width: 100vw !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    resize: none !important;
-  }
-  
-  .card-details-maximized {
-    padding: 0;
-    flex-shrink: 0;
-    flex-basis: calc(100% - 20px);
-    will-change: flex-basis;
-    overflow-y: auto;
-    overflow-x: auto;
-    background: #f7f7f7;
-    border-radius: 0 0 3px 3px;
-    z-index: 100;
-    animation: flexGrowIn 0.1s;
-    box-shadow: 0 0 7px 0 #b3b3b3;
-    transition: flex-basis 0.1s;
-    box-sizing: border-box;
-    top: 97px;
-    left: 0px;
-    height: calc(100% - 100px);
-    width: calc(100% - 20px);
-    float: left;
-  }
-  .card-details-maximized .card-details-left {
-    float: left;
-    top: 60px;
-    left: 20px;
-    width: 47%;
-    border-right: solid 2px #dbdbdb;
-    padding-right: 10px;
-  }
-  .card-details-maximized .card-details-right {
-    position: absolute;
-    float: right;
-    left: 50%;
-    margin: 15px 0;
-  }
-  .card-details-maximized .card-details-header {
-    width: 100%;
-  }
-}
-input[type="text"].attachment-add-link-input {
-  float: left;
-  margin: 0 0 8px;
-  width: 80%;
-}
-input[type="submit"].attachment-add-link-submit {
-  float: left;
-  margin: 0 0 8px 4px;
-  padding: 6px 12px;
-  width: 18%;
-}
-@media screen and (max-width: 800px) {
-  .card-details {
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    transition: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    z-index: 100 !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-  }
-  
-  /* Ensure card details are above everything on mobile */
-  body.mobile-mode .card-details {
-    z-index: 100 !important;
-    width: 100vw !important;
-    left: 0 !important;
-    right: 0 !important;
-  }
-  .card-details .card-details-canvas {
-    width: 100%;
-    padding-left: 0px;
-    padding: 0 15px;
-  }
-  .card-details .card-details-header .close-card-details {
-    margin-right: 0px;
-    display: block !important;
-  }
-  .card-details .card-details-header .close-card-details-mobile-web {
-    display: block !important;
-    margin-right: 5px !important;
-  }
-  .card-details .card-details-header .card-mobile-desktop-toggle {
-    display: block !important;
-    margin-right: 5px !important;
-  }
-  .card-details .card-details-header .card-mobile-desktop-toggle {
-    display: block !important;
-    margin-right: 5px !important;
-  }
-  .card-details .card-details-header .card-details-menu {
-    margin-right: 40px;
-  }
-  .card-details .card-details-header .maximize-card-details {
-    margin-right: 40px;
-  }
-  .card-details .card-details-header .minimize-card-details {
-    margin-right: 40px;
-  }
-  .card-details-popup {
-    padding: 0px 10px;
-  }
-  .pop-over > .content-wrapper > .popup-container-depth-0 {
-    width: 100%;
-  }
-  .pop-over > .content-wrapper > .popup-container-depth-0 > .content {
-    width: calc(100% - 10px);
-  }
-  .pop-over > .content-wrapper > .popup-container-depth-0 > .content > .card-details-popup hr {
-    margin: 15px 0px;
-  }
-  .pop-over > .content-wrapper > .popup-container-depth-0 .card-details-header {
-    margin: 0;
-  }
-  /* iPhone mobile: enlarge header buttons and increase spacing */
-  body.mobile-mode.iphone-device .card-details .card-details-header {
-    padding-right: 16px;
-  }
-  body.mobile-mode.iphone-device .card-details .card-details-header .close-card-details,
-  body.mobile-mode.iphone-device .card-details .card-details-header .maximize-card-details,
-  body.mobile-mode.iphone-device .card-details .card-details-header .minimize-card-details,
-  body.mobile-mode.iphone-device .card-details .card-details-header .card-details-menu-mobile-web,
-  body.mobile-mode.iphone-device .card-details .card-details-header .card-copy-mobile-button,
-  body.mobile-mode.iphone-device .card-details .card-details-header .card-mobile-desktop-toggle,
-  body.mobile-mode.iphone-device .card-details .card-details-header .card-zoom-in,
-  body.mobile-mode.iphone-device .card-details .card-details-header .card-zoom-out {
-    font-size: 2em !important; /* 2x bigger */
-    padding: 0.3em !important;
-    margin-right: 0.75em !important; /* 2x space compared to default */
-    margin-left: 0 !important;
-  }
-  /* Avoid clipping of the close button on the right edge */
-  body.mobile-mode.iphone-device .card-details .card-details-header .close-card-details {
-    margin-right: 0.75em !important;
-  }
-  /* Enlarge the header title too */
-  body.mobile-mode.iphone-device .card-details .card-details-header .card-details-title {
-    font-size: 1.2em !important;
-    font-weight: bold;
-  }
-}
-
-/* Mobile mode styles - apply when body has mobile-mode class regardless of screen size */
-body.mobile-mode .card-details {
-  width: 100vw !important;
-  padding: 0px !important;
-  margin: 0px !important;
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  z-index: 100 !important;
-  height: 100vh !important;
-  max-height: 100vh !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  -webkit-overflow-scrolling: touch;
-}
 
 body.mobile-mode .card-details .card-details-canvas {
-  width: 100% !important;
-  padding: 0 15px !important;
-}
-
-body.mobile-mode .card-details .card-details-header .close-card-details,
-body.mobile-mode .card-details .card-details-header .close-card-details-mobile-web {
-  display: block !important;
+  padding: 0 !important;
 }
 .card-details-white {
   background: #fff !important;
@@ -727,16 +610,21 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .vote-title {
   display: flex;
   justify-content: space-between;
+  & + .viewer {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
   align-items: center;
 }
 .vote-title .js-edit-date {
   align-self: flex-start;
-  margin-left: 6px;
 }
 .vote-result {
   display: flex;
-  gap: 6px;
-}
+  gap: 0.5ch;
+  .card-label {
+    min-width: 5ch;
+  }
 .js-show-positive-votes {
   cursor: pointer;
 }
@@ -750,7 +638,6 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .poker-title .js-edit-date {
   align-self: flex-start;
-  margin-left: 6px;
 }
 .poker-result {
   display: flex;
@@ -837,24 +724,9 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .estimation-add {
   display: block;
   overflow: auto;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-.estimation-add input {
-  display: inline-block;
-  float: right;
-  margin: auto;
-  margin-right: 10px;
-  width: 100px;
-  border-radius: 2px;
-  padding: 3px 6px;
 }
 .estimation-add button {
   display: inline-block;
-  float: right;
-  margin: auto;
-  border-radius: 2px;
-  padding: 3px 10px;
 }
 .poker-card {
   width: 48px;
@@ -866,7 +738,6 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   box-sizing: border-box;
   padding: 5px;
   margin: 3px;
-  font-size: 20px;
   font-weight: bold;
   text-shadow: #2d2d2d 1px 1px 0;
   box-shadow: 0 0 5px #aaa;
@@ -889,4 +760,14 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   background-color: #e3f2fd !important;
   transform: scale(1.01);
   transition: all 0.2s ease;
+}
+
+.cardMorePopup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1lh;
+  .card-add-date {
+    display: flex;
+    gap: 0.5ch;
+  }
 }

@@ -1,7 +1,33 @@
-* {
-  -webkit-box-sizing: unset;
-  box-sizing: unset;
+/* Global variables that we can use to easily test and change layout
+Later it could be useful to use a CSS superset */
+/* this makes the property computable */
+@property --popup-margin {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
 }
+
+:root {
+  scroll-behavior: smooth;
+  --label-height: 1.7lh;
+  --header-scale: clamp(1rem, 1.333rem + -0.333vw, 1.3rem)
+  --popup-margin: 2vmax;
+
+  /* regarding fonts, this is one of the clearest I found: https://modern-fluid-typography.vercel.app/ */
+  &:has(body.desktop-mode) {
+    font-size: clamp(1rem, 1.68rem + -0.57vw, 1.4rem);
+    --quick-header-scale: clamp(0.8rem, 0.6rem + 0.4vw, 1.2rem);
+    --list-item-size: 1.2em;
+  }
+
+  &:has(body.mobile-mode) {
+    font-size: clamp(2.5rem, 3vw + 1.7rem, 3.5rem);
+    --quick-header-scale: 1.3em;
+    --header-scale: clamp(1rem, -0.5vw + 1.25rem, 1.125rem);
+    --list-item-size: 1.6em;
+  }
+}
+
 /* Fixed missing 'import nib' stylesheet reset and extra li bullet points
  * https://github.com/wekan/wekan/issues/4512#issuecomment-1129347536
  */
@@ -32,29 +58,26 @@ a:focus {
   color: unset;
   text-decoration: unset;
 }
+
 .badge {
-  display: unset;
-  min-width: unset;
-  padding: unset;
-  font-size: unset;
-  font-weight: unset;
-  line-height: unset;
-  color: unset;
-  text-align: unset;
-  white-space: unset;
-  vertical-align: unset;
-  background-color: unset;
-  border-radius: unset;
+  display: flex;
+  gap: 0 0.3ch;
+  align-items: center;
 }
+
+body {
+  /* changed programmatically on swimlane resizes, or e.g. when un-collapsed */
+  transition: height 0.2s ease-out, width 0.2s ease-out;
+}
+
 html,
 body,
 input,
 select,
 textarea,
 button {
-  font: clamp(14px, 2.5vw, 18px) Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  line-height: 1.4;
-  color: #4d4d4d;
+  font-family: Roboto, Poppins, "Helvetica Neue", "Liberation Sans", Arial, Helvetica, sans-serif;
+  color: hsl(0, 0%, 30%);
   /* Improve text rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -63,57 +86,73 @@ button {
   user-select: text;
 }
 html {
-  font-size: 100%;
   max-height: 100%;
   -webkit-user-select: text;
   user-select: text;
-
   -webkit-text-size-adjust: 100%;
-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior: none;
 
 }
 body {
   background: #dedede;
   margin: 0;
   position: relative;
-  z-index: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  /* iOS Safari fixes */
-  -webkit-overflow-scrolling: touch;
+  align-items: stretch;
+  justify-content: start;
+  /* height is auto; if set to 100vh, it prevents navbar to disappear on scroll... */
+  width: 100%;
+  /* Needs to be set on body and html. Feels ok to disable entirely as Wekan is really drag/scroll-heavy */
+  overscroll-behavior: none;
+  min-height: 100vh;
+  line-height: 1.4;
 }
 
-/* Mobile mode specific fixes for iOS Safari */
 body.mobile-mode {
-  overflow-x: hidden;
-  position: fixed;
   width: 100%;
-  height: 100vh;
-  /* Prevent iOS Safari bounce scroll */
-  overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
 }
 
 /* Ensure content area is scrollable in mobile mode */
 body.mobile-mode #content {
+  width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  height: calc(100vh - 48px);
 }
+
+/* Prevent scroll through popups */
+body:has(.pop-over:hover) {
+  overflow: hidden;
+}
+
+/* Some forms will need extra adjustement (removing margins, etc)
+but it worth it to let browsers take care of exact placement/sizing */
+.inlined-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.3lh;
+  width: 100%;
+}
+
 #content {
+  display: flex;
   position: relative;
   flex: 1;
   overflow-x: hidden;
+  margin-bottom: 1vh;
+  min-height: 100vh;
+  max-width: min(100%, 100vw);
 }
 #content .sk-spinner {
   margin-top: 30vh;
-}
-#content > .wrapper {
-  margin-top: 1vh;
-  padding: 2vh 2vw;
 }
 #modal {
   position: absolute;
@@ -157,25 +196,6 @@ body.mobile-mode #content {
 #modal .modal-content-wide .modal-close-btn {
   display: block;
   float: right;
-  font-size: clamp(18px, 4vw, 24px);
-}
-h1 {
-  font-size: clamp(18px, 4vw, 24px);
-  line-height: 1.2em;
-  margin: 0 0 1vh;
-}
-h2 {
-  font-size: clamp(16px, 3.5vw, 20px);
-  line-height: 1.2em;
-  margin: 0 0 0.8vh;
-}
-h3,
-h4,
-h5,
-h6 {
-  font-size: clamp(14px, 3vw, 18px);
-  line-height: 1.25em;
-  margin: 0 0 0.6vh;
 }
 .quiet,
 .quiet a {
@@ -226,7 +246,7 @@ p {
 }
 p a {
   text-decoration: underline;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 table,
 p {
@@ -250,13 +270,13 @@ blockquote {
   padding: 0 0 0 1vw;
 }
 hr {
-  height: 1px;
+  height: 0.2ch;
   border: 0;
   border: none;
   width: 100%;
   background: #dbdbdb;
   color: #dbdbdb;
-  margin: 2vh 0;
+  margin: 0.2lh 0;
   padding: 0;
 }
 table,
@@ -303,7 +323,7 @@ kbd {
   clear: both;
 }
 .hide {
-  display: none;
+  display: none !important;
 }
 .show {
   display: block;
@@ -337,8 +357,11 @@ kbd {
   padding-bottom: 0;
 }
 .wrapper {
-  width: calc(100% - 2vw);
-  margin: 0 auto;
+  margin: 0;
+  flex: 1;
+  width: auto;
+  height: fit-content;
+  display: grid;
 }
 .relative {
   position: relative;
@@ -369,8 +392,12 @@ kbd {
 .invisible {
   visibility: hidden;
 }
+.invisible-line {
+  height: 1.3lh;
+  visibility: hidden;
+}
 .wrapword {
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .grab {
   cursor: grab;
@@ -445,8 +472,39 @@ a:not(.disabled).is-active i.fa {
 }
 .viewer {
   min-height: 2.5vh;
-  display: block;
-  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  /* a tentative to get layout less dependant of content,
+  especially for small elements e.g. labels: the goal is that
+  content will be cut with `...` if too large (but will be fully
+  rendered in dedicated interfaces)
+
+  the classic technique is to use flex-basis, but it depends
+  on the parent not overflowing to get the right size; also,
+  specifying in terms of lines makes the browser act clever, by
+  fitting the available space and cutting after N lines, whatever
+  is the text's length */
+  min-width: 0;
+  p, ul {
+    margin: 0;
+    padding: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    /* See https: //css-tricks.com/line-clampin/,
+    it is widely supported and waiting standardization https: //caniuse.com/?search=-webkit-line-clamp */
+    display: -webkit-box !important;
+    /* 0 has no effect; ensures will not interfere unless asked */
+    -webkit-line-clamp: var(--overflow-lines, 0);
+    -webkit-box-orient: vertical;
+    -webkit-align-items: center;
+    /* grid properties apply */
+    align-content: center;
+    word-break: break-word;
+    white-space: normal;
+  }
 }
 .viewer table {
   word-wrap: normal;
@@ -481,6 +539,12 @@ a:not(.disabled).is-active i.fa {
   padding: 0;
   padding-top: 15px;
 }
+
+.basicTabs-container .tabs-list .tab-item {
+  /* where does templates_tabs.css come from? visible in
+  devtools but not in sources */
+  font-size: unset !important;
+}
 .no-scrollbars {
   scrollbar-width: none;
 }
@@ -495,133 +559,30 @@ a:not(.disabled).is-active i.fa {
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
-  #content {
-    margin: 1px 0px 0px 0px;
-    height: calc(100% - 0px);
-    /* Improve touch scrolling */
-    -webkit-overflow-scrolling: touch;
-  }
-  #content > .wrapper {
-    margin-top: 0px;
-    padding: 8px;
-  }
-  .wrapper {
-    height: calc(100% - 31px);
-    margin: 0px;
-    padding: 8px;
-  }
+
   .panel-default {
     width: 95vw;
     max-width: 95vw;
     margin: 0 auto;
   }
-  
+
   /* Improve touch targets */
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 44px;
     min-width: 44px;
     padding: 12px 16px;
-    font-size: 16px; /* Prevent zoom on iOS */
+     /* Prevent zoom on iOS */
     touch-action: manipulation;
   }
-  
+
   /* Form elements */
   input, select, textarea {
-    font-size: 16px; /* Prevent zoom on iOS */
+     /* Prevent zoom on iOS */
     padding: 12px;
     min-height: 44px;
     touch-action: manipulation;
   }
-  
-  /* Cards and lists */
-  .minicard {
-    min-height: 48px;
-    padding: 12px;
-    margin-bottom: 8px;
-    touch-action: manipulation;
-  }
-  
-  .list {
-    margin: 0 8px;
-    min-width: 280px;
-  }
-  
-  /* Board canvas */
-  .board-canvas {
-    padding: 0 8px 8px 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  /* Header mobile layout */
-  #header {
-    padding: 8px;
-    /* Keep top bar on a single row on small screens */
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  #header-quick-access {
-    /* Keep quick-access items in one row */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-  }
 
-  /* Hide elements that should move to the hamburger menu on mobile */
-  #header-quick-access .header-quick-access-list,
-  #header-quick-access #header-help {
-    display: none !important;
-  }
-
-  /* Show only the home icon (hide the trailing text) on mobile */
-  #header-quick-access .home-icon a {
-    display: inline-flex;
-    align-items: center;
-    max-width: 28px; /* enough to display the icon */
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  
-  /* Hide text in home icon on mobile, show only icon */
-  #header-quick-access .home-icon a span:not(.fa) {
-    display: none !important;
-  }
-  
-  /* Ensure proper spacing for mobile header elements */
-  #header-quick-access .zoom-controls {
-    margin-left: auto;
-    margin-right: 8px;
-  }
-  
-  .mobile-mode-toggle {
-    margin-right: 8px;
-  }
-  
-  #header-user-bar {
-    margin-left: auto;
-  }
-  
-  /* Ensure header elements don't wrap on very small screens */
-  #header-quick-access {
-    min-width: 0; /* Allow flexbox to shrink */
-  }
-  
-  /* Make sure logo doesn't take too much space on mobile */
-  #header-quick-access img {
-    max-height: 24px;
-    max-width: 120px;
-  }
-  
-  /* Ensure zoom controls are compact on mobile */
-  .zoom-controls .zoom-level {
-    padding: 4px 8px;
-    font-size: 12px;
-  }
-  
   /* Modal mobile optimization */
   #modal .modal-content,
   #modal .modal-content-wide {
@@ -632,29 +593,28 @@ a:not(.disabled).is-active i.fa {
     max-height: 90vh;
     overflow-y: auto;
   }
-  
+
   /* Table mobile optimization */
   table {
-    font-size: 14px;
+
     width: 100%;
     display: block;
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Admin panel mobile optimization */
   .setting-content .content-body {
     flex-direction: column;
     gap: 16px;
     padding: 8px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 100%;
-    order: 2;
   }
-  
+
   .setting-content .content-body .main-body {
     order: 1;
     min-height: 60vh;
@@ -663,139 +623,175 @@ a:not(.disabled).is-active i.fa {
   }
 }
 
+<<<<<<< HEAD
 /* Tablet devices (768px - 1024px) */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   #content > .wrapper {
     padding: 12px;
   }
-  
+
   .wrapper {
     padding: 12px;
   }
-  
+
   .panel-default {
     width: 90vw;
     max-width: 90vw;
   }
-  
+
   /* Touch-friendly but more compact */
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 48px;
     min-width: 48px;
     padding: 10px 14px;
   }
-  
+
   .minicard {
     min-height: 40px;
     padding: 10px;
   }
-  
+
   .list {
     margin: 0 12px;
     min-width: 300px;
   }
-  
+
   .board-canvas {
     padding: 0 12px 12px 0;
   }
-  
+
   #header {
     padding: 12px 16px;
   }
-  
+
   #modal .modal-content {
     width: 80vw;
     max-width: 600px;
   }
-  
+
   #modal .modal-content-wide {
     width: 90vw;
     max-width: 800px;
   }
-  
+
   .setting-content .content-body {
     gap: 20px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 250px;
   }
-  
+
   /* Responsive handling for quick-access description on tablets */
   #header-quick-access ul.header-quick-access-list li.current.empty {
     max-width: 300px;
   }
 }
+||||||| parent of 2e0149f79 (🚧 Remove zoom/mobile option, rework header/misc layout to be more responsive)
+/* Tablet devices (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  #content > .wrapper {
+    padding: 12px;
+  }
+
+  .wrapper {
+    padding: 12px;
+  }
+
+  .panel-default {
+    width: 90vw;
+    max-width: 90vw;
+  }
+
+  /* Touch-friendly but more compact */
+  button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 10px 14px;
+  }
+
+  .minicard {
+    min-height: 40px;
+    padding: 10px;
+  }
+
+  .list {
+    margin: 0 12px;
+    min-width: 300px;
+  }
+
+  .board-canvas {
+    padding: 0 12px 12px 0;
+  }
+
+  #header {
+    padding: 12px 16px;
+  }
+
+  #modal .modal-content {
+    width: 80vw;
+    max-width: 600px;
+  }
+
+  #modal .modal-content-wide {
+    width: 90vw;
+    max-width: 800px;
+  }
+
+  .setting-content .content-body {
+    gap: 20px;
+  }
+
+  .setting-content .content-body .side-menu {
+    width: 250px;
+  }
+}
+=======
+>>>>>>> 2e0149f79 (🚧 Remove zoom/mobile option, rework header/misc layout to be more responsive)
 
 /* Large displays and digital signage (1920px+) */
 @media screen and (min-width: 1920px) {
-  body {
-    font-size: 18px;
-  }
-  
-  button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
-    min-height: 56px;
-    min-width: 56px;
-    padding: 16px 20px;
-    font-size: 18px;
-  }
-  
-  .minicard {
-    min-height: 56px;
-    padding: 16px;
-    font-size: 18px;
-  }
-  
-  .list {
-    margin: 0 8px;
-    min-width: 360px;
-  }
-  
   .board-canvas {
     padding: 0;
   }
-  
+
   #header {
     padding: 0 8px;
   }
-  
+
   #content > .wrapper {
     padding: 0;
   }
-  
+
   #modal .modal-content {
     width: 600px;
   }
-  
+
   #modal .modal-content-wide {
     width: 1000px;
   }
-  
+
   .setting-content .content-body {
     gap: 32px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 320px;
   }
 }
-.inline-input {
-  height: 37px;
-  margin: 8px 10px 0 0;
-  width: 100px;
+
+.ui-sortable-handle {
+  cursor: grab !important;
 }
+
 .select-authentication {
   width: 100%;
 }
-.textBelowCustomLoginLogo,
-.auth-layout {
+#rescue-card-description {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.auth-layout .auth-dialog {
-  margin: 0 !important;
+  flex: 1 0 auto;
+  align-self: center;
+  margin: 0 0.2lh;
 }
 .loadingText {
   text-align: center;
@@ -882,8 +878,18 @@ a:not(.disabled).is-active i.fa {
   text-decoration: underline;
   text-decoration-color: #17683a;
 }
+/*
+Prevents popups to compute real size, trying to comment
 .at-pwd-form, .at-sep, .at-oauth {
   display: none;
+}*/
+
+#at-pwd-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+  gap: 0.3lh;
 }
 @-moz-keyframes fadeIn {
   from {
@@ -928,31 +934,19 @@ a:not(.disabled).is-active i.fa {
 
 /* iOS Safari Mobile Mode Fixes */
 @media screen and (max-width: 800px) {
-  /* Prevent scrolling issues on iOS Safari when card popup is open */
-  body.mobile-mode {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-  }
-  
   /* Fix z-index stacking for mobile Safari */
   body.mobile-mode .board-wrapper {
     z-index: 1;
   }
-  
-  body.mobile-mode .board-wrapper .board-canvas .board-overlay {
-    z-index: 17 !important;
-  }
-  
+
   body.mobile-mode .card-details {
     z-index: 100 !important;
   }
-  
+
   body.mobile-mode .pop-over {
     z-index: 999;
   }
-  
+
   /* Ensure smooth scrolling on iOS */
   body.mobile-mode .card-details,
   body.mobile-mode .pop-over .content-wrapper {

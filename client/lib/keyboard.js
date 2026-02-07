@@ -174,6 +174,7 @@ hotkeys(nums, (event, handler) => {
     return;
   }
   const board = ReactiveCache.getBoard(currentBoardId);
+  if (!board) {return}
   const labels = board.labels;
   if (MultiSelection.isActive() && ReactiveCache.getCurrentUser().isBoardMember()) {
     const cardIds = MultiSelection.getSelectedCardIds();

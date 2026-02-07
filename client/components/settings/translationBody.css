@@ -32,9 +32,6 @@ table tr:nth-child(even) {
 .ext-box button {
   min-width: 90px;
 }
-.content-wrapper {
-  margin-top: 10px;
-}
 .buttonsContainer {
   display: flex;
 }

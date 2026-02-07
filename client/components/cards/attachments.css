@@ -6,75 +6,80 @@
   font-weight: bold;
 }
 .attachment-gallery {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-auto-flow: row;
 }
 .attachment-item {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 10ch auto;
   align-items: center;
-  margin-top: 16px;
+  grid-template-rows: repeat(auto-fit, minmax(1.5lh, auto));
+  justify-content: stretch;
+  gap: 2ch;
+  padding: 2ch;
+  border-radius: 0.6ch;
 }
+
 .attachment-item:hover {
   background: #e0e0e0;
 }
-.attachment-thumbnail-container {
-  display: block;
-  width: 150px;
-  min-width: 150px;
-  max-height: 150px;
-  padding-right: 16px;
+
+.attachment-details-container {
+  display: flex;
+  flex: 1;
 }
+
+.attachment-thumbnail-container {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
 .attachment-thumbnail {
-  max-width: 150px;
-  max-height: 150px;
-  min-height: 2em;
+  /* more deterministic outcome */
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  max-width: 100%;
   cursor: pointer;
+  border-radius: 0.4ch;
 }
 .attachment-thumbnail-text {
-  min-height: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2em;
-  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  border-radius: 2px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.attachment-details-container {
-  display: block;
-  flex-grow: 1;
 }
 .attachment-details {
   display: flex;
-  justify-content: space-between;
-  margin-right: 25px; /* Make sure the icons are not to far to the right */
+  flex: 1;
+  gap: 0.5ch;
+  align-items: center;
 }
 .attachment-actions {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 1.5ch;
 }
-.attachment-actions a {
-  margin-left: 16px;
+
+body.mobile-mode .attachment-actions {
+  flex-direction: column;
+  gap: 0;
 }
-.attachment-actions a:first-child {
-  margin-left: 0;
-}
+
 .add-attachment {
+  border: 1px dashed #555;
+  border-radius: .5ch;
+  cursor: pointer;
+  aspect-ratio: 1/1;
+  height: 1.5lh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #555;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  margin-top: 16px;
 }
 .icon {
   font-size: 1.5em;
   cursor: pointer;
-  margin-left: 10px;
 }
 .icon:hover {
   color: #666;
@@ -95,26 +100,25 @@
   height: 100%;
 }
 #viewer-top-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: center;
+  justify-items: center;
+  font-size: 2rem;
+  padding: 0.3lh 0.5ch;
 }
 #attachment-name {
   color: white;
-  font-size: 1.5em;
-  max-width: calc(
-    100% - 50px
-  ); /* Make sure the name does not overlap the close button */
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 #viewer-close {
   color: white;
   cursor: pointer;
-  font-size: 4em;
   position: absolute;
   right: 50px;
   top: 16px;
+  font-size: 2em;
 }
 
 /* Upload progress indicators for drag-and-drop uploads */
@@ -122,30 +126,24 @@
 .card-details-upload-progress {
   background: #f8f9fa;
   border: 1px solid #e9ecef;
-  border-radius: 4px;
-  padding: 12px;
-  margin: 8px 0;
-  font-size: 14px;
+  border-radius: 0.4ch;
+
 }
 
 .upload-progress-header {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
   font-weight: bold;
   color: #495057;
 }
 
 .upload-progress-header i {
-  margin-right: 8px;
   color: #007bff;
 }
 
 .upload-progress-item {
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
-  padding: 8px;
   background: white;
   border-radius: 3px;
   border: 1px solid #dee2e6;
@@ -158,22 +156,17 @@
 
 .upload-progress-filename {
   font-weight: 500;
-  margin-bottom: 4px;
   color: #495057;
   word-break: break-all;
 }
 
 .upload-progress-bar {
-  width: 100%;
-  height: 6px;
   background: #e9ecef;
   border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 4px;
 }
 
 .upload-progress-fill {
-  height: 100%;
   background: linear-gradient(90deg, #007bff, #0056b3);
   transition: width 0.3s ease;
   border-radius: 3px;
@@ -187,7 +180,6 @@
 .upload-progress-success {
   display: flex;
   align-items: center;
-  font-size: 12px;
   font-weight: 500;
 }
 
@@ -197,47 +189,6 @@
 
 .upload-progress-success {
   color: #28a745;
-}
-
-.upload-progress-error i,
-.upload-progress-success i {
-  margin-right: 4px;
-}
-
-/* Minicard specific styles */
-.minicard-upload-progress {
-  margin: 4px 0;
-  padding: 8px;
-  font-size: 12px;
-}
-
-.minicard-upload-progress .upload-progress-item {
-  padding: 6px;
-  margin-bottom: 6px;
-}
-
-.minicard-upload-progress .upload-progress-filename {
-  font-size: 11px;
-}
-
-/* Card details specific styles */
-.card-details-upload-progress {
-  margin: 12px 0;
-  padding: 16px;
-}
-
-.card-details-upload-progress .upload-progress-header {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
-.card-details-upload-progress .upload-progress-item {
-  padding: 12px;
-  margin-bottom: 10px;
-}
-
-.card-details-upload-progress .upload-progress-filename {
-  font-size: 14px;
 }
 
 /* Drag over state for minicards */
@@ -256,7 +207,6 @@
   color: white;
   cursor: pointer;
   align-self: center;
-  margin: 0 20px;
 }
 #prev-attachment {
   font-size: 4em;
@@ -322,7 +272,6 @@
     position: absolute;
     bottom: 2.2em;
     font-size: 1.6em;
-    padding: 16px;
   }
   #prev-attachment {
     left: 0;
@@ -356,19 +305,10 @@
     margin-top: 20%;
     width: 100%;
   }
-  .attachment-thumbnail-container {
-    width: 100px;
-    min-width: 100px;
-  }
-  .attachment-thumbnail {
-    max-width: 100px;
-  }
   .attachment-details {
     flex-direction: column;
-    margin-right: 0px;
   }
   .attachment-actions {
     flex-direction: row;
-    margin-top: 10px;
   }
 }

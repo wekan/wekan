@@ -275,7 +275,7 @@ Template.commentReactions.events({
       cardComment.toggleReaction(codepoint);
     }
   },
-  'click .open-comment-reaction-popup': Popup.open('addReaction'),
+  'click .open-comment-reaction-popup': Popup.open('addReaction', {showHeader: false})
 })
 
 Template.addReactionPopup.events({
@@ -306,6 +306,11 @@ Template.addReactionPopup.helpers({
       '&#128522;',
       '&#129300;',
       '&#128532;'];
+  },
+  hasUserReacted(codepoint) {
+    const commentId = Template.instance().data.commentId;
+    const cardComment = ReactiveCache.getCardComment(commentId);
+    return cardComment.hasUserReacted(codepoint);
   }
 })
 

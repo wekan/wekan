@@ -108,10 +108,7 @@ BlazeComponent.extendComponent({
     const newTree = EJSON.clone(tree);
 
     // Remove the dragged space
-    const { tree: treeAfterRemoval, removed } = removeSpace(
-      newTree,
-      draggedSpaceId,
-    );
+    const { tree: treeAfterRemoval, removed } = removeSpace(newTree, draggedSpaceId);
 
     if (removed) {
       // Insert after target
@@ -127,46 +124,39 @@ BlazeComponent.extendComponent({
   onRendered() {
     // jQuery sortable is disabled in favor of HTML5 drag-and-drop for space management
     // The old sortable code has been removed to prevent conflicts
-    /* OLD SORTABLE CODE - DISABLED
-    const itemsSelector = '.js-board:not(.placeholder)';
 
-    const $boards = this.$('.js-boards');
-    $boards.sortable({
-      connectWith: '.js-boards',
-      tolerance: 'pointer',
-      appendTo: '.board-list',
-      helper: 'clone',
-      distance: 7,
-      items: itemsSelector,
-      placeholder: 'board-wrapper placeholder',
-      start(evt, ui) {
-        ui.helper.css('z-index', 1000);
-        ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup-close');
-      },
-      async stop(evt, ui) {
-        const prevBoardDom = ui.item.prev('.js-board').get(0);
-        const nextBoardDom = ui.item.next('.js-board').get(0);
-        const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardDom, 1);
+    // #FIXME OLD SORTABLE CODE - WILL BE DISABLED
+    //
+    // const itemsSelector = '.js-board';
 
-        const boardDomElement = ui.item.get(0);
-        const board = Blaze.getData(boardDomElement);
-        $boards.sortable('cancel');
-        const currentUser = ReactiveCache.getCurrentUser();
-        if (currentUser && typeof currentUser.setBoardSortIndex === 'function') {
-          await currentUser.setBoardSortIndex(board._id, sortIndex.base);
-        }
-      },
-    });
+    // const $boards = this.$('.js-boards');
+    // $boards.sortable({
+    //   connectWith: '.js-boards',
+    //   tolerance: 'pointer',
+    //   appendTo: '.board-list',
+    //   helper: 'clone',
+    //   distance: 7,
+    //   items: itemsSelector,
+    //   placeholder: 'board-wrapper placeholder',
+    //   start(evt, ui) {
+    //     ui.helper.css('z-index', 1000);
+    //     ui.placeholder.height(ui.helper.height());
+    //     EscapeActions.executeUpTo('popup-close');
+    //   },
+    //   async stop(evt, ui) {
+    //     const prevBoardDom = ui.item.prev('.js-board').get(0);
+    //     const nextBoardDom = ui.item.next('.js-board').get(0);
+    //     const sortIndex = Utils.calculateIndex(prevBoardDom, nextBoardDom, 1);
 
-    this.autorun(() => {
-      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-        $boards.sortable({
-          handle: '.board-handle',
-        });
-      }
-    });
-    */
+    //     const boardDomElement = ui.item.get(0);
+    //     const board = Blaze.getData(boardDomElement);
+    //     $boards.sortable('cancel');
+    //     const currentUser = ReactiveCache.getCurrentUser();
+    //     if (currentUser && typeof currentUser.setBoardSortIndex === 'function') {
+    //       await currentUser.setBoardSortIndex(board._id, sortIndex.base);
+    //     }
+    //   },
+    // });
   },
   userHasTeams() {
     if (ReactiveCache.getCurrentUser()?.teams?.length > 0) return true;
@@ -357,7 +347,7 @@ BlazeComponent.extendComponent({
     const lists = ReactiveCache.getLists({ 'boardId': boardId, 'archived': false },{sort: ['sort','asc']});
     const ret = lists.map(list => {
       let cardCount = ReactiveCache.getCards({ 'boardId': boardId, 'listId': list._id }).length;
-      return `${list.title}: ${cardCount}`;
+      return `${list.title}: ${cardCountcardCount}`;
     });
     return ret;
     */
@@ -535,6 +525,7 @@ BlazeComponent.extendComponent({
         'click .js-multiselection-reset'(evt) {
           evt.preventDefault();
           BoardMultiSelection.disable();
+          Popup.close();
         },
         'click .js-toggle-board-multi-selection'(evt) {
           evt.preventDefault();
@@ -708,6 +699,7 @@ BlazeComponent.extendComponent({
                 icon: newIcon || '📁',
               });
 
+
               Meteor.call('setWorkspacesTree', updatedTree, (err) => {
                 if (err) console.error(err);
               });
@@ -808,6 +800,7 @@ BlazeComponent.extendComponent({
             // Get the workspace ID directly from the dropped workspace-node's data-workspace-id attribute
             const workspaceId = targetEl.getAttribute('data-workspace-id');
 
+
             if (workspaceId) {
               if (isMultiBoard) {
                 // Multi-board drag
@@ -830,6 +823,7 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           evt.stopPropagation();
 
+
           const menuType = evt.currentTarget.getAttribute('data-type');
           // Only allow drop on "remaining" menu to unassign boards from spaces
           if (menuType === 'remaining') {
@@ -844,8 +838,10 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           evt.stopPropagation();
 
+
           const menuType = evt.currentTarget.getAttribute('data-type');
           evt.currentTarget.classList.remove('drag-over');
+
 
           // Only handle drops on "remaining" menu
           if (menuType !== 'remaining') return;
@@ -907,6 +903,7 @@ BlazeComponent.extendComponent({
       ],
     };
     const allBoards = ReactiveCache.getBoards(query, {});
+
 
     if (type === 'starred') {
       return allBoards.filter(

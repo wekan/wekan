@@ -48,8 +48,9 @@ template(name='homeSidebar')
   hr
   if currentUser.isBoardAdmin
     h3.activity-title
-      i.fa.fa-comment-o
-      | {{_ 'activities'}}
+      span
+        i.fa.fa-comment-o
+        span {{_ 'activities'}}
 
       a.flex.js-toggle-show-activities(title="{{_ 'show-activities'}}")
         i.fa(class="{{#if showActivities}}fa-check{{else}}fa-square-o{{/if}}")
@@ -60,7 +61,7 @@ template(name="membersWidget")
   unless currentUser.isCommentOnly
     unless currentUser.isWorker
       h3
-        a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
+        a.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
           i.fa.fa-cog
           | {{_ 'boardMenuPopup-title'}}
   hr
@@ -161,7 +162,7 @@ template(name="boardChangeBackgroundImagePopup")
   form
     label
       | {{_ 'board-background-image-url'}}
-      input.js-board-background-image-url(type="text" value="{{backgroundImageURL}}" autofocus)
+      input.js-board-background-image-url(type="text" value="{{backgroundImageURL}}" )
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
     br
@@ -307,7 +308,7 @@ template(name="boardCardSettingsPopup")
       .card-settings-column
         span
           i.fa.fa-user
-          | ➕
+          i.fa.fa-plus
           | {{_ 'requested-by'}}
     .card-settings-row
       .card-settings-column
@@ -635,6 +636,10 @@ template(name="boardMenuPopup")
           a.js-archive-board
             i.fa.fa-archive
             | {{_ 'archive-board'}}
+  //- this popup is the only one to not open
+  //- with correct size; related to issue linked above ?
+  //- artificially add a bit a space
+  div.invisible-line
 
 template(name="exportBoard")
   ul.pop-over-list

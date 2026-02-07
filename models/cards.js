@@ -1,24 +1,24 @@
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-import { 
-  formatDateTime, 
-  formatDate, 
-  formatTime, 
-  getISOWeek, 
-  isValidDate, 
-  isBefore, 
-  isAfter, 
-  isSame, 
-  add, 
-  subtract, 
-  startOf, 
-  endOf, 
-  format, 
-  parseDate, 
-  now, 
-  createDate, 
-  fromNow, 
-  calendar 
+import {
+  formatDateTime,
+  formatDate,
+  formatTime,
+  getISOWeek,
+  isValidDate,
+  isBefore,
+  isAfter,
+  isSame,
+  add,
+  subtract,
+  startOf,
+  endOf,
+  format,
+  parseDate,
+  now,
+  createDate,
+  fromNow,
+  calendar
 } from '/imports/lib/dateUtils';
 import {
   ALLOWED_COLORS,
@@ -2682,16 +2682,21 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
 }
 
 function cardCreation(userId, doc) {
+  // For any reason some special cards also have
+  // special data, e.g. linked cards who have list/swimlane ID
+  // being their own ID
+  const list = ReactiveCache.getList(doc.listId);
+  const swim = ReactiveCache.getSwimlane(doc.listId);
   Activities.insert({
     userId,
     activityType: 'createCard',
     boardId: doc.boardId,
-    listName: ReactiveCache.getList(doc.listId).title,
-    listId: doc.listId,
+    listName: list?.title,
+    listId: list ? doc.listId : undefined,
     cardId: doc._id,
     cardTitle: doc.title,
-    swimlaneName: ReactiveCache.getSwimlane(doc.swimlaneId).title,
-    swimlaneId: doc.swimlaneId,
+    swimlaneName: swim?.title,
+    swimlaneId: swim ? doc.swimlaneId : undefined,
   });
 }
 
@@ -4294,10 +4299,10 @@ Cards.helpers({
   hasMovedFromOriginalPosition() {
     const history = this.getOriginalPosition();
     if (!history) return false;
-    
+
     const currentSwimlaneId = this.swimlaneId || null;
     const currentListId = this.listId || null;
-    
+
     return history.originalPosition.sort !== this.sort ||
            history.originalSwimlaneId !== currentSwimlaneId ||
            history.originalListId !== currentListId;
@@ -4309,12 +4314,12 @@ Cards.helpers({
   getOriginalPositionDescription() {
     const history = this.getOriginalPosition();
     if (!history) return 'No original position data';
-    
-    const swimlaneInfo = history.originalSwimlaneId ? 
-      ` in swimlane ${history.originalSwimlaneId}` : 
+
+    const swimlaneInfo = history.originalSwimlaneId ?
+      ` in swimlane ${history.originalSwimlaneId}` :
       ' in default swimlane';
-    const listInfo = history.originalListId ? 
-      ` in list ${history.originalListId}` : 
+    const listInfo = history.originalListId ?
+      ` in list ${history.originalListId}` :
       '';
     return `Original position: ${history.originalPosition.sort || 0}${swimlaneInfo}${listInfo}`;
   },
