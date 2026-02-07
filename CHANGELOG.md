@@ -38,6 +38,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Added missing linefeeds](https://github.com/wekan/wekan/commit/0ae9865fcbad42966988225393fa66bca49cf14e).
   Thanks to xet7.
+- [Fix Notifications from not allowed Boards](https://github.com/wekan/wekan/commit/0a92e896f8d2cf0677891857d163ada336a45c61).
+  Thanks to FK-PATZ3 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
