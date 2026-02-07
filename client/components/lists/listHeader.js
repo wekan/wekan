@@ -403,7 +403,7 @@ BlazeComponent.extendComponent({
     );
 
     // FIXME(mark-i-m): where do we put constants?
-    if (width < 100 || !width || constraint < 100 || !constraint) {
+    if (width < 270 || !width || constraint < 270 || !constraint) {
       Template.instance()
         .$('.list-width-error')
         .click();

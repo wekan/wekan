@@ -290,7 +290,7 @@ BlazeComponent.extendComponent({
     let isResizing = false;
     let startX = 0;
     let startWidth = 0;
-    let minWidth = 100; // Minimum width as defined in the existing code
+    let minWidth = 270; // Minimum width matching system default
     let listConstraint = this.listConstraint(); // Store constraint value for use in event handlers
     const component = this; // Store reference to component for use in event handlers
 
