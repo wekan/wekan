@@ -1,5 +1,7 @@
 import {addGroupsWithAttributes, addEmail, changeFullname, changeUsername} from './loginHandler';
 import { fetch, Headers } from 'meteor/fetch';
+import { URLSearchParams } from 'meteor/url';
+import { Buffer } from 'node:buffer';
 import https from 'https';
 import fs from 'fs';
 
