@@ -660,14 +660,14 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
    *           title: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getLists({ boardId: paramBoardId, archived: false }).map(
+        data: (await ReactiveCache.getLists({ boardId: paramBoardId, archived: false })).map(
           function(doc) {
             return {
               _id: doc._id,
@@ -692,7 +692,7 @@ if (Meteor.isServer) {
    * @param {string} listId the List ID
    * @return_type Lists
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function(
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', async function(
     req,
     res,
   ) {
@@ -702,7 +702,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getList({
+        data: await ReactiveCache.getList({
           _id: paramListId,
           boardId: paramBoardId,
           archived: false,

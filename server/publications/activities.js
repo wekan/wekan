@@ -35,15 +35,16 @@ Meteor.publish('activities', async function(kind, id, limit, showActivities) {
     }
 
     // Get linked boards, but only those visible to the user
-    (await ReactiveCache.getCards({
+    const linkedCards = await ReactiveCache.getCards({
       "type": "cardType-linkedBoard",
       "boardId": id
-    })).forEach(async card => {
+    });
+    for (const card of linkedCards) {
       const linkedBoard = await ReactiveCache.getBoard(card.linkedId);
       if (linkedBoard && linkedBoard.isVisibleBy(this.userId)) {
         linkedElmtId.push(card.linkedId);
       }
-    });
+    }
   } else if (kind === 'card') {
     const card = await ReactiveCache.getCard(id);
     if (!card) {
