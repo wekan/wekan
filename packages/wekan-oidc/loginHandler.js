@@ -1,11 +1,11 @@
 // creates Object if not present in collection
 // initArr = [displayName, shortName, website, isActive]
 // objString = ["Org","Team"] for method mapping
-function createObject(initArr, objString)
+async function createObject(initArr, objString)
 {
   functionName = objString === "Org" ? 'setCreateOrgFromOidc' : 'setCreateTeamFromOidc';
   creationString = 'setCreate'+ objString + 'FromOidc';
-  return Meteor.call(functionName,
+  return await Meteor.callAsync(functionName,
     initArr[0],//displayName
     initArr[1],//desc
     initArr[2],//shortName
@@ -13,10 +13,10 @@ function createObject(initArr, objString)
     initArr[4]//xxxisActive
     );
 }
-function updateObject(initArr, objString)
+async function updateObject(initArr, objString)
 {
   functionName = objString === "Org" ? 'setOrgAllFieldsFromOidc' : 'setTeamAllFieldsFromOidc';
-  return Meteor.call(functionName,
+  return await Meteor.callAsync(functionName,
     initArr[0],//team || org Object
     initArr[1],//displayName
     initArr[2],//desc
@@ -82,13 +82,13 @@ addGroupsWithAttributes: async function (user, groups){
         if(contains(orgs, org, "org"))
         {
           initAttributes.unshift(org);
-          updateObject(initAttributes, "Org");
+          await updateObject(initAttributes, "Org");
           continue;
         }
       }
       else if(forceCreate)
       {
-        createObject(initAttributes, "Org");
+        await createObject(initAttributes, "Org");
         org = await Org.findOneAsync({'orgDisplayName': group.displayName});
       }
       else
@@ -108,13 +108,13 @@ addGroupsWithAttributes: async function (user, groups){
         if(contains(teams, team, "team"))
         {
           initAttributes.unshift(team);
-          updateObject(initAttributes, "Team");
+          await updateObject(initAttributes, "Team");
           continue;
         }
       }
       else if(forceCreate)
       {
-        createObject(initAttributes, "Team");
+        await createObject(initAttributes, "Team");
         team = await Team.findOneAsync({'teamDisplayName': group.displayName});
       }
       else
