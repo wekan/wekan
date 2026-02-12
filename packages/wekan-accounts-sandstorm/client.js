@@ -86,7 +86,7 @@ function loginWithSandstorm(connection, apiHost, apiToken) {
   var sendXhr = function () {
     if (!waiting) return;  // Method call finished.
 
-    headers = {"Content-Type": "application/x-sandstorm-login-token"};
+    var headers = {"Content-Type": "application/x-sandstorm-login-token"};
 
     var testInfo = localStorage.sandstormTestUserInfo;
     if (testInfo) {

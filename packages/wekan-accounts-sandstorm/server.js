@@ -43,10 +43,6 @@ if (__meteor_runtime_config__.SANDSTORM) {
     });
   }
 
-  var inMeteor = Meteor.bindEnvironment(function (callback) {
-    callback();
-  });
-
   var logins = {};
   // Maps tokens to currently-waiting login method calls.
 
@@ -179,8 +175,8 @@ if (__meteor_runtime_config__.SANDSTORM) {
         if (sandstormInfo.id) {
           // The user is logged into Sandstorm. Create a Meteor account for them, or find the
           // existing one, and record the user ID.
-          var login = Package["accounts-base"].Accounts.updateOrCreateUserFromExternalService(
-            "sandstorm", sandstormInfo, {profile: {name: sandstormInfo.name}});
+          var login = await Package["accounts-base"].Accounts.updateOrCreateUserFromExternalService(
+              "sandstorm", sandstormInfo, {profile: {name: sandstormInfo.name}});
           userInfo.userId = login.userId;
         } else {
           userInfo.userId = null;
