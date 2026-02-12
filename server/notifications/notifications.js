@@ -31,7 +31,7 @@ Notifications = {
   notify: (user, title, description, params) => {
     // Skip if user is invalid
     if (!user || !user._id) return;
-    
+
     for (const k in notifyServices) {
       const notifyImpl = notifyServices[k];
       if (notifyImpl && typeof notifyImpl === 'function')

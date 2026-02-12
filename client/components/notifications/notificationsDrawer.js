@@ -36,7 +36,7 @@ Template.notificationsDrawer.events({
   },
   'click .notification-menu .menu-item'(event) {
     const target = event.currentTarget;
-    
+
     if (target.classList.contains('mark-all-read')) {
       const notifications = ReactiveCache.getCurrentUser().profile.notifications;
       for (const index in notifications) {

@@ -27,7 +27,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
    */
   setOption(boardId) {
     super.setOption(boardId);
-    
+
     // Also set cardId if available
     if (this.cardOption && this.cardOption.cardId) {
       this.selectedCardId.set(this.cardOption.cardId);
@@ -37,8 +37,9 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
   /** returns all available cards of the current list */
   cards() {
     const list = ReactiveCache.getList({_id: this.selectedListId.get(), boardId: this.selectedBoardId.get()});
-    if (list) {
-      return list.cards();
+    const swimlaneId = this.selectedSwimlaneId.get();
+    if (list && swimlaneId) {
+      return list.cards(swimlaneId).sort((a, b) => a.sort - b.sort);
     } else {
       return [];
     }
@@ -69,7 +70,7 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
 
           // reset list id
           self.setFirstListId();
-          
+
           // reset card id
           self.selectedCardId.set('');
         }
@@ -112,11 +113,15 @@ export class DialogWithBoardSwimlaneListCard extends DialogWithBoardSwimlaneList
         },
         'change .js-select-swimlanes'(event) {
           this.selectedSwimlaneId.set($(event.currentTarget).val());
+          this.setFirstListId();
         },
         'change .js-select-lists'(event) {
           this.selectedListId.set($(event.currentTarget).val());
           // Reset card selection when list changes
           this.selectedCardId.set('');
+        },
+        'change .js-select-cards'(event) {
+          this.selectedCardId.set($(event.currentTarget).val());
         },
       },
     ];

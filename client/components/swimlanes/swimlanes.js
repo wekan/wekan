@@ -78,13 +78,7 @@ function saveSorting(ui) {
   }
   // Allow reordering within the same swimlane by not canceling the sortable
 
-  try {
-    Lists.update(list._id, {
-      $set: updateData,
-    });
-  } catch (error) {
-    return;
-  }
+  // Do not update the restricted collection on the client; rely on the server method below.
 
   // Save to localStorage for non-logged-in users (backup)
   if (!Meteor.userId()) {
@@ -366,11 +360,9 @@ BlazeComponent.extendComponent({
       const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
         ? '.js-list-handle'
         : '.js-list-header';
-      const $lists = this.$('.js-list');
+      const $parent = this.$('.js-lists');
 
-      const $parent = $lists.parent();
-
-      if ($lists.length > 0) {
+      if ($parent.length > 0) {
 
         // Check for drag handles
         const $handles = $parent.find('.js-list-handle');
@@ -391,6 +383,7 @@ BlazeComponent.extendComponent({
           distance: 7,
           handle: handleSelector,
           disabled: !Utils.canModifyBoard(),
+          dropOnEmpty: true,
           start(evt, ui) {
             ui.helper.css('z-index', 1000);
             ui.placeholder.height(ui.helper.height());
@@ -412,7 +405,6 @@ BlazeComponent.extendComponent({
             try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
           }
         });
-      } else {
       }
     }, 100);
   },
@@ -730,6 +722,7 @@ BlazeComponent.extendComponent({
             let sortIndex = 0;
             const lastList = this.currentBoard.getLastList();
             const boardId = Utils.getCurrentBoardId();
+            let swimlaneId = this.currentSwimlane._id;
 
             const positionInput = this.find('.list-position-input');
 
@@ -739,6 +732,9 @@ BlazeComponent.extendComponent({
 
               if (selectedList) {
                 sortIndex = selectedList.sort + 1;
+                // Use the swimlane ID from the selected list to ensure the new list
+                // is added to the same swimlane as the selected list
+                swimlaneId = selectedList.swimlaneId;
               } else {
                 sortIndex = Utils.calculateIndexData(lastList, null).base;
               }
@@ -751,7 +747,7 @@ BlazeComponent.extendComponent({
               boardId: Session.get('currentBoard'),
               sort: sortIndex,
               type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
-              swimlaneId: this.currentSwimlane._id, // Always set swimlaneId for per-swimlane list titles
+              swimlaneId: swimlaneId, // Always set swimlaneId for per-swimlane list titles
             });
 
             titleInput.value = '';
@@ -805,6 +801,7 @@ setTimeout(() => {
         distance: 7,
         handle: computeHandle(),
         disabled: !Utils.canModifyBoard(),
+        dropOnEmpty: true,
         start(evt, ui) {
           ui.helper.css('z-index', 1000);
           ui.placeholder.height(ui.helper.height());
@@ -896,13 +893,7 @@ setTimeout(() => {
           }
           // Allow reordering within the same swimlane by not canceling the sortable
 
-          try {
-            Lists.update(list._id, {
-              $set: updateData,
-            });
-          } catch (error) {
-            return;
-          }
+          // Do not update the restricted collection on the client; rely on the server method below.
 
           // Save to localStorage for non-logged-in users (backup)
           if (!Meteor.userId()) {
@@ -1022,7 +1013,8 @@ BlazeComponent.extendComponent({
 
       const $parent = $lists.parent();
 
-      if ($lists.length > 0) {
+      // Initialize sortable even if there are no lists (to allow dropping into empty swimlanes)
+      if ($parent.hasClass('js-lists')) {
 
         // Check for drag handles
         const $handles = $parent.find('.js-list-handle');
@@ -1043,6 +1035,7 @@ BlazeComponent.extendComponent({
           distance: 7,
           handle: handleSelector,
           disabled: !Utils.canModifyBoard(),
+          dropOnEmpty: true,
           start(evt, ui) {
             ui.helper.css('z-index', 1000);
             ui.placeholder.height(ui.helper.height());
@@ -1063,7 +1056,6 @@ BlazeComponent.extendComponent({
             try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
           }
         });
-      } else {
       }
     }, 100);
   },

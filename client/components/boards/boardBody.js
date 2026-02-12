@@ -242,6 +242,16 @@ BlazeComponent.extendComponent({
             setTimeout(function () {
               focusFirstInteractive(node);
             }, 10);
+    const popupObserver = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+          if (node.nodeType === 1 &&
+              (node.classList.contains('popup') || node.classList.contains('modal') || node.classList.contains('menu')) &&
+              !node.closest('.js-swimlanes') &&
+              !node.closest('.swimlane') &&
+              !node.closest('.list') &&
+              !node.closest('.minicard')) {
+            setTimeout(function() { focusFirstInteractive(node); }, 10);
           }
         });
       });

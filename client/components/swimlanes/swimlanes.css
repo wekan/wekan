@@ -109,12 +109,13 @@
 .swimlane .swimlane-header-wrap .swimlane-header-plus-icon {
   top: calc(50% + 6px);
   padding: 5px;
+  margin-left: 20px;
   font-size: 22px;
   color: #a6a6a6;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
   top: calc(50% + 6px);
-  padding: 5px;
+  padding-left: 5px;
   font-size: 22px;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-handle {

@@ -18,44 +18,44 @@ AttachmentStorageSettings.attachSchema(
       defaultValue: STORAGE_NAME_FILESYSTEM,
       label: 'Default Storage Backend'
     },
-    
+
     // Storage backend configuration
     storageConfig: {
       type: Object,
       optional: true,
       label: 'Storage Configuration'
     },
-    
+
     'storageConfig.filesystem': {
       type: Object,
       optional: true,
       label: 'Filesystem Configuration'
     },
-    
+
     'storageConfig.filesystem.enabled': {
       type: Boolean,
       defaultValue: true,
       label: 'Filesystem Storage Enabled'
     },
-    
+
     'storageConfig.filesystem.path': {
       type: String,
       optional: true,
       label: 'Filesystem Storage Path'
     },
-    
+
     'storageConfig.gridfs': {
       type: Object,
       optional: true,
       label: 'GridFS Configuration'
     },
-    
+
     'storageConfig.gridfs.enabled': {
       type: Boolean,
       defaultValue: true,
       label: 'GridFS Storage Enabled'
     },
-    
+
     // DISABLED: S3 storage configuration removed due to Node.js compatibility
     /*
     'storageConfig.s3': {
@@ -63,81 +63,81 @@ AttachmentStorageSettings.attachSchema(
       optional: true,
       label: 'S3 Configuration'
     },
-    
+
     'storageConfig.s3.enabled': {
       type: Boolean,
       defaultValue: false,
       label: 'S3 Storage Enabled'
     },
-    
+
     'storageConfig.s3.endpoint': {
       type: String,
       optional: true,
       label: 'S3 Endpoint'
     },
-    
+
     'storageConfig.s3.bucket': {
       type: String,
       optional: true,
       label: 'S3 Bucket'
     },
-    
+
     'storageConfig.s3.region': {
       type: String,
       optional: true,
       label: 'S3 Region'
     },
-    
+
     'storageConfig.s3.sslEnabled': {
       type: Boolean,
       defaultValue: true,
       label: 'S3 SSL Enabled'
     },
-    
+
     'storageConfig.s3.port': {
       type: Number,
       defaultValue: 443,
       label: 'S3 Port'
     },
     */
-    
+
     // Upload settings
     uploadSettings: {
       type: Object,
       optional: true,
       label: 'Upload Settings'
     },
-    
+
     'uploadSettings.maxFileSize': {
       type: Number,
       optional: true,
       label: 'Maximum File Size (bytes)'
     },
-    
+
     'uploadSettings.allowedMimeTypes': {
       type: Array,
       optional: true,
       label: 'Allowed MIME Types'
     },
-    
+
     'uploadSettings.allowedMimeTypes.$': {
       type: String,
       label: 'MIME Type'
     },
-    
+
     // Migration settings
     migrationSettings: {
       type: Object,
       optional: true,
       label: 'Migration Settings'
     },
-    
+
     'migrationSettings.autoMigrate': {
       type: Boolean,
       defaultValue: false,
       label: 'Auto Migrate to Default Storage'
     },
-    
+
     'migrationSettings.batchSize': {
       type: Number,
       defaultValue: 10,
@@ -145,7 +145,7 @@ AttachmentStorageSettings.attachSchema(
       max: 100,
       label: 'Migration Batch Size'
     },
-    
+
     'migrationSettings.delayMs': {
       type: Number,
       defaultValue: 1000,
@@ -153,7 +153,7 @@ AttachmentStorageSettings.attachSchema(
       max: 10000,
       label: 'Migration Delay (ms)'
     },
-    
+
     'migrationSettings.cpuThreshold': {
       type: Number,
       defaultValue: 70,
@@ -161,7 +161,7 @@ AttachmentStorageSettings.attachSchema(
       max: 90,
       label: 'CPU Threshold (%)'
     },
-    
+
     // Metadata
     createdAt: {
       type: Date,
@@ -176,7 +176,7 @@ AttachmentStorageSettings.attachSchema(
       },
       label: 'Created At'
     },
-    
+
     updatedAt: {
       type: Date,
       autoValue() {
@@ -186,13 +186,13 @@ AttachmentStorageSettings.attachSchema(
       },
       label: 'Updated At'
     },
-    
+
     createdBy: {
       type: String,
       optional: true,
       label: 'Created By'
     },
-    
+
     updatedBy: {
       type: String,
       optional: true,
@@ -207,11 +207,11 @@ AttachmentStorageSettings.helpers({
   getDefaultStorage() {
     return this.defaultStorage || STORAGE_NAME_FILESYSTEM;
   },
-  
+
   // Check if storage backend is enabled
   isStorageEnabled(storageName) {
     if (!this.storageConfig) return false;
-    
+
     switch (storageName) {
       case STORAGE_NAME_FILESYSTEM:
         return this.storageConfig.filesystem?.enabled !== false;
@@ -224,11 +224,11 @@ AttachmentStorageSettings.helpers({
         return false;
     }
   },
-  
+
   // Get storage configuration
   getStorageConfig(storageName) {
     if (!this.storageConfig) return null;
-    
+
     switch (storageName) {
       case STORAGE_NAME_FILESYSTEM:
         return this.storageConfig.filesystem;
@@ -241,12 +241,12 @@ AttachmentStorageSettings.helpers({
         return null;
     }
   },
-  
+
   // Get upload settings
   getUploadSettings() {
     return this.uploadSettings || {};
   },
-  
+
   // Get migration settings
   getMigrationSettings() {
     return this.migrationSettings || {};
@@ -268,7 +268,7 @@ if (Meteor.isServer) {
       }
 
       let settings = AttachmentStorageSettings.findOne({});
-      
+
       if (!settings) {
         // Create default settings
         settings = {
@@ -299,14 +299,14 @@ if (Meteor.isServer) {
           createdBy: this.userId,
           updatedBy: this.userId
         };
-        
+
         AttachmentStorageSettings.insert(settings);
         settings = AttachmentStorageSettings.findOne({});
       }
-      
+
       return settings;
     },
-    
+
     'updateAttachmentStorageSettings'(settings) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
@@ -320,7 +320,7 @@ if (Meteor.isServer) {
       // Validate settings
       const schema = AttachmentStorageSettings.simpleSchema();
       schema.validate(settings);
-      
+
       // Update settings
       const result = AttachmentStorageSettings.upsert(
         {},
@@ -332,10 +332,10 @@ if (Meteor.isServer) {
           }
         }
       );
-      
+
       return result;
     },
-    
+
     'getDefaultAttachmentStorage'() {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
@@ -344,7 +344,7 @@ if (Meteor.isServer) {
       const settings = AttachmentStorageSettings.findOne({});
       return settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
     },
-    
+
     'setDefaultAttachmentStorage'(storageName) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
@@ -369,7 +369,7 @@ if (Meteor.isServer) {
           }
         }
       );
-      
+
       return result;
     }
   });

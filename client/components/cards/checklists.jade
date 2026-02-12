@@ -4,7 +4,8 @@ template(name="checklists")
       i.fa.fa-check
       | {{_ 'checklists'}}
       if canModifyCard
-        +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId  position="top")
+        +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId
+          position="top")
           +addChecklistItemForm
         else
           a.add-checklist-top.js-open-inlined-form(title="{{_ 'add-checklist'}}")

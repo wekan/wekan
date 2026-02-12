@@ -467,7 +467,7 @@ temporary rendered events).
 /* resizer (touch devices) */
 .fc-h-event.fc-selected .fc-resizer {
   /* 8x8 little dot */
-  border-radius: 4px;
+  border-radius: 0.4ch;
   border-width: 1px;
   width: 6px;
   height: 6px;
@@ -1145,7 +1145,7 @@ be a descendant of the grid when it is being dragged.
   height: 8px;
   overflow: hidden;
   line-height: 8px;
-  font-size: 11px;
+
   font-family: monospace;
   text-align: center;
   cursor: s-resize; }

@@ -59,6 +59,9 @@ template(name="listHeader")
             unless currentUser.isCommentOnly
               unless currentUser.isReadOnly
                 unless currentUser.isReadAssignedOnly
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                      i.fa.fa-plus
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
         else
@@ -83,7 +86,14 @@ template(name="listHeader")
               unless currentUser.isReadOnly
                 unless currentUser.isReadAssignedOnly
                   //if isBoardAdmin
-                  //  a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
+                  //
+                    a.fa.js-list-star.list-header-plus-top(class="fa-star{{#unless starred}}-o{{/unless}}")
+                  if isTouchScreenOrShowDesktopDragHandles
+                    a.list-header-handle-desktop.handle.js-list-handle(title="{{_ 'drag-list'}}")
+                      i.fa.fa-arrows
+                  if canSeeAddCard
+                    a.js-add-card.list-header-plus-top(title="{{_ 'add-card-to-top-of-list'}}")
+                      i.fa.fa-plus
                   a.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
                     i.fa.fa-bars
 
@@ -185,8 +195,10 @@ template(name="listMorePopup")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
     //unless currentUser.isWorker
-    //  if currentUser.isBoardAdmin
-    //    a.js-delete {{_ 'delete'}}
+    //
+      if currentUser.isBoardAdmin
+    //
+        a.js-delete {{_ 'delete'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}

@@ -145,6 +145,6 @@ wekan-fontawesome@6.4.2
 wekan-fullcalendar@3.10.5
 wekan-ldap@0.0.2
 wekan-markdown@1.0.9
-wekan-oidc@1.0.12
+wekan-oidc@1.1.0
 yasaricli:slugify@0.0.7
 zodern:types@1.0.13

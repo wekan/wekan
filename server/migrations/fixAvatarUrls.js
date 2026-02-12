@@ -25,10 +25,10 @@ class FixAvatarUrlsMigration {
     if (!board || !board.members) {
       return false;
     }
-    
+
     const memberIds = board.members.map(m => m.userId);
     const users = ReactiveCache.getUsers({ _id: { $in: memberIds } });
-    
+
     for (const user of users) {
       if (user.profile && user.profile.avatarUrl) {
         const avatarUrl = user.profile.avatarUrl;
@@ -37,7 +37,7 @@ class FixAvatarUrlsMigration {
         }
       }
     }
-    
+
     return false;
   }
 
@@ -53,7 +53,7 @@ class FixAvatarUrlsMigration {
         error: 'Board not found or has no members'
       };
     }
-    
+
     const memberIds = board.members.map(m => m.userId);
     const users = ReactiveCache.getUsers({ _id: { $in: memberIds } });
     let avatarsFixed = 0;
@@ -65,7 +65,7 @@ class FixAvatarUrlsMigration {
         const avatarUrl = user.profile.avatarUrl;
         let needsUpdate = false;
         let cleanUrl = avatarUrl;
-        
+
         // Check if URL has problematic parameters
         if (avatarUrl.includes('auth=false') || avatarUrl.includes('brokenIsFine=true')) {
           // Remove problematic parameters
@@ -75,13 +75,13 @@ class FixAvatarUrlsMigration {
           cleanUrl = cleanUrl.replace(/\?$/g, '');
           needsUpdate = true;
         }
-        
+
         // Check if URL is using old CollectionFS format
         if (avatarUrl.includes('/cfs/files/avatars/')) {
           cleanUrl = cleanUrl.replace('/cfs/files/avatars/', '/cdn/storage/avatars/');
           needsUpdate = true;
         }
-        
+
         // Check if URL is missing the /cdn/storage/avatars/ prefix
         if (avatarUrl.includes('avatars/') && !avatarUrl.includes('/cdn/storage/avatars/') && !avatarUrl.includes('/cfs/files/avatars/')) {
           // This might be a relative URL, make it absolute
@@ -90,14 +90,14 @@ class FixAvatarUrlsMigration {
             needsUpdate = true;
           }
         }
-        
+
         // If we have a file ID, generate a universal URL
         const fileId = extractFileIdFromUrl(avatarUrl, 'avatar');
         if (fileId && !isUniversalFileUrl(cleanUrl, 'avatar')) {
           cleanUrl = generateUniversalAvatarUrl(fileId);
           needsUpdate = true;
         }
-        
+
         if (needsUpdate) {
           // Update user's avatar URL
           Users.update(user._id, {
@@ -106,9 +106,9 @@ class FixAvatarUrlsMigration {
               modifiedAt: new Date()
             }
           });
-          
+
           avatarsFixed++;
-          
+
           if (process.env.DEBUG === 'true') {
             console.log(`Fixed avatar URL for user ${user.username}: ${avatarUrl} -> ${cleanUrl}`);
           }
@@ -117,7 +117,7 @@ class FixAvatarUrlsMigration {
     }
 
     console.log(`Avatar URL fix migration completed for board ${boardId}. Fixed ${avatarsFixed} avatar URLs.`);
-    
+
     return {
       success: true,
       avatarsFixed,
@@ -133,7 +133,7 @@ export const fixAvatarUrlsMigration = new FixAvatarUrlsMigration();
 Meteor.methods({
   'fixAvatarUrls.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
@@ -157,17 +157,17 @@ Meteor.methods({
     if (!isBoardAdmin && !user.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
     }
-    
+
     return fixAvatarUrlsMigration.execute(boardId);
   },
 
   'fixAvatarUrls.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
-    
+
     return fixAvatarUrlsMigration.needsMigration(boardId);
   }
 });

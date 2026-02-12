@@ -2,25 +2,25 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
-import { 
-  formatDateTime, 
-  formatDate, 
-  formatTime, 
-  getISOWeek, 
-  isValidDate, 
-  isBefore, 
-  isAfter, 
-  isSame, 
-  add, 
-  subtract, 
-  startOf, 
-  endOf, 
-  format, 
-  parseDate, 
-  now, 
-  createDate, 
-  fromNow, 
-  calendar 
+import {
+  formatDateTime,
+  formatDate,
+  formatTime,
+  getISOWeek,
+  isValidDate,
+  isBefore,
+  isAfter,
+  isSame,
+  add,
+  subtract,
+  startOf,
+  endOf,
+  format,
+  parseDate,
+  now,
+  createDate,
+  fromNow,
+  calendar
 } from '/imports/lib/dateUtils';
 import Boards from '../../models/boards';
 import Lists from '../../models/lists';
@@ -76,19 +76,19 @@ import Team from "../../models/team";
 
 Meteor.publish('card', cardId => {
   check(cardId, String);
-  
+
   const userId = Meteor.userId();
   const card = ReactiveCache.getCard({ _id: cardId });
-  
+
   if (!card || !card.boardId) {
     return [];
   }
-  
+
   const board = ReactiveCache.getBoard({ _id: card.boardId });
   if (!board || !board.isVisibleBy(userId)) {
     return [];
   }
-  
+
   // If user has assigned-only permissions, check if they're assigned to this card
   if (userId && board.members) {
     const member = _.findWhere(board.members, { userId: userId, isActive: true });
@@ -99,7 +99,7 @@ Meteor.publish('card', cardId => {
       }
     }
   }
-  
+
   const ret = ReactiveCache.getCards(
     { _id: cardId },
     {},
@@ -177,7 +177,7 @@ Meteor.publish('myCards', function(sessionId) {
 // Optimized due cards publication for better performance
 Meteor.publish('dueCards', function(allUsers = false) {
   check(allUsers, Boolean);
-  
+
   const userId = this.userId;
   if (!userId) {
     return this.ready();
@@ -198,7 +198,7 @@ Meteor.publish('dueCards', function(allUsers = false) {
   if (process.env.DEBUG === 'true') {
     console.log('dueCards userBoards:', userBoards);
     console.log('dueCards userBoards count:', userBoards.length);
-    
+
     // Also check if there are any cards with due dates in the system at all
     const allCardsWithDueDates = Cards.find({
       type: 'cardType-card',
@@ -255,7 +255,7 @@ Meteor.publish('dueCards', function(allUsers = false) {
   }
 
   const result = Cards.find(selector, options);
-  
+
   if (process.env.DEBUG === 'true') {
     const count = result.count();
     console.log('dueCards publication: returning', count, 'cards');
@@ -295,7 +295,7 @@ Meteor.publish('sessionData', function(sessionId) {
   if (process.env.DEBUG === 'true') {
     console.log('sessionData publication called with:', { sessionId, userId });
   }
-  
+
   const cursor = SessionData.find({ userId, sessionId });
   if (process.env.DEBUG === 'true') {
     console.log('sessionData publication returning cursor with count:', cursor.count());
@@ -903,7 +903,7 @@ function findCards(sessionId, query) {
   if (process.env.DEBUG === 'true') {
     console.log('findCards - upsertResult:', upsertResult);
   }
-  
+
   // Check if the session data was actually stored
   const storedSessionData = SessionData.findOne({ userId, sessionId });
   if (process.env.DEBUG === 'true') {
@@ -968,7 +968,7 @@ function findCards(sessionId, query) {
       console.log('findCards - session data count (after delay):', sessionDataCursor.count());
     }
   }, 100);
-  
+
   const sessionDataCursor = SessionData.find({ userId, sessionId });
   if (process.env.DEBUG === 'true') {
     console.log('findCards - publishing session data cursor:', sessionDataCursor);

@@ -123,6 +123,15 @@ BlazeComponent.extendComponent({
           this.collapsed(!this.collapsed());
         },
         'click .js-open-list-menu': Popup.open('listAction'),
+        'click .js-add-card.list-header-plus-top'(event) {
+          const listDom = $(event.target).parents(
+            `#js-list-${this.currentData()._id}`,
+          )[0];
+          const listComponent = BlazeComponent.getComponentForElement(listDom);
+          listComponent.openForm({
+            position: 'top',
+          });
+        },
         'click .js-unselect-list'() {
           Session.set('currentList', null);
         },
@@ -450,10 +459,10 @@ BlazeComponent.extendComponent({
     this.currentBoard = Utils.getCurrentBoard();
     this.currentSwimlaneId = new ReactiveVar(null);
     this.currentListId = new ReactiveVar(null);
-    
+
     // Get the swimlane context from opener
     const openerData = Popup.getOpenerComponent()?.data();
-    
+
     // If opened from swimlane menu, openerData is the swimlane
     if (openerData?.type === 'swimlane' || openerData?.type === 'template-swimlane') {
       this.currentSwimlane = openerData;
@@ -497,7 +506,7 @@ BlazeComponent.extendComponent({
 
           let sortIndex = 0;
           const boardId = Utils.getCurrentBoardId();
-          const swimlaneId = this.currentSwimlane?._id;
+          let swimlaneId = this.currentSwimlane?._id;
 
           const positionInput = this.find('.list-position-input');
 
@@ -507,6 +516,9 @@ BlazeComponent.extendComponent({
 
             if (selectedList) {
               sortIndex = selectedList.sort + 1;
+              // Use the swimlane ID from the selected list to ensure the new list
+              // is added to the same swimlane as the selected list
+              swimlaneId = selectedList.swimlaneId;
             } else {
               // No specific position, add at end of swimlane
               if (swimlaneId) {

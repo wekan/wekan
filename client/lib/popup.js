@@ -61,7 +61,7 @@ window.Popup = new (class {
         openerElement = self._getTopStack().openerElement;
       } else {
         // For Member Settings sub-popups, always start fresh to avoid content mixing
-        if (popupName.includes('changeLanguage') || popupName.includes('changeAvatar') || 
+        if (popupName.includes('changeLanguage') || popupName.includes('changeAvatar') ||
             popupName.includes('editProfile') || popupName.includes('changePassword') ||
             popupName.includes('invitePeople') || popupName.includes('support')) {
           self._stack = [];
@@ -222,35 +222,35 @@ window.Popup = new (class {
       const viewportWidth = $(window).width();
       const viewportHeight = $(window).height();
       const popupWidth = Math.min(380, viewportWidth * 0.55) + 15; // Add 15px for margin
-      
+
       // Check if this is an admin panel edit popup
-      const isAdminEditPopup = $element.hasClass('edit-user') || 
-                              $element.hasClass('edit-org') || 
+      const isAdminEditPopup = $element.hasClass('edit-user') ||
+                              $element.hasClass('edit-org') ||
                               $element.hasClass('edit-team');
-      
+
       if (isAdminEditPopup) {
         // Center the popup horizontally and use full height
         const centeredLeft = (viewportWidth - popupWidth) / 2;
-        
+
         return {
           left: Math.max(10, centeredLeft), // Ensure popup doesn't go off screen
           top: 10, // Start from top with small margin
           maxHeight: viewportHeight - 20, // Use full height minus small margins
         };
       }
-      
+
       // Calculate available height for popup
       const popupTop = offset.top + $element.outerHeight();
-      
+
       // For language popup, don't use dynamic height to avoid overlapping board
       const isLanguagePopup = $element.hasClass('js-change-language');
       let availableHeight, maxPopupHeight;
-      
+
       if (isLanguagePopup) {
         // For language popup, position content area below right vertical scrollbar
         const availableHeight = viewportHeight - popupTop - 20; // 20px margin from bottom (near scrollbar)
         const calculatedHeight = Math.min(availableHeight, viewportHeight * 0.5); // Max 50% of viewport
-        
+
         return {
           left: Math.min(offset.left, viewportWidth - popupWidth),
           top: popupTop,
@@ -260,7 +260,7 @@ window.Popup = new (class {
         // For other popups, use the dynamic height calculation
         availableHeight = viewportHeight - popupTop - 20; // 20px margin from bottom
         maxPopupHeight = Math.min(availableHeight, viewportHeight * 0.8); // Max 80% of viewport
-        
+
         return {
           left: Math.min(offset.left, viewportWidth - popupWidth),
           top: popupTop,
