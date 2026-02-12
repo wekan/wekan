@@ -51,7 +51,7 @@ if (isSandstorm && Meteor.isServer) {
   }
 
   Meteor.methods({
-    sandstormClaimIdentityRequest(token, descriptor) {
+    async sandstormClaimIdentityRequest(token, descriptor) {
       check(token, String);
       check(descriptor, String);
 
@@ -79,91 +79,68 @@ if (isSandstorm && Meteor.isServer) {
       const session = httpBridge.getSessionContext(sessionId).context;
       const api = httpBridge.getSandstormApi(sessionId).api;
 
-      Meteor.wrapAsync(done => {
-        session
-          .claimRequest(token)
-          .then(response => {
-            const identity = response.cap.castAs(Identity.Identity);
-            const promises = [
-              api.getIdentityId(identity),
-              identity.getProfile(),
-              httpBridge.saveIdentity(identity),
-            ];
-            return Promise.all(promises).then(responses => {
-              const identityId = responses[0].id.toString('hex').slice(0, 32);
-              const profile = responses[1].profile;
-              return profile.picture.getUrl().then(response => {
-                const sandstormInfo = {
-                  id: identityId,
-                  name: profile.displayName.defaultText,
-                  permissions,
-                  picture: `${response.protocol}://${response.hostPath}`,
-                  preferredHandle: profile.preferredHandle,
-                  pronouns: profile.pronouns,
-                };
+      const response = await session.claimRequest(token);
+      const identity = response.cap.castAs(Identity.Identity);
+      const [identityIdResult, profileResult] = await Promise.all([
+        api.getIdentityId(identity),
+        identity.getProfile(),
+        httpBridge.saveIdentity(identity),
+      ]);
+      const identityId = identityIdResult.id.toString('hex').slice(0, 32);
+      const profile = profileResult.profile;
+      const pictureResponse = await profile.picture.getUrl();
+      const sandstormInfo = {
+        id: identityId,
+        name: profile.displayName.defaultText,
+        permissions,
+        picture: `${pictureResponse.protocol}://${pictureResponse.hostPath}`,
+        preferredHandle: profile.preferredHandle,
+        pronouns: profile.pronouns,
+      };
 
-                const login = Accounts.updateOrCreateUserFromExternalService(
-                  'sandstorm',
-                  sandstormInfo,
-                  { profile: { name: sandstormInfo.name } },
-                );
+      const login = await Accounts.updateOrCreateUserFromExternalService(
+        'sandstorm',
+        sandstormInfo,
+        { profile: { name: sandstormInfo.name } },
+      );
 
-                updateUserPermissions(login.userId, permissions);
-                done();
-              });
-            });
-          })
-          .catch(e => {
-            done(e, null);
-          });
-      })();
+      await updateUserPermissions(login.userId, permissions);
     },
   });
 
-  function reportActivity(sessionId, path, type, users, caption) {
+  async function reportActivity(sessionId, path, type, users, caption) {
     const httpBridge = getHttpBridge();
     const session = httpBridge.getSessionContext(sessionId).context;
-    Meteor.wrapAsync(done => {
-      return Promise.all(
-        users.map(user => {
-          return httpBridge
-            .getSavedIdentity(user.id)
-            .then(response => {
-              // Call getProfile() to make sure that the identity successfully resolves.
-              // (In C++ we would instead call whenResolved() here.)
-              const identity = response.identity;
-              return identity.getProfile().then(() => {
-                return {
-                  identity,
-                  mentioned: !!user.mentioned,
-                  subscribed: !!user.subscribed,
-                };
-              });
-            })
-            .catch(() => {
-              // Ignore identities that fail to restore. Either they were added before we set
-              // `saveIdentityCaps` to true, or they have lost access to the board.
-            });
-        }),
-      )
-        .then(maybeUsers => {
-          const users = maybeUsers.filter(u => !!u);
-          const event = { path, type, users };
-          if (caption) {
-            event.notification = { caption };
-          }
-
-          return session.activity(event);
-        })
-        .then(
-          () => done(),
-          e => done(e),
-        );
-    })();
+    const maybeUsers = await Promise.all(
+      users.map(async (user) => {
+        try {
+          const response = await httpBridge.getSavedIdentity(user.id);
+          // Call getProfile() to make sure that the identity successfully resolves.
+          // (In C++ we would instead call whenResolved() here.)
+          const identity = response.identity;
+          await identity.getProfile();
+          return {
+            identity,
+            mentioned: !!user.mentioned,
+            subscribed: !!user.subscribed,
+          };
+        } catch (e) {
+          // Ignore identities that fail to restore. Either they were added before we set
+          // `saveIdentityCaps` to true, or they have lost access to the board.
+          return undefined;
+        }
+      }),
+    );
+    const resolvedUsers = maybeUsers.filter(u => !!u);
+    const event = { path, type, users: resolvedUsers };
+    if (caption) {
+      event.notification = { caption };
+    }
+    await session.activity(event);
   }
 
   Meteor.startup(() => {
-    Activities.after.insert((userId, doc) => {
+    Activities.after.insert(async (userId, doc) => {
       // HACK: We need the connection that's making the request in order to read the
       // Sandstorm session ID.
       const invocation = DDP._CurrentInvocation.get(); // eslint-disable-line no-undef
@@ -177,9 +154,9 @@ if (isSandstorm && Meteor.isServer) {
         );
         if (defIdx >= 0) {
           const users = {};
-          function ensureUserListed(userId) {
+          async function ensureUserListed(userId) {
             if (!users[userId]) {
-              const user = Meteor.users.findOne(userId);
+              const user = await Meteor.users.findOneAsync(userId);
               if (user) {
                 users[userId] = { id: user.services.sandstorm.id };
               } else {
@@ -189,14 +166,14 @@ if (isSandstorm && Meteor.isServer) {
             return true;
           }
 
-          function mentionedUser(userId) {
-            if (ensureUserListed(userId)) {
+          async function mentionedUser(userId) {
+            if (await ensureUserListed(userId)) {
               users[userId].mentioned = true;
             }
           }
 
-          function subscribedUser(userId) {
-            if (ensureUserListed(userId)) {
+          async function subscribedUser(userId) {
+            if (await ensureUserListed(userId)) {
               users[userId].subscribed = true;
             }
           }
@@ -206,11 +183,16 @@ if (isSandstorm && Meteor.isServer) {
 
           if (doc.cardId) {
             path = `b/sandstorm/libreboard/${doc.cardId}`;
-            ReactiveCache.getCard(doc.cardId).members.map(subscribedUser);
+            const card = ReactiveCache.getCard(doc.cardId);
+            if (card && card.members) {
+              for (const memberId of card.members) {
+                await subscribedUser(memberId);
+              }
+            }
           }
 
           if (doc.memberId) {
-            mentionedUser(doc.memberId);
+            await mentionedUser(doc.memberId);
           }
 
           if (doc.activityType === 'addComment') {
@@ -220,23 +202,24 @@ if (isSandstorm && Meteor.isServer) {
               ReactiveCache.getBoard(sandstormBoard._id).activeMembers(),
               'userId',
             );
-            (comment.text.match(/\B@([\w.]*)/g) || []).forEach(username => {
-              const user = Meteor.users.findOne({
+            const mentions = comment.text.match(/\B@([\w.]*)/g) || [];
+            for (const username of mentions) {
+              const user = await Meteor.users.findOneAsync({
                 username: username.slice(1),
               });
               if (user && activeMembers.indexOf(user._id) !== -1) {
-                mentionedUser(user._id);
+                await mentionedUser(user._id);
               }
-            });
+            }
           }
 
-          reportActivity(sessionId, path, defIdx, _.values(users), caption);
+          await reportActivity(sessionId, path, defIdx, _.values(users), caption);
         }
       }
     });
   });
 
-  function updateUserPermissions(userId, permissions) {
+  async function updateUserPermissions(userId, permissions) {
     const isActive = permissions.indexOf('participate') > -1;
     const isAdmin = permissions.indexOf('configure') > -1;
     const isCommentOnly = false;
@@ -260,7 +243,7 @@ if (isSandstorm && Meteor.isServer) {
     else if (!isActive) modifier = {};
     else modifier = { $push: { members: permissionDoc } };
 
-    Boards.update(sandstormBoard._id, modifier);
+    await Boards.updateAsync(sandstormBoard._id, modifier);
   }
 
   Picker.route('/', (params, req, res) => {
@@ -288,14 +271,14 @@ if (isSandstorm && Meteor.isServer) {
   // unique board document. Note that when the `Users.after.insert` hook is
   // called, the user is inserted into the database but not connected. So
   // despite the appearances `userId` is null in this block.
-  Users.after.insert((userId, doc) => {
+  Users.after.insert(async (userId, doc) => {
     if (!ReactiveCache.getBoard(sandstormBoard._id)) {
-      Boards.insert(sandstormBoard, { validate: false });
-      Swimlanes.insert({
+      await Boards.insertAsync(sandstormBoard, { validate: false });
+      await Swimlanes.insertAsync({
         title: 'Default',
         boardId: sandstormBoard._id,
       });
-      Activities.update(
+      await Activities.updateAsync(
         { activityTypeId: sandstormBoard._id },
         { $set: { userId: doc._id } },
       );
@@ -313,7 +296,7 @@ if (isSandstorm && Meteor.isServer) {
     const username = doc.services.sandstorm.preferredHandle;
     let appendNumber = 0;
     while (
-      ReactiveCache.getUser({
+      await Meteor.users.findOneAsync({
         _id: { $ne: doc._id },
         username: generateUniqueUsername(username, appendNumber),
       })
@@ -321,7 +304,7 @@ if (isSandstorm && Meteor.isServer) {
       appendNumber += 1;
     }
 
-    Users.update(doc._id, {
+    await Users.updateAsync(doc._id, {
       $set: {
         username: generateUniqueUsername(username, appendNumber),
         'profile.fullname': doc.services.sandstorm.name,
@@ -329,27 +312,27 @@ if (isSandstorm && Meteor.isServer) {
       },
     });
 
-    updateUserPermissions(doc._id, doc.services.sandstorm.permissions);
+    await updateUserPermissions(doc._id, doc.services.sandstorm.permissions);
   });
 
-  Meteor.startup(() => {
-    Users.find().observeChanges({
-      changed(userId, fields) {
+  Meteor.startup(async () => {
+    await Users.find().observeChangesAsync({
+      async changed(userId, fields) {
         const sandstormData = (fields.services || {}).sandstorm || {};
         if (sandstormData.name) {
-          Users.update(userId, {
+          await Users.updateAsync(userId, {
             $set: { 'profile.fullname': sandstormData.name },
           });
         }
 
         if (sandstormData.picture) {
-          Users.update(userId, {
+          await Users.updateAsync(userId, {
             $set: { 'profile.avatarUrl': sandstormData.picture },
           });
         }
 
         if (sandstormData.permissions) {
-          updateUserPermissions(userId, sandstormData.permissions);
+          await updateUserPermissions(userId, sandstormData.permissions);
         }
       },
     });
@@ -373,9 +356,9 @@ if (isSandstorm && Meteor.isServer) {
   HTTP.methods = newMethods => {
     Object.keys(newMethods).forEach(key => {
       if (newMethods[key].auth) {
-        newMethods[key].auth = function() {
+        newMethods[key].auth = async function() {
           const sandstormID = this.req.headers['x-sandstorm-user-id'];
-          const user = Meteor.users.findOne({
+          const user = await Meteor.users.findOneAsync({
             'services.sandstorm.id': sandstormID,
           });
           return user && user._id;
