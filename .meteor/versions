@@ -137,7 +137,7 @@ useraccounts:flow-routing-extra@1.1.0
 useraccounts:unstyled@1.14.2
 webapp@1.13.8
 webapp-hashing@1.1.1
-wekan-accounts-cas@0.1.0
+wekan-accounts-cas@0.2.0
 wekan-accounts-lockout@1.1.0
 wekan-accounts-oidc@1.0.10
 wekan-accounts-sandstorm@0.8.0

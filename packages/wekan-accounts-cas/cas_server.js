@@ -252,7 +252,7 @@ const casValidate = (req, ticket, token, service, callback) => {
     if (attrs.debug) {
       console.log(`Creating user account ${JSON.stringify(options)}`);
     }
-    const userId = Accounts.insertUserDoc({}, options);
+    const userId = await Accounts.insertUserDoc({}, options);
     user = await Meteor.users.findOneAsync(userId);
   }
   if (attrs.debug) {
@@ -262,7 +262,7 @@ const casValidate = (req, ticket, token, service, callback) => {
 });
 
 const _hasCredential = (credentialToken) => {
-  return _.has(_casCredentialTokens, credentialToken);
+  return Object.prototype.hasOwnProperty.call(_casCredentialTokens, credentialToken);
 }
 
 /*
