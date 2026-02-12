@@ -9,12 +9,12 @@ class KnownUser {
     this.settings = settings;
   }
 
-  startup() {
+  async startup() {
     if (!(this.unchangedSettings instanceof Function)) {
       this.updateSettings();
     }
-    this.scheduleUnlocksForLockedAccounts();
-    KnownUser.unlockAccountsIfLockoutAlreadyExpired();
+    await this.scheduleUnlocksForLockedAccounts();
+    await KnownUser.unlockAccountsIfLockoutAlreadyExpired();
     this.hookIntoAccounts();
   }
 
@@ -49,7 +49,7 @@ class KnownUser {
     }
   }
 
-  scheduleUnlocksForLockedAccounts() {
+  async scheduleUnlocksForLockedAccounts() {
     const lockedAccountsCursor = Meteor.users.find(
       {
         'services.accounts-lockout.unlockTime': {
@@ -63,7 +63,7 @@ class KnownUser {
       },
     );
     const currentTime = Number(new Date());
-    lockedAccountsCursor.forEach((user) => {
+    for await (const user of lockedAccountsCursor) {
       let lockDuration = KnownUser.unlockTime(user) - currentTime;
       if (lockDuration >= this.settings.lockoutPeriod) {
         lockDuration = this.settings.lockoutPeriod * 1000;
@@ -75,10 +75,10 @@ class KnownUser {
         KnownUser.unlockAccount.bind(null, user._id),
         lockDuration,
       );
-    });
+    }
   }
 
-  static unlockAccountsIfLockoutAlreadyExpired() {
+  static async unlockAccountsIfLockoutAlreadyExpired() {
     const currentTime = Number(new Date());
     const query = {
       'services.accounts-lockout.unlockTime': {
@@ -91,7 +91,7 @@ class KnownUser {
         'services.accounts-lockout.failedAttempts': 0,
       },
     };
-    Meteor.users.update(query, data);
+    await Meteor.users.updateAsync(query, data);
   }
 
   hookIntoAccounts() {
@@ -100,7 +100,7 @@ class KnownUser {
   }
 
 
-  validateLoginAttempt(loginInfo) {
+  async validateLoginAttempt(loginInfo) {
     if (
       // don't interrupt non-password logins
       loginInfo.type !== 'password' ||
@@ -130,12 +130,12 @@ class KnownUser {
     const canReset = (currentTime - firstFailedAttempt) > (1000 * this.settings.failureWindow);
     if (canReset) {
       failedAttempts = 1;
-      KnownUser.resetAttempts(failedAttempts, userId);
+      await KnownUser.resetAttempts(failedAttempts, userId);
     }
 
     const canIncrement = failedAttempts < this.settings.failuresBeforeLockout;
     if (canIncrement) {
-      KnownUser.incrementAttempts(failedAttempts, userId);
+      await KnownUser.incrementAttempts(failedAttempts, userId);
     }
 
     const maxAttemptsAllowed = this.settings.failuresBeforeLockout;
@@ -147,7 +147,7 @@ class KnownUser {
       KnownUser.tooManyAttempts(duration);
     }
     if (failedAttempts === maxAttemptsAllowed) {
-      this.setNewUnlockTime(failedAttempts, userId);
+      await this.setNewUnlockTime(failedAttempts, userId);
 
       let duration = this.settings.lockoutPeriod;
       duration = Math.ceil(duration);
@@ -161,7 +161,7 @@ class KnownUser {
     );
   }
 
-  static resetAttempts(
+  static async resetAttempts(
     failedAttempts,
     userId,
   ) {
@@ -174,10 +174,10 @@ class KnownUser {
         'services.accounts-lockout.firstFailedAttempt': currentTime,
       },
     };
-    Meteor.users.update(query, data);
+    await Meteor.users.updateAsync(query, data);
   }
 
-  static incrementAttempts(
+  static async incrementAttempts(
     failedAttempts,
     userId,
   ) {
@@ -189,10 +189,10 @@ class KnownUser {
         'services.accounts-lockout.lastFailedAttempt': currentTime,
       },
     };
-    Meteor.users.update(query, data);
+    await Meteor.users.updateAsync(query, data);
   }
 
-  setNewUnlockTime(
+  async setNewUnlockTime(
     failedAttempts,
     userId,
   ) {
@@ -206,14 +206,14 @@ class KnownUser {
         'services.accounts-lockout.unlockTime': newUnlockTime,
       },
     };
-    Meteor.users.update(query, data);
+    await Meteor.users.updateAsync(query, data);
     Meteor.setTimeout(
       KnownUser.unlockAccount.bind(null, userId),
       this.settings.lockoutPeriod * 1000,
     );
   }
 
-  static onLogin(loginInfo) {
+  static async onLogin(loginInfo) {
     if (loginInfo.type !== 'password') {
       return;
     }
@@ -225,7 +225,7 @@ class KnownUser {
         'services.accounts-lockout.failedAttempts': 0,
       },
     };
-    Meteor.users.update(query, data);
+    await Meteor.users.updateAsync(query, data);
   }
 
   static incorrectPassword(
@@ -306,7 +306,7 @@ class KnownUser {
     return firstFailedAttempt || 0;
   }
 
-  static unlockAccount(userId) {
+  static async unlockAccount(userId) {
     const query = { _id: userId };
     const data = {
       $unset: {
@@ -314,7 +314,7 @@ class KnownUser {
         'services.accounts-lockout.failedAttempts': 0,
       },
     };
-    Meteor.users.update(query, data);
+    await Meteor.users.updateAsync(query, data);
   }
 }
 

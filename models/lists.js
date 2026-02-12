@@ -196,7 +196,7 @@ Lists.allow({
 });
 
 Lists.helpers({
-  copy(boardId, swimlaneId) {
+  async copy(boardId, swimlaneId) {
     const oldId = this._id;
     const oldSwimlaneId = this.swimlaneId || null;
     this.boardId = boardId;
@@ -217,13 +217,16 @@ Lists.helpers({
     }
 
     // Copy all cards in list
-    ReactiveCache.getCards({
+    const cards = ReactiveCache.getCards({
       swimlaneId: oldSwimlaneId,
       listId: oldId,
       archived: false,
-    }).forEach(card => {
-      card.copy(boardId, swimlaneId, _id);
     });
+    for (const card of cards) {
+      await card.copy(boardId, swimlaneId, _id);
+    }
+
+    return _id;
   },
 
   async move(boardId, swimlaneId) {
@@ -465,21 +468,21 @@ Meteor.methods({
 
   enableSoftLimit(listId) {
     check(listId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
-    
+
     const list = ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
-    
+
     const board = ReactiveCache.getBoard(list.boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
-    
+
     list.toggleSoftLimit(!list.getWipLimit('soft'));
   },
 

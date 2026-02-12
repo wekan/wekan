@@ -8,6 +8,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
+import { AttachmentMigrationStatus } from './attachmentMigrationStatus';
 
 // Reactive variables for tracking migration progress
 const migrationProgress = new ReactiveVar(0);
@@ -28,7 +29,21 @@ class AttachmentMigrationService {
    * @returns {boolean} - True if board has been migrated
    */
   isBoardMigrated(boardId) {
-    return migratedBoards.has(boardId);
+    const isMigrated = migratedBoards.has(boardId);
+
+    // Update status collection for pub/sub
+    AttachmentMigrationStatus.upsert(
+      { boardId },
+      {
+        $set: {
+          boardId,
+          isMigrated,
+          updatedAt: new Date()
+        }
+      }
+    );
+
+    return isMigrated;
   }
 
   /**
@@ -44,7 +59,7 @@ class AttachmentMigrationService {
       }
 
       console.log(`Starting attachment migration for board: ${boardId}`);
-      
+
       // Get all attachments for the board
       const attachments = Attachments.find({
         'meta.boardId': boardId
@@ -63,12 +78,12 @@ class AttachmentMigrationService {
             await this.migrateAttachment(attachment);
             this.migrationCache.set(attachment._id, true);
           }
-          
+
           migratedCount++;
           const progress = Math.round((migratedCount / totalAttachments) * 100);
           migrationProgress.set(progress);
           migrationStatus.set(`Migrated ${migratedCount}/${totalAttachments} attachments...`);
-          
+
         } catch (error) {
           console.error(`Error migrating attachment ${attachment._id}:`, error);
         }
@@ -85,6 +100,23 @@ class AttachmentMigrationService {
       migratedBoards.add(boardId);
       console.log(`Attachment migration completed for board: ${boardId}`);
       console.log(`Marked board ${boardId} as migrated`);
+
+      // Update status collection
+      AttachmentMigrationStatus.upsert(
+        { boardId },
+        {
+          $set: {
+            boardId,
+            isMigrated: true,
+            totalAttachments,
+            migratedAttachments: totalAttachments,
+            unconvertedAttachments: 0,
+            progress: 100,
+            status: 'completed',
+            updatedAt: new Date()
+          }
+        }
+      );
 
       return { success: true, message: 'Migration completed' };
 
@@ -106,8 +138,8 @@ class AttachmentMigrationService {
     }
 
     // Check if attachment has old structure
-    return !attachment.meta || 
-           !attachment.meta.cardId || 
+    return !attachment.meta ||
+           !attachment.meta.cardId ||
            !attachment.meta.boardId ||
            !attachment.meta.listId;
   }
@@ -188,6 +220,25 @@ class AttachmentMigrationService {
     const progress = migrationProgress.get();
     const status = migrationStatus.get();
     const unconverted = this.getUnconvertedAttachments(boardId);
+    const total = Attachments.find({ 'meta.boardId': boardId }).count();
+    const migratedCount = total - unconverted.length;
+
+    // Update status collection for pub/sub
+    AttachmentMigrationStatus.upsert(
+      { boardId },
+      {
+        $set: {
+          boardId,
+          totalAttachments: total,
+          migratedAttachments: migratedCount,
+          unconvertedAttachments: unconverted.length,
+          progress: total > 0 ? Math.round((migratedCount / total) * 100) : 0,
+          status: status || 'idle',
+          isMigrated: unconverted.length === 0,
+          updatedAt: new Date()
+        }
+      }
+    );
 
     return {
       progress,
@@ -203,20 +254,20 @@ const attachmentMigrationService = new AttachmentMigrationService();
 Meteor.methods({
   async 'attachmentMigration.migrateBoardAttachments'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     const board = ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found');
     }
-    
+
     const user = ReactiveCache.getUser(this.userId);
     const isBoardAdmin = board.hasAdmin(this.userId);
     const isInstanceAdmin = user && user.isAdmin;
-    
+
     if (!isBoardAdmin && !isInstanceAdmin) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin or instance admin to perform this action.');
     }
@@ -226,11 +277,11 @@ Meteor.methods({
 
   'attachmentMigration.getProgress'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     const board = ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
@@ -241,11 +292,11 @@ Meteor.methods({
 
   'attachmentMigration.getUnconvertedAttachments'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     const board = ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
@@ -256,11 +307,11 @@ Meteor.methods({
 
   'attachmentMigration.isBoardMigrated'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     const board = ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');

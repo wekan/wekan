@@ -35,6 +35,8 @@ template(name="swimlaneFixedHeader")
                   i.fa.fa-caret-down
               a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
                 i.fa.fa-bars
+              a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
+                i.fa.fa-plus
               if isTouchScreenOrShowDesktopDragHandles
                 unless isTouchScreen
                   a.swimlane-header-handle.handle.js-swimlane-header-handle
@@ -59,12 +61,14 @@ template(name="swimlaneActionPopup")
           ul.pop-over-list
              li: a.js-add-swimlane
                i.fa.fa-plus
-               span  {{_ 'add-swimlane'}}
+               span
+                 | {{_ 'add-swimlane'}}
           hr
           ul.pop-over-list
              li: a.js-add-list-from-swimlane
                i.fa.fa-plus
-               span  {{_ 'add-list'}}
+               span
+                 | {{_ 'add-list'}}
           hr
           ul.pop-over-list
              if currentUser.isBoardAdmin
@@ -114,7 +118,8 @@ template(name="setSwimlaneColorPopup")
         each colors
           span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
             if(isSelected color)
-              i.fa.fa-check    // Buttons aligned left too
+              i.fa.fa-check
+    // Buttons aligned left too
     .flush-left
       button.primary.confirm.js-submit(style="margin-left:0") {{_ 'save'}}
       button.js-remove-color.negate.wide.right(style="margin-left:8px") {{_ 'unset-color'}}

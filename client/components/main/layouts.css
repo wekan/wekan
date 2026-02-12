@@ -515,7 +515,7 @@ a:not(.disabled).is-active i.fa {
     max-width: 95vw;
     margin: 0 auto;
   }
-  
+
   /* Improve touch targets */
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 44px;
@@ -524,7 +524,7 @@ a:not(.disabled).is-active i.fa {
     font-size: 16px; /* Prevent zoom on iOS */
     touch-action: manipulation;
   }
-  
+
   /* Form elements */
   input, select, textarea {
     font-size: 16px; /* Prevent zoom on iOS */
@@ -532,7 +532,7 @@ a:not(.disabled).is-active i.fa {
     min-height: 44px;
     touch-action: manipulation;
   }
-  
+
   /* Cards and lists */
   .minicard {
     min-height: 48px;
@@ -540,19 +540,19 @@ a:not(.disabled).is-active i.fa {
     margin-bottom: 8px;
     touch-action: manipulation;
   }
-  
+
   .list {
     margin: 0 8px;
     min-width: 280px;
   }
-  
+
   /* Board canvas */
   .board-canvas {
     padding: 0 8px 8px 0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Header mobile layout */
   #header {
     padding: 8px;
@@ -561,7 +561,7 @@ a:not(.disabled).is-active i.fa {
     align-items: center;
     gap: 8px;
   }
-  
+
   #header-quick-access {
     /* Keep quick-access items in one row */
     display: flex;
@@ -585,43 +585,43 @@ a:not(.disabled).is-active i.fa {
     overflow: hidden;
     white-space: nowrap;
   }
-  
+
   /* Hide text in home icon on mobile, show only icon */
   #header-quick-access .home-icon a span:not(.fa) {
     display: none !important;
   }
-  
+
   /* Ensure proper spacing for mobile header elements */
   #header-quick-access .zoom-controls {
     margin-left: auto;
     margin-right: 8px;
   }
-  
+
   .mobile-mode-toggle {
     margin-right: 8px;
   }
-  
+
   #header-user-bar {
     margin-left: auto;
   }
-  
+
   /* Ensure header elements don't wrap on very small screens */
   #header-quick-access {
     min-width: 0; /* Allow flexbox to shrink */
   }
-  
+
   /* Make sure logo doesn't take too much space on mobile */
   #header-quick-access img {
     max-height: 24px;
     max-width: 120px;
   }
-  
+
   /* Ensure zoom controls are compact on mobile */
   .zoom-controls .zoom-level {
     padding: 4px 8px;
     font-size: 12px;
   }
-  
+
   /* Modal mobile optimization */
   #modal .modal-content,
   #modal .modal-content-wide {
@@ -632,7 +632,7 @@ a:not(.disabled).is-active i.fa {
     max-height: 90vh;
     overflow-y: auto;
   }
-  
+
   /* Table mobile optimization */
   table {
     font-size: 14px;
@@ -642,19 +642,19 @@ a:not(.disabled).is-active i.fa {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Admin panel mobile optimization */
   .setting-content .content-body {
     flex-direction: column;
     gap: 16px;
     padding: 8px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 100%;
     order: 2;
   }
-  
+
   .setting-content .content-body .main-body {
     order: 1;
     min-height: 60vh;
@@ -668,57 +668,62 @@ a:not(.disabled).is-active i.fa {
   #content > .wrapper {
     padding: 12px;
   }
-  
+
   .wrapper {
     padding: 12px;
   }
-  
+
   .panel-default {
     width: 90vw;
     max-width: 90vw;
   }
-  
+
   /* Touch-friendly but more compact */
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 48px;
     min-width: 48px;
     padding: 10px 14px;
   }
-  
+
   .minicard {
     min-height: 40px;
     padding: 10px;
   }
-  
+
   .list {
     margin: 0 12px;
     min-width: 300px;
   }
-  
+
   .board-canvas {
     padding: 0 12px 12px 0;
   }
-  
+
   #header {
     padding: 12px 16px;
   }
-  
+
   #modal .modal-content {
     width: 80vw;
     max-width: 600px;
   }
-  
+
   #modal .modal-content-wide {
     width: 90vw;
     max-width: 800px;
   }
-  
+
   .setting-content .content-body {
     gap: 20px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 250px;
+  }
+
+  /* Responsive handling for quick-access description on tablets */
+  #header-quick-access ul.header-quick-access-list li.current.empty {
+    max-width: 300px;
   }
 }
 
@@ -727,49 +732,49 @@ a:not(.disabled).is-active i.fa {
   body {
     font-size: 18px;
   }
-  
+
   button, .btn, .js-toggle, .js-color-choice, .js-reaction, .close {
     min-height: 56px;
     min-width: 56px;
     padding: 16px 20px;
     font-size: 18px;
   }
-  
+
   .minicard {
     min-height: 56px;
     padding: 16px;
     font-size: 18px;
   }
-  
+
   .list {
     margin: 0 8px;
     min-width: 360px;
   }
-  
+
   .board-canvas {
     padding: 0;
   }
-  
+
   #header {
     padding: 0 8px;
   }
-  
+
   #content > .wrapper {
     padding: 0;
   }
-  
+
   #modal .modal-content {
     width: 600px;
   }
-  
+
   #modal .modal-content-wide {
     width: 1000px;
   }
-  
+
   .setting-content .content-body {
     gap: 32px;
   }
-  
+
   .setting-content .content-body .side-menu {
     width: 320px;
   }
@@ -930,24 +935,24 @@ a:not(.disabled).is-active i.fa {
     width: 100%;
     height: 100vh;
   }
-  
+
   /* Fix z-index stacking for mobile Safari */
   body.mobile-mode .board-wrapper {
     z-index: 1;
   }
-  
+
   body.mobile-mode .board-wrapper .board-canvas .board-overlay {
     z-index: 17 !important;
   }
-  
+
   body.mobile-mode .card-details {
     z-index: 100 !important;
   }
-  
+
   body.mobile-mode .pop-over {
     z-index: 999;
   }
-  
+
   /* Ensure smooth scrolling on iOS */
   body.mobile-mode .card-details,
   body.mobile-mode .pop-over .content-wrapper {

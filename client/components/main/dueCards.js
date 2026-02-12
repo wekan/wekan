@@ -92,14 +92,14 @@ BlazeComponent.extendComponent({
 class DueCardsComponent extends BlazeComponent {
   onCreated() {
     super.onCreated();
-    
+
     this._cachedCards = null;
     this._cachedTimestamp = null;
     this.subscriptionHandle = null;
     this.isLoading = new ReactiveVar(true);
     this.hasResults = new ReactiveVar(false);
     this.searching = new ReactiveVar(false);
-    
+
     // Subscribe to the optimized due cards publication
     this.autorun(() => {
       const allUsers = this.dueCardsView() === 'all';
@@ -107,7 +107,7 @@ class DueCardsComponent extends BlazeComponent {
         this.subscriptionHandle.stop();
       }
       this.subscriptionHandle = Meteor.subscribe('dueCards', allUsers);
-      
+
       // Update loading state based on subscription
       this.autorun(() => {
         if (this.subscriptionHandle && this.subscriptionHandle.ready()) {
@@ -162,7 +162,7 @@ class DueCardsComponent extends BlazeComponent {
       // Get the translated text and manually replace %s with the count
       const baseText = TAPi18n.__('n-cards-found');
       const result = baseText.replace('%s', count);
-      
+
       if (process.env.DEBUG === 'true') {
         console.log('dueCards: base text:', baseText, 'count:', count, 'result:', result);
       }
@@ -196,10 +196,10 @@ class DueCardsComponent extends BlazeComponent {
 
     if (process.env.DEBUG === 'true') {
       console.log('dueCards client: found', cards.length, 'cards with due dates');
-      console.log('dueCards client: cards details:', cards.map(c => ({ 
-        id: c._id, 
-        title: c.title, 
-        dueAt: c.dueAt, 
+      console.log('dueCards client: cards details:', cards.map(c => ({
+        id: c._id,
+        title: c.title,
+        dueAt: c.dueAt,
         boardId: c.boardId,
         members: c.members,
         assignees: c.assignees,
@@ -223,11 +223,11 @@ class DueCardsComponent extends BlazeComponent {
         const isAssignee = card.assignees && card.assignees.includes(currentUser._id);
         const isAuthor = card.userId === currentUser._id;
         const matches = isMember || isAssignee || isAuthor;
-        
+
         if (process.env.DEBUG === 'true' && matches) {
           console.log('dueCards client: card matches user:', card.title, { isMember, isAssignee, isAuthor });
         }
-        
+
         return matches;
       });
     }

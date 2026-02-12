@@ -351,7 +351,8 @@ template(name="cardDetails")
               .card-label.card-label-green {{ voteCountPositive }}
               .card-label.card-label-red {{ voteCountNegative }}
             unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
-              .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+              .card-label.card-label-gray
+                | {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
         +viewer
           = getVoteQuestion
         if showVotingButtons
@@ -377,7 +378,8 @@ template(name="cardDetails")
             .poker-result
               if expiredPoker
                 unless ($and currentBoard.isPublic pokerAllowNonBoardMembers )
-                  .card-label.card-label-gray  {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+                  .card-label.card-label-gray
+                    | {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
         if showPlanningPokerButtons
           .poker-result
             .poker-deck
@@ -847,27 +849,111 @@ template(name="exportCardPopup")
         | {{_ 'export-card-pdf'}}
 
 template(name="moveCardPopup")
-  +copyAndMoveCard
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
+    label(for="position-above") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
+    label(for="position-below") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = getTitle
-  +copyAndMoveCard
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
+    label(for="position-above") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
+    label(for="position-below") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="copyManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyManyCardsPopup-instructions'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     | {{_ 'copyManyCardsPopup-format'}}
-  +copyAndMoveCard
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        option(value="{{_id}}" selected="{{#if isDialogOptionBoardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}" selected="{{#if isDialogOptionSwimlaneId _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}" selected="{{#if isDialogOptionListId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{add @index 1}}. {{title}}
+
+  div
+    input(type="radio" name="position" value="above" checked id="position-above" style="display: inline")
+    label(for="position-above") {{_ 'above-selected-card'}}
+  div
+    input(type="radio" name="position" value="below" id="position-below" style="display: inline")
+    label(for="position-below") {{_ 'below-selected-card'}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}
 
 template(name="convertChecklistItemToCardPopup")
   label(for='convert-checklist-item-to-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = item.title
-  +copyAndMoveCard
-
-template(name="copyAndMoveCard")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
     select.js-select-boards(autofocus)
@@ -925,7 +1011,8 @@ template(name="cardAssigneesPopup")
               if userData.username
                 | (#{userData.username})
             if isCardAssignee
-              i.fa.fa-check  if currentUser.isWorker
+              i.fa.fa-check
+  if currentUser.isWorker
     ul.pop-over-list.js-card-assignee-list
       li.item(class="{{#if currentUser.isCardAssignee}}active{{/if}}")
         a.name.js-select-assignee(href="#")

@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v8.25.0",
+  "version": "v8.31.0",
   "description": "Open-Source kanban",
   "private": true,
   "repository": {
@@ -51,7 +51,7 @@
     "markdown-it-emoji": "^2.0.0",
     "markdown-it-mathjax3": "^4.3.2",
     "meteor-accounts-t9n": "^2.6.0",
-    "meteor-node-stubs": "npm:@wekanteam/meteor-node-stubs@^1.2.7",
+    "meteor-node-stubs": "^1.2.25",
     "os": "^0.1.2",
     "papaparse": "^5.5.3",
     "pretty-ms": "^7.0.1",

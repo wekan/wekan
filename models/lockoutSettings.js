@@ -59,7 +59,7 @@ if (Meteor.isServer) {
     await LockoutSettings._collection.createIndexAsync({ modifiedAt: -1 });
 
     // Known users settings
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'known-failuresBeforeLockout' },
       {
         $setOnInsert: {
@@ -71,7 +71,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'known-lockoutPeriod' },
       {
         $setOnInsert: {
@@ -83,7 +83,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'known-failureWindow' },
       {
         $setOnInsert: {
@@ -99,7 +99,7 @@ if (Meteor.isServer) {
     const typoVar = process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE;
     const correctVar = process.env.ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BEFORE;
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'unknown-failuresBeforeLockout' },
       {
         $setOnInsert: {
@@ -111,7 +111,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'unknown-lockoutPeriod' },
       {
         $setOnInsert: {
@@ -123,7 +123,7 @@ if (Meteor.isServer) {
       },
     );
 
-    LockoutSettings.upsert(
+    await LockoutSettings.upsertAsync(
       { _id: 'unknown-failureWindow' },
       {
         $setOnInsert: {
@@ -139,17 +139,33 @@ if (Meteor.isServer) {
 
 LockoutSettings.helpers({
   getKnownConfig() {
+    // Fetch all settings in one query instead of 3 separate queries
+    const settings = LockoutSettings.find({
+      _id: { $in: ['known-failuresBeforeLockout', 'known-lockoutPeriod', 'known-failureWindow'] }
+    }, { fields: { _id: 1, value: 1 } }).fetch();
+
+    const settingsMap = {};
+    settings.forEach(s => { settingsMap[s._id] = s.value; });
+
     return {
-      failuresBeforeLockout: LockoutSettings.findOne('known-failuresBeforeLockout')?.value || 3,
-      lockoutPeriod: LockoutSettings.findOne('known-lockoutPeriod')?.value || 60,
-      failureWindow: LockoutSettings.findOne('known-failureWindow')?.value || 15
+      failuresBeforeLockout: settingsMap['known-failuresBeforeLockout'] || 3,
+      lockoutPeriod: settingsMap['known-lockoutPeriod'] || 60,
+      failureWindow: settingsMap['known-failureWindow'] || 15
     };
   },
   getUnknownConfig() {
+    // Fetch all settings in one query instead of 3 separate queries
+    const settings = LockoutSettings.find({
+      _id: { $in: ['unknown-failuresBeforeLockout', 'unknown-lockoutPeriod', 'unknown-failureWindow'] }
+    }, { fields: { _id: 1, value: 1 } }).fetch();
+
+    const settingsMap = {};
+    settings.forEach(s => { settingsMap[s._id] = s.value; });
+
     return {
-      failuresBeforeLockout: LockoutSettings.findOne('unknown-failuresBeforeLockout')?.value || 3,
-      lockoutPeriod: LockoutSettings.findOne('unknown-lockoutPeriod')?.value || 60,
-      failureWindow: LockoutSettings.findOne('unknown-failureWindow')?.value || 15
+      failuresBeforeLockout: settingsMap['unknown-failuresBeforeLockout'] || 3,
+      lockoutPeriod: settingsMap['unknown-lockoutPeriod'] || 60,
+      failureWindow: settingsMap['unknown-failureWindow'] || 15
     };
   }
 });

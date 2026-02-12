@@ -5,7 +5,7 @@ Template.notification.events({
     const update = {};
     const newReadValue = this.read ? null : Date.now();
     update[`profile.notifications.${this.index}.read`] = newReadValue;
-    
+
     Users.update(Meteor.userId(), { $set: update }, (error, result) => {
       if (error) {
         console.error('Error updating notification:', error);
@@ -34,13 +34,13 @@ Template.notification.helpers({
   activityDate() {
     const activity = this.activityData;
     if (!activity || !activity.createdAt) return '';
-    
+
     const user = ReactiveCache.getCurrentUser();
     if (!user) return '';
-    
+
     const dateFormat = user.getDateFormat ? user.getDateFormat() : 'L';
     const timeFormat = user.getTimeFormat ? user.getTimeFormat() : 'LT';
-    
+
     return moment(activity.createdAt).format(`${dateFormat} ${timeFormat}`);
   },
 });
