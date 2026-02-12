@@ -93,9 +93,12 @@ template(name="boardHeaderBar")
             i.fa.fa-archive
 
       //if showSort
-      //  a.board-header-btn.js-open-sort-view(title="{{_ 'sort-desc'}}")
-      //    i.fa(class="{{directionClass}}")
-      //    span {{_ 'sort'}}{{_ listSortShortDesc}}
+      //
+        a.board-header-btn.js-open-sort-view(title="{{_ 'sort-desc'}}")
+      //
+          i.fa(class="{{directionClass}}")
+      //
+          span {{_ 'sort'}}{{_ listSortShortDesc}}
 
       a.board-header-btn.js-open-filter-view(
           title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}"
@@ -314,18 +317,30 @@ template(name="createTemplateContainerPopup")
       a.js-board-template {{_ 'template'}}
 
 //template(name="listsortPopup")
-//  h2
-//   | {{_ 'list-sort-by'}}
-//  hr
-//  ul.pop-over-list
-//    each value in allowedSortValues
-//     li
-//      a.js-sort-by(name="{{value.name}}")
-//        if $eq sortby value.name
-//           | {{#if $eq Direction "fa-arrow-up"}}⬆️{{else}}⬇️{{/if}}
-//        | {{_ value.label }}{{_ value.shortLabel}}
-//        if $eq sortby value.name
-//           i.fa.fa-check
+//
+  h2
+//
+   | {{_ 'list-sort-by'}}
+//
+  hr
+//
+  ul.pop-over-list
+//
+    each value in allowedSortValues
+//
+     li
+//
+      a.js-sort-by(name="{{value.name}}")
+//
+        if $eq sortby value.name
+//
+           | {{#if $eq Direction "fa-arrow-up"}}⬆️{{else}}⬇️{{/if}}
+//
+        | {{_ value.label }}{{_ value.shortLabel}}
+//
+        if $eq sortby value.name
+//
+           i.fa.fa-check
 template(name="boardChangeTitlePopup")
   form
     label

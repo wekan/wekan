@@ -1,24 +1,24 @@
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-import { 
-  formatDateTime, 
-  formatDate, 
-  formatTime, 
-  getISOWeek, 
-  isValidDate, 
-  isBefore, 
-  isAfter, 
-  isSame, 
-  add, 
-  subtract, 
-  startOf, 
-  endOf, 
-  format, 
-  parseDate, 
-  now, 
-  createDate, 
-  fromNow, 
-  calendar 
+import {
+  formatDateTime,
+  formatDate,
+  formatTime,
+  getISOWeek,
+  isValidDate,
+  isBefore,
+  isAfter,
+  isSame,
+  add,
+  subtract,
+  startOf,
+  endOf,
+  format,
+  parseDate,
+  now,
+  createDate,
+  fromNow,
+  calendar
 } from '/imports/lib/dateUtils';
 import {
   ALLOWED_COLORS,
@@ -573,6 +573,10 @@ Cards.helpers({
   },
 
   async mapCustomFieldsToBoard(boardId) {
+    // Guard against undefined/null customFields
+    if (!this.customFields || !Array.isArray(this.customFields)) {
+      return [];
+    }
     // Map custom fields to new board
     const result = [];
     for (const cf of this.customFields) {
@@ -603,9 +607,18 @@ Cards.helpers({
 },
 
 
-  copy(boardId, swimlaneId, listId) {
+  async copy(boardId, swimlaneId, listId) {
     const oldId = this._id;
     const oldCard = ReactiveCache.getCard(oldId);
+
+    // Work on a shallow copy to avoid mutating the source card in ReactiveCache
+    const cardData = { ...this };
+    delete cardData._id;
+
+    // Normalize customFields to ensure it's always an array
+    if (!Array.isArray(cardData.customFields)) {
+      cardData.customFields = [];
+    }
 
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
@@ -629,19 +642,16 @@ Cards.helpers({
         }),
         '_id',
       );
-      // now set the new label ids
-      delete this.labelIds;
-      this.labelIds = newCardLabels;
+      cardData.labelIds = newCardLabels;
 
-      this.customFields = this.mapCustomFieldsToBoard(newBoard._id);
+      cardData.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
     }
 
-    delete this._id;
-    this.boardId = boardId;
-    this.cardNumber = ReactiveCache.getBoard(boardId).getNextCardNumber();
-    this.swimlaneId = swimlaneId;
-    this.listId = listId;
-    const _id = Cards.insert(this);
+    cardData.boardId = boardId;
+    cardData.cardNumber = ReactiveCache.getBoard(boardId).getNextCardNumber();
+    cardData.swimlaneId = swimlaneId;
+    cardData.listId = listId;
+    const _id = Cards.insert(cardData);
 
     // Copy attachments
     oldCard.attachments()
@@ -665,8 +675,6 @@ Cards.helpers({
     ReactiveCache.getCardComments({ cardId: oldId }).forEach(cmt => {
       cmt.copy(_id);
     });
-    // restore the id, otherwise new copies will fail
-    this._id = oldId;
 
     return _id;
   },
@@ -2097,7 +2105,12 @@ Cards.helpers({
         cardNumber: newCardNumber
       });
 
-      mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);
+      mutatedFields.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+
+      // Ensure customFields is always an array (guards against legacy {} data)
+      if (!Array.isArray(mutatedFields.customFields)) {
+        mutatedFields.customFields = [];
+      }
     }
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });
@@ -3077,7 +3090,7 @@ if (Meteor.isServer) {
      * @param mergeCardValues this values into the copied card
      * @return the new card id
      */
-    copyCard(cardId, boardId, swimlaneId, listId, insertAtTop, mergeCardValues) {
+    async copyCard(cardId, boardId, swimlaneId, listId, insertAtTop, mergeCardValues) {
       check(cardId, String);
       check(boardId, String);
       check(swimlaneId, String);
@@ -3096,7 +3109,7 @@ if (Meteor.isServer) {
         card.sort = sort + 1;
       }
 
-      const ret = card.copy(boardId, swimlaneId, listId);
+      const ret = await card.copy(boardId, swimlaneId, listId);
       return ret;
     },
   });
@@ -4281,10 +4294,10 @@ Cards.helpers({
   hasMovedFromOriginalPosition() {
     const history = this.getOriginalPosition();
     if (!history) return false;
-    
+
     const currentSwimlaneId = this.swimlaneId || null;
     const currentListId = this.listId || null;
-    
+
     return history.originalPosition.sort !== this.sort ||
            history.originalSwimlaneId !== currentSwimlaneId ||
            history.originalListId !== currentListId;
@@ -4296,12 +4309,12 @@ Cards.helpers({
   getOriginalPositionDescription() {
     const history = this.getOriginalPosition();
     if (!history) return 'No original position data';
-    
-    const swimlaneInfo = history.originalSwimlaneId ? 
-      ` in swimlane ${history.originalSwimlaneId}` : 
+
+    const swimlaneInfo = history.originalSwimlaneId ?
+      ` in swimlane ${history.originalSwimlaneId}` :
       ' in default swimlane';
-    const listInfo = history.originalListId ? 
-      ` in list ${history.originalListId}` : 
+    const listInfo = history.originalListId ?
+      ` in list ${history.originalListId}` :
       '';
     return `Original position: ${history.originalPosition.sort || 0}${swimlaneInfo}${listInfo}`;
   },

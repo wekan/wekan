@@ -209,15 +209,15 @@
     width: 95%;
     margin: 20px;
   }
-  
+
   .migration-progress-content {
     padding: 20px;
   }
-  
+
   .migration-progress-header {
     padding: 15px;
   }
-  
+
   .migration-progress-title {
     font-size: 16px;
   }
@@ -229,40 +229,40 @@
     background: #2d3748;
     color: #e2e8f0;
   }
-  
+
   .migration-progress-overall-label,
   .migration-progress-step-label,
   .migration-progress-status-label {
     color: #e2e8f0;
   }
-  
+
   .migration-progress-status {
     background: #4a5568;
     border-left-color: #63b3ed;
   }
-  
+
   .migration-progress-status-text {
     color: #cbd5e0;
   }
-  
+
   .migration-progress-details {
     background: #2b6cb0;
     border-left-color: #4299e1;
   }
-  
+
   .migration-progress-details-label {
     color: #bee3f8;
   }
-  
+
   .migration-progress-details-text {
     color: #90cdf4;
   }
-  
+
   .migration-progress-footer {
     background: #4a5568;
     border-top-color: #718096;
   }
-  
+
   .migration-progress-note {
     color: #a0aec0;
   }

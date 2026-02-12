@@ -61,10 +61,10 @@ export function cleanFileUrl(url, type) {
 
   // Remove any domain, port, or protocol from the URL
   let cleanUrl = url;
-  
+
   // Remove protocol and domain
   cleanUrl = cleanUrl.replace(/^https?:\/\/[^\/]+/, '');
-  
+
   // Remove ROOT_URL pathname if present
   if (Meteor.isServer && process.env.ROOT_URL) {
     try {
@@ -79,7 +79,7 @@ export function cleanFileUrl(url, type) {
 
   // Normalize path separators
   cleanUrl = cleanUrl.replace(/\/+/g, '/');
-  
+
   // Ensure URL starts with /
   if (!cleanUrl.startsWith('/')) {
     cleanUrl = '/' + cleanUrl;
@@ -176,13 +176,13 @@ export function getAllPossibleUrls(fileId, type) {
   }
 
   const urls = [];
-  
+
   // Primary URL
   urls.push(generateUniversalFileUrl(fileId, type));
-  
+
   // Fallback URL
   urls.push(generateFallbackUrl(fileId, type));
-  
+
   // Legacy URLs for backward compatibility
   if (type === 'attachment') {
     urls.push(`/cfs/files/attachments/${fileId}`);

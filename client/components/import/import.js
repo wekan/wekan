@@ -347,7 +347,7 @@ BlazeComponent.extendComponent({
     const results = UserSearchIndex.search(query, { limit: 20 }).fetch();
     this.searchResults.set(results);
     this.searching.set(false);
-    
+
     if (results.length === 0) {
       this.noResults.set(true);
     }
@@ -358,11 +358,11 @@ BlazeComponent.extendComponent({
       {
         'keyup .js-search-member-input'(event) {
           const query = event.target.value.trim();
-          
+
           if (this.searchTimeout) {
             clearTimeout(this.searchTimeout);
           }
-          
+
           this.searchTimeout = setTimeout(() => {
             this.performSearch(query);
           }, 300);

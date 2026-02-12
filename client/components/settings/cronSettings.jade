@@ -8,7 +8,7 @@ template(name="cronSettings")
           option(value="0") 0 - {{_ 'all-migrations'}}
           each migrationStepsWithIndex
             option(value="{{index}}") {{index}} - {{name}}
-      
+
       .form-group
         label {{_ 'migration-status'}}
         .status-indicator
@@ -18,16 +18,16 @@ template(name="cronSettings")
             .step-counter
               | Step {{migrationCurrentStepNum}}/{{migrationTotalSteps}}
             .progress
-              .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
+              .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100")
                 | {{migrationProgress}}%
             .progress-text
               | {{migrationProgress}}% {{_ 'complete'}}
-      
+
       .form-group
         button.js-start-migration.btn.btn-primary(disabled="{{#if isMigrating}}disabled{{/if}}") {{_ 'start'}}
         button.js-pause-migration.btn.btn-warning(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'pause'}}
         button.js-stop-migration.btn.btn-danger(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'stop'}}
-      
+
       .form-group.migration-errors-section
         h4 {{_ 'cron-migration-errors'}}
         if hasErrors
@@ -49,7 +49,7 @@ template(name="cronSettings")
         else
           .no-errors
             | {{_ 'cron-no-errors'}}
-    
+
     li
       h3 {{_ 'board-operations'}}
       .form-group
@@ -57,7 +57,7 @@ template(name="cronSettings")
         button.js-schedule-board-cleanup.btn.btn-primary {{_ 'schedule-board-cleanup'}}
         button.js-schedule-board-archive.btn.btn-warning {{_ 'schedule-board-archive'}}
         button.js-schedule-board-backup.btn.btn-info {{_ 'schedule-board-backup'}}
-    
+
     li
       h3 {{_ 'cron-jobs'}}
       .form-group
@@ -90,22 +90,22 @@ template(name="cronMigrations")
         button.btn.btn-danger.js-stop-all-migrations
           i.fa.fa-stop
           | {{_ 'stop-all-migrations'}}
-    
+
     .migration-progress
       .progress-overview
         .progress-bar
-          .progress-fill(style="width: {{migrationProgress}}%") 
+          .progress-fill(style="width: {{migrationProgress}}%")
         .progress-text {{migrationProgress}}%
         .progress-label {{_ 'overall-progress'}}
-      
+
       .current-step
         i.fa.fa-cog
         | {{migrationCurrentStep}}
-      
+
       .migration-status
         i.fa.fa-info-circle
         | {{migrationStatus}}
-    
+
     .migration-steps
       h3 {{_ 'migration-steps'}}
       .steps-list
@@ -149,7 +149,7 @@ template(name="cronBoardOperations")
         button.btn.btn-info.js-force-board-scan
           i.fa.fa-search
           | {{_ 'force-board-scan'}}
-    
+
     .board-operations-stats
       .stats-grid
         .stat-item
@@ -176,7 +176,7 @@ template(name="cronBoardOperations")
         .stat-item
           .stat-value {{boardMigrationStats.isScanning}}
           .stat-label {{_ 'scanning-status'}}
-    
+
     .system-resources
       .resource-item
         .resource-label {{_ 'cpu-usage'}}
@@ -191,18 +191,18 @@ template(name="cronBoardOperations")
       .resource-item
         .resource-label {{_ 'cpu-cores'}}
         .resource-value {{systemResources.cpuCores}}
-    
+
     .board-operations-search
       .search-box
         input.form-control.js-search-board-operations(type="text" placeholder="{{_ 'search-boards-or-operations'}}")
         i.fa.fa-search.search-icon
-    
+
     .board-operations-list
       .operations-header
         h3 {{_ 'board-operations'}} ({{pagination.total}})
         .pagination-info
           | {{_ 'showing'}} {{pagination.start}} - {{pagination.end}} {{_ 'of'}} {{pagination.total}}
-      
+
       .operations-table
         table.table.table-striped
           thead
@@ -242,7 +242,7 @@ template(name="cronBoardOperations")
                       i.fa.fa-stop
                     button.btn.btn-sm.btn-info.js-view-details(data-operation="{{id}}")
                       i.fa.fa-info-circle
-      
+
       .pagination
         if pagination.hasPrev
           button.btn.btn-sm.btn-default.js-prev-page
@@ -265,7 +265,7 @@ template(name="cronJobs")
         button.btn.btn-success.js-refresh-jobs
           i.fa.fa-refresh
           | {{_ 'refresh'}}
-    
+
     .jobs-list
       table.table.table-striped
         thead
@@ -304,17 +304,17 @@ template(name="cronAddJob")
       h2
         i.fa.fa-plus
         | {{_ 'add-cron-job'}}
-    
+
     .add-job-form
       form.js-add-cron-job-form
         .form-group
           label(for="job-name") {{_ 'job-name'}}
           input.form-control#job-name(type="text" name="name" required)
-        
+
         .form-group
           label(for="job-description") {{_ 'job-description'}}
           textarea.form-control#job-description(name="description" rows="3")
-        
+
         .form-group
           label(for="job-schedule") {{_ 'schedule'}}
           select.form-control#job-schedule(name="schedule")
@@ -326,11 +326,11 @@ template(name="cronAddJob")
             option(value="every 6 hours") {{_ 'every-6-hours'}}
             option(value="every 1 day") {{_ 'every-1-day'}}
             option(value="once") {{_ 'run-once'}}
-        
+
         .form-group
           label(for="job-weight") {{_ 'weight'}}
           input.form-control#job-weight(type="number" name="weight" value="1" min="1" max="10")
-        
+
         .form-actions
           button.btn.btn-primary(type="submit")
             i.fa.fa-plus

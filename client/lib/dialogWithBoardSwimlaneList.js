@@ -73,10 +73,35 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   /** sets the first list id */
   setFirstListId() {
     try {
-      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const listId = board.lists()[0]._id;
+      const boardId = this.selectedBoardId.get();
+      const swimlaneId = this.selectedSwimlaneId.get();
+      const lists = this.getListsForBoardSwimlane(boardId, swimlaneId);
+      const listId = lists[0] ? lists[0]._id : '';
       this.selectedListId.set(listId);
     } catch (e) {}
+  }
+
+  /** get lists filtered by board and swimlane */
+  getListsForBoardSwimlane(boardId, swimlaneId) {
+    if (!boardId) return [];
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board) return [];
+
+    const selector = {
+      boardId,
+      archived: false,
+    };
+
+    if (swimlaneId) {
+      const defaultSwimlane = board.getDefaultSwimline && board.getDefaultSwimline();
+      if (defaultSwimlane && defaultSwimlane._id === swimlaneId) {
+        selector.swimlaneId = { $in: [swimlaneId, null, ''] };
+      } else {
+        selector.swimlaneId = swimlaneId;
+      }
+    }
+
+    return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
   }
 
   /** returns if the board id was the last confirmed one
@@ -130,9 +155,10 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
 
   /** returns all available lists of the current board */
   lists() {
-    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-    const ret = board.lists();
-    return ret;
+    return this.getListsForBoardSwimlane(
+      this.selectedBoardId.get(),
+      this.selectedSwimlaneId.get(),
+    );
   }
 
   /** Fix swimlane title translation issue for "Default" swimlane
@@ -186,7 +212,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
   events() {
     return [
       {
-        'click .js-done'() {
+        async 'click .js-done'() {
           const boardSelect = this.$('.js-select-boards')[0];
           const boardId = boardSelect.options[boardSelect.selectedIndex].value;
 
@@ -201,7 +227,11 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
             'swimlaneId' : swimlaneId,
             'listId' : listId,
           }
-          this.setDone(boardId, swimlaneId, listId, options);
+          try {
+            await this.setDone(boardId, swimlaneId, listId, options);
+          } catch (e) {
+            console.error('Error in list dialog operation:', e);
+          }
           Popup.back(2);
         },
         'change .js-select-boards'(event) {
@@ -210,6 +240,7 @@ export class DialogWithBoardSwimlaneList extends BlazeComponent {
         },
         'change .js-select-swimlanes'(event) {
           this.selectedSwimlaneId.set($(event.currentTarget).val());
+          this.setFirstListId();
         },
       },
     ];

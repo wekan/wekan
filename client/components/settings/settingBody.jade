@@ -107,7 +107,7 @@ template(name="setting")
               a.js-setting-menu(data-id="cron-settings")
                 span.emoji-icon
                 i.fa.fa-clock
-                | {{_ 'cron'}}
+                | {{_ 'migrations'}}
         .main-body
           if isLoading
             +spinner
@@ -119,12 +119,12 @@ template(name="setting")
                   label {{_ 'writable-path'}}
                   input.wekan-form-control#filesystem-path(type="text" value="{{filesystemPath}}" readonly)
                   small.form-text.text-muted {{_ 'filesystem-path-description'}}
-                
+
                 .form-group
                   label {{_ 'attachments-path'}}
                   input.wekan-form-control#attachments-path(type="text" value="{{attachmentsPath}}" readonly)
                   small.form-text.text-muted {{_ 'attachments-path-description'}}
-                
+
                 .form-group
                   label {{_ 'avatars-path'}}
                   input.wekan-form-control#avatars-path(type="text" value="{{avatarsPath}}" readonly)
@@ -143,49 +143,55 @@ template(name="setting")
                   label {{_ 's3-enabled'}}
                   input.wekan-form-control#s3-enabled(type="checkbox" checked="{{s3Enabled}}" disabled)
                   small.form-text.text-muted {{_ 's3-enabled-description'}}
-                
+
                 .form-group
                   label {{_ 's3-endpoint'}}
                   input.wekan-form-control#s3-endpoint(type="text" value="{{s3Endpoint}}" readonly)
                   small.form-text.text-muted {{_ 's3-endpoint-description'}}
-                
+
                 .form-group
                   label {{_ 's3-bucket'}}
                   input.wekan-form-control#s3-bucket(type="text" value="{{s3Bucket}}" readonly)
                   small.form-text.text-muted {{_ 's3-bucket-description'}}
-                
+
                 .form-group
                   label {{_ 's3-region'}}
                   input.wekan-form-control#s3-region(type="text" value="{{s3Region}}" readonly)
                   small.form-text.text-muted {{_ 's3-region-description'}}
-                
+
                 .form-group
                   label {{_ 's3-access-key'}}
                   input.wekan-form-control#s3-access-key(type="text" placeholder="{{_ 's3-access-key-placeholder'}}" readonly)
                   small.form-text.text-muted {{_ 's3-access-key-description'}}
-                
+
                 .form-group
                   label {{_ 's3-secret-key'}}
                   input.wekan-form-control#s3-secret-key(type="password" placeholder="{{_ 's3-secret-key-placeholder'}}")
                   small.form-text.text-muted {{_ 's3-secret-key-description'}}
-                
+
                 .form-group
                   label {{_ 's3-ssl-enabled'}}
                   input.wekan-form-control#s3-ssl-enabled(type="checkbox" checked="{{s3SslEnabled}}" disabled)
                   small.form-text.text-muted {{_ 's3-ssl-enabled-description'}}
-                
+
                 .form-group
                   label {{_ 's3-port'}}
                   input.wekan-form-control#s3-port(type="number" value="{{s3Port}}" readonly)
                   small.form-text.text-muted {{_ 's3-port-description'}}
-                
+
                 .form-group
                   button.js-test-s3-connection.btn.btn-secondary {{_ 'test-s3-connection'}}
                   button.js-save-s3-settings.btn.btn-primary {{_ 'save-s3-settings'}}
           else if isCronSettings
             ul#cron-setting.setting-detail
               li
-                h3 {{_ 'cron-migrations'}}
+                h3 {{_ 'migrations'}}
+                .form-group
+                  label {{_ 'select-migration'}}
+                  select.js-migration-select.wekan-form-control
+                    option(value="0") 0 - {{_ 'all-migrations'}}
+                    each migrationStepsWithIndex
+                      option(value="{{index}}") {{index}} - {{name}}
                 .form-group
                   label {{_ 'migration-status'}}
                   .status-indicator
@@ -193,43 +199,45 @@ template(name="setting")
                     span.status-value
                       if isMigrating
                         i.fa.fa-spinner.fa-spin(style="margin-right: 8px;")
-                      | {{#if isMigrating}}{{migrationStatus}}{{else}}{{_ 'idle'}}{{/if}}
+                      else if isUpdatingMigrationDropdown
+                        i.fa.fa-spinner.fa-spin(style="margin-right: 8px;")
+                      | {{#if isMigrating}}{{migrationStatusLine}}{{else}}{{migrationStatus}}{{/if}}
                   if isMigrating
                     .progress-section
+                      if migrationCurrentAction
+                        .step-counter
+                          | {{migrationCurrentAction}}
+                      else if migrationJobTotalSteps
+                        .step-counter
+                          | Step {{migrationJobStepNum}}/{{migrationJobTotalSteps}}
+                      else if migrationTotalSteps
+                        .step-counter
+                          | Migration {{migrationCurrentStepNum}}/{{migrationTotalSteps}}
+                      else
+                        .step-counter
+                          i.fa.fa-spinner.fa-spin(style="margin-right: 8px;")
+                          | Calculating migration scope...
                       .progress
-                        .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100") 
-                          | {{migrationProgress}}%
+                        .progress-bar(role="progressbar" style="width: {{migrationJobProgress}}%" aria-valuenow="{{migrationJobProgress}}" aria-valuemin="0" aria-valuemax="100")
+                          | {{migrationJobProgress}}%
                       .progress-text
-                        | {{migrationProgress}}% {{_ 'complete'}}
-                
+                        | {{migrationJobProgress}}% {{_ 'complete'}}
+                    .migration-details
+                      if migrationJobTotalSteps
+                        if migrationJobTotalSteps gt 1
+                          .detail-line
+                            | Job step: {{migrationJobStepNum}}/{{migrationJobTotalSteps}}
+                      if migrationEtaSeconds
+                        .detail-line
+                          | ETA: {{formatDurationSeconds migrationEtaSeconds}}
+                      if migrationElapsedSeconds
+                        .detail-line
+                          | Elapsed: {{formatDurationSeconds migrationElapsedSeconds}}
+
                 .form-group
-                  button.js-start-all-migrations.btn.btn-primary(disabled="{{#if isMigrating}}disabled{{/if}}") {{_ 'start-all-migrations'}}
-                  button.js-pause-all-migrations.btn.btn-warning(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'pause-all-migrations'}}
-                  button.js-stop-all-migrations.btn.btn-danger(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'stop-all-migrations'}}
-              
-              li
-                h3 {{_ 'board-operations'}}
-                .form-group
-                  label {{_ 'scheduled-board-operations'}}
-                  button.js-schedule-board-cleanup.btn.btn-primary {{_ 'schedule-board-cleanup'}}
-                  button.js-schedule-board-archive.btn.btn-warning {{_ 'schedule-board-archive'}}
-                  button.js-schedule-board-backup.btn.btn-info {{_ 'schedule-board-backup'}}
-              
-              li
-                h3 {{_ 'cron-jobs'}}
-                .form-group
-                  label {{_ 'active-cron-jobs'}}
-                  each cronJobs
-                    .job-item
-                      .job-info
-                        .job-name {{name}}
-                        .job-schedule {{schedule}}
-                        .job-status {{status}}
-                      .job-actions
-                        button.js-pause-job.btn.btn-sm.btn-warning(data-job-id="{{_id}}") {{_ 'pause'}}
-                        button.js-delete-job.btn.btn-sm.btn-danger(data-job-id="{{_id}}") {{_ 'delete'}}
-                  .add-job-section
-                    button.js-add-cron-job.btn.btn-success {{_ 'add-cron-job'}}
+                  button.js-start-migration.primary(disabled="{{#if isMigrating}}disabled{{/if}}") {{_ 'start-all-migrations'}}
+                  button.js-pause-all-migrations.primary(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'pause-all-migrations'}}
+                  button.js-stop-all-migrations.primary(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'stop-all-migrations'}}
           else if isGeneralSetting
             +general
           else if isEmailSetting
@@ -285,39 +293,69 @@ template(name="general")
 template(name='email')
   ul#email-setting.setting-detail
     //if isSandstorm
-    //  li.smtp-form
-    //    .title {{_ 'smtp-host'}}
-    //    .description {{_ 'smtp-host-description'}}
-    //    .form-group
-    //      input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
-    //  li.smtp-form
-    //    .title {{_ 'smtp-port'}}
-    //    .description {{_ 'smtp-port-description'}}
-    //    .form-group
-    //      input.wekan-form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
-    //  li.smtp-form
-    //    .title {{_ 'smtp-username'}}
-    //    .form-group
-    //      input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
-    //  li.smtp-form
-    //    .title {{_ 'smtp-password'}}
-    //    .form-group
-    //      input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="")
-    //  li.smtp-form
-    //    .title {{_ 'smtp-tls'}}
-    //    .form-group
-    //      a.flex.js-toggle-tls
-    //        .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
     //
-    //        span {{_ 'smtp-tls-description'}}
+      li.smtp-form
     //
-    //  li.smtp-form
-    //    .title {{_ 'send-from'}}
-    //    .form-group
-    //      input.wekan-form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
+        .title {{_ 'smtp-host'}}
     //
-    //  li
-    //    button.js-save.primary {{_ 'save'}}
+        .description {{_ 'smtp-host-description'}}
+    //
+        .form-group
+    //
+          input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
+    //
+      li.smtp-form
+    //
+        .title {{_ 'smtp-port'}}
+    //
+        .description {{_ 'smtp-port-description'}}
+    //
+        .form-group
+    //
+          input.wekan-form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
+    //
+      li.smtp-form
+    //
+        .title {{_ 'smtp-username'}}
+    //
+        .form-group
+    //
+          input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
+    //
+      li.smtp-form
+    //
+        .title {{_ 'smtp-password'}}
+    //
+        .form-group
+    //
+          input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="")
+    //
+      li.smtp-form
+    //
+        .title {{_ 'smtp-tls'}}
+    //
+        .form-group
+    //
+          a.flex.js-toggle-tls
+    //
+            .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
+    //
+    //
+            span {{_ 'smtp-tls-description'}}
+    //
+    //
+      li.smtp-form
+    //
+        .title {{_ 'send-from'}}
+    //
+        .form-group
+    //
+          input.wekan-form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
+    //
+    //
+      li
+    //
+        button.js-save.primary {{_ 'save'}}
 
     li
       button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}

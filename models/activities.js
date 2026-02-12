@@ -203,14 +203,16 @@ if (Meteor.isServer) {
       let hasMentions = false; // Track if comment has @mentions
       if (board) {
         const comment = params.comment;
-        const knownUsers = board.members.map((member) => {
-          const u = ReactiveCache.getUser(member.userId);
-          if (u) {
-            member.username = u.username;
-            member.emails = u.emails;
-          }
-          return member;
-        });
+        const knownUsers = board.members
+          .filter((member) => member.isActive)
+          .map((member) => {
+            const u = ReactiveCache.getUser(member.userId);
+            if (u) {
+              member.username = u.username;
+              member.emails = u.emails;
+            }
+            return member;
+          });
         // Match @mentions including usernames with @ symbols (like email addresses)
         // Pattern matches: @username, @user@example.com, @"quoted username"
         const mentionRegex = /\B@(?:(?:"([\w.\s-]*)")|([\w.@-]+))/gi;
@@ -390,7 +392,7 @@ if (Meteor.isServer) {
     Notifications.getUsers(watchers).forEach((user) => {
       // Skip if user is undefined or doesn't have an _id (e.g., deleted user or invalid ID)
       if (!user || !user._id) return;
-      
+
       // Don't notify a user of their own behavior, EXCEPT for self-mentions
       const isSelfMention = (user._id === userId && title === 'act-atUserComment');
       if (user._id !== userId || isSelfMention) {

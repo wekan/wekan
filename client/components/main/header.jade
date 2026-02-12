@@ -56,25 +56,31 @@ template(name="header")
       else
         ul.header-quick-access-list
           //li
-          //  a(href="{{pathFor 'public'}}")
-          //    span.fa.fa-globe
-          //    | {{_ 'public'}}
+          //
+            a(href="{{pathFor 'public'}}")
+          //
+              span.fa.fa-globe
+          //
+              | {{_ 'public'}}
           each currentUser.starredBoards
             li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
               a(href="{{pathFor 'board' id=_id slug=slug}}")
                 +viewer
                   = title
-          //else
-          //  li.current.empty
-          //    {{_ 'quick-access-description'}}
+          else
+            li.current.empty(title="{{_ 'quick-access-description'}}")
+            | {{_ 'quick-access-description'}}
         #header-new-board-icon
       // Next line is used only for spacing at header,
       // there is no visible clickable icon.
       #header-new-board-icon
-      //  Hide duplicate create board button,
-      //  because it did not show board templates correctly.
+      //
+        Hide duplicate create board button,
+      //
+        because it did not show board templates correctly.
       //a#header-new-board-icon.js-create-board
-      //  i.fa.fa-plus(title="Create a new board")
+      //
+        i.fa.fa-plus(title="Create a new board")
 
       .mobile-mode-toggle
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")

@@ -935,7 +935,8 @@ Boards.helpers({
   activeMembers(){
     // Depend on the users collection for reactivity when users are loaded
     const memberUserIds = _.pluck(this.members, 'userId');
-    const dummy = Meteor.users.find({ _id: { $in: memberUserIds } }).count();
+    // Use findOne with limit for reactivity trigger instead of count() which loads all users
+    const dummy = Meteor.users.findOne({ _id: { $in: memberUserIds } }, { fields: { _id: 1 }, limit: 1 });
     const members = _.filter(this.members, m => m.isActive === true);
     // Group by userId to handle duplicates
     const grouped = _.groupBy(members, 'userId');
@@ -949,12 +950,12 @@ Boards.helpers({
       const user = ReactiveCache.getUser(member.userId);
       return user !== undefined;
     });
-    
+
     // Sort by role priority first (admin, normal, normal-assigned, no-comments, comment-only, comment-assigned, worker, read-only, read-assigned), then by fullname
     return _.sortBy(filteredMembers, member => {
       const user = ReactiveCache.getUser(member.userId);
       let rolePriority = 8; // Default for normal
-      
+
       if (member.isAdmin) rolePriority = 0;
       else if (member.isReadAssignedOnly) rolePriority = 8;
       else if (member.isReadOnly) rolePriority = 7;
@@ -964,7 +965,7 @@ Boards.helpers({
       else if (member.isNoComments) rolePriority = 3;
       else if (member.isNormalAssignedOnly) rolePriority = 2;
       else rolePriority = 1; // Normal
-      
+
       const fullname = user ? user.profile.fullname : '';
       return rolePriority + '-' + fullname;
     });

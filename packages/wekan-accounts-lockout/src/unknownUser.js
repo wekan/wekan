@@ -13,12 +13,12 @@ class UnknownUser {
     this.settings = settings;
   }
 
-  startup() {
+  async startup() {
     if (!(this.settings instanceof Function)) {
       this.updateSettings();
     }
-    this.scheduleUnlocksForLockedAccounts();
-    this.unlockAccountsIfLockoutAlreadyExpired();
+    await this.scheduleUnlocksForLockedAccounts();
+    await this.unlockAccountsIfLockoutAlreadyExpired();
     this.hookIntoAccounts();
   }
 
@@ -53,7 +53,7 @@ class UnknownUser {
     }
   }
 
-  scheduleUnlocksForLockedAccounts() {
+  async scheduleUnlocksForLockedAccounts() {
     const lockedAccountsCursor = this.AccountsLockoutCollection.find(
       {
         'services.accounts-lockout.unlockTime': {
@@ -67,8 +67,8 @@ class UnknownUser {
       },
     );
     const currentTime = Number(new Date());
-    lockedAccountsCursor.forEach((connection) => {
-      let lockDuration = this.unlockTime(connection) - currentTime;
+    for await (const connection of lockedAccountsCursor) {
+      let lockDuration = await this.unlockTime(connection) - currentTime;
       if (lockDuration >= this.settings.lockoutPeriod) {
         lockDuration = this.settings.lockoutPeriod * 1000;
       }
@@ -79,10 +79,10 @@ class UnknownUser {
         this.unlockAccount.bind(this, connection.clientAddress),
         lockDuration,
       );
-    });
+    }
   }
 
-  unlockAccountsIfLockoutAlreadyExpired() {
+  async unlockAccountsIfLockoutAlreadyExpired() {
     const currentTime = Number(new Date());
     const query = {
       'services.accounts-lockout.unlockTime': {
@@ -95,7 +95,7 @@ class UnknownUser {
         'services.accounts-lockout.failedAttempts': 0,
       },
     };
-    this.AccountsLockoutCollection.update(query, data);
+    await this.AccountsLockoutCollection.updateAsync(query, data);
   }
 
   hookIntoAccounts() {
@@ -103,7 +103,7 @@ class UnknownUser {
     Accounts.onLogin(this.onLogin.bind(this));
   }
 
-  validateLoginAttempt(loginInfo) {
+  async validateLoginAttempt(loginInfo) {
     // don't interrupt non-password logins
     if (
       loginInfo.type !== 'password' ||
@@ -120,20 +120,20 @@ class UnknownUser {
     }
 
     const clientAddress = loginInfo.connection.clientAddress;
-    const unlockTime = this.unlockTime(loginInfo.connection);
-    let failedAttempts = 1 + this.failedAttempts(loginInfo.connection);
-    const firstFailedAttempt = this.firstFailedAttempt(loginInfo.connection);
+    const unlockTime = await this.unlockTime(loginInfo.connection);
+    let failedAttempts = 1 + await this.failedAttempts(loginInfo.connection);
+    const firstFailedAttempt = await this.firstFailedAttempt(loginInfo.connection);
     const currentTime = Number(new Date());
 
     const canReset = (currentTime - firstFailedAttempt) > (1000 * this.settings.failureWindow);
     if (canReset) {
       failedAttempts = 1;
-      this.resetAttempts(failedAttempts, clientAddress);
+      await this.resetAttempts(failedAttempts, clientAddress);
     }
 
     const canIncrement = failedAttempts < this.settings.failuresBeforeLockout;
     if (canIncrement) {
-      this.incrementAttempts(failedAttempts, clientAddress);
+      await this.incrementAttempts(failedAttempts, clientAddress);
     }
 
     const maxAttemptsAllowed = this.settings.failuresBeforeLockout;
@@ -145,7 +145,7 @@ class UnknownUser {
       UnknownUser.tooManyAttempts(duration);
     }
     if (failedAttempts === maxAttemptsAllowed) {
-      this.setNewUnlockTime(failedAttempts, clientAddress);
+      await this.setNewUnlockTime(failedAttempts, clientAddress);
 
       let duration = this.settings.lockoutPeriod;
       duration = Math.ceil(duration);
@@ -159,7 +159,7 @@ class UnknownUser {
     );
   }
 
-  resetAttempts(
+  async resetAttempts(
     failedAttempts,
     clientAddress,
   ) {
@@ -172,10 +172,10 @@ class UnknownUser {
         'services.accounts-lockout.firstFailedAttempt': currentTime,
       },
     };
-    this.AccountsLockoutCollection.upsert(query, data);
+    await this.AccountsLockoutCollection.upsertAsync(query, data);
   }
 
-  incrementAttempts(
+  async incrementAttempts(
     failedAttempts,
     clientAddress,
   ) {
@@ -187,10 +187,10 @@ class UnknownUser {
         'services.accounts-lockout.lastFailedAttempt': currentTime,
       },
     };
-    this.AccountsLockoutCollection.upsert(query, data);
+    await this.AccountsLockoutCollection.upsertAsync(query, data);
   }
 
-  setNewUnlockTime(
+  async setNewUnlockTime(
     failedAttempts,
     clientAddress,
   ) {
@@ -204,14 +204,14 @@ class UnknownUser {
         'services.accounts-lockout.unlockTime': newUnlockTime,
       },
     };
-    this.AccountsLockoutCollection.upsert(query, data);
+    await this.AccountsLockoutCollection.upsertAsync(query, data);
     Meteor.setTimeout(
       this.unlockAccount.bind(this, clientAddress),
       this.settings.lockoutPeriod * 1000,
     );
   }
 
-  onLogin(loginInfo) {
+  async onLogin(loginInfo) {
     if (loginInfo.type !== 'password') {
       return;
     }
@@ -223,7 +223,7 @@ class UnknownUser {
         'services.accounts-lockout.failedAttempts': 0,
       },
     };
-    this.AccountsLockoutCollection.update(query, data);
+    await this.AccountsLockoutCollection.updateAsync(query, data);
   }
 
   static userNotFound(
@@ -264,14 +264,14 @@ class UnknownUser {
     return unknownUsers || false;
   }
 
-  findOneByConnection(connection) {
-    return this.AccountsLockoutCollection.findOne({
+  async findOneByConnection(connection) {
+    return await this.AccountsLockoutCollection.findOneAsync({
       clientAddress: connection.clientAddress,
     });
   }
 
-  unlockTime(connection) {
-    connection = this.findOneByConnection(connection);
+  async unlockTime(connection) {
+    connection = await this.findOneByConnection(connection);
     let unlockTime;
     try {
       unlockTime = connection.services['accounts-lockout'].unlockTime;
@@ -281,8 +281,8 @@ class UnknownUser {
     return unlockTime || 0;
   }
 
-  failedAttempts(connection) {
-    connection = this.findOneByConnection(connection);
+  async failedAttempts(connection) {
+    connection = await this.findOneByConnection(connection);
     let failedAttempts;
     try {
       failedAttempts = connection.services['accounts-lockout'].failedAttempts;
@@ -292,8 +292,8 @@ class UnknownUser {
     return failedAttempts || 0;
   }
 
-  lastFailedAttempt(connection) {
-    connection = this.findOneByConnection(connection);
+  async lastFailedAttempt(connection) {
+    connection = await this.findOneByConnection(connection);
     let lastFailedAttempt;
     try {
       lastFailedAttempt = connection.services['accounts-lockout'].lastFailedAttempt;
@@ -303,8 +303,8 @@ class UnknownUser {
     return lastFailedAttempt || 0;
   }
 
-  firstFailedAttempt(connection) {
-    connection = this.findOneByConnection(connection);
+  async firstFailedAttempt(connection) {
+    connection = await this.findOneByConnection(connection);
     let firstFailedAttempt;
     try {
       firstFailedAttempt = connection.services['accounts-lockout'].firstFailedAttempt;
@@ -314,7 +314,7 @@ class UnknownUser {
     return firstFailedAttempt || 0;
   }
 
-  unlockAccount(clientAddress) {
+  async unlockAccount(clientAddress) {
     const query = { clientAddress };
     const data = {
       $unset: {
@@ -322,7 +322,7 @@ class UnknownUser {
         'services.accounts-lockout.failedAttempts': 0,
       },
     };
-    this.AccountsLockoutCollection.update(query, data);
+    await this.AccountsLockoutCollection.updateAsync(query, data);
   }
 }
 

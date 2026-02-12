@@ -10,19 +10,19 @@ This is without container (without Docker or Snap).
 
 Right click and download files 1-4:
 
-1. [wekan-8.25-amd64-windows.zip](https://github.com/wekan/wekan/releases/download/v8.25/wekan-8.25-amd64-windows.zip)
+1. [wekan-8.31-amd64-windows.zip](https://github.com/wekan/wekan/releases/download/v8.31/wekan-8.31-amd64-windows.zip)
 
 2. [node.exe](https://nodejs.org/dist/latest-v14.x/win-x64/node.exe)
 
-3. [mongodb-windows-x86_64-7.0.28-signed.msi](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-7.0.28-signed.msi)
+3. [mongodb-windows-x86_64-7.0.29-signed.msi](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-7.0.29-signed.msi)
 
 4. [start-wekan.bat](https://raw.githubusercontent.com/wekan/wekan/main/start-wekan.bat)
 
 5. Copy files from steps 1-4 with USB stick or DVD to offline Windows computer
 
-6. Double click `mongodb-windows-x86_64-7.0.28-signed.msi` . In installer, uncheck downloading MongoDB compass.
+6. Double click `mongodb-windows-x86_64-7.0.29-signed.msi` . In installer, uncheck downloading MongoDB compass.
 
-7. Unzip `wekan-8.25-amd64-windows.zip` , inside it is directory `bundle`, to it copy other files:
+7. Unzip `wekan-8.31-amd64-windows.zip` , inside it is directory `bundle`, to it copy other files:
 
 ```
 bundle (directory)
@@ -79,7 +79,7 @@ This process creates `server.crt` and `server.key`—the files Caddy will use.
 
 #### Configure Caddyfile 📜
 
-Next, you need to tell Caddy to use these specific certificates instead of trying to get them automatically. 
+Next, you need to tell Caddy to use these specific certificates instead of trying to get them automatically.
 Modify your `Caddyfile` to use the `tls` directive with the paths to your generated files.
 
 Caddyfile:
@@ -189,7 +189,7 @@ internet service provider (ISP) and can be found using an online tool or a simpl
 
 1.  Open the **Start menu** and click on **Settings** (or press the **Windows key + I**).
 2.  In the left-hand menu, click on **Network & internet**.
-3.  Click on the connection you're currently using, either **Wi-Fi** or **Ethernet**. 
+3.  Click on the connection you're currently using, either **Wi-Fi** or **Ethernet**.
 4.  On the next screen, your IP address (both IPv4 and IPv6) will be listed under the **Properties** section.
 
 #### Method 2: Using the Command Prompt 💻
@@ -253,7 +253,7 @@ C:.
 │   ├───caddy.exe from .zip file
 │   ├───Caddyfile textfile for Caddy 2 config
 │   └───start-wekan.bat textfile
-│ 
+│
 └───Program Files
 ```
 
@@ -263,7 +263,7 @@ C:.
 ```
 SET WRITABLE_PATH=..\FILES
 
-SET ROOT_URL=https://wekan.example.com  
+SET ROOT_URL=https://wekan.example.com
 
 SET PORT=2000
 
@@ -382,7 +382,7 @@ mongodump
 ```
 Backup will be is in directory `dump`. More info at https://github.com/wekan/wekan/wiki/Backup
 
-2.2. Backup part 2/2. If there is files at `WRITABLE_PATH` directory mentioned at `start-wekan.bat` of https://github.com/wekan/wekan , also backup those. For example, if there is `WRITABLE_PATH=..`, it means previous directory. So when WeKan is started with `node main.js` in bundle directory, it may create in previous directory (where is bundle) directory `files`, where is subdirectories like `files\attachments`, `files\avatars` or similar. 
+2.2. Backup part 2/2. If there is files at `WRITABLE_PATH` directory mentioned at `start-wekan.bat` of https://github.com/wekan/wekan , also backup those. For example, if there is `WRITABLE_PATH=..`, it means previous directory. So when WeKan is started with `node main.js` in bundle directory, it may create in previous directory (where is bundle) directory `files`, where is subdirectories like `files\attachments`, `files\avatars` or similar.
 
 2.3. Check required compatible version of Node.js from https://wekan.fi `Install WeKan ® Server` section and Download that version node.exe for Windows 64bit from https://nodejs.org/dist/
 
@@ -468,8 +468,8 @@ http://192.168.0.100
 
 #### Windows notes (tested on Windows 11)
 
-- **Attachments error fix**: if you get  
-  `TypeError: The "path" argument must be of type string. Received undefined`  
+- **Attachments error fix**: if you get
+  `TypeError: The "path" argument must be of type string. Received undefined`
   from `models/attachments.js`, create folders and set writable paths **before** start:
   - Create: `C:\wekan-data` and `C:\wekan-data\attachments`
   - PowerShell:

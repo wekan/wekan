@@ -26,7 +26,7 @@ class OriginalPositionsViewComponent extends BlazeComponent {
     if (!boardId) return;
 
     this.isLoading.set(true);
-    
+
     Meteor.call('positionHistory.getBoardHistory', boardId, (error, result) => {
       this.isLoading.set(false);
       if (error) {
@@ -57,11 +57,11 @@ class OriginalPositionsViewComponent extends BlazeComponent {
   getFilteredHistory() {
     const history = this.getBoardHistory();
     const filterType = this.filterType.get();
-    
+
     if (filterType === 'all') {
       return history;
     }
-    
+
     return history.filter(item => item.entityType === filterType);
   }
 
@@ -93,7 +93,7 @@ class OriginalPositionsViewComponent extends BlazeComponent {
   getEntityOriginalPositionDescription(entity) {
     const position = entity.originalPosition || {};
     let description = `Position: ${position.sort || 0}`;
-    
+
     if (entity.entityType === 'list' && entity.originalSwimlaneId) {
       description += ` in swimlane ${entity.originalSwimlaneId}`;
     } else if (entity.entityType === 'card') {
@@ -104,7 +104,7 @@ class OriginalPositionsViewComponent extends BlazeComponent {
         description += ` in list ${entity.originalListId}`;
       }
     }
-    
+
     return description;
   }
 
