@@ -140,7 +140,7 @@ webapp-hashing@1.1.1
 wekan-accounts-cas@0.1.0
 wekan-accounts-lockout@1.1.0
 wekan-accounts-oidc@1.0.10
-wekan-accounts-sandstorm@0.8.0
+wekan-accounts-sandstorm@0.9.0
 wekan-fontawesome@6.4.2
 wekan-fullcalendar@3.10.5
 wekan-ldap@0.0.2
