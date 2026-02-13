@@ -34,6 +34,8 @@ This release adds the following updates:
   Thanks to harryadel.
 - [Migrate wekan-accounts-cas to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6114).
   Thanks to harryadel.
+- [Updated to MongoDB 7.0.30 at Snap Candidate](https://github.com/wekan/wekan/commit/fed2e9dd4e3c571795af24f60c6643a33bb5ecf9).
+  Thanks to MongoDB developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
