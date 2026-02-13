@@ -24,6 +24,19 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Migrate wekan-oidc to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6111).
+  Thanks to harryadel.
+- [Migrate wekan-accounts-sandstorm to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6112).
+  Thanks to harryadel.
+- [Migrate wekan-accounts-cas to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6114).
+  Thanks to harryadel.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.31 2026-02-08 WeKan ® release
 
 This release fixes the following bugs:
