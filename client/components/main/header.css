@@ -177,8 +177,7 @@
 }
 #header-quick-access ul.header-quick-access-list {
   transition: opacity 0.2s;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
   white-space: nowrap;
   padding: 10px;
   margin: -10px;
@@ -186,26 +185,16 @@
   min-width: 0; /* Allow shrinking below content size */
   display: flex; /* Use flexbox for better control */
   align-items: center;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(255, 255, 255, 0.3) transparent; /* Firefox */
 }
 
-/* Webkit scrollbar styling for better UX */
+/* Hide scrollbar completely */
 #header-quick-access ul.header-quick-access-list::-webkit-scrollbar {
-  height: 4px;
+  display: none;
 }
 
-#header-quick-access ul.header-quick-access-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-#header-quick-access ul.header-quick-access-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-}
-
-#header-quick-access ul.header-quick-access-list::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+#header-quick-access ul.header-quick-access-list {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 #header-quick-access ul.header-quick-access-list li {
   display: inline-block; /* Keep inline-block for proper spacing */
@@ -233,6 +222,13 @@
 }
 #header-quick-access ul.header-quick-access-list li.current.empty {
   padding: 12px 10px 12px 10px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
+  opacity: 0.85;
+  font-style: italic;
 }
 #header-quick-access ul.header-quick-access-list li:first-child .fa-home,
 #header-quick-access ul.header-quick-access-list li:nth-child(3) .fa-globe {

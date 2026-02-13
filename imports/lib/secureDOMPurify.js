@@ -44,7 +44,7 @@ export function getSecureDOMPurifyConfig() {
               }
               return false;
             }
-            
+
             // Additional check for base64 encoded SVG with script tags
             if (src.startsWith('data:image/svg+xml;base64,')) {
               try {

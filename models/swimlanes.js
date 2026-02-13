@@ -147,7 +147,7 @@ Swimlanes.allow({
 });
 
 Swimlanes.helpers({
-  copy(boardId) {
+  async copy(boardId) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     this.boardId = boardId;
@@ -163,12 +163,15 @@ Swimlanes.helpers({
     }
 
     // Copy all lists in swimlane
-    ReactiveCache.getLists(query).forEach(list => {
+    const lists = ReactiveCache.getLists(query);
+    for (const list of lists) {
       list.type = 'list';
       list.swimlaneId = oldId;
       list.boardId = boardId;
-      list.copy(boardId, _id);
-    });
+      await list.copy(boardId, _id);
+    }
+
+    return _id;
   },
 
   async move(toBoardId) {
@@ -250,7 +253,7 @@ Swimlanes.helpers({
   myLists() {
     // Return per-swimlane lists: provide lists specific to this swimlane
     return ReactiveCache.getLists(
-      { 
+      {
         boardId: this.boardId,
         swimlaneId: this._id,
         archived: false
@@ -687,7 +690,7 @@ Swimlanes.helpers({
   hasMovedFromOriginalPosition() {
     const history = this.getOriginalPosition();
     if (!history) return false;
-    
+
     return history.originalPosition.sort !== this.sort;
   },
 
@@ -697,7 +700,7 @@ Swimlanes.helpers({
   getOriginalPositionDescription() {
     const history = this.getOriginalPosition();
     if (!history) return 'No original position data';
-    
+
     return `Original position: ${history.originalPosition.sort || 0}`;
   },
 });

@@ -5,7 +5,9 @@
  */
 
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { AttachmentMigrationStatus } from '/imports/attachmentMigrationClient';
 
 // Reactive variables for attachment migration progress
 export const attachmentMigrationProgress = new ReactiveVar(0);
@@ -37,8 +39,8 @@ class AttachmentMigrationManager {
       if (!attachment) return false;
 
       // Check if attachment has old structure (no meta field or missing required fields)
-      return !attachment.meta || 
-             !attachment.meta.cardId || 
+      return !attachment.meta ||
+             !attachment.meta.cardId ||
              !attachment.meta.boardId ||
              !attachment.meta.listId;
     } catch (error) {
@@ -223,6 +225,41 @@ class AttachmentMigrationManager {
 }
 
 export const attachmentMigrationManager = new AttachmentMigrationManager();
+
+// Setup pub/sub for attachment migration status
+if (Meteor.isClient) {
+  // Subscribe to all attachment migration statuses when component is active
+  // This will be called by board components when they need migration status
+  window.subscribeToAttachmentMigrationStatus = function(boardId) {
+    return Meteor.subscribe('attachmentMigrationStatus', boardId);
+  };
+
+  // Reactive tracking of migration status from published collection
+  Tracker.autorun(() => {
+    const statuses = AttachmentMigrationStatus.find({}).fetch();
+
+    statuses.forEach(status => {
+      if (status.isMigrated) {
+        globalMigratedBoards.add(status.boardId);
+        attachmentMigrationManager.migratedBoards.add(status.boardId);
+      }
+    });
+
+    // Update UI reactive variables based on active migration
+    const activeMigration = AttachmentMigrationStatus.findOne({
+      status: { $in: ['migrating', 'pending'] }
+    });
+
+    if (activeMigration) {
+      isMigratingAttachments.set(true);
+      attachmentMigrationProgress.set(activeMigration.progress || 0);
+      attachmentMigrationStatus.set(activeMigration.status || '');
+    } else {
+      isMigratingAttachments.set(false);
+    }
+  });
+}
+
 
 
 

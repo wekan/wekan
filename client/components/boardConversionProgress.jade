@@ -6,21 +6,21 @@ template(name="boardConversionProgress")
           i.fa.fa-cog
           | {{_ 'converting-board'}}
         p {{_ 'converting-board-description'}}
-      
+
       .board-conversion-content
         .conversion-progress
           .progress-bar
             .progress-fill(style="width: {{conversionProgress}}%")
           .progress-text {{conversionProgress}}%
-        
+
         .conversion-status
           i.fa.fa-cog
           | {{conversionStatus}}
-        
+
         .conversion-time(style="{{#unless conversionEstimatedTime}}display: none;{{/unless}}")
           i.fa.fa-clock-o
           | {{_ 'estimated-time-remaining'}}: {{conversionEstimatedTime}}
-      
+
       .board-conversion-footer
         .conversion-info
           i.fa.fa-info-circle

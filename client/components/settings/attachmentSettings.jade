@@ -6,12 +6,12 @@ template(name="attachmentSettings")
         label {{_ 'writable-path'}}
         input.wekan-form-control#filesystem-path(type="text" value="{{filesystemPath}}" readonly)
         small.form-text.text-muted {{_ 'filesystem-path-description'}}
-      
+
       .form-group
         label {{_ 'attachments-path'}}
         input.wekan-form-control#attachments-path(type="text" value="{{attachmentsPath}}" readonly)
         small.form-text.text-muted {{_ 'attachments-path-description'}}
-      
+
       .form-group
         label {{_ 'avatars-path'}}
         input.wekan-form-control#avatars-path(type="text" value="{{avatarsPath}}" readonly)
@@ -30,42 +30,42 @@ template(name="attachmentSettings")
         label {{_ 's3-enabled'}}
         input.wekan-form-control#s3-enabled(type="checkbox" checked="{{s3Enabled}}" disabled)
         small.form-text.text-muted {{_ 's3-enabled-description'}}
-      
+
       .form-group
         label {{_ 's3-endpoint'}}
         input.wekan-form-control#s3-endpoint(type="text" value="{{s3Endpoint}}" readonly)
         small.form-text.text-muted {{_ 's3-endpoint-description'}}
-      
+
       .form-group
         label {{_ 's3-bucket'}}
         input.wekan-form-control#s3-bucket(type="text" value="{{s3Bucket}}" readonly)
         small.form-text.text-muted {{_ 's3-bucket-description'}}
-      
+
       .form-group
         label {{_ 's3-region'}}
         input.wekan-form-control#s3-region(type="text" value="{{s3Region}}" readonly)
         small.form-text.text-muted {{_ 's3-region-description'}}
-      
+
       .form-group
         label {{_ 's3-access-key'}}
         input.wekan-form-control#s3-access-key(type="text" placeholder="{{_ 's3-access-key-placeholder'}}" readonly)
         small.form-text.text-muted {{_ 's3-access-key-description'}}
-      
+
       .form-group
         label {{_ 's3-secret-key'}}
         input.wekan-form-control#s3-secret-key(type="password" placeholder="{{_ 's3-secret-key-placeholder'}}")
         small.form-text.text-muted {{_ 's3-secret-key-description'}}
-      
+
       .form-group
         label {{_ 's3-ssl-enabled'}}
         input.wekan-form-control#s3-ssl-enabled(type="checkbox" checked="{{s3SslEnabled}}" disabled)
         small.form-text.text-muted {{_ 's3-ssl-enabled-description'}}
-      
+
       .form-group
         label {{_ 's3-port'}}
         input.wekan-form-control#s3-port(type="number" value="{{s3Port}}" readonly)
         small.form-text.text-muted {{_ 's3-port-description'}}
-      
+
       .form-group
         button.js-test-s3-connection.btn.btn-secondary {{_ 'test-s3-connection'}}
         button.js-save-s3-settings.btn.btn-primary {{_ 'save-s3-settings'}}
@@ -73,19 +73,19 @@ template(name="attachmentSettings")
 template(name="storageSettings")
   .storage-settings
     h3 {{_ 'attachment-storage-configuration'}}
-    
+
     .storage-config-section
       h4 {{_ 'filesystem-storage'}}
       .form-group
         label {{_ 'writable-path'}}
         input.wekan-form-control#filesystem-path(type="text" value="{{filesystemPath}}" readonly)
         small.form-text.text-muted {{_ 'filesystem-path-description'}}
-      
+
       .form-group
         label {{_ 'attachments-path'}}
         input.wekan-form-control#attachments-path(type="text" value="{{attachmentsPath}}" readonly)
         small.form-text.text-muted {{_ 'attachments-path-description'}}
-      
+
       .form-group
         label {{_ 'avatars-path'}}
         input.wekan-form-control#avatars-path(type="text" value="{{avatarsPath}}" readonly)
@@ -104,37 +104,37 @@ template(name="storageSettings")
         label {{_ 's3-enabled'}}
         input.wekan-form-control#s3-enabled(type="checkbox" checked="{{s3Enabled}}" disabled)
         small.form-text.text-muted {{_ 's3-enabled-description'}}
-      
+
       .form-group
         label {{_ 's3-endpoint'}}
         input.wekan-form-control#s3-endpoint(type="text" value="{{s3Endpoint}}" readonly)
         small.form-text.text-muted {{_ 's3-endpoint-description'}}
-      
+
       .form-group
         label {{_ 's3-bucket'}}
         input.wekan-form-control#s3-bucket(type="text" value="{{s3Bucket}}" readonly)
         small.form-text.text-muted {{_ 's3-bucket-description'}}
-      
+
       .form-group
         label {{_ 's3-region'}}
         input.wekan-form-control#s3-region(type="text" value="{{s3Region}}" readonly)
         small.form-text.text-muted {{_ 's3-region-description'}}
-      
+
       .form-group
         label {{_ 's3-access-key'}}
         input.wekan-form-control#s3-access-key(type="text" placeholder="{{_ 's3-access-key-placeholder'}}" readonly)
         small.form-text.text-muted {{_ 's3-access-key-description'}}
-      
+
       .form-group
         label {{_ 's3-secret-key'}}
         input.wekan-form-control#s3-secret-key(type="password" placeholder="{{_ 's3-secret-key-placeholder'}}")
         small.form-text.text-muted {{_ 's3-secret-key-description'}}
-      
+
       .form-group
         label {{_ 's3-ssl-enabled'}}
         input.wekan-form-control#s3-ssl-enabled(type="checkbox" checked="{{s3SslEnabled}}" disabled)
         small.form-text.text-muted {{_ 's3-ssl-enabled-description'}}
-      
+
       .form-group
         label {{_ 's3-port'}}
         input.wekan-form-control#s3-port(type="number" value="{{s3Port}}" readonly)
@@ -147,18 +147,18 @@ template(name="storageSettings")
 template(name="attachmentMigration")
   .attachment-migration
     h3 {{_ 'attachment-migration'}}
-    
+
     .migration-controls
       .form-group
         label {{_ 'migration-batch-size'}}
         input.wekan-form-control#migration-batch-size(type="number" value="{{migrationBatchSize}}" min="1" max="100")
         small.form-text.text-muted {{_ 'migration-batch-size-description'}}
-      
+
       .form-group
         label {{_ 'migration-delay-ms'}}
         input.wekan-form-control#migration-delay-ms(type="number" value="{{migrationDelayMs}}" min="100" max="10000")
         small.form-text.text-muted {{_ 'migration-delay-ms-description'}}
-      
+
       .form-group
         label {{_ 'migration-cpu-threshold'}}
         input.wekan-form-control#migration-cpu-threshold(type="number" value="{{migrationCpuThreshold}}" min="10" max="90")
@@ -169,7 +169,7 @@ template(name="attachmentMigration")
         button.js-migrate-all-to-filesystem.btn.btn-primary {{_ 'migrate-all-to-filesystem'}}
         button.js-migrate-all-to-gridfs.btn.btn-primary {{_ 'migrate-all-to-gridfs'}}
         button.js-migrate-all-to-s3.btn.btn-primary {{_ 'migrate-all-to-s3'}}
-      
+
       .migration-controls
         button.js-pause-migration.btn.btn-warning {{_ 'pause-migration'}}
         button.js-resume-migration.btn.btn-success {{_ 'resume-migration'}}
@@ -180,7 +180,7 @@ template(name="attachmentMigration")
       .progress
         .progress-bar(role="progressbar" style="width: {{migrationProgress}}%" aria-valuenow="{{migrationProgress}}" aria-valuemin="0" aria-valuemax="100")
           | {{migrationProgress}}%
-      
+
       .migration-stats
         .stat-item
           span.label {{_ 'total-attachments'}}:
@@ -203,7 +203,7 @@ template(name="attachmentMigration")
 template(name="attachmentMonitoring")
   .attachment-monitoring
     h3 {{_ 'attachment-monitoring'}}
-    
+
     .monitoring-stats
       .stats-grid
         .stat-card

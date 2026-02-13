@@ -5,7 +5,7 @@ import { meteorMongoIntegration } from '/models/lib/meteorMongoIntegration';
 
 /**
  * MongoDB Driver Startup
- * 
+ *
  * This module initializes the MongoDB driver system on server startup,
  * providing automatic version detection and driver selection for
  * MongoDB versions 3.0 through 8.0.
@@ -14,7 +14,7 @@ import { meteorMongoIntegration } from '/models/lib/meteorMongoIntegration';
 // Initialize MongoDB driver system on server startup
 Meteor.startup(async function() {
   // MongoDB Driver System Startup (status available in Admin Panel)
-  
+
   try {
     // Check if MONGO_URL is available
     const mongoUrl = process.env.MONGO_URL;
@@ -31,7 +31,7 @@ Meteor.startup(async function() {
 
     // Test the connection
     const testResult = await meteorMongoIntegration.testConnection();
-    
+
     if (testResult.success) {
       // MongoDB connection test successful
       // Driver and version information available in Admin Panel
@@ -51,7 +51,7 @@ Meteor.startup(async function() {
   } catch (error) {
     console.error('Error during MongoDB driver system startup:', error.message);
     console.error('Stack trace:', error.stack);
-    
+
     // Don't fail the entire startup, just log the error
     console.log('Continuing with default MongoDB connection...');
   }
@@ -65,7 +65,7 @@ if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
-      
+
       return {
         connectionStats: mongodbConnectionManager.getConnectionStats(),
         driverStats: mongodbDriverManager.getConnectionStats(),
@@ -77,7 +77,7 @@ if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
-      
+
       return await meteorMongoIntegration.testConnection();
     },
 
@@ -85,7 +85,7 @@ if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
-      
+
       meteorMongoIntegration.reset();
       return { success: true, message: 'MongoDB driver system reset' };
     },
@@ -94,7 +94,7 @@ if (Meteor.isServer) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
-      
+
       return {
         supportedVersions: mongodbDriverManager.getSupportedVersions(),
         compatibility: mongodbDriverManager.getSupportedVersions().map(version => {
@@ -120,11 +120,11 @@ if (Meteor.isServer) {
     }
 
     const self = this;
-    
+
     // Send initial data
     const stats = meteorMongoIntegration.getStats();
     self.added('mongodbDriverMonitor', 'stats', stats);
-    
+
     // Update every 30 seconds
     const interval = setInterval(() => {
       const updatedStats = meteorMongoIntegration.getStats();

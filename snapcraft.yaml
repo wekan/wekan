@@ -1,5 +1,5 @@
 name: wekan
-version: '8.25'
+version: '8.32'
 base: core24
 summary: Open Source kanban
 description: |
@@ -78,7 +78,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.29.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.30.tgz
         plugin: dump
         stage-packages:
             - libssl3
@@ -166,9 +166,9 @@ parts:
             # Cleanup
             mkdir .build
             cd .build
-            wget https://github.com/wekan/wekan/releases/download/v8.25/wekan-8.25-amd64.zip
-            unzip wekan-8.25-amd64.zip
-            rm wekan-8.25-amd64.zip
+            wget https://github.com/wekan/wekan/releases/download/v8.32/wekan-8.32-amd64.zip
+            unzip wekan-8.32-amd64.zip
+            rm wekan-8.32-amd64.zip
             cd ..
             ##cd .build/bundle
             ##find . -type d -name '*-garbage*' | xargs rm -rf

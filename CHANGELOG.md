@@ -24,12 +24,126 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
-# Upcoming WeKan ® release
+# v8.32 2026-02-13 WeKan ® release
+
+This release adds the following updates:
+
+- [Migrate wekan-oidc to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6111).
+  Thanks to harryadel.
+- [Migrate wekan-accounts-sandstorm to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6112).
+  Thanks to harryadel.
+- [Migrate wekan-accounts-cas to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6114).
+  Thanks to harryadel.
+- [Updated to MongoDB 7.0.30 at Snap Candidate](https://github.com/wekan/wekan/commit/fed2e9dd4e3c571795af24f60c6643a33bb5ecf9).
+  Thanks to MongoDB developers.
+- [Updated MongoDB to 7.0.30 at Helm Chart](https://github.com/wekan/wekan/commit/commit/98f66a2b92f7a2c199135e8239133ef431c332b9).
+  Thanks to MongoDB developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v8.31 2026-02-08 WeKan ® release
 
 This release fixes the following bugs:
 
+- [Fix Copy Card and Move Card](https://github.com/wekan/wekan/commit/f8aa487e9118264f4d96c4d0cde384bcaf05e0a0).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v8.30 2026-02-08 WeKan ® release
+
+This release reverts the following new features and adds the following fixes:
+
+- [Reverted New UI Design of WeKan v8.29 and added more fixes and performance improvements](https://github.com/wekan/wekan/commit/1b8b8d2eef5b56654026597ae445f3f20ad886b2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v8.29 2026-02-07 WeKan ® release
+
+This release adds the following new features:
+
+- New UI Design.
+  [Part 1](https://github.com/wekan/wekan/pull/6131),
+  [Part 2](https://github.com/wekan/wekan/pull/6133).
+  Thanks to Chostakovitch.
+
+and fixes the following bugs:
+
+- [Fix List widths](https://github.com/wekan/wekan/pull/6129).
+  Thanks to KhaoulaMaleh.
+- [Fix extra space at RTL need margin](https://github.com/wekan/wekan/commit/4456bc13609b2d0e944ee71a82df200060a601b2).
+  Thanks to mimZD and xet7.
+- [Fix No Add Card + etc](https://github.com/wekan/wekan/commit/55710835fe8879775b73c8bc921bac5febf552a2).
+  Thanks to mimZD and xet7.
+- [Removed extra file](https://github.com/wekan/wekan/commit/0987154a7fea89b0416f48d9bffd5fa7fba9908a).
+  Thanks to xet7.
+- [Added missing linefeeds](https://github.com/wekan/wekan/commit/0ae9865fcbad42966988225393fa66bca49cf14e).
+  Thanks to xet7.
+- [Fix Notifications from not allowed Boards](https://github.com/wekan/wekan/commit/0a92e896f8d2cf0677891857d163ada336a45c61).
+  Thanks to FK-PATZ3 and xet7.
+- [Fix move and copy popup duplicate view](https://github.com/wekan/wekan/commit/631c250f403172937b76ddd37bab54bc9b6dbb78).
+  Thanks to mimZD and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v8.28 2026-02-05 WeKan ® release
+
+This release adds the following updates:
+
+- [Bump docker/login-action from 3.6.0 to 3.7.0](https://github.com/wekan/wekan/pull/6122).
+  Thanks to dependabot.
+- [Updated meteor-node-stubs](https://github.com/wekan/wekan/commit/6c2e2f271d6343b347224430a4eedfe54db2d838).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
+
+- [Fixed text truncation at quick-access board link bar](https://github.com/wekan/wekan/pull/6121).
+  Thanks to KhaoulaMaleh.
+- [Improved cardDetails.css for better UI](https://github.com/wekan/wekan/pull/6124).
+  Thanks to AymenHassini19.
+- [Fixed Jade syntax at header](https://github.com/wekan/wekan/commit/c31758960f5372e88f47e8d081404294751284c8).
+  Thanks to xet7.
+- [Await async setDone before closing popup in copy/move dialogs](https://github.com/wekan/wekan/pull/6126).
+  Thanks to harryadel.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v8.27 2026-01-31 WeKan ® release
+
+This release adds the following updates:
+
+- [Updated MongoDB to 7.0.29 at Windows install docs](https://github.com/wekan/wekan/commit/b55e1bbd409f76bd0388d19d4d0a8420cee8df96).
+  Thanks to MongoDB developers.
+
+and fixes the following bugs:
+
+- [Fix async/await in copy/move card operations](https://github.com/wekan/wekan/pull/6120).
+  Thanks to harryadel.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v8.26 2026-01-31 WeKan ® release
+
+This release adds the following updates:
+
+- [Migrate wekan-accounts-lockout to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6113).
+  Thanks to harryadel.
+- Added Docs: Spreadsheet vs Kanban.
+  [Part 1](https://github.com/wekan/wekan/commit/a0a8d0186cbc7fefe38f72244723bcff292ae2f4),
+  [Part 2](https://github.com/wekan/wekan/commit/37d0daee590ab48cbfa1672e4bc5efd95d341211).
+  Thanks to xet7.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/03439d1bccf82511870eed7301b621b1d495941b).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
 - [Reduce visual overflow in Member Settings menu by extending container height](https://github.com/wekan/wekan/pull/6104).
   Thanks to AymenHassini19.
+- [Fix Card copy menu is not displayed](https://github.com/wekan/wekan/commit/0b891464b907b272e075d8aafd3ce29e704739cf).
+  Thanks to xet7.
+- [Fix Bug: Rules view translation not is not shown correctly](https://github.com/wekan/wekan/commit/f73eab23f997efe5347aa1f06515bf355cfe7ed5).
+  Thanks to cactus7as and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

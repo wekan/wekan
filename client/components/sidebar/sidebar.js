@@ -291,10 +291,10 @@ Template.boardMenuPopup.events({
   'click .js-delete-duplicate-lists': Popup.afterConfirm('deleteDuplicateLists', function() {
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard) return;
-    
+
     // Get all lists in the current board
     const allLists = ReactiveCache.getLists({ boardId: currentBoard._id, archived: false });
-    
+
     // Group lists by title to find duplicates
     const listsByTitle = {};
     allLists.forEach(list => {
@@ -303,7 +303,7 @@ Template.boardMenuPopup.events({
       }
       listsByTitle[list.title].push(list);
     });
-    
+
     // Find and delete duplicate lists that have no cards
     let deletedCount = 0;
     Object.keys(listsByTitle).forEach(title => {
@@ -313,7 +313,7 @@ Template.boardMenuPopup.events({
         for (let i = 1; i < listsWithSameTitle.length; i++) {
           const list = listsWithSameTitle[i];
           const cardsInList = ReactiveCache.getCards({ listId: list._id, archived: false });
-          
+
           if (cardsInList.length === 0) {
             Lists.remove(list._id);
             deletedCount++;
@@ -321,7 +321,7 @@ Template.boardMenuPopup.events({
         }
       }
     });
-    
+
     // Show notification
     if (deletedCount > 0) {
       // You could add a toast notification here if available
@@ -402,7 +402,7 @@ Template.memberPopup.events({
       FlowRouter.go('home');
     });
   }),
-  
+
 });
 
 Template.removeMemberPopup.helpers({
@@ -934,7 +934,7 @@ BlazeComponent.extendComponent({
     // Get the current board reactively using board ID from Session
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
-    
+
     let result = currentBoard ? currentBoard.presentParentTask : null;
     if (result === null || result === undefined) {
       result = 'no-parent';
@@ -970,7 +970,7 @@ BlazeComponent.extendComponent({
           // Get the ID from the anchor element, not the span
           const anchorElement = $(evt.target).closest('.js-field-show-parent-in-minicard')[0];
           const value = anchorElement ? anchorElement.id : null;
-          
+
           if (value) {
             Boards.update(this.currentBoard._id, { $set: { presentParentTask: value } });
           }
@@ -1541,12 +1541,12 @@ BlazeComponent.extendComponent({
         'keyup .js-search-member-input'(event) {
           Session.set('addMemberPopup.error', '');
           const query = event.target.value.trim();
-          
+
           // Clear previous timeout
           if (this.searchTimeout) {
             clearTimeout(this.searchTimeout);
           }
-          
+
           // Debounce search
           this.searchTimeout = setTimeout(() => {
             this.performSearch(query);

@@ -5,7 +5,7 @@
         <i class="fa fa-history"></i>
         {{#if isShowingOriginalPositions}}Hide{{else}}Show{{/if}} Original Positions
       </button>
-      
+
       {{#if isShowingOriginalPositions}}
         <button class="btn btn-sm btn-outline-primary" onclick="{{refreshHistory}}">
           <i class="fa fa-refresh"></i> Refresh
@@ -22,22 +22,22 @@
         {{else}}
           <div class="original-positions-filters">
             <div class="btn-group btn-group-sm" role="group">
-              <button type="button" 
+              <button type="button"
                       class="btn {{#if isFilterType 'all'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
                       onclick="{{setFilterType 'all'}}">
                 All
               </button>
-              <button type="button" 
+              <button type="button"
                       class="btn {{#if isFilterType 'swimlane'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
                       onclick="{{setFilterType 'swimlane'}}">
                 <i class="fa fa-bars"></i> Swimlanes
               </button>
-              <button type="button" 
+              <button type="button"
                       class="btn {{#if isFilterType 'list'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
                       onclick="{{setFilterType 'list'}}">
                 <i class="fa fa-columns"></i> Lists
               </button>
-              <button type="button" 
+              <button type="button"
                       class="btn {{#if isFilterType 'card'}}btn-primary{{else}}btn-outline-secondary{{/if}}"
                       onclick="{{setFilterType 'card'}}">
                 <i class="fa fa-sticky-note"></i> Cards

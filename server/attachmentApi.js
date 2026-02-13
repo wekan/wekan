@@ -150,7 +150,7 @@ if (Meteor.isServer) {
           readStream.on('end', () => {
             const fileBuffer = Buffer.concat(chunks);
             const base64Data = fileBuffer.toString('base64');
-            
+
             resolve({
               success: true,
               attachmentId: attachmentId,
@@ -200,7 +200,7 @@ if (Meteor.isServer) {
         }
 
         const attachments = ReactiveCache.getAttachments(query);
-        
+
         const attachmentList = attachments.map(attachment => {
           const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
           return {
@@ -438,7 +438,7 @@ if (Meteor.isServer) {
 
       try {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
-        
+
         return {
           success: true,
           attachmentId: attachment._id,
