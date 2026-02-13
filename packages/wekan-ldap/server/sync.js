@@ -341,58 +341,50 @@ export async function importNewUsers(ldap) {
   }
 
   let count = 0;
-  ldap.searchUsers('*', Meteor.bindEnvironment(async (error, ldapUsers, {next, end} = {}) => {
-    if (error) {
-      throw error;
+  const ldapUsers = await ldap.searchUsers('*');
+
+  for (const ldapUser of ldapUsers) {
+    count++;
+
+    const uniqueId = getLdapUserUniqueID(ldapUser);
+    // Look to see if user already exists
+    const userQuery = {
+      'services.ldap.id': uniqueId.value,
+    };
+
+    log_debug('userQuery', userQuery);
+
+    let username;
+    if (LDAP.settings_get('LDAP_USERNAME_FIELD') !== '') {
+      username = slug(getLdapUsername(ldapUser));
     }
 
-    for (const ldapUser of ldapUsers) {
-      count++;
+    // Add user if it was not added before
+    let user = await Meteor.users.findOneAsync(userQuery);
 
-      const uniqueId = getLdapUserUniqueID(ldapUser);
-      // Look to see if user already exists
+    if (!user && username && LDAP.settings_get('LDAP_MERGE_EXISTING_USERS') === true) {
       const userQuery = {
-        'services.ldap.id': uniqueId.value,
+        username,
       };
 
-      log_debug('userQuery', userQuery);
+      log_debug('userQuery merge', userQuery);
 
-      let username;
-      if (LDAP.settings_get('LDAP_USERNAME_FIELD') !== '') {
-        username = slug(getLdapUsername(ldapUser));
-      }
-
-      // Add user if it was not added before
-      let user = await Meteor.users.findOneAsync(userQuery);
-
-      if (!user && username && LDAP.settings_get('LDAP_MERGE_EXISTING_USERS') === true) {
-        const userQuery = {
-          username,
-        };
-
-        log_debug('userQuery merge', userQuery);
-
-        user = await Meteor.users.findOneAsync(userQuery);
-        if (user) {
-          await syncUserData(user, ldapUser);
-        }
-      }
-
-      if (!user) {
-        await addLdapUser(ldapUser, username);
-      }
-
-      if (count % 100 === 0) {
-        log_info('Import running. Users imported until now:', count);
+      user = await Meteor.users.findOneAsync(userQuery);
+      if (user) {
+        await syncUserData(user, ldapUser);
       }
     }
 
-    if (end) {
-      log_info('Import finished. Users imported:', count);
+    if (!user) {
+      await addLdapUser(ldapUser, username);
     }
 
-    next(count);
-  }));
+    if (count % 100 === 0) {
+      log_info('Import running. Users imported until now:', count);
+    }
+  }
+
+  log_info('Import finished. Users imported:', count);
 }
 
 async function sync() {

@@ -26,6 +26,6 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-	'ldapjs': '2.3.3',
+	'ldapts': '4.2.6',
 	'limax': '4.1.0'
 });
