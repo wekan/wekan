@@ -26,7 +26,12 @@ WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Admin Panel/Settings/Layout, for PWA: Custom head meta, link, icons, assetlinks.json, site.webmanifest](https://github.com/wekan/wekan/commit/b5a13f0206ff9b44329a1cf8d4f2b84ca1c7bd91).
+  Thanks to xet7.
+
+and adds the following updates:
 
 - [Migrate wekan-ldap to async API for Meteor 3.0](https://github.com/wekan/wekan/pull/6115).
   Thanks to harryadel.
