@@ -1,4 +1,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import {
+  DEFAULT_ASSETLINKS,
+  DEFAULT_HEAD_LINKS,
+  DEFAULT_HEAD_META,
+  DEFAULT_SITE_MANIFEST,
+} from '/imports/lib/customHeadDefaults';
 import { Blaze } from 'meteor/blaze';
 import { Session } from 'meteor/session';
 import { 
@@ -40,6 +46,38 @@ Blaze.registerHelper('currentList', () => {
 Blaze.registerHelper('currentSetting', () => {
   const ret = ReactiveCache.getCurrentSetting();
   return ret;
+});
+
+Blaze.registerHelper('customHeadMetaTagsValue', () => {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (setting && typeof setting.customHeadMetaTags === 'string') {
+    return setting.customHeadMetaTags;
+  }
+  return DEFAULT_HEAD_META;
+});
+
+Blaze.registerHelper('customHeadLinkTagsValue', () => {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (setting && typeof setting.customHeadLinkTags === 'string') {
+    return setting.customHeadLinkTags;
+  }
+  return DEFAULT_HEAD_LINKS;
+});
+
+Blaze.registerHelper('customManifestContentValue', () => {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (setting && typeof setting.customManifestContent === 'string') {
+    return setting.customManifestContent;
+  }
+  return DEFAULT_SITE_MANIFEST;
+});
+
+Blaze.registerHelper('customAssetLinksContentValue', () => {
+  const setting = ReactiveCache.getCurrentSetting();
+  if (setting && typeof setting.customAssetLinksContent === 'string') {
+    return setting.customAssetLinksContent;
+  }
+  return DEFAULT_ASSETLINKS;
 });
 
 Blaze.registerHelper('currentUser', () => {

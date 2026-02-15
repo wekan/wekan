@@ -758,11 +758,12 @@ Utils = {
   },
 
   setCustomUI(data) {
+    const productName = (data && data.productName) ? data.productName : 'Wekan';
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
-      document.title = `${currentBoard.title} - ${data.productName}`;
+      document.title = `${currentBoard.title} - ${productName}`;
     } else {
-      document.title = `${data.productName}`;
+      document.title = productName;
     }
   },
 

@@ -460,6 +460,41 @@ template(name='layoutSettings')
             textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
           li
             button.js-support-save.primary {{_ 'save'}}
+    li
+      a.flex.js-toggle-custom-head
+        .materialCheckBox(class="{{#if currentSetting.customHeadEnabled}}is-checked{{/if}}")
+        span {{_ 'custom-head-tags-enabled'}}
+    li
+      .custom-head-settings(class="{{#if currentSetting.customHeadEnabled}}{{else}}hide{{/if}}")
+        ul
+          li
+            .title {{_ 'custom-head-meta-tags'}}
+            textarea#custom-head-meta.wekan-form-control= customHeadMetaTagsValue
+          li
+            .title {{_ 'custom-head-link-tags'}}
+            textarea#custom-head-links.wekan-form-control= customHeadLinkTagsValue
+          li
+            a.flex.js-toggle-custom-manifest
+              .materialCheckBox(class="{{#if currentSetting.customManifestEnabled}}is-checked{{/if}}")
+              span {{_ 'custom-manifest-enabled'}}
+          li
+            .custom-manifest-settings(class="{{#if currentSetting.customManifestEnabled}}{{else}}hide{{/if}}")
+              .title {{_ 'custom-head-manifest-content'}}
+              textarea#custom-manifest-content.wekan-form-control= customManifestContentValue
+          li
+            button.js-custom-head-save.primary {{_ 'save'}}
+    li
+      a.flex.js-toggle-custom-assetlinks
+        .materialCheckBox(class="{{#if currentSetting.customAssetLinksEnabled}}is-checked{{/if}}")
+        span {{_ 'custom-assetlinks-enabled'}}
+    li
+      .custom-assetlinks-settings(class="{{#if currentSetting.customAssetLinksEnabled}}{{else}}hide{{/if}}")
+        ul
+          li
+            .title {{_ 'custom-assetlinks-content'}}
+            textarea#custom-assetlinks-content.wekan-form-control= customAssetLinksContentValue
+          li
+            button.js-custom-assetlinks-save.primary {{_ 'save'}}
     li.layout-form
       .title {{_ 'oidc-button-text'}}
       .form-group

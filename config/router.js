@@ -298,7 +298,11 @@ FlowRouter.route('/global-search', {
 
     Utils.manageCustomUI();
     Utils.manageMatomo();
-    document.title = TAPi18n.__('globalSearch-title');
+
+    // Set title with product name
+    const settings = Settings.findOne({});
+    const productName = (settings && settings.productName) ? settings.productName : 'Wekan';
+    document.title = `${TAPi18n.__('globalSearch-title')} - ${productName}`;
 
     if (FlowRouter.getQueryParam('q')) {
       Session.set(

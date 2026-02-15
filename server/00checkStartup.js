@@ -48,6 +48,10 @@ import './migrations/comprehensiveBoardMigration';
 
 // Import file serving routes
 import './routes/universalFileServer';
+import './routes/customHeadAssets';
+
+// Import server-side custom head rendering
+import './lib/customHeadRender';
 
 // Note: Automatic migrations are disabled - migrations only run when opening boards
 // import './boardMigrationDetector';

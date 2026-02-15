@@ -759,6 +759,182 @@ BlazeComponent.extendComponent({
     this.setLoading(false);
   },
 
+  toggleCustomHead() {
+    this.setLoading(true);
+    const customHeadEnabled = !$('.js-toggle-custom-head .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-custom-head .materialCheckBox').toggleClass('is-checked');
+    $('.custom-head-settings').toggleClass('hide');
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { customHeadEnabled },
+    });
+    this.setLoading(false);
+  },
+
+  toggleCustomManifest() {
+    this.setLoading(true);
+    const customManifestEnabled = !$('.js-toggle-custom-manifest .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-custom-manifest .materialCheckBox').toggleClass('is-checked');
+    $('.custom-manifest-settings').toggleClass('hide');
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { customManifestEnabled },
+    });
+    this.setLoading(false);
+  },
+
+  saveCustomHeadSettings() {
+    this.setLoading(true);
+    const customHeadMetaTags = $('#custom-head-meta').val() || '';
+    let customManifestContent = $('#custom-manifest-content').val() || '';
+
+    // Validate and clean JSON if present
+    if (customManifestContent.trim()) {
+      const cleanResult = this.cleanAndValidateJSON(customManifestContent);
+      if (cleanResult.error) {
+        this.setLoading(false);
+        alert(`Invalid manifest JSON: ${cleanResult.error}`);
+        return;
+      }
+      customManifestContent = cleanResult.json;
+      // Update the textarea with cleaned version
+      $('#custom-manifest-content').val(customManifestContent);
+    }
+
+    const customHeadLinkTags = $('#custom-head-links').val() || '';
+
+    try {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, {
+        $set: {
+          customHeadMetaTags,
+          customHeadLinkTags,
+          customManifestContent,
+        },
+      });
+    } catch (e) {
+      return;
+    } finally {
+      this.setLoading(false);
+    }
+  },
+
+  cleanAndValidateJSON(content) {
+    if (!content || !content.trim()) {
+      return { json: content };
+    }
+
+    try {
+      // Try to parse as-is
+      const parsed = JSON.parse(content);
+      return { json: JSON.stringify(parsed, null, 2) };
+    } catch (e) {
+      const errorMsg = e.message;
+
+      // If error is "unexpected non-whitespace character after JSON data"
+      if (errorMsg.includes('unexpected non-whitespace character after JSON data')) {
+        try {
+          // Try to find and extract valid JSON by finding matching braces/brackets
+          const trimmed = content.trim();
+          let depth = 0;
+          let endPos = -1;
+          let inString = false;
+          let escapeNext = false;
+
+          for (let i = 0; i < trimmed.length; i++) {
+            const char = trimmed[i];
+
+            if (escapeNext) {
+              escapeNext = false;
+              continue;
+            }
+
+            if (char === '\\') {
+              escapeNext = true;
+              continue;
+            }
+
+            if (char === '"' && !escapeNext) {
+              inString = !inString;
+              continue;
+            }
+
+            if (inString) continue;
+
+            if (char === '{' || char === '[') {
+              depth++;
+            } else if (char === '}' || char === ']') {
+              depth--;
+              if (depth === 0) {
+                endPos = i + 1;
+                break;
+              }
+            }
+          }
+
+          if (endPos > 0) {
+            const cleanedContent = trimmed.substring(0, endPos);
+            const parsed = JSON.parse(cleanedContent);
+            return { json: JSON.stringify(parsed, null, 2) };
+          }
+        } catch (fixError) {
+          // If fix attempt fails, return original error
+        }
+      }
+
+      // Remove trailing commas (common error)
+      if (errorMsg.includes('Unexpected token')) {
+        try {
+          const fixed = content.replace(/,(\s*[}\]])/g, '$1');
+          const parsed = JSON.parse(fixed);
+          return { json: JSON.stringify(parsed, null, 2) };
+        } catch (fixError) {
+          // Continue to error return
+        }
+      }
+
+      return { error: errorMsg };
+    }
+  },
+
+  toggleCustomAssetLinks() {
+    this.setLoading(true);
+    const customAssetLinksEnabled = !$('.js-toggle-custom-assetlinks .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-custom-assetlinks .materialCheckBox').toggleClass('is-checked');
+    $('.custom-assetlinks-settings').toggleClass('hide');
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { customAssetLinksEnabled },
+    });
+    this.setLoading(false);
+  },
+
+  saveCustomAssetLinksSettings() {
+    this.setLoading(true);
+    let customAssetLinksContent = $('#custom-assetlinks-content').val() || '';
+
+    // Validate and clean JSON if present
+    if (customAssetLinksContent.trim()) {
+      const cleanResult = this.cleanAndValidateJSON(customAssetLinksContent);
+      if (cleanResult.error) {
+        this.setLoading(false);
+        alert(`Invalid assetlinks JSON: ${cleanResult.error}`);
+        return;
+      }
+      customAssetLinksContent = cleanResult.json;
+      // Update the textarea with cleaned version
+      $('#custom-assetlinks-content').val(customAssetLinksContent);
+    }
+
+    try {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, {
+        $set: {
+          customAssetLinksContent,
+        },
+      });
+    } catch (e) {
+      return;
+    } finally {
+      this.setLoading(false);
+    }
+  },
+
   saveSupportSettings() {
     this.setLoading(true);
     const supportTitle = ($('#support-title').val() || '').trim();
@@ -808,6 +984,11 @@ BlazeComponent.extendComponent({
         'click a.js-toggle-support': this.toggleSupportPage,
         'click a.js-toggle-support-public': this.toggleSupportPublic,
         'click button.js-support-save': this.saveSupportSettings,
+        'click a.js-toggle-custom-head': this.toggleCustomHead,
+        'click a.js-toggle-custom-manifest': this.toggleCustomManifest,
+        'click button.js-custom-head-save': this.saveCustomHeadSettings,
+        'click a.js-toggle-custom-assetlinks': this.toggleCustomAssetLinks,
+        'click button.js-custom-assetlinks-save': this.saveCustomAssetLinksSettings,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,
       },
