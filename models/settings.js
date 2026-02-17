@@ -118,6 +118,34 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    customHeadEnabled: {
+      type: Boolean,
+      optional: true,
+    },
+    customHeadMetaTags: {
+      type: String,
+      optional: true,
+    },
+    customHeadLinkTags: {
+      type: String,
+      optional: true,
+    },
+    customManifestEnabled: {
+      type: Boolean,
+      optional: true,
+    },
+    customManifestContent: {
+      type: String,
+      optional: true,
+    },
+    customAssetLinksEnabled: {
+      type: Boolean,
+      optional: true,
+    },
+    customAssetLinksContent: {
+      type: String,
+      optional: true,
+    },
     accessibilityPageEnabled: {
       type: Boolean,
       optional: true,

@@ -15,6 +15,7 @@ import '/client/components/settings/migrationProgress';
 
 // Import cron settings
 import '/client/components/settings/cronSettings';
+// Custom head tags
 
 // Mirror Meteor login token into a cookie for server-side file route auth
 // This enables cookie-based auth for /cdn/storage/* without leaking ROOT_URL

@@ -62,10 +62,10 @@ if (Meteor.isServer) {
 
     try {
       const userId = authenticateApiRequest(req);
-      
+
       let body = '';
       let bodyComplete = false;
-      
+
       req.on('data', chunk => {
         body += chunk.toString();
         // Prevent excessive payload
@@ -192,7 +192,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -245,7 +245,7 @@ if (Meteor.isServer) {
       readStream.on('end', () => {
         const fileBuffer = Buffer.concat(chunks);
         const base64Data = fileBuffer.toString('base64');
-        
+
         sendJsonResponse(res, 200, {
           success: true,
           attachmentId: attachmentId,
@@ -478,7 +478,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -595,7 +595,7 @@ if (Meteor.isServer) {
           sendErrorResponse(res, 500, error.message);
         }
       });
-      
+
       req.on('error', (error) => {
         clearTimeout(timeout);
         if (!res.headersSent) {
@@ -668,7 +668,7 @@ if (Meteor.isServer) {
       }
 
       const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
-      
+
       sendJsonResponse(res, 200, {
         success: true,
         attachmentId: attachment._id,

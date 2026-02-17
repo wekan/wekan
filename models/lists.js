@@ -225,6 +225,8 @@ Lists.helpers({
     for (const card of cards) {
       await card.copy(boardId, swimlaneId, _id);
     }
+
+    return _id;
   },
 
   async move(boardId, swimlaneId) {

@@ -20,6 +20,7 @@ ENV \
     FIBERS_VERSION=4.0.1 \
     SRC_PATH=./ \
     WITH_API=true \
+    MONGO_OPLOG_URL="" \
     RESULTS_PER_PAGE="" \
     DEFAULT_BOARD_ID="" \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3 \
@@ -196,9 +197,9 @@ ln -sf $(which bsdtar) $(which tar)
 # WeKan Bundle Installation
 mkdir -p /home/wekan/app
 cd /home/wekan/app
-wget "https://github.com/wekan/wekan/releases/download/v8.26/wekan-8.26-${WEKAN_ARCH}.zip"
-unzip "wekan-8.26-${WEKAN_ARCH}.zip"
-rm "wekan-8.26-${WEKAN_ARCH}.zip"
+wget "https://github.com/wekan/wekan/releases/download/v8.33/wekan-8.33-${WEKAN_ARCH}.zip"
+unzip "wekan-8.33-${WEKAN_ARCH}.zip"
+rm "wekan-8.33-${WEKAN_ARCH}.zip"
 mv /home/wekan/app/bundle /build
 
 # Restore original tar

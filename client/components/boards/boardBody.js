@@ -27,16 +27,16 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       const currentBoardId = Session.get('currentBoard');
       if (!currentBoardId) return;
-      
+
       const handle = subManager.subscribe('board', currentBoardId, false);
-      
+
       // Use a separate autorun for subscription ready state to avoid reactive loops
       this.subscriptionReadyAutorun = Tracker.autorun(() => {
         if (handle.ready()) {
           if (!this._boardProcessed || this._lastProcessedBoardId !== currentBoardId) {
             this._boardProcessed = true;
             this._lastProcessedBoardId = currentBoardId;
-            
+
             // Ensure default swimlane exists (only once per board)
             this.ensureDefaultSwimlane(currentBoardId);
             // Check if board needs conversion
@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
       if (!board) return;
 
       const swimlanes = board.swimlanes();
-      
+
       if (swimlanes.length === 0) {
         // Check if any swimlane exists in the database to avoid race conditions
         const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId });
@@ -221,9 +221,9 @@ BlazeComponent.extendComponent({
     const popupObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         mutation.addedNodes.forEach(function(node) {
-          if (node.nodeType === 1 && 
+          if (node.nodeType === 1 &&
               (node.classList.contains('popup') || node.classList.contains('modal') || node.classList.contains('menu')) &&
-              !node.closest('.js-swimlanes') && 
+              !node.closest('.js-swimlanes') &&
               !node.closest('.swimlane') &&
               !node.closest('.list') &&
               !node.closest('.minicard')) {
@@ -540,57 +540,57 @@ BlazeComponent.extendComponent({
   isViewSwimlanes() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     // If no board view is set, default to swimlanes
     if (!boardView) {
       boardView = 'board-view-swimlanes';
     }
-    
+
     return boardView === 'board-view-swimlanes';
   },
 
   isViewLists() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     return boardView === 'board-view-lists';
   },
 
   isViewCalendar() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     return boardView === 'board-view-cal';
   },
 
   isViewGantt() {
     const currentUser = ReactiveCache.getCurrentUser();
     let boardView;
-    
+
     if (currentUser) {
       boardView = (currentUser.profile || {}).boardView;
     } else {
       boardView = window.localStorage.getItem('boardView');
     }
-    
+
     return boardView === 'board-view-gantt';
   },
 
@@ -602,7 +602,7 @@ BlazeComponent.extendComponent({
       }
       return false;
     }
-    
+
     try {
       const swimlanes = currentBoard.swimlanes();
       const hasSwimlanes = swimlanes && swimlanes.length > 0;
@@ -638,7 +638,7 @@ BlazeComponent.extendComponent({
     const isBoardReady = this.isBoardReady.get();
     const isConverting = this.isConverting.get();
     const boardView = Utils.boardView();
-    
+
     if (process.env.DEBUG === 'true') {
       console.log('=== BOARD DEBUG STATE ===');
       console.log('currentBoardId:', currentBoardId);
@@ -648,7 +648,7 @@ BlazeComponent.extendComponent({
       console.log('boardView:', boardView);
       console.log('========================');
     }
-    
+
     return {
       currentBoardId,
       hasCurrentBoard: !!currentBoard,

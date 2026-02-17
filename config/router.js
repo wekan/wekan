@@ -136,8 +136,6 @@ FlowRouter.route('/public', {
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action(params) {
-    EscapeActions.executeUpTo('inlinedForm');
-
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
     Session.set('popupCardId', null);
@@ -162,6 +160,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     });
   },
 });
+
 
 FlowRouter.route('/b/:id/:slug', {
   name: 'board',
@@ -299,7 +298,11 @@ FlowRouter.route('/global-search', {
 
     Utils.manageCustomUI();
     Utils.manageMatomo();
-    document.title = TAPi18n.__('globalSearch-title');
+
+    // Set title with product name
+    const settings = Settings.findOne({});
+    const productName = (settings && settings.productName) ? settings.productName : 'Wekan';
+    document.title = `${TAPi18n.__('globalSearch-title')} - ${productName}`;
 
     if (FlowRouter.getQueryParam('q')) {
       Session.set(

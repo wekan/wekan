@@ -1,8 +1,8 @@
 /**
  * Restore All Archived Migration
- * 
+ *
  * Restores all archived swimlanes, lists, and cards.
- * If any restored items are missing swimlaneId, listId, or cardId, 
+ * If any restored items are missing swimlaneId, listId, or cardId,
  * creates/assigns proper IDs to make them visible.
  */
 
@@ -90,7 +90,7 @@ class RestoreAllArchivedMigration {
         if (!list.swimlaneId) {
           // Try to find a suitable swimlane or use default
           let targetSwimlane = activeSwimlanes.find(s => !s.archived);
-          
+
           if (!targetSwimlane) {
             // No active swimlane found, create default
             const swimlaneId = Swimlanes.insert({
@@ -139,11 +139,11 @@ class RestoreAllArchivedMigration {
         if (!card.listId) {
           // Find or create a default list
           let targetList = allLists.find(l => !l.archived);
-          
+
           if (!targetList) {
             // No active list found, create one
             const defaultSwimlane = allSwimlanes.find(s => !s.archived) || allSwimlanes[0];
-            
+
             const listId = Lists.insert({
               title: TAPi18n.__('default'),
               boardId: boardId,

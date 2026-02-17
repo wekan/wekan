@@ -838,26 +838,26 @@
     align-items: flex-start;
     gap: 15px;
   }
-  
+
   .migration-controls,
   .jobs-controls {
     width: 100%;
     justify-content: center;
   }
-  
+
   .table {
     font-size: 12px;
   }
-  
+
   .table th,
   .table td {
     padding: 8px 12px;
   }
-  
+
   .btn-group {
     flex-direction: column;
   }
-  
+
   .add-job-form {
     max-width: 100%;
   }

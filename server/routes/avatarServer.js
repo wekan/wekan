@@ -68,7 +68,7 @@ if (Meteor.isServer) {
       res.setHeader('Content-Length', avatar.size || 0);
       res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
       res.setHeader('ETag', `"${avatar._id}"`);
-      
+
       // Handle conditional requests
       const ifNoneMatch = req.headers['if-none-match'];
       if (ifNoneMatch && ifNoneMatch === `"${avatar._id}"`) {
@@ -106,12 +106,12 @@ if (Meteor.isServer) {
 
     try {
       const fileName = req.params[0];
-      
+
       // Redirect to new avatar URL format
       const newUrl = `/cdn/storage/avatars/${fileName}`;
       res.writeHead(301, { 'Location': newUrl });
       res.end();
-      
+
     } catch (error) {
       console.error('Legacy avatar redirect error:', error);
       res.writeHead(500);

@@ -61,17 +61,17 @@ class FixAllFileUrlsMigration {
    */
   hasProblematicUrl(url) {
     if (!url) return false;
-    
+
     // Check for auth parameters
     if (url.includes('auth=false') || url.includes('brokenIsFine=true')) {
       return true;
     }
-    
+
     // Check for absolute URLs with domains
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return true;
     }
-    
+
     // Check for ROOT_URL dependencies
     if (Meteor.isServer && process.env.ROOT_URL) {
       try {
@@ -83,12 +83,12 @@ class FixAllFileUrlsMigration {
         // Ignore URL parsing errors
       }
     }
-    
+
     // Check for non-universal file URLs
     if (url.includes('/cfs/files/') && !isUniversalFileUrl(url, 'attachment') && !isUniversalFileUrl(url, 'avatar')) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -120,7 +120,7 @@ class FixAllFileUrlsMigration {
     }
 
     console.log(`Universal file URL migration completed for board ${boardId}. Fixed ${filesFixed} file URLs.`);
-    
+
     return {
       success: errors.length === 0,
       filesFixed,
@@ -145,12 +145,12 @@ class FixAllFileUrlsMigration {
     for (const user of users) {
       if (user.profile && user.profile.avatarUrl) {
         const avatarUrl = user.profile.avatarUrl;
-        
+
         if (this.hasProblematicUrl(avatarUrl)) {
           try {
             // Extract file ID from URL
             const fileId = extractFileIdFromUrl(avatarUrl, 'avatar');
-            
+
             let cleanUrl;
             if (fileId) {
               // Generate universal URL
@@ -159,7 +159,7 @@ class FixAllFileUrlsMigration {
               // Clean existing URL
               cleanUrl = cleanFileUrl(avatarUrl, 'avatar');
             }
-            
+
             if (cleanUrl && cleanUrl !== avatarUrl) {
               // Update user's avatar URL
               Users.update(user._id, {
@@ -168,9 +168,9 @@ class FixAllFileUrlsMigration {
                   modifiedAt: new Date()
                 }
               });
-              
+
               avatarsFixed++;
-              
+
               if (process.env.DEBUG === 'true') {
                 console.log(`Fixed avatar URL for user ${user.username}: ${avatarUrl} -> ${cleanUrl}`);
               }
@@ -200,7 +200,7 @@ class FixAllFileUrlsMigration {
         try {
           const fileId = attachment._id;
           const cleanUrl = generateUniversalAttachmentUrl(fileId);
-          
+
           if (cleanUrl && cleanUrl !== attachment.url) {
             // Update attachment URL
             Attachments.update(attachment._id, {
@@ -209,9 +209,9 @@ class FixAllFileUrlsMigration {
                 modifiedAt: new Date()
               }
             });
-            
+
             attachmentsFixed++;
-            
+
             if (process.env.DEBUG === 'true') {
               console.log(`Fixed attachment URL: ${attachment.url} -> ${cleanUrl}`);
             }
@@ -239,7 +239,7 @@ class FixAllFileUrlsMigration {
         try {
           const fileId = attachment._id || extractFileIdFromUrl(attachment.url, 'attachment');
           const cleanUrl = fileId ? generateUniversalAttachmentUrl(fileId) : cleanFileUrl(attachment.url, 'attachment');
-          
+
           if (cleanUrl && cleanUrl !== attachment.url) {
             // Update attachment with fixed URL
             Attachments.update(attachment._id, {
@@ -248,9 +248,9 @@ class FixAllFileUrlsMigration {
                 modifiedAt: new Date()
               }
             });
-            
+
             attachmentsFixed++;
-            
+
             if (process.env.DEBUG === 'true') {
               console.log(`Fixed attachment URL ${attachment._id}`);
             }

@@ -1,6 +1,6 @@
 /**
  * Restore Lost Cards Migration
- * 
+ *
  * Finds and restores cards and lists that have missing swimlaneId, listId, or are orphaned.
  * Creates a "Lost Cards" swimlane and restores visibility of lost items.
  * Only processes non-archived items.

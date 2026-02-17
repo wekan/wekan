@@ -155,9 +155,9 @@ UserPositionHistory.helpers({
   getDescription() {
     const entityName = this.entityType;
     const action = this.actionType;
-    
+
     let desc = `${action} ${entityName}`;
-    
+
     if (this.actionType === 'move') {
       if (this.previousListId && this.newListId && this.previousListId !== this.newListId) {
         desc += ' to different list';
@@ -167,7 +167,7 @@ UserPositionHistory.helpers({
         desc += ' position';
       }
     }
-    
+
     return desc;
   },
 
@@ -348,20 +348,20 @@ if (Meteor.isServer) {
    * Cleanup old history entries (keep last 1000 per user per board)
    */
   UserPositionHistory.cleanup = function() {
-    const users = Meteor.users.find({}).fetch();
-    
+    const users = Meteor.users.find({}, { fields: { _id: 1 } }).fetch();
+
     users.forEach(user => {
-      const boards = Boards.find({ 'members.userId': user._id }).fetch();
-      
+      const boards = Boards.find({ 'members.userId': user._id }, { fields: { _id: 1 } }).fetch();
+
       boards.forEach(board => {
         const history = UserPositionHistory.find(
           { userId: user._id, boardId: board._id, isCheckpoint: { $ne: true } },
           { sort: { createdAt: -1 }, limit: 1000 }
         ).fetch();
-        
+
         if (history.length >= 1000) {
           const oldestToKeep = history[999].createdAt;
-          
+
           // Remove entries older than the 1000th entry (except checkpoints)
           UserPositionHistory.remove({
             userId: user._id,
@@ -391,11 +391,11 @@ Meteor.methods({
   'userPositionHistory.createCheckpoint'(boardId, checkpointName) {
     check(boardId, String);
     check(checkpointName, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
-    
+
     // Create a checkpoint entry
     return UserPositionHistory.insert({
       userId: this.userId,
@@ -429,11 +429,11 @@ Meteor.methods({
   'userPositionHistory.getRecent'(boardId, limit = 50) {
     check(boardId, String);
     check(limit, Number);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
-    
+
     return UserPositionHistory.find(
       { userId: this.userId, boardId },
       { sort: { createdAt: -1 }, limit: Math.min(limit, 100) }
@@ -442,11 +442,11 @@ Meteor.methods({
 
   'userPositionHistory.getCheckpoints'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'Must be logged in');
     }
-    
+
     return UserPositionHistory.find(
       { userId: this.userId, boardId, isCheckpoint: true },
       { sort: { createdAt: -1 } }
@@ -491,7 +491,7 @@ Meteor.methods({
       } catch (e) {
         console.warn('Failed to undo change:', change._id, e);
       }
-    }
+    };
 
     return { undoneCount, totalChanges: changesToUndo.length };
   },

@@ -943,7 +943,8 @@ Boards.helpers({
   async activeMembers(){
     // Depend on the users collection for reactivity when users are loaded
     const memberUserIds = _.pluck(this.members, 'userId');
-    const dummy = Meteor.users.find({ _id: { $in: memberUserIds } }).count();
+    // Use findOne with limit for reactivity trigger instead of count() which loads all users
+    const dummy = Meteor.users.findOne({ _id: { $in: memberUserIds } }, { fields: { _id: 1 }, limit: 1 });
     const members = _.filter(this.members, m => m.isActive === true);
     // Group by userId to handle duplicates
     const grouped = _.groupBy(members, 'userId');

@@ -1,24 +1,24 @@
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-import { 
-  formatDateTime, 
-  formatDate, 
-  formatTime, 
-  getISOWeek, 
-  isValidDate, 
-  isBefore, 
-  isAfter, 
-  isSame, 
-  add, 
-  subtract, 
-  startOf, 
-  endOf, 
-  format, 
-  parseDate, 
-  now, 
-  createDate, 
-  fromNow, 
-  calendar 
+import {
+  formatDateTime,
+  formatDate,
+  formatTime,
+  getISOWeek,
+  isValidDate,
+  isBefore,
+  isAfter,
+  isSame,
+  add,
+  subtract,
+  startOf,
+  endOf,
+  format,
+  parseDate,
+  now,
+  createDate,
+  fromNow,
+  calendar
 } from '/imports/lib/dateUtils';
 import {
   ALLOWED_COLORS,
@@ -573,6 +573,10 @@ Cards.helpers({
   },
 
   async mapCustomFieldsToBoard(boardId) {
+    // Guard against undefined/null customFields
+    if (!this.customFields || !Array.isArray(this.customFields)) {
+      return [];
+    }
     // Map custom fields to new board
     const result = [];
     for (const cf of this.customFields) {
@@ -607,6 +611,15 @@ Cards.helpers({
     const oldId = this._id;
     const oldCard = await ReactiveCache.getCard(oldId);
 
+    // Work on a shallow copy to avoid mutating the source card in ReactiveCache
+    const cardData = { ...this };
+    delete cardData._id;
+
+    // Normalize customFields to ensure it's always an array
+    if (!Array.isArray(cardData.customFields)) {
+      cardData.customFields = [];
+    }
+
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
     if (this.boardId !== boardId) {
@@ -629,9 +642,7 @@ Cards.helpers({
         }),
         '_id',
       );
-      // now set the new label ids
-      delete this.labelIds;
-      this.labelIds = newCardLabels;
+      cardData.labelIds = newCardLabels;
 
       this.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
     }
@@ -2105,6 +2116,11 @@ Cards.helpers({
       });
 
       mutatedFields.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+
+      // Ensure customFields is always an array (guards against legacy {} data)
+      if (!Array.isArray(mutatedFields.customFields)) {
+        mutatedFields.customFields = [];
+      }
     }
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });
@@ -4309,10 +4325,10 @@ Cards.helpers({
   hasMovedFromOriginalPosition() {
     const history = this.getOriginalPosition();
     if (!history) return false;
-    
+
     const currentSwimlaneId = this.swimlaneId || null;
     const currentListId = this.listId || null;
-    
+
     return history.originalPosition.sort !== this.sort ||
            history.originalSwimlaneId !== currentSwimlaneId ||
            history.originalListId !== currentListId;
@@ -4324,12 +4340,12 @@ Cards.helpers({
   getOriginalPositionDescription() {
     const history = this.getOriginalPosition();
     if (!history) return 'No original position data';
-    
-    const swimlaneInfo = history.originalSwimlaneId ? 
-      ` in swimlane ${history.originalSwimlaneId}` : 
+
+    const swimlaneInfo = history.originalSwimlaneId ?
+      ` in swimlane ${history.originalSwimlaneId}` :
       ' in default swimlane';
-    const listInfo = history.originalListId ? 
-      ` in list ${history.originalListId}` : 
+    const listInfo = history.originalListId ?
+      ` in list ${history.originalListId}` :
       '';
     return `Original position: ${history.originalPosition.sort || 0}${swimlaneInfo}${listInfo}`;
   },

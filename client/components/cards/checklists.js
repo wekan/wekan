@@ -157,7 +157,7 @@ BlazeComponent.extendComponent({
     textarea.focus();
   },
 
-  deleteItem() {
+  async deleteItem() {
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
     if (checklist && item && item._id) {
@@ -372,9 +372,9 @@ BlazeComponent.extendComponent({
     const ret = ReactiveCache.getCurrentUser().getMoveChecklistDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setMoveChecklistDialogOption(this.currentBoardId, options);
-    this.data().checklist.move(cardId);
+    await this.data().checklist.move(cardId);
   }
 }).register('moveChecklistPopup');
 
@@ -384,8 +384,8 @@ BlazeComponent.extendComponent({
     const ret = ReactiveCache.getCurrentUser().getCopyChecklistDialogOptions();
     return ret;
   }
-  setDone(cardId, options) {
+  async setDone(cardId, options) {
     ReactiveCache.getCurrentUser().setCopyChecklistDialogOption(this.currentBoardId, options);
-    this.data().checklist.copy(cardId);
+    await this.data().checklist.copy(cardId);
   }
 }).register('copyChecklistPopup');

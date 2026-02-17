@@ -33,7 +33,7 @@ function sanitizeFilenameForHeader(filename) {
   // For non-ASCII filenames, provide a fallback and RFC 5987 encoded version
   const fallback = sanitized.replace(/[^\x20-\x7E]/g, '_').slice(0, 100) || 'download';
   const encoded = encodeURIComponent(sanitized);
-  
+
   // Return special marker format that will be handled by buildContentDispositionHeader
   // Format: "fallback|RFC5987:encoded"
   return `${fallback}|RFC5987:${encoded}`;

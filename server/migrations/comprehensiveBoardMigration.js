@@ -1,14 +1,14 @@
 /**
  * Comprehensive Board Migration System
- * 
+ *
  * This migration handles all database structure changes from previous Wekan versions
  * to the current per-swimlane lists structure. It ensures:
- * 
+ *
  * 1. All cards are visible with proper swimlaneId and listId
  * 2. Lists are per-swimlane (no shared lists across swimlanes)
  * 3. No empty lists are created
  * 4. Handles various database structure versions from git history
- * 
+ *
  * Supported versions and their database structures:
  * - v7.94 and earlier: Shared lists across all swimlanes
  * - v8.00-v8.02: Transition period with mixed structures
@@ -178,7 +178,7 @@ class ComprehensiveBoardMigration {
       const updateProgress = (stepName, stepProgress, stepStatus, stepDetails = null) => {
         currentStep++;
         const overallProgress = Math.round((currentStep / totalSteps) * 100);
-        
+
         const progressData = {
           overallProgress,
           currentStep: currentStep,
@@ -206,7 +206,7 @@ class ComprehensiveBoardMigration {
         issuesFound: results.steps.analyze.issueCount,
         needsMigration: results.steps.analyze.needsMigration
       });
-      
+
       // Step 2: Fix orphaned cards
       updateProgress('fix_orphaned_cards', 0, 'Fixing orphaned cards...');
       results.steps.fixOrphanedCards = await this.fixOrphanedCards(boardId, (progress, status) => {
@@ -323,7 +323,7 @@ class ComprehensiveBoardMigration {
       if (!card.listId) {
         // Find or create a default list for this swimlane
         const swimlaneId = updates.swimlaneId || card.swimlaneId;
-        let defaultList = lists.find(list => 
+        let defaultList = lists.find(list =>
           list.swimlaneId === swimlaneId && list.title === 'Default'
         );
 
@@ -426,7 +426,7 @@ class ComprehensiveBoardMigration {
 
         // Check if we already have a list with the same title in this swimlane
         let targetList = existingLists.find(list => list.title === originalList.title);
-        
+
         if (!targetList) {
           // Create a new list for this swimlane
           const newListData = {
@@ -508,12 +508,12 @@ class ComprehensiveBoardMigration {
 
     for (const list of lists) {
       const listCards = cards.filter(card => card.listId === list._id);
-      
+
       if (listCards.length === 0) {
         // Remove empty list
         Lists.remove(list._id);
         listsRemoved++;
-        
+
         if (process.env.DEBUG === 'true') {
           console.log(`Removed empty list: ${list.title} (${list._id})`);
         }
@@ -563,7 +563,7 @@ class ComprehensiveBoardMigration {
         const avatarUrl = user.profile.avatarUrl;
         let needsUpdate = false;
         let cleanUrl = avatarUrl;
-        
+
         // Check if URL has problematic parameters
         if (avatarUrl.includes('auth=false') || avatarUrl.includes('brokenIsFine=true')) {
           // Remove problematic parameters
@@ -573,13 +573,13 @@ class ComprehensiveBoardMigration {
           cleanUrl = cleanUrl.replace(/\?$/g, '');
           needsUpdate = true;
         }
-        
+
         // Check if URL is using old CollectionFS format
         if (avatarUrl.includes('/cfs/files/avatars/')) {
           cleanUrl = cleanUrl.replace('/cfs/files/avatars/', '/cdn/storage/avatars/');
           needsUpdate = true;
         }
-        
+
         // Check if URL is missing the /cdn/storage/avatars/ prefix
         if (avatarUrl.includes('avatars/') && !avatarUrl.includes('/cdn/storage/avatars/') && !avatarUrl.includes('/cfs/files/avatars/')) {
           // This might be a relative URL, make it absolute
@@ -588,7 +588,7 @@ class ComprehensiveBoardMigration {
             needsUpdate = true;
           }
         }
-        
+
         if (needsUpdate) {
           // Update user's avatar URL
           Users.update(user._id, {
@@ -597,7 +597,7 @@ class ComprehensiveBoardMigration {
               modifiedAt: new Date()
             }
           });
-          
+
           avatarsFixed++;
         }
       }
@@ -619,7 +619,7 @@ class ComprehensiveBoardMigration {
         const attachmentUrl = attachment.url;
         let needsUpdate = false;
         let cleanUrl = attachmentUrl;
-        
+
         // Check if URL has problematic parameters
         if (attachmentUrl.includes('auth=false') || attachmentUrl.includes('brokenIsFine=true')) {
           // Remove problematic parameters
@@ -629,26 +629,26 @@ class ComprehensiveBoardMigration {
           cleanUrl = cleanUrl.replace(/\?$/g, '');
           needsUpdate = true;
         }
-        
+
         // Check if URL is using old CollectionFS format
         if (attachmentUrl.includes('/cfs/files/attachments/')) {
           cleanUrl = cleanUrl.replace('/cfs/files/attachments/', '/cdn/storage/attachments/');
           needsUpdate = true;
         }
-        
+
         // Check if URL has /original/ path that should be removed
         if (attachmentUrl.includes('/original/')) {
           cleanUrl = cleanUrl.replace(/\/original\/[^\/\?#]+/, '');
           needsUpdate = true;
         }
-        
+
         // If we have a file ID, generate a universal URL
         const fileId = attachment._id;
         if (fileId && !isUniversalFileUrl(cleanUrl, 'attachment')) {
           cleanUrl = generateUniversalAttachmentUrl(fileId);
           needsUpdate = true;
         }
-        
+
         if (needsUpdate) {
           // Update attachment URL
           Attachments.update(attachment._id, {
@@ -657,7 +657,7 @@ class ComprehensiveBoardMigration {
               modifiedAt: new Date()
             }
           });
-          
+
           attachmentsFixed++;
         }
       }

@@ -1,17 +1,17 @@
 /**
  * Fix Missing Lists Migration
- * 
+ *
  * This migration fixes the issue where cards have incorrect listId references
  * due to the per-swimlane lists change. It detects cards with mismatched
  * listId/swimlaneId and creates the missing lists.
- * 
+ *
  * Issue: When upgrading from v7.94 to v8.02, cards that were in different
  * swimlanes but shared the same list now have wrong listId references.
- * 
+ *
  * Example:
  * - Card1: listId: 'HB93dWNnY5bgYdtxc', swimlaneId: 'sK69SseWkh3tMbJvg'
  * - Card2: listId: 'HB93dWNnY5bgYdtxc', swimlaneId: 'XeecF9nZxGph4zcT4'
- * 
+ *
  * Card2 should have a different listId that corresponds to its swimlane.
  */
 
@@ -90,7 +90,7 @@ class FixMissingListsMigration {
       // Create maps for efficient lookup
       const listSwimlaneMap = new Map();
       const swimlaneListsMap = new Map();
-      
+
       lists.forEach(list => {
         listSwimlaneMap.set(list._id, list.swimlaneId || '');
         if (!swimlaneListsMap.has(list.swimlaneId || '')) {
@@ -142,7 +142,7 @@ class FixMissingListsMigration {
 
           // Check if we already have a list with the same title in this swimlane
           let targetList = existingLists.find(list => list.title === originalList.title);
-          
+
           if (!targetList) {
             // Create a new list for this swimlane
             const newListData = {
@@ -168,7 +168,7 @@ class FixMissingListsMigration {
             const newListId = Lists.insert(newListData);
             targetList = { _id: newListId, ...newListData };
             createdLists++;
-            
+
             if (process.env.DEBUG === 'true') {
               console.log(`Created new list "${originalList.title}" for swimlane ${swimlaneId}`);
             }
@@ -198,7 +198,7 @@ class FixMissingListsMigration {
       if (process.env.DEBUG === 'true') {
         console.log(`Fix missing lists migration completed for board ${boardId}: created ${createdLists} lists, updated ${updatedCards} cards`);
       }
-      
+
       return {
         success: true,
         createdLists,

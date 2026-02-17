@@ -33,7 +33,7 @@ template(name='notificationIcon')
 
   else if($in activityType 'createList' 'removeList' 'archivedList')
     +listNotificationIcon
-  else if($in activityType  'importList')
+  else if($in activityType 'importList')
     +listNotificationIcon
     //- $in can only handle up to 3 cases so we have to break this case over 2 cases... use a simple template to keep it
     //- DRY and consistant

@@ -148,6 +148,7 @@ Swimlanes.allow({
 
 Swimlanes.helpers({
   async copy(boardId) {
+  async copy(boardId) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     this.boardId = boardId;
@@ -170,6 +171,8 @@ Swimlanes.helpers({
       list.boardId = boardId;
       await list.copy(boardId, _id);
     }
+
+    return _id;
   },
 
   async move(toBoardId) {
@@ -691,7 +694,7 @@ Swimlanes.helpers({
   hasMovedFromOriginalPosition() {
     const history = this.getOriginalPosition();
     if (!history) return false;
-    
+
     return history.originalPosition.sort !== this.sort;
   },
 
@@ -701,7 +704,7 @@ Swimlanes.helpers({
   getOriginalPositionDescription() {
     const history = this.getOriginalPosition();
     if (!history) return 'No original position data';
-    
+
     return `Original position: ${history.originalPosition.sort || 0}`;
   },
 });

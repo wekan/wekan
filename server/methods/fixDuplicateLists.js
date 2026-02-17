@@ -23,7 +23,7 @@ Meteor.methods({
     if (process.env.DEBUG === 'true') {
       console.log('Starting duplicate lists fix for all boards...');
     }
-    
+
     const allBoards = Boards.find({}).fetch();
     let totalFixed = 0;
     let totalBoardsProcessed = 0;
@@ -33,7 +33,7 @@ Meteor.methods({
         const result = fixDuplicateListsForBoard(board._id);
         totalFixed += result.fixed;
         totalBoardsProcessed++;
-        
+
         if (result.fixed > 0 && process.env.DEBUG === 'true') {
           console.log(`Fixed ${result.fixed} duplicate lists in board "${board.title}" (${board._id})`);
         }
@@ -45,7 +45,7 @@ Meteor.methods({
     if (process.env.DEBUG === 'true') {
       console.log(`Duplicate lists fix completed. Processed ${totalBoardsProcessed} boards, fixed ${totalFixed} duplicate lists.`);
     }
-    
+
     return {
       message: `Fixed ${totalFixed} duplicate lists across ${totalBoardsProcessed} boards`,
       totalFixed,
@@ -74,13 +74,13 @@ function fixDuplicateListsForBoard(boardId) {
     if (process.env.DEBUG === 'true') {
       console.log(`Fixing duplicate lists for board ${boardId}...`);
     }
-    
+
     // First, fix duplicate swimlanes
     const swimlaneResult = fixDuplicateSwimlanes(boardId);
-    
+
     // Then, fix duplicate lists
     const listResult = fixDuplicateLists(boardId);
-    
+
     return {
       boardId,
       fixedSwimlanes: swimlaneResult.fixed,
@@ -193,7 +193,7 @@ function fixDuplicateLists(boardId) {
             { $set: { listId: keepList._id } },
             { multi: true }
           );
-          
+
           // Remove duplicate list
           Lists.remove(list._id);
           fixed++;
@@ -223,7 +223,7 @@ Meteor.methods({
     for (const board of allBoards) {
       const swimlanes = Swimlanes.find({ boardId: board._id }).fetch();
       const lists = Lists.find({ boardId: board._id }).fetch();
-      
+
       // Check for duplicate swimlanes
       const swimlaneGroups = {};
       swimlanes.forEach(swimlane => {

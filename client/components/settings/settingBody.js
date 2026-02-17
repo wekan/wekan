@@ -2,15 +2,23 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import LockoutSettings from '/models/lockoutSettings';
-import { 
-  cronMigrationProgress, 
-  cronMigrationStatus, 
-  cronMigrationCurrentStep, 
-  cronMigrationSteps, 
-  cronIsMigrating, 
+import {
+  cronMigrationProgress,
+  cronMigrationStatus,
+  cronMigrationCurrentStep,
+  cronMigrationSteps,
+  cronIsMigrating,
   cronJobs,
   cronMigrationCurrentStepNum,
-  cronMigrationTotalSteps
+  cronMigrationTotalSteps,
+  cronMigrationCurrentAction,
+  cronMigrationJobProgress,
+  cronMigrationJobStepNum,
+  cronMigrationJobTotalSteps,
+  cronMigrationEtaSeconds,
+  cronMigrationElapsedSeconds,
+  cronMigrationCurrentNumber,
+  cronMigrationCurrentName
 } from '/imports/cronMigrationClient';
 
 
@@ -39,7 +47,7 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('accessibilitySettings');
     Meteor.subscribe('globalwebhooks');
     Meteor.subscribe('lockoutSettings');
-    
+
     // Poll for migration errors
     this.errorPollInterval = Meteor.setInterval(() => {
       if (this.cronSettings.get()) {
@@ -62,7 +70,7 @@ BlazeComponent.extendComponent({
   setError(error) {
     this.error.set(error);
   },
-  
+
   // Template helpers moved to BlazeComponent - using different names to avoid conflicts
   isGeneralSetting() {
     return this.generalSetting && this.generalSetting.get();
@@ -102,41 +110,41 @@ BlazeComponent.extendComponent({
   filesystemPath() {
     return process.env.WRITABLE_PATH || '/data';
   },
-  
+
   attachmentsPath() {
     const writablePath = process.env.WRITABLE_PATH || '/data';
     return `${writablePath}/attachments`;
   },
-  
+
   avatarsPath() {
     const writablePath = process.env.WRITABLE_PATH || '/data';
     return `${writablePath}/avatars`;
   },
-  
+
   gridfsEnabled() {
     return process.env.GRIDFS_ENABLED === 'true';
   },
-  
+
   s3Enabled() {
     return process.env.S3_ENABLED === 'true';
   },
-  
+
   s3Endpoint() {
     return process.env.S3_ENDPOINT || '';
   },
-  
+
   s3Bucket() {
     return process.env.S3_BUCKET || '';
   },
-  
+
   s3Region() {
     return process.env.S3_REGION || '';
   },
-  
+
   s3SslEnabled() {
     return process.env.S3_SSL_ENABLED === 'true';
   },
-  
+
   s3Port() {
     return process.env.S3_PORT || 443;
   },
@@ -145,23 +153,23 @@ BlazeComponent.extendComponent({
   migrationStatus() {
     return cronMigrationStatus.get() || TAPi18n.__('idle');
   },
-  
+
   migrationProgress() {
     return cronMigrationProgress.get() || 0;
   },
-  
+
   migrationCurrentStep() {
     return cronMigrationCurrentStep.get() || '';
   },
-  
+
   isMigrating() {
     return cronIsMigrating.get() || false;
   },
-  
+
   migrationSteps() {
     return cronMigrationSteps.get() || [];
   },
-  
+
   migrationStepsWithIndex() {
     const steps = cronMigrationSteps.get() || [];
     return steps.map((step, idx) => ({
@@ -169,9 +177,13 @@ BlazeComponent.extendComponent({
       index: idx + 1
     }));
   },
-  
+
   cronJobs() {
     return cronJobs.get() || [];
+  },
+
+  isCronJobPaused(status) {
+    return status === 'paused';
   },
 
   migrationCurrentStepNum() {
@@ -180,6 +192,52 @@ BlazeComponent.extendComponent({
 
   migrationTotalSteps() {
     return cronMigrationTotalSteps.get() || 0;
+  },
+
+  migrationCurrentAction() {
+    return cronMigrationCurrentAction.get() || '';
+  },
+
+  migrationJobProgress() {
+    return cronMigrationJobProgress.get() || 0;
+  },
+
+  migrationJobStepNum() {
+    return cronMigrationJobStepNum.get() || 0;
+  },
+
+  migrationJobTotalSteps() {
+    return cronMigrationJobTotalSteps.get() || 0;
+  },
+
+  migrationEtaSeconds() {
+    return cronMigrationEtaSeconds.get();
+  },
+
+  migrationElapsedSeconds() {
+    return cronMigrationElapsedSeconds.get();
+  },
+
+  migrationNumber() {
+    return cronMigrationCurrentNumber.get();
+  },
+
+  migrationName() {
+    return cronMigrationCurrentName.get() || '';
+  },
+
+  migrationStatusLine() {
+    const number = cronMigrationCurrentNumber.get();
+    const name = cronMigrationCurrentName.get();
+    if (number && name) {
+      return `${number} - ${name}`;
+    }
+    return this.migrationStatus();
+  },
+
+  isUpdatingMigrationDropdown() {
+    const status = this.migrationStatus();
+    return status && status.startsWith('Updating Select Migration dropdown menu');
   },
 
   migrationErrors() {
@@ -194,6 +252,19 @@ BlazeComponent.extendComponent({
   formatDateTime(date) {
     if (!date) return '';
     return moment(date).format('YYYY-MM-DD HH:mm:ss');
+  },
+
+  formatDurationSeconds(seconds) {
+    if (seconds === null || seconds === undefined) return '';
+    const total = Math.max(0, Math.floor(seconds));
+    const hrs = Math.floor(total / 3600);
+    const mins = Math.floor((total % 3600) / 60);
+    const secs = total % 60;
+    const parts = [];
+    if (hrs > 0) parts.push(String(hrs).padStart(2, '0'));
+    parts.push(String(mins).padStart(2, '0'));
+    parts.push(String(secs).padStart(2, '0'));
+    return parts.join(':');
   },
 
   setLoading(w) {
@@ -240,8 +311,14 @@ BlazeComponent.extendComponent({
   'click button.js-start-migration'(event) {
     event.preventDefault();
     this.setLoading(true);
+    cronIsMigrating.set(true);
+    cronMigrationStatus.set(TAPi18n.__('migration-starting'));
+    cronMigrationCurrentAction.set('');
+    cronMigrationJobProgress.set(0);
+    cronMigrationJobStepNum.set(0);
+    cronMigrationJobTotalSteps.set(0);
     const selectedIndex = parseInt($('.js-migration-select').val() || '0', 10);
-    
+
     if (selectedIndex === 0) {
       // Run all migrations
       Meteor.call('cron.startAllMigrations', (error, result) => {
@@ -258,8 +335,53 @@ BlazeComponent.extendComponent({
         this.setLoading(false);
         if (error) {
           alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
+        } else if (result && result.skipped) {
+          cronIsMigrating.set(false);
+          cronMigrationStatus.set(TAPi18n.__('migration-not-needed'));
+          alert(TAPi18n.__('migration-not-needed'));
         } else {
           alert(TAPi18n.__('migration-started'));
+        }
+      });
+    }
+  },
+
+  'click button.js-start-all-migrations'(event) {
+    event.preventDefault();
+    this.setLoading(true);
+    Meteor.call('cron.startAllMigrations', (error) => {
+      this.setLoading(false);
+      if (error) {
+        alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('migration-started'));
+      }
+    });
+  },
+
+  'click button.js-pause-all-migrations'(event) {
+    event.preventDefault();
+    this.setLoading(true);
+    Meteor.call('cron.pauseAllMigrations', (error) => {
+      this.setLoading(false);
+      if (error) {
+        alert(TAPi18n.__('migration-pause-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('migration-paused'));
+      }
+    });
+  },
+
+  'click button.js-stop-all-migrations'(event) {
+    event.preventDefault();
+    if (confirm(TAPi18n.__('migration-stop-confirm'))) {
+      this.setLoading(true);
+      Meteor.call('cron.stopAllMigrations', (error) => {
+        this.setLoading(false);
+        if (error) {
+          alert(TAPi18n.__('migration-stop-failed') + ': ' + error.reason);
+        } else {
+          alert(TAPi18n.__('migration-stopped'));
         }
       });
     }
@@ -268,6 +390,8 @@ BlazeComponent.extendComponent({
   'click button.js-pause-migration'(event) {
     event.preventDefault();
     this.setLoading(true);
+    cronIsMigrating.set(false);
+    cronMigrationStatus.set(TAPi18n.__('migration-pausing'));
     Meteor.call('cron.pauseAllMigrations', (error, result) => {
       this.setLoading(false);
       if (error) {
@@ -282,6 +406,12 @@ BlazeComponent.extendComponent({
     event.preventDefault();
     if (confirm(TAPi18n.__('migration-stop-confirm'))) {
       this.setLoading(true);
+      cronIsMigrating.set(false);
+      cronMigrationStatus.set(TAPi18n.__('migration-stopping'));
+      cronMigrationCurrentAction.set('');
+      cronMigrationJobProgress.set(0);
+      cronMigrationJobStepNum.set(0);
+      cronMigrationJobTotalSteps.set(0);
       Meteor.call('cron.stopAllMigrations', (error, result) => {
         this.setLoading(false);
         if (error) {
@@ -293,29 +423,25 @@ BlazeComponent.extendComponent({
     }
   },
 
-  'click button.js-schedule-board-cleanup'(event) {
+  'click button.js-start-job'(event) {
     event.preventDefault();
-    // Placeholder - board cleanup scheduling
-    alert(TAPi18n.__('board-cleanup-scheduled'));
-  },
-
-  'click button.js-schedule-board-archive'(event) {
-    event.preventDefault();
-    // Placeholder - board archive scheduling
-    alert(TAPi18n.__('board-archive-scheduled'));
-  },
-
-  'click button.js-schedule-board-backup'(event) {
-    event.preventDefault();
-    // Placeholder - board backup scheduling
-    alert(TAPi18n.__('board-backup-scheduled'));
+    const jobName = $(event.target).data('job-name');
+    this.setLoading(true);
+    Meteor.call('cron.startJob', jobName, (error) => {
+      this.setLoading(false);
+      if (error) {
+        alert(TAPi18n.__('cron-job-start-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('cron-job-started'));
+      }
+    });
   },
 
   'click button.js-pause-job'(event) {
     event.preventDefault();
-    const jobId = $(event.target).data('job-id');
+    const jobName = $(event.target).data('job-name');
     this.setLoading(true);
-    Meteor.call('cron.pauseJob', jobId, (error, result) => {
+    Meteor.call('cron.pauseJob', jobName, (error) => {
       this.setLoading(false);
       if (error) {
         alert(TAPi18n.__('cron-job-pause-failed') + ': ' + error.reason);
@@ -325,12 +451,26 @@ BlazeComponent.extendComponent({
     });
   },
 
+  'click button.js-resume-job'(event) {
+    event.preventDefault();
+    const jobName = $(event.target).data('job-name');
+    this.setLoading(true);
+    Meteor.call('cron.resumeJob', jobName, (error) => {
+      this.setLoading(false);
+      if (error) {
+        alert(TAPi18n.__('cron-job-resume-failed') + ': ' + error.reason);
+      } else {
+        alert(TAPi18n.__('cron-job-resumed'));
+      }
+    });
+  },
+
   'click button.js-delete-job'(event) {
     event.preventDefault();
-    const jobId = $(event.target).data('job-id');
+    const jobName = $(event.target).data('job-name');
     if (confirm(TAPi18n.__('cron-job-delete-confirm'))) {
       this.setLoading(true);
-      Meteor.call('cron.removeJob', jobId, (error, result) => {
+      Meteor.call('cron.removeJob', jobName, (error) => {
         this.setLoading(false);
         if (error) {
           alert(TAPi18n.__('cron-job-delete-failed') + ': ' + error.reason);
@@ -429,7 +569,7 @@ BlazeComponent.extendComponent({
       $('.side-menu li.active').removeClass('active');
       target.parent().addClass('active');
       const targetID = target.data('id');
-      
+
       // Reset all settings to false
       this.forgotPasswordSetting.set(false);
       this.generalSetting.set(false);
@@ -442,7 +582,7 @@ BlazeComponent.extendComponent({
       this.webhookSetting.set(false);
       this.attachmentSettings.set(false);
       this.cronSettings.set(false);
-      
+
       // Set the selected setting to true
       if (targetID === 'registration-setting') {
         this.generalSetting.set(true);
@@ -619,6 +759,182 @@ BlazeComponent.extendComponent({
     this.setLoading(false);
   },
 
+  toggleCustomHead() {
+    this.setLoading(true);
+    const customHeadEnabled = !$('.js-toggle-custom-head .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-custom-head .materialCheckBox').toggleClass('is-checked');
+    $('.custom-head-settings').toggleClass('hide');
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { customHeadEnabled },
+    });
+    this.setLoading(false);
+  },
+
+  toggleCustomManifest() {
+    this.setLoading(true);
+    const customManifestEnabled = !$('.js-toggle-custom-manifest .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-custom-manifest .materialCheckBox').toggleClass('is-checked');
+    $('.custom-manifest-settings').toggleClass('hide');
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { customManifestEnabled },
+    });
+    this.setLoading(false);
+  },
+
+  saveCustomHeadSettings() {
+    this.setLoading(true);
+    const customHeadMetaTags = $('#custom-head-meta').val() || '';
+    let customManifestContent = $('#custom-manifest-content').val() || '';
+
+    // Validate and clean JSON if present
+    if (customManifestContent.trim()) {
+      const cleanResult = this.cleanAndValidateJSON(customManifestContent);
+      if (cleanResult.error) {
+        this.setLoading(false);
+        alert(`Invalid manifest JSON: ${cleanResult.error}`);
+        return;
+      }
+      customManifestContent = cleanResult.json;
+      // Update the textarea with cleaned version
+      $('#custom-manifest-content').val(customManifestContent);
+    }
+
+    const customHeadLinkTags = $('#custom-head-links').val() || '';
+
+    try {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, {
+        $set: {
+          customHeadMetaTags,
+          customHeadLinkTags,
+          customManifestContent,
+        },
+      });
+    } catch (e) {
+      return;
+    } finally {
+      this.setLoading(false);
+    }
+  },
+
+  cleanAndValidateJSON(content) {
+    if (!content || !content.trim()) {
+      return { json: content };
+    }
+
+    try {
+      // Try to parse as-is
+      const parsed = JSON.parse(content);
+      return { json: JSON.stringify(parsed, null, 2) };
+    } catch (e) {
+      const errorMsg = e.message;
+
+      // If error is "unexpected non-whitespace character after JSON data"
+      if (errorMsg.includes('unexpected non-whitespace character after JSON data')) {
+        try {
+          // Try to find and extract valid JSON by finding matching braces/brackets
+          const trimmed = content.trim();
+          let depth = 0;
+          let endPos = -1;
+          let inString = false;
+          let escapeNext = false;
+
+          for (let i = 0; i < trimmed.length; i++) {
+            const char = trimmed[i];
+
+            if (escapeNext) {
+              escapeNext = false;
+              continue;
+            }
+
+            if (char === '\\') {
+              escapeNext = true;
+              continue;
+            }
+
+            if (char === '"' && !escapeNext) {
+              inString = !inString;
+              continue;
+            }
+
+            if (inString) continue;
+
+            if (char === '{' || char === '[') {
+              depth++;
+            } else if (char === '}' || char === ']') {
+              depth--;
+              if (depth === 0) {
+                endPos = i + 1;
+                break;
+              }
+            }
+          }
+
+          if (endPos > 0) {
+            const cleanedContent = trimmed.substring(0, endPos);
+            const parsed = JSON.parse(cleanedContent);
+            return { json: JSON.stringify(parsed, null, 2) };
+          }
+        } catch (fixError) {
+          // If fix attempt fails, return original error
+        }
+      }
+
+      // Remove trailing commas (common error)
+      if (errorMsg.includes('Unexpected token')) {
+        try {
+          const fixed = content.replace(/,(\s*[}\]])/g, '$1');
+          const parsed = JSON.parse(fixed);
+          return { json: JSON.stringify(parsed, null, 2) };
+        } catch (fixError) {
+          // Continue to error return
+        }
+      }
+
+      return { error: errorMsg };
+    }
+  },
+
+  toggleCustomAssetLinks() {
+    this.setLoading(true);
+    const customAssetLinksEnabled = !$('.js-toggle-custom-assetlinks .materialCheckBox').hasClass('is-checked');
+    $('.js-toggle-custom-assetlinks .materialCheckBox').toggleClass('is-checked');
+    $('.custom-assetlinks-settings').toggleClass('hide');
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { customAssetLinksEnabled },
+    });
+    this.setLoading(false);
+  },
+
+  saveCustomAssetLinksSettings() {
+    this.setLoading(true);
+    let customAssetLinksContent = $('#custom-assetlinks-content').val() || '';
+
+    // Validate and clean JSON if present
+    if (customAssetLinksContent.trim()) {
+      const cleanResult = this.cleanAndValidateJSON(customAssetLinksContent);
+      if (cleanResult.error) {
+        this.setLoading(false);
+        alert(`Invalid assetlinks JSON: ${cleanResult.error}`);
+        return;
+      }
+      customAssetLinksContent = cleanResult.json;
+      // Update the textarea with cleaned version
+      $('#custom-assetlinks-content').val(customAssetLinksContent);
+    }
+
+    try {
+      Settings.update(ReactiveCache.getCurrentSetting()._id, {
+        $set: {
+          customAssetLinksContent,
+        },
+      });
+    } catch (e) {
+      return;
+    } finally {
+      this.setLoading(false);
+    }
+  },
+
   saveSupportSettings() {
     this.setLoading(true);
     const supportTitle = ($('#support-title').val() || '').trim();
@@ -668,6 +984,11 @@ BlazeComponent.extendComponent({
         'click a.js-toggle-support': this.toggleSupportPage,
         'click a.js-toggle-support-public': this.toggleSupportPublic,
         'click button.js-support-save': this.saveSupportSettings,
+        'click a.js-toggle-custom-head': this.toggleCustomHead,
+        'click a.js-toggle-custom-manifest': this.toggleCustomManifest,
+        'click button.js-custom-head-save': this.saveCustomHeadSettings,
+        'click a.js-toggle-custom-assetlinks': this.toggleCustomAssetLinks,
+        'click button.js-custom-assetlinks-save': this.saveCustomAssetLinksSettings,
         'click a.js-toggle-display-authentication-method': this
           .toggleDisplayAuthenticationMethod,
       },
@@ -847,7 +1168,7 @@ BlazeComponent.extendComponent({
     const content = $('#admin-accessibility-content')
       .val()
       .trim();
-    
+
     try {
       AccessibilitySettings.update(AccessibilitySettings.findOne()._id, {
         $set: {

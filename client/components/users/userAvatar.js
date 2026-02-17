@@ -34,10 +34,10 @@ Template.userAvatar.helpers({
   memberType() {
     const user = ReactiveCache.getUser(this.userId);
     if (!user) return '';
-    
+
     const board = Utils.getCurrentBoard();
     if (!board) return '';
-    
+
     // Return role in priority order: Admin, Normal, NormalAssignedOnly, NoComments, CommentOnly, CommentAssignedOnly, Worker, ReadOnly, ReadAssignedOnly
     if (user.isBoardAdmin()) return 'admin';
     if (board.hasReadAssignedOnly(user._id)) return 'read-assigned-only';

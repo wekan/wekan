@@ -43,12 +43,6 @@ if (__meteor_runtime_config__.SANDSTORM) {
     });
   }
 
-  var Future = Npm.require("fibers/future");
-
-  var inMeteor = Meteor.bindEnvironment(function (callback) {
-    callback();
-  });
-
   var logins = {};
   // Maps tokens to currently-waiting login method calls.
 
@@ -83,22 +77,24 @@ if (__meteor_runtime_config__.SANDSTORM) {
   });
 
   Meteor.methods({
-    loginWithSandstorm: function (token) {
+    async loginWithSandstorm(token) {
       check(token, String);
 
-      var future = new Future();
+      const loginPromise = new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Meteor.Error("timeout", "Gave up waiting for login rendezvous XHR."));
+        }, 10000);
 
-      logins[token] = future;
-
-      var timeout = setTimeout(function () {
-        future.throw(new Meteor.Error("timeout", "Gave up waiting for login rendezvous XHR."));
-      }, 10000);
+        logins[token] = { resolve, reject, timeout };
+      });
 
       var info;
       try {
-        info = future.wait();
+        info = await loginPromise;
       } finally {
-        clearTimeout(timeout);
+        if (logins[token] && logins[token].timeout) {
+          clearTimeout(logins[token].timeout);
+        }
         delete logins[token];
       }
 
@@ -128,85 +124,79 @@ if (__meteor_runtime_config__.SANDSTORM) {
     return next();
   });
 
-  function readAll(stream) {
-    var future = new Future();
-
-    var chunks = [];
-    stream.on("data", function (chunk) {
-      chunks.push(chunk.toString());
+  async function readAll(stream) {
+    return new Promise((resolve, reject) => {
+      const chunks = [];
+      stream.on("data", function (chunk) {
+        chunks.push(chunk.toString());
+      });
+      stream.on("error", function (err) {
+        reject(err);
+      });
+      stream.on("end", function () {
+        resolve(chunks.join(""));
+      });
     });
-    stream.on("error", function (err) {
-      future.throw(err);
-    });
-    stream.on("end", function () {
-      future.return();
-    });
-
-    future.wait();
-
-    return chunks.join("");
   }
 
-  var handlePostToken = Meteor.bindEnvironment(function (req, res) {
-    inMeteor(function () {
-      try {
-        // Note that cross-origin POSTs cannot set arbitrary Content-Types without explicit CORS
-        // permission, so this effectively prevents XSRF.
-        if (req.headers["content-type"].split(";")[0].trim() !== "application/x-sandstorm-login-token") {
-          throw new Error("wrong Content-Type for .sandstorm-login: " + req.headers["content-type"]);
-        }
-
-        var token = readAll(req);
-
-        var future = logins[token];
-        if (!future) {
-          throw new Error("no current login request matching token");
-        }
-
-        var permissions = req.headers["x-sandstorm-permissions"];
-        if (permissions && permissions !== "") {
-          permissions = permissions.split(",");
-        } else {
-          permissions = [];
-        }
-
-        var sandstormInfo = {
-          id: req.headers["x-sandstorm-user-id"] || null,
-          name: decodeURIComponent(req.headers["x-sandstorm-username"]),
-          permissions: permissions,
-          picture: req.headers["x-sandstorm-user-picture"] || null,
-          preferredHandle: req.headers["x-sandstorm-preferred-handle"] || null,
-          pronouns: req.headers["x-sandstorm-user-pronouns"] || null,
-        };
-
-        var userInfo = {sandstorm: sandstormInfo};
-        if (Package["accounts-base"]) {
-          if (sandstormInfo.id) {
-            // The user is logged into Sandstorm. Create a Meteor account for them, or find the
-            // existing one, and record the user ID.
-            var login = Package["accounts-base"].Accounts.updateOrCreateUserFromExternalService(
-              "sandstorm", sandstormInfo, {profile: {name: sandstormInfo.name}});
-            userInfo.userId = login.userId;
-          } else {
-            userInfo.userId = null;
-          }
-        } else {
-          // Since the app isn't using regular Meteor accounts, we can define Meteor.userId()
-          // however we want.
-          userInfo.userId = sandstormInfo.id;
-        }
-
-        userInfo.sessionId = req.headers["x-sandstorm-session-id"] || null;
-        userInfo.tabId = req.headers["x-sandstorm-tab-id"] || null;
-        future.return(userInfo);
-        res.writeHead(204, {});
-        res.end();
-      } catch (err) {
-        res.writeHead(500, {
-          "Content-Type": "text/plain"
-        });
-        res.end(err.stack);
+  var handlePostToken = Meteor.bindEnvironment(async function (req, res) {
+    try {
+      // Note that cross-origin POSTs cannot set arbitrary Content-Types without explicit CORS
+      // permission, so this effectively prevents XSRF.
+      if (req.headers["content-type"].split(";")[0].trim() !== "application/x-sandstorm-login-token") {
+        throw new Error("wrong Content-Type for .sandstorm-login: " + req.headers["content-type"]);
       }
-    });
+
+      var token = await readAll(req);
+
+      var loginEntry = logins[token];
+      if (!loginEntry) {
+        throw new Error("no current login request matching token");
+      }
+
+      var permissions = req.headers["x-sandstorm-permissions"];
+      if (permissions && permissions !== "") {
+        permissions = permissions.split(",");
+      } else {
+        permissions = [];
+      }
+
+      var sandstormInfo = {
+        id: req.headers["x-sandstorm-user-id"] || null,
+        name: decodeURIComponent(req.headers["x-sandstorm-username"]),
+        permissions: permissions,
+        picture: req.headers["x-sandstorm-user-picture"] || null,
+        preferredHandle: req.headers["x-sandstorm-preferred-handle"] || null,
+        pronouns: req.headers["x-sandstorm-user-pronouns"] || null,
+      };
+
+      var userInfo = {sandstorm: sandstormInfo};
+      if (Package["accounts-base"]) {
+        if (sandstormInfo.id) {
+          // The user is logged into Sandstorm. Create a Meteor account for them, or find the
+          // existing one, and record the user ID.
+          var login = await Package["accounts-base"].Accounts.updateOrCreateUserFromExternalService(
+              "sandstorm", sandstormInfo, {profile: {name: sandstormInfo.name}});
+          userInfo.userId = login.userId;
+        } else {
+          userInfo.userId = null;
+        }
+      } else {
+        // Since the app isn't using regular Meteor accounts, we can define Meteor.userId()
+        // however we want.
+        userInfo.userId = sandstormInfo.id;
+      }
+
+      userInfo.sessionId = req.headers["x-sandstorm-session-id"] || null;
+      userInfo.tabId = req.headers["x-sandstorm-tab-id"] || null;
+      loginEntry.resolve(userInfo);
+      res.writeHead(204, {});
+      res.end();
+    } catch (err) {
+      res.writeHead(500, {
+        "Content-Type": "text/plain"
+      });
+      res.end(err.stack);
+    }
   });
 }

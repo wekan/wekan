@@ -31,8 +31,8 @@ nano ~/.local/share/applications/wekan-vscode.desktop
 Content:
 ```
 [Desktop Entry]
-Name=VS Code - Wekan
-Comment=Open the Weka project with Flatpak
+Name=VS Code - WeKan
+Comment=Open the WeKan project with Flatpak
 Exec=flatpak run com.visualstudio.code /home/wekan/repos/wekan
 Icon=com.visualstudio.code
 Terminal=false
