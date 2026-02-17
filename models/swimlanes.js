@@ -148,7 +148,6 @@ Swimlanes.allow({
 
 Swimlanes.helpers({
   async copy(boardId) {
-  async copy(boardId) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     this.boardId = boardId;
