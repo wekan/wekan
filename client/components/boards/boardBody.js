@@ -916,8 +916,14 @@ BlazeComponent.extendComponent({
       timezone: 'local',
       weekNumbers: true,
       // Use non-localized AM/PM time format to avoid confusing notations like 上/下/中
+      // Use full 'am'/'pm' instead of single-letter 'a'/'p' for clarity
       timeFormat: 'h:mma',
       slotLabelFormat: 'h:mma',
+      extraSmallTimeFormat: 'h(:mm)a',
+      smallTimeFormat: 'h(:mm)a',
+      mediumTimeFormat: 'h:mma',
+      hourFormat: 'ha',
+      noMeridiemTimeFormat: 'h:mm',
       header: {
         left: 'title   today prev,next',
         center:
