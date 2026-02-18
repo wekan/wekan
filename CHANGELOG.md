@@ -24,6 +24,12 @@ Those are fixed at WeKan 8.07 where database directory is back to /var/snap/weka
 
 WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use mostly Font Awesome 4.7 icons.
 
+Upgrading to Meteor 3 progress:
+
+- https://harryadel.com/dev-diary-24/
+- https://www.linkedin.com/posts/harryadel_dev-diary-24-wekan-migration-journey-activity-7426683776547811328-jS9h/
+- https://forums.meteor.com/t/anyone-still-using-meteor-2/64402/4
+
 # v8.33 2026-02-15 WeKan ® release
 
 This release adds the following new features:
