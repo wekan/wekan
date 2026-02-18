@@ -50,14 +50,14 @@ CardCommentReactions.attachSchema(
 );
 
 CardCommentReactions.allow({
-  async insert(userId, doc) {
-    return allowIsBoardMember(userId, await ReactiveCache.getBoard(doc.boardId));
+  insert(userId, doc) {
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
-  async update(userId, doc) {
-    return allowIsBoardMember(userId, await ReactiveCache.getBoard(doc.boardId));
+  update(userId, doc) {
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
-  async remove(userId, doc) {
-    return allowIsBoardMember(userId, await ReactiveCache.getBoard(doc.boardId));
+  remove(userId, doc) {
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['boardId'],
 });

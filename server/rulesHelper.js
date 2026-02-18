@@ -2,9 +2,9 @@ import { ReactiveCache } from '/imports/reactiveCache';
 
 RulesHelper = {
   async executeRules(activity) {
-    const matchingRules = this.findMatchingRules(activity);
+    const matchingRules = await this.findMatchingRules(activity);
     for (let i = 0; i < matchingRules.length; i++) {
-      const action = matchingRules[i].getAction();
+      const action = await matchingRules[i].getAction();
       if (action !== undefined) {
         await this.performAction(activity, action);
       }
@@ -19,14 +19,14 @@ RulesHelper = {
     const matchingMap = await this.buildMatchingFieldsMap(activity, matchingFields);
     const matchingTriggers = await ReactiveCache.getTriggers(matchingMap);
     const matchingRules = [];
-    matchingTriggers.forEach(function(trigger) {
-      const rule = trigger.getRule();
+    for (const trigger of matchingTriggers) {
+      const rule = await trigger.getRule();
       // Check that for some unknown reason there are some leftover triggers
       // not connected to any rules
       if (rule !== undefined) {
-        matchingRules.push(trigger.getRule());
+        matchingRules.push(rule);
       }
-    });
+    }
     return matchingRules;
   },
   async buildMatchingFieldsMap(activity, matchingFields) {
@@ -67,7 +67,7 @@ RulesHelper = {
       let list;
       let listId;
       if (action.listName === '*') {
-        list = card.list();
+        list = await card.list();
         if (boardId !== action.boardId) {
           list = await ReactiveCache.getList({ title: list.title, boardId: action.boardId });
         }
@@ -110,12 +110,12 @@ RulesHelper = {
 
       if (action.actionType === 'moveCardToTop') {
         const minOrder = _.min(
-          list.cardsUnfiltered(swimlaneId).map(c => c.sort),
+          (await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
         await card.move(action.boardId, swimlaneId, listId, minOrder - 1);
       } else {
         const maxOrder = _.max(
-          list.cardsUnfiltered(swimlaneId).map(c => c.sort),
+          (await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
         await card.move(action.boardId, swimlaneId, listId, maxOrder + 1);
       }

@@ -4,14 +4,14 @@ import { Meteor } from 'meteor/meteor';
 Actions = new Mongo.Collection('actions');
 
 Actions.allow({
-  async insert(userId, doc) {
-    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
+  insert(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
-  async update(userId, doc) {
-    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
+  update(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
-  async remove(userId, doc) {
-    return allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
+  remove(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
 });
 

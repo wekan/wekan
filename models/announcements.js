@@ -50,8 +50,8 @@ Announcements.attachSchema(
 );
 
 Announcements.allow({
-  async update(userId) {
-    const user = await ReactiveCache.getUser(userId);
+  update(userId) {
+    const user = Meteor.users.findOne(userId);
     return user && user.isAdmin;
   },
 });

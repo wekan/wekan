@@ -1646,8 +1646,8 @@ class CronMigrationManager {
     SyncedCron.add({
       name: step.cronName,
       schedule: (parser) => parser.text(step.schedule),
-      job: () => {
-        this.runMigrationStep(step);
+      job: async () => {
+        await this.runMigrationStep(step);
       },
     });
   }

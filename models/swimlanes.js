@@ -131,17 +131,17 @@ Swimlanes.attachSchema(
 );
 
 Swimlanes.allow({
-  async insert(userId, doc) {
+  insert(userId, doc) {
     // ReadOnly and CommentOnly users cannot create swimlanes
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
-  async update(userId, doc) {
+  update(userId, doc) {
     // ReadOnly and CommentOnly users cannot edit swimlanes
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
-  async remove(userId, doc) {
+  remove(userId, doc) {
     // ReadOnly and CommentOnly users cannot delete swimlanes
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['boardId'],
 });

@@ -1828,7 +1828,7 @@ Boards.labelColors = () => {
 
 if (Meteor.isServer) {
   Boards.allow({
-    async insert(userId, doc) {
+    insert(userId, doc) {
       // Check if user is logged in
       if (!userId) return false;
 
@@ -1847,7 +1847,7 @@ if (Meteor.isServer) {
 
   // All logged in users are allowed to reorder boards by dragging at All Boards page and Public Boards page.
   Boards.allow({
-    async update(userId, board, fieldNames) {
+    update(userId, board, fieldNames) {
       return canUpdateBoardSort(userId, board, fieldNames);
     },
     // Need members to verify membership in policy
@@ -1857,7 +1857,7 @@ if (Meteor.isServer) {
   // The number of users that have starred this board is managed by trusted code
   // and the user is not allowed to update it
   Boards.deny({
-    async update(userId, board, fieldNames) {
+    update(userId, board, fieldNames) {
       return _.contains(fieldNames, 'stars');
     },
     fetch: [],
@@ -1865,7 +1865,7 @@ if (Meteor.isServer) {
 
   // We can't remove a member if it is the last administrator
   Boards.deny({
-    async update(userId, doc, fieldNames, modifier) {
+    update(userId, doc, fieldNames, modifier) {
       if (!_.contains(fieldNames, 'members')) return false;
 
       // We only care in case of a $pull operation, ie remove a member
@@ -1891,7 +1891,7 @@ if (Meteor.isServer) {
 
   // Deny changing permission to public if allowPrivateOnly is enabled
   Boards.deny({
-    async update(userId, doc, fieldNames, modifier) {
+    update(userId, doc, fieldNames, modifier) {
       if (!_.contains(fieldNames, 'permission')) return false;
 
       const allowPrivateOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;

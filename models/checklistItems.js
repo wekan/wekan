@@ -69,17 +69,17 @@ ChecklistItems.attachSchema(
 );
 
 ChecklistItems.allow({
-  async insert(userId, doc) {
+  insert(userId, doc) {
     // ReadOnly users cannot create checklist items
-    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, Cards.findOne(doc.cardId));
   },
-  async update(userId, doc) {
+  update(userId, doc) {
     // ReadOnly users cannot edit checklist items
-    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, Cards.findOne(doc.cardId));
   },
-  async remove(userId, doc) {
+  remove(userId, doc) {
     // ReadOnly users cannot delete checklist items
-    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, Cards.findOne(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });

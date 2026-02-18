@@ -164,28 +164,28 @@ CustomFields.helpers({
 });
 
 CustomFields.allow({
-  async insert(userId, doc) {
+  insert(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      await ReactiveCache.getBoards({
+      Boards.find({
         _id: { $in: doc.boardIds },
-      }),
+      }).fetch(),
     );
   },
-  async update(userId, doc) {
+  update(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      await ReactiveCache.getBoards({
+      Boards.find({
         _id: { $in: doc.boardIds },
-      }),
+      }).fetch(),
     );
   },
-  async remove(userId, doc) {
+  remove(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      await ReactiveCache.getBoards({
+      Boards.find({
         _id: { $in: doc.boardIds },
-      }),
+      }).fetch(),
     );
   },
   fetch: ['userId', 'boardIds'],

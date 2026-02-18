@@ -195,17 +195,17 @@ Checklists.helpers({
 });
 
 Checklists.allow({
-  async insert(userId, doc) {
+  insert(userId, doc) {
     // ReadOnly users cannot create checklists
-    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, Cards.findOne(doc.cardId));
   },
-  async update(userId, doc) {
+  update(userId, doc) {
     // ReadOnly users cannot edit checklists
-    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, Cards.findOne(doc.cardId));
   },
-  async remove(userId, doc) {
+  remove(userId, doc) {
     // ReadOnly users cannot delete checklists
-    return allowIsBoardMemberWithWriteAccessByCard(userId, await ReactiveCache.getCard(doc.cardId));
+    return allowIsBoardMemberWithWriteAccessByCard(userId, Cards.findOne(doc.cardId));
   },
   fetch: ['userId', 'cardId'],
 });

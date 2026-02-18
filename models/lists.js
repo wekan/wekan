@@ -180,17 +180,17 @@ Lists.attachSchema(
 );
 
 Lists.allow({
-  async insert(userId, doc) {
+  insert(userId, doc) {
     // ReadOnly and CommentOnly users cannot create lists
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
-  async update(userId, doc) {
+  update(userId, doc) {
     // ReadOnly and CommentOnly users cannot edit lists
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
-  async remove(userId, doc) {
+  remove(userId, doc) {
     // ReadOnly and CommentOnly users cannot delete lists
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['boardId'],
 });
@@ -540,7 +540,7 @@ Meteor.methods({
     }
 
     await Lists.updateAsync(
-      { _id: listId, boardId },
+      listId,
       {
         $set: {
           ...updateData,

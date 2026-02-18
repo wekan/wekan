@@ -101,21 +101,21 @@ Integrations.Const = {
   },
 };
 const permissionHelper = {
-  async allow(userId, doc) {
-    const user = await ReactiveCache.getUser(userId);
-    const isAdmin = user && (await ReactiveCache.getCurrentUser()).isAdmin;
-    return isAdmin || allowIsBoardAdmin(userId, await ReactiveCache.getBoard(doc.boardId));
+  allow(userId, doc) {
+    const user = Meteor.users.findOne(userId);
+    const isAdmin = user && user.isAdmin;
+    return isAdmin || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
 };
 Integrations.allow({
-  async insert(userId, doc) {
-    return await permissionHelper.allow(userId, doc);
+  insert(userId, doc) {
+    return permissionHelper.allow(userId, doc);
   },
-  async update(userId, doc) {
-    return await permissionHelper.allow(userId, doc);
+  update(userId, doc) {
+    return permissionHelper.allow(userId, doc);
   },
-  async remove(userId, doc) {
-    return await permissionHelper.allow(userId, doc);
+  remove(userId, doc) {
+    return permissionHelper.allow(userId, doc);
   },
   fetch: ['boardId'],
 });

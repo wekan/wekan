@@ -78,8 +78,8 @@ Team.attachSchema(
 
 if (Meteor.isServer) {
   Team.allow({
-    async insert(userId, doc) {
-      const user = await ReactiveCache.getUser(userId) || await ReactiveCache.getCurrentUser();
+    insert(userId, doc) {
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -87,8 +87,8 @@ if (Meteor.isServer) {
       }
       return doc._id === userId;
     },
-    async update(userId, doc) {
-      const user = await ReactiveCache.getUser(userId) || await ReactiveCache.getCurrentUser();
+    update(userId, doc) {
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -96,8 +96,8 @@ if (Meteor.isServer) {
       }
       return doc._id === userId;
     },
-    async remove(userId, doc) {
-      const user = await ReactiveCache.getUser(userId) || await ReactiveCache.getCurrentUser();
+    remove(userId, doc) {
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {

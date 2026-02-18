@@ -519,7 +519,7 @@ Cards.attachSchema(
 
 // Centralized update policy for Cards
 // Security: deny any direct client updates to 'vote' fields; require write access otherwise
-canUpdateCard = async function(userId, doc, fields) {
+canUpdateCard = function(userId, doc, fields) {
   if (!userId) return false;
   const fieldNames = fields || [];
   // Block direct updates to voting fields; voting must go through Meteor method 'cards.vote'
@@ -531,21 +531,20 @@ canUpdateCard = async function(userId, doc, fields) {
     return false;
   }
   // ReadOnly users cannot edit cards
-  return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+  return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
 };
 
 Cards.allow({
-  async insert(userId, doc) {
+  insert(userId, doc) {
     // ReadOnly users cannot create cards
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
-
-  async update(userId, doc, fields) {
-    return await canUpdateCard(userId, doc, fields);
+  update(userId, doc, fields) {
+    return canUpdateCard(userId, doc, fields);
   },
-  async remove(userId, doc) {
+  remove(userId, doc) {
     // ReadOnly users cannot delete cards
-    return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['boardId'],
 });
@@ -572,7 +571,7 @@ Cards.helpers({
     });
   },
 
-  async mapCustomFieldsToBoard(boardId) {
+  mapCustomFieldsToBoard(boardId) {
     // Guard against undefined/null customFields
     if (!this.customFields || !Array.isArray(this.customFields)) {
       return [];
@@ -580,7 +579,7 @@ Cards.helpers({
     // Map custom fields to new board
     const result = [];
     for (const cf of this.customFields) {
-        const oldCf = await ReactiveCache.getCustomField(cf._id);
+        const oldCf = ReactiveCache.getCustomField(cf._id);
 
         // Check if oldCf is undefined or null
         if (!oldCf) {
@@ -589,7 +588,7 @@ Cards.helpers({
             continue;
         }
 
-        const newCf = await ReactiveCache.getCustomField({
+        const newCf = ReactiveCache.getCustomField({
             boardIds: boardId,
             name: oldCf.name,
             type: oldCf.type,
@@ -598,7 +597,7 @@ Cards.helpers({
         if (newCf) {
             cf._id = newCf._id;
         } else if (!_.contains(oldCf.boardIds, boardId)) {
-            await oldCf.addBoard(boardId);
+            oldCf.addBoard(boardId);
         }
 
         result.push(cf);
@@ -607,9 +606,9 @@ Cards.helpers({
 },
 
 
-  async copy(boardId, swimlaneId, listId) {
+  copy(boardId, swimlaneId, listId) {
     const oldId = this._id;
-    const oldCard = await ReactiveCache.getCard(oldId);
+    const oldCard = ReactiveCache.getCard(oldId);
 
     // Work on a shallow copy to avoid mutating the source card in ReactiveCache
     const cardData = { ...this };
@@ -623,7 +622,7 @@ Cards.helpers({
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
     if (this.boardId !== boardId) {
-      const oldBoard = await ReactiveCache.getBoard(this.boardId);
+      const oldBoard = ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = oldBoard.labels;
 
       // Get old label names
@@ -634,7 +633,7 @@ Cards.helpers({
         'name',
       );
 
-      const newBoard = await ReactiveCache.getBoard(boardId);
+      const newBoard = ReactiveCache.getBoard(boardId);
       const newBoardLabels = newBoard.labels;
       const newCardLabels = _.pluck(
         _.filter(newBoardLabels, label => {
@@ -644,16 +643,16 @@ Cards.helpers({
       );
       cardData.labelIds = newCardLabels;
 
-      this.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+      this.customFields = this.mapCustomFieldsToBoard(newBoard._id);
     }
 
     delete this._id;
     this.boardId = boardId;
-    const board = await ReactiveCache.getBoard(boardId);
+    const board = ReactiveCache.getBoard(boardId);
     this.cardNumber = board.getNextCardNumber();
     this.swimlaneId = swimlaneId;
     this.listId = listId;
-    const _id = await Cards.insertAsync(this);
+    const _id = Cards.insertAsync(this);
 
     // Copy attachments
     oldCard.attachments()
@@ -662,23 +661,23 @@ Cards.helpers({
       });
 
     // copy checklists
-    const checklists = await ReactiveCache.getChecklists({ cardId: oldId });
+    const checklists = ReactiveCache.getChecklists({ cardId: oldId });
     for (const ch of checklists) {
-      await ch.copy(_id);
+      ch.copy(_id);
     }
 
     // copy subtasks
-    const subtasks = await ReactiveCache.getCards({ parentId: oldId });
+    const subtasks = ReactiveCache.getCards({ parentId: oldId });
     for (const subtask of subtasks) {
       subtask.parentId = _id;
       subtask._id = null;
-      await Cards.insertAsync(subtask);
+      Cards.insertAsync(subtask);
     }
 
     // copy card comments
-    const comments = await ReactiveCache.getCardComments({ cardId: oldId });
+    const comments = ReactiveCache.getCardComments({ cardId: oldId });
     for (const cmt of comments) {
-      await cmt.copy(_id);
+      cmt.copy(_id);
     }
     // restore the id, otherwise new copies will fail
     this._id = oldId;
@@ -1035,8 +1034,8 @@ Cards.helpers({
     return '';
   },
 
-  async absoluteUrl() {
-    const board = await this.board();
+  absoluteUrl() {
+    const board = this.board();
     if (!board) return undefined;
     return FlowRouter.url('card', {
       boardId: board._id,
@@ -1044,8 +1043,8 @@ Cards.helpers({
       cardId: this._id,
     });
   },
-  async originRelativeUrl() {
-    const board = await this.board();
+  originRelativeUrl() {
+    const board = this.board();
     if (!board) return undefined;
     return FlowRouter.path('card', {
       boardId: board._id,
@@ -1054,8 +1053,8 @@ Cards.helpers({
     });
   },
 
-  async canBeRestored() {
-    const list = await ReactiveCache.getList(this.listId);
+  canBeRestored() {
+    const list = ReactiveCache.getList(this.listId);
     if (
       !list.getWipLimit('soft') &&
       list.getWipLimit('enabled') &&
@@ -1066,18 +1065,18 @@ Cards.helpers({
     return true;
   },
 
-  async parentCard() {
+  parentCard() {
     let ret = null;
     if (this.parentId) {
-      ret = await ReactiveCache.getCard(this.parentId);
+      ret = ReactiveCache.getCard(this.parentId);
     }
     return ret;
   },
 
-  async parentCardName() {
+  parentCardName() {
     let result = '';
     if (this.parentId) {
-      const card = await ReactiveCache.getCard(this.parentId);
+      const card = ReactiveCache.getCard(this.parentId);
       if (card) {
         result = card.title;
       }
@@ -1085,11 +1084,11 @@ Cards.helpers({
     return result;
   },
 
-  async parentListId() {
+  parentListId() {
     const result = [];
     let crtParentId = this.parentId;
     while (crtParentId) {
-      const crt = await ReactiveCache.getCard(crtParentId);
+      const crt = ReactiveCache.getCard(crtParentId);
       if (crt === null || crt === undefined) {
         // maybe it has been deleted
         break;
@@ -1104,12 +1103,12 @@ Cards.helpers({
     return result;
   },
 
-  async parentList() {
+  parentList() {
     const resultId = [];
     const result = [];
     let crtParentId = this.parentId;
     while (crtParentId) {
-      const crt = await ReactiveCache.getCard(crtParentId);
+      const crt = ReactiveCache.getCard(crtParentId);
       if (crt === null || crt === undefined) {
         // maybe it has been deleted
         break;
@@ -1125,8 +1124,8 @@ Cards.helpers({
     return result;
   },
 
-  async parentString(sep) {
-    return (await this.parentList())
+  parentString(sep) {
+    return (this.parentList())
       .map(function(elem) {
         return elem.title;
       })
@@ -1161,13 +1160,13 @@ Cards.helpers({
     }
   },
 
-  async getDescription() {
+  getDescription() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card && card.description) return card.description;
       else return null;
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board && board.description) return board.description;
       else return null;
     } else if (this.description) {
@@ -1177,16 +1176,16 @@ Cards.helpers({
     }
   },
 
-  async getMembers() {
+  getMembers() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.members;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1199,16 +1198,16 @@ Cards.helpers({
     }
   },
 
-  async getAssignees() {
+  getAssignees() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.assignees;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1221,13 +1220,13 @@ Cards.helpers({
     }
   },
 
-  async assignMember(memberId) {
+  assignMember(memberId) {
     let ret;
     if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
-      ret = await board.addMember(memberId);
+      const board = ReactiveCache.getBoard(this.linkedId);
+      ret = board.addMember(memberId);
     } else {
-      ret = await Cards.updateAsync(
+      ret = Cards.updateAsync(
         { _id: this.getRealId() },
         { $addToSet: { members: memberId } },
       );
@@ -1235,82 +1234,82 @@ Cards.helpers({
     return ret;
   },
 
-  async assignAssignee(assigneeId) {
+  assignAssignee(assigneeId) {
     if (this.isLinkedCard()) {
-      return await Cards.updateAsync(
+      return Cards.updateAsync(
         { _id: this.linkedId },
         { $addToSet: { assignees: assigneeId } },
       );
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       return board.addAssignee(assigneeId);
     } else {
-      return await Cards.updateAsync(
+      return Cards.updateAsync(
         { _id: this._id },
         { $addToSet: { assignees: assigneeId } },
       );
     }
   },
 
-  async unassignMember(memberId) {
+  unassignMember(memberId) {
     if (this.isLinkedCard()) {
-      return await Cards.updateAsync(
+      return Cards.updateAsync(
         { _id: this.linkedId },
         { $pull: { members: memberId } },
       );
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
-      return await board.removeMember(memberId);
+      const board = ReactiveCache.getBoard(this.linkedId);
+      return board.removeMember(memberId);
     } else {
-      return await Cards.updateAsync({ _id: this._id }, { $pull: { members: memberId } });
+      return Cards.updateAsync({ _id: this._id }, { $pull: { members: memberId } });
     }
   },
 
-  async unassignAssignee(assigneeId) {
+  unassignAssignee(assigneeId) {
     if (this.isLinkedCard()) {
-      return await Cards.updateAsync(
+      return Cards.updateAsync(
         { _id: this.linkedId },
         { $pull: { assignees: assigneeId } },
       );
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       return board.removeAssignee(assigneeId);
     } else {
-      return await Cards.updateAsync(
+      return Cards.updateAsync(
         { _id: this._id },
         { $pull: { assignees: assigneeId } },
       );
     }
   },
 
-  async toggleMember(memberId) {
-    const members = await this.getMembers();
+  toggleMember(memberId) {
+    const members = this.getMembers();
     if (members && members.indexOf(memberId) > -1) {
-      return await this.unassignMember(memberId);
+      return this.unassignMember(memberId);
     } else {
-      return await this.assignMember(memberId);
+      return this.assignMember(memberId);
     }
   },
 
-  async toggleAssignee(assigneeId) {
-    const assignees = await this.getAssignees();
+  toggleAssignee(assigneeId) {
+    const assignees = this.getAssignees();
     if (assignees && assignees.indexOf(assigneeId) > -1) {
-      return await this.unassignAssignee(assigneeId);
+      return this.unassignAssignee(assigneeId);
     } else {
-      return await this.assignAssignee(assigneeId);
+      return this.assignAssignee(assigneeId);
     }
   },
 
-  async getReceived() {
+  getReceived() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.receivedAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1329,16 +1328,16 @@ Cards.helpers({
     }
   },
 
-  async getStart() {
+  getStart() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.startAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1357,16 +1356,16 @@ Cards.helpers({
     }
   },
 
-  async getDue() {
+  getDue() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.dueAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1385,16 +1384,16 @@ Cards.helpers({
     }
   },
 
-  async getEnd() {
+  getEnd() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.endAt;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1413,16 +1412,16 @@ Cards.helpers({
     }
   },
 
-  async getIsOvertime() {
+  getIsOvertime() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.isOvertime;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1441,16 +1440,16 @@ Cards.helpers({
     }
   },
 
-  async getSpentTime() {
+  getSpentTime() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.spentTime;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1469,9 +1468,9 @@ Cards.helpers({
     }
   },
 
-  async getVoteQuestion() {
+  getVoteQuestion() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.vote) {
@@ -1480,7 +1479,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.vote) {
@@ -1495,9 +1494,9 @@ Cards.helpers({
     }
   },
 
-  async getVotePublic() {
+  getVotePublic() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.vote) {
@@ -1506,7 +1505,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.vote) {
@@ -1521,9 +1520,9 @@ Cards.helpers({
     }
   },
 
-  async getVoteEnd() {
+  getVoteEnd() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.vote) {
@@ -1532,7 +1531,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.vote) {
@@ -1546,23 +1545,23 @@ Cards.helpers({
       return null;
     }
   },
-  async expiredVote() {
-    let end = await this.getVoteEnd();
+  expiredVote() {
+    let end = this.getVoteEnd();
     if (end) {
       end = new Date(end);
       return isBefore(end, new Date());
     }
     return false;
   },
-  async voteMemberPositive() {
+  voteMemberPositive() {
     if (this.vote && this.vote.positive)
-      return await ReactiveCache.getUsers({ _id: { $in: this.vote.positive } });
+      return ReactiveCache.getUsers({ _id: { $in: this.vote.positive } });
     return [];
   },
 
-  async voteMemberNegative() {
+  voteMemberNegative() {
     if (this.vote && this.vote.negative)
-      return await ReactiveCache.getUsers({ _id: { $in: this.vote.negative } });
+      return ReactiveCache.getUsers({ _id: { $in: this.vote.negative } });
     return [];
   },
   voteState() {
@@ -1581,9 +1580,9 @@ Cards.helpers({
     return null;
   },
 
-  async getPokerQuestion() {
+  getPokerQuestion() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.poker) {
@@ -1592,7 +1591,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.poker) {
@@ -1615,9 +1614,9 @@ Cards.helpers({
     }
   },
 
-  async getPokerEnd() {
+  getPokerEnd() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else if (card && card.poker) {
@@ -1626,7 +1625,7 @@ Cards.helpers({
         return null;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else if (board && board.poker) {
@@ -1640,62 +1639,62 @@ Cards.helpers({
       return null;
     }
   },
-  async expiredPoker() {
-    let end = await this.getPokerEnd();
+  expiredPoker() {
+    let end = this.getPokerEnd();
     if (end) {
       end = new Date(end);
       return isBefore(end, new Date());
     }
     return false;
   },
-  async pokerMemberOne() {
+  pokerMemberOne() {
     if (this.poker && this.poker.one)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.one } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.one } });
     return [];
   },
-  async pokerMemberTwo() {
+  pokerMemberTwo() {
     if (this.poker && this.poker.two)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.two } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.two } });
     return [];
   },
-  async pokerMemberThree() {
+  pokerMemberThree() {
     if (this.poker && this.poker.three)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.three } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.three } });
     return [];
   },
-  async pokerMemberFive() {
+  pokerMemberFive() {
     if (this.poker && this.poker.five)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.five } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.five } });
     return [];
   },
-  async pokerMemberEight() {
+  pokerMemberEight() {
     if (this.poker && this.poker.eight)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.eight } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.eight } });
     return [];
   },
-  async pokerMemberThirteen() {
+  pokerMemberThirteen() {
     if (this.poker && this.poker.thirteen)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.thirteen } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.thirteen } });
     return [];
   },
-  async pokerMemberTwenty() {
+  pokerMemberTwenty() {
     if (this.poker && this.poker.twenty)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.twenty } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.twenty } });
     return [];
   },
-  async pokerMemberForty() {
+  pokerMemberForty() {
     if (this.poker && this.poker.forty)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.forty } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.forty } });
     return [];
   },
-  async pokerMemberOneHundred() {
+  pokerMemberOneHundred() {
     if (this.poker && this.poker.oneHundred)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.oneHundred } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.oneHundred } });
     return [];
   },
-  async pokerMemberUnsure() {
+  pokerMemberUnsure() {
     if (this.poker && this.poker.unsure)
-      return await ReactiveCache.getUsers({ _id: { $in: this.poker.unsure } });
+      return ReactiveCache.getUsers({ _id: { $in: this.poker.unsure } });
     return [];
   },
   pokerState() {
@@ -1766,16 +1765,16 @@ Cards.helpers({
     return null;
   },
 
-  async getTitle() {
+  getTitle() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.title;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1792,27 +1791,27 @@ Cards.helpers({
     return this.cardNumber;
   },
 
-  async getBoardTitle() {
+  getBoardTitle() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       }
-      const board = await ReactiveCache.getBoard(card.boardId);
+      const board = ReactiveCache.getBoard(card.boardId);
       if (board === undefined) {
         return null;
       } else {
         return board.title;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
         return board.title;
       }
     } else {
-      const board = await ReactiveCache.getBoard(this.boardId);
+      const board = ReactiveCache.getBoard(this.boardId);
       if (board === undefined) {
         return null;
       } else {
@@ -1839,16 +1838,16 @@ Cards.helpers({
     }
   },
 
-  async getArchived() {
+  getArchived() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
         return card.archived;
       }
     } else if (this.isLinkedBoard()) {
-      const board = await ReactiveCache.getBoard(this.linkedId);
+      const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
         return null;
       } else {
@@ -1863,9 +1862,9 @@ Cards.helpers({
     return Cards.update({ _id: this.getRealId() }, { $set: { requestedBy } });
   },
 
-  async getRequestedBy() {
+  getRequestedBy() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1880,9 +1879,9 @@ Cards.helpers({
     return Cards.update({ _id: this.getRealId() }, { $set: { assignedBy } });
   },
 
-  async getAssignedBy() {
+  getAssignedBy() {
     if (this.isLinkedCard()) {
-      const card = await ReactiveCache.getCard(this.linkedId);
+      const card = ReactiveCache.getCard(this.linkedId);
       if (card === undefined) {
         return null;
       } else {
@@ -1975,10 +1974,10 @@ Cards.helpers({
       this.pokerCountUnsure()
     );
   },
-  async pokerWinner() {
+  pokerWinner() {
     const pokerListMaps = [];
     let pokerWinnersListMap = [];
-    if (await this.expiredPoker()) {
+    if (this.expiredPoker()) {
       const one = { count: this.pokerCountOne(), pokerCard: 1 };
       const two = { count: this.pokerCountTwo(), pokerCard: 2 };
       const three = { count: this.pokerCountThree(), pokerCard: 3 };
@@ -2012,38 +2011,38 @@ Cards.helpers({
     return pokerWinnersListMap[0].pokerCard;
   },
 
-  async applyToChildren(funct) {
-    const cards = await ReactiveCache.getCards({ parentId: this._id });
+  applyToChildren(funct) {
+    const cards = ReactiveCache.getCards({ parentId: this._id });
     for (const card of cards) {
-      await funct(card);
+      funct(card);
     }
   },
 
-  async archive() {
-    await this.applyToChildren(async card => {
-      await card.archive();
+  archive() {
+    this.applyToChildren(card => {
+      card.archive();
     });
-    return await Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this._id, {
       $set: { archived: true, archivedAt: new Date() },
     });
   },
 
-  async restore() {
-    await this.applyToChildren(async card => {
-      await card.restore();
+  restore() {
+    this.applyToChildren(card => {
+      card.restore();
     });
-    return await Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this._id, {
       $set: { archived: false },
     });
   },
 
-  async moveToEndOfList({ listId, swimlaneId } = {}) {
+  moveToEndOfList({ listId, swimlaneId } = {}) {
     swimlaneId = swimlaneId || this.swimlaneId;
     const boardId = this.boardId;
     let sortIndex = 0;
 
     if (!swimlaneId) {
-      const board = await ReactiveCache.getBoard(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       swimlaneId = board.getDefaultSwimline()._id;
     }
     let parentElementDom = $(`#swimlane-${swimlaneId}`).get(0);
@@ -2054,7 +2053,7 @@ Cards.helpers({
       .get(0);
     if (lastCardDom) sortIndex = Utils.calculateIndex(lastCardDom, null).base;
 
-    return await this.moveOptionalArgs({
+    return this.moveOptionalArgs({
       boardId,
       swimlaneId,
       listId,
@@ -2062,19 +2061,19 @@ Cards.helpers({
     });
   },
 
-  async moveOptionalArgs({ boardId, swimlaneId, listId, sort } = {}) {
+  moveOptionalArgs({ boardId, swimlaneId, listId, sort } = {}) {
     boardId = boardId || this.boardId;
     swimlaneId = swimlaneId || this.swimlaneId;
     if (!swimlaneId) {
-      const board = await ReactiveCache.getBoard(boardId);
+      const board = ReactiveCache.getBoard(boardId);
       swimlaneId = board.getDefaultSwimline()._id;
     }
     listId = listId || this.listId;
     if (sort === undefined || sort === null) sort = this.sort;
-    return await this.move(boardId, swimlaneId, listId, sort);
+    return this.move(boardId, swimlaneId, listId, sort);
   },
 
-  async move(boardId, swimlaneId, listId, sort = null) {
+  move(boardId, swimlaneId, listId, sort = null) {
     const previousState = {
       boardId: this.boardId,
       swimlaneId: this.swimlaneId,
@@ -2089,7 +2088,7 @@ Cards.helpers({
     }
 
     if (this.boardId !== boardId) {
-      const oldBoard = await ReactiveCache.getBoard(this.boardId);
+      const oldBoard = ReactiveCache.getBoard(this.boardId);
       const oldBoardLabels = oldBoard.labels;
       const oldCardLabels = _.pluck(
         _.filter(oldBoardLabels, label => {
@@ -2098,7 +2097,7 @@ Cards.helpers({
         'name',
       );
 
-      const newBoard = await ReactiveCache.getBoard(boardId);
+      const newBoard = ReactiveCache.getBoard(boardId);
       const newBoardLabels = newBoard.labels;
       const newCardLabelIds = _.pluck(
         _.filter(newBoardLabels, label => {
@@ -2114,7 +2113,7 @@ Cards.helpers({
         cardNumber: newCardNumber
       });
 
-      mutatedFields.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+      mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);
 
       // Ensure customFields is always an array (guards against legacy {} data)
       if (!Array.isArray(mutatedFields.customFields)) {
@@ -2122,7 +2121,7 @@ Cards.helpers({
       }
     }
 
-    await Cards.updateAsync(this._id, { $set: mutatedFields });
+    Cards.updateAsync(this._id, { $set: mutatedFields });
 
     if (Meteor.isServer && Meteor.userId() && typeof UserPositionHistory !== 'undefined') {
       try {
@@ -2153,7 +2152,7 @@ Cards.helpers({
 
       if (Object.keys(updateMeta).length > 0) {
         try {
-          await Attachments.collection.updateAsync(
+          Attachments.collection.updateAsync(
             { 'meta.cardId': this._id },
             { $set: updateMeta },
             { multi: true },
@@ -2165,147 +2164,147 @@ Cards.helpers({
     }
   },
 
-  async addLabel(labelId) {
+  addLabel(labelId) {
     this.labelIds.push(labelId);
-    return await Cards.updateAsync(this._id, { $addToSet: { labelIds: labelId } });
+    return Cards.updateAsync(this._id, { $addToSet: { labelIds: labelId } });
   },
 
-  async removeLabel(labelId) {
+  removeLabel(labelId) {
     this.labelIds = _.without(this.labelIds, labelId);
-    return await Cards.updateAsync(this._id, { $pull: { labelIds: labelId } });
+    return Cards.updateAsync(this._id, { $pull: { labelIds: labelId } });
   },
 
-  async toggleLabel(labelId) {
+  toggleLabel(labelId) {
     if (this.labelIds && this.labelIds.indexOf(labelId) > -1) {
-      return await this.removeLabel(labelId);
+      return this.removeLabel(labelId);
     } else {
-      return await this.addLabel(labelId);
+      return this.addLabel(labelId);
     }
   },
 
-  async setColor(newColor) {
+  setColor(newColor) {
     if (newColor === 'white') {
       newColor = null;
     }
-    return await Cards.updateAsync(this._id, { $set: { color: newColor } });
+    return Cards.updateAsync(this._id, { $set: { color: newColor } });
   },
 
-  async assignMember(memberId) {
-    return await Cards.updateAsync(this._id, { $addToSet: { members: memberId } });
+  assignMember(memberId) {
+    return Cards.updateAsync(this._id, { $addToSet: { members: memberId } });
   },
 
-  async assignAssignee(assigneeId) {
-    return await Cards.updateAsync(this._id, { $addToSet: { assignees: assigneeId } });
+  assignAssignee(assigneeId) {
+    return Cards.updateAsync(this._id, { $addToSet: { assignees: assigneeId } });
   },
 
-  async unassignMember(memberId) {
-    return await Cards.updateAsync(this._id, { $pull: { members: memberId } });
+  unassignMember(memberId) {
+    return Cards.updateAsync(this._id, { $pull: { members: memberId } });
   },
 
-  async unassignAssignee(assigneeId) {
-    return await Cards.updateAsync(this._id, { $pull: { assignees: assigneeId } });
+  unassignAssignee(assigneeId) {
+    return Cards.updateAsync(this._id, { $pull: { assignees: assigneeId } });
   },
 
-  async toggleMember(memberId) {
+  toggleMember(memberId) {
     if (this.members && this.members.indexOf(memberId) > -1) {
-      return await this.unassignMember(memberId);
+      return this.unassignMember(memberId);
     } else {
-      return await this.assignMember(memberId);
+      return this.assignMember(memberId);
     }
   },
 
-  async toggleAssignee(assigneeId) {
+  toggleAssignee(assigneeId) {
     if (this.assignees && this.assignees.indexOf(assigneeId) > -1) {
-      return await this.unassignAssignee(assigneeId);
+      return this.unassignAssignee(assigneeId);
     } else {
-      return await this.assignAssignee(assigneeId);
+      return this.assignAssignee(assigneeId);
     }
   },
 
-  async assignCustomField(customFieldId) {
-    return await Cards.updateAsync(this._id, {
+  assignCustomField(customFieldId) {
+    return Cards.updateAsync(this._id, {
       $addToSet: { customFields: { _id: customFieldId, value: null } },
     });
   },
 
-  async unassignCustomField(customFieldId) {
-    return await Cards.updateAsync(this._id, {
+  unassignCustomField(customFieldId) {
+    return Cards.updateAsync(this._id, {
       $pull: { customFields: { _id: customFieldId } },
     });
   },
 
-  async toggleCustomField(customFieldId) {
+  toggleCustomField(customFieldId) {
     if (this.customFields && this.customFieldIndex(customFieldId) > -1) {
-      return await this.unassignCustomField(customFieldId);
+      return this.unassignCustomField(customFieldId);
     } else {
-      return await this.assignCustomField(customFieldId);
+      return this.assignCustomField(customFieldId);
     }
   },
 
-  async toggleShowActivities() {
-    return await Cards.updateAsync(this._id, {
+  toggleShowActivities() {
+    return Cards.updateAsync(this._id, {
       $set: { showActivities: !this.showActivities },
     });
   },
 
-  async toggleShowChecklistAtMinicard() {
-    return await Cards.updateAsync(this._id, {
+  toggleShowChecklistAtMinicard() {
+    return Cards.updateAsync(this._id, {
       $set: { showChecklistAtMinicard: !this.showChecklistAtMinicard },
     });
   },
 
-  async setCustomField(customFieldId, value) {
+  setCustomField(customFieldId, value) {
     const index = this.customFieldIndex(customFieldId);
     if (index > -1) {
       const update = { $set: {} };
       update.$set[`customFields.${index}.value`] = value;
-      return await Cards.updateAsync(this._id, update);
+      return Cards.updateAsync(this._id, update);
     }
     return null;
   },
 
-  async setCover(coverId) {
-    return await Cards.updateAsync(this._id, { $set: { coverId } });
+  setCover(coverId) {
+    return Cards.updateAsync(this._id, { $set: { coverId } });
   },
 
-  async unsetCover() {
-    return await Cards.updateAsync(this._id, { $unset: { coverId: '' } });
+  unsetCover() {
+    return Cards.updateAsync(this._id, { $unset: { coverId: '' } });
   },
 
-  async unsetReceived() {
-    return await Cards.updateAsync(this._id, { $unset: { receivedAt: '' } });
+  unsetReceived() {
+    return Cards.updateAsync(this._id, { $unset: { receivedAt: '' } });
   },
 
-  async unsetStart() {
-    return await Cards.updateAsync(this._id, { $unset: { startAt: '' } });
+  unsetStart() {
+    return Cards.updateAsync(this._id, { $unset: { startAt: '' } });
   },
 
-  async unsetDue() {
-    return await Cards.updateAsync(this._id, { $unset: { dueAt: '' } });
+  unsetDue() {
+    return Cards.updateAsync(this._id, { $unset: { dueAt: '' } });
   },
 
-  async unsetEnd() {
-    return await Cards.updateAsync(this._id, { $unset: { endAt: '' } });
+  unsetEnd() {
+    return Cards.updateAsync(this._id, { $unset: { endAt: '' } });
   },
 
-  async setOvertime(isOvertime) {
-    return await Cards.updateAsync(this._id, { $set: { isOvertime } });
+  setOvertime(isOvertime) {
+    return Cards.updateAsync(this._id, { $set: { isOvertime } });
   },
 
-  async setSpentTime(spentTime) {
-    return await Cards.updateAsync(this._id, { $set: { spentTime } });
+  setSpentTime(spentTime) {
+    return Cards.updateAsync(this._id, { $set: { spentTime } });
   },
 
-  async unsetSpentTime() {
-    return await Cards.updateAsync(this._id, { $unset: { spentTime: '', isOvertime: false } });
+  unsetSpentTime() {
+    return Cards.updateAsync(this._id, { $unset: { spentTime: '', isOvertime: false } });
   },
 
-  async setParentId(parentId) {
-    return await Cards.updateAsync(this._id, { $set: { parentId } });
+  setParentId(parentId) {
+    return Cards.updateAsync(this._id, { $set: { parentId } });
   },
 
-  async setVoteQuestion(question, publicVote, allowNonBoardMembers) {
-    return await Cards.updateAsync(this._id, {
+  setVoteQuestion(question, publicVote, allowNonBoardMembers) {
+    return Cards.updateAsync(this._id, {
       $set: {
         vote: {
           question,
@@ -2318,39 +2317,39 @@ Cards.helpers({
     });
   },
 
-  async unsetVote() {
-    return await Cards.updateAsync(this._id, { $unset: { vote: '' } });
+  unsetVote() {
+    return Cards.updateAsync(this._id, { $unset: { vote: '' } });
   },
 
-  async setVoteEnd(end) {
-    return await Cards.updateAsync(this._id, { $set: { 'vote.end': end } });
+  setVoteEnd(end) {
+    return Cards.updateAsync(this._id, { $set: { 'vote.end': end } });
   },
 
-  async unsetVoteEnd() {
-    return await Cards.updateAsync(this._id, { $unset: { 'vote.end': '' } });
+  unsetVoteEnd() {
+    return Cards.updateAsync(this._id, { $unset: { 'vote.end': '' } });
   },
 
-  async setVote(userId, forIt) {
+  setVote(userId, forIt) {
     switch (forIt) {
       case true:
-        return await Cards.updateAsync(this._id, {
+        return Cards.updateAsync(this._id, {
           $pull: { 'vote.negative': userId },
           $addToSet: { 'vote.positive': userId },
         });
       case false:
-        return await Cards.updateAsync(this._id, {
+        return Cards.updateAsync(this._id, {
           $pull: { 'vote.positive': userId },
           $addToSet: { 'vote.negative': userId },
         });
       default:
-        return await Cards.updateAsync(this._id, {
+        return Cards.updateAsync(this._id, {
           $pull: { 'vote.positive': userId, 'vote.negative': userId },
         });
     }
   },
 
-  async setPokerQuestion(question, allowNonBoardMembers) {
-    return await Cards.updateAsync(this._id, {
+  setPokerQuestion(question, allowNonBoardMembers) {
+    return Cards.updateAsync(this._id, {
       $set: {
         poker: {
           question,
@@ -2370,44 +2369,44 @@ Cards.helpers({
     });
   },
 
-  async setPokerEstimation(estimation) {
-    return await Cards.updateAsync(this._id, { $set: { 'poker.estimation': estimation } });
+  setPokerEstimation(estimation) {
+    return Cards.updateAsync(this._id, { $set: { 'poker.estimation': estimation } });
   },
 
-  async unsetPokerEstimation() {
-    return await Cards.updateAsync(this._id, { $unset: { 'poker.estimation': '' } });
+  unsetPokerEstimation() {
+    return Cards.updateAsync(this._id, { $unset: { 'poker.estimation': '' } });
   },
 
-  async unsetPoker() {
-    return await Cards.updateAsync(this._id, { $unset: { poker: '' } });
+  unsetPoker() {
+    return Cards.updateAsync(this._id, { $unset: { poker: '' } });
   },
 
-  async setPokerEnd(end) {
-    return await Cards.updateAsync(this._id, { $set: { 'poker.end': end } });
+  setPokerEnd(end) {
+    return Cards.updateAsync(this._id, { $set: { 'poker.end': end } });
   },
 
-  async unsetPokerEnd() {
-    return await Cards.updateAsync(this._id, { $unset: { 'poker.end': '' } });
+  unsetPokerEnd() {
+    return Cards.updateAsync(this._id, { $unset: { 'poker.end': '' } });
   },
 
-  async setPoker(userId, state) {
+  setPoker(userId, state) {
     const pokerFields = ['one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty', 'oneHundred', 'unsure'];
     const pullFields = {};
     pokerFields.forEach(f => { pullFields[`poker.${f}`] = userId; });
 
     if (pokerFields.includes(state)) {
       delete pullFields[`poker.${state}`];
-      return await Cards.updateAsync(this._id, {
+      return Cards.updateAsync(this._id, {
         $pull: pullFields,
         $addToSet: { [`poker.${state}`]: userId },
       });
     } else {
-      return await Cards.updateAsync(this._id, { $pull: pullFields });
+      return Cards.updateAsync(this._id, { $pull: pullFields });
     }
   },
 
-  async replayPoker() {
-    return await Cards.updateAsync(this._id, {
+  replayPoker() {
+    return Cards.updateAsync(this._id, {
       $set: {
         'poker.one': [],
         'poker.two': [],

@@ -196,11 +196,11 @@ Attachments = new FilesCollection({
 
 if (Meteor.isServer) {
   Attachments.allow({
-    async insert(userId, fileObj) {
+    insert(userId, fileObj) {
       // ReadOnly users cannot upload attachments
-      return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(fileObj.boardId));
+      return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(fileObj.boardId));
     },
-    async update(userId, fileObj, fields) {
+    update(userId, fileObj, fields) {
       // SECURITY: The 'name' field is sanitized in onBeforeUpload and server-side methods,
       // but we block direct client-side $set operations on 'versions.*.path' to prevent
       // path traversal attacks via storage migration exploits.
@@ -230,9 +230,9 @@ if (Meteor.isServer) {
       }
 
       // ReadOnly users cannot update attachments
-      return allowIsBoardMemberWithWriteAccess(userId, await ReactiveCache.getBoard(fileObj.boardId));
+      return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(fileObj.boardId));
     },
-    async remove(userId, fileObj) {
+    remove(userId, fileObj) {
       // Additional security check: ensure the file belongs to the board the user has access to
       if (!fileObj || !fileObj.boardId) {
         if (process.env.DEBUG === 'true') {
@@ -241,7 +241,7 @@ if (Meteor.isServer) {
         return false;
       }
 
-      const board = await ReactiveCache.getBoard(fileObj.boardId);
+      const board = Boards.findOne(fileObj.boardId);
       if (!board) {
         if (process.env.DEBUG === 'true') {
           console.warn('Blocked attachment removal: board not found');
