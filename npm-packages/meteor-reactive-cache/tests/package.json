@@ -12,7 +12,7 @@
     "plugins": [
       "meteor"
     ],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "rules": {
       "meteor/audit-argument-checks": 0,
       "import/no-extraneous-dependencies": 0,
@@ -22,18 +22,19 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^7.1.5",
-    "meteor-node-stubs": "0.4.1",
+    "@babel/runtime": "^7.26.0",
+    "meteor-node-stubs": "^1.2.13",
     "meteor-reactive-cache": "^1.0.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "5.9.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-meteor": "5.1.0",
+    "@babel/core": "^7.26.0",
+    "@babel/eslint-parser": "^7.25.9",
+    "chai": "^4.5.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-meteor": "^7.3.0",
     "lodash.isequal": "^4.5.0",
-    "mocha": "^5.2.0",
-    "nightmare": "3.0.1"
+    "mocha": "^10.8.2"
   }
 }

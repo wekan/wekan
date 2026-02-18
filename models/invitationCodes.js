@@ -55,8 +55,8 @@ InvitationCodes.attachSchema(
 );
 
 InvitationCodes.helpers({
-  async author() {
-    return await ReactiveCache.getUser(this.authorId);
+  author() {
+    return ReactiveCache.getUser(this.authorId);
   },
 });
 

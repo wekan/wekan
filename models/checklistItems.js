@@ -163,7 +163,10 @@ async function publishChekListCompleted(userId, doc) {
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = await ReactiveCache.getChecklist(checklistId);
-  if (checkList.isFinished()) {
+  const checklistItems = await ReactiveCache.getChecklistItems({ checklistId });
+  const isChecklistFinished = checkList.hideAllChecklistItems ||
+    (checklistItems.length > 0 && checklistItems.length === checklistItems.filter(i => i.isFinished).length);
+  if (isChecklistFinished) {
     const act = {
       userId,
       activityType: 'completeChecklist',
@@ -187,7 +190,7 @@ async function publishChekListUncompleted(userId, doc) {
   //       Currently in checklist all are set as uncompleted/not checked,
   //       IFTTT Rule does not move card to other list.
   //       If following line is negated/changed to:
-  //         if(!checkList.isFinished()){
+  //         if(!isChecklistFinished){
   //       then unchecking of any checkbox will move card to other list,
   //       even when all checkboxes are not yet unchecked.
   //       What is correct code for only moving when all in list is unchecked?
@@ -196,7 +199,10 @@ async function publishChekListUncompleted(userId, doc) {
   //         find . | xargs grep 'count' -sl | grep -v .meteor | grep -v node_modules | grep -v .build
   //       Maybe something related here?
   //         wekan/client/components/rules/triggers/checklistTriggers.js
-  if (checkList.isFinished()) {
+  const uncheckItems = await ReactiveCache.getChecklistItems({ checklistId });
+  const isChecklistFinished = checkList.hideAllChecklistItems ||
+    (uncheckItems.length > 0 && uncheckItems.length === uncheckItems.filter(i => i.isFinished).length);
+  if (isChecklistFinished) {
     const act = {
       userId,
       activityType: 'uncompleteChecklist',

@@ -54,20 +54,20 @@ Rules.helpers({
   async rename(description) {
     return await Rules.updateAsync(this._id, { $set: { description } });
   },
-  async getAction() {
-    return await ReactiveCache.getAction(this.actionId);
+  getAction() {
+    return ReactiveCache.getAction(this.actionId);
   },
-  async getTrigger() {
-    return await ReactiveCache.getTrigger(this.triggerId);
+  getTrigger() {
+    return ReactiveCache.getTrigger(this.triggerId);
   },
-  async board() {
-    return await ReactiveCache.getBoard(this.boardId);
+  board() {
+    return ReactiveCache.getBoard(this.boardId);
   },
-  async trigger() {
-    return await ReactiveCache.getTrigger(this.triggerId);
+  trigger() {
+    return ReactiveCache.getTrigger(this.triggerId);
   },
-  async action() {
-    return await ReactiveCache.getAction(this.actionId);
+  action() {
+    return ReactiveCache.getAction(this.actionId);
   },
 });
 

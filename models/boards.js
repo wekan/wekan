@@ -829,8 +829,8 @@ Boards.helpers({
   },
 
 
-  async cards() {
-    const ret = await ReactiveCache.getCards(
+  cards() {
+    const ret = ReactiveCache.getCards(
       { boardId: this._id, archived: false },
       { sort: { title: 1 } },
     );
@@ -841,12 +841,12 @@ Boards.helpers({
     return this.draggableLists();
   },
 
-  async newestLists() {
+  newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
-    const user = await ReactiveCache.getCurrentUser();
+    const user = ReactiveCache.getCurrentUser();
     const value = user._getListSortBy();
     const sortKey = { starred: -1, [value[0]]: value[1] }; // [["starred",-1],value];
-    return await ReactiveCache.getLists(
+    return ReactiveCache.getLists(
       {
         boardId: this._id,
         archived: false,
@@ -855,8 +855,8 @@ Boards.helpers({
     );
   },
 
-  async draggableLists() {
-    return await ReactiveCache.getLists(
+  draggableLists() {
+    return ReactiveCache.getLists(
       {
         boardId: this._id,
       },
@@ -867,28 +867,28 @@ Boards.helpers({
   /** returns the last list
    * @returns Document the last list
    */
-  async getLastList() {
-    const ret = await ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
+  getLastList() {
+    const ret = ReactiveCache.getList({ boardId: this._id }, { sort: { sort: 'desc' } });
     return ret;
   },
 
-  async nullSortLists() {
-    return await ReactiveCache.getLists({
+  nullSortLists() {
+    return ReactiveCache.getLists({
       boardId: this._id,
       archived: false,
       sort: { $eq: null },
     });
   },
 
-  async swimlanes() {
-    return await ReactiveCache.getSwimlanes(
+  swimlanes() {
+    return ReactiveCache.getSwimlanes(
       { boardId: this._id, archived: false },
       { sort: { sort: 1 } },
     );
   },
 
-  async nextSwimlane(swimlane) {
-    return await ReactiveCache.getSwimlane(
+  nextSwimlane(swimlane) {
+    return ReactiveCache.getSwimlane(
       {
         boardId: this._id,
         archived: false,
@@ -901,16 +901,16 @@ Boards.helpers({
     );
   },
 
-  async nullSortSwimlanes() {
-    return await ReactiveCache.getSwimlanes({
+  nullSortSwimlanes() {
+    return ReactiveCache.getSwimlanes({
       boardId: this._id,
       archived: false,
       sort: { $eq: null },
     });
   },
 
-  async hasOvertimeCards() {
-    const card = await ReactiveCache.getCard({
+  hasOvertimeCards() {
+    const card = ReactiveCache.getCard({
       isOvertime: true,
       boardId: this._id,
       archived: false,
@@ -918,8 +918,8 @@ Boards.helpers({
     return card !== undefined;
   },
 
-  async hasSpentTimeCards() {
-    const card = await ReactiveCache.getCard({
+  hasSpentTimeCards() {
+    const card = ReactiveCache.getCard({
       spentTime: { $gt: 0 },
       boardId: this._id,
       archived: false,
@@ -927,20 +927,19 @@ Boards.helpers({
     return card !== undefined;
   },
 
-  async activities() {
+  activities() {
     let linkedBoardId = [this._id];
-    const cards = await ReactiveCache.getCards({
+    ReactiveCache.getCards({
       "type": "cardType-linkedBoard",
       "boardId": this._id
-    });
-    for (const card of cards) {
+    }).forEach(card => {
       linkedBoardId.push(card.linkedId);
-    }
-    const ret = await ReactiveCache.getActivities({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
+    });
+    const ret = ReactiveCache.getActivities({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
     return ret;
   },
 
-  async activeMembers(){
+  activeMembers(){
     // Depend on the users collection for reactivity when users are loaded
     const memberUserIds = _.pluck(this.members, 'userId');
     // Use findOne with limit for reactivity trigger instead of count() which loads all users
@@ -954,19 +953,14 @@ Boards.helpers({
       return selected;
     });
     // Filter out members where user is not loaded
-    const filteredMembers = [];
-    for (const member of uniqueMembers) {
-      const user = await ReactiveCache.getUser(member.userId);
-      if (user !== undefined) {
-        filteredMembers.push(member);
-      }
-    }
+    const filteredMembers = uniqueMembers.filter(member => {
+      const user = ReactiveCache.getUser(member.userId);
+      return user !== undefined;
+    });
 
     // Sort by role priority first (admin, normal, normal-assigned, no-comments, comment-only, comment-assigned, worker, read-only, read-assigned), then by fullname
-    // Build sort keys with async user lookup
-    const membersWithSortKey = [];
-    for (const member of filteredMembers) {
-      const user = await ReactiveCache.getUser(member.userId);
+    return _.sortBy(filteredMembers, member => {
+      const user = ReactiveCache.getUser(member.userId);
       let rolePriority = 8; // Default for normal
 
       if (member.isAdmin) rolePriority = 0;
@@ -980,9 +974,8 @@ Boards.helpers({
       else rolePriority = 1; // Normal
 
       const fullname = user ? user.profile.fullname : '';
-      membersWithSortKey.push({ member, sortKey: rolePriority + '-' + fullname });
-    }
-    return _.sortBy(membersWithSortKey, 'sortKey').map(item => item.member);
+      return rolePriority + '-' + fullname;
+    });
   },
 
   activeOrgs() {
@@ -1005,8 +998,8 @@ Boards.helpers({
     return _.where(this.members, { isActive: true, isAdmin: true });
   },
 
-  async memberUsers() {
-    return await ReactiveCache.getUsers({ _id: { $in: _.pluck(this.members, 'userId') } });
+  memberUsers() {
+    return ReactiveCache.getUsers({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
   getLabel(name, color) {
@@ -1126,8 +1119,8 @@ Boards.helpers({
     return `board-color-${this.color}`;
   },
 
-  async customFields() {
-    const ret = await ReactiveCache.getCustomFields(
+  customFields() {
+    const ret = ReactiveCache.getCustomFields(
       { boardIds: { $in: [this._id] } },
       { sort: { name: 1 } },
     );
@@ -1156,7 +1149,7 @@ Boards.helpers({
     }
   },
 
-  async searchBoards(term) {
+  searchBoards(term) {
     check(term, Match.OneOf(String, null, undefined));
 
     const query = { boardId: this._id };
@@ -1171,11 +1164,11 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    const ret = await ReactiveCache.getCards(query, projection);
+    const ret = ReactiveCache.getCards(query, projection);
     return ret;
   },
 
-  async searchSwimlanes(term) {
+  searchSwimlanes(term) {
     check(term, Match.OneOf(String, null, undefined));
 
     const query = { boardId: this._id };
@@ -1193,10 +1186,10 @@ Boards.helpers({
       query.$or = [{ title: regex }, { description: regex }];
     }
 
-    return await ReactiveCache.getSwimlanes(query, projection);
+    return ReactiveCache.getSwimlanes(query, projection);
   },
 
-  async searchLists(term) {
+  searchLists(term) {
     let ret = null;
     if (term) {
       check(term, Match.OneOf(String));
@@ -1218,12 +1211,12 @@ Boards.helpers({
         query.$or = [{ title: regex }, { description: regex }];
       }
 
-      ret = await ReactiveCache.getLists(query, projection);
+      ret = ReactiveCache.getLists(query, projection);
     }
     return ret;
   },
 
-  async searchCards(term, excludeLinked) {
+  searchCards(term, excludeLinked) {
     let ret = null;
     if (term) {
       check(term, Match.OneOf(String));
@@ -1249,7 +1242,7 @@ Boards.helpers({
         { description: regex },
         { customFields: { $elemMatch: { value: regex } } },
       ];
-      ret = await ReactiveCache.getCards(query, projection);
+      ret = ReactiveCache.getCards(query, projection);
     }
     return ret;
   },
@@ -1283,8 +1276,8 @@ Boards.helpers({
     return this.subtasksDefaultBoardId;
   },
 
-  async getDefaultSubtasksBoard() {
-    return await ReactiveCache.getBoard(this.getDefaultSubtasksBoardId());
+  getDefaultSubtasksBoard() {
+    return ReactiveCache.getBoard(this.getDefaultSubtasksBoardId());
   },
 
   //Date Settings option such as received date, start date and so on.
@@ -1316,8 +1309,8 @@ Boards.helpers({
     return this.dateSettingsDefaultBoardId;
   },
 
-  async getDefaultDateSettingsBoard() {
-    return await ReactiveCache.getBoard(this.getDefaultDateSettingsBoardId());
+  getDefaultDateSettingsBoard() {
+    return ReactiveCache.getBoard(this.getDefaultDateSettingsBoardId());
   },
 
   getDefaultSubtasksListId() {
@@ -1335,8 +1328,8 @@ Boards.helpers({
     return this.subtasksDefaultListId;
   },
 
-  async getDefaultSubtasksList() {
-    return await ReactiveCache.getList(this.getDefaultSubtasksListId());
+  getDefaultSubtasksList() {
+    return ReactiveCache.getList(this.getDefaultSubtasksListId());
   },
 
   getDefaultDateSettingsListId() {
@@ -1354,15 +1347,15 @@ Boards.helpers({
     return this.dateSettingsDefaultListId;
   },
 
-  async getDefaultDateSettingsList() {
-    return await ReactiveCache.getList(this.getDefaultDateSettingsListId());
+  getDefaultDateSettingsList() {
+    return ReactiveCache.getList(this.getDefaultDateSettingsListId());
   },
 
-  async getDefaultSwimline() {
-    let result = await ReactiveCache.getSwimlane({ boardId: this._id });
+  getDefaultSwimline() {
+    let result = ReactiveCache.getSwimlane({ boardId: this._id });
     if (result === undefined) {
       // Check if any swimlane exists for this board to avoid duplicates
-      const existingSwimlanes = await ReactiveCache.getSwimlanes({ boardId: this._id });
+      const existingSwimlanes = ReactiveCache.getSwimlanes({ boardId: this._id });
       if (existingSwimlanes.length > 0) {
         // Use the first existing swimlane
         result = existingSwimlanes[0];
@@ -1373,14 +1366,14 @@ Boards.helpers({
           title: title,
           boardId: this._id,
         });
-        result = await ReactiveCache.getSwimlane({ boardId: this._id });
+        result = ReactiveCache.getSwimlane({ boardId: this._id });
       }
     }
     return result;
   },
 
-  async getNextCardNumber() {
-    const boardCards = await ReactiveCache.getCard(
+  getNextCardNumber() {
+    const boardCards = ReactiveCache.getCard(
       {
         boardId: this._id
       },
@@ -1399,16 +1392,16 @@ Boards.helpers({
     return maxCardNr + 1;
   },
 
-  async cardsDueInBetween(start, end) {
-    const ret = await ReactiveCache.getCards({
+  cardsDueInBetween(start, end) {
+    const ret = ReactiveCache.getCards({
       boardId: this._id,
       dueAt: { $gte: start, $lte: end },
     });
     return ret;
   },
 
-  async cardsInInterval(start, end) {
-    const ret = await ReactiveCache.getCards({
+  cardsInInterval(start, end) {
+    const ret = ReactiveCache.getCards({
       boardId: this._id,
       $or: [
         {
@@ -1756,7 +1749,9 @@ Boards.uniqueTitle = async title => {
   return title;
 };
 
-Boards.userSearch = async (
+// Non-async: returns data on client, Promise on server.
+// Server callers must await.
+Boards.userSearch = (
   userId,
   selector = {},
   projection = {},
@@ -1770,36 +1765,44 @@ Boards.userSearch = async (
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
   }
-  const ret = await ReactiveCache.getBoards(selector, projection);
-  return ret;
+  return ReactiveCache.getBoards(selector, projection);
 };
 
-Boards.userBoards = async (
+// Non-async: returns data on client (for Blaze templates), Promise on server.
+// Server callers must await.
+Boards.userBoards = (
   userId,
   archived = false,
   selector = {},
   projection = {},
 ) => {
-  const user = await ReactiveCache.getUser(userId);
-  if (!user) {
-    return [];
-  }
+  const _buildSelector = (user) => {
+    if (!user) return null;
+    if (typeof archived === 'boolean') {
+      selector.archived = archived;
+    }
+    if (!selector.type) {
+      selector.type = 'board';
+    }
+    selector.$or = [
+      { permission: 'public' },
+      { members: { $elemMatch: { userId, isActive: true } } },
+      { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+      { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+    ];
+    return selector;
+  };
 
-  if (typeof archived === 'boolean') {
-    selector.archived = archived;
+  if (Meteor.isServer) {
+    return (async () => {
+      const user = await ReactiveCache.getUser(userId);
+      if (!_buildSelector(user)) return [];
+      return await ReactiveCache.getBoards(selector, projection);
+    })();
   }
-  if (!selector.type) {
-    selector.type = 'board';
-  }
-
-  selector.$or = [
-    { permission: 'public' },
-    { members: { $elemMatch: { userId, isActive: true } } },
-    { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
-    { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
-  ];
-
-  return await ReactiveCache.getBoards(selector, projection);
+  const user = ReactiveCache.getUser(userId);
+  if (!_buildSelector(user)) return [];
+  return ReactiveCache.getBoards(selector, projection);
 };
 
 Boards.userBoardIds = async (userId, archived = false, selector = {}) => {

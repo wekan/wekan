@@ -340,13 +340,14 @@ RulesHelper = {
         sort: 0,
       });
       const itemsArray = action.checklistItems.split(',');
-      const checkList = await ReactiveCache.getChecklist(checkListId);
+      const existingItems = await ReactiveCache.getChecklistItems({ checklistId: checkListId });
+      const sortBase = existingItems.length;
       for (let i = 0; i < itemsArray.length; i++) {
         ChecklistItems.insert({
           title: itemsArray[i],
           checklistId: checkListId,
           cardId: card._id,
-          sort: checkList.itemCount(),
+          sort: sortBase + i,
         });
       }
     }

@@ -280,7 +280,7 @@ export class WekanCreator {
   }
 
   // You must call parseActions before calling this one.
-  createBoardAndLabels(boardToImport) {
+  async createBoardAndLabels(boardToImport) {
     const boardToCreate = {
       archived: boardToImport.archived,
       color: boardToImport.color,
@@ -304,7 +304,7 @@ export class WekanCreator {
       permission: boardToImport.permission,
       slug: getSlug(boardToImport.title) || 'board',
       stars: 0,
-      title: Boards.uniqueTitle(boardToImport.title),
+      title: await Boards.uniqueTitle(boardToImport.title),
     };
     // now add other members
     if (boardToImport.members) {
@@ -982,7 +982,7 @@ export class WekanCreator {
       await currentBoard.archive();
     }
     this.parseActivities(board);
-    const boardId = this.createBoardAndLabels(board);
+    const boardId = await this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
     this.createSwimlanes(board.swimlanes, boardId);
     this.createCustomFields(board.customFields, boardId);

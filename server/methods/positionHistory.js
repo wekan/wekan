@@ -20,7 +20,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
+    const swimlane = await Swimlanes.findOneAsync(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
@@ -43,7 +43,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const list = Lists.findOne(listId);
+    const list = await Lists.findOneAsync(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
@@ -66,7 +66,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const card = Cards.findOne(cardId);
+    const card = await Cards.findOneAsync(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
@@ -89,7 +89,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
+    const swimlane = await Swimlanes.findOneAsync(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
@@ -112,7 +112,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const list = Lists.findOne(listId);
+    const list = await Lists.findOneAsync(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
@@ -135,7 +135,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const card = Cards.findOne(cardId);
+    const card = await Cards.findOneAsync(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
@@ -158,7 +158,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
+    const swimlane = await Swimlanes.findOneAsync(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
@@ -181,7 +181,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const list = Lists.findOne(listId);
+    const list = await Lists.findOneAsync(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
@@ -204,7 +204,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const card = Cards.findOne(cardId);
+    const card = await Cards.findOneAsync(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
@@ -227,7 +227,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const swimlane = Swimlanes.findOne(swimlaneId);
+    const swimlane = await Swimlanes.findOneAsync(swimlaneId);
     if (!swimlane) {
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
@@ -250,7 +250,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const list = Lists.findOne(listId);
+    const list = await Lists.findOneAsync(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
@@ -273,7 +273,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const card = Cards.findOne(cardId);
+    const card = await Cards.findOneAsync(cardId);
     if (!card) {
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
@@ -305,7 +305,7 @@ Meteor.methods({
       boardId: boardId,
     }, {
       sort: { createdAt: -1 }
-    }).fetch();
+    }).fetchAsync();
   },
 
   /**
@@ -333,6 +333,6 @@ Meteor.methods({
       entityType: entityType,
     }, {
       sort: { createdAt: -1 }
-    }).fetch();
+    }).fetchAsync();
   },
 });

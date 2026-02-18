@@ -215,8 +215,8 @@ Swimlanes.helpers({
     (await this.board()).getDefaultSwimline();
   },
 
-  async cards() {
-    const ret = await ReactiveCache.getCards(
+  cards() {
+    const ret = ReactiveCache.getCards(
       Filter.mongoSelector({
         swimlaneId: this._id,
         archived: false,
@@ -226,12 +226,12 @@ Swimlanes.helpers({
     return ret;
   },
 
-  async lists() {
-    return await this.draggableLists();
+  lists() {
+    return this.draggableLists();
   },
-  async newestLists() {
+  newestLists() {
     // Revert to shared lists across swimlanes: filter by board only
-    return await ReactiveCache.getLists(
+    return ReactiveCache.getLists(
       {
         boardId: this.boardId,
         archived: false,
@@ -239,9 +239,9 @@ Swimlanes.helpers({
       { sort: { modifiedAt: -1 } },
     );
   },
-  async draggableLists() {
+  draggableLists() {
     // Revert to shared lists across swimlanes: filter by board only
-    return await ReactiveCache.getLists(
+    return ReactiveCache.getLists(
       {
         boardId: this.boardId,
         //archived: false,
@@ -250,9 +250,9 @@ Swimlanes.helpers({
     );
   },
 
-  async myLists() {
+  myLists() {
     // Return per-swimlane lists: provide lists specific to this swimlane
-    return await ReactiveCache.getLists(
+    return ReactiveCache.getLists(
       {
         boardId: this.boardId,
         swimlaneId: this._id,
@@ -262,14 +262,14 @@ Swimlanes.helpers({
     );
   },
 
-  async allCards() {
-    const ret = await ReactiveCache.getCards({ swimlaneId: this._id });
+  allCards() {
+    const ret = ReactiveCache.getCards({ swimlaneId: this._id });
     return ret;
   },
 
-  async isCollapsed() {
+  isCollapsed() {
     if (Meteor.isClient) {
-      const user = await ReactiveCache.getCurrentUser();
+      const user = ReactiveCache.getCurrentUser();
       if (user && user.getCollapsedSwimlaneFromStorage) {
         const stored = user.getCollapsedSwimlaneFromStorage(this.boardId, this._id);
         if (typeof stored === 'boolean') {
@@ -286,8 +286,8 @@ Swimlanes.helpers({
     return this.collapsed === true;
   },
 
-  async board() {
-    return await ReactiveCache.getBoard(this.boardId);
+  board() {
+    return ReactiveCache.getBoard(this.boardId);
   },
 
   colorClass() {
@@ -303,18 +303,18 @@ Swimlanes.helpers({
     return this.type === 'template-container';
   },
 
-  async isListTemplatesSwimlane() {
-    const user = await ReactiveCache.getCurrentUser();
+  isListTemplatesSwimlane() {
+    const user = ReactiveCache.getCurrentUser();
     return (user.profile || {}).listTemplatesSwimlaneId === this._id;
   },
 
-  async isCardTemplatesSwimlane() {
-    const user = await ReactiveCache.getCurrentUser();
+  isCardTemplatesSwimlane() {
+    const user = ReactiveCache.getCurrentUser();
     return (user.profile || {}).cardTemplatesSwimlaneId === this._id;
   },
 
-  async isBoardTemplatesSwimlane() {
-    const user = await ReactiveCache.getCurrentUser();
+  isBoardTemplatesSwimlane() {
+    const user = ReactiveCache.getCurrentUser();
     return (user.profile || {}).boardTemplatesSwimlaneId === this._id;
   },
 

@@ -101,21 +101,21 @@ CardComments.helpers({
     CardComments.insert(this);
   },
 
-  async user() {
-    return await ReactiveCache.getUser(this.userId);
+  user() {
+    return ReactiveCache.getUser(this.userId);
   },
 
-  async reactions() {
-    const cardCommentReactions = await ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
+  reactions() {
+    const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
     return !!cardCommentReactions ? cardCommentReactions.reactions : [];
   },
 
-  async toggleReaction(reactionCodepoint) {
+  toggleReaction(reactionCodepoint) {
     if (reactionCodepoint !== sanitizeText(reactionCodepoint)) {
       return false;
     } else {
 
-      const cardCommentReactions = await ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
+      const cardCommentReactions = ReactiveCache.getCardCommentReaction({cardCommentId: this._id});
       const reactions = !!cardCommentReactions ? cardCommentReactions.reactions : [];
       const userId = Meteor.userId();
       const reaction = reactions.find(r => r.reactionCodepoint === reactionCodepoint);

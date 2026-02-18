@@ -161,9 +161,8 @@ Checklists.helpers({
       await item.uncheck();
     }
   },
-  async itemIndex(itemId) {
-    const checklist = await ReactiveCache.getChecklist({ _id: this._id });
-    const items = checklist.items;
+  itemIndex(itemId) {
+    const items = ReactiveCache.getChecklist({ _id: this._id }).items;
     return _.pluck(items, '_id').indexOf(itemId);
   },
 

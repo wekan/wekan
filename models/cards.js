@@ -701,16 +701,16 @@ Cards.helpers({
     return Cards.insert(linkCard);
   },
 
-  async list() {
-    return await ReactiveCache.getList(this.listId);
+  list() {
+    return ReactiveCache.getList(this.listId);
   },
 
-  async swimlane() {
-    return await ReactiveCache.getSwimlane(this.swimlaneId);
+  swimlane() {
+    return ReactiveCache.getSwimlane(this.swimlaneId);
   },
 
-  async board() {
-    const ret = await ReactiveCache.getBoard(this.boardId);
+  board() {
+    const ret = ReactiveCache.getBoard(this.boardId);
     return ret;
   },
 
@@ -725,8 +725,8 @@ Cards.helpers({
     return this.__id;
   },
 
-  async getList() {
-    const list = await this.list();
+  getList() {
+    const list = this.list();
     if (!list) {
       return {
         _id: this.listId,
@@ -738,8 +738,8 @@ Cards.helpers({
     return list;
   },
 
-  async getSwimlane() {
-    const swimlane = await this.swimlane();
+  getSwimlane() {
+    const swimlane = this.swimlane();
     if (!swimlane) {
       return {
         _id: this.swimlaneId,
@@ -751,8 +751,8 @@ Cards.helpers({
     return swimlane;
   },
 
-  async getBoard() {
-    const board = await this.board();
+  getBoard() {
+    const board = this.board();
     if (!board) {
       return {
         _id: this.boardId,
@@ -764,9 +764,8 @@ Cards.helpers({
     return board;
   },
 
-  async labels() {
-    const board = await this.board();
-    const boardLabels = board.labels;
+  labels() {
+    const boardLabels = this.board().labels;
     const cardLabels = _.filter(boardLabels, label => {
       return _.contains(this.labelIds, label._id);
     });
@@ -782,7 +781,7 @@ Cards.helpers({
    * @param swimlaneId a swimlane id
    * top sorting of the card at the top if true, or from the bottom if false
    */
-  async getSort(listId, swimlaneId, top) {
+  getSort(listId, swimlaneId, top) {
     if (!_.isBoolean(top)) {
       top = true;
     }
@@ -798,7 +797,7 @@ Cards.helpers({
       archived: false,
     };
     const sorting = top ? 1 : -1;
-    const card = await ReactiveCache.getCard(selector, { sort: { sort: sorting } }, true);
+    const card = ReactiveCache.getCard(selector, { sort: { sort: sorting } }, true);
     let ret = null
     if (card) {
       ret = card.sort;
@@ -810,8 +809,8 @@ Cards.helpers({
    * @param listId a list id
    * @param swimlaneId a swimlane id
    */
-  async getMinSort(listId, swimlaneId) {
-    const ret = await this.getSort(listId, swimlaneId, true);
+  getMinSort(listId, swimlaneId) {
+    const ret = this.getSort(listId, swimlaneId, true);
     return ret;
   },
 
@@ -819,40 +818,40 @@ Cards.helpers({
    * @param listId a list id
    * @param swimlaneId a swimlane id
    */
-  async getMaxSort(listId, swimlaneId) {
-    const ret = await this.getSort(listId, swimlaneId, false);
+  getMaxSort(listId, swimlaneId) {
+    const ret = this.getSort(listId, swimlaneId, false);
     return ret;
   },
 
-  async user() {
-    return await ReactiveCache.getUser(this.userId);
+  user() {
+    return ReactiveCache.getUser(this.userId);
   },
 
-  async isAssigned(memberId) {
-    return _.contains(await this.getMembers(), memberId);
+  isAssigned(memberId) {
+    return _.contains(this.getMembers(), memberId);
   },
 
-  async isAssignee(assigneeId) {
-    return _.contains(await this.getAssignees(), assigneeId);
+  isAssignee(assigneeId) {
+    return _.contains(this.getAssignees(), assigneeId);
   },
 
-  async activities() {
+  activities() {
     let ret;
     if (this.isLinkedBoard()) {
-      ret = await ReactiveCache.getActivities(
+      ret = ReactiveCache.getActivities(
         { boardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
     } else {
-      ret = await ReactiveCache.getActivities({ cardId: this.getRealId() }, { sort: { createdAt: -1 } });
+      ret = ReactiveCache.getActivities({ cardId: this.getRealId() }, { sort: { createdAt: -1 } });
     }
     return ret;
   },
 
-  async comments() {
+  comments() {
     let ret
     if (this.isLinkedBoard()) {
-      ret = await ReactiveCache.getCardComments(
+      ret = ReactiveCache.getCardComments(
         { boardId: this.linkedId },
         { sort: { createdAt: -1 } },
       );
@@ -866,18 +865,18 @@ Cards.helpers({
     return ret;
   },
 
-  async attachments() {
-    const ret = (await ReactiveCache.getAttachments(
+  attachments() {
+    const ret = ReactiveCache.getAttachments(
       { 'meta.cardId': this.getRealId() },
       { sort: { uploadedAt: -1 } },
       true,
-    )).each();
+    ).each();
     return ret;
   },
 
-  async cover() {
+  cover() {
     if (!this.coverId) return false;
-    const cover = await ReactiveCache.getAttachment(this.coverId);
+    const cover = ReactiveCache.getAttachment(this.coverId);
     // if we return a cover before it is fully stored, we will get errors when we try to display it
     // todo XXX we could return a default "upload pending" image in the meantime?
     return cover && cover.link() && cover;
@@ -983,9 +982,9 @@ Cards.helpers({
   },
 
   // customFields with definitions
-  async customFieldsWD() {
+  customFieldsWD() {
     // get all definitions
-    const definitions = await ReactiveCache.getCustomFields({
+    const definitions = ReactiveCache.getCustomFields({
       boardIds: { $in: [this.boardId] },
     });
     if (!definitions) {

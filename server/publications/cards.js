@@ -387,13 +387,13 @@ async function buildSelector(queryParams) {
     if (archived !== null) {
       if (archived) {
         selector.boardId = {
-          $in: Boards.userBoardIds(userId, null, boardsSelector),
+          $in: await Boards.userBoardIds(userId, null, boardsSelector),
         };
         selector.$and.push({
           $or: [
             {
               boardId: {
-                $in: Boards.userBoardIds(userId, archived, boardsSelector),
+                $in: await Boards.userBoardIds(userId, archived, boardsSelector),
               },
             },
             { swimlaneId: { $in: Swimlanes.userArchivedSwimlaneIds(userId) } },
@@ -403,14 +403,14 @@ async function buildSelector(queryParams) {
         });
       } else {
         selector.boardId = {
-          $in: Boards.userBoardIds(userId, false, boardsSelector),
+          $in: await Boards.userBoardIds(userId, false, boardsSelector),
         };
         selector.swimlaneId = { $nin: Swimlanes.archivedSwimlaneIds() };
         selector.listId = { $nin: Lists.archivedListIds() };
         selector.archived = false;
       }
     } else {
-      const userBoardIds = Boards.userBoardIds(userId, null, boardsSelector);
+      const userBoardIds = await Boards.userBoardIds(userId, null, boardsSelector);
       if (process.env.DEBUG === 'true') {
         console.log('buildSelector - userBoardIds:', userBoardIds);
       }
@@ -424,8 +424,8 @@ async function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_BOARD)) {
       const queryBoards = [];
-      queryParams.getPredicates(OPERATOR_BOARD).forEach(query => {
-        const boards = Boards.userSearch(userId, {
+      for (const query of queryParams.getPredicates(OPERATOR_BOARD)) {
+        const boards = await Boards.userSearch(userId, {
           title: new RegExp(escapeForRegex(query), 'i'),
         });
         if (boards.length) {
@@ -435,7 +435,7 @@ async function buildSelector(queryParams) {
         } else {
           errors.addNotFound(OPERATOR_BOARD, query);
         }
-      });
+      }
 
       selector.boardId.$in = queryBoards;
     }
@@ -550,17 +550,13 @@ async function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_LABEL)) {
       const queryLabels = [];
-      queryParams.getPredicates(OPERATOR_LABEL).forEach(label => {
-        let boards = Boards.userBoards(userId, null, {
+      for (const label of queryParams.getPredicates(OPERATOR_LABEL)) {
+        let boards = await Boards.userBoards(userId, null, {
           labels: { $elemMatch: { color: label.toLowerCase() } },
         });
 
         if (boards.length) {
           boards.forEach(board => {
-            // eslint-disable-next-line no-console
-            // console.log('board:', board);
-            // eslint-disable-next-line no-console
-            // console.log('board.labels:', board.labels);
             board.labels
               .filter(boardLabel => {
                 return boardLabel.color === label.toLowerCase();
@@ -570,12 +566,8 @@ async function buildSelector(queryParams) {
               });
           });
         } else {
-          // eslint-disable-next-line no-console
-          // console.log('label:', label);
           const reLabel = new RegExp(escapeForRegex(label), 'i');
-          // eslint-disable-next-line no-console
-          // console.log('reLabel:', reLabel);
-          boards = Boards.userBoards(userId, null, {
+          boards = await Boards.userBoards(userId, null, {
             labels: { $elemMatch: { name: reLabel } },
           });
 
@@ -596,7 +588,7 @@ async function buildSelector(queryParams) {
             errors.addNotFound(OPERATOR_LABEL, label);
           }
         }
-      });
+      }
       if (queryLabels.length) {
         // eslint-disable-next-line no-console
         // console.log('queryLabels:', queryLabels);

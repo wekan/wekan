@@ -64,7 +64,7 @@ ReactiveCacheServer = {
     return ret;
   },
   async getCards(selector = {}, options = {}, getQuery = false) {
-    let ret = Cards.find(selector, options, options);
+    let ret = Cards.find(selector, options);
     if (getQuery !== true) {
       ret = await ret.fetchAsync();
     }
@@ -997,68 +997,69 @@ ReactiveCacheClient = {
 // - The Programmer hasn't to care about in which context he call's this class
 // - having all queries together in 1 class to make it possible to see which queries in Wekan happens, e.g. with console.log
 //
-// All methods are async for Meteor 3.0 compatibility.
-// Server path uses async MongoDB operations; Client path uses sync Minimongo (wrapped in Promise).
+// Methods are NOT async - they return a Promise on server (from async ReactiveCacheServer)
+// and synchronous data on client (from ReactiveCacheClient).
+// Server callers must await; client code uses the return value directly.
 ReactiveCache = {
-  async getBoard(idOrFirstObjectSelector = {}, options = {}) {
+  getBoard(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getBoard(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getBoard(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getBoard(idOrFirstObjectSelector, options);
     }
   },
-  async getBoards(selector = {}, options = {}, getQuery = false) {
+  getBoards(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getBoards(selector, options, getQuery);
+      return ReactiveCacheServer.getBoards(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getBoards(selector, options, getQuery);
     }
   },
-  async getList(idOrFirstObjectSelector = {}, options = {}) {
+  getList(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getList(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getList(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getList(idOrFirstObjectSelector, options);
     }
   },
-  async getLists(selector = {}, options = {}, getQuery = false) {
+  getLists(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getLists(selector, options, getQuery);
+      return ReactiveCacheServer.getLists(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getLists(selector, options, getQuery);
     }
   },
-  async getSwimlane(idOrFirstObjectSelector = {}, options = {}) {
+  getSwimlane(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getSwimlane(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getSwimlane(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getSwimlane(idOrFirstObjectSelector, options);
     }
   },
-  async getSwimlanes(selector = {}, options = {}, getQuery = false) {
+  getSwimlanes(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getSwimlanes(selector, options, getQuery);
+      return ReactiveCacheServer.getSwimlanes(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getSwimlanes(selector, options, getQuery);
     }
   },
-  async getChecklist(idOrFirstObjectSelector = {}, options = {}) {
+  getChecklist(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getChecklist(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getChecklist(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getChecklist(idOrFirstObjectSelector, options);
     }
   },
-  async getChecklists(selector = {}, options = {}, getQuery = false) {
+  getChecklists(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getChecklists(selector, options, getQuery);
+      return ReactiveCacheServer.getChecklists(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getChecklists(selector, options, getQuery);
     }
   },
-  async getChecklistItem(idOrFirstObjectSelector = {}, options = {}) {
+  getChecklistItem(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getChecklistItem(
+      return ReactiveCacheServer.getChecklistItem(
         idOrFirstObjectSelector,
         options,
       );
@@ -1069,30 +1070,30 @@ ReactiveCache = {
       );
     }
   },
-  async getChecklistItems(selector = {}, options = {}, getQuery = false) {
+  getChecklistItems(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getChecklistItems(selector, options, getQuery);
+      return ReactiveCacheServer.getChecklistItems(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getChecklistItems(selector, options, getQuery);
     }
   },
-  async getCard(idOrFirstObjectSelector = {}, options = {}, noCache = false) {
+  getCard(idOrFirstObjectSelector = {}, options = {}, noCache = false) {
     if (Meteor.isServer || noCache === true) {
-      return await ReactiveCacheServer.getCard(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getCard(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getCard(idOrFirstObjectSelector, options);
     }
   },
-  async getCards(selector = {}, options = {}, getQuery = false) {
+  getCards(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCards(selector, options, getQuery);
+      return ReactiveCacheServer.getCards(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getCards(selector, options, getQuery);
     }
   },
-  async getCardComment(idOrFirstObjectSelector = {}, options = {}) {
+  getCardComment(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCardComment(
+      return ReactiveCacheServer.getCardComment(
         idOrFirstObjectSelector,
         options,
       );
@@ -1103,16 +1104,16 @@ ReactiveCache = {
       );
     }
   },
-  async getCardComments(selector = {}, options = {}, getQuery = false) {
+  getCardComments(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCardComments(selector, options, getQuery);
+      return ReactiveCacheServer.getCardComments(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getCardComments(selector, options, getQuery);
     }
   },
-  async getCardCommentReaction(idOrFirstObjectSelector = {}, options = {}) {
+  getCardCommentReaction(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCardCommentReaction(
+      return ReactiveCacheServer.getCardCommentReaction(
         idOrFirstObjectSelector,
         options,
       );
@@ -1123,9 +1124,9 @@ ReactiveCache = {
       );
     }
   },
-  async getCardCommentReactions(selector = {}, options = {}, getQuery = false) {
+  getCardCommentReactions(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCardCommentReactions(
+      return ReactiveCacheServer.getCardCommentReactions(
         selector,
         options,
         getQuery,
@@ -1138,9 +1139,9 @@ ReactiveCache = {
       );
     }
   },
-  async getCustomField(idOrFirstObjectSelector = {}, options = {}) {
+  getCustomField(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCustomField(
+      return ReactiveCacheServer.getCustomField(
         idOrFirstObjectSelector,
         options,
       );
@@ -1151,142 +1152,142 @@ ReactiveCache = {
       );
     }
   },
-  async getCustomFields(selector = {}, options = {}, getQuery = false) {
+  getCustomFields(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCustomFields(selector, options, getQuery);
+      return ReactiveCacheServer.getCustomFields(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getCustomFields(selector, options, getQuery);
     }
   },
-  async getAttachment(idOrFirstObjectSelector = {}, options = {}) {
+  getAttachment(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getAttachment(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getAttachment(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getAttachment(idOrFirstObjectSelector, options);
     }
   },
-  async getAttachments(selector = {}, options = {}, getQuery = false) {
+  getAttachments(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getAttachments(selector, options, getQuery);
+      return ReactiveCacheServer.getAttachments(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getAttachments(selector, options, getQuery);
     }
   },
-  async getAvatar(idOrFirstObjectSelector = {}, options = {}) {
+  getAvatar(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getAvatar(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getAvatar(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getAvatar(idOrFirstObjectSelector, options);
     }
   },
-  async getAvatars(selector = {}, options = {}, getQuery = false) {
+  getAvatars(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getAvatars(selector, options, getQuery);
+      return ReactiveCacheServer.getAvatars(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getAvatars(selector, options, getQuery);
     }
   },
-  async getUser(idOrFirstObjectSelector = {}, options = {}) {
+  getUser(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getUser(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getUser(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getUser(idOrFirstObjectSelector, options);
     }
   },
-  async getUsers(selector = {}, options = {}, getQuery = false) {
+  getUsers(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getUsers(selector, options, getQuery);
+      return ReactiveCacheServer.getUsers(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getUsers(selector, options, getQuery);
     }
   },
-  async getOrg(idOrFirstObjectSelector = {}, options = {}) {
+  getOrg(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getOrg(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getOrg(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getOrg(idOrFirstObjectSelector, options);
     }
   },
-  async getOrgs(selector = {}, options = {}, getQuery = false) {
+  getOrgs(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getOrgs(selector, options, getQuery);
+      return ReactiveCacheServer.getOrgs(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getOrgs(selector, options, getQuery);
     }
   },
-  async getTeam(idOrFirstObjectSelector = {}, options = {}) {
+  getTeam(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getTeam(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getTeam(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getTeam(idOrFirstObjectSelector, options);
     }
   },
-  async getTeams(selector = {}, options = {}, getQuery = false) {
+  getTeams(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getTeams(selector, options, getQuery);
+      return ReactiveCacheServer.getTeams(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getTeams(selector, options, getQuery);
     }
   },
-  async getActivity(idOrFirstObjectSelector = {}, options = {}) {
+  getActivity(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getActivity(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getActivity(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getActivity(idOrFirstObjectSelector, options);
     }
   },
-  async getActivities(selector = {}, options = {}, getQuery = false) {
+  getActivities(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getActivities(selector, options, getQuery);
+      return ReactiveCacheServer.getActivities(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getActivities(selector, options, getQuery);
     }
   },
-  async getRule(idOrFirstObjectSelector = {}, options = {}) {
+  getRule(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getRule(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getRule(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getRule(idOrFirstObjectSelector, options);
     }
   },
-  async getRules(selector = {}, options = {}, getQuery = false) {
+  getRules(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getRules(selector, options, getQuery);
+      return ReactiveCacheServer.getRules(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getRules(selector, options, getQuery);
     }
   },
-  async getAction(idOrFirstObjectSelector = {}, options = {}) {
+  getAction(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getAction(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getAction(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getAction(idOrFirstObjectSelector, options);
     }
   },
-  async getActions(selector = {}, options = {}, getQuery = false) {
+  getActions(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getActions(selector, options, getQuery);
+      return ReactiveCacheServer.getActions(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getActions(selector, options, getQuery);
     }
   },
-  async getTrigger(idOrFirstObjectSelector = {}, options = {}) {
+  getTrigger(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getTrigger(idOrFirstObjectSelector, options);
+      return ReactiveCacheServer.getTrigger(idOrFirstObjectSelector, options);
     } else {
       return ReactiveCacheClient.getTrigger(idOrFirstObjectSelector, options);
     }
   },
-  async getTriggers(selector = {}, options = {}, getQuery = false) {
+  getTriggers(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getTriggers(selector, options, getQuery);
+      return ReactiveCacheServer.getTriggers(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getTriggers(selector, options, getQuery);
     }
   },
-  async getImpersonatedUser(idOrFirstObjectSelector = {}, options = {}) {
+  getImpersonatedUser(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getImpersonatedUser(
+      return ReactiveCacheServer.getImpersonatedUser(
         idOrFirstObjectSelector,
         options,
       );
@@ -1297,9 +1298,9 @@ ReactiveCache = {
       );
     }
   },
-  async getImpersonatedUsers(selector = {}, options = {}, getQuery = false) {
+  getImpersonatedUsers(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getImpersonatedUsers(
+      return ReactiveCacheServer.getImpersonatedUsers(
         selector,
         options,
         getQuery,
@@ -1312,9 +1313,9 @@ ReactiveCache = {
       );
     }
   },
-  async getIntegration(idOrFirstObjectSelector = {}, options = {}) {
+  getIntegration(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getIntegration(
+      return ReactiveCacheServer.getIntegration(
         idOrFirstObjectSelector,
         options,
       );
@@ -1325,27 +1326,27 @@ ReactiveCache = {
       );
     }
   },
-  async getIntegrations(selector = {}, options = {}, getQuery = false) {
+  getIntegrations(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getIntegrations(selector, options, getQuery);
+      return ReactiveCacheServer.getIntegrations(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getIntegrations(selector, options, getQuery);
     }
   },
-  async getSessionData(idOrFirstObjectSelector = {}, options = {}) {
+  getSessionData(idOrFirstObjectSelector = {}, options = {}) {
     // no reactive cache, otherwise global search will not work anymore
-    return await ReactiveCacheServer.getSessionData(
+    return ReactiveCacheServer.getSessionData(
       idOrFirstObjectSelector,
       options,
     );
   },
-  async getSessionDatas(selector = {}, options = {}, getQuery = false) {
+  getSessionDatas(selector = {}, options = {}, getQuery = false) {
     // no reactive cache, otherwise global search will not work anymore
-    return await ReactiveCacheServer.getSessionDatas(selector, options, getQuery);
+    return ReactiveCacheServer.getSessionDatas(selector, options, getQuery);
   },
-  async getInvitationCode(idOrFirstObjectSelector = {}, options = {}) {
+  getInvitationCode(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getInvitationCode(
+      return ReactiveCacheServer.getInvitationCode(
         idOrFirstObjectSelector,
         options,
       );
@@ -1356,30 +1357,30 @@ ReactiveCache = {
       );
     }
   },
-  async getInvitationCodes(selector = {}, options = {}, getQuery = false) {
+  getInvitationCodes(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getInvitationCodes(selector, options, getQuery);
+      return ReactiveCacheServer.getInvitationCodes(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getInvitationCodes(selector, options, getQuery);
     }
   },
-  async getCurrentSetting() {
+  getCurrentSetting() {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCurrentSetting();
+      return ReactiveCacheServer.getCurrentSetting();
     } else {
       return ReactiveCacheClient.getCurrentSetting();
     }
   },
-  async getCurrentUser() {
+  getCurrentUser() {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getCurrentUser();
+      return ReactiveCacheServer.getCurrentUser();
     } else {
       return ReactiveCacheClient.getCurrentUser();
     }
   },
-  async getTranslation(idOrFirstObjectSelector = {}, options = {}) {
+  getTranslation(idOrFirstObjectSelector = {}, options = {}) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getTranslation(
+      return ReactiveCacheServer.getTranslation(
         idOrFirstObjectSelector,
         options,
       );
@@ -1390,9 +1391,9 @@ ReactiveCache = {
       );
     }
   },
-  async getTranslations(selector = {}, options = {}, getQuery = false) {
+  getTranslations(selector = {}, options = {}, getQuery = false) {
     if (Meteor.isServer) {
-      return await ReactiveCacheServer.getTranslations(selector, options, getQuery);
+      return ReactiveCacheServer.getTranslations(selector, options, getQuery);
     } else {
       return ReactiveCacheClient.getTranslations(selector, options, getQuery);
     }
@@ -1401,41 +1402,41 @@ ReactiveCache = {
 
 // Server isn't reactive, so search for the data always.
 ReactiveMiniMongoIndexServer = {
-  getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
+  async getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
     let ret = [];
     if (parentId) {
-      ret = ReactiveCache.getCards({ parentId, ...addSelect }, options);
+      ret = await ReactiveCache.getCards({ parentId, ...addSelect }, options);
     }
     return ret;
   },
-  getChecklistsWithCardId(cardId, addSelect = {}, options = {}) {
+  async getChecklistsWithCardId(cardId, addSelect = {}, options = {}) {
     let ret = [];
     if (cardId) {
-      ret = ReactiveCache.getChecklists({ cardId, ...addSelect }, options);
+      ret = await ReactiveCache.getChecklists({ cardId, ...addSelect }, options);
     }
     return ret;
   },
-  getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options = {}) {
+  async getChecklistItemsWithChecklistId(checklistId, addSelect = {}, options = {}) {
     let ret = [];
     if (checklistId) {
-      ret = ReactiveCache.getChecklistItems(
+      ret = await ReactiveCache.getChecklistItems(
         { checklistId, ...addSelect },
         options,
       );
     }
     return ret;
   },
-  getCardCommentsWithCardId(cardId, addSelect = {}, options = {}) {
+  async getCardCommentsWithCardId(cardId, addSelect = {}, options = {}) {
     let ret = [];
     if (cardId) {
-      ret = ReactiveCache.getCardComments({ cardId, ...addSelect }, options);
+      ret = await ReactiveCache.getCardComments({ cardId, ...addSelect }, options);
     }
     return ret;
   },
-  getActivityWithId(activityId, addSelect = {}, options = {}) {
+  async getActivityWithId(activityId, addSelect = {}, options = {}) {
     let ret = [];
     if (activityId) {
-      ret = ReactiveCache.getActivities(
+      ret = await ReactiveCache.getActivities(
         { _id: activityId, ...addSelect },
         options,
       );
@@ -1507,12 +1508,6 @@ ReactiveMiniMongoIndexClient = {
       }
       ret = this.__checklistItemsWithId.get(EJSON.stringify(select));
       if (ret) {
-        if (Meteor.isServer) {
-          ret[checklistId] = ReactiveCache.getChecklistItems(
-            { checklistId: checklistId, ...addSelect },
-            options,
-          );
-        }
         ret = ret[checklistId] || [];
       }
     }

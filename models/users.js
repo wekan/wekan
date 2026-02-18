@@ -902,10 +902,10 @@ if (Meteor.isClient) {
       return board && board.hasWorker(this._id);
     },
 
-    async isBoardAdmin(boardId) {
+    isBoardAdmin(boardId) {
       let board;
       if (boardId) {
-        board = await ReactiveCache.getBoard(boardId);
+        board = ReactiveCache.getBoard(boardId);
       } else {
         board = Utils.getCurrentBoard();
       }

@@ -36,20 +36,20 @@ Triggers.helpers({
     return this.desc;
   },
 
-  async getRule() {
-    return await ReactiveCache.getRule({ triggerId: this._id });
+  getRule() {
+    return ReactiveCache.getRule({ triggerId: this._id });
   },
 
-  async fromList() {
-    return await ReactiveCache.getList(this.fromId);
+  fromList() {
+    return ReactiveCache.getList(this.fromId);
   },
 
-  async toList() {
-    return await ReactiveCache.getList(this.toId);
+  toList() {
+    return ReactiveCache.getList(this.toId);
   },
 
-  async findList(title) {
-    return await ReactiveCache.getList({
+  findList(title) {
+    return ReactiveCache.getList({
       title,
     });
   },

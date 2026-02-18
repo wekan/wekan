@@ -13,54 +13,54 @@ import { ReactiveCache } from '/imports/reactiveCache';
 Activities = new Mongo.Collection('activities');
 
 Activities.helpers({
-  async board() {
-    return await ReactiveCache.getBoard(this.boardId);
+  board() {
+    return ReactiveCache.getBoard(this.boardId);
   },
-  async oldBoard() {
-    return await ReactiveCache.getBoard(this.oldBoardId);
+  oldBoard() {
+    return ReactiveCache.getBoard(this.oldBoardId);
   },
-  async user() {
-    return await ReactiveCache.getUser(this.userId);
+  user() {
+    return ReactiveCache.getUser(this.userId);
   },
-  async member() {
-    return await ReactiveCache.getUser(this.memberId);
+  member() {
+    return ReactiveCache.getUser(this.memberId);
   },
-  async list() {
-    return await ReactiveCache.getList(this.listId);
+  list() {
+    return ReactiveCache.getList(this.listId);
   },
-  async swimlane() {
-    return await ReactiveCache.getSwimlane(this.swimlaneId);
+  swimlane() {
+    return ReactiveCache.getSwimlane(this.swimlaneId);
   },
-  async oldSwimlane() {
-    return await ReactiveCache.getSwimlane(this.oldSwimlaneId);
+  oldSwimlane() {
+    return ReactiveCache.getSwimlane(this.oldSwimlaneId);
   },
-  async oldList() {
-    return await ReactiveCache.getList(this.oldListId);
+  oldList() {
+    return ReactiveCache.getList(this.oldListId);
   },
-  async card() {
-    return await ReactiveCache.getCard(this.cardId);
+  card() {
+    return ReactiveCache.getCard(this.cardId);
   },
-  async comment() {
-    return await ReactiveCache.getCardComment(this.commentId);
+  comment() {
+    return ReactiveCache.getCardComment(this.commentId);
   },
-  async attachment() {
-    return await ReactiveCache.getAttachment(this.attachmentId);
+  attachment() {
+    return ReactiveCache.getAttachment(this.attachmentId);
   },
-  async checklist() {
-    return await ReactiveCache.getChecklist(this.checklistId);
+  checklist() {
+    return ReactiveCache.getChecklist(this.checklistId);
   },
-  async checklistItem() {
-    return await ReactiveCache.getChecklistItem(this.checklistItemId);
+  checklistItem() {
+    return ReactiveCache.getChecklistItem(this.checklistItemId);
   },
-  async subtasks() {
-    return await ReactiveCache.getCard(this.subtaskId);
+  subtasks() {
+    return ReactiveCache.getCard(this.subtaskId);
   },
-  async customField() {
-    return await ReactiveCache.getCustomField(this.customFieldId);
+  customField() {
+    return ReactiveCache.getCustomField(this.customFieldId);
   },
-  async label() {
+  label() {
     // Label activity did not work yet, unable to edit labels when tried this.
-    return await ReactiveCache.getCard(this.labelId);
+    return ReactiveCache.getCard(this.labelId);
   },
 });
 

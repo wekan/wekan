@@ -259,37 +259,37 @@ Lists.helpers({
     }
   },
 
-  async cards(swimlaneId) {
+  cards(swimlaneId) {
     const selector = {
       listId: this._id,
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    const ret = await ReactiveCache.getCards(Filter.mongoSelector(selector), { sort: ['sort'] });
+    const ret = ReactiveCache.getCards(Filter.mongoSelector(selector), { sort: ['sort'] });
     return ret;
   },
 
-  async cardsUnfiltered(swimlaneId) {
+  cardsUnfiltered(swimlaneId) {
     const selector = {
       listId: this._id,
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
-    const ret = await ReactiveCache.getCards(selector, { sort: ['sort'] });
+    const ret = ReactiveCache.getCards(selector, { sort: ['sort'] });
     return ret;
   },
 
-  async allCards() {
-    const ret = await ReactiveCache.getCards({ listId: this._id });
+  allCards() {
+    const ret = ReactiveCache.getCards({ listId: this._id });
     return ret;
   },
 
-  async board() {
-    return await ReactiveCache.getBoard(this.boardId);
+  board() {
+    return ReactiveCache.getBoard(this.boardId);
   },
 
-  async getWipLimit(option) {
-    const list = await ReactiveCache.getList(this._id);
+  getWipLimit(option) {
+    const list = ReactiveCache.getList(this._id);
     if (!list.wipLimit) {
       // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
       return 0;
@@ -313,9 +313,9 @@ Lists.helpers({
     return this.starred === true;
   },
 
-  async isCollapsed() {
+  isCollapsed() {
     if (Meteor.isClient) {
-      const user = await ReactiveCache.getCurrentUser();
+      const user = ReactiveCache.getCurrentUser();
       // Logged-in users: prefer profile/cookie-backed state
       if (user && user.getCollapsedListFromStorage) {
         const stored = user.getCollapsedListFromStorage(this.boardId, this._id);
@@ -334,13 +334,13 @@ Lists.helpers({
     return this.collapsed === true;
   },
 
-  async absoluteUrl() {
-    const card = await ReactiveCache.getCard({ listId: this._id });
-    return card && (await card.absoluteUrl());
+  absoluteUrl() {
+    const card = ReactiveCache.getCard({ listId: this._id });
+    return card && card.absoluteUrl();
   },
-  async originRelativeUrl() {
-    const card = await ReactiveCache.getCard({ listId: this._id });
-    return card && (await card.originRelativeUrl());
+  originRelativeUrl() {
+    const card = ReactiveCache.getCard({ listId: this._id });
+    return card && card.originRelativeUrl();
   },
   async remove() {
     return await Lists.removeAsync({ _id: this._id });
@@ -492,7 +492,7 @@ Meteor.methods({
     // my lists
     const lists = await ReactiveCache.getLists(
       {
-        boardId: { $in: Boards.userBoardIds(this.userId) },
+        boardId: { $in: await Boards.userBoardIds(this.userId) },
         archived: false,
       },
       {

@@ -22,7 +22,7 @@ publishComposite('boards', function() {
       return await ReactiveCache.getBoards(
         {
           archived: false,
-          _id: { $in: Boards.userBoardIds(userId, false) },
+          _id: { $in: await Boards.userBoardIds(userId, false) },
         },
         {
           sort: { sort: 1 /* boards default sorting */ },
@@ -82,7 +82,7 @@ Meteor.publish('boardsReport', async function() {
 
   const boards = await ReactiveCache.getBoards(
     {
-      _id: { $in: Boards.userBoardIds(userId, null) },
+      _id: { $in: await Boards.userBoardIds(userId, null) },
     },
     {
       fields: {
@@ -142,7 +142,7 @@ Meteor.publish('archivedBoards', async function() {
 
   const ret = await ReactiveCache.getBoards(
     {
-      _id: { $in: Boards.userBoardIds(userId, true)},
+      _id: { $in: await Boards.userBoardIds(userId, true)},
       archived: true,
       members: {
          $elemMatch: {
