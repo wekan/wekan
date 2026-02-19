@@ -30,6 +30,28 @@ Upgrading to Meteor 3 progress:
 - https://www.linkedin.com/posts/harryadel_dev-diary-24-wekan-migration-journey-activity-7426683776547811328-jS9h/
 - https://forums.meteor.com/t/anyone-still-using-meteor-2/64402/4
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Migrate @wekanteam/meteor-reactive-cache](https://github.com/wekan/wekan/pull/6139).
+  Thanks to harryadel.
+- [Fix unhandled Promise rejection in cron migration job callback](https://github.com/wekan/wekan/pull/6153).
+  Thanks to harryadel.
+- [Bump docker/build-push-action from 6.18.0 to 6.19.2](https://github.com/wekan/wekan/pull/6149).
+  Thanks to dependabot.
+- [Bump ajv from 6.12.6 to 8.18.0](https://github.com/wekan/wekan/pull/6151).
+  Thanks to dependabot.
+- [Bump tar from 7.5.7 to 7.5.9](https://github.com/wekan/wekan/pull/6156).
+  Thanks to dependabot.
+
+and fixes the following bugs:
+
+- [Fix calendar](https://github.com/wekan/wekan/pull/6155).
+  Thanks to KhaoulaMaleh.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.33 2026-02-15 WeKan ® release
 
 This release adds the following new features:
