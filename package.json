@@ -28,7 +28,7 @@
     "@wekanteam/exceljs": "^4.6.0",
     "@wekanteam/html-to-markdown": "^1.0.2",
     "@wekanteam/meteor-globals": "^1.1.6",
-    "@wekanteam/meteor-reactive-cache": "^1.0.7",
+    "@wekanteam/meteor-reactive-cache": "file:./npm-packages/meteor-reactive-cache",
     "ajv": "^6.12.6",
     "bcryptjs": "^2.4.3",
     "bson": "^4.7.2",

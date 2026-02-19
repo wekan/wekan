@@ -106,7 +106,7 @@ Avatars = new FilesCollection({
     }
     return TAPi18n.__('avatar-too-big', {size: filesize(avatarsUploadSize)});
   },
-  onAfterUpload(fileObj) {
+  async onAfterUpload(fileObj) {
     // current storage is the filesystem, update object and database
     Object.keys(fileObj.versions).forEach(versionName => {
       fileObj.versions[versionName].storage = STORAGE_NAME_FILESYSTEM;
@@ -114,12 +114,13 @@ Avatars = new FilesCollection({
 
     Avatars.update({ _id: fileObj._id }, { $set: { "versions": fileObj.versions } });
 
-    const isValid = Promise.await(isFileValid(fileObj, avatarsUploadMimeTypes, avatarsUploadSize, avatarsUploadExternalProgram));
+    const isValid = await isFileValid(fileObj, avatarsUploadMimeTypes, avatarsUploadSize, avatarsUploadExternalProgram);
 
     if (isValid) {
       // Set avatar URL using universal URL generator (URL-agnostic)
       const universalUrl = generateUniversalAvatarUrl(fileObj._id);
-      ReactiveCache.getUser(fileObj.userId).setAvatarUrl(universalUrl);
+      const user = await ReactiveCache.getUser(fileObj.userId);
+      user.setAvatarUrl(universalUrl);
     } else {
       Avatars.remove(fileObj._id);
     }
@@ -128,12 +129,13 @@ Avatars = new FilesCollection({
     const ret = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).interceptDownload(http, this.cacheControl);
     return ret;
   },
-  onBeforeRemove(files) {
-    files.forEach(fileObj => {
+  async onBeforeRemove(files) {
+    for (const fileObj of files) {
       if (fileObj.userId) {
-        ReactiveCache.getUser(fileObj.userId).setAvatarUrl('');
+        const user = await ReactiveCache.getUser(fileObj.userId);
+        user.setAvatarUrl('');
       }
-    });
+    }
 
     return true;
   },

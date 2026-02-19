@@ -13,7 +13,7 @@ import path from 'path';
 
 if (Meteor.isServer) {
   // Handle avatar file downloads
-  WebApp.connectHandlers.use('/cdn/storage/avatars/([^/]+)', (req, res, next) => {
+  WebApp.connectHandlers.use('/cdn/storage/avatars/([^/]+)', async (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -37,7 +37,7 @@ if (Meteor.isServer) {
       }
 
       // Get avatar file from database
-      const avatar = ReactiveCache.getAvatar(fileId);
+      const avatar = await ReactiveCache.getAvatar(fileId);
       if (!avatar) {
         res.writeHead(404);
         res.end('Avatar not found');

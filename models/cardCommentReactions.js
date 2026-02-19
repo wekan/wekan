@@ -51,13 +51,13 @@ CardCommentReactions.attachSchema(
 
 CardCommentReactions.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['boardId'],
 });

@@ -1,0 +1,63 @@
+{
+  "name": "@wekanteam/meteor-reactive-cache",
+  "version": "1.0.7",
+  "description": "Utilities for caching reactive data",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepublish": "./node_modules/.bin/babel src -d dist",
+    "lint": "./node_modules/.bin/eslint src",
+    "copy": "npm link && cd tests && npm link meteor-reactive-cache",
+    "test": "npm run copy && cd tests && TEST_BROWSER_DRIVER=nightmare meteor test -p 3100 --once --driver-package meteortesting:mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxnowack/meteor-reactive-cache.git"
+  },
+  "author": "Max Nowack <max@unsou.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxnowack/meteor-reactive-cache/issues"
+  },
+  "homepage": "https://github.com/maxnowack/meteor-reactive-cache#readme",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "caching",
+    "meteor",
+    "react",
+    "reactivity",
+    "tracker"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb-base"
+    ],
+    "parser": "@babel/eslint-parser",
+    "rules": {
+      "no-param-reassign": [
+        2,
+        {
+          "props": false
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1"
+  },
+  "dependencies": {
+    "@wekanteam/meteor-globals": "^1.1.6"
+  }
+}

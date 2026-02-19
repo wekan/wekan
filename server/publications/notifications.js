@@ -3,33 +3,33 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // We use these when displaying notifications in the notificationsDrawer
 
 // gets all activities associated with the current user
-Meteor.publish('notificationActivities', () => {
-  const ret = activities();
+Meteor.publish('notificationActivities', async () => {
+  const ret = await activities();
   return ret;
 });
 
 // gets all attachments associated with activities associated with the current user
-Meteor.publish('notificationAttachments', function() {
-  const ret = ReactiveCache.getAttachments(
+Meteor.publish('notificationAttachments', async function() {
+  const ret = (await ReactiveCache.getAttachments(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.attachmentId)
           .filter(v => !!v),
       },
     },
     {},
     true,
-  ).cursor;
+  )).cursor;
   return ret;
 });
 
 // gets all cards associated with activities associated with the current user
-Meteor.publish('notificationCards', function() {
-  const ret = ReactiveCache.getCards(
+Meteor.publish('notificationCards', async function() {
+  const ret = await ReactiveCache.getCards(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.cardId)
           .filter(v => !!v),
       },
@@ -41,11 +41,11 @@ Meteor.publish('notificationCards', function() {
 });
 
 // gets all checklistItems associated with activities associated with the current user
-Meteor.publish('notificationChecklistItems', function() {
-  const ret = ReactiveCache.getChecklistItems(
+Meteor.publish('notificationChecklistItems', async function() {
+  const ret = await ReactiveCache.getChecklistItems(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.checklistItemId)
           .filter(v => !!v),
       },
@@ -57,11 +57,11 @@ Meteor.publish('notificationChecklistItems', function() {
 });
 
 // gets all checklists associated with activities associated with the current user
-Meteor.publish('notificationChecklists', function() {
-  const ret = ReactiveCache.getChecklists(
+Meteor.publish('notificationChecklists', async function() {
+  const ret = await ReactiveCache.getChecklists(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.checklistId)
           .filter(v => !!v),
       },
@@ -73,11 +73,11 @@ Meteor.publish('notificationChecklists', function() {
 });
 
 // gets all comments associated with activities associated with the current user
-Meteor.publish('notificationComments', function() {
-  const ret = ReactiveCache.getCardComments(
+Meteor.publish('notificationComments', async function() {
+  const ret = await ReactiveCache.getCardComments(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.commentId)
           .filter(v => !!v),
       },
@@ -89,11 +89,11 @@ Meteor.publish('notificationComments', function() {
 });
 
 // gets all lists associated with activities associated with the current user
-Meteor.publish('notificationLists', function() {
-  const ret = ReactiveCache.getLists(
+Meteor.publish('notificationLists', async function() {
+  const ret = await ReactiveCache.getLists(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.listId)
           .filter(v => !!v),
       },
@@ -105,11 +105,11 @@ Meteor.publish('notificationLists', function() {
 });
 
 // gets all swimlanes associated with activities associated with the current user
-Meteor.publish('notificationSwimlanes', function() {
-  const ret = ReactiveCache.getSwimlanes(
+Meteor.publish('notificationSwimlanes', async function() {
+  const ret = await ReactiveCache.getSwimlanes(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.swimlaneId)
           .filter(v => !!v),
       },
@@ -121,11 +121,11 @@ Meteor.publish('notificationSwimlanes', function() {
 });
 
 // gets all users associated with activities associated with the current user
-Meteor.publish('notificationUsers', function() {
-  const ret = ReactiveCache.getUsers(
+Meteor.publish('notificationUsers', async function() {
+  const ret = await ReactiveCache.getUsers(
     {
       _id: {
-        $in: activities()
+        $in: (await activities())
           .map(v => v.userId)
           .filter(v => !!v),
       },
@@ -136,11 +136,11 @@ Meteor.publish('notificationUsers', function() {
   return ret;
 });
 
-function activities() {
-  const activityIds = ReactiveCache.getCurrentUser()?.profile?.notifications?.map(v => v.activity) || [];
+async function activities() {
+  const activityIds = (await ReactiveCache.getCurrentUser())?.profile?.notifications?.map(v => v.activity) || [];
   let ret = [];
   if (activityIds.length > 0) {
-    ret = ReactiveCache.getActivities(
+    ret = await ReactiveCache.getActivities(
       {
         _id: { $in: activityIds },
       },

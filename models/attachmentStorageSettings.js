@@ -257,12 +257,12 @@ AttachmentStorageSettings.helpers({
 if (Meteor.isServer) {
   // Get or create default settings
   Meteor.methods({
-    'getAttachmentStorageSettings'() {
+    async 'getAttachmentStorageSettings'() {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
-      const user = ReactiveCache.getUser(this.userId);
+      const user = await ReactiveCache.getUser(this.userId);
       if (!user || !user.isAdmin) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
@@ -306,13 +306,13 @@ if (Meteor.isServer) {
 
       return settings;
     },
-
-    'updateAttachmentStorageSettings'(settings) {
+    
+    async 'updateAttachmentStorageSettings'(settings) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
-      const user = ReactiveCache.getUser(this.userId);
+      const user = await ReactiveCache.getUser(this.userId);
       if (!user || !user.isAdmin) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
@@ -344,13 +344,13 @@ if (Meteor.isServer) {
       const settings = AttachmentStorageSettings.findOne({});
       return settings ? settings.getDefaultStorage() : STORAGE_NAME_FILESYSTEM;
     },
-
-    'setDefaultAttachmentStorage'(storageName) {
+    
+    async 'setDefaultAttachmentStorage'(storageName) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
-      const user = ReactiveCache.getUser(this.userId);
+      const user = await ReactiveCache.getUser(this.userId);
       if (!user || !user.isAdmin) {
         throw new Meteor.Error('not-authorized', 'Admin access required');
       }
@@ -375,12 +375,12 @@ if (Meteor.isServer) {
   });
 
   // Publication for settings
-  Meteor.publish('attachmentStorageSettings', function() {
+  Meteor.publish('attachmentStorageSettings', async function() {
     if (!this.userId) {
       return this.ready();
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user || !user.isAdmin) {
       return this.ready();
     }

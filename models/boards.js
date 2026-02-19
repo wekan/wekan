@@ -703,12 +703,12 @@ Boards.attachSchema(
 );
 
 Boards.helpers({
-  copy() {
+  async copy() {
     const oldId = this._id;
     const oldWatchers = this.watchers ? this.watchers.slice() : [];
     delete this._id;
     delete this.slug;
-    this.title = this.copyTitle();
+    this.title = await this.copyTitle();
     const _id = Boards.insert(this);
 
     // Temporary remove watchers to disable notifications
@@ -719,23 +719,26 @@ Boards.helpers({
     });
 
     // Copy all swimlanes in board
-    ReactiveCache.getSwimlanes({
+    const swimlanes = await ReactiveCache.getSwimlanes({
       boardId: oldId,
       archived: false,
-    }).forEach(swimlane => {
+    });
+    for (const swimlane of swimlanes) {
       swimlane.type = 'swimlane';
       swimlane.copy(_id);
-    });
+    }
 
     // copy custom field definitions
     const cfMap = {};
-    ReactiveCache.getCustomFields({ boardIds: oldId }).forEach(cf => {
+    const customFields = await ReactiveCache.getCustomFields({ boardIds: oldId });
+    for (const cf of customFields) {
       const id = cf._id;
       delete cf._id;
       cf.boardIds = [_id];
       cfMap[id] = CustomFields.insert(cf);
-    });
-    ReactiveCache.getCards({ boardId: _id }).forEach(card => {
+    }
+    const cards = await ReactiveCache.getCards({ boardId: _id });
+    for (const card of cards) {
       Cards.update(card._id, {
         $set: {
           customFields: card.customFields.map(cf => {
@@ -744,30 +747,33 @@ Boards.helpers({
           }),
         },
       });
-    });
+    }
 
     // copy rules, actions, and triggers
     const actionsMap = {};
-    ReactiveCache.getActions({ boardId: oldId }).forEach(action => {
+    const actions = await ReactiveCache.getActions({ boardId: oldId });
+    for (const action of actions) {
       const id = action._id;
       delete action._id;
       action.boardId = _id;
       actionsMap[id] = Actions.insert(action);
-    });
+    }
     const triggersMap = {};
-    ReactiveCache.getTriggers({ boardId: oldId }).forEach(trigger => {
+    const triggers = await ReactiveCache.getTriggers({ boardId: oldId });
+    for (const trigger of triggers) {
       const id = trigger._id;
       delete trigger._id;
       trigger.boardId = _id;
       triggersMap[id] = Triggers.insert(trigger);
-    });
-    ReactiveCache.getRules({ boardId: oldId }).forEach(rule => {
+    }
+    const rules = await ReactiveCache.getRules({ boardId: oldId });
+    for (const rule of rules) {
       delete rule._id;
       rule.boardId = _id;
       rule.actionId = actionsMap[rule.actionId];
       rule.triggerId = triggersMap[rule.triggerId];
       Rules.insert(rule);
-    });
+    }
 
     // Re-set Watchers to reenable notification
     Boards.update(_id, {
@@ -781,8 +787,8 @@ Boards.helpers({
    *
    * @returns {string|null}
    */
-  copyTitle() {
-    return Boards.uniqueTitle(this.title);
+  async copyTitle() {
+    return await Boards.uniqueTitle(this.title);
   },
 
   /**
@@ -837,7 +843,8 @@ Boards.helpers({
 
   newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
-    const value = ReactiveCache.getCurrentUser()._getListSortBy();
+    const user = ReactiveCache.getCurrentUser();
+    const value = user._getListSortBy();
     const sortKey = { starred: -1, [value[0]]: value[1] }; // [["starred",-1],value];
     return ReactiveCache.getLists(
       {
@@ -924,9 +931,9 @@ Boards.helpers({
     let linkedBoardId = [this._id];
     ReactiveCache.getCards({
       "type": "cardType-linkedBoard",
-      "boardId": this._id}
-      ).forEach(card => {
-        linkedBoardId.push(card.linkedId);
+      "boardId": this._id
+    }).forEach(card => {
+      linkedBoardId.push(card.linkedId);
     });
     const ret = ReactiveCache.getActivities({ boardId: { $in: linkedBoardId } }, { sort: { createdAt: -1 } });
     return ret;
@@ -1455,7 +1462,7 @@ Boards.helpers({
   },
 
   async setBackgroundImageURL(backgroundImageURL) {
-    const currentUser = ReactiveCache.getCurrentUser();
+    const currentUser = await ReactiveCache.getCurrentUser();
     if (currentUser.isBoardAdmin() || currentUser.isAdmin()) {
       return await Boards.updateAsync(this._id, { $set: { backgroundImageURL } });
     }
@@ -1718,31 +1725,32 @@ function boardRemover(userId, doc) {
   );
 }
 
-Boards.uniqueTitle = title => {
+Boards.uniqueTitle = async title => {
   const m = title.match(
     new RegExp('^(?<title>.*?)\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)'),
   );
   const base = escapeForRegex(m.groups.title);
   const baseTitle = m.groups.title;
-  boards = ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
+  const boards = await ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)`) });
   if (boards.length > 0) {
     let num = 0;
-    ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
-      board => {
-        const m = board.title.match(
-          new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
-        );
-        if (m) {
-          const n = parseInt(m.groups.num, 10);
-          num = num < n ? n : num;
-        }
-      },
-    );
+    const numberedBoards = await ReactiveCache.getBoards({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) });
+    for (const board of numberedBoards) {
+      const m = board.title.match(
+        new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
+      );
+      if (m) {
+        const n = parseInt(m.groups.num, 10);
+        num = num < n ? n : num;
+      }
+    }
     return `${baseTitle} [${num + 1}]`;
   }
   return title;
 };
 
+// Non-async: returns data on client, Promise on server.
+// Server callers must await.
 Boards.userSearch = (
   userId,
   selector = {},
@@ -1757,42 +1765,51 @@ Boards.userSearch = (
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
   }
-  const ret = ReactiveCache.getBoards(selector, projection);
-  return ret;
+  return ReactiveCache.getBoards(selector, projection);
 };
 
+// Non-async: returns data on client (for Blaze templates), Promise on server.
+// Server callers must await.
 Boards.userBoards = (
   userId,
   archived = false,
   selector = {},
   projection = {},
 ) => {
+  const _buildSelector = (user) => {
+    if (!user) return null;
+    if (typeof archived === 'boolean') {
+      selector.archived = archived;
+    }
+    if (!selector.type) {
+      selector.type = 'board';
+    }
+    selector.$or = [
+      { permission: 'public' },
+      { members: { $elemMatch: { userId, isActive: true } } },
+      { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
+      { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
+    ];
+    return selector;
+  };
+
+  if (Meteor.isServer) {
+    return (async () => {
+      const user = await ReactiveCache.getUser(userId);
+      if (!_buildSelector(user)) return [];
+      return await ReactiveCache.getBoards(selector, projection);
+    })();
+  }
   const user = ReactiveCache.getUser(userId);
-  if (!user) {
-    return [];
-  }
-
-  if (typeof archived === 'boolean') {
-    selector.archived = archived;
-  }
-  if (!selector.type) {
-    selector.type = 'board';
-  }
-
-  selector.$or = [
-    { permission: 'public' },
-    { members: { $elemMatch: { userId, isActive: true } } },
-    { orgs: { $elemMatch: { orgId: { $in: user.orgIds() }, isActive: true } } },
-    { teams: { $elemMatch: { teamId: { $in: user.teamIds() }, isActive: true } } },
-  ];
-
+  if (!_buildSelector(user)) return [];
   return ReactiveCache.getBoards(selector, projection);
 };
 
-Boards.userBoardIds = (userId, archived = false, selector = {}) => {
-  return Boards.userBoards(userId, archived, selector, {
+Boards.userBoardIds = async (userId, archived = false, selector = {}) => {
+  const boards = await Boards.userBoards(userId, archived, selector, {
     fields: { _id: 1 },
-  }).map(board => {
+  });
+  return boards.map(board => {
     return board._id;
   });
 };
@@ -1888,13 +1905,13 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    getBackgroundImageURL(boardId) {
+    async getBackgroundImageURL(boardId) {
       check(boardId, String);
-      return ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
+      return await ReactiveCache.getBoard(boardId, {}, { backgroundImageUrl: 1 });
     },
     async quitBoard(boardId) {
       check(boardId, String);
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
@@ -1904,9 +1921,9 @@ if (Meteor.isServer) {
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
-    acceptInvite(boardId) {
+    async acceptInvite(boardId) {
       check(boardId, String);
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Meteor.Error('error-board-doesNotExist');
       }
@@ -1928,9 +1945,10 @@ if (Meteor.isServer) {
         }
       });
     },
-    myLabelNames() {
+    async myLabelNames() {
       let names = [];
-      Boards.userBoards(Meteor.userId()).forEach(board => {
+      const boards = await Boards.userBoards(Meteor.userId());
+      for (const board of boards) {
         // Only return labels when they exist.
         if (board.labels !== undefined) {
           names = names.concat(
@@ -1940,21 +1958,21 @@ if (Meteor.isServer) {
                 return label.name;
               }),
           );
-        } else {
-          return [];
         }
-      });
+      }
       return _.uniq(names).sort();
     },
-    myBoardNames() {
+    async myBoardNames() {
+      const boards = await Boards.userBoards(Meteor.userId());
       return _.uniq(
-        Boards.userBoards(Meteor.userId()).map(board => {
+        boards.map(board => {
           return board.title;
         }),
       ).sort();
     },
-    setAllBoardsHideActivities() {
-      if ((ReactiveCache.getCurrentUser() || {}).isAdmin) {
+    async setAllBoardsHideActivities() {
+      const currentUser = await ReactiveCache.getCurrentUser();
+      if ((currentUser || {}).isAdmin) {
         Boards.update(
           {
             showActivities: true
@@ -1978,7 +1996,7 @@ if (Meteor.isServer) {
   Meteor.methods({
     async archiveBoard(boardId) {
       check(boardId, String);
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
@@ -1988,14 +2006,14 @@ if (Meteor.isServer) {
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
-    setBoardOrgs(boardOrgsArray, currBoardId){
+    async setBoardOrgs(boardOrgsArray, currBoardId){
       check(boardOrgsArray, Array);
       check(currBoardId, String);
       const userId = Meteor.userId();
       if (!userId) {
         throw new Meteor.Error('not-authorized', 'You must be logged in to perform this action.');
       }
-      const board = ReactiveCache.getBoard(currBoardId);
+      const board = await ReactiveCache.getBoard(currBoardId);
       if (!board) {
         throw new Meteor.Error('board-not-found', 'Board not found.');
       }
@@ -2014,7 +2032,7 @@ if (Meteor.isServer) {
         },
       });
     },
-    setBoardTeams(boardTeamsArray, membersArray, currBoardId){
+    async setBoardTeams(boardTeamsArray, membersArray, currBoardId){
       check(boardTeamsArray, Array);
       check(membersArray, Array);
       check(currBoardId, String);
@@ -2022,7 +2040,7 @@ if (Meteor.isServer) {
       if (!userId) {
         throw new Meteor.Error('not-authorized', 'You must be logged in to perform this action.');
       }
-      const board = ReactiveCache.getBoard(currBoardId);
+      const board = await ReactiveCache.getBoard(currBoardId);
       if (!board) {
         throw new Meteor.Error('board-not-found', 'Board not found.');
       }
@@ -2059,8 +2077,8 @@ if (Meteor.isServer) {
 }
 
 // Insert new board at last position in sort order.
-Boards.before.insert((userId, doc) => {
-  const lastBoard = ReactiveCache.getBoard(
+Boards.before.insert(async (userId, doc) => {
+  const lastBoard = await ReactiveCache.getBoard(
     { sort: { $exists: true } },
     { sort: { sort: -1 } },
   );
@@ -2244,7 +2262,7 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
    *                title: string}]
    */
-  JsonRoutes.add('GET', '/api/users/:userId/boards', function(req, res) {
+  JsonRoutes.add('GET', '/api/users/:userId/boards', async function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
       const paramUserId = req.params.userId;
@@ -2255,7 +2273,7 @@ if (Meteor.isServer) {
         req.userId === paramUserId,
       );
 
-      const data = ReactiveCache.getBoards(
+      const boards = await ReactiveCache.getBoards(
         {
           archived: false,
           'members.userId': paramUserId,
@@ -2263,7 +2281,8 @@ if (Meteor.isServer) {
         {
           sort: { sort: 1 /* boards default sorting */ },
         },
-      ).map(function(board) {
+      );
+      const data = boards.map(function(board) {
         return {
           _id: board._id,
           title: board.title,
@@ -2286,17 +2305,18 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
                     title: string}]
                     */
-  JsonRoutes.add('GET', '/api/boards', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards', async function(req, res) {
     try {
       Authentication.checkUserId(req.userId);
+      const boards = await ReactiveCache.getBoards(
+        { permission: 'public' },
+        {
+          sort: { sort: 1 /* boards default sorting */ },
+        },
+      );
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getBoards(
-          { permission: 'public' },
-          {
-            sort: { sort: 1 /* boards default sorting */ },
-          },
-        ).map(function(doc) {
+        data: boards.map(function(doc) {
           return {
             _id: doc._id,
             title: doc.title,
@@ -2317,14 +2337,16 @@ if (Meteor.isServer) {
    *
    * @return_type {private: integer, public: integer}
    */
-  JsonRoutes.add('GET', '/api/boards_count', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards_count', async function(req, res) {
     try {
       Authentication.checkUserId(req.userId);
+      const privateBoards = await ReactiveCache.getBoards({ permission: 'private' });
+      const publicBoards = await ReactiveCache.getBoards({ permission: 'public' });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
-          private: ReactiveCache.getBoards({ permission: 'private' }).length,
-          public: ReactiveCache.getBoards({ permission: 'public' }).length,
+          private: privateBoards.length,
+          public: publicBoards.length,
         },
       });
     } catch (error) {
@@ -2342,14 +2364,15 @@ if (Meteor.isServer) {
    * @param {string} boardId the ID of the board to retrieve the data
    * @return_type Boards
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
+      const board = await ReactiveCache.getBoard(paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getBoard(paramBoardId),
+        data: board,
       });
     } catch (error) {
       JsonRoutes.sendResult(res, {
@@ -2494,12 +2517,12 @@ if (Meteor.isServer) {
    *
    * @return_type string
    */
-  JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
+  JsonRoutes.add('PUT', '/api/boards/:boardId/labels', async function(req, res) {
     const id = req.params.boardId;
     Authentication.checkBoardWriteAccess(req.userId, id);
     try {
       if (req.body.hasOwnProperty('label')) {
-        const board = ReactiveCache.getBoard(id);
+        const board = await ReactiveCache.getBoard(id);
         const color = req.body.label.color;
         const name = req.body.label.name;
         const labelId = Random.id(6);
@@ -2537,14 +2560,14 @@ if (Meteor.isServer) {
    *
    * @return_type string
    */
-JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
+JsonRoutes.add('POST', '/api/boards/:boardId/copy', async function(req, res) {
   const id = req.params.boardId;
-  const board = ReactiveCache.getBoard(id);
+  const board = await ReactiveCache.getBoard(id);
   const adminAccess = board.members.some(e => e.userId === req.userId && e.isAdmin);
   Authentication.checkAdminOrCondition(req.userId, adminAccess);
   try {
-    board['title'] = req.body.title || Boards.uniqueTitle(board.title);
-    ret = board.copy();
+    board['title'] = req.body.title || await Boards.uniqueTitle(board.title);
+    ret = await board.copy();
     JsonRoutes.sendResult(res, {
       code: 200,
       data: ret,
@@ -2581,7 +2604,7 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
       const { isAdmin, isNoComments, isCommentOnly, isWorker, isNormalAssignedOnly, isCommentAssignedOnly, isReadOnly, isReadAssignedOnly } = req.body;
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       function isTrue(data) {
         try {
           return data.toLowerCase() === 'true';
@@ -2631,13 +2654,14 @@ JsonRoutes.add('POST', '/api/boards/:boardId/copy', function(req, res) {
    *                cardId: string
    * }]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/attachments', async function(req, res) {
     const paramBoardId = req.params.boardId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const attachments = await ReactiveCache
+      .getAttachments({'meta.boardId': paramBoardId }, {}, true);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: ReactiveCache
-        .getAttachments({'meta.boardId': paramBoardId }, {}, true)
+      data: attachments
         .each()
         .map(function(attachment) {
           return {

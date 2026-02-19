@@ -179,13 +179,13 @@ Attachments = new FilesCollection({
   // We authorize the attachment download either:
   // - if the board is public, everyone (even unconnected) can download it
   // - if the board is private, only board members can download it
-  protected(fileObj) {
+  async protected(fileObj) {
     // file may have been deleted already again after upload validation failed
     if (!fileObj) {
       return false;
     }
 
-    const board = ReactiveCache.getBoard(fileObj.meta.boardId);
+    const board = await ReactiveCache.getBoard(fileObj.meta.boardId);
     if (board.isPublic()) {
       return true;
     }
@@ -198,7 +198,7 @@ if (Meteor.isServer) {
   Attachments.allow({
     insert(userId, fileObj) {
       // ReadOnly users cannot upload attachments
-      return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(fileObj.boardId));
+      return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(fileObj.boardId));
     },
     update(userId, fileObj, fields) {
       // SECURITY: The 'name' field is sanitized in onBeforeUpload and server-side methods,
@@ -230,7 +230,7 @@ if (Meteor.isServer) {
       }
 
       // ReadOnly users cannot update attachments
-      return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(fileObj.boardId));
+      return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(fileObj.boardId));
     },
     remove(userId, fileObj) {
       // Additional security check: ensure the file belongs to the board the user has access to
@@ -241,7 +241,7 @@ if (Meteor.isServer) {
         return false;
       }
 
-      const board = ReactiveCache.getBoard(fileObj.boardId);
+      const board = Boards.findOne(fileObj.boardId);
       if (!board) {
         if (process.env.DEBUG === 'true') {
           console.warn('Blocked attachment removal: board not found');
@@ -293,7 +293,7 @@ if (Meteor.isServer) {
 
       return { valid: true };
     },
-    moveAttachmentToStorage(fileObjId, storageDestination) {
+    async moveAttachmentToStorage(fileObjId, storageDestination) {
       check(fileObjId, String);
       check(storageDestination, String);
 
@@ -301,12 +301,12 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized', 'You must be logged in.');
       }
 
-      const fileObj = ReactiveCache.getAttachment(fileObjId);
+      const fileObj = await ReactiveCache.getAttachment(fileObjId);
       if (!fileObj) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
-      const board = ReactiveCache.getBoard(fileObj.boardId);
+      const board = await ReactiveCache.getBoard(fileObj.boardId);
       if (!board || !board.isVisibleBy({ _id: this.userId })) {
         throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
       }
@@ -319,7 +319,7 @@ if (Meteor.isServer) {
 
       moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
     },
-    renameAttachment(fileObjId, newName) {
+    async renameAttachment(fileObjId, newName) {
       check(fileObjId, String);
       check(newName, String);
 
@@ -328,13 +328,13 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized', 'User must be logged in');
       }
 
-      const fileObj = ReactiveCache.getAttachment(fileObjId);
+      const fileObj = await ReactiveCache.getAttachment(fileObjId);
       if (!fileObj) {
         throw new Meteor.Error('file-not-found', 'Attachment not found');
       }
 
       // Verify the user has permission to modify this attachment
-      const board = ReactiveCache.getBoard(fileObj.boardId);
+      const board = await ReactiveCache.getBoard(fileObj.boardId);
       if (!board) {
         throw new Meteor.Error('board-not-found', 'Board not found');
       }
@@ -348,30 +348,30 @@ if (Meteor.isServer) {
 
       rename(fileObj, newName, fileStoreStrategyFactory);
     },
-    validateAttachment(fileObjId) {
+    async validateAttachment(fileObjId) {
       check(fileObjId, String);
 
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'You must be logged in.');
       }
 
-      const fileObj = ReactiveCache.getAttachment(fileObjId);
+      const fileObj = await ReactiveCache.getAttachment(fileObjId);
       if (!fileObj) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
-      const board = ReactiveCache.getBoard(fileObj.boardId);
+      const board = await ReactiveCache.getBoard(fileObj.boardId);
       if (!board || !board.isVisibleBy({ _id: this.userId })) {
         throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
       }
 
-      const isValid = Promise.await(isFileValid(fileObj, attachmentUploadMimeTypes, attachmentUploadSize, attachmentUploadExternalProgram));
+      const isValid = await isFileValid(fileObj, attachmentUploadMimeTypes, attachmentUploadSize, attachmentUploadExternalProgram);
 
       if (!isValid) {
         Attachments.remove(fileObjId);
       }
     },
-    validateAttachmentAndMoveToStorage(fileObjId, storageDestination) {
+    async validateAttachmentAndMoveToStorage(fileObjId, storageDestination) {
       check(fileObjId, String);
       check(storageDestination, String);
 
@@ -379,12 +379,12 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized', 'You must be logged in.');
       }
 
-      const fileObj = ReactiveCache.getAttachment(fileObjId);
+      const fileObj = await ReactiveCache.getAttachment(fileObjId);
       if (!fileObj) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
-      const board = ReactiveCache.getBoard(fileObj.boardId);
+      const board = await ReactiveCache.getBoard(fileObj.boardId);
       if (!board || !board.isVisibleBy({ _id: this.userId })) {
         throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
       }
@@ -395,9 +395,9 @@ if (Meteor.isServer) {
         throw new Meteor.Error('invalid-storage-destination', 'Invalid storage destination');
       }
 
-      Meteor.call('validateAttachment', fileObjId);
+      await Meteor.callAsync('validateAttachment', fileObjId);
 
-      const fileObjAfter = ReactiveCache.getAttachment(fileObjId);
+      const fileObjAfter = await ReactiveCache.getAttachment(fileObjId);
 
       if (fileObjAfter) {
         Meteor.defer(() => Meteor.call('moveAttachmentToStorage', fileObjId, storageDestination));

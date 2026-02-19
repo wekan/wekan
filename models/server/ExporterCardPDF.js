@@ -640,8 +640,8 @@ class ExporterCardPDF {
 
   }
 
-  canExport(user) {
-    const board = ReactiveCache.getBoard(this._boardId);
+  async canExport(user) {
+    const board = await ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

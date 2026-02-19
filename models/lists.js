@@ -182,15 +182,15 @@ Lists.attachSchema(
 Lists.allow({
   insert(userId, doc) {
     // ReadOnly and CommentOnly users cannot create lists
-    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
   update(userId, doc) {
     // ReadOnly and CommentOnly users cannot edit lists
-    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
     // ReadOnly and CommentOnly users cannot delete lists
-    return allowIsBoardMemberWithWriteAccess(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberWithWriteAccess(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['boardId'],
 });
@@ -203,7 +203,7 @@ Lists.helpers({
     this.swimlaneId = swimlaneId;
 
     let _id = null;
-    const existingListWithSameName = ReactiveCache.getList({
+    const existingListWithSameName = await ReactiveCache.getList({
       boardId,
       title: this.title,
       archived: false,
@@ -213,11 +213,11 @@ Lists.helpers({
     } else {
       delete this._id;
       this.swimlaneId = swimlaneId; // Set the target swimlane for the copied list
-      _id = Lists.insert(this);
+      _id = await Lists.insertAsync(this);
     }
 
     // Copy all cards in list
-    const cards = ReactiveCache.getCards({
+    const cards = await ReactiveCache.getCards({
       swimlaneId: oldSwimlaneId,
       listId: oldId,
       archived: false,
@@ -230,7 +230,7 @@ Lists.helpers({
   },
 
   async move(boardId, swimlaneId) {
-    const boardList = ReactiveCache.getList({
+    const boardList = await ReactiveCache.getList({
       boardId,
       title: this.title,
       archived: false,
@@ -238,13 +238,13 @@ Lists.helpers({
     let listId;
     if (boardList) {
       listId = boardList._id;
-      for (const card of this.cards()) {
+      for (const card of await this.cards()) {
         await card.move(boardId, this._id, boardList._id);
       }
     } else {
       console.log('list.title:', this.title);
       console.log('boardList:', boardList);
-      listId = Lists.insert({
+      listId = await Lists.insertAsync({
         title: this.title,
         boardId,
         type: this.type,
@@ -254,7 +254,7 @@ Lists.helpers({
       });
     }
 
-    for (const card of this.cards(swimlaneId)) {
+    for (const card of await this.cards(swimlaneId)) {
       await card.move(boardId, swimlaneId, listId);
     }
   },
@@ -364,7 +364,7 @@ Lists.helpers({
 
   async archive() {
     if (this.isTemplateList()) {
-      for (const card of this.cards()) {
+      for (const card of await this.cards()) {
         await card.archive();
       }
     }
@@ -373,7 +373,7 @@ Lists.helpers({
 
   async restore() {
     if (this.isTemplateList()) {
-      for (const card of this.allCards()) {
+      for (const card of await this.allCards()) {
         await card.restore();
       }
     }
@@ -397,23 +397,25 @@ Lists.helpers({
   },
 });
 
-Lists.userArchivedLists = userId => {
-  return ReactiveCache.getLists({
-    boardId: { $in: Boards.userBoardIds(userId, null) },
+Lists.userArchivedLists = async userId => {
+  return await ReactiveCache.getLists({
+    boardId: { $in: await Boards.userBoardIds(userId, null) },
     archived: true,
   })
 };
 
-Lists.userArchivedListIds = () => {
-  return Lists.userArchivedLists().map(list => { return list._id; });
+Lists.userArchivedListIds = async () => {
+  const lists = await Lists.userArchivedLists();
+  return lists.map(list => { return list._id; });
 };
 
-Lists.archivedLists = () => {
-  return ReactiveCache.getLists({ archived: true });
+Lists.archivedLists = async () => {
+  return await ReactiveCache.getLists({ archived: true });
 };
 
-Lists.archivedListIds = () => {
-  return Lists.archivedLists().map(list => {
+Lists.archivedListIds = async () => {
+  const lists = await Lists.archivedLists();
+  return lists.map(list => {
     return list._id;
   });
 };
@@ -427,12 +429,12 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const list = ReactiveCache.getList(listId);
+    const list = await ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const board = ReactiveCache.getBoard(list.boardId);
+    const board = await ReactiveCache.getBoard(list.boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
@@ -450,63 +452,62 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const list = ReactiveCache.getList(listId);
+    const list = await ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const board = ReactiveCache.getBoard(list.boardId);
+    const board = await ReactiveCache.getBoard(list.boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
 
-    if (list.getWipLimit('value') === 0) {
+    if ((await list.getWipLimit('value')) === 0) {
       await list.setWipLimit(1);
     }
-    list.toggleWipLimit(!list.getWipLimit('enabled'));
+    await list.toggleWipLimit(!(await list.getWipLimit('enabled')));
   },
 
-  enableSoftLimit(listId) {
+  async enableSoftLimit(listId) {
     check(listId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const list = ReactiveCache.getList(listId);
+    const list = await ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const board = ReactiveCache.getBoard(list.boardId);
+    const board = await ReactiveCache.getBoard(list.boardId);
     if (!board || !board.hasAdmin(this.userId)) {
       throw new Meteor.Error('not-authorized', 'You must be a board admin to modify WIP limits.');
     }
 
-    list.toggleSoftLimit(!list.getWipLimit('soft'));
+    await list.toggleSoftLimit(!(await list.getWipLimit('soft')));
   },
 
-  myLists() {
+  async myLists() {
     // my lists
-    return _.uniq(
-      ReactiveCache.getLists(
-        {
-          boardId: { $in: Boards.userBoardIds(this.userId) },
-          archived: false,
-        },
-        {
-          fields: { title: 1 },
-        },
-      ).map(list => list.title),
-    ).sort();
+    const lists = await ReactiveCache.getLists(
+      {
+        boardId: { $in: await Boards.userBoardIds(this.userId) },
+        archived: false,
+      },
+      {
+        fields: { title: 1 },
+      },
+    );
+    return _.uniq(lists.map(list => list.title)).sort();
   },
 
-  updateListSort(listId, boardId, updateData) {
+  async updateListSort(listId, boardId, updateData) {
     check(listId, String);
     check(boardId, String);
     check(updateData, Object);
 
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
@@ -519,7 +520,7 @@ Meteor.methods({
       }
     }
 
-    const list = ReactiveCache.getList(listId);
+    const list = await ReactiveCache.getList(listId);
     if (!list) {
       throw new Meteor.Error('list-not-found', 'List not found');
     }
@@ -532,14 +533,14 @@ Meteor.methods({
     });
 
     if (updateData.swimlaneId) {
-      const swimlane = ReactiveCache.getSwimlane(updateData.swimlaneId);
+      const swimlane = await ReactiveCache.getSwimlane(updateData.swimlaneId);
       if (!swimlane || swimlane.boardId !== boardId) {
         throw new Meteor.Error('invalid-swimlane', 'Invalid swimlane for this board');
       }
     }
 
-    Lists.update(
-      { _id: listId, boardId },
+    await Lists.updateAsync(
+      listId,
       {
         $set: {
           ...updateData,
@@ -586,14 +587,14 @@ Lists.after.insert((userId, doc) => {
   }, 100);
 });
 
-Lists.before.remove((userId, doc) => {
-  const cards = ReactiveCache.getCards({ listId: doc._id });
+Lists.before.remove(async (userId, doc) => {
+  const cards = await ReactiveCache.getCards({ listId: doc._id });
   if (cards) {
-    cards.forEach(card => {
-      Cards.remove(card._id);
-    });
+    for (const card of cards) {
+      await Cards.removeAsync(card._id);
+    }
   }
-  Activities.insert({
+  await Activities.insertAsync({
     userId,
     type: 'list',
     activityType: 'removeList',
@@ -661,14 +662,14 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
    *           title: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists', function(req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getLists({ boardId: paramBoardId, archived: false }).map(
+        data: (await ReactiveCache.getLists({ boardId: paramBoardId, archived: false })).map(
           function(doc) {
             return {
               _id: doc._id,
@@ -693,7 +694,7 @@ if (Meteor.isServer) {
    * @param {string} listId the List ID
    * @return_type Lists
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function(
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', async function(
     req,
     res,
   ) {
@@ -703,7 +704,7 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getList({
+        data: await ReactiveCache.getList({
           _id: paramListId,
           boardId: paramBoardId,
           archived: false,
@@ -725,12 +726,12 @@ if (Meteor.isServer) {
    * @param {string} title the title of the List
    * @return_type {_id: string}
    */
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists', function(req, res) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
-      const board = ReactiveCache.getBoard(paramBoardId);
-      const id = Lists.insert({
+      const board = await ReactiveCache.getBoard(paramBoardId);
+      const id = await Lists.insertAsync({
         title: req.body.title,
         boardId: paramBoardId,
         sort: board.lists().length,
@@ -766,7 +767,7 @@ if (Meteor.isServer) {
    * @param {boolean} [collapsed] whether the list is collapsed
    * @return_type {_id: string}
    */
-  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId', function(
+  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId', async function(
     req,
     res,
   ) {
@@ -776,7 +777,7 @@ if (Meteor.isServer) {
       let updated = false;
       Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
-      const list = ReactiveCache.getList({
+      const list = await ReactiveCache.getList({
         _id: paramListId,
         boardId: paramBoardId,
         archived: false,

@@ -15,13 +15,13 @@ Meteor.startup(() => {
 
   Authentication = {};
 
-  Authentication.checkUserId = function(userId) {
+  Authentication.checkUserId = async function(userId) {
     if (userId === undefined) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
       throw error;
     }
-    const admin = ReactiveCache.getUser({ _id: userId, isAdmin: true });
+    const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
 
     if (admin === undefined) {
       const error = new Meteor.Error('Forbidden', 'Forbidden');
@@ -42,9 +42,9 @@ Meteor.startup(() => {
 
   // An admin should be authorized to access everything, so we use a separate check for admins
   // This throws an error if otherReq is false and the user is not an admin
-  Authentication.checkAdminOrCondition = function(userId, otherReq) {
+  Authentication.checkAdminOrCondition = async function(userId, otherReq) {
     if (otherReq) return;
-    const admin = ReactiveCache.getUser({ _id: userId, isAdmin: true });
+    const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
     if (admin === undefined) {
       const error = new Meteor.Error('Forbidden', 'Forbidden');
       error.statusCode = 403;
@@ -53,19 +53,19 @@ Meteor.startup(() => {
   };
 
   // Helper function. Will throw an error if the user is not active BoardAdmin or active Normal user of the board.
-  Authentication.checkBoardAccess = function(userId, boardId) {
+  Authentication.checkBoardAccess = async function(userId, boardId) {
     Authentication.checkLoggedIn(userId);
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     const normalAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker);
-    Authentication.checkAdminOrCondition(userId, normalAccess);
+    await Authentication.checkAdminOrCondition(userId, normalAccess);
   };
 
   // Helper function. Will throw an error if the user does not have write access to the board (excludes read-only users).
-  Authentication.checkBoardWriteAccess = function(userId, boardId) {
+  Authentication.checkBoardWriteAccess = async function(userId, boardId) {
     Authentication.checkLoggedIn(userId);
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     const writeAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
-    Authentication.checkAdminOrCondition(userId, writeAccess);
+    await Authentication.checkAdminOrCondition(userId, writeAccess);
   };
 
   if (Meteor.isServer) {

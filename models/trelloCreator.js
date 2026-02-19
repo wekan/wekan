@@ -181,7 +181,7 @@ export class TrelloCreator {
   }
 
   // You must call parseActions before calling this one.
-  createBoardAndLabels(trelloBoard) {
+  async createBoardAndLabels(trelloBoard) {
     let color = 'blue';
     if (this.getColor(trelloBoard.prefs.background) !== undefined) {
       color = this.getColor(trelloBoard.prefs.background);
@@ -207,7 +207,7 @@ export class TrelloCreator {
       permission: this.getPermission(trelloBoard.prefs.permissionLevel),
       slug: getSlug(trelloBoard.name) || 'board',
       stars: 0,
-      title: Boards.uniqueTitle(trelloBoard.name),
+      title: await Boards.uniqueTitle(trelloBoard.name),
     };
     // now add other members
     if (trelloBoard.memberships) {
@@ -775,11 +775,11 @@ export class TrelloCreator {
       Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
-      const currentBoard = ReactiveCache.getBoard(currentBoardId);
+      const currentBoard = await ReactiveCache.getBoard(currentBoardId);
       await currentBoard.archive();
     }
     this.parseActions(board.actions);
-    const boardId = this.createBoardAndLabels(board);
+    const boardId = await this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
     this.createSwimlanes(boardId);
     this.createCards(board.cards, boardId);

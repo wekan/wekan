@@ -174,17 +174,17 @@ UserPositionHistory.helpers({
   /**
    * Can this change be undone?
    */
-  canUndo() {
+  async canUndo() {
     // Can undo if the entity still exists
     switch (this.entityType) {
       case 'card':
-        return !!ReactiveCache.getCard(this.entityId);
+        return !!(await ReactiveCache.getCard(this.entityId));
       case 'list':
-        return !!ReactiveCache.getList(this.entityId);
+        return !!(await ReactiveCache.getList(this.entityId));
       case 'swimlane':
-        return !!ReactiveCache.getSwimlane(this.entityId);
+        return !!(await ReactiveCache.getSwimlane(this.entityId));
       case 'checklist':
-        return !!ReactiveCache.getChecklist(this.entityId);
+        return !!(await ReactiveCache.getChecklist(this.entityId));
       case 'checklistItem':
         return !!ChecklistItems.findOne(this.entityId);
       default:
@@ -195,8 +195,8 @@ UserPositionHistory.helpers({
   /**
    * Undo this change
    */
-  undo() {
-    if (!this.canUndo()) {
+  async undo() {
+    if (!(await this.canUndo())) {
       throw new Meteor.Error('cannot-undo', 'Entity no longer exists');
     }
 
@@ -204,7 +204,7 @@ UserPositionHistory.helpers({
 
     switch (this.entityType) {
       case 'card': {
-        const card = ReactiveCache.getCard(this.entityId);
+        const card = await ReactiveCache.getCard(this.entityId);
         if (card) {
           // Restore previous position
           const boardId = this.previousBoardId || card.boardId;
@@ -224,7 +224,7 @@ UserPositionHistory.helpers({
         break;
       }
       case 'list': {
-        const list = ReactiveCache.getList(this.entityId);
+        const list = await ReactiveCache.getList(this.entityId);
         if (list) {
           const sort = this.previousSort !== undefined ? this.previousSort : list.sort;
           const swimlaneId = this.previousSwimlaneId || list.swimlaneId;
@@ -239,7 +239,7 @@ UserPositionHistory.helpers({
         break;
       }
       case 'swimlane': {
-        const swimlane = ReactiveCache.getSwimlane(this.entityId);
+        const swimlane = await ReactiveCache.getSwimlane(this.entityId);
         if (swimlane) {
           const sort = this.previousSort !== undefined ? this.previousSort : swimlane.sort;
 
@@ -252,7 +252,7 @@ UserPositionHistory.helpers({
         break;
       }
       case 'checklist': {
-        const checklist = ReactiveCache.getChecklist(this.entityId);
+        const checklist = await ReactiveCache.getChecklist(this.entityId);
         if (checklist) {
           const sort = this.previousSort !== undefined ? this.previousSort : checklist.sort;
 
@@ -411,7 +411,7 @@ Meteor.methods({
     });
   },
 
-  'userPositionHistory.undo'(historyId) {
+  async 'userPositionHistory.undo'(historyId) {
     check(historyId, String);
 
     if (!this.userId) {
@@ -423,7 +423,7 @@ Meteor.methods({
       throw new Meteor.Error('not-found', 'History entry not found');
     }
 
-    return history.undo();
+    return await history.undo();
   },
 
   'userPositionHistory.getRecent'(boardId, limit = 50) {
@@ -453,7 +453,7 @@ Meteor.methods({
     ).fetch();
   },
 
-  'userPositionHistory.restoreToCheckpoint'(checkpointId) {
+  async 'userPositionHistory.restoreToCheckpoint'(checkpointId) {
     check(checkpointId, String);
 
     if (!this.userId) {
@@ -482,16 +482,16 @@ Meteor.methods({
     ).fetch();
 
     let undoneCount = 0;
-    changesToUndo.forEach(change => {
+    for (const change of changesToUndo) {
       try {
-        if (change.canUndo()) {
-          change.undo();
+        if (await change.canUndo()) {
+          await change.undo();
           undoneCount++;
         }
       } catch (e) {
         console.warn('Failed to undo change:', change._id, e);
       }
-    });
+    };
 
     return { undoneCount, totalChanges: changesToUndo.length };
   },

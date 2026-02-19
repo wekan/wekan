@@ -31,7 +31,7 @@ class ExporterExcel {
     this.userLanguage = userLanguage;
   }
 
-  build(res) {
+  async build(res) {
     const fs = Npm.require('fs');
     const os = Npm.require('os');
     const path = Npm.require('path');
@@ -56,16 +56,16 @@ class ExporterExcel {
     };
     _.extend(
       result,
-      ReactiveCache.getBoard(this._boardId, {
+      await ReactiveCache.getBoard(this._boardId, {
         fields: {
           stars: 0,
         },
       }),
     );
-    result.lists = ReactiveCache.getLists(byBoard, noBoardId);
-    result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
-    result.swimlanes = ReactiveCache.getSwimlanes(byBoard, noBoardId);
-    result.customFields = ReactiveCache.getCustomFields(
+    result.lists = await ReactiveCache.getLists(byBoard, noBoardId);
+    result.cards = await ReactiveCache.getCards(byBoardNoLinked, noBoardId);
+    result.swimlanes = await ReactiveCache.getSwimlanes(byBoard, noBoardId);
+    result.customFields = await ReactiveCache.getCustomFields(
       {
         boardIds: {
           $in: [this.boardId],
@@ -77,34 +77,34 @@ class ExporterExcel {
         },
       },
     );
-    result.comments = ReactiveCache.getCardComments(byBoard, noBoardId);
-    result.activities = ReactiveCache.getActivities(byBoard, noBoardId);
-    result.rules = ReactiveCache.getRules(byBoard, noBoardId);
+    result.comments = await ReactiveCache.getCardComments(byBoard, noBoardId);
+    result.activities = await ReactiveCache.getActivities(byBoard, noBoardId);
+    result.rules = await ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
     result.checklistItems = [];
     result.subtaskItems = [];
     result.triggers = [];
     result.actions = [];
-    result.cards.forEach((card) => {
+    for (const card of result.cards) {
       result.checklists.push(
-        ...ReactiveCache.getChecklists({
+        ...await ReactiveCache.getChecklists({
           cardId: card._id,
         }),
       );
       result.checklistItems.push(
-        ...ReactiveCache.getChecklistItems({
+        ...await ReactiveCache.getChecklistItems({
           cardId: card._id,
         }),
       );
       result.subtaskItems.push(
-        ...ReactiveCache.getCards({
+        ...await ReactiveCache.getCards({
           parentId: card._id,
         }),
       );
-    });
-    result.rules.forEach((rule) => {
+    }
+    for (const rule of result.rules) {
       result.triggers.push(
-        ...ReactiveCache.getTriggers(
+        ...await ReactiveCache.getTriggers(
           {
             _id: rule.triggerId,
           },
@@ -112,14 +112,14 @@ class ExporterExcel {
         ),
       );
       result.actions.push(
-        ...ReactiveCache.getActions(
+        ...await ReactiveCache.getActions(
           {
             _id: rule.actionId,
           },
           noBoardId,
         ),
       );
-    });
+    }
 
     // we also have to export some user data - as the other elements only
     // include id but we have to be careful:
@@ -169,7 +169,7 @@ class ExporterExcel {
         'profile.avatarUrl': 1,
       },
     };
-    result.users = ReactiveCache.getUsers(byUserIds, userFields)
+    result.users = (await ReactiveCache.getUsers(byUserIds, userFields))
       .map((user) => {
         // user avatar is stored as a relative url, we export absolute
         if ((user.profile || {}).avatarUrl) {
@@ -905,8 +905,8 @@ class ExporterExcel {
     workbook.xlsx.write(res).then(function () {});
   }
 
-  canExport(user) {
-    const board = ReactiveCache.getBoard(this._boardId);
+  async canExport(user) {
+    const board = await ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

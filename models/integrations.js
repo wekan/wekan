@@ -102,9 +102,9 @@ Integrations.Const = {
 };
 const permissionHelper = {
   allow(userId, doc) {
-    const user = ReactiveCache.getUser(userId);
-    const isAdmin = user && ReactiveCache.getCurrentUser().isAdmin;
-    return isAdmin || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+    const user = Meteor.users.findOne(userId);
+    const isAdmin = user && user.isAdmin;
+    return isAdmin || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
 };
 Integrations.allow({
@@ -134,7 +134,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the board ID
    * @return_type [Integrations]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/integrations', function(
+  JsonRoutes.add('GET', '/api/boards/:boardId/integrations', async function(
     req,
     res,
   ) {
@@ -142,10 +142,10 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
-      const data = ReactiveCache.getIntegrations(
+      const data = (await ReactiveCache.getIntegrations(
         { boardId: paramBoardId },
         { fields: { token: 0 } },
-      ).map(function(doc) {
+      )).map(function(doc) {
         return doc;
       });
 
@@ -166,7 +166,7 @@ if (Meteor.isServer) {
    * @param {string} intId the integration ID
    * @return_type Integrations
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/integrations/:intId', function(
+  JsonRoutes.add('GET', '/api/boards/:boardId/integrations/:intId', async function(
     req,
     res,
   ) {
@@ -177,7 +177,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getIntegration(
+        data: await ReactiveCache.getIntegration(
           { _id: paramIntId, boardId: paramBoardId },
           { fields: { token: 0 } },
         ),
@@ -310,7 +310,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'DELETE',
     '/api/boards/:boardId/integrations/:intId/activities',
-    function(req, res) {
+    async function(req, res) {
       try {
         const paramBoardId = req.params.boardId;
         const paramIntId = req.params.intId;
@@ -324,7 +324,7 @@ if (Meteor.isServer) {
 
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: ReactiveCache.getIntegration(
+          data: await ReactiveCache.getIntegration(
             { _id: paramIntId, boardId: paramBoardId },
             { fields: { _id: 1, activities: 1 } },
           ),
@@ -350,7 +350,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/integrations/:intId/activities',
-    function(req, res) {
+    async function(req, res) {
       try {
         const paramBoardId = req.params.boardId;
         const paramIntId = req.params.intId;
@@ -364,7 +364,7 @@ if (Meteor.isServer) {
 
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: ReactiveCache.getIntegration(
+          data: await ReactiveCache.getIntegration(
             { _id: paramIntId, boardId: paramBoardId },
             { fields: { _id: 1, activities: 1 } },
           ),

@@ -34,7 +34,7 @@ export class Exporter {
     this._attachmentId = attachmentId;
   }
 
-  build() {
+  async build() {
     const fs = Npm.require('fs');
     const os = Npm.require('os');
     const path = Npm.require('path');
@@ -55,7 +55,7 @@ export class Exporter {
     };
     _.extend(
       result,
-      ReactiveCache.getBoard(this._boardId, {
+      await ReactiveCache.getBoard(this._boardId, {
         fields: {
           stars: 0,
         },
@@ -97,7 +97,7 @@ export class Exporter {
     const byBoardAndAttachment = this._attachmentId
       ? { boardId: this._boardId, _id: this._attachmentId }
       : byBoard;
-    result.attachments = ReactiveCache.getAttachments(byBoardAndAttachment)
+    result.attachments = (await ReactiveCache.getAttachments(byBoardAndAttachment))
       .map((attachment) => {
         let filebase64 = null;
         filebase64 = getBase64DataSync(attachment);
@@ -116,41 +116,41 @@ export class Exporter {
       return result.attachments.length > 0 ? result.attachments[0] : {};
     }
 
-    result.lists = ReactiveCache.getLists(byBoard, noBoardId);
-    result.cards = ReactiveCache.getCards(byBoardNoLinked, noBoardId);
-    result.swimlanes = ReactiveCache.getSwimlanes(byBoard, noBoardId);
-    result.customFields = ReactiveCache.getCustomFields(
+    result.lists = await ReactiveCache.getLists(byBoard, noBoardId);
+    result.cards = await ReactiveCache.getCards(byBoardNoLinked, noBoardId);
+    result.swimlanes = await ReactiveCache.getSwimlanes(byBoard, noBoardId);
+    result.customFields = await ReactiveCache.getCustomFields(
       { boardIds: this._boardId },
       { fields: { boardIds: 0 } },
     );
-    result.comments = ReactiveCache.getCardComments(byBoard, noBoardId);
-    result.activities = ReactiveCache.getActivities(byBoard, noBoardId);
-    result.rules = ReactiveCache.getRules(byBoard, noBoardId);
+    result.comments = await ReactiveCache.getCardComments(byBoard, noBoardId);
+    result.activities = await ReactiveCache.getActivities(byBoard, noBoardId);
+    result.rules = await ReactiveCache.getRules(byBoard, noBoardId);
     result.checklists = [];
     result.checklistItems = [];
     result.subtaskItems = [];
     result.triggers = [];
     result.actions = [];
-    result.cards.forEach((card) => {
+    for (const card of result.cards) {
       result.checklists.push(
-        ...ReactiveCache.getChecklists({
+        ...await ReactiveCache.getChecklists({
           cardId: card._id,
         }),
       );
       result.checklistItems.push(
-        ...ReactiveCache.getChecklistItems({
+        ...await ReactiveCache.getChecklistItems({
           cardId: card._id,
         }),
       );
       result.subtaskItems.push(
-        ...ReactiveCache.getCards({
+        ...await ReactiveCache.getCards({
           parentId: card._id,
         }),
       );
-    });
-    result.rules.forEach((rule) => {
+    }
+    for (const rule of result.rules) {
       result.triggers.push(
-        ...ReactiveCache.getTriggers(
+        ...await ReactiveCache.getTriggers(
           {
             _id: rule.triggerId,
           },
@@ -158,14 +158,14 @@ export class Exporter {
         ),
       );
       result.actions.push(
-        ...ReactiveCache.getActions(
+        ...await ReactiveCache.getActions(
           {
             _id: rule.actionId,
           },
           noBoardId,
         ),
       );
-    });
+    }
 
     // we also have to export some user data - as the other elements only
     // include id but we have to be careful:
@@ -211,7 +211,7 @@ export class Exporter {
         'profile.avatarUrl': 1,
       },
     };
-    result.users = ReactiveCache.getUsers(byUserIds, userFields)
+    result.users = (await ReactiveCache.getUsers(byUserIds, userFields))
       .map((user) => {
         // user avatar is stored as a relative url, we export absolute
         if ((user.profile || {}).avatarUrl) {
@@ -222,8 +222,8 @@ export class Exporter {
     return result;
   }
 
-  buildCsv(userDelimiter = ',', userLanguage='en') {
-    const result = this.build();
+  async buildCsv(userDelimiter = ',', userLanguage='en') {
+    const result = await this.build();
     const columnHeaders = [];
     const cardRows = [];
 
@@ -398,8 +398,8 @@ export class Exporter {
     return Papa.unparse(cardRows, papaconfig);
   }
 
-  canExport(user) {
-    const board = ReactiveCache.getBoard(this._boardId);
+  async canExport(user) {
+    const board = await ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
 }

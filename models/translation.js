@@ -59,7 +59,7 @@ Translation.attachSchema(
 if (Meteor.isServer) {
   Translation.allow({
     insert(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -68,7 +68,7 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     update(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -77,7 +77,7 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     remove(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -89,7 +89,7 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    setCreateTranslation(
+    async setCreateTranslation(
       language,
       text,
       translationText,
@@ -98,11 +98,11 @@ if (Meteor.isServer) {
       check(text, String);
       check(translationText, String);
 
-      if (!ReactiveCache.getCurrentUser()?.isAdmin) {
+      if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
         throw new Meteor.Error('not-authorized');
       }
 
-      const nTexts = ReactiveCache.getTranslations({ language, text }).length;
+      const nTexts = (await ReactiveCache.getTranslations({ language, text })).length;
       if (nTexts > 0) {
         throw new Meteor.Error('text-already-taken');
       } else {
@@ -113,11 +113,11 @@ if (Meteor.isServer) {
         });
       }
     },
-    setTranslationText(translation, translationText) {
+    async setTranslationText(translation, translationText) {
       check(translation, Object);
       check(translationText, String);
 
-      if (!ReactiveCache.getCurrentUser()?.isAdmin) {
+      if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
         throw new Meteor.Error('not-authorized');
       }
 
@@ -125,10 +125,10 @@ if (Meteor.isServer) {
         $set: { translationText: translationText },
       });
     },
-    deleteTranslation(translationId) {
+    async deleteTranslation(translationId) {
       check(translationId, String);
 
-      if (!ReactiveCache.getCurrentUser()?.isAdmin) {
+      if (!(await ReactiveCache.getCurrentUser())?.isAdmin) {
         throw new Meteor.Error('not-authorized');
       }
 

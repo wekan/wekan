@@ -167,25 +167,25 @@ CustomFields.allow({
   insert(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      ReactiveCache.getBoards({
+      Boards.find({
         _id: { $in: doc.boardIds },
-      }),
+      }).fetch(),
     );
   },
   update(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      ReactiveCache.getBoards({
+      Boards.find({
         _id: { $in: doc.boardIds },
-      }),
+      }).fetch(),
     );
   },
   remove(userId, doc) {
     return allowIsAnyBoardMember(
       userId,
-      ReactiveCache.getBoards({
+      Boards.find({
         _id: { $in: doc.boardIds },
-      }),
+      }).fetch(),
     );
   },
   fetch: ['userId', 'boardIds'],
@@ -214,9 +214,9 @@ function customFieldDeletion(userId, doc) {
 
 // This has some bug, it does not show edited customField value at Outgoing Webhook,
 // instead it shows undefined, and no listId and swimlaneId.
-function customFieldEdit(userId, doc) {
-  const card = ReactiveCache.getCard(doc.cardId);
-  const customFieldValue = ReactiveCache.getActivity({ customFieldId: doc._id }).value;
+async function customFieldEdit(userId, doc) {
+  const card = await ReactiveCache.getCard(doc.cardId);
+  const customFieldValue = (await ReactiveCache.getActivity({ customFieldId: doc._id })).value;
   Activities.insert({
     userId,
     activityType: 'setCustomField',
@@ -242,14 +242,14 @@ if (Meteor.isServer) {
     }
   });
 
-  CustomFields.before.update((userId, doc, fieldNames, modifier) => {
+  CustomFields.before.update(async (userId, doc, fieldNames, modifier) => {
     if (_.contains(fieldNames, 'boardIds') && modifier.$pull) {
       Cards.update(
         { boardId: modifier.$pull.boardIds, 'customFields._id': doc._id },
         { $pull: { customFields: { _id: doc._id } } },
         { multi: true },
       );
-      customFieldEdit(userId, doc);
+      await customFieldEdit(userId, doc);
       Activities.remove({
         customFieldId: doc._id,
         boardId: modifier.$pull.boardIds,
@@ -296,7 +296,7 @@ if (Meteor.isServer) {
    *                name: string,
    *                type: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields', function(
+  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields', async function(
     req,
     res,
   ) {
@@ -304,7 +304,7 @@ if (Meteor.isServer) {
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: ReactiveCache.getCustomFields({ boardIds: { $in: [paramBoardId] } }).map(
+      data: (await ReactiveCache.getCustomFields({ boardIds: { $in: [paramBoardId] } })).map(
         function(cf) {
           return {
             _id: cf._id,
@@ -328,13 +328,13 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'GET',
     '/api/boards/:boardId/custom-fields/:customFieldId',
-    function(req, res) {
+    async function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramCustomFieldId = req.params.customFieldId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getCustomField({
+        data: await ReactiveCache.getCustomField({
           _id: paramCustomFieldId,
           boardIds: { $in: [paramBoardId] },
         }),
@@ -356,13 +356,13 @@ if (Meteor.isServer) {
    * @param {boolean} showSumAtTopOfList should the sum of the custom fields be shown at top of list?
    * @return_type {_id: string}
    */
-  JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function(
+  JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', async function(
     req,
     res,
   ) {
     const paramBoardId = req.params.boardId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
-    const board = ReactiveCache.getBoard(paramBoardId);
+    const board = await ReactiveCache.getBoard(paramBoardId);
     const id = CustomFields.direct.insert({
       name: req.body.name,
       type: req.body.type,
@@ -374,7 +374,7 @@ if (Meteor.isServer) {
       boardIds: [board._id],
     });
 
-    const customField = ReactiveCache.getCustomField({
+    const customField = await ReactiveCache.getCustomField({
       _id: id,
       boardIds: { $in: [paramBoardId] },
     });

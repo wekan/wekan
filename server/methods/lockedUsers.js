@@ -8,7 +8,7 @@ Meteor.methods({
     if (!userId) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user');
     }
-    const user = ReactiveCache.getUser(userId);
+    const user = await ReactiveCache.getUser(userId);
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('error-not-allowed', 'Not allowed');
     }
@@ -56,7 +56,7 @@ Meteor.methods({
     if (!adminId) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user');
     }
-    const admin = ReactiveCache.getUser(adminId);
+    const admin = await ReactiveCache.getUser(adminId);
     if (!admin || !admin.isAdmin) {
       throw new Meteor.Error('error-not-allowed', 'Not allowed');
     }
@@ -86,7 +86,7 @@ Meteor.methods({
     if (!adminId) {
       throw new Meteor.Error('error-invalid-user', 'Invalid user');
     }
-    const admin = ReactiveCache.getUser(adminId);
+    const admin = await ReactiveCache.getUser(adminId);
     if (!admin || !admin.isAdmin) {
       throw new Meteor.Error('error-not-allowed', 'Not allowed');
     }

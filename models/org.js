@@ -88,7 +88,7 @@ Org.attachSchema(
 if (Meteor.isServer) {
   Org.allow({
     insert(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -97,7 +97,7 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     update(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -106,7 +106,7 @@ if (Meteor.isServer) {
       return doc._id === userId;
     },
     remove(userId, doc) {
-      const user = ReactiveCache.getUser(userId) || ReactiveCache.getCurrentUser();
+      const user = Meteor.users.findOne(userId);
       if (user?.isAdmin)
         return true;
       if (!user) {
@@ -119,7 +119,7 @@ if (Meteor.isServer) {
 
 
   Meteor.methods({
-    setCreateOrg(
+    async setCreateOrg(
       orgDisplayName,
       orgDesc,
       orgShortName,
@@ -127,7 +127,7 @@ if (Meteor.isServer) {
       orgWebsite,
       orgIsActive,
     ) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(orgDisplayName, String);
         check(orgDesc, String);
         check(orgShortName, String);
@@ -135,7 +135,7 @@ if (Meteor.isServer) {
         check(orgWebsite, String);
         check(orgIsActive, Boolean);
 
-        const nOrgNames = ReactiveCache.getOrgs({ orgShortName }).length;
+        const nOrgNames = (await ReactiveCache.getOrgs({ orgShortName })).length;
         if (nOrgNames > 0) {
           throw new Meteor.Error('orgname-already-taken');
         } else {
@@ -150,7 +150,7 @@ if (Meteor.isServer) {
         }
       }
     },
-    setCreateOrgFromOidc(
+    async setCreateOrgFromOidc(
       orgDisplayName,
       orgDesc,
       orgShortName,
@@ -165,7 +165,7 @@ if (Meteor.isServer) {
       check(orgWebsite, String);
       check(orgIsActive, Boolean);
 
-      const nOrgNames = ReactiveCache.getOrgs({ orgShortName }).length;
+      const nOrgNames = (await ReactiveCache.getOrgs({ orgShortName })).length;
       if (nOrgNames > 0) {
         throw new Meteor.Error('orgname-already-taken');
       } else {
@@ -179,19 +179,19 @@ if (Meteor.isServer) {
         });
       }
     },
-    setOrgDisplayName(org, orgDisplayName) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setOrgDisplayName(org, orgDisplayName) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(org, Object);
         check(orgDisplayName, String);
         Org.update(org, {
           $set: { orgDisplayName: orgDisplayName },
         });
-        Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
+        await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
       }
     },
 
-    setOrgDesc(org, orgDesc) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setOrgDesc(org, orgDesc) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(org, Object);
         check(orgDesc, String);
         Org.update(org, {
@@ -200,8 +200,8 @@ if (Meteor.isServer) {
       }
     },
 
-    setOrgShortName(org, orgShortName) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setOrgShortName(org, orgShortName) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(org, Object);
         check(orgShortName, String);
         Org.update(org, {
@@ -210,8 +210,8 @@ if (Meteor.isServer) {
       }
     },
 
-    setAutoAddUsersWithDomainName(org, orgAutoAddUsersWithDomainName) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setAutoAddUsersWithDomainName(org, orgAutoAddUsersWithDomainName) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(org, Object);
         check(orgAutoAddUsersWithDomainName, String);
         Org.update(org, {
@@ -220,8 +220,8 @@ if (Meteor.isServer) {
       }
     },
 
-    setOrgIsActive(org, orgIsActive) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+    async setOrgIsActive(org, orgIsActive) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(org, Object);
         check(orgIsActive, Boolean);
         Org.update(org, {
@@ -229,7 +229,7 @@ if (Meteor.isServer) {
         });
       }
     },
-    setOrgAllFieldsFromOidc(
+    async setOrgAllFieldsFromOidc(
       org,
       orgDisplayName,
       orgDesc,
@@ -255,9 +255,9 @@ if (Meteor.isServer) {
           orgIsActive: orgIsActive,
         },
       });
-      Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
+      await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
     },
-    setOrgAllFields(
+    async setOrgAllFields(
       org,
       orgDisplayName,
       orgDesc,
@@ -266,7 +266,7 @@ if (Meteor.isServer) {
       orgWebsite,
       orgIsActive,
     ) {
-      if (ReactiveCache.getCurrentUser()?.isAdmin) {
+      if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
         check(org, Object);
         check(orgDisplayName, String);
         check(orgDesc, String);
@@ -284,7 +284,7 @@ if (Meteor.isServer) {
             orgIsActive: orgIsActive,
           },
         });
-        Meteor.call('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
+        await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
       }
     },
   });

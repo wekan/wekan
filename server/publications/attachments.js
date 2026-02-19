@@ -1,16 +1,16 @@
 import Attachments from '/models/attachments';
 import { ObjectID } from 'bson';
 
-Meteor.publish('attachmentsList', function(limit) {
+Meteor.publish('attachmentsList', async function(limit) {
   const userId = this.userId;
 
   // Get boards the user has access to
-  const userBoards = ReactiveCache.getBoards({
+  const userBoards = (await ReactiveCache.getBoards({
     $or: [
       { permission: 'public' },
       { members: { $elemMatch: { userId, isActive: true } } }
     ]
-  }).map(board => board._id);
+  })).map(board => board._id);
 
   if (userBoards.length === 0) {
     // User has no access to any boards, return empty cursor
@@ -18,10 +18,10 @@ Meteor.publish('attachmentsList', function(limit) {
   }
 
   // Get cards from those boards
-  const userCards = ReactiveCache.getCards({
+  const userCards = (await ReactiveCache.getCards({
     boardId: { $in: userBoards },
     archived: false
-  }).map(card => card._id);
+  })).map(card => card._id);
 
   if (userCards.length === 0) {
     // No cards found, return empty cursor
@@ -29,7 +29,7 @@ Meteor.publish('attachmentsList', function(limit) {
   }
 
   // Only return attachments for cards the user has access to
-  const ret = ReactiveCache.getAttachments(
+  const ret = (await ReactiveCache.getAttachments(
     { 'meta.cardId': { $in: userCards } },
     {
       fields: {
@@ -47,6 +47,6 @@ Meteor.publish('attachmentsList', function(limit) {
       limit: limit,
     },
     true,
-  ).cursor;
+  )).cursor;
   return ret;
 });

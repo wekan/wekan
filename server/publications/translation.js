@@ -1,14 +1,14 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-Meteor.publish('translation', function(query, limit) {
+Meteor.publish('translation', async function(query, limit) {
   check(query, Match.OneOf(Object, null));
   check(limit, Number);
 
   let ret = [];
-  const user = ReactiveCache.getCurrentUser();
+  const user = await ReactiveCache.getCurrentUser();
 
   if (user && user.isAdmin) {
-    ret = ReactiveCache.getTranslations(query,
+    ret = await ReactiveCache.getTranslations(query,
       {
         limit,
         sort: { modifiedAt: -1 },

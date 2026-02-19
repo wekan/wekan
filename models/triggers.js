@@ -15,13 +15,13 @@ Triggers.before.update((userId, doc, fieldNames, modifier) => {
 
 Triggers.allow({
   insert(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
 });
 

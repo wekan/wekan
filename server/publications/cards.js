@@ -74,17 +74,17 @@ import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 
-Meteor.publish('card', cardId => {
+Meteor.publish('card', async cardId => {
   check(cardId, String);
 
   const userId = Meteor.userId();
-  const card = ReactiveCache.getCard({ _id: cardId });
+  const card = await ReactiveCache.getCard({ _id: cardId });
 
   if (!card || !card.boardId) {
     return [];
   }
 
-  const board = ReactiveCache.getBoard({ _id: card.boardId });
+  const board = await ReactiveCache.getBoard({ _id: card.boardId });
   if (!board || !board.isVisibleBy(userId)) {
     return [];
   }
@@ -100,7 +100,7 @@ Meteor.publish('card', cardId => {
     }
   }
 
-  const ret = ReactiveCache.getCards(
+  const ret = await ReactiveCache.getCards(
     { _id: cardId },
     {},
     true,
@@ -111,17 +111,17 @@ Meteor.publish('card', cardId => {
 /** publish all data which is necessary to display card details as popup
  * @returns array of cursors
  */
-publishComposite('popupCardData', function(cardId) {
+publishComposite('popupCardData', async function(cardId) {
   check(cardId, String);
 
   const userId = this.userId;
-  const card = ReactiveCache.getCard({ _id: cardId });
+  const card = await ReactiveCache.getCard({ _id: cardId });
 
   if (!card || !card.boardId) {
     return [];
   }
 
-  const board = ReactiveCache.getBoard({ _id: card.boardId });
+  const board = await ReactiveCache.getBoard({ _id: card.boardId });
   if (!board || !board.isVisibleBy(userId)) {
     return [];
   }
@@ -138,29 +138,29 @@ publishComposite('popupCardData', function(cardId) {
   }
 
   return {
-    find() {
-      return ReactiveCache.getCards({ _id: cardId }, {}, true);
+    async find() {
+      return await ReactiveCache.getCards({ _id: cardId }, {}, true);
     },
     children: [
       {
-        find(card) {
-          return ReactiveCache.getBoards({ _id: card.boardId }, {}, true);
+        async find(card) {
+          return await ReactiveCache.getBoards({ _id: card.boardId }, {}, true);
         }
       },
       {
-        find(card) {
-          return ReactiveCache.getLists({ boardId: card.boardId }, {}, true);
+        async find(card) {
+          return await ReactiveCache.getLists({ boardId: card.boardId }, {}, true);
         }
       }
     ]
   };
 });
 
-Meteor.publish('myCards', function(sessionId) {
+Meteor.publish('myCards', async function(sessionId) {
   check(sessionId, String);
 
   const queryParams = new QueryParams();
-  queryParams.addPredicate(OPERATOR_USER, ReactiveCache.getCurrentUser().username);
+  queryParams.addPredicate(OPERATOR_USER, (await ReactiveCache.getCurrentUser()).username);
   queryParams.setPredicate(OPERATOR_LIMIT, 200);
 
   const query = buildQuery(queryParams);
@@ -175,7 +175,7 @@ Meteor.publish('myCards', function(sessionId) {
 });
 
 // Optimized due cards publication for better performance
-Meteor.publish('dueCards', function(allUsers = false) {
+Meteor.publish('dueCards', async function(allUsers = false) {
   check(allUsers, Boolean);
 
   const userId = this.userId;
@@ -188,12 +188,12 @@ Meteor.publish('dueCards', function(allUsers = false) {
   }
 
   // Get user's board memberships for efficient filtering
-  const userBoards = ReactiveCache.getBoards({
+  const userBoards = (await ReactiveCache.getBoards({
     $or: [
       { permission: 'public' },
       { members: { $elemMatch: { userId, isActive: true } } }
     ]
-  }).map(board => board._id);
+  })).map(board => board._id);
 
   if (process.env.DEBUG === 'true') {
     console.log('dueCards userBoards:', userBoards);
@@ -273,7 +273,7 @@ Meteor.publish('dueCards', function(allUsers = false) {
   return result;
 });
 
-Meteor.publish('globalSearch', function(sessionId, params, text) {
+Meteor.publish('globalSearch', async function(sessionId, params, text) {
   check(sessionId, String);
   check(params, Object);
   check(text, String);
@@ -282,7 +282,7 @@ Meteor.publish('globalSearch', function(sessionId, params, text) {
     console.log('globalSearch publication called with:', { sessionId, params, text });
   }
 
-  const ret = findCards(sessionId, buildQuery(new QueryParams(params, text)));
+  const ret = findCards(sessionId, await buildQuery(new QueryParams(params, text)));
   if (process.env.DEBUG === 'true') {
     console.log('globalSearch publication returning:', ret);
   }
@@ -303,7 +303,7 @@ Meteor.publish('sessionData', function(sessionId) {
   return cursor;
 });
 
-function buildSelector(queryParams) {
+async function buildSelector(queryParams) {
   const userId = Meteor.userId();
 
   const errors = new QueryErrors();
@@ -336,8 +336,8 @@ function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_ORG)) {
       const orgs = [];
-      queryParams.getPredicates(OPERATOR_ORG).forEach(name => {
-        const org = ReactiveCache.getOrg({
+      for (const name of queryParams.getPredicates(OPERATOR_ORG)) {
+        const org = await ReactiveCache.getOrg({
           $or: [
             { orgDisplayName: name },
             { orgShortName: name }
@@ -348,7 +348,7 @@ function buildSelector(queryParams) {
         } else {
           errors.addNotFound(OPERATOR_ORG, name);
         }
-      });
+      }
       if (orgs.length) {
         boardsSelector.orgs = {
           $elemMatch: { orgId: { $in: orgs }, isActive: true }
@@ -358,8 +358,8 @@ function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_TEAM)) {
       const teams = [];
-      queryParams.getPredicates(OPERATOR_TEAM).forEach(name => {
-        const team = ReactiveCache.getTeam({
+      for (const name of queryParams.getPredicates(OPERATOR_TEAM)) {
+        const team = await ReactiveCache.getTeam({
           $or: [
             { teamDisplayName: name },
             { teamShortName: name }
@@ -370,7 +370,7 @@ function buildSelector(queryParams) {
         } else {
           errors.addNotFound(OPERATOR_TEAM, name);
         }
-      });
+      }
       if (teams.length) {
         boardsSelector.teams = {
           $elemMatch: { teamId: { $in: teams }, isActive: true }
@@ -387,13 +387,13 @@ function buildSelector(queryParams) {
     if (archived !== null) {
       if (archived) {
         selector.boardId = {
-          $in: Boards.userBoardIds(userId, null, boardsSelector),
+          $in: await Boards.userBoardIds(userId, null, boardsSelector),
         };
         selector.$and.push({
           $or: [
             {
               boardId: {
-                $in: Boards.userBoardIds(userId, archived, boardsSelector),
+                $in: await Boards.userBoardIds(userId, archived, boardsSelector),
               },
             },
             { swimlaneId: { $in: Swimlanes.userArchivedSwimlaneIds(userId) } },
@@ -403,14 +403,14 @@ function buildSelector(queryParams) {
         });
       } else {
         selector.boardId = {
-          $in: Boards.userBoardIds(userId, false, boardsSelector),
+          $in: await Boards.userBoardIds(userId, false, boardsSelector),
         };
         selector.swimlaneId = { $nin: Swimlanes.archivedSwimlaneIds() };
         selector.listId = { $nin: Lists.archivedListIds() };
         selector.archived = false;
       }
     } else {
-      const userBoardIds = Boards.userBoardIds(userId, null, boardsSelector);
+      const userBoardIds = await Boards.userBoardIds(userId, null, boardsSelector);
       if (process.env.DEBUG === 'true') {
         console.log('buildSelector - userBoardIds:', userBoardIds);
       }
@@ -424,8 +424,8 @@ function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_BOARD)) {
       const queryBoards = [];
-      queryParams.getPredicates(OPERATOR_BOARD).forEach(query => {
-        const boards = Boards.userSearch(userId, {
+      for (const query of queryParams.getPredicates(OPERATOR_BOARD)) {
+        const boards = await Boards.userSearch(userId, {
           title: new RegExp(escapeForRegex(query), 'i'),
         });
         if (boards.length) {
@@ -435,15 +435,15 @@ function buildSelector(queryParams) {
         } else {
           errors.addNotFound(OPERATOR_BOARD, query);
         }
-      });
+      }
 
       selector.boardId.$in = queryBoards;
     }
 
     if (queryParams.hasOperator(OPERATOR_SWIMLANE)) {
       const querySwimlanes = [];
-      queryParams.getPredicates(OPERATOR_SWIMLANE).forEach(query => {
-        const swimlanes = ReactiveCache.getSwimlanes({
+      for (const query of queryParams.getPredicates(OPERATOR_SWIMLANE)) {
+        const swimlanes = await ReactiveCache.getSwimlanes({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
         if (swimlanes.length) {
@@ -453,7 +453,7 @@ function buildSelector(queryParams) {
         } else {
           errors.addNotFound(OPERATOR_SWIMLANE, query);
         }
-      });
+      }
 
       // eslint-disable-next-line no-prototype-builtins
       if (!selector.swimlaneId.hasOwnProperty('swimlaneId')) {
@@ -464,8 +464,8 @@ function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_LIST)) {
       const queryLists = [];
-      queryParams.getPredicates(OPERATOR_LIST).forEach(query => {
-        const lists = ReactiveCache.getLists({
+      for (const query of queryParams.getPredicates(OPERATOR_LIST)) {
+        const lists = await ReactiveCache.getLists({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
         if (lists.length) {
@@ -475,7 +475,7 @@ function buildSelector(queryParams) {
         } else {
           errors.addNotFound(OPERATOR_LIST, query);
         }
-      });
+      }
 
       // eslint-disable-next-line no-prototype-builtins
       if (!selector.hasOwnProperty('listId')) {
@@ -516,14 +516,14 @@ function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_USER)) {
       const users = [];
-      queryParams.getPredicates(OPERATOR_USER).forEach(username => {
-        const user = ReactiveCache.getUser({ username });
+      for (const username of queryParams.getPredicates(OPERATOR_USER)) {
+        const user = await ReactiveCache.getUser({ username });
         if (user) {
           users.push(user._id);
         } else {
           errors.addNotFound(OPERATOR_USER, username);
         }
-      });
+      }
       if (users.length) {
         selector.$and.push({
           $or: [{ members: { $in: users } }, { assignees: { $in: users } }],
@@ -531,36 +531,32 @@ function buildSelector(queryParams) {
       }
     }
 
-    [OPERATOR_MEMBER, OPERATOR_ASSIGNEE, OPERATOR_CREATOR].forEach(key => {
+    for (const key of [OPERATOR_MEMBER, OPERATOR_ASSIGNEE, OPERATOR_CREATOR]) {
       if (queryParams.hasOperator(key)) {
         const users = [];
-        queryParams.getPredicates(key).forEach(username => {
-          const user = ReactiveCache.getUser({ username });
+        for (const username of queryParams.getPredicates(key)) {
+          const user = await ReactiveCache.getUser({ username });
           if (user) {
             users.push(user._id);
           } else {
             errors.addNotFound(key, username);
           }
-        });
+        }
         if (users.length) {
           selector[key] = { $in: users };
         }
       }
-    });
+    }
 
     if (queryParams.hasOperator(OPERATOR_LABEL)) {
       const queryLabels = [];
-      queryParams.getPredicates(OPERATOR_LABEL).forEach(label => {
-        let boards = Boards.userBoards(userId, null, {
+      for (const label of queryParams.getPredicates(OPERATOR_LABEL)) {
+        let boards = await Boards.userBoards(userId, null, {
           labels: { $elemMatch: { color: label.toLowerCase() } },
         });
 
         if (boards.length) {
           boards.forEach(board => {
-            // eslint-disable-next-line no-console
-            // console.log('board:', board);
-            // eslint-disable-next-line no-console
-            // console.log('board.labels:', board.labels);
             board.labels
               .filter(boardLabel => {
                 return boardLabel.color === label.toLowerCase();
@@ -570,12 +566,8 @@ function buildSelector(queryParams) {
               });
           });
         } else {
-          // eslint-disable-next-line no-console
-          // console.log('label:', label);
           const reLabel = new RegExp(escapeForRegex(label), 'i');
-          // eslint-disable-next-line no-console
-          // console.log('reLabel:', reLabel);
-          boards = Boards.userBoards(userId, null, {
+          boards = await Boards.userBoards(userId, null, {
             labels: { $elemMatch: { name: reLabel } },
           });
 
@@ -596,7 +588,7 @@ function buildSelector(queryParams) {
             errors.addNotFound(OPERATOR_LABEL, label);
           }
         }
-      });
+      }
       if (queryLabels.length) {
         // eslint-disable-next-line no-console
         // console.log('queryLabels:', queryLabels);
@@ -605,12 +597,12 @@ function buildSelector(queryParams) {
     }
 
     if (queryParams.hasOperator(OPERATOR_HAS)) {
-      queryParams.getPredicates(OPERATOR_HAS).forEach(has => {
+      for (const has of queryParams.getPredicates(OPERATOR_HAS)) {
         switch (has.field) {
           case PREDICATE_ATTACHMENT:
             selector.$and.push({
               _id: {
-                $in: ReactiveCache.getAttachments({}, { fields: { cardId: 1 } }).map(
+                $in: (await ReactiveCache.getAttachments({}, { fields: { cardId: 1 } })).map(
                   a => a.cardId,
                 ),
               },
@@ -619,7 +611,7 @@ function buildSelector(queryParams) {
           case PREDICATE_CHECKLIST:
             selector.$and.push({
               _id: {
-                $in: ReactiveCache.getChecklists({}, { fields: { cardId: 1 } }).map(
+                $in: (await ReactiveCache.getChecklists({}, { fields: { cardId: 1 } })).map(
                   a => a.cardId,
                 ),
               },
@@ -644,17 +636,17 @@ function buildSelector(queryParams) {
             }
             break;
         }
-      });
+      }
     }
 
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
 
-      const items = ReactiveCache.getChecklistItems(
+      const items = await ReactiveCache.getChecklistItems(
         { title: regex },
         { fields: { cardId: 1, checklistId: 1 } },
       );
-      const checklists = ReactiveCache.getChecklists(
+      const checklists = await ReactiveCache.getChecklists(
         {
           $or: [
             { title: regex },
@@ -664,9 +656,9 @@ function buildSelector(queryParams) {
         { fields: { cardId: 1 } },
       );
 
-      const attachments = ReactiveCache.getAttachments({ 'original.name': regex });
+      const attachments = await ReactiveCache.getAttachments({ 'original.name': regex });
 
-      const comments = ReactiveCache.getCardComments(
+      const comments = await ReactiveCache.getCardComments(
         { text: regex },
         { fields: { cardId: 1 } },
       );
@@ -806,18 +798,18 @@ function buildProjection(query) {
   return query;
 }
 
-function buildQuery(queryParams) {
-  const query = buildSelector(queryParams);
+async function buildQuery(queryParams) {
+  const query = await buildSelector(queryParams);
 
   return buildProjection(query);
 }
 
-Meteor.publish('brokenCards', function(sessionId) {
+Meteor.publish('brokenCards', async function(sessionId) {
   check(sessionId, String);
 
   const params = new QueryParams();
   params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
-  const query = buildQuery(params);
+  const query = await buildQuery(params);
   query.selector.$or = [
     { boardId: { $in: [null, ''] } },
     { swimlaneId: { $in: [null, ''] } },
@@ -830,10 +822,10 @@ Meteor.publish('brokenCards', function(sessionId) {
   return ret;
 });
 
-Meteor.publish('nextPage', function(sessionId) {
+Meteor.publish('nextPage', async function(sessionId) {
   check(sessionId, String);
 
-  const session = ReactiveCache.getSessionData({ sessionId });
+  const session = await ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
@@ -841,10 +833,10 @@ Meteor.publish('nextPage', function(sessionId) {
   return ret;
 });
 
-Meteor.publish('previousPage', function(sessionId) {
+Meteor.publish('previousPage', async function(sessionId) {
   check(sessionId, String);
 
-  const session = ReactiveCache.getSessionData({ sessionId });
+  const session = await ReactiveCache.getSessionData({ sessionId });
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 
@@ -852,7 +844,7 @@ Meteor.publish('previousPage', function(sessionId) {
   return ret;
 });
 
-function findCards(sessionId, query) {
+async function findCards(sessionId, query) {
   const userId = Meteor.userId();
 
   // eslint-disable-next-line no-console
@@ -863,7 +855,7 @@ function findCards(sessionId, query) {
     console.log('findCards - projection:', query.projection);
   }
 
-  const cards = ReactiveCache.getCards(query.selector, query.projection, true);
+  const cards = await ReactiveCache.getCards(query.selector, query.projection, true);
   if (process.env.DEBUG === 'true') {
     console.log('findCards - cards count:', cards ? cards.count() : 0);
   }
@@ -977,23 +969,23 @@ function findCards(sessionId, query) {
 
     return [
       cards,
-      ReactiveCache.getBoards(
+      await ReactiveCache.getBoards(
         { _id: { $in: boards } },
         { fields: { ...fields, labels: 1, color: 1 } },
         true,
       ),
-      ReactiveCache.getSwimlanes(
+      await ReactiveCache.getSwimlanes(
         { _id: { $in: swimlanes } },
         { fields: { ...fields, color: 1 } },
         true,
       ),
-      ReactiveCache.getLists({ _id: { $in: lists } }, { fields }, true),
-      ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
-      ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
-      ReactiveCache.getChecklists({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
-      ReactiveCache.getChecklistItems({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
-      ReactiveCache.getAttachments({ 'meta.cardId': { $in: cards.map(c => c._id) } }, {}, true).cursor,
-      ReactiveCache.getCardComments({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
+      await ReactiveCache.getLists({ _id: { $in: lists } }, { fields }, true),
+      await ReactiveCache.getCustomFields({ _id: { $in: customFieldIds } }, {}, true),
+      await ReactiveCache.getUsers({ _id: { $in: users } }, { fields: Users.safeFields }, true),
+      await ReactiveCache.getChecklists({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
+      await ReactiveCache.getChecklistItems({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
+      (await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cards.map(c => c._id) } }, {}, true)).cursor,
+      await ReactiveCache.getCardComments({ cardId: { $in: cards.map(c => c._id) } }, {}, true),
       sessionDataCursor,
     ];
   }

@@ -83,13 +83,13 @@ CardComments.attachSchema(
 CardComments.allow({
   insert(userId, doc) {
     // ReadOnly users cannot add comments. Only members who can comment are allowed.
-    return allowIsBoardMemberCommentOnly(userId, ReactiveCache.getBoard(doc.boardId));
+    return allowIsBoardMemberCommentOnly(userId, Boards.findOne(doc.boardId));
   },
   update(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
-    return userId === doc.userId || allowIsBoardAdmin(userId, ReactiveCache.getBoard(doc.boardId));
+    return userId === doc.userId || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['userId', 'boardId'],
 });
@@ -154,8 +154,8 @@ CardComments.helpers({
 
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
-function commentCreation(userId, doc) {
-  const card = ReactiveCache.getCard(doc.cardId);
+async function commentCreation(userId, doc) {
+  const card = await ReactiveCache.getCard(doc.cardId);
   Activities.insert({
     userId,
     activityType: 'addComment',
@@ -167,9 +167,9 @@ function commentCreation(userId, doc) {
   });
 }
 
-CardComments.textSearch = (userId, textArray) => {
+CardComments.textSearch = async (userId, textArray) => {
   const selector = {
-    boardId: { $in: Boards.userBoardIds(userId) },
+    boardId: { $in: await Boards.userBoardIds(userId) },
     $and: [],
   };
 
@@ -180,7 +180,7 @@ CardComments.textSearch = (userId, textArray) => {
   // eslint-disable-next-line no-console
   // console.log('cardComments selector:', selector);
 
-  const comments = ReactiveCache.getCardComments(selector);
+  const comments = await ReactiveCache.getCardComments(selector);
   // eslint-disable-next-line no-console
   // console.log('count:', comments.count());
   // eslint-disable-next-line no-console
@@ -197,12 +197,12 @@ if (Meteor.isServer) {
     await CardComments._collection.createIndexAsync({ cardId: 1, createdAt: -1 });
   });
 
-  CardComments.after.insert((userId, doc) => {
-    commentCreation(userId, doc);
+  CardComments.after.insert(async (userId, doc) => {
+    await commentCreation(userId, doc);
   });
 
-  CardComments.after.update((userId, doc) => {
-    const card = ReactiveCache.getCard(doc.cardId);
+  CardComments.after.update(async (userId, doc) => {
+    const card = await ReactiveCache.getCard(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'editComment',
@@ -214,8 +214,8 @@ if (Meteor.isServer) {
     });
   });
 
-  CardComments.before.remove((userId, doc) => {
-    const card = ReactiveCache.getCard(doc.cardId);
+  CardComments.before.remove(async (userId, doc) => {
+    const card = await ReactiveCache.getCard(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'deleteComment',
@@ -225,7 +225,7 @@ if (Meteor.isServer) {
       listId: card.listId,
       swimlaneId: card.swimlaneId,
     });
-    const activity = ReactiveCache.getActivity({ commentId: doc._id });
+    const activity = await ReactiveCache.getActivity({ commentId: doc._id });
     if (activity) {
       Activities.remove(activity._id);
     }
@@ -244,7 +244,7 @@ if (Meteor.isServer) {
    *                comment: string,
    *                authorId: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', function (
+  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', async function (
     req,
     res,
   ) {
@@ -254,10 +254,10 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: ReactiveCache.getCardComments({
+        data: (await ReactiveCache.getCardComments({
           boardId: paramBoardId,
           cardId: paramCardId,
-        }).map(function (doc) {
+        })).map(function (doc) {
           return {
             _id: doc._id,
             comment: doc.text,
@@ -285,7 +285,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'GET',
     '/api/boards/:boardId/cards/:cardId/comments/:commentId',
-    function (req, res) {
+    async function (req, res) {
       try {
         const paramBoardId = req.params.boardId;
         const paramCommentId = req.params.commentId;
@@ -293,7 +293,7 @@ if (Meteor.isServer) {
         Authentication.checkBoardAccess(req.userId, paramBoardId);
         JsonRoutes.sendResult(res, {
           code: 200,
-          data: ReactiveCache.getCardComment({
+          data: await ReactiveCache.getCardComment({
             _id: paramCommentId,
             cardId: paramCardId,
             boardId: paramBoardId,
@@ -320,7 +320,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'POST',
     '/api/boards/:boardId/cards/:cardId/comments',
-    function (req, res) {
+    async function (req, res) {
       try {
         const paramBoardId = req.params.boardId;
         const paramCardId = req.params.cardId;
@@ -339,12 +339,12 @@ if (Meteor.isServer) {
           },
         });
 
-        const cardComment = ReactiveCache.getCardComment({
+        const cardComment = await ReactiveCache.getCardComment({
           _id: id,
           cardId: paramCardId,
           boardId: paramBoardId,
         });
-        commentCreation(req.userId, cardComment);
+        await commentCreation(req.userId, cardComment);
       } catch (error) {
         JsonRoutes.sendResult(res, {
           code: 200,

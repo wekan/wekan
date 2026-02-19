@@ -24,10 +24,10 @@ class RestoreLostCardsMigration {
   /**
    * Check if migration is needed for a board
    */
-  needsMigration(boardId) {
+  async needsMigration(boardId) {
     try {
-      const cards = ReactiveCache.getCards({ boardId, archived: false });
-      const lists = ReactiveCache.getLists({ boardId, archived: false });
+      const cards = await ReactiveCache.getCards({ boardId, archived: false });
+      const lists = await ReactiveCache.getLists({ boardId, archived: false });
 
       // Check for cards missing swimlaneId or listId
       const lostCards = cards.filter(card => !card.swimlaneId || !card.listId);
@@ -70,15 +70,15 @@ class RestoreLostCardsMigration {
         errors: []
       };
 
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Error('Board not found');
       }
 
       // Get all non-archived items
-      const cards = ReactiveCache.getCards({ boardId, archived: false });
-      const lists = ReactiveCache.getLists({ boardId, archived: false });
-      const swimlanes = ReactiveCache.getSwimlanes({ boardId, archived: false });
+      const cards = await ReactiveCache.getCards({ boardId, archived: false });
+      const lists = await ReactiveCache.getLists({ boardId, archived: false });
+      const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false });
 
       // Detect items to restore BEFORE creating anything
       const lostLists = lists.filter(list => !list.swimlaneId);
@@ -116,7 +116,7 @@ class RestoreLostCardsMigration {
           updatedAt: new Date(),
           archived: false
         });
-        lostCardsSwimlane = ReactiveCache.getSwimlane(swimlaneId);
+        lostCardsSwimlane = await ReactiveCache.getSwimlane(swimlaneId);
         results.lostCardsSwimlaneCreated = true;
         if (process.env.DEBUG === 'true') {
           console.log(`Created "Lost Cards" swimlane for board ${boardId}`);
@@ -156,7 +156,7 @@ class RestoreLostCardsMigration {
             updatedAt: new Date(),
             archived: false
           });
-          defaultList = ReactiveCache.getList(listId);
+          defaultList = await ReactiveCache.getList(listId);
           if (process.env.DEBUG === 'true') {
             console.log(`Created default list in Lost Cards swimlane`);
           }
@@ -215,17 +215,17 @@ const restoreLostCardsMigration = new RestoreLostCardsMigration();
 
 // Register Meteor methods
 Meteor.methods({
-  'restoreLostCards.needsMigration'(boardId) {
+  async 'restoreLostCards.needsMigration'(boardId) {
     check(boardId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
 
-    return restoreLostCardsMigration.needsMigration(boardId);
+    return await restoreLostCardsMigration.needsMigration(boardId);
   },
 
-  'restoreLostCards.execute'(boardId) {
+  async 'restoreLostCards.execute'(boardId) {
     check(boardId, String);
 
     if (!this.userId) {
@@ -233,12 +233,12 @@ Meteor.methods({
     }
 
     // Check if user is board admin
-    const board = ReactiveCache.getBoard(boardId);
+    const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    const user = ReactiveCache.getUser(this.userId);
+    const user = await ReactiveCache.getUser(this.userId);
     if (!user) {
       throw new Meteor.Error('user-not-found', 'User not found');
     }
@@ -252,7 +252,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Only board administrators can run migrations');
     }
 
-    return restoreLostCardsMigration.executeMigration(boardId);
+    return await restoreLostCardsMigration.executeMigration(boardId);
   }
 });
 

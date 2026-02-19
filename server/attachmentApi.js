@@ -12,7 +12,7 @@ import { ObjectID } from 'bson';
 if (Meteor.isServer) {
   Meteor.methods({
     // Upload attachment via API
-    'api.attachment.upload'(boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend) {
+    async 'api.attachment.upload'(boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
@@ -23,12 +23,12 @@ if (Meteor.isServer) {
       }
 
       // Check if user has permission to modify the card
-      const card = ReactiveCache.getCard(cardId);
+      const card = await ReactiveCache.getCard(cardId);
       if (!card) {
         throw new Meteor.Error('card-not-found', 'Card not found');
       }
 
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board) {
         throw new Meteor.Error('board-not-found', 'Board not found');
       }
@@ -114,19 +114,19 @@ if (Meteor.isServer) {
     },
 
     // Download attachment via API
-    'api.attachment.download'(attachmentId) {
+    async 'api.attachment.download'(attachmentId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this attachment');
       }
@@ -173,13 +173,13 @@ if (Meteor.isServer) {
     },
 
     // List attachments for board, swimlane, list, or card
-    'api.attachment.list'(boardId, swimlaneId, listId, cardId) {
+    async 'api.attachment.list'(boardId, swimlaneId, listId, cardId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(boardId);
+      const board = await ReactiveCache.getBoard(boardId);
       if (!board || !board.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this board');
       }
@@ -199,8 +199,8 @@ if (Meteor.isServer) {
           query['meta.cardId'] = cardId;
         }
 
-        const attachments = ReactiveCache.getAttachments(query);
-
+        const attachments = await ReactiveCache.getAttachments(query);
+        
         const attachmentList = attachments.map(attachment => {
           const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
           return {
@@ -230,25 +230,25 @@ if (Meteor.isServer) {
     },
 
     // Copy attachment to another card
-    'api.attachment.copy'(attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId) {
+    async 'api.attachment.copy'(attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       // Get source attachment
-      const sourceAttachment = ReactiveCache.getAttachment(attachmentId);
+      const sourceAttachment = await ReactiveCache.getAttachment(attachmentId);
       if (!sourceAttachment) {
         throw new Meteor.Error('attachment-not-found', 'Source attachment not found');
       }
 
       // Check source permissions
-      const sourceBoard = ReactiveCache.getBoard(sourceAttachment.meta.boardId);
+      const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
       if (!sourceBoard || !sourceBoard.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access the source attachment');
       }
 
       // Check target permissions
-      const targetBoard = ReactiveCache.getBoard(targetBoardId);
+      const targetBoard = await ReactiveCache.getBoard(targetBoardId);
       if (!targetBoard || !targetBoard.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
       }
@@ -328,25 +328,25 @@ if (Meteor.isServer) {
     },
 
     // Move attachment to another card
-    'api.attachment.move'(attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId) {
+    async 'api.attachment.move'(attachmentId, targetBoardId, targetSwimlaneId, targetListId, targetCardId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       // Get source attachment
-      const sourceAttachment = ReactiveCache.getAttachment(attachmentId);
+      const sourceAttachment = await ReactiveCache.getAttachment(attachmentId);
       if (!sourceAttachment) {
         throw new Meteor.Error('attachment-not-found', 'Source attachment not found');
       }
 
       // Check source permissions
-      const sourceBoard = ReactiveCache.getBoard(sourceAttachment.meta.boardId);
+      const sourceBoard = await ReactiveCache.getBoard(sourceAttachment.meta.boardId);
       if (!sourceBoard || !sourceBoard.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access the source attachment');
       }
 
       // Check target permissions
-      const targetBoard = ReactiveCache.getBoard(targetBoardId);
+      const targetBoard = await ReactiveCache.getBoard(targetBoardId);
       if (!targetBoard || !targetBoard.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to modify the target card');
       }
@@ -385,19 +385,19 @@ if (Meteor.isServer) {
     },
 
     // Delete attachment via API
-    'api.attachment.delete'(attachmentId) {
+    async 'api.attachment.delete'(attachmentId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to delete this attachment');
       }
@@ -419,19 +419,19 @@ if (Meteor.isServer) {
     },
 
     // Get attachment info via API
-    'api.attachment.info'(attachmentId) {
+    async 'api.attachment.info'(attachmentId) {
       if (!this.userId) {
         throw new Meteor.Error('not-authorized', 'Must be logged in');
       }
 
       // Get attachment
-      const attachment = ReactiveCache.getAttachment(attachmentId);
+      const attachment = await ReactiveCache.getAttachment(attachmentId);
       if (!attachment) {
         throw new Meteor.Error('attachment-not-found', 'Attachment not found');
       }
 
       // Check permissions
-      const board = ReactiveCache.getBoard(attachment.meta.boardId);
+      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
       if (!board || !board.isBoardMember(this.userId)) {
         throw new Meteor.Error('not-authorized', 'You do not have permission to access this attachment');
       }

@@ -46,7 +46,7 @@ TableVisibilityModeSettings.attachSchema(
 
 TableVisibilityModeSettings.allow({
   update(userId) {
-    const user = ReactiveCache.getUser(userId);
+    const user = Meteor.users.findOne(userId);
     return user && user.isAdmin;
   },
 });
