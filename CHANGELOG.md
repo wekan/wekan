@@ -32,7 +32,12 @@ Upgrading to Meteor 3 progress:
 
 # Upcoming WeKan ® release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Helm Chart: Feat(ingress): add ingressClassName support](https://github.com/wekan/charts/pull/50).
+  Thanks to Rohmilchkaese.
+
+and adds the following updates:
 
 - [Migrate @wekanteam/meteor-reactive-cache](https://github.com/wekan/wekan/pull/6139).
   Thanks to harryadel.
@@ -46,6 +51,8 @@ This release adds the following updates:
   Thanks to dependabot.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/f463198e40f9802c0a30f2d713d831e905678162).
   Thanks to developers of dependencies.
+- [Moved meteor-reactive-cache to npmjs.com @wekanteam/meteor-reactive-cache https://github.com/wekan/meteor-reactive-cache](https://github.com/wekan/wekan/commit/8816c886cf740ec43c4c00c946730e6c2f3a8237).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
