@@ -44,11 +44,15 @@ This release adds the following updates:
   Thanks to dependabot.
 - [Bump tar from 7.5.7 to 7.5.9](https://github.com/wekan/wekan/pull/6156).
   Thanks to dependabot.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/f463198e40f9802c0a30f2d713d831e905678162).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
 - [Fix calendar](https://github.com/wekan/wekan/pull/6155).
   Thanks to KhaoulaMaleh.
+- [Removed duplicate code](https://github.com/wekan/wekan/commit/ed907f8c61f59763a87cc738f94bff418de77701).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
