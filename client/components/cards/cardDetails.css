@@ -428,7 +428,7 @@ body.desktop-mode .card-details.card-details-collapsed {
     position: fixed;
     resize: both;
   }
-  
+
   /* Override for mobile mode even on larger screens */
   body.mobile-mode .card-details {
     width: 100vw !important;
@@ -440,7 +440,7 @@ body.desktop-mode .card-details.card-details-collapsed {
     max-height: 100vh !important;
     resize: none !important;
   }
-  
+
   .card-details-maximized {
     padding: 0;
     flex-shrink: 0;
@@ -510,7 +510,7 @@ input[type="submit"].attachment-add-link-submit {
     border-radius: 0 !important;
     box-shadow: none !important;
   }
-  
+
   /* Ensure card details are above everything on mobile */
   body.mobile-mode .card-details {
     z-index: 100 !important;

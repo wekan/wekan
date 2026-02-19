@@ -9,9 +9,15 @@ template(name="swimlane")
         if currentListIsInThisSwimlane _id
           +list(currentList)
         unless currentList
+          if currentUser.isBoardMember
+            unless currentUser.isCommentOnly
+              +addListForm
           each lists
             +miniList(this)
       else
+        if currentUser.isBoardMember
+          unless currentUser.isCommentOnly
+            +addListForm
         each lists
           if visible this
             +list(this)

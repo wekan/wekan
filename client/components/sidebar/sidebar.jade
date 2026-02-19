@@ -1,9 +1,12 @@
 template(name="sidebar")
   .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}} {{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}")
     //a.sidebar-tongue.js-toggle-sidebar(
-    //  class="{{#if isTongueHidden}}is-hidden{{/if}}",
-    //  title="{{showTongueTitle}}")
-    //  i.fa.fa-navicon
+    //
+      class="{{#if isTongueHidden}}is-hidden{{/if}}",
+    //
+      title="{{showTongueTitle}}")
+    //
+      i.fa.fa-navicon
     .sidebar-actions
       .sidebar-shortcuts
         a.sidebar-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
@@ -19,7 +22,8 @@ template(name="sidebar")
       a.sidebar-xmark.js-close-sidebar &#10005;
     .sidebar-content.js-board-sidebar-content
       //a.hide-btn.js-hide-sidebar
-      //  i.fa.fa-navicon
+      //
+        i.fa.fa-navicon
       unless isDefaultView
         h2
           a.fa.fa-arrow-left.js-back-home
@@ -460,17 +464,27 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-picture-o
           | {{_ 'cover-attachment-on-minicard'}}
     //div.check-div
-    //  a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
-    //    .materialCheckBox(class="{{#if allowsComments}}is-checked{{/if}}")
-    //    span
-    //      i.fa.fa-comment-o
-    //      | {{_ 'comment'}}
+    //
+      a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
+    //
+        .materialCheckBox(class="{{#if allowsComments}}is-checked{{/if}}")
+    //
+        span
+    //
+          i.fa.fa-comment-o
+    //
+          | {{_ 'comment'}}
     //div.check-div
-    //  a.flex.js-field-has-activities(class="{{#if allowsActivities}}is-checked{{/if}}")
-    //    .materialCheckBox(class="{{#if allowsActivities}}is-checked{{/if}}")
-    //    span
-    //      i.fa.fa-history
-    //      | {{_ 'activities'}}
+    //
+      a.flex.js-field-has-activities(class="{{#if allowsActivities}}is-checked{{/if}}")
+    //
+        .materialCheckBox(class="{{#if allowsActivities}}is-checked{{/if}}")
+    //
+        span
+    //
+          i.fa.fa-history
+    //
+          | {{_ 'activities'}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
@@ -597,12 +611,18 @@ template(name="boardMenuPopup")
           | {{_ 'board-change-background-image'}}
     //Bug Board icons random dance https://github.com/wekan/wekan/issues/4214
     //if currentUser.isBoardAdmin
-    //  unless currentSetting.hideBoardMemberList
-    //    unless currentSetting.hideCardCounterList
-    //      li
-    //        a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
-    //          i.fa.fa-id-card-o
-    //          | {{_ 'board-info-on-my-boards'}}
+    //
+      unless currentSetting.hideBoardMemberList
+    //
+        unless currentSetting.hideCardCounterList
+    //
+          li
+    //
+            a.js-board-info-on-my-boards(title="{{_ 'board-info-on-my-boards'}}")
+    //
+              i.fa.fa-id-card-o
+    //
+              | {{_ 'board-info-on-my-boards'}}
   hr
   ul.pop-over-list
     if withApi
@@ -628,9 +648,12 @@ template(name="boardMenuPopup")
       hr
       ul.pop-over-list
         // li
-        //   a.js-delete-duplicate-lists
-        //     | 🗑️
-        //     | {{_ 'delete-duplicate-lists'}}
+        //
+           a.js-delete-duplicate-lists
+        //
+             | 🗑️
+        //
+             | {{_ 'delete-duplicate-lists'}}
         li
           a.js-archive-board
             i.fa.fa-archive

@@ -168,33 +168,22 @@ Template.invitePeoplePopup.events({
   },
 });
 
+Template.editProfilePopup.onCreated(function() {
+  this.subscribe('accountSettings');
+});
+
 Template.editProfilePopup.helpers({
   allowEmailChange() {
-    Meteor.call('AccountSettings.allowEmailChange', (_, result) => {
-      if (result) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const setting = AccountSettings.findOne('accounts-allowEmailChange');
+    return setting && setting.booleanValue;
   },
   allowUserNameChange() {
-    Meteor.call('AccountSettings.allowUserNameChange', (_, result) => {
-      if (result) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const setting = AccountSettings.findOne('accounts-allowUserNameChange');
+    return setting && setting.booleanValue;
   },
   allowUserDelete() {
-    Meteor.call('AccountSettings.allowUserDelete', (_, result) => {
-      if (result) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const setting = AccountSettings.findOne('accounts-allowUserDelete');
+    return setting && setting.booleanValue;
   },
 });
 

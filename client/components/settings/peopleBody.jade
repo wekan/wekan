@@ -512,7 +512,8 @@ template(name="newUserPopup")
       span.error.hide.username-taken
         | {{_ 'error-username-taken'}}
       //if isLdap
-      //  input.js-profile-username(type="text" value=user.username readonly)
+      //
+        input.js-profile-username(type="text" value=user.username readonly)
       //else
       input.js-profile-username(type="text" value="" required)
     label
@@ -523,7 +524,8 @@ template(name="newUserPopup")
       span.error.hide.email-taken
         | {{_ 'error-email-taken'}}
       //if isLdap
-      //  input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
+      //
+        input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
       //else
       input.js-profile-email(type="email" value="" required)
     label
@@ -596,10 +598,14 @@ template(name="settingsOrgPopup")
   // It's not yet possible to impersonate organization. Only impersonate user,
   // because that changes current user ID. What would it mean in practice
   // to impersonate organization?
-  //  li
-  //    a.impersonate-org
-  //      i.fa.fa-user
-  //      | {{_ 'impersonate-org'}}
+  //
+    li
+  //
+      a.impersonate-org
+  //
+        i.fa.fa-user
+  //
+        | {{_ 'impersonate-org'}}
   //
   //
 
@@ -640,8 +646,10 @@ template(name="settingsUserPopup")
   // - wekan/client/components/settings/peopleBody.jade deleteButton
   // - wekan/client/components/settings/peopleBody.js deleteButton
   // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
-  //   that does now remove member from board, card members and assignees correctly,
-  //   but that should be used to remove user from all boards similarly
+  //
+     that does now remove member from board, card members and assignees correctly,
+  //
+     but that should be used to remove user from all boards similarly
   // - wekan/models/users.js Delete is not enabled
 
 template(name="lockedUsersGeneral")

@@ -539,10 +539,10 @@ BlazeComponent.extendComponent({
     if (!board) {
       return [];
     }
-    
+
     // Ensure default swimlane exists
     board.getDefaultSwimline();
-    
+
     const swimlanes = ReactiveCache.getSwimlanes(
     {
       boardId: this.selectedBoardId.get()

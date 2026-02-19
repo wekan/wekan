@@ -1,6 +1,6 @@
 /**
  * Delete Duplicate Empty Lists Migration
- * 
+ *
  * Safely deletes empty duplicate lists from a board:
  * 1. First converts any shared lists to per-swimlane lists
  * 2. Only deletes per-swimlane lists that:
@@ -42,9 +42,9 @@ class DeleteDuplicateEmptyListsMigration {
         const listCards = cards.filter(card => card.listId === list._id);
         if (listCards.length === 0) {
           // Check if there's a duplicate list with the same title that has cards
-          const duplicateListsWithSameTitle = lists.filter(l => 
-            l._id !== list._id && 
-            l.title === list.title && 
+          const duplicateListsWithSameTitle = lists.filter(l =>
+            l._id !== list._id &&
+            l.title === list.title &&
             l.boardId === boardId
           );
 
@@ -107,7 +107,7 @@ class DeleteDuplicateEmptyListsMigration {
     const lists = ReactiveCache.getLists({ boardId });
     const swimlanes = ReactiveCache.getSwimlanes({ boardId, archived: false });
     const cards = ReactiveCache.getCards({ boardId });
-    
+
     let listsConverted = 0;
 
     // Find shared lists (lists without swimlaneId)
@@ -137,8 +137,8 @@ class DeleteDuplicateEmptyListsMigration {
 
         if (swimlaneCards.length > 0) {
           // Check if per-swimlane list already exists
-          const existingList = lists.find(l => 
-            l.title === sharedList.title && 
+          const existingList = lists.find(l =>
+            l.title === sharedList.title &&
             l.swimlaneId === swimlane._id &&
             l._id !== sharedList._id
           );
@@ -208,7 +208,7 @@ class DeleteDuplicateEmptyListsMigration {
   async deleteEmptyPerSwimlaneLists(boardId) {
     const lists = ReactiveCache.getLists({ boardId });
     const cards = ReactiveCache.getCards({ boardId });
-    
+
     let listsDeleted = 0;
 
     for (const list of lists) {
@@ -230,9 +230,9 @@ class DeleteDuplicateEmptyListsMigration {
       }
 
       // Safety check 3: There must be another list with the same title on the same board that has cards
-      const duplicateListsWithSameTitle = lists.filter(l => 
-        l._id !== list._id && 
-        l.title === list.title && 
+      const duplicateListsWithSameTitle = lists.filter(l =>
+        l._id !== list._id &&
+        l.title === list.title &&
         l.boardId === boardId
       );
 
@@ -321,7 +321,7 @@ const deleteDuplicateEmptyListsMigration = new DeleteDuplicateEmptyListsMigratio
 Meteor.methods({
   'deleteDuplicateEmptyLists.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
@@ -331,7 +331,7 @@ Meteor.methods({
 
   'deleteDuplicateEmptyLists.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
@@ -361,7 +361,7 @@ Meteor.methods({
 
   'deleteDuplicateEmptyLists.getStatus'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }

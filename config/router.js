@@ -136,8 +136,6 @@ FlowRouter.route('/public', {
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action(params) {
-    EscapeActions.executeUpTo('inlinedForm');
-
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
     Session.set('popupCardId', null);
@@ -162,6 +160,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     });
   },
 });
+
 
 FlowRouter.route('/b/:id/:slug', {
   name: 'board',

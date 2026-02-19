@@ -2,25 +2,25 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { DatePicker } from '/client/lib/datepicker';
-import { 
-  formatDateTime, 
-  formatDate, 
-  formatTime, 
-  getISOWeek, 
-  isValidDate, 
-  isBefore, 
-  isAfter, 
-  isSame, 
-  add, 
-  subtract, 
-  startOf, 
-  endOf, 
-  format, 
-  parseDate, 
-  now, 
-  createDate, 
-  fromNow, 
-  calendar 
+import {
+  formatDateTime,
+  formatDate,
+  formatTime,
+  getISOWeek,
+  isValidDate,
+  isBefore,
+  isAfter,
+  isSame,
+  add,
+  subtract,
+  startOf,
+  endOf,
+  format,
+  parseDate,
+  now,
+  createDate,
+  fromNow,
+  calendar
 } from '/imports/lib/dateUtils';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -337,7 +337,7 @@ BlazeComponent.extendComponent({
           const startY = event.clientY;
           const startLeft = $card.offset().left;
           const startTop = $card.offset().top;
-          
+
           const onMouseMove = (e) => {
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
@@ -346,12 +346,12 @@ BlazeComponent.extendComponent({
               top: startTop + deltaY + 'px'
             });
           };
-          
+
           const onMouseUp = () => {
             $(document).off('mousemove', onMouseMove);
             $(document).off('mouseup', onMouseUp);
           };
-          
+
           $(document).on('mousemove', onMouseMove);
           $(document).on('mouseup', onMouseUp);
         },
@@ -361,14 +361,14 @@ BlazeComponent.extendComponent({
           if (event.target.tagName === 'A' || $(event.target).closest('a').length > 0) {
             return; // Don't drag if clicking on links
           }
-          
+
           event.preventDefault();
           const $card = $(event.target).closest('.card-details');
           const startX = event.clientX;
           const startY = event.clientY;
           const startLeft = $card.offset().left;
           const startTop = $card.offset().top;
-          
+
           const onMouseMove = (e) => {
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
@@ -377,12 +377,12 @@ BlazeComponent.extendComponent({
               top: startTop + deltaY + 'px'
             });
           };
-          
+
           const onMouseUp = () => {
             $(document).off('mousemove', onMouseMove);
             $(document).off('mouseup', onMouseUp);
           };
-          
+
           $(document).on('mousemove', onMouseMove);
           $(document).on('mouseup', onMouseUp);
         },
@@ -1030,7 +1030,8 @@ Template.editCardAssignerForm.events({
       }
     } else {
       // If no card selected, move to end
-      sortIndex = card.getMaxSort(options.listId, options.swimlaneId) + 1;
+      const maxSort = card.getMaxSort(options.listId, options.swimlaneId);
+      sortIndex = maxSort !== null ? maxSort + 1 : 0;
     }
 
     await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
@@ -1073,7 +1074,8 @@ Template.editCardAssignerForm.events({
             }
           } else {
             // If no card selected, copy to end
-            sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+            const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+            sortIndex = maxSort !== null ? maxSort + 1 : 0;
           }
 
           await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
@@ -1125,7 +1127,8 @@ Template.editCardAssignerForm.events({
           }
         }
       } else {
-        sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+        const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+        sortIndex = maxSort !== null ? maxSort + 1 : 0;
       }
 
       await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
@@ -1170,7 +1173,8 @@ Template.editCardAssignerForm.events({
               }
             }
           } else {
-            sortIndex = newCard.getMaxSort(options.listId, options.swimlaneId) + 1;
+            const maxSort = newCard.getMaxSort(options.listId, options.swimlaneId);
+            sortIndex = maxSort !== null ? maxSort + 1 : 0;
           }
 
           await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
@@ -1469,13 +1473,13 @@ BlazeComponent.extendComponent({
             'DD/MM/YYYY HH:mm',
             'DD-MM-YYYY HH:mm'
           ];
-          
+
           let parsedDate = null;
           for (const format of formats) {
             parsedDate = parseDate(dateString, [format], true);
             if (parsedDate) break;
           }
-          
+
           // Fallback to native Date parsing
           if (!parsedDate) {
             parsedDate = new Date(dateString);
@@ -1721,13 +1725,13 @@ BlazeComponent.extendComponent({
             'DD/MM/YYYY HH:mm',
             'DD-MM-YYYY HH:mm'
           ];
-          
+
           let parsedDate = null;
           for (const format of formats) {
             parsedDate = parseDate(dateString, [format], true);
             if (parsedDate) break;
           }
-          
+
           // Fallback to native Date parsing
           if (!parsedDate) {
             parsedDate = new Date(dateString);

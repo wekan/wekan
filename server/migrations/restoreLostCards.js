@@ -1,6 +1,6 @@
 /**
  * Restore Lost Cards Migration
- * 
+ *
  * Finds and restores cards and lists that have missing swimlaneId, listId, or are orphaned.
  * Creates a "Lost Cards" swimlane and restores visibility of lost items.
  * Only processes non-archived items.
@@ -217,7 +217,7 @@ const restoreLostCardsMigration = new RestoreLostCardsMigration();
 Meteor.methods({
   'restoreLostCards.needsMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }
@@ -227,7 +227,7 @@ Meteor.methods({
 
   'restoreLostCards.execute'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in');
     }

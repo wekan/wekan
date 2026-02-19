@@ -63,7 +63,7 @@ class BoardMigrationDetector {
   isSystemIdle() {
     const resources = cronJobStorage.getSystemResources();
     const queueStats = cronJobStorage.getQueueStats();
-    
+
     // Check if no jobs are running
     if (queueStats.running > 0) {
       return false;
@@ -120,7 +120,7 @@ class BoardMigrationDetector {
 
     try {
       // Scanning for unmigrated boards
-      
+
       // Get all boards from the database
       const boards = this.getAllBoards();
       const unmigrated = [];
@@ -155,7 +155,7 @@ class BoardMigrationDetector {
       if (typeof Boards !== 'undefined') {
         return Boards.find({}, { fields: { _id: 1, title: 1, createdAt: 1, modifiedAt: 1 } }).fetch();
       }
-      
+
       // Fallback: return empty array if Boards collection not available
       return [];
     } catch (error) {
@@ -171,14 +171,14 @@ class BoardMigrationDetector {
     try {
       // Check if board has been migrated by looking for migration markers
       const migrationMarkers = this.getMigrationMarkers(board._id);
-      
+
       // Check for specific migration indicators
       const needsListMigration = !migrationMarkers.listsMigrated;
       const needsAttachmentMigration = !migrationMarkers.attachmentsMigrated;
       const needsSwimlaneMigration = !migrationMarkers.swimlanesMigrated;
-      
+
       return needsListMigration || needsAttachmentMigration || needsSwimlaneMigration;
-      
+
     } catch (error) {
       console.error(`Error checking migration status for board ${board._id}:`, error);
       return false;
@@ -192,7 +192,7 @@ class BoardMigrationDetector {
     try {
       // Check if board has migration metadata
       const board = Boards.findOne(boardId, { fields: { migrationMarkers: 1 } });
-      
+
       if (!board || !board.migrationMarkers) {
         return {
           listsMigrated: false,
@@ -230,7 +230,7 @@ class BoardMigrationDetector {
 
       // Create migration job for this board
       const jobId = `board_migration_${board._id}_${Date.now()}`;
-      
+
       // Add to job queue with high priority
       cronJobStorage.addToQueue(jobId, 'board_migration', 1, {
         boardId: board._id,
@@ -292,14 +292,14 @@ class BoardMigrationDetector {
   getBoardMigrationStatus(boardId) {
     const unmigrated = unmigratedBoards.get();
     const isUnmigrated = unmigrated.some(b => b._id === boardId);
-    
+
     if (!isUnmigrated) {
       return { needsMigration: false, reason: 'Board is already migrated' };
     }
 
     const migrationMarkers = this.getMigrationMarkers(boardId);
-    const needsMigration = !migrationMarkers.listsMigrated || 
-                          !migrationMarkers.attachmentsMigrated || 
+    const needsMigration = !migrationMarkers.listsMigrated ||
+                          !migrationMarkers.attachmentsMigrated ||
                           !migrationMarkers.swimlanesMigrated;
 
     return {
@@ -352,7 +352,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.getMigrationStats();
   },
 
@@ -360,38 +360,38 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.forceScan();
   },
 
   'boardMigration.getBoardStatus'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.getBoardMigrationStatus(boardId);
   },
 
   'boardMigration.markAsMigrated'(boardId, migrationType) {
     check(boardId, String);
     check(migrationType, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.markBoardAsMigrated(boardId, migrationType);
   },
 
   'boardMigration.startBoardMigration'(boardId) {
     check(boardId, String);
-    
+
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     return boardMigrationDetector.startBoardMigration(boardId);
   },
 
@@ -399,7 +399,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     // Find boards that have migration markers but no migrationVersion
     const stuckBoards = Boards.find({
       'migrationMarkers.fullMigrationCompleted': true,
@@ -408,15 +408,15 @@ Meteor.methods({
         { migrationVersion: { $lt: 1 } }
       ]
     }).fetch();
-    
+
     let fixedCount = 0;
     stuckBoards.forEach(board => {
       try {
-        Boards.update(board._id, { 
-          $set: { 
+        Boards.update(board._id, {
+          $set: {
             migrationVersion: 1,
             'migrationMarkers.lastMigration': new Date()
-          } 
+          }
         });
         fixedCount++;
         console.log(`Fixed stuck board: ${board._id} (${board.title})`);
@@ -424,7 +424,7 @@ Meteor.methods({
         console.error(`Error fixing board ${board._id}:`, error);
       }
     });
-    
+
     return {
       message: `Fixed ${fixedCount} stuck boards`,
       fixedCount,

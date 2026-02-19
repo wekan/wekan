@@ -387,13 +387,15 @@ Blaze.Template.registerHelper(
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
       return HTML.Raw(sanitizeHTML(content));
-    const knowedUsers = _.union(currentBoard.members.map(member => {
-      const u = ReactiveCache.getUser(member.userId);
-      if (u) {
-        member.username = u.username;
-      }
-      return member;
-    }), [...specialHandles]);
+    const knowedUsers = _.union(currentBoard.members
+      .filter(member => member.isActive)
+      .map(member => {
+        const u = ReactiveCache.getUser(member.userId);
+        if (u) {
+          member.username = u.username;
+        }
+        return member;
+      }), [...specialHandles]);
     const mentionRegex = /\B@([\w.-]*)/gi;
 
     let currentMention;
@@ -410,14 +412,14 @@ Blaze.Template.registerHelper(
       if (knowedUser.userId === Meteor.userId()) {
         linkClass += ' me';
       }
-      
+
       // For special group mentions, display translated text
       let displayText = knowedUser.username;
       if (specialHandleNames.includes(knowedUser.username)) {
         displayText = TAPi18n.__(knowedUser.username);
         linkClass = 'atMention'; // Remove js-open-member for special handles
       }
-      
+
       // This @user mention link generation did open same Wekan
       // window in new tab, so now A is changed to U so it's
       // underlined and there is no link popup. This way also

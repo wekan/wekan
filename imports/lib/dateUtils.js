@@ -10,13 +10,13 @@
 export function formatDateTime(date) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return '';
-  
+
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   const hours = String(d.getHours()).padStart(2, '0');
   const minutes = String(d.getMinutes()).padStart(2, '0');
-  
+
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
@@ -28,11 +28,11 @@ export function formatDateTime(date) {
 export function formatDate(date) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return '';
-  
+
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
-  
+
   return `${year}-${month}-${day}`;
 }
 
@@ -46,13 +46,13 @@ export function formatDate(date) {
 export function formatDateByUserPreference(date, format = 'YYYY-MM-DD', includeTime = true) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return '';
-  
+
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   const hours = String(d.getHours()).padStart(2, '0');
   const minutes = String(d.getMinutes()).padStart(2, '0');
-  
+
   let dateString;
   switch (format) {
     case 'DD-MM-YYYY':
@@ -66,11 +66,11 @@ export function formatDateByUserPreference(date, format = 'YYYY-MM-DD', includeT
       dateString = `${year}-${month}-${day}`;
       break;
   }
-  
+
   if (includeTime) {
     return `${dateString} ${hours}:${minutes}`;
   }
-  
+
   return dateString;
 }
 
@@ -82,10 +82,10 @@ export function formatDateByUserPreference(date, format = 'YYYY-MM-DD', includeT
 export function formatTime(date) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return '';
-  
+
   const hours = String(d.getHours()).padStart(2, '0');
   const minutes = String(d.getMinutes()).padStart(2, '0');
-  
+
   return `${hours}:${minutes}`;
 }
 
@@ -97,20 +97,20 @@ export function formatTime(date) {
 export function getISOWeek(date) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return 0;
-  
+
   // Set to nearest Thursday: current date + 4 - current day number
   // Make Sunday's day number 7
   const target = new Date(d);
   const dayNr = (d.getDay() + 6) % 7;
   target.setDate(target.getDate() - dayNr + 3);
-  
+
   // ISO week date weeks start on monday, so correct the day number
   const firstThursday = target.valueOf();
   target.setMonth(0, 1);
   if (target.getDay() !== 4) {
     target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
   }
-  
+
   return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
 }
 
@@ -134,17 +134,17 @@ export function isValidDate(date) {
 export function isBefore(date1, date2, unit = 'millisecond') {
   const d1 = new Date(date1);
   const d2 = new Date(date2);
-  
+
   if (isNaN(d1.getTime()) || isNaN(d2.getTime())) return false;
-  
+
   switch (unit) {
     case 'year':
       return d1.getFullYear() < d2.getFullYear();
     case 'month':
-      return d1.getFullYear() < d2.getFullYear() || 
+      return d1.getFullYear() < d2.getFullYear() ||
              (d1.getFullYear() === d2.getFullYear() && d1.getMonth() < d2.getMonth());
     case 'day':
-      return d1.getFullYear() < d2.getFullYear() || 
+      return d1.getFullYear() < d2.getFullYear() ||
              (d1.getFullYear() === d2.getFullYear() && d1.getMonth() < d2.getMonth()) ||
              (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() < d2.getDate());
     case 'hour':
@@ -177,9 +177,9 @@ export function isAfter(date1, date2, unit = 'millisecond') {
 export function isSame(date1, date2, unit = 'millisecond') {
   const d1 = new Date(date1);
   const d2 = new Date(date2);
-  
+
   if (isNaN(d1.getTime()) || isNaN(d2.getTime())) return false;
-  
+
   switch (unit) {
     case 'year':
       return d1.getFullYear() === d2.getFullYear();
@@ -206,7 +206,7 @@ export function isSame(date1, date2, unit = 'millisecond') {
 export function add(date, amount, unit) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return new Date();
-  
+
   switch (unit) {
     case 'years':
       d.setFullYear(d.getFullYear() + amount);
@@ -229,7 +229,7 @@ export function add(date, amount, unit) {
     default:
       d.setTime(d.getTime() + amount);
   }
-  
+
   return d;
 }
 
@@ -253,7 +253,7 @@ export function subtract(date, amount, unit) {
 export function startOf(date, unit) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return new Date();
-  
+
   switch (unit) {
     case 'year':
       d.setMonth(0, 1);
@@ -276,7 +276,7 @@ export function startOf(date, unit) {
       d.setMilliseconds(0);
       break;
   }
-  
+
   return d;
 }
 
@@ -289,7 +289,7 @@ export function startOf(date, unit) {
 export function endOf(date, unit) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return new Date();
-  
+
   switch (unit) {
     case 'year':
       d.setMonth(11, 31);
@@ -312,7 +312,7 @@ export function endOf(date, unit) {
       d.setMilliseconds(999);
       break;
   }
-  
+
   return d;
 }
 
@@ -325,14 +325,14 @@ export function endOf(date, unit) {
 export function format(date, format = 'L') {
   const d = new Date(date);
   if (isNaN(d.getTime())) return '';
-  
+
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   const hours = String(d.getHours()).padStart(2, '0');
   const minutes = String(d.getMinutes()).padStart(2, '0');
   const seconds = String(d.getSeconds()).padStart(2, '0');
-  
+
   switch (format) {
     case 'L':
       return `${month}/${day}/${year}`;
@@ -366,13 +366,13 @@ export function format(date, format = 'L') {
  */
 export function parseDate(dateString, formats = [], strict = true) {
   if (!dateString) return null;
-  
+
   // Try native Date parsing first
   const nativeDate = new Date(dateString);
   if (!isNaN(nativeDate.getTime())) {
     return nativeDate;
   }
-  
+
   // Try common formats
   const commonFormats = [
     'YYYY-MM-DD HH:mm',
@@ -386,16 +386,16 @@ export function parseDate(dateString, formats = [], strict = true) {
     'DD-MM-YYYY HH:mm',
     'DD-MM-YYYY'
   ];
-  
+
   const allFormats = [...formats, ...commonFormats];
-  
+
   for (const format of allFormats) {
     const parsed = parseWithFormat(dateString, format);
     if (parsed && isValidDate(parsed)) {
       return parsed;
     }
   }
-  
+
   return null;
 }
 
@@ -415,18 +415,18 @@ function parseWithFormat(dateString, format) {
     'mm': '\\d{2}',
     'ss': '\\d{2}'
   };
-  
+
   let regex = format;
   for (const [key, value] of Object.entries(formatMap)) {
     regex = regex.replace(new RegExp(key, 'g'), `(${value})`);
   }
-  
+
   const match = dateString.match(new RegExp(regex));
   if (!match) return null;
-  
+
   const groups = match.slice(1);
   let year, month, day, hour = 0, minute = 0, second = 0;
-  
+
   let groupIndex = 0;
   for (let i = 0; i < format.length; i++) {
     if (format[i] === 'Y' && format[i + 1] === 'Y' && format[i + 2] === 'Y' && format[i + 3] === 'Y') {
@@ -449,11 +449,11 @@ function parseWithFormat(dateString, format) {
       i += 1;
     }
   }
-  
+
   if (year === undefined || month === undefined || day === undefined) {
     return null;
   }
-  
+
   return new Date(year, month, day, hour, minute, second);
 }
 
@@ -488,9 +488,9 @@ export function createDate(year, month, day, hour = 0, minute = 0, second = 0) {
 export function fromNow(date, now = new Date()) {
   const d = new Date(date);
   const n = new Date(now);
-  
+
   if (isNaN(d.getTime()) || isNaN(n.getTime())) return '';
-  
+
   const diffMs = n.getTime() - d.getTime();
   const diffSeconds = Math.floor(diffMs / 1000);
   const diffMinutes = Math.floor(diffSeconds / 60);
@@ -499,7 +499,7 @@ export function fromNow(date, now = new Date()) {
   const diffWeeks = Math.floor(diffDays / 7);
   const diffMonths = Math.floor(diffDays / 30);
   const diffYears = Math.floor(diffDays / 365);
-  
+
   if (diffSeconds < 60) return 'a few seconds ago';
   if (diffMinutes < 60) return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago`;
   if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
@@ -518,36 +518,36 @@ export function fromNow(date, now = new Date()) {
 export function calendar(date, now = new Date()) {
   const d = new Date(date);
   const n = new Date(now);
-  
+
   if (isNaN(d.getTime()) || isNaN(n.getTime())) return format(d);
-  
+
   const diffMs = d.getTime() - n.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  
+
   if (diffDays === 0) return 'Today';
   if (diffDays === 1) return 'Tomorrow';
   if (diffDays === -1) return 'Yesterday';
   if (diffDays > 1 && diffDays < 7) return `In ${diffDays} days`;
   if (diffDays < -1 && diffDays > -7) return `${Math.abs(diffDays)} days ago`;
-  
+
   return format(d, 'L');
 }
 
 /**
  * Calculate the difference between two dates in the specified unit
  * @param {Date|string} date1 - First date
- * @param {Date|string} date2 - Second date  
+ * @param {Date|string} date2 - Second date
  * @param {string} unit - Unit of measurement ('millisecond', 'second', 'minute', 'hour', 'day', 'week', 'month', 'year')
  * @returns {number} Difference in the specified unit
  */
 export function diff(date1, date2, unit = 'millisecond') {
   const d1 = new Date(date1);
   const d2 = new Date(date2);
-  
+
   if (isNaN(d1.getTime()) || isNaN(d2.getTime())) return 0;
-  
+
   const diffMs = d1.getTime() - d2.getTime();
-  
+
   switch (unit) {
     case 'millisecond':
       return diffMs;

@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 
 const subManager = new SubsManager();
 
@@ -114,6 +115,70 @@ async function mutateSelectedCards(mutationNameOrCallback, ...args) {
       await card[mutationNameOrCallback](...args);
     }
   }
+}
+
+function getSelectedCardsSorted() {
+  return ReactiveCache.getCards(MultiSelection.getMongoSelector(), { sort: ['sort'] });
+}
+
+function getListsForBoardSwimlane(boardId, swimlaneId) {
+  if (!boardId) return [];
+  const board = ReactiveCache.getBoard(boardId);
+  if (!board) return [];
+
+  const selector = {
+    boardId,
+    archived: false,
+  };
+
+  if (swimlaneId) {
+    const defaultSwimlane = board.getDefaultSwimline && board.getDefaultSwimline();
+    if (defaultSwimlane && defaultSwimlane._id === swimlaneId) {
+      selector.swimlaneId = { $in: [swimlaneId, null, ''] };
+    } else {
+      selector.swimlaneId = swimlaneId;
+    }
+  }
+
+  return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
+}
+
+function getMaxSortForList(listId, swimlaneId) {
+  if (!listId || !swimlaneId) return null;
+  const card = ReactiveCache.getCard(
+    { listId, swimlaneId, archived: false },
+    { sort: { sort: -1 } },
+    true,
+  );
+  return card ? card.sort : null;
+}
+
+function buildInsertionSortIndexes(cardsCount, targetCard, position, listId, swimlaneId) {
+  const indexes = [];
+  if (cardsCount <= 0) return indexes;
+
+  if (targetCard) {
+    const step = 0.5;
+    if (position === 'above') {
+      const start = targetCard.sort - step * cardsCount;
+      for (let i = 0; i < cardsCount; i += 1) {
+        indexes.push(start + step * i);
+      }
+    } else {
+      const start = targetCard.sort + step;
+      for (let i = 0; i < cardsCount; i += 1) {
+        indexes.push(start + step * i);
+      }
+    }
+    return indexes;
+  }
+
+  const maxSort = getMaxSortForList(listId, swimlaneId);
+  const start = maxSort === null ? 0 : maxSort + 1;
+  for (let i = 0; i < cardsCount; i += 1) {
+    indexes.push(start + i);
+  }
+  return indexes;
 }
 
 BlazeComponent.extendComponent({
@@ -241,9 +306,12 @@ Template.moveSelectionPopup.onCreated(function() {
 
   this.setFirstListId = function() {
     try {
-      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const listId = board.lists()[0]._id;
+      const boardId = this.selectedBoardId.get();
+      const swimlaneId = this.selectedSwimlaneId.get();
+      const lists = getListsForBoardSwimlane(boardId, swimlaneId);
+      const listId = lists[0] ? lists[0]._id : '';
       this.selectedListId.set(listId);
+      this.selectedCardId.set('');
     } catch (e) {}
   };
 
@@ -270,8 +338,11 @@ Template.moveSelectionPopup.helpers({
     return board ? board.swimlanes() : [];
   },
   lists() {
-    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
-    return board ? board.lists() : [];
+    const instance = Template.instance();
+    return getListsForBoardSwimlane(
+      instance.selectedBoardId.get(),
+      instance.selectedSwimlaneId.get(),
+    );
   },
   cards() {
     const instance = Template.instance();
@@ -288,6 +359,25 @@ Template.moveSelectionPopup.helpers({
   isDialogOptionListId(listId) {
     return Template.instance().selectedListId.get() === listId;
   },
+  isTitleDefault(title) {
+    if (
+      title.startsWith("key 'default") &&
+      title.endsWith('returned an object instead of string.')
+    ) {
+      const translated = `${TAPi18n.__('defaultdefault')}`;
+      if (
+        translated.startsWith("key 'default") &&
+        translated.endsWith('returned an object instead of string.')
+      ) {
+        return 'Default';
+      }
+      return translated;
+    }
+    if (title === 'Default') {
+      return `${TAPi18n.__('defaultdefault')}`;
+    }
+    return title;
+  },
 });
 
 Template.moveSelectionPopup.events({
@@ -296,10 +386,14 @@ Template.moveSelectionPopup.events({
     Template.instance().getBoardData(boardId);
   },
   'change .js-select-swimlanes'(event) {
-    Template.instance().selectedSwimlaneId.set($(event.currentTarget).val());
+    const instance = Template.instance();
+    instance.selectedSwimlaneId.set($(event.currentTarget).val());
+    instance.setFirstListId();
   },
   'change .js-select-lists'(event) {
-    Template.instance().selectedListId.set($(event.currentTarget).val());
+    const instance = Template.instance();
+    instance.selectedListId.set($(event.currentTarget).val());
+    instance.selectedCardId.set('');
   },
   'change .js-select-cards'(event) {
     Template.instance().selectedCardId.set($(event.currentTarget).val());
@@ -307,7 +401,7 @@ Template.moveSelectionPopup.events({
   'change input[name="position"]'(event) {
     Template.instance().position.set($(event.currentTarget).val());
   },
-  'click .js-done'() {
+  async 'click .js-done'() {
     const instance = Template.instance();
     const boardId = instance.selectedBoardId.get();
     const swimlaneId = instance.selectedSwimlaneId.get();
@@ -315,27 +409,19 @@ Template.moveSelectionPopup.events({
     const cardId = instance.selectedCardId.get();
     const position = instance.position.get();
 
-    // Calculate sortIndex
-    let sortIndex = 0;
-    if (cardId) {
-      const targetCard = ReactiveCache.getCard(cardId);
-      if (targetCard) {
-        if (position === 'above') {
-          sortIndex = targetCard.sort - 0.5;
-        } else {
-          sortIndex = targetCard.sort + 0.5;
-        }
-      }
-    } else {
-      // If no card selected, move to end
-      const board = ReactiveCache.getBoard(boardId);
-      const cards = board.cards({ swimlaneId, listId }).sort('sort');
-      if (cards.length > 0) {
-        sortIndex = cards[cards.length - 1].sort + 1;
-      }
-    }
+    const selectedCards = getSelectedCardsSorted();
+    const targetCard = cardId ? ReactiveCache.getCard(cardId) : null;
+    const sortIndexes = buildInsertionSortIndexes(
+      selectedCards.length,
+      targetCard,
+      position,
+      listId,
+      swimlaneId,
+    );
 
-    mutateSelectedCards('move', boardId, swimlaneId, listId, sortIndex);
+    for (let i = 0; i < selectedCards.length; i += 1) {
+      await selectedCards[i].move(boardId, swimlaneId, listId, sortIndexes[i]);
+    }
     EscapeActions.executeUpTo('multiselection');
   },
 });
@@ -372,9 +458,12 @@ Template.copySelectionPopup.onCreated(function() {
 
   this.setFirstListId = function() {
     try {
-      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const listId = board.lists()[0]._id;
+      const boardId = this.selectedBoardId.get();
+      const swimlaneId = this.selectedSwimlaneId.get();
+      const lists = getListsForBoardSwimlane(boardId, swimlaneId);
+      const listId = lists[0] ? lists[0]._id : '';
       this.selectedListId.set(listId);
+      this.selectedCardId.set('');
     } catch (e) {}
   };
 
@@ -401,8 +490,11 @@ Template.copySelectionPopup.helpers({
     return board ? board.swimlanes() : [];
   },
   lists() {
-    const board = ReactiveCache.getBoard(Template.instance().selectedBoardId.get());
-    return board ? board.lists() : [];
+    const instance = Template.instance();
+    return getListsForBoardSwimlane(
+      instance.selectedBoardId.get(),
+      instance.selectedSwimlaneId.get(),
+    );
   },
   cards() {
     const instance = Template.instance();
@@ -419,6 +511,25 @@ Template.copySelectionPopup.helpers({
   isDialogOptionListId(listId) {
     return Template.instance().selectedListId.get() === listId;
   },
+  isTitleDefault(title) {
+    if (
+      title.startsWith("key 'default") &&
+      title.endsWith('returned an object instead of string.')
+    ) {
+      const translated = `${TAPi18n.__('defaultdefault')}`;
+      if (
+        translated.startsWith("key 'default") &&
+        translated.endsWith('returned an object instead of string.')
+      ) {
+        return 'Default';
+      }
+      return translated;
+    }
+    if (title === 'Default') {
+      return `${TAPi18n.__('defaultdefault')}`;
+    }
+    return title;
+  },
 });
 
 Template.copySelectionPopup.events({
@@ -427,10 +538,14 @@ Template.copySelectionPopup.events({
     Template.instance().getBoardData(boardId);
   },
   'change .js-select-swimlanes'(event) {
-    Template.instance().selectedSwimlaneId.set($(event.currentTarget).val());
+    const instance = Template.instance();
+    instance.selectedSwimlaneId.set($(event.currentTarget).val());
+    instance.setFirstListId();
   },
   'change .js-select-lists'(event) {
-    Template.instance().selectedListId.set($(event.currentTarget).val());
+    const instance = Template.instance();
+    instance.selectedListId.set($(event.currentTarget).val());
+    instance.selectedCardId.set('');
   },
   'change .js-select-cards'(event) {
     Template.instance().selectedCardId.set($(event.currentTarget).val());
@@ -438,7 +553,7 @@ Template.copySelectionPopup.events({
   'change input[name="position"]'(event) {
     Template.instance().position.set($(event.currentTarget).val());
   },
-  'click .js-done'() {
+  async 'click .js-done'() {
     const instance = Template.instance();
     const boardId = instance.selectedBoardId.get();
     const swimlaneId = instance.selectedSwimlaneId.get();
@@ -446,33 +561,34 @@ Template.copySelectionPopup.events({
     const cardId = instance.selectedCardId.get();
     const position = instance.position.get();
 
-    mutateSelectedCards(async (card) => {
-      const newCardId = await card.copy(boardId, swimlaneId, listId);
-      if (newCardId) {
-        const newCard = ReactiveCache.getCard(newCardId);
-        if (newCard) {
-          let sortIndex = 0;
-          if (cardId) {
-            const targetCard = ReactiveCache.getCard(cardId);
-            if (targetCard) {
-              if (position === 'above') {
-                sortIndex = targetCard.sort - 0.5;
-              } else {
-                sortIndex = targetCard.sort + 0.5;
-              }
-            }
-          } else {
-            // To end
-            const board = ReactiveCache.getBoard(boardId);
-            const cards = board.cards({ swimlaneId, listId }).sort('sort');
-            if (cards.length > 0) {
-              sortIndex = cards[cards.length - 1].sort + 1;
-            }
-          }
-          newCard.setSort(sortIndex);
-        }
-      }
-    });
+    const selectedCards = getSelectedCardsSorted();
+    const targetCard = cardId ? ReactiveCache.getCard(cardId) : null;
+    const sortIndexes = buildInsertionSortIndexes(
+      selectedCards.length,
+      targetCard,
+      position,
+      listId,
+      swimlaneId,
+    );
+
+    for (let i = 0; i < selectedCards.length; i += 1) {
+      const card = selectedCards[i];
+      const newCardId = await Meteor.callAsync(
+        'copyCard',
+        card._id,
+        boardId,
+        swimlaneId,
+        listId,
+        true,
+        { title: card.title },
+      );
+      if (!newCardId) continue;
+
+      const newCard = ReactiveCache.getCard(newCardId);
+      if (!newCard) continue;
+
+      await newCard.move(boardId, swimlaneId, listId, sortIndexes[i]);
+    }
     EscapeActions.executeUpTo('multiselection');
   },
 });

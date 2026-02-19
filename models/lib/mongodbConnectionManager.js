@@ -3,10 +3,10 @@ import { mongodbDriverManager } from './mongodbDriverManager';
 
 /**
  * MongoDB Connection Manager
- * 
+ *
  * This module handles MongoDB connections with automatic driver selection
  * based on detected MongoDB server version and wire protocol compatibility.
- * 
+ *
  * Features:
  * - Automatic driver selection based on MongoDB version
  * - Connection retry with different drivers on wire protocol errors
@@ -30,7 +30,7 @@ class MongoDBConnectionManager {
    */
   async createConnection(connectionString, options = {}) {
     const connectionId = this.generateConnectionId(connectionString);
-    
+
     // Check if we already have a working connection
     if (this.connections.has(connectionId)) {
       const existingConnection = this.connections.get(connectionId);
@@ -66,13 +66,13 @@ class MongoDBConnectionManager {
     for (let attempt = 0; attempt < this.retryAttempts; attempt++) {
       try {
         console.log(`Attempting MongoDB connection with driver: ${currentDriver} (attempt ${attempt + 1})`);
-        
+
         const connection = await this.connectWithDriver(currentDriver, connectionString, options);
-        
+
         // Record successful connection
         mongodbDriverManager.recordConnectionAttempt(
-          currentDriver, 
-          mongodbDriverManager.detectedVersion || 'unknown', 
+          currentDriver,
+          mongodbDriverManager.detectedVersion || 'unknown',
           true
         );
 
@@ -113,9 +113,9 @@ class MongoDBConnectionManager {
 
         // Record failed attempt
         mongodbDriverManager.recordConnectionAttempt(
-          currentDriver, 
-          detectedVersion || 'unknown', 
-          false, 
+          currentDriver,
+          detectedVersion || 'unknown',
+          false,
           error
         );
 
@@ -204,7 +204,7 @@ class MongoDBConnectionManager {
   async closeAllConnections() {
     let closedCount = 0;
     const connectionIds = Array.from(this.connections.keys());
-    
+
     for (const connectionId of connectionIds) {
       if (await this.closeConnection(connectionId)) {
         closedCount++;
