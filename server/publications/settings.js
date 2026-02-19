@@ -1,12 +1,25 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 
-Meteor.publish('globalwebhooks', async () => {
+Meteor.publish('globalwebhooks', async function() {
+  if (!this.userId) {
+    return this.ready();
+  }
+
+  const user = await ReactiveCache.getCurrentUser();
+  if (!user || !user.isAdmin) {
+    return this.ready();
+  }
+
   const boardId = Integrations.Const.GLOBAL_WEBHOOK_ID;
   const ret = await ReactiveCache.getIntegrations(
     {
       boardId,
     },
-    {},
+    {
+      fields: {
+        token: 0,
+      },
+    },
     true,
   );
   return ret;
