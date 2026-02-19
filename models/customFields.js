@@ -409,52 +409,57 @@ if (Meteor.isServer) {
       const paramFieldId = req.params.customFieldId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
+      const boardScopedField = {
+        _id: paramFieldId,
+        boardIds: { $in: [paramBoardId] },
+      };
+
       if (req.body.hasOwnProperty('name')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { name: req.body.name } },
         );
       }
       if (req.body.hasOwnProperty('type')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { type: req.body.type } },
         );
       }
       if (req.body.hasOwnProperty('settings')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { settings: req.body.settings } },
         );
       }
       if (req.body.hasOwnProperty('showOnCard')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { showOnCard: req.body.showOnCard } },
         );
       }
       if (req.body.hasOwnProperty('automaticallyOnCard')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { automaticallyOnCard: req.body.automaticallyOnCard } },
         );
       }
       if (req.body.hasOwnProperty('alwaysOnCard')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { alwaysOnCard: req.body.alwaysOnCard } },
         );
       }
       if (req.body.hasOwnProperty('showLabelOnMiniCard')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { showLabelOnMiniCard: req.body.showLabelOnMiniCard } },
         );
       }
 
       if (req.body.hasOwnProperty('showSumAtTopOfList')) {
         CustomFields.direct.update(
-          { _id: paramFieldId },
+          boardScopedField,
           { $set: { showSumAtTopOfList: req.body.showSumAtTopOfList } },
         );
       }
@@ -486,7 +491,10 @@ if (Meteor.isServer) {
       if (req.body.hasOwnProperty('items')) {
         if (Array.isArray(paramItems)) {
           CustomFields.direct.update(
-            { _id: paramCustomFieldId },
+            {
+              _id: paramCustomFieldId,
+              boardIds: { $in: [paramBoardId] },
+            },
             {
               $push: {
                 'settings.dropdownItems': {
@@ -531,6 +539,7 @@ if (Meteor.isServer) {
         CustomFields.direct.update(
           {
             _id: paramCustomFieldId,
+            boardIds: { $in: [paramBoardId] },
             'settings.dropdownItems._id': paramDropdownItemId,
           },
           {
@@ -563,12 +572,12 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items/:dropdownItemId',
     (req, res) => {
       const paramBoardId = req.params.boardId;
-      paramCustomFieldId = req.params.customFieldId;
-      paramDropdownItemId = req.params.dropdownItemId;
+      const paramCustomFieldId = req.params.customFieldId;
+      const paramDropdownItemId = req.params.dropdownItemId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       CustomFields.direct.update(
-        { _id: paramCustomFieldId },
+        { _id: paramCustomFieldId, boardIds: { $in: [paramBoardId] } },
         {
           $pull: {
             'settings.dropdownItems': { _id: paramDropdownItemId },
