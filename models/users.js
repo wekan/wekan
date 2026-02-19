@@ -1948,7 +1948,9 @@ Meteor.methods({
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
   },
   // Spaces: create a new space under parentId (or root when null)
-  createWorkspace({ parentId = null, name }) {
+  createWorkspace(params) {
+    check(params, Object);
+    const { parentId = null, name } = params;
     check(parentId, Match.OneOf(String, null));
     check(name, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
