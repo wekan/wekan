@@ -130,7 +130,14 @@ Meteor.publish('notificationUsers', async function() {
           .filter(v => !!v),
       },
     },
-    {},
+    {
+      fields: {
+        username: 1,
+        'profile.fullname': 1,
+        'profile.avatarUrl': 1,
+        'profile.initials': 1,
+      },
+    },
     true,
   );
   return ret;
