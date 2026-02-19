@@ -32,7 +32,20 @@ Upgrading to Meteor 3 progress:
 
 # Upcoming WeKan ® release
 
-This release adds the following new features:
+This release adds the following CRITICAL SECURITY FIXES:
+
+- [Fix GHSL-2026-035_Wekan](https://github.com/wekan/wekan/commit/1c8667eae8b28739e43569b612ffdb2693c6b1ce).
+  Thanks to GHSL and xet7.
+- [Fix GHSL-2026-036_Wekan](https://github.com/wekan/wekan/commit/8c00adc6b865653bd717a946dd646eb54ac78c9c).
+  Thanks to GHSL and xet7.
+- [Fix GHSL-2026-037_Wekan](https://github.com/wekan/wekan/commit/1ee9b2e917104f54c035f6426169a28fedecbdb6).
+  Thanks to GHSL and xet7.
+- [Fix GHSL-2026-044_Wekan](https://github.com/wekan/wekan/commit/73eb98c57afd3d72377a1f7160a52450ab0eeb8b).
+  Thanks to GHSL and xet7.
+- [Fix GHSL-2026-045_Wekan](https://github.com/wekan/wekan/commit/62216e36c15f55d4ef6cb97313db3aa54fc77fe0).
+  Thanks to GHSL and xet7.
+
+and adds the following new features:
 
 - [Helm Chart: Feat(ingress): add ingressClassName support](https://github.com/wekan/charts/pull/50).
   Thanks to Rohmilchkaese.
