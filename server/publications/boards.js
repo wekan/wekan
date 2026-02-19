@@ -225,7 +225,11 @@ publishComposite('board', async function(boardId, isArchived) {
       // Integrations
       {
         async find(board) {
-          return await ReactiveCache.getIntegrations({ boardId: board._id }, {}, true);
+          return await ReactiveCache.getIntegrations(
+            { boardId: board._id },
+            { fields: { token: 0 } },
+            true,
+          );
         }
       },
       // CardCommentReactions at board level
