@@ -60,6 +60,8 @@ and fixes the following bugs:
   Thanks to KhaoulaMaleh.
 - [Removed duplicate code](https://github.com/wekan/wekan/commit/ed907f8c61f59763a87cc738f94bff418de77701).
   Thanks to xet7.
+- [Fix createWorkspace Meteor method fails with "Expected string, got undefined"](https://github.com/wekan/wekan/commit/06d418b12b5de6392dab12c2d3b262813b92e730).
+  Thanks to TheBoysenBuilds and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
