@@ -29,7 +29,7 @@
     "@wekanteam/html-to-markdown": "^1.0.2",
     "@wekanteam/meteor-globals": "^1.1.6",
     "@wekanteam/meteor-reactive-cache": "file:./npm-packages/meteor-reactive-cache",
-    "ajv": "^6.12.6",
+    "ajv": "^8.18.0",
     "bcryptjs": "^2.4.3",
     "bson": "^4.7.2",
     "chart.js": "^4.5.0",
