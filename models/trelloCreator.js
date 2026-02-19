@@ -22,6 +22,7 @@ import {
   calendar
 } from '/imports/lib/dateUtils';
 import getSlug from 'limax';
+import { validateAttachmentUrl } from './lib/attachmentUrlValidation';
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
@@ -471,6 +472,17 @@ export class TrelloCreator {
             }
           };
           if (att.url) {
+            const validation = validateAttachmentUrl(att.url);
+            if (!validation.valid) {
+              if (process.env.DEBUG === 'true') {
+                console.warn(
+                  'Blocked attachment URL during Trello import:',
+                  validation.reason,
+                  att.url,
+                );
+              }
+              return;
+            }
             Attachments.load(att.url, opts, cb, true);
           } else if (att.file) {
             Attachments.insert(att.file, opts, cb, true);
