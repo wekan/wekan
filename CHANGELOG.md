@@ -30,7 +30,7 @@ Upgrading to Meteor 3 progress:
 - https://www.linkedin.com/posts/harryadel_dev-diary-24-wekan-migration-journey-activity-7426683776547811328-jS9h/
 - https://forums.meteor.com/t/anyone-still-using-meteor-2/64402/4
 
-# Upcoming WeKan ® release
+# v8.34 2026-02-20 WeKan ® release
 
 This release adds the following CRITICAL SECURITY FIXES:
 
@@ -75,6 +75,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix createWorkspace Meteor method fails with "Expected string, got undefined"](https://github.com/wekan/wekan/commit/06d418b12b5de6392dab12c2d3b262813b92e730).
   Thanks to TheBoysenBuilds and xet7.
+- [Fix Notifications from not allowed Boards](https://github.com/wekan/wekan/commit/a34c2f35a6c4ae64b97af0a930fb768b2d781938).
+  Thanks to FK-PATZ3 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
