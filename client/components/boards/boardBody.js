@@ -33,7 +33,10 @@ BlazeComponent.extendComponent({
       // Use a separate autorun for subscription ready state to avoid reactive loops
       this.subscriptionReadyAutorun = Tracker.autorun(() => {
         if (handle.ready()) {
-          if (!this._boardProcessed || this._lastProcessedBoardId !== currentBoardId) {
+          if (
+            !this._boardProcessed ||
+            this._lastProcessedBoardId !== currentBoardId
+          ) {
             this._boardProcessed = true;
             this._lastProcessedBoardId = currentBoardId;
 
@@ -77,7 +80,9 @@ BlazeComponent.extendComponent({
             boardId: boardId,
           });
           if (process.env.DEBUG === 'true') {
-            console.log(`Created default swimlane ${swimlaneId} for board ${boardId}`);
+            console.log(
+              `Created default swimlane ${swimlaneId} for board ${boardId}`,
+            );
           }
         }
         this._swimlaneCreated.add(boardId);
@@ -98,7 +103,6 @@ BlazeComponent.extendComponent({
       }
 
       this.isBoardReady.set(true);
-
     } catch (error) {
       console.error('Error during board conversion check:', error);
       this.isConverting.set(false);
@@ -117,7 +121,9 @@ BlazeComponent.extendComponent({
     const isMobile = Utils.getMobileMode();
     if (!isMobile) {
       const openCardIds = Session.get('openCards') || [];
-      return openCardIds.map(id => ReactiveCache.getCard(id)).filter(card => card);
+      return openCardIds
+        .map((id) => ReactiveCache.getCard(id))
+        .filter((card) => card);
     }
     return [];
   },
@@ -159,7 +165,7 @@ BlazeComponent.extendComponent({
         if (nullSortSwimlanes.length > 0) {
           const swimlanes = currentBoardData.swimlanes();
           let count = 0;
-          swimlanes.forEach(s => {
+          swimlanes.forEach((s) => {
             Swimlanes.update(s._id, {
               $set: {
                 sort: count,
@@ -181,7 +187,7 @@ BlazeComponent.extendComponent({
         if (nullSortLists.length > 0) {
           const lists = currentBoardData.lists();
           let count = 0;
-          lists.forEach(l => {
+          lists.forEach((l) => {
             Lists.update(l._id, {
               $set: {
                 sort: count,
@@ -208,7 +214,9 @@ BlazeComponent.extendComponent({
     function focusFirstInteractive(container) {
       if (!container) return;
       // Find first focusable element
-      const focusable = container.querySelectorAll('button, [role="button"], a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const focusable = container.querySelectorAll(
+        'button, [role="button"], a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
       for (let i = 0; i < focusable.length; i++) {
         if (!focusable[i].disabled && focusable[i].offsetParent !== null) {
           focusable[i].focus();
@@ -218,6 +226,22 @@ BlazeComponent.extendComponent({
     }
 
     // Observe for new popups/menus and set focus (but exclude swimlane content)
+    const popupObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
+          if (
+            node.nodeType === 1 &&
+            (node.classList.contains('popup') ||
+              node.classList.contains('modal') ||
+              node.classList.contains('menu')) &&
+            !node.closest('.js-swimlanes') &&
+            !node.closest('.swimlane') &&
+            !node.closest('.list') &&
+            !node.closest('.minicard')
+          ) {
+            setTimeout(function () {
+              focusFirstInteractive(node);
+            }, 10);
     const popupObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         mutation.addedNodes.forEach(function(node) {
@@ -235,11 +259,15 @@ BlazeComponent.extendComponent({
     popupObserver.observe(document.body, { childList: true, subtree: true });
 
     // Remove tabindex from non-interactive elements (e.g., user abbreviations, labels)
-    document.querySelectorAll('.user-abbreviation, .user-label, .card-header-label, .edit-label, .private-label').forEach(function(el) {
-      if (el.hasAttribute('tabindex')) {
-        el.removeAttribute('tabindex');
-      }
-    });
+    document
+      .querySelectorAll(
+        '.user-abbreviation, .user-label, .card-header-label, .edit-label, .private-label',
+      )
+      .forEach(function (el) {
+        if (el.hasAttribute('tabindex')) {
+          el.removeAttribute('tabindex');
+        }
+      });
     /*
     // Add a toggle button for keyboard shortcuts accessibility
     if (!document.getElementById('wekan-shortcuts-toggle')) {
@@ -272,7 +300,7 @@ BlazeComponent.extendComponent({
     }
     */
     // Ensure toggle-buttons, color choices, reactions, renaming, and calendar controls are focusable and have ARIA roles
-    document.querySelectorAll('.js-toggle').forEach(function(el) {
+    document.querySelectorAll('.js-toggle').forEach(function (el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
       // Short, descriptive label for favorite/star toggle
@@ -282,27 +310,27 @@ BlazeComponent.extendComponent({
         el.setAttribute('aria-label', 'Toggle');
       }
     });
-    document.querySelectorAll('.js-color-choice').forEach(function(el) {
+    document.querySelectorAll('.js-color-choice').forEach(function (el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
       el.setAttribute('aria-label', 'Choose color');
     });
-    document.querySelectorAll('.js-reaction').forEach(function(el) {
+    document.querySelectorAll('.js-reaction').forEach(function (el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
       el.setAttribute('aria-label', 'React');
     });
-    document.querySelectorAll('.js-rename-swimlane').forEach(function(el) {
+    document.querySelectorAll('.js-rename-swimlane').forEach(function (el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
       el.setAttribute('aria-label', 'Rename swimlane');
     });
-    document.querySelectorAll('.js-rename-list').forEach(function(el) {
+    document.querySelectorAll('.js-rename-list').forEach(function (el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
       el.setAttribute('aria-label', 'Rename list');
     });
-    document.querySelectorAll('.fc-button').forEach(function(el) {
+    document.querySelectorAll('.fc-button').forEach(function (el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
     });
@@ -313,7 +341,10 @@ BlazeComponent.extendComponent({
     // This fixes WCAG 2.5.3: Label in Name
     const swimlanesSwitcher = this.$('.js-board-view-swimlanes');
     if (swimlanesSwitcher.length) {
-      swimlanesSwitcher.attr('aria-label', swimlanesSwitcher.text().trim() || 'Swimlanes');
+      swimlanesSwitcher.attr(
+        'aria-label',
+        swimlanesSwitcher.text().trim() || 'Swimlanes',
+      );
     }
 
     // Add a highly visible focus indicator and improve contrast for interactive elements
@@ -376,7 +407,7 @@ BlazeComponent.extendComponent({
       document.head.appendChild(style);
     }
     // Ensure plus/add elements are focusable and have ARIA roles
-    document.querySelectorAll('.js-add-card').forEach(function(el) {
+    document.querySelectorAll('.js-add-card').forEach(function (el) {
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
       el.setAttribute('aria-label', 'Add new card');
@@ -506,7 +537,11 @@ BlazeComponent.extendComponent({
 
       if ($swimlanesDom.data('uiSortable') || $swimlanesDom.data('sortable')) {
         if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-          $swimlanesDom.sortable('option', 'handle', '.js-swimlane-header-handle');
+          $swimlanesDom.sortable(
+            'option',
+            'handle',
+            '.js-swimlane-header-handle',
+          );
         } else {
           $swimlanesDom.sortable('option', 'handle', '.swimlane-header');
         }
@@ -532,9 +567,16 @@ BlazeComponent.extendComponent({
   },
 
   notDisplayThisBoard() {
-    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly');
+    let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne(
+      'tableVisibilityMode-allowPrivateOnly',
+    );
     let currentBoard = Utils.getCurrentBoard();
-    return allowPrivateVisibilityOnly !== undefined && allowPrivateVisibilityOnly.booleanValue && currentBoard && currentBoard.permission == 'public';
+    return (
+      allowPrivateVisibilityOnly !== undefined &&
+      allowPrivateVisibilityOnly.booleanValue &&
+      currentBoard &&
+      currentBoard.permission == 'public'
+    );
   },
 
   isViewSwimlanes() {
@@ -607,7 +649,11 @@ BlazeComponent.extendComponent({
       const swimlanes = currentBoard.swimlanes();
       const hasSwimlanes = swimlanes && swimlanes.length > 0;
       if (process.env.DEBUG === 'true') {
-        console.log('hasSwimlanes: Board has', swimlanes ? swimlanes.length : 0, 'swimlanes');
+        console.log(
+          'hasSwimlanes: Board has',
+          swimlanes ? swimlanes.length : 0,
+          'swimlanes',
+        );
       }
       return hasSwimlanes;
     } catch (error) {
@@ -615,7 +661,6 @@ BlazeComponent.extendComponent({
       return false;
     }
   },
-
 
   isVerticalScrollbars() {
     const user = ReactiveCache.getCurrentUser();
@@ -642,7 +687,11 @@ BlazeComponent.extendComponent({
     if (process.env.DEBUG === 'true') {
       console.log('=== BOARD DEBUG STATE ===');
       console.log('currentBoardId:', currentBoardId);
-      console.log('currentBoard:', !!currentBoard, currentBoard ? currentBoard.title : 'none');
+      console.log(
+        'currentBoard:',
+        !!currentBoard,
+        currentBoard ? currentBoard.title : 'none',
+      );
       console.log('isBoardReady:', isBoardReady);
       console.log('isConverting:', isConverting);
       console.log('boardView:', boardView);
@@ -655,10 +704,9 @@ BlazeComponent.extendComponent({
       currentBoardTitle: currentBoard ? currentBoard.title : 'none',
       isBoardReady,
       isConverting,
-      boardView
+      boardView,
     };
   },
-
 
   openNewListForm() {
     if (this.isViewSwimlanes()) {
@@ -686,7 +734,11 @@ BlazeComponent.extendComponent({
         // Global drag and drop file upload handlers for better visual feedback
         'dragover .board-canvas'(event) {
           const dataTransfer = event.originalEvent.dataTransfer;
-          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+          if (
+            dataTransfer &&
+            dataTransfer.types &&
+            dataTransfer.types.includes('Files')
+          ) {
             event.preventDefault();
             // Add visual indicator that files can be dropped
             $('.board-canvas').addClass('file-drag-over');
@@ -694,7 +746,11 @@ BlazeComponent.extendComponent({
         },
         'dragleave .board-canvas'(event) {
           const dataTransfer = event.originalEvent.dataTransfer;
-          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+          if (
+            dataTransfer &&
+            dataTransfer.types &&
+            dataTransfer.types.includes('Files')
+          ) {
             // Only remove class if we're leaving the board canvas entirely
             if (!event.currentTarget.contains(event.relatedTarget)) {
               $('.board-canvas').removeClass('file-drag-over');
@@ -703,7 +759,11 @@ BlazeComponent.extendComponent({
         },
         'drop .board-canvas'(event) {
           const dataTransfer = event.originalEvent.dataTransfer;
-          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+          if (
+            dataTransfer &&
+            dataTransfer.types &&
+            dataTransfer.types.includes('Files')
+          ) {
             event.preventDefault();
             $('.board-canvas').removeClass('file-drag-over');
           }
@@ -738,12 +798,12 @@ BlazeComponent.extendComponent({
 
 // Accessibility: Allow users to enable/disable keyboard shortcuts
 window.wekanShortcutsEnabled = true;
-window.toggleWekanShortcuts = function(enabled) {
+window.toggleWekanShortcuts = function (enabled) {
   window.wekanShortcutsEnabled = !!enabled;
 };
 
 // Example: Wrap your character key shortcut handler like this
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
   // Example: "W" key shortcut (replace with your actual shortcut logic)
   if (!window.wekanShortcutsEnabled) return;
   if (e.key === 'w' || e.key === 'W') {
@@ -753,7 +813,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 // Keyboard accessibility for card actions (favorite, archive, duplicate, etc.)
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
   if (!window.wekanShortcutsEnabled) return;
   // Only proceed if focus is on a card action element
   const active = document.activeElement;
@@ -798,14 +858,20 @@ document.addEventListener('keydown', function(e) {
       }
     }
   }
-    // Ensure move card buttons are focusable and have ARIA roles
-    document.querySelectorAll('.js-move-card').forEach(function(el) {
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', 'Move card');
-    });
+  // Ensure move card buttons are focusable and have ARIA roles
+  document.querySelectorAll('.js-move-card').forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', 'Move card');
+  });
   // Make toggle-buttons, color choices, reactions, and X-buttons keyboard accessible
-  if (active && (active.classList.contains('js-toggle') || active.classList.contains('js-color-choice') || active.classList.contains('js-reaction') || active.classList.contains('close'))) {
+  if (
+    active &&
+    (active.classList.contains('js-toggle') ||
+      active.classList.contains('js-color-choice') ||
+      active.classList.contains('js-reaction') ||
+      active.classList.contains('close'))
+  ) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       active.click();
@@ -813,13 +879,21 @@ document.addEventListener('keydown', function(e) {
   }
   // Prevent scripts from removing focus when received
   if (active) {
-    active.addEventListener('focus', function(e) {
-      // Do not remove focus
-      // No-op: This prevents F55 failure
-    }, { once: true });
+    active.addEventListener(
+      'focus',
+      function (e) {
+        // Do not remove focus
+        // No-op: This prevents F55 failure
+      },
+      { once: true },
+    );
   }
   // Make swimlane/list renaming keyboard accessible
-  if (active && (active.classList.contains('js-rename-swimlane') || active.classList.contains('js-rename-list'))) {
+  if (
+    active &&
+    (active.classList.contains('js-rename-swimlane') ||
+      active.classList.contains('js-rename-list'))
+  ) {
     if (e.key === 'Enter') {
       e.preventDefault();
       active.click();
@@ -851,20 +925,29 @@ BlazeComponent.extendComponent({
       selectable: true,
       timezone: 'local',
       weekNumbers: true,
+      // Use non-localized AM/PM time format to avoid confusing notations like 上/下/中
+      // Use full 'am'/'pm' instead of single-letter 'a'/'p' for clarity
+      timeFormat: 'h:mma',
+      slotLabelFormat: 'h:mma',
+      extraSmallTimeFormat: 'h(:mm)a',
+      smallTimeFormat: 'h(:mm)a',
+      mediumTimeFormat: 'h:mma',
+      hourFormat: 'ha',
+      noMeridiemTimeFormat: 'h:mm',
       header: {
-          left: 'title   today prev,next',
+        left: 'title   today prev,next',
         center:
           'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,listMonth',
         right: '',
       },
-        buttonText: {
-          prev: TAPi18n.__('calendar-previous-month-label'), // e.g. "Previous month"
-          next: TAPi18n.__('calendar-next-month-label'), // e.g. "Next month"
-        },
-        ariaLabel: {
-          prev: TAPi18n.__('calendar-previous-month-label'),
-          next: TAPi18n.__('calendar-next-month-label'),
-        },
+      buttonText: {
+        prev: TAPi18n.__('calendar-previous-month-label'), // e.g. "Previous month"
+        next: TAPi18n.__('calendar-next-month-label'), // e.g. "Next month"
+      },
+      ariaLabel: {
+        prev: TAPi18n.__('calendar-previous-month-label'),
+        next: TAPi18n.__('calendar-next-month-label'),
+      },
       // height: 'parent', nope, doesn't work as the parent might be small
       height: 'auto',
       /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */
@@ -976,40 +1059,52 @@ BlazeComponent.extendComponent({
           </div>
         </div>
         `;
-        const createCardButton = modalElement.querySelector('#create-card-button');
+        const createCardButton = modalElement.querySelector(
+          '#create-card-button',
+        );
         createCardButton.addEventListener('click', function () {
           const myTitle = modalElement.querySelector('#card-title-input').value;
           if (myTitle) {
             const firstList = currentBoard.draggableLists()[0];
             const firstSwimlane = currentBoard.swimlanes()[0];
-            Meteor.call('createCardWithDueDate', currentBoard._id, firstList._id, myTitle, startDate.toDate(), firstSwimlane._id, function(error, result) {
-              if (error) {
-                if (process.env.DEBUG === 'true') {
-                  console.log(error);
+            Meteor.call(
+              'createCardWithDueDate',
+              currentBoard._id,
+              firstList._id,
+              myTitle,
+              startDate.toDate(),
+              firstSwimlane._id,
+              function (error, result) {
+                if (error) {
+                  if (process.env.DEBUG === 'true') {
+                    console.log(error);
+                  }
+                } else {
+                  if (process.env.DEBUG === 'true') {
+                    console.log('Card Created', result);
+                  }
                 }
-              } else {
-                if (process.env.DEBUG === 'true') {
-                  console.log("Card Created", result);
-                }
-              }
-            });
+              },
+            );
             closeModal();
           }
         });
         document.body.appendChild(modalElement);
-        const openModal = function() {
+        const openModal = function () {
           modalElement.style.display = 'flex';
           // Set focus to the input field for better keyboard accessibility
           const input = modalElement.querySelector('#card-title-input');
           if (input) input.focus();
         };
-        const closeModal = function() {
+        const closeModal = function () {
           modalElement.style.display = 'none';
         };
-        const closeButton = modalElement.querySelector('[data-dismiss="modal"]');
+        const closeButton = modalElement.querySelector(
+          '[data-dismiss="modal"]',
+        );
         closeButton.addEventListener('click', closeModal);
         openModal();
-      }
+      },
     };
   },
   isViewCalendar() {
@@ -1025,4 +1120,3 @@ BlazeComponent.extendComponent({
  * Gantt View Component
  * Displays cards as a Gantt chart with start/due dates
  */
-
