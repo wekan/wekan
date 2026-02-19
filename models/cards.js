@@ -2098,6 +2098,10 @@ Cards.helpers({
       );
 
       const newBoard = ReactiveCache.getBoard(boardId);
+      const allowedMemberIds = _.pluck(
+        _.filter(newBoard.members || [], member => member.isActive === true),
+        'userId',
+      );
       const newBoardLabels = newBoard.labels;
       const newCardLabelIds = _.pluck(
         _.filter(newBoardLabels, label => {
@@ -2118,6 +2122,18 @@ Cards.helpers({
       // Ensure customFields is always an array (guards against legacy {} data)
       if (!Array.isArray(mutatedFields.customFields)) {
         mutatedFields.customFields = [];
+      }
+
+      const currentMembers = Array.isArray(this.members) ? this.members : [];
+      const filteredMembers = currentMembers.filter(memberId => allowedMemberIds.includes(memberId));
+      if (_.difference(currentMembers, filteredMembers).length > 0) {
+        mutatedFields.members = filteredMembers;
+      }
+
+      const currentWatchers = Array.isArray(this.watchers) ? this.watchers : [];
+      const filteredWatchers = currentWatchers.filter(watcherId => allowedMemberIds.includes(watcherId));
+      if (_.difference(currentWatchers, filteredWatchers).length > 0) {
+        mutatedFields.watchers = filteredWatchers;
       }
     }
 

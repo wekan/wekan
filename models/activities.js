@@ -363,12 +363,12 @@ if (Meteor.isServer) {
       if (value) params[key] = value;
     });
     if (board) {
+      const activeMemberIds = _.filter(board.members || [], m => m.isActive === true).map(m => m.userId);
       const BIGEVENTS = process.env.BIGEVENTS_PATTERN; // if environment BIGEVENTS_PATTERN is set, any activityType matching it is important
       if (BIGEVENTS) {
         try {
           const atype = activity.activityType;
           if (new RegExp(BIGEVENTS).exec(atype)) {
-            const activeMemberIds = _.filter(board.members, m => m.isActive === true).map(m => m.userId);
             watchers = _.union(watchers, activeMemberIds); // notify all active members for important events
           }
         } catch (e) {
@@ -393,6 +393,9 @@ if (Meteor.isServer) {
           _.intersection(participants, trackingUsers),
         );
       }
+
+      // Ensure notifications only go to active members of the current board.
+      watchers = _.intersection(watchers, activeMemberIds);
     }
     (await Notifications.getUsers(watchers)).forEach((user) => {
       // Skip if user is undefined or doesn't have an _id (e.g., deleted user or invalid ID)
