@@ -51,7 +51,7 @@ template(name="editSubtaskItemForm")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-subtask-item-form(type="submit") {{_ 'save'}}
     a.js-close-inlined-form
-    span(title=createdAt) {{ moment createdAt }}
+    span(title=createdAt) {{ displayDate createdAt }}
     if canModifyCard
       if currentUser.isBoardAdmin
         a.js-delete-subtask-item {{_ "delete"}}...

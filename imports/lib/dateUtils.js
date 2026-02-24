@@ -43,7 +43,11 @@ export function formatDate(date) {
  * @param {boolean} includeTime - Whether to include time (HH:MM)
  * @returns {string} Formatted date string
  */
-export function formatDateByUserPreference(date, format = 'YYYY-MM-DD', includeTime = true) {
+export function formatDateByUserPreference(
+  date,
+  format = 'YYYY-MM-DD',
+  includeTime = true,
+) {
   const d = new Date(date);
   if (isNaN(d.getTime())) return '';
 
@@ -108,7 +112,7 @@ export function getISOWeek(date) {
   const firstThursday = target.valueOf();
   target.setMonth(0, 1);
   if (target.getDay() !== 4) {
-    target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+    target.setMonth(0, 1 + ((4 - target.getDay() + 7) % 7));
   }
 
   return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
@@ -141,16 +145,31 @@ export function isBefore(date1, date2, unit = 'millisecond') {
     case 'year':
       return d1.getFullYear() < d2.getFullYear();
     case 'month':
-      return d1.getFullYear() < d2.getFullYear() ||
-             (d1.getFullYear() === d2.getFullYear() && d1.getMonth() < d2.getMonth());
+      return (
+        d1.getFullYear() < d2.getFullYear() ||
+        (d1.getFullYear() === d2.getFullYear() && d1.getMonth() < d2.getMonth())
+      );
     case 'day':
-      return d1.getFullYear() < d2.getFullYear() ||
-             (d1.getFullYear() === d2.getFullYear() && d1.getMonth() < d2.getMonth()) ||
-             (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() < d2.getDate());
+      return (
+        d1.getFullYear() < d2.getFullYear() ||
+        (d1.getFullYear() === d2.getFullYear() &&
+          d1.getMonth() < d2.getMonth()) ||
+        (d1.getFullYear() === d2.getFullYear() &&
+          d1.getMonth() === d2.getMonth() &&
+          d1.getDate() < d2.getDate())
+      );
     case 'hour':
-      return d1.getTime() < d2.getTime() && Math.floor(d1.getTime() / (1000 * 60 * 60)) < Math.floor(d2.getTime() / (1000 * 60 * 60));
+      return (
+        d1.getTime() < d2.getTime() &&
+        Math.floor(d1.getTime() / (1000 * 60 * 60)) <
+          Math.floor(d2.getTime() / (1000 * 60 * 60))
+      );
     case 'minute':
-      return d1.getTime() < d2.getTime() && Math.floor(d1.getTime() / (1000 * 60)) < Math.floor(d2.getTime() / (1000 * 60));
+      return (
+        d1.getTime() < d2.getTime() &&
+        Math.floor(d1.getTime() / (1000 * 60)) <
+          Math.floor(d2.getTime() / (1000 * 60))
+      );
     default:
       return d1.getTime() < d2.getTime();
   }
@@ -184,13 +203,25 @@ export function isSame(date1, date2, unit = 'millisecond') {
     case 'year':
       return d1.getFullYear() === d2.getFullYear();
     case 'month':
-      return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth();
+      return (
+        d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()
+      );
     case 'day':
-      return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+      return (
+        d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate()
+      );
     case 'hour':
-      return Math.floor(d1.getTime() / (1000 * 60 * 60)) === Math.floor(d2.getTime() / (1000 * 60 * 60));
+      return (
+        Math.floor(d1.getTime() / (1000 * 60 * 60)) ===
+        Math.floor(d2.getTime() / (1000 * 60 * 60))
+      );
     case 'minute':
-      return Math.floor(d1.getTime() / (1000 * 60)) === Math.floor(d2.getTime() / (1000 * 60));
+      return (
+        Math.floor(d1.getTime() / (1000 * 60)) ===
+        Math.floor(d2.getTime() / (1000 * 60))
+      );
     default:
       return d1.getTime() === d2.getTime();
   }
@@ -350,6 +381,8 @@ export function format(date, format = 'L') {
       return `${year}-${month}-${day}`;
     case 'YYYY-MM-DD HH:mm':
       return `${year}-${month}-${day} ${hours}:${minutes}`;
+    case 'YYYY-MM-DD HH:mm:ss':
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     case 'HH:mm':
       return `${hours}:${minutes}`;
     default:
@@ -384,7 +417,7 @@ export function parseDate(dateString, formats = [], strict = true) {
     'DD/MM/YYYY HH:mm',
     'DD/MM/YYYY',
     'DD-MM-YYYY HH:mm',
-    'DD-MM-YYYY'
+    'DD-MM-YYYY',
   ];
 
   const allFormats = [...formats, ...commonFormats];
@@ -408,12 +441,12 @@ export function parseDate(dateString, formats = [], strict = true) {
 function parseWithFormat(dateString, format) {
   // Simple format parsing - can be extended as needed
   const formatMap = {
-    'YYYY': '\\d{4}',
-    'MM': '\\d{2}',
-    'DD': '\\d{2}',
-    'HH': '\\d{2}',
-    'mm': '\\d{2}',
-    'ss': '\\d{2}'
+    YYYY: '\\d{4}',
+    MM: '\\d{2}',
+    DD: '\\d{2}',
+    HH: '\\d{2}',
+    mm: '\\d{2}',
+    ss: '\\d{2}',
   };
 
   let regex = format;
@@ -425,11 +458,21 @@ function parseWithFormat(dateString, format) {
   if (!match) return null;
 
   const groups = match.slice(1);
-  let year, month, day, hour = 0, minute = 0, second = 0;
+  let year,
+    month,
+    day,
+    hour = 0,
+    minute = 0,
+    second = 0;
 
   let groupIndex = 0;
   for (let i = 0; i < format.length; i++) {
-    if (format[i] === 'Y' && format[i + 1] === 'Y' && format[i + 2] === 'Y' && format[i + 3] === 'Y') {
+    if (
+      format[i] === 'Y' &&
+      format[i + 1] === 'Y' &&
+      format[i + 2] === 'Y' &&
+      format[i + 3] === 'Y'
+    ) {
       year = parseInt(groups[groupIndex++]);
       i += 3;
     } else if (format[i] === 'M' && format[i + 1] === 'M') {
@@ -501,11 +544,15 @@ export function fromNow(date, now = new Date()) {
   const diffYears = Math.floor(diffDays / 365);
 
   if (diffSeconds < 60) return 'a few seconds ago';
-  if (diffMinutes < 60) return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago`;
-  if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+  if (diffMinutes < 60)
+    return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago`;
+  if (diffHours < 24)
+    return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
   if (diffDays < 7) return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
-  if (diffWeeks < 4) return `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
-  if (diffMonths < 12) return `${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
+  if (diffWeeks < 4)
+    return `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
+  if (diffMonths < 12)
+    return `${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
   return `${diffYears} year${diffYears !== 1 ? 's' : ''} ago`;
 }
 

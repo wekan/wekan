@@ -97,7 +97,7 @@
     "Avatar": true,
     "Avatars": true,
     "BlazeComponent": false,
-    
+
     "CollectionHooks": false,
     "ESSearchResults": false,
     "FastRender": false,
@@ -105,7 +105,6 @@
     "FS": false,
     "getSlug": false,
     "Migrations": false,
-    "moment": false,
     "Mousetrap": false,
     "Picker": false,
     "Presence": true,

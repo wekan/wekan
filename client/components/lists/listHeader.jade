@@ -16,7 +16,7 @@ template(name="listHeader")
             span.cardCount {{cardsCount}}
       if isMiniScreen
         h2.list-header-name(
-          title="{{ moment modifiedAt 'LLL' }}"
+          title="{{ displayDate modifiedAt 'LLL' }}"
           class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
           +viewer
             = title
@@ -37,7 +37,7 @@ template(name="listHeader")
             i.fa.fa-caret-down
         div(class="{{#if collapsed}}list-rotated{{/if}}")
           h2.list-header-name(
-            title="{{ moment modifiedAt 'LLL' }}"
+            title="{{ displayDate modifiedAt 'LLL' }}"
             class="{{#unless collapsed}}{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}{{/unless}}")
             +viewer
               = title
@@ -193,7 +193,7 @@ template(name="listMorePopup")
       i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
-    span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
+    span.date(title=list.createdAt) {{ displayDate createdAt 'LLL' }}
     //unless currentUser.isWorker
     //
       if currentUser.isBoardAdmin

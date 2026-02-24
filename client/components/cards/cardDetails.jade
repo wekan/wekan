@@ -1077,7 +1077,7 @@ template(name="cardMorePopup")
               option(value="{{_id}}") {{title}}
     br
     | {{_ 'added'}}
-    span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
+    span.date(title=card.createdAt) {{ displayDate createdAt 'LLL' }}
     if currentUser.isBoardAdmin
       a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
 

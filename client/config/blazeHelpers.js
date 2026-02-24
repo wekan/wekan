@@ -7,25 +7,25 @@ import {
 } from '/imports/lib/customHeadDefaults';
 import { Blaze } from 'meteor/blaze';
 import { Session } from 'meteor/session';
-import { 
-  formatDateTime, 
-  formatDate, 
-  formatTime, 
-  getISOWeek, 
-  isValidDate, 
-  isBefore, 
-  isAfter, 
-  isSame, 
-  add, 
-  subtract, 
-  startOf, 
-  endOf, 
-  format, 
-  parseDate, 
-  now, 
-  createDate, 
-  fromNow, 
-  calendar 
+import {
+  formatDateTime,
+  formatDate,
+  formatTime,
+  getISOWeek,
+  isValidDate,
+  isBefore,
+  isAfter,
+  isSame,
+  add,
+  subtract,
+  startOf,
+  endOf,
+  format,
+  parseDate,
+  now,
+  createDate,
+  fromNow,
+  calendar,
 } from '/imports/lib/dateUtils';
 
 Blaze.registerHelper('currentBoard', () => {
@@ -85,7 +85,7 @@ Blaze.registerHelper('currentUser', () => {
   return ret;
 });
 
-Blaze.registerHelper('getUser', userId => ReactiveCache.getUser(userId));
+Blaze.registerHelper('getUser', (userId) => ReactiveCache.getUser(userId));
 
 Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));
 
@@ -101,23 +101,17 @@ Blaze.registerHelper('isTouchScreenOrShowDesktopDragHandles', () =>
   Utils.isTouchScreenOrShowDesktopDragHandles(),
 );
 
-Blaze.registerHelper('moment', (...args) => {
+Blaze.registerHelper('displayDate', (...args) => {
   args.pop(); // hash
   const [date, formatStr] = args;
   return format(new Date(date), formatStr ?? 'LLLL');
 });
 
-Blaze.registerHelper('canModifyCard', () =>
-  Utils.canModifyCard(),
-);
+Blaze.registerHelper('canModifyCard', () => Utils.canModifyCard());
 
-Blaze.registerHelper('canMoveCard', () =>
-  Utils.canMoveCard(),
-);
+Blaze.registerHelper('canMoveCard', () => Utils.canMoveCard());
 
-Blaze.registerHelper('canModifyBoard', () =>
-  Utils.canModifyBoard(),
-);
+Blaze.registerHelper('canModifyBoard', () => Utils.canModifyBoard());
 
 Blaze.registerHelper('add', (a, b) => a + b);
 
