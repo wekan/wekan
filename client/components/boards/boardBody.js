@@ -911,6 +911,11 @@ BlazeComponent.extendComponent({
     });
   },
   calendarOptions() {
+    const t = (key, fallback) => {
+      const translated = TAPi18n.__(key);
+      return translated && translated !== key ? translated : fallback;
+    };
+
     return {
       id: 'calendar-view',
       initialView: 'dayGridMonth',
@@ -930,18 +935,20 @@ BlazeComponent.extendComponent({
         meridiem: 'short',
       },
       headerToolbar: {
-        left: 'title   today prev,next',
+        left: 'title today prev,next',
         center:
           'timeGridDay,listDay timeGridWeek,listWeek dayGridMonth,listMonth',
         right: '',
       },
+      buttonIcons: false,
       buttonText: {
-        prev: TAPi18n.__('calendar-previous-month-label'), // e.g. "Previous month"
-        next: TAPi18n.__('calendar-next-month-label'), // e.g. "Next month"
-      },
-      ariaLabel: {
-        prev: TAPi18n.__('calendar-previous-month-label'),
-        next: TAPi18n.__('calendar-next-month-label'),
+        prev: t('previous', 'Previous'),
+        next: t('next', 'Next'),
+        today: t('today', 'Today'),
+        day: t('day', 'Day'),
+        week: t('week', 'Week'),
+        month: t('month', 'Month'),
+        list: t('list', 'List'),
       },
       // height: 'parent', nope, doesn't work as the parent might be small
       height: 'auto',
@@ -1041,7 +1048,7 @@ BlazeComponent.extendComponent({
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">${TAPi18n.__('r-create-card')}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close calendar-create-close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -1049,7 +1056,7 @@ BlazeComponent.extendComponent({
               <input type="text" class="form-control" id="card-title-input" placeholder="">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="create-card-button">${TAPi18n.__('add-card')}</button>
+              <button type="button" class="primary confirm" id="create-card-button">${TAPi18n.__('add-card')}</button>
             </div>
           </div>
         </div>
