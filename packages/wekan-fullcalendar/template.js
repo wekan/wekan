@@ -1,5 +1,4 @@
 import { Template } from 'meteor/templating';
-import { Tracker } from 'meteor/tracker';
 
 const FullCalendarCore = require('@fullcalendar/core/main.cjs.js');
 const FullCalendarDayGrid = require('@fullcalendar/daygrid/main.cjs.js');
@@ -9,9 +8,10 @@ const FullCalendarTimeGrid = require('@fullcalendar/timegrid/main.cjs.js');
 const FullCalendarLocalesAll = require('@fullcalendar/core/locales-all.js');
 
 Template.fullcalendar.onRendered(function () {
+  const instance = this;
   const container = this.find('div');
 
-  this.autorunHandle = Tracker.autorun(() => {
+  this.autorunHandle = this.autorun(() => {
     const data = Template.currentData() || {};
     let preservedViewType = null;
     let preservedDate = null;
@@ -39,16 +39,16 @@ Template.fullcalendar.onRendered(function () {
       options.locales = FullCalendarLocalesAll.default;
     }
 
-    if (this.calendar) {
+    if (instance.calendar) {
       // Keep the user's current view/date when reactive data updates.
-      if (this.calendar.view && this.calendar.view.type) {
-        preservedViewType = this.calendar.view.type;
+      if (instance.calendar.view && instance.calendar.view.type) {
+        preservedViewType = instance.calendar.view.type;
       }
-      if (this.calendar.getDate) {
-        preservedDate = this.calendar.getDate();
+      if (instance.calendar.getDate) {
+        preservedDate = instance.calendar.getDate();
       }
-      this.calendar.destroy();
-      this.calendar = null;
+      instance.calendar.destroy();
+      instance.calendar = null;
     }
 
     if (preservedViewType && !options.initialView) {
@@ -58,7 +58,7 @@ Template.fullcalendar.onRendered(function () {
       options.initialDate = preservedDate;
     }
 
-    this.calendar = new FullCalendarCore.Calendar(container, {
+    instance.calendar = new FullCalendarCore.Calendar(container, {
       plugins: [
         FullCalendarDayGrid.default,
         FullCalendarInteraction.default,
@@ -69,8 +69,8 @@ Template.fullcalendar.onRendered(function () {
     });
 
     // Allow callers to manually access and refetch without jQuery plugin API.
-    container._wekanCalendar = this.calendar;
-    this.calendar.render();
+    container._wekanCalendar = instance.calendar;
+    instance.calendar.render();
   });
 });
 
