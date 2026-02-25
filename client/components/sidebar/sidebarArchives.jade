@@ -20,7 +20,7 @@ template(name="archivesSidebar")
                   p.quiet
                     if this.archivedAt
                       | {{_ 'archived-at' }}
-                      |  | {{ moment this.archivedAt 'LLL' }}
+                      |  | {{ displayDate this.archivedAt 'LLL' }}
                       br
                     a.js-restore-card {{_ 'restore'}}
                     if currentUser.isBoardAdmin
@@ -51,7 +51,7 @@ template(name="archivesSidebar")
                       p.quiet
                         if this.archivedAt
                           | {{_ 'archived-at' }}
-                          |  | {{ moment this.archivedAt 'LLL' }}
+                          |  | {{ displayDate this.archivedAt 'LLL' }}
                           br
                         a.js-restore-list {{_ 'restore'}}
                         if currentUser.isBoardAdmin
@@ -80,7 +80,7 @@ template(name="archivesSidebar")
                       p.quiet
                         if this.archivedAt
                           | {{_ 'archived-at' }}
-                          |  | {{ moment this.archivedAt 'LLL' }}
+                          |  | {{ displayDate this.archivedAt 'LLL' }}
                           br
                         a.js-restore-swimlane {{_ 'restore'}}
                         if currentUser.isBoardAdmin

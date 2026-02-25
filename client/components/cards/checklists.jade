@@ -92,7 +92,7 @@ template(name="editChecklistItemForm")
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-checklist-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-edit-checklist-item'}}")
-    span(title=createdAt) {{ moment createdAt }}
+    span(title=createdAt) {{ displayDate createdAt }}
     if canModifyCard
       a.js-delete-checklist-item {{_ "delete"}}...
       a.js-convert-checklist-item-to-card

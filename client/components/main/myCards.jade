@@ -96,7 +96,7 @@ template(name="myCards")
                                         | {{labelName board label}}
                                 td
                                   if card.dueAt
-                                    | {{ moment card.dueAt 'LLL' }}
+                                    | {{ displayDate card.dueAt 'LLL' }}
 
 template(name="myCardsViewChangePopup")
   if currentUser

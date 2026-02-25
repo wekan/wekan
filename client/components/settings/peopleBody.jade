@@ -190,9 +190,9 @@ template(name="orgRow")
     else
       td <s>{{ orgData.orgWebsite }}</s>
     if orgData.orgIsActive
-      td {{ moment orgData.createdAt 'LLL' }}
+      td {{ displayDate orgData.createdAt 'LLL' }}
     else
-      td <s>{{ moment orgData.createdAt 'LLL' }}</s>
+      td <s>{{ displayDate orgData.createdAt 'LLL' }}</s>
     td
       if orgData.orgIsActive
         | {{_ 'yes'}}
@@ -224,9 +224,9 @@ template(name="teamRow")
     else
       td <s>{{ teamData.teamWebsite }}</s>
     if teamData.teamIsActive
-      td {{ moment teamData.createdAt 'LLL' }}
+      td {{ displayDate teamData.createdAt 'LLL' }}
     else
-      td <s>{{ moment teamData.createdAt 'LLL' }}</s>
+      td <s>{{ displayDate teamData.createdAt 'LLL' }}</s>
     td
       if teamData.teamIsActive
         | {{_ 'yes'}}
@@ -284,9 +284,9 @@ template(name="peopleRow")
         span.text-green.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}")
           i.fa.fa-unlock
     if userData.loginDisabled
-      td <s>{{ moment userData.createdAt 'LLL' }}</s>
+      td <s>{{ displayDate userData.createdAt 'LLL' }}</s>
     else
-      td {{ moment userData.createdAt 'LLL' }}
+      td {{ displayDate userData.createdAt 'LLL' }}
     if userData.loginDisabled
       td
         input.selectUserChkBox(type="checkbox", disabled="disabled", id="{{userData._id}}")

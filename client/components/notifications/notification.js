@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 
 Template.notification.events({
   'click .read-status .materialCheckBox'() {
@@ -38,9 +39,15 @@ Template.notification.helpers({
     const user = ReactiveCache.getCurrentUser();
     if (!user) return '';
 
-    const dateFormat = user.getDateFormat ? user.getDateFormat() : 'L';
-    const timeFormat = user.getTimeFormat ? user.getTimeFormat() : 'LT';
+    const dateObj = new Date(activity.createdAt);
+    if (Number.isNaN(dateObj.getTime())) return '';
 
-    return moment(activity.createdAt).format(`${dateFormat} ${timeFormat}`);
+    const dateFormat = user.getDateFormat ? user.getDateFormat() : 'YYYY-MM-DD';
+    const datePart = formatDateByUserPreference(dateObj, dateFormat, false);
+    const timePart = dateObj.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+    return `${datePart} ${timePart}`.trim();
   },
 });

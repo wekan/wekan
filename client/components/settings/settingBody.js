@@ -18,9 +18,9 @@ import {
   cronMigrationEtaSeconds,
   cronMigrationElapsedSeconds,
   cronMigrationCurrentNumber,
-  cronMigrationCurrentName
+  cronMigrationCurrentName,
 } from '/imports/cronMigrationClient';
-
+import { format } from '/imports/lib/dateUtils';
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -66,7 +66,6 @@ BlazeComponent.extendComponent({
     }
   },
 
-
   setError(error) {
     this.error.set(error);
   },
@@ -82,7 +81,9 @@ BlazeComponent.extendComponent({
     return this.accountSetting && this.accountSetting.get();
   },
   isTableVisibilityModeSetting() {
-    return this.tableVisibilityModeSetting && this.tableVisibilityModeSetting.get();
+    return (
+      this.tableVisibilityModeSetting && this.tableVisibilityModeSetting.get()
+    );
   },
   isAnnouncementSetting() {
     return this.announcementSetting && this.announcementSetting.get();
@@ -174,7 +175,7 @@ BlazeComponent.extendComponent({
     const steps = cronMigrationSteps.get() || [];
     return steps.map((step, idx) => ({
       ...step,
-      index: idx + 1
+      index: idx + 1,
     }));
   },
 
@@ -237,7 +238,9 @@ BlazeComponent.extendComponent({
 
   isUpdatingMigrationDropdown() {
     const status = this.migrationStatus();
-    return status && status.startsWith('Updating Select Migration dropdown menu');
+    return (
+      status && status.startsWith('Updating Select Migration dropdown menu')
+    );
   },
 
   migrationErrors() {
@@ -251,7 +254,7 @@ BlazeComponent.extendComponent({
 
   formatDateTime(date) {
     if (!date) return '';
-    return moment(date).format('YYYY-MM-DD HH:mm:ss');
+    return format(date, 'YYYY-MM-DD HH:mm:ss');
   },
 
   formatDurationSeconds(seconds) {
@@ -331,18 +334,22 @@ BlazeComponent.extendComponent({
       });
     } else {
       // Run specific migration
-      Meteor.call('cron.startSpecificMigration', selectedIndex - 1, (error, result) => {
-        this.setLoading(false);
-        if (error) {
-          alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
-        } else if (result && result.skipped) {
-          cronIsMigrating.set(false);
-          cronMigrationStatus.set(TAPi18n.__('migration-not-needed'));
-          alert(TAPi18n.__('migration-not-needed'));
-        } else {
-          alert(TAPi18n.__('migration-started'));
-        }
-      });
+      Meteor.call(
+        'cron.startSpecificMigration',
+        selectedIndex - 1,
+        (error, result) => {
+          this.setLoading(false);
+          if (error) {
+            alert(TAPi18n.__('migration-start-failed') + ': ' + error.reason);
+          } else if (result && result.skipped) {
+            cronIsMigrating.set(false);
+            cronMigrationStatus.set(TAPi18n.__('migration-not-needed'));
+            alert(TAPi18n.__('migration-not-needed'));
+          } else {
+            alert(TAPi18n.__('migration-started'));
+          }
+        },
+      );
     }
   },
 
@@ -490,9 +497,7 @@ BlazeComponent.extendComponent({
   checkField(selector) {
     const value = $(selector).val();
     if (!value || value.trim() === '') {
-      $(selector)
-        .parents('li.smtp-form')
-        .addClass('has-error');
+      $(selector).parents('li.smtp-form').addClass('has-error');
       throw Error('blank field');
     } else {
       return value;
@@ -514,7 +519,8 @@ BlazeComponent.extendComponent({
   },
   toggleForgotPassword() {
     this.setLoading(true);
-    const forgotPasswordClosed = ReactiveCache.getCurrentSetting().disableForgotPassword;
+    const forgotPasswordClosed =
+      ReactiveCache.getCurrentSetting().disableForgotPassword;
     Settings.update(ReactiveCache.getCurrentSetting()._id, {
       $set: { disableForgotPassword: !forgotPasswordClosed },
     });
@@ -522,7 +528,8 @@ BlazeComponent.extendComponent({
   },
   toggleRegistration() {
     this.setLoading(true);
-    const registrationClosed = ReactiveCache.getCurrentSetting().disableRegistration;
+    const registrationClosed =
+      ReactiveCache.getCurrentSetting().disableRegistration;
     Settings.update(ReactiveCache.getCurrentSetting()._id, {
       $set: { disableRegistration: !registrationClosed },
     });
@@ -629,11 +636,11 @@ BlazeComponent.extendComponent({
       .join(',')
       .split(',');
     const boardsToInvite = [];
-    $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function() {
+    $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function () {
       boardsToInvite.push($(this).data('id'));
     });
     const validEmails = [];
-    emails.forEach(email => {
+    emails.forEach((email) => {
       if (email && SimpleSchema.RegEx.Email.test(email.trim())) {
         validEmails.push(email.trim());
       }
@@ -656,12 +663,8 @@ BlazeComponent.extendComponent({
     try {
       const host = this.checkField('#mail-server-host');
       const port = this.checkField('#mail-server-port');
-      const username = $('#mail-server-username')
-        .val()
-        .trim();
-      const password = $('#mail-server-password')
-        .val()
-        .trim();
+      const username = $('#mail-server-username').val().trim();
+      const password = $('#mail-server-password').val().trim();
       const from = this.checkField('#mail-server-from');
       const tls = $('#mail-server-tls.is-checked').length > 0;
       Settings.update(ReactiveCache.getCurrentSetting()._id, {
@@ -686,21 +689,37 @@ BlazeComponent.extendComponent({
     $('li').removeClass('has-error');
 
     const productName = ($('#product-name').val() || '').trim();
-    const customLoginLogoImageUrl = ($('#custom-login-logo-image-url').val() || '').trim();
-    const customLoginLogoLinkUrl = ($('#custom-login-logo-link-url').val() || '').trim();
+    const customLoginLogoImageUrl = (
+      $('#custom-login-logo-image-url').val() || ''
+    ).trim();
+    const customLoginLogoLinkUrl = (
+      $('#custom-login-logo-link-url').val() || ''
+    ).trim();
     const customHelpLinkUrl = ($('#custom-help-link-url').val() || '').trim();
-    const textBelowCustomLoginLogo = ($('#text-below-custom-login-logo').val() || '').trim();
-    const automaticLinkedUrlSchemes = ($('#automatic-linked-url-schemes').val() || '').trim();
-    const customTopLeftCornerLogoImageUrl = ($('#custom-top-left-corner-logo-image-url').val() || '').trim();
-    const customTopLeftCornerLogoLinkUrl = ($('#custom-top-left-corner-logo-link-url').val() || '').trim();
-    const customTopLeftCornerLogoHeight = ($('#custom-top-left-corner-logo-height').val() || '').trim();
+    const textBelowCustomLoginLogo = (
+      $('#text-below-custom-login-logo').val() || ''
+    ).trim();
+    const automaticLinkedUrlSchemes = (
+      $('#automatic-linked-url-schemes').val() || ''
+    ).trim();
+    const customTopLeftCornerLogoImageUrl = (
+      $('#custom-top-left-corner-logo-image-url').val() || ''
+    ).trim();
+    const customTopLeftCornerLogoLinkUrl = (
+      $('#custom-top-left-corner-logo-link-url').val() || ''
+    ).trim();
+    const customTopLeftCornerLogoHeight = (
+      $('#custom-top-left-corner-logo-height').val() || ''
+    ).trim();
 
     const oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
     const mailDomainName = ($('#mailDomainNamevalue').val() || '').trim();
     const legalNotice = ($('#legalNoticevalue').val() || '').trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
-    const hideCardCounterListChange = $('input[name=hideCardCounterList]:checked').val() === 'true';
-    const hideBoardMemberListChange = $('input[name=hideBoardMemberList]:checked').val() === 'true';
+    const hideCardCounterListChange =
+      $('input[name=hideCardCounterList]:checked').val() === 'true';
+    const hideBoardMemberListChange =
+      $('input[name=hideBoardMemberList]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
@@ -740,7 +759,9 @@ BlazeComponent.extendComponent({
 
   toggleSupportPage() {
     this.setLoading(true);
-    const supportPageEnabled = !$('.js-toggle-support .materialCheckBox').hasClass('is-checked');
+    const supportPageEnabled = !$(
+      '.js-toggle-support .materialCheckBox',
+    ).hasClass('is-checked');
     $('.js-toggle-support .materialCheckBox').toggleClass('is-checked');
     $('.support-content').toggleClass('hide');
     Settings.update(Settings.findOne()._id, {
@@ -751,7 +772,9 @@ BlazeComponent.extendComponent({
 
   toggleSupportPublic() {
     this.setLoading(true);
-    const supportPagePublic = !$('.js-toggle-support-public .materialCheckBox').hasClass('is-checked');
+    const supportPagePublic = !$(
+      '.js-toggle-support-public .materialCheckBox',
+    ).hasClass('is-checked');
     $('.js-toggle-support-public .materialCheckBox').toggleClass('is-checked');
     Settings.update(Settings.findOne()._id, {
       $set: { supportPagePublic },
@@ -761,7 +784,9 @@ BlazeComponent.extendComponent({
 
   toggleCustomHead() {
     this.setLoading(true);
-    const customHeadEnabled = !$('.js-toggle-custom-head .materialCheckBox').hasClass('is-checked');
+    const customHeadEnabled = !$(
+      '.js-toggle-custom-head .materialCheckBox',
+    ).hasClass('is-checked');
     $('.js-toggle-custom-head .materialCheckBox').toggleClass('is-checked');
     $('.custom-head-settings').toggleClass('hide');
     Settings.update(ReactiveCache.getCurrentSetting()._id, {
@@ -772,7 +797,9 @@ BlazeComponent.extendComponent({
 
   toggleCustomManifest() {
     this.setLoading(true);
-    const customManifestEnabled = !$('.js-toggle-custom-manifest .materialCheckBox').hasClass('is-checked');
+    const customManifestEnabled = !$(
+      '.js-toggle-custom-manifest .materialCheckBox',
+    ).hasClass('is-checked');
     $('.js-toggle-custom-manifest .materialCheckBox').toggleClass('is-checked');
     $('.custom-manifest-settings').toggleClass('hide');
     Settings.update(ReactiveCache.getCurrentSetting()._id, {
@@ -829,7 +856,9 @@ BlazeComponent.extendComponent({
       const errorMsg = e.message;
 
       // If error is "unexpected non-whitespace character after JSON data"
-      if (errorMsg.includes('unexpected non-whitespace character after JSON data')) {
+      if (
+        errorMsg.includes('unexpected non-whitespace character after JSON data')
+      ) {
         try {
           // Try to find and extract valid JSON by finding matching braces/brackets
           const trimmed = content.trim();
@@ -896,8 +925,12 @@ BlazeComponent.extendComponent({
 
   toggleCustomAssetLinks() {
     this.setLoading(true);
-    const customAssetLinksEnabled = !$('.js-toggle-custom-assetlinks .materialCheckBox').hasClass('is-checked');
-    $('.js-toggle-custom-assetlinks .materialCheckBox').toggleClass('is-checked');
+    const customAssetLinksEnabled = !$(
+      '.js-toggle-custom-assetlinks .materialCheckBox',
+    ).hasClass('is-checked');
+    $('.js-toggle-custom-assetlinks .materialCheckBox').toggleClass(
+      'is-checked',
+    );
     $('.custom-assetlinks-settings').toggleClass('hide');
     Settings.update(ReactiveCache.getCurrentSetting()._id, {
       $set: { customAssetLinksEnabled },
@@ -978,8 +1011,10 @@ BlazeComponent.extendComponent({
         'click button.js-save': this.saveMailServerInfo,
         'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
         'click a.js-toggle-hide-logo': this.toggleHideLogo,
-        'click a.js-toggle-hide-card-counter-list': this.toggleHideCardCounterList,
-        'click a.js-toggle-hide-board-member-list': this.toggleHideBoardMemberList,
+        'click a.js-toggle-hide-card-counter-list':
+          this.toggleHideCardCounterList,
+        'click a.js-toggle-hide-board-member-list':
+          this.toggleHideBoardMemberList,
         'click button.js-save-layout': this.saveLayout,
         'click a.js-toggle-support': this.toggleSupportPage,
         'click a.js-toggle-support-public': this.toggleSupportPublic,
@@ -988,9 +1023,10 @@ BlazeComponent.extendComponent({
         'click a.js-toggle-custom-manifest': this.toggleCustomManifest,
         'click button.js-custom-head-save': this.saveCustomHeadSettings,
         'click a.js-toggle-custom-assetlinks': this.toggleCustomAssetLinks,
-        'click button.js-custom-assetlinks-save': this.saveCustomAssetLinksSettings,
-        'click a.js-toggle-display-authentication-method': this
-          .toggleDisplayAuthenticationMethod,
+        'click button.js-custom-assetlinks-save':
+          this.saveCustomAssetLinksSettings,
+        'click a.js-toggle-display-authentication-method':
+          this.toggleDisplayAuthenticationMethod,
       },
     ];
   },
@@ -1018,15 +1054,23 @@ BlazeComponent.extendComponent({
   // Brute force lockout settings method moved to lockedUsersBody.js
 
   allowEmailChange() {
-    return AccountSettings.findOne('accounts-allowEmailChange')?.booleanValue || false;
+    return (
+      AccountSettings.findOne('accounts-allowEmailChange')?.booleanValue ||
+      false
+    );
   },
 
   allowUserNameChange() {
-    return AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue || false;
+    return (
+      AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue ||
+      false
+    );
   },
 
   allowUserDelete() {
-    return AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false;
+    return (
+      AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false
+    );
   },
 
   // Lockout settings helper methods moved to lockedUsersBody.js
@@ -1054,7 +1098,8 @@ BlazeComponent.extendComponent({
         'click button.js-accounts-save': this.saveAccountsChange,
       },
       {
-        'click button.js-all-boards-hide-activities': this.allBoardsHideActivities,
+        'click button.js-all-boards-hide-activities':
+          this.allBoardsHideActivities,
       },
     ];
   },
@@ -1069,7 +1114,9 @@ BlazeComponent.extendComponent({
     });
   },
   allowPrivateOnly() {
-    return TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly').booleanValue;
+    return TableVisibilityModeSettings.findOne(
+      'tableVisibilityMode-allowPrivateOnly',
+    ).booleanValue;
   },
   allBoardsHideActivities() {
     Meteor.call('setAllBoardsHideActivities', (err, ret) => {
@@ -1091,10 +1138,12 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click button.js-tableVisibilityMode-save': this.saveTableVisibilityChange,
+        'click button.js-tableVisibilityMode-save':
+          this.saveTableVisibilityChange,
       },
       {
-        'click button.js-all-boards-hide-activities': this.allBoardsHideActivities,
+        'click button.js-all-boards-hide-activities':
+          this.allBoardsHideActivities,
       },
     ];
   },
@@ -1114,9 +1163,7 @@ BlazeComponent.extendComponent({
   },
 
   saveMessage() {
-    const message = $('#admin-announcement')
-      .val()
-      .trim();
+    const message = $('#admin-announcement').val().trim();
     Announcements.update(Announcements.findOne()._id, {
       $set: { body: message },
     });
@@ -1162,18 +1209,14 @@ BlazeComponent.extendComponent({
 
   saveAccessibility() {
     this.setLoading(true);
-    const title = $('#admin-accessibility-title')
-      .val()
-      .trim();
-    const content = $('#admin-accessibility-content')
-      .val()
-      .trim();
+    const title = $('#admin-accessibility-title').val().trim();
+    const content = $('#admin-accessibility-content').val().trim();
 
     try {
       AccessibilitySettings.update(AccessibilitySettings.findOne()._id, {
         $set: {
           title: title,
-          body: content
+          body: content,
         },
       });
     } catch (e) {
@@ -1209,7 +1252,7 @@ BlazeComponent.extendComponent({
   },
 }).register('accessibilitySettings');
 
-Template.selectAuthenticationMethod.onCreated(function() {
+Template.selectAuthenticationMethod.onCreated(function () {
   this.authenticationMethods = new ReactiveVar([]);
 
   Meteor.call('getAuthenticationsEnabled', (_, result) => {
@@ -1220,8 +1263,8 @@ Template.selectAuthenticationMethod.onCreated(function() {
         { value: 'password' },
         // Gets only the authentication methods availables
         ...Object.entries(result)
-          .filter(e => e[1])
-          .map(e => ({ value: e[0] })),
+          .filter((e) => e[1])
+          .map((e) => ({ value: e[0] })),
       ]);
     }
   });
@@ -1244,4 +1287,3 @@ Template.selectSpinnerName.helpers({
     return Template.instance().data.spinnerName === match;
   },
 });
-

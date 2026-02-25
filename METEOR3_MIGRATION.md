@@ -185,3 +185,19 @@ Key files involved in the async migration:
 | `server/publications/*.js` | Meteor publications |
 | `server/rulesHelper.js` | Rule trigger/action evaluation |
 | `server/cronMigrationManager.js` | Cron-based migration jobs |
+
+---
+
+## 10. FullCalendar Versioning Note (Post-3.0 Follow-Up)
+
+`wekan-fullcalendar` is currently migrated from legacy Meteor package globals to npm-based **FullCalendar 5.11.5** to keep Meteor 2.16 and 3.0 dual compatibility stable.
+
+**Why pinned for now:**
+- Avoids introducing additional breaking changes during core Meteor async migration.
+- Keeps compatibility with current Blaze/jQuery-era integration points while removing `momentjs:moment` Meteor package dependency.
+
+**After Meteor 3.0 lands (recommended follow-up):**
+1. Re-evaluate upgrading FullCalendar to latest stable major.
+2. Re-test plugin API differences (especially view names, callback signatures, locale/time formatting, CSS entry points).
+3. Verify Node/runtime compatibility and bundle behavior under Meteor 3's final toolchain.
+4. Keep migration isolated in a dedicated PR (separate from async data-layer work) to reduce rollback risk.

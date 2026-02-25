@@ -1,0 +1,43 @@
+.calendar-view .fc {
+  --fc-button-text-color: #333;
+  --fc-button-bg-color: #f5f5f5;
+  --fc-button-border-color: rgba(0, 0, 0, 0.2);
+  --fc-button-hover-bg-color: #e6e6e6;
+  --fc-button-hover-border-color: rgba(0, 0, 0, 0.25);
+  --fc-button-active-bg-color: #d9d9d9;
+  --fc-button-active-border-color: rgba(0, 0, 0, 0.3);
+}
+
+.calendar-view .fc .fc-button-primary {
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  background-image: linear-gradient(to bottom, #fff 0%, #e6e6e6 100%);
+}
+
+.calendar-view .fc .fc-button-primary:focus,
+.calendar-view .fc .fc-button-primary:not(:disabled).fc-button-active,
+.calendar-view .fc .fc-button-primary:not(:disabled):active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-create-close {
+  min-height: auto !important;
+  min-width: auto !important;
+  width: 32px;
+  height: 32px;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #666 !important;
+  opacity: 0.8;
+}
+
+.calendar-create-close:hover,
+.calendar-create-close:focus {
+  background: transparent !important;
+  color: #111 !important;
+  opacity: 1;
+}

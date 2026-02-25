@@ -71,7 +71,6 @@ minimongo@1.9.4
 modern-browsers@0.1.10
 modules@0.20.0
 modules-runtime@0.13.1
-momentjs:moment@2.29.3
 mongo@1.16.10
 mongo-decimal@0.1.3
 mongo-dev-server@1.1.0
@@ -142,7 +141,7 @@ wekan-accounts-lockout@1.1.0
 wekan-accounts-oidc@1.0.10
 wekan-accounts-sandstorm@0.9.0
 wekan-fontawesome@6.4.2
-wekan-fullcalendar@3.10.5
+wekan-fullcalendar@5.11.5
 wekan-ldap@0.1.0
 wekan-markdown@1.0.9
 wekan-oidc@1.1.0

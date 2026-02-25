@@ -226,16 +226,22 @@ BlazeComponent.extendComponent({
     }
 
     // Observe for new popups/menus and set focus (but exclude swimlane content)
-    const popupObserver = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        mutation.addedNodes.forEach(function(node) {
-          if (node.nodeType === 1 &&
-              (node.classList.contains('popup') || node.classList.contains('modal') || node.classList.contains('menu')) &&
-              !node.closest('.js-swimlanes') &&
-              !node.closest('.swimlane') &&
-              !node.closest('.list') &&
-              !node.closest('.minicard')) {
-            setTimeout(function() { focusFirstInteractive(node); }, 10);
+    const popupObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
+          if (
+            node.nodeType === 1 &&
+            (node.classList.contains('popup') ||
+              node.classList.contains('modal') ||
+              node.classList.contains('menu')) &&
+            !node.closest('.js-swimlanes') &&
+            !node.closest('.swimlane') &&
+            !node.closest('.list') &&
+            !node.closest('.minicard')
+          ) {
+            setTimeout(function () {
+              focusFirstInteractive(node);
+            }, 10);
           }
         });
       });
@@ -898,39 +904,51 @@ BlazeComponent.extendComponent({
     document.documentElement.lang = TAPi18n.getLanguage();
 
     this.autorun(function () {
-      $('#calendar-view').fullCalendar('refetchEvents');
+      const calendarEl = document.getElementById('calendar-view');
+      if (calendarEl && calendarEl._wekanCalendar) {
+        calendarEl._wekanCalendar.refetchEvents();
+      }
     });
   },
   calendarOptions() {
+    const t = (key, fallback) => {
+      const translated = TAPi18n.__(key);
+      return translated && translated !== key ? translated : fallback;
+    };
+
     return {
       id: 'calendar-view',
-      defaultView: 'month',
+      initialView: 'dayGridMonth',
       editable: true,
       selectable: true,
-      timezone: 'local',
       weekNumbers: true,
       // Use non-localized AM/PM time format to avoid confusing notations like 上/下/中
       // Use full 'am'/'pm' instead of single-letter 'a'/'p' for clarity
-      timeFormat: 'h:mma',
-      slotLabelFormat: 'h:mma',
-      extraSmallTimeFormat: 'h(:mm)a',
-      smallTimeFormat: 'h(:mm)a',
-      mediumTimeFormat: 'h:mma',
-      hourFormat: 'ha',
-      noMeridiemTimeFormat: 'h:mm',
-      header: {
-        left: 'title   today prev,next',
+      eventTimeFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        meridiem: 'short',
+      },
+      slotLabelFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        meridiem: 'short',
+      },
+      headerToolbar: {
+        left: 'title today prev,next',
         center:
-          'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,listMonth',
+          'timeGridDay,listDay timeGridWeek,listWeek dayGridMonth,listMonth',
         right: '',
       },
+      buttonIcons: false,
       buttonText: {
-        prev: TAPi18n.__('calendar-previous-month-label'), // e.g. "Previous month"
-        next: TAPi18n.__('calendar-next-month-label'), // e.g. "Next month"
-      },
-      ariaLabel: {
-        prev: TAPi18n.__('calendar-previous-month-label'),
-        next: TAPi18n.__('calendar-next-month-label'),
+        prev: t('previous', 'Previous'),
+        next: t('next', 'Next'),
+        today: t('today', 'Today'),
+        day: t('day', 'Day'),
+        week: t('week', 'Week'),
+        month: t('month', 'Month'),
+        list: t('list', 'List'),
       },
       // height: 'parent', nope, doesn't work as the parent might be small
       height: 'auto',
@@ -939,12 +957,12 @@ BlazeComponent.extendComponent({
       nowIndicator: true,
       businessHours: {
         // days of week. an array of zero-based day of week integers (0=Sunday)
-        dow: [1, 2, 3, 4, 5], // Monday - Friday
+        daysOfWeek: [1, 2, 3, 4, 5], // Monday - Friday
         start: '8:00',
         end: '18:00',
       },
       locale: TAPi18n.getLanguage(),
-      events(start, end, timezone, callback) {
+      events(fetchInfo, callback) {
         const currentBoard = Utils.getCurrentBoard();
         const events = [];
         const pushEvent = function (card, title, start, end, extraCls) {
@@ -970,12 +988,12 @@ BlazeComponent.extendComponent({
           });
         };
         currentBoard
-          .cardsInInterval(start.toDate(), end.toDate())
+          .cardsInInterval(fetchInfo.start, fetchInfo.end)
           .forEach(function (card) {
             pushEvent(card);
           });
         currentBoard
-          .cardsDueInBetween(start.toDate(), end.toDate())
+          .cardsDueInBetween(fetchInfo.start, fetchInfo.end)
           .forEach(function (card) {
             pushEvent(
               card,
@@ -989,36 +1007,36 @@ BlazeComponent.extendComponent({
         });
         callback(events);
       },
-      eventResize(event, delta, revertFunc) {
+      eventResize(info) {
         let isOk = false;
-        const card = ReactiveCache.getCard(event.id);
+        const card = ReactiveCache.getCard(info.event.id);
 
         if (card) {
-          card.setEnd(event.end.toDate());
+          card.setEnd(info.event.end);
           isOk = true;
         }
         if (!isOk) {
-          revertFunc();
+          info.revert();
         }
       },
-      eventDrop(event, delta, revertFunc) {
+      eventDrop(info) {
         let isOk = false;
-        const card = ReactiveCache.getCard(event.id);
+        const card = ReactiveCache.getCard(info.event.id);
         if (card) {
           // TODO: add a flag for allDay events
-          if (!event.allDay) {
+          if (!info.event.allDay) {
             // https://github.com/wekan/wekan/issues/2917#issuecomment-1236753962
-            //card.setStart(event.start.toDate());
-            //card.setEnd(event.end.toDate());
-            card.setDue(event.start.toDate());
+            //card.setStart(info.event.start);
+            //card.setEnd(info.event.end);
+            card.setDue(info.event.start);
             isOk = true;
           }
         }
         if (!isOk) {
-          revertFunc();
+          info.revert();
         }
       },
-      select: function (startDate) {
+      select: function (selectionInfo) {
         const currentBoard = Utils.getCurrentBoard();
         const currentUser = ReactiveCache.getCurrentUser();
         const modalElement = document.createElement('div');
@@ -1030,7 +1048,7 @@ BlazeComponent.extendComponent({
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">${TAPi18n.__('r-create-card')}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close calendar-create-close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -1038,7 +1056,7 @@ BlazeComponent.extendComponent({
               <input type="text" class="form-control" id="card-title-input" placeholder="">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="create-card-button">${TAPi18n.__('add-card')}</button>
+              <button type="button" class="primary confirm" id="create-card-button">${TAPi18n.__('add-card')}</button>
             </div>
           </div>
         </div>
@@ -1056,7 +1074,7 @@ BlazeComponent.extendComponent({
               currentBoard._id,
               firstList._id,
               myTitle,
-              startDate.toDate(),
+              selectionInfo.start,
               firstSwimlane._id,
               function (error, result) {
                 if (error) {
