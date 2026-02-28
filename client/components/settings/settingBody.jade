@@ -49,11 +49,7 @@ template(name="setting")
             span.emoji-icon
             i.fa.fa-paperclip
             | {{_ 'attachments'}}
-        else if isCronSettings
-          span
-            span.emoji-icon
-            i.fa.fa-clock
-            | {{_ 'cron'}}
+        //- COMMENTED OUT: Migration settings title section
       .content-body
         .side-menu
           ul
@@ -103,11 +99,7 @@ template(name="setting")
                 span.emoji-icon
                 i.fa.fa-paperclip
                 | {{_ 'attachments'}}
-            li(class="{{#if isCronSettings}}active{{/if}}")
-              a.js-setting-menu(data-id="cron-settings")
-                span.emoji-icon
-                i.fa.fa-clock
-                | {{_ 'migrations'}}
+            //- COMMENTED OUT: Migration menu item
         .main-body
           if isLoading
             +spinner
@@ -182,62 +174,6 @@ template(name="setting")
                 .form-group
                   button.js-test-s3-connection.btn.btn-secondary {{_ 'test-s3-connection'}}
                   button.js-save-s3-settings.btn.btn-primary {{_ 'save-s3-settings'}}
-          else if isCronSettings
-            ul#cron-setting.setting-detail
-              li
-                h3 {{_ 'migrations'}}
-                .form-group
-                  label {{_ 'select-migration'}}
-                  select.js-migration-select.wekan-form-control
-                    option(value="0") 0 - {{_ 'all-migrations'}}
-                    each migrationStepsWithIndex
-                      option(value="{{index}}") {{index}} - {{name}}
-                .form-group
-                  label {{_ 'migration-status'}}
-                  .status-indicator
-                    span.status-label {{_ 'status'}}:
-                    span.status-value
-                      if isMigrating
-                        i.fa.fa-spinner.fa-spin(style="margin-right: 8px;")
-                      else if isUpdatingMigrationDropdown
-                        i.fa.fa-spinner.fa-spin(style="margin-right: 8px;")
-                      | {{#if isMigrating}}{{migrationStatusLine}}{{else}}{{migrationStatus}}{{/if}}
-                  if isMigrating
-                    .progress-section
-                      if migrationCurrentAction
-                        .step-counter
-                          | {{migrationCurrentAction}}
-                      else if migrationJobTotalSteps
-                        .step-counter
-                          | Step {{migrationJobStepNum}}/{{migrationJobTotalSteps}}
-                      else if migrationTotalSteps
-                        .step-counter
-                          | Migration {{migrationCurrentStepNum}}/{{migrationTotalSteps}}
-                      else
-                        .step-counter
-                          i.fa.fa-spinner.fa-spin(style="margin-right: 8px;")
-                          | Calculating migration scope...
-                      .progress
-                        .progress-bar(role="progressbar" style="width: {{migrationJobProgress}}%" aria-valuenow="{{migrationJobProgress}}" aria-valuemin="0" aria-valuemax="100")
-                          | {{migrationJobProgress}}%
-                      .progress-text
-                        | {{migrationJobProgress}}% {{_ 'complete'}}
-                    .migration-details
-                      if migrationJobTotalSteps
-                        if migrationJobTotalSteps gt 1
-                          .detail-line
-                            | Job step: {{migrationJobStepNum}}/{{migrationJobTotalSteps}}
-                      if migrationEtaSeconds
-                        .detail-line
-                          | ETA: {{formatDurationSeconds migrationEtaSeconds}}
-                      if migrationElapsedSeconds
-                        .detail-line
-                          | Elapsed: {{formatDurationSeconds migrationElapsedSeconds}}
-
-                .form-group
-                  button.js-start-migration.primary(disabled="{{#if isMigrating}}disabled{{/if}}") {{_ 'start-all-migrations'}}
-                  button.js-pause-all-migrations.primary(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'pause-all-migrations'}}
-                  button.js-stop-all-migrations.primary(disabled="{{#unless isMigrating}}disabled{{/unless}}") {{_ 'stop-all-migrations'}}
           else if isGeneralSetting
             +general
           else if isEmailSetting

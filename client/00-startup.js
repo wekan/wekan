@@ -9,12 +9,12 @@ if ('serviceWorker' in navigator) {
 import '/client/lib/boardConverter';
 import '/client/components/boardConversionProgress';
 
-// Import migration manager and progress UI
-import '/client/lib/attachmentMigrationManager';
-import '/client/components/settings/migrationProgress';
+// Import migration manager and progress UI - COMMENTED OUT
+// import '/client/lib/attachmentMigrationManager';
+// import '/client/components/settings/migrationProgress';
 
-// Import cron settings
-import '/client/components/settings/cronSettings';
+// Import cron settings - COMMENTED OUT
+// import '/client/components/settings/cronSettings';
 // Custom head tags
 
 // Mirror Meteor login token into a cookie for server-side file route auth

@@ -38,13 +38,13 @@ if (errors.length > 0) {
 }
 
 // Import cron job storage for persistent job tracking
-import './cronJobStorage';
+// import './cronJobStorage';
 
-// Import migrations
-import './migrations/fixMissingListsMigration';
-import './migrations/fixAvatarUrls';
-import './migrations/fixAllFileUrls';
-import './migrations/comprehensiveBoardMigration';
+// Import migrations - COMMENTED OUT
+// import './migrations/fixMissingListsMigration';
+// import './migrations/fixAvatarUrls';
+// import './migrations/fixAllFileUrls';
+// import './migrations/comprehensiveBoardMigration';
 
 // Import file serving routes
 import './routes/universalFileServer';
