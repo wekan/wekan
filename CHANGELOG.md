@@ -30,6 +30,15 @@ Upgrading to Meteor 3 progress:
 - https://www.linkedin.com/posts/harryadel_dev-diary-24-wekan-migration-journey-activity-7426683776547811328-jS9h/
 - https://forums.meteor.com/t/anyone-still-using-meteor-2/64402/4
 
+# Upcoming WeKan ® release
+
+This release fixes the following bugs:
+
+- [Commented out Admin Panel/Settings/Migrations related menu option and code to speed up WeKan](https://github.com/wekan/wekan/commit/9b3ecd795fffaf012911d0d36cea0ee362e2fc27).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.34 2026-02-20 WeKan ® release
 
 This release adds the following CRITICAL SECURITY FIXES:
