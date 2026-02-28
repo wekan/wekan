@@ -168,6 +168,18 @@ Meteor.publish('archivedBoards', async function() {
   return ret;
 });
 
+// OPTIMIZED BOARD PUBLICATION
+//
+// Performance improvements implemented to reduce N+1 query problem:
+// - Batches card-related queries (comments, attachments, checklists) instead of querying per-card
+// - Uses field projections to minimize data transfer
+// - Removed automatic loading of entire linked boards (cardType-linkedBoard)
+// - Only loads visible data: cards, comments, attachments, checklists for current board
+//
+// Estimated improvement:
+// - Before: ~800-1000 queries for board with 100 cards
+// - After: ~15-20 batched queries for same board (40-50x reduction)
+//
 // If isArchived = false, this will only return board elements which are not archived.
 // If isArchived = true, this will only return board elements which are archived.
 publishComposite('board', async function(boardId, isArchived) {
@@ -248,7 +260,7 @@ publishComposite('board', async function(boardId, isArchived) {
           );
         }
       },
-      // Cards and their related data
+      // Cards
       {
         async find(board) {
           const cardSelector = {
@@ -266,107 +278,242 @@ publishComposite('board', async function(boardId, isArchived) {
           }
 
           return await ReactiveCache.getCards(cardSelector, {}, true);
-        },
-        children: [
-          // CardComments for each card
-          {
-            find(card) {
-              return CardComments.find({ cardId: card._id });
-            }
-          },
-          // CardCommentReactions for each card
-          {
-            find(card) {
-              return CardCommentReactions.find({ cardId: card._id });
-            }
-          },
-          // Attachments for each card
-          {
-            find(card) {
-              return Attachments.collection.find({ 'meta.cardId': card._id });
-            }
-          },
-          // Checklists for each card
-          {
-            find(card) {
-              return Checklists.find({ cardId: card._id });
-            }
-          },
-          // ChecklistItems for each card
-          {
-            find(card) {
-              return ChecklistItems.find({ cardId: card._id });
-            }
-          },
-          // Parent cards (cards that have this card as parentId)
-          {
-            find(card) {
-              return Cards.find({ parentId: card._id });
-            }
-          },
-          // Linked card data (for cardType-linkedCard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedCard' && card.linkedId) {
-                return Cards.find({ _id: card.linkedId, archived: isArchived });
-              }
-              return null;
-            },
-            children: [
-              // Comments for linked card
-              {
-                find(linkedCard) {
-                  return CardComments.find({ cardId: linkedCard._id });
-                }
-              },
-              // Attachments for linked card
-              {
-                find(linkedCard) {
-                  return Attachments.collection.find({ 'meta.cardId': linkedCard._id });
-                }
-              },
-              // Checklists for linked card
-              {
-                find(linkedCard) {
-                  return Checklists.find({ cardId: linkedCard._id });
-                }
-              },
-              // ChecklistItems for linked card
-              {
-                find(linkedCard) {
-                  return ChecklistItems.find({ cardId: linkedCard._id });
-                }
-              }
-            ]
-          },
-          // Linked board (for cardType-linkedBoard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedBoard' && card.linkedId) {
-                return Boards.find({ _id: card.linkedId });
-              }
-              return null;
-            }
-          },
-          // Cards in linked board (for cardType-linkedBoard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedBoard' && card.linkedId) {
-                return Cards.find({ boardId: card.linkedId });
-              }
-              return null;
-            }
-          },
-          // Comments for linked board cards (for cardType-linkedBoard)
-          {
-            find(card) {
-              if (card.type === 'cardType-linkedBoard' && card.linkedId) {
-                return CardComments.find({ boardId: card.linkedId });
-              }
-              return null;
+        }
+      },
+      // Batch CardComments for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
             }
           }
-        ]
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          return await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, {}, true);
+        }
+      },
+      // Batch Attachments for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          const result = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, {}, true);
+          // Handle both cursor and direct return
+          return result.cursor || result;
+        }
+      },
+      // Batch Checklists for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          return await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, {}, true);
+        }
+      },
+      // Batch ChecklistItems for all cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const cardIds = cards.map(c => c._id);
+          return await ReactiveCache.getChecklistItems({ cardId: { $in: cardIds } }, {}, true);
+        }
+      },
+      // Parent cards (for subtasks)
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, parentId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const parentIds = cards.filter(c => c.parentId).map(c => c.parentId);
+          if (parentIds.length === 0) return null;
+
+          return await ReactiveCache.getCards({ _id: { $in: parentIds } }, {}, true);
+        }
+      },
+      // Linked cards (cardType-linkedCard)
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getCards({ _id: { $in: linkedCardIds }, archived: isArchived }, {}, true);
+        }
+      },
+      // Comments for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getCardComments({ cardId: { $in: linkedCardIds } }, {}, true);
+        }
+      },
+      // Attachments for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          const result = await ReactiveCache.getAttachments({ 'meta.cardId': { $in: linkedCardIds } }, {}, true);
+          return result.cursor || result;
+        }
+      },
+      // Checklists for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getChecklists({ cardId: { $in: linkedCardIds } }, {}, true);
+        }
+      },
+      // ChecklistItems for linked cards
+      {
+        async find(board) {
+          const cardSelector = {
+            boardId: { $in: [board._id, board.subtasksDefaultBoardId] },
+            archived: isArchived,
+          };
+
+          if (thisUserId && board.members) {
+            const member = _.findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              cardSelector.assignees = { $in: [thisUserId] };
+            }
+          }
+
+          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
+          if (!cards || cards.length === 0) return null;
+
+          const linkedCardIds = cards.filter(c => c.type === 'cardType-linkedCard' && c.linkedId).map(c => c.linkedId);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getChecklistItems({ cardId: { $in: linkedCardIds } }, {}, true);
+        }
       },
       // Board members/Users
       {
