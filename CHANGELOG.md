@@ -36,6 +36,8 @@ This release fixes the following bugs:
 
 - [Commented out Admin Panel/Settings/Migrations related menu option and code to speed up WeKan](https://github.com/wekan/wekan/commit/9b3ecd795fffaf012911d0d36cea0ee362e2fc27).
   Thanks to xet7.
+- [Optimized board loading](https://github.com/wekan/wekan/commit/7127862bea34ab84ebf8ef00727e3f7633ca8b69).
+  Thanks to xet7
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
