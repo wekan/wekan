@@ -125,7 +125,7 @@ jobs:
             v1-meteor_build_cache-
 
       - name: Setup meteor
-        uses: meteorengineer/setup-meteor@v2
+        uses: meteorengineer/setup-meteor@v3
         with:
           meteor-release: '2.2'
 
