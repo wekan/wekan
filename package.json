@@ -33,7 +33,7 @@
     "bcryptjs": "^2.4.3",
     "bson": "^4.7.2",
     "chart.js": "^4.5.0",
-    "dompurify": "^3.2.7",
+    "dompurify": "^3.3.2",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
     "fibers": "^5.0.3",
