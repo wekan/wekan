@@ -57,6 +57,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix FilesCollection findOneAsync errors for Avatars and Attachments](https://github.com/wekan/wekan/pull/6173).
   Thanks to harryadel.
+- [Fixed unable to delete Avatar, with Meteor 3 compatible avatar and attachments fixes](https://github.com/wekan/wekan/commit/274f1309c389221915b40508faffdfc361d48bbf).
+  Thanks to inDane and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
