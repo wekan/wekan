@@ -46,6 +46,8 @@ This release adds the following updates:
   Thanks to harryadel.
 - [Replace templates:tabs package with inline Blaze implementation](https://github.com/wekan/wekan/pull/6175).
   Thanks to harryadel.
+- [Updated dompurify](https://github.com/wekan/wekan/commit/9f79a8b6edc161f95c7362f45597b8c6ec777088).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
