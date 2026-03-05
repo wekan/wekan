@@ -32,9 +32,9 @@ Upgrading to Meteor 3 progress:
 
 # v8.35 2026-03-05 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES of [Integrationbleed](https://wekan.fi/hall-of-fame/integrationbleed/):
+This release adds the following CRITICAL SECURITY FIXES of [IntegrationBleed](https://wekan.fi/hall-of-fame/integrationBleed/):
 
-- [Fix Integrationbleed](https://github.com/wekan/wekan/commit/2cd702f48df2b8aef0e7381685f8e089986a18a4).
+- [Fix IntegrationBleed](https://github.com/wekan/wekan/commit/2cd702f48df2b8aef0e7381685f8e089986a18a4).
   Thanks to Rodolphe GHIO and xet7.
 
 and adds the following updates:
@@ -69,15 +69,15 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.34 2026-02-20 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES of [Anchorbleed](https://wekan.fi/hall-of-fame/anchorbleed/):
+This release adds the following CRITICAL SECURITY FIXES of [AnchorBleed](https://wekan.fi/hall-of-fame/anchorBleed/):
 
-- [Fix GHSL-2026-035_Wekan CursorBleed of Anchorbleed](https://github.com/wekan/wekan/commit/1c8667eae8b28739e43569b612ffdb2693c6b1ce).
+- [Fix GHSL-2026-035_Wekan CursorBleed of AnchorBleed](https://github.com/wekan/wekan/commit/1c8667eae8b28739e43569b612ffdb2693c6b1ce).
   Thanks to GHSL and xet7.
-- [Fix GHSL-2026-036_Wekan WatchBleed of Anchorbleed](https://github.com/wekan/wekan/commit/8c00adc6b865653bd717a946dd646eb54ac78c9c).
+- [Fix GHSL-2026-036_Wekan WatchBleed of AnchorBleed](https://github.com/wekan/wekan/commit/8c00adc6b865653bd717a946dd646eb54ac78c9c).
   Thanks to GHSL and xet7.
-- [Fix GHSL-2026-037_Wekan GlobalBleed of Anchorbleed](https://github.com/wekan/wekan/commit/1ee9b2e917104f54c035f6426169a28fedecbdb6).
+- [Fix GHSL-2026-037_Wekan GlobalBleed of AnchorBleed](https://github.com/wekan/wekan/commit/1ee9b2e917104f54c035f6426169a28fedecbdb6).
   Thanks to GHSL and xet7.
-- [Fix GHSL-2026-044_Wekan CustomFieldBleed of Anchorbleed](https://github.com/wekan/wekan/commit/73eb98c57afd3d72377a1f7160a52450ab0eeb8b).
+- [Fix GHSL-2026-044_Wekan CustomFieldBleed of AnchorBleed](https://github.com/wekan/wekan/commit/73eb98c57afd3d72377a1f7160a52450ab0eeb8b).
   Thanks to GHSL and xet7.
 - [Fix GHSL-2026-045_Wekan ImportBleed of AnchorBleed](https://github.com/wekan/wekan/commit/62216e36c15f55d4ef6cb97313db3aa54fc77fe0).
   Thanks to GHSL and xet7.
@@ -258,9 +258,9 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.25 2026-01-28 WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES of [Floppybleed](https://wekan.fi/hall-of-fame/floppybleed/):
+This release fixes the following CRITICAL SECURITY ISSUES of [FloppyBleed](https://wekan.fi/hall-of-fame/floppyBleed/):
 
-- [Fix Filebleed of Floppybleed](https://github.com/wekan/wekan/commit/a419d831a408f251c798f5410375b20afd98c04b).
+- [Fix FileBleed of FloppyBleed](https://github.com/wekan/wekan/commit/a419d831a408f251c798f5410375b20afd98c04b).
   Thanks to Luke Hebenstreit Twitter lheben_ and xet7.
 
 and adds the following updates:
@@ -358,7 +358,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.21 2026-01-18 WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
+This release fixes the following CRITICAL SECURITY ISSUES of [SnowBleed](https://wekan.fi/hall-of-fame/snowBleed/):
 
 - [Security Fix 2: OrgsTeamsBleed](https://github.com/wekan/wekan/commit/cabfeed9a68e21c469bf206d8655941444b9912c).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
@@ -420,7 +420,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.20 2026-01-16 WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES of [Snowbleed](https://wekan.fi/hall-of-fame/snowbleed/):
+This release fixes the following CRITICAL SECURITY ISSUES of [SnowBleed](https://wekan.fi/hall-of-fame/snowBleed/):
 
 - [Security Fix 1: MigrationsBleed](https://github.com/wekan/wekan/commit/cbb1cd78de3e40264a5e047ace0ce27f8635b4e6).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
@@ -480,7 +480,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.19 2025-12-29 WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES of [Megableed](https://wekan.fi/hall-of-fame/megableed/):
+This release fixes the following CRITICAL SECURITY ISSUES of [MegaBleed](https://wekan.fi/hall-of-fame/megaBleed/):
 
 - [Security Fix 1: IDOR in setCreateTranslation. Non-admin could change Custom Translation](https://github.com/wekan/wekan/commit/f244a43771f6ebf40218b83b9f46dba6b940d7de).
   Thanks to [Joshua Rogers](https://joshua.hu) of [Aisle Research](https://aisle.com) and xet7.
@@ -538,7 +538,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release adds the following CRITICAL SECURITY FIXES:
 
-- [Upgraded MongoDB to 7.0.28 to fix mongobleed at Snap Candidate](https://github.com/wekan/wekan/commit/e210c9973be55a4fa4e7dd15aefc24e06dbc3e7f).
+- [Upgraded MongoDB to 7.0.28 to fix MongoBleed at Snap Candidate](https://github.com/wekan/wekan/commit/e210c9973be55a4fa4e7dd15aefc24e06dbc3e7f).
   Thanks to developers of MongoDB.
 
 and adds the following new features:
@@ -638,7 +638,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.16 2025-11-02 WeKan ® release
 
-This release fixes the following CRITICAL SECURITY ISSUES of [Spacebleed](https://wekan.fi/hall-of-fame/spacebleed/):
+This release fixes the following CRITICAL SECURITY ISSUES of [SpaceBleed](https://wekan.fi/hall-of-fame/spaceBleed/):
 
 - [Fix SECURITY ISSUE 1: File Attachments enables stored XSS (High)](https://github.com/wekan/wekan/commit/e9a727301d7b4f1689a703503df668c0f4f4cab8).
   Thanks to Siam Thanat Hack (STH) and xet7.
@@ -3857,7 +3857,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
-- Security Fix of Filebleed in WeKan. That is XSS in filename.
+- Security Fix of FileBleed in WeKan. That is XSS in filename.
   [Part 1](https://github.com/wekan/wekan/commit/ff993e7c917b5650a790238e95c78001e4f0e039),
   [Part 2](https://github.com/wekan/wekan/commit/382168a5b428a7124d368c4fcb37e7e140e7ec8b).
   Thanks to responsible security disclosure contributors and xet7.
