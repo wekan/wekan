@@ -32,12 +32,29 @@ Upgrading to Meteor 3 progress:
 
 # Upcoming WeKan ® release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Bump minimatch from 3.1.3 to 3.1.5](https://github.com/wekan/wekan/pull/6167).
+  Thanks to dependabot.
+- [Bump actions/download-artifact from 7 to 8](https://github.com/wekan/wekan/pull/6170).
+  Thanks to dependabot.
+- [Bump meteorengineer/setup-meteor from 2 to 3](https://github.com/wekan/wekan/pull/6171).
+  Thanks to dependabot.
+- [Bump actions/upload-artifact from 6 to 7](https://github.com/wekan/wekan/pull/6172).
+  Thanks to dependabot.
+- [Replace konecty:mongo-counter with inline implementation](https://github.com/wekan/wekan/pull/6174).
+  Thanks to harryadel.
+- [Replace templates:tabs package with inline Blaze implementation](https://github.com/wekan/wekan/pull/6175).
+  Thanks to harryadel.
+
+and fixes the following bugs:
 
 - [Commented out Admin Panel/Settings/Migrations related menu option and code to speed up WeKan](https://github.com/wekan/wekan/commit/9b3ecd795fffaf012911d0d36cea0ee362e2fc27).
   Thanks to xet7.
 - [Optimized board loading](https://github.com/wekan/wekan/commit/7127862bea34ab84ebf8ef00727e3f7633ca8b69).
-  Thanks to xet7
+  Thanks to xet7.
+- [Fix FilesCollection findOneAsync errors for Avatars and Attachments](https://github.com/wekan/wekan/pull/6173).
+  Thanks to harryadel.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
