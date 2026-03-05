@@ -169,8 +169,14 @@ Attachments = new FilesCollection({
     const ret = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).interceptDownload(http, this.cacheControl);
     return ret;
   },
-  onAfterRemove(files) {
+  onAfterRemove(filesInput) {
+    const files = normalizeRemovedFiles(filesInput);
+
     files.forEach(fileObj => {
+      if (!fileObj || !fileObj.versions) {
+        return;
+      }
+
       Object.keys(fileObj.versions).forEach(versionName => {
         fileStoreStrategyFactory.getFileStrategy(fileObj, versionName).onAfterRemove();
       });
@@ -193,6 +199,38 @@ Attachments = new FilesCollection({
     return board.hasMember(this.userId);
   },
 });
+
+function normalizeRemovedFiles(filesInput) {
+  if (!filesInput) {
+    return [];
+  }
+
+  if (Array.isArray(filesInput)) {
+    return filesInput;
+  }
+
+  if (typeof filesInput.fetch === 'function') {
+    return filesInput.fetch();
+  }
+
+  if (Array.isArray(filesInput.files)) {
+    return filesInput.files;
+  }
+
+  if (typeof filesInput === 'string') {
+    return Attachments.find({ _id: filesInput }).fetch();
+  }
+
+  if (filesInput && typeof filesInput === 'object') {
+    if (filesInput._id && (filesInput.versions || filesInput.meta)) {
+      return [filesInput];
+    }
+
+    return Attachments.find(filesInput).fetch();
+  }
+
+  return [];
+}
 
 if (Meteor.isServer) {
   Attachments.allow({

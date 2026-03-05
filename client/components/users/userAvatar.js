@@ -267,10 +267,9 @@ BlazeComponent.extendComponent({
           event.stopPropagation();
           this.setAvatar('');
         },
-        'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', function(event) {
+        'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', function() {
           Avatars.remove(this._id);
           Popup.back();
-          event.stopPropagation();
         }),
       },
     ];
