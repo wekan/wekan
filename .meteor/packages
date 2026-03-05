@@ -50,7 +50,6 @@ http@2.0.0! # force new http package
 # UI components
 ostrio:i18n
 reactive-var@1.0.12
-templates:tabs
 meteor-autosize
 shell-server@0.5.0
 email@2.2.5
