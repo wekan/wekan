@@ -30,9 +30,14 @@ Upgrading to Meteor 3 progress:
 - https://www.linkedin.com/posts/harryadel_dev-diary-24-wekan-migration-journey-activity-7426683776547811328-jS9h/
 - https://forums.meteor.com/t/anyone-still-using-meteor-2/64402/4
 
-# Upcoming WeKan ® release
+# v8.35 2026-03-05 WeKan ® release
 
-This release adds the following updates:
+This release adds the following CRITICAL SECURITY FIXES of [Integrationbleed](https://wekan.fi/hall-of-fame/integrationbleed/):
+
+- [Fix Integrationbleed](https://github.com/wekan/wekan/commit/2cd702f48df2b8aef0e7381685f8e089986a18a4).
+  Thanks to Rodolphe GHIO and xet7.
+
+and adds the following updates:
 
 - [Bump minimatch from 3.1.3 to 3.1.5](https://github.com/wekan/wekan/pull/6167).
   Thanks to dependabot.
@@ -64,17 +69,17 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v8.34 2026-02-20 WeKan ® release
 
-This release adds the following CRITICAL SECURITY FIXES:
+This release adds the following CRITICAL SECURITY FIXES of [Anchorbleed](https://wekan.fi/hall-of-fame/anchorbleed/):
 
-- [Fix GHSL-2026-035_Wekan](https://github.com/wekan/wekan/commit/1c8667eae8b28739e43569b612ffdb2693c6b1ce).
+- [Fix GHSL-2026-035_Wekan CursorBleed of Anchorbleed](https://github.com/wekan/wekan/commit/1c8667eae8b28739e43569b612ffdb2693c6b1ce).
   Thanks to GHSL and xet7.
-- [Fix GHSL-2026-036_Wekan](https://github.com/wekan/wekan/commit/8c00adc6b865653bd717a946dd646eb54ac78c9c).
+- [Fix GHSL-2026-036_Wekan WatchBleed of Anchorbleed](https://github.com/wekan/wekan/commit/8c00adc6b865653bd717a946dd646eb54ac78c9c).
   Thanks to GHSL and xet7.
-- [Fix GHSL-2026-037_Wekan](https://github.com/wekan/wekan/commit/1ee9b2e917104f54c035f6426169a28fedecbdb6).
+- [Fix GHSL-2026-037_Wekan GlobalBleed of Anchorbleed](https://github.com/wekan/wekan/commit/1ee9b2e917104f54c035f6426169a28fedecbdb6).
   Thanks to GHSL and xet7.
-- [Fix GHSL-2026-044_Wekan](https://github.com/wekan/wekan/commit/73eb98c57afd3d72377a1f7160a52450ab0eeb8b).
+- [Fix GHSL-2026-044_Wekan CustomFieldBleed of Anchorbleed](https://github.com/wekan/wekan/commit/73eb98c57afd3d72377a1f7160a52450ab0eeb8b).
   Thanks to GHSL and xet7.
-- [Fix GHSL-2026-045_Wekan](https://github.com/wekan/wekan/commit/62216e36c15f55d4ef6cb97313db3aa54fc77fe0).
+- [Fix GHSL-2026-045_Wekan ImportBleed of AnchorBleed](https://github.com/wekan/wekan/commit/62216e36c15f55d4ef6cb97313db3aa54fc77fe0).
   Thanks to GHSL and xet7.
 
 and adds the following new features:
