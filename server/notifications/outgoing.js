@@ -12,6 +12,43 @@ if (Meteor.isServer) {
     });
   });
 
+  // SSRF Protection: Validate webhook URLs before posting
+  const isValidWebhookUrl = (urlString) => {
+    try {
+      const u = new URL(urlString);
+
+      // Only allow http and https protocols
+      if (!['http:', 'https:'].includes(u.protocol)) {
+        return false;
+      }
+
+      // Block private/loopback IP ranges and hostnames
+      const hostname = u.hostname.toLowerCase();
+      const blockedPatterns = [
+        /^127\./, // 127.x.x.x (loopback)
+        /^10\./, // 10.x.x.x (private)
+        /^172\.(1[6-9]|2\d|3[01])\./, // 172.16-31.x.x (private)
+        /^192\.168\./, // 192.168.x.x (private)
+        /^0\./, // 0.x.x.x (current network)
+        /^::1$/, // IPv6 loopback
+        /^fe80:/, // IPv6 link-local
+        /^fc00:/, // IPv6 unique local
+        /^fd00:/, // IPv6 unique local
+        /^localhost$/i,
+        /\.local$/i,
+        /^169\.254\./, // link-local IP (AWS metadata)
+      ];
+
+      if (blockedPatterns.some(pattern => pattern.test(hostname))) {
+        return false;
+      }
+
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const Lock = {
     _lock: {},
     _timer: {},
@@ -70,13 +107,24 @@ if (Meteor.isServer) {
     'label',
     'attachmentId',
   ];
-  const responseFunc = async data => {
+  const responseFunc = async (data, integration) => {
     const paramCommentId = data.commentId;
     const paramCardId = data.cardId;
     const paramBoardId = data.boardId;
     const newComment = data.comment;
-    if (paramCardId && paramBoardId && newComment) {
-      // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
+
+    // Authorization: Verify the request is from a bidirectional webhook
+    if (!integration || integration.type !== Integrations.Const.TWOWAY) {
+      return; // Only bidirectional webhooks can update comments
+    }
+
+    // Authorization: Prevent cross-board comment injection
+    if (paramBoardId !== integration.boardId) {
+      return; // Webhook can only modify comments in its own board
+    }
+
+    if (paramCardId && paramBoardId && newComment && paramCommentId) {
+      // only process data with the commentId, cardId, boardId and comment text
       const comment = await ReactiveCache.getCardComment({
         _id: paramCommentId,
         cardId: paramCardId,
@@ -84,26 +132,15 @@ if (Meteor.isServer) {
       });
       const board = await ReactiveCache.getBoard(paramBoardId);
       const card = await ReactiveCache.getCard(paramCardId);
-      if (board && card) {
-        if (comment) {
-          Lock.set(comment._id, newComment);
-          CardComments.direct.update(comment._id, {
-            $set: {
-              text: newComment,
-            },
-          });
-        }
-      } else {
-        const userId = data.userId;
-        if (userId) {
-          const inserted = CardComments.direct.insert({
+
+      if (board && card && comment) {
+        // Only update existing comments - do not create new comments from webhook responses
+        Lock.set(comment._id, newComment);
+        CardComments.direct.update(comment._id, {
+          $set: {
             text: newComment,
-            userId,
-            cardId,
-            boardId,
-          });
-          Lock.set(inserted._id, newComment);
-        }
+          },
+        });
       }
     }
   };
@@ -175,6 +212,11 @@ if (Meteor.isServer) {
 
         const url = integration.url;
 
+        // SSRF Protection: Validate webhook URL before posting
+        if (!isValidWebhookUrl(url)) {
+          throw new Meteor.Error('invalid-webhook-url', 'Webhook URL is invalid or points to a private/internal address');
+        }
+
         if (is2way) {
           const cid = params.commentId;
           const comment = params.comment;
@@ -198,7 +240,7 @@ if (Meteor.isServer) {
             const data = response.data; // only an JSON encoded response will be actioned
             if (data) {
               try {
-                await responseFunc(data);
+                await responseFunc(data, integration);
               } catch (e) {
                 throw new Meteor.Error('error-process-data');
               }

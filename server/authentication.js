@@ -68,6 +68,14 @@ Meteor.startup(() => {
     await Authentication.checkAdminOrCondition(userId, writeAccess);
   };
 
+  // Helper function. Will throw an error if the user is not a board admin.
+  Authentication.checkBoardAdmin = async function(userId, boardId) {
+    Authentication.checkLoggedIn(userId);
+    const board = await ReactiveCache.getBoard(boardId);
+    const adminAccess = board.members.some(e => e.userId === userId && e.isActive && e.isAdmin);
+    await Authentication.checkAdminOrCondition(userId, adminAccess);
+  };
+
   if (Meteor.isServer) {
     if (
       process.env.ORACLE_OIM_ENABLED === 'true' ||
