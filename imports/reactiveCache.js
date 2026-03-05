@@ -105,7 +105,7 @@ ReactiveCacheServer = {
   },
   async getAttachment(idOrFirstObjectSelector = {}, options = {}) {
     // Try new structure first
-    let ret = await Attachments.findOneAsync(idOrFirstObjectSelector, options);
+    let ret = Attachments.findOne(idOrFirstObjectSelector, options);
     if (!ret && typeof idOrFirstObjectSelector === 'string') {
       // Fall back to old structure for single attachment lookup
       ret = await Attachments.getAttachmentWithBackwardCompatibility(
@@ -127,7 +127,7 @@ ReactiveCacheServer = {
     return ret;
   },
   async getAvatar(idOrFirstObjectSelector = {}, options = {}) {
-    const ret = await Avatars.findOneAsync(idOrFirstObjectSelector, options);
+    const ret = Avatars.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getAvatars(selector = {}, options = {}, getQuery = false) {
