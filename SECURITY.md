@@ -1,8 +1,9 @@
 
 ## Responsible Security Disclosure
 
-- To send email, use [ProtonMail](https://proton.me) email address or use PGP key [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
-- Send info about security issue ONLY to security@wekan.fi (that is Protomail email address). NOT TO ANYWHERE ELSE. NO CC, NO BCC.
+- To send email, is possible, use PGP key [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
+- Send info about security issue ONLY to security@wekan.fi . NOT TO ANYWHERE ELSE. NO CC, NO BCC.
+  You have no permission to share details with anyone else.
   You have no permission to request GHSA or CVE ID or write technical posts or talks about vulnerabilities.
   All vulnerability details are private to security@wekan.fi only.
 - Wait for new WeKan release that fixes security issue
