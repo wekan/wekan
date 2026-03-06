@@ -4,8 +4,7 @@
 - To send email, is possible, use PGP key [security-at-wekan.fi.asc](security-at-wekan.fi.asc)
 - Send info about security issue ONLY to security@wekan.fi . NOT TO ANYWHERE ELSE. NO CC, NO BCC.
   You have no permission to share details with anyone else.
-  You have no permission to request GHSA or CVE ID or write technical posts or talks about vulnerabilities,
-  and all existing GHSA and CVE details are required to be deleted.
+  You have no permission to request any new GHSA or CVE ID or write technical posts or talks about vulnerabilities.
   All vulnerability details are private to security@wekan.fi only.
 - Wait for new WeKan release that fixes security issue
 - If you approve, we thank you by adding you to Hall of Fame: https://wekan.fi/hall-of-fame/
