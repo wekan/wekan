@@ -233,11 +233,11 @@ template(name="createBoard")
     label
       | {{_ 'title'}}
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
-    if visibilityMenuIsOpen.get
+    if visibilityMenuIsOpen
       +boardVisibilityList
     else
       p.quiet
-        if $eq visibility.get 'public'
+        if $eq visibility 'public'
           span.fa.fa-globe.colorful
           = " "
           | {{{_ 'board-public-info'}}}
@@ -262,11 +262,40 @@ template(name="createBoardPopup")
     label
       | {{_ 'title'}}
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
-    if visibilityMenuIsOpen.get
+    if visibilityMenuIsOpen
       +boardVisibilityList
     else
       p.quiet
-        if $eq visibility.get 'public'
+        if $eq visibility 'public'
+          span.fa.fa-globe.colorful
+          = " "
+          | {{{_ 'board-public-info'}}}
+        else
+          span.fa.fa-lock.colorful
+          = " "
+          | {{{_ 'board-private-info'}}}
+        a.js-change-visibility {{_ 'change'}}.
+    a.flex.js-toggle-add-template-container
+      .materialCheckBox#add-template-container
+      span {{_ 'add-template-container'}}
+    input.primary.wide(type="submit" value="{{_ 'create'}}")
+    span.quiet
+      | {{_ 'or'}}
+      a.js-import-board {{_ 'import'}}
+    span.quiet
+      | /
+      a.js-board-template {{_ 'template'}}
+
+template(name="headerBarCreateBoardPopup")
+  form
+    label
+      | {{_ 'title'}}
+      input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
+    if visibilityMenuIsOpen
+      +boardVisibilityList
+    else
+      p.quiet
+        if $eq visibility 'public'
           span.fa.fa-globe.colorful
           = " "
           | {{{_ 'board-public-info'}}}
@@ -292,11 +321,11 @@ template(name="createTemplateContainerPopup")
     label
       | {{_ 'title'}}
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
-    if visibilityMenuIsOpen.get
+    if visibilityMenuIsOpen
       +boardVisibilityList
     else
       p.quiet
-        if $eq visibility.get 'public'
+        if $eq visibility 'public'
           span.fa.fa-globe.colorful
           = " "
           | {{{_ 'board-public-info'}}}
