@@ -91,14 +91,16 @@ MultiSelection = {
 
   activate() {
     if (!this.isActive()) {
-      this._sidebarWasOpen = Sidebar.isOpen();
+      this._sidebarWasOpen = Sidebar && Sidebar.isOpen();
       EscapeActions.executeUpTo('detailsPane');
       this._isActive.set(true);
       Tracker.flush();
     }
-    Sidebar.setView(this.sidebarView);
-    if(Utils.isMiniScreen()) {
-      Sidebar.hide();
+    if (Sidebar) {
+      Sidebar.setView(this.sidebarView);
+      if(Utils.isMiniScreen()) {
+        Sidebar.hide();
+      }
     }
   },
 
