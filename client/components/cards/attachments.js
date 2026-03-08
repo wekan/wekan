@@ -495,9 +495,9 @@ Template.previewClipboardImagePopup.events({
   },
 });
 
-BlazeComponent.extendComponent({
+Template.attachmentActionsPopup.helpers({
   isCover() {
-    const ret = ReactiveCache.getCard(this.data().meta.cardId).coverId == this.data()._id;
+    const ret = ReactiveCache.getCard(this.meta.cardId).coverId == this._id;
     return ret;
   },
   isBackgroundImage() {
@@ -505,78 +505,72 @@ BlazeComponent.extendComponent({
     //return currentBoard.backgroundImageURL === $(".attachment-thumbnail-img").attr("src");
     return false;
   },
-  events() {
-    return [
-      {
-        'click .js-add-cover'() {
-          ReactiveCache.getCard(this.data().meta.cardId).setCover(this.data()._id);
-          Popup.back();
-        },
-        'click .js-remove-cover'() {
-          ReactiveCache.getCard(this.data().meta.cardId).unsetCover();
-          Popup.back();
-        },
-        'click .js-add-background-image'() {
-          const currentBoard = Utils.getCurrentBoard();
-          currentBoard.setBackgroundImageURL(attachmentActionsLink);
-          Utils.setBackgroundImage(attachmentActionsLink);
-          Popup.back();
-          event.preventDefault();
-        },
-        'click .js-remove-background-image'() {
-          const currentBoard = Utils.getCurrentBoard();
-          currentBoard.setBackgroundImageURL("");
-          Utils.setBackgroundImage("");
-          Popup.back();
-          Utils.reload();
-          event.preventDefault();
-        },
-        'click .js-move-storage-fs'() {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "fs");
-          Popup.back();
-        },
-        'click .js-move-storage-gridfs'() {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "gridfs");
-          Popup.back();
-        },
-        'click .js-move-storage-s3'() {
-          Meteor.call('moveAttachmentToStorage', this.data()._id, "s3");
-          Popup.back();
-        },
-      }
-    ]
-  }
-}).register('attachmentActionsPopup');
+});
 
-BlazeComponent.extendComponent({
+Template.attachmentActionsPopup.events({
+  'click .js-add-cover'() {
+    ReactiveCache.getCard(this.meta.cardId).setCover(this._id);
+    Popup.back();
+  },
+  'click .js-remove-cover'() {
+    ReactiveCache.getCard(this.meta.cardId).unsetCover();
+    Popup.back();
+  },
+  'click .js-add-background-image'(event) {
+    const currentBoard = Utils.getCurrentBoard();
+    currentBoard.setBackgroundImageURL(attachmentActionsLink);
+    Utils.setBackgroundImage(attachmentActionsLink);
+    Popup.back();
+    event.preventDefault();
+  },
+  'click .js-remove-background-image'(event) {
+    const currentBoard = Utils.getCurrentBoard();
+    currentBoard.setBackgroundImageURL("");
+    Utils.setBackgroundImage("");
+    Popup.back();
+    Utils.reload();
+    event.preventDefault();
+  },
+  'click .js-move-storage-fs'() {
+    Meteor.call('moveAttachmentToStorage', this._id, "fs");
+    Popup.back();
+  },
+  'click .js-move-storage-gridfs'() {
+    Meteor.call('moveAttachmentToStorage', this._id, "gridfs");
+    Popup.back();
+  },
+  'click .js-move-storage-s3'() {
+    Meteor.call('moveAttachmentToStorage', this._id, "s3");
+    Popup.back();
+  },
+});
+
+Template.attachmentRenamePopup.helpers({
   getNameWithoutExtension() {
-    const ret = this.data().name.replace(new RegExp("\." + this.data().extension + "$"), "");
+    const ret = this.name.replace(new RegExp("\." + this.extension + "$"), "");
     return ret;
   },
-  events() {
-    return [
-      {
-        'keydown input.js-edit-attachment-name'(evt) {
-          // enter = save
-          if (evt.keyCode === 13) {
-            this.find('button[type=submit]').click();
-          }
-        },
-        'click button.js-submit-edit-attachment-name'(event) {
-          // save button pressed
-          event.preventDefault();
-          const name = this.$('.js-edit-attachment-name')[0]
-            .value
-            .trim() + this.data().extensionWithDot;
-          if (name === sanitizeText(name)) {
-            Meteor.call('renameAttachment', this.data()._id, name);
-          }
-          Popup.back();
-        },
-      }
-    ]
-  }
-}).register('attachmentRenamePopup');
+});
+
+Template.attachmentRenamePopup.events({
+  'keydown input.js-edit-attachment-name'(evt, tpl) {
+    // enter = save
+    if (evt.keyCode === 13) {
+      tpl.find('button[type=submit]').click();
+    }
+  },
+  'click button.js-submit-edit-attachment-name'(event, tpl) {
+    // save button pressed
+    event.preventDefault();
+    const name = tpl.$('.js-edit-attachment-name')[0]
+      .value
+      .trim() + this.extensionWithDot;
+    if (name === sanitizeText(name)) {
+      Meteor.call('renameAttachment', this._id, name);
+    }
+    Popup.back();
+  },
+});
 
 // Template helpers for attachment migration status
 Template.registerHelper('attachmentMigrationStatus', function(attachmentId) {
