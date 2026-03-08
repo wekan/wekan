@@ -18,21 +18,19 @@ const accessibilityHelpers = {
 };
 
 // Main accessibility page component
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
+Template.accessibility.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.loading = new ReactiveVar(false);
 
-    Meteor.subscribe('setting');
-    Meteor.subscribe('accessibilitySettings');
-  },
-  ...accessibilityHelpers
-}).register('accessibility');
+  Meteor.subscribe('setting');
+  Meteor.subscribe('accessibilitySettings');
+});
+
+Template.accessibility.helpers(accessibilityHelpers);
 
 // Header bar component
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('accessibilitySettings');
-  },
-  ...accessibilityHelpers
-}).register('accessibilityHeaderBar');
+Template.accessibilityHeaderBar.onCreated(function () {
+  Meteor.subscribe('accessibilitySettings');
+});
+
+Template.accessibilityHeaderBar.helpers(accessibilityHelpers);
