@@ -1,114 +1,154 @@
 import { TAPi18n } from '/imports/i18n';
-import { CardSearchPagedComponent } from '../../lib/cardSearch';
+import { CardSearchPaged } from '../../lib/cardSearch';
 import Boards from '../../../models/boards';
 import { Query, QueryErrors } from '../../../config/query-classes';
 
 // const subManager = new SubsManager();
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click .js-due-cards-view-change': Popup.open('globalSearchViewChange'),
-      },
-    ];
-  },
-}).register('globalSearchHeaderBar');
+Template.globalSearchHeaderBar.events({
+  'click .js-due-cards-view-change': Popup.open('globalSearchViewChange'),
+});
+
+Template.globalSearch.onCreated(function () {
+  const search = new CardSearchPaged(this);
+  this.search = search;
+
+  this.myLists = new ReactiveVar([]);
+  this.myLabelNames = new ReactiveVar([]);
+  this.myBoardNames = new ReactiveVar([]);
+  this.parsingErrors = new QueryErrors();
+  this.queryParams = null;
+
+  Meteor.call('myLists', (err, data) => {
+    if (!err) {
+      this.myLists.set(data);
+    }
+  });
+
+  Meteor.call('myLabelNames', (err, data) => {
+    if (!err) {
+      this.myLabelNames.set(data);
+    }
+  });
+
+  Meteor.call('myBoardNames', (err, data) => {
+    if (!err) {
+      this.myBoardNames.set(data);
+    }
+  });
+});
+
+Template.globalSearch.onRendered(function () {
+  Meteor.subscribe('setting');
+
+  // eslint-disable-next-line no-console
+  //console.log('lang:', TAPi18n.getLanguage());
+
+  if (Session.get('globalQuery')) {
+    searchAllBoards(this, Session.get('globalQuery'));
+  }
+});
+
+function searchAllBoards(tpl, queryText) {
+  const search = tpl.search;
+
+  queryText = queryText.trim();
+  // eslint-disable-next-line no-console
+  //console.log('queryText:', queryText);
+
+  search.query.set(queryText);
+
+  search.resetSearch();
+  tpl.parsingErrors = new QueryErrors();
+
+  if (!queryText) {
+    return;
+  }
+
+  search.searching.set(true);
+
+  const query = new Query();
+  query.buildParams(queryText);
+
+  // eslint-disable-next-line no-console
+  // console.log('params:', query.getParams());
+
+  tpl.queryParams = query.getQueryParams().getParams();
+
+  if (query.hasErrors()) {
+    search.searching.set(false);
+    search.queryErrors = query.errors();
+    search.hasResults.set(true);
+    search.hasQueryErrors.set(true);
+    return;
+  }
+
+  search.runGlobalSearch(query.getQueryParams());
+}
+
+function errorMessages(tpl) {
+  if (tpl.parsingErrors.hasErrors()) {
+    return tpl.parsingErrors.errorMessages();
+  }
+  return tpl.search.queryErrorMessages();
+}
 
 Template.globalSearch.helpers({
   userId() {
     return Meteor.userId();
   },
-});
 
-class GlobalSearchComponent extends CardSearchPagedComponent {
-  onCreated() {
-    super.onCreated();
-    this.myLists = new ReactiveVar([]);
-    this.myLabelNames = new ReactiveVar([]);
-    this.myBoardNames = new ReactiveVar([]);
-    this.parsingErrors = new QueryErrors();
-    this.queryParams = null;
+  // Return ReactiveVars so jade can use .get pattern
+  searching() {
+    return Template.instance().search.searching;
+  },
+  hasResults() {
+    return Template.instance().search.hasResults;
+  },
+  hasQueryErrors() {
+    return Template.instance().search.hasQueryErrors;
+  },
+  serverError() {
+    return Template.instance().search.serverError;
+  },
+  query() {
+    return Template.instance().search.query;
+  },
+  debug() {
+    return Template.instance().search.debug;
+  },
+  resultsHeading() {
+    return Template.instance().search.resultsHeading;
+  },
+  results() {
+    return Template.instance().search.results;
+  },
+  hasNextPage() {
+    return Template.instance().search.hasNextPage;
+  },
+  hasPreviousPage() {
+    return Template.instance().search.hasPreviousPage;
+  },
+  sessionData() {
+    return Template.instance().search.sessionData;
+  },
+  getSearchHref() {
+    return Template.instance().search.getSearchHref();
+  },
 
-    Meteor.call('myLists', (err, data) => {
-      if (!err) {
-        this.myLists.set(data);
-      }
-    });
-
-    Meteor.call('myLabelNames', (err, data) => {
-      if (!err) {
-        this.myLabelNames.set(data);
-      }
-    });
-
-    Meteor.call('myBoardNames', (err, data) => {
-      if (!err) {
-        this.myBoardNames.set(data);
-      }
-    });
-  }
-
-  onRendered() {
-    Meteor.subscribe('setting');
-
-    // eslint-disable-next-line no-console
-    //console.log('lang:', TAPi18n.getLanguage());
-
-    if (Session.get('globalQuery')) {
-      this.searchAllBoards(Session.get('globalQuery'));
-    }
-  }
-
-  resetSearch() {
-    super.resetSearch();
-    this.parsingErrors = new QueryErrors();
-  }
+  myLists() {
+    return Template.instance().myLists;
+  },
+  myLabelNames() {
+    return Template.instance().myLabelNames;
+  },
+  myBoardNames() {
+    return Template.instance().myBoardNames;
+  },
 
   errorMessages() {
-    if (this.parsingErrors.hasErrors()) {
-      return this.parsingErrors.errorMessages();
-    }
-    return this.queryErrorMessages();
-  }
-
-  parsingErrorMessages() {
-    this.parsingErrors.errorMessages();
-  }
-
-  searchAllBoards(queryText) {
-    queryText = queryText.trim();
-    // eslint-disable-next-line no-console
-    //console.log('queryText:', queryText);
-
-    this.query.set(queryText);
-
-    this.resetSearch();
-
-    if (!queryText) {
-      return;
-    }
-
-    this.searching.set(true);
-
-    const query = new Query();
-    query.buildParams(queryText);
-
-    // eslint-disable-next-line no-console
-    // console.log('params:', query.getParams());
-
-    this.queryParams = query.getQueryParams().getParams();
-
-    if (query.hasErrors()) {
-      this.searching.set(false);
-      this.queryErrors = query.errors();
-      this.hasResults.set(true);
-      this.hasQueryErrors.set(true);
-      return;
-    }
-
-    this.runGlobalSearch(query.getQueryParams());
-  }
+    return errorMessages(Template.instance());
+  },
 
   searchInstructions() {
     const tags = {
@@ -203,7 +243,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       .replace(/\>\*/, '\>\`')
     });
     return text;
-  }
+  },
 
   labelColors() {
     return Boards.simpleSchema()._schema['labels.$.color'].allowedValues.map(
@@ -211,89 +251,163 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
         return { color, name: TAPi18n.__(`color-${color}`) };
       },
     );
-  }
+  },
+});
 
-  events() {
-    return super.events().concat([
-      {
-        'submit .js-search-query-form'(evt) {
-          evt.preventDefault();
-          this.searchAllBoards(evt.target.searchQuery.value);
-        },
-        'click .js-label-color'(evt) {
-          evt.preventDefault();
-          const input = document.getElementById('global-search-input');
-          this.query.set(
-            `${input.value} ${TAPi18n.__('operator-label')}:"${
-              evt.currentTarget.textContent
-            }"`,
-          );
-          document.getElementById('global-search-input').focus();
-        },
-        'click .js-copy-debug-selector'(evt) {
-          /* Get the text field */
-          const selector = document.getElementById("debug-selector");
+Template.globalSearch.events({
+  'submit .js-search-query-form'(evt, tpl) {
+    evt.preventDefault();
+    searchAllBoards(tpl, evt.target.searchQuery.value);
+  },
+  'click .js-label-color'(evt, tpl) {
+    evt.preventDefault();
+    const input = document.getElementById('global-search-input');
+    tpl.search.query.set(
+      `${input.value} ${TAPi18n.__('operator-label')}:"${
+        evt.currentTarget.textContent
+      }"`,
+    );
+    document.getElementById('global-search-input').focus();
+  },
+  'click .js-copy-debug-selector'(evt) {
+    /* Get the text field */
+    const selector = document.getElementById("debug-selector");
 
-          try {
-            navigator.clipboard.writeText(selector.textContent);
-            alert("Selector copied to clipboard");
-          } catch(err) {
-            alert("Error copying text: " + err);
-          }
+    try {
+      navigator.clipboard.writeText(selector.textContent);
+      alert("Selector copied to clipboard");
+    } catch(err) {
+      alert("Error copying text: " + err);
+    }
 
-        },
-        'click .js-copy-debug-projection'(evt) {
-          /* Get the text field */
-          const projection = document.getElementById("debug-projection");
+  },
+  'click .js-copy-debug-projection'(evt) {
+    /* Get the text field */
+    const projection = document.getElementById("debug-projection");
 
-          try {
-            navigator.clipboard.writeText(projection.textContent);
-            alert("Projection copied to clipboard");
-          } catch(err) {
-            alert("Error copying text: " + err);
-          }
+    try {
+      navigator.clipboard.writeText(projection.textContent);
+      alert("Projection copied to clipboard");
+    } catch(err) {
+      alert("Error copying text: " + err);
+    }
 
-        },
-        'click .js-board-title'(evt) {
-          evt.preventDefault();
-          const input = document.getElementById('global-search-input');
-          this.query.set(
-            `${input.value} ${TAPi18n.__('operator-board')}:"${
-              evt.currentTarget.textContent
-            }"`,
-          );
-          document.getElementById('global-search-input').focus();
-        },
-        'click .js-list-title'(evt) {
-          evt.preventDefault();
-          const input = document.getElementById('global-search-input');
-          this.query.set(
-            `${input.value} ${TAPi18n.__('operator-list')}:"${
-              evt.currentTarget.textContent
-            }"`,
-          );
-          document.getElementById('global-search-input').focus();
-        },
-        'click .js-label-name'(evt) {
-          evt.preventDefault();
-          const input = document.getElementById('global-search-input');
-          this.query.set(
-            `${input.value} ${TAPi18n.__('operator-label')}:"${
-              evt.currentTarget.textContent
-            }"`,
-          );
-          document.getElementById('global-search-input').focus();
-        },
-        'click .js-new-search'(evt) {
-          evt.preventDefault();
-          const input = document.getElementById('global-search-input');
-          input.value = '';
-          this.query.set('');
-          this.hasResults.set(false);
-        },
-      },
-    ]);
-  }
-}
+  },
+  'click .js-board-title'(evt, tpl) {
+    evt.preventDefault();
+    const input = document.getElementById('global-search-input');
+    tpl.search.query.set(
+      `${input.value} ${TAPi18n.__('operator-board')}:"${
+        evt.currentTarget.textContent
+      }"`,
+    );
+    document.getElementById('global-search-input').focus();
+  },
+  'click .js-list-title'(evt, tpl) {
+    evt.preventDefault();
+    const input = document.getElementById('global-search-input');
+    tpl.search.query.set(
+      `${input.value} ${TAPi18n.__('operator-list')}:"${
+        evt.currentTarget.textContent
+      }"`,
+    );
+    document.getElementById('global-search-input').focus();
+  },
+  'click .js-label-name'(evt, tpl) {
+    evt.preventDefault();
+    const input = document.getElementById('global-search-input');
+    tpl.search.query.set(
+      `${input.value} ${TAPi18n.__('operator-label')}:"${
+        evt.currentTarget.textContent
+      }"`,
+    );
+    document.getElementById('global-search-input').focus();
+  },
+  'click .js-new-search'(evt, tpl) {
+    evt.preventDefault();
+    const input = document.getElementById('global-search-input');
+    input.value = '';
+    tpl.search.query.set('');
+    tpl.search.hasResults.set(false);
+  },
+  'click .js-next-page'(evt, tpl) {
+    evt.preventDefault();
+    tpl.search.nextPage();
+  },
+  'click .js-previous-page'(evt, tpl) {
+    evt.preventDefault();
+    tpl.search.previousPage();
+  },
+});
 
-GlobalSearchComponent.register('globalSearch');
+// resultsPaged template helpers - this template is used by globalSearch, brokenCards, and brokenCardsReport.
+// It receives the parent's data context (which includes reactive vars) via +resultsPaged(this).
+// The jade accesses resultsHeading.get, results.get, getSearchHref, hasPreviousPage.get, hasNextPage.get
+// directly on the data context, so we don't need helpers for those when the parent passes
+// the right data context. However, we need to ensure the helpers exist for the template.
+Template.resultsPaged.helpers({
+  resultsHeading() {
+    const data = Template.currentData();
+    if (data && data.resultsHeading) return data.resultsHeading;
+    // fallback: check parent template
+    const parentTpl = Template.instance().view.parentView.templateInstance && Template.instance().view.parentView.templateInstance();
+    if (parentTpl && parentTpl.search) return parentTpl.search.resultsHeading;
+    return new ReactiveVar('');
+  },
+  results() {
+    const data = Template.currentData();
+    if (data && data.results) return data.results;
+    const parentTpl = Template.instance().view.parentView.templateInstance && Template.instance().view.parentView.templateInstance();
+    if (parentTpl && parentTpl.search) return parentTpl.search.results;
+    return new ReactiveVar([]);
+  },
+  getSearchHref() {
+    const data = Template.currentData();
+    if (data && data.getSearchHref) return data.getSearchHref();
+    const parentTpl = Template.instance().view.parentView.templateInstance && Template.instance().view.parentView.templateInstance();
+    if (parentTpl && parentTpl.search) return parentTpl.search.getSearchHref();
+    return '';
+  },
+  hasPreviousPage() {
+    const data = Template.currentData();
+    if (data && data.hasPreviousPage) return data.hasPreviousPage;
+    const parentTpl = Template.instance().view.parentView.templateInstance && Template.instance().view.parentView.templateInstance();
+    if (parentTpl && parentTpl.search) return parentTpl.search.hasPreviousPage;
+    return new ReactiveVar(false);
+  },
+  hasNextPage() {
+    const data = Template.currentData();
+    if (data && data.hasNextPage) return data.hasNextPage;
+    const parentTpl = Template.instance().view.parentView.templateInstance && Template.instance().view.parentView.templateInstance();
+    if (parentTpl && parentTpl.search) return parentTpl.search.hasNextPage;
+    return new ReactiveVar(false);
+  },
+});
+
+Template.resultsPaged.events({
+  'click .js-next-page'(evt) {
+    evt.preventDefault();
+    // Walk up to find the search instance
+    let view = Template.instance().view;
+    while (view) {
+      const tplInst = view.templateInstance && view.templateInstance();
+      if (tplInst && tplInst.search) {
+        tplInst.search.nextPage();
+        return;
+      }
+      view = view.parentView;
+    }
+  },
+  'click .js-previous-page'(evt) {
+    evt.preventDefault();
+    let view = Template.instance().view;
+    while (view) {
+      const tplInst = view.templateInstance && view.templateInstance();
+      if (tplInst && tplInst.search) {
+        tplInst.search.previousPage();
+        return;
+      }
+      view = view.parentView;
+    }
+  },
+});

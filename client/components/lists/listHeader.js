@@ -8,13 +8,13 @@ Meteor.startup(() => {
   listsColors = Lists.simpleSchema()._schema.color.allowedValues;
 });
 
-BlazeComponent.extendComponent({
+Template.listHeader.helpers({
   canSeeAddCard() {
     const list = Template.currentData();
     return (
       (!list.getWipLimit('enabled') ||
         list.getWipLimit('soft') ||
-        !this.reachedWipLimit()) &&
+        !Template.instance().reachedWipLimit()) &&
       !ReactiveCache.getCurrentUser().isWorker()
     );
   },
@@ -22,42 +22,19 @@ BlazeComponent.extendComponent({
   isBoardAdmin() {
     return ReactiveCache.getCurrentUser().isBoardAdmin();
   },
-  async starred(check = undefined) {
+
+  starred() {
     const list = Template.currentData();
-    const status = list.isStarred();
-    if (check === undefined) {
-      // just check
-      return status;
-    } else {
-      await list.star(!status);
-      return !status;
-    }
+    return list.isStarred();
   },
-  collapsed(check = undefined) {
+
+  collapsed() {
     const list = Template.currentData();
-    const status = Utils.getListCollapseState(list);
-    if (check === undefined) {
-      // just check
-      return status;
-    } else {
-      const next = typeof check === 'boolean' ? check : !status;
-      Utils.setListCollapseState(list, next);
-      return next;
-    }
-  },
-  async editTitle(event) {
-    event.preventDefault();
-    const newTitle = this.childComponents('inlinedForm')[0]
-      .getValue()
-      .trim();
-    const list = this.currentData();
-    if (newTitle) {
-      await list.rename(newTitle.trim());
-    }
+    return Utils.getListCollapseState(list);
   },
 
   isWatching() {
-    const list = this.currentData();
+    const list = Template.currentData();
     return list.findWatcher(Meteor.userId());
   },
 
@@ -73,10 +50,9 @@ BlazeComponent.extendComponent({
   cardsCount() {
     const list = Template.currentData();
     let swimlaneId = '';
-    if (Utils.boardView() === 'board-view-swimlanes')
-      swimlaneId = this.parentComponent()
-        .parentComponent()
-        .data()._id;
+    if (Utils.boardView() === 'board-view-swimlanes') {
+      swimlaneId = list.swimlaneId || '';
+    }
 
     const ret = list.cards(swimlaneId).length;
     return ret;
@@ -99,7 +75,8 @@ BlazeComponent.extendComponent({
   },
 
   showCardsCountForList(count) {
-    const limit = this.limitToShowCardsCount();
+    const currentUser = ReactiveCache.getCurrentUser();
+    const limit = currentUser ? currentUser.getLimitToShowCardsCount() : false;
     return limit >= 0 && count >= limit;
   },
 
@@ -111,40 +88,6 @@ BlazeComponent.extendComponent({
     }
   },
 
-  events() {
-    return [
-      {
-        'click .js-list-star'(event) {
-          event.preventDefault();
-          this.starred(!this.starred());
-        },
-        'click .js-collapse'(event) {
-          event.preventDefault();
-          this.collapsed(!this.collapsed());
-        },
-        'click .js-open-list-menu': Popup.open('listAction'),
-        'click .js-add-card.list-header-plus-top'(event) {
-          const listDom = $(event.target).parents(
-            `#js-list-${this.currentData()._id}`,
-          )[0];
-          const listComponent = BlazeComponent.getComponentForElement(listDom);
-          listComponent.openForm({
-            position: 'top',
-          });
-        },
-        'click .js-unselect-list'() {
-          Session.set('currentList', null);
-        },
-        submit: this.editTitle,
-      },
-    ];
-  },
-}).register('listHeader');
-
-Template.listHeader.helpers({
-  isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
-  },
   numberFieldsSum() {
     const list = Template.currentData();
     if (!list) return 0;
@@ -177,6 +120,7 @@ Template.listHeader.helpers({
     }
     return total;
   },
+
   hasNumberFieldsSum() {
     const boardId = Session.get('currentBoard');
     const fields = ReactiveCache.getCustomFields({
@@ -185,6 +129,56 @@ Template.listHeader.helpers({
       type: 'number',
     });
     return !!(fields && fields.length);
+  },
+});
+
+// Helper function on template instance for reachedWipLimit check
+Template.listHeader.onCreated(function () {
+  this.reachedWipLimit = function () {
+    const list = Template.currentData();
+    return (
+      list.getWipLimit('enabled') &&
+      list.getWipLimit('value') <= list.cards().length
+    );
+  };
+});
+
+Template.listHeader.events({
+  async 'click .js-list-star'(event) {
+    event.preventDefault();
+    const list = Template.currentData();
+    const status = list.isStarred();
+    await list.star(!status);
+  },
+  'click .js-collapse'(event) {
+    event.preventDefault();
+    const list = Template.currentData();
+    const status = Utils.getListCollapseState(list);
+    Utils.setListCollapseState(list, !status);
+  },
+  'click .js-open-list-menu': Popup.open('listAction'),
+  'click .js-add-card.list-header-plus-top'(event) {
+    const listDom = $(event.target).parents(
+      `#js-list-${Template.currentData()._id}`,
+    )[0];
+    const view = Blaze.getView(listDom, 'Template.listBody');
+    const listComponent = view?.templateInstance?.();
+    if (listComponent) {
+      listComponent.openForm({
+        position: 'top',
+      });
+    }
+  },
+  'click .js-unselect-list'() {
+    Session.set('currentList', null);
+  },
+  async 'submit'(event, tpl) {
+    event.preventDefault();
+    const newTitle = tpl.$('textarea,input[type=text]').val()?.trim();
+    const list = Template.currentData();
+    if (newTitle) {
+      await list.rename(newTitle.trim());
+    }
   },
 });
 
@@ -206,7 +200,8 @@ Template.listActionPopup.events({
   'click .js-list-subscribe'() {},
   'click .js-add-card.list-header-plus-top'(event) {
     const listDom = $(`#js-list-${this._id}`)[0];
-    const listComponent = BlazeComponent.getComponentForElement(listDom);
+    const view = Blaze.getView(listDom, 'Template.listBody');
+    const listComponent = view?.templateInstance?.();
     if (listComponent) {
       listComponent.openForm({
         position: 'top',
@@ -216,7 +211,8 @@ Template.listActionPopup.events({
   },
   'click .js-add-card.list-header-plus-bottom'(event) {
     const listDom = $(`#js-list-${this._id}`)[0];
-    const listComponent = BlazeComponent.getComponentForElement(listDom);
+    const view = Blaze.getView(listDom, 'Template.listBody');
+    const listComponent = view?.templateInstance?.();
     if (listComponent) {
       listComponent.openForm({
         position: 'bottom',
@@ -248,50 +244,7 @@ Template.listActionPopup.events({
   'click .js-more': Popup.open('listMore'),
 });
 
-BlazeComponent.extendComponent({
-  applyWipLimit() {
-    const list = Template.currentData();
-    const limit = parseInt(
-      Template.instance()
-        .$('.wip-limit-value')
-        .val(),
-      10,
-    );
-
-    if (limit < list.cards().length && !list.getWipLimit('soft')) {
-      Template.instance()
-        .$('.wip-limit-error')
-        .click();
-    } else {
-      Meteor.call('applyWipLimit', list._id, limit);
-      Popup.back();
-    }
-  },
-
-  async enableSoftLimit() {
-    const list = Template.currentData();
-
-    if (
-      list.getWipLimit('soft') &&
-      list.getWipLimit('value') < list.cards().length
-    ) {
-      await list.setWipLimit(list.cards().length);
-    }
-    Meteor.call('enableSoftLimit', Template.currentData()._id);
-  },
-
-  async enableWipLimit() {
-    const list = Template.currentData();
-    // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
-    if (
-      !list.getWipLimit('enabled') &&
-      list.getWipLimit('value') < list.cards().length
-    ) {
-      await list.setWipLimit(list.cards().length);
-    }
-    Meteor.call('enableWipLimit', list._id);
-  },
-
+Template.setWipLimitPopup.helpers({
   isWipLimitSoft() {
     return Template.currentData().getWipLimit('soft');
   },
@@ -303,125 +256,114 @@ BlazeComponent.extendComponent({
   wipLimitValue() {
     return Template.currentData().getWipLimit('value');
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-enable-wip-limit': this.enableWipLimit,
-        'click .wip-limit-apply': this.applyWipLimit,
-        'click .wip-limit-error': Popup.open('wipLimitError'),
-        'click .materialCheckBox': this.enableSoftLimit,
-      },
-    ];
+Template.setWipLimitPopup.events({
+  async 'click .js-enable-wip-limit'() {
+    const list = Template.currentData();
+    // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
+    if (
+      !list.getWipLimit('enabled') &&
+      list.getWipLimit('value') < list.cards().length
+    ) {
+      await list.setWipLimit(list.cards().length);
+    }
+    Meteor.call('enableWipLimit', list._id);
   },
-}).register('setWipLimitPopup');
+  'click .wip-limit-apply'(event, tpl) {
+    const list = Template.currentData();
+    const limit = parseInt(
+      tpl.$('.wip-limit-value').val(),
+      10,
+    );
+
+    if (limit < list.cards().length && !list.getWipLimit('soft')) {
+      tpl.$('.wip-limit-error').click();
+    } else {
+      Meteor.call('applyWipLimit', list._id, limit);
+      Popup.back();
+    }
+  },
+  'click .wip-limit-error': Popup.open('wipLimitError'),
+  async 'click .materialCheckBox'() {
+    const list = Template.currentData();
+
+    if (
+      list.getWipLimit('soft') &&
+      list.getWipLimit('value') < list.cards().length
+    ) {
+      await list.setWipLimit(list.cards().length);
+    }
+    Meteor.call('enableSoftLimit', Template.currentData()._id);
+  },
+});
 
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function() {
     Popup.back();
-    const allCards = this.allCards();
+    const list = Lists.findOne(this._id);
+    if (!list) return;
+    const allCards = list.allCards();
     const allCardIds = _.pluck(allCards, '_id');
     // it's okay if the linked cards are on the same list
     if (
       ReactiveCache.getCards({
         $and: [
-          { listId: { $ne: this._id } },
+          { listId: { $ne: list._id } },
           { linkedId: { $in: allCardIds } },
         ],
       }).length === 0
     ) {
       allCardIds.map(_id => Cards.remove(_id));
-      Lists.remove(this._id);
+      Lists.remove(list._id);
     } else {
-      // TODO: Figure out more informative message.
-      // Popup with a hint that the list cannot be deleted as there are
-      // linked cards. We can adapt the query above so we can list the linked
-      // cards.
-      // Related:
-      //   client/components/cards/cardDetails.js about line 969
-      //   https://github.com/wekan/wekan/issues/2785
       const message = `${TAPi18n.__(
         'delete-linked-cards-before-this-list',
       )} linkedId: ${
-        this._id
+        list._id
       } at client/components/lists/listHeader.js and https://github.com/wekan/wekan/issues/2785`;
       alert(message);
     }
-    Utils.goBoardId(this.boardId);
+    Utils.goBoardId(list.boardId);
   }),
 });
 
-Template.listHeader.helpers({
-  isBoardAdmin() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
-  },
+Template.setListColorPopup.onCreated(function () {
+  const data = Template.currentData();
+  this.currentList = Lists.findOne(data._id) || data;
+  this.currentColor = new ReactiveVar(this.currentList.color);
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentList = this.currentData();
-    this.currentColor = new ReactiveVar(this.currentList.color);
-  },
-
+Template.setListColorPopup.helpers({
   colors() {
     return listsColors.map(color => ({ color, name: '' }));
   },
 
   isSelected(color) {
-    if (this.currentColor.get() === null) {
+    const tpl = Template.instance();
+    if (tpl.currentColor.get() === null) {
       return color === 'white';
     } else {
-      return this.currentColor.get() === color;
+      return tpl.currentColor.get() === color;
     }
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-palette-color'() {
-          this.currentColor.set(this.currentData().color);
-        },
-        async 'click .js-submit'() {
-          await this.currentList.setColor(this.currentColor.get());
-          Popup.close();
-        },
-        async 'click .js-remove-color'() {
-          await this.currentList.setColor(null);
-          Popup.close();
-        },
-      },
-    ];
+Template.setListColorPopup.events({
+  'click .js-palette-color'(event, tpl) {
+    tpl.currentColor.set(Template.currentData().color);
   },
-}).register('setListColorPopup');
-
-BlazeComponent.extendComponent({
-  applyListWidth() {
-    const list = Template.currentData();
-    const board = list.boardId;
-    const width = parseInt(
-      Template.instance()
-        .$('.list-width-value')
-        .val(),
-      10,
-    );
-    const constraint = parseInt(
-      Template.instance()
-        .$('.list-constraint-value')
-        .val(),
-      10,
-    );
-
-    // FIXME(mark-i-m): where do we put constants?
-    if (width < 270 || !width || constraint < 270 || !constraint) {
-      Template.instance()
-        .$('.list-width-error')
-        .click();
-    } else {
-      Meteor.call('applyListWidth', board, list._id, width, constraint);
-      Popup.back();
-    }
+  async 'click .js-submit'(event, tpl) {
+    await tpl.currentList.setColor(tpl.currentColor.get());
+    Popup.close();
   },
+  async 'click .js-remove-color'(event, tpl) {
+    await tpl.currentList.setColor(null);
+    Popup.close();
+  },
+});
 
+Template.setListWidthPopup.helpers({
   listWidthValue() {
     const list = Template.currentData();
     const board = list.boardId;
@@ -439,122 +381,147 @@ BlazeComponent.extendComponent({
     const user = ReactiveCache.getCurrentUser();
     return user && user.isAutoWidth(boardId);
   },
+});
 
-  events() {
-    return [
-      {
-        'click .js-auto-width-board'() {
-          dragscroll.reset();
-          ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
-        },
-        'click .list-width-apply': this.applyListWidth,
-        'click .list-width-error': Popup.open('listWidthError'),
-      },
-    ];
+Template.setListWidthPopup.events({
+  'click .js-auto-width-board'() {
+    dragscroll.reset();
+    ReactiveCache.getCurrentUser().toggleAutoWidth(Utils.getCurrentBoardId());
   },
-}).register('setListWidthPopup');
+  'click .list-width-apply'(event, tpl) {
+    const list = Template.currentData();
+    const board = list.boardId;
+    const width = parseInt(
+      tpl.$('.list-width-value').val(),
+      10,
+    );
+    const constraint = parseInt(
+      tpl.$('.list-constraint-value').val(),
+      10,
+    );
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentBoard = Utils.getCurrentBoard();
-    this.currentSwimlaneId = new ReactiveVar(null);
-    this.currentListId = new ReactiveVar(null);
+    // FIXME(mark-i-m): where do we put constants?
+    if (width < 270 || !width || constraint < 270 || !constraint) {
+      tpl.$('.list-width-error').click();
+    } else {
+      Meteor.call('applyListWidth', board, list._id, width, constraint);
+      Popup.back();
+    }
+  },
+  'click .list-width-error': Popup.open('listWidthError'),
+});
 
-    // Get the swimlane context from opener
-    const openerData = Popup.getOpenerComponent()?.data();
+Template.addListPopup.onCreated(function () {
+  this.currentBoard = Utils.getCurrentBoard();
+  this.currentSwimlaneId = new ReactiveVar(null);
+  this.currentListId = new ReactiveVar(null);
 
-    // If opened from swimlane menu, openerData is the swimlane
-    if (openerData?.type === 'swimlane' || openerData?.type === 'template-swimlane') {
-      this.currentSwimlane = openerData;
-      this.currentSwimlaneId.set(openerData._id);
-    } else if (openerData?._id) {
-      // If opened from list menu, get swimlane from the list
-      const list = ReactiveCache.getList({ _id: openerData._id });
-      this.currentSwimlane = list?.swimlaneId ? ReactiveCache.getSwimlane({ _id: list.swimlaneId }) : null;
+  // Get the swimlane context from opener
+  const openerComponent = Popup.getOpenerComponent();
+  const openerData = openerComponent?.data || Popup._getTopStack()?.dataContext;
+
+  // If opened from swimlane menu, openerData is the swimlane
+  if (openerData?.type === 'swimlane' || openerData?.type === 'template-swimlane') {
+    this.currentSwimlane = openerData;
+    this.currentSwimlaneId.set(openerData._id);
+  } else if (openerData?._id) {
+    // If opened from list menu, get swimlane from the list
+    const list = ReactiveCache.getList({ _id: openerData._id });
+    if (list) {
+      this.currentSwimlane = list.swimlaneId
+        ? ReactiveCache.getSwimlane({ _id: list.swimlaneId })
+        : null;
       this.currentSwimlaneId.set(this.currentSwimlane?._id || null);
       this.currentListId.set(openerData._id);
     }
-  },
+  }
 
+  if (!this.currentSwimlaneId.get()) {
+    const defaultSwimlane = this.currentBoard.getDefaultSwimline?.();
+    if (defaultSwimlane?._id) {
+      this.currentSwimlane = defaultSwimlane;
+      this.currentSwimlaneId.set(defaultSwimlane._id);
+    }
+  }
+});
+
+Template.addListPopup.helpers({
   currentSwimlaneData() {
-    const swimlaneId = this.currentSwimlaneId.get();
+    const tpl = Template.instance();
+    const swimlaneId = tpl.currentSwimlaneId.get();
     return swimlaneId ? ReactiveCache.getSwimlane({ _id: swimlaneId }) : null;
   },
 
   currentListIdValue() {
-    return this.currentListId.get();
+    return Template.instance().currentListId.get();
   },
 
   swimlaneLists() {
-    const swimlaneId = this.currentSwimlaneId.get();
+    const tpl = Template.instance();
+    const swimlaneId = tpl.currentSwimlaneId.get();
     if (swimlaneId) {
       return ReactiveCache.getLists({ swimlaneId, archived: false }).sort((a, b) => a.sort - b.sort);
     }
-    return this.currentBoard.lists;
+    return tpl.currentBoard.lists;
   },
+});
 
-  events() {
-    return [
-      {
-        'submit .js-add-list-form'(evt) {
-          evt.preventDefault();
+Template.addListPopup.events({
+  'submit .js-add-list-form'(evt, tpl) {
+    evt.preventDefault();
 
-          const titleInput = this.find('.list-name-input');
-          const title = titleInput?.value.trim();
+    const titleInput = tpl.find('.list-name-input');
+    const title = titleInput?.value.trim();
 
-          if (!title) return;
+    if (!title) return;
 
-          let sortIndex = 0;
-          const boardId = Utils.getCurrentBoardId();
-          let swimlaneId = this.currentSwimlane?._id;
+    let sortIndex = 0;
+    const boardId = Utils.getCurrentBoardId();
+    let swimlaneId = tpl.currentSwimlane?._id;
 
-          const positionInput = this.find('.list-position-input');
+    const positionInput = tpl.find('.list-position-input');
 
-          if (positionInput && positionInput.value) {
-            const positionId = positionInput.value.trim();
-            const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
+    if (positionInput && positionInput.value) {
+      const positionId = positionInput.value.trim();
+      const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
 
-            if (selectedList) {
-              sortIndex = selectedList.sort + 1;
-              // Use the swimlane ID from the selected list to ensure the new list
-              // is added to the same swimlane as the selected list
-              swimlaneId = selectedList.swimlaneId;
-            } else {
-              // No specific position, add at end of swimlane
-              if (swimlaneId) {
-                const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
-                const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
-                sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
-              } else {
-                const lastList = this.currentBoard.getLastList();
-                sortIndex = Utils.calculateIndexData(lastList, null).base;
-              }
-            }
-          } else {
-            // No position input, add at end of swimlane
-            if (swimlaneId) {
-              const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
-              const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
-              sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
-            } else {
-              const lastList = this.currentBoard.getLastList();
-              sortIndex = Utils.calculateIndexData(lastList, null).base;
-            }
-          }
+      if (selectedList) {
+        sortIndex = selectedList.sort + 1;
+        // Use the swimlane ID from the selected list to ensure the new list
+        // is added to the same swimlane as the selected list
+        swimlaneId = selectedList.swimlaneId;
+      } else {
+        // No specific position, add at end of swimlane
+        if (swimlaneId) {
+          const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
+          const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
+          sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
+        } else {
+          const lastList = tpl.currentBoard.getLastList();
+          sortIndex = Utils.calculateIndexData(lastList, null).base;
+        }
+      }
+    } else {
+      // No position input, add at end of swimlane
+      if (swimlaneId) {
+        const swimlaneLists = ReactiveCache.getLists({ swimlaneId, archived: false });
+        const lastSwimlaneList = swimlaneLists.sort((a, b) => b.sort - a.sort)[0];
+        sortIndex = Utils.calculateIndexData(lastSwimlaneList, null).base;
+      } else {
+        const lastList = tpl.currentBoard.getLastList();
+        sortIndex = Utils.calculateIndexData(lastList, null).base;
+      }
+    }
 
-          Lists.insert({
-            title,
-            boardId: Session.get('currentBoard'),
-            sort: sortIndex,
-            type: 'list',
-            swimlaneId: swimlaneId,
-          });
+    Lists.insert({
+      title,
+      boardId: Session.get('currentBoard'),
+      sort: sortIndex,
+      type: 'list',
+      swimlaneId: swimlaneId,
+    });
 
-          Popup.back();
-        },
-        'click .js-list-template': Popup.open('searchElement'),
-      },
-    ];
+    Popup.back();
   },
-}).register('addListPopup');
-
+  'click .js-list-template': Popup.open('searchElement'),
+});

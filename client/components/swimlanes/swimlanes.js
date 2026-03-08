@@ -117,9 +117,11 @@ function saveSorting(ui) {
 
   // Try to get board component
   try {
-    const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
+    const boardBodyEl = ui.item[0]?.closest?.('.board-body') || document.querySelector('.board-body');
+    const boardView = boardBodyEl && Blaze.getView(boardBodyEl, 'Template.boardBody');
+    const boardComponent = boardView?.templateInstance?.();
     if (boardComponent && boardComponent.setIsDragging) {
-      boardComponent.setIsDragging(false);
+      if (boardComponent) boardComponent.setIsDragging(false);
     }
   } catch (e) {
     // Silent fail
@@ -295,7 +297,7 @@ function initSortable(boardComponent, $listsDom) {
         ui.placeholder.height(ui.helper.height());
         ui.placeholder.width(ui.helper.width());
         EscapeActions.executeUpTo('popup-close');
-        boardComponent.setIsDragging(true);
+        if (boardComponent) boardComponent.setIsDragging(true);
 
         // Add visual feedback for list being dragged
         ui.item.addClass('ui-sortable-helper');
@@ -334,85 +336,250 @@ function initSortable(boardComponent, $listsDom) {
   // Skip the complex autorun and options for now
 }
 
-BlazeComponent.extendComponent({
-  onRendered() {
-    const boardComponent = this.parentComponent();
-    const $listsDom = this.$('.js-lists');
-        // Sync list order from localStorage on board load
-        const boardId = Session.get('currentBoard');
-        if (boardId) {
-          // Small delay to allow pubsub to settle
-          Meteor.setTimeout(() => {
-            syncListOrderFromStorage(boardId);
-          }, 500);
+Template.swimlane.onCreated(function () {
+  this.draggingActive = new ReactiveVar(false);
+  this._isDragging = false;
+  this._lastDragPositionX = 0;
+});
+
+Template.swimlane.onRendered(function () {
+  const tpl = this;
+  const boardBodyEl = tpl.firstNode?.parentElement?.closest?.('.board-body') || document.querySelector('.board-body');
+  const boardView = boardBodyEl && Blaze.getView(boardBodyEl, 'Template.boardBody');
+  const boardComponent = boardView?.templateInstance?.();
+  const $listsDom = tpl.$('.js-lists');
+  // Sync list order from localStorage on board load
+  const boardId = Session.get('currentBoard');
+  if (boardId) {
+    // Small delay to allow pubsub to settle
+    Meteor.setTimeout(() => {
+      syncListOrderFromStorage(boardId);
+    }, 500);
+  }
+
+  if (!Utils.getCurrentCardId() && boardComponent) {
+    boardComponent.scrollLeft();
+  }
+
+  // Try a simpler approach - initialize sortable directly like cards do
+  initializeSwimlaneResize(tpl);
+
+  // Wait for DOM to be ready
+  setTimeout(() => {
+    const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
+      ? '.js-list-handle'
+      : '.js-list-header';
+    const $parent = tpl.$('.js-lists');
+
+    if ($parent.length > 0) {
+
+      // Check for drag handles
+      const $handles = $parent.find('.js-list-handle');
+
+      // Test if drag handles are clickable
+      $handles.on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      $parent.sortable({
+        connectWith: '.js-swimlane, .js-lists',
+        tolerance: 'pointer',
+        appendTo: '.board-canvas',
+        helper: 'clone',
+        items: '.js-list:not(.js-list-composer)',
+        placeholder: 'list placeholder',
+        distance: 7,
+        handle: handleSelector,
+        disabled: !Utils.canModifyBoard(),
+        dropOnEmpty: true,
+        start(evt, ui) {
+          ui.helper.css('z-index', 1000);
+          ui.placeholder.height(ui.helper.height());
+          ui.placeholder.width(ui.helper.width());
+          EscapeActions.executeUpTo('popup-close');
+          if (boardComponent) boardComponent.setIsDragging(true);
+        },
+        stop(evt, ui) {
+          if (boardComponent) boardComponent.setIsDragging(false);
+          saveSorting(ui);
+        },
+      });
+      // Reactively update handle when user toggles desktop drag handles
+      tpl.autorun(() => {
+        const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
+          ? '.js-list-handle'
+          : '.js-list-header';
+        if ($parent.data('uiSortable') || $parent.data('sortable')) {
+          try {
+            $parent.sortable('option', 'handle', newHandle);
+          } catch (e) {}
         }
-
-
-    if (!Utils.getCurrentCardId()) {
-      boardComponent.scrollLeft();
+      });
     }
+  }, 100);
+});
 
-    // Try a simpler approach - initialize sortable directly like cards do
-    this.initializeSwimlaneResize();
+function initializeSwimlaneResize(tpl) {
+  // Check if we're still in a valid template context
+  if (!Template.currentData()) {
+    console.warn('No current template data available for swimlane resize initialization');
+    return;
+  }
 
-    // Wait for DOM to be ready
-    setTimeout(() => {
-      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
-        ? '.js-list-handle'
-        : '.js-list-header';
-      const $parent = this.$('.js-lists');
+  const swimlane = Template.currentData();
+  const $swimlane = $(`#swimlane-${swimlane._id}`);
+  const $resizeHandle = $swimlane.find('.js-swimlane-resize-handle');
 
-      if ($parent.length > 0) {
-
-        // Check for drag handles
-        const $handles = $parent.find('.js-list-handle');
-
-        // Test if drag handles are clickable
-        $handles.on('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        });
-
-        $parent.sortable({
-          connectWith: '.js-swimlane, .js-lists',
-          tolerance: 'pointer',
-          appendTo: '.board-canvas',
-          helper: 'clone',
-          items: '.js-list:not(.js-list-composer)',
-          placeholder: 'list placeholder',
-          distance: 7,
-          handle: handleSelector,
-          disabled: !Utils.canModifyBoard(),
-          dropOnEmpty: true,
-          start(evt, ui) {
-            ui.helper.css('z-index', 1000);
-            ui.placeholder.height(ui.helper.height());
-            ui.placeholder.width(ui.helper.width());
-            EscapeActions.executeUpTo('popup-close');
-            boardComponent.setIsDragging(true);
-          },
-          stop(evt, ui) {
-            boardComponent.setIsDragging(false);
-            saveSorting(ui);
-          }
-        });
-        // Reactively update handle when user toggles desktop drag handles
-        this.autorun(() => {
-          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
-            ? '.js-list-handle'
-            : '.js-list-header';
-          if ($parent.data('uiSortable') || $parent.data('sortable')) {
-            try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
-          }
-        });
+  // Check if elements exist
+  if (!$swimlane.length || !$resizeHandle.length) {
+    console.warn('Swimlane or resize handle not found, retrying in 100ms');
+    Meteor.setTimeout(() => {
+      if (!tpl.isDestroyed) {
+        initializeSwimlaneResize(tpl);
       }
     }, 100);
-  },
-  onCreated() {
-    this.draggingActive = new ReactiveVar(false);
+    return;
+  }
 
-    this._isDragging = false;
-    this._lastDragPositionX = 0;
+  if ($resizeHandle.length === 0) {
+    return;
+  }
+
+  let isResizing = false;
+  let startY = 0;
+  let startHeight = 0;
+  const minHeight = 100;
+  const maxHeight = 2000;
+
+  const startResize = (e) => {
+    isResizing = true;
+    startY = e.pageY || e.originalEvent.touches[0].pageY;
+    startHeight = parseInt($swimlane.css('height')) || 300;
+
+    $swimlane.addClass('swimlane-resizing');
+    $('body').addClass('swimlane-resizing-active');
+    $('body').css('user-select', 'none');
+
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const doResize = (e) => {
+    if (!isResizing) {
+      return;
+    }
+
+    const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+    const deltaY = currentY - startY;
+    const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
+
+    // Apply the new height immediately for real-time feedback
+    $swimlane[0].style.setProperty('--swimlane-height', `${newHeight}px`);
+    $swimlane[0].style.setProperty('height', `${newHeight}px`);
+    $swimlane[0].style.setProperty('min-height', `${newHeight}px`);
+    $swimlane[0].style.setProperty('max-height', `${newHeight}px`);
+    $swimlane[0].style.setProperty('flex', 'none');
+    $swimlane[0].style.setProperty('flex-basis', 'auto');
+    $swimlane[0].style.setProperty('flex-grow', '0');
+    $swimlane[0].style.setProperty('flex-shrink', '0');
+
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const stopResize = (e) => {
+    if (!isResizing) return;
+
+    isResizing = false;
+
+    // Calculate final height
+    const currentY = e.pageY || e.originalEvent.touches[0].pageY;
+    const deltaY = currentY - startY;
+    const finalHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
+
+    // Ensure the final height is applied
+    $swimlane[0].style.setProperty('--swimlane-height', `${finalHeight}px`);
+    $swimlane[0].style.setProperty('height', `${finalHeight}px`);
+    $swimlane[0].style.setProperty('min-height', `${finalHeight}px`);
+    $swimlane[0].style.setProperty('max-height', `${finalHeight}px`);
+    $swimlane[0].style.setProperty('flex', 'none');
+    $swimlane[0].style.setProperty('flex-basis', 'auto');
+    $swimlane[0].style.setProperty('flex-grow', '0');
+    $swimlane[0].style.setProperty('flex-shrink', '0');
+
+    // Remove visual feedback but keep the height
+    $swimlane.removeClass('swimlane-resizing');
+    $('body').removeClass('swimlane-resizing-active');
+    $('body').css('user-select', '');
+
+    // Save the new height using the existing system
+    const boardId = swimlane.boardId;
+    const swimlaneId = swimlane._id;
+
+    if (process.env.DEBUG === 'true') {
+    }
+
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser) {
+      // For logged-in users, use server method
+      Meteor.call('applySwimlaneHeightToStorage', boardId, swimlaneId, finalHeight, (error, result) => {
+        if (error) {
+          console.error('Error saving swimlane height:', error);
+        } else {
+          if (process.env.DEBUG === 'true') {
+          }
+        }
+      });
+    } else {
+      // For non-logged-in users, save to localStorage directly
+      try {
+        const stored = localStorage.getItem('wekan-swimlane-heights');
+        let heights = stored ? JSON.parse(stored) : {};
+
+        if (!heights[boardId]) {
+          heights[boardId] = {};
+        }
+        heights[boardId][swimlaneId] = finalHeight;
+
+        localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
+
+        if (process.env.DEBUG === 'true') {
+        }
+      } catch (e) {
+        console.warn('Error saving swimlane height to localStorage:', e);
+      }
+    }
+
+    e.preventDefault();
+  };
+
+  // Mouse events
+  $resizeHandle.on('mousedown', startResize);
+  $(document).on('mousemove', doResize);
+  $(document).on('mouseup', stopResize);
+
+  // Touch events for mobile
+  $resizeHandle.on('touchstart', startResize, { passive: false });
+  $(document).on('touchmove', doResize, { passive: false });
+  $(document).on('touchend', stopResize, { passive: false });
+
+  // Prevent dragscroll interference
+  $resizeHandle.on('mousedown', (e) => {
+    e.stopPropagation();
+  });
+}
+
+Template.swimlane.helpers({
+  canSeeAddList() {
+    return ReactiveCache.getCurrentUser().isBoardAdmin();
+  },
+  lists() {
+    // Return per-swimlane lists for this swimlane
+    return this.myLists();
+  },
+  collapseSwimlane() {
+    return Utils.getSwimlaneCollapseState(this);
   },
   id() {
     return this._id;
@@ -425,7 +592,6 @@ BlazeComponent.extendComponent({
   },
   visible(list) {
     if (list.archived) {
-      // Show archived list only when filter archive is on
       if (!Filter.archive.isSelected()) {
         return false;
       }
@@ -436,8 +602,6 @@ BlazeComponent.extendComponent({
       }
     }
     if (Filter.hideEmpty.isSelected()) {
-      // Check for cards in all swimlanes, not just the current one
-      // This ensures lists with cards in other swimlanes are still visible
       const cards = list.cards();
       if (cards.length === 0) {
         return false;
@@ -445,74 +609,14 @@ BlazeComponent.extendComponent({
     }
     return true;
   },
-  events() {
-    return [
-      {
-        // Click-and-drag action
-        'mousedown .board-canvas'(evt) {
-          // Translating the board canvas using the click-and-drag action can
-          // conflict with the build-in browser mechanism to select text. We
-          // define a list of elements in which we disable the dragging because
-          // the user will legitimately expect to be able to select some text with
-          // his mouse.
-
-          const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isTouchScreenOrShowDesktopDragHandles()
-              ? ['.js-list-handle', '.js-swimlane-header-handle']
-              : ['.js-list-header'],
-          ).concat([
-            '.js-list-resize-handle',
-            '.js-swimlane-resize-handle'
-          ]);
-
-          const isResizeHandle = $(evt.target).closest('.js-list-resize-handle, .js-swimlane-resize-handle').length > 0;
-          const isInNoDragArea = $(evt.target).closest(noDragInside.join(',')).length > 0;
-
-          if (isResizeHandle) {
-            return;
-          }
-
-          if (
-            !isInNoDragArea &&
-            this.$('.swimlane').prop('clientHeight') > evt.offsetY
-          ) {
-            this._isDragging = true;
-            this._lastDragPositionX = evt.clientX;
-          }
-        },
-        mouseup() {
-          if (this._isDragging) {
-            this._isDragging = false;
-          }
-        },
-        mousemove(evt) {
-          if (this._isDragging) {
-            // Update the canvas position
-            this.listsDom.scrollLeft -= evt.clientX - this._lastDragPositionX;
-            this._lastDragPositionX = evt.clientX;
-            // Disable browser text selection while dragging
-            evt.stopPropagation();
-            evt.preventDefault();
-            // Don't close opened card or inlined form at the end of the
-            // click-and-drag.
-            EscapeActions.executeUpTo('popup-close');
-            EscapeActions.preventNextClick();
-          }
-        },
-      },
-    ];
-  },
-
   swimlaneHeight() {
     const user = ReactiveCache.getCurrentUser();
     const swimlane = Template.currentData();
 
     let height;
     if (user) {
-      // For logged-in users, get from user profile
       height = user.getSwimlaneHeightFromStorage(swimlane.boardId, swimlane._id);
     } else {
-      // For non-logged-in users, get from localStorage
       try {
         const stored = localStorage.getItem('wekan-swimlane-heights');
         if (stored) {
@@ -533,249 +637,110 @@ BlazeComponent.extendComponent({
 
     return height == -1 ? "auto" : (height + 5 + "px");
   },
-
-
-  initializeSwimlaneResize() {
-    // Check if we're still in a valid template context
-    if (!Template.currentData()) {
-      console.warn('No current template data available for swimlane resize initialization');
-      return;
-    }
-
-    const swimlane = Template.currentData();
-    const $swimlane = $(`#swimlane-${swimlane._id}`);
-    const $resizeHandle = $swimlane.find('.js-swimlane-resize-handle');
-
-    // Check if elements exist
-    if (!$swimlane.length || !$resizeHandle.length) {
-      console.warn('Swimlane or resize handle not found, retrying in 100ms');
-      Meteor.setTimeout(() => {
-        if (!this.isDestroyed) {
-          this.initializeSwimlaneResize();
-        }
-      }, 100);
-      return;
-    }
-
-
-    if ($resizeHandle.length === 0) {
-      return;
-    }
-
-    let isResizing = false;
-    let startY = 0;
-    let startHeight = 0;
-    const minHeight = 100;
-    const maxHeight = 2000;
-
-    const startResize = (e) => {
-      isResizing = true;
-      startY = e.pageY || e.originalEvent.touches[0].pageY;
-      startHeight = parseInt($swimlane.css('height')) || 300;
-
-
-      $swimlane.addClass('swimlane-resizing');
-      $('body').addClass('swimlane-resizing-active');
-      $('body').css('user-select', 'none');
-
-
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
-    const doResize = (e) => {
-      if (!isResizing) {
-        return;
-      }
-
-      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
-      const deltaY = currentY - startY;
-      const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
-
-
-      // Apply the new height immediately for real-time feedback
-      $swimlane[0].style.setProperty('--swimlane-height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('min-height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('max-height', `${newHeight}px`);
-      $swimlane[0].style.setProperty('flex', 'none');
-      $swimlane[0].style.setProperty('flex-basis', 'auto');
-      $swimlane[0].style.setProperty('flex-grow', '0');
-      $swimlane[0].style.setProperty('flex-shrink', '0');
-
-
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
-    const stopResize = (e) => {
-      if (!isResizing) return;
-
-      isResizing = false;
-
-      // Calculate final height
-      const currentY = e.pageY || e.originalEvent.touches[0].pageY;
-      const deltaY = currentY - startY;
-      const finalHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
-
-      // Ensure the final height is applied
-      $swimlane[0].style.setProperty('--swimlane-height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('min-height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('max-height', `${finalHeight}px`);
-      $swimlane[0].style.setProperty('flex', 'none');
-      $swimlane[0].style.setProperty('flex-basis', 'auto');
-      $swimlane[0].style.setProperty('flex-grow', '0');
-      $swimlane[0].style.setProperty('flex-shrink', '0');
-
-      // Remove visual feedback but keep the height
-      $swimlane.removeClass('swimlane-resizing');
-      $('body').removeClass('swimlane-resizing-active');
-      $('body').css('user-select', '');
-
-      // Save the new height using the existing system
-      const boardId = swimlane.boardId;
-      const swimlaneId = swimlane._id;
-
-      if (process.env.DEBUG === 'true') {
-      }
-
-      const currentUser = ReactiveCache.getCurrentUser();
-      if (currentUser) {
-        // For logged-in users, use server method
-        Meteor.call('applySwimlaneHeightToStorage', boardId, swimlaneId, finalHeight, (error, result) => {
-          if (error) {
-            console.error('Error saving swimlane height:', error);
-          } else {
-            if (process.env.DEBUG === 'true') {
-            }
-          }
-        });
-      } else {
-        // For non-logged-in users, save to localStorage directly
-        try {
-          const stored = localStorage.getItem('wekan-swimlane-heights');
-          let heights = stored ? JSON.parse(stored) : {};
-
-          if (!heights[boardId]) {
-            heights[boardId] = {};
-          }
-          heights[boardId][swimlaneId] = finalHeight;
-
-          localStorage.setItem('wekan-swimlane-heights', JSON.stringify(heights));
-
-          if (process.env.DEBUG === 'true') {
-          }
-        } catch (e) {
-          console.warn('Error saving swimlane height to localStorage:', e);
-        }
-      }
-
-      e.preventDefault();
-    };
-
-    // Mouse events
-    $resizeHandle.on('mousedown', startResize);
-    $(document).on('mousemove', doResize);
-    $(document).on('mouseup', stopResize);
-
-    // Touch events for mobile
-    $resizeHandle.on('touchstart', startResize, { passive: false });
-    $(document).on('touchmove', doResize, { passive: false });
-    $(document).on('touchend', stopResize, { passive: false });
-
-
-    // Prevent dragscroll interference
-    $resizeHandle.on('mousedown', (e) => {
-      e.stopPropagation();
-    });
-
-  },
-}).register('swimlane');
-
-
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.currentBoard = Utils.getCurrentBoard();
-    this.isListTemplatesSwimlane =
-      this.currentBoard.isTemplatesBoard() &&
-      this.currentData().isListTemplatesSwimlane();
-    this.currentSwimlane = this.currentData();
-  },
-
-  // Proxy
-  open() {
-    this.childComponents('inlinedForm')[0].open();
-  },
-
-  events() {
-    return [
-      {
-        submit(evt) {
-            evt.preventDefault();
-
-            const titleInput = this.find('.list-name-input');
-            const title = titleInput?.value.trim();
-
-            if (!title) return;
-
-            let sortIndex = 0;
-            const lastList = this.currentBoard.getLastList();
-            const boardId = Utils.getCurrentBoardId();
-            let swimlaneId = this.currentSwimlane._id;
-
-            const positionInput = this.find('.list-position-input');
-
-            if (positionInput) {
-              const positionId = positionInput.value.trim();
-              const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
-
-              if (selectedList) {
-                sortIndex = selectedList.sort + 1;
-                // Use the swimlane ID from the selected list to ensure the new list
-                // is added to the same swimlane as the selected list
-                swimlaneId = selectedList.swimlaneId;
-              } else {
-                sortIndex = Utils.calculateIndexData(lastList, null).base;
-              }
-            } else {
-              sortIndex = Utils.calculateIndexData(lastList, null).base;
-            }
-
-            Lists.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: sortIndex,
-              type: this.isListTemplatesSwimlane ? 'template-list' : 'list',
-              swimlaneId: swimlaneId, // Always set swimlaneId for per-swimlane list titles
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
-        }
-      },
-      {
-        'click .js-list-template': Popup.open('searchElement'),
-      },
-    ];
-  },
-}).register('addListForm');
-
-Template.swimlane.helpers({
-  canSeeAddList() {
-    return ReactiveCache.getCurrentUser().isBoardAdmin();
-  },
-
-  lists() {
-    // Return per-swimlane lists for this swimlane
-    return this.myLists();
-  },
-
-  collapseSwimlane() {
-    return Utils.getSwimlaneCollapseState(this);
-  }
 });
 
+Template.swimlane.events({
+  // Click-and-drag action
+  'mousedown .board-canvas'(evt, tpl) {
+    const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
+      Utils.isTouchScreenOrShowDesktopDragHandles()
+        ? ['.js-list-handle', '.js-swimlane-header-handle']
+        : ['.js-list-header'],
+    ).concat([
+      '.js-list-resize-handle',
+      '.js-swimlane-resize-handle',
+    ]);
+
+    const isResizeHandle = $(evt.target).closest('.js-list-resize-handle, .js-swimlane-resize-handle').length > 0;
+    const isInNoDragArea = $(evt.target).closest(noDragInside.join(',')).length > 0;
+
+    if (isResizeHandle) {
+      return;
+    }
+
+    if (
+      !isInNoDragArea &&
+      tpl.$('.swimlane').prop('clientHeight') > evt.offsetY
+    ) {
+      tpl._isDragging = true;
+      tpl._lastDragPositionX = evt.clientX;
+    }
+  },
+  mouseup(evt, tpl) {
+    if (tpl._isDragging) {
+      tpl._isDragging = false;
+    }
+  },
+  mousemove(evt, tpl) {
+    if (tpl._isDragging) {
+      // Update the canvas position
+      tpl.listsDom.scrollLeft -= evt.clientX - tpl._lastDragPositionX;
+      tpl._lastDragPositionX = evt.clientX;
+      // Disable browser text selection while dragging
+      evt.stopPropagation();
+      evt.preventDefault();
+      // Don't close opened card or inlined form at the end of the
+      // click-and-drag.
+      EscapeActions.executeUpTo('popup-close');
+      EscapeActions.preventNextClick();
+    }
+  },
+});
+
+
+Template.addListForm.onCreated(function () {
+  this.currentBoard = Utils.getCurrentBoard();
+  this.isListTemplatesSwimlane =
+    this.currentBoard.isTemplatesBoard() &&
+    Template.currentData().isListTemplatesSwimlane();
+  this.currentSwimlane = Template.currentData();
+});
+
+Template.addListForm.events({
+  submit(evt, tpl) {
+    evt.preventDefault();
+
+    const titleInput = tpl.find('.list-name-input');
+    const title = titleInput?.value.trim();
+
+    if (!title) return;
+
+    let sortIndex = 0;
+    const lastList = tpl.currentBoard.getLastList();
+    const boardId = Utils.getCurrentBoardId();
+    let swimlaneId = tpl.currentSwimlane._id;
+
+    const positionInput = tpl.find('.list-position-input');
+
+    if (positionInput) {
+      const positionId = positionInput.value.trim();
+      const selectedList = ReactiveCache.getList({ boardId, _id: positionId, archived: false });
+
+      if (selectedList) {
+        sortIndex = selectedList.sort + 1;
+        // Use the swimlane ID from the selected list to ensure the new list
+        // is added to the same swimlane as the selected list
+        swimlaneId = selectedList.swimlaneId;
+      } else {
+        sortIndex = Utils.calculateIndexData(lastList, null).base;
+      }
+    } else {
+      sortIndex = Utils.calculateIndexData(lastList, null).base;
+    }
+
+    Lists.insert({
+      title,
+      boardId: Session.get('currentBoard'),
+      sort: sortIndex,
+      type: tpl.isListTemplatesSwimlane ? 'template-list' : 'list',
+      swimlaneId: swimlaneId, // Always set swimlaneId for per-swimlane list titles
+    });
+
+    titleInput.value = '';
+    titleInput.focus();
+  },
+  'click .js-list-template': Popup.open('searchElement'),
+});
 
 // Initialize sortable on DOM elements
 setTimeout(() => {
@@ -809,9 +774,11 @@ setTimeout(() => {
           EscapeActions.executeUpTo('popup-close');
           // Try to get board component
           try {
-            const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
+            const bbEl = ui.item[0]?.closest?.('.board-body') || document.querySelector('.board-body');
+            const bbView = bbEl && Blaze.getView(bbEl, 'Template.boardBody');
+            const boardComponent = bbView?.templateInstance?.();
             if (boardComponent && boardComponent.setIsDragging) {
-              boardComponent.setIsDragging(true);
+              if (boardComponent) boardComponent.setIsDragging(true);
             }
           } catch (e) {
             // Silent fail
@@ -933,9 +900,11 @@ setTimeout(() => {
 
           // Try to get board component
           try {
-            const boardComponent = BlazeComponent.getComponentForElement(ui.item[0]);
+            const bbEl2 = ui.item[0]?.closest?.('.board-body') || document.querySelector('.board-body');
+            const bbView2 = bbEl2 && Blaze.getView(bbEl2, 'Template.boardBody');
+            const boardComponent = bbView2?.templateInstance?.();
             if (boardComponent && boardComponent.setIsDragging) {
-              boardComponent.setIsDragging(false);
+              if (boardComponent) boardComponent.setIsDragging(false);
             }
           } catch (e) {
             // Silent fail
@@ -967,13 +936,12 @@ setTimeout(() => {
 
 
 
-BlazeComponent.extendComponent({
+Template.listsGroup.helpers({
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
   },
   visible(list) {
     if (list.archived) {
-      // Show archived list only when filter archive is on
       if (!Filter.archive.isSelected()) {
         return false;
       }
@@ -984,8 +952,6 @@ BlazeComponent.extendComponent({
       }
     }
     if (Filter.hideEmpty.isSelected()) {
-      // Check for cards in all swimlanes, not just the current one
-      // This ensures lists with cards in other swimlanes are still visible
       const cards = list.cards();
       if (cards.length === 0) {
         return false;
@@ -993,123 +959,141 @@ BlazeComponent.extendComponent({
     }
     return true;
   },
-  onRendered() {
-    const boardComponent = this.parentComponent();
-    const $listsDom = this.$('.js-lists');
+});
 
+Template.listsGroup.onRendered(function () {
+  const tpl = this;
+  const boardBodyEl2 = tpl.firstNode?.parentElement?.closest?.('.board-body') || document.querySelector('.board-body');
+  const boardView2 = boardBodyEl2 && Blaze.getView(boardBodyEl2, 'Template.boardBody');
+  const boardComponent = boardView2?.templateInstance?.();
+  const $listsDom = tpl.$('.js-lists');
 
-    if (!Utils.getCurrentCardId()) {
-      boardComponent.scrollLeft();
-    }
-
-    // Try a simpler approach for listsGroup too
-
-    // Wait for DOM to be ready
-    setTimeout(() => {
-      const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
-        ? '.js-list-handle'
-        : '.js-list-header';
-      const $lists = this.$('.js-list');
-
-      const $parent = $lists.parent();
-
-      // Initialize sortable even if there are no lists (to allow dropping into empty swimlanes)
-      if ($parent.hasClass('js-lists')) {
-
-        // Check for drag handles
-        const $handles = $parent.find('.js-list-handle');
-
-        // Test if drag handles are clickable
-        $handles.on('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        });
-
-        $parent.sortable({
-          connectWith: '.js-swimlane, .js-lists',
-          tolerance: 'pointer',
-          appendTo: '.board-canvas',
-          helper: 'clone',
-          items: '.js-list:not(.js-list-composer)',
-          placeholder: 'list placeholder',
-          distance: 7,
-          handle: handleSelector,
-          disabled: !Utils.canModifyBoard(),
-          dropOnEmpty: true,
-          start(evt, ui) {
-            ui.helper.css('z-index', 1000);
-            ui.placeholder.height(ui.helper.height());
-            ui.placeholder.width(ui.helper.width());
-            EscapeActions.executeUpTo('popup-close');
-            boardComponent.setIsDragging(true);
-          },
-          stop(evt, ui) {
-            boardComponent.setIsDragging(false);
-          }
-        });
-        // Reactively update handle when user toggles desktop drag handles
-        this.autorun(() => {
-          const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
-            ? '.js-list-handle'
-            : '.js-list-header';
-          if ($parent.data('uiSortable') || $parent.data('sortable')) {
-            try { $parent.sortable('option', 'handle', newHandle); } catch (e) {}
-          }
-        });
-      }
-    }, 100);
-  },
-}).register('listsGroup');
-
-
-class MoveSwimlaneComponent extends BlazeComponent {
-  serverMethod = 'moveSwimlane';
-
-  onCreated() {
-    this.currentSwimlane = this.currentData();
+  if (!Utils.getCurrentCardId() && boardComponent) {
+    boardComponent.scrollLeft();
   }
 
+  // Wait for DOM to be ready
+  setTimeout(() => {
+    const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
+      ? '.js-list-handle'
+      : '.js-list-header';
+    const $lists = tpl.$('.js-list');
+
+    const $parent = $lists.parent();
+
+    // Initialize sortable even if there are no lists (to allow dropping into empty swimlanes)
+    if ($parent.hasClass('js-lists')) {
+
+      // Check for drag handles
+      const $handles = $parent.find('.js-list-handle');
+
+      // Test if drag handles are clickable
+      $handles.on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      $parent.sortable({
+        connectWith: '.js-swimlane, .js-lists',
+        tolerance: 'pointer',
+        appendTo: '.board-canvas',
+        helper: 'clone',
+        items: '.js-list:not(.js-list-composer)',
+        placeholder: 'list placeholder',
+        distance: 7,
+        handle: handleSelector,
+        disabled: !Utils.canModifyBoard(),
+        dropOnEmpty: true,
+        start(evt, ui) {
+          ui.helper.css('z-index', 1000);
+          ui.placeholder.height(ui.helper.height());
+          ui.placeholder.width(ui.helper.width());
+          EscapeActions.executeUpTo('popup-close');
+          if (boardComponent) boardComponent.setIsDragging(true);
+        },
+        stop(evt, ui) {
+          if (boardComponent) boardComponent.setIsDragging(false);
+        },
+      });
+      // Reactively update handle when user toggles desktop drag handles
+      tpl.autorun(() => {
+        const newHandle = Utils.isTouchScreenOrShowDesktopDragHandles()
+          ? '.js-list-handle'
+          : '.js-list-header';
+        if ($parent.data('uiSortable') || $parent.data('sortable')) {
+          try {
+            $parent.sortable('option', 'handle', newHandle);
+          } catch (e) {}
+        }
+      });
+    }
+  }, 100);
+});
+
+
+function swimlaneBoardsSelector(excludeCurrentBoard) {
+  const selector = {
+    archived: false,
+    'members.userId': Meteor.userId(),
+    type: 'board',
+  };
+  if (excludeCurrentBoard) {
+    selector._id = { $ne: Utils.getCurrentBoard()._id };
+  }
+  return selector;
+}
+
+function swimlaneToBoards(excludeCurrentBoard) {
+  return ReactiveCache.getBoards(
+    swimlaneBoardsSelector(excludeCurrentBoard),
+    { sort: { title: 1 } },
+  );
+}
+
+function swimlaneDoneEvent(serverMethod, tpl) {
+  const bSelect = tpl.$('.js-select-boards')[0];
+  let boardId;
+  if (bSelect) {
+    boardId = bSelect.options[bSelect.selectedIndex].value;
+    Meteor.call(serverMethod, tpl.currentSwimlane._id, boardId);
+  }
+  Popup.back();
+}
+
+Template.moveSwimlanePopup.onCreated(function () {
+  this.currentSwimlane = Template.currentData();
+});
+
+Template.moveSwimlanePopup.helpers({
   board() {
     return Utils.getCurrentBoard();
-  }
-
-  toBoardsSelector() {
-    return {
-      archived: false,
-      'members.userId': Meteor.userId(),
-      type: 'board',
-      _id: { $ne: this.board()._id },
-    };
-  }
-
+  },
   toBoards() {
-    const ret = ReactiveCache.getBoards(this.toBoardsSelector(), { sort: { title: 1 } });
-    return ret;
-  }
+    return swimlaneToBoards(true);
+  },
+});
 
-  events() {
-    return [
-      {
-        'click .js-done'() {
-          const bSelect = $('.js-select-boards')[0];
-          let boardId;
-          if (bSelect) {
-            boardId = bSelect.options[bSelect.selectedIndex].value;
-            Meteor.call(this.serverMethod, this.currentSwimlane._id, boardId);
-          }
-          Popup.back();
-        },
-      },
-    ];
-  }
-}
-MoveSwimlaneComponent.register('moveSwimlanePopup');
+Template.moveSwimlanePopup.events({
+  'click .js-done'(event, tpl) {
+    swimlaneDoneEvent('moveSwimlane', tpl);
+  },
+});
 
-(class extends MoveSwimlaneComponent {
-  serverMethod = 'copySwimlane';
-  toBoardsSelector() {
-    const selector = super.toBoardsSelector();
-    delete selector._id;
-    return selector;
-  }
-}.register('copySwimlanePopup'));
+Template.copySwimlanePopup.onCreated(function () {
+  this.currentSwimlane = Template.currentData();
+});
+
+Template.copySwimlanePopup.helpers({
+  board() {
+    return Utils.getCurrentBoard();
+  },
+  toBoards() {
+    return swimlaneToBoards(false);
+  },
+});
+
+Template.copySwimlanePopup.events({
+  'click .js-done'(event, tpl) {
+    swimlaneDoneEvent('copySwimlane', tpl);
+  },
+});

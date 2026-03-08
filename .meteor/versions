@@ -88,12 +88,6 @@ ostrio:cstorage@4.0.1
 ostrio:files@2.3.3
 ostrio:flow-router-extra@3.10.1
 ostrio:i18n@3.2.1
-peerlibrary:assert@0.3.0
-peerlibrary:base-component@0.17.1
-peerlibrary:blaze-components@0.23.0
-peerlibrary:computed-field@0.10.0
-peerlibrary:data-lookup@0.3.0
-peerlibrary:reactive-field@0.6.0
 promise@0.12.2
 quave:synced-cron@2.2.1
 raix:eventemitter@0.1.3

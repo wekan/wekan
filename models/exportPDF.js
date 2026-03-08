@@ -32,8 +32,8 @@ runOnServer(function() {
    */
   Picker.route('/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF', async function (params, req, res) {
     const boardId = params.boardId;
-    const paramListId = req.params.listId;
-    const paramCardId = req.params.cardId;
+    const paramListId = params.listId;
+    const paramCardId = params.cardId;
     let user = null;
     let impersonateDone = false;
     let adminId = null;
@@ -48,8 +48,12 @@ runOnServer(function() {
     // If board is public, skip expensive authentication operations
     if (board.isPublic()) {
       // Public boards don't require authentication - skip hash operations
-      const exporterCardPDF = new ExporterCardPDF(boardId);
-      exporterCardPDF.build(res);
+      const exporterCardPDF = new ExporterCardPDF(
+        boardId,
+        paramListId,
+        paramCardId,
+      );
+      await exporterCardPDF.build(res);
       return;
     }
 
@@ -69,6 +73,11 @@ runOnServer(function() {
       user = await ReactiveCache.getUser({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+      if (!user) {
+        res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Invalid token');
+        return;
+      }
       adminId = user._id.toString();
       impersonateDone = await ReactiveCache.getImpersonatedUser({ adminId: adminId });
     } else if (!Meteor.settings.public.sandstorm) {
@@ -79,8 +88,12 @@ runOnServer(function() {
       });
     }
 
-    const exporterCardPDF = new ExporterCardPDF(boardId);
-    if (exporterCardPDF.canExport(user) || impersonateDone) {
+    const exporterCardPDF = new ExporterCardPDF(
+      boardId,
+      paramListId,
+      paramCardId,
+    );
+    if (await exporterCardPDF.canExport(user) || impersonateDone) {
       if (impersonateDone) {
         ImpersonatedUsers.insert({
           adminId: adminId,
@@ -89,7 +102,7 @@ runOnServer(function() {
         });
       }
 
-      exporterCardPDF.build(res);
+      await exporterCardPDF.build(res);
     } else {
       res.end(TAPi18n.__('user-can-not-export-card-to-pdf'));
     }

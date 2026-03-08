@@ -8,13 +8,9 @@ import uploadProgressManager from '../../lib/uploadProgressManager';
 //   'click .member': Popup.open('cardMember')
 // });
 
-BlazeComponent.extendComponent({
-  template() {
-    return 'minicard';
-  },
-
+Template.minicard.helpers({
   formattedCurrencyCustomFieldValue(definition) {
-    const customField = this.data()
+    const customField = this
       .customFieldsWD()
       .find(f => f._id === definition._id);
     const customFieldTrueValue =
@@ -28,7 +24,7 @@ BlazeComponent.extendComponent({
   },
 
   formattedStringtemplateCustomFieldValue(definition) {
-    const customField = this.data()
+    const customField = this
       .customFieldsWD()
       .find(f => f._id === definition._id);
 
@@ -41,7 +37,7 @@ BlazeComponent.extendComponent({
 
   showCreatorOnMinicard() {
     // cache "board" to reduce the mini-mongodb access
-    const board = this.data().board();
+    const board = this.board();
     let ret = false;
     if (board) {
       ret = board.allowsCreatorOnMinicard ?? false;
@@ -49,13 +45,12 @@ BlazeComponent.extendComponent({
     return ret;
   },
   isWatching() {
-    const card = this.currentData();
-    return card.findWatcher(Meteor.userId());
+    return this.findWatcher(Meteor.userId());
   },
 
   showMembers() {
     // cache "board" to reduce the mini-mongodb access
-    const board = this.data().board();
+    const board = this.board();
     let ret = false;
     if (board) {
       ret =
@@ -69,7 +64,7 @@ BlazeComponent.extendComponent({
 
   showAssignee() {
     // cache "board" to reduce the mini-mongodb access
-    const board = this.data().board();
+    const board = this.board();
     let ret = false;
     if (board) {
       ret =
@@ -81,144 +76,6 @@ BlazeComponent.extendComponent({
     return ret;
   },
 
-  /** opens the card label popup only if clicked onto a label
-   * <li> this is necessary to have the data context of the minicard.
-   *      if .js-card-label is used at click event, then only the data context of the label itself is available at this.currentData()
-   */
-  cardLabelsPopup(event) {
-    if (this.find('.js-card-label:hover')) {
-      Popup.open("cardLabels")(event, {dataContextIfCurrentDataIsUndefined: this.currentData()});
-    }
-  },
-
-  async toggleChecklistItem() {
-    const item = this.currentData();
-    if (item && item._id) {
-      await item.toggleItem();
-    }
-  },
-
-  events() {
-    return [
-      {
-        'click .js-linked-link'() {
-          if (this.data().isLinkedCard()) Utils.goCardId(this.data().linkedId);
-          else if (this.data().isLinkedBoard())
-            Utils.goBoardId(this.data().linkedId);
-        },
-        'click .js-toggle-minicard-label-text'() {
-          if (window.localStorage.getItem('hiddenMinicardLabelText')) {
-            window.localStorage.removeItem('hiddenMinicardLabelText'); //true
-          } else {
-            window.localStorage.setItem('hiddenMinicardLabelText', 'true'); //true
-          }
-        },
-        'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
-        'click .minicard-labels' : this.cardLabelsPopup,
-        'click .js-open-minicard-details-menu'(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          Popup.open('cardDetailsActions').call(this, event);
-        },
-        // Drag and drop file upload handlers
-        'dragover .minicard'(event) {
-          // Only prevent default for file drags to avoid interfering with sortable
-          const dataTransfer = event.originalEvent.dataTransfer;
-          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-        },
-        'dragenter .minicard'(event) {
-          const dataTransfer = event.originalEvent.dataTransfer;
-          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
-            event.preventDefault();
-            event.stopPropagation();
-            const card = this.data();
-            const board = card.board();
-            // Only allow drag-and-drop if user can modify card and board allows attachments
-            if (Utils.canModifyCard() && board && board.allowsAttachments) {
-              $(event.currentTarget).addClass('is-dragging-over');
-            }
-          }
-        },
-        'dragleave .minicard'(event) {
-          const dataTransfer = event.originalEvent.dataTransfer;
-          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
-            event.preventDefault();
-            event.stopPropagation();
-            $(event.currentTarget).removeClass('is-dragging-over');
-          }
-        },
-        'drop .minicard'(event) {
-          const dataTransfer = event.originalEvent.dataTransfer;
-          if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
-            event.preventDefault();
-            event.stopPropagation();
-            $(event.currentTarget).removeClass('is-dragging-over');
-
-            const card = this.data();
-            const board = card.board();
-
-            // Check permissions
-            if (!Utils.canModifyCard() || !board || !board.allowsAttachments) {
-              return;
-            }
-
-            // Check if this is a file drop (not a card reorder)
-            if (!dataTransfer.files || dataTransfer.files.length === 0) {
-              return;
-            }
-
-            const files = dataTransfer.files;
-            if (files && files.length > 0) {
-              handleFileUpload(card, files);
-            }
-          }
-        },
-      }
-    ];
-  },
-}).register('minicard');
-
-BlazeComponent.extendComponent({
-  template() {
-    return 'minicardChecklist';
-  },
-
-  events() {
-    return [
-      {
-        'click .js-open-checklist-menu'(event) {
-          const data = this.currentData();
-          const checklist = data.checklist || data;
-          const card = data.card || this.data();
-          const context = { currentData: () => ({ checklist, card }) };
-          Popup.open('checklistActions').call(context, event);
-        },
-      },
-    ];
-  },
-
-  visibleItems() {
-    const checklist = this.currentData().checklist || this.currentData();
-    const items = checklist.items();
-
-    return items.filter(item => {
-      // Hide finished items if hideCheckedChecklistItems is true
-      if (item.isFinished && checklist.hideCheckedChecklistItems) {
-        return false;
-      }
-      // Hide all items if hideAllChecklistItems is true
-      if (checklist.hideAllChecklistItems) {
-        return false;
-      }
-      return true;
-    });
-  },
-}).register('minicardChecklist');
-
-Template.minicard.helpers({
   hiddenMinicardLabelText() {
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
@@ -234,9 +91,6 @@ Template.minicard.helpers({
     return Meteor.connection && Meteor.connection._lastSessionId
       ? Meteor.connection._lastSessionId
       : null;
-  },
-  isWatching() {
-    return this.findWatcher(Meteor.userId());
   },
   // Upload progress helpers
   hasActiveUploads() {
@@ -283,30 +137,135 @@ Template.minicard.helpers({
   }
 });
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'keydown input.js-edit-card-sort-popup'(evt) {
-          // enter = save
-          if (evt.keyCode === 13) {
-            this.find('button[type=submit]').click();
-          }
-        },
-        'click button.js-submit-edit-card-sort-popup'(event) {
-          // save button pressed
-          event.preventDefault();
-          const sort = this.$('.js-edit-card-sort-popup')[0]
-            .value
-            .trim();
-          if (!Number.isNaN(sort)) {
-            let card = this.data();
-            card.move(card.boardId, card.swimlaneId, card.listId, sort);
-            Popup.back();
-          }
-        },
+Template.minicard.events({
+  'click .js-linked-link'() {
+    if (this.isLinkedCard()) Utils.goCardId(this.linkedId);
+    else if (this.isLinkedBoard())
+      Utils.goBoardId(this.linkedId);
+  },
+  'click .js-toggle-minicard-label-text'() {
+    if (window.localStorage.getItem('hiddenMinicardLabelText')) {
+      window.localStorage.removeItem('hiddenMinicardLabelText'); //true
+    } else {
+      window.localStorage.setItem('hiddenMinicardLabelText', 'true'); //true
+    }
+  },
+  'click span.badge-icon.fa.fa-sort, click span.badge-text.check-list-sort' : Popup.open("editCardSortOrder"),
+  'click .minicard-labels'(event, tpl) {
+    if (tpl.find('.js-card-label:hover')) {
+      Popup.open("cardLabels")(event, {dataContextIfCurrentDataIsUndefined: Template.currentData()});
+    }
+  },
+  'click .js-open-minicard-details-menu'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const card = Template.currentData();
+    Popup.open('cardDetailsActions').call({currentData: () => card}, event);
+  },
+  // Drag and drop file upload handlers
+  'dragover .minicard'(event) {
+    // Only prevent default for file drags to avoid interfering with sortable
+    const dataTransfer = event.originalEvent.dataTransfer;
+    if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  },
+  'dragenter .minicard'(event) {
+    const dataTransfer = event.originalEvent.dataTransfer;
+    if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+      event.preventDefault();
+      event.stopPropagation();
+      const card = this;
+      const board = card.board();
+      // Only allow drag-and-drop if user can modify card and board allows attachments
+      if (Utils.canModifyCard() && board && board.allowsAttachments) {
+        $(event.currentTarget).addClass('is-dragging-over');
       }
-    ]
-  }
-}).register('editCardSortOrderPopup');
+    }
+  },
+  'dragleave .minicard'(event) {
+    const dataTransfer = event.originalEvent.dataTransfer;
+    if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+      event.preventDefault();
+      event.stopPropagation();
+      $(event.currentTarget).removeClass('is-dragging-over');
+    }
+  },
+  'drop .minicard'(event) {
+    const dataTransfer = event.originalEvent.dataTransfer;
+    if (dataTransfer && dataTransfer.types && dataTransfer.types.includes('Files')) {
+      event.preventDefault();
+      event.stopPropagation();
+      $(event.currentTarget).removeClass('is-dragging-over');
 
+      const card = this;
+      const board = card.board();
+
+      // Check permissions
+      if (!Utils.canModifyCard() || !board || !board.allowsAttachments) {
+        return;
+      }
+
+      // Check if this is a file drop (not a card reorder)
+      if (!dataTransfer.files || dataTransfer.files.length === 0) {
+        return;
+      }
+
+      const files = dataTransfer.files;
+      if (files && files.length > 0) {
+        handleFileUpload(card, files);
+      }
+    }
+  },
+});
+
+Template.minicardChecklist.helpers({
+  visibleItems() {
+    const checklist = this.checklist || this;
+    const items = checklist.items();
+
+    return items.filter(item => {
+      // Hide finished items if hideCheckedChecklistItems is true
+      if (item.isFinished && checklist.hideCheckedChecklistItems) {
+        return false;
+      }
+      // Hide all items if hideAllChecklistItems is true
+      if (checklist.hideAllChecklistItems) {
+        return false;
+      }
+      return true;
+    });
+  },
+});
+
+Template.minicardChecklist.events({
+  'click .js-open-checklist-menu'(event) {
+    const data = Template.currentData();
+    const checklist = data.checklist || data;
+    const card = data.card || this;
+    const context = { currentData: () => ({ checklist, card }) };
+    Popup.open('checklistActions').call(context, event);
+  },
+});
+
+Template.editCardSortOrderPopup.events({
+  'keydown input.js-edit-card-sort-popup'(evt, tpl) {
+    // enter = save
+    if (evt.keyCode === 13) {
+      tpl.find('button[type=submit]').click();
+    }
+  },
+  'click button.js-submit-edit-card-sort-popup'(event, tpl) {
+    // save button pressed
+    event.preventDefault();
+    const sort = tpl.$('.js-edit-card-sort-popup')[0]
+      .value
+      .trim();
+    if (!Number.isNaN(sort)) {
+      let card = this;
+      card.move(card.boardId, card.swimlaneId, card.listId, sort);
+      Popup.back();
+    }
+  },
+});

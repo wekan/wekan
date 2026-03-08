@@ -1,18 +1,18 @@
 import { TAPi18n } from '/imports/i18n';
 const filesize = require('filesize');
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.info = new ReactiveVar({});
-    Meteor.call('getStatistics', (error, ret) => {
-      if (!error && ret) {
-        this.info.set(ret);
-      }
-    });
-  },
+Template.statistics.onCreated(function () {
+  this.info = new ReactiveVar({});
+  Meteor.call('getStatistics', (error, ret) => {
+    if (!error && ret) {
+      this.info.set(ret);
+    }
+  });
+});
 
+Template.statistics.helpers({
   statistics() {
-    return this.info.get();
+    return Template.instance().info.get();
   },
 
   humanReadableTime(time) {
@@ -47,4 +47,4 @@ BlazeComponent.extendComponent({
     }
     return ret;
   },
-}).register('statistics');
+});

@@ -1,0 +1,57 @@
+template(name="originalPositionsView")
+  .original-positions-view
+    .original-positions-header
+      button.btn.btn-sm.btn-outline-secondary.js-toggle-original-positions
+        i.fa.fa-history
+        if isShowingOriginalPositions
+          | Hide Original Positions
+        else
+          | Show Original Positions
+
+      if isShowingOriginalPositions
+        button.btn.btn-sm.btn-outline-primary.js-refresh-history
+          i.fa.fa-refresh
+          |  Refresh
+
+    if isShowingOriginalPositions
+      .original-positions-content
+        if isLoading
+          .original-positions-loading
+            i.fa.fa-spinner.fa-spin
+            |  Loading original positions...
+        else
+          .original-positions-filters
+            .btn-group.btn-group-sm(role="group")
+              button.btn.js-filter-type(type="button" class="{{#if isFilterType 'all'}}btn-primary{{else}}btn-outline-secondary{{/if}}" data-filter-type="all")
+                | All
+              button.btn.js-filter-type(type="button" class="{{#if isFilterType 'swimlane'}}btn-primary{{else}}btn-outline-secondary{{/if}}" data-filter-type="swimlane")
+                i.fa.fa-bars
+                |  Swimlanes
+              button.btn.js-filter-type(type="button" class="{{#if isFilterType 'list'}}btn-primary{{else}}btn-outline-secondary{{/if}}" data-filter-type="list")
+                i.fa.fa-columns
+                |  Lists
+              button.btn.js-filter-type(type="button" class="{{#if isFilterType 'card'}}btn-primary{{else}}btn-outline-secondary{{/if}}" data-filter-type="card")
+                i.fa.fa-sticky-note
+                |  Cards
+
+          .original-positions-list
+            each getFilteredHistory
+              .original-position-item
+                .original-position-item-header
+                  i.fa(class="{{getEntityTypeIcon entityType}}")
+                  span.entity-type {{getEntityTypeLabel entityType}}
+                  span.entity-name {{getEntityDisplayName this}}
+                  span.entity-id ({{entityId}})
+                .original-position-item-details
+                  .original-position-description
+                    | {{getEntityOriginalPositionDescription this}}
+                  if originalTitle
+                    .original-title
+                      strong Original title:
+                      |  {{originalTitle}}
+                  .original-position-date
+                    small.text-muted Created: {{formatDate createdAt}}
+            else
+              .no-original-positions
+                i.fa.fa-info-circle
+                |  No original position data available for this board.

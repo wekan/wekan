@@ -5,8 +5,11 @@ import SessionData from '../../models/usersessiondata';
 import {QueryDebug} from "../../config/query-classes";
 import {OPERATOR_DEBUG} from "../../config/search-const";
 
-export class CardSearchPagedComponent extends BlazeComponent {
-  onCreated() {
+// Plain helper class for search pages with pagination.
+// Not a BlazeComponent; instantiated in each template's onCreated.
+export class CardSearchPaged {
+  constructor(templateInstance) {
+    this.tpl = templateInstance;
     this.searching = new ReactiveVar(false);
     this.hasResults = new ReactiveVar(false);
     this.hasQueryErrors = new ReactiveVar(false);
@@ -33,24 +36,24 @@ export class CardSearchPagedComponent extends BlazeComponent {
           console.log('Subscription ready, getting results...');
           console.log('Subscription ready - sessionId:', that.sessionId);
         }
-        
+
         // Wait for session data to be available (with timeout)
         let waitCount = 0;
         const maxWaitCount = 50; // 10 seconds max wait
-        
+
         const waitForSessionData = () => {
           waitCount++;
           const sessionData = that.getSessionData();
           if (process.env.DEBUG === 'true') {
             console.log('waitForSessionData - attempt', waitCount, 'session data:', sessionData);
           }
-          
+
           if (sessionData) {
             const results = that.getResults();
             if (process.env.DEBUG === 'true') {
               console.log('Search results count:', results ? results.length : 0);
             }
-            
+
             // If no results and this is a due cards search, try to retry
             if ((!results || results.length === 0) && that.searchRetryCount !== undefined && that.searchRetryCount < that.maxRetries) {
               if (process.env.DEBUG === 'true') {
@@ -64,7 +67,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
               }, 500);
               return;
             }
-            
+
             that.searching.set(false);
             that.hasResults.set(true);
             that.serverError.set(false);
@@ -83,7 +86,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
                if (process.env.DEBUG === 'true') {
                  console.log('Fallback search results count:', results ? results.length : 0);
                }
-               
+
                if (results && results.length > 0) {
                  that.searching.set(false);
                  that.hasResults.set(true);
@@ -95,7 +98,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
                }
              }
         };
-        
+
         // Start waiting for session data
         Meteor.setTimeout(waitForSessionData, 100);
       },
@@ -131,7 +134,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     if (process.env.DEBUG === 'true') {
       console.log('getSessionData - looking for sessionId:', sessionIdToUse);
     }
-    
+
     // Try using the raw SessionData collection instead of ReactiveCache
     const sessionData = SessionData.findOne({
       sessionId: sessionIdToUse,
@@ -139,7 +142,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     if (process.env.DEBUG === 'true') {
       console.log('getSessionData - found session data (raw):', sessionData);
     }
-    
+
     // Also try ReactiveCache for comparison
     const reactiveSessionData = ReactiveCache.getSessionData({
       sessionId: sessionIdToUse,
@@ -147,7 +150,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     if (process.env.DEBUG === 'true') {
       console.log('getSessionData - found session data (reactive):', reactiveSessionData);
     }
-    
+
     return sessionData || reactiveSessionData;
   }
 
@@ -161,7 +164,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
       console.log('getResults - session data:', this.sessionData);
     }
     const cards = [];
-    
+
     if (this.sessionData && this.sessionData.cards) {
       if (process.env.DEBUG === 'true') {
         console.log('getResults - cards array length:', this.sessionData.cards.length);
@@ -192,7 +195,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
       if (process.env.DEBUG === 'true') {
         console.log('getResults - direct card search found:', allCards ? allCards.length : 0, 'cards');
       }
-      
+
       if (allCards && allCards.length > 0) {
         allCards.forEach(card => {
           if (card && card._id) {
@@ -200,7 +203,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
           }
         });
       }
-      
+
       this.queryErrors = [];
     }
     if (this.queryErrors.length) {
@@ -267,7 +270,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
       queryParams.text,
       this.subscriptionCallbacks,
     );
-    
+
     const sessionDataHandle = Meteor.subscribe('sessionData', this.sessionId);
     if (process.env.DEBUG === 'true') {
       console.log('Subscribed to sessionData with sessionId:', this.sessionId);
@@ -336,20 +339,5 @@ export class CardSearchPagedComponent extends BlazeComponent {
   getSearchHref() {
     const baseUrl = window.location.href.replace(/([?#].*$|\s*$)/, '');
     return `${baseUrl}?q=${encodeURIComponent(this.query.get())}`;
-  }
-
-  events() {
-    return [
-      {
-        'click .js-next-page'(evt) {
-          evt.preventDefault();
-          this.nextPage();
-        },
-        'click .js-previous-page'(evt) {
-          evt.preventDefault();
-          this.previousPage();
-        },
-      },
-    ];
   }
 }
