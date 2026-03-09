@@ -1041,6 +1041,8 @@ Cards.helpers({
       boardId: board._id,
       slug: board.slug || 'board',
       cardId: this._id,
+      swimlaneId: this.swimlaneId,
+      listId: this.listId,
     });
   },
   originRelativeUrl() {
@@ -1050,6 +1052,8 @@ Cards.helpers({
       boardId: board._id,
       slug: board.slug || 'board',
       cardId: this._id,
+      swimlaneId: this.swimlaneId,
+      listId: this.listId,
     });
   },
 
