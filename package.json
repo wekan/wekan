@@ -37,7 +37,7 @@
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
     "fibers": "^5.0.3",
-    "file-type": "^16.5.4",
+    "file-type": "^21.3.1",
     "filesize": "^8.0.7",
     "hotkeys-js": "^3.13.15",
     "i18next": "^21.10.0",
