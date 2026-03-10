@@ -27,8 +27,7 @@ WeKan 8.00-8.24 used Colorful Unicode Emoji Icons, versions before and after use
 Upgrading to Meteor 3 progress:
 
 - https://harryadel.com/dev-diary-24/
-- https://www.linkedin.com/posts/harryadel_dev-diary-24-wekan-migration-journey-activity-7426683776547811328-jS9h/
-- https://forums.meteor.com/t/anyone-still-using-meteor-2/64402/4
+- https://harryadel.com/dev-diary-25/
 
 # v8.35 2026-03-05 WeKan ® release
 
