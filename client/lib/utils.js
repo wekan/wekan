@@ -503,6 +503,8 @@ Utils = {
         cardId: card._id,
         boardId: board._id,
         slug: board.slug,
+        swimlaneId: card.swimlaneId,
+        listId: card.listId,
       })
     );
   },

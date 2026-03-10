@@ -135,6 +135,8 @@ BlazeComponent.extendComponent({
               boardId: board._id,
               slug: board.slug,
               cardId: subtask._id,
+              swimlaneId: subtask.swimlaneId,
+              listId: subtask.listId,
             });
           }
         },
