@@ -29,6 +29,26 @@ Upgrading to Meteor 3 progress:
 - https://harryadel.com/dev-diary-24/
 - https://harryadel.com/dev-diary-25/
 
+# Upcoming WeKan ® release
+
+This release adds the following updates:
+
+- [Bump docker/build-push-action from 6.19.2 to 7.0.0](https://github.com/wekan/wekan/pull/6181).
+  Thanks to dependabot.
+- [Bump docker/metadata-action from 5.10.0 to 6.0.0](https://github.com/wekan/wekan/pull/6182).
+  Thanks to dependabot.
+- [Bump docker/login-action from 3.7.0 to 4.0.0](https://github.com/wekan/wekan/pull/6183).
+  Thanks to dependabot.
+- [Updated file-type](https://github.com/wekan/wekan/commit/388ec8e9a37bdca49dba09989da121e0b4332463).
+  Thanks to developers of file-type.
+
+and fixes the following bugs:
+
+- [Fixed linked card swimlane routing](https://github.com/wekan/wekan/pull/6179).
+  Thanks to KhaoulaMaleh.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v8.35 2026-03-05 WeKan ® release
 
 This release adds the following CRITICAL SECURITY FIXES of [IntegrationBleed](https://wekan.fi/hall-of-fame/integrationBleed/):
