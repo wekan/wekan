@@ -39,13 +39,17 @@ This release adds the following updates:
   Thanks to dependabot.
 - [Bump docker/login-action from 3.7.0 to 4.0.0](https://github.com/wekan/wekan/pull/6183).
   Thanks to dependabot.
-- [Updated file-type](https://github.com/wekan/wekan/commit/388ec8e9a37bdca49dba09989da121e0b4332463).
-  Thanks to developers of file-type.
+- [Remove peerlibrary:blaze-components](https://github.com/wekan/wekan/pull/6178).
+  Thanks to harryadel.
 
 and fixes the following bugs:
 
 - [Fixed linked card swimlane routing](https://github.com/wekan/wekan/pull/6179).
   Thanks to KhaoulaMaleh.
+- [Replaced incompatible file-type with mime-type](https://github.com/wekan/wekan/commit/89f86caf69db0600a207aee075361f8a6801253b).
+  Thanks to xet7.
+- [Fix Add List popup to not open after adding new board or there being no lists at all](https://github.com/wekan/wekan/commit/7e378be1d87280b8fb3f63eea3c0374e12054984).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
