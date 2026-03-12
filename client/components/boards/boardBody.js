@@ -212,29 +212,6 @@ Template.boardBody.onCreated(function () {
     return boardView === 'board-view-lists';
   };
 
-  this.openNewListForm = () => {
-    const openInlineFormButton = this.find('.js-list-composer .js-open-inlined-form');
-    if (openInlineFormButton) {
-      openInlineFormButton.click();
-      return;
-    }
-
-    const boardCanvas = this.find('.board-canvas') || this.firstNode;
-    if (boardCanvas) {
-      Popup.open('addList').call(
-        Utils.getCurrentBoard(),
-        {
-          currentTarget: boardCanvas,
-          target: boardCanvas,
-          preventDefault() {},
-        },
-        {
-          dataContextIfCurrentDataIsUndefined: Utils.getCurrentBoard(),
-        },
-      );
-    }
-  };
-
   // fix swimlanes sort field if there are null values
   const currentBoardData = Utils.getCurrentBoard();
   if (currentBoardData && Swimlanes) {
@@ -625,13 +602,6 @@ Template.boardBody.onRendered(function () {
       );
     }
   });
-
-  // If there is no data in the board (ie, no lists) we autofocus the list
-  // creation form by clicking on the corresponding element.
-  const currentBoard = Utils.getCurrentBoard();
-  if (Utils.canModifyBoard() && currentBoard.lists().length === 0) {
-    tpl.openNewListForm();
-  }
 
   dragscroll.reset();
   Utils.setBackgroundImage();
