@@ -41,6 +41,8 @@ This release adds the following updates:
   Thanks to dependabot.
 - [Remove peerlibrary:blaze-components](https://github.com/wekan/wekan/pull/6178).
   Thanks to harryadel.
+- [Updated dependencies](https://github.com/wekan/wekan/commit/63df6cb197ff497cf8c97dad46c080105f00b2d1).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
