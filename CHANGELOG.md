@@ -43,6 +43,8 @@ This release adds the following updates:
   Thanks to harryadel.
 - [Updated dependencies](https://github.com/wekan/wekan/commit/63df6cb197ff497cf8c97dad46c080105f00b2d1).
   Thanks to developers of dependencies.
+- [Updated flatted](https://github.com/wekan/wekan/commit/a159856628ae9b6454cbdb0a7beca190a785e8af).
+  Thanks to developers of flatted.
 
 and fixes the following bugs:
 
