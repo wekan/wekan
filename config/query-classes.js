@@ -38,6 +38,11 @@ import {
   OPERATOR_STATUS,
   OPERATOR_SWIMLANE,
   OPERATOR_TEAM,
+  OPERATOR_TITLE,
+  OPERATOR_DESCRIPTION,
+  OPERATOR_CUSTOMFIELD,
+  OPERATOR_ATTACHMENT_TEXT,
+  OPERATOR_CHECKLIST_TEXT,
   OPERATOR_UNKNOWN,
   OPERATOR_USER,
   ORDER_ASCENDING,
@@ -339,6 +344,11 @@ export class Query {
       'operator-debug': OPERATOR_DEBUG,
       'operator-org': OPERATOR_ORG,
       'operator-team': OPERATOR_TEAM,
+      'operator-title': OPERATOR_TITLE,
+      'operator-description': OPERATOR_DESCRIPTION,
+      'operator-customfield': OPERATOR_CUSTOMFIELD,
+      'operator-attachment-text': OPERATOR_ATTACHMENT_TEXT,
+      'operator-checklist-text': OPERATOR_CHECKLIST_TEXT,
     };
 
     const predicates = {
