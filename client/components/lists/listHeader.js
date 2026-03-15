@@ -161,7 +161,7 @@ Template.listHeader.events({
     const listDom = $(event.target).parents(
       `#js-list-${Template.currentData()._id}`,
     )[0];
-    const view = Blaze.getView(listDom, 'Template.listBody');
+    const view = Blaze.getView(listDom, 'Template.list');
     const listComponent = view?.templateInstance?.();
     if (listComponent) {
       listComponent.openForm({
@@ -200,7 +200,7 @@ Template.listActionPopup.events({
   'click .js-list-subscribe'() {},
   'click .js-add-card.list-header-plus-top'(event) {
     const listDom = $(`#js-list-${this._id}`)[0];
-    const view = Blaze.getView(listDom, 'Template.listBody');
+    const view = Blaze.getView(listDom, 'Template.list');
     const listComponent = view?.templateInstance?.();
     if (listComponent) {
       listComponent.openForm({
@@ -211,7 +211,7 @@ Template.listActionPopup.events({
   },
   'click .js-add-card.list-header-plus-bottom'(event) {
     const listDom = $(`#js-list-${this._id}`)[0];
-    const view = Blaze.getView(listDom, 'Template.listBody');
+    const view = Blaze.getView(listDom, 'Template.list');
     const listComponent = view?.templateInstance?.();
     if (listComponent) {
       listComponent.openForm({

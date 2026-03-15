@@ -742,200 +742,6 @@ Template.addListForm.events({
   'click .js-list-template': Popup.open('searchElement'),
 });
 
-// Initialize sortable on DOM elements
-setTimeout(() => {
-  const $listsGroupElements = $('.list-group');
-  const computeHandle = () => (
-    Utils.isTouchScreenOrShowDesktopDragHandles() ? '.js-list-handle' : '.js-list-header'
-  );
-
-  // Initialize sortable on ALL listsGroup elements (even empty ones)
-  $listsGroupElements.each(function(index) {
-    const $listsGroup = $(this);
-    const $lists = $listsGroup.find('.js-list');
-
-    // Only initialize on listsGroup elements that have the .js-lists class
-    if ($listsGroup.hasClass('js-lists')) {
-      $listsGroup.sortable({
-        connectWith: '.js-swimlane, .js-lists',
-        tolerance: 'pointer',
-        appendTo: '.board-canvas',
-        helper: 'clone',
-        items: '.js-list:not(.js-list-composer)',
-        placeholder: 'list placeholder',
-        distance: 7,
-        handle: computeHandle(),
-        disabled: !Utils.canModifyBoard(),
-        dropOnEmpty: true,
-        start(evt, ui) {
-          ui.helper.css('z-index', 1000);
-          ui.placeholder.height(ui.helper.height());
-          ui.placeholder.width(ui.helper.width());
-          EscapeActions.executeUpTo('popup-close');
-          // Try to get board component
-          try {
-            const bbEl = ui.item[0]?.closest?.('.board-body') || document.querySelector('.board-body');
-            const bbView = bbEl && Blaze.getView(bbEl, 'Template.boardBody');
-            const boardComponent = bbView?.templateInstance?.();
-            if (boardComponent && boardComponent.setIsDragging) {
-              if (boardComponent) boardComponent.setIsDragging(true);
-            }
-          } catch (e) {
-            // Silent fail
-          }
-        },
-        stop(evt, ui) {
-          // To attribute the new index number, we need to get the DOM element
-          // of the previous and the following list -- if any.
-          const prevListDom = ui.item.prev('.js-list').get(0);
-          const nextListDom = ui.item.next('.js-list').get(0);
-          const sortIndex = calculateIndex(prevListDom, nextListDom, 1);
-
-          const listDomElement = ui.item.get(0);
-          if (!listDomElement) {
-            return;
-          }
-
-          let list;
-          try {
-            list = Blaze.getData(listDomElement);
-          } catch (error) {
-            return;
-          }
-
-          if (!list) {
-            return;
-          }
-
-          // Detect if the list was dropped in a different swimlane
-          const targetSwimlaneDom = ui.item.closest('.js-swimlane');
-          let targetSwimlaneId = null;
-
-          if (targetSwimlaneDom.length > 0) {
-            // List was dropped in a swimlane
-            try {
-              targetSwimlaneId = targetSwimlaneDom.attr('id').replace('swimlane-', '');
-            } catch (error) {
-              return;
-            }
-          } else {
-            // List was dropped in lists view (not swimlanes view)
-            // In this case, assign to the default swimlane
-            const currentBoard = ReactiveCache.getBoard(Session.get('currentBoard'));
-            if (currentBoard) {
-              const defaultSwimlane = currentBoard.getDefaultSwimline();
-              if (defaultSwimlane) {
-                targetSwimlaneId = defaultSwimlane._id;
-              }
-            }
-          }
-
-          // Get the original swimlane ID of the list (handle backward compatibility)
-          const originalSwimlaneId = list.getEffectiveSwimlaneId ? list.getEffectiveSwimlaneId() : (list.swimlaneId || null);
-
-          // Prepare update object
-          const updateData = {
-            sort: sortIndex.base,
-          };
-
-          // Check if the list was dropped in a different swimlane
-          const isDifferentSwimlane = targetSwimlaneId && targetSwimlaneId !== originalSwimlaneId;
-
-          // If the list was dropped in a different swimlane, update the swimlaneId
-          if (isDifferentSwimlane) {
-            updateData.swimlaneId = targetSwimlaneId;
-
-            // Move all cards in the list to the new swimlane
-            const cardsInList = ReactiveCache.getCards({
-              listId: list._id,
-              archived: false
-            });
-
-            cardsInList.forEach(card => {
-              card.move(list.boardId, targetSwimlaneId, list._id);
-            });
-
-            // Don't cancel the sortable when moving to a different swimlane
-            // The DOM move should be allowed to complete
-          }
-          // Allow reordering within the same swimlane by not canceling the sortable
-
-          // Do not update the restricted collection on the client; rely on the server method below.
-
-          // Save to localStorage for non-logged-in users (backup)
-          if (!Meteor.userId()) {
-            try {
-              const boardId = list.boardId;
-              const listId = list._id;
-              const listOrderKey = `wekan-list-order-${boardId}`;
-
-              let listOrder = JSON.parse(localStorage.getItem(listOrderKey) || '{}');
-              if (!listOrder.lists) listOrder.lists = [];
-
-              const listIndex = listOrder.lists.findIndex(l => l.id === listId);
-              if (listIndex >= 0) {
-                listOrder.lists[listIndex].sort = sortIndex.base;
-                listOrder.lists[listIndex].swimlaneId = updateData.swimlaneId;
-                listOrder.lists[listIndex].updatedAt = new Date().toISOString();
-              } else {
-                listOrder.lists.push({
-                  id: listId,
-                  sort: sortIndex.base,
-                  swimlaneId: updateData.swimlaneId,
-                  updatedAt: new Date().toISOString()
-                });
-              }
-
-              localStorage.setItem(listOrderKey, JSON.stringify(listOrder));
-            } catch (e) {
-            }
-          }
-
-          // Persist to server
-          Meteor.call('updateListSort', list._id, list.boardId, updateData, function(error) {
-            if (error) {
-              Meteor.subscribe('board', list.boardId, false);
-            }
-          });
-
-          // Try to get board component
-          try {
-            const bbEl2 = ui.item[0]?.closest?.('.board-body') || document.querySelector('.board-body');
-            const bbView2 = bbEl2 && Blaze.getView(bbEl2, 'Template.boardBody');
-            const boardComponent = bbView2?.templateInstance?.();
-            if (boardComponent && boardComponent.setIsDragging) {
-              if (boardComponent) boardComponent.setIsDragging(false);
-            }
-          } catch (e) {
-            // Silent fail
-          }
-
-          // Re-enable dragscroll after list dragging is complete
-          try {
-            dragscroll.reset();
-          } catch (e) {
-            // Silent fail
-          }
-
-          // Re-enable dragscroll on all swimlanes
-          $('.js-swimlane').each(function() {
-            $(this).addClass('dragscroll');
-          });
-        }
-      });
-      // Reactively adjust handle when setting changes
-      Tracker.autorun(() => {
-        const newHandle = computeHandle();
-        if ($listsGroup.data('uiSortable') || $listsGroup.data('sortable')) {
-          try { $listsGroup.sortable('option', 'handle', newHandle); } catch (e) {}
-        }
-      });
-    }
-  });
-}, 1000);
-
-
-
 Template.listsGroup.helpers({
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
@@ -977,12 +783,15 @@ Template.listsGroup.onRendered(function () {
     const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
       ? '.js-list-handle'
       : '.js-list-header';
-    const $lists = tpl.$('.js-list');
-
-    const $parent = $lists.parent();
+    const $parent = $listsDom;
 
     // Initialize sortable even if there are no lists (to allow dropping into empty swimlanes)
-    if ($parent.hasClass('js-lists')) {
+    if ($parent.length > 0 && $parent.hasClass('js-lists')) {
+      if ($parent.data('uiSortable') || $parent.data('sortable')) {
+        try {
+          $parent.sortable('destroy');
+        } catch (e) {}
+      }
 
       // Check for drag handles
       const $handles = $parent.find('.js-list-handle');
@@ -1013,6 +822,7 @@ Template.listsGroup.onRendered(function () {
         },
         stop(evt, ui) {
           if (boardComponent) boardComponent.setIsDragging(false);
+          saveSorting(ui);
         },
       });
       // Reactively update handle when user toggles desktop drag handles
