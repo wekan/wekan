@@ -15,20 +15,26 @@ Template.listBody.onCreated(function () {
     options = options || {};
     options.position = options.position || 'top';
 
-    // Find inlinedForm template instances by DOM traversal
-    const formEls = this.findAll('.js-inlined-form');
+    const formEls = this.findAll('.js-inlined-form-wrapper');
     let formInstance = null;
+    let firstInstance = null;
+    let lastInstance = null;
     for (const el of formEls) {
       const view = Blaze.getView(el, 'Template.inlinedForm');
       const inst = view?.templateInstance?.();
       if (inst) {
-        const data = Blaze.getData(el);
-        if (data?.position === options.position) {
+        if (!firstInstance) {
+          firstInstance = inst;
+        }
+        lastInstance = inst;
+        if (el.dataset.position === options.position) {
           formInstance = inst;
           break;
         }
-        if (!formInstance) formInstance = inst; // fallback to first
       }
+    }
+    if (!formInstance) {
+      formInstance = options.position === 'bottom' ? lastInstance : firstInstance;
     }
     if (formInstance) {
       formInstance.isOpen.set(true);
@@ -67,7 +73,7 @@ Template.listBody.onCreated(function () {
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
-    const position = Template.currentData().position;
+    const position = Blaze.getData(evt.currentTarget)?.position;
     const title = textarea.val().trim();
 
     let sortIndex;
