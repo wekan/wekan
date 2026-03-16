@@ -54,6 +54,10 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Add List popup to not open after adding new board or there being no lists at all](https://github.com/wekan/wekan/commit/7e378be1d87280b8fb3f63eea3c0374e12054984).
   Thanks to xet7.
+- [Improve global search relevance and add exact-field operators](https://github.com/wekan/wekan/pull/6187).
+  Thanks to KhaoulaMaleh.
+- [Fix list add-card actions and sort persistence](https://github.com/wekan/wekan/pull/6188).
+  Thanks to harryadel.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
