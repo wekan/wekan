@@ -9,6 +9,14 @@ const shouldServeContent = (value) =>
 
 const getDefaultFileContent = (filename) => {
   try {
+    if (typeof filename !== 'string' || filename.trim().length === 0) {
+      return null;
+    }
+
+    if (typeof Meteor.absolutePath !== 'string' || Meteor.absolutePath.trim().length === 0) {
+      return null;
+    }
+
     const filePath = path.join(Meteor.absolutePath, 'public', filename);
     if (fs.existsSync(filePath)) {
       return fs.readFileSync(filePath, 'utf-8');

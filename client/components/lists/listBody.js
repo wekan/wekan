@@ -166,20 +166,42 @@ Template.listBody.onCreated(function () {
   };
 
   this.clickOnMiniCard = (evt) => {
+    const $target = $(evt.target);
+    const card = Blaze.getData(evt.currentTarget) || Template.currentData();
+    if (!card || !card._id) {
+      return;
+    }
+    const clickedTitle = $target.closest('.minicard-title').length > 0;
+    const clickedLinkedReference = $target.closest('.js-linked-link').length > 0;
+
+    // Title clicks should open the regular board card details view.
+    if (clickedTitle && !clickedLinkedReference) {
+      evt.stopImmediatePropagation();
+      evt.preventDefault();
+      Session.delete('popupCardId');
+      Session.delete('popupCardBoardId');
+      Session.set('currentCard', card._id);
+      const openCards = Session.get('openCards') || [];
+      if (!openCards.includes(card._id)) {
+        Session.set('openCards', [...openCards, card._id]);
+      }
+      return;
+    }
+
     if (MultiSelection.isActive() || evt.shiftKey) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
       const methodName = evt.shiftKey ? 'toggleRange' : 'toggle';
-      MultiSelection[methodName](Template.currentData()._id);
+      MultiSelection[methodName](card._id);
 
       // If the card is already selected, we want to de-select it.
       // XXX We should probably modify the minicard href attribute instead of
       // overwriting the event in case the card is already selected.
     } else if (Utils.isMiniScreen()) {
       evt.preventDefault();
-      Session.set('popupCardId', Template.currentData()._id);
+      Session.set('popupCardId', card._id);
       this.cardDetailsPopup(evt);
-    } else if (Session.equals('currentCard', Template.currentData()._id)) {
+    } else if (Session.equals('currentCard', card._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
       Utils.goBoardId(Session.get('currentBoard'));
@@ -187,7 +209,6 @@ Template.listBody.onCreated(function () {
       // Allow normal href navigation, but if it's the same card URL,
       // we'll handle it by directly setting the session
       evt.preventDefault();
-      const card = Template.currentData();
       Session.set('currentCard', card._id);
       const openCards = Session.get('openCards') || [];
       if (!openCards.includes(card._id)) {

@@ -82,6 +82,9 @@ Template.checklistDetail.helpers({
 Template.checklists.helpers({
   checklists() {
     const card = ReactiveCache.getCard(this.cardId);
+    if (!card || typeof card.checklists !== 'function') {
+      return [];
+    }
     const ret = card.checklists();
     return ret;
   },
