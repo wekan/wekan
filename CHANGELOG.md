@@ -66,6 +66,8 @@ and fixes the following bugs:
   Thanks to FK-PATZ3 and xet7.
 - [Fix List drag handle missing](https://github.com/wekan/wekan/commit/6fc1cb91279d322cfb4a7dfe3deec18c91509184).
   Thanks to FK-PATZ3 and xet7.
+- [Fix Error reading default file .well-known/assetlinks.json.default](https://github.com/wekan/wekan/commit/36741d7ae5018693f51215b01924a8f7cc709477).
+  Thanks to gre3x and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
