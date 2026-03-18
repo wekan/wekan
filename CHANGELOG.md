@@ -47,6 +47,8 @@ This release adds the following updates:
   Thanks to developers of flatted.
 - [Updated to MongoDB 7.0.31 at Snap Candidate](https://github.com/wekan/wekan/commit/fccefcaa6ce0b3408f3917e442229b6c92f877ac).
   Thanks to MongoDB developers.
+- [Helm Chart: Updated to MongoDB 7.0.31](https://github.com/wekan/charts/commit/6818b7fa5e7371b3777f49a7460102a1e1685746).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
