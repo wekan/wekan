@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Tracker } from 'meteor/tracker';
+import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imports/lib/collectionHelpers';
 
 Utils = {
   async setBackgroundImage(url) {
@@ -521,6 +522,15 @@ Utils = {
     }
     return meta;
   },
+  // Collection helpers (replacing underscore.js)
+  findWhere,
+  where,
+  uniqBy,
+  groupBy,
+  indexBy,
+  debounce,
+  once,
+
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
   shrinkImage(options) {
