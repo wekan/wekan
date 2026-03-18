@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import { SyncedCron } from 'meteor/quave:synced-cron';
 import limax from 'limax';
 import LDAP from './ldap';
@@ -55,7 +54,7 @@ function templateVarHandler (variable, object) {
 
 export function getPropertyValue(obj, key) {
   try {
-    return _.reduce(key.split('.'), (acc, el) => acc[el], obj);
+    return key.split('.').reduce((acc, el) => acc[el], obj);
   } catch (err) {
     return undefined;
   }
@@ -121,7 +120,8 @@ export function getLdapUserUniqueID(ldapUser) {
 
   if (Unique_Identifier_Field.length > 0) {
     Unique_Identifier_Field = Unique_Identifier_Field.find((field) => {
-      return !_.isEmpty(ldapUser._raw.getLDAPValue(field));
+      const val = ldapUser._raw.getLDAPValue(field);
+      return val != null && val !== '' && !(Array.isArray(val) && val.length === 0);
     });
     if (Unique_Identifier_Field) {
 		    log_debug(`Identifying user with: ${  Unique_Identifier_Field}`);
@@ -144,7 +144,7 @@ export function getDataToSyncUserData(ldapUser, user) {
     const whitelistedUserFields = ['email', 'name', 'customFields'];
     const fieldMap = JSON.parse(syncUserDataFieldMap);
     const emailList = [];
-    _.map(fieldMap, function(userField, ldapField) {
+    Object.entries(fieldMap).forEach(function([ldapField, userField]) {
 		    log_debug(`Mapping field ${ldapField} -> ${userField}`);
       switch (userField) {
       case 'email':
@@ -153,8 +153,8 @@ export function getDataToSyncUserData(ldapUser, user) {
           return;
         }
 
-        if (_.isObject(ldapUser[ldapField])) {
-          _.map(ldapUser[ldapField], function(item) {
+        if (typeof ldapUser[ldapField] === 'object' && ldapUser[ldapField] !== null) {
+          Array.from(ldapUser[ldapField]).forEach(function(item) {
             emailList.push({ address: item, verified: true });
           });
         } else {
@@ -165,7 +165,7 @@ export function getDataToSyncUserData(ldapUser, user) {
       default:
         const [outerKey, innerKeys] = userField.split(/\.(.+)/);
 
-        if (!_.find(whitelistedUserFields, (el) => el === outerKey)) {
+        if (!whitelistedUserFields.includes(outerKey)) {
           log_debug(`user attribute not whitelisted: ${ userField }`);
           return;
         }
@@ -196,8 +196,8 @@ export function getDataToSyncUserData(ldapUser, user) {
           // arrays.
           // TODO: Find a better solution.
           const dKeys = userField.split('.');
-          const lastKey = _.last(dKeys);
-          _.reduce(dKeys, (obj, currKey) =>
+          const lastKey = dKeys.at(-1);
+          dKeys.reduce((obj, currKey) =>
             (currKey === lastKey)
               ? obj[currKey] = tmpLdapField
               : obj[currKey] = obj[currKey] || {}
@@ -225,7 +225,7 @@ export function getDataToSyncUserData(ldapUser, user) {
     userData.ldap = true;
   }
 
-  if (_.size(userData)) {
+  if (Object.keys(userData).length > 0) {
     return userData;
   }
 }
@@ -432,7 +432,15 @@ async function sync() {
 
 const jobName = 'LDAP_Sync';
 
-const addCronJob = _.debounce(Meteor.bindEnvironment(function addCronJobDebounced() {
+function debounce(fn, wait) {
+  let timer = null;
+  return function (...args) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => { timer = null; fn.apply(this, args); }, wait);
+  };
+}
+
+const addCronJob = debounce(Meteor.bindEnvironment(function addCronJobDebounced() {
   let sc = SyncedCron;
   if (LDAP.settings_get('LDAP_BACKGROUND_SYNC') !== true) {
     log_info('Disabling LDAP Background Sync');

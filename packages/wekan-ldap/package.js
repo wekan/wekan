@@ -13,7 +13,6 @@ Package.describe({
 
 Package.onUse(function(api) {
 	api.use('ecmascript');
-	api.use('underscore');
 	api.use('sha');
 	api.use('templating', 'client');
 
