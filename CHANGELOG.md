@@ -72,6 +72,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Removed empty space at top of list header](https://github.com/wekan/wekan/commit/d2168aca3d09caf698128efa2eb9aebad35d4929).
   Thanks to xet7.
+- [Changed colors of Add Rule and Back buttons from black to theme color](https://github.com/wekan/wekan/commit/a3ac2195037c182367fb744ba6d3ef9ed1863792).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
