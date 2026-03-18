@@ -70,6 +70,8 @@ and fixes the following bugs:
   Thanks to gre3x and xet7.
 - [Fix can not close opened card](https://github.com/wekan/wekan/commit/b6a6180dc31c82115418e363057a4cd5ba7b7e4e).
   Thanks to xet7.
+- [Removed empty space at top of list header](https://github.com/wekan/wekan/commit/d2168aca3d09caf698128efa2eb9aebad35d4929).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
