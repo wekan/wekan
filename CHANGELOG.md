@@ -45,6 +45,8 @@ This release adds the following updates:
   Thanks to developers of dependencies.
 - [Updated flatted](https://github.com/wekan/wekan/commit/a159856628ae9b6454cbdb0a7beca190a785e8af).
   Thanks to developers of flatted.
+- [Updated to MongoDB 7.0.31 at Snap Candidate](https://github.com/wekan/wekan/commit/fccefcaa6ce0b3408f3917e442229b6c92f877ac).
+  Thanks to MongoDB developers.
 
 and fixes the following bugs:
 
