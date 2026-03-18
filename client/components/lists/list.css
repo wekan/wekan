@@ -1196,6 +1196,7 @@ form.inlined-form .list-composer {
 
 /* Allow long list titles to expand on desktop (non-mobile, non-collapsed) */
 .list:not(.mobile-view):not(.list-collapsed) .list-header {
+  padding-top: calc(2.5vh - 6px) !important;
   overflow: visible !important;
 }
 
@@ -1425,12 +1426,14 @@ form.inlined-form .list-composer {
    Row 2: list title (full width) */
 .list:not(.list-collapsed):not(.mobile-view) .list-header {
   display: block !important;
+  /* Match collapsed header top anchor for toolbar controls. */
+  padding-top: 5px !important;
 }
 
 .list:not(.list-collapsed):not(.mobile-view) .list-header > .js-inlined-form-wrapper {
   display: flex !important;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   gap: 0;
 }
@@ -1444,7 +1447,7 @@ form.inlined-form .list-composer {
   left: auto !important;
   right: auto !important;
   transform: none !important;
-  margin: 0 2px 0 0 !important;
+  margin: 2px 2px 0 0 !important;
   padding: 2px 4px !important;
   min-width: 24px;
   width: auto;
@@ -1484,6 +1487,7 @@ form.inlined-form .list-composer {
   align-items: center;
   gap: 4px;
   margin-left: auto;
+  margin-top: 2px;
   flex: 0 0 auto;
 }
 
