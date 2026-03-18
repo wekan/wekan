@@ -10,15 +10,15 @@ template(name="rulesList")
           p
             = title
           div.rules-btns-group
-            button.js-goto-details
+            button.primary.wide.js-goto-details(type="submit")
               i.fa.fa-eye
               | {{_ 'r-view-rule'}}
             if currentUser.isAdmin
-              button.js-delete-rule
+              button.primary.wide.js-delete-rule(type="submit")
                 i.fa.fa-trash
                 | {{_ 'r-delete-rule'}}
             else if currentUser.isBoardAdmin
-              button.js-delete-rule
+              button.primary.wide.js-delete-rule(type="submit")
                 i.fa.fa-trash
                 | {{_ 'r-delete-rule'}}
       else
