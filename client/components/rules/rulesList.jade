@@ -1,5 +1,5 @@
 template(name="rulesList")
-  .rules
+  .rules(class=currentBoard.colorClass)
     h2
       i.fa.fa-magic
       | {{_ 'r-board-rules' }}
@@ -25,13 +25,13 @@ template(name="rulesList")
         li.no-items-message {{_ 'r-no-rules' }}
     if currentUser.isAdmin
       div.rules-add
-        button.js-goto-trigger
+        button.primary.wide.rules-add-trigger.js-goto-trigger(type="submit")
           i.fa.fa-plus
           | {{_ 'r-add-rule'}}
         input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
     else if currentUser.isBoardAdmin
       div.rules-add
-        button.js-goto-trigger
+        button.primary.wide.rules-add-trigger.js-goto-trigger(type="submit")
           i.fa.fa-plus
           | {{_ 'r-add-rule'}}
         input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
