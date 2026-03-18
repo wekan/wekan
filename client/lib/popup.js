@@ -163,7 +163,7 @@ window.Popup = new (class {
         // restore the old popup scroll position
         $contentWrapper.scrollTop(stack.scrollTop);
       }
-      _.times(n, () => this._stack.pop());
+      for (let i = 0; i < n; i++) this._stack.pop();
       this._dep.changed();
     } else {
       this.close();
