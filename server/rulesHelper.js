@@ -109,13 +109,13 @@ RulesHelper = {
       }
 
       if (action.actionType === 'moveCardToTop') {
-        const minOrder = _.min(
-          (await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
+        const minOrder = Math.min(
+          ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
         await card.move(action.boardId, swimlaneId, listId, minOrder - 1);
       } else {
-        const maxOrder = _.max(
-          (await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
+        const maxOrder = Math.max(
+          ...(await list.cardsUnfiltered(swimlaneId)).map(c => c.sort),
         );
         await card.move(action.boardId, swimlaneId, listId, maxOrder + 1);
       }

@@ -153,8 +153,8 @@ if (Meteor.isServer) {
         this.unblock();
 
         // label activity did not work yet, see wekan/models/activities.js
-        const quoteParams = _.clone(params);
-        const clonedParams = _.clone(params);
+        const quoteParams = { ...params };
+        const clonedParams = { ...params };
         [
           'card',
           'list',
