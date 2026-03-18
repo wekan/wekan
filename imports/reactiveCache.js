@@ -59,7 +59,14 @@ ReactiveCacheServer = {
     }
     return ret;
   },
-  async getCard(idOrFirstObjectSelector = {}, options = {}) {
+  async getCard(idOrFirstObjectSelector = null, options = {}) {
+    if (
+      idOrFirstObjectSelector === null ||
+      idOrFirstObjectSelector === undefined ||
+      idOrFirstObjectSelector === ''
+    ) {
+      return null;
+    }
     const ret = await Cards.findOneAsync(idOrFirstObjectSelector, options);
     return ret;
   },
@@ -435,7 +442,14 @@ ReactiveCacheClient = {
     const ret = this.__checklistItems.get(EJSON.stringify(select));
     return ret;
   },
-  getCard(idOrFirstObjectSelector = {}, options = {}) {
+  getCard(idOrFirstObjectSelector = null, options = {}) {
+    if (
+      idOrFirstObjectSelector === null ||
+      idOrFirstObjectSelector === undefined ||
+      idOrFirstObjectSelector === ''
+    ) {
+      return null;
+    }
     const idOrFirstObjectSelect = { idOrFirstObjectSelector, options };
     if (!this.__card) {
       this.__card = new DataCache((_idOrFirstObjectSelect) => {
@@ -1077,7 +1091,7 @@ ReactiveCache = {
       return ReactiveCacheClient.getChecklistItems(selector, options, getQuery);
     }
   },
-  getCard(idOrFirstObjectSelector = {}, options = {}, noCache = false) {
+  getCard(idOrFirstObjectSelector = null, options = {}, noCache = false) {
     if (Meteor.isServer || noCache === true) {
       return ReactiveCacheServer.getCard(idOrFirstObjectSelector, options);
     } else {

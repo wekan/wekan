@@ -416,39 +416,44 @@ Template.cardDetails.events({
     $(document).on('mousemove', onMouseMove);
     $(document).on('mouseup', onMouseUp);
   },
-  'click .js-close-card-details'(event, tpl) {
-    // Get board ID from either the card data or current board in session
-    const card = Template.currentData();
-    const boardId = (card && card.boardId) || Utils.getCurrentBoard()._id;
-    const cardId = card && card._id;
+  'click .js-close-card-details'(event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-    if (boardId) {
-      // In desktop mode, remove from openCards array
-      const isMobile = Utils.getMobileMode();
-      if (!isMobile && cardId) {
+    // Resolve card context defensively because cardDetails can be rendered
+    // from several parents (board, popup, gantt, etc.).
+    const card = getCurrentCardFromContext({ ignorePopupCard: true }) || Template.currentData();
+    const cardId = card?._id;
+    const boardId = card?.boardId || Session.get('currentBoard') || Utils.getCurrentBoardId();
+
+    // Desktop-sized layout uses the openCards session list.
+    if (!Utils.isMiniScreen()) {
+      if (cardId) {
         const openCards = Session.get('openCards') || [];
-        const filtered = openCards.filter(id => id !== cardId);
-        Session.set('openCards', filtered);
+        const nextOpenCards = openCards.filter((id) => id !== cardId);
+        Session.set('openCards', nextOpenCards);
 
-        // If this was the current card, clear it
         if (Session.get('currentCard') === cardId) {
           Session.set('currentCard', null);
         }
-        // Don't navigate away in desktop mode - just close the card
-        return;
-      }
 
-      // Mobile mode: Clear the current card session to close the card
-      Session.set('currentCard', null);
-
-      // Navigate back to board without card
-      const board = ReactiveCache.getBoard(boardId);
-      if (board) {
-        FlowRouter.go('board', {
-          id: board._id,
-          slug: board.slug,
-        });
+        const route = FlowRouter.current();
+        const routeCardId = route?.params?.cardId;
+        if (routeCardId === cardId && boardId) {
+          Utils.goBoardId(boardId);
+          return;
+        }
       }
+      return;
+    }
+
+    // Mini-screen/card-route flow: clear active card state and go back to board.
+    Session.set('currentCard', null);
+    Session.delete('popupCardId');
+    Session.delete('popupCardBoardId');
+
+    if (boardId) {
+      Utils.goBoardId(boardId);
     }
   },
   'click .js-copy-link'(event, tpl) {

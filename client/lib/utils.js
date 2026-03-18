@@ -50,6 +50,9 @@ Utils = {
   },
   getCurrentCard(ignorePopupCard) {
     const cardId = Utils.getCurrentCardId(ignorePopupCard);
+    if (!cardId) {
+      return null;
+    }
     const ret = ReactiveCache.getCard(cardId);
     return ret;
   },
