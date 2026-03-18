@@ -62,6 +62,8 @@ and fixes the following bugs:
   Thanks to KhaoulaMaleh.
 - [Fix list add-card actions and sort persistence](https://github.com/wekan/wekan/pull/6188).
   Thanks to harryadel.
+- [Fix version not visible](https://github.com/wekan/wekan/commit/1f6b5ed0e387dee0b5a90bcf10dd425e098bba6a).
+  Thanks to FK-PATZ3 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
