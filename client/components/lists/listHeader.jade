@@ -30,7 +30,7 @@ template(name="listHeader")
             | &nbsp;
             span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
-        a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}")
+        a.list-collapse-indicator.js-collapse(title="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}" aria-label="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}")
           if collapsed
             i.fa.fa-caret-right
           else

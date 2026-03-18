@@ -270,21 +270,27 @@ Template.list.onCreated(function () {
   const tpl = this;
 
   tpl.initializeListResize = function () {
-    // Check if we're still in a valid template context
-    if (!Template.currentData()) {
-      console.warn('No current template data available for list resize initialization');
+    // Resolve list data from the template instance to avoid relying on
+    // Template.currentData() from async callbacks where no current view exists.
+    const list = tpl.data || Blaze.getData(tpl.firstNode);
+    if (!list) {
+      console.warn('No list data available for list resize initialization');
       return;
     }
-
-    const list = Template.currentData();
     const $list = tpl.$('.js-list');
     const $resizeHandle = tpl.$('.js-list-resize-handle');
+
+    const isCollapsed = Utils.getListCollapseState(list);
+    if (isCollapsed) {
+      // Collapsed lists do not render a resize handle by design.
+      return;
+    }
 
     // Check if elements exist
     if (!$list.length || !$resizeHandle.length) {
       console.warn('List or resize handle not found, retrying in 100ms');
       Meteor.setTimeout(() => {
-        if (!tpl.isDestroyed) {
+        if (!tpl.view.isDestroyed) {
           tpl.initializeListResize();
         }
       }, 100);
@@ -294,9 +300,8 @@ Template.list.onCreated(function () {
     // Helper to get autoWidth state
     const getAutoWidth = () => {
       const user = ReactiveCache.getCurrentUser();
-      const listData = Template.currentData();
       if (!user) return false;
-      return user.isAutoWidth(listData.boardId);
+      return user.isAutoWidth(list.boardId);
     };
 
     // Reactively show/hide resize handle based on collapse and auto-width state
@@ -318,17 +323,15 @@ Template.list.onCreated(function () {
     // Get listConstraint value
     const getListConstraint = () => {
       const user = ReactiveCache.getCurrentUser();
-      const listData = Template.currentData();
-      if (!listData) return 550;
       if (user) {
-        return user.getListConstraintFromStorage(listData.boardId, listData._id);
+        return user.getListConstraintFromStorage(list.boardId, list._id);
       }
       try {
         const stored = localStorage.getItem('wekan-list-constraints');
         if (stored) {
           const constraints = JSON.parse(stored);
-          if (constraints[listData.boardId] && constraints[listData.boardId][listData._id]) {
-            return constraints[listData.boardId][listData._id];
+          if (constraints[list.boardId] && constraints[list.boardId][list._id]) {
+            return constraints[list.boardId][list._id];
           }
         }
       } catch (e) {}
