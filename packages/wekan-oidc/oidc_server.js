@@ -78,8 +78,10 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   if (accessToken) {
     var tokenContent = getTokenContent(accessToken);
     var config = await getConfiguration();
-    var fields = _.pick(tokenContent, config.idTokenWhitelistFields);
-    _.extend(serviceData, fields);
+    var fields = Object.fromEntries(
+      Object.entries(tokenContent).filter(([k]) => (config.idTokenWhitelistFields || []).includes(k))
+    );
+    Object.assign(serviceData, fields);
   }
 
   if (token.refresh_token)
@@ -186,7 +188,7 @@ if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED 
       if (debug) console.log('XXX: getToken response: ', data);
       return data;
     } catch (err) {
-      throw _.extend(new Error("Failed to get token from OIDC " + serverTokenEndpoint + ": " + err.message),
+      throw Object.assign(new Error("Failed to get token from OIDC " + serverTokenEndpoint + ": " + err.message),
         { response: err.response });
     }
   };
@@ -250,7 +252,7 @@ if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED 
       if (debug) console.log('XXX: getToken response: ', data);
       return data;
     } catch (err) {
-      throw _.extend(new Error("Failed to get token from OIDC " + serverTokenEndpoint + ": " + err.message),
+      throw Object.assign(new Error("Failed to get token from OIDC " + serverTokenEndpoint + ": " + err.message),
         { response: err.response });
     }
   };
@@ -292,7 +294,7 @@ var getUserInfo = async function (accessToken) {
     if (debug) console.log('XXX: getUserInfo response: ', data);
     return data;
   } catch (err) {
-    throw _.extend(new Error("Failed to fetch userinfo from OIDC " + serverUserinfoEndpoint + ": " + err.message),
+    throw Object.assign(new Error("Failed to fetch userinfo from OIDC " + serverUserinfoEndpoint + ": " + err.message),
                    {response: err.response});
   }
 };
@@ -359,7 +361,7 @@ Meteor.methods({
     const board = await Boards.findOneAsync(defaultBoardId)
     const user = await Users.findOneAsync({ 'services.oidc.id': oidcUserId })
     const userId = user?._id
-    const memberIndex = _.pluck(board?.members, 'userId').indexOf(userId);
+    const memberIndex = (board?.members || []).map(m => m.userId).indexOf(userId);
     if(!board || !userId || memberIndex > -1) return
 
     await board.addMember(userId)
